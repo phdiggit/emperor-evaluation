@@ -24,6 +24,10 @@ def run_script(script_name: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+def evidence_by_id() -> dict[str, dict[str, object]]:
+    return {row["evidence_id"]: row for row in read_jsonl(EVIDENCE_CARDS_PATH)}
+
+
 def test_all_existing_high_risk_negative_cards_have_adjudication_fields() -> None:
     required_fields = {
         "case_classification",
@@ -62,19 +66,55 @@ def test_evidence_export_contains_adjudication_columns_and_no_score_outputs() ->
     assert "定档" not in content
 
 
-def test_task005r_does_not_change_search_log_statuses_or_add_lishimin_cards() -> None:
+def test_task005b3_lishimin_negative_cases_follow_005r_strengths() -> None:
+    cards = evidence_by_id()
+
+    zhang = cards["EVD-I5B-LISHIMIN-NEG-ZHANGLIANG-001"]
+    assert zhang["strength"] == 2
+    assert zhang["human_level"] == "中负"
+    assert zhang["case_classification"] == "suspected_rebellion_unproven"
+    assert zhang["risk_status"] == "strong_suspicion"
+
+    hou = cards["EVD-I5B-LISHIMIN-NEG-HOUJUNJI-001"]
+    assert hou["strength"] == 1
+    assert hou["human_level"] == "弱负"
+    assert hou["case_classification"] == "confirmed_rebellion_or_security_case"
+    assert hou["risk_status"] == "confirmed_rebellion"
+
+    wei = cards["EVD-I5B-LISHIMIN-NEG-WEIZHENG-001"]
+    assert wei["strength"] == 1
+    assert wei["human_level"] == "弱负"
+    assert wei["case_classification"] == "posthumous_trust_reversal"
+    assert "restored_tablet" in wei["reversal_or_rehabilitation"]
+    assert "trust_restored" in wei["reversal_or_rehabilitation"]
+
+
+def test_search_log_statuses_include_only_verified_negative_cards() -> None:
     search_logs = read_jsonl(SEARCH_LOGS_PATH)
     created_ids = {
         row["search_id"]
         for row in search_logs
         if row["result_status"] == "evidence_found_card_created"
     }
-    evidence_ids = {row["evidence_id"] for row in read_jsonl(EVIDENCE_CARDS_PATH)}
 
     assert created_ids == {
+        "SRCH-I5B-LISHIMIN-NEG-YIJI-001",
         "SRCH-I5B-LIUXIU-NEG-RONGJIAN-001",
         "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
         "SRCH-I5B-LIUXIU-NEG-TINGZHANG-001",
         "SRCH-I5B-LIUZHUANG-NEG-YIJI-001",
     }
-    assert not any(evidence_id.startswith("EVD-I5B-LISHIMIN-") for evidence_id in evidence_ids)
+
+
+def test_lishimin_positive_leads_remain_unprocessed() -> None:
+    search_logs = {
+        row["search_id"]: row
+        for row in read_jsonl(SEARCH_LOGS_PATH)
+    }
+    for search_id in [
+        "SRCH-I5B-LISHIMIN-POS-SHIREN-001",
+        "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001",
+        "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001",
+    ]:
+        assert search_logs[search_id]["result_status"] == "lead_needs_source_review"
+        assert search_logs[search_id]["linked_evidence_id"] == ""
