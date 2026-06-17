@@ -14,6 +14,9 @@ JSONL_FILES = [
     DATA_DIR / "events.jsonl",
     DATA_DIR / "trigger_terms.jsonl",
     DATA_DIR / "search_logs.jsonl",
+    DATA_DIR / "evidence_clusters.jsonl",
+    DATA_DIR / "thematic_anchors.jsonl",
+    DATA_DIR / "query_profiles.jsonl",
 ]
 
 VALID_POLARITIES = {"positive", "negative"}
