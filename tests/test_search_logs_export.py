@@ -173,7 +173,7 @@ def test_sources_are_only_public_text_sources_added_by_source_review_tasks() -> 
         "SRC-HHS-J17-FENGYI-KOUXUN-001",
         "SRC-HHS-J18-WUHAN-001",
         "SRC-HHS-J19-GENGYAN-001",
-        "SRC-ZGZY-J1-MAZHOU-001",
+        "SRC-JTS-J74-MAZHOU-001",
         "SRC-JTS-J67-LIJI-001",
     }
 

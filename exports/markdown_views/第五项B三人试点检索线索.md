@@ -20,7 +20,7 @@
 | SRCH-I5B-LISHIMIN-POS-DAIZHOU-001 | 李世民 | 第五项B | positive | 容谏纳言 | 戴胄;忠直;无不以闻;酬其诚 | routed_to_adjacent_item | 已扫到戴胄忠直体国、无不以闻材料，但更接近同类厚度/相邻项，不新增B项证据卡；已同步完成反向关键词扫查，未见硬负证。 |  | 代表性覆盖已达成，同类正证只增厚元数据 |
 | SRCH-I5B-LISHIMIN-POS-RONGJIAN-001 | 李世民 | 第五项B | positive | 容谏纳言 | 魏征;从之;纳之;嘉纳;改容谢 | evidence_found_card_created | 已据《旧唐书》卷七十一回源：李世民与魏征议政时未尝不欣然纳受，可作为容谏与反馈入口核心锚点。 | EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
 | SRCH-I5B-LISHIMIN-POS-ZHANGXUANSU-001 | 李世民 | 第五项B | positive | 容谏纳言 | 张玄素;洛阳宫;乾阳殿;劝谏 | routed_to_adjacent_item | 张玄素止洛阳宫、劝谏不建，属容谏纳言同类厚度，未见可单独建卡的新维度；已同步扫负向触发词，未见硬负证。 |  | 代表性覆盖已达成，同类正证只增厚元数据 |
-| SRCH-I5B-LISHIMIN-POS-MAZHOU-001 | 李世民 | 第五项B | positive | 异质人才整合 | 马周;常何;寒门;后进;门下省 | evidence_found_card_created | 已据《贞观政要·君道第一》回源，马周由常何家入门下省，命中寒门/后进人才通道新维度。 | EVD-I5B-LISHIMIN-POS-SHIREN-MAZHOU-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
+| SRCH-I5B-LISHIMIN-POS-MAZHOU-001 | 李世民 | 第五项B | positive | 异质人才整合 | 马周;常何;寒门;后进;门下省 | evidence_found_card_created | 已据《旧唐书》卷七十四回源，马周因常何所荐被即日召见并令直门下省，命中寒门/后进人才通道新维度。 | EVD-I5B-LISHIMIN-POS-SHIREN-MAZHOU-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
 | SRCH-I5B-LISHIMIN-POS-CHANGSUNWUJI-001 | 李世民 | 第五项B | positive | 授权专任 | 长孙无忌;辅政;任用;功臣 | checked_no_hard_evidence | 长孙无忌材料更多落于辅政与权力结构，未见李世民第五项B的新维度硬证；已同步扫负向触发词，未见硬负证。 |  | 代表性覆盖已达成，后续同类正证只增厚元数据 |
 | SRCH-I5B-LISHIMIN-POS-LIJI-001 | 李世民 | 第五项B | positive | 授权专任 | 李勣;无恩;仆射;外放;死力 | evidence_found_card_created | 已据《旧唐书·李勣传》回源，太宗以外放与继任后授仆射安排李勣，命中功臣安全机制与长期授权秩序新维度。 | EVD-I5B-LISHIMIN-POS-GONGCHEN-LIJI-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
 | SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001 | 李世民 | 第五项B | positive | 授权专任 | 委任;专任;使将;假节;总;李靖;李勣 | evidence_found_card_created | 已据《旧唐书》卷六十七回源：李世民以李靖为代州道行军总管，实际授权其专任出击突厥。 | EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |

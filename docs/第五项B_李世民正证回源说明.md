@@ -10,7 +10,7 @@
 - `EVD-I5B-LISHIMIN-POS-SHIREN-WEIZHENG-001`：据《旧唐书》卷七十一，魏征原属建成阵营而太宗仍擢拜谏议大夫，可作为重用旧敌阵营人才的中正锚点。
 - `EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001`：据《旧唐书》卷六十七，李世民以李靖为代州道行军总管，体现对关键军事人才的专任授权。
 - `EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001`：据《旧唐书》卷七十一，“太宗與之言，未嘗不欣然納受”，可作为容谏纳言与反馈入口的强正锚点。
-- `EVD-I5B-LISHIMIN-POS-SHIREN-MAZHOU-001`：据《贞观政要·君道第一》，马周由常何家入门下省，体现寒门/后进人才通道。
+- `EVD-I5B-LISHIMIN-POS-SHIREN-MAZHOU-001`：据《旧唐书》卷七十四，“太宗即日召之……令直门下省”，体现寒门/后进人才通道。
 - `EVD-I5B-LISHIMIN-POS-GONGCHEN-LIJI-001`：据《旧唐书·李勣传》，太宗以外放、继任后授仆射安排李勣，体现功臣安全机制与长期授权秩序。
 
 ## 仍待继续回源
