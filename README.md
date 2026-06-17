@@ -13,6 +13,7 @@
 - Markdown 是审阅导出视图，不是主源。
 - 下一阶段是迁移规则和已回源史料，不迁移旧评分。
 - 当前可先阅读 `docs/数据规范.md`、`docs/ID命名规范.md` 和 `docs/第五项B试点计划.md`。
+- 已进入第五项B试点准备；当前只生成矩阵骨架，不代表完成检索或评分。
 
 ## 新流程
 
@@ -40,6 +41,12 @@ python scripts/build_db.py
 
 ```bash
 python scripts/export_md.py
+```
+
+导出第五项B三人试点矩阵骨架：
+
+```bash
+python scripts/run_matrix.py
 ```
 
 运行测试：
