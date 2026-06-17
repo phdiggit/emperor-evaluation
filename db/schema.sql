@@ -98,3 +98,63 @@ CREATE INDEX IF NOT EXISTS idx_search_trigger_family
 
 CREATE INDEX IF NOT EXISTS idx_search_result_status
     ON search_logs (result_status);
+
+CREATE TABLE IF NOT EXISTS evidence_clusters (
+    cluster_id TEXT PRIMARY KEY,
+    person TEXT,
+    item TEXT,
+    subitem TEXT,
+    cluster_type TEXT,
+    polarity TEXT CHECK (polarity IS NULL OR polarity IN ('positive', 'negative')),
+    linked_evidence_ids TEXT NOT NULL,
+    summary TEXT,
+    five_axis_assessment TEXT,
+    candidate_strength INTEGER CHECK (candidate_strength IS NULL OR candidate_strength IN (1, 2, 3, 4)),
+    upper_probe TEXT,
+    cross_item_split TEXT,
+    adjudication_status TEXT,
+    note TEXT,
+    raw_json TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_clusters_person_subitem
+    ON evidence_clusters (person, subitem);
+
+CREATE INDEX IF NOT EXISTS idx_clusters_polarity_strength
+    ON evidence_clusters (polarity, candidate_strength);
+
+CREATE TABLE IF NOT EXISTS thematic_anchors (
+    anchor_id TEXT PRIMARY KEY,
+    theme TEXT,
+    item TEXT,
+    subitem TEXT,
+    persons TEXT NOT NULL,
+    linked_evidence_ids TEXT NOT NULL,
+    linked_cluster_ids TEXT NOT NULL,
+    anchor_summary TEXT,
+    comparative_value TEXT,
+    note TEXT,
+    raw_json TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_anchors_theme_subitem
+    ON thematic_anchors (theme, subitem);
+
+CREATE TABLE IF NOT EXISTS query_profiles (
+    query_profile_id TEXT PRIMARY KEY,
+    item TEXT,
+    subitem TEXT,
+    search_modes TEXT NOT NULL,
+    positive_terms TEXT NOT NULL,
+    negative_terms TEXT NOT NULL,
+    reversal_terms TEXT NOT NULL,
+    source_scopes TEXT NOT NULL,
+    reverse_search_required_when TEXT NOT NULL,
+    thematic_anchor_targets TEXT NOT NULL,
+    cross_item_split_notes TEXT NOT NULL,
+    note TEXT,
+    raw_json TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_query_profiles_item_subitem
+    ON query_profiles (item, subitem);

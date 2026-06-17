@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
 SEARCH_LOGS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点检索线索.md"
+EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
+THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
+QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
 
 HEADERS = [
     "evidence_id",
@@ -36,6 +39,39 @@ SEARCH_LOG_HEADERS = [
     "result_summary",
     "linked_evidence_id",
     "note",
+]
+EVIDENCE_CLUSTER_HEADERS = [
+    "cluster_id",
+    "person",
+    "subitem",
+    "cluster_type",
+    "polarity",
+    "linked_evidence_ids",
+    "candidate_strength",
+    "upper_probe",
+    "adjudication_status",
+    "summary",
+]
+THEMATIC_ANCHOR_HEADERS = [
+    "anchor_id",
+    "theme",
+    "subitem",
+    "persons",
+    "linked_evidence_ids",
+    "linked_cluster_ids",
+    "comparative_value",
+    "anchor_summary",
+]
+QUERY_PROFILE_HEADERS = [
+    "query_profile_id",
+    "item",
+    "subitem",
+    "search_modes",
+    "positive_terms",
+    "negative_terms",
+    "reversal_terms",
+    "source_scopes",
+    "thematic_anchor_targets",
 ]
 I5B_TRIAL_TARGETS = ["李世民", "刘秀", "刘庄"]
 
@@ -121,11 +157,65 @@ def export_search_logs_markdown() -> Path:
     return SEARCH_LOGS_EXPORT_PATH
 
 
+def export_generic_markdown(
+    export_path: Path,
+    title: str,
+    table: str,
+    headers: list[str],
+    order_by: str,
+) -> Path:
+    export_path.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = []
+    if DB_PATH.exists():
+        with sqlite3.connect(DB_PATH) as connection:
+            connection.row_factory = sqlite3.Row
+            rows = list(connection.execute(f"SELECT raw_json FROM {table} ORDER BY {order_by}"))
+
+    lines = [
+        f"# {title}",
+        "",
+        "| " + " | ".join(headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+    ]
+
+    for row in rows:
+        raw_json = json.loads(row["raw_json"])
+        lines.append("| " + " | ".join(escape_cell(raw_json.get(header)) for header in headers) + " |")
+
+    export_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return export_path
+
+
 def main() -> int:
     export_path = export_markdown()
     print(f"exported {export_path}")
     search_logs_export_path = export_search_logs_markdown()
     print(f"exported {search_logs_export_path}")
+    evidence_clusters_export_path = export_generic_markdown(
+        EVIDENCE_CLUSTERS_EXPORT_PATH,
+        "证据组裁量索引",
+        "evidence_clusters",
+        EVIDENCE_CLUSTER_HEADERS,
+        "cluster_id",
+    )
+    print(f"exported {evidence_clusters_export_path}")
+    thematic_anchors_export_path = export_generic_markdown(
+        THEMATIC_ANCHORS_EXPORT_PATH,
+        "专题锚点索引",
+        "thematic_anchors",
+        THEMATIC_ANCHOR_HEADERS,
+        "anchor_id",
+    )
+    print(f"exported {thematic_anchors_export_path}")
+    query_profiles_export_path = export_generic_markdown(
+        QUERY_PROFILES_EXPORT_PATH,
+        "项目检索包索引",
+        "query_profiles",
+        QUERY_PROFILE_HEADERS,
+        "query_profile_id",
+    )
+    print(f"exported {query_profiles_export_path}")
     return 0
 
 

@@ -10,6 +10,9 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
+EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
+THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
+QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
 
 VALIDATE_EVIDENCE_SPEC = importlib.util.spec_from_file_location(
     "validate_evidence",
@@ -69,6 +72,9 @@ def test_export_md_generates_evidence_index() -> None:
     assert EXPORT_PATH.exists()
     content = EXPORT_PATH.read_text(encoding="utf-8")
     assert "| evidence_id | person | subitem | human_level | source_id | quote_short | verification_status |" in content
+    assert EVIDENCE_CLUSTERS_EXPORT_PATH.exists()
+    assert THEMATIC_ANCHORS_EXPORT_PATH.exists()
+    assert QUERY_PROFILES_EXPORT_PATH.exists()
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
@@ -84,7 +90,16 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 def validation_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     data_dir = tmp_path / "data"
     data_dir.mkdir()
-    for name in ["evidence_cards", "sources", "events", "trigger_terms", "search_logs"]:
+    for name in [
+        "evidence_cards",
+        "sources",
+        "events",
+        "trigger_terms",
+        "search_logs",
+        "evidence_clusters",
+        "thematic_anchors",
+        "query_profiles",
+    ]:
         (data_dir / f"{name}.jsonl").write_text("", encoding="utf-8")
 
     monkeypatch.setattr(validate_evidence, "DATA_DIR", data_dir)
@@ -97,6 +112,9 @@ def validation_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path
             data_dir / "events.jsonl",
             data_dir / "trigger_terms.jsonl",
             data_dir / "search_logs.jsonl",
+            data_dir / "evidence_clusters.jsonl",
+            data_dir / "thematic_anchors.jsonl",
+            data_dir / "query_profiles.jsonl",
         ],
     )
     return data_dir
@@ -368,6 +386,84 @@ def test_search_logs_missing_result_status_field_fails(validation_data_dir: Path
     errors = validate_evidence.validate()
 
     assert any("missing required field: result_status" in error for error in errors)
+
+
+def test_evidence_cluster_unknown_evidence_id_fails(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "evidence_clusters.jsonl",
+        [
+            {
+                "cluster_id": "ADJ-I5B-TEST-POS-001",
+                "person": "测试人物",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "cluster_type": "talent_ecosystem",
+                "polarity": "positive",
+                "linked_evidence_ids": ["EVD-NOT-EXIST-001", "EVD-NOT-EXIST-002"],
+                "summary": "测试摘要",
+                "five_axis_assessment": {"directness": "high"},
+                "candidate_strength": 3,
+                "upper_probe": "pending",
+                "cross_item_split": "测试切分",
+                "adjudication_status": "source_verified_pending_human_adjudication",
+                "note": "",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("linked_evidence_ids references unknown evidence_id" in error for error in errors)
+
+
+def test_thematic_anchor_unknown_cluster_id_fails(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "thematic_anchors.jsonl",
+        [
+            {
+                "anchor_id": "ANCHOR-I5B-TEST-001",
+                "theme": "容谏",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "persons": ["测试人物"],
+                "linked_evidence_ids": [],
+                "linked_cluster_ids": ["ADJ-I5B-TEST-001"],
+                "anchor_summary": "测试锚点",
+                "comparative_value": "校准边界",
+                "note": "",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("linked_cluster_ids references unknown cluster_id" in error for error in errors)
+
+
+def test_query_profile_list_fields_must_be_lists(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "query_profiles.jsonl",
+        [
+            {
+                "query_profile_id": "QRY-I5B-TEST-001",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "search_modes": "project_driven",
+                "positive_terms": [],
+                "negative_terms": [],
+                "reversal_terms": [],
+                "source_scopes": [],
+                "reverse_search_required_when": [],
+                "thematic_anchor_targets": [],
+                "cross_item_split_notes": [],
+                "note": "",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("search_modes must be a list" in error for error in errors)
 
 
 def source_row() -> dict[str, Any]:

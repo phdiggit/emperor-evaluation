@@ -131,6 +131,48 @@ REQUIRED_SEARCH_LOG_FIELDS = [
     "linked_evidence_id",
     "note",
 ]
+REQUIRED_EVIDENCE_CLUSTER_FIELDS = [
+    "cluster_id",
+    "person",
+    "item",
+    "subitem",
+    "cluster_type",
+    "polarity",
+    "linked_evidence_ids",
+    "summary",
+    "five_axis_assessment",
+    "candidate_strength",
+    "upper_probe",
+    "cross_item_split",
+    "adjudication_status",
+    "note",
+]
+REQUIRED_THEMATIC_ANCHOR_FIELDS = [
+    "anchor_id",
+    "theme",
+    "item",
+    "subitem",
+    "persons",
+    "linked_evidence_ids",
+    "linked_cluster_ids",
+    "anchor_summary",
+    "comparative_value",
+    "note",
+]
+REQUIRED_QUERY_PROFILE_FIELDS = [
+    "query_profile_id",
+    "item",
+    "subitem",
+    "search_modes",
+    "positive_terms",
+    "negative_terms",
+    "reversal_terms",
+    "source_scopes",
+    "reverse_search_required_when",
+    "thematic_anchor_targets",
+    "cross_item_split_notes",
+    "note",
+]
 
 
 def read_jsonl(path: Path, errors: list[str]) -> list[dict[str, Any]]:
@@ -324,6 +366,105 @@ def validate_search_log(row: dict[str, Any], line_label: str, errors: list[str])
         errors.append(f"{line_label}: result_status must be an allowed value: {result_status}")
 
 
+def validate_evidence_cluster(
+    row: dict[str, Any],
+    line_label: str,
+    source_evidence_ids: set[str],
+    seen_cluster_ids: set[str],
+    errors: list[str],
+) -> None:
+    validate_required_fields(row, REQUIRED_EVIDENCE_CLUSTER_FIELDS, line_label, errors)
+
+    cluster_id = row.get("cluster_id")
+    if is_filled(cluster_id):
+        if cluster_id in seen_cluster_ids:
+            errors.append(f"{line_label}: duplicate cluster_id: {cluster_id}")
+        seen_cluster_ids.add(cluster_id)
+
+    polarity = row.get("polarity")
+    if is_filled(polarity) and polarity not in VALID_POLARITIES:
+        errors.append(f"{line_label}: polarity must be positive or negative")
+
+    linked_evidence_ids = row.get("linked_evidence_ids")
+    if not isinstance(linked_evidence_ids, list):
+        errors.append(f"{line_label}: linked_evidence_ids must be a list")
+    else:
+        if len(linked_evidence_ids) < 2:
+            errors.append(f"{line_label}: linked_evidence_ids must reference at least two evidence cards")
+        for evidence_id in linked_evidence_ids:
+            if evidence_id not in source_evidence_ids:
+                errors.append(f"{line_label}: linked_evidence_ids references unknown evidence_id: {evidence_id}")
+
+    if "five_axis_assessment" in row and not isinstance(row.get("five_axis_assessment"), dict):
+        errors.append(f"{line_label}: five_axis_assessment must be an object")
+
+    candidate_strength = row.get("candidate_strength")
+    if candidate_strength not in {1, 2, 3, 4}:
+        errors.append(f"{line_label}: candidate_strength must be one of 1, 2, 3, 4")
+
+    if candidate_strength == 4 and row.get("adjudication_status") != "source_verified_pending_human_adjudication":
+        errors.append(f"{line_label}: candidate_strength=4 requires pending human adjudication")
+
+
+def validate_thematic_anchor(
+    row: dict[str, Any],
+    line_label: str,
+    source_evidence_ids: set[str],
+    source_cluster_ids: set[str],
+    seen_anchor_ids: set[str],
+    errors: list[str],
+) -> None:
+    validate_required_fields(row, REQUIRED_THEMATIC_ANCHOR_FIELDS, line_label, errors)
+
+    anchor_id = row.get("anchor_id")
+    if is_filled(anchor_id):
+        if anchor_id in seen_anchor_ids:
+            errors.append(f"{line_label}: duplicate anchor_id: {anchor_id}")
+        seen_anchor_ids.add(anchor_id)
+
+    for field in ["persons", "linked_evidence_ids", "linked_cluster_ids"]:
+        validate_list_field(row, field, line_label, errors)
+
+    linked_evidence_ids = row.get("linked_evidence_ids")
+    if isinstance(linked_evidence_ids, list):
+        for evidence_id in linked_evidence_ids:
+            if evidence_id not in source_evidence_ids:
+                errors.append(f"{line_label}: linked_evidence_ids references unknown evidence_id: {evidence_id}")
+
+    linked_cluster_ids = row.get("linked_cluster_ids")
+    if isinstance(linked_cluster_ids, list):
+        for cluster_id in linked_cluster_ids:
+            if cluster_id not in source_cluster_ids:
+                errors.append(f"{line_label}: linked_cluster_ids references unknown cluster_id: {cluster_id}")
+
+
+def validate_query_profile(
+    row: dict[str, Any],
+    line_label: str,
+    seen_query_profile_ids: set[str],
+    errors: list[str],
+) -> None:
+    validate_required_fields(row, REQUIRED_QUERY_PROFILE_FIELDS, line_label, errors)
+
+    query_profile_id = row.get("query_profile_id")
+    if is_filled(query_profile_id):
+        if query_profile_id in seen_query_profile_ids:
+            errors.append(f"{line_label}: duplicate query_profile_id: {query_profile_id}")
+        seen_query_profile_ids.add(query_profile_id)
+
+    for field in [
+        "search_modes",
+        "positive_terms",
+        "negative_terms",
+        "reversal_terms",
+        "source_scopes",
+        "reverse_search_required_when",
+        "thematic_anchor_targets",
+        "cross_item_split_notes",
+    ]:
+        validate_list_field(row, field, line_label, errors)
+
+
 def nonblank_line_numbers(path: Path) -> list[int]:
     with path.open("r", encoding="utf-8") as handle:
         return [number for number, line in enumerate(handle, start=1) if line.strip()]
@@ -352,6 +493,48 @@ def validate() -> list[str]:
     search_log_line_numbers = nonblank_line_numbers(search_logs_path)
     for row, line_number in zip(parsed[search_logs_path], search_log_line_numbers):
         validate_search_log(row, f"{search_logs_path}: line {line_number}", errors)
+
+    evidence_ids = {
+        row.get("evidence_id")
+        for row in parsed[evidence_path]
+        if is_filled(row.get("evidence_id"))
+    }
+
+    evidence_clusters_path = DATA_DIR / "evidence_clusters.jsonl"
+    evidence_cluster_line_numbers = nonblank_line_numbers(evidence_clusters_path)
+    seen_cluster_ids: set[str] = set()
+    for row, line_number in zip(parsed[evidence_clusters_path], evidence_cluster_line_numbers):
+        validate_evidence_cluster(
+            row,
+            f"{evidence_clusters_path}: line {line_number}",
+            evidence_ids,
+            seen_cluster_ids,
+            errors,
+        )
+
+    thematic_anchors_path = DATA_DIR / "thematic_anchors.jsonl"
+    thematic_anchor_line_numbers = nonblank_line_numbers(thematic_anchors_path)
+    seen_anchor_ids: set[str] = set()
+    for row, line_number in zip(parsed[thematic_anchors_path], thematic_anchor_line_numbers):
+        validate_thematic_anchor(
+            row,
+            f"{thematic_anchors_path}: line {line_number}",
+            evidence_ids,
+            seen_cluster_ids,
+            seen_anchor_ids,
+            errors,
+        )
+
+    query_profiles_path = DATA_DIR / "query_profiles.jsonl"
+    query_profile_line_numbers = nonblank_line_numbers(query_profiles_path)
+    seen_query_profile_ids: set[str] = set()
+    for row, line_number in zip(parsed[query_profiles_path], query_profile_line_numbers):
+        validate_query_profile(
+            row,
+            f"{query_profiles_path}: line {line_number}",
+            seen_query_profile_ids,
+            errors,
+        )
 
     return errors
 
