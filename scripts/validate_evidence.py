@@ -16,6 +16,25 @@ JSONL_FILES = [
     DATA_DIR / "search_logs.jsonl",
 ]
 
+VALID_POLARITIES = {"positive", "negative"}
+VALID_TIERS = {"core", "extended"}
+VALID_SEARCH_RESULT_STATUSES = {
+    "checked_no_hard_evidence",
+    "evidence_found_card_created",
+    "lead_needs_source_review",
+    "routed_to_adjacent_item",
+}
+HUMAN_LEVEL_BY_POLARITY_AND_STRENGTH = {
+    ("positive", 1): "弱正",
+    ("positive", 2): "中正",
+    ("positive", 3): "强正",
+    ("positive", 4): "极正",
+    ("negative", 1): "弱负",
+    ("negative", 2): "中负",
+    ("negative", 3): "强负",
+    ("negative", 4): "极负",
+}
+
 REQUIRED_EVIDENCE_FIELDS = [
     "evidence_id",
     "person",
@@ -32,6 +51,32 @@ REQUIRED_EVIDENCE_FIELDS = [
     "cross_item_split",
     "scoring_effect",
     "verification_status",
+]
+REQUIRED_TRIGGER_TERM_FIELDS = [
+    "term_id",
+    "item",
+    "subitem",
+    "polarity",
+    "trigger_family",
+    "term",
+    "tier",
+    "note",
+]
+REQUIRED_SEARCH_LOG_FIELDS = [
+    "search_id",
+    "person",
+    "item",
+    "subitem",
+    "polarity",
+    "trigger_family",
+    "query_terms",
+    "query",
+    "source_scope",
+    "searched_at",
+    "result_status",
+    "result_summary",
+    "linked_evidence_id",
+    "note",
 ]
 
 
@@ -68,13 +113,22 @@ def is_filled(value: Any) -> bool:
     return True
 
 
-def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set[str], errors: list[str]) -> None:
-    for field in REQUIRED_EVIDENCE_FIELDS:
+def validate_required_fields(
+    row: dict[str, Any],
+    required_fields: list[str],
+    line_label: str,
+    errors: list[str],
+) -> None:
+    for field in required_fields:
         if field not in row:
             errors.append(f"{line_label}: missing required field: {field}")
 
+
+def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set[str], errors: list[str]) -> None:
+    validate_required_fields(row, REQUIRED_EVIDENCE_FIELDS, line_label, errors)
+
     polarity = row.get("polarity")
-    if polarity not in {"positive", "negative"}:
+    if polarity not in VALID_POLARITIES:
         errors.append(f"{line_label}: polarity must be positive or negative")
 
     strength = row.get("strength")
@@ -82,10 +136,12 @@ def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set
         errors.append(f"{line_label}: strength must be one of 1, 2, 3, 4")
 
     human_level = row.get("human_level")
-    if strength == 4 and polarity == "positive" and human_level != "极正":
-        errors.append(f"{line_label}: strength=4 and polarity=positive requires human_level=极正")
-    if strength == 4 and polarity == "negative" and human_level != "极负":
-        errors.append(f"{line_label}: strength=4 and polarity=negative requires human_level=极负")
+    expected_human_level = HUMAN_LEVEL_BY_POLARITY_AND_STRENGTH.get((polarity, strength))
+    if expected_human_level is not None and human_level != expected_human_level:
+        errors.append(
+            f"{line_label}: polarity={polarity} and strength={strength} "
+            f"requires human_level={expected_human_level}"
+        )
 
     if polarity == "negative" and human_level in {"强负", "极负"}:
         if not (is_filled(row.get("cross_item_split")) or is_filled(row.get("scoring_effect"))):
@@ -96,6 +152,46 @@ def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set
         errors.append(f"{line_label}: source_id not found in sources.jsonl: {source_id}")
 
 
+def validate_trigger_term(
+    row: dict[str, Any],
+    line_label: str,
+    seen_term_ids: set[str],
+    errors: list[str],
+) -> None:
+    validate_required_fields(row, REQUIRED_TRIGGER_TERM_FIELDS, line_label, errors)
+
+    polarity = row.get("polarity")
+    if polarity not in VALID_POLARITIES:
+        errors.append(f"{line_label}: polarity must be positive or negative")
+
+    tier = row.get("tier")
+    if tier not in VALID_TIERS:
+        errors.append(f"{line_label}: tier must be core or extended")
+
+    term_id = row.get("term_id")
+    if is_filled(term_id):
+        if term_id in seen_term_ids:
+            errors.append(f"{line_label}: duplicate term_id: {term_id}")
+        seen_term_ids.add(term_id)
+
+
+def validate_search_log(row: dict[str, Any], line_label: str, errors: list[str]) -> None:
+    validate_required_fields(row, REQUIRED_SEARCH_LOG_FIELDS, line_label, errors)
+
+    polarity = row.get("polarity")
+    if is_filled(polarity) and polarity not in VALID_POLARITIES:
+        errors.append(f"{line_label}: polarity must be positive or negative")
+
+    result_status = row.get("result_status")
+    if is_filled(result_status) and result_status not in VALID_SEARCH_RESULT_STATUSES:
+        errors.append(f"{line_label}: result_status must be an allowed value: {result_status}")
+
+
+def nonblank_line_numbers(path: Path) -> list[int]:
+    with path.open("r", encoding="utf-8") as handle:
+        return [number for number, line in enumerate(handle, start=1) if line.strip()]
+
+
 def validate() -> list[str]:
     errors: list[str] = []
     parsed = {path: read_jsonl(path, errors) for path in JSONL_FILES}
@@ -104,11 +200,21 @@ def validate() -> list[str]:
     source_ids = {row.get("source_id") for row in sources if is_filled(row.get("source_id"))}
 
     evidence_path = DATA_DIR / "evidence_cards.jsonl"
-    with evidence_path.open("r", encoding="utf-8") as handle:
-        evidence_line_numbers = [number for number, line in enumerate(handle, start=1) if line.strip()]
+    evidence_line_numbers = nonblank_line_numbers(evidence_path)
 
     for row, line_number in zip(parsed[evidence_path], evidence_line_numbers):
         validate_evidence_card(row, f"{evidence_path}: line {line_number}", source_ids, errors)
+
+    trigger_terms_path = DATA_DIR / "trigger_terms.jsonl"
+    trigger_term_line_numbers = nonblank_line_numbers(trigger_terms_path)
+    seen_term_ids: set[str] = set()
+    for row, line_number in zip(parsed[trigger_terms_path], trigger_term_line_numbers):
+        validate_trigger_term(row, f"{trigger_terms_path}: line {line_number}", seen_term_ids, errors)
+
+    search_logs_path = DATA_DIR / "search_logs.jsonl"
+    search_log_line_numbers = nonblank_line_numbers(search_logs_path)
+    for row, line_number in zip(parsed[search_logs_path], search_log_line_numbers):
+        validate_search_log(row, f"{search_logs_path}: line {line_number}", errors)
 
     return errors
 
