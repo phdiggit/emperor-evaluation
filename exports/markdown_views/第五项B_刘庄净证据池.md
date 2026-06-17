@@ -6,6 +6,8 @@
 
 | cluster_id | polarity | cluster_type | linked_evidence_ids | candidate_strength | upper_probe | adjudication_status | summary |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| ADJ-I5B-LIUZHUANG-POS-TALENT-AUTHORIZATION-001 | positive | talent_selection_and_authorization_ecosystem | ["EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001", "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001", "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001"] | 2 | possible_strong_positive_candidate_only_if_more_direct_imperial_selection_long_term_central_talent_ecosystem_or_authorization_evidence_is_source_verified | source_verified_pending_human_adjudication | 已回源正证覆盖旧臣与宗室辅政人才组合（邓禹、刘苍）、日食后求言无讳与封事反馈入口、班超西域链条中的边疆人才任用与授权，显示刘庄第五项B并非全无识人、授权与反馈入口正证。但当前证据多为中正，班超线还带有窦固前线识别的间接性，材料厚度和直接帝王归属均弱于李世民、刘秀，故仅作为中正候选证据组，不上探强正或极正。 |
+| ADJ-I5B-LIUZHUANG-NEG-TALENT-SAFETY-001 | negative | talent_security_and_political_implication_risk | ["EVD-I5B-LIUZHUANG-NEG-YIJI-001"] | 3 | no_extreme_probe_currently; revisit_if_additional_direct_chilling_effect_or_broad_talent_ecology_damage_is_source_verified | source_verified_pending_human_adjudication | 已回源负证显示楚王英案后楚狱累年、辞语相连、坐死徙者以千数，对宗室、臣僚与潜在人才安全感构成强负候选；但该材料与第五项C政权安全、第五项D政治残酷性和司法牵连高度相邻，B项只能保留人才生态与表达安全受损的剩余影响。廷杖线仍未可靠回源，暂不入组。 |
 
 ## 原子证据卡
 
