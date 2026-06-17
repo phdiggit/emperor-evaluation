@@ -15,6 +15,9 @@ ALLOWED_CREATED_SEARCH_IDS = {
     "SRCH-I5B-LISHIMIN-POS-SHIREN-001",
     "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001",
     "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001",
+    "SRCH-I5B-LIUXIU-POS-SHIREN-001",
+    "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001",
+    "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
     "SRCH-I5B-LISHIMIN-NEG-YIJI-001",
     "SRCH-I5B-LIUXIU-NEG-RONGJIAN-001",
     "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
@@ -67,6 +70,9 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert "EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001" in content
     assert "EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001" in content
     assert "EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001" in content
+    assert "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001" in content
+    assert "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001" in content
+    assert "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001" in content
     assert "EVD-I5B-LIUXIU-NEG-HANXIN-001" in content
     assert "EVD-I5B-LIUXIU-NEG-HUANTAN-001" in content
     assert "EVD-I5B-LIUXIU-NEG-TINGZHANG-001" in content
@@ -98,6 +104,11 @@ def test_source_review_evidence_cards_reference_existing_sources_and_keep_expect
         "EVD-I5B-LIUXIU-NEG-HUANTAN-001",
         "EVD-I5B-LIUXIU-NEG-TINGZHANG-001",
         "EVD-I5B-LIUZHUANG-NEG-YIJI-001",
+        "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001",
+        "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
+        "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001",
+        "EVD-I5B-LIUXIU-POS-SHOUQUAN-KOUXUN-001",
+        "EVD-I5B-LIUXIU-POS-SHIREN-GENGYAN-001",
         "EVD-I5B-LISHIMIN-NEG-ZHANGLIANG-001",
         "EVD-I5B-LISHIMIN-NEG-HOUJUNJI-001",
         "EVD-I5B-LISHIMIN-NEG-WEIZHENG-001",
@@ -150,6 +161,10 @@ def test_sources_are_only_public_text_sources_added_by_source_review_tasks() -> 
         "SRC-JTS-J66-FANGDU-001",
         "SRC-JTS-J67-LIJING-001",
         "SRC-JTS-J71-WEIZHENG-001",
+        "SRC-HHS-J16-DENGYU-001",
+        "SRC-HHS-J17-FENGYI-KOUXUN-001",
+        "SRC-HHS-J18-WUHAN-001",
+        "SRC-HHS-J19-GENGYAN-001",
     }
 
 
@@ -160,13 +175,14 @@ def test_only_task005b4_targets_change_lishimin_positive_search_statuses() -> No
         "SRCH-I5B-LISHIMIN-POS-SHIREN-001": "EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001",
         "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001": "EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001",
         "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001": "EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001",
+        "SRCH-I5B-LIUXIU-POS-SHIREN-001": "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001",
+        "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001": "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001",
+        "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001": "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
     }.items():
         assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
         assert search_logs[search_id]["linked_evidence_id"] == evidence_id
 
     untouched_search_ids = {
-        "SRCH-I5B-LIUXIU-POS-SHIREN-001",
-        "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001",
         "SRCH-I5B-LIUZHUANG-POS-SHIREN-001",
         "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001",
         "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001",
