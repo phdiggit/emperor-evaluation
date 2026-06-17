@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SEARCH_LOG_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点检索线索.md"
 EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
 QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
+LIUZHUANG_NET_EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B_刘庄净证据池.md"
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 SOURCES_PATH = ROOT / "data" / "sources.jsonl"
 SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
@@ -25,6 +26,9 @@ ALLOWED_CREATED_SEARCH_IDS = {
     "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
     "SRCH-I5B-LIUXIU-NEG-TINGZHANG-001",
     "SRCH-I5B-LIUZHUANG-NEG-YIJI-001",
+    "SRCH-I5B-LIUZHUANG-POS-SHIREN-001",
+    "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001",
+    "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001",
 }
 
 
@@ -62,6 +66,7 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert SEARCH_LOG_EXPORT_PATH.exists()
     assert EVIDENCE_CLUSTERS_EXPORT_PATH.exists()
     assert QUERY_PROFILES_EXPORT_PATH.exists()
+    assert LIUZHUANG_NET_EVIDENCE_EXPORT_PATH.exists()
 
     content = SEARCH_LOG_EXPORT_PATH.read_text(encoding="utf-8")
     assert "李世民" in content
@@ -80,6 +85,9 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert "EVD-I5B-LIUXIU-NEG-HANXIN-001" in content
     assert "EVD-I5B-LIUXIU-NEG-HUANTAN-001" in content
     assert "EVD-I5B-LIUXIU-NEG-TINGZHANG-001" in content
+    assert "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001" in content
+    assert "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001" in content
+    assert "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001" in content
     assert "EVD-I5B-LIUZHUANG-NEG-YIJI-001" in content
     assert "分数" not in content
     assert "总榜" not in content
@@ -96,6 +104,12 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert "project_driven" in query_profiles_content
     assert "专题锚点池" in query_profiles_content
 
+    liuzhuang_net_content = LIUZHUANG_NET_EVIDENCE_EXPORT_PATH.read_text(encoding="utf-8")
+    assert "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001" in liuzhuang_net_content
+    assert "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001" in liuzhuang_net_content
+    assert "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001" in liuzhuang_net_content
+    assert "EVD-I5B-LIUZHUANG-NEG-YIJI-001" in liuzhuang_net_content
+
 
 def test_source_review_evidence_cards_reference_existing_sources_and_keep_expected_trial_scope() -> None:
     sources = read_jsonl(SOURCES_PATH)
@@ -108,6 +122,9 @@ def test_source_review_evidence_cards_reference_existing_sources_and_keep_expect
         "EVD-I5B-LIUXIU-NEG-HUANTAN-001",
         "EVD-I5B-LIUXIU-NEG-TINGZHANG-001",
         "EVD-I5B-LIUZHUANG-NEG-YIJI-001",
+        "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
+        "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001",
+        "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001",
         "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001",
         "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
         "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001",
@@ -175,6 +192,8 @@ def test_sources_are_only_public_text_sources_added_by_source_review_tasks() -> 
         "SRC-HHS-J19-GENGYAN-001",
         "SRC-JTS-J74-MAZHOU-001",
         "SRC-JTS-J67-LIJI-001",
+        "SRC-HHS-J2-XIANZONG-001",
+        "SRC-HHS-J47-BANCHAO-001",
     }
 
 
@@ -190,14 +209,14 @@ def test_only_task005b4_targets_change_lishimin_positive_search_statuses() -> No
         "SRCH-I5B-LIUXIU-POS-SHIREN-001": "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001",
         "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001": "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001",
         "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001": "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
+        "SRCH-I5B-LIUZHUANG-POS-SHIREN-001": "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
+        "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001": "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001",
+        "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001": "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001",
     }.items():
         assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
         assert search_logs[search_id]["linked_evidence_id"] == evidence_id
 
     untouched_search_ids = {
-        "SRCH-I5B-LIUZHUANG-POS-SHIREN-001",
-        "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001",
-        "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001",
         "SRCH-I5B-LIUZHUANG-NEG-TINGZHANG-001",
     }
     for search_id in untouched_search_ids:

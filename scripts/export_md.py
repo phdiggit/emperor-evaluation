@@ -98,6 +98,7 @@ I5B_TRIAL_TARGETS = ["李世民", "刘秀", "刘庄"]
 I5B_NET_EVIDENCE_TARGETS = [
     ("李世民", ROOT / "exports" / "markdown_views" / "第五项B_李世民净证据池.md"),
     ("刘秀", ROOT / "exports" / "markdown_views" / "第五项B_刘秀净证据池.md"),
+    ("刘庄", ROOT / "exports" / "markdown_views" / "第五项B_刘庄净证据池.md"),
 ]
 I5B_SUBITEM = "第五项B"
 

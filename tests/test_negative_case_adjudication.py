@@ -111,6 +111,9 @@ def test_search_log_statuses_include_only_verified_negative_cards() -> None:
         "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
         "SRCH-I5B-LIUXIU-NEG-TINGZHANG-001",
         "SRCH-I5B-LIUZHUANG-NEG-YIJI-001",
+        "SRCH-I5B-LIUZHUANG-POS-SHIREN-001",
+        "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001",
+        "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001",
     }
 
 
@@ -137,6 +140,26 @@ def test_lishimin_positive_cards_use_005r_compatible_adjudication_fields() -> No
         assert row["adjudication_status"] == "source_verified_pending_human_adjudication"
 
 
+def test_liuzhuang_positive_cards_use_005r_compatible_adjudication_fields() -> None:
+    cards = evidence_by_id()
+
+    for evidence_id in [
+        "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
+        "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001",
+        "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001",
+    ]:
+        row = cards[evidence_id]
+        assert row["polarity"] == "positive"
+        assert row["strength"] == 2
+        assert row["human_level"] == "中正"
+        assert row["case_classification"] == "other"
+        assert row["risk_status"] == "not_applicable"
+        assert row["mitigating_factors"] == []
+        assert row["aggravating_factors"] == []
+        assert row["reversal_or_rehabilitation"] == ["not_found"]
+        assert row["adjudication_status"] == "source_verified_pending_human_adjudication"
+
+
 def test_lishimin_positive_leads_are_now_converted() -> None:
     search_logs = {
         row["search_id"]: row
@@ -151,6 +174,9 @@ def test_lishimin_positive_leads_are_now_converted() -> None:
         "SRCH-I5B-LIUXIU-POS-SHIREN-001": "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001",
         "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001": "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001",
         "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001": "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
+        "SRCH-I5B-LIUZHUANG-POS-SHIREN-001": "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
+        "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001": "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001",
+        "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001": "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001",
     }.items():
         assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
         assert search_logs[search_id]["linked_evidence_id"] == linked_id

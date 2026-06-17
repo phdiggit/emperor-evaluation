@@ -4,11 +4,11 @@
 
 | search_id | person | subitem | polarity | trigger_family | query_terms | result_status | result_summary | linked_evidence_id | note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SRCH-I5B-LIUZHUANG-NEG-TINGZHANG-001 | 刘庄 | 第五项B | negative | 廷杖刑辱 | 卿皆鞭杖;鞭杖;殿前鞭杀;尚书郎 | lead_needs_source_review | 未定位到可直接核验的公开古籍正文；药崧自起撞郎线仍需继续回源，暂不转证据卡。 |  | 未完成可靠回源，不得入分 |
+| SRCH-I5B-LIUZHUANG-NEG-TINGZHANG-001 | 刘庄 | 第五项B | negative | 廷杖刑辱 | 卿皆鞭杖;鞭杖;殿前鞭杀;尚书郎 | lead_needs_source_review | 已复核药崧与尚书郎线，但未稳定定位到可直接核验的公开古籍正文，暂不转证据卡。 |  | 未完成可靠回源，不得入分 |
 | SRCH-I5B-LIUZHUANG-NEG-YIJI-001 | 刘庄 | 第五项B | negative | 疑忌杀害 | 苛察;严峻;下狱;杀;群臣 | evidence_found_card_created | 已据《后汉书》卷四十二回源：楚王英案后楚狱累年、辞语相连，坐死徙者以千数。 | EVD-I5B-LIUZHUANG-NEG-YIJI-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
-| SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001 | 刘庄 | 第五项B | positive | 容谏纳言 | 言事无讳;极言无讳;日食;诏 | lead_needs_source_review | 待查刘庄求言诏令与反馈入口正证，注意不把政策效果回填B项。 |  | 待回源线索，不得入分 |
-| SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001 | 刘庄 | 第五项B | positive | 授权专任 | 窦固;耿秉;班超;使西域;假司马;遣 | lead_needs_source_review | 待查刘庄时期窦固、耿秉、班超西域链条，B项只计识人与授权。 |  | 待回源线索，不得入分 |
-| SRCH-I5B-LIUZHUANG-POS-SHIREN-001 | 刘庄 | 第五项B | positive | 识人拔擢 | 邓禹;刘苍;窦固;耿秉;班超;拜;以为能 | lead_needs_source_review | 待查刘庄对旧臣、宗室辅政、边疆军事人才与班超启用链条的正证。 |  | 待回源线索，不得入分 |
+| SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001 | 刘庄 | 第五项B | positive | 容谏纳言 | 言事无讳;极言无讳;日食;诏 | evidence_found_card_created | 已据《后汉书》卷二回源：日食后诏令群司极言无讳，在位者皆上封事各言得失，可作为反馈入口正证。 | EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
+| SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001 | 刘庄 | 第五项B | positive | 授权专任 | 窦固;耿秉;班超;使西域;假司马;遣 | evidence_found_card_created | 已据《后汉书》卷四十七回源：班超为假司马，将兵别击，并与郭恂俱使西域，可作为刘庄时期的边疆授权锚点。 | EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
+| SRCH-I5B-LIUZHUANG-POS-SHIREN-001 | 刘庄 | 第五项B | positive | 识人拔擢 | 邓禹;刘苍;窦固;耿秉;班超;拜;以为能 | evidence_found_card_created | 已据《后汉书》卷二回源：刘庄即位后以邓禹为太傅、刘苍为骠骑将军，形成旧臣与宗室辅政的人才结构正证。 | EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
 | SRCH-I5B-LIUXIU-NEG-RONGJIAN-001 | 刘秀 | 第五项B | negative | 容谏纳言 | 韩歆;直言;不能容;死非其罪;自杀 | evidence_found_card_created | 已据《资治通鉴》卷四十三回源：韩歆好直言、刘秀每不能容，父子自杀，众以为死非其罪。 | EVD-I5B-LIUXIU-NEG-HANXIN-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
 | SRCH-I5B-LIUXIU-NEG-TINGZHANG-001 | 刘秀 | 第五项B | negative | 廷杖刑辱 | 捶扑;牵曳;群臣莫敢正言;申屠刚 | evidence_found_card_created | 已据《后汉书》卷二十九回源：尚书近臣至捶扑牵曳于前，群臣莫敢正言，申屠刚屡极谏。 | EVD-I5B-LIUXIU-NEG-TINGZHANG-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
 | SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001 | 刘秀 | 第五项B | negative | 意识形态压制 | 桓谭;谶;非圣无法;将下斩之 | evidence_found_card_created | 已据《后汉书》卷二十八上回源：桓谭极言谶非经，刘秀怒称非圣无法、将下斩之。 | EVD-I5B-LIUXIU-NEG-HUANTAN-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
