@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 from pathlib import Path
 
@@ -17,6 +18,12 @@ HEADERS = [
     "source_id",
     "quote_short",
     "verification_status",
+    "case_classification",
+    "risk_status",
+    "mitigating_factors",
+    "aggravating_factors",
+    "reversal_or_rehabilitation",
+    "adjudication_status",
 ]
 SEARCH_LOG_HEADERS = [
     "search_id",
@@ -36,6 +43,8 @@ I5B_TRIAL_TARGETS = ["李世民", "刘秀", "刘庄"]
 def escape_cell(value: object) -> str:
     if value is None:
         return ""
+    if isinstance(value, (list, dict)):
+        return json.dumps(value, ensure_ascii=False)
     return str(value).replace("|", "\\|").replace("\n", " ")
 
 
@@ -50,7 +59,7 @@ def export_markdown() -> Path:
                 connection.execute(
                     """
                     SELECT evidence_id, person, subitem, human_level, source_id,
-                           quote_short, verification_status
+                           quote_short, verification_status, raw_json
                     FROM evidence_cards
                     ORDER BY evidence_id
                     """
@@ -65,7 +74,9 @@ def export_markdown() -> Path:
     ]
 
     for row in rows:
-        lines.append("| " + " | ".join(escape_cell(row[header]) for header in HEADERS) + " |")
+        raw_json = json.loads(row["raw_json"])
+        values = {header: raw_json.get(header, row[header] if header in row.keys() else "") for header in HEADERS}
+        lines.append("| " + " | ".join(escape_cell(values[header]) for header in HEADERS) + " |")
 
     EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return EXPORT_PATH
