@@ -34,6 +34,12 @@ def test_validate_evidence_allows_empty_data() -> None:
     assert "Validation passed." in result.stdout
 
 
+def test_existing_trigger_terms_jsonl_passes() -> None:
+    errors = validate_evidence.validate()
+
+    assert errors == []
+
+
 def test_build_db_allows_empty_data() -> None:
     if DB_PATH.exists():
         DB_PATH.unlink()
@@ -184,6 +190,50 @@ def test_strength_four_positive_requires_extreme_positive(validation_data_dir: P
     assert any("requires human_level=极正" in error for error in errors)
 
 
+def test_strength_three_positive_rejects_weak_positive(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "sources.jsonl",
+        [
+            {
+                "source_id": "SRC-TEST-VOL-001",
+                "title": "测试来源",
+                "author": "",
+                "dynasty": "",
+                "volume": "",
+                "location": "",
+                "url": "",
+                "note": "",
+            }
+        ],
+    )
+    write_jsonl(
+        validation_data_dir / "evidence_cards.jsonl",
+        [
+            {
+                "evidence_id": "EVD-I5B-TEST-POS-001",
+                "person": "测试人物",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "polarity": "positive",
+                "strength": 3,
+                "human_level": "弱正",
+                "source_id": "SRC-TEST-VOL-001",
+                "quote_short": "测试短引",
+                "interpretation": "测试解释",
+                "trigger_family": "测试",
+                "trigger_terms": ["测试词"],
+                "cross_item_split": "",
+                "scoring_effect": "",
+                "verification_status": "verified",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("polarity=positive and strength=3 requires human_level=强正" in error for error in errors)
+
+
 def test_strength_four_negative_requires_extreme_negative(validation_data_dir: Path) -> None:
     write_jsonl(
         validation_data_dir / "sources.jsonl",
@@ -226,3 +276,95 @@ def test_strength_four_negative_requires_extreme_negative(validation_data_dir: P
     errors = validate_evidence.validate()
 
     assert any("requires human_level=极负" in error for error in errors)
+
+
+def test_strength_two_negative_rejects_strong_negative(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "sources.jsonl",
+        [
+            {
+                "source_id": "SRC-TEST-VOL-001",
+                "title": "测试来源",
+                "author": "",
+                "dynasty": "",
+                "volume": "",
+                "location": "",
+                "url": "",
+                "note": "",
+            }
+        ],
+    )
+    write_jsonl(
+        validation_data_dir / "evidence_cards.jsonl",
+        [
+            {
+                "evidence_id": "EVD-I5B-TEST-NEG-001",
+                "person": "测试人物",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "polarity": "negative",
+                "strength": 2,
+                "human_level": "强负",
+                "source_id": "SRC-TEST-VOL-001",
+                "quote_short": "测试短引",
+                "interpretation": "测试解释",
+                "trigger_family": "测试",
+                "trigger_terms": ["测试词"],
+                "cross_item_split": "测试切分",
+                "scoring_effect": "",
+                "verification_status": "verified",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("polarity=negative and strength=2 requires human_level=中负" in error for error in errors)
+
+
+def test_trigger_terms_missing_term_field_fails(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "trigger_terms.jsonl",
+        [
+            {
+                "term_id": "TRG-I5B-POS-TEST-001",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "polarity": "positive",
+                "trigger_family": "测试",
+                "tier": "core",
+                "note": "",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("missing required field: term" in error for error in errors)
+
+
+def test_search_logs_missing_result_status_field_fails(validation_data_dir: Path) -> None:
+    write_jsonl(
+        validation_data_dir / "search_logs.jsonl",
+        [
+            {
+                "search_id": "SRCH-I5B-TEST-POS-TEST-001",
+                "person": "测试人物",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "polarity": "positive",
+                "trigger_family": "测试",
+                "query_terms": ["测试词"],
+                "query": "",
+                "source_scope": "",
+                "searched_at": "",
+                "result_summary": "",
+                "linked_evidence_id": "",
+                "note": "",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("missing required field: result_status" in error for error in errors)

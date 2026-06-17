@@ -24,6 +24,16 @@ VALID_SEARCH_RESULT_STATUSES = {
     "lead_needs_source_review",
     "routed_to_adjacent_item",
 }
+HUMAN_LEVEL_BY_POLARITY_AND_STRENGTH = {
+    ("positive", 1): "弱正",
+    ("positive", 2): "中正",
+    ("positive", 3): "强正",
+    ("positive", 4): "极正",
+    ("negative", 1): "弱负",
+    ("negative", 2): "中负",
+    ("negative", 3): "强负",
+    ("negative", 4): "极负",
+}
 
 REQUIRED_EVIDENCE_FIELDS = [
     "evidence_id",
@@ -41,6 +51,32 @@ REQUIRED_EVIDENCE_FIELDS = [
     "cross_item_split",
     "scoring_effect",
     "verification_status",
+]
+REQUIRED_TRIGGER_TERM_FIELDS = [
+    "term_id",
+    "item",
+    "subitem",
+    "polarity",
+    "trigger_family",
+    "term",
+    "tier",
+    "note",
+]
+REQUIRED_SEARCH_LOG_FIELDS = [
+    "search_id",
+    "person",
+    "item",
+    "subitem",
+    "polarity",
+    "trigger_family",
+    "query_terms",
+    "query",
+    "source_scope",
+    "searched_at",
+    "result_status",
+    "result_summary",
+    "linked_evidence_id",
+    "note",
 ]
 
 
@@ -77,10 +113,19 @@ def is_filled(value: Any) -> bool:
     return True
 
 
-def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set[str], errors: list[str]) -> None:
-    for field in REQUIRED_EVIDENCE_FIELDS:
+def validate_required_fields(
+    row: dict[str, Any],
+    required_fields: list[str],
+    line_label: str,
+    errors: list[str],
+) -> None:
+    for field in required_fields:
         if field not in row:
             errors.append(f"{line_label}: missing required field: {field}")
+
+
+def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set[str], errors: list[str]) -> None:
+    validate_required_fields(row, REQUIRED_EVIDENCE_FIELDS, line_label, errors)
 
     polarity = row.get("polarity")
     if polarity not in VALID_POLARITIES:
@@ -91,10 +136,12 @@ def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set
         errors.append(f"{line_label}: strength must be one of 1, 2, 3, 4")
 
     human_level = row.get("human_level")
-    if strength == 4 and polarity == "positive" and human_level != "极正":
-        errors.append(f"{line_label}: strength=4 and polarity=positive requires human_level=极正")
-    if strength == 4 and polarity == "negative" and human_level != "极负":
-        errors.append(f"{line_label}: strength=4 and polarity=negative requires human_level=极负")
+    expected_human_level = HUMAN_LEVEL_BY_POLARITY_AND_STRENGTH.get((polarity, strength))
+    if expected_human_level is not None and human_level != expected_human_level:
+        errors.append(
+            f"{line_label}: polarity={polarity} and strength={strength} "
+            f"requires human_level={expected_human_level}"
+        )
 
     if polarity == "negative" and human_level in {"强负", "极负"}:
         if not (is_filled(row.get("cross_item_split")) or is_filled(row.get("scoring_effect"))):
@@ -111,12 +158,14 @@ def validate_trigger_term(
     seen_term_ids: set[str],
     errors: list[str],
 ) -> None:
+    validate_required_fields(row, REQUIRED_TRIGGER_TERM_FIELDS, line_label, errors)
+
     polarity = row.get("polarity")
-    if polarity is not None and polarity not in VALID_POLARITIES:
+    if polarity not in VALID_POLARITIES:
         errors.append(f"{line_label}: polarity must be positive or negative")
 
     tier = row.get("tier")
-    if tier is not None and tier not in VALID_TIERS:
+    if tier not in VALID_TIERS:
         errors.append(f"{line_label}: tier must be core or extended")
 
     term_id = row.get("term_id")
@@ -127,13 +176,15 @@ def validate_trigger_term(
 
 
 def validate_search_log(row: dict[str, Any], line_label: str, errors: list[str]) -> None:
+    validate_required_fields(row, REQUIRED_SEARCH_LOG_FIELDS, line_label, errors)
+
     polarity = row.get("polarity")
-    if polarity is not None and polarity not in VALID_POLARITIES:
+    if is_filled(polarity) and polarity not in VALID_POLARITIES:
         errors.append(f"{line_label}: polarity must be positive or negative")
 
     result_status = row.get("result_status")
-    if result_status is not None and result_status not in VALID_SEARCH_RESULT_STATUSES:
-        errors.append(f"{line_label}: result_status is not a suggested value: {result_status}")
+    if is_filled(result_status) and result_status not in VALID_SEARCH_RESULT_STATUSES:
+        errors.append(f"{line_label}: result_status must be an allowed value: {result_status}")
 
 
 def nonblank_line_numbers(path: Path) -> list[int]:
