@@ -368,3 +368,106 @@ def test_search_logs_missing_result_status_field_fails(validation_data_dir: Path
     errors = validate_evidence.validate()
 
     assert any("missing required field: result_status" in error for error in errors)
+
+
+def source_row() -> dict[str, Any]:
+    return {
+        "source_id": "SRC-TEST-VOL-001",
+        "title": "测试来源",
+        "author": "",
+        "dynasty": "",
+        "volume": "",
+        "location": "",
+        "url": "",
+        "note": "",
+    }
+
+
+def high_risk_negative_row(**overrides: Any) -> dict[str, Any]:
+    row: dict[str, Any] = {
+        "evidence_id": "EVD-I5B-TEST-NEG-001",
+        "person": "测试人物",
+        "item": "第五项",
+        "subitem": "第五项B",
+        "polarity": "negative",
+        "strength": 3,
+        "human_level": "强负",
+        "source_id": "SRC-TEST-VOL-001",
+        "quote_short": "测试短引",
+        "interpretation": "测试解释",
+        "trigger_family": "疑忌杀害",
+        "trigger_terms": ["测试词"],
+        "cross_item_split": "测试切分",
+        "scoring_effect": "强负候选证据；不得直接入分，待人工裁判。",
+        "verification_status": "source_verified",
+        "case_classification": "political_case_expansion",
+        "risk_status": "mixed_confirmed_case_with_expansion",
+        "mitigating_factors": ["confirmed_rebellion"],
+        "aggravating_factors": ["case_expansion"],
+        "reversal_or_rehabilitation": ["not_found"],
+        "adjudication_status": "source_verified_pending_human_adjudication",
+    }
+    row.update(overrides)
+    return row
+
+
+def write_high_risk_fixture(validation_data_dir: Path, row: dict[str, Any]) -> list[str]:
+    write_jsonl(validation_data_dir / "sources.jsonl", [source_row()])
+    write_jsonl(validation_data_dir / "evidence_cards.jsonl", [row])
+    return validate_evidence.validate()
+
+
+def test_high_risk_negative_missing_adjudication_fields_fails(validation_data_dir: Path) -> None:
+    row = high_risk_negative_row()
+    row.pop("case_classification")
+
+    errors = write_high_risk_fixture(validation_data_dir, row)
+
+    assert any("high-risk negative evidence missing required field: case_classification" in error for error in errors)
+
+
+def test_confirmed_rebellion_non_expansion_strength_above_one_fails(validation_data_dir: Path) -> None:
+    row = high_risk_negative_row(
+        strength=2,
+        human_level="中负",
+        case_classification="confirmed_rebellion_or_security_case",
+        risk_status="confirmed_rebellion",
+    )
+
+    errors = write_high_risk_fixture(validation_data_dir, row)
+
+    assert any("confirmed_rebellion outside political_case_expansion" in error for error in errors)
+
+
+def test_posthumous_trust_reversal_strength_above_one_fails(validation_data_dir: Path) -> None:
+    row = high_risk_negative_row(
+        strength=2,
+        human_level="中负",
+        case_classification="posthumous_trust_reversal",
+        risk_status="not_applicable",
+        mitigating_factors=["posthumous_event"],
+        aggravating_factors=["chilling_effect_on_talent_ecology"],
+    )
+
+    errors = write_high_risk_fixture(validation_data_dir, row)
+
+    assert any("posthumous_trust_reversal requires strength<=1" in error for error in errors)
+
+
+def test_strength_three_with_mitigating_factors_requires_aggravating_factors(validation_data_dir: Path) -> None:
+    row = high_risk_negative_row(aggravating_factors=[])
+
+    errors = write_high_risk_fixture(validation_data_dir, row)
+
+    assert any("strength>=3 with mitigating_factors requires aggravating_factors" in error for error in errors)
+
+
+def test_strength_three_requires_pending_human_adjudication(validation_data_dir: Path) -> None:
+    row = high_risk_negative_row(
+        scoring_effect="强负候选证据。",
+        adjudication_status="needs_more_source_review",
+    )
+
+    errors = write_high_risk_fixture(validation_data_dir, row)
+
+    assert any("strength>=3 evidence requires pending human adjudication" in error for error in errors)

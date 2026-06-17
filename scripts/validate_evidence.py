@@ -24,6 +24,48 @@ VALID_SEARCH_RESULT_STATUSES = {
     "lead_needs_source_review",
     "routed_to_adjacent_item",
 }
+VALID_CASE_CLASSIFICATIONS = {
+    "confirmed_rebellion_or_security_case",
+    "suspected_rebellion_unproven",
+    "remonstrance_suppression",
+    "ideological_suppression",
+    "corporal_humiliation",
+    "political_case_expansion",
+    "posthumous_trust_reversal",
+    "judicial_or_punishment_dispute",
+    "other",
+}
+VALID_RISK_STATUSES = {
+    "confirmed_rebellion",
+    "strong_suspicion",
+    "weak_suspicion",
+    "unproven_or_disputed",
+    "no_rebellion_context",
+    "mixed_confirmed_case_with_expansion",
+    "not_applicable",
+}
+VALID_ADJUDICATION_STATUSES = {
+    "source_verified_pending_human_adjudication",
+    "needs_more_source_review",
+    "routed_to_adjacent_item_only",
+    "human_adjudicated_candidate",
+}
+HIGH_RISK_TRIGGER_FAMILIES = {"疑忌杀害", "功臣旧臣处置", "廷杖刑辱", "意识形态压制", "容谏纳言"}
+HIGH_RISK_TERMS = {
+    "谋反",
+    "下狱",
+    "诛",
+    "杀",
+    "赐死",
+    "族",
+    "图谶",
+    "谶",
+    "鞭",
+    "杖",
+    "捶扑",
+    "停婚",
+    "阿党",
+}
 HUMAN_LEVEL_BY_POLARITY_AND_STRENGTH = {
     ("positive", 1): "弱正",
     ("positive", 2): "中正",
@@ -51,6 +93,14 @@ REQUIRED_EVIDENCE_FIELDS = [
     "cross_item_split",
     "scoring_effect",
     "verification_status",
+]
+REQUIRED_HIGH_RISK_NEGATIVE_FIELDS = [
+    "case_classification",
+    "risk_status",
+    "mitigating_factors",
+    "aggravating_factors",
+    "reversal_or_rehabilitation",
+    "adjudication_status",
 ]
 REQUIRED_TRIGGER_TERM_FIELDS = [
     "term_id",
@@ -124,6 +174,88 @@ def validate_required_fields(
             errors.append(f"{line_label}: missing required field: {field}")
 
 
+def text_for_high_risk_scan(value: Any) -> str:
+    if isinstance(value, list):
+        return " ".join(text_for_high_risk_scan(item) for item in value)
+    if isinstance(value, dict):
+        return " ".join(text_for_high_risk_scan(item) for item in value.values())
+    if value is None:
+        return ""
+    return str(value)
+
+
+def is_high_risk_negative(row: dict[str, Any]) -> bool:
+    if row.get("polarity") != "negative":
+        return False
+    if row.get("trigger_family") in HIGH_RISK_TRIGGER_FAMILIES:
+        return True
+
+    scanned_text = " ".join(
+        text_for_high_risk_scan(row.get(field))
+        for field in ["trigger_terms", "quote_short", "interpretation"]
+    )
+    return any(term in scanned_text for term in HIGH_RISK_TERMS)
+
+
+def validate_list_field(row: dict[str, Any], field: str, line_label: str, errors: list[str]) -> None:
+    if field in row and not isinstance(row.get(field), list):
+        errors.append(f"{line_label}: {field} must be a list")
+
+
+def validate_high_risk_negative(
+    row: dict[str, Any],
+    line_label: str,
+    errors: list[str],
+) -> None:
+    if not is_high_risk_negative(row):
+        return
+
+    for field in REQUIRED_HIGH_RISK_NEGATIVE_FIELDS:
+        if field not in row:
+            errors.append(f"{line_label}: high-risk negative evidence missing required field: {field}")
+        elif field != "mitigating_factors" and not is_filled(row.get(field)):
+            errors.append(f"{line_label}: high-risk negative evidence requires non-empty field: {field}")
+
+    case_classification = row.get("case_classification")
+    if is_filled(case_classification) and case_classification not in VALID_CASE_CLASSIFICATIONS:
+        errors.append(f"{line_label}: case_classification is not an allowed value: {case_classification}")
+
+    risk_status = row.get("risk_status")
+    if is_filled(risk_status) and risk_status not in VALID_RISK_STATUSES:
+        errors.append(f"{line_label}: risk_status is not an allowed value: {risk_status}")
+
+    adjudication_status = row.get("adjudication_status")
+    if is_filled(adjudication_status) and adjudication_status not in VALID_ADJUDICATION_STATUSES:
+        errors.append(f"{line_label}: adjudication_status is not an allowed value: {adjudication_status}")
+
+    for field in ["mitigating_factors", "aggravating_factors", "reversal_or_rehabilitation"]:
+        validate_list_field(row, field, line_label, errors)
+
+    strength = row.get("strength")
+    mitigating_factors = row.get("mitigating_factors")
+    aggravating_factors = row.get("aggravating_factors")
+    scoring_effect = row.get("scoring_effect")
+
+    if risk_status == "confirmed_rebellion" and case_classification != "political_case_expansion":
+        if strength in {2, 3, 4} and adjudication_status != "human_adjudicated_candidate":
+            errors.append(
+                f"{line_label}: confirmed_rebellion outside political_case_expansion "
+                "requires strength<=1 unless human adjudicated"
+            )
+
+    if case_classification == "posthumous_trust_reversal" and strength in {2, 3, 4}:
+        errors.append(f"{line_label}: posthumous_trust_reversal requires strength<=1")
+
+    if is_filled(mitigating_factors) and strength in {3, 4} and not is_filled(aggravating_factors):
+        errors.append(f"{line_label}: strength>=3 with mitigating_factors requires aggravating_factors")
+
+    if strength in {3, 4}:
+        has_pending_text = isinstance(scoring_effect, str) and "待人工裁判" in scoring_effect
+        has_pending_status = adjudication_status == "source_verified_pending_human_adjudication"
+        if not (has_pending_text or has_pending_status):
+            errors.append(f"{line_label}: strength>=3 evidence requires pending human adjudication")
+
+
 def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set[str], errors: list[str]) -> None:
     validate_required_fields(row, REQUIRED_EVIDENCE_FIELDS, line_label, errors)
 
@@ -150,6 +282,8 @@ def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set
     source_id = row.get("source_id")
     if source_id and source_id not in source_ids:
         errors.append(f"{line_label}: source_id not found in sources.jsonl: {source_id}")
+
+    validate_high_risk_negative(row, line_label, errors)
 
 
 def validate_trigger_term(
