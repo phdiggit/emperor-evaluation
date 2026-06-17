@@ -101,6 +101,9 @@ def test_search_log_statuses_include_only_verified_negative_cards() -> None:
         "SRCH-I5B-LISHIMIN-POS-SHIREN-001",
         "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001",
         "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001",
+        "SRCH-I5B-LIUXIU-POS-SHIREN-001",
+        "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001",
+        "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
         "SRCH-I5B-LISHIMIN-NEG-YIJI-001",
         "SRCH-I5B-LIUXIU-NEG-RONGJIAN-001",
         "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
@@ -139,6 +142,9 @@ def test_lishimin_positive_leads_are_now_converted() -> None:
         "SRCH-I5B-LISHIMIN-POS-SHIREN-001": "EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001",
         "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001": "EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001",
         "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001": "EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001",
+        "SRCH-I5B-LIUXIU-POS-SHIREN-001": "EVD-I5B-LIUXIU-POS-SHIREN-DENGYU-001",
+        "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001": "EVD-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001",
+        "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001": "EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
     }.items():
         assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
         assert search_logs[search_id]["linked_evidence_id"] == linked_id
