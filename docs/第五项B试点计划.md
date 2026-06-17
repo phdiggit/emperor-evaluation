@@ -14,6 +14,8 @@
 
 任务005才开始对三人进行实际检索并写入 `search_logs`。本阶段不得生成任何评分。
 
+任务005A只写入三人试点首批待回源检索线索，统一使用 `result_status=lead_needs_source_review`。这些记录不判断证据强弱，不写入 `sources` 或 `evidence_cards`，不得参与定档定分。
+
 ## 试点流程
 
 1. 定第五项B边界。
