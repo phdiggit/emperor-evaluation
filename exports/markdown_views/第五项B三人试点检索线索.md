@@ -15,6 +15,6 @@
 | SRCH-I5B-LIUXIU-POS-SHOUQUAN-001 | 刘秀 | 第五项B | positive | 授权专任 | 冯异;邓禹;吴汉;耿弇;委任;使将;专任 | lead_needs_source_review | 待查刘秀对关键将相是否有稳定授权与职责匹配。 |  | 待回源线索，不得入分 |
 | SRCH-I5B-LIUXIU-POS-SHIREN-001 | 刘秀 | 第五项B | positive | 识人拔擢 | 邓禹;冯异;耿弇;吴汉;寇恂;任用;拜;以为能 | lead_needs_source_review | 待查刘秀对云台功臣与关键文武人才的识别、拔擢和使用。 |  | 待回源线索，不得入分 |
 | SRCH-I5B-LISHIMIN-NEG-YIJI-001 | 李世民 | 第五项B | negative | 疑忌杀害 | 张亮;侯君集;魏征;疑;诛;下狱;死非其罪 | evidence_found_card_created | 已回源并按005R分案机制转证据卡：张亮=中负候选；侯君集=弱负候选；魏征身后=弱负候选，已补《资治通鉴》停婚仆碑与复立所制碑对照。 | EVD-I5B-LISHIMIN-NEG-ZHANGLIANG-001 | 已回源并按005R分案机制转证据卡；不得直接入分，待人工裁判 |
-| SRCH-I5B-LISHIMIN-POS-RONGJIAN-001 | 李世民 | 第五项B | positive | 容谏纳言 | 魏征;从之;纳之;嘉纳;改容谢 | lead_needs_source_review | 待查李世民容纳魏征等谏臣的证据，区分B项反馈入口与第二项B2政策纠错效果。 |  | 待回源线索，不得入分 |
-| SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001 | 李世民 | 第五项B | positive | 授权专任 | 委任;专任;使将;假节;总;李靖;李勣 | lead_needs_source_review | 待查李世民对军事与政务人才的授权是否充分、权责是否匹配。 |  | 待回源线索，不得入分 |
-| SRCH-I5B-LISHIMIN-POS-SHIREN-001 | 李世民 | 第五项B | positive | 识人拔擢 | 房玄龄;杜如晦;魏征;李靖;李勣;擢;拜;以为能 | lead_needs_source_review | 待查李世民对房玄龄、杜如晦、魏征、李靖、李勣等多类型人才的发现、拔擢与任用链条。 |  | 待回源线索，不得入分 |
+| SRCH-I5B-LISHIMIN-POS-RONGJIAN-001 | 李世民 | 第五项B | positive | 容谏纳言 | 魏征;从之;纳之;嘉纳;改容谢 | evidence_found_card_created | 已据《旧唐书》卷七十一回源：李世民与魏征议政时未尝不欣然纳受，可作为容谏与反馈入口核心锚点。 | EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
+| SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001 | 李世民 | 第五项B | positive | 授权专任 | 委任;专任;使将;假节;总;李靖;李勣 | evidence_found_card_created | 已据《旧唐书》卷六十七回源：李世民以李靖为代州道行军总管，实际授权其专任出击突厥。 | EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
+| SRCH-I5B-LISHIMIN-POS-SHIREN-001 | 李世民 | 第五项B | positive | 识人拔擢 | 房玄龄;杜如晦;魏征;李靖;李勣;擢;拜;以为能 | evidence_found_card_created | 已据《旧唐书》卷六十六、卷七十一回源，生成房杜搜罗人物与魏征由旧敌转为重用两张证据卡。 | EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001 | 已回源并转证据卡；不得直接入分，待人工裁判 |
