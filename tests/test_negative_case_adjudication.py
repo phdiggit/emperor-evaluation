@@ -98,6 +98,9 @@ def test_search_log_statuses_include_only_verified_negative_cards() -> None:
     }
 
     assert created_ids == {
+        "SRCH-I5B-LISHIMIN-POS-SHIREN-001",
+        "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001",
+        "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001",
         "SRCH-I5B-LISHIMIN-NEG-YIJI-001",
         "SRCH-I5B-LIUXIU-NEG-RONGJIAN-001",
         "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
@@ -106,15 +109,36 @@ def test_search_log_statuses_include_only_verified_negative_cards() -> None:
     }
 
 
-def test_lishimin_positive_leads_remain_unprocessed() -> None:
+def test_lishimin_positive_cards_use_005r_compatible_adjudication_fields() -> None:
+    cards = evidence_by_id()
+
+    for evidence_id, expected_strength, expected_level in [
+        ("EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001", 3, "强正"),
+        ("EVD-I5B-LISHIMIN-POS-SHIREN-WEIZHENG-001", 2, "中正"),
+        ("EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001", 2, "中正"),
+        ("EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001", 3, "强正"),
+    ]:
+        row = cards[evidence_id]
+        assert row["polarity"] == "positive"
+        assert row["strength"] == expected_strength
+        assert row["human_level"] == expected_level
+        assert row["case_classification"] == "other"
+        assert row["risk_status"] == "not_applicable"
+        assert row["mitigating_factors"] == []
+        assert row["aggravating_factors"] == []
+        assert row["reversal_or_rehabilitation"] == ["not_found"]
+        assert row["adjudication_status"] == "source_verified_pending_human_adjudication"
+
+
+def test_lishimin_positive_leads_are_now_converted() -> None:
     search_logs = {
         row["search_id"]: row
         for row in read_jsonl(SEARCH_LOGS_PATH)
     }
-    for search_id in [
-        "SRCH-I5B-LISHIMIN-POS-SHIREN-001",
-        "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001",
-        "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001",
-    ]:
-        assert search_logs[search_id]["result_status"] == "lead_needs_source_review"
-        assert search_logs[search_id]["linked_evidence_id"] == ""
+    for search_id, linked_id in {
+        "SRCH-I5B-LISHIMIN-POS-SHIREN-001": "EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001",
+        "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001": "EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001",
+        "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001": "EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001",
+    }.items():
+        assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
+        assert search_logs[search_id]["linked_evidence_id"] == linked_id
