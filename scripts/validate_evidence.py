@@ -49,6 +49,7 @@ VALID_RISK_STATUSES = {
 }
 VALID_ADJUDICATION_STATUSES = {
     "source_verified_pending_human_adjudication",
+    "source_verified_auto_classified_cluster_review_pending",
     "needs_more_source_review",
     "routed_to_adjacent_item_only",
     "human_adjudicated_candidate",

@@ -86,6 +86,7 @@ def test_task005b3_lishimin_negative_cases_follow_005r_strengths() -> None:
     assert wei["human_level"] == "中负"
     assert wei["trigger_family"] == "谏臣身后信用反转"
     assert wei["case_classification"] == "posthumous_trust_reversal"
+    assert wei["adjudication_status"] == "source_verified_auto_classified_cluster_review_pending"
     assert "restored_tablet" in wei["reversal_or_rehabilitation"]
     assert "trust_restored" in wei["reversal_or_rehabilitation"]
 
