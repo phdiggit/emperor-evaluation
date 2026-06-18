@@ -416,6 +416,82 @@ def test_evidence_cluster_unknown_evidence_id_fails(validation_data_dir: Path) -
     assert any("linked_evidence_ids references unknown evidence_id" in error for error in errors)
 
 
+def test_single_strong_evidence_cluster_is_allowed(validation_data_dir: Path) -> None:
+    write_jsonl(validation_data_dir / "sources.jsonl", [source_row()])
+    write_jsonl(
+        validation_data_dir / "evidence_cards.jsonl",
+        [
+            high_risk_negative_row(
+                evidence_id="EVD-I5B-TEST-NEG-CLUSTER-001",
+                strength=3,
+                human_level="强负",
+            )
+        ],
+    )
+    write_jsonl(
+        validation_data_dir / "evidence_clusters.jsonl",
+        [
+            {
+                "cluster_id": "ADJ-I5B-TEST-NEG-001",
+                "person": "测试人物",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "cluster_type": "talent_security",
+                "polarity": "negative",
+                "linked_evidence_ids": ["EVD-I5B-TEST-NEG-CLUSTER-001"],
+                "summary": "单卡强负组",
+                "five_axis_assessment": {"directness": "high"},
+                "candidate_strength": 3,
+                "upper_probe": "pending",
+                "cross_item_split": "测试切分",
+                "adjudication_status": "source_verified_pending_human_adjudication",
+                "note": "",
+            }
+        ],
+    )
+
+    assert validate_evidence.validate() == []
+
+
+def test_single_medium_evidence_cluster_fails(validation_data_dir: Path) -> None:
+    write_jsonl(validation_data_dir / "sources.jsonl", [source_row()])
+    write_jsonl(
+        validation_data_dir / "evidence_cards.jsonl",
+        [
+            high_risk_negative_row(
+                evidence_id="EVD-I5B-TEST-NEG-CLUSTER-001",
+                strength=2,
+                human_level="中负",
+            )
+        ],
+    )
+    write_jsonl(
+        validation_data_dir / "evidence_clusters.jsonl",
+        [
+            {
+                "cluster_id": "ADJ-I5B-TEST-NEG-001",
+                "person": "测试人物",
+                "item": "第五项",
+                "subitem": "第五项B",
+                "cluster_type": "talent_security",
+                "polarity": "negative",
+                "linked_evidence_ids": ["EVD-I5B-TEST-NEG-CLUSTER-001"],
+                "summary": "单卡中负组",
+                "five_axis_assessment": {"directness": "medium"},
+                "candidate_strength": 2,
+                "upper_probe": "pending",
+                "cross_item_split": "测试切分",
+                "adjudication_status": "source_verified_pending_human_adjudication",
+                "note": "",
+            }
+        ],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("a single linked evidence card requires candidate_strength>=3" in error for error in errors)
+
+
 def test_thematic_anchor_unknown_cluster_id_fails(validation_data_dir: Path) -> None:
     write_jsonl(
         validation_data_dir / "thematic_anchors.jsonl",

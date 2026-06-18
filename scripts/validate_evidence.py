@@ -388,19 +388,24 @@ def validate_evidence_cluster(
     linked_evidence_ids = row.get("linked_evidence_ids")
     if not isinstance(linked_evidence_ids, list):
         errors.append(f"{line_label}: linked_evidence_ids must be a list")
-    else:
-        if len(linked_evidence_ids) < 2:
-            errors.append(f"{line_label}: linked_evidence_ids must reference at least two evidence cards")
+    candidate_strength = row.get("candidate_strength")
+    if candidate_strength not in {1, 2, 3, 4}:
+        errors.append(f"{line_label}: candidate_strength must be one of 1, 2, 3, 4")
+    elif isinstance(linked_evidence_ids, list):
+        if len(linked_evidence_ids) == 0:
+            errors.append(f"{line_label}: linked_evidence_ids must reference at least one evidence card")
+        elif len(linked_evidence_ids) == 1 and candidate_strength < 3:
+            errors.append(
+                f"{line_label}: a single linked evidence card requires candidate_strength>=3"
+            )
+
+    if isinstance(linked_evidence_ids, list):
         for evidence_id in linked_evidence_ids:
             if evidence_id not in source_evidence_ids:
                 errors.append(f"{line_label}: linked_evidence_ids references unknown evidence_id: {evidence_id}")
 
     if "five_axis_assessment" in row and not isinstance(row.get("five_axis_assessment"), dict):
         errors.append(f"{line_label}: five_axis_assessment must be an object")
-
-    candidate_strength = row.get("candidate_strength")
-    if candidate_strength not in {1, 2, 3, 4}:
-        errors.append(f"{line_label}: candidate_strength must be one of 1, 2, 3, 4")
 
     if candidate_strength == 4 and row.get("adjudication_status") != "source_verified_pending_human_adjudication":
         errors.append(f"{line_label}: candidate_strength=4 requires pending human adjudication")
