@@ -548,10 +548,11 @@ def main() -> int:
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.write_text(brief_content, encoding="utf-8")
     print(f"exported {GLOBAL_SCALE_BRIEF_DOC_PATH}")
     print(f"exported {GLOBAL_SCALE_BRIEF_EXPORT_PATH}")
-    auto_adjudication_export_path, auto_rules_export_path, formal_landing_export_path = export_auto_adjudication()
+    auto_adjudication_export_path, auto_rules_export_path, formal_landing_export_path, closure_export_path = export_auto_adjudication()
     print(f"exported {auto_adjudication_export_path}")
     print(f"exported {auto_rules_export_path}")
     print(f"exported {formal_landing_export_path}")
+    print(f"exported {closure_export_path}")
     return 0
 
 

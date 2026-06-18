@@ -12,6 +12,8 @@ AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动
 AUTO_RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分标尺与档位映射草案.md"
+CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
+CLOSURE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点内部闭环收尾.md"
 
 AUTO_SPEC = importlib.util.spec_from_file_location(
     "export_i5b_auto_adjudication",
@@ -151,11 +153,15 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert AUTO_RULES_EXPORT_PATH.exists()
     assert FORMAL_EXPORT_PATH.exists()
     assert SCORE_MAP_DRAFT_EXPORT_PATH.exists()
+    assert CLOSURE_DOC_PATH.exists()
+    assert CLOSURE_EXPORT_PATH.exists()
 
     auto_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
     rules_content = AUTO_RULES_EXPORT_PATH.read_text(encoding="utf-8")
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
     score_map_content = SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
+    closure_doc_content = CLOSURE_DOC_PATH.read_text(encoding="utf-8")
+    closure_export_content = CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
     assert "negative_boundary_tier" in auto_content
@@ -189,6 +195,13 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "不得给李世民、刘秀、刘庄三人正式分" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
+    for content in (closure_doc_content, closure_export_content):
+        assert "第五项B三人试点内部闭环收尾" in content
+        assert "内部试算区间" in content
+        assert "内部试算分" in content
+        assert "不输出正式分，不排名，不生成阶段总榜或总榜" in content
+        assert "后续七大项完成后再统一映射" in content
+        assert "是否可进入扩展试点：可" in content
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:

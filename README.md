@@ -46,7 +46,7 @@ python scripts/build_db.py
 python scripts/export_md.py
 ```
 
-该命令会同时导出证据卡索引和第五项B三人试点检索线索视图等基础审阅页；第五项B自动结算草案、自动结算规则敏感点清单、正式定档落地表和评分标尺与档位映射草案由下方的 `export_i5b_auto_adjudication.py` 生成。
+该命令会同时导出证据卡索引和第五项B三人试点检索线索视图等基础审阅页；第五项B自动结算草案、自动结算规则敏感点清单、正式定档落地表、评分标尺与档位映射草案和三人试点内部闭环收尾由下方的 `export_i5b_auto_adjudication.py` 生成。
 
 单独导出第五项B自动结算视图：
 
