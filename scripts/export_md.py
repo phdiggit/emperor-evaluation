@@ -4,6 +4,8 @@ import json
 import sqlite3
 from pathlib import Path
 
+from export_i5b_auto_adjudication import export_auto_adjudication
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
@@ -379,6 +381,9 @@ def main() -> int:
     for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS:
         exported_net_evidence_path = export_i5b_net_evidence_pool(person, net_evidence_path)
         print(f"exported {exported_net_evidence_path}")
+    auto_adjudication_export_path, auto_rules_export_path = export_auto_adjudication()
+    print(f"exported {auto_adjudication_export_path}")
+    print(f"exported {auto_rules_export_path}")
     return 0
 
 

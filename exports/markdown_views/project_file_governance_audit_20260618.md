@@ -2,15 +2,16 @@
 
 生成日期：2026-06-18  
 范围：`docs/`、`data/`、`exports/markdown_views/`  
-任务来源：issue #40
+任务来源：issue #40；本轮按 issue #44 补充自动结算规则治理。
 
-本审计只处理方法论补充、魏征误分类清理和文件治理复核。不新增史料、不新增 evidence card/evidence cluster，不生成分数、排名或总榜。
+本审计只处理方法论补充、自动结算规则落地和文件治理复核。不新增史料、不新增 evidence card/evidence cluster，不生成分数、排名或总榜。
 
 ## 长期保留文件
 
 - `README.md`
 - `docs/证据裁量总则_讨论版.md`
 - `docs/第五项B正式工作流模板.md`
+- `docs/第五项B自动结算规则.md`
 - `docs/史料检索总则与项目-人物双轴工作流_讨论版.md`
 - `docs/数据层级与批次文件治理规则.md`
 - `docs/数据规范.md`
@@ -25,6 +26,7 @@
 - `data/trigger_terms.jsonl`
 - `exports/markdown_views/史料证据卡索引.md`
 - `exports/markdown_views/第五项B三人试点检索线索.md`
+- `exports/markdown_views/第五项B自动结算规则敏感点清单.md`
 - `exports/markdown_views/证据组裁量索引.md`
 - `exports/markdown_views/项目检索包索引.md`
 - `exports/markdown_views/第五项B_李世民净证据池.md`
@@ -49,6 +51,7 @@
 
 - `exports/markdown_views/i5b_three_pilot_methodology_migration_audit_20260618.md`
 - `exports/markdown_views/i5b_three_pilot_human_adjudication_reading_guide_20260618.md`
+- `exports/markdown_views/第五项B三人自动结算草案.md`
 - `exports/markdown_views/i5b_three_pilot_object_anchor_pregrade_checklist_20260618.md`
 
 说明：三者本质上属于 2026-06-18 三人迁移阶段说明，已不宜继续承担当前规则的唯一入口。
@@ -78,7 +81,7 @@
 ## 本轮治理结论
 
 - 已把“人才安全处置锚点”落实为证据卡/证据簇标签思路，而非独立多轴计算层。
-- 已将魏征负证从旧误分类清理为 `谏臣身后信用反转`，并把单证口径调整为“中负封顶、不得上探强负”。
-- 已把李世民混合负证 search log 拆成“功臣旧臣处置”与“魏征身后信用反转”两条，避免 canonical residue。
+- 已将自动结算层落到独立规则文件和独立导出草案，避免把规则问题继续放回逐人裁判。
+- 已将规则级复核清单替代人物级人工裁判清单，减少 future drift。
 - 已删除已完成但未清理的 correction batch。
 - 顶层入口 `README.md` 已补文件治理指引，减少 future drift。
