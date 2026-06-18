@@ -56,6 +56,8 @@
 
 - `exports/markdown_views/i5b_three_pilot_methodology_migration_audit_20260618.md`
 - `exports/markdown_views/i5b_three_pilot_human_adjudication_reading_guide_20260618.md`
+- `docs/全局总标尺决策简报_讨论版.md`
+- `exports/markdown_views/全局总标尺决策简报_讨论版.md`
 - `exports/markdown_views/第五项B三人自动结算草案.md`
 - `exports/markdown_views/第五项B评分标尺与档位映射草案.md`
 - `exports/markdown_views/第五项B评分映射总标尺对齐审计.md`
@@ -82,6 +84,8 @@
   说明：仍保留旧的通用负向 trigger family 骨架；本轮不重跑矩阵脚本，但后续应决定是否给“谏臣身后信用反转”补单独矩阵行。
 - `exports/markdown_views/第五项B三人净裁量草案.md`
   说明：仍是阶段性草案，后续若进入正式定档，应把核心说明折叠进更少的正式视图。
+- `docs/全局总标尺决策简报_讨论版.md`
+  说明：用于把全局总标尺缺口整理成用户规则级确认选项，当前仍属于讨论版。
 - `docs/第五项B评分标尺与档位映射草案.md`
   说明：当前是正式出分前的规则草案，不应直接被当作人物正式评分标准。
 
