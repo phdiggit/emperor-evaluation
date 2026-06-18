@@ -761,7 +761,6 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
         "",
         "### 规则状态",
         "",
-        f"- 若进入分数阶段还缺什么标尺或规则：{format_remaining_questions(report)}",
         f"- remaining_rule_questions：{format_remaining_questions(report)}",
         f"- score_stage_prerequisites：{format_score_stage_prerequisites(report)}",
         f"- not_scored_flag：是",

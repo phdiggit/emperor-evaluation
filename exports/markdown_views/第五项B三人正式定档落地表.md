@@ -39,7 +39,6 @@
 
 ### 规则状态
 
-- 若进入分数阶段还缺什么标尺或规则：无
 - remaining_rule_questions：无
 - score_stage_prerequisites：需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。
 - not_scored_flag：是
@@ -72,7 +71,6 @@
 
 ### 规则状态
 
-- 若进入分数阶段还缺什么标尺或规则：无
 - remaining_rule_questions：无
 - score_stage_prerequisites：需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。
 - not_scored_flag：是
@@ -105,7 +103,6 @@
 
 ### 规则状态
 
-- 若进入分数阶段还缺什么标尺或规则：无
 - remaining_rule_questions：无
 - score_stage_prerequisites：需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。
 - not_scored_flag：是
