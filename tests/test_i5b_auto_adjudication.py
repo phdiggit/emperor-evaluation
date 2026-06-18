@@ -10,6 +10,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 AUTO_RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
+FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
 
 AUTO_SPEC = importlib.util.spec_from_file_location(
     "export_i5b_auto_adjudication",
@@ -146,9 +147,11 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     assert AUTO_EXPORT_PATH.exists()
     assert AUTO_RULES_EXPORT_PATH.exists()
+    assert FORMAL_EXPORT_PATH.exists()
 
     auto_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
     rules_content = AUTO_RULES_EXPORT_PATH.read_text(encoding="utf-8")
+    formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
     assert "negative_boundary_tier" in auto_content
@@ -163,6 +166,16 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE" in rules_content
     assert "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL" in rules_content
     assert "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS" in rules_content
+    assert "第五项B三人正式定档落地表" in formal_content
+    assert "formal_band_draft" in formal_content
+    assert "not_scored_flag" in formal_content
+    assert "ranking_suppressed_flag" in formal_content
+    assert "| score |" not in formal_content
+    assert "| ranking |" not in formal_content
+    assert "| rank |" not in formal_content
+    assert "李世民" in formal_content and "极正候选 / 高位强正上探极正" in formal_content
+    assert "刘秀" in formal_content and "强正受压制" in formal_content
+    assert "刘庄" in formal_content and "中正受中负压制" in formal_content
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:
@@ -221,6 +234,21 @@ def test_real_data_reflects_issue46_rule_decisions() -> None:
     assert liuzhuang_cluster["residual_level"] == "medium"
     assert liuzhuang_cluster["boundary_tier"] == "adjacent_item_medium_residual"
     assert liuzhuang_cluster["auto_cluster_result"] == "中负边界"
+
+
+def test_formal_landing_table_reflects_auto_drafts() -> None:
+    result = run_script("export_i5b_auto_adjudication.py")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
+
+    assert "person | auto_band_direction | formal_band_draft" in formal_content
+    assert "李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正" in formal_content
+    assert "刘秀 | 强正受压制，不上探极正 | 强正受压制" in formal_content
+    assert "刘庄 | 中正受中负压制 | 中正受中负压制" in formal_content
+    assert "remaining_rule_questions" in formal_content
+    assert "not_scored_flag" in formal_content
+    assert "ranking_suppressed_flag" in formal_content
 
 
 def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> None:
