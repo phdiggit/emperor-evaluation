@@ -170,6 +170,8 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "formal_band_draft" in formal_content
     assert "not_scored_flag" in formal_content
     assert "ranking_suppressed_flag" in formal_content
+    assert "score_stage_prerequisites" in formal_content
+    assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
     assert "| score |" not in formal_content
     assert "| ranking |" not in formal_content
     assert "| rank |" not in formal_content
@@ -247,6 +249,7 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "刘秀 | 强正受压制，不上探极正 | 强正受压制" in formal_content
     assert "刘庄 | 中正受中负压制 | 中正受中负压制" in formal_content
     assert "remaining_rule_questions" in formal_content
+    assert "score_stage_prerequisites" in formal_content
     assert "not_scored_flag" in formal_content
     assert "ranking_suppressed_flag" in formal_content
 

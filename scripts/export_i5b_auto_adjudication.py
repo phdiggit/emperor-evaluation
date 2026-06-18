@@ -404,6 +404,12 @@ def format_remaining_questions(report: dict[str, Any]) -> str:
     return "；".join(questions) if questions else "无"
 
 
+def format_score_stage_prerequisites(report: dict[str, Any]) -> str:
+    if str(report.get("auto_band_direction") or "") == "自动草案待规则复核":
+        return "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。"
+    return "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。"
+
+
 def summarize_positive_basis(report: dict[str, Any]) -> str:
     anchors = safe_join(report.get("positive_anchor_names") or [])
     dimensions = safe_join(report.get("positive_dimensions") or [])
@@ -757,6 +763,7 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
         "",
         f"- 若进入分数阶段还缺什么标尺或规则：{format_remaining_questions(report)}",
         f"- remaining_rule_questions：{format_remaining_questions(report)}",
+        f"- score_stage_prerequisites：{format_score_stage_prerequisites(report)}",
         f"- not_scored_flag：是",
         f"- ranking_suppressed_flag：是",
     ]
@@ -842,6 +849,7 @@ def render_formal_landing_table() -> str:
                 "negative_boundary_blocking": report["negative_boundary_blocking"],
                 "rule_sensitive_points_resolved": format_rule_resolutions({"rule_sensitive_points": rule_points}),
                 "remaining_rule_questions": format_remaining_questions(report),
+                "score_stage_prerequisites": format_score_stage_prerequisites(report),
                 "not_scored_flag": "是",
                 "ranking_suppressed_flag": "是",
             }
@@ -866,6 +874,7 @@ def render_formal_landing_table() -> str:
                 "negative_boundary_blocking",
                 "rule_sensitive_points_resolved",
                 "remaining_rule_questions",
+                "score_stage_prerequisites",
                 "not_scored_flag",
                 "ranking_suppressed_flag",
             ],

@@ -4,11 +4,11 @@
 
 ## 一、正式落地总览
 
-| person | auto_band_direction | formal_band_draft | confidence | positive_basis | negative_pressure | negative_boundary_tier | negative_boundary_blocking | rule_sensitive_points_resolved | remaining_rule_questions | not_scored_flag | ranking_suppressed_flag |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正 | high_mid | 3个强正核心；5个正向维度；对象锚点：幕府聚才；旧敌转用；帝国级顶级将帅；顶级谏臣；寒门/后进人才；功臣安全秩序；维度摘要：人才组织；旧敌转用；授权专任；容谏反馈；寒门后进 | 弱负升中负边界；不阻断极正；残余层级：medium | weak_to_medium | False | 弱负上调中负边界：已按规则解决（不阻断极正或高位上探；只降低置信度，不进入强负核心） | 无 | 是 | 是 |
-| 刘秀 | 强正受压制，不上探极正 | 强正受压制 | medium_high | 2个强正核心；3个正向维度；对象锚点：创业期军政支柱；反馈入口；跨区域军政协同；少年将才；维度摘要：创业期军政授权；容谏反馈；授权专任 | 中负升强负边界；阻断极正；残余层级：strong | medium_to_strong | True | 中负上调强负边界：已按规则解决（阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负）；强负核心压制强正：已按规则解决（保留强正基础，但自动标记为强正受压制，不上探极正） | 无 | 是 | 是 |
-| 刘庄 | 中正受中负压制 | 中正受中负压制 | medium | 0个强正核心；3个正向维度；对象锚点：旧臣与宗室辅政；日食求言；边疆授权；维度摘要：辅政；容谏反馈；授权专任 | 相邻项剥离后的中负剩余；不阻断极正；残余层级：medium | adjacent_item_medium_residual | False | 相邻项主导剥离：已按规则解决（大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响）；B项剩余默认中负：已按规则解决（默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心） | 无 | 是 | 是 |
+| person | auto_band_direction | formal_band_draft | confidence | positive_basis | negative_pressure | negative_boundary_tier | negative_boundary_blocking | rule_sensitive_points_resolved | remaining_rule_questions | score_stage_prerequisites | not_scored_flag | ranking_suppressed_flag |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正 | high_mid | 3个强正核心；5个正向维度；对象锚点：幕府聚才；旧敌转用；帝国级顶级将帅；顶级谏臣；寒门/后进人才；功臣安全秩序；维度摘要：人才组织；旧敌转用；授权专任；容谏反馈；寒门后进 | 弱负升中负边界；不阻断极正；残余层级：medium | weak_to_medium | False | 弱负上调中负边界：已按规则解决（不阻断极正或高位上探；只降低置信度，不进入强负核心） | 无 | 需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。 | 是 | 是 |
+| 刘秀 | 强正受压制，不上探极正 | 强正受压制 | medium_high | 2个强正核心；3个正向维度；对象锚点：创业期军政支柱；反馈入口；跨区域军政协同；少年将才；维度摘要：创业期军政授权；容谏反馈；授权专任 | 中负升强负边界；阻断极正；残余层级：strong | medium_to_strong | True | 中负上调强负边界：已按规则解决（阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负）；强负核心压制强正：已按规则解决（保留强正基础，但自动标记为强正受压制，不上探极正） | 无 | 需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。 | 是 | 是 |
+| 刘庄 | 中正受中负压制 | 中正受中负压制 | medium | 0个强正核心；3个正向维度；对象锚点：旧臣与宗室辅政；日食求言；边疆授权；维度摘要：辅政；容谏反馈；授权专任 | 相邻项剥离后的中负剩余；不阻断极正；残余层级：medium | adjacent_item_medium_residual | False | 相邻项主导剥离：已按规则解决（大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响）；B项剩余默认中负：已按规则解决（默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心） | 无 | 需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。 | 是 | 是 |
 
 ## 二、逐人落地说明
 
@@ -41,6 +41,7 @@
 
 - 若进入分数阶段还缺什么标尺或规则：无
 - remaining_rule_questions：无
+- score_stage_prerequisites：需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。
 - not_scored_flag：是
 - ranking_suppressed_flag：是
 
@@ -73,6 +74,7 @@
 
 - 若进入分数阶段还缺什么标尺或规则：无
 - remaining_rule_questions：无
+- score_stage_prerequisites：需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。
 - not_scored_flag：是
 - ranking_suppressed_flag：是
 
@@ -105,5 +107,6 @@
 
 - 若进入分数阶段还缺什么标尺或规则：无
 - remaining_rule_questions：无
+- score_stage_prerequisites：需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。
 - not_scored_flag：是
 - ranking_suppressed_flag：是
