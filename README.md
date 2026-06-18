@@ -11,6 +11,7 @@
 - `data/templates/*.json` 只是填写模板，不进入 `build_db` 导入流程。
 - `evidence_cache.sqlite` 是生成物，不进 Git。
 - Markdown 是审阅导出视图，不是主源。
+- 文件治理与批次/主表边界以 `docs/数据层级与批次文件治理规则.md` 为准；已合并的 correction batch 不应长期留存。
 - 下一阶段是迁移规则和已回源史料，不迁移旧评分。
 - 当前可先阅读 `docs/数据规范.md`、`docs/ID命名规范.md` 和 `docs/第五项B试点计划.md`。
 - 已进入第五项B试点准备；当前只生成矩阵骨架，不代表完成检索或评分。

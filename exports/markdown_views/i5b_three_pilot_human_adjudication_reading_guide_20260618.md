@@ -118,20 +118,20 @@ EVD-I5B-LIUZHUANG-NEG-YIJI-001
 注意：
 
 ```text
-EVD-I5B-LISHIMIN-NEG-WEIZHENG-001 的 trigger_family 应按 correction batch 修正为“谏臣身后信用反转”，不是“疑忌杀害”。
+EVD-I5B-LISHIMIN-NEG-WEIZHENG-001 在 canonical 中已修正为“谏臣身后信用反转”，并自动定为中负封顶。
 ```
 
-### 第六步：看 correction batch
+### 第六步：看治理审计与 canonical 收口
 
 文件：
 
 ```text
-data/evidence_card_correction_batches/i5b_lishimin_weizheng_trigger_family_correction_20260618.jsonl
+exports/markdown_views/project_file_governance_audit_20260618.md
 ```
 
-目的：明确记录魏征 trigger_family 的纠偏口径。
+目的：确认魏征纠偏已合并进 canonical，并查看哪些阶段文件应继续保留、归档或删除。
 
-后续字段规范化时，应将该 correction 合并回 canonical evidence_cards。
+已处理的 correction batch 不应继续作为活跃执行文件悬挂。
 
 ## 二、人工裁判最小输入
 
@@ -143,7 +143,7 @@ data/evidence_card_correction_batches/i5b_lishimin_weizheng_trigger_family_corre
 3. 对象锚点池
 4. evidence_clusters
 5. 必要 evidence_cards
-6. correction batch
+6. 文件治理审计
 ```
 
 若只做快速裁判，优先看 1、2、3。若要复核史料支撑，再看 4、5、6。
@@ -155,7 +155,7 @@ data/evidence_card_correction_batches/i5b_lishimin_weizheng_trigger_family_corre
 ```text
 1. 正向强正是否成立？
 2. 负向是否只到中负，不构成强负拦截？
-3. 魏征是否作为“顶级谏臣身后信用反转”备注，而非疑忌杀害？
+3. 魏征是否作为“顶级谏臣身后信用反转”的边界负证进入证据组，而非继续沿用旧误分类？
 4. 张亮、侯君集是否维持边界负证，不抬成强负？
 ```
 
