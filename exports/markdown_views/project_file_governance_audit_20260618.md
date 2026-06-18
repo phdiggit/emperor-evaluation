@@ -58,6 +58,7 @@
 - `exports/markdown_views/i5b_three_pilot_human_adjudication_reading_guide_20260618.md`
 - `exports/markdown_views/第五项B三人自动结算草案.md`
 - `exports/markdown_views/第五项B评分标尺与档位映射草案.md`
+- `exports/markdown_views/第五项B评分映射总标尺对齐审计.md`
 - `exports/markdown_views/i5b_three_pilot_object_anchor_pregrade_checklist_20260618.md`
 
 说明：三者本质上属于 2026-06-18 三人迁移阶段说明，已不宜继续承担当前规则的唯一入口。
