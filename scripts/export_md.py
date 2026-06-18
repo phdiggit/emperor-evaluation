@@ -381,9 +381,10 @@ def main() -> int:
     for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS:
         exported_net_evidence_path = export_i5b_net_evidence_pool(person, net_evidence_path)
         print(f"exported {exported_net_evidence_path}")
-    auto_adjudication_export_path, auto_rules_export_path = export_auto_adjudication()
+    auto_adjudication_export_path, auto_rules_export_path, formal_landing_export_path = export_auto_adjudication()
     print(f"exported {auto_adjudication_export_path}")
     print(f"exported {auto_rules_export_path}")
+    print(f"exported {formal_landing_export_path}")
     return 0
 
 
