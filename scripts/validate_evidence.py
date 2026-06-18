@@ -53,7 +53,7 @@ VALID_ADJUDICATION_STATUSES = {
     "routed_to_adjacent_item_only",
     "human_adjudicated_candidate",
 }
-HIGH_RISK_TRIGGER_FAMILIES = {"疑忌杀害", "功臣旧臣处置", "廷杖刑辱", "意识形态压制", "容谏纳言"}
+HIGH_RISK_TRIGGER_FAMILIES = {"疑忌杀害", "功臣旧臣处置", "谏臣身后信用反转", "廷杖刑辱", "意识形态压制", "容谏纳言"}
 HIGH_RISK_TERMS = {
     "谋反",
     "下狱",
@@ -288,8 +288,8 @@ def validate_high_risk_negative(
                 "requires strength<=1 unless human adjudicated"
             )
 
-    if case_classification == "posthumous_trust_reversal" and strength in {2, 3, 4}:
-        errors.append(f"{line_label}: posthumous_trust_reversal requires strength<=1")
+    if case_classification == "posthumous_trust_reversal" and strength in {3, 4}:
+        errors.append(f"{line_label}: posthumous_trust_reversal requires strength<=2")
 
     if is_filled(mitigating_factors) and strength in {3, 4} and not is_filled(aggravating_factors):
         errors.append(f"{line_label}: strength>=3 with mitigating_factors requires aggravating_factors")

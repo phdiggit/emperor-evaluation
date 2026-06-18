@@ -82,8 +82,9 @@ def test_task005b3_lishimin_negative_cases_follow_005r_strengths() -> None:
     assert hou["risk_status"] == "confirmed_rebellion"
 
     wei = cards["EVD-I5B-LISHIMIN-NEG-WEIZHENG-001"]
-    assert wei["strength"] == 1
-    assert wei["human_level"] == "弱负"
+    assert wei["strength"] == 2
+    assert wei["human_level"] == "中负"
+    assert wei["trigger_family"] == "谏臣身后信用反转"
     assert wei["case_classification"] == "posthumous_trust_reversal"
     assert "restored_tablet" in wei["reversal_or_rehabilitation"]
     assert "trust_restored" in wei["reversal_or_rehabilitation"]
@@ -107,6 +108,7 @@ def test_search_log_statuses_include_only_verified_negative_cards() -> None:
         "SRCH-I5B-LIUXIU-POS-SHOUQUAN-001",
         "SRCH-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001",
         "SRCH-I5B-LISHIMIN-NEG-YIJI-001",
+        "SRCH-I5B-LISHIMIN-NEG-WEIZHENG-001",
         "SRCH-I5B-LIUXIU-NEG-RONGJIAN-001",
         "SRCH-I5B-LIUXIU-NEG-YISHIXINGTAI-001",
         "SRCH-I5B-LIUXIU-NEG-TINGZHANG-001",

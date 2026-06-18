@@ -15,6 +15,7 @@
 | 李世民 | 第五项 | 第五项B | negative | 授权掣肘 | 掣肘、不援、夺兵、罢 | 频更、趣出、催战、名义督 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 李世民 | 第五项 | 第五项B | negative | 权奸酷吏授权 | 酷吏、告密、罗织、制狱 | 锻炼、坐族、构陷 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 李世民 | 第五项 | 第五项B | negative | 疑忌杀害 | 疑、谗、谮、诛、杀、下狱 | 赐死、弃市、磔、死非其罪 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
+| 李世民 | 第五项 | 第五项B | negative | 谏臣身后信用反转 | 阿党、停婚、仆碑 | 身后追责、信用反转 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 李世民 | 第五项 | 第五项B | negative | 近幸亲小人 | 近幸、嬖、宠臣、小人 | 用事、纳赂、专权 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘秀 | 第五项 | 第五项B | positive | 容人复用 | 释之、不罪、复用 | 不以小过废大功、贷、赦 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘秀 | 第五项 | 第五项B | positive | 容谏纳言 | 从之、纳之、嘉纳、善其言 | 改容谢、极言无讳、言事无讳 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
@@ -27,6 +28,7 @@
 | 刘秀 | 第五项 | 第五项B | negative | 授权掣肘 | 掣肘、不援、夺兵、罢 | 频更、趣出、催战、名义督 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘秀 | 第五项 | 第五项B | negative | 权奸酷吏授权 | 酷吏、告密、罗织、制狱 | 锻炼、坐族、构陷 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘秀 | 第五项 | 第五项B | negative | 疑忌杀害 | 疑、谗、谮、诛、杀、下狱 | 赐死、弃市、磔、死非其罪 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
+| 刘秀 | 第五项 | 第五项B | negative | 谏臣身后信用反转 | 阿党、停婚、仆碑 | 身后追责、信用反转 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘秀 | 第五项 | 第五项B | negative | 近幸亲小人 | 近幸、嬖、宠臣、小人 | 用事、纳赂、专权 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘庄 | 第五项 | 第五项B | positive | 容人复用 | 释之、不罪、复用 | 不以小过废大功、贷、赦 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘庄 | 第五项 | 第五项B | positive | 容谏纳言 | 从之、纳之、嘉纳、善其言 | 改容谢、极言无讳、言事无讳 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
@@ -39,4 +41,5 @@
 | 刘庄 | 第五项 | 第五项B | negative | 授权掣肘 | 掣肘、不援、夺兵、罢 | 频更、趣出、催战、名义督 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘庄 | 第五项 | 第五项B | negative | 权奸酷吏授权 | 酷吏、告密、罗织、制狱 | 锻炼、坐族、构陷 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘庄 | 第五项 | 第五项B | negative | 疑忌杀害 | 疑、谗、谮、诛、杀、下狱 | 赐死、弃市、磔、死非其罪 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
+| 刘庄 | 第五项 | 第五项B | negative | 谏臣身后信用反转 | 阿党、停婚、仆碑 | 身后追责、信用反转 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |
 | 刘庄 | 第五项 | 第五项B | negative | 近幸亲小人 | 近幸、嬖、宠臣、小人 | 用事、纳赂、专权 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |

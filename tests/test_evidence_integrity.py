@@ -613,8 +613,8 @@ def test_confirmed_rebellion_non_expansion_strength_above_one_fails(validation_d
 
 def test_posthumous_trust_reversal_strength_above_one_fails(validation_data_dir: Path) -> None:
     row = high_risk_negative_row(
-        strength=2,
-        human_level="中负",
+        strength=3,
+        human_level="强负",
         case_classification="posthumous_trust_reversal",
         risk_status="not_applicable",
         mitigating_factors=["posthumous_event"],
@@ -623,7 +623,7 @@ def test_posthumous_trust_reversal_strength_above_one_fails(validation_data_dir:
 
     errors = write_high_risk_fixture(validation_data_dir, row)
 
-    assert any("posthumous_trust_reversal requires strength<=1" in error for error in errors)
+    assert any("posthumous_trust_reversal requires strength<=2" in error for error in errors)
 
 
 def test_strength_three_with_mitigating_factors_requires_aggravating_factors(validation_data_dir: Path) -> None:
