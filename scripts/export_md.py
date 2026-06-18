@@ -14,10 +14,41 @@ SEARCH_LOGS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三�
 EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
 THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
 QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
+EXPANDED_BATCH1_REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
 CANDIDATE_POOL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点候选池设计.md"
+EXPANDED_BATCH1_PERSONS = ["刘邦", "雍正", "朱元璋"]
+EXPANDED_BATCH1_EVIDENCE_HEADERS = [
+    "evidence_id",
+    "person",
+    "polarity",
+    "strength",
+    "human_level",
+    "source_id",
+    "quote_short",
+    "object_anchor",
+    "evidence_role",
+    "cluster_candidate_id",
+    "cross_item_split",
+    "scoring_effect",
+    "verification_status",
+    "adjudication_status",
+]
+EXPANDED_BATCH1_CLUSTER_HEADERS = [
+    "cluster_id",
+    "person",
+    "polarity",
+    "linked_evidence_ids",
+    "summary",
+    "five_axis_assessment",
+    "candidate_strength",
+    "upper_probe",
+    "cross_item_split",
+    "adjudication_status",
+    "status",
+]
 
 HEADERS = [
     "evidence_id",
@@ -316,6 +347,77 @@ def export_generic_markdown(
 
     export_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return export_path
+
+
+def export_expanded_i5b_batch1_review() -> Path:
+    EXPANDED_BATCH1_REVIEW_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    evidence_rows = []
+    cluster_rows = []
+    if DB_PATH.exists():
+        placeholders = ", ".join("?" for _ in EXPANDED_BATCH1_PERSONS)
+        with sqlite3.connect(DB_PATH) as connection:
+            connection.row_factory = sqlite3.Row
+            evidence_rows = list(
+                connection.execute(
+                    f"""
+                    SELECT raw_json
+                    FROM evidence_cards
+                    WHERE subitem = ?
+                      AND person IN ({placeholders})
+                    ORDER BY person, polarity DESC, strength DESC, evidence_id
+                    """,
+                    [I5B_SUBITEM, *EXPANDED_BATCH1_PERSONS],
+                )
+            )
+            cluster_rows = list(
+                connection.execute(
+                    f"""
+                    SELECT raw_json
+                    FROM evidence_clusters
+                    WHERE subitem = ?
+                      AND person IN ({placeholders})
+                    ORDER BY person, polarity DESC, candidate_strength DESC, cluster_id
+                    """,
+                    [I5B_SUBITEM, *EXPANDED_BATCH1_PERSONS],
+                )
+            )
+
+    lines = [
+        "# 第五项B扩展试点第一批证据卡与证据簇草案",
+        "",
+        "本文件汇总刘邦、雍正、朱元璋的回源证据卡与证据簇草案，仅供审阅，不生成正式分，不排名，不出总榜。",
+        "",
+        "## 证据卡",
+        "",
+        "| " + " | ".join(EXPANDED_BATCH1_EVIDENCE_HEADERS) + " |",
+        "| " + " | ".join("---" for _ in EXPANDED_BATCH1_EVIDENCE_HEADERS) + " |",
+    ]
+
+    for row in evidence_rows:
+        raw_json = json.loads(row["raw_json"])
+        lines.append(
+            "| " + " | ".join(escape_cell(raw_json.get(header)) for header in EXPANDED_BATCH1_EVIDENCE_HEADERS) + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 证据簇",
+            "",
+            "| " + " | ".join(EXPANDED_BATCH1_CLUSTER_HEADERS) + " |",
+            "| " + " | ".join("---" for _ in EXPANDED_BATCH1_CLUSTER_HEADERS) + " |",
+        ]
+    )
+
+    for row in cluster_rows:
+        raw_json = json.loads(row["raw_json"])
+        lines.append(
+            "| " + " | ".join(escape_cell(raw_json.get(header)) for header in EXPANDED_BATCH1_CLUSTER_HEADERS) + " |"
+        )
+
+    EXPANDED_BATCH1_REVIEW_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return EXPANDED_BATCH1_REVIEW_EXPORT_PATH
 
 
 def render_global_scale_decision_brief() -> str:
@@ -725,6 +827,8 @@ def main() -> int:
     for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS:
         exported_net_evidence_path = export_i5b_net_evidence_pool(person, net_evidence_path)
         print(f"exported {exported_net_evidence_path}")
+    expanded_batch1_review_export_path = export_expanded_i5b_batch1_review()
+    print(f"exported {expanded_batch1_review_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
