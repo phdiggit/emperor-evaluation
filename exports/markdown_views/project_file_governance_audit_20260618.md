@@ -2,7 +2,7 @@
 
 生成日期：2026-06-18  
 范围：`docs/`、`data/`、`exports/markdown_views/`  
-任务来源：issue #44
+任务来源：issue #40；本轮按 issue #44 补充自动结算规则治理。
 
 本审计只处理方法论补充、自动结算规则落地和文件治理复核。不新增史料、不新增 evidence card/evidence cluster，不生成分数、排名或总榜。
 
@@ -27,7 +27,6 @@
 - `exports/markdown_views/史料证据卡索引.md`
 - `exports/markdown_views/第五项B三人试点检索线索.md`
 - `exports/markdown_views/第五项B自动结算规则敏感点清单.md`
-- `exports/markdown_views/第五项B三人自动结算草案.md`
 - `exports/markdown_views/证据组裁量索引.md`
 - `exports/markdown_views/项目检索包索引.md`
 - `exports/markdown_views/第五项B_李世民净证据池.md`
@@ -52,7 +51,6 @@
 
 - `exports/markdown_views/i5b_three_pilot_methodology_migration_audit_20260618.md`
 - `exports/markdown_views/i5b_three_pilot_human_adjudication_reading_guide_20260618.md`
-- `exports/markdown_views/第五项B自动结算规则敏感点清单.md`
 - `exports/markdown_views/第五项B三人自动结算草案.md`
 - `exports/markdown_views/i5b_three_pilot_object_anchor_pregrade_checklist_20260618.md`
 
