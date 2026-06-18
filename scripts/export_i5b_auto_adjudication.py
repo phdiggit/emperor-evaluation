@@ -61,28 +61,34 @@ DIRECT_SAFETY_KEYWORDS = (
 
 RULE_SENSITIVE_POINTS = [
     {
-        "rule_id": "RULE-I5B-BOUNDARY-MIDNEG-NO-BLOCK",
-        "rule_question": "多维强正证据簇存在中负边界负证，且该中负带 mitigation/upper_bound 时，是否阻断极正上探？",
-        "default_rule": "不阻断；只降低置信度或保留极正候选标记。",
-        "why_it_matters": "避免把魏征类边界负证机械放大成高档位拦截。",
+        "rule_id": "RULE-I5B-BOUNDARY-WEAK-TO-MEDIUM",
+        "rule_question": "弱负上调为中负的边界负证是否阻断极正或高位上探？",
+        "default_rule": "不阻断；只降低置信度，不进入强负核心。",
+        "why_it_matters": "避免把带 mitigation_flag / upper_bound_flag 的轻边界直接抬成拦截项。",
     },
     {
-        "rule_id": "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-NO-EXTREME",
-        "rule_question": "强正证据高度集中于创业期军政授权或单一人才类型时，能否上探极正？",
-        "default_rule": "不能；强正封顶，除非补出长期中枢治理、文臣生态、反馈入口或异质人才整合等新维度。",
-        "why_it_matters": "防止把创业期军政授权直接等同于极正。",
+        "rule_id": "RULE-I5B-BOUNDARY-MEDIUM-TO-STRONG",
+        "rule_question": "中负上调为强负的边界负证是否阻断极正或高位上探？",
+        "default_rule": "阻断；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。",
+        "why_it_matters": "把真正破坏表达安全、人才安全或授权可信度的负证与普通边界负证分开。",
     },
     {
-        "rule_id": "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL",
-        "rule_question": "大规模牵连、政权安全、司法残酷类材料剥离相邻项后，第五项B剩余强度如何默认处理？",
-        "default_rule": "默认中负剩余；只有存在直接表达寒蝉、人才流失、群臣莫敢正言、谏臣安全破坏等硬证时，才保留强负剩余。",
-        "why_it_matters": "避免把楚狱类材料未剥离相邻项就直接压成强负核心。",
+        "rule_id": "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE",
+        "rule_question": "单一维度强正是否可以上探极正？",
+        "default_rule": "默认强正封顶；但同一维度内若至少存在三个强正核心且均为第五项B直接证据，则允许上探极正候选。",
+        "why_it_matters": "把“单维强正封顶”与“单维但足够厚的三核心极正候选”区分开。",
     },
     {
-        "rule_id": "RULE-I5B-STRONG-NEG-CORE-VS-STRONG-POS",
-        "rule_question": "强正证据成立，但强负核心直接命中表达安全/人才安全时，是否允许高位上探？",
-        "default_rule": "可保留强正基础，但自动标记为强正受压制，不得上探极正。",
-        "why_it_matters": "用于刘秀这类强正与强负并存的高档位拦截场景。",
+        "rule_id": "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL",
+        "rule_question": "相邻项强负剥离后，第五项B剩余如何执行？",
+        "default_rule": "大案本身严重不等于第五项B强负；若剥离后仅剩人才安全/表达安全的轻微外溢，则默认中负剩余；若出现群臣莫敢正言、明显寒蝉、人才退缩或授权可信度破坏等硬证，才保留强负核心。",
+        "why_it_matters": "把政权安全、司法残酷、行政威慑与B项剩余影响分开。",
+    },
+    {
+        "rule_id": "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS",
+        "rule_question": "强正底盘已经成立时，强负核心如何影响上探？",
+        "default_rule": "保留强正基础，但自动标记为强正受压制，不上探极正；若强负核心呈结构性寒蝉，可进一步压低到中正受强负压制。",
+        "why_it_matters": "防止强正掩盖对表达安全和人才安全的硬伤。",
     },
 ]
 
@@ -227,6 +233,75 @@ def safe_join(values: list[object]) -> str:
     return "；".join(unique_values([value for value in values if value not in (None, "")]))
 
 
+def classify_negative_boundary(
+    linked_cards: list[dict[str, Any]],
+    cluster_candidate_strength: int | None = None,
+) -> dict[str, Any]:
+    max_strength = max((int(card.get("strength") or 0) for card in linked_cards), default=0)
+    direct_safety_hard = has_direct_safety_hard_evidence(linked_cards)
+    has_boundary = any(is_boundary_card(card) for card in linked_cards)
+    cluster_strength = int(cluster_candidate_strength or 0)
+
+    if direct_safety_hard:
+        return {
+            "boundary_tier": "medium_to_strong",
+            "residual_level": "strong",
+            "blocking_extreme": True,
+            "auto_cluster_result": "强负候选",
+            "negative_core": True,
+            "hard_evidence": True,
+        }
+
+    if max_strength >= 3 or cluster_strength >= 3:
+        return {
+            "boundary_tier": "adjacent_item_medium_residual",
+            "residual_level": "medium",
+            "blocking_extreme": False,
+            "auto_cluster_result": "中负边界",
+            "negative_core": False,
+            "hard_evidence": False,
+        }
+
+    if max_strength == 2:
+        return {
+            "boundary_tier": "weak_to_medium",
+            "residual_level": "medium",
+            "blocking_extreme": False,
+            "auto_cluster_result": "中负边界",
+            "negative_core": False,
+            "hard_evidence": False,
+        }
+
+    if max_strength == 1:
+        return {
+            "boundary_tier": "weak_to_medium",
+            "residual_level": "weak",
+            "blocking_extreme": False,
+            "auto_cluster_result": "弱负边界",
+            "negative_core": False,
+            "hard_evidence": False,
+        }
+
+    if has_boundary:
+        return {
+            "boundary_tier": "weak_to_medium",
+            "residual_level": "none",
+            "blocking_extreme": False,
+            "auto_cluster_result": "未定",
+            "negative_core": False,
+            "hard_evidence": False,
+        }
+
+    return {
+        "boundary_tier": "none",
+        "residual_level": "none",
+        "blocking_extreme": False,
+        "auto_cluster_result": "未定",
+        "negative_core": False,
+        "hard_evidence": False,
+    }
+
+
 def evaluate_cluster(
     cluster: dict[str, Any],
     evidence_lookup: dict[str, dict[str, Any]],
@@ -245,34 +320,17 @@ def evaluate_cluster(
         [cluster.get("cross_item_split", "")] + [card.get("cross_item_split") for card in linked_cards]
     )
 
+    negative_profile = classify_negative_boundary(linked_cards, cluster.get("candidate_strength"))
     residual_level = "none"
     if cluster.get("polarity") == "negative":
-        max_strength = max((int(card.get("strength") or 0) for card in linked_cards), default=0)
-        direct_safety_hard = has_direct_safety_hard_evidence(linked_cards)
-        has_boundary = any(is_boundary_card(card) for card in linked_cards)
-        if max_strength >= 4:
-            residual_level = "extreme"
-        elif max_strength >= 3:
-            residual_level = "strong" if direct_safety_hard else "medium" if has_boundary else "strong"
-        elif max_strength == 2:
-            residual_level = "medium"
-        elif max_strength == 1:
-            residual_level = "weak"
-        if direct_safety_hard:
-            residual_level = "strong"
+        residual_level = negative_profile["residual_level"]
     elif cluster.get("polarity") == "positive":
         residual_level = "strong" if int(cluster.get("candidate_strength") or 0) >= 3 else "medium"
 
     if cluster.get("polarity") == "positive":
         auto_cluster_result = "强正候选" if int(cluster.get("candidate_strength") or 0) >= 3 else "中正增厚"
     else:
-        auto_cluster_result = {
-            "extreme": "极负候选",
-            "strong": "强负候选",
-            "medium": "中负边界",
-            "weak": "弱负边界",
-            "none": "未定",
-        }[residual_level]
+        auto_cluster_result = negative_profile["auto_cluster_result"]
 
     return {
         "cluster_id": cluster.get("cluster_id"),
@@ -290,6 +348,9 @@ def evaluate_cluster(
         "linked_cluster_roles": linked_cluster_roles,
         "cross_item_split_signals": linked_cross_item_splits,
         "residual_level": residual_level,
+        "boundary_tier": negative_profile["boundary_tier"] if cluster.get("polarity") == "negative" else "none",
+        "blocking_extreme": negative_profile["blocking_extreme"] if cluster.get("polarity") == "negative" else False,
+        "negative_core": negative_profile["negative_core"] if cluster.get("polarity") == "negative" else False,
         "has_high_value_object_anchor": any(is_high_value_anchor(card) for card in linked_cards),
         "has_boundary_evidence": any(is_boundary_card(card) for card in linked_cards),
         "has_mitigation_flag": bool(linked_mitigation_flags),
@@ -329,24 +390,14 @@ def evaluate_person(
     has_boundary_evidence = any(is_boundary_card(card) for card in negative_cards)
     has_mitigation_flag = any(bool(card.get("mitigation_flag")) for card in person_cards)
     has_upper_bound_flag = any(bool(card.get("upper_bound_flag")) for card in person_cards)
-    has_strong_negative_core = strong_negative_count > 0
+    negative_profile = classify_negative_boundary(negative_cards)
+    has_strong_negative_core = strong_negative_count > 0 or negative_profile["negative_core"]
     has_extreme_negative_core = extreme_negative_count > 0
     cross_item_split_required = any(bool(card.get("cross_item_split")) for card in person_cards)
-
-    negative_residual_level = "none"
-    if negative_cards:
-        max_negative_strength = max(int(card.get("strength") or 0) for card in negative_cards)
-        direct_safety_hard = has_direct_safety_hard_evidence(negative_cards)
-        if max_negative_strength >= 4:
-            negative_residual_level = "extreme"
-        elif max_negative_strength >= 3:
-            negative_residual_level = "strong" if direct_safety_hard else "medium" if has_boundary_evidence else "strong"
-        elif max_negative_strength == 2:
-            negative_residual_level = "medium"
-        else:
-            negative_residual_level = "weak"
-        if direct_safety_hard:
-            negative_residual_level = "strong"
+    negative_residual_level = negative_profile["residual_level"]
+    negative_boundary_tier = negative_profile["boundary_tier"]
+    negative_boundary_blocking = negative_profile["blocking_extreme"]
+    positive_extreme_allowed = strong_positive_count >= 3 or (positive_dimension_count >= 3 and not single_dimension_flag)
 
     max_positive_strength = max((int(card.get("strength") or 0) for card in positive_cards), default=0)
     positive_cluster_rows = [evaluate_cluster(row, evidence_lookup) for row in cluster_rows if row.get("person") == person and row.get("polarity") == "positive"]
@@ -354,13 +405,12 @@ def evaluate_person(
     positive_cluster_rows.sort(key=lambda row: (-int(row["candidate_strength"] or 0), str(row["cluster_id"])))
     negative_cluster_rows.sort(key=lambda row: (-int(row["candidate_strength"] or 0), str(row["cluster_id"])))
 
-    if max_positive_strength >= 3 and negative_residual_level in {"none", "weak", "medium"}:
-        if positive_dimension_count >= 3 and not single_dimension_flag:
-            auto_band_direction = "高位强正，上探极正候选"
-        else:
-            auto_band_direction = "强正成立，但极正需看规则敏感点"
-    elif max_positive_strength >= 3 and negative_residual_level in {"strong", "extreme"}:
+    if max_positive_strength >= 3 and negative_boundary_blocking:
         auto_band_direction = "强正受压制，不上探极正"
+    elif max_positive_strength >= 3 and positive_extreme_allowed and negative_boundary_tier in {"none", "weak_to_medium", "adjacent_item_medium_residual"}:
+        auto_band_direction = "高位强正，上探极正候选"
+    elif max_positive_strength >= 3:
+        auto_band_direction = "强正封顶，不上探极正"
     elif max_positive_strength <= 2 and negative_residual_level == "medium":
         auto_band_direction = "中正受中负压制"
     elif max_positive_strength <= 2 and negative_residual_level in {"strong", "extreme"}:
@@ -369,7 +419,9 @@ def evaluate_person(
         auto_band_direction = "自动草案待规则复核"
 
     if auto_band_direction == "高位强正，上探极正候选":
-        confidence = "high"
+        confidence = "high" if negative_boundary_tier == "none" else "high_mid"
+    elif auto_band_direction == "强正封顶，不上探极正":
+        confidence = "medium_high" if max_positive_strength >= 3 else "medium"
     elif auto_band_direction == "强正受压制，不上探极正":
         confidence = "medium_high"
     elif auto_band_direction == "中正受中负压制":
@@ -382,34 +434,34 @@ def evaluate_person(
     if person == "李世民":
         rule_sensitive_points = [
             {
-                "rule": "中负边界是否阻断极正",
-                "decision": "否；魏征线带 mitigation_flag / upper_bound_flag，默认不阻断。",
+                "rule": "弱负上调中负边界",
+                "decision": "不阻断极正或高位上探；只降低置信度，不进入强负核心。",
             },
             {
-                "rule": "同一对象正负反转是否单列",
-                "decision": "是；只在证据组层与定档层备注，不把单证继续抬成强负核心。",
+                "rule": "中负上调强负边界",
+                "decision": "若已突破中负封顶，则阻断极正/高位上探，但仍不机械扩展到极负。",
             },
         ]
     elif person == "刘秀":
         rule_sensitive_points = [
             {
-                "rule": "单一维度强正能否极正",
-                "decision": "否；正向仍偏创业期军政授权，默认强正封顶。",
+                "rule": "单维强正三核心",
+                "decision": "单一维度默认强正封顶；若同一维度内至少三个强正核心且均为第五项B直接证据，则允许上探极正候选。",
             },
             {
-                "rule": "强负核心是否压制强正",
-                "decision": "是；表达安全硬证默认触发高档位上探拦截。",
+                "rule": "强负核心压制强正",
+                "decision": "强正底盘保留，但强负核心直接命中表达安全或人才安全时，不上探极正。",
             },
         ]
     else:
         rule_sensitive_points = [
             {
-                "rule": "相邻项强负剥离后的 B 项剩余",
-                "decision": "默认中负剩余；若出现直接寒蝉硬证再升级为强负核心。",
+                "rule": "相邻项主导剥离",
+                "decision": "大案本身严重不等于第五项B强负；先切政权安全、司法残酷、行政威慑、认知判断和战果等相邻项。",
             },
             {
-                "rule": "中正正证能否机械抵消强负",
-                "decision": "否；中正正证只保留底盘，不机械抵消相邻项强负。",
+                "rule": "B项剩余默认强度",
+                "decision": "剥离后默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。",
             },
         ]
 
@@ -435,6 +487,8 @@ def evaluate_person(
         "has_upper_bound_flag": has_upper_bound_flag,
         "has_strong_negative_core": has_strong_negative_core,
         "has_extreme_negative_core": has_extreme_negative_core,
+        "negative_boundary_tier": negative_boundary_tier,
+        "negative_boundary_blocking": negative_boundary_blocking,
         "cross_item_split_required": cross_item_split_required,
         "cross_item_split_residual_level": negative_residual_level,
         "auto_band_direction": auto_band_direction,
@@ -468,8 +522,9 @@ def render_rule_sensitive_points() -> str:
         "## 规则使用方式",
         "",
         "1. 先看规则问题是否被当前 cluster 命中。",
-        "2. 若规则已经足够抽象地解释边界，只回填到自动规则表，不做逐案裁判。",
-        "3. 若规则仍无法抽象化，才把问题后移到规则层审核。",
+        "2. 弱负升中负的边界只降置信度，不阻断极正/高位上探，也不进入强负核心。",
+        "3. 中负升强负的边界阻断极正/高位上探，只在有明确突破中负封顶的硬证时进入强负核心。",
+        "4. 若规则仍无法抽象化，才把问题后移到规则层审核。",
     ]
     return "\n".join(lines) + "\n"
 
@@ -499,6 +554,8 @@ def render_person_section(report: dict[str, Any]) -> str:
                 "linked_mitigation_flags",
                 "linked_cluster_roles",
                 "cross_item_split_signals",
+                "boundary_tier",
+                "blocking_extreme",
                 "residual_level",
                 "auto_cluster_result",
             ],
@@ -530,6 +587,8 @@ def render_person_section(report: dict[str, Any]) -> str:
                 {"field": "has_upper_bound_flag", "value": report["has_upper_bound_flag"]},
                 {"field": "has_strong_negative_core", "value": report["has_strong_negative_core"]},
                 {"field": "has_extreme_negative_core", "value": report["has_extreme_negative_core"]},
+                {"field": "negative_boundary_tier", "value": report["negative_boundary_tier"]},
+                {"field": "negative_boundary_blocking", "value": report["negative_boundary_blocking"]},
                 {"field": "cross_item_split_required", "value": report["cross_item_split_required"]},
                 {"field": "cross_item_split_residual_level", "value": report["cross_item_split_residual_level"]},
             ],
@@ -583,19 +642,21 @@ def render_auto_adjudication() -> str:
         "",
         "本文件由现有 `evidence_cards` / `evidence_clusters` / `thematic_anchors` 规则派生，只输出 band direction、confidence 与规则敏感点，不生成分数、排名或总榜。",
         "",
-        "## 自动结算总览",
-        "",
-        markdown_table(
-            [
-                "person",
-                "positive_cluster_ids",
-                "negative_cluster_ids",
-                "auto_band_direction",
-                "confidence",
-                "rule_sensitive_points",
-            ],
-            overview_rows,
-        ),
+            "## 自动结算总览",
+            "",
+            markdown_table(
+                [
+                    "person",
+                    "positive_cluster_ids",
+                    "negative_cluster_ids",
+                    "auto_band_direction",
+                    "confidence",
+                    "negative_boundary_tier",
+                    "negative_boundary_blocking",
+                    "rule_sensitive_points",
+                ],
+                overview_rows,
+            ),
         "",
         "## 逐人自动草案",
         "",
