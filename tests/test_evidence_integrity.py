@@ -71,7 +71,12 @@ def test_export_md_generates_evidence_index() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     assert EXPORT_PATH.exists()
     content = EXPORT_PATH.read_text(encoding="utf-8")
-    assert "| evidence_id | person | subitem | human_level | source_id | quote_short | verification_status |" in content
+    assert "| evidence_id | person | subitem | human_level | source_id | quote_short | object_anchor |" in content
+    assert "object_anchor" in content
+    assert "evidence_role" in content
+    assert "mitigation_flag" in content
+    assert "upper_bound_flag" in content
+    assert "cluster_role" in content
     assert EVIDENCE_CLUSTERS_EXPORT_PATH.exists()
     assert THEMATIC_ANCHORS_EXPORT_PATH.exists()
     assert QUERY_PROFILES_EXPORT_PATH.exists()

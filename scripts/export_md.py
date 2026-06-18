@@ -20,6 +20,11 @@ HEADERS = [
     "human_level",
     "source_id",
     "quote_short",
+    "object_anchor",
+    "evidence_role",
+    "mitigation_flag",
+    "upper_bound_flag",
+    "cluster_role",
     "verification_status",
     "case_classification",
     "risk_status",
@@ -47,6 +52,8 @@ EVIDENCE_CLUSTER_HEADERS = [
     "cluster_type",
     "polarity",
     "linked_evidence_ids",
+    "linked_object_anchors",
+    "linked_evidence_roles",
     "candidate_strength",
     "upper_probe",
     "adjudication_status",
@@ -90,6 +97,11 @@ NET_EVIDENCE_CARD_HEADERS = [
     "trigger_family",
     "source_id",
     "quote_short",
+    "object_anchor",
+    "evidence_role",
+    "mitigation_flag",
+    "upper_bound_flag",
+    "cluster_role",
     "cross_item_split",
     "scoring_effect",
     "adjudication_status",
@@ -109,6 +121,19 @@ def escape_cell(value: object) -> str:
     if isinstance(value, (list, dict)):
         return json.dumps(value, ensure_ascii=False)
     return str(value).replace("|", "\\|").replace("\n", " ")
+
+
+def summarize_unique_values(rows: list[dict[str, object]], field: str) -> str:
+    values = []
+    for row in rows:
+        value = row.get(field)
+        if value is None:
+            continue
+        if isinstance(value, str):
+            cleaned = value.strip()
+            if cleaned and cleaned not in values:
+                values.append(cleaned)
+    return "；".join(values)
 
 
 def export_markdown() -> Path:
@@ -280,18 +305,60 @@ def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
     return export_path
 
 
+def export_evidence_clusters_markdown() -> Path:
+    EVIDENCE_CLUSTERS_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    cluster_rows = []
+    evidence_lookup: dict[str, dict[str, object]] = {}
+    if DB_PATH.exists():
+        with sqlite3.connect(DB_PATH) as connection:
+            connection.row_factory = sqlite3.Row
+            evidence_rows = list(
+                connection.execute(
+                    """
+                    SELECT evidence_id, raw_json
+                    FROM evidence_cards
+                    """
+                )
+            )
+            for row in evidence_rows:
+                evidence_lookup[row["evidence_id"]] = json.loads(row["raw_json"])
+
+            cluster_rows = list(
+                connection.execute(
+                    """
+                    SELECT raw_json
+                    FROM evidence_clusters
+                    ORDER BY cluster_id
+                    """
+                )
+            )
+
+    lines = [
+        "# 证据组裁量索引",
+        "",
+        "| " + " | ".join(EVIDENCE_CLUSTER_HEADERS) + " |",
+        "| " + " | ".join("---" for _ in EVIDENCE_CLUSTER_HEADERS) + " |",
+    ]
+
+    for row in cluster_rows:
+        raw_json = json.loads(row["raw_json"])
+        linked_evidence_ids = raw_json.get("linked_evidence_ids") or []
+        linked_rows = [evidence_lookup[evidence_id] for evidence_id in linked_evidence_ids if evidence_id in evidence_lookup]
+        raw_json["linked_object_anchors"] = summarize_unique_values(linked_rows, "object_anchor")
+        raw_json["linked_evidence_roles"] = summarize_unique_values(linked_rows, "evidence_role")
+        lines.append("| " + " | ".join(escape_cell(raw_json.get(header)) for header in EVIDENCE_CLUSTER_HEADERS) + " |")
+
+    EVIDENCE_CLUSTERS_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return EVIDENCE_CLUSTERS_EXPORT_PATH
+
+
 def main() -> int:
     export_path = export_markdown()
     print(f"exported {export_path}")
     search_logs_export_path = export_search_logs_markdown()
     print(f"exported {search_logs_export_path}")
-    evidence_clusters_export_path = export_generic_markdown(
-        EVIDENCE_CLUSTERS_EXPORT_PATH,
-        "证据组裁量索引",
-        "evidence_clusters",
-        EVIDENCE_CLUSTER_HEADERS,
-        "cluster_id",
-    )
+    evidence_clusters_export_path = export_evidence_clusters_markdown()
     print(f"exported {evidence_clusters_export_path}")
     thematic_anchors_export_path = export_generic_markdown(
         THEMATIC_ANCHORS_EXPORT_PATH,
