@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 
 
@@ -54,10 +55,10 @@ def test_expanded_pilot_batch1_search_logs_are_three_person_intake_only() -> Non
         assert "rank" not in row
 
 
-def test_expanded_pilot_batch1_sources_are_the_new_persons_only() -> None:
+def test_expanded_pilot_batch1_sources_are_the_three_person_intake_only() -> None:
     rows = load_jsonl(SOURCE_BATCH_PATH)
 
-    assert len(rows) == 7
+    assert len(rows) == 17
     assert {row["source_id"] for row in rows} == {
         "SRC-QSL-YZ-J1-001",
         "SRC-SYNL-YZ-J30-001",
@@ -66,15 +67,36 @@ def test_expanded_pilot_batch1_sources_are_the_new_persons_only() -> None:
         "SRC-MTZL-J024-001",
         "SRC-MS-J308-001",
         "SRC-MS-J132-001",
+        "SRC-SJ-J8-GAOZU-SANJIE-001",
+        "SRC-SJ-J55-ZHANGLIANG-LIUBANG-POS-001",
+        "SRC-SJ-J56-CHENPING-LIUBANG-POS-001",
+        "SRC-SJ-J8-HANXIN-QIWANG-LIUBANG-POS-001",
+        "SRC-SJ-J92-HANXIN-LIUBANG-NEG-001",
+        "SRC-SJ-J90-PENGYUE-LIUBANG-NEG-001",
+        "SRC-SJ-J91-YINGBU-LIUBANG-NEG-001",
+        "SRC-SJ-J53-XIAOHE-SAFETY-LIUBANG-SUPP-001",
+        "SRC-SJ-J56-CHENPING-CONTINUITY-LIUBANG-SUPP-001",
+        "SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001",
     }
 
 
 def test_expanded_pilot_batch1_evidence_cards_are_source_backed() -> None:
     rows = load_jsonl(EVIDENCE_BATCH_PATH)
 
-    assert len(rows) == 8
-    assert {row["person"] for row in rows} == {"雍正", "朱元璋"}
+    assert len(rows) == 18
+    assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
+
+    counts = Counter((row["person"], row["polarity"]) for row in rows)
+    assert counts[("刘邦", "positive")] == 5
+    assert counts[("刘邦", "negative")] == 5
+    assert counts[("雍正", "positive")] == 2
+    assert counts[("雍正", "negative")] == 2
+    assert counts[("朱元璋", "positive")] == 2
+    assert counts[("朱元璋", "negative")] == 2
+
     assert {row["cluster_candidate_id"] for row in rows} == {
+        "ADJ-I5B-LIUBANG-POS-TALENT-AUTHORIZATION-001",
+        "ADJ-I5B-LIUBANG-NEG-MERIT-SUBJECT-SAFETY-001",
         "ADJ-I5B-YONGZHENG-POS-TALENT-FEEDBACK-001",
         "ADJ-I5B-YONGZHENG-NEG-TRUST-ECOSYSTEM-001",
         "ADJ-I5B-ZHUYUANZHANG-POS-TALENT-AUTHORIZATION-001",
@@ -83,7 +105,12 @@ def test_expanded_pilot_batch1_evidence_cards_are_source_backed() -> None:
     for row in rows:
         assert row["subitem"] == "第五项B"
         assert row["verification_status"] == "source_verified"
+        assert row["object_anchor"]
+        assert row["evidence_role"]
         assert row["cluster_candidate_id"]
+        assert row["mitigation_flag"]
+        assert row["upper_bound_flag"]
+        assert row["cluster_role"]
         assert "score" not in row
         assert "rank" not in row
 
@@ -91,8 +118,12 @@ def test_expanded_pilot_batch1_evidence_cards_are_source_backed() -> None:
 def test_expanded_pilot_batch1_clusters_are_draft_review_rows() -> None:
     rows = load_jsonl(CLUSTER_BATCH_PATH)
 
-    assert len(rows) == 4
-    assert {row["person"] for row in rows} == {"雍正", "朱元璋"}
+    assert len(rows) == 6
+    assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
+    counts = Counter(row["person"] for row in rows)
+    assert counts["刘邦"] == 2
+    assert counts["雍正"] == 2
+    assert counts["朱元璋"] == 2
     assert {row["status"] for row in rows} == {"batch_draft"}
     for row in rows:
         assert row["subitem"] == "第五项B"
@@ -115,11 +146,13 @@ def test_expanded_pilot_batch1_review_export_contains_cards_and_clusters() -> No
     assert "# 第五项B扩展试点第一批证据卡与证据簇草案" in content
     for needle in [
         "EVD-I5B-LIUBANG-POS-SANJIE-001",
+        "EVD-I5B-LIUBANG-NEG-YINGBU-CHILL-001",
+        "ADJ-I5B-LIUBANG-POS-TALENT-AUTHORIZATION-001",
+        "ADJ-I5B-LIUBANG-NEG-MERIT-SUBJECT-SAFETY-001",
+        "三杰分工与吾能用之",
+        "功臣安全与授权预期",
         "EVD-I5B-YONGZHENG-POS-SHIREN-001",
         "EVD-I5B-ZHUYUANZHANG-NEG-HULAN-001",
-        "ADJ-I5B-LIUBANG-POS-TALENT-AUTHORIZATION-001",
-        "ADJ-I5B-YONGZHENG-POS-TALENT-FEEDBACK-001",
-        "ADJ-I5B-ZHUYUANZHANG-NEG-MERIT-PURGE-001",
         "cluster_candidate_id",
         "batch_draft",
     ]:
