@@ -2,8 +2,6 @@
 
 本文件为矩阵骨架，尚未检索，不写入 search_logs，不生成 evidence_cards，不生成评分。
 
-说明：`谏臣身后信用反转` 这一负向检索口径保留给李世民的魏征负证行，用来和对象锚点视图里的 `顶级谏臣` 口径对照。
-
 | person | item | subitem | polarity | trigger_family | core_terms | extended_terms | matrix_status | note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 李世民 | 第五项 | 第五项B | positive | 容人复用 | 释之、不罪、复用 | 不以小过废大功、贷、赦 | planned_not_searched | 矩阵骨架，尚未检索，不得入分 |

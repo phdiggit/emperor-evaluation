@@ -45,7 +45,13 @@ python scripts/build_db.py
 python scripts/export_md.py
 ```
 
-该命令会同时导出证据卡索引和第五项B三人试点检索线索视图。
+该命令会同时导出证据卡索引、第五项B三人试点检索线索视图、自动结算草案和自动结算规则敏感点清单。
+
+单独导出第五项B自动结算视图：
+
+```bash
+python scripts/export_i5b_auto_adjudication.py
+```
 
 导出第五项B三人试点矩阵骨架：
 
