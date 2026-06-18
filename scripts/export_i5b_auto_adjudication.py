@@ -12,6 +12,20 @@ EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结�
 RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分标尺与档位映射草案.md"
+CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
+CLOSURE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点内部闭环收尾.md"
+
+TRIAL_SCORE_MAP = {
+    "极正候选 / 高位强正上探极正": {"score_range": "94-100", "trial_score": 97},
+    "强正受压制": {"score_range": "72-80", "trial_score": 76},
+    "中正受中负压制": {"score_range": "48-57", "trial_score": 53},
+    "强正封顶": {"score_range": "68-75", "trial_score": 72},
+    "中正受强负压制": {"score_range": "38-47", "trial_score": 43},
+    "强正": {"score_range": "78-85", "trial_score": 82},
+    "中正": {"score_range": "58-67", "trial_score": 63},
+    "中负": {"score_range": "20-37", "trial_score": 29},
+    "强负": {"score_range": "0-19", "trial_score": 10},
+}
 
 HIGH_VALUE_ANCHOR_KEYWORDS = (
     "幕府聚才",
@@ -381,6 +395,11 @@ def build_formal_band_draft(report: dict[str, Any]) -> str:
     return formal_band_map.get(auto_band_direction, auto_band_direction or "待定")
 
 
+def build_trial_score_draft(report: dict[str, Any]) -> dict[str, Any]:
+    formal_band_draft = build_formal_band_draft(report)
+    return TRIAL_SCORE_MAP.get(formal_band_draft, {"score_range": "待定", "trial_score": "待定"})
+
+
 def format_rule_resolutions(report: dict[str, Any]) -> str:
     points = report.get("rule_sensitive_points") or []
     if not points:
@@ -409,6 +428,23 @@ def format_score_stage_prerequisites(report: dict[str, Any]) -> str:
     if str(report.get("auto_band_direction") or "") == "自动草案待规则复核":
         return "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。"
     return "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。"
+
+
+def build_negative_intercept_status(report: dict[str, Any]) -> str:
+    if bool(report.get("negative_boundary_blocking")):
+        return "已阻断极正"
+    return "未阻断极正"
+
+
+def build_adjacent_item_stripping_status(report: dict[str, Any]) -> str:
+    tier = str(report.get("negative_boundary_tier") or "")
+    if tier == "weak_to_medium":
+        return "已剥离战果、政绩、边疆收益与治世光环，B项仅保留人才安全轻边界"
+    if tier == "medium_to_strong":
+        return "已剥离战果、政绩、后效与相邻项外溢，B项保留强负核心"
+    if tier == "adjacent_item_medium_residual":
+        return "已剥离楚狱、政权安全、司法严酷等相邻项，B项仅留中负剩余"
+    return "已完成相邻项剥离"
 
 
 def render_score_mapping_draft() -> str:
@@ -982,25 +1018,104 @@ def render_formal_landing_table() -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def export_auto_adjudication() -> tuple[Path, Path, Path]:
+def render_three_pilot_closure() -> str:
+    config = read_json(CONFIG_PATH)
+    targets = list(config.get("targets") or [])
+    evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
+    evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
+    evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
+    person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
+
+    overview_rows = []
+    for report in person_reports:
+        trial_score_draft = build_trial_score_draft(report)
+        overview_rows.append(
+            {
+                "person": report["person"],
+                "final_band": build_formal_band_draft(report),
+                "internal_trial_score_range": trial_score_draft["score_range"],
+                "internal_trial_score": trial_score_draft["trial_score"],
+                "determination_basis": summarize_positive_basis(report),
+                "negative_intercept_status": build_negative_intercept_status(report),
+                "adjacent_item_stripping_status": build_adjacent_item_stripping_status(report),
+                "rule_sensitive_points_resolved": format_rule_resolutions(report),
+                "extend_pilot_ready": "可",
+            }
+        )
+
+    lines = [
+        "# 第五项B三人试点内部闭环收尾",
+        "",
+        "本文件只做第五项B三人试点的内部闭环收尾，不输出正式分，不排名，不生成阶段总榜或总榜；后续七大项完成后再统一映射。",
+        "",
+        "## 一、内部闭环总览",
+        "",
+        markdown_table(
+            [
+                "person",
+                "final_band",
+                "internal_trial_score_range",
+                "internal_trial_score",
+                "determination_basis",
+                "negative_intercept_status",
+                "adjacent_item_stripping_status",
+                "rule_sensitive_points_resolved",
+                "extend_pilot_ready",
+            ],
+            overview_rows,
+        ),
+        "",
+        "## 二、逐人收尾说明",
+        "",
+    ]
+
+    for report in person_reports:
+        trial_score_draft = build_trial_score_draft(report)
+        lines.extend(
+            [
+                f"### {report['person']}",
+                "",
+                f"- 最终定档：{build_formal_band_draft(report)}",
+                f"- 内部试算区间：{trial_score_draft['score_range']}",
+                f"- 内部试算分：{trial_score_draft['trial_score']}",
+                f"- 定档依据摘要：{summarize_positive_basis(report)}",
+                f"- 负证拦截状态：{build_negative_intercept_status(report)}；{summarize_negative_pressure(report)}",
+                f"- 相邻项剥离状态：{build_adjacent_item_stripping_status(report)}",
+                f"- 规则敏感点是否已解决：{format_rule_resolutions(report)}",
+                "- 是否可进入扩展试点：可",
+                "",
+            ]
+        )
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def export_auto_adjudication() -> tuple[Path, Path, Path, Path]:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     RULES_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     FORMAL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     SCORE_MAP_DRAFT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CLOSURE_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CLOSURE_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     EXPORT_PATH.write_text(render_auto_adjudication(), encoding="utf-8")
     RULES_EXPORT_PATH.write_text(render_rule_sensitive_points(), encoding="utf-8")
     FORMAL_EXPORT_PATH.write_text(render_formal_landing_table(), encoding="utf-8")
     SCORE_MAP_DRAFT_EXPORT_PATH.write_text(render_score_mapping_draft(), encoding="utf-8")
-    return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH
+    closure_content = render_three_pilot_closure()
+    CLOSURE_DOC_PATH.write_text(closure_content, encoding="utf-8")
+    CLOSURE_EXPORT_PATH.write_text(closure_content, encoding="utf-8")
+    return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH, CLOSURE_EXPORT_PATH
 
 
 def main() -> int:
-    export_path, rules_path, formal_path = export_auto_adjudication()
+    export_path, rules_path, formal_path, closure_path = export_auto_adjudication()
     print(f"exported {export_path}")
     print(f"exported {rules_path}")
     print(f"exported {formal_path}")
     print(f"exported {SCORE_MAP_DRAFT_EXPORT_PATH}")
+    print(f"exported {CLOSURE_DOC_PATH}")
+    print(f"exported {closure_path}")
     return 0
 
 
