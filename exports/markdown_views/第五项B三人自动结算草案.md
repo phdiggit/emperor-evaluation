@@ -6,9 +6,9 @@
 
 | person | positive_cluster_ids | negative_cluster_ids | auto_band_direction | confidence | negative_boundary_tier | negative_boundary_blocking | rule_sensitive_points |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 李世民 | ADJ-I5B-LISHIMIN-POS-TALENT-ECOSYSTEM-001 | ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001 | 高位强正，上探极正候选 | high_mid |  |  | 弱负上调中负边界；中负上调强负边界 |
-| 刘秀 | ADJ-I5B-LIUXIU-POS-TALENT-AUTHORIZATION-001 | ADJ-I5B-LIUXIU-NEG-REMONSTRANCE-SAFETY-001 | 强正受压制，不上探极正 | medium_high |  |  | 单维强正三核心；强负核心压制强正 |
-| 刘庄 | ADJ-I5B-LIUZHUANG-POS-TALENT-AUTHORIZATION-001 | ADJ-I5B-LIUZHUANG-NEG-TALENT-SAFETY-001 | 中正受中负压制 | medium |  |  | 相邻项主导剥离；B项剩余默认强度 |
+| 李世民 | ADJ-I5B-LISHIMIN-POS-TALENT-ECOSYSTEM-001 | ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001 | 高位强正，上探极正候选 | high_mid | weak_to_medium | False | 弱负上调中负边界 |
+| 刘秀 | ADJ-I5B-LIUXIU-POS-TALENT-AUTHORIZATION-001 | ADJ-I5B-LIUXIU-NEG-REMONSTRANCE-SAFETY-001 | 强正受压制，不上探极正 | medium_high | medium_to_strong | True | 中负上调强负边界；强负核心压制强正 |
+| 刘庄 | ADJ-I5B-LIUZHUANG-POS-TALENT-AUTHORIZATION-001 | ADJ-I5B-LIUZHUANG-NEG-TALENT-SAFETY-001 | 中正受中负压制 | medium | adjacent_item_medium_residual | False | 相邻项主导剥离；B项剩余默认中负 |
 
 ## 逐人自动草案
 
@@ -50,7 +50,6 @@
 ### 触发的规则敏感点
 
 - 弱负上调中负边界：不阻断极正或高位上探；只降低置信度，不进入强负核心。
-- 中负上调强负边界：若已突破中负封顶，则阻断极正/高位上探，但仍不机械扩展到极负。
 
 ### 自动结算结论
 
@@ -95,8 +94,8 @@
 
 ### 触发的规则敏感点
 
-- 单维强正三核心：单一维度默认强正封顶；若同一维度内至少三个强正核心且均为第五项B直接证据，则允许上探极正候选。
-- 强负核心压制强正：强正底盘保留，但强负核心直接命中表达安全或人才安全时，不上探极正。
+- 中负上调强负边界：阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。
+- 强负核心压制强正：保留强正基础，但自动标记为强正受压制，不上探极正。
 
 ### 自动结算结论
 
@@ -132,7 +131,7 @@
 | has_boundary_evidence | True |
 | has_mitigation_flag | True |
 | has_upper_bound_flag | True |
-| has_strong_negative_core | True |
+| has_strong_negative_core | False |
 | has_extreme_negative_core | False |
 | negative_boundary_tier | adjacent_item_medium_residual |
 | negative_boundary_blocking | False |
@@ -141,8 +140,8 @@
 
 ### 触发的规则敏感点
 
-- 相邻项主导剥离：大案本身严重不等于第五项B强负；先切政权安全、司法残酷、行政威慑、认知判断和战果等相邻项。
-- B项剩余默认强度：剥离后默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。
+- 相邻项主导剥离：大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响。
+- B项剩余默认中负：默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。
 
 ### 自动结算结论
 

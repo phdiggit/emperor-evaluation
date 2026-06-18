@@ -151,6 +151,10 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     rules_content = AUTO_RULES_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
+    assert "negative_boundary_tier" in auto_content
+    assert "negative_boundary_blocking" in auto_content
+    assert "weak_to_medium" in auto_content
+    assert "medium_to_strong" in auto_content
     assert "高位强正，上探极正候选" in auto_content
     assert "强正受压制，不上探极正" in auto_content
     assert "中正受中负压制" in auto_content
@@ -175,14 +179,40 @@ def test_real_data_reflects_issue46_rule_decisions() -> None:
     assert reports["李世民"]["auto_band_direction"] == "高位强正，上探极正候选"
     assert reports["李世民"]["negative_boundary_tier"] == "weak_to_medium"
     assert reports["李世民"]["negative_boundary_blocking"] is False
+    assert reports["李世民"]["rule_sensitive_points"] == [
+        {
+            "rule": "弱负上调中负边界",
+            "decision": "不阻断极正或高位上探；只降低置信度，不进入强负核心。",
+        }
+    ]
 
     assert reports["刘秀"]["auto_band_direction"] == "强正受压制，不上探极正"
     assert reports["刘秀"]["negative_boundary_tier"] == "medium_to_strong"
     assert reports["刘秀"]["negative_boundary_blocking"] is True
+    assert reports["刘秀"]["rule_sensitive_points"] == [
+        {
+            "rule": "中负上调强负边界",
+            "decision": "阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。",
+        },
+        {
+            "rule": "强负核心压制强正",
+            "decision": "保留强正基础，但自动标记为强正受压制，不上探极正。",
+        },
+    ]
 
     assert reports["刘庄"]["auto_band_direction"] == "中正受中负压制"
     assert reports["刘庄"]["negative_boundary_tier"] == "adjacent_item_medium_residual"
     assert reports["刘庄"]["cross_item_split_residual_level"] == "medium"
+    assert reports["刘庄"]["rule_sensitive_points"] == [
+        {
+            "rule": "相邻项主导剥离",
+            "decision": "大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响。",
+        },
+        {
+            "rule": "B项剩余默认中负",
+            "decision": "默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。",
+        },
+    ]
 
     liuzhuang_cluster = auto.evaluate_cluster(
         cluster_lookup["ADJ-I5B-LIUZHUANG-NEG-TALENT-SAFETY-001"],
@@ -239,7 +269,7 @@ def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> 
             object_anchor="边界负证",
             evidence_role="弱负边界",
             trigger_family="疑忌杀害",
-            quote_short="轻微外溢，不成寒蝉",
+            quote_short="轻微外溢，不成寒意",
             mitigation_flag="剥离相邻项",
             upper_bound_flag="不得上探中负",
             cluster_role="边界负证",
@@ -538,6 +568,45 @@ def test_direct_expression_hard_evidence_keeps_strong_negative_core(temp_auto_da
     assert cluster["blocking_extreme"] is True
     assert cluster["negative_core"] is True
     assert cluster["auto_cluster_result"] == "强负候选"
+
+
+def test_extended_direct_safety_keywords_cover_variants(temp_auto_data: Path) -> None:
+    cards = [
+        make_card(
+            evidence_id="EVD-TEST-NEG-001",
+            person="测试甲",
+            polarity="negative",
+            strength=2,
+            object_anchor="表达安全边界",
+            evidence_role="强负核心",
+            trigger_family="容谏纳言",
+            quote_short="人才退缩，授权可信度破坏，表达入口被破坏",
+            mitigation_flag="剥离相邻项",
+            upper_bound_flag="不得上探极负",
+            cluster_role="强负核心",
+            cross_item_split="表达安全直接受损",
+        )
+    ]
+    clusters = [
+        make_cluster(
+            cluster_id="ADJ-TEST-NEG-001",
+            person="测试甲",
+            polarity="negative",
+            linked_evidence_ids=["EVD-TEST-NEG-001"],
+            candidate_strength=2,
+            summary="寒蝉与授权可信度破坏",
+            cluster_type="remonstrance_safety_and_expression_risk",
+        )
+    ]
+    build_temp_auto_dataset(temp_auto_data, cards, clusters)
+
+    evidence_lookup = {row["evidence_id"]: row for row in cards}
+    cluster = auto.evaluate_cluster(clusters[0], evidence_lookup)
+
+    assert auto.has_direct_safety_hard_evidence(cards) is True
+    assert cluster["boundary_tier"] == "medium_to_strong"
+    assert cluster["blocking_extreme"] is True
+    assert cluster["negative_core"] is True
 
 
 def test_strong_positive_base_with_strong_negative_core_is_suppressed(temp_auto_data: Path) -> None:

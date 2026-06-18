@@ -51,6 +51,18 @@ BOUNDARY_ANCHOR_KEYWORDS = (
 
 DIRECT_SAFETY_KEYWORDS = (
     "群臣莫敢正言",
+    "莫敢正言",
+    "明显寒蝉",
+    "寒蝉",
+    "人才退缩",
+    "谏臣安全受损",
+    "能臣安全受损",
+    "表达入口被破坏",
+    "表达入口",
+    "授权可信度破坏",
+    "授权可信度",
+    "表达安全受损",
+    "安全受损",
     "不能容",
     "将下斩之",
     "捶扑",
@@ -302,6 +314,59 @@ def classify_negative_boundary(
     }
 
 
+def build_rule_sensitive_points(report: dict[str, Any]) -> list[dict[str, str]]:
+    points: list[dict[str, str]] = []
+    negative_boundary_tier = str(report.get("negative_boundary_tier") or "none")
+
+    if negative_boundary_tier == "weak_to_medium":
+        points.append(
+            {
+                "rule": "弱负上调中负边界",
+                "decision": "不阻断极正或高位上探；只降低置信度，不进入强负核心。",
+            }
+        )
+    elif negative_boundary_tier == "medium_to_strong":
+        points.append(
+            {
+                "rule": "中负上调强负边界",
+                "decision": "阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。",
+            }
+        )
+    elif negative_boundary_tier == "adjacent_item_medium_residual":
+        points.append(
+            {
+                "rule": "相邻项主导剥离",
+                "decision": "大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响。",
+            }
+        )
+
+    if bool(report.get("single_dimension_flag")) and int(report.get("strong_positive_count") or 0) >= 3:
+        points.append(
+            {
+                "rule": "单维强正三核心",
+                "decision": "同一维度内至少三个强正核心且均为第五项B直接证据时，才允许上探极正候选。",
+            }
+        )
+
+    if bool(report.get("has_strong_negative_core")):
+        points.append(
+            {
+                "rule": "强负核心压制强正",
+                "decision": "保留强正基础，但自动标记为强正受压制，不上探极正。",
+            }
+        )
+
+    if negative_boundary_tier == "adjacent_item_medium_residual":
+        points.append(
+            {
+                "rule": "B项剩余默认中负",
+                "decision": "默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。",
+            }
+        )
+
+    return points
+
+
 def evaluate_cluster(
     cluster: dict[str, Any],
     evidence_lookup: dict[str, dict[str, Any]],
@@ -391,13 +456,23 @@ def evaluate_person(
     has_mitigation_flag = any(bool(card.get("mitigation_flag")) for card in person_cards)
     has_upper_bound_flag = any(bool(card.get("upper_bound_flag")) for card in person_cards)
     negative_profile = classify_negative_boundary(negative_cards)
-    has_strong_negative_core = strong_negative_count > 0 or negative_profile["negative_core"]
-    has_extreme_negative_core = extreme_negative_count > 0
-    cross_item_split_required = any(bool(card.get("cross_item_split")) for card in person_cards)
     negative_residual_level = negative_profile["residual_level"]
     negative_boundary_tier = negative_profile["boundary_tier"]
     negative_boundary_blocking = negative_profile["blocking_extreme"]
+    has_strong_negative_core = bool(negative_profile["negative_core"]) or (
+        strong_negative_count > 0 and negative_boundary_tier == "medium_to_strong"
+    )
+    has_extreme_negative_core = extreme_negative_count > 0
+    cross_item_split_required = any(bool(card.get("cross_item_split")) for card in person_cards)
     positive_extreme_allowed = strong_positive_count >= 3 or (positive_dimension_count >= 3 and not single_dimension_flag)
+    rule_sensitive_points = build_rule_sensitive_points(
+        {
+            "negative_boundary_tier": negative_boundary_tier,
+            "single_dimension_flag": single_dimension_flag,
+            "strong_positive_count": strong_positive_count,
+            "has_strong_negative_core": has_strong_negative_core,
+        }
+    )
 
     max_positive_strength = max((int(card.get("strength") or 0) for card in positive_cards), default=0)
     positive_cluster_rows = [evaluate_cluster(row, evidence_lookup) for row in cluster_rows if row.get("person") == person and row.get("polarity") == "positive"]
@@ -430,40 +505,6 @@ def evaluate_person(
         confidence = "medium"
     else:
         confidence = "medium_low"
-
-    if person == "李世民":
-        rule_sensitive_points = [
-            {
-                "rule": "弱负上调中负边界",
-                "decision": "不阻断极正或高位上探；只降低置信度，不进入强负核心。",
-            },
-            {
-                "rule": "中负上调强负边界",
-                "decision": "若已突破中负封顶，则阻断极正/高位上探，但仍不机械扩展到极负。",
-            },
-        ]
-    elif person == "刘秀":
-        rule_sensitive_points = [
-            {
-                "rule": "单维强正三核心",
-                "decision": "单一维度默认强正封顶；若同一维度内至少三个强正核心且均为第五项B直接证据，则允许上探极正候选。",
-            },
-            {
-                "rule": "强负核心压制强正",
-                "decision": "强正底盘保留，但强负核心直接命中表达安全或人才安全时，不上探极正。",
-            },
-        ]
-    else:
-        rule_sensitive_points = [
-            {
-                "rule": "相邻项主导剥离",
-                "decision": "大案本身严重不等于第五项B强负；先切政权安全、司法残酷、行政威慑、认知判断和战果等相邻项。",
-            },
-            {
-                "rule": "B项剩余默认强度",
-                "decision": "剥离后默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。",
-            },
-        ]
 
     return {
         "person": person,
@@ -626,6 +667,7 @@ def render_auto_adjudication() -> str:
 
     overview_rows = []
     for report in person_reports:
+        rule_points = report["rule_sensitive_points"]
         overview_rows.append(
             {
                 "person": report["person"],
@@ -633,7 +675,9 @@ def render_auto_adjudication() -> str:
                 "negative_cluster_ids": safe_join(report["negative_cluster_ids"]),
                 "auto_band_direction": report["auto_band_direction"],
                 "confidence": report["confidence"],
-                "rule_sensitive_points": "；".join(point["rule"] for point in report["rule_sensitive_points"]),
+                "negative_boundary_tier": report["negative_boundary_tier"],
+                "negative_boundary_blocking": report["negative_boundary_blocking"],
+                "rule_sensitive_points": "；".join(point["rule"] for point in rule_points),
             }
         )
 
