@@ -10,6 +10,7 @@ DATA_DIR = ROOT / "data"
 CONFIG_PATH = ROOT / "configs" / "i5b_trial_targets.json"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
+FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
 
 HIGH_VALUE_ANCHOR_KEYWORDS = (
     "幕府聚才",
@@ -367,6 +368,80 @@ def build_rule_sensitive_points(report: dict[str, Any]) -> list[dict[str, str]]:
     return points
 
 
+def build_formal_band_draft(report: dict[str, Any]) -> str:
+    auto_band_direction = str(report.get("auto_band_direction") or "")
+    formal_band_map = {
+        "高位强正，上探极正候选": "极正候选 / 高位强正上探极正",
+        "强正受压制，不上探极正": "强正受压制",
+        "强正封顶，不上探极正": "强正封顶",
+        "中正受中负压制": "中正受中负压制",
+        "中正受强负压制": "中正受强负压制",
+    }
+    return formal_band_map.get(auto_band_direction, auto_band_direction or "待定")
+
+
+def format_rule_resolutions(report: dict[str, Any]) -> str:
+    points = report.get("rule_sensitive_points") or []
+    if not points:
+        return "无"
+    resolutions = []
+    for point in points:
+        rule = str(point.get("rule") or "未命名规则")
+        decision = str(point.get("decision") or "").rstrip("。")
+        if decision:
+            resolutions.append(f"{rule}：已按规则解决（{decision}）")
+        else:
+            resolutions.append(f"{rule}：已按规则解决")
+    return "；".join(resolutions)
+
+
+def format_remaining_questions(report: dict[str, Any]) -> str:
+    questions: list[str] = []
+    if str(report.get("negative_boundary_tier") or "") == "none":
+        questions.append("暂无新增规则问题")
+    if bool(report.get("has_extreme_negative_core")) and not bool(report.get("negative_boundary_blocking")):
+        questions.append("极负核心是否需要单列更强阻断规则")
+    return "；".join(questions) if questions else "无"
+
+
+def format_score_stage_prerequisites(report: dict[str, Any]) -> str:
+    if str(report.get("auto_band_direction") or "") == "自动草案待规则复核":
+        return "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。"
+    return "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。"
+
+
+def summarize_positive_basis(report: dict[str, Any]) -> str:
+    anchors = safe_join(report.get("positive_anchor_names") or [])
+    dimensions = safe_join(report.get("positive_dimensions") or [])
+    strength = int(report.get("strong_positive_count") or 0)
+    coverage = int(report.get("coverage_dimension_count") or 0)
+    parts = [
+        f"{strength}个强正核心",
+        f"{coverage}个正向维度" if coverage else "正向维度未单列",
+    ]
+    if anchors:
+        parts.append(f"对象锚点：{anchors}")
+    if dimensions:
+        parts.append(f"维度摘要：{dimensions}")
+    return "；".join(parts)
+
+
+def summarize_negative_pressure(report: dict[str, Any]) -> str:
+    tier = str(report.get("negative_boundary_tier") or "none")
+    blocking = bool(report.get("negative_boundary_blocking"))
+    residual = str(report.get("cross_item_split_residual_level") or "none")
+    pressure_map = {
+        "weak_to_medium": "弱负升中负边界",
+        "medium_to_strong": "中负升强负边界",
+        "adjacent_item_medium_residual": "相邻项剥离后的中负剩余",
+        "none": "无明确负压",
+    }
+    parts = [pressure_map.get(tier, tier)]
+    parts.append("阻断极正" if blocking else "不阻断极正")
+    parts.append(f"残余层级：{residual}")
+    return "；".join(parts)
+
+
 def evaluate_cluster(
     cluster: dict[str, Any],
     evidence_lookup: dict[str, dict[str, Any]],
@@ -656,6 +731,44 @@ def render_person_section(report: dict[str, Any]) -> str:
     return "\n".join(sections) + "\n"
 
 
+def render_formal_person_section(report: dict[str, Any]) -> str:
+    person = report["person"]
+    sections = [
+        f"## {person}",
+        "",
+        "### 正式档位落地",
+        "",
+        f"- 自动结算来源：{report['auto_band_direction']} / {report['confidence']}",
+        f"- 正式档位草案：{build_formal_band_draft(report)}",
+        f"- 不出分说明：本阶段只落档位方向，不生成分数。",
+        f"- 不排名说明：本阶段不生成排名或名次。",
+        "",
+        "### 正向证据组摘要",
+        "",
+        f"- {summarize_positive_basis(report)}",
+        "",
+        "### 负向证据组摘要",
+        "",
+        f"- {summarize_negative_pressure(report)}",
+        "",
+        "### 已按规则解决的敏感点",
+        "",
+        f"- {format_rule_resolutions(report)}",
+        "",
+        "### 相邻项剥离说明",
+        "",
+        "- 战功、政绩、边疆收益、治世光环、政权安全与司法残酷均不回填第五项B。",
+        "",
+        "### 规则状态",
+        "",
+        f"- remaining_rule_questions：{format_remaining_questions(report)}",
+        f"- score_stage_prerequisites：{format_score_stage_prerequisites(report)}",
+        f"- not_scored_flag：是",
+        f"- ranking_suppressed_flag：是",
+    ]
+    return "\n".join(sections) + "\n"
+
+
 def render_auto_adjudication() -> str:
     config = read_json(CONFIG_PATH)
     targets = list(config.get("targets") or [])
@@ -712,12 +825,79 @@ def render_auto_adjudication() -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def render_formal_landing_table() -> str:
+    config = read_json(CONFIG_PATH)
+    targets = list(config.get("targets") or [])
+    evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
+    evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
+    evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
+    person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
+
+    overview_rows = []
+    for report in person_reports:
+        rule_points = report["rule_sensitive_points"]
+        overview_rows.append(
+            {
+                "person": report["person"],
+                "auto_band_direction": report["auto_band_direction"],
+                "formal_band_draft": build_formal_band_draft(report),
+                "confidence": report["confidence"],
+                "positive_basis": summarize_positive_basis(report),
+                "negative_pressure": summarize_negative_pressure(report),
+                "negative_boundary_tier": report["negative_boundary_tier"],
+                "negative_boundary_blocking": report["negative_boundary_blocking"],
+                "rule_sensitive_points_resolved": format_rule_resolutions({"rule_sensitive_points": rule_points}),
+                "remaining_rule_questions": format_remaining_questions(report),
+                "score_stage_prerequisites": format_score_stage_prerequisites(report),
+                "not_scored_flag": "是",
+                "ranking_suppressed_flag": "是",
+            }
+        )
+
+    lines = [
+        "# 第五项B三人正式定档落地表",
+        "",
+        "本文件由自动结算草案与规则级复核结果派生，只输出正式档位草案，不生成分数、排名或总榜。",
+        "",
+        "## 一、正式落地总览",
+        "",
+        markdown_table(
+            [
+                "person",
+                "auto_band_direction",
+                "formal_band_draft",
+                "confidence",
+                "positive_basis",
+                "negative_pressure",
+                "negative_boundary_tier",
+                "negative_boundary_blocking",
+                "rule_sensitive_points_resolved",
+                "remaining_rule_questions",
+                "score_stage_prerequisites",
+                "not_scored_flag",
+                "ranking_suppressed_flag",
+            ],
+            overview_rows,
+        ),
+        "",
+        "## 二、逐人落地说明",
+        "",
+    ]
+
+    for report in person_reports:
+        lines.append(render_formal_person_section(report))
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def export_auto_adjudication() -> tuple[Path, Path]:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     RULES_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    FORMAL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     EXPORT_PATH.write_text(render_auto_adjudication(), encoding="utf-8")
     RULES_EXPORT_PATH.write_text(render_rule_sensitive_points(), encoding="utf-8")
+    FORMAL_EXPORT_PATH.write_text(render_formal_landing_table(), encoding="utf-8")
     return EXPORT_PATH, RULES_EXPORT_PATH
 
 
@@ -725,6 +905,7 @@ def main() -> int:
     export_path, rules_path = export_auto_adjudication()
     print(f"exported {export_path}")
     print(f"exported {rules_path}")
+    print(f"exported {FORMAL_EXPORT_PATH}")
     return 0
 
 

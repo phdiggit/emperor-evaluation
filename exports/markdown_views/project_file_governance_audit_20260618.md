@@ -27,6 +27,7 @@
 - `exports/markdown_views/史料证据卡索引.md`
 - `exports/markdown_views/第五项B三人试点检索线索.md`
 - `exports/markdown_views/第五项B自动结算规则敏感点清单.md`
+- `exports/markdown_views/第五项B三人正式定档落地表.md`
 - `exports/markdown_views/证据组裁量索引.md`
 - `exports/markdown_views/项目检索包索引.md`
 - `exports/markdown_views/第五项B_李世民净证据池.md`
@@ -46,6 +47,8 @@
 - `exports/markdown_views/第五项B三人正式定档草案.md`
 
 说明：这些文件仍有审阅价值，但都不应被视为 canonical 主源。后续若已进入正式定档或对应信息已沉淀进长期规则，应继续压缩数量。
+
+说明补充：`exports/markdown_views/第五项B三人正式定档表.md` 保留为上一阶段留档，不作为当前正式入口；当前正式入口改为 `exports/markdown_views/第五项B三人正式定档落地表.md`。
 
 ## 可归档文件
 
@@ -73,8 +76,6 @@
 
 - `exports/markdown_views/第五项B三人试点正负证矩阵.md`
   说明：仍保留旧的通用负向 trigger family 骨架；本轮不重跑矩阵脚本，但后续应决定是否给“谏臣身后信用反转”补单独矩阵行。
-- `exports/markdown_views/第五项B三人正式定档表.md`
-  说明：属于更晚阶段产物；本轮未改正式定档结论，只修方法论与证据口径。
 - `exports/markdown_views/第五项B三人净裁量草案.md`
   说明：仍是阶段性草案，后续若进入正式定档，应把核心说明折叠进更少的正式视图。
 
