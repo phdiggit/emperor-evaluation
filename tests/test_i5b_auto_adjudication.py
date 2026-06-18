@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 AUTO_RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
+SCORE_MAP_DRAFT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分标尺与档位映射草案.md"
 
 AUTO_SPEC = importlib.util.spec_from_file_location(
     "export_i5b_auto_adjudication",
@@ -128,6 +129,7 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(auto, "CONFIG_PATH", config_path)
     monkeypatch.setattr(auto, "EXPORT_PATH", export_dir / "第五项B三人自动结算草案.md")
     monkeypatch.setattr(auto, "RULES_EXPORT_PATH", export_dir / "第五项B自动结算规则敏感点清单.md")
+    monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", export_dir / "第五项B评分标尺与档位映射草案.md")
 
     return data_dir
 
@@ -148,10 +150,12 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert AUTO_EXPORT_PATH.exists()
     assert AUTO_RULES_EXPORT_PATH.exists()
     assert FORMAL_EXPORT_PATH.exists()
+    assert SCORE_MAP_DRAFT_EXPORT_PATH.exists()
 
     auto_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
     rules_content = AUTO_RULES_EXPORT_PATH.read_text(encoding="utf-8")
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
+    score_map_content = SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
     assert "negative_boundary_tier" in auto_content
@@ -178,6 +182,13 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "李世民" in formal_content and "极正候选 / 高位强正上探极正" in formal_content
     assert "刘秀" in formal_content and "强正受压制" in formal_content
     assert "刘庄" in formal_content and "中正受中负压制" in formal_content
+    assert "第五项B评分标尺与档位映射草案" in score_map_content
+    assert "状态：规则草案 / 待规则级确认 / 不正式出分" in score_map_content
+    assert "不正式出分" in score_map_content
+    assert "待总标尺确认" in score_map_content
+    assert "不得给李世民、刘秀、刘庄三人正式分" in score_map_content
+    assert "| score |" not in score_map_content
+    assert "| rank |" not in score_map_content
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:
@@ -252,6 +263,7 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "score_stage_prerequisites" in formal_content
     assert "not_scored_flag" in formal_content
     assert "ranking_suppressed_flag" in formal_content
+    assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
 
 
 def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> None:

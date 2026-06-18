@@ -11,6 +11,7 @@
 - `README.md`
 - `docs/证据裁量总则_讨论版.md`
 - `docs/第五项B正式工作流模板.md`
+- `docs/第五项B评分标尺与档位映射草案.md`
 - `docs/第五项B自动结算规则.md`
 - `docs/史料检索总则与项目-人物双轴工作流_讨论版.md`
 - `docs/数据层级与批次文件治理规则.md`
@@ -28,6 +29,7 @@
 - `exports/markdown_views/第五项B三人试点检索线索.md`
 - `exports/markdown_views/第五项B自动结算规则敏感点清单.md`
 - `exports/markdown_views/第五项B三人正式定档落地表.md`
+- `exports/markdown_views/第五项B评分标尺与档位映射草案.md`
 - `exports/markdown_views/证据组裁量索引.md`
 - `exports/markdown_views/项目检索包索引.md`
 - `exports/markdown_views/第五项B_李世民净证据池.md`
@@ -55,6 +57,7 @@
 - `exports/markdown_views/i5b_three_pilot_methodology_migration_audit_20260618.md`
 - `exports/markdown_views/i5b_three_pilot_human_adjudication_reading_guide_20260618.md`
 - `exports/markdown_views/第五项B三人自动结算草案.md`
+- `exports/markdown_views/第五项B评分标尺与档位映射草案.md`
 - `exports/markdown_views/i5b_three_pilot_object_anchor_pregrade_checklist_20260618.md`
 
 说明：三者本质上属于 2026-06-18 三人迁移阶段说明，已不宜继续承担当前规则的唯一入口。
@@ -78,6 +81,8 @@
   说明：仍保留旧的通用负向 trigger family 骨架；本轮不重跑矩阵脚本，但后续应决定是否给“谏臣身后信用反转”补单独矩阵行。
 - `exports/markdown_views/第五项B三人净裁量草案.md`
   说明：仍是阶段性草案，后续若进入正式定档，应把核心说明折叠进更少的正式视图。
+- `docs/第五项B评分标尺与档位映射草案.md`
+  说明：当前是正式出分前的规则草案，不应直接被当作人物正式评分标准。
 
 ## 本轮治理结论
 
