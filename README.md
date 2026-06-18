@@ -65,3 +65,13 @@ python scripts/run_matrix.py
 ```bash
 pytest -q
 ```
+
+## GitHub 发布
+
+推荐使用本地持久认证而不是依赖 Codex 的临时 GitHub 会话。稳定做法是：
+
+1. 将 `origin` 切到 SSH。
+2. 用 `gh auth login` 保存长期登录态。
+3. 通过 `scripts/publish_pr.ps1` 创建 PR，并在需要时切到 ready for review。
+
+详细步骤见 [`docs/GitHub发布与认证规范.md`](docs/GitHub发布与认证规范.md)。

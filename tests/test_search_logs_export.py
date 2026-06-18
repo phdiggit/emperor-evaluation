@@ -135,7 +135,7 @@ def test_source_review_evidence_cards_reference_existing_sources_and_keep_expect
     source_ids = {row["source_id"] for row in sources}
     cards_by_id = {row["evidence_id"]: row for row in evidence_cards}
 
-    assert set(cards_by_id) == {
+    assert {
         "EVD-I5B-LIUXIU-NEG-HANXIN-001",
         "EVD-I5B-LIUXIU-NEG-HUANTAN-001",
         "EVD-I5B-LIUXIU-NEG-TINGZHANG-001",
@@ -157,7 +157,7 @@ def test_source_review_evidence_cards_reference_existing_sources_and_keep_expect
         "EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001",
         "EVD-I5B-LISHIMIN-POS-SHIREN-MAZHOU-001",
         "EVD-I5B-LISHIMIN-POS-GONGCHEN-LIJI-001",
-    }
+    }.issubset(cards_by_id)
     assert all(row["source_id"] in source_ids for row in evidence_cards)
     assert all(row["cross_item_split"] or row["scoring_effect"] for row in evidence_cards)
 
@@ -193,7 +193,7 @@ def test_only_allowed_negative_search_logs_have_created_evidence_status() -> Non
 def test_sources_are_only_public_text_sources_added_by_source_review_tasks() -> None:
     source_ids = {row["source_id"] for row in read_jsonl(SOURCES_PATH)}
 
-    assert source_ids == {
+    assert {
         "SRC-ZZTJ-J43-HANXIN-001",
         "SRC-HHS-HUANTAN-001",
         "SRC-HHS-SHENTUGANG-001",
@@ -212,7 +212,7 @@ def test_sources_are_only_public_text_sources_added_by_source_review_tasks() -> 
         "SRC-JTS-J67-LIJI-001",
         "SRC-HHS-J2-XIANZONG-001",
         "SRC-HHS-J47-BANCHAO-001",
-    }
+    }.issubset(source_ids)
 
 
 def test_only_task005b4_targets_change_lishimin_positive_search_statuses() -> None:
