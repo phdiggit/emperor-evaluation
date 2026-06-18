@@ -16,6 +16,8 @@ THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚�
 QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
+CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
+CANDIDATE_POOL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点候选池设计.md"
 
 HEADERS = [
     "evidence_id",
@@ -117,6 +119,79 @@ I5B_NET_EVIDENCE_TARGETS = [
     ("刘庄", ROOT / "exports" / "markdown_views" / "第五项B_刘庄净证据池.md"),
 ]
 I5B_SUBITEM = "第五项B"
+
+I5B_EXPANDED_CANDIDATE_POOL_ROWS = [
+    {
+        "person": "刘邦",
+        "candidate_type": "用人强但有明显反向事件",
+        "why_selected": "兼具高强度用人、早期创业授权和显著反向事件，适合压测正负并存时的边界处理。",
+        "expected_rule_pressure": "检验强正与负证共存时，是否会把用人能力误判为无压制高分。",
+        "required_evidence_focus": "早期任用、分封/统军、纳谏、功臣与异姓王处置、反向事件原文。",
+        "adjacent_item_risk": "军功、开国叙事和统一结果回填到第五项B。",
+        "negative_scan_focus": "功臣清洗、异姓王处置、身后评价反转、寒蝉式负证。",
+        "recommended_priority": "P1",
+    },
+    {
+        "person": "雍正",
+        "candidate_type": "行政强但授权偏弱",
+        "why_selected": "适合检查高行政强度与低授权弹性并存时，是否被误抬成强正。",
+        "expected_rule_pressure": "压测授权偏弱下的中正/强正封顶与强负压制。",
+        "required_evidence_focus": "中枢批示、制度执行、用人与授权边界、近臣/督抚关系。",
+        "adjacent_item_risk": "政务整顿、财政整饬和后续治绩回填。",
+        "negative_scan_focus": "严控、猜忌、近臣高压、表达入口受损。",
+        "recommended_priority": "P2",
+    },
+    {
+        "person": "朱元璋",
+        "candidate_type": "负证主导、正证不足",
+        "why_selected": "用于检验强负主导样本的负证拦截和相邻项切分是否足够坚实。",
+        "expected_rule_pressure": "压测强负核心、极负边界和负证主导样本是否会误入强正通道。",
+        "required_evidence_focus": "功臣处置、容谏、制度控制、正证与负证厚度对比。",
+        "adjacent_item_risk": "开国秩序、行政整肃和历史评价被回填到第五项B。",
+        "negative_scan_focus": "大清洗、文臣寒蝉、严刑、猜忌、权力收束。",
+        "recommended_priority": "P3",
+    },
+    {
+        "person": "赵匡胤",
+        "candidate_type": "强正但负证较少",
+        "why_selected": "适合做相对干净的强正样本，检验强正封顶和轻负稀薄场景。",
+        "expected_rule_pressure": "压测强正是否会因负证稀少而被误抬到极正。",
+        "required_evidence_focus": "授权用人、文武平衡、功臣安全、容谏入口。",
+        "adjacent_item_risk": "统一、开国、政权稳定和军功回填。",
+        "negative_scan_focus": "杯酒释兵权、功臣边界、中央集权、后续控制。",
+        "recommended_priority": "P4",
+    },
+    {
+        "person": "嬴政",
+        "candidate_type": "边界争议型",
+        "why_selected": "统一、法制与高压并存，适合测相邻项剥离和边界争议处理。",
+        "expected_rule_pressure": "压测 C/D/E 项切分、极强正与极强负并存时的分案规则。",
+        "required_evidence_focus": "统一、法令、任用、徙民、表达安全、严刑。",
+        "adjacent_item_risk": "统一战争、制度创设和法令执行被回填到第五项B。",
+        "negative_scan_focus": "焚书、坑儒、徙民、严刑、集权与表达安全受损。",
+        "recommended_priority": "P5",
+    },
+    {
+        "person": "刘彻",
+        "candidate_type": "证据印象强但证据簇不足",
+        "why_selected": "名声与印象很强，但需要检查是否真有足够成簇证据支撑。",
+        "expected_rule_pressure": "压测证据簇厚度、代表性覆盖和印象替代证据的风险。",
+        "required_evidence_focus": "用人、授权、纳谏、后期反向事件、可成簇证据。",
+        "adjacent_item_risk": "盛世叙事、对外扩张和制度成效回填。",
+        "negative_scan_focus": "巫蛊、严刑、征战损耗、后期反转。",
+        "recommended_priority": "P6",
+    },
+    {
+        "person": "武则天",
+        "candidate_type": "非军事/非开国光环型",
+        "why_selected": "适合去光环，检验非军事/非开国叙事下的证据厚度。",
+        "expected_rule_pressure": "压测去光环、性别偏置和非军事统治样本的用人/授权证据。",
+        "required_evidence_focus": "任用、纳谏、官僚整合、制度运行、光环剥离。",
+        "adjacent_item_risk": "后世褒贬、宗教与宫廷叙事回填。",
+        "negative_scan_focus": "酷吏、告密、宗室/储位、称帝叙事、寒蝉。",
+        "recommended_priority": "P7",
+    },
+]
 
 
 def escape_cell(value: object) -> str:
@@ -401,6 +476,115 @@ def render_global_scale_decision_brief() -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_expanded_i5b_candidate_pool() -> str:
+    coverage_rows = [
+        {
+            "required_type": "强正但负证较少",
+            "representative_person": "赵匡胤",
+            "coverage_note": "用于检验强正封顶在轻负稀薄场景下是否仍能稳住，不把低噪负证误抬为高压制。",
+        },
+        {
+            "required_type": "用人强但有明显反向事件",
+            "representative_person": "刘邦",
+            "coverage_note": "用于压测用人能力与反向事件并存时的边界，避免把强用人误读为无负证样本。",
+        },
+        {
+            "required_type": "行政强但授权偏弱",
+            "representative_person": "雍正",
+            "coverage_note": "用于检验高行政强度与低授权弹性并存时，是否会被误抬为强正上探。",
+        },
+        {
+            "required_type": "证据印象强但证据簇不足",
+            "representative_person": "刘彻",
+            "coverage_note": "用于检验印象强度是否会替代成簇证据厚度，防止名声压过证据结构。",
+        },
+        {
+            "required_type": "负证主导、正证不足",
+            "representative_person": "朱元璋",
+            "coverage_note": "用于压测强负主导样本的拦截、切分与极负边界，避免负证样本误入强正通道。",
+        },
+        {
+            "required_type": "非军事/非开国光环型",
+            "representative_person": "武则天",
+            "coverage_note": "用于去光环，确认非军事、非开国叙事下仍能回到用人、授权和纳谏证据。",
+        },
+        {
+            "required_type": "边界争议型",
+            "representative_person": "嬴政",
+            "coverage_note": "用于测相邻项剥离和边界争议，特别是统一、法令、严刑与表达安全的切分。",
+        },
+    ]
+
+    lines = [
+        "# 第五项B扩展试点候选池设计",
+        "",
+        "状态：候选池设计 / 试点样本规划 / 不出分",
+        "",
+        "本文件只设计第五项B扩展试点候选池，不作定档结论，不生成正式分，不排名，不生成阶段总榜或总榜。",
+        "",
+        "候选池按类型抽样，不按名气或预期高低抽样；`recommended_priority` 只是建议采样顺序，不是人物高低排序。",
+        "",
+        "## 一、覆盖检查",
+        "",
+        "| required_type | representative_person | coverage_note |",
+        "| --- | --- | --- |",
+    ]
+
+    for row in coverage_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                escape_cell(row[field])
+                for field in ["required_type", "representative_person", "coverage_note"]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 二、候选池明细",
+            "",
+            "| person | candidate_type | why_selected | expected_rule_pressure | required_evidence_focus | adjacent_item_risk | negative_scan_focus | recommended_priority |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+
+    for row in I5B_EXPANDED_CANDIDATE_POOL_ROWS:
+        lines.append(
+            "| "
+            + " | ".join(
+                escape_cell(row[field])
+                for field in [
+                    "person",
+                    "candidate_type",
+                    "why_selected",
+                    "expected_rule_pressure",
+                    "required_evidence_focus",
+                    "adjacent_item_risk",
+                    "negative_scan_focus",
+                    "recommended_priority",
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 三、设计说明",
+            "",
+            "1. 本候选池只用于扩展试点样本设计，不代表任何最终定档或分数结论。",
+            "2. 候选选择重点在规则压力覆盖，而不是历史名气、综合高低或名望大小。",
+            "3. 后续真正进入扩展试点时，应优先补齐原子证据卡、证据簇、相邻项切分与负证拦截，再谈任何定档。",
+            "4. 本文件不要求机械全收候选参考名单；未纳入者可作为后续扩容备选。",
+            "",
+        ]
+    )
+
+    return "\n".join(lines) + "\n"
+
+
 def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
     export_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -548,6 +732,13 @@ def main() -> int:
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.write_text(brief_content, encoding="utf-8")
     print(f"exported {GLOBAL_SCALE_BRIEF_DOC_PATH}")
     print(f"exported {GLOBAL_SCALE_BRIEF_EXPORT_PATH}")
+    CANDIDATE_POOL_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CANDIDATE_POOL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    candidate_pool_content = render_expanded_i5b_candidate_pool()
+    CANDIDATE_POOL_DOC_PATH.write_text(candidate_pool_content, encoding="utf-8")
+    CANDIDATE_POOL_EXPORT_PATH.write_text(candidate_pool_content, encoding="utf-8")
+    print(f"exported {CANDIDATE_POOL_DOC_PATH}")
+    print(f"exported {CANDIDATE_POOL_EXPORT_PATH}")
     auto_adjudication_export_path, auto_rules_export_path, formal_landing_export_path, closure_export_path = export_auto_adjudication()
     print(f"exported {auto_adjudication_export_path}")
     print(f"exported {auto_rules_export_path}")
