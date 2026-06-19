@@ -33,6 +33,8 @@ READINESS_FOLLOWUP_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_
 READINESS_FOLLOWUP_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批readiness后续处理.md"
 HUMAN_REVIEW_PACKAGE_BATCH_PATH = ROOT / "data" / "review_packages" / "i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl"
 HUMAN_REVIEW_PACKAGE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工会审准备包.md"
+RELATIVE_BAND_PREPARATION_BATCH_PATH = ROOT / "data" / "relative_band_batches" / "i5b_expanded_pilot_batch1_relative_band_preparation_20260619.jsonl"
+RELATIVE_BAND_PREPARATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批相对档位准备草案.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
@@ -980,6 +982,89 @@ def export_expanded_i5b_batch1_human_review_package() -> Path:
     return HUMAN_REVIEW_PACKAGE_EXPORT_PATH
 
 
+def export_expanded_i5b_batch1_relative_band_preparation() -> Path:
+    RELATIVE_BAND_PREPARATION_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = read_jsonl(RELATIVE_BAND_PREPARATION_BATCH_PATH)
+    person_rows = [row for row in rows if row.get("row_type") != "batch_relative_band_summary"]
+    summary_rows = [row for row in rows if row.get("row_type") == "batch_relative_band_summary"]
+
+    lines = [
+        "# 第五项B扩展试点第一批相对档位准备草案",
+        "",
+        "本文仅用于相对档位准备，不定档，不出分，不排名，不出总榜。",
+        "",
+        "## 逐人准备表",
+        "",
+        "| relative_band_draft_id | person | input_review_package_id | current_review_stage | positive_base_status | negative_gate_status | cross_item_split_status | next_step_recommendation | status |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for row in person_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    escape_cell(row.get("relative_band_draft_id")),
+                    escape_cell(row.get("person")),
+                    escape_cell(row.get("input_review_package_id")),
+                    escape_cell(row.get("current_review_stage")),
+                    escape_cell(row.get("positive_base_status")),
+                    escape_cell(row.get("negative_gate_status")),
+                    escape_cell(row.get("cross_item_split_status")),
+                    escape_cell(row.get("next_step_recommendation")),
+                    escape_cell(row.get("status")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(["", "## 逐人准备细节", ""])
+    for row in person_rows:
+        lines.extend(
+            [
+                f"### {row.get('person')}",
+                "",
+                f"- relative_band_draft_id：{row.get('relative_band_draft_id') or ''}",
+                f"- input_review_package_id：{row.get('input_review_package_id') or ''}",
+                f"- current_review_stage：{row.get('current_review_stage') or ''}",
+                f"- rule_based_positioning_summary：{row.get('rule_based_positioning_summary') or ''}",
+                f"- positive_base_status：{row.get('positive_base_status') or ''}",
+                f"- negative_gate_status：{row.get('negative_gate_status') or ''}",
+                f"- cross_item_split_status：{row.get('cross_item_split_status') or ''}",
+                f"- relative_band_path_options：{join_list_cell(row.get('relative_band_path_options'))}",
+                f"- human_confirmation_questions：{join_list_cell(row.get('human_confirmation_questions'))}",
+                f"- blocked_shortcuts：{join_list_cell(row.get('blocked_shortcuts'))}",
+                f"- next_step_recommendation：{row.get('next_step_recommendation') or ''}",
+                f"- not_for_scoring_statement：{row.get('not_for_scoring_statement') or ''}",
+                f"- status：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    if summary_rows:
+        row = summary_rows[0]
+        lines.extend(
+            [
+                "## 批次级规则准备摘要",
+                "",
+                f"- batch_relative_band_draft_id：{row.get('batch_relative_band_draft_id') or ''}",
+                f"- shared_positioning_rules：{join_list_cell(row.get('shared_positioning_rules'))}",
+                f"- shared_negative_gate_rules：{join_list_cell(row.get('shared_negative_gate_rules'))}",
+                f"- shared_cross_item_split_rules：{join_list_cell(row.get('shared_cross_item_split_rules'))}",
+                f"- user_decision_questions：{join_list_cell(row.get('user_decision_questions'))}",
+                f"- next_workflow_options：{join_list_cell(row.get('next_workflow_options'))}",
+                f"- not_for_scoring_statement：{row.get('not_for_scoring_statement') or ''}",
+                f"- status：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    lines.extend(["## 下一步建议", "", "本草案只供相对档位讨论前的规则确认，不定档，不出分，不排名，不出总榜。"])
+
+    RELATIVE_BAND_PREPARATION_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return RELATIVE_BAND_PREPARATION_EXPORT_PATH
+
+
 def render_global_scale_decision_brief() -> str:
     lines = [
         "# 全局总标尺决策简报",
@@ -1401,6 +1486,8 @@ def main() -> int:
     print(f"exported {readiness_followup_export_path}")
     human_review_package_export_path = export_expanded_i5b_batch1_human_review_package()
     print(f"exported {human_review_package_export_path}")
+    relative_band_preparation_export_path = export_expanded_i5b_batch1_relative_band_preparation()
+    print(f"exported {relative_band_preparation_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
