@@ -22,6 +22,8 @@ TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_
 TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
 TARGETED_SUPPLEMENT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批定向补证.md"
 TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = ROOT / "data" / "sweep_batches" / "i5b_yongzheng_role_class_sweep_20260619.jsonl"
+POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl"
+POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批补证后结算更新草案.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
@@ -312,6 +314,12 @@ def escape_cell(value: object) -> str:
     if isinstance(value, (list, dict)):
         return json.dumps(value, ensure_ascii=False)
     return str(value).replace("|", "\\|").replace("\n", " ")
+
+
+def join_list_cell(value: object) -> str:
+    if isinstance(value, list):
+        return escape_cell("、".join(str(item) for item in value))
+    return escape_cell(value)
 
 
 def summarize_unique_values(rows: list[dict[str, object]], field: str) -> str:
@@ -637,6 +645,63 @@ def export_expanded_i5b_batch1_targeted_supplement() -> Path:
 
     TARGETED_SUPPLEMENT_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return TARGETED_SUPPLEMENT_EXPORT_PATH
+
+
+def export_expanded_i5b_batch1_post_supplement_adjudication() -> Path:
+    POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = read_jsonl(POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH)
+
+    lines = [
+        "# 第五项B扩展试点第一批补证后结算更新草案",
+        "",
+        "本文仅供人工审核，汇总 #68 targeted supplement 之后对 #66 净裁量结构的更新草案；只作草案，不定档，不出分，不排名，不出总榜。",
+        "",
+        "## 总览",
+        "",
+        "| adjudication_id | person | pre_supplement_net_adjudication_summary | post_supplement_negative_intercept_status | status |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    escape_cell(row.get("adjudication_id")),
+                    escape_cell(row.get("person")),
+                    escape_cell(row.get("pre_supplement_net_adjudication_summary")),
+                    escape_cell(row.get("post_supplement_negative_intercept_status")),
+                    escape_cell(row.get("status")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(["", "## 逐人更新", ""])
+    for row in rows:
+        lines.extend(
+            [
+                f"### {row.get('person')}",
+                "",
+                f"- 预补证净裁量摘要：{row.get('pre_supplement_net_adjudication_summary') or ''}",
+                f"- 补证证据ID：{join_list_cell(row.get('supplement_evidence_ids'))}",
+                f"- 补证正向效应：{row.get('supplement_positive_effect_summary') or ''}",
+                f"- 补证负向效应：{row.get('supplement_negative_effect_summary') or ''}",
+                f"- role-class sweep 效应：{row.get('role_class_sweep_effect_summary') or ''}",
+                f"- 负拦截状态：{row.get('post_supplement_negative_intercept_status') or ''}",
+                f"- 相邻项切分摘要：{row.get('post_supplement_adjacent_item_split_summary') or ''}",
+                f"- 规则压力摘要：{row.get('post_supplement_rule_pressure_summary') or ''}",
+                f"- 补证后净裁量草案：{row.get('post_supplement_net_adjudication_draft') or ''}",
+                f"- remaining gaps：{join_list_cell(row.get('remaining_gap_list'))}",
+                f"- 状态：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    lines.extend(["## 关门声明", "", "不定档，不出分，不排名，不出总榜。"])
+
+    POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH
 
 
 def render_global_scale_decision_brief() -> str:
@@ -1052,6 +1117,8 @@ def main() -> int:
     print(f"exported {expanded_batch1_cluster_adjudication_export_path}")
     targeted_supplement_export_path = export_expanded_i5b_batch1_targeted_supplement()
     print(f"exported {targeted_supplement_export_path}")
+    post_supplement_adjudication_export_path = export_expanded_i5b_batch1_post_supplement_adjudication()
+    print(f"exported {post_supplement_adjudication_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
