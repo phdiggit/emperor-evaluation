@@ -1,15 +1,22 @@
 from __future__ import annotations
 
-import subprocess
+import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tests"))
+
+from _git_helpers import changed_files_against_base, git_changed_files
+
 REPORT_FILE = "\u9879\u76ee\u6587\u4ef6\u6cbb\u7406\u8bca\u65ad\u62a5\u544a.md"
 REPORT_PATH = ROOT / "docs" / REPORT_FILE
 ALLOWED_CHANGED_FILES = {
     f"docs/{REPORT_FILE}",
+    "tests/_git_helpers.py",
+    "tests/test_agents_ready_for_review_rule.py",
+    "tests/test_file_governance_policy.py",
     "tests/test_file_governance_report.py",
+    "tests/test_redundant_file_candidates_report.py",
 }
 
 
@@ -18,19 +25,11 @@ def read_report() -> str:
 
 
 def changed_files() -> set[str]:
-    commands = [
-        ["git", "-c", "core.quotepath=false", "diff", "--name-only", "origin/GPT...HEAD"],
-        ["git", "-c", "core.quotepath=false", "diff", "--name-only"],
-        ["git", "-c", "core.quotepath=false", "diff", "--cached", "--name-only"],
-    ]
-    files: set[str] = set()
-    for command in commands:
-        result = subprocess.run(command, cwd=ROOT, capture_output=True, check=False)
-        if result.returncode != 0:
-            continue
-        stdout = result.stdout.decode("utf-8")
-        files.update(line.strip().replace("\\", "/") for line in stdout.splitlines() if line.strip())
-    return files
+    return (
+        changed_files_against_base()
+        | git_changed_files("diff", "--name-only")
+        | git_changed_files("diff", "--cached", "--name-only")
+    )
 
 
 def test_file_governance_report_exists() -> None:
