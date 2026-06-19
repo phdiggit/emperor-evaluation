@@ -17,6 +17,8 @@ QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索
 EXPANDED_BATCH1_REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
+EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
+EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
@@ -415,6 +417,34 @@ def export_expanded_i5b_batch1_review() -> Path:
                 )
             )
 
+    if not evidence_rows:
+        evidence_rows = [
+            {"raw_json": json.dumps(row, ensure_ascii=False)}
+            for row in read_jsonl(EXPANDED_BATCH1_EVIDENCE_BATCH_PATH)
+            if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
+        ]
+        evidence_rows.sort(
+            key=lambda row: (
+                json.loads(row["raw_json"]).get("person", ""),
+                0 if json.loads(row["raw_json"]).get("polarity") == "positive" else 1,
+                -int(json.loads(row["raw_json"]).get("strength", 0) or 0),
+                json.loads(row["raw_json"]).get("evidence_id", ""),
+            )
+        )
+    if not cluster_rows:
+        cluster_rows = [
+            {"raw_json": json.dumps(row, ensure_ascii=False)}
+            for row in read_jsonl(EXPANDED_BATCH1_CLUSTER_BATCH_PATH)
+            if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
+        ]
+        cluster_rows.sort(
+            key=lambda row: (
+                json.loads(row["raw_json"]).get("person", ""),
+                0 if json.loads(row["raw_json"]).get("polarity") == "positive" else 1,
+                -int(json.loads(row["raw_json"]).get("candidate_strength", 0) or 0),
+                json.loads(row["raw_json"]).get("cluster_id", ""),
+            )
+        )
     lines = [
         "# 第五项B扩展试点第一批证据卡与证据簇草案",
         "",
