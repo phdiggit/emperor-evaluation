@@ -1,16 +1,23 @@
 from __future__ import annotations
 
 import importlib
-import subprocess
+import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tests"))
+
+from _git_helpers import changed_files_against_base, git_changed_files
+
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
     "README.md",
     "docs/数据层级与批次文件治理规则.md",
+    "tests/_git_helpers.py",
+    "tests/test_agents_ready_for_review_rule.py",
     "tests/test_file_governance_policy.py",
+    "tests/test_file_governance_report.py",
+    "tests/test_redundant_file_candidates_report.py",
 }
 
 for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):
@@ -27,27 +34,19 @@ def read_text(path: Path) -> str:
 
 
 def changed_files() -> set[str]:
-    commands = [
-        ["git", "-c", "core.quotepath=false", "diff", "--name-only", "origin/GPT...HEAD"],
-        ["git", "-c", "core.quotepath=false", "diff", "--name-only"],
-        ["git", "-c", "core.quotepath=false", "diff", "--cached", "--name-only"],
-    ]
-    files: set[str] = set()
-    for command in commands:
-        result = subprocess.run(command, cwd=ROOT, capture_output=True, check=False)
-        if result.returncode != 0:
-            continue
-        stdout = result.stdout.decode("utf-8")
-        files.update(line.strip().replace("\\", "/") for line in stdout.splitlines() if line.strip())
-    return files
+    return (
+        changed_files_against_base()
+        | git_changed_files("diff", "--name-only")
+        | git_changed_files("diff", "--cached", "--name-only")
+    )
 
 
 def test_agents_md_contains_file_governance_rules() -> None:
     content = read_text(ROOT / "AGENTS.md")
     for needle in [
-        "文件清理、归档、删除候选第一轮只写诊断报告或候选清单，不直接删改",
-        "exports/markdown_views/` 是导出视图层，不是事实源；未明确指定时不要批量重写旧导出",
-        "data/*_batches/` 是过渡批次层，确认唯一数据源前不得删除",
+        "文件清理、归档、删除候选第一轮只写诊断或候选清单，不直接删改。",
+        "exports/markdown_views/` 是导出视图层，不是事实源；除非 Issue 明确要求，不得批量重写旧导出。",
+        "data/*_batches/` 是过渡批次层；确认唯一数据源前不得删除",
     ]:
         assert needle in content
 
