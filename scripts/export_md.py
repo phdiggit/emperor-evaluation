@@ -26,6 +26,11 @@ POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches"
 POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批补证后结算更新草案.md"
 READINESS_AUDIT_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl"
 READINESS_AUDIT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工裁判准备审计.md"
+YONGZHENG_RULE_BOUNDARY_BATCH_PATH = ROOT / "data" / "rule_boundary_batches" / "i5b_yongzheng_rule_boundary_review_20260619.jsonl"
+ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
+ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
+READINESS_FOLLOWUP_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_followup_20260619.jsonl"
+READINESS_FOLLOWUP_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批readiness后续处理.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
@@ -780,6 +785,122 @@ def export_expanded_i5b_batch1_readiness_audit() -> Path:
     return READINESS_AUDIT_EXPORT_PATH
 
 
+def export_expanded_i5b_batch1_readiness_followup() -> Path:
+    READINESS_FOLLOWUP_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    boundary_rows = read_jsonl(YONGZHENG_RULE_BOUNDARY_BATCH_PATH)
+    source_rows = read_jsonl(ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH)
+    evidence_rows = read_jsonl(ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH)
+    followup_rows = read_jsonl(READINESS_FOLLOWUP_BATCH_PATH)
+
+    lines = [
+        "# 第五项B扩展试点第一批readiness后续处理",
+        "",
+        "本文仅用于 readiness 后续处理，不定档，不出分，不排名，不出总榜。",
+    ]
+
+    if boundary_rows:
+        row = boundary_rows[0]
+        lines.extend(
+            [
+                "",
+                "## 雍正规则边界复核",
+                "",
+                f"- review_id：{row.get('review_id') or ''}",
+                f"- input_readiness_id：{row.get('input_readiness_id') or ''}",
+                f"- boundary_questions：{join_list_cell(row.get('boundary_questions'))}",
+                f"- resolved_boundary_points：{join_list_cell(row.get('resolved_boundary_points'))}",
+                f"- open_boundary_points：{join_list_cell(row.get('open_boundary_points'))}",
+                f"- not_carded_people_review：{join_list_cell(row.get('not_carded_people_review'))}",
+                f"- cross_item_split_guardrails：{join_list_cell(row.get('cross_item_split_guardrails'))}",
+                f"- recommended_next_step：{row.get('recommended_next_step') or ''}",
+                f"- not_for_scoring_statement：{row.get('not_for_scoring_statement') or ''}",
+                f"- status：{row.get('status') or ''}",
+            ]
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 朱元璋 micro supplement 来源",
+            "",
+            "| source_id | title | volume | location | url |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in source_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    escape_cell(row.get("source_id")),
+                    escape_cell(row.get("title")),
+                    escape_cell(row.get("volume")),
+                    escape_cell(row.get("location")),
+                    escape_cell(row.get("url")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 朱元璋 micro supplement 证据卡",
+            "",
+            "| evidence_id | polarity | source_id | object_anchor | micro_gap_addressed |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in evidence_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    escape_cell(row.get("evidence_id")),
+                    escape_cell(row.get("polarity")),
+                    escape_cell(row.get("source_id")),
+                    escape_cell(row.get("object_anchor")),
+                    escape_cell(row.get("micro_gap_addressed")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(["", "## readiness follow-up summary", ""])
+    for row in followup_rows:
+        if row.get("row_type") == "batch_followup_summary":
+            lines.extend(
+                [
+                    f"- batch_followup_id：{row.get('batch_followup_id') or ''}",
+                    f"- batch_next_step_summary：{row.get('batch_next_step_summary') or ''}",
+                    f"- not_for_scoring_statement：{row.get('not_for_scoring_statement') or ''}",
+                    f"- status：{row.get('status') or ''}",
+                    "",
+                ]
+            )
+            continue
+        lines.extend(
+            [
+                f"### {row.get('person')}",
+                "",
+                f"- prior_readiness_id：{row.get('prior_readiness_id') or ''}",
+                f"- prior_next_step：{row.get('prior_next_step') or ''}",
+                f"- followup_action：{row.get('followup_action') or ''}",
+                f"- followup_outcome_summary：{row.get('followup_outcome_summary') or ''}",
+                f"- current_readiness_recommendation：{row.get('current_readiness_recommendation') or ''}",
+                f"- remaining_notes：{join_list_cell(row.get('remaining_notes'))}",
+                f"- status：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    lines.extend(["## 结语", "", "本轮只生成后续处理建议，不转为正式档位或分数。"])
+
+    READINESS_FOLLOWUP_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return READINESS_FOLLOWUP_EXPORT_PATH
+
+
 def render_global_scale_decision_brief() -> str:
     lines = [
         "# 全局总标尺决策简报",
@@ -1197,6 +1318,8 @@ def main() -> int:
     print(f"exported {post_supplement_adjudication_export_path}")
     readiness_audit_export_path = export_expanded_i5b_batch1_readiness_audit()
     print(f"exported {readiness_audit_export_path}")
+    readiness_followup_export_path = export_expanded_i5b_batch1_readiness_followup()
+    print(f"exported {readiness_followup_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
