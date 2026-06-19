@@ -37,5 +37,15 @@
 | EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001 | 朱元璋 | negative | 3 | 中负 | SRC-MS-J308-HUWENYONG-001 | 四方躁進之徒及功臣武夫失職者，爭走其門。 | 门庭化与人才扭曲 | 补证负向 | ADJ-I5B-ZHUYUANZHANG-SUPP-NEG-HUWENYONG-001 | 胡惟庸门庭与人才生态 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | source_verified | source_verified_pending_human_adjudication |
 | EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-002 | 朱元璋 | negative | 3 | 中负 | SRC-MS-J127-LISHANG-001 | 遂并其妻女弟侄家口七十餘人誅之。 | 功臣安全收紧 | 补证负向 | ADJ-I5B-ZHUYUANZHANG-SUPP-NEG-LISHANG-002 | 李善长党案影响 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | source_verified | source_verified_pending_human_adjudication |
 
+## 雍正 role-class sweep / 防漏扫查
+
+| sweep_id | item | subitem | role_class | candidate_people | carded_people | linked_evidence_ids | not_carded_people | not_carded_reason | source_status | fifth_b_relevance | adjacent_item_risk | status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| SWP-I5B-YZ-RCS-001 | 第五项B | 第五项B | near_minister_power_holder_trust_reversal | 年羹尧、隆科多 |  |  | 年羹尧、隆科多 | 已有前批材料覆盖，本轮仅做防漏登记 | source_verified | 覆盖雍正近臣权力反转的防漏条目 | 易与刘弘值时期或基础整像给混 | role_class_sweep_draft |
+| SWP-I5B-YZ-RCS-002 | 第五项B | 第五项B | provincial_administrator_authorization | 田文镜、李卫、鄂尔泰 |  |  | 田文镜、李卫、鄂尔泰 | 本轮未新增地方授权卡，避免把整顿概念重复建卡 | source_verified | 防止把巡方整顿、他们的使用权当成新证 | 容易与地方治理或财政整饰混合 | role_class_sweep_draft |
+| SWP-I5B-YZ-RCS-003 | 第五项B | 第五项B | frontier_military_authorization | 岳钟琪、傅尔丹、查郎阿 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 傅尔丹、查郎阿 | 岳钟琪已补；傅尔丹、查郎阿暂作背景，不另建卡 | source_verified | 直接防漏边疆军事授权体系 | 容易与边际战事或其他军功归类混合 | role_class_sweep_draft |
+| SWP-I5B-YZ-RCS-004 | 第五项B | 第五项B | feedback_memorial_network_object | 年羹尧、田文镜、李卫、鄂尔泰 |  |  | 年羹尧、田文镜、李卫、鄂尔泰 | 反馈链条只做防漏扫查，不把制度词写成空泛总述 | source_verified | 确保密折网络保留具体对象 | 容易被写成制度结构，没有对象归包 | role_class_sweep_draft |
+| SWP-I5B-YZ-RCS-005 | 第五项B | 第五项B | talent_safety_trust_reversal_object | 年羹尧、隆科多、岳钟琪 |  |  | 年羹尧、隆科多、岳钟琪 | 涉及剪爵、免官、拘禁、拟斩与复用多阶段，需后续专门回源再卡 | source_verified | 收紧人才保护和反转其使用边界 | 容易与后朝复用或利用系统混合 | role_class_sweep_draft |
+
 结语：不定档，不出分，不排名，不出总榜。
 
