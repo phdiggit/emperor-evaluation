@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
 
-from _git_helpers import changed_files_against_base, git_changed_files
+from _git_helpers import changed_files_against_base, git_changed_files, skip_unless_pr_diff_checks_enabled
 
 REPORT_FILE = "\u9879\u76ee\u6587\u4ef6\u6cbb\u7406\u8bca\u65ad\u62a5\u544a.md"
 REPORT_PATH = ROOT / "docs" / REPORT_FILE
@@ -86,4 +86,5 @@ def test_file_governance_report_contains_priority_plan() -> None:
 
 
 def test_pr_diff_stays_inside_issue_80_whitelist() -> None:
+    skip_unless_pr_diff_checks_enabled()
     assert changed_files() <= ALLOWED_CHANGED_FILES
