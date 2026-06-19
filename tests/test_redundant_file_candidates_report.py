@@ -24,12 +24,26 @@ def test_redundant_file_candidates_report_covers_all_candidates() -> None:
     assert "## 6. 不建议处理的候选" in content
     assert "## 7. 下一步建议 Issue" in content
     assert "本轮不删除、不移动、不归档" in content
+    assert "本表不构成删除授权" in content
+    assert "archive_candidate" in content
+    assert "delete_candidate" in content
+    assert "needs_human_confirmation" in content
+    assert "additional_candidate" in content
+    assert "original_category" in content
+    assert "unique_source" in content
+    assert "next_step_action" in content
+    assert "risk_level" in content
+    assert "archive_later_low_or_medium_risk" in content
+    assert "delete_later_requires_final_reference_check" in content
+    assert "needs_human_confirmation_before_any_cleanup" in content
 
     for needle in [
         "referenced",
         "not_referenced",
         "generated_by_script",
         "unknown",
+        "yes",
+        "no",
         "keep",
         "archive_later",
         "delete_later",
@@ -51,6 +65,8 @@ def test_redundant_file_candidates_report_covers_all_candidates() -> None:
         "exports/markdown_views/i5b_liubang_pregrade_adjudication_checklist_20260618.md",
     ]:
         assert needle in content
+
+    assert "本表不构成删除授权" in content
 
 
 def test_worktree_diff_is_limited_to_the_whitelist() -> None:
