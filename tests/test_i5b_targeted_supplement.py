@@ -97,6 +97,15 @@ def test_role_class_sweep_catches_yongzheng_fallthrough_roles() -> None:
     ]
     assert "岳钟琪" in frontier["candidate_people"]
 
+    talent_reversal = next(row for row in rows if row["role_class"] == "talent_safety_trust_reversal_object")
+    assert talent_reversal["carded_people"] == ["岳钟琪"]
+    assert talent_reversal["linked_evidence_ids"] == [
+        "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001",
+        "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001",
+    ]
+    assert "岳钟琪" not in talent_reversal["not_carded_people"]
+    assert "年羹尧" in talent_reversal["not_carded_people"]
+
     for row in rows:
         if row["not_carded_people"]:
             assert row["not_carded_reason"]
@@ -125,10 +134,11 @@ def test_targeted_supplement_export_is_review_only() -> None:
         "EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001",
         "SRC-QSG-YZ-J293-YUEZHONGQI-001",
         "SRC-MS-J127-LISHANG-001",
-                "岳钟琪",
+        "岳钟琪",
         "傅尔丹",
         "查郎阿",
         "not_carded_reason",
+        "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001",
     ]:
         assert needle in content
     for forbidden in ["final_grade", "final_score", "leaderboard", "total_ranking"]:

@@ -45,7 +45,7 @@
 | SWP-I5B-YZ-RCS-002 | 第五项B | 第五项B | provincial_administrator_authorization | 田文镜、李卫、鄂尔泰 |  |  | 田文镜、李卫、鄂尔泰 | 本轮未新增地方授权卡，避免把整顿概念重复建卡 | source_verified | 防止把巡方整顿、他们的使用权当成新证 | 容易与地方治理或财政整饰混合 | role_class_sweep_draft |
 | SWP-I5B-YZ-RCS-003 | 第五项B | 第五项B | frontier_military_authorization | 岳钟琪、傅尔丹、查郎阿 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 傅尔丹、查郎阿 | 岳钟琪已补；傅尔丹、查郎阿暂作背景，不另建卡 | source_verified | 直接防漏边疆军事授权体系 | 容易与边际战事或其他军功归类混合 | role_class_sweep_draft |
 | SWP-I5B-YZ-RCS-004 | 第五项B | 第五项B | feedback_memorial_network_object | 年羹尧、田文镜、李卫、鄂尔泰 |  |  | 年羹尧、田文镜、李卫、鄂尔泰 | 反馈链条只做防漏扫查，不把制度词写成空泛总述 | source_verified | 确保密折网络保留具体对象 | 容易被写成制度结构，没有对象归包 | role_class_sweep_draft |
-| SWP-I5B-YZ-RCS-005 | 第五项B | 第五项B | talent_safety_trust_reversal_object | 年羹尧、隆科多、岳钟琪 |  |  | 年羹尧、隆科多、岳钟琪 | 涉及剪爵、免官、拘禁、拟斩与复用多阶段，需后续专门回源再卡 | source_verified | 收紧人才保护和反转其使用边界 | 容易与后朝复用或利用系统混合 | role_class_sweep_draft |
+| SWP-I5B-YZ-RCS-005 | 第五项B | 第五项B | talent_safety_trust_reversal_object | 年羹尧、隆科多、岳钟琪 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 年羹尧、隆科多 | 本桶只卡岳钟琪的安全反转链；年羹尧、隆科多留待后续专门回源补复用/平反链 | source_verified | 收紧人才保护和反转其使用边界 | 容易与后朝复用或利用系统混合 | role_class_sweep_draft |
 
 结语：不定档，不出分，不排名，不出总榜。
 
