@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,4 +40,13 @@ def git_changed_files(*args: str, ignore_prefixes: tuple[str, ...] = (".tmp/",))
 
 def changed_files_against_base(base: str = "origin/GPT...HEAD") -> set[str]:
     return git_changed_files("diff", "--name-only", base)
+
+
+def pr_diff_checks_enabled() -> bool:
+    return os.environ.get("RUN_PR_DIFF_CHECKS") == "1"
+
+
+def skip_unless_pr_diff_checks_enabled() -> None:
+    if not pr_diff_checks_enabled():
+        pytest.skip("PR diff whitelist checks are review-only; set RUN_PR_DIFF_CHECKS=1 to enable")
 
