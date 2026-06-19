@@ -14,6 +14,8 @@ SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch
 EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
+CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
+CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:
@@ -157,3 +159,58 @@ def test_expanded_pilot_batch1_review_export_contains_cards_and_clusters() -> No
         "batch_draft",
     ]:
         assert needle in content
+
+
+def test_expanded_pilot_batch1_cluster_adjudication_rows_are_three_person_drafts() -> None:
+    rows = load_jsonl(CLUSTER_ADJUDICATION_BATCH_PATH)
+
+    assert len(rows) == 3
+    assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
+    assert {row["status"] for row in rows} == {"cluster_adjudication_draft"}
+
+    for row in rows:
+        assert row["item"] == "第五项"
+        assert row["subitem"] == "第五项B"
+        assert row["positive_cluster_ids"]
+        assert row["negative_cluster_ids"]
+        assert row["positive_core_summary"]
+        assert row["negative_core_summary"]
+        assert row["adjacent_item_split_summary"]
+        assert row["negative_intercept_status"]
+        assert row["adjacent_item_split_status"]
+        assert row["rule_pressure_summary"]
+        assert row["net_adjudication_draft"]
+        assert row["supplement_gap_list"]
+        assert "score" not in row
+        assert "rank" not in row
+        assert "final_grade" not in row
+        assert "final_score" not in row
+        assert "leaderboard" not in row
+        assert "total_ranking" not in row
+
+
+def test_expanded_pilot_batch1_cluster_adjudication_export_is_review_only() -> None:
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert CLUSTER_ADJUDICATION_EXPORT_PATH.exists()
+    content = CLUSTER_ADJUDICATION_EXPORT_PATH.read_text(encoding="utf-8")
+    assert "# 第五项B扩展试点第一批证据簇结算草案" in content
+    for needle in [
+        "刘邦",
+        "雍正",
+        "朱元璋",
+        "负证拦截",
+        "相邻项切分",
+        "补证缺口",
+        "只作草案，不输出终局结果",
+    ]:
+        assert needle in content
+    for forbidden in ["正式定档", "正式出分", "排名", "总榜", "leaderboard", "total_ranking", "final_score", "final_grade"]:
+        assert forbidden not in content
