@@ -8,7 +8,7 @@
 2. 修改前后都运行 `git diff --name-only`，白名单外文件必须还原。
 3. PR 说明必须粘贴最终 changed files 列表。
 4. 开 PR 后默认直接置为 ready for review；除非 Issue 明确要求 draft，否则不要保持 draft。
-5. 收到“返修 / 按审查意见修改 / fix review”时，必须先读取 PR 评论和 review threads，不得只改 PR 状态或 PR body。
+5. 收到“返修 / 按审查意见修改 / fix review”时，必须先 checkout/fetch PR head 分支，并读取 PR 评论和 review threads；不得在 base 分支重建文件或只改 PR 状态/PR body。
 6. 返修后必须确认 local HEAD 与 PR head SHA 一致，并在回复或 PR 说明中写明。
 7. 不自动生成交接包、压缩包、正式档位、正式分数、排名、阶段总榜或总榜。
 8. `exports/markdown_views/` 是导出视图层，不是事实源；除非 Issue 明确要求，不得批量重写旧导出。
