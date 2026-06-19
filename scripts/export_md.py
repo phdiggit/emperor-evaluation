@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from collections import Counter
 from pathlib import Path
 
 from export_i5b_auto_adjudication import export_auto_adjudication
@@ -17,6 +18,12 @@ QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索
 EXPANDED_BATCH1_REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
+TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
+TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
+TARGETED_SUPPLEMENT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批定向补证.md"
+TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = ROOT / "data" / "sweep_batches" / "i5b_yongzheng_role_class_sweep_20260619.jsonl"
+EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
+EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
@@ -68,6 +75,48 @@ EXPANDED_BATCH1_CLUSTER_ADJUDICATION_HEADERS = [
     "supplement_gap_list",
     "status",
 ]
+TARGETED_SUPPLEMENT_SOURCE_HEADERS = [
+    "source_id",
+    "title",
+    "author",
+    "dynasty",
+    "volume",
+    "location",
+    "url",
+    "note",
+]
+TARGETED_SUPPLEMENT_EVIDENCE_HEADERS = [
+    "evidence_id",
+    "person",
+    "polarity",
+    "strength",
+    "human_level",
+    "source_id",
+    "quote_short",
+    "object_anchor",
+    "evidence_role",
+    "cluster_candidate_id",
+    "supplement_gap_addressed",
+    "supplement_for_adjudication_id",
+    "verification_status",
+    "adjudication_status",
+]
+TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS = [
+    "sweep_id",
+    "item",
+    "subitem",
+    "role_class",
+    "candidate_people",
+    "carded_people",
+    "linked_evidence_ids",
+    "not_carded_people",
+    "not_carded_reason",
+    "source_status",
+    "fifth_b_relevance",
+    "adjacent_item_risk",
+    "status",
+]
+
 
 
 HEADERS = [
@@ -415,6 +464,34 @@ def export_expanded_i5b_batch1_review() -> Path:
                 )
             )
 
+    if not evidence_rows:
+        evidence_rows = [
+            {"raw_json": json.dumps(row, ensure_ascii=False)}
+            for row in read_jsonl(EXPANDED_BATCH1_EVIDENCE_BATCH_PATH)
+            if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
+        ]
+        evidence_rows.sort(
+            key=lambda row: (
+                json.loads(row["raw_json"]).get("person", ""),
+                0 if json.loads(row["raw_json"]).get("polarity") == "positive" else 1,
+                -int(json.loads(row["raw_json"]).get("strength", 0) or 0),
+                json.loads(row["raw_json"]).get("evidence_id", ""),
+            )
+        )
+    if not cluster_rows:
+        cluster_rows = [
+            {"raw_json": json.dumps(row, ensure_ascii=False)}
+            for row in read_jsonl(EXPANDED_BATCH1_CLUSTER_BATCH_PATH)
+            if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
+        ]
+        cluster_rows.sort(
+            key=lambda row: (
+                json.loads(row["raw_json"]).get("person", ""),
+                0 if json.loads(row["raw_json"]).get("polarity") == "positive" else 1,
+                -int(json.loads(row["raw_json"]).get("candidate_strength", 0) or 0),
+                json.loads(row["raw_json"]).get("cluster_id", ""),
+            )
+        )
     lines = [
         "# 第五项B扩展试点第一批证据卡与证据簇草案",
         "",
@@ -506,6 +583,60 @@ def export_expanded_i5b_batch1_cluster_adjudication() -> Path:
 
     EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH
+
+
+def export_expanded_i5b_batch1_targeted_supplement() -> Path:
+    TARGETED_SUPPLEMENT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    source_rows = read_jsonl(TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH)
+    evidence_rows = read_jsonl(TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH)
+    sweep_rows = read_jsonl(TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH)
+    person_counts = Counter(row.get("person") for row in evidence_rows)
+
+    def render_sweep_cell(value: object) -> str:
+        if isinstance(value, list):
+            return escape_cell("、".join(str(item) for item in value))
+        return escape_cell(value)
+
+    lines = [
+        "# 第五项B扩展试点第一批定向补证",
+        "",
+        "本文仅汇总定向补证材料，不定档，不出分，不排名，不出总榜。",
+        "",
+        "## 人数与补证数量",
+        "",
+        "| 人物 | 证据卡数 |",
+        "| --- | ---: |",
+    ]
+    for person in EXPANDED_BATCH1_PERSONS:
+        lines.append(f"| {person} | {person_counts.get(person, 0)} |")
+
+    lines.extend(["", "## 来源", "", "| " + " | ".join(TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |", "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |",])
+    for row in source_rows:
+        lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |")
+
+    lines.extend(["", "## 证据卡", "", "| " + " | ".join(TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |", "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |",])
+    for row in evidence_rows:
+        lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |")
+
+    lines.extend([
+        "",
+        "## 雍正 role-class sweep / 防漏扫查",
+        "",
+        "| " + " | ".join(TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS) + " |",
+        "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS) + " |",
+    ])
+    for row in sweep_rows:
+        lines.append(
+            "| "
+            + " | ".join(render_sweep_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS)
+            + " |"
+        )
+
+    lines.extend(["", "结语：不定档，不出分，不排名，不出总榜。", ""])
+
+    TARGETED_SUPPLEMENT_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return TARGETED_SUPPLEMENT_EXPORT_PATH
 
 
 def render_global_scale_decision_brief() -> str:
@@ -919,6 +1050,8 @@ def main() -> int:
     print(f"exported {expanded_batch1_review_export_path}")
     expanded_batch1_cluster_adjudication_export_path = export_expanded_i5b_batch1_cluster_adjudication()
     print(f"exported {expanded_batch1_cluster_adjudication_export_path}")
+    targeted_supplement_export_path = export_expanded_i5b_batch1_targeted_supplement()
+    print(f"exported {targeted_supplement_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
