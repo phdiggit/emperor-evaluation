@@ -14,6 +14,7 @@
 
 - `query_profile_batches` 和 `search_log_batches` 目前应视为 `needs canonical import first`。
 - `thematic_anchor_batches` 目前应视为 `needs deeper schema investigation`。
+- 按 strict identity field 计算，三份 batch 与 canonical 主表都没有 exact-id overlap；thematic anchor 的“部分吸收”只存在于 person/theme 级聚合判断，不是 1:1 记录吸收。
 
 ## 2. 复核方法
 
