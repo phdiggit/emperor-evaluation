@@ -24,6 +24,8 @@ TARGETED_SUPPLEMENT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五�
 TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = ROOT / "data" / "sweep_batches" / "i5b_yongzheng_role_class_sweep_20260619.jsonl"
 POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl"
 POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批补证后结算更新草案.md"
+READINESS_AUDIT_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl"
+READINESS_AUDIT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工裁判准备审计.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
@@ -704,6 +706,80 @@ def export_expanded_i5b_batch1_post_supplement_adjudication() -> Path:
     return POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH
 
 
+def export_expanded_i5b_batch1_readiness_audit() -> Path:
+    READINESS_AUDIT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = read_jsonl(READINESS_AUDIT_BATCH_PATH)
+    person_rows = [row for row in rows if row.get("row_type") != "batch_rule_pressure_summary"]
+    summary_rows = [row for row in rows if row.get("row_type") == "batch_rule_pressure_summary"]
+
+    lines = [
+        "# 第五项B扩展试点第一批人工裁判准备审计",
+        "",
+        "本文仅用于人工裁判准备审计，不定档，不出分，不排名，不出总榜。",
+        "",
+        "## 人员准备度总览",
+        "",
+        "| readiness_id | person | current_draft_status | recommended_next_step | status |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for row in person_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    escape_cell(row.get("readiness_id")),
+                    escape_cell(row.get("person")),
+                    escape_cell(row.get("current_draft_status")),
+                    escape_cell(row.get("recommended_next_step")),
+                    escape_cell(row.get("status")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(["", "## 逐人审计", ""])
+    for row in person_rows:
+        lines.extend(
+            [
+                f"### {row.get('person')}",
+                "",
+                f"- current draft status：{row.get('current_draft_status') or ''}",
+                f"- stabilized findings：{join_list_cell(row.get('stabilized_findings'))}",
+                f"- unstable findings：{join_list_cell(row.get('unstable_findings'))}",
+                f"- must human review points：{join_list_cell(row.get('must_human_review_points'))}",
+                f"- rule pressure points：{join_list_cell(row.get('rule_pressure_points'))}",
+                f"- cross item split risks：{join_list_cell(row.get('cross_item_split_risks'))}",
+                f"- negative intercept review needed：{row.get('negative_intercept_review_needed') or ''}",
+                f"- remaining evidence gaps：{join_list_cell(row.get('remaining_evidence_gaps'))}",
+                f"- recommended next step：{row.get('recommended_next_step') or ''}",
+                f"- status：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    if summary_rows:
+        summary = summary_rows[0]
+        lines.extend(
+            [
+                "## 批次级规则压力总结",
+                "",
+                f"- batch_rule_pressure_id：{summary.get('batch_rule_pressure_id') or ''}",
+                f"- stable_rule_lessons：{join_list_cell(summary.get('stable_rule_lessons'))}",
+                f"- open_rule_questions：{join_list_cell(summary.get('open_rule_questions'))}",
+                f"- recommended_workflow_patches：{join_list_cell(summary.get('recommended_workflow_patches'))}",
+                f"- not_for_scoring_statement：{summary.get('not_for_scoring_statement') or ''}",
+                f"- status：{summary.get('status') or ''}",
+                "",
+            ]
+        )
+
+    lines.extend(["## 审计结语", "", "本审计只给出人工裁判准备建议，不转为正式档位或分数。"])
+
+    READINESS_AUDIT_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return READINESS_AUDIT_EXPORT_PATH
+
+
 def render_global_scale_decision_brief() -> str:
     lines = [
         "# 全局总标尺决策简报",
@@ -1119,6 +1195,8 @@ def main() -> int:
     print(f"exported {targeted_supplement_export_path}")
     post_supplement_adjudication_export_path = export_expanded_i5b_batch1_post_supplement_adjudication()
     print(f"exported {post_supplement_adjudication_export_path}")
+    readiness_audit_export_path = export_expanded_i5b_batch1_readiness_audit()
+    print(f"exported {readiness_audit_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
