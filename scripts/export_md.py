@@ -15,6 +15,8 @@ EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组
 THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
 QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
 EXPANDED_BATCH1_REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
+EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
+EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
@@ -49,6 +51,24 @@ EXPANDED_BATCH1_CLUSTER_HEADERS = [
     "adjudication_status",
     "status",
 ]
+EXPANDED_BATCH1_CLUSTER_ADJUDICATION_HEADERS = [
+    "adjudication_id",
+    "person",
+    "item",
+    "subitem",
+    "positive_cluster_ids",
+    "negative_cluster_ids",
+    "positive_core_summary",
+    "negative_core_summary",
+    "adjacent_item_split_summary",
+    "negative_intercept_status",
+    "adjacent_item_split_status",
+    "rule_pressure_summary",
+    "net_adjudication_draft",
+    "supplement_gap_list",
+    "status",
+]
+
 
 HEADERS = [
     "evidence_id",
@@ -223,6 +243,18 @@ I5B_EXPANDED_CANDIDATE_POOL_ROWS = [
         "recommended_priority": "P7",
     },
 ]
+
+
+def read_jsonl(path: Path) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    if not path.exists():
+        return rows
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            stripped = line.strip()
+            if stripped:
+                rows.append(json.loads(stripped))
+    return rows
 
 
 def escape_cell(value: object) -> str:
@@ -418,6 +450,62 @@ def export_expanded_i5b_batch1_review() -> Path:
 
     EXPANDED_BATCH1_REVIEW_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return EXPANDED_BATCH1_REVIEW_EXPORT_PATH
+
+def export_expanded_i5b_batch1_cluster_adjudication() -> Path:
+    EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = read_jsonl(EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH)
+
+    lines = [
+        "# 第五项B扩展试点第一批证据簇结算草案",
+        "",
+        "本文件仅供人工审阅，汇总刘邦、雍正、朱元璋的证据簇结算草案；只作草案，不输出终局结果。",
+        "",
+        "## 结算总览",
+        "",
+        "| " + " | ".join(EXPANDED_BATCH1_CLUSTER_ADJUDICATION_HEADERS) + " |",
+        "| " + " | ".join("---" for _ in EXPANDED_BATCH1_CLUSTER_ADJUDICATION_HEADERS) + " |",
+    ]
+
+    for row in rows:
+        lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in EXPANDED_BATCH1_CLUSTER_ADJUDICATION_HEADERS) + " |")
+
+    lines.extend(["", "## 逐人结算", ""])
+    for row in rows:
+        lines.extend(
+            [
+                f"### {row.get('person')}",
+                "",
+                f"- 正向证据簇：{escape_cell(row.get('positive_cluster_ids'))}",
+                f"- 负向证据簇：{escape_cell(row.get('negative_cluster_ids'))}",
+                f"- 正向核心：{row.get('positive_core_summary') or ''}",
+                f"- 负向核心：{row.get('negative_core_summary') or ''}",
+                f"- 相邻项切分：{row.get('adjacent_item_split_summary') or ''}",
+                f"- 负证拦截：{row.get('negative_intercept_status') or ''} / {row.get('adjacent_item_split_status') or ''}",
+                f"- 规则敏感点：{row.get('rule_pressure_summary') or ''}",
+                f"- 净裁量草案：{row.get('net_adjudication_draft') or ''}",
+                f"- 补证缺口：{escape_cell(row.get('supplement_gap_list'))}",
+                "",
+            ]
+        )
+
+    lines.extend(["## 规则敏感点清单", ""])
+    for row in rows:
+        lines.append(f"- {row.get('person')}：{row.get('rule_pressure_summary') or ''}")
+
+    lines.extend(["", "## 后续 targeted supplement 缺口清单", ""])
+    for row in rows:
+        lines.append(f"- {row.get('person')}：{escape_cell(row.get('supplement_gap_list'))}")
+
+    lines.extend(
+        [
+            "",
+            "本文件不输出终局结果。",
+        ]
+    )
+
+    EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH
 
 
 def render_global_scale_decision_brief() -> str:
@@ -829,6 +917,8 @@ def main() -> int:
         print(f"exported {exported_net_evidence_path}")
     expanded_batch1_review_export_path = export_expanded_i5b_batch1_review()
     print(f"exported {expanded_batch1_review_export_path}")
+    expanded_batch1_cluster_adjudication_export_path = export_expanded_i5b_batch1_cluster_adjudication()
+    print(f"exported {expanded_batch1_cluster_adjudication_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
