@@ -48,6 +48,7 @@ def test_redundant_file_candidates_report_contains_required_sections() -> None:
         "## 7. \u4e0b\u4e00\u6b65\u5efa\u8bae Issue",
     ]:
         assert heading in content
+    assert "| path | original_category | scan_status | unique_source_risk | recommendation | next_action | risk_level | notes |" in content
 
 
 def test_redundant_file_candidates_report_contains_required_fields() -> None:
@@ -73,6 +74,12 @@ def test_redundant_file_candidates_report_contains_required_fields() -> None:
         "\u9ad8\u98ce\u9669",
         "\u6b63\u5f0f\u5b9a\u6863",
         "\u4e0d\u5141\u8bb8\u76f4\u63a5\u5220\u9664",
+        "original_category",
+        "scan_status",
+        "unique_source_risk",
+        "next_action",
+        "risk_level",
+        "notes",
     ]:
         assert needle in content
 
