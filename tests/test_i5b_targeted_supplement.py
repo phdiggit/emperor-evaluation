@@ -81,7 +81,7 @@ def test_targeted_supplement_export_is_review_only() -> None:
 
     content = EXPORT_PATH.read_text(encoding="utf-8")
     assert "# 第五项B扩展试点第一批定向补证" in content
-    assert "本文件只汇总刘邦、雍正、朱元璋的 targeted supplement 补证材料" in content
+    assert "本文仅汇总定向补证材料，不定档，不出分，不排名，不出总榜。" in content
     assert "不定档，不出分，不排名，不出总榜" in content
     for needle in [
         "EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001",

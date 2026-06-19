@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
 
 from export_i5b_auto_adjudication import export_auto_adjudication
 
@@ -21,6 +21,8 @@ EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_
 TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
 TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
 TARGETED_SUPPLEMENT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批定向补证.md"
+EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
+EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
@@ -445,6 +447,34 @@ def export_expanded_i5b_batch1_review() -> Path:
                 )
             )
 
+    if not evidence_rows:
+        evidence_rows = [
+            {"raw_json": json.dumps(row, ensure_ascii=False)}
+            for row in read_jsonl(EXPANDED_BATCH1_EVIDENCE_BATCH_PATH)
+            if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
+        ]
+        evidence_rows.sort(
+            key=lambda row: (
+                json.loads(row["raw_json"]).get("person", ""),
+                0 if json.loads(row["raw_json"]).get("polarity") == "positive" else 1,
+                -int(json.loads(row["raw_json"]).get("strength", 0) or 0),
+                json.loads(row["raw_json"]).get("evidence_id", ""),
+            )
+        )
+    if not cluster_rows:
+        cluster_rows = [
+            {"raw_json": json.dumps(row, ensure_ascii=False)}
+            for row in read_jsonl(EXPANDED_BATCH1_CLUSTER_BATCH_PATH)
+            if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
+        ]
+        cluster_rows.sort(
+            key=lambda row: (
+                json.loads(row["raw_json"]).get("person", ""),
+                0 if json.loads(row["raw_json"]).get("polarity") == "positive" else 1,
+                -int(json.loads(row["raw_json"]).get("candidate_strength", 0) or 0),
+                json.loads(row["raw_json"]).get("cluster_id", ""),
+            )
+        )
     lines = [
         "# 第五项B扩展试点第一批证据卡与证据簇草案",
         "",
@@ -543,57 +573,30 @@ def export_expanded_i5b_batch1_targeted_supplement() -> Path:
 
     source_rows = read_jsonl(TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH)
     evidence_rows = read_jsonl(TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH)
-    source_rows = sorted(source_rows, key=lambda row: str(row.get("source_id") or ""))
-    evidence_rows = sorted(
-        evidence_rows,
-        key=lambda row: (str(row.get("person") or ""), str(row.get("polarity") or ""), str(row.get("evidence_id") or "")),
-    )
-
-    counts = Counter(str(row.get("person") or "") for row in evidence_rows)
+    person_counts = Counter(row.get("person") for row in evidence_rows)
 
     lines = [
         "# 第五项B扩展试点第一批定向补证",
         "",
-        "本文件只汇总刘邦、雍正、朱元璋的 targeted supplement 补证材料；只做补证，不定档，不出分，不排名，不出总榜。",
+        "本文仅汇总定向补证材料，不定档，不出分，不排名，不出总榜。",
         "",
         "## 人数与补证数量",
         "",
+        "| 人物 | 证据卡数 |",
+        "| --- | ---: |",
     ]
-    for person in ["刘邦", "雍正", "朱元璋"]:
-        lines.append(f"- {person}：{counts.get(person, 0)} 条")
+    for person in EXPANDED_BATCH1_PERSONS:
+        lines.append(f"| {person} | {person_counts.get(person, 0)} |")
 
-    lines.extend(
-        [
-            "",
-            "## 来源",
-            "",
-            "| " + " | ".join(TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |",
-            "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |",
-        ]
-    )
+    lines.extend(["", "## 来源", "", "| " + " | ".join(TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |", "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |",])
     for row in source_rows:
         lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |")
 
-    lines.extend(
-        [
-            "",
-            "## 证据卡",
-            "",
-            "| " + " | ".join(TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |",
-            "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |",
-        ]
-    )
+    lines.extend(["", "## 证据卡", "", "| " + " | ".join(TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |", "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |",])
     for row in evidence_rows:
         lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |")
 
-    lines.extend(
-        [
-            "",
-            "## 结语",
-            "",
-            "本批仅补 source-backed targeted supplement evidence cards；不定档、不出分、不排名、不出总榜。",
-        ]
-    )
+    lines.extend(["", "结语：不定档，不出分，不排名，不出总榜。", ""])
 
     TARGETED_SUPPLEMENT_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return TARGETED_SUPPLEMENT_EXPORT_PATH
