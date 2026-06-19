@@ -31,6 +31,8 @@ ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batche
 ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 READINESS_FOLLOWUP_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_followup_20260619.jsonl"
 READINESS_FOLLOWUP_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批readiness后续处理.md"
+HUMAN_REVIEW_PACKAGE_BATCH_PATH = ROOT / "data" / "review_packages" / "i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl"
+HUMAN_REVIEW_PACKAGE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工会审准备包.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
@@ -901,6 +903,83 @@ def export_expanded_i5b_batch1_readiness_followup() -> Path:
     return READINESS_FOLLOWUP_EXPORT_PATH
 
 
+def export_expanded_i5b_batch1_human_review_package() -> Path:
+    HUMAN_REVIEW_PACKAGE_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = read_jsonl(HUMAN_REVIEW_PACKAGE_BATCH_PATH)
+    person_rows = [row for row in rows if row.get("row_type") != "batch_review_agenda"]
+    agenda_rows = [row for row in rows if row.get("row_type") == "batch_review_agenda"]
+
+    lines = [
+        "# 第五项B扩展试点第一批人工会审准备包",
+        "",
+        "本文仅用于人工会审准备，不定档，不出分，不排名，不出总榜。",
+        "",
+        "## 会审总览",
+        "",
+        "| review_package_id | person | current_readiness_recommendation | core_rule_question | status |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for row in person_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    escape_cell(row.get("review_package_id")),
+                    escape_cell(row.get("person")),
+                    escape_cell(row.get("current_readiness_recommendation")),
+                    escape_cell(row.get("core_rule_question")),
+                    escape_cell(row.get("status")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(["", "## 逐人会审焦点", ""])
+    for row in person_rows:
+        lines.extend(
+            [
+                f"### {row.get('person')}",
+                "",
+                f"- input_followup_id：{row.get('input_followup_id') or ''}",
+                f"- current_readiness_recommendation：{row.get('current_readiness_recommendation') or ''}",
+                f"- core_rule_question：{row.get('core_rule_question') or ''}",
+                f"- evidence_pressure_summary：{row.get('evidence_pressure_summary') or ''}",
+                f"- negative_intercept_gate：{row.get('negative_intercept_gate') or ''}",
+                f"- cross_item_split_gate：{row.get('cross_item_split_gate') or ''}",
+                f"- possible_human_review_paths：{join_list_cell(row.get('possible_human_review_paths'))}",
+                f"- recommended_human_review_focus：{row.get('recommended_human_review_focus') or ''}",
+                f"- forbidden_shortcuts：{join_list_cell(row.get('forbidden_shortcuts'))}",
+                f"- not_for_scoring_statement：{row.get('not_for_scoring_statement') or ''}",
+                f"- status：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    if agenda_rows:
+        row = agenda_rows[0]
+        lines.extend(
+            [
+                "## 批次级会审议程",
+                "",
+                f"- batch_review_agenda_id：{row.get('batch_review_agenda_id') or ''}",
+                f"- shared_rule_questions：{join_list_cell(row.get('shared_rule_questions'))}",
+                f"- shared_negative_intercept_gate：{row.get('shared_negative_intercept_gate') or ''}",
+                f"- shared_cross_item_split_gate：{row.get('shared_cross_item_split_gate') or ''}",
+                f"- workflow_lessons：{join_list_cell(row.get('workflow_lessons'))}",
+                f"- decision_points_for_user：{join_list_cell(row.get('decision_points_for_user'))}",
+                f"- not_for_scoring_statement：{row.get('not_for_scoring_statement') or ''}",
+                f"- status：{row.get('status') or ''}",
+                "",
+            ]
+        )
+
+    lines.extend(["## 下一步建议", "", "本准备包只进入规则、边界与裁判路径会审，不形成正式档位或分数。"])
+
+    HUMAN_REVIEW_PACKAGE_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return HUMAN_REVIEW_PACKAGE_EXPORT_PATH
+
+
 def render_global_scale_decision_brief() -> str:
     lines = [
         "# 全局总标尺决策简报",
@@ -1320,6 +1399,8 @@ def main() -> int:
     print(f"exported {readiness_audit_export_path}")
     readiness_followup_export_path = export_expanded_i5b_batch1_readiness_followup()
     print(f"exported {readiness_followup_export_path}")
+    human_review_package_export_path = export_expanded_i5b_batch1_human_review_package()
+    print(f"exported {human_review_package_export_path}")
     GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     brief_content = render_global_scale_decision_brief()
