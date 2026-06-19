@@ -70,24 +70,17 @@ def test_redundant_file_candidates_report_covers_all_candidates() -> None:
 
 
 def test_worktree_diff_is_limited_to_the_whitelist() -> None:
-    result = subprocess.run(
-        ["git", "-c", "core.quotepath=false", "ls-files", "--others", "--modified", "--exclude-standard", "-z"],
-        cwd=ROOT,
-        capture_output=True,
-        text=False,
-        check=False,
-    )
-
-    assert result.returncode == 0, result.stdout.decode("utf-8", errors="replace") + result.stderr.decode("utf-8", errors="replace")
-
-    changed_files = {
-        line.decode("utf-8")
-        for line in result.stdout.split(b"\0")
-        if line
-    }
-    changed_files = {
-        path for path in changed_files
-        if not path.startswith(".tmp/")
-    }
+    commands = [
+        ["git", "-c", "core.quotepath=false", "diff", "--name-only", "origin/GPT...HEAD"],
+        ["git", "-c", "core.quotepath=false", "diff", "--name-only"],
+        ["git", "-c", "core.quotepath=false", "diff", "--cached", "--name-only"],
+    ]
+    changed_files: set[str] = set()
+    for command in commands:
+        result = subprocess.run(command, cwd=ROOT, capture_output=True, check=False)
+        if result.returncode != 0:
+            continue
+        stdout = result.stdout.decode("utf-8")
+        changed_files.update(line.strip().replace("\\", "/") for line in stdout.splitlines() if line.strip())
     assert changed_files <= ALLOWED_FILES
     assert changed_files == ALLOWED_FILES
