@@ -7,8 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CHINESE_VIEW_CONFIG_DIR = ROOT / "data" / "configs" / "视图配置"
-PERSON_POOL_PATH = CHINESE_VIEW_CONFIG_DIR / "第五项B_人物池.jsonl"
-VIEW_GROUPS_PATH = CHINESE_VIEW_CONFIG_DIR / "第五项B_视图分组.jsonl"
+PERSON_POOL_PATH = CHINESE_VIEW_CONFIG_DIR / "第五项B_人物池.json"
+VIEW_GROUPS_PATH = CHINESE_VIEW_CONFIG_DIR / "第五项B_视图分组.json"
 LEGACY_TRIAL_TARGETS_PATH = ROOT / "data" / "view_configs" / "i5b_trial_targets.jsonl"
 LEGACY_EXPANDED_BATCH1_PATH = ROOT / "data" / "view_configs" / "i5b_expanded_batch1_targets.jsonl"
 LEGACY_NET_EVIDENCE_TARGETS_PATH = ROOT / "data" / "view_configs" / "i5b_net_evidence_targets.jsonl"
@@ -27,6 +27,77 @@ def is_string_list(value: object, *, allow_empty: bool) -> bool:
     if not allow_empty and not value:
         return False
     return all(is_non_empty_string(item) for item in value)
+
+
+def infer_array_object_line_numbers(text: str, count: int) -> list[int]:
+    line_numbers: list[int] = []
+    line_number = 1
+    depth = 0
+    in_string = False
+    escaping = False
+
+    for char in text:
+        if char == "\n":
+            line_number += 1
+
+        if in_string:
+            if escaping:
+                escaping = False
+            elif char == "\\":
+                escaping = True
+            elif char == '"':
+                in_string = False
+            continue
+
+        if char == '"':
+            in_string = True
+            continue
+
+        if char == "[":
+            depth += 1
+            continue
+
+        if char == "{":
+            depth += 1
+            if depth == 2:
+                line_numbers.append(line_number)
+            continue
+
+        if char in "}]":
+            depth = max(depth - 1, 0)
+
+    if len(line_numbers) != count:
+        return list(range(1, count + 1))
+
+    return line_numbers
+
+
+def load_json_array_objects(path: Path) -> tuple[list[tuple[int, dict[str, object]]], list[str]]:
+    rows: list[tuple[int, dict[str, object]]] = []
+    errors: list[str] = []
+
+    if not path.exists():
+        return rows, [f"{path}: line 1: required file is missing"]
+
+    raw_text = path.read_text(encoding="utf-8")
+    try:
+        payload = json.loads(raw_text)
+    except json.JSONDecodeError as exc:
+        errors.append(f"{path}: line {exc.lineno}: invalid JSON ({exc.msg})")
+        return rows, errors
+
+    if not isinstance(payload, list):
+        return rows, [f"{path}: line 1: expected top-level JSON array, got {type(payload).__name__}"]
+
+    line_numbers = infer_array_object_line_numbers(raw_text, len(payload))
+    for index, row in enumerate(payload):
+        line_number = line_numbers[index]
+        if not isinstance(row, dict):
+            errors.append(f"{path}: line {line_number}: expected array item to be JSON object, got {type(row).__name__}")
+            continue
+        rows.append((line_number, row))
+
+    return rows, errors
 
 
 def load_jsonl_objects(path: Path) -> tuple[list[tuple[int, dict[str, object]]], list[str]]:
@@ -227,8 +298,8 @@ def validate_pool_covers_legacy_sources(
 def validate() -> list[str]:
     errors: list[str] = []
 
-    person_rows, person_load_errors = load_jsonl_objects(PERSON_POOL_PATH)
-    group_rows, group_load_errors = load_jsonl_objects(VIEW_GROUPS_PATH)
+    person_rows, person_load_errors = load_json_array_objects(PERSON_POOL_PATH)
+    group_rows, group_load_errors = load_json_array_objects(VIEW_GROUPS_PATH)
     errors.extend(person_load_errors)
     errors.extend(group_load_errors)
 
