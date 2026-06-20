@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import config_loaders
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -87,7 +89,7 @@ def grouped_terms(
 
 def export_matrix() -> Path:
     trigger_terms = read_jsonl(DATA_DIR / "trigger_terms.jsonl")
-    config = read_json(CONFIG_PATH)
+    config = config_loaders.get_i5b_trial_config()
     item = str(config["item"])
     subitem = str(config["subitem"])
     targets = list(config["targets"])

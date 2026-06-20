@@ -5,6 +5,7 @@ import sqlite3
 from collections import Counter
 from pathlib import Path
 
+import config_loaders
 from export_i5b_auto_adjudication import export_auto_adjudication
 from export_i5b_expanded_batch1 import (
     export_expanded_i5b_batch1_cluster_adjudication,
@@ -39,7 +40,6 @@ from export_md_scaffold import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
-I5B_TRIAL_TARGETS_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_trial_targets.jsonl"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
 SEARCH_LOGS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点检索线索.md"
 EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
@@ -121,13 +121,7 @@ QUERY_PROFILE_HEADERS = [
 
 
 def load_i5b_trial_targets() -> list[str]:
-    targets: list[str] = []
-    for line in I5B_TRIAL_TARGETS_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        row = json.loads(line)
-        targets.append(row["person"])
-    return targets
+    return config_loaders.get_i5b_trial_targets()
 
 
 I5B_TRIAL_TARGETS = load_i5b_trial_targets()

@@ -8,6 +8,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 AUTO_RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
@@ -120,15 +121,30 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     export_dir = tmp_path / "exports" / "markdown_views"
     export_dir.mkdir(parents=True)
 
-    targets = ["测试甲"]
-    config_path = tmp_path / "i5b_trial_targets.json"
-    config_path.write_text(
-        json.dumps({"item": "第五项", "subitem": "第五项B", "targets": targets}, ensure_ascii=False),
+    group_path = tmp_path / "第五项B_视图分组.json"
+    group_path.write_text(
+        json.dumps(
+            [
+                {
+                    "group_id": "第五项B_三人试点",
+                    "group_name": "三人试点",
+                    "group_type": "试点人物组",
+                    "subitem": "第五项B",
+                    "persons": ["测试甲"],
+                    "note": "测试",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
+        + "\n",
         encoding="utf-8",
     )
 
     monkeypatch.setattr(auto, "DATA_DIR", data_dir)
-    monkeypatch.setattr(auto, "CONFIG_PATH", config_path)
+    monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(auto.config_loaders, "LEGACY_I5B_TRIAL_CONFIG_PATH", tmp_path / "missing-trial.json")
+    monkeypatch.setattr(auto.config_loaders, "LEGACY_I5B_TRIAL_TARGETS_PATH", tmp_path / "missing-trial.jsonl")
     monkeypatch.setattr(auto, "EXPORT_PATH", export_dir / "第五项B三人自动结算草案.md")
     monkeypatch.setattr(auto, "RULES_EXPORT_PATH", export_dir / "第五项B自动结算规则敏感点清单.md")
     monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", export_dir / "第五项B评分标尺与档位映射草案.md")

@@ -5,13 +5,13 @@ import sqlite3
 from collections import Counter
 from pathlib import Path
 
+import config_loaders
 from export_md_scaffold import escape_cell, join_list_cell, read_jsonl
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 I5B_SUBITEM = "第五项B"
-EXPANDED_BATCH1_TARGETS_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_expanded_batch1_targets.jsonl"
 EXPANDED_BATCH1_REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
@@ -26,13 +26,7 @@ EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" 
 
 
 def load_expanded_batch1_persons() -> list[str]:
-    persons: list[str] = []
-    for line in EXPANDED_BATCH1_TARGETS_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        row = json.loads(line)
-        persons.append(row["person"])
-    return persons
+    return config_loaders.get_i5b_expanded_batch1_targets()
 
 
 EXPANDED_BATCH1_PERSONS = load_expanded_batch1_persons()
