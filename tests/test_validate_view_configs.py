@@ -101,3 +101,21 @@ def test_validate_view_configs_checks_i5b_net_evidence_targets_schema(
     assert len(errors) == 2
     assert f"{targets_path}: line 1: missing required fields: export_path" in errors
     assert f"{targets_path}: line 1: person must be a non-empty string" in errors
+
+
+def test_validate_view_configs_checks_i5b_expanded_batch1_targets_schema(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config_dir = tmp_path / "view_configs"
+    config_dir.mkdir()
+    targets_path = config_dir / "i5b_expanded_batch1_targets.jsonl"
+    targets_path.write_text('{"target": ""}\n', encoding="utf-8")
+
+    monkeypatch.setattr(validate_view_configs, "VIEW_CONFIG_DIR", config_dir)
+    monkeypatch.setattr(validate_view_configs, "I5B_EXPANDED_BATCH1_TARGETS_PATH", targets_path)
+
+    errors = validate_view_configs.validate()
+
+    assert len(errors) == 2
+    assert f"{targets_path}: line 1: missing required fields: person" in errors
+    assert f"{targets_path}: line 1: target must be a non-empty string" in errors

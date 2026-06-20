@@ -162,6 +162,23 @@ def test_export_expanded_i5b_batch1_review_falls_back_to_batch_files_and_sorts_r
     assert cluster_section.index("CLUSTER-LB-B") < cluster_section.index("CLUSTER-ZZ")
 
 
+def test_load_expanded_batch1_persons_reads_jsonl_config(tmp_path: Path) -> None:
+    config_path = tmp_path / "i5b_expanded_batch1_targets.jsonl"
+    write_jsonl(
+        config_path,
+        [
+            {"person": "甲"},
+            {"person": "乙"},
+        ],
+    )
+
+    expanded_batch1.EXPANDED_BATCH1_TARGETS_CONFIG_PATH = config_path
+
+    persons = expanded_batch1.load_expanded_batch1_persons()
+
+    assert persons == ["甲", "乙"]
+
+
 def test_export_expanded_i5b_batch1_targeted_supplement_renders_counts_and_sweep_lists(tmp_path: Path) -> None:
     export_path = tmp_path / "supplement.md"
     source_batch_path = tmp_path / "sources.jsonl"
