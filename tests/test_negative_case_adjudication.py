@@ -100,6 +100,11 @@ def test_search_log_statuses_include_only_verified_negative_cards() -> None:
     }
 
     assert created_ids == {
+        "SRCH-I5B-LIUBANG-POS-SHIREN-001",
+        "SRCH-I5B-LIUBANG-POS-SHOUQUAN-001",
+        "SRCH-I5B-LIUBANG-POS-RONGREN-001",
+        "SRCH-I5B-LIUBANG-POS-RONGJIAN-001",
+        "SRCH-I5B-LIUBANG-NEG-GONGCHEN-001",
         "SRCH-I5B-LISHIMIN-POS-SHIREN-001",
         "SRCH-I5B-LISHIMIN-POS-SHOUQUAN-001",
         "SRCH-I5B-LISHIMIN-POS-RONGJIAN-001",
@@ -180,6 +185,22 @@ def test_lishimin_positive_leads_are_now_converted() -> None:
         "SRCH-I5B-LIUZHUANG-POS-SHIREN-001": "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
         "SRCH-I5B-LIUZHUANG-POS-RONGJIAN-001": "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001",
         "SRCH-I5B-LIUZHUANG-POS-SHOUQUAN-001": "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001",
+    }.items():
+        assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
+        assert search_logs[search_id]["linked_evidence_id"] == linked_id
+
+
+def test_liubang_search_logs_are_already_converted_to_created_cards() -> None:
+    search_logs = {
+        row["search_id"]: row
+        for row in read_jsonl(SEARCH_LOGS_PATH)
+    }
+    for search_id, linked_id in {
+        "SRCH-I5B-LIUBANG-POS-SHIREN-001": "EVD-I5B-LIUBANG-POS-SANJIE-001",
+        "SRCH-I5B-LIUBANG-POS-SHOUQUAN-001": "EVD-I5B-LIUBANG-POS-HANXIN-QIWANG-001",
+        "SRCH-I5B-LIUBANG-POS-RONGREN-001": "EVD-I5B-LIUBANG-POS-CHENPING-001",
+        "SRCH-I5B-LIUBANG-POS-RONGJIAN-001": "EVD-I5B-LIUBANG-POS-ZHANGLIANG-RONGJIAN-001",
+        "SRCH-I5B-LIUBANG-NEG-GONGCHEN-001": "EVD-I5B-LIUBANG-NEG-HANXIN-001;EVD-I5B-LIUBANG-NEG-PENGYUE-001;EVD-I5B-LIUBANG-NEG-YINGBU-CHILL-001",
     }.items():
         assert search_logs[search_id]["result_status"] == "evidence_found_card_created"
         assert search_logs[search_id]["linked_evidence_id"] == linked_id
