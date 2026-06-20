@@ -39,6 +39,7 @@ from export_md_scaffold import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
+I5B_TRIAL_TARGETS_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_trial_targets.jsonl"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
 SEARCH_LOGS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点检索线索.md"
 EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
@@ -117,8 +118,22 @@ QUERY_PROFILE_HEADERS = [
     "source_scopes",
     "thematic_anchor_targets",
 ]
-I5B_TRIAL_TARGETS = ["李世民", "刘秀", "刘庄"]
+
+
+def load_i5b_trial_targets() -> list[str]:
+    targets: list[str] = []
+    for line in I5B_TRIAL_TARGETS_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        targets.append(row["person"])
+    return targets
+
+
+I5B_TRIAL_TARGETS = load_i5b_trial_targets()
 I5B_SUBITEM = "第五项B"
+
+
 def export_markdown() -> Path:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
