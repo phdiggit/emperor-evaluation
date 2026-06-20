@@ -10,6 +10,7 @@ from export_md_scaffold import escape_cell
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 I5B_SUBITEM = "第五项B"
+I5B_NET_EVIDENCE_TARGETS_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_net_evidence_targets.jsonl"
 
 NET_EVIDENCE_CLUSTER_HEADERS = [
     "cluster_id",
@@ -37,11 +38,17 @@ NET_EVIDENCE_CARD_HEADERS = [
     "scoring_effect",
     "adjudication_status",
 ]
-I5B_NET_EVIDENCE_TARGETS = [
-    ("李世民", ROOT / "exports" / "markdown_views" / "第五项B_李世民净证据池.md"),
-    ("刘秀", ROOT / "exports" / "markdown_views" / "第五项B_刘秀净证据池.md"),
-    ("刘庄", ROOT / "exports" / "markdown_views" / "第五项B_刘庄净证据池.md"),
-]
+def load_i5b_net_evidence_targets() -> list[tuple[str, Path]]:
+    targets: list[tuple[str, Path]] = []
+    for line in I5B_NET_EVIDENCE_TARGETS_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        targets.append((row["person"], ROOT / row["export_path"]))
+    return targets
+
+
+I5B_NET_EVIDENCE_TARGETS = load_i5b_net_evidence_targets()
 
 
 def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:

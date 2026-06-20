@@ -118,3 +118,19 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     assert "引文\\|含分隔符" in content
     assert "CLUSTER-999" not in content
     assert "CARD-999" not in content
+
+
+def test_load_i5b_net_evidence_targets_reads_jsonl_config(tmp_path: Path) -> None:
+    config_path = tmp_path / "i5b_net_evidence_targets.jsonl"
+    config_path.write_text(
+        '{"person": "测试人物", "export_path": "exports/markdown_views/test-net-evidence.md"}\n',
+        encoding="utf-8",
+    )
+
+    net_evidence.I5B_NET_EVIDENCE_TARGETS_CONFIG_PATH = config_path
+
+    targets = net_evidence.load_i5b_net_evidence_targets()
+
+    assert targets == [
+        ("测试人物", net_evidence.ROOT / "exports" / "markdown_views" / "test-net-evidence.md")
+    ]
