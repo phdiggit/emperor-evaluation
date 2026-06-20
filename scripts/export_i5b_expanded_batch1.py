@@ -11,6 +11,7 @@ from export_md_scaffold import escape_cell, join_list_cell, read_jsonl
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 I5B_SUBITEM = "第五项B"
+EXPANDED_BATCH1_TARGETS_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_expanded_batch1_targets.jsonl"
 EXPANDED_BATCH1_REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
@@ -22,7 +23,19 @@ POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches"
 POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批补证后结算更新草案.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-EXPANDED_BATCH1_PERSONS = ["刘邦", "雍正", "朱元璋"]
+
+
+def load_expanded_batch1_persons() -> list[str]:
+    persons: list[str] = []
+    for line in EXPANDED_BATCH1_TARGETS_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        persons.append(row["person"])
+    return persons
+
+
+EXPANDED_BATCH1_PERSONS = load_expanded_batch1_persons()
 EXPANDED_BATCH1_EVIDENCE_HEADERS = [
     "evidence_id",
     "person",
@@ -177,7 +190,7 @@ def export_expanded_i5b_batch1_review() -> Path:
     lines = [
         "# 第五项B扩展试点第一批证据卡与证据簇草案",
         "",
-        "本文件汇总刘邦、雍正、朱元璋的回源证据卡与证据簇草案，仅供审阅，不生成正式分，不排名，不出总榜。",
+        f"本文件汇总{'、'.join(EXPANDED_BATCH1_PERSONS)}的回源证据卡与证据簇草案，仅供审阅，不生成正式分，不排名，不出总榜。",
         "",
         "## 证据卡",
         "",
@@ -219,7 +232,7 @@ def export_expanded_i5b_batch1_cluster_adjudication() -> Path:
     lines = [
         "# 第五项B扩展试点第一批证据簇结算草案",
         "",
-        "本文件仅供人工审阅，汇总刘邦、雍正、朱元璋的证据簇结算草案；只作草案，不输出终局结果。",
+        f"本文件仅供人工审阅，汇总{'、'.join(EXPANDED_BATCH1_PERSONS)}的证据簇结算草案；只作草案，不输出终局结果。",
         "",
         "## 结算总览",
         "",
