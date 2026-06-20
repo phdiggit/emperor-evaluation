@@ -45,6 +45,10 @@ def test_validate_all_runs_steps_in_order(monkeypatch) -> None:
     assert called == validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_review_config_validation_step() -> None:
+    assert ("validate_review_configs", ROOT / "scripts" / "validate_review_configs.py") in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     called: list[str] = []
 
