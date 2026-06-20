@@ -8,6 +8,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 I5B_PERSON_POOL_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_人物池.json"
 I5B_VIEW_GROUPS_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_视图分组.json"
+I5B_KEYWORD_PROFILES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_检索关键词基础.json"
+I5B_KEYWORD_OVERRIDES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_检索关键词补丁.json"
 DEFAULT_I5B_ITEM = "第五项"
 DEFAULT_I5B_SUBITEM = "第五项B"
 DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE = "exports/markdown_views/第五项B_{person}净证据池.md"
@@ -108,3 +110,50 @@ def get_i5b_expanded_candidate_pool_rows() -> list[dict[str, Any]]:
         if all(row.get(field) for field in I5B_CANDIDATE_POOL_REQUIRED_FIELDS):
             rows.append(row)
     return rows
+
+
+def load_i5b_keyword_profiles() -> list[dict[str, Any]]:
+    if not I5B_KEYWORD_PROFILES_PATH.exists():
+        return []
+    return load_json_array(I5B_KEYWORD_PROFILES_PATH)
+
+
+def load_i5b_keyword_overrides() -> list[dict[str, Any]]:
+    if not I5B_KEYWORD_OVERRIDES_PATH.exists():
+        return []
+    return load_json_array(I5B_KEYWORD_OVERRIDES_PATH)
+
+
+def row_matches_scope(row: dict[str, Any], *, profile_id: str | None, person: str | None, scope: str | None) -> bool:
+    if profile_id is not None and row.get("profile_id") != profile_id and row.get("keyword_profile_id") != profile_id:
+        return False
+    if person is not None and row.get("person") != person and row.get("scope_key") != person:
+        return False
+    if scope is not None and row.get("scope") != scope and row.get("scope_key") != scope and row.get("scope_type") != scope:
+        return False
+    return True
+
+
+def get_i5b_keyword_profiles(
+    *,
+    profile_id: str | None = None,
+    person: str | None = None,
+    scope: str | None = None,
+) -> list[dict[str, Any]]:
+    return [
+        row
+        for row in load_i5b_keyword_profiles()
+        if row_matches_scope(row, profile_id=profile_id, person=person, scope=scope)
+    ]
+
+
+def get_i5b_keyword_overrides(
+    *,
+    person: str | None = None,
+    scope: str | None = None,
+) -> list[dict[str, Any]]:
+    return [
+        row
+        for row in load_i5b_keyword_overrides()
+        if row_matches_scope(row, profile_id=None, person=person, scope=scope)
+    ]

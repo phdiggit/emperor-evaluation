@@ -8,7 +8,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 USER_CONFIG_DIRS = [
     ROOT / "data" / "view_configs",
-    ROOT / "data" / "review_configs",
 ]
 UNICODE_ESCAPE_PATTERN = re.compile(r"\\u([0-9a-fA-F]{4})")
 

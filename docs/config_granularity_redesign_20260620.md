@@ -468,3 +468,7 @@ data/configs/
 
 - `data/configs/视图配置/第五项B_人物池.json`
 - `data/configs/视图配置/第五项B_视图分组.json`
+
+## 19. 2026-06-21 manual review config note
+
+人工复核配置层审计未发现被跟踪的旧 `data/review_configs/search_keyword_profiles.jsonl` 或 `data/review_configs/search_keyword_overrides.jsonl`。当前人工复核配置主目录为 `data/configs/人工复核配置/`；后续如新增第五项B检索关键词配置，应使用 formatted JSON，并经过 `scripts/validate_review_configs.py` 校验。

@@ -403,3 +403,7 @@
 - 不修改 `exports/*`；
 - 不修改 generated docs；
 - 不修改 scoring / adjudication / formal score / ranking / leaderboard。
+
+## 14. 2026-06-21 implementation note
+
+后续审计未发现被跟踪的旧 `data/review_configs/search_keyword_profiles.jsonl` 或 `data/review_configs/search_keyword_overrides.jsonl`，因此没有迁移旧关键词内容。当前人工复核配置主入口收敛到 `data/configs/人工复核配置/`；后续新增第五项B检索关键词配置时，使用 formatted JSON，并由 `scripts/validate_review_configs.py` 接入全量校验。

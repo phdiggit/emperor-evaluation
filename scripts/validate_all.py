@@ -11,6 +11,7 @@ VALIDATION_STEPS = [
     ("validate_canonical_data_integrity", ROOT / "scripts" / "validate_canonical_data_integrity.py"),
     ("validate_view_configs", ROOT / "scripts" / "validate_view_configs.py"),
     ("validate_chinese_view_configs", ROOT / "scripts" / "validate_chinese_view_configs.py"),
+    ("validate_review_configs", ROOT / "scripts" / "validate_review_configs.py"),
     ("validate_config_readability", ROOT / "scripts" / "validate_config_readability.py"),
 ]
 
