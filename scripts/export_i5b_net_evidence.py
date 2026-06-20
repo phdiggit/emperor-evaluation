@@ -4,13 +4,13 @@ import json
 import sqlite3
 from pathlib import Path
 
+import config_loaders
 from export_md_scaffold import escape_cell
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 I5B_SUBITEM = "第五项B"
-I5B_NET_EVIDENCE_TARGETS_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_net_evidence_targets.jsonl"
 
 NET_EVIDENCE_CLUSTER_HEADERS = [
     "cluster_id",
@@ -39,13 +39,7 @@ NET_EVIDENCE_CARD_HEADERS = [
     "adjudication_status",
 ]
 def load_i5b_net_evidence_targets() -> list[tuple[str, Path]]:
-    targets: list[tuple[str, Path]] = []
-    for line in I5B_NET_EVIDENCE_TARGETS_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        row = json.loads(line)
-        targets.append((row["person"], ROOT / row["export_path"]))
-    return targets
+    return config_loaders.get_i5b_net_evidence_targets()
 
 
 I5B_NET_EVIDENCE_TARGETS = load_i5b_net_evidence_targets()

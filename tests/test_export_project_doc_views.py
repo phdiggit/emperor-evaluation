@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 SCAFFOLD_SPEC = importlib.util.spec_from_file_location(
     "export_md_scaffold",
@@ -46,17 +48,33 @@ def test_export_global_scale_decision_brief_docs_dual_writes_identical_content(t
 
 
 def test_export_expanded_i5b_candidate_pool_docs_reads_jsonl_config(tmp_path: Path) -> None:
-    config_path = tmp_path / "view_configs" / "i5b_expanded_candidate_pool.jsonl"
-    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_path = tmp_path / "第五项B_人物池.json"
     config_path.write_text(
-        '{"person": "Temp Person", "candidate_type": "Temp Type", "why_selected": "Temp Why", "expected_rule_pressure": "Temp Pressure", "required_evidence_focus": "Temp Focus", "adjacent_item_risk": "Temp Risk", "negative_scan_focus": "Temp Negative", "recommended_priority": "P9"}'
+        json.dumps(
+            [
+                {
+                    "person": "Temp Person",
+                    "subitem": "第五项B",
+                    "candidate_type": "Temp Type",
+                    "why_selected": "Temp Why",
+                    "expected_rule_pressure": "Temp Pressure",
+                    "required_evidence_focus": "Temp Focus",
+                    "adjacent_item_risk": "Temp Risk",
+                    "negative_scan_focus": "Temp Negative",
+                    "recommended_priority": "P9",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
         + "\n",
         encoding="utf-8",
     )
 
     doc_path = tmp_path / "docs" / "candidate-pool.md"
     export_path = tmp_path / "exports" / "candidate-pool.md"
-    doc_views.I5B_EXPANDED_CANDIDATE_POOL_CONFIG_PATH = config_path
+    doc_views.config_loaders.I5B_PERSON_POOL_PATH = config_path
+    doc_views.config_loaders.LEGACY_I5B_EXPANDED_CANDIDATE_POOL_PATH = tmp_path / "missing-pool.jsonl"
     doc_views.CANDIDATE_POOL_DOC_PATH = doc_path
     doc_views.CANDIDATE_POOL_EXPORT_PATH = export_path
 

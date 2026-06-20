@@ -7,6 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 SCAFFOLD_SPEC = importlib.util.spec_from_file_location(
     "export_md_scaffold",
@@ -163,16 +164,27 @@ def test_export_expanded_i5b_batch1_review_falls_back_to_batch_files_and_sorts_r
 
 
 def test_load_expanded_batch1_persons_reads_jsonl_config(tmp_path: Path) -> None:
-    config_path = tmp_path / "i5b_expanded_batch1_targets.jsonl"
-    write_jsonl(
-        config_path,
-        [
-            {"person": "甲"},
-            {"person": "乙"},
-        ],
+    group_path = tmp_path / "第五项B_视图分组.json"
+    group_path.write_text(
+        json.dumps(
+            [
+                {
+                    "group_id": "第五项B_扩展第一批",
+                    "group_name": "扩展第一批",
+                    "group_type": "扩展人物组",
+                    "subitem": "第五项B",
+                    "persons": ["甲", "乙"],
+                    "note": "测试",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
+        + "\n",
+        encoding="utf-8",
     )
-
-    expanded_batch1.EXPANDED_BATCH1_TARGETS_CONFIG_PATH = config_path
+    expanded_batch1.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
+    expanded_batch1.config_loaders.LEGACY_I5B_EXPANDED_BATCH1_TARGETS_PATH = tmp_path / "missing-expanded.jsonl"
 
     persons = expanded_batch1.load_expanded_batch1_persons()
 

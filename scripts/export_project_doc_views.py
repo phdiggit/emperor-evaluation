@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import config_loaders
 from export_md_scaffold import escape_cell
 
 
@@ -11,19 +12,8 @@ GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨�
 GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
 CANDIDATE_POOL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点候选池设计.md"
-I5B_EXPANDED_CANDIDATE_POOL_CONFIG_PATH = ROOT / "data" / "view_configs" / "i5b_expanded_candidate_pool.jsonl"
-
-
 def load_expanded_i5b_candidate_pool_rows() -> list[dict[str, str]]:
-    rows: list[dict[str, str]] = []
-    for line in I5B_EXPANDED_CANDIDATE_POOL_CONFIG_PATH.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        row = json.loads(line)
-        if not isinstance(row, dict):
-            raise ValueError("candidate pool config rows must be JSON objects")
-        rows.append(row)
-    return rows
+    return config_loaders.get_i5b_expanded_candidate_pool_rows()
 
 
 def export_global_scale_decision_brief_docs() -> tuple[Path, Path]:

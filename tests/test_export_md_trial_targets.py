@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sqlite3
 import sys
 from pathlib import Path
@@ -20,14 +21,29 @@ assert EXPORT_MD_SPEC.loader is not None
 EXPORT_MD_SPEC.loader.exec_module(export_md)
 
 
-def test_load_i5b_trial_targets_reads_jsonl_config(tmp_path: Path) -> None:
-    config_path = tmp_path / "i5b_trial_targets.jsonl"
-    config_path.write_text(
-        '{"person": "甲"}\n{"person": "乙"}\n',
+def test_load_i5b_trial_targets_prefers_chinese_view_group_config(tmp_path: Path) -> None:
+    group_path = tmp_path / "第五项B_视图分组.json"
+    group_path.write_text(
+        json.dumps(
+            [
+                {
+                    "group_id": "第五项B_三人试点",
+                    "group_name": "三人试点",
+                    "group_type": "试点人物组",
+                    "subitem": "第五项B",
+                    "persons": ["甲", "乙"],
+                    "note": "测试",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
+        + "\n",
         encoding="utf-8",
     )
-
-    export_md.I5B_TRIAL_TARGETS_CONFIG_PATH = config_path
+    export_md.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
+    export_md.config_loaders.LEGACY_I5B_TRIAL_CONFIG_PATH = tmp_path / "missing-trial.json"
+    export_md.config_loaders.LEGACY_I5B_TRIAL_TARGETS_PATH = tmp_path / "missing-trial.jsonl"
 
     targets = export_md.load_i5b_trial_targets()
 
@@ -36,11 +52,25 @@ def test_load_i5b_trial_targets_reads_jsonl_config(tmp_path: Path) -> None:
 
 def test_export_search_logs_markdown_uses_trial_targets_config(tmp_path: Path) -> None:
     db_path = tmp_path / "evidence_cache.sqlite"
-    config_path = tmp_path / "i5b_trial_targets.jsonl"
+    group_path = tmp_path / "第五项B_视图分组.json"
     export_path = tmp_path / "第五项B三人试点检索线索.md"
 
-    config_path.write_text(
-        '{"person": "甲"}\n{"person": "乙"}\n',
+    group_path.write_text(
+        json.dumps(
+            [
+                {
+                    "group_id": "第五项B_三人试点",
+                    "group_name": "三人试点",
+                    "group_type": "试点人物组",
+                    "subitem": "第五项B",
+                    "persons": ["甲", "乙"],
+                    "note": "测试",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
+        + "\n",
         encoding="utf-8",
     )
 
@@ -78,7 +108,9 @@ def test_export_search_logs_markdown_uses_trial_targets_config(tmp_path: Path) -
         connection.commit()
 
     export_md.DB_PATH = db_path
-    export_md.I5B_TRIAL_TARGETS_CONFIG_PATH = config_path
+    export_md.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
+    export_md.config_loaders.LEGACY_I5B_TRIAL_CONFIG_PATH = tmp_path / "missing-trial.json"
+    export_md.config_loaders.LEGACY_I5B_TRIAL_TARGETS_PATH = tmp_path / "missing-trial.jsonl"
     export_md.I5B_TRIAL_TARGETS = export_md.load_i5b_trial_targets()
     export_md.SEARCH_LOGS_EXPORT_PATH = export_path
 

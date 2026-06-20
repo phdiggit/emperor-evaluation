@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import config_loaders
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -898,7 +900,7 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
 
 
 def render_auto_adjudication() -> str:
-    config = read_json(CONFIG_PATH)
+    config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
@@ -954,7 +956,7 @@ def render_auto_adjudication() -> str:
 
 
 def render_formal_landing_table() -> str:
-    config = read_json(CONFIG_PATH)
+    config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
@@ -1019,7 +1021,7 @@ def render_formal_landing_table() -> str:
 
 
 def render_three_pilot_closure() -> str:
-    config = read_json(CONFIG_PATH)
+    config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")

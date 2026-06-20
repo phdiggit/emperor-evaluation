@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sqlite3
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 SCAFFOLD_SPEC = importlib.util.spec_from_file_location(
     "export_md_scaffold",
@@ -120,17 +122,30 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     assert "CARD-999" not in content
 
 
-def test_load_i5b_net_evidence_targets_reads_jsonl_config(tmp_path: Path) -> None:
-    config_path = tmp_path / "i5b_net_evidence_targets.jsonl"
-    config_path.write_text(
-        '{"person": "测试人物", "export_path": "exports/markdown_views/test-net-evidence.md"}\n',
+def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(tmp_path: Path) -> None:
+    group_path = tmp_path / "第五项B_视图分组.json"
+    group_path.write_text(
+        json.dumps(
+            [
+                {
+                    "group_id": "第五项B_净证据导出目标",
+                    "group_name": "净证据导出目标",
+                    "group_type": "导出人物组",
+                    "subitem": "第五项B",
+                    "persons": ["测试人物"],
+                    "path_template": "exports/markdown_views/test-{person}.md",
+                    "note": "测试",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
+        + "\n",
         encoding="utf-8",
     )
-
-    net_evidence.I5B_NET_EVIDENCE_TARGETS_CONFIG_PATH = config_path
+    net_evidence.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
+    net_evidence.config_loaders.LEGACY_I5B_NET_EVIDENCE_TARGETS_PATH = tmp_path / "missing-net.jsonl"
 
     targets = net_evidence.load_i5b_net_evidence_targets()
 
-    assert targets == [
-        ("测试人物", net_evidence.ROOT / "exports" / "markdown_views" / "test-net-evidence.md")
-    ]
+    assert targets == [("测试人物", net_evidence.ROOT / "exports" / "markdown_views" / "test-测试人物.md")]
