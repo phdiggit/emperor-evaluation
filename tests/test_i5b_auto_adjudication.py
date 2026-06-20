@@ -143,8 +143,6 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
 
     monkeypatch.setattr(auto, "DATA_DIR", data_dir)
     monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
-    monkeypatch.setattr(auto.config_loaders, "LEGACY_I5B_TRIAL_CONFIG_PATH", tmp_path / "missing-trial.json")
-    monkeypatch.setattr(auto.config_loaders, "LEGACY_I5B_TRIAL_TARGETS_PATH", tmp_path / "missing-trial.jsonl")
     monkeypatch.setattr(auto, "EXPORT_PATH", export_dir / "第五项B三人自动结算草案.md")
     monkeypatch.setattr(auto, "RULES_EXPORT_PATH", export_dir / "第五项B自动结算规则敏感点清单.md")
     monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", export_dir / "第五项B评分标尺与档位映射草案.md")
@@ -221,7 +219,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:
-    config = auto.read_json(auto.CONFIG_PATH)
+    config = auto.config_loaders.get_i5b_trial_config()
     evidence_cards = auto.read_jsonl(auto.DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = auto.read_jsonl(auto.DATA_DIR / "evidence_clusters.jsonl")
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}

@@ -21,7 +21,9 @@ assert EXPORT_MD_SPEC.loader is not None
 EXPORT_MD_SPEC.loader.exec_module(export_md)
 
 
-def test_load_i5b_trial_targets_prefers_chinese_view_group_config(tmp_path: Path) -> None:
+def test_load_i5b_trial_targets_prefers_chinese_view_group_config(
+    tmp_path: Path, monkeypatch
+) -> None:
     group_path = tmp_path / "第五项B_视图分组.json"
     group_path.write_text(
         json.dumps(
@@ -41,16 +43,16 @@ def test_load_i5b_trial_targets_prefers_chinese_view_group_config(tmp_path: Path
         + "\n",
         encoding="utf-8",
     )
-    export_md.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
-    export_md.config_loaders.LEGACY_I5B_TRIAL_CONFIG_PATH = tmp_path / "missing-trial.json"
-    export_md.config_loaders.LEGACY_I5B_TRIAL_TARGETS_PATH = tmp_path / "missing-trial.jsonl"
+    monkeypatch.setattr(export_md.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
 
     targets = export_md.load_i5b_trial_targets()
 
     assert targets == ["甲", "乙"]
 
 
-def test_export_search_logs_markdown_uses_trial_targets_config(tmp_path: Path) -> None:
+def test_export_search_logs_markdown_uses_trial_targets_config(
+    tmp_path: Path, monkeypatch
+) -> None:
     db_path = tmp_path / "evidence_cache.sqlite"
     group_path = tmp_path / "第五项B_视图分组.json"
     export_path = tmp_path / "第五项B三人试点检索线索.md"
@@ -108,9 +110,7 @@ def test_export_search_logs_markdown_uses_trial_targets_config(tmp_path: Path) -
         connection.commit()
 
     export_md.DB_PATH = db_path
-    export_md.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
-    export_md.config_loaders.LEGACY_I5B_TRIAL_CONFIG_PATH = tmp_path / "missing-trial.json"
-    export_md.config_loaders.LEGACY_I5B_TRIAL_TARGETS_PATH = tmp_path / "missing-trial.jsonl"
+    monkeypatch.setattr(export_md.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
     export_md.I5B_TRIAL_TARGETS = export_md.load_i5b_trial_targets()
     export_md.SEARCH_LOGS_EXPORT_PATH = export_path
 

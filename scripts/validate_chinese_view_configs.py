@@ -9,12 +9,15 @@ ROOT = Path(__file__).resolve().parents[1]
 CHINESE_VIEW_CONFIG_DIR = ROOT / "data" / "configs" / "视图配置"
 PERSON_POOL_PATH = CHINESE_VIEW_CONFIG_DIR / "第五项B_人物池.json"
 VIEW_GROUPS_PATH = CHINESE_VIEW_CONFIG_DIR / "第五项B_视图分组.json"
-LEGACY_TRIAL_TARGETS_PATH = ROOT / "data" / "view_configs" / "i5b_trial_targets.jsonl"
-LEGACY_EXPANDED_BATCH1_PATH = ROOT / "data" / "view_configs" / "i5b_expanded_batch1_targets.jsonl"
-LEGACY_NET_EVIDENCE_TARGETS_PATH = ROOT / "data" / "view_configs" / "i5b_net_evidence_targets.jsonl"
-LEGACY_TRIAL_CONFIG_JSON_PATH = ROOT / "configs" / "i5b_trial_targets.json"
 PERSON_POOL_REQUIRED_FIELDS = ["person", "subitem"]
 VIEW_GROUP_REQUIRED_FIELDS = ["group_id", "group_name", "group_type", "subitem", "persons", "note"]
+REQUIRED_VIEW_GROUP_IDS = [
+    "第五项B_三人试点",
+    "第五项B_扩展第一批",
+    "第五项B_净证据导出目标",
+]
+NET_EVIDENCE_GROUP_ID = "第五项B_净证据导出目标"
+NET_EVIDENCE_PATH_TEMPLATE = "exports/markdown_views/第五项B_{person}净证据池.md"
 
 
 def is_non_empty_string(value: object) -> bool:
@@ -100,66 +103,6 @@ def load_json_array_objects(path: Path) -> tuple[list[tuple[int, dict[str, objec
     return rows, errors
 
 
-def load_jsonl_objects(path: Path) -> tuple[list[tuple[int, dict[str, object]]], list[str]]:
-    rows: list[tuple[int, dict[str, object]]] = []
-    errors: list[str] = []
-
-    if not path.exists():
-        return rows, [f"{path}: line 1: required file is missing"]
-
-    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-        if not raw_line.strip():
-            continue
-
-        line_label = f"{path}: line {line_number}"
-        try:
-            row = json.loads(raw_line)
-        except json.JSONDecodeError as exc:
-            errors.append(f"{line_label}: invalid JSON ({exc.msg})")
-            continue
-
-        if not isinstance(row, dict):
-            errors.append(f"{line_label}: expected JSON object, got {type(row).__name__}")
-            continue
-
-        rows.append((line_number, row))
-
-    return rows, errors
-
-
-def load_legacy_persons_from_jsonl(path: Path) -> tuple[list[tuple[int, str]], list[str]]:
-    rows, errors = load_jsonl_objects(path)
-    persons: list[tuple[int, str]] = []
-
-    for line_number, row in rows:
-        person = row.get("person")
-        if not is_non_empty_string(person):
-            errors.append(f"{path}: line {line_number}: person must be a non-empty string")
-            continue
-        persons.append((line_number, person.strip()))
-
-    return persons, errors
-
-
-def load_legacy_trial_json(path: Path) -> tuple[list[str], list[str]]:
-    if not path.exists():
-        return [], [f"{path}: line 1: required file is missing"]
-
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        return [], [f"{path}: line 1: invalid JSON ({exc.msg})"]
-
-    if not isinstance(payload, dict):
-        return [], [f"{path}: line 1: expected JSON object, got {type(payload).__name__}"]
-
-    targets = payload.get("targets")
-    if not is_string_list(targets, allow_empty=False):
-        return [], [f"{path}: line 1: targets must be a non-empty list of non-empty strings"]
-
-    return [target.strip() for target in targets], []
-
-
 def validate_person_pool(
     rows: list[tuple[int, dict[str, object]]],
 ) -> tuple[list[str], dict[str, int]]:
@@ -175,9 +118,6 @@ def validate_person_pool(
         for field in ["person", "subitem"]:
             if field in row and not is_non_empty_string(row[field]):
                 errors.append(f"{line_label}: {field} must be a non-empty string")
-
-        if "legacy_sources" in row and not is_string_list(row["legacy_sources"], allow_empty=False):
-            errors.append(f"{line_label}: legacy_sources must be a non-empty list of non-empty strings")
 
         if "recommended_priority" in row and not is_non_empty_string(row["recommended_priority"]):
             errors.append(f"{line_label}: recommended_priority must be a non-empty string")
@@ -252,46 +192,25 @@ def group_person_set(groups: dict[str, tuple[int, dict[str, object]]], group_id:
     return {person.strip() for person in persons if isinstance(person, str) and person.strip()}
 
 
-def validate_group_coverage(
+def validate_required_view_groups(
     groups: dict[str, tuple[int, dict[str, object]]],
-    legacy_people: list[tuple[int, str]],
-    expected_group_id: str,
-    legacy_path: Path,
 ) -> list[str]:
     errors: list[str] = []
-    group_set = group_person_set(groups, expected_group_id)
-    if group_set is None:
-        errors.append(f"{VIEW_GROUPS_PATH}: line 1: required group_id {expected_group_id!r} is missing or invalid")
-        return errors
+    for group_id in REQUIRED_VIEW_GROUP_IDS:
+        group_set = group_person_set(groups, group_id)
+        if group_set is None:
+            errors.append(f"{VIEW_GROUPS_PATH}: line 1: required group_id {group_id!r} is missing or invalid")
 
-    group_line = groups[expected_group_id][0]
-    legacy_set = {person for _, person in legacy_people}
-
-    for line_number, person in legacy_people:
-        if person not in group_set:
+    net_group = groups.get(NET_EVIDENCE_GROUP_ID)
+    if net_group is not None:
+        line_number, row = net_group
+        path_template = row.get("path_template")
+        if path_template != NET_EVIDENCE_PATH_TEMPLATE:
             errors.append(
-                f"{legacy_path}: line {line_number}: person {person!r} is missing from group {expected_group_id!r} in {VIEW_GROUPS_PATH.name}"
+                f"{VIEW_GROUPS_PATH}: line {line_number}: path_template for {NET_EVIDENCE_GROUP_ID!r} "
+                f"must be {NET_EVIDENCE_PATH_TEMPLATE!r}"
             )
 
-    for person in sorted(group_set - legacy_set):
-        errors.append(
-            f"{VIEW_GROUPS_PATH}: line {group_line}: person {person!r} is not present in legacy source {legacy_path.name} for group {expected_group_id!r}"
-        )
-
-    return errors
-
-
-def validate_pool_covers_legacy_sources(
-    person_pool: dict[str, int],
-    legacy_people: list[tuple[int, str]],
-    legacy_path: Path,
-) -> list[str]:
-    errors: list[str] = []
-    for line_number, person in legacy_people:
-        if person not in person_pool:
-            errors.append(
-                f"{legacy_path}: line {line_number}: person {person!r} is missing from {PERSON_POOL_PATH.name}"
-            )
     return errors
 
 
@@ -308,45 +227,7 @@ def validate() -> list[str]:
     errors.extend(person_errors)
     errors.extend(group_errors)
 
-    legacy_trial_people, legacy_trial_errors = load_legacy_persons_from_jsonl(LEGACY_TRIAL_TARGETS_PATH)
-    legacy_expanded_people, legacy_expanded_errors = load_legacy_persons_from_jsonl(LEGACY_EXPANDED_BATCH1_PATH)
-    legacy_net_people, legacy_net_errors = load_legacy_persons_from_jsonl(LEGACY_NET_EVIDENCE_TARGETS_PATH)
-    legacy_trial_json_targets, legacy_trial_json_errors = load_legacy_trial_json(LEGACY_TRIAL_CONFIG_JSON_PATH)
-    errors.extend(legacy_trial_errors)
-    errors.extend(legacy_expanded_errors)
-    errors.extend(legacy_net_errors)
-    errors.extend(legacy_trial_json_errors)
-
-    errors.extend(validate_pool_covers_legacy_sources(person_pool, legacy_trial_people, LEGACY_TRIAL_TARGETS_PATH))
-    errors.extend(validate_pool_covers_legacy_sources(person_pool, legacy_expanded_people, LEGACY_EXPANDED_BATCH1_PATH))
-    errors.extend(validate_pool_covers_legacy_sources(person_pool, legacy_net_people, LEGACY_NET_EVIDENCE_TARGETS_PATH))
-    for index, person in enumerate(legacy_trial_json_targets, start=1):
-        if person not in person_pool:
-            errors.append(f"{LEGACY_TRIAL_CONFIG_JSON_PATH}: line {index}: person {person!r} is missing from {PERSON_POOL_PATH.name}")
-
-    errors.extend(
-        validate_group_coverage(groups, legacy_trial_people, "第五项B_三人试点", LEGACY_TRIAL_TARGETS_PATH)
-    )
-    errors.extend(
-        validate_group_coverage(groups, legacy_expanded_people, "第五项B_扩展第一批", LEGACY_EXPANDED_BATCH1_PATH)
-    )
-    errors.extend(
-        validate_group_coverage(groups, legacy_net_people, "第五项B_净证据导出目标", LEGACY_NET_EVIDENCE_TARGETS_PATH)
-    )
-
-    trial_group_set = group_person_set(groups, "第五项B_三人试点")
-    if trial_group_set is not None:
-        legacy_trial_json_set = set(legacy_trial_json_targets)
-        for index, person in enumerate(legacy_trial_json_targets, start=1):
-            if person not in trial_group_set:
-                errors.append(
-                    f"{LEGACY_TRIAL_CONFIG_JSON_PATH}: line {index}: person {person!r} is missing from group '第五项B_三人试点' in {VIEW_GROUPS_PATH.name}"
-                )
-        group_line = groups["第五项B_三人试点"][0] if "第五项B_三人试点" in groups else 1
-        for person in sorted(trial_group_set - legacy_trial_json_set):
-            errors.append(
-                f"{VIEW_GROUPS_PATH}: line {group_line}: person {person!r} is not present in legacy source {LEGACY_TRIAL_CONFIG_JSON_PATH.name} for group '第五项B_三人试点'"
-            )
+    errors.extend(validate_required_view_groups(groups))
 
     return errors
 

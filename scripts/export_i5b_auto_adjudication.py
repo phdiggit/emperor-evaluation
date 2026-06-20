@@ -9,7 +9,6 @@ import config_loaders
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
-CONFIG_PATH = ROOT / "configs" / "i5b_trial_targets.json"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
@@ -162,10 +161,6 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
             if stripped:
                 rows.append(json.loads(stripped))
     return rows
-
-
-def read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def escape_cell(value: object) -> str:

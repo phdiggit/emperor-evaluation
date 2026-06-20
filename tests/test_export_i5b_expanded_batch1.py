@@ -163,7 +163,9 @@ def test_export_expanded_i5b_batch1_review_falls_back_to_batch_files_and_sorts_r
     assert cluster_section.index("CLUSTER-LB-B") < cluster_section.index("CLUSTER-ZZ")
 
 
-def test_load_expanded_batch1_persons_reads_jsonl_config(tmp_path: Path) -> None:
+def test_load_expanded_batch1_persons_reads_chinese_view_group_config(
+    tmp_path: Path, monkeypatch
+) -> None:
     group_path = tmp_path / "第五项B_视图分组.json"
     group_path.write_text(
         json.dumps(
@@ -183,8 +185,7 @@ def test_load_expanded_batch1_persons_reads_jsonl_config(tmp_path: Path) -> None
         + "\n",
         encoding="utf-8",
     )
-    expanded_batch1.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
-    expanded_batch1.config_loaders.LEGACY_I5B_EXPANDED_BATCH1_TARGETS_PATH = tmp_path / "missing-expanded.jsonl"
+    monkeypatch.setattr(expanded_batch1.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
 
     persons = expanded_batch1.load_expanded_batch1_persons()
 

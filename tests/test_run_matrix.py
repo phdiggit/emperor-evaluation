@@ -23,7 +23,7 @@ def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
 
 
-def test_export_matrix_prefers_chinese_view_group_config(tmp_path: Path) -> None:
+def test_export_matrix_prefers_chinese_view_group_config(tmp_path: Path, monkeypatch) -> None:
     data_dir = tmp_path / "data"
     export_path = tmp_path / "matrix.md"
     group_path = tmp_path / "第五项B_视图分组.json"
@@ -64,9 +64,7 @@ def test_export_matrix_prefers_chinese_view_group_config(tmp_path: Path) -> None
 
     run_matrix.DATA_DIR = data_dir
     run_matrix.EXPORT_PATH = export_path
-    run_matrix.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
-    run_matrix.config_loaders.LEGACY_I5B_TRIAL_CONFIG_PATH = tmp_path / "missing-trial.json"
-    run_matrix.config_loaders.LEGACY_I5B_TRIAL_TARGETS_PATH = tmp_path / "missing-trial.jsonl"
+    monkeypatch.setattr(run_matrix.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
 
     result_path = run_matrix.export_matrix()
     content = result_path.read_text(encoding="utf-8")

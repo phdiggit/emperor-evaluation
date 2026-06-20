@@ -461,3 +461,10 @@ data/configs/
 - 不修改任何 `exports/*`；
 - 不修改 generated docs；
 - 不修改 scoring / adjudication / formal score / ranking / leaderboard。
+
+## 18. 2026-06-21 implementation note
+
+后续迁移审计已完成：第五项B旧碎配置文件与读取 fallback 已删除，当前唯一主维护入口为：
+
+- `data/configs/视图配置/第五项B_人物池.json`
+- `data/configs/视图配置/第五项B_视图分组.json`
