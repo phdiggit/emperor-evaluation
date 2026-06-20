@@ -8,6 +8,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 I5B_PERSON_POOL_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_人物池.json"
 I5B_VIEW_GROUPS_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_视图分组.json"
+# Legacy paths stay only for short-term fallback compatibility; primary maintenance
+# entrypoints are the Chinese formatted JSON files above.
 LEGACY_I5B_TRIAL_CONFIG_PATH = ROOT / "configs" / "i5b_trial_targets.json"
 LEGACY_I5B_TRIAL_TARGETS_PATH = ROOT / "data" / "view_configs" / "i5b_trial_targets.jsonl"
 LEGACY_I5B_EXPANDED_BATCH1_TARGETS_PATH = ROOT / "data" / "view_configs" / "i5b_expanded_batch1_targets.jsonl"
