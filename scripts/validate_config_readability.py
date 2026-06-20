@@ -48,6 +48,11 @@ def validate() -> list[str]:
         for path in sorted(config_dir.glob("*.jsonl")):
             errors.extend(validate_file(path))
 
+    configs_dir = ROOT / "data" / "configs"
+    if configs_dir.exists():
+        for path in sorted(configs_dir.rglob("*.jsonl")):
+            errors.extend(validate_file(path))
+
     return errors
 
 
