@@ -45,6 +45,28 @@ def test_export_global_scale_decision_brief_docs_dual_writes_identical_content(t
     assert "推荐的下一步规则确认顺序" in doc_content
 
 
+def test_export_expanded_i5b_candidate_pool_docs_reads_jsonl_config(tmp_path: Path) -> None:
+    config_path = tmp_path / "view_configs" / "i5b_expanded_candidate_pool.jsonl"
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_path.write_text(
+        '{"person": "Temp Person", "candidate_type": "Temp Type", "why_selected": "Temp Why", "expected_rule_pressure": "Temp Pressure", "required_evidence_focus": "Temp Focus", "adjacent_item_risk": "Temp Risk", "negative_scan_focus": "Temp Negative", "recommended_priority": "P9"}'
+        + "\n",
+        encoding="utf-8",
+    )
+
+    doc_path = tmp_path / "docs" / "candidate-pool.md"
+    export_path = tmp_path / "exports" / "candidate-pool.md"
+    doc_views.I5B_EXPANDED_CANDIDATE_POOL_CONFIG_PATH = config_path
+    doc_views.CANDIDATE_POOL_DOC_PATH = doc_path
+    doc_views.CANDIDATE_POOL_EXPORT_PATH = export_path
+
+    rendered = doc_views.render_expanded_i5b_candidate_pool()
+    assert "Temp Person" in rendered
+    assert "Temp Type" in rendered
+    assert "Temp Why" in rendered
+    assert "P9" in rendered
+
+
 def test_export_expanded_i5b_candidate_pool_docs_dual_writes_identical_content(tmp_path: Path) -> None:
     doc_path = tmp_path / "docs" / "candidate-pool.md"
     export_path = tmp_path / "exports" / "candidate-pool.md"
