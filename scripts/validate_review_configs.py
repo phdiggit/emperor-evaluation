@@ -8,6 +8,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_CONFIG_DIR = ROOT / "data" / "configs" / "人工复核配置"
+I5B_PROFILE_CONFIG_NAME = "第五项B_检索关键词基础.json"
+I5B_OVERRIDE_CONFIG_NAME = "第五项B_检索关键词补丁.json"
+I5B_SUBITEM = "第五项B"
 TERMS_FIELD_NAMES = {
     "terms",
     "positive_terms",
@@ -19,6 +22,17 @@ TERMS_FIELD_NAMES = {
     "append_terms",
     "replace_terms",
     "source_scopes",
+}
+KEYWORD_TERMS_FIELD_NAMES = {
+    "terms",
+    "positive_terms",
+    "negative_terms",
+    "reversal_terms",
+    "include_terms",
+    "exclude_terms",
+    "suppress_terms",
+    "append_terms",
+    "replace_terms",
 }
 KEY_FIELD_NAMES = {
     "profile_id",
@@ -48,7 +62,7 @@ def is_non_empty_string(value: object) -> bool:
 
 
 def is_string_list(value: object) -> bool:
-    return isinstance(value, list) and all(is_non_empty_string(item) for item in value)
+    return isinstance(value, list) and bool(value) and all(is_non_empty_string(item) for item in value)
 
 
 def infer_array_object_line_numbers(text: str, count: int) -> list[int]:
@@ -147,12 +161,21 @@ def validate_row_fields(path: Path, line_number: int, row: dict[str, object]) ->
         if field in row and not is_string_list(row[field]):
             errors.append(f"{line_label}: {field} must be a list of non-empty strings")
 
-    has_terms = any(field in row for field in TERMS_FIELD_NAMES)
-    has_scope = any(field in row for field in ["profile_id", "keyword_profile_id", "scope", "scope_key", "person", "subitem"])
-    if not has_terms:
-        errors.append(f"{line_label}: must include at least one terms/source_scopes field")
-    if not has_scope:
-        errors.append(f"{line_label}: must include at least one profile/scope/person/subitem field")
+    if path.name == I5B_PROFILE_CONFIG_NAME and not is_non_empty_string(row.get("profile_id")):
+        errors.append(f"{line_label}: profile_id must be a non-empty string")
+    if path.name == I5B_OVERRIDE_CONFIG_NAME and not is_non_empty_string(row.get("override_id")):
+        errors.append(f"{line_label}: override_id must be a non-empty string")
+
+    if row.get("subitem") != I5B_SUBITEM:
+        errors.append(f"{line_label}: subitem must be {I5B_SUBITEM!r}")
+    if not is_non_empty_string(row.get("scope_type")):
+        errors.append(f"{line_label}: scope_type must be a non-empty string")
+    if not is_non_empty_string(row.get("scope_key")):
+        errors.append(f"{line_label}: scope_key must be a non-empty string")
+
+    has_keyword_terms = any(field in row for field in KEYWORD_TERMS_FIELD_NAMES)
+    if not has_keyword_terms:
+        errors.append(f"{line_label}: must include at least one keyword terms field")
 
     return errors
 
