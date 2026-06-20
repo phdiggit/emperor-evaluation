@@ -22,21 +22,41 @@
 
 ## 硬规则
 
+执行时按下面顺序过脑：先看边界，再看 GitHub，再看 shell/编码，再看改动方法，最后看验证与提交。
+
+### 任务边界
+
 1. 先读 Issue / PR 说明，确认允许修改的文件白名单；不要全仓库盲扫。
 2. 修改前后都运行 `git diff --name-only`，白名单外文件必须还原。
-3. PR 说明必须粘贴最终 changed files 列表。
-4. 开 PR 后默认直接置为 ready for review；除非 Issue 明确要求 draft，否则不要保持 draft。
-5. 收到“返修 / 按审查意见修改 / fix review”时，必须先 checkout/fetch PR head 分支，并读取 PR 评论和 review threads；不得在 base 分支重建文件或只改 PR 状态/PR body。
-6. 返修后必须确认 local HEAD 与 PR head SHA 一致，并在回复或 PR 说明中写明。
-7. 涉及 GitHub 远端操作时，默认优先使用已认证的 `gh` CLI 完成读写（如读 Issue/PR、读评论、查 checks、创建/更新 PR、回复评论、merge、close issue）。只有在 `gh` 不可用、未认证、权限不足或明确无法完成该动作时，才退回 GitHub connector，并在回复或 PR 说明中写明退回原因。退回前先确认是不是只需要重新认证，而不是换工具。
-8. GitHub 写操作（如 merge PR、close issue、更新 PR/issue、回复评论）默认按“先判断、后执行”处理：先用最少必要的读取确认目标动作，再执行一次写操作；不要为同一目标反复调用不同接口，也不要把 PR 更新接口和 issue 更新接口混用。
-9. 在 Windows 工作区中，仓库内常规命令默认优先使用 Git Bash（`D:\Git\bin\bash.exe`），尤其是 `git`、`gh`、`python`、`pytest`、`grep/find`、命令串联、重定向和管道操作。只有在需要 PowerShell 专属能力（如 `.ps1`、Windows 权限/环境处理、PowerShell 对象管道）时才使用 PowerShell。若当前已经在 PowerShell 环境，就直接用 PowerShell 等价语法，不要为了切 shell 绕路；若已在 Git Bash，就保持 Git Bash。
-10. `exports/markdown_views/` 是导出视图层，不是事实源；除非 Issue 明确要求，不得批量重写旧导出。
-11. `data/*_batches/` 是过渡批次层；确认唯一数据源前不得删除。
-12. 文件清理、归档、删除候选第一轮只写诊断或候选清单，不直接删改。
-13. 大脚本治理必须小步重构并有测试锁定；不要在业务 PR 中顺手拆脚本。
-14. 读写仓库文本文件时，优先使用 `python scripts/dev/repo_tool.py read/write/replace ...`；这条优先级主要针对仓库内文本修改和需要保持编码稳定的场景，不是所有只读检索都必须走它。检索中文史料时可以先用 `rg` / `sed` / `git grep` 找位置和上下文，真正读准内容或要改写中文文本时再优先切到 `repo_tool`。不要裸用 `Get-Content` / `Set-Content` 读写中文或可能含中文的文本文件。
-15. 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前必须运行 `python scripts/validate_all.py`；若校验失败，不得提交或开 PR。纯文档改动且不影响验证链时可不运行。
+3. `exports/markdown_views/` 是导出视图层，不是事实源；除非 Issue 明确要求，不得批量重写旧导出。
+4. `data/*_batches/` 是过渡批次层；确认唯一数据源前不得删除。
+5. 文件清理、归档、删除候选第一轮只写诊断或候选清单，不直接删改。
+
+### GitHub 操作
+
+1. 涉及 GitHub 远端操作时，默认优先使用已认证的 `gh` CLI 完成读写（如读 Issue/PR、读评论、查 checks、创建/更新 PR、回复评论、merge、close issue）。只有在 `gh` 不可用、未认证、权限不足或明确无法完成该动作时，才退回 GitHub connector，并在回复或 PR 说明中写明退回原因。退回前先确认是不是只需要重新认证，而不是换工具。
+2. GitHub 写操作（如 merge PR、close issue、更新 PR/issue、回复评论）默认按“先判断、后执行”处理：先用最少必要的读取确认目标动作，再执行一次写操作；不要为同一目标反复调用不同接口，也不要把 PR 更新接口和 issue 更新接口混用。
+3. 收到“返修 / 按审查意见修改 / fix review”时，必须先 checkout/fetch PR head 分支，并读取 PR 评论和 review threads；不得在 base 分支重建文件或只改 PR 状态/PR body。
+4. 返修后必须确认 local HEAD 与 PR head SHA 一致，并在回复或 PR 说明中写明。
+5. PR 说明必须粘贴最终 changed files 列表。
+6. 开 PR 后默认直接置为 ready for review；除非 Issue 明确要求 draft，否则不要保持 draft。
+
+### Shell、路径与编码
+
+1. 在 Windows 工作区中，仓库内常规命令默认优先使用 Git Bash（`D:\Git\bin\bash.exe`），尤其是 `git`、`gh`、`python`、`pytest`、`grep/find`、命令串联、重定向和管道操作。只有在需要 PowerShell 专属能力（如 `.ps1`、Windows 权限/环境处理、PowerShell 对象管道）时才使用 PowerShell。若当前已经在 PowerShell 环境，就直接用 PowerShell 等价语法，不要为了切 shell 绕路；若已在 Git Bash，就保持 Git Bash。
+2. 在 PowerShell + Git Bash 混合环境里，不要写复杂嵌套引号命令，尤其不要为了多关键词检索去拼多段 `grep`、`printf`、转义换行或 shell 串联。多关键词搜索默认优先用一次 `rg -n "A|B|C" <paths>` 或等价的单条简单命令完成。
+3. 处理中文路径、`git status`、`changed files`、白名单核对时，默认优先使用 `git -c core.quotepath=false status --short`、`git -c core.quotepath=false diff --name-only` 或仓库内 `python scripts/dev/repo_tool.py` 的现成能力；不要为了解码 Git quoted path 临时手写 Python / shell 转码脚本，除非先确认仓库内工具无法满足。
+4. 读写仓库文本文件时，优先使用 `python scripts/dev/repo_tool.py read/write/replace ...`；这条优先级主要针对仓库内文本修改和需要保持编码稳定的场景，不是所有只读检索都必须走它。检索中文史料时可以先用 `rg` / `sed` / `git grep` 找位置和上下文，真正读准内容或要改写中文文本时再优先切到 `repo_tool`。不要裸用 `Get-Content` / `Set-Content` 读写中文或可能含中文的文本文件。
+5. 生成 PR body、临时 Markdown、说明文件时，默认使用 UTF-8 无 BOM；如果经 PowerShell 写入，必须显式指定 no BOM，避免正文开头混入 BOM 字符。
+
+### 改动方法
+
+1. 大范围改脚本前，先用 `rg` / `git grep` 精确定位旧常量、旧读取点、目标函数，再按文件做小补丁；不要先打一整块大 patch，失败后再回头逐段修上下文。
+2. 大脚本治理必须小步重构并有测试锁定；不要在业务 PR 中顺手拆脚本。
+
+### 验证与提交
+
+1. 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前必须运行 `python scripts/validate_all.py`；若校验失败，不得提交或开 PR。纯文档改动且不影响验证链时可不运行。
 
 ## 默认忽略
 
