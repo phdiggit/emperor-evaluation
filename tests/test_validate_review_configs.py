@@ -74,10 +74,15 @@ def test_validate_review_configs_checks_terms_scope_and_duplicate_ids(
             {
                 "profile_id": "KW-I5B-001",
                 "subitem": "第五项B",
+                "scope_type": "subitem",
+                "scope_key": "第五项B",
                 "terms": ["任用", "授权"],
             },
             {
                 "profile_id": "KW-I5B-001",
+                "subitem": "第五项B",
+                "scope_type": "person",
+                "scope_key": "刘邦",
                 "person": "",
                 "terms": "任用",
             },
@@ -94,8 +99,53 @@ def test_validate_review_configs_checks_terms_scope_and_duplicate_ids(
     assert any("duplicate profile_id 'KW-I5B-001'" in error for error in errors)
     assert any(error.endswith("person must be a non-empty string") for error in errors)
     assert any(error.endswith("terms must be a list of non-empty strings") for error in errors)
-    assert any(error.endswith("must include at least one terms/source_scopes field") for error in errors)
-    assert any(error.endswith("must include at least one profile/scope/person/subitem field") for error in errors)
+    assert any(error.endswith("profile_id must be a non-empty string") for error in errors)
+    assert any(error.endswith("subitem must be '第五项B'") for error in errors)
+    assert any(error.endswith("scope_type must be a non-empty string") for error in errors)
+    assert any(error.endswith("scope_key must be a non-empty string") for error in errors)
+    assert any(error.endswith("must include at least one keyword terms field") for error in errors)
+
+
+def test_validate_review_configs_checks_required_i5b_schema_fields(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config_dir = tmp_path / "人工复核配置"
+    config_dir.mkdir()
+    profile_path = config_dir / "第五项B_检索关键词基础.json"
+    override_path = config_dir / "第五项B_检索关键词补丁.json"
+    write_json(
+        profile_path,
+        [
+            {
+                "profile_id": "",
+                "subitem": "第五项A",
+                "scope_type": "",
+                "scope_key": "",
+                "positive_terms": [],
+            }
+        ],
+    )
+    write_json(
+        override_path,
+        [
+            {
+                "subitem": "第五项B",
+                "scope_type": "person",
+                "scope_key": "刘邦",
+                "source_scopes": ["列传"],
+            }
+        ],
+    )
+
+    monkeypatch.setattr(validate_review_configs, "REVIEW_CONFIG_DIR", config_dir)
+
+    errors = validate_review_configs.validate()
+
+    assert any(str(profile_path) in error and "profile_id must be a non-empty string" in error for error in errors)
+    assert any(str(profile_path) in error and "subitem must be '第五项B'" in error for error in errors)
+    assert any(str(profile_path) in error and "positive_terms must be a list of non-empty strings" in error for error in errors)
+    assert any(str(override_path) in error and "override_id must be a non-empty string" in error for error in errors)
+    assert any(str(override_path) in error and "must include at least one keyword terms field" in error for error in errors)
 
 
 def test_validate_review_configs_rejects_cjk_unicode_escape(tmp_path: Path, monkeypatch) -> None:
@@ -103,7 +153,7 @@ def test_validate_review_configs_rejects_cjk_unicode_escape(tmp_path: Path, monk
     config_dir.mkdir()
     config_path = config_dir / "第五项B_检索关键词基础.json"
     config_path.write_text(
-        '[{"profile_id": "KW-I5B-001", "subitem": "\\u7b2c\\u4e94\\u9879B", "terms": ["任用"]}]\n',
+        '[{"profile_id": "KW-I5B-001", "subitem": "\\u7b2c\\u4e94\\u9879B", "scope_type": "subitem", "scope_key": "第五项B", "terms": ["任用"]}]\n',
         encoding="utf-8",
     )
 

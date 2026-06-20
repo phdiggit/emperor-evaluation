@@ -42,26 +42,31 @@ def test_i5b_keyword_profile_loader_filters_common_scope_fields(
             {
                 "profile_id": "KW-I5B-BASE",
                 "subitem": "第五项B",
-                "scope": "base",
-                "terms": ["任用"],
+                "scope_type": "subitem",
+                "scope_key": "第五项B",
+                "positive_terms": ["任用"],
             },
             {
                 "keyword_profile_id": "KW-I5B-LIUBANG",
+                "subitem": "第五项B",
                 "person": "刘邦",
-                "scope": "person",
-                "terms": ["三杰"],
+                "scope_type": "person",
+                "scope_key": "刘邦",
+                "append_terms": ["三杰"],
             },
         ],
     )
 
     monkeypatch.setattr(config_loaders, "I5B_KEYWORD_PROFILES_PATH", config_path)
 
-    assert [row["profile_id"] for row in config_loaders.get_i5b_keyword_profiles(scope="base")] == [
+    assert [row["profile_id"] for row in config_loaders.get_i5b_keyword_profiles(scope="subitem")] == [
         "KW-I5B-BASE"
     ]
     assert [
         row["keyword_profile_id"] for row in config_loaders.get_i5b_keyword_profiles(person="刘邦")
     ] == ["KW-I5B-LIUBANG"]
+    assert len(config_loaders.get_i5b_keyword_profiles(subitem="第五项B")) == 2
+    assert config_loaders.get_i5b_keyword_profiles(subitem="第五项A") == []
 
 
 def test_i5b_keyword_override_loader_filters_person_or_scope(
@@ -73,12 +78,14 @@ def test_i5b_keyword_override_loader_filters_person_or_scope(
         [
             {
                 "override_id": "KW-I5B-OVERRIDE-LB",
+                "subitem": "第五项B",
                 "scope_type": "person",
                 "scope_key": "刘邦",
                 "append_terms": ["萧何"],
             },
             {
                 "override_id": "KW-I5B-OVERRIDE-HAN",
+                "subitem": "第五项B",
                 "scope_type": "dynasty",
                 "scope_key": "汉",
                 "append_terms": ["尚书"],
@@ -94,3 +101,5 @@ def test_i5b_keyword_override_loader_filters_person_or_scope(
     assert [
         row["override_id"] for row in config_loaders.get_i5b_keyword_overrides(scope="dynasty")
     ] == ["KW-I5B-OVERRIDE-HAN"]
+    assert len(config_loaders.get_i5b_keyword_overrides(subitem="第五项B")) == 2
+    assert config_loaders.get_i5b_keyword_overrides(subitem="第五项A") == []
