@@ -19,6 +19,10 @@ assert VALIDATE_CHINESE_VIEW_CONFIGS_SPEC.loader is not None
 VALIDATE_CHINESE_VIEW_CONFIGS_SPEC.loader.exec_module(validate_chinese_view_configs)
 
 
+def write_json_array(path: Path, rows: list[object]) -> None:
+    path.write_text(json.dumps(rows, ensure_ascii=False, indent=4) + "\n", encoding="utf-8")
+
+
 def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
 
@@ -37,10 +41,10 @@ def test_validate_chinese_view_configs_cli_passes_on_repo_data() -> None:
 
 
 def test_validate_chinese_view_configs_rejects_invalid_json(tmp_path: Path, monkeypatch) -> None:
-    pool_path = tmp_path / "第五项B_人物池.jsonl"
-    groups_path = tmp_path / "第五项B_视图分组.jsonl"
+    pool_path = tmp_path / "第五项B_人物池.json"
+    groups_path = tmp_path / "第五项B_视图分组.json"
     pool_path.write_text("{bad json}\n", encoding="utf-8")
-    groups_path.write_text("", encoding="utf-8")
+    groups_path.write_text("[]\n", encoding="utf-8")
 
     legacy_trial_path = tmp_path / "legacy_trial.jsonl"
     legacy_expanded_path = tmp_path / "legacy_expanded.jsonl"
@@ -67,10 +71,10 @@ def test_validate_chinese_view_configs_rejects_invalid_json(tmp_path: Path, monk
 
 
 def test_validate_chinese_view_configs_rejects_non_object_rows(tmp_path: Path, monkeypatch) -> None:
-    pool_path = tmp_path / "第五项B_人物池.jsonl"
-    groups_path = tmp_path / "第五项B_视图分组.jsonl"
-    pool_path.write_text('["not", "object"]\n', encoding="utf-8")
-    groups_path.write_text("", encoding="utf-8")
+    pool_path = tmp_path / "第五项B_人物池.json"
+    groups_path = tmp_path / "第五项B_视图分组.json"
+    write_json_array(pool_path, [["not", "object"]])
+    write_json_array(groups_path, [])
 
     legacy_trial_path = tmp_path / "legacy_trial.jsonl"
     legacy_expanded_path = tmp_path / "legacy_expanded.jsonl"
@@ -93,20 +97,20 @@ def test_validate_chinese_view_configs_rejects_non_object_rows(tmp_path: Path, m
 
     errors = validate_chinese_view_configs.validate()
 
-    assert errors[0] == f"{pool_path}: line 1: expected JSON object, got list"
+    assert errors[0] == f"{pool_path}: line 1: expected array item to be JSON object, got list"
 
 
 def test_validate_chinese_view_configs_checks_cross_file_coverage_and_types(
     tmp_path: Path, monkeypatch
 ) -> None:
-    pool_path = tmp_path / "第五项B_人物池.jsonl"
-    groups_path = tmp_path / "第五项B_视图分组.jsonl"
+    pool_path = tmp_path / "第五项B_人物池.json"
+    groups_path = tmp_path / "第五项B_视图分组.json"
     legacy_trial_path = tmp_path / "legacy_trial.jsonl"
     legacy_expanded_path = tmp_path / "legacy_expanded.jsonl"
     legacy_net_path = tmp_path / "legacy_net.jsonl"
     legacy_trial_json_path = tmp_path / "legacy_trial.json"
 
-    write_jsonl(
+    write_json_array(
         pool_path,
         [
             {"person": "李世民", "subitem": "第五项B"},
@@ -114,7 +118,7 @@ def test_validate_chinese_view_configs_checks_cross_file_coverage_and_types(
             {"person": "刘邦", "subitem": ""},
         ],
     )
-    write_jsonl(
+    write_json_array(
         groups_path,
         [
             {
@@ -160,13 +164,24 @@ def test_validate_chinese_view_configs_checks_cross_file_coverage_and_types(
 
     errors = validate_chinese_view_configs.validate()
 
-    assert f"{pool_path}: line 2: duplicate person '李世民' (already defined at line 1)" in errors
-    assert f"{pool_path}: line 3: subitem must be a non-empty string" in errors
-    assert (
-        f"{groups_path}: line 2: persons must be a non-empty list of non-empty strings" in errors
+    assert any(
+        error.startswith(f"{pool_path}: line ")
+        and "duplicate person '李世民' (already defined at line " in error
+        for error in errors
     )
-    assert (
-        f"{groups_path}: line 1: person '刘秀' is not defined in {pool_path.name}" in errors
+    assert any(
+        error.startswith(f"{pool_path}: line ") and error.endswith("subitem must be a non-empty string")
+        for error in errors
+    )
+    assert any(
+        error.startswith(f"{groups_path}: line ")
+        and error.endswith("persons must be a non-empty list of non-empty strings")
+        for error in errors
+    )
+    assert any(
+        error.startswith(f"{groups_path}: line ")
+        and f"person '刘秀' is not defined in {pool_path.name}" in error
+        for error in errors
     )
     assert (
         f"{legacy_trial_path}: line 3: person '刘庄' is missing from {pool_path.name}" in errors
@@ -180,4 +195,34 @@ def test_validate_chinese_view_configs_checks_cross_file_coverage_and_types(
     assert (
         f"{legacy_net_path}: line 1: person '李世民' is missing from group '第五项B_净证据导出目标' in {groups_path.name}" in errors
     )
+
+
+def test_validate_chinese_view_configs_rejects_non_array_top_level(tmp_path: Path, monkeypatch) -> None:
+    pool_path = tmp_path / "第五项B_人物池.json"
+    groups_path = tmp_path / "第五项B_视图分组.json"
+    pool_path.write_text('{"person": "李世民"}\n', encoding="utf-8")
+    write_json_array(groups_path, [])
+
+    legacy_trial_path = tmp_path / "legacy_trial.jsonl"
+    legacy_expanded_path = tmp_path / "legacy_expanded.jsonl"
+    legacy_net_path = tmp_path / "legacy_net.jsonl"
+    legacy_trial_json_path = tmp_path / "legacy_trial.json"
+    write_jsonl(legacy_trial_path, [{"person": "李世民"}])
+    write_jsonl(legacy_expanded_path, [{"person": "刘邦"}])
+    write_jsonl(legacy_net_path, [{"person": "李世民"}])
+    legacy_trial_json_path.write_text(
+        json.dumps({"targets": ["李世民"]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(validate_chinese_view_configs, "PERSON_POOL_PATH", pool_path)
+    monkeypatch.setattr(validate_chinese_view_configs, "VIEW_GROUPS_PATH", groups_path)
+    monkeypatch.setattr(validate_chinese_view_configs, "LEGACY_TRIAL_TARGETS_PATH", legacy_trial_path)
+    monkeypatch.setattr(validate_chinese_view_configs, "LEGACY_EXPANDED_BATCH1_PATH", legacy_expanded_path)
+    monkeypatch.setattr(validate_chinese_view_configs, "LEGACY_NET_EVIDENCE_TARGETS_PATH", legacy_net_path)
+    monkeypatch.setattr(validate_chinese_view_configs, "LEGACY_TRIAL_CONFIG_JSON_PATH", legacy_trial_json_path)
+
+    errors = validate_chinese_view_configs.validate()
+
+    assert errors[0] == f"{pool_path}: line 1: expected top-level JSON array, got dict"
 
