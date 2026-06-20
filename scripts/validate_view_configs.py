@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 VIEW_CONFIG_DIR = ROOT / "data" / "view_configs"
 I5B_EXPANDED_CANDIDATE_POOL_PATH = VIEW_CONFIG_DIR / "i5b_expanded_candidate_pool.jsonl"
+I5B_NET_EVIDENCE_TARGETS_PATH = VIEW_CONFIG_DIR / "i5b_net_evidence_targets.jsonl"
 I5B_REQUIRED_FIELDS = [
     "person",
     "candidate_type",
@@ -19,6 +20,7 @@ I5B_REQUIRED_FIELDS = [
     "negative_scan_focus",
     "recommended_priority",
 ]
+I5B_NET_EVIDENCE_TARGET_REQUIRED_FIELDS = ["person", "export_path"]
 RECOMMENDED_PRIORITY_PATTERN = re.compile(r"P\d+")
 
 
@@ -52,6 +54,16 @@ def validate_jsonl_file(path: Path) -> list[str]:
                 errors.append(
                     f"{line_label}: recommended_priority must match P<number>, got {priority!r}"
                 )
+        elif path == I5B_NET_EVIDENCE_TARGETS_PATH:
+            missing_fields = [
+                field for field in I5B_NET_EVIDENCE_TARGET_REQUIRED_FIELDS if field not in row
+            ]
+            if missing_fields:
+                errors.append(f"{line_label}: missing required fields: {', '.join(missing_fields)}")
+
+            for field in ["person", "person_key", "path", "output_path", "doc_path", "export_path"]:
+                if field in row and (not isinstance(row[field], str) or not row[field].strip()):
+                    errors.append(f"{line_label}: {field} must be a non-empty string")
 
     return errors
 
