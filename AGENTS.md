@@ -47,7 +47,8 @@
 2. 在 PowerShell + Git Bash 混合环境里，不要写复杂嵌套引号命令，尤其不要为了多关键词检索去拼多段 `grep`、`printf`、转义换行或 shell 串联。多关键词搜索默认优先用一次 `rg -n "A|B|C" <paths>` 或等价的单条简单命令完成。
 3. 处理中文路径、`git status`、`changed files`、白名单核对时，默认优先使用 `git -c core.quotepath=false status --short`、`git -c core.quotepath=false diff --name-only` 或仓库内 `python scripts/dev/repo_tool.py` 的现成能力；不要为了解码 Git quoted path 临时手写 Python / shell 转码脚本，除非先确认仓库内工具无法满足。
 4. 读写仓库文本文件时，优先使用 `python scripts/dev/repo_tool.py read/write/replace ...`；这条优先级主要针对仓库内文本修改和需要保持编码稳定的场景，不是所有只读检索都必须走它。检索中文史料时可以先用 `rg` / `sed` / `git grep` 找位置和上下文，真正读准内容或要改写中文文本时再优先切到 `repo_tool`。不要裸用 `Get-Content` / `Set-Content` 读写中文或可能含中文的文本文件。
-5. 生成 PR body、临时 Markdown、说明文件时，默认使用 UTF-8 无 BOM；如果经 PowerShell 写入，必须显式指定 no BOM，避免正文开头混入 BOM 字符。
+5. 结构化改写仓库内 JSON / JSONL 配置时，优先使用 Python 标准库或 `scripts/dev/repo_tool.py`；涉及中文 JSON 输出时必须使用 UTF-8、`ensure_ascii=False`、稳定缩进。不要使用临时 MCP / REPL 工具改写仓库文件。
+6. 生成 PR body、临时 Markdown、说明文件时，默认使用 UTF-8 无 BOM；如果经 PowerShell 写入，必须显式指定 no BOM，避免正文开头混入 BOM 字符。
 
 ### 改动方法
 
@@ -57,6 +58,7 @@
 ### 验证与提交
 
 1. 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前必须运行 `python scripts/validate_all.py`；若校验失败，不得提交或开 PR。纯文档改动且不影响验证链时可不运行。
+2. 若验证命令会重写 `exports/`、generated docs 或其他禁止范围内副产物，先记录验证结果，再清理这些副产物；清理后只做 `git status` / `git diff --name-only` 范围核对，不再重复运行会重新生成副产物的命令，除非清理本身可能影响验证结论。
 
 ## 默认忽略
 
