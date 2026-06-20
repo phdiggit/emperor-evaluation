@@ -26,18 +26,23 @@ def write_json(path: Path, payload: object) -> None:
 def valid_rule(**overrides: object) -> dict[str, object]:
     row: dict[str, object] = {
         "rule_id": "I5B-CLUSTER-WARN-TEST",
+        "enabled": False,
         "subitem": "第五项B",
         "trigger_type": "trigger_terms",
+        "trigger_terms": ["测试词"],
+        "polarity_scope": ["positive", "negative"],
+        "evidence_strength_scope": ["candidate_strength_3"],
         "warning_type": "source_review_required",
         "warning_message": "仅提示人工复核，不产生裁判结论。",
+        "adjacent_item_risk": ["第五项C"],
         "required_human_review": True,
-        "note": "测试规则，实际配置第一阶段不启用。",
+        "note": "本规则只提示人工复核，不产生裁判结论、定档、分数或排名。",
     }
     row.update(overrides)
     return row
 
 
-def test_validate_i5b_cluster_adjudication_configs_cli_passes_on_repo_skeleton() -> None:
+def test_validate_i5b_cluster_adjudication_configs_cli_passes_on_repo_disabled_rules() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py")],
         cwd=ROOT,
@@ -48,6 +53,19 @@ def test_validate_i5b_cluster_adjudication_configs_cli_passes_on_repo_skeleton()
 
     assert result.returncode == 0, result.stdout + result.stderr
     assert "I5B cluster adjudication config validation passed." in result.stdout
+
+
+def test_repo_config_contains_four_disabled_warning_rules() -> None:
+    rows = json.loads(validate_i5b_cluster_adjudication_configs.CONFIG_PATH.read_text(encoding="utf-8"))
+
+    assert [row["rule_id"] for row in rows] == [
+        "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION",
+        "I5B-CLUSTER-WARN-SINGLE-EVIDENCE-LIMIT",
+        "I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED",
+        "I5B-CLUSTER-WARN-MIXED-POLARITY",
+    ]
+    assert all(row["enabled"] is False for row in rows)
+    assert all(row["required_human_review"] is True for row in rows)
 
 
 def test_empty_array_passes(tmp_path: Path) -> None:
@@ -98,6 +116,11 @@ def test_required_fields_fail_when_missing_or_wrong_type(tmp_path: Path) -> None
     assert any(error.endswith("warning_message must be a non-empty string") for error in errors)
     assert any(error.endswith("required_human_review must be a bool") for error in errors)
     assert any(error.endswith("note must be a non-empty string") for error in errors)
+    assert any(error.endswith("enabled is required") for error in errors)
+    assert any(error.endswith("trigger_terms is required") for error in errors)
+    assert any(error.endswith("polarity_scope is required") for error in errors)
+    assert any(error.endswith("evidence_strength_scope is required") for error in errors)
+    assert any(error.endswith("adjacent_item_risk is required") for error in errors)
 
 
 def test_duplicate_rule_id_fails(tmp_path: Path) -> None:
@@ -162,6 +185,17 @@ def test_enabled_true_fails(tmp_path: Path) -> None:
     assert any(validate_i5b_cluster_adjudication_configs.ENABLED_RULE_ERROR in error for error in errors)
 
 
+def test_missing_enabled_fails(tmp_path: Path) -> None:
+    config_path = tmp_path / "第五项B_证据簇裁判提示.json"
+    row = valid_rule()
+    row.pop("enabled")
+    write_json(config_path, [row])
+
+    errors = validate_i5b_cluster_adjudication_configs.validate(config_path)
+
+    assert any(error.endswith("enabled is required") for error in errors)
+
+
 def test_enabled_must_be_bool(tmp_path: Path) -> None:
     config_path = tmp_path / "第五项B_证据簇裁判提示.json"
     write_json(config_path, [valid_rule(enabled="false")])
@@ -169,6 +203,26 @@ def test_enabled_must_be_bool(tmp_path: Path) -> None:
     errors = validate_i5b_cluster_adjudication_configs.validate(config_path)
 
     assert any(error.endswith("enabled must be a bool") for error in errors)
+
+
+def test_required_human_review_false_fails(tmp_path: Path) -> None:
+    config_path = tmp_path / "第五项B_证据簇裁判提示.json"
+    write_json(config_path, [valid_rule(required_human_review=False)])
+
+    errors = validate_i5b_cluster_adjudication_configs.validate(config_path)
+
+    assert any(error.endswith("required_human_review must be true") for error in errors)
+
+
+def test_missing_required_human_review_fails(tmp_path: Path) -> None:
+    config_path = tmp_path / "第五项B_证据簇裁判提示.json"
+    row = valid_rule()
+    row.pop("required_human_review")
+    write_json(config_path, [row])
+
+    errors = validate_i5b_cluster_adjudication_configs.validate(config_path)
+
+    assert any(error.endswith("required_human_review is required") for error in errors)
 
 
 def test_string_array_fields_must_be_non_empty_string_arrays(tmp_path: Path) -> None:
@@ -192,10 +246,26 @@ def test_string_array_fields_must_be_non_empty_string_arrays(tmp_path: Path) -> 
     assert any(error.endswith("evidence_strength_scope must be a non-empty list of non-empty strings") for error in errors)
 
 
+def test_rule_id_must_not_contain_person_or_evidence_cluster_ids(tmp_path: Path) -> None:
+    config_path = tmp_path / "第五项B_证据簇裁判提示.json"
+    write_json(
+        config_path,
+        [
+            valid_rule(rule_id="I5B-CLUSTER-WARN-刘邦"),
+            valid_rule(rule_id="I5B-CLUSTER-WARN-EVD-I5B-TEST"),
+            valid_rule(rule_id="I5B-CLUSTER-WARN-ADJ-I5B-TEST"),
+        ],
+    )
+
+    errors = validate_i5b_cluster_adjudication_configs.validate(config_path)
+
+    assert sum("rule_id must not contain person names or evidence/cluster/search/source ids" in error for error in errors) == 3
+
+
 def test_cjk_unicode_escape_fails(tmp_path: Path) -> None:
     config_path = tmp_path / "第五项B_证据簇裁判提示.json"
     config_path.write_text(
-        '[{"rule_id": "RULE", "subitem": "\\u7b2c\\u4e94\\u9879B", "trigger_type": "x", "warning_type": "x", "warning_message": "x", "required_human_review": true, "note": "x"}]\n',
+        '[{"rule_id": "RULE", "enabled": false, "subitem": "\\u7b2c\\u4e94\\u9879B", "trigger_type": "x", "trigger_terms": ["x"], "polarity_scope": ["positive"], "evidence_strength_scope": ["candidate_strength_1"], "warning_type": "x", "warning_message": "x", "adjacent_item_risk": ["x"], "required_human_review": true, "note": "x"}]\n',
         encoding="utf-8",
     )
 

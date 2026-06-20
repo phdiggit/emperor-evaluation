@@ -478,3 +478,9 @@ scripts/validate_i5b_cluster_adjudication_configs.py
 第一阶段已新增 `data/configs/人工复核配置/第五项B_证据簇裁判提示.json` skeleton，并接入 `scripts/validate_i5b_cluster_adjudication_configs.py` 与 `scripts/validate_all.py`。
 
 当前 skeleton 为空数组，不填正式规则，不启用任何提示规则，不被业务脚本读取；本阶段仍不修改证据卡、证据簇、adjudication batch、导出、评分、定档、排名或总榜。
+
+## 13. 2026-06-21 low-risk warning rules note
+
+第二阶段已将 `第五项B_证据簇裁判提示.json` 从空数组推进到少量低风险 disabled 提示规则，覆盖相邻项污染、单证不足、回源核验、正负证并存四类人工复核提醒。
+
+所有规则仍为 `enabled=false`，未接入业务脚本读取，未改变证据数据、自动草案、评分、定档或排名。

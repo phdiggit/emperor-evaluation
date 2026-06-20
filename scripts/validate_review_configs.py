@@ -10,6 +10,10 @@ ROOT = Path(__file__).resolve().parents[1]
 REVIEW_CONFIG_DIR = ROOT / "data" / "configs" / "人工复核配置"
 I5B_PROFILE_CONFIG_NAME = "第五项B_检索关键词基础.json"
 I5B_OVERRIDE_CONFIG_NAME = "第五项B_检索关键词补丁.json"
+REVIEW_KEYWORD_CONFIG_NAMES = {
+    I5B_PROFILE_CONFIG_NAME,
+    I5B_OVERRIDE_CONFIG_NAME,
+}
 I5B_SUBITEM = "第五项B"
 TERMS_FIELD_NAMES = {
     "terms",
@@ -212,6 +216,8 @@ def validate() -> list[str]:
         return errors
 
     for path in sorted(REVIEW_CONFIG_DIR.glob("*.json")):
+        if path.name not in REVIEW_KEYWORD_CONFIG_NAMES:
+            continue
         errors.extend(validate_file(path))
 
     return errors
