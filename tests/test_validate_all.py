@@ -66,6 +66,13 @@ def test_validate_all_includes_review_config_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_i5b_cluster_adjudication_config_step() -> None:
+    assert (
+        "validate_i5b_cluster_adjudication_configs",
+        ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     called: list[str] = []
 

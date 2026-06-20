@@ -472,3 +472,9 @@ scripts/validate_i5b_cluster_adjudication_configs.py
 3. validator 接入 `validate_all.py` 前必须有测试覆盖。
 4. 配置只输出提示，不改变当前证据数据和自动草案。
 5. PR body 必须重复声明“不出分、不定档、不排名、不出总榜”。
+
+## 12. 2026-06-21 implementation note
+
+第一阶段已新增 `data/configs/人工复核配置/第五项B_证据簇裁判提示.json` skeleton，并接入 `scripts/validate_i5b_cluster_adjudication_configs.py` 与 `scripts/validate_all.py`。
+
+当前 skeleton 为空数组，不填正式规则，不启用任何提示规则，不被业务脚本读取；本阶段仍不修改证据卡、证据簇、adjudication batch、导出、评分、定档、排名或总榜。

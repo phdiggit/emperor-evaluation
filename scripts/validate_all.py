@@ -12,6 +12,10 @@ VALIDATION_STEPS = [
     ("validate_view_configs", ROOT / "scripts" / "validate_view_configs.py"),
     ("validate_chinese_view_configs", ROOT / "scripts" / "validate_chinese_view_configs.py"),
     ("validate_review_configs", ROOT / "scripts" / "validate_review_configs.py"),
+    (
+        "validate_i5b_cluster_adjudication_configs",
+        ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py",
+    ),
     ("validate_config_readability", ROOT / "scripts" / "validate_config_readability.py"),
 ]
 
