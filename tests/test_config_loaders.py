@@ -103,3 +103,105 @@ def test_i5b_keyword_override_loader_filters_person_or_scope(
     ] == ["KW-I5B-OVERRIDE-HAN"]
     assert len(config_loaders.get_i5b_keyword_overrides(subitem="第五项B")) == 2
     assert config_loaders.get_i5b_keyword_overrides(subitem="第五项A") == []
+
+
+def test_i5b_cluster_warning_loader_reads_repo_disabled_rules() -> None:
+    rows = config_loaders.load_i5b_cluster_warning_rules()
+
+    assert [row["rule_id"] for row in rows] == [
+        "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION",
+        "I5B-CLUSTER-WARN-SINGLE-EVIDENCE-LIMIT",
+        "I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED",
+        "I5B-CLUSTER-WARN-MIXED-POLARITY",
+    ]
+    assert all(row["enabled"] is False for row in rows)
+    assert all(row["required_human_review"] is True for row in rows)
+
+
+def test_i5b_cluster_warning_loader_filters_by_rule_id_warning_type_trigger_type_and_subitem(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config_path = tmp_path / "第五项B_证据簇裁判提示.json"
+    write_json_array(
+        config_path,
+        [
+            {
+                "rule_id": "I5B-CLUSTER-WARN-ONE",
+                "enabled": False,
+                "subitem": "第五项B",
+                "trigger_type": "trigger_terms",
+                "warning_type": "adjacent_item_contamination",
+                "required_human_review": True,
+            },
+            {
+                "rule_id": "I5B-CLUSTER-WARN-TWO",
+                "enabled": False,
+                "subitem": "第五项B",
+                "trigger_type": "cluster_structure",
+                "warning_type": "single_evidence_limit",
+                "required_human_review": True,
+            },
+        ],
+    )
+    monkeypatch.setattr(config_loaders, "I5B_CLUSTER_WARNING_RULES_PATH", config_path)
+
+    assert (
+        config_loaders.get_i5b_cluster_warning_rule("I5B-CLUSTER-WARN-ONE")["warning_type"]
+        == "adjacent_item_contamination"
+    )
+    assert config_loaders.get_i5b_cluster_warning_rule("I5B-CLUSTER-WARN-MISSING") is None
+    assert [
+        row["rule_id"]
+        for row in config_loaders.get_i5b_cluster_warning_rules(
+            warning_type="single_evidence_limit"
+        )
+    ] == ["I5B-CLUSTER-WARN-TWO"]
+    assert [
+        row["rule_id"]
+        for row in config_loaders.get_i5b_cluster_warning_rules(
+            trigger_type="trigger_terms"
+        )
+    ] == ["I5B-CLUSTER-WARN-ONE"]
+    assert len(config_loaders.get_i5b_cluster_warning_rules(subitem="第五项B")) == 2
+    assert config_loaders.get_i5b_cluster_warning_rules(subitem="第五项A") == []
+
+
+def test_i5b_cluster_warning_loader_reads_fresh_objects_without_cache_pollution(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config_path = tmp_path / "第五项B_证据簇裁判提示.json"
+    write_json_array(
+        config_path,
+        [
+            {
+                "rule_id": "I5B-CLUSTER-WARN-FRESH",
+                "enabled": False,
+                "subitem": "第五项B",
+                "trigger_type": "trigger_terms",
+                "warning_type": "source_review_required",
+                "required_human_review": True,
+            }
+        ],
+    )
+    monkeypatch.setattr(config_loaders, "I5B_CLUSTER_WARNING_RULES_PATH", config_path)
+
+    rows = config_loaders.load_i5b_cluster_warning_rules()
+    rows[0]["rule_id"] = "MUTATED"
+
+    assert config_loaders.load_i5b_cluster_warning_rules()[0]["rule_id"] == "I5B-CLUSTER-WARN-FRESH"
+
+    write_json_array(
+        config_path,
+        [
+            {
+                "rule_id": "I5B-CLUSTER-WARN-UPDATED",
+                "enabled": False,
+                "subitem": "第五项B",
+                "trigger_type": "trigger_terms",
+                "warning_type": "mixed_polarity_review",
+                "required_human_review": True,
+            }
+        ],
+    )
+
+    assert config_loaders.load_i5b_cluster_warning_rules()[0]["rule_id"] == "I5B-CLUSTER-WARN-UPDATED"

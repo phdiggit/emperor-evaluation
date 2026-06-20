@@ -10,6 +10,7 @@ I5B_PERSON_POOL_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_
 I5B_VIEW_GROUPS_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_视图分组.json"
 I5B_KEYWORD_PROFILES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_检索关键词基础.json"
 I5B_KEYWORD_OVERRIDES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_检索关键词补丁.json"
+I5B_CLUSTER_WARNING_RULES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_证据簇裁判提示.json"
 DEFAULT_I5B_ITEM = "第五项"
 DEFAULT_I5B_SUBITEM = "第五项B"
 DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE = "exports/markdown_views/第五项B_{person}净证据池.md"
@@ -168,3 +169,33 @@ def get_i5b_keyword_overrides(
         for row in load_i5b_keyword_overrides()
         if row_matches_scope(row, profile_id=None, person=person, scope=scope, subitem=subitem)
     ]
+
+
+def load_i5b_cluster_warning_rules() -> list[dict[str, Any]]:
+    return load_json_array(I5B_CLUSTER_WARNING_RULES_PATH)
+
+
+def get_i5b_cluster_warning_rules(
+    *,
+    rule_id: str | None = None,
+    warning_type: str | None = None,
+    trigger_type: str | None = None,
+    subitem: str | None = None,
+) -> list[dict[str, Any]]:
+    rows = load_i5b_cluster_warning_rules()
+    if rule_id is not None:
+        rows = [row for row in rows if row.get("rule_id") == rule_id]
+    if warning_type is not None:
+        rows = [row for row in rows if row.get("warning_type") == warning_type]
+    if trigger_type is not None:
+        rows = [row for row in rows if row.get("trigger_type") == trigger_type]
+    if subitem is not None:
+        rows = [row for row in rows if row.get("subitem") == subitem]
+    return rows
+
+
+def get_i5b_cluster_warning_rule(rule_id: str) -> dict[str, Any] | None:
+    rows = get_i5b_cluster_warning_rules(rule_id=rule_id)
+    if not rows:
+        return None
+    return rows[0]
