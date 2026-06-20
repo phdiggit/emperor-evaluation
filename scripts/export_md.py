@@ -6,6 +6,15 @@ from collections import Counter
 from pathlib import Path
 
 from export_i5b_auto_adjudication import export_auto_adjudication
+from export_md_scaffold import (
+    ExportStep,
+    escape_cell,
+    export_db_table_markdown,
+    join_list_cell,
+    read_jsonl,
+    run_export_steps,
+    summarize_unique_values,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -305,47 +314,6 @@ I5B_EXPANDED_CANDIDATE_POOL_ROWS = [
         "recommended_priority": "P7",
     },
 ]
-
-
-def read_jsonl(path: Path) -> list[dict[str, object]]:
-    rows: list[dict[str, object]] = []
-    if not path.exists():
-        return rows
-    with path.open("r", encoding="utf-8") as handle:
-        for line in handle:
-            stripped = line.strip()
-            if stripped:
-                rows.append(json.loads(stripped))
-    return rows
-
-
-def escape_cell(value: object) -> str:
-    if value is None:
-        return ""
-    if isinstance(value, (list, dict)):
-        return json.dumps(value, ensure_ascii=False)
-    return str(value).replace("|", "\\|").replace("\n", " ")
-
-
-def join_list_cell(value: object) -> str:
-    if isinstance(value, list):
-        return escape_cell("、".join(str(item) for item in value))
-    return escape_cell(value)
-
-
-def summarize_unique_values(rows: list[dict[str, object]], field: str) -> str:
-    values = []
-    for row in rows:
-        value = row.get(field)
-        if value is None:
-            continue
-        if isinstance(value, str):
-            cleaned = value.strip()
-            if cleaned and cleaned not in values:
-                values.append(cleaned)
-    return "；".join(values)
-
-
 def export_markdown() -> Path:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -426,27 +394,25 @@ def export_generic_markdown(
     headers: list[str],
     order_by: str,
 ) -> Path:
-    export_path.parent.mkdir(parents=True, exist_ok=True)
+    return export_db_table_markdown(DB_PATH, export_path, title, table, headers, order_by)
 
-    rows = []
-    if DB_PATH.exists():
-        with sqlite3.connect(DB_PATH) as connection:
-            connection.row_factory = sqlite3.Row
-            rows = list(connection.execute(f"SELECT raw_json FROM {table} ORDER BY {order_by}"))
 
-    lines = [
-        f"# {title}",
-        "",
-        "| " + " | ".join(headers) + " |",
-        "| " + " | ".join("---" for _ in headers) + " |",
-    ]
+def export_global_scale_decision_brief_docs() -> tuple[Path, Path]:
+    GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
+    GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    brief_content = render_global_scale_decision_brief()
+    GLOBAL_SCALE_BRIEF_DOC_PATH.write_text(brief_content, encoding="utf-8")
+    GLOBAL_SCALE_BRIEF_EXPORT_PATH.write_text(brief_content, encoding="utf-8")
+    return GLOBAL_SCALE_BRIEF_DOC_PATH, GLOBAL_SCALE_BRIEF_EXPORT_PATH
 
-    for row in rows:
-        raw_json = json.loads(row["raw_json"])
-        lines.append("| " + " | ".join(escape_cell(raw_json.get(header)) for header in headers) + " |")
 
-    export_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return export_path
+def export_expanded_i5b_candidate_pool_docs() -> tuple[Path, Path]:
+    CANDIDATE_POOL_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CANDIDATE_POOL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    candidate_pool_content = render_expanded_i5b_candidate_pool()
+    CANDIDATE_POOL_DOC_PATH.write_text(candidate_pool_content, encoding="utf-8")
+    CANDIDATE_POOL_EXPORT_PATH.write_text(candidate_pool_content, encoding="utf-8")
+    return CANDIDATE_POOL_DOC_PATH, CANDIDATE_POOL_EXPORT_PATH
 
 
 def export_expanded_i5b_batch1_review() -> Path:
@@ -1447,66 +1413,52 @@ def export_evidence_clusters_markdown() -> Path:
 
 
 def main() -> int:
-    export_path = export_markdown()
-    print(f"exported {export_path}")
-    search_logs_export_path = export_search_logs_markdown()
-    print(f"exported {search_logs_export_path}")
-    evidence_clusters_export_path = export_evidence_clusters_markdown()
-    print(f"exported {evidence_clusters_export_path}")
-    thematic_anchors_export_path = export_generic_markdown(
-        THEMATIC_ANCHORS_EXPORT_PATH,
-        "专题锚点索引",
-        "thematic_anchors",
-        THEMATIC_ANCHOR_HEADERS,
-        "anchor_id",
-    )
-    print(f"exported {thematic_anchors_export_path}")
-    query_profiles_export_path = export_generic_markdown(
-        QUERY_PROFILES_EXPORT_PATH,
-        "项目检索包索引",
-        "query_profiles",
-        QUERY_PROFILE_HEADERS,
-        "query_profile_id",
-    )
-    print(f"exported {query_profiles_export_path}")
-    for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS:
-        exported_net_evidence_path = export_i5b_net_evidence_pool(person, net_evidence_path)
-        print(f"exported {exported_net_evidence_path}")
-    expanded_batch1_review_export_path = export_expanded_i5b_batch1_review()
-    print(f"exported {expanded_batch1_review_export_path}")
-    expanded_batch1_cluster_adjudication_export_path = export_expanded_i5b_batch1_cluster_adjudication()
-    print(f"exported {expanded_batch1_cluster_adjudication_export_path}")
-    targeted_supplement_export_path = export_expanded_i5b_batch1_targeted_supplement()
-    print(f"exported {targeted_supplement_export_path}")
-    post_supplement_adjudication_export_path = export_expanded_i5b_batch1_post_supplement_adjudication()
-    print(f"exported {post_supplement_adjudication_export_path}")
-    readiness_audit_export_path = export_expanded_i5b_batch1_readiness_audit()
-    print(f"exported {readiness_audit_export_path}")
-    readiness_followup_export_path = export_expanded_i5b_batch1_readiness_followup()
-    print(f"exported {readiness_followup_export_path}")
-    human_review_package_export_path = export_expanded_i5b_batch1_human_review_package()
-    print(f"exported {human_review_package_export_path}")
-    relative_band_preparation_export_path = export_expanded_i5b_batch1_relative_band_preparation()
-    print(f"exported {relative_band_preparation_export_path}")
-    GLOBAL_SCALE_BRIEF_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
-    GLOBAL_SCALE_BRIEF_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    brief_content = render_global_scale_decision_brief()
-    GLOBAL_SCALE_BRIEF_DOC_PATH.write_text(brief_content, encoding="utf-8")
-    GLOBAL_SCALE_BRIEF_EXPORT_PATH.write_text(brief_content, encoding="utf-8")
-    print(f"exported {GLOBAL_SCALE_BRIEF_DOC_PATH}")
-    print(f"exported {GLOBAL_SCALE_BRIEF_EXPORT_PATH}")
-    CANDIDATE_POOL_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
-    CANDIDATE_POOL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    candidate_pool_content = render_expanded_i5b_candidate_pool()
-    CANDIDATE_POOL_DOC_PATH.write_text(candidate_pool_content, encoding="utf-8")
-    CANDIDATE_POOL_EXPORT_PATH.write_text(candidate_pool_content, encoding="utf-8")
-    print(f"exported {CANDIDATE_POOL_DOC_PATH}")
-    print(f"exported {CANDIDATE_POOL_EXPORT_PATH}")
-    auto_adjudication_export_path, auto_rules_export_path, formal_landing_export_path, closure_export_path = export_auto_adjudication()
-    print(f"exported {auto_adjudication_export_path}")
-    print(f"exported {auto_rules_export_path}")
-    print(f"exported {formal_landing_export_path}")
-    print(f"exported {closure_export_path}")
+    steps = [
+        ExportStep("evidence_index", export_markdown),
+        ExportStep("search_logs", export_search_logs_markdown),
+        ExportStep("evidence_clusters", export_evidence_clusters_markdown),
+        ExportStep(
+            "thematic_anchors",
+            lambda: export_generic_markdown(
+                THEMATIC_ANCHORS_EXPORT_PATH,
+                "专题锚点索引",
+                "thematic_anchors",
+                THEMATIC_ANCHOR_HEADERS,
+                "anchor_id",
+            ),
+        ),
+        ExportStep(
+            "query_profiles",
+            lambda: export_generic_markdown(
+                QUERY_PROFILES_EXPORT_PATH,
+                "项目检索包索引",
+                "query_profiles",
+                QUERY_PROFILE_HEADERS,
+                "query_profile_id",
+            ),
+        ),
+        *[
+            ExportStep(
+                f"net_evidence_{person}",
+                lambda person=person, net_evidence_path=net_evidence_path: export_i5b_net_evidence_pool(
+                    person, net_evidence_path
+                ),
+            )
+            for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS
+        ],
+        ExportStep("expanded_batch1_review", export_expanded_i5b_batch1_review),
+        ExportStep("expanded_batch1_cluster_adjudication", export_expanded_i5b_batch1_cluster_adjudication),
+        ExportStep("expanded_batch1_targeted_supplement", export_expanded_i5b_batch1_targeted_supplement),
+        ExportStep("expanded_batch1_post_supplement_adjudication", export_expanded_i5b_batch1_post_supplement_adjudication),
+        ExportStep("expanded_batch1_readiness_audit", export_expanded_i5b_batch1_readiness_audit),
+        ExportStep("expanded_batch1_readiness_followup", export_expanded_i5b_batch1_readiness_followup),
+        ExportStep("expanded_batch1_human_review_package", export_expanded_i5b_batch1_human_review_package),
+        ExportStep("expanded_batch1_relative_band_preparation", export_expanded_i5b_batch1_relative_band_preparation),
+        ExportStep("global_scale_decision_brief", export_global_scale_decision_brief_docs),
+        ExportStep("expanded_i5b_candidate_pool", export_expanded_i5b_candidate_pool_docs),
+        ExportStep("auto_adjudication", export_auto_adjudication),
+    ]
+    run_export_steps(steps)
     return 0
 
 
