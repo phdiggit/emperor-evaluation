@@ -16,6 +16,21 @@ DISPLAY_WARNING_KEYS = {
     "no_score_effect",
 }
 
+RENDER_FORBIDDEN_WARNING_FIELDS = {
+    "formal_score",
+    "ranking",
+    "final_score",
+    "definitive_band",
+    "final_band",
+    "leaderboard",
+    "auto_band_direction",
+    "candidate_strength",
+    "net_adjudication_draft",
+    "person",
+    "evidence_id",
+    "linked_evidence_ids",
+}
+
 CLUSTER_TEXT_FIELDS = (
     "cross_item_split",
     "five_axis_assessment",
@@ -225,3 +240,55 @@ def match_display_only_cluster_warnings(
             continue
         warnings.append(build_display_warning(cluster, rule, matched_terms, matched_fields))
     return warnings
+
+
+def markdown_cell(value: object) -> str:
+    if isinstance(value, list):
+        text = "、".join(str(item) for item in value)
+    elif isinstance(value, bool):
+        text = str(value).lower()
+    elif value is None:
+        text = ""
+    else:
+        text = str(value)
+    return text.replace("|", "\\|").replace("\n", " ")
+
+
+def validate_display_warning_for_render(warning: dict[str, Any]) -> None:
+    forbidden = sorted(set(warning) & RENDER_FORBIDDEN_WARNING_FIELDS)
+    if forbidden:
+        raise ValueError(f"display-only warning contains forbidden fields: {', '.join(forbidden)}")
+    if warning.get("display_only") is not True:
+        raise ValueError("display-only warning must include display_only=true")
+    if warning.get("no_score_effect") is not True:
+        raise ValueError("display-only warning must include no_score_effect=true")
+    if warning.get("required_human_review") is not True:
+        raise ValueError("display-only warning must include required_human_review=true")
+
+
+def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) -> str:
+    lines = [
+        "## 人工复核提示（display-only）",
+        "",
+    ]
+    if not warnings:
+        return "\n".join([*lines, "无额外提示。", ""])
+
+    headers = [
+        "warning_rule_id",
+        "warning_type",
+        "warning_message",
+        "matched_terms",
+        "matched_fields",
+        "display_only",
+        "required_human_review",
+        "no_score_effect",
+    ]
+    lines.append("| " + " | ".join(headers) + " |")
+    lines.append("| " + " | ".join("---" for _ in headers) + " |")
+
+    for warning in warnings:
+        validate_display_warning_for_render(warning)
+        lines.append("| " + " | ".join(markdown_cell(warning.get(header)) for header in headers) + " |")
+
+    return "\n".join(lines) + "\n"
