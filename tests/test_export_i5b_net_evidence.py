@@ -122,7 +122,9 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     assert "CARD-999" not in content
 
 
-def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(tmp_path: Path) -> None:
+def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(
+    tmp_path: Path, monkeypatch
+) -> None:
     group_path = tmp_path / "第五项B_视图分组.json"
     group_path.write_text(
         json.dumps(
@@ -143,8 +145,7 @@ def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(tmp_pat
         + "\n",
         encoding="utf-8",
     )
-    net_evidence.config_loaders.I5B_VIEW_GROUPS_PATH = group_path
-    net_evidence.config_loaders.LEGACY_I5B_NET_EVIDENCE_TARGETS_PATH = tmp_path / "missing-net.jsonl"
+    monkeypatch.setattr(net_evidence.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
 
     targets = net_evidence.load_i5b_net_evidence_targets()
 

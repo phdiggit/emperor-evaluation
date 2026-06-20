@@ -47,7 +47,9 @@ def test_export_global_scale_decision_brief_docs_dual_writes_identical_content(t
     assert "推荐的下一步规则确认顺序" in doc_content
 
 
-def test_export_expanded_i5b_candidate_pool_docs_reads_jsonl_config(tmp_path: Path) -> None:
+def test_export_expanded_i5b_candidate_pool_docs_reads_chinese_person_pool_config(
+    tmp_path: Path, monkeypatch
+) -> None:
     config_path = tmp_path / "第五项B_人物池.json"
     config_path.write_text(
         json.dumps(
@@ -73,8 +75,7 @@ def test_export_expanded_i5b_candidate_pool_docs_reads_jsonl_config(tmp_path: Pa
 
     doc_path = tmp_path / "docs" / "candidate-pool.md"
     export_path = tmp_path / "exports" / "candidate-pool.md"
-    doc_views.config_loaders.I5B_PERSON_POOL_PATH = config_path
-    doc_views.config_loaders.LEGACY_I5B_EXPANDED_CANDIDATE_POOL_PATH = tmp_path / "missing-pool.jsonl"
+    monkeypatch.setattr(doc_views.config_loaders, "I5B_PERSON_POOL_PATH", config_path)
     doc_views.CANDIDATE_POOL_DOC_PATH = doc_path
     doc_views.CANDIDATE_POOL_EXPORT_PATH = export_path
 

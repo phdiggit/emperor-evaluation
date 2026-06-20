@@ -2,10 +2,6 @@
     {
         "person": "刘邦",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl",
-            "data/view_configs/i5b_expanded_batch1_targets.jsonl"
-        ],
         "candidate_type": "用人强但有明显反向事件",
         "why_selected": "兼具高强度用人、早期创业授权和显著反向事件，适合压测正负并存时的边界处理。",
         "expected_rule_pressure": "检验强正与负证共存时，是否会把用人能力误判为无压制高分。",
@@ -17,10 +13,6 @@
     {
         "person": "雍正",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl",
-            "data/view_configs/i5b_expanded_batch1_targets.jsonl"
-        ],
         "candidate_type": "行政强但授权偏弱",
         "why_selected": "适合检查高行政强度与低授权弹性并存时，是否被误抬成强正。",
         "expected_rule_pressure": "压测授权偏弱下的中正/强正封顶与强负压制。",
@@ -32,10 +24,6 @@
     {
         "person": "朱元璋",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl",
-            "data/view_configs/i5b_expanded_batch1_targets.jsonl"
-        ],
         "candidate_type": "负证主导、正证不足",
         "why_selected": "用于检验强负主导样本的负证拦截和相邻项切分是否足够坚实。",
         "expected_rule_pressure": "压测强负核心、极负边界和负证主导样本是否会误入强正通道。",
@@ -47,9 +35,6 @@
     {
         "person": "赵匡胤",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl"
-        ],
         "candidate_type": "强正但负证较少",
         "why_selected": "适合做相对干净的强正样本，检验强正封顶和轻负稀薄场景。",
         "expected_rule_pressure": "压测强正是否会因负证稀少而被误抬到极正。",
@@ -61,9 +46,6 @@
     {
         "person": "嬴政",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl"
-        ],
         "candidate_type": "边界争议型",
         "why_selected": "统一、法制与高压并存，适合测相邻项剥离和边界争议处理。",
         "expected_rule_pressure": "压测 C/D/E 项切分、极强正与极强负并存时的分案规则。",
@@ -75,9 +57,6 @@
     {
         "person": "刘彻",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl"
-        ],
         "candidate_type": "证据印象强但证据簇不足",
         "why_selected": "名声与印象很强，但需要检查是否真有足够成簇证据支撑。",
         "expected_rule_pressure": "压测证据簇厚度、代表性覆盖和印象替代证据的风险。",
@@ -89,9 +68,6 @@
     {
         "person": "武则天",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "data/view_configs/i5b_expanded_candidate_pool.jsonl"
-        ],
         "candidate_type": "非军事/非开国光环型",
         "why_selected": "适合去光环，检验非军事/非开国叙事下的证据厚度。",
         "expected_rule_pressure": "压测去光环、性别偏置和非军事统治样本的用人/授权证据。",
@@ -103,31 +79,16 @@
     {
         "person": "李世民",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "configs/i5b_trial_targets.json",
-            "data/view_configs/i5b_trial_targets.jsonl",
-            "data/view_configs/i5b_net_evidence_targets.jsonl"
-        ],
-        "note": "旧碎配置只提供人物名和净证据导出目标，未迁入候选画像字段。"
+        "note": "三人试点与净证据导出目标人物；未纳入扩展候选画像。"
     },
     {
         "person": "刘秀",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "configs/i5b_trial_targets.json",
-            "data/view_configs/i5b_trial_targets.jsonl",
-            "data/view_configs/i5b_net_evidence_targets.jsonl"
-        ],
-        "note": "旧碎配置只提供人物名和净证据导出目标，未迁入候选画像字段。"
+        "note": "三人试点与净证据导出目标人物；未纳入扩展候选画像。"
     },
     {
         "person": "刘庄",
         "subitem": "第五项B",
-        "legacy_sources": [
-            "configs/i5b_trial_targets.json",
-            "data/view_configs/i5b_trial_targets.jsonl",
-            "data/view_configs/i5b_net_evidence_targets.jsonl"
-        ],
-        "note": "旧碎配置只提供人物名和净证据导出目标，未迁入候选画像字段。"
+        "note": "三人试点与净证据导出目标人物；未纳入扩展候选画像。"
     }
 ]
