@@ -42,3 +42,8 @@
 
 - PR 前统一自检
 - 想要只记一个命令时
+
+CI 入口：
+
+- GitHub Actions `validate.yml` 会调用 `python scripts/validate_all.py`
+- 随后会运行聚焦测试：`python -m pytest -q tests/test_canonical_data_integrity.py tests/test_validate_all.py`
