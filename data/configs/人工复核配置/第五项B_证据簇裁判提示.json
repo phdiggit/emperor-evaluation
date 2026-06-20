@@ -1,2 +1,123 @@
 [
+    {
+        "rule_id": "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION",
+        "enabled": false,
+        "subitem": "第五项B",
+        "trigger_type": "trigger_terms",
+        "trigger_terms": [
+            "统一",
+            "军功",
+            "开国",
+            "行政成效",
+            "财政整饬"
+        ],
+        "polarity_scope": [
+            "positive",
+            "negative"
+        ],
+        "evidence_strength_scope": [
+            "candidate_strength_1",
+            "candidate_strength_2",
+            "candidate_strength_3",
+            "candidate_strength_4"
+        ],
+        "warning_type": "adjacent_item_contamination",
+        "warning_message": "提示人工检查是否把统一功业、军功、开国叙事、行政成效或财政整饬回填到第五项B。",
+        "adjacent_item_risk": [
+            "第一项",
+            "第二项B2",
+            "第五项C",
+            "第五项D"
+        ],
+        "required_human_review": true,
+        "note": "本规则只提示人工复核，不产生裁判结论、定档、分数或排名；当前 enabled=false，不参与业务脚本读取。"
+    },
+    {
+        "rule_id": "I5B-CLUSTER-WARN-SINGLE-EVIDENCE-LIMIT",
+        "enabled": false,
+        "subitem": "第五项B",
+        "trigger_type": "cluster_structure",
+        "trigger_terms": [
+            "单证",
+            "单卡成簇",
+            "孤证"
+        ],
+        "polarity_scope": [
+            "positive",
+            "negative"
+        ],
+        "evidence_strength_scope": [
+            "candidate_strength_1",
+            "candidate_strength_2",
+            "candidate_strength_3"
+        ],
+        "warning_type": "single_evidence_limit",
+        "warning_message": "提示人工检查单条证据是否不足以支撑高强度证据簇，不能机械升档。",
+        "adjacent_item_risk": [
+            "同源重复",
+            "覆盖厚度不足"
+        ],
+        "required_human_review": true,
+        "note": "本规则只提示人工复核，不产生裁判结论、定档、分数或排名；当前 enabled=false，不参与业务脚本读取。"
+    },
+    {
+        "rule_id": "I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED",
+        "enabled": false,
+        "subitem": "第五项B",
+        "trigger_type": "evidence_strength",
+        "trigger_terms": [
+            "强负",
+            "极负",
+            "强正",
+            "极正",
+            "上探"
+        ],
+        "polarity_scope": [
+            "positive",
+            "negative"
+        ],
+        "evidence_strength_scope": [
+            "candidate_strength_3",
+            "candidate_strength_4"
+        ],
+        "warning_type": "source_review_required",
+        "warning_message": "提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。",
+        "adjacent_item_risk": [
+            "来源不足",
+            "摘要替代原文",
+            "同源重复"
+        ],
+        "required_human_review": true,
+        "note": "本规则只提示人工复核，不产生裁判结论、定档、分数或排名；当前 enabled=false，不参与业务脚本读取。"
+    },
+    {
+        "rule_id": "I5B-CLUSTER-WARN-MIXED-POLARITY",
+        "enabled": false,
+        "subitem": "第五项B",
+        "trigger_type": "polarity_relation",
+        "trigger_terms": [
+            "正负并存",
+            "强正",
+            "强负",
+            "负证压制",
+            "反转"
+        ],
+        "polarity_scope": [
+            "both"
+        ],
+        "evidence_strength_scope": [
+            "candidate_strength_2",
+            "candidate_strength_3",
+            "candidate_strength_4"
+        ],
+        "warning_type": "mixed_polarity_review",
+        "warning_message": "提示人工保留正负证并存关系，不能简单相加、抵消或自动压制。",
+        "adjacent_item_risk": [
+            "正负证机械相加",
+            "负证机械抵消正证",
+            "自动压制误用"
+        ],
+        "required_human_review": true,
+        "note": "本规则只提示人工复核，不产生裁判结论、定档、分数或排名；当前 enabled=false，不参与业务脚本读取。"
+    }
 ]

@@ -45,6 +45,23 @@ FIRST_PHASE_FORBIDDEN_FIELDS = {
     "candidate_strength",
     "net_adjudication_draft",
 }
+RULE_ID_FORBIDDEN_PATTERNS = {
+    "EVD-",
+    "ADJ-I5B-",
+    "CLUSTER-I5B-",
+    "SRCH-",
+    "SRC-",
+    "刘邦",
+    "雍正",
+    "朱元璋",
+    "嬴政",
+    "武则天",
+    "赵匡胤",
+    "刘彻",
+    "李世民",
+    "刘秀",
+    "刘庄",
+}
 UNICODE_ESCAPE_PATTERN = re.compile(r"\\u([0-9a-fA-F]{4})")
 ENABLED_RULE_ERROR = "第一阶段不允许启用证据簇裁判提示规则；只能保留 skeleton。"
 
@@ -170,19 +187,31 @@ def validate_row(path: Path, line_number: int, row: dict[str, object]) -> list[s
         if not is_non_empty_string(row.get(field)):
             errors.append(f"{line_label}: {field} must be a non-empty string")
 
+    rule_id = row.get("rule_id")
+    if is_non_empty_string(rule_id) and any(pattern in rule_id for pattern in RULE_ID_FORBIDDEN_PATTERNS):
+        errors.append(f"{line_label}: rule_id must not contain person names or evidence/cluster/search/source ids")
+
     if row.get("subitem") != I5B_SUBITEM:
         errors.append(f"{line_label}: subitem must be {I5B_SUBITEM!r}")
 
-    if not isinstance(row.get("required_human_review"), bool):
+    if "required_human_review" not in row:
+        errors.append(f"{line_label}: required_human_review is required")
+    elif not isinstance(row.get("required_human_review"), bool):
         errors.append(f"{line_label}: required_human_review must be a bool")
+    elif row.get("required_human_review") is not True:
+        errors.append(f"{line_label}: required_human_review must be true")
 
-    if "enabled" in row and not isinstance(row.get("enabled"), bool):
+    if "enabled" not in row:
+        errors.append(f"{line_label}: enabled is required")
+    elif not isinstance(row.get("enabled"), bool):
         errors.append(f"{line_label}: enabled must be a bool")
-    if row.get("enabled") is True:
+    elif row.get("enabled") is True:
         errors.append(f"{line_label}: {ENABLED_RULE_ERROR}")
 
     for field in sorted(STRING_ARRAY_FIELDS):
-        if field in row and not is_non_empty_string_array(row[field]):
+        if field not in row:
+            errors.append(f"{line_label}: {field} is required")
+        elif not is_non_empty_string_array(row[field]):
             errors.append(f"{line_label}: {field} must be a non-empty list of non-empty strings")
 
     return errors

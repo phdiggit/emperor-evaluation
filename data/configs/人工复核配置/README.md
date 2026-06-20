@@ -24,11 +24,11 @@
 
 第五项B证据簇裁判提示配置：
 
-- `第五项B_证据簇裁判提示.json` 是第一阶段 skeleton。
-- 当前文件为空数组，不启用，不被业务脚本读取。
-- 它只作为未来人工复核提示配置的结构入口。
-- 禁止承载证据结论、正式定档、正式分数、排名或总榜。
-- 后续若填入规则，必须先人工确认，并通过 `python scripts/validate_i5b_cluster_adjudication_configs.py`。
+- `第五项B_证据簇裁判提示.json` 已从空 skeleton 进入低风险 disabled 提示规则阶段。
+- 所有规则必须 `enabled=false`，当前仍不被业务脚本读取。
+- 这些规则只作为人工复核提示，不代表证据结论、证据簇强度、人物定档、正式分数、排名或总榜。
+- 任何启用、接入脚本读取、或新增高风险规则，都必须另开 PR 人工确认。
+- 修改后必须运行 `python scripts/validate_i5b_cluster_adjudication_configs.py`。
 
 迁移状态：
 
