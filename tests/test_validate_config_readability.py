@@ -96,3 +96,27 @@ def test_validate_config_readability_accepts_direct_chinese_and_normal_escape(
     errors = validate_config_readability.validate()
 
     assert errors == []
+
+
+def test_validate_config_readability_scans_data_configs_tree(
+    tmp_path: Path, monkeypatch
+) -> None:
+    view_dir = tmp_path / "view_configs"
+    review_dir = tmp_path / "review_configs"
+    configs_dir = tmp_path / "data" / "configs"
+    nested_dir = configs_dir / "视图配置"
+    view_dir.mkdir()
+    review_dir.mkdir()
+    nested_dir.mkdir(parents=True)
+    escaped_path = nested_dir / "第五项B_人物池.jsonl"
+    escaped_path.write_text('{"person": "\\u5218\\u90a6"}\n', encoding="utf-8")
+
+    monkeypatch.setattr(validate_config_readability, "USER_CONFIG_DIRS", [view_dir, review_dir])
+    monkeypatch.setattr(validate_config_readability, "ROOT", tmp_path)
+
+    errors = validate_config_readability.validate()
+
+    assert errors == [
+        f"{escaped_path}: line 1: found escaped CJK unicode sequence '\\\\u5218'; "
+        "user-editable config must use UTF-8 Chinese text directly"
+    ]

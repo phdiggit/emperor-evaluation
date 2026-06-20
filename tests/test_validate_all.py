@@ -52,6 +52,13 @@ def test_validate_all_includes_config_readability_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_chinese_view_config_step() -> None:
+    assert (
+        "validate_chinese_view_configs",
+        ROOT / "scripts" / "validate_chinese_view_configs.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     called: list[str] = []
 
