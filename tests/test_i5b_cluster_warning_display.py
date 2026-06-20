@@ -5,6 +5,8 @@ import importlib.util
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DISPLAY_SPEC = importlib.util.spec_from_file_location(
@@ -101,6 +103,10 @@ def match(
     rules: list[dict[str, object]],
 ) -> list[dict[str, object]]:
     return i5b_cluster_warning_display.match_display_only_cluster_warnings(cluster, cards, rules)
+
+
+def render(warnings: list[dict[str, object]]) -> str:
+    return i5b_cluster_warning_display.render_display_only_cluster_warning_section(warnings)
 
 
 def assert_display_only_warning(warning: dict[str, object], warning_type: str) -> None:
@@ -279,3 +285,140 @@ def test_no_match_returns_empty_list() -> None:
     rule = make_rule(trigger_terms=["军功"])
 
     assert match(cluster, [], [rule]) == []
+
+
+def test_renderer_empty_warnings_outputs_no_extra_hint() -> None:
+    content = render([])
+
+    assert content == "## 人工复核提示（display-only）\n\n无额外提示。\n"
+
+
+def test_renderer_single_warning_outputs_display_only_table_fields() -> None:
+    warning = {
+        "cluster_id": "ADJ-I5B-TEST-001",
+        "warning_rule_id": "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION",
+        "warning_type": "adjacent_item_contamination",
+        "warning_message": "提示人工检查相邻项污染。",
+        "matched_terms": ["军功", "行政成效"],
+        "matched_fields": ["cluster.cross_item_split", "linked_cards[0].trigger_terms"],
+        "matched_reason": "display-only",
+        "required_human_review": True,
+        "display_only": True,
+        "no_score_effect": True,
+    }
+
+    content = render([warning])
+
+    assert "## 人工复核提示（display-only）" in content
+    assert "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
+    assert "adjacent_item_contamination" in content
+    assert "提示人工检查相邻项污染。" in content
+    assert "军功、行政成效" in content
+    assert "cluster.cross_item_split、linked_cards[0].trigger_terms" in content
+    assert "| true | true | true |" in content
+
+
+def test_renderer_output_excludes_forbidden_result_and_draft_fields() -> None:
+    warnings = match(
+        make_cluster(candidate_strength=3, summary="强正上探候选。"),
+        [],
+        [
+            make_rule(
+                trigger_terms=["强正", "上探"],
+                warning_type="source_review_required",
+                evidence_strength_scope=["candidate_strength_3"],
+            )
+        ],
+    )
+
+    content = render(warnings)
+
+    for forbidden in [
+        "final_score",
+        "ranking",
+        "leaderboard",
+        "auto_band_direction",
+        "candidate_strength",
+        "net_adjudication_draft",
+    ]:
+        assert forbidden not in content
+    assert "display_only" in content
+    assert "no_score_effect" in content
+    assert "required_human_review" in content
+
+
+@pytest.mark.parametrize(
+    "forbidden_field",
+    [
+        "formal_score",
+        "ranking",
+        "final_score",
+        "definitive_band",
+        "final_band",
+        "leaderboard",
+        "auto_band_direction",
+        "candidate_strength",
+        "net_adjudication_draft",
+        "person",
+        "evidence_id",
+        "linked_evidence_ids",
+    ],
+)
+def test_renderer_rejects_forbidden_warning_fields(forbidden_field: str) -> None:
+    warning = {
+        "cluster_id": "ADJ-I5B-TEST-001",
+        "warning_rule_id": "I5B-CLUSTER-WARN-TEST",
+        "warning_type": "source_review_required",
+        "warning_message": "提示人工复核。",
+        "matched_terms": ["强正"],
+        "matched_fields": ["cluster.summary"],
+        "matched_reason": "display-only",
+        "required_human_review": True,
+        "display_only": True,
+        "no_score_effect": True,
+        forbidden_field: "forbidden",
+    }
+
+    with pytest.raises(ValueError, match="forbidden fields"):
+        render([warning])
+
+
+def test_renderer_does_not_mutate_input_warnings() -> None:
+    warnings = [
+        {
+            "cluster_id": "ADJ-I5B-TEST-001",
+            "warning_rule_id": "I5B-CLUSTER-WARN-TEST",
+            "warning_type": "source_review_required",
+            "warning_message": "提示人工复核。",
+            "matched_terms": ["强正"],
+            "matched_fields": ["cluster.summary"],
+            "matched_reason": "display-only",
+            "required_human_review": True,
+            "display_only": True,
+            "no_score_effect": True,
+        }
+    ]
+    before = copy.deepcopy(warnings)
+
+    render(warnings)
+
+    assert warnings == before
+
+
+def test_matcher_output_can_render_as_test_only_fixture_without_files() -> None:
+    cluster = make_cluster(cross_item_split="军功不得回填第五项B。")
+    rules = [
+        make_rule(
+            rule_id="I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION",
+            trigger_terms=["军功"],
+            warning_type="adjacent_item_contamination",
+            warning_message="提示人工检查相邻项污染。",
+        )
+    ]
+
+    warnings = match(cluster, [], rules)
+    content = render(warnings)
+
+    assert "## 人工复核提示（display-only）" in content
+    assert "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
+    assert "adjacent_item_contamination" in content
