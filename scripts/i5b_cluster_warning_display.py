@@ -268,6 +268,16 @@ def markdown_list_items(value: object) -> list[str]:
     return [markdown_inline_value(item) for item in items]
 
 
+def summarize_list(value: object, max_items: int = 3) -> str:
+    items = markdown_list_items(value)
+    if not items:
+        return "无"
+    summary = "、".join(items[:max_items])
+    if len(items) > max_items:
+        summary += f"……（共{len(items)}项）"
+    return summary
+
+
 def validate_display_warning_for_render(warning: dict[str, Any]) -> None:
     forbidden = sorted(set(warning) & RENDER_FORBIDDEN_WARNING_FIELDS)
     if forbidden:
@@ -292,23 +302,15 @@ def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) 
 
     for index, warning in enumerate(warnings, start=1):
         validate_display_warning_for_render(warning)
-        matched_fields = markdown_list_items(warning.get("matched_fields"))
         lines.extend(
             [
                 f"**{index}. {markdown_inline_value(warning.get('warning_type'))}｜{markdown_inline_value(warning.get('warning_rule_id'))}**",
                 "",
                 f"* warning_message：{markdown_inline_value(warning.get('warning_message'))}",
-                f"* matched_terms：{markdown_inline_value(warning.get('matched_terms'))}",
-                "",
-                "<details>",
-                f"<summary>matched_fields（{len(matched_fields)}项）</summary>",
+                f"* matched_terms：{summarize_list(warning.get('matched_terms'))}",
+                f"* matched_fields：{summarize_list(warning.get('matched_fields'))}",
                 "",
             ]
         )
-        if matched_fields:
-            lines.extend(f"* {field}" for field in matched_fields)
-        else:
-            lines.append("* 无")
-        lines.extend(["", "</details>", ""])
 
     return "\n".join(lines) + "\n"

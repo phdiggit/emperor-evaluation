@@ -208,18 +208,24 @@ def markdown_list_items(value: object) -> list[str]:
     return [markdown_inline_value(item) for item in items]
 
 
-def render_detail_items(label: str, value: object) -> list[str]:
+def summarize_list(value: object, max_items: int = 3) -> str:
     items = markdown_list_items(value)
-    lines = [
-        "<details>",
-        f"<summary>{label}（{len(items)}项）</summary>",
-        "",
-    ]
-    if items:
-        lines.extend(f"* {item}" for item in items)
-    else:
-        lines.append("* 无")
-    lines.extend(["", "</details>"])
+    if not items:
+        return "无"
+    summary = "、".join(items[:max_items])
+    if len(items) > max_items:
+        summary += f"……（共{len(items)}项）"
+    return summary
+
+
+def render_long_list(label: str, value: object, max_items: int = 3) -> list[str]:
+    items = markdown_list_items(value)
+    if not items:
+        return [f"* {label}：无"]
+    lines = [f"* {label}："]
+    lines.extend(f"  {index}. {item}" for index, item in enumerate(items[:max_items], start=1))
+    if len(items) > max_items:
+        lines.append(f"  {max_items + 1}. ……（共{len(items)}项）")
     return lines
 
 
@@ -233,33 +239,26 @@ def render_cluster_card(row: dict[str, Any]) -> str:
         ]
     )
     lines = [
-        "<details open>",
-        f"<summary><strong>{summary}</strong></summary>",
+        f"**{summary}**",
         "",
         f"* cluster_type：{markdown_inline_value(row.get('cluster_type'))}",
         f"* boundary_tier：{markdown_inline_value(row.get('boundary_tier'))}",
         f"* blocking_extreme：{markdown_inline_value(row.get('blocking_extreme'))}",
         f"* residual_level：{markdown_inline_value(row.get('residual_level'))}",
-        "",
+        f"* linked_object_anchors：{summarize_list(row.get('linked_object_anchors'))}",
+        f"* linked_evidence_roles：{summarize_list(row.get('linked_evidence_roles'))}",
+        f"* linked_trigger_families：{summarize_list(row.get('linked_trigger_families'))}",
+        f"* linked_strengths：{summarize_list(row.get('linked_strengths'))}",
+        f"* linked_upper_bound_flags：{summarize_list(row.get('linked_upper_bound_flags'))}",
+        f"* linked_mitigation_flags：{summarize_list(row.get('linked_mitigation_flags'))}",
+        f"* linked_cluster_roles：{summarize_list(row.get('linked_cluster_roles'))}",
     ]
-    for field in [
-        "linked_object_anchors",
-        "linked_evidence_roles",
-        "linked_trigger_families",
-        "linked_strengths",
-        "linked_upper_bound_flags",
-        "linked_mitigation_flags",
-        "linked_cluster_roles",
-        "cross_item_split_signals",
-    ]:
-        lines.extend(render_detail_items(field, row.get(field)))
-        lines.append("")
-    lines.append("</details>")
+    lines.extend(render_long_list("cross_item_split_signals", row.get("cross_item_split_signals")))
     return "\n".join(lines)
 
 
 def render_cluster_cards(rows: list[dict[str, Any]]) -> str:
-    return "\n\n".join(render_cluster_card(row) for row in rows)
+    return "\n\n---\n\n".join(render_cluster_card(row) for row in rows)
 
 
 def unique_values(values: list[object]) -> list[str]:

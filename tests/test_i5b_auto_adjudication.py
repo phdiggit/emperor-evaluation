@@ -309,7 +309,35 @@ def test_display_warnings_default_off_does_not_call_loader(
 
 
 def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_data: Path) -> None:
-    build_display_warning_fixture(temp_auto_data)
+    cards = [
+        make_card(
+            evidence_id=f"EVD-TEST-LONG-POS-00{index}",
+            person="测试甲",
+            polarity="positive",
+            strength=3,
+            object_anchor=f"锚点{index}",
+            evidence_role=f"证据角色{index}",
+            trigger_family=f"触发族{index}",
+            quote_short=f"长字段证据{index}",
+            upper_bound_flag=f"上限标记{index}",
+            mitigation_flag=f"剥离标记{index}",
+            cluster_role=f"簇角色{index}",
+            cross_item_split=f"证据拆分{index}",
+        )
+        for index in range(1, 5)
+    ]
+    clusters = [
+        make_cluster(
+            cluster_id="ADJ-TEST-LONG-POS-001",
+            person="测试甲",
+            polarity="positive",
+            linked_evidence_ids=[str(card["evidence_id"]) for card in cards],
+            candidate_strength=3,
+            summary="长字段布局测试。",
+            cross_item_split="簇级拆分",
+        )
+    ]
+    build_temp_auto_dataset(temp_auto_data, cards, clusters)
 
     content = auto.render_auto_adjudication()
     cluster_start = content.index("### 证据簇自动结算")
@@ -317,16 +345,19 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
     conclusion_start = content.index("### 自动结算结论", cluster_start)
     cluster_section = content[cluster_start:feature_start]
 
-    assert "| cluster_id | polarity | cluster_type | candidate_strength | linked_object_anchors" not in content
+    assert "| cluster_id | polarity | cluster_type" not in content
     for field in ["linked_object_anchors", "linked_evidence_roles", "linked_trigger_families"]:
         assert f"| {field} |" not in content
-    assert "<details open>" in cluster_section
-    assert "<summary><strong>ADJ-TEST-WARN-POS-001｜positive｜candidate_strength=3｜" in cluster_section
-    assert "source_review_required" not in cluster_section
-    assert "<summary>linked_object_anchors（1项）</summary>" in cluster_section
-    assert "<summary>linked_evidence_roles（1项）</summary>" in cluster_section
-    assert "<summary>linked_trigger_families（1项）</summary>" in cluster_section
-    assert "<summary>cross_item_split_signals（1项）</summary>" in cluster_section
+    assert "<details" not in content
+    assert "</details>" not in content
+    assert "<summary" not in content
+    assert "**ADJ-TEST-LONG-POS-001｜positive｜candidate_strength=3｜强正候选**" in cluster_section
+    assert "* linked_object_anchors：锚点1、锚点2、锚点3……（共4项）" in cluster_section
+    assert "* linked_evidence_roles：证据角色1、证据角色2、证据角色3……（共4项）" in cluster_section
+    assert "* linked_trigger_families：触发族1、触发族2、触发族3……（共4项）" in cluster_section
+    assert "* cross_item_split_signals：" in cluster_section
+    assert "  1. 簇级拆分" in cluster_section
+    assert "  4. ……（共5项）" in cluster_section
     assert "band_direction" in content[conclusion_start:]
     assert "confidence" in content[conclusion_start:]
 
@@ -476,7 +507,9 @@ def test_display_warnings_enabled_stays_out_of_non_auto_outputs_and_keeps_core_f
         auto.render_three_pilot_closure(),
     ):
         assert DISPLAY_WARNING_HEADING not in content
-        assert "<summary><strong>ADJ-" not in content
+        assert "**ADJ-" not in content
+        assert "<details" not in content
+        assert "<summary" not in content
         assert "### 证据簇自动结算" not in content
     for forbidden_term in DISPLAY_WARNING_FORBIDDEN_TERMS:
         assert forbidden_term not in warning_section

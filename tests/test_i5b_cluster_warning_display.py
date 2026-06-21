@@ -304,7 +304,12 @@ def test_renderer_single_warning_outputs_readable_card_details() -> None:
         "warning_type": "adjacent_item_contamination",
         "warning_message": "提示人工检查相邻项污染。",
         "matched_terms": ["军功", "行政成效"],
-        "matched_fields": ["cluster.cross_item_split", "linked_cards[0].trigger_terms"],
+        "matched_fields": [
+            "cluster.cross_item_split",
+            "linked_cards[0].trigger_terms",
+            "linked_cards[0].scoring_effect",
+            "linked_cards[0].evidence_role",
+        ],
         "matched_reason": "display-only",
         "required_human_review": True,
         "display_only": True,
@@ -321,10 +326,10 @@ def test_renderer_single_warning_outputs_readable_card_details() -> None:
     assert "adjacent_item_contamination" in content
     assert "* warning_message：提示人工检查相邻项污染。" in content
     assert "* matched_terms：军功、行政成效" in content
-    assert "<details>" in content
-    assert "<summary>matched_fields（2项）</summary>" in content
-    assert "* cluster.cross_item_split" in content
-    assert "* linked_cards[0].trigger_terms" in content
+    assert "* matched_fields：cluster.cross_item_split、linked_cards[0].trigger_terms、linked_cards[0].scoring_effect……（共4项）" in content
+    assert "<details" not in content
+    assert "</details>" not in content
+    assert "<summary" not in content
     assert "| warning_rule_id |" not in content
     assert "| true | true | true |" not in content
 
