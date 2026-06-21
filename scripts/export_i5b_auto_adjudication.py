@@ -47,7 +47,8 @@ DEFAULT_DISPLAY_CONFIG: dict[str, Any] = {
     "fallback_long_field_strategy": "fenced_code_block",
     "table_render_policy": {
         "max_inline_table_cell_chars": 72,
-        "long_cell_strategy": "degraded_inline",
+        "long_cell_strategy": "appendix_link",
+        "appendix_link_text_template": "见附录：{label}",
         "fallback_text": "（超长内容已转入正文或附录展示）",
     },
     "field_render_policies": {
@@ -296,7 +297,39 @@ def escape_cell(value: object, display_config: dict[str, Any] | None = None) -> 
     return display_value(value, display_config).replace("|", "\\|").replace("\n", " ")
 
 
-def render_table_cell(value: object, display_config: dict[str, Any] | None = None) -> str:
+def table_appendix_href(appendix_link_target: str | None, anchor: str) -> str:
+    target = str(appendix_link_target or "")
+    if not target:
+        return f"#{anchor}"
+    return f"{target.split('#', 1)[0]}#{anchor}"
+
+
+def add_table_appendix_item(
+    appendix_items: list[dict[str, Any]],
+    *,
+    field: str,
+    label: str,
+    value: object,
+    appendix_link_target: str | None = None,
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    policy = config.get("table_render_policy") or {}
+    anchor = make_appendix_anchor(field, appendix_items)
+    appendix_items.append({"anchor": anchor, "field": field, "label": label, "value": value})
+    link_text = str(policy.get("appendix_link_text_template") or "见附录：{label}").format(label=label, field=field)
+    return f"[{link_text}]({table_appendix_href(appendix_link_target, anchor)})"
+
+
+def render_table_cell(
+    value: object,
+    display_config: dict[str, Any] | None = None,
+    *,
+    field: str | None = None,
+    label: str | None = None,
+    table_appendix_items: list[dict[str, Any]] | None = None,
+    appendix_link_target: str | None = None,
+) -> str:
     config = display_config if display_config is not None else load_i5b_markdown_view_config()
     policy = config.get("table_render_policy") or {}
     cell = escape_cell(value, config)
@@ -304,6 +337,17 @@ def render_table_cell(value: object, display_config: dict[str, Any] | None = Non
     if len(cell) <= max_chars:
         return cell
     strategy = str(policy.get("long_cell_strategy") or "degraded_inline")
+    if strategy == "appendix_link" and table_appendix_items is not None:
+        resolved_field = field or label or "table_cell"
+        resolved_label = label or field or "表格字段"
+        return add_table_appendix_item(
+            table_appendix_items,
+            field=resolved_field,
+            label=resolved_label,
+            value=value,
+            appendix_link_target=appendix_link_target,
+            display_config=config,
+        )
     if strategy in {"degraded_inline", "appendix_link", "fenced_code_block"}:
         return str(policy.get("fallback_text") or "（超长内容已转入正文或附录展示）")
     return cell
@@ -314,13 +358,30 @@ def markdown_table(
     rows: list[dict[str, Any]],
     *,
     display_config: dict[str, Any] | None = None,
+    table_appendix_items: list[dict[str, Any]] | None = None,
+    appendix_link_target: str | None = None,
+    field_by_header: dict[str, str] | None = None,
 ) -> str:
     lines = [
         "| " + " | ".join(headers) + " |",
         "| " + " | ".join("---" for _ in headers) + " |",
     ]
     for row in rows:
-        lines.append("| " + " | ".join(render_table_cell(row.get(header), display_config) for header in headers) + " |")
+        lines.append(
+            "| "
+            + " | ".join(
+                render_table_cell(
+                    row.get(header),
+                    display_config,
+                    field=(field_by_header or {}).get(header, header),
+                    label=header,
+                    table_appendix_items=table_appendix_items,
+                    appendix_link_target=appendix_link_target,
+                )
+                for header in headers
+            )
+            + " |"
+        )
     return "\n".join(lines)
 
 
@@ -329,11 +390,20 @@ def markdown_display_table(
     rows: list[dict[str, Any]],
     *,
     display_config: dict[str, Any] | None = None,
+    table_appendix_items: list[dict[str, Any]] | None = None,
+    appendix_link_target: str | None = None,
 ) -> str:
     config = display_config if display_config is not None else load_i5b_markdown_view_config()
     headers = [display_field_label(field, config) for field in fields]
     display_rows = [{display_field_label(field, config): row.get(field) for field in fields} for row in rows]
-    return markdown_table(headers, display_rows, display_config=config)
+    return markdown_table(
+        headers,
+        display_rows,
+        display_config=config,
+        table_appendix_items=table_appendix_items,
+        appendix_link_target=appendix_link_target,
+        field_by_header=dict(zip(headers, fields, strict=True)),
+    )
 
 
 def markdown_inline_value(value: object, display_config: dict[str, Any] | None = None) -> str:
@@ -1281,6 +1351,7 @@ def render_split_index_page(
     display_config: dict[str, Any] | None = None,
 ) -> str:
     config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    table_appendix_items: list[dict[str, Any]] = []
     overview_rows = []
     for report in person_reports:
         person_clusters = person_clusters_for_report(report, cluster_lookup)
@@ -1329,9 +1400,19 @@ def render_split_index_page(
                 ],
                 overview_rows,
                 display_config=config,
+                table_appendix_items=table_appendix_items,
             ),
         ]
     )
+    if table_appendix_items:
+        lines.extend(
+            [
+                "",
+                "## 表格长字段附录",
+                "",
+                render_table_appendix_section(table_appendix_items, config).rstrip(),
+            ]
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -1390,6 +1471,47 @@ def render_person_appendix_page(
                 "",
             ]
         )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_table_appendix_section(
+    appendix_items: list[dict[str, Any]],
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    lines: list[str] = []
+    for item in appendix_items:
+        lines.extend(
+            [
+                f"### {item['anchor']}",
+                "",
+                f"#### {item['label']}",
+                "",
+                markdown_code_block(item["value"], config),
+                "",
+            ]
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_table_appendix_page(
+    title: str,
+    back_link: str,
+    appendix_items: list[dict[str, Any]],
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    lines = [
+        f"# {title}",
+        "",
+        f"[返回正文]({back_link})",
+        "",
+        "本附录只承接表格超长单元格的全量展示，不改变数据、裁判逻辑、评分或 warning 语义。",
+        "",
+    ]
+    if appendix_items:
+        lines.append(render_table_appendix_section(appendix_items, display_config).rstrip())
+    else:
+        lines.append("无附录字段。")
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -1517,6 +1639,7 @@ def render_formal_landing_table() -> str:
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
     person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
 
+    table_appendix_items: list[dict[str, Any]] = []
     overview_rows = []
     for report in person_reports:
         rule_points = report["rule_sensitive_points"]
@@ -1551,11 +1674,26 @@ def render_formal_landing_table() -> str:
             ],
             overview_rows,
             display_config=display_config,
+            table_appendix_items=table_appendix_items,
         ),
         "",
-        "## 二、逐人落地说明",
-        "",
     ]
+    if table_appendix_items:
+        lines.extend(
+            [
+                "## 表格长字段附录",
+                "",
+                render_table_appendix_section(table_appendix_items, display_config).rstrip(),
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## 二、逐人落地说明",
+            "",
+        ]
+    )
 
     for report in person_reports:
         lines.append(render_formal_person_section(report))
@@ -1572,6 +1710,7 @@ def render_three_pilot_closure() -> str:
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
     person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
 
+    table_appendix_items: list[dict[str, Any]] = []
     overview_rows = []
     for report in person_reports:
         trial_score_draft = build_trial_score_draft(report)
@@ -1602,11 +1741,26 @@ def render_three_pilot_closure() -> str:
             ],
             overview_rows,
             display_config=display_config,
+            table_appendix_items=table_appendix_items,
         ),
         "",
-        "## 二、逐人收尾说明",
-        "",
     ]
+    if table_appendix_items:
+        lines.extend(
+            [
+                "## 表格长字段附录",
+                "",
+                render_table_appendix_section(table_appendix_items, display_config).rstrip(),
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## 二、逐人收尾说明",
+            "",
+        ]
+    )
 
     for report in person_reports:
         trial_score_draft = build_trial_score_draft(report)

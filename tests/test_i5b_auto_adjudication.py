@@ -303,7 +303,7 @@ def test_markdown_view_display_config_labels_keep_machine_trace() -> None:
     assert config["field_render_policies"]["default"]["long_field_strategy"] == "appendix_link"
     assert config["value_labels"]["true"] == "是"
     assert config["value_labels"]["weak_to_medium"] == "弱至中"
-    assert config["table_render_policy"]["long_cell_strategy"] == "degraded_inline"
+    assert config["table_render_policy"]["long_cell_strategy"] == "appendix_link"
     assert auto.display_field_label("band_direction", config) == "自动结算方向（band_direction）"
     assert auto.display_field_label("positive_cluster_ids", config) == "正向证据簇（positive_cluster_ids）"
     assert auto.display_value(True, config) == "是"
@@ -311,12 +311,40 @@ def test_markdown_view_display_config_labels_keep_machine_trace() -> None:
     assert auto.display_value("unknown_machine_value", config) == "unknown_machine_value"
 
 
-def test_markdown_table_long_cell_uses_configured_degraded_display() -> None:
+def test_markdown_display_table_long_cell_uses_appendix_link() -> None:
     config = auto.load_i5b_markdown_view_config()
-    table = auto.markdown_table(["字段"], [{"字段": "很长" * 60}], display_config=config)
+    config["table_render_policy"] = {
+        **config["table_render_policy"],
+        "max_inline_table_cell_chars": 72,
+        "long_cell_strategy": "appendix_link",
+    }
+    long_value = "很长的表格单元格内容-" + "甲" * 90
+    appendix_items: list[dict[str, object]] = []
+    table = auto.markdown_display_table(
+        ["rule_sensitive_points"],
+        [{"rule_sensitive_points": long_value}],
+        display_config=config,
+        table_appendix_items=appendix_items,
+        appendix_link_target="./附录/合成表格长字段附录.md",
+    )
+    appendix = auto.render_table_appendix_page(
+        "合成表格长字段附录",
+        "../合成表格.md",
+        appendix_items,
+        config,
+    )
 
-    assert "（超长内容已转入正文或附录展示）" in table
-    assert "很长" not in table.splitlines()[-1]
+    assert long_value not in table
+    assert (
+        "[见附录：规则敏感点（rule_sensitive_points）]"
+        "(./附录/合成表格长字段附录.md#appendix-rule_sensitive_points)"
+    ) in table
+    assert "超长内容已转入" not in table
+    assert long_value in appendix
+    assert "### appendix-rule_sensitive_points" in appendix
+    assert "……（共" not in table + appendix
+    assert "<details" not in table + appendix
+    assert "<summary" not in table + appendix
 
 
 def test_display_warnings_default_off_does_not_call_loader(
