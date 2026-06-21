@@ -19,8 +19,8 @@ DETAIL_REQUIRED_MARKERS = (
     "### 证据簇自动结算",
     "### 自动特征",
     "### 自动结算结论",
-    "**对象锚点**",
-    "**相邻项剥离说明**",
+    "**对象锚点（linked_object_anchors）**",
+    "**相邻项剥离说明（cross_item_split_signals）**",
 )
 OLD_CLUSTER_TABLE_MARKERS = ("| cluster_id |", "| polarity |", "| cluster_type |")
 OLD_AUTO_FEATURE_TABLE_MARKERS = ("| field | value |", "| positive_cluster_ids |", "| negative_cluster_ids |")

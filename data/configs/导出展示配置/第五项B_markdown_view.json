@@ -4,15 +4,33 @@
   "description": "第五项B人工阅读型 Markdown 导出展示配置；只控制展示形式，不改变评分、裁判或 warning 语义。",
   "max_inline_table_cell_chars": 72,
   "max_inline_value_chars": 40,
-  "long_field_strategy": "appendix_link",
-  "fallback_long_field_strategy": "fenced_code_block",
-  "prefer_fenced_code_block_fields": [
-    "证据组裁量结论",
-    "项目检索包索引",
-    "长 JSON 字段",
-    "rule_sensitive_points_resolved",
-    "score_stage_prerequisites"
-  ],
+  "table_render_policy": {
+    "max_inline_table_cell_chars": 72,
+    "long_cell_strategy": "degraded_inline",
+    "fallback_text": "（超长内容已转入正文或附录展示）"
+  },
+  "field_render_policies": {
+    "default": {
+      "max_inline_value_chars": 40,
+      "long_field_strategy": "appendix_link",
+      "fallback_long_field_strategy": "fenced_code_block"
+    },
+    "rule_sensitive_points_resolved": {
+      "long_field_strategy": "fenced_code_block"
+    },
+    "score_stage_prerequisites": {
+      "long_field_strategy": "fenced_code_block"
+    },
+    "证据组裁量结论": {
+      "long_field_strategy": "fenced_code_block"
+    },
+    "项目检索包索引": {
+      "long_field_strategy": "fenced_code_block"
+    },
+    "长 JSON 字段": {
+      "long_field_strategy": "fenced_code_block"
+    }
+  },
   "field_labels": {
     "person": "人物",
     "band_direction": "自动结算方向",
@@ -53,7 +71,54 @@
     "determination_basis": "定档依据",
     "negative_intercept_status": "负证拦截状态",
     "adjacent_item_stripping_status": "相邻项剥离状态",
-    "extend_pilot_ready": "是否可扩展试点"
+    "extend_pilot_ready": "是否可扩展试点",
+    "auto_feature_digest": "自动特征摘要",
+    "cluster_count_digest": "证据簇数量",
+    "display_warning_count": "人工复核提示数量",
+    "detail_page": "详情页",
+    "rule_sensitive_points": "规则敏感点",
+    "negative_boundary_blocking_digest": "是否阻断",
+    "cluster_id": "证据簇 ID",
+    "polarity": "方向",
+    "candidate_strength": "候选强度",
+    "auto_cluster_result": "自动簇结论",
+    "cluster_type": "簇类型",
+    "boundary_tier": "边界档",
+    "blocking_extreme": "是否阻断极限档",
+    "residual_level": "剩余强度",
+    "linked_object_anchors": "对象锚点",
+    "linked_evidence_roles": "证据角色",
+    "linked_trigger_families": "触发类型",
+    "linked_strengths": "证据强度",
+    "linked_upper_bound_flags": "上限封顶标记",
+    "linked_mitigation_flags": "减轻/剥离标记",
+    "linked_cluster_roles": "簇内角色",
+    "cross_item_split_signals": "相邻项剥离说明"
+  },
+  "value_labels": {
+    "true": "是",
+    "false": "否",
+    "none": "无",
+    "weak": "弱",
+    "medium": "中",
+    "strong": "强",
+    "extreme": "极强",
+    "weak_to_medium": "弱至中",
+    "medium_to_strong": "中至强",
+    "adjacent_item_medium_residual": "相邻项剥离后中度剩余",
+    "positive": "正向",
+    "negative": "负向",
+    "both": "正负并存",
+    "talent_ecosystem": "人才生态",
+    "talent_ecosystem_and_authorization": "人才生态与授权",
+    "talent_security_and_trust_risk": "人才安全与信任风险",
+    "talent_selection_and_authorization_ecosystem": "人才选择与授权生态",
+    "remonstrance_safety_and_expression_risk": "谏诤安全与表达风险",
+    "talent_security_and_political_implication_risk": "人才安全与政治牵连风险",
+    "high": "高",
+    "high_mid": "高偏中",
+    "medium_high": "中偏高",
+    "medium_low": "中偏低"
   },
   "keep_machine_field_name": true
 }

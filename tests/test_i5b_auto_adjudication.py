@@ -300,9 +300,23 @@ def test_markdown_view_display_config_labels_keep_machine_trace() -> None:
     config = auto.load_i5b_markdown_view_config()
 
     assert config["config_type"] == "markdown_view_display"
-    assert config["long_field_strategy"] == "appendix_link"
+    assert config["field_render_policies"]["default"]["long_field_strategy"] == "appendix_link"
+    assert config["value_labels"]["true"] == "是"
+    assert config["value_labels"]["weak_to_medium"] == "弱至中"
+    assert config["table_render_policy"]["long_cell_strategy"] == "degraded_inline"
     assert auto.display_field_label("band_direction", config) == "自动结算方向（band_direction）"
     assert auto.display_field_label("positive_cluster_ids", config) == "正向证据簇（positive_cluster_ids）"
+    assert auto.display_value(True, config) == "是"
+    assert auto.display_value("medium_to_strong", config) == "中至强"
+    assert auto.display_value("unknown_machine_value", config) == "unknown_machine_value"
+
+
+def test_markdown_table_long_cell_uses_configured_degraded_display() -> None:
+    config = auto.load_i5b_markdown_view_config()
+    table = auto.markdown_table(["字段"], [{"字段": "很长" * 60}], display_config=config)
+
+    assert "（超长内容已转入正文或附录展示）" in table
+    assert "很长" not in table.splitlines()[-1]
 
 
 def test_display_warnings_default_off_does_not_call_loader(
@@ -373,20 +387,20 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
     assert "<details" not in content
     assert "</details>" not in content
     assert "<summary" not in content
-    assert "**ADJ-TEST-LONG-POS-001｜正向｜候选强度=3｜强正候选**" in cluster_section
+    assert "**ADJ-TEST-LONG-POS-001｜正向｜候选强度（candidate_strength）=3｜强正候选**" in cluster_section
     for label in [
-        "簇类型",
-        "边界档",
-        "是否阻断极限档",
-        "剩余强度",
-        "对象锚点",
-        "证据角色",
-        "触发类型",
-        "证据强度",
-        "上限封顶标记",
-        "减轻/剥离标记",
-        "簇内角色",
-        "相邻项剥离说明",
+        "簇类型（cluster_type）",
+        "边界档（boundary_tier）",
+        "是否阻断极限档（blocking_extreme）",
+        "剩余强度（residual_level）",
+        "对象锚点（linked_object_anchors）",
+        "证据角色（linked_evidence_roles）",
+        "触发类型（linked_trigger_families）",
+        "证据强度（linked_strengths）",
+        "上限封顶标记（linked_upper_bound_flags）",
+        "减轻/剥离标记（linked_mitigation_flags）",
+        "簇内角色（linked_cluster_roles）",
+        "相邻项剥离说明（cross_item_split_signals）",
     ]:
         assert f"* **{label}**：" in cluster_section
     for english_label in [
@@ -406,17 +420,17 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
         assert f"* {english_label}：" not in cluster_section
     assert "* cluster_type：" not in cluster_section
     assert "* boundary_tier：" not in cluster_section
-    assert "* **边界档**：无" in cluster_section
-    assert "* **是否阻断极限档**：否" in cluster_section
-    assert "* **剩余强度**：强" in cluster_section
+    assert "* **边界档（boundary_tier）**：无" in cluster_section
+    assert "* **是否阻断极限档（blocking_extreme）**：否" in cluster_section
+    assert "* **剩余强度（residual_level）**：强" in cluster_section
     expected_full_lists = {
-        "对象锚点": ["锚点1", "锚点2", "锚点3", "锚点4"],
-        "证据角色": ["证据角色1", "证据角色2", "证据角色3", "证据角色4"],
-        "触发类型": ["触发族1", "触发族2", "触发族3", "触发族4"],
-        "证据强度": ["3"],
-        "上限封顶标记": ["上限标记1", "上限标记2", "上限标记3", "上限标记4"],
-        "减轻/剥离标记": ["剥离标记1", "剥离标记2", "剥离标记3", "剥离标记4"],
-        "簇内角色": ["簇角色1", "簇角色2", "簇角色3", "簇角色4"],
+        "对象锚点（linked_object_anchors）": ["锚点1", "锚点2", "锚点3", "锚点4"],
+        "证据角色（linked_evidence_roles）": ["证据角色1", "证据角色2", "证据角色3", "证据角色4"],
+        "触发类型（linked_trigger_families）": ["触发族1", "触发族2", "触发族3", "触发族4"],
+        "证据强度（linked_strengths）": ["3"],
+        "上限封顶标记（linked_upper_bound_flags）": ["上限标记1", "上限标记2", "上限标记3", "上限标记4"],
+        "减轻/剥离标记（linked_mitigation_flags）": ["剥离标记1", "剥离标记2", "剥离标记3", "剥离标记4"],
+        "簇内角色（linked_cluster_roles）": ["簇角色1", "簇角色2", "簇角色3", "簇角色4"],
     }
     for label, values in expected_full_lists.items():
         field_start = cluster_section.index(f"* **{label}**：")
@@ -425,7 +439,7 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
         for index, value in enumerate(values, start=1):
             assert f"  {index}. {value}" in field_section
 
-    cross_item_section = cluster_section[cluster_section.index("* **相邻项剥离说明**：") :]
+    cross_item_section = cluster_section[cluster_section.index("* **相邻项剥离说明（cross_item_split_signals）**：") :]
     assert "  1. 簇级拆分" in cluster_section
     assert "  2. 证据拆分1" in cross_item_section
     assert "  3. 证据拆分2" in cross_item_section
@@ -632,10 +646,10 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     assert "<summary" not in detail_content
     assert "</details>" not in detail_content
     assert "……（共" not in detail_content
-    assert "* **对象锚点**" in detail_content
-    assert "* **证据角色**" in detail_content
-    assert "* **触发类型**" in detail_content
-    assert "* **相邻项剥离说明**" in detail_content
+    assert "* **对象锚点（linked_object_anchors）**" in detail_content
+    assert "* **证据角色（linked_evidence_roles）**" in detail_content
+    assert "* **触发类型（linked_trigger_families）**" in detail_content
+    assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
 
 
 def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail_pages() -> None:
@@ -660,8 +674,17 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail
         assert "<summary" not in detail_content
         assert "</details>" not in detail_content
         assert "……（共" not in detail_content
-        assert "* **对象锚点**" in detail_content
-        assert "* **相邻项剥离说明**" in detail_content
+        assert "* **对象锚点（linked_object_anchors）**" in detail_content
+        assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
+        assert " True" not in detail_content
+        assert " False" not in detail_content
+        assert "：True" not in detail_content
+        assert "：False" not in detail_content
+        assert "weak_to_medium" not in detail_content
+        assert "medium_to_strong" not in detail_content
+        assert "负向边界档（negative_boundary_tier）" in detail_content
+        assert "是否单维集中（single_dimension_flag）" in detail_content
+        assert "../附录/" in detail_content
 
 
 def test_split_export_runs_human_readable_markdown_validation(
@@ -753,10 +776,14 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     closure_export_content = CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
-    assert "negative_boundary_tier" in auto_content
-    assert "negative_boundary_blocking" in auto_content
-    assert "weak_to_medium" in auto_content
-    assert "medium_to_strong" in auto_content
+    assert "负向边界档（negative_boundary_tier）" in auto_content
+    assert "负向边界是否阻断（negative_boundary_blocking）" in auto_content
+    assert "weak_to_medium" not in auto_content
+    assert "medium_to_strong" not in auto_content
+    assert "：True" not in auto_content
+    assert "：False" not in auto_content
+    assert "弱至中" in auto_content
+    assert "中至强" in auto_content
     assert "高位强正，上探极正候选" in auto_content
     assert "强正受压制，不上探极正" in auto_content
     assert "中正受中负压制" in auto_content
@@ -857,7 +884,7 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
-    assert "人物 | 自动结算方向 | 正式档位草案" in formal_content
+    assert "人物（person） | 自动结算方向（auto_band_direction） | 正式档位草案（formal_band_draft）" in formal_content
     assert "李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正" in formal_content
     assert "刘秀 | 强正受压制，不上探极正 | 强正受压制" in formal_content
     assert "刘庄 | 中正受中负压制 | 中正受中负压制" in formal_content

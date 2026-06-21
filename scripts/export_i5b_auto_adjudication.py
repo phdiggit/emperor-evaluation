@@ -45,8 +45,20 @@ DEFAULT_DISPLAY_CONFIG: dict[str, Any] = {
     "max_inline_value_chars": 96,
     "long_field_strategy": "appendix_link",
     "fallback_long_field_strategy": "fenced_code_block",
-    "prefer_fenced_code_block_fields": [],
+    "table_render_policy": {
+        "max_inline_table_cell_chars": 72,
+        "long_cell_strategy": "degraded_inline",
+        "fallback_text": "（超长内容已转入正文或附录展示）",
+    },
+    "field_render_policies": {
+        "default": {
+            "max_inline_value_chars": 96,
+            "long_field_strategy": "appendix_link",
+            "fallback_long_field_strategy": "fenced_code_block",
+        }
+    },
     "field_labels": {},
+    "value_labels": {},
     "keep_machine_field_name": True,
 }
 
@@ -205,11 +217,26 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def load_i5b_markdown_view_config(path: Path = DISPLAY_CONFIG_PATH) -> dict[str, Any]:
     config = dict(DEFAULT_DISPLAY_CONFIG)
+    config["table_render_policy"] = dict(DEFAULT_DISPLAY_CONFIG["table_render_policy"])
+    config["field_render_policies"] = dict(DEFAULT_DISPLAY_CONFIG["field_render_policies"])
+    config["field_render_policies"]["default"] = dict(DEFAULT_DISPLAY_CONFIG["field_render_policies"]["default"])
     if path.exists():
         payload = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"{path} must contain a top-level JSON object")
-        config.update(payload)
+        for key, value in payload.items():
+            if key == "table_render_policy" and isinstance(value, dict):
+                config["table_render_policy"].update(value)
+            elif key == "field_render_policies" and isinstance(value, dict):
+                policies = dict(config["field_render_policies"])
+                for field, policy in value.items():
+                    if isinstance(policy, dict):
+                        base = dict(policies.get(field) or {})
+                        base.update(policy)
+                        policies[field] = base
+                config["field_render_policies"] = policies
+            else:
+                config[key] = value
     return config
 
 
@@ -230,52 +257,107 @@ def markdown_value_text(value: object) -> str:
     return str(value).replace("\r\n", "\n")
 
 
-def markdown_code_block(value: object) -> str:
-    info = "json" if isinstance(value, (list, dict)) else "text"
-    return f"```{info}\n{markdown_value_text(value)}\n```"
+def value_label_key(value: object) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
 
 
-def escape_cell(value: object) -> str:
-    if value is None:
-        return ""
-    if isinstance(value, (list, dict)):
-        return json.dumps(value, ensure_ascii=False)
-    return str(value).replace("|", "\\|").replace("\n", " ")
-
-
-def markdown_table(headers: list[str], rows: list[dict[str, Any]]) -> str:
-    lines = [
-        "| " + " | ".join(headers) + " |",
-        "| " + " | ".join("---" for _ in headers) + " |",
-    ]
-    for row in rows:
-        lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in headers) + " |")
-    return "\n".join(lines)
-
-
-def markdown_inline_value(value: object) -> str:
+def display_value(value: object, display_config: dict[str, Any] | None = None) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    labels = config.get("value_labels") or {}
+    key = value_label_key(value)
+    if key in labels:
+        return str(labels[key])
     if value in (None, ""):
-        return "无"
+        return str(labels.get("none") or "无")
     if isinstance(value, list):
-        items = [markdown_inline_value(item) for item in value]
-        return "、".join(items) if items else "无"
+        items = [display_value(item, config) for item in value]
+        return "、".join(items) if items else str(labels.get("none") or "无")
     if isinstance(value, dict):
         return json.dumps(value, ensure_ascii=False)
     return str(value).replace("\n", " ")
 
 
-def markdown_list_items(value: object) -> list[str]:
+def markdown_code_block(value: object, display_config: dict[str, Any] | None = None) -> str:
+    info = "json" if isinstance(value, (list, dict)) else "text"
+    if isinstance(value, list):
+        content = json.dumps([display_value(item, display_config) for item in value], ensure_ascii=False, indent=2)
+    elif isinstance(value, dict):
+        content = json.dumps(value, ensure_ascii=False, indent=2)
+    else:
+        content = display_value(value, display_config)
+    return f"```{info}\n{content}\n```"
+
+
+def escape_cell(value: object, display_config: dict[str, Any] | None = None) -> str:
+    if value is None:
+        return ""
+    return display_value(value, display_config).replace("|", "\\|").replace("\n", " ")
+
+
+def render_table_cell(value: object, display_config: dict[str, Any] | None = None) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    policy = config.get("table_render_policy") or {}
+    cell = escape_cell(value, config)
+    max_chars = int(policy.get("max_inline_table_cell_chars") or config.get("max_inline_table_cell_chars") or 72)
+    if len(cell) <= max_chars:
+        return cell
+    strategy = str(policy.get("long_cell_strategy") or "degraded_inline")
+    if strategy in {"degraded_inline", "appendix_link", "fenced_code_block"}:
+        return str(policy.get("fallback_text") or "（超长内容已转入正文或附录展示）")
+    return cell
+
+
+def markdown_table(
+    headers: list[str],
+    rows: list[dict[str, Any]],
+    *,
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    lines = [
+        "| " + " | ".join(headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+    ]
+    for row in rows:
+        lines.append("| " + " | ".join(render_table_cell(row.get(header), display_config) for header in headers) + " |")
+    return "\n".join(lines)
+
+
+def markdown_display_table(
+    fields: list[str],
+    rows: list[dict[str, Any]],
+    *,
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    headers = [display_field_label(field, config) for field in fields]
+    display_rows = [{display_field_label(field, config): row.get(field) for field in fields} for row in rows]
+    return markdown_table(headers, display_rows, display_config=config)
+
+
+def markdown_inline_value(value: object, display_config: dict[str, Any] | None = None) -> str:
+    return display_value(value, display_config)
+
+
+def markdown_list_items(value: object, display_config: dict[str, Any] | None = None) -> list[str]:
     if isinstance(value, list):
         items = value
     elif value in (None, ""):
         items = []
     else:
         items = [value]
-    return [markdown_inline_value(item) for item in items]
+    return [markdown_inline_value(item, display_config) for item in items]
 
 
-def markdown_field_item(label: str, value: object, bullet: str = "*") -> str:
-    return f"{bullet} **{label}**：{markdown_inline_value(value)}"
+def markdown_field_item(
+    label: str,
+    value: object,
+    bullet: str = "*",
+    *,
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    return f"{bullet} **{label}**：{markdown_inline_value(value, display_config)}"
 
 
 def person_detail_export_path(person: str) -> Path:
@@ -294,51 +376,24 @@ def person_detail_backlink() -> str:
     return f"../{EXPORT_PATH.name}"
 
 
-CLUSTER_CARD_POLARITY_LABELS = {
-    "positive": "正向",
-    "negative": "负向",
-    "both": "正负并存",
-}
+def cluster_card_value(value: object, display_config: dict[str, Any] | None = None) -> str:
+    return display_value(value, display_config)
 
 
-CLUSTER_CARD_VALUE_LABELS = {
-    "none": "无",
-    "weak": "弱",
-    "medium": "中",
-    "strong": "强",
-    "extreme": "极强",
-    "weak_to_medium": "弱至中",
-    "medium_to_strong": "中至强",
-    "adjacent_item_medium_residual": "相邻项剥离后中度剩余",
-    "talent_ecosystem": "人才生态（talent_ecosystem）",
-    "talent_ecosystem_and_authorization": "人才生态与授权",
-    "talent_security_and_trust_risk": "人才安全与信任风险",
-    "talent_selection_and_authorization_ecosystem": "人才选择与授权生态",
-    "remonstrance_safety_and_expression_risk": "谏诤安全与表达风险",
-    "talent_security_and_political_implication_risk": "人才安全与政治牵连风险",
-}
-
-
-def cluster_card_value(value: object) -> str:
-    if isinstance(value, bool):
-        return "是" if value else "否"
-    if isinstance(value, str) and value in CLUSTER_CARD_VALUE_LABELS:
-        return CLUSTER_CARD_VALUE_LABELS[value]
-    return markdown_inline_value(value)
-
-
-def render_numbered_list(label: str, value: object) -> list[str]:
-    items = markdown_list_items(value)
+def render_numbered_list(label: str, value: object, display_config: dict[str, Any] | None = None) -> list[str]:
+    items = markdown_list_items(value, display_config)
     if not items:
-        return [markdown_field_item(label, "无")]
+        return [markdown_field_item(label, "无", display_config=display_config)]
     lines = [f"* **{label}**："]
     lines.extend(f"  {index}. {item}" for index, item in enumerate(items, start=1))
     return lines
 
 
-def should_prefer_code_block(field: str, label: str, display_config: dict[str, Any]) -> bool:
-    preferred = {str(item) for item in display_config.get("prefer_fenced_code_block_fields") or []}
-    return field in preferred or label in preferred
+def field_render_policy(field: str, display_config: dict[str, Any]) -> dict[str, Any]:
+    policies = display_config.get("field_render_policies") or {}
+    policy = dict(policies.get("default") or {})
+    policy.update(policies.get(field) or {})
+    return policy
 
 
 def make_appendix_anchor(field: str, appendix_items: list[dict[str, Any]]) -> str:
@@ -378,57 +433,56 @@ def render_display_field(
     config = display_config if display_config is not None else load_i5b_markdown_view_config()
     label = display_field_label(field, config)
     value_text = markdown_value_text(value)
-    max_inline_chars = int(config.get("max_inline_value_chars") or 96)
-    prefer_code = should_prefer_code_block(field, label, config)
-    strategy = str(config.get("long_field_strategy") or "inline")
-    if prefer_code:
-        strategy = str(config.get("fallback_long_field_strategy") or "fenced_code_block")
+    policy = field_render_policy(field, config)
+    max_inline_chars = int(policy.get("max_inline_value_chars") or config.get("max_inline_value_chars") or 96)
+    strategy = str(policy.get("long_field_strategy") or config.get("long_field_strategy") or "inline")
     is_long = len(value_text) > max_inline_chars
 
     if is_long and strategy == "appendix_link":
         if appendix_items is not None and person is not None:
             return [f"{bullet} **{label}**：{add_appendix_item(appendix_items, person=person, field=field, label=label, value=value)}"]
-        strategy = str(config.get("fallback_long_field_strategy") or "fenced_code_block")
+        strategy = str(policy.get("fallback_long_field_strategy") or config.get("fallback_long_field_strategy") or "fenced_code_block")
 
-    if (is_long and strategy == "fenced_code_block") or prefer_code:
-        return [f"{bullet} **{label}**：", markdown_code_block(value)]
+    if is_long and strategy == "fenced_code_block":
+        return [f"{bullet} **{label}**：", markdown_code_block(value, config)]
 
-    return [f"{bullet} **{label}**：{markdown_inline_value(value)}"]
+    return [f"{bullet} **{label}**：{markdown_inline_value(value, config)}"]
 
 
-def render_cluster_card(row: dict[str, Any]) -> str:
+def render_cluster_card(row: dict[str, Any], display_config: dict[str, Any] | None = None) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
     summary = "｜".join(
         [
-            markdown_inline_value(row.get("cluster_id")),
-            CLUSTER_CARD_POLARITY_LABELS.get(str(row.get("polarity")), markdown_inline_value(row.get("polarity"))),
-            f"候选强度={markdown_inline_value(row.get('candidate_strength'))}",
-            markdown_inline_value(row.get("auto_cluster_result")),
+            markdown_inline_value(row.get("cluster_id"), config),
+            markdown_inline_value(row.get("polarity"), config),
+            f"{display_field_label('candidate_strength', config)}={markdown_inline_value(row.get('candidate_strength'), config)}",
+            markdown_inline_value(row.get("auto_cluster_result"), config),
         ]
     )
     lines = [
         f"**{summary}**",
         "",
-        markdown_field_item("簇类型", cluster_card_value(row.get("cluster_type"))),
-        markdown_field_item("边界档", cluster_card_value(row.get("boundary_tier"))),
-        markdown_field_item("是否阻断极限档", cluster_card_value(row.get("blocking_extreme"))),
-        markdown_field_item("剩余强度", cluster_card_value(row.get("residual_level"))),
+        markdown_field_item(display_field_label("cluster_type", config), cluster_card_value(row.get("cluster_type"), config), display_config=config),
+        markdown_field_item(display_field_label("boundary_tier", config), cluster_card_value(row.get("boundary_tier"), config), display_config=config),
+        markdown_field_item(display_field_label("blocking_extreme", config), cluster_card_value(row.get("blocking_extreme"), config), display_config=config),
+        markdown_field_item(display_field_label("residual_level", config), cluster_card_value(row.get("residual_level"), config), display_config=config),
     ]
-    for label, field in [
-        ("对象锚点", "linked_object_anchors"),
-        ("证据角色", "linked_evidence_roles"),
-        ("触发类型", "linked_trigger_families"),
-        ("证据强度", "linked_strengths"),
-        ("上限封顶标记", "linked_upper_bound_flags"),
-        ("减轻/剥离标记", "linked_mitigation_flags"),
-        ("簇内角色", "linked_cluster_roles"),
-        ("相邻项剥离说明", "cross_item_split_signals"),
+    for field in [
+        "linked_object_anchors",
+        "linked_evidence_roles",
+        "linked_trigger_families",
+        "linked_strengths",
+        "linked_upper_bound_flags",
+        "linked_mitigation_flags",
+        "linked_cluster_roles",
+        "cross_item_split_signals",
     ]:
-        lines.extend(["", *render_numbered_list(label, row.get(field))])
+        lines.extend(["", *render_numbered_list(display_field_label(field, config), row.get(field), config)])
     return "\n".join(lines)
 
 
-def render_cluster_cards(rows: list[dict[str, Any]]) -> str:
-    return "\n\n---\n\n".join(render_cluster_card(row) for row in rows)
+def render_cluster_cards(rows: list[dict[str, Any]], display_config: dict[str, Any] | None = None) -> str:
+    return "\n\n---\n\n".join(render_cluster_card(row, display_config) for row in rows)
 
 
 def unique_values(values: list[object]) -> list[str]:
@@ -802,6 +856,7 @@ def summarize_positive_basis(report: dict[str, Any]) -> str:
 
 
 def summarize_negative_pressure(report: dict[str, Any]) -> str:
+    display_config = load_i5b_markdown_view_config()
     tier = str(report.get("negative_boundary_tier") or "none")
     blocking = bool(report.get("negative_boundary_blocking"))
     residual = str(report.get("cross_item_split_residual_level") or "none")
@@ -813,7 +868,7 @@ def summarize_negative_pressure(report: dict[str, Any]) -> str:
     }
     parts = [pressure_map.get(tier, tier)]
     parts.append("阻断极正" if blocking else "不阻断极正")
-    parts.append(f"残余层级：{residual}")
+    parts.append(f"残余层级：{display_value(residual, display_config)}")
     return "；".join(parts)
 
 
@@ -1099,7 +1154,7 @@ def render_person_section(
         "",
         "### 证据簇自动结算",
         "",
-        render_cluster_cards(cluster_rows),
+        render_cluster_cards(cluster_rows, config),
         "",
         "### 自动特征",
         "",
@@ -1137,13 +1192,14 @@ def render_person_section(
 
 
 def render_formal_person_section(report: dict[str, Any]) -> str:
+    display_config = load_i5b_markdown_view_config()
     person = report["person"]
     sections = [
         f"## {person}",
         "",
         "### 正式档位落地",
         "",
-        f"- **自动结算来源**：{report['auto_band_direction']} / {report['confidence']}",
+        f"- **自动结算来源**：{report['auto_band_direction']} / {display_value(report['confidence'], display_config)}",
         f"- **正式档位草案**：{build_formal_band_draft(report)}",
         f"- **不出分说明**：本阶段只落档位方向，不生成分数。",
         f"- **不排名说明**：本阶段不生成排名或名次。",
@@ -1198,13 +1254,14 @@ def person_clusters_for_report(
     return [cluster_lookup[cluster_id] for cluster_id in person_cluster_ids if cluster_id in cluster_lookup]
 
 
-def summarize_auto_feature_digest(report: dict[str, Any]) -> str:
+def summarize_auto_feature_digest(report: dict[str, Any], display_config: dict[str, Any] | None = None) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
     return "；".join(
         [
             f"强正核心 {report['strong_positive_count']} 个",
             f"正向维度 {report['coverage_dimension_count']} 个",
-            f"负向边界 {cluster_card_value(report['negative_boundary_tier'])}",
-            f"置信 {report['confidence']}",
+            f"负向边界 {cluster_card_value(report['negative_boundary_tier'], config)}",
+            f"置信 {display_value(report['confidence'], config)}",
         ]
     )
 
@@ -1221,19 +1278,21 @@ def render_split_index_page(
     evidence_lookup: dict[str, dict[str, Any]],
     cluster_lookup: dict[str, dict[str, Any]],
     warning_rules: list[dict[str, Any]],
+    display_config: dict[str, Any] | None = None,
 ) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
     overview_rows = []
     for report in person_reports:
         person_clusters = person_clusters_for_report(report, cluster_lookup)
         warnings = collect_display_warnings_for_clusters(person_clusters, evidence_lookup, warning_rules)
         overview_rows.append(
             {
-                "人物": report["person"],
-                "自动结算方向": report["auto_band_direction"],
-                "自动特征摘要": summarize_auto_feature_digest(report),
-                "证据簇数量": summarize_cluster_count(report),
-                "人工复核提示数量": len(warnings),
-                "详情页": f"[{report['person']}详情]({person_detail_relative_link(report['person'])})",
+                "person": report["person"],
+                "auto_band_direction": report["auto_band_direction"],
+                "auto_feature_digest": summarize_auto_feature_digest(report, config),
+                "cluster_count_digest": summarize_cluster_count(report),
+                "display_warning_count": len(warnings),
+                "detail_page": f"[{report['person']}详情]({person_detail_relative_link(report['person'])})",
             }
         )
 
@@ -1259,16 +1318,17 @@ def render_split_index_page(
             "",
             "## 总览索引",
             "",
-            markdown_table(
+            markdown_display_table(
                 [
-                    "人物",
-                    "自动结算方向",
-                    "自动特征摘要",
-                    "证据簇数量",
-                    "人工复核提示数量",
-                    "详情页",
+                    "person",
+                    "auto_band_direction",
+                    "auto_feature_digest",
+                    "cluster_count_digest",
+                    "display_warning_count",
+                    "detail_page",
                 ],
                 overview_rows,
+                display_config=config,
             ),
         ]
     )
@@ -1301,7 +1361,12 @@ def render_person_detail_page(
     return "\n".join(lines).rstrip() + "\n"
 
 
-def render_person_appendix_page(person: str, appendix_items: list[dict[str, Any]]) -> str:
+def render_person_appendix_page(
+    person: str,
+    appendix_items: list[dict[str, Any]],
+    display_config: dict[str, Any] | None = None,
+) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
     lines = [
         f"# {person}：第五项B自动结算草案长字段附录",
         "",
@@ -1321,7 +1386,7 @@ def render_person_appendix_page(person: str, appendix_items: list[dict[str, Any]
                 "",
                 f"### {item['label']}",
                 "",
-                markdown_code_block(item["value"]),
+                markdown_code_block(item["value"], config),
                 "",
             ]
         )
@@ -1346,6 +1411,7 @@ def render_split_auto_adjudication_outputs(
             evidence_lookup,
             cluster_lookup,
             resolved_warning_rules,
+            display_config,
         )
     }
     for report in person_reports:
@@ -1368,6 +1434,7 @@ def render_split_auto_adjudication_outputs(
             outputs[person_appendix_export_path(report["person"])] = render_person_appendix_page(
                 report["person"],
                 appendix_items,
+                display_config,
             )
     return outputs
 
@@ -1377,6 +1444,7 @@ def render_auto_adjudication(
     include_display_warnings: bool = False,
     warning_rules: list[dict[str, Any]] | None = None,
 ) -> str:
+    display_config = load_i5b_markdown_view_config()
     config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
@@ -1393,12 +1461,12 @@ def render_auto_adjudication(
         rule_points = report["rule_sensitive_points"]
         overview_rows.append(
             {
-                "人物": report["person"],
-                "自动结算方向": report["auto_band_direction"],
-                "置信度": report["confidence"],
-                "负向边界档": cluster_card_value(report["negative_boundary_tier"]),
-                "是否阻断": cluster_card_value(report["negative_boundary_blocking"]),
-                "规则敏感点": "；".join(point["rule"] for point in rule_points),
+                "person": report["person"],
+                "auto_band_direction": report["auto_band_direction"],
+                "confidence": report["confidence"],
+                "negative_boundary_tier": report["negative_boundary_tier"],
+                "negative_boundary_blocking_digest": report["negative_boundary_blocking"],
+                "rule_sensitive_points": "；".join(point["rule"] for point in rule_points),
             }
         )
 
@@ -1409,16 +1477,17 @@ def render_auto_adjudication(
         "",
             "## 自动结算总览",
             "",
-            markdown_table(
+            markdown_display_table(
                 [
-                    "人物",
-                    "自动结算方向",
-                    "置信度",
-                    "负向边界档",
-                    "是否阻断",
-                    "规则敏感点",
+                    "person",
+                    "auto_band_direction",
+                    "confidence",
+                    "negative_boundary_tier",
+                    "negative_boundary_blocking_digest",
+                    "rule_sensitive_points",
                 ],
                 overview_rows,
+                display_config=display_config,
             ),
         "",
         "## 逐人自动草案",
@@ -1435,11 +1504,12 @@ def render_auto_adjudication(
                 evidence_lookup,
                 resolved_warning_rules,
             )
-        lines.append(render_person_section(report, display_warning_section=display_warning_section))
+        lines.append(render_person_section(report, display_warning_section=display_warning_section, display_config=display_config))
 
     return "\n".join(lines).rstrip() + "\n"
 
 def render_formal_landing_table() -> str:
+    display_config = load_i5b_markdown_view_config()
     config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
@@ -1452,13 +1522,13 @@ def render_formal_landing_table() -> str:
         rule_points = report["rule_sensitive_points"]
         overview_rows.append(
             {
-                "人物": report["person"],
-                "自动结算方向": report["auto_band_direction"],
-                "正式档位草案": build_formal_band_draft(report),
-                "置信度": report["confidence"],
-                "负向边界档": cluster_card_value(report["negative_boundary_tier"]),
-                "是否不出分": "是",
-                "是否不排名": "是",
+                "person": report["person"],
+                "auto_band_direction": report["auto_band_direction"],
+                "formal_band_draft": build_formal_band_draft(report),
+                "confidence": report["confidence"],
+                "negative_boundary_tier": report["negative_boundary_tier"],
+                "not_scored_flag": True,
+                "ranking_suppressed_flag": True,
             }
         )
 
@@ -1469,17 +1539,18 @@ def render_formal_landing_table() -> str:
         "",
         "## 一、正式落地总览",
         "",
-        markdown_table(
+        markdown_display_table(
             [
-                "人物",
-                "自动结算方向",
-                "正式档位草案",
-                "置信度",
-                "负向边界档",
-                "是否不出分",
-                "是否不排名",
+                "person",
+                "auto_band_direction",
+                "formal_band_draft",
+                "confidence",
+                "negative_boundary_tier",
+                "not_scored_flag",
+                "ranking_suppressed_flag",
             ],
             overview_rows,
+            display_config=display_config,
         ),
         "",
         "## 二、逐人落地说明",
@@ -1493,6 +1564,7 @@ def render_formal_landing_table() -> str:
 
 
 def render_three_pilot_closure() -> str:
+    display_config = load_i5b_markdown_view_config()
     config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
@@ -1505,11 +1577,11 @@ def render_three_pilot_closure() -> str:
         trial_score_draft = build_trial_score_draft(report)
         overview_rows.append(
             {
-                "人物": report["person"],
-                "最终定档": build_formal_band_draft(report),
-                "内部试算区间": trial_score_draft["score_range"],
-                "内部试算分": trial_score_draft["trial_score"],
-                "是否可扩展试点": "可",
+                "person": report["person"],
+                "final_band": build_formal_band_draft(report),
+                "internal_trial_score_range": trial_score_draft["score_range"],
+                "internal_trial_score": trial_score_draft["trial_score"],
+                "extend_pilot_ready": "可",
             }
         )
 
@@ -1520,15 +1592,16 @@ def render_three_pilot_closure() -> str:
         "",
         "## 一、内部闭环总览",
         "",
-        markdown_table(
+        markdown_display_table(
             [
-                "人物",
-                "最终定档",
-                "内部试算区间",
-                "内部试算分",
-                "是否可扩展试点",
+                "person",
+                "final_band",
+                "internal_trial_score_range",
+                "internal_trial_score",
+                "extend_pilot_ready",
             ],
             overview_rows,
+            display_config=display_config,
         ),
         "",
         "## 二、逐人收尾说明",
