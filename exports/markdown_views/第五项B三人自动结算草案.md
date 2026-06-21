@@ -51,6 +51,13 @@
 
 - 弱负上调中负边界：不阻断极正或高位上探；只降低置信度，不进入强负核心。
 
+## 人工复核提示（display-only）
+
+| warning_rule_id | warning_type | warning_message | matched_terms | matched_fields | display_only | required_human_review | no_score_effect |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强正、上探 | linked_cards[0].scoring_effect、linked_cards[0].evidence_role、linked_cards[3].scoring_effect、linked_cards[3].evidence_role、linked_cards[5].scoring_effect、linked_cards[5].evidence_role、linked_cards[0].upper_bound_flag、linked_cards[1].upper_bound_flag、linked_cards[2].upper_bound_flag、linked_cards[3].upper_bound_flag、linked_cards[4].upper_bound_flag、linked_cards[5].upper_bound_flag | true | true | true |
+| I5B-CLUSTER-WARN-SINGLE-EVIDENCE-LIMIT | single_evidence_limit | 提示人工检查单条证据是否不足以支撑高强度证据簇，不能机械升档。 | 单证 | linked_cards[2].scoring_effect | true | true | true |
+
 ### 自动结算结论
 
 - band_direction：高位强正，上探极正候选
@@ -97,6 +104,13 @@
 - 中负上调强负边界：阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。
 - 强负核心压制强正：保留强正基础，但自动标记为强正受压制，不上探极正。
 
+## 人工复核提示（display-only）
+
+| warning_rule_id | warning_type | warning_message | matched_terms | matched_fields | display_only | required_human_review | no_score_effect |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强正、极正、上探 | cluster.note、cluster.summary、linked_cards[3].scoring_effect、linked_cards[3].evidence_role、linked_cards[4].scoring_effect、linked_cards[4].evidence_role、linked_cards[0].upper_bound_flag、linked_cards[1].upper_bound_flag、linked_cards[2].upper_bound_flag、linked_cards[3].upper_bound_flag、linked_cards[4].upper_bound_flag | true | true | true |
+| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强负、极负、上探 | cluster.summary、linked_cards[0].scoring_effect、linked_cards[0].evidence_role、linked_cards[0].cluster_role、linked_cards[1].scoring_effect、linked_cards[1].evidence_role、linked_cards[1].cluster_role、linked_cards[2].scoring_effect、linked_cards[2].evidence_role、linked_cards[2].cluster_role、linked_cards[0].upper_bound_flag、linked_cards[1].upper_bound_flag、linked_cards[2].upper_bound_flag | true | true | true |
+
 ### 自动结算结论
 
 - band_direction：强正受压制，不上探极正
@@ -142,6 +156,12 @@
 
 - 相邻项主导剥离：大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响。
 - B项剩余默认中负：默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。
+
+## 人工复核提示（display-only）
+
+| warning_rule_id | warning_type | warning_message | matched_terms | matched_fields | display_only | required_human_review | no_score_effect |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强负、极负、上探 | cluster.note、cluster.summary、linked_cards[0].scoring_effect、linked_cards[0].evidence_role、linked_cards[0].cluster_role、linked_cards[0].upper_bound_flag | true | true | true |
 
 ### 自动结算结论
 
