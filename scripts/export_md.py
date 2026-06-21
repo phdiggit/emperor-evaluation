@@ -15,7 +15,10 @@ from export_i5b_expanded_batch1 import (
 )
 from export_i5b_net_evidence import (
     I5B_NET_EVIDENCE_TARGETS,
+    export_i5b_evidence_cards_index,
+    export_i5b_evidence_clusters_index,
     export_i5b_net_evidence_pool,
+    export_i5b_search_package_index,
 )
 from export_i5b_views import (
     export_expanded_i5b_batch1_human_review_package,
@@ -295,6 +298,9 @@ def main() -> int:
             )
             for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS
         ],
+        ExportStep("i5b_evidence_cards_index", export_i5b_evidence_cards_index),
+        ExportStep("i5b_evidence_clusters_index", export_i5b_evidence_clusters_index),
+        ExportStep("i5b_search_package_index", export_i5b_search_package_index),
         ExportStep("expanded_batch1_review", export_expanded_i5b_batch1_review),
         ExportStep("expanded_batch1_cluster_adjudication", export_expanded_i5b_batch1_cluster_adjudication),
         ExportStep("expanded_batch1_targeted_supplement", export_expanded_i5b_batch1_targeted_supplement),

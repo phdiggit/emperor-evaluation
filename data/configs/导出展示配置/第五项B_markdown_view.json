@@ -33,7 +33,60 @@
     }
   },
   "field_labels": {
+    "evidence_id": "证据ID",
     "person": "人物",
+    "item": "评分项",
+    "subitem": "子项",
+    "source_ref": "来源定位",
+    "source_id": "来源ID",
+    "source_title": "来源标题",
+    "search_id": "检索线索ID",
+    "quote_short": "短摘",
+    "evidence_role": "证据角色",
+    "trigger_family": "触发类型",
+    "trigger_terms": "触发词",
+    "object_anchor": "对象锚点",
+    "strength": "证据强度",
+    "human_level": "人工强度",
+    "scoring_effect": "评分影响",
+    "upper_bound_flag": "上限封顶标记",
+    "mitigation_flag": "减轻/剥离标记",
+    "cluster_role": "簇内角色",
+    "cross_item_split": "相邻项剥离说明",
+    "cross_item_split_notes": "相邻项剥离备注",
+    "review_status": "复核状态",
+    "adjudication_note": "裁量说明",
+    "search_package": "检索包",
+    "linked_cards": "关联证据卡",
+    "linked_evidence_ids": "关联证据ID",
+    "cluster_candidate_id": "簇候选ID",
+    "candidate_strength": "候选强度",
+    "upper_probe": "上探标记",
+    "adjudication_status": "裁判状态",
+    "verification_status": "回源状态",
+    "summary": "摘要",
+    "five_axis_assessment": "五轴评估",
+    "status": "状态",
+    "adjudication_id": "裁判草案ID",
+    "positive_core_summary": "正向核心摘要",
+    "negative_core_summary": "负向核心摘要",
+    "adjacent_item_split_summary": "相邻项剥离摘要",
+    "adjacent_item_split_status": "相邻项剥离状态",
+    "rule_pressure_summary": "规则压力摘要",
+    "net_adjudication_draft": "净裁量草案",
+    "supplement_gap_list": "补证缺口",
+    "query_terms": "检索词",
+    "result_status": "检索结果状态",
+    "result_summary": "检索结果摘要",
+    "linked_evidence_id": "关联证据ID",
+    "note": "说明",
+    "query_profile_id": "检索包ID",
+    "search_modes": "检索模式",
+    "positive_terms": "正向检索词",
+    "negative_terms": "负向检索词",
+    "reversal_terms": "反转检索词",
+    "source_scopes": "来源范围",
+    "thematic_anchor_targets": "专题锚点目标",
     "band_direction": "自动结算方向",
     "auto_band_direction": "自动结算方向",
     "confidence": "置信度",
@@ -79,7 +132,7 @@
     "detail_page": "详情页",
     "rule_sensitive_points": "规则敏感点",
     "negative_boundary_blocking_digest": "是否阻断",
-    "cluster_id": "证据簇 ID",
+    "cluster_id": "证据簇ID",
     "polarity": "方向",
     "candidate_strength": "候选强度",
     "auto_cluster_result": "自动簇结论",
@@ -110,6 +163,19 @@
     "positive": "正向",
     "negative": "负向",
     "both": "正负并存",
+    "core": "核心",
+    "supporting": "辅助",
+    "context": "背景",
+    "pending": "待复核",
+    "verified": "已回源",
+    "source_verified": "已回源核验",
+    "source_verified_pending_human_adjudication": "已回源，待人工裁判",
+    "needs_review": "待人工复核",
+    "batch_draft": "批次草案",
+    "cluster_adjudication_draft": "证据簇裁判草案",
+    "evidence_found_card_created": "已回源并建证据卡",
+    "lead_needs_source_review": "线索待回源复核",
+    "not_relevant": "不纳入本项",
     "talent_ecosystem": "人才生态",
     "talent_ecosystem_and_authorization": "人才生态与授权",
     "talent_security_and_trust_risk": "人才安全与信任风险",
@@ -120,6 +186,60 @@
     "high_mid": "高偏中",
     "medium_high": "中偏高",
     "medium_low": "中偏低"
+  },
+  "list_render_policy": {
+    "enabled": true,
+    "default": {
+      "strategy": "preserve_items",
+      "min_items_to_compact": 6,
+      "max_group_chars": 120,
+      "separator": "；",
+      "group_label_template": "第{start}-{end}项"
+    },
+    "field_overrides": {
+      "linked_object_anchors": {
+        "strategy": "compact_groups",
+        "min_items_to_compact": 6,
+        "max_group_chars": 100,
+        "separator": "；"
+      },
+      "linked_trigger_families": {
+        "strategy": "compact_groups",
+        "min_items_to_compact": 6,
+        "max_group_chars": 100,
+        "separator": "；"
+      },
+      "matched_fields": {
+        "strategy": "compact_groups",
+        "min_items_to_compact": 8,
+        "max_group_chars": 120,
+        "separator": "；"
+      },
+      "source_ref": {
+        "strategy": "preserve_items"
+      },
+      "evidence_id": {
+        "strategy": "preserve_items"
+      },
+      "cluster_id": {
+        "strategy": "preserve_items"
+      },
+      "quote_short": {
+        "strategy": "appendix_link"
+      },
+      "cross_item_split": {
+        "strategy": "appendix_link"
+      },
+      "cross_item_split_signals": {
+        "strategy": "appendix_link"
+      },
+      "summary": {
+        "strategy": "appendix_link"
+      },
+      "adjudication_note": {
+        "strategy": "appendix_link"
+      }
+    }
   },
   "keep_machine_field_name": true
 }

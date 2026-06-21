@@ -34,7 +34,9 @@ NET_EVIDENCE_SPEC.loader.exec_module(net_evidence)
 def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(tmp_path: Path) -> None:
     db_path = tmp_path / "evidence_cache.sqlite"
     export_path = tmp_path / "net-evidence.md"
+    appendix_dir = tmp_path / "附录"
     net_evidence.DB_PATH = db_path
+    net_evidence.APPENDIX_DIR = appendix_dir
 
     with sqlite3.connect(db_path) as connection:
         connection.execute(
@@ -110,14 +112,17 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     result_path = net_evidence.export_i5b_net_evidence_pool("测试人物", export_path)
 
     content = result_path.read_text(encoding="utf-8")
+    appendix_content = (appendix_dir / "测试人物_净证据池长字段附录.md").read_text(encoding="utf-8")
     assert result_path == export_path
     assert "# 第五项B_测试人物净证据池" in content
     assert "本文件为定档前净证据池视图" in content
-    assert "| cluster_id | polarity | cluster_type | linked_evidence_ids | candidate_strength | upper_probe | adjudication_status | summary |" in content
-    assert "| evidence_id | polarity | human_level | trigger_family | source_id | quote_short | object_anchor | evidence_role | mitigation_flag | upper_bound_flag | cluster_role | cross_item_split | scoring_effect | adjudication_status |" in content
+    assert "| 证据簇ID（cluster_id） | 人物（person） | 方向（polarity） | 簇类型（cluster_type） | 关联证据ID（linked_evidence_ids） |" in content
+    assert "| 证据ID（evidence_id） | 人物（person） | 方向（polarity） | 人工强度（human_level） | 触发类型（trigger_family） |" in content
     assert "CLUSTER-001" in content
     assert "CARD-001" in content
-    assert "引文\\|含分隔符" in content
+    assert "[见附录：短摘（quote_short）]" in content
+    assert "引文|含分隔符" in appendix_content
+    assert "## card-001-quote_short" in appendix_content
     assert "CLUSTER-999" not in content
     assert "CARD-999" not in content
 

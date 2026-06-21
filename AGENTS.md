@@ -49,7 +49,7 @@ English anchors are included for execution stability; Chinese remains the source
 - 验证命令若重写 `exports/`、generated docs 或禁止范围副产物，先记录结果，再清理副产物；清理后只做范围核对，不重复运行会再生成副产物的命令。After cleanup, do not rerun full commands that regenerate out-of-scope artifacts.
 - 若 `python scripts/validate_all.py` 或 `pytest` 会生成 #180 范围副产物，记录通过结果后立即清理。After cleanup, run only scope checks such as `git status`, `git diff --name-only`, and `git diff --check`.
 
-## 人工阅读型 Markdown 导出 / Human-Readable Markdown Exports
+## 人工阅读型 Markdown 导出高压线 / Human-Readable Markdown Exports
 
 - 展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论。Display-only changes must not alter data or adjudication semantics.
 - 人工复核型 Markdown 默认纯 Markdown，不使用 HTML details。Pure Markdown by default; no HTML details.

@@ -5,12 +5,12 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SEARCH_LOG_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点检索线索.md"
+SEARCH_LOG_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "证据链" / "检索包" / "第五项B检索线索索引.md"
 EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
 THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
 OBJECT_ANCHOR_VIEW_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点对象锚点视图.md"
 QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
-LIUZHUANG_NET_EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B_刘庄净证据池.md"
+LIUZHUANG_NET_EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "证据链" / "净证据池" / "第五项B_刘庄净证据池.md"
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 SOURCES_PATH = ROOT / "data" / "sources.jsonl"
 SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
@@ -82,8 +82,8 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert "李世民" in content
     assert "刘秀" in content
     assert "刘庄" in content
-    assert "lead_needs_source_review" in content
-    assert "evidence_found_card_created" in content
+    assert "线索待回源复核" in content
+    assert "已回源并建证据卡" in content
     assert "EVD-I5B-LISHIMIN-POS-SHIREN-FANGDU-001" in content
     assert "EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001" in content
     assert "EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001" in content

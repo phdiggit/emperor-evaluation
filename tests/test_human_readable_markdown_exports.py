@@ -198,6 +198,97 @@ def test_validate_exports_reports_warning_section_without_matched_fields(tmp_pat
     assert any("warning section is present but missing '**命中字段**'" in error for error in errors)
 
 
+def write_evidence_chain_export(root: Path, content: str) -> Path:
+    export_path = root / "exports" / "markdown_views" / "第五项B" / "证据链" / "净证据池" / "测试.md"
+    export_path.parent.mkdir(parents=True, exist_ok=True)
+    export_path.write_text(content, encoding="utf-8")
+    appendix_path = root / "exports" / "markdown_views" / "第五项B" / "证据链" / "附录" / "测试附录.md"
+    appendix_path.parent.mkdir(parents=True, exist_ok=True)
+    appendix_path.write_text(
+        "\n".join(["# 测试附录", "", "## e-i5b-001-quote_short", "", "原始长字段", ""]),
+        encoding="utf-8",
+    )
+    return export_path
+
+
+def test_validate_exports_reports_evidence_chain_bare_english_table_header(tmp_path: Path) -> None:
+    write_evidence_chain_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "| evidence_id | 短摘（quote_short） |",
+                "| --- | --- |",
+                "| E-I5B-001 | [见附录：短摘](../附录/测试附录.md#e-i5b-001-quote_short) |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("table header exposes bare English field 'evidence_id'" in error for error in errors)
+
+
+def test_validate_exports_reports_evidence_chain_long_cell_without_appendix_link(tmp_path: Path) -> None:
+    write_evidence_chain_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "| 证据ID（evidence_id） | 短摘（quote_short） |",
+                "| --- | --- |",
+                "| E-I5B-001 | " + "长字段" * 30 + " |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("table cell longer than 72 chars must use a positioned appendix link" in error for error in errors)
+
+
+def test_validate_exports_reports_evidence_chain_broken_appendix_link(tmp_path: Path) -> None:
+    write_evidence_chain_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "| 证据ID（evidence_id） | 短摘（quote_short） |",
+                "| --- | --- |",
+                "| E-I5B-001 | [见附录：短摘](../附录/缺失.md#e-i5b-001-quote_short) |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("appendix link target does not exist" in error for error in errors)
+
+
+def test_validate_exports_reports_evidence_chain_unbolded_key_value_label(tmp_path: Path) -> None:
+    write_evidence_chain_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "- 正向证据簇：ADJ-I5B-001",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("Markdown key-value label must be bold" in error for error in errors)
+
+
 def test_standalone_cli_passes_on_current_repo_exports() -> None:
     result = subprocess.run(
         [sys.executable, str(SCRIPT_PATH)],

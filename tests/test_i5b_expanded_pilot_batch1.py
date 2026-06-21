@@ -13,9 +13,9 @@ SEARCH_LOG_BATCH_PATH = ROOT / "data" / "search_log_batches" / "i5b_expanded_pil
 SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
+REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "证据链" / "证据卡" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
 CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
-CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批证据簇结算草案.md"
+CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "证据链" / "证据簇" / "第五项B扩展试点第一批证据簇结算草案.md"
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:
@@ -155,8 +155,8 @@ def test_expanded_pilot_batch1_review_export_contains_cards_and_clusters() -> No
         "功臣安全与授权预期",
         "EVD-I5B-YONGZHENG-POS-SHIREN-001",
         "EVD-I5B-ZHUYUANZHANG-NEG-HULAN-001",
-        "cluster_candidate_id",
-        "batch_draft",
+        "簇候选ID",
+        "批次草案",
     ]:
         assert needle in content
 
@@ -207,7 +207,7 @@ def test_expanded_pilot_batch1_cluster_adjudication_export_is_review_only() -> N
         "雍正",
         "朱元璋",
         "负证拦截",
-        "相邻项切分",
+        "相邻项剥离",
         "补证缺口",
         "只作草案，不输出终局结果",
     ]:

@@ -13,7 +13,9 @@ I5B_KEYWORD_OVERRIDES_PATH = ROOT / "data" / "configs" / "人工复核配置" / 
 I5B_CLUSTER_WARNING_RULES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_证据簇裁判提示.json"
 DEFAULT_I5B_ITEM = "第五项"
 DEFAULT_I5B_SUBITEM = "第五项B"
-DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE = "exports/markdown_views/第五项B_{person}净证据池.md"
+DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE = (
+    "exports/markdown_views/第五项B/证据链/净证据池/第五项B_{person}净证据池.md"
+)
 I5B_CANDIDATE_POOL_REQUIRED_FIELDS = [
     "person",
     "candidate_type",
