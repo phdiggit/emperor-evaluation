@@ -15,6 +15,8 @@ from i5b_cluster_warning_display import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
+OUTPUT_LAYOUT_CANONICAL = "canonical"
+OUTPUT_LAYOUT_SPLIT = "split"
 EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
@@ -210,6 +212,14 @@ def markdown_list_items(value: object) -> list[str]:
 
 def markdown_field_item(label: str, value: object, bullet: str = "*") -> str:
     return f"{bullet} **{label}**：{markdown_inline_value(value)}"
+
+
+def person_detail_export_path(person: str) -> Path:
+    return EXPORT_PATH.parent / f"第五项B自动结算草案_{person}.md"
+
+
+def person_detail_relative_link(person: str) -> str:
+    return f"./{person_detail_export_path(person).name}"
 
 
 CLUSTER_CARD_POLARITY_LABELS = {
@@ -753,6 +763,18 @@ def render_display_warning_section_for_clusters(
 
     return render_display_only_cluster_warning_section(warnings).rstrip()
 
+
+def collect_display_warnings_for_clusters(
+    cluster_rows: list[dict[str, Any]],
+    evidence_lookup: dict[str, dict[str, Any]],
+    warning_rules: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    warnings: list[dict[str, Any]] = []
+    for cluster in cluster_rows:
+        linked_cards = linked_cards_for_cluster(cluster, evidence_lookup)
+        warnings.extend(match_display_only_cluster_warnings(cluster, linked_cards, warning_rules))
+    return warnings
+
 def evaluate_person(
     person: str,
     cluster_rows: list[dict[str, Any]],
@@ -1005,6 +1027,159 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
     return "\n".join(sections) + "\n"
 
 
+def build_auto_adjudication_context() -> dict[str, Any]:
+    config = config_loaders.get_i5b_trial_config()
+    targets = list(config.get("targets") or [])
+    evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
+    evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
+    evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
+    cluster_lookup = {row["cluster_id"]: row for row in evidence_clusters if row.get("cluster_id")}
+    person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
+    return {
+        "targets": targets,
+        "evidence_lookup": evidence_lookup,
+        "cluster_lookup": cluster_lookup,
+        "person_reports": person_reports,
+    }
+
+
+def person_clusters_for_report(
+    report: dict[str, Any],
+    cluster_lookup: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    person_cluster_ids = report["positive_cluster_ids"] + report["negative_cluster_ids"]
+    return [cluster_lookup[cluster_id] for cluster_id in person_cluster_ids if cluster_id in cluster_lookup]
+
+
+def summarize_auto_feature_digest(report: dict[str, Any]) -> str:
+    return "；".join(
+        [
+            f"强正核心 {report['strong_positive_count']} 个",
+            f"正向维度 {report['coverage_dimension_count']} 个",
+            f"负向边界 {cluster_card_value(report['negative_boundary_tier'])}",
+            f"置信 {report['confidence']}",
+        ]
+    )
+
+
+def summarize_cluster_count(report: dict[str, Any]) -> str:
+    positive_count = len(report["positive_cluster_rows"])
+    negative_count = len(report["negative_cluster_rows"])
+    total_count = positive_count + negative_count
+    return f"正 {positive_count} / 负 {negative_count} / 合计 {total_count}"
+
+
+def render_split_index_page(
+    person_reports: list[dict[str, Any]],
+    evidence_lookup: dict[str, dict[str, Any]],
+    cluster_lookup: dict[str, dict[str, Any]],
+    warning_rules: list[dict[str, Any]],
+) -> str:
+    overview_rows = []
+    for report in person_reports:
+        person_clusters = person_clusters_for_report(report, cluster_lookup)
+        warnings = collect_display_warnings_for_clusters(person_clusters, evidence_lookup, warning_rules)
+        overview_rows.append(
+            {
+                "人物": report["person"],
+                "自动结算方向": report["auto_band_direction"],
+                "自动特征摘要": summarize_auto_feature_digest(report),
+                "证据簇数量": summarize_cluster_count(report),
+                "人工复核提示数量": len(warnings),
+                "详情页": f"[{report['person']}详情]({person_detail_relative_link(report['person'])})",
+            }
+        )
+
+    lines = [
+        "# 第五项B三人自动结算草案",
+        "",
+        "本文为 Typora 友好的纯 Markdown 索引页。详情页继续保留字段全量展示，不折叠、不截断、不隐藏 `linked_*` 与 `cross_item_split_signals`。",
+        "",
+        "## 阅读说明",
+        "",
+        "1. 先在本页查看三位试点人物总览。",
+        "2. 再通过相对链接进入单个人物详情页。",
+        "3. 人工复核提示数量按 display-only 规则统计，只改善阅读组织结构，不改变数据、裁判逻辑或评分结论。",
+        "",
+        "## 试点人物列表",
+        "",
+    ]
+    for report in person_reports:
+        lines.append(f"- [{report['person']}详情]({person_detail_relative_link(report['person'])})")
+
+    lines.extend(
+        [
+            "",
+            "## 总览索引",
+            "",
+            markdown_table(
+                [
+                    "人物",
+                    "自动结算方向",
+                    "自动特征摘要",
+                    "证据簇数量",
+                    "人工复核提示数量",
+                    "详情页",
+                ],
+                overview_rows,
+            ),
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_person_detail_page(
+    report: dict[str, Any],
+    *,
+    display_warning_section: str = "",
+) -> str:
+    lines = [
+        f"# 第五项B自动结算草案_{report['person']}",
+        "",
+        "本文为纯 Markdown 人物详情页，保留该人物自动特征、证据簇、`linked_*`、`cross_item_split_signals` 与 warning `matched_fields` 的全量展示。",
+        "",
+        f"[返回索引](./{EXPORT_PATH.name})",
+        "",
+        render_person_section(report, display_warning_section=display_warning_section).rstrip(),
+    ]
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_split_auto_adjudication_outputs(
+    *,
+    include_display_warnings: bool = False,
+    warning_rules: list[dict[str, Any]] | None = None,
+) -> dict[Path, str]:
+    context = build_auto_adjudication_context()
+    evidence_lookup = context["evidence_lookup"]
+    cluster_lookup = context["cluster_lookup"]
+    person_reports = context["person_reports"]
+    resolved_warning_rules = warning_rules if warning_rules is not None else load_i5b_cluster_warning_rules()
+
+    outputs: dict[Path, str] = {
+        EXPORT_PATH: render_split_index_page(
+            person_reports,
+            evidence_lookup,
+            cluster_lookup,
+            resolved_warning_rules,
+        )
+    }
+    for report in person_reports:
+        display_warning_section = ""
+        if include_display_warnings:
+            person_clusters = person_clusters_for_report(report, cluster_lookup)
+            display_warning_section = render_display_warning_section_for_clusters(
+                person_clusters,
+                evidence_lookup,
+                resolved_warning_rules,
+            )
+        outputs[person_detail_export_path(report["person"])] = render_person_detail_page(
+            report,
+            display_warning_section=display_warning_section,
+        )
+    return outputs
+
+
 def render_auto_adjudication(
     *,
     include_display_warnings: bool = False,
@@ -1217,6 +1392,7 @@ def export_auto_adjudication(
     *,
     include_display_warnings: bool = False,
     warning_rules: list[dict[str, Any]] | None = None,
+    output_layout: str = OUTPUT_LAYOUT_CANONICAL,
 ) -> tuple[Path, Path, Path, Path]:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     RULES_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -1225,13 +1401,21 @@ def export_auto_adjudication(
     CLOSURE_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     CLOSURE_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    EXPORT_PATH.write_text(
-        render_auto_adjudication(
+    if output_layout == OUTPUT_LAYOUT_SPLIT:
+        split_outputs = render_split_auto_adjudication_outputs(
             include_display_warnings=include_display_warnings,
             warning_rules=warning_rules,
-        ),
-        encoding="utf-8",
-    )
+        )
+        for path, content in split_outputs.items():
+            path.write_text(content, encoding="utf-8")
+    else:
+        EXPORT_PATH.write_text(
+            render_auto_adjudication(
+                include_display_warnings=include_display_warnings,
+                warning_rules=warning_rules,
+            ),
+            encoding="utf-8",
+        )
     RULES_EXPORT_PATH.write_text(render_rule_sensitive_points(), encoding="utf-8")
     FORMAL_EXPORT_PATH.write_text(render_formal_landing_table(), encoding="utf-8")
     SCORE_MAP_DRAFT_EXPORT_PATH.write_text(render_score_mapping_draft(), encoding="utf-8")
@@ -1249,12 +1433,30 @@ def main(argv: list[str] | None = None) -> int:
         default=False,
         help="include display-only human review warning section in the auto adjudication draft",
     )
+    parser.add_argument(
+        "--output-layout",
+        choices=[OUTPUT_LAYOUT_CANONICAL, OUTPUT_LAYOUT_SPLIT],
+        default=OUTPUT_LAYOUT_CANONICAL,
+        help="choose canonical full-view export or Typora-friendly split export",
+    )
+    parser.add_argument(
+        "--split-by-person",
+        action="store_true",
+        default=False,
+        help="shortcut for --output-layout split",
+    )
     args = parser.parse_args(argv)
+    output_layout = OUTPUT_LAYOUT_SPLIT if args.split_by_person else args.output_layout
 
     export_path, rules_path, formal_path, closure_path = export_auto_adjudication(
         include_display_warnings=args.include_display_warnings,
+        output_layout=output_layout,
     )
     print(f"exported {export_path}")
+    if output_layout == OUTPUT_LAYOUT_SPLIT:
+        context = build_auto_adjudication_context()
+        for report in context["person_reports"]:
+            print(f"exported {person_detail_export_path(report['person'])}")
     print(f"exported {rules_path}")
     print(f"exported {formal_path}")
     print(f"exported {SCORE_MAP_DRAFT_EXPORT_PATH}")
