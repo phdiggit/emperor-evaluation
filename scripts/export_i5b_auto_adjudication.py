@@ -187,6 +187,81 @@ def markdown_table(headers: list[str], rows: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
+def markdown_inline_value(value: object) -> str:
+    if value in (None, ""):
+        return "无"
+    if isinstance(value, list):
+        items = [markdown_inline_value(item) for item in value]
+        return "、".join(items) if items else "无"
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=False)
+    return str(value).replace("\n", " ")
+
+
+def markdown_list_items(value: object) -> list[str]:
+    if isinstance(value, list):
+        items = value
+    elif value in (None, ""):
+        items = []
+    else:
+        items = [value]
+    return [markdown_inline_value(item) for item in items]
+
+
+def render_detail_items(label: str, value: object) -> list[str]:
+    items = markdown_list_items(value)
+    lines = [
+        "<details>",
+        f"<summary>{label}（{len(items)}项）</summary>",
+        "",
+    ]
+    if items:
+        lines.extend(f"* {item}" for item in items)
+    else:
+        lines.append("* 无")
+    lines.extend(["", "</details>"])
+    return lines
+
+
+def render_cluster_card(row: dict[str, Any]) -> str:
+    summary = "｜".join(
+        [
+            markdown_inline_value(row.get("cluster_id")),
+            markdown_inline_value(row.get("polarity")),
+            f"candidate_strength={markdown_inline_value(row.get('candidate_strength'))}",
+            markdown_inline_value(row.get("auto_cluster_result")),
+        ]
+    )
+    lines = [
+        "<details open>",
+        f"<summary><strong>{summary}</strong></summary>",
+        "",
+        f"* cluster_type：{markdown_inline_value(row.get('cluster_type'))}",
+        f"* boundary_tier：{markdown_inline_value(row.get('boundary_tier'))}",
+        f"* blocking_extreme：{markdown_inline_value(row.get('blocking_extreme'))}",
+        f"* residual_level：{markdown_inline_value(row.get('residual_level'))}",
+        "",
+    ]
+    for field in [
+        "linked_object_anchors",
+        "linked_evidence_roles",
+        "linked_trigger_families",
+        "linked_strengths",
+        "linked_upper_bound_flags",
+        "linked_mitigation_flags",
+        "linked_cluster_roles",
+        "cross_item_split_signals",
+    ]:
+        lines.extend(render_detail_items(field, row.get(field)))
+        lines.append("")
+    lines.append("</details>")
+    return "\n".join(lines)
+
+
+def render_cluster_cards(rows: list[dict[str, Any]]) -> str:
+    return "\n\n".join(render_cluster_card(row) for row in rows)
+
+
 def unique_values(values: list[object]) -> list[str]:
     results: list[str] = []
     for value in values:
@@ -807,27 +882,7 @@ def render_person_section(report: dict[str, Any], display_warning_section: str =
         "",
         "### 证据簇自动结算",
         "",
-        markdown_table(
-            [
-                "cluster_id",
-                "polarity",
-                "cluster_type",
-                "candidate_strength",
-                "linked_object_anchors",
-                "linked_evidence_roles",
-                "linked_trigger_families",
-                "linked_strengths",
-                "linked_upper_bound_flags",
-                "linked_mitigation_flags",
-                "linked_cluster_roles",
-                "cross_item_split_signals",
-                "boundary_tier",
-                "blocking_extreme",
-                "residual_level",
-                "auto_cluster_result",
-            ],
-            cluster_rows,
-        ),
+        render_cluster_cards(cluster_rows),
         "",
         "### 自动特征",
         "",

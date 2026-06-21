@@ -295,7 +295,7 @@ def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) 
         matched_fields = markdown_list_items(warning.get("matched_fields"))
         lines.extend(
             [
-                f"### {index}. {markdown_inline_value(warning.get('warning_type'))}｜{markdown_inline_value(warning.get('warning_rule_id'))}",
+                f"**{index}. {markdown_inline_value(warning.get('warning_type'))}｜{markdown_inline_value(warning.get('warning_rule_id'))}**",
                 "",
                 f"* warning_message：{markdown_inline_value(warning.get('warning_message'))}",
                 f"* matched_terms：{markdown_inline_value(warning.get('matched_terms'))}",

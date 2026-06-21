@@ -308,6 +308,29 @@ def test_display_warnings_default_off_does_not_call_loader(
     assert DISPLAY_WARNING_HEADING not in content
 
 
+def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_data: Path) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    content = auto.render_auto_adjudication()
+    cluster_start = content.index("### 证据簇自动结算")
+    feature_start = content.index("### 自动特征", cluster_start)
+    conclusion_start = content.index("### 自动结算结论", cluster_start)
+    cluster_section = content[cluster_start:feature_start]
+
+    assert "| cluster_id | polarity | cluster_type | candidate_strength | linked_object_anchors" not in content
+    for field in ["linked_object_anchors", "linked_evidence_roles", "linked_trigger_families"]:
+        assert f"| {field} |" not in content
+    assert "<details open>" in cluster_section
+    assert "<summary><strong>ADJ-TEST-WARN-POS-001｜positive｜candidate_strength=3｜" in cluster_section
+    assert "source_review_required" not in cluster_section
+    assert "<summary>linked_object_anchors（1项）</summary>" in cluster_section
+    assert "<summary>linked_evidence_roles（1项）</summary>" in cluster_section
+    assert "<summary>linked_trigger_families（1项）</summary>" in cluster_section
+    assert "<summary>cross_item_split_signals（1项）</summary>" in cluster_section
+    assert "band_direction" in content[conclusion_start:]
+    assert "confidence" in content[conclusion_start:]
+
+
 def test_cli_default_off_does_not_call_warning_stack(
     temp_auto_data: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -447,9 +470,14 @@ def test_display_warnings_enabled_stays_out_of_non_auto_outputs_and_keeps_core_f
     warning_section = warning_section_from_auto_content(auto_content)
 
     assert before == after
-    assert auto.render_formal_landing_table().find(DISPLAY_WARNING_HEADING) == -1
-    assert auto.render_score_mapping_draft().find(DISPLAY_WARNING_HEADING) == -1
-    assert auto.render_three_pilot_closure().find(DISPLAY_WARNING_HEADING) == -1
+    for content in (
+        auto.render_formal_landing_table(),
+        auto.render_score_mapping_draft(),
+        auto.render_three_pilot_closure(),
+    ):
+        assert DISPLAY_WARNING_HEADING not in content
+        assert "<summary><strong>ADJ-" not in content
+        assert "### 证据簇自动结算" not in content
     for forbidden_term in DISPLAY_WARNING_FORBIDDEN_TERMS:
         assert forbidden_term not in warning_section
 

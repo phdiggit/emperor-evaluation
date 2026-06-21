@@ -315,7 +315,8 @@ def test_renderer_single_warning_outputs_readable_card_details() -> None:
 
     assert "## 人工复核提示（display-only）" in content
     assert "> display_only=true；required_human_review=true；no_score_effect=true" in content
-    assert "### 1. adjacent_item_contamination｜I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
+    assert "**1. adjacent_item_contamination｜I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION**" in content
+    assert "### 1. adjacent_item_contamination" not in content
     assert "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
     assert "adjacent_item_contamination" in content
     assert "* warning_message：提示人工检查相邻项污染。" in content
