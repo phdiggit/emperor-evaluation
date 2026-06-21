@@ -18,12 +18,37 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 OUTPUT_LAYOUT_CANONICAL = "canonical"
 OUTPUT_LAYOUT_SPLIT = "split"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
-RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
-FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
-SCORE_MAP_DRAFT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分标尺与档位映射草案.md"
+MARKDOWN_VIEW_ROOT = ROOT / "exports" / "markdown_views"
+I5B_MARKDOWN_VIEW_ROOT = MARKDOWN_VIEW_ROOT / "第五项B"
+AUTO_DRAFT_DIR = I5B_MARKDOWN_VIEW_ROOT / "自动结算草案"
+AUTO_DRAFT_DETAIL_DIR = AUTO_DRAFT_DIR / "人物详情"
+AUTO_DRAFT_APPENDIX_DIR = AUTO_DRAFT_DIR / "附录"
+RULE_SENSITIVE_DIR = I5B_MARKDOWN_VIEW_ROOT / "规则敏感点"
+FORMAL_DRAFT_DIR = I5B_MARKDOWN_VIEW_ROOT / "正式定档草案"
+TRIAL_CLOSURE_DIR = I5B_MARKDOWN_VIEW_ROOT / "试点闭环"
+DISPLAY_CONFIG_PATH = ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
+EXPORT_PATH = AUTO_DRAFT_DIR / "第五项B三人自动结算草案.md"
+RULES_EXPORT_PATH = RULE_SENSITIVE_DIR / "第五项B自动结算规则敏感点清单.md"
+FORMAL_EXPORT_PATH = FORMAL_DRAFT_DIR / "第五项B三人正式定档落地表.md"
+SCORE_MAP_DRAFT_EXPORT_PATH = FORMAL_DRAFT_DIR / "第五项B评分标尺与档位映射草案.md"
 CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
-CLOSURE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点内部闭环收尾.md"
+CLOSURE_EXPORT_PATH = TRIAL_CLOSURE_DIR / "第五项B三人试点内部闭环收尾.md"
+LEGACY_FLAT_EXPORT_PATHS = (
+    MARKDOWN_VIEW_ROOT / "第五项B三人自动结算草案.md",
+    MARKDOWN_VIEW_ROOT / "第五项B自动结算规则敏感点清单.md",
+    MARKDOWN_VIEW_ROOT / "第五项B三人正式定档落地表.md",
+    MARKDOWN_VIEW_ROOT / "第五项B评分标尺与档位映射草案.md",
+    MARKDOWN_VIEW_ROOT / "第五项B三人试点内部闭环收尾.md",
+)
+DEFAULT_DISPLAY_CONFIG: dict[str, Any] = {
+    "max_inline_table_cell_chars": 72,
+    "max_inline_value_chars": 96,
+    "long_field_strategy": "appendix_link",
+    "fallback_long_field_strategy": "fenced_code_block",
+    "prefer_fenced_code_block_fields": [],
+    "field_labels": {},
+    "keep_machine_field_name": True,
+}
 
 
 class HumanReadableMarkdownValidationError(RuntimeError):
@@ -178,6 +203,38 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def load_i5b_markdown_view_config(path: Path = DISPLAY_CONFIG_PATH) -> dict[str, Any]:
+    config = dict(DEFAULT_DISPLAY_CONFIG)
+    if path.exists():
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"{path} must contain a top-level JSON object")
+        config.update(payload)
+    return config
+
+
+def display_field_label(field: str, display_config: dict[str, Any] | None = None) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    labels = config.get("field_labels") or {}
+    label = str(labels.get(field) or field)
+    if label != field and bool(config.get("keep_machine_field_name", True)):
+        return f"{label}（{field}）"
+    return label
+
+
+def markdown_value_text(value: object) -> str:
+    if value in (None, ""):
+        return "无"
+    if isinstance(value, (list, dict)):
+        return json.dumps(value, ensure_ascii=False, indent=2)
+    return str(value).replace("\r\n", "\n")
+
+
+def markdown_code_block(value: object) -> str:
+    info = "json" if isinstance(value, (list, dict)) else "text"
+    return f"```{info}\n{markdown_value_text(value)}\n```"
+
+
 def escape_cell(value: object) -> str:
     if value is None:
         return ""
@@ -222,11 +279,19 @@ def markdown_field_item(label: str, value: object, bullet: str = "*") -> str:
 
 
 def person_detail_export_path(person: str) -> Path:
-    return EXPORT_PATH.parent / f"第五项B自动结算草案_{person}.md"
+    return AUTO_DRAFT_DETAIL_DIR / f"{person}.md"
+
+
+def person_appendix_export_path(person: str) -> Path:
+    return AUTO_DRAFT_APPENDIX_DIR / f"{person}_长字段附录.md"
 
 
 def person_detail_relative_link(person: str) -> str:
-    return f"./{person_detail_export_path(person).name}"
+    return f"./人物详情/{person_detail_export_path(person).name}"
+
+
+def person_detail_backlink() -> str:
+    return f"../{EXPORT_PATH.name}"
 
 
 CLUSTER_CARD_POLARITY_LABELS = {
@@ -269,6 +334,66 @@ def render_numbered_list(label: str, value: object) -> list[str]:
     lines = [f"* **{label}**："]
     lines.extend(f"  {index}. {item}" for index, item in enumerate(items, start=1))
     return lines
+
+
+def should_prefer_code_block(field: str, label: str, display_config: dict[str, Any]) -> bool:
+    preferred = {str(item) for item in display_config.get("prefer_fenced_code_block_fields") or []}
+    return field in preferred or label in preferred
+
+
+def make_appendix_anchor(field: str, appendix_items: list[dict[str, Any]]) -> str:
+    base = "appendix-" + "".join(char if char.isascii() and (char.isalnum() or char in "-_") else "-" for char in field)
+    base = base.strip("-") or "appendix-field"
+    existing = {str(item["anchor"]) for item in appendix_items}
+    if base not in existing:
+        return base
+    index = 2
+    while f"{base}-{index}" in existing:
+        index += 1
+    return f"{base}-{index}"
+
+
+def add_appendix_item(
+    appendix_items: list[dict[str, Any]],
+    *,
+    person: str,
+    field: str,
+    label: str,
+    value: object,
+) -> str:
+    anchor = make_appendix_anchor(field, appendix_items)
+    appendix_items.append({"anchor": anchor, "field": field, "label": label, "value": value})
+    return f"[见附录：{label}](../附录/{person_appendix_export_path(person).name}#{anchor})"
+
+
+def render_display_field(
+    field: str,
+    value: object,
+    *,
+    person: str | None = None,
+    display_config: dict[str, Any] | None = None,
+    appendix_items: list[dict[str, Any]] | None = None,
+    bullet: str = "*",
+) -> list[str]:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    label = display_field_label(field, config)
+    value_text = markdown_value_text(value)
+    max_inline_chars = int(config.get("max_inline_value_chars") or 96)
+    prefer_code = should_prefer_code_block(field, label, config)
+    strategy = str(config.get("long_field_strategy") or "inline")
+    if prefer_code:
+        strategy = str(config.get("fallback_long_field_strategy") or "fenced_code_block")
+    is_long = len(value_text) > max_inline_chars
+
+    if is_long and strategy == "appendix_link":
+        if appendix_items is not None and person is not None:
+            return [f"{bullet} **{label}**：{add_appendix_item(appendix_items, person=person, field=field, label=label, value=value)}"]
+        strategy = str(config.get("fallback_long_field_strategy") or "fenced_code_block")
+
+    if (is_long and strategy == "fenced_code_block") or prefer_code:
+        return [f"{bullet} **{label}**：", markdown_code_block(value)]
+
+    return [f"{bullet} **{label}**：{markdown_inline_value(value)}"]
 
 
 def render_cluster_card(row: dict[str, Any]) -> str:
@@ -586,7 +711,7 @@ def render_score_mapping_draft() -> str:
         "## 二、与现有文档的关系",
         "",
         "1. `docs/第五项B自动结算规则.md` 决定 band direction 与规则敏感点。",
-        "2. `exports/markdown_views/第五项B三人正式定档落地表.md` 决定正式档位草案和分数阶段前置条件。",
+        "2. `exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md` 决定正式档位草案和分数阶段前置条件。",
         "3. 本文件只回答“如果未来正式出分，band 如何映射为相对分值区间”。",
         "4. 本文件不替代 `docs/第五项B正式工作流模板.md`。",
         "5. 本文件不替代 `docs/证据裁量总则_讨论版.md` 中的评分标尺关系。",
@@ -603,7 +728,7 @@ def render_score_mapping_draft() -> str:
         "",
         "## 四、全局总标尺核对",
         "",
-        "已检索 `docs/总规则.md`、`docs/证据强度四级与五轴量化规则_讨论版.md`、`docs/证据裁量总则_讨论版.md`、`docs/第五项B自动结算规则.md`、`docs/第五项B边界说明.md`、`exports/markdown_views/第五项B三人正式定档落地表.md` 与 `docs/第五项B正式工作流模板.md`。",
+        "已检索 `docs/总规则.md`、`docs/证据强度四级与五轴量化规则_讨论版.md`、`docs/证据裁量总则_讨论版.md`、`docs/第五项B自动结算规则.md`、`docs/第五项B边界说明.md`、`exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md` 与 `docs/第五项B正式工作流模板.md`。",
         "",
         "当前可确认的全局层口径只有证据强度四级、五轴裁量与相邻项剥离边界；未发现可直接把第五项B相对区间换算成正式总分的全局满分上限、总标尺或第五项B专属分值封顶。",
         "",
@@ -899,39 +1024,75 @@ def evaluate_person(
 
 
 def render_rule_sensitive_points() -> str:
-    rows = []
-    for rule in RULE_SENSITIVE_POINTS:
-        rows.append(
-            {
-                "rule_id": rule["rule_id"],
-                "rule_question": rule["rule_question"],
-                "default_rule": rule["default_rule"],
-                "why_it_matters": rule["why_it_matters"],
-            }
-        )
-
     lines = [
         "# 第五项B自动结算规则敏感点清单",
         "",
         "本文件只列抽象规则问题和默认处理方式，不审人物个案、不计分、不排名。",
         "",
-        markdown_table(["rule_id", "rule_question", "default_rule", "why_it_matters"], rows),
+        "## 规则敏感点",
         "",
+    ]
+    for rule in RULE_SENSITIVE_POINTS:
+        lines.extend(
+            [
+                f"### {rule['rule_id']}",
+                "",
+                f"- **规则问题**：{rule['rule_question']}",
+                f"- **默认处理**：{rule['default_rule']}",
+                f"- **治理意义**：{rule['why_it_matters']}",
+                "",
+            ]
+        )
+    lines.extend(
+        [
         "## 规则使用方式",
         "",
         "1. 先看规则问题是否被当前 cluster 命中。",
         "2. 弱负升中负的边界只降置信度，不阻断极正/高位上探，也不进入强负核心。",
         "3. 中负升强负的边界阻断极正/高位上探，只在有明确突破中负封顶的硬证时进入强负核心。",
         "4. 若规则仍无法抽象化，才把问题后移到规则层审核。",
-    ]
+        ]
+    )
     return "\n".join(lines) + "\n"
 
 
-def render_person_section(report: dict[str, Any], display_warning_section: str = "") -> str:
+AUTO_FEATURE_FIELDS = [
+    "positive_cluster_ids",
+    "negative_cluster_ids",
+    "core_positive_count",
+    "strong_positive_count",
+    "extreme_positive_count",
+    "core_negative_count",
+    "strong_negative_count",
+    "extreme_negative_count",
+    "coverage_dimension_count",
+    "single_dimension_flag",
+    "startup_positive_share",
+    "has_high_value_object_anchor",
+    "has_boundary_evidence",
+    "has_mitigation_flag",
+    "has_upper_bound_flag",
+    "has_strong_negative_core",
+    "has_extreme_negative_core",
+    "negative_boundary_tier",
+    "negative_boundary_blocking",
+    "cross_item_split_required",
+    "cross_item_split_residual_level",
+]
+
+
+def render_person_section(
+    report: dict[str, Any],
+    display_warning_section: str = "",
+    *,
+    display_config: dict[str, Any] | None = None,
+    appendix_items: list[dict[str, Any]] | None = None,
+) -> str:
     person = report["person"]
     positive_rows = report["positive_cluster_rows"]
     negative_rows = report["negative_cluster_rows"]
     cluster_rows = positive_rows + negative_rows
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
 
     sections = [
         f"## {person}",
@@ -942,42 +1103,21 @@ def render_person_section(report: dict[str, Any], display_warning_section: str =
         "",
         "### 自动特征",
         "",
-        markdown_table(
-            [
-                "field",
-                "value",
-            ],
-            [
-                {"field": "positive_cluster_ids", "value": report["positive_cluster_ids"]},
-                {"field": "negative_cluster_ids", "value": report["negative_cluster_ids"]},
-                {"field": "core_positive_count", "value": report["core_positive_count"]},
-                {"field": "strong_positive_count", "value": report["strong_positive_count"]},
-                {"field": "extreme_positive_count", "value": report["extreme_positive_count"]},
-                {"field": "core_negative_count", "value": report["core_negative_count"]},
-                {"field": "strong_negative_count", "value": report["strong_negative_count"]},
-                {"field": "extreme_negative_count", "value": report["extreme_negative_count"]},
-                {"field": "coverage_dimension_count", "value": report["coverage_dimension_count"]},
-                {"field": "single_dimension_flag", "value": report["single_dimension_flag"]},
-                {"field": "startup_positive_share", "value": report["startup_positive_share"]},
-                {"field": "has_high_value_object_anchor", "value": report["has_high_value_object_anchor"]},
-                {"field": "has_boundary_evidence", "value": report["has_boundary_evidence"]},
-                {"field": "has_mitigation_flag", "value": report["has_mitigation_flag"]},
-                {"field": "has_upper_bound_flag", "value": report["has_upper_bound_flag"]},
-                {"field": "has_strong_negative_core", "value": report["has_strong_negative_core"]},
-                {"field": "has_extreme_negative_core", "value": report["has_extreme_negative_core"]},
-                {"field": "negative_boundary_tier", "value": report["negative_boundary_tier"]},
-                {"field": "negative_boundary_blocking", "value": report["negative_boundary_blocking"]},
-                {"field": "cross_item_split_required", "value": report["cross_item_split_required"]},
-                {"field": "cross_item_split_residual_level", "value": report["cross_item_split_residual_level"]},
-            ],
-        ),
-        "",
-        "### 触发的规则敏感点",
-        "",
     ]
+    for field in AUTO_FEATURE_FIELDS:
+        sections.extend(
+            render_display_field(
+                field,
+                report[field],
+                person=person,
+                display_config=config,
+                appendix_items=appendix_items,
+            )
+        )
+    sections.extend(["", "### 触发的规则敏感点", ""])
 
     for point in report["rule_sensitive_points"]:
-        sections.append(f"- {point['rule']}：{point['decision']}")
+        sections.append(f"- **{point['rule']}**：{point['decision']}")
 
     if display_warning_section:
         sections.extend(["", display_warning_section])
@@ -987,8 +1127,8 @@ def render_person_section(report: dict[str, Any], display_warning_section: str =
             "",
             "### 自动结算结论",
             "",
-            markdown_field_item("band_direction", report["auto_band_direction"], bullet="-"),
-            markdown_field_item("confidence", report["confidence"], bullet="-"),
+            *render_display_field("band_direction", report["auto_band_direction"], display_config=config, bullet="-"),
+            *render_display_field("confidence", report["confidence"], display_config=config, bullet="-"),
             "- **不回填相邻项说明**：战果、政务成效、边疆收益、政权安全、司法残酷和治世光环均切出第五项B。",
         ]
     )
@@ -1003,10 +1143,10 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
         "",
         "### 正式档位落地",
         "",
-        f"- 自动结算来源：{report['auto_band_direction']} / {report['confidence']}",
-        f"- 正式档位草案：{build_formal_band_draft(report)}",
-        f"- 不出分说明：本阶段只落档位方向，不生成分数。",
-        f"- 不排名说明：本阶段不生成排名或名次。",
+        f"- **自动结算来源**：{report['auto_band_direction']} / {report['confidence']}",
+        f"- **正式档位草案**：{build_formal_band_draft(report)}",
+        f"- **不出分说明**：本阶段只落档位方向，不生成分数。",
+        f"- **不排名说明**：本阶段不生成排名或名次。",
         "",
         "### 正向证据组摘要",
         "",
@@ -1026,10 +1166,10 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
         "",
         "### 规则状态",
         "",
-        f"- remaining_rule_questions：{format_remaining_questions(report)}",
-        f"- score_stage_prerequisites：{format_score_stage_prerequisites(report)}",
-        f"- not_scored_flag：是",
-        f"- ranking_suppressed_flag：是",
+        *render_display_field("remaining_rule_questions", format_remaining_questions(report), bullet="-"),
+        *render_display_field("score_stage_prerequisites", format_score_stage_prerequisites(report), bullet="-"),
+        *render_display_field("not_scored_flag", "是", bullet="-"),
+        *render_display_field("ranking_suppressed_flag", "是", bullet="-"),
     ]
     return "\n".join(sections) + "\n"
 
@@ -1139,16 +1279,52 @@ def render_person_detail_page(
     report: dict[str, Any],
     *,
     display_warning_section: str = "",
+    display_config: dict[str, Any] | None = None,
+    appendix_items: list[dict[str, Any]] | None = None,
 ) -> str:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    resolved_appendix_items = appendix_items if appendix_items is not None else []
     lines = [
-        f"# 第五项B自动结算草案_{report['person']}",
+        f"# {report['person']}：第五项B自动结算草案",
         "",
         "本文为纯 Markdown 人物详情页，保留该人物自动特征、证据簇、`linked_*`、`cross_item_split_signals` 与 warning `matched_fields` 的全量展示。",
         "",
-        f"[返回索引](./{EXPORT_PATH.name})",
+        f"[返回索引]({person_detail_backlink()})",
         "",
-        render_person_section(report, display_warning_section=display_warning_section).rstrip(),
+        render_person_section(
+            report,
+            display_warning_section=display_warning_section,
+            display_config=config,
+            appendix_items=resolved_appendix_items,
+        ).rstrip(),
     ]
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_person_appendix_page(person: str, appendix_items: list[dict[str, Any]]) -> str:
+    lines = [
+        f"# {person}：第五项B自动结算草案长字段附录",
+        "",
+        f"[返回人物详情](../人物详情/{person_detail_export_path(person).name})",
+        "",
+        "本附录只承接正文中过长字段的全量展示，不改变数据、裁判逻辑、评分或 warning 语义。",
+        "",
+    ]
+    if not appendix_items:
+        lines.append("无附录字段。")
+        return "\n".join(lines).rstrip() + "\n"
+
+    for item in appendix_items:
+        lines.extend(
+            [
+                f"## {item['anchor']}",
+                "",
+                f"### {item['label']}",
+                "",
+                markdown_code_block(item["value"]),
+                "",
+            ]
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -1162,6 +1338,7 @@ def render_split_auto_adjudication_outputs(
     cluster_lookup = context["cluster_lookup"]
     person_reports = context["person_reports"]
     resolved_warning_rules = warning_rules if warning_rules is not None else load_i5b_cluster_warning_rules()
+    display_config = load_i5b_markdown_view_config()
 
     outputs: dict[Path, str] = {
         EXPORT_PATH: render_split_index_page(
@@ -1180,10 +1357,18 @@ def render_split_auto_adjudication_outputs(
                 evidence_lookup,
                 resolved_warning_rules,
             )
+        appendix_items: list[dict[str, Any]] = []
         outputs[person_detail_export_path(report["person"])] = render_person_detail_page(
             report,
             display_warning_section=display_warning_section,
+            display_config=display_config,
+            appendix_items=appendix_items,
         )
+        if appendix_items:
+            outputs[person_appendix_export_path(report["person"])] = render_person_appendix_page(
+                report["person"],
+                appendix_items,
+            )
     return outputs
 
 
@@ -1208,14 +1393,12 @@ def render_auto_adjudication(
         rule_points = report["rule_sensitive_points"]
         overview_rows.append(
             {
-                "person": report["person"],
-                "positive_cluster_ids": safe_join(report["positive_cluster_ids"]),
-                "negative_cluster_ids": safe_join(report["negative_cluster_ids"]),
-                "auto_band_direction": report["auto_band_direction"],
-                "confidence": report["confidence"],
-                "negative_boundary_tier": report["negative_boundary_tier"],
-                "negative_boundary_blocking": report["negative_boundary_blocking"],
-                "rule_sensitive_points": "；".join(point["rule"] for point in rule_points),
+                "人物": report["person"],
+                "自动结算方向": report["auto_band_direction"],
+                "置信度": report["confidence"],
+                "负向边界档": cluster_card_value(report["negative_boundary_tier"]),
+                "是否阻断": cluster_card_value(report["negative_boundary_blocking"]),
+                "规则敏感点": "；".join(point["rule"] for point in rule_points),
             }
         )
 
@@ -1228,14 +1411,12 @@ def render_auto_adjudication(
             "",
             markdown_table(
                 [
-                    "person",
-                    "positive_cluster_ids",
-                    "negative_cluster_ids",
-                    "auto_band_direction",
-                    "confidence",
-                    "negative_boundary_tier",
-                    "negative_boundary_blocking",
-                    "rule_sensitive_points",
+                    "人物",
+                    "自动结算方向",
+                    "置信度",
+                    "负向边界档",
+                    "是否阻断",
+                    "规则敏感点",
                 ],
                 overview_rows,
             ),
@@ -1271,19 +1452,13 @@ def render_formal_landing_table() -> str:
         rule_points = report["rule_sensitive_points"]
         overview_rows.append(
             {
-                "person": report["person"],
-                "auto_band_direction": report["auto_band_direction"],
-                "formal_band_draft": build_formal_band_draft(report),
-                "confidence": report["confidence"],
-                "positive_basis": summarize_positive_basis(report),
-                "negative_pressure": summarize_negative_pressure(report),
-                "negative_boundary_tier": report["negative_boundary_tier"],
-                "negative_boundary_blocking": report["negative_boundary_blocking"],
-                "rule_sensitive_points_resolved": format_rule_resolutions({"rule_sensitive_points": rule_points}),
-                "remaining_rule_questions": format_remaining_questions(report),
-                "score_stage_prerequisites": format_score_stage_prerequisites(report),
-                "not_scored_flag": "是",
-                "ranking_suppressed_flag": "是",
+                "人物": report["person"],
+                "自动结算方向": report["auto_band_direction"],
+                "正式档位草案": build_formal_band_draft(report),
+                "置信度": report["confidence"],
+                "负向边界档": cluster_card_value(report["negative_boundary_tier"]),
+                "是否不出分": "是",
+                "是否不排名": "是",
             }
         )
 
@@ -1296,19 +1471,13 @@ def render_formal_landing_table() -> str:
         "",
         markdown_table(
             [
-                "person",
-                "auto_band_direction",
-                "formal_band_draft",
-                "confidence",
-                "positive_basis",
-                "negative_pressure",
-                "negative_boundary_tier",
-                "negative_boundary_blocking",
-                "rule_sensitive_points_resolved",
-                "remaining_rule_questions",
-                "score_stage_prerequisites",
-                "not_scored_flag",
-                "ranking_suppressed_flag",
+                "人物",
+                "自动结算方向",
+                "正式档位草案",
+                "置信度",
+                "负向边界档",
+                "是否不出分",
+                "是否不排名",
             ],
             overview_rows,
         ),
@@ -1336,15 +1505,11 @@ def render_three_pilot_closure() -> str:
         trial_score_draft = build_trial_score_draft(report)
         overview_rows.append(
             {
-                "person": report["person"],
-                "final_band": build_formal_band_draft(report),
-                "internal_trial_score_range": trial_score_draft["score_range"],
-                "internal_trial_score": trial_score_draft["trial_score"],
-                "determination_basis": summarize_positive_basis(report),
-                "negative_intercept_status": build_negative_intercept_status(report),
-                "adjacent_item_stripping_status": build_adjacent_item_stripping_status(report),
-                "rule_sensitive_points_resolved": format_rule_resolutions(report),
-                "extend_pilot_ready": "可",
+                "人物": report["person"],
+                "最终定档": build_formal_band_draft(report),
+                "内部试算区间": trial_score_draft["score_range"],
+                "内部试算分": trial_score_draft["trial_score"],
+                "是否可扩展试点": "可",
             }
         )
 
@@ -1357,15 +1522,11 @@ def render_three_pilot_closure() -> str:
         "",
         markdown_table(
             [
-                "person",
-                "final_band",
-                "internal_trial_score_range",
-                "internal_trial_score",
-                "determination_basis",
-                "negative_intercept_status",
-                "adjacent_item_stripping_status",
-                "rule_sensitive_points_resolved",
-                "extend_pilot_ready",
+                "人物",
+                "最终定档",
+                "内部试算区间",
+                "内部试算分",
+                "是否可扩展试点",
             ],
             overview_rows,
         ),
@@ -1380,19 +1541,32 @@ def render_three_pilot_closure() -> str:
             [
                 f"### {report['person']}",
                 "",
-                f"- 最终定档：{build_formal_band_draft(report)}",
-                f"- 内部试算区间：{trial_score_draft['score_range']}",
-                f"- 内部试算分：{trial_score_draft['trial_score']}",
-                f"- 定档依据摘要：{summarize_positive_basis(report)}",
-                f"- 负证拦截状态：{build_negative_intercept_status(report)}；{summarize_negative_pressure(report)}",
-                f"- 相邻项剥离状态：{build_adjacent_item_stripping_status(report)}",
-                f"- 规则敏感点是否已解决：{format_rule_resolutions(report)}",
-                "- 是否可进入扩展试点：可",
+                f"- **最终定档**：{build_formal_band_draft(report)}",
+                f"- **内部试算区间**：{trial_score_draft['score_range']}",
+                f"- **内部试算分**：{trial_score_draft['trial_score']}",
+                f"- **定档依据摘要**：{summarize_positive_basis(report)}",
+                f"- **负证拦截状态**：{build_negative_intercept_status(report)}；{summarize_negative_pressure(report)}",
+                f"- **相邻项剥离状态**：{build_adjacent_item_stripping_status(report)}",
+                f"- **规则敏感点是否已解决**：{format_rule_resolutions(report)}",
+                "- **是否可进入扩展试点**：可",
                 "",
             ]
         )
 
     return "\n".join(lines).rstrip() + "\n"
+
+
+def legacy_flat_export_paths() -> list[Path]:
+    paths = list(LEGACY_FLAT_EXPORT_PATHS)
+    for person in config_loaders.get_i5b_trial_targets():
+        paths.append(MARKDOWN_VIEW_ROOT / f"第五项B自动结算草案_{person}.md")
+    return paths
+
+
+def remove_legacy_flat_exports() -> None:
+    for path in legacy_flat_export_paths():
+        if path.exists():
+            path.unlink()
 
 
 def export_auto_adjudication(
@@ -1403,10 +1577,11 @@ def export_auto_adjudication(
     validate_output: bool = True,
 ) -> tuple[Path, Path, Path, Path]:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    AUTO_DRAFT_DETAIL_DIR.mkdir(parents=True, exist_ok=True)
+    AUTO_DRAFT_APPENDIX_DIR.mkdir(parents=True, exist_ok=True)
     RULES_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     FORMAL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     SCORE_MAP_DRAFT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    CLOSURE_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     CLOSURE_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     if output_layout == OUTPUT_LAYOUT_SPLIT:
@@ -1416,8 +1591,9 @@ def export_auto_adjudication(
         )
         for path, content in split_outputs.items():
             path.write_text(content, encoding="utf-8")
+        remove_legacy_flat_exports()
         if validate_output:
-            validation_root = EXPORT_PATH.parent.parent.parent
+            validation_root = MARKDOWN_VIEW_ROOT.parent.parent
             targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
             errors = human_readable_markdown_validator.validate_exports(validation_root, targets)
             if errors:
@@ -1434,8 +1610,8 @@ def export_auto_adjudication(
     FORMAL_EXPORT_PATH.write_text(render_formal_landing_table(), encoding="utf-8")
     SCORE_MAP_DRAFT_EXPORT_PATH.write_text(render_score_mapping_draft(), encoding="utf-8")
     closure_content = render_three_pilot_closure()
-    CLOSURE_DOC_PATH.write_text(closure_content, encoding="utf-8")
     CLOSURE_EXPORT_PATH.write_text(closure_content, encoding="utf-8")
+    remove_legacy_flat_exports()
     return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH, CLOSURE_EXPORT_PATH
 
 
@@ -1489,7 +1665,6 @@ def main(argv: list[str] | None = None) -> int:
     print(f"exported {rules_path}")
     print(f"exported {formal_path}")
     print(f"exported {SCORE_MAP_DRAFT_EXPORT_PATH}")
-    print(f"exported {CLOSURE_DOC_PATH}")
     print(f"exported {closure_path}")
     return 0
 

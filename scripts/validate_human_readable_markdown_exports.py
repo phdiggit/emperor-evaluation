@@ -7,11 +7,15 @@ import config_loaders
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX_RELATIVE_PATH = Path("exports") / "markdown_views" / "第五项B三人自动结算草案.md"
-DETAIL_FILENAME_TEMPLATE = "第五项B自动结算草案_{person}.md"
+I5B_EXPORT_RELATIVE_ROOT = Path("exports") / "markdown_views" / "第五项B"
+AUTO_DRAFT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "自动结算草案"
+DETAIL_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "人物详情"
+APPENDIX_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "附录"
+INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / "第五项B三人自动结算草案.md"
+DETAIL_FILENAME_TEMPLATE = "{person}.md"
 FORBIDDEN_MARKERS = ("<details", "<summary", "</details>", "……（共")
 DETAIL_REQUIRED_MARKERS = (
-    "[返回索引](./第五项B三人自动结算草案.md)",
+    "[返回索引](../第五项B三人自动结算草案.md)",
     "### 证据簇自动结算",
     "### 自动特征",
     "### 自动结算结论",
@@ -19,16 +23,30 @@ DETAIL_REQUIRED_MARKERS = (
     "**相邻项剥离说明**",
 )
 OLD_CLUSTER_TABLE_MARKERS = ("| cluster_id |", "| polarity |", "| cluster_type |")
+OLD_AUTO_FEATURE_TABLE_MARKERS = ("| field | value |", "| positive_cluster_ids |", "| negative_cluster_ids |")
 WARNING_HEADING = "## 人工复核提示（display-only）"
 WARNING_MATCHED_FIELDS_LABEL = "**命中字段**"
+LEGACY_FLAT_RELATIVE_PATHS = (
+    Path("exports") / "markdown_views" / "第五项B三人自动结算草案.md",
+    Path("exports") / "markdown_views" / "第五项B自动结算规则敏感点清单.md",
+    Path("exports") / "markdown_views" / "第五项B三人正式定档落地表.md",
+    Path("exports") / "markdown_views" / "第五项B评分标尺与档位映射草案.md",
+    Path("exports") / "markdown_views" / "第五项B三人试点内部闭环收尾.md",
+)
 
 
 def detail_relative_path(person: str) -> Path:
-    return Path("exports") / "markdown_views" / DETAIL_FILENAME_TEMPLATE.format(person=person)
+    return DETAIL_RELATIVE_DIR / DETAIL_FILENAME_TEMPLATE.format(person=person)
 
 
 def detail_link(person: str) -> str:
-    return f"[{person}详情](./{DETAIL_FILENAME_TEMPLATE.format(person=person)})"
+    return f"[{person}详情](./人物详情/{DETAIL_FILENAME_TEMPLATE.format(person=person)})"
+
+
+def legacy_flat_relative_paths(targets: list[str]) -> list[Path]:
+    paths = list(LEGACY_FLAT_RELATIVE_PATHS)
+    paths.extend(Path("exports") / "markdown_views" / f"第五项B自动结算草案_{person}.md" for person in targets)
+    return paths
 
 
 def read_text(path: Path) -> str:
@@ -44,6 +62,7 @@ def add_forbidden_marker_errors(path: Path, content: str, errors: list[str]) -> 
 def existing_target_files(root: Path, targets: list[str]) -> list[Path]:
     files = [root / INDEX_RELATIVE_PATH]
     files.extend(root / detail_relative_path(person) for person in targets)
+    files.extend(root / APPENDIX_RELATIVE_DIR / f"{person}_长字段附录.md" for person in targets)
     return [path for path in files if path.exists()]
 
 
@@ -83,6 +102,20 @@ def validate_detail(path: Path, content: str, errors: list[str]) -> None:
     for marker in OLD_CLUSTER_TABLE_MARKERS:
         if marker in content:
             errors.append(f"{path}: contains old wide evidence cluster table marker {marker!r}")
+    for marker in OLD_AUTO_FEATURE_TABLE_MARKERS:
+        if marker in content:
+            errors.append(f"{path}: contains old auto feature table marker {marker!r}")
+    if "（positive_cluster_ids）" not in content:
+        errors.append(f"{path}: missing Chinese display label with machine trace for positive_cluster_ids")
+
+
+def validate_no_legacy_flat_exports(root: Path, targets: list[str], errors: list[str]) -> None:
+    if not (root / INDEX_RELATIVE_PATH).exists():
+        return
+    for relative_path in legacy_flat_relative_paths(targets):
+        path = root / relative_path
+        if path.exists():
+            errors.append(f"{path}: legacy flat I5B export must be removed after nested export generation")
 
 
 def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> list[str]:
@@ -96,6 +129,7 @@ def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> lis
 
     for path in existing_files:
         add_forbidden_marker_errors(path, read_text(path), errors)
+    validate_no_legacy_flat_exports(root, resolved_targets, errors)
 
     index_path = root / INDEX_RELATIVE_PATH
     if not index_path.exists():
