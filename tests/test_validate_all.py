@@ -73,6 +73,13 @@ def test_validate_all_includes_i5b_cluster_adjudication_config_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_human_readable_markdown_export_step() -> None:
+    assert (
+        "validate_human_readable_markdown_exports",
+        ROOT / "scripts" / "validate_human_readable_markdown_exports.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     called: list[str] = []
 
