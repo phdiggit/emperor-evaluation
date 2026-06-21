@@ -32,7 +32,7 @@
 ## Shell 与编码
 
 - 当前在 PowerShell 时使用 PowerShell 语法；不要使用 Bash 的 `&&` / `||`。需要串联时用分步命令，或 `; if ($LASTEXITCODE -eq 0) { ... }`。
-- 当前在 Git Bash 时保持 Git Bash。需要复杂管道、重定向、命令串联时，可明确切到 Git Bash。6775
+- 当前在 Git Bash 时保持 Git Bash。需要复杂管道、重定向、命令串联时，可明确切到 Git Bash。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本读写、JSON / JSONL 结构化改写优先用仓库工具或 Python 标准库；JSON 输出用 UTF-8、`ensure_ascii=False`、稳定缩进。
