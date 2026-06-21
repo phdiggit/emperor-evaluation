@@ -19,7 +19,7 @@
 | cluster_id | polarity | cluster_type | candidate_strength | linked_object_anchors | linked_evidence_roles | linked_trigger_families | linked_strengths | linked_upper_bound_flags | linked_mitigation_flags | linked_cluster_roles | cross_item_split_signals | boundary_tier | blocking_extreme | residual_level | auto_cluster_result |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | ADJ-I5B-LISHIMIN-POS-TALENT-ECOSYSTEM-001 | positive | talent_ecosystem_and_authorization | 3 | ["幕府聚才", "旧敌转用", "帝国级顶级将帅", "顶级谏臣", "寒门/后进人才", "功臣安全秩序"] | ["强正核心", "中正锚点"] | ["识人拔擢", "授权专任", "容谏纳言", "异质人才整合"] | ["3", "2"] | ["不得因盛世上探", "不得因后效上探", "不得因战功上探", "不得因治绩上探", "不得因文名上探", "不得因边疆结果上探"] | ["不回填后续政务", "不回填后续纳谏", "不回填边疆战果", "不回填政策纠错", "不回填后续升迁", "不回填后续战果"] | ["正向核心", "正向增厚"] | ["战役胜负、边疆收益、房杜后续政务成绩、魏征政策纠错效果、贞观治绩和总体盛世光环均不得回填第五项B；本证据组只保留识人、授权、容谏、寒门/后进通道与功臣安全秩序。", "B项只计发现和吸纳人才；房杜后续政务成绩切第二项，军事战果切第一项或第三项。", "B项只计旧敌阵营人才的转化与任用；魏征后续纳谏效果切第二项B2或第五项E。", "B项只计授权与权责匹配；突厥战果与边疆收益切第一项或第三项，制度执行切第二项B3。", "B项只计谏臣表达安全与反馈入口；政策纠错效果切第二项B2，认知反省切第五项E。", "B项只计人才发现与入仕通道；后续升迁、政务成绩与文辞褒誉切第二项或评价项。", "B项只计功臣安全机制与授权秩序；后续军事战果、边疆经营切第一项/第三项。"] | none | False | strong | 强正候选 |
-| ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001 | negative | talent_security_and_trust_risk | 2 | ["功臣处置争议", "确认谋反功臣", "顶级谏臣"] | ["中负边界", "弱负边界", "减轻型中负"] | ["疑忌杀害", "谏臣身后信用反转"] | ["2", "1"] | ["不得上探强负", "不得上探中负"] | ["剥离政权安全风险", "剥离谋反事实", "复碑恢复"] | ["边界负证", "边界负证，不作为强负核心"] | ["谋反与政权安全切第五项C；司法严酷和刑罚问题切第五项D；魏征生前容谏正证另入正向证据组；本证据组只保留用人生态中的功臣/谏臣安全感与信任风险。", "谋反和政权安全风险切第五项C；司法严酷或刑罚过重切第五项D；B项只保留功臣处置争议与授权预期受损。", "太子谋反和政权安全切第五项C；司法严酷切第五项D；战功本身不在B项加分；B项仅计功臣处置严厉对功臣预期的弱影响。", "B项只计顶级谏臣身后政治信用与表达安全预期的剩余损伤；魏征生前纳谏正证另入正向证据组，政策纠错效果切第二项B2，皇帝认知/反思能力切第五项E；复碑与恢复评价只作为减轻与封顶因素，不改写本项中负剩余。"] | weak_to_medium | False | medium | 中负边界 |
+| ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001 | negative | talent_security_and_trust_risk | 2 | ["功臣处置争议", "确认谋反功臣", "顶级谏臣"] | ["中负边界", "弱负边界", "减轻型中负"] | ["功臣处置争议", "确认谋反功臣", "谏臣身后信用反转"] | ["2", "1"] | ["不得上探强负", "不得上探中负"] | ["剥离政权安全风险", "剥离谋反事实", "复碑恢复"] | ["边界负证", "边界负证，不作为强负核心"] | ["谋反与政权安全切第五项C；司法严酷和刑罚问题切第五项D；魏征生前容谏正证另入正向证据组；本证据组只保留用人生态中的功臣/谏臣安全感与信任风险。", "谋反和政权安全风险切第五项C；司法严酷或刑罚过重切第五项D；B项只保留功臣处置争议与授权预期受损。", "太子谋反和政权安全切第五项C；司法严酷切第五项D；战功本身不在B项加分；B项仅计功臣处置严厉对功臣预期的弱影响。", "B项只计顶级谏臣身后政治信用与表达安全预期的剩余损伤；魏征生前纳谏正证另入正向证据组，政策纠错效果切第二项B2，皇帝认知/反思能力切第五项E；复碑与恢复评价只作为减轻与封顶因素，不改写本项中负剩余。"] | weak_to_medium | False | medium | 中负边界 |
 
 ### 自动特征
 
@@ -53,10 +53,42 @@
 
 ## 人工复核提示（display-only）
 
-| warning_rule_id | warning_type | warning_message | matched_terms | matched_fields | display_only | required_human_review | no_score_effect |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强正、上探 | linked_cards[0].scoring_effect、linked_cards[0].evidence_role、linked_cards[3].scoring_effect、linked_cards[3].evidence_role、linked_cards[5].scoring_effect、linked_cards[5].evidence_role、linked_cards[0].upper_bound_flag、linked_cards[1].upper_bound_flag、linked_cards[2].upper_bound_flag、linked_cards[3].upper_bound_flag、linked_cards[4].upper_bound_flag、linked_cards[5].upper_bound_flag | true | true | true |
-| I5B-CLUSTER-WARN-SINGLE-EVIDENCE-LIMIT | single_evidence_limit | 提示人工检查单条证据是否不足以支撑高强度证据簇，不能机械升档。 | 单证 | linked_cards[2].scoring_effect | true | true | true |
+> display_only=true；required_human_review=true；no_score_effect=true
+
+### 1. source_review_required｜I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED
+
+* warning_message：提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。
+* matched_terms：强正、上探
+
+<details>
+<summary>matched_fields（12项）</summary>
+
+* linked_cards[0].scoring_effect
+* linked_cards[0].evidence_role
+* linked_cards[3].scoring_effect
+* linked_cards[3].evidence_role
+* linked_cards[5].scoring_effect
+* linked_cards[5].evidence_role
+* linked_cards[0].upper_bound_flag
+* linked_cards[1].upper_bound_flag
+* linked_cards[2].upper_bound_flag
+* linked_cards[3].upper_bound_flag
+* linked_cards[4].upper_bound_flag
+* linked_cards[5].upper_bound_flag
+
+</details>
+
+### 2. single_evidence_limit｜I5B-CLUSTER-WARN-SINGLE-EVIDENCE-LIMIT
+
+* warning_message：提示人工检查单条证据是否不足以支撑高强度证据簇，不能机械升档。
+* matched_terms：单证
+
+<details>
+<summary>matched_fields（1项）</summary>
+
+* linked_cards[2].scoring_effect
+
+</details>
 
 ### 自动结算结论
 
@@ -106,10 +138,53 @@
 
 ## 人工复核提示（display-only）
 
-| warning_rule_id | warning_type | warning_message | matched_terms | matched_fields | display_only | required_human_review | no_score_effect |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强正、极正、上探 | cluster.note、cluster.summary、linked_cards[3].scoring_effect、linked_cards[3].evidence_role、linked_cards[4].scoring_effect、linked_cards[4].evidence_role、linked_cards[0].upper_bound_flag、linked_cards[1].upper_bound_flag、linked_cards[2].upper_bound_flag、linked_cards[3].upper_bound_flag、linked_cards[4].upper_bound_flag | true | true | true |
-| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强负、极负、上探 | cluster.summary、linked_cards[0].scoring_effect、linked_cards[0].evidence_role、linked_cards[0].cluster_role、linked_cards[1].scoring_effect、linked_cards[1].evidence_role、linked_cards[1].cluster_role、linked_cards[2].scoring_effect、linked_cards[2].evidence_role、linked_cards[2].cluster_role、linked_cards[0].upper_bound_flag、linked_cards[1].upper_bound_flag、linked_cards[2].upper_bound_flag | true | true | true |
+> display_only=true；required_human_review=true；no_score_effect=true
+
+### 1. source_review_required｜I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED
+
+* warning_message：提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。
+* matched_terms：强正、极正、上探
+
+<details>
+<summary>matched_fields（11项）</summary>
+
+* cluster.note
+* cluster.summary
+* linked_cards[3].scoring_effect
+* linked_cards[3].evidence_role
+* linked_cards[4].scoring_effect
+* linked_cards[4].evidence_role
+* linked_cards[0].upper_bound_flag
+* linked_cards[1].upper_bound_flag
+* linked_cards[2].upper_bound_flag
+* linked_cards[3].upper_bound_flag
+* linked_cards[4].upper_bound_flag
+
+</details>
+
+### 2. source_review_required｜I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED
+
+* warning_message：提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。
+* matched_terms：强负、极负、上探
+
+<details>
+<summary>matched_fields（13项）</summary>
+
+* cluster.summary
+* linked_cards[0].scoring_effect
+* linked_cards[0].evidence_role
+* linked_cards[0].cluster_role
+* linked_cards[1].scoring_effect
+* linked_cards[1].evidence_role
+* linked_cards[1].cluster_role
+* linked_cards[2].scoring_effect
+* linked_cards[2].evidence_role
+* linked_cards[2].cluster_role
+* linked_cards[0].upper_bound_flag
+* linked_cards[1].upper_bound_flag
+* linked_cards[2].upper_bound_flag
+
+</details>
 
 ### 自动结算结论
 
@@ -159,9 +234,24 @@
 
 ## 人工复核提示（display-only）
 
-| warning_rule_id | warning_type | warning_message | matched_terms | matched_fields | display_only | required_human_review | no_score_effect |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED | source_review_required | 提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。 | 强负、极负、上探 | cluster.note、cluster.summary、linked_cards[0].scoring_effect、linked_cards[0].evidence_role、linked_cards[0].cluster_role、linked_cards[0].upper_bound_flag | true | true | true |
+> display_only=true；required_human_review=true；no_score_effect=true
+
+### 1. source_review_required｜I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED
+
+* warning_message：提示人工对强证、极端证和上探候选进行回源核验，避免仅凭标签或摘要定性。
+* matched_terms：强负、极负、上探
+
+<details>
+<summary>matched_fields（6项）</summary>
+
+* cluster.note
+* cluster.summary
+* linked_cards[0].scoring_effect
+* linked_cards[0].evidence_role
+* linked_cards[0].cluster_role
+* linked_cards[0].upper_bound_flag
+
+</details>
 
 ### 自动结算结论
 
