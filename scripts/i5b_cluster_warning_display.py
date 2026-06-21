@@ -287,14 +287,20 @@ def markdown_field_item(label: str, value: object) -> str:
     return f"* **{label}**：{markdown_inline_value(value)}"
 
 
-def summarize_list(value: object, max_items: int = 3) -> str:
+def inline_list(value: object) -> str:
     items = markdown_list_items(value)
     if not items:
         return "无"
-    summary = "、".join(items[:max_items])
-    if len(items) > max_items:
-        summary += f"……（共{len(items)}项）"
-    return summary
+    return "、".join(items)
+
+
+def render_numbered_list(label: str, value: object) -> list[str]:
+    items = markdown_list_items(value)
+    if not items:
+        return [markdown_field_item(label, "无")]
+    lines = [f"* **{label}**："]
+    lines.extend(f"  {index}. {item}" for index, item in enumerate(items, start=1))
+    return lines
 
 
 def validate_display_warning_for_render(warning: dict[str, Any]) -> None:
@@ -326,8 +332,8 @@ def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) 
                 f"**{index}. {warning_title(warning)}**",
                 "",
                 markdown_field_item("提示语", warning.get("warning_message")),
-                markdown_field_item("命中词", summarize_list(warning.get("matched_terms"))),
-                markdown_field_item("命中字段", summarize_list(warning.get("matched_fields"))),
+                markdown_field_item("命中词", inline_list(warning.get("matched_terms"))),
+                *render_numbered_list("命中字段", warning.get("matched_fields")),
                 "",
             ]
         )

@@ -245,25 +245,12 @@ def cluster_card_value(value: object) -> str:
     return markdown_inline_value(value)
 
 
-def summarize_list(value: object, max_items: int = 3) -> str:
-    items = markdown_list_items(value)
-    if not items:
-        return "无"
-    summary = "、".join(items[:max_items])
-    if len(items) > max_items:
-        summary += f"……（共{len(items)}项）"
-    return summary
-
-
-def render_long_list(label: str, value: object, max_items: int | None = 3) -> list[str]:
+def render_numbered_list(label: str, value: object) -> list[str]:
     items = markdown_list_items(value)
     if not items:
         return [markdown_field_item(label, "无")]
     lines = [f"* **{label}**："]
-    visible_items = items if max_items is None else items[:max_items]
-    lines.extend(f"  {index}. {item}" for index, item in enumerate(visible_items, start=1))
-    if max_items is not None and len(items) > max_items:
-        lines.append(f"  {max_items + 1}. ……（共{len(items)}项）")
+    lines.extend(f"  {index}. {item}" for index, item in enumerate(items, start=1))
     return lines
 
 
@@ -283,15 +270,18 @@ def render_cluster_card(row: dict[str, Any]) -> str:
         markdown_field_item("边界档", cluster_card_value(row.get("boundary_tier"))),
         markdown_field_item("是否阻断极限档", cluster_card_value(row.get("blocking_extreme"))),
         markdown_field_item("剩余强度", cluster_card_value(row.get("residual_level"))),
-        markdown_field_item("对象锚点", summarize_list(row.get("linked_object_anchors"))),
-        markdown_field_item("证据角色", summarize_list(row.get("linked_evidence_roles"))),
-        markdown_field_item("触发类型", summarize_list(row.get("linked_trigger_families"))),
-        markdown_field_item("证据强度", summarize_list(row.get("linked_strengths"))),
-        markdown_field_item("上限封顶标记", summarize_list(row.get("linked_upper_bound_flags"))),
-        markdown_field_item("减轻/剥离标记", summarize_list(row.get("linked_mitigation_flags"))),
-        markdown_field_item("簇内角色", summarize_list(row.get("linked_cluster_roles"))),
     ]
-    lines.extend(render_long_list("相邻项剥离说明", row.get("cross_item_split_signals"), max_items=None))
+    for label, field in [
+        ("对象锚点", "linked_object_anchors"),
+        ("证据角色", "linked_evidence_roles"),
+        ("触发类型", "linked_trigger_families"),
+        ("证据强度", "linked_strengths"),
+        ("上限封顶标记", "linked_upper_bound_flags"),
+        ("减轻/剥离标记", "linked_mitigation_flags"),
+        ("簇内角色", "linked_cluster_roles"),
+        ("相邻项剥离说明", "cross_item_split_signals"),
+    ]:
+        lines.extend(["", *render_numbered_list(label, row.get(field))])
     return "\n".join(lines)
 
 

@@ -330,7 +330,12 @@ def test_renderer_single_warning_outputs_readable_card_details() -> None:
     assert "matched_fields：" not in content
     assert "* **提示语**：提示人工检查相邻项污染。" in content
     assert "* **命中词**：军功、行政成效" in content
-    assert "* **命中字段**：cluster.cross_item_split、linked_cards[0].trigger_terms、linked_cards[0].scoring_effect……（共4项）" in content
+    assert "* **命中字段**：" in content
+    assert "  1. cluster.cross_item_split" in content
+    assert "  2. linked_cards[0].trigger_terms" in content
+    assert "  3. linked_cards[0].scoring_effect" in content
+    assert "  4. linked_cards[0].evidence_role" in content
+    assert "……（共" not in content
     assert "<details" not in content
     assert "</details>" not in content
     assert "<summary" not in content
