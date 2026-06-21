@@ -12,6 +12,7 @@ from _git_helpers import changed_files_against_base, git_changed_files, skip_unl
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
     "README.md",
+    "docs/人工阅读型Markdown导出规范.md",
     "docs/数据层级与批次文件治理规则.md",
     "tests/_git_helpers.py",
     "tests/test_agents_ready_for_review_rule.py",
@@ -44,9 +45,23 @@ def changed_files() -> set[str]:
 def test_agents_md_contains_file_governance_rules() -> None:
     content = read_text(ROOT / "AGENTS.md")
     for needle in [
-        "文件清理、归档、删除候选第一轮只写诊断或候选清单，不直接删改。",
-        "exports/markdown_views/` 是导出视图层，不是事实源；除非 Issue 明确要求，不得批量重写旧导出。",
-        "data/*_batches/` 是过渡批次层；确认唯一数据源前不得删除",
+        "展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论",
+        "人工复核型 Markdown 默认纯 Markdown，不使用 HTML details",
+        "详细规范见 `docs/人工阅读型Markdown导出规范.md`",
+    ]:
+        assert needle in content
+
+
+def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
+    content = read_text(ROOT / "docs" / "人工阅读型Markdown导出规范.md")
+    for needle in [
+        "不使用 `<details>`、`<summary>`、`</details>`",
+        "详情页不要使用宽表承载长字段、裁判说明、相邻项剥离说明、warning `matched_fields` 或 linked evidence 长字段",
+        "`linked_*` 字段必须全量展示，不得隐藏",
+        "`cross_item_split_signals / 相邻项剥离说明` 必须全量展示，不得隐藏",
+        "warning `matched_fields / 命中字段` 必须全量展示，不得截断",
+        "不使用 `……（共N项）` 或类似文案截断长列表",
+        "[李世民详情](./第五项B自动结算草案_李世民.md)",
     ]:
         assert needle in content
 

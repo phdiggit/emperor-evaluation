@@ -32,7 +32,7 @@
 ## Shell 与编码
 
 - 当前在 PowerShell 时使用 PowerShell 语法；不要使用 Bash 的 `&&` / `||`。需要串联时用分步命令，或 `; if ($LASTEXITCODE -eq 0) { ... }`。
-- 当前在 Git Bash 时保持 Git Bash。需要复杂管道、重定向、命令串联时，可明确切到 Git Bash。
+- 当前在 Git Bash 时保持 Git Bash。需要复杂管道、重定向、命令串联时，可明确切到 Git Bash。6775
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本读写、JSON / JSONL 结构化改写优先用仓库工具或 Python 标准库；JSON 输出用 UTF-8、`ensure_ascii=False`、稳定缩进。
@@ -44,6 +44,14 @@
 - 大脚本治理必须小步重构并有测试锁定；业务 PR 不顺手拆脚本。
 - 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate_all.py`。
 - 验证命令若重写 `exports/`、generated docs 或禁止范围副产物，先记录结果，再清理副产物；清理后只做范围核对，不重复运行会再生成副产物的命令。
+
+## 人工阅读型 Markdown 导出高压线
+
+- 展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论。
+- 人工复核型 Markdown 默认纯 Markdown，不使用 HTML details。
+- 不用宽表承载长字段、裁判说明、相邻项剥离说明、warning matched_fields 或 linked evidence 长字段。
+- `linked_*`、`cross_item_split_signals / 相邻项剥离说明`、warning `matched_fields` 必须全量展示，不得截断。
+- 详细规范见 `docs/人工阅读型Markdown导出规范.md`。
 
 ## 默认忽略
 
