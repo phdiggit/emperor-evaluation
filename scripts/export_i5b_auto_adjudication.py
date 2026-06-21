@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Any
@@ -643,14 +644,12 @@ def render_display_warning_section_for_clusters(
     evidence_lookup: dict[str, dict[str, Any]],
     warning_rules: list[dict[str, Any]],
 ) -> str:
-    sections: list[str] = []
+    warnings: list[dict[str, Any]] = []
     for cluster in cluster_rows:
         linked_cards = linked_cards_for_cluster(cluster, evidence_lookup)
-        warnings = match_display_only_cluster_warnings(cluster, linked_cards, warning_rules)
-        warning_section = render_display_only_cluster_warning_section(warnings).rstrip()
-        sections.extend([warning_section, ""])
+        warnings.extend(match_display_only_cluster_warnings(cluster, linked_cards, warning_rules))
 
-    return "\n".join(sections).rstrip()
+    return render_display_only_cluster_warning_section(warnings).rstrip()
 
 def evaluate_person(
     person: str,
@@ -1160,8 +1159,19 @@ def export_auto_adjudication(
     return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH, CLOSURE_EXPORT_PATH
 
 
-def main() -> int:
-    export_path, rules_path, formal_path, closure_path = export_auto_adjudication()
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--include-display-warnings",
+        action="store_true",
+        default=False,
+        help="include display-only human review warning section in the auto adjudication draft",
+    )
+    args = parser.parse_args(argv)
+
+    export_path, rules_path, formal_path, closure_path = export_auto_adjudication(
+        include_display_warnings=args.include_display_warnings,
+    )
     print(f"exported {export_path}")
     print(f"exported {rules_path}")
     print(f"exported {formal_path}")
