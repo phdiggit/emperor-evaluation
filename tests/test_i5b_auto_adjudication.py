@@ -9,12 +9,14 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
-AUTO_RULES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B自动结算规则敏感点清单.md"
-FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正式定档落地表.md"
-SCORE_MAP_DRAFT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分标尺与档位映射草案.md"
+I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
+AUTO_EXPORT_PATH = I5B_EXPORT_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
+AUTO_RULES_EXPORT_PATH = I5B_EXPORT_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
+FORMAL_EXPORT_PATH = I5B_EXPORT_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
+SCORE_MAP_DRAFT_EXPORT_PATH = I5B_EXPORT_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
 CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
-CLOSURE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点内部闭环收尾.md"
+CLOSURE_EXPORT_PATH = I5B_EXPORT_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
+LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
 AUTO_SPEC = importlib.util.spec_from_file_location(
     "export_i5b_auto_adjudication",
@@ -118,8 +120,9 @@ def make_cluster(
 def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     data_dir = tmp_path / "data"
     data_dir.mkdir()
-    export_dir = tmp_path / "exports" / "markdown_views"
-    export_dir.mkdir(parents=True)
+    export_dir = tmp_path / "exports" / "markdown_views" / "第五项B"
+    auto_dir = export_dir / "自动结算草案"
+    auto_dir.mkdir(parents=True)
 
     group_path = tmp_path / "第五项B_视图分组.json"
     group_path.write_text(
@@ -143,12 +146,22 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
 
     monkeypatch.setattr(auto, "DATA_DIR", data_dir)
     monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
-    monkeypatch.setattr(auto, "EXPORT_PATH", export_dir / "第五项B三人自动结算草案.md")
-    monkeypatch.setattr(auto, "RULES_EXPORT_PATH", export_dir / "第五项B自动结算规则敏感点清单.md")
-    monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", export_dir / "第五项B三人正式定档落地表.md")
-    monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", export_dir / "第五项B评分标尺与档位映射草案.md")
+    monkeypatch.setattr(auto, "MARKDOWN_VIEW_ROOT", tmp_path / "exports" / "markdown_views")
+    monkeypatch.setattr(auto, "I5B_MARKDOWN_VIEW_ROOT", export_dir)
+    monkeypatch.setattr(auto, "AUTO_DRAFT_DIR", auto_dir)
+    monkeypatch.setattr(auto, "AUTO_DRAFT_DETAIL_DIR", auto_dir / "人物详情")
+    monkeypatch.setattr(auto, "AUTO_DRAFT_APPENDIX_DIR", auto_dir / "附录")
+    monkeypatch.setattr(auto, "RULE_SENSITIVE_DIR", export_dir / "规则敏感点")
+    monkeypatch.setattr(auto, "FORMAL_DRAFT_DIR", export_dir / "正式定档草案")
+    monkeypatch.setattr(auto, "TRIAL_CLOSURE_DIR", export_dir / "试点闭环")
+    monkeypatch.setattr(auto, "DISPLAY_CONFIG_PATH", ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json")
+    monkeypatch.setattr(auto, "EXPORT_PATH", auto_dir / "第五项B三人自动结算草案.md")
+    monkeypatch.setattr(auto, "RULES_EXPORT_PATH", export_dir / "规则敏感点" / "第五项B自动结算规则敏感点清单.md")
+    monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", export_dir / "正式定档草案" / "第五项B三人正式定档落地表.md")
+    monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", export_dir / "正式定档草案" / "第五项B评分标尺与档位映射草案.md")
     monkeypatch.setattr(auto, "CLOSURE_DOC_PATH", tmp_path / "docs" / "第五项B三人试点内部闭环收尾.md")
-    monkeypatch.setattr(auto, "CLOSURE_EXPORT_PATH", export_dir / "第五项B三人试点内部闭环收尾.md")
+    monkeypatch.setattr(auto, "CLOSURE_EXPORT_PATH", export_dir / "试点闭环" / "第五项B三人试点内部闭环收尾.md")
+    monkeypatch.setattr(auto, "LEGACY_FLAT_EXPORT_PATHS", (tmp_path / "exports" / "markdown_views" / "第五项B三人自动结算草案.md",))
 
     return data_dir
 
@@ -283,6 +296,57 @@ def test_display_warnings_default_off_does_not_render_section(temp_auto_data: Pa
     assert DISPLAY_WARNING_HEADING not in content
 
 
+def test_markdown_view_display_config_labels_keep_machine_trace() -> None:
+    config = auto.load_i5b_markdown_view_config()
+
+    assert config["config_type"] == "markdown_view_display"
+    assert config["field_render_policies"]["default"]["long_field_strategy"] == "appendix_link"
+    assert config["value_labels"]["true"] == "是"
+    assert config["value_labels"]["weak_to_medium"] == "弱至中"
+    assert config["table_render_policy"]["long_cell_strategy"] == "appendix_link"
+    assert auto.display_field_label("band_direction", config) == "自动结算方向（band_direction）"
+    assert auto.display_field_label("positive_cluster_ids", config) == "正向证据簇（positive_cluster_ids）"
+    assert auto.display_value(True, config) == "是"
+    assert auto.display_value("medium_to_strong", config) == "中至强"
+    assert auto.display_value("unknown_machine_value", config) == "unknown_machine_value"
+
+
+def test_markdown_display_table_long_cell_uses_appendix_link() -> None:
+    config = auto.load_i5b_markdown_view_config()
+    config["table_render_policy"] = {
+        **config["table_render_policy"],
+        "max_inline_table_cell_chars": 72,
+        "long_cell_strategy": "appendix_link",
+    }
+    long_value = "很长的表格单元格内容-" + "甲" * 90
+    appendix_items: list[dict[str, object]] = []
+    table = auto.markdown_display_table(
+        ["rule_sensitive_points"],
+        [{"rule_sensitive_points": long_value}],
+        display_config=config,
+        table_appendix_items=appendix_items,
+        appendix_link_target="./附录/合成表格长字段附录.md",
+    )
+    appendix = auto.render_table_appendix_page(
+        "合成表格长字段附录",
+        "../合成表格.md",
+        appendix_items,
+        config,
+    )
+
+    assert long_value not in table
+    assert (
+        "[见附录：规则敏感点（rule_sensitive_points）]"
+        "(./附录/合成表格长字段附录.md#appendix-rule_sensitive_points)"
+    ) in table
+    assert "超长内容已转入" not in table
+    assert long_value in appendix
+    assert "### appendix-rule_sensitive_points" in appendix
+    assert "……（共" not in table + appendix
+    assert "<details" not in table + appendix
+    assert "<summary" not in table + appendix
+
+
 def test_display_warnings_default_off_does_not_call_loader(
     temp_auto_data: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -351,20 +415,20 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
     assert "<details" not in content
     assert "</details>" not in content
     assert "<summary" not in content
-    assert "**ADJ-TEST-LONG-POS-001｜正向｜候选强度=3｜强正候选**" in cluster_section
+    assert "**ADJ-TEST-LONG-POS-001｜正向｜候选强度（candidate_strength）=3｜强正候选**" in cluster_section
     for label in [
-        "簇类型",
-        "边界档",
-        "是否阻断极限档",
-        "剩余强度",
-        "对象锚点",
-        "证据角色",
-        "触发类型",
-        "证据强度",
-        "上限封顶标记",
-        "减轻/剥离标记",
-        "簇内角色",
-        "相邻项剥离说明",
+        "簇类型（cluster_type）",
+        "边界档（boundary_tier）",
+        "是否阻断极限档（blocking_extreme）",
+        "剩余强度（residual_level）",
+        "对象锚点（linked_object_anchors）",
+        "证据角色（linked_evidence_roles）",
+        "触发类型（linked_trigger_families）",
+        "证据强度（linked_strengths）",
+        "上限封顶标记（linked_upper_bound_flags）",
+        "减轻/剥离标记（linked_mitigation_flags）",
+        "簇内角色（linked_cluster_roles）",
+        "相邻项剥离说明（cross_item_split_signals）",
     ]:
         assert f"* **{label}**：" in cluster_section
     for english_label in [
@@ -384,17 +448,17 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
         assert f"* {english_label}：" not in cluster_section
     assert "* cluster_type：" not in cluster_section
     assert "* boundary_tier：" not in cluster_section
-    assert "* **边界档**：无" in cluster_section
-    assert "* **是否阻断极限档**：否" in cluster_section
-    assert "* **剩余强度**：强" in cluster_section
+    assert "* **边界档（boundary_tier）**：无" in cluster_section
+    assert "* **是否阻断极限档（blocking_extreme）**：否" in cluster_section
+    assert "* **剩余强度（residual_level）**：强" in cluster_section
     expected_full_lists = {
-        "对象锚点": ["锚点1", "锚点2", "锚点3", "锚点4"],
-        "证据角色": ["证据角色1", "证据角色2", "证据角色3", "证据角色4"],
-        "触发类型": ["触发族1", "触发族2", "触发族3", "触发族4"],
-        "证据强度": ["3"],
-        "上限封顶标记": ["上限标记1", "上限标记2", "上限标记3", "上限标记4"],
-        "减轻/剥离标记": ["剥离标记1", "剥离标记2", "剥离标记3", "剥离标记4"],
-        "簇内角色": ["簇角色1", "簇角色2", "簇角色3", "簇角色4"],
+        "对象锚点（linked_object_anchors）": ["锚点1", "锚点2", "锚点3", "锚点4"],
+        "证据角色（linked_evidence_roles）": ["证据角色1", "证据角色2", "证据角色3", "证据角色4"],
+        "触发类型（linked_trigger_families）": ["触发族1", "触发族2", "触发族3", "触发族4"],
+        "证据强度（linked_strengths）": ["3"],
+        "上限封顶标记（linked_upper_bound_flags）": ["上限标记1", "上限标记2", "上限标记3", "上限标记4"],
+        "减轻/剥离标记（linked_mitigation_flags）": ["剥离标记1", "剥离标记2", "剥离标记3", "剥离标记4"],
+        "簇内角色（linked_cluster_roles）": ["簇角色1", "簇角色2", "簇角色3", "簇角色4"],
     }
     for label, values in expected_full_lists.items():
         field_start = cluster_section.index(f"* **{label}**：")
@@ -403,15 +467,15 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
         for index, value in enumerate(values, start=1):
             assert f"  {index}. {value}" in field_section
 
-    cross_item_section = cluster_section[cluster_section.index("* **相邻项剥离说明**：") :]
+    cross_item_section = cluster_section[cluster_section.index("* **相邻项剥离说明（cross_item_split_signals）**：") :]
     assert "  1. 簇级拆分" in cluster_section
     assert "  2. 证据拆分1" in cross_item_section
     assert "  3. 证据拆分2" in cross_item_section
     assert "  4. 证据拆分3" in cross_item_section
     assert "  5. 证据拆分4" in cross_item_section
     assert "……（共" not in cluster_section
-    assert "- **band_direction**：" in content[conclusion_start:]
-    assert "- **confidence**：" in content[conclusion_start:]
+    assert "- **自动结算方向（band_direction）**：" in content[conclusion_start:]
+    assert "- **置信度（confidence）**：" in content[conclusion_start:]
     assert "- band_direction：" not in content[conclusion_start:]
     assert "- confidence：" not in content[conclusion_start:]
 
@@ -469,12 +533,12 @@ def test_cli_include_display_warnings_writes_temp_auto_draft_only(
     auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
     formal_content = auto.FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
     score_map_content = auto.SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
-    closure_doc_content = auto.CLOSURE_DOC_PATH.read_text(encoding="utf-8")
     closure_export_content = auto.CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert DISPLAY_WARNING_HEADING in auto_content
     assert "测试 fixture 人工复核提示。" in auto_content
-    for content in (formal_content, score_map_content, closure_doc_content, closure_export_content):
+    assert not auto.CLOSURE_DOC_PATH.exists()
+    for content in (formal_content, score_map_content, closure_export_content):
         assert DISPLAY_WARNING_HEADING not in content
 
 
@@ -598,11 +662,11 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     index_content = outputs[auto.EXPORT_PATH]
     detail_content = outputs[detail_path]
 
-    assert "[测试甲详情](./第五项B自动结算草案_测试甲.md)" in index_content
+    assert "[测试甲详情](./人物详情/测试甲.md)" in index_content
     assert "## 总览索引" in index_content
     assert "人工复核提示数量" in index_content
-    assert "# 第五项B自动结算草案_测试甲" in detail_content
-    assert "[返回索引](./" in detail_content
+    assert "# 测试甲：第五项B自动结算草案" in detail_content
+    assert "[返回索引](../第五项B三人自动结算草案.md)" in detail_content
     assert "## 人工复核提示（display-only）" in detail_content
     assert "* **命中字段**" in detail_content
     assert "linked_cards[0].trigger_terms" in detail_content
@@ -610,10 +674,10 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     assert "<summary" not in detail_content
     assert "</details>" not in detail_content
     assert "……（共" not in detail_content
-    assert "* **对象锚点**" in detail_content
-    assert "* **证据角色**" in detail_content
-    assert "* **触发类型**" in detail_content
-    assert "* **相邻项剥离说明**" in detail_content
+    assert "* **对象锚点（linked_object_anchors）**" in detail_content
+    assert "* **证据角色（linked_evidence_roles）**" in detail_content
+    assert "* **触发类型（linked_trigger_families）**" in detail_content
+    assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
 
 
 def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail_pages() -> None:
@@ -630,16 +694,25 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail
     for person in targets:
         path = auto.person_detail_export_path(person)
         assert path.exists()
-        assert f"[{person}详情](./{path.name})" in index_content
+        assert f"[{person}详情](./人物详情/{path.name})" in index_content
         detail_content = path.read_text(encoding="utf-8")
-        assert f"# 第五项B自动结算草案_{person}" in detail_content
+        assert f"# {person}：第五项B自动结算草案" in detail_content
         assert "## 人工复核提示（display-only）" in detail_content
         assert "<details" not in detail_content
         assert "<summary" not in detail_content
         assert "</details>" not in detail_content
         assert "……（共" not in detail_content
-        assert "* **对象锚点**" in detail_content
-        assert "* **相邻项剥离说明**" in detail_content
+        assert "* **对象锚点（linked_object_anchors）**" in detail_content
+        assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
+        assert " True" not in detail_content
+        assert " False" not in detail_content
+        assert "：True" not in detail_content
+        assert "：False" not in detail_content
+        assert "weak_to_medium" not in detail_content
+        assert "medium_to_strong" not in detail_content
+        assert "负向边界档（negative_boundary_tier）" in detail_content
+        assert "是否单维集中（single_dimension_flag）" in detail_content
+        assert "../附录/" in detail_content
 
 
 def test_split_export_runs_human_readable_markdown_validation(
@@ -659,7 +732,7 @@ def test_split_export_runs_human_readable_markdown_validation(
 
     assert calls == [
         (
-            auto.EXPORT_PATH.parent.parent.parent,
+            auto.MARKDOWN_VIEW_ROOT.parent.parent,
             list(auto.config_loaders.get_i5b_trial_config()["targets"]),
         )
     ]
@@ -722,21 +795,23 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert AUTO_RULES_EXPORT_PATH.exists()
     assert FORMAL_EXPORT_PATH.exists()
     assert SCORE_MAP_DRAFT_EXPORT_PATH.exists()
-    assert CLOSURE_DOC_PATH.exists()
     assert CLOSURE_EXPORT_PATH.exists()
 
     auto_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
     rules_content = AUTO_RULES_EXPORT_PATH.read_text(encoding="utf-8")
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
     score_map_content = SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
-    closure_doc_content = CLOSURE_DOC_PATH.read_text(encoding="utf-8")
     closure_export_content = CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
-    assert "negative_boundary_tier" in auto_content
-    assert "negative_boundary_blocking" in auto_content
-    assert "weak_to_medium" in auto_content
-    assert "medium_to_strong" in auto_content
+    assert "负向边界档（negative_boundary_tier）" in auto_content
+    assert "负向边界是否阻断（negative_boundary_blocking）" in auto_content
+    assert "weak_to_medium" not in auto_content
+    assert "medium_to_strong" not in auto_content
+    assert "：True" not in auto_content
+    assert "：False" not in auto_content
+    assert "弱至中" in auto_content
+    assert "中至强" in auto_content
     assert "高位强正，上探极正候选" in auto_content
     assert "强正受压制，不上探极正" in auto_content
     assert "中正受中负压制" in auto_content
@@ -746,10 +821,10 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL" in rules_content
     assert "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS" in rules_content
     assert "第五项B三人正式定档落地表" in formal_content
-    assert "formal_band_draft" in formal_content
-    assert "not_scored_flag" in formal_content
-    assert "ranking_suppressed_flag" in formal_content
-    assert "score_stage_prerequisites" in formal_content
+    assert "正式档位草案" in formal_content
+    assert "是否不出分" in formal_content
+    assert "是否不排名" in formal_content
+    assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
     assert "| score |" not in formal_content
     assert "| ranking |" not in formal_content
@@ -764,13 +839,13 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "不得给李世民、刘秀、刘庄三人正式分" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
-    for content in (closure_doc_content, closure_export_content):
-        assert "第五项B三人试点内部闭环收尾" in content
-        assert "内部试算区间" in content
-        assert "内部试算分" in content
-        assert "不输出正式分，不排名，不生成阶段总榜或总榜" in content
-        assert "后续七大项完成后再统一映射" in content
-        assert "是否可进入扩展试点：可" in content
+    assert "第五项B三人试点内部闭环收尾" in closure_export_content
+    assert "内部试算区间" in closure_export_content
+    assert "内部试算分" in closure_export_content
+    assert "不输出正式分，不排名，不生成阶段总榜或总榜" in closure_export_content
+    assert not LEGACY_AUTO_EXPORT_PATH.exists()
+    assert "后续七大项完成后再统一映射" in closure_export_content
+    assert "**是否可进入扩展试点**：可" in closure_export_content
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:
@@ -837,14 +912,14 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
-    assert "person | auto_band_direction | formal_band_draft" in formal_content
+    assert "人物（person） | 自动结算方向（auto_band_direction） | 正式档位草案（formal_band_draft）" in formal_content
     assert "李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正" in formal_content
     assert "刘秀 | 强正受压制，不上探极正 | 强正受压制" in formal_content
     assert "刘庄 | 中正受中负压制 | 中正受中负压制" in formal_content
-    assert "remaining_rule_questions" in formal_content
-    assert "score_stage_prerequisites" in formal_content
-    assert "not_scored_flag" in formal_content
-    assert "ranking_suppressed_flag" in formal_content
+    assert "剩余规则问题（remaining_rule_questions）" in formal_content
+    assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
+    assert "是否不出分（not_scored_flag）" in formal_content
+    assert "是否不排名（ranking_suppressed_flag）" in formal_content
     assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
 
 
