@@ -218,13 +218,14 @@ def summarize_list(value: object, max_items: int = 3) -> str:
     return summary
 
 
-def render_long_list(label: str, value: object, max_items: int = 3) -> list[str]:
+def render_long_list(label: str, value: object, max_items: int | None = 3) -> list[str]:
     items = markdown_list_items(value)
     if not items:
         return [f"* {label}：无"]
     lines = [f"* {label}："]
-    lines.extend(f"  {index}. {item}" for index, item in enumerate(items[:max_items], start=1))
-    if len(items) > max_items:
+    visible_items = items if max_items is None else items[:max_items]
+    lines.extend(f"  {index}. {item}" for index, item in enumerate(visible_items, start=1))
+    if max_items is not None and len(items) > max_items:
         lines.append(f"  {max_items + 1}. ……（共{len(items)}项）")
     return lines
 
@@ -253,7 +254,7 @@ def render_cluster_card(row: dict[str, Any]) -> str:
         f"* linked_mitigation_flags：{summarize_list(row.get('linked_mitigation_flags'))}",
         f"* linked_cluster_roles：{summarize_list(row.get('linked_cluster_roles'))}",
     ]
-    lines.extend(render_long_list("cross_item_split_signals", row.get("cross_item_split_signals")))
+    lines.extend(render_long_list("cross_item_split_signals", row.get("cross_item_split_signals"), max_items=None))
     return "\n".join(lines)
 
 
