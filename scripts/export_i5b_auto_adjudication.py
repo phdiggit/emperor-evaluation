@@ -208,6 +208,10 @@ def markdown_list_items(value: object) -> list[str]:
     return [markdown_inline_value(item) for item in items]
 
 
+def markdown_field_item(label: str, value: object, bullet: str = "*") -> str:
+    return f"{bullet} **{label}**：{markdown_inline_value(value)}"
+
+
 CLUSTER_CARD_POLARITY_LABELS = {
     "positive": "正向",
     "negative": "负向",
@@ -254,8 +258,8 @@ def summarize_list(value: object, max_items: int = 3) -> str:
 def render_long_list(label: str, value: object, max_items: int | None = 3) -> list[str]:
     items = markdown_list_items(value)
     if not items:
-        return [f"* {label}：无"]
-    lines = [f"* {label}："]
+        return [markdown_field_item(label, "无")]
+    lines = [f"* **{label}**："]
     visible_items = items if max_items is None else items[:max_items]
     lines.extend(f"  {index}. {item}" for index, item in enumerate(visible_items, start=1))
     if max_items is not None and len(items) > max_items:
@@ -275,17 +279,17 @@ def render_cluster_card(row: dict[str, Any]) -> str:
     lines = [
         f"**{summary}**",
         "",
-        f"* 簇类型：{cluster_card_value(row.get('cluster_type'))}",
-        f"* 边界档：{cluster_card_value(row.get('boundary_tier'))}",
-        f"* 是否阻断极限档：{cluster_card_value(row.get('blocking_extreme'))}",
-        f"* 剩余强度：{cluster_card_value(row.get('residual_level'))}",
-        f"* 对象锚点：{summarize_list(row.get('linked_object_anchors'))}",
-        f"* 证据角色：{summarize_list(row.get('linked_evidence_roles'))}",
-        f"* 触发类型：{summarize_list(row.get('linked_trigger_families'))}",
-        f"* 证据强度：{summarize_list(row.get('linked_strengths'))}",
-        f"* 上限封顶标记：{summarize_list(row.get('linked_upper_bound_flags'))}",
-        f"* 减轻/剥离标记：{summarize_list(row.get('linked_mitigation_flags'))}",
-        f"* 簇内角色：{summarize_list(row.get('linked_cluster_roles'))}",
+        markdown_field_item("簇类型", cluster_card_value(row.get("cluster_type"))),
+        markdown_field_item("边界档", cluster_card_value(row.get("boundary_tier"))),
+        markdown_field_item("是否阻断极限档", cluster_card_value(row.get("blocking_extreme"))),
+        markdown_field_item("剩余强度", cluster_card_value(row.get("residual_level"))),
+        markdown_field_item("对象锚点", summarize_list(row.get("linked_object_anchors"))),
+        markdown_field_item("证据角色", summarize_list(row.get("linked_evidence_roles"))),
+        markdown_field_item("触发类型", summarize_list(row.get("linked_trigger_families"))),
+        markdown_field_item("证据强度", summarize_list(row.get("linked_strengths"))),
+        markdown_field_item("上限封顶标记", summarize_list(row.get("linked_upper_bound_flags"))),
+        markdown_field_item("减轻/剥离标记", summarize_list(row.get("linked_mitigation_flags"))),
+        markdown_field_item("簇内角色", summarize_list(row.get("linked_cluster_roles"))),
     ]
     lines.extend(render_long_list("相邻项剥离说明", row.get("cross_item_split_signals"), max_items=None))
     return "\n".join(lines)
@@ -964,9 +968,9 @@ def render_person_section(report: dict[str, Any], display_warning_section: str =
             "",
             "### 自动结算结论",
             "",
-            f"- band_direction：{report['auto_band_direction']}",
-            f"- confidence：{report['confidence']}",
-            "- 不回填相邻项说明：战果、政务成效、边疆收益、政权安全、司法残酷和治世光环均切出第五项B。",
+            markdown_field_item("band_direction", report["auto_band_direction"], bullet="-"),
+            markdown_field_item("confidence", report["confidence"], bullet="-"),
+            "- **不回填相邻项说明**：战果、政务成效、边疆收益、政权安全、司法残酷和治世光环均切出第五项B。",
         ]
     )
 

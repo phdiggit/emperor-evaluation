@@ -366,7 +366,7 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
         "簇内角色",
         "相邻项剥离说明",
     ]:
-        assert f"* {label}：" in cluster_section
+        assert f"* **{label}**：" in cluster_section
     for english_label in [
         "cluster_type",
         "boundary_tier",
@@ -382,21 +382,25 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
         "cross_item_split_signals",
     ]:
         assert f"* {english_label}：" not in cluster_section
-    assert "* 边界档：无" in cluster_section
-    assert "* 是否阻断极限档：否" in cluster_section
-    assert "* 剩余强度：强" in cluster_section
-    assert "* 对象锚点：锚点1、锚点2、锚点3……（共4项）" in cluster_section
-    assert "* 证据角色：证据角色1、证据角色2、证据角色3……（共4项）" in cluster_section
-    assert "* 触发类型：触发族1、触发族2、触发族3……（共4项）" in cluster_section
-    cross_item_section = cluster_section[cluster_section.index("* 相邻项剥离说明：") :]
+    assert "* cluster_type：" not in cluster_section
+    assert "* boundary_tier：" not in cluster_section
+    assert "* **边界档**：无" in cluster_section
+    assert "* **是否阻断极限档**：否" in cluster_section
+    assert "* **剩余强度**：强" in cluster_section
+    assert "* **对象锚点**：锚点1、锚点2、锚点3……（共4项）" in cluster_section
+    assert "* **证据角色**：证据角色1、证据角色2、证据角色3……（共4项）" in cluster_section
+    assert "* **触发类型**：触发族1、触发族2、触发族3……（共4项）" in cluster_section
+    cross_item_section = cluster_section[cluster_section.index("* **相邻项剥离说明**：") :]
     assert "  1. 簇级拆分" in cluster_section
     assert "  2. 证据拆分1" in cross_item_section
     assert "  3. 证据拆分2" in cross_item_section
     assert "  4. 证据拆分3" in cross_item_section
     assert "  5. 证据拆分4" in cross_item_section
     assert "……（共" not in cross_item_section
-    assert "band_direction" in content[conclusion_start:]
-    assert "confidence" in content[conclusion_start:]
+    assert "- **band_direction**：" in content[conclusion_start:]
+    assert "- **confidence**：" in content[conclusion_start:]
+    assert "- band_direction：" not in content[conclusion_start:]
+    assert "- confidence：" not in content[conclusion_start:]
 
 
 def test_cli_default_off_does_not_call_warning_stack(
