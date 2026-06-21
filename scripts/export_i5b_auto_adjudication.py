@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Any
 
 import config_loaders
+import i5b_cluster_warning_display
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -894,7 +896,10 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
     return "\n".join(sections) + "\n"
 
 
-def render_auto_adjudication() -> str:
+def render_auto_adjudication(
+    include_display_warnings: bool = False,
+    warning_rules: list[dict[str, Any]] | None = None,
+) -> str:
     config = config_loaders.get_i5b_trial_config()
     targets = list(config.get("targets") or [])
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
@@ -943,6 +948,26 @@ def render_auto_adjudication() -> str:
         "## 逐人自动草案",
         "",
     ]
+
+    if include_display_warnings:
+        rules = warning_rules if warning_rules is not None else config_loaders.load_i5b_cluster_warning_rules()
+        display_warnings = []
+        for cluster in evidence_clusters:
+            linked_evidence_ids = cluster.get("linked_evidence_ids") or []
+            linked_cards = [
+                evidence_lookup[evidence_id]
+                for evidence_id in linked_evidence_ids
+                if evidence_id in evidence_lookup
+            ]
+            display_warnings.extend(
+                i5b_cluster_warning_display.match_display_only_cluster_warnings(cluster, linked_cards, rules)
+            )
+        lines.extend(
+            [
+                i5b_cluster_warning_display.render_display_only_cluster_warning_section(display_warnings).rstrip(),
+                "",
+            ]
+        )
 
     for report in person_reports:
         lines.append(render_person_section(report))
@@ -1087,7 +1112,10 @@ def render_three_pilot_closure() -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def export_auto_adjudication() -> tuple[Path, Path, Path, Path]:
+def export_auto_adjudication(
+    include_display_warnings: bool = False,
+    warning_rules: list[dict[str, Any]] | None = None,
+) -> tuple[Path, Path, Path, Path]:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     RULES_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     FORMAL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -1095,7 +1123,13 @@ def export_auto_adjudication() -> tuple[Path, Path, Path, Path]:
     CLOSURE_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
     CLOSURE_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    EXPORT_PATH.write_text(render_auto_adjudication(), encoding="utf-8")
+    EXPORT_PATH.write_text(
+        render_auto_adjudication(
+            include_display_warnings=include_display_warnings,
+            warning_rules=warning_rules,
+        ),
+        encoding="utf-8",
+    )
     RULES_EXPORT_PATH.write_text(render_rule_sensitive_points(), encoding="utf-8")
     FORMAL_EXPORT_PATH.write_text(render_formal_landing_table(), encoding="utf-8")
     SCORE_MAP_DRAFT_EXPORT_PATH.write_text(render_score_mapping_draft(), encoding="utf-8")
@@ -1105,8 +1139,19 @@ def export_auto_adjudication() -> tuple[Path, Path, Path, Path]:
     return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH, CLOSURE_EXPORT_PATH
 
 
-def main() -> int:
-    export_path, rules_path, formal_path, closure_path = export_auto_adjudication()
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--include-display-warnings",
+        action="store_true",
+        default=False,
+        help="include display-only human review warning section in the auto adjudication draft",
+    )
+    args = parser.parse_args(argv)
+
+    export_path, rules_path, formal_path, closure_path = export_auto_adjudication(
+        include_display_warnings=args.include_display_warnings,
+    )
     print(f"exported {export_path}")
     print(f"exported {rules_path}")
     print(f"exported {formal_path}")

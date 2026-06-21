@@ -257,3 +257,11 @@ python scripts/export_i5b_auto_adjudication.py --include-display-warnings
 - 不改变任何导出结果。
 - 不改变证据、裁判批次、评分、定档、排名、总榜。
 
+## 9. Implementation note（2026-06-21）
+
+- 已在 `scripts/export_i5b_auto_adjudication.py` 新增 `--include-display-warnings`。
+- CLI 默认关闭 display-only warning 导出；默认不带参数时保持原导出行为，不生成 `人工复核提示（display-only）`。
+- 开启后只在自动结算草案生成 display-only warning section，不进入正式定档落地表、评分映射草案或内部闭环收尾。
+- 本 PR 不提交真实 `exports/` 变化。
+- 真实 `exports/` 是否携带 warning section，仍需另开 PR 人工确认。
+
