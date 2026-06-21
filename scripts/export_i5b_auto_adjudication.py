@@ -208,6 +208,39 @@ def markdown_list_items(value: object) -> list[str]:
     return [markdown_inline_value(item) for item in items]
 
 
+CLUSTER_CARD_POLARITY_LABELS = {
+    "positive": "正向",
+    "negative": "负向",
+    "both": "正负并存",
+}
+
+
+CLUSTER_CARD_VALUE_LABELS = {
+    "none": "无",
+    "weak": "弱",
+    "medium": "中",
+    "strong": "强",
+    "extreme": "极强",
+    "weak_to_medium": "弱至中",
+    "medium_to_strong": "中至强",
+    "adjacent_item_medium_residual": "相邻项剥离后中度剩余",
+    "talent_ecosystem": "人才生态（talent_ecosystem）",
+    "talent_ecosystem_and_authorization": "人才生态与授权",
+    "talent_security_and_trust_risk": "人才安全与信任风险",
+    "talent_selection_and_authorization_ecosystem": "人才选择与授权生态",
+    "remonstrance_safety_and_expression_risk": "谏诤安全与表达风险",
+    "talent_security_and_political_implication_risk": "人才安全与政治牵连风险",
+}
+
+
+def cluster_card_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "是" if value else "否"
+    if isinstance(value, str) and value in CLUSTER_CARD_VALUE_LABELS:
+        return CLUSTER_CARD_VALUE_LABELS[value]
+    return markdown_inline_value(value)
+
+
 def summarize_list(value: object, max_items: int = 3) -> str:
     items = markdown_list_items(value)
     if not items:
@@ -234,27 +267,27 @@ def render_cluster_card(row: dict[str, Any]) -> str:
     summary = "｜".join(
         [
             markdown_inline_value(row.get("cluster_id")),
-            markdown_inline_value(row.get("polarity")),
-            f"candidate_strength={markdown_inline_value(row.get('candidate_strength'))}",
+            CLUSTER_CARD_POLARITY_LABELS.get(str(row.get("polarity")), markdown_inline_value(row.get("polarity"))),
+            f"候选强度={markdown_inline_value(row.get('candidate_strength'))}",
             markdown_inline_value(row.get("auto_cluster_result")),
         ]
     )
     lines = [
         f"**{summary}**",
         "",
-        f"* cluster_type：{markdown_inline_value(row.get('cluster_type'))}",
-        f"* boundary_tier：{markdown_inline_value(row.get('boundary_tier'))}",
-        f"* blocking_extreme：{markdown_inline_value(row.get('blocking_extreme'))}",
-        f"* residual_level：{markdown_inline_value(row.get('residual_level'))}",
-        f"* linked_object_anchors：{summarize_list(row.get('linked_object_anchors'))}",
-        f"* linked_evidence_roles：{summarize_list(row.get('linked_evidence_roles'))}",
-        f"* linked_trigger_families：{summarize_list(row.get('linked_trigger_families'))}",
-        f"* linked_strengths：{summarize_list(row.get('linked_strengths'))}",
-        f"* linked_upper_bound_flags：{summarize_list(row.get('linked_upper_bound_flags'))}",
-        f"* linked_mitigation_flags：{summarize_list(row.get('linked_mitigation_flags'))}",
-        f"* linked_cluster_roles：{summarize_list(row.get('linked_cluster_roles'))}",
+        f"* 簇类型：{cluster_card_value(row.get('cluster_type'))}",
+        f"* 边界档：{cluster_card_value(row.get('boundary_tier'))}",
+        f"* 是否阻断极限档：{cluster_card_value(row.get('blocking_extreme'))}",
+        f"* 剩余强度：{cluster_card_value(row.get('residual_level'))}",
+        f"* 对象锚点：{summarize_list(row.get('linked_object_anchors'))}",
+        f"* 证据角色：{summarize_list(row.get('linked_evidence_roles'))}",
+        f"* 触发类型：{summarize_list(row.get('linked_trigger_families'))}",
+        f"* 证据强度：{summarize_list(row.get('linked_strengths'))}",
+        f"* 上限封顶标记：{summarize_list(row.get('linked_upper_bound_flags'))}",
+        f"* 减轻/剥离标记：{summarize_list(row.get('linked_mitigation_flags'))}",
+        f"* 簇内角色：{summarize_list(row.get('linked_cluster_roles'))}",
     ]
-    lines.extend(render_long_list("cross_item_split_signals", row.get("cross_item_split_signals"), max_items=None))
+    lines.extend(render_long_list("相邻项剥离说明", row.get("cross_item_split_signals"), max_items=None))
     return "\n".join(lines)
 
 

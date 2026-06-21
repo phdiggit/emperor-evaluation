@@ -16,20 +16,20 @@
 
 ### 证据簇自动结算
 
-**ADJ-I5B-LISHIMIN-POS-TALENT-ECOSYSTEM-001｜positive｜candidate_strength=3｜强正候选**
+**ADJ-I5B-LISHIMIN-POS-TALENT-ECOSYSTEM-001｜正向｜候选强度=3｜强正候选**
 
-* cluster_type：talent_ecosystem_and_authorization
-* boundary_tier：none
-* blocking_extreme：False
-* residual_level：strong
-* linked_object_anchors：幕府聚才、旧敌转用、帝国级顶级将帅……（共6项）
-* linked_evidence_roles：强正核心、中正锚点
-* linked_trigger_families：识人拔擢、授权专任、容谏纳言……（共4项）
-* linked_strengths：3、2
-* linked_upper_bound_flags：不得因盛世上探、不得因后效上探、不得因战功上探……（共6项）
-* linked_mitigation_flags：不回填后续政务、不回填后续纳谏、不回填边疆战果……（共6项）
-* linked_cluster_roles：正向核心、正向增厚
-* cross_item_split_signals：
+* 簇类型：人才生态与授权
+* 边界档：无
+* 是否阻断极限档：否
+* 剩余强度：强
+* 对象锚点：幕府聚才、旧敌转用、帝国级顶级将帅……（共6项）
+* 证据角色：强正核心、中正锚点
+* 触发类型：识人拔擢、授权专任、容谏纳言……（共4项）
+* 证据强度：3、2
+* 上限封顶标记：不得因盛世上探、不得因后效上探、不得因战功上探……（共6项）
+* 减轻/剥离标记：不回填后续政务、不回填后续纳谏、不回填边疆战果……（共6项）
+* 簇内角色：正向核心、正向增厚
+* 相邻项剥离说明：
   1. 战役胜负、边疆收益、房杜后续政务成绩、魏征政策纠错效果、贞观治绩和总体盛世光环均不得回填第五项B；本证据组只保留识人、授权、容谏、寒门/后进通道与功臣安全秩序。
   2. B项只计发现和吸纳人才；房杜后续政务成绩切第二项，军事战果切第一项或第三项。
   3. B项只计旧敌阵营人才的转化与任用；魏征后续纳谏效果切第二项B2或第五项E。
@@ -40,20 +40,20 @@
 
 ---
 
-**ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001｜negative｜candidate_strength=2｜中负边界**
+**ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001｜负向｜候选强度=2｜中负边界**
 
-* cluster_type：talent_security_and_trust_risk
-* boundary_tier：weak_to_medium
-* blocking_extreme：False
-* residual_level：medium
-* linked_object_anchors：功臣处置争议、确认谋反功臣、顶级谏臣
-* linked_evidence_roles：中负边界、弱负边界、减轻型中负
-* linked_trigger_families：功臣处置争议、确认谋反功臣、谏臣身后信用反转
-* linked_strengths：2、1
-* linked_upper_bound_flags：不得上探强负、不得上探中负
-* linked_mitigation_flags：剥离政权安全风险、剥离谋反事实、复碑恢复
-* linked_cluster_roles：边界负证、边界负证，不作为强负核心
-* cross_item_split_signals：
+* 簇类型：人才安全与信任风险
+* 边界档：弱至中
+* 是否阻断极限档：否
+* 剩余强度：中
+* 对象锚点：功臣处置争议、确认谋反功臣、顶级谏臣
+* 证据角色：中负边界、弱负边界、减轻型中负
+* 触发类型：功臣处置争议、确认谋反功臣、谏臣身后信用反转
+* 证据强度：2、1
+* 上限封顶标记：不得上探强负、不得上探中负
+* 减轻/剥离标记：剥离政权安全风险、剥离谋反事实、复碑恢复
+* 簇内角色：边界负证、边界负证，不作为强负核心
+* 相邻项剥离说明：
   1. 谋反与政权安全切第五项C；司法严酷和刑罚问题切第五项D；魏征生前容谏正证另入正向证据组；本证据组只保留用人生态中的功臣/谏臣安全感与信任风险。
   2. 谋反和政权安全风险切第五项C；司法严酷或刑罚过重切第五项D；B项只保留功臣处置争议与授权预期受损。
   3. 太子谋反和政权安全切第五项C；司法严酷切第五项D；战功本身不在B项加分；B项仅计功臣处置严厉对功臣预期的弱影响。
@@ -115,20 +115,20 @@
 
 ### 证据簇自动结算
 
-**ADJ-I5B-LIUXIU-POS-TALENT-AUTHORIZATION-001｜positive｜candidate_strength=3｜强正候选**
+**ADJ-I5B-LIUXIU-POS-TALENT-AUTHORIZATION-001｜正向｜候选强度=3｜强正候选**
 
-* cluster_type：talent_selection_and_authorization_ecosystem
-* boundary_tier：none
-* blocking_extreme：False
-* residual_level：strong
-* linked_object_anchors：创业期军政支柱、反馈入口、跨区域军政协同……（共4项）
-* linked_evidence_roles：中正锚点、强正核心
-* linked_trigger_families：识人拔擢、容谏纳言、授权专任
-* linked_strengths：2、3
-* linked_upper_bound_flags：不得因战功上探、不得因政绩上探、不得因后效上探……（共4项）
-* linked_mitigation_flags：不回填西征战果、不回填后续治理、不回填北州战果……（共5项）
-* linked_cluster_roles：正向核心、正向增厚
-* cross_item_split_signals：
+* 簇类型：人才选择与授权生态
+* 边界档：无
+* 是否阻断极限档：否
+* 剩余强度：强
+* 对象锚点：创业期军政支柱、反馈入口、跨区域军政协同……（共4项）
+* 证据角色：中正锚点、强正核心
+* 触发类型：识人拔擢、容谏纳言、授权专任
+* 证据强度：2、3
+* 上限封顶标记：不得因战功上探、不得因政绩上探、不得因后效上探……（共4项）
+* 减轻/剥离标记：不回填西征战果、不回填后续治理、不回填北州战果……（共5项）
+* 簇内角色：正向核心、正向增厚
+* 相邻项剥离说明：
   1. 战役胜负、河北/关中进展、边疆或区域收益、邓禹/吴汉/耿弇/冯异/寇恂的具体战功与后续政务成绩均不得回填第五项B；本证据组只保留识人、授权、纳言、文武协同与人才结构。
   2. B项只计早期任用、授权与选将；西征战果、关中平定和后续政务成绩切第一项、第二项或第三项。
   3. B项只计建议被采纳与反馈入口，不把后续治理效果直接回填。
@@ -138,20 +138,20 @@
 
 ---
 
-**ADJ-I5B-LIUXIU-NEG-REMONSTRANCE-SAFETY-001｜negative｜candidate_strength=3｜强负候选**
+**ADJ-I5B-LIUXIU-NEG-REMONSTRANCE-SAFETY-001｜负向｜候选强度=3｜强负候选**
 
-* cluster_type：remonstrance_safety_and_expression_risk
-* boundary_tier：medium_to_strong
-* blocking_extreme：True
-* residual_level：strong
-* linked_object_anchors：表达安全边界、反谶表达安全、尚书近臣表达安全
-* linked_evidence_roles：强负核心
-* linked_trigger_families：容谏纳言、意识形态压制、廷杖刑辱
-* linked_strengths：3
-* linked_upper_bound_flags：不得上探极负
-* linked_mitigation_flags：剥离灾异判断、剥离谶纬认知、剥离政治残酷性
-* linked_cluster_roles：强负核心
-* cross_item_split_signals：
+* 簇类型：谏诤安全与表达风险
+* 边界档：中至强
+* 是否阻断极限档：是
+* 剩余强度：强
+* 对象锚点：表达安全边界、反谶表达安全、尚书近臣表达安全
+* 证据角色：强负核心
+* 触发类型：容谏纳言、意识形态压制、廷杖刑辱
+* 证据强度：3
+* 上限封顶标记：不得上探极负
+* 减轻/剥离标记：剥离灾异判断、剥离谶纬认知、剥离政治残酷性
+* 簇内角色：强负核心
+* 相邻项剥离说明：
   1. 韩歆灾异/饥凶判断切第五项E或第二项B2；桓谭谶纬认知争议切第五项E；申屠刚材料中的法理严察、行政威慑或政治残酷性切第二项B3或第五项D。本证据组只保留表达安全、谏臣保护与人才生态受损。
   2. B项只保留容谏与谏臣保护面；灾异/饥凶预测及政策判断切第五项E或第二项B2。
   3. B项只保留反谶人才受压与表达安全问题；谶纬信念切第五项E，政治残酷性另切第五项D。
@@ -214,20 +214,20 @@
 
 ### 证据簇自动结算
 
-**ADJ-I5B-LIUZHUANG-POS-TALENT-AUTHORIZATION-001｜positive｜candidate_strength=2｜中正增厚**
+**ADJ-I5B-LIUZHUANG-POS-TALENT-AUTHORIZATION-001｜正向｜候选强度=2｜中正增厚**
 
-* cluster_type：talent_selection_and_authorization_ecosystem
-* boundary_tier：none
-* blocking_extreme：False
-* residual_level：medium
-* linked_object_anchors：旧臣与宗室辅政、日食求言、边疆授权
-* linked_evidence_roles：中正锚点
-* linked_trigger_families：识人拔擢、容谏纳言、授权专任
-* linked_strengths：2
-* linked_upper_bound_flags：不得因稳定上探、不得因后续改制上探、不得因边疆收益上探
-* linked_mitigation_flags：不回填辅政后效、不回填纠错效果、不回填西域战功
-* linked_cluster_roles：正向增厚
-* cross_item_split_signals：
+* 簇类型：人才选择与授权生态
+* 边界档：无
+* 是否阻断极限档：否
+* 剩余强度：中
+* 对象锚点：旧臣与宗室辅政、日食求言、边疆授权
+* 证据角色：中正锚点
+* 触发类型：识人拔擢、容谏纳言、授权专任
+* 证据强度：2
+* 上限封顶标记：不得因稳定上探、不得因后续改制上探、不得因边疆收益上探
+* 减轻/剥离标记：不回填辅政后效、不回填纠错效果、不回填西域战功
+* 簇内角色：正向增厚
+* 相邻项剥离说明：
   1. 西域战果、军事胜负、边疆收益、辅政后的政务成效、政治稳定与政策纠错效果均不得回填第五项B；本证据组只保留识人、任用、授权、求言与反馈入口。
   2. B项只计识人、任用与人才结构；辅政后的政务成效、政治稳定与制度收益切第二项或第五项C。
   3. B项只计反馈入口与表达安全；后续纠错、行政调整和政策效果切第二项B2、第二项B3或第五项E。
@@ -235,20 +235,20 @@
 
 ---
 
-**ADJ-I5B-LIUZHUANG-NEG-TALENT-SAFETY-001｜negative｜candidate_strength=3｜中负边界**
+**ADJ-I5B-LIUZHUANG-NEG-TALENT-SAFETY-001｜负向｜候选强度=3｜中负边界**
 
-* cluster_type：talent_security_and_political_implication_risk
-* boundary_tier：adjacent_item_medium_residual
-* blocking_extreme：False
-* residual_level：medium
-* linked_object_anchors：楚狱边界负证
-* linked_evidence_roles：强负核心
-* linked_trigger_families：疑忌杀害
-* linked_strengths：3
-* linked_upper_bound_flags：不得上探极负
-* linked_mitigation_flags：剥离政权安全与司法严酷
-* linked_cluster_roles：强负核心
-* cross_item_split_signals：
+* 簇类型：人才安全与政治牵连风险
+* 边界档：相邻项剥离后中度剩余
+* 是否阻断极限档：否
+* 剩余强度：中
+* 对象锚点：楚狱边界负证
+* 证据角色：强负核心
+* 触发类型：疑忌杀害
+* 证据强度：3
+* 上限封顶标记：不得上探极负
+* 减轻/剥离标记：剥离政权安全与司法严酷
+* 簇内角色：强负核心
+* 相邻项剥离说明：
   1. 楚王英案中的宗室控制、谋反与政权安全切第五项C；坐死徙者以千数、司法严酷与政治残酷性切第五项D；行政威慑或吏治效果切第二项B3。本证据组只保留人才安全感、牵连扩大与表达生态受损。
   2. B项只计高压问责、牵连扩大与人才安全感；权力集中和宗室控制切第五项C，行政威慑/吏治效果切第二项B3，政治残酷性切第五项D。
 

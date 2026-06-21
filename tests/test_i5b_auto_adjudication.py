@@ -351,12 +351,44 @@ def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_da
     assert "<details" not in content
     assert "</details>" not in content
     assert "<summary" not in content
-    assert "**ADJ-TEST-LONG-POS-001｜positive｜candidate_strength=3｜强正候选**" in cluster_section
-    assert "* linked_object_anchors：锚点1、锚点2、锚点3……（共4项）" in cluster_section
-    assert "* linked_evidence_roles：证据角色1、证据角色2、证据角色3……（共4项）" in cluster_section
-    assert "* linked_trigger_families：触发族1、触发族2、触发族3……（共4项）" in cluster_section
-    assert "* cross_item_split_signals：" in cluster_section
-    cross_item_section = cluster_section[cluster_section.index("* cross_item_split_signals：") :]
+    assert "**ADJ-TEST-LONG-POS-001｜正向｜候选强度=3｜强正候选**" in cluster_section
+    for label in [
+        "簇类型",
+        "边界档",
+        "是否阻断极限档",
+        "剩余强度",
+        "对象锚点",
+        "证据角色",
+        "触发类型",
+        "证据强度",
+        "上限封顶标记",
+        "减轻/剥离标记",
+        "簇内角色",
+        "相邻项剥离说明",
+    ]:
+        assert f"* {label}：" in cluster_section
+    for english_label in [
+        "cluster_type",
+        "boundary_tier",
+        "blocking_extreme",
+        "residual_level",
+        "linked_object_anchors",
+        "linked_evidence_roles",
+        "linked_trigger_families",
+        "linked_strengths",
+        "linked_upper_bound_flags",
+        "linked_mitigation_flags",
+        "linked_cluster_roles",
+        "cross_item_split_signals",
+    ]:
+        assert f"* {english_label}：" not in cluster_section
+    assert "* 边界档：无" in cluster_section
+    assert "* 是否阻断极限档：否" in cluster_section
+    assert "* 剩余强度：强" in cluster_section
+    assert "* 对象锚点：锚点1、锚点2、锚点3……（共4项）" in cluster_section
+    assert "* 证据角色：证据角色1、证据角色2、证据角色3……（共4项）" in cluster_section
+    assert "* 触发类型：触发族1、触发族2、触发族3……（共4项）" in cluster_section
+    cross_item_section = cluster_section[cluster_section.index("* 相邻项剥离说明：") :]
     assert "  1. 簇级拆分" in cluster_section
     assert "  2. 证据拆分1" in cross_item_section
     assert "  3. 证据拆分2" in cross_item_section
