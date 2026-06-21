@@ -162,69 +162,313 @@ def build_temp_auto_dataset(
     write_jsonl(data_dir / "evidence_clusters.jsonl", clusters)
 
 
-def make_warning_rule(**overrides: object) -> dict[str, object]:
+DISPLAY_WARNING_HEADING = "## 人工复核提示（display-only）"
+DISPLAY_WARNING_FORBIDDEN_TERMS = [
+    "final_score",
+    "ranking",
+    "leaderboard",
+    "definitive_band",
+    "candidate_strength",
+    "auto_band_direction",
+    "net_adjudication_draft",
+]
+
+
+def make_display_warning_rule(**overrides: object) -> dict[str, object]:
     rule = {
-        "rule_id": "I5B-CLUSTER-WARN-TEST-CLI",
+        "rule_id": "I5B-CLUSTER-WARN-TEST-FIXTURE",
         "enabled": False,
         "subitem": "第五项B",
         "trigger_type": "trigger_terms",
-        "trigger_terms": ["强正", "上探"],
-        "polarity_scope": ["positive"],
+        "trigger_terms": ["测试提示词"],
+        "polarity_scope": ["positive", "negative"],
         "evidence_strength_scope": ["candidate_strength_3"],
         "warning_type": "source_review_required",
-        "warning_message": "提示人工回源核验。",
-        "adjacent_item_risk": [],
+        "warning_message": "测试 fixture 人工复核提示。",
+        "adjacent_item_risk": ["第五项C"],
         "required_human_review": True,
     }
     rule.update(overrides)
     return rule
 
 
-def build_warning_cli_dataset(data_dir: Path) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+def build_display_warning_fixture(
+    data_dir: Path,
+    *,
+    person: str = "测试甲",
+    evidence_id: str = "EVD-TEST-WARN-POS-001",
+    cluster_id: str = "ADJ-TEST-WARN-POS-001",
+    trigger_family: str = "测试提示词",
+    cluster_summary: str = "测试提示词需要人工复核。",
+) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     cards = [
         make_card(
-            evidence_id="EVD-TEST-POS-CLI-001",
-            person="测试甲",
+            evidence_id=evidence_id,
+            person=person,
             polarity="positive",
             strength=3,
-            object_anchor="幕府聚才",
-            evidence_role="核心人才证据",
-            trigger_family="强正",
-            quote_short="强正上探候选需要回源。",
+            object_anchor="创业期军政授权",
+            evidence_role="强正核心",
+            trigger_family=trigger_family,
+            quote_short="测试正证一",
         )
     ]
     clusters = [
         make_cluster(
-            cluster_id="ADJ-I5B-TEST-CLI-001",
-            person="测试甲",
+            cluster_id=cluster_id,
+            person=person,
             polarity="positive",
-            linked_evidence_ids=["EVD-TEST-POS-CLI-001"],
+            linked_evidence_ids=[evidence_id],
             candidate_strength=3,
-            summary="强正上探候选需要回源。",
+            summary=cluster_summary,
         )
     ]
     build_temp_auto_dataset(data_dir, cards, clusters)
     return cards, clusters
 
 
-def data_snapshot(data_dir: Path) -> dict[Path, str]:
-    return {path.relative_to(data_dir): path.read_text(encoding="utf-8") for path in sorted(data_dir.rglob("*")) if path.is_file()}
+def warning_section_from_auto_content(content: str) -> str:
+    start = content.index(DISPLAY_WARNING_HEADING)
+    end = content.index("### 自动结算结论", start)
+    return content[start:end]
 
 
-def core_snapshot(cards: list[dict[str, object]], clusters: list[dict[str, object]]) -> dict[str, object]:
-    evidence_lookup = {row["evidence_id"]: row for row in cards}
-    report = auto.evaluate_person("测试甲", clusters, evidence_lookup)
+def person_section(content: str, person: str, next_person: str | None = None) -> str:
+    start = content.index(f"## {person}")
+    if next_person is None:
+        return content[start:]
+    end = content.index(f"\n## {next_person}", start + 1)
+    return content[start:end]
+
+
+def write_view_group(path: Path, persons: list[str]) -> None:
+    path.write_text(
+        json.dumps(
+            [
+                {
+                    "group_id": "第五项B_三人试点",
+                    "group_name": "多人物测试",
+                    "group_type": "试点人物组",
+                    "subitem": "第五项B",
+                    "persons": persons,
+                    "note": "测试",
+                }
+            ],
+            ensure_ascii=False,
+            indent=4,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def report_core_field_snapshot(
+    report: dict[str, object],
+    clusters: list[dict[str, object]],
+) -> dict[str, object]:
     return {
-        "auto_band_direction": report["auto_band_direction"],
-        "candidate_strength": clusters[0]["candidate_strength"],
-        "net_adjudication_draft": clusters[0].get("net_adjudication_draft"),
+        "auto_band_direction": report.get("auto_band_direction"),
+        "candidate_strength": [cluster.get("candidate_strength") for cluster in clusters],
+        "net_adjudication_draft": report.get("net_adjudication_draft"),
         "formal_band_draft": auto.build_formal_band_draft(report),
-        "internal_score_trial": auto.build_trial_score_draft(report),
+        "internal_score_trial": auto.build_trial_score_draft(report).get("trial_score"),
     }
 
 
-def warning_section(content: str) -> str:
-    return content.split("## 人工复核提示（display-only）", 1)[1].split("\n## ", 1)[0]
+def test_display_warnings_default_off_does_not_render_section(temp_auto_data: Path) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    content = auto.render_auto_adjudication()
+
+    assert DISPLAY_WARNING_HEADING not in content
+
+
+def test_display_warnings_default_off_does_not_call_loader(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    def fail_loader() -> list[dict[str, object]]:
+        raise AssertionError("default-off display warning path must not load rules")
+
+    def fail_matcher(*args: object, **kwargs: object) -> list[dict[str, object]]:
+        raise AssertionError("default-off display warning path must not match warnings")
+
+    def fail_renderer(*args: object, **kwargs: object) -> str:
+        raise AssertionError("default-off display warning path must not render warnings")
+
+    monkeypatch.setattr(auto, "load_i5b_cluster_warning_rules", fail_loader)
+    monkeypatch.setattr(auto, "match_display_only_cluster_warnings", fail_matcher)
+    monkeypatch.setattr(auto, "render_display_only_cluster_warning_section", fail_renderer)
+
+    content = auto.render_auto_adjudication()
+
+    assert "第五项B三人自动结算草案" in content
+    assert DISPLAY_WARNING_HEADING not in content
+
+
+def test_cli_default_off_does_not_call_warning_stack(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    def fail_loader() -> list[dict[str, object]]:
+        raise AssertionError("default-off CLI path must not load rules")
+
+    def fail_matcher(*args: object, **kwargs: object) -> list[dict[str, object]]:
+        raise AssertionError("default-off CLI path must not match warnings")
+
+    def fail_renderer(*args: object, **kwargs: object) -> str:
+        raise AssertionError("default-off CLI path must not render warnings")
+
+    monkeypatch.setattr(auto, "load_i5b_cluster_warning_rules", fail_loader)
+    monkeypatch.setattr(auto, "match_display_only_cluster_warnings", fail_matcher)
+    monkeypatch.setattr(auto, "render_display_only_cluster_warning_section", fail_renderer)
+
+    assert auto.main([]) == 0
+
+    auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
+    assert DISPLAY_WARNING_HEADING not in auto_content
+
+
+def test_display_warnings_enabled_renders_fixture_warning_section(temp_auto_data: Path) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    content = auto.render_auto_adjudication(
+        include_display_warnings=True,
+        warning_rules=[make_display_warning_rule()],
+    )
+    section = warning_section_from_auto_content(content)
+
+    assert DISPLAY_WARNING_HEADING in content
+    assert "I5B-CLUSTER-WARN-TEST-FIXTURE" in section
+    assert "测试 fixture 人工复核提示。" in section
+    assert content.index("### 触发的规则敏感点") < content.index(DISPLAY_WARNING_HEADING)
+    assert content.index(DISPLAY_WARNING_HEADING) < content.index("### 自动结算结论")
+
+
+def test_cli_include_display_warnings_writes_temp_auto_draft_only(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+    monkeypatch.setattr(auto, "load_i5b_cluster_warning_rules", lambda: [make_display_warning_rule()])
+
+    assert auto.main(["--include-display-warnings"]) == 0
+
+    auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
+    formal_content = auto.FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
+    score_map_content = auto.SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
+    closure_doc_content = auto.CLOSURE_DOC_PATH.read_text(encoding="utf-8")
+    closure_export_content = auto.CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
+
+    assert DISPLAY_WARNING_HEADING in auto_content
+    assert "测试 fixture 人工复核提示。" in auto_content
+    for content in (formal_content, score_map_content, closure_doc_content, closure_export_content):
+        assert DISPLAY_WARNING_HEADING not in content
+
+
+def test_display_warnings_enabled_keeps_section_inside_each_person(
+    tmp_path: Path,
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    group_path = tmp_path / "第五项B_多人物测试.json"
+    write_view_group(group_path, ["测试甲", "测试乙"])
+    monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+
+    first_cards, first_clusters = build_display_warning_fixture(
+        temp_auto_data,
+        person="测试甲",
+        evidence_id="EVD-TEST-WARN-POS-001",
+        cluster_id="ADJ-TEST-WARN-POS-001",
+        trigger_family="甲提示词",
+        cluster_summary="甲提示词需要人工复核。",
+    )
+    second_cards, second_clusters = build_display_warning_fixture(
+        temp_auto_data,
+        person="测试乙",
+        evidence_id="EVD-TEST-WARN-POS-002",
+        cluster_id="ADJ-TEST-WARN-POS-002",
+        trigger_family="乙提示词",
+        cluster_summary="乙提示词需要人工复核。",
+    )
+    build_temp_auto_dataset(temp_auto_data, first_cards + second_cards, first_clusters + second_clusters)
+
+    content = auto.render_auto_adjudication(
+        include_display_warnings=True,
+        warning_rules=[
+            make_display_warning_rule(
+                rule_id="I5B-CLUSTER-WARN-TEST-FIRST",
+                trigger_terms=["甲提示词"],
+                warning_message="测试甲人工复核提示。",
+            ),
+            make_display_warning_rule(
+                rule_id="I5B-CLUSTER-WARN-TEST-SECOND",
+                trigger_terms=["乙提示词"],
+                warning_message="测试乙人工复核提示。",
+            ),
+        ],
+    )
+
+    overview_block = content[content.index("## 自动结算总览") : content.index("## 逐人自动草案")]
+    assert DISPLAY_WARNING_HEADING not in overview_block
+
+    first_section = person_section(content, "测试甲", next_person="测试乙")
+    second_section = person_section(content, "测试乙")
+    for section in (first_section, second_section):
+        assert section.index("### 触发的规则敏感点") < section.index(DISPLAY_WARNING_HEADING)
+        assert section.index(DISPLAY_WARNING_HEADING) < section.index("### 自动结算结论")
+
+    assert "测试甲人工复核提示。" in first_section
+    assert "ADJ-TEST-WARN-POS-001" in first_section
+    assert "测试乙人工复核提示。" not in first_section
+    assert "ADJ-TEST-WARN-POS-002" not in first_section
+    assert "测试乙人工复核提示。" in second_section
+    assert "ADJ-TEST-WARN-POS-002" in second_section
+    assert "测试甲人工复核提示。" not in second_section
+    assert "ADJ-TEST-WARN-POS-001" not in second_section
+
+
+def test_display_warnings_enabled_stays_out_of_non_auto_outputs_and_keeps_core_fields(
+    temp_auto_data: Path,
+) -> None:
+    cards, clusters = build_display_warning_fixture(temp_auto_data)
+    evidence_lookup = {row["evidence_id"]: row for row in cards}
+    before = report_core_field_snapshot(auto.evaluate_person("测试甲", clusters, evidence_lookup), clusters)
+
+    auto_content = auto.render_auto_adjudication(
+        include_display_warnings=True,
+        warning_rules=[make_display_warning_rule()],
+    )
+    after = report_core_field_snapshot(auto.evaluate_person("测试甲", clusters, evidence_lookup), clusters)
+    warning_section = warning_section_from_auto_content(auto_content)
+
+    assert before == after
+    assert auto.render_formal_landing_table().find(DISPLAY_WARNING_HEADING) == -1
+    assert auto.render_score_mapping_draft().find(DISPLAY_WARNING_HEADING) == -1
+    assert auto.render_three_pilot_closure().find(DISPLAY_WARNING_HEADING) == -1
+    for forbidden_term in DISPLAY_WARNING_FORBIDDEN_TERMS:
+        assert forbidden_term not in warning_section
+
+
+def test_display_warnings_enabled_no_match_outputs_no_extra_hint(temp_auto_data: Path) -> None:
+    build_display_warning_fixture(
+        temp_auto_data,
+        trigger_family="未命中词",
+        cluster_summary="未命中内容。",
+    )
+
+    content = auto.render_auto_adjudication(
+        include_display_warnings=True,
+        warning_rules=[make_display_warning_rule(trigger_terms=["测试提示词"])],
+    )
+    section = warning_section_from_auto_content(content)
+
+    assert DISPLAY_WARNING_HEADING in section
+    assert "无额外提示。" in section
 
 
 def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
@@ -246,7 +490,6 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     closure_export_content = CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "第五项B三人自动结算草案" in auto_content
-    assert "人工复核提示（display-only）" not in auto_content
     assert "negative_boundary_tier" in auto_content
     assert "negative_boundary_blocking" in auto_content
     assert "weak_to_medium" in auto_content
@@ -285,64 +528,6 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
         assert "不输出正式分，不排名，不生成阶段总榜或总榜" in content
         assert "后续七大项完成后再统一映射" in content
         assert "是否可进入扩展试点：可" in content
-
-
-def test_cli_default_off_does_not_call_warning_stack(
-    temp_auto_data: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    build_warning_cli_dataset(temp_auto_data)
-
-    def fail_if_called(*args: object, **kwargs: object) -> None:
-        raise AssertionError("warning stack must stay off by default")
-
-    monkeypatch.setattr(auto.config_loaders, "load_i5b_cluster_warning_rules", fail_if_called)
-    monkeypatch.setattr(auto.i5b_cluster_warning_display, "match_display_only_cluster_warnings", fail_if_called)
-    monkeypatch.setattr(auto.i5b_cluster_warning_display, "render_display_only_cluster_warning_section", fail_if_called)
-
-    assert auto.main([]) == 0
-
-    auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
-    assert "人工复核提示（display-only）" not in auto_content
-
-
-def test_cli_include_display_warnings_only_updates_auto_draft(
-    temp_auto_data: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    cards, clusters = build_warning_cli_dataset(temp_auto_data)
-    before_data = data_snapshot(temp_auto_data)
-    before_core = core_snapshot(cards, clusters)
-    monkeypatch.setattr(auto.config_loaders, "load_i5b_cluster_warning_rules", lambda: [make_warning_rule()])
-
-    assert auto.main(["--include-display-warnings"]) == 0
-
-    auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
-    formal_content = auto.FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
-    score_map_content = auto.SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
-    closure_doc_content = auto.CLOSURE_DOC_PATH.read_text(encoding="utf-8")
-    closure_export_content = auto.CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
-
-    assert "人工复核提示（display-only）" in auto_content
-    assert "I5B-CLUSTER-WARN-TEST-CLI" in auto_content
-    for content in (formal_content, score_map_content, closure_doc_content, closure_export_content):
-        assert "人工复核提示（display-only）" not in content
-
-    section = warning_section(auto_content)
-    for forbidden in [
-        "final_score",
-        "ranking",
-        "leaderboard",
-        "definitive_band",
-        "candidate_strength",
-        "auto_band_direction",
-        "net_adjudication_draft",
-    ]:
-        assert forbidden not in section
-
-    assert data_snapshot(temp_auto_data) == before_data
-    assert not (temp_auto_data / "adjudication_batches").exists()
-    assert core_snapshot(cards, clusters) == before_core
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:

@@ -6,7 +6,11 @@ from pathlib import Path
 from typing import Any
 
 import config_loaders
-import i5b_cluster_warning_display
+from config_loaders import load_i5b_cluster_warning_rules
+from i5b_cluster_warning_display import (
+    match_display_only_cluster_warnings,
+    render_display_only_cluster_warning_section,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -627,6 +631,26 @@ def evaluate_cluster(
     }
 
 
+def linked_cards_for_cluster(
+    cluster: dict[str, Any],
+    evidence_lookup: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    linked_evidence_ids = list(cluster.get("linked_evidence_ids") or [])
+    return [evidence_lookup[evidence_id] for evidence_id in linked_evidence_ids if evidence_id in evidence_lookup]
+
+
+def render_display_warning_section_for_clusters(
+    cluster_rows: list[dict[str, Any]],
+    evidence_lookup: dict[str, dict[str, Any]],
+    warning_rules: list[dict[str, Any]],
+) -> str:
+    warnings: list[dict[str, Any]] = []
+    for cluster in cluster_rows:
+        linked_cards = linked_cards_for_cluster(cluster, evidence_lookup)
+        warnings.extend(match_display_only_cluster_warnings(cluster, linked_cards, warning_rules))
+
+    return render_display_only_cluster_warning_section(warnings).rstrip()
+
 def evaluate_person(
     person: str,
     cluster_rows: list[dict[str, Any]],
@@ -772,7 +796,7 @@ def render_rule_sensitive_points() -> str:
     return "\n".join(lines) + "\n"
 
 
-def render_person_section(report: dict[str, Any]) -> str:
+def render_person_section(report: dict[str, Any], display_warning_section: str = "") -> str:
     person = report["person"]
     positive_rows = report["positive_cluster_rows"]
     negative_rows = report["negative_cluster_rows"]
@@ -844,6 +868,9 @@ def render_person_section(report: dict[str, Any]) -> str:
     for point in report["rule_sensitive_points"]:
         sections.append(f"- {point['rule']}：{point['decision']}")
 
+    if display_warning_section:
+        sections.extend(["", display_warning_section])
+
     sections.extend(
         [
             "",
@@ -897,6 +924,7 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
 
 
 def render_auto_adjudication(
+    *,
     include_display_warnings: bool = False,
     warning_rules: list[dict[str, Any]] | None = None,
 ) -> str:
@@ -907,6 +935,9 @@ def render_auto_adjudication(
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
     cluster_lookup = {row["cluster_id"]: row for row in evidence_clusters if row.get("cluster_id")}
     person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
+    resolved_warning_rules: list[dict[str, Any]] = []
+    if include_display_warnings:
+        resolved_warning_rules = warning_rules if warning_rules is not None else load_i5b_cluster_warning_rules()
 
     overview_rows = []
     for report in person_reports:
@@ -949,31 +980,19 @@ def render_auto_adjudication(
         "",
     ]
 
-    if include_display_warnings:
-        rules = warning_rules if warning_rules is not None else config_loaders.load_i5b_cluster_warning_rules()
-        display_warnings = []
-        for cluster in evidence_clusters:
-            linked_evidence_ids = cluster.get("linked_evidence_ids") or []
-            linked_cards = [
-                evidence_lookup[evidence_id]
-                for evidence_id in linked_evidence_ids
-                if evidence_id in evidence_lookup
-            ]
-            display_warnings.extend(
-                i5b_cluster_warning_display.match_display_only_cluster_warnings(cluster, linked_cards, rules)
-            )
-        lines.extend(
-            [
-                i5b_cluster_warning_display.render_display_only_cluster_warning_section(display_warnings).rstrip(),
-                "",
-            ]
-        )
-
     for report in person_reports:
-        lines.append(render_person_section(report))
+        display_warning_section = ""
+        if include_display_warnings:
+            person_cluster_ids = report["positive_cluster_ids"] + report["negative_cluster_ids"]
+            person_clusters = [cluster_lookup[cluster_id] for cluster_id in person_cluster_ids if cluster_id in cluster_lookup]
+            display_warning_section = render_display_warning_section_for_clusters(
+                person_clusters,
+                evidence_lookup,
+                resolved_warning_rules,
+            )
+        lines.append(render_person_section(report, display_warning_section=display_warning_section))
 
     return "\n".join(lines).rstrip() + "\n"
-
 
 def render_formal_landing_table() -> str:
     config = config_loaders.get_i5b_trial_config()
@@ -1113,6 +1132,7 @@ def render_three_pilot_closure() -> str:
 
 
 def export_auto_adjudication(
+    *,
     include_display_warnings: bool = False,
     warning_rules: list[dict[str, Any]] | None = None,
 ) -> tuple[Path, Path, Path, Path]:

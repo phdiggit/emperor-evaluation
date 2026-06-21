@@ -261,7 +261,8 @@ python scripts/export_i5b_auto_adjudication.py --include-display-warnings
 
 - 已在 `scripts/export_i5b_auto_adjudication.py` 新增 `--include-display-warnings`。
 - CLI 默认关闭 display-only warning 导出；默认不带参数时保持原导出行为，不生成 `人工复核提示（display-only）`。
-- 开启后只在自动结算草案生成 display-only warning section，不进入正式定档落地表、评分映射草案或内部闭环收尾。
-- 本 PR 不提交真实 `exports/` 变化。
-- 真实 `exports/` 是否携带 warning section，仍需另开 PR 人工确认。
+- 开启后只在自动结算草案内生成 display-only warning section，且插入在每个人物 `render_person_section(...)` 的“触发的规则敏感点”之后、“自动结算结论”之前。
+- 每个人物的 warning 只基于该人物 `positive_cluster_ids` / `negative_cluster_ids` 对应证据簇生成，不作为总览后的全局 section。
+- display-only warning 不进入正式定档落地表、评分映射草案或内部闭环收尾。
+- 本 PR 不提交真实 `exports/` 变化；真实 `exports/` 是否携带 warning section，仍需另开 PR 人工确认。
 
