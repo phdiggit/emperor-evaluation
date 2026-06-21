@@ -586,6 +586,61 @@ def test_display_warnings_enabled_no_match_outputs_no_extra_hint(temp_auto_data:
     assert "无额外提示。" in section
 
 
+def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    outputs = auto.render_split_auto_adjudication_outputs(
+        include_display_warnings=True,
+        warning_rules=[make_display_warning_rule()],
+    )
+
+    detail_path = auto.person_detail_export_path("测试甲")
+    index_content = outputs[auto.EXPORT_PATH]
+    detail_content = outputs[detail_path]
+
+    assert "[测试甲详情](./第五项B自动结算草案_测试甲.md)" in index_content
+    assert "## 总览索引" in index_content
+    assert "人工复核提示数量" in index_content
+    assert "# 第五项B自动结算草案_测试甲" in detail_content
+    assert "[返回索引](./" in detail_content
+    assert "## 人工复核提示（display-only）" in detail_content
+    assert "* **命中字段**" in detail_content
+    assert "linked_cards[0].trigger_terms" in detail_content
+    assert "<details" not in detail_content
+    assert "<summary" not in detail_content
+    assert "</details>" not in detail_content
+    assert "……（共" not in detail_content
+    assert "* **对象锚点**" in detail_content
+    assert "* **证据角色**" in detail_content
+    assert "* **触发类型**" in detail_content
+    assert "* **相邻项剥离说明**" in detail_content
+
+
+def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail_pages() -> None:
+    result = run_script("export_i5b_auto_adjudication.py", "--output-layout", "split", "--include-display-warnings")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    index_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
+    targets = list(auto.config_loaders.get_i5b_trial_config()["targets"])
+
+    assert targets == ["李世民", "刘秀", "刘庄"]
+    assert "## 总览索引" in index_content
+    assert "人工复核提示数量" in index_content
+    for person in targets:
+        path = auto.person_detail_export_path(person)
+        assert path.exists()
+        assert f"[{person}详情](./{path.name})" in index_content
+        detail_content = path.read_text(encoding="utf-8")
+        assert f"# 第五项B自动结算草案_{person}" in detail_content
+        assert "## 人工复核提示（display-only）" in detail_content
+        assert "<details" not in detail_content
+        assert "<summary" not in detail_content
+        assert "</details>" not in detail_content
+        assert "……（共" not in detail_content
+        assert "* **对象锚点**" in detail_content
+        assert "* **相邻项剥离说明**" in detail_content
+
+
 def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     result = run_script("export_i5b_auto_adjudication.py")
 
