@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 import config_loaders
+import validate_human_readable_markdown_exports as human_readable_markdown_validator
 from config_loaders import load_i5b_cluster_warning_rules
 from i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
@@ -23,6 +24,12 @@ FORMAL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人正�
 SCORE_MAP_DRAFT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分标尺与档位映射草案.md"
 CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
 CLOSURE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点内部闭环收尾.md"
+
+
+class HumanReadableMarkdownValidationError(RuntimeError):
+    def __init__(self, errors: list[str]):
+        super().__init__("human-readable split markdown export validation failed")
+        self.errors = errors
 
 TRIAL_SCORE_MAP = {
     "极正候选 / 高位强正上探极正": {"score_range": "94-100", "trial_score": 97},
@@ -1393,6 +1400,7 @@ def export_auto_adjudication(
     include_display_warnings: bool = False,
     warning_rules: list[dict[str, Any]] | None = None,
     output_layout: str = OUTPUT_LAYOUT_CANONICAL,
+    validate_output: bool = True,
 ) -> tuple[Path, Path, Path, Path]:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     RULES_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -1408,6 +1416,12 @@ def export_auto_adjudication(
         )
         for path, content in split_outputs.items():
             path.write_text(content, encoding="utf-8")
+        if validate_output:
+            validation_root = EXPORT_PATH.parent.parent.parent
+            targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+            errors = human_readable_markdown_validator.validate_exports(validation_root, targets)
+            if errors:
+                raise HumanReadableMarkdownValidationError(errors)
     else:
         EXPORT_PATH.write_text(
             render_auto_adjudication(
@@ -1445,18 +1459,33 @@ def main(argv: list[str] | None = None) -> int:
         default=False,
         help="shortcut for --output-layout split",
     )
+    parser.add_argument(
+        "--skip-output-validation",
+        action="store_true",
+        default=False,
+        help="debug-only escape hatch: skip post-export validation for split markdown output; not recommended for normal use",
+    )
     args = parser.parse_args(argv)
     output_layout = OUTPUT_LAYOUT_SPLIT if args.split_by_person else args.output_layout
 
-    export_path, rules_path, formal_path, closure_path = export_auto_adjudication(
-        include_display_warnings=args.include_display_warnings,
-        output_layout=output_layout,
-    )
+    try:
+        export_path, rules_path, formal_path, closure_path = export_auto_adjudication(
+            include_display_warnings=args.include_display_warnings,
+            output_layout=output_layout,
+            validate_output=not args.skip_output_validation,
+        )
+    except HumanReadableMarkdownValidationError as exc:
+        print("Human-readable Markdown export validation failed:")
+        for error in exc.errors:
+            print(f"- {error}")
+        return 1
     print(f"exported {export_path}")
     if output_layout == OUTPUT_LAYOUT_SPLIT:
         context = build_auto_adjudication_context()
         for report in context["person_reports"]:
             print(f"exported {person_detail_export_path(report['person'])}")
+        if not args.skip_output_validation:
+            print("validated human-readable split markdown exports")
     print(f"exported {rules_path}")
     print(f"exported {formal_path}")
     print(f"exported {SCORE_MAP_DRAFT_EXPORT_PATH}")

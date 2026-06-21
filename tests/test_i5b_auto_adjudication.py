@@ -620,6 +620,7 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail
     result = run_script("export_i5b_auto_adjudication.py", "--output-layout", "split", "--include-display-warnings")
 
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "validated human-readable split markdown exports" in result.stdout
     index_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
     targets = list(auto.config_loaders.get_i5b_trial_config()["targets"])
 
@@ -639,6 +640,78 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail
         assert "……（共" not in detail_content
         assert "* **对象锚点**" in detail_content
         assert "* **相邻项剥离说明**" in detail_content
+
+
+def test_split_export_runs_human_readable_markdown_validation(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+    calls: list[tuple[Path, list[str]]] = []
+
+    def fake_validate(root: Path, targets: list[str]) -> list[str]:
+        calls.append((root, targets))
+        return []
+
+    monkeypatch.setattr(auto.human_readable_markdown_validator, "validate_exports", fake_validate)
+
+    auto.export_auto_adjudication(output_layout=auto.OUTPUT_LAYOUT_SPLIT, include_display_warnings=True)
+
+    assert calls == [
+        (
+            auto.EXPORT_PATH.parent.parent.parent,
+            list(auto.config_loaders.get_i5b_trial_config()["targets"]),
+        )
+    ]
+
+
+def test_split_by_person_cli_reports_successful_validation(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+    monkeypatch.setattr(auto.human_readable_markdown_validator, "validate_exports", lambda root, targets: [])
+
+    result = auto.main(["--split-by-person", "--include-display-warnings"])
+
+    captured = capsys.readouterr()
+    assert result == 0
+    assert "validated human-readable split markdown exports" in captured.out
+
+
+def test_split_export_validation_failure_returns_nonzero(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+    monkeypatch.setattr(
+        auto.human_readable_markdown_validator,
+        "validate_exports",
+        lambda root, targets: [f"{auto.EXPORT_PATH}: broken split export"],
+    )
+
+    result = auto.main(["--output-layout", "split"])
+
+    captured = capsys.readouterr()
+    assert result == 1
+    assert "Human-readable Markdown export validation failed:" in captured.out
+    assert "broken split export" in captured.out
+
+
+def test_canonical_export_does_not_run_split_validation(
+    temp_auto_data: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    build_display_warning_fixture(temp_auto_data)
+
+    def fail_validate(root: Path, targets: list[str]) -> list[str]:
+        raise AssertionError("canonical export should not run split validation")
+
+    monkeypatch.setattr(auto.human_readable_markdown_validator, "validate_exports", fail_validate)
+
+    auto.export_auto_adjudication(output_layout=auto.OUTPUT_LAYOUT_CANONICAL)
 
 
 def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
