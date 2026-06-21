@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -11,6 +12,7 @@ I5B_EXPORT_RELATIVE_ROOT = Path("exports") / "markdown_views" / "第五项B"
 AUTO_DRAFT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "自动结算草案"
 DETAIL_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "人物详情"
 APPENDIX_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "附录"
+EVIDENCE_CHAIN_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "证据链"
 INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / "第五项B三人自动结算草案.md"
 DETAIL_FILENAME_TEMPLATE = "{person}.md"
 FORBIDDEN_MARKERS = ("<details", "<summary", "</details>", "……（共")
@@ -33,6 +35,16 @@ LEGACY_FLAT_RELATIVE_PATHS = (
     Path("exports") / "markdown_views" / "第五项B评分标尺与档位映射草案.md",
     Path("exports") / "markdown_views" / "第五项B三人试点内部闭环收尾.md",
 )
+LEGACY_FLAT_EVIDENCE_CHAIN_FILENAME_PATTERNS = (
+    re.compile(r"^第五项B_.+净证据池\.md$"),
+    re.compile(r"^第五项B三人试点检索线索\.md$"),
+    re.compile(r"^第五项B扩展试点第一批证据卡与证据簇草案\.md$"),
+    re.compile(r"^第五项B扩展试点第一批证据簇结算草案\.md$"),
+)
+MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)#]+)(?:#([^)]+))?\)")
+CHINESE_CHAR_RE = re.compile(r"[\u4e00-\u9fff]")
+BARE_ENGLISH_HEADER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+UNBOLDED_KV_RE = re.compile(r"^\s*[-*]\s+(?!\*\*)([^：\n]{1,80})：")
 
 
 def detail_relative_path(person: str) -> Path:
@@ -57,6 +69,14 @@ def add_forbidden_marker_errors(path: Path, content: str, errors: list[str]) -> 
     for marker in FORBIDDEN_MARKERS:
         if marker in content:
             errors.append(f"{path}: contains forbidden marker {marker!r}")
+
+
+def add_forbidden_marker_errors_for_all_i5b_exports(root: Path, errors: list[str]) -> None:
+    i5b_root = root / I5B_EXPORT_RELATIVE_ROOT
+    if not i5b_root.exists():
+        return
+    for path in i5b_root.rglob("*.md"):
+        add_forbidden_marker_errors(path, read_text(path), errors)
 
 
 def existing_target_files(root: Path, targets: list[str]) -> list[Path]:
@@ -118,9 +138,85 @@ def validate_no_legacy_flat_exports(root: Path, targets: list[str], errors: list
             errors.append(f"{path}: legacy flat I5B export must be removed after nested export generation")
 
 
+def validate_no_legacy_flat_evidence_chain_exports(root: Path, errors: list[str]) -> None:
+    markdown_root = root / "exports" / "markdown_views"
+    if not markdown_root.exists():
+        return
+    for path in markdown_root.glob("*.md"):
+        for pattern in LEGACY_FLAT_EVIDENCE_CHAIN_FILENAME_PATTERNS:
+            if pattern.match(path.name):
+                errors.append(f"{path}: legacy flat I5B evidence-chain export must be migrated or removed")
+                break
+
+
+def _split_markdown_table_row(line: str) -> list[str]:
+    stripped = line.strip()
+    if not stripped.startswith("|") or not stripped.endswith("|"):
+        return []
+    return [cell.strip() for cell in stripped.strip("|").split("|")]
+
+
+def _is_separator_row(cells: list[str]) -> bool:
+    return bool(cells) and all(set(cell.replace(":", "").strip()) <= {"-"} for cell in cells)
+
+
+def _anchor_exists(target_path: Path, anchor: str | None) -> bool:
+    if anchor is None:
+        return target_path.exists()
+    if not target_path.exists():
+        return False
+    content = read_text(target_path)
+    return f"## {anchor}" in content or f"### {anchor}" in content
+
+
+def validate_evidence_chain_markdown(root: Path, errors: list[str]) -> None:
+    evidence_root = root / EVIDENCE_CHAIN_RELATIVE_DIR
+    if not evidence_root.exists():
+        return
+    for path in evidence_root.rglob("*.md"):
+        content = read_text(path)
+        add_forbidden_marker_errors(path, content, errors)
+        lines = content.splitlines()
+        for line_number, line in enumerate(lines, start=1):
+            kv_match = UNBOLDED_KV_RE.match(line)
+            if kv_match and not line.lstrip().startswith(("- [", "* [")):
+                errors.append(f"{path}:{line_number}: Markdown key-value label must be bold")
+            for link_target, anchor in MARKDOWN_LINK_RE.findall(line):
+                if not link_target.endswith(".md"):
+                    continue
+                target_path = (path.parent / link_target).resolve()
+                if not _anchor_exists(target_path, anchor or None):
+                    errors.append(f"{path}:{line_number}: appendix link target does not exist: {link_target}#{anchor}")
+
+        for index, line in enumerate(lines[:-1]):
+            header_cells = _split_markdown_table_row(line)
+            separator_cells = _split_markdown_table_row(lines[index + 1])
+            if not header_cells or not _is_separator_row(separator_cells):
+                continue
+            for header in header_cells:
+                if BARE_ENGLISH_HEADER_RE.match(header):
+                    errors.append(f"{path}:{index + 1}: table header exposes bare English field {header!r}")
+                if not CHINESE_CHAR_RE.search(header):
+                    errors.append(f"{path}:{index + 1}: table header must include Chinese field label: {header!r}")
+            row_index = index + 2
+            while row_index < len(lines):
+                row_cells = _split_markdown_table_row(lines[row_index])
+                if not row_cells:
+                    break
+                for cell in row_cells:
+                    if len(cell) > 72 and not cell.startswith("["):
+                        errors.append(
+                            f"{path}:{row_index + 1}: table cell longer than 72 chars must use a positioned appendix link"
+                        )
+                row_index += 1
+
+
 def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> list[str]:
     resolved_targets = targets if targets is not None else list(config_loaders.get_i5b_trial_config().get("targets") or [])
     errors: list[str] = []
+    add_forbidden_marker_errors_for_all_i5b_exports(root, errors)
+    validate_evidence_chain_markdown(root, errors)
+    validate_no_legacy_flat_evidence_chain_exports(root, errors)
     existing_files = existing_target_files(root, resolved_targets)
     if not existing_files:
         return errors
@@ -148,7 +244,8 @@ def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> lis
 def main() -> int:
     targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
     existing_files = existing_target_files(ROOT, targets)
-    if not existing_files or not split_export_exists(ROOT, targets):
+    evidence_chain_exists = (ROOT / EVIDENCE_CHAIN_RELATIVE_DIR).exists()
+    if (not existing_files or not split_export_exists(ROOT, targets)) and not evidence_chain_exists:
         print("Human-readable Markdown export validation skipped: no I5B split export files found.")
         return 0
 
