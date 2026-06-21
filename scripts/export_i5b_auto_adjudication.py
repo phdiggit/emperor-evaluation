@@ -187,6 +187,108 @@ def markdown_table(headers: list[str], rows: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
+def markdown_inline_value(value: object) -> str:
+    if value in (None, ""):
+        return "无"
+    if isinstance(value, list):
+        items = [markdown_inline_value(item) for item in value]
+        return "、".join(items) if items else "无"
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=False)
+    return str(value).replace("\n", " ")
+
+
+def markdown_list_items(value: object) -> list[str]:
+    if isinstance(value, list):
+        items = value
+    elif value in (None, ""):
+        items = []
+    else:
+        items = [value]
+    return [markdown_inline_value(item) for item in items]
+
+
+def markdown_field_item(label: str, value: object, bullet: str = "*") -> str:
+    return f"{bullet} **{label}**：{markdown_inline_value(value)}"
+
+
+CLUSTER_CARD_POLARITY_LABELS = {
+    "positive": "正向",
+    "negative": "负向",
+    "both": "正负并存",
+}
+
+
+CLUSTER_CARD_VALUE_LABELS = {
+    "none": "无",
+    "weak": "弱",
+    "medium": "中",
+    "strong": "强",
+    "extreme": "极强",
+    "weak_to_medium": "弱至中",
+    "medium_to_strong": "中至强",
+    "adjacent_item_medium_residual": "相邻项剥离后中度剩余",
+    "talent_ecosystem": "人才生态（talent_ecosystem）",
+    "talent_ecosystem_and_authorization": "人才生态与授权",
+    "talent_security_and_trust_risk": "人才安全与信任风险",
+    "talent_selection_and_authorization_ecosystem": "人才选择与授权生态",
+    "remonstrance_safety_and_expression_risk": "谏诤安全与表达风险",
+    "talent_security_and_political_implication_risk": "人才安全与政治牵连风险",
+}
+
+
+def cluster_card_value(value: object) -> str:
+    if isinstance(value, bool):
+        return "是" if value else "否"
+    if isinstance(value, str) and value in CLUSTER_CARD_VALUE_LABELS:
+        return CLUSTER_CARD_VALUE_LABELS[value]
+    return markdown_inline_value(value)
+
+
+def render_numbered_list(label: str, value: object) -> list[str]:
+    items = markdown_list_items(value)
+    if not items:
+        return [markdown_field_item(label, "无")]
+    lines = [f"* **{label}**："]
+    lines.extend(f"  {index}. {item}" for index, item in enumerate(items, start=1))
+    return lines
+
+
+def render_cluster_card(row: dict[str, Any]) -> str:
+    summary = "｜".join(
+        [
+            markdown_inline_value(row.get("cluster_id")),
+            CLUSTER_CARD_POLARITY_LABELS.get(str(row.get("polarity")), markdown_inline_value(row.get("polarity"))),
+            f"候选强度={markdown_inline_value(row.get('candidate_strength'))}",
+            markdown_inline_value(row.get("auto_cluster_result")),
+        ]
+    )
+    lines = [
+        f"**{summary}**",
+        "",
+        markdown_field_item("簇类型", cluster_card_value(row.get("cluster_type"))),
+        markdown_field_item("边界档", cluster_card_value(row.get("boundary_tier"))),
+        markdown_field_item("是否阻断极限档", cluster_card_value(row.get("blocking_extreme"))),
+        markdown_field_item("剩余强度", cluster_card_value(row.get("residual_level"))),
+    ]
+    for label, field in [
+        ("对象锚点", "linked_object_anchors"),
+        ("证据角色", "linked_evidence_roles"),
+        ("触发类型", "linked_trigger_families"),
+        ("证据强度", "linked_strengths"),
+        ("上限封顶标记", "linked_upper_bound_flags"),
+        ("减轻/剥离标记", "linked_mitigation_flags"),
+        ("簇内角色", "linked_cluster_roles"),
+        ("相邻项剥离说明", "cross_item_split_signals"),
+    ]:
+        lines.extend(["", *render_numbered_list(label, row.get(field))])
+    return "\n".join(lines)
+
+
+def render_cluster_cards(rows: list[dict[str, Any]]) -> str:
+    return "\n\n---\n\n".join(render_cluster_card(row) for row in rows)
+
+
 def unique_values(values: list[object]) -> list[str]:
     results: list[str] = []
     for value in values:
@@ -807,27 +909,7 @@ def render_person_section(report: dict[str, Any], display_warning_section: str =
         "",
         "### 证据簇自动结算",
         "",
-        markdown_table(
-            [
-                "cluster_id",
-                "polarity",
-                "cluster_type",
-                "candidate_strength",
-                "linked_object_anchors",
-                "linked_evidence_roles",
-                "linked_trigger_families",
-                "linked_strengths",
-                "linked_upper_bound_flags",
-                "linked_mitigation_flags",
-                "linked_cluster_roles",
-                "cross_item_split_signals",
-                "boundary_tier",
-                "blocking_extreme",
-                "residual_level",
-                "auto_cluster_result",
-            ],
-            cluster_rows,
-        ),
+        render_cluster_cards(cluster_rows),
         "",
         "### 自动特征",
         "",
@@ -876,9 +958,9 @@ def render_person_section(report: dict[str, Any], display_warning_section: str =
             "",
             "### 自动结算结论",
             "",
-            f"- band_direction：{report['auto_band_direction']}",
-            f"- confidence：{report['confidence']}",
-            "- 不回填相邻项说明：战果、政务成效、边疆收益、政权安全、司法残酷和治世光环均切出第五项B。",
+            markdown_field_item("band_direction", report["auto_band_direction"], bullet="-"),
+            markdown_field_item("confidence", report["confidence"], bullet="-"),
+            "- **不回填相邻项说明**：战果、政务成效、边疆收益、政权安全、司法残酷和治世光环均切出第五项B。",
         ]
     )
 

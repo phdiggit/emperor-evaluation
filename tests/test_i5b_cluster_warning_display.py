@@ -292,7 +292,7 @@ def test_renderer_empty_warnings_outputs_no_extra_hint() -> None:
 
     assert content == (
         "## 人工复核提示（display-only）\n\n"
-        "> display_only=true；required_human_review=true；no_score_effect=true\n\n"
+        "> 仅展示=true；需要人工复核=true；不影响分数=true\n\n"
         "无额外提示。\n"
     )
 
@@ -304,7 +304,12 @@ def test_renderer_single_warning_outputs_readable_card_details() -> None:
         "warning_type": "adjacent_item_contamination",
         "warning_message": "提示人工检查相邻项污染。",
         "matched_terms": ["军功", "行政成效"],
-        "matched_fields": ["cluster.cross_item_split", "linked_cards[0].trigger_terms"],
+        "matched_fields": [
+            "cluster.cross_item_split",
+            "linked_cards[0].trigger_terms",
+            "linked_cards[0].scoring_effect",
+            "linked_cards[0].evidence_role",
+        ],
         "matched_reason": "display-only",
         "required_human_review": True,
         "display_only": True,
@@ -314,18 +319,48 @@ def test_renderer_single_warning_outputs_readable_card_details() -> None:
     content = render([warning])
 
     assert "## 人工复核提示（display-only）" in content
-    assert "> display_only=true；required_human_review=true；no_score_effect=true" in content
-    assert "### 1. adjacent_item_contamination｜I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
+    assert "> 仅展示=true；需要人工复核=true；不影响分数=true" in content
+    assert "**1. 相邻项污染提示（adjacent_item_contamination｜I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION）**" in content
+    assert "**1. adjacent_item_contamination｜" not in content
+    assert "### 1. adjacent_item_contamination" not in content
     assert "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
     assert "adjacent_item_contamination" in content
-    assert "* warning_message：提示人工检查相邻项污染。" in content
-    assert "* matched_terms：军功、行政成效" in content
-    assert "<details>" in content
-    assert "<summary>matched_fields（2项）</summary>" in content
-    assert "* cluster.cross_item_split" in content
-    assert "* linked_cards[0].trigger_terms" in content
+    assert "warning_message：" not in content
+    assert "matched_terms：" not in content
+    assert "matched_fields：" not in content
+    assert "* **提示语**：提示人工检查相邻项污染。" in content
+    assert "* **命中词**：军功、行政成效" in content
+    assert "* **命中字段**：" in content
+    assert "  1. cluster.cross_item_split" in content
+    assert "  2. linked_cards[0].trigger_terms" in content
+    assert "  3. linked_cards[0].scoring_effect" in content
+    assert "  4. linked_cards[0].evidence_role" in content
+    assert "……（共" not in content
+    assert "<details" not in content
+    assert "</details>" not in content
+    assert "<summary" not in content
     assert "| warning_rule_id |" not in content
     assert "| true | true | true |" not in content
+
+
+def test_renderer_unknown_warning_type_keeps_raw_traceability() -> None:
+    warning = {
+        "cluster_id": "ADJ-I5B-TEST-001",
+        "warning_rule_id": "I5B-CLUSTER-WARN-UNKNOWN",
+        "warning_type": "new_warning_type",
+        "warning_message": "提示人工检查新类型。",
+        "matched_terms": ["新类型"],
+        "matched_fields": ["cluster.summary"],
+        "matched_reason": "display-only",
+        "required_human_review": True,
+        "display_only": True,
+        "no_score_effect": True,
+    }
+
+    content = render([warning])
+
+    assert "**1. 未知提示（new_warning_type｜I5B-CLUSTER-WARN-UNKNOWN）**" in content
+    assert "* **提示语**：提示人工检查新类型。" in content
 
 
 def test_renderer_output_excludes_forbidden_result_and_draft_fields() -> None:
@@ -334,6 +369,7 @@ def test_renderer_output_excludes_forbidden_result_and_draft_fields() -> None:
         [],
         [
             make_rule(
+                rule_id="I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED",
                 trigger_terms=["强正", "上探"],
                 warning_type="source_review_required",
                 evidence_strength_scope=["candidate_strength_3"],
@@ -343,6 +379,7 @@ def test_renderer_output_excludes_forbidden_result_and_draft_fields() -> None:
 
     content = render(warnings)
 
+    assert "回源核验提示（source_review_required｜I5B-CLUSTER-WARN-SOURCE-REVIEW-REQUIRED）" in content
     for forbidden in [
         "final_score",
         "ranking",
@@ -352,9 +389,9 @@ def test_renderer_output_excludes_forbidden_result_and_draft_fields() -> None:
         "net_adjudication_draft",
     ]:
         assert forbidden not in content
-    assert "display_only" in content
-    assert "no_score_effect" in content
-    assert "required_human_review" in content
+    assert "仅展示" in content
+    assert "不影响分数" in content
+    assert "需要人工复核" in content
 
 
 @pytest.mark.parametrize(

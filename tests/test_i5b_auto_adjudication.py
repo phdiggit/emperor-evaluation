@@ -308,6 +308,114 @@ def test_display_warnings_default_off_does_not_call_loader(
     assert DISPLAY_WARNING_HEADING not in content
 
 
+def test_auto_adjudication_cluster_layout_uses_cards_not_wide_table(temp_auto_data: Path) -> None:
+    cards = [
+        make_card(
+            evidence_id=f"EVD-TEST-LONG-POS-00{index}",
+            person="测试甲",
+            polarity="positive",
+            strength=3,
+            object_anchor=f"锚点{index}",
+            evidence_role=f"证据角色{index}",
+            trigger_family=f"触发族{index}",
+            quote_short=f"长字段证据{index}",
+            upper_bound_flag=f"上限标记{index}",
+            mitigation_flag=f"剥离标记{index}",
+            cluster_role=f"簇角色{index}",
+            cross_item_split=f"证据拆分{index}",
+        )
+        for index in range(1, 5)
+    ]
+    clusters = [
+        make_cluster(
+            cluster_id="ADJ-TEST-LONG-POS-001",
+            person="测试甲",
+            polarity="positive",
+            linked_evidence_ids=[str(card["evidence_id"]) for card in cards],
+            candidate_strength=3,
+            summary="长字段布局测试。",
+            cross_item_split="簇级拆分",
+        )
+    ]
+    build_temp_auto_dataset(temp_auto_data, cards, clusters)
+
+    content = auto.render_auto_adjudication()
+    cluster_start = content.index("### 证据簇自动结算")
+    feature_start = content.index("### 自动特征", cluster_start)
+    conclusion_start = content.index("### 自动结算结论", cluster_start)
+    cluster_section = content[cluster_start:feature_start]
+
+    assert "| cluster_id | polarity | cluster_type" not in content
+    for field in ["linked_object_anchors", "linked_evidence_roles", "linked_trigger_families"]:
+        assert f"| {field} |" not in content
+    assert "<details" not in content
+    assert "</details>" not in content
+    assert "<summary" not in content
+    assert "**ADJ-TEST-LONG-POS-001｜正向｜候选强度=3｜强正候选**" in cluster_section
+    for label in [
+        "簇类型",
+        "边界档",
+        "是否阻断极限档",
+        "剩余强度",
+        "对象锚点",
+        "证据角色",
+        "触发类型",
+        "证据强度",
+        "上限封顶标记",
+        "减轻/剥离标记",
+        "簇内角色",
+        "相邻项剥离说明",
+    ]:
+        assert f"* **{label}**：" in cluster_section
+    for english_label in [
+        "cluster_type",
+        "boundary_tier",
+        "blocking_extreme",
+        "residual_level",
+        "linked_object_anchors",
+        "linked_evidence_roles",
+        "linked_trigger_families",
+        "linked_strengths",
+        "linked_upper_bound_flags",
+        "linked_mitigation_flags",
+        "linked_cluster_roles",
+        "cross_item_split_signals",
+    ]:
+        assert f"* {english_label}：" not in cluster_section
+    assert "* cluster_type：" not in cluster_section
+    assert "* boundary_tier：" not in cluster_section
+    assert "* **边界档**：无" in cluster_section
+    assert "* **是否阻断极限档**：否" in cluster_section
+    assert "* **剩余强度**：强" in cluster_section
+    expected_full_lists = {
+        "对象锚点": ["锚点1", "锚点2", "锚点3", "锚点4"],
+        "证据角色": ["证据角色1", "证据角色2", "证据角色3", "证据角色4"],
+        "触发类型": ["触发族1", "触发族2", "触发族3", "触发族4"],
+        "证据强度": ["3"],
+        "上限封顶标记": ["上限标记1", "上限标记2", "上限标记3", "上限标记4"],
+        "减轻/剥离标记": ["剥离标记1", "剥离标记2", "剥离标记3", "剥离标记4"],
+        "簇内角色": ["簇角色1", "簇角色2", "簇角色3", "簇角色4"],
+    }
+    for label, values in expected_full_lists.items():
+        field_start = cluster_section.index(f"* **{label}**：")
+        field_end = cluster_section.find("\n\n", field_start)
+        field_section = cluster_section[field_start:] if field_end == -1 else cluster_section[field_start:field_end]
+        for index, value in enumerate(values, start=1):
+            assert f"  {index}. {value}" in field_section
+
+    cross_item_section = cluster_section[cluster_section.index("* **相邻项剥离说明**：") :]
+    assert "  1. 簇级拆分" in cluster_section
+    assert "  2. 证据拆分1" in cross_item_section
+    assert "  3. 证据拆分2" in cross_item_section
+    assert "  4. 证据拆分3" in cross_item_section
+    assert "  5. 证据拆分4" in cross_item_section
+    assert "……（共" not in cluster_section
+    assert "- **band_direction**：" in content[conclusion_start:]
+    assert "- **confidence**：" in content[conclusion_start:]
+    assert "- band_direction：" not in content[conclusion_start:]
+    assert "- confidence：" not in content[conclusion_start:]
+
+
 def test_cli_default_off_does_not_call_warning_stack(
     temp_auto_data: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -447,9 +555,16 @@ def test_display_warnings_enabled_stays_out_of_non_auto_outputs_and_keeps_core_f
     warning_section = warning_section_from_auto_content(auto_content)
 
     assert before == after
-    assert auto.render_formal_landing_table().find(DISPLAY_WARNING_HEADING) == -1
-    assert auto.render_score_mapping_draft().find(DISPLAY_WARNING_HEADING) == -1
-    assert auto.render_three_pilot_closure().find(DISPLAY_WARNING_HEADING) == -1
+    for content in (
+        auto.render_formal_landing_table(),
+        auto.render_score_mapping_draft(),
+        auto.render_three_pilot_closure(),
+    ):
+        assert DISPLAY_WARNING_HEADING not in content
+        assert "**ADJ-" not in content
+        assert "<details" not in content
+        assert "<summary" not in content
+        assert "### 证据簇自动结算" not in content
     for forbidden_term in DISPLAY_WARNING_FORBIDDEN_TERMS:
         assert forbidden_term not in warning_section
 

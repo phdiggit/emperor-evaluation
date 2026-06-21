@@ -268,6 +268,41 @@ def markdown_list_items(value: object) -> list[str]:
     return [markdown_inline_value(item) for item in items]
 
 
+WARNING_TYPE_LABELS = {
+    "source_review_required": "回源核验提示",
+    "single_evidence_limit": "单证不足提示",
+    "adjacent_item_contamination": "相邻项污染提示",
+    "mixed_polarity_review": "正负证并存提示",
+}
+
+
+def warning_title(warning: dict[str, Any]) -> str:
+    warning_type = markdown_inline_value(warning.get("warning_type"))
+    rule_id = markdown_inline_value(warning.get("warning_rule_id"))
+    label = WARNING_TYPE_LABELS.get(warning_type, "未知提示")
+    return f"{label}（{warning_type}｜{rule_id}）"
+
+
+def markdown_field_item(label: str, value: object) -> str:
+    return f"* **{label}**：{markdown_inline_value(value)}"
+
+
+def inline_list(value: object) -> str:
+    items = markdown_list_items(value)
+    if not items:
+        return "无"
+    return "、".join(items)
+
+
+def render_numbered_list(label: str, value: object) -> list[str]:
+    items = markdown_list_items(value)
+    if not items:
+        return [markdown_field_item(label, "无")]
+    lines = [f"* **{label}**："]
+    lines.extend(f"  {index}. {item}" for index, item in enumerate(items, start=1))
+    return lines
+
+
 def validate_display_warning_for_render(warning: dict[str, Any]) -> None:
     forbidden = sorted(set(warning) & RENDER_FORBIDDEN_WARNING_FIELDS)
     if forbidden:
@@ -284,7 +319,7 @@ def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) 
     lines = [
         "## 人工复核提示（display-only）",
         "",
-        "> display_only=true；required_human_review=true；no_score_effect=true",
+        "> 仅展示=true；需要人工复核=true；不影响分数=true",
         "",
     ]
     if not warnings:
@@ -292,23 +327,15 @@ def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) 
 
     for index, warning in enumerate(warnings, start=1):
         validate_display_warning_for_render(warning)
-        matched_fields = markdown_list_items(warning.get("matched_fields"))
         lines.extend(
             [
-                f"### {index}. {markdown_inline_value(warning.get('warning_type'))}｜{markdown_inline_value(warning.get('warning_rule_id'))}",
+                f"**{index}. {warning_title(warning)}**",
                 "",
-                f"* warning_message：{markdown_inline_value(warning.get('warning_message'))}",
-                f"* matched_terms：{markdown_inline_value(warning.get('matched_terms'))}",
-                "",
-                "<details>",
-                f"<summary>matched_fields（{len(matched_fields)}项）</summary>",
+                markdown_field_item("提示语", warning.get("warning_message")),
+                markdown_field_item("命中词", inline_list(warning.get("matched_terms"))),
+                *render_numbered_list("命中字段", warning.get("matched_fields")),
                 "",
             ]
         )
-        if matched_fields:
-            lines.extend(f"* {field}" for field in matched_fields)
-        else:
-            lines.append("* 无")
-        lines.extend(["", "</details>", ""])
 
     return "\n".join(lines) + "\n"
