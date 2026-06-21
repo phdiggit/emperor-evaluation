@@ -290,10 +290,14 @@ def test_no_match_returns_empty_list() -> None:
 def test_renderer_empty_warnings_outputs_no_extra_hint() -> None:
     content = render([])
 
-    assert content == "## 人工复核提示（display-only）\n\n无额外提示。\n"
+    assert content == (
+        "## 人工复核提示（display-only）\n\n"
+        "> display_only=true；required_human_review=true；no_score_effect=true\n\n"
+        "无额外提示。\n"
+    )
 
 
-def test_renderer_single_warning_outputs_display_only_table_fields() -> None:
+def test_renderer_single_warning_outputs_readable_card_details() -> None:
     warning = {
         "cluster_id": "ADJ-I5B-TEST-001",
         "warning_rule_id": "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION",
@@ -310,12 +314,18 @@ def test_renderer_single_warning_outputs_display_only_table_fields() -> None:
     content = render([warning])
 
     assert "## 人工复核提示（display-only）" in content
+    assert "> display_only=true；required_human_review=true；no_score_effect=true" in content
+    assert "### 1. adjacent_item_contamination｜I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
     assert "I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION" in content
     assert "adjacent_item_contamination" in content
-    assert "提示人工检查相邻项污染。" in content
-    assert "军功、行政成效" in content
-    assert "cluster.cross_item_split、linked_cards[0].trigger_terms" in content
-    assert "| true | true | true |" in content
+    assert "* warning_message：提示人工检查相邻项污染。" in content
+    assert "* matched_terms：军功、行政成效" in content
+    assert "<details>" in content
+    assert "<summary>matched_fields（2项）</summary>" in content
+    assert "* cluster.cross_item_split" in content
+    assert "* linked_cards[0].trigger_terms" in content
+    assert "| warning_rule_id |" not in content
+    assert "| true | true | true |" not in content
 
 
 def test_renderer_output_excludes_forbidden_result_and_draft_fields() -> None:

@@ -254,6 +254,20 @@ def markdown_cell(value: object) -> str:
     return text.replace("|", "\\|").replace("\n", " ")
 
 
+def markdown_inline_value(value: object) -> str:
+    return markdown_cell(value) or "无"
+
+
+def markdown_list_items(value: object) -> list[str]:
+    if isinstance(value, list):
+        items = value
+    elif value in (None, ""):
+        items = []
+    else:
+        items = [value]
+    return [markdown_inline_value(item) for item in items]
+
+
 def validate_display_warning_for_render(warning: dict[str, Any]) -> None:
     forbidden = sorted(set(warning) & RENDER_FORBIDDEN_WARNING_FIELDS)
     if forbidden:
@@ -270,25 +284,31 @@ def render_display_only_cluster_warning_section(warnings: list[dict[str, Any]]) 
     lines = [
         "## 人工复核提示（display-only）",
         "",
+        "> display_only=true；required_human_review=true；no_score_effect=true",
+        "",
     ]
     if not warnings:
         return "\n".join([*lines, "无额外提示。", ""])
 
-    headers = [
-        "warning_rule_id",
-        "warning_type",
-        "warning_message",
-        "matched_terms",
-        "matched_fields",
-        "display_only",
-        "required_human_review",
-        "no_score_effect",
-    ]
-    lines.append("| " + " | ".join(headers) + " |")
-    lines.append("| " + " | ".join("---" for _ in headers) + " |")
-
-    for warning in warnings:
+    for index, warning in enumerate(warnings, start=1):
         validate_display_warning_for_render(warning)
-        lines.append("| " + " | ".join(markdown_cell(warning.get(header)) for header in headers) + " |")
+        matched_fields = markdown_list_items(warning.get("matched_fields"))
+        lines.extend(
+            [
+                f"### {index}. {markdown_inline_value(warning.get('warning_type'))}｜{markdown_inline_value(warning.get('warning_rule_id'))}",
+                "",
+                f"* warning_message：{markdown_inline_value(warning.get('warning_message'))}",
+                f"* matched_terms：{markdown_inline_value(warning.get('matched_terms'))}",
+                "",
+                "<details>",
+                f"<summary>matched_fields（{len(matched_fields)}项）</summary>",
+                "",
+            ]
+        )
+        if matched_fields:
+            lines.extend(f"* {field}" for field in matched_fields)
+        else:
+            lines.append("* 无")
+        lines.extend(["", "</details>", ""])
 
     return "\n".join(lines) + "\n"
