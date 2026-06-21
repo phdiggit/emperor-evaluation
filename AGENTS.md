@@ -45,6 +45,14 @@
 - 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate_all.py`。
 - 验证命令若重写 `exports/`、generated docs 或禁止范围副产物，先记录结果，再清理副产物；清理后只做范围核对，不重复运行会再生成副产物的命令。
 
+## 人工阅读型 Markdown 导出高压线
+
+- 展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论。
+- 人工复核型 Markdown 默认纯 Markdown，不使用 HTML details。
+- 不用宽表承载长字段、裁判说明、相邻项剥离说明、warning matched_fields 或 linked evidence 长字段。
+- `linked_*`、`cross_item_split_signals / 相邻项剥离说明`、warning `matched_fields` 必须全量展示，不得截断。
+- 详细规范见 `docs/人工阅读型Markdown导出规范.md`。
+
 ## 默认忽略
 
 除非 Issue / PR / 用户请求明确点名，或为了清理已知生成副产物，不主动读取、总结或改写：
