@@ -16,6 +16,7 @@
     "*.db"
   ],
   "directories": {
+    "build": "scripts/build",
     "dev": "scripts/dev",
     "export": "scripts/export",
     "shared": "scripts/shared",
@@ -326,15 +327,33 @@
         "tests/test_scripts_shared_directory_plan.py"
       ],
       "status": "migrated"
+    },
+    {
+      "audit_docs": [],
+      "category": "build",
+      "id": "build_package",
+      "implementation": "scripts/build/__init__.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_scripts_build_directory_layout.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "build",
+      "id": "build_db",
+      "implementation": "scripts/build/build_db.py",
+      "legacy_wrapper": "scripts/build_db.py",
+      "required_tests": [
+        "tests/test_build_db.py",
+        "tests/test_scripts_build_directory_layout.py",
+        "tests/test_evidence_integrity.py"
+      ],
+      "status": "migrated"
     }
   ],
   "root_exceptions": [
-    {
-      "path": "scripts/build_db.py",
-      "planned_category": "build",
-      "reason": "尚未进入 build 分层迁移批次",
-      "status": "unmigrated"
-    },
     {
       "path": "scripts/publish_pr.ps1",
       "planned_category": "dev",

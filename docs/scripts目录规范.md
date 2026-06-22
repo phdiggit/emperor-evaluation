@@ -28,6 +28,12 @@
 
 `scripts/export/export_md.py` 是 Markdown 导出总入口的真实实现。后续修改导出顺序、路径常量、目标人物或配置读取时，应优先修改新路径，不得把真实实现重新放回 `scripts/` 根目录。
 
+## scripts/build/
+
+`scripts/build/` 是数据库和其他构建步骤的真实实现目录。新增构建脚本应放入这里，不应继续把主逻辑直接放在 `scripts/` 根目录。
+
+数据库构建测试应隔离到 `tmp_path` 或临时仓库，避免直接删除、覆盖或重新创建真实工作区的 `evidence_cache.sqlite`。根目录脚本当前状态继续由 `docs/agent_rules/scripts_registry.json` 管理。
+
 ## scripts/shared/
 
 `scripts/shared/` 是共享工具真实实现目录。新增被 exporter、validator、pipeline 共同依赖的工具，应放入这里，不应继续把共享主逻辑直接放在 `scripts/` 根目录。

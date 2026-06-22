@@ -13,6 +13,7 @@
 - `scripts/dev/`：开发辅助工具，供 Codex、维护者和本地开发使用，不承载业务导出、评分、证据裁判或正式验证语义。
 - `scripts/validate/`：validator 真实实现目录，新增 validator 默认放在这里。
 - `scripts/export/`：exporter 真实实现目录，新增 exporter 默认放在这里。
+- `scripts/build/`：数据库和其他构建步骤的真实实现目录；构建脚本测试不得直接覆盖真实工作区数据库，默认使用 `tmp_path` 或临时仓库。
 - `scripts/shared/`：多职责链共享实现目录，放置 exporter、validator、pipeline 共同依赖的工具。
 - `scripts/` 根目录：仅允许 registry 登记的稳定入口、兼容 wrapper 和尚未迁移脚本；新增脚本不得无理由放回根目录。
 
