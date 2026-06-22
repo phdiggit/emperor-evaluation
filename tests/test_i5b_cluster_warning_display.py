@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import copy
-import importlib.util
 import sys
 from pathlib import Path
 
@@ -9,15 +8,9 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DISPLAY_SPEC = importlib.util.spec_from_file_location(
-    "i5b_cluster_warning_display",
-    ROOT / "scripts" / "i5b_cluster_warning_display.py",
-)
-assert DISPLAY_SPEC is not None
-i5b_cluster_warning_display = importlib.util.module_from_spec(DISPLAY_SPEC)
-sys.modules[DISPLAY_SPEC.name] = i5b_cluster_warning_display
-assert DISPLAY_SPEC.loader is not None
-DISPLAY_SPEC.loader.exec_module(i5b_cluster_warning_display)
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from shared import i5b_cluster_warning_display
 
 ALLOWED_WARNING_KEYS = {
     "cluster_id",

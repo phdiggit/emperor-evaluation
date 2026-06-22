@@ -13,7 +13,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 import config_loaders
 import validate_human_readable_markdown_exports as human_readable_markdown_validator
 from config_loaders import load_i5b_cluster_warning_rules
-from i5b_cluster_warning_display import (
+from shared.i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
     render_display_only_cluster_warning_section,
 )
