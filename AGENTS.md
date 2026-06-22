@@ -72,6 +72,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 ```text
 exports/
 logs/
+data/configs/
 tmp/
 .cache/
 .codex/
