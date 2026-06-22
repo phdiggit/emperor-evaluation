@@ -8,7 +8,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import config_loaders
+from shared import config_loaders
 from shared.i5b_markdown_display import display_field_label, human_review_table_fields, load_display_dictionary
 
 

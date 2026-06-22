@@ -10,9 +10,9 @@ SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import config_loaders
-import validate_human_readable_markdown_exports as human_readable_markdown_validator
-from config_loaders import load_i5b_cluster_warning_rules
+from shared import config_loaders
+from shared.config_loaders import load_i5b_cluster_warning_rules
+from validate import validate_human_readable_markdown_exports as human_readable_markdown_validator
 from shared.i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
     render_display_only_cluster_warning_section,

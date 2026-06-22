@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import fnmatch
 import json
 import subprocess
@@ -531,6 +532,82 @@ def _wrapper_problems(path: str, module: dict[str, Any]) -> list[str]:
     return problems
 
 
+def _canonical_module_path(implementation: str) -> str:
+    path = Path(normalize_repo_path(implementation))
+    if path.suffix == ".py":
+        path = path.with_suffix("")
+    parts = path.parts
+    if parts and parts[0] == "scripts":
+        parts = parts[1:]
+    return ".".join(parts)
+
+
+def _legacy_wrapper_import_map(registry: dict[str, Any]) -> dict[str, str]:
+    imports: dict[str, str] = {}
+    for module in registry.get("modules", []):
+        implementation = module.get("implementation")
+        legacy_wrapper = module.get("legacy_wrapper")
+        if not implementation or not legacy_wrapper:
+            continue
+        imports[Path(legacy_wrapper).stem] = _canonical_module_path(implementation)
+    return dict(sorted(imports.items()))
+
+
+def _implementation_paths(registry: dict[str, Any]) -> list[str]:
+    paths: set[str] = set()
+    for module in registry.get("modules", []):
+        implementation = module.get("implementation")
+        if not implementation:
+            continue
+        if not implementation.endswith(".py"):
+            continue
+        path = _resolve_repo_path(implementation)
+        if path.is_file():
+            paths.add(normalize_repo_path(implementation))
+    return sorted(paths)
+
+
+def _legacy_import_problem(path: str, module_name: str, canonical_name: str) -> str:
+    return f"{path}: imports legacy wrapper module {module_name!r}; use {canonical_name!r}"
+
+
+def check_canonical_imports(
+    registry_path: str = REGISTRY_PATH,
+) -> list[str]:
+    try:
+        registry = load_registry(registry_path)
+    except ValueError as exc:
+        return [str(exc)]
+
+    legacy_imports = _legacy_wrapper_import_map(registry)
+    if not legacy_imports:
+        return []
+
+    problems: list[str] = []
+    for rel_path in _implementation_paths(registry):
+        path = _resolve_repo_path(rel_path)
+        try:
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=rel_path)
+        except SyntaxError as exc:
+            problems.append(f"{rel_path}: SyntaxError at line {exc.lineno}: {exc.msg}")
+            continue
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    module_name = alias.name.split(".", 1)[0]
+                    canonical_name = legacy_imports.get(module_name)
+                    if canonical_name:
+                        problems.append(_legacy_import_problem(rel_path, module_name, canonical_name))
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                module_name = node.module.split(".", 1)[0]
+                canonical_name = legacy_imports.get(module_name)
+                if canonical_name:
+                    problems.append(_legacy_import_problem(rel_path, module_name, canonical_name))
+
+    return sorted(set(problems))
+
+
 def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
     problems: list[str] = []
     registry_file = _resolve_repo_path(registry_path)
@@ -634,6 +711,8 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
     for path in sorted(implementations & wrappers):
         problems.append(f"{path}: path cannot be both implementation and wrapper")
 
+    problems.extend(check_canonical_imports(registry_path))
+
     if registry_file.read_bytes().startswith(b"\xef\xbb\xbf"):
         problems.append(f"{registry_path}: must be UTF-8 without BOM")
     return sorted(problems)
@@ -682,6 +761,12 @@ def _build_parser() -> argparse.ArgumentParser:
 
     agents_parser = subparsers.add_parser("agents-check", help="Validate AGENTS files and scripts registry.")
     agents_parser.add_argument("--registry", default=REGISTRY_PATH)
+
+    canonical_imports_parser = subparsers.add_parser(
+        "canonical-imports-check",
+        help="Validate migrated implementations do not import legacy wrapper modules.",
+    )
+    canonical_imports_parser.add_argument("--registry", default=REGISTRY_PATH)
     return parser
 
 
@@ -712,6 +797,12 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
         elif args.command == "agents-check":
             problems = check_agents(args.registry)
+            if problems:
+                for problem in problems:
+                    _emit_stderr(problem)
+                return 1
+        elif args.command == "canonical-imports-check":
+            problems = check_canonical_imports(args.registry)
             if problems:
                 for problem in problems:
                     _emit_stderr(problem)

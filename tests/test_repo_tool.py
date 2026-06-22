@@ -111,6 +111,63 @@ def write_minimal_registry(repo_root: Path) -> None:
     target.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def write_canonical_import_registry(repo_root: Path) -> None:
+    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (repo_root / "scripts" / "config_loaders.py").write_text(
+        "from shared.config_loaders import *\n",
+        encoding="utf-8",
+    )
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "export_tool",
+                "category": "export",
+                "status": "migrated",
+                "implementation": "scripts/export/tool.py",
+                "legacy_wrapper": "scripts/tool.py",
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+            {
+                "id": "dev_tool",
+                "category": "dev",
+                "status": "active",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": None,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+            {
+                "id": "config_loaders",
+                "category": "shared",
+                "status": "migrated",
+                "implementation": "scripts/shared/config_loaders.py",
+                "legacy_wrapper": "scripts/config_loaders.py",
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": [],
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def changed_files() -> set[str]:
     return set(changed_files_against_base()) | set(git_changed_files("diff", "--name-only")) | set(
         git_changed_files("diff", "--cached", "--name-only")
@@ -498,6 +555,130 @@ def test_agents_check_scans_wrapper_markers_even_with_exception_reason(tmp_path:
     problems = repo_tool.check_agents()
 
     assert "scripts/tool.py: wrapper appears to contain implementation marker 'def build'" in problems
+
+
+def test_canonical_imports_report_legacy_import(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_canonical_imports() == [
+        "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'"
+    ]
+
+
+def test_canonical_imports_scan_implementation_without_legacy_wrapper(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("from shared import config_loaders\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_canonical_imports() == [
+        "scripts/dev/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'"
+    ]
+
+
+def test_canonical_imports_report_alias_and_from_import(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text(
+        "import config_loaders as loaders\nfrom config_loaders import load_config\n",
+        encoding="utf-8",
+    )
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_canonical_imports()
+
+    assert problems == [
+        "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'"
+    ]
+
+
+def test_canonical_imports_allow_canonical_dotted_and_package_imports(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text(
+        "import shared.config_loaders\nfrom shared import config_loaders\n"
+        "from shared.config_loaders import VALUE\n",
+        encoding="utf-8",
+    )
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_canonical_imports() == []
+
+
+def test_canonical_imports_collect_multiple_files_and_syntax_errors(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+    (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("from config_loaders.submodule import x\n", encoding="utf-8")
+    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["modules"].append(
+        {
+            "id": "bad_syntax",
+            "category": "export",
+            "status": "migrated",
+            "implementation": "scripts/export/bad_syntax.py",
+            "legacy_wrapper": "scripts/bad_syntax.py",
+            "audit_docs": [],
+            "required_tests": ["tests/test_tool.py"],
+        }
+    )
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (repo_root / "scripts" / "export" / "bad_syntax.py").write_text("def broken(:\n", encoding="utf-8")
+    (repo_root / "scripts" / "bad_syntax.py").write_text("from export.bad_syntax import *\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_canonical_imports()
+
+    assert "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'" in problems
+    assert "scripts/shared/config_loaders.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'" in problems
+    assert "scripts/export/bad_syntax.py: SyntaxError at line 1: invalid syntax" in problems
+
+
+def test_canonical_imports_skip_legacy_wrapper_itself(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("from shared import config_loaders\n", encoding="utf-8")
+    (repo_root / "scripts" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_canonical_imports() == []
+
+
+def test_canonical_imports_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("from shared import config_loaders\n", encoding="utf-8")
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.main(["canonical-imports-check"]) == 0
+
+    (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+
+    assert repo_tool.main(["canonical-imports-check"]) == 1
+    captured = capfd.readouterr()
+    assert "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'" in captured.err
+
+
+def test_agents_check_reuses_canonical_imports_check(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+    (repo_root / "scripts" / "tool.py").write_text("from export.tool import *\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'" in repo_tool.check_agents()
 
 
 def test_repo_tool_source_mentions_git_encoding_guards() -> None:
