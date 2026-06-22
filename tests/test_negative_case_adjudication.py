@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
-EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
+EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "综合汇总" / "史料证据卡索引.md"
 
 
 def read_jsonl(path: Path) -> list[dict[str, object]]:

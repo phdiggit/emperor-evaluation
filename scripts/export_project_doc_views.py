@@ -9,9 +9,18 @@ from export_md_scaffold import escape_cell
 
 ROOT = Path(__file__).resolve().parents[1]
 GLOBAL_SCALE_BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
-GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
+GLOBAL_SCALE_BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "综合汇总" / "全局总标尺决策简报_讨论版.md"
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
-CANDIDATE_POOL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点候选池设计.md"
+CANDIDATE_POOL_EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "试点闭环"
+    / "第五项B扩展试点候选池设计.md"
+)
 def load_expanded_i5b_candidate_pool_rows() -> list[dict[str, str]]:
     return config_loaders.get_i5b_expanded_candidate_pool_rows()
 

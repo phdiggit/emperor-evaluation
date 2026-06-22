@@ -9,7 +9,16 @@ import config_loaders
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点正负证矩阵.md"
+EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "自动结算草案"
+    / "第五项B三人试点正负证矩阵.md"
+)
 
 HEADERS = [
     "person",

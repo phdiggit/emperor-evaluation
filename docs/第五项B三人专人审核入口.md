@@ -7,11 +7,12 @@
 * 不生成正式分数。
 * 不生成最终排名。
 * 不改写自动结算结论。
-* 自动结算、人工审核视图、证据链兼容视图和 warning 均只作为人工审核辅助。
-* 审核时只使用 `exports/markdown_views/第五项B/` 下的新产物。
-* 人工业务审核主入口优先使用 `exports/markdown_views/第五项B/人工审核/`。
+* 三人业务审核只使用 `exports/markdown_views/第五项B/人工审核/` 下的新主入口。
+* 自动裁判链主入口为 `exports/markdown_views/第五项B/人工审核/自动裁判链/`。
+* 证据链主入口为 `exports/markdown_views/第五项B/人工审核/证据链/`。
 * `exports/markdown_views/第五项B/机器审计/` 只用于代码审查、数据追踪和回源定位，不作为业务审核主入口。
 * 人工审核主表隐藏 `evidence_id/source_id/cluster_id` 等机器字段；需要追踪时查看附录“机器定位信息”或机器审计视图。
+* `exports/markdown_views/第五项B/自动结算草案/`、`exports/markdown_views/第五项B/证据链/` 若在历史分支或本地残留中出现，只是兼容层或历史层，不作为主入口。
 * 不要再使用 `exports/markdown_views/` 根目录下旧平铺产物。
 * 分数映射草案仍不得直接启用为正式评分。
 
@@ -28,40 +29,34 @@
 ## 2. 共用必读入口
 
 * 自动结算索引：
-  * `exports/markdown_views/第五项B/自动结算草案/第五项B三人自动结算草案.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md`
 * 规则敏感点：
-  * `exports/markdown_views/第五项B/规则敏感点/第五项B自动结算规则敏感点清单.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md`
 * 正式定档草案：
-  * `exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md`
 * 评分映射草案：
-  * `exports/markdown_views/第五项B/正式定档草案/第五项B评分标尺与档位映射草案.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`
 * 证据卡索引：
-  * `exports/markdown_views/第五项B/人工审核/证据卡/第五项B人工审核证据卡索引.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md`
 * 证据簇索引：
-  * `exports/markdown_views/第五项B/人工审核/证据簇/第五项B人工审核证据簇索引.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md`
 * 机器审计视图：
-  * `exports/markdown_views/第五项B/机器审计/`
+  * `exports/markdown_views/第五项B/机器审计/证据链/`
 
 ## 3. 李世民审核入口
 
 ### 3.1 必读产物
 
 * 自动结算人物详情：
-  * `exports/markdown_views/第五项B/自动结算草案/人物详情/李世民.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/李世民.md`
 * 自动结算长字段附录：
-  * `exports/markdown_views/第五项B/自动结算草案/附录/李世民_长字段附录.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/附录/李世民_长字段附录.md`
 * 净证据池：
-  * `exports/markdown_views/第五项B/人工审核/净证据池/第五项B_李世民人工审核净证据池.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_李世民人工审核净证据池.md`
 * 人工审核史料详情附录：
-  * `exports/markdown_views/第五项B/人工审核/附录/李世民_人工审核史料详情附录.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/附录/李世民_人工审核史料详情附录.md`
 
-### 3.2 可选产物
-
-* 可从共用证据卡索引进入李世民相关证据卡。
-* 可从共用证据簇索引进入李世民相关证据簇。
-* 可从共用检索包索引或检索线索索引进入李世民相关检索材料。
-
-### 3.3 人工审核栏位
+### 3.2 人工审核栏位
 
 * **正向证据是否可采纳**：待人工确认
 * **负向证据是否可采纳**：待人工确认
@@ -75,21 +70,15 @@
 ### 4.1 必读产物
 
 * 自动结算人物详情：
-  * `exports/markdown_views/第五项B/自动结算草案/人物详情/刘秀.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/刘秀.md`
 * 自动结算长字段附录：
-  * `exports/markdown_views/第五项B/自动结算草案/附录/刘秀_长字段附录.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/附录/刘秀_长字段附录.md`
 * 净证据池：
-  * `exports/markdown_views/第五项B/人工审核/净证据池/第五项B_刘秀人工审核净证据池.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_刘秀人工审核净证据池.md`
 * 人工审核史料详情附录：
-  * `exports/markdown_views/第五项B/人工审核/附录/刘秀_人工审核史料详情附录.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/附录/刘秀_人工审核史料详情附录.md`
 
-### 4.2 可选产物
-
-* 可从共用证据卡索引进入刘秀相关证据卡。
-* 可从共用证据簇索引进入刘秀相关证据簇。
-* 可从共用检索包索引或检索线索索引进入刘秀相关检索材料。
-
-### 4.3 人工审核栏位
+### 4.2 人工审核栏位
 
 * **正向证据是否可采纳**：待人工确认
 * **负向证据是否可采纳**：待人工确认
@@ -103,21 +92,15 @@
 ### 5.1 必读产物
 
 * 自动结算人物详情：
-  * `exports/markdown_views/第五项B/自动结算草案/人物详情/刘庄.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/刘庄.md`
 * 自动结算长字段附录：
-  * `exports/markdown_views/第五项B/自动结算草案/附录/刘庄_长字段附录.md`
+  * `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/附录/刘庄_长字段附录.md`
 * 净证据池：
-  * `exports/markdown_views/第五项B/人工审核/净证据池/第五项B_刘庄人工审核净证据池.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_刘庄人工审核净证据池.md`
 * 人工审核史料详情附录：
-  * `exports/markdown_views/第五项B/人工审核/附录/刘庄_人工审核史料详情附录.md`
+  * `exports/markdown_views/第五项B/人工审核/证据链/附录/刘庄_人工审核史料详情附录.md`
 
-### 5.2 可选产物
-
-* 可从共用证据卡索引进入刘庄相关证据卡。
-* 可从共用证据簇索引进入刘庄相关证据簇。
-* 可从共用检索包索引或检索线索索引进入刘庄相关检索材料。
-
-### 5.3 人工审核栏位
+### 5.2 人工审核栏位
 
 * **正向证据是否可采纳**：待人工确认
 * **负向证据是否可采纳**：待人工确认
@@ -137,8 +120,18 @@
 * `exports/markdown_views/第五项B自动结算草案_李世民.md`：应不存在，禁用。
 * `exports/markdown_views/第五项B自动结算草案_刘秀.md`：应不存在，禁用。
 * `exports/markdown_views/第五项B自动结算草案_刘庄.md`：应不存在，禁用。
+* `exports/markdown_views/第五项B/自动结算草案/`：旧顶层目录，若保留只能作为兼容层或历史层，不作为主入口。
+* `exports/markdown_views/第五项B/证据链/`：旧顶层目录，若保留只能作为兼容层或历史层，不作为主入口。
 
-## 7. 上下文依赖证据处理规则
+## 7. 旧根目录平铺路径禁用清单
+
+根目录平铺 Markdown 不再作为审核入口。以下类型若重新出现，应迁移到对应目录或进入待人工确认：
+
+* 第五项B净证据池、证据卡、证据簇、检索包、自动结算草案。
+* 第五项B规则敏感点、正式定档草案、评分映射草案、试点闭环。
+* 第一大项、第二大项、综合汇总、文件治理、配置审计相关导出。
+
+## 8. 上下文依赖证据处理规则
 
 专人审核时，若 `quote_short` 不足以定证，应先标记为“需上下文 / 需回源”，并回看证据卡的 `quote_context`、`context_summary`、`context_scope`、`context_effect`、`source_locator` 与 `adjudication_bridge`。
 
@@ -147,7 +140,7 @@
 * `context_effect = split_only` 的证据，只能用于相邻项剥离，不得直接回填第五项B正负分。
 * 进入正式定档前，应确认所有关键证据的上下文状态。
 
-## 8. 审核出口
+## 9. 审核出口
 
 专人审核完成后，下一步才进入：
 
@@ -157,4 +150,4 @@
 * 是否进入正式定档草案。
 * 分数映射仍不得直接启用。
 
-出口记录仍应保持人工复核语义，不得把本入口文档、自动结算草案、证据链视图或 warning 直接转写成正式分数、最终排名、正式档位或裁判结论。
+出口记录仍应保持人工复核语义，不得把本文档、自动结算草案、证据链视图或 warning 直接转写成正式分数、最终排名、正式档位或裁判结论。

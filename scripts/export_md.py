@@ -44,11 +44,14 @@ from export_md_scaffold import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
-SEARCH_LOGS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人试点检索线索.md"
-EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
-THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
-QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
+MARKDOWN_VIEW_ROOT = ROOT / "exports" / "markdown_views"
+SUMMARY_EXPORT_ROOT = MARKDOWN_VIEW_ROOT / "综合汇总"
+I5B_MACHINE_SEARCH_PACKAGE_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "机器审计" / "证据链" / "检索包"
+EXPORT_PATH = SUMMARY_EXPORT_ROOT / "史料证据卡索引.md"
+SEARCH_LOGS_EXPORT_PATH = I5B_MACHINE_SEARCH_PACKAGE_ROOT / "第五项B三人试点检索线索.md"
+EVIDENCE_CLUSTERS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "证据组裁量索引.md"
+THEMATIC_ANCHORS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "专题锚点索引.md"
+QUERY_PROFILES_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "项目检索包索引.md"
 YONGZHENG_RULE_BOUNDARY_BATCH_PATH = ROOT / "data" / "rule_boundary_batches" / "i5b_yongzheng_rule_boundary_review_20260619.jsonl"
 ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
@@ -191,6 +194,8 @@ def export_search_logs_markdown() -> Path:
 
     lines = [
         "# 第五项B三人试点检索线索",
+        "",
+        "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。",
         "",
         "本文件导出待回源检索线索；未回源材料不得入分。",
         "",

@@ -11,7 +11,16 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
 EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
 SWEEP_BATCH_PATH = ROOT / "data" / "sweep_batches" / "i5b_yongzheng_role_class_sweep_20260619.jsonl"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批定向补证.md"
+EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "试点闭环"
+    / "第五项B扩展试点第一批定向补证.md"
+)
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:

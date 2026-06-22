@@ -12,7 +12,16 @@ RULE_BOUNDARY_PATH = ROOT / "data" / "rule_boundary_batches" / "i5b_yongzheng_ru
 SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 FOLLOWUP_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_followup_20260619.jsonl"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批readiness后续处理.md"
+EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "试点闭环"
+    / "第五项B扩展试点第一批readiness后续处理.md"
+)
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:

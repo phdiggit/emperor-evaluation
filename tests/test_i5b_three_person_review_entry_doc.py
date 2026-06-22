@@ -14,25 +14,25 @@ def test_i5b_three_person_review_entry_doc_exists_and_covers_people() -> None:
     for heading in ["## 3. 李世民审核入口", "## 4. 刘秀审核入口", "## 5. 刘庄审核入口"]:
         assert heading in content
     for person in ["李世民", "刘秀", "刘庄"]:
-        assert f"exports/markdown_views/第五项B/自动结算草案/人物详情/{person}.md" in content
-        assert f"exports/markdown_views/第五项B/人工审核/净证据池/第五项B_{person}人工审核净证据池.md" in content
+        assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in content
+        assert f"exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md" in content
 
 
 def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_entries() -> None:
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
-    assert "审核时只使用 `exports/markdown_views/第五项B/` 下的新产物" in content
+    assert "三人业务审核只使用 `exports/markdown_views/第五项B/人工审核/` 下的新主入口" in content
     assert "不要再使用 `exports/markdown_views/` 根目录下旧平铺产物" in content
     for path in [
-        "exports/markdown_views/第五项B/自动结算草案/第五项B三人自动结算草案.md",
-        "exports/markdown_views/第五项B/规则敏感点/第五项B自动结算规则敏感点清单.md",
-        "exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md",
-        "exports/markdown_views/第五项B/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "exports/markdown_views/第五项B/人工审核/证据卡/第五项B人工审核证据卡索引.md",
-        "exports/markdown_views/第五项B/人工审核/证据簇/第五项B人工审核证据簇索引.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md",
+        "exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md",
     ]:
         assert path in content
-    assert "exports/markdown_views/第五项B/机器审计/" in content
+    assert "exports/markdown_views/第五项B/机器审计/证据链/" in content
     assert "不作为业务审核主入口" in content
     assert "人工审核主表隐藏 `evidence_id/source_id/cluster_id` 等机器字段" in content
 
@@ -41,6 +41,7 @@ def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> N
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
     assert "## 6. 旧路径禁用清单" in content
+    assert "## 7. 旧根目录平铺路径禁用清单" in content
     assert "应不存在" in content
     assert "不作为专人审核依据" in content
     for path in [
@@ -58,7 +59,7 @@ def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> N
 def test_i5b_three_person_review_entry_doc_contains_context_dependent_rules() -> None:
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
-    assert "## 7. 上下文依赖证据处理规则" in content
+    assert "## 8. 上下文依赖证据处理规则" in content
     assert "需上下文 / 需回源" in content
     assert "`context_required = true` 且 `context_status` 未达 `supplied` 或 `source_verified` 的证据，不得直接进入稳定裁判" in content
     assert "`context_effect = reverse` 的证据，应回看其证据方向、强度和裁判桥接说明" in content

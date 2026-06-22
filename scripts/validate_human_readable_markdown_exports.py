@@ -8,14 +8,17 @@ import config_loaders
 
 
 ROOT = Path(__file__).resolve().parents[1]
+MARKDOWN_VIEW_RELATIVE_ROOT = Path("exports") / "markdown_views"
 I5B_EXPORT_RELATIVE_ROOT = Path("exports") / "markdown_views" / "第五项B"
-AUTO_DRAFT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "自动结算草案"
+HUMAN_REVIEW_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "人工审核"
+MACHINE_AUDIT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "机器审计"
+HUMAN_AUTO_ADJUDICATION_RELATIVE_DIR = HUMAN_REVIEW_RELATIVE_DIR / "自动裁判链"
+AUTO_DRAFT_RELATIVE_DIR = HUMAN_AUTO_ADJUDICATION_RELATIVE_DIR / "自动结算草案"
 DETAIL_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "人物详情"
 APPENDIX_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "附录"
 EVIDENCE_CHAIN_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "证据链"
-HUMAN_REVIEW_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "人工审核"
-MACHINE_AUDIT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "机器审计"
 INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / "第五项B三人自动结算草案.md"
+VIEW_INDEX_RELATIVE_PATH = MARKDOWN_VIEW_RELATIVE_ROOT / "导出视图总索引.md"
 DETAIL_FILENAME_TEMPLATE = "{person}.md"
 FORBIDDEN_MARKERS = ("<details", "<summary", "</details>", "……（共")
 DETAIL_REQUIRED_MARKERS = (
@@ -50,6 +53,35 @@ UNBOLDED_KV_RE = re.compile(r"^\s*[-*]\s+(?!\*\*)([^：\n]{1,80})：")
 CONTEXT_APPENDIX_HEADER_MARKERS = ("上下文摘录", "上下文摘要", "裁判桥接说明")
 HUMAN_REVIEW_DECLARATION = "本文件为人工审核视图，隐藏机器追踪字段，只保留业务判断所需信息。"
 MACHINE_AUDIT_DECLARATION = "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。"
+NOT_HUMAN_MAIN_ENTRY_DECLARATION = "不作为人工业务审核主入口"
+ROOT_MARKDOWN_ALLOWLIST = {"导出视图总索引.md"}
+I5B_TOP_LEVEL_ALLOWED_DIRS = {"人工审核", "机器审计", "归档或兼容层"}
+I5B_TOP_LEVEL_FORBIDDEN_DIRS = {
+    "自动结算草案",
+    "规则敏感点",
+    "正式定档草案",
+    "试点闭环",
+    "证据链",
+}
+I5B_HUMAN_AUTO_CHAIN_REQUIRED_DIRS = {
+    "自动结算草案",
+    "规则敏感点",
+    "正式定档草案",
+    "试点闭环",
+}
+I5B_HUMAN_EVIDENCE_CHAIN_REQUIRED_DIRS = {
+    "净证据池",
+    "证据卡",
+    "证据簇",
+    "附录",
+}
+I5B_MACHINE_EVIDENCE_CHAIN_REQUIRED_DIRS = {
+    "净证据池",
+    "证据卡",
+    "证据簇",
+    "检索包",
+    "附录",
+}
 HUMAN_FORBIDDEN_HEADER_MARKERS = (
     "证据ID",
     "来源ID",
@@ -82,10 +114,22 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def iter_markdown_exports(root: Path) -> list[Path]:
+    markdown_root = root / MARKDOWN_VIEW_RELATIVE_ROOT
+    if not markdown_root.exists():
+        return []
+    return sorted(markdown_root.rglob("*.md"))
+
+
 def add_forbidden_marker_errors(path: Path, content: str, errors: list[str]) -> None:
     for marker in FORBIDDEN_MARKERS:
         if marker in content:
             errors.append(f"{path}: contains forbidden marker {marker!r}")
+
+
+def validate_forbidden_markers_for_all_markdown_exports(root: Path, errors: list[str]) -> None:
+    for path in iter_markdown_exports(root):
+        add_forbidden_marker_errors(path, read_text(path), errors)
 
 
 def add_forbidden_marker_errors_for_all_i5b_exports(root: Path, errors: list[str]) -> None:
@@ -164,6 +208,84 @@ def validate_no_legacy_flat_evidence_chain_exports(root: Path, errors: list[str]
             if pattern.match(path.name):
                 errors.append(f"{path}: legacy flat I5B evidence-chain export must be migrated or removed")
                 break
+
+
+def validate_markdown_view_root_layout(root: Path, errors: list[str]) -> None:
+    markdown_root = root / MARKDOWN_VIEW_RELATIVE_ROOT
+    if not markdown_root.exists():
+        return
+    for path in sorted(markdown_root.glob("*.md")):
+        if path.name not in ROOT_MARKDOWN_ALLOWLIST:
+            errors.append(f"{path}: root Markdown export must be classified into a subdirectory")
+
+
+def validate_i5b_directory_layout(root: Path, errors: list[str]) -> None:
+    i5b_root = root / I5B_EXPORT_RELATIVE_ROOT
+    if not i5b_root.exists():
+        return
+
+    for path in sorted(i5b_root.glob("*.md")):
+        errors.append(f"{path}: Fifth item B Markdown must live under 人工审核, 机器审计, or 归档或兼容层")
+
+    for directory in sorted(p for p in i5b_root.iterdir() if p.is_dir()):
+        if directory.name in I5B_TOP_LEVEL_FORBIDDEN_DIRS:
+            errors.append(f"{directory}: legacy Fifth item B top-level export directory is forbidden")
+        elif directory.name not in I5B_TOP_LEVEL_ALLOWED_DIRS:
+            errors.append(f"{directory}: unexpected Fifth item B top-level directory")
+
+    human_auto_root = root / HUMAN_AUTO_ADJUDICATION_RELATIVE_DIR
+    for name in I5B_HUMAN_AUTO_CHAIN_REQUIRED_DIRS:
+        required_dir = human_auto_root / name
+        if not required_dir.exists():
+            errors.append(f"{required_dir}: missing Fifth item B human auto-adjudication directory")
+
+    human_evidence_root = root / HUMAN_REVIEW_RELATIVE_DIR / "证据链"
+    for name in I5B_HUMAN_EVIDENCE_CHAIN_REQUIRED_DIRS:
+        required_dir = human_evidence_root / name
+        if not required_dir.exists():
+            errors.append(f"{required_dir}: missing Fifth item B human evidence-chain directory")
+
+    machine_evidence_root = root / MACHINE_AUDIT_RELATIVE_DIR / "证据链"
+    for name in I5B_MACHINE_EVIDENCE_CHAIN_REQUIRED_DIRS:
+        required_dir = machine_evidence_root / name
+        if not required_dir.exists():
+            errors.append(f"{required_dir}: missing Fifth item B machine evidence-chain directory")
+
+
+def validate_compatibility_layer_declarations(root: Path, errors: list[str]) -> None:
+    i5b_compat_root = root / I5B_EXPORT_RELATIVE_ROOT / "归档或兼容层"
+    if not i5b_compat_root.exists():
+        return
+    for path in sorted(i5b_compat_root.rglob("*.md")):
+        if NOT_HUMAN_MAIN_ENTRY_DECLARATION not in read_text(path):
+            errors.append(f"{path}: compatibility/archive layer must declare it is not a human business review main entry")
+
+
+def validate_view_index(root: Path, errors: list[str]) -> None:
+    index_path = root / VIEW_INDEX_RELATIVE_PATH
+    if not index_path.exists():
+        errors.append(f"{index_path}: export view index is missing")
+        return
+
+    content = read_text(index_path)
+    required_markers = (
+        "## 目录结构说明",
+        "## 人工审核主入口",
+        "## 机器审计入口",
+        "## 待人工确认清单",
+        "## 旧根目录平铺文件禁用说明",
+    )
+    for marker in required_markers:
+        if marker not in content:
+            errors.append(f"{index_path}: missing required index section {marker!r}")
+
+    for line_number, line in enumerate(content.splitlines(), start=1):
+        for link_target, anchor in MARKDOWN_LINK_RE.findall(line):
+            if link_target.startswith(("http://", "https://", "mailto:")):
+                continue
+            target_path = (index_path.parent / link_target).resolve()
+            if not _anchor_exists(target_path, anchor or None):
+                errors.append(f"{index_path}:{line_number}: linked index path does not exist: {link_target}#{anchor}")
 
 
 def _split_markdown_table_row(line: str) -> list[str]:
@@ -276,6 +398,9 @@ def validate_human_review_markdown(root: Path, errors: list[str]) -> None:
         lines = content.splitlines()
         add_forbidden_marker_errors(path, content, errors)
         _validate_markdown_links(path, lines, errors)
+        relative_parts = path.relative_to(human_root).parts
+        if not relative_parts or relative_parts[0] != "证据链":
+            continue
         if path.parent.name != "附录" and HUMAN_REVIEW_DECLARATION not in content:
             errors.append(f"{path}: missing human review purpose declaration")
         for header_index, header_cells in _validate_chinese_table_headers(path, lines, errors):
@@ -312,7 +437,11 @@ def validate_machine_audit_markdown(root: Path, errors: list[str]) -> None:
 def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> list[str]:
     resolved_targets = targets if targets is not None else list(config_loaders.get_i5b_trial_config().get("targets") or [])
     errors: list[str] = []
-    add_forbidden_marker_errors_for_all_i5b_exports(root, errors)
+    validate_forbidden_markers_for_all_markdown_exports(root, errors)
+    validate_markdown_view_root_layout(root, errors)
+    validate_i5b_directory_layout(root, errors)
+    validate_compatibility_layer_declarations(root, errors)
+    validate_view_index(root, errors)
     validate_evidence_chain_markdown(root, errors)
     validate_human_review_markdown(root, errors)
     validate_machine_audit_markdown(root, errors)
@@ -345,7 +474,8 @@ def main() -> int:
     targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
     existing_files = existing_target_files(ROOT, targets)
     evidence_chain_exists = (ROOT / EVIDENCE_CHAIN_RELATIVE_DIR).exists()
-    if (not existing_files or not split_export_exists(ROOT, targets)) and not evidence_chain_exists:
+    markdown_view_exists = (ROOT / MARKDOWN_VIEW_RELATIVE_ROOT).exists()
+    if not markdown_view_exists and (not existing_files or not split_export_exists(ROOT, targets)) and not evidence_chain_exists:
         print("Human-readable Markdown export validation skipped: no I5B split export files found.")
         return 0
 

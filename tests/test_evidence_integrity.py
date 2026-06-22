@@ -9,10 +9,11 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "史料证据卡索引.md"
-EVIDENCE_CLUSTERS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "证据组裁量索引.md"
-THEMATIC_ANCHORS_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "专题锚点索引.md"
-QUERY_PROFILES_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "项目检索包索引.md"
+SUMMARY_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "综合汇总"
+EXPORT_PATH = SUMMARY_EXPORT_ROOT / "史料证据卡索引.md"
+EVIDENCE_CLUSTERS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "证据组裁量索引.md"
+THEMATIC_ANCHORS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "专题锚点索引.md"
+QUERY_PROFILES_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "项目检索包索引.md"
 
 VALIDATE_EVIDENCE_SPEC = importlib.util.spec_from_file_location(
     "validate_evidence",
