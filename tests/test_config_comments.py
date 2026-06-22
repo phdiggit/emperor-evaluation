@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import importlib
 import json
 import sys
 from pathlib import Path
@@ -17,15 +18,8 @@ validate_config_comments = importlib.util.module_from_spec(VALIDATE_CONFIG_COMME
 assert VALIDATE_CONFIG_COMMENTS_SPEC.loader is not None
 VALIDATE_CONFIG_COMMENTS_SPEC.loader.exec_module(validate_config_comments)
 
-CONFIG_LOADERS_SPEC = importlib.util.spec_from_file_location(
-    "config_loaders",
-    ROOT / "scripts" / "config_loaders.py",
-)
-assert CONFIG_LOADERS_SPEC is not None
-config_loaders = importlib.util.module_from_spec(CONFIG_LOADERS_SPEC)
-sys.modules[CONFIG_LOADERS_SPEC.name] = config_loaders
-assert CONFIG_LOADERS_SPEC.loader is not None
-CONFIG_LOADERS_SPEC.loader.exec_module(config_loaders)
+sys.path.insert(0, str(ROOT / "scripts"))
+config_loaders = importlib.import_module("shared.config_loaders")
 
 
 def write_json(path: Path, payload: object) -> None:

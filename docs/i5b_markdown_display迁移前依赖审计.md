@@ -89,7 +89,7 @@ tests/test_scripts_export_directory_layout.py: asserts i5b_markdown_display.py r
 
 ## 七、本 PR 明确不做
 
-- 不迁移 `config_loaders.py`。
+- 本审计不迁移 `config_loaders.py`；该模块的实迁状态以 `docs/config_loaders迁移前依赖审计.md` 为准。
 - 不改展示策略。
 - 不改展示配置。
 - 不改 exporter 或 validator 导出/校验逻辑，仅更新 import 路径。
