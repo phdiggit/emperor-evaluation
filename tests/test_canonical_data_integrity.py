@@ -11,8 +11,8 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
-    "validate_canonical_data_integrity",
-    ROOT / "scripts" / "validate_canonical_data_integrity.py",
+    "validate.validate_canonical_data_integrity",
+    ROOT / "scripts" / "validate" / "validate_canonical_data_integrity.py",
 )
 assert VALIDATOR_SPEC is not None
 validator = importlib.util.module_from_spec(VALIDATOR_SPEC)

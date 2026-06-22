@@ -16,8 +16,8 @@ THEMATIC_ANCHORS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "专题锚点索引.md"
 QUERY_PROFILES_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "项目检索包索引.md"
 
 VALIDATE_EVIDENCE_SPEC = importlib.util.spec_from_file_location(
-    "validate_evidence",
-    ROOT / "scripts" / "validate_evidence.py",
+    "validate.validate_evidence",
+    ROOT / "scripts" / "validate" / "validate_evidence.py",
 )
 assert VALIDATE_EVIDENCE_SPEC is not None
 validate_evidence = importlib.util.module_from_spec(VALIDATE_EVIDENCE_SPEC)
