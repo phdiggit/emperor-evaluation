@@ -51,6 +51,11 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改已迁移 validator 时，优先改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
 - 修改已迁移 exporter 时，优先改 `scripts/export/` 下真实实现，再确认旧路径 wrapper 仍可 import/运行。
 - 已迁移 exporter 的真实实现位于 `scripts/export/`；旧路径只作为兼容 wrapper。
+- 新增被多个 exporter / validator / pipeline 共用的工具，应放入 `scripts/shared/`。
+- 当前根目录共享工具暂不直接迁移；修改尚未迁移的共享工具时，仍改 `scripts/` 根目录原文件。
+- 迁移共享工具必须单独开 PR，保留旧路径 wrapper。
+- 修改已迁移的共享工具时，优先改 `scripts/shared/` 下真实实现，再确认旧路径 wrapper 仍可 import。
+- 不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具。
 - 不得一次性大规模迁移 exporter、build、pipeline 或 matrix 类脚本；这类脚本后续按 PR 分阶段治理。
 - 不得一次性大规模迁移 `export_md.py`、build、pipeline、matrix 类脚本。
 - `scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。

@@ -44,10 +44,23 @@ scripts/validate/validate_config_comments.py
 
 本阶段只分批迁移低风险 exporter。`export_md.py`、`export_md_scaffold.py` 以及 build、matrix、pipeline 类脚本暂不迁移，后续按小 PR 分批治理。
 
+## scripts/shared/
+
+`scripts/shared/` 是共享工具真实实现目录。新增被 exporter、validator、pipeline 共同依赖的工具，应放入这里，不应继续把共享主逻辑直接放在 `scripts/` 根目录。
+
+当前根目录共享工具暂不迁移：
+
+- `config_loaders.py`
+- `export_md_scaffold.py`
+- `i5b_markdown_display.py`
+- `i5b_cluster_warning_display.py`
+
+后续迁移共享工具时必须保留旧路径 wrapper。旧路径 wrapper 只负责兼容 import，不承载主逻辑。共享工具迁移必须单独开 PR，每次最多迁移 1-2 个共享工具，普通 exporter 或 validator 迁移 PR 不得顺手迁移共享工具。
+
 ## scripts/
 
 `scripts/` 根目录当前仍保留历史脚本、总入口、尚未迁移脚本和必要的旧路径兼容 wrapper。
 
-新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。业务导出总入口、build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
+新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。新增共享工具应放入 `scripts/shared/`。业务导出总入口、build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
 
 任何后续目录治理都应先锁定影响面和测试，再拆分迁移，避免顺手改动业务数据、评分、排名、正式定档、证据事实或证据簇裁判结论。
