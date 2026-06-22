@@ -28,10 +28,18 @@ scripts/validate/validate_config_comments.py
 
 兼容 wrapper 只负责转发到 `scripts/validate/` 下的真实实现，不承载大段重复逻辑。修改已迁移 validator 时，应优先修改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
 
+## scripts/export/
+
+`scripts/export/` 是导出脚本真实实现目录。新增 exporter 应放入这里，不应继续把主逻辑直接放在 `scripts/` 根目录。
+
+已迁移 exporter 的真实实现应位于 `scripts/export/`。`scripts/` 根目录旧 exporter 只作为兼容 wrapper，负责保留旧路径 import 或旧命令入口，不承载主逻辑。
+
+本阶段只分批迁移低风险 exporter。`export_md.py`、`export_md_scaffold.py` 以及 build、matrix、pipeline 类脚本暂不迁移，后续按小 PR 分批治理。
+
 ## scripts/
 
 `scripts/` 根目录当前仍保留历史脚本、总入口、尚未迁移脚本和必要的旧路径兼容 wrapper。
 
-新增 validator 不应继续放在 `scripts/` 根目录。业务导出、build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
+新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。业务导出总入口、build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
 
 任何后续目录治理都应先锁定影响面和测试，再拆分迁移，避免顺手改动业务数据、评分、排名、正式定档、证据事实或证据簇裁判结论。

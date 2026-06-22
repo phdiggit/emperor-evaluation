@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib.util
 import json
 import sqlite3
 import sys
@@ -10,25 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-SCAFFOLD_SPEC = importlib.util.spec_from_file_location(
-    "export_md_scaffold",
-    ROOT / "scripts" / "export_md_scaffold.py",
-)
-assert SCAFFOLD_SPEC is not None
-scaffold = importlib.util.module_from_spec(SCAFFOLD_SPEC)
-sys.modules[SCAFFOLD_SPEC.name] = scaffold
-assert SCAFFOLD_SPEC.loader is not None
-SCAFFOLD_SPEC.loader.exec_module(scaffold)
-
-NET_EVIDENCE_SPEC = importlib.util.spec_from_file_location(
-    "export_i5b_net_evidence",
-    ROOT / "scripts" / "export_i5b_net_evidence.py",
-)
-assert NET_EVIDENCE_SPEC is not None
-net_evidence = importlib.util.module_from_spec(NET_EVIDENCE_SPEC)
-sys.modules[NET_EVIDENCE_SPEC.name] = net_evidence
-assert NET_EVIDENCE_SPEC.loader is not None
-NET_EVIDENCE_SPEC.loader.exec_module(net_evidence)
+from export import export_i5b_net_evidence as net_evidence
 
 
 def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(tmp_path: Path) -> None:
