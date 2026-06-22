@@ -8,13 +8,12 @@ SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
 SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
 MIGRATED_SHARED_TOOLS = (
+    "config_loaders.py",
     "export_md_scaffold.py",
     "i5b_cluster_warning_display.py",
     "i5b_markdown_display.py",
 )
-ROOT_SHARED_TOOLS = (
-    "config_loaders.py",
-)
+ROOT_SHARED_TOOLS: tuple[str, ...] = ()
 SHARED_TOOLS = MIGRATED_SHARED_TOOLS + ROOT_SHARED_TOOLS
 
 
@@ -38,7 +37,7 @@ def test_scripts_shared_placeholder_exists_without_import_side_effects() -> None
     assert "import i5b_cluster_warning_display" not in content
 
 
-def test_current_shared_tools_remain_at_scripts_root() -> None:
+def test_current_shared_tools_have_legacy_wrappers() -> None:
     for tool_name in ROOT_SHARED_TOOLS:
         assert (SCRIPTS_DIR / tool_name).is_file()
         assert not (SHARED_DIR / tool_name).exists()
@@ -67,6 +66,19 @@ def test_export_md_scaffold_migrated_with_short_legacy_wrapper() -> None:
 
 def test_i5b_cluster_warning_display_migrated_with_short_legacy_wrapper() -> None:
     assert_short_shared_wrapper("i5b_cluster_warning_display.py")
+
+
+def test_config_loaders_migrated_with_legacy_module_forwarder() -> None:
+    wrapper_path = SCRIPTS_DIR / "config_loaders.py"
+    implementation_path = SHARED_DIR / "config_loaders.py"
+    wrapper_text = wrapper_path.read_text(encoding="utf-8")
+
+    assert implementation_path.is_file()
+    assert wrapper_path.is_file()
+    assert len(wrapper_text.splitlines()) <= 12
+    assert "from shared import config_loaders as _config_loaders" in wrapper_text
+    assert "sys.modules[__name__] = _config_loaders" in wrapper_text
+    assert "def " not in wrapper_text
 
 
 def assert_short_shared_wrapper(tool_name: str) -> None:
@@ -107,6 +119,18 @@ def test_new_and_legacy_i5b_markdown_display_imports() -> None:
     sys.path.insert(0, str(SCRIPTS_DIR))
     assert importlib.import_module("i5b_markdown_display") is not None
     assert importlib.import_module("shared.i5b_markdown_display") is not None
+
+
+def test_new_and_legacy_config_loaders_imports_resolve_to_same_module() -> None:
+    import importlib
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    legacy = importlib.import_module("config_loaders")
+    shared = importlib.import_module("shared.config_loaders")
+
+    assert legacy is shared
+    assert legacy.ROOT == ROOT
 
 
 def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> None:

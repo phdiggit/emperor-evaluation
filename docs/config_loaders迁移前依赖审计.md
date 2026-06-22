@@ -1,13 +1,12 @@
 # config_loaders.py 迁移前依赖审计
 
-本文档记录 `scripts/config_loaders.py` 在迁移到 `scripts/shared/` 前的依赖面、公共 API、路径常量、迁移风险和验证要求。本 PR 只做依赖审计、文档化和测试防线，不迁移模块本体，不改变任何配置读取行为或业务语义。
+本文档记录 `scripts/config_loaders.py` 迁移到 `scripts/shared/` 的依赖面、公共 API、路径常量、迁移风险和验证要求。本次实迁只移动真实实现并保留旧路径 wrapper，不改变任何配置读取行为或业务语义。
 
 ## 一、模块当前位置
 
-- 当前真实实现：`scripts/config_loaders.py`
-- 后续目标位置：`scripts/shared/config_loaders.py`
-- 后续实迁时旧路径 `scripts/config_loaders.py` 必须保留短 wrapper。
-- 当前不得新增 `scripts/shared/config_loaders.py`。
+- 当前真实实现：`scripts/shared/config_loaders.py`
+- 旧路径兼容入口：`scripts/config_loaders.py`
+- 旧路径 `scripts/config_loaders.py` 必须保留短 wrapper。
 
 ## 二、模块职责
 
@@ -98,10 +97,10 @@ tests/test_run_matrix.py: monkeypatches run_matrix.config_loaders.I5B_VIEW_GROUP
 - `load_json_array` 的顶层数组和对象校验语义不能改变，否则会改变配置错误暴露方式。
 - shared 迁移后旧路径 wrapper 必须继续支持所有旧 import，包括 `import config_loaders` 和 `from config_loaders import load_i5b_cluster_warning_rules`。
 
-## 七、建议迁移策略
+## 七、迁移策略
 
 - 单独 PR 实迁 `config_loaders.py`。
-- 真实实现迁移到 `scripts/shared/config_loaders.py`。
+- 真实实现已迁移到 `scripts/shared/config_loaders.py`。
 - 旧路径 `scripts/config_loaders.py` 保留短 wrapper。
 - 已迁移 exporter/validator 优先改 shared 新路径；仍未迁移脚本允许继续走旧路径 wrapper。
 - 必须验证所有路径常量不漂移，尤其是 `I5B_PERSON_POOL_PATH`、`I5B_VIEW_GROUPS_PATH`、`I5B_KEYWORD_PROFILES_PATH`、`I5B_KEYWORD_OVERRIDES_PATH` 和 `I5B_CLUSTER_WARNING_RULES_PATH`。
@@ -110,8 +109,8 @@ tests/test_run_matrix.py: monkeypatches run_matrix.config_loaders.I5B_VIEW_GROUP
 
 ## 八、本 PR 明确不做
 
-- 不迁移 `config_loaders.py`。
-- 不新增 `scripts/shared/config_loaders.py`。
+- 不改变 `config_loaders.py` API 行为。
+- 不改变配置读取路径或业务语义。
 - 不改配置读取逻辑。
 - 不改真实配置文件。
 - 不改 exporter、validator、pipeline 或 `scripts/shared/**` 实现。

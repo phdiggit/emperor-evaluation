@@ -78,6 +78,11 @@ def test_new_and_legacy_import_paths_remain_available() -> None:
     assert importlib.import_module("i5b_markdown_display") is not None
 
 
-def test_remaining_unmigrated_shared_tool_stays_at_scripts_root() -> None:
+def test_config_loaders_has_been_migrated_with_legacy_wrapper() -> None:
     assert (SCRIPTS_DIR / "config_loaders.py").is_file()
-    assert not (SHARED_DIR / "config_loaders.py").exists()
+    assert (SHARED_DIR / "config_loaders.py").is_file()
+
+    wrapper_text = (SCRIPTS_DIR / "config_loaders.py").read_text(encoding="utf-8")
+    assert len(wrapper_text.splitlines()) <= 12
+    assert "from shared import config_loaders as _config_loaders" in wrapper_text
+    assert "def " not in wrapper_text
