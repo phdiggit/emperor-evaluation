@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 VALIDATE_CONFIG_COMMENTS_SPEC = importlib.util.spec_from_file_location(
     "validate_config_comments",
-    ROOT / "scripts" / "validate_config_comments.py",
+    ROOT / "scripts" / "validate" / "validate_config_comments.py",
 )
 assert VALIDATE_CONFIG_COMMENTS_SPEC is not None
 validate_config_comments = importlib.util.module_from_spec(VALIDATE_CONFIG_COMMENTS_SPEC)

@@ -14,12 +14,12 @@ VALIDATION_STEPS = [
     ("validate_review_configs", ROOT / "scripts" / "validate_review_configs.py"),
     (
         "validate_i5b_cluster_adjudication_configs",
-        ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py",
+        ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
     ),
-    ("validate_config_comments", ROOT / "scripts" / "validate_config_comments.py"),
+    ("validate_config_comments", ROOT / "scripts" / "validate" / "validate_config_comments.py"),
     (
         "validate_human_readable_markdown_exports",
-        ROOT / "scripts" / "validate_human_readable_markdown_exports.py",
+        ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",
     ),
     ("validate_config_readability", ROOT / "scripts" / "validate_config_readability.py"),
 ]

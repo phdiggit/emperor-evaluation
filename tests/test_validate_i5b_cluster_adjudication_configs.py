@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 VALIDATE_CLUSTER_CONFIGS_SPEC = importlib.util.spec_from_file_location(
     "validate_i5b_cluster_adjudication_configs",
-    ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py",
+    ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
 )
 assert VALIDATE_CLUSTER_CONFIGS_SPEC is not None
 validate_i5b_cluster_adjudication_configs = importlib.util.module_from_spec(VALIDATE_CLUSTER_CONFIGS_SPEC)
@@ -44,7 +44,7 @@ def valid_rule(**overrides: object) -> dict[str, object]:
 
 def test_validate_i5b_cluster_adjudication_configs_cli_passes_on_repo_disabled_rules() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,
