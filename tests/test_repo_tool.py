@@ -271,9 +271,18 @@ def test_pr_context_detects_added_modified_and_rename(tmp_path: Path) -> None:
     assert by_path["docs/new.md"]["status"] == "A"
     assert by_path["scripts/dev/tool.py"]["status"] == "M"
     assert by_path["scripts/new_name.py"]["status"] == "R"
+    assert by_path["scripts/new_name.py"]["additions"] == 0
+    assert by_path["scripts/new_name.py"]["deletions"] == 0
     assert context["renames"] == [{"old_path": "scripts/old_name.py", "path": "scripts/new_name.py"}]
     assert {"path": "scripts/new_name.py", "risk": "moved_python_file"} in context["path_risks"]
     assert any(risk["risk"] == "patch_touches_root" for risk in context["path_risks"])
+
+
+def test_parse_numstat_path_keeps_brace_rename_prefix(tmp_path: Path) -> None:
+    repo_tool = load_repo_tool(tmp_path)
+
+    assert repo_tool._parse_numstat_path("scripts/{old_name.py => new_name.py}") == "scripts/new_name.py"
+    assert repo_tool._parse_numstat_path("scripts/{old => new}/tool.py") == "scripts/new/tool.py"
 
 
 def test_scope_check_blocks_forbid_and_untracked_files(tmp_path: Path) -> None:
@@ -362,6 +371,102 @@ def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: P
     assert "scripts/dev/missing.py: implementation path missing for tool" in problems
     assert "tests/missing_test.py: missing required_tests path for tool" in problems
     assert "scripts/loose.py: root script is neither legacy_wrapper nor root_exception" in problems
+
+
+def test_agents_check_requires_reason_for_custom_wrapper_line_limit(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "scripts" / "tool.py").write_text("from dev.tool import *\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "validate": "scripts/validate",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "tool",
+                "category": "dev",
+                "status": "migrated",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": "scripts/tool.py",
+                "max_wrapper_lines": 40,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            }
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": [],
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/tool.py: custom max_wrapper_lines requires exception_reason" in problems
+
+
+def test_agents_check_scans_wrapper_markers_even_with_exception_reason(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    wrapper_body = "\n".join(["from dev.tool import *", "def build():", "    return 'not a wrapper'"]) + "\n"
+    (repo_root / "scripts" / "tool.py").write_text(wrapper_body, encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "validate": "scripts/validate",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "tool",
+                "category": "dev",
+                "status": "migrated",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": "scripts/tool.py",
+                "max_wrapper_lines": 40,
+                "exception_reason": "temporary compatibility shim",
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            }
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": [],
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/tool.py: wrapper appears to contain implementation marker 'def build'" in problems
 
 
 def test_repo_tool_source_mentions_git_encoding_guards() -> None:

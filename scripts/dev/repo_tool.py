@@ -273,11 +273,24 @@ def _parse_numstat(base_sha: str, head: str) -> dict[str, dict[str, int | None]]
             continue
         additions = None if parts[0] == "-" else int(parts[0])
         deletions = None if parts[1] == "-" else int(parts[1])
-        path = normalize_repo_path(parts[-1])
-        if " => " in path:
-            path = path.split(" => ", 1)[1].replace("{", "").replace("}", "")
+        path = _parse_numstat_path(parts[-1])
         stats[path] = {"additions": additions, "deletions": deletions}
     return stats
+
+
+def _parse_numstat_path(path: str) -> str:
+    normalized = normalize_repo_path(path)
+    if " => " not in normalized:
+        return normalized
+    arrow_index = normalized.index(" => ")
+    open_index = normalized.rfind("{", 0, arrow_index)
+    close_index = normalized.find("}", arrow_index)
+    if open_index != -1 and close_index != -1:
+        prefix = normalized[:open_index]
+        suffix = normalized[close_index + 1 :]
+        body = normalized[open_index + 1 : close_index]
+        return prefix + body.split(" => ", 1)[1] + suffix
+    return normalized.split(" => ", 1)[1]
 
 
 def _tests_related_to(paths: list[str]) -> list[str]:
@@ -480,10 +493,11 @@ def _wrapper_problems(path: str, module: dict[str, Any]) -> list[str]:
     text = wrapper.read_text(encoding="utf-8")
     lines = text.splitlines()
     max_lines = int(module.get("max_wrapper_lines", 25))
+    exception_reason = str(module.get("exception_reason", "")).strip()
     problems: list[str] = []
+    if max_lines != 25 and not exception_reason:
+        problems.append(f"{path}: custom max_wrapper_lines requires exception_reason")
     if len(lines) > max_lines:
-        if module.get("exception_reason"):
-            return []
         problems.append(f"{path}: wrapper has {len(lines)} lines, exceeds {max_lines}")
     suspicious = [
         "def validate",
