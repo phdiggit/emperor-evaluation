@@ -112,7 +112,7 @@ def write_minimal_registry(repo_root: Path) -> None:
 
 
 def write_canonical_import_registry(repo_root: Path) -> None:
-    for folder in ("scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
     (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("VALUE = 1\n", encoding="utf-8")
     (repo_root / "scripts" / "config_loaders.py").write_text(
@@ -137,6 +137,15 @@ def write_canonical_import_registry(repo_root: Path) -> None:
                 "status": "migrated",
                 "implementation": "scripts/export/tool.py",
                 "legacy_wrapper": "scripts/tool.py",
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+            {
+                "id": "dev_tool",
+                "category": "dev",
+                "status": "active",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": None,
                 "audit_docs": [],
                 "required_tests": ["tests/test_tool.py"],
             },
@@ -557,6 +566,19 @@ def test_canonical_imports_report_legacy_import(tmp_path: Path) -> None:
 
     assert repo_tool.check_canonical_imports() == [
         "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'"
+    ]
+
+
+def test_canonical_imports_scan_implementation_without_legacy_wrapper(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_canonical_import_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("from shared import config_loaders\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_canonical_imports() == [
+        "scripts/dev/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'"
     ]
 
 

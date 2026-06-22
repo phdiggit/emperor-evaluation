@@ -65,8 +65,7 @@ def test_registry_implementations_have_no_legacy_imports() -> None:
 
     for module in registry["modules"]:
         implementation = module.get("implementation")
-        legacy_wrapper = module.get("legacy_wrapper")
-        if not implementation or not legacy_wrapper or not implementation.endswith(".py"):
+        if not implementation or not implementation.endswith(".py"):
             continue
         path = ROOT / implementation
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=implementation)

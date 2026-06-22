@@ -553,16 +553,13 @@ def _legacy_wrapper_import_map(registry: dict[str, Any]) -> dict[str, str]:
     return dict(sorted(imports.items()))
 
 
-def _implementation_paths_with_wrappers(registry: dict[str, Any]) -> list[str]:
+def _implementation_paths(registry: dict[str, Any]) -> list[str]:
     paths: set[str] = set()
     for module in registry.get("modules", []):
         implementation = module.get("implementation")
-        legacy_wrapper = module.get("legacy_wrapper")
-        if not implementation or not legacy_wrapper:
+        if not implementation:
             continue
         if not implementation.endswith(".py"):
-            continue
-        if implementation == legacy_wrapper:
             continue
         path = _resolve_repo_path(implementation)
         if path.is_file():
@@ -587,7 +584,7 @@ def check_canonical_imports(
         return []
 
     problems: list[str] = []
-    for rel_path in _implementation_paths_with_wrappers(registry):
+    for rel_path in _implementation_paths(registry):
         path = _resolve_repo_path(rel_path)
         try:
             tree = ast.parse(path.read_text(encoding="utf-8"), filename=rel_path)
