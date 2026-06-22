@@ -1,10 +1,10 @@
 # scripts 共享工具依赖盘点
 
-本文件用于 shared 分层治理，记录共享工具依赖盘点、目录规划和迁移规则说明。#193 已迁移 `export_md_scaffold.py`，#194 已迁移 `i5b_cluster_warning_display.py`，#196 已迁移 `i5b_markdown_display.py`。迁移审计与维护要求详见 `docs/i5b_markdown_display迁移前依赖审计.md`。
+本文件用于 shared 分层治理，记录共享工具依赖盘点、目录规划和迁移规则说明。#193 已迁移 `export_md_scaffold.py`，#194 已迁移 `i5b_cluster_warning_display.py`，#196 已迁移 `i5b_markdown_display.py`。`config_loaders.py` 未迁移；已完成迁移前依赖审计，详见 `docs/config_loaders迁移前依赖审计.md`。
 
 ## 一、当前共享工具清单
 
-- `scripts/config_loaders.py`
+- `scripts/config_loaders.py`（未迁移；已完成迁移前依赖审计）
 - `scripts/export_md_scaffold.py`（旧路径兼容 wrapper）
 - `scripts/shared/export_md_scaffold.py`（已迁移真实实现）
 - `scripts/i5b_markdown_display.py`（旧路径兼容 wrapper）
@@ -38,7 +38,7 @@ scripts/config_loaders.py
 
 ## 二、共享工具职责
 
-- `config_loaders.py`：集中加载配置、人物池、视图分组、展示字典和各类路径配置。
+- `config_loaders.py`：集中加载配置、人物池、视图分组、检索关键词、证据簇裁判提示和各类路径配置；未迁移，已完成迁移前依赖审计，详见 `docs/config_loaders迁移前依赖审计.md`。
 - `export_md_scaffold.py`：提供 Markdown 表格、JSONL 读取、基础导出步骤和通用导出辅助；已迁移到 `scripts/shared/`，旧路径为兼容 wrapper。
 - `i5b_markdown_display.py`：提供第五项B展示字段、值映射、长字段处理、附录策略和人工审核表头；已迁移到 `scripts/shared/`，旧路径为兼容 wrapper，维护要求详见 `docs/i5b_markdown_display迁移前依赖审计.md`。
 - `i5b_cluster_warning_display.py`：提供第五项B证据簇 warning 的 display-only 匹配与展示辅助；已迁移到 `scripts/shared/`，旧路径为兼容 wrapper。
@@ -82,7 +82,7 @@ scripts/
 ## 六、建议迁移顺序
 
 1. `export_md_scaffold.py` 已迁移，后续修改应优先改 `scripts/shared/export_md_scaffold.py`，再确认旧路径 wrapper 可 import。
-2. 再评估 `config_loaders.py`，因为它牵涉配置路径、人物池和展示配置，迁移前必须覆盖 import 与路径定位。
+2. `config_loaders.py` 未迁移；已完成迁移前依赖审计，详见 `docs/config_loaders迁移前依赖审计.md`。该工具牵涉配置读取、路径常量、人物池、视图分组、检索关键词和证据簇裁判提示，迁移时必须保证配置路径和配置语义不变。
 3. `i5b_cluster_warning_display.py` 已迁移，后续修改应优先改 `scripts/shared/i5b_cluster_warning_display.py`，再确认旧路径 wrapper 可 import。
 4. `i5b_markdown_display.py` 已迁移，后续修改应优先改 `scripts/shared/i5b_markdown_display.py`，再确认旧路径 wrapper 可 import。该工具和第五项B展示语义更近，维护时需要保证字段标签、值映射、长字段附录、machine key 保留/隐藏策略和人工审核表头白名单语义不变。
 
