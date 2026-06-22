@@ -19,6 +19,7 @@
     "build": "scripts/build",
     "dev": "scripts/dev",
     "export": "scripts/export",
+    "matrix": "scripts/matrix",
     "shared": "scripts/shared",
     "validate": "scripts/validate"
   },
@@ -351,6 +352,29 @@
         "tests/test_evidence_integrity.py"
       ],
       "status": "migrated"
+    },
+    {
+      "audit_docs": [],
+      "category": "matrix",
+      "id": "matrix_package",
+      "implementation": "scripts/matrix/__init__.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_scripts_matrix_directory_layout.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "matrix",
+      "id": "run_matrix",
+      "implementation": "scripts/matrix/run_matrix.py",
+      "legacy_wrapper": "scripts/run_matrix.py",
+      "required_tests": [
+        "tests/test_run_matrix.py",
+        "tests/test_scripts_matrix_directory_layout.py"
+      ],
+      "status": "migrated"
     }
   ],
   "root_exceptions": [
@@ -359,12 +383,6 @@
       "planned_category": "dev",
       "reason": "PowerShell 发布入口暂作为根目录稳定入口保留",
       "status": "stable_entrypoint"
-    },
-    {
-      "path": "scripts/run_matrix.py",
-      "planned_category": "matrix",
-      "reason": "尚未进入 matrix 分层迁移批次",
-      "status": "unmigrated"
     }
   ],
   "schema_version": 1
