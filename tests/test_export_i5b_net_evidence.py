@@ -37,6 +37,10 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     appendix_dir = tmp_path / "附录"
     net_evidence.DB_PATH = db_path
     net_evidence.APPENDIX_DIR = appendix_dir
+    net_evidence.HUMAN_NET_EVIDENCE_DIR = tmp_path / "人工审核" / "净证据池"
+    net_evidence.HUMAN_APPENDIX_DIR = tmp_path / "人工审核" / "附录"
+    net_evidence.MACHINE_NET_EVIDENCE_DIR = tmp_path / "机器审计" / "净证据池"
+    net_evidence.MACHINE_APPENDIX_DIR = tmp_path / "机器审计" / "附录"
 
     with sqlite3.connect(db_path) as connection:
         connection.execute(
@@ -201,6 +205,35 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     assert "## card-001-quote_context" in appendix_content
     assert "CLUSTER-999" not in content
     assert "CARD-999" not in content
+
+    human_path = net_evidence.export_i5b_human_review_net_evidence_pool("测试人物")
+    human_content = human_path.read_text(encoding="utf-8")
+    human_appendix = (net_evidence.HUMAN_APPENDIX_DIR / "测试人物_人工审核史料详情附录.md").read_text(
+        encoding="utf-8"
+    )
+    assert "本文件为人工审核视图" in human_content
+    assert "证据ID" not in human_content
+    assert "来源ID" not in human_content
+    assert "证据簇ID" not in human_content
+    assert "evidence_id" not in human_content
+    assert "source_id" not in human_content
+    assert "cluster_id" not in human_content
+    for label in ["人物", "方向", "人工强度", "触发类型", "对象锚点", "证据角色", "史料详情链接", "上下文状态", "上下文影响", "裁判状态"]:
+        assert label in human_content
+    assert "[查看史料详情]" in human_content
+    assert "[查看上下文]" in human_content
+    assert "[查看裁判桥接]" in human_content
+    assert "[查看剥离说明]" in human_content
+    assert "这是需要完整保留的上下文摘录，包含前因后果与后续限定，不能在表格内截断。" in human_appendix
+    assert "### 机器定位信息" in human_appendix
+    assert "evidence_id: CARD-001" in human_appendix
+    assert "source_id: SRC-001" in human_appendix
+
+    machine_path = net_evidence.export_i5b_machine_audit_net_evidence_pool("测试人物")
+    machine_content = machine_path.read_text(encoding="utf-8")
+    assert "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。" in machine_content
+    assert "证据ID（evidence_id）" in machine_content
+    assert "来源ID（source_id）" in machine_content
 
 
 def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(

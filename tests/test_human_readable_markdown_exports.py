@@ -211,6 +211,27 @@ def write_evidence_chain_export(root: Path, content: str) -> Path:
     return export_path
 
 
+def write_human_review_export(root: Path, content: str, appendix_content: str | None = None) -> Path:
+    export_path = root / "exports" / "markdown_views" / "第五项B" / "人工审核" / "净证据池" / "测试.md"
+    export_path.parent.mkdir(parents=True, exist_ok=True)
+    export_path.write_text(content, encoding="utf-8")
+    appendix_path = root / "exports" / "markdown_views" / "第五项B" / "人工审核" / "附录" / "测试附录.md"
+    appendix_path.parent.mkdir(parents=True, exist_ok=True)
+    appendix_path.write_text(
+        appendix_content
+        or "\n".join(["# 测试附录", "", "## card-001", "", "### 机器定位信息", "", "```text", "evidence_id: CARD-001", "```", ""]),
+        encoding="utf-8",
+    )
+    return export_path
+
+
+def write_machine_audit_export(root: Path, content: str) -> Path:
+    export_path = root / "exports" / "markdown_views" / "第五项B" / "机器审计" / "净证据池" / "测试.md"
+    export_path.parent.mkdir(parents=True, exist_ok=True)
+    export_path.write_text(content, encoding="utf-8")
+    return export_path
+
+
 def test_validate_exports_reports_evidence_chain_bare_english_table_header(tmp_path: Path) -> None:
     write_evidence_chain_export(
         tmp_path,
@@ -307,6 +328,70 @@ def test_validate_exports_reports_evidence_chain_unbolded_key_value_label(tmp_pa
     errors = validator.validate_exports(tmp_path, [])
 
     assert any("Markdown key-value label must be bold" in error for error in errors)
+
+
+def test_validate_exports_reports_human_review_machine_field_header(tmp_path: Path) -> None:
+    write_human_review_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "本文件为人工审核视图，隐藏机器追踪字段，只保留业务判断所需信息。",
+                "",
+                "| 证据ID（evidence_id） | 人物（person） |",
+                "| --- | --- |",
+                "| CARD-001 | 测试人物 |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("human review table exposes machine field" in error for error in errors)
+
+
+def test_validate_exports_reports_human_review_unmapped_enum(tmp_path: Path) -> None:
+    write_human_review_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "本文件为人工审核视图，隐藏机器追踪字段，只保留业务判断所需信息。",
+                "",
+                "| 人物（person） | 裁判状态（adjudication_status） |",
+                "| --- | --- |",
+                "| 测试人物 | source_verified_auto_classified_cluster_review_pending |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("human review table exposes unmapped enum value" in error for error in errors)
+
+
+def test_validate_exports_reports_machine_audit_missing_declaration(tmp_path: Path) -> None:
+    write_machine_audit_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "| 证据ID（evidence_id） |",
+                "| --- |",
+                "| CARD-001 |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("missing machine audit purpose declaration" in error for error in errors)
 
 
 def test_standalone_cli_passes_on_current_repo_exports() -> None:

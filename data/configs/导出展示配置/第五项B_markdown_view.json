@@ -32,6 +32,33 @@
       "long_field_strategy": "fenced_code_block"
     }
   },
+  "view_profiles": {
+    "human_review": {
+      "description": "人工业务审核视图，隐藏机器追踪字段，只保留业务判断所需信息。",
+      "show_machine_fields": false,
+      "hidden_fields": [
+        "evidence_id",
+        "cluster_id",
+        "source_id",
+        "linked_evidence_ids",
+        "query_profile_id",
+        "search_id"
+      ],
+      "detail_link_fields": [
+        "quote_short",
+        "quote_context",
+        "context_summary",
+        "adjudication_bridge",
+        "cross_item_split",
+        "source_locator"
+      ]
+    },
+    "machine_audit": {
+      "description": "机器审计视图，保留完整字段，用于代码审查、数据追踪和回源定位。",
+      "show_machine_fields": true,
+      "include_all_fields": true
+    }
+  },
   "field_labels": {
     "evidence_id": "证据ID",
     "person": "人物",
@@ -45,6 +72,11 @@
     "quote_short": "短摘",
     "quote_context": "上下文摘录",
     "context_summary": "上下文摘要",
+    "source_detail_link": "史料详情链接",
+    "context_detail_link": "上下文详情链接",
+    "adjudication_bridge_detail_link": "裁判桥接链接",
+    "cross_item_split_detail_link": "剥离说明链接",
+    "summary_detail_link": "摘要详情链接",
     "context_scope": "上下文范围",
     "context_required": "是否需上下文定证",
     "context_status": "上下文状态",
@@ -180,6 +212,8 @@
     "supplied": "已补",
     "verified": "已回源",
     "source_verified": "已回源核验",
+    "source_verified_auto_classified_cluster_review_pending": "已回源，自动归类，待证据簇复核",
+    "needs_more_source_review": "需继续回源",
     "strengthen": "增强定证",
     "limit": "限制定证",
     "reverse": "反转定证",
