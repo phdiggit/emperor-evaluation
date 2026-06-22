@@ -73,6 +73,13 @@ def test_validate_all_includes_i5b_cluster_adjudication_config_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_config_comments_step() -> None:
+    assert (
+        "validate_config_comments",
+        ROOT / "scripts" / "validate_config_comments.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_includes_human_readable_markdown_export_step() -> None:
     assert (
         "validate_human_readable_markdown_exports",
