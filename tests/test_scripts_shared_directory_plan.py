@@ -7,11 +7,13 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
 SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
-MIGRATED_SHARED_TOOLS = ("export_md_scaffold.py",)
+MIGRATED_SHARED_TOOLS = (
+    "export_md_scaffold.py",
+    "i5b_cluster_warning_display.py",
+)
 ROOT_SHARED_TOOLS = (
     "config_loaders.py",
     "i5b_markdown_display.py",
-    "i5b_cluster_warning_display.py",
 )
 SHARED_TOOLS = MIGRATED_SHARED_TOOLS + ROOT_SHARED_TOOLS
 
@@ -60,14 +62,23 @@ def test_layout_docs_and_agents_describe_shared_directory_rules() -> None:
 
 
 def test_export_md_scaffold_migrated_with_short_legacy_wrapper() -> None:
-    wrapper_path = SCRIPTS_DIR / "export_md_scaffold.py"
-    implementation_path = SHARED_DIR / "export_md_scaffold.py"
+    assert_short_shared_wrapper("export_md_scaffold.py")
+
+
+def test_i5b_cluster_warning_display_migrated_with_short_legacy_wrapper() -> None:
+    assert_short_shared_wrapper("i5b_cluster_warning_display.py")
+
+
+def assert_short_shared_wrapper(tool_name: str) -> None:
+    module_name = tool_name.removesuffix(".py")
+    wrapper_path = SCRIPTS_DIR / tool_name
+    implementation_path = SHARED_DIR / tool_name
     wrapper_text = wrapper_path.read_text(encoding="utf-8")
 
     assert implementation_path.is_file()
     assert wrapper_path.is_file()
     assert len(wrapper_text.splitlines()) <= 12
-    assert "from shared.export_md_scaffold import *" in wrapper_text
+    assert f"from shared.{module_name} import *" in wrapper_text
     assert "def " not in wrapper_text
 
 
@@ -78,6 +89,15 @@ def test_new_and_legacy_export_md_scaffold_imports() -> None:
     sys.path.insert(0, str(SCRIPTS_DIR))
     assert importlib.import_module("export_md_scaffold") is not None
     assert importlib.import_module("shared.export_md_scaffold") is not None
+
+
+def test_new_and_legacy_i5b_cluster_warning_display_imports() -> None:
+    import importlib
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    assert importlib.import_module("i5b_cluster_warning_display") is not None
+    assert importlib.import_module("shared.i5b_cluster_warning_display") is not None
 
 
 def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> None:
@@ -91,5 +111,6 @@ def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> No
         "export.export_project_doc_views",
         "export.export_i5b_views",
         "export_md",
+        "export.export_i5b_auto_adjudication",
     ):
         assert importlib.import_module(module_name) is not None

@@ -56,6 +56,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 迁移共享工具必须单独开 PR，保留旧路径 wrapper。
 - 修改已迁移的共享工具时，优先改 `scripts/shared/` 下真实实现，再确认旧路径 wrapper 仍可 import。
 - `export_md_scaffold.py` 已迁移；修改时优先改 `scripts/shared/export_md_scaffold.py`，旧路径仅作兼容 wrapper。
+- `i5b_cluster_warning_display.py` 已迁移；修改时优先改 `scripts/shared/i5b_cluster_warning_display.py`，旧路径仅作兼容 wrapper。
 - 不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具。
 - 不得一次性大规模迁移 exporter、build、pipeline 或 matrix 类脚本；这类脚本后续按 PR 分阶段治理。
 - 不得一次性大规模迁移 `export_md.py`、build、pipeline、matrix 类脚本。
