@@ -215,17 +215,32 @@ def _top_level_counts(paths: list[str]) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
-def _script_category(path: str) -> str | None:
+def _script_directory_categories() -> list[tuple[str, str]]:
+    directories: dict[str, str] = {}
+    try:
+        registry = load_registry()
+        directories.update(registry.get("directories", {}))
+    except (OSError, ValueError):
+        pass
+    for key in ("dev", "validate", "export", "shared"):
+        directories.setdefault(key, f"scripts/{key}")
+    categories = [
+        (
+            key,
+            normalize_repo_path(rel_path).rstrip("/"),
+        )
+        for key, rel_path in directories.items()
+        if normalize_repo_path(rel_path).startswith("scripts/")
+    ]
+    return sorted(categories, key=lambda item: (-len(item[1]), item[0]))
+
+
+def _script_category(path: str, directory_categories: list[tuple[str, str]] | None = None) -> str | None:
     if not path.startswith("scripts/"):
         return None
-    if path.startswith("scripts/dev/"):
-        return "dev"
-    if path.startswith("scripts/validate/"):
-        return "validate"
-    if path.startswith("scripts/export/"):
-        return "export"
-    if path.startswith("scripts/shared/"):
-        return "shared"
+    for category, directory in directory_categories or _script_directory_categories():
+        if path.startswith(f"{directory}/"):
+            return category
     if path.count("/") == 1:
         return "root"
     return "other"
@@ -233,9 +248,11 @@ def _script_category(path: str) -> str | None:
 
 def build_snapshot(ref: str = "origin/GPT") -> dict[str, Any]:
     files = git_tracked_files(ref)
-    scripts = {key: [] for key in ("dev", "validate", "export", "shared", "root", "other")}
+    directory_categories = _script_directory_categories()
+    scripts = {key: [] for key, _ in directory_categories}
+    scripts.update({"root": [], "other": []})
     for path in files:
-        category = _script_category(path)
+        category = _script_category(path, directory_categories)
         if category:
             scripts[category].append(path)
     return {

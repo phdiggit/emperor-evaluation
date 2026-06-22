@@ -229,6 +229,37 @@ def test_snapshot_lists_chinese_paths_and_is_stable(tmp_path: Path) -> None:
     assert first["tests"] == ["tests/test_tool.py"]
 
 
+def test_snapshot_uses_registry_directories_for_build_category(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    init_git_repo(repo_root)
+    for folder in ("scripts/build", "scripts/dev", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    registry = {
+        "directories": {
+            "build": "scripts/build",
+            "dev": "scripts/dev",
+        }
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (repo_root / "scripts" / "build" / "__init__.py").write_text("", encoding="utf-8")
+    (repo_root / "scripts" / "build" / "build_db.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    commit_all(repo_root, "initial")
+
+    repo_tool = load_repo_tool(repo_root)
+    snapshot = repo_tool.build_snapshot("HEAD")
+
+    assert snapshot["scripts"]["build"] == [
+        "scripts/build/__init__.py",
+        "scripts/build/build_db.py",
+    ]
+    assert snapshot["scripts"]["dev"] == ["scripts/dev/tool.py"]
+    assert snapshot["scripts"]["other"] == []
+
+
 def test_snapshot_output_writes_utf8_no_bom(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     init_git_repo(repo_root)

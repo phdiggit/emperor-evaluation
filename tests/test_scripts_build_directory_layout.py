@@ -31,7 +31,7 @@ def test_build_db_implementation_and_wrapper_layout() -> None:
     assert wrapper.is_file()
     assert "def build_database" in implementation_text
     assert "TABLE_FILES" in implementation_text
-    assert len(wrapper_text.splitlines()) <= 15
+    assert len(wrapper_text.splitlines()) <= 25
     assert "from build.build_db import *" in wrapper_text
     assert "def build_database" not in wrapper_text
     assert "TABLE_FILES" not in wrapper_text

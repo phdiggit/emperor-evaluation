@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import importlib
+import importlib.util
 import json
 import shutil
 import sqlite3
 import subprocess
 import sys
+from types import ModuleType
 from pathlib import Path
 from typing import Any
 
@@ -149,11 +151,42 @@ def test_legacy_wrapper_is_short_and_has_no_database_logic() -> None:
     wrapper = SCRIPTS_DIR / "build_db.py"
     content = wrapper.read_text(encoding="utf-8")
 
-    assert len(content.splitlines()) <= 15
+    assert len(content.splitlines()) <= 25
     assert "from build.build_db import *" in content
     assert "def build_database" not in content
     assert "TABLE_FILES" not in content
     assert "TABLE_COLUMNS" not in content
+
+
+def test_legacy_wrapper_ignores_preloaded_external_build_package(tmp_path: Path) -> None:
+    external_package = ModuleType("build")
+    external_package.__path__ = [str(tmp_path / "site-packages" / "build")]  # type: ignore[attr-defined]
+    previous_build = sys.modules.get("build")
+    previous_build_db = sys.modules.get("build.build_db")
+    previous_path = list(sys.path)
+    sys.modules["build"] = external_package
+    sys.modules.pop("build.build_db", None)
+    sys.path = [str(tmp_path / "site-packages"), str(SCRIPTS_DIR), *previous_path]
+
+    try:
+        spec = importlib.util.spec_from_file_location("legacy_build_db_preloaded", SCRIPTS_DIR / "build_db.py")
+        assert spec is not None and spec.loader is not None
+        legacy_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(legacy_module)
+
+        imported_build_db = sys.modules["build.build_db"]
+        assert Path(imported_build_db.__file__).resolve() == BUILD_DIR / "build_db.py"
+        assert legacy_module.build_database is imported_build_db.build_database
+    finally:
+        sys.path = previous_path
+        if previous_build is None:
+            sys.modules.pop("build", None)
+        else:
+            sys.modules["build"] = previous_build
+        if previous_build_db is None:
+            sys.modules.pop("build.build_db", None)
+        else:
+            sys.modules["build.build_db"] = previous_build_db
 
 
 def test_table_files_and_columns_match_original_database_contract(build_modules: tuple[Any, Any]) -> None:
