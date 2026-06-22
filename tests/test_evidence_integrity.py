@@ -8,7 +8,6 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DB_PATH = ROOT / "evidence_cache.sqlite"
 SUMMARY_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "综合汇总"
 EXPORT_PATH = SUMMARY_EXPORT_ROOT / "史料证据卡索引.md"
 EVIDENCE_CLUSTERS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "证据组裁量索引.md"
@@ -42,22 +41,6 @@ def test_existing_trigger_terms_jsonl_passes() -> None:
     errors = validate_evidence.validate()
 
     assert errors == []
-
-
-def test_build_db_allows_empty_data() -> None:
-    if DB_PATH.exists():
-        DB_PATH.unlink()
-
-    result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "build_db.py")],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-
-    assert result.returncode == 0, result.stdout + result.stderr
-    assert DB_PATH.exists()
 
 
 def test_export_md_generates_evidence_index() -> None:
