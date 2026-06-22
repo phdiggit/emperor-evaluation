@@ -238,7 +238,7 @@ def canonical_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
 def test_validator_cli_passes_on_repo_data() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_canonical_data_integrity.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_canonical_data_integrity.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

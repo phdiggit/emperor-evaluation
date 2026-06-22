@@ -22,7 +22,7 @@
 
 当前继续采用 `data/*.jsonl` 事实源、SQLite 生成库、Markdown 审阅视图的三层结构；`docs/项目文件治理诊断报告.md` 作为当前治理诊断基线。
 
-当前不引入外部数据库、缓存或中间件。后续 P1 优先处理 `scripts/export_md.py` 拆分和指定导出机制，但这类拆分应另开专门 Issue。
+当前不引入外部数据库、缓存或中间件。后续 P1 优先处理 `scripts/export/export_md.py` 拆分和指定导出机制，但这类拆分应另开专门 Issue。
 
 多余文件、归档候选和删除候选必须另开专门 Issue 处理，不能在普通业务 PR 中顺手删除或移动。
 
@@ -39,19 +39,19 @@
 校验证据 JSONL：
 
 ```bash
-python scripts/validate_evidence.py
+python scripts/validate/validate_evidence.py
 ```
 
 生成 SQLite 运行库：
 
 ```bash
-python scripts/build_db.py
+python scripts/build/build_db.py
 ```
 
 导出 Markdown 审阅视图：
 
 ```bash
-python scripts/export_md.py
+python scripts/export/export_md.py
 ```
 
 该命令会同时导出证据卡索引和第五项B三人试点检索线索视图等基础审阅页；第五项B自动结算草案、自动结算规则敏感点清单、正式定档落地表、评分标尺与档位映射草案、三人试点内部闭环收尾和第五项B扩展试点候选池设计由下方的 `export_i5b_auto_adjudication.py` 与 `export_md.py` 共同生成。
@@ -59,13 +59,13 @@ python scripts/export_md.py
 单独导出第五项B自动结算视图：
 
 ```bash
-python scripts/export_i5b_auto_adjudication.py
+python scripts/export/export_i5b_auto_adjudication.py
 ```
 
 导出第五项B三人试点矩阵骨架：
 
 ```bash
-python scripts/run_matrix.py
+python scripts/matrix/run_matrix.py
 ```
 
 运行测试：

@@ -4,6 +4,16 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def script_path(script_name: str) -> Path:
+    routes = {
+        "validate_evidence.py": Path("scripts/validate/validate_evidence.py"),
+        "build_db.py": Path("scripts/build/build_db.py"),
+        "export_md.py": Path("scripts/export/export_md.py"),
+        "export_i5b_auto_adjudication.py": Path("scripts/export/export_i5b_auto_adjudication.py"),
+    }
+    return ROOT / routes.get(script_name, Path("scripts") / script_name)
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
 CANDIDATE_POOL_EXPORT_PATH = (
     ROOT
@@ -19,7 +29,7 @@ CANDIDATE_POOL_EXPORT_PATH = (
 
 def run_script(script_name: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / script_name)],
+        [sys.executable, str(script_path(script_name))],
         cwd=ROOT,
         capture_output=True,
         text=True,

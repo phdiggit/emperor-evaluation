@@ -10,7 +10,7 @@ BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "综合汇总" / "全�
 
 def test_export_md_generates_global_scale_decision_brief() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

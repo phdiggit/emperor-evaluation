@@ -1,13 +1,11 @@
 from __future__ import annotations
 
 import importlib
-import importlib.util
 import json
 import shutil
 import sqlite3
 import subprocess
 import sys
-from types import ModuleType
 from pathlib import Path
 from typing import Any
 
@@ -126,81 +124,38 @@ EXPECTED_TABLE_COLUMNS = {
 
 
 @pytest.fixture()
-def build_modules() -> tuple[Any, Any]:
+def build_module() -> Any:
     sys.path.insert(0, str(SCRIPTS_DIR))
     for module_name in ("build_db", "build.build_db", "build"):
         sys.modules.pop(module_name, None)
 
-    new_module = importlib.import_module("build.build_db")
-    legacy_module = importlib.import_module("build_db")
-    return new_module, legacy_module
+    return importlib.import_module("build.build_db")
 
 
-def test_new_and_legacy_build_modules_are_importable(build_modules: tuple[Any, Any]) -> None:
-    new_module, legacy_module = build_modules
+def test_canonical_build_module_is_importable(build_module: Any) -> None:
+    new_module = build_module
 
     assert new_module.ROOT.resolve() == ROOT.resolve()
-    assert legacy_module.ROOT.resolve() == ROOT.resolve()
     assert Path(new_module.__file__).resolve() == BUILD_DIR / "build_db.py"
     assert callable(new_module.main)
-    assert callable(legacy_module.main)
-    assert legacy_module.build_database is new_module.build_database
 
 
-def test_legacy_wrapper_is_short_and_has_no_database_logic() -> None:
-    wrapper = SCRIPTS_DIR / "build_db.py"
-    content = wrapper.read_text(encoding="utf-8")
-
-    assert len(content.splitlines()) <= 25
-    assert "from build.build_db import *" in content
-    assert "def build_database" not in content
-    assert "TABLE_FILES" not in content
-    assert "TABLE_COLUMNS" not in content
+def test_retired_build_db_wrapper_path_is_absent() -> None:
+    assert not (SCRIPTS_DIR / "build_db.py").exists()
 
 
-def test_legacy_wrapper_ignores_preloaded_external_build_package(tmp_path: Path) -> None:
-    external_package = ModuleType("build")
-    external_package.__path__ = [str(tmp_path / "site-packages" / "build")]  # type: ignore[attr-defined]
-    previous_build = sys.modules.get("build")
-    previous_build_db = sys.modules.get("build.build_db")
-    previous_path = list(sys.path)
-    sys.modules["build"] = external_package
-    sys.modules.pop("build.build_db", None)
-    sys.path = [str(tmp_path / "site-packages"), str(SCRIPTS_DIR), *previous_path]
-
-    try:
-        spec = importlib.util.spec_from_file_location("legacy_build_db_preloaded", SCRIPTS_DIR / "build_db.py")
-        assert spec is not None and spec.loader is not None
-        legacy_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(legacy_module)
-
-        imported_build_db = sys.modules["build.build_db"]
-        assert Path(imported_build_db.__file__).resolve() == BUILD_DIR / "build_db.py"
-        assert legacy_module.build_database is imported_build_db.build_database
-    finally:
-        sys.path = previous_path
-        if previous_build is None:
-            sys.modules.pop("build", None)
-        else:
-            sys.modules["build"] = previous_build
-        if previous_build_db is None:
-            sys.modules.pop("build.build_db", None)
-        else:
-            sys.modules["build.build_db"] = previous_build_db
-
-
-def test_table_files_and_columns_match_original_database_contract(build_modules: tuple[Any, Any]) -> None:
-    new_module, _ = build_modules
+def test_table_files_and_columns_match_original_database_contract(build_module: Any) -> None:
+    new_module = build_module
 
     assert new_module.TABLE_FILES == EXPECTED_TABLE_FILES
     assert new_module.TABLE_COLUMNS == EXPECTED_TABLE_COLUMNS
 
 
 def test_read_jsonl_handles_missing_empty_chinese_and_invalid_rows(
-    build_modules: tuple[Any, Any],
+    build_module: Any,
     tmp_path: Path,
 ) -> None:
-    new_module, _ = build_modules
+    new_module = build_module
     jsonl_path = tmp_path / "rows.jsonl"
 
     assert new_module.read_jsonl(tmp_path / "missing.jsonl") == []
@@ -213,16 +168,16 @@ def test_read_jsonl_handles_missing_empty_chinese_and_invalid_rows(
         new_module.read_jsonl(jsonl_path)
 
 
-def test_encode_value_preserves_non_ascii_json(build_modules: tuple[Any, Any]) -> None:
-    new_module, _ = build_modules
+def test_encode_value_preserves_non_ascii_json(build_module: Any) -> None:
+    new_module = build_module
 
     assert new_module.encode_value({"name": "刘秀"}) == '{"name": "刘秀"}'
     assert new_module.encode_value(["李世民"]) == '["李世民"]'
     assert new_module.encode_value("plain") == "plain"
 
 
-def test_insert_rows_writes_declared_columns_and_sorted_raw_json(build_modules: tuple[Any, Any]) -> None:
-    new_module, _ = build_modules
+def test_insert_rows_writes_declared_columns_and_sorted_raw_json(build_module: Any) -> None:
+    new_module = build_module
     connection = sqlite3.connect(":memory:")
     connection.execute(
         """
@@ -256,11 +211,11 @@ def test_insert_rows_writes_declared_columns_and_sorted_raw_json(build_modules: 
 
 
 def test_build_database_uses_temporary_schema_jsonl_and_database(
-    build_modules: tuple[Any, Any],
+    build_module: Any,
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    new_module, _ = build_modules
+    new_module = build_module
     schema_path = tmp_path / "schema.sql"
     db_path = tmp_path / "evidence_cache.sqlite"
     source_path = tmp_path / "sources.jsonl"
@@ -311,12 +266,12 @@ def test_build_database_uses_temporary_schema_jsonl_and_database(
 
 
 def test_main_returns_zero_and_prints_created_path(
-    build_modules: tuple[Any, Any],
+    build_module: Any,
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
     tmp_path: Path,
 ) -> None:
-    new_module, _ = build_modules
+    new_module = build_module
     db_path = tmp_path / "evidence_cache.sqlite"
 
     monkeypatch.setattr(new_module, "build_database", lambda: db_path)
@@ -325,7 +280,7 @@ def test_main_returns_zero_and_prints_created_path(
     assert capsys.readouterr().out == f"created {db_path}\n"
 
 
-def test_new_and_legacy_cli_run_only_in_temporary_repository(tmp_path: Path) -> None:
+def test_canonical_cli_runs_only_in_temporary_repository(tmp_path: Path) -> None:
     temp_root = tmp_path / "repo"
     temp_scripts = temp_root / "scripts"
     temp_build = temp_scripts / "build"
@@ -337,7 +292,6 @@ def test_new_and_legacy_cli_run_only_in_temporary_repository(tmp_path: Path) -> 
 
     shutil.copy2(BUILD_DIR / "build_db.py", temp_build / "build_db.py")
     shutil.copy2(BUILD_DIR / "__init__.py", temp_build / "__init__.py")
-    shutil.copy2(SCRIPTS_DIR / "build_db.py", temp_scripts / "build_db.py")
     shutil.copy2(ROOT / "db" / "schema.sql", temp_db_dir / "schema.sql")
     for path in EXPECTED_TABLE_FILES.values():
         (temp_data / path.name).write_text("", encoding="utf-8")
@@ -345,20 +299,15 @@ def test_new_and_legacy_cli_run_only_in_temporary_repository(tmp_path: Path) -> 
     before_exists = REAL_DB_PATH.exists()
     before_mtime = REAL_DB_PATH.stat().st_mtime_ns if before_exists else None
 
-    commands = [
-        temp_build / "build_db.py",
-        temp_scripts / "build_db.py",
-    ]
-    for script_path in commands:
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=temp_root,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        assert result.returncode == 0, result.stdout + result.stderr
-        assert f"created {temp_root / 'evidence_cache.sqlite'}" in result.stdout
+    result = subprocess.run(
+        [sys.executable, str(temp_build / "build_db.py")],
+        cwd=temp_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert f"created {temp_root / 'evidence_cache.sqlite'}" in result.stdout
 
     assert (temp_root / "evidence_cache.sqlite").is_file()
     assert REAL_DB_PATH.exists() is before_exists

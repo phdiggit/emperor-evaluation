@@ -135,7 +135,7 @@ def test_expanded_pilot_batch1_clusters_are_draft_review_rows() -> None:
 
 def test_expanded_pilot_batch1_review_export_contains_cards_and_clusters() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -191,7 +191,7 @@ def test_expanded_pilot_batch1_cluster_adjudication_rows_are_three_person_drafts
 
 def test_expanded_pilot_batch1_cluster_adjudication_export_is_review_only() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

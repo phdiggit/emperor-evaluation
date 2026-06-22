@@ -168,6 +168,76 @@ def write_canonical_import_registry(repo_root: Path) -> None:
     )
 
 
+def write_retired_wrapper_registry(repo_root: Path) -> None:
+    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "publish_pr.ps1").write_text("Write-Output 'ok'\n", encoding="utf-8")
+    (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (repo_root / "scripts" / "export" / "tool.py").write_text("from shared import config_loaders\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "legacy_wrapper_policy": "retired",
+        "retired_legacy_wrappers": {
+            "scripts/config_loaders.py": "config_loaders",
+        },
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "config_loaders",
+                "category": "shared",
+                "status": "migrated",
+                "implementation": "scripts/shared/config_loaders.py",
+                "legacy_wrapper": None,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+            {
+                "id": "export_tool",
+                "category": "export",
+                "status": "active",
+                "implementation": "scripts/export/tool.py",
+                "legacy_wrapper": None,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+            {
+                "id": "dev_tool",
+                "category": "dev",
+                "status": "active",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": None,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            },
+        ],
+        "root_exceptions": [
+            {
+                "path": "scripts/publish_pr.ps1",
+                "planned_category": "dev",
+                "reason": "stable publisher",
+                "status": "stable_entrypoint",
+            }
+        ],
+        "default_forbidden_patterns": [],
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def changed_files() -> set[str]:
     return set(changed_files_against_base()) | set(git_changed_files("diff", "--name-only")) | set(
         git_changed_files("diff", "--cached", "--name-only")
@@ -610,6 +680,100 @@ def test_canonical_imports_allow_canonical_dotted_and_package_imports(tmp_path: 
     repo_tool = load_repo_tool(repo_root)
 
     assert repo_tool.check_canonical_imports() == []
+
+
+def test_canonical_imports_use_retired_wrapper_mapping(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_canonical_imports() == [
+        "scripts/export/tool.py: imports legacy wrapper module 'config_loaders'; use 'shared.config_loaders'"
+    ]
+
+
+def test_agents_check_allows_zero_active_wrappers_when_policy_retired(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_agents() == []
+
+
+def test_agents_check_rejects_active_wrapper_when_policy_retired(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["modules"][0]["legacy_wrapper"] = "scripts/config_loaders.py"
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert (
+        "scripts/config_loaders.py: legacy_wrapper must be null when legacy_wrapper_policy is retired"
+        in repo_tool.check_agents()
+    )
+
+
+def test_agents_check_rejects_existing_retired_path(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    (repo_root / "scripts" / "config_loaders.py").write_text("from shared.config_loaders import *\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/config_loaders.py: retired legacy wrapper path still exists" in problems
+    assert "scripts/config_loaders.py: scripts root Python wrappers are retired and must not exist" in problems
+
+
+def test_agents_check_rejects_unknown_retired_module_id(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["retired_legacy_wrappers"]["scripts/missing.py"] = "missing"
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert "scripts/missing.py: retired legacy wrapper references unknown module id 'missing'" in repo_tool.check_agents()
+
+
+def test_agents_check_rejects_retired_path_root_exception_conflict(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["root_exceptions"].append(
+        {
+            "path": "scripts/config_loaders.py",
+            "planned_category": "shared",
+            "reason": "invalid conflict",
+            "status": "stable_entrypoint",
+        }
+    )
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert "scripts/config_loaders.py: retired legacy wrapper cannot be a root exception" in repo_tool.check_agents()
+
+
+def test_agents_check_rejects_new_root_python_file_when_policy_retired(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    (repo_root / "scripts" / "loose.py").write_text("print('no')\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/loose.py: root script is neither legacy_wrapper nor root_exception" in problems
+    assert "scripts/loose.py: scripts root Python wrappers are retired and must not exist" in problems
 
 
 def test_canonical_imports_collect_multiple_files_and_syntax_errors(tmp_path: Path) -> None:

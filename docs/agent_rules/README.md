@@ -25,5 +25,6 @@
 
 - 根 `AGENTS.md` 只保留稳定、高优先级、跨任务适用的执行规则和路由规则。
 - `scripts/AGENTS.md` 只保留 scripts 范围长期稳定的行为规则，不记录当前还剩哪些脚本未迁移。
-- `scripts_registry.json` 是脚本实现路径、wrapper、root exception、审计文档和 required tests 的当前事实源。
+- `scripts_registry.json` 是脚本实现路径、retired wrapper 审计映射、root exception、审计文档和 required tests 的当前事实源。
+- `retired_legacy_wrappers` 只记录旧路径曾对应的 module id，便于检查旧 import 回流；不表示旧路径仍可 import 或运行。
 - 能由代码检查的规则，应优先放进 `repo_tool` 或 pytest，不只依赖自然语言提醒。

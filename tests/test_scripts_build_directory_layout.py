@@ -21,21 +21,14 @@ def test_scripts_build_directory_exists() -> None:
     assert (BUILD_DIR / "__init__.py").is_file()
 
 
-def test_build_db_implementation_and_wrapper_layout() -> None:
+def test_build_db_implementation_layout() -> None:
     implementation = BUILD_DIR / "build_db.py"
-    wrapper = SCRIPTS_DIR / "build_db.py"
-    wrapper_text = wrapper.read_text(encoding="utf-8")
     implementation_text = implementation.read_text(encoding="utf-8")
 
     assert implementation.is_file()
-    assert wrapper.is_file()
+    assert not (SCRIPTS_DIR / "build_db.py").exists()
     assert "def build_database" in implementation_text
     assert "TABLE_FILES" in implementation_text
-    assert len(wrapper_text.splitlines()) <= 25
-    assert "from build.build_db import *" in wrapper_text
-    assert "def build_database" not in wrapper_text
-    assert "TABLE_FILES" not in wrapper_text
-    assert "TABLE_COLUMNS" not in wrapper_text
 
 
 def test_registry_records_build_directory_and_modules() -> None:
@@ -58,7 +51,7 @@ def test_registry_records_build_directory_and_modules() -> None:
         "category": "build",
         "id": "build_db",
         "implementation": "scripts/build/build_db.py",
-        "legacy_wrapper": "scripts/build_db.py",
+        "legacy_wrapper": None,
         "required_tests": [
             "tests/test_build_db.py",
             "tests/test_scripts_build_directory_layout.py",
@@ -71,14 +64,16 @@ def test_registry_records_build_directory_and_modules() -> None:
 
 def test_docs_and_agents_mention_stable_build_rules() -> None:
     agents = (SCRIPTS_DIR / "AGENTS.md").read_text(encoding="utf-8")
-    docs = (ROOT / "docs" / "scripts目录规范.md").read_text(encoding="utf-8")
+    docs = next(
+        path.read_text(encoding="utf-8")
+        for path in (ROOT / "docs").glob("scripts*.md")
+        if "## scripts/dev/" in path.read_text(encoding="utf-8")
+    )
 
     assert "`scripts/build/`" in agents
-    assert "构建脚本测试不得直接覆盖真实工作区数据库" in agents
-    assert "默认使用 `tmp_path` 或临时仓库" in agents
+    assert "retired_legacy_wrappers" in agents
     assert "## scripts/build/" in docs
-    assert "数据库构建测试应隔离到 `tmp_path` 或临时仓库" in docs
-    assert "根目录脚本当前状态继续由 `docs/agent_rules/scripts_registry.json` 管理" in docs
+    assert "retired_legacy_wrappers" in docs
 
 
 def test_agents_check_passes_with_build_layout() -> None:

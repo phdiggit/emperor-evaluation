@@ -20,7 +20,7 @@ VALIDATE_VIEW_CONFIGS_SPEC.loader.exec_module(validate_view_configs)
 
 def test_validate_view_configs_cli_passes_on_repo_data() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_view_configs.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_view_configs.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

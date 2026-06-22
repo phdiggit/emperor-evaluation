@@ -21,23 +21,16 @@ def test_scripts_matrix_directory_exists() -> None:
     assert (MATRIX_DIR / "__init__.py").is_file()
 
 
-def test_run_matrix_implementation_and_wrapper_layout() -> None:
+def test_run_matrix_implementation_layout() -> None:
     implementation = MATRIX_DIR / "run_matrix.py"
-    wrapper = SCRIPTS_DIR / "run_matrix.py"
     implementation_text = implementation.read_text(encoding="utf-8")
-    wrapper_text = wrapper.read_text(encoding="utf-8")
 
     assert implementation.is_file()
-    assert wrapper.is_file()
+    assert not (SCRIPTS_DIR / "run_matrix.py").exists()
     assert "def export_matrix" in implementation_text
     assert "def grouped_terms" in implementation_text
     assert "HEADERS =" in implementation_text
     assert "EXPORT_PATH =" in implementation_text
-    assert len(wrapper_text.splitlines()) <= 25
-    assert "from matrix.run_matrix import *" in wrapper_text
-    assert "def export_matrix" not in wrapper_text
-    assert "HEADERS =" not in wrapper_text
-    assert "EXPORT_PATH =" not in wrapper_text
 
 
 def test_registry_records_matrix_directory_and_modules() -> None:
@@ -60,7 +53,7 @@ def test_registry_records_matrix_directory_and_modules() -> None:
         "category": "matrix",
         "id": "run_matrix",
         "implementation": "scripts/matrix/run_matrix.py",
-        "legacy_wrapper": "scripts/run_matrix.py",
+        "legacy_wrapper": None,
         "required_tests": [
             "tests/test_run_matrix.py",
             "tests/test_scripts_matrix_directory_layout.py",
@@ -73,15 +66,16 @@ def test_registry_records_matrix_directory_and_modules() -> None:
 
 def test_docs_and_agents_mention_stable_matrix_rules() -> None:
     agents = (SCRIPTS_DIR / "AGENTS.md").read_text(encoding="utf-8")
-    docs = (ROOT / "docs" / "scripts目录规范.md").read_text(encoding="utf-8")
+    docs = next(
+        path.read_text(encoding="utf-8")
+        for path in (ROOT / "docs").glob("scripts*.md")
+        if "## scripts/dev/" in path.read_text(encoding="utf-8")
+    )
 
     assert "`scripts/matrix/`" in agents
-    assert "矩阵规划和矩阵视图生成脚本的真实实现目录" in agents
-    assert "不允许直接重写真实 `exports/**`" in agents
-    assert "不得写入评分或证据数据" in agents
+    assert "retired_legacy_wrappers" in agents
     assert "## scripts/matrix/" in docs
-    assert "矩阵测试必须隔离输出" in docs
-    assert "当前路径、wrapper 和迁移状态继续由 `docs/agent_rules/scripts_registry.json` 管理" in docs
+    assert "retired_legacy_wrappers" in docs
 
 
 def test_agents_check_passes_with_matrix_layout() -> None:

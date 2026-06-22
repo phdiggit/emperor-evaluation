@@ -1,17 +1,14 @@
 from __future__ import annotations
 
 import importlib
-import importlib.util
 import json
 import sys
-import types
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 RUN_MATRIX_PATH = SCRIPTS_DIR / "matrix" / "run_matrix.py"
-LEGACY_RUN_MATRIX_PATH = SCRIPTS_DIR / "run_matrix.py"
 EXPECTED_EXPORT_PATH = (
     ROOT
     / "exports"
@@ -38,17 +35,16 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 run_matrix = importlib.import_module("matrix.run_matrix")
-legacy_run_matrix = importlib.import_module("run_matrix")
 
 
 def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
 
 
-def test_new_and_legacy_modules_are_importable() -> None:
+def test_canonical_module_is_importable() -> None:
     assert run_matrix.__file__ == str(RUN_MATRIX_PATH)
-    assert legacy_run_matrix.export_matrix is run_matrix.export_matrix
-    assert legacy_run_matrix.main is run_matrix.main
+    assert callable(run_matrix.export_matrix)
+    assert callable(run_matrix.main)
 
 
 def test_paths_and_headers_do_not_drift() -> None:
@@ -58,35 +54,8 @@ def test_paths_and_headers_do_not_drift() -> None:
     assert run_matrix.HEADERS == EXPECTED_HEADERS
 
 
-def test_legacy_wrapper_is_short_and_contains_no_matrix_logic() -> None:
-    wrapper_text = LEGACY_RUN_MATRIX_PATH.read_text(encoding="utf-8")
-    assert len(wrapper_text.splitlines()) <= 25
-    assert "from matrix.run_matrix import *" in wrapper_text
-    assert "def export_matrix" not in wrapper_text
-    assert "def grouped_terms" not in wrapper_text
-    assert "HEADERS =" not in wrapper_text
-    assert "EXPORT_PATH =" not in wrapper_text
-    assert "第五项B三人试点正负证矩阵" not in wrapper_text
-
-
-def test_external_matrix_package_conflict_is_cleared(tmp_path: Path, monkeypatch) -> None:
-    external_package_dir = tmp_path / "site-packages" / "matrix"
-    external_package_dir.mkdir(parents=True)
-    external_module = types.ModuleType("matrix")
-    external_module.__path__ = [str(external_package_dir)]
-    external_module.__file__ = str(external_package_dir / "__init__.py")
-    monkeypatch.setitem(sys.modules, "matrix", external_module)
-    monkeypatch.delitem(sys.modules, "matrix.run_matrix", raising=False)
-    monkeypatch.syspath_prepend(str(tmp_path / "site-packages"))
-
-    spec = importlib.util.spec_from_file_location("legacy_run_matrix_conflict_test", LEGACY_RUN_MATRIX_PATH)
-    assert spec is not None and spec.loader is not None
-    legacy = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(legacy)
-
-    assert Path(sys.modules["matrix"].__path__[0]).resolve() == SCRIPTS_DIR / "matrix"
-    assert Path(legacy.export_matrix.__code__.co_filename).resolve() == RUN_MATRIX_PATH
-    assert Path(legacy.main.__code__.co_filename).resolve() == RUN_MATRIX_PATH
+def test_retired_run_matrix_wrapper_path_is_absent() -> None:
+    assert not (SCRIPTS_DIR / "run_matrix.py").exists()
 
 
 def test_read_jsonl_missing_file_and_empty_lines(tmp_path: Path) -> None:

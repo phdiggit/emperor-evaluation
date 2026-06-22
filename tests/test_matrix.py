@@ -39,7 +39,6 @@ def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
 
 def build_temp_repo(tmp_path: Path) -> Path:
     repo = tmp_path / "repo"
-    copy_script(SCRIPTS_DIR / "run_matrix.py", repo / "scripts" / "run_matrix.py")
     copy_script(SCRIPTS_DIR / "matrix" / "__init__.py", repo / "scripts" / "matrix" / "__init__.py")
     copy_script(SCRIPTS_DIR / "matrix" / "run_matrix.py", repo / "scripts" / "matrix" / "run_matrix.py")
     copy_script(SCRIPTS_DIR / "shared" / "__init__.py", repo / "scripts" / "shared" / "__init__.py")
@@ -108,7 +107,7 @@ def run_matrix_cli(repo: Path, script: Path) -> subprocess.CompletedProcess[str]
     )
 
 
-def test_new_and_legacy_cli_generate_matrix_only_in_temp_repo(tmp_path: Path) -> None:
+def test_canonical_cli_generates_matrix_only_in_temp_repo(tmp_path: Path) -> None:
     before_search_logs = SEARCH_LOGS_PATH.read_text(encoding="utf-8")
     before_exists = REAL_OUTPUT_PATH.exists()
     before_mtime = REAL_OUTPUT_PATH.stat().st_mtime_ns if before_exists else None
@@ -126,25 +125,20 @@ def test_new_and_legacy_cli_generate_matrix_only_in_temp_repo(tmp_path: Path) ->
         / "第五项B三人试点正负证矩阵.md"
     )
     first_content = output_path.read_text(encoding="utf-8")
-    output_path.unlink()
-    legacy_result = run_matrix_cli(repo, repo / "scripts" / "run_matrix.py")
-    second_content = output_path.read_text(encoding="utf-8")
+    first_content = output_path.read_text(encoding="utf-8")
 
     assert new_result.returncode == 0, new_result.stdout + new_result.stderr
-    assert legacy_result.returncode == 0, legacy_result.stdout + legacy_result.stderr
     assert new_result.stdout.strip() == f"exported {output_path}"
-    assert legacy_result.stdout.strip() == f"exported {output_path}"
-    assert first_content == second_content
-    assert "李世民" in second_content
-    assert "刘秀" in second_content
-    assert "刘庄" in second_content
-    assert "正向" in second_content
-    assert "负向" in second_content
-    assert "识人拔擢" in second_content
-    assert "廷杖刑辱" in second_content
-    assert "分数" not in second_content
-    assert "总榜" not in second_content
-    assert "排名" not in second_content
+    assert "李世民" in first_content
+    assert "刘秀" in first_content
+    assert "刘庄" in first_content
+    assert "正向" in first_content
+    assert "负向" in first_content
+    assert "识人拔擢" in first_content
+    assert "廷杖刑辱" in first_content
+    assert "分数" not in first_content
+    assert "总榜" not in first_content
+    assert "排名" not in first_content
 
     assert SEARCH_LOGS_PATH.read_text(encoding="utf-8") == before_search_logs
     assert REAL_OUTPUT_PATH.exists() is before_exists

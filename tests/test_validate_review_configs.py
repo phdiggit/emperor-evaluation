@@ -25,7 +25,7 @@ def write_json(path: Path, payload: object) -> None:
 
 def test_validate_review_configs_cli_passes_on_repo_data() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_review_configs.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_review_configs.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

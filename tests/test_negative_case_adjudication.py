@@ -5,6 +5,16 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def script_path(script_name: str) -> Path:
+    routes = {
+        "validate_evidence.py": Path("scripts/validate/validate_evidence.py"),
+        "build_db.py": Path("scripts/build/build_db.py"),
+        "export_md.py": Path("scripts/export/export_md.py"),
+        "export_i5b_auto_adjudication.py": Path("scripts/export/export_i5b_auto_adjudication.py"),
+    }
+    return ROOT / routes.get(script_name, Path("scripts") / script_name)
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
 EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "综合汇总" / "史料证据卡索引.md"
@@ -16,7 +26,7 @@ def read_jsonl(path: Path) -> list[dict[str, object]]:
 
 def run_script(script_name: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / script_name)],
+        [sys.executable, str(script_path(script_name))],
         cwd=ROOT,
         capture_output=True,
         text=True,

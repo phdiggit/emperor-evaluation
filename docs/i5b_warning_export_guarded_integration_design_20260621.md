@@ -80,7 +80,7 @@ def export_auto_adjudication(include_display_warnings: bool = False) -> tuple[Pa
 CLI 建议：
 
 ```text
-python scripts/export_i5b_auto_adjudication.py --include-display-warnings
+python scripts/export/export_i5b_auto_adjudication.py --include-display-warnings
 ```
 
 默认关闭要求：

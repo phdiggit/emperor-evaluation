@@ -41,6 +41,7 @@ BLOCKED_BINARY_SUFFIXES = {
 }
 SUPPORTED_SCHEMA_VERSION = 1
 ALLOWED_MODULE_STATUSES = {"active", "migrated", "unmigrated", "stable_entrypoint"}
+ALLOWED_LEGACY_WRAPPER_POLICIES = {"active", "retired"}
 
 
 def _repo_root() -> Path:
@@ -544,12 +545,23 @@ def _canonical_module_path(implementation: str) -> str:
 
 def _legacy_wrapper_import_map(registry: dict[str, Any]) -> dict[str, str]:
     imports: dict[str, str] = {}
+    modules_by_id = {
+        module.get("id"): module
+        for module in registry.get("modules", [])
+        if module.get("id")
+    }
     for module in registry.get("modules", []):
         implementation = module.get("implementation")
         legacy_wrapper = module.get("legacy_wrapper")
         if not implementation or not legacy_wrapper:
             continue
         imports[Path(legacy_wrapper).stem] = _canonical_module_path(implementation)
+    for retired_path, module_id in registry.get("retired_legacy_wrappers", {}).items():
+        module = modules_by_id.get(module_id)
+        implementation = module.get("implementation") if module else None
+        if not implementation:
+            continue
+        imports[Path(retired_path).stem] = _canonical_module_path(implementation)
     return dict(sorted(imports.items()))
 
 
@@ -618,6 +630,9 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
 
     if registry.get("schema_version") != SUPPORTED_SCHEMA_VERSION:
         problems.append(f"{registry_path}: unsupported schema_version {registry.get('schema_version')!r}")
+    wrapper_policy = registry.get("legacy_wrapper_policy", "active")
+    if wrapper_policy not in ALLOWED_LEGACY_WRAPPER_POLICIES:
+        problems.append(f"{registry_path}: unsupported legacy_wrapper_policy {wrapper_policy!r}")
 
     agents = _resolve_repo_path("AGENTS.md")
     scripts_agents = _resolve_repo_path("scripts/AGENTS.md")
@@ -655,6 +670,7 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
     ids: set[str] = set()
     wrappers: set[str] = set()
     implementations: set[str] = set()
+    modules_by_id: dict[str, dict[str, Any]] = {}
     for module in registry.get("modules", []):
         module_id = module.get("id")
         if not module_id:
@@ -663,6 +679,7 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
         if module_id in ids:
             problems.append(f"{registry_path}: duplicate module id: {module_id}")
         ids.add(module_id)
+        modules_by_id[module_id] = module
         if module.get("status") not in ALLOWED_MODULE_STATUSES:
             problems.append(f"{registry_path}: {module_id} has invalid status {module.get('status')!r}")
         implementation = module.get("implementation")
@@ -674,6 +691,8 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
         else:
             implementations.add(implementation)
         if wrapper:
+            if wrapper_policy == "retired":
+                problems.append(f"{wrapper}: legacy_wrapper must be null when legacy_wrapper_policy is retired")
             if implementation == wrapper:
                 problems.append(f"{wrapper}: implementation and legacy_wrapper are identical for {module_id}")
             if not _resolve_repo_path(wrapper).is_file():
@@ -703,9 +722,44 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
             problems.append(f"{path}: invalid root exception status {entry.get('status')!r}")
         root_exceptions.add(path)
 
+    retired_wrappers = registry.get("retired_legacy_wrappers", {})
+    if not isinstance(retired_wrappers, dict):
+        problems.append(f"{registry_path}: retired_legacy_wrappers must be an object")
+        retired_wrappers = {}
+    retired_modules: dict[str, str] = {}
+    retired_stems: dict[str, str] = {}
+    for raw_path, module_id in sorted(retired_wrappers.items()):
+        path = normalize_repo_path(str(raw_path))
+        if path != raw_path:
+            problems.append(f"{raw_path}: retired legacy wrapper path must use repo-normalized separators")
+        if module_id not in modules_by_id:
+            problems.append(f"{path}: retired legacy wrapper references unknown module id {module_id!r}")
+        if Path(path).parent.as_posix() != "scripts":
+            problems.append(f"{path}: retired legacy wrapper must be directly under scripts/")
+        if Path(path).suffix != ".py":
+            problems.append(f"{path}: retired legacy wrapper must be a .py file")
+        if _resolve_repo_path(path).exists():
+            problems.append(f"{path}: retired legacy wrapper path still exists")
+        if path in root_exceptions:
+            problems.append(f"{path}: retired legacy wrapper cannot be a root exception")
+        previous_path = retired_modules.get(str(module_id))
+        if previous_path and previous_path != path:
+            problems.append(f"{path}: module {module_id!r} has multiple retired legacy wrappers")
+        retired_modules[str(module_id)] = path
+        stem = Path(path).stem
+        previous_module = retired_stems.get(stem)
+        if previous_module and previous_module != module_id:
+            problems.append(f"{path}: retired legacy wrapper stem {stem!r} maps to multiple module ids")
+        retired_stems[stem] = str(module_id)
+
     uncovered = sorted(_root_script_files() - wrappers - root_exceptions)
     for path in uncovered:
         problems.append(f"{path}: root script is neither legacy_wrapper nor root_exception")
+    if wrapper_policy == "retired":
+        for path in sorted(_root_script_files()):
+            problems.append(f"{path}: scripts root Python wrappers are retired and must not exist")
+        if "scripts/publish_pr.ps1" not in root_exceptions:
+            problems.append("scripts/publish_pr.ps1: stable root exception is not registered")
     for path in sorted(wrappers & root_exceptions):
         problems.append(f"{path}: duplicate wrapper/root_exception coverage")
     for path in sorted(implementations & wrappers):

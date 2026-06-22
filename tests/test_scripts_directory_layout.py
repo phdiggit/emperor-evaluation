@@ -41,19 +41,9 @@ def test_migrated_validator_implementations_live_under_validate_dir() -> None:
         assert (VALIDATE_DIR / name).is_file()
 
 
-def test_legacy_validator_paths_remain_short_wrappers() -> None:
+def test_retired_validator_paths_are_absent() -> None:
     for name in MIGRATED_VALIDATORS:
-        wrapper_path = ROOT / "scripts" / name
-        content = wrapper_path.read_text(encoding="utf-8")
-
-        assert wrapper_path.is_file()
-        assert len(content.splitlines()) <= 14
-        assert "from validate." in content
-        assert "def validate" not in content
-        assert "def validate_exports" not in content
-        assert "def validate_row" not in content
-        assert "REQUIRED_" not in content
-        assert "VALID_" not in content
+        assert not (ROOT / "scripts" / name).exists()
 
 
 def test_validate_all_points_migrated_validators_to_new_paths() -> None:
@@ -81,21 +71,13 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
 
 
 def test_validate_all_entrypoint_implementation_lives_under_validate_dir() -> None:
-    implementation_path = VALIDATE_DIR / "validate_all.py"
-    wrapper_path = ROOT / "scripts" / "validate_all.py"
-    wrapper_text = wrapper_path.read_text(encoding="utf-8")
-
-    assert implementation_path.is_file()
-    assert wrapper_path.is_file()
-    assert len(wrapper_text.splitlines()) <= 16
-    assert "from validate import validate_all" in wrapper_text
-    assert "VALIDATION_STEPS = [" not in wrapper_text
-    assert "def run_step" not in wrapper_text
+    assert (VALIDATE_DIR / "validate_all.py").is_file()
+    assert not (ROOT / "scripts" / "validate_all.py").exists()
 
 
 @pytest.mark.parametrize("name", MIGRATED_VALIDATORS)
-@pytest.mark.parametrize("script_root", [VALIDATE_DIR, ROOT / "scripts"])
-def test_new_and_legacy_validator_commands_run(name: str, script_root: Path) -> None:
+@pytest.mark.parametrize("script_root", [VALIDATE_DIR])
+def test_canonical_validator_commands_run(name: str, script_root: Path) -> None:
     script_path = script_root / name
     result = subprocess.run(
         [sys.executable, str(script_path)],
@@ -109,59 +91,51 @@ def test_new_and_legacy_validator_commands_run(name: str, script_root: Path) -> 
 
 
 @pytest.mark.parametrize("module_name", NEWLY_MIGRATED_VALIDATORS)
-def test_new_and_legacy_validator_imports_remain_compatible(module_name: str) -> None:
+def test_canonical_validator_imports_remain_available(module_name: str) -> None:
     if str(ROOT / "scripts") not in sys.path:
         sys.path.insert(0, str(ROOT / "scripts"))
 
     new_module = importlib.import_module(f"validate.{module_name}")
-    legacy_module = importlib.import_module(module_name)
 
     assert new_module.ROOT.resolve() == ROOT.resolve()
-    assert legacy_module.ROOT.resolve() == ROOT.resolve()
     assert callable(new_module.main)
-    assert callable(legacy_module.main)
 
 
 @pytest.mark.parametrize("module_name", NEWLY_MIGRATED_VALIDATORS)
-def test_newly_migrated_new_and_legacy_commands_return_same_exit_code(module_name: str) -> None:
+def test_newly_migrated_canonical_commands_return_zero(module_name: str) -> None:
     new_script = VALIDATE_DIR / f"{module_name}.py"
-    legacy_script = ROOT / "scripts" / f"{module_name}.py"
     new_result = subprocess.run(
         [sys.executable, str(new_script)], cwd=ROOT, capture_output=True, text=True, check=False
     )
-    legacy_result = subprocess.run(
-        [sys.executable, str(legacy_script)], cwd=ROOT, capture_output=True, text=True, check=False
+
+    assert new_result.returncode == 0, new_result.stdout + new_result.stderr
+
+
+def test_canonical_validate_all_command_runs() -> None:
+    result = subprocess.run(
+        [sys.executable, str(VALIDATE_DIR / "validate_all.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
-    assert new_result.returncode == legacy_result.returncode == 0
-
-
-def test_new_and_legacy_validate_all_commands_run() -> None:
-    for script_path in (VALIDATE_DIR / "validate_all.py", ROOT / "scripts" / "validate_all.py"):
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-
-        assert result.returncode == 0, result.stdout + result.stderr
-        assert "[validate_all] all validation steps passed" in result.stdout
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "[validate_all] all validation steps passed" in result.stdout
 
 
 def test_scripts_layout_doc_mentions_validate_directory() -> None:
-    content = (ROOT / "docs" / "scripts目录规范.md").read_text(encoding="utf-8")
+    content = next((ROOT / "docs").glob("scripts*规范.md")).read_text(encoding="utf-8")
 
     assert "scripts/validate/" in content
-    assert "新增 validator 应放入这里" in content
-    assert "兼容 wrapper" in content
+    assert "retired_legacy_wrappers" in content
+    assert "retired_legacy_wrappers" in content
 
 
 def test_agents_mentions_new_validator_layout_rule() -> None:
     content = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
     root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
-    assert "新增 validator 默认放在这里" in content
-    assert "兼容 wrapper" in content
+    assert "`scripts/validate/`" in content
+    assert "retired_legacy_wrappers" in content
     assert "docs/agent_rules/scripts_registry.json" in root_agents

@@ -91,7 +91,7 @@ def test_post_supplement_batch_uses_the_new_supplement_evidence_ids() -> None:
 
 def test_post_supplement_export_is_review_only() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,
