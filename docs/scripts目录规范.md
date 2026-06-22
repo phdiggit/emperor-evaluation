@@ -51,16 +51,16 @@ scripts/validate/validate_config_comments.py
 当前根目录共享工具暂不迁移：
 
 - `config_loaders.py`
-- `i5b_markdown_display.py`：仍暂不迁移；它牵连第五项B展示语义，实迁前必须先完成并参考 `docs/i5b_markdown_display迁移前依赖审计.md`。
 
 已迁移共享工具：
 
 - `export_md_scaffold.py`：真实实现位于 `scripts/shared/export_md_scaffold.py`，旧路径 `scripts/export_md_scaffold.py` 只作为兼容 wrapper。修改该工具时优先改新路径。
 - `i5b_cluster_warning_display.py`：真实实现位于 `scripts/shared/i5b_cluster_warning_display.py`，旧路径 `scripts/i5b_cluster_warning_display.py` 只作为兼容 wrapper。修改该工具时优先改新路径。
+- `i5b_markdown_display.py`：真实实现位于 `scripts/shared/i5b_markdown_display.py`，旧路径 `scripts/i5b_markdown_display.py` 只作为兼容 wrapper。修改该工具时优先改新路径。
 
 后续迁移共享工具时必须保留旧路径 wrapper。旧路径 wrapper 只负责兼容 import，不承载主逻辑。共享工具迁移必须单独开 PR，每次最多迁移 1-2 个共享工具，普通 exporter 或 validator 迁移 PR 不得顺手迁移共享工具。
 
-`i5b_markdown_display.py` 的后续迁移必须保留旧路径 `scripts/i5b_markdown_display.py` wrapper，并不得改变字段标签、值映射、长字段附录、人工审核表头白名单、machine key 保留/隐藏策略或相关展示语义。该模块的迁移影响面已记录在 `docs/i5b_markdown_display迁移前依赖审计.md`，实迁 PR 必须先以该审计文档为边界。
+`i5b_markdown_display.py` 的后续维护必须保留旧路径 `scripts/i5b_markdown_display.py` wrapper，并不得改变字段标签、值映射、长字段附录、人工审核表头白名单、machine key 保留/隐藏策略或相关展示语义。该模块的迁移影响面已记录在 `docs/i5b_markdown_display迁移前依赖审计.md`。
 
 ## scripts/
 

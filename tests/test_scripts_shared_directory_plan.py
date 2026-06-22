@@ -10,10 +10,10 @@ SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
 MIGRATED_SHARED_TOOLS = (
     "export_md_scaffold.py",
     "i5b_cluster_warning_display.py",
+    "i5b_markdown_display.py",
 )
 ROOT_SHARED_TOOLS = (
     "config_loaders.py",
-    "i5b_markdown_display.py",
 )
 SHARED_TOOLS = MIGRATED_SHARED_TOOLS + ROOT_SHARED_TOOLS
 
@@ -100,6 +100,15 @@ def test_new_and_legacy_i5b_cluster_warning_display_imports() -> None:
     assert importlib.import_module("shared.i5b_cluster_warning_display") is not None
 
 
+def test_new_and_legacy_i5b_markdown_display_imports() -> None:
+    import importlib
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    assert importlib.import_module("i5b_markdown_display") is not None
+    assert importlib.import_module("shared.i5b_markdown_display") is not None
+
+
 def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> None:
     import importlib
     import sys
@@ -114,3 +123,19 @@ def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> No
         "export.export_i5b_auto_adjudication",
     ):
         assert importlib.import_module(module_name) is not None
+
+
+def test_display_dependents_import_shared_i5b_markdown_display() -> None:
+    import importlib
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    for module_name in (
+        "export.export_i5b_net_evidence",
+        "export.export_i5b_expanded_batch1",
+        "export.export_project_doc_views",
+        "export.export_i5b_auto_adjudication",
+        "validate.validate_human_readable_markdown_exports",
+    ):
+        module = importlib.import_module(module_name)
+        assert module is not None

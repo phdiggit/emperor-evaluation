@@ -12,7 +12,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import config_loaders
-from i5b_markdown_display import (
+from shared.i5b_markdown_display import (
     AppendixEntry,
     display_field_label,
     display_value,

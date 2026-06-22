@@ -74,7 +74,6 @@ def test_export_root_entrypoints_are_not_migrated() -> None:
         "run_matrix.py",
         "validate_all.py",
         "config_loaders.py",
-        "i5b_markdown_display.py",
     ):
         assert (SCRIPTS_DIR / script_name).is_file()
         assert not (EXPORT_DIR / script_name).exists()

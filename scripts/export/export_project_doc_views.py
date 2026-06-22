@@ -10,7 +10,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import config_loaders
 from shared.export_md_scaffold import escape_cell
-from i5b_markdown_display import display_field_label, display_value, load_display_dictionary
+from shared.i5b_markdown_display import display_field_label, display_value, load_display_dictionary
 
 
 ROOT = Path(__file__).resolve().parents[2]
