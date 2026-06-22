@@ -13,6 +13,8 @@ AUTO_DRAFT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "自动结算草案"
 DETAIL_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "人物详情"
 APPENDIX_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "附录"
 EVIDENCE_CHAIN_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "证据链"
+HUMAN_REVIEW_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "人工审核"
+MACHINE_AUDIT_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "机器审计"
 INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / "第五项B三人自动结算草案.md"
 DETAIL_FILENAME_TEMPLATE = "{person}.md"
 FORBIDDEN_MARKERS = ("<details", "<summary", "</details>", "……（共")
@@ -46,6 +48,20 @@ CHINESE_CHAR_RE = re.compile(r"[\u4e00-\u9fff]")
 BARE_ENGLISH_HEADER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 UNBOLDED_KV_RE = re.compile(r"^\s*[-*]\s+(?!\*\*)([^：\n]{1,80})：")
 CONTEXT_APPENDIX_HEADER_MARKERS = ("上下文摘录", "上下文摘要", "裁判桥接说明")
+HUMAN_REVIEW_DECLARATION = "本文件为人工审核视图，隐藏机器追踪字段，只保留业务判断所需信息。"
+MACHINE_AUDIT_DECLARATION = "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。"
+HUMAN_FORBIDDEN_HEADER_MARKERS = (
+    "证据ID",
+    "来源ID",
+    "证据簇ID",
+    "evidence_id",
+    "source_id",
+    "cluster_id",
+    "linked_evidence_ids",
+    "query_profile_id",
+    "search_id",
+)
+RAW_ENUM_RE = re.compile(r"\b[a-z]+(?:_[a-z0-9]+){1,}\b")
 
 
 def detail_relative_path(person: str) -> Path:
@@ -225,11 +241,81 @@ def validate_evidence_chain_markdown(root: Path, errors: list[str]) -> None:
                 row_index += 1
 
 
+def _validate_markdown_links(path: Path, lines: list[str], errors: list[str]) -> None:
+    for line_number, line in enumerate(lines, start=1):
+        for link_target, anchor in MARKDOWN_LINK_RE.findall(line):
+            if not link_target.endswith(".md"):
+                continue
+            target_path = (path.parent / link_target).resolve()
+            if not _anchor_exists(target_path, anchor or None):
+                errors.append(f"{path}:{line_number}: appendix link target does not exist: {link_target}#{anchor}")
+
+
+def _validate_chinese_table_headers(path: Path, lines: list[str], errors: list[str]) -> list[tuple[int, list[str]]]:
+    table_headers: list[tuple[int, list[str]]] = []
+    for index, line in enumerate(lines[:-1]):
+        header_cells = _split_markdown_table_row(line)
+        separator_cells = _split_markdown_table_row(lines[index + 1])
+        if not header_cells or not _is_separator_row(separator_cells):
+            continue
+        table_headers.append((index, header_cells))
+        for header in header_cells:
+            if BARE_ENGLISH_HEADER_RE.match(header):
+                errors.append(f"{path}:{index + 1}: table header exposes bare English field {header!r}")
+            if not CHINESE_CHAR_RE.search(header):
+                errors.append(f"{path}:{index + 1}: table header must include Chinese field label: {header!r}")
+    return table_headers
+
+
+def validate_human_review_markdown(root: Path, errors: list[str]) -> None:
+    human_root = root / HUMAN_REVIEW_RELATIVE_DIR
+    if not human_root.exists():
+        return
+    for path in human_root.rglob("*.md"):
+        content = read_text(path)
+        lines = content.splitlines()
+        add_forbidden_marker_errors(path, content, errors)
+        _validate_markdown_links(path, lines, errors)
+        if path.parent.name != "附录" and HUMAN_REVIEW_DECLARATION not in content:
+            errors.append(f"{path}: missing human review purpose declaration")
+        for header_index, header_cells in _validate_chinese_table_headers(path, lines, errors):
+            for header in header_cells:
+                for marker in HUMAN_FORBIDDEN_HEADER_MARKERS:
+                    if marker in header:
+                        errors.append(f"{path}:{header_index + 1}: human review table exposes machine field {marker!r}")
+            row_index = header_index + 2
+            while row_index < len(lines):
+                row_cells = _split_markdown_table_row(lines[row_index])
+                if not row_cells:
+                    break
+                for cell in row_cells:
+                    if len(cell) > 72 and not cell.startswith("["):
+                        errors.append(
+                            f"{path}:{row_index + 1}: table cell longer than 72 chars must use a positioned appendix link"
+                        )
+                    if cell and not cell.startswith("[") and RAW_ENUM_RE.search(cell):
+                        errors.append(f"{path}:{row_index + 1}: human review table exposes unmapped enum value {cell!r}")
+                row_index += 1
+
+
+def validate_machine_audit_markdown(root: Path, errors: list[str]) -> None:
+    machine_root = root / MACHINE_AUDIT_RELATIVE_DIR
+    if not machine_root.exists():
+        return
+    for path in machine_root.rglob("*.md"):
+        content = read_text(path)
+        add_forbidden_marker_errors(path, content, errors)
+        if path.parent.name != "附录" and MACHINE_AUDIT_DECLARATION not in content:
+            errors.append(f"{path}: missing machine audit purpose declaration")
+
+
 def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> list[str]:
     resolved_targets = targets if targets is not None else list(config_loaders.get_i5b_trial_config().get("targets") or [])
     errors: list[str] = []
     add_forbidden_marker_errors_for_all_i5b_exports(root, errors)
     validate_evidence_chain_markdown(root, errors)
+    validate_human_review_markdown(root, errors)
+    validate_machine_audit_markdown(root, errors)
     validate_no_legacy_flat_evidence_chain_exports(root, errors)
     existing_files = existing_target_files(root, resolved_targets)
     if not existing_files:

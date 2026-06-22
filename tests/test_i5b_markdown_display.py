@@ -85,8 +85,12 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     assert config["value_labels"]["missing"] == "缺失"
     assert config["value_labels"]["pending"] == "待补"
     assert config["value_labels"]["source_verified"] == "已回源核验"
+    assert config["value_labels"]["source_verified_auto_classified_cluster_review_pending"] == "已回源，自动归类，待证据簇复核"
     assert config["value_labels"]["split_only"] == "仅用于相邻项剥离"
     assert config["value_labels"]["needs_context_source_review"] == "需回源 / 需上下文"
+    assert config["view_profiles"]["human_review"]["show_machine_fields"] is False
+    assert "evidence_id" in config["view_profiles"]["human_review"]["hidden_fields"]
+    assert config["view_profiles"]["machine_audit"]["include_all_fields"] is True
     assert config["list_render_policy"]["field_overrides"]["quote_context"]["strategy"] == "appendix_link"
     assert config["list_render_policy"]["field_overrides"]["context_summary"]["strategy"] == "appendix_link"
     assert config["list_render_policy"]["field_overrides"]["adjudication_bridge"]["strategy"] == "appendix_link"

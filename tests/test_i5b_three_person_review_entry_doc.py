@@ -15,7 +15,7 @@ def test_i5b_three_person_review_entry_doc_exists_and_covers_people() -> None:
         assert heading in content
     for person in ["李世民", "刘秀", "刘庄"]:
         assert f"exports/markdown_views/第五项B/自动结算草案/人物详情/{person}.md" in content
-        assert f"exports/markdown_views/第五项B/证据链/净证据池/第五项B_{person}净证据池.md" in content
+        assert f"exports/markdown_views/第五项B/人工审核/净证据池/第五项B_{person}人工审核净证据池.md" in content
 
 
 def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_entries() -> None:
@@ -28,12 +28,13 @@ def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_e
         "exports/markdown_views/第五项B/规则敏感点/第五项B自动结算规则敏感点清单.md",
         "exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md",
         "exports/markdown_views/第五项B/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "exports/markdown_views/第五项B/证据链/证据卡/第五项B证据卡索引.md",
-        "exports/markdown_views/第五项B/证据链/证据簇/第五项B证据簇索引.md",
-        "exports/markdown_views/第五项B/证据链/检索包/第五项B检索包索引.md",
-        "exports/markdown_views/第五项B/证据链/检索包/第五项B检索线索索引.md",
+        "exports/markdown_views/第五项B/人工审核/证据卡/第五项B人工审核证据卡索引.md",
+        "exports/markdown_views/第五项B/人工审核/证据簇/第五项B人工审核证据簇索引.md",
     ]:
         assert path in content
+    assert "exports/markdown_views/第五项B/机器审计/" in content
+    assert "不作为业务审核主入口" in content
+    assert "人工审核主表隐藏 `evidence_id/source_id/cluster_id` 等机器字段" in content
 
 
 def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> None:
