@@ -24,6 +24,25 @@ EVIDENCE_CARD_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据卡"
 EVIDENCE_CLUSTER_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据簇"
 SEARCH_PACKAGE_DIR = I5B_EVIDENCE_CHAIN_ROOT / "检索包"
 APPENDIX_DIR = I5B_EVIDENCE_CHAIN_ROOT / "附录"
+CONTEXT_REQUIRED_STABLE_STATUSES = {"supplied", "source_verified"}
+CONTEXT_REQUIRED_FIELDS = [
+    "quote_context",
+    "context_summary",
+    "context_scope",
+    "context_effect",
+    "adjudication_bridge",
+]
+I5B_EVIDENCE_CONTEXT_HEADERS = [
+    "quote_context",
+    "context_summary",
+    "context_scope",
+    "context_required",
+    "context_status",
+    "context_effect",
+    "source_locator",
+    "adjudication_bridge",
+    "context_review_queue",
+]
 
 NET_EVIDENCE_CLUSTER_HEADERS = [
     "cluster_id",
@@ -197,6 +216,41 @@ def _unique_join(rows: list[dict[str, object]], field: str) -> list[str]:
     return values
 
 
+def _is_filled(value: object) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, (list, dict)):
+        return bool(value)
+    return True
+
+
+def _is_context_required(row: dict[str, object]) -> bool:
+    value = row.get("context_required")
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() == "true"
+    return False
+
+
+def _add_context_review_queue(rows: list[dict[str, object]]) -> None:
+    for row in rows:
+        if not _is_context_required(row):
+            continue
+        context_status = str(row.get("context_status") or "").strip()
+        missing_required_field = any(not _is_filled(row.get(field)) for field in CONTEXT_REQUIRED_FIELDS)
+        if context_status not in CONTEXT_REQUIRED_STABLE_STATUSES or missing_required_field:
+            row["context_review_queue"] = "needs_context_source_review"
+
+
+def _headers_with_context(base_headers: list[str], rows: list[dict[str, object]]) -> list[str]:
+    if not any(any(_is_filled(row.get(field)) for field in I5B_EVIDENCE_CONTEXT_HEADERS) for row in rows):
+        return base_headers
+    return base_headers + [field for field in I5B_EVIDENCE_CONTEXT_HEADERS if field not in base_headers]
+
+
 def _relative_appendix_path(export_path: Path, appendix_path: Path) -> str:
     return Path(os.path.relpath(appendix_path, export_path.parent)).as_posix()
 
@@ -249,6 +303,7 @@ def _remove_legacy_net_evidence_export(person: str, export_path: Path) -> None:
 def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
     cluster_rows = _i5b_cluster_rows(person)
     evidence_rows = _i5b_evidence_rows(person)
+    _add_context_review_queue(evidence_rows)
     _add_cluster_linked_fields(cluster_rows, evidence_rows)
     appendix_path = APPENDIX_DIR / f"{person}_净证据池长字段附录.md"
     result = _write_table_export(
@@ -258,7 +313,7 @@ def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
         intro="本文件为定档前净证据池视图；只汇总已回源原子证据与证据组裁量候选，不代表最终档位、得分或排名。",
         sections=[
             ("证据组裁量结论", NET_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",)),
-            ("原子证据卡", NET_EVIDENCE_CARD_HEADERS, evidence_rows, ("evidence_id",)),
+            ("原子证据卡", _headers_with_context(NET_EVIDENCE_CARD_HEADERS, evidence_rows), evidence_rows, ("evidence_id",)),
         ],
     )
     _remove_legacy_net_evidence_export(person, export_path)
@@ -269,12 +324,13 @@ def export_i5b_evidence_cards_index() -> Path:
     export_path = EVIDENCE_CARD_DIR / "第五项B证据卡索引.md"
     appendix_path = APPENDIX_DIR / "第五项B证据卡长字段附录.md"
     rows = _i5b_evidence_rows()
+    _add_context_review_queue(rows)
     return _write_table_export(
         export_path,
         appendix_path,
         title="第五项B证据卡索引",
         intro="本文件只展示第五项B证据卡，不改变原始证据数据、评分或裁判语义。",
-        sections=[("证据卡", I5B_EVIDENCE_CARD_HEADERS, rows, ("evidence_id",))],
+        sections=[("证据卡", _headers_with_context(I5B_EVIDENCE_CARD_HEADERS, rows), rows, ("evidence_id",))],
     )
 
 

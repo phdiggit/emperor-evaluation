@@ -54,6 +54,16 @@ def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> N
         assert f"{path}`：应不存在，禁用。" in content
 
 
+def test_i5b_three_person_review_entry_doc_contains_context_dependent_rules() -> None:
+    content = ENTRY_PATH.read_text(encoding="utf-8")
+
+    assert "## 7. 上下文依赖证据处理规则" in content
+    assert "需上下文 / 需回源" in content
+    assert "`context_required = true` 且 `context_status` 未达 `supplied` 或 `source_verified` 的证据，不得直接进入稳定裁判" in content
+    assert "`context_effect = reverse` 的证据，应回看其证据方向、强度和裁判桥接说明" in content
+    assert "`context_effect = split_only` 的证据，只能用于相邻项剥离，不得直接回填第五项B正负分" in content
+
+
 def test_i5b_three_person_review_entry_doc_is_plain_review_markdown_not_scoring() -> None:
     content = ENTRY_PATH.read_text(encoding="utf-8")
 

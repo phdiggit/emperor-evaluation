@@ -45,6 +45,7 @@ MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)#]+)(?:#([^)]+))?\)")
 CHINESE_CHAR_RE = re.compile(r"[\u4e00-\u9fff]")
 BARE_ENGLISH_HEADER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 UNBOLDED_KV_RE = re.compile(r"^\s*[-*]\s+(?!\*\*)([^：\n]{1,80})：")
+CONTEXT_APPENDIX_HEADER_MARKERS = ("上下文摘录", "上下文摘要", "裁判桥接说明")
 
 
 def detail_relative_path(person: str) -> Path:
@@ -203,10 +204,23 @@ def validate_evidence_chain_markdown(root: Path, errors: list[str]) -> None:
                 row_cells = _split_markdown_table_row(lines[row_index])
                 if not row_cells:
                     break
+                context_cell_indexes = [
+                    cell_index
+                    for cell_index, header in enumerate(header_cells)
+                    if any(marker in header for marker in CONTEXT_APPENDIX_HEADER_MARKERS)
+                ]
                 for cell in row_cells:
                     if len(cell) > 72 and not cell.startswith("["):
                         errors.append(
                             f"{path}:{row_index + 1}: table cell longer than 72 chars must use a positioned appendix link"
+                        )
+                for cell_index in context_cell_indexes:
+                    if cell_index >= len(row_cells):
+                        continue
+                    cell = row_cells[cell_index]
+                    if cell and not cell.startswith("["):
+                        errors.append(
+                            f"{path}:{row_index + 1}: context long field must use a positioned appendix link"
                         )
                 row_index += 1
 

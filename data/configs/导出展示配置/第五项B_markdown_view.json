@@ -39,9 +39,18 @@
     "subitem": "子项",
     "source_ref": "来源定位",
     "source_id": "来源ID",
+    "source_locator": "精确来源定位",
     "source_title": "来源标题",
     "search_id": "检索线索ID",
     "quote_short": "短摘",
+    "quote_context": "上下文摘录",
+    "context_summary": "上下文摘要",
+    "context_scope": "上下文范围",
+    "context_required": "是否需上下文定证",
+    "context_status": "上下文状态",
+    "context_effect": "上下文影响",
+    "context_review_queue": "上下文处理队列",
+    "adjudication_bridge": "裁判桥接说明",
     "evidence_role": "证据角色",
     "trigger_family": "触发类型",
     "trigger_terms": "触发词",
@@ -166,9 +175,17 @@
     "core": "核心",
     "supporting": "辅助",
     "context": "背景",
-    "pending": "待复核",
+    "missing": "缺失",
+    "pending": "待补",
+    "supplied": "已补",
     "verified": "已回源",
     "source_verified": "已回源核验",
+    "strengthen": "增强定证",
+    "limit": "限制定证",
+    "reverse": "反转定证",
+    "split_only": "仅用于相邻项剥离",
+    "neutral": "中性背景",
+    "needs_context_source_review": "需回源 / 需上下文",
     "source_verified_pending_human_adjudication": "已回源，待人工裁判",
     "needs_review": "待人工复核",
     "batch_draft": "批次草案",
@@ -225,6 +242,15 @@
         "strategy": "preserve_items"
       },
       "quote_short": {
+        "strategy": "appendix_link"
+      },
+      "quote_context": {
+        "strategy": "appendix_link"
+      },
+      "context_summary": {
+        "strategy": "appendix_link"
+      },
+      "adjudication_bridge": {
         "strategy": "appendix_link"
       },
       "cross_item_split": {
