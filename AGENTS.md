@@ -57,6 +57,10 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改已迁移的共享工具时，优先改 `scripts/shared/` 下真实实现，再确认旧路径 wrapper 仍可 import。
 - `export_md_scaffold.py` 已迁移；修改时优先改 `scripts/shared/export_md_scaffold.py`，旧路径仅作兼容 wrapper。
 - `i5b_cluster_warning_display.py` 已迁移；修改时优先改 `scripts/shared/i5b_cluster_warning_display.py`，旧路径仅作兼容 wrapper。
+- `i5b_markdown_display.py` 仍在 `scripts/` 根目录；修改该模块时仍改旧路径，直到单独实迁 PR 完成。
+- `i5b_markdown_display.py` 实迁前必须参考 `docs/i5b_markdown_display迁移前依赖审计.md`。
+- 不得在普通 exporter/validator 迁移 PR 中顺手迁移 `i5b_markdown_display.py`。
+- 迁移 `i5b_markdown_display.py` 时必须验证人审导出、机器审计导出、表头白名单和长字段附录相关测试。
 - 不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具。
 - 不得一次性大规模迁移 exporter、build、pipeline 或 matrix 类脚本；这类脚本后续按 PR 分阶段治理。
 - 不得一次性大规模迁移 `export_md.py`、build、pipeline、matrix 类脚本。
