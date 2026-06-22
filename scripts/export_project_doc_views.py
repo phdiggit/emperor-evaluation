@@ -5,6 +5,7 @@ from pathlib import Path
 
 import config_loaders
 from export_md_scaffold import escape_cell
+from i5b_markdown_display import display_field_label, display_value, load_display_dictionary
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,18 @@ CANDIDATE_POOL_EXPORT_PATH = (
 )
 def load_expanded_i5b_candidate_pool_rows() -> list[dict[str, str]]:
     return config_loaders.get_i5b_expanded_candidate_pool_rows()
+
+
+def _display_table(headers: list[str], rows: list[dict[str, str]]) -> list[str]:
+    display_config = dict(load_display_dictionary())
+    display_config["keep_machine_field_name"] = False
+    lines = [
+        "| " + " | ".join(display_field_label(field, display_config) for field in headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+    ]
+    for row in rows:
+        lines.append("| " + " | ".join(escape_cell(display_value(row.get(field, ""), display_config)) for field in headers) + " |")
+    return lines
 
 
 def export_global_scale_decision_brief_docs() -> tuple[Path, Path]:
@@ -251,48 +264,33 @@ def render_expanded_i5b_candidate_pool() -> str:
         "",
         "## 一、覆盖检查",
         "",
-        "| required_type | representative_person | coverage_note |",
-        "| --- | --- | --- |",
     ]
 
-    for row in coverage_rows:
-        lines.append(
-            "| "
-            + " | ".join(
-                escape_cell(row[field])
-                for field in ["required_type", "representative_person", "coverage_note"]
-            )
-            + " |"
-        )
+    lines.extend(_display_table(["required_type", "representative_person", "coverage_note"], coverage_rows))
 
     lines.extend(
         [
             "",
             "## 二、候选池明细",
             "",
-            "| person | candidate_type | why_selected | expected_rule_pressure | required_evidence_focus | adjacent_item_risk | negative_scan_focus | recommended_priority |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
 
-    for row in load_expanded_i5b_candidate_pool_rows():
-        lines.append(
-            "| "
-            + " | ".join(
-                escape_cell(row[field])
-                for field in [
-                    "person",
-                    "candidate_type",
-                    "why_selected",
-                    "expected_rule_pressure",
-                    "required_evidence_focus",
-                    "adjacent_item_risk",
-                    "negative_scan_focus",
-                    "recommended_priority",
-                ]
-            )
-            + " |"
+    lines.extend(
+        _display_table(
+            [
+                "person",
+                "candidate_type",
+                "why_selected",
+                "expected_rule_pressure",
+                "required_evidence_focus",
+                "adjacent_item_risk",
+                "negative_scan_focus",
+                "recommended_priority",
+            ],
+            load_expanded_i5b_candidate_pool_rows(),
         )
+    )
 
     lines.extend(
         [

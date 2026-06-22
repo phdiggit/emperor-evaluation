@@ -101,8 +101,8 @@ def test_readiness_audit_export_is_review_only() -> None:
         "雍正",
         "朱元璋",
         "人工裁判准备",
-        "recommended_next_step",
-        "remaining evidence gaps",
+        "\u5efa\u8bae\u4e0b\u4e00\u6b65",
+        "\u5269\u4f59\u8bc1\u636e\u7f3a\u53e3",
         "BATCH-RDY-I5B-20260619",
     ]:
         assert needle in content

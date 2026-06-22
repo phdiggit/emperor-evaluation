@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import config_loaders
+from i5b_markdown_display import display_field_label, human_review_table_fields, load_display_dictionary
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -86,14 +87,22 @@ HUMAN_FORBIDDEN_HEADER_MARKERS = (
     "证据ID",
     "来源ID",
     "证据簇ID",
+    "查询配置ID",
     "evidence_id",
     "source_id",
     "cluster_id",
     "linked_evidence_ids",
     "query_profile_id",
     "search_id",
+    "raw_json",
 )
 RAW_ENUM_RE = re.compile(r"\b[a-z]+(?:_[a-z0-9]+){1,}\b")
+HUMAN_REVIEW_TABLE_KEY_BY_HEADING = {
+    "证据组裁量结论": "net_evidence_clusters",
+    "原子证据卡": "net_evidence_cards",
+    "证据卡": "evidence_cards_index",
+    "证据簇": "evidence_clusters_index",
+}
 
 
 def detail_relative_path(person: str) -> Path:
@@ -373,14 +382,33 @@ def _validate_markdown_links(path: Path, lines: list[str], errors: list[str]) ->
                 errors.append(f"{path}:{line_number}: appendix link target does not exist: {link_target}#{anchor}")
 
 
-def _validate_chinese_table_headers(path: Path, lines: list[str], errors: list[str]) -> list[tuple[int, list[str]]]:
-    table_headers: list[tuple[int, list[str]]] = []
+def _nearest_heading(lines: list[str], index: int) -> str:
+    for line in reversed(lines[:index]):
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            return stripped.lstrip("#").strip()
+    return ""
+
+
+def _human_header_to_field_map(config: dict[str, object]) -> dict[str, str]:
+    mapped: dict[str, str] = {}
+    for table_key in HUMAN_REVIEW_TABLE_KEY_BY_HEADING.values():
+        for field in human_review_table_fields(table_key, config):
+            mapped[display_field_label(field, config)] = field
+            labels = config.get("field_labels") if isinstance(config.get("field_labels"), dict) else {}
+            if field in labels:
+                mapped[str(labels[field])] = field
+    return mapped
+
+
+def _validate_chinese_table_headers(path: Path, lines: list[str], errors: list[str]) -> list[tuple[int, list[str], str]]:
+    table_headers: list[tuple[int, list[str], str]] = []
     for index, line in enumerate(lines[:-1]):
         header_cells = _split_markdown_table_row(line)
         separator_cells = _split_markdown_table_row(lines[index + 1])
         if not header_cells or not _is_separator_row(separator_cells):
             continue
-        table_headers.append((index, header_cells))
+        table_headers.append((index, header_cells, _nearest_heading(lines, index)))
         for header in header_cells:
             if BARE_ENGLISH_HEADER_RE.match(header):
                 errors.append(f"{path}:{index + 1}: table header exposes bare English field {header!r}")
@@ -393,28 +421,41 @@ def validate_human_review_markdown(root: Path, errors: list[str]) -> None:
     human_root = root / HUMAN_REVIEW_RELATIVE_DIR
     if not human_root.exists():
         return
+    display_config = load_display_dictionary()
+    header_to_field = _human_header_to_field_map(display_config)
     for path in human_root.rglob("*.md"):
         content = read_text(path)
         lines = content.splitlines()
         add_forbidden_marker_errors(path, content, errors)
         _validate_markdown_links(path, lines, errors)
         relative_parts = path.relative_to(human_root).parts
-        if not relative_parts or relative_parts[0] != "证据链":
-            continue
-        if path.parent.name != "附录" and HUMAN_REVIEW_DECLARATION not in content:
+        is_evidence_chain = bool(relative_parts and relative_parts[0] == "证据链")
+        is_appendix = path.parent.name == "附录"
+        if is_evidence_chain and not is_appendix and HUMAN_REVIEW_DECLARATION not in content:
             errors.append(f"{path}: missing human review purpose declaration")
-        for header_index, header_cells in _validate_chinese_table_headers(path, lines, errors):
+        for header_index, header_cells, heading in _validate_chinese_table_headers(path, lines, errors):
             for header in header_cells:
                 for marker in HUMAN_FORBIDDEN_HEADER_MARKERS:
                     if marker in header:
                         errors.append(f"{path}:{header_index + 1}: human review table exposes machine field {marker!r}")
+            table_key = HUMAN_REVIEW_TABLE_KEY_BY_HEADING.get(heading)
+            if is_evidence_chain and not is_appendix and table_key:
+                allowed_fields = set(human_review_table_fields(table_key, display_config))
+                for header in header_cells:
+                    field = header_to_field.get(header)
+                    if field is None:
+                        errors.append(f"{path}:{header_index + 1}: human review table header is not mapped to a configured field: {header!r}")
+                    elif field not in allowed_fields:
+                        errors.append(
+                            f"{path}:{header_index + 1}: human review table field {field!r} is not allowed by table_fields.{table_key}"
+                        )
             row_index = header_index + 2
             while row_index < len(lines):
                 row_cells = _split_markdown_table_row(lines[row_index])
                 if not row_cells:
                     break
                 for cell in row_cells:
-                    if len(cell) > 72 and not cell.startswith("["):
+                    if is_evidence_chain and len(cell) > 72 and not cell.startswith("["):
                         errors.append(
                             f"{path}:{row_index + 1}: table cell longer than 72 chars must use a positioned appendix link"
                         )

@@ -9,6 +9,60 @@ from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DISPLAY_CONFIG_PATH = ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
+DEFAULT_HUMAN_REVIEW_TABLE_FIELDS = {
+    "net_evidence_clusters": [
+        "person",
+        "polarity",
+        "candidate_strength",
+        "adjudication_status",
+        "summary_detail_link",
+        "cross_item_split_detail_link",
+    ],
+    "net_evidence_cards": [
+        "person",
+        "polarity",
+        "human_level",
+        "trigger_family",
+        "object_anchor",
+        "evidence_role",
+        "source_detail_link",
+        "context_detail_link",
+        "context_status",
+        "context_effect",
+        "context_review_queue",
+        "adjudication_bridge_detail_link",
+        "cross_item_split_detail_link",
+        "scoring_effect",
+        "adjudication_status",
+    ],
+    "evidence_cards_index": [
+        "person",
+        "polarity",
+        "strength",
+        "human_level",
+        "trigger_family",
+        "object_anchor",
+        "evidence_role",
+        "source_detail_link",
+        "context_detail_link",
+        "context_status",
+        "context_effect",
+        "context_review_queue",
+        "adjudication_bridge_detail_link",
+        "cross_item_split_detail_link",
+        "scoring_effect",
+        "verification_status",
+        "adjudication_status",
+    ],
+    "evidence_clusters_index": [
+        "person",
+        "polarity",
+        "candidate_strength",
+        "adjudication_status",
+        "summary_detail_link",
+        "cross_item_split_detail_link",
+    ],
+}
 
 
 @dataclass(frozen=True)
@@ -35,6 +89,17 @@ def display_field_label(field: str, config: dict[str, object] | None = None) -> 
     if keep_machine_name and field.isascii() and label != field:
         return f"{label}（{field}）"
     return label
+
+
+def human_review_table_fields(table_key: str, config: dict[str, object] | None = None) -> list[str]:
+    display_config = config if config is not None else load_display_dictionary()
+    view_profiles = display_config.get("view_profiles")
+    human_profile = view_profiles.get("human_review") if isinstance(view_profiles, dict) else {}
+    table_fields = human_profile.get("table_fields") if isinstance(human_profile, dict) else {}
+    configured = table_fields.get(table_key) if isinstance(table_fields, dict) else None
+    if isinstance(configured, list) and all(isinstance(field, str) and field for field in configured):
+        return list(configured)
+    return list(DEFAULT_HUMAN_REVIEW_TABLE_FIELDS.get(table_key, ()))
 
 
 def _value_labels(config: dict[str, object]) -> dict[str, str]:

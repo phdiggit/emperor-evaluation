@@ -11,6 +11,7 @@ from i5b_markdown_display import (
     AppendixEntry,
     display_field_label,
     display_value,
+    human_review_table_fields,
     load_display_dictionary,
     render_appendix_page,
     render_markdown_table,
@@ -121,31 +122,6 @@ NET_EVIDENCE_CARD_HEADERS = [
     "scoring_effect",
     "adjudication_status",
 ]
-HUMAN_NET_EVIDENCE_CLUSTER_HEADERS = [
-    "person",
-    "polarity",
-    "candidate_strength",
-    "adjudication_status",
-    "summary_detail_link",
-    "cross_item_split_detail_link",
-]
-HUMAN_NET_EVIDENCE_CARD_HEADERS = [
-    "person",
-    "polarity",
-    "human_level",
-    "trigger_family",
-    "object_anchor",
-    "evidence_role",
-    "source_detail_link",
-    "context_detail_link",
-    "context_status",
-    "context_effect",
-    "context_review_queue",
-    "adjudication_bridge_detail_link",
-    "cross_item_split_detail_link",
-    "scoring_effect",
-    "adjudication_status",
-]
 I5B_EVIDENCE_CARD_HEADERS = [
     "evidence_id",
     "person",
@@ -167,25 +143,6 @@ I5B_EVIDENCE_CARD_HEADERS = [
     "verification_status",
     "adjudication_status",
 ]
-HUMAN_EVIDENCE_CARD_HEADERS = [
-    "person",
-    "polarity",
-    "strength",
-    "human_level",
-    "trigger_family",
-    "object_anchor",
-    "evidence_role",
-    "source_detail_link",
-    "context_detail_link",
-    "context_status",
-    "context_effect",
-    "context_review_queue",
-    "adjudication_bridge_detail_link",
-    "cross_item_split_detail_link",
-    "scoring_effect",
-    "verification_status",
-    "adjudication_status",
-]
 I5B_EVIDENCE_CLUSTER_HEADERS = [
     "cluster_id",
     "person",
@@ -201,14 +158,6 @@ I5B_EVIDENCE_CLUSTER_HEADERS = [
     "adjudication_status",
     "summary",
     "cross_item_split",
-]
-HUMAN_EVIDENCE_CLUSTER_HEADERS = [
-    "person",
-    "polarity",
-    "candidate_strength",
-    "adjudication_status",
-    "summary_detail_link",
-    "cross_item_split_detail_link",
 ]
 I5B_SEARCH_LOG_HEADERS = [
     "search_id",
@@ -517,14 +466,15 @@ def _write_human_review_export(
     *,
     title: str,
     intro: str,
-    sections: list[tuple[str, list[str], list[dict[str, object]], tuple[str, ...]]],
+    sections: list[tuple[str, str, list[dict[str, object]], tuple[str, ...]]],
 ) -> Path:
     export_path.parent.mkdir(parents=True, exist_ok=True)
     config = load_display_dictionary()
     appendix_relative_path = _relative_appendix_path(export_path, appendix_path)
     lines = [f"# {title}", "", HUMAN_REVIEW_DECLARATION, "", intro, ""]
     appendix_groups: list[tuple[str, list[dict[str, object]], tuple[str, ...]]] = []
-    for heading, headers, rows, row_id_fields in sections:
+    for heading, table_key, rows, row_id_fields in sections:
+        headers = human_review_table_fields(table_key, config)
         appendix_groups.append((heading, rows, row_id_fields))
         lines.extend(
             [
@@ -589,8 +539,8 @@ def export_i5b_human_review_net_evidence_pool(person: str) -> Path:
         title=f"第五项B_{person}人工审核净证据池",
         intro="本文件是定档前人工业务审核主表；机器定位字段隐藏在主表外，可从附录“机器定位信息”或机器审计视图追溯。",
         sections=[
-            ("证据组裁量结论", HUMAN_NET_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",)),
-            ("原子证据卡", HUMAN_NET_EVIDENCE_CARD_HEADERS, evidence_rows, ("evidence_id",)),
+            ("证据组裁量结论", "net_evidence_clusters", cluster_rows, ("cluster_id",)),
+            ("原子证据卡", "net_evidence_cards", evidence_rows, ("evidence_id",)),
         ],
     )
 
@@ -638,7 +588,7 @@ def export_i5b_human_review_evidence_cards_index() -> Path:
         appendix_path,
         title="第五项B人工审核证据卡索引",
         intro="本文件是证据卡人工业务审核主表；机器定位字段隐藏在主表外，可从附录“机器定位信息”或机器审计视图追溯。",
-        sections=[("证据卡", HUMAN_EVIDENCE_CARD_HEADERS, rows, ("evidence_id",))],
+        sections=[("证据卡", "evidence_cards_index", rows, ("evidence_id",))],
     )
 
 
@@ -682,7 +632,7 @@ def export_i5b_human_review_evidence_clusters_index() -> Path:
         appendix_path,
         title="第五项B人工审核证据簇索引",
         intro="本文件是证据簇人工业务审核主表；机器定位字段隐藏在主表外，可从附录“机器定位信息”或机器审计视图追溯。",
-        sections=[("证据簇", HUMAN_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",))],
+        sections=[("证据簇", "evidence_clusters_index", cluster_rows, ("cluster_id",))],
     )
 
 

@@ -109,6 +109,6 @@ def test_relative_band_preparation_export_is_review_only_and_not_polluted() -> N
     assert "批次级规则准备摘要" in content
     assert "relative_band_path_A" in content
     assert "relative_band_path_B" in content
-    assert "ready_for_human_rule_confirmation" in content
+    assert "\u5f85\u4eba\u5de5\u89c4\u5219\u786e\u8ba4" in content
     for forbidden in FORBIDDEN_TEXT:
         assert forbidden not in content

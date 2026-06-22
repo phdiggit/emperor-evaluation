@@ -268,6 +268,7 @@ def test_export_expanded_i5b_batch1_targeted_supplement_renders_counts_and_sweep
     assert "| 刘邦 | 1 |" in content
     assert "| 雍正 | 0 |" in content
     assert "| 朱元璋 | 0 |" in content
-    assert "甲、乙" in content
+    assert "甲" in content
+    assert "乙" in content
     assert "EVD-LB-SUPP-001" in content
     assert "结语：不定档，不出分，不排名，不出总榜。" in content

@@ -465,6 +465,30 @@ def test_validate_exports_reports_human_review_machine_field_header(tmp_path: Pa
     assert any("human review table exposes machine field" in error for error in errors)
 
 
+def test_validate_exports_reports_human_review_table_field_not_allowed_by_config(tmp_path: Path) -> None:
+    write_human_review_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "本文件为人工审核视图，隐藏机器追踪字段，只保留业务判断所需信息。",
+                "",
+                "## 证据组裁量结论",
+                "",
+                "| 人物 | 史料详情链接 |",
+                "| --- | --- |",
+                "| 测试人物 | [查看史料详情](../附录/测试附录.md#card-001) |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("is not allowed by table_fields.net_evidence_clusters" in error for error in errors)
+
+
 def test_validate_exports_reports_human_review_unmapped_enum(tmp_path: Path) -> None:
     write_human_review_export(
         tmp_path,

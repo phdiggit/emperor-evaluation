@@ -7,7 +7,15 @@ from pathlib import Path
 
 import config_loaders
 from export_md_scaffold import escape_cell, join_list_cell, read_jsonl
-from i5b_markdown_display import AppendixEntry, load_display_dictionary, render_appendix_page, render_markdown_kv, render_markdown_table
+from i5b_markdown_display import (
+    AppendixEntry,
+    display_field_label,
+    display_value,
+    load_display_dictionary,
+    render_appendix_page,
+    render_markdown_kv,
+    render_markdown_table,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -124,6 +132,46 @@ TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS = [
     "adjacent_item_risk",
     "status",
 ]
+
+
+def _human_display_config() -> dict[str, object]:
+    config = dict(load_display_dictionary())
+    config["keep_machine_field_name"] = False
+    labels = dict(config.get("field_labels") or {})
+    labels.update(
+        {
+            "evidence_id": "证据编号",
+            "source_id": "来源编号",
+            "cluster_id": "证据簇编号",
+            "linked_evidence_ids": "关联证据编号",
+        }
+    )
+    config["field_labels"] = labels
+    return config
+
+
+def _label(field: str, config: dict[str, object]) -> str:
+    return display_field_label(field, config)
+
+
+def _value(value: object, config: dict[str, object]) -> str:
+    return display_value(value, config)
+
+
+def _list_value(value: object, config: dict[str, object]) -> str:
+    if isinstance(value, list):
+        return "；".join(_value(item, config) for item in value)
+    return _value(value, config)
+
+
+def _table(headers: list[str], rows: list[dict[str, object]], config: dict[str, object]) -> list[str]:
+    lines = [
+        "| " + " | ".join(_label(header, config) for header in headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+    ]
+    for row in rows:
+        lines.append("| " + " | ".join(escape_cell(_value(row.get(header), config)) for header in headers) + " |")
+    return lines
 
 
 def _relative_appendix_path(export_path: Path, appendix_path: Path) -> str:
@@ -327,16 +375,12 @@ def export_expanded_i5b_batch1_cluster_adjudication() -> Path:
 
 def export_expanded_i5b_batch1_targeted_supplement() -> Path:
     TARGETED_SUPPLEMENT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    display_config = _human_display_config()
 
     source_rows = read_jsonl(TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH)
     evidence_rows = read_jsonl(TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH)
     sweep_rows = read_jsonl(TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH)
     person_counts = Counter(row.get("person") for row in evidence_rows)
-
-    def render_sweep_cell(value: object) -> str:
-        if isinstance(value, list):
-            return escape_cell("、".join(str(item) for item in value))
-        return escape_cell(value)
 
     lines = [
         "# 第五项B扩展试点第一批定向补证",
@@ -351,27 +395,16 @@ def export_expanded_i5b_batch1_targeted_supplement() -> Path:
     for person in EXPANDED_BATCH1_PERSONS:
         lines.append(f"| {person} | {person_counts.get(person, 0)} |")
 
-    lines.extend(["", "## 来源", "", "| " + " | ".join(TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |", "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |",])
-    for row in source_rows:
-        lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_SOURCE_HEADERS) + " |")
+    lines.extend(["", "## 来源", "", *_table(TARGETED_SUPPLEMENT_SOURCE_HEADERS, source_rows, display_config)])
 
-    lines.extend(["", "## 证据卡", "", "| " + " | ".join(TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |", "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |",])
-    for row in evidence_rows:
-        lines.append("| " + " | ".join(escape_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_EVIDENCE_HEADERS) + " |")
+    lines.extend(["", "## 证据卡", "", *_table(TARGETED_SUPPLEMENT_EVIDENCE_HEADERS, evidence_rows, display_config)])
 
     lines.extend([
         "",
         "## 雍正 role-class sweep / 防漏扫查",
         "",
-        "| " + " | ".join(TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS) + " |",
-        "| " + " | ".join("---" for _ in TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS) + " |",
+        *_table(TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS, sweep_rows, display_config),
     ])
-    for row in sweep_rows:
-        lines.append(
-            "| "
-            + " | ".join(render_sweep_cell(row.get(header)) for header in TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_HEADERS)
-            + " |"
-        )
 
     lines.extend(["", "结语：不定档，不出分，不排名，不出总榜。", ""])
 
@@ -381,6 +414,7 @@ def export_expanded_i5b_batch1_targeted_supplement() -> Path:
 
 def export_expanded_i5b_batch1_post_supplement_adjudication() -> Path:
     POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    display_config = _human_display_config()
 
     rows = read_jsonl(POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH)
 
@@ -391,23 +425,18 @@ def export_expanded_i5b_batch1_post_supplement_adjudication() -> Path:
         "",
         "## 总览",
         "",
-        "| adjudication_id | person | pre_supplement_net_adjudication_summary | post_supplement_negative_intercept_status | status |",
-        "| --- | --- | --- | --- | --- |",
+        *_table(
+            [
+                "adjudication_id",
+                "person",
+                "pre_supplement_net_adjudication_summary",
+                "post_supplement_negative_intercept_status",
+                "status",
+            ],
+            rows,
+            display_config,
+        ),
     ]
-    for row in rows:
-        lines.append(
-            "| "
-            + " | ".join(
-                [
-                    escape_cell(row.get("adjudication_id")),
-                    escape_cell(row.get("person")),
-                    escape_cell(row.get("pre_supplement_net_adjudication_summary")),
-                    escape_cell(row.get("post_supplement_negative_intercept_status")),
-                    escape_cell(row.get("status")),
-                ]
-            )
-            + " |"
-        )
 
     lines.extend(["", "## 逐人更新", ""])
     for row in rows:
@@ -415,17 +444,17 @@ def export_expanded_i5b_batch1_post_supplement_adjudication() -> Path:
             [
                 f"### {row.get('person')}",
                 "",
-                f"- 预补证净裁量摘要：{row.get('pre_supplement_net_adjudication_summary') or ''}",
-                f"- 补证证据ID：{join_list_cell(row.get('supplement_evidence_ids'))}",
-                f"- 补证正向效应：{row.get('supplement_positive_effect_summary') or ''}",
-                f"- 补证负向效应：{row.get('supplement_negative_effect_summary') or ''}",
-                f"- role-class sweep 效应：{row.get('role_class_sweep_effect_summary') or ''}",
-                f"- 负拦截状态：{row.get('post_supplement_negative_intercept_status') or ''}",
-                f"- 相邻项切分摘要：{row.get('post_supplement_adjacent_item_split_summary') or ''}",
-                f"- 规则压力摘要：{row.get('post_supplement_rule_pressure_summary') or ''}",
-                f"- 补证后净裁量草案：{row.get('post_supplement_net_adjudication_draft') or ''}",
-                f"- remaining gaps：{join_list_cell(row.get('remaining_gap_list'))}",
-                f"- 状态：{row.get('status') or ''}",
+                f"- {_label('pre_supplement_net_adjudication_summary', display_config)}：{_value(row.get('pre_supplement_net_adjudication_summary'), display_config)}",
+                f"- {_label('supplement_evidence_ids', display_config)}：{_list_value(row.get('supplement_evidence_ids'), display_config)}",
+                f"- {_label('supplement_positive_effect_summary', display_config)}：{_value(row.get('supplement_positive_effect_summary'), display_config)}",
+                f"- {_label('supplement_negative_effect_summary', display_config)}：{_value(row.get('supplement_negative_effect_summary'), display_config)}",
+                f"- {_label('role_class_sweep_effect_summary', display_config)}：{_value(row.get('role_class_sweep_effect_summary'), display_config)}",
+                f"- {_label('post_supplement_negative_intercept_status', display_config)}：{_value(row.get('post_supplement_negative_intercept_status'), display_config)}",
+                f"- {_label('post_supplement_adjacent_item_split_summary', display_config)}：{_value(row.get('post_supplement_adjacent_item_split_summary'), display_config)}",
+                f"- {_label('post_supplement_rule_pressure_summary', display_config)}：{_value(row.get('post_supplement_rule_pressure_summary'), display_config)}",
+                f"- {_label('post_supplement_net_adjudication_draft', display_config)}：{_value(row.get('post_supplement_net_adjudication_draft'), display_config)}",
+                f"- {_label('remaining_gap_list', display_config)}：{_list_value(row.get('remaining_gap_list'), display_config)}",
+                f"- {_label('status', display_config)}：{_value(row.get('status'), display_config)}",
                 "",
             ]
         )

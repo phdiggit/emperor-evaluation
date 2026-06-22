@@ -12,7 +12,7 @@
 
 ## 来源
 
-| source_id | title | author | dynasty | volume | location | url | note |
+| 来源编号 | 题名 | 作者 | 朝代 | 卷次 | 位置 | 链接 | 说明 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | SRC-QSG-YZ-J293-YUEZHONGQI-001 | 清史稿 | 赵尔巽等 | 清 | 卷二百九十三 | 岳钟琪代年羹尧为川陕总督、珽言钟琪叵测与初任用段 | https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7293 | 雍正初年对岳钟琪的高位任用与疑忌并存回源。 |
 | SRC-QSG-YZ-J296-YUEZHONGQI-001 | 清史稿 | 赵尔巽等 | 清 | 卷二百九十六 | 岳钟琪驕蹇不法、斩决改监候与边疆军务咨询段 | https://zh.wikisource.org/zh-hant/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7296 | 岳钟琪信任反转与安全压力回源。 |
@@ -23,29 +23,29 @@
 
 ## 证据卡
 
-| evidence_id | person | polarity | strength | human_level | source_id | quote_short | object_anchor | evidence_role | cluster_candidate_id | supplement_gap_addressed | supplement_for_adjudication_id | verification_status | adjudication_status |
+| 证据编号 | 人物 | 方向 | 证据强度 | 人工强度 | 来源编号 | 短摘 | 对象锚点 | 证据角色 | 簇候选ID | 已回应补证缺口 | 对应裁判草案ID | 回源状态 | 裁判状态 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001 | 刘邦 | positive | 2 | 中正 | SRC-SJ-J55-ZHANGLIANG-EXIT-LIUBANG-SUPP-001 | 留侯性多病，杜門不出歲餘。 | 谋臣安全退出 | 补证正向 | ADJ-I5B-LIUBANG-SUPP-POS-ZHANGLIANG-EXIT-001 | 张良安全退出 | ADJ-DRFT-I5B-LIUBANG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-ADVISE-001 | 刘邦 | positive | 2 | 中正 | SRC-SJ-J55-ZHANGLIANG-EXIT-LIUBANG-SUPP-001 | 張良病，自彊起，至曲郵見上，令太子為將軍，監關中兵。 | 退居后授权链 | 补证正向 | ADJ-I5B-LIUBANG-SUPP-POS-ZHANGLIANG-ADVISE-001 | 张良安全退出后的授权链 | ADJ-DRFT-I5B-LIUBANG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-LIUBANG-SUPP-FANKUAI-BUFFER-001 | 刘邦 | negative | 2 | 中负 | SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001 | 高帝怒曰：哙见吾病，乃冀我死也。 | 近臣功臣安全缓冲 | 补证负向 | ADJ-I5B-LIUBANG-SUPP-NEG-FANKUAI-BUFFER-001 | 陈平/周勃缓冲机制原文 | ADJ-DRFT-I5B-LIUBANG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001 | 雍正 | positive | 2 | 中正 | SRC-QSG-YZ-J293-YUEZHONGQI-001 | 初，上以岳鍾琪代年羹堯為川陝總督。 | 边疆高位授权 | 补证正向 | ADJ-I5B-YONGZHENG-SUPP-POS-YUEZHONGQI-AUTH-001 | 岳钟琪正向授权链 | ADJ-DRFT-I5B-YONGZHENG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001 | 雍正 | positive | 2 | 中正 | SRC-QSG-YZ-J297-YUEZHONGQI-001 | 雍正六年，授吏部尚書，賜雙眼孔雀翎。 | 持续复用与褒奖 | 补证正向 | ADJ-I5B-YONGZHENG-SUPP-POS-YUEZHONGQI-REUSE-001 | 岳钟琪后续复用链 | ADJ-DRFT-I5B-YONGZHENG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001 | 雍正 | negative | 2 | 中负 | SRC-QSG-YZ-J296-YUEZHONGQI-001 | 又論鍾琪驕蹇不法。 | 信任收缩 | 补证负向 | ADJ-I5B-YONGZHENG-SUPP-NEG-YUEZHONGQI-CRITIQUE-001 | 岳钟琪信任反转 | ADJ-DRFT-I5B-YONGZHENG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 雍正 | negative | 3 | 中负 | SRC-QSG-YZ-J296-YUEZHONGQI-001 | 十二年，大學士等奏擬鍾琪斬決，上改監候。 | 处置与安全压力 | 补证负向 | ADJ-I5B-YONGZHENG-SUPP-NEG-YUEZHONGQI-SENTENCE-001 | 岳钟琪安全压力 | ADJ-DRFT-I5B-YONGZHENG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001 | 朱元璋 | positive | 2 | 中正 | SRC-MS-J127-LISHANG-001 | 諸將來歸者，善長察其材，言之太祖。復為太祖布款誠，使皆得自安。 | 识材与调护 | 补证正向 | ADJ-I5B-ZHUYUANZHANG-SUPP-POS-LISHANG-001 | 李善长识材调护 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-ZHUYUANZHANG-SUPP-XUDA-001 | 朱元璋 | positive | 3 | 强正 | SRC-MTZL-J026-XUDA-001 | 諸將小心忠謹者，惟徐達聽受吾言，可任斯寄；常遇春果勇有為，可以佐之。 | 徐达常遇春任用 | 补证正向 | ADJ-I5B-ZHUYUANZHANG-SUPP-POS-XUDA-001 | 徐达常遇春具体任用链 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001 | 朱元璋 | negative | 3 | 中负 | SRC-MS-J308-HUWENYONG-001 | 四方躁進之徒及功臣武夫失職者，爭走其門。 | 门庭化与人才扭曲 | 补证负向 | ADJ-I5B-ZHUYUANZHANG-SUPP-NEG-HUWENYONG-001 | 胡惟庸门庭与人才生态 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | source_verified | source_verified_pending_human_adjudication |
-| EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-002 | 朱元璋 | negative | 3 | 中负 | SRC-MS-J127-LISHANG-001 | 遂并其妻女弟侄家口七十餘人誅之。 | 功臣安全收紧 | 补证负向 | ADJ-I5B-ZHUYUANZHANG-SUPP-NEG-LISHANG-002 | 李善长党案影响 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | source_verified | source_verified_pending_human_adjudication |
+| EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001 | 刘邦 | 正向 | 2 | 中正 | SRC-SJ-J55-ZHANGLIANG-EXIT-LIUBANG-SUPP-001 | 留侯性多病，杜門不出歲餘。 | 谋臣安全退出 | 补证正向 | ADJ-I5B-LIUBANG-SUPP-POS-ZHANGLIANG-EXIT-001 | 张良安全退出 | ADJ-DRFT-I5B-LIUBANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-ADVISE-001 | 刘邦 | 正向 | 2 | 中正 | SRC-SJ-J55-ZHANGLIANG-EXIT-LIUBANG-SUPP-001 | 張良病，自彊起，至曲郵見上，令太子為將軍，監關中兵。 | 退居后授权链 | 补证正向 | ADJ-I5B-LIUBANG-SUPP-POS-ZHANGLIANG-ADVISE-001 | 张良安全退出后的授权链 | ADJ-DRFT-I5B-LIUBANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-LIUBANG-SUPP-FANKUAI-BUFFER-001 | 刘邦 | 负向 | 2 | 中负 | SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001 | 高帝怒曰：哙见吾病，乃冀我死也。 | 近臣功臣安全缓冲 | 补证负向 | ADJ-I5B-LIUBANG-SUPP-NEG-FANKUAI-BUFFER-001 | 陈平/周勃缓冲机制原文 | ADJ-DRFT-I5B-LIUBANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001 | 雍正 | 正向 | 2 | 中正 | SRC-QSG-YZ-J293-YUEZHONGQI-001 | 初，上以岳鍾琪代年羹堯為川陝總督。 | 边疆高位授权 | 补证正向 | ADJ-I5B-YONGZHENG-SUPP-POS-YUEZHONGQI-AUTH-001 | 岳钟琪正向授权链 | ADJ-DRFT-I5B-YONGZHENG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001 | 雍正 | 正向 | 2 | 中正 | SRC-QSG-YZ-J297-YUEZHONGQI-001 | 雍正六年，授吏部尚書，賜雙眼孔雀翎。 | 持续复用与褒奖 | 补证正向 | ADJ-I5B-YONGZHENG-SUPP-POS-YUEZHONGQI-REUSE-001 | 岳钟琪后续复用链 | ADJ-DRFT-I5B-YONGZHENG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001 | 雍正 | 负向 | 2 | 中负 | SRC-QSG-YZ-J296-YUEZHONGQI-001 | 又論鍾琪驕蹇不法。 | 信任收缩 | 补证负向 | ADJ-I5B-YONGZHENG-SUPP-NEG-YUEZHONGQI-CRITIQUE-001 | 岳钟琪信任反转 | ADJ-DRFT-I5B-YONGZHENG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 雍正 | 负向 | 3 | 中负 | SRC-QSG-YZ-J296-YUEZHONGQI-001 | 十二年，大學士等奏擬鍾琪斬決，上改監候。 | 处置与安全压力 | 补证负向 | ADJ-I5B-YONGZHENG-SUPP-NEG-YUEZHONGQI-SENTENCE-001 | 岳钟琪安全压力 | ADJ-DRFT-I5B-YONGZHENG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001 | 朱元璋 | 正向 | 2 | 中正 | SRC-MS-J127-LISHANG-001 | 諸將來歸者，善長察其材，言之太祖。復為太祖布款誠，使皆得自安。 | 识材与调护 | 补证正向 | ADJ-I5B-ZHUYUANZHANG-SUPP-POS-LISHANG-001 | 李善长识材调护 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-ZHUYUANZHANG-SUPP-XUDA-001 | 朱元璋 | 正向 | 3 | 强正 | SRC-MTZL-J026-XUDA-001 | 諸將小心忠謹者，惟徐達聽受吾言，可任斯寄；常遇春果勇有為，可以佐之。 | 徐达常遇春任用 | 补证正向 | ADJ-I5B-ZHUYUANZHANG-SUPP-POS-XUDA-001 | 徐达常遇春具体任用链 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001 | 朱元璋 | 负向 | 3 | 中负 | SRC-MS-J308-HUWENYONG-001 | 四方躁進之徒及功臣武夫失職者，爭走其門。 | 门庭化与人才扭曲 | 补证负向 | ADJ-I5B-ZHUYUANZHANG-SUPP-NEG-HUWENYONG-001 | 胡惟庸门庭与人才生态 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
+| EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-002 | 朱元璋 | 负向 | 3 | 中负 | SRC-MS-J127-LISHANG-001 | 遂并其妻女弟侄家口七十餘人誅之。 | 功臣安全收紧 | 补证负向 | ADJ-I5B-ZHUYUANZHANG-SUPP-NEG-LISHANG-002 | 李善长党案影响 | ADJ-DRFT-I5B-ZHUYUANZHANG-20260619 | 已回源核验 | 已回源，待人工裁判 |
 
 ## 雍正 role-class sweep / 防漏扫查
 
-| sweep_id | item | subitem | role_class | candidate_people | carded_people | linked_evidence_ids | not_carded_people | not_carded_reason | source_status | fifth_b_relevance | adjacent_item_risk | status |
+| 扫查ID | 评分项 | 子项 | 角色类别 | 候选人物 | 已建卡人物 | 关联证据编号 | 未建卡人物 | 未建卡原因 | 来源状态 | 第五项B相关性 | 相邻项风险 | 状态 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SWP-I5B-YZ-RCS-001 | 第五项B | 第五项B | near_minister_power_holder_trust_reversal | 年羹尧、隆科多 |  |  | 年羹尧、隆科多 | 已有前批材料覆盖，本轮仅做防漏登记 | source_verified | 覆盖雍正近臣权力反转的防漏条目 | 易与刘弘值时期或基础整像给混 | role_class_sweep_draft |
-| SWP-I5B-YZ-RCS-002 | 第五项B | 第五项B | provincial_administrator_authorization | 田文镜、李卫、鄂尔泰 |  |  | 田文镜、李卫、鄂尔泰 | 本轮未新增地方授权卡，避免把整顿概念重复建卡 | source_verified | 防止把巡方整顿、他们的使用权当成新证 | 容易与地方治理或财政整饰混合 | role_class_sweep_draft |
-| SWP-I5B-YZ-RCS-003 | 第五项B | 第五项B | frontier_military_authorization | 岳钟琪、傅尔丹、查郎阿 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 傅尔丹、查郎阿 | 岳钟琪已补；傅尔丹、查郎阿暂作背景，不另建卡 | source_verified | 直接防漏边疆军事授权体系 | 容易与边际战事或其他军功归类混合 | role_class_sweep_draft |
-| SWP-I5B-YZ-RCS-004 | 第五项B | 第五项B | feedback_memorial_network_object | 年羹尧、田文镜、李卫、鄂尔泰 |  |  | 年羹尧、田文镜、李卫、鄂尔泰 | 反馈链条只做防漏扫查，不把制度词写成空泛总述 | source_verified | 确保密折网络保留具体对象 | 容易被写成制度结构，没有对象归包 | role_class_sweep_draft |
-| SWP-I5B-YZ-RCS-005 | 第五项B | 第五项B | talent_safety_trust_reversal_object | 年羹尧、隆科多、岳钟琪 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001、EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 年羹尧、隆科多 | 本桶只卡岳钟琪的安全反转链；年羹尧、隆科多留待后续专门回源补复用/平反链 | source_verified | 收紧人才保护和反转其使用边界 | 容易与后朝复用或利用系统混合 | role_class_sweep_draft |
+| SWP-I5B-YZ-RCS-001 | 第五项B | 第五项B | 近臣权力人物信任反转 | 年羹尧；隆科多 |  |  | 年羹尧；隆科多 | 已有前批材料覆盖，本轮仅做防漏登记 | 已回源核验 | 覆盖雍正近臣权力反转的防漏条目 | 易与刘弘值时期或基础整像给混 | 角色类别扫查草案 |
+| SWP-I5B-YZ-RCS-002 | 第五项B | 第五项B | 地方行政授权 | 田文镜；李卫；鄂尔泰 |  |  | 田文镜；李卫；鄂尔泰 | 本轮未新增地方授权卡，避免把整顿概念重复建卡 | 已回源核验 | 防止把巡方整顿、他们的使用权当成新证 | 容易与地方治理或财政整饰混合 | 角色类别扫查草案 |
+| SWP-I5B-YZ-RCS-003 | 第五项B | 第五项B | 边疆军事授权 | 岳钟琪；傅尔丹；查郎阿 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001；EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001；EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001；EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 傅尔丹；查郎阿 | 岳钟琪已补；傅尔丹、查郎阿暂作背景，不另建卡 | 已回源核验 | 直接防漏边疆军事授权体系 | 容易与边际战事或其他军功归类混合 | 角色类别扫查草案 |
+| SWP-I5B-YZ-RCS-004 | 第五项B | 第五项B | 反馈奏疏网络对象 | 年羹尧；田文镜；李卫；鄂尔泰 |  |  | 年羹尧；田文镜；李卫；鄂尔泰 | 反馈链条只做防漏扫查，不把制度词写成空泛总述 | 已回源核验 | 确保密折网络保留具体对象 | 容易被写成制度结构，没有对象归包 | 角色类别扫查草案 |
+| SWP-I5B-YZ-RCS-005 | 第五项B | 第五项B | 人才安全与信任反转对象 | 年羹尧；隆科多；岳钟琪 | 岳钟琪 | EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001；EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001 | 年羹尧；隆科多 | 本桶只卡岳钟琪的安全反转链；年羹尧、隆科多留待后续专门回源补复用/平反链 | 已回源核验 | 收紧人才保护和反转其使用边界 | 容易与后朝复用或利用系统混合 | 角色类别扫查草案 |
 
 结语：不定档，不出分，不排名，不出总榜。
 
