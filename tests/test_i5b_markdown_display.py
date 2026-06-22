@@ -7,7 +7,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from i5b_markdown_display import human_review_table_fields, load_display_dictionary, render_long_list, render_table_cell  # noqa: E402
+import i5b_markdown_display as legacy_i5b_markdown_display  # noqa: E402
+from shared import i5b_markdown_display  # noqa: E402
+from shared.i5b_markdown_display import (  # noqa: E402
+    human_review_table_fields,
+    load_display_dictionary,
+    render_long_list,
+    render_table_cell,
+)
 
 
 DISPLAY_CONFIG = {
@@ -46,6 +53,32 @@ DISPLAY_CONFIG = {
     },
     "keep_machine_field_name": True,
 }
+
+PUBLIC_API_NAMES = (
+    "AppendixEntry",
+    "display_field_label",
+    "display_value",
+    "human_review_table_fields",
+    "load_display_dictionary",
+    "render_appendix_page",
+    "render_markdown_kv",
+    "render_markdown_table",
+    "render_long_list",
+    "render_table_cell",
+)
+
+
+def test_new_and_legacy_i5b_markdown_display_imports_expose_public_api() -> None:
+    for api_name in PUBLIC_API_NAMES:
+        assert hasattr(i5b_markdown_display, api_name)
+        assert hasattr(legacy_i5b_markdown_display, api_name)
+
+
+def test_default_display_config_path_still_points_to_i5b_markdown_view_config() -> None:
+    assert i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH == (
+        ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
+    )
+    assert legacy_i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH == i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH
 
 
 def test_render_long_list_preserves_locator_items() -> None:

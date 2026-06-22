@@ -17,7 +17,7 @@ from shared.i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
     render_display_only_cluster_warning_section,
 )
-from i5b_markdown_display import human_review_table_fields as configured_human_review_table_fields
+from shared.i5b_markdown_display import human_review_table_fields as configured_human_review_table_fields
 
 
 ROOT = Path(__file__).resolve().parents[2]
