@@ -20,8 +20,95 @@ assert VALIDATOR_SPEC.loader is not None
 VALIDATOR_SPEC.loader.exec_module(validator)
 
 
+def write_required_export_layout(root: Path, pending_files: list[str] | None = None) -> None:
+    markdown_root = root / "exports" / "markdown_views"
+    required_dirs = [
+        markdown_root / "第五项B" / "人工审核" / "自动裁判链" / "自动结算草案",
+        markdown_root / "第五项B" / "人工审核" / "自动裁判链" / "规则敏感点",
+        markdown_root / "第五项B" / "人工审核" / "自动裁判链" / "正式定档草案",
+        markdown_root / "第五项B" / "人工审核" / "自动裁判链" / "试点闭环",
+        markdown_root / "第五项B" / "人工审核" / "证据链" / "净证据池",
+        markdown_root / "第五项B" / "人工审核" / "证据链" / "证据卡",
+        markdown_root / "第五项B" / "人工审核" / "证据链" / "证据簇",
+        markdown_root / "第五项B" / "人工审核" / "证据链" / "附录",
+        markdown_root / "第五项B" / "机器审计" / "证据链" / "净证据池",
+        markdown_root / "第五项B" / "机器审计" / "证据链" / "证据卡",
+        markdown_root / "第五项B" / "机器审计" / "证据链" / "证据簇",
+        markdown_root / "第五项B" / "机器审计" / "证据链" / "检索包",
+        markdown_root / "第五项B" / "机器审计" / "证据链" / "附录",
+        markdown_root / "第五项B" / "归档或兼容层" / "待人工确认",
+        markdown_root / "临时与归档" / "待人工确认",
+    ]
+    for directory in required_dirs:
+        directory.mkdir(parents=True, exist_ok=True)
+
+    pending_lines = pending_files or []
+    (markdown_root / "导出视图总索引.md").write_text(
+        "\n".join(
+            [
+                "# 导出视图总索引",
+                "",
+                "## 目录结构说明",
+                "",
+                "- [第五项B](./第五项B/)",
+                "",
+                "## 人工审核主入口",
+                "",
+                "- [第五项B人工审核](./第五项B/人工审核/)",
+                "",
+                "## 机器审计入口",
+                "",
+                "- [第五项B机器审计](./第五项B/机器审计/)",
+                "",
+                "## 第一大项入口",
+                "",
+                "暂无。",
+                "",
+                "## 第二大项入口",
+                "",
+                "暂无。",
+                "",
+                "## 第五项B入口",
+                "",
+                "- [第五项B人工自动裁判链](./第五项B/人工审核/自动裁判链/)",
+                "",
+                "## 文件治理入口",
+                "",
+                "暂无。",
+                "",
+                "## 配置审计入口",
+                "",
+                "暂无。",
+                "",
+                "## 临时与归档入口",
+                "",
+                "- [待人工确认](./临时与归档/待人工确认/)",
+                "",
+                "## 待人工确认清单",
+                "",
+                *(f"- `{path}`" for path in pending_lines),
+                "",
+                "## 旧根目录平铺文件禁用说明",
+                "",
+                "根目录旧式平铺 Markdown 禁用。",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+
 def write_split_export(root: Path, targets: list[str]) -> None:
-    export_dir = root / "exports" / "markdown_views" / "第五项B" / "自动结算草案"
+    write_required_export_layout(root)
+    export_dir = (
+        root
+        / "exports"
+        / "markdown_views"
+        / "第五项B"
+        / "人工审核"
+        / "自动裁判链"
+        / "自动结算草案"
+    )
     detail_dir = export_dir / "人物详情"
     appendix_dir = export_dir / "附录"
     detail_dir.mkdir(parents=True)
@@ -176,6 +263,29 @@ def test_validate_exports_reports_legacy_flat_export(tmp_path: Path) -> None:
     assert any("legacy flat I5B export must be removed" in error for error in errors)
 
 
+def test_validate_exports_reports_unclassified_root_markdown(tmp_path: Path) -> None:
+    write_required_export_layout(tmp_path)
+    unclassified_path = tmp_path / "exports" / "markdown_views" / "未归类.md"
+    unclassified_path.write_text("# 未归类\n", encoding="utf-8")
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("root Markdown export must be classified into a subdirectory" in error for error in errors)
+    assert any(str(unclassified_path) in error for error in errors)
+
+
+def test_validate_exports_reports_i5b_human_review_material_in_legacy_top_level_dir(tmp_path: Path) -> None:
+    write_required_export_layout(tmp_path)
+    misplaced_path = tmp_path / "exports" / "markdown_views" / "第五项B" / "自动结算草案" / "错位.md"
+    misplaced_path.parent.mkdir(parents=True, exist_ok=True)
+    misplaced_path.write_text("# 错位\n", encoding="utf-8")
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("legacy Fifth item B top-level export directory is forbidden" in error for error in errors)
+    assert any(str(misplaced_path.parent) in error for error in errors)
+
+
 def test_validate_exports_reports_old_wide_cluster_table(tmp_path: Path) -> None:
     targets = ["李世民"]
     write_split_export(tmp_path, targets)
@@ -199,6 +309,7 @@ def test_validate_exports_reports_warning_section_without_matched_fields(tmp_pat
 
 
 def write_evidence_chain_export(root: Path, content: str) -> Path:
+    write_required_export_layout(root)
     export_path = root / "exports" / "markdown_views" / "第五项B" / "证据链" / "净证据池" / "测试.md"
     export_path.parent.mkdir(parents=True, exist_ok=True)
     export_path.write_text(content, encoding="utf-8")
@@ -212,10 +323,11 @@ def write_evidence_chain_export(root: Path, content: str) -> Path:
 
 
 def write_human_review_export(root: Path, content: str, appendix_content: str | None = None) -> Path:
-    export_path = root / "exports" / "markdown_views" / "第五项B" / "人工审核" / "净证据池" / "测试.md"
+    write_required_export_layout(root)
+    export_path = root / "exports" / "markdown_views" / "第五项B" / "人工审核" / "证据链" / "净证据池" / "测试.md"
     export_path.parent.mkdir(parents=True, exist_ok=True)
     export_path.write_text(content, encoding="utf-8")
-    appendix_path = root / "exports" / "markdown_views" / "第五项B" / "人工审核" / "附录" / "测试附录.md"
+    appendix_path = root / "exports" / "markdown_views" / "第五项B" / "人工审核" / "证据链" / "附录" / "测试附录.md"
     appendix_path.parent.mkdir(parents=True, exist_ok=True)
     appendix_path.write_text(
         appendix_content
@@ -226,7 +338,8 @@ def write_human_review_export(root: Path, content: str, appendix_content: str | 
 
 
 def write_machine_audit_export(root: Path, content: str) -> Path:
-    export_path = root / "exports" / "markdown_views" / "第五项B" / "机器审计" / "净证据池" / "测试.md"
+    write_required_export_layout(root)
+    export_path = root / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "净证据池" / "测试.md"
     export_path.parent.mkdir(parents=True, exist_ok=True)
     export_path.write_text(content, encoding="utf-8")
     return export_path

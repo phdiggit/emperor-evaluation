@@ -21,23 +21,24 @@ ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 I5B_SUBITEM = "第五项B"
 MARKDOWN_VIEW_ROOT = ROOT / "exports" / "markdown_views"
-I5B_EVIDENCE_CHAIN_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "证据链"
 I5B_HUMAN_REVIEW_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "人工审核"
 I5B_MACHINE_AUDIT_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "机器审计"
+I5B_EVIDENCE_CHAIN_ROOT = I5B_MACHINE_AUDIT_ROOT / "证据链"
+I5B_HUMAN_EVIDENCE_CHAIN_ROOT = I5B_HUMAN_REVIEW_ROOT / "证据链"
 NET_EVIDENCE_DIR = I5B_EVIDENCE_CHAIN_ROOT / "净证据池"
 EVIDENCE_CARD_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据卡"
 EVIDENCE_CLUSTER_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据簇"
 SEARCH_PACKAGE_DIR = I5B_EVIDENCE_CHAIN_ROOT / "检索包"
 APPENDIX_DIR = I5B_EVIDENCE_CHAIN_ROOT / "附录"
-HUMAN_NET_EVIDENCE_DIR = I5B_HUMAN_REVIEW_ROOT / "净证据池"
-HUMAN_EVIDENCE_CARD_DIR = I5B_HUMAN_REVIEW_ROOT / "证据卡"
-HUMAN_EVIDENCE_CLUSTER_DIR = I5B_HUMAN_REVIEW_ROOT / "证据簇"
-HUMAN_APPENDIX_DIR = I5B_HUMAN_REVIEW_ROOT / "附录"
-MACHINE_NET_EVIDENCE_DIR = I5B_MACHINE_AUDIT_ROOT / "净证据池"
-MACHINE_EVIDENCE_CARD_DIR = I5B_MACHINE_AUDIT_ROOT / "证据卡"
-MACHINE_EVIDENCE_CLUSTER_DIR = I5B_MACHINE_AUDIT_ROOT / "证据簇"
-MACHINE_SEARCH_PACKAGE_DIR = I5B_MACHINE_AUDIT_ROOT / "检索包"
-MACHINE_APPENDIX_DIR = I5B_MACHINE_AUDIT_ROOT / "附录"
+HUMAN_NET_EVIDENCE_DIR = I5B_HUMAN_EVIDENCE_CHAIN_ROOT / "净证据池"
+HUMAN_EVIDENCE_CARD_DIR = I5B_HUMAN_EVIDENCE_CHAIN_ROOT / "证据卡"
+HUMAN_EVIDENCE_CLUSTER_DIR = I5B_HUMAN_EVIDENCE_CHAIN_ROOT / "证据簇"
+HUMAN_APPENDIX_DIR = I5B_HUMAN_EVIDENCE_CHAIN_ROOT / "附录"
+MACHINE_NET_EVIDENCE_DIR = I5B_EVIDENCE_CHAIN_ROOT / "净证据池"
+MACHINE_EVIDENCE_CARD_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据卡"
+MACHINE_EVIDENCE_CLUSTER_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据簇"
+MACHINE_SEARCH_PACKAGE_DIR = I5B_EVIDENCE_CHAIN_ROOT / "检索包"
+MACHINE_APPENDIX_DIR = I5B_EVIDENCE_CHAIN_ROOT / "附录"
 HUMAN_REVIEW_DECLARATION = "本文件为人工审核视图，隐藏机器追踪字段，只保留业务判断所需信息。"
 MACHINE_AUDIT_DECLARATION = "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。"
 CONTEXT_REQUIRED_STABLE_STATUSES = {"supplied", "source_verified"}
@@ -561,7 +562,11 @@ def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
         export_path,
         appendix_path,
         title=f"第五项B_{person}净证据池",
-        intro="本文件为定档前净证据池视图；只汇总已回源原子证据与证据组裁量候选，不代表最终档位、得分或排名。",
+        intro=(
+            f"{MACHINE_AUDIT_DECLARATION}\n\n"
+            "本文件为定档前净证据池视图；本机器审计全字段版本只汇总已回源原子证据与证据组裁量候选，"
+            "不代表最终档位、得分或排名。"
+        ),
         sections=[
             ("证据组裁量结论", NET_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",)),
             ("原子证据卡", _headers_with_context(NET_EVIDENCE_CARD_HEADERS, evidence_rows), evidence_rows, ("evidence_id",)),
@@ -618,7 +623,7 @@ def export_i5b_evidence_cards_index() -> Path:
         export_path,
         appendix_path,
         title="第五项B证据卡索引",
-        intro="本文件只展示第五项B证据卡，不改变原始证据数据、评分或裁判语义。",
+        intro=f"{MACHINE_AUDIT_DECLARATION}\n\n本文件只展示第五项B证据卡，不改变原始证据数据、评分或裁判语义。",
         sections=[("证据卡", _headers_with_context(I5B_EVIDENCE_CARD_HEADERS, rows), rows, ("evidence_id",))],
     )
 
@@ -661,7 +666,7 @@ def export_i5b_evidence_clusters_index() -> Path:
         export_path,
         appendix_path,
         title="第五项B证据簇索引",
-        intro="本文件只展示第五项B证据簇与关联证据摘要，不改变证据簇裁判结论。",
+        intro=f"{MACHINE_AUDIT_DECLARATION}\n\n本文件只展示第五项B证据簇与关联证据摘要，不改变证据簇裁判结论。",
         sections=[("证据簇", I5B_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",))],
     )
 
@@ -705,14 +710,14 @@ def export_i5b_search_package_index() -> tuple[Path, Path]:
         query_profile_path,
         query_profile_appendix_path,
         title="第五项B检索包索引",
-        intro="本文件展示第五项B检索包配置视图，仅用于人工回源与检索复核。",
+        intro=f"{MACHINE_AUDIT_DECLARATION}\n\n本文件展示第五项B检索包配置全字段视图，仅用于回源定位与检索复核。",
         sections=[("检索包", I5B_QUERY_PROFILE_HEADERS, _i5b_query_profile_rows(), ("query_profile_id",))],
     )
     _write_table_export(
         search_log_path,
         search_log_appendix_path,
         title="第五项B检索线索索引",
-        intro="本文件展示第五项B检索线索及回源状态；未回源材料不得入分。",
+        intro=f"{MACHINE_AUDIT_DECLARATION}\n\n本文件展示第五项B检索线索及回源状态；未回源材料不得入分。",
         sections=[("检索线索", I5B_SEARCH_LOG_HEADERS, _i5b_search_rows(), ("search_id",))],
     )
     legacy_search_log_path = MARKDOWN_VIEW_ROOT / "第五项B三人试点检索线索.md"

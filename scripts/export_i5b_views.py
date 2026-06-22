@@ -6,18 +6,19 @@ from export_md_scaffold import escape_cell, join_list_cell, read_jsonl
 
 
 ROOT = Path(__file__).resolve().parents[1]
+I5B_HUMAN_AUTO_CHAIN_ROOT = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核" / "自动裁判链"
 
 READINESS_AUDIT_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl"
-READINESS_AUDIT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工裁判准备审计.md"
+READINESS_AUDIT_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批人工裁判准备审计.md"
 YONGZHENG_RULE_BOUNDARY_BATCH_PATH = ROOT / "data" / "rule_boundary_batches" / "i5b_yongzheng_rule_boundary_review_20260619.jsonl"
 ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 READINESS_FOLLOWUP_BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_followup_20260619.jsonl"
-READINESS_FOLLOWUP_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批readiness后续处理.md"
+READINESS_FOLLOWUP_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批readiness后续处理.md"
 HUMAN_REVIEW_PACKAGE_BATCH_PATH = ROOT / "data" / "review_packages" / "i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl"
-HUMAN_REVIEW_PACKAGE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工会审准备包.md"
+HUMAN_REVIEW_PACKAGE_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批人工会审准备包.md"
 RELATIVE_BAND_PREPARATION_BATCH_PATH = ROOT / "data" / "relative_band_batches" / "i5b_expanded_pilot_batch1_relative_band_preparation_20260619.jsonl"
-RELATIVE_BAND_PREPARATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批相对档位准备草案.md"
+RELATIVE_BAND_PREPARATION_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B扩展试点第一批相对档位准备草案.md"
 
 
 def export_expanded_i5b_batch1_readiness_audit() -> Path:

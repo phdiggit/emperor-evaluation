@@ -20,12 +20,14 @@ OUTPUT_LAYOUT_CANONICAL = "canonical"
 OUTPUT_LAYOUT_SPLIT = "split"
 MARKDOWN_VIEW_ROOT = ROOT / "exports" / "markdown_views"
 I5B_MARKDOWN_VIEW_ROOT = MARKDOWN_VIEW_ROOT / "第五项B"
-AUTO_DRAFT_DIR = I5B_MARKDOWN_VIEW_ROOT / "自动结算草案"
+I5B_HUMAN_REVIEW_ROOT = I5B_MARKDOWN_VIEW_ROOT / "人工审核"
+AUTO_ADJUDICATION_HUMAN_ROOT = I5B_HUMAN_REVIEW_ROOT / "自动裁判链"
+AUTO_DRAFT_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "自动结算草案"
 AUTO_DRAFT_DETAIL_DIR = AUTO_DRAFT_DIR / "人物详情"
 AUTO_DRAFT_APPENDIX_DIR = AUTO_DRAFT_DIR / "附录"
-RULE_SENSITIVE_DIR = I5B_MARKDOWN_VIEW_ROOT / "规则敏感点"
-FORMAL_DRAFT_DIR = I5B_MARKDOWN_VIEW_ROOT / "正式定档草案"
-TRIAL_CLOSURE_DIR = I5B_MARKDOWN_VIEW_ROOT / "试点闭环"
+RULE_SENSITIVE_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "规则敏感点"
+FORMAL_DRAFT_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "正式定档草案"
+TRIAL_CLOSURE_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "试点闭环"
 DISPLAY_CONFIG_PATH = ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
 EXPORT_PATH = AUTO_DRAFT_DIR / "第五项B三人自动结算草案.md"
 RULES_EXPORT_PATH = RULE_SENSITIVE_DIR / "第五项B自动结算规则敏感点清单.md"
@@ -835,7 +837,7 @@ def render_score_mapping_draft() -> str:
         "## 二、与现有文档的关系",
         "",
         "1. `docs/第五项B自动结算规则.md` 决定 band direction 与规则敏感点。",
-        "2. `exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md` 决定正式档位草案和分数阶段前置条件。",
+        "2. `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md` 决定正式档位草案和分数阶段前置条件。",
         "3. 本文件只回答“如果未来正式出分，band 如何映射为相对分值区间”。",
         "4. 本文件不替代 `docs/第五项B正式工作流模板.md`。",
         "5. 本文件不替代 `docs/证据裁量总则_讨论版.md` 中的评分标尺关系。",
@@ -852,7 +854,7 @@ def render_score_mapping_draft() -> str:
         "",
         "## 四、全局总标尺核对",
         "",
-        "已检索 `docs/总规则.md`、`docs/证据强度四级与五轴量化规则_讨论版.md`、`docs/证据裁量总则_讨论版.md`、`docs/第五项B自动结算规则.md`、`docs/第五项B边界说明.md`、`exports/markdown_views/第五项B/正式定档草案/第五项B三人正式定档落地表.md` 与 `docs/第五项B正式工作流模板.md`。",
+        "已检索 `docs/总规则.md`、`docs/证据强度四级与五轴量化规则_讨论版.md`、`docs/证据裁量总则_讨论版.md`、`docs/第五项B自动结算规则.md`、`docs/第五项B边界说明.md`、`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md` 与 `docs/第五项B正式工作流模板.md`。",
         "",
         "当前可确认的全局层口径只有证据强度四级、五轴裁量与相邻项剥离边界；未发现可直接把第五项B相对区间换算成正式总分的全局满分上限、总标尺或第五项B专属分值封顶。",
         "",

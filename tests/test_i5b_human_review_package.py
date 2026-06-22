@@ -8,7 +8,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE_PATH = ROOT / "data" / "review_packages" / "i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工会审准备包.md"
+EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "试点闭环"
+    / "第五项B扩展试点第一批人工会审准备包.md"
+)
 FORBIDDEN_KEYS = {"score", "rank", "final_grade", "final_score", "leaderboard", "total_ranking"}
 FORBIDDEN_TEXT = ["score", "rank", "final_grade", "final_score", "leaderboard", "total_ranking"]
 

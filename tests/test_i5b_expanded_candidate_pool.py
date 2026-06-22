@@ -5,7 +5,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
-CANDIDATE_POOL_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点候选池设计.md"
+CANDIDATE_POOL_EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "试点闭环"
+    / "第五项B扩展试点候选池设计.md"
+)
 
 
 def run_script(script_name: str) -> subprocess.CompletedProcess[str]:

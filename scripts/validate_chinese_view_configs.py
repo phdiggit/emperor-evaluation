@@ -17,7 +17,10 @@ REQUIRED_VIEW_GROUP_IDS = [
     "第五项B_净证据导出目标",
 ]
 NET_EVIDENCE_GROUP_ID = "第五项B_净证据导出目标"
-NET_EVIDENCE_PATH_TEMPLATE = "exports/markdown_views/第五项B/证据链/净证据池/第五项B_{person}净证据池.md"
+NET_EVIDENCE_PATH_TEMPLATE = (
+    "exports/markdown_views/第五项B/人工审核/证据链/净证据池/"
+    "第五项B_{person}人工审核净证据池.md"
+)
 
 
 def is_non_empty_string(value: object) -> bool:

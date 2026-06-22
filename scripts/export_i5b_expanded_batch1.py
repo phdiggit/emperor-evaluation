@@ -14,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "evidence_cache.sqlite"
 I5B_SUBITEM = "第五项B"
 MARKDOWN_VIEW_ROOT = ROOT / "exports" / "markdown_views"
-I5B_EVIDENCE_CHAIN_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "证据链"
+I5B_EVIDENCE_CHAIN_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "机器审计" / "证据链"
+I5B_HUMAN_AUTO_CHAIN_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "人工审核" / "自动裁判链"
 I5B_EVIDENCE_CARD_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据卡"
 I5B_EVIDENCE_CLUSTER_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据簇"
 I5B_APPENDIX_DIR = I5B_EVIDENCE_CHAIN_ROOT / "附录"
@@ -23,10 +24,10 @@ EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = I5B_EVIDENCE_CLUSTER_DIR / "第五项B扩展试点第一批证据簇结算草案.md"
 TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
 TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
-TARGETED_SUPPLEMENT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批定向补证.md"
+TARGETED_SUPPLEMENT_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批定向补证.md"
 TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = ROOT / "data" / "sweep_batches" / "i5b_yongzheng_role_class_sweep_20260619.jsonl"
 POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl"
-POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批补证后结算更新草案.md"
+POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批补证后结算更新草案.md"
 EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
 
@@ -213,6 +214,8 @@ def export_expanded_i5b_batch1_review() -> Path:
     lines = [
         "# 第五项B扩展试点第一批证据卡与证据簇草案",
         "",
+        "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。",
+        "",
         f"本文件汇总{'、'.join(EXPANDED_BATCH1_PERSONS)}的回源证据卡与证据簇草案，仅供审阅，不生成正式分，不排名，不出总榜。",
         "",
         "## 证据卡",
@@ -260,6 +263,8 @@ def export_expanded_i5b_batch1_cluster_adjudication() -> Path:
     appendix_relative_path = _relative_appendix_path(EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH, appendix_path)
     lines = [
         "# 第五项B扩展试点第一批证据簇结算草案",
+        "",
+        "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。",
         "",
         f"本文件仅供人工审阅，汇总{'、'.join(EXPANDED_BATCH1_PERSONS)}的证据簇结算草案；只作草案，不输出终局结果。",
         "",

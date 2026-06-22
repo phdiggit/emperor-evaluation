@@ -10,12 +10,13 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
-AUTO_EXPORT_PATH = I5B_EXPORT_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
-AUTO_RULES_EXPORT_PATH = I5B_EXPORT_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
-FORMAL_EXPORT_PATH = I5B_EXPORT_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
-SCORE_MAP_DRAFT_EXPORT_PATH = I5B_EXPORT_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
+AUTO_CHAIN_ROOT = I5B_EXPORT_ROOT / "人工审核" / "自动裁判链"
+AUTO_EXPORT_PATH = AUTO_CHAIN_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
+AUTO_RULES_EXPORT_PATH = AUTO_CHAIN_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
+FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
+SCORE_MAP_DRAFT_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
 CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
-CLOSURE_EXPORT_PATH = I5B_EXPORT_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
+CLOSURE_EXPORT_PATH = AUTO_CHAIN_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
 LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
 AUTO_SPEC = importlib.util.spec_from_file_location(
@@ -121,7 +122,8 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     data_dir = tmp_path / "data"
     data_dir.mkdir()
     export_dir = tmp_path / "exports" / "markdown_views" / "第五项B"
-    auto_dir = export_dir / "自动结算草案"
+    auto_chain_dir = export_dir / "人工审核" / "自动裁判链"
+    auto_dir = auto_chain_dir / "自动结算草案"
     auto_dir.mkdir(parents=True)
 
     group_path = tmp_path / "第五项B_视图分组.json"
@@ -148,19 +150,21 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
     monkeypatch.setattr(auto, "MARKDOWN_VIEW_ROOT", tmp_path / "exports" / "markdown_views")
     monkeypatch.setattr(auto, "I5B_MARKDOWN_VIEW_ROOT", export_dir)
+    monkeypatch.setattr(auto, "I5B_HUMAN_REVIEW_ROOT", export_dir / "人工审核")
+    monkeypatch.setattr(auto, "AUTO_ADJUDICATION_HUMAN_ROOT", auto_chain_dir)
     monkeypatch.setattr(auto, "AUTO_DRAFT_DIR", auto_dir)
     monkeypatch.setattr(auto, "AUTO_DRAFT_DETAIL_DIR", auto_dir / "人物详情")
     monkeypatch.setattr(auto, "AUTO_DRAFT_APPENDIX_DIR", auto_dir / "附录")
-    monkeypatch.setattr(auto, "RULE_SENSITIVE_DIR", export_dir / "规则敏感点")
-    monkeypatch.setattr(auto, "FORMAL_DRAFT_DIR", export_dir / "正式定档草案")
-    monkeypatch.setattr(auto, "TRIAL_CLOSURE_DIR", export_dir / "试点闭环")
+    monkeypatch.setattr(auto, "RULE_SENSITIVE_DIR", auto_chain_dir / "规则敏感点")
+    monkeypatch.setattr(auto, "FORMAL_DRAFT_DIR", auto_chain_dir / "正式定档草案")
+    monkeypatch.setattr(auto, "TRIAL_CLOSURE_DIR", auto_chain_dir / "试点闭环")
     monkeypatch.setattr(auto, "DISPLAY_CONFIG_PATH", ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json")
     monkeypatch.setattr(auto, "EXPORT_PATH", auto_dir / "第五项B三人自动结算草案.md")
-    monkeypatch.setattr(auto, "RULES_EXPORT_PATH", export_dir / "规则敏感点" / "第五项B自动结算规则敏感点清单.md")
-    monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", export_dir / "正式定档草案" / "第五项B三人正式定档落地表.md")
-    monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", export_dir / "正式定档草案" / "第五项B评分标尺与档位映射草案.md")
+    monkeypatch.setattr(auto, "RULES_EXPORT_PATH", auto_chain_dir / "规则敏感点" / "第五项B自动结算规则敏感点清单.md")
+    monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B三人正式定档落地表.md")
+    monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B评分标尺与档位映射草案.md")
     monkeypatch.setattr(auto, "CLOSURE_DOC_PATH", tmp_path / "docs" / "第五项B三人试点内部闭环收尾.md")
-    monkeypatch.setattr(auto, "CLOSURE_EXPORT_PATH", export_dir / "试点闭环" / "第五项B三人试点内部闭环收尾.md")
+    monkeypatch.setattr(auto, "CLOSURE_EXPORT_PATH", auto_chain_dir / "试点闭环" / "第五项B三人试点内部闭环收尾.md")
     monkeypatch.setattr(auto, "LEGACY_FLAT_EXPORT_PATHS", (tmp_path / "exports" / "markdown_views" / "第五项B三人自动结算草案.md",))
 
     return data_dir

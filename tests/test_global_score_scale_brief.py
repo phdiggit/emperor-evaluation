@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
-BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "全局总标尺决策简报_讨论版.md"
+BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "综合汇总" / "全局总标尺决策简报_讨论版.md"
 
 
 def test_export_md_generates_global_scale_decision_brief() -> None:

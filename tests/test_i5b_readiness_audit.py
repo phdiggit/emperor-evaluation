@@ -8,7 +8,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl"
-EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B扩展试点第一批人工裁判准备审计.md"
+EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "试点闭环"
+    / "第五项B扩展试点第一批人工裁判准备审计.md"
+)
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:

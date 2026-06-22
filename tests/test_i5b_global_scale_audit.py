@@ -3,7 +3,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_PATH = ROOT / "docs" / "第五项B评分映射总标尺对齐审计.md"
-AUDIT_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B评分映射总标尺对齐审计.md"
+AUDIT_EXPORT_PATH = (
+    ROOT
+    / "exports"
+    / "markdown_views"
+    / "第五项B"
+    / "人工审核"
+    / "自动裁判链"
+    / "正式定档草案"
+    / "第五项B评分映射总标尺对齐审计.md"
+)
 SCORE_MAP_DRAFT_PATH = ROOT / "docs" / "第五项B评分标尺与档位映射草案.md"
 
 
