@@ -99,8 +99,8 @@ def test_human_review_package_export_is_review_only_and_not_polluted() -> None:
     assert "雍正" in content
     assert "朱元璋" in content
     assert "批次级会审议程" in content
-    assert "negative_intercept_gate" in content
-    assert "cross_item_split_gate" in content
+    assert "\u8d1f\u8bc1\u62e6\u622a\u5173\u53e3" in content
+    assert "\u76f8\u90bb\u9879\u5265\u79bb\u5173\u53e3" in content
     assert "下一步建议" in content
     assert "只进入规则、边界与裁判路径会审" in content
     for forbidden in FORBIDDEN_TEXT:

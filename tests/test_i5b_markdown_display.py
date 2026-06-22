@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from i5b_markdown_display import load_display_dictionary, render_long_list, render_table_cell  # noqa: E402
+from i5b_markdown_display import human_review_table_fields, load_display_dictionary, render_long_list, render_table_cell  # noqa: E402
 
 
 DISPLAY_CONFIG = {
@@ -94,3 +94,8 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     assert config["list_render_policy"]["field_overrides"]["quote_context"]["strategy"] == "appendix_link"
     assert config["list_render_policy"]["field_overrides"]["context_summary"]["strategy"] == "appendix_link"
     assert config["list_render_policy"]["field_overrides"]["adjudication_bridge"]["strategy"] == "appendix_link"
+    table_fields = config["view_profiles"]["human_review"]["table_fields"]
+    assert table_fields["net_evidence_cards"] == human_review_table_fields("net_evidence_cards", config)
+    assert table_fields["net_evidence_cards"][0:4] == ["person", "polarity", "human_level", "trigger_family"]
+    assert "evidence_id" not in table_fields["net_evidence_cards"]
+    assert "cluster_id" not in table_fields["net_evidence_clusters"]

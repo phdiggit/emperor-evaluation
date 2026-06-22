@@ -36,8 +36,8 @@ def test_run_matrix_exports_i5b_trial_matrix_without_touching_search_logs() -> N
     assert "李世民" in content
     assert "刘秀" in content
     assert "刘庄" in content
-    assert "positive" in content
-    assert "negative" in content
+    assert "\u6b63\u5411" in content
+    assert "\u8d1f\u5411" in content
     assert "识人拔擢" in content
     assert "廷杖刑辱" in content
     assert "分数" not in content

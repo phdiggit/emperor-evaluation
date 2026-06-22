@@ -236,6 +236,53 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     assert "来源ID（source_id）" in machine_content
 
 
+def test_human_review_export_table_order_follows_config(tmp_path: Path, monkeypatch) -> None:
+    config = {
+        "keep_machine_field_name": False,
+        "field_labels": {
+            "person": "人物",
+            "polarity": "方向",
+            "human_level": "人工强度",
+        },
+        "value_labels": {
+            "positive": "正向",
+        },
+        "view_profiles": {
+            "human_review": {
+                "table_fields": {
+                    "net_evidence_cards": ["human_level", "person", "polarity"],
+                }
+            }
+        },
+        "table_render_policy": {
+            "max_inline_table_cell_chars": 72,
+            "appendix_link_text_template": "查看{label}",
+        },
+    }
+    monkeypatch.setattr(net_evidence, "load_display_dictionary", lambda: config)
+
+    export_path = tmp_path / "human.md"
+    appendix_path = tmp_path / "appendix.md"
+    net_evidence._write_human_review_export(
+        export_path,
+        appendix_path,
+        title="测试",
+        intro="测试",
+        sections=[
+            (
+                "原子证据卡",
+                "net_evidence_cards",
+                [{"person": "测试人物", "polarity": "positive", "human_level": "强正"}],
+                (),
+            )
+        ],
+    )
+
+    content = export_path.read_text(encoding="utf-8")
+    assert "| 人工强度 | 人物 | 方向 |" in content
+    assert "| 强正 | 测试人物 | 正向 |" in content
+
+
 def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(
     tmp_path: Path, monkeypatch
 ) -> None:

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import config_loaders
+from i5b_markdown_display import display_field_label, display_value, load_display_dictionary
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,6 +52,12 @@ def escape_cell(value: object) -> str:
     return str(value).replace("|", "\\|").replace("\n", " ")
 
 
+def human_display_config() -> dict[str, object]:
+    config = dict(load_display_dictionary())
+    config["keep_machine_field_name"] = False
+    return config
+
+
 def term_sort_key(row: dict[str, Any]) -> tuple[str, str]:
     return str(row.get("term_id", "")), str(row.get("term", ""))
 
@@ -92,6 +99,7 @@ def grouped_terms(
 
 
 def export_matrix() -> Path:
+    display_config = human_display_config()
     trigger_terms = read_jsonl(DATA_DIR / "trigger_terms.jsonl")
     config = config_loaders.get_i5b_trial_config()
     item = str(config["item"])
@@ -105,7 +113,7 @@ def export_matrix() -> Path:
         "",
         "本文件为矩阵骨架，尚未检索，不写入 search_logs，不生成 evidence_cards，不生成评分。",
         "",
-        "| " + " | ".join(HEADERS) + " |",
+        "| " + " | ".join(display_field_label(header, display_config) for header in HEADERS) + " |",
         "| " + " | ".join("---" for _ in HEADERS) + " |",
     ]
 
@@ -122,7 +130,7 @@ def export_matrix() -> Path:
                 "matrix_status": "planned_not_searched",
                 "note": "矩阵骨架，尚未检索，不得入分",
             }
-            lines.append("| " + " | ".join(escape_cell(row[header]) for header in HEADERS) + " |")
+            lines.append("| " + " | ".join(escape_cell(display_value(row[header], display_config)) for header in HEADERS) + " |")
 
     EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return EXPORT_PATH

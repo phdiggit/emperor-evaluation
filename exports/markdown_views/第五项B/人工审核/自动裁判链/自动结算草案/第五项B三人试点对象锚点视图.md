@@ -12,7 +12,7 @@
 
 ## 二、三人对象锚点总览
 
-| 人物 | 对象锚点 | 层级/类型 | 对应 evidence_id / cluster_id | 自动定证作用 | 相邻项切分提醒 |
+| 人物 | 对象锚点 | 层级/类型 | 对应 证据/证据簇编号 | 自动定证作用 | 相邻项切分提醒 |
 | --- | --- | --- | --- | --- | --- |
 | 李世民 | 顶级谏臣（魏征） | 顶级谏臣 | `EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001` / `EVD-I5B-LISHIMIN-NEG-WEIZHENG-001`；`ADJ-I5B-LISHIMIN-POS-TALENT-ECOSYSTEM-001` / `ADJ-I5B-LISHIMIN-NEG-TALENT-RISK-001` | 正向锚定容谏与反馈入口，负向锚定谏臣身后信用反转的中负封顶，不得单证上探强负。 | 生前纳谏效果切第二项B2；复碑与追悔只算减轻。 |
 | 李世民 | 帝国级顶级将帅（李靖、李勣） | 帝国级顶级将帅 / 功臣安全秩序 | `EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001`、`EVD-I5B-LISHIMIN-POS-GONGCHEN-LIJI-001` | 可把授权专任、长期信任、功臣安全秩序抬到强正候选，但战果、边疆收益不回填。 | 李靖战果切第一项/第三项；李勣历史功业不回填第五项B。 |

@@ -146,7 +146,7 @@ def test_targeted_supplement_export_is_review_only() -> None:
         "岳钟琪",
         "傅尔丹",
         "查郎阿",
-        "not_carded_reason",
+        "\u672a\u5efa\u5361\u539f\u56e0",
         "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001",
     ]:
         assert needle in content
