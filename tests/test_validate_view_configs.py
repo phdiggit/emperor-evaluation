@@ -9,8 +9,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 VALIDATE_VIEW_CONFIGS_SPEC = importlib.util.spec_from_file_location(
-    "validate_view_configs",
-    ROOT / "scripts" / "validate_view_configs.py",
+    "validate.validate_view_configs",
+    ROOT / "scripts" / "validate" / "validate_view_configs.py",
 )
 assert VALIDATE_VIEW_CONFIGS_SPEC is not None
 validate_view_configs = importlib.util.module_from_spec(VALIDATE_VIEW_CONFIGS_SPEC)

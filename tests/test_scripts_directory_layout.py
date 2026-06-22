@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import subprocess
 import sys
 from pathlib import Path
@@ -10,9 +11,23 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_DIR = ROOT / "scripts" / "validate"
 MIGRATED_VALIDATORS = [
+    "validate_evidence.py",
+    "validate_canonical_data_integrity.py",
+    "validate_view_configs.py",
+    "validate_chinese_view_configs.py",
+    "validate_review_configs.py",
     "validate_config_comments.py",
     "validate_human_readable_markdown_exports.py",
     "validate_i5b_cluster_adjudication_configs.py",
+    "validate_config_readability.py",
+]
+NEWLY_MIGRATED_VALIDATORS = [
+    "validate_evidence",
+    "validate_canonical_data_integrity",
+    "validate_view_configs",
+    "validate_chinese_view_configs",
+    "validate_review_configs",
+    "validate_config_readability",
 ]
 
 
@@ -37,6 +52,8 @@ def test_legacy_validator_paths_remain_short_wrappers() -> None:
         assert "def validate" not in content
         assert "def validate_exports" not in content
         assert "def validate_row" not in content
+        assert "REQUIRED_" not in content
+        assert "VALID_" not in content
 
 
 def test_validate_all_points_migrated_validators_to_new_paths() -> None:
@@ -50,6 +67,8 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
 
     steps = dict(validate_all.VALIDATION_STEPS)
 
+    for module_name in NEWLY_MIGRATED_VALIDATORS:
+        assert steps[module_name] == VALIDATE_DIR / f"{module_name}.py"
     assert steps["validate_config_comments"] == VALIDATE_DIR / "validate_config_comments.py"
     assert (
         steps["validate_human_readable_markdown_exports"]
@@ -74,18 +93,10 @@ def test_validate_all_entrypoint_implementation_lives_under_validate_dir() -> No
     assert "def run_step" not in wrapper_text
 
 
-@pytest.mark.parametrize(
-    "script_path",
-    [
-        ROOT / "scripts" / "validate" / "validate_config_comments.py",
-        ROOT / "scripts" / "validate_config_comments.py",
-        ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",
-        ROOT / "scripts" / "validate_human_readable_markdown_exports.py",
-        ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
-        ROOT / "scripts" / "validate_i5b_cluster_adjudication_configs.py",
-    ],
-)
-def test_new_and_legacy_validator_commands_run(script_path: Path) -> None:
+@pytest.mark.parametrize("name", MIGRATED_VALIDATORS)
+@pytest.mark.parametrize("script_root", [VALIDATE_DIR, ROOT / "scripts"])
+def test_new_and_legacy_validator_commands_run(name: str, script_root: Path) -> None:
+    script_path = script_root / name
     result = subprocess.run(
         [sys.executable, str(script_path)],
         cwd=ROOT,
@@ -95,6 +106,34 @@ def test_new_and_legacy_validator_commands_run(script_path: Path) -> None:
     )
 
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.parametrize("module_name", NEWLY_MIGRATED_VALIDATORS)
+def test_new_and_legacy_validator_imports_remain_compatible(module_name: str) -> None:
+    if str(ROOT / "scripts") not in sys.path:
+        sys.path.insert(0, str(ROOT / "scripts"))
+
+    new_module = importlib.import_module(f"validate.{module_name}")
+    legacy_module = importlib.import_module(module_name)
+
+    assert new_module.ROOT.resolve() == ROOT.resolve()
+    assert legacy_module.ROOT.resolve() == ROOT.resolve()
+    assert callable(new_module.main)
+    assert callable(legacy_module.main)
+
+
+@pytest.mark.parametrize("module_name", NEWLY_MIGRATED_VALIDATORS)
+def test_newly_migrated_new_and_legacy_commands_return_same_exit_code(module_name: str) -> None:
+    new_script = VALIDATE_DIR / f"{module_name}.py"
+    legacy_script = ROOT / "scripts" / f"{module_name}.py"
+    new_result = subprocess.run(
+        [sys.executable, str(new_script)], cwd=ROOT, capture_output=True, text=True, check=False
+    )
+    legacy_result = subprocess.run(
+        [sys.executable, str(legacy_script)], cwd=ROOT, capture_output=True, text=True, check=False
+    )
+
+    assert new_result.returncode == legacy_result.returncode == 0
 
 
 def test_new_and_legacy_validate_all_commands_run() -> None:

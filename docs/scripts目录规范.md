@@ -22,8 +22,20 @@
 已迁移的旧路径可以在 `scripts/` 根目录保留兼容 wrapper，例如：
 
 ```text
+scripts/validate_evidence.py
+scripts/validate/validate_evidence.py
+scripts/validate_canonical_data_integrity.py
+scripts/validate/validate_canonical_data_integrity.py
+scripts/validate_view_configs.py
+scripts/validate/validate_view_configs.py
+scripts/validate_chinese_view_configs.py
+scripts/validate/validate_chinese_view_configs.py
+scripts/validate_review_configs.py
+scripts/validate/validate_review_configs.py
 scripts/validate_config_comments.py
 scripts/validate/validate_config_comments.py
+scripts/validate_config_readability.py
+scripts/validate/validate_config_readability.py
 scripts/validate_all.py
 scripts/validate/validate_all.py
 ```
@@ -31,6 +43,20 @@ scripts/validate/validate_all.py
 兼容 wrapper 只负责转发到 `scripts/validate/` 下的真实实现，不承载大段重复逻辑。修改已迁移 validator 时，应优先修改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
 
 `scripts/validate/validate_all.py` 是全量校验总入口的真实实现。`scripts/validate_all.py` 只作为旧路径兼容 wrapper，保留既有命令和 import 入口；后续修改校验顺序、子命令路径或退出语义时，应优先修改新路径，不得把真实实现重新放回 `scripts/` 根目录。
+
+当前已迁移 validator 真实实现：
+
+- `validate_evidence.py`
+- `validate_canonical_data_integrity.py`
+- `validate_view_configs.py`
+- `validate_chinese_view_configs.py`
+- `validate_review_configs.py`
+- `validate_i5b_cluster_adjudication_configs.py`
+- `validate_config_comments.py`
+- `validate_human_readable_markdown_exports.py`
+- `validate_config_readability.py`
+
+上述文件在 `scripts/` 根目录的同名旧路径均只作为兼容 wrapper。剩余 build、matrix、pipeline 类脚本暂未迁移，后续仍按小 PR 分批治理。
 
 ## scripts/export/
 
@@ -72,7 +98,7 @@ scripts/validate/validate_all.py
 
 ## scripts/
 
-`scripts/` 根目录当前仍保留历史脚本、尚未迁移脚本和必要的旧路径兼容 wrapper。
+`scripts/` 根目录当前仍保留历史脚本、尚未迁移的 build / matrix / pipeline 类脚本和必要的旧路径兼容 wrapper。剩余根目录 validator 真实实现已完成迁移。
 
 新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。新增共享工具应放入 `scripts/shared/`。build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
 

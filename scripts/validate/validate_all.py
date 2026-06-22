@@ -7,11 +7,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 VALIDATION_STEPS = [
-    ("validate_evidence", ROOT / "scripts" / "validate_evidence.py"),
-    ("validate_canonical_data_integrity", ROOT / "scripts" / "validate_canonical_data_integrity.py"),
-    ("validate_view_configs", ROOT / "scripts" / "validate_view_configs.py"),
-    ("validate_chinese_view_configs", ROOT / "scripts" / "validate_chinese_view_configs.py"),
-    ("validate_review_configs", ROOT / "scripts" / "validate_review_configs.py"),
+    ("validate_evidence", ROOT / "scripts" / "validate" / "validate_evidence.py"),
+    ("validate_canonical_data_integrity", ROOT / "scripts" / "validate" / "validate_canonical_data_integrity.py"),
+    ("validate_view_configs", ROOT / "scripts" / "validate" / "validate_view_configs.py"),
+    ("validate_chinese_view_configs", ROOT / "scripts" / "validate" / "validate_chinese_view_configs.py"),
+    ("validate_review_configs", ROOT / "scripts" / "validate" / "validate_review_configs.py"),
     (
         "validate_i5b_cluster_adjudication_configs",
         ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
@@ -21,7 +21,7 @@ VALIDATION_STEPS = [
         "validate_human_readable_markdown_exports",
         ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",
     ),
-    ("validate_config_readability", ROOT / "scripts" / "validate_config_readability.py"),
+    ("validate_config_readability", ROOT / "scripts" / "validate" / "validate_config_readability.py"),
 ]
 
 

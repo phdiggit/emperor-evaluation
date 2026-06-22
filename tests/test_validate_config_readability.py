@@ -9,8 +9,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 VALIDATE_CONFIG_READABILITY_SPEC = importlib.util.spec_from_file_location(
-    "validate_config_readability",
-    ROOT / "scripts" / "validate_config_readability.py",
+    "validate.validate_config_readability",
+    ROOT / "scripts" / "validate" / "validate_config_readability.py",
 )
 assert VALIDATE_CONFIG_READABILITY_SPEC is not None
 validate_config_readability = importlib.util.module_from_spec(VALIDATE_CONFIG_READABILITY_SPEC)
