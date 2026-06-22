@@ -7,12 +7,13 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
 SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
-SHARED_TOOLS = (
+MIGRATED_SHARED_TOOLS = ("export_md_scaffold.py",)
+ROOT_SHARED_TOOLS = (
     "config_loaders.py",
-    "export_md_scaffold.py",
     "i5b_markdown_display.py",
     "i5b_cluster_warning_display.py",
 )
+SHARED_TOOLS = MIGRATED_SHARED_TOOLS + ROOT_SHARED_TOOLS
 
 
 def test_shared_dependency_plan_doc_exists_and_lists_tools() -> None:
@@ -36,9 +37,12 @@ def test_scripts_shared_placeholder_exists_without_import_side_effects() -> None
 
 
 def test_current_shared_tools_remain_at_scripts_root() -> None:
-    for tool_name in SHARED_TOOLS:
+    for tool_name in ROOT_SHARED_TOOLS:
         assert (SCRIPTS_DIR / tool_name).is_file()
         assert not (SHARED_DIR / tool_name).exists()
+    for tool_name in MIGRATED_SHARED_TOOLS:
+        assert (SCRIPTS_DIR / tool_name).is_file()
+        assert (SHARED_DIR / tool_name).is_file()
 
 
 def test_layout_docs_and_agents_describe_shared_directory_rules() -> None:
@@ -53,3 +57,39 @@ def test_layout_docs_and_agents_describe_shared_directory_rules() -> None:
     assert "新增被多个 exporter / validator / pipeline 共用的工具，应放入 `scripts/shared/`" in agents
     assert "迁移共享工具必须单独开 PR，保留旧路径 wrapper" in agents
     assert "不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具" in agents
+
+
+def test_export_md_scaffold_migrated_with_short_legacy_wrapper() -> None:
+    wrapper_path = SCRIPTS_DIR / "export_md_scaffold.py"
+    implementation_path = SHARED_DIR / "export_md_scaffold.py"
+    wrapper_text = wrapper_path.read_text(encoding="utf-8")
+
+    assert implementation_path.is_file()
+    assert wrapper_path.is_file()
+    assert len(wrapper_text.splitlines()) <= 12
+    assert "from shared.export_md_scaffold import *" in wrapper_text
+    assert "def " not in wrapper_text
+
+
+def test_new_and_legacy_export_md_scaffold_imports() -> None:
+    import importlib
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    assert importlib.import_module("export_md_scaffold") is not None
+    assert importlib.import_module("shared.export_md_scaffold") is not None
+
+
+def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> None:
+    import importlib
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS_DIR))
+    for module_name in (
+        "export.export_i5b_net_evidence",
+        "export.export_i5b_expanded_batch1",
+        "export.export_project_doc_views",
+        "export.export_i5b_views",
+        "export_md",
+    ):
+        assert importlib.import_module(module_name) is not None

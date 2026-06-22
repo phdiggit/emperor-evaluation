@@ -7,7 +7,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from export_md_scaffold import escape_cell, join_list_cell, read_jsonl
+from shared.export_md_scaffold import escape_cell, join_list_cell, read_jsonl
 from i5b_markdown_display import display_field_label, display_value, human_review_table_fields, load_display_dictionary
 
 

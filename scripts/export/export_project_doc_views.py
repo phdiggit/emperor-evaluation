@@ -9,7 +9,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import config_loaders
-from export_md_scaffold import escape_cell
+from shared.export_md_scaffold import escape_cell
 from i5b_markdown_display import display_field_label, display_value, load_display_dictionary
 
 

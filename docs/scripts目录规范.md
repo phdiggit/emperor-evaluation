@@ -51,9 +51,12 @@ scripts/validate/validate_config_comments.py
 当前根目录共享工具暂不迁移：
 
 - `config_loaders.py`
-- `export_md_scaffold.py`
 - `i5b_markdown_display.py`
 - `i5b_cluster_warning_display.py`
+
+已迁移共享工具：
+
+- `export_md_scaffold.py`：真实实现位于 `scripts/shared/export_md_scaffold.py`，旧路径 `scripts/export_md_scaffold.py` 只作为兼容 wrapper。修改该工具时优先改新路径。
 
 后续迁移共享工具时必须保留旧路径 wrapper。旧路径 wrapper 只负责兼容 import，不承载主逻辑。共享工具迁移必须单独开 PR，每次最多迁移 1-2 个共享工具，普通 exporter 或 validator 迁移 PR 不得顺手迁移共享工具。
 
