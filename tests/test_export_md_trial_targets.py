@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import importlib.util
 import json
 import sqlite3
@@ -34,6 +35,8 @@ LEGACY_EXPORT_MD_SPEC.loader.exec_module(legacy_export_md)
 def test_export_md_new_and_legacy_imports_share_implementation() -> None:
     assert legacy_export_md.main is export_md.main
     assert legacy_export_md.export_search_logs_markdown is export_md.export_search_logs_markdown
+    assert sys.modules["export_md"] is export_md
+    assert importlib.import_module("export_md") is export_md
 
 
 def test_export_md_root_still_points_to_repo_root() -> None:

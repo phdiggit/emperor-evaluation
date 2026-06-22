@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import importlib.util
 import sys
 from pathlib import Path
@@ -33,6 +34,8 @@ LEGACY_VALIDATE_ALL_SPEC.loader.exec_module(legacy_validate_all)
 def test_validate_all_new_and_legacy_imports_share_implementation() -> None:
     assert legacy_validate_all.main is validate_all.main
     assert legacy_validate_all.run_step is validate_all.run_step
+    assert sys.modules["validate_all"] is validate_all
+    assert importlib.import_module("validate_all") is validate_all
 
 
 def test_validate_all_root_still_points_to_repo_root() -> None:
