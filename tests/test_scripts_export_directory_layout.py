@@ -13,6 +13,8 @@ MIGRATED_EXPORTERS = (
     "export_i5b_auto_adjudication",
     "export_i5b_views",
     "export_i5b_net_evidence",
+    "export_i5b_expanded_batch1",
+    "export_project_doc_views",
 )
 
 
@@ -61,3 +63,18 @@ def test_docs_and_agents_mention_export_directory_rule() -> None:
     assert "旧 exporter 只作为兼容 wrapper" in docs
     assert "新增 exporter 应放入 `scripts/export/`" in agents
     assert "旧 exporter 仅作为兼容 wrapper" in agents
+    assert "已迁移 exporter 的真实实现位于 `scripts/export/`" in agents
+
+
+def test_export_root_entrypoints_are_not_migrated() -> None:
+    for script_name in (
+        "export_md.py",
+        "export_md_scaffold.py",
+        "build_db.py",
+        "run_matrix.py",
+        "validate_all.py",
+        "config_loaders.py",
+        "i5b_markdown_display.py",
+    ):
+        assert (SCRIPTS_DIR / script_name).is_file()
+        assert not (EXPORT_DIR / script_name).exists()
