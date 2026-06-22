@@ -55,6 +55,19 @@ def test_auto_adjudication_old_and_new_help_commands_still_run() -> None:
         assert "--output-layout" in result.stdout
 
 
+def test_export_md_entrypoint_implementation_lives_under_export_directory() -> None:
+    implementation_path = EXPORT_DIR / "export_md.py"
+    wrapper_path = SCRIPTS_DIR / "export_md.py"
+    wrapper_text = wrapper_path.read_text(encoding="utf-8")
+
+    assert implementation_path.is_file()
+    assert wrapper_path.is_file()
+    assert len(wrapper_text.splitlines()) <= 16
+    assert "from export import export_md" in wrapper_text
+    assert "def export_markdown" not in wrapper_text
+    assert "DB_PATH =" not in wrapper_text
+
+
 def test_docs_and_agents_mention_export_directory_rule() -> None:
     docs = (ROOT / "docs" / "scripts目录规范.md").read_text(encoding="utf-8")
     agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
@@ -68,7 +81,6 @@ def test_docs_and_agents_mention_export_directory_rule() -> None:
 
 def test_export_root_entrypoints_are_not_migrated() -> None:
     for script_name in (
-        "export_md.py",
         "export_md_scaffold.py",
         "build_db.py",
         "run_matrix.py",

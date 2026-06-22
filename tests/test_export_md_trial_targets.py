@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import importlib.util
 import json
 import sqlite3
@@ -11,14 +12,44 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 EXPORT_MD_SPEC = importlib.util.spec_from_file_location(
-    "export_md",
-    ROOT / "scripts" / "export_md.py",
+    "export.export_md",
+    ROOT / "scripts" / "export" / "export_md.py",
 )
 assert EXPORT_MD_SPEC is not None
 export_md = importlib.util.module_from_spec(EXPORT_MD_SPEC)
 sys.modules[EXPORT_MD_SPEC.name] = export_md
 assert EXPORT_MD_SPEC.loader is not None
 EXPORT_MD_SPEC.loader.exec_module(export_md)
+
+LEGACY_EXPORT_MD_SPEC = importlib.util.spec_from_file_location(
+    "export_md",
+    ROOT / "scripts" / "export_md.py",
+)
+assert LEGACY_EXPORT_MD_SPEC is not None
+legacy_export_md = importlib.util.module_from_spec(LEGACY_EXPORT_MD_SPEC)
+sys.modules[LEGACY_EXPORT_MD_SPEC.name] = legacy_export_md
+assert LEGACY_EXPORT_MD_SPEC.loader is not None
+LEGACY_EXPORT_MD_SPEC.loader.exec_module(legacy_export_md)
+
+
+def test_export_md_new_and_legacy_imports_share_implementation() -> None:
+    assert legacy_export_md.main is export_md.main
+    assert legacy_export_md.export_search_logs_markdown is export_md.export_search_logs_markdown
+    assert sys.modules["export_md"] is export_md
+    assert importlib.import_module("export_md") is export_md
+
+
+def test_export_md_root_still_points_to_repo_root() -> None:
+    assert export_md.ROOT.resolve() == ROOT.resolve()
+    assert legacy_export_md.ROOT.resolve() == ROOT.resolve()
+
+
+def test_legacy_export_md_wrapper_stays_short() -> None:
+    wrapper_text = (ROOT / "scripts" / "export_md.py").read_text(encoding="utf-8")
+
+    assert len(wrapper_text.splitlines()) <= 16
+    assert "from export import export_md" in wrapper_text
+    assert "def export_" not in wrapper_text
 
 
 def test_load_i5b_trial_targets_prefers_chinese_view_group_config(

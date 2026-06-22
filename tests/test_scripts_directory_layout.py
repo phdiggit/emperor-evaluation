@@ -42,7 +42,7 @@ def test_legacy_validator_paths_remain_short_wrappers() -> None:
 def test_validate_all_points_migrated_validators_to_new_paths() -> None:
     import importlib.util
 
-    spec = importlib.util.spec_from_file_location("validate_all", ROOT / "scripts" / "validate_all.py")
+    spec = importlib.util.spec_from_file_location("validate.validate_all", VALIDATE_DIR / "validate_all.py")
     assert spec is not None
     validate_all = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -59,6 +59,19 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
         steps["validate_i5b_cluster_adjudication_configs"]
         == VALIDATE_DIR / "validate_i5b_cluster_adjudication_configs.py"
     )
+
+
+def test_validate_all_entrypoint_implementation_lives_under_validate_dir() -> None:
+    implementation_path = VALIDATE_DIR / "validate_all.py"
+    wrapper_path = ROOT / "scripts" / "validate_all.py"
+    wrapper_text = wrapper_path.read_text(encoding="utf-8")
+
+    assert implementation_path.is_file()
+    assert wrapper_path.is_file()
+    assert len(wrapper_text.splitlines()) <= 16
+    assert "from validate import validate_all" in wrapper_text
+    assert "VALIDATION_STEPS = [" not in wrapper_text
+    assert "def run_step" not in wrapper_text
 
 
 @pytest.mark.parametrize(
@@ -82,6 +95,20 @@ def test_new_and_legacy_validator_commands_run(script_path: Path) -> None:
     )
 
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_new_and_legacy_validate_all_commands_run() -> None:
+    for script_path in (VALIDATE_DIR / "validate_all.py", ROOT / "scripts" / "validate_all.py"):
+        result = subprocess.run(
+            [sys.executable, str(script_path)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        assert result.returncode == 0, result.stdout + result.stderr
+        assert "[validate_all] all validation steps passed" in result.stdout
 
 
 def test_scripts_layout_doc_mentions_validate_directory() -> None:

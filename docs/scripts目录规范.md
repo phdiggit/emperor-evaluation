@@ -24,9 +24,13 @@
 ```text
 scripts/validate_config_comments.py
 scripts/validate/validate_config_comments.py
+scripts/validate_all.py
+scripts/validate/validate_all.py
 ```
 
 兼容 wrapper 只负责转发到 `scripts/validate/` 下的真实实现，不承载大段重复逻辑。修改已迁移 validator 时，应优先修改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
+
+`scripts/validate/validate_all.py` 是全量校验总入口的真实实现。`scripts/validate_all.py` 只作为旧路径兼容 wrapper，保留既有命令和 import 入口；后续修改校验顺序、子命令路径或退出语义时，应优先修改新路径，不得把真实实现重新放回 `scripts/` 根目录。
 
 ## scripts/export/
 
@@ -41,8 +45,11 @@ scripts/validate/validate_config_comments.py
 - `export_i5b_net_evidence.py`
 - `export_i5b_expanded_batch1.py`
 - `export_project_doc_views.py`
+- `export_md.py`
 
-本阶段只分批迁移低风险 exporter。`export_md.py`、`export_md_scaffold.py` 以及 build、matrix、pipeline 类脚本暂不迁移，后续按小 PR 分批治理。
+`scripts/export/export_md.py` 是 Markdown 导出总入口的真实实现。`scripts/export_md.py` 只作为旧路径兼容 wrapper，保留既有命令和 import 入口；后续修改导出顺序、路径常量、目标人物或配置读取时，应优先修改新路径，不得把真实实现重新放回 `scripts/` 根目录。
+
+`export_md_scaffold.py` 已归入 `scripts/shared/`。build、matrix、pipeline 类脚本暂不迁移，后续按小 PR 分批治理。
 
 ## scripts/shared/
 
@@ -65,8 +72,8 @@ scripts/validate/validate_config_comments.py
 
 ## scripts/
 
-`scripts/` 根目录当前仍保留历史脚本、总入口、尚未迁移脚本和必要的旧路径兼容 wrapper。
+`scripts/` 根目录当前仍保留历史脚本、尚未迁移脚本和必要的旧路径兼容 wrapper。
 
-新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。新增共享工具应放入 `scripts/shared/`。业务导出总入口、build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
+新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。新增共享工具应放入 `scripts/shared/`。build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
 
 任何后续目录治理都应先锁定影响面和测试，再拆分迁移，避免顺手改动业务数据、评分、排名、正式定档、证据事实或证据簇裁判结论。

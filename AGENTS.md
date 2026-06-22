@@ -51,10 +51,12 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改已迁移 validator 时，优先改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
 - 修改已迁移 exporter 时，优先改 `scripts/export/` 下真实实现，再确认旧路径 wrapper 仍可 import/运行。
 - 已迁移 exporter 的真实实现位于 `scripts/export/`；旧路径只作为兼容 wrapper。
+- `export_md.py` 已迁移；修改时优先改 `scripts/export/export_md.py`，旧路径 `scripts/export_md.py` 仅作兼容 wrapper。
 - 新增被多个 exporter / validator / pipeline 共用的工具，应放入 `scripts/shared/`。
 - 当前已迁移共享工具的真实实现位于 `scripts/shared/`；修改时优先改新路径，再确认旧路径 wrapper 仍可 import。
 - 迁移共享工具必须单独开 PR，保留旧路径 wrapper。
 - 修改已迁移的共享工具时，优先改 `scripts/shared/` 下真实实现，再确认旧路径 wrapper 仍可 import。
+- `validate_all.py` 已迁移；修改时优先改 `scripts/validate/validate_all.py`，旧路径 `scripts/validate_all.py` 仅作兼容 wrapper。
 - `export_md_scaffold.py` 已迁移；修改时优先改 `scripts/shared/export_md_scaffold.py`，旧路径仅作兼容 wrapper。
 - `i5b_cluster_warning_display.py` 已迁移；修改时优先改 `scripts/shared/i5b_cluster_warning_display.py`，旧路径仅作兼容 wrapper。
 - `i5b_markdown_display.py` 已迁移；修改时优先改 `scripts/shared/i5b_markdown_display.py`，旧路径仅作兼容 wrapper。
@@ -65,7 +67,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改 `config_loaders.py` 时必须验证所有配置路径常量、config comments validator、人物池、视图分组、关键词配置和证据簇提示相关测试。
 - 不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具。
 - 不得一次性大规模迁移 exporter、build、pipeline 或 matrix 类脚本；这类脚本后续按 PR 分阶段治理。
-- 不得一次性大规模迁移 `export_md.py`、build、pipeline、matrix 类脚本。
+- 不得一次性大规模迁移 build、pipeline、matrix 类脚本；不得在普通功能 PR 中把已迁移入口的真实实现重新放回 `scripts/` 根目录。
 - `scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。
 - 目录规范见 `docs/scripts目录规范.md`。
 

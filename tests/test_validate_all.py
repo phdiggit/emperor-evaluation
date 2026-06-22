@@ -1,25 +1,72 @@
 from __future__ import annotations
 
+import importlib
 import importlib.util
+import sys
 from pathlib import Path
 from subprocess import CompletedProcess
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 VALIDATE_ALL_SPEC = importlib.util.spec_from_file_location(
-    "validate_all",
-    ROOT / "scripts" / "validate_all.py",
+    "validate.validate_all",
+    ROOT / "scripts" / "validate" / "validate_all.py",
 )
 assert VALIDATE_ALL_SPEC is not None
 validate_all = importlib.util.module_from_spec(VALIDATE_ALL_SPEC)
+sys.modules[VALIDATE_ALL_SPEC.name] = validate_all
 assert VALIDATE_ALL_SPEC.loader is not None
 VALIDATE_ALL_SPEC.loader.exec_module(validate_all)
+
+LEGACY_VALIDATE_ALL_SPEC = importlib.util.spec_from_file_location(
+    "validate_all",
+    ROOT / "scripts" / "validate_all.py",
+)
+assert LEGACY_VALIDATE_ALL_SPEC is not None
+legacy_validate_all = importlib.util.module_from_spec(LEGACY_VALIDATE_ALL_SPEC)
+sys.modules[LEGACY_VALIDATE_ALL_SPEC.name] = legacy_validate_all
+assert LEGACY_VALIDATE_ALL_SPEC.loader is not None
+LEGACY_VALIDATE_ALL_SPEC.loader.exec_module(legacy_validate_all)
+
+
+def test_validate_all_new_and_legacy_imports_share_implementation() -> None:
+    assert legacy_validate_all.main is validate_all.main
+    assert legacy_validate_all.run_step is validate_all.run_step
+    assert sys.modules["validate_all"] is validate_all
+    assert importlib.import_module("validate_all") is validate_all
+
+
+def test_validate_all_root_still_points_to_repo_root() -> None:
+    assert validate_all.ROOT.resolve() == ROOT.resolve()
+    assert legacy_validate_all.ROOT.resolve() == ROOT.resolve()
+
+
+def test_legacy_validate_all_wrapper_stays_short() -> None:
+    wrapper_text = (ROOT / "scripts" / "validate_all.py").read_text(encoding="utf-8")
+
+    assert len(wrapper_text.splitlines()) <= 16
+    assert "from validate import validate_all" in wrapper_text
+    assert "def run_step" not in wrapper_text
 
 
 def test_validate_all_cli_passes_on_repo_data() -> None:
     result = validate_all.subprocess.run(
         [validate_all.sys.executable, str(ROOT / "scripts" / "validate_all.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "[validate_all] all validation steps passed" in result.stdout
+
+
+def test_new_validate_all_cli_passes_on_repo_data() -> None:
+    result = validate_all.subprocess.run(
+        [validate_all.sys.executable, str(ROOT / "scripts" / "validate" / "validate_all.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,
