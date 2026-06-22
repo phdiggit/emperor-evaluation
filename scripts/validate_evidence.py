@@ -54,6 +54,16 @@ VALID_ADJUDICATION_STATUSES = {
     "routed_to_adjacent_item_only",
     "human_adjudicated_candidate",
 }
+VALID_CONTEXT_STATUSES = {"missing", "pending", "supplied", "source_verified"}
+VALID_CONTEXT_EFFECTS = {"strengthen", "limit", "reverse", "split_only", "neutral"}
+CONTEXT_STABLE_STATUSES = {"supplied", "source_verified"}
+REQUIRED_STABLE_CONTEXT_FIELDS = [
+    "quote_context",
+    "context_summary",
+    "context_scope",
+    "context_effect",
+    "adjudication_bridge",
+]
 HIGH_RISK_TRIGGER_FAMILIES = {"疑忌杀害", "功臣旧臣处置", "谏臣身后信用反转", "廷杖刑辱", "意识形态压制", "容谏纳言"}
 HIGH_RISK_TERMS = {
     "谋反",
@@ -302,6 +312,44 @@ def validate_high_risk_negative(
             errors.append(f"{line_label}: strength>=3 evidence requires pending human adjudication")
 
 
+def is_context_required(row: dict[str, Any]) -> bool:
+    return row.get("context_required") is True
+
+
+def validate_i5b_context_fields(row: dict[str, Any], line_label: str, errors: list[str]) -> None:
+    if row.get("subitem") != "第五项B":
+        return
+
+    if "context_status" in row and is_filled(row.get("context_status")):
+        context_status = row.get("context_status")
+        if context_status not in VALID_CONTEXT_STATUSES:
+            errors.append(f"{line_label}: context_status is not an allowed value: {context_status}")
+
+    if "context_effect" in row and is_filled(row.get("context_effect")):
+        context_effect = row.get("context_effect")
+        if context_effect not in VALID_CONTEXT_EFFECTS:
+            errors.append(f"{line_label}: context_effect is not an allowed value: {context_effect}")
+
+    if "context_required" in row and not isinstance(row.get("context_required"), bool):
+        errors.append(f"{line_label}: context_required must be a boolean")
+        return
+
+    if not is_context_required(row):
+        return
+
+    if "context_status" not in row or not is_filled(row.get("context_status")):
+        errors.append(f"{line_label}: context_required=true requires context_status")
+        return
+
+    if row.get("context_status") in CONTEXT_STABLE_STATUSES:
+        for field in REQUIRED_STABLE_CONTEXT_FIELDS:
+            if not is_filled(row.get(field)):
+                errors.append(
+                    f"{line_label}: context_required=true and context_status={row.get('context_status')} "
+                    f"requires non-empty field: {field}"
+                )
+
+
 def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set[str], errors: list[str]) -> None:
     validate_required_fields(row, REQUIRED_EVIDENCE_FIELDS, line_label, errors)
 
@@ -330,6 +378,7 @@ def validate_evidence_card(row: dict[str, Any], line_label: str, source_ids: set
         errors.append(f"{line_label}: source_id not found in sources.jsonl: {source_id}")
 
     validate_high_risk_negative(row, line_label, errors)
+    validate_i5b_context_fields(row, line_label, errors)
 
 
 def validate_trigger_term(

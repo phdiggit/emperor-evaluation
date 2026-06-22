@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from i5b_markdown_display import render_long_list, render_table_cell  # noqa: E402
+from i5b_markdown_display import load_display_dictionary, render_long_list, render_table_cell  # noqa: E402
 
 
 DISPLAY_CONFIG = {
@@ -72,3 +72,21 @@ def test_render_table_cell_uses_appendix_link_strategy_and_preserves_original_va
 
     assert cell == "[见附录：短摘（quote_short）](../附录/测试长字段附录.md#e-i5b-001-quote_short)"
     assert appendix_entries[0].value == "一段必须完整保留的原始短摘"
+
+
+def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
+    config = load_display_dictionary()
+
+    assert config["field_labels"]["quote_context"] == "上下文摘录"
+    assert config["field_labels"]["context_summary"] == "上下文摘要"
+    assert config["field_labels"]["context_scope"] == "上下文范围"
+    assert config["field_labels"]["context_effect"] == "上下文影响"
+    assert config["field_labels"]["adjudication_bridge"] == "裁判桥接说明"
+    assert config["value_labels"]["missing"] == "缺失"
+    assert config["value_labels"]["pending"] == "待补"
+    assert config["value_labels"]["source_verified"] == "已回源核验"
+    assert config["value_labels"]["split_only"] == "仅用于相邻项剥离"
+    assert config["value_labels"]["needs_context_source_review"] == "需回源 / 需上下文"
+    assert config["list_render_policy"]["field_overrides"]["quote_context"]["strategy"] == "appendix_link"
+    assert config["list_render_policy"]["field_overrides"]["context_summary"]["strategy"] == "appendix_link"
+    assert config["list_render_policy"]["field_overrides"]["adjudication_bridge"]["strategy"] == "appendix_link"

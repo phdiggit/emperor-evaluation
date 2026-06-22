@@ -136,7 +136,16 @@
 * `exports/markdown_views/第五项B自动结算草案_刘秀.md`：应不存在，禁用。
 * `exports/markdown_views/第五项B自动结算草案_刘庄.md`：应不存在，禁用。
 
-## 7. 审核出口
+## 7. 上下文依赖证据处理规则
+
+专人审核时，若 `quote_short` 不足以定证，应先标记为“需上下文 / 需回源”，并回看证据卡的 `quote_context`、`context_summary`、`context_scope`、`context_effect`、`source_locator` 与 `adjudication_bridge`。
+
+* `context_required = true` 且 `context_status` 未达 `supplied` 或 `source_verified` 的证据，不得直接进入稳定裁判。
+* `context_effect = reverse` 的证据，应回看其证据方向、强度和裁判桥接说明。
+* `context_effect = split_only` 的证据，只能用于相邻项剥离，不得直接回填第五项B正负分。
+* 进入正式定档前，应确认所有关键证据的上下文状态。
+
+## 8. 审核出口
 
 专人审核完成后，下一步才进入：
 

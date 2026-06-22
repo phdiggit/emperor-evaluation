@@ -345,6 +345,45 @@ def test_strength_two_negative_rejects_strong_negative(validation_data_dir: Path
     assert any("polarity=negative and strength=2 requires human_level=中负" in error for error in errors)
 
 
+def test_i5b_context_required_missing_status_fails(validation_data_dir: Path) -> None:
+    write_jsonl(validation_data_dir / "sources.jsonl", [source_row()])
+    write_jsonl(
+        validation_data_dir / "evidence_cards.jsonl",
+        [basic_positive_row(context_required=True)],
+    )
+
+    errors = validate_evidence.validate()
+
+    assert any("context_required=true requires context_status" in error for error in errors)
+
+
+def test_i5b_context_source_verified_missing_bridge_fails(validation_data_dir: Path) -> None:
+    write_jsonl(validation_data_dir / "sources.jsonl", [source_row()])
+    row = basic_positive_row(
+        context_required=True,
+        context_status="source_verified",
+        quote_context="完整上下文",
+        context_summary="上下文摘要",
+        context_scope="同段前后两句",
+        context_effect="strengthen",
+    )
+    write_jsonl(validation_data_dir / "evidence_cards.jsonl", [row])
+
+    errors = validate_evidence.validate()
+
+    assert any("requires non-empty field: adjudication_bridge" in error for error in errors)
+
+
+def test_i5b_context_not_required_does_not_force_context_fields(validation_data_dir: Path) -> None:
+    write_jsonl(validation_data_dir / "sources.jsonl", [source_row()])
+    write_jsonl(
+        validation_data_dir / "evidence_cards.jsonl",
+        [basic_positive_row(context_required=False)],
+    )
+
+    assert validate_evidence.validate() == []
+
+
 def test_trigger_terms_missing_term_field_fails(validation_data_dir: Path) -> None:
     write_jsonl(
         validation_data_dir / "trigger_terms.jsonl",
@@ -558,6 +597,28 @@ def source_row() -> dict[str, Any]:
         "url": "",
         "note": "",
     }
+
+
+def basic_positive_row(**overrides: Any) -> dict[str, Any]:
+    row: dict[str, Any] = {
+        "evidence_id": "EVD-I5B-TEST-POS-CONTEXT-001",
+        "person": "测试人物",
+        "item": "第五项",
+        "subitem": "第五项B",
+        "polarity": "positive",
+        "strength": 1,
+        "human_level": "弱正",
+        "source_id": "SRC-TEST-VOL-001",
+        "quote_short": "测试短引",
+        "interpretation": "测试解释",
+        "trigger_family": "测试",
+        "trigger_terms": ["测试词"],
+        "cross_item_split": "",
+        "scoring_effect": "",
+        "verification_status": "verified",
+    }
+    row.update(overrides)
+    return row
 
 
 def high_risk_negative_row(**overrides: Any) -> dict[str, Any]:

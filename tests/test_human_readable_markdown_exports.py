@@ -251,6 +251,26 @@ def test_validate_exports_reports_evidence_chain_long_cell_without_appendix_link
     assert any("table cell longer than 72 chars must use a positioned appendix link" in error for error in errors)
 
 
+def test_validate_exports_reports_context_long_field_without_appendix_link(tmp_path: Path) -> None:
+    write_evidence_chain_export(
+        tmp_path,
+        "\n".join(
+            [
+                "# 测试",
+                "",
+                "| 证据ID（evidence_id） | 上下文摘录（quote_context） |",
+                "| --- | --- |",
+                "| E-I5B-001 | 即使较短也应进入附录链接 |",
+                "",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("context long field must use a positioned appendix link" in error for error in errors)
+
+
 def test_validate_exports_reports_evidence_chain_broken_appendix_link(tmp_path: Path) -> None:
     write_evidence_chain_export(
         tmp_path,

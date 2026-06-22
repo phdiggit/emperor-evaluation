@@ -93,7 +93,36 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
                 "positive",
                 3,
                 "CARD-001",
-                '{"evidence_id":"CARD-001","person":"测试人物","subitem":"第五项B","polarity":"positive","human_level":"强正","trigger_family":"任使","source_id":"SRC-001","quote_short":"引文|含分隔符","object_anchor":"对象A","evidence_role":"主证","mitigation_flag":"","upper_bound_flag":"","cluster_role":"core","cross_item_split":"无","scoring_effect":"正向","adjudication_status":"pending","strength":3}',
+                json.dumps(
+                    {
+                        "evidence_id": "CARD-001",
+                        "person": "测试人物",
+                        "subitem": "第五项B",
+                        "polarity": "positive",
+                        "human_level": "强正",
+                        "trigger_family": "任使",
+                        "source_id": "SRC-001",
+                        "quote_short": "引文|含分隔符",
+                        "quote_context": "这是需要完整保留的上下文摘录，包含前因后果与后续限定，不能在表格内截断。",
+                        "context_summary": "上下文说明该短摘必须结合前后事件才能定证。",
+                        "context_scope": "同段前后两句",
+                        "context_required": True,
+                        "context_status": "source_verified",
+                        "context_effect": "strengthen",
+                        "source_locator": "测试卷一：测试传",
+                        "adjudication_bridge": "该上下文说明任用行为与第五项B授权标签直接相关。",
+                        "object_anchor": "对象A",
+                        "evidence_role": "主证",
+                        "mitigation_flag": "",
+                        "upper_bound_flag": "",
+                        "cluster_role": "core",
+                        "cross_item_split": "无",
+                        "scoring_effect": "正向",
+                        "adjudication_status": "pending",
+                        "strength": 3,
+                    },
+                    ensure_ascii=False,
+                ),
             ),
         )
         connection.execute(
@@ -105,6 +134,40 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
                 1,
                 "CARD-999",
                 '{"evidence_id":"CARD-999","person":"其他人物","subitem":"第五项B","polarity":"negative","human_level":"弱负","trigger_family":"其他","source_id":"SRC-999","quote_short":"不应出现","object_anchor":"对象B","evidence_role":"旁证","mitigation_flag":"","upper_bound_flag":"","cluster_role":"edge","cross_item_split":"有","scoring_effect":"负向","adjudication_status":"pending","strength":1}',
+            ),
+        )
+        connection.execute(
+            "INSERT INTO evidence_cards (person, subitem, polarity, strength, evidence_id, raw_json) VALUES (?, ?, ?, ?, ?, ?)",
+            (
+                "测试人物",
+                "第五项B",
+                "negative",
+                1,
+                "CARD-002",
+                json.dumps(
+                    {
+                        "evidence_id": "CARD-002",
+                        "person": "测试人物",
+                        "subitem": "第五项B",
+                        "polarity": "negative",
+                        "human_level": "弱负",
+                        "trigger_family": "回源测试",
+                        "source_id": "SRC-002",
+                        "quote_short": "单句不足",
+                        "context_required": True,
+                        "context_status": "pending",
+                        "object_anchor": "对象C",
+                        "evidence_role": "待定",
+                        "mitigation_flag": "",
+                        "upper_bound_flag": "",
+                        "cluster_role": "edge",
+                        "cross_item_split": "待回源后判断",
+                        "scoring_effect": "待人工裁判",
+                        "adjudication_status": "needs_more_source_review",
+                        "strength": 1,
+                    },
+                    ensure_ascii=False,
+                ),
             ),
         )
         connection.commit()
@@ -120,9 +183,22 @@ def test_export_i5b_net_evidence_pool_renders_person_scoped_clusters_and_cards(t
     assert "| 证据ID（evidence_id） | 人物（person） | 方向（polarity） | 人工强度（human_level） | 触发类型（trigger_family） |" in content
     assert "CLUSTER-001" in content
     assert "CARD-001" in content
+    assert "CARD-002" in content
     assert "[见附录：短摘（quote_short）]" in content
+    assert "上下文摘录（quote_context）" in content
+    assert "上下文摘要（context_summary）" in content
+    assert "上下文范围（context_scope）" in content
+    assert "上下文影响（context_effect）" in content
+    assert "裁判桥接说明（adjudication_bridge）" in content
+    assert "[见附录：上下文摘录（quote_context）]" in content
+    assert "[见附录：上下文摘要（context_summary）]" in content
+    assert "[见附录：裁判桥接说明（adjudication_bridge）]" in content
+    assert "上下文处理队列（context_review_queue）" in content
+    assert "需回源 / 需上下文" in content
     assert "引文|含分隔符" in appendix_content
+    assert "这是需要完整保留的上下文摘录，包含前因后果与后续限定，不能在表格内截断。" in appendix_content
     assert "## card-001-quote_short" in appendix_content
+    assert "## card-001-quote_context" in appendix_content
     assert "CLUSTER-999" not in content
     assert "CARD-999" not in content
 
