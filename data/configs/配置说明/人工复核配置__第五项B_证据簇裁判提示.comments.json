@@ -1,0 +1,29 @@
+{
+  "$schema_note": "本文件为配置说明，不参与业务逻辑加载。",
+  "$target_config": "data/configs/人工复核配置/第五项B_证据簇裁判提示.json",
+  "$description": "第五项B证据簇裁判提示规则配置，用于提示人工复核风险；当前规则不产生裁判结论、定档、分数或排名。",
+  "$fields": {
+    "adjacent_item_risk": "相邻项风险，提示哪些叙事不应回填到第五项B。",
+    "enabled": "规则启用开关；当前为 false 时不参与业务脚本读取。",
+    "evidence_strength_scope": "规则适用的证据强度范围。",
+    "note": "维护说明或边界说明，帮助理解该行配置用途。",
+    "polarity_scope": "规则适用的证据方向范围。",
+    "required_human_review": "是否要求人工复核；true 表示该提示不能自动裁判。",
+    "rule_id": "证据簇提示规则唯一标识。",
+    "subitem": "配置所属子项，用于限定第五项B相关流程。",
+    "trigger_terms": "触发词清单，用于识别需要人工复核的风险信号。",
+    "trigger_type": "提示触发类型，说明规则从触发词、簇结构或强度关系触发。",
+    "warning_message": "人工复核提示文本。",
+    "warning_type": "warning 类型标识，用于区分不同人工复核提示。"
+  },
+  "$value_notes": {
+    "enabled": "false 表示规则不参与业务脚本读取，只作为待人工复核提示配置留存。",
+    "required_human_review": "true 表示该提示必须进入人工复核，不能自动转成裁判结论。",
+    "warning_type": "warning_type 只区分提示类型，不改变 warning 语义或裁判结论。"
+  },
+  "$safe_edit_notes": {
+    "enabled": "开启规则前必须另行评估业务脚本读取路径，本 PR 不改变启用状态。",
+    "warning_message": "可优化提示文字，但不得写入评分、定档、排名或自动裁判结论。",
+    "adjacent_item_risk": "相邻项风险可补充人工复核维度，不应改写为事实结论。"
+  }
+}

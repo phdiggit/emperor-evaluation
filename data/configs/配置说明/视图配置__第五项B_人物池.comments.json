@@ -1,0 +1,23 @@
+{
+  "$schema_note": "本文件为配置说明，不参与业务逻辑加载。",
+  "$target_config": "data/configs/视图配置/第五项B_人物池.json",
+  "$description": "第五项B试点与扩展候选人物池配置，用于记录候选人物画像、规则压力和检索重点，不直接形成证据事实或评分结论。",
+  "$fields": {
+    "adjacent_item_risk": "相邻项风险，提示哪些叙事不应回填到第五项B。",
+    "candidate_type": "候选类型说明，用于描述该人物进入扩展池的规则压力类型。",
+    "expected_rule_pressure": "预期规则压力，说明该人物会检验哪些裁判边界。",
+    "negative_scan_focus": "负证扫查重点，指导反向材料检索。",
+    "note": "维护说明或边界说明，帮助理解该行配置用途。",
+    "person": "人物名称，用于定位候选人、人物组或人工复核对象。",
+    "recommended_priority": "建议优先级，用于安排候选人物处理顺序。",
+    "required_evidence_focus": "所需证据重点，指导后续回源和建卡方向。",
+    "subitem": "配置所属子项，用于限定第五项B相关流程。",
+    "why_selected": "入选原因，说明该人物为什么适合用于第五项B规则压测。"
+  },
+  "$value_notes": {},
+  "$safe_edit_notes": {
+    "person": "新增人物时需同步确认视图分组是否需要纳入该人物。",
+    "recommended_priority": "优先级只影响工作安排，不代表人物评分高低。",
+    "adjacent_item_risk": "相邻项风险用于提醒剥离边界，不应写成裁判结论。"
+  }
+}
