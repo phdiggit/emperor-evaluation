@@ -1,4 +1,3 @@
-import importlib.util
 import json
 import subprocess
 import sys
@@ -19,14 +18,7 @@ CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
 CLOSURE_EXPORT_PATH = AUTO_CHAIN_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
 LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
-AUTO_SPEC = importlib.util.spec_from_file_location(
-    "export_i5b_auto_adjudication",
-    ROOT / "scripts" / "export_i5b_auto_adjudication.py",
-)
-assert AUTO_SPEC is not None
-auto = importlib.util.module_from_spec(AUTO_SPEC)
-assert AUTO_SPEC.loader is not None
-AUTO_SPEC.loader.exec_module(auto)
+from export import export_i5b_auto_adjudication as auto
 
 
 def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
