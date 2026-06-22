@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 
@@ -8,6 +9,7 @@ AUDIT_DOC = ROOT / "docs" / "config_loaders迁移前依赖审计.md"
 SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
 LAYOUT_DOC = ROOT / "docs" / "scripts目录规范.md"
 AGENTS = ROOT / "AGENTS.md"
+REGISTRY = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
 SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
 
@@ -65,14 +67,16 @@ def test_config_loaders_has_been_migrated_with_legacy_wrapper() -> None:
 def test_related_docs_and_agents_reference_config_loaders_audit() -> None:
     audit_doc_name = "docs/config_loaders迁移前依赖审计.md"
     assert audit_doc_name in SHARED_PLAN_DOC.read_text(encoding="utf-8")
-    assert audit_doc_name in AGENTS.read_text(encoding="utf-8")
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    module = next(module for module in registry["modules"] if module["id"] == "config_loaders")
+    assert audit_doc_name in module["audit_docs"]
+    assert "docs/agent_rules/scripts_registry.json" in AGENTS.read_text(encoding="utf-8")
 
 
 def test_layout_doc_records_config_loaders_migration() -> None:
     content = LAYOUT_DOC.read_text(encoding="utf-8")
-    assert "config_loaders.py" in content
-    assert "scripts/shared/config_loaders.py" in content
-    assert "docs/config_loaders迁移前依赖审计.md" in content
+    assert "docs/agent_rules/scripts_registry.json" in content
+    assert "审计文档" in content
 
 
 def test_new_and_legacy_import_paths_remain_available() -> None:

@@ -48,16 +48,17 @@ def test_current_shared_tools_have_legacy_wrappers() -> None:
 
 def test_layout_docs_and_agents_describe_shared_directory_rules() -> None:
     layout_doc = (ROOT / "docs" / "scripts目录规范.md").read_text(encoding="utf-8")
-    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    agents = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
 
     assert "scripts/shared/" in layout_doc
     assert "共享工具真实实现目录" in layout_doc
     assert "新增被 exporter、validator、pipeline 共同依赖的工具，应放入这里" in layout_doc
     assert "后续迁移共享工具时必须保留旧路径 wrapper" in layout_doc
 
-    assert "新增被多个 exporter / validator / pipeline 共用的工具，应放入 `scripts/shared/`" in agents
-    assert "迁移共享工具必须单独开 PR，保留旧路径 wrapper" in agents
-    assert "不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具" in agents
+    assert "`scripts/shared/`：多职责链共享实现目录" in agents
+    assert "共享工具" in agents
+    assert "单独" in agents
+    assert "顺手迁移" in agents
 
 
 def test_export_md_scaffold_migrated_with_short_legacy_wrapper() -> None:

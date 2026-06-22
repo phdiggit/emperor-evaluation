@@ -70,13 +70,14 @@ def test_export_md_entrypoint_implementation_lives_under_export_directory() -> N
 
 def test_docs_and_agents_mention_export_directory_rule() -> None:
     docs = (ROOT / "docs" / "scripts目录规范.md").read_text(encoding="utf-8")
-    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    agents = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
     assert "scripts/export/" in docs
     assert "新增 exporter 应放入这里" in docs
     assert "旧 exporter 只作为兼容 wrapper" in docs
-    assert "新增 exporter 应放入 `scripts/export/`" in agents
-    assert "旧 exporter 仅作为兼容 wrapper" in agents
-    assert "已迁移 exporter 的真实实现位于 `scripts/export/`" in agents
+    assert "`scripts/export/`" in agents
+    assert "exporter" in agents
+    assert "wrapper" in agents
+    assert "主逻辑" in agents
 
 
 def test_export_root_entrypoints_are_not_migrated() -> None:

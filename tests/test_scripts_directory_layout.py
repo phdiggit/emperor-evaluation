@@ -159,7 +159,9 @@ def test_scripts_layout_doc_mentions_validate_directory() -> None:
 
 
 def test_agents_mentions_new_validator_layout_rule() -> None:
-    content = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    content = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
+    root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
-    assert "新增 validator 应放入 `scripts/validate/`" in content
-    assert "旧 validator 仅作为兼容 wrapper" in content
+    assert "新增 validator 默认放在这里" in content
+    assert "兼容 wrapper" in content
+    assert "docs/agent_rules/scripts_registry.json" in root_agents
