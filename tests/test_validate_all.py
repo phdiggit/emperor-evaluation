@@ -95,21 +95,21 @@ def test_validate_all_runs_steps_in_order(monkeypatch) -> None:
 def test_validate_all_includes_config_readability_step() -> None:
     assert (
         "validate_config_readability",
-        ROOT / "scripts" / "validate_config_readability.py",
+        ROOT / "scripts" / "validate" / "validate_config_readability.py",
     ) in validate_all.VALIDATION_STEPS
 
 
 def test_validate_all_includes_chinese_view_config_step() -> None:
     assert (
         "validate_chinese_view_configs",
-        ROOT / "scripts" / "validate_chinese_view_configs.py",
+        ROOT / "scripts" / "validate" / "validate_chinese_view_configs.py",
     ) in validate_all.VALIDATION_STEPS
 
 
 def test_validate_all_includes_review_config_step() -> None:
     assert (
         "validate_review_configs",
-        ROOT / "scripts" / "validate_review_configs.py",
+        ROOT / "scripts" / "validate" / "validate_review_configs.py",
     ) in validate_all.VALIDATION_STEPS
 
 

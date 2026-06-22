@@ -47,6 +47,8 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 - 新增给 Codex/开发者使用的辅助工具，应放入 `scripts/dev/`；不得继续把开发辅助轮子直接放在 `scripts/` 根目录。
 - 新增 validator 应放入 `scripts/validate/`；`scripts/` 根目录旧 validator 仅作为兼容 wrapper，不应继续承载主逻辑。
+- `validate_evidence.py`、`validate_canonical_data_integrity.py`、`validate_view_configs.py`、`validate_chinese_view_configs.py`、`validate_review_configs.py`、`validate_config_readability.py` 均已迁移；修改时优先改 `scripts/validate/` 下真实实现，旧路径仅作兼容 wrapper。
+- 不得在普通功能 PR 中把已迁移 validator 的真实实现放回 `scripts/` 根目录；修改验证规则时必须运行对应直接测试和 `validate_all`。
 - 新增 exporter 应放入 `scripts/export/`；`scripts/` 根目录旧 exporter 仅作为兼容 wrapper，不应继续承载主逻辑。
 - 修改已迁移 validator 时，优先改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
 - 修改已迁移 exporter 时，优先改 `scripts/export/` 下真实实现，再确认旧路径 wrapper 仍可 import/运行。
