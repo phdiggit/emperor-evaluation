@@ -136,18 +136,22 @@ def test_targeted_supplement_export_is_review_only() -> None:
     assert "# 第五项B扩展试点第一批定向补证" in content
     assert "本文仅汇总定向补证材料" in content
     assert "不定档，不出分，不排名，不出总榜" in content
+    assert "## 定向补证来源" in content
+    assert "## 定向补证证据卡" in content
     assert "## 雍正 role-class sweep / 防漏扫查" in content
+    source_section = content[content.index("## 定向补证来源") : content.index("## 定向补证证据卡")]
+    evidence_section = content[content.index("## 定向补证证据卡") : content.index("## 雍正 role-class sweep / 防漏扫查")]
+    assert "来源编号" not in source_section
+    assert "证据编号" not in evidence_section
+    assert "来源编号" not in evidence_section
     for needle in [
-        "EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001",
-        "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001",
-        "EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001",
-        "SRC-QSG-YZ-J293-YUEZHONGQI-001",
-        "SRC-MS-J127-LISHANG-001",
         "岳钟琪",
         "傅尔丹",
         "查郎阿",
         "\u672a\u5efa\u5361\u539f\u56e0",
         "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001",
+        "岳钟琪后续复用链",
+        "李善长识材调护",
     ]:
         assert needle in content
     for forbidden in ["final_grade", "final_score", "leaderboard", "total_ranking"]:

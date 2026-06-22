@@ -53,6 +53,94 @@
         "source_locator"
       ],
       "table_fields": {
+        "auto_adjudication_matrix": [
+          "person",
+          "auto_band_direction",
+          "confidence",
+          "negative_boundary_tier",
+          "rule_sensitive_points"
+        ],
+        "auto_adjudication_overview": [
+          "person",
+          "auto_band_direction",
+          "auto_feature_digest",
+          "cluster_count_digest",
+          "display_warning_count",
+          "detail_page"
+        ],
+        "formal_landing_overview": [
+          "person",
+          "auto_band_direction",
+          "formal_band_draft",
+          "confidence",
+          "negative_boundary_tier",
+          "not_scored_flag",
+          "ranking_suppressed_flag"
+        ],
+        "trial_closure_overview": [
+          "person",
+          "final_band",
+          "internal_trial_score_range",
+          "internal_trial_score",
+          "extend_pilot_ready"
+        ],
+        "score_mapping_draft": [
+          "band",
+          "entry_condition",
+          "typical_evidence_structure",
+          "negative_intercept_condition",
+          "cross_item_split",
+          "direct_score_allowed",
+          "rule_confirmation_needed",
+          "relative_score_range_draft"
+        ],
+        "expanded_batch_readiness": [
+          "person",
+          "current_draft_status",
+          "recommended_next_step",
+          "remaining_evidence_gaps",
+          "must_human_review_points",
+          "status"
+        ],
+        "expanded_batch_followup": [
+          "person",
+          "prior_next_step",
+          "followup_action",
+          "followup_outcome_summary",
+          "current_readiness_recommendation",
+          "remaining_notes",
+          "status"
+        ],
+        "human_review_package_overview": [
+          "person",
+          "current_readiness_recommendation",
+          "core_rule_question",
+          "status"
+        ],
+        "relative_band_preparation": [
+          "person",
+          "current_review_stage",
+          "positive_base_status",
+          "negative_gate_status",
+          "cross_item_split_status",
+          "status"
+        ],
+        "targeted_supplement_sources": [
+          "title",
+          "volume",
+          "location",
+          "url"
+        ],
+        "targeted_supplement_evidence_cards": [
+          "polarity",
+          "object_anchor",
+          "supplement_gap_addressed"
+        ],
+        "micro_supplement_evidence_cards": [
+          "polarity",
+          "object_anchor",
+          "micro_gap_addressed"
+        ],
         "net_evidence_clusters": [
           "person",
           "polarity",
@@ -218,6 +306,13 @@
     "internal_trial_score_range": "内部试算区间",
     "internal_trial_score": "内部试算分",
     "determination_basis": "定档依据",
+    "band": "档位",
+    "entry_condition": "进入条件",
+    "typical_evidence_structure": "典型证据结构",
+    "negative_intercept_condition": "负证拦截条件",
+    "direct_score_allowed": "是否可直接转分",
+    "rule_confirmation_needed": "需要规则级确认的情况",
+    "relative_score_range_draft": "相对分值区间草案",
     "negative_intercept_status": "负证拦截状态",
     "adjacent_item_stripping_status": "相邻项剥离状态",
     "extend_pilot_ready": "是否可扩展试点",

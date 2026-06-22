@@ -11,6 +11,7 @@ from i5b_markdown_display import (
     AppendixEntry,
     display_field_label,
     display_value,
+    human_review_table_fields,
     load_display_dictionary,
     render_appendix_page,
     render_markdown_kv,
@@ -172,6 +173,10 @@ def _table(headers: list[str], rows: list[dict[str, object]], config: dict[str, 
     for row in rows:
         lines.append("| " + " | ".join(escape_cell(_value(row.get(header), config)) for header in headers) + " |")
     return lines
+
+
+def _human_table_fields(table_key: str, config: dict[str, object]) -> list[str]:
+    return human_review_table_fields(table_key, config)
 
 
 def _relative_appendix_path(export_path: Path, appendix_path: Path) -> str:
@@ -395,9 +400,23 @@ def export_expanded_i5b_batch1_targeted_supplement() -> Path:
     for person in EXPANDED_BATCH1_PERSONS:
         lines.append(f"| {person} | {person_counts.get(person, 0)} |")
 
-    lines.extend(["", "## 来源", "", *_table(TARGETED_SUPPLEMENT_SOURCE_HEADERS, source_rows, display_config)])
+    lines.extend(
+        [
+            "",
+            "## 定向补证来源",
+            "",
+            *_table(_human_table_fields("targeted_supplement_sources", display_config), source_rows, display_config),
+        ]
+    )
 
-    lines.extend(["", "## 证据卡", "", *_table(TARGETED_SUPPLEMENT_EVIDENCE_HEADERS, evidence_rows, display_config)])
+    lines.extend(
+        [
+            "",
+            "## 定向补证证据卡",
+            "",
+            *_table(_human_table_fields("targeted_supplement_evidence_cards", display_config), evidence_rows, display_config),
+        ]
+    )
 
     lines.extend([
         "",

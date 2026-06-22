@@ -337,6 +337,23 @@ def write_human_review_export(root: Path, content: str, appendix_content: str | 
     return export_path
 
 
+def write_auto_adjudication_human_export(root: Path, heading: str, content: str) -> Path:
+    write_required_export_layout(root)
+    export_path = (
+        root
+        / "exports"
+        / "markdown_views"
+        / "第五项B"
+        / "人工审核"
+        / "自动裁判链"
+        / "自动结算草案"
+        / "测试自动裁判链.md"
+    )
+    export_path.parent.mkdir(parents=True, exist_ok=True)
+    export_path.write_text("\n".join(["# 测试自动裁判链", "", f"## {heading}", "", content, ""]), encoding="utf-8")
+    return export_path
+
+
 def write_machine_audit_export(root: Path, content: str) -> Path:
     write_required_export_layout(root)
     export_path = root / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "净证据池" / "测试.md"
@@ -500,7 +517,7 @@ def test_validate_exports_reports_human_review_unmapped_enum(tmp_path: Path) -> 
                 "",
                 "| 人物（person） | 裁判状态（adjudication_status） |",
                 "| --- | --- |",
-                "| 测试人物 | source_verified_auto_classified_cluster_review_pending |",
+                "| 测试人物 | source_verified_extra_pending |",
                 "",
             ]
         ),
@@ -508,7 +525,71 @@ def test_validate_exports_reports_human_review_unmapped_enum(tmp_path: Path) -> 
 
     errors = validator.validate_exports(tmp_path, [])
 
-    assert any("human review table exposes unmapped enum value" in error for error in errors)
+    assert any("exposes unmapped enum value" in error for error in errors)
+
+
+def test_validate_exports_reports_auto_adjudication_bare_english_table_header(tmp_path: Path) -> None:
+    export_path = write_auto_adjudication_human_export(
+        tmp_path,
+        "总览索引",
+        "\n".join(
+            [
+                "| person | 自动结算方向（auto_band_direction） |",
+                "| --- | --- |",
+                "| 测试人物 | 强正 |",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any(str(export_path) in error and "table header exposes bare English field 'person'" in error for error in errors)
+
+
+def test_validate_exports_reports_auto_adjudication_table_field_not_allowed_by_config(tmp_path: Path) -> None:
+    write_auto_adjudication_human_export(
+        tmp_path,
+        "总览索引",
+        "\n".join(
+            [
+                "| 人物 | 置信度 |",
+                "| --- | --- |",
+                "| 测试人物 | 高 |",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("human review table '总览索引' field 'confidence' is not allowed by table_fields.auto_adjudication_overview" in error for error in errors)
+
+
+def test_validate_exports_reports_auto_adjudication_unmapped_enum(tmp_path: Path) -> None:
+    write_auto_adjudication_human_export(
+        tmp_path,
+        "总览索引",
+        "\n".join(
+            [
+                "| 人物 | 自动结算方向 | 人工复核提示数量 | 详情页 |",
+                "| --- | --- | --- | --- |",
+                "| 测试人物 | ready_for_human_review_without_scoring_extra | 0 | [测试详情](./测试详情.md) |",
+            ]
+        ),
+    )
+
+    errors = validator.validate_exports(tmp_path, [])
+
+    assert any("human review table '总览索引' exposes unmapped enum value" in error for error in errors)
+
+
+def test_markdown_table_display_convention_doc_exists() -> None:
+    doc_path = ROOT / "docs" / "Markdown表格显示约定.md"
+    content = doc_path.read_text(encoding="utf-8")
+
+    assert "阅读器/CSS" in content
+    assert "字段白名单" in content
+    assert "附录" in content
+    assert "<br>" in content
 
 
 def test_validate_exports_reports_machine_audit_missing_declaration(tmp_path: Path) -> None:

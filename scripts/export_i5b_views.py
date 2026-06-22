@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from export_md_scaffold import escape_cell, join_list_cell, read_jsonl
-from i5b_markdown_display import display_field_label, display_value, load_display_dictionary
+from i5b_markdown_display import display_field_label, display_value, human_review_table_fields, load_display_dictionary
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,6 +62,10 @@ def _table(headers: list[str], rows: list[dict[str, object]], config: dict[str, 
     return lines
 
 
+def _human_table_fields(table_key: str, config: dict[str, object]) -> list[str]:
+    return human_review_table_fields(table_key, config)
+
+
 def export_expanded_i5b_batch1_readiness_audit() -> Path:
     READINESS_AUDIT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     display_config = _human_display_config()
@@ -78,7 +82,7 @@ def export_expanded_i5b_batch1_readiness_audit() -> Path:
         "## 人员准备度总览",
         "",
         *_table(
-            ["readiness_id", "person", "current_draft_status", "recommended_next_step", "status"],
+            _human_table_fields("expanded_batch_readiness", display_config),
             person_rows,
             display_config,
         ),
@@ -134,6 +138,7 @@ def export_expanded_i5b_batch1_readiness_followup() -> Path:
     source_rows = read_jsonl(ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH)
     evidence_rows = read_jsonl(ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH)
     followup_rows = read_jsonl(READINESS_FOLLOWUP_BATCH_PATH)
+    person_followup_rows = [row for row in followup_rows if row.get("row_type") != "batch_followup_summary"]
 
     lines = [
         "# 第五项B扩展试点第一批readiness后续处理",
@@ -166,7 +171,7 @@ def export_expanded_i5b_batch1_readiness_followup() -> Path:
             "",
             "## 朱元璋 micro supplement 来源",
             "",
-            *_table(["source_id", "title", "volume", "location", "url"], source_rows, display_config),
+            *_table(_human_table_fields("targeted_supplement_sources", display_config), source_rows, display_config),
         ]
     )
 
@@ -175,11 +180,21 @@ def export_expanded_i5b_batch1_readiness_followup() -> Path:
             "",
             "## 朱元璋 micro supplement 证据卡",
             "",
-            *_table(["evidence_id", "polarity", "source_id", "object_anchor", "micro_gap_addressed"], evidence_rows, display_config),
+            *_table(_human_table_fields("micro_supplement_evidence_cards", display_config), evidence_rows, display_config),
         ]
     )
 
-    lines.extend(["", "## readiness follow-up summary", ""])
+    lines.extend(
+        [
+            "",
+            "## readiness follow-up 人物总览",
+            "",
+            *_table(_human_table_fields("expanded_batch_followup", display_config), person_followup_rows, display_config),
+            "",
+            "## readiness follow-up summary",
+            "",
+        ]
+    )
     for row in followup_rows:
         if row.get("row_type") == "batch_followup_summary":
             lines.extend(
@@ -229,7 +244,7 @@ def export_expanded_i5b_batch1_human_review_package() -> Path:
         "## 会审总览",
         "",
         *_table(
-            ["review_package_id", "person", "current_readiness_recommendation", "core_rule_question", "status"],
+            _human_table_fields("human_review_package_overview", display_config),
             person_rows,
             display_config,
         ),
@@ -296,17 +311,7 @@ def export_expanded_i5b_batch1_relative_band_preparation() -> Path:
         "## 逐人准备表",
         "",
         *_table(
-            [
-                "relative_band_draft_id",
-                "person",
-                "input_review_package_id",
-                "current_review_stage",
-                "positive_base_status",
-                "negative_gate_status",
-                "cross_item_split_status",
-                "next_step_recommendation",
-                "status",
-            ],
+            _human_table_fields("relative_band_preparation", display_config),
             person_rows,
             display_config,
         ),
