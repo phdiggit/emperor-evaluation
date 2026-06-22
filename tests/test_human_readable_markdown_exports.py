@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT_PATH = ROOT / "scripts" / "validate_human_readable_markdown_exports.py"
+SCRIPT_PATH = ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py"
 sys.path.insert(0, str(ROOT / "scripts"))
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
