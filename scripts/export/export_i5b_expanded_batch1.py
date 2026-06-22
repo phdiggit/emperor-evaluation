@@ -10,7 +10,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import config_loaders
+from shared import config_loaders
 from shared.export_md_scaffold import escape_cell, join_list_cell, read_jsonl
 from shared.i5b_markdown_display import (
     AppendixEntry,
