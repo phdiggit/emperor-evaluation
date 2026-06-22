@@ -38,20 +38,28 @@ English anchors are included for execution stability; Chinese remains the source
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本读写、JSON / JSONL 结构化改写优先用仓库工具或 Python 标准库；JSON 输出用 UTF-8、`ensure_ascii=False`、稳定缩进。
-- PR body、临时 Markdown、说明文件使用 UTF-8 no BOM。
-- PR body 如需更新，优先一次性写入 UTF-8 no BOM 文件再调用 `gh pr edit --body-file`。If PR body update fails, do not debug BOM repeatedly; report “PR body 更新失败/待人工处理” and preserve local facts.
-- PR body / 大段 GitHub 正文生成规则：禁止用 PowerShell inline 字符串直接写大段 Markdown PR body。凡 PR body、长 issue comment、长 review comment 中包含中文、Markdown 代码围栏、反引号、长文件清单或多段列表，必须先用 `scripts/dev/pr_body_tool.py` 生成并校验 UTF-8 no BOM 文件。
+- 临时 Markdown、说明文件使用 UTF-8 no BOM。
+
+## GitHub 正文安全 / GitHub Body Safety
+
+- 禁止用 PowerShell inline 字符串直接写大段 Markdown PR body。
+- 凡 PR body、长 issue comment、长 review comment 中包含中文、Markdown 代码围栏、反引号、长文件清单或多段列表，必须先用 `scripts/dev/pr_body_tool.py` 生成并校验 UTF-8 no BOM 文件。
 - 更新 PR body 必须使用 `gh pr edit --body-file <已校验文件>`，或使用 `scripts/dev/pr_body_tool.py apply`；不得使用 `gh pr edit --body "...大段正文..."`。
+- PR body 更新失败时，不反复调试 BOM；报告“PR body 更新失败/待人工处理”，并保留本地正文文件和验证事实。
 - 提交前必须检查 GitHub 正文不含 `???`、U+FFFD、控制字符、损坏代码围栏。
-- 开发辅助脚本目录规则：新增给 Codex/开发者使用的辅助工具，应放入 `scripts/dev/`；不得继续把开发辅助轮子直接放在 `scripts/` 根目录。`scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。
+
+## 开发辅助脚本 / Development Helper Scripts
+
+- 新增给 Codex/开发者使用的辅助工具，应放入 `scripts/dev/`；不得继续把开发辅助轮子直接放在 `scripts/` 根目录。
+- `scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。
+- 目录规范见 `docs/scripts目录规范.md`。
 
 ## 改动与验证 / Changes And Validation
 
 - 大范围改脚本前，先用 `rg` / `git grep` 精确定位，再做小补丁。Locate precisely before large script edits.
 - 大脚本治理必须小步重构并有测试锁定；业务 PR 不顺手拆脚本。Keep business PRs scoped.
 - 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate_all.py`。
-- 验证命令若重写 `exports/`、generated docs 或禁止范围副产物，先记录结果，再清理副产物；清理后只做范围核对，不重复运行会再生成副产物的命令。After cleanup, do not rerun full commands that regenerate out-of-scope artifacts.
-- 若 `python scripts/validate_all.py` 或 `pytest` 会生成 #180 范围副产物，记录通过结果后立即清理。After cleanup, run only scope checks such as `git status`, `git diff --name-only`, and `git diff --check`.
+- 验证命令若生成或重写 `exports/`、generated docs 或其他范围外副产物，先记录通过结果，再清理副产物；清理后只做 `git status`、`git diff --name-only`、`git diff --check` 等范围核对，不重复运行会再次生成副产物的全量命令。
 
 ## 人工阅读型 Markdown 导出高压线 / Human-Readable Markdown Exports
 
