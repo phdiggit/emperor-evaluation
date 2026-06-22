@@ -95,6 +95,22 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     assert config["list_render_policy"]["field_overrides"]["context_summary"]["strategy"] == "appendix_link"
     assert config["list_render_policy"]["field_overrides"]["adjudication_bridge"]["strategy"] == "appendix_link"
     table_fields = config["view_profiles"]["human_review"]["table_fields"]
+    assert table_fields["auto_adjudication_overview"] == human_review_table_fields("auto_adjudication_overview", config)
+    assert table_fields["auto_adjudication_matrix"][0:3] == ["person", "auto_band_direction", "confidence"]
+    assert table_fields["score_mapping_draft"] == [
+        "band",
+        "entry_condition",
+        "typical_evidence_structure",
+        "negative_intercept_condition",
+        "cross_item_split",
+        "direct_score_allowed",
+        "rule_confirmation_needed",
+        "relative_score_range_draft",
+    ]
+    assert "evidence_id" not in table_fields["targeted_supplement_evidence_cards"]
+    assert "source_id" not in table_fields["targeted_supplement_sources"]
+    assert table_fields["targeted_supplement_evidence_cards"][-1] == "supplement_gap_addressed"
+    assert table_fields["micro_supplement_evidence_cards"][-1] == "micro_gap_addressed"
     assert table_fields["net_evidence_cards"] == human_review_table_fields("net_evidence_cards", config)
     assert table_fields["net_evidence_cards"][0:4] == ["person", "polarity", "human_level", "trigger_family"]
     assert "evidence_id" not in table_fields["net_evidence_cards"]

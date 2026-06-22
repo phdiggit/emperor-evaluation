@@ -315,6 +315,33 @@ def test_markdown_view_display_config_labels_keep_machine_trace() -> None:
     assert auto.display_value("unknown_machine_value", config) == "unknown_machine_value"
 
 
+def test_auto_adjudication_overview_table_order_follows_config() -> None:
+    config = auto.load_i5b_markdown_view_config()
+    config["keep_machine_field_name"] = False
+    config["view_profiles"]["human_review"]["table_fields"]["auto_adjudication_overview"] = [
+        "detail_page",
+        "person",
+        "display_warning_count",
+    ]
+    report = {
+        "person": "测试甲",
+        "auto_band_direction": "强正",
+        "strong_positive_count": 1,
+        "coverage_dimension_count": 1,
+        "negative_boundary_tier": "none",
+        "confidence": "high",
+        "positive_cluster_rows": [],
+        "negative_cluster_rows": [],
+        "positive_cluster_ids": [],
+        "negative_cluster_ids": [],
+    }
+
+    content = auto.render_split_index_page([report], {}, {}, [], config)
+
+    assert "| 详情页 | 人物 | 人工复核提示数量 |" in content
+    assert "| 人物 | 自动结算方向 |" not in content
+
+
 def test_markdown_display_table_long_cell_uses_appendix_link() -> None:
     config = auto.load_i5b_markdown_view_config()
     config["table_render_policy"] = {

@@ -12,6 +12,7 @@ from i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
     render_display_only_cluster_warning_section,
 )
+from i5b_markdown_display import human_review_table_fields as configured_human_review_table_fields
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -406,6 +407,11 @@ def markdown_display_table(
         appendix_link_target=appendix_link_target,
         field_by_header=dict(zip(headers, fields, strict=True)),
     )
+
+
+def human_table_fields(table_key: str, display_config: dict[str, Any] | None = None) -> list[str]:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    return configured_human_review_table_fields(table_key, config)
 
 
 def markdown_inline_value(value: object, display_config: dict[str, Any] | None = None) -> str:
@@ -821,6 +827,109 @@ def build_adjacent_item_stripping_status(report: dict[str, Any]) -> str:
 
 
 def render_score_mapping_draft() -> str:
+    display_config = load_i5b_markdown_view_config()
+    score_rows = [
+        {
+            "band": "极正候选 / 极正",
+            "entry_condition": "高位强正已经成立，且至少三个强正核心均为第五项B直接证据；没有中负升强负或强负核心阻断。",
+            "typical_evidence_structure": "多维强正、稳定授权、容谏入口、人才结构厚度、顶级对象锚点。",
+            "negative_intercept_condition": "一旦出现中负升强负边界或强负核心，必须回落，不得继续上探。",
+            "cross_item_split": "战功、政绩、边疆收益、统一贡献、治世光环全部外剥。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "只要还未进入正式出分任务，就一律不能直接转分。",
+            "relative_score_range_draft": "94-100",
+        },
+        {
+            "band": "高位强正",
+            "entry_condition": "强正证据已成型，但极正候选的条件尚未完全满足。",
+            "typical_evidence_structure": "顶级将帅/谏臣/寒门后进/功臣安全秩序等多维强正。",
+            "negative_intercept_condition": "若出现中负升强负边界，需回落为强正受压制或强正封顶。",
+            "cross_item_split": "战功、政绩、边疆收益等仍需剥离。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若高位强正主要依赖单维证据，必须经规则级确认。",
+            "relative_score_range_draft": "86-93",
+        },
+        {
+            "band": "强正",
+            "entry_condition": "正向证据厚度已稳定，但不足以上探高位强正。",
+            "typical_evidence_structure": "单维或多维强正核心、对象锚点明确、没有强负核心阻断。",
+            "negative_intercept_condition": "若出现强负核心，需转入强正受压制。",
+            "cross_item_split": "继续剥离相邻项，不把结果论回填第五项B。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若只靠名臣堆叠而缺少对象锚点，须复核。",
+            "relative_score_range_draft": "78-85",
+        },
+        {
+            "band": "强正受压制",
+            "entry_condition": "强正底盘成立，但已经被强负核心或结构性寒蝉压制。",
+            "typical_evidence_structure": "正向强证仍在，负向直接命中表达安全或人才安全。",
+            "negative_intercept_condition": "任何极正上探都应阻断。",
+            "cross_item_split": "只保留第五项B自身剩余，不把相邻项损害整体回填。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若压制强度接近极强负，需要规则级再判。",
+            "relative_score_range_draft": "72-80",
+        },
+        {
+            "band": "强正封顶",
+            "entry_condition": "强正仍成立，但单维厚度、长期中枢治理或异质人才整合不足。",
+            "typical_evidence_structure": "创业期授权强证、单一对象池厚、正证集中但未达极正门槛。",
+            "negative_intercept_condition": "若出现中负升强负边界，应从封顶转入受压制或更低档。",
+            "cross_item_split": "仅保留第五项B上限，不把后续政绩加回。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若封顶与受压制并存，以更严格的压制结论为准。",
+            "relative_score_range_draft": "68-75",
+        },
+        {
+            "band": "中正",
+            "entry_condition": "正负证据都存在，但都未达到强压制或高位上探门槛。",
+            "typical_evidence_structure": "中等厚度的识人、授权、容谏、求言等。",
+            "negative_intercept_condition": "一旦出现明确表达安全硬证，需下探到中正受压制或中负。",
+            "cross_item_split": "相邻项先切出，剩余只保留本项中性影响。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若中正证据主要来自对象光环，需要复核。",
+            "relative_score_range_draft": "58-67",
+        },
+        {
+            "band": "中正受中负压制",
+            "entry_condition": "中正基础仍在，但已有中负边界对其形成明显压制。",
+            "typical_evidence_structure": "有正向结构，但负向材料使其无法继续上探。",
+            "negative_intercept_condition": "若边界负证转为中负升强负，需再下探。",
+            "cross_item_split": "剥离后的剩余只保留中负压力。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若中负边界扩大，需按正式规则重新确认。",
+            "relative_score_range_draft": "48-57",
+        },
+        {
+            "band": "中正受强负压制",
+            "entry_condition": "中正基础已显著受压，且负向材料直接命中表达安全或人才安全。",
+            "typical_evidence_structure": "正证还在，但强负核心已经显性出现。",
+            "negative_intercept_condition": "强正上探必须阻断。",
+            "cross_item_split": "只保留第五项B剩余，不把政权安全、司法残酷整体回填。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若强负核心呈群体外溢，需要规则级确认。",
+            "relative_score_range_draft": "38-47",
+        },
+        {
+            "band": "中负",
+            "entry_condition": "相邻项剥离后仍残留的中等负压，或弱负升中负已经成立。",
+            "typical_evidence_structure": "轻到中等的表达安全外溢、用人失衡、边界负证。",
+            "negative_intercept_condition": "若出现直接寒蝉/授权可信度破坏，需上调为强负。",
+            "cross_item_split": "先切政权安全、司法残酷、战果等相邻项，再留 B 项剩余。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若中负残余与强负硬证混在一起，需要再次分案。",
+            "relative_score_range_draft": "20-37",
+        },
+        {
+            "band": "强负",
+            "entry_condition": "直接命中表达安全、人才安全、谏臣保护或授权可信度破坏。",
+            "typical_evidence_structure": "群臣莫敢正言、明显寒蝉、人才退缩、谏臣/能臣安全受损等。",
+            "negative_intercept_condition": "一旦存在中负升强负边界，必须阻断极正/高位上探。",
+            "cross_item_split": "仍要剥离相邻项，但剥离后若仍是硬证，保留强负。",
+            "direct_score_allowed": "否",
+            "rule_confirmation_needed": "若强负与极负边界不清，需规则级确认。",
+            "relative_score_range_draft": "0-19",
+        },
+    ]
     lines = [
         "# 第五项B评分标尺与档位映射草案",
         "",
@@ -864,18 +973,11 @@ def render_score_mapping_draft() -> str:
         "",
         "说明：以下区间为相对区间草案，允许在正式出分任务中再微调；当前不直接用于人物出分。",
         "",
-        "| 档位 | 进入条件 | 典型证据结构 | 负证拦截条件 | 相邻项切分 | 是否可直接转分 | 需要规则级确认的情况 | 相对分值区间草案 |",
-        "| --- | --- | --- | --- | --- | --- | --- | --- |",
-        "| 极正候选 / 极正 | 高位强正已经成立，且至少三个强正核心均为第五项B直接证据；没有中负升强负或强负核心阻断。 | 多维强正、稳定授权、容谏入口、人才结构厚度、顶级对象锚点。 | 一旦出现中负升强负边界或强负核心，必须回落，不得继续上探。 | 战功、政绩、边疆收益、统一贡献、治世光环全部外剥。 | 否 | 只要还未进入正式出分任务，就一律不能直接转分。 | 94-100 |",
-        "| 高位强正 | 强正证据已成型，但极正候选的条件尚未完全满足。 | 顶级将帅/谏臣/寒门后进/功臣安全秩序等多维强正。 | 若出现中负升强负边界，需回落为强正受压制或强正封顶。 | 战功、政绩、边疆收益等仍需剥离。 | 否 | 若高位强正主要依赖单维证据，必须经规则级确认。 | 86-93 |",
-        "| 强正 | 正向证据厚度已稳定，但不足以上探高位强正。 | 单维或多维强正核心、对象锚点明确、没有强负核心阻断。 | 若出现强负核心，需转入强正受压制。 | 继续剥离相邻项，不把结果论回填第五项B。 | 否 | 若只靠名臣堆叠而缺少对象锚点，须复核。 | 78-85 |",
-        "| 强正受压制 | 强正底盘成立，但已经被强负核心或结构性寒蝉压制。 | 正向强证仍在，负向直接命中表达安全或人才安全。 | 任何极正上探都应阻断。 | 只保留第五项B自身剩余，不把相邻项损害整体回填。 | 否 | 若压制强度接近极强负，需要规则级再判。 | 72-80 |",
-        "| 强正封顶 | 强正仍成立，但单维厚度、长期中枢治理或异质人才整合不足。 | 创业期授权强证、单一对象池厚、正证集中但未达极正门槛。 | 若出现中负升强负边界，应从封顶转入受压制或更低档。 | 仅保留第五项B上限，不把后续政绩加回。 | 否 | 若封顶与受压制并存，以更严格的压制结论为准。 | 68-75 |",
-        "| 中正 | 正负证据都存在，但都未达到强压制或高位上探门槛。 | 中等厚度的识人、授权、容谏、求言等。 | 一旦出现明确表达安全硬证，需下探到中正受压制或中负。 | 相邻项先切出，剩余只保留本项中性影响。 | 否 | 若中正证据主要来自对象光环，需要复核。 | 58-67 |",
-        "| 中正受中负压制 | 中正基础仍在，但已有中负边界对其形成明显压制。 | 有正向结构，但负向材料使其无法继续上探。 | 若边界负证转为中负升强负，需再下探。 | 剥离后的剩余只保留中负压力。 | 否 | 若中负边界扩大，需按正式规则重新确认。 | 48-57 |",
-        "| 中正受强负压制 | 中正基础已显著受压，且负向材料直接命中表达安全或人才安全。 | 正证还在，但强负核心已经显性出现。 | 强正上探必须阻断。 | 只保留第五项B剩余，不把政权安全、司法残酷整体回填。 | 否 | 若强负核心呈群体外溢，需要规则级确认。 | 38-47 |",
-        "| 中负 | 相邻项剥离后仍残留的中等负压，或弱负升中负已经成立。 | 轻到中等的表达安全外溢、用人失衡、边界负证。 | 若出现直接寒蝉/授权可信度破坏，需上调为强负。 | 先切政权安全、司法残酷、战果等相邻项，再留 B 项剩余。 | 否 | 若中负残余与强负硬证混在一起，需要再次分案。 | 20-37 |",
-        "| 强负 | 直接命中表达安全、人才安全、谏臣保护或授权可信度破坏。 | 群臣莫敢正言、明显寒蝉、人才退缩、谏臣/能臣安全受损等。 | 一旦存在中负升强负边界，必须阻断极正/高位上探。 | 仍要剥离相邻项，但剥离后若仍是硬证，保留强负。 | 否 | 若强负与极负边界不清，需规则级确认。 | 0-19 |",
+        markdown_display_table(
+            human_table_fields("score_mapping_draft", display_config),
+            score_rows,
+            display_config=display_config,
+        ),
         "",
         "## 六、正式出分前置条件",
         "",
@@ -1392,14 +1494,7 @@ def render_split_index_page(
             "## 总览索引",
             "",
             markdown_display_table(
-                [
-                    "person",
-                    "auto_band_direction",
-                    "auto_feature_digest",
-                    "cluster_count_digest",
-                    "display_warning_count",
-                    "detail_page",
-                ],
+                human_table_fields("auto_adjudication_overview", config),
                 overview_rows,
                 display_config=config,
                 table_appendix_items=table_appendix_items,
@@ -1602,14 +1697,7 @@ def render_auto_adjudication(
             "## 自动结算总览",
             "",
             markdown_display_table(
-                [
-                    "person",
-                    "auto_band_direction",
-                    "confidence",
-                    "negative_boundary_tier",
-                    "negative_boundary_blocking_digest",
-                    "rule_sensitive_points",
-                ],
+                human_table_fields("auto_adjudication_matrix", display_config),
                 overview_rows,
                 display_config=display_config,
             ),
@@ -1665,15 +1753,7 @@ def render_formal_landing_table() -> str:
         "## 一、正式落地总览",
         "",
         markdown_display_table(
-            [
-                "person",
-                "auto_band_direction",
-                "formal_band_draft",
-                "confidence",
-                "negative_boundary_tier",
-                "not_scored_flag",
-                "ranking_suppressed_flag",
-            ],
+            human_table_fields("formal_landing_overview", display_config),
             overview_rows,
             display_config=display_config,
             table_appendix_items=table_appendix_items,
@@ -1734,13 +1814,7 @@ def render_three_pilot_closure() -> str:
         "## 一、内部闭环总览",
         "",
         markdown_display_table(
-            [
-                "person",
-                "final_band",
-                "internal_trial_score_range",
-                "internal_trial_score",
-                "extend_pilot_ready",
-            ],
+            human_table_fields("trial_closure_overview", display_config),
             overview_rows,
             display_config=display_config,
             table_appendix_items=table_appendix_items,

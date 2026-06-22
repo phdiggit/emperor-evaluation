@@ -98,6 +98,19 @@ HUMAN_FORBIDDEN_HEADER_MARKERS = (
 )
 RAW_ENUM_RE = re.compile(r"\b[a-z]+(?:_[a-z0-9]+){1,}\b")
 HUMAN_REVIEW_TABLE_KEY_BY_HEADING = {
+    "自动结算总览": "auto_adjudication_matrix",
+    "总览索引": "auto_adjudication_overview",
+    "一、正式落地总览": "formal_landing_overview",
+    "一、内部闭环总览": "trial_closure_overview",
+    "五、档位到分值映射草案": "score_mapping_draft",
+    "人员准备度总览": "expanded_batch_readiness",
+    "定向补证来源": "targeted_supplement_sources",
+    "定向补证证据卡": "targeted_supplement_evidence_cards",
+    "朱元璋 micro supplement 来源": "targeted_supplement_sources",
+    "朱元璋 micro supplement 证据卡": "micro_supplement_evidence_cards",
+    "readiness follow-up 人物总览": "expanded_batch_followup",
+    "会审总览": "human_review_package_overview",
+    "逐人准备表": "relative_band_preparation",
     "证据组裁量结论": "net_evidence_clusters",
     "原子证据卡": "net_evidence_cards",
     "证据卡": "evidence_cards_index",
@@ -430,6 +443,7 @@ def validate_human_review_markdown(root: Path, errors: list[str]) -> None:
         _validate_markdown_links(path, lines, errors)
         relative_parts = path.relative_to(human_root).parts
         is_evidence_chain = bool(relative_parts and relative_parts[0] == "证据链")
+        is_auto_adjudication_chain = bool(relative_parts and relative_parts[0] == "自动裁判链")
         is_appendix = path.parent.name == "附录"
         if is_evidence_chain and not is_appendix and HUMAN_REVIEW_DECLARATION not in content:
             errors.append(f"{path}: missing human review purpose declaration")
@@ -439,15 +453,17 @@ def validate_human_review_markdown(root: Path, errors: list[str]) -> None:
                     if marker in header:
                         errors.append(f"{path}:{header_index + 1}: human review table exposes machine field {marker!r}")
             table_key = HUMAN_REVIEW_TABLE_KEY_BY_HEADING.get(heading)
-            if is_evidence_chain and not is_appendix and table_key:
+            if (is_evidence_chain or is_auto_adjudication_chain) and not is_appendix and table_key:
                 allowed_fields = set(human_review_table_fields(table_key, display_config))
                 for header in header_cells:
                     field = header_to_field.get(header)
                     if field is None:
-                        errors.append(f"{path}:{header_index + 1}: human review table header is not mapped to a configured field: {header!r}")
+                        errors.append(
+                            f"{path}:{header_index + 1}: human review table {heading!r} header is not mapped to a configured field: {header!r}"
+                        )
                     elif field not in allowed_fields:
                         errors.append(
-                            f"{path}:{header_index + 1}: human review table field {field!r} is not allowed by table_fields.{table_key}"
+                            f"{path}:{header_index + 1}: human review table {heading!r} field {field!r} is not allowed by table_fields.{table_key}"
                         )
             row_index = header_index + 2
             while row_index < len(lines):
@@ -460,7 +476,9 @@ def validate_human_review_markdown(root: Path, errors: list[str]) -> None:
                             f"{path}:{row_index + 1}: table cell longer than 72 chars must use a positioned appendix link"
                         )
                     if cell and not cell.startswith("[") and RAW_ENUM_RE.search(cell):
-                        errors.append(f"{path}:{row_index + 1}: human review table exposes unmapped enum value {cell!r}")
+                        errors.append(
+                            f"{path}:{row_index + 1}: human review table {heading!r} exposes unmapped enum value {cell!r}"
+                        )
                 row_index += 1
 
 

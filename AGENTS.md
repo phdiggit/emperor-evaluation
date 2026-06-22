@@ -5,22 +5,17 @@ English anchors are included for execution stability; Chinese remains the source
 
 ## 优先级 / Priority
 
-1. Issue / PR 的变更白名单与禁止事项 / issue or PR allowlist and forbiddens
-2. 本 `AGENTS.md`
-3. 当前会话里已确认可用的仓库规则与约定 / confirmed local repo rules
-
-上层规则和下层偏好冲突时，以上层规则为准。When rules conflict, higher priority wins.
+执行顺序：Issue / PR 白名单与禁止事项 > 本 `AGENTS.md` > 当前会话已确认的仓库规则。冲突时以上层规则为准。
+Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed local repo rules.
 
 ## 基本原则 / Basic Rules
 
-- 先用本地事实和命令判断，再行动；不先泛问。Use local facts first; do not ask broad questions.
-- 范围明确时，一次完成白名单内必要步骤；只有范围、风险或外部状态会明显影响结果时才暂停确认。Complete in-scope work end to end.
-- 只读诊断保持只读；需要改文件时，先确认最小改动路径。Read-only means read-only; find the minimal edit path before writing.
-- 返工或收口任务先定位最小修改点。Do not repeatedly read skill / memory unless explicitly needed; usually confirm only branch, PR head, and `git status`.
-- 修改前后都核对 `git diff --name-only`；白名单外改动必须还原。Check diff scope before and after edits.
-- `exports/markdown_views/` 是导出视图层，不是事实源；除非任务明确要求，不批量重写旧导出。Exports are views, not facts.
-- `data/*_batches/` 是过渡批次层；确认唯一数据源前不删除。Do not delete batch data before source ownership is clear.
-- 清理、归档、删除候选第一轮只写诊断或候选清单，不直接删改。Cleanup/archive/delete starts with diagnostics or candidates only.
+- 先用本地事实和命令判断；范围明确时一次完成白名单内必要步骤。Use local facts first and complete in-scope work end to end.
+- 只读诊断保持只读；需要改文件时，先锁定最小改动路径。Read-only means read-only; find the minimal edit path before writing.
+- 修改前后核对 `git diff --name-only`；白名单外改动必须还原。Check diff scope before and after edits.
+- 返工或收口先定位最小修改点；通常只确认 branch、PR head 和 `git status`。For repair or closeout, start from the smallest fix.
+- 生成物不是事实源；改导出内容前先定位生成器，除非任务明确要求，不批量重写旧导出。Generated outputs are views; find the generator before editing exports.
+- 清理、归档、删除和 `data/*_batches/` 治理，第一轮只写诊断或候选清单。Cleanup/archive/delete and batch-data governance start with diagnostics only.
 
 ## GitHub
 
@@ -57,6 +52,7 @@ English anchors are included for execution stability; Chinese remains the source
 ## 改动与验证 / Changes And Validation
 
 - 大范围改脚本前，先用 `rg` / `git grep` 精确定位，再做小补丁。Locate precisely before large script edits.
+- 机械替换只在白名单路径内做；测试文件只改展示断言，不全局替换 fixture key。Keep mechanical rewrites scoped.
 - 大脚本治理必须小步重构并有测试锁定；业务 PR 不顺手拆脚本。Keep business PRs scoped.
 - 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate_all.py`。
 - 验证命令若生成或重写 `exports/`、generated docs 或其他范围外副产物，先记录通过结果，再清理副产物；清理后只做 `git status`、`git diff --name-only`、`git diff --check` 等范围核对，不重复运行会再次生成副产物的全量命令。
