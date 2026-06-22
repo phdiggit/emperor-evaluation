@@ -40,6 +40,10 @@ English anchors are included for execution stability; Chinese remains the source
 - 中文文本读写、JSON / JSONL 结构化改写优先用仓库工具或 Python 标准库；JSON 输出用 UTF-8、`ensure_ascii=False`、稳定缩进。
 - PR body、临时 Markdown、说明文件使用 UTF-8 no BOM。
 - PR body 如需更新，优先一次性写入 UTF-8 no BOM 文件再调用 `gh pr edit --body-file`。If PR body update fails, do not debug BOM repeatedly; report “PR body 更新失败/待人工处理” and preserve local facts.
+- PR body / 大段 GitHub 正文生成规则：禁止用 PowerShell inline 字符串直接写大段 Markdown PR body。凡 PR body、长 issue comment、长 review comment 中包含中文、Markdown 代码围栏、反引号、长文件清单或多段列表，必须先用 `scripts/dev/pr_body_tool.py` 生成并校验 UTF-8 no BOM 文件。
+- 更新 PR body 必须使用 `gh pr edit --body-file <已校验文件>`，或使用 `scripts/dev/pr_body_tool.py apply`；不得使用 `gh pr edit --body "...大段正文..."`。
+- 提交前必须检查 GitHub 正文不含 `???`、U+FFFD、控制字符、损坏代码围栏。
+- 开发辅助脚本目录规则：新增给 Codex/开发者使用的辅助工具，应放入 `scripts/dev/`；不得继续把开发辅助轮子直接放在 `scripts/` 根目录。`scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。
 
 ## 改动与验证 / Changes And Validation
 
