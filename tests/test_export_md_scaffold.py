@@ -1,22 +1,14 @@
 from __future__ import annotations
 
-import importlib.util
 import sqlite3
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
-SCAFFOLD_SPEC = importlib.util.spec_from_file_location(
-    "export_md_scaffold",
-    ROOT / "scripts" / "export_md_scaffold.py",
-)
-assert SCAFFOLD_SPEC is not None
-scaffold = importlib.util.module_from_spec(SCAFFOLD_SPEC)
-sys.modules[SCAFFOLD_SPEC.name] = scaffold
-assert SCAFFOLD_SPEC.loader is not None
-SCAFFOLD_SPEC.loader.exec_module(scaffold)
+from shared import export_md_scaffold as scaffold
 
 
 def test_export_db_table_markdown_renders_basic_table(tmp_path: Path) -> None:
