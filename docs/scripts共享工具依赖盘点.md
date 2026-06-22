@@ -1,5 +1,7 @@
 # scripts 共享工具依赖盘点
 
+当前实现路径与迁移状态以 `docs/agent_rules/scripts_registry.json` 为准；本文保留依赖与风险说明。
+
 本文件用于 shared 分层治理，记录共享工具依赖盘点、目录规划和迁移规则说明。#193 已迁移 `export_md_scaffold.py`，#194 已迁移 `i5b_cluster_warning_display.py`，#196 已迁移 `i5b_markdown_display.py`。`config_loaders.py` 已迁移到 `scripts/shared/`，旧路径保留兼容 wrapper；迁移前依赖审计见 `docs/config_loaders迁移前依赖审计.md`。
 
 ## 一、当前共享工具清单

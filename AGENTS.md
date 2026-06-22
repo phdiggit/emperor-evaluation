@@ -43,35 +43,14 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - PR body 更新失败时，不反复调试 BOM；报告“PR body 更新失败/待人工处理”，并保留本地正文文件和验证事实。
 - 提交前必须检查 GitHub 正文不含 `???`、U+FFFD、控制字符、损坏代码围栏。
 
-## 开发辅助脚本 / Development Helper Scripts
+## 脚本治理 / Script Governance
 
-- 新增给 Codex/开发者使用的辅助工具，应放入 `scripts/dev/`；不得继续把开发辅助轮子直接放在 `scripts/` 根目录。
-- 新增 validator 应放入 `scripts/validate/`；`scripts/` 根目录旧 validator 仅作为兼容 wrapper，不应继续承载主逻辑。
-- `validate_evidence.py`、`validate_canonical_data_integrity.py`、`validate_view_configs.py`、`validate_chinese_view_configs.py`、`validate_review_configs.py`、`validate_config_readability.py` 均已迁移；修改时优先改 `scripts/validate/` 下真实实现，旧路径仅作兼容 wrapper。
-- 不得在普通功能 PR 中把已迁移 validator 的真实实现放回 `scripts/` 根目录；修改验证规则时必须运行对应直接测试和 `validate_all`。
-- 新增 exporter 应放入 `scripts/export/`；`scripts/` 根目录旧 exporter 仅作为兼容 wrapper，不应继续承载主逻辑。
-- 修改已迁移 validator 时，优先改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
-- 修改已迁移 exporter 时，优先改 `scripts/export/` 下真实实现，再确认旧路径 wrapper 仍可 import/运行。
-- 已迁移 exporter 的真实实现位于 `scripts/export/`；旧路径只作为兼容 wrapper。
-- `export_md.py` 已迁移；修改时优先改 `scripts/export/export_md.py`，旧路径 `scripts/export_md.py` 仅作兼容 wrapper。
-- 新增被多个 exporter / validator / pipeline 共用的工具，应放入 `scripts/shared/`。
-- 当前已迁移共享工具的真实实现位于 `scripts/shared/`；修改时优先改新路径，再确认旧路径 wrapper 仍可 import。
-- 迁移共享工具必须单独开 PR，保留旧路径 wrapper。
-- 修改已迁移的共享工具时，优先改 `scripts/shared/` 下真实实现，再确认旧路径 wrapper 仍可 import。
-- `validate_all.py` 已迁移；修改时优先改 `scripts/validate/validate_all.py`，旧路径 `scripts/validate_all.py` 仅作兼容 wrapper。
-- `export_md_scaffold.py` 已迁移；修改时优先改 `scripts/shared/export_md_scaffold.py`，旧路径仅作兼容 wrapper。
-- `i5b_cluster_warning_display.py` 已迁移；修改时优先改 `scripts/shared/i5b_cluster_warning_display.py`，旧路径仅作兼容 wrapper。
-- `i5b_markdown_display.py` 已迁移；修改时优先改 `scripts/shared/i5b_markdown_display.py`，旧路径仅作兼容 wrapper。
-- 维护 `i5b_markdown_display.py` 必须参考 `docs/i5b_markdown_display迁移前依赖审计.md`。
-- 修改 `i5b_markdown_display.py` 时必须验证人审导出、机器审计导出、表头白名单和长字段附录相关测试。
-- `config_loaders.py` 已迁移；修改该模块时优先改 `scripts/shared/config_loaders.py`，旧路径 `scripts/config_loaders.py` 仅作兼容 wrapper。
-- 维护 `config_loaders.py` 必须参考 `docs/config_loaders迁移前依赖审计.md`。
-- 修改 `config_loaders.py` 时必须验证所有配置路径常量、config comments validator、人物池、视图分组、关键词配置和证据簇提示相关测试。
-- 不得在普通 exporter/validator 迁移 PR 中顺手迁移共享工具。
-- 不得一次性大规模迁移 exporter、build、pipeline 或 matrix 类脚本；这类脚本后续按 PR 分阶段治理。
-- 不得一次性大规模迁移 build、pipeline、matrix 类脚本；不得在普通功能 PR 中把已迁移入口的真实实现重新放回 `scripts/` 根目录。
-- `scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。
-- 目录规范见 `docs/scripts目录规范.md`。
+- 任务涉及 `scripts/**` 时，修改前必须读取 `scripts/AGENTS.md`。
+- 开发工具、validator、exporter 和共享工具按 `scripts/AGENTS.md` 分层；`scripts/` 根目录只保留批准的稳定入口、未迁移历史脚本和兼容 wrapper。
+- 修改已迁移脚本时只改真实实现，并验证新旧 import/CLI；wrapper 不承载主逻辑。
+- 普通功能 PR 不顺手迁移其他职责域；迁移任务按同一职责链成批处理。
+- 当前路径、迁移状态、wrapper、审计文档和专属测试以 `docs/agent_rules/scripts_registry.json` 为准。
+- scripts 治理 PR 开 PR 前必须运行适用测试、`python scripts/validate_all.py`、scope-check 和 agents-check。
 
 ## 改动与验证 / Changes And Validation
 

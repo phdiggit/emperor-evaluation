@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 
@@ -8,6 +9,7 @@ AUDIT_DOC = ROOT / "docs" / "i5b_markdown_display迁移前依赖审计.md"
 SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
 LAYOUT_DOC = ROOT / "docs" / "scripts目录规范.md"
 AGENTS = ROOT / "AGENTS.md"
+REGISTRY = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
 SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
 
@@ -59,14 +61,16 @@ def test_i5b_markdown_display_has_been_migrated_with_legacy_wrapper() -> None:
 def test_related_docs_and_agents_reference_migration_audit() -> None:
     audit_doc_name = "docs/i5b_markdown_display迁移前依赖审计.md"
     assert audit_doc_name in SHARED_PLAN_DOC.read_text(encoding="utf-8")
-    assert audit_doc_name in AGENTS.read_text(encoding="utf-8")
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    module = next(module for module in registry["modules"] if module["id"] == "i5b_markdown_display")
+    assert audit_doc_name in module["audit_docs"]
+    assert "docs/agent_rules/scripts_registry.json" in AGENTS.read_text(encoding="utf-8")
 
 
 def test_layout_doc_keeps_i5b_markdown_display_unmigrated() -> None:
     content = LAYOUT_DOC.read_text(encoding="utf-8")
-    assert "i5b_markdown_display.py" in content
-    assert "已迁移" in content
-    assert "docs/i5b_markdown_display迁移前依赖审计.md" in content
+    assert "docs/agent_rules/scripts_registry.json" in content
+    assert "审计文档" in content
 
 
 def test_new_and_legacy_import_paths_remain_available() -> None:

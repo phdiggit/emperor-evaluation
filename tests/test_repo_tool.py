@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import importlib.util
+import json
+import subprocess
 import sys
+import time
+from types import SimpleNamespace
 from pathlib import Path
 
 import pytest
@@ -28,12 +32,83 @@ ALLOWED_CHANGED_FILES = {
 
 
 def load_repo_tool(repo_root: Path):
-    spec = importlib.util.spec_from_file_location("repo_tool_under_test", TOOL_PATH)
+    spec = importlib.util.spec_from_file_location(f"repo_tool_under_test_{id(repo_root)}", TOOL_PATH)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     module.ROOT = repo_root
     return module
+
+
+def run_git(repo_root: Path, *args: str) -> str:
+    result = subprocess.run(
+        ["git", "-c", "core.quotepath=false", *args],
+        cwd=repo_root,
+        capture_output=True,
+        text=False,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(result.stderr.decode("utf-8", errors="replace"))
+    return result.stdout.decode("utf-8")
+
+
+def init_git_repo(repo_root: Path) -> None:
+    repo_root.mkdir(parents=True)
+    run_git(repo_root, "init", "-b", "GPT")
+    run_git(repo_root, "config", "user.name", "Codex Test")
+    run_git(repo_root, "config", "user.email", "codex@example.test")
+
+
+def commit_all(repo_root: Path, message: str) -> None:
+    last_error: AssertionError | None = None
+    for _ in range(3):
+        try:
+            run_git(repo_root, "add", ".")
+            run_git(repo_root, "commit", "-m", message)
+            return
+        except AssertionError as exc:
+            last_error = exc
+            if "unable to write new index file" not in str(exc):
+                raise
+            lock = repo_root / ".git" / "index.lock"
+            if lock.exists():
+                lock.unlink()
+            time.sleep(0.1)
+    assert last_error is not None
+    raise last_error
+
+
+def write_minimal_registry(repo_root: Path) -> None:
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "validate": "scripts/validate",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "tool",
+                "category": "dev",
+                "status": "active",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": None,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            }
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": ["data/**", "*.sqlite", "*.db"],
+    }
+    target = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def changed_files() -> set[str]:
@@ -124,13 +199,274 @@ def test_git_helpers_use_safe_encoding_and_normalize_paths(tmp_path: Path, monke
             )
         return FakeResult("中文\\路径.md\n.tmp/cache.txt\nnested\\more\\file.txt\n".encode("utf-8"))
 
-    monkeypatch.setattr(repo_tool.subprocess, "run", fake_run)
+    monkeypatch.setattr(repo_tool, "subprocess", SimpleNamespace(run=fake_run))
 
     assert repo_tool.changed_files("origin/GPT...HEAD") == ["nested/more/file.txt", "中文/路径.md"]
     assert repo_tool.status_files() == ["nested/more/file.txt", "中文/路径.md"]
     assert calls[0][0][:3] == ("git", "-c", "core.quotepath=false")
     assert calls[0][3] is False
     assert calls[0][2] is True
+
+
+def test_snapshot_lists_chinese_paths_and_is_stable(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    init_git_repo(repo_root)
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("# root\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    (repo_root / "docs" / "中文说明.md").write_text("你好\n", encoding="utf-8")
+    commit_all(repo_root, "initial")
+
+    repo_tool = load_repo_tool(repo_root)
+    first = repo_tool.build_snapshot("HEAD")
+    second = repo_tool.build_snapshot("HEAD")
+
+    assert first == second
+    assert "docs/中文说明.md" in first["tracked_files"]
+    assert first["scripts"]["dev"] == ["scripts/dev/tool.py"]
+    assert first["tests"] == ["tests/test_tool.py"]
+
+
+def test_snapshot_output_writes_utf8_no_bom(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    init_git_repo(repo_root)
+    (repo_root / "AGENTS.md").write_text("# root\n", encoding="utf-8")
+    commit_all(repo_root, "initial")
+
+    repo_tool = load_repo_tool(repo_root)
+    output = ".tmp/repo_context/snapshot.json"
+    repo_tool.write_json_output(repo_tool.build_snapshot("HEAD"), output)
+
+    data = (repo_root / output).read_bytes()
+    assert not data.startswith(b"\xef\xbb\xbf")
+    assert json.loads(data.decode("utf-8"))["ref"] == "HEAD"
+
+
+def test_pr_context_detects_added_modified_and_rename(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    init_git_repo(repo_root)
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("ROOT = 1\n", encoding="utf-8")
+    (repo_root / "scripts" / "old_name.py").write_text("print('old')\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("scripts/dev/tool.py\n", encoding="utf-8")
+    write_minimal_registry(repo_root)
+    commit_all(repo_root, "base")
+    base_sha = run_git(repo_root, "rev-parse", "HEAD").strip()
+
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("ROOT = 2\n", encoding="utf-8")
+    (repo_root / "docs" / "new.md").write_text("new\n", encoding="utf-8")
+    run_git(repo_root, "mv", "scripts/old_name.py", "scripts/new_name.py")
+    commit_all(repo_root, "change")
+
+    repo_tool = load_repo_tool(repo_root)
+    context = repo_tool.build_pr_context(base_sha, "HEAD")
+    by_path = {item["path"]: item for item in context["changed_files"]}
+
+    assert context["base_sha"] == base_sha
+    assert context["head_sha"] == run_git(repo_root, "rev-parse", "HEAD").strip()
+    assert context["merge_base_sha"] == base_sha
+    assert by_path["docs/new.md"]["status"] == "A"
+    assert by_path["scripts/dev/tool.py"]["status"] == "M"
+    assert by_path["scripts/new_name.py"]["status"] == "R"
+    assert by_path["scripts/new_name.py"]["additions"] == 0
+    assert by_path["scripts/new_name.py"]["deletions"] == 0
+    assert context["renames"] == [{"old_path": "scripts/old_name.py", "path": "scripts/new_name.py"}]
+    assert {"path": "scripts/new_name.py", "risk": "moved_python_file"} in context["path_risks"]
+    assert any(risk["risk"] == "patch_touches_root" for risk in context["path_risks"])
+
+
+def test_parse_numstat_path_keeps_brace_rename_prefix(tmp_path: Path) -> None:
+    repo_tool = load_repo_tool(tmp_path)
+
+    assert repo_tool._parse_numstat_path("scripts/{old_name.py => new_name.py}") == "scripts/new_name.py"
+    assert repo_tool._parse_numstat_path("scripts/{old => new}/tool.py") == "scripts/new/tool.py"
+
+
+def test_scope_check_blocks_forbid_and_untracked_files(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    init_git_repo(repo_root)
+    (repo_root / "scripts" / "dev").mkdir(parents=True)
+    (repo_root / "tests").mkdir()
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    write_minimal_registry(repo_root)
+    commit_all(repo_root, "base")
+
+    (repo_root / "data").mkdir()
+    (repo_root / "data" / "bad.json").write_text("{}\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_scope("HEAD", [], [], [])
+
+    assert problems == ["data/bad.json: forbid=data/**"]
+
+
+def test_scope_check_supports_allow_and_ignores_tmp(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    init_git_repo(repo_root)
+    (repo_root / "scripts" / "dev").mkdir(parents=True)
+    (repo_root / "tests").mkdir()
+    (repo_root / "docs").mkdir()
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    write_minimal_registry(repo_root)
+    commit_all(repo_root, "base")
+
+    (repo_root / "docs" / "ok.md").write_text("ok\n", encoding="utf-8")
+    (repo_root / "tests" / "bad.py").write_text("bad\n", encoding="utf-8")
+    (repo_root / ".tmp" / "repo_context").mkdir(parents=True)
+    (repo_root / ".tmp" / "repo_context" / "ignored.json").write_text("{}\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_scope("HEAD", [], ["docs/**"], [])
+
+    assert problems == ["tests/bad.py: not allowed by --allow"]
+
+
+def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\nextra\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "scripts" / "loose.py").write_text("print('loose')\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 1, "max_bytes": 10},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "validate": "scripts/validate",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "tool",
+                "category": "dev",
+                "status": "active",
+                "implementation": "scripts/dev/missing.py",
+                "legacy_wrapper": None,
+                "audit_docs": [],
+                "required_tests": ["tests/missing_test.py"],
+            }
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": [],
+    }
+    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "AGENTS.md: 3 lines exceeds 1" in problems
+    assert "AGENTS.md: 66 bytes exceeds 10" in problems
+    assert "scripts/dev/missing.py: implementation path missing for tool" in problems
+    assert "tests/missing_test.py: missing required_tests path for tool" in problems
+    assert "scripts/loose.py: root script is neither legacy_wrapper nor root_exception" in problems
+
+
+def test_agents_check_requires_reason_for_custom_wrapper_line_limit(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    (repo_root / "scripts" / "tool.py").write_text("from dev.tool import *\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "validate": "scripts/validate",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "tool",
+                "category": "dev",
+                "status": "migrated",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": "scripts/tool.py",
+                "max_wrapper_lines": 40,
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            }
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": [],
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/tool.py: custom max_wrapper_lines requires exception_reason" in problems
+
+
+def test_agents_check_scans_wrapper_markers_even_with_exception_reason(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
+    wrapper_body = "\n".join(["from dev.tool import *", "def build():", "    return 'not a wrapper'"]) + "\n"
+    (repo_root / "scripts" / "tool.py").write_text(wrapper_body, encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry = {
+        "schema_version": 1,
+        "agents_budgets": {
+            "AGENTS.md": {"max_lines": 85, "max_bytes": 12288},
+            "scripts/AGENTS.md": {"max_lines": 90, "max_bytes": 14336},
+        },
+        "directories": {
+            "dev": "scripts/dev",
+            "validate": "scripts/validate",
+            "export": "scripts/export",
+            "shared": "scripts/shared",
+        },
+        "modules": [
+            {
+                "id": "tool",
+                "category": "dev",
+                "status": "migrated",
+                "implementation": "scripts/dev/tool.py",
+                "legacy_wrapper": "scripts/tool.py",
+                "max_wrapper_lines": 40,
+                "exception_reason": "temporary compatibility shim",
+                "audit_docs": [],
+                "required_tests": ["tests/test_tool.py"],
+            }
+        ],
+        "root_exceptions": [],
+        "default_forbidden_patterns": [],
+    }
+    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/tool.py: wrapper appears to contain implementation marker 'def build'" in problems
 
 
 def test_repo_tool_source_mentions_git_encoding_guards() -> None:
