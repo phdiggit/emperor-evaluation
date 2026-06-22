@@ -67,7 +67,6 @@ def test_registry_records_build_directory_and_modules() -> None:
         "status": "migrated",
     }
     assert "scripts/build_db.py" not in root_exception_paths
-    assert "scripts/run_matrix.py" in root_exception_paths
 
 
 def test_docs_and_agents_mention_stable_build_rules() -> None:

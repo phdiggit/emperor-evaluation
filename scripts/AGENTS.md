@@ -14,6 +14,7 @@
 - `scripts/validate/`：validator 真实实现目录，新增 validator 默认放在这里。
 - `scripts/export/`：exporter 真实实现目录，新增 exporter 默认放在这里。
 - `scripts/build/`：数据库和其他构建步骤的真实实现目录；构建脚本测试不得直接覆盖真实工作区数据库，默认使用 `tmp_path` 或临时仓库。
+- `scripts/matrix/`：矩阵规划和矩阵视图生成脚本的真实实现目录；matrix 测试默认使用 `tmp_path`、临时输出路径或临时仓库，不允许直接重写真实 `exports/**`。矩阵骨架不等于检索结果，不得写入评分或证据数据。
 - `scripts/shared/`：多职责链共享实现目录，放置 exporter、validator、pipeline 共同依赖的工具。
 - `scripts/` 根目录：仅允许 registry 登记的稳定入口、兼容 wrapper 和尚未迁移脚本；新增脚本不得无理由放回根目录。
 
@@ -34,7 +35,7 @@
 ## 迁移纪律
 
 - 普通业务 PR 不顺手迁移其他脚本，也不顺手改业务语义。
-- 同职责、同风险、同验证链的机械迁移可以批量处理；build、pipeline、matrix 类脚本仍按后续专门 PR 分阶段治理。
+- 同职责、同风险、同验证链的机械迁移可以批量处理；build、pipeline、matrix 类脚本按专门 PR 分阶段治理。
 - 迁移任务先锁定影响面和测试，再做小步重构；不要通过批量替换绕过审计。
 - 共享工具迁移必须单独治理，并保留旧路径 wrapper。
 

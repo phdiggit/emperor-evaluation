@@ -34,6 +34,12 @@
 
 数据库构建测试应隔离到 `tmp_path` 或临时仓库，避免直接删除、覆盖或重新创建真实工作区的 `evidence_cache.sqlite`。根目录脚本当前状态继续由 `docs/agent_rules/scripts_registry.json` 管理。
 
+## scripts/matrix/
+
+`scripts/matrix/` 是矩阵规划和矩阵视图生成脚本的真实实现目录。矩阵脚本可以生成人工审核使用的矩阵骨架，但矩阵骨架不等于检索结果，不得写入评分、证据事实、search logs、evidence cards 或数据库副产物。
+
+矩阵测试必须隔离输出，默认使用 `tmp_path`、临时输出路径或临时仓库，避免直接重写真实工作区的 `exports/**`。当前路径、wrapper 和迁移状态继续由 `docs/agent_rules/scripts_registry.json` 管理。
+
 ## scripts/shared/
 
 `scripts/shared/` 是共享工具真实实现目录。新增被 exporter、validator、pipeline 共同依赖的工具，应放入这里，不应继续把共享主逻辑直接放在 `scripts/` 根目录。
@@ -44,7 +50,7 @@
 
 ## scripts/ 根目录
 
-`scripts/` 根目录只保留 registry 登记的历史脚本、尚未迁移的 build / matrix / pipeline 类脚本、稳定入口和必要的旧路径兼容 wrapper。
+`scripts/` 根目录只保留 registry 登记的历史脚本、尚未迁移的职责域脚本、稳定入口和必要的旧路径兼容 wrapper。
 
 新增 validator 不应继续放在 `scripts/` 根目录。新增 exporter 应放入 `scripts/export/`。新增共享工具应放入 `scripts/shared/`。build、pipeline、matrix 类脚本后续再分批治理，不得顺手迁移。
 
