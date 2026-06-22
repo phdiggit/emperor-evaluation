@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -9,25 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-SCAFFOLD_SPEC = importlib.util.spec_from_file_location(
-    "export_md_scaffold",
-    ROOT / "scripts" / "export_md_scaffold.py",
-)
-assert SCAFFOLD_SPEC is not None
-scaffold = importlib.util.module_from_spec(SCAFFOLD_SPEC)
-sys.modules[SCAFFOLD_SPEC.name] = scaffold
-assert SCAFFOLD_SPEC.loader is not None
-SCAFFOLD_SPEC.loader.exec_module(scaffold)
-
-EXPANDED_BATCH1_SPEC = importlib.util.spec_from_file_location(
-    "export_i5b_expanded_batch1",
-    ROOT / "scripts" / "export_i5b_expanded_batch1.py",
-)
-assert EXPANDED_BATCH1_SPEC is not None
-expanded_batch1 = importlib.util.module_from_spec(EXPANDED_BATCH1_SPEC)
-sys.modules[EXPANDED_BATCH1_SPEC.name] = expanded_batch1
-assert EXPANDED_BATCH1_SPEC.loader is not None
-EXPANDED_BATCH1_SPEC.loader.exec_module(expanded_batch1)
+from export import export_i5b_expanded_batch1 as expanded_batch1
 
 
 def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:

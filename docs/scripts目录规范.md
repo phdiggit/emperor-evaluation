@@ -34,6 +34,14 @@ scripts/validate/validate_config_comments.py
 
 已迁移 exporter 的真实实现应位于 `scripts/export/`。`scripts/` 根目录旧 exporter 只作为兼容 wrapper，负责保留旧路径 import 或旧命令入口，不承载主逻辑。
 
+当前已迁移 exporter：
+
+- `export_i5b_auto_adjudication.py`
+- `export_i5b_views.py`
+- `export_i5b_net_evidence.py`
+- `export_i5b_expanded_batch1.py`
+- `export_project_doc_views.py`
+
 本阶段只分批迁移低风险 exporter。`export_md.py`、`export_md_scaffold.py` 以及 build、matrix、pipeline 类脚本暂不迁移，后续按小 PR 分批治理。
 
 ## scripts/

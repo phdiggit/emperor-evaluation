@@ -50,6 +50,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 新增 exporter 应放入 `scripts/export/`；`scripts/` 根目录旧 exporter 仅作为兼容 wrapper，不应继续承载主逻辑。
 - 修改已迁移 validator 时，优先改 `scripts/validate/` 下真实实现，再确认旧路径 wrapper 仍可运行。
 - 修改已迁移 exporter 时，优先改 `scripts/export/` 下真实实现，再确认旧路径 wrapper 仍可 import/运行。
+- 已迁移 exporter 的真实实现位于 `scripts/export/`；旧路径只作为兼容 wrapper。
 - 不得一次性大规模迁移 exporter、build、pipeline 或 matrix 类脚本；这类脚本后续按 PR 分阶段治理。
 - 不得一次性大规模迁移 `export_md.py`、build、pipeline、matrix 类脚本。
 - `scripts/` 根目录现有历史脚本暂不大规模移动，后续另开 PR 分阶段治理。
