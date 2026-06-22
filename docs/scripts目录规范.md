@@ -65,6 +65,8 @@
 
 修改已迁移脚本时，应优先修改 registry 指向的真实实现，并按 registry 的 `required_tests` 补充验证。若 wrapper 因历史兼容需要超过默认长度，应在 registry 中登记 `max_wrapper_lines` 和 `exception_reason`。
 
+wrapper 是边界适配层，不是内部依赖层。`scripts/` 下真实实现不得 import 其他 legacy wrapper；README、用户 CLI 和明确的 compatibility tests 可以继续使用旧入口。canonical import 状态由 `repo_tool` 自动检查。
+
 ## 迁移节奏
 
 迁移按职责链分批推进：validator、exporter、shared、build、pipeline、matrix 等职责域不要在普通功能 PR 中混迁。
@@ -81,6 +83,7 @@
 
 ```text
 python scripts/dev/repo_tool.py agents-check
+python scripts/dev/repo_tool.py canonical-imports-check
 python scripts/dev/repo_tool.py scope-check ...
 python scripts/validate_all.py
 ```

@@ -24,6 +24,7 @@
 - wrapper 不应定义 validate/export/build 等真实主逻辑函数，不应复制大段常量列表。
 - 修改已迁移脚本时优先改 registry 指向的真实实现，再确认旧路径 wrapper 仍可 import 或运行。
 - 同一职责链内的新旧入口都要保持兼容；普通功能 PR 不得把真实实现重新放回 `scripts/` 根目录。
+- 仓库内部真实实现必须依赖 registry 指向的 canonical implementation，不得通过 legacy wrapper 相互调用；旧 wrapper 只服务外部兼容和明确的 compatibility tests。
 
 ## 路径和 import
 
@@ -50,6 +51,7 @@
 - 修改已登记模块前，读取 registry 指向的 `audit_docs`；开 PR 前运行 registry 指定测试及适用治理检查。
 - 涉及 `scripts/**`、`tests/**` 或 validation 入口时，开 PR 前运行 `python scripts/validate_all.py`。
 - scripts 治理 PR 还必须运行 `python scripts/dev/repo_tool.py agents-check` 和适用的 `scope-check`。
+- scripts 治理 PR 还必须运行 `python scripts/dev/repo_tool.py canonical-imports-check`；`agents-check` 已包含 canonical import 检查。
 - 验证命令若产生范围外副产物，记录通过结果后清理副产物，再只做范围核对命令。
 
 ## registry 与审计文档
