@@ -6,7 +6,7 @@
 
 本次归档基于以下人审复核报告，并已获得人工确认继续执行受控归档：
 
-- `docs/i5b_formal_result_leavebehind_review_20260620.md`
+- `i5b_formal_result_leavebehind_review_20260620.md`
 
 ## 二、归档文件
 

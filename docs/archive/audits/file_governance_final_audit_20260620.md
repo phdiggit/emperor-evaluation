@@ -118,7 +118,7 @@
 
 1. `第五项B三人正式定档草案.md` 与 `第五项B三人正式定档表.md` 已归档到 `archive/file_governance_20260619/`。
 2. 当前正式入口仍是 `exports/markdown_views/第五项B三人正式定档落地表.md`。
-3. `docs/i5b_formal_result_leavebehind_archive_note_20260620.md` 已明确记录“仅归档，不改写内容，不改评分/档位/排名/裁判结论”。
+3. `i5b_formal_result_leavebehind_archive_note_20260620.md` 已明确记录“仅归档，不改写内容，不改评分/档位/排名/裁判结论”。
 4. `docs/数据层级与批次文件治理规则.md` 仍把正式定档落地表列为应保留的正式成果导出。
 5. `docs/post_file_governance_consistency_audit_20260620.md` 已确认旧 formal-result leavebehind 不再被活跃脚本/测试当作入口。
 
@@ -184,7 +184,7 @@ formal-result / scoring / ranking 文件整体仍处于受保护状态，没有�
 
 本次仓库改动仅新增本审计文档：
 
-- `docs/file_governance_final_audit_20260620.md`
+- 历史路径：`docs/file_governance_final_audit_20260620.md`
 
 除此之外：
 
