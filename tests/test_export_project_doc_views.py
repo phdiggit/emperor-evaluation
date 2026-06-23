@@ -11,24 +11,22 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from export import export_project_doc_views as doc_views
 
 
-def test_export_global_scale_decision_brief_docs_dual_writes_identical_content(tmp_path: Path) -> None:
+def test_export_global_scale_decision_brief_writes_canonical_export_only(tmp_path: Path) -> None:
     doc_path = tmp_path / "docs" / "brief.md"
     export_path = tmp_path / "exports" / "brief.md"
-    doc_views.GLOBAL_SCALE_BRIEF_DOC_PATH = doc_path
     doc_views.GLOBAL_SCALE_BRIEF_EXPORT_PATH = export_path
 
-    result_paths = doc_views.export_global_scale_decision_brief_docs()
+    result_path = doc_views.export_global_scale_decision_brief()
 
-    doc_content = doc_path.read_text(encoding="utf-8")
+    assert result_path == export_path
+    assert not doc_path.exists()
     export_content = export_path.read_text(encoding="utf-8")
-    assert result_paths == (doc_path, export_path)
-    assert doc_content == export_content
-    assert "全局总标尺决策简报" in doc_content
-    assert "方案 C 已规则级确认" in doc_content
-    assert "推荐的下一步规则确认顺序" in doc_content
+    assert "全局总标尺执行简报" in export_content
+    assert "V3.2" in export_content
+    assert "方案 C 是发布门槛和实施顺序" in export_content
 
 
-def test_export_expanded_i5b_candidate_pool_docs_reads_chinese_person_pool_config(
+def test_export_expanded_i5b_candidate_pool_reads_chinese_person_pool_config(
     tmp_path: Path, monkeypatch
 ) -> None:
     config_path = tmp_path / "第五项B_人物池.json"
@@ -54,10 +52,8 @@ def test_export_expanded_i5b_candidate_pool_docs_reads_chinese_person_pool_confi
         encoding="utf-8",
     )
 
-    doc_path = tmp_path / "docs" / "candidate-pool.md"
     export_path = tmp_path / "exports" / "candidate-pool.md"
     monkeypatch.setattr(doc_views.config_loaders, "I5B_PERSON_POOL_PATH", config_path)
-    doc_views.CANDIDATE_POOL_DOC_PATH = doc_path
     doc_views.CANDIDATE_POOL_EXPORT_PATH = export_path
 
     rendered = doc_views.render_expanded_i5b_candidate_pool()
@@ -67,20 +63,18 @@ def test_export_expanded_i5b_candidate_pool_docs_reads_chinese_person_pool_confi
     assert "P9" in rendered
 
 
-def test_export_expanded_i5b_candidate_pool_docs_dual_writes_identical_content(tmp_path: Path) -> None:
+def test_export_expanded_i5b_candidate_pool_writes_canonical_export_only(tmp_path: Path) -> None:
     doc_path = tmp_path / "docs" / "candidate-pool.md"
     export_path = tmp_path / "exports" / "candidate-pool.md"
-    doc_views.CANDIDATE_POOL_DOC_PATH = doc_path
     doc_views.CANDIDATE_POOL_EXPORT_PATH = export_path
 
-    result_paths = doc_views.export_expanded_i5b_candidate_pool_docs()
+    result_path = doc_views.export_expanded_i5b_candidate_pool()
 
-    doc_content = doc_path.read_text(encoding="utf-8")
+    assert result_path == export_path
+    assert not doc_path.exists()
     export_content = export_path.read_text(encoding="utf-8")
-    assert result_paths == (doc_path, export_path)
-    assert doc_content == export_content
-    assert "第五项B扩展试点候选池设计" in doc_content
-    assert "候选池按类型抽样，不按名气或预期高低抽样" in doc_content
-    assert "赵匡胤" in doc_content
-    assert "武则天" in doc_content
-    assert "recommended_priority" in doc_content
+    assert "第五项B扩展试点候选池设计" in export_content
+    assert "候选池按类型抽样，不按名气或预期高低抽样" in export_content
+    assert "赵匡胤" in export_content
+    assert "武则天" in export_content
+    assert "recommended_priority" in export_content

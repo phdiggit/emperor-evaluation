@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "baseline_ref": "origin/GPT",
-  "baseline_sha": "f53a1bfd2f0881f6871914720fd0588404d478c8",
+  "baseline_sha": "4ace85f72a79f9b3112bbac50e907e71dddc6b2a",
   "docs_agents_budget": {
     "max_lines": 80,
     "max_bytes": 12288
@@ -1235,49 +1235,6 @@
       "semantic_verification_required": false
     },
     {
-      "path": "docs/全局总标尺决策简报_讨论版.md",
-      "title": "全局总标尺决策简报",
-      "document_type": "generated_view",
-      "lifecycle_status": "generated",
-      "proposed_action": "regenerate_only",
-      "inbound_references": [
-        "docs/archive/audits/file_governance_final_audit_20260620.md",
-        "docs/多余文件候选确认报告.md",
-        "docs/多余文件第二批最终引用复核.md",
-        "docs/项目文件治理诊断报告.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_global_score_scale_brief.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": false,
-      "reason": "由 export_project_doc_views 生成并由全局总标尺测试覆盖，作为可重建视图保留，后续应通过 generator 更新。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md",
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_global_score_scale_brief.py"
-      ],
-      "content_role": "generated_output",
-      "placement_action": "move_to_exports",
-      "placement_targets": [
-        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md"
-      ],
-      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
-      "semantic_verification_required": false
-    },
-    {
       "path": "docs/史料检索总则与项目-人物双轴工作流_讨论版.md",
       "title": "史料检索总则与项目-人物双轴工作流（讨论版 v0.2）",
       "document_type": "active_design",
@@ -1426,9 +1383,9 @@
       "lifecycle_status": "active",
       "proposed_action": "keep",
       "inbound_references": [
-        "docs/全局总标尺决策简报_讨论版.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
-        "docs/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
@@ -1922,49 +1879,6 @@
       "semantic_verification_required": false
     },
     {
-      "path": "docs/第五项B三人试点内部闭环收尾.md",
-      "title": "第五项B三人试点内部闭环收尾",
-      "document_type": "generated_view",
-      "lifecycle_status": "generated",
-      "proposed_action": "regenerate_only",
-      "inbound_references": [
-        "docs/i5b_cluster_warning_display_integration_design_20260621.md",
-        "docs/i5b_warning_export_guarded_integration_design_20260621.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/validate/validate_human_readable_markdown_exports.py",
-        "tests/test_i5b_auto_adjudication.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": false,
-      "reason": "由已登记 generator 写出或同步验证，作为可重建视图保留，后续应通过 generator 更新。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/validate/validate_human_readable_markdown_exports.py",
-        "tests/test_i5b_auto_adjudication.py"
-      ],
-      "content_role": "generated_output",
-      "placement_action": "move_to_exports",
-      "placement_targets": [
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md"
-      ],
-      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
-      "semantic_verification_required": false
-    },
-    {
       "path": "docs/第五项B三人试点检索线索说明.md",
       "title": "第五项B三人试点检索线索说明",
       "document_type": "operational_guide",
@@ -2041,44 +1955,6 @@
       "semantic_verification_required": false
     },
     {
-      "path": "docs/第五项B扩展试点候选池设计.md",
-      "title": "第五项B扩展试点候选池设计",
-      "document_type": "generated_view",
-      "lifecycle_status": "generated",
-      "proposed_action": "regenerate_only",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_i5b_expanded_candidate_pool.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": false,
-      "reason": "由已登记 generator 写出或同步验证，作为可重建视图保留，后续应通过 generator 更新。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md",
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_i5b_expanded_candidate_pool.py"
-      ],
-      "content_role": "generated_output",
-      "placement_action": "move_to_exports",
-      "placement_targets": [
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md"
-      ],
-      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
-      "semantic_verification_required": false
-    },
-    {
       "path": "docs/第五项B正式工作流模板.md",
       "title": "第五项B正式工作流模板",
       "document_type": "canonical_spec",
@@ -2086,11 +1962,11 @@
       "proposed_action": "keep",
       "inbound_references": [
         "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-        "docs/全局总标尺决策简报_讨论版.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/多余文件第三批敏感候选复核.md",
         "docs/数据层级与批次文件治理规则.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
-        "docs/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
@@ -2128,9 +2004,9 @@
       "lifecycle_status": "active",
       "proposed_action": "keep",
       "inbound_references": [
-        "docs/全局总标尺决策简报_讨论版.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
-        "docs/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
@@ -2200,7 +2076,7 @@
       "proposed_action": "keep",
       "inbound_references": [
         "docs/post_file_governance_consistency_audit_20260620.md",
-        "docs/全局总标尺决策简报_讨论版.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "scripts/export/export_project_doc_views.py"
       ],
       "referenced_by_tests": [],
@@ -2231,57 +2107,6 @@
         "docs/archive/audits/第五项B评分映射总标尺对齐审计.md"
       ],
       "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/第五项B评分标尺与档位映射草案.md",
-      "title": "第五项B评分标尺与档位映射草案",
-      "document_type": "generated_view",
-      "lifecycle_status": "generated",
-      "proposed_action": "regenerate_only",
-      "inbound_references": [
-        "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
-        "docs/post_file_governance_consistency_audit_20260620.md",
-        "docs/第五项B评分映射总标尺对齐审计.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/validate/validate_human_readable_markdown_exports.py",
-        "tests/test_i5b_auto_adjudication.py",
-        "tests/test_i5b_global_scale_audit.py",
-        "tests/test_i5b_three_person_review_entry_doc.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": false,
-      "reason": "由已登记 generator 写出或同步验证，作为可重建视图保留，后续应通过 generator 更新。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/i5b_cluster_warning_display_integration_design_20260621.md",
-        "docs/i5b_warning_export_guarded_integration_design_20260621.md",
-        "docs/文档治理盘点报告.md",
-        "docs/第五项B三人专人审核入口.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/validate/validate_human_readable_markdown_exports.py",
-        "tests/test_i5b_auto_adjudication.py",
-        "tests/test_i5b_global_scale_audit.py",
-        "tests/test_i5b_three_person_review_entry_doc.py"
-      ],
-      "content_role": "generated_output",
-      "placement_action": "move_to_exports",
-      "placement_targets": [
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
-      ],
-      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
       "semantic_verification_required": false
     },
     {
@@ -2333,7 +2158,7 @@
       "proposed_action": "keep",
       "inbound_references": [
         "docs/第五项B评分映射总标尺对齐审计.md",
-        "docs/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py"
       ],
       "referenced_by_tests": [],
@@ -2400,9 +2225,9 @@
       "lifecycle_status": "active",
       "proposed_action": "keep",
       "inbound_references": [
-        "docs/全局总标尺决策简报_讨论版.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
-        "docs/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
@@ -2440,10 +2265,10 @@
       "lifecycle_status": "active",
       "proposed_action": "keep",
       "inbound_references": [
-        "docs/全局总标尺决策简报_讨论版.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/数据层级与批次文件治理规则.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
-        "docs/第五项B评分标尺与档位映射草案.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
@@ -2676,5 +2501,11 @@
     "governance_exception_root": "docs/agent_rules/** 保留机器可读治理状态。",
     "archive_exception_root": "docs/archive/** 保留历史追溯材料。",
     "non_docs_targets": "实例数据、配置值和可重建产物应分别回到 data、data/configs 或 exports；本 registry 只登记后续建议，不执行迁移。"
+  },
+  "retired_generated_document_paths": {
+    "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
+    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
+    "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
+    "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
   }
 }

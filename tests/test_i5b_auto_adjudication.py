@@ -24,7 +24,6 @@ AUTO_EXPORT_PATH = AUTO_CHAIN_ROOT / "自动结算草案" / "第五项B三人自
 AUTO_RULES_EXPORT_PATH = AUTO_CHAIN_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
-CLOSURE_DOC_PATH = ROOT / "docs" / "第五项B三人试点内部闭环收尾.md"
 CLOSURE_EXPORT_PATH = AUTO_CHAIN_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
 LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
@@ -165,7 +164,6 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(auto, "RULES_EXPORT_PATH", auto_chain_dir / "规则敏感点" / "第五项B自动结算规则敏感点清单.md")
     monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B三人正式定档落地表.md")
     monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B评分标尺与档位映射草案.md")
-    monkeypatch.setattr(auto, "CLOSURE_DOC_PATH", tmp_path / "docs" / "第五项B三人试点内部闭环收尾.md")
     monkeypatch.setattr(auto, "CLOSURE_EXPORT_PATH", auto_chain_dir / "试点闭环" / "第五项B三人试点内部闭环收尾.md")
     monkeypatch.setattr(auto, "LEGACY_FLAT_EXPORT_PATHS", (tmp_path / "exports" / "markdown_views" / "第五项B三人自动结算草案.md",))
 
@@ -570,7 +568,8 @@ def test_cli_include_display_warnings_writes_temp_auto_draft_only(
 
     assert DISPLAY_WARNING_HEADING in auto_content
     assert "测试 fixture 人工复核提示。" in auto_content
-    assert not auto.CLOSURE_DOC_PATH.exists()
+    retired_closure_doc = auto.MARKDOWN_VIEW_ROOT.parents[1] / "docs" / "第五项B三人试点内部闭环收尾.md"
+    assert not retired_closure_doc.exists()
     for content in (formal_content, score_map_content, closure_export_content):
         assert DISPLAY_WARNING_HEADING not in content
 
@@ -868,7 +867,13 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "第五项B评分标尺与档位映射草案" in score_map_content
     assert "状态：规则草案 / 待规则级确认 / 不正式出分" in score_map_content
     assert "不正式出分" in score_map_content
-    assert "待总标尺确认" in score_map_content
+    assert "V3.2 对齐边界" in score_map_content
+    assert "第五项B《用人与授权》正式上限为 45 分" in score_map_content
+    assert "内部100制相对试算指数" in score_map_content
+    assert "不是 V3.2 正式得分率" in score_map_content
+    assert "不能按 `45 × index / 100` 机械换算" in score_map_content
+    assert "本 PR 不改变任何人物现有 trial index" in score_map_content
+    assert "待总标尺确认" not in score_map_content
     assert "不得给李世民、刘秀、刘庄三人正式分" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
@@ -877,7 +882,11 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "内部试算分" in closure_export_content
     assert "不输出正式分，不排名，不生成阶段总榜或总榜" in closure_export_content
     assert not LEGACY_AUTO_EXPORT_PATH.exists()
-    assert "后续七大项完成后再统一映射" in closure_export_content
+    assert "V3.2 已定义正式总标尺和第五项B 45分上限" in closure_export_content
+    assert "100制相对诊断指数" in closure_export_content
+    assert "尚未进入45分正式映射" in closure_export_content
+    assert "不构成人物正式分、排名或总榜" in closure_export_content
+    assert "后续七大项完成后再统一映射" not in closure_export_content
     assert "**是否可进入扩展试点**：可" in closure_export_content
 
 

@@ -32,8 +32,8 @@ from export.export_i5b_views import (
     export_expanded_i5b_batch1_relative_band_preparation,
 )
 from export.export_project_doc_views import (
-    export_expanded_i5b_candidate_pool_docs,
-    export_global_scale_decision_brief_docs,
+    export_expanded_i5b_candidate_pool,
+    export_global_scale_decision_brief,
 )
 from shared import config_loaders
 from shared.export_md_scaffold import (
@@ -321,8 +321,8 @@ def main() -> int:
         ExportStep("expanded_batch1_readiness_followup", export_expanded_i5b_batch1_readiness_followup),
         ExportStep("expanded_batch1_human_review_package", export_expanded_i5b_batch1_human_review_package),
         ExportStep("expanded_batch1_relative_band_preparation", export_expanded_i5b_batch1_relative_band_preparation),
-        ExportStep("global_scale_decision_brief", export_global_scale_decision_brief_docs),
-        ExportStep("expanded_i5b_candidate_pool", export_expanded_i5b_candidate_pool_docs),
+        ExportStep("global_scale_decision_brief", export_global_scale_decision_brief),
+        ExportStep("expanded_i5b_candidate_pool", export_expanded_i5b_candidate_pool),
         ExportStep("auto_adjudication", export_auto_adjudication),
     ]
     run_export_steps(steps)

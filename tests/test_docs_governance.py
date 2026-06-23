@@ -23,6 +23,12 @@ ARCHIVE_MAP = {
     "docs/liubang_pregrade_checklist_archive_note_20260620.md": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
     "docs/query_search_batch_canonical_import_note_20260620.md": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md",
 }
+RETIRED_GENERATED_MAP = {
+    "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
+    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
+    "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
+    "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
+}
 NEEDS_HUMAN_CONFIRMATION = {
     "docs/多余文件候选确认报告.md",
     "docs/多余文件第三批敏感候选复核.md",
@@ -195,6 +201,21 @@ def test_generated_views_have_generators_or_need_human_confirmation() -> None:
             assert all(target.startswith("exports/") for target in doc["placement_targets"])
 
 
+def test_retired_generated_document_paths_are_exact_and_export_only() -> None:
+    registry = load_registry()
+    by_path = {doc["path"] for doc in registry["documents"]}
+    drivers = set(registry["project_driver_paths"])
+
+    assert registry["retired_generated_document_paths"] == RETIRED_GENERATED_MAP
+    for old_path, target_path in RETIRED_GENERATED_MAP.items():
+        assert not (ROOT / old_path).exists()
+        assert (ROOT / target_path).is_file()
+        assert old_path not in by_path
+        assert old_path not in drivers
+        assert old_path not in registry.get("archived_document_paths", {})
+    assert len(set(RETIRED_GENERATED_MAP.values())) == len(RETIRED_GENERATED_MAP)
+
+
 def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
@@ -204,19 +225,20 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
         "## 项目驱动文档",
         PROJECT_DRIVER,
         "## 7. 仅保留 exports 候选",
-        "## 8. 需要拆分的混合文档",
-        "## 9. 吸收后归档候选",
-        "## 10. 内容归置待确认项",
-        "## 11. 生命周期 archive candidates",
-        "## 12. 生命周期 delete candidates",
-        "## 13. 生命周期 review / needs human confirmation",
-        "## 14. 已归档文档",
-        "## 19. 后续执行批次",
+        "## 8. 已迁出 docs 的生成文档",
+        "## 9. 需要拆分的混合文档",
+        "## 10. 吸收后归档候选",
+        "## 11. 内容归置待确认项",
+        "## 12. 生命周期 archive candidates",
+        "## 13. 生命周期 delete candidates",
+        "## 14. 生命周期 review / needs human confirmation",
+        "## 15. 已归档文档",
+        "## 20. 后续执行批次",
         "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态",
     ]:
         assert needle in content
     batch6 = content.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：active design 语义核验", 1)[0]
-    batch7 = content.split("Batch 7：active design 语义核验", 1)[1].split("## 20. 范围声明", 1)[0]
+    batch7 = content.split("Batch 7：active design 语义核验", 1)[1].split("## 21. 范围声明", 1)[0]
     assert "docs/manual_review_config_layer_design_20260620.md" not in batch6
     assert "docs/manual_review_config_layer_design_20260620.md" in batch7
     assert "data/configs/" in batch7
@@ -226,6 +248,11 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     for old_path, new_path in ARCHIVE_MAP.items():
         assert content.count(old_path) == 1
         assert content.count(new_path) >= 1
+    for old_path, target_path in RETIRED_GENERATED_MAP.items():
+        assert old_path in content
+        assert target_path in content
+    batch1 = content.split("Batch 1：generated docs -> export-only", 1)[1].split("Batch 2：混合审核文档拆分", 1)[0]
+    assert "已完成" in batch1
 
 
 def test_archive_readme_exists_and_links_batch_documents() -> None:

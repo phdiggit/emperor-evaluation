@@ -18,11 +18,11 @@
    - 输出 `formal_band_draft`、`not_scored_flag`、`ranking_suppressed_flag` 等正式落地准备字段。
    - 这里靠近正式定档语义，未来若展示 warning，只能作为附录式人工复核提示，不得参与 `formal_band_draft` 或 score stage prerequisites。
 
-4. 评分标尺草案：`exports/markdown_views/第五项B评分标尺与档位映射草案.md`
+4. 评分标尺草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`
    - 说明档位到分值映射草案，但仍声明不生成人物正式分数、不排名、不出总榜。
    - 不适合展示 cluster warning 命中，避免 warning 被误读为分值依据。
 
-5. 内部闭环收尾：`docs/第五项B三人试点内部闭环收尾.md` 与对应 markdown export
+5. 内部闭环收尾：`exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md`
    - 输出内部试算区间、内部试算分和扩展试点状态。
    - 不适合承载 warning 命中详情；最多只能在未来概述“仍需人工复核的 display-only warning 已另见自动结算草案”。
 

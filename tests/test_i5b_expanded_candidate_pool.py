@@ -14,7 +14,9 @@ def script_path(script_name: str) -> Path:
         "export_i5b_auto_adjudication.py": Path("scripts/export/export_i5b_auto_adjudication.py"),
     }
     return ROOT / routes.get(script_name, Path("scripts") / script_name)
-CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
+
+
+RETIRED_CANDIDATE_POOL_DOC_PATH = ROOT / "docs" / "第五项B扩展试点候选池设计.md"
 CANDIDATE_POOL_EXPORT_PATH = (
     ROOT
     / "exports"
@@ -37,38 +39,38 @@ def run_script(script_name: str) -> subprocess.CompletedProcess[str]:
     )
 
 
-def test_export_md_generates_expanded_candidate_pool_design() -> None:
+def test_export_md_generates_expanded_candidate_pool_design_export_only() -> None:
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr
 
     export_result = run_script("export_md.py")
     assert export_result.returncode == 0, export_result.stdout + export_result.stderr
-    assert CANDIDATE_POOL_DOC_PATH.exists()
+    assert not RETIRED_CANDIDATE_POOL_DOC_PATH.exists()
     assert CANDIDATE_POOL_EXPORT_PATH.exists()
 
-    doc_content = CANDIDATE_POOL_DOC_PATH.read_text(encoding="utf-8")
-    export_content = CANDIDATE_POOL_EXPORT_PATH.read_text(encoding="utf-8")
+    content = CANDIDATE_POOL_EXPORT_PATH.read_text(encoding="utf-8")
 
-    for content in (doc_content, export_content):
-        assert "第五项B扩展试点候选池设计" in content
-        assert "候选池按类型抽样，不按名气或预期高低抽样" in content
-        assert "recommended_priority" in content
-        assert "不作定档结论" in content
-        assert "不生成正式分" in content
-        assert "不排名" in content
-        assert "不生成阶段总榜或总榜" in content
-        assert "刘邦" in content
-        assert "雍正" in content
-        assert "朱元璋" in content
-        assert "赵匡胤" in content
-        assert "嬴政" in content
-        assert "刘彻" in content
-        assert "武则天" in content
-        assert "强正但负证较少" in content
-        assert "用人强但有明显反向事件" in content
-        assert "行政强但授权偏弱" in content
-        assert "证据印象强但证据簇不足" in content
-        assert "负证主导、正证不足" in content
-        assert "非军事/非开国光环型" in content
-        assert "边界争议型" in content
-
+    for needle in [
+        "第五项B扩展试点候选池设计",
+        "候选池按类型抽样，不按名气或预期高低抽样",
+        "recommended_priority",
+        "不作定档结论",
+        "不生成正式分",
+        "不排名",
+        "不生成阶段总榜或总榜",
+        "刘邦",
+        "雍正",
+        "朱元璋",
+        "赵匡胤",
+        "嬴政",
+        "刘彻",
+        "武则天",
+        "强正但负证较少",
+        "用人强但有明显反向事件",
+        "行政强但授权偏弱",
+        "证据印象强但证据簇不足",
+        "负证主导、正证不足",
+        "非军事/非开国光环型",
+        "边界争议型",
+    ]:
+        assert needle in content
