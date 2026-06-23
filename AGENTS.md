@@ -67,7 +67,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 人工复核型 Markdown 默认纯 Markdown，不使用 HTML details。Pure Markdown by default; no HTML details.
 - 不用宽表承载长字段、裁判说明、相邻项剥离说明、warning matched_fields 或 linked evidence 长字段。No wide tables for long fields.
 - `linked_*`、`cross_item_split_signals / 相邻项剥离说明`、warning `matched_fields` 必须全量展示，不得截断。Must show full content; no truncation.
-- 详细规范见 `docs/人工阅读型Markdown导出规范.md`。
+- 详细规范见 `docs/30_operations/人工阅读型Markdown导出规范.md`。
 
 ## 默认忽略 / Default Ignore
 

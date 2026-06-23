@@ -23,7 +23,7 @@ from _git_helpers import (
 
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
-    "docs/人工阅读型Markdown导出规范.md",
+    "docs/30_operations/人工阅读型Markdown导出规范.md",
     "scripts/dev/repo_tool.py",
     "tests/test_agents_ready_for_review_rule.py",
     "tests/test_file_governance_policy.py",
@@ -877,7 +877,7 @@ def test_repo_tool_source_mentions_git_encoding_guards() -> None:
 
 
 def test_agents_links_human_readable_markdown_spec() -> None:
-    assert "docs/人工阅读型Markdown导出规范.md" in (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "docs/30_operations/人工阅读型Markdown导出规范.md" in (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
 
 def test_pr_diff_stays_inside_issue_93_whitelist() -> None:

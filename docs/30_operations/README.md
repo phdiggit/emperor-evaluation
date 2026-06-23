@@ -11,14 +11,14 @@
 - scripts 目录规范。
 - Codex / 人工协作注意事项。
 
-## 未来拟迁入
+## 当前索引
 
-- `docs/GitHub发布与认证规范.md`
-- `docs/Markdown表格显示约定.md`
-- `docs/ID命名规范.md`
-- `docs/人工阅读型Markdown导出规范.md`
-- `docs/scripts目录规范.md`
+- [`GitHub发布与认证规范.md`](GitHub发布与认证规范.md)
+- [`Markdown表格显示约定.md`](Markdown表格显示约定.md)
+- [`ID命名规范.md`](ID命名规范.md)
+- [`人工阅读型Markdown导出规范.md`](人工阅读型Markdown导出规范.md)
+- [`scripts目录规范.md`](scripts目录规范.md)
 
 ## 当前说明
 
-本 PR 只建立 README 导航，不移动旧正文。后续迁移必须同步 registry、治理报告和测试，并确认生成物仍由 generator 维护。
+本目录已承载第一批 operations 层规范。后续迁移必须同步 registry、治理报告和测试，并确认生成物仍由 generator 维护。
