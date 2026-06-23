@@ -21,6 +21,7 @@
 - [`query_profile与search_log字段规范.md`](query_profile与search_log字段规范.md)
 - [`稳定ID命名规范.md`](稳定ID命名规范.md)
 - [`SQLite生成库说明.md`](SQLite生成库说明.md)
+- [`史源数据平台架构ADR.md`](史源数据平台架构ADR.md)
 - [`配置说明文件规范.md`](配置说明文件规范.md)
 - [`批次文件生命周期规则.md`](批次文件生命周期规则.md)
 
