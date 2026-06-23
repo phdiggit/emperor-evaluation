@@ -1,13 +1,13 @@
 {
-  "schema_version": 1,
-  "baseline_ref": "origin/GPT",
-  "baseline_sha": "4ace85f72a79f9b3112bbac50e907e71dddc6b2a",
-  "docs_agents_budget": {
-    "max_lines": 80,
-    "max_bytes": 12288
-  },
-  "registry_exclusions": [
-    "docs/agent_rules/docs_registry.json"
+  "allowed_content_roles": [
+    "generated_output",
+    "governance_state",
+    "historical_record",
+    "instance_record",
+    "mixed",
+    "rule_or_method",
+    "stable_explanation",
+    "stable_operational_guide"
   ],
   "allowed_document_types": [
     "active_design",
@@ -28,6 +28,17 @@
     "historical",
     "needs_human_confirmation"
   ],
+  "allowed_placement_actions": [
+    "absorb_into_canonical_data_then_export",
+    "absorb_into_config",
+    "archive_after_absorption",
+    "keep_archive_exception",
+    "keep_governance_exception",
+    "keep_in_docs",
+    "move_to_exports",
+    "review",
+    "split_keep_rules_generate_state"
+  ],
   "allowed_proposed_actions": [
     "archive",
     "delete",
@@ -44,25 +55,25 @@
     "docs/liubang_pregrade_checklist_archive_note_20260620.md": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
     "docs/query_search_batch_canonical_import_note_20260620.md": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md"
   },
-  "project_driver_paths": [
-    "docs/皇帝综合评价体系评分标准.md"
-  ],
+  "baseline_ref": "origin/GPT",
+  "baseline_sha": "4ace85f72a79f9b3112bbac50e907e71dddc6b2a",
+  "docs_agents_budget": {
+    "max_bytes": 12288,
+    "max_lines": 80
+  },
+  "docs_target_model": {
+    "archive_exception_root": "docs/archive/** 保留历史追溯材料。",
+    "current_docs_root": "docs 当前规范层优先保留长期稳定的方法论、说明、规则和运行入口。",
+    "governance_exception_root": "docs/agent_rules/** 保留机器可读治理状态。",
+    "non_docs_targets": "实例数据、配置值和可重建产物应分别回到 data、data/configs 或 exports；本 registry 只登记后续建议，不执行迁移。"
+  },
   "documents": [
     {
-      "path": "docs/AGENTS.md",
-      "title": "docs/AGENTS.md",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "AGENTS.md",
-        "docs/agent_rules/README.md",
-        "scripts/dev/docs_tool.py",
-        "tests/test_docs_governance.py"
-      ],
-      "referenced_by_tests": [
-        "tests/test_docs_governance.py"
-      ],
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
       "generator_candidates": [
         "scripts/AGENTS.md",
         "scripts/dev/docs_tool.py",
@@ -82,18 +93,32 @@
         "tests/test_scripts_matrix_directory_layout.py",
         "tests/test_scripts_shared_directory_plan.py"
       ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "docs 范围稳定行为规则，新任务涉及 docs/** 时必须先读取。",
-      "archive_target": null,
-      "human_confirmation_required": false,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "AGENTS.md",
+        "docs/agent_rules/README.md",
+        "scripts/dev/docs_tool.py",
+        "tests/test_docs_governance.py"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/AGENTS.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "docs 范围稳定行为规则，新任务涉及 docs/** 时必须先读取。",
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "docs/AGENTS.md",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/agent_rules/scripts_registry.json",
@@ -116,126 +141,114 @@
         "tests/test_scripts_export_directory_layout.py",
         "tests/test_scripts_matrix_directory_layout.py",
         "tests/test_scripts_shared_directory_plan.py"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/GitHub发布与认证规范.md",
-      "title": "GitHub 发布与认证规范",
-      "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
       "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
       "content_role": "stable_operational_guide",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/ID命名规范.md",
-      "title": "ID命名规范",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
+      "document_type": "operational_guide",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/GitHub发布与认证规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "GitHub 发布与认证规范",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/Markdown表格显示约定.md",
-      "title": "Markdown表格显示约定",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "README.md"
+      ],
       "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/ID命名规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
       "proposed_action": "keep",
-      "inbound_references": [],
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ID命名规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
       "generator_candidates": [
         "tests/test_human_readable_markdown_exports.py"
       ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/Markdown表格显示约定.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Markdown表格显示约定",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "tests/test_human_readable_markdown_exports.py"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/agent_rules/README.md",
-      "title": "agent rules 说明",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "scripts/AGENTS.md",
-        "tests/test_docs_governance.py"
-      ],
-      "referenced_by_tests": [
-        "tests/test_docs_governance.py"
-      ],
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
       "generator_candidates": [
         "scripts/AGENTS.md",
         "scripts/dev/docs_tool.py",
@@ -246,18 +259,30 @@
         "tests/test_redundant_file_candidates_report.py",
         "tests/test_scripts_legacy_wrapper_retirement.py"
       ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "scripts/AGENTS.md",
+        "tests/test_docs_governance.py"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/agent_rules/README.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "治理规则说明入口，解释 registry 与 AGENTS 的职责边界。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "agent rules 说明",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
@@ -271,19 +296,33 @@
         "tests/test_file_governance_policy.py",
         "tests/test_redundant_file_candidates_report.py",
         "tests/test_scripts_legacy_wrapper_retirement.py"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "治理规则说明入口，解释 registry 与 AGENTS 的职责边界。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/agent_rules/scripts_registry.json",
-      "title": null,
+      "archive_target": null,
+      "content_role": "governance_state",
       "document_type": "config_explanation",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/AGENTS.md",
+        "scripts/dev/repo_tool.py",
+        "tests/test_agents_governance.py",
+        "tests/test_config_loaders_migration_audit.py",
+        "tests/test_docs_governance.py",
+        "tests/test_i5b_markdown_display_migration_audit.py",
+        "tests/test_repo_tool.py",
+        "tests/test_scripts_build_directory_layout.py",
+        "tests/test_scripts_canonical_imports.py",
+        "tests/test_scripts_directory_layout.py",
+        "tests/test_scripts_legacy_wrapper_retirement.py",
+        "tests/test_scripts_matrix_directory_layout.py"
+      ],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "AGENTS.md",
         "docs/agent_rules/README.md",
@@ -298,6 +337,14 @@
         "tests/test_repo_tool.py",
         "tests/test_scripts_directory_layout.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/agent_rules/scripts_registry.json",
+      "placement_action": "keep_governance_exception",
+      "placement_reason": "机器可读治理状态事实源，属于 docs/agent_rules 受控例外。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "机器可读脚本治理状态事实源，当前工具和测试直接依赖。",
       "referenced_by_tests": [
         "tests/test_agents_governance.py",
         "tests/test_config_loaders_migration_audit.py",
@@ -306,32 +353,10 @@
         "tests/test_repo_tool.py",
         "tests/test_scripts_directory_layout.py"
       ],
-      "generator_candidates": [
-        "scripts/AGENTS.md",
-        "scripts/dev/repo_tool.py",
-        "tests/test_agents_governance.py",
-        "tests/test_config_loaders_migration_audit.py",
-        "tests/test_docs_governance.py",
-        "tests/test_i5b_markdown_display_migration_audit.py",
-        "tests/test_repo_tool.py",
-        "tests/test_scripts_build_directory_layout.py",
-        "tests/test_scripts_canonical_imports.py",
-        "tests/test_scripts_directory_layout.py",
-        "tests/test_scripts_legacy_wrapper_retirement.py",
-        "tests/test_scripts_matrix_directory_layout.py"
-      ],
       "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
+      "semantic_verification_required": false,
+      "title": null,
       "unique_source_risk": true,
-      "reason": "机器可读脚本治理状态事实源，当前工具和测试直接依赖。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
@@ -339,21 +364,40 @@
         "tests/test_scripts_canonical_imports.py",
         "tests/test_scripts_legacy_wrapper_retirement.py",
         "tests/test_scripts_matrix_directory_layout.py"
-      ],
-      "content_role": "governance_state",
-      "placement_action": "keep_governance_exception",
-      "placement_targets": [],
-      "placement_reason": "机器可读治理状态事实源，属于 docs/agent_rules 受控例外。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/archive/README.md",
-      "title": "docs/archive",
+      "archive_target": null,
+      "content_role": "stable_operational_guide",
       "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/AGENTS.md",
+        "scripts/dev/docs_tool.py",
+        "tests/test_agents_governance.py",
+        "tests/test_docs_governance.py",
+        "tests/test_docs_tool.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_redundant_file_candidates_report.py",
+        "tests/test_scripts_legacy_wrapper_retirement.py"
+      ],
       "governance_references": [],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/archive/README.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "archive 导航和重新激活边界属于受控历史区说明，继续保留。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "archive 目录的当前导航、边界和重新激活规则。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "docs/archive",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
@@ -369,309 +413,276 @@
         "tests/test_file_governance_policy.py",
         "tests/test_redundant_file_candidates_report.py",
         "tests/test_scripts_legacy_wrapper_retirement.py"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/AGENTS.md",
-        "scripts/dev/docs_tool.py",
-        "tests/test_agents_governance.py",
-        "tests/test_docs_governance.py",
-        "tests/test_docs_tool.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_redundant_file_candidates_report.py",
-        "tests/test_scripts_legacy_wrapper_retirement.py"
-      ],
-      "replacement_path": null,
-      "archive_target": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "archive 目录的当前导航、边界和重新激活规则。",
-      "human_confirmation_required": false,
-      "content_role": "stable_operational_guide",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "archive 导航和重新激活边界属于受控历史区说明，继续保留。",
-      "semantic_verification_required": false
+      ]
     },
     {
+      "archive_target": null,
+      "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/README.md"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
       "path": "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
       "title": "Canonical Data Integrity Validation Note 20260620",
-      "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
       "unique_source_risk": true,
-      "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
+      "archive_target": null,
+      "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/README.md"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
       "path": "docs/archive/audits/file_governance_final_audit_20260620.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
       "title": "File Governance Final Audit 20260620",
-      "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
       "unique_source_risk": true,
-      "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
+      "archive_target": null,
+      "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/README.md"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
       "path": "docs/archive/audits/hardcoded_content_configuration_inventory_20260620.md",
-      "title": "Hardcoded Content / Configuration Inventory (2026-06-20)",
-      "document_type": "audit_record",
-      "lifecycle_status": "historical",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
       "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
       "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Hardcoded Content / Configuration Inventory (2026-06-20)",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
-      "title": "第五项B三人正式定档留后文件归档说明",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/archive/README.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
+      "path": "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
       "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B三人正式定档留后文件归档说明",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/archive/audits/file_governance_final_audit_20260620.md",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
-      "title": "第五项B三人正式定档留后文件复核报告",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/archive/README.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
+      "path": "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
       "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B三人正式定档留后文件复核报告",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
+      "archive_target": null,
+      "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/README.md"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
       "path": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
       "title": "刘邦预裁清单归档说明 20260620",
-      "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
       "unique_source_risk": true,
-      "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
+      "archive_target": null,
+      "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/README.md"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
       "path": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md",
-      "title": "Query Search Batch Canonical Import Note 20260620",
-      "document_type": "audit_record",
-      "lifecycle_status": "historical",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "placement_targets": [],
       "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
       "reason": "已完成历史审计归档；保留审计与决策追溯价值，不作为当前运行入口或现行规范。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [],
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Query Search Batch Canonical Import Note 20260620",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "keep_archive_exception",
-      "placement_targets": [],
-      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/batch_canonical_absorption_audit_20260620.md",
-      "title": "Batch Canonical Absorption Audit",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/archive/audits/file_governance_final_audit_20260620.md",
         "docs/post_file_governance_consistency_audit_20260620.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "path": "docs/batch_canonical_absorption_audit_20260620.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/batch_canonical_absorption_audit_20260620.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Batch Canonical Absorption Audit",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/config_granularity_redesign_20260620.md",
-      "title": "Config Granularity Redesign Audit (2026-06-20)",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md"
       ],
-      "content_role": "historical_record",
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/config_granularity_redesign_20260620.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
       "placement_targets": [
         "docs/数据规范.md",
         "docs/证据工作流.md",
@@ -683,73 +694,73 @@
         "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
         "docs/archive/audits"
       ],
-      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Config Granularity Redesign Audit (2026-06-20)",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/config_loaders迁移前依赖审计.md",
-      "title": "config_loaders.py 迁移前依赖审计",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "migration_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/agent_rules/scripts_registry.json",
         "docs/i5b_markdown_display迁移前依赖审计.md",
         "docs/scripts共享工具依赖盘点.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "迁移前依赖或共享工具盘点记录，仍被 scripts registry 或治理文档用于审计追溯。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "path": "docs/config_loaders迁移前依赖审计.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/config_loaders迁移前依赖审计.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "迁移前依赖或共享工具盘点记录，仍被 scripts registry 或治理文档用于审计追溯。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "config_loaders.py 迁移前依赖审计",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/i5b_cluster_warning_display_integration_design_20260621.md",
-      "title": "第五项B证据簇提示规则展示集成设计审计",
+      "archive_target": null,
+      "content_role": "mixed",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": true,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
+      "human_confirmation_required": true,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/i5b_cluster_warning_display_integration_design_20260621.md",
       "placement_action": "review",
+      "placement_reason": "正文混合 warning display-only 设计、已迁移 matcher/renderer、validator 约束和导出接入状态；后续需逐项确认已落地内容与仍待实施内容，暂不归档。",
       "placement_targets": [
         "data/configs/人工复核配置/第五项B_证据簇裁判提示.json",
         "data/configs/配置说明/人工复核配置__第五项B_证据簇裁判提示.comments.json",
@@ -760,36 +771,36 @@
         "tests/test_validate_i5b_cluster_adjudication_configs.py",
         "tests/test_i5b_auto_adjudication.py"
       ],
-      "placement_reason": "正文混合 warning display-only 设计、已迁移 matcher/renderer、validator 约束和导出接入状态；后续需逐项确认已落地内容与仍待实施内容，暂不归档。",
-      "semantic_verification_required": true
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
+      "title": "第五项B证据簇提示规则展示集成设计审计",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
-      "title": "第五项B证据簇裁判配置层设计审计",
+      "archive_target": null,
+      "content_role": "mixed",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": true,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
+      "human_confirmation_required": true,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
       "placement_action": "review",
+      "placement_reason": "正文仍混合已落地的低风险提示 config 与尚未证明落地或正式取消的受保护裁判边界、validator 分层和后续实施阶段；完成逐项语义核验前不得进入吸收后归档批次。",
       "placement_targets": [
         "data/configs/人工复核配置/第五项B_证据簇裁判提示.json",
         "data/configs/配置说明/人工复核配置__第五项B_证据簇裁判提示.comments.json",
@@ -803,72 +814,72 @@
         "tests/test_i5b_cluster_warning_display.py",
         "tests/test_i5b_auto_adjudication.py"
       ],
-      "placement_reason": "正文仍混合已落地的低风险提示 config 与尚未证明落地或正式取消的受保护裁判边界、validator 分层和后续实施阶段；完成逐项语义核验前不得进入吸收后归档批次。",
-      "semantic_verification_required": true
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
+      "title": "第五项B证据簇裁判配置层设计审计",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/i5b_markdown_display迁移前依赖审计.md",
-      "title": "i5b_markdown_display.py 迁移前依赖审计",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "migration_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/agent_rules/scripts_registry.json",
         "docs/scripts共享工具依赖盘点.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "迁移前依赖或共享工具盘点记录，仍被 scripts registry 或治理文档用于审计追溯。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "path": "docs/i5b_markdown_display迁移前依赖审计.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/i5b_markdown_display迁移前依赖审计.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "迁移前依赖或共享工具盘点记录，仍被 scripts registry 或治理文档用于审计追溯。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "i5b_markdown_display.py 迁移前依赖审计",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/i5b_warning_export_guarded_integration_design_20260621.md",
-      "title": "第五项B display-only warning 导出受控接入设计审计",
+      "archive_target": null,
+      "content_role": "mixed",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": true,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
+      "human_confirmation_required": true,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/i5b_warning_export_guarded_integration_design_20260621.md",
       "placement_action": "review",
+      "placement_reason": "正文混合 guarded export 接入设计、已实现 include-display-warnings 路径和仍需保护的输出边界；后续需语义核验导出接入与风险控制后再决定归档。",
       "placement_targets": [
         "data/configs/人工复核配置/第五项B_证据簇裁判提示.json",
         "data/configs/配置说明/人工复核配置__第五项B_证据簇裁判提示.comments.json",
@@ -879,38 +890,38 @@
         "tests/test_validate_i5b_cluster_adjudication_configs.py",
         "tests/test_i5b_auto_adjudication.py"
       ],
-      "placement_reason": "正文混合 guarded export 接入设计、已实现 include-display-warnings 路径和仍需保护的输出边界；后续需语义核验导出接入与风险控制后再决定归档。",
-      "semantic_verification_required": true
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
+      "title": "第五项B display-only warning 导出受控接入设计审计",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/manual_review_config_layer_design_20260620.md",
-      "title": "Manual Review Config Layer Design (2026-06-20)",
+      "archive_target": null,
+      "content_role": "mixed",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": true,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
+      "human_confirmation_required": true,
+      "inbound_references": [
+        "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md"
       ],
-      "content_role": "mixed",
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/manual_review_config_layer_design_20260620.md",
       "placement_action": "review",
+      "placement_reason": "正文仍混合人工复核配置层设计与尚未证明完整落地的 atomic_evidence_grading_rules、cluster_merge_rules、cluster_grading_rules、source_verification_triggers、受保护档位/分数映射和实施顺序；完成逐项语义核验前不得进入吸收后归档批次。",
       "placement_targets": [
         "docs/数据规范.md",
         "docs/证据工作流.md",
@@ -920,186 +931,143 @@
         "data/configs/人工复核配置/第五项B_证据簇裁判提示.json",
         "data/configs/受保护规则配置/第五项B_证据簇裁判边界.json"
       ],
-      "placement_reason": "正文仍混合人工复核配置层设计与尚未证明完整落地的 atomic_evidence_grading_rules、cluster_merge_rules、cluster_grading_rules、source_verification_triggers、受保护档位/分数映射和实施顺序；完成逐项语义核验前不得进入吸收后归档批次。",
-      "semantic_verification_required": true
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
+      "title": "Manual Review Config Layer Design (2026-06-20)",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/post_file_governance_consistency_audit_20260620.md",
-      "title": "Post File Governance Consistency Audit 20260620",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/audits/file_governance_final_audit_20260620.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/audits/file_governance_final_audit_20260620.md"
       ],
-      "content_role": "historical_record",
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "docs/post_file_governance_consistency_audit_20260620.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/post_file_governance_consistency_audit_20260620.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Post File Governance Consistency Audit 20260620",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/scripts共享工具依赖盘点.md",
-      "title": "scripts 共享工具依赖盘点",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "migration_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "迁移前依赖或共享工具盘点记录，仍被 scripts registry 或治理文档用于审计追溯。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "docs/scripts共享工具依赖盘点.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/scripts共享工具依赖盘点.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "迁移前依赖或共享工具盘点记录，仍被 scripts registry 或治理文档用于审计追溯。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "scripts 共享工具依赖盘点",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/scripts目录规范.md",
-      "title": "scripts 目录规范",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "tests/test_pr_body_tool.py"
-      ],
-      "referenced_by_tests": [
-        "tests/test_pr_body_tool.py"
-      ],
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
       "generator_candidates": [
         "tests/test_pr_body_tool.py"
       ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "tests/test_pr_body_tool.py"
       ],
-      "content_role": "rule_or_method",
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/scripts目录规范.md",
       "placement_action": "keep_in_docs",
-      "placement_targets": [],
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [
+        "tests/test_pr_body_tool.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "scripts 目录规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
+      "archive_target": null,
+      "content_role": "mixed",
+      "document_type": "active_design",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": true,
+      "inbound_references": [
+        "docs/archive/audits/file_governance_final_audit_20260620.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/thematic_anchor_multigranularity_schema_plan_20260620.md",
-      "title": "Thematic Anchor Multigranularity Schema Plan 20260620",
-      "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/audits/file_governance_final_audit_20260620.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": true,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
       "placement_action": "review",
-      "placement_targets": [
-        "data/thematic_anchor_objects.jsonl",
-        "data/thematic_anchor_events.jsonl",
-        "data/thematic_anchor_mechanisms.jsonl",
-        "data/thematic_anchors.jsonl",
-        "docs/数据规范.md",
-        "docs/数据层级与批次文件治理规则.md",
-        "scripts/validate/validate_canonical_data_integrity.py",
-        "tests/test_canonical_data_integrity.py",
-        "tests/test_evidence_integrity.py"
-      ],
       "placement_reason": "正文包含多粒度 thematic anchor schema 计划、迁移语义和 lane 分流规则；需对照 object/event/mechanism canonical 数据层与 validator 完成语义核验后再归档。",
-      "semantic_verification_required": true
-    },
-    {
-      "path": "docs/thematic_anchor_schema_decision_20260620.md",
-      "title": "Thematic Anchor Schema Decision 20260620",
-      "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/audits/file_governance_final_audit_20260620.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": true,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
-      "placement_action": "review",
       "placement_targets": [
         "data/thematic_anchor_objects.jsonl",
         "data/thematic_anchor_events.jsonl",
@@ -1111,71 +1079,114 @@
         "tests/test_canonical_data_integrity.py",
         "tests/test_evidence_integrity.py"
       ],
-      "placement_reason": "正文讨论 thematic anchor schema 决策与多粒度 canonical lane；实际承载面是 object/event/mechanism 数据层和验证链，需确认 aggregate 与 lane 职责已完整吸收后再归档。",
-      "semantic_verification_required": true
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
+      "title": "Thematic Anchor Multigranularity Schema Plan 20260620",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/validation_entrypoints_20260620.md",
-      "title": "Validation Entrypoints 20260620",
-      "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "docs/archive/audits/file_governance_final_audit_20260620.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
+      "archive_target": null,
+      "content_role": "mixed",
+      "document_type": "active_design",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": true,
+      "inbound_references": [
+        "docs/archive/audits/file_governance_final_audit_20260620.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/thematic_anchor_schema_decision_20260620.md",
+      "placement_action": "review",
+      "placement_reason": "正文讨论 thematic anchor schema 决策与多粒度 canonical lane；实际承载面是 object/event/mechanism 数据层和验证链，需确认 aggregate 与 lane 职责已完整吸收后再归档。",
+      "placement_targets": [
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "data/thematic_anchors.jsonl",
+        "docs/数据规范.md",
+        "docs/数据层级与批次文件治理规则.md",
+        "scripts/validate/validate_canonical_data_integrity.py",
+        "tests/test_canonical_data_integrity.py",
+        "tests/test_evidence_integrity.py"
+      ],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
+      "title": "Thematic Anchor Schema Decision 20260620",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
+      ]
+    },
+    {
+      "archive_target": null,
       "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/archive/audits/file_governance_final_audit_20260620.md"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "docs/validation_entrypoints_20260620.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/validation_entrypoints_20260620.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "Validation Entrypoints 20260620",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/view_config_externalization_audit_20260620.md",
-      "title": "View Config Externalization Audit (2026-06-20)",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/view_config_externalization_audit_20260620.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
       "placement_targets": [
         "docs/数据规范.md",
         "docs/证据工作流.md",
@@ -1187,92 +1198,107 @@
         "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
         "docs/archive/audits"
       ],
-      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "View Config Externalization Audit (2026-06-20)",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/人工阅读型Markdown导出规范.md",
-      "title": "人工阅读型 Markdown 导出规范",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "tests/test_agents_ready_for_review_rule.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_repo_tool.py"
+      ],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "AGENTS.md",
         "tests/test_agents_ready_for_review_rule.py",
         "tests/test_file_governance_policy.py",
         "tests/test_repo_tool.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/人工阅读型Markdown导出规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [
         "tests/test_agents_ready_for_review_rule.py",
         "tests/test_file_governance_policy.py",
         "tests/test_repo_tool.py"
       ],
-      "generator_candidates": [
-        "tests/test_agents_ready_for_review_rule.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_repo_tool.py"
-      ],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "人工阅读型 Markdown 导出规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "active_design",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/史料检索总则与项目-人物双轴工作流_讨论版.md",
-      "title": "史料检索总则与项目-人物双轴工作流（讨论版 v0.2）",
-      "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/数据层级与批次文件治理规则.md"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/史料检索总则与项目-人物双轴工作流_讨论版.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
       "referenced_by_tests": [],
-      "generator_candidates": [],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "史料检索总则与项目-人物双轴工作流（讨论版 v0.2）",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": "待人工确认后决定是否归档到 docs/archive/docs_governance/",
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/多余文件候选确认报告.md",
-      "title": "多余文件候选确认报告",
-      "document_type": "historical_snapshot",
-      "lifecycle_status": "needs_human_confirmation",
-      "proposed_action": "review",
+      "human_confirmation_required": true,
       "inbound_references": [
         "docs/archive/audits/file_governance_final_audit_20260620.md",
         "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
@@ -1280,108 +1306,111 @@
         "docs/post_file_governance_consistency_audit_20260620.md",
         "docs/多余文件第二批最终引用复核.md"
       ],
+      "lifecycle_status": "needs_human_confirmation",
+      "normalized_duplicate_group": null,
+      "path": "docs/多余文件候选确认报告.md",
+      "placement_action": "review",
+      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
+      "placement_targets": [],
+      "proposed_action": "review",
+      "reason": "历史多余文件治理复核材料，仍含候选判断与人工确认语境，需要用户决定是否统一归档。",
       "referenced_by_tests": [],
-      "generator_candidates": [],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "多余文件候选确认报告",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": "待人工确认后决定是否归档到 docs/archive/docs_governance/",
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "历史多余文件治理复核材料，仍含候选判断与人工确认语境，需要用户决定是否统一归档。",
-      "archive_target": "待人工确认后决定是否归档到 docs/archive/docs_governance/",
-      "human_confirmation_required": true,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
+      "human_confirmation_required": true,
+      "inbound_references": [
+        "docs/archive/audits/file_governance_final_audit_20260620.md",
+        "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
+        "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
+        "docs/post_file_governance_consistency_audit_20260620.md"
       ],
-      "content_role": "historical_record",
-      "placement_action": "review",
-      "placement_targets": [],
-      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
-      "semantic_verification_required": false
-    },
-    {
+      "lifecycle_status": "needs_human_confirmation",
+      "normalized_duplicate_group": null,
       "path": "docs/多余文件第三批敏感候选复核.md",
+      "placement_action": "review",
+      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
+      "placement_targets": [],
+      "proposed_action": "review",
+      "reason": "历史多余文件治理复核材料，仍含候选判断与人工确认语境，需要用户决定是否统一归档。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
       "title": "多余文件第三批敏感候选复核",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": "待人工确认后决定是否归档到 docs/archive/docs_governance/",
+      "content_role": "historical_record",
       "document_type": "historical_snapshot",
-      "lifecycle_status": "needs_human_confirmation",
-      "proposed_action": "review",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": true,
       "inbound_references": [
         "docs/archive/audits/file_governance_final_audit_20260620.md",
         "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
         "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
         "docs/post_file_governance_consistency_audit_20260620.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "needs_human_confirmation",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "历史多余文件治理复核材料，仍含候选判断与人工确认语境，需要用户决定是否统一归档。",
-      "archive_target": "待人工确认后决定是否归档到 docs/archive/docs_governance/",
-      "human_confirmation_required": true,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "review",
-      "placement_targets": [],
-      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
-      "semantic_verification_required": false
-    },
-    {
       "path": "docs/多余文件第二批最终引用复核.md",
-      "title": "多余文件第二批最终引用复核",
-      "document_type": "historical_snapshot",
-      "lifecycle_status": "needs_human_confirmation",
+      "placement_action": "review",
+      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
+      "placement_targets": [],
       "proposed_action": "review",
-      "inbound_references": [
-        "docs/archive/audits/file_governance_final_audit_20260620.md",
-        "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
-        "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-        "docs/post_file_governance_consistency_audit_20260620.md"
-      ],
+      "reason": "历史多余文件治理复核材料，仍含候选判断与人工确认语境，需要用户决定是否统一归档。",
       "referenced_by_tests": [],
-      "generator_candidates": [],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "多余文件第二批最终引用复核",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "历史多余文件治理复核材料，仍含候选判断与人工确认语境，需要用户决定是否统一归档。",
-      "archive_target": "待人工确认后决定是否归档到 docs/archive/docs_governance/",
-      "human_confirmation_required": true,
+      "generator_candidates": [
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "review",
-      "placement_targets": [],
-      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/总规则.md",
-      "title": "总规则",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
@@ -1389,39 +1418,38 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/总规则.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "总规则",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [
+        "tests/test_file_governance_policy.py"
+      ],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/数据层级与批次文件治理规则.md",
-      "title": "数据层级与批次文件治理规则",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "README.md",
         "docs/archive/audits/file_governance_final_audit_20260620.md",
@@ -1430,357 +1458,340 @@
         "docs/项目文件治理诊断报告.md",
         "tests/test_file_governance_policy.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据层级与批次文件治理规则.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [
         "tests/test_file_governance_policy.py"
       ],
-      "generator_candidates": [
-        "tests/test_file_governance_policy.py"
-      ],
       "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
+      "semantic_verification_required": false,
+      "title": "数据层级与批次文件治理规则",
       "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/数据库说明.md",
-      "title": "数据库说明",
+      "archive_target": null,
+      "content_role": "stable_operational_guide",
       "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据库说明.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "数据库说明",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "docs/项目文件治理诊断报告.md"
-      ],
-      "content_role": "stable_operational_guide",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/数据规范.md",
-      "title": "数据规范",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "README.md",
         "docs/post_file_governance_consistency_audit_20260620.md",
         "docs/项目文件治理诊断报告.md"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
+      "path": "docs/数据规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
       "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "数据规范",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/文档治理盘点报告.md",
-      "title": "文档治理盘点报告",
+      "archive_target": null,
+      "content_role": "generated_output",
       "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/dev/docs_tool.py",
+        "tests/test_docs_governance.py",
+        "tests/test_docs_tool.py"
+      ],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/AGENTS.md",
         "scripts/dev/docs_tool.py",
         "tests/test_docs_governance.py",
         "tests/test_docs_tool.py"
       ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "docs/文档治理盘点报告.md",
+      "placement_action": "review",
+      "placement_reason": "该文件由 docs_tool.py 生成，是治理状态报告；后续需决定改为按需 .tmp 生成，或跟踪到 exports/governance。",
+      "placement_targets": [
+        "exports/governance/文档治理盘点报告.md"
+      ],
+      "proposed_action": "keep",
+      "reason": "当前文档生命周期治理的人工审阅入口。",
       "referenced_by_tests": [
         "tests/test_docs_governance.py",
         "tests/test_docs_tool.py"
       ],
-      "generator_candidates": [
-        "scripts/dev/docs_tool.py",
-        "tests/test_docs_governance.py",
-        "tests/test_docs_tool.py"
-      ],
       "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
+      "semantic_verification_required": false,
+      "title": "文档治理盘点报告",
       "unique_source_risk": true,
-      "reason": "当前文档生命周期治理的人工审阅入口。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json"
-      ],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json"
-      ],
-      "content_role": "generated_output",
-      "placement_action": "review",
-      "placement_targets": [
-        "exports/governance/文档治理盘点报告.md"
-      ],
-      "placement_reason": "该文件由 docs_tool.py 生成，是治理状态报告；后续需决定改为按需 .tmp 生成，或跟踪到 exports/governance。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/检索画像与检索线索字段规范.md",
-      "title": "检索画像与检索线索字段规范",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
       "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/检索画像与检索线索字段规范.md",
       "placement_action": "keep_in_docs",
-      "placement_targets": [],
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "检索画像与检索线索字段规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/皇帝综合评价体系评分标准.md",
-      "title": "中国古代皇帝综合评价体系 V3.2（评分标准当前版）",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "AGENTS.md",
         "README.md",
         "docs/AGENTS.md",
         "docs/总规则.md"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/皇帝综合评价体系评分标准.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "项目最高层业务驱动标准，长期保留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "项目上位驱动文档，定义 V3.2 总分结构、七大项边界、档位、负证拦截、评分流程和标尺建设方向。",
       "referenced_by_tests": [
         "tests/test_docs_governance.py"
       ],
-      "generator_candidates": [],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "中国古代皇帝综合评价体系 V3.2（评分标准当前版）",
+      "unique_source_risk": true,
+      "weak_reference_candidates": []
+    },
+    {
+      "archive_target": null,
+      "content_role": "instance_record",
+      "document_type": "active_design",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "项目上位驱动文档，定义 V3.2 总分结构、七大项边界、档位、负证拦截、评分流程和标尺建设方向。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "项目最高层业务驱动标准，长期保留在 docs 当前规范层。",
-      "semantic_verification_required": false
-    },
-    {
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/第五项B_刘庄负证回源说明.md",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
       "title": "第五项B_刘庄负证回源说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "instance_record",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "instance_record",
-      "placement_action": "absorb_into_canonical_data_then_export",
-      "placement_targets": [
-        "data/sources.jsonl",
-        "data/search_logs.jsonl",
-        "data/evidence_cards.jsonl",
-        "data/evidence_clusters.jsonl",
-        "data/thematic_anchor_objects.jsonl",
-        "data/thematic_anchor_events.jsonl",
-        "data/thematic_anchor_mechanisms.jsonl",
-        "exports/markdown_views/第五项B/人工审核/证据链"
-      ],
-      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
-      "semantic_verification_required": true
-    },
-    {
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/第五项B_刘秀负证回源说明.md",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
       "title": "第五项B_刘秀负证回源说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "instance_record",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "instance_record",
-      "placement_action": "absorb_into_canonical_data_then_export",
-      "placement_targets": [
-        "data/sources.jsonl",
-        "data/search_logs.jsonl",
-        "data/evidence_cards.jsonl",
-        "data/evidence_clusters.jsonl",
-        "data/thematic_anchor_objects.jsonl",
-        "data/thematic_anchor_events.jsonl",
-        "data/thematic_anchor_mechanisms.jsonl",
-        "exports/markdown_views/第五项B/人工审核/证据链"
-      ],
-      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
-      "semantic_verification_required": true
-    },
-    {
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/第五项B_李世民正证回源说明.md",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": true,
       "title": "第五项B_李世民正证回源说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "instance_record",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "instance_record",
-      "placement_action": "absorb_into_canonical_data_then_export",
-      "placement_targets": [
-        "data/sources.jsonl",
-        "data/search_logs.jsonl",
-        "data/evidence_cards.jsonl",
-        "data/evidence_clusters.jsonl",
-        "data/thematic_anchor_objects.jsonl",
-        "data/thematic_anchor_events.jsonl",
-        "data/thematic_anchor_mechanisms.jsonl",
-        "exports/markdown_views/第五项B/人工审核/证据链"
-      ],
-      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
-      "semantic_verification_required": true
-    },
-    {
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/第五项B_李世民负证回源说明.md",
-      "title": "第五项B_李世民负证回源说明",
-      "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "instance_record",
       "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
       "placement_targets": [
         "data/sources.jsonl",
         "data/search_logs.jsonl",
@@ -1791,120 +1802,36 @@
         "data/thematic_anchor_mechanisms.jsonl",
         "exports/markdown_views/第五项B/人工审核/证据链"
       ],
-      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
-      "semantic_verification_required": true
-    },
-    {
-      "path": "docs/第五项B三人专人审核入口.md",
-      "title": "第五项B三人专人审核入口",
-      "document_type": "operational_guide",
-      "lifecycle_status": "active",
       "proposed_action": "keep",
-      "inbound_references": [],
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
       "referenced_by_tests": [],
-      "generator_candidates": [
-        "tests/test_i5b_three_person_review_entry_doc.py"
-      ],
       "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
+      "semantic_verification_required": true,
+      "title": "第五项B_李世民负证回源说明",
       "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md",
-        "tests/test_i5b_three_person_review_entry_doc.py"
-      ],
-      "content_role": "mixed",
-      "placement_action": "split_keep_rules_generate_state",
-      "placement_targets": [
-        "docs/第五项B正式工作流模板.md",
-        "docs/第五项B自动结算规则.md",
-        "docs/第五项B边界说明.md",
-        "data/configs/视图配置/第五项B_视图分组.json",
-        "data/configs/视图配置/第五项B_人物池.json",
-        "exports/markdown_views/第五项B/人工审核/证据链",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链"
-      ],
-      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/第五项B三人试点人工复核工作台.md",
-      "title": "第五项B三人试点人工复核工作台",
-      "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "tests/test_i5b_human_review_workbench_doc.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md",
-        "tests/test_i5b_human_review_workbench_doc.py"
-      ],
-      "content_role": "mixed",
-      "placement_action": "split_keep_rules_generate_state",
-      "placement_targets": [
-        "docs/第五项B正式工作流模板.md",
-        "docs/第五项B自动结算规则.md",
-        "docs/第五项B边界说明.md",
-        "data/configs/视图配置/第五项B_视图分组.json",
-        "data/configs/视图配置/第五项B_人物池.json",
-        "exports/markdown_views/第五项B/人工审核/证据链",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链"
-      ],
-      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/第五项B三人试点检索线索说明.md",
-      "title": "第五项B三人试点检索线索说明",
-      "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
+      ]
+    },
+    {
+      "archive_target": null,
       "content_role": "historical_record",
+      "document_type": "operational_guide",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/第五项B三人试点检索线索说明.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "短说明或旧决议的稳定规则需先确认已由现行规范承载；若无唯一内容，后续归档追溯。",
       "placement_targets": [
         "docs/数据规范.md",
         "docs/证据工作流.md",
@@ -1912,54 +1839,33 @@
         "README.md",
         "docs/archive/audits/第五项B三人试点检索线索说明.md"
       ],
-      "placement_reason": "短说明或旧决议的稳定规则需先确认已由现行规范承载；若无唯一内容，后续归档追溯。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B三人试点检索线索说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/第五项B三人试点矩阵说明.md",
-      "title": "第五项B三人试点矩阵说明",
-      "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
-      "placement_action": "split_keep_rules_generate_state",
-      "placement_targets": [
-        "docs/第五项B正式工作流模板.md",
-        "docs/第五项B自动结算规则.md",
-        "docs/第五项B边界说明.md",
-        "data/configs/视图配置/第五项B_视图分组.json",
-        "data/configs/视图配置/第五项B_人物池.json",
-        "exports/markdown_views/第五项B/人工审核/证据链",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链"
-      ],
-      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/第五项B正式工作流模板.md",
-      "title": "第五项B正式工作流模板",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
@@ -1970,39 +1876,39 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/第五项B正式工作流模板.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B正式工作流模板",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
       "generator_candidates": [
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/第五项B自动结算规则.md",
-      "title": "第五项B自动结算规则",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
@@ -2010,220 +1916,179 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
+      "path": "docs/第五项B自动结算规则.md",
       "placement_action": "keep_in_docs",
-      "placement_targets": [],
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B自动结算规则",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/第五项B证据卡上下文机制.md",
-      "title": "第五项B证据卡上下文机制",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/第五项B证据卡上下文机制.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B证据卡上下文机制",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/第五项B评分映射总标尺对齐审计.md",
-      "title": "第五项B评分映射总标尺对齐审计",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/export/export_project_doc_views.py",
+        "tests/test_i5b_global_scale_audit.py"
+      ],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/post_file_governance_consistency_audit_20260620.md",
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "scripts/export/export_project_doc_views.py"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_i5b_global_scale_audit.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
+      "path": "docs/第五项B评分映射总标尺对齐审计.md",
+      "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "placement_targets": [
+        "docs/archive/audits/第五项B评分映射总标尺对齐审计.md"
       ],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B评分映射总标尺对齐审计",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "tests/test_i5b_global_scale_audit.py"
-      ],
-      "content_role": "historical_record",
-      "placement_action": "archive_after_absorption",
-      "placement_targets": [
-        "docs/archive/audits/第五项B评分映射总标尺对齐审计.md"
-      ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/第五项B试点计划.md",
-      "title": "第五项B试点计划",
-      "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [
-        "README.md"
-      ],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [
+        "scripts/export/export_i5b_auto_adjudication.py"
+      ],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "mixed",
-      "placement_action": "split_keep_rules_generate_state",
-      "placement_targets": [
-        "docs/第五项B正式工作流模板.md",
-        "docs/第五项B自动结算规则.md",
-        "docs/第五项B边界说明.md",
-        "data/configs/视图配置/第五项B_视图分组.json",
-        "data/configs/视图配置/第五项B_人物池.json",
-        "exports/markdown_views/第五项B/人工审核/证据链",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链"
-      ],
-      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/第五项B边界说明.md",
-      "title": "第五项B《用人与授权》边界说明",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "docs/第五项B评分映射总标尺对齐审计.md",
         "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
         "scripts/export/export_i5b_auto_adjudication.py"
       ],
-      "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
+      "path": "docs/第五项B边界说明.md",
       "placement_action": "keep_in_docs",
-      "placement_targets": [],
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B《用人与授权》边界说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/证据工作流.md",
-      "title": "证据工作流",
+      "archive_target": null,
+      "content_role": "stable_operational_guide",
       "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/证据工作流.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "证据工作流",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "stable_operational_guide",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/证据强度四级与五轴量化规则_讨论版.md",
-      "title": "证据强度四级与五轴量化规则（讨论版 v0.1）",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/第五项B评分映射总标尺对齐审计.md",
@@ -2231,39 +2096,39 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/证据强度四级与五轴量化规则_讨论版.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "证据强度四级与五轴量化规则（讨论版 v0.1）",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
       "generator_candidates": [
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
-    },
-    {
-      "path": "docs/证据裁量总则_讨论版.md",
-      "title": "证据裁量总则（讨论版 v0.3）",
-      "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
+      "human_confirmation_required": false,
       "inbound_references": [
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/数据层级与批次文件治理规则.md",
@@ -2272,132 +2137,131 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/证据裁量总则_讨论版.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
       "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "证据裁量总则（讨论版 v0.3）",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
+      "document_type": "active_design",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
-    },
-    {
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/负证分案裁判机制.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
       "title": "负证分案裁判机制",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
+    },
+    {
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
-      "semantic_verification_required": false
-    },
-    {
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
       "path": "docs/负证裁量与触发式裁判模块_讨论版.md",
-      "title": "负证裁量与触发式裁判模块（讨论版 v0.1）",
-      "document_type": "active_design",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
       "placement_action": "keep_in_docs",
-      "placement_targets": [],
       "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
-      "semantic_verification_required": false
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "负证裁量与触发式裁判模块（讨论版 v0.1）",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/配置说明文件规范.md",
-      "title": "配置说明文件规范",
+      "archive_target": null,
+      "content_role": "rule_or_method",
       "document_type": "canonical_spec",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/配置说明文件规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "配置说明文件规范",
+      "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "rule_or_method",
-      "placement_action": "keep_in_docs",
-      "placement_targets": [],
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "semantic_verification_required": false
+      ]
     },
     {
-      "path": "docs/项目文件治理诊断报告.md",
-      "title": "项目文件治理诊断报告",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "audit_record",
-      "lifecycle_status": "historical",
-      "proposed_action": "keep",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "tests/test_file_governance_policy.py"
+      ],
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [
         "README.md",
         "docs/archive/audits/file_governance_final_audit_20260620.md",
@@ -2407,63 +2271,46 @@
         "docs/多余文件第二批最终引用复核.md",
         "tests/test_file_governance_policy.py"
       ],
-      "referenced_by_tests": [
-        "tests/test_file_governance_policy.py"
-      ],
-      "generator_candidates": [
-        "tests/test_file_governance_policy.py"
-      ],
-      "replacement_path": null,
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
-      "archive_target": null,
-      "human_confirmation_required": false,
-      "governance_references": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "path": "docs/项目文件治理诊断报告.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
       "placement_targets": [
         "docs/archive/audits/项目文件治理诊断报告.md"
       ],
-      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前治理、吸收或验证链审计记录，仍用于解释现行边界或后续治理基线。",
+      "referenced_by_tests": [
+        "tests/test_file_governance_policy.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "项目文件治理诊断报告",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     },
     {
-      "path": "docs/项目重启决议.md",
-      "title": "项目重启决议",
+      "archive_target": null,
+      "content_role": "historical_record",
       "document_type": "operational_guide",
-      "lifecycle_status": "active",
-      "proposed_action": "keep",
-      "inbound_references": [],
-      "referenced_by_tests": [],
-      "generator_candidates": [],
-      "replacement_path": null,
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "normalized_duplicate_group": null,
-      "unique_source_risk": true,
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "archive_target": null,
-      "human_confirmation_required": false,
+      "generator_candidates": [],
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "weak_reference_candidates": [
-        "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md"
-      ],
-      "content_role": "historical_record",
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/项目重启决议.md",
       "placement_action": "archive_after_absorption",
+      "placement_reason": "短说明或旧决议的稳定规则需先确认已由现行规范承载；若无唯一内容，后续归档追溯。",
       "placement_targets": [
         "docs/数据规范.md",
         "docs/证据工作流.md",
@@ -2471,41 +2318,36 @@
         "README.md",
         "docs/archive/audits/项目重启决议.md"
       ],
-      "placement_reason": "短说明或旧决议的稳定规则需先确认已由现行规范承载；若无唯一内容，后续归档追溯。",
-      "semantic_verification_required": false
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "项目重启决议",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ]
     }
   ],
-  "allowed_content_roles": [
-    "generated_output",
-    "governance_state",
-    "historical_record",
-    "instance_record",
-    "mixed",
-    "rule_or_method",
-    "stable_explanation",
-    "stable_operational_guide"
+  "project_driver_paths": [
+    "docs/皇帝综合评价体系评分标准.md"
   ],
-  "allowed_placement_actions": [
-    "absorb_into_canonical_data_then_export",
-    "absorb_into_config",
-    "archive_after_absorption",
-    "keep_archive_exception",
-    "keep_governance_exception",
-    "keep_in_docs",
-    "move_to_exports",
-    "review",
-    "split_keep_rules_generate_state"
+  "registry_exclusions": [
+    "docs/agent_rules/docs_registry.json"
   ],
-  "docs_target_model": {
-    "current_docs_root": "docs 当前规范层优先保留长期稳定的方法论、说明、规则和运行入口。",
-    "governance_exception_root": "docs/agent_rules/** 保留机器可读治理状态。",
-    "archive_exception_root": "docs/archive/** 保留历史追溯材料。",
-    "non_docs_targets": "实例数据、配置值和可重建产物应分别回到 data、data/configs 或 exports；本 registry 只登记后续建议，不执行迁移。"
-  },
   "retired_generated_document_paths": {
     "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
     "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
     "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
     "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
-  }
+  },
+  "retired_mixed_document_paths": {
+    "docs/第五项B三人专人审核入口.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人专人审核入口.md",
+    "docs/第五项B三人试点人工复核工作台.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人试点人工复核工作台.md",
+    "docs/第五项B三人试点矩阵说明.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人试点矩阵说明.md",
+    "docs/第五项B试点计划.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md"
+  },
+  "schema_version": 1
 }

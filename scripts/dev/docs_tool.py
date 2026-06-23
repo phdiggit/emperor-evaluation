@@ -589,6 +589,7 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
     archived_old_paths = set(archived_paths) if isinstance(archived_paths, dict) else set()
     archived_new_paths = set(archived_paths.values()) if isinstance(archived_paths, dict) else set()
     retired_generated_paths = registry.get("retired_generated_document_paths", {})
+    retired_mixed_paths = registry.get("retired_mixed_document_paths", {})
     replacement_targets = {
         str(doc.get("replacement_path"))
         for doc in documents
@@ -724,6 +725,48 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
             if len(old_values) > 1:
                 problems.append(f"{target_path}: retired generated target is mapped from multiple old paths")
 
+    if retired_mixed_paths is None:
+        retired_mixed_paths = {}
+    if not isinstance(retired_mixed_paths, dict):
+        problems.append(f"{registry_path}: retired_mixed_document_paths must be an object")
+    else:
+        retired_generated_old_paths = set(retired_generated_paths) if isinstance(retired_generated_paths, dict) else set()
+        target_to_old: dict[str, list[str]] = defaultdict(list)
+        for old_path, target_path in retired_mixed_paths.items():
+            if not isinstance(old_path, str) or not isinstance(target_path, str):
+                problems.append(f"{registry_path}: retired_mixed_document_paths entries must map strings to strings")
+                continue
+            if (
+                not _valid_repo_target_path(old_path)
+                or not old_path.startswith("docs/")
+                or old_path.startswith("docs/archive/")
+            ):
+                problems.append(f"{old_path}: retired mixed old path must be under docs/ outside docs/archive/")
+                continue
+            if (
+                not _valid_repo_target_path(target_path)
+                or not (target_path.startswith("exports/") or target_path.startswith("docs/archive/"))
+            ):
+                problems.append(f"{old_path}: retired mixed target must be under exports/ or docs/archive/: {target_path}")
+                continue
+            target_to_old[target_path].append(old_path)
+            if _path_exists(old_path):
+                problems.append(f"{old_path}: retired mixed old path still exists")
+            if old_path in by_path:
+                problems.append(f"{old_path}: retired mixed old path is still registered as a document")
+            if old_path in project_driver_paths:
+                problems.append(f"{old_path}: project driver cannot be a retired mixed old path")
+            if old_path in archived_old_paths:
+                problems.append(f"{old_path}: retired mixed old path conflicts with archived_document_paths")
+            if old_path in retired_generated_old_paths:
+                problems.append(f"{old_path}: retired mixed old path conflicts with retired_generated_document_paths")
+            target = _resolve_repo_path(target_path)
+            if not target.is_file():
+                problems.append(f"{old_path}: retired mixed target does not exist or is not a file: {target_path}")
+        for target_path, old_values in sorted(target_to_old.items()):
+            if len(old_values) > 1:
+                problems.append(f"{target_path}: retired mixed target is mapped from multiple old paths")
+
     return sorted(set(problems))
 
 
@@ -774,6 +817,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     review_docs = unique_docs(docs_for(action="review") + docs_for(status="needs_human_confirmation"))
     archived_map = registry.get("archived_document_paths") or {}
     retired_generated_map = registry.get("retired_generated_document_paths") or {}
+    retired_mixed_map = registry.get("retired_mixed_document_paths") or {}
     archived_docs = [doc for old_path, new_path in sorted(archived_map.items()) for doc in documents if doc["path"] == new_path]
     project_driver_paths = registry.get("project_driver_paths") or []
     project_driver_docs = [doc for driver_path in project_driver_paths for doc in documents if doc["path"] == driver_path]
@@ -871,6 +915,20 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             )
         return rows
 
+    def retired_mixed_rows() -> list[list[str]]:
+        rows = [["old docs path", "canonical export path", "export exists", "migration meaning"]]
+        for old_path, target_path in sorted(retired_mixed_map.items()):
+            exists = "yes" if _resolve_repo_path(target_path).is_file() else "no"
+            rows.append(
+                [
+                    old_path,
+                    target_path,
+                    exists,
+                    "旧 mixed docs 路径已退役；稳定规则保留在长期 docs，当前状态由 canonical export 重建。",
+                ]
+            )
+        return rows
+
     def batch_rows() -> list[list[str]]:
         rows = [["batch", "candidate files", "primary targets", "risk", "touches data", "touches business generator", "human confirmation", "PR guidance"]]
         def touches_data(items: list[dict[str, Any]]) -> str:
@@ -879,6 +937,10 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         retired_mapping_docs = [
             {"path": old_path, "placement_targets": [target_path]}
             for old_path, target_path in sorted(retired_generated_map.items())
+        ]
+        retired_mixed_docs = [
+            {"path": old_path, "placement_targets": [target_path]}
+            for old_path, target_path in sorted(retired_mixed_map.items())
         ]
         if export_only_docs:
             batch1_docs = export_only_docs
@@ -889,6 +951,16 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         else:
             batch1_docs = []
             batch1_guidance = "当前无候选。"
+
+        if split_docs:
+            batch2_docs = split_docs
+            batch2_guidance = "仍有待拆分 mixed 文档。"
+        elif retired_mixed_docs:
+            batch2_docs = retired_mixed_docs
+            batch2_guidance = "已完成：旧 mixed docs 路径已退役，当前状态由 canonical export 重建。"
+        else:
+            batch2_docs = []
+            batch2_guidance = "当前无候选。"
 
         batches = [
             (
@@ -902,12 +974,12 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             ),
             (
                 "Batch 2：混合审核文档拆分",
-                split_docs,
+                batch2_docs,
                 "medium",
                 "config/export only",
                 "possibly",
                 "no",
-                "建议单独 PR 先抽稳定规则，再生成当前状态视图。",
+                batch2_guidance,
             ),
             (
                 "Batch 3：人物回源说明 canonical-data 对账与 export 化",
@@ -1039,31 +1111,35 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table(retired_generated_rows()),
         "",
-        "## 9. 需要拆分的混合文档",
+        "## 9. 已迁出 docs 的混合审核文档",
+        "",
+        *_table(retired_mixed_rows()),
+        "",
+        "## 10. 需要拆分的混合文档",
         "",
         *_table(candidate_rows(split_docs)),
         "",
-        "## 10. 吸收后归档候选",
+        "## 11. 吸收后归档候选",
         "",
         *_table(candidate_rows(archive_after_absorption_docs)),
         "",
-        "## 11. 内容归置待确认项",
+        "## 12. 内容归置待确认项",
         "",
         *_table(candidate_rows(placement_review_docs)),
         "",
-        "## 12. 生命周期 archive candidates",
+        "## 13. 生命周期 archive candidates",
         "",
         *_table(candidate_rows(archive_docs)),
         "",
-        "## 13. 生命周期 delete candidates",
+        "## 14. 生命周期 delete candidates",
         "",
         *_table(candidate_rows(delete_docs)),
         "",
-        "## 14. 生命周期 review / needs human confirmation",
+        "## 15. 生命周期 review / needs human confirmation",
         "",
         *_table(candidate_rows(review_docs)),
         "",
-        "## 15. 已归档文档",
+        "## 16. 已归档文档",
         "",
         *_table(
             [
@@ -1083,7 +1159,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             ]
         ),
         "",
-        "## 16. 重复组",
+        "## 17. 重复组",
         "",
         "### exact duplicates",
         "",
@@ -1093,14 +1169,14 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table([["group", "paths"], *[[group, "<br>".join(paths)] for group, paths in sorted(normalized_groups.items())]]),
         "",
-        "## 17. 引用断链或异常",
+        "## 18. 引用断链或异常",
         "",
     ]
     lines.extend(["- docs_tool check 当前通过，未发现 registry 引用断链。" if not placement_problems else "- " + "\n- ".join(placement_problems)])
     lines.extend(
         [
             "",
-            "## 18. 目标态违规或异常",
+            "## 19. 目标态违规或异常",
             "",
             *(
                 ["- 未发现目标态违规或异常。"]
@@ -1108,15 +1184,15 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
                 else [f"- {problem}" for problem in placement_problems]
             ),
             "",
-            "## 19. unique source 风险",
+            "## 20. unique source 风险",
             "",
             *_table([["path", "action", "reason"], *[[doc["path"], doc["proposed_action"], doc["reason"]] for doc in documents if doc.get("unique_source_risk") and doc["path"] not in candidate_paths]]),
             "",
-            "## 20. 后续执行批次",
+            "## 21. 后续执行批次",
             "",
             *_table(batch_rows()),
             "",
-            "## 21. 范围声明",
+            "## 22. 范围声明",
             "",
             "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态；未将 archive 视为删除，也不改变 data、exports、数据库或 SQLite 文件。",
             "",

@@ -38,6 +38,7 @@
 - `content_role` 描述文档主体内容角色；`placement_action` 描述推荐目标态动作；`placement_targets` 记录后续吸收、生成、拆分或归档的精确候选路径。
 - `archived_document_paths` 是旧路径到历史归档路径的审计映射，表示旧路径已退役；不表示旧路径继续存在或可作为当前入口。
 - `retired_generated_document_paths` 是旧 `docs/` 生成副本到 canonical `exports/` 路径的审计映射，表示旧 docs 路径已退役且不再是当前入口。
+- `retired_mixed_document_paths` 是旧 `docs/` mixed 审核文档到 canonical `exports/` 或归档路径的审计映射，表示稳定规则已吸收、当前状态改由可重建视图承载。
 - archive 状态属于 docs registry 的动态事实；根 `AGENTS.md` 不记录逐文件归档状态。
 - `retired_legacy_wrappers` 只记录旧路径曾对应的 module id，便于检查旧 import 回流；不表示旧路径仍可 import 或运行。
 - docs registry 是状态事实源，AGENTS 不承担逐文件项目状态日志。

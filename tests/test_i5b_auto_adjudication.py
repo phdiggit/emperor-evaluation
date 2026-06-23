@@ -25,6 +25,11 @@ AUTO_RULES_EXPORT_PATH = AUTO_CHAIN_ROOT / "规则敏感点" / "第五项B自动
 FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
 CLOSURE_EXPORT_PATH = AUTO_CHAIN_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
+REVIEW_ENTRY_ROOT = I5B_EXPORT_ROOT / "人工审核" / "入口"
+REVIEW_ENTRY_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人专人审核入口.md"
+REVIEW_WORKBENCH_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人试点人工复核工作台.md"
+REVIEW_MATRIX_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人试点矩阵说明.md"
+REVIEW_PLAN_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B试点计划.md"
 LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
 from export import export_i5b_auto_adjudication as auto
@@ -963,6 +968,47 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "是否不出分（not_scored_flag）" in formal_content
     assert "是否不排名（ranking_suppressed_flag）" in formal_content
     assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
+
+
+def test_export_md_generates_i5b_review_entry_views() -> None:
+    result = run_script("export_md.py")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    for path in [
+        REVIEW_ENTRY_EXPORT_PATH,
+        REVIEW_WORKBENCH_EXPORT_PATH,
+        REVIEW_MATRIX_EXPORT_PATH,
+        REVIEW_PLAN_EXPORT_PATH,
+    ]:
+        assert path.is_file(), path
+
+    entry_content = REVIEW_ENTRY_EXPORT_PATH.read_text(encoding="utf-8")
+    for person in ["李世民", "刘秀", "刘庄"]:
+        assert f"### {person}" in entry_content
+        assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in entry_content
+        assert f"exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md" in entry_content
+    for needle in [
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/",
+        "exports/markdown_views/第五项B/人工审核/证据链/",
+        "exports/markdown_views/第五项B/机器审计/",
+        "旧 `docs/` 同名文件已退役",
+        "数据质量核验栏位",
+        "不生成正式分数",
+        "不生成最终排名",
+    ]:
+        assert needle in entry_content
+    for forbidden in ["manual_score_override", "human_final_score"]:
+        assert forbidden not in entry_content
+
+    workbench_content = REVIEW_WORKBENCH_EXPORT_PATH.read_text(encoding="utf-8")
+    assert "warning 保持 display-only" in workbench_content
+    assert "不做单人人工 override" in workbench_content
+    assert "数据质量核验栏位" in workbench_content
+    matrix_content = REVIEW_MATRIX_EXPORT_PATH.read_text(encoding="utf-8")
+    assert "checked_no_hard_evidence" in matrix_content
+    assert "evidence_found_card_created" in matrix_content
+    plan_content = REVIEW_PLAN_EXPORT_PATH.read_text(encoding="utf-8")
+    assert "不在本计划中写入旧分数或新分数" in plan_content
 
 
 def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> None:
