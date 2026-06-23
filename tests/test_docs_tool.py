@@ -474,6 +474,49 @@ def test_check_validates_retired_generated_document_paths(tmp_path: Path) -> Non
     assert any("retired generated old path must be under docs/" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/../README.md", retired_target)))
 
 
+def test_check_validates_retired_mixed_document_paths(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    mixed_old = "docs/中文说明.md"
+    mixed_target = "exports/markdown_views/中文说明.md"
+    write(repo / mixed_target, "# 中文说明 export\n")
+    run_git(repo, "add", mixed_target)
+    run_git(repo, "rm", mixed_old)
+    commit_all(repo, "retire mixed docs copy")
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry["documents"] = [doc for doc in registry["documents"] if doc["path"] != mixed_old]
+    registry["retired_mixed_document_paths"] = {mixed_old: mixed_target}
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+    report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    assert "## 9. 已迁出 docs 的混合审核文档" in report
+    assert mixed_old in report
+    assert mixed_target in report
+    assert "旧 mixed docs 路径已退役" in report
+
+    def problems_for(mutator) -> list[str]:
+        broken = json.loads(json.dumps(registry, ensure_ascii=False))
+        mutator(broken)
+        registry_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return docs_tool.check_registry(str(registry_path.relative_to(repo)))
+
+    assert any("retired_mixed_document_paths must be an object" in p for p in problems_for(lambda r: r.__setitem__("retired_mixed_document_paths", [])))
+    assert any("retired mixed old path still exists" in p for p in problems_for(lambda r: (repo / mixed_old).write_text("# old\n", encoding="utf-8")))
+    (repo / mixed_old).unlink()
+    assert any("retired mixed old path is still registered" in p for p in problems_for(lambda r: r["documents"].append({**r["documents"][0], "path": mixed_old})))
+    assert any("retired mixed target must be under exports/ or docs/archive/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "data/generated.md")))
+    assert any("retired mixed target does not exist" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "exports/markdown_views/missing.md")))
+    assert any("project driver cannot be a retired mixed old path" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/driver.md", mixed_target)))
+    assert any("conflicts with archived_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("archived_document_paths", {mixed_old: "docs/archive/audits/中文说明.md"}), r["retired_mixed_document_paths"].__setitem__(mixed_old, mixed_target))))
+    assert any("conflicts with retired_generated_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("retired_generated_document_paths", {mixed_old: mixed_target}), r["retired_mixed_document_paths"].__setitem__(mixed_old, mixed_target))))
+    assert any("retired mixed target is mapped from multiple old paths" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/second.md", mixed_target)))
+    assert any("retired mixed target must be under exports/ or docs/archive/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "exports/../data/existing.md")))
+    assert any("retired mixed old path must be under docs/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/../README.md", mixed_target)))
+
+
 def test_batch1_prefers_current_export_only_todo_over_retired_history(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
@@ -515,6 +558,48 @@ def test_batch1_prefers_current_export_only_todo_over_retired_history(tmp_path: 
     assert "docs/generated_later.md" in batch1
     assert "仍有待迁出生成文档。" in batch1
     assert "已完成" not in batch1
+
+
+def test_batch2_prefers_current_split_todo_over_retired_history(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    mixed_old = "docs/generated.md"
+    mixed_target = "exports/markdown_views/generated.md"
+    (repo / "exports" / "markdown_views").mkdir(parents=True)
+    write(repo / mixed_target, "# Generated export\n")
+    run_git(repo, "add", mixed_target)
+    run_git(repo, "rm", mixed_old)
+    write(repo / "docs" / "mixed_later.md", "# Later mixed\n")
+    run_git(repo, "add", "docs/mixed_later.md")
+    commit_all(repo, "retire one mixed doc and add another pending one")
+
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry["documents"] = [doc for doc in registry["documents"] if doc["path"] != mixed_old]
+    pending_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/mixed_later.md")
+    pending_doc.update(
+        {
+            "document_type": "operational_guide",
+            "lifecycle_status": "active",
+            "proposed_action": "keep",
+            "content_role": "mixed",
+            "placement_action": "split_keep_rules_generate_state",
+            "placement_targets": ["exports/markdown_views/mixed_later.md"],
+            "placement_reason": "临时仓库新增待拆 mixed 文档，测试 Batch 2 仍应显示待办。",
+            "semantic_verification_required": False,
+            "unique_source_risk": True,
+        }
+    )
+    registry["retired_mixed_document_paths"] = {mixed_old: mixed_target}
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+    report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    batch2 = report.split("Batch 2：混合审核文档拆分", 1)[1].split("Batch 3：人物回源说明", 1)[0]
+    assert "docs/mixed_later.md" in batch2
+    assert "仍有待拆分 mixed 文档。" in batch2
+    assert "已完成" not in batch2
 
 
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
@@ -562,15 +647,16 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "### 推荐归置动作统计" in report
     assert "## 7. 仅保留 exports 候选" in report
     assert "## 8. 已迁出 docs 的生成文档" in report
-    assert "## 11. 内容归置待确认项" in report
-    assert "## 12. 生命周期 archive candidates" in report
-    assert "## 13. 生命周期 delete candidates" in report
-    assert "## 14. 生命周期 review / needs human confirmation" in report
-    assert "## 15. 已归档文档" in report
-    assert "## 20. 后续执行批次" in report
+    assert "## 9. 已迁出 docs 的混合审核文档" in report
+    assert "## 12. 内容归置待确认项" in report
+    assert "## 13. 生命周期 archive candidates" in report
+    assert "## 14. 生命周期 delete candidates" in report
+    assert "## 15. 生命周期 review / needs human confirmation" in report
+    assert "## 16. 已归档文档" in report
+    assert "## 21. 后续执行批次" in report
     canonical_section = report.split("## 6. 事实源吸收并生成视图候选", 1)[1].split("## 7. 仅保留 exports 候选", 1)[0]
-    mixed_section = report.split("## 9. 需要拆分的混合文档", 1)[1].split("## 10. 吸收后归档候选", 1)[0]
-    lifecycle_review_section = report.split("## 14. 生命周期 review / needs human confirmation", 1)[1].split("## 15. 已归档文档", 1)[0]
+    mixed_section = report.split("## 10. 需要拆分的混合文档", 1)[1].split("## 11. 吸收后归档候选", 1)[0]
+    lifecycle_review_section = report.split("## 15. 生命周期 review / needs human confirmation", 1)[1].split("## 16. 已归档文档", 1)[0]
     assert "docs/dup-a.md" in canonical_section
     assert "docs/中文说明.md" not in canonical_section
     assert "docs/中文说明.md" in mixed_section

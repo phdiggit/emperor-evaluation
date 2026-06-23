@@ -34,12 +34,17 @@ AUTO_DRAFT_APPENDIX_DIR = AUTO_DRAFT_DIR / "附录"
 RULE_SENSITIVE_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "规则敏感点"
 FORMAL_DRAFT_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "正式定档草案"
 TRIAL_CLOSURE_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "试点闭环"
+REVIEW_ENTRY_DIR = I5B_HUMAN_REVIEW_ROOT / "入口"
 DISPLAY_CONFIG_PATH = ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
 EXPORT_PATH = AUTO_DRAFT_DIR / "第五项B三人自动结算草案.md"
 RULES_EXPORT_PATH = RULE_SENSITIVE_DIR / "第五项B自动结算规则敏感点清单.md"
 FORMAL_EXPORT_PATH = FORMAL_DRAFT_DIR / "第五项B三人正式定档落地表.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = FORMAL_DRAFT_DIR / "第五项B评分标尺与档位映射草案.md"
 CLOSURE_EXPORT_PATH = TRIAL_CLOSURE_DIR / "第五项B三人试点内部闭环收尾.md"
+REVIEW_ENTRY_EXPORT_PATH = REVIEW_ENTRY_DIR / "第五项B三人专人审核入口.md"
+REVIEW_WORKBENCH_EXPORT_PATH = REVIEW_ENTRY_DIR / "第五项B三人试点人工复核工作台.md"
+REVIEW_MATRIX_EXPORT_PATH = REVIEW_ENTRY_DIR / "第五项B三人试点矩阵说明.md"
+REVIEW_PLAN_EXPORT_PATH = REVIEW_ENTRY_DIR / "第五项B试点计划.md"
 LEGACY_FLAT_EXPORT_PATHS = (
     MARKDOWN_VIEW_ROOT / "第五项B三人自动结算草案.md",
     MARKDOWN_VIEW_ROOT / "第五项B自动结算规则敏感点清单.md",
@@ -1618,6 +1623,231 @@ def render_table_appendix_page(
     return "\n".join(lines).rstrip() + "\n"
 
 
+def render_review_entry_landing() -> str:
+    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    lines = [
+        "# 第五项B三人专人审核入口",
+        "",
+        "本文由 `scripts/export/export_i5b_auto_adjudication.py` 生成，是第五项B三人试点人工审核的当前状态入口；旧 `docs/` 同名文件已退役，不再作为当前入口。",
+        "",
+        "## 使用边界",
+        "",
+        "- 本入口不是正式评分表。",
+        "- 本入口不生成正式分数、最终排名、总榜或人物级人工覆盖结论。",
+        "- 本入口不生成最终排名。",
+        "- 人工只核验数据质量、史料回源状态、上下文充分性、相邻项剥离、规则命中和算法版本，不逐人改写自动结算方向。",
+        "- 自动结算草案、证据链和 warning 都只是复核材料；异常结果应回到数据、规则或算法层修复。",
+        "- 人工审核主表隐藏 `evidence_id/source_id/cluster_id` 等机器字段；需要追踪时查看附录或机器审计视图。",
+        "- `exports/markdown_views/第五项B/机器审计/` 只用于代码审查、数据追踪和回源定位，不作为业务审核主入口。",
+        "",
+        "## Canonical 入口层级",
+        "",
+        "- 审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`",
+        "- 自动裁判链：`exports/markdown_views/第五项B/人工审核/自动裁判链/`",
+        "- 自动结算索引：`exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md`",
+        "- 规则敏感点：`exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md`",
+        "- 正式定档草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md`",
+        "- 评分映射草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`",
+        "- 证据卡索引：`exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md`",
+        "- 证据簇索引：`exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md`",
+        "- 机器审计视图：`exports/markdown_views/第五项B/机器审计/证据链/`",
+        "",
+        "## 审核总流程",
+        "",
+        "1. 先读三人自动结算索引。",
+        "2. 再读对应人物详情页。",
+        "3. 再读该人物人工审核净证据池。",
+        "4. 必要时查看人工审核证据卡索引和人工审核证据簇索引。",
+        "5. 需要代码追踪、数据追踪或回源定位时，再进入机器审计视图。",
+        "6. 最后回到人工复核工作台，只填写数据质量、回源、上下文、剥离和规则级复核状态。",
+        "",
+        "## 试点人物入口",
+        "",
+    ]
+    for person in targets:
+        lines.extend(
+            [
+                f"### {person}",
+                "",
+                "- 自动结算人物详情：",
+                f"  - `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md`",
+                "- 自动结算长字段附录：",
+                f"  - `exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/附录/{person}_长字段附录.md`",
+                "- 净证据池：",
+                f"  - `exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md`",
+                "- 人工审核史料详情附录：",
+                f"  - `exports/markdown_views/第五项B/人工审核/证据链/附录/{person}_人工审核史料详情附录.md`",
+                "- 数据质量核验栏位：回源状态、上下文充分性、相邻项剥离、证据方向一致性、规则命中异常。",
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "## 旧路径禁用",
+            "",
+            "以下旧路径若在历史分支或本地残留中出现，只能视为兼容层或待清理文件，不作为当前审核入口：",
+            "",
+            "- `exports/markdown_views/第五项B_李世民净证据池.md`",
+            "- `exports/markdown_views/第五项B_刘秀净证据池.md`",
+            "- `exports/markdown_views/第五项B_刘庄净证据池.md`",
+            "- `exports/markdown_views/第五项B三人自动结算草案.md`",
+            "- `exports/markdown_views/第五项B自动结算草案_李世民.md`",
+            "- `exports/markdown_views/第五项B自动结算草案_刘秀.md`",
+            "- `exports/markdown_views/第五项B自动结算草案_刘庄.md`",
+            "- `exports/markdown_views/第五项B/自动结算草案/`",
+            "- `exports/markdown_views/第五项B/证据链/`",
+            "",
+            "## 审核出口",
+            "",
+            "审核出口只记录规则级复核、数据质量核验和发布门槛状态；不得把本文档、自动结算草案、证据链视图或 warning 直接转写成正式分数、最终排名、正式档位或裁判结论。",
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_review_workbench() -> str:
+    context = build_auto_adjudication_context()
+    person_reports = context["person_reports"]
+    rows = []
+    for report in person_reports:
+        rows.append(
+            {
+                "人物": report["person"],
+                "自动结算方向（非正式）": report["auto_band_direction"],
+                "正向簇数量": str(len(report["positive_cluster_ids"])),
+                "负向簇数量": str(len(report["negative_cluster_ids"])),
+                "规则敏感点": "；".join(point["rule"] for point in report["rule_sensitive_points"]) or "无",
+                "数据质量核验状态": "待核验",
+            }
+        )
+
+    lines = [
+        "# 第五项B三人试点人工复核工作台",
+        "",
+        "本文由当前 canonical data 与配置生成，是人工复核当前状态视图；旧 `docs/` 同名文件已退役，不再手工维护。",
+        "",
+        "## 使用边界",
+        "",
+        "- 本工作台不是正式评分表。",
+        "- 本工作台不生成正式分数，不生成最终排名。",
+        "- 本工作台只组织数据质量、回源、上下文、相邻项剥离、规则命中和算法版本核验。",
+        "- 自动结算方向只作为复核入口，不是正式档位、正式分数、排名或总榜。",
+        "- warning 保持 display-only，只提示阅读风险，不自动压制、不自动升档、不构成正式结论。",
+        "- 若发现异常，应修正数据、规则或算法，不做单人人工 override。",
+        "",
+        "## 人工复核总览",
+        "",
+        markdown_table(
+            ["人物", "自动结算方向（非正式）", "正向簇数量", "负向簇数量", "规则敏感点", "数据质量核验状态"],
+            rows,
+        ),
+        "",
+    ]
+    for report in person_reports:
+        lines.extend(
+            [
+                f"## {report['person']}",
+                "",
+                f"- **自动结算方向（非正式）**：{report['auto_band_direction']}",
+                f"- **正向簇数量**：{len(report['positive_cluster_ids'])}",
+                f"- **负向簇数量**：{len(report['negative_cluster_ids'])}",
+                f"- **负证拦截状态**：{build_negative_intercept_status(report)}",
+                f"- **相邻项剥离状态**：{build_adjacent_item_stripping_status(report)}",
+                f"- **剩余规则问题**：{format_remaining_questions(report)}",
+                "- **数据质量核验栏位**：回源状态、上下文充分性、相邻项剥离、证据方向一致性、规则命中异常。",
+                "- **发布门槛**：仅当规则级复核和数据质量核验完成后，才可进入后续发布流程；本视图不直接推出正式结论。",
+                "",
+            ]
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_review_matrix_note() -> str:
+    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    lines = [
+        "# 第五项B三人试点矩阵说明",
+        "",
+        "本文由配置生成当前三人试点矩阵说明。矩阵骨架只规划检索与复核方向，不代表完成检索，不写入 `search_logs`，也不参与定档定分。",
+        "",
+        "## 试点人物",
+        "",
+    ]
+    lines.extend(f"- {person}" for person in targets)
+    lines.extend(
+        [
+            "",
+            "## 矩阵用途",
+            "",
+            "- 为每个人物列出第五项B正向、负向和相邻项风险的检索方向。",
+            "- 实际检索后，矩阵格只能落为 `checked_no_hard_evidence`、`evidence_found_card_created`、`lead_needs_source_review` 或 `routed_to_adjacent_item`。",
+            "- 矩阵不写评分结果，不写正式档位，不把人物名望、战功、治绩、盛世光环或边疆收益回填第五项B。",
+            "",
+            "## 三人选择原因",
+            "",
+            "- 李世民：高位正证样本，用于检验极正与中负拦截并存。",
+            "- 刘秀：旧体系高位被强负证重新打开的样本，用于检验负证召回。",
+            "- 刘庄：旧体系正证漏检与负证强拦截并存的样本，用于检验正负双向检索。",
+            "",
+            "## 数据质量核验边界",
+            "",
+            "人工只核验回源、上下文、相邻项剥离、规则命中和算法版本；不得把矩阵骨架转写为人物级最终分档、正式分数、排名或单人特判。",
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_review_pilot_plan() -> str:
+    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    lines = [
+        "# 第五项B试点计划",
+        "",
+        "本文由配置生成第五项B三人试点当前计划视图。它只描述试点流程与状态入口，不写评分结果。",
+        "",
+        "## 试点对象",
+        "",
+    ]
+    lines.extend(f"- {person}" for person in targets)
+    lines.extend(
+        [
+            "",
+            "## 试点原因",
+            "",
+            "- 第五项B已暴露正证漏检与负证漏检问题。",
+            "- 可验证正负证矩阵、触发词、证据卡、相邻项切分、负证拦截和规则级复核全流程。",
+            "- 三人试跑用于校验规则，不用于生成正式分数、排名或总榜。",
+            "",
+            "## 试点流程",
+            "",
+            "1. 定第五项B边界。",
+            "2. 建第五项B正证触发词。",
+            "3. 建第五项B负证触发词。",
+            "4. 跑三人正负证矩阵。",
+            "5. 命中材料回源。",
+            "6. 生成证据卡。",
+            "7. 做相邻项切分。",
+            "8. 生成净证据池和自动结算草案。",
+            "9. 进行规则级复核、数据质量核验和发布门槛检查。",
+            "10. 后续是否扩展到全池，另按规则和任务范围确认。",
+            "",
+            "## 禁止事项",
+            "",
+            "- 不在本计划中写入旧分数或新分数。",
+            "- 不把自动方向转写成正式档位。",
+            "- 不新增人物级人工覆盖、单人特判或排名。",
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_review_entry_outputs() -> dict[Path, str]:
+    return {
+        REVIEW_ENTRY_EXPORT_PATH: render_review_entry_landing(),
+        REVIEW_WORKBENCH_EXPORT_PATH: render_review_workbench(),
+        REVIEW_MATRIX_EXPORT_PATH: render_review_matrix_note(),
+        REVIEW_PLAN_EXPORT_PATH: render_review_pilot_plan(),
+    }
+
+
 def render_split_auto_adjudication_outputs(
     *,
     include_display_warnings: bool = False,
@@ -1892,6 +2122,7 @@ def export_auto_adjudication(
     FORMAL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     SCORE_MAP_DRAFT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     CLOSURE_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    REVIEW_ENTRY_DIR.mkdir(parents=True, exist_ok=True)
 
     if output_layout == OUTPUT_LAYOUT_SPLIT:
         split_outputs = render_split_auto_adjudication_outputs(
@@ -1920,6 +2151,8 @@ def export_auto_adjudication(
     SCORE_MAP_DRAFT_EXPORT_PATH.write_text(render_score_mapping_draft(), encoding="utf-8")
     closure_content = render_three_pilot_closure()
     CLOSURE_EXPORT_PATH.write_text(closure_content, encoding="utf-8")
+    for path, content in render_review_entry_outputs().items():
+        path.write_text(content, encoding="utf-8")
     remove_legacy_flat_exports()
     return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH, CLOSURE_EXPORT_PATH
 

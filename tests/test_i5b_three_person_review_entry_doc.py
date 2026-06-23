@@ -4,14 +4,17 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-ENTRY_PATH = ROOT / "docs" / "第五项B三人专人审核入口.md"
+ENTRY_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核" / "入口" / "第五项B三人专人审核入口.md"
+OLD_DOC_PATH = ROOT / "docs" / "第五项B三人专人审核入口.md"
 
 
 def test_i5b_three_person_review_entry_doc_exists_and_covers_people() -> None:
+    assert not OLD_DOC_PATH.exists()
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
     assert "# 第五项B三人专人审核入口" in content
-    for heading in ["## 3. 李世民审核入口", "## 4. 刘秀审核入口", "## 5. 刘庄审核入口"]:
+    assert "旧 `docs/` 同名文件已退役" in content
+    for heading in ["### 李世民", "### 刘秀", "### 刘庄"]:
         assert heading in content
     for person in ["李世民", "刘秀", "刘庄"]:
         assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in content
@@ -21,8 +24,8 @@ def test_i5b_three_person_review_entry_doc_exists_and_covers_people() -> None:
 def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_entries() -> None:
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
-    assert "三人业务审核只使用 `exports/markdown_views/第五项B/人工审核/` 下的新主入口" in content
-    assert "不要再使用 `exports/markdown_views/` 根目录下旧平铺产物" in content
+    assert "审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`" in content
+    assert "以下旧路径若在历史分支或本地残留中出现" in content
     for path in [
         "exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md",
         "exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md",
@@ -40,10 +43,8 @@ def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_e
 def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> None:
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
-    assert "## 6. 旧路径禁用清单" in content
-    assert "## 7. 旧根目录平铺路径禁用清单" in content
-    assert "应不存在" in content
-    assert "不作为专人审核依据" in content
+    assert "## 旧路径禁用" in content
+    assert "不作为当前审核入口" in content
     for path in [
         "exports/markdown_views/第五项B_李世民净证据池.md",
         "exports/markdown_views/第五项B_刘秀净证据池.md",
@@ -53,17 +54,15 @@ def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> N
         "exports/markdown_views/第五项B自动结算草案_刘秀.md",
         "exports/markdown_views/第五项B自动结算草案_刘庄.md",
     ]:
-        assert f"{path}`：应不存在，禁用。" in content
+        assert f"`{path}`" in content
 
 
 def test_i5b_three_person_review_entry_doc_contains_context_dependent_rules() -> None:
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
-    assert "## 8. 上下文依赖证据处理规则" in content
-    assert "需上下文 / 需回源" in content
-    assert "`context_required = true` 且 `context_status` 未达 `supplied` 或 `source_verified` 的证据，不得直接进入稳定裁判" in content
-    assert "`context_effect = reverse` 的证据，应回看其证据方向、强度和裁判桥接说明" in content
-    assert "`context_effect = split_only` 的证据，只能用于相邻项剥离，不得直接回填第五项B正负分" in content
+    assert "数据质量核验栏位" in content
+    assert "回源状态、上下文充分性、相邻项剥离、证据方向一致性、规则命中异常" in content
+    assert "人工只核验数据质量、史料回源状态、上下文充分性、相邻项剥离、规则命中和算法版本" in content
 
 
 def test_i5b_three_person_review_entry_doc_is_plain_review_markdown_not_scoring() -> None:
@@ -72,9 +71,10 @@ def test_i5b_three_person_review_entry_doc_is_plain_review_markdown_not_scoring(
     assert "不是正式评分表" in content
     assert "不生成正式分数" in content
     assert "不生成最终排名" in content
-    assert "不改写自动结算结论" in content
-    assert "分数映射仍不得直接启用" in content
-    assert "**正向证据是否可采纳**：待人工确认" in content
+    assert "不逐人改写自动结算方向" in content
+    assert "不得把本文档、自动结算草案、证据链视图或 warning 直接转写成正式分数、最终排名、正式档位或裁判结论" in content
+    assert "manual_score_override" not in content
+    assert "human_final_score" not in content
     assert "<details" not in content
     assert "<summary" not in content
     assert "</details>" not in content
