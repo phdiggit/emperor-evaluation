@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
@@ -32,6 +34,11 @@ def write_json(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=4) + "\n", encoding="utf-8")
 
 
+def write_yaml(path: Path, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump(payload, allow_unicode=True, sort_keys=False) + "\n", encoding="utf-8")
+
+
 def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
@@ -46,6 +53,14 @@ def build_temp_repo(tmp_path: Path) -> Path:
     copy_script(
         SCRIPTS_DIR / "shared" / "i5b_markdown_display.py",
         repo / "scripts" / "shared" / "i5b_markdown_display.py",
+    )
+    copy_script(
+        SCRIPTS_DIR / "shared" / "i5b_markdown_display_defaults.py",
+        repo / "scripts" / "shared" / "i5b_markdown_display_defaults.py",
+    )
+    copy_script(
+        SCRIPTS_DIR / "shared" / "i5b_runtime_defaults.py",
+        repo / "scripts" / "shared" / "i5b_runtime_defaults.py",
     )
 
     write_jsonl(
@@ -71,26 +86,24 @@ def build_temp_repo(tmp_path: Path) -> Path:
             },
         ],
     )
-    write_json(
-        repo / "data" / "configs" / "视图配置" / "第五项B_视图分组.json",
-        [
-            {
-                "group_id": "第五项B_三人试点",
-                "group_name": "三人试点",
-                "group_type": "试点人物组",
-                "subitem": "第五项B",
-                "persons": ["李世民", "刘秀", "刘庄"],
-                "note": "测试",
-            }
-        ],
-    )
-    write_json(
-        repo / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json",
+    write_yaml(
+        repo / "data" / "configs" / "project_config.yml",
         {
-            "keep_machine_field_name": True,
-            "value_labels": {
-                "positive": "正向",
-                "negative": "负向",
+            "version": 1,
+            "active_subitem": "第五项B",
+            "subitems": {
+                "第五项B": {
+                    "groups": {
+                        "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
+                        "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦"]},
+                        "net_evidence": {"label": "净证据导出目标", "persons_from_group": "three_pilot"},
+                    },
+                    "defaults": {
+                        "trial_group": "three_pilot",
+                        "expanded_group": "expanded_batch1",
+                        "net_evidence_group": "net_evidence",
+                    },
+                }
             },
         },
     )

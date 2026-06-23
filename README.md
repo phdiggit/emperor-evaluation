@@ -14,6 +14,7 @@
 
 - 工程骨架已建立。
 - `data/*.jsonl` 是事实源。
+- `data/configs/project_config.yml` 是当前全项目人工配置入口；展示细节、人工关键词表、正式评分规则和机器 registry 不放入该 YAML。
 - `data/templates/*.json` 只是填写模板，不进入 `build_db` 导入流程。
 - `evidence_cache.sqlite` 是生成物，不进 Git。
 - Markdown 是审阅导出视图，不是主源。
@@ -42,10 +43,22 @@
 
 ## 运行命令
 
+安装 Python 依赖：
+
+```bash
+python -m pip install -r requirements.txt
+```
+
 校验证据 JSONL：
 
 ```bash
 python scripts/validate/validate_evidence.py
+```
+
+校验全项目人工配置入口：
+
+```bash
+python scripts/validate/validate_project_config.py
 ```
 
 生成 SQLite 运行库：

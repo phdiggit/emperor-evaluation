@@ -85,29 +85,23 @@ def test_i5b_auto_profile_only_runs_auto_adjudication() -> None:
     assert export_md.step_names_for_profile("i5b-auto") == ["auto_adjudication"]
 
 
-def test_load_i5b_trial_targets_prefers_chinese_view_group_config(
-    tmp_path: Path, monkeypatch
+def test_load_i5b_trial_targets_prefers_project_config(
+    tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
-    group_path = tmp_path / "第五项B_视图分组.json"
-    group_path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_三人试点",
-                    "group_name": "三人试点",
-                    "group_type": "试点人物组",
-                    "subitem": "第五项B",
-                    "persons": ["甲", "乙"],
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_三人试点",
+                "group_name": "三人试点",
+                "group_type": "试点人物组",
+                "subitem": "第五项B",
+                "persons": ["甲", "乙"],
+                "note": "测试",
+            }
+        ],
     )
-    monkeypatch.setattr(export_md.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(export_md.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
     targets = export_md.load_i5b_trial_targets()
 
@@ -115,29 +109,23 @@ def test_load_i5b_trial_targets_prefers_chinese_view_group_config(
 
 
 def test_export_search_logs_markdown_uses_trial_targets_config(
-    tmp_path: Path, monkeypatch
+    tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
     db_path = tmp_path / "evidence_cache.sqlite"
-    group_path = tmp_path / "第五项B_视图分组.json"
     export_path = tmp_path / "第五项B三人试点检索线索.md"
 
-    group_path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_三人试点",
-                    "group_name": "三人试点",
-                    "group_type": "试点人物组",
-                    "subitem": "第五项B",
-                    "persons": ["甲", "乙"],
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_三人试点",
+                "group_name": "三人试点",
+                "group_type": "试点人物组",
+                "subitem": "第五项B",
+                "persons": ["甲", "乙"],
+                "note": "测试",
+            }
+        ],
     )
 
     with sqlite3.connect(db_path) as connection:
@@ -174,7 +162,7 @@ def test_export_search_logs_markdown_uses_trial_targets_config(
         connection.commit()
 
     export_md.DB_PATH = db_path
-    monkeypatch.setattr(export_md.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(export_md.config_loaders, "PROJECT_CONFIG_PATH", config_path)
     export_md.I5B_TRIAL_TARGETS = export_md.load_i5b_trial_targets()
     export_md.SEARCH_LOGS_EXPORT_PATH = export_path
 

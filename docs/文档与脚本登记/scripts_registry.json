@@ -102,19 +102,7 @@
       "implementation": "scripts/validate/validate_chinese_view_configs.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_validate_chinese_view_configs.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_config_comments",
-      "implementation": "scripts/validate/validate_config_comments.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_config_comments.py",
+        "tests/test_project_config.py",
         "tests/test_scripts_directory_layout.py"
       ],
       "status": "migrated"
@@ -162,7 +150,7 @@
       "implementation": "scripts/validate/validate_i5b_cluster_adjudication_configs.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_validate_i5b_cluster_adjudication_configs.py",
+        "tests/test_project_config.py",
         "tests/test_scripts_directory_layout.py"
       ],
       "status": "migrated"
@@ -178,6 +166,18 @@
         "tests/test_scripts_directory_layout.py"
       ],
       "status": "migrated"
+    },
+    {
+      "id": "validate_project_config",
+      "category": "validate",
+      "implementation": "scripts/validate/validate_project_config.py",
+      "legacy_wrapper": null,
+      "status": "migrated",
+      "audit_docs": [],
+      "required_tests": [
+        "tests/test_project_config.py",
+        "tests/test_scripts_directory_layout.py"
+      ]
     },
     {
       "audit_docs": [],
@@ -560,7 +560,6 @@
     "scripts/validate_all.py": "validate_all",
     "scripts/validate_canonical_data_integrity.py": "validate_canonical_data_integrity",
     "scripts/validate_chinese_view_configs.py": "validate_chinese_view_configs",
-    "scripts/validate_config_comments.py": "validate_config_comments",
     "scripts/validate_config_readability.py": "validate_config_readability",
     "scripts/validate_evidence.py": "validate_evidence",
     "scripts/validate_human_readable_markdown_exports.py": "validate_human_readable_markdown_exports",

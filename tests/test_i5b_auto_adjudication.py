@@ -124,7 +124,7 @@ def make_cluster(
 
 
 @pytest.fixture()
-def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, project_config_writer):
     data_dir = tmp_path / "data"
     data_dir.mkdir()
     export_dir = tmp_path / "exports" / "markdown_views" / "第五项B"
@@ -132,28 +132,22 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     auto_dir = auto_chain_dir / "自动结算草案"
     auto_dir.mkdir(parents=True)
 
-    group_path = tmp_path / "第五项B_视图分组.json"
-    group_path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_三人试点",
-                    "group_name": "三人试点",
-                    "group_type": "试点人物组",
-                    "subitem": "第五项B",
-                    "persons": ["测试甲"],
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_三人试点",
+                "group_name": "三人试点",
+                "group_type": "试点人物组",
+                "subitem": "第五项B",
+                "persons": ["测试甲"],
+                "note": "测试",
+            }
+        ],
     )
 
     monkeypatch.setattr(auto, "DATA_DIR", data_dir)
-    monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(auto.config_loaders, "PROJECT_CONFIG_PATH", config_path)
     monkeypatch.setattr(auto, "MARKDOWN_VIEW_ROOT", tmp_path / "exports" / "markdown_views")
     monkeypatch.setattr(auto, "I5B_MARKDOWN_VIEW_ROOT", export_dir)
     monkeypatch.setattr(auto, "I5B_HUMAN_REVIEW_ROOT", export_dir / "人工审核")
@@ -164,7 +158,6 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(auto, "RULE_SENSITIVE_DIR", auto_chain_dir / "规则敏感点")
     monkeypatch.setattr(auto, "FORMAL_DRAFT_DIR", auto_chain_dir / "正式定档草案")
     monkeypatch.setattr(auto, "TRIAL_CLOSURE_DIR", auto_chain_dir / "试点闭环")
-    monkeypatch.setattr(auto, "DISPLAY_CONFIG_PATH", ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json")
     monkeypatch.setattr(auto, "EXPORT_PATH", auto_dir / "第五项B三人自动结算草案.md")
     monkeypatch.setattr(auto, "RULES_EXPORT_PATH", auto_chain_dir / "规则敏感点" / "第五项B自动结算规则敏感点清单.md")
     monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B三人正式定档落地表.md")
@@ -261,27 +254,6 @@ def person_section(content: str, person: str, next_person: str | None = None) ->
         return content[start:]
     end = content.index(f"\n## {next_person}", start + 1)
     return content[start:end]
-
-
-def write_view_group(path: Path, persons: list[str]) -> None:
-    path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_三人试点",
-                    "group_name": "多人物测试",
-                    "group_type": "试点人物组",
-                    "subitem": "第五项B",
-                    "persons": persons,
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
 
 
 def report_core_field_snapshot(
@@ -583,10 +555,22 @@ def test_display_warnings_enabled_keeps_section_inside_each_person(
     tmp_path: Path,
     temp_auto_data: Path,
     monkeypatch: pytest.MonkeyPatch,
+    project_config_writer,
 ) -> None:
-    group_path = tmp_path / "第五项B_多人物测试.json"
-    write_view_group(group_path, ["测试甲", "测试乙"])
-    monkeypatch.setattr(auto.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_三人试点",
+                "group_name": "多人物测试",
+                "group_type": "试点人物组",
+                "subitem": "第五项B",
+                "persons": ["测试甲", "测试乙"],
+                "note": "测试",
+            }
+        ],
+    )
+    monkeypatch.setattr(auto.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
     first_cards, first_clusters = build_display_warning_fixture(
         temp_auto_data,

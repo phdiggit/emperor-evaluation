@@ -163,10 +163,9 @@ def test_grouped_terms_filters_groups_and_sorts_without_changing_semantics() -> 
     ]
 
 
-def test_export_matrix_uses_trial_config_and_temp_output(tmp_path: Path, monkeypatch) -> None:
+def test_export_matrix_uses_trial_config_and_temp_output(tmp_path: Path, monkeypatch, project_config_writer) -> None:
     data_dir = tmp_path / "data"
     export_path = tmp_path / "matrix.md"
-    group_path = tmp_path / "第五项B_视图分组.json"
     data_dir.mkdir()
 
     write_jsonl(
@@ -192,28 +191,23 @@ def test_export_matrix_uses_trial_config_and_temp_output(tmp_path: Path, monkeyp
             },
         ],
     )
-    group_path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_三人试点",
-                    "group_name": "三人试点",
-                    "group_type": "试点人物组",
-                    "subitem": "第五项B",
-                    "persons": ["甲", "乙"],
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_三人试点",
+                "group_name": "三人试点",
+                "group_type": "试点人物组",
+                "subitem": "第五项B",
+                "persons": ["甲", "乙"],
+                "note": "测试",
+            }
+        ],
     )
 
     monkeypatch.setattr(run_matrix, "DATA_DIR", data_dir)
     monkeypatch.setattr(run_matrix, "EXPORT_PATH", export_path)
-    monkeypatch.setattr(run_matrix.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(run_matrix.config_loaders, "PROJECT_CONFIG_PATH", config_path)
     monkeypatch.setattr(run_matrix, "load_display_dictionary", lambda: {})
 
     result_path = run_matrix.export_matrix()

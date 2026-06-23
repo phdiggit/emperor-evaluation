@@ -264,31 +264,37 @@ def test_human_review_export_table_order_follows_config(tmp_path: Path, monkeypa
     assert "| 强正 | 测试人物 | 正向 |" in content
 
 
-def test_load_i5b_net_evidence_targets_prefers_chinese_view_group_config(
-    tmp_path: Path, monkeypatch
+def test_load_i5b_net_evidence_targets_prefers_project_config(
+    tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
-    group_path = tmp_path / "第五项B_视图分组.json"
-    group_path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_净证据导出目标",
-                    "group_name": "净证据导出目标",
-                    "group_type": "导出人物组",
-                    "subitem": "第五项B",
-                    "persons": ["测试人物"],
-                    "path_template": "exports/markdown_views/test-{person}.md",
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_净证据导出目标",
+                "group_name": "净证据导出目标",
+                "group_type": "导出人物组",
+                "subitem": "第五项B",
+                "persons": ["测试人物"],
+                "path_template": "exports/markdown_views/test-{person}.md",
+                "note": "测试",
+            }
+        ],
     )
-    monkeypatch.setattr(net_evidence.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(net_evidence.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
     targets = net_evidence.load_i5b_net_evidence_targets()
 
-    assert targets == [("测试人物", net_evidence.ROOT / "exports" / "markdown_views" / "test-测试人物.md")]
+    assert targets == [
+        (
+            "测试人物",
+            net_evidence.ROOT
+            / "exports"
+            / "markdown_views"
+            / "第五项B"
+            / "人工审核"
+            / "证据链"
+            / "净证据池"
+            / "第五项B_测试人物人工审核净证据池.md",
+        )
+    ]

@@ -26,34 +26,32 @@ def test_export_global_scale_decision_brief_writes_canonical_export_only(tmp_pat
     assert "方案 C 是发布门槛和实施顺序" in export_content
 
 
-def test_export_expanded_i5b_candidate_pool_reads_chinese_person_pool_config(
-    tmp_path: Path, monkeypatch
+def test_export_expanded_i5b_candidate_pool_reads_internal_defaults(
+    tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
-    config_path = tmp_path / "第五项B_人物池.json"
-    config_path.write_text(
-        json.dumps(
-            [
-                {
-                    "person": "Temp Person",
-                    "subitem": "第五项B",
-                    "candidate_type": "Temp Type",
-                    "why_selected": "Temp Why",
-                    "expected_rule_pressure": "Temp Pressure",
-                    "required_evidence_focus": "Temp Focus",
-                    "adjacent_item_risk": "Temp Risk",
-                    "negative_scan_focus": "Temp Negative",
-                    "recommended_priority": "P9",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+    )
+    monkeypatch.setattr(doc_views.config_loaders, "PROJECT_CONFIG_PATH", config_path)
+    monkeypatch.setattr(
+        doc_views.config_loaders,
+        "default_i5b_candidate_pool_rows",
+        lambda: [
+            {
+                "person": "Temp Person",
+                "subitem": "第五项B",
+                "candidate_type": "Temp Type",
+                "why_selected": "Temp Why",
+                "expected_rule_pressure": "Temp Pressure",
+                "required_evidence_focus": "Temp Focus",
+                "adjacent_item_risk": "Temp Risk",
+                "negative_scan_focus": "Temp Negative",
+                "recommended_priority": "P9",
+            }
+        ],
     )
 
     export_path = tmp_path / "exports" / "candidate-pool.md"
-    monkeypatch.setattr(doc_views.config_loaders, "I5B_PERSON_POOL_PATH", config_path)
     doc_views.CANDIDATE_POOL_EXPORT_PATH = export_path
 
     rendered = doc_views.render_expanded_i5b_candidate_pool()

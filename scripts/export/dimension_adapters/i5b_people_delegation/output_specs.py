@@ -48,9 +48,6 @@ TRIAL_CLOSURE_DIR = AUTO_ADJUDICATION_HUMAN_ROOT / "试点闭环"
 REVIEW_ENTRY_DIR = I5B_HUMAN_REVIEW_ROOT / "入口"
 
 
-DISPLAY_CONFIG_PATH = ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
-
-
 EXPORT_PATH = AUTO_DRAFT_DIR / "第五项B三人自动结算草案.md"
 
 

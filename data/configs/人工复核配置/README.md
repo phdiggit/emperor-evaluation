@@ -1,37 +1,19 @@
-# 人工复核配置
+# 人工复核配置退役说明
 
-本目录是人工复核配置主入口。
+本目录不再作为第五项B人工复核配置入口。
 
-约定：
+当前入口统一为：
 
-- 用户可编辑配置使用 formatted JSON。
-- JSON 顶层使用 array，每个元素为 object。
-- 中文内容必须 UTF-8 直写，不使用 `\uXXXX` 转义。
-- 机器行式数据仍可在其他明确数据层使用 JSONL。
+```text
+data/configs/project_config.yml
+```
 
-第五项B检索关键词配置主入口：
+已退役内容：
 
-- `第五项B_检索关键词基础.json`
-- `第五项B_检索关键词补丁.json`
-- `第五项B_证据簇裁判提示.json`
+- 人工长期维护的第五项B检索关键词基础 / 补丁配置。
+- 第五项B专属证据簇裁判提示 JSON。
+- 配置说明 comments 文件机制。
 
-分工：
+后续检索词由 Codex、search task generator 或 source passage / trigger_terms / existing evidence 抽取生成，人工只复核生成结果，不在本目录长期维护词表。
 
-- 基础配置记录第五项B通用检索画像，例如用人任贤、授权与分权、纳谏与表达入口、容人容错、功臣与重臣处置、高压控制与寒蝉风险。
-- 补丁配置记录少量人物级检索补充，用于提示特定人物的常见检索词和噪音压制词。
-- 两类配置只用于检索画像与人工复核辅助，不代表证据结论、评分、裁判结论、正式定档或排名。
-- 新增或修改关键词后，必须运行 `python scripts/validate_review_configs.py`。
-
-第五项B证据簇裁判提示配置：
-
-- `第五项B_证据簇裁判提示.json` 已从空 skeleton 进入低风险 disabled 提示规则阶段。
-- 所有规则必须 `enabled=false`，当前仍不被业务脚本读取。
-- 这些规则只作为人工复核提示，不代表证据结论、证据簇强度、人物定档、正式分数、排名或总榜。
-- 任何启用、接入脚本读取、或新增高风险规则，都必须另开 PR 人工确认。
-- 修改后必须运行 `python scripts/validate_i5b_cluster_adjudication_configs.py`。
-
-迁移状态：
-
-- 未发现被跟踪的旧 `data/review_configs/search_keyword_profiles.jsonl`。
-- 未发现被跟踪的旧 `data/review_configs/search_keyword_overrides.jsonl`。
-- 旧 review config JSONL 未作为生产入口保留；当前主维护入口为本目录下的 formatted JSON。
+人工复核提示规则不再作为人工配置项暴露；现有 display-only warning 由脚本内部默认值承载，不出分、不定档、不排名、不自动发布、不改变证据或裁判语义。

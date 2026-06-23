@@ -21,7 +21,6 @@ from export.dimension_adapters.i5b_people_delegation.output_specs import *  # no
 from export.dimension_adapters.i5b_people_delegation.rules import *  # noqa: F401,F403
 from export.dimension_export.data_loading import (
     DEFAULT_DISPLAY_CONFIG,
-    configure_display_config,
     load_markdown_view_config as _load_markdown_view_config,
     read_jsonl,
 )
@@ -58,11 +57,10 @@ from export.dimension_export.output_layout import ensure_directories, remove_exi
 from export.dimension_export.pipeline import build_dimension_context
 from export.dimension_export.validation import HumanReadableMarkdownValidationError
 
-configure_display_config(DISPLAY_CONFIG_PATH)
-
-
 def load_i5b_markdown_view_config(path: Path | None = None) -> dict[str, Any]:
-    return _load_markdown_view_config(path or DISPLAY_CONFIG_PATH)
+    if path is not None:
+        raise ValueError("第五项B Markdown 展示默认值已迁回代码，不再读取外部 markdown_view 配置")
+    return _load_markdown_view_config()
 
 
 def person_detail_export_path(person: str) -> Path:

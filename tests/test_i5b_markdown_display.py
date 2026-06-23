@@ -76,10 +76,8 @@ def test_retired_i5b_markdown_display_wrapper_path_is_absent() -> None:
     assert not (ROOT / "scripts" / "i5b_markdown_display.py").exists()
 
 
-def test_default_display_config_path_still_points_to_i5b_markdown_view_config() -> None:
-    assert i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH == (
-        ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
-    )
+def test_display_dictionary_is_code_owned() -> None:
+    assert load_display_dictionary()["config_type"] == "markdown_view_display"
 
 
 def test_render_long_list_preserves_locator_items() -> None:
