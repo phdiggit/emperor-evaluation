@@ -12,6 +12,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 - 先用本地事实和命令判断；范围明确时一次完成白名单内必要步骤。Use local facts first and complete in-scope work end to end.
 - 只读诊断保持只读；需要改文件时，先锁定最小改动路径。Read-only means read-only; find the minimal edit path before writing.
+- 任务卡“必读”默认指定位相关段落；大文件先用 `rg` / `git grep` / 定向行号读取，除非要整体重写，不得全文读取大型 exporter、registry、tests 或生成物。
 - 修改前后核对 `git diff --name-only`；白名单外改动必须还原。Check diff scope before and after edits.
 - 返工或收口先定位最小修改点；通常只确认 branch、PR head 和 `git status`。For repair or closeout, start from the smallest fix.
 - 评分、证据、裁判、档位、分值和排名等业务语义先读 `docs/皇帝综合评价体系评分标准.md`；生成物不是事实源，冲突时不得静默覆盖。Generated outputs are views; find the generator before editing exports.
@@ -28,12 +29,12 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 ## Shell 与编码 / Shell And Encoding
 
-- 当前在 PowerShell 时使用 PowerShell 语法；不要使用 Bash 的 `&&` / `||`。需要串联时用分步命令，或 `; if ($LASTEXITCODE -eq 0) { ... }`。
-- 当前在 Git Bash 时保持 Git Bash。需要复杂管道、重定向、命令串联时，可明确切到 Git Bash。
+- Windows 上涉及中文正文、中文路径、JSON/Markdown 改写或多行脚本时，优先使用 Git Bash + UTF-8 环境；PowerShell 仅用于简单命令或 Windows 专属 cmdlet。
+- 当前在 PowerShell 时使用 PowerShell 语法，不用 Bash 的 `&&` / `||`；当前在 Git Bash 时保持 Git Bash，复杂管道、重定向和命令串联优先切到 Git Bash。
+- 禁止用 PowerShell inline / here-string 管道传递大段中文给 Python 或 `gh`；改用 Git Bash here-doc、UTF-8 临时 `.py` 文件、`repo_tool` / `pr_body_tool`，或显式 Unicode escape。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或 `python scripts/dev/repo_tool.py`。
-- 中文文本读写、JSON / JSONL 结构化改写优先用仓库工具或 Python 标准库；JSON 输出用 UTF-8、`ensure_ascii=False`、稳定缩进。
-- 临时 Markdown、说明文件使用 UTF-8 no BOM。
+- 中文文本、Markdown、JSON / JSONL 结构化改写优先用仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
 
 ## GitHub 正文安全 / GitHub Body Safety
 
@@ -50,7 +51,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改已迁移脚本时只改 canonical 真实实现，并验证 canonical import/CLI；不得恢复已退役 wrapper。
 - 普通功能 PR 不顺手迁移其他职责域；迁移任务按同一职责链成批处理。
 - 当前路径、迁移状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/agent_rules/scripts_registry.json` 为准。
-- scripts 治理 PR 开 PR 前必须运行适用测试、`python scripts/validate/validate_all.py`、scope-check 和 agents-check。
+- scripts 治理 PR 开 PR前必须运行适用测试、`python scripts/validate/validate_all.py`、scope-check 和 agents-check。
 
 ## 改动与验证 / Changes And Validation
 
