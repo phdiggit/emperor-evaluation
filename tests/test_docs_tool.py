@@ -126,6 +126,13 @@ def write_registry(repo: Path, registry: dict) -> Path:
     return path
 
 
+def add_project_driver(repo: Path) -> None:
+    write(
+        repo / "docs" / "driver.md",
+        "# 中国古代皇帝综合评价体系 V3.2\n\n正收益总分 − 历史负债\n\n正收益合计\n\n历史负债\n",
+    )
+
+
 def test_inventory_tracks_ref_chinese_paths_references_generators_and_duplicates(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     first_sha = seed_repo(repo)
@@ -320,6 +327,61 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
         "keep_governance_exception is only allowed under docs/agent_rules/" in p
         for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_governance_exception"))
     )
+
+
+def test_check_validates_project_driver_paths(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    add_project_driver(repo)
+    commit_all(repo, "add driver")
+    docs_tool = load_docs_tool(repo)
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry["project_driver_paths"] = ["docs/driver.md"]
+    driver_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/driver.md")
+    driver_doc["title"] = "中国古代皇帝综合评价体系 V3.2"
+    driver_doc["reason"] = "临时仓库项目上位驱动文档。"
+    driver_doc["placement_reason"] = "临时仓库项目驱动文档，长期保留在 docs。"
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+
+    def problems_for(mutator) -> list[str]:
+        broken = json.loads(json.dumps(registry, ensure_ascii=False))
+        mutator(broken)
+        registry_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return docs_tool.check_registry(str(registry_path.relative_to(repo)))
+
+    assert any("project_driver_paths must be a non-empty list" in p for p in problems_for(lambda r: r.__setitem__("project_driver_paths", [])))
+    assert any("project driver is not registered" in p for p in problems_for(lambda r: r.__setitem__("project_driver_paths", ["docs/missing.md"])))
+    assert any(
+        "project driver is not registered" in p
+        for p in problems_for(lambda r: r.__setitem__("documents", [d for d in r["documents"] if d["path"] != "docs/driver.md"]))
+    )
+    assert any(
+        "project driver requires document_type='canonical_spec'" in p
+        for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == "docs/driver.md").__setitem__("document_type", "generated_view"))
+    )
+    assert any(
+        "project driver requires lifecycle_status='active'" in p
+        for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == "docs/driver.md").__setitem__("lifecycle_status", "historical"))
+    )
+    assert any(
+        "project driver requires proposed_action='keep'" in p
+        for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == "docs/driver.md").__setitem__("proposed_action", "archive"))
+    )
+    assert any(
+        "project driver requires unique_source_risk=True" in p
+        for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == "docs/driver.md").__setitem__("unique_source_risk", False))
+    )
+    assert any(
+        "project driver must not appear in archived_document_paths" in p
+        for p in problems_for(lambda r: r.__setitem__("archived_document_paths", {"docs/old_driver.md": "docs/driver.md"}))
+    )
+
+    report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    assert "## 项目驱动文档" in report
+    assert "docs/driver.md" in report
 
 
 def test_check_validates_archived_document_paths(tmp_path: Path) -> None:

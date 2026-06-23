@@ -13,6 +13,7 @@ DOCS_AGENTS = ROOT / "docs" / "AGENTS.md"
 DOCS_REGISTRY = ROOT / "docs" / "agent_rules" / "docs_registry.json"
 DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "docs" / "文档治理盘点报告.md"
+PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
 ARCHIVE_MAP = {
     "docs/canonical_data_integrity_validation_note_20260620.md": "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
     "docs/file_governance_final_audit_20260620.md": "docs/archive/audits/file_governance_final_audit_20260620.md",
@@ -127,6 +128,36 @@ def test_docs_registry_candidate_safety_rules() -> None:
                 assert (ROOT / rel_path).exists(), f"{doc['path']} has missing {field}: {rel_path}"
 
 
+def test_project_driver_is_registered_and_protected() -> None:
+    registry = load_registry()
+    drivers = registry["project_driver_paths"]
+    by_path = {doc["path"]: doc for doc in registry["documents"]}
+
+    assert drivers == [PROJECT_DRIVER]
+    driver = by_path[PROJECT_DRIVER]
+    assert (ROOT / PROJECT_DRIVER).is_file()
+    assert driver["document_type"] == "canonical_spec"
+    assert driver["lifecycle_status"] == "active"
+    assert driver["proposed_action"] == "keep"
+    assert driver["content_role"] == "rule_or_method"
+    assert driver["placement_action"] == "keep_in_docs"
+    assert driver["unique_source_risk"] is True
+    assert PROJECT_DRIVER not in registry.get("archived_document_paths", {})
+    assert PROJECT_DRIVER not in registry.get("archived_document_paths", {}).values()
+
+    text = (ROOT / PROJECT_DRIVER).read_text(encoding="utf-8")
+    for marker in [
+        "中国古代皇帝综合评价体系 V3.2",
+        "正收益总分 − 历史负债",
+        "正收益合计",
+        "历史负债",
+    ]:
+        assert marker in text
+
+    for rel_path in ["README.md", "AGENTS.md", "docs/AGENTS.md", "docs/总规则.md"]:
+        assert PROJECT_DRIVER in (ROOT / rel_path).read_text(encoding="utf-8")
+
+
 def test_archive_batch_lifecycle_and_mapping_are_exact() -> None:
     registry = load_registry()
     by_path = {doc["path"]: doc for doc in registry["documents"]}
@@ -170,6 +201,8 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     for needle in [
         "### 内容角色统计",
         "### 推荐归置动作统计",
+        "## 项目驱动文档",
+        PROJECT_DRIVER,
         "## 7. 仅保留 exports 候选",
         "## 8. 需要拆分的混合文档",
         "## 9. 吸收后归档候选",

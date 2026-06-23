@@ -90,6 +90,12 @@ GOVERNANCE_REFERENCE_SOURCES = {
     "docs/agent_rules/docs_registry.json",
     "docs/文档治理盘点报告.md",
 }
+PROJECT_DRIVER_REQUIRED_MARKERS = (
+    "中国古代皇帝综合评价体系 V3.2",
+    "正收益总分 − 历史负债",
+    "正收益合计",
+    "历史负债",
+)
 
 
 def _repo_root() -> Path:
@@ -575,6 +581,59 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
                 if not _path_exists(candidate):
                     problems.append(f"{path}: {field} path does not exist: {candidate}")
 
+    project_driver_paths = registry.get("project_driver_paths")
+    if project_driver_paths is not None:
+        if not isinstance(project_driver_paths, list) or not project_driver_paths:
+            problems.append(f"{registry_path}: project_driver_paths must be a non-empty list")
+            project_driver_paths = []
+        archived_paths = registry.get("archived_document_paths") or {}
+        archived_old_paths = set(archived_paths) if isinstance(archived_paths, dict) else set()
+        archived_new_paths = set(archived_paths.values()) if isinstance(archived_paths, dict) else set()
+        replacement_targets = {
+            str(doc.get("replacement_path"))
+            for doc in documents
+            if doc.get("replacement_path")
+        }
+        for driver_path in project_driver_paths:
+            if not isinstance(driver_path, str) or not driver_path:
+                problems.append(f"{registry_path}: project_driver_paths entries must be non-empty strings")
+                continue
+            if not _valid_repo_target_path(driver_path) or not driver_path.startswith("docs/"):
+                problems.append(f"{driver_path}: project driver path must be a repo-relative docs path")
+                continue
+            driver_doc = by_path.get(driver_path)
+            if driver_doc is None:
+                problems.append(f"{driver_path}: project driver is not registered in documents")
+                continue
+            if not _path_exists(driver_path):
+                problems.append(f"{driver_path}: project driver path missing")
+                continue
+            expected_driver_fields = {
+                "document_type": "canonical_spec",
+                "lifecycle_status": "active",
+                "proposed_action": "keep",
+                "content_role": "rule_or_method",
+                "placement_action": "keep_in_docs",
+                "unique_source_risk": True,
+            }
+            for field, expected in expected_driver_fields.items():
+                if driver_doc.get(field) != expected:
+                    problems.append(f"{driver_path}: project driver requires {field}={expected!r}")
+            if driver_path in archived_old_paths or driver_path in archived_new_paths:
+                problems.append(f"{driver_path}: project driver must not appear in archived_document_paths")
+            if driver_path in replacement_targets or driver_doc.get("replacement_path"):
+                problems.append(f"{driver_path}: project driver must not be replaced by replacement_path")
+            if driver_doc.get("lifecycle_status") in {"archive_candidate", "delete_candidate"}:
+                problems.append(f"{driver_path}: project driver cannot be an archive/delete candidate")
+            if driver_doc.get("proposed_action") in {"archive", "delete"}:
+                problems.append(f"{driver_path}: project driver cannot use proposed_action={driver_doc.get('proposed_action')}")
+            text = _resolve_repo_path(driver_path).read_text(encoding="utf-8")
+            if not text.strip():
+                problems.append(f"{driver_path}: project driver document must not be empty")
+            for marker in PROJECT_DRIVER_REQUIRED_MARKERS:
+                if marker not in text:
+                    problems.append(f"{driver_path}: project driver document missing marker: {marker}")
+
     expected_docs = set(_tracked_current_docs()) - {normalize_repo_path(registry_path)}
     actual_docs = set(by_path)
     for missing in sorted(expected_docs - actual_docs):
@@ -679,6 +738,8 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     review_docs = unique_docs(docs_for(action="review") + docs_for(status="needs_human_confirmation"))
     archived_map = registry.get("archived_document_paths") or {}
     archived_docs = [doc for old_path, new_path in sorted(archived_map.items()) for doc in documents if doc["path"] == new_path]
+    project_driver_paths = registry.get("project_driver_paths") or []
+    project_driver_docs = [doc for driver_path in project_driver_paths for doc in documents if doc["path"] == driver_path]
     candidate_paths = {doc["path"] for doc in archive_docs + delete_docs + review_docs + archived_docs}
 
     candidate_header = [
@@ -707,6 +768,23 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
                     str(bool(doc.get("unique_source_risk"))).lower(),
                     doc.get("placement_reason") or doc.get("reason", ""),
                     str(bool(doc.get("human_confirmation_required"))).lower(),
+                ]
+            )
+        return rows
+
+    def driver_rows(items: list[dict[str, Any]]) -> list[list[str]]:
+        rows = [["path", "title", "document type", "lifecycle", "content role", "placement action", "unique source risk", "reason"]]
+        for doc in items:
+            rows.append(
+                [
+                    doc["path"],
+                    str(doc.get("title", "")),
+                    str(doc.get("document_type", "")),
+                    str(doc.get("lifecycle_status", "")),
+                    str(doc.get("content_role", "")),
+                    str(doc.get("placement_action", "")),
+                    str(bool(doc.get("unique_source_risk"))).lower(),
+                    doc.get("reason", ""),
                 ]
             )
         return rows
@@ -838,6 +916,10 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         f"- docs registry 覆盖文档数：{len(documents)}。",
         "- 候选动作和已归档映射均以 registry 当前状态为准；归档不是删除，吸收候选也不表示已经迁移。",
         "- 本报告只登记内容归置建议，不改变 data、exports、数据库、评分、证据或裁判语义。",
+        "",
+        "## 项目驱动文档",
+        "",
+        *_table(driver_rows(project_driver_docs)),
         "",
         "## 2. docs 总体统计",
         "",
