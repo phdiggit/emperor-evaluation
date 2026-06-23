@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 BUILD_DIR = SCRIPTS_DIR / "build"
 REAL_DB_PATH = ROOT / "evidence_cache.sqlite"
+pytestmark = pytest.mark.db
 
 EXPECTED_TABLE_FILES = {
     "sources": ROOT / "data" / "sources.jsonl",

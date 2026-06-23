@@ -6,6 +6,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RULE_BOUNDARY_PATH = ROOT / "data" / "rule_boundary_batches" / "i5b_yongzheng_rule_boundary_review_20260619.jsonl"
@@ -108,6 +110,8 @@ def test_readiness_followup_summary_covers_all_three_people() -> None:
     assert lookup["朱元璋"]["current_readiness_recommendation"] == "ready_for_human_review_without_scoring"
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_readiness_followup_export_is_review_only() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],

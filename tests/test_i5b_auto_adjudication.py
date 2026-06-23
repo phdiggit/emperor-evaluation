@@ -717,6 +717,8 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail_pages() -> None:
     result = run_script("export_i5b_auto_adjudication.py", "--output-layout", "split", "--include-display-warnings")
 
@@ -824,6 +826,8 @@ def test_canonical_export_does_not_run_split_validation(
     auto.export_auto_adjudication(output_layout=auto.OUTPUT_LAYOUT_CANONICAL)
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     result = run_script("export_i5b_auto_adjudication.py")
 
@@ -953,6 +957,8 @@ def test_real_data_reflects_issue46_rule_decisions() -> None:
     assert liuzhuang_cluster["auto_cluster_result"] == "中负边界"
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_formal_landing_table_reflects_auto_drafts() -> None:
     result = run_script("export_i5b_auto_adjudication.py")
 
@@ -970,6 +976,8 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_export_md_generates_i5b_review_entry_views() -> None:
     result = run_script("export_md.py", "--profile", "i5b-auto")
 

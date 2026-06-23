@@ -86,6 +86,14 @@ python scripts/matrix/run_matrix.py
 pytest -q
 ```
 
+测试目录仍进入 Git 管理，缓存、覆盖率、SQLite 和临时导出副产物不进入版本控制。默认不排除 pytest marker；需要显式查看导出全量、集成、慢测、snapshot 或数据库相关测试时运行：
+
+```bash
+pytest -q -m "export_full or integration or slow or snapshot or db"
+```
+
+新增测试归类规则见 [`tests/README.md`](tests/README.md)。
+
 ## GitHub 发布
 
 推荐使用本地持久认证而不是依赖 Codex 的临时 GitHub 会话。稳定做法是：

@@ -2,12 +2,16 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BRIEF_DOC_PATH = ROOT / "docs" / "全局总标尺决策简报_讨论版.md"
 BRIEF_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "综合汇总" / "全局总标尺决策简报_讨论版.md"
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_export_md_generates_global_scale_decision_brief_export_only() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "project-docs"],

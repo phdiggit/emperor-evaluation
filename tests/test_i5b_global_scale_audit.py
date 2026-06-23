@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUDIT_PATH = ROOT / "docs" / "archive" / "audits" / "第五项B评分映射总标尺对齐审计.md"
+AUDIT_PATH = ROOT / "archive" / "docs" / "audits" / "第五项B评分映射总标尺对齐审计.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = (
     ROOT
     / "exports"

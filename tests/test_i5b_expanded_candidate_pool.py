@@ -2,6 +2,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,6 +41,9 @@ def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]
     )
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
+@pytest.mark.db
 def test_export_md_generates_expanded_candidate_pool_design_export_only() -> None:
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr

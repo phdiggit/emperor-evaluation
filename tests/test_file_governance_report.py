@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT / "tests"))
 from _git_helpers import changed_files_against_base, git_changed_files, skip_unless_pr_diff_checks_enabled
 
 REPORT_FILE = "\u9879\u76ee\u6587\u4ef6\u6cbb\u7406\u8bca\u65ad\u62a5\u544a.md"
-REPORT_PATH = ROOT / "docs" / REPORT_FILE
+REPORT_PATH = ROOT / "archive" / "docs" / "audits" / REPORT_FILE
 ALLOWED_CHANGED_FILES = {
     f"docs/{REPORT_FILE}",
     "tests/_git_helpers.py",

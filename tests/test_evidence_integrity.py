@@ -43,7 +43,19 @@ def test_existing_trigger_terms_jsonl_passes() -> None:
     assert errors == []
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
+@pytest.mark.db
 def test_export_md_generates_evidence_index() -> None:
+    build_result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "build" / "build_db.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert build_result.returncode == 0, build_result.stdout + build_result.stderr
+
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,

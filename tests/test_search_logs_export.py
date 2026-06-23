@@ -3,6 +3,8 @@ import sys
 import json
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -76,6 +78,9 @@ def test_validate_evidence_passes_with_i5b_search_leads() -> None:
     assert "Validation passed." in result.stdout
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
+@pytest.mark.db
 def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr

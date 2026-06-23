@@ -488,7 +488,8 @@ def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: P
     repo_root = tmp_path / "repo"
     for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/文档与脚本登记"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
-    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/文档与脚本登记/scripts_registry.json\nextra\n", encoding="utf-8")
+    root_agents_content = "scripts/AGENTS.md\ndocs/文档与脚本登记/scripts_registry.json\nextra\n"
+    (repo_root / "AGENTS.md").write_text(root_agents_content, encoding="utf-8")
     (repo_root / "scripts" / "AGENTS.md").write_text("docs/文档与脚本登记/scripts_registry.json\n", encoding="utf-8")
     (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
     (repo_root / "scripts" / "loose.py").write_text("print('loose')\n", encoding="utf-8")
@@ -523,9 +524,10 @@ def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: P
 
     repo_tool = load_repo_tool(repo_root)
     problems = repo_tool.check_agents()
+    root_agents_bytes = len((repo_root / "AGENTS.md").read_bytes())
 
     assert "AGENTS.md: 3 lines exceeds 1" in problems
-    assert "AGENTS.md: 66 bytes exceeds 10" in problems
+    assert f"AGENTS.md: {root_agents_bytes} bytes exceeds 10" in problems
     assert "scripts/dev/missing.py: implementation path missing for tool" in problems
     assert "tests/missing_test.py: missing required_tests path for tool" in problems
     assert "scripts/loose.py: root script is neither legacy_wrapper nor root_exception" in problems

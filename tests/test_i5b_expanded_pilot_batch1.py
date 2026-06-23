@@ -6,6 +6,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 QUERY_PROFILE_BATCH_PATH = ROOT / "data" / "query_profile_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
@@ -133,6 +135,8 @@ def test_expanded_pilot_batch1_clusters_are_draft_review_rows() -> None:
         assert row["adjudication_status"] == "source_verified_pending_human_adjudication"
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_expanded_pilot_batch1_review_export_contains_cards_and_clusters() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],
@@ -189,6 +193,8 @@ def test_expanded_pilot_batch1_cluster_adjudication_rows_are_three_person_drafts
         assert "total_ranking" not in row
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_expanded_pilot_batch1_cluster_adjudication_export_is_review_only() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],
