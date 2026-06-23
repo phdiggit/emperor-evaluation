@@ -13,27 +13,37 @@ ALLOWED_CHANGED_FILES = {
     "README.md",
     "docs/AGENTS.md",
     "docs/README.md",
-    "docs/00_project/README.md",
-    "docs/00_project/总规则.md",
-    "docs/00_project/数据层级与批次文件治理规则.md",
-    "docs/10_methodology/README.md",
-    "docs/10_methodology/史料检索总则与项目-人物双轴工作流_讨论版.md",
-    "docs/10_methodology/数据库说明.md",
-    "docs/10_methodology/数据规范.md",
-    "docs/10_methodology/检索画像与检索线索字段规范.md",
-    "docs/10_methodology/证据工作流.md",
-    "docs/10_methodology/证据强度四级与五轴量化规则_讨论版.md",
-    "docs/10_methodology/证据裁量总则_讨论版.md",
-    "docs/10_methodology/负证分案裁判机制.md",
-    "docs/10_methodology/负证裁量与触发式裁判模块_讨论版.md",
-    "docs/10_methodology/配置说明文件规范.md",
-    "docs/20_dimensions/README.md",
-    "docs/20_dimensions/第五项B/README.md",
-    "docs/20_dimensions/第五项B/第五项B正式工作流模板.md",
-    "docs/20_dimensions/第五项B/第五项B自动结算规则.md",
-    "docs/20_dimensions/第五项B/第五项B证据卡上下文机制.md",
-    "docs/20_dimensions/第五项B/第五项B边界说明.md",
-    "docs/agent_rules/docs_registry.json",
+    "docs/项目总纲/README.md",
+    "docs/项目总纲/总规则.md",
+    "docs/数据结构与生成库/批次文件生命周期规则.md",
+    "docs/证据规则/README.md",
+    "docs/证据规则/史料检索与回源工作流.md",
+    "docs/数据结构与生成库/SQLite生成库说明.md",
+    "docs/数据结构与生成库/数据主表字段规范.md",
+    "docs/数据结构与生成库/query_profile与search_log字段规范.md",
+    "docs/证据规则/证据链总流程与文档索引.md",
+    "docs/证据规则/证据强度四级与五轴裁量规则.md",
+    "docs/证据规则/证据裁量总则.md",
+    "docs/证据规则/负证触发式裁判通用规则.md",
+    "docs/数据结构与生成库/配置说明文件规范.md",
+    "docs/分项规则/README.md",
+    "docs/分项规则/第一项创业与政权取得能力/README.md",
+    "docs/分项规则/第二项治国净收益/README.md",
+    "docs/分项规则/第三项军事与边疆净收益/README.md",
+    "docs/分项规则/第四项文明与国家整合收益/README.md",
+    "docs/分项规则/第五项统治者政治素质/README.md",
+    "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
+    "docs/分项规则/第六项关键历史决策能力/README.md",
+    "docs/分项规则/第七项历史负债/README.md",
+    "docs/展示与协作/README.md",
+    "docs/展示与协作/GitHub发布与认证规范.md",
+    "docs/展示与协作/scripts目录规范.md",
+    "docs/展示与协作/人工阅读型Markdown导出规范.md",
+    "docs/数据结构与生成库/README.md",
+    "docs/数据结构与生成库/稳定ID命名规范.md",
+    "docs/文档与脚本登记/docs_registry.json",
+    "docs/文档与脚本登记/README.md",
+    "docs/文档与脚本登记/scripts_registry.json",
     "exports/governance/文档治理盘点报告.md",
     "scripts/export/export_i5b_auto_adjudication.py",
     "tests/test_docs_governance.py",
@@ -66,13 +76,13 @@ def test_agents_md_contains_file_governance_rules() -> None:
     for needle in [
         "展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论",
         "人工复核型 Markdown 默认纯 Markdown，不使用 HTML details",
-        "详细规范见 `docs/30_operations/人工阅读型Markdown导出规范.md`",
+        "详细规范见 `docs/展示与协作/人工阅读型Markdown导出规范.md`",
     ]:
         assert needle in content
 
 
 def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
-    content = read_text(ROOT / "docs" / "30_operations" / "人工阅读型Markdown导出规范.md")
+    content = read_text(ROOT / "docs" / "展示与协作" / "人工阅读型Markdown导出规范.md")
     for needle in [
         "不使用 `<details>`、`<summary>`、`</details>`",
         "详情页不要使用宽表承载长字段、裁判说明、相邻项剥离说明、warning `matched_fields` 或 linked evidence 长字段",
@@ -94,7 +104,7 @@ def test_readme_mentions_governance_baseline_and_no_external_stack() -> None:
 
 
 def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -> None:
-    content = read_text(ROOT / "docs" / "00_project" / "数据层级与批次文件治理规则.md")
+    content = read_text(ROOT / "docs" / "数据结构与生成库" / "批次文件生命周期规则.md")
     for needle in [
         "active_batch",
         "review_only_batch",

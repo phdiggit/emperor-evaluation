@@ -128,10 +128,10 @@ def valid_registry(repo: Path, inventory: dict) -> dict:
 
 
 def write_registry(repo: Path, registry: dict) -> Path:
-    path = repo / "docs" / "agent_rules" / "docs_registry.json"
+    path = repo / "docs" / "文档与脚本登记" / "docs_registry.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    run_git(repo, "add", "docs/agent_rules/docs_registry.json")
+    run_git(repo, "add", "docs/文档与脚本登记/docs_registry.json")
     return path
 
 
@@ -158,7 +158,7 @@ def test_inventory_tracks_ref_chinese_paths_references_generators_and_duplicates
     assert by_path["docs/dup-a.md"]["normalized_duplicate_group"] == by_path["docs/dup-b.md"]["normalized_duplicate_group"]
     paths = [item["path"] for item in inventory["documents"]]
     assert paths == sorted(paths)
-    assert not (repo / "docs" / "agent_rules" / "docs_registry.json").exists()
+    assert not (repo / "docs" / "文档与脚本登记" / "docs_registry.json").exists()
 
 
 def test_inventory_reference_graph_uses_requested_ref_not_worktree(tmp_path: Path) -> None:
@@ -171,7 +171,7 @@ def test_inventory_reference_graph_uses_requested_ref_not_worktree(tmp_path: Pat
     write(repo / "docs" / "sub" / "guide.md", "[A relative](../a.md)\n")
     base_sha = commit_all(repo, "base")
     write(repo / "README.md", "[B](docs/b.md)\n")
-    write(repo / "docs" / "agent_rules" / "docs_registry.json", '{"note": "docs/a.md"}\n')
+    write(repo / "docs" / "文档与脚本登记" / "docs_registry.json", '{"note": "docs/a.md"}\n')
     write(repo / "exports" / "governance" / "文档治理盘点报告.md", "治理引用 docs/a.md\n")
     commit_all(repo, "later")
     docs_tool = load_docs_tool(repo)
@@ -186,7 +186,7 @@ def test_inventory_reference_graph_uses_requested_ref_not_worktree(tmp_path: Pat
     assert "docs/文档治理盘点报告.md" not in base_by_path
     assert head_by_path["docs/a.md"]["inbound_references"] == ["docs/sub/guide.md"]
     assert head_by_path["docs/a.md"]["governance_references"] == [
-        "docs/agent_rules/docs_registry.json",
+        "docs/文档与脚本登记/docs_registry.json",
     ]
     assert head_by_path["docs/b.md"]["inbound_references"] == ["README.md"]
 
@@ -348,7 +348,7 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
         for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_archive_exception"))
     )
     assert any(
-        "keep_governance_exception is only allowed under docs/agent_rules/" in p
+        "keep_governance_exception is only allowed under docs/文档与脚本登记/" in p
         for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_governance_exception"))
     )
 

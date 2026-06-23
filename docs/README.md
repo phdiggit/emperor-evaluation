@@ -1,6 +1,6 @@
-# docs 方法论导航
+# docs 功能目录导航
 
-`docs/` 是当前规则、方法论、稳定操作说明和治理入口。生成视图在 `exports/`，历史治理材料在 `archive/docs/`；两者都不是当前规则事实源。
+`docs/` 是当前规则、方法论、稳定操作说明和登记入口。生成视图在 `exports/`，历史治理材料在 `archive/docs/`；两者都不是当前规则事实源。
 
 ## 当前结构
 
@@ -8,45 +8,38 @@
 docs/
   README.md
   AGENTS.md
-  00_project/
-    README.md
-  10_methodology/
-    README.md
-  20_dimensions/
-    README.md
-    第五项B/
-      README.md
-  30_operations/
-    README.md
-  agent_rules/
-    README.md
-    docs_registry.json
-    scripts_registry.json
+  皇帝综合评价体系评分标准.md
+  项目总纲/
+  证据规则/
+  数据结构与生成库/
+  分项规则/
+  展示与协作/
+  文档与脚本登记/
 ```
 
-当前 `docs/` 根目录只保留受保护的最高层评分标准、docs 导航、AGENTS 和 agent_rules 入口。目录治理 PR 不顺手移动非白名单正文。
+`docs/皇帝综合评价体系评分标准.md` 是最高层评分标准，本 PR 不移动。`docs/` 根目录只保留受保护的最高层评分标准、导航、AGENTS 和登记入口。
 
-## 四层职责
+## 功能目录边界
 
-| 层级 | 职责 | 当前入口 |
+| 目录 | 负责 | 不负责 |
 | --- | --- | --- |
-| `00_project/` | 项目总纲、最高层业务语义、评分体系总结构、冲突时的优先级裁判 | [`00_project/README.md`](00_project/README.md) |
-| `10_methodology/` | 跨大项、跨子项通用方法论，包括证据工作流、裁量、检索画像、数据和配置规范 | [`10_methodology/README.md`](10_methodology/README.md) |
-| `20_dimensions/` | 七大项和子项专用规则、专用证据口径、执行模板和样板项目说明 | [`20_dimensions/README.md`](20_dimensions/README.md) |
-| `30_operations/` | GitHub 协作、Markdown 显示、ID、scripts、人工协作和发布规范 | [`30_operations/README.md`](30_operations/README.md) |
+| `项目总纲/` | 全项目执行总闸门、最高层执行口径、总规则 | 数据字段、分项细则、展示规范、registry |
+| `证据规则/` | 史料进入证据链、证据强度、入分前裁量、负证触发、对象锚点 | JSONL 字段事实、Markdown 展示、单个子项扩展文档 |
+| `数据结构与生成库/` | JSONL 主表字段、query/search 字段、稳定 ID、SQLite 生成库、配置说明、批次文件生命周期 | 评分规则、证据裁判、展示形态 |
+| `分项规则/` | 七大项和子项目的业务归项规则 | 通用证据规则、数据 schema、展示规范 |
+| `展示与协作/` | Markdown 人工阅读展示、GitHub 发布认证、scripts 协作规范 | 评分语义、证据裁量、数据字段事实 |
+| `文档与脚本登记/` | docs/scripts registry 及登记说明 | 评分、证据、数据 schema、分项规则正文 |
+
+## 分项规则收束
+
+`分项规则/` 每个子项目最多一个分项规则文档。第五项B不例外。复杂子项不得通过新增多个专用文档扩张；应引用 `证据规则/`、`数据结构与生成库/`、`展示与协作/` 中的通用规则。
 
 ## 推荐阅读顺序
 
-1. 先读总纲和评分标准：[`皇帝综合评价体系评分标准.md`](皇帝综合评价体系评分标准.md)、[`00_project/总规则.md`](00_project/总规则.md)、[`00_project/数据层级与批次文件治理规则.md`](00_project/数据层级与批次文件治理规则.md)。
-2. 再读通用方法论：证据工作流、证据强度、证据裁量、负证裁判、检索画像和数据规范。
-3. 然后进入具体大项或子项：先确认大项边界，再读子项专用规则和执行模板，例如 [`20_dimensions/第五项B/README.md`](20_dimensions/第五项B/README.md)。
-4. 最后按操作规范执行：GitHub 发布、Markdown 显示、ID 命名、scripts 和治理工具。
-
-## 第五项B定位
-
-第五项B是已经跑通的样板项目，也是通用经验的来源之一。它可以为其他项目提供可抽象的经验，但不等同于全项目默认方法。
-
-第五项B中跑通的通用经验，应先抽象到 `10_methodology/`，再由其他大项或子项复用；第五项B专用边界、模板和自动结算规则应进入 `20_dimensions/` 的子项层。
+1. 先读最高层评分标准和总纲：[`皇帝综合评价体系评分标准.md`](皇帝综合评价体系评分标准.md)、[`项目总纲/总规则.md`](项目总纲/总规则.md)。
+2. 再读证据与数据规则：[`证据规则/README.md`](证据规则/README.md)、[`数据结构与生成库/README.md`](数据结构与生成库/README.md)。
+3. 然后进入具体大项或子项：[`分项规则/README.md`](分项规则/README.md)。
+4. 最后按协作与展示规范执行：[`展示与协作/README.md`](展示与协作/README.md)、[`文档与脚本登记/README.md`](文档与脚本登记/README.md)。
 
 ## 禁止事项
 
@@ -54,4 +47,4 @@ docs/
 - 不把 `archive/docs/` 当当前事实源。
 - 不手改 generated export；生成物冲突时先找 generator。
 - 不在目录治理 PR 中修改评分、档位、证据、排名或榜单等业务语义。
-- 不在目录骨架 PR 中移动旧方法论文档正文或推进 Batch 3。
+- 不为复杂子项新增多个分项规则文档。

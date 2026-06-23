@@ -2,7 +2,7 @@
 
 本规范用于区分开发辅助工具、校验脚本、导出脚本、共享工具和后续目录治理边界。`scripts/` 根目录不再保留 Python wrapper；Python CLI 统一使用分层 canonical 路径。
 
-当前脚本实现路径、retired wrapper 审计记录、`root_exceptions`、`audit_docs` 和 `required_tests` 均以 `docs/agent_rules/scripts_registry.json` 为当前事实源；本文只保留稳定架构规则和少量示例。
+当前脚本实现路径、retired wrapper 审计记录、`root_exceptions`、`audit_docs` 和 `required_tests` 均以 `docs/文档与脚本登记/scripts_registry.json` 为当前事实源；本文只保留稳定架构规则和少量示例。
 
 ## scripts/dev/
 
@@ -32,13 +32,13 @@
 
 `scripts/build/` 是数据库和其他构建步骤的真实实现目录。新增构建脚本应放入这里，不应继续把主逻辑直接放在 `scripts/` 根目录。
 
-数据库构建测试应隔离到 `tmp_path` 或临时仓库，避免直接删除、覆盖或重新创建真实工作区的 `evidence_cache.sqlite`。根目录退役路径审计记录继续由 `docs/agent_rules/scripts_registry.json` 管理。
+数据库构建测试应隔离到 `tmp_path` 或临时仓库，避免直接删除、覆盖或重新创建真实工作区的 `evidence_cache.sqlite`。根目录退役路径审计记录继续由 `docs/文档与脚本登记/scripts_registry.json` 管理。
 
 ## scripts/matrix/
 
 `scripts/matrix/` 是矩阵规划和矩阵视图生成脚本的真实实现目录。矩阵脚本可以生成人工审核使用的矩阵骨架，但矩阵骨架不等于检索结果，不得写入评分、证据事实、search logs、evidence cards 或数据库副产物。
 
-矩阵测试必须隔离输出，默认使用 `tmp_path`、临时输出路径或临时仓库，避免直接重写真实工作区的 `exports/**`。当前路径、retired wrapper 和迁移状态继续由 `docs/agent_rules/scripts_registry.json` 管理。
+矩阵测试必须隔离输出，默认使用 `tmp_path`、临时输出路径或临时仓库，避免直接重写真实工作区的 `exports/**`。当前路径、retired wrapper 和迁移状态继续由 `docs/文档与脚本登记/scripts_registry.json` 管理。
 
 ## scripts/shared/
 

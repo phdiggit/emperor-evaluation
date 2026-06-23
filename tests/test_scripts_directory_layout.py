@@ -138,4 +138,4 @@ def test_agents_mentions_new_validator_layout_rule() -> None:
 
     assert "`scripts/validate/`" in content
     assert "retired_legacy_wrappers" in content
-    assert "docs/agent_rules/scripts_registry.json" in root_agents
+    assert "docs/文档与脚本登记/scripts_registry.json" in root_agents
