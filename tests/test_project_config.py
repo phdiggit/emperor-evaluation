@@ -100,6 +100,15 @@ subitems:
     assert any("YAML aliases are not allowed" in error for error in errors)
 
 
+def test_validate_project_config_reports_broken_yaml_without_traceback(tmp_path: Path) -> None:
+    config_path = tmp_path / "project_config.yml"
+    config_path.write_text("version: [\n", encoding="utf-8")
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("invalid YAML" in error for error in errors)
+
+
 def test_validate_project_config_allows_existing_persons_ref_under_lists(
     tmp_path: Path, project_config_writer
 ) -> None:

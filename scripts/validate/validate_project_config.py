@@ -45,16 +45,20 @@ def is_non_empty_string_list(value: object) -> bool:
 
 def validate_yaml_surface(path: Path, raw_text: str) -> list[str]:
     errors: list[str] = []
-    for token in yaml.scan(raw_text):
-        line = token.start_mark.line + 1
-        if isinstance(token, AnchorToken):
-            errors.append(f"{path}: line {line}: YAML anchors are not allowed")
-        elif isinstance(token, AliasToken):
-            errors.append(f"{path}: line {line}: YAML aliases are not allowed")
-        elif isinstance(token, TagToken):
-            errors.append(f"{path}: line {line}: custom YAML tags are not allowed")
-        elif isinstance(token, DocumentStartToken):
-            errors.append(f"{path}: line {line}: explicit document markers are not allowed")
+    try:
+        tokens = yaml.scan(raw_text)
+        for token in tokens:
+            line = token.start_mark.line + 1
+            if isinstance(token, AnchorToken):
+                errors.append(f"{path}: line {line}: YAML anchors are not allowed")
+            elif isinstance(token, AliasToken):
+                errors.append(f"{path}: line {line}: YAML aliases are not allowed")
+            elif isinstance(token, TagToken):
+                errors.append(f"{path}: line {line}: custom YAML tags are not allowed")
+            elif isinstance(token, DocumentStartToken):
+                errors.append(f"{path}: line {line}: explicit document markers are not allowed")
+    except yaml.YAMLError as exc:
+        errors.append(f"{path}: invalid YAML ({exc})")
     return errors
 
 
@@ -185,6 +189,8 @@ def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
 
     raw_text = path.read_text(encoding="utf-8")
     errors = validate_yaml_surface(path, raw_text)
+    if any("invalid YAML" in error for error in errors):
+        return errors
     try:
         payload = yaml.safe_load(raw_text)
     except yaml.YAMLError as exc:
