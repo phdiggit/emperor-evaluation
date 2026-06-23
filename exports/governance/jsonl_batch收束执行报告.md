@@ -14,7 +14,7 @@
 | moved_to_archive | 0 | 0 | 本轮未创建 `archive/data/`。 |
 | moved_to_data_batches | 0 | 0 | 本轮未创建 `data/batches/`。 |
 | kept | 0 | 0 | 本轮没有对 merged batch 选择保留原位。 |
-| deferred | 23 | 119 | active_batch、review_only_batch、archive_candidate 暂不处理，留给后续 PR。 |
+| deferred | 22 | 158 | active_batch、review_only_batch、archive_candidate 暂不处理，留给后续 PR。 |
 
 提交后 tracked JSONL 预计从 40 个降为 33 个；当前工作树中仍存在的 tracked JSONL 非空行数为 409。
 
