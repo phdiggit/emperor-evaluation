@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "baseline_ref": "origin/GPT",
-  "baseline_sha": "50de71de27518404529bc87e8ffcd008989e07d2",
+  "baseline_sha": "5c90d053ef4f3b278ca6f83218a214d02330c17b",
   "docs_agents_budget": {
     "max_lines": 80,
     "max_bytes": 12288
@@ -113,7 +113,12 @@
         "tests/test_scripts_export_directory_layout.py",
         "tests/test_scripts_matrix_directory_layout.py",
         "tests/test_scripts_shared_directory_plan.py"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/GitHub发布与认证规范.md",
@@ -141,7 +146,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "stable_operational_guide",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/ID命名规范.md",
@@ -169,7 +179,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/Markdown表格显示约定.md",
@@ -198,7 +213,12 @@
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "tests/test_human_readable_markdown_exports.py"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/agent_rules/README.md",
@@ -248,7 +268,12 @@
         "tests/test_file_governance_policy.py",
         "tests/test_redundant_file_candidates_report.py",
         "tests/test_scripts_legacy_wrapper_retirement.py"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "治理规则说明入口，解释 registry 与 AGENTS 的职责边界。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/agent_rules/scripts_registry.json",
@@ -311,7 +336,12 @@
         "tests/test_scripts_canonical_imports.py",
         "tests/test_scripts_legacy_wrapper_retirement.py",
         "tests/test_scripts_matrix_directory_layout.py"
-      ]
+      ],
+      "content_role": "governance_state",
+      "placement_action": "keep_governance_exception",
+      "placement_targets": [],
+      "placement_reason": "机器可读治理状态事实源，属于 docs/agent_rules 受控例外。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/README.md",
@@ -355,7 +385,12 @@
       "normalized_duplicate_group": null,
       "unique_source_risk": true,
       "reason": "archive 目录的当前导航、边界和重新激活规则。",
-      "human_confirmation_required": false
+      "human_confirmation_required": false,
+      "content_role": "stable_operational_guide",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "archive 导航和重新激活边界属于受控历史区说明，继续保留。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
@@ -380,7 +415,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/file_governance_final_audit_20260620.md",
@@ -405,7 +445,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/hardcoded_content_configuration_inventory_20260620.md",
@@ -430,7 +475,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
@@ -456,7 +506,12 @@
         "docs/agent_rules/docs_registry.json",
         "docs/archive/audits/file_governance_final_audit_20260620.md",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
@@ -482,7 +537,12 @@
         "docs/agent_rules/docs_registry.json",
         "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
@@ -507,7 +567,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md",
@@ -532,7 +597,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "keep_archive_exception",
+      "placement_targets": [],
+      "placement_reason": "已完成归档的历史审计材料，保留追溯价值，不作为当前规范入口。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/batch_canonical_absorption_audit_20260620.md",
@@ -561,7 +631,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/batch_canonical_absorption_audit_20260620.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/config_granularity_redesign_20260620.md",
@@ -589,7 +666,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/config_loaders迁移前依赖审计.md",
@@ -619,7 +711,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/config_loaders迁移前依赖审计.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/i5b_cluster_warning_display_integration_design_20260621.md",
@@ -645,7 +744,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
@@ -671,7 +785,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/i5b_markdown_display迁移前依赖审计.md",
@@ -700,7 +829,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/i5b_markdown_display迁移前依赖审计.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/i5b_warning_export_guarded_integration_design_20260621.md",
@@ -726,7 +862,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/manual_review_config_layer_design_20260620.md",
@@ -754,7 +905,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/post_file_governance_consistency_audit_20260620.md",
@@ -782,7 +948,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/post_file_governance_consistency_audit_20260620.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/scripts共享工具依赖盘点.md",
@@ -808,7 +981,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/scripts共享工具依赖盘点.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/scripts目录规范.md",
@@ -840,7 +1020,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/thematic_anchor_multigranularity_schema_plan_20260620.md",
@@ -868,7 +1053,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/thematic_anchor_schema_decision_20260620.md",
@@ -896,7 +1096,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/validation_entrypoints_20260620.md",
@@ -924,7 +1139,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/validation_entrypoints_20260620.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/view_config_externalization_audit_20260620.md",
@@ -950,7 +1172,22 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/配置说明文件规范.md",
+        "docs/第五项B正式工作流模板.md",
+        "docs/agent_rules/scripts_registry.json",
+        "data/configs/人工复核配置/README.md",
+        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
+        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
+        "docs/archive/audits"
+      ],
+      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/人工阅读型Markdown导出规范.md",
@@ -989,7 +1226,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/全局总标尺决策简报_讨论版.md",
@@ -1025,7 +1267,14 @@
         "docs/文档治理盘点报告.md",
         "scripts/export/export_project_doc_views.py",
         "tests/test_global_score_scale_brief.py"
-      ]
+      ],
+      "content_role": "generated_output",
+      "placement_action": "move_to_exports",
+      "placement_targets": [
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md"
+      ],
+      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/史料检索总则与项目-人物双轴工作流_讨论版.md",
@@ -1053,7 +1302,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/多余文件候选确认报告.md",
@@ -1085,7 +1339,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "review",
+      "placement_targets": [],
+      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/多余文件第三批敏感候选复核.md",
@@ -1116,7 +1375,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "review",
+      "placement_targets": [],
+      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/多余文件第二批最终引用复核.md",
@@ -1147,7 +1411,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "review",
+      "placement_targets": [],
+      "placement_reason": "已有 needs_human_confirmation 状态，保留原状；仅在用户确认后三份文档才进入后续归档批次。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/总规则.md",
@@ -1182,7 +1451,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/数据层级与批次文件治理规则.md",
@@ -1219,7 +1493,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/数据库说明.md",
@@ -1246,7 +1525,12 @@
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "docs/项目文件治理诊断报告.md"
-      ]
+      ],
+      "content_role": "stable_operational_guide",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/数据规范.md",
@@ -1276,7 +1560,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/文档治理盘点报告.md",
@@ -1312,7 +1601,14 @@
       ],
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json"
-      ]
+      ],
+      "content_role": "generated_output",
+      "placement_action": "review",
+      "placement_targets": [
+        "exports/governance/文档治理盘点报告.md"
+      ],
+      "placement_reason": "该文件由 docs_tool.py 生成，是治理状态报告；后续需决定改为按需 .tmp 生成，或跟踪到 exports/governance。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/检索画像与检索线索字段规范.md",
@@ -1338,7 +1634,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B_刘庄负证回源说明.md",
@@ -1364,7 +1665,21 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "instance_record",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "semantic_verification_required": true
     },
     {
       "path": "docs/第五项B_刘秀负证回源说明.md",
@@ -1390,7 +1705,21 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "instance_record",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "semantic_verification_required": true
     },
     {
       "path": "docs/第五项B_李世民正证回源说明.md",
@@ -1416,7 +1745,21 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "instance_record",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "semantic_verification_required": true
     },
     {
       "path": "docs/第五项B_李世民负证回源说明.md",
@@ -1442,7 +1785,21 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "instance_record",
+      "placement_action": "absorb_into_canonical_data_then_export",
+      "placement_targets": [
+        "data/sources.jsonl",
+        "data/search_logs.jsonl",
+        "data/evidence_cards.jsonl",
+        "data/evidence_clusters.jsonl",
+        "data/thematic_anchor_objects.jsonl",
+        "data/thematic_anchor_events.jsonl",
+        "data/thematic_anchor_mechanisms.jsonl",
+        "exports/markdown_views/第五项B/人工审核/证据链"
+      ],
+      "placement_reason": "人物级回源说明包含来源、证据、裁判和回源状态语义；后续必须逐 ID 对账 canonical data 后再生成审阅视图，本次只登记候选。",
+      "semantic_verification_required": true
     },
     {
       "path": "docs/第五项B三人专人审核入口.md",
@@ -1471,7 +1828,20 @@
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "tests/test_i5b_three_person_review_entry_doc.py"
-      ]
+      ],
+      "content_role": "mixed",
+      "placement_action": "split_keep_rules_generate_state",
+      "placement_targets": [
+        "docs/第五项B正式工作流模板.md",
+        "docs/第五项B自动结算规则.md",
+        "docs/第五项B边界说明.md",
+        "data/configs/视图配置/第五项B_视图分组.json",
+        "data/configs/视图配置/第五项B_人物池.json",
+        "exports/markdown_views/第五项B/人工审核/证据链",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链"
+      ],
+      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B三人试点人工复核工作台.md",
@@ -1500,7 +1870,20 @@
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "tests/test_i5b_human_review_workbench_doc.py"
-      ]
+      ],
+      "content_role": "mixed",
+      "placement_action": "split_keep_rules_generate_state",
+      "placement_targets": [
+        "docs/第五项B正式工作流模板.md",
+        "docs/第五项B自动结算规则.md",
+        "docs/第五项B边界说明.md",
+        "data/configs/视图配置/第五项B_视图分组.json",
+        "data/configs/视图配置/第五项B_人物池.json",
+        "exports/markdown_views/第五项B/人工审核/证据链",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链"
+      ],
+      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B三人试点内部闭环收尾.md",
@@ -1536,7 +1919,14 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/validate/validate_human_readable_markdown_exports.py",
         "tests/test_i5b_auto_adjudication.py"
-      ]
+      ],
+      "content_role": "generated_output",
+      "placement_action": "move_to_exports",
+      "placement_targets": [
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md"
+      ],
+      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B三人试点检索线索说明.md",
@@ -1562,7 +1952,18 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/总规则.md",
+        "README.md",
+        "docs/archive/audits/第五项B三人试点检索线索说明.md"
+      ],
+      "placement_reason": "短说明或旧决议的稳定规则需先确认已由现行规范承载；若无唯一内容，后续归档追溯。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B三人试点矩阵说明.md",
@@ -1588,7 +1989,20 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "mixed",
+      "placement_action": "split_keep_rules_generate_state",
+      "placement_targets": [
+        "docs/第五项B正式工作流模板.md",
+        "docs/第五项B自动结算规则.md",
+        "docs/第五项B边界说明.md",
+        "data/configs/视图配置/第五项B_视图分组.json",
+        "data/configs/视图配置/第五项B_人物池.json",
+        "exports/markdown_views/第五项B/人工审核/证据链",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链"
+      ],
+      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B扩展试点候选池设计.md",
@@ -1619,7 +2033,14 @@
         "docs/文档治理盘点报告.md",
         "scripts/export/export_project_doc_views.py",
         "tests/test_i5b_expanded_candidate_pool.py"
-      ]
+      ],
+      "content_role": "generated_output",
+      "placement_action": "move_to_exports",
+      "placement_targets": [
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md"
+      ],
+      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B正式工作流模板.md",
@@ -1657,7 +2078,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B自动结算规则.md",
@@ -1692,7 +2118,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B证据卡上下文机制.md",
@@ -1718,7 +2149,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B评分映射总标尺对齐审计.md",
@@ -1752,7 +2188,14 @@
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md",
         "tests/test_i5b_global_scale_audit.py"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/第五项B评分映射总标尺对齐审计.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B评分标尺与档位映射草案.md",
@@ -1796,7 +2239,14 @@
         "tests/test_i5b_auto_adjudication.py",
         "tests/test_i5b_global_scale_audit.py",
         "tests/test_i5b_three_person_review_entry_doc.py"
-      ]
+      ],
+      "content_role": "generated_output",
+      "placement_action": "move_to_exports",
+      "placement_targets": [
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
+      ],
+      "placement_reason": "由已登记 generator 和测试覆盖的可重建视图；后续应停止 docs 双写，只保留 canonical export 路径。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B试点计划.md",
@@ -1824,7 +2274,20 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "mixed",
+      "placement_action": "split_keep_rules_generate_state",
+      "placement_targets": [
+        "docs/第五项B正式工作流模板.md",
+        "docs/第五项B自动结算规则.md",
+        "docs/第五项B边界说明.md",
+        "data/configs/视图配置/第五项B_视图分组.json",
+        "data/configs/视图配置/第五项B_人物池.json",
+        "exports/markdown_views/第五项B/人工审核/证据链",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链"
+      ],
+      "placement_reason": "正文混合稳定审核规则、当前三人试点对象、路径索引和状态清单；后续应保留规则入口，把对象和状态改由配置或导出生成。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/第五项B边界说明.md",
@@ -1856,7 +2319,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/证据工作流.md",
@@ -1882,7 +2350,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "stable_operational_guide",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/证据强度四级与五轴量化规则_讨论版.md",
@@ -1917,7 +2390,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/证据裁量总则_讨论版.md",
@@ -1953,7 +2431,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/负证分案裁判机制.md",
@@ -1979,7 +2462,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/负证裁量与触发式裁判模块_讨论版.md",
@@ -2005,7 +2493,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "仍有效的研究方法论、裁判机制或上下文机制，不是当前实例状态，继续保留在 docs。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/配置说明文件规范.md",
@@ -2031,7 +2524,12 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/项目文件治理诊断报告.md",
@@ -2069,7 +2567,14 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/archive/audits/项目文件治理诊断报告.md"
+      ],
+      "placement_reason": "一次性审计、迁移前盘点或治理诊断记录；后续确认当前 registry、规范和测试已承载结论后归档追溯，不删除。",
+      "semantic_verification_required": false
     },
     {
       "path": "docs/项目重启决议.md",
@@ -2095,7 +2600,45 @@
       "weak_reference_candidates": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
-      ]
+      ],
+      "content_role": "historical_record",
+      "placement_action": "archive_after_absorption",
+      "placement_targets": [
+        "docs/数据规范.md",
+        "docs/证据工作流.md",
+        "docs/总规则.md",
+        "README.md",
+        "docs/archive/audits/项目重启决议.md"
+      ],
+      "placement_reason": "短说明或旧决议的稳定规则需先确认已由现行规范承载；若无唯一内容，后续归档追溯。",
+      "semantic_verification_required": false
     }
-  ]
+  ],
+  "allowed_content_roles": [
+    "generated_output",
+    "governance_state",
+    "historical_record",
+    "instance_record",
+    "mixed",
+    "rule_or_method",
+    "stable_explanation",
+    "stable_operational_guide"
+  ],
+  "allowed_placement_actions": [
+    "absorb_into_canonical_data_then_export",
+    "absorb_into_config",
+    "archive_after_absorption",
+    "keep_archive_exception",
+    "keep_governance_exception",
+    "keep_in_docs",
+    "move_to_exports",
+    "review",
+    "split_keep_rules_generate_state"
+  ],
+  "docs_target_model": {
+    "current_docs_root": "docs 当前规范层优先保留长期稳定的方法论、说明、规则和运行入口。",
+    "governance_exception_root": "docs/agent_rules/** 保留机器可读治理状态。",
+    "archive_exception_root": "docs/archive/** 保留历史追溯材料。",
+    "non_docs_targets": "实例数据、配置值和可重建产物应分别回到 data、data/configs 或 exports；本 registry 只登记后续建议，不执行迁移。"
+  }
 }
