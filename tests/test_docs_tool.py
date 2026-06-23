@@ -423,7 +423,8 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "docs/中文说明.md" in mixed_section
     assert "docs/old-audit.md" in report
     assert review_path in lifecycle_review_section
-    assert "Batch 6：三份 needs-human-confirmation" in report
+    assert "Batch 6：needs-human-confirmation 历史材料" in report
+    assert "Batch 7：active design 语义核验" in report
     assert "本报告对应 PR #206" not in report
     assert "推荐 #207" not in report
     assert not re.search(r"PR #\d+", report)

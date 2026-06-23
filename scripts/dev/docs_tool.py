@@ -727,10 +727,23 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     split_docs = docs_for(placement="split_keep_rules_generate_state")
     archive_after_absorption_docs = docs_for(placement="archive_after_absorption")
     placement_review_docs = docs_for(placement="review")
+    active_design_review_docs = [
+        doc
+        for doc in placement_review_docs
+        if doc.get("lifecycle_status") == "active" and doc.get("semantic_verification_required") is True
+    ]
+    needs_human_docs = [
+        doc
+        for doc in placement_review_docs
+        if doc.get("lifecycle_status") == "needs_human_confirmation"
+    ]
     placement_problems = check_registry(registry_path)
 
     def batch_rows() -> list[list[str]]:
         rows = [["batch", "candidate files", "primary targets", "risk", "touches data", "touches business generator", "human confirmation", "PR guidance"]]
+        def touches_data(items: list[dict[str, Any]]) -> str:
+            return "yes" if any(str(target).startswith("data/") for doc in items for target in doc.get("placement_targets", [])) else "no"
+
         batches = [
             (
                 "Batch 1：generated docs -> export-only",
@@ -778,13 +791,22 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
                 "先决定跟踪 exports 还是只保留 .tmp 生成物。",
             ),
             (
-                "Batch 6：三份 needs-human-confirmation",
-                [doc for doc in placement_review_docs if doc.get("human_confirmation_required")],
+                f"Batch 6：needs-human-confirmation 历史材料（{len(needs_human_docs)} 份）",
+                needs_human_docs,
                 "high",
                 "no",
                 "no",
                 "yes",
-                "仅用户确认后执行。",
+                "仅用户确认后三份历史治理材料才执行。",
+            ),
+            (
+                f"Batch 7：active design 语义核验（{len(active_design_review_docs)} 份）",
+                active_design_review_docs,
+                "high",
+                touches_data(active_design_review_docs),
+                "possibly",
+                "yes",
+                "逐项核验证据簇、warning、thematic-anchor 等设计是否落地、取消或被现行规范替代。",
             ),
         ]
         for name, docs, risk, touches_data, touches_generator, human_confirmation, guidance in batches:

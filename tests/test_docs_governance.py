@@ -182,6 +182,11 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
         "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态",
     ]:
         assert needle in content
+    batch6 = content.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：active design 语义核验", 1)[0]
+    batch7 = content.split("Batch 7：active design 语义核验", 1)[1].split("## 20. 范围声明", 1)[0]
+    assert "docs/manual_review_config_layer_design_20260620.md" not in batch6
+    assert "docs/manual_review_config_layer_design_20260620.md" in batch7
+    assert "data/configs/" in batch7
     assert not re.search(r"PR #\d+", content)
     assert "#207" not in content
     assert "本 PR" not in content
