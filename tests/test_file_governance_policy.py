@@ -68,7 +68,8 @@ def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
 
 def test_readme_mentions_governance_baseline_and_no_external_stack() -> None:
     content = read_text(ROOT / "README.md")
-    assert "docs/项目文件治理诊断报告.md" in content
+    assert "docs/文档治理盘点报告.md" in content
+    assert "docs/archive/audits/项目文件治理诊断报告.md" in content
     assert "当前不引入外部数据库、缓存或中间件" in content
     assert "多余文件、归档候选和删除候选必须另开专门 Issue 处理" in content
 

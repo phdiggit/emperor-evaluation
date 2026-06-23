@@ -35,7 +35,7 @@
 | 位置 | 当前承载内容 | 风险判断 |
 | --- | --- | --- |
 | `docs/manual_review_config_layer_design_20260620.md` | review config 与 protected rule config 分层、证据簇 merge/grading 配置方向 | 是本次设计的上位分层依据 |
-| `docs/config_granularity_redesign_20260620.md` | 长期中文配置目录、人工复核配置、受保护规则配置目录方向 | 是目录命名依据 |
+| `docs/archive/audits/config_granularity_redesign_20260620.md` | 长期中文配置目录、人工复核配置、受保护规则配置目录方向的历史设计背景 | 仅作历史背景；当前目录口径以现行配置说明和规范为准 |
 | `data/configs/人工复核配置/README.md` | 人工复核配置只作检索画像/辅助，不代表证据、评分、裁判、定档 | 可复用为安全声明模板 |
 | `data/configs/视图配置/第五项B_人物池.json` | 人物风险画像、相邻项污染风险、负证扫描重点 | 可作为配置设计时的风险来源，不能反向支配史料 |
 | `data/configs/视图配置/第五项B_视图分组.json` | 三人试点、扩展第一批、净证据导出目标 | 只定义对象集合，不定义裁判规则 |
