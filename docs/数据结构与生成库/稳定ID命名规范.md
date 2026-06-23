@@ -6,6 +6,10 @@
 
 - `source_id`：`SRC-来源缩写-卷或篇-序号`
   - 例：`SRC-HHS-MINGDIJI-001`
+- `source_document_id`：`SDOC-来源缩写-版本或卷篇-序号`
+  - 例：`SDOC-HHS-MINGDIJI-V1-001`
+- `passage_id`：`SPG-来源缩写-卷或篇-段落序号`
+  - 例：`SPG-HHS-MINGDIJI-0001`
 - `evidence_id`：`EVD-子项代码-人物拼音或代号-正负-序号`
   - 例：`EVD-I5B-LIUZHUANG-NEG-001`
 - `event_id`：`EVT-子项代码-人物拼音或代号-事件代号-序号`

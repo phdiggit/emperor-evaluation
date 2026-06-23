@@ -1535,6 +1535,36 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/史料上下文管理机制.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "史源上下文和证据-史源链接的长期规范，应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，用于对齐 #228 ADR 和当前 JSONL 过渡模型。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "史料上下文管理机制",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
@@ -1664,19 +1694,21 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [],
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md"
+      ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
       "path": "docs/数据结构与生成库/配置说明文件规范.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_reason": "历史兼容和退役说明，用于防止 comments 机制被误当作当前规范入口。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "reason": "该文档已转为退役说明，标明 .comments.json 不再是当前必需机制。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "配置说明文件规范",
+      "title": "配置说明文件机制退役说明",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"

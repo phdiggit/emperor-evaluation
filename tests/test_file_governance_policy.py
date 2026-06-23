@@ -22,6 +22,7 @@ ALLOWED_CHANGED_FILES = {
     "docs/数据结构与生成库/SQLite生成库说明.md",
     "docs/数据结构与生成库/数据主表字段规范.md",
     "docs/数据结构与生成库/query_profile与search_log字段规范.md",
+    "docs/数据结构与生成库/史料上下文管理机制.md",
     "docs/证据规则/证据链总流程与文档索引.md",
     "docs/证据规则/证据强度四级与五轴裁量规则.md",
     "docs/证据规则/证据裁量总则.md",
