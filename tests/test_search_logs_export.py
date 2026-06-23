@@ -51,9 +51,9 @@ ALLOWED_CREATED_SEARCH_IDS = {
 }
 
 
-def run_script(script_name: str) -> subprocess.CompletedProcess[str]:
+def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, str(script_path(script_name))],
+        [sys.executable, str(script_path(script_name)), *args],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -80,7 +80,7 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr
 
-    export_result = run_script("export_md.py")
+    export_result = run_script("export_md.py", "--profile", "i5b-core")
     assert export_result.returncode == 0, export_result.stdout + export_result.stderr
     assert SEARCH_LOG_EXPORT_PATH.exists()
     assert EVIDENCE_CLUSTERS_EXPORT_PATH.exists()

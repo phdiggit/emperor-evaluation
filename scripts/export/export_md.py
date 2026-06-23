@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import argparse
 import json
 import sqlite3
 import sys
 from collections import Counter
+from dataclasses import dataclass
 from pathlib import Path
 
 SCRIPTS_DIR = Path(__file__).resolve().parents[1]
@@ -61,6 +63,11 @@ YONGZHENG_RULE_BOUNDARY_BATCH_PATH = ROOT / "data" / "rule_boundary_batches" / "
 ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_zhu_yuanzhang_micro_supplement_20260619.jsonl"
 
+
+@dataclass(frozen=True)
+class ExportProfile:
+    description: str
+    steps: tuple[str, ...]
 
 
 HEADERS = [
@@ -275,12 +282,12 @@ def export_evidence_clusters_markdown() -> Path:
     return EVIDENCE_CLUSTERS_EXPORT_PATH
 
 
-def main() -> int:
-    steps = [
-        ExportStep("evidence_index", export_markdown),
-        ExportStep("search_logs", export_search_logs_markdown),
-        ExportStep("evidence_clusters", export_evidence_clusters_markdown),
-        ExportStep(
+def build_all_export_steps() -> dict[str, ExportStep]:
+    return {
+        "evidence_index": ExportStep("evidence_index", export_markdown),
+        "search_logs": ExportStep("search_logs", export_search_logs_markdown),
+        "evidence_clusters": ExportStep("evidence_clusters", export_evidence_clusters_markdown),
+        "thematic_anchors": ExportStep(
             "thematic_anchors",
             lambda: export_generic_markdown(
                 THEMATIC_ANCHORS_EXPORT_PATH,
@@ -290,7 +297,7 @@ def main() -> int:
                 "anchor_id",
             ),
         ),
-        ExportStep(
+        "query_profiles": ExportStep(
             "query_profiles",
             lambda: export_generic_markdown(
                 QUERY_PROFILES_EXPORT_PATH,
@@ -300,32 +307,139 @@ def main() -> int:
                 "query_profile_id",
             ),
         ),
-        *[
-            ExportStep(
+        **{
+            f"net_evidence_{person}": ExportStep(
                 f"net_evidence_{person}",
                 lambda person=person, net_evidence_path=net_evidence_path: export_i5b_net_evidence_pool(
                     person, net_evidence_path
                 ),
             )
             for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS
-        ],
-        ExportStep("i5b_evidence_cards_index", export_i5b_evidence_cards_index),
-        ExportStep("i5b_evidence_clusters_index", export_i5b_evidence_clusters_index),
-        ExportStep("i5b_search_package_index", export_i5b_search_package_index),
-        ExportStep("i5b_review_profile_views", export_i5b_review_profile_views),
-        ExportStep("expanded_batch1_review", export_expanded_i5b_batch1_review),
-        ExportStep("expanded_batch1_cluster_adjudication", export_expanded_i5b_batch1_cluster_adjudication),
-        ExportStep("expanded_batch1_targeted_supplement", export_expanded_i5b_batch1_targeted_supplement),
-        ExportStep("expanded_batch1_post_supplement_adjudication", export_expanded_i5b_batch1_post_supplement_adjudication),
-        ExportStep("expanded_batch1_readiness_audit", export_expanded_i5b_batch1_readiness_audit),
-        ExportStep("expanded_batch1_readiness_followup", export_expanded_i5b_batch1_readiness_followup),
-        ExportStep("expanded_batch1_human_review_package", export_expanded_i5b_batch1_human_review_package),
-        ExportStep("expanded_batch1_relative_band_preparation", export_expanded_i5b_batch1_relative_band_preparation),
-        ExportStep("global_scale_decision_brief", export_global_scale_decision_brief),
-        ExportStep("expanded_i5b_candidate_pool", export_expanded_i5b_candidate_pool),
-        ExportStep("auto_adjudication", export_auto_adjudication),
-    ]
-    run_export_steps(steps)
+        },
+        "i5b_evidence_cards_index": ExportStep("i5b_evidence_cards_index", export_i5b_evidence_cards_index),
+        "i5b_evidence_clusters_index": ExportStep("i5b_evidence_clusters_index", export_i5b_evidence_clusters_index),
+        "i5b_search_package_index": ExportStep("i5b_search_package_index", export_i5b_search_package_index),
+        "i5b_review_profile_views": ExportStep("i5b_review_profile_views", export_i5b_review_profile_views),
+        "expanded_batch1_review": ExportStep("expanded_batch1_review", export_expanded_i5b_batch1_review),
+        "expanded_batch1_cluster_adjudication": ExportStep(
+            "expanded_batch1_cluster_adjudication",
+            export_expanded_i5b_batch1_cluster_adjudication,
+        ),
+        "expanded_batch1_targeted_supplement": ExportStep(
+            "expanded_batch1_targeted_supplement",
+            export_expanded_i5b_batch1_targeted_supplement,
+        ),
+        "expanded_batch1_post_supplement_adjudication": ExportStep(
+            "expanded_batch1_post_supplement_adjudication",
+            export_expanded_i5b_batch1_post_supplement_adjudication,
+        ),
+        "expanded_batch1_readiness_audit": ExportStep(
+            "expanded_batch1_readiness_audit",
+            export_expanded_i5b_batch1_readiness_audit,
+        ),
+        "expanded_batch1_readiness_followup": ExportStep(
+            "expanded_batch1_readiness_followup",
+            export_expanded_i5b_batch1_readiness_followup,
+        ),
+        "expanded_batch1_human_review_package": ExportStep(
+            "expanded_batch1_human_review_package",
+            export_expanded_i5b_batch1_human_review_package,
+        ),
+        "expanded_batch1_relative_band_preparation": ExportStep(
+            "expanded_batch1_relative_band_preparation",
+            export_expanded_i5b_batch1_relative_band_preparation,
+        ),
+        "global_scale_decision_brief": ExportStep("global_scale_decision_brief", export_global_scale_decision_brief),
+        "expanded_i5b_candidate_pool": ExportStep("expanded_i5b_candidate_pool", export_expanded_i5b_candidate_pool),
+        "auto_adjudication": ExportStep("auto_adjudication", export_auto_adjudication),
+    }
+
+
+ALL_EXPORT_STEPS = build_all_export_steps()
+I5B_CORE_STEPS = (
+    "search_logs",
+    *(f"net_evidence_{person}" for person, _net_evidence_path in I5B_NET_EVIDENCE_TARGETS),
+    "i5b_evidence_cards_index",
+    "i5b_evidence_clusters_index",
+    "i5b_search_package_index",
+    "i5b_review_profile_views",
+)
+
+EXPORT_PROFILES: dict[str, ExportProfile] = {
+    "main": ExportProfile(
+        "综合入口和全局索引，默认运行。",
+        ("evidence_index", "evidence_clusters", "thematic_anchors", "query_profiles"),
+    ),
+    "i5b-core": ExportProfile(
+        "第五项B常规证据链和人工审核细节导出。",
+        I5B_CORE_STEPS,
+    ),
+    "i5b-auto": ExportProfile(
+        "第五项B自动结算导出。",
+        ("auto_adjudication",),
+    ),
+    "i5b-expanded-batch1": ExportProfile(
+        "第五项B expanded batch1 试点和审计导出。",
+        (
+            "expanded_batch1_review",
+            "expanded_batch1_cluster_adjudication",
+            "expanded_batch1_targeted_supplement",
+            "expanded_batch1_post_supplement_adjudication",
+            "expanded_batch1_readiness_audit",
+            "expanded_batch1_readiness_followup",
+            "expanded_batch1_human_review_package",
+            "expanded_batch1_relative_band_preparation",
+        ),
+    ),
+    "project-docs": ExportProfile(
+        "项目级文档导出。",
+        ("global_scale_decision_brief", "expanded_i5b_candidate_pool"),
+    ),
+    "all": ExportProfile(
+        "显式全量导出，保留旧行为。",
+        ("*",),
+    ),
+}
+
+
+def step_names_for_profile(profile_name: str) -> list[str]:
+    profile = EXPORT_PROFILES[profile_name]
+    if profile.steps == ("*",):
+        return list(ALL_EXPORT_STEPS)
+    return list(profile.steps)
+
+
+def steps_for_profile(profile_name: str) -> list[ExportStep]:
+    return [ALL_EXPORT_STEPS[name] for name in step_names_for_profile(profile_name)]
+
+
+def print_profiles() -> None:
+    for profile_name, profile in EXPORT_PROFILES.items():
+        steps = ", ".join(step_names_for_profile(profile_name))
+        print(f"{profile_name}: {profile.description}")
+        print(f"  steps: {steps}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--profile",
+        choices=tuple(EXPORT_PROFILES),
+        default="main",
+        help="export profile to run; defaults to main",
+    )
+    parser.add_argument(
+        "--list-profiles",
+        action="store_true",
+        help="list available export profiles without writing files",
+    )
+    args = parser.parse_args(argv)
+
+    if args.list_profiles:
+        print_profiles()
+        return 0
+
+    run_export_steps(steps_for_profile(args.profile))
     return 0
 
 

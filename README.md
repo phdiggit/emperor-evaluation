@@ -60,7 +60,13 @@ python scripts/build/build_db.py
 python scripts/export/export_md.py
 ```
 
-该命令会同时导出证据卡索引和第五项B三人试点检索线索视图等基础审阅页；第五项B自动结算草案、自动结算规则敏感点清单、正式定档落地表、评分标尺与档位映射草案、三人试点内部闭环收尾和第五项B扩展试点候选池设计由下方的 `export_i5b_auto_adjudication.py` 与 `export_md.py` 共同生成。
+该命令默认只运行 `main` profile，生成证据卡索引、证据组裁量索引、专题锚点索引和项目检索包索引等综合入口。子项细节、试点 batch、审计视图、自动结算必须显式指定 profile 或调用专用脚本；旧全量导出行为使用 `python scripts/export/export_md.py --profile all`。
+
+查看可用导出 profile：
+
+```bash
+python scripts/export/export_md.py --list-profiles
+```
 
 单独导出第五项B自动结算视图：
 

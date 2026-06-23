@@ -29,9 +29,9 @@ CANDIDATE_POOL_EXPORT_PATH = (
 )
 
 
-def run_script(script_name: str) -> subprocess.CompletedProcess[str]:
+def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, str(script_path(script_name))],
+        [sys.executable, str(script_path(script_name)), *args],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -43,7 +43,7 @@ def test_export_md_generates_expanded_candidate_pool_design_export_only() -> Non
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr
 
-    export_result = run_script("export_md.py")
+    export_result = run_script("export_md.py", "--profile", "project-docs")
     assert export_result.returncode == 0, export_result.stdout + export_result.stderr
     assert not RETIRED_CANDIDATE_POOL_DOC_PATH.exists()
     assert CANDIDATE_POOL_EXPORT_PATH.exists()

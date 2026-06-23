@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sqlite3
 import sys
 from pathlib import Path
@@ -26,6 +27,62 @@ def test_export_md_root_still_points_to_repo_root() -> None:
 
 def test_retired_export_md_wrapper_path_is_absent() -> None:
     assert not (ROOT / "scripts" / "export_md.py").exists()
+
+
+def test_list_profiles_command_lists_core_profiles() -> None:
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--list-profiles"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "main:" in result.stdout
+    assert "all:" in result.stdout
+    assert "i5b-auto:" in result.stdout
+
+
+def test_naked_export_defaults_to_main_profile(monkeypatch) -> None:
+    called_step_names: list[str] = []
+
+    def fake_run_export_steps(steps) -> None:
+        called_step_names.extend(step.name for step in steps)
+
+    monkeypatch.setattr(export_md, "run_export_steps", fake_run_export_steps)
+
+    result = export_md.main([])
+
+    assert result == 0
+    assert called_step_names == export_md.step_names_for_profile("main")
+
+
+def test_main_profile_is_composite_entry_only() -> None:
+    main_steps = set(export_md.step_names_for_profile("main"))
+
+    assert main_steps == {"evidence_index", "evidence_clusters", "thematic_anchors", "query_profiles"}
+    for forbidden_step in [
+        "auto_adjudication",
+        "expanded_batch1_readiness_audit",
+        "expanded_batch1_relative_band_preparation",
+        "expanded_batch1_human_review_package",
+    ]:
+        assert forbidden_step not in main_steps
+    assert not any(step.startswith("expanded_batch1_") for step in main_steps)
+
+
+def test_all_profile_preserves_full_export_step_set() -> None:
+    all_steps = export_md.step_names_for_profile("all")
+
+    assert all_steps == list(export_md.ALL_EXPORT_STEPS)
+    for step_name in export_md.step_names_for_profile("main"):
+        assert step_name in all_steps
+    assert "auto_adjudication" in all_steps
+
+
+def test_i5b_auto_profile_only_runs_auto_adjudication() -> None:
+    assert export_md.step_names_for_profile("i5b-auto") == ["auto_adjudication"]
 
 
 def test_load_i5b_trial_targets_prefers_chinese_view_group_config(

@@ -28,6 +28,8 @@
 
 `scripts/export/export_md.py` 是 Markdown 导出总入口的真实实现。后续修改导出顺序、路径常量、目标人物或配置读取时，应优先修改新路径，不得把真实实现重新放回 `scripts/` 根目录。
 
+`scripts/export/export_md.py` 默认只运行 `main` profile，生成少数综合入口文档。子项细节、试点 batch、审计视图、自动结算必须显式指定 profile 或调用专用脚本；旧全量导出行为使用 `python scripts/export/export_md.py --profile all`。
+
 运行相关路径一律使用英文 / ASCII / snake_case。新增 exporter 框架、Python package、import 路径、数据源目录、配置源目录和构建目录不得使用中文路径；中文只允许出现在人工文档路径、人工可读输出路径或文件正文中。
 
 跨子项通用导出逻辑应优先沉入 `scripts/export/dimension_export/`，子项专用规则、输出规格和文案适配器放入 `scripts/export/dimension_adapters/<english_adapter_name>/`。旧 CLI 入口如需兼容，可以保留在 `scripts/export/` 下作为 thin wrapper，但不得继续承载主要业务逻辑。
