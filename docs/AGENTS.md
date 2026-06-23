@@ -21,7 +21,7 @@
 ## 事实源与生成物
 
 - `docs/README.md` 是 docs 当前层导航入口；Codex 进入 docs 任务时，先用它确认目录层级和阅读顺序。
-- 当前目录骨架为 `00_project/`、`10_methodology/`、`20_dimensions/`、`30_operations/` 和 `agent_rules/`。根目录平铺方法论文档是待迁移遗留入口；目录治理 PR 只在白名单允许时分批 `git mv`，不得顺手搬正文。
+- 当前目录骨架为 `00_project/`、`10_methodology/`、`20_dimensions/`、`30_operations/` 和 `agent_rules/`。`docs/` 根目录仅保留受保护的最高层评分标准、导航与治理入口；目录治理 PR 只在白名单允许时分批 `git mv`，不得顺手搬正文。
 - Codex 读文档顺序：先项目总纲和评分标准，再通用方法论，再具体大项 / 子项，最后操作规范和治理工具说明。
 - 规范、运行手册和当前决策文档属于长期事实源。
 - `docs/皇帝综合评价体系评分标准.md` 是项目驱动文档，也是当前评分业务语义的最高层 canonical spec；下位文档冲突必须显式记录。

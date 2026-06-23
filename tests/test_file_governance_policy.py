@@ -10,21 +10,34 @@ sys.path.insert(0, str(ROOT / "tests"))
 from _git_helpers import changed_files_against_base, git_changed_files, skip_unless_pr_diff_checks_enabled
 
 ALLOWED_CHANGED_FILES = {
-    "AGENTS.md",
     "README.md",
+    "docs/AGENTS.md",
     "docs/README.md",
-    "docs/30_operations/README.md",
+    "docs/00_project/README.md",
+    "docs/00_project/总规则.md",
+    "docs/00_project/数据层级与批次文件治理规则.md",
+    "docs/10_methodology/README.md",
+    "docs/10_methodology/史料检索总则与项目-人物双轴工作流_讨论版.md",
+    "docs/10_methodology/数据库说明.md",
+    "docs/10_methodology/数据规范.md",
+    "docs/10_methodology/检索画像与检索线索字段规范.md",
+    "docs/10_methodology/证据工作流.md",
+    "docs/10_methodology/证据强度四级与五轴量化规则_讨论版.md",
+    "docs/10_methodology/证据裁量总则_讨论版.md",
+    "docs/10_methodology/负证分案裁判机制.md",
+    "docs/10_methodology/负证裁量与触发式裁判模块_讨论版.md",
+    "docs/10_methodology/配置说明文件规范.md",
+    "docs/20_dimensions/README.md",
+    "docs/20_dimensions/第五项B/README.md",
+    "docs/20_dimensions/第五项B/第五项B正式工作流模板.md",
+    "docs/20_dimensions/第五项B/第五项B自动结算规则.md",
+    "docs/20_dimensions/第五项B/第五项B证据卡上下文机制.md",
+    "docs/20_dimensions/第五项B/第五项B边界说明.md",
     "docs/agent_rules/docs_registry.json",
-    "docs/30_operations/GitHub发布与认证规范.md",
-    "docs/30_operations/ID命名规范.md",
-    "docs/30_operations/Markdown表格显示约定.md",
-    "docs/30_operations/scripts目录规范.md",
-    "docs/30_operations/人工阅读型Markdown导出规范.md",
     "exports/governance/文档治理盘点报告.md",
-    "tests/test_agents_ready_for_review_rule.py",
+    "scripts/export/export_i5b_auto_adjudication.py",
+    "tests/test_docs_governance.py",
     "tests/test_file_governance_policy.py",
-    "tests/test_pr_body_tool.py",
-    "tests/test_repo_tool.py",
 }
 
 for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):
@@ -81,7 +94,7 @@ def test_readme_mentions_governance_baseline_and_no_external_stack() -> None:
 
 
 def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -> None:
-    content = read_text(ROOT / "docs" / "数据层级与批次文件治理规则.md")
+    content = read_text(ROOT / "docs" / "00_project" / "数据层级与批次文件治理规则.md")
     for needle in [
         "active_batch",
         "review_only_batch",

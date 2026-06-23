@@ -17,9 +17,9 @@
 - `data/templates/*.json` 只是填写模板，不进入 `build_db` 导入流程。
 - `evidence_cache.sqlite` 是生成物，不进 Git。
 - Markdown 是审阅导出视图，不是主源。
-- 文件治理与批次/主表边界以 `docs/数据层级与批次文件治理规则.md` 为准；已合并的 correction batch 不应长期留存。
+- 文件治理与批次/主表边界以 `docs/00_project/数据层级与批次文件治理规则.md` 为准；已合并的 correction batch 不应长期留存。
 - 下一阶段是迁移规则和已回源史料，不迁移旧评分。
-- 当前可先阅读 `docs/数据规范.md`、`docs/30_operations/ID命名规范.md` 和 `exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md`。
+- 当前可先阅读 `docs/10_methodology/数据规范.md`、`docs/30_operations/ID命名规范.md` 和 `exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md`。
 - 已进入第五项B试点准备；当前只生成矩阵骨架，不代表完成检索或评分。
 - 任务005A已开始记录第五项B三人试点待回源检索线索；这些线索不代表已回源证据，不参与定档定分。
 - V3.2 已确定 1440 正收益总盘、0—300 历史负债及各大项权重。当前方案 C 只表示实现和发布仍分阶段推进：子项证据、档位映射、规则与算法版本审查、回归验证和正式发布门槛未完成前，不发布人物正式分、排名、阶段总榜或总榜。
