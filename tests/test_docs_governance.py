@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -12,21 +13,6 @@ DOCS_AGENTS = ROOT / "docs" / "AGENTS.md"
 DOCS_REGISTRY = ROOT / "docs" / "agent_rules" / "docs_registry.json"
 DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "docs" / "文档治理盘点报告.md"
-ALLOWED_DOCS_CHANGES = {
-    "docs/AGENTS.md",
-    "docs/archive/README.md",
-    "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
-    "docs/archive/audits/file_governance_final_audit_20260620.md",
-    "docs/archive/audits/hardcoded_content_configuration_inventory_20260620.md",
-    "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
-    "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
-    "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-    "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md",
-    "docs/agent_rules/README.md",
-    "docs/agent_rules/docs_registry.json",
-    "docs/agent_rules/scripts_registry.json",
-    "docs/文档治理盘点报告.md",
-}
 ARCHIVE_MAP = {
     "docs/canonical_data_integrity_validation_note_20260620.md": "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
     "docs/file_governance_final_audit_20260620.md": "docs/archive/audits/file_governance_final_audit_20260620.md",
@@ -162,9 +148,12 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
         "## 9. delete candidates",
         "## 10. needs human confirmation",
         "## 11. 已归档文档",
-        "本 PR 未删除、移动或重写现有业务文档",
+        "当前治理报告仅描述 docs 生命周期与归档状态",
     ]:
         assert needle in content
+    assert not re.search(r"PR #\d+", content)
+    assert "#207" not in content
+    assert "本 PR" not in content
     for old_path, new_path in ARCHIVE_MAP.items():
         assert content.count(old_path) == 1
         assert content.count(new_path) == 1
@@ -186,27 +175,3 @@ def test_governance_report_matches_generator() -> None:
     assert REPORT.read_text(encoding="utf-8") == docs_tool.build_report("docs/agent_rules/docs_registry.json")
 
 
-def test_pr_uses_expected_archive_renames_and_scope() -> None:
-    name_status = git_lines("diff", "--name-status", "--find-renames", "origin/GPT...HEAD")
-    name_status += git_lines("diff", "--name-status", "--find-renames", "--cached")
-    seen_renames: dict[str, str] = {}
-
-    for line in name_status:
-        if not line:
-            continue
-        parts = line.split("\t")
-        status = parts[0]
-        paths = parts[1:]
-        if not any(path.startswith("docs/") for path in paths):
-            continue
-        assert not status.startswith("D"), line
-        if status.startswith("R"):
-            assert len(paths) == 2, line
-            seen_renames[paths[0]] = paths[1]
-            assert ARCHIVE_MAP.get(paths[0]) == paths[1], line
-            continue
-        for path in paths:
-            if path.startswith("docs/"):
-                assert path in ALLOWED_DOCS_CHANGES, line
-
-    assert seen_renames == ARCHIVE_MAP

@@ -307,6 +307,9 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert re.search(r"Batch C：需人工确认，1 个", report)
     assert "本报告对应 PR #206" not in report
     assert "推荐 #207" not in report
+    assert not re.search(r"PR #\d+", report)
+    assert "#207" not in report
+    assert "本 PR" not in report
     assert docs_tool.main(["check", "--registry", str(registry_path.relative_to(repo))]) == 0
     assert docs_tool.main(["check", "--registry", "docs/missing.json"]) == 1
     captured = capfd.readouterr()

@@ -719,7 +719,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             "",
             "## 16. 范围声明",
             "",
-            "本 PR 未删除、移动或重写现有业务文档；未修改 data、exports、数据库或 SQLite 文件。",
+            "当前治理报告仅描述 docs 生命周期与归档状态；未将 archive 视为删除，也不改变 data、exports、数据库或 SQLite 文件。",
             "",
         ]
     )
