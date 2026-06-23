@@ -36,6 +36,10 @@
 
 - 清理、归档和删除第一轮只做诊断和候选清单；第二轮才允许小批量执行。
 - 一次性审计、迁移记录和历史快照可以进入 archive 候选，但不自动删除。
+- `docs/archive/**` 保存历史审计价值材料，不是当前规范事实源。
+- archive 文档不得在普通业务 PR 中重新激活或删除；重新激活必须另开 PR 并更新 registry。
+- 归档移动必须同步更新 `archived_document_paths`、引用和治理报告。
+- active 文档引用 archive 时必须明确其为历史背景；`docs/archive/README.md` 是归档导航入口。
 - 删除候选必须有明确替代路径或可重建证明，并要求人工确认。
 - `unique_source_risk=true` 的文档不得直接提出删除。
 - 删除前必须确认不是测试、脚本、README、AGENTS、workflow 或 generator 的依赖。

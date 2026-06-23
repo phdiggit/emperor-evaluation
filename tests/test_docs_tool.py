@@ -228,9 +228,52 @@ def test_check_requires_generated_view_generator_or_human_confirmation(tmp_path:
     assert any("generated_view requires generator_candidates" in problem for problem in docs_tool.check_registry(str(registry_path.relative_to(repo))))
 
 
+def test_check_validates_archived_document_paths(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    (repo / "docs" / "archive" / "audits").mkdir(parents=True)
+    run_git(repo, "mv", "docs/dated_20260620.md", "docs/archive/audits/dated_20260620.md")
+    commit_all(repo, "archive dated doc")
+    docs_tool = load_docs_tool(repo)
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    archived_path = "docs/archive/audits/dated_20260620.md"
+    for doc in registry["documents"]:
+        if doc["path"] == archived_path:
+            doc["document_type"] = "audit_record"
+            doc["lifecycle_status"] = "historical"
+            doc["proposed_action"] = "keep"
+            doc["human_confirmation_required"] = False
+    registry["archived_document_paths"] = {"docs/dated_20260620.md": archived_path}
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+
+    def problems_for(mutator) -> list[str]:
+        broken = json.loads(json.dumps(registry, ensure_ascii=False))
+        mutator(broken)
+        registry_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return docs_tool.check_registry(str(registry_path.relative_to(repo)))
+
+    assert any("archived_document_paths must be an object" in p for p in problems_for(lambda r: r.__setitem__("archived_document_paths", [])))
+    assert any("archived old path still exists" in p for p in problems_for(lambda r: (repo / "docs" / "dated_20260620.md").write_text("# old\n", encoding="utf-8")))
+    (repo / "docs" / "dated_20260620.md").unlink()
+    assert any("archived path does not exist" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/dated_20260620.md", "docs/archive/audits/missing.md")))
+    assert any("archived path must be under docs/archive/" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/dated_20260620.md", "docs/other.md")))
+    assert any("archived old path is still registered" in p for p in problems_for(lambda r: r["documents"].append({**r["documents"][0], "path": "docs/dated_20260620.md"})))
+    assert any("archived path is not registered" in p for p in problems_for(lambda r: r.__setitem__("documents", [d for d in r["documents"] if d["path"] != archived_path])))
+    assert any("lifecycle_status=historical" in p for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == archived_path).__setitem__("lifecycle_status", "active")))
+    assert any("proposed_action=keep" in p for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == archived_path).__setitem__("proposed_action", "archive")))
+    assert any("human_confirmation_required=false" in p for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == archived_path).__setitem__("human_confirmation_required", True)))
+    assert any("mapped from multiple old paths" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/second_old.md", archived_path)))
+
+
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
+    archived_path = "docs/archive/audits/old-audit.md"
+    write(repo / archived_path, "# Old Audit\n")
+    commit_all(repo, "add archived doc")
     docs_tool = load_docs_tool(repo)
     registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
     registry["documents"][0]["lifecycle_status"] = "archive_candidate"
@@ -244,6 +287,13 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     registry["documents"][2]["document_type"] = "historical_snapshot"
     registry["documents"][2]["unique_source_risk"] = False
     review_path = registry["documents"][2]["path"]
+    for doc in registry["documents"]:
+        if doc["path"] == archived_path:
+            doc["lifecycle_status"] = "historical"
+            doc["proposed_action"] = "keep"
+            doc["document_type"] = "audit_record"
+            doc["human_confirmation_required"] = False
+    registry["archived_document_paths"] = {"docs/old-audit.md": archived_path}
     registry_path = write_registry(repo, registry)
     commit_all(repo, "registry")
 
@@ -251,8 +301,15 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "## 8. archive candidates" in report
     assert "## 9. delete candidates" in report
     assert "## 10. needs human confirmation" in report
+    assert "## 11. 已归档文档" in report
+    assert "docs/old-audit.md" in report
     assert report.count(review_path) == 1
     assert re.search(r"Batch C：需人工确认，1 个", report)
+    assert "本报告对应 PR #206" not in report
+    assert "推荐 #207" not in report
+    assert not re.search(r"PR #\d+", report)
+    assert "#207" not in report
+    assert "本 PR" not in report
     assert docs_tool.main(["check", "--registry", str(registry_path.relative_to(repo))]) == 0
     assert docs_tool.main(["check", "--registry", "docs/missing.json"]) == 1
     captured = capfd.readouterr()
