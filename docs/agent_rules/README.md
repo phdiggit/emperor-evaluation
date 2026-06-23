@@ -31,7 +31,9 @@
 - `scripts/AGENTS.md` 只保留 scripts 范围长期稳定的行为规则，不记录当前还剩哪些脚本未迁移。
 - `docs/AGENTS.md` 只保留 docs 范围长期稳定的行为规则，不记录逐文件候选状态。
 - `scripts_registry.json` 是脚本实现路径、retired wrapper 审计映射、root exception、审计文档和 required tests 的当前事实源。
-- `docs_registry.json` 是 docs 当前生命周期、引用关系、generator 候选和 proposed action 的状态事实源。
+- `docs_registry.json` 是 docs 当前生命周期、引用关系、generator 候选、proposed action 和内容归置建议的状态事实源。
+- 生命周期回答“这份文档当前如何治理”；内容归置回答“文档主体内容长期应由 docs、配置、canonical data、exports 还是 archive 承载”。两者是正交维度，不应互相替代。
+- `content_role` 描述文档主体内容角色；`placement_action` 描述推荐目标态动作；`placement_targets` 记录后续吸收、生成、拆分或归档的精确候选路径。
 - `archived_document_paths` 是旧路径到历史归档路径的审计映射，表示旧路径已退役；不表示旧路径继续存在或可作为当前入口。
 - archive 状态属于 docs registry 的动态事实；根 `AGENTS.md` 不记录逐文件归档状态。
 - `retired_legacy_wrappers` 只记录旧路径曾对应的 module id，便于检查旧 import 回流；不表示旧路径仍可 import 或运行。

@@ -52,6 +52,35 @@ ALLOWED_LIFECYCLE_STATUSES = {
     "needs_human_confirmation",
 }
 ALLOWED_PROPOSED_ACTIONS = {"keep", "regenerate_only", "archive", "delete", "review"}
+ALLOWED_CONTENT_ROLES = {
+    "rule_or_method",
+    "stable_explanation",
+    "stable_operational_guide",
+    "governance_state",
+    "generated_output",
+    "instance_record",
+    "historical_record",
+    "mixed",
+}
+ALLOWED_PLACEMENT_ACTIONS = {
+    "keep_in_docs",
+    "keep_governance_exception",
+    "keep_archive_exception",
+    "move_to_exports",
+    "absorb_into_config",
+    "absorb_into_canonical_data_then_export",
+    "split_keep_rules_generate_state",
+    "archive_after_absorption",
+    "review",
+}
+KEEP_OR_REVIEW_PLACEMENT_ACTIONS = {
+    "keep_in_docs",
+    "keep_governance_exception",
+    "keep_archive_exception",
+    "review",
+}
+PLACEMENT_TARGET_ROOTS = ("data/", "docs/", "exports/", "scripts/", "tests/")
+PLACEMENT_TARGET_EXACT_PATHS = {"README.md", "AGENTS.md"}
 DATE_SUFFIX_RE = re.compile(r"(?:^|[_-])((?:19|20)\d{2}[-_]?\d{2}[-_]?\d{2}|(?:19|20)\d{6})(?:$|[_-])")
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 DOCS_LITERAL_RE = re.compile(r"docs/[^\s'\"`)>]+")
@@ -392,6 +421,23 @@ def _uses_forward_slashes(path: str) -> bool:
     return "\\" not in path
 
 
+def _valid_repo_target_path(path: str) -> bool:
+    if not path or not _uses_forward_slashes(path):
+        return False
+    if path in PLACEMENT_TARGET_EXACT_PATHS:
+        return True
+    if path.startswith(("/", "./", "../")):
+        return False
+    if re.match(r"^[A-Za-z]:", path):
+        return False
+    parts = path.split("/")
+    if any(part in {"", ".", ".."} for part in parts):
+        return False
+    if any(char in path for char in "*?"):
+        return False
+    return path.startswith(PLACEMENT_TARGET_ROOTS)
+
+
 def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
     problems: list[str] = []
     registry_file = _resolve_repo_path(registry_path)
@@ -426,12 +472,18 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
     allowed_types = set(registry.get("allowed_document_types", []))
     allowed_statuses = set(registry.get("allowed_lifecycle_statuses", []))
     allowed_actions = set(registry.get("allowed_proposed_actions", []))
+    allowed_content_roles = set(registry.get("allowed_content_roles", []))
+    allowed_placement_actions = set(registry.get("allowed_placement_actions", []))
     if allowed_types != ALLOWED_DOCUMENT_TYPES:
         problems.append(f"{registry_path}: allowed_document_types do not match supported set")
     if allowed_statuses != ALLOWED_LIFECYCLE_STATUSES:
         problems.append(f"{registry_path}: allowed_lifecycle_statuses do not match supported set")
     if allowed_actions != ALLOWED_PROPOSED_ACTIONS:
         problems.append(f"{registry_path}: allowed_proposed_actions do not match supported set")
+    if allowed_content_roles != ALLOWED_CONTENT_ROLES:
+        problems.append(f"{registry_path}: allowed_content_roles do not match supported set")
+    if allowed_placement_actions != ALLOWED_PLACEMENT_ACTIONS:
+        problems.append(f"{registry_path}: allowed_placement_actions do not match supported set")
 
     documents = registry.get("documents", [])
     if not isinstance(documents, list):
@@ -450,16 +502,63 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
         document_type = doc.get("document_type")
         lifecycle_status = doc.get("lifecycle_status")
         proposed_action = doc.get("proposed_action")
+        content_role = doc.get("content_role")
+        placement_action = doc.get("placement_action")
         if document_type not in ALLOWED_DOCUMENT_TYPES:
             problems.append(f"{path}: invalid document_type {document_type!r}")
         if lifecycle_status not in ALLOWED_LIFECYCLE_STATUSES:
             problems.append(f"{path}: invalid lifecycle_status {lifecycle_status!r}")
         if proposed_action not in ALLOWED_PROPOSED_ACTIONS:
             problems.append(f"{path}: invalid proposed_action {proposed_action!r}")
+        if content_role not in ALLOWED_CONTENT_ROLES:
+            problems.append(f"{path}: invalid content_role {content_role!r}")
+        if placement_action not in ALLOWED_PLACEMENT_ACTIONS:
+            problems.append(f"{path}: invalid placement_action {placement_action!r}")
         replacement = doc.get("replacement_path")
         if replacement and not _path_exists(replacement):
             problems.append(f"{path}: replacement_path does not exist: {replacement}")
         reason = str(doc.get("reason") or "").strip()
+        placement_reason = str(doc.get("placement_reason") or "").strip()
+        placement_targets = doc.get("placement_targets")
+        if not isinstance(placement_targets, list):
+            problems.append(f"{path}: placement_targets must be a list")
+            placement_targets = []
+        for target in placement_targets:
+            if not isinstance(target, str):
+                problems.append(f"{path}: placement_targets entries must be strings")
+                continue
+            if not _valid_repo_target_path(target):
+                problems.append(f"{path}: placement_targets must be repo-relative controlled paths using forward slashes: {target}")
+        if not isinstance(doc.get("semantic_verification_required"), bool):
+            problems.append(f"{path}: semantic_verification_required must be boolean")
+        if placement_action not in KEEP_OR_REVIEW_PLACEMENT_ACTIONS:
+            if not placement_targets:
+                problems.append(f"{path}: placement_action={placement_action} requires non-empty placement_targets")
+            if not placement_reason:
+                problems.append(f"{path}: placement_action={placement_action} requires non-empty placement_reason")
+        if content_role == "generated_output" and placement_action == "keep_in_docs":
+            problems.append(f"{path}: content_role=generated_output cannot use placement_action=keep_in_docs")
+        if content_role == "mixed" and placement_action not in {"split_keep_rules_generate_state", "review"}:
+            problems.append(f"{path}: content_role=mixed requires placement_action split_keep_rules_generate_state or review")
+        if content_role == "instance_record" and placement_action == "absorb_into_canonical_data_then_export":
+            if doc.get("semantic_verification_required") is not True:
+                problems.append(
+                    f"{path}: instance_record with absorb_into_canonical_data_then_export requires semantic_verification_required=true"
+                )
+        if content_role == "instance_record" and lifecycle_status == "delete_candidate":
+            problems.append(f"{path}: content_role=instance_record cannot use lifecycle_status=delete_candidate")
+        if placement_action == "keep_archive_exception" and not path.startswith("docs/archive/"):
+            problems.append(f"{path}: placement_action=keep_archive_exception is only allowed under docs/archive/")
+        if placement_action == "keep_governance_exception" and not path.startswith("docs/agent_rules/"):
+            allowed_governance_paths = set(registry.get("governance_exception_paths", []))
+            if path not in allowed_governance_paths:
+                problems.append(
+                    f"{path}: placement_action=keep_governance_exception is only allowed under docs/agent_rules/ or governance_exception_paths"
+                )
+        if lifecycle_status == "generated" and placement_action in {"keep_in_docs", "keep_archive_exception"}:
+            problems.append(f"{path}: lifecycle_status=generated conflicts with placement_action={placement_action}")
+        if proposed_action == "regenerate_only" and placement_action == "keep_in_docs":
+            problems.append(f"{path}: proposed_action=regenerate_only conflicts with placement_action=keep_in_docs")
         if proposed_action == "delete" or lifecycle_status == "delete_candidate":
             if not reason:
                 problems.append(f"{path}: delete candidate requires non-empty reason")
@@ -552,6 +651,8 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     type_counts = _count_by(documents, "document_type")
     status_counts = _count_by(documents, "lifecycle_status")
     action_counts = _count_by(documents, "proposed_action")
+    content_role_counts = _count_by(documents, "content_role")
+    placement_action_counts = _count_by(documents, "placement_action")
     exact_groups = defaultdict(list)
     normalized_groups = defaultdict(list)
     for doc in documents:
@@ -560,12 +661,13 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         if doc.get("normalized_duplicate_group"):
             normalized_groups[doc["normalized_duplicate_group"]].append(doc["path"])
 
-    def docs_for(action: str | None = None, status: str | None = None) -> list[dict[str, Any]]:
+    def docs_for(action: str | None = None, status: str | None = None, placement: str | None = None) -> list[dict[str, Any]]:
         return [
             doc
             for doc in documents
             if (action is None or doc.get("proposed_action") == action)
             and (status is None or doc.get("lifecycle_status") == status)
+            and (placement is None or doc.get("placement_action") == placement)
         ]
 
     def unique_docs(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -581,9 +683,10 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
 
     candidate_header = [
         "path",
-        "type",
-        "proposed action",
-        "replacement / generator",
+        "content role",
+        "placement action",
+        "placement targets",
+        "semantic verification required",
         "inbound refs",
         "unique risk",
         "reason",
@@ -593,17 +696,132 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     def candidate_rows(items: list[dict[str, Any]]) -> list[list[str]]:
         rows = [candidate_header]
         for doc in items:
-            replacement = doc.get("replacement_path") or ", ".join(doc.get("generator_candidates", [])) or "-"
             rows.append(
                 [
                     doc["path"],
-                    doc["document_type"],
-                    doc["proposed_action"],
-                    replacement,
+                    str(doc.get("content_role", "")),
+                    str(doc.get("placement_action", "")),
+                    "<br>".join(doc.get("placement_targets", [])) or "-",
+                    str(bool(doc.get("semantic_verification_required"))).lower(),
                     str(len(doc.get("inbound_references", []))),
                     str(bool(doc.get("unique_source_risk"))).lower(),
-                    doc.get("reason", ""),
+                    doc.get("placement_reason") or doc.get("reason", ""),
                     str(bool(doc.get("human_confirmation_required"))).lower(),
+                ]
+            )
+        return rows
+
+    def docs_with_target_containing(text: str) -> list[dict[str, Any]]:
+        return [doc for doc in documents if any(text in str(target) for target in doc.get("placement_targets", []))]
+
+    def placement_docs(*placements: str) -> list[dict[str, Any]]:
+        return [doc for doc in documents if doc.get("placement_action") in set(placements)]
+
+    stable_docs = placement_docs("keep_in_docs", "keep_governance_exception", "keep_archive_exception")
+    config_absorption_docs = unique_docs(
+        docs_for(placement="absorb_into_config")
+        + [doc for doc in docs_for(placement="archive_after_absorption") if any("data/configs/" in target for target in doc.get("placement_targets", []))]
+    )
+    canonical_data_docs = docs_for(placement="absorb_into_canonical_data_then_export")
+    export_only_docs = docs_for(placement="move_to_exports")
+    split_docs = docs_for(placement="split_keep_rules_generate_state")
+    archive_after_absorption_docs = docs_for(placement="archive_after_absorption")
+    placement_review_docs = docs_for(placement="review")
+    active_design_review_docs = [
+        doc
+        for doc in placement_review_docs
+        if doc.get("lifecycle_status") == "active" and doc.get("semantic_verification_required") is True
+    ]
+    needs_human_docs = [
+        doc
+        for doc in placement_review_docs
+        if doc.get("lifecycle_status") == "needs_human_confirmation"
+    ]
+    placement_problems = check_registry(registry_path)
+
+    def batch_rows() -> list[list[str]]:
+        rows = [["batch", "candidate files", "primary targets", "risk", "touches data", "touches business generator", "human confirmation", "PR guidance"]]
+        def touches_data(items: list[dict[str, Any]]) -> str:
+            return "yes" if any(str(target).startswith("data/") for doc in items for target in doc.get("placement_targets", [])) else "no"
+
+        batches = [
+            (
+                "Batch 1：generated docs -> export-only",
+                export_only_docs,
+                "low",
+                "no",
+                "yes",
+                "no",
+                "建议单独 PR 停止 docs 双写并保留 canonical exports。",
+            ),
+            (
+                "Batch 2：混合审核文档拆分",
+                split_docs,
+                "medium",
+                "config/export only",
+                "possibly",
+                "no",
+                "建议单独 PR 先抽稳定规则，再生成当前状态视图。",
+            ),
+            (
+                "Batch 3：人物回源说明 canonical-data 对账与 export 化",
+                docs_for(placement="absorb_into_canonical_data_then_export"),
+                "high",
+                "yes",
+                "yes",
+                "yes",
+                "必须逐 ID 语义核验，建议单独 PR。",
+            ),
+            (
+                "Batch 4：已实施设计/迁移/审计归档",
+                archive_after_absorption_docs,
+                "medium",
+                "possibly",
+                "no",
+                "no",
+                "按 archive 目录分批归档，保留追溯。",
+            ),
+            (
+                "Batch 5：治理报告自身迁移",
+                docs_with_target_containing("文档治理盘点报告.md"),
+                "medium",
+                "no",
+                "no",
+                "no",
+                "先决定跟踪 exports 还是只保留 .tmp 生成物。",
+            ),
+            (
+                f"Batch 6：needs-human-confirmation 历史材料（{len(needs_human_docs)} 份）",
+                needs_human_docs,
+                "high",
+                "no",
+                "no",
+                "yes",
+                "仅用户确认后三份历史治理材料才执行。",
+            ),
+            (
+                f"Batch 7：active design 语义核验（{len(active_design_review_docs)} 份）",
+                active_design_review_docs,
+                "high",
+                touches_data(active_design_review_docs),
+                "possibly",
+                "yes",
+                "逐项核验证据簇、warning、thematic-anchor 等设计是否落地、取消或被现行规范替代。",
+            ),
+        ]
+        for name, docs, risk, touches_data, touches_generator, human_confirmation, guidance in batches:
+            paths = "<br>".join(doc["path"] for doc in docs) or "-"
+            targets = sorted({target for doc in docs for target in doc.get("placement_targets", [])})
+            rows.append(
+                [
+                    name,
+                    paths,
+                    "<br>".join(targets) or "-",
+                    risk,
+                    touches_data,
+                    touches_generator,
+                    human_confirmation,
+                    guidance,
                 ]
             )
         return rows
@@ -611,14 +829,15 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     lines: list[str] = [
         "# 文档治理盘点报告",
         "",
-        "本报告由 docs registry 生成，用于当前文档生命周期与治理状态审阅。",
+        "本报告由 docs registry 生成，用于当前文档生命周期、内容角色与推荐归置状态审阅。",
         "",
         "## 1. 执行摘要",
         "",
         f"- 基线 ref：`{registry.get('baseline_ref')}`。",
         f"- 基线 commit：`{registry.get('baseline_sha')}`。",
         f"- docs registry 覆盖文档数：{len(documents)}。",
-        "- 候选动作和已归档映射均以 registry 当前状态为准；归档不是删除。",
+        "- 候选动作和已归档映射均以 registry 当前状态为准；归档不是删除，吸收候选也不表示已经迁移。",
+        "- 本报告只登记内容归置建议，不改变 data、exports、数据库、评分、证据或裁判语义。",
         "",
         "## 2. docs 总体统计",
         "",
@@ -634,42 +853,63 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table([["proposed_action", "count"], *[[key, str(value)] for key, value in action_counts.items()]]),
         "",
+        "### 内容角色统计",
+        "",
+        *_table([["content_role", "count"], *[[key, str(value)] for key, value in content_role_counts.items()]]),
+        "",
+        "### 推荐归置动作统计",
+        "",
+        *_table([["placement_action", "count"], *[[key, str(value)] for key, value in placement_action_counts.items()]]),
+        "",
         "## 3. 分类口径",
         "",
         "- `canonical_spec`、`operational_guide` 和仍被 README、AGENTS、scripts、tests 引用的当前设计默认保留。",
         "- `generated_view` 只登记 generator 候选；不能用手改文档替代修改生成器。",
         "- 审计、迁移和日期快照先进入 historical 或 archive candidate；无引用不等于无价值。",
         "- `delete_candidate` 仅表示后续低风险删除审查对象，仍必须人工确认。",
+        "- 内容归置与生命周期是正交维度；`keep` 可以同时登记后续吸收、拆分或归档建议。",
         "",
-        "## 4. 当前 canonical specs 清单",
+        "## 4. 继续留在 docs 的稳定文档",
         "",
-        *_table([["path", "reason"], *[[doc["path"], doc["reason"]] for doc in documents if doc["document_type"] == "canonical_spec"]]),
+        *_table(candidate_rows(stable_docs)),
         "",
-        "## 5. 当前 operational guides 清单",
+        "## 5. 配置吸收候选",
         "",
-        *_table([["path", "reason"], *[[doc["path"], doc["reason"]] for doc in documents if doc["document_type"] == "operational_guide"]]),
+        *_table(candidate_rows(config_absorption_docs)),
         "",
-        "## 6. generated views 清单及 generator",
+        "## 6. 事实源吸收并生成视图候选",
         "",
-        *_table([["path", "generator candidates", "reason"], *[[doc["path"], ", ".join(doc.get("generator_candidates", [])) or "-", doc["reason"]] for doc in documents if doc["document_type"] == "generated_view"]]),
+        *_table(candidate_rows(canonical_data_docs)),
         "",
-        "## 7. historical / audit / migration records 清单",
+        "## 7. 仅保留 exports 候选",
         "",
-        *_table([["path", "type", "status", "reason"], *[[doc["path"], doc["document_type"], doc["lifecycle_status"], doc["reason"]] for doc in documents if doc["document_type"] in {"historical_snapshot", "audit_record", "migration_record"} and doc["path"] not in candidate_paths]]),
+        *_table(candidate_rows(export_only_docs)),
         "",
-        "## 8. archive candidates",
+        "## 8. 需要拆分的混合文档",
+        "",
+        *_table(candidate_rows(split_docs)),
+        "",
+        "## 9. 吸收后归档候选",
+        "",
+        *_table(candidate_rows(archive_after_absorption_docs)),
+        "",
+        "## 10. 内容归置待确认项",
+        "",
+        *_table(candidate_rows(placement_review_docs)),
+        "",
+        "## 11. 生命周期 archive candidates",
         "",
         *_table(candidate_rows(archive_docs)),
         "",
-        "## 9. delete candidates",
+        "## 12. 生命周期 delete candidates",
         "",
         *_table(candidate_rows(delete_docs)),
         "",
-        "## 10. needs human confirmation",
+        "## 13. 生命周期 review / needs human confirmation",
         "",
         *_table(candidate_rows(review_docs)),
         "",
-        "## 11. 已归档文档",
+        "## 14. 已归档文档",
         "",
         *_table(
             [
@@ -689,7 +929,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             ]
         ),
         "",
-        "## 12. 重复组",
+        "## 15. 重复组",
         "",
         "### exact duplicates",
         "",
@@ -699,27 +939,32 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table([["group", "paths"], *[[group, "<br>".join(paths)] for group, paths in sorted(normalized_groups.items())]]),
         "",
-        "## 13. 引用断链或异常",
+        "## 16. 引用断链或异常",
         "",
     ]
-    problems = check_registry(registry_path)
-    lines.extend(["- docs_tool check 当前通过，未发现 registry 引用断链。" if not problems else "- " + "\n- ".join(problems)])
+    lines.extend(["- docs_tool check 当前通过，未发现 registry 引用断链。" if not placement_problems else "- " + "\n- ".join(placement_problems)])
     lines.extend(
         [
             "",
-            "## 14. unique source 风险",
+            "## 17. 目标态违规或异常",
+            "",
+            *(
+                ["- 未发现目标态违规或异常。"]
+                if not placement_problems
+                else [f"- {problem}" for problem in placement_problems]
+            ),
+            "",
+            "## 18. unique source 风险",
             "",
             *_table([["path", "action", "reason"], *[[doc["path"], doc["proposed_action"], doc["reason"]] for doc in documents if doc.get("unique_source_risk") and doc["path"] not in candidate_paths]]),
             "",
-            "## 15. 后续推荐执行批次",
+            "## 19. 后续执行批次",
             "",
-            f"- Batch A：低风险删除候选，{len(delete_docs)} 个。仅处理精确重复、可重建或有明确 replacement 的项目。",
-            f"- Batch B：历史归档候选，{len(archive_docs)} 个。保留审计或决策价值，移动到 archive，不删除。",
-            f"- Batch C：需人工确认，{len(review_docs)} 个。不在 Codex 自动清理范围内。",
+            *_table(batch_rows()),
             "",
-            "## 16. 范围声明",
+            "## 20. 范围声明",
             "",
-            "当前治理报告仅描述 docs 生命周期与归档状态；未将 archive 视为删除，也不改变 data、exports、数据库或 SQLite 文件。",
+            "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态；未将 archive 视为删除，也不改变 data、exports、数据库或 SQLite 文件。",
             "",
         ]
     )

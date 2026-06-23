@@ -83,6 +83,15 @@ def valid_registry(repo: Path, inventory: dict) -> dict:
                 "document_type": "generated_view" if path == "docs/generated.md" else "canonical_spec",
                 "lifecycle_status": "generated" if path == "docs/generated.md" else "active",
                 "proposed_action": "regenerate_only" if path == "docs/generated.md" else "keep",
+                "content_role": "generated_output" if path == "docs/generated.md" else "rule_or_method",
+                "placement_action": "move_to_exports" if path == "docs/generated.md" else "keep_in_docs",
+                "placement_targets": ["exports/markdown_views/generated.md"] if path == "docs/generated.md" else [],
+                "placement_reason": (
+                    "临时仓库测试生成视图，后续只保留导出目标。"
+                    if path == "docs/generated.md"
+                    else "临时仓库测试稳定规则，继续保留在 docs。"
+                ),
+                "semantic_verification_required": False,
                 "inbound_references": item["inbound_references"],
                 "referenced_by_tests": item["referenced_by_tests"],
                 "generator_candidates": item["generator_candidates"],
@@ -103,6 +112,8 @@ def valid_registry(repo: Path, inventory: dict) -> dict:
         "allowed_document_types": sorted(docs_tool.ALLOWED_DOCUMENT_TYPES),
         "allowed_lifecycle_statuses": sorted(docs_tool.ALLOWED_LIFECYCLE_STATUSES),
         "allowed_proposed_actions": sorted(docs_tool.ALLOWED_PROPOSED_ACTIONS),
+        "allowed_content_roles": sorted(docs_tool.ALLOWED_CONTENT_ROLES),
+        "allowed_placement_actions": sorted(docs_tool.ALLOWED_PLACEMENT_ACTIONS),
         "documents": sorted(docs, key=lambda item: item["path"]),
     }
 
@@ -228,6 +239,89 @@ def test_check_requires_generated_view_generator_or_human_confirmation(tmp_path:
     assert any("generated_view requires generator_candidates" in problem for problem in docs_tool.check_registry(str(registry_path.relative_to(repo))))
 
 
+def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    inventory = docs_tool.build_inventory("HEAD")
+    registry = valid_registry(repo, inventory)
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    def problems_for(mutator) -> list[str]:
+        broken = json.loads(json.dumps(registry, ensure_ascii=False))
+        mutator(broken)
+        registry_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return docs_tool.check_registry(str(registry_path.relative_to(repo)))
+
+    assert any("allowed_content_roles do not match supported set" in p for p in problems_for(lambda r: r.__setitem__("allowed_content_roles", [])))
+    assert any("invalid content_role" in p for p in problems_for(lambda r: r["documents"][0].__setitem__("content_role", "bad_role")))
+    assert any("invalid placement_action" in p for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "bad_action")))
+    assert any(
+        "content_role=generated_output cannot use placement_action=keep_in_docs" in p
+        for p in problems_for(
+            lambda r: (
+                r["documents"][0].__setitem__("content_role", "generated_output"),
+                r["documents"][0].__setitem__("placement_action", "keep_in_docs"),
+            )
+        )
+    )
+    assert any(
+        "content_role=mixed requires placement_action" in p
+        for p in problems_for(
+            lambda r: (
+                r["documents"][0].__setitem__("content_role", "mixed"),
+                r["documents"][0].__setitem__("placement_action", "keep_in_docs"),
+            )
+        )
+    )
+    assert any(
+        "semantic_verification_required=true" in p
+        for p in problems_for(
+            lambda r: (
+                r["documents"][0].__setitem__("content_role", "instance_record"),
+                r["documents"][0].__setitem__("placement_action", "absorb_into_canonical_data_then_export"),
+                r["documents"][0].__setitem__("placement_targets", ["data/evidence_cards.jsonl"]),
+                r["documents"][0].__setitem__("semantic_verification_required", False),
+            )
+        )
+    )
+    assert any(
+        "requires non-empty placement_targets" in p
+        for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "move_to_exports"))
+    )
+    assert any(
+        "placement_targets must be repo-relative controlled paths" in p
+        for p in problems_for(
+            lambda r: (
+                r["documents"][0].__setitem__("placement_action", "move_to_exports"),
+                r["documents"][0].__setitem__("placement_targets", ["../exports/bad.md"]),
+            )
+        )
+    )
+    assert any(
+        "placement_targets must be repo-relative controlled paths" in p
+        for p in problems_for(
+            lambda r: (
+                r["documents"][0].__setitem__("placement_action", "move_to_exports"),
+                r["documents"][0].__setitem__("placement_targets", ["README.md.bak"]),
+            )
+        )
+    )
+    assert any(
+        "semantic_verification_required must be boolean" in p
+        for p in problems_for(lambda r: r["documents"][0].__setitem__("semantic_verification_required", 1))
+    )
+    assert any(
+        "keep_archive_exception is only allowed under docs/archive/" in p
+        for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_archive_exception"))
+    )
+    assert any(
+        "keep_governance_exception is only allowed under docs/agent_rules/" in p
+        for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_governance_exception"))
+    )
+
+
 def test_check_validates_archived_document_paths(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
@@ -242,6 +336,9 @@ def test_check_validates_archived_document_paths(tmp_path: Path) -> None:
             doc["document_type"] = "audit_record"
             doc["lifecycle_status"] = "historical"
             doc["proposed_action"] = "keep"
+            doc["content_role"] = "historical_record"
+            doc["placement_action"] = "keep_archive_exception"
+            doc["placement_reason"] = "临时仓库已归档审计材料，保留历史追溯。"
             doc["human_confirmation_required"] = False
     registry["archived_document_paths"] = {"docs/dated_20260620.md": archived_path}
     registry_path = write_registry(repo, registry)
@@ -287,6 +384,17 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     registry["documents"][2]["document_type"] = "historical_snapshot"
     registry["documents"][2]["unique_source_risk"] = False
     review_path = registry["documents"][2]["path"]
+    mixed_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/中文说明.md")
+    mixed_doc["content_role"] = "mixed"
+    mixed_doc["placement_action"] = "split_keep_rules_generate_state"
+    mixed_doc["placement_targets"] = ["data/configs/视图配置/test.json", "exports/markdown_views/test.md"]
+    mixed_doc["placement_reason"] = "临时仓库 mixed 文档，测试不应进入事实源吸收章节。"
+    instance_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/dup-a.md")
+    instance_doc["content_role"] = "instance_record"
+    instance_doc["placement_action"] = "absorb_into_canonical_data_then_export"
+    instance_doc["placement_targets"] = ["data/evidence_cards.jsonl", "exports/markdown_views/dup-a.md"]
+    instance_doc["placement_reason"] = "临时仓库 instance 文档，测试事实源吸收章节。"
+    instance_doc["semantic_verification_required"] = True
     for doc in registry["documents"]:
         if doc["path"] == archived_path:
             doc["lifecycle_status"] = "historical"
@@ -298,13 +406,25 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     commit_all(repo, "registry")
 
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    assert "## 8. archive candidates" in report
-    assert "## 9. delete candidates" in report
-    assert "## 10. needs human confirmation" in report
-    assert "## 11. 已归档文档" in report
+    assert "### 内容角色统计" in report
+    assert "### 推荐归置动作统计" in report
+    assert "## 7. 仅保留 exports 候选" in report
+    assert "## 10. 内容归置待确认项" in report
+    assert "## 11. 生命周期 archive candidates" in report
+    assert "## 12. 生命周期 delete candidates" in report
+    assert "## 13. 生命周期 review / needs human confirmation" in report
+    assert "## 14. 已归档文档" in report
+    assert "## 19. 后续执行批次" in report
+    canonical_section = report.split("## 6. 事实源吸收并生成视图候选", 1)[1].split("## 7. 仅保留 exports 候选", 1)[0]
+    mixed_section = report.split("## 8. 需要拆分的混合文档", 1)[1].split("## 9. 吸收后归档候选", 1)[0]
+    lifecycle_review_section = report.split("## 13. 生命周期 review / needs human confirmation", 1)[1].split("## 14. 已归档文档", 1)[0]
+    assert "docs/dup-a.md" in canonical_section
+    assert "docs/中文说明.md" not in canonical_section
+    assert "docs/中文说明.md" in mixed_section
     assert "docs/old-audit.md" in report
-    assert report.count(review_path) == 1
-    assert re.search(r"Batch C：需人工确认，1 个", report)
+    assert review_path in lifecycle_review_section
+    assert "Batch 6：needs-human-confirmation 历史材料" in report
+    assert "Batch 7：active design 语义核验" in report
     assert "本报告对应 PR #206" not in report
     assert "推荐 #207" not in report
     assert not re.search(r"PR #\d+", report)
