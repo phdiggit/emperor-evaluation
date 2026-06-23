@@ -82,7 +82,7 @@ def test_readiness_audit_records_expected_readiness_calls() -> None:
 
 def test_readiness_audit_export_is_review_only() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],
         cwd=ROOT,
         capture_output=True,
         text=True,

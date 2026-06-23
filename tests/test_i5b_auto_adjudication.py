@@ -971,7 +971,7 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
 
 
 def test_export_md_generates_i5b_review_entry_views() -> None:
-    result = run_script("export_md.py")
+    result = run_script("export_md.py", "--profile", "i5b-auto")
 
     assert result.returncode == 0, result.stdout + result.stderr
     for path in [
