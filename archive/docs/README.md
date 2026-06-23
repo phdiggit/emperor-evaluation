@@ -1,12 +1,12 @@
-# docs/archive
+# archive/docs
 
-`docs/archive/` 保存已退出当前运行入口、但仍有历史审计价值的材料。archive 中的内容不是当前规范事实源；当前规范、运行手册和当前设计仍以 `docs/agent_rules/docs_registry.json` 中的 active / generated 条目为准。
+`archive/docs/` 保存已退出当前运行入口、但仍有历史审计价值的材料。archive 中的内容不是当前规范事实源；当前规范、运行手册和当前方法论仍以 `docs/agent_rules/docs_registry.json` 中的 active 条目为准。
 
 不得在普通业务 PR 中直接删除 archive 文档。archive 文档如需重新激活，必须另开 PR，说明重新激活依据，并同步更新 registry、引用和治理报告。
 
-`docs/archive/audits/` 保存日期化审计、阶段复核和归档说明。
+`archive/docs/audits/` 保存日期化审计、阶段复核和归档说明。
 
-`docs/archive/design_snapshots/` 保存日期化设计快照，仅用于追溯设计背景；这些文件不是当前规则、事实源、评分、证据或试点状态入口。
+`archive/docs/design_snapshots/` 保存日期化设计快照，仅用于追溯设计背景；这些文件不是当前规则、事实源、评分、证据或试点状态入口。
 
 ## 本批历史审计归档
 
