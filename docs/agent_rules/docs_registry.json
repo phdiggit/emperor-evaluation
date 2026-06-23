@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "baseline_ref": "origin/GPT",
-  "baseline_sha": "5c90d053ef4f3b278ca6f83218a214d02330c17b",
+  "baseline_sha": "f53a1bfd2f0881f6871914720fd0588404d478c8",
   "docs_agents_budget": {
     "max_lines": 80,
     "max_bytes": 12288
@@ -44,6 +44,9 @@
     "docs/liubang_pregrade_checklist_archive_note_20260620.md": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
     "docs/query_search_batch_canonical_import_note_20260620.md": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md"
   },
+  "project_driver_paths": [
+    "docs/皇帝综合评价体系评分标准.md"
+  ],
   "documents": [
     {
       "path": "docs/AGENTS.md",
@@ -1637,6 +1640,41 @@
       "placement_action": "keep_in_docs",
       "placement_targets": [],
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "semantic_verification_required": false
+    },
+    {
+      "path": "docs/皇帝综合评价体系评分标准.md",
+      "title": "中国古代皇帝综合评价体系 V3.2（评分标准当前版）",
+      "document_type": "canonical_spec",
+      "lifecycle_status": "active",
+      "proposed_action": "keep",
+      "inbound_references": [
+        "AGENTS.md",
+        "README.md",
+        "docs/AGENTS.md",
+        "docs/总规则.md"
+      ],
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
+      "generator_candidates": [],
+      "replacement_path": null,
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "normalized_duplicate_group": null,
+      "unique_source_risk": true,
+      "reason": "项目上位驱动文档，定义 V3.2 总分结构、七大项边界、档位、负证拦截、评分流程和标尺建设方向。",
+      "archive_target": null,
+      "human_confirmation_required": false,
+      "governance_references": [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md"
+      ],
+      "weak_reference_candidates": [],
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "项目最高层业务驱动标准，长期保留在 docs 当前规范层。",
       "semantic_verification_required": false
     },
     {

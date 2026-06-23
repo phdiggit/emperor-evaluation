@@ -14,7 +14,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 只读诊断保持只读；需要改文件时，先锁定最小改动路径。Read-only means read-only; find the minimal edit path before writing.
 - 修改前后核对 `git diff --name-only`；白名单外改动必须还原。Check diff scope before and after edits.
 - 返工或收口先定位最小修改点；通常只确认 branch、PR head 和 `git status`。For repair or closeout, start from the smallest fix.
-- 生成物不是事实源；改导出内容前先定位生成器，除非任务明确要求，不批量重写旧导出。Generated outputs are views; find the generator before editing exports.
+- 评分、证据、裁判、档位、分值和排名等业务语义先读 `docs/皇帝综合评价体系评分标准.md`；生成物不是事实源，冲突时不得静默覆盖。Generated outputs are views; find the generator before editing exports.
 - 清理、归档、删除和 `data/*_batches/` 治理，第一轮只写诊断或候选清单。Cleanup/archive/delete and batch-data governance start with diagnostics only.
 
 ## GitHub

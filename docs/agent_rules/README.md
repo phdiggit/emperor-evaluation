@@ -32,6 +32,8 @@
 - `docs/AGENTS.md` 只保留 docs 范围长期稳定的行为规则，不记录逐文件候选状态。
 - `scripts_registry.json` 是脚本实现路径、retired wrapper 审计映射、root exception、审计文档和 required tests 的当前事实源。
 - `docs_registry.json` 是 docs 当前生命周期、引用关系、generator 候选、proposed action 和内容归置建议的状态事实源。
+- `project_driver_paths` 保存项目上位驱动文档路径，不是普通候选列表；driver 文档不能被常规 archive/delete 批次吸收。
+- driver 的业务语义高于下位 docs，但不高于用户、Issue / PR 任务约束和 AGENTS 执行安全规则。
 - 生命周期回答“这份文档当前如何治理”；内容归置回答“文档主体内容长期应由 docs、配置、canonical data、exports 还是 archive 承载”。两者是正交维度，不应互相替代。
 - `content_role` 描述文档主体内容角色；`placement_action` 描述推荐目标态动作；`placement_targets` 记录后续吸收、生成、拆分或归档的精确候选路径。
 - `archived_document_paths` 是旧路径到历史归档路径的审计映射，表示旧路径已退役；不表示旧路径继续存在或可作为当前入口。
