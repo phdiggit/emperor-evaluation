@@ -744,6 +744,27 @@ def test_agents_check_rejects_unknown_retired_module_id(tmp_path: Path) -> None:
     assert "scripts/missing.py: retired legacy wrapper references unknown module id 'missing'" in repo_tool.check_agents()
 
 
+def test_agents_check_rejects_malformed_retired_wrappers_without_crashing(
+    tmp_path: Path, capfd: pytest.CaptureFixture[str]
+) -> None:
+    repo_root = tmp_path / "repo"
+    write_retired_wrapper_registry(repo_root)
+    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["retired_legacy_wrappers"] = []
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    expected = ["docs/agent_rules/scripts_registry.json: retired_legacy_wrappers must be an object"]
+
+    assert repo_tool.check_agents() == expected
+    assert repo_tool.check_canonical_imports() == expected
+    assert repo_tool.main(["agents-check"]) == 1
+    captured = capfd.readouterr()
+    assert expected[0] in captured.err
+    assert "AttributeError" not in captured.err
+
+
 def test_agents_check_rejects_retired_path_root_exception_conflict(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     write_retired_wrapper_registry(repo_root)

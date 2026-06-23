@@ -556,7 +556,10 @@ def _legacy_wrapper_import_map(registry: dict[str, Any]) -> dict[str, str]:
         if not implementation or not legacy_wrapper:
             continue
         imports[Path(legacy_wrapper).stem] = _canonical_module_path(implementation)
-    for retired_path, module_id in registry.get("retired_legacy_wrappers", {}).items():
+    retired_wrappers = registry.get("retired_legacy_wrappers", {})
+    if not isinstance(retired_wrappers, dict):
+        retired_wrappers = {}
+    for retired_path, module_id in retired_wrappers.items():
         module = modules_by_id.get(module_id)
         implementation = module.get("implementation") if module else None
         if not implementation:
@@ -590,6 +593,10 @@ def check_canonical_imports(
         registry = load_registry(registry_path)
     except ValueError as exc:
         return [str(exc)]
+
+    retired_wrappers = registry.get("retired_legacy_wrappers", {})
+    if not isinstance(retired_wrappers, dict):
+        return [f"{registry_path}: retired_legacy_wrappers must be an object"]
 
     legacy_imports = _legacy_wrapper_import_map(registry)
     if not legacy_imports:
@@ -723,6 +730,7 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
         root_exceptions.add(path)
 
     retired_wrappers = registry.get("retired_legacy_wrappers", {})
+    retired_wrappers_valid = isinstance(retired_wrappers, dict)
     if not isinstance(retired_wrappers, dict):
         problems.append(f"{registry_path}: retired_legacy_wrappers must be an object")
         retired_wrappers = {}
@@ -765,7 +773,8 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
     for path in sorted(implementations & wrappers):
         problems.append(f"{path}: path cannot be both implementation and wrapper")
 
-    problems.extend(check_canonical_imports(registry_path))
+    if retired_wrappers_valid:
+        problems.extend(check_canonical_imports(registry_path))
 
     if registry_file.read_bytes().startswith(b"\xef\xbb\xbf"):
         problems.append(f"{registry_path}: must be UTF-8 without BOM")
