@@ -5,17 +5,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUDIT_DOC = next(path for path in (ROOT / "docs").glob("*i5b_markdown_display*.md"))
-SHARED_PLAN_DOC = next(
-    path
-    for path in (ROOT / "docs").glob("scripts*.md")
-    if "i5b_markdown_display.py" in path.read_text(encoding="utf-8")
-)
-LAYOUT_DOC = next(
-    path
-    for path in (ROOT / "docs").glob("scripts*.md")
-    if "## scripts/dev/" in path.read_text(encoding="utf-8")
-)
+AUDIT_DOC = ROOT / "archive" / "docs" / "audits" / "i5b_markdown_display迁移前依赖审计.md"
+AUDIT_DOC_LEGACY_REF = "docs/i5b_markdown_display迁移前依赖审计.md"
+SHARED_PLAN_DOC = ROOT / "archive" / "docs" / "audits" / "scripts共享工具依赖盘点.md"
+LAYOUT_DOC = ROOT / "docs" / "展示与协作" / "scripts目录规范.md"
 AGENTS = ROOT / "AGENTS.md"
 REGISTRY = ROOT / "docs" / "文档与脚本登记" / "scripts_registry.json"
 SCRIPTS_DIR = ROOT / "scripts"
@@ -66,7 +59,8 @@ def test_i5b_markdown_display_legacy_wrapper_has_been_retired() -> None:
 
 def test_related_docs_and_agents_reference_migration_audit() -> None:
     audit_doc_name = AUDIT_DOC.relative_to(ROOT).as_posix()
-    assert audit_doc_name in SHARED_PLAN_DOC.read_text(encoding="utf-8")
+    shared_plan_content = SHARED_PLAN_DOC.read_text(encoding="utf-8")
+    assert audit_doc_name in shared_plan_content or AUDIT_DOC_LEGACY_REF in shared_plan_content
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     module = next(module for module in registry["modules"] if module["id"] == "i5b_markdown_display")
     assert audit_doc_name in module["audit_docs"]

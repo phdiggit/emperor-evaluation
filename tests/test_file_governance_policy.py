@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import subprocess
 import sys
 from pathlib import Path
 
@@ -69,6 +70,17 @@ def changed_files() -> set[str]:
         | git_changed_files("diff", "--name-only")
         | git_changed_files("diff", "--cached", "--name-only")
     )
+
+
+def git_check_ignore(paths: list[str]) -> set[str]:
+    result = subprocess.run(
+        ["git", "check-ignore", "--stdin", "--no-index"],
+        cwd=ROOT,
+        input=("\n".join(paths) + "\n").encode("utf-8"),
+        capture_output=True,
+        check=False,
+    )
+    return set(result.stdout.decode("utf-8").splitlines())
 
 
 def test_agents_md_contains_file_governance_rules() -> None:
@@ -145,6 +157,47 @@ def test_file_governance_allowlist_has_no_one_off_migration_paths() -> None:
     }
 
     assert offenders == set()
+
+
+def test_gitignore_covers_generated_artifacts_without_hiding_sources() -> None:
+    generated_paths = [
+        "__pycache__/module.cpython-313.pyc",
+        "scripts/export/__pycache__/export_md.cpython-313.pyc",
+        ".pytest_cache/v/cache/nodeids",
+        ".coverage",
+        "coverage.xml",
+        "htmlcov/index.html",
+        ".mypy_cache/3.13/cache.db",
+        ".ruff_cache/content",
+        ".hypothesis/examples",
+        ".tox/py313/.gitignore",
+        ".nox/tests/tmp",
+        ".venv/pyvenv.cfg",
+        "venv/pyvenv.cfg",
+        "ENV/pyvenv.cfg",
+        "dist/package.whl",
+        "build/temp.txt",
+        "package.egg-info/PKG-INFO",
+        "evidence_cache.sqlite",
+        "evidence_cache.sqlite-journal",
+        "local.db",
+        "local.db-wal",
+        "logs/test.log",
+        "tmp-result.tmp",
+        "backup.bak",
+        ".tmp/export.md",
+    ]
+    source_paths = [
+        "tests/test_new_policy.py",
+        "scripts/build/new_builder.py",
+        "scripts/export/new_exporter.py",
+        "docs/展示与协作/tests目录规范.md",
+        "data/events.jsonl",
+        "exports/markdown_views/人工阅读视图.md",
+    ]
+
+    assert git_check_ignore(generated_paths) == set(generated_paths)
+    assert git_check_ignore(source_paths) == set()
 
 
 def test_pr_diff_stays_inside_issue_82_whitelist() -> None:

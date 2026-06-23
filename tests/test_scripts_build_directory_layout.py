@@ -64,11 +64,7 @@ def test_registry_records_build_directory_and_modules() -> None:
 
 def test_docs_and_agents_mention_stable_build_rules() -> None:
     agents = (SCRIPTS_DIR / "AGENTS.md").read_text(encoding="utf-8")
-    docs = next(
-        path.read_text(encoding="utf-8")
-        for path in (ROOT / "docs").glob("scripts*.md")
-        if "## scripts/dev/" in path.read_text(encoding="utf-8")
-    )
+    docs = (ROOT / "docs" / "展示与协作" / "scripts目录规范.md").read_text(encoding="utf-8")
 
     assert "`scripts/build/`" in agents
     assert "retired_legacy_wrappers" in agents

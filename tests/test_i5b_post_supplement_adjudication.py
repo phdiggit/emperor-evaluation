@@ -6,6 +6,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl"
@@ -89,6 +91,8 @@ def test_post_supplement_batch_uses_the_new_supplement_evidence_ids() -> None:
     assert lookup["朱元璋"]["role_class_sweep_effect_summary"] == "not_applicable"
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_post_supplement_export_is_review_only() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],

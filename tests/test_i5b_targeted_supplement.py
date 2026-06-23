@@ -6,6 +6,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
@@ -120,6 +122,8 @@ def test_role_class_sweep_catches_yongzheng_fallthrough_roles() -> None:
             assert row["not_carded_reason"]
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_targeted_supplement_export_is_review_only() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],

@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE_PATH = ROOT / "data" / "review_packages" / "i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl"
@@ -80,6 +82,8 @@ def test_agenda_row_is_rule_only_and_non_scoring() -> None:
         assert forbidden_key not in agenda_row
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_human_review_package_export_is_review_only_and_not_polluted() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],

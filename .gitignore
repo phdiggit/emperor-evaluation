@@ -1,8 +1,45 @@
+# Python caches
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 .pytest_cache/
+
+# Test / coverage artifacts
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.junit_cache/
+
+# Type / lint / tool caches
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+
+# Local virtual environments
+.venv/
+venv/
+ENV/
+
+# Build / package artifacts at the repository root
+/dist/
+/build/
+*.egg-info/
+
+# Local databases and SQLite sidecars
 evidence_cache.sqlite
 *.sqlite
+*.sqlite-*
 *.db
-.DS_Store
+*.db-*
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
 .tmp/
+
+# OS metadata
+.DS_Store

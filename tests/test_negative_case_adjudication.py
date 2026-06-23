@@ -3,6 +3,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -56,6 +58,9 @@ def test_all_existing_high_risk_negative_cards_have_adjudication_fields() -> Non
         assert row["adjudication_status"]
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
+@pytest.mark.db
 def test_evidence_export_contains_adjudication_columns_and_no_score_outputs() -> None:
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr

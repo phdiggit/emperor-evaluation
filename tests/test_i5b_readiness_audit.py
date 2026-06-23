@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl"
@@ -80,6 +82,8 @@ def test_readiness_audit_records_expected_readiness_calls() -> None:
     assert "刘基" in str(lookup["朱元璋"]["must_human_review_points"])
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_readiness_audit_export_is_review_only() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],

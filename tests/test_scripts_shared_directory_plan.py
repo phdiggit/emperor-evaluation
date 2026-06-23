@@ -6,11 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
-SHARED_PLAN_DOC = next(
-    path
-    for path in (ROOT / "docs").glob("scripts*.md")
-    if "i5b_cluster_warning_display.py" in path.read_text(encoding="utf-8")
-)
+SHARED_PLAN_DOC = ROOT / "archive" / "docs" / "audits" / "scripts共享工具依赖盘点.md"
 MIGRATED_SHARED_TOOLS = (
     "config_loaders.py",
     "export_md_scaffold.py",
@@ -48,11 +44,7 @@ def test_current_shared_tools_have_retired_root_paths() -> None:
 
 
 def test_layout_docs_and_agents_describe_shared_directory_rules() -> None:
-    layout_doc = next(
-        path.read_text(encoding="utf-8")
-        for path in (ROOT / "docs").glob("scripts*.md")
-        if "retired_legacy_wrappers" in path.read_text(encoding="utf-8")
-    )
+    layout_doc = (ROOT / "docs" / "展示与协作" / "scripts目录规范.md").read_text(encoding="utf-8")
     agents = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
 
     assert "scripts/shared/" in layout_doc

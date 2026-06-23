@@ -93,13 +93,12 @@ def test_repo_tool_agents_check_passes_for_real_repo() -> None:
 def test_registration_readme_has_decision_table() -> None:
     readme = (ROOT / "docs" / "文档与脚本登记" / "README.md").read_text(encoding="utf-8")
     for needle in (
-        "新增规则分类决策表",
-        "所有任务都适用",
-        "只适用于 scripts",
-        "当前路径或迁移状态",
-        "可机器验证",
-        "当前任务临时要求",
-        "历史背景或设计解释",
+        "规则入口决策表",
+        "长期业务规则正文",
+        "docs 生命周期、引用和候选动作",
+        "scripts 当前实现路径、retired wrapper 和 required tests",
+        "scripts 协作和目录规范",
+        "仓库级边界和安全规则",
     ):
         assert needle in readme
 

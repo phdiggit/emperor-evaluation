@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCH_PATH = ROOT / "data" / "relative_band_batches" / "i5b_expanded_pilot_batch1_relative_band_preparation_20260619.jsonl"
@@ -88,6 +90,8 @@ def test_batch_summary_row_keeps_the_shared_rule_boundary_limited() -> None:
         assert forbidden_key not in summary_row
 
 
+@pytest.mark.export_full
+@pytest.mark.integration
 def test_relative_band_preparation_export_is_review_only_and_not_polluted() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-expanded-batch1"],
