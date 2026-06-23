@@ -602,6 +602,24 @@ def test_batch2_prefers_current_split_todo_over_retired_history(tmp_path: Path) 
     assert "已完成" not in batch2
 
 
+def test_batch6_reports_completed_when_no_needs_human_docs(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    assert not any(doc["lifecycle_status"] == "needs_human_confirmation" for doc in registry["documents"])
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    batch6 = report.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：active design 语义核验", 1)[0]
+
+    assert "（0 份）" in batch6
+    assert "| - | - | high | no | no | no |" in batch6
+    assert "已完成：历史治理材料已归档，不再等待逐份确认。" in batch6
+    assert "仅用户确认后三份历史治理材料才执行。" not in batch6
+
+
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)

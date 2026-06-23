@@ -962,6 +962,15 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             batch2_docs = []
             batch2_guidance = "当前无候选。"
 
+        if needs_human_docs:
+            batch6_paths = needs_human_docs
+            batch6_human_confirmation = "yes"
+            batch6_guidance = "仅用户确认后三份历史治理材料才执行。"
+        else:
+            batch6_paths = []
+            batch6_human_confirmation = "no"
+            batch6_guidance = "已完成：历史治理材料已归档，不再等待逐份确认。"
+
         batches = [
             (
                 "Batch 1：generated docs -> export-only",
@@ -1010,12 +1019,12 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             ),
             (
                 f"Batch 6：needs-human-confirmation 历史材料（{len(needs_human_docs)} 份）",
-                needs_human_docs,
+                batch6_paths,
                 "high",
                 "no",
                 "no",
-                "yes",
-                "仅用户确认后三份历史治理材料才执行。",
+                batch6_human_confirmation,
+                batch6_guidance,
             ),
             (
                 f"Batch 7：active design 语义核验（{len(active_design_review_docs)} 份）",

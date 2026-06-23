@@ -29,7 +29,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 ## Shell 与编码 / Shell And Encoding
 
-- Windows 上涉及中文正文、中文路径、JSON/Markdown 改写或多行脚本时，优先使用 Git Bash + UTF-8 环境；PowerShell 仅用于简单命令或 Windows 专属 cmdlet。
+- Windows 上涉及中文正文、中文路径、JSON/Markdown 改写或多行脚本时，优先使用 `D:\Git\usr\bin\bash.exe` 运行 Git Bash + UTF-8 shell；若该路径不可用，再回退到 ASCII-only `python -c` 或 UTF-8 临时 `.py` 文件；PowerShell 仅用于简单命令或 Windows 专属 cmdlet。
 - 当前在 PowerShell 时使用 PowerShell 语法，不用 Bash 的 `&&` / `||`；当前在 Git Bash 时保持 Git Bash，复杂管道、重定向和命令串联优先切到 Git Bash。
 - 禁止用 PowerShell inline / here-string 管道传递大段中文给 Python 或 `gh`；改用 Git Bash here-doc、UTF-8 临时 `.py` 文件、`repo_tool` / `pr_body_tool`，或显式 Unicode escape。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
