@@ -17,7 +17,7 @@ LAYOUT_DOC = next(
     if "## scripts/dev/" in path.read_text(encoding="utf-8")
 )
 AGENTS = ROOT / "AGENTS.md"
-REGISTRY = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
+REGISTRY = ROOT / "docs" / "治理规则" / "scripts_registry.json"
 SCRIPTS_DIR = ROOT / "scripts"
 SHARED_DIR = SCRIPTS_DIR / "shared"
 
@@ -75,12 +75,12 @@ def test_related_docs_and_agents_reference_config_loaders_audit() -> None:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     module = next(module for module in registry["modules"] if module["id"] == "config_loaders")
     assert audit_doc_name in module["audit_docs"]
-    assert "docs/agent_rules/scripts_registry.json" in AGENTS.read_text(encoding="utf-8")
+    assert "docs/治理规则/scripts_registry.json" in AGENTS.read_text(encoding="utf-8")
 
 
 def test_layout_doc_records_config_loaders_migration() -> None:
     content = LAYOUT_DOC.read_text(encoding="utf-8")
-    assert "docs/agent_rules/scripts_registry.json" in content
+    assert "docs/治理规则/scripts_registry.json" in content
     assert "审计文档" in content
 
 

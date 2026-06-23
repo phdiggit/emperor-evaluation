@@ -6,7 +6,7 @@
 
 - 修改、审查、新增或治理 `docs/**` 文件前，先读取本文件和任务点名的治理文档。
 - 根 `AGENTS.md` 负责全仓边界；本文件负责文档类型、事实源、生成物、引用和清理纪律。
-- 当前逐文件生命周期、引用和候选动作以 `docs/agent_rules/docs_registry.json` 为准，本文件不维护项目状态日志。
+- 当前逐文件生命周期、引用和候选动作以 `docs/治理规则/docs_registry.json` 为准，本文件不维护项目状态日志。
 
 ## 文档类型
 
@@ -21,7 +21,7 @@
 ## 事实源与生成物
 
 - `docs/README.md` 是 docs 当前层导航入口；Codex 进入 docs 任务时，先用它确认目录层级和阅读顺序。
-- 当前目录骨架为 `00_project/`、`10_methodology/`、`20_dimensions/`、`30_operations/` 和 `agent_rules/`。`docs/` 根目录仅保留受保护的最高层评分标准、导航与治理入口；目录治理 PR 只在白名单允许时分批 `git mv`，不得顺手搬正文。
+- 当前目录骨架为 `项目总纲/`、`通用方法论/`、`分项规则/`、`操作规范/` 和 `治理规则/`。`docs/` 根目录仅保留受保护的最高层评分标准、导航与治理入口；目录治理 PR 只在白名单允许时分批 `git mv`，不得顺手搬正文。
 - Codex 读文档顺序：先项目总纲和评分标准，再通用方法论，再具体大项 / 子项，最后操作规范和治理工具说明。
 - 规范、运行手册和当前决策文档属于长期事实源。
 - `docs/皇帝综合评价体系评分标准.md` 是项目驱动文档，也是当前评分业务语义的最高层 canonical spec；下位文档冲突必须显式记录。
@@ -59,13 +59,13 @@
 
 ## 验证要求
 
-- 修改 docs registry、docs 规则或 docs 工具后，运行 `python scripts/dev/docs_tool.py check --registry docs/agent_rules/docs_registry.json`。
+- 修改 docs registry、docs 规则或 docs 工具后，运行 `python scripts/dev/docs_tool.py check --registry docs/治理规则/docs_registry.json`。
 - 涉及 `scripts/**`、`tests/**` 或 validation 入口时，继续运行 `python scripts/validate/validate_all.py` 和适用 pytest。
 - 验证命令若生成范围外副产物，记录通过结果后清理，再只做范围核对。
 
 ## registry 与治理报告
 
-- `docs/agent_rules/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源。
+- `docs/治理规则/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源。
 - `docs_registry.json` 不应作为大文件全文阅读入口；优先使用 `python scripts/dev/docs_tool.py check/report` 做校验和摘要，后续可补 query / summary 类命令。
 - `exports/governance/文档治理盘点报告.md` 是人工审阅入口，保存本轮统计、候选清单和后续批次建议。
 - 目录迁移 PR 必须同步 registry、治理报告和相关测试；只改 Markdown 导航而不同步机器事实源属于未完成变更。

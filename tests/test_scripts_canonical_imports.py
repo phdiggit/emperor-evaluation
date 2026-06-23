@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_PATH = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
+REGISTRY_PATH = ROOT / "docs" / "治理规则" / "scripts_registry.json"
 REPO_TOOL_PATH = ROOT / "scripts" / "dev" / "repo_tool.py"
 
 

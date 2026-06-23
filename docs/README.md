@@ -8,45 +8,49 @@
 docs/
   README.md
   AGENTS.md
-  00_project/
+  皇帝综合评价体系评分标准.md
+  项目总纲/
     README.md
-  10_methodology/
+  通用方法论/
     README.md
-  20_dimensions/
+  分项规则/
     README.md
-    第五项B/
+    第五项用人与授权/
       README.md
-  30_operations/
+  操作规范/
     README.md
-  agent_rules/
+  治理规则/
     README.md
     docs_registry.json
     scripts_registry.json
 ```
 
-当前 `docs/` 根目录只保留受保护的最高层评分标准、docs 导航、AGENTS 和 agent_rules 入口。目录治理 PR 不顺手移动非白名单正文。
+当前 `docs/` 根目录只保留受保护的最高层评分标准、docs 导航、AGENTS 与治理入口。所有 `docs/` 子目录必须使用中文命名，不保留英文、数字或下划线目录作为兼容入口。
+
+同层文档应“一文一责”：一份文档长期只承载一个稳定职责，不得长期保留导航、规则、生成说明和子项专用口径交叉混放。
 
 ## 四层职责
 
 | 层级 | 职责 | 当前入口 |
 | --- | --- | --- |
-| `00_project/` | 项目总纲、最高层业务语义、评分体系总结构、冲突时的优先级裁判 | [`00_project/README.md`](00_project/README.md) |
-| `10_methodology/` | 跨大项、跨子项通用方法论，包括证据工作流、裁量、检索画像、数据和配置规范 | [`10_methodology/README.md`](10_methodology/README.md) |
-| `20_dimensions/` | 七大项和子项专用规则、专用证据口径、执行模板和样板项目说明 | [`20_dimensions/README.md`](20_dimensions/README.md) |
-| `30_operations/` | GitHub 协作、Markdown 显示、ID、scripts、人工协作和发布规范 | [`30_operations/README.md`](30_operations/README.md) |
+| `项目总纲/` | 项目总纲、最高层业务语义、评分体系总结构、冲突时的优先级裁判 | [`项目总纲/README.md`](项目总纲/README.md) |
+| `通用方法论/` | 跨大项、跨子项复用的方法论，包括证据链、裁量、检索、数据主表和稳定标识 | [`通用方法论/README.md`](通用方法论/README.md) |
+| `分项规则/` | 七大项和子项专用规则、专用证据口径、执行模板和样板项目说明 | [`分项规则/README.md`](分项规则/README.md) |
+| `操作规范/` | GitHub 协作、Markdown 显示、scripts、人工协作和发布规范 | [`操作规范/README.md`](操作规范/README.md) |
+| `治理规则/` | docs 与 scripts registry、规则分类说明和机器可读治理事实源 | [`治理规则/README.md`](治理规则/README.md) |
 
 ## 推荐阅读顺序
 
-1. 先读总纲和评分标准：[`皇帝综合评价体系评分标准.md`](皇帝综合评价体系评分标准.md)、[`00_project/总规则.md`](00_project/总规则.md)、[`00_project/数据层级与批次文件治理规则.md`](00_project/数据层级与批次文件治理规则.md)。
-2. 再读通用方法论：证据工作流、证据强度、证据裁量、负证裁判、检索画像和数据规范。
-3. 然后进入具体大项或子项：先确认大项边界，再读子项专用规则和执行模板，例如 [`20_dimensions/第五项B/README.md`](20_dimensions/第五项B/README.md)。
-4. 最后按操作规范执行：GitHub 发布、Markdown 显示、ID 命名、scripts 和治理工具。
+1. 先读总纲和评分标准：[`皇帝综合评价体系评分标准.md`](皇帝综合评价体系评分标准.md)、[`项目总纲/总规则.md`](项目总纲/总规则.md)、[`项目总纲/数据层级与批次文件治理规则.md`](项目总纲/数据层级与批次文件治理规则.md)。
+2. 再读通用方法论：证据链、证据强度、证据裁量、史料检索、检索画像、数据主表和稳定标识。
+3. 然后进入具体大项或子项：先确认大项边界，再读子项专用规则和执行模板，例如 [`分项规则/第五项用人与授权/README.md`](分项规则/第五项用人与授权/README.md)。
+4. 最后按操作规范执行：GitHub 发布、Markdown 显示、scripts 和治理工具。
 
 ## 第五项B定位
 
 第五项B是已经跑通的样板项目，也是通用经验的来源之一。它可以为其他项目提供可抽象的经验，但不等同于全项目默认方法。
 
-第五项B中跑通的通用经验，应先抽象到 `10_methodology/`，再由其他大项或子项复用；第五项B专用边界、模板和自动结算规则应进入 `20_dimensions/` 的子项层。
+第五项B中跑通的通用经验，应先抽象到 `通用方法论/`，再由其他大项或子项复用；第五项B专用边界、模板、负证裁判和自动结算规则应进入 `分项规则/第五项用人与授权/`。
 
 ## 禁止事项
 
@@ -54,4 +58,4 @@ docs/
 - 不把 `archive/docs/` 当当前事实源。
 - 不手改 generated export；生成物冲突时先找 generator。
 - 不在目录治理 PR 中修改评分、档位、证据、排名或榜单等业务语义。
-- 不在目录骨架 PR 中移动旧方法论文档正文或推进 Batch 3。
+- 不在目录骨架 PR 中推进 Batch 3。

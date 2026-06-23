@@ -8,7 +8,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOL_PATH = ROOT / "scripts" / "dev" / "pr_body_tool.py"
-DOC_PATH = ROOT / "docs" / "30_operations" / "scripts目录规范.md"
+DOC_PATH = ROOT / "docs" / "操作规范" / "scripts目录规范.md"
 
 
 def load_pr_body_tool(repo_root: Path | None = None):
@@ -28,7 +28,7 @@ def test_pr_body_tool_file_exists() -> None:
 def test_normal_chinese_markdown_with_fence_passes(tmp_path: Path) -> None:
     body = tmp_path / "中文PR.md"
     body.write_text(
-        "# 标题\n\n正文包含中文路径 `docs/30_operations/scripts目录规范.md`。\n\n```text\nscripts/dev/pr_body_tool.py\n```\n",
+        "# 标题\n\n正文包含中文路径 `docs/操作规范/scripts目录规范.md`。\n\n```text\nscripts/dev/pr_body_tool.py\n```\n",
         encoding="utf-8",
     )
 

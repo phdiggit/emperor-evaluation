@@ -1,14 +1,19 @@
-# agent rules 说明
+# 治理规则说明
 
 本目录保存代理规则的机器可读事实源和说明文档。`AGENTS.md` 不承担项目状态日志；会频繁变化的脚本迁移状态和 docs 生命周期状态放入 registry，由开发工具和测试检查。
+
+当前 registry 路径已经中文化，机器事实源为：
+
+- `docs/治理规则/docs_registry.json`
+- `docs/治理规则/scripts_registry.json`
 
 ## 四层规则结构
 
 1. 所有任务长期规则：根 `AGENTS.md`。
 2. scripts 范围规则：`scripts/AGENTS.md`。
 3. docs 范围规则：`docs/AGENTS.md`。
-4. 脚本动态迁移状态：`docs/agent_rules/scripts_registry.json`。
-5. docs 当前生命周期与候选动作：`docs/agent_rules/docs_registry.json`。
+4. 脚本动态迁移状态：`docs/治理规则/scripts_registry.json`。
+5. docs 当前生命周期与候选动作：`docs/治理规则/docs_registry.json`。
 6. 单次任务规则：Issue / PR / Codex 任务卡。
 7. 可自动判断的规则：`scripts/dev/repo_tool.py`、`scripts/dev/docs_tool.py`、pytest 或 validator。
 
@@ -19,8 +24,8 @@
 | 所有任务都适用 | 根 `AGENTS.md` |
 | 只适用于 scripts | `scripts/AGENTS.md` |
 | 只适用于 docs | `docs/AGENTS.md` |
-| 当前路径或迁移状态 | `docs/agent_rules/scripts_registry.json` |
-| docs 当前生命周期、引用和候选动作 | `docs/agent_rules/docs_registry.json` |
+| 当前路径或迁移状态 | `docs/治理规则/scripts_registry.json` |
+| docs 当前生命周期、引用和候选动作 | `docs/治理规则/docs_registry.json` |
 | 可机器验证 | `repo_tool`、`docs_tool` 或测试 |
 | 当前任务临时要求 | Issue / PR 任务卡 |
 | 历史背景或设计解释 | `archive/docs/` 归档材料；当前规则方法仍留在 `docs/` |

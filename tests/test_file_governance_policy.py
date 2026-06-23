@@ -10,34 +10,58 @@ sys.path.insert(0, str(ROOT / "tests"))
 from _git_helpers import changed_files_against_base, git_changed_files, skip_unless_pr_diff_checks_enabled
 
 ALLOWED_CHANGED_FILES = {
+    "AGENTS.md",
     "README.md",
     "docs/AGENTS.md",
     "docs/README.md",
-    "docs/00_project/README.md",
-    "docs/00_project/总规则.md",
-    "docs/00_project/数据层级与批次文件治理规则.md",
-    "docs/10_methodology/README.md",
-    "docs/10_methodology/史料检索总则与项目-人物双轴工作流_讨论版.md",
-    "docs/10_methodology/数据库说明.md",
-    "docs/10_methodology/数据规范.md",
-    "docs/10_methodology/检索画像与检索线索字段规范.md",
-    "docs/10_methodology/证据工作流.md",
-    "docs/10_methodology/证据强度四级与五轴量化规则_讨论版.md",
-    "docs/10_methodology/证据裁量总则_讨论版.md",
-    "docs/10_methodology/负证分案裁判机制.md",
-    "docs/10_methodology/负证裁量与触发式裁判模块_讨论版.md",
-    "docs/10_methodology/配置说明文件规范.md",
-    "docs/20_dimensions/README.md",
-    "docs/20_dimensions/第五项B/README.md",
-    "docs/20_dimensions/第五项B/第五项B正式工作流模板.md",
-    "docs/20_dimensions/第五项B/第五项B自动结算规则.md",
-    "docs/20_dimensions/第五项B/第五项B证据卡上下文机制.md",
-    "docs/20_dimensions/第五项B/第五项B边界说明.md",
-    "docs/agent_rules/docs_registry.json",
+    "docs/项目总纲/README.md",
+    "docs/项目总纲/总规则.md",
+    "docs/项目总纲/数据层级与批次文件治理规则.md",
+    "docs/通用方法论/README.md",
+    "docs/通用方法论/史料检索与回源工作流.md",
+    "docs/通用方法论/运行库生成说明.md",
+    "docs/通用方法论/数据主表字段规范.md",
+    "docs/通用方法论/检索画像与检索日志字段规范.md",
+    "docs/通用方法论/证据链总流程与文档索引.md",
+    "docs/通用方法论/证据强度四级与五轴裁量规则.md",
+    "docs/通用方法论/证据裁量总则.md",
+    "docs/通用方法论/稳定标识命名规范.md",
+    "docs/通用方法论/配置说明文件规范.md",
+    "docs/分项规则/README.md",
+    "docs/分项规则/第五项用人与授权/README.md",
+    "docs/分项规则/第五项用人与授权/第五项B执行流程模板.md",
+    "docs/分项规则/第五项用人与授权/第五项B自动结算规则.md",
+    "docs/分项规则/第五项用人与授权/第五项B证据卡上下文字段规范.md",
+    "docs/分项规则/第五项用人与授权/第五项B归项边界与相邻项切分.md",
+    "docs/分项规则/第五项用人与授权/第五项B负证分案裁判机制.md",
+    "docs/分项规则/第五项用人与授权/第五项B负证触发式裁判模块.md",
+    "docs/操作规范/GitHub发布与认证规范.md",
+    "docs/操作规范/Markdown表格显示约定.md",
+    "docs/操作规范/README.md",
+    "docs/操作规范/scripts目录规范.md",
+    "docs/操作规范/人工阅读型Markdown导出规范.md",
+    "docs/治理规则/README.md",
+    "docs/治理规则/docs_registry.json",
+    "docs/治理规则/scripts_registry.json",
     "exports/governance/文档治理盘点报告.md",
+    "scripts/AGENTS.md",
+    "scripts/dev/docs_tool.py",
+    "scripts/dev/repo_tool.py",
     "scripts/export/export_i5b_auto_adjudication.py",
+    "tests/test_agents_governance.py",
+    "tests/test_agents_ready_for_review_rule.py",
+    "tests/test_config_loaders_migration_audit.py",
     "tests/test_docs_governance.py",
+    "tests/test_docs_tool.py",
     "tests/test_file_governance_policy.py",
+    "tests/test_i5b_markdown_display_migration_audit.py",
+    "tests/test_pr_body_tool.py",
+    "tests/test_repo_tool.py",
+    "tests/test_scripts_build_directory_layout.py",
+    "tests/test_scripts_canonical_imports.py",
+    "tests/test_scripts_directory_layout.py",
+    "tests/test_scripts_legacy_wrapper_retirement.py",
+    "tests/test_scripts_matrix_directory_layout.py",
 }
 
 for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):
@@ -66,13 +90,13 @@ def test_agents_md_contains_file_governance_rules() -> None:
     for needle in [
         "展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论",
         "人工复核型 Markdown 默认纯 Markdown，不使用 HTML details",
-        "详细规范见 `docs/30_operations/人工阅读型Markdown导出规范.md`",
+        "详细规范见 `docs/操作规范/人工阅读型Markdown导出规范.md`",
     ]:
         assert needle in content
 
 
 def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
-    content = read_text(ROOT / "docs" / "30_operations" / "人工阅读型Markdown导出规范.md")
+    content = read_text(ROOT / "docs" / "操作规范" / "人工阅读型Markdown导出规范.md")
     for needle in [
         "不使用 `<details>`、`<summary>`、`</details>`",
         "详情页不要使用宽表承载长字段、裁判说明、相邻项剥离说明、warning `matched_fields` 或 linked evidence 长字段",
@@ -94,7 +118,7 @@ def test_readme_mentions_governance_baseline_and_no_external_stack() -> None:
 
 
 def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -> None:
-    content = read_text(ROOT / "docs" / "00_project" / "数据层级与批次文件治理规则.md")
+    content = read_text(ROOT / "docs" / "项目总纲" / "数据层级与批次文件治理规则.md")
     for needle in [
         "active_batch",
         "review_only_batch",
@@ -137,6 +161,6 @@ def test_file_governance_allowlist_has_no_one_off_migration_paths() -> None:
     assert offenders == set()
 
 
-def test_pr_diff_stays_inside_issue_82_whitelist() -> None:
+def test_pr_diff_stays_inside_pr221_whitelist() -> None:
     skip_unless_pr_diff_checks_enabled()
     assert changed_files() <= ALLOWED_CHANGED_FILES

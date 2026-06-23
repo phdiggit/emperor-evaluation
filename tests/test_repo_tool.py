@@ -23,7 +23,7 @@ from _git_helpers import (
 
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
-    "docs/30_operations/人工阅读型Markdown导出规范.md",
+    "docs/操作规范/人工阅读型Markdown导出规范.md",
     "scripts/dev/repo_tool.py",
     "tests/test_agents_ready_for_review_rule.py",
     "tests/test_file_governance_policy.py",
@@ -106,13 +106,13 @@ def write_minimal_registry(repo_root: Path) -> None:
         "root_exceptions": [],
         "default_forbidden_patterns": ["data/**", "*.sqlite", "*.db"],
     }
-    target = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    target = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def write_canonical_import_registry(repo_root: Path) -> None:
-    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/治理规则"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
     (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("VALUE = 1\n", encoding="utf-8")
     (repo_root / "scripts" / "config_loaders.py").write_text(
@@ -162,17 +162,17 @@ def write_canonical_import_registry(repo_root: Path) -> None:
         "root_exceptions": [],
         "default_forbidden_patterns": [],
     }
-    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+    (repo_root / "docs" / "治理规则" / "scripts_registry.json").write_text(
         json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
 
 
 def write_retired_wrapper_registry(repo_root: Path) -> None:
-    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+    for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/治理规则"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
-    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
-    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/治理规则/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/治理规则/scripts_registry.json\n", encoding="utf-8")
     (repo_root / "scripts" / "publish_pr.ps1").write_text("Write-Output 'ok'\n", encoding="utf-8")
     (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("VALUE = 1\n", encoding="utf-8")
     (repo_root / "scripts" / "export" / "tool.py").write_text("from shared import config_loaders\n", encoding="utf-8")
@@ -232,7 +232,7 @@ def write_retired_wrapper_registry(repo_root: Path) -> None:
         ],
         "default_forbidden_patterns": [],
     }
-    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+    (repo_root / "docs" / "治理规则" / "scripts_registry.json").write_text(
         json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
@@ -359,7 +359,7 @@ def test_snapshot_lists_chinese_paths_and_is_stable(tmp_path: Path) -> None:
 def test_snapshot_uses_registry_directories_for_build_category(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     init_git_repo(repo_root)
-    for folder in ("scripts/build", "scripts/dev", "docs/agent_rules"):
+    for folder in ("scripts/build", "scripts/dev", "docs/治理规则"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
     registry = {
         "directories": {
@@ -367,7 +367,7 @@ def test_snapshot_uses_registry_directories_for_build_category(tmp_path: Path) -
             "dev": "scripts/dev",
         }
     }
-    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+    (repo_root / "docs" / "治理规则" / "scripts_registry.json").write_text(
         json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
@@ -486,10 +486,10 @@ def test_scope_check_supports_allow_and_ignores_tmp(tmp_path: Path) -> None:
 
 def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
-    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/治理规则"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
-    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\nextra\n", encoding="utf-8")
-    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/治理规则/scripts_registry.json\nextra\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/治理规则/scripts_registry.json\n", encoding="utf-8")
     (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
     (repo_root / "scripts" / "loose.py").write_text("print('loose')\n", encoding="utf-8")
     registry = {
@@ -518,7 +518,7 @@ def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: P
         "root_exceptions": [],
         "default_forbidden_patterns": [],
     }
-    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     repo_tool = load_repo_tool(repo_root)
@@ -533,10 +533,10 @@ def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: P
 
 def test_agents_check_requires_reason_for_custom_wrapper_line_limit(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
-    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/治理规则"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
-    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
-    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/治理规则/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/治理规则/scripts_registry.json\n", encoding="utf-8")
     (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
     (repo_root / "scripts" / "tool.py").write_text("from dev.tool import *\n", encoding="utf-8")
     (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
@@ -567,7 +567,7 @@ def test_agents_check_requires_reason_for_custom_wrapper_line_limit(tmp_path: Pa
         "root_exceptions": [],
         "default_forbidden_patterns": [],
     }
-    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+    (repo_root / "docs" / "治理规则" / "scripts_registry.json").write_text(
         json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
@@ -580,10 +580,10 @@ def test_agents_check_requires_reason_for_custom_wrapper_line_limit(tmp_path: Pa
 
 def test_agents_check_scans_wrapper_markers_even_with_exception_reason(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
-    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/agent_rules"):
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/治理规则"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
-    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
-    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/治理规则/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/治理规则/scripts_registry.json\n", encoding="utf-8")
     (repo_root / "scripts" / "dev" / "tool.py").write_text("print('ok')\n", encoding="utf-8")
     wrapper_body = "\n".join(["from dev.tool import *", "def build():", "    return 'not a wrapper'"]) + "\n"
     (repo_root / "scripts" / "tool.py").write_text(wrapper_body, encoding="utf-8")
@@ -616,7 +616,7 @@ def test_agents_check_scans_wrapper_markers_even_with_exception_reason(tmp_path:
         "root_exceptions": [],
         "default_forbidden_patterns": [],
     }
-    (repo_root / "docs" / "agent_rules" / "scripts_registry.json").write_text(
+    (repo_root / "docs" / "治理规则" / "scripts_registry.json").write_text(
         json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
@@ -706,7 +706,7 @@ def test_agents_check_allows_zero_active_wrappers_when_policy_retired(tmp_path: 
 def test_agents_check_rejects_active_wrapper_when_policy_retired(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     write_retired_wrapper_registry(repo_root)
-    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     registry["modules"][0]["legacy_wrapper"] = "scripts/config_loaders.py"
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -734,7 +734,7 @@ def test_agents_check_rejects_existing_retired_path(tmp_path: Path) -> None:
 def test_agents_check_rejects_unknown_retired_module_id(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     write_retired_wrapper_registry(repo_root)
-    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     registry["retired_legacy_wrappers"]["scripts/missing.py"] = "missing"
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -749,13 +749,13 @@ def test_agents_check_rejects_malformed_retired_wrappers_without_crashing(
 ) -> None:
     repo_root = tmp_path / "repo"
     write_retired_wrapper_registry(repo_root)
-    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     registry["retired_legacy_wrappers"] = []
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     repo_tool = load_repo_tool(repo_root)
-    expected = ["docs/agent_rules/scripts_registry.json: retired_legacy_wrappers must be an object"]
+    expected = ["docs/治理规则/scripts_registry.json: retired_legacy_wrappers must be an object"]
 
     assert repo_tool.check_agents() == expected
     assert repo_tool.check_canonical_imports() == expected
@@ -768,7 +768,7 @@ def test_agents_check_rejects_malformed_retired_wrappers_without_crashing(
 def test_agents_check_rejects_retired_path_root_exception_conflict(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     write_retired_wrapper_registry(repo_root)
-    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     registry["root_exceptions"].append(
         {
@@ -802,7 +802,7 @@ def test_canonical_imports_collect_multiple_files_and_syntax_errors(tmp_path: Pa
     write_canonical_import_registry(repo_root)
     (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
     (repo_root / "scripts" / "shared" / "config_loaders.py").write_text("from config_loaders.submodule import x\n", encoding="utf-8")
-    registry_path = repo_root / "docs" / "agent_rules" / "scripts_registry.json"
+    registry_path = repo_root / "docs" / "治理规则" / "scripts_registry.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     registry["modules"].append(
         {
@@ -856,8 +856,8 @@ def test_canonical_imports_cli_return_codes(tmp_path: Path, capfd: pytest.Captur
 def test_agents_check_reuses_canonical_imports_check(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     write_canonical_import_registry(repo_root)
-    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/agent_rules/scripts_registry.json\n", encoding="utf-8")
-    (repo_root / "scripts" / "AGENTS.md").write_text("docs/agent_rules/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "AGENTS.md").write_text("scripts/AGENTS.md\ndocs/治理规则/scripts_registry.json\n", encoding="utf-8")
+    (repo_root / "scripts" / "AGENTS.md").write_text("docs/治理规则/scripts_registry.json\n", encoding="utf-8")
     (repo_root / "scripts" / "export" / "tool.py").write_text("import config_loaders\n", encoding="utf-8")
     (repo_root / "scripts" / "tool.py").write_text("from export.tool import *\n", encoding="utf-8")
 
@@ -877,7 +877,7 @@ def test_repo_tool_source_mentions_git_encoding_guards() -> None:
 
 
 def test_agents_links_human_readable_markdown_spec() -> None:
-    assert "docs/30_operations/人工阅读型Markdown导出规范.md" in (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "docs/操作规范/人工阅读型Markdown导出规范.md" in (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
 
 def test_pr_diff_stays_inside_issue_93_whitelist() -> None:
