@@ -23,7 +23,7 @@ def test_i5b_global_scale_audit_is_marked_superseded_by_v32() -> None:
     assert "V3.2 取代说明" in audit_content
     assert "旧结论已被 V3.2 取代" in audit_content
     assert "当前评分映射草案入口为 canonical export" in audit_content
-    assert "正式 45 分映射、人审和发布门槛尚未完成" in audit_content
+    assert "正式 45 分映射、规则与算法版本审查、回归验证和正式发布门槛尚未完成" in audit_content
     assert "不是总标尺缺失" in audit_content
     assert "正式 45 分映射需另开专门 PR" in audit_content
 

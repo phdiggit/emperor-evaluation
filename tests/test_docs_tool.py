@@ -469,6 +469,54 @@ def test_check_validates_retired_generated_document_paths(tmp_path: Path) -> Non
     assert any("retired generated target is mapped from multiple old paths" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/second.md", retired_target)))
 
 
+    assert any("retired generated target must be under exports/" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__(retired_old, "exports/../data/existing.md")))
+    assert any("retired generated target must be under exports/" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__(retired_old, "exports/../../outside.md")))
+    assert any("retired generated old path must be under docs/" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/../README.md", retired_target)))
+
+
+def test_batch1_prefers_current_export_only_todo_over_retired_history(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    retired_old = "docs/generated.md"
+    retired_target = "exports/markdown_views/generated.md"
+    (repo / "exports" / "markdown_views").mkdir(parents=True)
+    write(repo / retired_target, "# Generated export\n")
+    run_git(repo, "add", retired_target)
+    run_git(repo, "rm", retired_old)
+    write(repo / "docs" / "generated_later.md", "# Later generated\n自动生成。\n")
+    run_git(repo, "add", "docs/generated_later.md")
+    commit_all(repo, "retire one generated doc and add another pending one")
+
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry["documents"] = [doc for doc in registry["documents"] if doc["path"] != retired_old]
+    pending_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/generated_later.md")
+    pending_doc.update(
+        {
+            "document_type": "generated_view",
+            "lifecycle_status": "generated",
+            "proposed_action": "regenerate_only",
+            "content_role": "generated_output",
+            "placement_action": "move_to_exports",
+            "placement_targets": ["exports/markdown_views/generated_later.md"],
+            "placement_reason": "临时仓库新增待迁出生成视图，测试 Batch 1 仍应显示待办。",
+            "semantic_verification_required": False,
+            "generator_candidates": ["scripts/make_docs.py"],
+            "unique_source_risk": False,
+        }
+    )
+    registry["retired_generated_document_paths"] = {retired_old: retired_target}
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+    report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    batch1 = report.split("Batch 1：generated docs -> export-only", 1)[1].split("Batch 2：混合审核文档拆分", 1)[0]
+    assert "docs/generated_later.md" in batch1
+    assert "仍有待迁出生成文档。" in batch1
+    assert "已完成" not in batch1
+
+
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)

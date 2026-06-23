@@ -698,13 +698,17 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
             if not isinstance(old_path, str) or not isinstance(target_path, str):
                 problems.append(f"{registry_path}: retired_generated_document_paths entries must map strings to strings")
                 continue
-            target_to_old[target_path].append(old_path)
-            if not _uses_forward_slashes(old_path) or not _uses_forward_slashes(target_path):
-                problems.append(f"{old_path}: retired generated paths must use forward slashes")
-            if not old_path.startswith("docs/") or old_path.startswith("docs/archive/") or "/../" in old_path:
+            if (
+                not _valid_repo_target_path(old_path)
+                or not old_path.startswith("docs/")
+                or old_path.startswith("docs/archive/")
+            ):
                 problems.append(f"{old_path}: retired generated old path must be under docs/ outside docs/archive/")
-            if not target_path.startswith("exports/"):
+                continue
+            if not _valid_repo_target_path(target_path) or not target_path.startswith("exports/"):
                 problems.append(f"{old_path}: retired generated target must be under exports/: {target_path}")
+                continue
+            target_to_old[target_path].append(old_path)
             if _path_exists(old_path):
                 problems.append(f"{old_path}: retired generated old path still exists")
             if old_path in by_path:
@@ -872,18 +876,29 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         def touches_data(items: list[dict[str, Any]]) -> str:
             return "yes" if any(str(target).startswith("data/") for doc in items for target in doc.get("placement_targets", [])) else "no"
 
+        retired_mapping_docs = [
+            {"path": old_path, "placement_targets": [target_path]}
+            for old_path, target_path in sorted(retired_generated_map.items())
+        ]
+        if export_only_docs:
+            batch1_docs = export_only_docs
+            batch1_guidance = "仍有待迁出生成文档。"
+        elif retired_mapping_docs:
+            batch1_docs = retired_mapping_docs
+            batch1_guidance = "已完成：旧 docs 路径已退役。"
+        else:
+            batch1_docs = []
+            batch1_guidance = "当前无候选。"
+
         batches = [
             (
                 "Batch 1：generated docs -> export-only",
-                export_only_docs if not retired_generated_map else [
-                    {"path": old_path, "placement_targets": [target_path]}
-                    for old_path, target_path in sorted(retired_generated_map.items())
-                ],
+                batch1_docs,
                 "low",
                 "no",
                 "yes",
                 "no",
-                "已完成：旧 docs 路径已退役，只保留 canonical exports。" if retired_generated_map else "建议单独 PR 停止 docs 双写并保留 canonical exports。",
+                batch1_guidance,
             ),
             (
                 "Batch 2：混合审核文档拆分",
