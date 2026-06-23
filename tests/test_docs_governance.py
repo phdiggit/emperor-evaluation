@@ -20,6 +20,7 @@ METHODOLOGY_NAVIGATION_READMES = {
     "docs/00_project/README.md": ("canonical_spec", "rule_or_method"),
     "docs/10_methodology/README.md": ("canonical_spec", "rule_or_method"),
     "docs/20_dimensions/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/20_dimensions/第五项B/README.md": ("canonical_spec", "rule_or_method"),
     "docs/30_operations/README.md": ("operational_guide", "stable_operational_guide"),
 }
 ARCHIVE_MAP = {
@@ -71,10 +72,10 @@ NEEDS_HUMAN_CONFIRMATION = {
     "docs/多余文件第二批最终引用复核.md",
 }
 NORMALIZED_RULE_METHOD_DOCS = {
-    "docs/史料检索总则与项目-人物双轴工作流_讨论版.md",
-    "docs/第五项B证据卡上下文机制.md",
-    "docs/负证分案裁判机制.md",
-    "docs/负证裁量与触发式裁判模块_讨论版.md",
+    "docs/10_methodology/史料检索总则与项目-人物双轴工作流_讨论版.md",
+    "docs/20_dimensions/第五项B/第五项B证据卡上下文机制.md",
+    "docs/10_methodology/负证分案裁判机制.md",
+    "docs/10_methodology/负证裁量与触发式裁判模块_讨论版.md",
 }
 DELETED_COMPLETED_SOURCE_REVIEW_DOCS = {
     "docs/第五项B_刘庄负证回源说明.md",
@@ -227,7 +228,7 @@ def test_methodology_navigation_readmes_exist_and_are_registered() -> None:
 
     readme = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
     for needle in [
-        "当前 `docs/` 根目录仍保留一批平铺式规则和方法论文档",
+        "当前 `docs/` 根目录只保留受保护的最高层评分标准",
         "第五项B是已经跑通的样板项目",
         "不手改 generated export",
         "不在目录治理 PR 中修改评分、档位、证据、排名或榜单等业务语义",
@@ -264,7 +265,7 @@ def test_project_driver_is_registered_and_protected() -> None:
     ]:
         assert marker in text
 
-    for rel_path in ["README.md", "AGENTS.md", "docs/AGENTS.md", "docs/总规则.md"]:
+    for rel_path in ["README.md", "AGENTS.md", "docs/AGENTS.md", "docs/00_project/总规则.md"]:
         assert PROJECT_DRIVER in (ROOT / rel_path).read_text(encoding="utf-8")
 
 
@@ -348,7 +349,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "docs registry 覆盖文档数：59，其中当前 `docs/` 层 30 份，历史归档区 29 份。",
+        "docs registry 覆盖文档数：60，其中当前 `docs/` 层 31 份，历史归档区 29 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 项目驱动文档",
@@ -431,5 +432,4 @@ def test_governance_report_matches_generator() -> None:
     docs_tool = load_docs_tool()
 
     assert REPORT.read_text(encoding="utf-8") == docs_tool.build_report("docs/agent_rules/docs_registry.json")
-
 
