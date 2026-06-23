@@ -31,7 +31,7 @@ def test_registry_records_retired_wrapper_policy() -> None:
 
     assert registry["legacy_wrapper_policy"] == "retired"
     assert all(module.get("legacy_wrapper") is None for module in registry["modules"])
-    assert len(registry["retired_legacy_wrappers"]) == 22
+    assert len(registry["retired_legacy_wrappers"]) == 21
     assert registry["retired_legacy_wrappers"]["scripts/build_db.py"] == "build_db"
     assert registry["retired_legacy_wrappers"]["scripts/config_loaders.py"] == "config_loaders"
 

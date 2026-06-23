@@ -1,57 +1,146 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any
 
+import yaml
+
+from shared.i5b_runtime_defaults import (
+    DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE,
+    I5B_CANDIDATE_POOL_REQUIRED_FIELDS,
+    default_i5b_candidate_pool_rows,
+    default_i5b_review_warning_rules,
+)
+
 
 ROOT = Path(__file__).resolve().parents[2]
-I5B_PERSON_POOL_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_人物池.json"
-I5B_VIEW_GROUPS_PATH = ROOT / "data" / "configs" / "视图配置" / "第五项B_视图分组.json"
-I5B_KEYWORD_PROFILES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_检索关键词基础.json"
-I5B_KEYWORD_OVERRIDES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_检索关键词补丁.json"
-I5B_CLUSTER_WARNING_RULES_PATH = ROOT / "data" / "configs" / "人工复核配置" / "第五项B_证据簇裁判提示.json"
+PROJECT_CONFIG_PATH = ROOT / "data" / "configs" / "project_config.yml"
 DEFAULT_I5B_ITEM = "第五项"
 DEFAULT_I5B_SUBITEM = "第五项B"
-DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE = (
-    "exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md"
-)
-I5B_CANDIDATE_POOL_REQUIRED_FIELDS = [
-    "person",
-    "candidate_type",
-    "why_selected",
-    "expected_rule_pressure",
-    "required_evidence_focus",
-    "adjacent_item_risk",
-    "negative_scan_focus",
-    "recommended_priority",
-]
+I5B_GROUP_ID_BY_SELECTOR = {
+    "three_pilot": "第五项B_三人试点",
+    "expanded_batch1": "第五项B_扩展第一批",
+    "net_evidence": "第五项B_净证据导出目标",
+}
+I5B_SELECTOR_BY_GROUP_ID = {group_id: selector for selector, group_id in I5B_GROUP_ID_BY_SELECTOR.items()}
 
 
-def load_json_array(path: Path) -> list[dict[str, Any]]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
+def load_project_config(path: Path | None = None) -> dict[str, Any]:
+    resolved_path = path or PROJECT_CONFIG_PATH
+    payload = yaml.safe_load(resolved_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"{resolved_path} must contain a top-level YAML mapping")
+    return payload
+
+
+def get_active_subitem() -> str:
+    project_config = load_project_config()
+    active_subitem = project_config.get("active_subitem")
+    if not isinstance(active_subitem, str) or not active_subitem.strip():
+        raise ValueError("project_config.yml active_subitem must be a non-empty string")
+    return active_subitem
+
+
+def get_subitem_config(subitem: str | None = None) -> dict[str, Any]:
+    project_config = load_project_config()
+    target_subitem = subitem or get_active_subitem()
+    subitems = project_config.get("subitems")
+    if not isinstance(subitems, dict):
+        raise ValueError("project_config.yml subitems must be a mapping")
+    config = subitems.get(target_subitem)
+    if not isinstance(config, dict):
+        raise ValueError(f"subitem {target_subitem!r} is missing from project_config.yml")
+    return config
+
+
+def _load_i5b_groups_config() -> dict[str, Any]:
+    groups = get_subitem_config(DEFAULT_I5B_SUBITEM).get("groups")
+    if not isinstance(groups, dict):
+        raise ValueError(f"subitems.{DEFAULT_I5B_SUBITEM}.groups must be a mapping")
+    return groups
+
+
+def _load_i5b_defaults_config() -> dict[str, Any]:
+    defaults = get_subitem_config(DEFAULT_I5B_SUBITEM).get("defaults")
+    if not isinstance(defaults, dict):
+        raise ValueError(f"subitems.{DEFAULT_I5B_SUBITEM}.defaults must be a mapping")
+    return defaults
+
+
+def _selector_for_group_id(group_id_or_selector: str) -> str:
+    return I5B_SELECTOR_BY_GROUP_ID.get(group_id_or_selector, group_id_or_selector)
+
+
+def _load_persons_ref(persons_ref: str) -> list[str]:
+    ref_path = ROOT / persons_ref
+    payload = yaml.safe_load(ref_path.read_text(encoding="utf-8"))
     if not isinstance(payload, list):
-        raise ValueError(f"{path} must contain a top-level JSON array")
+        raise ValueError(f"{persons_ref} must contain a top-level YAML list")
+    return [str(person) for person in payload]
 
-    rows: list[dict[str, Any]] = []
-    for row in payload:
-        if not isinstance(row, dict):
-            raise ValueError(f"{path} array items must be JSON objects")
-        rows.append(row)
-    return rows
+
+def _resolve_i5b_group_persons(selector: str, *, seen: set[str] | None = None) -> list[str]:
+    groups = _load_i5b_groups_config()
+    group = groups.get(selector)
+    if not isinstance(group, dict):
+        raise ValueError(f"group selector {selector!r} is missing from project_config.yml")
+
+    if "persons" in group:
+        persons = group["persons"]
+        if not isinstance(persons, list):
+            raise ValueError(f"group selector {selector!r} persons must be a list")
+        return [str(person) for person in persons]
+    if "persons_ref" in group:
+        persons_ref = group["persons_ref"]
+        if not isinstance(persons_ref, str) or not persons_ref.strip():
+            raise ValueError(f"group selector {selector!r} persons_ref must be a non-empty string")
+        return _load_persons_ref(persons_ref)
+    if "persons_from_group" in group:
+        source_selector = group["persons_from_group"]
+        if not isinstance(source_selector, str) or not source_selector.strip():
+            raise ValueError(f"group selector {selector!r} persons_from_group must be a non-empty string")
+        active_seen = set(seen or set())
+        if selector in active_seen:
+            raise ValueError(f"group selector {selector!r} persons_from_group creates a cycle")
+        active_seen.add(selector)
+        return _resolve_i5b_group_persons(source_selector, seen=active_seen)
+    raise ValueError(f"group selector {selector!r} must define persons, persons_ref, or persons_from_group")
+
+
+def _default_i5b_group_selector(default_key: str) -> str:
+    selector = _load_i5b_defaults_config().get(default_key)
+    if not isinstance(selector, str) or not selector.strip():
+        raise ValueError(f"subitems.{DEFAULT_I5B_SUBITEM}.defaults.{default_key} must be a non-empty string")
+    return selector
 
 
 def load_i5b_person_pool() -> list[dict[str, Any]]:
-    return load_json_array(I5B_PERSON_POOL_PATH)
+    return default_i5b_candidate_pool_rows()
 
 
 def load_i5b_view_groups() -> list[dict[str, Any]]:
-    return load_json_array(I5B_VIEW_GROUPS_PATH)
+    rows: list[dict[str, Any]] = []
+    for selector, group in _load_i5b_groups_config().items():
+        if not isinstance(group, dict):
+            raise ValueError(f"group selector {selector!r} must be a mapping")
+        label = group.get("label")
+        if not isinstance(label, str) or not label.strip():
+            raise ValueError(f"group selector {selector!r} label must be a non-empty string")
+        rows.append(
+            {
+                "group_id": I5B_GROUP_ID_BY_SELECTOR.get(selector, selector),
+                "group_name": label,
+                "selector": selector,
+                "persons": _resolve_i5b_group_persons(str(selector)),
+            }
+        )
+    return rows
 
 
 def get_i5b_group(group_id: str) -> dict[str, Any] | None:
+    selector = _selector_for_group_id(group_id)
     for row in load_i5b_view_groups():
-        if row.get("group_id") == group_id:
+        if row.get("group_id") == group_id or row.get("selector") == selector:
             return row
     return None
 
@@ -67,18 +156,19 @@ def get_i5b_group_persons(group_id: str) -> list[str] | None:
 
 
 def get_i5b_trial_config() -> dict[str, Any]:
-    group = get_i5b_group("第五项B_三人试点")
+    selector = _default_i5b_group_selector("trial_group")
+    group = get_i5b_group(selector)
     if group is None:
-        raise ValueError("第五项B_三人试点 group is missing from 第五项B_视图分组.json")
+        raise ValueError(f"{selector} group is missing from project_config.yml")
 
     persons = group.get("persons")
     if not isinstance(persons, list):
-        raise ValueError("第五项B_三人试点 persons must be a list")
+        raise ValueError(f"{selector} persons must be a list")
     return {
         "item": DEFAULT_I5B_ITEM,
-        "subitem": str(group.get("subitem", DEFAULT_I5B_SUBITEM)),
+        "subitem": DEFAULT_I5B_SUBITEM,
         "targets": [str(person) for person in persons],
-        "note": str(group.get("note", "")),
+        "group": selector,
     }
 
 
@@ -87,24 +177,26 @@ def get_i5b_trial_targets() -> list[str]:
 
 
 def get_i5b_expanded_batch1_targets() -> list[str]:
-    persons = get_i5b_group_persons("第五项B_扩展第一批")
+    selector = _default_i5b_group_selector("expanded_group")
+    persons = get_i5b_group_persons(selector)
     if persons is None:
-        raise ValueError("第五项B_扩展第一批 group is missing from 第五项B_视图分组.json")
+        raise ValueError(f"{selector} group is missing from project_config.yml")
     return persons
 
 
 def get_i5b_net_evidence_targets() -> list[tuple[str, Path]]:
-    group = get_i5b_group("第五项B_净证据导出目标")
+    selector = _default_i5b_group_selector("net_evidence_group")
+    group = get_i5b_group(selector)
     if group is None:
-        raise ValueError("第五项B_净证据导出目标 group is missing from 第五项B_视图分组.json")
+        raise ValueError(f"{selector} group is missing from project_config.yml")
 
     persons = group.get("persons")
     if not isinstance(persons, list):
-        raise ValueError("第五项B_净证据导出目标 persons must be a list")
-    path_template = group.get("path_template")
-    if not isinstance(path_template, str) or not path_template.strip():
-        raise ValueError("第五项B_净证据导出目标 path_template must be a non-empty string")
-    return [(str(person), ROOT / path_template.format(person=person)) for person in persons]
+        raise ValueError(f"{selector} persons must be a list")
+    return [
+        (str(person), ROOT / DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE.format(person=person))
+        for person in persons
+    ]
 
 
 def get_i5b_expanded_candidate_pool_rows() -> list[dict[str, Any]]:
@@ -115,66 +207,8 @@ def get_i5b_expanded_candidate_pool_rows() -> list[dict[str, Any]]:
     return rows
 
 
-def load_i5b_keyword_profiles() -> list[dict[str, Any]]:
-    if not I5B_KEYWORD_PROFILES_PATH.exists():
-        return []
-    return load_json_array(I5B_KEYWORD_PROFILES_PATH)
-
-
-def load_i5b_keyword_overrides() -> list[dict[str, Any]]:
-    if not I5B_KEYWORD_OVERRIDES_PATH.exists():
-        return []
-    return load_json_array(I5B_KEYWORD_OVERRIDES_PATH)
-
-
-def row_matches_scope(
-    row: dict[str, Any],
-    *,
-    profile_id: str | None,
-    person: str | None,
-    scope: str | None,
-    subitem: str | None,
-) -> bool:
-    if profile_id is not None and row.get("profile_id") != profile_id and row.get("keyword_profile_id") != profile_id:
-        return False
-    if person is not None and row.get("person") != person and row.get("scope_key") != person:
-        return False
-    if scope is not None and row.get("scope") != scope and row.get("scope_key") != scope and row.get("scope_type") != scope:
-        return False
-    if subitem is not None and row.get("subitem") != subitem:
-        return False
-    return True
-
-
-def get_i5b_keyword_profiles(
-    *,
-    profile_id: str | None = None,
-    person: str | None = None,
-    scope: str | None = None,
-    subitem: str | None = None,
-) -> list[dict[str, Any]]:
-    return [
-        row
-        for row in load_i5b_keyword_profiles()
-        if row_matches_scope(row, profile_id=profile_id, person=person, scope=scope, subitem=subitem)
-    ]
-
-
-def get_i5b_keyword_overrides(
-    *,
-    person: str | None = None,
-    scope: str | None = None,
-    subitem: str | None = None,
-) -> list[dict[str, Any]]:
-    return [
-        row
-        for row in load_i5b_keyword_overrides()
-        if row_matches_scope(row, profile_id=None, person=person, scope=scope, subitem=subitem)
-    ]
-
-
 def load_i5b_cluster_warning_rules() -> list[dict[str, Any]]:
-    return load_json_array(I5B_CLUSTER_WARNING_RULES_PATH)
+    return default_i5b_review_warning_rules()
 
 
 def get_i5b_cluster_warning_rules(

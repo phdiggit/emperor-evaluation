@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 VALIDATION_STEPS = [
     ("validate_evidence", ROOT / "scripts" / "validate" / "validate_evidence.py"),
     ("validate_canonical_data_integrity", ROOT / "scripts" / "validate" / "validate_canonical_data_integrity.py"),
+    ("validate_project_config", ROOT / "scripts" / "validate" / "validate_project_config.py"),
     ("validate_view_configs", ROOT / "scripts" / "validate" / "validate_view_configs.py"),
     ("validate_chinese_view_configs", ROOT / "scripts" / "validate" / "validate_chinese_view_configs.py"),
     ("validate_review_configs", ROOT / "scripts" / "validate" / "validate_review_configs.py"),
@@ -16,7 +17,6 @@ VALIDATION_STEPS = [
         "validate_i5b_cluster_adjudication_configs",
         ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
     ),
-    ("validate_config_comments", ROOT / "scripts" / "validate" / "validate_config_comments.py"),
     (
         "validate_human_readable_markdown_exports",
         ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",

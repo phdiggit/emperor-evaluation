@@ -53,6 +53,10 @@ def validate() -> list[str]:
             errors.extend(validate_file(path))
         for path in sorted(configs_dir.rglob("*.jsonl")):
             errors.extend(validate_file(path))
+        for path in sorted(configs_dir.rglob("*.yml")):
+            errors.extend(validate_file(path))
+        for path in sorted(configs_dir.rglob("*.yaml")):
+            errors.extend(validate_file(path))
 
     return errors
 

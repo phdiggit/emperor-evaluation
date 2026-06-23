@@ -6,9 +6,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+from shared.i5b_markdown_display_defaults import default_markdown_display_config
+
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DISPLAY_CONFIG_PATH = ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
 DEFAULT_HUMAN_REVIEW_TABLE_FIELDS = {
     "auto_adjudication_matrix": [
         "person",
@@ -160,13 +161,10 @@ class AppendixEntry:
     value: object
 
 
-def load_display_dictionary(path: Path = DEFAULT_DISPLAY_CONFIG_PATH) -> dict[str, object]:
-    if not path.exists():
-        return {}
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise ValueError(f"{path} must contain a JSON object")
-    return payload
+def load_display_dictionary(path: Path | None = None) -> dict[str, object]:
+    if path is not None:
+        raise ValueError("Markdown display defaults are code-owned; external display config files are retired")
+    return default_markdown_display_config()
 
 
 def display_field_label(field: str, config: dict[str, object] | None = None) -> str:

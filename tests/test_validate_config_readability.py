@@ -104,12 +104,12 @@ def test_validate_config_readability_scans_data_configs_tree(
     view_dir = tmp_path / "view_configs"
     review_dir = tmp_path / "review_configs"
     configs_dir = tmp_path / "data" / "configs"
-    nested_dir = configs_dir / "视图配置"
+    nested_dir = configs_dir
     view_dir.mkdir()
     review_dir.mkdir()
     nested_dir.mkdir(parents=True)
-    escaped_path = nested_dir / "第五项B_人物池.json"
-    escaped_path.write_text('{"person": "\\u5218\\u90a6"}\n', encoding="utf-8")
+    escaped_path = nested_dir / "project_config.yml"
+    escaped_path.write_text('person: "\\u5218\\u90a6"\n', encoding="utf-8")
 
     monkeypatch.setattr(validate_config_readability, "USER_CONFIG_DIRS", [view_dir, review_dir])
     monkeypatch.setattr(validate_config_readability, "ROOT", tmp_path)

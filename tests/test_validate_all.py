@@ -62,6 +62,13 @@ def test_validate_all_includes_config_readability_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_project_config_step() -> None:
+    assert (
+        "validate_project_config",
+        ROOT / "scripts" / "validate" / "validate_project_config.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_includes_chinese_view_config_step() -> None:
     assert (
         "validate_chinese_view_configs",
@@ -81,14 +88,6 @@ def test_validate_all_includes_i5b_cluster_adjudication_config_step() -> None:
         "validate_i5b_cluster_adjudication_configs",
         ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
     ) in validate_all.VALIDATION_STEPS
-
-
-def test_validate_all_includes_config_comments_step() -> None:
-    assert (
-        "validate_config_comments",
-        ROOT / "scripts" / "validate" / "validate_config_comments.py",
-    ) in validate_all.VALIDATION_STEPS
-
 
 def test_validate_all_includes_human_readable_markdown_export_step() -> None:
     assert (

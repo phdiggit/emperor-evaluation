@@ -144,29 +144,23 @@ def test_export_expanded_i5b_batch1_review_falls_back_to_batch_files_and_sorts_r
     assert cluster_section.index("CLUSTER-LB-B") < cluster_section.index("CLUSTER-ZZ")
 
 
-def test_load_expanded_batch1_persons_reads_chinese_view_group_config(
-    tmp_path: Path, monkeypatch
+def test_load_expanded_batch1_persons_reads_project_config(
+    tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
-    group_path = tmp_path / "第五项B_视图分组.json"
-    group_path.write_text(
-        json.dumps(
-            [
-                {
-                    "group_id": "第五项B_扩展第一批",
-                    "group_name": "扩展第一批",
-                    "group_type": "扩展人物组",
-                    "subitem": "第五项B",
-                    "persons": ["甲", "乙"],
-                    "note": "测试",
-                }
-            ],
-            ensure_ascii=False,
-            indent=4,
-        )
-        + "\n",
-        encoding="utf-8",
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        view_groups=[
+            {
+                "group_id": "第五项B_扩展第一批",
+                "group_name": "扩展第一批",
+                "group_type": "扩展人物组",
+                "subitem": "第五项B",
+                "persons": ["甲", "乙"],
+                "note": "测试",
+            }
+        ],
     )
-    monkeypatch.setattr(expanded_batch1.config_loaders, "I5B_VIEW_GROUPS_PATH", group_path)
+    monkeypatch.setattr(expanded_batch1.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
     persons = expanded_batch1.load_expanded_batch1_persons()
 

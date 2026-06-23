@@ -13,10 +13,10 @@ VALIDATE_DIR = ROOT / "scripts" / "validate"
 MIGRATED_VALIDATORS = [
     "validate_evidence.py",
     "validate_canonical_data_integrity.py",
+    "validate_project_config.py",
     "validate_view_configs.py",
     "validate_chinese_view_configs.py",
     "validate_review_configs.py",
-    "validate_config_comments.py",
     "validate_human_readable_markdown_exports.py",
     "validate_i5b_cluster_adjudication_configs.py",
     "validate_config_readability.py",
@@ -24,6 +24,7 @@ MIGRATED_VALIDATORS = [
 NEWLY_MIGRATED_VALIDATORS = [
     "validate_evidence",
     "validate_canonical_data_integrity",
+    "validate_project_config",
     "validate_view_configs",
     "validate_chinese_view_configs",
     "validate_review_configs",
@@ -59,7 +60,6 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
 
     for module_name in NEWLY_MIGRATED_VALIDATORS:
         assert steps[module_name] == VALIDATE_DIR / f"{module_name}.py"
-    assert steps["validate_config_comments"] == VALIDATE_DIR / "validate_config_comments.py"
     assert (
         steps["validate_human_readable_markdown_exports"]
         == VALIDATE_DIR / "validate_human_readable_markdown_exports.py"

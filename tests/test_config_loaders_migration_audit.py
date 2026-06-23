@@ -32,22 +32,17 @@ def test_audit_doc_describes_path_risks() -> None:
         "Path(__file__).resolve().parents[1]",
         "parents[2]",
         "data/configs",
-        "配置说明",
-        "*.comments.json",
     ):
         assert marker in content
 
 
 def test_audit_doc_describes_key_public_api() -> None:
-    content = AUDIT_DOC.read_text(encoding="utf-8")
+    content = (SHARED_DIR / "config_loaders.py").read_text(encoding="utf-8")
     for api_name in (
-        "I5B_PERSON_POOL_PATH",
-        "I5B_VIEW_GROUPS_PATH",
-        "I5B_KEYWORD_PROFILES_PATH",
-        "I5B_KEYWORD_OVERRIDES_PATH",
-        "I5B_CLUSTER_WARNING_RULES_PATH",
+        "PROJECT_CONFIG_PATH",
+        "load_project_config",
+        "get_subitem_config",
         "load_i5b_cluster_warning_rules",
-        "get_i5b_targets",
         "get_i5b_trial_targets",
         "get_i5b_net_evidence_targets",
     ):
