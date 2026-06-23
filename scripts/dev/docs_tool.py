@@ -582,57 +582,56 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
                     problems.append(f"{path}: {field} path does not exist: {candidate}")
 
     project_driver_paths = registry.get("project_driver_paths")
-    if project_driver_paths is not None:
-        if not isinstance(project_driver_paths, list) or not project_driver_paths:
-            problems.append(f"{registry_path}: project_driver_paths must be a non-empty list")
-            project_driver_paths = []
-        archived_paths = registry.get("archived_document_paths") or {}
-        archived_old_paths = set(archived_paths) if isinstance(archived_paths, dict) else set()
-        archived_new_paths = set(archived_paths.values()) if isinstance(archived_paths, dict) else set()
-        replacement_targets = {
-            str(doc.get("replacement_path"))
-            for doc in documents
-            if doc.get("replacement_path")
+    if not isinstance(project_driver_paths, list) or not project_driver_paths:
+        problems.append(f"{registry_path}: project_driver_paths must be a non-empty list")
+        project_driver_paths = []
+    archived_paths = registry.get("archived_document_paths") or {}
+    archived_old_paths = set(archived_paths) if isinstance(archived_paths, dict) else set()
+    archived_new_paths = set(archived_paths.values()) if isinstance(archived_paths, dict) else set()
+    replacement_targets = {
+        str(doc.get("replacement_path"))
+        for doc in documents
+        if doc.get("replacement_path")
+    }
+    for driver_path in project_driver_paths:
+        if not isinstance(driver_path, str) or not driver_path:
+            problems.append(f"{registry_path}: project_driver_paths entries must be non-empty strings")
+            continue
+        if not _valid_repo_target_path(driver_path) or not driver_path.startswith("docs/"):
+            problems.append(f"{driver_path}: project driver path must be a repo-relative docs path")
+            continue
+        driver_doc = by_path.get(driver_path)
+        if driver_doc is None:
+            problems.append(f"{driver_path}: project driver is not registered in documents")
+            continue
+        if not _path_exists(driver_path):
+            problems.append(f"{driver_path}: project driver path missing")
+            continue
+        expected_driver_fields = {
+            "document_type": "canonical_spec",
+            "lifecycle_status": "active",
+            "proposed_action": "keep",
+            "content_role": "rule_or_method",
+            "placement_action": "keep_in_docs",
+            "unique_source_risk": True,
         }
-        for driver_path in project_driver_paths:
-            if not isinstance(driver_path, str) or not driver_path:
-                problems.append(f"{registry_path}: project_driver_paths entries must be non-empty strings")
-                continue
-            if not _valid_repo_target_path(driver_path) or not driver_path.startswith("docs/"):
-                problems.append(f"{driver_path}: project driver path must be a repo-relative docs path")
-                continue
-            driver_doc = by_path.get(driver_path)
-            if driver_doc is None:
-                problems.append(f"{driver_path}: project driver is not registered in documents")
-                continue
-            if not _path_exists(driver_path):
-                problems.append(f"{driver_path}: project driver path missing")
-                continue
-            expected_driver_fields = {
-                "document_type": "canonical_spec",
-                "lifecycle_status": "active",
-                "proposed_action": "keep",
-                "content_role": "rule_or_method",
-                "placement_action": "keep_in_docs",
-                "unique_source_risk": True,
-            }
-            for field, expected in expected_driver_fields.items():
-                if driver_doc.get(field) != expected:
-                    problems.append(f"{driver_path}: project driver requires {field}={expected!r}")
-            if driver_path in archived_old_paths or driver_path in archived_new_paths:
-                problems.append(f"{driver_path}: project driver must not appear in archived_document_paths")
-            if driver_path in replacement_targets or driver_doc.get("replacement_path"):
-                problems.append(f"{driver_path}: project driver must not be replaced by replacement_path")
-            if driver_doc.get("lifecycle_status") in {"archive_candidate", "delete_candidate"}:
-                problems.append(f"{driver_path}: project driver cannot be an archive/delete candidate")
-            if driver_doc.get("proposed_action") in {"archive", "delete"}:
-                problems.append(f"{driver_path}: project driver cannot use proposed_action={driver_doc.get('proposed_action')}")
-            text = _resolve_repo_path(driver_path).read_text(encoding="utf-8")
-            if not text.strip():
-                problems.append(f"{driver_path}: project driver document must not be empty")
-            for marker in PROJECT_DRIVER_REQUIRED_MARKERS:
-                if marker not in text:
-                    problems.append(f"{driver_path}: project driver document missing marker: {marker}")
+        for field, expected in expected_driver_fields.items():
+            if driver_doc.get(field) != expected:
+                problems.append(f"{driver_path}: project driver requires {field}={expected!r}")
+        if driver_path in archived_old_paths or driver_path in archived_new_paths:
+            problems.append(f"{driver_path}: project driver must not appear in archived_document_paths")
+        if driver_path in replacement_targets or driver_doc.get("replacement_path"):
+            problems.append(f"{driver_path}: project driver must not be replaced by replacement_path")
+        if driver_doc.get("lifecycle_status") in {"archive_candidate", "delete_candidate"}:
+            problems.append(f"{driver_path}: project driver cannot be an archive/delete candidate")
+        if driver_doc.get("proposed_action") in {"archive", "delete"}:
+            problems.append(f"{driver_path}: project driver cannot use proposed_action={driver_doc.get('proposed_action')}")
+        text = _resolve_repo_path(driver_path).read_text(encoding="utf-8")
+        if not text.strip():
+            problems.append(f"{driver_path}: project driver document must not be empty")
+        for marker in PROJECT_DRIVER_REQUIRED_MARKERS:
+            if marker not in text:
+                problems.append(f"{driver_path}: project driver document missing marker: {marker}")
 
     expected_docs = set(_tracked_current_docs()) - {normalize_repo_path(registry_path)}
     actual_docs = set(by_path)
@@ -774,6 +773,9 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
 
     def driver_rows(items: list[dict[str, Any]]) -> list[list[str]]:
         rows = [["path", "title", "document type", "lifecycle", "content role", "placement action", "unique source risk", "reason"]]
+        if not items:
+            rows.append(["-", "-", "-", "-", "-", "-", "-", "project_driver_paths 未登记或无有效文档；请先修复 registry。"])
+            return rows
         for doc in items:
             rows.append(
                 [

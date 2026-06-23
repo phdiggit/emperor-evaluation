@@ -53,12 +53,20 @@ def commit_all(repo: Path, message: str = "seed") -> str:
     return run_git(repo, "rev-parse", "HEAD").strip()
 
 
+def add_project_driver(repo: Path) -> None:
+    write(
+        repo / "docs" / "driver.md",
+        "# 中国古代皇帝综合评价体系 V3.2\n\n正收益总分 − 历史负债\n\n正收益合计\n\n历史负债\n",
+    )
+
+
 def seed_repo(repo: Path) -> str:
     write(repo / "AGENTS.md", "任务涉及 docs/** 时，修改前必须读取 docs/AGENTS.md。\n")
     write(repo / "README.md", "[中文](docs/中文说明.md)\n")
     write(repo / "docs" / "AGENTS.md", "# docs rules\n")
     write(repo / "docs" / "中文说明.md", "# 中文说明\n正文\n")
     write(repo / "docs" / "generated.md", "# Generated\n自动生成。\n")
+    add_project_driver(repo)
     write(repo / "docs" / "dup-a.md", "# Dup\nsame  \n")
     write(repo / "docs" / "dup-b.md", "# Dup\nsame\n")
     write(repo / "docs" / "dated_20260620.md", "# Dated\n")
@@ -114,6 +122,7 @@ def valid_registry(repo: Path, inventory: dict) -> dict:
         "allowed_proposed_actions": sorted(docs_tool.ALLOWED_PROPOSED_ACTIONS),
         "allowed_content_roles": sorted(docs_tool.ALLOWED_CONTENT_ROLES),
         "allowed_placement_actions": sorted(docs_tool.ALLOWED_PLACEMENT_ACTIONS),
+        "project_driver_paths": ["docs/driver.md"],
         "documents": sorted(docs, key=lambda item: item["path"]),
     }
 
@@ -124,13 +133,6 @@ def write_registry(repo: Path, registry: dict) -> Path:
     path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     run_git(repo, "add", "docs/agent_rules/docs_registry.json")
     return path
-
-
-def add_project_driver(repo: Path) -> None:
-    write(
-        repo / "docs" / "driver.md",
-        "# 中国古代皇帝综合评价体系 V3.2\n\n正收益总分 − 历史负债\n\n正收益合计\n\n历史负债\n",
-    )
 
 
 def test_inventory_tracks_ref_chinese_paths_references_generators_and_duplicates(tmp_path: Path) -> None:
@@ -332,11 +334,8 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
 def test_check_validates_project_driver_paths(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
-    add_project_driver(repo)
-    commit_all(repo, "add driver")
     docs_tool = load_docs_tool(repo)
     registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
-    registry["project_driver_paths"] = ["docs/driver.md"]
     driver_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/driver.md")
     driver_doc["title"] = "中国古代皇帝综合评价体系 V3.2"
     driver_doc["reason"] = "临时仓库项目上位驱动文档。"
@@ -352,6 +351,7 @@ def test_check_validates_project_driver_paths(tmp_path: Path) -> None:
         registry_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         return docs_tool.check_registry(str(registry_path.relative_to(repo)))
 
+    assert any("project_driver_paths must be a non-empty list" in p for p in problems_for(lambda r: r.pop("project_driver_paths")))
     assert any("project_driver_paths must be a non-empty list" in p for p in problems_for(lambda r: r.__setitem__("project_driver_paths", [])))
     assert any("project driver is not registered" in p for p in problems_for(lambda r: r.__setitem__("project_driver_paths", ["docs/missing.md"])))
     assert any(
