@@ -12,11 +12,19 @@ from _git_helpers import changed_files_against_base, git_changed_files, skip_unl
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
     "README.md",
+    "docs/README.md",
+    "docs/00_project/README.md",
+    "docs/10_methodology/README.md",
+    "docs/20_dimensions/README.md",
+    "docs/30_operations/README.md",
     "docs/AGENTS.md",
     "docs/agent_rules/README.md",
     "docs/agent_rules/docs_registry.json",
     "docs/人工阅读型Markdown导出规范.md",
     "docs/数据层级与批次文件治理规则.md",
+    "exports/governance/文档治理盘点报告.md",
+    "tests/test_docs_governance.py",
+    "tests/test_docs_tool.py",
     "tests/test_file_governance_policy.py",
 }
 

@@ -15,6 +15,13 @@ DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "exports" / "governance" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
 LEGACY_DOCS_ARCHIVE_ROOT = "docs/" + "archive/"
+METHODOLOGY_NAVIGATION_READMES = {
+    "docs/README.md": ("operational_guide", "stable_operational_guide"),
+    "docs/00_project/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/10_methodology/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/20_dimensions/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/30_operations/README.md": ("operational_guide", "stable_operational_guide"),
+}
 ARCHIVE_MAP = {
     "docs/batch_canonical_absorption_audit_20260620.md": "archive/docs/audits/batch_canonical_absorption_audit_20260620.md",
     "docs/canonical_data_integrity_validation_note_20260620.md": "archive/docs/audits/canonical_data_integrity_validation_note_20260620.md",
@@ -201,6 +208,36 @@ def test_docs_registry_has_no_current_active_design_docs() -> None:
         assert doc["semantic_verification_required"] is False
 
 
+def test_methodology_navigation_readmes_exist_and_are_registered() -> None:
+    registry = load_registry()
+    by_path = {doc["path"]: doc for doc in registry["documents"]}
+
+    assert set(METHODOLOGY_NAVIGATION_READMES) <= set(by_path)
+    for path, (document_type, content_role) in METHODOLOGY_NAVIGATION_READMES.items():
+        doc = by_path[path]
+        assert (ROOT / path).is_file()
+        assert doc["document_type"] == document_type
+        assert doc["lifecycle_status"] == "active"
+        assert doc["proposed_action"] == "keep"
+        assert doc["content_role"] == content_role
+        assert doc["placement_action"] == "keep_in_docs"
+        assert doc["unique_source_risk"] is True
+        assert doc["semantic_verification_required"] is False
+        assert doc["human_confirmation_required"] is False
+
+    readme = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+    for needle in [
+        "当前 `docs/` 根目录仍保留一批平铺式规则和方法论文档",
+        "第五项B是已经跑通的样板项目",
+        "不手改 generated export",
+        "不在目录治理 PR 中修改评分、档位、证据、排名或榜单等业务语义",
+    ]:
+        assert needle in readme
+
+    assert not (ROOT / "docs" / "archive").exists()
+    assert (ROOT / "archive" / "docs").is_dir()
+
+
 def test_project_driver_is_registered_and_protected() -> None:
     registry = load_registry()
     drivers = registry["project_driver_paths"]
@@ -311,6 +348,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
+        "docs registry 覆盖文档数：59，其中当前 `docs/` 层 30 份，历史归档区 29 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 项目驱动文档",
