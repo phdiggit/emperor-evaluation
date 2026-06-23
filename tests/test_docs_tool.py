@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -140,6 +141,37 @@ def test_inventory_tracks_ref_chinese_paths_references_generators_and_duplicates
     assert not (repo / "docs" / "agent_rules" / "docs_registry.json").exists()
 
 
+def test_inventory_reference_graph_uses_requested_ref_not_worktree(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    write(repo / "AGENTS.md", "docs/AGENTS.md\n")
+    write(repo / "README.md", "[A](docs/a.md)\n")
+    write(repo / "docs" / "AGENTS.md", "# docs rules\n")
+    write(repo / "docs" / "a.md", "# A\n")
+    write(repo / "docs" / "b.md", "# B\n")
+    write(repo / "docs" / "sub" / "guide.md", "[A relative](../a.md)\n")
+    base_sha = commit_all(repo, "base")
+    write(repo / "README.md", "[B](docs/b.md)\n")
+    write(repo / "docs" / "agent_rules" / "docs_registry.json", '{"note": "docs/a.md"}\n')
+    write(repo / "docs" / "文档治理盘点报告.md", "治理引用 docs/a.md\n")
+    commit_all(repo, "later")
+    docs_tool = load_docs_tool(repo)
+
+    base_inventory = docs_tool.build_inventory(base_sha)
+    base_by_path = {item["path"]: item for item in base_inventory["documents"]}
+    head_inventory = docs_tool.build_inventory("HEAD")
+    head_by_path = {item["path"]: item for item in head_inventory["documents"]}
+
+    assert base_by_path["docs/a.md"]["inbound_references"] == ["README.md", "docs/sub/guide.md"]
+    assert base_by_path["docs/a.md"]["governance_references"] == []
+    assert "docs/文档治理盘点报告.md" not in base_by_path
+    assert head_by_path["docs/a.md"]["inbound_references"] == ["docs/sub/guide.md"]
+    assert head_by_path["docs/a.md"]["governance_references"] == [
+        "docs/agent_rules/docs_registry.json",
+        "docs/文档治理盘点报告.md",
+    ]
+    assert head_by_path["docs/b.md"]["inbound_references"] == ["README.md"]
+
+
 def test_inventory_output_is_utf8_no_bom_and_restricted_to_tmp(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
@@ -209,6 +241,9 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     registry["documents"][1]["human_confirmation_required"] = True
     registry["documents"][2]["lifecycle_status"] = "needs_human_confirmation"
     registry["documents"][2]["proposed_action"] = "review"
+    registry["documents"][2]["document_type"] = "historical_snapshot"
+    registry["documents"][2]["unique_source_risk"] = False
+    review_path = registry["documents"][2]["path"]
     registry_path = write_registry(repo, registry)
     commit_all(repo, "registry")
 
@@ -216,6 +251,8 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "## 8. archive candidates" in report
     assert "## 9. delete candidates" in report
     assert "## 10. needs human confirmation" in report
+    assert report.count(review_path) == 1
+    assert re.search(r"Batch C：需人工确认，1 个", report)
     assert docs_tool.main(["check", "--registry", str(registry_path.relative_to(repo))]) == 0
     assert docs_tool.main(["check", "--registry", "docs/missing.json"]) == 1
     captured = capfd.readouterr()
