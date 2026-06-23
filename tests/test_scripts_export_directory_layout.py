@@ -15,6 +15,17 @@ MIGRATED_EXPORTERS = (
     "export_i5b_expanded_batch1",
     "export_project_doc_views",
 )
+DIMENSION_EXPORT_FRAMEWORK_MODULES = (
+    "dimension_export/data_loading.py",
+    "dimension_export/evidence_index.py",
+    "dimension_export/markdown_rendering.py",
+    "dimension_export/output_layout.py",
+    "dimension_export/pipeline.py",
+    "dimension_export/validation.py",
+    "dimension_adapters/i5b_people_delegation/adapter.py",
+    "dimension_adapters/i5b_people_delegation/output_specs.py",
+    "dimension_adapters/i5b_people_delegation/rules.py",
+)
 
 
 def test_scripts_export_directory_exists() -> None:
@@ -46,13 +57,34 @@ def test_auto_adjudication_canonical_help_command_runs() -> None:
     assert "--output-layout" in result.stdout
 
 
+def test_auto_adjudication_entrypoint_is_thin_wrapper() -> None:
+    wrapper = EXPORT_DIR / "export_i5b_auto_adjudication.py"
+    lines = wrapper.read_text(encoding="utf-8").splitlines()
+
+    assert len(lines) <= 30
+    assert "dimension_adapters.i5b_people_delegation import adapter as _adapter" in "\n".join(lines)
+    assert "main = _adapter.main" in "\n".join(lines)
+
+
+def test_dimension_export_framework_modules_use_english_paths() -> None:
+    for relative_path in DIMENSION_EXPORT_FRAMEWORK_MODULES:
+        path = EXPORT_DIR / relative_path
+        assert path.is_file(), relative_path
+        assert relative_path.isascii(), relative_path
+
+    for path in (EXPORT_DIR / "dimension_export").rglob("*"):
+        assert path.relative_to(EXPORT_DIR).as_posix().isascii()
+    for path in (EXPORT_DIR / "dimension_adapters").rglob("*"):
+        assert path.relative_to(EXPORT_DIR).as_posix().isascii()
+
+
 def test_export_md_entrypoint_implementation_lives_under_export_directory() -> None:
     assert (EXPORT_DIR / "export_md.py").is_file()
     assert not (SCRIPTS_DIR / "export_md.py").exists()
 
 
 def test_docs_and_agents_mention_export_directory_rule() -> None:
-    docs = next((ROOT / "docs").glob("scripts*规范.md")).read_text(encoding="utf-8")
+    docs = next((ROOT / "docs").rglob("scripts*.md")).read_text(encoding="utf-8")
     agents = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
     assert "scripts/export/" in docs
     assert "retired_legacy_wrappers" in docs
