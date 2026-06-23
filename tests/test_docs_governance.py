@@ -85,10 +85,10 @@ DELETED_COMPLETED_SOURCE_REVIEW_DOCS = {
 
 
 def load_docs_tool():
-    spec = importlib.util.spec_from_file_location("docs_tool_real_repo", DOCS_TOOL)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    module = importlib.import_module("scripts.dev.docs_governance")
+    module.constants.ROOT = ROOT
     return module
 
 
@@ -351,19 +351,19 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
         "docs registry 覆盖文档数：62，其中当前 `docs/` 层 33 份，历史归档区 29 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
-        "## 项目驱动文档",
+        "## 2. 项目驱动文档",
         PROJECT_DRIVER,
-        "## 7. 仅保留 exports 候选",
-        "## 8. 已迁出 docs 的生成文档",
-        "## 9. 已迁出 docs 的混合审核文档",
-        "## 10. 需要拆分的混合文档",
-        "## 11. 吸收后归档候选",
-        "## 12. 内容归置待确认项",
-        "## 13. 生命周期 archive candidates",
-        "## 14. 生命周期 delete candidates",
-        "## 15. 生命周期 review / needs human confirmation",
-        "## 16. 历史归档摘要",
-        "## 21. 后续执行批次",
+        "## 当前仅保留 exports 候选",
+        "## 已迁出 docs 的生成文档摘要",
+        "## 已迁出 docs 的混合审核文档摘要",
+        "## 当前待拆分的混合文档",
+        "## 当前吸收后归档候选",
+        "## 当前内容归置待确认项",
+        "## 当前生命周期 archive candidates",
+        "## 当前生命周期 delete candidates",
+        "## 当前生命周期 review / needs human confirmation",
+        "## 历史归档摘要",
+        "## 当前候选摘要",
         "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态",
     ]:
         assert needle in content
@@ -372,21 +372,18 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert "historical archive documents" in content
     assert "retired generated docs" in content
     assert "retired mixed docs" in content
-    batch6 = content.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：规则方法层归置核对", 1)[0]
-    batch7 = content.split("Batch 7：规则方法层归置核对", 1)[1].split("## 22. 范围声明", 1)[0]
-    batch3 = content.split("Batch 3：人物回源说明", 1)[1].split("Batch 4：已实施设计", 1)[0]
-    assert "needs-human-confirmation 历史材料（0 份）" in content
-    assert "已完成：历史治理材料已归档，不再等待逐份确认。" in batch6
-    assert "| - | - | high | no | no | no |" in batch6
-    assert "docs/manual_review_config_layer_design_20260620.md" not in batch6
-    assert "规则方法层归置核对（0 份）" in content
+    summary = content.split("## 当前候选摘要", 1)[1].split("## 9. 范围声明", 1)[0]
+    fact_source_section = content.split("## 6. 事实源对账待办", 1)[1].split("## 当前仅保留 exports 候选", 1)[0]
+    assert "当前无待办候选" in summary
+    assert "Batch 6：needs-human-confirmation 历史材料" not in content
+    assert "Batch 7：规则方法层归置核对" not in content
+    assert "已完成：历史治理材料已归档，不再等待逐份确认。" not in content
+    assert "docs/manual_review_config_layer_design_20260620.md" not in summary
     assert "| active_design |" not in content
-    assert "| - | - | high | no | no | no |" in batch7
-    assert "已完成：长期研究方法、裁判机制或上下文机制已归入 docs 当前规则方法层。" in batch7
-    assert "docs/manual_review_config_layer_design_20260620.md" not in batch7
+    assert "已完成：长期研究方法、裁判机制或上下文机制已归入 docs 当前规则方法层。" not in content
     for path in DELETED_COMPLETED_SOURCE_REVIEW_DOCS:
         assert path not in content
-        assert path not in batch3
+        assert path not in fact_source_section
     assert not re.search(r"PR #\d+", content)
     assert "#207" not in content
     assert "本 PR" not in content
@@ -396,17 +393,16 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     for old_path, target_path in RETIRED_GENERATED_MAP.items():
         assert old_path not in content
         assert target_path not in content
-    batch1 = content.split("Batch 1：generated docs -> export-only", 1)[1].split("Batch 2：混合审核文档拆分", 1)[0]
-    assert "已完成" in batch1
+    assert "Batch 1：generated docs -> export-only" not in content
+    assert "已完成" not in summary
     for old_path, target_path in RETIRED_MIXED_MAP.items():
         assert old_path not in content
         assert target_path not in content
-    retired_mixed_section = content.split("## 9. 已迁出 docs 的混合审核文档", 1)[1].split("## 10. 需要拆分的混合文档", 1)[0]
-    pending_mixed_section = content.split("## 10. 需要拆分的混合文档", 1)[1].split("## 11. 吸收后归档候选", 1)[0]
+    retired_mixed_section = content.split("## 已迁出 docs 的混合审核文档摘要", 1)[1].split("## 当前待拆分的混合文档", 1)[0]
+    pending_mixed_section = content.split("## 当前待拆分的混合文档", 1)[1].split("## 当前吸收后归档候选", 1)[0]
     assert "retired mixed docs" in retired_mixed_section
     assert "docs/第五项B三人专人审核入口.md" not in pending_mixed_section
-    batch2 = content.split("Batch 2：混合审核文档拆分", 1)[1].split("Batch 3：人物回源说明", 1)[0]
-    assert "已完成" in batch2
+    assert "Batch 2：混合审核文档拆分" not in content
 
 
 def test_archive_readme_exists_and_links_batch_documents() -> None:

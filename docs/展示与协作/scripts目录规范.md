@@ -80,6 +80,15 @@ legacy Python wrappers 已集中退役；不得恢复旧路径 import/CLI 兼容
 
 移动 Python 文件必须核对 `__file__`、`parents[n]`、`ROOT` 和所有路径常量。迁移后验证 canonical import/CLI，不再验证旧路径 import/CLI。
 
+## Windows 中文路径与长文本写入
+
+Windows + 中文路径 + 大段 Markdown/JSON 任务必须走临时文件或仓库工具，避免 shell 编码漂移。
+
+- 不使用 PowerShell inline here-string 写长中文文本。
+- 不使用超长 inline python 命令写入中文 Markdown 或 JSON。
+- 必须先写入 `.tmp/*.py` 或 `.tmp/*.md` 临时文件，按 UTF-8 保存，再由 Python 执行或通过 `repo_tool` 写入目标文件。
+- 中文路径和 diff 范围核对优先使用 `git -c core.quotepath=false`、`repo_tool` 或 `docs_tool`。
+
 治理 PR 开 PR 前应运行：
 
 ```text
