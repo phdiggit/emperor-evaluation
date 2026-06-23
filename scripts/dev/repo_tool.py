@@ -11,7 +11,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-REGISTRY_PATH = "docs/agent_rules/scripts_registry.json"
+REGISTRY_PATH = "docs/文档与脚本登记/scripts_registry.json"
 TEXT_SUFFIXES = {
     ".csv",
     ".json",

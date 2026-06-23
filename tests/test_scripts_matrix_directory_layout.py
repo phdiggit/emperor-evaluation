@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 MATRIX_DIR = SCRIPTS_DIR / "matrix"
-REGISTRY_PATH = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
+REGISTRY_PATH = ROOT / "docs" / "文档与脚本登记" / "scripts_registry.json"
 
 
 def registry() -> dict[str, object]:

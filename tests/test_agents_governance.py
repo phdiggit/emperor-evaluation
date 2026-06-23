@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_PATH = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
+REGISTRY_PATH = ROOT / "docs" / "文档与脚本登记" / "scripts_registry.json"
 REPO_TOOL_PATH = ROOT / "scripts" / "dev" / "repo_tool.py"
 
 
@@ -41,8 +41,8 @@ def test_agents_route_to_scripts_agents_and_registry() -> None:
     scripts_agents = (ROOT / "scripts" / "AGENTS.md").read_text(encoding="utf-8")
 
     assert "scripts/AGENTS.md" in root_agents
-    assert "docs/agent_rules/scripts_registry.json" in root_agents
-    assert "docs/agent_rules/scripts_registry.json" in scripts_agents
+    assert "docs/文档与脚本登记/scripts_registry.json" in root_agents
+    assert "docs/文档与脚本登记/scripts_registry.json" in scripts_agents
 
 
 def test_registry_is_valid_and_paths_exist() -> None:
@@ -90,8 +90,8 @@ def test_repo_tool_agents_check_passes_for_real_repo() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
 
 
-def test_agent_rules_readme_has_decision_table() -> None:
-    readme = (ROOT / "docs" / "agent_rules" / "README.md").read_text(encoding="utf-8")
+def test_registration_readme_has_decision_table() -> None:
+    readme = (ROOT / "docs" / "文档与脚本登记" / "README.md").read_text(encoding="utf-8")
     for needle in (
         "新增规则分类决策表",
         "所有任务都适用",

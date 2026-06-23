@@ -6,7 +6,7 @@
 
 - 修改、迁移、审查或新增 `scripts/**` 文件前，先读取本文件和任务点名的审计文档。
 - 根 `AGENTS.md` 负责全仓高压线；本文件负责 scripts 目录职责、retired wrapper、路径和验证纪律。
-- 当前模块状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/agent_rules/scripts_registry.json` 为准，本文件不维护项目状态日志。
+- 当前模块状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/文档与脚本登记/scripts_registry.json` 为准，本文件不维护项目状态日志。
 
 ## 目录职责
 
@@ -56,6 +56,6 @@
 
 ## registry 与审计文档
 
-- `docs/agent_rules/scripts_registry.json` 是当前实现路径、迁移状态、retired legacy wrapper、root exception、audit docs 和 required tests 的机器可读事实源。
-- `docs/agent_rules/README.md` 说明规则分类；新增规则先按该表决定写入位置。
+- `docs/文档与脚本登记/scripts_registry.json` 是当前实现路径、迁移状态、retired legacy wrapper、root exception、audit docs 和 required tests 的机器可读事实源。
+- `docs/文档与脚本登记/README.md` 说明规则分类；新增规则先按该表决定写入位置。
 - 高风险模块的维护要求应放在审计文档或 registry，不继续堆进根 `AGENTS.md` 或本文件。

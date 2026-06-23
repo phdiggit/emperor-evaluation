@@ -10,18 +10,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_AGENTS = ROOT / "docs" / "AGENTS.md"
-DOCS_REGISTRY = ROOT / "docs" / "agent_rules" / "docs_registry.json"
+DOCS_REGISTRY = ROOT / "docs" / "文档与脚本登记" / "docs_registry.json"
 DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "exports" / "governance" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
 LEGACY_DOCS_ARCHIVE_ROOT = "docs/" + "archive/"
 METHODOLOGY_NAVIGATION_READMES = {
     "docs/README.md": ("operational_guide", "stable_operational_guide"),
-    "docs/00_project/README.md": ("canonical_spec", "rule_or_method"),
-    "docs/10_methodology/README.md": ("canonical_spec", "rule_or_method"),
-    "docs/20_dimensions/README.md": ("canonical_spec", "rule_or_method"),
-    "docs/20_dimensions/第五项B/README.md": ("canonical_spec", "rule_or_method"),
-    "docs/30_operations/README.md": ("operational_guide", "stable_operational_guide"),
+    "docs/项目总纲/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/证据规则/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/分项规则/README.md": ("canonical_spec", "rule_or_method"),
+    "docs/分项规则/第五项统治者政治素质/B用人与授权.md": ("canonical_spec", "rule_or_method"),
+    "docs/展示与协作/README.md": ("operational_guide", "stable_operational_guide"),
 }
 ARCHIVE_MAP = {
     "docs/batch_canonical_absorption_audit_20260620.md": "archive/docs/audits/batch_canonical_absorption_audit_20260620.md",
@@ -72,10 +72,9 @@ NEEDS_HUMAN_CONFIRMATION = {
     "docs/多余文件第二批最终引用复核.md",
 }
 NORMALIZED_RULE_METHOD_DOCS = {
-    "docs/10_methodology/史料检索总则与项目-人物双轴工作流_讨论版.md",
-    "docs/20_dimensions/第五项B/第五项B证据卡上下文机制.md",
-    "docs/10_methodology/负证分案裁判机制.md",
-    "docs/10_methodology/负证裁量与触发式裁判模块_讨论版.md",
+    "docs/证据规则/史料检索与回源工作流.md",
+    "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
+    "docs/证据规则/负证触发式裁判通用规则.md",
 }
 DELETED_COMPLETED_SOURCE_REVIEW_DOCS = {
     "docs/第五项B_刘庄负证回源说明.md",
@@ -128,12 +127,12 @@ def test_docs_registry_is_valid_and_tool_check_passes() -> None:
     registry = load_registry()
 
     assert registry["schema_version"] == 1
-    assert "docs/agent_rules/docs_registry.json" in registry["registry_exclusions"]
+    assert "docs/文档与脚本登记/docs_registry.json" in registry["registry_exclusions"]
     assert set(registry["allowed_content_roles"]) == load_docs_tool().ALLOWED_CONTENT_ROLES
     assert set(registry["allowed_placement_actions"]) == load_docs_tool().ALLOWED_PLACEMENT_ACTIONS
 
     result = subprocess.run(
-        [sys.executable, str(DOCS_TOOL), "check", "--registry", "docs/agent_rules/docs_registry.json"],
+        [sys.executable, str(DOCS_TOOL), "check", "--registry", "docs/文档与脚本登记/docs_registry.json"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -148,7 +147,7 @@ def test_docs_registry_covers_every_tracked_docs_file_except_itself() -> None:
     expected = {
         path
         for path in git_lines("ls-files", "docs", "archive/docs")
-        if path != "docs/agent_rules/docs_registry.json"
+        if path != "docs/文档与脚本登记/docs_registry.json"
     }
     actual = {doc["path"] for doc in registry["documents"]}
 
@@ -178,7 +177,7 @@ def test_docs_registry_candidate_safety_rules() -> None:
         if doc["placement_action"] == "keep_archive_exception":
             assert doc["path"].startswith("archive/docs/")
         if doc["placement_action"] == "keep_governance_exception":
-            assert doc["path"].startswith("docs/agent_rules/")
+            assert doc["path"].startswith("docs/文档与脚本登记/")
         if doc["placement_action"] not in {"keep_in_docs", "keep_governance_exception", "keep_archive_exception", "review"}:
             assert doc["placement_targets"]
         if doc["replacement_path"]:
@@ -228,8 +227,8 @@ def test_methodology_navigation_readmes_exist_and_are_registered() -> None:
 
     readme = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
     for needle in [
-        "当前 `docs/` 根目录只保留受保护的最高层评分标准",
-        "第五项B是已经跑通的样板项目",
+        "`docs/` 根目录只保留受保护的最高层评分标准",
+        "每个子项目最多一个分项规则文档",
         "不手改 generated export",
         "不在目录治理 PR 中修改评分、档位、证据、排名或榜单等业务语义",
     ]:
@@ -265,7 +264,7 @@ def test_project_driver_is_registered_and_protected() -> None:
     ]:
         assert marker in text
 
-    for rel_path in ["README.md", "AGENTS.md", "docs/AGENTS.md", "docs/00_project/总规则.md"]:
+    for rel_path in ["README.md", "AGENTS.md", "docs/AGENTS.md", "docs/项目总纲/总规则.md"]:
         assert PROJECT_DRIVER in (ROOT / rel_path).read_text(encoding="utf-8")
 
 
@@ -349,7 +348,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "docs registry 覆盖文档数：60，其中当前 `docs/` 层 31 份，历史归档区 29 份。",
+        "docs registry 覆盖文档数：62，其中当前 `docs/` 层 33 份，历史归档区 29 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 项目驱动文档",
@@ -431,5 +430,4 @@ def test_tracked_tmp_governance_inventory_is_removed() -> None:
 def test_governance_report_matches_generator() -> None:
     docs_tool = load_docs_tool()
 
-    assert REPORT.read_text(encoding="utf-8") == docs_tool.build_report("docs/agent_rules/docs_registry.json")
-
+    assert REPORT.read_text(encoding="utf-8") == docs_tool.build_report("docs/文档与脚本登记/docs_registry.json")
