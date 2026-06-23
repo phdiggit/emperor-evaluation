@@ -20,6 +20,9 @@
 
 ## 事实源与生成物
 
+- `docs/README.md` 是 docs 当前层导航入口；Codex 进入 docs 任务时，先用它确认目录层级和阅读顺序。
+- 当前目录骨架为 `00_project/`、`10_methodology/`、`20_dimensions/`、`30_operations/` 和 `agent_rules/`。根目录平铺方法论文档是待迁移遗留入口；目录治理 PR 只在白名单允许时分批 `git mv`，不得顺手搬正文。
+- Codex 读文档顺序：先项目总纲和评分标准，再通用方法论，再具体大项 / 子项，最后操作规范和治理工具说明。
 - 规范、运行手册和当前决策文档属于长期事实源。
 - `docs/皇帝综合评价体系评分标准.md` 是项目驱动文档，也是当前评分业务语义的最高层 canonical spec；下位文档冲突必须显式记录。
 - 普通 docs 清理 PR 不得归档、删除、移动或降级该驱动文档；修订其正文必须另开专门 PR 并经用户明确确认。
@@ -63,5 +66,7 @@
 ## registry 与治理报告
 
 - `docs/agent_rules/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源。
+- `docs_registry.json` 不应作为大文件全文阅读入口；优先使用 `python scripts/dev/docs_tool.py check/report` 做校验和摘要，后续可补 query / summary 类命令。
 - `exports/governance/文档治理盘点报告.md` 是人工审阅入口，保存本轮统计、候选清单和后续批次建议。
+- 目录迁移 PR 必须同步 registry、治理报告和相关测试；只改 Markdown 导航而不同步机器事实源属于未完成变更。
 - AGENTS 只保存稳定规则，不逐文件枚举当前状态。

@@ -683,6 +683,8 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     commit_all(repo, "registry")
 
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    assert "docs registry 覆盖文档数" in report
+    assert "其中当前 `docs/` 层" in report
     assert "### 内容角色统计" in report
     assert "### 推荐归置动作统计" in report
     assert "## 7. 仅保留 exports 候选" in report
