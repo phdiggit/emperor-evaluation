@@ -4,6 +4,7 @@ import importlib.util
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -14,11 +15,10 @@ TOOL_PATH = ROOT / "scripts" / "dev" / "docs_tool.py"
 
 
 def load_docs_tool(repo_root: Path):
-    spec = importlib.util.spec_from_file_location("docs_tool_under_test", TOOL_PATH)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    module.ROOT = repo_root
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    module = importlib.import_module("scripts.dev.docs_governance")
+    module.constants.ROOT = repo_root
     return module
 
 
@@ -254,6 +254,28 @@ def test_check_reports_registry_problems_and_accepts_valid_registry(tmp_path: Pa
     assert any("unique_source_risk=true cannot use proposed_action=delete" in problem for problem in problems)
 
 
+def test_check_worktree_mode_detects_unstaged_added_and_deleted_docs(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    inventory = docs_tool.build_inventory("HEAD")
+    registry = valid_registry(repo, inventory)
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    write(repo / "docs" / "未暂存新增.md", "# 未暂存新增\n")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+    worktree_add_problems = docs_tool.check_registry(str(registry_path.relative_to(repo)), worktree=True)
+    assert any("docs/未暂存新增.md: worktree docs file is not covered by docs registry" in problem for problem in worktree_add_problems)
+
+    (repo / "docs" / "generated.md").unlink()
+
+    worktree_delete_problems = docs_tool.check_registry(str(registry_path.relative_to(repo)), worktree=True)
+    assert any("docs/generated.md: registry path is not a worktree docs file" in problem for problem in worktree_delete_problems)
+    assert docs_tool.main(["check", "--registry", str(registry_path.relative_to(repo)), "--worktree"]) == 1
+
+
 def test_check_requires_generated_view_generator_or_human_confirmation(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
@@ -402,7 +424,7 @@ def test_check_validates_project_driver_paths(tmp_path: Path) -> None:
     )
 
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    assert "## 项目驱动文档" in report
+    assert "## 2. 项目驱动文档" in report
     assert "docs/driver.md" in report
 
 
@@ -469,7 +491,7 @@ def test_check_validates_retired_generated_document_paths(tmp_path: Path) -> Non
 
     assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    assert "## 8. 已迁出 docs 的生成文档" in report
+    assert "## 已迁出 docs 的生成文档摘要" in report
     assert "retired generated docs" in report
     assert retired_old not in report
     assert retired_target not in report
@@ -514,7 +536,7 @@ def test_check_validates_retired_mixed_document_paths(tmp_path: Path) -> None:
 
     assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    assert "## 9. 已迁出 docs 的混合审核文档" in report
+    assert "## 已迁出 docs 的混合审核文档摘要" in report
     assert "retired mixed docs" in report
     assert mixed_old not in report
     assert mixed_target not in report
@@ -539,7 +561,7 @@ def test_check_validates_retired_mixed_document_paths(tmp_path: Path) -> None:
     assert any("retired mixed old path must be under docs/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/../README.md", mixed_target)))
 
 
-def test_batch1_prefers_current_export_only_todo_over_retired_history(tmp_path: Path) -> None:
+def test_report_summary_prefers_current_export_only_todo_over_retired_history(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
     docs_tool = load_docs_tool(repo)
@@ -564,7 +586,7 @@ def test_batch1_prefers_current_export_only_todo_over_retired_history(tmp_path: 
             "content_role": "generated_output",
             "placement_action": "move_to_exports",
             "placement_targets": ["exports/markdown_views/generated_later.md"],
-            "placement_reason": "临时仓库新增待迁出生成视图，测试 Batch 1 仍应显示待办。",
+            "placement_reason": "临时仓库新增待迁出生成视图，测试当前候选摘要仍应显示待办。",
             "semantic_verification_required": False,
             "generator_candidates": ["scripts/make_docs.py"],
             "unique_source_risk": False,
@@ -576,13 +598,14 @@ def test_batch1_prefers_current_export_only_todo_over_retired_history(tmp_path: 
 
     assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    batch1 = report.split("Batch 1：generated docs -> export-only", 1)[1].split("Batch 2：混合审核文档拆分", 1)[0]
-    assert "docs/generated_later.md" in batch1
-    assert "仍有待迁出生成文档。" in batch1
-    assert "已完成" not in batch1
+    summary = report.split("## 当前候选摘要", 1)[1].split("## 9. 范围声明", 1)[0]
+    assert "当前待迁出 exports" in summary
+    assert "docs/generated_later.md" in summary
+    assert "已完成" not in summary
+    assert "Batch 1" not in report
 
 
-def test_batch2_prefers_current_split_todo_over_retired_history(tmp_path: Path) -> None:
+def test_report_summary_prefers_current_split_todo_over_retired_history(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
     docs_tool = load_docs_tool(repo)
@@ -607,7 +630,7 @@ def test_batch2_prefers_current_split_todo_over_retired_history(tmp_path: Path) 
             "content_role": "mixed",
             "placement_action": "split_keep_rules_generate_state",
             "placement_targets": ["exports/markdown_views/mixed_later.md"],
-            "placement_reason": "临时仓库新增待拆 mixed 文档，测试 Batch 2 仍应显示待办。",
+            "placement_reason": "临时仓库新增待拆 mixed 文档，测试当前候选摘要仍应显示待办。",
             "semantic_verification_required": False,
             "unique_source_risk": True,
         }
@@ -618,13 +641,14 @@ def test_batch2_prefers_current_split_todo_over_retired_history(tmp_path: Path) 
 
     assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    batch2 = report.split("Batch 2：混合审核文档拆分", 1)[1].split("Batch 3：人物回源说明", 1)[0]
-    assert "docs/mixed_later.md" in batch2
-    assert "仍有待拆分 mixed 文档。" in batch2
-    assert "已完成" not in batch2
+    summary = report.split("## 当前候选摘要", 1)[1].split("## 9. 范围声明", 1)[0]
+    assert "当前待拆分 mixed 文档" in summary
+    assert "docs/mixed_later.md" in summary
+    assert "已完成" not in summary
+    assert "Batch 2" not in report
 
 
-def test_batch6_reports_completed_when_no_needs_human_docs(tmp_path: Path) -> None:
+def test_report_summary_has_no_historical_completion_when_no_needs_human_docs(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
     docs_tool = load_docs_tool(repo)
@@ -634,12 +658,13 @@ def test_batch6_reports_completed_when_no_needs_human_docs(tmp_path: Path) -> No
     commit_all(repo, "registry")
 
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    batch6 = report.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：规则方法层归置核对", 1)[0]
+    summary = report.split("## 当前候选摘要", 1)[1].split("## 9. 范围声明", 1)[0]
 
-    assert "（0 份）" in batch6
-    assert "| - | - | high | no | no | no |" in batch6
-    assert "已完成：历史治理材料已归档，不再等待逐份确认。" in batch6
-    assert "仅用户确认后三份历史治理材料才执行。" not in batch6
+    assert "当前待迁出 exports" in summary
+    assert "docs/generated.md" in summary
+    assert "Batch 6" not in report
+    assert "已完成：历史治理材料已归档，不再等待逐份确认。" not in report
+    assert "仅用户确认后三份历史治理材料才执行。" not in report
 
 
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
@@ -687,26 +712,30 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "其中当前 `docs/` 层" in report
     assert "### 内容角色统计" in report
     assert "### 推荐归置动作统计" in report
-    assert "## 7. 仅保留 exports 候选" in report
-    assert "## 8. 已迁出 docs 的生成文档" in report
-    assert "## 9. 已迁出 docs 的混合审核文档" in report
-    assert "## 12. 内容归置待确认项" in report
-    assert "## 13. 生命周期 archive candidates" in report
-    assert "## 14. 生命周期 delete candidates" in report
-    assert "## 15. 生命周期 review / needs human confirmation" in report
-    assert "## 16. 历史归档摘要" in report
-    assert "## 21. 后续执行批次" in report
-    canonical_section = report.split("## 6. 事实源吸收并生成视图候选", 1)[1].split("## 7. 仅保留 exports 候选", 1)[0]
-    mixed_section = report.split("## 10. 需要拆分的混合文档", 1)[1].split("## 11. 吸收后归档候选", 1)[0]
-    lifecycle_review_section = report.split("## 15. 生命周期 review / needs human confirmation", 1)[1].split("## 16. 历史归档摘要", 1)[0]
+    assert "## 当前仅保留 exports 候选" in report
+    assert "## 已迁出 docs 的生成文档摘要" in report
+    assert "## 已迁出 docs 的混合审核文档摘要" in report
+    assert "## 当前内容归置待确认项" in report
+    assert "## 当前生命周期 archive candidates" in report
+    assert "## 当前生命周期 delete candidates" in report
+    assert "## 当前生命周期 review / needs human confirmation" in report
+    assert "## 历史归档摘要" in report
+    assert "## 当前候选摘要" in report
+    canonical_section = report.split("## 6. 事实源对账待办", 1)[1].split("## 当前仅保留 exports 候选", 1)[0]
+    mixed_section = report.split("## 当前待拆分的混合文档", 1)[1].split("## 当前吸收后归档候选", 1)[0]
+    lifecycle_review_section = report.split("## 当前生命周期 review / needs human confirmation", 1)[1].split("## 历史归档摘要", 1)[0]
+    candidate_summary = report.split("## 当前候选摘要", 1)[1].split("## 9. 范围声明", 1)[0]
     assert "docs/dup-a.md" in canonical_section
     assert "docs/中文说明.md" not in canonical_section
     assert "docs/中文说明.md" in mixed_section
     assert "historical archive documents" in report
     assert "docs/old-audit.md" not in report
     assert review_path in lifecycle_review_section
-    assert "Batch 6：needs-human-confirmation 历史材料" in report
-    assert "Batch 7：规则方法层归置核对" in report
+    assert "当前事实源对账待办" in candidate_summary
+    assert "当前待拆分 mixed 文档" in candidate_summary
+    assert "当前 lifecycle review / needs human confirmation" in candidate_summary
+    assert "Batch 6：needs-human-confirmation 历史材料" not in report
+    assert "Batch 7：规则方法层归置核对" not in report
     assert "本报告对应 PR #206" not in report
     assert "推荐 #207" not in report
     assert not re.search(r"PR #\d+", report)
