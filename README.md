@@ -24,7 +24,7 @@
 
 ## 文件治理当前口径
 
-当前继续采用 `data/*.jsonl` 事实源、SQLite 生成库、Markdown 审阅视图的三层结构；`docs/文档治理盘点报告.md` 作为当前 docs 治理入口，历史治理诊断材料仅保留在 `docs/archive/audits/项目文件治理诊断报告.md` 追溯，不作为当前事实源。
+当前继续采用 `data/*.jsonl` 事实源、SQLite 生成库、Markdown 审阅视图的三层结构；`exports/governance/文档治理盘点报告.md` 作为按需生成的 docs 治理报告入口，历史治理诊断材料仅保留在 `docs/archive/audits/项目文件治理诊断报告.md` 追溯，不作为当前事实源。
 
 当前不引入外部数据库、缓存或中间件。后续 P1 优先处理 `scripts/export/export_md.py` 拆分和指定导出机制，但这类拆分应另开专门 Issue。
 

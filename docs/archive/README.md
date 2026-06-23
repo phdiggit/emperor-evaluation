@@ -6,6 +6,8 @@
 
 `docs/archive/audits/` 保存日期化审计、阶段复核和归档说明。
 
+`docs/archive/design_snapshots/` 保存日期化设计快照，仅用于追溯设计背景；这些文件不是当前规则、事实源、评分、证据或试点状态入口。
+
 ## 本批历史审计归档
 
 - [Canonical Data Integrity Validation Note 20260620](audits/canonical_data_integrity_validation_note_20260620.md)
@@ -33,3 +35,12 @@
 - [多余文件候选确认报告](docs_governance/多余文件候选确认报告.md)
 - [多余文件第三批敏感候选复核](docs_governance/多余文件第三批敏感候选复核.md)
 - [多余文件第二批最终引用复核](docs_governance/多余文件第二批最终引用复核.md)
+
+## 本批历史设计快照归档
+
+- [第五项B证据簇提示规则展示集成设计审计](design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md)
+- [第五项B证据簇裁判配置层设计审计](design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md)
+- [第五项B display-only warning 导出受控接入设计审计](design_snapshots/i5b_warning_export_guarded_integration_design_20260621.md)
+- [Manual Review Config Layer Design 2026-06-20](design_snapshots/manual_review_config_layer_design_20260620.md)
+- [Thematic Anchor Multigranularity Schema Plan 20260620](design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md)
+- [Thematic Anchor Schema Decision 20260620](design_snapshots/thematic_anchor_schema_decision_20260620.md)
