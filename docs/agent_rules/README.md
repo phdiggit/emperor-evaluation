@@ -23,7 +23,7 @@
 | docs 当前生命周期、引用和候选动作 | `docs/agent_rules/docs_registry.json` |
 | 可机器验证 | `repo_tool`、`docs_tool` 或测试 |
 | 当前任务临时要求 | Issue / PR 任务卡 |
-| 历史背景或设计解释 | `docs/` 下专题文档 |
+| 历史背景或设计解释 | `archive/docs/` 归档材料；当前规则方法仍留在 `docs/` |
 
 ## 维护原则
 
@@ -36,7 +36,7 @@
 - driver 的业务语义高于下位 docs，但不高于用户、Issue / PR 任务约束和 AGENTS 执行安全规则。
 - 生命周期回答“这份文档当前如何治理”；内容归置回答“文档主体内容长期应由 docs、配置、canonical data、exports 还是 archive 承载”。两者是正交维度，不应互相替代。
 - `content_role` 描述文档主体内容角色；`placement_action` 描述推荐目标态动作；`placement_targets` 记录后续吸收、生成、拆分或归档的精确候选路径。
-- `archived_document_paths` 是旧路径到历史归档路径的审计映射，表示旧路径已退役；不表示旧路径继续存在或可作为当前入口。
+- `archived_document_paths` 是旧 `docs/` 路径到 `archive/docs/` 历史归档路径的审计映射，表示旧路径已退役；不表示旧路径继续存在或可作为当前入口。
 - `retired_generated_document_paths` 是旧 `docs/` 生成副本到 canonical `exports/` 路径的审计映射，表示旧 docs 路径已退役且不再是当前入口。
 - `retired_mixed_document_paths` 是旧 `docs/` mixed 审核文档到 canonical `exports/` 或归档路径的审计映射，表示稳定规则已吸收、当前状态改由可重建视图承载。
 - archive 状态属于 docs registry 的动态事实；根 `AGENTS.md` 不记录逐文件归档状态。

@@ -344,7 +344,7 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
         for p in problems_for(lambda r: r["documents"][0].__setitem__("semantic_verification_required", 1))
     )
     assert any(
-        "keep_archive_exception is only allowed under docs/archive/" in p
+        "keep_archive_exception is only allowed under archive/docs/" in p
         for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_archive_exception"))
     )
     assert any(
@@ -409,12 +409,12 @@ def test_check_validates_project_driver_paths(tmp_path: Path) -> None:
 def test_check_validates_archived_document_paths(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
-    (repo / "docs" / "archive" / "audits").mkdir(parents=True)
-    run_git(repo, "mv", "docs/dated_20260620.md", "docs/archive/audits/dated_20260620.md")
+    (repo / "archive" / "docs" / "audits").mkdir(parents=True)
+    run_git(repo, "mv", "docs/dated_20260620.md", "archive/docs/audits/dated_20260620.md")
     commit_all(repo, "archive dated doc")
     docs_tool = load_docs_tool(repo)
     registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
-    archived_path = "docs/archive/audits/dated_20260620.md"
+    archived_path = "archive/docs/audits/dated_20260620.md"
     for doc in registry["documents"]:
         if doc["path"] == archived_path:
             doc["document_type"] = "audit_record"
@@ -439,8 +439,8 @@ def test_check_validates_archived_document_paths(tmp_path: Path) -> None:
     assert any("archived_document_paths must be an object" in p for p in problems_for(lambda r: r.__setitem__("archived_document_paths", [])))
     assert any("archived old path still exists" in p for p in problems_for(lambda r: (repo / "docs" / "dated_20260620.md").write_text("# old\n", encoding="utf-8")))
     (repo / "docs" / "dated_20260620.md").unlink()
-    assert any("archived path does not exist" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/dated_20260620.md", "docs/archive/audits/missing.md")))
-    assert any("archived path must be under docs/archive/" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/dated_20260620.md", "docs/other.md")))
+    assert any("archived path does not exist" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/dated_20260620.md", "archive/docs/audits/missing.md")))
+    assert any("archived path must be under archive/docs/" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/dated_20260620.md", "docs/other.md")))
     assert any("archived old path is still registered" in p for p in problems_for(lambda r: r["documents"].append({**r["documents"][0], "path": "docs/dated_20260620.md"})))
     assert any("archived path is not registered" in p for p in problems_for(lambda r: r.__setitem__("documents", [d for d in r["documents"] if d["path"] != archived_path])))
     assert any("lifecycle_status=historical" in p for p in problems_for(lambda r: next(d for d in r["documents"] if d["path"] == archived_path).__setitem__("lifecycle_status", "active")))
@@ -470,9 +470,9 @@ def test_check_validates_retired_generated_document_paths(tmp_path: Path) -> Non
     assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
     assert "## 8. 已迁出 docs 的生成文档" in report
-    assert retired_old in report
-    assert retired_target in report
-    assert "旧 docs 路径已退役" in report
+    assert "retired generated docs" in report
+    assert retired_old not in report
+    assert retired_target not in report
 
     def problems_for(mutator) -> list[str]:
         broken = json.loads(json.dumps(registry, ensure_ascii=False))
@@ -487,7 +487,7 @@ def test_check_validates_retired_generated_document_paths(tmp_path: Path) -> Non
     assert any("retired generated target must be under exports/" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__(retired_old, "docs/generated.md")))
     assert any("retired generated target does not exist" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__(retired_old, "exports/markdown_views/missing.md")))
     assert any("project driver cannot be a retired generated old path" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/driver.md", retired_target)))
-    assert any("conflicts with archived_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("archived_document_paths", {retired_old: "docs/archive/audits/generated.md"}), r["retired_generated_document_paths"].__setitem__(retired_old, retired_target))))
+    assert any("conflicts with archived_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("archived_document_paths", {retired_old: "archive/docs/audits/generated.md"}), r["retired_generated_document_paths"].__setitem__(retired_old, retired_target))))
     assert any("retired generated target is mapped from multiple old paths" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/second.md", retired_target)))
 
 
@@ -515,9 +515,9 @@ def test_check_validates_retired_mixed_document_paths(tmp_path: Path) -> None:
     assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
     assert "## 9. 已迁出 docs 的混合审核文档" in report
-    assert mixed_old in report
-    assert mixed_target in report
-    assert "旧 mixed docs 路径已退役" in report
+    assert "retired mixed docs" in report
+    assert mixed_old not in report
+    assert mixed_target not in report
 
     def problems_for(mutator) -> list[str]:
         broken = json.loads(json.dumps(registry, ensure_ascii=False))
@@ -529,13 +529,13 @@ def test_check_validates_retired_mixed_document_paths(tmp_path: Path) -> None:
     assert any("retired mixed old path still exists" in p for p in problems_for(lambda r: (repo / mixed_old).write_text("# old\n", encoding="utf-8")))
     (repo / mixed_old).unlink()
     assert any("retired mixed old path is still registered" in p for p in problems_for(lambda r: r["documents"].append({**r["documents"][0], "path": mixed_old})))
-    assert any("retired mixed target must be under exports/ or docs/archive/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "data/generated.md")))
+    assert any("retired mixed target must be under exports/ or archive/docs/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "data/generated.md")))
     assert any("retired mixed target does not exist" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "exports/markdown_views/missing.md")))
     assert any("project driver cannot be a retired mixed old path" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/driver.md", mixed_target)))
-    assert any("conflicts with archived_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("archived_document_paths", {mixed_old: "docs/archive/audits/中文说明.md"}), r["retired_mixed_document_paths"].__setitem__(mixed_old, mixed_target))))
+    assert any("conflicts with archived_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("archived_document_paths", {mixed_old: "archive/docs/audits/中文说明.md"}), r["retired_mixed_document_paths"].__setitem__(mixed_old, mixed_target))))
     assert any("conflicts with retired_generated_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("retired_generated_document_paths", {mixed_old: mixed_target}), r["retired_mixed_document_paths"].__setitem__(mixed_old, mixed_target))))
     assert any("retired mixed target is mapped from multiple old paths" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/second.md", mixed_target)))
-    assert any("retired mixed target must be under exports/ or docs/archive/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "exports/../data/existing.md")))
+    assert any("retired mixed target must be under exports/ or archive/docs/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__(mixed_old, "exports/../data/existing.md")))
     assert any("retired mixed old path must be under docs/" in p for p in problems_for(lambda r: r["retired_mixed_document_paths"].__setitem__("docs/../README.md", mixed_target)))
 
 
@@ -645,7 +645,7 @@ def test_batch6_reports_completed_when_no_needs_human_docs(tmp_path: Path) -> No
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
-    archived_path = "docs/archive/audits/old-audit.md"
+    archived_path = "archive/docs/audits/old-audit.md"
     write(repo / archived_path, "# Old Audit\n")
     commit_all(repo, "add archived doc")
     docs_tool = load_docs_tool(repo)
@@ -692,15 +692,16 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "## 13. 生命周期 archive candidates" in report
     assert "## 14. 生命周期 delete candidates" in report
     assert "## 15. 生命周期 review / needs human confirmation" in report
-    assert "## 16. 已归档文档" in report
+    assert "## 16. 历史归档摘要" in report
     assert "## 21. 后续执行批次" in report
     canonical_section = report.split("## 6. 事实源吸收并生成视图候选", 1)[1].split("## 7. 仅保留 exports 候选", 1)[0]
     mixed_section = report.split("## 10. 需要拆分的混合文档", 1)[1].split("## 11. 吸收后归档候选", 1)[0]
-    lifecycle_review_section = report.split("## 15. 生命周期 review / needs human confirmation", 1)[1].split("## 16. 已归档文档", 1)[0]
+    lifecycle_review_section = report.split("## 15. 生命周期 review / needs human confirmation", 1)[1].split("## 16. 历史归档摘要", 1)[0]
     assert "docs/dup-a.md" in canonical_section
     assert "docs/中文说明.md" not in canonical_section
     assert "docs/中文说明.md" in mixed_section
-    assert "docs/old-audit.md" in report
+    assert "historical archive documents" in report
+    assert "docs/old-audit.md" not in report
     assert review_path in lifecycle_review_section
     assert "Batch 6：needs-human-confirmation 历史材料" in report
     assert "Batch 7：规则方法层归置核对" in report

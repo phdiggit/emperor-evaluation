@@ -79,7 +79,9 @@ KEEP_OR_REVIEW_PLACEMENT_ACTIONS = {
     "keep_archive_exception",
     "review",
 }
-PLACEMENT_TARGET_ROOTS = ("data/", "docs/", "exports/", "scripts/", "tests/")
+ARCHIVE_DOCS_ROOT = "archive/docs/"
+DOCS_ARCHIVE_OLD_ROOT = "docs/" + "archive/"
+PLACEMENT_TARGET_ROOTS = ("archive/docs/", "data/", "docs/", "exports/", "scripts/", "tests/")
 PLACEMENT_TARGET_EXACT_PATHS = {"README.md", "AGENTS.md"}
 DATE_SUFFIX_RE = re.compile(r"(?:^|[_-])((?:19|20)\d{2}[-_]?\d{2}[-_]?\d{2}|(?:19|20)\d{6})(?:$|[_-])")
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
@@ -214,7 +216,8 @@ def _date_suffix(path: str) -> str | None:
 
 
 def _tracked_docs(ref: str) -> list[str]:
-    return sorted(path for path in git_lines("ls-tree", "-r", "--name-only", ref, "--", "docs") if path.startswith("docs/"))
+    paths = git_lines("ls-tree", "-r", "--name-only", ref, "--", "docs", ARCHIVE_DOCS_ROOT)
+    return sorted(path for path in paths if path.startswith(("docs/", ARCHIVE_DOCS_ROOT)))
 
 
 def _tracked_reference_files(ref: str) -> list[str]:
@@ -429,6 +432,10 @@ def _tracked_current_docs() -> list[str]:
     return sorted(path for path in git_lines("ls-files", "docs") if path.startswith("docs/"))
 
 
+def _tracked_archive_docs() -> list[str]:
+    return sorted(path for path in git_lines("ls-files", ARCHIVE_DOCS_ROOT) if path.startswith(ARCHIVE_DOCS_ROOT))
+
+
 def _path_exists(path: str) -> bool:
     return _resolve_repo_path(path).exists()
 
@@ -563,8 +570,8 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
                 )
         if content_role == "instance_record" and lifecycle_status == "delete_candidate":
             problems.append(f"{path}: content_role=instance_record cannot use lifecycle_status=delete_candidate")
-        if placement_action == "keep_archive_exception" and not path.startswith("docs/archive/"):
-            problems.append(f"{path}: placement_action=keep_archive_exception is only allowed under docs/archive/")
+        if placement_action == "keep_archive_exception" and not path.startswith(ARCHIVE_DOCS_ROOT):
+            problems.append(f"{path}: placement_action=keep_archive_exception is only allowed under {ARCHIVE_DOCS_ROOT}")
         if placement_action == "keep_governance_exception" and not path.startswith("docs/agent_rules/"):
             allowed_governance_paths = set(registry.get("governance_exception_paths", []))
             if path not in allowed_governance_paths:
@@ -645,7 +652,10 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
             if marker not in text:
                 problems.append(f"{driver_path}: project driver document missing marker: {marker}")
 
-    expected_docs = set(_tracked_current_docs()) - {normalize_repo_path(registry_path)}
+    expected_docs = (
+        set(_tracked_current_docs())
+        | set(_tracked_archive_docs())
+    ) - {normalize_repo_path(registry_path)}
     actual_docs = set(by_path)
     for missing in sorted(expected_docs - actual_docs):
         problems.append(f"{missing}: tracked docs file is not covered by docs registry")
@@ -675,10 +685,10 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
             new_to_old[new_path].append(old_path)
             if not _uses_forward_slashes(old_path) or not _uses_forward_slashes(new_path):
                 problems.append(f"{old_path}: archived_document_paths must use forward slashes")
-            if not old_path.startswith("docs/") or old_path.startswith("docs/archive/") or "/../" in old_path:
-                problems.append(f"{old_path}: archived old path must be a retired docs path outside docs/archive/")
-            if not new_path.startswith("docs/archive/"):
-                problems.append(f"{old_path}: archived path must be under docs/archive/: {new_path}")
+            if not old_path.startswith("docs/") or old_path.startswith(DOCS_ARCHIVE_OLD_ROOT) or "/../" in old_path:
+                problems.append(f"{old_path}: archived old path must be a retired docs path outside {DOCS_ARCHIVE_OLD_ROOT}")
+            if not new_path.startswith(ARCHIVE_DOCS_ROOT):
+                problems.append(f"{old_path}: archived path must be under {ARCHIVE_DOCS_ROOT}: {new_path}")
             if _path_exists(old_path):
                 problems.append(f"{old_path}: archived old path still exists")
             if not _path_exists(new_path):
@@ -712,9 +722,9 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
             if (
                 not _valid_repo_target_path(old_path)
                 or not old_path.startswith("docs/")
-                or old_path.startswith("docs/archive/")
+                or old_path.startswith(DOCS_ARCHIVE_OLD_ROOT)
             ):
-                problems.append(f"{old_path}: retired generated old path must be under docs/ outside docs/archive/")
+                problems.append(f"{old_path}: retired generated old path must be under docs/ outside {DOCS_ARCHIVE_OLD_ROOT}")
                 continue
             if not _valid_repo_target_path(target_path) or not target_path.startswith("exports/"):
                 problems.append(f"{old_path}: retired generated target must be under exports/: {target_path}")
@@ -749,15 +759,15 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
             if (
                 not _valid_repo_target_path(old_path)
                 or not old_path.startswith("docs/")
-                or old_path.startswith("docs/archive/")
+                or old_path.startswith(DOCS_ARCHIVE_OLD_ROOT)
             ):
-                problems.append(f"{old_path}: retired mixed old path must be under docs/ outside docs/archive/")
+                problems.append(f"{old_path}: retired mixed old path must be under docs/ outside {DOCS_ARCHIVE_OLD_ROOT}")
                 continue
             if (
                 not _valid_repo_target_path(target_path)
-                or not (target_path.startswith("exports/") or target_path.startswith("docs/archive/"))
+                or not (target_path.startswith("exports/") or target_path.startswith(ARCHIVE_DOCS_ROOT))
             ):
-                problems.append(f"{old_path}: retired mixed target must be under exports/ or docs/archive/: {target_path}")
+                problems.append(f"{old_path}: retired mixed target must be under exports/ or {ARCHIVE_DOCS_ROOT}: {target_path}")
                 continue
             target_to_old[target_path].append(old_path)
             if _path_exists(old_path):
@@ -796,11 +806,13 @@ def _table(rows: list[list[str]]) -> list[str]:
 def build_report(registry_path: str = REGISTRY_PATH) -> str:
     registry = _load_json_file(registry_path)
     documents = sorted(registry.get("documents", []), key=lambda item: item["path"])
-    type_counts = _count_by(documents, "document_type")
-    status_counts = _count_by(documents, "lifecycle_status")
-    action_counts = _count_by(documents, "proposed_action")
-    content_role_counts = _count_by(documents, "content_role")
-    placement_action_counts = _count_by(documents, "placement_action")
+    current_docs = [doc for doc in documents if str(doc["path"]).startswith("docs/")]
+    archive_registry_docs = [doc for doc in documents if str(doc["path"]).startswith(ARCHIVE_DOCS_ROOT)]
+    type_counts = _count_by(current_docs, "document_type")
+    status_counts = _count_by(current_docs, "lifecycle_status")
+    action_counts = _count_by(current_docs, "proposed_action")
+    content_role_counts = _count_by(current_docs, "content_role")
+    placement_action_counts = _count_by(current_docs, "placement_action")
     exact_groups = defaultdict(list)
     normalized_groups = defaultdict(list)
     for doc in documents:
@@ -889,7 +901,11 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     def placement_docs(*placements: str) -> list[dict[str, Any]]:
         return [doc for doc in documents if doc.get("placement_action") in set(placements)]
 
-    stable_docs = placement_docs("keep_in_docs", "keep_governance_exception", "keep_archive_exception")
+    stable_docs = [
+        doc
+        for doc in placement_docs("keep_in_docs", "keep_governance_exception")
+        if doc["path"].startswith("docs/")
+    ]
     config_absorption_docs = unique_docs(
         docs_for(placement="absorb_into_config")
         + [doc for doc in docs_for(placement="archive_after_absorption") if any("data/configs/" in target for target in doc.get("placement_targets", []))]
@@ -912,52 +928,55 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     placement_problems = check_registry(registry_path)
 
     def retired_generated_rows() -> list[list[str]]:
-        rows = [["old docs path", "canonical export path", "export exists", "migration meaning"]]
-        for old_path, target_path in sorted(retired_generated_map.items()):
-            exists = "yes" if _resolve_repo_path(target_path).is_file() else "no"
-            rows.append(
-                [
-                    old_path,
-                    target_path,
-                    exists,
-                    "旧 docs 路径已退役，不再是当前入口。",
-                ]
-            )
-        return rows
+        existing_targets = sum(1 for target_path in retired_generated_map.values() if _resolve_repo_path(target_path).is_file())
+        return [
+            ["metric", "value"],
+            ["retired generated docs", str(len(retired_generated_map))],
+            ["existing canonical exports", str(existing_targets)],
+            ["detail source", "docs/agent_rules/docs_registry.json retired_generated_document_paths"],
+        ]
 
     def retired_mixed_rows() -> list[list[str]]:
-        rows = [["old docs path", "canonical export path", "export exists", "migration meaning"]]
-        for old_path, target_path in sorted(retired_mixed_map.items()):
-            exists = "yes" if _resolve_repo_path(target_path).is_file() else "no"
-            rows.append(
-                [
-                    old_path,
-                    target_path,
-                    exists,
-                    "旧 mixed docs 路径已退役；稳定规则保留在长期 docs，当前状态由 canonical export 重建。",
-                ]
-            )
-        return rows
+        existing_targets = sum(1 for target_path in retired_mixed_map.values() if _resolve_repo_path(target_path).is_file())
+        return [
+            ["metric", "value"],
+            ["retired mixed docs", str(len(retired_mixed_map))],
+            ["existing canonical targets", str(existing_targets)],
+            ["detail source", "docs/agent_rules/docs_registry.json retired_mixed_document_paths"],
+        ]
+
+    def archived_summary_rows() -> list[list[str]]:
+        return [
+            ["metric", "value"],
+            ["historical archive documents", str(len(archive_registry_docs))],
+            ["archived old docs mappings", str(len(archived_map))],
+            ["archive root", ARCHIVE_DOCS_ROOT],
+            ["detail source", "docs/agent_rules/docs_registry.json archived_document_paths and documents"],
+        ]
+
+    def unique_source_summary_rows() -> list[list[str]]:
+        current_unique_docs = [
+            doc
+            for doc in current_docs
+            if doc.get("unique_source_risk") and doc["path"] not in candidate_paths
+        ]
+        return [
+            ["metric", "value"],
+            ["current docs unique source risk", str(len(current_unique_docs))],
+            ["detail source", "docs/agent_rules/docs_registry.json documents"],
+        ]
 
     def batch_rows() -> list[list[str]]:
         rows = [["batch", "candidate files", "primary targets", "risk", "touches data", "touches business generator", "human confirmation", "PR guidance"]]
         def touches_data(items: list[dict[str, Any]]) -> str:
             return "yes" if any(str(target).startswith("data/") for doc in items for target in doc.get("placement_targets", [])) else "no"
 
-        retired_mapping_docs = [
-            {"path": old_path, "placement_targets": [target_path]}
-            for old_path, target_path in sorted(retired_generated_map.items())
-        ]
-        retired_mixed_docs = [
-            {"path": old_path, "placement_targets": [target_path]}
-            for old_path, target_path in sorted(retired_mixed_map.items())
-        ]
         if export_only_docs:
             batch1_docs = export_only_docs
             batch1_guidance = "仍有待迁出生成文档。"
-        elif retired_mapping_docs:
-            batch1_docs = retired_mapping_docs
-            batch1_guidance = "已完成：旧 docs 路径已退役。"
+        elif retired_generated_map:
+            batch1_docs = []
+            batch1_guidance = f"已完成：{len(retired_generated_map)} 份旧 docs 生成副本已退役，明细见 registry。"
         else:
             batch1_docs = []
             batch1_guidance = "当前无候选。"
@@ -965,9 +984,9 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         if split_docs:
             batch2_docs = split_docs
             batch2_guidance = "仍有待拆分 mixed 文档。"
-        elif retired_mixed_docs:
-            batch2_docs = retired_mixed_docs
-            batch2_guidance = "已完成：旧 mixed docs 路径已退役，当前状态由 canonical export 重建。"
+        elif retired_mixed_map:
+            batch2_docs = []
+            batch2_guidance = f"已完成：{len(retired_mixed_map)} 份旧 mixed docs 路径已退役，当前状态由 canonical export 重建。"
         else:
             batch2_docs = []
             batch2_guidance = "当前无候选。"
@@ -1086,7 +1105,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         f"- 基线 ref：`{registry.get('baseline_ref')}`。",
         f"- 基线 commit：`{registry.get('baseline_sha')}`。",
-        f"- docs registry 覆盖文档数：{len(documents)}。",
+        f"- docs registry 覆盖文档数：{len(documents)}，其中当前 `docs/` 层 {len(current_docs)} 份，历史归档区 {len(archive_registry_docs)} 份。",
         "- 候选动作和已归档映射均以 registry 当前状态为准；归档不是删除，吸收候选也不表示已经迁移。",
         "- 本报告只登记内容归置建议，不改变 data、exports、数据库、评分、证据或裁判语义。",
         "",
@@ -1094,7 +1113,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table(driver_rows(project_driver_docs)),
         "",
-        "## 2. docs 总体统计",
+        "## 2. 当前 docs 层统计",
         "",
         "### document type",
         "",
@@ -1118,9 +1137,9 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         "## 3. 分类口径",
         "",
-        "- `canonical_spec`、`operational_guide` 和仍被 README、AGENTS、scripts、tests 引用的当前设计默认保留。",
+        "- `canonical_spec`、`operational_guide` 和仍被 README、AGENTS、scripts、tests 引用的当前规则、方法论或运行说明默认保留。",
         "- `generated_view` 只登记 generator 候选；不能用手改文档替代修改生成器。",
-        "- 审计、迁移和日期快照先进入 historical 或 archive candidate；无引用不等于无价值。",
+        "- 历史审计、迁移和日期快照保留在 `archive/docs/`，作为追溯材料，不是当前 docs 规则入口。",
         "- `delete_candidate` 仅表示后续低风险删除审查对象，仍必须人工确认。",
         "- 内容归置与生命周期是正交维度；`keep` 可以同时登记后续吸收、拆分或归档建议。",
         "",
@@ -1172,25 +1191,9 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table(candidate_rows(review_docs)),
         "",
-        "## 16. 已归档文档",
+        "## 16. 历史归档摘要",
         "",
-        *_table(
-            [
-                ["old path", "archived path", "type", "lifecycle status", "reason"],
-                *[
-                    [
-                        old_path,
-                        doc["path"],
-                        doc["document_type"],
-                        doc["lifecycle_status"],
-                        doc["reason"],
-                    ]
-                    for old_path, new_path in sorted(archived_map.items())
-                    for doc in documents
-                    if doc["path"] == new_path
-                ],
-            ]
-        ),
+        *_table(archived_summary_rows()),
         "",
         "## 17. 重复组",
         "",
@@ -1217,9 +1220,9 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
                 else [f"- {problem}" for problem in placement_problems]
             ),
             "",
-            "## 20. unique source 风险",
+            "## 20. unique source 风险摘要",
             "",
-            *_table([["path", "action", "reason"], *[[doc["path"], doc["proposed_action"], doc["reason"]] for doc in documents if doc.get("unique_source_risk") and doc["path"] not in candidate_paths]]),
+            *_table(unique_source_summary_rows()),
             "",
             "## 21. 后续执行批次",
             "",

@@ -14,35 +14,36 @@ DOCS_REGISTRY = ROOT / "docs" / "agent_rules" / "docs_registry.json"
 DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "exports" / "governance" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
+LEGACY_DOCS_ARCHIVE_ROOT = "docs/" + "archive/"
 ARCHIVE_MAP = {
-    "docs/batch_canonical_absorption_audit_20260620.md": "docs/archive/audits/batch_canonical_absorption_audit_20260620.md",
-    "docs/canonical_data_integrity_validation_note_20260620.md": "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
-    "docs/config_granularity_redesign_20260620.md": "docs/archive/audits/config_granularity_redesign_20260620.md",
-    "docs/config_loaders迁移前依赖审计.md": "docs/archive/audits/config_loaders迁移前依赖审计.md",
-    "docs/file_governance_final_audit_20260620.md": "docs/archive/audits/file_governance_final_audit_20260620.md",
-    "docs/hardcoded_content_configuration_inventory_20260620.md": "docs/archive/audits/hardcoded_content_configuration_inventory_20260620.md",
-    "docs/i5b_markdown_display迁移前依赖审计.md": "docs/archive/audits/i5b_markdown_display迁移前依赖审计.md",
-    "docs/i5b_formal_result_leavebehind_archive_note_20260620.md": "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
-    "docs/i5b_formal_result_leavebehind_review_20260620.md": "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
-    "docs/liubang_pregrade_checklist_archive_note_20260620.md": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-    "docs/post_file_governance_consistency_audit_20260620.md": "docs/archive/audits/post_file_governance_consistency_audit_20260620.md",
-    "docs/query_search_batch_canonical_import_note_20260620.md": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md",
-    "docs/scripts共享工具依赖盘点.md": "docs/archive/audits/scripts共享工具依赖盘点.md",
-    "docs/validation_entrypoints_20260620.md": "docs/archive/audits/validation_entrypoints_20260620.md",
-    "docs/view_config_externalization_audit_20260620.md": "docs/archive/audits/view_config_externalization_audit_20260620.md",
-    "docs/多余文件候选确认报告.md": "docs/archive/docs_governance/多余文件候选确认报告.md",
-    "docs/多余文件第三批敏感候选复核.md": "docs/archive/docs_governance/多余文件第三批敏感候选复核.md",
-    "docs/多余文件第二批最终引用复核.md": "docs/archive/docs_governance/多余文件第二批最终引用复核.md",
-    "docs/第五项B三人试点检索线索说明.md": "docs/archive/audits/第五项B三人试点检索线索说明.md",
-    "docs/第五项B评分映射总标尺对齐审计.md": "docs/archive/audits/第五项B评分映射总标尺对齐审计.md",
-    "docs/项目文件治理诊断报告.md": "docs/archive/audits/项目文件治理诊断报告.md",
-    "docs/项目重启决议.md": "docs/archive/audits/项目重启决议.md",
-    "docs/i5b_cluster_warning_display_integration_design_20260621.md": "docs/archive/design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md",
-    "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md": "docs/archive/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
-    "docs/i5b_warning_export_guarded_integration_design_20260621.md": "docs/archive/design_snapshots/i5b_warning_export_guarded_integration_design_20260621.md",
-    "docs/manual_review_config_layer_design_20260620.md": "docs/archive/design_snapshots/manual_review_config_layer_design_20260620.md",
-    "docs/thematic_anchor_multigranularity_schema_plan_20260620.md": "docs/archive/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
-    "docs/thematic_anchor_schema_decision_20260620.md": "docs/archive/design_snapshots/thematic_anchor_schema_decision_20260620.md",
+    "docs/batch_canonical_absorption_audit_20260620.md": "archive/docs/audits/batch_canonical_absorption_audit_20260620.md",
+    "docs/canonical_data_integrity_validation_note_20260620.md": "archive/docs/audits/canonical_data_integrity_validation_note_20260620.md",
+    "docs/config_granularity_redesign_20260620.md": "archive/docs/audits/config_granularity_redesign_20260620.md",
+    "docs/config_loaders迁移前依赖审计.md": "archive/docs/audits/config_loaders迁移前依赖审计.md",
+    "docs/file_governance_final_audit_20260620.md": "archive/docs/audits/file_governance_final_audit_20260620.md",
+    "docs/hardcoded_content_configuration_inventory_20260620.md": "archive/docs/audits/hardcoded_content_configuration_inventory_20260620.md",
+    "docs/i5b_markdown_display迁移前依赖审计.md": "archive/docs/audits/i5b_markdown_display迁移前依赖审计.md",
+    "docs/i5b_formal_result_leavebehind_archive_note_20260620.md": "archive/docs/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
+    "docs/i5b_formal_result_leavebehind_review_20260620.md": "archive/docs/audits/i5b_formal_result_leavebehind_review_20260620.md",
+    "docs/liubang_pregrade_checklist_archive_note_20260620.md": "archive/docs/audits/liubang_pregrade_checklist_archive_note_20260620.md",
+    "docs/post_file_governance_consistency_audit_20260620.md": "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
+    "docs/query_search_batch_canonical_import_note_20260620.md": "archive/docs/audits/query_search_batch_canonical_import_note_20260620.md",
+    "docs/scripts共享工具依赖盘点.md": "archive/docs/audits/scripts共享工具依赖盘点.md",
+    "docs/validation_entrypoints_20260620.md": "archive/docs/audits/validation_entrypoints_20260620.md",
+    "docs/view_config_externalization_audit_20260620.md": "archive/docs/audits/view_config_externalization_audit_20260620.md",
+    "docs/多余文件候选确认报告.md": "archive/docs/docs_governance/多余文件候选确认报告.md",
+    "docs/多余文件第三批敏感候选复核.md": "archive/docs/docs_governance/多余文件第三批敏感候选复核.md",
+    "docs/多余文件第二批最终引用复核.md": "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
+    "docs/第五项B三人试点检索线索说明.md": "archive/docs/audits/第五项B三人试点检索线索说明.md",
+    "docs/第五项B评分映射总标尺对齐审计.md": "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
+    "docs/项目文件治理诊断报告.md": "archive/docs/audits/项目文件治理诊断报告.md",
+    "docs/项目重启决议.md": "archive/docs/audits/项目重启决议.md",
+    "docs/i5b_cluster_warning_display_integration_design_20260621.md": "archive/docs/design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md",
+    "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md": "archive/docs/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
+    "docs/i5b_warning_export_guarded_integration_design_20260621.md": "archive/docs/design_snapshots/i5b_warning_export_guarded_integration_design_20260621.md",
+    "docs/manual_review_config_layer_design_20260620.md": "archive/docs/design_snapshots/manual_review_config_layer_design_20260620.md",
+    "docs/thematic_anchor_multigranularity_schema_plan_20260620.md": "archive/docs/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
+    "docs/thematic_anchor_schema_decision_20260620.md": "archive/docs/design_snapshots/thematic_anchor_schema_decision_20260620.md",
 }
 RETIRED_GENERATED_MAP = {
     "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md",
@@ -136,7 +137,11 @@ def test_docs_registry_is_valid_and_tool_check_passes() -> None:
 
 def test_docs_registry_covers_every_tracked_docs_file_except_itself() -> None:
     registry = load_registry()
-    expected = {path for path in git_lines("ls-files", "docs") if path != "docs/agent_rules/docs_registry.json"}
+    expected = {
+        path
+        for path in git_lines("ls-files", "docs", "archive/docs")
+        if path != "docs/agent_rules/docs_registry.json"
+    }
     actual = {doc["path"] for doc in registry["documents"]}
 
     assert actual == expected
@@ -144,6 +149,7 @@ def test_docs_registry_covers_every_tracked_docs_file_except_itself() -> None:
 
 def test_docs_registry_candidate_safety_rules() -> None:
     registry = load_registry()
+    current_doc_roles = {"rule_or_method", "stable_operational_guide", "governance_state"}
     for doc in registry["documents"]:
         assert doc["content_role"] in registry["allowed_content_roles"]
         assert doc["placement_action"] in registry["allowed_placement_actions"]
@@ -162,7 +168,7 @@ def test_docs_registry_candidate_safety_rules() -> None:
         if doc["content_role"] == "instance_record" and doc["placement_action"] == "absorb_into_canonical_data_then_export":
             assert doc["semantic_verification_required"] is True
         if doc["placement_action"] == "keep_archive_exception":
-            assert doc["path"].startswith("docs/archive/")
+            assert doc["path"].startswith("archive/docs/")
         if doc["placement_action"] == "keep_governance_exception":
             assert doc["path"].startswith("docs/agent_rules/")
         if doc["placement_action"] not in {"keep_in_docs", "keep_governance_exception", "keep_archive_exception", "review"}:
@@ -172,6 +178,9 @@ def test_docs_registry_candidate_safety_rules() -> None:
         for field in ("generator_candidates", "referenced_by_tests", "inbound_references"):
             for rel_path in doc[field]:
                 assert (ROOT / rel_path).exists(), f"{doc['path']} has missing {field}: {rel_path}"
+        if doc["path"].startswith("docs/") and doc["placement_action"] != "keep_governance_exception":
+            assert doc["content_role"] in current_doc_roles
+            assert doc["lifecycle_status"] != "historical"
 
 
 def test_docs_registry_has_no_current_active_design_docs() -> None:
@@ -226,7 +235,10 @@ def test_archive_batch_lifecycle_and_mapping_are_exact() -> None:
     registry = load_registry()
     by_path = {doc["path"]: doc for doc in registry["documents"]}
 
+    assert not (ROOT / "docs" / "archive").exists()
+    assert (ROOT / "archive" / "docs").is_dir()
     assert registry["archived_document_paths"] == ARCHIVE_MAP
+    assert LEGACY_DOCS_ARCHIVE_ROOT not in json.dumps(registry, ensure_ascii=False)
     assert sum(1 for doc in registry["documents"] if doc["proposed_action"] == "archive") == 0
     assert sum(1 for doc in registry["documents"] if doc["proposed_action"] == "delete") == 0
 
@@ -312,11 +324,16 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
         "## 13. 生命周期 archive candidates",
         "## 14. 生命周期 delete candidates",
         "## 15. 生命周期 review / needs human confirmation",
-        "## 16. 已归档文档",
+        "## 16. 历史归档摘要",
         "## 21. 后续执行批次",
         "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态",
     ]:
         assert needle in content
+    assert LEGACY_DOCS_ARCHIVE_ROOT not in content
+    assert "archive root | archive/docs/" in content
+    assert "historical archive documents" in content
+    assert "retired generated docs" in content
+    assert "retired mixed docs" in content
     batch6 = content.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：规则方法层归置核对", 1)[0]
     batch7 = content.split("Batch 7：规则方法层归置核对", 1)[1].split("## 22. 范围声明", 1)[0]
     batch3 = content.split("Batch 3：人物回源说明", 1)[1].split("Batch 4：已实施设计", 1)[0]
@@ -336,31 +353,32 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert "#207" not in content
     assert "本 PR" not in content
     for old_path, new_path in ARCHIVE_MAP.items():
-        assert content.count(old_path) == 1
-        assert content.count(new_path) >= 1
+        assert old_path not in content
+        assert new_path not in content
     for old_path, target_path in RETIRED_GENERATED_MAP.items():
-        assert old_path in content
-        assert target_path in content
+        assert old_path not in content
+        assert target_path not in content
     batch1 = content.split("Batch 1：generated docs -> export-only", 1)[1].split("Batch 2：混合审核文档拆分", 1)[0]
     assert "已完成" in batch1
     for old_path, target_path in RETIRED_MIXED_MAP.items():
-        assert old_path in content
-        assert target_path in content
+        assert old_path not in content
+        assert target_path not in content
     retired_mixed_section = content.split("## 9. 已迁出 docs 的混合审核文档", 1)[1].split("## 10. 需要拆分的混合文档", 1)[0]
     pending_mixed_section = content.split("## 10. 需要拆分的混合文档", 1)[1].split("## 11. 吸收后归档候选", 1)[0]
-    assert "旧 mixed docs 路径已退役" in retired_mixed_section
+    assert "retired mixed docs" in retired_mixed_section
     assert "docs/第五项B三人专人审核入口.md" not in pending_mixed_section
     batch2 = content.split("Batch 2：混合审核文档拆分", 1)[1].split("Batch 3：人物回源说明", 1)[0]
     assert "已完成" in batch2
 
 
 def test_archive_readme_exists_and_links_batch_documents() -> None:
-    readme = ROOT / "docs" / "archive" / "README.md"
+    readme = ROOT / "archive" / "docs" / "README.md"
 
     assert readme.is_file()
     content = readme.read_text(encoding="utf-8")
+    assert "# archive/docs" in content
     for new_path in ARCHIVE_MAP.values():
-        rel = new_path.removeprefix("docs/archive/")
+        rel = new_path.removeprefix("archive/docs/")
         assert f"]({rel})" in content
 
 
