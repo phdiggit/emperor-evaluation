@@ -45,7 +45,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 ## 脚本治理 / Script Governance
 
-- 任务涉及 `scripts/**` 时，修改前必须读取 `scripts/AGENTS.md`。
+- 任务涉及 `scripts/**` 先读 `scripts/AGENTS.md`；涉及 `docs/**` 先读 `docs/AGENTS.md`。
 - 开发工具、validator、exporter 和共享工具按 `scripts/AGENTS.md` 分层；`scripts/` 根目录不再保留 Python wrapper，只允许 registry `root_exceptions` 登记的非 Python 稳定入口。
 - 修改已迁移脚本时只改 canonical 真实实现，并验证 canonical import/CLI；不得恢复已退役 wrapper。
 - 普通功能 PR 不顺手迁移其他职责域；迁移任务按同一职责链成批处理。
