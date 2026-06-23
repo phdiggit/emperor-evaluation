@@ -172,7 +172,7 @@ def test_inventory_reference_graph_uses_requested_ref_not_worktree(tmp_path: Pat
     base_sha = commit_all(repo, "base")
     write(repo / "README.md", "[B](docs/b.md)\n")
     write(repo / "docs" / "agent_rules" / "docs_registry.json", '{"note": "docs/a.md"}\n')
-    write(repo / "docs" / "文档治理盘点报告.md", "治理引用 docs/a.md\n")
+    write(repo / "exports" / "governance" / "文档治理盘点报告.md", "治理引用 docs/a.md\n")
     commit_all(repo, "later")
     docs_tool = load_docs_tool(repo)
 
@@ -187,7 +187,6 @@ def test_inventory_reference_graph_uses_requested_ref_not_worktree(tmp_path: Pat
     assert head_by_path["docs/a.md"]["inbound_references"] == ["docs/sub/guide.md"]
     assert head_by_path["docs/a.md"]["governance_references"] == [
         "docs/agent_rules/docs_registry.json",
-        "docs/文档治理盘点报告.md",
     ]
     assert head_by_path["docs/b.md"]["inbound_references"] == ["README.md"]
 
@@ -202,6 +201,29 @@ def test_inventory_output_is_utf8_no_bom_and_restricted_to_tmp(tmp_path: Path) -
     assert not data.startswith(b"\xef\xbb\xbf")
     assert json.loads(data.decode("utf-8"))["stats"]["total_files"] >= 1
     assert docs_tool.main(["inventory", "--ref", "HEAD", "--output", "docs/bad.json"]) == 1
+
+
+def test_report_output_defaults_to_exports_governance(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.main(["report", "--registry", str(registry_path.relative_to(repo))]) == 0
+    report_path = repo / "exports" / "governance" / "文档治理盘点报告.md"
+    assert report_path.is_file()
+    assert not report_path.read_bytes().startswith(b"\xef\xbb\xbf")
+    assert docs_tool.main(
+        [
+            "report",
+            "--registry",
+            str(registry_path.relative_to(repo)),
+            "--output",
+            "docs/文档治理盘点报告.md",
+        ]
+    ) == 1
 
 
 def test_check_reports_registry_problems_and_accepts_valid_registry(tmp_path: Path) -> None:

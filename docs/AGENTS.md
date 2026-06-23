@@ -63,5 +63,5 @@
 ## registry 与治理报告
 
 - `docs/agent_rules/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源。
-- `docs/文档治理盘点报告.md` 是人工审阅入口，保存本轮统计、候选清单和后续批次建议。
+- `exports/governance/文档治理盘点报告.md` 是人工审阅入口，保存本轮统计、候选清单和后续批次建议。
 - AGENTS 只保存稳定规则，不逐文件枚举当前状态。

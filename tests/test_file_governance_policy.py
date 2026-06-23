@@ -12,10 +12,32 @@ from _git_helpers import changed_files_against_base, git_changed_files, skip_unl
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
     "README.md",
+    ".gitignore",
+    ".tmp/docs_governance/i5b_mixed_docs_split_inventory.md",
     "docs/人工阅读型Markdown导出规范.md",
     "docs/数据层级与批次文件治理规则.md",
+    "docs/AGENTS.md",
+    "docs/agent_rules/docs_registry.json",
+    "docs/archive/README.md",
+    "docs/archive/design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md",
+    "docs/archive/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
+    "docs/archive/design_snapshots/i5b_warning_export_guarded_integration_design_20260621.md",
+    "docs/archive/design_snapshots/manual_review_config_layer_design_20260620.md",
+    "docs/archive/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
+    "docs/archive/design_snapshots/thematic_anchor_schema_decision_20260620.md",
+    "docs/i5b_cluster_warning_display_integration_design_20260621.md",
+    "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
+    "docs/i5b_warning_export_guarded_integration_design_20260621.md",
+    "docs/manual_review_config_layer_design_20260620.md",
+    "docs/thematic_anchor_multigranularity_schema_plan_20260620.md",
+    "docs/thematic_anchor_schema_decision_20260620.md",
+    "docs/文档治理盘点报告.md",
+    "exports/governance/文档治理盘点报告.md",
+    "scripts/dev/docs_tool.py",
     "tests/_git_helpers.py",
     "tests/test_agents_ready_for_review_rule.py",
+    "tests/test_docs_governance.py",
+    "tests/test_docs_tool.py",
     "tests/test_file_governance_policy.py",
     "tests/test_file_governance_report.py",
     "tests/test_redundant_file_candidates_report.py",
@@ -68,7 +90,7 @@ def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
 
 def test_readme_mentions_governance_baseline_and_no_external_stack() -> None:
     content = read_text(ROOT / "README.md")
-    assert "docs/文档治理盘点报告.md" in content
+    assert "exports/governance/文档治理盘点报告.md" in content
     assert "docs/archive/audits/项目文件治理诊断报告.md" in content
     assert "当前不引入外部数据库、缓存或中间件" in content
     assert "多余文件、归档候选和删除候选必须另开专门 Issue 处理" in content

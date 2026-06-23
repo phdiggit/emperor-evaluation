@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS_AGENTS = ROOT / "docs" / "AGENTS.md"
 DOCS_REGISTRY = ROOT / "docs" / "agent_rules" / "docs_registry.json"
 DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
-REPORT = ROOT / "docs" / "文档治理盘点报告.md"
+REPORT = ROOT / "exports" / "governance" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
 ARCHIVE_MAP = {
     "docs/batch_canonical_absorption_audit_20260620.md": "docs/archive/audits/batch_canonical_absorption_audit_20260620.md",
@@ -37,8 +37,15 @@ ARCHIVE_MAP = {
     "docs/第五项B评分映射总标尺对齐审计.md": "docs/archive/audits/第五项B评分映射总标尺对齐审计.md",
     "docs/项目文件治理诊断报告.md": "docs/archive/audits/项目文件治理诊断报告.md",
     "docs/项目重启决议.md": "docs/archive/audits/项目重启决议.md",
+    "docs/i5b_cluster_warning_display_integration_design_20260621.md": "docs/archive/design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md",
+    "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md": "docs/archive/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
+    "docs/i5b_warning_export_guarded_integration_design_20260621.md": "docs/archive/design_snapshots/i5b_warning_export_guarded_integration_design_20260621.md",
+    "docs/manual_review_config_layer_design_20260620.md": "docs/archive/design_snapshots/manual_review_config_layer_design_20260620.md",
+    "docs/thematic_anchor_multigranularity_schema_plan_20260620.md": "docs/archive/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
+    "docs/thematic_anchor_schema_decision_20260620.md": "docs/archive/design_snapshots/thematic_anchor_schema_decision_20260620.md",
 }
 RETIRED_GENERATED_MAP = {
+    "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md",
     "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
     "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
     "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
@@ -244,6 +251,8 @@ def test_retired_generated_document_paths_are_exact_and_export_only() -> None:
         assert old_path not in drivers
         assert old_path not in registry.get("archived_document_paths", {})
     assert len(set(RETIRED_GENERATED_MAP.values())) == len(RETIRED_GENERATED_MAP)
+    assert not (ROOT / "docs" / "文档治理盘点报告.md").exists()
+    assert (ROOT / "exports" / "governance" / "文档治理盘点报告.md").is_file()
 
 
 def test_retired_mixed_document_paths_are_exact_and_export_backed() -> None:
@@ -291,8 +300,10 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert "已完成：历史治理材料已归档，不再等待逐份确认。" in batch6
     assert "| - | - | high | no | no | no |" in batch6
     assert "docs/manual_review_config_layer_design_20260620.md" not in batch6
-    assert "docs/manual_review_config_layer_design_20260620.md" in batch7
-    assert "data/configs/" in batch7
+    assert "active design 语义核验（0 份）" in content
+    assert "| - | - | high | no | no | no |" in batch7
+    assert "已完成：日期化 active design 快照已迁出 docs 当前层并保留在 archive。" in batch7
+    assert "docs/manual_review_config_layer_design_20260620.md" not in batch7
     for path in DELETED_COMPLETED_SOURCE_REVIEW_DOCS:
         assert path not in content
         assert path not in batch3
@@ -326,6 +337,13 @@ def test_archive_readme_exists_and_links_batch_documents() -> None:
     for new_path in ARCHIVE_MAP.values():
         rel = new_path.removeprefix("docs/archive/")
         assert f"]({rel})" in content
+
+
+def test_tracked_tmp_governance_inventory_is_removed() -> None:
+    assert ".tmp/docs_governance/i5b_mixed_docs_split_inventory.md" not in git_lines(
+        "ls-files",
+        ".tmp/docs_governance/i5b_mixed_docs_split_inventory.md",
+    )
 
 
 def test_governance_report_matches_generator() -> None:
