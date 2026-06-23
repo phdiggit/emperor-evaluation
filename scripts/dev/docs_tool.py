@@ -388,6 +388,10 @@ def _path_exists(path: str) -> bool:
     return _resolve_repo_path(path).exists()
 
 
+def _uses_forward_slashes(path: str) -> bool:
+    return "\\" not in path
+
+
 def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
     problems: list[str] = []
     registry_file = _resolve_repo_path(registry_path)
@@ -488,6 +492,44 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
         if len(paths) < 2:
             problems.append(f"{registry_path}: duplicate group {group} has fewer than two members")
 
+    archived_paths = registry.get("archived_document_paths", {})
+    if archived_paths is None:
+        archived_paths = {}
+    if not isinstance(archived_paths, dict):
+        problems.append(f"{registry_path}: archived_document_paths must be an object")
+    else:
+        new_to_old: dict[str, list[str]] = defaultdict(list)
+        for old_path, new_path in archived_paths.items():
+            if not isinstance(old_path, str) or not isinstance(new_path, str):
+                problems.append(f"{registry_path}: archived_document_paths entries must map strings to strings")
+                continue
+            new_to_old[new_path].append(old_path)
+            if not _uses_forward_slashes(old_path) or not _uses_forward_slashes(new_path):
+                problems.append(f"{old_path}: archived_document_paths must use forward slashes")
+            if not old_path.startswith("docs/") or old_path.startswith("docs/archive/") or "/../" in old_path:
+                problems.append(f"{old_path}: archived old path must be a retired docs path outside docs/archive/")
+            if not new_path.startswith("docs/archive/"):
+                problems.append(f"{old_path}: archived path must be under docs/archive/: {new_path}")
+            if _path_exists(old_path):
+                problems.append(f"{old_path}: archived old path still exists")
+            if not _path_exists(new_path):
+                problems.append(f"{old_path}: archived path does not exist: {new_path}")
+            if old_path in by_path:
+                problems.append(f"{old_path}: archived old path is still registered as a document")
+            new_doc = by_path.get(new_path)
+            if new_doc is None:
+                problems.append(f"{old_path}: archived path is not registered as a document: {new_path}")
+                continue
+            if new_doc.get("lifecycle_status") != "historical":
+                problems.append(f"{new_path}: archived document must use lifecycle_status=historical")
+            if new_doc.get("proposed_action") != "keep":
+                problems.append(f"{new_path}: archived document must use proposed_action=keep")
+            if new_doc.get("human_confirmation_required") is not False:
+                problems.append(f"{new_path}: archived document must use human_confirmation_required=false")
+        for new_path, old_values in sorted(new_to_old.items()):
+            if len(old_values) > 1:
+                problems.append(f"{new_path}: archived path is mapped from multiple old paths")
+
     return sorted(set(problems))
 
 
@@ -533,7 +575,9 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     archive_docs = docs_for(action="archive")
     delete_docs = docs_for(action="delete")
     review_docs = unique_docs(docs_for(action="review") + docs_for(status="needs_human_confirmation"))
-    candidate_paths = {doc["path"] for doc in archive_docs + delete_docs + review_docs}
+    archived_map = registry.get("archived_document_paths") or {}
+    archived_docs = [doc for old_path, new_path in sorted(archived_map.items()) for doc in documents if doc["path"] == new_path]
+    candidate_paths = {doc["path"] for doc in archive_docs + delete_docs + review_docs + archived_docs}
 
     candidate_header = [
         "path",
@@ -567,14 +611,14 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     lines: list[str] = [
         "# 文档治理盘点报告",
         "",
-        "本报告对应 PR #206。本 PR 只建立 docs 生命周期事实源、引用图和候选清单，不删除、不移动、不重写现有业务文档。",
+        "本报告由 docs registry 生成，用于当前文档生命周期与治理状态审阅。",
         "",
         "## 1. 执行摘要",
         "",
         f"- 基线 ref：`{registry.get('baseline_ref')}`。",
         f"- 基线 commit：`{registry.get('baseline_sha')}`。",
         f"- docs registry 覆盖文档数：{len(documents)}。",
-        "- 本轮候选仅用于 #207 分批人工确认；无文件在本 PR 中被归档或删除。",
+        "- 候选动作和已归档映射均以 registry 当前状态为准；归档不是删除。",
         "",
         "## 2. docs 总体统计",
         "",
@@ -625,7 +669,27 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table(candidate_rows(review_docs)),
         "",
-        "## 11. 重复组",
+        "## 11. 已归档文档",
+        "",
+        *_table(
+            [
+                ["old path", "archived path", "type", "lifecycle status", "reason"],
+                *[
+                    [
+                        old_path,
+                        doc["path"],
+                        doc["document_type"],
+                        doc["lifecycle_status"],
+                        doc["reason"],
+                    ]
+                    for old_path, new_path in sorted(archived_map.items())
+                    for doc in documents
+                    if doc["path"] == new_path
+                ],
+            ]
+        ),
+        "",
+        "## 12. 重复组",
         "",
         "### exact duplicates",
         "",
@@ -635,7 +699,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table([["group", "paths"], *[[group, "<br>".join(paths)] for group, paths in sorted(normalized_groups.items())]]),
         "",
-        "## 12. 引用断链或异常",
+        "## 13. 引用断链或异常",
         "",
     ]
     problems = check_registry(registry_path)
@@ -643,17 +707,17 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
     lines.extend(
         [
             "",
-            "## 13. unique source 风险",
+            "## 14. unique source 风险",
             "",
             *_table([["path", "action", "reason"], *[[doc["path"], doc["proposed_action"], doc["reason"]] for doc in documents if doc.get("unique_source_risk") and doc["path"] not in candidate_paths]]),
             "",
-            "## 14. 推荐 #207 执行批次",
+            "## 15. 后续推荐执行批次",
             "",
             f"- Batch A：低风险删除候选，{len(delete_docs)} 个。仅处理精确重复、可重建或有明确 replacement 的项目。",
             f"- Batch B：历史归档候选，{len(archive_docs)} 个。保留审计或决策价值，移动到 archive，不删除。",
             f"- Batch C：需人工确认，{len(review_docs)} 个。不在 Codex 自动清理范围内。",
             "",
-            "## 15. 本 PR 范围声明",
+            "## 16. 范围声明",
             "",
             "本 PR 未删除、移动或重写现有业务文档；未修改 data、exports、数据库或 SQLite 文件。",
             "",
