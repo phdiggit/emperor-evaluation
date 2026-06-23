@@ -300,6 +300,19 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
         )
     )
     assert any(
+        "placement_targets must be repo-relative controlled paths" in p
+        for p in problems_for(
+            lambda r: (
+                r["documents"][0].__setitem__("placement_action", "move_to_exports"),
+                r["documents"][0].__setitem__("placement_targets", ["README.md.bak"]),
+            )
+        )
+    )
+    assert any(
+        "semantic_verification_required must be boolean" in p
+        for p in problems_for(lambda r: r["documents"][0].__setitem__("semantic_verification_required", 1))
+    )
+    assert any(
         "keep_archive_exception is only allowed under docs/archive/" in p
         for p in problems_for(lambda r: r["documents"][0].__setitem__("placement_action", "keep_archive_exception"))
     )
@@ -371,6 +384,17 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     registry["documents"][2]["document_type"] = "historical_snapshot"
     registry["documents"][2]["unique_source_risk"] = False
     review_path = registry["documents"][2]["path"]
+    mixed_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/中文说明.md")
+    mixed_doc["content_role"] = "mixed"
+    mixed_doc["placement_action"] = "split_keep_rules_generate_state"
+    mixed_doc["placement_targets"] = ["data/configs/视图配置/test.json", "exports/markdown_views/test.md"]
+    mixed_doc["placement_reason"] = "临时仓库 mixed 文档，测试不应进入事实源吸收章节。"
+    instance_doc = next(doc for doc in registry["documents"] if doc["path"] == "docs/dup-a.md")
+    instance_doc["content_role"] = "instance_record"
+    instance_doc["placement_action"] = "absorb_into_canonical_data_then_export"
+    instance_doc["placement_targets"] = ["data/evidence_cards.jsonl", "exports/markdown_views/dup-a.md"]
+    instance_doc["placement_reason"] = "临时仓库 instance 文档，测试事实源吸收章节。"
+    instance_doc["semantic_verification_required"] = True
     for doc in registry["documents"]:
         if doc["path"] == archived_path:
             doc["lifecycle_status"] = "historical"
@@ -386,10 +410,19 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "### 推荐归置动作统计" in report
     assert "## 7. 仅保留 exports 候选" in report
     assert "## 10. 内容归置待确认项" in report
-    assert "## 11. 已归档文档" in report
-    assert "## 16. 后续执行批次" in report
+    assert "## 11. 生命周期 archive candidates" in report
+    assert "## 12. 生命周期 delete candidates" in report
+    assert "## 13. 生命周期 review / needs human confirmation" in report
+    assert "## 14. 已归档文档" in report
+    assert "## 19. 后续执行批次" in report
+    canonical_section = report.split("## 6. 事实源吸收并生成视图候选", 1)[1].split("## 7. 仅保留 exports 候选", 1)[0]
+    mixed_section = report.split("## 8. 需要拆分的混合文档", 1)[1].split("## 9. 吸收后归档候选", 1)[0]
+    lifecycle_review_section = report.split("## 13. 生命周期 review / needs human confirmation", 1)[1].split("## 14. 已归档文档", 1)[0]
+    assert "docs/dup-a.md" in canonical_section
+    assert "docs/中文说明.md" not in canonical_section
+    assert "docs/中文说明.md" in mixed_section
     assert "docs/old-audit.md" in report
-    assert report.count(review_path) == 1
+    assert review_path in lifecycle_review_section
     assert "Batch 6：三份 needs-human-confirmation" in report
     assert "本报告对应 PR #206" not in report
     assert "推荐 #207" not in report

@@ -897,7 +897,7 @@
       "unique_source_risk": true,
       "reason": "当前设计、裁量边界或业务决策材料，可能含唯一事实，不作为清理对象。",
       "archive_target": null,
-      "human_confirmation_required": false,
+      "human_confirmation_required": true,
       "governance_references": [
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
@@ -906,21 +906,19 @@
         "docs/agent_rules/docs_registry.json",
         "docs/文档治理盘点报告.md"
       ],
-      "content_role": "historical_record",
-      "placement_action": "archive_after_absorption",
+      "content_role": "mixed",
+      "placement_action": "review",
       "placement_targets": [
         "docs/数据规范.md",
         "docs/证据工作流.md",
         "docs/配置说明文件规范.md",
         "docs/第五项B正式工作流模板.md",
-        "docs/agent_rules/scripts_registry.json",
         "data/configs/人工复核配置/README.md",
-        "data/configs/配置说明/视图配置__第五项B_人物池.comments.json",
-        "data/configs/配置说明/视图配置__第五项B_视图分组.comments.json",
-        "docs/archive/audits"
+        "data/configs/人工复核配置/第五项B_证据簇裁判提示.json",
+        "data/configs/受保护规则配置/第五项B_证据簇裁判边界.json"
       ],
-      "placement_reason": "日期化设计/集成审计的稳定内容已主要落到现行规范、配置说明、validator 或 tests；后续确认吸收完成后归档到历史审计区。",
-      "semantic_verification_required": false
+      "placement_reason": "正文仍混合人工复核配置层设计与尚未证明完整落地的 atomic_evidence_grading_rules、cluster_merge_rules、cluster_grading_rules、source_verification_triggers、受保护档位/分数映射和实施顺序；完成逐项语义核验前不得进入吸收后归档批次。",
+      "semantic_verification_required": true
     },
     {
       "path": "docs/post_file_governance_consistency_audit_20260620.md",

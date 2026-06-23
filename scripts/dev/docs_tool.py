@@ -79,7 +79,8 @@ KEEP_OR_REVIEW_PLACEMENT_ACTIONS = {
     "keep_archive_exception",
     "review",
 }
-PLACEMENT_TARGET_ROOTS = ("data/", "docs/", "exports/", "scripts/", "tests/", "README.md", "AGENTS.md")
+PLACEMENT_TARGET_ROOTS = ("data/", "docs/", "exports/", "scripts/", "tests/")
+PLACEMENT_TARGET_EXACT_PATHS = {"README.md", "AGENTS.md"}
 DATE_SUFFIX_RE = re.compile(r"(?:^|[_-])((?:19|20)\d{2}[-_]?\d{2}[-_]?\d{2}|(?:19|20)\d{6})(?:$|[_-])")
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 DOCS_LITERAL_RE = re.compile(r"docs/[^\s'\"`)>]+")
@@ -423,6 +424,8 @@ def _uses_forward_slashes(path: str) -> bool:
 def _valid_repo_target_path(path: str) -> bool:
     if not path or not _uses_forward_slashes(path):
         return False
+    if path in PLACEMENT_TARGET_EXACT_PATHS:
+        return True
     if path.startswith(("/", "./", "../")):
         return False
     if re.match(r"^[A-Za-z]:", path):
@@ -526,7 +529,7 @@ def check_registry(registry_path: str = REGISTRY_PATH) -> list[str]:
                 continue
             if not _valid_repo_target_path(target):
                 problems.append(f"{path}: placement_targets must be repo-relative controlled paths using forward slashes: {target}")
-        if doc.get("semantic_verification_required") not in {True, False}:
+        if not isinstance(doc.get("semantic_verification_required"), bool):
             problems.append(f"{path}: semantic_verification_required must be boolean")
         if placement_action not in KEEP_OR_REVIEW_PLACEMENT_ACTIONS:
             if not placement_targets:
@@ -708,9 +711,6 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             )
         return rows
 
-    def docs_with_target_prefix(prefix: str) -> list[dict[str, Any]]:
-        return [doc for doc in documents if any(str(target).startswith(prefix) for target in doc.get("placement_targets", []))]
-
     def docs_with_target_containing(text: str) -> list[dict[str, Any]]:
         return [doc for doc in documents if any(text in str(target) for target in doc.get("placement_targets", []))]
 
@@ -722,9 +722,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         docs_for(placement="absorb_into_config")
         + [doc for doc in docs_for(placement="archive_after_absorption") if any("data/configs/" in target for target in doc.get("placement_targets", []))]
     )
-    canonical_data_docs = unique_docs(
-        docs_for(placement="absorb_into_canonical_data_then_export") + docs_with_target_prefix("data/")
-    )
+    canonical_data_docs = docs_for(placement="absorb_into_canonical_data_then_export")
     export_only_docs = docs_for(placement="move_to_exports")
     split_docs = docs_for(placement="split_keep_rules_generate_state")
     archive_after_absorption_docs = docs_for(placement="archive_after_absorption")
@@ -877,7 +875,19 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table(candidate_rows(placement_review_docs)),
         "",
-        "## 11. 已归档文档",
+        "## 11. 生命周期 archive candidates",
+        "",
+        *_table(candidate_rows(archive_docs)),
+        "",
+        "## 12. 生命周期 delete candidates",
+        "",
+        *_table(candidate_rows(delete_docs)),
+        "",
+        "## 13. 生命周期 review / needs human confirmation",
+        "",
+        *_table(candidate_rows(review_docs)),
+        "",
+        "## 14. 已归档文档",
         "",
         *_table(
             [
@@ -897,7 +907,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             ]
         ),
         "",
-        "## 12. 重复组",
+        "## 15. 重复组",
         "",
         "### exact duplicates",
         "",
@@ -907,14 +917,14 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
         "",
         *_table([["group", "paths"], *[[group, "<br>".join(paths)] for group, paths in sorted(normalized_groups.items())]]),
         "",
-        "## 13. 引用断链或异常",
+        "## 16. 引用断链或异常",
         "",
     ]
     lines.extend(["- docs_tool check 当前通过，未发现 registry 引用断链。" if not placement_problems else "- " + "\n- ".join(placement_problems)])
     lines.extend(
         [
             "",
-            "## 14. 目标态违规或异常",
+            "## 17. 目标态违规或异常",
             "",
             *(
                 ["- 未发现目标态违规或异常。"]
@@ -922,15 +932,15 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
                 else [f"- {problem}" for problem in placement_problems]
             ),
             "",
-            "## 15. unique source 风险",
+            "## 18. unique source 风险",
             "",
             *_table([["path", "action", "reason"], *[[doc["path"], doc["proposed_action"], doc["reason"]] for doc in documents if doc.get("unique_source_risk") and doc["path"] not in candidate_paths]]),
             "",
-            "## 16. 后续执行批次",
+            "## 19. 后续执行批次",
             "",
             *_table(batch_rows()),
             "",
-            "## 17. 范围声明",
+            "## 20. 范围声明",
             "",
             "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态；未将 archive 视为删除，也不改变 data、exports、数据库或 SQLite 文件。",
             "",
