@@ -34,16 +34,26 @@ I5B_EVIDENCE_CARD_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据卡"
 I5B_EVIDENCE_CLUSTER_DIR = I5B_EVIDENCE_CHAIN_ROOT / "证据簇"
 I5B_APPENDIX_DIR = I5B_EVIDENCE_CHAIN_ROOT / "附录"
 EXPANDED_BATCH1_REVIEW_EXPORT_PATH = I5B_EVIDENCE_CARD_DIR / "第五项B扩展试点第一批证据卡与证据簇草案.md"
-EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
+EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = (
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "adjudication_cluster.jsonl"
+)
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = I5B_EVIDENCE_CLUSTER_DIR / "第五项B扩展试点第一批证据簇结算草案.md"
-TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
-TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl"
+TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = (
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "sources_targeted_supplement.jsonl"
+)
+TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = (
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "evidence_cards_targeted_supplement.jsonl"
+)
 TARGETED_SUPPLEMENT_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批定向补证.md"
-TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = ROOT / "data" / "sweep_batches" / "i5b_yongzheng_role_class_sweep_20260619.jsonl"
-POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl"
+TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = (
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_role_class_sweep.jsonl"
+)
+POST_SUPPLEMENT_ADJUDICATION_BATCH_PATH = (
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "adjudication_post_supplement.jsonl"
+)
 POST_SUPPLEMENT_ADJUDICATION_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批补证后结算更新草案.md"
-EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-EXPANDED_BATCH1_CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
+EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
+EVIDENCE_CLUSTERS_PATH = ROOT / "data" / "evidence_clusters.jsonl"
 
 
 def load_expanded_batch1_persons() -> list[str]:
@@ -238,7 +248,7 @@ def export_expanded_i5b_batch1_review() -> Path:
     if not evidence_rows:
         evidence_rows = [
             {"raw_json": json.dumps(row, ensure_ascii=False)}
-            for row in read_jsonl(EXPANDED_BATCH1_EVIDENCE_BATCH_PATH)
+            for row in read_jsonl(EVIDENCE_CARDS_PATH)
             if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
         ]
         evidence_rows.sort(
@@ -252,7 +262,7 @@ def export_expanded_i5b_batch1_review() -> Path:
     if not cluster_rows:
         cluster_rows = [
             {"raw_json": json.dumps(row, ensure_ascii=False)}
-            for row in read_jsonl(EXPANDED_BATCH1_CLUSTER_BATCH_PATH)
+            for row in read_jsonl(EVIDENCE_CLUSTERS_PATH)
             if row.get("subitem") == I5B_SUBITEM and row.get("person") in EXPANDED_BATCH1_PERSONS
         ]
         cluster_rows.sort(

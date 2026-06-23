@@ -25,8 +25,8 @@ def test_export_expanded_i5b_batch1_review_falls_back_to_batch_files_and_sorts_r
 
     expanded_batch1.DB_PATH = tmp_path / "missing.sqlite"
     expanded_batch1.EXPANDED_BATCH1_REVIEW_EXPORT_PATH = export_path
-    expanded_batch1.EXPANDED_BATCH1_EVIDENCE_BATCH_PATH = evidence_batch_path
-    expanded_batch1.EXPANDED_BATCH1_CLUSTER_BATCH_PATH = cluster_batch_path
+    expanded_batch1.EVIDENCE_CARDS_PATH = evidence_batch_path
+    expanded_batch1.EVIDENCE_CLUSTERS_PATH = cluster_batch_path
 
     write_jsonl(
         evidence_batch_path,

@@ -1,0 +1,77 @@
+batch_id: i5b_expanded_pilot_batch1
+status: active_batch
+current_input: true
+canonical_merge_policy: manual_only
+files:
+  - old_path: data/query_profile_batches/i5b_expanded_pilot_batch1_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/query_profiles.jsonl
+    role: query_profiles
+    absorbed_by_canonical: none
+    current_input: true
+    note: "JSON object unchanged; path migrated only."
+  - old_path: data/search_log_batches/i5b_expanded_pilot_batch1_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/search_logs.jsonl
+    role: search_logs
+    absorbed_by_canonical: partial
+    current_input: true
+    note: "JSON object unchanged; path migrated only."
+  - old_path: data/source_batches/i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/sources_targeted_supplement.jsonl
+    role: sources
+    absorbed_by_canonical: none
+    current_input: true
+    note: "JSON object unchanged; path migrated only."
+  - old_path: data/evidence_card_batches/i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/evidence_cards_targeted_supplement.jsonl
+    role: evidence_cards
+    absorbed_by_canonical: none
+    current_input: true
+    note: "JSON object unchanged; path migrated only."
+  - old_path: data/adjudication_batches/i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_cluster.jsonl
+    role: review_adjudication
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Review-only material; not merged into canonical."
+  - old_path: data/adjudication_batches/i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_post_supplement.jsonl
+    role: review_adjudication
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Review-only material; not merged into canonical."
+  - old_path: data/audit_batches/i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/readiness_audit.jsonl
+    role: readiness_audit
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Review-only material; not merged into canonical."
+  - old_path: data/audit_batches/i5b_expanded_pilot_batch1_readiness_followup_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/readiness_followup.jsonl
+    role: readiness_followup
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Review-only material; not merged into canonical."
+  - old_path: data/relative_band_batches/i5b_expanded_pilot_batch1_relative_band_preparation_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/relative_band_preparation.jsonl
+    role: relative_band
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Review-only material; not merged into canonical."
+  - old_path: data/review_packages/i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/human_review_package.jsonl
+    role: human_review_package
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Review-only material; not merged into canonical."
+  - old_path: data/rule_boundary_batches/i5b_yongzheng_rule_boundary_review_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl
+    role: rule_boundary_review
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Kept in current batch because exporter/tests still use it."
+  - old_path: data/sweep_batches/i5b_yongzheng_role_class_sweep_20260619.jsonl
+    new_path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl
+    role: role_class_sweep
+    absorbed_by_canonical: n/a
+    current_input: true
+    note: "Kept in current batch because exporter/tests still use it."

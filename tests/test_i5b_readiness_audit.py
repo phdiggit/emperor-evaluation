@@ -9,7 +9,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BATCH_PATH = ROOT / "data" / "audit_batches" / "i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl"
+BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "readiness_audit.jsonl"
 EXPORT_PATH = (
     ROOT
     / "exports"

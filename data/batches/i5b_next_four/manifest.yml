@@ -1,0 +1,17 @@
+batch_id: i5b_next_four
+status: active_batch
+current_input: true
+canonical_merge_policy: manual_only
+files:
+  - old_path: data/query_profile_batches/i5b_next_four_profiles_20260618.jsonl
+    new_path: data/batches/i5b_next_four/query_profiles.jsonl
+    role: query_profiles
+    absorbed_by_canonical: none
+    current_input: true
+    note: "JSON object unchanged; path migrated only."
+  - old_path: data/search_log_batches/i5b_next_four_20260618.jsonl
+    new_path: data/batches/i5b_next_four/search_logs.jsonl
+    role: search_logs
+    absorbed_by_canonical: ids_present_with_batch_metadata
+    current_input: true
+    note: "JSON object unchanged; kept because batch-only metadata remains useful for review."

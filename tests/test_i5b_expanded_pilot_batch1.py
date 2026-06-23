@@ -10,14 +10,36 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-QUERY_PROFILE_BATCH_PATH = ROOT / "data" / "query_profile_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-SEARCH_LOG_BATCH_PATH = ROOT / "data" / "search_log_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-SOURCE_BATCH_PATH = ROOT / "data" / "source_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-EVIDENCE_BATCH_PATH = ROOT / "data" / "evidence_card_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
-CLUSTER_BATCH_PATH = ROOT / "data" / "evidence_cluster_batches" / "i5b_expanded_pilot_batch1_20260619.jsonl"
+QUERY_PROFILE_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "query_profiles.jsonl"
+SEARCH_LOG_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "search_logs.jsonl"
+SOURCES_PATH = ROOT / "data" / "sources.jsonl"
+EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
+EVIDENCE_CLUSTERS_PATH = ROOT / "data" / "evidence_clusters.jsonl"
 REVIEW_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "证据卡" / "第五项B扩展试点第一批证据卡与证据簇草案.md"
-CLUSTER_ADJUDICATION_BATCH_PATH = ROOT / "data" / "adjudication_batches" / "i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl"
+CLUSTER_ADJUDICATION_BATCH_PATH = (
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "adjudication_cluster.jsonl"
+)
 CLUSTER_ADJUDICATION_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "证据簇" / "第五项B扩展试点第一批证据簇结算草案.md"
+
+EXPANDED_SOURCE_IDS = {
+    "SRC-QSL-YZ-J1-001",
+    "SRC-SYNL-YZ-J30-001",
+    "SRC-SYNL-YZ-J89-001",
+    "SRC-MTZL-J008-001",
+    "SRC-MTZL-J024-001",
+    "SRC-MS-J308-001",
+    "SRC-MS-J132-001",
+    "SRC-SJ-J8-GAOZU-SANJIE-001",
+    "SRC-SJ-J55-ZHANGLIANG-LIUBANG-POS-001",
+    "SRC-SJ-J56-CHENPING-LIUBANG-POS-001",
+    "SRC-SJ-J8-HANXIN-QIWANG-LIUBANG-POS-001",
+    "SRC-SJ-J92-HANXIN-LIUBANG-NEG-001",
+    "SRC-SJ-J90-PENGYUE-LIUBANG-NEG-001",
+    "SRC-SJ-J91-YINGBU-LIUBANG-NEG-001",
+    "SRC-SJ-J53-XIAOHE-SAFETY-LIUBANG-SUPP-001",
+    "SRC-SJ-J56-CHENPING-CONTINUITY-LIUBANG-SUPP-001",
+    "SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001",
+}
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:
@@ -60,32 +82,18 @@ def test_expanded_pilot_batch1_search_logs_are_three_person_intake_only() -> Non
 
 
 def test_expanded_pilot_batch1_sources_are_the_three_person_intake_only() -> None:
-    rows = load_jsonl(SOURCE_BATCH_PATH)
+    rows = [row for row in load_jsonl(SOURCES_PATH) if row.get("source_id") in EXPANDED_SOURCE_IDS]
 
     assert len(rows) == 17
-    assert {row["source_id"] for row in rows} == {
-        "SRC-QSL-YZ-J1-001",
-        "SRC-SYNL-YZ-J30-001",
-        "SRC-SYNL-YZ-J89-001",
-        "SRC-MTZL-J008-001",
-        "SRC-MTZL-J024-001",
-        "SRC-MS-J308-001",
-        "SRC-MS-J132-001",
-        "SRC-SJ-J8-GAOZU-SANJIE-001",
-        "SRC-SJ-J55-ZHANGLIANG-LIUBANG-POS-001",
-        "SRC-SJ-J56-CHENPING-LIUBANG-POS-001",
-        "SRC-SJ-J8-HANXIN-QIWANG-LIUBANG-POS-001",
-        "SRC-SJ-J92-HANXIN-LIUBANG-NEG-001",
-        "SRC-SJ-J90-PENGYUE-LIUBANG-NEG-001",
-        "SRC-SJ-J91-YINGBU-LIUBANG-NEG-001",
-        "SRC-SJ-J53-XIAOHE-SAFETY-LIUBANG-SUPP-001",
-        "SRC-SJ-J56-CHENPING-CONTINUITY-LIUBANG-SUPP-001",
-        "SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001",
-    }
+    assert {row["source_id"] for row in rows} == EXPANDED_SOURCE_IDS
 
 
 def test_expanded_pilot_batch1_evidence_cards_are_source_backed() -> None:
-    rows = load_jsonl(EVIDENCE_BATCH_PATH)
+    rows = [
+        row
+        for row in load_jsonl(EVIDENCE_CARDS_PATH)
+        if row.get("source_id") in EXPANDED_SOURCE_IDS and row.get("subitem") == "第五项B"
+    ]
 
     assert len(rows) == 18
     assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
@@ -120,7 +128,11 @@ def test_expanded_pilot_batch1_evidence_cards_are_source_backed() -> None:
 
 
 def test_expanded_pilot_batch1_clusters_are_draft_review_rows() -> None:
-    rows = load_jsonl(CLUSTER_BATCH_PATH)
+    rows = [
+        row
+        for row in load_jsonl(EVIDENCE_CLUSTERS_PATH)
+        if row.get("subitem") == "第五项B" and row.get("person") in {"刘邦", "雍正", "朱元璋"}
+    ]
 
     assert len(rows) == 6
     assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
