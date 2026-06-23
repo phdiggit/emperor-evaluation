@@ -3,13 +3,11 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from shared.i5b_markdown_display import human_review_table_fields as configured_human_review_table_fields
-
-from export.dimension_export.data_loading import load_i5b_markdown_view_config
+from export.dimension_export.data_loading import load_markdown_view_config
 
 
 def display_field_label(field: str, display_config: dict[str, Any] | None = None) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     labels = config.get("field_labels") or {}
     label = str(labels.get(field) or field)
     if label != field and bool(config.get("keep_machine_field_name", True)):
@@ -32,7 +30,7 @@ def value_label_key(value: object) -> str:
 
 
 def display_value(value: object, display_config: dict[str, Any] | None = None) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     labels = config.get("value_labels") or {}
     key = value_label_key(value)
     if key in labels:
@@ -80,7 +78,7 @@ def add_table_appendix_item(
     appendix_link_target: str | None = None,
     display_config: dict[str, Any] | None = None,
 ) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     policy = config.get("table_render_policy") or {}
     anchor = make_appendix_anchor(field, appendix_items)
     appendix_items.append({"anchor": anchor, "field": field, "label": label, "value": value})
@@ -97,7 +95,7 @@ def render_table_cell(
     table_appendix_items: list[dict[str, Any]] | None = None,
     appendix_link_target: str | None = None,
 ) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     policy = config.get("table_render_policy") or {}
     cell = escape_cell(value, config)
     max_chars = int(policy.get("max_inline_table_cell_chars") or config.get("max_inline_table_cell_chars") or 72)
@@ -160,7 +158,7 @@ def markdown_display_table(
     table_appendix_items: list[dict[str, Any]] | None = None,
     appendix_link_target: str | None = None,
 ) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     headers = [display_field_label(field, config) for field in fields]
     display_rows = [{display_field_label(field, config): row.get(field) for field in fields} for row in rows]
     return markdown_table(
@@ -171,11 +169,6 @@ def markdown_display_table(
         appendix_link_target=appendix_link_target,
         field_by_header=dict(zip(headers, fields, strict=True)),
     )
-
-
-def human_table_fields(table_key: str, display_config: dict[str, Any] | None = None) -> list[str]:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
-    return configured_human_review_table_fields(table_key, config)
 
 
 def markdown_inline_value(value: object, display_config: dict[str, Any] | None = None) -> str:
@@ -235,7 +228,7 @@ def make_appendix_anchor(field: str, appendix_items: list[dict[str, Any]]) -> st
 
 
 def render_cluster_card(row: dict[str, Any], display_config: dict[str, Any] | None = None) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     summary = "｜".join(
         [
             markdown_inline_value(row.get("cluster_id"), config),
@@ -274,7 +267,7 @@ def render_table_appendix_section(
     appendix_items: list[dict[str, Any]],
     display_config: dict[str, Any] | None = None,
 ) -> str:
-    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    config = display_config if display_config is not None else load_markdown_view_config()
     lines: list[str] = []
     for item in appendix_items:
         lines.extend(

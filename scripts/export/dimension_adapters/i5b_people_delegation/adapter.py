@@ -15,19 +15,20 @@ from shared.i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
     render_display_only_cluster_warning_section,
 )
+from shared.i5b_markdown_display import human_review_table_fields as configured_human_review_table_fields
 from validate import validate_human_readable_markdown_exports as human_readable_markdown_validator
 from export.dimension_adapters.i5b_people_delegation.output_specs import *  # noqa: F401,F403
 from export.dimension_adapters.i5b_people_delegation.rules import *  # noqa: F401,F403
 from export.dimension_export.data_loading import (
     DEFAULT_DISPLAY_CONFIG,
     configure_display_config,
-    load_i5b_markdown_view_config as _load_i5b_markdown_view_config,
+    load_markdown_view_config as _load_markdown_view_config,
     read_jsonl,
 )
 from export.dimension_export.evidence_index import (
-    collect_display_warnings_for_clusters,
+    collect_cluster_warnings,
     person_clusters_for_report,
-    render_display_warning_section_for_clusters,
+    render_cluster_warning_section,
     unique_values,
 )
 from export.dimension_export.markdown_rendering import (
@@ -37,7 +38,6 @@ from export.dimension_export.markdown_rendering import (
     display_value,
     escape_cell,
     field_render_policy,
-    human_table_fields,
     make_appendix_anchor,
     markdown_code_block,
     markdown_display_table,
@@ -62,7 +62,7 @@ configure_display_config(DISPLAY_CONFIG_PATH)
 
 
 def load_i5b_markdown_view_config(path: Path | None = None) -> dict[str, Any]:
-    return _load_i5b_markdown_view_config(path or DISPLAY_CONFIG_PATH)
+    return _load_markdown_view_config(path or DISPLAY_CONFIG_PATH)
 
 
 def person_detail_export_path(person: str) -> Path:
@@ -81,97 +81,9 @@ def person_detail_backlink() -> str:
     return f"../{EXPORT_PATH.name}"
 
 
-def linked_cards_for_cluster(
-    cluster: dict[str, Any],
-    evidence_lookup: dict[str, dict[str, Any]],
-) -> list[dict[str, Any]]:
-    linked_evidence_ids = list(cluster.get("linked_evidence_ids") or [])
-    return [evidence_lookup[evidence_id] for evidence_id in linked_evidence_ids if evidence_id in evidence_lookup]
-
-
-def render_display_warning_section_for_clusters(
-    cluster_rows: list[dict[str, Any]],
-    evidence_lookup: dict[str, dict[str, Any]],
-    warning_rules: list[dict[str, Any]],
-) -> str:
-    warnings: list[dict[str, Any]] = []
-    for cluster in cluster_rows:
-        linked_cards = linked_cards_for_cluster(cluster, evidence_lookup)
-        warnings.extend(match_display_only_cluster_warnings(cluster, linked_cards, warning_rules))
-
-    return render_display_only_cluster_warning_section(warnings).rstrip()
-
-
-def collect_display_warnings_for_clusters(
-    cluster_rows: list[dict[str, Any]],
-    evidence_lookup: dict[str, dict[str, Any]],
-    warning_rules: list[dict[str, Any]],
-) -> list[dict[str, Any]]:
-    warnings: list[dict[str, Any]] = []
-    for cluster in cluster_rows:
-        linked_cards = linked_cards_for_cluster(cluster, evidence_lookup)
-        warnings.extend(match_display_only_cluster_warnings(cluster, linked_cards, warning_rules))
-    return warnings
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def human_table_fields(table_key: str, display_config: dict[str, Any] | None = None) -> list[str]:
+    config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    return configured_human_review_table_fields(table_key, config)
 
 
 def add_appendix_item(
@@ -213,46 +125,6 @@ def render_display_field(
         return [f"{bullet} **{label}**：", markdown_code_block(value, config)]
 
     return [f"{bullet} **{label}**：{markdown_inline_value(value, config)}"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def render_score_mapping_draft() -> str:
@@ -535,11 +407,6 @@ def evaluate_cluster(
     }
 
 
-
-
-
-
-
 def evaluate_person(
     person: str,
     cluster_rows: list[dict[str, Any]],
@@ -814,8 +681,6 @@ def build_auto_adjudication_context() -> dict[str, Any]:
     return build_dimension_context(targets=targets, data_dir=DATA_DIR, evaluate_person=evaluate_person)
 
 
-
-
 def summarize_auto_feature_digest(report: dict[str, Any], display_config: dict[str, Any] | None = None) -> str:
     config = display_config if display_config is not None else load_i5b_markdown_view_config()
     return "；".join(
@@ -847,7 +712,12 @@ def render_split_index_page(
     overview_rows = []
     for report in person_reports:
         person_clusters = person_clusters_for_report(report, cluster_lookup)
-        warnings = collect_display_warnings_for_clusters(person_clusters, evidence_lookup, warning_rules)
+        warnings = collect_cluster_warnings(
+            person_clusters,
+            evidence_lookup,
+            warning_rules,
+            match_warning=match_display_only_cluster_warnings,
+        )
         overview_rows.append(
             {
                 "person": report["person"],
@@ -957,10 +827,6 @@ def render_person_appendix_page(
             ]
         )
     return "\n".join(lines).rstrip() + "\n"
-
-
-
-
 
 
 def render_review_entry_landing() -> str:
@@ -1213,10 +1079,12 @@ def render_split_auto_adjudication_outputs(
         display_warning_section = ""
         if include_display_warnings:
             person_clusters = person_clusters_for_report(report, cluster_lookup)
-            display_warning_section = render_display_warning_section_for_clusters(
+            display_warning_section = render_cluster_warning_section(
                 person_clusters,
                 evidence_lookup,
                 resolved_warning_rules,
+                match_warning=match_display_only_cluster_warnings,
+                render_warning_section=render_display_only_cluster_warning_section,
             )
         appendix_items: list[dict[str, Any]] = []
         outputs[person_detail_export_path(report["person"])] = render_person_detail_page(
@@ -1287,10 +1155,12 @@ def render_auto_adjudication(
         if include_display_warnings:
             person_cluster_ids = report["positive_cluster_ids"] + report["negative_cluster_ids"]
             person_clusters = [cluster_lookup[cluster_id] for cluster_id in person_cluster_ids if cluster_id in cluster_lookup]
-            display_warning_section = render_display_warning_section_for_clusters(
+            display_warning_section = render_cluster_warning_section(
                 person_clusters,
                 evidence_lookup,
                 resolved_warning_rules,
+                match_warning=match_display_only_cluster_warnings,
+                render_warning_section=render_display_only_cluster_warning_section,
             )
         lines.append(render_person_section(report, display_warning_section=display_warning_section, display_config=display_config))
 

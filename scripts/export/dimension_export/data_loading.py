@@ -49,7 +49,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def load_i5b_markdown_view_config(path: Path | None = None) -> dict[str, Any]:
+def load_markdown_view_config(path: Path | None = None) -> dict[str, Any]:
     resolved_path = path or _display_config_path
     config = dict(DEFAULT_DISPLAY_CONFIG)
     config["table_render_policy"] = dict(DEFAULT_DISPLAY_CONFIG["table_render_policy"])
