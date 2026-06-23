@@ -991,7 +991,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
             batch7_touches_generator = "possibly"
             batch7_human_confirmation = "yes"
         else:
-            batch7_guidance = "已完成：日期化 active design 快照已迁出 docs 当前层并保留在 archive。"
+            batch7_guidance = "已完成：长期研究方法、裁判机制或上下文机制已归入 docs 当前规则方法层。"
             batch7_touches_generator = "no"
             batch7_human_confirmation = "no"
 
@@ -1051,7 +1051,7 @@ def build_report(registry_path: str = REGISTRY_PATH) -> str:
                 batch6_guidance,
             ),
             (
-                f"Batch 7：active design 语义核验（{len(active_design_review_docs)} 份）",
+                f"Batch 7：规则方法层归置核对（{len(active_design_review_docs)} 份）",
                 active_design_review_docs,
                 "high",
                 touches_data(active_design_review_docs),

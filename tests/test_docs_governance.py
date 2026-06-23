@@ -62,6 +62,12 @@ NEEDS_HUMAN_CONFIRMATION = {
     "docs/多余文件第三批敏感候选复核.md",
     "docs/多余文件第二批最终引用复核.md",
 }
+NORMALIZED_RULE_METHOD_DOCS = {
+    "docs/史料检索总则与项目-人物双轴工作流_讨论版.md",
+    "docs/第五项B证据卡上下文机制.md",
+    "docs/负证分案裁判机制.md",
+    "docs/负证裁量与触发式裁判模块_讨论版.md",
+}
 DELETED_COMPLETED_SOURCE_REVIEW_DOCS = {
     "docs/第五项B_刘庄负证回源说明.md",
     "docs/第五项B_刘秀负证回源说明.md",
@@ -166,6 +172,24 @@ def test_docs_registry_candidate_safety_rules() -> None:
         for field in ("generator_candidates", "referenced_by_tests", "inbound_references"):
             for rel_path in doc[field]:
                 assert (ROOT / rel_path).exists(), f"{doc['path']} has missing {field}: {rel_path}"
+
+
+def test_docs_registry_has_no_current_active_design_docs() -> None:
+    registry = load_registry()
+    by_path = {doc["path"]: doc for doc in registry["documents"]}
+
+    assert [doc for doc in registry["documents"] if doc["document_type"] == "active_design"] == []
+    assert NORMALIZED_RULE_METHOD_DOCS <= set(by_path)
+    for path in NORMALIZED_RULE_METHOD_DOCS:
+        doc = by_path[path]
+        assert (ROOT / path).is_file()
+        assert doc["document_type"] == "canonical_spec"
+        assert doc["lifecycle_status"] == "active"
+        assert doc["content_role"] == "rule_or_method"
+        assert doc["placement_action"] == "keep_in_docs"
+        assert doc["proposed_action"] == "keep"
+        assert doc["human_confirmation_required"] is False
+        assert doc["semantic_verification_required"] is False
 
 
 def test_project_driver_is_registered_and_protected() -> None:
@@ -293,16 +317,17 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
         "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态",
     ]:
         assert needle in content
-    batch6 = content.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：active design 语义核验", 1)[0]
-    batch7 = content.split("Batch 7：active design 语义核验", 1)[1].split("## 22. 范围声明", 1)[0]
+    batch6 = content.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：规则方法层归置核对", 1)[0]
+    batch7 = content.split("Batch 7：规则方法层归置核对", 1)[1].split("## 22. 范围声明", 1)[0]
     batch3 = content.split("Batch 3：人物回源说明", 1)[1].split("Batch 4：已实施设计", 1)[0]
     assert "needs-human-confirmation 历史材料（0 份）" in content
     assert "已完成：历史治理材料已归档，不再等待逐份确认。" in batch6
     assert "| - | - | high | no | no | no |" in batch6
     assert "docs/manual_review_config_layer_design_20260620.md" not in batch6
-    assert "active design 语义核验（0 份）" in content
+    assert "规则方法层归置核对（0 份）" in content
+    assert "| active_design |" not in content
     assert "| - | - | high | no | no | no |" in batch7
-    assert "已完成：日期化 active design 快照已迁出 docs 当前层并保留在 archive。" in batch7
+    assert "已完成：长期研究方法、裁判机制或上下文机制已归入 docs 当前规则方法层。" in batch7
     assert "docs/manual_review_config_layer_design_20260620.md" not in batch7
     for path in DELETED_COMPLETED_SOURCE_REVIEW_DOCS:
         assert path not in content

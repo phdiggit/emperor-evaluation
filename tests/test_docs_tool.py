@@ -634,7 +634,7 @@ def test_batch6_reports_completed_when_no_needs_human_docs(tmp_path: Path) -> No
     commit_all(repo, "registry")
 
     report = docs_tool.build_report(str(registry_path.relative_to(repo)))
-    batch6 = report.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：active design 语义核验", 1)[0]
+    batch6 = report.split("Batch 6：needs-human-confirmation 历史材料", 1)[1].split("Batch 7：规则方法层归置核对", 1)[0]
 
     assert "（0 份）" in batch6
     assert "| - | - | high | no | no | no |" in batch6
@@ -703,7 +703,7 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "docs/old-audit.md" in report
     assert review_path in lifecycle_review_section
     assert "Batch 6：needs-human-confirmation 历史材料" in report
-    assert "Batch 7：active design 语义核验" in report
+    assert "Batch 7：规则方法层归置核对" in report
     assert "本报告对应 PR #206" not in report
     assert "推荐 #207" not in report
     assert not re.search(r"PR #\d+", report)
