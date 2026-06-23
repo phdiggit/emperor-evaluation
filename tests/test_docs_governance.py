@@ -15,13 +15,28 @@ DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "docs" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
 ARCHIVE_MAP = {
+    "docs/batch_canonical_absorption_audit_20260620.md": "docs/archive/audits/batch_canonical_absorption_audit_20260620.md",
     "docs/canonical_data_integrity_validation_note_20260620.md": "docs/archive/audits/canonical_data_integrity_validation_note_20260620.md",
+    "docs/config_granularity_redesign_20260620.md": "docs/archive/audits/config_granularity_redesign_20260620.md",
+    "docs/config_loaders迁移前依赖审计.md": "docs/archive/audits/config_loaders迁移前依赖审计.md",
     "docs/file_governance_final_audit_20260620.md": "docs/archive/audits/file_governance_final_audit_20260620.md",
     "docs/hardcoded_content_configuration_inventory_20260620.md": "docs/archive/audits/hardcoded_content_configuration_inventory_20260620.md",
+    "docs/i5b_markdown_display迁移前依赖审计.md": "docs/archive/audits/i5b_markdown_display迁移前依赖审计.md",
     "docs/i5b_formal_result_leavebehind_archive_note_20260620.md": "docs/archive/audits/i5b_formal_result_leavebehind_archive_note_20260620.md",
     "docs/i5b_formal_result_leavebehind_review_20260620.md": "docs/archive/audits/i5b_formal_result_leavebehind_review_20260620.md",
     "docs/liubang_pregrade_checklist_archive_note_20260620.md": "docs/archive/audits/liubang_pregrade_checklist_archive_note_20260620.md",
+    "docs/post_file_governance_consistency_audit_20260620.md": "docs/archive/audits/post_file_governance_consistency_audit_20260620.md",
     "docs/query_search_batch_canonical_import_note_20260620.md": "docs/archive/audits/query_search_batch_canonical_import_note_20260620.md",
+    "docs/scripts共享工具依赖盘点.md": "docs/archive/audits/scripts共享工具依赖盘点.md",
+    "docs/validation_entrypoints_20260620.md": "docs/archive/audits/validation_entrypoints_20260620.md",
+    "docs/view_config_externalization_audit_20260620.md": "docs/archive/audits/view_config_externalization_audit_20260620.md",
+    "docs/多余文件候选确认报告.md": "docs/archive/docs_governance/多余文件候选确认报告.md",
+    "docs/多余文件第三批敏感候选复核.md": "docs/archive/docs_governance/多余文件第三批敏感候选复核.md",
+    "docs/多余文件第二批最终引用复核.md": "docs/archive/docs_governance/多余文件第二批最终引用复核.md",
+    "docs/第五项B三人试点检索线索说明.md": "docs/archive/audits/第五项B三人试点检索线索说明.md",
+    "docs/第五项B评分映射总标尺对齐审计.md": "docs/archive/audits/第五项B评分映射总标尺对齐审计.md",
+    "docs/项目文件治理诊断报告.md": "docs/archive/audits/项目文件治理诊断报告.md",
+    "docs/项目重启决议.md": "docs/archive/audits/项目重启决议.md",
 }
 RETIRED_GENERATED_MAP = {
     "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
@@ -182,20 +197,16 @@ def test_archive_batch_lifecycle_and_mapping_are_exact() -> None:
         assert not (ROOT / old_path).exists()
         assert (ROOT / new_path).is_file()
         doc = by_path[new_path]
-        assert doc["document_type"] == "audit_record"
+        assert doc["document_type"] in {"audit_record", "historical_snapshot", "migration_record"}
         assert doc["lifecycle_status"] == "historical"
         assert doc["proposed_action"] == "keep"
         assert doc["content_role"] == "historical_record"
         assert doc["placement_action"] == "keep_archive_exception"
         assert doc["human_confirmation_required"] is False
 
+    assert sum(1 for doc in registry["documents"] if doc["lifecycle_status"] == "needs_human_confirmation") == 0
     for path in NEEDS_HUMAN_CONFIRMATION:
-        doc = by_path[path]
-        assert (ROOT / path).is_file()
-        assert doc["lifecycle_status"] == "needs_human_confirmation"
-        assert doc["proposed_action"] == "review"
-        assert doc["placement_action"] == "review"
-        assert doc["human_confirmation_required"] is True
+        assert path not in by_path
 
 
 def test_generated_views_have_generators_or_need_human_confirmation() -> None:
