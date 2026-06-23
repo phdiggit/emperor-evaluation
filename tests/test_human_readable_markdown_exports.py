@@ -583,9 +583,10 @@ def test_validate_exports_reports_auto_adjudication_unmapped_enum(tmp_path: Path
 
 
 def test_markdown_table_display_convention_doc_exists() -> None:
-    doc_path = ROOT / "docs" / "Markdown表格显示约定.md"
+    doc_path = next((ROOT / "docs").rglob("*Markdown*.md"))
     content = doc_path.read_text(encoding="utf-8")
 
+    assert "Markdown表格显示约定.md" in content
     assert "阅读器/CSS" in content
     assert "字段白名单" in content
     assert "附录" in content

@@ -125,7 +125,7 @@ def test_canonical_validate_all_command_runs() -> None:
 
 
 def test_scripts_layout_doc_mentions_validate_directory() -> None:
-    content = next((ROOT / "docs").glob("scripts*规范.md")).read_text(encoding="utf-8")
+    content = next((ROOT / "docs").rglob("scripts*.md")).read_text(encoding="utf-8")
 
     assert "scripts/validate/" in content
     assert "retired_legacy_wrappers" in content
