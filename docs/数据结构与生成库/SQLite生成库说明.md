@@ -1,6 +1,6 @@
 # 数据库说明
 
-本项目采用 JSONL → SQLite → Markdown 的轻量数据工程流程。
+本项目当前采用 JSONL → SQLite → Markdown 的轻量数据工程流程。SQLite 是本地生成库和兼容缓存，不是最终主库。
 
 ## 数据角色
 
@@ -11,13 +11,15 @@
 
 SQLite 数据库由 `data/*.jsonl` 和 `db/schema.sql` 生成，用于查询、校验和导出。任何需要长期保留的事实，都应写回 JSONL，而不是只存在 SQLite 中。
 
+未来史源数据平台以 PostgreSQL 为目标主库。SQLite 继续服务当前本地试点，但不承载 `source_documents`、`source_passages`、`evidence_source_links` 的最终实现语义。
+
 未回源材料不得进入正式评分，只能保留为 `search_logs.jsonl` 的待回源线索。当前阶段不写入旧评分、旧排名、旧加总表、旧正式评分记录或旧证据卡。
 
 ## 核心表
 
 ### sources
 
-记录来源信息，包括 source_id、题名、作者、朝代、卷次、位置、链接和备注。evidence_cards 通过 source_id 引用 sources。
+记录来源信息，包括 source_id、题名、作者、朝代、卷次、位置、链接和备注。当前 evidence_cards 通过 source_id 引用 sources。长期模型中，这一关系会过渡为 evidence_cards 通过 evidence_source_links 引用 source_passages。
 
 ### evidence_cards
 

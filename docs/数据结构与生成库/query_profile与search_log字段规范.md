@@ -1,6 +1,8 @@
 # 检索画像与检索线索字段规范
 
-本规范用于固定 `query_profile` 与 `search_log` 的长期内容格式。它补充《第五项B正式工作流模板》和《数据层级与批次文件治理规则》，解决“生成 query 之前，画像应如何组织”的问题。
+本规范用于固定当前 JSONL 过渡期的 `query_profile` 与 `search_log` 内容格式。它补充《第五项B正式工作流模板》和《数据层级与批次文件治理规则》，解决“生成 query 之前，画像应如何组织”的问题。
+
+#228 ADR 之后，query/search 不再回到人工关键词配置层。未来 query 与 search task 应由 search task generator、source passage 抽取、规则画像或 Codex 规划生成，再进入 `search_tasks`、`fetch_jobs`、`parse_jobs`、`index_jobs`、`candidate_matches` 等平台模型。
 
 ## 一、定位
 
@@ -19,6 +21,8 @@
 1. 这条线索要查什么？
 2. 当前状态是什么？
 3. 回源后是否转为 `source` / `evidence_card` / `rejected`？
+
+当前 `query_profile` 与 `search_log` 仍可写入 JSONL。未来 PostgreSQL 原型中，它们应分别对齐 `query_profiles` 与 `search_tasks`，不得通过人工补丁配置无限扩张关键词或候选池。
 
 ## 二、query_profile 分层
 
@@ -153,6 +157,7 @@
 - 禁止把 `search_log` 的存在视为已回源。
 - 禁止用同类史料堆条数来机械抬高强度。
 - 禁止在生成 query 时只覆盖人物最著名的正负两端，而忽略授权、反馈、表达安全、人才生态和相邻项切分。
+- 禁止用人工配置文件重新承载关键词池、抓取任务、检索日志或 source passage 状态。
 
 ## 七、长期组织方式
 
