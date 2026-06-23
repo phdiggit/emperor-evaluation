@@ -24,9 +24,9 @@ CANONICAL_FILES = [
     THEMATIC_EVENTS_PATH,
 ]
 
-QUERY_PROFILE_BATCH_PATH = DATA_DIR / "query_profile_batches" / "i5b_three_pilot_profiles_migration_20260618.jsonl"
-SEARCH_LOG_BATCH_PATH = DATA_DIR / "search_log_batches" / "i5b_next_four_20260618.jsonl"
-THEMATIC_BATCH_PATH = DATA_DIR / "thematic_anchor_batches" / "i5b_three_pilot_object_anchors_20260618.jsonl"
+QUERY_PROFILE_SOURCE_BATCH = "data/query_profile_batches/i5b_three_pilot_profiles_migration_20260618.jsonl"
+SEARCH_LOG_SOURCE_BATCH = "data/search_log_batches/i5b_next_four_20260618.jsonl"
+THEMATIC_SOURCE_BATCH = "data/thematic_anchor_batches/i5b_three_pilot_object_anchors_20260618.jsonl"
 
 LANE_FILES = [
     THEMATIC_OBJECTS_PATH,
@@ -89,27 +89,32 @@ def build_row_map(rows: list[dict[str, Any]], key: str, path: Path, errors: list
     return row_map
 
 
+def rows_with_source_batch(rows: list[dict[str, Any]], source_batch_field_value: str) -> list[dict[str, Any]]:
+    return [row for row in rows if row.get("source_batch") == source_batch_field_value]
+
+
 def validate_source_batch_presence(
-    batch_rows: list[dict[str, Any]],
+    source_rows: list[dict[str, Any]],
     batch_id_key: str,
-    batch_path: Path,
-    canonical_map: dict[str, dict[str, Any]],
     source_batch_field_value: str,
     errors: list[str],
 ) -> None:
-    for line_number, batch_row in enumerate(batch_rows, start=1):
-        identifier = batch_row.get(batch_id_key)
+    if not source_rows:
+        errors.append(f"canonical data must retain source_batch={source_batch_field_value}")
+        return
+
+    seen: set[str] = set()
+    for line_number, row in enumerate(source_rows, start=1):
+        identifier = row.get(batch_id_key)
         if is_blank(identifier) or not isinstance(identifier, str):
-            errors.append(f"{batch_path}: line {line_number}: missing required id field: {batch_id_key}")
+            errors.append(f"source_batch={source_batch_field_value}: row {line_number}: missing required id field: {batch_id_key}")
             continue
-        canonical_row = canonical_map.get(identifier)
-        if canonical_row is None:
-            errors.append(f"{batch_path}: {batch_id_key} not found in canonical data: {identifier}")
+        if identifier in seen:
+            errors.append(f"source_batch={source_batch_field_value}: duplicate {batch_id_key}: {identifier}")
             continue
-        if canonical_row.get("source_batch") != source_batch_field_value:
-            errors.append(
-                f"{batch_path}: canonical row {identifier} must retain source_batch={source_batch_field_value}"
-            )
+        seen.add(identifier)
+        if row.get("source_batch") != source_batch_field_value:
+            errors.append(f"canonical row {identifier} must retain source_batch={source_batch_field_value}")
 
 
 def validate_search_log_source_fields(
@@ -170,12 +175,6 @@ def validate() -> list[str]:
     errors: list[str] = []
 
     canonical_rows = {path: read_jsonl(path, errors) for path in CANONICAL_FILES}
-    batch_rows = {
-        QUERY_PROFILE_BATCH_PATH: read_jsonl(QUERY_PROFILE_BATCH_PATH, errors),
-        SEARCH_LOG_BATCH_PATH: read_jsonl(SEARCH_LOG_BATCH_PATH, errors),
-        THEMATIC_BATCH_PATH: read_jsonl(THEMATIC_BATCH_PATH, errors),
-    }
-
     query_profile_map = build_row_map(canonical_rows[QUERY_PROFILES_PATH], "query_profile_id", QUERY_PROFILES_PATH, errors)
     search_log_map = build_row_map(canonical_rows[SEARCH_LOGS_PATH], "search_id", SEARCH_LOGS_PATH, errors)
     build_row_map(canonical_rows[THEMATIC_ANCHORS_PATH], "anchor_id", THEMATIC_ANCHORS_PATH, errors)
@@ -191,19 +190,15 @@ def validate() -> list[str]:
     validate_cross_lane_uniqueness(lane_maps, errors)
 
     validate_source_batch_presence(
-        batch_rows[QUERY_PROFILE_BATCH_PATH],
+        rows_with_source_batch(canonical_rows[QUERY_PROFILES_PATH], QUERY_PROFILE_SOURCE_BATCH),
         "query_profile_id",
-        QUERY_PROFILE_BATCH_PATH,
-        query_profile_map,
-        "data/query_profile_batches/i5b_three_pilot_profiles_migration_20260618.jsonl",
+        QUERY_PROFILE_SOURCE_BATCH,
         errors,
     )
     validate_source_batch_presence(
-        batch_rows[SEARCH_LOG_BATCH_PATH],
+        rows_with_source_batch(canonical_rows[SEARCH_LOGS_PATH], SEARCH_LOG_SOURCE_BATCH),
         "search_id",
-        SEARCH_LOG_BATCH_PATH,
-        search_log_map,
-        "data/search_log_batches/i5b_next_four_20260618.jsonl",
+        SEARCH_LOG_SOURCE_BATCH,
         errors,
     )
 
@@ -211,15 +206,17 @@ def validate() -> list[str]:
     for row_map in lane_maps.values():
         thematic_lane_union.update(row_map)
     validate_source_batch_presence(
-        batch_rows[THEMATIC_BATCH_PATH],
+        rows_with_source_batch(list(thematic_lane_union.values()), THEMATIC_SOURCE_BATCH),
         "anchor_id",
-        THEMATIC_BATCH_PATH,
-        thematic_lane_union,
-        "data/thematic_anchor_batches/i5b_three_pilot_object_anchors_20260618.jsonl",
+        THEMATIC_SOURCE_BATCH,
         errors,
     )
 
-    validate_search_log_source_fields(batch_rows[SEARCH_LOG_BATCH_PATH], search_log_map, errors)
+    validate_search_log_source_fields(
+        rows_with_source_batch(canonical_rows[SEARCH_LOGS_PATH], SEARCH_LOG_SOURCE_BATCH),
+        search_log_map,
+        errors,
+    )
     validate_special_lane_row(
         lane_maps[THEMATIC_EVENTS_PATH],
         THEMATIC_EVENTS_PATH,

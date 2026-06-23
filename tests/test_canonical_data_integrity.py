@@ -30,9 +30,7 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 @pytest.fixture()
 def canonical_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     data_dir = tmp_path / "data"
-    (data_dir / "query_profile_batches").mkdir(parents=True)
-    (data_dir / "search_log_batches").mkdir(parents=True)
-    (data_dir / "thematic_anchor_batches").mkdir(parents=True)
+    data_dir.mkdir(parents=True)
 
     write_jsonl(
         data_dir / "query_profiles.jsonl",
@@ -165,31 +163,6 @@ def canonical_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         ],
     )
 
-    write_jsonl(
-        data_dir / "query_profile_batches" / "i5b_three_pilot_profiles_migration_20260618.jsonl",
-        [
-            {
-                "query_profile_id": "QRY-I5B-LISHIMIN-MIGRATION-20260618",
-            }
-        ],
-    )
-    write_jsonl(
-        data_dir / "search_log_batches" / "i5b_next_four_20260618.jsonl",
-        [
-            {
-                "search_id": "SRCH-I5B-LIUBANG-CUT-ADJACENT-001",
-            }
-        ],
-    )
-    write_jsonl(
-        data_dir / "thematic_anchor_batches" / "i5b_three_pilot_object_anchors_20260618.jsonl",
-        [
-            {"anchor_id": "ANCH-I5B-PERSON-TEST-001"},
-            {"anchor_id": validator.SHENTUGANG_MECHANISM_ANCHOR_ID},
-            {"anchor_id": validator.CHUWANGYING_EVENT_ANCHOR_ID},
-        ],
-    )
-
     monkeypatch.setattr(validator, "DATA_DIR", data_dir)
     monkeypatch.setattr(validator, "QUERY_PROFILES_PATH", data_dir / "query_profiles.jsonl")
     monkeypatch.setattr(validator, "SEARCH_LOGS_PATH", data_dir / "search_logs.jsonl")
@@ -208,21 +181,6 @@ def canonical_data_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
             data_dir / "thematic_anchor_mechanisms.jsonl",
             data_dir / "thematic_anchor_events.jsonl",
         ],
-    )
-    monkeypatch.setattr(
-        validator,
-        "QUERY_PROFILE_BATCH_PATH",
-        data_dir / "query_profile_batches" / "i5b_three_pilot_profiles_migration_20260618.jsonl",
-    )
-    monkeypatch.setattr(
-        validator,
-        "SEARCH_LOG_BATCH_PATH",
-        data_dir / "search_log_batches" / "i5b_next_four_20260618.jsonl",
-    )
-    monkeypatch.setattr(
-        validator,
-        "THEMATIC_BATCH_PATH",
-        data_dir / "thematic_anchor_batches" / "i5b_three_pilot_object_anchors_20260618.jsonl",
     )
     monkeypatch.setattr(
         validator,
