@@ -73,6 +73,8 @@ def test_docs_registry_is_valid_and_tool_check_passes() -> None:
 
     assert registry["schema_version"] == 1
     assert "docs/agent_rules/docs_registry.json" in registry["registry_exclusions"]
+    assert set(registry["allowed_content_roles"]) == load_docs_tool().ALLOWED_CONTENT_ROLES
+    assert set(registry["allowed_placement_actions"]) == load_docs_tool().ALLOWED_PLACEMENT_ACTIONS
 
     result = subprocess.run(
         [sys.executable, str(DOCS_TOOL), "check", "--registry", "docs/agent_rules/docs_registry.json"],
@@ -96,11 +98,28 @@ def test_docs_registry_covers_every_tracked_docs_file_except_itself() -> None:
 def test_docs_registry_candidate_safety_rules() -> None:
     registry = load_registry()
     for doc in registry["documents"]:
+        assert doc["content_role"] in registry["allowed_content_roles"]
+        assert doc["placement_action"] in registry["allowed_placement_actions"]
+        assert isinstance(doc["placement_targets"], list)
+        assert isinstance(doc["semantic_verification_required"], bool)
+        assert doc["placement_reason"].strip()
         if doc["proposed_action"] == "delete" or doc["lifecycle_status"] == "delete_candidate":
             assert doc["human_confirmation_required"] is True
             assert doc["reason"].strip()
         if doc["unique_source_risk"]:
             assert doc["proposed_action"] != "delete"
+        if doc["content_role"] == "generated_output":
+            assert doc["placement_action"] != "keep_in_docs"
+        if doc["content_role"] == "mixed":
+            assert doc["placement_action"] in {"split_keep_rules_generate_state", "review"}
+        if doc["content_role"] == "instance_record" and doc["placement_action"] == "absorb_into_canonical_data_then_export":
+            assert doc["semantic_verification_required"] is True
+        if doc["placement_action"] == "keep_archive_exception":
+            assert doc["path"].startswith("docs/archive/")
+        if doc["placement_action"] == "keep_governance_exception":
+            assert doc["path"].startswith("docs/agent_rules/")
+        if doc["placement_action"] not in {"keep_in_docs", "keep_governance_exception", "keep_archive_exception", "review"}:
+            assert doc["placement_targets"]
         if doc["replacement_path"]:
             assert (ROOT / doc["replacement_path"]).exists()
         for field in ("generator_candidates", "referenced_by_tests", "inbound_references"):
@@ -123,6 +142,8 @@ def test_archive_batch_lifecycle_and_mapping_are_exact() -> None:
         assert doc["document_type"] == "audit_record"
         assert doc["lifecycle_status"] == "historical"
         assert doc["proposed_action"] == "keep"
+        assert doc["content_role"] == "historical_record"
+        assert doc["placement_action"] == "keep_archive_exception"
         assert doc["human_confirmation_required"] is False
 
     for path in NEEDS_HUMAN_CONFIRMATION:
@@ -130,6 +151,7 @@ def test_archive_batch_lifecycle_and_mapping_are_exact() -> None:
         assert (ROOT / path).is_file()
         assert doc["lifecycle_status"] == "needs_human_confirmation"
         assert doc["proposed_action"] == "review"
+        assert doc["placement_action"] == "review"
         assert doc["human_confirmation_required"] is True
 
 
@@ -138,17 +160,59 @@ def test_generated_views_have_generators_or_need_human_confirmation() -> None:
     for doc in registry["documents"]:
         if doc["document_type"] == "generated_view":
             assert doc["generator_candidates"] or doc["lifecycle_status"] == "needs_human_confirmation"
+        if doc["content_role"] == "generated_output" and doc["placement_action"] == "move_to_exports":
+            assert all(target.startswith("exports/") for target in doc["placement_targets"])
+
+
+def test_content_absorption_candidate_groups_are_registered() -> None:
+    registry = load_registry()
+    by_path = {doc["path"]: doc for doc in registry["documents"]}
+
+    for path in {
+        "docs/全局总标尺决策简报_讨论版.md",
+        "docs/第五项B三人试点内部闭环收尾.md",
+        "docs/第五项B扩展试点候选池设计.md",
+        "docs/第五项B评分标尺与档位映射草案.md",
+    }:
+        doc = by_path[path]
+        assert doc["content_role"] == "generated_output"
+        assert doc["placement_action"] == "move_to_exports"
+
+    for path in {
+        "docs/第五项B三人专人审核入口.md",
+        "docs/第五项B三人试点人工复核工作台.md",
+        "docs/第五项B三人试点矩阵说明.md",
+        "docs/第五项B试点计划.md",
+    }:
+        doc = by_path[path]
+        assert doc["content_role"] == "mixed"
+        assert doc["placement_action"] == "split_keep_rules_generate_state"
+
+    for path in {
+        "docs/第五项B_刘庄负证回源说明.md",
+        "docs/第五项B_刘秀负证回源说明.md",
+        "docs/第五项B_李世民正证回源说明.md",
+        "docs/第五项B_李世民负证回源说明.md",
+    }:
+        doc = by_path[path]
+        assert doc["content_role"] == "instance_record"
+        assert doc["placement_action"] == "absorb_into_canonical_data_then_export"
+        assert doc["semantic_verification_required"] is True
 
 
 def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "## 8. archive candidates",
-        "## 9. delete candidates",
-        "## 10. needs human confirmation",
+        "### 内容角色统计",
+        "### 推荐归置动作统计",
+        "## 7. 仅保留 exports 候选",
+        "## 8. 需要拆分的混合文档",
+        "## 9. 吸收后归档候选",
+        "## 10. 内容归置待确认项",
         "## 11. 已归档文档",
-        "当前治理报告仅描述 docs 生命周期与归档状态",
+        "## 16. 后续执行批次",
+        "当前治理报告仅描述 docs 生命周期、内容角色与推荐归置状态",
     ]:
         assert needle in content
     assert not re.search(r"PR #\d+", content)
@@ -156,7 +220,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert "本 PR" not in content
     for old_path, new_path in ARCHIVE_MAP.items():
         assert content.count(old_path) == 1
-        assert content.count(new_path) == 1
+        assert content.count(new_path) >= 1
 
 
 def test_archive_readme_exists_and_links_batch_documents() -> None:
