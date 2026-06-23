@@ -13,19 +13,18 @@ ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
     "README.md",
     "docs/README.md",
-    "docs/00_project/README.md",
-    "docs/10_methodology/README.md",
-    "docs/20_dimensions/README.md",
     "docs/30_operations/README.md",
-    "docs/AGENTS.md",
-    "docs/agent_rules/README.md",
     "docs/agent_rules/docs_registry.json",
-    "docs/人工阅读型Markdown导出规范.md",
-    "docs/数据层级与批次文件治理规则.md",
+    "docs/30_operations/GitHub发布与认证规范.md",
+    "docs/30_operations/ID命名规范.md",
+    "docs/30_operations/Markdown表格显示约定.md",
+    "docs/30_operations/scripts目录规范.md",
+    "docs/30_operations/人工阅读型Markdown导出规范.md",
     "exports/governance/文档治理盘点报告.md",
-    "tests/test_docs_governance.py",
-    "tests/test_docs_tool.py",
+    "tests/test_agents_ready_for_review_rule.py",
     "tests/test_file_governance_policy.py",
+    "tests/test_pr_body_tool.py",
+    "tests/test_repo_tool.py",
 }
 
 for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):
@@ -54,13 +53,13 @@ def test_agents_md_contains_file_governance_rules() -> None:
     for needle in [
         "展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论",
         "人工复核型 Markdown 默认纯 Markdown，不使用 HTML details",
-        "详细规范见 `docs/人工阅读型Markdown导出规范.md`",
+        "详细规范见 `docs/30_operations/人工阅读型Markdown导出规范.md`",
     ]:
         assert needle in content
 
 
 def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
-    content = read_text(ROOT / "docs" / "人工阅读型Markdown导出规范.md")
+    content = read_text(ROOT / "docs" / "30_operations" / "人工阅读型Markdown导出规范.md")
     for needle in [
         "不使用 `<details>`、`<summary>`、`</details>`",
         "详情页不要使用宽表承载长字段、裁判说明、相邻项剥离说明、warning `matched_fields` 或 linked evidence 长字段",
