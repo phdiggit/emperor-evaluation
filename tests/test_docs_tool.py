@@ -427,6 +427,48 @@ def test_check_validates_archived_document_paths(tmp_path: Path) -> None:
     assert any("mapped from multiple old paths" in p for p in problems_for(lambda r: r["archived_document_paths"].__setitem__("docs/second_old.md", archived_path)))
 
 
+def test_check_validates_retired_generated_document_paths(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    docs_tool = load_docs_tool(repo)
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    retired_old = "docs/generated.md"
+    retired_target = "exports/markdown_views/generated.md"
+    (repo / "exports" / "markdown_views").mkdir(parents=True)
+    write(repo / retired_target, "# Generated export\n")
+    run_git(repo, "add", retired_target)
+    run_git(repo, "rm", retired_old)
+    commit_all(repo, "retire generated docs copy")
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry["documents"] = [doc for doc in registry["documents"] if doc["path"] != retired_old]
+    registry["retired_generated_document_paths"] = {retired_old: retired_target}
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    assert docs_tool.check_registry(str(registry_path.relative_to(repo))) == []
+    report = docs_tool.build_report(str(registry_path.relative_to(repo)))
+    assert "## 8. 已迁出 docs 的生成文档" in report
+    assert retired_old in report
+    assert retired_target in report
+    assert "旧 docs 路径已退役" in report
+
+    def problems_for(mutator) -> list[str]:
+        broken = json.loads(json.dumps(registry, ensure_ascii=False))
+        mutator(broken)
+        registry_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return docs_tool.check_registry(str(registry_path.relative_to(repo)))
+
+    assert any("retired_generated_document_paths must be an object" in p for p in problems_for(lambda r: r.__setitem__("retired_generated_document_paths", [])))
+    assert any("retired generated old path still exists" in p for p in problems_for(lambda r: (repo / retired_old).write_text("# old\n", encoding="utf-8")))
+    (repo / retired_old).unlink()
+    assert any("retired generated old path is still registered" in p for p in problems_for(lambda r: r["documents"].append({**r["documents"][0], "path": retired_old})))
+    assert any("retired generated target must be under exports/" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__(retired_old, "docs/generated.md")))
+    assert any("retired generated target does not exist" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__(retired_old, "exports/markdown_views/missing.md")))
+    assert any("project driver cannot be a retired generated old path" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/driver.md", retired_target)))
+    assert any("conflicts with archived_document_paths" in p for p in problems_for(lambda r: (r.__setitem__("archived_document_paths", {retired_old: "docs/archive/audits/generated.md"}), r["retired_generated_document_paths"].__setitem__(retired_old, retired_target))))
+    assert any("retired generated target is mapped from multiple old paths" in p for p in problems_for(lambda r: r["retired_generated_document_paths"].__setitem__("docs/second.md", retired_target)))
+
+
 def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, capfd: pytest.CaptureFixture[str]) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
@@ -471,15 +513,16 @@ def test_report_outputs_candidate_sections_and_cli_return_codes(tmp_path: Path, 
     assert "### 内容角色统计" in report
     assert "### 推荐归置动作统计" in report
     assert "## 7. 仅保留 exports 候选" in report
-    assert "## 10. 内容归置待确认项" in report
-    assert "## 11. 生命周期 archive candidates" in report
-    assert "## 12. 生命周期 delete candidates" in report
-    assert "## 13. 生命周期 review / needs human confirmation" in report
-    assert "## 14. 已归档文档" in report
-    assert "## 19. 后续执行批次" in report
+    assert "## 8. 已迁出 docs 的生成文档" in report
+    assert "## 11. 内容归置待确认项" in report
+    assert "## 12. 生命周期 archive candidates" in report
+    assert "## 13. 生命周期 delete candidates" in report
+    assert "## 14. 生命周期 review / needs human confirmation" in report
+    assert "## 15. 已归档文档" in report
+    assert "## 20. 后续执行批次" in report
     canonical_section = report.split("## 6. 事实源吸收并生成视图候选", 1)[1].split("## 7. 仅保留 exports 候选", 1)[0]
-    mixed_section = report.split("## 8. 需要拆分的混合文档", 1)[1].split("## 9. 吸收后归档候选", 1)[0]
-    lifecycle_review_section = report.split("## 13. 生命周期 review / needs human confirmation", 1)[1].split("## 14. 已归档文档", 1)[0]
+    mixed_section = report.split("## 9. 需要拆分的混合文档", 1)[1].split("## 10. 吸收后归档候选", 1)[0]
+    lifecycle_review_section = report.split("## 14. 生命周期 review / needs human confirmation", 1)[1].split("## 15. 已归档文档", 1)[0]
     assert "docs/dup-a.md" in canonical_section
     assert "docs/中文说明.md" not in canonical_section
     assert "docs/中文说明.md" in mixed_section

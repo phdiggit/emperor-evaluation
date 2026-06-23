@@ -45,8 +45,8 @@
 1. `exports/markdown_views/第五项B三人自动结算草案.md`
 2. `exports/markdown_views/第五项B自动结算规则敏感点清单.md`
 3. `exports/markdown_views/第五项B三人正式定档落地表.md`
-4. `exports/markdown_views/第五项B评分标尺与档位映射草案.md`
-5. `docs/第五项B三人试点内部闭环收尾.md` 与对应导出视图
+4. `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`
+5. `exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md`
 
 未来最适合接入的位置是自动结算草案中的“规则敏感点”附近：
 
