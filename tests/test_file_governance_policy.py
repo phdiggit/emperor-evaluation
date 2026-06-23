@@ -12,35 +12,12 @@ from _git_helpers import changed_files_against_base, git_changed_files, skip_unl
 ALLOWED_CHANGED_FILES = {
     "AGENTS.md",
     "README.md",
-    ".gitignore",
-    ".tmp/docs_governance/i5b_mixed_docs_split_inventory.md",
+    "docs/AGENTS.md",
+    "docs/agent_rules/README.md",
+    "docs/agent_rules/docs_registry.json",
     "docs/人工阅读型Markdown导出规范.md",
     "docs/数据层级与批次文件治理规则.md",
-    "docs/AGENTS.md",
-    "docs/agent_rules/docs_registry.json",
-    "docs/archive/README.md",
-    "docs/archive/design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md",
-    "docs/archive/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
-    "docs/archive/design_snapshots/i5b_warning_export_guarded_integration_design_20260621.md",
-    "docs/archive/design_snapshots/manual_review_config_layer_design_20260620.md",
-    "docs/archive/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
-    "docs/archive/design_snapshots/thematic_anchor_schema_decision_20260620.md",
-    "docs/i5b_cluster_warning_display_integration_design_20260621.md",
-    "docs/i5b_evidence_cluster_adjudication_config_design_20260621.md",
-    "docs/i5b_warning_export_guarded_integration_design_20260621.md",
-    "docs/manual_review_config_layer_design_20260620.md",
-    "docs/thematic_anchor_multigranularity_schema_plan_20260620.md",
-    "docs/thematic_anchor_schema_decision_20260620.md",
-    "docs/文档治理盘点报告.md",
-    "exports/governance/文档治理盘点报告.md",
-    "scripts/dev/docs_tool.py",
-    "tests/_git_helpers.py",
-    "tests/test_agents_ready_for_review_rule.py",
-    "tests/test_docs_governance.py",
-    "tests/test_docs_tool.py",
     "tests/test_file_governance_policy.py",
-    "tests/test_file_governance_report.py",
-    "tests/test_redundant_file_candidates_report.py",
 }
 
 for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):
@@ -112,6 +89,32 @@ def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -
         "PR 白名单外导出变更必须还原",
     ]:
         assert needle in content
+
+
+def test_file_governance_allowlist_has_no_one_off_migration_paths() -> None:
+    forbidden_prefixes = (
+        ".tmp/",
+        "data/",
+        "docs/archive/",
+        "exports/markdown_views/",
+    )
+    forbidden_exact_paths = {
+        "docs/文档治理盘点报告.md",
+    }
+    forbidden_fragments = (
+        "_20260620",
+        "_20260621",
+    )
+
+    offenders = {
+        path
+        for path in ALLOWED_CHANGED_FILES
+        if path in forbidden_exact_paths
+        or path.startswith(forbidden_prefixes)
+        or any(fragment in path for fragment in forbidden_fragments)
+    }
+
+    assert offenders == set()
 
 
 def test_pr_diff_stays_inside_issue_82_whitelist() -> None:
