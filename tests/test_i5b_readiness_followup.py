@@ -110,7 +110,7 @@ def test_readiness_followup_summary_covers_all_three_people() -> None:
 
 def test_readiness_followup_export_is_review_only() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

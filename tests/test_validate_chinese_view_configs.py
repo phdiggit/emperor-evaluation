@@ -25,7 +25,7 @@ def write_json_array(path: Path, rows: list[object]) -> None:
 
 def test_validate_chinese_view_configs_cli_passes_on_repo_data() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_chinese_view_configs.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_chinese_view_configs.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

@@ -7,7 +7,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-import i5b_markdown_display as legacy_i5b_markdown_display  # noqa: E402
 from shared import i5b_markdown_display  # noqa: E402
 from shared.i5b_markdown_display import (  # noqa: E402
     human_review_table_fields,
@@ -68,17 +67,19 @@ PUBLIC_API_NAMES = (
 )
 
 
-def test_new_and_legacy_i5b_markdown_display_imports_expose_public_api() -> None:
+def test_canonical_i5b_markdown_display_import_exposes_public_api() -> None:
     for api_name in PUBLIC_API_NAMES:
         assert hasattr(i5b_markdown_display, api_name)
-        assert hasattr(legacy_i5b_markdown_display, api_name)
+
+
+def test_retired_i5b_markdown_display_wrapper_path_is_absent() -> None:
+    assert not (ROOT / "scripts" / "i5b_markdown_display.py").exists()
 
 
 def test_default_display_config_path_still_points_to_i5b_markdown_view_config() -> None:
     assert i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH == (
         ROOT / "data" / "configs" / "导出展示配置" / "第五项B_markdown_view.json"
     )
-    assert legacy_i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH == i5b_markdown_display.DEFAULT_DISPLAY_CONFIG_PATH
 
 
 def test_render_long_list_preserves_locator_items() -> None:

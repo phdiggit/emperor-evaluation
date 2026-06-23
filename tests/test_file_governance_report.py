@@ -59,9 +59,9 @@ def test_file_governance_report_is_read_only_diagnostic() -> None:
 def test_file_governance_report_mentions_required_scripts_and_categories() -> None:
     content = read_report()
     for needle in [
-        "scripts/export_md.py",
-        "scripts/export_i5b_auto_adjudication.py",
-        "scripts/validate_evidence.py",
+        "scripts/export/export_md.py",
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/validate/validate_evidence.py",
         "keep_long_term",
         "keep_for_now",
         "archive_candidate",

@@ -20,7 +20,7 @@ VALIDATE_CONFIG_READABILITY_SPEC.loader.exec_module(validate_config_readability)
 
 def test_validate_config_readability_cli_passes_on_repo_data() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_config_readability.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_config_readability.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

@@ -2,7 +2,7 @@
 
 新增独立校验脚本：
 
-- `python scripts/validate_canonical_data_integrity.py`
+- `python scripts/validate/validate_canonical_data_integrity.py`
 
 可选最小测试入口：
 

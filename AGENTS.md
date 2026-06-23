@@ -46,18 +46,18 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 ## 脚本治理 / Script Governance
 
 - 任务涉及 `scripts/**` 时，修改前必须读取 `scripts/AGENTS.md`。
-- 开发工具、validator、exporter 和共享工具按 `scripts/AGENTS.md` 分层；`scripts/` 根目录只保留批准的稳定入口、未迁移历史脚本和兼容 wrapper。
-- 修改已迁移脚本时只改真实实现，并验证新旧 import/CLI；wrapper 不承载主逻辑。
+- 开发工具、validator、exporter 和共享工具按 `scripts/AGENTS.md` 分层；`scripts/` 根目录不再保留 Python wrapper，只允许 registry `root_exceptions` 登记的非 Python 稳定入口。
+- 修改已迁移脚本时只改 canonical 真实实现，并验证 canonical import/CLI；不得恢复已退役 wrapper。
 - 普通功能 PR 不顺手迁移其他职责域；迁移任务按同一职责链成批处理。
-- 当前路径、迁移状态、wrapper、审计文档和专属测试以 `docs/agent_rules/scripts_registry.json` 为准。
-- scripts 治理 PR 开 PR 前必须运行适用测试、`python scripts/validate_all.py`、scope-check 和 agents-check。
+- 当前路径、迁移状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/agent_rules/scripts_registry.json` 为准。
+- scripts 治理 PR 开 PR 前必须运行适用测试、`python scripts/validate/validate_all.py`、scope-check 和 agents-check。
 
 ## 改动与验证 / Changes And Validation
 
 - 大范围改脚本前，先用 `rg` / `git grep` 精确定位，再做小补丁。Locate precisely before large script edits.
 - 机械替换只在白名单路径内做；测试文件只改展示断言，不全局替换 fixture key。Keep mechanical rewrites scoped.
 - 大脚本治理必须小步重构并有测试锁定；业务 PR 不顺手拆脚本。Keep business PRs scoped.
-- 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate_all.py`。
+- 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate/validate_all.py`。
 - 验证命令若生成或重写 `exports/`、generated docs 或其他范围外副产物，先记录通过结果，再清理副产物；清理后只做 `git status`、`git diff --name-only`、`git diff --check` 等范围核对，不重复运行会再次生成副产物的全量命令。
 
 ## 人工阅读型 Markdown 导出高压线 / Human-Readable Markdown Exports

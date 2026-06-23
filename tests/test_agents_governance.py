@@ -48,16 +48,21 @@ def test_agents_route_to_scripts_agents_and_registry() -> None:
 def test_registry_is_valid_and_paths_exist() -> None:
     registry = load_registry()
     assert registry["schema_version"] == 1
+    assert registry["legacy_wrapper_policy"] == "retired"
     for rel_path in registry["directories"].values():
         assert (ROOT / rel_path).is_dir()
     for module in registry["modules"]:
         assert (ROOT / module["implementation"]).is_file()
-        if module.get("legacy_wrapper"):
-            assert (ROOT / module["legacy_wrapper"]).is_file()
-            assert module["legacy_wrapper"] != module["implementation"]
+        assert module.get("legacy_wrapper") is None
         for field in ("audit_docs", "required_tests"):
             for rel_path in module[field]:
                 assert (ROOT / rel_path).is_file()
+    module_ids = {module["id"] for module in registry["modules"]}
+    for retired_path, module_id in registry["retired_legacy_wrappers"].items():
+        assert module_id in module_ids
+        assert retired_path.startswith("scripts/")
+        assert retired_path.endswith(".py")
+        assert not (ROOT / retired_path).exists()
     for entry in registry["root_exceptions"]:
         path = ROOT / entry["path"]
         assert path.is_file()
@@ -66,16 +71,11 @@ def test_registry_is_valid_and_paths_exist() -> None:
 
 def test_root_scripts_are_fully_covered_by_registry() -> None:
     registry = load_registry()
-    wrappers = {
-        module["legacy_wrapper"]
-        for module in registry["modules"]
-        if module.get("legacy_wrapper")
-    }
     exceptions = {entry["path"] for entry in registry["root_exceptions"]}
     root_scripts = {path.relative_to(ROOT).as_posix() for path in (ROOT / "scripts").glob("*.py")}
 
-    assert root_scripts <= wrappers | exceptions
-    assert not (wrappers & exceptions)
+    assert root_scripts == set()
+    assert "scripts/publish_pr.ps1" in exceptions
 
 
 def test_repo_tool_agents_check_passes_for_real_repo() -> None:

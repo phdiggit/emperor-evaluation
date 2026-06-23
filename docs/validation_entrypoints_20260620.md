@@ -2,7 +2,7 @@
 
 当前仓库保留三个验证入口，职责刻意分开：
 
-## 1. `python scripts/validate_evidence.py`
+## 1. `python scripts/validate/validate_evidence.py`
 
 用途：
 
@@ -14,7 +14,7 @@
 - 跨 canonical lane 的专题锚点去重
 - 批次 canonical 吸收后的 `source_batch` 追溯约束
 
-## 2. `python scripts/validate_canonical_data_integrity.py`
+## 2. `python scripts/validate/validate_canonical_data_integrity.py`
 
 用途：
 
@@ -29,13 +29,13 @@
 
 - 替代原有 evidence 业务校验
 
-## 3. `python scripts/validate_all.py`
+## 3. `python scripts/validate/validate_all.py`
 
 用途：
 
 - 作为统一入口，顺序运行：
-  - `python scripts/validate_evidence.py`
-  - `python scripts/validate_canonical_data_integrity.py`
+  - `python scripts/validate/validate_evidence.py`
+  - `python scripts/validate/validate_canonical_data_integrity.py`
 - 任一步失败即返回非零退出码
 
 推荐使用场景：
@@ -45,5 +45,5 @@
 
 CI 入口：
 
-- GitHub Actions `validate.yml` 会调用 `python scripts/validate_all.py`
+- GitHub Actions `validate.yml` 会调用 `python scripts/validate/validate_all.py`
 - 随后会运行聚焦测试：`python -m pytest -q tests/test_canonical_data_integrity.py tests/test_validate_all.py`

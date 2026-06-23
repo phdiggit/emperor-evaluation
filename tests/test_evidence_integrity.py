@@ -26,7 +26,7 @@ VALIDATE_EVIDENCE_SPEC.loader.exec_module(validate_evidence)
 
 def test_validate_evidence_allows_empty_data() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "validate_evidence.py")],
+        [sys.executable, str(ROOT / "scripts" / "validate" / "validate_evidence.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -45,7 +45,7 @@ def test_existing_trigger_terms_jsonl_passes() -> None:
 
 def test_export_md_generates_evidence_index() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

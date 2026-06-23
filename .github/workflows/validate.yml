@@ -25,7 +25,7 @@ jobs:
         run: python -m pip install --upgrade pip pytest
 
       - name: Run unified validation entrypoint
-        run: python scripts/validate_all.py
+        run: python scripts/validate/validate_all.py
 
       - name: Run focused validation tests
         run: python -m pytest -q tests/test_canonical_data_integrity.py tests/test_validate_all.py

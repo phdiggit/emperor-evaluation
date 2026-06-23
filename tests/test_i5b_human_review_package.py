@@ -82,7 +82,7 @@ def test_agenda_row_is_rule_only_and_non_scoring() -> None:
 
 def test_human_review_package_export_is_review_only_and_not_polluted() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

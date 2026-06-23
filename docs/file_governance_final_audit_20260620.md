@@ -12,7 +12,7 @@
 2. batch-to-canonical 吸收关系已完成审计，并对 query/search/thematic 三类关键批次给出 canonical 落点；
 3. thematic anchor 已从单一聚合层扩展为 object / mechanism / event 多粒度 canonical lane；
 4. canonical data integrity validator、`scripts/validate_all.py` 与 GitHub Actions `Validate` 已到位；
-5. `scripts/export_md.py` 已完成多轮低风险模块化拆分；
+5. `scripts/export/export_md.py` 已完成多轮低风险模块化拆分；
 6. 当前未发现活跃脚本、测试或 CI 仍把已归档 leavebehind 文件当作执行入口。
 
 本轮未发现必须在本 PR 内继续处理的脚本、数据或 workflow 级问题。剩余事项主要是：
@@ -33,7 +33,7 @@
 6. `scripts/validate_canonical_data_integrity.py` 已保护 canonical JSONL 的 parseability、ID 唯一性、source traceability 与 thematic lane 语义。
 7. `scripts/validate_all.py` 已提供统一验证入口。
 8. `.github/workflows/validate.yml` 已在 PR / push to `GPT` 时执行统一验证入口与聚焦测试。
-9. `scripts/export_md.py` 的 scaffold、I5B review-path、I5B net-evidence、expanded batch1、project-doc-view 五个低风险切片均已完成模块化拆分。
+9. `scripts/export/export_md.py` 的 scaffold、I5B review-path、I5B net-evidence、expanded batch1、project-doc-view 五个低风险切片均已完成模块化拆分。
 
 ## 3. Remaining unresolved or human-decision items
 
@@ -75,7 +75,7 @@
 
 | reference | classification | current assessment |
 | --- | --- | --- |
-| `docs/全局总标尺决策简报_讨论版.md` | `active` | 当前仍由 `scripts/export_md.py` -> `scripts/export_project_doc_views.py` 双写到 `docs/` 与 `exports/markdown_views/`，并被 `tests/test_global_score_scale_brief.py` 验证。不是陈旧路径。 |
+| `docs/全局总标尺决策简报_讨论版.md` | `active` | 当前仍由 `scripts/export/export_md.py` -> `scripts/export_project_doc_views.py` 双写到 `docs/` 与 `exports/markdown_views/`，并被 `tests/test_global_score_scale_brief.py` 验证。不是陈旧路径。 |
 | `exports/markdown_views/全局总标尺决策简报_讨论版.md` | `active` | 仍是现行导出视图之一，非 archive leftover。 |
 | `第五项B三人正式定档草案.md` | `archived-intentional` | 当前只在归档说明、历史复核文档、旧治理审计中出现。未发现活跃脚本/测试把它当作当前正式入口。 |
 | `第五项B三人正式定档表.md` | `archived-intentional` | 同上；当前正式入口已迁移到 `exports/markdown_views/第五项B三人正式定档落地表.md`。 |
@@ -137,7 +137,7 @@ formal-result / scoring / ranking 文件整体仍处于受保护状态，没有�
 
 当前对普通使用者最清晰的入口是：
 
-1. `python scripts/validate_all.py`
+1. `python scripts/validate/validate_all.py`
    - 统一本地验证入口；
    - 顺序执行 `validate_evidence.py` 与 `validate_canonical_data_integrity.py`。
 2. `.github/workflows/validate.yml`
@@ -178,7 +178,7 @@ formal-result / scoring / ranking 文件整体仍处于受保护状态，没有�
 1. 如有需要，补一份“历史治理文档索引/时态说明”，把 `docs/项目文件治理诊断报告.md` 这类文件标记为 historical snapshot。
 2. 继续保持 docs-only 收口与脚本/data 变更分离。
 3. 若未来新增 batch-to-canonical absorption，再优先复用现有 validator / audit note 模式，不重建新治理框架。
-4. `scripts/export_md.py` 若继续模块化，可按同样小切口推进，但这已经不再属于 file-governance 主链任务。
+4. `scripts/export/export_md.py` 若继续模块化，可按同样小切口推进，但这已经不再属于 file-governance 主链任务。
 
 ## 9. Repository change statement
 

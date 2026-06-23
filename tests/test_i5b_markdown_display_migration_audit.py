@@ -5,9 +5,17 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUDIT_DOC = ROOT / "docs" / "i5b_markdown_display迁移前依赖审计.md"
-SHARED_PLAN_DOC = ROOT / "docs" / "scripts共享工具依赖盘点.md"
-LAYOUT_DOC = ROOT / "docs" / "scripts目录规范.md"
+AUDIT_DOC = next(path for path in (ROOT / "docs").glob("*i5b_markdown_display*.md"))
+SHARED_PLAN_DOC = next(
+    path
+    for path in (ROOT / "docs").glob("scripts*.md")
+    if "i5b_markdown_display.py" in path.read_text(encoding="utf-8")
+)
+LAYOUT_DOC = next(
+    path
+    for path in (ROOT / "docs").glob("scripts*.md")
+    if "## scripts/dev/" in path.read_text(encoding="utf-8")
+)
 AGENTS = ROOT / "AGENTS.md"
 REGISTRY = ROOT / "docs" / "agent_rules" / "scripts_registry.json"
 SCRIPTS_DIR = ROOT / "scripts"
@@ -48,18 +56,16 @@ def test_audit_doc_describes_migration_risks_and_target() -> None:
         assert marker in content
 
 
-def test_i5b_markdown_display_has_been_migrated_with_legacy_wrapper() -> None:
-    assert (SCRIPTS_DIR / "i5b_markdown_display.py").is_file()
-    assert (SHARED_DIR / "i5b_markdown_display.py").is_file()
+def test_i5b_markdown_display_legacy_wrapper_has_been_retired() -> None:
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
 
-    wrapper_text = (SCRIPTS_DIR / "i5b_markdown_display.py").read_text(encoding="utf-8")
-    assert len(wrapper_text.splitlines()) <= 12
-    assert "from shared.i5b_markdown_display import *" in wrapper_text
-    assert "def " not in wrapper_text
+    assert not (SCRIPTS_DIR / "i5b_markdown_display.py").exists()
+    assert (SHARED_DIR / "i5b_markdown_display.py").is_file()
+    assert registry["retired_legacy_wrappers"]["scripts/i5b_markdown_display.py"] == "i5b_markdown_display"
 
 
 def test_related_docs_and_agents_reference_migration_audit() -> None:
-    audit_doc_name = "docs/i5b_markdown_display迁移前依赖审计.md"
+    audit_doc_name = AUDIT_DOC.relative_to(ROOT).as_posix()
     assert audit_doc_name in SHARED_PLAN_DOC.read_text(encoding="utf-8")
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     module = next(module for module in registry["modules"] if module["id"] == "i5b_markdown_display")
@@ -73,20 +79,17 @@ def test_layout_doc_keeps_i5b_markdown_display_unmigrated() -> None:
     assert "审计文档" in content
 
 
-def test_new_and_legacy_import_paths_remain_available() -> None:
+def test_canonical_import_path_remains_available() -> None:
     import importlib
     import sys
 
     sys.path.insert(0, str(SCRIPTS_DIR))
     assert importlib.import_module("shared.i5b_markdown_display") is not None
-    assert importlib.import_module("i5b_markdown_display") is not None
 
 
-def test_config_loaders_has_been_migrated_with_legacy_wrapper() -> None:
-    assert (SCRIPTS_DIR / "config_loaders.py").is_file()
+def test_config_loaders_legacy_wrapper_has_been_retired() -> None:
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+
+    assert not (SCRIPTS_DIR / "config_loaders.py").exists()
     assert (SHARED_DIR / "config_loaders.py").is_file()
-
-    wrapper_text = (SCRIPTS_DIR / "config_loaders.py").read_text(encoding="utf-8")
-    assert len(wrapper_text.splitlines()) <= 12
-    assert "from shared import config_loaders as _config_loaders" in wrapper_text
-    assert "def " not in wrapper_text
+    assert registry["retired_legacy_wrappers"]["scripts/config_loaders.py"] == "config_loaders"

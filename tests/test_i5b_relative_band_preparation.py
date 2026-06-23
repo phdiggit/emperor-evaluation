@@ -90,7 +90,7 @@ def test_batch_summary_row_keeps_the_shared_rule_boundary_limited() -> None:
 
 def test_relative_band_preparation_export_is_review_only_and_not_polluted() -> None:
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_md.py")],
+        [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py")],
         cwd=ROOT,
         capture_output=True,
         text=True,

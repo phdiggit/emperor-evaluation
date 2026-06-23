@@ -7,6 +7,16 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def script_path(script_name: str) -> Path:
+    routes = {
+        "validate_evidence.py": Path("scripts/validate/validate_evidence.py"),
+        "build_db.py": Path("scripts/build/build_db.py"),
+        "export_md.py": Path("scripts/export/export_md.py"),
+        "export_i5b_auto_adjudication.py": Path("scripts/export/export_i5b_auto_adjudication.py"),
+    }
+    return ROOT / routes.get(script_name, Path("scripts") / script_name)
 sys.path.insert(0, str(ROOT / "scripts"))
 I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
 AUTO_CHAIN_ROOT = I5B_EXPORT_ROOT / "人工审核" / "自动裁判链"
@@ -23,7 +33,7 @@ from export import export_i5b_auto_adjudication as auto
 
 def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / script_name), *args],
+        [sys.executable, str(script_path(script_name)), *args],
         cwd=ROOT,
         capture_output=True,
         text=True,
