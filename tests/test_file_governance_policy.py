@@ -46,6 +46,7 @@ ALLOWED_CHANGED_FILES = {
     "docs/展示与协作/人工阅读型Markdown导出规范.md",
     "docs/adr/ADR-anchors-schema-proposal.md",
     "docs/adr/ADR-formal-target-schema-draft.md",
+    "docs/adr/ADR-formal-migration-proposal.md",
     "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
     "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
     "docs/adr/ADR-postgres-formal-migration-plan.md",
@@ -59,11 +60,13 @@ ALLOWED_CHANGED_FILES = {
     "scripts/export/export_i5b_auto_adjudication.py",
     "scripts/platform/anchors_schema_proposal.py",
     "scripts/platform/formal_schema_draft.py",
+    "scripts/platform/formal_migration_proposal.py",
     "scripts/platform/production_readiness_plan.py",
     "tests/test_anchors_schema_proposal_contract.py",
     "tests/test_docs_governance.py",
     "tests/test_file_governance_policy.py",
     "tests/test_formal_schema_draft.py",
+    "tests/test_formal_migration_proposal.py",
     "tests/test_production_readiness_plan.py",
 }
 
