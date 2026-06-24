@@ -2,11 +2,13 @@
 
 ## 1. 状态与结论
 
-Status: Proposed / ADR
+Status: Accepted / ADR
 
 Decision: PostgreSQL + RabbitMQ + PostgreSQL FTS 起步；JSONL 短期保留但不继续无限扩张。
 
 本 ADR 只确定目标架构和迁移边界，不实现数据库 schema、队列、worker、抓取器或搜索引擎。当前仓库的 JSONL、SQLite 和 Markdown 导出继续服务试点与验证；未来新增史源全文、段落、检索任务和复核状态时，应向数据平台模型收束，而不是继续扩张平行 JSONL 文件。
+
+#236 是 schema / worker 前的实现设计收口。具体可靠投递、任务状态机、第一版 PostgreSQL 表清单、中文古文检索、史源快照和 JSONL 切库方案见《史源数据平台实现设计.md》。
 
 ## 2. 为什么现在要定架构
 
@@ -36,53 +38,49 @@ Decision: PostgreSQL + RabbitMQ + PostgreSQL FTS 起步；JSONL 短期保留但�
 
 ## 4. 目标数据模型
 
-本 ADR 只描述目标表或 collection 名称，不定义 schema。
+本 ADR 只描述目标表方向，不定义 schema。第一版 schema 草案以《史源数据平台实现设计.md》为准。
 
 目标模型至少包含：
 
 - `persons`
-- `source_documents`
-- `source_passages`
-- `evidence_source_links`
-- `evidence_cards`
-- `evidence_clusters`
+- `person_aliases`
+- `subitems`
+- `src_hosts`
+- `src_docs`
+- `doc_revs`
+- `passages`
+- `passage_people`
 - `query_profiles`
 - `search_tasks`
-- `fetch_jobs`
-- `parse_jobs`
-- `index_jobs`
-- `candidate_matches`
-- `adjudication_decisions`
-- `score_records`
-- `worker_runs`
-- `job_failures`
+- `search_hits`
+- `cand_matches`
+- `evd_cards`
+- `evd_src_links`
+- `clusters`
+- `cluster_evd`
+- `review_items`
+- `jobs`
+- `job_runs`
+- `job_deps`
+- `outbox`
+- `imports`
+- `import_rows`
 
 关键关系：
 
-- `source_document -> source_passage`：一份史源文档拆成多个可定位段落，段落保留卷次、页码、纪年、URL、文本位置、版本和解析状态。
-- `source_passage <-> evidence_card`：通过 `evidence_source_links` 表达多对多引用。证据卡不再被单个 `source_id` 限死。
-- `query_profile -> search_task -> fetch/parse/index/match jobs`：检索画像生成具体任务，任务再拆成抓取、解析、索引和候选召回 job。
+- `src_host -> src_doc -> doc_rev -> passage`：一份逻辑史源文档可有多次不可变抓取快照，段落引用 `doc_rev_id`。
+- `passage <-> evd_card`：通过 `evd_src_links` 表达多对多引用。证据卡不再被单个 `source_id` 限死。
+- `query_profile -> search_task -> search_hits -> fetch job -> doc_rev`：检索画像生成具体任务，搜索命中保存候选 URL 和拒绝状态，再进入抓取任务。
+- `jobs -> job_runs / job_deps / outbox`：统一任务表承载 search、fetch、parse、match、draft、review_notify 等执行类型，不再拆成多张阶段 job 表。
 - `candidate_match -> evidence draft / search_log / review queue`：候选命中先进入草稿、检索留痕或人工复核队列，不直接写成正式证据。
 
-`evidence_cards`、`evidence_clusters`、`adjudication_decisions` 和 `score_records` 之间必须保留明确边界。证据卡记录原子材料，证据组记录多证据裁量，裁判决策记录人工或规则裁判，评分记录只在正式定档流程中产生。
+`evd_cards`、`clusters`、后续 `adjudications` 和后续 `score_records` 之间必须保留明确边界。证据卡记录原子材料，证据组记录多证据裁量，裁判决策记录人工或规则裁判，评分记录只在正式定档流程中产生。第一版暂不实现最终评分表。
 
 ## 5. 并发采集工作流
 
-未来工作流不能按人物串行。建议拆成以下阶段：
+未来工作流不能按人物串行。RabbitMQ 承载任务队列，不同 worker 可并发消费 search、fetch、parse、match、draft、review_notify 等任务，避免单人单子项长链条阻塞整个批次。
 
-```text
-plan_tasks
-  -> source_fetch_tasks
-  -> passage_parse_tasks
-  -> passage_index_tasks
-  -> candidate_match_tasks
-  -> evidence_draft_tasks
-  -> review_tasks
-```
-
-RabbitMQ 承载任务队列。不同 worker 可并发消费 search、fetch、parse、index、match、review 等任务，避免单人单子项长链条阻塞整个批次。
-
-PostgreSQL 记录任务状态、幂等键、`attempt_count`、`worker_runs` 和 `job_failures`。队列只负责调度与投递，canonical 状态不放在 RabbitMQ 里。
+PostgreSQL 记录任务状态、幂等键、`attempt_count`、`max_attempts`、`next_run_at`、`locked_by`、`locked_at`、`lease_until`、`job_runs`、`job_deps` 和 `outbox`。队列只负责调度与投递，canonical 状态不放在 RabbitMQ 里。
 
 任务粒度建议为：
 
@@ -90,17 +88,18 @@ PostgreSQL 记录任务状态、幂等键、`attempt_count`、`worker_runs` 和 
 person + subitem + search_mode + source_scope + query_terms/source_hint
 ```
 
-后续实现设计必须覆盖：
+实现设计已经覆盖：
 
 - 失败重试和最大尝试次数。
 - dead-letter queue 和人工介入入口。
 - 站点、史源或供应方级限速。
 - query、URL、source document 和 passage 的去重。
 - 回源状态、解析状态、索引状态和复核状态的持久化。
+- manual ACK、publisher confirms、outbox 和 worker 幂等。
 
 ## 6. 搜索索引层
 
-起步阶段使用 PostgreSQL FTS / JSONB / trigram 等能力，提供本地和服务端初期检索能力。这样可以让事实链、任务状态和初始检索能力落在同一个主库内，减少第一阶段搬家成本。
+起步阶段使用 PostgreSQL FTS / JSONB / pg_trgm 等能力，提供本地和服务端初期检索能力。中文古文无空格，不能笼统假定默认 FTS 足够；第一阶段应采用 PostgreSQL 元数据过滤、应用侧中文/古文规范化与分词、GIN `tsvector`、`pg_trgm` 辅助模糊匹配的组合，并对单字、两字词、异体、繁简转换和人物别名做 benchmark。
 
 增强阶段可以接入 Redis Search 或 OpenSearch。增强搜索层只承担热索引、召回加速、多字段搜索体验和复杂查询性能优化，不替代 PostgreSQL 的 canonical 事实源。
 
@@ -112,13 +111,13 @@ SQLite FTS5 可作为本地原型或生成索引，适合 Codex / VSCode 工作�
 
 ## 7. JSONL / SQLite / PostgreSQL 边界
 
-当前 JSONL 继续保留，短期仍可作为事实源、导入来源、小样本 fixture 和 PR 审阅载体。现有 `data/*.jsonl`、`data/*_batches/*.jsonl` 和主表字段规范不在本 ADR 中迁移或删除。
+当前 JSONL 继续保留，短期仍作为事实源、导入来源、小样本 fixture 和 PR 审阅载体。现有 `data/*.jsonl`、`data/*_batches/*.jsonl` 和主表字段规范不在本 ADR 中迁移或删除。
 
 SQLite 继续作为当前本地生成库和兼容缓存。`scripts/build/build_db.py` 仍可从 JSONL 生成 `evidence_cache.sqlite`，用于本地查询、校验和导出。
 
 PostgreSQL 是目标主库。未来进入数据平台原型时，应优先按目标模型设计导入、引用、任务和审计结构，不设计“JSONL -> SQLite -> MongoDB”的多次搬家路线。
 
-JSONL batch 收束另开 PR。本 ADR 不改动 `data/*.jsonl`，不迁移 batch，不删除过渡文件，也不改变当前生成链路。
+未来切库必须走单向阶段：JSONL 唯一写源、导入 PostgreSQL staging 反复验证、冻结 JSONL 写入、全量导入并校验行数 / ID / 引用 / hash、PostgreSQL 成为唯一写源、JSONL 只作导出快照 / 小 fixture / 历史审计。本 ADR 不改动 `data/*.jsonl`，不迁移 batch，不删除过渡文件，也不改变当前生成链路。
 
 ## 8. 配置边界
 
@@ -148,17 +147,17 @@ JSONL batch 收束另开 PR。本 ADR 不改动 `data/*.jsonl`，不迁移 batch
 
 ## 10. 后续 PR 序列
 
-本 ADR 之后建议按以下顺序推进：
+本 ADR 和 #236 实现设计收口之后建议按以下顺序推进：
 
 ```text
-#229 数据结构与生成库清扫
-#230 JSONL 数据层级盘点
-#231 batch 收束 / 归档 / 删除
-#232 证据规则归并
-#233 数据平台最小原型
+#237 PostgreSQL 基础 schema
+#238 RabbitMQ worker skeleton + outbox dispatcher
+#239 Wikisource 最小采集试点
+#240 JSONL 导入 dry-run
+#241 中文古文检索 benchmark
 ```
 
-其中 #229 到 #232 仍以文档、数据治理和规则归并为主。#233 才进入最小原型，且应先确认 PostgreSQL schema、任务状态模型、导入边界和本地开发模式。
+其中 #237 先落实表结构和连接键，#238 再落实 worker skeleton 与可靠投递，#239 才进入最小采集试点，#240 只做导入 dry-run，#241 用 benchmark 决定是否需要 OpenSearch。
 
 ## 严格非目标
 
