@@ -23,6 +23,11 @@ htmlcov/
 venv/
 ENV/
 
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+
 # Build / package artifacts at the repository root
 /dist/
 /build/
