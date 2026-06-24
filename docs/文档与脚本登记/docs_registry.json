@@ -47,6 +47,8 @@
     "review"
   ],
   "archived_document_paths": {
+    "docs/证据规则/证据强度四级与五轴裁量规则.md": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
+    "docs/证据规则/证据链总流程与文档索引.md": "archive/docs/证据规则/证据链总流程与文档索引.md",
     "docs/第五项B评分映射总标尺对齐审计.md": "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
     "docs/第五项B三人试点检索线索说明.md": "archive/docs/audits/第五项B三人试点检索线索说明.md",
     "docs/多余文件第二批最终引用复核.md": "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
@@ -1903,6 +1905,7 @@
       ],
       "human_confirmation_required": false,
       "inbound_references": [
+        "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
         "docs/数据结构与生成库/批次文件生命周期规则.md"
       ],
       "lifecycle_status": "active",
@@ -1923,8 +1926,8 @@
       ]
     },
     {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
@@ -1942,14 +1945,14 @@
         "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/export/export_project_doc_views.py"
       ],
-      "lifecycle_status": "active",
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "path": "docs/证据规则/证据强度四级与五轴裁量规则.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "退役追溯页，原四级强度与五轴规则已吸收到证据裁量总则。",
+      "path": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "证据规则退役追溯页，原四级强度与五轴规则已吸收到当前证据裁量总则。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "退役说明；四级强度、五轴、单证/证据组和人工裁判门槛已吸收到证据裁量总则。",
+      "reason": "历史追溯说明；四级强度、五轴、单证/证据组和人工裁判门槛已吸收到证据裁量总则。",
       "referenced_by_tests": [],
       "replacement_path": "docs/证据规则/证据裁量总则.md",
       "semantic_verification_required": false,
@@ -1998,8 +2001,8 @@
       ]
     },
     {
-      "content_role": "stable_operational_guide",
-      "document_type": "operational_guide",
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [],
@@ -2008,14 +2011,14 @@
       ],
       "human_confirmation_required": false,
       "inbound_references": [],
-      "lifecycle_status": "active",
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "path": "docs/证据规则/证据链总流程与文档索引.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "退役追溯页，原流程索引已吸收到证据规则 README、检索工作流和证据裁量总则。",
+      "path": "archive/docs/证据规则/证据链总流程与文档索引.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "证据规则退役追溯页，原流程索引已吸收到证据规则 README、检索工作流和证据裁量总则。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "退役说明；旧流程索引职责已由 README、史料检索与回源工作流、证据裁量总则和负证触发式裁判通用规则承接。",
+      "reason": "历史追溯说明；旧流程索引职责已由 README、史料检索与回源工作流、证据裁量总则和负证触发式裁判通用规则承接。",
       "referenced_by_tests": [],
       "replacement_path": "docs/证据规则/README.md",
       "semantic_verification_required": false,

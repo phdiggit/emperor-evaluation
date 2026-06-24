@@ -24,6 +24,8 @@ METHODOLOGY_NAVIGATION_READMES = {
     "docs/展示与协作/README.md": ("operational_guide", "stable_operational_guide"),
 }
 ARCHIVE_MAP = {
+    "docs/证据规则/证据强度四级与五轴裁量规则.md": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
+    "docs/证据规则/证据链总流程与文档索引.md": "archive/docs/证据规则/证据链总流程与文档索引.md",
     "docs/batch_canonical_absorption_audit_20260620.md": "archive/docs/audits/batch_canonical_absorption_audit_20260620.md",
     "docs/canonical_data_integrity_validation_note_20260620.md": "archive/docs/audits/canonical_data_integrity_validation_note_20260620.md",
     "docs/config_granularity_redesign_20260620.md": "archive/docs/audits/config_granularity_redesign_20260620.md",
@@ -348,7 +350,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "docs registry 覆盖文档数：64，其中当前 `docs/` 层 35 份，历史归档区 29 份。",
+        "docs registry 覆盖文档数：64，其中当前 `docs/` 层 33 份，历史归档区 31 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 2. 项目驱动文档",
