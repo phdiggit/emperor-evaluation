@@ -9,9 +9,9 @@
 - `evidence_cache.sqlite` 是生成物，不进 Git。
 - Markdown 是导出视图，不是主源。
 
-SQLite 数据库由 `data/*.jsonl` 和 `db/schema.sql` 生成，用于查询、校验和导出。任何需要长期保留的事实，都应写回 JSONL，而不是只存在 SQLite 中。
+SQLite 数据库由 canonical `data/*.jsonl` 和 `db/schema.sql` 生成，用于查询、校验和导出。当前 `build_db` 读取 8 个 canonical 主表，加上 `thematic_anchor_objects.jsonl`、`thematic_anchor_events.jsonl`、`thematic_anchor_mechanisms.jsonl` 三个 thematic anchor canonical lane。任何需要长期保留的事实，都应写回 JSONL，而不是只存在 SQLite 中。
 
-未来史源数据平台以 PostgreSQL 为目标主库。SQLite 继续服务当前本地试点，但不承载 `source_documents`、`source_passages`、`evidence_source_links` 的最终实现语义。
+未来史源数据平台以 PostgreSQL 为目标主库。SQLite 继续服务当前本地生成库和兼容缓存，不是最终主库，也不承载 `source_documents`、`source_passages`、`evidence_source_links` 或 thematic anchor 关系表的最终实现语义。PostgreSQL 目标模型后续另行设计，本轮不实装。
 
 未回源材料不得进入正式评分，只能保留为 `search_logs.jsonl` 的待回源线索。当前阶段不写入旧评分、旧排名、旧加总表、旧正式评分记录或旧证据卡。
 
@@ -63,6 +63,21 @@ SQLite 数据库由 `data/*.jsonl` 和 `db/schema.sql` 生成，用于查询、�
 - `routed_to_adjacent_item`：切入相邻项。
 
 `result_status` 非空时只能使用上述限定值。
+
+### thematic anchor lanes
+
+`thematic_anchors` 记录 aggregate 专题锚点。`anchor_objects`、`anchor_events`、`anchor_mechanisms` 分别由 `data/thematic_anchor_objects.jsonl`、`data/thematic_anchor_events.jsonl`、`data/thematic_anchor_mechanisms.jsonl` 导入，用于承载对象、事件、机制三类多粒度 canonical lane。
+
+三张 lane 表保留 `anchor_id`、`item`、`subitem`、`anchor_kind`、`anchor_scope`、`object_type`、`object_name`、`object_level`、`anchor_role`、`usable_for`、`cross_item_risks`、`consensus_level`、`review_status`、`linked_persons`、`source_batch`、`note` 和 `raw_json`。复杂字段继续以 JSON text 保存，`raw_json` 保留完整原始对象。
+
+稳定连接和筛选字段只包括：
+
+- `anchor_id`：lane 内主键，跨 lane 唯一性由 canonical integrity 校验继续守住。
+- `item` / `subitem`：可与 `evidence_cards`、`evidence_clusters`、`query_profiles`、`search_logs` 做范围型联表；这种联表只表示同一范围，不表示一条 anchor 直接证明一张证据卡。
+- `source_batch`：用于治理和审计追溯，不是业务事实外键。
+- `review_status`：用于审核状态筛选，不是事实关系键。
+
+不得把 `object_name`、`object_anchor`、`anchor_role`、`usable_for`、`cross_item_risks`、`linked_persons` 或 `raw_json` 当作稳定 join key。本轮不为三张 lane 表新增指向 `evidence_cards`、`evidence_clusters` 或 `query_profiles` 的外键；未来若需要 `anchor_id -> evidence_id`、`anchor_id -> cluster_id` 或人物关系，应另开扩展 PR 设计 link table。
 
 ## 运行库生成
 

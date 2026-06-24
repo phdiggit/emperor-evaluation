@@ -140,6 +140,102 @@ CREATE TABLE IF NOT EXISTS thematic_anchors (
 CREATE INDEX IF NOT EXISTS idx_anchors_theme_subitem
     ON thematic_anchors (theme, subitem);
 
+CREATE TABLE IF NOT EXISTS anchor_objects (
+    anchor_id TEXT PRIMARY KEY,
+    item TEXT,
+    subitem TEXT,
+    anchor_kind TEXT,
+    anchor_scope TEXT,
+    object_type TEXT,
+    object_name TEXT,
+    object_level TEXT,
+    anchor_role TEXT,
+    usable_for TEXT,
+    cross_item_risks TEXT,
+    consensus_level TEXT,
+    review_status TEXT,
+    linked_persons TEXT,
+    source_batch TEXT,
+    note TEXT,
+    raw_json TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_aobj_item
+    ON anchor_objects (item, subitem);
+
+CREATE INDEX IF NOT EXISTS idx_aobj_type_level
+    ON anchor_objects (object_type, object_level);
+
+CREATE INDEX IF NOT EXISTS idx_aobj_review
+    ON anchor_objects (review_status);
+
+CREATE INDEX IF NOT EXISTS idx_aobj_src_batch
+    ON anchor_objects (source_batch);
+
+CREATE TABLE IF NOT EXISTS anchor_events (
+    anchor_id TEXT PRIMARY KEY,
+    item TEXT,
+    subitem TEXT,
+    anchor_kind TEXT,
+    anchor_scope TEXT,
+    object_type TEXT,
+    object_name TEXT,
+    object_level TEXT,
+    anchor_role TEXT,
+    usable_for TEXT,
+    cross_item_risks TEXT,
+    consensus_level TEXT,
+    review_status TEXT,
+    linked_persons TEXT,
+    source_batch TEXT,
+    note TEXT,
+    raw_json TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_aevt_item
+    ON anchor_events (item, subitem);
+
+CREATE INDEX IF NOT EXISTS idx_aevt_type_level
+    ON anchor_events (object_type, object_level);
+
+CREATE INDEX IF NOT EXISTS idx_aevt_review
+    ON anchor_events (review_status);
+
+CREATE INDEX IF NOT EXISTS idx_aevt_src_batch
+    ON anchor_events (source_batch);
+
+CREATE TABLE IF NOT EXISTS anchor_mechanisms (
+    anchor_id TEXT PRIMARY KEY,
+    item TEXT,
+    subitem TEXT,
+    anchor_kind TEXT,
+    anchor_scope TEXT,
+    object_type TEXT,
+    object_name TEXT,
+    object_level TEXT,
+    anchor_role TEXT,
+    usable_for TEXT,
+    cross_item_risks TEXT,
+    consensus_level TEXT,
+    review_status TEXT,
+    linked_persons TEXT,
+    source_batch TEXT,
+    note TEXT,
+    raw_json TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_amech_item
+    ON anchor_mechanisms (item, subitem);
+
+CREATE INDEX IF NOT EXISTS idx_amech_type_level
+    ON anchor_mechanisms (object_type, object_level);
+
+CREATE INDEX IF NOT EXISTS idx_amech_review
+    ON anchor_mechanisms (review_status);
+
+CREATE INDEX IF NOT EXISTS idx_amech_src_batch
+    ON anchor_mechanisms (source_batch);
+
 CREATE TABLE IF NOT EXISTS query_profiles (
     query_profile_id TEXT PRIMARY KEY,
     item TEXT,
