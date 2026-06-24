@@ -25,3 +25,22 @@ python scripts/platform/postgres_bootstrap.py --apply --schema emperor_eval_boot
 ```
 
 `--apply` 会先创建指定 schema，并将 `search_path` 设为该 schema 与 `public` 后再执行 `001_init.sql`。清理只删除临时 schema，不会提交 `.env`、迁移 JSONL、连接 RabbitMQ，或写入 worker/crawler/parser。
+
+## JSONL 导入 dry-run
+
+`scripts/platform/jsonl_import_dry_run.py` 用于 opt-in 验证当前 canonical JSONL 主表是否可以被逐行解析、映射并写入导入审计表。它不迁移 JSONL，不切换写源，不写业务事实表，也不把结果写入 Markdown exports。
+
+默认和 contract report 都不会连接数据库：
+
+```bash
+python scripts/platform/jsonl_import_dry_run.py --check
+python scripts/platform/jsonl_import_dry_run.py --contract-report
+```
+
+需要真实写入本地 PostgreSQL 审计表时，只使用本地 shell 或 `.env` 中的 `EMPEROR_EVAL_PG_DSN`，不使用旧 search benchmark DSN，也不依赖 `psql`：
+
+```bash
+python scripts/platform/jsonl_import_dry_run.py --apply --schema emperor_eval_import_dry_run --drop-schema-after
+```
+
+`--apply` 会在隔离 schema 中执行 `001_init.sql`，然后只写入 `imports` 和 `import_rows`。使用 `--drop-schema-after` 时，命令结束前会 `DROP SCHEMA CASCADE` 清理该隔离 schema。
