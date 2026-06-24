@@ -60,11 +60,13 @@ def test_postgres_schema_exists_and_contains_required_tables() -> None:
 
 
 def test_postgres_schema_uses_short_physical_table_names() -> None:
-    tables = created_tables(schema_text())
+    sql = schema_text()
+    tables = created_tables(sql)
 
     assert "source_documents" not in tables
     assert "source_passages" not in tables
     assert "evidence_source_links" not in tables
+    assert "shit_" not in sql.lower()
 
 
 def test_postgres_schema_contains_required_extensions_and_search_indexes() -> None:
