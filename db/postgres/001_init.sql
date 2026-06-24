@@ -285,13 +285,13 @@ CREATE TABLE search_hits (
     reject_reason TEXT,
     payload JSONB NOT NULL DEFAULT '{}'::jsonb,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-    CONSTRAINT shit_code_uk UNIQUE (code),
-    CONSTRAINT shit_task_fk FOREIGN KEY (search_task_id) REFERENCES search_tasks(id),
-    CONSTRAINT shit_host_fk FOREIGN KEY (host_id) REFERENCES src_hosts(id),
-    CONSTRAINT shit_job_fk FOREIGN KEY (fetch_job_id) REFERENCES jobs(id),
-    CONSTRAINT shit_url_uk UNIQUE (search_task_id, url_hash),
-    CONSTRAINT shit_status_ck CHECK (status IN ('new', 'accepted', 'rejected', 'fetched', 'blocked')),
-    CONSTRAINT shit_rank_ck CHECK (rank IS NULL OR rank > 0)
+    CONSTRAINT hit_code_uk UNIQUE (code),
+    CONSTRAINT hit_task_fk FOREIGN KEY (search_task_id) REFERENCES search_tasks(id),
+    CONSTRAINT hit_host_fk FOREIGN KEY (host_id) REFERENCES src_hosts(id),
+    CONSTRAINT hit_job_fk FOREIGN KEY (fetch_job_id) REFERENCES jobs(id),
+    CONSTRAINT hit_url_uk UNIQUE (search_task_id, url_hash),
+    CONSTRAINT hit_status_ck CHECK (status IN ('new', 'accepted', 'rejected', 'fetched', 'blocked')),
+    CONSTRAINT hit_rank_ck CHECK (rank IS NULL OR rank > 0)
 );
 
 CREATE TABLE cand_matches (
@@ -441,9 +441,9 @@ CREATE INDEX stask_qprof_idx ON search_tasks (query_profile_id);
 CREATE INDEX stask_person_idx ON search_tasks (person_id);
 CREATE INDEX stask_subitem_idx ON search_tasks (subitem_id);
 CREATE INDEX stask_ready_idx ON search_tasks (priority, created_at) WHERE status IN ('ready', 'retry_wait');
-CREATE INDEX shit_task_idx ON search_hits (search_task_id);
-CREATE INDEX shit_host_url_idx ON search_hits (host_id, url_hash);
-CREATE INDEX shit_job_idx ON search_hits (fetch_job_id);
+CREATE INDEX hit_task_idx ON search_hits (search_task_id);
+CREATE INDEX hit_host_url_idx ON search_hits (host_id, url_hash);
+CREATE INDEX hit_job_idx ON search_hits (fetch_job_id);
 CREATE INDEX cmatch_task_status_idx ON cand_matches (search_task_id, status, score DESC);
 CREATE INDEX cmatch_passage_idx ON cand_matches (passage_id);
 CREATE INDEX evd_person_idx ON evd_cards (person_id);
