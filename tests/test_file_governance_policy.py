@@ -47,6 +47,7 @@ ALLOWED_CHANGED_FILES = {
     "docs/adr/ADR-anchors-schema-proposal.md",
     "docs/adr/ADR-formal-target-schema-draft.md",
     "docs/adr/ADR-formal-migration-proposal.md",
+    "docs/adr/ADR-production-migration-dry-run-package.md",
     "docs/adr/ADR-production-migration-pr-admission.md",
     "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
     "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
@@ -62,6 +63,7 @@ ALLOWED_CHANGED_FILES = {
     "scripts/platform/anchors_schema_proposal.py",
     "scripts/platform/formal_schema_draft.py",
     "scripts/platform/formal_migration_proposal.py",
+    "scripts/platform/production_migration_dry_run_package.py",
     "scripts/platform/production_migration_admission.py",
     "scripts/platform/production_readiness_plan.py",
     "tests/test_anchors_schema_proposal_contract.py",
@@ -69,6 +71,7 @@ ALLOWED_CHANGED_FILES = {
     "tests/test_file_governance_policy.py",
     "tests/test_formal_schema_draft.py",
     "tests/test_formal_migration_proposal.py",
+    "tests/test_production_migration_dry_run_package.py",
     "tests/test_production_migration_admission.py",
     "tests/test_production_readiness_plan.py",
 }
