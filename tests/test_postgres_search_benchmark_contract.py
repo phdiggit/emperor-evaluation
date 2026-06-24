@@ -15,6 +15,7 @@ from scripts.source_ingest.postgres_search_benchmark import (
     ENV_DSN,
     build_contract_report,
     integration_skip_reason,
+    load_dotenv,
     render_benchmark_sql,
     render_explain_sql,
 )
@@ -37,6 +38,53 @@ def test_integration_skip_when_psql_is_missing() -> None:
     assert integration_skip_reason({ENV_DSN: "postgresql://example/db"}, psql_path="") == (
         "psql is not installed or not on PATH"
     )
+
+
+def test_gitignore_ignores_local_env_but_allows_example() -> None:
+    text = (ROOT / ".gitignore").read_text(encoding="utf-8")
+
+    assert ".env" in text
+    assert ".env.*" in text
+    assert "!.env.example" in text
+
+
+def test_env_example_documents_optional_postgres_dsn() -> None:
+    text = (ROOT / ".env.example").read_text(encoding="utf-8")
+
+    assert "PG_SEARCH_BENCH_DSN=" in text
+    assert "USER:PASSWORD" in text
+    assert "HOST:5432" in text
+
+
+def test_load_dotenv_sets_missing_values_without_overriding_existing_env(
+    tmp_path: Path, monkeypatch
+) -> None:
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        "\n".join(
+            [
+                "# local secrets",
+                "PG_SEARCH_BENCH_DSN=postgresql://from-dotenv/db",
+                "EXISTING_KEY='from-dotenv'",
+                'QUOTED_KEY="quoted value"',
+                "BROKEN_LINE_WITHOUT_EQUALS",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    environ = {"EXISTING_KEY": "from-shell"}
+    before_mtime = env_file.stat().st_mtime_ns
+
+    def fail_socket(*args: object, **kwargs: object) -> socket.socket:
+        raise AssertionError("network access is forbidden while loading .env")
+
+    monkeypatch.setattr(socket, "socket", fail_socket)
+    load_dotenv(env_file, environ=environ)
+
+    assert environ[ENV_DSN] == "postgresql://from-dotenv/db"
+    assert environ["EXISTING_KEY"] == "from-shell"
+    assert environ["QUOTED_KEY"] == "quoted value"
+    assert env_file.stat().st_mtime_ns == before_mtime
 
 
 def test_runner_does_not_access_network_for_contract_report(monkeypatch) -> None:

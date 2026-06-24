@@ -12,13 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.source_ingest.postgres_search_benchmark import ENV_DSN, integration_skip_reason, run_psql_benchmark
+from scripts.source_ingest.postgres_search_benchmark import ENV_DSN, integration_skip_reason, load_dotenv, run_psql_benchmark
 
 
 pytestmark = [pytest.mark.db, pytest.mark.integration]
 
 
 def test_postgres_search_benchmark_runs_with_opt_in_dsn() -> None:
+    load_dotenv()
     psql_path = shutil.which("psql")
     reason = integration_skip_reason(os.environ, psql_path)
     if reason:

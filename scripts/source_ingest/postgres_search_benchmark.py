@@ -8,7 +8,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-from typing import Any, Mapping, Sequence
+from typing import Any, Mapping, MutableMapping, Sequence
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
@@ -58,6 +58,22 @@ DEFAULT_CASES = (
 
 def load_passages(path: Path = DEFAULT_FIXTURE) -> list[dict[str, Any]]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_dotenv(path: Path = ROOT / ".env", environ: MutableMapping[str, str] | None = None) -> None:
+    if environ is None:
+        environ = os.environ
+    if not path.exists():
+        return
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key:
+            environ.setdefault(key, value)
 
 
 def prepare_passages(passages: Sequence[Mapping[str, Any]]) -> list[dict[str, str]]:
@@ -380,6 +396,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stderr.reconfigure(encoding="utf-8")
+    load_dotenv()
     parser = argparse.ArgumentParser(description="Run optional PostgreSQL search benchmark.")
     parser.add_argument("--sql-only", action="store_true", help="print executable benchmark SQL without connecting")
     parser.add_argument("--contract-report", action="store_true", help="print local report structure without connecting")
