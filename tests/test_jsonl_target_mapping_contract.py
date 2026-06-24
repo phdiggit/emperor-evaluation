@@ -85,9 +85,11 @@ def test_reference_risk_fields_are_reported_and_recognized() -> None:
         assert is_reference_risk_field(field)
 
     assert report["reference_risk_summary"]["data/evidence_cards.jsonl"] == [
+        "cluster_candidate_id",
         "cross_item_split_signals",
         "linked_cluster_ids",
         "linked_source_ids",
+        "object_anchor",
         "source_id",
     ]
     assert "linked_evidence_ids" in report["reference_risk_summary"]["data/search_logs.jsonl"]
