@@ -44,6 +44,7 @@ ALLOWED_CHANGED_FILES = {
     "docs/展示与协作/GitHub发布与认证规范.md",
     "docs/展示与协作/scripts目录规范.md",
     "docs/展示与协作/人工阅读型Markdown导出规范.md",
+    "docs/adr/ADR-anchors-schema-proposal.md",
     "docs/数据结构与生成库/README.md",
     "docs/数据结构与生成库/稳定ID命名规范.md",
     "docs/数据结构与生成库/史源数据平台实现设计.md",
@@ -52,6 +53,8 @@ ALLOWED_CHANGED_FILES = {
     "docs/文档与脚本登记/scripts_registry.json",
     "exports/governance/文档治理盘点报告.md",
     "scripts/export/export_i5b_auto_adjudication.py",
+    "scripts/platform/anchors_schema_proposal.py",
+    "tests/test_anchors_schema_proposal_contract.py",
     "tests/test_docs_governance.py",
     "tests/test_file_governance_policy.py",
 }

@@ -2184,6 +2184,41 @@
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
       ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/anchors_schema_proposal.py",
+        "tests/test_anchors_schema_proposal_contract.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-anchors-schema-proposal.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "anchors schema ADR 是当前平台链路的 schema proposal 与 resolver 边界文档，应保留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "记录 thematic anchor staging-only 到未来 anchors / anchor_links target 的提案边界，不修改正式 schema。",
+      "referenced_by_tests": [
+        "tests/test_anchors_schema_proposal_contract.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: anchors schema proposal",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/anchors_schema_proposal.py",
+        "tests/test_anchors_schema_proposal_contract.py"
+      ]
     }
   ],
   "project_driver_paths": [
