@@ -45,6 +45,9 @@ ALLOWED_CHANGED_FILES = {
     "docs/展示与协作/scripts目录规范.md",
     "docs/展示与协作/人工阅读型Markdown导出规范.md",
     "docs/adr/ADR-anchors-schema-proposal.md",
+    "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+    "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+    "docs/adr/ADR-postgres-formal-migration-plan.md",
     "docs/数据结构与生成库/README.md",
     "docs/数据结构与生成库/稳定ID命名规范.md",
     "docs/数据结构与生成库/史源数据平台实现设计.md",
@@ -54,9 +57,11 @@ ALLOWED_CHANGED_FILES = {
     "exports/governance/文档治理盘点报告.md",
     "scripts/export/export_i5b_auto_adjudication.py",
     "scripts/platform/anchors_schema_proposal.py",
+    "scripts/platform/production_readiness_plan.py",
     "tests/test_anchors_schema_proposal_contract.py",
     "tests/test_docs_governance.py",
     "tests/test_file_governance_policy.py",
+    "tests/test_production_readiness_plan.py",
 }
 
 for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):

@@ -47,15 +47,6 @@
     "review"
   ],
   "archived_document_paths": {
-    "docs/证据规则/证据强度四级与五轴裁量规则.md": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
-    "docs/证据规则/证据链总流程与文档索引.md": "archive/docs/证据规则/证据链总流程与文档索引.md",
-    "docs/第五项B评分映射总标尺对齐审计.md": "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-    "docs/第五项B三人试点检索线索说明.md": "archive/docs/audits/第五项B三人试点检索线索说明.md",
-    "docs/多余文件第二批最终引用复核.md": "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
-    "docs/多余文件第三批敏感候选复核.md": "archive/docs/docs_governance/多余文件第三批敏感候选复核.md",
-    "docs/多余文件候选确认报告.md": "archive/docs/docs_governance/多余文件候选确认报告.md",
-    "docs/项目文件治理诊断报告.md": "archive/docs/audits/项目文件治理诊断报告.md",
-    "docs/项目重启决议.md": "archive/docs/audits/项目重启决议.md",
     "docs/batch_canonical_absorption_audit_20260620.md": "archive/docs/audits/batch_canonical_absorption_audit_20260620.md",
     "docs/canonical_data_integrity_validation_note_20260620.md": "archive/docs/audits/canonical_data_integrity_validation_note_20260620.md",
     "docs/config_granularity_redesign_20260620.md": "archive/docs/audits/config_granularity_redesign_20260620.md",
@@ -76,7 +67,16 @@
     "docs/thematic_anchor_multigranularity_schema_plan_20260620.md": "archive/docs/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
     "docs/thematic_anchor_schema_decision_20260620.md": "archive/docs/design_snapshots/thematic_anchor_schema_decision_20260620.md",
     "docs/validation_entrypoints_20260620.md": "archive/docs/audits/validation_entrypoints_20260620.md",
-    "docs/view_config_externalization_audit_20260620.md": "archive/docs/audits/view_config_externalization_audit_20260620.md"
+    "docs/view_config_externalization_audit_20260620.md": "archive/docs/audits/view_config_externalization_audit_20260620.md",
+    "docs/多余文件候选确认报告.md": "archive/docs/docs_governance/多余文件候选确认报告.md",
+    "docs/多余文件第三批敏感候选复核.md": "archive/docs/docs_governance/多余文件第三批敏感候选复核.md",
+    "docs/多余文件第二批最终引用复核.md": "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
+    "docs/第五项B三人试点检索线索说明.md": "archive/docs/audits/第五项B三人试点检索线索说明.md",
+    "docs/第五项B评分映射总标尺对齐审计.md": "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
+    "docs/证据规则/证据强度四级与五轴裁量规则.md": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
+    "docs/证据规则/证据链总流程与文档索引.md": "archive/docs/证据规则/证据链总流程与文档索引.md",
+    "docs/项目文件治理诊断报告.md": "archive/docs/audits/项目文件治理诊断报告.md",
+    "docs/项目重启决议.md": "archive/docs/audits/项目重启决议.md"
   },
   "baseline_ref": "origin/GPT",
   "baseline_sha": "32149e5",
@@ -983,6 +983,71 @@
       ]
     },
     {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
+        "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "证据规则退役追溯页，原四级强度与五轴规则已吸收到当前证据裁量总则。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "历史追溯说明；四级强度、五轴、单证/证据组和人工裁判门槛已吸收到证据裁量总则。",
+      "referenced_by_tests": [],
+      "replacement_path": "docs/证据规则/证据裁量总则.md",
+      "semantic_verification_required": false,
+      "title": "证据强度四级与五轴裁量规则（退役说明）",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/证据规则/证据链总流程与文档索引.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "证据规则退役追溯页，原流程索引已吸收到证据规则 README、检索工作流和证据裁量总则。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "历史追溯说明；旧流程索引职责已由 README、史料检索与回源工作流、证据裁量总则和负证触发式裁判通用规则承接。",
+      "referenced_by_tests": [],
+      "replacement_path": "docs/证据规则/README.md",
+      "semantic_verification_required": false,
+      "title": "证据链总流程与文档索引（退役说明）",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
       "content_role": "rule_or_method",
       "document_type": "canonical_spec",
       "duplicate_group": null,
@@ -1047,31 +1112,139 @@
       "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [],
+      "generator_candidates": [
+        "scripts/platform/anchors_schema_proposal.py",
+        "tests/test_anchors_schema_proposal_contract.py"
+      ],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [
-        "docs/数据结构与生成库/README.md",
-        "docs/数据结构与生成库/史源数据平台架构ADR.md",
-        "docs/数据结构与生成库/数据主表字段规范.md"
-      ],
+      "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/史源数据平台实现设计.md",
+      "path": "docs/adr/ADR-anchors-schema-proposal.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期数据平台实现口径、任务状态机和切库边界说明，仍应留在 docs 当前规范层。",
+      "placement_reason": "anchors schema ADR 是当前平台链路的 schema proposal 与 resolver 边界文档，应保留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，用于指导后续 PostgreSQL schema、worker skeleton 和 JSONL 切库 dry-run。",
-      "referenced_by_tests": [],
+      "reason": "记录 thematic anchor staging-only 到未来 anchors / anchor_links target 的提案边界，不修改正式 schema。",
+      "referenced_by_tests": [
+        "tests/test_anchors_schema_proposal_contract.py"
+      ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "史源数据平台实现设计",
+      "title": "ADR: anchors schema proposal",
       "unique_source_risk": true,
       "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/anchors_schema_proposal.py",
+        "tests/test_anchors_schema_proposal_contract.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ],
+      "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Production readiness ADR for JSONL-to-target cutover gates; proposal-only and kept in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Records JSONL source-of-truth boundaries, phased cutover, dual-run strategy, read/write path gates, non-goals, and future work.",
+      "referenced_by_tests": [
+        "tests/test_production_readiness_plan.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: JSONL-to-target cutover plan",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Production readiness ADR for rollback, backup, and seed gates; proposal-only and kept in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Records backup inputs, seed boundaries, rollback options, verification strategy, failure modes, and manual runbook outline without executing production actions.",
+      "referenced_by_tests": [
+        "tests/test_production_readiness_plan.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: platform rollback, backup, and seed strategy",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-postgres-formal-migration-plan.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Production readiness ADR for formal PostgreSQL migration gates; proposal-only and kept in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Records staged formal migration scope, preconditions, validation gates, rejected alternatives, risks, and future work without editing production schema.",
+      "referenced_by_tests": [
+        "tests/test_production_readiness_plan.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: PostgreSQL formal migration plan",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
       ]
     },
     {
@@ -1482,34 +1655,6 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/README.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "数据结构与生成库",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
       "inbound_references": [
         "docs/数据结构与生成库/README.md"
       ],
@@ -1527,6 +1672,34 @@
       "title": "JSONL 到 PostgreSQL 映射规则",
       "unique_source_risk": true,
       "weak_reference_candidates": []
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/README.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "数据结构与生成库",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
     },
     {
       "content_role": "stable_operational_guide",
@@ -1567,21 +1740,19 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [
-        "docs/数据结构与生成库/README.md"
-      ],
+      "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/史源数据平台架构ADR.md",
+      "path": "docs/数据结构与生成库/query_profile与search_log字段规范.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期数据平台架构决策和边界说明，仍应留在 docs 当前规范层。",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
       "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "史源数据平台架构 ADR",
+      "title": "检索画像与检索线索字段规范",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -1627,19 +1798,53 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [],
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md",
+        "docs/数据结构与生成库/史源数据平台架构ADR.md",
+        "docs/数据结构与生成库/数据主表字段规范.md"
+      ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/query_profile与search_log字段规范.md",
+      "path": "docs/数据结构与生成库/史源数据平台实现设计.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_reason": "长期数据平台实现口径、任务状态机和切库边界说明，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，用于指导后续 PostgreSQL schema、worker skeleton 和 JSONL 切库 dry-run。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "史源数据平台实现设计",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/史源数据平台架构ADR.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期数据平台架构决策和边界说明，仍应留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
       "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "检索画像与检索线索字段规范",
+      "title": "史源数据平台架构 ADR",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -1986,43 +2191,6 @@
       ]
     },
     {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-        "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "证据规则退役追溯页，原四级强度与五轴规则已吸收到当前证据裁量总则。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "历史追溯说明；四级强度、五轴、单证/证据组和人工裁判门槛已吸收到证据裁量总则。",
-      "referenced_by_tests": [],
-      "replacement_path": "docs/证据规则/证据裁量总则.md",
-      "semantic_verification_required": false,
-      "title": "证据强度四级与五轴裁量规则（退役说明）",
-      "unique_source_risk": false,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
       "content_role": "rule_or_method",
       "document_type": "canonical_spec",
       "duplicate_group": null,
@@ -2056,34 +2224,6 @@
       "semantic_verification_required": false,
       "title": "证据裁量总则（讨论版 v0.3）",
       "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/证据规则/证据链总流程与文档索引.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "证据规则退役追溯页，原流程索引已吸收到证据规则 README、检索工作流和证据裁量总则。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "历史追溯说明；旧流程索引职责已由 README、史料检索与回源工作流、证据裁量总则和负证触发式裁判通用规则承接。",
-      "referenced_by_tests": [],
-      "replacement_path": "docs/证据规则/README.md",
-      "semantic_verification_required": false,
-      "title": "证据链总流程与文档索引（退役说明）",
-      "unique_source_risk": false,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
       ]
@@ -2184,42 +2324,11 @@
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
       ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/anchors_schema_proposal.py",
-        "tests/test_anchors_schema_proposal_contract.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-anchors-schema-proposal.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "anchors schema ADR 是当前平台链路的 schema proposal 与 resolver 边界文档，应保留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "记录 thematic anchor staging-only 到未来 anchors / anchor_links target 的提案边界，不修改正式 schema。",
-      "referenced_by_tests": [
-        "tests/test_anchors_schema_proposal_contract.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: anchors schema proposal",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/anchors_schema_proposal.py",
-        "tests/test_anchors_schema_proposal_contract.py"
-      ]
     }
+  ],
+  "governance_exception_paths": [
+    "docs/文档与脚本登记/docs_registry.json",
+    "docs/文档与脚本登记/scripts_registry.json"
   ],
   "project_driver_paths": [
     "docs/皇帝综合评价体系评分标准.md"
@@ -2228,11 +2337,11 @@
     "docs/文档与脚本登记/docs_registry.json"
   ],
   "retired_generated_document_paths": {
-    "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
-    "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
     "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-    "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md"
+    "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md",
+    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
+    "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
+    "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
   },
   "retired_mixed_document_paths": {
     "docs/第五项B三人专人审核入口.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人专人审核入口.md",
@@ -2240,9 +2349,5 @@
     "docs/第五项B三人试点矩阵说明.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人试点矩阵说明.md",
     "docs/第五项B试点计划.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md"
   },
-  "schema_version": 1,
-  "governance_exception_paths": [
-    "docs/文档与脚本登记/docs_registry.json",
-    "docs/文档与脚本登记/scripts_registry.json"
-  ]
+  "schema_version": 1
 }
