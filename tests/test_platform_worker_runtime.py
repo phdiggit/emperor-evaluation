@@ -45,7 +45,7 @@ def test_terminal_job_redelivery_acks_without_running_handler(status: str) -> No
     assert repository.events == []
 
 
-@pytest.mark.parametrize("status", ["ready", "retry_wait", "running"])
+@pytest.mark.parametrize("status", ["ready", "retry_wait"])
 def test_runnable_job_success_commits_succeeded_before_ack(status: str) -> None:
     repository = FakeRepository(jobs=[job(status)])
 
@@ -64,6 +64,23 @@ def test_runnable_job_success_commits_succeeded_before_ack(status: str) -> None:
         "job:101:succeeded",
     ]
     assert message.actions == [("ack", None)]
+
+
+def test_running_job_delivery_does_not_run_handler() -> None:
+    repository = FakeRepository(jobs=[job("running")])
+    handler_calls: list[int] = []
+
+    def handler(job_id: int) -> dict[str, object]:
+        handler_calls.append(job_id)
+        return {"ok": True}
+
+    message = delivery()
+    WorkerRuntime(repository, handler, worker_id="worker-1").process(message)
+
+    assert handler_calls == []
+    assert repository.jobs[101].status == "running"
+    assert repository.events == []
+    assert message.actions == [("nack", False)]
 
 
 def test_handler_failure_below_max_attempts_commits_retry_wait_before_ack() -> None:

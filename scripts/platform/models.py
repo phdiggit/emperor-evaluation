@@ -17,7 +17,7 @@ JOB_STATUSES = {
     "cancelled",
 }
 
-RUNNABLE_JOB_STATUSES = {"ready", "retry_wait", "running"}
+RUNNABLE_JOB_STATUSES = {"ready", "retry_wait"}
 TERMINAL_ACK_STATUSES = {"succeeded", "dead_lettered", "cancelled"}
 
 
