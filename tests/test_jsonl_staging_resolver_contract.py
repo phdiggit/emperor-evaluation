@@ -25,9 +25,9 @@ FORBIDDEN_PATHS = [
     ROOT / "archive" / "data",
     ROOT / "db" / "schema.sql",
     ROOT / "exports" / "markdown_views",
-    ROOT / "docs" / "鐨囧笣缁煎悎璇勪环浣撶郴璇勫垎鏍囧噯.md",
-    ROOT / "docs" / "鍒嗛」瑙勫垯",
-    ROOT / "docs" / "璇佹嵁瑙勫垯",
+    ROOT / "docs" / "皇帝综合评价体系评分标准.md",
+    ROOT / "docs" / "分项规则",
+    ROOT / "docs" / "证据规则",
 ]
 BLOCKED_REPORT_TERMS = ("score", "rank", "final_score", "leaderboard")
 
