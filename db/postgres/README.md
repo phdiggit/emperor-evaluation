@@ -11,3 +11,17 @@
 - 不包含 migration runner、Docker Compose、RabbitMQ worker 或 outbox dispatcher。
 
 第一版 schema 只覆盖采集与证据链，不实现最终评分表、裁判发布表、外部搜索索引表、RabbitMQ queue / exchange 配置，也不复制 SQLite thematic anchor 的三张同构表。真实连接、迁移执行器、Docker Compose、worker、outbox dispatcher 和 JSONL 切库逻辑都留给后续 PR。
+
+## 本地 bootstrap 检查
+
+`scripts/platform/postgres_bootstrap.py` 只用于本地开发库 opt-in 检查 `001_init.sql` 是否能在隔离 schema 中执行。默认 `--check` 只报告 DSN 与 Python PostgreSQL driver 是否可用，不连接数据库、不执行 DDL；`--sql-only` 只输出包装后的 SQL。
+
+需要真实 apply 时，在本地 `.env` 或 shell 中设置 `EMPEROR_EVAL_PG_DSN`，也兼容旧的 `PG_SEARCH_BENCH_DSN`：
+
+```bash
+python scripts/platform/postgres_bootstrap.py --check
+python scripts/platform/postgres_bootstrap.py --sql-only
+python scripts/platform/postgres_bootstrap.py --apply --schema emperor_eval_bootstrap_check --drop-schema-after
+```
+
+`--apply` 会先创建指定 schema，并将 `search_path` 设为该 schema 与 `public` 后再执行 `001_init.sql`。清理只删除临时 schema，不会提交 `.env`、迁移 JSONL、连接 RabbitMQ，或写入 worker/crawler/parser。
