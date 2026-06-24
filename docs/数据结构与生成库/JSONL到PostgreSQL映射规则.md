@@ -4,11 +4,13 @@
 
 `scripts/platform/jsonl_target_mapping.py --contract-report` 输出机器可读 JSON report，用来暴露每个 canonical 文件的 target 倾向、direct 字段、payload 字段、reference risk、staging-only 边界、缺失 code、重复 code、未知字段和解析错误。该工具默认不连接 PostgreSQL，不访问公网，不依赖 `psql`，也不读取 `data/batches/**` 或 `archive/data/**`。
 
+`scripts/platform/jsonl_staging_mapper.py` 复用本契约，从 `import_rows.payload` 生成隔离 schema 内的 staging row。它仍不迁移 JSONL、不切换写源、不写正式 target business tables；`--contract-report` 只给本地聚合报告，`--apply` 才读取 `EMPEROR_EVAL_PG_DSN` 并连接本地 PostgreSQL。
+
 ## 边界
 
 - JSONL 仍是当前写源；PostgreSQL target 只是后续平台化目标。
 - `jsonl_import_dry_run.py` 只验证逐行解析、payload hash 和 `imports` / `import_rows` 审计写入。
-- 本映射契约只描述 staging/target 规则，不执行 staging 导入。
+- 本映射契约描述 staging/target 规则；`jsonl_staging_mapper.py` 只执行隔离 schema staging 原型，不进入正式 target 表。
 - 所有 `linked_*`、`*_ids`、`source_id`、`cross_item*` 类引用必须先进入 reference risk，不得在本 PR 直接写外键。
 - 从 staging 进入 target table 必须另开 PR，并在该 PR 中定义解析器、人工复核和回滚策略。
 
@@ -66,3 +68,32 @@ limitations
 ```
 
 该 report 是后续 staging mapper 的输入契约，不是迁库执行结果。
+
+## Staging Mapper Report
+
+推荐命令：
+
+```bash
+python scripts/platform/jsonl_staging_mapper.py --check
+python scripts/platform/jsonl_staging_mapper.py --contract-report
+python scripts/platform/jsonl_staging_mapper.py --apply --schema emperor_eval_staging_mapper --drop-schema-after
+```
+
+`--contract-report` 的稳定字段包括：
+
+```text
+mode
+mapping_version
+default_tests_require_postgres
+source_files
+rows_total
+rows_mapped
+rows_with_reference_risk
+rows_with_unknown_fields
+rows_with_validation_errors
+staging_only_files
+target_table_candidates
+limitations
+```
+
+`--apply` 输出隔离 schema 内的 `import_rows`、`staging_rows`、reference risk 行数、unknown field 行数、validation error 行数、staging-only 行数和 drop 后 schema 状态。该报告不得包含真实 DSN、密码、主机，也不得包含分值、排名或榜单输出。

@@ -54,3 +54,22 @@ python scripts/platform/jsonl_target_mapping.py --contract-report
 ```
 
 详细规则见 [`docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md`](../../docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md)。thematic anchors 当前仅标记为 staging-only/candidate mapping；进入正式 target table 必须另开 PR。
+
+## JSONL staging mapper prototype
+
+`scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
+
+默认命令不会连接数据库：
+
+```bash
+python scripts/platform/jsonl_staging_mapper.py --check
+python scripts/platform/jsonl_staging_mapper.py --contract-report
+```
+
+需要真实执行时，只读取本地 shell 或 `.env` 中的 `EMPEROR_EVAL_PG_DSN`，不使用旧 search benchmark DSN：
+
+```bash
+python scripts/platform/jsonl_staging_mapper.py --apply --schema emperor_eval_staging_mapper --drop-schema-after
+```
+
+`--apply` 会在隔离 schema 中执行 `001_init.sql`、写入 dry-run 审计表、创建 staging 表、按 direct / candidate / payload / range_filter / reference_risk / unknown / validation_errors 分类 payload。`source_id`、`linked_*`、`*_ids` 和 `cross_item*` 等字段只进入 reference risk 或 validation，不会被转换为外键。thematic anchor 文件保持 `staging_only=true`，后续 target mapper 和 resolver 必须另开 PR。
