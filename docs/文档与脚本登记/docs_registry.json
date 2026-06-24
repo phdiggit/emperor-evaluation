@@ -1183,6 +1183,41 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/formal_migration_proposal.py",
+        "tests/test_formal_migration_proposal.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-formal-migration-proposal.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Formal migration proposal ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Records readiness-matrix-based formal migration proposal boundaries, production PR gates, non-goals, and rollback / restore runbook requirements without executing production actions.",
+      "referenced_by_tests": [
+        "tests/test_formal_migration_proposal.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Formal Migration Proposal",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/formal_migration_proposal.py",
+        "tests/test_formal_migration_proposal.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
