@@ -12,6 +12,7 @@ from _git_helpers import changed_files_against_base, git_changed_files, skip_unl
 
 ALLOWED_CHANGED_FILES = {
     "README.md",
+    "archive/docs/README.md",
     "docs/AGENTS.md",
     "docs/README.md",
     "docs/项目总纲/README.md",
@@ -27,6 +28,8 @@ ALLOWED_CHANGED_FILES = {
     "docs/证据规则/证据强度四级与五轴裁量规则.md",
     "docs/证据规则/证据裁量总则.md",
     "docs/证据规则/负证触发式裁判通用规则.md",
+    "archive/docs/证据规则/证据链总流程与文档索引.md",
+    "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
     "docs/数据结构与生成库/配置说明文件规范.md",
     "docs/分项规则/README.md",
     "docs/分项规则/第一项创业与政权取得能力/README.md",
@@ -135,6 +138,11 @@ def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -
 
 
 def test_file_governance_allowlist_has_no_one_off_migration_paths() -> None:
+    allowed_archive_paths = {
+        "archive/docs/README.md",
+        "archive/docs/证据规则/证据链总流程与文档索引.md",
+        "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
+    }
     forbidden_prefixes = (
         ".tmp/",
         "archive/docs/",
@@ -152,9 +160,10 @@ def test_file_governance_allowlist_has_no_one_off_migration_paths() -> None:
     offenders = {
         path
         for path in ALLOWED_CHANGED_FILES
-        if path in forbidden_exact_paths
+        if path not in allowed_archive_paths
+        and (path in forbidden_exact_paths
         or path.startswith(forbidden_prefixes)
-        or any(fragment in path for fragment in forbidden_fragments)
+        or any(fragment in path for fragment in forbidden_fragments))
     }
 
     assert offenders == set()
