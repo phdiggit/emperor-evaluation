@@ -44,3 +44,13 @@ python scripts/platform/jsonl_import_dry_run.py --apply --schema emperor_eval_im
 ```
 
 `--apply` 会在隔离 schema 中执行 `001_init.sql`，然后只写入 `imports` 和 `import_rows`。使用 `--drop-schema-after` 时，命令结束前会 `DROP SCHEMA CASCADE` 清理该隔离 schema。
+
+## JSONL target 映射契约
+
+`scripts/platform/jsonl_target_mapping.py` 固定 canonical JSONL 到 PostgreSQL staging/target 的映射规则。它只输出 contract report，不连接 PostgreSQL、不迁移 JSONL、不切换写源、不写业务事实表，也不生成 evidence card、分值、排名或 RabbitMQ worker。
+
+```bash
+python scripts/platform/jsonl_target_mapping.py --contract-report
+```
+
+详细规则见 [`docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md`](../../docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md)。thematic anchors 当前仅标记为 staging-only/candidate mapping；进入正式 target table 必须另开 PR。

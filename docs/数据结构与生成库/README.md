@@ -21,6 +21,7 @@
 - [`query_profile与search_log字段规范.md`](query_profile与search_log字段规范.md)
 - [`稳定ID命名规范.md`](稳定ID命名规范.md)
 - [`SQLite生成库说明.md`](SQLite生成库说明.md)
+- [`JSONL到PostgreSQL映射规则.md`](JSONL到PostgreSQL映射规则.md)
 - [`史源数据平台架构ADR.md`](史源数据平台架构ADR.md)
 - [`史源数据平台实现设计.md`](史源数据平台实现设计.md)
 - [`史料上下文管理机制.md`](史料上下文管理机制.md)
