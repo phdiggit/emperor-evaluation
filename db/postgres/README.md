@@ -14,7 +14,7 @@
 
 ## 本地 bootstrap 检查
 
-`scripts/platform/postgres_bootstrap.py` 只用于本地开发库 opt-in 检查 `001_init.sql` 是否能在隔离 schema 中执行。默认 `--check` 只报告 DSN 与 `psql` 是否可用，不连接数据库、不执行 DDL；`--sql-only` 只输出包装后的 SQL。
+`scripts/platform/postgres_bootstrap.py` 只用于本地开发库 opt-in 检查 `001_init.sql` 是否能在隔离 schema 中执行。默认 `--check` 只报告 DSN 与 Python PostgreSQL driver 是否可用，不连接数据库、不执行 DDL；`--sql-only` 只输出包装后的 SQL。
 
 需要真实 apply 时，在本地 `.env` 或 shell 中设置 `EMPEROR_EVAL_PG_DSN`，也兼容旧的 `PG_SEARCH_BENCH_DSN`：
 

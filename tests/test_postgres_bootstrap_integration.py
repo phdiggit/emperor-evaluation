@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-import shutil
 import sys
 from pathlib import Path
 from uuid import uuid4
@@ -31,18 +30,16 @@ pytestmark = [pytest.mark.db, pytest.mark.integration]
 def test_postgres_bootstrap_applies_schema_contract_and_cleans_up() -> None:
     load_dotenv()
     resolved = resolve_dsn(env=os.environ)
-    psql_path = shutil.which("psql")
-    reason = integration_skip_reason(resolved, psql_path)
+    reason = integration_skip_reason(resolved)
     if reason:
         pytest.skip(reason)
 
     schema = f"emperor_eval_bootstrap_pytest_{uuid4().hex[:8]}"
     dsn = resolved.dsn or ""
-    psql = psql_path or "psql"
 
     try:
-        apply_bootstrap(dsn, schema, psql=psql)
-        report = inspect_bootstrap_contract(dsn, schema, psql=psql)
+        apply_bootstrap(dsn, schema)
+        report = inspect_bootstrap_contract(dsn, schema)
 
         assert report["schema_exists"] is True
         assert set(report["required_tables"]) >= set(REQUIRED_TABLES)
@@ -53,6 +50,6 @@ def test_postgres_bootstrap_applies_schema_contract_and_cleans_up() -> None:
         assert report["jobs_idem_unique_constraint"] is True
         assert report["outbox_partial_index"] is True
     finally:
-        drop_schema(dsn, schema, psql=psql)
+        drop_schema(dsn, schema)
 
-    assert schema_exists(dsn, schema, psql=psql) is False
+    assert schema_exists(dsn, schema) is False

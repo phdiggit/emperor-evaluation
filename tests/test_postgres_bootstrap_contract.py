@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import re
 import socket
-import subprocess
 import sys
 from pathlib import Path
 
@@ -100,22 +99,23 @@ def test_resolve_dsn_precedence(tmp_path: Path) -> None:
     assert resolve_dsn(env={}, env_path=tmp_path / "missing.env").source == "skip"
 
 
-def test_check_without_dsn_or_psql_is_non_failing_skip() -> None:
-    result = check_environment(ResolvedDsn(None, "skip"), psql_path="")
+def test_check_without_dsn_or_driver_is_non_failing_skip() -> None:
+    result = check_environment(ResolvedDsn(None, "skip"), driver_available=False)
 
     assert result["mode"] == "check"
     assert result["dsn_present"] is False
     assert result["dsn_source"] == "skip"
-    assert result["psql_available"] is False
+    assert result["driver"] == "psycopg"
+    assert result["driver_available"] is False
     assert result["will_apply"] is False
 
 
-def test_apply_skip_reason_requires_dsn_and_psql() -> None:
-    assert integration_skip_reason(ResolvedDsn(None, "skip"), psql_path="psql") == (
+def test_apply_skip_reason_requires_dsn_and_python_driver() -> None:
+    assert integration_skip_reason(ResolvedDsn(None, "skip"), driver_available=True) == (
         f"{PRIMARY_ENV_DSN} or {LEGACY_ENV_DSN} is not set"
     )
-    assert integration_skip_reason(ResolvedDsn("postgresql://example/db", "--dsn"), psql_path="") == (
-        "psql is not installed or not on PATH"
+    assert integration_skip_reason(ResolvedDsn("postgresql://example/db", "--dsn"), driver_available=False) == (
+        "psycopg is not installed"
     )
 
 
@@ -138,18 +138,25 @@ def test_sql_only_and_contract_paths_do_not_connect_or_touch_forbidden_paths(mon
     def fail_socket(*args: object, **kwargs: object) -> socket.socket:
         raise AssertionError("network access is forbidden in bootstrap contract tests")
 
-    def fail_subprocess(*args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
-        raise AssertionError("psql subprocess is forbidden in bootstrap contract tests")
-
     monkeypatch.setattr(socket, "socket", fail_socket)
-    monkeypatch.setattr(subprocess, "run", fail_subprocess)
     before = {path: _mtime(path) for path in FORBIDDEN_PATHS}
 
     render_bootstrap_sql("emperor_eval_bootstrap_check")
-    check_environment(ResolvedDsn(None, "skip"), psql_path="")
+    check_environment(ResolvedDsn(None, "skip"), driver_available=False)
 
     after = {path: _mtime(path) for path in FORBIDDEN_PATHS}
     assert after == before
+
+
+def test_bootstrap_uses_python_driver_not_psql_subprocess() -> None:
+    source = (ROOT / "scripts" / "platform" / "postgres_bootstrap.py").read_text(encoding="utf-8")
+
+    assert "import subprocess" not in source
+    assert "import shutil" not in source
+    assert "subprocess.run" not in source
+    assert "shutil.which" not in source
+    assert '"psql"' not in source
+    assert "import psycopg" in source
 
 
 def test_schema_identifier_rejects_unsafe_names() -> None:

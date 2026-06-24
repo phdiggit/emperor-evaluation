@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
 import re
-import shutil
-import subprocess
 import sys
-from typing import Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -67,32 +66,36 @@ def resolve_dsn(
 def check_environment(
     resolved: ResolvedDsn | None = None,
     *,
-    psql_path: str | None = None,
+    driver_available: bool | None = None,
 ) -> dict[str, object]:
     if resolved is None:
         resolved = resolve_dsn()
-    if psql_path is None:
-        psql_path = shutil.which("psql")
+    if driver_available is None:
+        driver_available = is_psycopg_available()
     return {
         "mode": "check",
         "dsn_present": resolved.present,
         "dsn_source": resolved.source,
-        "psql_available": bool(psql_path),
-        "psql_path": psql_path or None,
+        "driver": "psycopg",
+        "driver_available": driver_available,
         "default_tests_require_postgres": False,
         "will_apply": False,
     }
 
 
-def integration_skip_reason(resolved: ResolvedDsn | None = None, psql_path: str | None = None) -> str | None:
+def integration_skip_reason(
+    resolved: ResolvedDsn | None = None,
+    *,
+    driver_available: bool | None = None,
+) -> str | None:
     if resolved is None:
         resolved = resolve_dsn()
     if not resolved.dsn:
         return f"{PRIMARY_ENV_DSN} or {LEGACY_ENV_DSN} is not set"
-    if psql_path is None:
-        psql_path = shutil.which("psql")
-    if not psql_path:
-        return "psql is not installed or not on PATH"
+    if driver_available is None:
+        driver_available = is_psycopg_available()
+    if not driver_available:
+        return "psycopg is not installed"
     return None
 
 
@@ -101,7 +104,6 @@ def render_bootstrap_sql(schema: str = DEFAULT_SCHEMA, init_sql_path: Path = INI
     init_sql = init_sql_path.read_text(encoding="utf-8")
     return "\n".join(
         [
-            r"\set ON_ERROR_STOP on",
             "CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;",
             f"CREATE SCHEMA IF NOT EXISTS {schema_ident};",
             f"SET search_path TO {schema_ident}, public;",
@@ -115,13 +117,12 @@ def apply_bootstrap(
     dsn: str,
     schema: str = DEFAULT_SCHEMA,
     *,
-    psql: str = "psql",
     drop_schema_after: bool = False,
 ) -> dict[str, object]:
-    run_psql_sql(dsn, render_bootstrap_sql(schema), psql=psql)
+    run_pg_sql(dsn, render_bootstrap_sql(schema))
     dropped = False
     if drop_schema_after:
-        drop_schema(dsn, schema, psql=psql)
+        drop_schema(dsn, schema)
         dropped = True
     return {
         "mode": "apply",
@@ -132,7 +133,7 @@ def apply_bootstrap(
     }
 
 
-def inspect_bootstrap_contract(dsn: str, schema: str = DEFAULT_SCHEMA, *, psql: str = "psql") -> dict[str, object]:
+def inspect_bootstrap_contract(dsn: str, schema: str = DEFAULT_SCHEMA) -> dict[str, object]:
     schema_literal = sql_literal(schema)
     tables_array = ", ".join(sql_literal(table) for table in REQUIRED_TABLES)
     sql = f"""
@@ -186,33 +187,39 @@ SELECT jsonb_pretty(jsonb_build_object(
     )
 ));
 """
-    output = run_psql_sql(dsn, sql, psql=psql)
+    output = run_pg_sql(dsn, sql)
     return json.loads(output)
 
 
-def schema_exists(dsn: str, schema: str, *, psql: str = "psql") -> bool:
-    output = run_psql_sql(
+def schema_exists(dsn: str, schema: str) -> bool:
+    output = run_pg_sql(
         dsn,
         f"SELECT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = {sql_literal(schema)});",
-        psql=psql,
     )
-    return output.strip().lower() == "t"
+    return output.strip().lower() in {"t", "true", "1"}
 
 
-def drop_schema(dsn: str, schema: str, *, psql: str = "psql") -> None:
-    run_psql_sql(dsn, f"DROP SCHEMA IF EXISTS {quote_identifier(schema)} CASCADE;", psql=psql)
+def drop_schema(dsn: str, schema: str) -> None:
+    run_pg_sql(dsn, f"DROP SCHEMA IF EXISTS {quote_identifier(schema)} CASCADE;")
 
 
-def run_psql_sql(dsn: str, sql: str, *, psql: str = "psql") -> str:
-    completed = subprocess.run(
-        [psql, "-X", "--no-psqlrc", "-q", "-t", "-A", dsn],
-        input=sql,
-        text=True,
-        capture_output=True,
-        check=True,
-        encoding="utf-8",
-    )
-    return completed.stdout.strip()
+def run_pg_sql(dsn: str, sql: str) -> str:
+    import psycopg
+
+    with psycopg.connect(dsn) as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql)
+            if cur.description is None:
+                return ""
+            row = cur.fetchone()
+            if row is None:
+                return ""
+            value: Any = row[0]
+            return "" if value is None else str(value)
+
+
+def is_psycopg_available() -> bool:
+    return importlib.util.find_spec("psycopg") is not None
 
 
 def quote_identifier(value: str) -> str:
@@ -232,7 +239,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description="Check or apply the PostgreSQL schema bootstrap contract.")
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--check", action="store_true", help="check DSN and psql availability without connecting")
+    mode.add_argument("--check", action="store_true", help="check DSN and psycopg availability without connecting")
     mode.add_argument("--sql-only", action="store_true", help="print the SQL wrapper without connecting")
     mode.add_argument("--apply", action="store_true", help="apply the schema contract to an isolated schema")
     parser.add_argument("--dsn", help=f"PostgreSQL DSN; overrides {PRIMARY_ENV_DSN} and {LEGACY_ENV_DSN}")
@@ -251,15 +258,13 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     resolved = resolve_dsn(args.dsn)
     if args.apply:
-        psql_path = shutil.which("psql")
-        reason = integration_skip_reason(resolved, psql_path)
+        reason = integration_skip_reason(resolved)
         if reason:
             sys.stderr.write(f"skip: {reason}\n")
             return 2
         result = apply_bootstrap(
             resolved.dsn or "",
             args.schema,
-            psql=psql_path or "psql",
             drop_schema_after=args.drop_schema_after,
         )
     else:
