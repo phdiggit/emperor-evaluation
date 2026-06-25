@@ -144,7 +144,7 @@ def test_reports_do_not_read_or_render_dsn_values(monkeypatch) -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-production-migration-dry-run-package.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-dry-run-package.md"
 
     assert path.is_file()
     check = package.build_adr_check(path)
@@ -155,7 +155,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 
 def test_adr_contains_required_boundaries() -> None:
-    content = (ROOT / "docs" / "adr" / "ADR-production-migration-dry-run-package.md").read_text(encoding="utf-8")
+    content = (ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-dry-run-package.md").read_text(encoding="utf-8")
     normalized = package.normalize_text(content)
     for needle in [
         "dry_run_package_only=true",
@@ -302,7 +302,7 @@ def test_guard_paths_use_utf8_chinese_names() -> None:
 def _tmp_adr(tmp_path: Path) -> Path:
     adr = tmp_path / "ADR-production-migration-dry-run-package.md"
     adr.write_text(
-        (ROOT / "docs" / "adr" / "ADR-production-migration-dry-run-package.md").read_text(encoding="utf-8"),
+        (ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-dry-run-package.md").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     return adr

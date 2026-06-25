@@ -184,7 +184,7 @@ def test_render_pr_body_template_is_blocked_by_default() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md"
 
     assert path.is_file()
     check = prep.build_adr_check(path)
@@ -196,7 +196,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_if_approval_or_ready_claim_is_added(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-schema-change-pr-prep-pack.md"
-    base = (ROOT / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md").read_text(encoding="utf-8")
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md").read_text(encoding="utf-8")
     for injected in ["schema_change_pr_approved=true", "ready_for_schema_change_pr=true"]:
         adr.write_text(base + f"\n\n{injected}\n", encoding="utf-8")
         check = prep.build_adr_check(adr)
@@ -205,7 +205,7 @@ def test_adr_check_fails_if_approval_or_ready_claim_is_added(tmp_path: Path) -> 
 
 
 def test_adr_contains_required_boundaries() -> None:
-    content = (ROOT / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md").read_text(encoding="utf-8")
+    content = (ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md").read_text(encoding="utf-8")
     normalized = prep.normalize_text(content)
     for needle in [
         "Proposed / Preparation pack only",

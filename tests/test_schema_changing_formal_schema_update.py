@@ -171,7 +171,7 @@ def test_lint_fails_for_injected_blocking_values(monkeypatch, tmp_path: Path) ->
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-schema-changing-formal-schema-update.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-schema-changing-formal-schema-update.md"
 
     assert path.is_file()
     check = update.build_adr_check(path)
@@ -183,7 +183,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_for_live_apply_or_production_ready_claim(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-schema-changing-formal-schema-update.md"
-    base = (ROOT / "docs" / "adr" / "ADR-schema-changing-formal-schema-update.md").read_text(encoding="utf-8")
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-schema-changing-formal-schema-update.md").read_text(encoding="utf-8")
     for injected in ["sql_executed=true", "production_db_connected=true", "ready_for_production_migration=true"]:
         adr.write_text(base + f"\n\n{injected}\n", encoding="utf-8")
         check = update.build_adr_check(adr)

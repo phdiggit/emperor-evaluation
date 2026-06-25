@@ -375,6 +375,32 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
     )
 
 
+def test_check_validates_public_experience_policy_when_enabled(tmp_path: Path) -> None:
+    repo = init_repo(tmp_path)
+    seed_repo(repo)
+    write(repo / "docs" / "adr" / "ADR-test.md", "# English only\n\nNo Chinese prose.\n")
+    for index in range(1, 10):
+        write(repo / "docs" / "密集模块" / f"文档{index:02}.md", f"# 文档{index:02}\n\n中文正文。\n")
+    commit_all(repo, "add public experience docs")
+    docs_tool = load_docs_tool(repo)
+    registry = valid_registry(repo, docs_tool.build_inventory("HEAD"))
+    registry["docs_public_experience_policy"] = {
+        "current_adr_root_closed": True,
+        "human_markdown_filename_requires_chinese": True,
+        "human_markdown_body_requires_chinese": True,
+        "module_density_threshold": 8,
+    }
+    registry_path = write_registry(repo, registry)
+    commit_all(repo, "registry")
+
+    problems = docs_tool.check_registry(str(registry_path.relative_to(repo)))
+
+    assert any("docs/adr/ADR-test.md: current docs/adr is closed" in p for p in problems)
+    assert any("docs/adr/ADR-test.md: human-facing Markdown filename must contain Chinese characters" in p for p in problems)
+    assert any("docs/adr/ADR-test.md: human-facing Markdown body must contain Chinese prose" in p for p in problems)
+    assert any("docs/密集模块: 9 direct Markdown files exceeds 8 without density review" in p for p in problems)
+
+
 def test_check_validates_project_driver_paths(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)

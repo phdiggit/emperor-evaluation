@@ -20,7 +20,7 @@ from scripts.platform.core.fingerprints import file_fingerprints, file_sha256, f
 from scripts.platform.core.gates import first_blocking_reason
 from scripts.platform.core.redaction import contains_secret_material
 
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution.md"
+ADR_PATH = ROOT / "docs" / "数据结构与生成库" / "史源数据平台迁移决策.md"
 SCHEMA_SQL_PATH = ROOT / "db" / "schema.sql"
 POSTGRES_SQL_PATH = ROOT / "db" / "postgres" / "001_init.sql"
 SCHEMA_PATHS = (SCHEMA_SQL_PATH, POSTGRES_SQL_PATH)

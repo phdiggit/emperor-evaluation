@@ -221,6 +221,86 @@ def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False)
         mode = "worktree" if worktree else "tracked"
         problems.append(f"{extra}: registry path is not a {mode} docs file")
 
+    public_policy = registry.get("docs_public_experience_policy") or {}
+    if public_policy and not isinstance(public_policy, dict):
+        problems.append(f"{registry_path}: docs_public_experience_policy must be an object")
+        public_policy = {}
+    enforce_current_adr_closed = public_policy.get("current_adr_root_closed") is True
+    enforce_chinese_filenames = public_policy.get("human_markdown_filename_requires_chinese") is True
+    enforce_chinese_body = public_policy.get("human_markdown_body_requires_chinese") is True
+    density_threshold = int(public_policy.get("module_density_threshold", c.MODULE_DENSITY_THRESHOLD))
+
+    current_markdown_docs = sorted(path for path in current_docs if path.endswith(".md"))
+    direct_module_counts: dict[str, int] = defaultdict(int)
+    for path in current_markdown_docs:
+        if enforce_current_adr_closed and path.startswith(c.CURRENT_ADR_ROOT):
+            problems.append(f"{path}: current docs/adr is closed; move ADR history to archive/docs/adr or merge into a Chinese module document")
+        filename = path.rsplit("/", 1)[-1]
+        if enforce_chinese_filenames and filename not in c.TECHNICAL_DOC_FILENAMES and not c.CJK_RE.search(filename):
+            problems.append(f"{path}: human-facing Markdown filename must contain Chinese characters")
+        if enforce_chinese_body:
+            try:
+                text = _resolve_repo_path(path).read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                problems.append(f"{path}: Markdown file must be UTF-8")
+                text = ""
+            if text and not c.CJK_RE.search(text):
+                problems.append(f"{path}: human-facing Markdown body must contain Chinese prose")
+        parts = path.split("/")
+        if len(parts) == 3:
+            direct_module_counts["/".join(parts[:2])] += 1
+
+    density_reviews = registry.get("docs_module_density_reviews", [])
+    if not isinstance(density_reviews, list):
+        problems.append(f"{registry_path}: docs_module_density_reviews must be a list")
+        density_reviews = []
+    density_by_module: dict[str, dict[str, Any]] = {}
+    for review in density_reviews:
+        if not isinstance(review, dict):
+            problems.append(f"{registry_path}: docs_module_density_reviews entries must be objects")
+            continue
+        module_path = review.get("module_path")
+        if not isinstance(module_path, str) or not module_path.startswith("docs/"):
+            problems.append(f"{registry_path}: docs_module_density_reviews entries require module_path under docs/")
+            continue
+        density_by_module[module_path] = review
+        if review.get("review_status") != "reviewed":
+            problems.append(f"{module_path}: density review must use review_status=reviewed")
+        if not str(review.get("decision") or "").strip():
+            problems.append(f"{module_path}: density review requires non-empty decision")
+    for module_path, count in sorted(direct_module_counts.items()):
+        if count <= density_threshold:
+            continue
+        review = density_by_module.get(module_path)
+        if review is None:
+            problems.append(f"{module_path}: {count} direct Markdown files exceeds {density_threshold} without density review")
+            continue
+        if review.get("direct_markdown_count") != count:
+            problems.append(f"{module_path}: density review direct_markdown_count must be {count}")
+
+    topic_reviews = registry.get("docs_topic_family_reviews", [])
+    if not isinstance(topic_reviews, list):
+        problems.append(f"{registry_path}: docs_topic_family_reviews must be a list")
+        topic_reviews = []
+    for review in topic_reviews:
+        if not isinstance(review, dict):
+            problems.append(f"{registry_path}: docs_topic_family_reviews entries must be objects")
+            continue
+        family_name = str(review.get("family_name") or "").strip()
+        paths = review.get("paths")
+        if not family_name:
+            problems.append(f"{registry_path}: docs_topic_family_reviews entries require family_name")
+        if not isinstance(paths, list) or not paths:
+            problems.append(f"{family_name or registry_path}: topic family review requires non-empty paths")
+            continue
+        for path in paths:
+            if path not in current_markdown_docs:
+                problems.append(f"{family_name}: topic family path is not a current Markdown doc: {path}")
+        if len(paths) > 3 and review.get("review_status") != "reviewed":
+            problems.append(f"{family_name}: topic family with more than 3 docs requires review_status=reviewed")
+        if not str(review.get("decision") or "").strip():
+            problems.append(f"{family_name}: topic family review requires non-empty decision")
+
     exact_groups: dict[str, list[str]] = defaultdict(list)
     for doc in documents:
         group = doc.get("duplicate_group") or doc.get("exact_duplicate_group")

@@ -152,7 +152,7 @@ def test_lint_fails_if_connection_material_or_sql_client_is_injected() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md"
 
     assert path.is_file()
     check = scaffold.build_adr_check(path)
@@ -163,7 +163,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 
 def test_adr_contains_required_boundaries() -> None:
-    content = (ROOT / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md").read_text(encoding="utf-8")
+    content = (ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md").read_text(encoding="utf-8")
     normalized = scaffold.normalize_text(content)
     for needle in [
         "scaffold only",
@@ -194,7 +194,7 @@ def test_adr_check_fails_when_required_semantics_are_missing(tmp_path: Path) -> 
 def test_adr_check_fails_if_approval_is_claimed(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-production-migration-pr-scaffold.md"
     adr.write_text(
-        (ROOT / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md").read_text(encoding="utf-8")
+        (ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md").read_text(encoding="utf-8")
         + "\n\nproduction_migration_approved=true\n",
         encoding="utf-8",
     )

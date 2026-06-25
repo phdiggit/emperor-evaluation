@@ -76,7 +76,31 @@
     "docs/证据规则/证据强度四级与五轴裁量规则.md": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
     "docs/证据规则/证据链总流程与文档索引.md": "archive/docs/证据规则/证据链总流程与文档索引.md",
     "docs/项目文件治理诊断报告.md": "archive/docs/audits/项目文件治理诊断报告.md",
-    "docs/项目重启决议.md": "archive/docs/audits/项目重启决议.md"
+    "docs/项目重启决议.md": "archive/docs/audits/项目重启决议.md",
+    "docs/adr/ADR-anchors-schema-proposal.md": "archive/docs/adr/ADR-anchors-schema-proposal.md",
+    "docs/adr/ADR-formal-migration-proposal.md": "archive/docs/adr/ADR-formal-migration-proposal.md",
+    "docs/adr/ADR-formal-target-schema-draft.md": "archive/docs/adr/ADR-formal-target-schema-draft.md",
+    "docs/adr/ADR-guarded-executable-migration-pr.md": "archive/docs/adr/ADR-guarded-executable-migration-pr.md",
+    "docs/adr/ADR-jsonl-to-target-cutover-plan.md": "archive/docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+    "docs/adr/ADR-migration-bundle-review-pack.md": "archive/docs/adr/ADR-migration-bundle-review-pack.md",
+    "docs/adr/ADR-migration-sql-draft-renderer.md": "archive/docs/adr/ADR-migration-sql-draft-renderer.md",
+    "docs/adr/ADR-platform-rollback-backup-seed-strategy.md": "archive/docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+    "docs/adr/ADR-postgres-formal-migration-plan.md": "archive/docs/adr/ADR-postgres-formal-migration-plan.md",
+    "docs/adr/ADR-production-migration-dry-run-package.md": "archive/docs/adr/ADR-production-migration-dry-run-package.md",
+    "docs/adr/ADR-production-migration-freeze-checklist.md": "archive/docs/adr/ADR-production-migration-freeze-checklist.md",
+    "docs/adr/ADR-production-migration-pr-admission.md": "archive/docs/adr/ADR-production-migration-pr-admission.md",
+    "docs/adr/ADR-production-migration-pr-scaffold.md": "archive/docs/adr/ADR-production-migration-pr-scaffold.md",
+    "docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md": "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+    "docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md": "archive/docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
+    "docs/adr/ADR-production-schema-live-apply-execution-preflight.md": "archive/docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
+    "docs/adr/ADR-production-schema-live-apply-execution.md": "archive/docs/adr/ADR-production-schema-live-apply-execution.md",
+    "docs/adr/ADR-production-seed-data-apply-execution.md": "archive/docs/adr/ADR-production-seed-data-apply-execution.md",
+    "docs/adr/ADR-schema-change-approval-gate-package.md": "archive/docs/adr/ADR-schema-change-approval-gate-package.md",
+    "docs/adr/ADR-schema-change-candidate-review-bundle.md": "archive/docs/adr/ADR-schema-change-candidate-review-bundle.md",
+    "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md": "archive/docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+    "docs/adr/ADR-schema-change-pr-prep-pack.md": "archive/docs/adr/ADR-schema-change-pr-prep-pack.md",
+    "docs/adr/ADR-schema-changing-formal-schema-update.md": "archive/docs/adr/ADR-schema-changing-formal-schema-update.md",
+    "docs/adr/ADR-schema-diff-draft-renderer.md": "archive/docs/adr/ADR-schema-diff-draft-renderer.md"
   },
   "baseline_ref": "origin/GPT",
   "baseline_sha": "32149e5",
@@ -92,50 +116,1054 @@
   },
   "documents": [
     {
-      "content_role": "stable_operational_guide",
-      "document_type": "operational_guide",
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/证据规则/证据链总流程与文档索引.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "证据规则退役追溯页，原流程索引已吸收到证据规则 README、检索工作流和证据裁量总则。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "历史追溯说明；旧流程索引职责已由 README、史料检索与回源工作流、证据裁量总则和负证触发式裁判通用规则承接。",
+      "referenced_by_tests": [],
+      "replacement_path": "docs/证据规则/README.md",
+      "semantic_verification_required": false,
+      "title": "证据链总流程与文档索引（退役说明）",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
-        "scripts/AGENTS.md",
-        "scripts/dev/docs_tool.py",
-        "tests/test_agents_governance.py",
-        "tests/test_docs_governance.py",
-        "tests/test_docs_tool.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_redundant_file_candidates_report.py",
-        "tests/test_scripts_legacy_wrapper_retirement.py"
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
       ],
-      "governance_references": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
       "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
+      "inbound_references": [
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
+        "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
+      "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "path": "archive/docs/README.md",
+      "path": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
       "placement_action": "keep_archive_exception",
-      "placement_reason": "archive 导航和重新激活边界属于受控历史区说明，继续保留。",
+      "placement_reason": "证据规则退役追溯页，原四级强度与五轴规则已吸收到当前证据裁量总则。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "archive 目录的当前导航、边界和重新激活规则。",
+      "reason": "历史追溯说明；四级强度、五轴、单证/证据组和人工裁判门槛已吸收到证据裁量总则。",
+      "referenced_by_tests": [],
+      "replacement_path": "docs/证据规则/证据裁量总则.md",
+      "semantic_verification_required": false,
+      "title": "证据强度四级与五轴裁量规则（退役说明）",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/anchors_schema_proposal.py",
+        "tests/test_anchors_schema_proposal_contract.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-anchors-schema-proposal.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-anchors-schema-proposal.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_anchors_schema_proposal_contract.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: anchors schema proposal",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/anchors_schema_proposal.py",
+        "tests/test_anchors_schema_proposal_contract.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/formal_migration_proposal.py",
+        "tests/test_formal_migration_proposal.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-formal-migration-proposal.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-formal-migration-proposal.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_formal_migration_proposal.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Formal Migration Proposal",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/formal_migration_proposal.py",
+        "tests/test_formal_migration_proposal.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/formal_schema_draft.py",
+        "tests/test_formal_schema_draft.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-formal-target-schema-draft.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-formal-target-schema-draft.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_formal_schema_draft.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: formal target schema draft",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/formal_schema_draft.py",
+        "tests/test_formal_schema_draft.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/guarded_executable_migration_pr.py",
+        "tests/test_guarded_executable_migration_pr.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-guarded-executable-migration-pr.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-guarded-executable-migration-pr.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_guarded_executable_migration_pr.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Guarded Executable Migration PR Proposal",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/guarded_executable_migration_pr.py",
+        "tests/test_guarded_executable_migration_pr.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-jsonl-to-target-cutover-plan.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_readiness_plan.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: JSONL-to-target cutover plan",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/migration_bundle_review_pack.py",
+        "tests/test_migration_bundle_review_pack.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-migration-bundle-review-pack.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-migration-bundle-review-pack.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_migration_bundle_review_pack.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Migration Bundle Review Pack",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/migration_bundle_review_pack.py",
+        "tests/test_migration_bundle_review_pack.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/migration_sql_draft_renderer.py",
+        "tests/test_migration_sql_draft_renderer.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-migration-sql-draft-renderer.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-migration-sql-draft-renderer.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_migration_sql_draft_renderer.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Migration SQL Draft Renderer",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/migration_sql_draft_renderer.py",
+        "tests/test_migration_sql_draft_renderer.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-platform-rollback-backup-seed-strategy.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_readiness_plan.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: platform rollback, backup, and seed strategy",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-postgres-formal-migration-plan.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-postgres-formal-migration-plan.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_readiness_plan.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: PostgreSQL formal migration plan",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_readiness_plan.py",
+        "tests/test_production_readiness_plan.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_migration_dry_run_package.py",
+        "tests/test_production_migration_dry_run_package.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-migration-dry-run-package.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-migration-dry-run-package.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_migration_dry_run_package.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Migration Dry-run Package",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_migration_dry_run_package.py",
+        "tests/test_production_migration_dry_run_package.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_migration_freeze_checklist.py",
+        "tests/test_production_migration_freeze_checklist.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-migration-freeze-checklist.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-migration-freeze-checklist.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_migration_freeze_checklist.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Migration Freeze Checklist",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_migration_freeze_checklist.py",
+        "tests/test_production_migration_freeze_checklist.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_migration_admission.py",
+        "tests/test_production_migration_admission.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-migration-pr-admission.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-migration-pr-admission.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_migration_admission.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Migration PR Admission",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_migration_admission.py",
+        "tests/test_production_migration_admission.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_migration_pr_scaffold.py",
+        "tests/test_production_migration_pr_scaffold.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-migration-pr-scaffold.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-migration-pr-scaffold.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_migration_pr_scaffold.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Migration PR Scaffold",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_migration_pr_scaffold.py",
+        "tests/test_production_migration_pr_scaffold.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_schema_live_apply_entrypoint_guard.py",
+        "tests/test_production_schema_live_apply_entrypoint_guard.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_schema_live_apply_entrypoint_guard.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Schema Live-Apply Entrypoint Guard",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_schema_live_apply_entrypoint_guard.py",
+        "tests/test_production_schema_live_apply_entrypoint_guard.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_schema_live_apply_execution_pr_scaffold.py",
+        "tests/test_production_schema_live_apply_execution_pr_scaffold.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_schema_live_apply_execution_pr_scaffold.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Schema Live-Apply Execution PR Scaffold",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_schema_live_apply_execution_pr_scaffold.py",
+        "tests/test_production_schema_live_apply_execution_pr_scaffold.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_schema_live_apply_execution_preflight.py",
+        "tests/test_production_schema_live_apply_execution_preflight.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-schema-live-apply-execution-preflight.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_schema_live_apply_execution_preflight.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Schema Live-Apply Execution Preflight",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_schema_live_apply_execution_preflight.py",
+        "tests/test_production_schema_live_apply_execution_preflight.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_schema_live_apply_execution.py",
+        "tests/test_production_schema_live_apply_execution.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-schema-live-apply-execution.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-schema-live-apply-execution.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_schema_live_apply_execution.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Schema Live-Apply Execution",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_schema_live_apply_execution.py",
+        "tests/test_production_schema_live_apply_execution.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/production_seed_data_apply_execution.py",
+        "tests/test_production_seed_data_apply_execution.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-production-seed-data-apply-execution.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-production-seed-data-apply-execution.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_production_seed_data_apply_execution.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Production Seed/Data Apply Execution",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "data/",
+        "archive/data/",
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_seed_data_apply_execution.py",
+        "tests/test_production_seed_data_apply_execution.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/schema_change_approval_gate_package.py",
+        "tests/test_schema_change_approval_gate_package.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-schema-change-approval-gate-package.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-schema-change-approval-gate-package.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_schema_change_approval_gate_package.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Change Approval Gate Package",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_change_approval_gate_package.py",
+        "tests/test_schema_change_approval_gate_package.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/schema_change_candidate_review_bundle.py",
+        "tests/test_schema_change_candidate_review_bundle.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-schema-change-candidate-review-bundle.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-schema-change-candidate-review-bundle.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_schema_change_candidate_review_bundle.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Change Candidate Review Bundle",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_change_candidate_review_bundle.py",
+        "tests/test_schema_change_candidate_review_bundle.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/schema_change_explicit_approval_request_handoff.py",
+        "tests/test_schema_change_explicit_approval_request_handoff.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-schema-change-explicit-approval-request-handoff.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_schema_change_explicit_approval_request_handoff.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Change Explicit Approval Request Handoff",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_change_explicit_approval_request_handoff.py",
+        "tests/test_schema_change_explicit_approval_request_handoff.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/schema_change_pr_prep_pack.py",
+        "tests/test_schema_change_pr_prep_pack.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-schema-change-pr-prep-pack.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-schema-change-pr-prep-pack.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_schema_change_pr_prep_pack.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Change PR Preparation Pack",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_change_pr_prep_pack.py",
+        "tests/test_schema_change_pr_prep_pack.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/schema_changing_formal_schema_update.py",
+        "tests/test_schema_changing_formal_schema_update.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-schema-changing-formal-schema-update.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-schema-changing-formal-schema-update.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_schema_changing_formal_schema_update.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Changing Formal Schema Update",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_changing_formal_schema_update.py",
+        "tests/test_schema_changing_formal_schema_update.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/platform/schema_diff_draft_renderer.py",
+        "tests/test_schema_diff_draft_renderer.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/adr/ADR-schema-diff-draft-renderer.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "Epic 0 Milestone 0D 将扁平 ADR 归档；历史决策保留追溯，当前事实迁入中文功能模块。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Archived from docs/adr/ADR-schema-diff-draft-renderer.md; current data-platform migration decisions are consolidated in docs/数据结构与生成库/史源数据平台迁移决策.md.",
+      "referenced_by_tests": [
+        "tests/test_schema_diff_draft_renderer.py"
+      ],
+      "replacement_path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "semantic_verification_required": false,
+      "title": "ADR: Schema Diff Draft Renderer",
+      "unique_source_risk": false,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_diff_draft_renderer.py",
+        "tests/test_schema_diff_draft_renderer.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "scripts/export/export_project_doc_views.py",
+        "tests/test_i5b_global_scale_audit.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
+        "scripts/export/export_project_doc_views.py"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "docs/archive",
+      "title": "第五项B评分映射总标尺对齐审计",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json",
-        "archive/docs/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
-        "archive/docs/docs_governance/多余文件候选确认报告.md",
+        "tests/test_i5b_global_scale_audit.py"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/audits/第五项B三人试点检索线索说明.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第五项B三人试点检索线索说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "audit_record",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "tests/test_file_governance_policy.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "README.md",
+        "archive/docs/audits/file_governance_final_audit_20260620.md",
+        "archive/docs/audits/i5b_formal_result_leavebehind_review_20260620.md",
+        "archive/docs/audits/liubang_pregrade_checklist_archive_note_20260620.md",
+        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
         "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
-        "archive/docs/audits/项目文件治理诊断报告.md",
-        "scripts/AGENTS.md",
-        "scripts/dev/docs_tool.py",
-        "tests/test_agents_governance.py",
-        "tests/test_docs_governance.py",
-        "tests/test_docs_tool.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_redundant_file_candidates_report.py",
-        "tests/test_scripts_legacy_wrapper_retirement.py"
+        "tests/test_file_governance_policy.py"
+      ],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/audits/项目文件治理诊断报告.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "referenced_by_tests": [
+        "tests/test_file_governance_policy.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "项目文件治理诊断报告",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "historical_record",
+      "document_type": "historical_snapshot",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "historical",
+      "normalized_duplicate_group": null,
+      "path": "archive/docs/audits/项目重启决议.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "项目重启决议",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
       ]
     },
     {
@@ -589,138 +1617,6 @@
       "inbound_references": [],
       "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "path": "archive/docs/audits/第五项B三人试点检索线索说明.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "第五项B三人试点检索线索说明",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_i5b_global_scale_audit.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
-        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-        "scripts/export/export_project_doc_views.py"
-      ],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "第五项B评分映射总标尺对齐审计",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "tests/test_i5b_global_scale_audit.py"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "audit_record",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "tests/test_file_governance_policy.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "README.md",
-        "archive/docs/audits/file_governance_final_audit_20260620.md",
-        "archive/docs/audits/i5b_formal_result_leavebehind_review_20260620.md",
-        "archive/docs/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
-        "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
-        "tests/test_file_governance_policy.py"
-      ],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/audits/项目文件治理诊断报告.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "referenced_by_tests": [
-        "tests/test_file_governance_policy.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "项目文件治理诊断报告",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/audits/项目重启决议.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "项目重启决议",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
       "path": "archive/docs/design_snapshots/i5b_cluster_warning_display_integration_design_20260621.md",
       "placement_action": "keep_archive_exception",
       "placement_reason": "已移出 docs 当前层；保留为日期化设计快照追溯，不作为当前规则、事实源、评分、证据或试点状态入口。",
@@ -896,12 +1792,11 @@
         "archive/docs/audits/file_governance_final_audit_20260620.md",
         "archive/docs/audits/i5b_formal_result_leavebehind_review_20260620.md",
         "archive/docs/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
-        "archive/docs/docs_governance/多余文件第二批最终引用复核.md"
+        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md"
       ],
       "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "path": "archive/docs/docs_governance/多余文件候选确认报告.md",
+      "path": "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
       "placement_action": "keep_archive_exception",
       "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
       "placement_targets": [],
@@ -910,7 +1805,7 @@
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "多余文件候选确认报告",
+      "title": "多余文件第二批最终引用复核",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -963,11 +1858,12 @@
         "archive/docs/audits/file_governance_final_audit_20260620.md",
         "archive/docs/audits/i5b_formal_result_leavebehind_review_20260620.md",
         "archive/docs/audits/liubang_pregrade_checklist_archive_note_20260620.md",
-        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md"
+        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
+        "archive/docs/docs_governance/多余文件第二批最终引用复核.md"
       ],
       "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
-      "path": "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
+      "path": "archive/docs/docs_governance/多余文件候选确认报告.md",
       "placement_action": "keep_archive_exception",
       "placement_reason": "已移出 docs 当前层；仅保留历史追溯，不作为当前规则、事实源、评分、排名或试点状态入口。",
       "placement_targets": [],
@@ -976,102 +1872,7 @@
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "多余文件第二批最终引用复核",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-        "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/证据规则/证据强度四级与五轴裁量规则.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "证据规则退役追溯页，原四级强度与五轴规则已吸收到当前证据裁量总则。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "历史追溯说明；四级强度、五轴、单证/证据组和人工裁判门槛已吸收到证据裁量总则。",
-      "referenced_by_tests": [],
-      "replacement_path": "docs/证据规则/证据裁量总则.md",
-      "semantic_verification_required": false,
-      "title": "证据强度四级与五轴裁量规则（退役说明）",
-      "unique_source_risk": false,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "historical_record",
-      "document_type": "historical_snapshot",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "historical",
-      "normalized_duplicate_group": null,
-      "path": "archive/docs/证据规则/证据链总流程与文档索引.md",
-      "placement_action": "keep_archive_exception",
-      "placement_reason": "证据规则退役追溯页，原流程索引已吸收到证据规则 README、检索工作流和证据裁量总则。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "历史追溯说明；旧流程索引职责已由 README、史料检索与回源工作流、证据裁量总则和负证触发式裁判通用规则承接。",
-      "referenced_by_tests": [],
-      "replacement_path": "docs/证据规则/README.md",
-      "semantic_verification_required": false,
-      "title": "证据链总流程与文档索引（退役说明）",
-      "unique_source_risk": false,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/AGENTS.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "docs 根目录长期入口或最高层规范，应保留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "docs 范围内长期稳定行为规则。",
-      "referenced_by_tests": [
-        "tests/test_docs_governance.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "docs AGENTS",
+      "title": "多余文件候选确认报告",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -1082,915 +1883,46 @@
       "document_type": "operational_guide",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/README.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "docs 根目录长期入口或最高层规范，应保留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "docs 当前层导航入口，说明功能目录边界和阅读顺序。",
-      "referenced_by_tests": [
-        "tests/test_docs_governance.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "docs 功能目录导航",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
       "generator_candidates": [
-        "scripts/platform/anchors_schema_proposal.py",
-        "tests/test_anchors_schema_proposal_contract.py"
+        "scripts/AGENTS.md",
+        "scripts/dev/docs_tool.py",
+        "tests/test_agents_governance.py",
+        "tests/test_docs_governance.py",
+        "tests/test_docs_tool.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_redundant_file_candidates_report.py",
+        "tests/test_scripts_legacy_wrapper_retirement.py"
       ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
+      "governance_references": [],
       "human_confirmation_required": false,
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-anchors-schema-proposal.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "anchors schema ADR 是当前平台链路的 schema proposal 与 resolver 边界文档，应保留在 docs 当前规范层。",
+      "path": "archive/docs/README.md",
+      "placement_action": "keep_archive_exception",
+      "placement_reason": "archive 导航和重新激活边界属于受控历史区说明，继续保留。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "记录 thematic anchor staging-only 到未来 anchors / anchor_links target 的提案边界，不修改正式 schema。",
-      "referenced_by_tests": [
-        "tests/test_anchors_schema_proposal_contract.py"
-      ],
+      "reason": "archive 目录的当前导航、边界和重新激活规则。",
+      "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "ADR: anchors schema proposal",
+      "title": "docs/archive",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/anchors_schema_proposal.py",
-        "tests/test_anchors_schema_proposal_contract.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/formal_schema_draft.py",
-        "tests/test_formal_schema_draft.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-formal-target-schema-draft.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "formal target schema draft ADR 是当前平台链路的 schema proposal、schema diff 与 table-by-table gate 文档，应保留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "记录 prototype mapper / resolver 输出到 formal target schema draft 的阶段化提案边界，不修改正式 schema、不执行 DDL。",
-      "referenced_by_tests": [
-        "tests/test_formal_schema_draft.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: formal target schema draft",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/formal_schema_draft.py",
-        "tests/test_formal_schema_draft.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/formal_migration_proposal.py",
-        "tests/test_formal_migration_proposal.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-formal-migration-proposal.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Formal migration proposal ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Records readiness-matrix-based formal migration proposal boundaries, production PR gates, non-goals, and rollback / restore runbook requirements without executing production actions.",
-      "referenced_by_tests": [
-        "tests/test_formal_migration_proposal.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Formal Migration Proposal",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/formal_migration_proposal.py",
-        "tests/test_formal_migration_proposal.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_migration_admission.py",
-        "tests/test_production_migration_admission.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-migration-pr-admission.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production migration PR admission ADR is an admission-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines file-scope, machine-gate, human-signoff, rollback-plan, and risk-gate admission requirements for a future production migration PR without executing production actions.",
-      "referenced_by_tests": [
-        "tests/test_production_migration_admission.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Migration PR Admission",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_migration_admission.py",
-        "tests/test_production_migration_admission.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_migration_dry_run_package.py",
-        "tests/test_production_migration_dry_run_package.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-migration-dry-run-package.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production migration dry-run package ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines dry-run package contents, validation command matrix, operator checks, rollback checks, and seed artifact checksum review requirements for a future production migration PR without executing production actions.",
-      "referenced_by_tests": [
-        "tests/test_production_migration_dry_run_package.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Migration Dry-run Package",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_migration_dry_run_package.py",
-        "tests/test_production_migration_dry_run_package.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/migration_sql_draft_renderer.py",
-        "tests/test_migration_sql_draft_renderer.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-migration-sql-draft-renderer.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Migration SQL draft renderer ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines offline migration SQL draft rendering, lint-only gates, SQL draft boundaries, and production non-goals without executing SQL or modifying formal schema files.",
-      "referenced_by_tests": [
-        "tests/test_migration_sql_draft_renderer.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Migration SQL Draft Renderer",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/migration_sql_draft_renderer.py",
-        "tests/test_migration_sql_draft_renderer.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/schema_diff_draft_renderer.py",
-        "tests/test_schema_diff_draft_renderer.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-schema-diff-draft-renderer.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Schema diff draft renderer ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines offline schema diff draft rendering, checksum metadata, read-only schema inputs, diff categories, and production non-goals without modifying schema files or executing SQL.",
-      "referenced_by_tests": [
-        "tests/test_schema_diff_draft_renderer.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Schema Diff Draft Renderer",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/schema_diff_draft_renderer.py",
-        "tests/test_schema_diff_draft_renderer.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/migration_bundle_review_pack.py",
-        "tests/test_migration_bundle_review_pack.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-migration-bundle-review-pack.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Migration bundle review pack ADR is a review-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the offline migration bundle review pack, required review contents, lint gates, human sign-off checklist, and production non-goals without modifying schema files or executing SQL.",
-      "referenced_by_tests": [
-        "tests/test_migration_bundle_review_pack.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Migration Bundle Review Pack",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/migration_bundle_review_pack.py",
-        "tests/test_migration_bundle_review_pack.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_migration_freeze_checklist.py",
-        "tests/test_production_migration_freeze_checklist.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-migration-freeze-checklist.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production migration freeze checklist ADR is a checklist-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines freeze inputs, machine gates, human sign-off requirements, rollback and seed checksum checklists, and production non-goals before a future production migration PR scaffold without executing production actions.",
-      "referenced_by_tests": [
-        "tests/test_production_migration_freeze_checklist.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Migration Freeze Checklist",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_migration_freeze_checklist.py",
-        "tests/test_production_migration_freeze_checklist.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_migration_pr_scaffold.py",
-        "tests/test_production_migration_pr_scaffold.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-migration-pr-scaffold.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production migration PR scaffold ADR is a scaffold-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the scaffold-only production migration PR contract, required non-execution flags, human sign-off placeholders, and future executable migration PR boundary without connecting to databases or modifying schema files.",
-      "referenced_by_tests": [
-        "tests/test_production_migration_pr_scaffold.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Migration PR Scaffold",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_migration_pr_scaffold.py",
-        "tests/test_production_migration_pr_scaffold.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/guarded_executable_migration_pr.py",
-        "tests/test_guarded_executable_migration_pr.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-guarded-executable-migration-pr.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Guarded executable migration PR ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the guarded executable migration PR proposal contract, required non-execution flags, blocked-by-default future PR body template, and explicit user approval boundary without connecting to databases or modifying schema files.",
-      "referenced_by_tests": [
-        "tests/test_guarded_executable_migration_pr.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Guarded Executable Migration PR Proposal",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/guarded_executable_migration_pr.py",
-        "tests/test_guarded_executable_migration_pr.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/schema_change_pr_prep_pack.py",
-        "tests/test_schema_change_pr_prep_pack.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-schema-change-pr-prep-pack.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Schema-change PR preparation pack ADR is a preparation-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the schema-change PR preparation pack contract, blocked-by-default future PR body template, non-execution flags, approval placeholders, schema-change placeholders, and rollback/restore placeholders without connecting to databases or modifying schema files.",
-      "referenced_by_tests": [
-        "tests/test_schema_change_pr_prep_pack.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Schema-Change PR Preparation Pack",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/schema_change_pr_prep_pack.py",
-        "tests/test_schema_change_pr_prep_pack.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/schema_change_candidate_review_bundle.py",
-        "tests/test_schema_change_candidate_review_bundle.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-schema-change-candidate-review-bundle.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Schema-change candidate review bundle ADR is a review-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the schema-change candidate review bundle contract, read-only schema hash and line-count inspection, blocked-by-default future PR body template, non-execution flags, and future approval boundaries without modifying schema files or emitting executable artifacts.",
-      "referenced_by_tests": [
-        "tests/test_schema_change_candidate_review_bundle.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Schema-Change Candidate Review Bundle",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/schema_change_candidate_review_bundle.py",
-        "tests/test_schema_change_candidate_review_bundle.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/schema_change_approval_gate_package.py",
-        "tests/test_schema_change_approval_gate_package.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-schema-change-approval-gate-package.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Schema-change approval gate package ADR is an approval-gate-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the schema-change approval gate package contract, human approval request template, blocked-by-default future schema-changing PR body template, non-approval flags, read-only schema hash and line-count inspection, and future explicit approval boundary without modifying schema files or emitting executable artifacts.",
-      "referenced_by_tests": [
-        "tests/test_schema_change_approval_gate_package.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Schema-Change Approval Gate Package",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/schema_change_approval_gate_package.py",
-        "tests/test_schema_change_approval_gate_package.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/schema_change_explicit_approval_request_handoff.py",
-        "tests/test_schema_change_explicit_approval_request_handoff.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Schema-change explicit approval request handoff ADR is a handoff-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the schema-change explicit approval request handoff contract, user-facing approval request text, machine-readable request JSON, blocked-by-default future schema-changing PR body template, pending external decision status, non-approval flags, and read-only schema hash and line-count inspection without modifying schema files or emitting executable artifacts.",
-      "referenced_by_tests": [
-        "tests/test_schema_change_explicit_approval_request_handoff.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Schema-Change Explicit Approval Request Handoff",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/schema_change_explicit_approval_request_handoff.py",
-        "tests/test_schema_change_explicit_approval_request_handoff.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/schema_changing_formal_schema_update.py",
-        "tests/test_schema_changing_formal_schema_update.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-schema-changing-formal-schema-update.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Schema-changing formal schema update ADR is a schema-file-only platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the guarded schema-changing formal schema file update contract, records the user authorization source, keeps SQL execution and production migration disabled, and requires future live apply and seed apply PRs.",
-      "referenced_by_tests": [
-        "tests/test_schema_changing_formal_schema_update.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Schema-Changing Formal Schema Update",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "db/schema.sql",
-        "db/postgres/001_init.sql",
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/schema_changing_formal_schema_update.py",
-        "tests/test_schema_changing_formal_schema_update.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_schema_live_apply_entrypoint_guard.py",
-        "tests/test_production_schema_live_apply_entrypoint_guard.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production schema live-apply entrypoint guard ADR is a non-executing platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the production schema live-apply entrypoint guard package, read-only schema fingerprint checks, non-execution flags, no-DSN/no-DB/no-SQL boundary, and required future live apply and seed apply PRs.",
-      "referenced_by_tests": [
-        "tests/test_production_schema_live_apply_entrypoint_guard.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Schema Live-Apply Entrypoint Guard",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "db/schema.sql",
-        "db/postgres/001_init.sql",
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_schema_live_apply_entrypoint_guard.py",
-        "tests/test_production_schema_live_apply_entrypoint_guard.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_schema_live_apply_execution_pr_scaffold.py",
-        "tests/test_production_schema_live_apply_execution_pr_scaffold.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production schema live-apply execution PR scaffold ADR is a non-executing platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the production schema live-apply execution PR scaffold package, blocked-by-default future PR body template, operator evidence template, rollback / restore placeholders, schema source fingerprints, and required future execution PR boundaries without connecting to databases or modifying schema files.",
-      "referenced_by_tests": [
-        "tests/test_production_schema_live_apply_execution_pr_scaffold.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Schema Live-Apply Execution PR Scaffold",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "db/schema.sql",
-        "db/postgres/001_init.sql",
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_schema_live_apply_execution_pr_scaffold.py",
-        "tests/test_production_schema_live_apply_execution_pr_scaffold.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_schema_live_apply_execution_preflight.py",
-        "tests/test_production_schema_live_apply_execution_preflight.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production schema live-apply execution preflight ADR is a non-executing platform rule document and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the production schema live-apply execution preflight package, required offline evidence checklist, future live apply PR template, schema metadata fingerprints, rollback / restore placeholders, and future execution boundaries without reading DSN material, connecting to databases, modifying schema files, or executing SQL.",
-      "referenced_by_tests": [
-        "tests/test_production_schema_live_apply_execution_preflight.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Schema Live-Apply Execution Preflight",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "db/schema.sql",
-        "db/postgres/001_init.sql",
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_schema_live_apply_execution_preflight.py",
-        "tests/test_production_schema_live_apply_execution_preflight.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_schema_live_apply_execution.py",
-        "tests/test_production_schema_live_apply_execution.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-schema-live-apply-execution.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production schema live-apply execution ADR is a platform execution rule document for the schema-only live apply boundary and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the production schema live-apply execution PR boundary, explicit approval signal, DSN read / DB connect / SQL execution allowance, redacted evidence requirements, post-apply verification, and seed/data exclusion without marking the full production migration complete.",
-      "referenced_by_tests": [
-        "tests/test_production_schema_live_apply_execution.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Schema Live-Apply Execution",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "db/schema.sql",
-        "db/postgres/001_init.sql",
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_schema_live_apply_execution.py",
-        "tests/test_production_schema_live_apply_execution.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_seed_data_apply_execution.py",
-        "tests/test_production_seed_data_apply_execution.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-production-seed-data-apply-execution.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production seed/data apply execution ADR is a platform execution rule document for the guarded seed/data apply boundary and should remain in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Defines the production seed/data apply execution PR boundary, explicit approval signal, DSN read / DB connect allowance, approved manifest hash gate, import audit requirements, schema-live dependency verification, fail-closed missing-manifest behavior, and source-data read-only constraints.",
-      "referenced_by_tests": [
-        "tests/test_production_seed_data_apply_execution.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: Production Seed/Data Apply Execution",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "data/",
-        "archive/data/",
-        "db/schema.sql",
-        "db/postgres/001_init.sql",
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_seed_data_apply_execution.py",
-        "tests/test_production_seed_data_apply_execution.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_readiness_plan.py",
-        "tests/test_production_readiness_plan.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production readiness ADR for JSONL-to-target cutover gates; proposal-only and kept in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Records JSONL source-of-truth boundaries, phased cutover, dual-run strategy, read/write path gates, non-goals, and future work.",
-      "referenced_by_tests": [
-        "tests/test_production_readiness_plan.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: JSONL-to-target cutover plan",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_readiness_plan.py",
-        "tests/test_production_readiness_plan.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_readiness_plan.py",
-        "tests/test_production_readiness_plan.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production readiness ADR for rollback, backup, and seed gates; proposal-only and kept in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Records backup inputs, seed boundaries, rollback options, verification strategy, failure modes, and manual runbook outline without executing production actions.",
-      "referenced_by_tests": [
-        "tests/test_production_readiness_plan.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: platform rollback, backup, and seed strategy",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_readiness_plan.py",
-        "tests/test_production_readiness_plan.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/platform/production_readiness_plan.py",
-        "tests/test_production_readiness_plan.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/adr/ADR-postgres-formal-migration-plan.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "Production readiness ADR for formal PostgreSQL migration gates; proposal-only and kept in the current docs rule layer.",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "Records staged formal migration scope, preconditions, validation gates, rejected alternatives, risks, and future work without editing production schema.",
-      "referenced_by_tests": [
-        "tests/test_production_readiness_plan.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "ADR: PostgreSQL formal migration plan",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "scripts/platform/production_readiness_plan.py",
-        "tests/test_production_readiness_plan.py"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "docs/README.md"
-      ],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/分项规则/README.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "分项规则层级说明，应保留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "七大项和子项专用规则导航，明确每个子项目最多一个分项规则文档。",
-      "referenced_by_tests": [
-        "tests/test_docs_governance.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "分项规则",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
+        "archive/docs/design_snapshots/i5b_evidence_cluster_adjudication_config_design_20260621.md",
+        "archive/docs/docs_governance/多余文件候选确认报告.md",
+        "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
+        "archive/docs/audits/项目文件治理诊断报告.md",
+        "scripts/AGENTS.md",
+        "scripts/dev/docs_tool.py",
+        "tests/test_agents_governance.py",
+        "tests/test_docs_governance.py",
+        "tests/test_docs_tool.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_redundant_file_candidates_report.py",
+        "tests/test_scripts_legacy_wrapper_retirement.py"
       ]
     },
     {
@@ -2006,7 +1938,7 @@
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/分项规则/第一项创业与政权取得能力/README.md",
+      "path": "docs/分项规则/第二项治国净收益/README.md",
       "placement_action": "keep_in_docs",
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
       "placement_targets": [],
@@ -2015,7 +1947,35 @@
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "第一项创业与政权取得能力",
+      "title": "第二项治国净收益",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/分项规则/第六项关键历史决策能力/README.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "第六项关键历史决策能力",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2090,7 +2050,7 @@
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/分项规则/第二项治国净收益/README.md",
+      "path": "docs/分项规则/第四项文明与国家整合收益/README.md",
       "placement_action": "keep_in_docs",
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
       "placement_targets": [],
@@ -2099,7 +2059,7 @@
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "第二项治国净收益",
+      "title": "第四项文明与国家整合收益",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2179,7 +2139,7 @@
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/分项规则/第六项关键历史决策能力/README.md",
+      "path": "docs/分项规则/第一项创业与政权取得能力/README.md",
       "placement_action": "keep_in_docs",
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
       "placement_targets": [],
@@ -2188,7 +2148,39 @@
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "第六项关键历史决策能力",
+      "title": "第一项创业与政权取得能力",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/分项规则/README.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "分项规则层级说明，应保留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "七大项和子项专用规则导航，明确每个子项目最多一个分项规则文档。",
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "分项规则",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2207,153 +2199,18 @@
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/分项规则/第四项文明与国家整合收益/README.md",
+      "path": "docs/皇帝综合评价体系评分标准.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_reason": "docs 根目录长期入口或最高层规范，应保留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "第四项文明与国家整合收益",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "stable_operational_guide",
-      "document_type": "operational_guide",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "README.md"
-      ],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/展示与协作/GitHub发布与认证规范.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "GitHub 发布与认证规范",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "stable_operational_guide",
-      "document_type": "operational_guide",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "docs/README.md"
-      ],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/展示与协作/README.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "稳定操作导航，应保留在 docs 当前层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "执行、协作、工具、显示与发布规范导航入口。",
+      "reason": "最高层评分标准，普通目录治理 PR 不移动、不修改正文。",
       "referenced_by_tests": [
         "tests/test_docs_governance.py"
       ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "展示与协作",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "tests/test_pr_body_tool.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "tests/test_pr_body_tool.py"
-      ],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/展示与协作/scripts目录规范.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [
-        "tests/test_pr_body_tool.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "scripts 目录规范",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [
-        "tests/test_agents_ready_for_review_rule.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_repo_tool.py"
-      ],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
-        "AGENTS.md",
-        "tests/test_agents_ready_for_review_rule.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_repo_tool.py"
-      ],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/展示与协作/人工阅读型Markdown导出规范.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [
-        "tests/test_agents_ready_for_review_rule.py",
-        "tests/test_file_governance_policy.py",
-        "tests/test_repo_tool.py"
-      ],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "人工阅读型 Markdown 导出规范",
+      "title": "皇帝综合评价体系评分标准",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2374,74 +2231,19 @@
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md",
+      "path": "docs/数据结构与生成库/配置说明文件规范.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "JSONL 到 PostgreSQL staging/target 映射契约入口，属于当前数据结构与生成库规范层。",
+      "placement_reason": "历史兼容和退役说明，用于防止 comments 机制被误当作当前规范入口。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，用于约束 canonical JSONL 离线映射、unknown-field triage、staging-only 边界和 PostgreSQL target 安全边界。",
+      "reason": "该文档已转为退役说明，标明 .comments.json 不再是当前必需机制。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "JSONL 到 PostgreSQL 映射规则",
-      "unique_source_risk": true,
-      "weak_reference_candidates": []
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/README.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "数据结构与生成库",
+      "title": "配置说明文件机制退役说明",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "stable_operational_guide",
-      "document_type": "operational_guide",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/SQLite生成库说明.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "数据库说明",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "archive/docs/audits/项目文件治理诊断报告.md"
       ]
     },
     {
@@ -2449,24 +2251,35 @@
       "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [],
+      "generator_candidates": [
+        "tests/test_file_governance_policy.py"
+      ],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [],
+      "inbound_references": [
+        "README.md",
+        "archive/docs/audits/file_governance_final_audit_20260620.md",
+        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
+        "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
+        "archive/docs/audits/项目文件治理诊断报告.md",
+        "tests/test_file_governance_policy.py"
+      ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/query_profile与search_log字段规范.md",
+      "path": "docs/数据结构与生成库/批次文件生命周期规则.md",
       "placement_action": "keep_in_docs",
       "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
       "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [],
+      "referenced_by_tests": [
+        "tests/test_file_governance_policy.py"
+      ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "检索画像与检索线索字段规范",
+      "title": "数据层级与批次文件治理规则",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2513,38 +2326,6 @@
       ],
       "human_confirmation_required": false,
       "inbound_references": [
-        "docs/数据结构与生成库/README.md",
-        "docs/数据结构与生成库/史源数据平台架构ADR.md",
-        "docs/数据结构与生成库/数据主表字段规范.md"
-      ],
-      "lifecycle_status": "active",
-      "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/史源数据平台实现设计.md",
-      "placement_action": "keep_in_docs",
-      "placement_reason": "长期数据平台实现口径、任务状态机和切库边界说明，仍应留在 docs 当前规范层。",
-      "placement_targets": [],
-      "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，用于指导后续 PostgreSQL schema、worker skeleton 和 JSONL 切库 dry-run。",
-      "referenced_by_tests": [],
-      "replacement_path": null,
-      "semantic_verification_required": false,
-      "title": "史源数据平台实现设计",
-      "unique_source_risk": true,
-      "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ]
-    },
-    {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
-      "duplicate_group": null,
-      "exact_duplicate_group": null,
-      "generator_candidates": [],
-      "governance_references": [
-        "docs/文档与脚本登记/docs_registry.json"
-      ],
-      "human_confirmation_required": false,
-      "inbound_references": [
         "docs/数据结构与生成库/README.md"
       ],
       "lifecycle_status": "active",
@@ -2565,39 +2346,69 @@
       ]
     },
     {
+      "path": "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "title": "史源数据平台迁移决策",
+      "document_type": "canonical_spec",
+      "lifecycle_status": "active",
+      "proposed_action": "keep",
+      "content_role": "rule_or_method",
+      "placement_action": "keep_in_docs",
+      "placement_targets": [],
+      "placement_reason": "承接旧 docs/adr 中仍有效的平台迁移、schema live、seed audit、cutover 和 rollback 边界，属于数据结构与生成库当前事实层。",
+      "reason": "Epic 0 Milestone 0D 中文 canonical 决策入口，替代扁平 active ADR 目录。",
+      "replacement_path": null,
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md"
+      ],
+      "weak_reference_candidates": [
+        "scripts/platform/platform_chain_checkpoint.py",
+        "scripts/platform/production_schema_live_apply_execution.py",
+        "scripts/platform/production_seed_data_apply_execution.py",
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "referenced_by_tests": [
+        "tests/test_production_schema_live_apply_execution.py",
+        "tests/test_production_seed_data_apply_execution.py",
+        "tests/test_docs_governance.py"
+      ],
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "normalized_duplicate_group": null,
+      "unique_source_risk": true,
+      "semantic_verification_required": false,
+      "human_confirmation_required": false
+    },
+    {
       "content_role": "rule_or_method",
       "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [
-        "tests/test_file_governance_policy.py"
-      ],
+      "generator_candidates": [],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
       "inbound_references": [
-        "README.md",
-        "archive/docs/audits/file_governance_final_audit_20260620.md",
-        "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
-        "archive/docs/docs_governance/多余文件第二批最终引用复核.md",
-        "archive/docs/audits/项目文件治理诊断报告.md",
-        "tests/test_file_governance_policy.py"
+        "docs/数据结构与生成库/README.md",
+        "docs/数据结构与生成库/史源数据平台架构ADR.md",
+        "docs/数据结构与生成库/数据主表字段规范.md"
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/批次文件生命周期规则.md",
+      "path": "docs/数据结构与生成库/史源数据平台实现设计.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_reason": "长期数据平台实现口径、任务状态机和切库边界说明，仍应留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [
-        "tests/test_file_governance_policy.py"
-      ],
+      "reason": "长期规范或强约束文档，用于指导后续 PostgreSQL schema、worker skeleton 和 JSONL 切库 dry-run。",
+      "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "数据层级与批次文件治理规则",
+      "title": "史源数据平台实现设计",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2680,19 +2491,102 @@
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/配置说明文件规范.md",
+      "path": "docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "历史兼容和退役说明，用于防止 comments 机制被误当作当前规范入口。",
+      "placement_reason": "JSONL 到 PostgreSQL staging/target 映射契约入口，属于当前数据结构与生成库规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "该文档已转为退役说明，标明 .comments.json 不再是当前必需机制。",
+      "reason": "长期规范或强约束文档，用于约束 canonical JSONL 离线映射、unknown-field triage、staging-only 边界和 PostgreSQL target 安全边界。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "配置说明文件机制退役说明",
+      "title": "JSONL 到 PostgreSQL 映射规则",
+      "unique_source_risk": true,
+      "weak_reference_candidates": []
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/query_profile与search_log字段规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "检索画像与检索线索字段规范",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/README.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "数据结构与生成库",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "stable_operational_guide",
+      "document_type": "operational_guide",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/SQLite生成库说明.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "数据库说明",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "archive/docs/audits/项目文件治理诊断报告.md"
       ]
     },
     {
@@ -2816,26 +2710,33 @@
       "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [],
+      "generator_candidates": [
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [],
+      "inbound_references": [
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
+        "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
+        "scripts/export/export_i5b_auto_adjudication.py",
+        "scripts/export/export_project_doc_views.py"
+      ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/皇帝综合评价体系评分标准.md",
+      "path": "docs/项目总纲/总规则.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "docs 根目录长期入口或最高层规范，应保留在 docs 当前规范层。",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "最高层评分标准，普通目录治理 PR 不移动、不修改正文。",
-      "referenced_by_tests": [
-        "tests/test_docs_governance.py"
-      ],
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "皇帝综合评价体系评分标准",
+      "title": "总规则",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2856,18 +2757,183 @@
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/证据规则/README.md",
+      "path": "docs/项目总纲/README.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "证据规则层级说明，应保留在 docs 当前规范层。",
+      "placement_reason": "项目总纲与规则层级说明，应保留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "证据规则目录入口，列出当前有效规则文件、职责边界和退役/吸收说明。",
+      "reason": "项目总纲层导航，约束最高层业务语义和评分标准高压线。",
       "referenced_by_tests": [
         "tests/test_docs_governance.py"
       ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "证据规则",
+      "title": "项目总纲",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "tests/test_agents_ready_for_review_rule.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_repo_tool.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "AGENTS.md",
+        "tests/test_agents_ready_for_review_rule.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_repo_tool.py"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/展示与协作/人工阅读型Markdown导出规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [
+        "tests/test_agents_ready_for_review_rule.py",
+        "tests/test_file_governance_policy.py",
+        "tests/test_repo_tool.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "人工阅读型 Markdown 导出规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "stable_operational_guide",
+      "document_type": "operational_guide",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/展示与协作/GitHub发布与认证规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "稳定操作入口或运行说明，当前仍服务日常执行和复核。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前运行入口、工作手册或项目说明，供日常执行和复核使用。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "GitHub 发布与认证规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "stable_operational_guide",
+      "document_type": "operational_guide",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/展示与协作/README.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "稳定操作导航，应保留在 docs 当前层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "执行、协作、工具、显示与发布规范导航入口。",
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "展示与协作",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
+        "tests/test_pr_body_tool.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [
+        "tests/test_pr_body_tool.py"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/展示与协作/scripts目录规范.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "referenced_by_tests": [
+        "tests/test_pr_body_tool.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "scripts 目录规范",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/证据规则/负证触发式裁判通用规则.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "跨项目可复用负证触发模块，供证据裁量总则调用；不重复完整五轴和分项评分规则。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "负证触发式裁判通用规则",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2952,19 +3018,23 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [],
+      "inbound_references": [
+        "docs/README.md"
+      ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/证据规则/负证触发式裁判通用规则.md",
+      "path": "docs/证据规则/README.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_reason": "证据规则层级说明，应保留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "跨项目可复用负证触发模块，供证据裁量总则调用；不重复完整五轴和分项评分规则。",
-      "referenced_by_tests": [],
+      "reason": "证据规则目录入口，列出当前有效规则文件、职责边界和退役/吸收说明。",
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "负证触发式裁判通用规则",
+      "title": "证据规则",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2980,60 +3050,51 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [
-        "docs/README.md"
-      ],
+      "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/项目总纲/README.md",
+      "path": "docs/AGENTS.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "项目总纲与规则层级说明，应保留在 docs 当前规范层。",
+      "placement_reason": "docs 根目录长期入口或最高层规范，应保留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "项目总纲层导航，约束最高层业务语义和评分标准高压线。",
+      "reason": "docs 范围内长期稳定行为规则。",
       "referenced_by_tests": [
         "tests/test_docs_governance.py"
       ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "项目总纲",
+      "title": "docs AGENTS",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
       ]
     },
     {
-      "content_role": "rule_or_method",
-      "document_type": "canonical_spec",
+      "content_role": "stable_operational_guide",
+      "document_type": "operational_guide",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
+      "generator_candidates": [],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
-      "inbound_references": [
-        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-        "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
+      "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/项目总纲/总规则.md",
+      "path": "docs/README.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期规范、边界或方法论，仍应留在 docs 当前规范层。",
+      "placement_reason": "docs 根目录长期入口或最高层规范，应保留在 docs 当前规范层。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
-      "referenced_by_tests": [],
+      "reason": "docs 当前层导航入口，说明功能目录边界和阅读顺序。",
+      "referenced_by_tests": [
+        "tests/test_docs_governance.py"
+      ],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "总规则",
+      "title": "docs 功能目录导航",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -3063,5 +3124,224 @@
     "docs/第五项B三人试点矩阵说明.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人试点矩阵说明.md",
     "docs/第五项B试点计划.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md"
   },
-  "schema_version": 1
+  "schema_version": 1,
+  "docs_public_experience_policy": {
+    "current_adr_root_closed": true,
+    "archived_adr_root": "archive/docs/adr/",
+    "human_markdown_filename_requires_chinese": true,
+    "technical_filename_exceptions": [
+      "README.md",
+      "AGENTS.md"
+    ],
+    "human_markdown_body_requires_chinese": true,
+    "module_density_threshold": 8,
+    "topic_family_threshold": 3
+  },
+  "docs_module_density_reviews": [
+    {
+      "module_path": "docs/数据结构与生成库",
+      "direct_markdown_count": 12,
+      "threshold": 8,
+      "review_status": "reviewed",
+      "decision": "数据平台、SQLite、JSONL、配置和批次生命周期仍同属数据结构模块；本批已移除扁平 docs/adr，后续 SQLite repair 前不再机械拆分。"
+    }
+  ],
+  "docs_topic_family_reviews": [
+    {
+      "family_name": "史源数据平台文档族",
+      "paths": [
+        "docs/数据结构与生成库/史源数据平台架构ADR.md",
+        "docs/数据结构与生成库/史源数据平台实现设计.md",
+        "docs/数据结构与生成库/史源数据平台迁移决策.md"
+      ],
+      "threshold": 3,
+      "review_status": "reviewed",
+      "decision": "三份文档分别承担目标架构、实现设计和当前迁移决策；旧扁平 ADR 已归档，不再扩张同主题 current ADR。"
+    }
+  ],
+  "docs_delta_epic0_0d": {
+    "docs_added": [
+      "docs/数据结构与生成库/史源数据平台迁移决策.md"
+    ],
+    "docs_renamed": [
+      {
+        "from": "docs/adr/ADR-anchors-schema-proposal.md",
+        "to": "archive/docs/adr/ADR-anchors-schema-proposal.md"
+      },
+      {
+        "from": "docs/adr/ADR-formal-migration-proposal.md",
+        "to": "archive/docs/adr/ADR-formal-migration-proposal.md"
+      },
+      {
+        "from": "docs/adr/ADR-formal-target-schema-draft.md",
+        "to": "archive/docs/adr/ADR-formal-target-schema-draft.md"
+      },
+      {
+        "from": "docs/adr/ADR-guarded-executable-migration-pr.md",
+        "to": "archive/docs/adr/ADR-guarded-executable-migration-pr.md"
+      },
+      {
+        "from": "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+        "to": "archive/docs/adr/ADR-jsonl-to-target-cutover-plan.md"
+      },
+      {
+        "from": "docs/adr/ADR-migration-bundle-review-pack.md",
+        "to": "archive/docs/adr/ADR-migration-bundle-review-pack.md"
+      },
+      {
+        "from": "docs/adr/ADR-migration-sql-draft-renderer.md",
+        "to": "archive/docs/adr/ADR-migration-sql-draft-renderer.md"
+      },
+      {
+        "from": "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+        "to": "archive/docs/adr/ADR-platform-rollback-backup-seed-strategy.md"
+      },
+      {
+        "from": "docs/adr/ADR-postgres-formal-migration-plan.md",
+        "to": "archive/docs/adr/ADR-postgres-formal-migration-plan.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-migration-dry-run-package.md",
+        "to": "archive/docs/adr/ADR-production-migration-dry-run-package.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-migration-freeze-checklist.md",
+        "to": "archive/docs/adr/ADR-production-migration-freeze-checklist.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-migration-pr-admission.md",
+        "to": "archive/docs/adr/ADR-production-migration-pr-admission.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-migration-pr-scaffold.md",
+        "to": "archive/docs/adr/ADR-production-migration-pr-scaffold.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+        "to": "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
+        "to": "archive/docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
+        "to": "archive/docs/adr/ADR-production-schema-live-apply-execution-preflight.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-schema-live-apply-execution.md",
+        "to": "archive/docs/adr/ADR-production-schema-live-apply-execution.md"
+      },
+      {
+        "from": "docs/adr/ADR-production-seed-data-apply-execution.md",
+        "to": "archive/docs/adr/ADR-production-seed-data-apply-execution.md"
+      },
+      {
+        "from": "docs/adr/ADR-schema-change-approval-gate-package.md",
+        "to": "archive/docs/adr/ADR-schema-change-approval-gate-package.md"
+      },
+      {
+        "from": "docs/adr/ADR-schema-change-candidate-review-bundle.md",
+        "to": "archive/docs/adr/ADR-schema-change-candidate-review-bundle.md"
+      },
+      {
+        "from": "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+        "to": "archive/docs/adr/ADR-schema-change-explicit-approval-request-handoff.md"
+      },
+      {
+        "from": "docs/adr/ADR-schema-change-pr-prep-pack.md",
+        "to": "archive/docs/adr/ADR-schema-change-pr-prep-pack.md"
+      },
+      {
+        "from": "docs/adr/ADR-schema-changing-formal-schema-update.md",
+        "to": "archive/docs/adr/ADR-schema-changing-formal-schema-update.md"
+      },
+      {
+        "from": "docs/adr/ADR-schema-diff-draft-renderer.md",
+        "to": "archive/docs/adr/ADR-schema-diff-draft-renderer.md"
+      }
+    ],
+    "docs_merged": [
+      {
+        "from": [
+          "docs/adr/ADR-anchors-schema-proposal.md",
+          "docs/adr/ADR-formal-migration-proposal.md",
+          "docs/adr/ADR-formal-target-schema-draft.md",
+          "docs/adr/ADR-guarded-executable-migration-pr.md",
+          "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+          "docs/adr/ADR-migration-bundle-review-pack.md",
+          "docs/adr/ADR-migration-sql-draft-renderer.md",
+          "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+          "docs/adr/ADR-postgres-formal-migration-plan.md",
+          "docs/adr/ADR-production-migration-dry-run-package.md",
+          "docs/adr/ADR-production-migration-freeze-checklist.md",
+          "docs/adr/ADR-production-migration-pr-admission.md",
+          "docs/adr/ADR-production-migration-pr-scaffold.md",
+          "docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+          "docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
+          "docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
+          "docs/adr/ADR-production-schema-live-apply-execution.md",
+          "docs/adr/ADR-production-seed-data-apply-execution.md",
+          "docs/adr/ADR-schema-change-approval-gate-package.md",
+          "docs/adr/ADR-schema-change-candidate-review-bundle.md",
+          "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+          "docs/adr/ADR-schema-change-pr-prep-pack.md",
+          "docs/adr/ADR-schema-changing-formal-schema-update.md",
+          "docs/adr/ADR-schema-diff-draft-renderer.md"
+        ],
+        "into": "docs/数据结构与生成库/史源数据平台迁移决策.md"
+      }
+    ],
+    "docs_archived": [
+      "archive/docs/adr/ADR-anchors-schema-proposal.md",
+      "archive/docs/adr/ADR-formal-migration-proposal.md",
+      "archive/docs/adr/ADR-formal-target-schema-draft.md",
+      "archive/docs/adr/ADR-guarded-executable-migration-pr.md",
+      "archive/docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+      "archive/docs/adr/ADR-migration-bundle-review-pack.md",
+      "archive/docs/adr/ADR-migration-sql-draft-renderer.md",
+      "archive/docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+      "archive/docs/adr/ADR-postgres-formal-migration-plan.md",
+      "archive/docs/adr/ADR-production-migration-dry-run-package.md",
+      "archive/docs/adr/ADR-production-migration-freeze-checklist.md",
+      "archive/docs/adr/ADR-production-migration-pr-admission.md",
+      "archive/docs/adr/ADR-production-migration-pr-scaffold.md",
+      "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+      "archive/docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
+      "archive/docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
+      "archive/docs/adr/ADR-production-schema-live-apply-execution.md",
+      "archive/docs/adr/ADR-production-seed-data-apply-execution.md",
+      "archive/docs/adr/ADR-schema-change-approval-gate-package.md",
+      "archive/docs/adr/ADR-schema-change-candidate-review-bundle.md",
+      "archive/docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+      "archive/docs/adr/ADR-schema-change-pr-prep-pack.md",
+      "archive/docs/adr/ADR-schema-changing-formal-schema-update.md",
+      "archive/docs/adr/ADR-schema-diff-draft-renderer.md"
+    ],
+    "docs_removed": [],
+    "module_doc_counts_before": {
+      "docs/adr": 24,
+      "docs/数据结构与生成库": 11
+    },
+    "module_doc_counts_after": {
+      "docs/adr": 0,
+      "docs/数据结构与生成库": 12
+    },
+    "non_chinese_human_doc_paths": [],
+    "english_prose_exceptions": [
+      "README.md and AGENTS.md technical filenames",
+      "inline code, paths, CLI flags, table/field names, and machine-check anchors inside docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "archive/docs/adr historical snapshots are outside current docs layer"
+    ],
+    "canonical_docs_changed": [
+      "docs/AGENTS.md",
+      "docs/README.md",
+      "docs/数据结构与生成库/README.md",
+      "docs/数据结构与生成库/史源数据平台迁移决策.md",
+      "docs/文档与脚本登记/docs_registry.json"
+    ],
+    "stale_links_fixed": [
+      "docs/adr/* references in scripts/tests/registry now point to archive/docs/adr/* or the Chinese canonical decision doc"
+    ]
+  }
 }

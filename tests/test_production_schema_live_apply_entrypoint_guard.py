@@ -227,7 +227,7 @@ def test_entrypoint_guard_report_blocks_nothing_when_clean() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-entrypoint-guard.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-entrypoint-guard.md"
 
     assert path.is_file()
     check = guard.build_adr_check(path)
@@ -241,7 +241,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_for_live_apply_or_ready_claim(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-production-schema-live-apply-entrypoint-guard.md"
-    base = (ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-entrypoint-guard.md").read_text(
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-entrypoint-guard.md").read_text(
         encoding="utf-8"
     )
     for injected in [

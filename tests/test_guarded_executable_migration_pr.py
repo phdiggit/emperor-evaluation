@@ -196,7 +196,7 @@ def test_render_pr_body_template_is_blocked_by_default() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md"
 
     assert path.is_file()
     check = guarded.build_adr_check(path)
@@ -207,7 +207,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 
 def test_adr_contains_required_boundaries() -> None:
-    content = (ROOT / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md").read_text(encoding="utf-8")
+    content = (ROOT / "archive" / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md").read_text(encoding="utf-8")
     normalized = guarded.normalize_text(content)
     for needle in [
         "guarded proposal only",
@@ -239,7 +239,7 @@ def test_adr_check_fails_when_required_semantics_are_missing(tmp_path: Path) -> 
 def test_adr_check_fails_if_approval_is_claimed(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-guarded-executable-migration-pr.md"
     adr.write_text(
-        (ROOT / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md").read_text(encoding="utf-8")
+        (ROOT / "archive" / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md").read_text(encoding="utf-8")
         + "\n\nschema_change_pr_approved=true\n",
         encoding="utf-8",
     )

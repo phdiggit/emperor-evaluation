@@ -16,7 +16,7 @@ from scripts.platform.formal_schema_draft import BLOCKED_REPORT_TERMS  # noqa: E
 
 
 ADMISSION_VERSION = "production-migration-admission-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-migration-pr-admission.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-admission.md"
 ADMISSION_STATUS = "Proposed"
 SUPPORTED_MODES = ["contract-report", "admission-report", "adr-check"]
 ADMISSION_SECTIONS = (
@@ -149,7 +149,7 @@ def build_contract_report() -> dict[str, Any]:
         "source_reports": [
             "formal_migration_proposal.build_proposal_report()",
             "cutover_readiness_matrix.build_readiness_report(include_db_evidence=False, env={})",
-            "docs/adr/ADR-production-migration-pr-admission.md",
+            "archive/docs/adr/ADR-production-migration-pr-admission.md",
         ],
         "admission_sections": list(ADMISSION_SECTIONS),
         "allowed_future_file_scope": list(ALLOWED_FUTURE_FILE_SCOPE),

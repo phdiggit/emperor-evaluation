@@ -14,6 +14,7 @@ DOCS_REGISTRY = ROOT / "docs" / "文档与脚本登记" / "docs_registry.json"
 DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "exports" / "governance" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
+PLATFORM_MIGRATION_DECISION_DOC = "docs/数据结构与生成库/史源数据平台迁移决策.md"
 LEGACY_DOCS_ARCHIVE_ROOT = "docs/" + "archive/"
 METHODOLOGY_NAVIGATION_READMES = {
     "docs/README.md": ("operational_guide", "stable_operational_guide"),
@@ -55,6 +56,34 @@ ARCHIVE_MAP = {
     "docs/thematic_anchor_multigranularity_schema_plan_20260620.md": "archive/docs/design_snapshots/thematic_anchor_multigranularity_schema_plan_20260620.md",
     "docs/thematic_anchor_schema_decision_20260620.md": "archive/docs/design_snapshots/thematic_anchor_schema_decision_20260620.md",
 }
+ADR_ARCHIVE_NAMES = (
+    "ADR-anchors-schema-proposal.md",
+    "ADR-formal-migration-proposal.md",
+    "ADR-formal-target-schema-draft.md",
+    "ADR-guarded-executable-migration-pr.md",
+    "ADR-jsonl-to-target-cutover-plan.md",
+    "ADR-migration-bundle-review-pack.md",
+    "ADR-migration-sql-draft-renderer.md",
+    "ADR-platform-rollback-backup-seed-strategy.md",
+    "ADR-postgres-formal-migration-plan.md",
+    "ADR-production-migration-dry-run-package.md",
+    "ADR-production-migration-freeze-checklist.md",
+    "ADR-production-migration-pr-admission.md",
+    "ADR-production-migration-pr-scaffold.md",
+    "ADR-production-schema-live-apply-entrypoint-guard.md",
+    "ADR-production-schema-live-apply-execution-pr-scaffold.md",
+    "ADR-production-schema-live-apply-execution-preflight.md",
+    "ADR-production-schema-live-apply-execution.md",
+    "ADR-production-seed-data-apply-execution.md",
+    "ADR-schema-change-approval-gate-package.md",
+    "ADR-schema-change-candidate-review-bundle.md",
+    "ADR-schema-change-explicit-approval-request-handoff.md",
+    "ADR-schema-change-pr-prep-pack.md",
+    "ADR-schema-changing-formal-schema-update.md",
+    "ADR-schema-diff-draft-renderer.md",
+)
+ADR_ARCHIVE_MAP = {f"docs/adr/{name}": f"archive/docs/adr/{name}" for name in ADR_ARCHIVE_NAMES}
+ARCHIVE_MAP.update(ADR_ARCHIVE_MAP)
 RETIRED_GENERATED_MAP = {
     "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md",
     "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
@@ -210,6 +239,50 @@ def test_docs_registry_has_no_current_active_design_docs() -> None:
         assert doc["semantic_verification_required"] is False
 
 
+def test_docs_public_experience_policy_and_adr_archive_are_enforced() -> None:
+    registry = load_registry()
+    by_path = {doc["path"]: doc for doc in registry["documents"]}
+    policy = registry["docs_public_experience_policy"]
+    delta = registry["docs_delta_epic0_0d"]
+
+    assert policy["current_adr_root_closed"] is True
+    assert policy["human_markdown_filename_requires_chinese"] is True
+    assert policy["module_density_threshold"] == 8
+    assert not (ROOT / "docs" / "adr").exists() or not list((ROOT / "docs" / "adr").glob("*.md"))
+    assert all(not doc["path"].startswith("docs/adr/") for doc in registry["documents"])
+
+    platform_doc = by_path[PLATFORM_MIGRATION_DECISION_DOC]
+    assert platform_doc["document_type"] == "canonical_spec"
+    assert platform_doc["lifecycle_status"] == "active"
+    assert platform_doc["content_role"] == "rule_or_method"
+    assert platform_doc["placement_action"] == "keep_in_docs"
+
+    for old_path, new_path in ADR_ARCHIVE_MAP.items():
+        assert registry["archived_document_paths"][old_path] == new_path
+        assert not (ROOT / old_path).exists()
+        archived_doc = by_path[new_path]
+        assert archived_doc["lifecycle_status"] == "historical"
+        assert archived_doc["content_role"] == "historical_record"
+        assert archived_doc["placement_action"] == "keep_archive_exception"
+        assert archived_doc["replacement_path"] == PLATFORM_MIGRATION_DECISION_DOC
+
+    assert delta["docs_added"] == [PLATFORM_MIGRATION_DECISION_DOC]
+    assert sorted(delta["docs_archived"]) == sorted(ADR_ARCHIVE_MAP.values())
+    assert delta["docs_removed"] == []
+
+
+def test_docs_module_density_and_topic_reviews_are_recorded() -> None:
+    registry = load_registry()
+    density = {entry["module_path"]: entry for entry in registry["docs_module_density_reviews"]}
+    topic = {entry["family_name"]: entry for entry in registry["docs_topic_family_reviews"]}
+
+    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 12
+    assert density["docs/数据结构与生成库"]["review_status"] == "reviewed"
+    assert "史源数据平台文档族" in topic
+    assert PLATFORM_MIGRATION_DECISION_DOC in topic["史源数据平台文档族"]["paths"]
+    assert topic["史源数据平台文档族"]["review_status"] == "reviewed"
+
+
 def test_methodology_navigation_readmes_exist_and_are_registered() -> None:
     registry = load_registry()
     by_path = {doc["path"]: doc for doc in registry["documents"]}
@@ -350,7 +423,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "docs registry 覆盖文档数：90，其中当前 `docs/` 层 59 份，历史归档区 31 份。",
+        "docs registry 覆盖文档数：91，其中当前 `docs/` 层 36 份，历史归档区 55 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 2. 项目驱动文档",

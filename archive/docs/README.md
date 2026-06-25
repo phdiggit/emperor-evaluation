@@ -1,6 +1,6 @@
 # archive/docs
 
-`archive/docs/` 保存已退出当前运行入口、但仍有历史审计价值的材料。archive 中的内容不是当前规范事实源；当前规范、运行手册和当前方法论仍以 `docs/agent_rules/docs_registry.json` 中的 active 条目为准。
+`archive/docs/` 保存已退出当前运行入口、但仍有历史审计价值的材料。archive 中的内容不是当前规范事实源；当前规范、运行手册和当前方法论仍以 `docs/文档与脚本登记/docs_registry.json` 中的 active 条目为准。
 
 不得在普通业务 PR 中直接删除 archive 文档。archive 文档如需重新激活，必须另开 PR，说明重新激活依据，并同步更新 registry、引用和治理报告。
 
@@ -35,6 +35,33 @@
 - [多余文件候选确认报告](docs_governance/多余文件候选确认报告.md)
 - [多余文件第三批敏感候选复核](docs_governance/多余文件第三批敏感候选复核.md)
 - [多余文件第二批最终引用复核](docs_governance/多余文件第二批最终引用复核.md)
+
+## 平台 ADR 历史归档
+
+- [ADR anchors schema proposal](adr/ADR-anchors-schema-proposal.md)
+- [ADR formal migration proposal](adr/ADR-formal-migration-proposal.md)
+- [ADR formal target schema draft](adr/ADR-formal-target-schema-draft.md)
+- [ADR guarded executable migration PR](adr/ADR-guarded-executable-migration-pr.md)
+- [ADR JSONL to target cutover plan](adr/ADR-jsonl-to-target-cutover-plan.md)
+- [ADR migration bundle review pack](adr/ADR-migration-bundle-review-pack.md)
+- [ADR migration SQL draft renderer](adr/ADR-migration-sql-draft-renderer.md)
+- [ADR platform rollback backup seed strategy](adr/ADR-platform-rollback-backup-seed-strategy.md)
+- [ADR Postgres formal migration plan](adr/ADR-postgres-formal-migration-plan.md)
+- [ADR production migration dry run package](adr/ADR-production-migration-dry-run-package.md)
+- [ADR production migration freeze checklist](adr/ADR-production-migration-freeze-checklist.md)
+- [ADR production migration PR admission](adr/ADR-production-migration-pr-admission.md)
+- [ADR production migration PR scaffold](adr/ADR-production-migration-pr-scaffold.md)
+- [ADR production schema live apply entrypoint guard](adr/ADR-production-schema-live-apply-entrypoint-guard.md)
+- [ADR production schema live apply execution PR scaffold](adr/ADR-production-schema-live-apply-execution-pr-scaffold.md)
+- [ADR production schema live apply execution preflight](adr/ADR-production-schema-live-apply-execution-preflight.md)
+- [ADR production schema live apply execution](adr/ADR-production-schema-live-apply-execution.md)
+- [ADR production seed data apply execution](adr/ADR-production-seed-data-apply-execution.md)
+- [ADR schema change approval gate package](adr/ADR-schema-change-approval-gate-package.md)
+- [ADR schema change candidate review bundle](adr/ADR-schema-change-candidate-review-bundle.md)
+- [ADR schema change explicit approval request handoff](adr/ADR-schema-change-explicit-approval-request-handoff.md)
+- [ADR schema change PR prep pack](adr/ADR-schema-change-pr-prep-pack.md)
+- [ADR schema changing formal schema update](adr/ADR-schema-changing-formal-schema-update.md)
+- [ADR schema diff draft renderer](adr/ADR-schema-diff-draft-renderer.md)
 
 ## 本批历史设计快照归档
 

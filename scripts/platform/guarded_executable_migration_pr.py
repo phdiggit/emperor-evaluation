@@ -9,7 +9,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-guarded-executable-migration-pr.md"
 PROPOSAL_VERSION = "guarded-executable-migration-pr-proposal-v1"
 PROPOSAL_STATUS = "Proposed / Guarded proposal only"
 SQL_CLIENT = "p" + "sql"

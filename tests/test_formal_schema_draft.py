@@ -106,7 +106,7 @@ def test_contract_report_is_offline_and_has_required_shape(monkeypatch) -> None:
 
 
 def test_adr_file_exists_and_is_proposed() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-formal-target-schema-draft.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-formal-target-schema-draft.md"
 
     assert path.is_file()
     assert _status_value(path) == "Proposed."
