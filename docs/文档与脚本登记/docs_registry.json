@@ -1749,6 +1749,43 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/production_schema_live_apply_execution_preflight.py",
+        "tests/test_production_schema_live_apply_execution_preflight.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Production schema live-apply execution preflight ADR is a non-executing platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Defines the production schema live-apply execution preflight package, required offline evidence checklist, future live apply PR template, schema metadata fingerprints, rollback / restore placeholders, and future execution boundaries without reading DSN material, connecting to databases, modifying schema files, or executing SQL.",
+      "referenced_by_tests": [
+        "tests/test_production_schema_live_apply_execution_preflight.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Production Schema Live-Apply Execution Preflight",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_schema_live_apply_execution_preflight.py",
+        "tests/test_production_schema_live_apply_execution_preflight.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
