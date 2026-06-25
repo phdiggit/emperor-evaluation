@@ -1603,6 +1603,41 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/schema_change_explicit_approval_request_handoff.py",
+        "tests/test_schema_change_explicit_approval_request_handoff.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Schema-change explicit approval request handoff ADR is a handoff-only platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Defines the schema-change explicit approval request handoff contract, user-facing approval request text, machine-readable request JSON, blocked-by-default future schema-changing PR body template, pending external decision status, non-approval flags, and read-only schema hash and line-count inspection without modifying schema files or emitting executable artifacts.",
+      "referenced_by_tests": [
+        "tests/test_schema_change_explicit_approval_request_handoff.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Change Explicit Approval Request Handoff",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_change_explicit_approval_request_handoff.py",
+        "tests/test_schema_change_explicit_approval_request_handoff.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
