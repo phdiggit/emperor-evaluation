@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g3-approved-first-business-write-package",
+        "current_phase": "g4-approved-write-source-cutover-package",
         "canonical_write_source": "jsonl",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -46,6 +46,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g3_first_business_write_approved": True,
         "first_business_write_execution_package_ready": True,
         "first_business_write_executed": False,
+        "g4_write_source_cutover_approved": True,
+        "write_source_cutover_execution_package_ready": True,
+        "write_source_cutover_executed": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
     assert "production_schema_live_apply" in report["completed_chain"]
@@ -54,6 +57,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_postgres_mapping_approval_package" in report["completed_chain"]
     assert "jsonl_staging_diff_verification" in report["completed_chain"]
     assert "g3_postgres_business_write_execution_package" in report["completed_chain"]
+    assert "g4_write_source_cutover_execution_package" in report["completed_chain"]
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]

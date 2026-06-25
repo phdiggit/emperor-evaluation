@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g3-approved-first-business-write-package",
+    "current_phase": "g4-approved-write-source-cutover-package",
     "canonical_write_source": "jsonl",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -31,6 +31,9 @@ CURRENT_STATE = {
     "g3_first_business_write_approved": True,
     "first_business_write_execution_package_ready": True,
     "first_business_write_executed": False,
+    "g4_write_source_cutover_approved": True,
+    "write_source_cutover_execution_package_ready": True,
+    "write_source_cutover_executed": False,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -52,6 +55,7 @@ COMPLETED_CHAIN = [
     "jsonl_postgres_mapping_approval_package",
     "jsonl_staging_diff_verification",
     "g3_postgres_business_write_execution_package",
+    "g4_write_source_cutover_execution_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -102,6 +106,13 @@ def build_contract_report() -> dict[str, Any]:
                 "contract": True,
                 "apply": True,
                 "boundary": "g3_token_gated_src_hosts_only_write_package",
+            },
+            {
+                "name": "g4_write_source_cutover_execution",
+                "path": "scripts/platform/g4_write_source_cutover_execution.py",
+                "contract": True,
+                "apply": True,
+                "boundary": "g4_token_gated_imports_marker_cutover_package",
             },
             {
                 "name": "jsonl_staging_mapper",
