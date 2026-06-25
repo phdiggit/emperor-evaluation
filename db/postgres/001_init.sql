@@ -280,7 +280,7 @@ CREATE TABLE search_hits (
     url_hash TEXT NOT NULL,
     title TEXT,
     snippet TEXT,
-    rank INTEGER,
+    hit_position INTEGER,
     status TEXT NOT NULL DEFAULT 'new',
     reject_reason TEXT,
     payload JSONB NOT NULL DEFAULT '{}'::jsonb,
@@ -291,7 +291,7 @@ CREATE TABLE search_hits (
     CONSTRAINT hit_job_fk FOREIGN KEY (fetch_job_id) REFERENCES jobs(id),
     CONSTRAINT hit_url_uk UNIQUE (search_task_id, url_hash),
     CONSTRAINT hit_status_ck CHECK (status IN ('new', 'accepted', 'rejected', 'fetched', 'blocked')),
-    CONSTRAINT hit_rank_ck CHECK (rank IS NULL OR rank > 0)
+    CONSTRAINT hit_position_ck CHECK (hit_position IS NULL OR hit_position > 0)
 );
 
 CREATE TABLE cand_matches (
@@ -300,7 +300,7 @@ CREATE TABLE cand_matches (
     search_task_id BIGINT NOT NULL,
     passage_id BIGINT NOT NULL,
     matcher_ver TEXT NOT NULL,
-    score NUMERIC(5,4),
+    match_confidence NUMERIC(5,4),
     status TEXT NOT NULL DEFAULT 'candidate',
     match_role TEXT,
     payload JSONB NOT NULL DEFAULT '{}'::jsonb,
@@ -310,7 +310,7 @@ CREATE TABLE cand_matches (
     CONSTRAINT cmatch_task_fk FOREIGN KEY (search_task_id) REFERENCES search_tasks(id),
     CONSTRAINT cmatch_passage_fk FOREIGN KEY (passage_id) REFERENCES passages(id),
     CONSTRAINT cmatch_task_pass_uk UNIQUE (search_task_id, passage_id, matcher_ver),
-    CONSTRAINT cmatch_score_ck CHECK (score IS NULL OR (score >= 0 AND score <= 1)),
+    CONSTRAINT cmatch_confidence_ck CHECK (match_confidence IS NULL OR (match_confidence >= 0 AND match_confidence <= 1)),
     CONSTRAINT cmatch_status_ck CHECK (status IN ('candidate', 'accepted', 'rejected', 'needs_review', 'drafted'))
 );
 
@@ -375,6 +375,20 @@ CREATE TABLE clusters (
     CONSTRAINT cluster_polarity_ck CHECK (polarity IS NULL OR polarity IN ('positive', 'negative')),
     CONSTRAINT cluster_strength_ck CHECK (candidate_strength IS NULL OR candidate_strength IN (1, 2, 3, 4)),
     CONSTRAINT cluster_adjud_ck CHECK (adjudication_status IN ('not_started', 'pending', 'accepted', 'rejected', 'deferred'))
+);
+
+CREATE TABLE anchors (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    anchor_type TEXT NOT NULL,
+    label TEXT NOT NULL,
+    review_status TEXT NOT NULL DEFAULT 'pending',
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT anchor_code_uk UNIQUE (code),
+    CONSTRAINT anchor_type_ck CHECK (anchor_type IN ('aggregate', 'object', 'event', 'mechanism')),
+    CONSTRAINT anchor_review_ck CHECK (review_status IN ('pending', 'accepted', 'rejected', 'needs_review'))
 );
 
 CREATE TABLE cluster_evd (
@@ -444,7 +458,7 @@ CREATE INDEX stask_ready_idx ON search_tasks (priority, created_at) WHERE status
 CREATE INDEX hit_task_idx ON search_hits (search_task_id);
 CREATE INDEX hit_host_url_idx ON search_hits (host_id, url_hash);
 CREATE INDEX hit_job_idx ON search_hits (fetch_job_id);
-CREATE INDEX cmatch_task_status_idx ON cand_matches (search_task_id, status, score DESC);
+CREATE INDEX cmatch_task_status_idx ON cand_matches (search_task_id, status, match_confidence DESC);
 CREATE INDEX cmatch_passage_idx ON cand_matches (passage_id);
 CREATE INDEX evd_person_idx ON evd_cards (person_id);
 CREATE INDEX evd_subitem_idx ON evd_cards (subitem_id);
@@ -453,6 +467,7 @@ CREATE INDEX eslink_passage_role_idx ON evd_src_links (passage_id, role);
 CREATE INDEX cluster_person_idx ON clusters (person_id);
 CREATE INDEX cluster_subitem_idx ON clusters (subitem_id);
 CREATE INDEX cluster_scope_idx ON clusters (person_id, subitem_id, polarity, candidate_strength);
+CREATE INDEX anchor_type_review_idx ON anchors (anchor_type, review_status);
 CREATE INDEX clusterevd_evd_idx ON cluster_evd (evd_id);
 CREATE INDEX review_target_idx ON review_items (target_table, target_id);
 CREATE INDEX review_status_idx ON review_items (status, priority);
@@ -471,6 +486,7 @@ COMMENT ON TABLE evd_src_links IS 'Physical table for logical evidence_source_li
 COMMENT ON TABLE cand_matches IS 'Physical table for logical candidate_matches.';
 COMMENT ON TABLE evd_cards IS 'Physical table for logical evidence_cards.';
 COMMENT ON TABLE clusters IS 'Physical table for logical evidence_clusters.';
+COMMENT ON TABLE anchors IS 'Phase 1 base table for thematic anchor rows; anchor_links remain a later relationship target.';
 COMMENT ON TABLE outbox IS 'Transactional event outbox; RabbitMQ carries only light job or event messages.';
 COMMENT ON TABLE imports IS 'Import batch audit header for future JSONL dry-run and frozen import workflows.';
 COMMENT ON TABLE import_rows IS 'Per-row import audit for future JSONL dry-run checks.';

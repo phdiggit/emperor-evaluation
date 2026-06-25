@@ -1,61 +1,76 @@
+import re
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = ROOT / "db" / "schema.sql"
+POSTGRES_SCHEMA_PATH = ROOT / "db" / "postgres" / "001_init.sql"
 
 
-def test_schema_exists_and_contains_core_tables() -> None:
-    schema_path = ROOT / "db" / "schema.sql"
-    assert schema_path.exists()
+REQUIRED_FORMAL_TABLES = [
+    "persons",
+    "person_aliases",
+    "subitems",
+    "src_hosts",
+    "src_docs",
+    "doc_revs",
+    "passages",
+    "passage_people",
+    "query_profiles",
+    "search_tasks",
+    "search_hits",
+    "cand_matches",
+    "evd_cards",
+    "evd_src_links",
+    "clusters",
+    "anchors",
+    "cluster_evd",
+    "review_items",
+    "jobs",
+    "job_runs",
+    "job_deps",
+    "outbox",
+    "imports",
+    "import_rows",
+]
 
-    schema = schema_path.read_text(encoding="utf-8")
-    for table in [
-        "sources",
-        "evidence_cards",
-        "events",
-        "trigger_terms",
-        "search_logs",
-        "evidence_clusters",
-        "thematic_anchors",
-        "query_profiles",
-    ]:
-        assert f"CREATE TABLE IF NOT EXISTS {table}" in schema
+
+def created_tables(sql: str) -> set[str]:
+    return set(re.findall(r"CREATE TABLE\s+([a-z_]+)\s*\(", sql, flags=re.IGNORECASE))
 
 
-def test_schema_contains_matrix_fields_and_indexes() -> None:
-    schema = (ROOT / "db" / "schema.sql").read_text(encoding="utf-8")
+def test_schema_exists_and_matches_postgres_formal_schema() -> None:
+    assert SCHEMA_PATH.exists()
+    assert POSTGRES_SCHEMA_PATH.exists()
+
+    schema = SCHEMA_PATH.read_text(encoding="utf-8")
+    postgres_schema = POSTGRES_SCHEMA_PATH.read_text(encoding="utf-8")
+
+    assert schema == postgres_schema
+    assert created_tables(schema) >= set(REQUIRED_FORMAL_TABLES)
+
+
+def test_schema_contains_formal_constraints_indexes_and_anchor_table() -> None:
+    schema = SCHEMA_PATH.read_text(encoding="utf-8")
 
     for field in [
-        "tier TEXT",
-        "target TEXT",
-        "action_type TEXT",
-        "attribution_type TEXT",
-        "outcome TEXT",
-        "severity INTEGER",
-        "time_phase TEXT",
-        "person TEXT",
-        "query_terms TEXT",
-        "result_status TEXT",
-        "linked_evidence_id TEXT",
-        "linked_evidence_ids TEXT NOT NULL",
-        "candidate_strength INTEGER",
-        "linked_cluster_ids TEXT NOT NULL",
-        "query_profile_id TEXT PRIMARY KEY",
-        "thematic_anchor_targets TEXT NOT NULL",
+        "id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY",
+        "payload JSONB NOT NULL DEFAULT '{}'::jsonb",
+        "search_vec TSVECTOR GENERATED ALWAYS",
+        "hit_position INTEGER",
+        "match_confidence NUMERIC(5,4)",
+        "anchor_type TEXT NOT NULL",
+        "review_status TEXT NOT NULL DEFAULT 'pending'",
     ]:
         assert field in schema
 
-    for index in [
-        "idx_evidence_person_subitem",
-        "idx_evidence_polarity_strength",
-        "idx_evidence_trigger_family",
-        "idx_evidence_source_id",
-        "idx_search_person_subitem",
-        "idx_search_trigger_family",
-        "idx_search_result_status",
-        "idx_clusters_person_subitem",
-        "idx_clusters_polarity_strength",
-        "idx_anchors_theme_subitem",
-        "idx_query_profiles_item_subitem",
+    for index_or_constraint in [
+        "CREATE EXTENSION IF NOT EXISTS pg_trgm",
+        "passage_search_gin",
+        "passage_norm_trgm",
+        "cmatch_task_status_idx",
+        "anchor_type_review_idx",
+        "CONSTRAINT anchor_code_uk UNIQUE (code)",
+        "CONSTRAINT anchor_type_ck CHECK",
     ]:
-        assert index in schema
+        assert index_or_constraint in schema

@@ -1638,6 +1638,43 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/schema_changing_formal_schema_update.py",
+        "tests/test_schema_changing_formal_schema_update.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-schema-changing-formal-schema-update.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Schema-changing formal schema update ADR is a schema-file-only platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Defines the guarded schema-changing formal schema file update contract, records the user authorization source, keeps SQL execution and production migration disabled, and requires future live apply and seed apply PRs.",
+      "referenced_by_tests": [
+        "tests/test_schema_changing_formal_schema_update.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Changing Formal Schema Update",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "db/schema.sql",
+        "db/postgres/001_init.sql",
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_changing_formal_schema_update.py",
+        "tests/test_schema_changing_formal_schema_update.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
