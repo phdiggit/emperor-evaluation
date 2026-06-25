@@ -31,7 +31,9 @@ ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-seed-data-apply-execution.md"
 SCHEMA_SQL_PATH = ROOT / "db" / "schema.sql"
 POSTGRES_SQL_PATH = ROOT / "db" / "postgres" / "001_init.sql"
 SCHEMA_PATHS = (SCHEMA_SQL_PATH, POSTGRES_SQL_PATH)
-DATA_ROOTS = (ROOT / "data", ROOT / "archive" / "data")
+CANONICAL_DATA_ROOT = ROOT / "data"
+DATA_ROOTS = (CANONICAL_DATA_ROOT,)
+EXCLUDED_DISCOVERY_ROOTS = (ROOT / "data" / "batches", ROOT / "archive" / "data")
 APPROVAL_TOKEN = "USER_APPROVED_PRODUCTION_SEED_DATA_APPLY_PR286"
 DSN_ENV_NAME = "EMPEROR_EVAL_PG_DSN"
 EXECUTION_VERSION = "production-seed-data-apply-audit-scaffold-v2"
@@ -39,6 +41,20 @@ EXECUTION_STATUS = "Audit-only / Canonical seed manifest discovery and import au
 BLOCKED_MISSING_SEED_MANIFEST = "blocked_missing_seed_manifest"
 BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED = "blocked_target_business_importer_not_implemented_epic1"
 REQUIRED_SCHEMA_LIVE_TABLES = ("imports", "import_rows", "persons", "src_docs", "passages", "evd_cards")
+AUDIT_IMPORT_STATUS = "dry_run"
+AUDIT_IMPORT_ROW_STATUS = "skipped"
+MANIFEST_HASH_FIELDS = (
+    "manifest_version",
+    "manifest_kind",
+    "approval_status",
+    "approved_for_execution",
+    "canonical_seed_source_identified",
+    "candidate_source_count",
+    "candidate_sources",
+    "source_roots",
+    "redaction",
+    "operator_note",
+)
 SUPPORTED_MODES = (
     "contract-report",
     "render-seed-manifest-json",
@@ -98,6 +114,7 @@ def build_contract_report() -> dict[str, Any]:
 
 def build_seed_manifest() -> dict[str, Any]:
     candidates = discover_candidate_seed_files()
+    excluded = discover_excluded_seed_files()
     manifest: dict[str, Any] = {
         "manifest_version": 1,
         "manifest_kind": "production_seed_data_apply",
@@ -107,6 +124,13 @@ def build_seed_manifest() -> dict[str, Any]:
         "candidate_source_count": len(candidates),
         "candidate_sources": candidates,
         "source_roots": [relative_path(path) for path in DATA_ROOTS if path.exists()],
+        "excluded_discovery_source_count": len(excluded),
+        "excluded_discovery_sources": excluded,
+        "excluded_source_roots": [relative_path(path) for path in EXCLUDED_DISCOVERY_ROOTS if path.exists()],
+        "excluded_discovery_note": (
+            "Batch and archive JSONL files are discovery-only and are not part of the "
+            "canonical seed manifest envelope or manifest_sha256."
+        ),
         "redaction": {
             "contains_row_payloads": False,
             "contains_secret_material": False,
@@ -116,31 +140,48 @@ def build_seed_manifest() -> dict[str, Any]:
             "Execution must fail closed until a later PR approves a specific manifest."
         ),
     }
-    manifest["manifest_sha256"] = stable_sha256(manifest)
+    manifest["manifest_sha256"] = stable_sha256(seed_manifest_hash_basis(manifest))
     return manifest
 
 
 def discover_candidate_seed_files() -> list[dict[str, Any]]:
-    candidates: list[dict[str, Any]] = []
+    paths: list[Path] = []
     for root in DATA_ROOTS:
         if not root.exists():
             continue
-        for path in sorted(root.rglob("*.jsonl")):
-            if not path.is_file():
-                continue
-            raw = path.read_bytes()
-            text = raw.decode("utf-8")
-            candidates.append(
-                {
-            "path": relative_path(path),
-                    "sha256": hashlib.sha256(raw).hexdigest(),
-                    "byte_count": len(raw),
-                    "line_count": count_non_empty_lines(text),
-                    "detected_logical_kind": detect_logical_kind(path),
-                    "read_only": True,
-                }
-            )
-    return candidates
+        paths.extend(path for path in sorted(root.glob("*.jsonl")) if path.is_file())
+    return seed_file_records(paths)
+
+
+def discover_excluded_seed_files() -> list[dict[str, Any]]:
+    paths: list[Path] = []
+    for root in EXCLUDED_DISCOVERY_ROOTS:
+        if not root.exists():
+            continue
+        paths.extend(path for path in sorted(root.rglob("*.jsonl")) if path.is_file())
+    return seed_file_records(paths)
+
+
+def seed_file_records(paths: Sequence[Path]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for path in paths:
+        raw = path.read_bytes()
+        text = raw.decode("utf-8")
+        records.append(
+            {
+                "path": relative_path(path),
+                "sha256": hashlib.sha256(raw).hexdigest(),
+                "byte_count": len(raw),
+                "line_count": count_non_empty_lines(text),
+                "detected_logical_kind": detect_logical_kind(path),
+                "read_only": True,
+            }
+        )
+    return records
+
+
+def seed_manifest_hash_basis(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    return {field: manifest[field] for field in MANIFEST_HASH_FIELDS if field in manifest}
 
 
 def render_execution_plan_json() -> dict[str, Any]:
@@ -333,13 +374,16 @@ def pre_execution_gate(
 ) -> str | None:
     return first_blocking_reason(
         (
-            (require_user_approval_token == APPROVAL_TOKEN, "blocked_missing_or_invalid_approval_token"),
-            (bool(expected_schema_sha256), "blocked_missing_expected_schema_sha256"),
-            (expected_schema_sha256 == schema_sha256(), "blocked_schema_hash_mismatch"),
-            (bool(expected_seed_manifest_sha256), "blocked_missing_expected_seed_manifest_sha256"),
-            (expected_seed_manifest_sha256 == manifest.get("manifest_sha256"), "blocked_seed_manifest_hash_mismatch"),
-            (schema_files_byte_identical(), "blocked_schema_files_not_byte_identical"),
-            (bool(manifest.get("approved_for_execution")), BLOCKED_MISSING_SEED_MANIFEST),
+            (lambda: require_user_approval_token == APPROVAL_TOKEN, "blocked_missing_or_invalid_approval_token"),
+            (lambda: bool(expected_schema_sha256), "blocked_missing_expected_schema_sha256"),
+            (lambda: expected_schema_sha256 == schema_sha256(), "blocked_schema_hash_mismatch"),
+            (lambda: bool(expected_seed_manifest_sha256), "blocked_missing_expected_seed_manifest_sha256"),
+            (
+                lambda: expected_seed_manifest_sha256 == manifest.get("manifest_sha256"),
+                "blocked_seed_manifest_hash_mismatch",
+            ),
+            (schema_files_byte_identical, "blocked_schema_files_not_byte_identical"),
+            (lambda: bool(manifest.get("approved_for_execution")), BLOCKED_MISSING_SEED_MANIFEST),
         )
     )
 
@@ -401,7 +445,7 @@ def apply_seed_manifest(conn: Any, manifest: Mapping[str, Any]) -> dict[str, Any
                 import_code,
                 "seed_manifest_import_audit_scaffold",
                 "repo_seed_manifest",
-                "audit_scaffolded",
+                AUDIT_IMPORT_STATUS,
                 EXECUTION_VERSION,
                 manifest["manifest_sha256"],
                 accepted_rows,
@@ -428,13 +472,15 @@ def apply_seed_manifest(conn: Any, manifest: Mapping[str, Any]) -> dict[str, Any
                         source_path,
                         line_no,
                         audit_row_hash(manifest, source, line_no),
-                        "audit_scaffolded",
+                        AUDIT_IMPORT_ROW_STATUS,
                         None,
                         json.dumps(
                             {
                                 "source_file": source_path,
                                 "line_no": line_no,
                                 "audit_only": True,
+                                "audit_import_status": AUDIT_IMPORT_STATUS,
+                                "audit_row_status": AUDIT_IMPORT_ROW_STATUS,
                                 "payload_hash_scope": "audit_row_identity_not_source_payload",
                             },
                             ensure_ascii=False,
@@ -496,8 +542,8 @@ def verify_seed_data_apply(
     failures: list[str] = []
     if not import_row:
         failures.append("missing_import_audit")
-    elif import_row[1] != "audit_scaffolded":
-        failures.append("import_audit_not_scaffolded")
+    elif import_row[1] != AUDIT_IMPORT_STATUS:
+        failures.append("import_audit_status_not_dry_run")
     if apply_result and import_rows_count < int(apply_result.get("audit_rows_written", 0)):
         failures.append("import_rows_below_accepted_rows")
     return {
@@ -548,6 +594,10 @@ def audit_manifest_meta(manifest: Mapping[str, Any]) -> dict[str, Any]:
         "manifest_kind": manifest.get("manifest_kind"),
         "candidate_source_count": manifest.get("candidate_source_count"),
         "candidate_sources": manifest.get("candidate_sources", []),
+        "excluded_discovery_source_count": manifest.get("excluded_discovery_source_count", 0),
+        "excluded_discovery_note": manifest.get("excluded_discovery_note"),
+        "audit_import_status": AUDIT_IMPORT_STATUS,
+        "audit_row_status": AUDIT_IMPORT_ROW_STATUS,
         "audit_only": True,
         "business_target_migration": False,
         "redacted": True,

@@ -18,6 +18,8 @@ CURRENT_STATE = {
     "canonical_write_source": "jsonl",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
+    "sqlite_build_operational": False,
+    "full_pytest_operational": False,
     "jsonl_write_frozen": False,
     "postgres_unique_write_source": False,
     "production_runtime_live": False,
@@ -122,6 +124,13 @@ def build_contract_report() -> dict[str, Any]:
             "epic_1_target_importer_parser_resolver",
             "epic_1_write_source_cutover_decision",
         ],
+        "baseline_repair_tracking": {
+            "sqlite_build_operational": False,
+            "full_pytest_operational": False,
+            "blocked_command": "python scripts/build/build_db.py",
+            "blocking_symptom": "build_db executes db/schema.sql through SQLite while schema is PostgreSQL-oriented",
+            "required_follow_up": "Epic 0 SQLite build baseline repair PR before marking operational",
+        },
         "deprecated_route_markers": [
             "do_not_use_fixed_future_pr_numbers_for_architecture_route",
             "seed_data_apply_success_deferred_until_business_target_writes_exist",

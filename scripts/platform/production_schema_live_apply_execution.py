@@ -248,11 +248,11 @@ def verify_live_apply(require_user_approval_token: str | None, expected_schema_s
 def pre_execution_gate(require_user_approval_token: str | None, expected_schema_sha256: str | None) -> str | None:
     return first_blocking_reason(
         (
-            (require_user_approval_token == APPROVAL_TOKEN, "blocked_missing_or_invalid_approval_token"),
-            (bool(expected_schema_sha256), "blocked_missing_expected_schema_sha256"),
-            (expected_schema_sha256 == schema_sha256(), "blocked_schema_hash_mismatch"),
-            (schema_files_byte_identical(), "blocked_schema_files_not_byte_identical"),
-            (anchors_table_exists(), "blocked_missing_anchors_table"),
+            (lambda: require_user_approval_token == APPROVAL_TOKEN, "blocked_missing_or_invalid_approval_token"),
+            (lambda: bool(expected_schema_sha256), "blocked_missing_expected_schema_sha256"),
+            (lambda: expected_schema_sha256 == schema_sha256(), "blocked_schema_hash_mismatch"),
+            (schema_files_byte_identical, "blocked_schema_files_not_byte_identical"),
+            (anchors_table_exists, "blocked_missing_anchors_table"),
         )
     )
 

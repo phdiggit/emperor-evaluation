@@ -35,7 +35,7 @@ def approved_manifest() -> dict[str, object]:
         "source_roots": ["data"],
         "redaction": {"contains_row_payloads": False, "contains_secret_material": False},
     }
-    manifest["manifest_sha256"] = seed.stable_sha256(manifest)
+    manifest["manifest_sha256"] = seed.stable_sha256(seed.seed_manifest_hash_basis(manifest))
     return manifest
 
 
@@ -61,8 +61,42 @@ def test_seed_manifest_defaults_to_fail_closed_without_approved_canonical_source
 
     assert manifest["approved_for_execution"] is False
     assert manifest["approval_status"] == seed.BLOCKED_MISSING_SEED_MANIFEST
-    assert manifest["manifest_sha256"] == seed.stable_sha256(manifest)
+    assert manifest["manifest_sha256"] == seed.stable_sha256(seed.seed_manifest_hash_basis(manifest))
     assert manifest["redaction"]["contains_row_payloads"] is False
+    assert all("/batches/" not in source["path"] for source in manifest["candidate_sources"])
+    assert all(not source["path"].startswith("archive/data/") for source in manifest["candidate_sources"])
+    assert "excluded_discovery_sources" not in seed.seed_manifest_hash_basis(manifest)
+
+
+def test_batch_and_archive_discovery_do_not_affect_seed_manifest_hash() -> None:
+    manifest = seed.build_seed_manifest()
+    altered = dict(manifest)
+    altered["excluded_discovery_sources"] = [
+        {
+            "path": "archive/data/not-canonical.jsonl",
+            "sha256": "0" * 64,
+            "byte_count": 1,
+            "line_count": 1,
+            "detected_logical_kind": "excluded",
+            "read_only": True,
+        }
+    ]
+    altered["excluded_discovery_source_count"] = 1
+
+    assert manifest["excluded_discovery_source_count"] >= 0
+    assert seed.stable_sha256(seed.seed_manifest_hash_basis(altered)) == manifest["manifest_sha256"]
+
+
+def test_import_audit_status_constants_match_postgres_schema_contract() -> None:
+    sql = seed.POSTGRES_SQL_PATH.read_text(encoding="utf-8")
+
+    assert seed.AUDIT_IMPORT_STATUS == "dry_run"
+    assert seed.AUDIT_IMPORT_ROW_STATUS == "skipped"
+    assert "CONSTRAINT import_status_ck CHECK (status IN ('running', 'succeeded', 'failed', 'dry_run'))" in sql
+    assert (
+        "CONSTRAINT irow_status_ck CHECK (import_status IN ('pending', 'accepted', 'rejected', 'skipped', 'error'))"
+        in sql
+    )
 
 
 def test_execute_requires_token_schema_hash_and_manifest_hash(monkeypatch) -> None:
@@ -79,6 +113,21 @@ def test_execute_requires_token_schema_hash_and_manifest_hash(monkeypatch) -> No
 
     report = seed.execute_seed_data_apply(seed.APPROVAL_TOKEN, seed.schema_sha256(), "0" * 64)
     assert "blocked_seed_manifest_hash_mismatch" in report["blocking_failures"]
+
+
+def test_pre_execution_gate_is_lazy_fail_first(monkeypatch) -> None:
+    manifest = approved_manifest()
+
+    def fail_later_check() -> str:
+        raise AssertionError("later gate checks must not run after the first failure")
+
+    monkeypatch.setattr(seed, "schema_sha256", fail_later_check)
+    monkeypatch.setattr(seed, "schema_files_byte_identical", lambda: fail_later_check())
+
+    assert (
+        seed.pre_execution_gate(None, "expected-schema", str(manifest["manifest_sha256"]), manifest)
+        == "blocked_missing_or_invalid_approval_token"
+    )
 
 
 def test_execute_blocks_missing_seed_manifest_before_dsn(monkeypatch) -> None:
@@ -168,8 +217,12 @@ def test_execute_uses_mock_connection_for_import_audit_scaffold_without_business
     assert conn.committed is True
     assert any("INSERT INTO imports" in query for query, _params in conn.executed)
     assert any("INSERT INTO import_rows" in query for query, _params in conn.executed)
+    import_params = [params for query, params in conn.executed if "INSERT INTO imports" in query]
+    assert import_params
+    assert all(params[3] == seed.AUDIT_IMPORT_STATUS for params in import_params if isinstance(params, tuple))
     import_row_params = [params for query, params in conn.executed if "INSERT INTO import_rows" in query]
     assert import_row_params
+    assert all(params[5] == seed.AUDIT_IMPORT_ROW_STATUS for params in import_row_params if isinstance(params, tuple))
     assert all(params[6] is None for params in import_row_params if isinstance(params, tuple))
 
 
@@ -327,7 +380,11 @@ class FakeCursor:
         if "SELECT code, status, row_count" in self.last_query:
             if not self.conn.audit_present:
                 return None
-            return (self.conn.import_code or "production_seed_data_apply_pr286_test", "audit_scaffolded", self.conn.import_row_count)
+            return (
+                self.conn.import_code or "production_seed_data_apply_pr286_test",
+                seed.AUDIT_IMPORT_STATUS,
+                self.conn.import_row_count,
+            )
         if "SELECT count(*)" in self.last_query:
             return (self.conn.import_row_count,)
         return None
