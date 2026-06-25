@@ -12,6 +12,11 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.platform.env_loader import read_dotenv_values
+
 ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution.md"
 SCHEMA_SQL_PATH = ROOT / "db" / "schema.sql"
 POSTGRES_SQL_PATH = ROOT / "db" / "postgres" / "001_init.sql"
@@ -391,6 +396,8 @@ def commit_connection(conn: Any) -> None:
 def read_dsn() -> str | None:
     env = getattr(os, "environ")
     value = env.get(DSN_ENV_NAME)
+    if not value:
+        value = read_dotenv_values().get(DSN_ENV_NAME)
     if not value:
         return None
     return str(value)

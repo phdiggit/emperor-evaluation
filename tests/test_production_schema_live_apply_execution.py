@@ -70,6 +70,17 @@ def test_execute_missing_dsn_is_blocked_without_success(monkeypatch) -> None:
     assert report["failure_stage"] == "dsn_read"
 
 
+def test_read_dsn_falls_back_to_dotenv_without_overriding_process_env(monkeypatch) -> None:
+    monkeypatch.setitem(live.os.environ, live.DSN_ENV_NAME, "process-dsn")
+    monkeypatch.setattr(live, "read_dotenv_values", lambda: {live.DSN_ENV_NAME: "dotenv-dsn"})
+
+    assert live.read_dsn() == "process-dsn"
+
+    monkeypatch.delitem(live.os.environ, live.DSN_ENV_NAME)
+
+    assert live.read_dsn() == "dotenv-dsn"
+
+
 def test_evidence_redacts_dsn_and_password(monkeypatch) -> None:
     secret = "postgresql://user:password@example.local:5432/prod?password=secret"
     monkeypatch.setattr(live, "read_dsn", lambda: secret)
