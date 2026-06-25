@@ -26,7 +26,8 @@ CURRENT_STATE = {
     "formal_scoring_released": False,
     "formal_ranking_released": False,
     "g1_canonical_manifest_approved": True,
-    "g2_mapping_approved": False,
+    "g2_mapping_approved": True,
+    "staging_diff_verification_ready": True,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -46,6 +47,7 @@ COMPLETED_CHAIN = [
     "production_seed_manifest_import_audit_scaffold",
     "canonical_manifest_candidate_gate",
     "jsonl_postgres_mapping_approval_package",
+    "jsonl_staging_diff_verification",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -82,6 +84,13 @@ def build_contract_report() -> dict[str, Any]:
                 "contract": True,
                 "apply": False,
                 "boundary": "offline_g2_mapping_approval_package_only",
+            },
+            {
+                "name": "jsonl_staging_diff_verification",
+                "path": "scripts/platform/jsonl_staging_diff_verification.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_1c_staging_dry_run_diff_verification",
             },
             {
                 "name": "jsonl_staging_mapper",
