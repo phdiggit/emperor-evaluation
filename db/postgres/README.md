@@ -79,7 +79,17 @@ python scripts/platform/g3_postgres_business_write_execution.py --execution-plan
 python scripts/platform/g3_postgres_business_write_execution.py --operator-checklist-md
 ```
 
-当前写入范围只允许 `data/sources.jsonl` URL host -> `src_hosts`，计划行数为 1。`--execute` / `--observe` 需要 G3 token、expected plan sha256 和 operator 环境中的 `EMPEROR_EVAL_PG_DSN`；默认报告不读取 DSN、不连接数据库。`src_docs`、`doc_revs`、`passages` 以及证据/关系目标表仍保持 blocked，JSONL freeze 与 PostgreSQL unique write-source cutover 仍需 G4。
+当前写入范围只允许 `data/sources.jsonl` URL host -> `src_hosts`，计划行数为 1。`--execute` / `--observe` 需要 G3 token、expected plan sha256 和 operator 环境中的 `EMPEROR_EVAL_PG_DSN`；默认报告不读取 DSN、不连接数据库。`src_docs`、`doc_revs`、`passages` 以及证据/关系目标表仍保持 blocked。
+
+G4 获批后的 JSONL freeze 与 PostgreSQL unique write-source cutover 执行包使用：
+
+```bash
+python scripts/platform/g4_write_source_cutover_execution.py --contract-report
+python scripts/platform/g4_write_source_cutover_execution.py --cutover-plan-json
+python scripts/platform/g4_write_source_cutover_execution.py --operator-checklist-md
+```
+
+该包默认不读取 DSN、不连接数据库；`--execute` / `--observe` 才需要 G4 token、expected cutover plan sha256 和 operator 环境中的 `EMPEROR_EVAL_PG_DSN`。执行路径只允许在 `imports` 表写入 / 更新 `G4-WRITE-SOURCE-CUTOVER-ISSUE292` cutover marker，并先读回确认 G3 `src_hosts` 中已存在 `zh.wikisource.org`。G4 不写后续 source/passages/evidence/relationship 业务表，不启动 runtime，也不发布正式评分或排名。
 
 ## JSONL staging mapper prototype
 
