@@ -8,7 +8,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
-SCHEMA_PATH = ROOT / "db" / "schema.sql"
+POSTGRES_SCHEMA_PATH = ROOT / "db" / "schema.sql"
+SQLITE_SCHEMA_PATH = ROOT / "db" / "sqlite" / "001_cache.sql"
 DB_PATH = ROOT / "evidence_cache.sqlite"
 
 
@@ -217,7 +218,7 @@ def build_database() -> Path:
 
     with sqlite3.connect(DB_PATH) as connection:
         connection.execute("PRAGMA foreign_keys = ON")
-        connection.executescript(SCHEMA_PATH.read_text(encoding="utf-8"))
+        connection.executescript(SQLITE_SCHEMA_PATH.read_text(encoding="utf-8"))
         for table, path in TABLE_FILES.items():
             insert_rows(connection, table, read_jsonl(path))
         connection.commit()

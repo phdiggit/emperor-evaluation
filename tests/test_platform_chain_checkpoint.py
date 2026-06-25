@@ -33,8 +33,8 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "canonical_write_source": "jsonl",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
-        "sqlite_build_operational": False,
-        "full_pytest_operational": False,
+        "sqlite_build_operational": True,
+        "full_pytest_operational": True,
         "jsonl_write_frozen": False,
         "postgres_unique_write_source": False,
         "production_runtime_live": False,
@@ -51,8 +51,10 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
     assert "epic_1_g1_canonical_manifest_approval" in report["next_epic_gates"]
-    assert report["baseline_repair_tracking"]["sqlite_build_operational"] is False
-    assert report["baseline_repair_tracking"]["required_follow_up"].startswith("Epic 0")
+    assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
+    assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
+    assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
+    assert "PostgreSQL" in report["baseline_repair_tracking"]["postgres_schema_boundary"]
 
 
 def test_checkpoint_report_is_offline_and_does_not_touch_forbidden_paths(monkeypatch) -> None:
