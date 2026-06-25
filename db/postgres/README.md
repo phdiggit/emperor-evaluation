@@ -71,6 +71,16 @@ python scripts/platform/jsonl_staging_diff_verification.py --markdown-report
 
 该包只做离线聚合，核对 manifest row / ID / hash、orphan 引用、staging rows、resolver reference risk 和 lossy conversion 风险，固定为 `NO_NEW_GATE`。它不读取生产凭据、不连接 PostgreSQL、不写正式业务表，也不证明 production success；第一次正式业务数据写入前仍需 G3。
 
+G3 获批后的第一次正式 PostgreSQL 业务写入执行包使用：
+
+```bash
+python scripts/platform/g3_postgres_business_write_execution.py --contract-report
+python scripts/platform/g3_postgres_business_write_execution.py --execution-plan-json
+python scripts/platform/g3_postgres_business_write_execution.py --operator-checklist-md
+```
+
+当前写入范围只允许 `data/sources.jsonl` URL host -> `src_hosts`，计划行数为 1。`--execute` / `--observe` 需要 G3 token、expected plan sha256 和 operator 环境中的 `EMPEROR_EVAL_PG_DSN`；默认报告不读取 DSN、不连接数据库。`src_docs`、`doc_revs`、`passages` 以及证据/关系目标表仍保持 blocked，JSONL freeze 与 PostgreSQL unique write-source cutover 仍需 G4。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

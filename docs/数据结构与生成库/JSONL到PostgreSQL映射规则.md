@@ -221,3 +221,17 @@ boundaries
 ```
 
 该 report 复用 G1 manifest、G2 mapping package、staging mapper 与 resolver contract，只证明当前 JSONL 输入在离线 staging / diff 层的行数、ID、hash、orphan、reference risk 与 lossy-conversion 风险可审。它固定为 `NO_NEW_GATE`，不读取生产凭据，不连接 PostgreSQL，不写正式业务表，不冻结 JSONL，也不得推断 production success。进入第一次正式业务数据写入前仍需 G3。
+
+## G3 PostgreSQL Business Write Execution Package
+
+G3 获批后，第一次正式 PostgreSQL 业务写入执行包入口为：
+
+```bash
+python scripts/platform/g3_postgres_business_write_execution.py --contract-report
+python scripts/platform/g3_postgres_business_write_execution.py --execution-plan-json
+python scripts/platform/g3_postgres_business_write_execution.py --operator-checklist-md
+```
+
+该执行包只把 G1/G2 范围内 `data/sources.jsonl` 的 URL host 推导为正式 `src_hosts` 目标行，当前计划行数为 1：`zh.wikisource.org`。默认报告不读取 DSN、不连接数据库、不执行写入；真实执行必须显式传入 G3 token、expected plan sha256，并由 operator 环境提供 `EMPEROR_EVAL_PG_DSN`。
+
+本阶段不写 `src_docs`、`doc_revs`、`passages`、证据、证据组、anchor 或关系表。原因是多个 `source_id` 可共享同一 canonical URL，正式文档 / revision / passage 归并规则仍需后续批准。G4 仍是 JSONL freeze 与 PostgreSQL unique write-source cutover 的前置门。
