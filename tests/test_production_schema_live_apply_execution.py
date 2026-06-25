@@ -40,6 +40,17 @@ def test_execute_requires_approval_token() -> None:
     assert "blocked_missing_or_invalid_approval_token" in report["blocking_failures"]
 
 
+def test_pre_execution_gate_is_lazy_fail_first(monkeypatch) -> None:
+    def fail_later_check() -> str:
+        raise AssertionError("later gate checks must not run after the first failure")
+
+    monkeypatch.setattr(live, "schema_sha256", fail_later_check)
+    monkeypatch.setattr(live, "schema_files_byte_identical", lambda: fail_later_check())
+    monkeypatch.setattr(live, "anchors_table_exists", lambda: fail_later_check())
+
+    assert live.pre_execution_gate(None, "expected-schema") == "blocked_missing_or_invalid_approval_token"
+
+
 def test_execute_requires_matching_schema_hash() -> None:
     report = live.execute_live_apply(live.APPROVAL_TOKEN, "0" * 64)
 
@@ -117,7 +128,7 @@ def test_successful_execute_uses_mock_connection_and_keeps_migration_not_ready(m
     assert report["production_db_connected"] is True
     assert report["verification_passed"] is True
     assert report["ready_for_production_migration"] is False
-    assert report["future_seed_apply_pr_required"] is True
+    assert report["future_target_importer_gate_required"] is True
     assert conn.committed is True
     assert "CREATE TABLE anchors" in conn.executed[0]
 

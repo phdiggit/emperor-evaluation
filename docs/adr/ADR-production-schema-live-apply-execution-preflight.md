@@ -52,7 +52,7 @@ This PR may also declare:
 future_live_apply_execution_pr_can_be_next=true
 ```
 
-That flag only means the next PR can be the future execution PR after separate explicit approval. It does not mean this PR is approved, executed, or ready.
+That flag only meant a later execution gate could follow after separate explicit approval. It did not mean this PR was approved, executed, or ready.
 
 ## Non-Goals
 
@@ -79,9 +79,9 @@ That flag only means the next PR can be the future execution PR after separate e
 
 ## Future Work Boundary
 
-- #285 can be a future live apply execution PR, but it must be separately and explicitly approved.
-- Future seed apply PR remains separate.
-- The future live apply execution PR must define DSN handling, connection handling, exact apply process, operator evidence, rollback / restore evidence, transcript capture, and post-apply verification.
+- The live apply execution gate has since been completed by #285.
+- Seed/data import remains separate and is now governed by the Epic 1 target importer gate after the Epic 0 audit-scaffold boundary.
+- Any future execution gate must define DSN handling, connection handling, exact apply process, operator evidence, rollback / restore evidence, transcript capture, and post-apply verification.
 - This PR does not make `ready_for_live_apply` true.
 - This PR does not make `ready_for_production_migration` true.
 

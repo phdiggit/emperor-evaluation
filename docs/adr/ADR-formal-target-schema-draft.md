@@ -116,7 +116,7 @@ This ADR does not run a real SQL diff, does not read production schema files as 
 ## Rejected Alternatives
 
 - Modify production SQL schema now: rejected because this PR is proposal-only.
-- Execute PostgreSQL DDL now: rejected because the next step is an isolated rehearsal PR.
+- Execute PostgreSQL DDL now: rejected because schema progression is controlled by explicit Epic / Milestone / Gate approval.
 - Treat relationship fields as direct writes: rejected because resolver output and manual review gates are required.
 - Put relationship tables into phase 1: rejected because `evd_src_links`, `cluster_evd`, and `anchor_links` are blocked until resolver gates are green.
 - Switch JSONL write source now: rejected because canonical JSONL remains source-of-truth.
@@ -131,7 +131,7 @@ This ADR does not run a real SQL diff, does not read production schema files as 
 
 ## Future Work
 
-- PR #259 can generate isolated rehearsal SQL outside production schema files.
+- Isolated rehearsal SQL belongs to the schema rehearsal gate, not to a fixed future PR number.
 - A later review can decide exact PostgreSQL column types after this draft is promoted beyond proposal status.
 - Relationship resolver output can be mapped only after manual review gates are green.
 - Downstream release and adjudication-family tables need a separate contract before any migration work.

@@ -5,7 +5,6 @@ import datetime as dt
 import hashlib
 import json
 import os
-import re
 import sys
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -16,19 +15,46 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.platform.env_loader import read_dotenv_values
+from scripts.platform.core.evidence import blocked_report_fields
+from scripts.platform.core.fingerprints import (
+    file_fingerprints,
+    file_sha256,
+    files_byte_identical,
+    relative_path as core_relative_path,
+    stable_json_sha256,
+)
+from scripts.platform.core.gates import first_blocking_reason
+from scripts.platform.core.redaction import contains_secret_material, redact_text
 
 
 ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-seed-data-apply-execution.md"
 SCHEMA_SQL_PATH = ROOT / "db" / "schema.sql"
 POSTGRES_SQL_PATH = ROOT / "db" / "postgres" / "001_init.sql"
 SCHEMA_PATHS = (SCHEMA_SQL_PATH, POSTGRES_SQL_PATH)
-DATA_ROOTS = (ROOT / "data", ROOT / "archive" / "data")
+CANONICAL_DATA_ROOT = ROOT / "data"
+DATA_ROOTS = (CANONICAL_DATA_ROOT,)
+EXCLUDED_DISCOVERY_ROOTS = (ROOT / "data" / "batches", ROOT / "archive" / "data")
 APPROVAL_TOKEN = "USER_APPROVED_PRODUCTION_SEED_DATA_APPLY_PR286"
 DSN_ENV_NAME = "EMPEROR_EVAL_PG_DSN"
-EXECUTION_VERSION = "production-seed-data-apply-execution-v1"
-EXECUTION_STATUS = "Approved / Production seed data apply execution PR"
+EXECUTION_VERSION = "production-seed-data-apply-audit-scaffold-v2"
+EXECUTION_STATUS = "Audit-only / Canonical seed manifest discovery and import audit scaffold"
 BLOCKED_MISSING_SEED_MANIFEST = "blocked_missing_seed_manifest"
+BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED = "blocked_target_business_importer_not_implemented_epic1"
 REQUIRED_SCHEMA_LIVE_TABLES = ("imports", "import_rows", "persons", "src_docs", "passages", "evd_cards")
+AUDIT_IMPORT_STATUS = "dry_run"
+AUDIT_IMPORT_ROW_STATUS = "skipped"
+MANIFEST_HASH_FIELDS = (
+    "manifest_version",
+    "manifest_kind",
+    "approval_status",
+    "approved_for_execution",
+    "canonical_seed_source_identified",
+    "candidate_source_count",
+    "candidate_sources",
+    "source_roots",
+    "redaction",
+    "operator_note",
+)
 SUPPORTED_MODES = (
     "contract-report",
     "render-seed-manifest-json",
@@ -46,12 +72,11 @@ SUCCESS_FLAGS_FALSE = {
     "verification_passed": False,
     "ready_for_production_migration": False,
 }
-SUCCESS_FLAGS_TRUE = {
-    "seed_data_apply_executed": True,
-    "production_data_rows_written": True,
-    "import_audit_written": True,
-    "verification_passed": True,
-    "ready_for_production_migration": True,
+PERMANENTLY_BLOCKED_SUCCESS_FLAGS = {
+    "seed_data_apply_executed": False,
+    "production_data_rows_written": False,
+    "verification_passed": False,
+    "ready_for_production_migration": False,
 }
 
 
@@ -71,20 +96,25 @@ def build_contract_report() -> dict[str, Any]:
         "default_modes_db_touching": False,
         "schema_file_fingerprints": schema_file_fingerprints(),
         "seed_manifest": build_seed_manifest(),
-        "required_success_flags": dict(SUCCESS_FLAGS_TRUE),
+        "permanently_blocked_success_flags": dict(PERMANENTLY_BLOCKED_SUCCESS_FLAGS),
         "safe_blocked_flags": dict(SUCCESS_FLAGS_FALSE),
+        "audit_scaffold_only": True,
+        "audit_tables_are_not_business_targets": ["imports", "import_rows"],
+        "target_business_importer_deferred_to": "Epic 1",
         "forbidden_actions": [
             "secret logging",
             "schema file modification",
             "source data modification",
             "success forgery",
             "invented seed rows",
+            "business target table write claims",
         ],
     }
 
 
 def build_seed_manifest() -> dict[str, Any]:
     candidates = discover_candidate_seed_files()
+    excluded = discover_excluded_seed_files()
     manifest: dict[str, Any] = {
         "manifest_version": 1,
         "manifest_kind": "production_seed_data_apply",
@@ -94,6 +124,13 @@ def build_seed_manifest() -> dict[str, Any]:
         "candidate_source_count": len(candidates),
         "candidate_sources": candidates,
         "source_roots": [relative_path(path) for path in DATA_ROOTS if path.exists()],
+        "excluded_discovery_source_count": len(excluded),
+        "excluded_discovery_sources": excluded,
+        "excluded_source_roots": [relative_path(path) for path in EXCLUDED_DISCOVERY_ROOTS if path.exists()],
+        "excluded_discovery_note": (
+            "Batch and archive JSONL files are discovery-only and are not part of the "
+            "canonical seed manifest envelope or manifest_sha256."
+        ),
         "redaction": {
             "contains_row_payloads": False,
             "contains_secret_material": False,
@@ -103,31 +140,48 @@ def build_seed_manifest() -> dict[str, Any]:
             "Execution must fail closed until a later PR approves a specific manifest."
         ),
     }
-    manifest["manifest_sha256"] = stable_sha256(manifest)
+    manifest["manifest_sha256"] = stable_sha256(seed_manifest_hash_basis(manifest))
     return manifest
 
 
 def discover_candidate_seed_files() -> list[dict[str, Any]]:
-    candidates: list[dict[str, Any]] = []
+    paths: list[Path] = []
     for root in DATA_ROOTS:
         if not root.exists():
             continue
-        for path in sorted(root.rglob("*.jsonl")):
-            if not path.is_file():
-                continue
-            raw = path.read_bytes()
-            text = raw.decode("utf-8")
-            candidates.append(
-                {
-                    "path": relative_path(path),
-                    "sha256": hashlib.sha256(raw).hexdigest(),
-                    "byte_count": len(raw),
-                    "line_count": count_non_empty_lines(text),
-                    "detected_logical_kind": detect_logical_kind(path),
-                    "read_only": True,
-                }
-            )
-    return candidates
+        paths.extend(path for path in sorted(root.glob("*.jsonl")) if path.is_file())
+    return seed_file_records(paths)
+
+
+def discover_excluded_seed_files() -> list[dict[str, Any]]:
+    paths: list[Path] = []
+    for root in EXCLUDED_DISCOVERY_ROOTS:
+        if not root.exists():
+            continue
+        paths.extend(path for path in sorted(root.rglob("*.jsonl")) if path.is_file())
+    return seed_file_records(paths)
+
+
+def seed_file_records(paths: Sequence[Path]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for path in paths:
+        raw = path.read_bytes()
+        text = raw.decode("utf-8")
+        records.append(
+            {
+                "path": relative_path(path),
+                "sha256": hashlib.sha256(raw).hexdigest(),
+                "byte_count": len(raw),
+                "line_count": count_non_empty_lines(text),
+                "detected_logical_kind": detect_logical_kind(path),
+                "read_only": True,
+            }
+        )
+    return records
+
+
+def seed_manifest_hash_basis(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    return {field: manifest[field] for field in MANIFEST_HASH_FIELDS if field in manifest}
 
 
 def render_execution_plan_json() -> dict[str, Any]:
@@ -135,7 +189,7 @@ def render_execution_plan_json() -> dict[str, Any]:
     return {
         "mode": "render-execution-plan-json",
         "pr_number": 286,
-        "operation_type": "production_seed_data_apply",
+        "operation_type": "canonical_seed_manifest_discovery_import_audit_scaffold",
         "approval_token_required": True,
         "expected_schema_sha256_required": True,
         "expected_seed_manifest_sha256_required": True,
@@ -147,6 +201,9 @@ def render_execution_plan_json() -> dict[str, Any]:
         "schema_file_fingerprints": schema_file_fingerprints(),
         "seed_manifest_sha256": manifest["manifest_sha256"],
         "seed_manifest_approved_for_execution": manifest["approved_for_execution"],
+        "audit_scaffold_only": True,
+        "target_business_table_writes_executed": False,
+        "target_business_importer_deferred_to": "Epic 1",
         "blocked_reason_if_executed_now": None
         if manifest["approved_for_execution"]
         else BLOCKED_MISSING_SEED_MANIFEST,
@@ -158,11 +215,11 @@ def render_operator_checklist_md() -> str:
     manifest = build_seed_manifest()
     return "\n".join(
         [
-            "# Production Seed/Data Apply Operator Checklist",
+            "# Canonical Seed Manifest Import-Audit Scaffold Operator Checklist",
             "",
-            "This checklist is for PR #286 seed/data apply execution.",
+            "This checklist is for PR #286 follow-up narrowed to seed manifest discovery and import-audit scaffolding.",
             "",
-            "- Confirm the explicit PR #286 approval token is present before execution.",
+            "- Confirm the explicit approval token is present before any audit-scaffold execution.",
             "- Confirm expected schema sha256 matches `db/postgres/001_init.sql`.",
             "- Confirm expected seed manifest sha256 matches the rendered manifest.",
             "- Confirm `db/schema.sql` and `db/postgres/001_init.sql` are byte-identical.",
@@ -170,6 +227,8 @@ def render_operator_checklist_md() -> str:
             "- Confirm `EMPEROR_EVAL_PG_DSN` is supplied only at execution/verification time.",
             "- Confirm no DSN value is copied into logs, PR body, or artifacts.",
             "- Confirm source data files are read-only inputs.",
+            "- Confirm `imports` and `import_rows` are audit tables, not business target migration tables.",
+            "- Confirm target business table writes remain deferred to Epic 1.",
             f"- Current manifest approval status: `{manifest['approval_status']}`.",
             "",
         ]
@@ -221,30 +280,38 @@ def execute_seed_data_apply(
         return report
 
     return {
-        "mode": "seed-data-apply-execution-report",
+        "mode": "seed-data-apply-audit-scaffold-report",
         "pr_number": 286,
         "execution_version": EXECUTION_VERSION,
         "schema_sha256": schema_sha256(),
         "seed_manifest_sha256": manifest["manifest_sha256"],
         "seed_manifest_approved_for_execution": manifest["approved_for_execution"],
+        "audit_scaffold_only": True,
         "dsn_env_name": DSN_ENV_NAME,
         "dsn_value_redacted": True,
         "production_db_connected": True,
         "production_dsn_read": True,
         "source_data_files_modified": False,
         "schema_files_modified": False,
-        **SUCCESS_FLAGS_TRUE,
+        **PERMANENTLY_BLOCKED_SUCCESS_FLAGS,
+        "import_audit_written": bool(apply_result.get("import_audit_written")),
+        "audit_verification_passed": True,
+        "target_business_table_writes_executed": False,
+        "target_business_importer_deferred_to": "Epic 1",
         "apply_result": sanitize_apply_result(apply_result),
         "verification": verification,
         "started_at_utc": started,
         "ended_at_utc": utc_now(),
         "redacted_stdout_summary": [
-            "seed/data apply executed through psycopg",
-            "import audit written",
-            "post-apply verification passed",
+            "canonical seed manifest audit scaffold executed through psycopg",
+            "import audit scaffold written",
+            "audit verification passed",
+            "business target importer remains deferred to Epic 1",
         ],
         "redacted_stderr_summary": [],
-        "blocking_failures": [],
+        "failure_stage": "target_business_importer",
+        "blocked_reason": BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED,
+        "blocking_failures": [BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED],
     }
 
 
@@ -284,15 +351,18 @@ def verify_seed_data_apply_report(
         "seed_data_apply_executed": False,
         "production_data_rows_written": False,
         "import_audit_written": False,
-        "verification_passed": not failures,
+        "verification_passed": False,
         "ready_for_production_migration": False,
+        "audit_verification_passed": not failures,
+        "target_business_table_writes_executed": False,
+        "target_business_importer_deferred_to": "Epic 1",
         "schema_live_apply_verification": schema_verification,
         "verification": verification,
         "started_at_utc": started,
         "ended_at_utc": utc_now(),
-        "redacted_stdout_summary": ["seed/data apply verification executed"],
+        "redacted_stdout_summary": ["import-audit scaffold verification executed"],
         "redacted_stderr_summary": [],
-        "blocking_failures": failures,
+        "blocking_failures": failures + [BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED],
     }
 
 
@@ -302,21 +372,20 @@ def pre_execution_gate(
     expected_seed_manifest_sha256: str | None,
     manifest: Mapping[str, Any],
 ) -> str | None:
-    if require_user_approval_token != APPROVAL_TOKEN:
-        return "blocked_missing_or_invalid_approval_token"
-    if not expected_schema_sha256:
-        return "blocked_missing_expected_schema_sha256"
-    if expected_schema_sha256 != schema_sha256():
-        return "blocked_schema_hash_mismatch"
-    if not expected_seed_manifest_sha256:
-        return "blocked_missing_expected_seed_manifest_sha256"
-    if expected_seed_manifest_sha256 != manifest.get("manifest_sha256"):
-        return "blocked_seed_manifest_hash_mismatch"
-    if not schema_files_byte_identical():
-        return "blocked_schema_files_not_byte_identical"
-    if not manifest.get("approved_for_execution"):
-        return BLOCKED_MISSING_SEED_MANIFEST
-    return None
+    return first_blocking_reason(
+        (
+            (lambda: require_user_approval_token == APPROVAL_TOKEN, "blocked_missing_or_invalid_approval_token"),
+            (lambda: bool(expected_schema_sha256), "blocked_missing_expected_schema_sha256"),
+            (lambda: expected_schema_sha256 == schema_sha256(), "blocked_schema_hash_mismatch"),
+            (lambda: bool(expected_seed_manifest_sha256), "blocked_missing_expected_seed_manifest_sha256"),
+            (
+                lambda: expected_seed_manifest_sha256 == manifest.get("manifest_sha256"),
+                "blocked_seed_manifest_hash_mismatch",
+            ),
+            (schema_files_byte_identical, "blocked_schema_files_not_byte_identical"),
+            (lambda: bool(manifest.get("approved_for_execution")), BLOCKED_MISSING_SEED_MANIFEST),
+        )
+    )
 
 
 def blocked_evidence(
@@ -328,9 +397,6 @@ def blocked_evidence(
     exc: BaseException | None = None,
     dsn: str | None = None,
 ) -> dict[str, Any]:
-    stderr_summary: list[str] = []
-    if exc is not None:
-        stderr_summary.append(redact_text(f"{type(exc).__name__}: {exc}", dsn))
     return {
         "mode": "seed-data-apply-execution-report",
         "pr_number": 286,
@@ -344,13 +410,16 @@ def blocked_evidence(
         "source_data_files_modified": False,
         "schema_files_modified": False,
         **SUCCESS_FLAGS_FALSE,
-        "started_at_utc": started_at_utc,
-        "ended_at_utc": utc_now(),
-        "redacted_stdout_summary": [],
-        "redacted_stderr_summary": stderr_summary,
-        "failure_stage": failure_stage,
-        "blocked_reason": blocked_reason,
-        "blocking_failures": [blocked_reason],
+        "audit_scaffold_only": True,
+        "target_business_table_writes_executed": False,
+        **blocked_report_fields(
+            started_at_utc=started_at_utc,
+            ended_at_utc=utc_now,
+            failure_stage=failure_stage,
+            blocked_reason=blocked_reason,
+            exc=exc,
+            dsn=dsn,
+        ),
     }
 
 
@@ -374,9 +443,9 @@ def apply_seed_manifest(conn: Any, manifest: Mapping[str, Any]) -> dict[str, Any
             """,
             (
                 import_code,
-                "production_seed_data_apply",
+                "seed_manifest_import_audit_scaffold",
                 "repo_seed_manifest",
-                "succeeded",
+                AUDIT_IMPORT_STATUS,
                 EXECUTION_VERSION,
                 manifest["manifest_sha256"],
                 accepted_rows,
@@ -402,17 +471,29 @@ def apply_seed_manifest(conn: Any, manifest: Mapping[str, Any]) -> dict[str, Any
                         import_id,
                         source_path,
                         line_no,
-                        source.get("sha256"),
-                        "accepted",
-                        "import_rows",
-                        json.dumps({"source_file": source_path, "line_no": line_no}, ensure_ascii=False, sort_keys=True),
+                        audit_row_hash(manifest, source, line_no),
+                        AUDIT_IMPORT_ROW_STATUS,
+                        None,
+                        json.dumps(
+                            {
+                                "source_file": source_path,
+                                "line_no": line_no,
+                                "audit_only": True,
+                                "audit_import_status": AUDIT_IMPORT_STATUS,
+                                "audit_row_status": AUDIT_IMPORT_ROW_STATUS,
+                                "payload_hash_scope": "audit_row_identity_not_source_payload",
+                            },
+                            ensure_ascii=False,
+                            sort_keys=True,
+                        ),
                     ),
                 )
     return {
         "import_code": import_code,
-        "accepted_rows": accepted_rows,
+        "audit_rows_written": accepted_rows,
         "import_audit_written": True,
         "source_files": [source["path"] for source in candidates],
+        "target_business_table_writes_executed": False,
     }
 
 
@@ -461,9 +542,9 @@ def verify_seed_data_apply(
     failures: list[str] = []
     if not import_row:
         failures.append("missing_import_audit")
-    elif import_row[1] != "succeeded":
-        failures.append("import_audit_not_succeeded")
-    if apply_result and import_rows_count < int(apply_result.get("accepted_rows", 0)):
+    elif import_row[1] != AUDIT_IMPORT_STATUS:
+        failures.append("import_audit_status_not_dry_run")
+    if apply_result and import_rows_count < int(apply_result.get("audit_rows_written", 0)):
         failures.append("import_rows_below_accepted_rows")
     return {
         "import_code": import_code,
@@ -472,6 +553,8 @@ def verify_seed_data_apply(
         "reported_row_count": int(import_row[2]) if import_row else 0,
         "import_rows_count": import_rows_count,
         "blocking_failures": failures,
+        "audit_tables_only": ["imports", "import_rows"],
+        "target_business_table_writes_executed": False,
         "read_only": True,
     }
 
@@ -493,12 +576,30 @@ def import_code_for_manifest(manifest: Mapping[str, Any]) -> str:
     return f"production_seed_data_apply_pr286_{str(manifest['manifest_sha256'])[:16]}"
 
 
+def audit_row_hash(manifest: Mapping[str, Any], source: Mapping[str, Any], line_no: int) -> str:
+    return stable_json_sha256(
+        {
+            "manifest_sha256": manifest.get("manifest_sha256"),
+            "source_file": source.get("path"),
+            "source_file_sha256": source.get("sha256"),
+            "line_no": line_no,
+            "scope": "audit_row_identity_not_source_payload",
+        }
+    )
+
+
 def audit_manifest_meta(manifest: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "manifest_version": manifest.get("manifest_version"),
         "manifest_kind": manifest.get("manifest_kind"),
         "candidate_source_count": manifest.get("candidate_source_count"),
         "candidate_sources": manifest.get("candidate_sources", []),
+        "excluded_discovery_source_count": manifest.get("excluded_discovery_source_count", 0),
+        "excluded_discovery_note": manifest.get("excluded_discovery_note"),
+        "audit_import_status": AUDIT_IMPORT_STATUS,
+        "audit_row_status": AUDIT_IMPORT_ROW_STATUS,
+        "audit_only": True,
+        "business_target_migration": False,
         "redacted": True,
     }
 
@@ -506,9 +607,10 @@ def audit_manifest_meta(manifest: Mapping[str, Any]) -> dict[str, Any]:
 def sanitize_apply_result(apply_result: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "import_code": apply_result.get("import_code"),
-        "accepted_rows": apply_result.get("accepted_rows"),
+        "audit_rows_written": apply_result.get("audit_rows_written"),
         "import_audit_written": apply_result.get("import_audit_written"),
         "source_files": apply_result.get("source_files", []),
+        "target_business_table_writes_executed": False,
     }
 
 
@@ -534,33 +636,19 @@ def read_dsn() -> str | None:
 
 
 def schema_file_fingerprints() -> list[dict[str, Any]]:
-    fingerprints: list[dict[str, Any]] = []
-    for path in SCHEMA_PATHS:
-        raw = path.read_bytes()
-        text = raw.decode("utf-8")
-        fingerprints.append(
-            {
-                "path": relative_path(path),
-                "sha256": hashlib.sha256(raw).hexdigest(),
-                "line_count": len(text.splitlines()),
-                "read_only": True,
-            }
-        )
-    return fingerprints
+    return file_fingerprints(SCHEMA_PATHS, root=ROOT)
 
 
 def schema_sha256() -> str:
-    return hashlib.sha256(POSTGRES_SQL_PATH.read_bytes()).hexdigest()
+    return file_sha256(POSTGRES_SQL_PATH)
 
 
 def schema_files_byte_identical() -> bool:
-    return SCHEMA_SQL_PATH.read_bytes() == POSTGRES_SQL_PATH.read_bytes()
+    return files_byte_identical(SCHEMA_SQL_PATH, POSTGRES_SQL_PATH)
 
 
 def stable_sha256(payload: Mapping[str, Any]) -> str:
-    without_hash = {key: value for key, value in payload.items() if key != "manifest_sha256"}
-    encoded = json.dumps(without_hash, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
+    return stable_json_sha256(payload, omit_key="manifest_sha256")
 
 
 def count_non_empty_lines(text: str) -> int:
@@ -587,16 +675,15 @@ def lint_execution_report(report: Mapping[str, Any]) -> dict[str, Any]:
     failed: list[str] = []
     if contains_secret_material(text):
         failed.append("secret_material_present")
+    for key in PERMANENTLY_BLOCKED_SUCCESS_FLAGS:
+        if report.get(key) is True:
+            failed.append(f"{key}_true_in_audit_scaffold")
     if report.get("seed_data_apply_executed") is False and report.get("verification_passed") is True:
         failed.append("blocked_report_claims_verification_success")
     if report.get("seed_data_apply_executed") is False and not report.get("blocking_failures"):
         failed.append("blocked_report_missing_blocking_failures")
-    if report.get("ready_for_production_migration") is True:
-        required = all(report.get(key) is True for key in SUCCESS_FLAGS_TRUE)
-        if not required or report.get("blocking_failures"):
-            failed.append("ready_for_production_migration_true_without_success_gates")
     if report.get("seed_data_apply_executed") is True:
-        for key in ("production_data_rows_written", "import_audit_written", "verification_passed"):
+        for key in ("production_data_rows_written", "verification_passed"):
             if report.get(key) is not True:
                 failed.append(f"executed_without_{key}")
     return {
@@ -617,16 +704,18 @@ def build_adr_check(adr_path: Path = ADR_PATH) -> dict[str, Any]:
         }
     content = normalize_text(adr_path.read_text(encoding="utf-8"))
     required = {
-        "declares_execution_pr": "seed/data apply execution pr",
-        "declares_user_approval": "已授权",
+        "declares_audit_scaffold": "import-audit scaffold",
+        "declares_audit_only_status": "audit-only",
         "allows_dsn_read": "allows dsn read",
         "allows_db_connect": "allows db connect",
         "manifest_hash_gate": "expected_seed_manifest_sha256",
         "schema_live_dependency": "pr #285 schema live apply",
         "missing_manifest_fail_closed": BLOCKED_MISSING_SEED_MANIFEST,
+        "audit_tables_boundary": "are audit tables",
+        "business_target_deferred": "epic 1",
         "no_secret_logging": "does not log dsn",
         "no_source_data_modification": "does not modify source data",
-        "no_success_forgery": "must not fake success",
+        "no_success_forgery": "must not fake migration success",
     }
     failed = [rule for rule, needle in required.items() if needle not in content]
     return {
@@ -645,20 +734,6 @@ def load_report_arg(value: str) -> dict[str, Any]:
     return json.loads(value)
 
 
-def contains_secret_material(text: str) -> bool:
-    lowered = text.lower()
-    return any(token in lowered for token in ("postgres://", "postgresql://", "password=", "pwd="))
-
-
-def redact_text(text: str, dsn: str | None = None) -> str:
-    redacted = text
-    if dsn:
-        redacted = redacted.replace(dsn, "<redacted-dsn>")
-    redacted = re.sub(r"postgres(?:ql)?://\S+", "<redacted-dsn>", redacted, flags=re.IGNORECASE)
-    redacted = re.sub(r"(password|pwd)=([^\\s]+)", r"\1=<redacted>", redacted, flags=re.IGNORECASE)
-    return redacted
-
-
 def normalize_text(text: str) -> str:
     return " ".join(text.lower().split())
 
@@ -668,7 +743,7 @@ def utc_now() -> str:
 
 
 def relative_path(path: Path) -> str:
-    return path.relative_to(ROOT).as_posix()
+    return core_relative_path(ROOT, path)
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:
@@ -721,7 +796,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         report = build_adr_check()
     sys.stdout.write(report_as_json(report))
     sys.stdout.write("\n")
-    if report.get("mode") in {"seed-data-apply-execution-report", "seed-data-apply-verification-report"}:
+    if report.get("mode") in {
+        "seed-data-apply-execution-report",
+        "seed-data-apply-audit-scaffold-report",
+        "seed-data-apply-verification-report",
+    }:
         return 0 if not report.get("blocking_failures") else 1
     if report.get("failed"):
         return 1

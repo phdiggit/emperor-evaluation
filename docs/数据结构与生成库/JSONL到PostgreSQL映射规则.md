@@ -2,6 +2,22 @@
 
 本文档是 canonical JSONL 主表进入 PostgreSQL staging/target 的契约入口。当前仓库仍以 JSONL 为写源，本规则不迁移 JSONL、不切换写源、不写业务事实表，也不生成 evidence card、分值、排名或裁判发布结果。
 
+当前统一状态口径：
+
+```yaml
+current_phase: platform-schema-live-data-not-cutover
+canonical_write_source: jsonl
+postgres_schema_live: true
+postgres_business_data_migrated: false
+jsonl_write_frozen: false
+postgres_unique_write_source: false
+production_runtime_live: false
+formal_scoring_released: false
+formal_ranking_released: false
+```
+
+`imports` / `import_rows` 是导入审计表和 staging 原型输入，不等于业务 target migration；文件级 SHA 只能证明源文件或审计包身份，不能伪装成逐行 payload hash。真实 target importer、逐行 payload hash、业务 target table 写入和 reconciliation 留给 Epic 1 的 G1 canonical manifest approval 之后处理。
+
 `scripts/platform/jsonl_target_mapping.py --contract-report` 输出机器可读 JSON report，用来暴露每个 canonical 文件的 target 倾向、direct 字段、payload 字段、reference risk、staging-only 边界、缺失 code、重复 code、未知字段和解析错误。该工具默认不连接 PostgreSQL，不访问公网，不依赖 `psql`，也不读取 `data/batches/**` 或 `archive/data/**`。
 
 `scripts/platform/jsonl_staging_mapper.py` 复用本契约，从 `import_rows.payload` 生成隔离 schema 内的 staging row。它仍不迁移 JSONL、不切换写源、不写正式 target business tables；`--contract-report` 只给本地聚合报告，`--apply` 才读取 `EMPEROR_EVAL_PG_DSN` 并连接本地 PostgreSQL。

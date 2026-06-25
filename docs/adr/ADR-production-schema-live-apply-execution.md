@@ -40,7 +40,7 @@ production_seed_executed=false
 seed_apply_executed=false
 ready_for_live_apply=false
 ready_for_production_migration=false
-future_seed_apply_pr_required=true
+future_target_importer_gate_required=true
 ```
 
 ## Non-Goals
@@ -64,5 +64,5 @@ future_seed_apply_pr_required=true
 
 ## Future Work
 
-- Future seed apply PR required.
-- Seed/data apply remains a separate later PR.
+- Future target importer gate required.
+- Seed/data apply and business target writes remain separate Epic 1 work.

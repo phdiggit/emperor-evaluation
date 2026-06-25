@@ -30,5 +30,6 @@
 | 长期业务规则正文 | 对应 `docs/` 功能目录 |
 | docs 生命周期、引用和候选动作 | `docs_registry.json` |
 | scripts 当前实现路径、retired wrapper 和 required tests | `scripts_registry.json` |
+| platform 脚本 capability、lifecycle、risk、sunset 和 public CLI 状态 | `scripts_registry.json` 的 `platform_modules` |
 | scripts 协作和目录规范 | `../展示与协作/scripts目录规范.md` |
 | 仓库级边界和安全规则 | 根 `AGENTS.md` |

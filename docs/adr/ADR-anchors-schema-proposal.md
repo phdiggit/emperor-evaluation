@@ -153,7 +153,7 @@ The contract report must stay offline, must not read `.env`, must not connect to
 
 ## Future Work
 
-- PR #255 can define an anchors resolver contract.
-- A later PR can decide whether `anchor_terms` belongs in the core target surface.
-- A later migration PR can propose PostgreSQL DDL after resolver semantics are reviewed.
-- A later mapper PR can convert reviewed resolver output into target writes.
+- Resolver and mapper follow-up work is now tracked by Epic / Milestone / Gate labels rather than fixed future PR numbers.
+- A later gate can decide whether `anchor_terms` belongs in the core target surface.
+- A later migration gate can propose PostgreSQL DDL after resolver semantics are reviewed.
+- A later mapper gate can convert reviewed resolver output into target writes.

@@ -13,6 +13,19 @@ if str(ROOT) not in sys.path:
 
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
+CURRENT_STATE = {
+    "current_phase": "platform-schema-live-data-not-cutover",
+    "canonical_write_source": "jsonl",
+    "postgres_schema_live": True,
+    "postgres_business_data_migrated": False,
+    "sqlite_build_operational": False,
+    "full_pytest_operational": False,
+    "jsonl_write_frozen": False,
+    "postgres_unique_write_source": False,
+    "production_runtime_live": False,
+    "formal_scoring_released": False,
+    "formal_ranking_released": False,
+}
 COMPLETED_CHAIN = [
     "canonical_jsonl",
     "import_rows_dry_run",
@@ -27,6 +40,8 @@ COMPLETED_CHAIN = [
     "anchors_schema_proposal",
     "anchors_resolver_contract",
     "anchors_target_mapper_prototype",
+    "production_schema_live_apply",
+    "production_seed_manifest_import_audit_scaffold",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -47,6 +62,7 @@ def build_contract_report() -> dict[str, Any]:
     return {
         "mode": "contract-report",
         "checkpoint_version": CHECKPOINT_VERSION,
+        "current_state": dict(CURRENT_STATE),
         "completed_chain": list(COMPLETED_CHAIN),
         "prototype_tools": [
             {
@@ -103,10 +119,21 @@ def build_contract_report() -> dict[str, Any]:
             "apply_smoke_uses_primary_dsn_only_when_opted_in",
             "apply_smoke_uses_random_isolated_schema_and_drop_cleanup",
         ],
-        "next_batches": [
-            "postgresql_formal_migration_adr",
-            "jsonl_to_target_cutover_plan",
-            "rollback_backup_seed_strategy",
+        "next_epic_gates": [
+            "epic_1_g1_canonical_manifest_approval",
+            "epic_1_target_importer_parser_resolver",
+            "epic_1_write_source_cutover_decision",
+        ],
+        "baseline_repair_tracking": {
+            "sqlite_build_operational": False,
+            "full_pytest_operational": False,
+            "blocked_command": "python scripts/build/build_db.py",
+            "blocking_symptom": "build_db executes db/schema.sql through SQLite while schema is PostgreSQL-oriented",
+            "required_follow_up": "Epic 0 SQLite build baseline repair PR before marking operational",
+        },
+        "deprecated_route_markers": [
+            "do_not_use_fixed_future_pr_numbers_for_architecture_route",
+            "seed_data_apply_success_deferred_until_business_target_writes_exist",
         ],
         "known_ci_history": [
             {

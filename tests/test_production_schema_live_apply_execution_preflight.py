@@ -201,8 +201,8 @@ def test_future_live_apply_pr_body_template_is_blocked_by_default() -> None:
         "It does not execute production seed.",
         "ready_for_live_apply=false.",
         "ready_for_production_migration=false.",
-        "Future live apply execution PR remains required.",
-        "Future seed apply PR remains required.",
+        "Live apply execution gate has since been completed by #285.",
+        "Epic 1 target importer gate remains required.",
     ]:
         assert needle in body
     for forbidden in [

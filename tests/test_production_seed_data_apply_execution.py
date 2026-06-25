@@ -35,7 +35,7 @@ def approved_manifest() -> dict[str, object]:
         "source_roots": ["data"],
         "redaction": {"contains_row_payloads": False, "contains_secret_material": False},
     }
-    manifest["manifest_sha256"] = seed.stable_sha256(manifest)
+    manifest["manifest_sha256"] = seed.stable_sha256(seed.seed_manifest_hash_basis(manifest))
     return manifest
 
 
@@ -61,8 +61,42 @@ def test_seed_manifest_defaults_to_fail_closed_without_approved_canonical_source
 
     assert manifest["approved_for_execution"] is False
     assert manifest["approval_status"] == seed.BLOCKED_MISSING_SEED_MANIFEST
-    assert manifest["manifest_sha256"] == seed.stable_sha256(manifest)
+    assert manifest["manifest_sha256"] == seed.stable_sha256(seed.seed_manifest_hash_basis(manifest))
     assert manifest["redaction"]["contains_row_payloads"] is False
+    assert all("/batches/" not in source["path"] for source in manifest["candidate_sources"])
+    assert all(not source["path"].startswith("archive/data/") for source in manifest["candidate_sources"])
+    assert "excluded_discovery_sources" not in seed.seed_manifest_hash_basis(manifest)
+
+
+def test_batch_and_archive_discovery_do_not_affect_seed_manifest_hash() -> None:
+    manifest = seed.build_seed_manifest()
+    altered = dict(manifest)
+    altered["excluded_discovery_sources"] = [
+        {
+            "path": "archive/data/not-canonical.jsonl",
+            "sha256": "0" * 64,
+            "byte_count": 1,
+            "line_count": 1,
+            "detected_logical_kind": "excluded",
+            "read_only": True,
+        }
+    ]
+    altered["excluded_discovery_source_count"] = 1
+
+    assert manifest["excluded_discovery_source_count"] >= 0
+    assert seed.stable_sha256(seed.seed_manifest_hash_basis(altered)) == manifest["manifest_sha256"]
+
+
+def test_import_audit_status_constants_match_postgres_schema_contract() -> None:
+    sql = seed.POSTGRES_SQL_PATH.read_text(encoding="utf-8")
+
+    assert seed.AUDIT_IMPORT_STATUS == "dry_run"
+    assert seed.AUDIT_IMPORT_ROW_STATUS == "skipped"
+    assert "CONSTRAINT import_status_ck CHECK (status IN ('running', 'succeeded', 'failed', 'dry_run'))" in sql
+    assert (
+        "CONSTRAINT irow_status_ck CHECK (import_status IN ('pending', 'accepted', 'rejected', 'skipped', 'error'))"
+        in sql
+    )
 
 
 def test_execute_requires_token_schema_hash_and_manifest_hash(monkeypatch) -> None:
@@ -79,6 +113,21 @@ def test_execute_requires_token_schema_hash_and_manifest_hash(monkeypatch) -> No
 
     report = seed.execute_seed_data_apply(seed.APPROVAL_TOKEN, seed.schema_sha256(), "0" * 64)
     assert "blocked_seed_manifest_hash_mismatch" in report["blocking_failures"]
+
+
+def test_pre_execution_gate_is_lazy_fail_first(monkeypatch) -> None:
+    manifest = approved_manifest()
+
+    def fail_later_check() -> str:
+        raise AssertionError("later gate checks must not run after the first failure")
+
+    monkeypatch.setattr(seed, "schema_sha256", fail_later_check)
+    monkeypatch.setattr(seed, "schema_files_byte_identical", lambda: fail_later_check())
+
+    assert (
+        seed.pre_execution_gate(None, "expected-schema", str(manifest["manifest_sha256"]), manifest)
+        == "blocked_missing_or_invalid_approval_token"
+    )
 
 
 def test_execute_blocks_missing_seed_manifest_before_dsn(monkeypatch) -> None:
@@ -147,7 +196,7 @@ def test_evidence_redacts_dsn_and_password(monkeypatch) -> None:
     assert report["seed_data_apply_executed"] is False
 
 
-def test_successful_execute_uses_mock_connection_and_writes_import_audit(monkeypatch) -> None:
+def test_execute_uses_mock_connection_for_import_audit_scaffold_without_business_success(monkeypatch) -> None:
     manifest = approved_manifest()
     conn = FakeConnection(schema_tables=[(table,) for table in seed.REQUIRED_SCHEMA_LIVE_TABLES])
     monkeypatch.setattr(seed, "build_seed_manifest", lambda: manifest)
@@ -156,14 +205,25 @@ def test_successful_execute_uses_mock_connection_and_writes_import_audit(monkeyp
 
     report = seed.execute_seed_data_apply(seed.APPROVAL_TOKEN, seed.schema_sha256(), str(manifest["manifest_sha256"]))
 
-    assert report["seed_data_apply_executed"] is True
-    assert report["production_data_rows_written"] is True
+    assert report["mode"] == "seed-data-apply-audit-scaffold-report"
+    assert report["seed_data_apply_executed"] is False
+    assert report["production_data_rows_written"] is False
     assert report["import_audit_written"] is True
-    assert report["verification_passed"] is True
-    assert report["ready_for_production_migration"] is True
+    assert report["verification_passed"] is False
+    assert report["audit_verification_passed"] is True
+    assert report["ready_for_production_migration"] is False
+    assert report["target_business_table_writes_executed"] is False
+    assert seed.BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED in report["blocking_failures"]
     assert conn.committed is True
     assert any("INSERT INTO imports" in query for query, _params in conn.executed)
     assert any("INSERT INTO import_rows" in query for query, _params in conn.executed)
+    import_params = [params for query, params in conn.executed if "INSERT INTO imports" in query]
+    assert import_params
+    assert all(params[3] == seed.AUDIT_IMPORT_STATUS for params in import_params if isinstance(params, tuple))
+    import_row_params = [params for query, params in conn.executed if "INSERT INTO import_rows" in query]
+    assert import_row_params
+    assert all(params[5] == seed.AUDIT_IMPORT_ROW_STATUS for params in import_row_params if isinstance(params, tuple))
+    assert all(params[6] is None for params in import_row_params if isinstance(params, tuple))
 
 
 def test_verify_report_does_not_claim_execution(monkeypatch) -> None:
@@ -178,7 +238,9 @@ def test_verify_report_does_not_claim_execution(monkeypatch) -> None:
     assert report["seed_data_apply_executed"] is False
     assert report["production_data_rows_written"] is False
     assert report["import_audit_written"] is False
-    assert report["verification_passed"] is True
+    assert report["verification_passed"] is False
+    assert report["audit_verification_passed"] is True
+    assert seed.BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED in report["blocking_failures"]
 
 
 def test_verification_query_builder_is_read_only() -> None:
@@ -210,7 +272,7 @@ def test_lint_rejects_secret_material_false_success_and_unsafe_ready() -> None:
 
     unsafe_ready = dict(blocked)
     unsafe_ready["ready_for_production_migration"] = True
-    assert "ready_for_production_migration_true_without_success_gates" in seed.lint_execution_report(unsafe_ready)["failed"]
+    assert "ready_for_production_migration_true_in_audit_scaffold" in seed.lint_execution_report(unsafe_ready)["failed"]
 
 
 def test_cli_safe_modes_output_expected_modes() -> None:
@@ -318,7 +380,11 @@ class FakeCursor:
         if "SELECT code, status, row_count" in self.last_query:
             if not self.conn.audit_present:
                 return None
-            return (self.conn.import_code or "production_seed_data_apply_pr286_test", "succeeded", self.conn.import_row_count)
+            return (
+                self.conn.import_code or "production_seed_data_apply_pr286_test",
+                seed.AUDIT_IMPORT_STATUS,
+                self.conn.import_row_count,
+            )
         if "SELECT count(*)" in self.last_query:
             return (self.conn.import_row_count,)
         return None
