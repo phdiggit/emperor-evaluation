@@ -1568,6 +1568,41 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/schema_change_approval_gate_package.py",
+        "tests/test_schema_change_approval_gate_package.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-schema-change-approval-gate-package.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Schema-change approval gate package ADR is an approval-gate-only platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Defines the schema-change approval gate package contract, human approval request template, blocked-by-default future schema-changing PR body template, non-approval flags, read-only schema hash and line-count inspection, and future explicit approval boundary without modifying schema files or emitting executable artifacts.",
+      "referenced_by_tests": [
+        "tests/test_schema_change_approval_gate_package.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Schema-Change Approval Gate Package",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/schema_change_approval_gate_package.py",
+        "tests/test_schema_change_approval_gate_package.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
