@@ -379,6 +379,7 @@ def test_check_validates_public_experience_policy_when_enabled(tmp_path: Path) -
     repo = init_repo(tmp_path)
     seed_repo(repo)
     write(repo / "docs" / "adr" / "ADR-test.md", "# English only\n\nStatus: Accepted / ADR\n\nNo Chinese prose.\n")
+    write(repo / "docs" / "数据结构与生成库" / "史源数据平台架构ADR.md", "# 史源数据平台架构\n\n中文正文。\n")
     write(
         repo / "docs" / "中文代码块.md",
         "# 中文代码块\n\n中文正文。\n\n```text\nStatus: Accepted / ADR\nDecision: example only\n```\n",
@@ -404,6 +405,10 @@ def test_check_validates_public_experience_policy_when_enabled(tmp_path: Path) -
     assert any("docs/adr/ADR-test.md: current docs/adr is closed" in p for p in problems)
     assert any("docs/adr/ADR-test.md: human-facing Markdown filename must contain Chinese characters" in p for p in problems)
     assert any("docs/adr/ADR-test.md: human-facing Markdown filename must not contain ADR" in p for p in problems)
+    assert any(
+        "docs/数据结构与生成库/史源数据平台架构ADR.md: human-facing Markdown filename must not contain ADR" in p
+        for p in problems
+    )
     assert any("docs/adr/ADR-test.md: human-facing Markdown body must contain Chinese prose" in p for p in problems)
     assert any("docs/adr/ADR-test.md: human-facing Markdown body contains English governance/ADR prose marker" in p for p in problems)
     assert not any(problem.startswith("docs/中文代码块.md:") for problem in problems)
