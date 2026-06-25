@@ -71,9 +71,9 @@ def test_adr_files_exist_and_are_proposed() -> None:
     report = production_readiness_plan.build_contract_report()
 
     assert report["adr_files"] == [
-        "docs/adr/ADR-postgres-formal-migration-plan.md",
-        "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
-        "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+        "archive/docs/adr/ADR-postgres-formal-migration-plan.md",
+        "archive/docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+        "archive/docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
     ]
     for rel_path in report["adr_files"]:
         path = ROOT / rel_path

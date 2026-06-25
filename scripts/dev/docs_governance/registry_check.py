@@ -19,6 +19,27 @@ from .paths import (
 )
 
 
+def _strip_markdown_fenced_code(text: str) -> str:
+    visible_lines: list[str] = []
+    in_fence = False
+    fence_marker = ""
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        marker = stripped[:3]
+        if marker in {"```", "~~~"}:
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker
+            elif marker == fence_marker:
+                in_fence = False
+                fence_marker = ""
+            visible_lines.append("")
+            continue
+        if not in_fence:
+            visible_lines.append(line)
+    return "\n".join(visible_lines)
+
+
 def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False) -> list[str]:
     problems: list[str] = []
     registry_file = _resolve_repo_path(registry_path)
@@ -220,6 +241,111 @@ def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False)
     for extra in sorted(actual_docs - expected_docs):
         mode = "worktree" if worktree else "tracked"
         problems.append(f"{extra}: registry path is not a {mode} docs file")
+
+    public_policy = registry.get("docs_public_experience_policy") or {}
+    if public_policy and not isinstance(public_policy, dict):
+        problems.append(f"{registry_path}: docs_public_experience_policy must be an object")
+        public_policy = {}
+    enforce_current_adr_closed = public_policy.get("current_adr_root_closed") is True
+    enforce_chinese_filenames = public_policy.get("human_markdown_filename_requires_chinese") is True
+    enforce_chinese_body = public_policy.get("human_markdown_body_requires_chinese") is True
+    density_threshold = int(public_policy.get("module_density_threshold", c.MODULE_DENSITY_THRESHOLD))
+    technical_filename_exceptions_raw = public_policy.get("technical_filename_exceptions", sorted(c.TECHNICAL_DOC_FILENAMES))
+    if not isinstance(technical_filename_exceptions_raw, list) or not all(
+        isinstance(item, str) for item in technical_filename_exceptions_raw
+    ):
+        problems.append(f"{registry_path}: technical_filename_exceptions must be a list of strings")
+        technical_filename_exceptions_raw = sorted(c.TECHNICAL_DOC_FILENAMES)
+    technical_filename_exceptions = set(technical_filename_exceptions_raw) | c.TECHNICAL_DOC_FILENAMES
+    english_marker_exceptions_raw = public_policy.get("english_prose_marker_exceptions", [])
+    if not isinstance(english_marker_exceptions_raw, list) or not all(
+        isinstance(item, str) for item in english_marker_exceptions_raw
+    ):
+        problems.append(f"{registry_path}: english_prose_marker_exceptions must be a list of strings")
+        english_marker_exceptions_raw = []
+    english_marker_exceptions = set(english_marker_exceptions_raw)
+
+    current_markdown_docs = sorted(path for path in current_docs if path.endswith(".md"))
+    direct_module_counts: dict[str, int] = defaultdict(int)
+    for path in current_markdown_docs:
+        if enforce_current_adr_closed and path.startswith(c.CURRENT_ADR_ROOT):
+            problems.append(f"{path}: current docs/adr is closed; move ADR history to archive/docs/adr or merge into a Chinese module document")
+        filename = path.rsplit("/", 1)[-1]
+        filename_has_exception = filename in technical_filename_exceptions or path in technical_filename_exceptions
+        if enforce_chinese_filenames and not filename_has_exception:
+            if not c.CJK_RE.search(filename):
+                problems.append(f"{path}: human-facing Markdown filename must contain Chinese characters")
+            if c.ADR_FILENAME_RE.search(filename):
+                problems.append(f"{path}: human-facing Markdown filename must not contain ADR unless listed in technical_filename_exceptions")
+        if enforce_chinese_body:
+            try:
+                text = _resolve_repo_path(path).read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                problems.append(f"{path}: Markdown file must be UTF-8")
+                text = ""
+            if text and not c.CJK_RE.search(text):
+                problems.append(f"{path}: human-facing Markdown body must contain Chinese prose")
+            if text and path not in english_marker_exceptions:
+                visible_text = _strip_markdown_fenced_code(text)
+                for marker_name, marker_re in c.ENGLISH_GOVERNANCE_PROSE_MARKERS:
+                    if marker_re.search(visible_text):
+                        problems.append(
+                            f"{path}: human-facing Markdown body contains English governance/ADR prose marker outside code blocks: {marker_name}"
+                        )
+        parts = path.split("/")
+        if len(parts) == 3:
+            direct_module_counts["/".join(parts[:2])] += 1
+
+    density_reviews = registry.get("docs_module_density_reviews", [])
+    if not isinstance(density_reviews, list):
+        problems.append(f"{registry_path}: docs_module_density_reviews must be a list")
+        density_reviews = []
+    density_by_module: dict[str, dict[str, Any]] = {}
+    for review in density_reviews:
+        if not isinstance(review, dict):
+            problems.append(f"{registry_path}: docs_module_density_reviews entries must be objects")
+            continue
+        module_path = review.get("module_path")
+        if not isinstance(module_path, str) or not module_path.startswith("docs/"):
+            problems.append(f"{registry_path}: docs_module_density_reviews entries require module_path under docs/")
+            continue
+        density_by_module[module_path] = review
+        if review.get("review_status") != "reviewed":
+            problems.append(f"{module_path}: density review must use review_status=reviewed")
+        if not str(review.get("decision") or "").strip():
+            problems.append(f"{module_path}: density review requires non-empty decision")
+    for module_path, count in sorted(direct_module_counts.items()):
+        if count <= density_threshold:
+            continue
+        review = density_by_module.get(module_path)
+        if review is None:
+            problems.append(f"{module_path}: {count} direct Markdown files exceeds {density_threshold} without density review")
+            continue
+        if review.get("direct_markdown_count") != count:
+            problems.append(f"{module_path}: density review direct_markdown_count must be {count}")
+
+    topic_reviews = registry.get("docs_topic_family_reviews", [])
+    if not isinstance(topic_reviews, list):
+        problems.append(f"{registry_path}: docs_topic_family_reviews must be a list")
+        topic_reviews = []
+    for review in topic_reviews:
+        if not isinstance(review, dict):
+            problems.append(f"{registry_path}: docs_topic_family_reviews entries must be objects")
+            continue
+        family_name = str(review.get("family_name") or "").strip()
+        paths = review.get("paths")
+        if not family_name:
+            problems.append(f"{registry_path}: docs_topic_family_reviews entries require family_name")
+        if not isinstance(paths, list) or not paths:
+            problems.append(f"{family_name or registry_path}: topic family review requires non-empty paths")
+            continue
+        for path in paths:
+            if path not in current_markdown_docs:
+                problems.append(f"{family_name}: topic family path is not a current Markdown doc: {path}")
+        if len(paths) > 3 and review.get("review_status") != "reviewed":
+            problems.append(f"{family_name}: topic family with more than 3 docs requires review_status=reviewed")
+        if not str(review.get("decision") or "").strip():
+            problems.append(f"{family_name}: topic family review requires non-empty decision")
 
     exact_groups: dict[str, list[str]] = defaultdict(list)
     for doc in documents:

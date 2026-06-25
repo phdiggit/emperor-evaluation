@@ -26,7 +26,7 @@ from scripts.platform.formal_schema_draft import BLOCKED_REPORT_TERMS  # noqa: E
 
 
 FREEZE_VERSION = "production-migration-freeze-checklist-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-migration-freeze-checklist.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-freeze-checklist.md"
 FREEZE_STATUS = "Proposed"
 SQL_CLIENT = "p" + "sql"
 LEGACY_ENV_DSN = "PG_SEARCH" + "_BENCH_DSN"

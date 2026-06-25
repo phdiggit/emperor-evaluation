@@ -9,7 +9,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-pr-prep-pack.md"
 PREP_PACK_VERSION = "schema-change-pr-prep-pack-v1"
 PREP_PACK_STATUS = "Proposed / Preparation pack only"
 SQL_CLIENT = "p" + "sql"

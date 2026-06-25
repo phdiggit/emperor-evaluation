@@ -217,7 +217,7 @@ def test_lint_fails_if_sql_client_or_shell_out_instruction_appears() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-schema-change-candidate-review-bundle.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-candidate-review-bundle.md"
 
     assert path.is_file()
     check = bundle.build_adr_check(path)
@@ -229,7 +229,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_if_approval_or_ready_claim_is_injected(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-schema-change-candidate-review-bundle.md"
-    base = (ROOT / "docs" / "adr" / "ADR-schema-change-candidate-review-bundle.md").read_text(encoding="utf-8")
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-candidate-review-bundle.md").read_text(encoding="utf-8")
     for injected in ["schema_change_pr_approved=true", "ready_for_schema_change_pr=true"]:
         adr.write_text(base + f"\n\n{injected}\n", encoding="utf-8")
         check = bundle.build_adr_check(adr)

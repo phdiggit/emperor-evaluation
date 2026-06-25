@@ -25,7 +25,7 @@ from scripts.platform.formal_schema_draft import BLOCKED_REPORT_TERMS  # noqa: E
 
 
 BUNDLE_VERSION = "migration-bundle-review-pack-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-migration-bundle-review-pack.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-migration-bundle-review-pack.md"
 BUNDLE_STATUS = "Proposed"
 SQL_CLIENT = "p" + "sql"
 LEGACY_ENV_DSN = "PG_SEARCH" + "_BENCH_DSN"

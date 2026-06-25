@@ -81,8 +81,8 @@ def test_contract_report_includes_sources_and_future_required_prs() -> None:
 
     assert report["mode"] == "contract-report"
     assert report["status"] == "Proposed / Explicit approval request handoff only"
-    assert "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md" in report["source_inputs"]
-    assert "docs/adr/ADR-schema-change-approval-gate-package.md" in report["source_inputs"]
+    assert "archive/docs/adr/ADR-schema-change-explicit-approval-request-handoff.md" in report["source_inputs"]
+    assert "archive/docs/adr/ADR-schema-change-approval-gate-package.md" in report["source_inputs"]
     assert "db/schema.sql" in report["source_inputs"]
     assert "db/postgres/001_init.sql" in report["source_inputs"]
     assert "future schema-changing PR requires explicit user approval outside PR #280" in report["future_required_prs"]
@@ -257,7 +257,7 @@ def test_lint_fails_if_sql_client_shell_out_sql_patch_or_claim_appears() -> None
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-schema-change-explicit-approval-request-handoff.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-explicit-approval-request-handoff.md"
 
     assert path.is_file()
     check = handoff.build_adr_check(path)
@@ -269,7 +269,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_if_approval_or_ready_claim_is_injected(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-schema-change-explicit-approval-request-handoff.md"
-    base = (ROOT / "docs" / "adr" / "ADR-schema-change-explicit-approval-request-handoff.md").read_text(
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-explicit-approval-request-handoff.md").read_text(
         encoding="utf-8"
     )
     for injected in [

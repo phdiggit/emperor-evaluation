@@ -142,7 +142,7 @@ def test_reports_do_not_read_or_render_dsn_values(monkeypatch) -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-production-migration-pr-admission.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-admission.md"
 
     assert path.is_file()
     check = admission.build_adr_check(path)
@@ -153,7 +153,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 
 def test_adr_contains_required_boundaries() -> None:
-    content = (ROOT / "docs" / "adr" / "ADR-production-migration-pr-admission.md").read_text(encoding="utf-8")
+    content = (ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-admission.md").read_text(encoding="utf-8")
     normalized = admission.normalize_text(content)
     for needle in [
         "admission_only=true",
@@ -305,7 +305,7 @@ def test_guard_paths_use_utf8_chinese_names() -> None:
 def _tmp_adr(tmp_path: Path) -> Path:
     adr = tmp_path / "ADR-production-migration-pr-admission.md"
     adr.write_text(
-        (ROOT / "docs" / "adr" / "ADR-production-migration-pr-admission.md").read_text(encoding="utf-8"),
+        (ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-admission.md").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     return adr

@@ -16,9 +16,9 @@ from scripts.platform import platform_chain_checkpoint
 
 PLAN_VERSION = "production-readiness-plan-v1"
 ADR_FILES = (
-    "docs/adr/ADR-postgres-formal-migration-plan.md",
-    "docs/adr/ADR-jsonl-to-target-cutover-plan.md",
-    "docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
+    "archive/docs/adr/ADR-postgres-formal-migration-plan.md",
+    "archive/docs/adr/ADR-jsonl-to-target-cutover-plan.md",
+    "archive/docs/adr/ADR-platform-rollback-backup-seed-strategy.md",
 )
 FORMAL_MIGRATION_PRECONDITIONS = (
     "all contract reports green",

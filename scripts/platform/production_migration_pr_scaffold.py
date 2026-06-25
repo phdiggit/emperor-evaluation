@@ -9,7 +9,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-pr-scaffold.md"
 SCAFFOLD_VERSION = "production-migration-pr-scaffold-v1"
 SCAFFOLD_STATUS = "Proposed / Scaffold only"
 SQL_CLIENT = "p" + "sql"

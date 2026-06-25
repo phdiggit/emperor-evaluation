@@ -295,7 +295,7 @@ def test_lint_fails_if_fingerprint_contains_schema_body() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution-preflight.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-execution-preflight.md"
 
     assert path.is_file()
     check = preflight.build_adr_check(path)
@@ -309,7 +309,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_for_ready_executed_connected_or_completed_claims(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-production-schema-live-apply-execution-preflight.md"
-    base = (ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution-preflight.md").read_text(
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-execution-preflight.md").read_text(
         encoding="utf-8"
     )
     for injected in [

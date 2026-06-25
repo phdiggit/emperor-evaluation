@@ -24,7 +24,7 @@ from scripts.platform import (  # noqa: E402
 
 
 RENDERER_VERSION = "migration-sql-draft-renderer-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-migration-sql-draft-renderer.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-migration-sql-draft-renderer.md"
 DRAFT_STATUS = "Proposed"
 SQL_CLIENT = "p" + "sql"
 PUBLIC_SCHEMA_QUALIFIER = "public" + "."

@@ -9,7 +9,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-schema-change-candidate-review-bundle.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-candidate-review-bundle.md"
 BUNDLE_VERSION = "schema-change-candidate-review-bundle-v1"
 BUNDLE_STATUS = "Proposed / Candidate review bundle only"
 SQL_CLIENT = "p" + "sql"
@@ -21,14 +21,14 @@ SCHEMA_INPUTS = (
     ROOT / "db" / "postgres" / "001_init.sql",
 )
 SOURCE_INPUTS = (
-    "docs/adr/ADR-schema-change-candidate-review-bundle.md",
+    "archive/docs/adr/ADR-schema-change-candidate-review-bundle.md",
     "db/schema.sql",
     "db/postgres/001_init.sql",
 )
 OPTIONAL_CONTEXT_INPUTS = (
-    "docs/adr/ADR-schema-change-pr-prep-pack.md",
-    "docs/adr/ADR-guarded-executable-migration-pr.md",
-    "docs/adr/ADR-production-migration-pr-scaffold.md",
+    "archive/docs/adr/ADR-schema-change-pr-prep-pack.md",
+    "archive/docs/adr/ADR-guarded-executable-migration-pr.md",
+    "archive/docs/adr/ADR-production-migration-pr-scaffold.md",
 )
 SUPPORTED_MODES = (
     "contract-report",

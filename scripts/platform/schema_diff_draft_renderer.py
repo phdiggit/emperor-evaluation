@@ -24,7 +24,7 @@ from scripts.platform import (  # noqa: E402
 
 
 RENDERER_VERSION = "schema-diff-draft-renderer-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-schema-diff-draft-renderer.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-schema-diff-draft-renderer.md"
 DIFF_STATUS = "Proposed"
 SCHEMA_INPUTS = (
     ROOT / "db" / "schema.sql",

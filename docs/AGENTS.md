@@ -27,6 +27,7 @@
 - `docs/皇帝综合评价体系评分标准.md` 是项目驱动文档，也是当前评分业务语义的最高层 canonical spec；下位文档冲突必须显式记录。
 - 普通 docs 清理 PR 不得归档、删除、移动或降级该驱动文档；修订其正文必须另开专门 PR 并经用户明确确认。
 - docs 当前规范层优先保留稳定方法论、说明和规则；实例数据、配置值、当前批次状态和可重建产物应分别回到 `data/`、`data/configs/` 或 `exports/`，并通过 registry 登记迁移预算。
+- 当前层不再使用扁平 `docs/adr/` 目录；历史 ADR 进入 `archive/docs/adr/`，仍有效的平台、schema、迁移、回滚和 seed 决策必须并入所属中文功能模块。
 - Markdown 生成物必须追溯到 generator；不得用手改生成文档代替修改生成器。
 - 生成物不是事实源；若与 `data/*.jsonl`、配置或 generator 冲突，先回到源头核对。
 - 配置说明可以解释结构和维护口径，但不得绕过 validator 或 registry。
@@ -56,6 +57,8 @@
 - 中文 Markdown、JSON 和说明文件默认使用 UTF-8 no BOM。
 - 中文路径和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或仓库工具。
 - 长中文 Markdown 正文避免用 PowerShell inline 字符串写入。
+- 面向用户的当前层 Markdown 文件名和正文默认使用中文；`README.md`、`AGENTS.md` 仅因工具链约定保留技术文件名。
+- 单一当前层功能目录超过 8 份直接 Markdown，或同主题族超过 3 份 active 文档时，必须在 `docs_registry.json` 记录密度或主题族 review。
 
 ## 验证要求
 

@@ -333,7 +333,7 @@ def test_lint_fails_when_source_report_status_is_missing() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-migration-bundle-review-pack.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-migration-bundle-review-pack.md"
 
     assert path.is_file()
     check = bundle.build_adr_check(path)
@@ -344,7 +344,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 
 def test_adr_contains_required_boundaries() -> None:
-    content = (ROOT / "docs" / "adr" / "ADR-migration-bundle-review-pack.md").read_text(encoding="utf-8")
+    content = (ROOT / "archive" / "docs" / "adr" / "ADR-migration-bundle-review-pack.md").read_text(encoding="utf-8")
     normalized = bundle.normalize_text(content)
     for needle in [
         "migration_bundle_review_only=true",
@@ -498,7 +498,7 @@ def test_renderers_do_not_touch_protected_path_mtimes() -> None:
 def _tmp_adr(tmp_path: Path) -> Path:
     adr = tmp_path / "ADR-migration-bundle-review-pack.md"
     adr.write_text(
-        (ROOT / "docs" / "adr" / "ADR-migration-bundle-review-pack.md").read_text(encoding="utf-8"),
+        (ROOT / "archive" / "docs" / "adr" / "ADR-migration-bundle-review-pack.md").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     return adr

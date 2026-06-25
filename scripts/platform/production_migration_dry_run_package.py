@@ -20,7 +20,7 @@ from scripts.platform.formal_schema_draft import BLOCKED_REPORT_TERMS  # noqa: E
 
 
 PACKAGE_VERSION = "production-migration-dry-run-package-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-migration-dry-run-package.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-migration-dry-run-package.md"
 PACKAGE_STATUS = "Proposed"
 SUPPORTED_MODES = ["contract-report", "package-report", "adr-check"]
 PACKAGE_SECTIONS = (
@@ -188,7 +188,7 @@ def build_contract_report() -> dict[str, Any]:
             "production_migration_admission.build_admission_report()",
             "formal_migration_proposal.build_proposal_report()",
             "cutover_readiness_matrix.build_readiness_report(include_db_evidence=False, env={})",
-            "docs/adr/ADR-production-migration-dry-run-package.md",
+            "archive/docs/adr/ADR-production-migration-dry-run-package.md",
         ],
         "package_sections": list(PACKAGE_SECTIONS),
         "dry_run_package_contents": list(DRY_RUN_PACKAGE_CONTENTS),

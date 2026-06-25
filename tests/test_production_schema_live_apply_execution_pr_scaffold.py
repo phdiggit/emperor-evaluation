@@ -265,7 +265,7 @@ def test_execution_scaffold_report_is_clean_when_default() -> None:
 
 
 def test_adr_file_exists_and_check_passes() -> None:
-    path = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution-pr-scaffold.md"
+    path = ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-execution-pr-scaffold.md"
 
     assert path.is_file()
     check = scaffold.build_adr_check(path)
@@ -279,7 +279,7 @@ def test_adr_file_exists_and_check_passes() -> None:
 
 def test_adr_check_fails_for_ready_executed_connected_or_completed_claims(tmp_path: Path) -> None:
     adr = tmp_path / "ADR-production-schema-live-apply-execution-pr-scaffold.md"
-    base = (ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution-pr-scaffold.md").read_text(
+    base = (ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-execution-pr-scaffold.md").read_text(
         encoding="utf-8"
     )
     for injected in [

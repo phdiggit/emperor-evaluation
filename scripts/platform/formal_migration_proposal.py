@@ -16,7 +16,7 @@ from scripts.platform.formal_schema_draft import BLOCKED_REPORT_TERMS  # noqa: E
 
 
 PROPOSAL_VERSION = "formal-migration-proposal-v1"
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-formal-migration-proposal.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-formal-migration-proposal.md"
 PROPOSAL_STATUS = "Proposed"
 NEXT_STAGE = "production_migration_pr_admission_card"
 REQUIRED_PRODUCTION_PR_GATES = (
@@ -121,7 +121,7 @@ def build_contract_report() -> dict[str, Any]:
         "supported_modes": ["contract-report", "proposal-report", "adr-check"],
         "source_reports": [
             "cutover_readiness_matrix.build_readiness_report(include_db_evidence=False)",
-            "docs/adr/ADR-formal-migration-proposal.md",
+            "archive/docs/adr/ADR-formal-migration-proposal.md",
         ],
         "proposal_sections": list(PROPOSAL_SECTIONS),
         "non_goals": list(NON_GOALS),

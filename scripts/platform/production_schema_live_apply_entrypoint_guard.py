@@ -10,7 +10,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-entrypoint-guard.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-entrypoint-guard.md"
 SCHEMA_PATHS = (
     ROOT / "db" / "schema.sql",
     ROOT / "db" / "postgres" / "001_init.sql",
@@ -61,8 +61,8 @@ FORBIDDEN_ACTIONS = (
 SOURCE_INPUTS = (
     "db/schema.sql",
     "db/postgres/001_init.sql",
-    "docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
-    "docs/adr/ADR-schema-changing-formal-schema-update.md",
+    "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+    "archive/docs/adr/ADR-schema-changing-formal-schema-update.md",
 )
 LINT_RULES = (
     "schema_files_exist",

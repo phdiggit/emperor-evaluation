@@ -9,7 +9,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-schema-change-explicit-approval-request-handoff.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-explicit-approval-request-handoff.md"
 HANDOFF_VERSION = "schema-change-explicit-approval-request-handoff-v1"
 HANDOFF_STATUS = "Proposed / Explicit approval request handoff only"
 SQL_CLIENT = "p" + "sql"
@@ -22,10 +22,10 @@ SCHEMA_INPUTS = (
     ROOT / "db" / "postgres" / "001_init.sql",
 )
 SOURCE_INPUTS = (
-    "docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
-    "docs/adr/ADR-schema-change-approval-gate-package.md",
-    "docs/adr/ADR-schema-change-candidate-review-bundle.md",
-    "docs/adr/ADR-schema-change-pr-prep-pack.md",
+    "archive/docs/adr/ADR-schema-change-explicit-approval-request-handoff.md",
+    "archive/docs/adr/ADR-schema-change-approval-gate-package.md",
+    "archive/docs/adr/ADR-schema-change-candidate-review-bundle.md",
+    "archive/docs/adr/ADR-schema-change-pr-prep-pack.md",
     "db/schema.sql",
     "db/postgres/001_init.sql",
 )

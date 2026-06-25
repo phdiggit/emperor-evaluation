@@ -10,7 +10,7 @@ from typing import Any, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "docs" / "adr" / "ADR-schema-changing-formal-schema-update.md"
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-schema-changing-formal-schema-update.md"
 SCHEMA_PATHS = (
     ROOT / "db" / "schema.sql",
     ROOT / "db" / "postgres" / "001_init.sql",
@@ -58,7 +58,7 @@ FORBIDDEN_ACTIONS = (
 SOURCE_INPUTS = (
     "db/schema.sql",
     "db/postgres/001_init.sql",
-    "docs/adr/ADR-schema-changing-formal-schema-update.md",
+    "archive/docs/adr/ADR-schema-changing-formal-schema-update.md",
 )
 EXPECTED_SCHEMA_TABLES = (
     "persons",
