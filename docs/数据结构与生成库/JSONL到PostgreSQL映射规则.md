@@ -191,3 +191,33 @@ risk_summary
 ```
 
 该 report 是 G2 字段/关系映射审批包，不是迁库执行结果。即使 G2 获批，第一次正式业务数据写入仍需 G3。
+
+## 1C Staging Dry-Run & Diff Verification
+
+G2 获批后，Milestone 1C 的离线 staging dry-run / diff verification 入口为：
+
+```bash
+python scripts/platform/jsonl_staging_diff_verification.py --verification-report
+python scripts/platform/jsonl_staging_diff_verification.py --markdown-report
+```
+
+report 的稳定字段包括：
+
+```text
+mode
+verification_version
+gate_status
+next_user_gate
+manifest_matches_g1
+row_count_diffs_by_file
+id_count_diffs_by_file
+file_hashes_by_file
+orphan_reference_report
+staging_report_summary
+reference_diff_report
+lossy_conversion_report
+diff_summary
+boundaries
+```
+
+该 report 复用 G1 manifest、G2 mapping package、staging mapper 与 resolver contract，只证明当前 JSONL 输入在离线 staging / diff 层的行数、ID、hash、orphan、reference risk 与 lossy-conversion 风险可审。它固定为 `NO_NEW_GATE`，不读取生产凭据，不连接 PostgreSQL，不写正式业务表，不冻结 JSONL，也不得推断 production success。进入第一次正式业务数据写入前仍需 G3。

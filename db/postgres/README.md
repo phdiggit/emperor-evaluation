@@ -62,6 +62,15 @@ python scripts/platform/jsonl_postgres_mapping_approval_package.py --markdown-re
 
 该包覆盖已批准 manifest 的 11 个顶层 `data/*.jsonl`。`events.jsonl` 与 `trigger_terms.jsonl` 当前作为 staging-only 输入；thematic anchors 可对齐 `anchors` 基础表候选字段，但 `anchor_links` 正式 target table 与 link 语义仍是后续审批项。进入正式 target business table 仍必须另开 PR，并等待 G2 / G3。
 
+G2 获批后的 1C staging dry-run / diff verification 使用：
+
+```bash
+python scripts/platform/jsonl_staging_diff_verification.py --verification-report
+python scripts/platform/jsonl_staging_diff_verification.py --markdown-report
+```
+
+该包只做离线聚合，核对 manifest row / ID / hash、orphan 引用、staging rows、resolver reference risk 和 lossy conversion 风险，固定为 `NO_NEW_GATE`。它不读取生产凭据、不连接 PostgreSQL、不写正式业务表，也不证明 production success；第一次正式业务数据写入前仍需 G3。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
