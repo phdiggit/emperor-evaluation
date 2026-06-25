@@ -1393,6 +1393,41 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/production_migration_freeze_checklist.py",
+        "tests/test_production_migration_freeze_checklist.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-production-migration-freeze-checklist.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Production migration freeze checklist ADR is a checklist-only platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Defines freeze inputs, machine gates, human sign-off requirements, rollback and seed checksum checklists, and production non-goals before a future production migration PR scaffold without executing production actions.",
+      "referenced_by_tests": [
+        "tests/test_production_migration_freeze_checklist.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Production Migration Freeze Checklist",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/production_migration_freeze_checklist.py",
+        "tests/test_production_migration_freeze_checklist.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
