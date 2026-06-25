@@ -1463,6 +1463,41 @@
       "duplicate_group": null,
       "exact_duplicate_group": null,
       "generator_candidates": [
+        "scripts/platform/guarded_executable_migration_pr.py",
+        "tests/test_guarded_executable_migration_pr.py"
+      ],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
+      "inbound_references": [],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/adr/ADR-guarded-executable-migration-pr.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "Guarded executable migration PR ADR is a proposal-only platform rule document and should remain in the current docs rule layer.",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "Defines the guarded executable migration PR proposal contract, required non-execution flags, blocked-by-default future PR body template, and explicit user approval boundary without connecting to databases or modifying schema files.",
+      "referenced_by_tests": [
+        "tests/test_guarded_executable_migration_pr.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "ADR: Guarded Executable Migration PR Proposal",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json",
+        "scripts/platform/guarded_executable_migration_pr.py",
+        "tests/test_guarded_executable_migration_pr.py"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [
         "scripts/platform/production_readiness_plan.py",
         "tests/test_production_readiness_plan.py"
       ],
