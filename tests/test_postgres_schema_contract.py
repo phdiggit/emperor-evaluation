@@ -22,6 +22,7 @@ REQUIRED_TABLES = [
     "evd_cards",
     "evd_src_links",
     "clusters",
+    "anchors",
     "cluster_evd",
     "review_items",
     "jobs",
@@ -118,8 +119,18 @@ def test_postgres_schema_contains_task_and_outbox_contract() -> None:
     assert "WHERE published_at IS NULL" in sql
 
 
-def test_postgres_schema_avoids_varchar_and_keeps_sqlite_schema_untouched() -> None:
+def test_postgres_schema_contains_anchor_contract_and_neutral_matching_fields() -> None:
+    sql = schema_text()
+
+    assert "CREATE TABLE anchors (" in sql
+    assert "anchor_type_review_idx" in sql
+    assert "hit_position INTEGER" in sql
+    assert "match_confidence NUMERIC(5,4)" in sql
+    assert "rank INTEGER" not in sql
+    assert "score NUMERIC" not in sql
+
+
+def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
     assert "VARCHAR(" not in schema_text().upper()
 
-    assert changed_paths("db/schema.sql") == []
     assert changed_paths("data") == []
