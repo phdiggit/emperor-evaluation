@@ -1120,12 +1120,12 @@
       "id": "platform_production_seed_data_apply_execution",
       "implementation": "scripts/platform/production_seed_data_apply_execution.py",
       "capability": "canonical seed manifest discovery and import-audit scaffold",
-      "lifecycle_status": "transitional",
+      "lifecycle_status": "superseded",
       "epic_owner": "Epic 1",
       "risk_class": "high",
-      "replacement": "Epic 1 target importer and canonical manifest gate",
-      "sunset_milestone": "Epic 1 G1 canonical manifest approval",
-      "last_required_by": "Epic 0 audit scaffold until Epic 1 G1",
+      "replacement": "scripts/platform/canonical_manifest_gate.py and scripts/platform/jsonl_postgres_mapping_approval_package.py",
+      "sunset_milestone": null,
+      "last_required_by": "Historical Epic 0 audit scaffold before G1 approval",
       "public_cli_stable": false
     },
     {
@@ -1210,6 +1210,18 @@
       "replacement": null,
       "sunset_milestone": null,
       "last_required_by": "Epic 1 G1 canonical manifest approval",
+      "public_cli_stable": true
+    },
+    {
+      "id": "platform_jsonl_postgres_mapping_approval_package",
+      "implementation": "scripts/platform/jsonl_postgres_mapping_approval_package.py",
+      "capability": "JSONL to PostgreSQL mapping approval package",
+      "lifecycle_status": "active",
+      "epic_owner": "Epic 1",
+      "risk_class": "high",
+      "replacement": null,
+      "sunset_milestone": null,
+      "last_required_by": "Epic 1 G2 JSONL to PostgreSQL mapping approval",
       "public_cli_stable": true
     },
     {

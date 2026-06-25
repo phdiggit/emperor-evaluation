@@ -63,7 +63,7 @@ def test_contract_report_uses_only_canonical_files_not_batches_or_archive(monkey
     assert report["files_missing"] == []
 
 
-def test_thematic_anchor_files_are_staging_only_without_target_schema() -> None:
+def test_thematic_anchor_files_are_staging_only_with_anchor_links_deferred() -> None:
     report = build_contract_report(source_root=FIXTURE_ROOT)
 
     for relative in [
@@ -74,8 +74,21 @@ def test_thematic_anchor_files_are_staging_only_without_target_schema() -> None:
     ]:
         entry = report["files"][relative]
         assert entry["staging_only"] is True
-        assert "anchors_candidate" in entry["target_tables"]
-        assert entry["blocked_reason"] == "current PostgreSQL schema has no anchors or anchor_links target tables"
+        assert "anchors" in entry["target_tables"]
+        assert "anchor_links_candidate" in entry["target_tables"]
+        assert entry["blocked_reason"] == "current PostgreSQL schema has anchors but no formal anchor_links target table"
+
+
+def test_events_and_trigger_terms_are_mapped_as_staging_only_g2_inputs() -> None:
+    report = build_contract_report(source_root=ROOT)
+
+    assert report["files"]["data/events.jsonl"]["staging_only"] is True
+    assert report["files"]["data/events.jsonl"]["blocked_reason"] == "current PostgreSQL schema has no formal events target table"
+    assert report["files"]["data/trigger_terms.jsonl"]["staging_only"] is True
+    assert report["files"]["data/trigger_terms.jsonl"]["blocked_reason"] == (
+        "current PostgreSQL schema has no formal trigger_terms target table"
+    )
+    assert report["unmapped_files"] == []
 
 
 def test_reference_risk_fields_are_reported_and_recognized() -> None:

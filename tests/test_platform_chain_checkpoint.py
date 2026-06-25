@@ -40,10 +40,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "production_runtime_live": False,
         "formal_scoring_released": False,
         "formal_ranking_released": False,
+        "g1_canonical_manifest_approved": True,
+        "g2_mapping_approved": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
     assert "production_schema_live_apply" in report["completed_chain"]
     assert "production_seed_manifest_import_audit_scaffold" in report["completed_chain"]
+    assert "canonical_manifest_candidate_gate" in report["completed_chain"]
+    assert "jsonl_postgres_mapping_approval_package" in report["completed_chain"]
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]

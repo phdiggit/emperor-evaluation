@@ -206,8 +206,12 @@ def build_contract_report(
     registry = build_decision_registry()
     source_rows = load_source_rows(source_root=source_root, relative_files=relative_files)
     staging_rows = build_staging_rows(source_rows)
-    files_seen = sorted({row.source_file for row in source_rows})
-    rows_by_file: dict[str, int] = {}
+    files_seen = [
+        relative.replace("\\", "/")
+        for relative in relative_files
+        if (source_root / relative).exists()
+    ]
+    rows_by_file: dict[str, int] = {relative: 0 for relative in files_seen}
     observed: dict[str, dict[str, list[int]]] = {}
     decisions_by_file: dict[str, list[dict[str, Any]]] = {}
     unclassified_fields_by_file: dict[str, list[str]] = {}

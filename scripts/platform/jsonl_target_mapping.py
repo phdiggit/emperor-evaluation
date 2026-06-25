@@ -11,6 +11,7 @@ from typing import Any, Mapping, Sequence
 ROOT = Path(__file__).resolve().parents[2]
 MAPPING_VERSION = "jsonl-target-mapping-v1"
 CANONICAL_JSONL_FILES = (
+    "data/events.jsonl",
     "data/query_profiles.jsonl",
     "data/search_logs.jsonl",
     "data/sources.jsonl",
@@ -20,6 +21,7 @@ CANONICAL_JSONL_FILES = (
     "data/thematic_anchor_objects.jsonl",
     "data/thematic_anchor_events.jsonl",
     "data/thematic_anchor_mechanisms.jsonl",
+    "data/trigger_terms.jsonl",
 )
 BLOCKED_REPORT_TERMS = ("score", "rank", "final_score", "leaderboard")
 LIMITATIONS = (
@@ -74,8 +76,38 @@ def build_mappings() -> dict[str, JsonlFileMapping]:
         "subitem": "range/filter only; resolve to subitems in a later mapper",
     }
     person_range = {"person": "range/filter only; resolve to persons in a later mapper"}
-    anchor_block = "current PostgreSQL schema has no anchors or anchor_links target tables"
+    anchor_block = "current PostgreSQL schema has anchors but no formal anchor_links target table"
     return {
+        "data/events.jsonl": JsonlFileMapping(
+            source_file="data/events.jsonl",
+            target_tables=("event_observations_candidate",),
+            code_field="event_id",
+            required_fields=("event_id",),
+            direct_fields={
+                "event_id": "event_observations.code candidate",
+                "event_name": "event_observations.label candidate",
+                "event_date": "event_observations.event_date candidate",
+                "description": "event_observations.description candidate",
+            },
+            candidate_fields={
+                "action_type": ("event_observations.action_type",),
+                "attribution_type": ("event_observations.attribution_type",),
+                "outcome": ("event_observations.outcome",),
+                "severity": ("event_observations.severity",),
+                "time_phase": ("event_observations.time_phase",),
+            },
+            payload_fields=("target", "notes", "note", "meta"),
+            reference_risk_fields={
+                "source_id": "event source_id requires source/passages resolver before evidence-source linking",
+            },
+            range_filter_fields={**person_range},
+            deferred_relationships={
+                "event_observations": "no formal PostgreSQL events target table exists yet",
+                "event_sources": "source links require resolved source/passages before relationship write",
+            },
+            staging_only=True,
+            blocked_reason="current PostgreSQL schema has no formal events target table",
+        ),
         "data/query_profiles.jsonl": JsonlFileMapping(
             source_file="data/query_profiles.jsonl",
             target_tables=("query_profiles",),
@@ -267,22 +299,46 @@ def build_mappings() -> dict[str, JsonlFileMapping]:
         "data/thematic_anchor_mechanisms.jsonl": anchor_mapping(
             "data/thematic_anchor_mechanisms.jsonl", anchor_block
         ),
+        "data/trigger_terms.jsonl": JsonlFileMapping(
+            source_file="data/trigger_terms.jsonl",
+            target_tables=("trigger_terms_reference_candidate",),
+            code_field="term_id",
+            required_fields=("term_id", "term"),
+            direct_fields={
+                "term_id": "trigger_terms_reference.code candidate",
+                "term": "trigger_terms_reference.term candidate",
+                "trigger_family": "trigger_terms_reference.family candidate",
+            },
+            candidate_fields={
+                "polarity": ("trigger_terms_reference.polarity",),
+                "tier": ("trigger_terms_reference.tier",),
+            },
+            payload_fields=("notes", "note", "meta"),
+            reference_risk_fields={},
+            range_filter_fields=query_range,
+            deferred_relationships={
+                "trigger_terms_reference": "no formal PostgreSQL trigger_terms target table exists yet",
+                "subitems": "item/subitem require resolver output before subitem_id",
+            },
+            staging_only=True,
+            blocked_reason="current PostgreSQL schema has no formal trigger_terms target table",
+        ),
     }
 
 
 def anchor_mapping(source_file: str, blocked_reason: str) -> JsonlFileMapping:
     return JsonlFileMapping(
         source_file=source_file,
-        target_tables=("anchors_candidate", "anchor_links_candidate"),
+        target_tables=("anchors", "anchor_links_candidate"),
         code_field="anchor_id",
         required_fields=("anchor_id",),
         direct_fields={},
         candidate_fields={
             "anchor_id": ("anchors.code",),
-            "anchor_kind": ("anchors.kind",),
-            "object_type": ("anchors.object_type",),
-            "object_name": ("anchors.object_name",),
-            "object_level": ("anchors.object_level",),
+            "anchor_kind": ("anchors.anchor_type",),
+            "object_type": ("anchors.payload.object_type",),
+            "object_name": ("anchors.label",),
+            "object_level": ("anchors.payload.object_level",),
             "review_status": ("anchors.review_status",),
         },
         payload_fields=(
@@ -310,8 +366,8 @@ def anchor_mapping(source_file: str, blocked_reason: str) -> JsonlFileMapping:
             "subitem": "range/filter only; anchor does not prove evidence by itself",
         },
         deferred_relationships={
-            "anchors": "define real PostgreSQL target schema in a later PR",
-            "anchor_links": "define link semantics in a later PR",
+            "anchors": "base anchors table exists; production writes still require G2 mapping approval and target importer",
+            "anchor_links": "define formal link table and link semantics in a later PR",
         },
         staging_only=True,
         blocked_reason=blocked_reason,

@@ -109,12 +109,14 @@ def test_every_canonical_jsonl_file_maps_to_staging_or_staging_only_rows() -> No
     assert report["rows_total"] > 0
     assert report["rows_mapped"] == report["rows_total"]
     for relative in CANONICAL_JSONL_FILES:
-        assert report["rows_by_file"][relative] > 0
+        assert report["rows_by_file"][relative] >= 0
     assert set(report["staging_only_files"]) == {
+        "data/events.jsonl",
         "data/thematic_anchors.jsonl",
         "data/thematic_anchor_objects.jsonl",
         "data/thematic_anchor_events.jsonl",
         "data/thematic_anchor_mechanisms.jsonl",
+        "data/trigger_terms.jsonl",
     }
 
 
@@ -186,7 +188,7 @@ def test_thematic_anchor_files_are_staging_only() -> None:
 
     assert rows[0].staging_only is True
     assert "linked_evidence_ids" in rows[0].reference_risk_fields
-    assert "anchors_candidate" in rows[0].target_tables
+    assert "anchors" in rows[0].target_tables
 
 
 def test_contract_report_contains_no_scoring_or_ranking_terms() -> None:

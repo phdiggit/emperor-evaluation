@@ -312,8 +312,12 @@ def build_contract_report(
     source_rows = load_source_rows(source_root=source_root, relative_files=relative_files)
     staging_rows = build_staging_rows(source_rows)
     triage_registry = build_decision_registry()
-    source_files = sorted({row.source_file for row in source_rows})
-    rows_by_file = count_rows_by_file(staging_rows)
+    source_files = [
+        relative.replace("\\", "/")
+        for relative in relative_files
+        if (source_root / relative).exists()
+    ]
+    rows_by_file = count_rows_by_file(staging_rows, source_files)
     line_index = build_field_line_index(staging_rows)
     manual_review_fields = collect_manual_review_fields(staging_rows, triage_registry)
     resolver_rules = build_resolver_rules(source_files, line_index, manual_review_fields)
@@ -339,8 +343,8 @@ def build_contract_report(
     return report
 
 
-def count_rows_by_file(rows: Sequence[StagingRow]) -> dict[str, int]:
-    counts: dict[str, int] = {}
+def count_rows_by_file(rows: Sequence[StagingRow], source_files: Sequence[str] = ()) -> dict[str, int]:
+    counts: dict[str, int] = {source_file: 0 for source_file in source_files}
     for row in rows:
         counts[row.source_file] = counts.get(row.source_file, 0) + 1
     return counts
