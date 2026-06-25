@@ -19,6 +19,27 @@ from .paths import (
 )
 
 
+def _strip_markdown_fenced_code(text: str) -> str:
+    visible_lines: list[str] = []
+    in_fence = False
+    fence_marker = ""
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        marker = stripped[:3]
+        if marker in {"```", "~~~"}:
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker
+            elif marker == fence_marker:
+                in_fence = False
+                fence_marker = ""
+            visible_lines.append("")
+            continue
+        if not in_fence:
+            visible_lines.append(line)
+    return "\n".join(visible_lines)
+
+
 def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False) -> list[str]:
     problems: list[str] = []
     registry_file = _resolve_repo_path(registry_path)
@@ -229,6 +250,20 @@ def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False)
     enforce_chinese_filenames = public_policy.get("human_markdown_filename_requires_chinese") is True
     enforce_chinese_body = public_policy.get("human_markdown_body_requires_chinese") is True
     density_threshold = int(public_policy.get("module_density_threshold", c.MODULE_DENSITY_THRESHOLD))
+    technical_filename_exceptions_raw = public_policy.get("technical_filename_exceptions", sorted(c.TECHNICAL_DOC_FILENAMES))
+    if not isinstance(technical_filename_exceptions_raw, list) or not all(
+        isinstance(item, str) for item in technical_filename_exceptions_raw
+    ):
+        problems.append(f"{registry_path}: technical_filename_exceptions must be a list of strings")
+        technical_filename_exceptions_raw = sorted(c.TECHNICAL_DOC_FILENAMES)
+    technical_filename_exceptions = set(technical_filename_exceptions_raw) | c.TECHNICAL_DOC_FILENAMES
+    english_marker_exceptions_raw = public_policy.get("english_prose_marker_exceptions", [])
+    if not isinstance(english_marker_exceptions_raw, list) or not all(
+        isinstance(item, str) for item in english_marker_exceptions_raw
+    ):
+        problems.append(f"{registry_path}: english_prose_marker_exceptions must be a list of strings")
+        english_marker_exceptions_raw = []
+    english_marker_exceptions = set(english_marker_exceptions_raw)
 
     current_markdown_docs = sorted(path for path in current_docs if path.endswith(".md"))
     direct_module_counts: dict[str, int] = defaultdict(int)
@@ -236,8 +271,12 @@ def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False)
         if enforce_current_adr_closed and path.startswith(c.CURRENT_ADR_ROOT):
             problems.append(f"{path}: current docs/adr is closed; move ADR history to archive/docs/adr or merge into a Chinese module document")
         filename = path.rsplit("/", 1)[-1]
-        if enforce_chinese_filenames and filename not in c.TECHNICAL_DOC_FILENAMES and not c.CJK_RE.search(filename):
-            problems.append(f"{path}: human-facing Markdown filename must contain Chinese characters")
+        filename_has_exception = filename in technical_filename_exceptions or path in technical_filename_exceptions
+        if enforce_chinese_filenames and not filename_has_exception:
+            if not c.CJK_RE.search(filename):
+                problems.append(f"{path}: human-facing Markdown filename must contain Chinese characters")
+            if c.ADR_FILENAME_RE.search(filename):
+                problems.append(f"{path}: human-facing Markdown filename must not contain ADR unless listed in technical_filename_exceptions")
         if enforce_chinese_body:
             try:
                 text = _resolve_repo_path(path).read_text(encoding="utf-8")
@@ -246,6 +285,13 @@ def check_registry(registry_path: str = c.REGISTRY_PATH, worktree: bool = False)
                 text = ""
             if text and not c.CJK_RE.search(text):
                 problems.append(f"{path}: human-facing Markdown body must contain Chinese prose")
+            if text and path not in english_marker_exceptions:
+                visible_text = _strip_markdown_fenced_code(text)
+                for marker_name, marker_re in c.ENGLISH_GOVERNANCE_PROSE_MARKERS:
+                    if marker_re.search(visible_text):
+                        problems.append(
+                            f"{path}: human-facing Markdown body contains English governance/ADR prose marker outside code blocks: {marker_name}"
+                        )
         parts = path.split("/")
         if len(parts) == 3:
             direct_module_counts["/".join(parts[:2])] += 1

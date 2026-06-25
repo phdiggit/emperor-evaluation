@@ -378,7 +378,11 @@ def test_check_validates_content_placement_governance_rules(tmp_path: Path) -> N
 def test_check_validates_public_experience_policy_when_enabled(tmp_path: Path) -> None:
     repo = init_repo(tmp_path)
     seed_repo(repo)
-    write(repo / "docs" / "adr" / "ADR-test.md", "# English only\n\nNo Chinese prose.\n")
+    write(repo / "docs" / "adr" / "ADR-test.md", "# English only\n\nStatus: Accepted / ADR\n\nNo Chinese prose.\n")
+    write(
+        repo / "docs" / "中文代码块.md",
+        "# 中文代码块\n\n中文正文。\n\n```text\nStatus: Accepted / ADR\nDecision: example only\n```\n",
+    )
     for index in range(1, 10):
         write(repo / "docs" / "密集模块" / f"文档{index:02}.md", f"# 文档{index:02}\n\n中文正文。\n")
     commit_all(repo, "add public experience docs")
@@ -388,6 +392,8 @@ def test_check_validates_public_experience_policy_when_enabled(tmp_path: Path) -
         "current_adr_root_closed": True,
         "human_markdown_filename_requires_chinese": True,
         "human_markdown_body_requires_chinese": True,
+        "technical_filename_exceptions": ["README.md", "AGENTS.md"],
+        "english_prose_marker_exceptions": [],
         "module_density_threshold": 8,
     }
     registry_path = write_registry(repo, registry)
@@ -397,7 +403,10 @@ def test_check_validates_public_experience_policy_when_enabled(tmp_path: Path) -
 
     assert any("docs/adr/ADR-test.md: current docs/adr is closed" in p for p in problems)
     assert any("docs/adr/ADR-test.md: human-facing Markdown filename must contain Chinese characters" in p for p in problems)
+    assert any("docs/adr/ADR-test.md: human-facing Markdown filename must not contain ADR" in p for p in problems)
     assert any("docs/adr/ADR-test.md: human-facing Markdown body must contain Chinese prose" in p for p in problems)
+    assert any("docs/adr/ADR-test.md: human-facing Markdown body contains English governance/ADR prose marker" in p for p in problems)
+    assert not any(problem.startswith("docs/中文代码块.md:") for problem in problems)
     assert any("docs/密集模块: 9 direct Markdown files exceeds 8 without density review" in p for p in problems)
 
 

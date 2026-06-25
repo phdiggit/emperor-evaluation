@@ -15,6 +15,7 @@ DOCS_TOOL = ROOT / "scripts" / "dev" / "docs_tool.py"
 REPORT = ROOT / "exports" / "governance" / "文档治理盘点报告.md"
 PROJECT_DRIVER = "docs/皇帝综合评价体系评分标准.md"
 PLATFORM_MIGRATION_DECISION_DOC = "docs/数据结构与生成库/史源数据平台迁移决策.md"
+PLATFORM_ARCHITECTURE_DECISION_DOC = "docs/数据结构与生成库/史源数据平台架构决策.md"
 LEGACY_DOCS_ARCHIVE_ROOT = "docs/" + "archive/"
 METHODOLOGY_NAVIGATION_READMES = {
     "docs/README.md": ("operational_guide", "stable_operational_guide"),
@@ -247,15 +248,29 @@ def test_docs_public_experience_policy_and_adr_archive_are_enforced() -> None:
 
     assert policy["current_adr_root_closed"] is True
     assert policy["human_markdown_filename_requires_chinese"] is True
+    assert policy["technical_filename_exceptions"] == ["README.md", "AGENTS.md"]
+    assert policy["english_prose_marker_exceptions"] == []
     assert policy["module_density_threshold"] == 8
     assert not (ROOT / "docs" / "adr").exists() or not list((ROOT / "docs" / "adr").glob("*.md"))
     assert all(not doc["path"].startswith("docs/adr/") for doc in registry["documents"])
+    assert all(
+        "ADR" not in Path(doc["path"]).name
+        for doc in registry["documents"]
+        if doc["path"].startswith("docs/")
+        and doc["path"].endswith(".md")
+        and Path(doc["path"]).name not in policy["technical_filename_exceptions"]
+    )
 
     platform_doc = by_path[PLATFORM_MIGRATION_DECISION_DOC]
     assert platform_doc["document_type"] == "canonical_spec"
     assert platform_doc["lifecycle_status"] == "active"
     assert platform_doc["content_role"] == "rule_or_method"
     assert platform_doc["placement_action"] == "keep_in_docs"
+    architecture_doc = by_path[PLATFORM_ARCHITECTURE_DECISION_DOC]
+    assert architecture_doc["document_type"] == "canonical_spec"
+    assert architecture_doc["lifecycle_status"] == "active"
+    assert architecture_doc["content_role"] == "rule_or_method"
+    assert not (ROOT / "docs" / "数据结构与生成库" / "史源数据平台架构ADR.md").exists()
 
     for old_path, new_path in ADR_ARCHIVE_MAP.items():
         assert registry["archived_document_paths"][old_path] == new_path
@@ -279,6 +294,7 @@ def test_docs_module_density_and_topic_reviews_are_recorded() -> None:
     assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 12
     assert density["docs/数据结构与生成库"]["review_status"] == "reviewed"
     assert "史源数据平台文档族" in topic
+    assert PLATFORM_ARCHITECTURE_DECISION_DOC in topic["史源数据平台文档族"]["paths"]
     assert PLATFORM_MIGRATION_DECISION_DOC in topic["史源数据平台文档族"]["paths"]
     assert topic["史源数据平台文档族"]["review_status"] == "reviewed"
 

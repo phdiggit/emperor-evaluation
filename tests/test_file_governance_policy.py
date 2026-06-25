@@ -72,6 +72,7 @@ ALLOWED_CHANGED_FILES = {
     "archive/docs/adr/ADR-postgres-formal-migration-plan.md",
     "docs/数据结构与生成库/README.md",
     "docs/数据结构与生成库/稳定ID命名规范.md",
+    "docs/数据结构与生成库/史源数据平台架构决策.md",
     "docs/数据结构与生成库/史源数据平台实现设计.md",
     "docs/数据结构与生成库/史源数据平台迁移决策.md",
     "docs/文档与脚本登记/docs_registry.json",

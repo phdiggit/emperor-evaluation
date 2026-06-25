@@ -2330,16 +2330,16 @@
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
-      "path": "docs/数据结构与生成库/史源数据平台架构ADR.md",
+      "path": "docs/数据结构与生成库/史源数据平台架构决策.md",
       "placement_action": "keep_in_docs",
-      "placement_reason": "长期数据平台架构决策和边界说明，仍应留在 docs 当前规范层。",
+      "placement_reason": "当前平台架构决策属于数据结构与生成库事实层，使用中文标题暴露给人工读者。",
       "placement_targets": [],
       "proposed_action": "keep",
-      "reason": "长期规范或强约束文档，当前规则、测试或工作流仍依赖其口径。",
+      "reason": "史源数据平台当前架构决策文档，承接原架构 ADR 的有效结论，文件名和正文已中文化。",
       "referenced_by_tests": [],
       "replacement_path": null,
       "semantic_verification_required": false,
-      "title": "史源数据平台架构 ADR",
+      "title": "史源数据平台架构决策",
       "unique_source_risk": true,
       "weak_reference_candidates": [
         "docs/文档与脚本登记/docs_registry.json"
@@ -2394,7 +2394,7 @@
       "human_confirmation_required": false,
       "inbound_references": [
         "docs/数据结构与生成库/README.md",
-        "docs/数据结构与生成库/史源数据平台架构ADR.md",
+        "docs/数据结构与生成库/史源数据平台架构决策.md",
         "docs/数据结构与生成库/数据主表字段规范.md"
       ],
       "lifecycle_status": "active",
@@ -3135,7 +3135,8 @@
     ],
     "human_markdown_body_requires_chinese": true,
     "module_density_threshold": 8,
-    "topic_family_threshold": 3
+    "topic_family_threshold": 3,
+    "english_prose_marker_exceptions": []
   },
   "docs_module_density_reviews": [
     {
@@ -3150,7 +3151,7 @@
     {
       "family_name": "史源数据平台文档族",
       "paths": [
-        "docs/数据结构与生成库/史源数据平台架构ADR.md",
+        "docs/数据结构与生成库/史源数据平台架构决策.md",
         "docs/数据结构与生成库/史源数据平台实现设计.md",
         "docs/数据结构与生成库/史源数据平台迁移决策.md"
       ],
@@ -3259,6 +3260,10 @@
       {
         "from": "docs/adr/ADR-schema-diff-draft-renderer.md",
         "to": "archive/docs/adr/ADR-schema-diff-draft-renderer.md"
+      },
+      {
+        "from": "docs/数据结构与生成库/史源数据平台架构ADR.md",
+        "to": "docs/数据结构与生成库/史源数据平台架构决策.md"
       }
     ],
     "docs_merged": [
@@ -3338,10 +3343,20 @@
       "docs/README.md",
       "docs/数据结构与生成库/README.md",
       "docs/数据结构与生成库/史源数据平台迁移决策.md",
-      "docs/文档与脚本登记/docs_registry.json"
+      "docs/文档与脚本登记/docs_registry.json",
+      "docs/数据结构与生成库/史源数据平台架构决策.md"
     ],
     "stale_links_fixed": [
-      "docs/adr/* references in scripts/tests/registry now point to archive/docs/adr/* or the Chinese canonical decision doc"
-    ]
+      "docs/adr/* references in scripts/tests/registry now point to archive/docs/adr/* or the Chinese canonical decision doc",
+      "docs/数据结构与生成库/史源数据平台架构ADR.md references now point to docs/数据结构与生成库/史源数据平台架构决策.md"
+    ],
+    "public_experience_review_fix": {
+      "pr": 290,
+      "changes": [
+        "current-layer architecture filename no longer contains ADR",
+        "active architecture and implementation docs use Chinese status/decision prose",
+        "docs governance checks English ADR/governance prose markers outside fenced code blocks"
+      ]
+    }
   }
 }
