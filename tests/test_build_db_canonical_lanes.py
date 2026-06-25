@@ -12,7 +12,6 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD_DB_PATH = ROOT / "scripts" / "build" / "build_db.py"
-SCHEMA_PATH = ROOT / "db" / "schema.sql"
 
 pytestmark = pytest.mark.db
 
@@ -55,11 +54,9 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 def copy_build_workspace(tmp_path: Path) -> Path:
     repo = tmp_path / "repo"
     (repo / "scripts" / "build").mkdir(parents=True)
-    (repo / "db").mkdir()
     (repo / "data").mkdir()
 
     shutil.copy2(BUILD_DB_PATH, repo / "scripts" / "build" / "build_db.py")
-    shutil.copy2(SCHEMA_PATH, repo / "db" / "schema.sql")
 
     for filename in [
         "events.jsonl",

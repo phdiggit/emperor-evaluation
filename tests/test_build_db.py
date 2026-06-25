@@ -209,6 +209,26 @@ def test_table_files_and_columns_match_original_database_contract(build_module: 
     assert new_module.TABLE_COLUMNS == EXPECTED_TABLE_COLUMNS
 
 
+def test_sqlite_schema_is_generated_from_table_columns_not_postgres_schema(build_module: Any) -> None:
+    new_module = build_module
+
+    schema = new_module.build_sqlite_schema({"sources": ["source_id", "title"]})
+
+    assert new_module.SQLITE_SCHEMA_SOURCE == "scripts/build/build_db.py:TABLE_COLUMNS"
+    assert new_module.POSTGRES_SCHEMA_PATH == ROOT / "db" / "schema.sql"
+    assert '"source_id" TEXT PRIMARY KEY' in schema
+    assert '"raw_json" TEXT NOT NULL' in schema
+    assert "CREATE EXTENSION" not in schema
+    assert "GENERATED ALWAYS AS IDENTITY" not in schema
+
+
+def test_quote_identifier_rejects_unsafe_sqlite_identifiers(build_module: Any) -> None:
+    new_module = build_module
+
+    with pytest.raises(ValueError, match="unsafe SQLite identifier"):
+        new_module.quote_identifier("bad; DROP TABLE sources")
+
+
 def test_read_jsonl_handles_missing_empty_chinese_and_invalid_rows(
     build_module: Any,
     tmp_path: Path,
@@ -274,22 +294,11 @@ def test_build_database_uses_temporary_schema_jsonl_and_database(
     tmp_path: Path,
 ) -> None:
     new_module = build_module
-    schema_path = tmp_path / "schema.sql"
     db_path = tmp_path / "evidence_cache.sqlite"
     source_path = tmp_path / "sources.jsonl"
     executed_pragmas: list[str] = []
 
     db_path.write_text("old database", encoding="utf-8")
-    schema_path.write_text(
-        """
-        CREATE TABLE sources (
-            source_id TEXT PRIMARY KEY,
-            title TEXT,
-            raw_json TEXT
-        );
-        """,
-        encoding="utf-8",
-    )
     source_path.write_text('{"source_id": "SRC-TMP-001", "title": "临时来源"}\n', encoding="utf-8")
 
     class TrackingConnection(sqlite3.Connection):
@@ -304,7 +313,6 @@ def test_build_database_uses_temporary_schema_jsonl_and_database(
         return real_connect(path, factory=TrackingConnection)
 
     monkeypatch.setattr(new_module, "DB_PATH", db_path)
-    monkeypatch.setattr(new_module, "SCHEMA_PATH", schema_path)
     monkeypatch.setattr(new_module, "TABLE_FILES", {"sources": source_path})
     monkeypatch.setattr(new_module, "TABLE_COLUMNS", {"sources": ["source_id", "title"]})
     monkeypatch.setattr(new_module.sqlite3, "connect", connect)
@@ -350,7 +358,6 @@ def test_canonical_cli_runs_only_in_temporary_repository(tmp_path: Path) -> None
 
     shutil.copy2(BUILD_DIR / "build_db.py", temp_build / "build_db.py")
     shutil.copy2(BUILD_DIR / "__init__.py", temp_build / "__init__.py")
-    shutil.copy2(ROOT / "db" / "schema.sql", temp_db_dir / "schema.sql")
     for path in EXPECTED_TABLE_FILES.values():
         (temp_data / path.name).write_text("", encoding="utf-8")
 
