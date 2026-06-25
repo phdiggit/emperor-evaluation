@@ -162,10 +162,20 @@ def build_contract_report(
     source_rows = load_source_rows(source_root=source_root, relative_files=relative_files)
     staging_rows = build_staging_rows(source_rows)
     mappings = build_mappings()
-    files_seen = sorted({row.source_file for row in source_rows})
-    rows_by_file: dict[str, int] = {}
-    staging_only_files: set[str] = set()
+    files_seen = [
+        relative.replace("\\", "/")
+        for relative in relative_files
+        if (source_root / relative).exists()
+    ]
+    rows_by_file: dict[str, int] = {relative: 0 for relative in files_seen}
+    staging_only_files: set[str] = {
+        relative for relative in files_seen if mappings.get(relative) and mappings[relative].staging_only
+    }
     target_table_candidates: set[str] = set()
+    for relative in files_seen:
+        mapping = mappings.get(relative)
+        if mapping:
+            target_table_candidates.update(mapping.target_tables)
 
     for row in staging_rows:
         rows_by_file[row.source_file] = rows_by_file.get(row.source_file, 0) + 1

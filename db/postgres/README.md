@@ -53,7 +53,14 @@ python scripts/platform/jsonl_import_dry_run.py --apply --schema emperor_eval_im
 python scripts/platform/jsonl_target_mapping.py --contract-report
 ```
 
-详细规则见 [`docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md`](../../docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md)。thematic anchors 当前仅标记为 staging-only/candidate mapping；进入正式 target table 必须另开 PR。
+详细规则见 [`docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md`](../../docs/数据结构与生成库/JSONL到PostgreSQL映射规则.md)。G1 批准后的 G2 mapping approval package 使用：
+
+```bash
+python scripts/platform/jsonl_postgres_mapping_approval_package.py --package-report
+python scripts/platform/jsonl_postgres_mapping_approval_package.py --markdown-report
+```
+
+该包覆盖已批准 manifest 的 11 个顶层 `data/*.jsonl`。`events.jsonl` 与 `trigger_terms.jsonl` 当前作为 staging-only 输入；thematic anchors 可对齐 `anchors` 基础表候选字段，但 `anchor_links` 正式 target table 与 link 语义仍是后续审批项。进入正式 target business table 仍必须另开 PR，并等待 G2 / G3。
 
 ## JSONL staging mapper prototype
 
@@ -72,4 +79,4 @@ python scripts/platform/jsonl_staging_mapper.py --contract-report
 python scripts/platform/jsonl_staging_mapper.py --apply --schema emperor_eval_staging_mapper --drop-schema-after
 ```
 
-`--apply` 会在隔离 schema 中执行 `001_init.sql`、写入 dry-run 审计表、创建 staging 表、按 direct / candidate / payload / range_filter / reference_risk / unknown / validation_errors 分类 payload。`source_id`、`linked_*`、`*_ids` 和 `cross_item*` 等字段只进入 reference risk 或 validation，不会被转换为外键。thematic anchor 文件保持 `staging_only=true`，后续 target mapper 和 resolver 必须另开 PR。
+`--apply` 会在隔离 schema 中执行 `001_init.sql`、写入 dry-run 审计表、创建 staging 表、按 direct / candidate / payload / range_filter / reference_risk / unknown / validation_errors 分类 payload。`source_id`、`linked_*`、`*_ids` 和 `cross_item*` 等字段只进入 reference risk 或 validation，不会被转换为外键。events、trigger_terms 和 thematic anchor 文件保持 `staging_only=true`；anchors 只作为候选 target，anchor links、events 和 trigger terms 的正式 target 语义必须后续批准。

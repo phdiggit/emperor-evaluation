@@ -25,6 +25,8 @@ CURRENT_STATE = {
     "production_runtime_live": False,
     "formal_scoring_released": False,
     "formal_ranking_released": False,
+    "g1_canonical_manifest_approved": True,
+    "g2_mapping_approved": False,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -43,6 +45,7 @@ COMPLETED_CHAIN = [
     "production_schema_live_apply",
     "production_seed_manifest_import_audit_scaffold",
     "canonical_manifest_candidate_gate",
+    "jsonl_postgres_mapping_approval_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -71,7 +74,14 @@ def build_contract_report() -> dict[str, Any]:
                 "path": "scripts/platform/canonical_manifest_gate.py",
                 "contract": True,
                 "apply": False,
-                "boundary": "offline_g1_manifest_candidate_only",
+                "boundary": "offline_g1_manifest_candidate_approved",
+            },
+            {
+                "name": "jsonl_postgres_mapping_approval_package",
+                "path": "scripts/platform/jsonl_postgres_mapping_approval_package.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g2_mapping_approval_package_only",
             },
             {
                 "name": "jsonl_staging_mapper",

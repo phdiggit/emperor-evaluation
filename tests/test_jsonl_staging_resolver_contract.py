@@ -143,7 +143,7 @@ def test_thematic_anchor_references_are_staging_only_and_schema_blocked(tmp_path
             "source_file": "data/thematic_anchors.jsonl",
             "resolver_domain": "anchor",
             "staging_only": True,
-            "blocked_reason": "current PostgreSQL schema has no anchors or anchor_links target tables",
+            "blocked_reason": "current PostgreSQL schema has anchors but no formal anchor_links target table",
             "blocked_action": "anchors_or_anchor_links_write",
         }
     ]

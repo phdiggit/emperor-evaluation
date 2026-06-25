@@ -117,8 +117,8 @@ def test_mapping_coverage_flags_events_and_trigger_terms_for_milestone_1b() -> N
     coverage = report["schema_survey"]["mapping_coverage_by_file"]
 
     assert coverage["data/evidence_cards.jsonl"]["covered_by_jsonl_target_mapping"] is True
-    assert coverage["data/events.jsonl"]["covered_by_jsonl_target_mapping"] is False
-    assert coverage["data/trigger_terms.jsonl"]["note"] == "requires_milestone_1b_mapping_extension"
+    assert coverage["data/events.jsonl"]["covered_by_jsonl_target_mapping"] is True
+    assert coverage["data/trigger_terms.jsonl"]["covered_by_jsonl_target_mapping"] is True
 
 
 def test_reference_values_split_legacy_semicolon_and_comma_strings() -> None:

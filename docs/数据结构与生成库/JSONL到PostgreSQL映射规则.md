@@ -24,6 +24,8 @@ formal_ranking_released: false
 
 `scripts/platform/jsonl_unknown_field_triage.py --contract-report` 在本地离线扫描 canonical JSONL 和当前 mapping contract，按源文件把 staging unknown 字段归入 `mapping`、`payload`、`reference_risk`、`manual_review`、`suspected_deprecated`。该工具只报告字段名、分类、原因和行号追踪，不读取 batches/archive，不连接 PostgreSQL，不写 target 表。
 
+G1 批准后，Milestone 1B 的 G2 approval package 由 `scripts/platform/jsonl_postgres_mapping_approval_package.py --package-report` 汇总 manifest、mapping、staging mapper 和 unknown-field triage。该包覆盖 G1 已批准的 11 个顶层 `data/*.jsonl`，输出 relaxed-vs-formal schema 差异、mapping 缺口、类型损失、关系拆分和 JSONB 保留字段，并停在 `G2_REQUIRED`。
+
 ## 边界
 
 - JSONL 仍是当前写源；PostgreSQL target 只是后续平台化目标。
@@ -33,6 +35,10 @@ formal_ranking_released: false
 - 从 staging 进入 target table 必须另开 PR，并在该 PR 中定义解析器、人工复核和回滚策略。
 
 ## 文件映射
+
+### events.jsonl
+
+当前 PostgreSQL schema 尚无正式 events target table，因此 `events.jsonl` 只进入 staging-only `event_observations_candidate`。`event_id`、`event_name`、`event_date`、`description` 可作为事件观察候选字段；`action_type`、`attribution_type`、`outcome`、`severity`、`time_phase` 只作为候选字段保留；`source_id` 必须进入 reference risk，等待 source/passages resolver。当前文件为空，但仍属于 G1 manifest 和 G2 mapping 覆盖范围。
 
 ### query_profiles.jsonl
 
@@ -56,7 +62,11 @@ formal_ranking_released: false
 
 ### thematic_anchors*.jsonl
 
-当前 PostgreSQL schema 尚无正式 `anchors` / `anchor_links` target table，因此 `thematic_anchors.jsonl`、`thematic_anchor_objects.jsonl`、`thematic_anchor_events.jsonl`、`thematic_anchor_mechanisms.jsonl` 全部标记为 `staging_only` 和 candidate mapping。`linked_persons`、`linked_evidence_ids`、`linked_cluster_ids` 只进入 reference risk；`item + subitem` 只作为范围过滤，anchor 本身不直接证明 evidence。
+当前 PostgreSQL schema 已有 `anchors` 基础表，但尚无正式 `anchor_links` target table。因此 `thematic_anchors.jsonl`、`thematic_anchor_objects.jsonl`、`thematic_anchor_events.jsonl`、`thematic_anchor_mechanisms.jsonl` 仍整体标记为 `staging_only`，其中 `anchor_id` 可作为 `anchors.code` 候选，`object_name` 可作为 `anchors.label` 候选，`anchor_kind` 可作为 `anchors.anchor_type` 候选，其他对象层级、角色、共识和来源批次等字段进入 JSONB payload。`linked_persons`、`linked_evidence_ids`、`linked_cluster_ids` 只进入 reference risk；`item + subitem` 只作为范围过滤，anchor 本身不直接证明 evidence。
+
+### trigger_terms.jsonl
+
+当前 PostgreSQL schema 尚无正式 trigger_terms target table，因此 `trigger_terms.jsonl` 只进入 staging-only `trigger_terms_reference_candidate`。`term_id`、`term`、`trigger_family` 是候选 direct 字段；`polarity`、`tier` 是候选字段；`item`、`subitem` 只作为范围过滤和后续 subitem resolver 输入。该文件是触发词词表，不直接生成 evidence card 或 search task。
 
 ## Contract Report
 
@@ -150,3 +160,34 @@ limitations
 - `suspected_deprecated`：疑似迁移、过渡或旧字段，只作诊断；原值仍保留在 staging payload。
 
 该报告是 unknown-field 分诊视图，不生成结论、不删除字段、不迁移 JSONL，也不证明任何证据关系。
+
+## G2 Mapping Approval Package
+
+推荐命令：
+
+```bash
+python scripts/platform/jsonl_postgres_mapping_approval_package.py --package-report
+python scripts/platform/jsonl_postgres_mapping_approval_package.py --markdown-report
+```
+
+report 的稳定字段包括：
+
+```text
+mode
+package_version
+gate_status
+g1_manifest_sha256
+manifest_matches_g1
+covered_files
+missing_mapping_files
+staging_only_files
+mapping_unknown_fields_by_file
+remaining_unknown_fields_by_file
+jsonb_retained_fields_by_file
+relationship_splits
+type_loss_risks
+relaxed_vs_formal_schema_differences
+risk_summary
+```
+
+该 report 是 G2 字段/关系映射审批包，不是迁库执行结果。即使 G2 获批，第一次正式业务数据写入仍需 G3。
