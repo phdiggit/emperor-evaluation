@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 BUILD_DIR = SCRIPTS_DIR / "build"
 REAL_DB_PATH = ROOT / "evidence_cache.sqlite"
+SQLITE_SCHEMA_PATH = ROOT / "db" / "sqlite" / "001_cache.sql"
 pytestmark = pytest.mark.db
 
 EXPECTED_TABLE_FILES = {
@@ -209,24 +210,123 @@ def test_table_files_and_columns_match_original_database_contract(build_module: 
     assert new_module.TABLE_COLUMNS == EXPECTED_TABLE_COLUMNS
 
 
-def test_sqlite_schema_is_generated_from_table_columns_not_postgres_schema(build_module: Any) -> None:
+def test_sqlite_schema_is_dedicated_and_separate_from_postgres_schema(build_module: Any) -> None:
     new_module = build_module
 
-    schema = new_module.build_sqlite_schema({"sources": ["source_id", "title"]})
+    schema = new_module.SQLITE_SCHEMA_PATH.read_text(encoding="utf-8")
 
-    assert new_module.SQLITE_SCHEMA_SOURCE == "scripts/build/build_db.py:TABLE_COLUMNS"
     assert new_module.POSTGRES_SCHEMA_PATH == ROOT / "db" / "schema.sql"
-    assert '"source_id" TEXT PRIMARY KEY' in schema
-    assert '"raw_json" TEXT NOT NULL' in schema
+    assert new_module.SQLITE_SCHEMA_PATH == SQLITE_SCHEMA_PATH
+    assert "source_id TEXT PRIMARY KEY" in schema
+    assert "raw_json TEXT NOT NULL" in schema
+    assert "polarity TEXT NOT NULL CHECK (polarity IN ('positive', 'negative'))" in schema
+    assert "strength INTEGER NOT NULL CHECK (strength IN (1, 2, 3, 4))" in schema
+    assert "FOREIGN KEY (source_id) REFERENCES sources(source_id)" in schema
+    assert "CREATE INDEX IF NOT EXISTS idx_evidence_person_subitem" in schema
     assert "CREATE EXTENSION" not in schema
     assert "GENERATED ALWAYS AS IDENTITY" not in schema
 
 
-def test_quote_identifier_rejects_unsafe_sqlite_identifiers(build_module: Any) -> None:
+def test_sqlite_schema_enforces_cache_contract(build_module: Any) -> None:
     new_module = build_module
+    connection = sqlite3.connect(":memory:")
+    connection.execute("PRAGMA foreign_keys = ON")
+    connection.executescript(new_module.SQLITE_SCHEMA_PATH.read_text(encoding="utf-8"))
 
-    with pytest.raises(ValueError, match="unsafe SQLite identifier"):
-        new_module.quote_identifier("bad; DROP TABLE sources")
+    connection.execute(
+        """
+        INSERT INTO sources (source_id, title, raw_json)
+        VALUES ('SRC-OK', '测试来源', '{"source_id": "SRC-OK"}')
+        """
+    )
+    valid_values = (
+        "EVD-OK",
+        "李世民",
+        "第五项",
+        "第五项B",
+        "positive",
+        3,
+        "强正",
+        "SRC-OK",
+        "短摘",
+        "解释",
+        "触发族",
+        '["触发"]',
+        "已核验",
+        '{"evidence_id": "EVD-OK"}',
+    )
+    connection.execute(
+        """
+        INSERT INTO evidence_cards (
+            evidence_id, person, item, subitem, polarity, strength,
+            human_level, source_id, quote_short, interpretation,
+            trigger_family, trigger_terms, verification_status, raw_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        valid_values,
+    )
+
+    with pytest.raises(sqlite3.IntegrityError):
+        connection.execute(
+            """
+            INSERT INTO evidence_cards (
+                evidence_id, person, item, subitem, polarity, strength,
+                human_level, source_id, quote_short, interpretation,
+                trigger_family, trigger_terms, verification_status, raw_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            ("EVD-BAD-POLARITY", *valid_values[1:4], "mixed", *valid_values[5:]),
+        )
+    with pytest.raises(sqlite3.IntegrityError):
+        connection.execute(
+            """
+            INSERT INTO evidence_cards (
+                evidence_id, person, item, subitem, polarity, strength,
+                human_level, source_id, quote_short, interpretation,
+                trigger_family, trigger_terms, verification_status, raw_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            ("EVD-BAD-STRENGTH", *valid_values[1:5], 9, *valid_values[6:]),
+        )
+    with pytest.raises(sqlite3.IntegrityError):
+        connection.execute(
+            """
+            INSERT INTO evidence_cards (
+                evidence_id, person, item, subitem, polarity, strength,
+                human_level, source_id, quote_short, interpretation,
+                trigger_family, trigger_terms, verification_status, raw_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            ("EVD-MISSING-SOURCE", *valid_values[1:7], "SRC-MISSING", *valid_values[8:]),
+        )
+
+    evidence_columns = {
+        row[1]: row[2] for row in connection.execute("PRAGMA table_info(evidence_cards)").fetchall()
+    }
+    event_columns = {row[1]: row[2] for row in connection.execute("PRAGMA table_info(events)").fetchall()}
+    cluster_columns = {
+        row[1]: row[2] for row in connection.execute("PRAGMA table_info(evidence_clusters)").fetchall()
+    }
+    indexes = {
+        row[0]
+        for row in connection.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'index' AND name NOT LIKE 'sqlite_autoindex_%'"
+        )
+    }
+
+    assert evidence_columns["strength"].upper() == "INTEGER"
+    assert event_columns["severity"].upper() == "INTEGER"
+    assert cluster_columns["candidate_strength"].upper() == "INTEGER"
+    assert {
+        "idx_evidence_person_subitem",
+        "idx_evidence_polarity_strength",
+        "idx_evidence_source_id",
+        "idx_search_person_subitem",
+        "idx_search_result_status",
+        "idx_clusters_person_subitem",
+        "idx_anchors_theme_subitem",
+        "idx_query_profiles_item_subitem",
+    } <= indexes
 
 
 def test_read_jsonl_handles_missing_empty_chinese_and_invalid_rows(
@@ -313,6 +413,7 @@ def test_build_database_uses_temporary_schema_jsonl_and_database(
         return real_connect(path, factory=TrackingConnection)
 
     monkeypatch.setattr(new_module, "DB_PATH", db_path)
+    monkeypatch.setattr(new_module, "SQLITE_SCHEMA_PATH", SQLITE_SCHEMA_PATH)
     monkeypatch.setattr(new_module, "TABLE_FILES", {"sources": source_path})
     monkeypatch.setattr(new_module, "TABLE_COLUMNS", {"sources": ["source_id", "title"]})
     monkeypatch.setattr(new_module.sqlite3, "connect", connect)
@@ -351,13 +452,14 @@ def test_canonical_cli_runs_only_in_temporary_repository(tmp_path: Path) -> None
     temp_scripts = temp_root / "scripts"
     temp_build = temp_scripts / "build"
     temp_data = temp_root / "data"
-    temp_db_dir = temp_root / "db"
+    temp_db_dir = temp_root / "db" / "sqlite"
     temp_build.mkdir(parents=True)
     temp_data.mkdir()
-    temp_db_dir.mkdir()
+    temp_db_dir.mkdir(parents=True)
 
     shutil.copy2(BUILD_DIR / "build_db.py", temp_build / "build_db.py")
     shutil.copy2(BUILD_DIR / "__init__.py", temp_build / "__init__.py")
+    shutil.copy2(SQLITE_SCHEMA_PATH, temp_db_dir / "001_cache.sql")
     for path in EXPECTED_TABLE_FILES.values():
         (temp_data / path.name).write_text("", encoding="utf-8")
 

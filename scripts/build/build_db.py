@@ -9,7 +9,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
 POSTGRES_SCHEMA_PATH = ROOT / "db" / "schema.sql"
-SQLITE_SCHEMA_SOURCE = "scripts/build/build_db.py:TABLE_COLUMNS"
+SQLITE_SCHEMA_PATH = ROOT / "db" / "sqlite" / "001_cache.sql"
 DB_PATH = ROOT / "evidence_cache.sqlite"
 
 
@@ -200,36 +200,11 @@ def encode_value(value: Any) -> Any:
     return value
 
 
-def quote_identifier(identifier: str) -> str:
-    if not identifier.replace("_", "").isalnum():
-        raise ValueError(f"unsafe SQLite identifier: {identifier!r}")
-    return f'"{identifier}"'
-
-
-def create_table_sql(table: str, columns: list[str]) -> str:
-    quoted_table = quote_identifier(table)
-    column_definitions = []
-    for index, column in enumerate(columns):
-        definition = f"{quote_identifier(column)} TEXT"
-        if index == 0:
-            definition += " PRIMARY KEY"
-        column_definitions.append(definition)
-    column_definitions.append(f"{quote_identifier('raw_json')} TEXT NOT NULL")
-    joined = ",\n    ".join(column_definitions)
-    return f"CREATE TABLE {quoted_table} (\n    {joined}\n);"
-
-
-def build_sqlite_schema(table_columns: dict[str, list[str]] | None = None) -> str:
-    source = table_columns if table_columns is not None else TABLE_COLUMNS
-    statements = [create_table_sql(table, columns) for table, columns in source.items()]
-    return "\n\n".join(statements) + "\n"
-
-
 def insert_rows(connection: sqlite3.Connection, table: str, rows: list[dict[str, Any]]) -> None:
     columns = TABLE_COLUMNS[table] + ["raw_json"]
     placeholders = ", ".join("?" for _ in columns)
-    column_sql = ", ".join(quote_identifier(column) for column in columns)
-    sql = f"INSERT OR REPLACE INTO {quote_identifier(table)} ({column_sql}) VALUES ({placeholders})"
+    column_sql = ", ".join(columns)
+    sql = f"INSERT OR REPLACE INTO {table} ({column_sql}) VALUES ({placeholders})"
 
     for row in rows:
         values = [encode_value(row.get(column)) for column in TABLE_COLUMNS[table]]
@@ -243,7 +218,7 @@ def build_database() -> Path:
 
     with sqlite3.connect(DB_PATH) as connection:
         connection.execute("PRAGMA foreign_keys = ON")
-        connection.executescript(build_sqlite_schema())
+        connection.executescript(SQLITE_SCHEMA_PATH.read_text(encoding="utf-8"))
         for table, path in TABLE_FILES.items():
             insert_rows(connection, table, read_jsonl(path))
         connection.commit()

@@ -32,7 +32,7 @@
 
 ## 文件治理当前口径
 
-当前继续采用 `data/*.jsonl` 事实源和 Markdown 审阅视图；SQLite 生成库是本地兼容缓存，当前基线记录为 `sqlite_build_operational=true`。`python scripts/build/build_db.py` 由 `scripts/build/build_db.py:TABLE_COLUMNS` 生成 SQLite cache schema，不再把 PostgreSQL 取向的 `db/schema.sql` 交给 SQLite 执行；`db/schema.sql` / `db/postgres/001_init.sql` 继续作为 PostgreSQL schema 基线。`docs/` 当前层只保留规则、方法论、运行说明和治理入口，`exports/governance/文档治理盘点报告.md` 作为按需生成的 docs 治理报告入口，历史治理诊断材料仅保留在 `archive/docs/` 追溯，不作为当前事实源。
+当前继续采用 `data/*.jsonl` 事实源和 Markdown 审阅视图；SQLite 生成库是本地兼容缓存，当前基线记录为 `sqlite_build_operational=true`。`python scripts/build/build_db.py` 由 `db/sqlite/001_cache.sql` 生成 SQLite cache schema，不再把 PostgreSQL 取向的 `db/schema.sql` 交给 SQLite 执行；`db/schema.sql` / `db/postgres/001_init.sql` 继续作为 PostgreSQL schema 基线。`docs/` 当前层只保留规则、方法论、运行说明和治理入口，`exports/governance/文档治理盘点报告.md` 作为按需生成的 docs 治理报告入口，历史治理诊断材料仅保留在 `archive/docs/` 追溯，不作为当前事实源。
 
 当前不引入新的缓存或中间件。PostgreSQL schema 已作为平台基线存在，但业务写源仍是 `data/*.jsonl`；后续 P1 优先处理 `scripts/export/export_md.py` 拆分和指定导出机制，这类拆分应另开专门 Issue。
 

@@ -129,7 +129,7 @@ def build_contract_report() -> dict[str, Any]:
             "full_pytest_operational": True,
             "sqlite_build_command": "python scripts/build/build_db.py",
             "full_pytest_command": "pytest -q",
-            "sqlite_schema_source": "scripts/build/build_db.py:TABLE_COLUMNS",
+            "sqlite_schema_source": "db/sqlite/001_cache.sql",
             "postgres_schema_boundary": "db/schema.sql remains PostgreSQL-oriented and is not executed by SQLite build",
         },
         "deprecated_route_markers": [

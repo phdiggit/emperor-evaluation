@@ -9,7 +9,7 @@
 - `evidence_cache.sqlite` 是生成物，不进 Git。
 - Markdown 是导出视图，不是主源。
 
-SQLite 数据库由 canonical `data/*.jsonl` 和 `scripts/build/build_db.py:TABLE_COLUMNS` 生成，用于查询、校验和导出。当前 `build_db` 读取 8 个 canonical 主表，加上 `thematic_anchor_objects.jsonl`、`thematic_anchor_events.jsonl`、`thematic_anchor_mechanisms.jsonl` 三个 thematic anchor canonical lane。任何需要长期保留的事实，都应写回 JSONL，而不是只存在 SQLite 中。
+SQLite 数据库由 canonical `data/*.jsonl` 和 `db/sqlite/001_cache.sql` 生成，用于查询、校验和导出。当前 `build_db` 读取 8 个 canonical 主表，加上 `thematic_anchor_objects.jsonl`、`thematic_anchor_events.jsonl`、`thematic_anchor_mechanisms.jsonl` 三个 thematic anchor canonical lane。任何需要长期保留的事实，都应写回 JSONL，而不是只存在 SQLite 中。
 
 未来史源数据平台以 PostgreSQL 为目标主库。SQLite 继续服务当前本地生成库和兼容缓存，不是最终主库，也不承载 `source_documents`、`source_passages`、`evidence_source_links` 或 thematic anchor 关系表的最终实现语义。`db/schema.sql` 与 `db/postgres/001_init.sql` 是 PostgreSQL schema 基线，不再作为 SQLite build 的输入。
 
@@ -81,7 +81,7 @@ SQLite 数据库由 canonical `data/*.jsonl` 和 `scripts/build/build_db.py:TABL
 
 ## 运行库生成
 
-建库脚本会先根据 `TABLE_COLUMNS` 生成 SQLite cache schema，再导入 `data/*.jsonl`。JSONL 文件为空时，也应正常生成空库。
+建库脚本会先执行 `db/sqlite/001_cache.sql`，再导入 `data/*.jsonl`。JSONL 文件为空时，也应正常生成空库。
 
 默认运行库文件：
 

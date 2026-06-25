@@ -53,7 +53,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "epic_1_g1_canonical_manifest_approval" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
-    assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "scripts/build/build_db.py:TABLE_COLUMNS"
+    assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
     assert "PostgreSQL" in report["baseline_repair_tracking"]["postgres_schema_boundary"]
 
 
