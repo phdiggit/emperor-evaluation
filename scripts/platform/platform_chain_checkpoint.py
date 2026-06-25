@@ -42,6 +42,7 @@ COMPLETED_CHAIN = [
     "anchors_target_mapper_prototype",
     "production_schema_live_apply",
     "production_seed_manifest_import_audit_scaffold",
+    "canonical_manifest_candidate_gate",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -65,6 +66,13 @@ def build_contract_report() -> dict[str, Any]:
         "current_state": dict(CURRENT_STATE),
         "completed_chain": list(COMPLETED_CHAIN),
         "prototype_tools": [
+            {
+                "name": "canonical_manifest_gate",
+                "path": "scripts/platform/canonical_manifest_gate.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g1_manifest_candidate_only",
+            },
             {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
