@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g4-approved-write-source-cutover-package",
+    "current_phase": "g4-cutover-blocked-missing-g3-src-hosts-readback",
     "canonical_write_source": "jsonl",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -33,6 +33,19 @@ CURRENT_STATE = {
     "first_business_write_executed": False,
     "g4_write_source_cutover_approved": True,
     "write_source_cutover_execution_package_ready": True,
+    "g4_cutover_package_pr": 297,
+    "g4_cutover_package_merge_commit": "e752c0f3f9a62bb03cc6853e7720b4c64139dffa",
+    "g4_cutover_plan_sha256": "32d02b0d9ac77a7876fa503fb261f052a22bffe84dead3af865af23fe4806a4a",
+    "g4_cutover_execute_attempted": True,
+    "g4_cutover_execute_status": "blocked",
+    "g4_cutover_failure_stage": "g3_observation",
+    "g4_cutover_blocking_failures": ["blocked_missing_g3_src_hosts_readback"],
+    "g4_cutover_observe_status": "failed_observation",
+    "g4_cutover_post_apply_observation_completed": True,
+    "g4_cutover_operator_dsn_read": True,
+    "g3_src_hosts_zh_wikisource_observed": False,
+    "g4_imports_cutover_marker_written": False,
+    "g4_imports_cutover_marker_observed": False,
     "write_source_cutover_executed": False,
 }
 COMPLETED_CHAIN = [
