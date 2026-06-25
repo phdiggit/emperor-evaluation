@@ -147,7 +147,7 @@ def test_evidence_redacts_dsn_and_password(monkeypatch) -> None:
     assert report["seed_data_apply_executed"] is False
 
 
-def test_successful_execute_uses_mock_connection_and_writes_import_audit(monkeypatch) -> None:
+def test_execute_uses_mock_connection_for_import_audit_scaffold_without_business_success(monkeypatch) -> None:
     manifest = approved_manifest()
     conn = FakeConnection(schema_tables=[(table,) for table in seed.REQUIRED_SCHEMA_LIVE_TABLES])
     monkeypatch.setattr(seed, "build_seed_manifest", lambda: manifest)
@@ -156,14 +156,21 @@ def test_successful_execute_uses_mock_connection_and_writes_import_audit(monkeyp
 
     report = seed.execute_seed_data_apply(seed.APPROVAL_TOKEN, seed.schema_sha256(), str(manifest["manifest_sha256"]))
 
-    assert report["seed_data_apply_executed"] is True
-    assert report["production_data_rows_written"] is True
+    assert report["mode"] == "seed-data-apply-audit-scaffold-report"
+    assert report["seed_data_apply_executed"] is False
+    assert report["production_data_rows_written"] is False
     assert report["import_audit_written"] is True
-    assert report["verification_passed"] is True
-    assert report["ready_for_production_migration"] is True
+    assert report["verification_passed"] is False
+    assert report["audit_verification_passed"] is True
+    assert report["ready_for_production_migration"] is False
+    assert report["target_business_table_writes_executed"] is False
+    assert seed.BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED in report["blocking_failures"]
     assert conn.committed is True
     assert any("INSERT INTO imports" in query for query, _params in conn.executed)
     assert any("INSERT INTO import_rows" in query for query, _params in conn.executed)
+    import_row_params = [params for query, params in conn.executed if "INSERT INTO import_rows" in query]
+    assert import_row_params
+    assert all(params[6] is None for params in import_row_params if isinstance(params, tuple))
 
 
 def test_verify_report_does_not_claim_execution(monkeypatch) -> None:
@@ -178,7 +185,9 @@ def test_verify_report_does_not_claim_execution(monkeypatch) -> None:
     assert report["seed_data_apply_executed"] is False
     assert report["production_data_rows_written"] is False
     assert report["import_audit_written"] is False
-    assert report["verification_passed"] is True
+    assert report["verification_passed"] is False
+    assert report["audit_verification_passed"] is True
+    assert seed.BLOCKED_TARGET_IMPORTER_NOT_IMPLEMENTED in report["blocking_failures"]
 
 
 def test_verification_query_builder_is_read_only() -> None:
@@ -210,7 +219,7 @@ def test_lint_rejects_secret_material_false_success_and_unsafe_ready() -> None:
 
     unsafe_ready = dict(blocked)
     unsafe_ready["ready_for_production_migration"] = True
-    assert "ready_for_production_migration_true_without_success_gates" in seed.lint_execution_report(unsafe_ready)["failed"]
+    assert "ready_for_production_migration_true_in_audit_scaffold" in seed.lint_execution_report(unsafe_ready)["failed"]
 
 
 def test_cli_safe_modes_output_expected_modes() -> None:
@@ -318,7 +327,7 @@ class FakeCursor:
         if "SELECT code, status, row_count" in self.last_query:
             if not self.conn.audit_present:
                 return None
-            return (self.conn.import_code or "production_seed_data_apply_pr286_test", "succeeded", self.conn.import_row_count)
+            return (self.conn.import_code or "production_seed_data_apply_pr286_test", "audit_scaffolded", self.conn.import_row_count)
         if "SELECT count(*)" in self.last_query:
             return (self.conn.import_row_count,)
         return None

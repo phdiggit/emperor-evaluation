@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import hashlib
 import json
 import os
 import re
@@ -16,6 +15,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.platform.env_loader import read_dotenv_values
+from scripts.platform.core.evidence import blocked_report_fields
+from scripts.platform.core.fingerprints import file_fingerprints, file_sha256, files_byte_identical, relative_path
+from scripts.platform.core.gates import first_blocking_reason
+from scripts.platform.core.redaction import contains_secret_material
 
 ADR_PATH = ROOT / "docs" / "adr" / "ADR-production-schema-live-apply-execution.md"
 SCHEMA_SQL_PATH = ROOT / "db" / "schema.sql"
@@ -42,7 +45,7 @@ REQUIRED_SUCCESS_FLAGS = {
     "seed_apply_executed": False,
     "ready_for_live_apply": False,
     "ready_for_production_migration": False,
-    "future_seed_apply_pr_required": True,
+    "future_target_importer_gate_required": True,
 }
 SUPPORTED_MODES = (
     "contract-report",
@@ -108,7 +111,7 @@ def render_execution_plan_json() -> dict[str, Any]:
         "seed_apply_executed": False,
         "ready_for_live_apply": False,
         "ready_for_production_migration": False,
-        "future_seed_apply_pr_required": True,
+        "future_target_importer_gate_required": True,
     }
 
 
@@ -233,7 +236,7 @@ def verify_live_apply(require_user_approval_token: str | None, expected_schema_s
         "seed_apply_executed": False,
         "ready_for_live_apply": False,
         "ready_for_production_migration": False,
-        "future_seed_apply_pr_required": True,
+        "future_target_importer_gate_required": True,
         "started_at_utc": started,
         "ended_at_utc": utc_now(),
         "redacted_stdout_summary": ["post-apply verification executed"],
@@ -243,17 +246,15 @@ def verify_live_apply(require_user_approval_token: str | None, expected_schema_s
 
 
 def pre_execution_gate(require_user_approval_token: str | None, expected_schema_sha256: str | None) -> str | None:
-    if require_user_approval_token != APPROVAL_TOKEN:
-        return "blocked_missing_or_invalid_approval_token"
-    if not expected_schema_sha256:
-        return "blocked_missing_expected_schema_sha256"
-    if expected_schema_sha256 != schema_sha256():
-        return "blocked_schema_hash_mismatch"
-    if not schema_files_byte_identical():
-        return "blocked_schema_files_not_byte_identical"
-    if not anchors_table_exists():
-        return "blocked_missing_anchors_table"
-    return None
+    return first_blocking_reason(
+        (
+            (require_user_approval_token == APPROVAL_TOKEN, "blocked_missing_or_invalid_approval_token"),
+            (bool(expected_schema_sha256), "blocked_missing_expected_schema_sha256"),
+            (expected_schema_sha256 == schema_sha256(), "blocked_schema_hash_mismatch"),
+            (schema_files_byte_identical(), "blocked_schema_files_not_byte_identical"),
+            (anchors_table_exists(), "blocked_missing_anchors_table"),
+        )
+    )
 
 
 def blocked_evidence(
@@ -264,9 +265,6 @@ def blocked_evidence(
     exc: BaseException | None = None,
     dsn: str | None = None,
 ) -> dict[str, Any]:
-    stderr_summary: list[str] = []
-    if exc is not None:
-        stderr_summary.append(redact_text(f"{type(exc).__name__}: {exc}", dsn))
     return {
         "mode": "schema-live-apply-execution-report",
         "pr_number": 285,
@@ -292,14 +290,15 @@ def blocked_evidence(
         "verification_passed": False,
         "ready_for_live_apply": False,
         "ready_for_production_migration": False,
-        "future_seed_apply_pr_required": True,
-        "started_at_utc": started_at_utc,
-        "ended_at_utc": utc_now(),
-        "redacted_stdout_summary": [],
-        "redacted_stderr_summary": stderr_summary,
-        "failure_stage": failure_stage,
-        "blocked_reason": blocked_reason,
-        "blocking_failures": [blocked_reason],
+        "future_target_importer_gate_required": True,
+        **blocked_report_fields(
+            started_at_utc=started_at_utc,
+            ended_at_utc=utc_now,
+            failure_stage=failure_stage,
+            blocked_reason=blocked_reason,
+            exc=exc,
+            dsn=dsn,
+        ),
     }
 
 
@@ -404,20 +403,7 @@ def read_dsn() -> str | None:
 
 
 def schema_file_fingerprints() -> list[dict[str, Any]]:
-    fingerprints: list[dict[str, Any]] = []
-    for path in SCHEMA_PATHS:
-        raw = path.read_bytes()
-        text = raw.decode("utf-8")
-        fingerprints.append(
-            {
-                "path": relative_path(path),
-                "sha256": hashlib.sha256(raw).hexdigest(),
-                "line_count": len(text.splitlines()),
-                "table_count": len(created_tables(text)),
-                "read_only": True,
-            }
-        )
-    return fingerprints
+    return file_fingerprints(SCHEMA_PATHS, root=ROOT, extra=lambda _path, text: {"table_count": len(created_tables(text))})
 
 
 def schema_consistency() -> dict[str, bool]:
@@ -429,7 +415,7 @@ def schema_consistency() -> dict[str, bool]:
 
 
 def schema_sha256() -> str:
-    return hashlib.sha256(POSTGRES_SQL_PATH.read_bytes()).hexdigest()
+    return file_sha256(POSTGRES_SQL_PATH)
 
 
 def schema_line_count() -> int:
@@ -441,7 +427,7 @@ def schema_table_count() -> int:
 
 
 def schema_files_byte_identical() -> bool:
-    return SCHEMA_SQL_PATH.read_bytes() == POSTGRES_SQL_PATH.read_bytes()
+    return files_byte_identical(SCHEMA_SQL_PATH, POSTGRES_SQL_PATH)
 
 
 def schema_table_sets_same() -> bool:
@@ -494,7 +480,7 @@ def build_adr_check(adr_path: Path = ADR_PATH) -> dict[str, Any]:
     if not adr_path.exists():
         return {
             "mode": "adr-check",
-            "adr_path": relative_path(adr_path),
+            "adr_path": relative_path(ROOT, adr_path),
             "adr_exists": False,
             "passed": False,
             "failed": ["adr_missing"],
@@ -509,13 +495,13 @@ def build_adr_check(adr_path: Path = ADR_PATH) -> dict[str, Any]:
         "allows_public_schema_write": "allows public schema write",
         "seed_data_out_of_scope": "does not execute seed/data apply",
         "migration_not_complete": "does not mark production migration complete",
-        "future_seed_pr": "future seed apply pr required",
+        "future_target_importer_gate": "future target importer gate required",
         "no_success_forgery": "must not fake success",
     }
     failed = [rule for rule, needle in required.items() if needle not in content]
     return {
         "mode": "adr-check",
-        "adr_path": relative_path(adr_path),
+        "adr_path": relative_path(ROOT, adr_path),
         "adr_exists": True,
         "passed": not failed,
         "failed": failed,
@@ -529,38 +515,12 @@ def load_report_arg(value: str) -> dict[str, Any]:
     return json.loads(value)
 
 
-def contains_secret_material(text: str) -> bool:
-    lowered = text.lower()
-    return any(
-        token in lowered
-        for token in (
-            "postgres://",
-            "postgresql://",
-            "password=",
-            "pwd=",
-        )
-    )
-
-
-def redact_text(text: str, dsn: str | None = None) -> str:
-    redacted = text
-    if dsn:
-        redacted = redacted.replace(dsn, "<redacted-dsn>")
-    redacted = re.sub(r"postgres(?:ql)?://\S+", "<redacted-dsn>", redacted, flags=re.IGNORECASE)
-    redacted = re.sub(r"(password|pwd)=([^\\s]+)", r"\1=<redacted>", redacted, flags=re.IGNORECASE)
-    return redacted
-
-
 def normalize_text(text: str) -> str:
     return " ".join(text.lower().split())
 
 
 def utc_now() -> str:
     return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def relative_path(path: Path) -> str:
-    return path.relative_to(ROOT).as_posix()
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:

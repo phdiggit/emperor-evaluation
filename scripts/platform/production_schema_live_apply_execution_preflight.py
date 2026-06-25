@@ -138,8 +138,8 @@ ADR_RULES = (
     ("declares_no_live_apply", "No live apply execution"),
     ("declares_no_public_schema_write", "No public schema write"),
     ("declares_no_signoff_forgery", "No human sign-off forgery"),
-    ("declares_future_live_apply_pr", "#285 can be a future live apply execution PR"),
-    ("declares_future_seed_apply_pr", "future seed apply PR remains separate"),
+    ("declares_live_apply_gate_completed", "live apply execution gate has since been completed by #285"),
+    ("declares_epic1_target_importer_gate", "epic 1 target importer gate"),
     *[(f"declares_{name}", f"{name}={str(expected).lower()}") for name, expected in REQUIRED_FLAGS.items()],
 )
 ADR_BLOCKED_PHRASES = (
@@ -297,8 +297,8 @@ def render_future_live_apply_pr_body_template() -> str:
         "It does not modify schema files.",
         "ready_for_live_apply=false.",
         "ready_for_production_migration=false.",
-        "Future live apply execution PR remains required.",
-        "Future seed apply PR remains required.",
+        "Live apply execution gate has since been completed by #285.",
+        "Epic 1 target importer gate remains required.",
         "",
         "## Required Flags",
         "",
@@ -473,8 +473,8 @@ def future_pr_body_blocked_by_default(text: str) -> bool:
         "does not read dsn material",
         "ready_for_live_apply=false",
         "ready_for_production_migration=false",
-        "future live apply execution pr remains required",
-        "future seed apply pr remains required",
+        "live apply execution gate has since been completed by #285",
+        "epic 1 target importer gate remains required",
     )
     return all(needle in normalized for needle in required)
 

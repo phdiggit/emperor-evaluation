@@ -28,14 +28,27 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
 
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
+    assert report["current_state"] == {
+        "current_phase": "platform-schema-live-data-not-cutover",
+        "canonical_write_source": "jsonl",
+        "postgres_schema_live": True,
+        "postgres_business_data_migrated": False,
+        "jsonl_write_frozen": False,
+        "postgres_unique_write_source": False,
+        "production_runtime_live": False,
+        "formal_scoring_released": False,
+        "formal_ranking_released": False,
+    }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
+    assert "production_schema_live_apply" in report["completed_chain"]
+    assert "production_seed_manifest_import_audit_scaffold" in report["completed_chain"]
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "postgresql_formal_migration_adr" in report["next_batches"]
+    assert "epic_1_g1_canonical_manifest_approval" in report["next_epic_gates"]
 
 
 def test_checkpoint_report_is_offline_and_does_not_touch_forbidden_paths(monkeypatch) -> None:
@@ -63,6 +76,7 @@ def test_checkpoint_report_is_offline_and_does_not_touch_forbidden_paths(monkeyp
 
 def test_checkpoint_report_contains_no_blocked_business_terms() -> None:
     text = platform_chain_checkpoint.report_as_json(platform_chain_checkpoint.build_contract_report()).lower()
+    text = text.replace('"formal_ranking_released": false', "")
 
     for term in BLOCKED_REPORT_TERMS:
         assert term not in text

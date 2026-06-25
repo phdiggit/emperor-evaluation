@@ -117,7 +117,7 @@ def test_successful_execute_uses_mock_connection_and_keeps_migration_not_ready(m
     assert report["production_db_connected"] is True
     assert report["verification_passed"] is True
     assert report["ready_for_production_migration"] is False
-    assert report["future_seed_apply_pr_required"] is True
+    assert report["future_target_importer_gate_required"] is True
     assert conn.committed is True
     assert "CREATE TABLE anchors" in conn.executed[0]
 

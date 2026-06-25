@@ -188,7 +188,8 @@ def test_readme_mentions_governance_baseline_and_no_external_stack() -> None:
     content = read_text(ROOT / "README.md")
     assert "exports/governance/文档治理盘点报告.md" in content
     assert "archive/docs/" in content
-    assert "当前不引入外部数据库、缓存或中间件" in content
+    assert "当前不引入新的缓存或中间件" in content
+    assert "PostgreSQL schema 已作为平台基线存在，但业务写源仍是 `data/*.jsonl`" in content
     assert "多余文件、归档候选和删除候选必须另开专门 Issue 处理" in content
 
 
