@@ -157,6 +157,49 @@ def test_execute_blocks_if_g5_marker_missing(monkeypatch) -> None:
     assert not any("INSERT INTO imports" in query for query, _params in conn.executed)
 
 
+def test_redact_secret_removes_complete_password_values() -> None:
+    raw = (
+        "uri=postgresql://user:uriSecret@example.local/prod?password=querySecret&sslmode=require "
+        "keyword password=spaceSecret next password=semiSecret;application_name=g6 "
+        "tail password=tailSecret"
+    )
+
+    redacted = g6.redact_secret(raw)
+
+    for secret in ("uriSecret", "querySecret", "spaceSecret", "semiSecret", "tailSecret"):
+        assert secret not in redacted
+    assert "postgresql://<redacted-credentials>@example.local/prod" in redacted
+    assert "password=<redacted>&sslmode=require" in redacted
+    assert "password=<redacted> next" in redacted
+    assert "password=<redacted>;application_name=g6" in redacted
+    assert redacted.endswith("password=<redacted>")
+
+
+def test_execute_database_error_report_redacts_raw_secret_values(monkeypatch) -> None:
+    plan = g6.render_execution_plan_json(source_root=ROOT)
+    secret_dsn = "postgresql://user:uriSecret@example.local/prod?password=querySecret&sslmode=require"
+    monkeypatch.setattr(g6, "read_operator_config", lambda: g6.OperatorConfig({g6.DSN_ENV_NAME: secret_dsn}))
+
+    def fail_connect(_dsn: str) -> object:
+        raise RuntimeError(f"connect failed for {secret_dsn}; fallback password=semiSecret; done")
+
+    monkeypatch.setattr(g6, "connect_to_database", fail_connect)
+
+    report = g6.execute_formal_evidence_release(
+        approval_token=g6.APPROVAL_TOKEN,
+        expected_plan_sha256=plan["execution_plan_sha256"],
+    )
+    rendered = g6.report_as_json(report)
+
+    assert report["execution_status"] == "failed"
+    assert report["failure_stage"] == "database"
+    assert "database_error" in report["blocking_failures"]
+    for secret in ("uriSecret", "querySecret", "semiSecret"):
+        assert secret not in rendered
+    assert "password=<redacted>Secret" not in rendered
+    assert secret_dsn not in rendered
+
+
 def test_execute_writes_g6_marker_after_g5_readback_passes(monkeypatch) -> None:
     plan = g6.render_execution_plan_json(source_root=ROOT)
     conn = FakeConnection(include_g5_marker=True, g6_plan=plan)

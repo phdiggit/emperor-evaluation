@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Mapping, MutableMapping, Sequence
@@ -553,7 +554,7 @@ def redact_secret(text: str) -> str:
     if "postgresql://" in redacted and "@" in redacted.split("postgresql://", 1)[1]:
         prefix, rest = redacted.split("postgresql://", 1)
         redacted = prefix + "postgresql://<redacted-credentials>@" + rest.split("@", 1)[1]
-    return redacted.replace("password=", "password=<redacted>")
+    return re.sub(r"(?i)(password=)[^&;\s]*", r"\1<redacted>", redacted)
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:
