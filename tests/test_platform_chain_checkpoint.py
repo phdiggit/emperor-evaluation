@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g6-approved-formal-evidence-execution-pending",
+        "current_phase": "g6-formal-evidence-marker-observed",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -38,7 +38,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "jsonl_write_frozen": True,
         "postgres_unique_write_source": True,
         "production_runtime_live": True,
-        "formal_evidence_released": False,
+        "formal_evidence_released": True,
         "formal_scoring_released": False,
         "formal_ranking_released": False,
         "g1_canonical_manifest_approved": True,
@@ -89,12 +89,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g6_formal_evidence_boundary_package_ready": True,
         "g6_approved": True,
         "g6_formal_evidence_execution_package_ready": True,
+        "g6_formal_evidence_execution_plan_sha256": "27c93eca232ce4654533cfdc28795be0e366574d182b0e8378ba41ffc242b858",
         "g6_formal_evidence_marker_code": "G6-FORMAL-EVIDENCE-RELEASE-ISSUE292",
-        "g6_formal_evidence_execute_attempted": False,
-        "g6_formal_evidence_execute_status": "not_executed",
-        "g6_formal_evidence_observe_status": "not_observed",
-        "g6_formal_evidence_marker_written": False,
-        "g6_formal_evidence_marker_observed": False,
+        "g6_formal_evidence_execute_attempted": True,
+        "g6_formal_evidence_execute_status": "succeeded",
+        "g6_formal_evidence_observe_status": "succeeded",
+        "g6_formal_evidence_post_apply_observation_completed": True,
+        "g6_formal_evidence_marker_written": True,
+        "g6_formal_evidence_marker_observed": True,
         "epic_2_entered": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
@@ -110,6 +112,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g5_runtime_execution_observation" in report["completed_chain"]
     assert "g6_formal_evidence_boundary_package" in report["completed_chain"]
     assert "g6_formal_evidence_execution_package" in report["completed_chain"]
+    assert "g6_formal_evidence_marker_observation" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
@@ -118,7 +121,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic_1_g6_formal_evidence_release_gate" in report["next_epic_gates"]
+    assert "epic_1_g7_rule_change_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
     assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
