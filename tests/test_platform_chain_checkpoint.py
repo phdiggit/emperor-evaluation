@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g7-rule-change-workset-ready",
+        "current_phase": "g7-i5b-three-core-rule-change-ready",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -100,6 +100,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g7_approved": True,
         "g7_rule_change_scope_package_ready": True,
         "g7_rule_change_workset_ready": True,
+        "g7_i5b_three_core_rule_change_ready": True,
         "epic_2_entered": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
@@ -118,6 +119,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g6_formal_evidence_marker_observation" in report["completed_chain"]
     assert "g7_rule_change_scope_package" in report["completed_chain"]
     assert "g7_rule_change_workset_package" in report["completed_chain"]
+    assert "g7_i5b_three_core_rule_change" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])

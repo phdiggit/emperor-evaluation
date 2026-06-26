@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g7-rule-change-workset-ready",
+    "current_phase": "g7-i5b-three-core-rule-change-ready",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -85,6 +85,7 @@ CURRENT_STATE = {
     "g7_approved": True,
     "g7_rule_change_scope_package_ready": True,
     "g7_rule_change_workset_ready": True,
+    "g7_i5b_three_core_rule_change_ready": True,
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -116,6 +117,7 @@ COMPLETED_CHAIN = [
     "g6_formal_evidence_marker_observation",
     "g7_rule_change_scope_package",
     "g7_rule_change_workset_package",
+    "g7_i5b_three_core_rule_change",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",

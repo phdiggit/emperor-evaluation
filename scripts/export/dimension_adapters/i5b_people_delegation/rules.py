@@ -81,6 +81,43 @@ DIRECT_SAFETY_KEYWORDS = (
 )
 
 
+POSITIVE_CORE_KEYWORDS = {
+    "识人任用": (
+        "识人",
+        "择人",
+        "拔擢",
+        "任用",
+        "用人",
+        "人才组织",
+        "幕府聚才",
+        "寒门",
+        "后进",
+        "旧敌转用",
+    ),
+    "授权专任": (
+        "授权",
+        "专任",
+        "持节",
+        "分兵",
+        "边疆授权",
+        "军政授权",
+        "权责清晰",
+    ),
+    "人才生态": (
+        "人才生态",
+        "表达安全",
+        "反馈入口",
+        "容谏",
+        "谏臣",
+        "功臣安全",
+        "异质人才",
+        "保护",
+        "纠错环境",
+    ),
+}
+REQUIRED_POSITIVE_RULE_CORES = tuple(POSITIVE_CORE_KEYWORDS)
+
+
 RULE_SENSITIVE_POINTS = [
     {
         "rule_id": "RULE-I5B-BOUNDARY-WEAK-TO-MEDIUM",
@@ -97,8 +134,8 @@ RULE_SENSITIVE_POINTS = [
     {
         "rule_id": "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE",
         "rule_question": "单一维度强正是否可以上探极正？",
-        "default_rule": "默认强正封顶；但同一维度内若至少存在三个强正核心且均为第五项B直接证据，则允许上探极正候选。",
-        "why_it_matters": "把“单维强正封顶”与“单维但足够厚的三核心极正候选”区分开。",
+        "default_rule": "默认强正封顶；但同一维度内若至少存在三个强正核心、均为第五项B直接证据，且覆盖识人任用、授权专任、人才生态三类核心，才允许上探极正候选。",
+        "why_it_matters": "把“单维同类证据堆叠封顶”与“单维但覆盖三核心的极正候选”区分开。",
     },
     {
         "rule_id": "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL",
@@ -179,6 +216,43 @@ def infer_dimension(card: dict[str, Any]) -> str:
     if contains_any(text, ("人才", "用人", "任用", "拔擢", "识人")):
         return "识人任用"
     return trigger_family or anchor or "未分类"
+
+
+def infer_positive_rule_core(card: dict[str, Any]) -> str | None:
+    primary_text = " ".join(
+        str(part)
+        for part in (
+            card.get("evidence_role"),
+            card.get("cluster_role"),
+            card.get("quote_short"),
+            card.get("scoring_effect"),
+        )
+        if part
+    )
+    for core, keywords in POSITIVE_CORE_KEYWORDS.items():
+        if contains_any(primary_text, keywords):
+            return core
+
+    text = card_text(card)
+    for core, keywords in POSITIVE_CORE_KEYWORDS.items():
+        if contains_any(text, keywords):
+            return core
+    return None
+
+
+def infer_positive_rule_cores(cards: list[dict[str, Any]]) -> list[str]:
+    strong_core_cards = [
+        card
+        for card in cards
+        if int(card.get("strength") or 0) >= 3
+        and ("核心" in str(card.get("evidence_role") or "") or "核心" in str(card.get("cluster_role") or ""))
+    ]
+    return unique_values([infer_positive_rule_core(card) for card in strong_core_cards])
+
+
+def has_required_positive_rule_cores(cards: list[dict[str, Any]]) -> bool:
+    cores = set(infer_positive_rule_cores(cards))
+    return set(REQUIRED_POSITIVE_RULE_CORES).issubset(cores)
 
 
 def is_startup_card(card: dict[str, Any]) -> bool:
@@ -304,10 +378,14 @@ def build_rule_sensitive_points(report: dict[str, Any]) -> list[dict[str, str]]:
         )
 
     if bool(report.get("single_dimension_flag")) and int(report.get("strong_positive_count") or 0) >= 3:
+        if bool(report.get("positive_three_core_coverage")):
+            decision = "同一维度内至少三个强正核心，且覆盖识人任用、授权专任、人才生态三类核心，允许上探极正候选。"
+        else:
+            decision = "虽有同一维度三条强正，但三核心覆盖不足；默认强正封顶，不上探极正。"
         points.append(
             {
                 "rule": "单维强正三核心",
-                "decision": "同一维度内至少三个强正核心且均为第五项B直接证据时，才允许上探极正候选。",
+                "decision": decision,
             }
         )
 
