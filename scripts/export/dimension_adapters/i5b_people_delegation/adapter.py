@@ -18,6 +18,11 @@ from shared.i5b_cluster_warning_display import (
 from shared.i5b_markdown_display import human_review_table_fields as configured_human_review_table_fields
 from validate import validate_human_readable_markdown_exports as human_readable_markdown_validator
 from export.dimension_adapters.i5b_people_delegation.output_specs import *  # noqa: F401,F403
+from export.dimension_adapters.i5b_people_delegation.formal_algorithm import (
+    FORMAL_ALGORITHM_VERSION,
+    compute_formal_algorithm_result,
+    formal_algorithm_mapping_rows,
+)
 from export.dimension_adapters.i5b_people_delegation.rules import *  # noqa: F401,F403
 from export.dimension_export.data_loading import (
     DEFAULT_DISPLAY_CONFIG,
@@ -127,116 +132,15 @@ def render_display_field(
 
 def render_score_mapping_draft() -> str:
     display_config = load_i5b_markdown_view_config()
-    score_rows = [
-        {
-            "band": "极正候选 / 极正",
-            "entry_condition": "高位强正已经成立，至少三个强正核心均为第五项B直接证据，且覆盖识人任用、授权专任、人才生态三类核心；没有中负升强负或强负核心阻断。",
-            "typical_evidence_structure": "多维强正、稳定授权、容谏入口、人才结构厚度、顶级对象锚点。",
-            "negative_intercept_condition": "一旦出现中负升强负边界或强负核心，必须回落，不得继续上探。",
-            "cross_item_split": "战功、政绩、边疆收益、统一贡献、治世光环全部外剥。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "只要还未进入正式出分任务，就一律不能直接转分。",
-            "relative_score_range_draft": "94-100",
-        },
-        {
-            "band": "高位强正",
-            "entry_condition": "强正证据已成型，但极正候选的条件尚未完全满足。",
-            "typical_evidence_structure": "顶级将帅/谏臣/寒门后进/功臣安全秩序等多维强正。",
-            "negative_intercept_condition": "若出现中负升强负边界，需回落为强正受压制或强正封顶。",
-            "cross_item_split": "战功、政绩、边疆收益等仍需剥离。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若高位强正主要依赖单维证据，必须经规则级确认。",
-            "relative_score_range_draft": "86-93",
-        },
-        {
-            "band": "强正",
-            "entry_condition": "正向证据厚度已稳定，但不足以上探高位强正。",
-            "typical_evidence_structure": "单维或多维强正核心、对象锚点明确、没有强负核心阻断。",
-            "negative_intercept_condition": "若出现强负核心，需转入强正受压制。",
-            "cross_item_split": "继续剥离相邻项，不把结果论回填第五项B。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若只靠名臣堆叠而缺少对象锚点，须复核。",
-            "relative_score_range_draft": "78-85",
-        },
-        {
-            "band": "强正受压制",
-            "entry_condition": "强正底盘成立，但已经被强负核心或结构性寒蝉压制。",
-            "typical_evidence_structure": "正向强证仍在，负向直接命中表达安全或人才安全。",
-            "negative_intercept_condition": "任何极正上探都应阻断。",
-            "cross_item_split": "只保留第五项B自身剩余，不把相邻项损害整体回填。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若压制强度接近极强负，需要规则级再判。",
-            "relative_score_range_draft": "72-80",
-        },
-        {
-            "band": "强正封顶",
-            "entry_condition": "强正仍成立，但单维厚度、长期中枢治理或异质人才整合不足。",
-            "typical_evidence_structure": "创业期授权强证、单一对象池厚、正证集中但未达极正门槛。",
-            "negative_intercept_condition": "若出现中负升强负边界，应从封顶转入受压制或更低档。",
-            "cross_item_split": "仅保留第五项B上限，不把后续政绩加回。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若封顶与受压制并存，以更严格的压制结论为准。",
-            "relative_score_range_draft": "68-75",
-        },
-        {
-            "band": "中正",
-            "entry_condition": "正负证据都存在，但都未达到强压制或高位上探门槛。",
-            "typical_evidence_structure": "中等厚度的识人、授权、容谏、求言等。",
-            "negative_intercept_condition": "一旦出现明确表达安全硬证，需下探到中正受压制或中负。",
-            "cross_item_split": "相邻项先切出，剩余只保留本项中性影响。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若中正证据主要来自对象光环，需要复核。",
-            "relative_score_range_draft": "58-67",
-        },
-        {
-            "band": "中正受中负压制",
-            "entry_condition": "中正基础仍在，但已有中负边界对其形成明显压制。",
-            "typical_evidence_structure": "有正向结构，但负向材料使其无法继续上探。",
-            "negative_intercept_condition": "若边界负证转为中负升强负，需再下探。",
-            "cross_item_split": "剥离后的剩余只保留中负压力。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若中负边界扩大，需按正式规则重新确认。",
-            "relative_score_range_draft": "48-57",
-        },
-        {
-            "band": "中正受强负压制",
-            "entry_condition": "中正基础已显著受压，且负向材料直接命中表达安全或人才安全。",
-            "typical_evidence_structure": "正证还在，但强负核心已经显性出现。",
-            "negative_intercept_condition": "强正上探必须阻断。",
-            "cross_item_split": "只保留第五项B剩余，不把政权安全、司法残酷整体回填。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若强负核心呈群体外溢，需要规则级确认。",
-            "relative_score_range_draft": "38-47",
-        },
-        {
-            "band": "中负",
-            "entry_condition": "相邻项剥离后仍残留的中等负压，或弱负升中负已经成立。",
-            "typical_evidence_structure": "轻到中等的表达安全外溢、用人失衡、边界负证。",
-            "negative_intercept_condition": "若出现直接寒蝉/授权可信度破坏，需上调为强负。",
-            "cross_item_split": "先切政权安全、司法残酷、战果等相邻项，再留 B 项剩余。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若中负残余与强负硬证混在一起，需要再次分案。",
-            "relative_score_range_draft": "20-37",
-        },
-        {
-            "band": "强负",
-            "entry_condition": "直接命中表达安全、人才安全、谏臣保护或授权可信度破坏。",
-            "typical_evidence_structure": "群臣莫敢正言、明显寒蝉、人才退缩、谏臣/能臣安全受损等。",
-            "negative_intercept_condition": "一旦存在中负升强负边界，必须阻断极正/高位上探。",
-            "cross_item_split": "仍要剥离相邻项，但剥离后若仍是硬证，保留强负。",
-            "direct_score_allowed": "否",
-            "rule_confirmation_needed": "若强负与极负边界不清，需规则级确认。",
-            "relative_score_range_draft": "0-19",
-        },
-    ]
+    score_rows = formal_algorithm_mapping_rows()
     lines = [
-        "# 第五项B评分标尺与档位映射草案",
+        "# 第五项B正式算法标尺与档位映射",
         "",
-        "状态：规则草案 / 待规则级确认 / 不正式出分",
+        f"状态：G8 已批准 / `{FORMAL_ALGORITHM_VERSION}` 已释放 / G9 前不发布人物正式分值",
         "",
         "## 一、定位",
         "",
-        "本文件只定义第五项B《用人与授权》的档位到分值映射草案，不定义任何人物正式分数。",
+        "本文件定义第五项B《用人与授权》的 V3.2 九档与 45 分档内自动定分算法版本，但不发布任何人物正式分数。",
         "",
         "它只读取已经完成裁量的净证据和正式定档落地表，不回到人物级个案，不生成排名，不生成总榜。",
         "",
@@ -245,8 +149,8 @@ def render_score_mapping_draft() -> str:
         "## 二、与现有文档的关系",
         "",
         "1. `docs/分项规则/第五项统治者政治素质/B用人与授权.md` 决定 band direction 与规则敏感点。",
-        "2. `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md` 决定正式档位草案和分数阶段前置条件。",
-        "3. 本文件只回答“如果未来正式出分，band 如何映射为相对分值区间”。",
+        "2. `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md` 只展示正式档位和 G9 压制状态。",
+        "3. 本文件回答自动结算方向如何进入 V3.2 九档和 45 分档内区间。",
         "4. 本文件不替代 `docs/分项规则/第五项统治者政治素质/B用人与授权.md`。",
         "5. 本文件不替代 `docs/证据规则/证据裁量总则.md` 中的评分标尺关系。",
         "",
@@ -258,21 +162,21 @@ def render_score_mapping_draft() -> str:
         "4. 中正、中正受中负压制、中正受强负压制，属于中位段与压制段。",
         "5. 中负、强负属于负向段，先完成相邻项切分，再进入区间判断。",
         "6. 任何档位都不能绕过 `score_stage_prerequisites` 直接给人物正式分。",
-        "7. 本文给出的区间只是内部100制相对试算指数，不构成 V3.2 正式得分率或人物正式分。",
+        "7. 本文给出的区间是算法版本的 45 分区间；人物级正式分值字段在 G9 前必须压制。",
         "",
         "## 四、V3.2 对齐边界",
         "",
         "1. V3.2 已定义正收益总盘 1440 分、历史负债 0—300 扣分和七大项权重。",
         "2. 第五项B《用人与授权》正式上限为 45 分。",
-        "3. 本表 `relative_score_range_draft` 是内部100制相对试算指数。",
-        "4. 该指数既不是人物正式分，也不是 V3.2 正式得分率。",
-        "5. 本 PR 不执行 45 分换算，不能按 `45 × index / 100` 机械换算。",
+        "3. 本表 `relative_score_range_draft` 栏位沿用展示配置名称，内容已改为 45 分正式算法区间。",
+        "4. 算法可以确定区间和候选值，但 G9 前不得发布人物级正式分值。",
+        "5. 本 PR 不生成正式人物分数、排名或榜单。",
         "6. 本 PR 不改变任何人物现有 trial index、band、evidence 或 adjudication。",
-        "7. 正式 45 分映射仍需专门规则 PR、算法回归验证和规则版本发布审查。",
+        f"7. 正式 45 分映射由 `{FORMAL_ALGORITHM_VERSION}` 承接；人物值发布仍需 G9。",
         "",
         "## 五、档位到分值映射草案",
         "",
-        "说明：以下区间为相对区间草案，允许在正式出分任务中再微调；当前不直接用于人物出分。",
+        "说明：以下区间为算法版本的 45 分区间；当前不直接发布人物出分。",
         "",
         markdown_display_table(
             human_table_fields("score_mapping_draft", display_config),
@@ -282,16 +186,16 @@ def render_score_mapping_draft() -> str:
         "",
         "## 六、正式出分前置条件",
         "",
-        "1. 先有《第五项B三人正式定档落地表》。",
-        "2. 再有本文件确认的 band-to-score 映射草案。",
-        "3. 还需另开正式出分任务，并经规则级确认。",
+        "1. 先有同一版本规则和算法产生的正式九档。",
+        "2. 再由算法在档内确定候选值。",
+        "3. 人物级分值发布需另过 G9。",
         "4. 当前三人不得据此获得正式分数。",
         "5. 当前三人不得因此改变现有正式档位草案。",
         "",
         "## 七、禁止事项",
         "",
-        "1. 不给李世民、刘秀、刘庄三人正式分。",
-        "2. 不得给李世民、刘秀、刘庄三人正式分。",
+        "1. G9 前不给李世民、刘秀、刘庄三人正式分。",
+        "2. G9 前不得给任何人物发布正式分。",
         "3. 不排名。",
         "4. 不生成阶段总榜或总榜。",
         "5. 不把战功、政绩、边疆收益、统一贡献、治世光环回填第五项B。",
@@ -307,9 +211,9 @@ def render_score_mapping_draft() -> str:
         "",
         "## 九、结论",
         "",
-        "本文件只是一份规则草案，不是正式出分表。",
+        "本文件是 G8 已批准的正式算法版本说明，不是人物正式出分表。",
         "",
-        "若未来进入正式分值阶段，应先确认总标尺，再把第五项B档位按本草案转成正式评分规则。",
+        "若未来进入正式分值阶段，应先取得 G9，再按同一算法版本发布人物级正式分值和必要回归报告。",
     ]
     return "\n".join(lines) + "\n"
 
@@ -651,6 +555,7 @@ def render_person_section(
 def render_formal_person_section(report: dict[str, Any]) -> str:
     display_config = load_i5b_markdown_view_config()
     person = report["person"]
+    formal_result = compute_formal_algorithm_result(report)
     sections = [
         f"## {person}",
         "",
@@ -658,7 +563,10 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
         "",
         f"- **自动结算来源**：{report['auto_band_direction']} / {display_value(report['confidence'], display_config)}",
         f"- **正式档位草案**：{build_formal_band_draft(report)}",
-        f"- **不出分说明**：本阶段只落档位方向，不生成分数。",
+        f"- **V3.2 正式九档**：{formal_result['formal_grade']}",
+        f"- **45 分算法区间**：{formal_result['score_range_45']}",
+        f"- **算法版本**：{formal_result['algorithm_version']}",
+        f"- **不出分说明**：G9 前压制人物级正式分值，候选值不进入发布视图。",
         f"- **不排名说明**：本阶段不生成排名或名次。",
         "",
         "### 正向证据组摘要",
@@ -683,6 +591,7 @@ def render_formal_person_section(report: dict[str, Any]) -> str:
         *render_display_field("score_stage_prerequisites", format_score_stage_prerequisites(report), bullet="-"),
         *render_display_field("not_scored_flag", "是", bullet="-"),
         *render_display_field("ranking_suppressed_flag", "是", bullet="-"),
+        *render_display_field("formal_score_value_suppressed_until_g9", "是", bullet="-"),
     ]
     return "\n".join(sections) + "\n"
 
@@ -1191,11 +1100,13 @@ def render_formal_landing_table() -> str:
     overview_rows = []
     for report in person_reports:
         rule_points = report["rule_sensitive_points"]
+        formal_result = compute_formal_algorithm_result(report)
         overview_rows.append(
             {
                 "person": report["person"],
                 "auto_band_direction": report["auto_band_direction"],
                 "formal_band_draft": build_formal_band_draft(report),
+                "formal_v3_2_grade": formal_result["formal_grade"],
                 "confidence": report["confidence"],
                 "negative_boundary_tier": report["negative_boundary_tier"],
                 "not_scored_flag": True,
@@ -1267,7 +1178,7 @@ def render_three_pilot_closure() -> str:
     lines = [
         "# 第五项B三人试点内部闭环收尾",
         "",
-        "本文件只做第五项B三人试点的内部闭环收尾，不输出正式分，不排名，不生成阶段总榜或总榜；V3.2 已定义正式总标尺和第五项B 45分上限，本文中的内部试算仍是100制相对诊断指数，尚未进入45分正式映射，不构成人物正式分、排名或总榜。",
+        "本文件只做第五项B三人试点的内部闭环收尾，不输出正式分，不排名，不生成阶段总榜或总榜；V3.2 已定义正式总标尺和第五项B 45分上限，G8 正式算法已释放，但 G9 前人物级正式分值、排名或总榜仍不得发布。",
         "",
         "## 一、内部闭环总览",
         "",

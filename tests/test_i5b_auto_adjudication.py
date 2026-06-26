@@ -850,24 +850,26 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "是否不出分" in formal_content
     assert "是否不排名" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
-    assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
+    assert "已具备 G8 正式算法映射；G9 前不得发布人物正式分值、排名或榜单。" in formal_content
+    assert "V3.2 正式九档" in formal_content
+    assert "45 分算法区间" in formal_content
+    assert "i5b-formal-algorithm-v1" in formal_content
     assert "| score |" not in formal_content
     assert "| ranking |" not in formal_content
     assert "| rank |" not in formal_content
     assert "李世民" in formal_content and "极正候选 / 高位强正上探极正" in formal_content
     assert "刘秀" in formal_content and "强正受压制" in formal_content
     assert "刘庄" in formal_content and "中正受中负压制" in formal_content
-    assert "第五项B评分标尺与档位映射草案" in score_map_content
-    assert "状态：规则草案 / 待规则级确认 / 不正式出分" in score_map_content
-    assert "不正式出分" in score_map_content
+    assert "第五项B正式算法标尺与档位映射" in score_map_content
+    assert "状态：G8 已批准 / `i5b-formal-algorithm-v1` 已释放 / G9 前不发布人物正式分值" in score_map_content
+    assert "不发布人物正式分值" in score_map_content
     assert "V3.2 对齐边界" in score_map_content
     assert "第五项B《用人与授权》正式上限为 45 分" in score_map_content
-    assert "内部100制相对试算指数" in score_map_content
-    assert "不是 V3.2 正式得分率" in score_map_content
-    assert "不能按 `45 × index / 100` 机械换算" in score_map_content
-    assert "本 PR 不改变任何人物现有 trial index" in score_map_content
+    assert "内容已改为 45 分正式算法区间" in score_map_content
+    assert "算法可以确定区间和候选值，但 G9 前不得发布人物级正式分值" in score_map_content
+    assert "本 PR 不生成正式人物分数、排名或榜单" in score_map_content
     assert "待总标尺确认" not in score_map_content
-    assert "不得给李世民、刘秀、刘庄三人正式分" in score_map_content
+    assert "G9 前不给李世民、刘秀、刘庄三人正式分" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
     assert "第五项B三人试点内部闭环收尾" in closure_export_content
@@ -876,9 +878,9 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "不输出正式分，不排名，不生成阶段总榜或总榜" in closure_export_content
     assert not LEGACY_AUTO_EXPORT_PATH.exists()
     assert "V3.2 已定义正式总标尺和第五项B 45分上限" in closure_export_content
-    assert "100制相对诊断指数" in closure_export_content
-    assert "尚未进入45分正式映射" in closure_export_content
-    assert "不构成人物正式分、排名或总榜" in closure_export_content
+    assert "G8 正式算法已释放" in closure_export_content
+    assert "尚未进入45分正式映射" not in closure_export_content
+    assert "G9 前人物级正式分值、排名或总榜仍不得发布" in closure_export_content
     assert "后续七大项完成后再统一映射" not in closure_export_content
     assert "**是否可进入扩展试点**：可" in closure_export_content
 
@@ -957,7 +959,7 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "是否不出分（not_scored_flag）" in formal_content
     assert "是否不排名（ranking_suppressed_flag）" in formal_content
-    assert "需另建第五项B档位到分值映射，并经规则级确认；本表不得直接推分。" in formal_content
+    assert "已具备 G8 正式算法映射；G9 前不得发布人物正式分值、排名或榜单。" in formal_content
 
 
 @pytest.mark.export_full

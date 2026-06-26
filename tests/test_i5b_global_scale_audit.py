@@ -1,7 +1,13 @@
 from pathlib import Path
+import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "scripts") not in sys.path:
+    sys.path.insert(0, str(ROOT / "scripts"))
+
+from export.dimension_adapters.i5b_people_delegation import adapter as i5b_adapter  # noqa: E402
+
 AUDIT_PATH = ROOT / "archive" / "docs" / "audits" / "第五项B评分映射总标尺对齐审计.md"
 SCORE_MAP_DRAFT_EXPORT_PATH = (
     ROOT
@@ -17,7 +23,7 @@ SCORE_MAP_DRAFT_EXPORT_PATH = (
 
 def test_i5b_global_scale_audit_is_marked_superseded_by_v32() -> None:
     audit_content = AUDIT_PATH.read_text(encoding="utf-8")
-    score_map_content = SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
+    score_map_content = i5b_adapter.render_score_mapping_draft()
 
     assert "第五项B评分映射总标尺对齐审计" in audit_content
     assert "V3.2 取代说明" in audit_content
@@ -29,6 +35,6 @@ def test_i5b_global_scale_audit_is_marked_superseded_by_v32() -> None:
 
     assert "## 四、V3.2 对齐边界" in score_map_content
     assert "第五项B《用人与授权》正式上限为 45 分" in score_map_content
-    assert "内部100制相对试算指数" in score_map_content
-    assert "不是 V3.2 正式得分率" in score_map_content
+    assert "内容已改为 45 分正式算法区间" in score_map_content
+    assert "算法可以确定区间和候选值，但 G9 前不得发布人物级正式分值" in score_map_content
     assert "待总标尺确认" not in score_map_content
