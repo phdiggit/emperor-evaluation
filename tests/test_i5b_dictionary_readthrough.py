@@ -95,6 +95,7 @@ def test_readthrough_values_match_formal_algorithm_grade_exports() -> None:
         }
         for grade, spec in formal_algorithm.FORMAL_GRADE_SPECS.items()
     } == values["FORMAL_GRADE_SPECS"]
+    assert values["TRIAL_SCORE_MAP"] == rules.TRIAL_SCORE_MAP
 
 
 def test_readthrough_values_match_formal_algorithm_direction_mapping_exports() -> None:
@@ -103,6 +104,7 @@ def test_readthrough_values_match_formal_algorithm_direction_mapping_exports() -
 
     assert values["AUTO_DIRECTION_TO_FORMAL_GRADE"] == formal_algorithm.AUTO_DIRECTION_TO_FORMAL_GRADE
     assert values["FORMAL_GRADE_BAND_POSITION"] == formal_algorithm.FORMAL_GRADE_BAND_POSITION
+    assert tuple(tuple(item) for item in values["DIMENSION_RULES"]) == rules.DIMENSION_RULES
 
 
 def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> None:
@@ -116,14 +118,20 @@ def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> 
     ).read_text(encoding="utf-8")
 
     assert "HIGH_VALUE_ANCHOR_KEYWORDS = (" not in source
+    assert 'TRIAL_SCORE_MAP = {\n    "极正候选 / 高位强正上探极正"' not in source
     assert "STARTUP_ANCHOR_KEYWORDS = (" not in source
     assert "BOUNDARY_ANCHOR_KEYWORDS = (" not in source
     assert "DIRECT_SAFETY_KEYWORDS = (" not in source
+    assert "DIMENSION_RULES = [" not in source
     assert "RULE-I5B-BOUNDARY-WEAK-TO-MEDIUM" not in source
+    assert 'values_by_symbol("i5b.grade_dictionary.v1")' in source
     assert 'values_by_symbol("i5b.rule_keyword_dictionary.v1")' in source
     assert 'values_by_symbol("i5b.rule_dictionary.v1")' in source
+    assert 'values_by_symbol("i5b.direction_grade_mapping.v1")' in source
+    assert '_GRADE_DICTIONARY_VALUES["TRIAL_SCORE_MAP"]' in source
     assert '_RULE_KEYWORD_VALUES["POSITIVE_CORE_KEYWORDS"]' in source
     assert '_RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]' in source
+    assert '_DIRECTION_GRADE_MAPPING_VALUES["DIMENSION_RULES"]' in source
 
 
 def test_formal_algorithm_no_longer_embeds_grade_or_direction_mapping_literals() -> None:

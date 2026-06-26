@@ -6,19 +6,8 @@ from export.dimension_export.evidence_index import unique_values
 from export.dimension_adapters.i5b_people_delegation.dictionary_readthrough import values_by_symbol
 
 
-TRIAL_SCORE_MAP = {
-    "极正候选 / 高位强正上探极正": {"score_range": "94-100", "trial_score": 97},
-    "强正受压制": {"score_range": "72-80", "trial_score": 76},
-    "中正受中负压制": {"score_range": "48-57", "trial_score": 53},
-    "强正封顶": {"score_range": "68-75", "trial_score": 72},
-    "中正受强负压制": {"score_range": "38-47", "trial_score": 43},
-    "强正": {"score_range": "78-85", "trial_score": 82},
-    "中正": {"score_range": "58-67", "trial_score": 63},
-    "中负": {"score_range": "20-37", "trial_score": 29},
-    "强负": {"score_range": "0-19", "trial_score": 10},
-}
-
-
+_GRADE_DICTIONARY_VALUES = values_by_symbol("i5b.grade_dictionary.v1")
+TRIAL_SCORE_MAP = {str(label): dict(value) for label, value in _GRADE_DICTIONARY_VALUES["TRIAL_SCORE_MAP"].items()}
 _RULE_KEYWORD_VALUES = values_by_symbol("i5b.rule_keyword_dictionary.v1")
 HIGH_VALUE_ANCHOR_KEYWORDS = tuple(_RULE_KEYWORD_VALUES["HIGH_VALUE_ANCHOR_KEYWORDS"])
 STARTUP_ANCHOR_KEYWORDS = tuple(_RULE_KEYWORD_VALUES["STARTUP_ANCHOR_KEYWORDS"])
@@ -33,36 +22,8 @@ REQUIRED_POSITIVE_RULE_CORES = tuple(POSITIVE_CORE_KEYWORDS)
 
 _RULE_DICTIONARY_VALUES = values_by_symbol("i5b.rule_dictionary.v1")
 RULE_SENSITIVE_POINTS = [dict(item) for item in _RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]]
-
-
-DIMENSION_RULES = [
-    ("幕府聚才", "人才组织"),
-    ("旧敌转用", "旧敌转用"),
-    ("容谏", "容谏反馈"),
-    ("反馈入口", "容谏反馈"),
-    ("谏臣", "容谏反馈"),
-    ("授权", "授权专任"),
-    ("专任", "授权专任"),
-    ("持节", "创业期军政授权"),
-    ("分兵", "创业期军政授权"),
-    ("将军", "创业期军政授权"),
-    ("大将军", "创业期军政授权"),
-    ("寒门/后进", "寒门后进"),
-    ("寒门", "寒门后进"),
-    ("后进", "寒门后进"),
-    ("功臣安全", "功臣安全"),
-    ("功臣", "功臣安全"),
-    ("旧臣与宗室辅政", "辅政"),
-    ("辅政", "辅政"),
-    ("边疆授权", "边疆授权"),
-    ("西域", "边疆授权"),
-    ("楚狱", "楚狱牵连"),
-    ("表达安全", "表达安全"),
-    ("谏臣保护", "表达安全"),
-    ("反谶", "思想/谏诤受压"),
-    ("直言", "直言型人才"),
-    ("身后信用反转", "同一对象反转"),
-]
+_DIRECTION_GRADE_MAPPING_VALUES = values_by_symbol("i5b.direction_grade_mapping.v1")
+DIMENSION_RULES = tuple(tuple(item) for item in _DIRECTION_GRADE_MAPPING_VALUES["DIMENSION_RULES"])
 
 
 def contains_any(value: str, keywords: tuple[str, ...]) -> bool:
