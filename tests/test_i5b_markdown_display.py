@@ -114,6 +114,8 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     assert config["field_labels"]["context_scope"] == "上下文范围"
     assert config["field_labels"]["context_effect"] == "上下文影响"
     assert config["field_labels"]["adjudication_bridge"] == "裁判桥接说明"
+    assert config["field_labels"]["formal_score_value_45"] == "第五项B正式分值"
+    assert config["field_labels"]["formal_rank"] == "第五项B子项排名"
     assert config["value_labels"]["missing"] == "缺失"
     assert config["value_labels"]["pending"] == "待补"
     assert config["value_labels"]["source_verified"] == "已回源核验"
@@ -129,6 +131,23 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     table_fields = config["view_profiles"]["human_review"]["table_fields"]
     assert table_fields["auto_adjudication_overview"] == human_review_table_fields("auto_adjudication_overview", config)
     assert table_fields["auto_adjudication_matrix"][0:3] == ["person", "auto_band_direction", "confidence"]
+    assert table_fields["formal_landing_overview"] == [
+        "person",
+        "auto_band_direction",
+        "formal_band_draft",
+        "formal_v3_2_grade",
+        "formal_score_value_45",
+        "formal_rank",
+        "confidence",
+        "negative_boundary_tier",
+        "publication_gate_status",
+    ]
+    assert table_fields["trial_closure_overview"][0:4] == [
+        "person",
+        "final_band",
+        "formal_score_value_45",
+        "formal_rank",
+    ]
     assert table_fields["score_mapping_draft"] == [
         "band",
         "entry_condition",

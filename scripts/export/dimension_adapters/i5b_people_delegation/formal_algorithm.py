@@ -6,6 +6,7 @@ from typing import Any
 
 FORMAL_ALGORITHM_VERSION = "i5b-formal-algorithm-v1"
 FORMAL_RULE_VERSION = "i5b-g7-three-core-rule-v1"
+FORMAL_PUBLICATION_GATE = "G9"
 FORMAL_SUBITEM_MAX_SCORE = Decimal("45")
 FORMAL_SCORE_QUANT = Decimal("0.01")
 FORMAL_GRADE_ENUM = (
@@ -135,7 +136,56 @@ def compute_formal_algorithm_result(report: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def formal_algorithm_mapping_rows() -> list[dict[str, Any]]:
+def compute_formal_publication_result(report: dict[str, Any]) -> dict[str, Any]:
+    result = compute_formal_algorithm_result(report)
+    return {
+        **result,
+        "publication_gate": FORMAL_PUBLICATION_GATE,
+        "formal_score_value_45": result["formal_score_candidate_45"],
+        "formal_score_value_released": True,
+        "formal_ranking_released": True,
+        "formal_score_value_suppressed_until_g9": False,
+        "formal_ranking_suppressed_until_g9": False,
+        "formal_score_value_source": "G9-approved publication of the G8 formal algorithm candidate value.",
+    }
+
+
+def build_formal_publication_rows(person_reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for report in person_reports:
+        publication = compute_formal_publication_result(report)
+        rows.append(
+            {
+                "person": str(report.get("person") or ""),
+                "auto_band_direction": str(report.get("auto_band_direction") or ""),
+                "confidence": str(report.get("confidence") or ""),
+                "negative_boundary_tier": str(report.get("negative_boundary_tier") or ""),
+                "formal_grade": publication["formal_grade"],
+                "score_range_45": publication["score_range_45"],
+                "formal_score_value_45": publication["formal_score_value_45"],
+                "algorithm_version": publication["algorithm_version"],
+                "rule_version": publication["rule_version"],
+                "publication_gate": publication["publication_gate"],
+                "person_specific_override_allowed": publication["person_specific_override_allowed"],
+                "manual_final_grade_allowed": publication["manual_final_grade_allowed"],
+                "manual_final_score_allowed": publication["manual_final_score_allowed"],
+            }
+        )
+
+    rows.sort(
+        key=lambda row: (
+            -Decimal(str(row["formal_score_value_45"])),
+            FORMAL_GRADE_ENUM.index(str(row["formal_grade"])),
+            str(row["person"]),
+        )
+    )
+    for index, row in enumerate(rows, start=1):
+        row["formal_rank"] = index
+        row["ranking_basis"] = "formal_score_value_45_desc_then_grade_then_person"
+    return rows
+
+
+def formal_algorithm_mapping_rows(*, g9_publication: bool = False) -> list[dict[str, Any]]:
     direction_rows = [
         ("高位强正，上探极正候选", "三核心覆盖且没有强负阻断，进入第五项B历史天花板候选。"),
         ("强正", "强正证据稳定但未达到历史极限门槛。"),
@@ -158,7 +208,9 @@ def formal_algorithm_mapping_rows() -> list[dict[str, Any]]:
                 "typical_evidence_structure": auto_direction,
                 "negative_intercept_condition": "强负核心或中负升强负边界必须阻断高位上探。",
                 "cross_item_split": "战功、政绩、边疆收益、统一贡献、治世光环全部外剥。",
-                "direct_score_allowed": "否，G9 前不发布人物正式分值。",
+                "direct_score_allowed": "是，G9 已批准时可由同一算法版本发布人物正式分值。"
+                if g9_publication
+                else "否，G9 前不发布人物正式分值。",
                 "rule_confirmation_needed": f"{FORMAL_ALGORITHM_VERSION} / {FORMAL_RULE_VERSION}",
                 "relative_score_range_draft": score_range["range_label"],
             }

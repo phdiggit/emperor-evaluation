@@ -845,14 +845,20 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE" in rules_content
     assert "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL" in rules_content
     assert "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS" in rules_content
-    assert "第五项B三人正式定档落地表" in formal_content
+    assert "第五项B三人正式分值与排名发布表" in formal_content
     assert "正式档位草案" in formal_content
-    assert "是否不出分" in formal_content
-    assert "是否不排名" in formal_content
+    assert "第五项B正式分值" in formal_content
+    assert "第五项B子项排名" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
-    assert "已具备 G8 正式算法映射；G9 前不得发布人物正式分值、排名或榜单。" in formal_content
+    assert "已具备 G8 正式算法映射和 G9 发布门；正式分值与排名只能由同一算法版本生成，不得人工覆盖。" in formal_content
     assert "V3.2 正式九档" in formal_content
     assert "45 分算法区间" in formal_content
+    assert "44.02" in formal_content
+    assert "32.15" in formal_content
+    assert "23.39" in formal_content
+    assert "第 1 名" in formal_content
+    assert "第 2 名" in formal_content
+    assert "第 3 名" in formal_content
     assert "i5b-formal-algorithm-v1" in formal_content
     assert "| score |" not in formal_content
     assert "| ranking |" not in formal_content
@@ -861,26 +867,28 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "刘秀" in formal_content and "强正受压制" in formal_content
     assert "刘庄" in formal_content and "中正受中负压制" in formal_content
     assert "第五项B正式算法标尺与档位映射" in score_map_content
-    assert "状态：G8 已批准 / `i5b-formal-algorithm-v1` 已释放 / G9 前不发布人物正式分值" in score_map_content
-    assert "不发布人物正式分值" in score_map_content
+    assert "状态：G8 算法已释放 / G9 已批准 / `i5b-formal-algorithm-v1` 正式发布人物分值与排名" in score_map_content
+    assert "G9 已批准" in score_map_content
     assert "V3.2 对齐边界" in score_map_content
     assert "第五项B《用人与授权》正式上限为 45 分" in score_map_content
     assert "内容已改为 45 分正式算法区间" in score_map_content
-    assert "算法可以确定区间和候选值，但 G9 前不得发布人物级正式分值" in score_map_content
-    assert "本 PR 不生成正式人物分数、排名或榜单" in score_map_content
+    assert "算法可以确定区间、候选值和 G9 发布值" in score_map_content
+    assert "本 PR 发布第五项B人物正式分值与子项排名，但不生成阶段总榜或总榜" in score_map_content
     assert "待总标尺确认" not in score_map_content
-    assert "G9 前不给李世民、刘秀、刘庄三人正式分" in score_map_content
+    assert "不允许 person-specific override、人工最终档位或人工最终分数" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
     assert "第五项B三人试点内部闭环收尾" in closure_export_content
+    assert "第五项B正式分值" in closure_export_content
+    assert "第五项B子项排名" in closure_export_content
     assert "内部试算区间" in closure_export_content
     assert "内部试算分" in closure_export_content
-    assert "不输出正式分，不排名，不生成阶段总榜或总榜" in closure_export_content
+    assert "输出第五项B正式分值和子项排名，但不生成阶段总榜或总榜" in closure_export_content
     assert not LEGACY_AUTO_EXPORT_PATH.exists()
     assert "V3.2 已定义 1500 正收益总盘和第五项B 45分上限" in closure_export_content
     assert "G8 正式算法已释放" in closure_export_content
     assert "尚未进入45分正式映射" not in closure_export_content
-    assert "G9 前人物级正式分值、排名或总榜仍不得发布" in closure_export_content
+    assert "G9 前人物级正式分值、排名或总榜仍不得发布" not in closure_export_content
     assert "后续七大项完成后再统一映射" not in closure_export_content
     assert "**是否可进入扩展试点**：可" in closure_export_content
 
@@ -952,14 +960,14 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "人物（person） | 自动结算方向（auto_band_direction） | 正式档位草案（formal_band_draft）" in formal_content
-    assert "李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正" in formal_content
-    assert "刘秀 | 强正受压制，不上探极正 | 强正受压制" in formal_content
-    assert "刘庄 | 中正受中负压制 | 中正受中负压制" in formal_content
+    assert "李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正 | 历史极限 | 44.02 | 1" in formal_content
+    assert "刘秀 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 | 2" in formal_content
+    assert "刘庄 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.39 | 3" in formal_content
     assert "剩余规则问题（remaining_rule_questions）" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
-    assert "是否不出分（not_scored_flag）" in formal_content
-    assert "是否不排名（ranking_suppressed_flag）" in formal_content
-    assert "已具备 G8 正式算法映射；G9 前不得发布人物正式分值、排名或榜单。" in formal_content
+    assert "第五项B正式分值（formal_score_value_45）" in formal_content
+    assert "第五项B子项排名（formal_rank）" in formal_content
+    assert "已具备 G8 正式算法映射和 G9 发布门；正式分值与排名只能由同一算法版本生成，不得人工覆盖。" in formal_content
 
 
 @pytest.mark.export_full

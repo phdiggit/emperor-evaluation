@@ -15,7 +15,9 @@ if str(ROOT / "scripts") not in sys.path:
 from export.dimension_adapters.i5b_people_delegation.formal_algorithm import (  # noqa: E402
     FORMAL_ALGORITHM_VERSION,
     FORMAL_GRADE_ENUM,
+    build_formal_publication_rows,
     compute_formal_algorithm_result,
+    compute_formal_publication_result,
 )
 from scripts.platform import g8_i5b_formal_algorithm_release as g8  # noqa: E402
 
@@ -55,6 +57,44 @@ def test_formal_algorithm_uses_v3_2_nine_grade_enum_and_45_point_ranges() -> Non
     negative_result = compute_formal_algorithm_result({"auto_band_direction": "强负"})
     assert negative_result["formal_grade"] == "极差"
     assert negative_result["score_range_45"] == "0.00 <= 分值 < 13.50"
+
+
+def test_g9_publication_releases_candidate_value_and_deterministic_rank() -> None:
+    lishimin = {
+        "person": "李世民",
+        "auto_band_direction": "高位强正，上探极正候选",
+        "confidence": "high_mid",
+        "coverage_dimension_count": 3,
+        "positive_three_core_coverage": True,
+        "negative_boundary_tier": "weak_to_medium",
+        "negative_boundary_blocking": False,
+        "has_extreme_negative_core": False,
+    }
+    liuxiu = {
+        "person": "刘秀",
+        "auto_band_direction": "强正受压制，不上探极正",
+        "confidence": "medium_high",
+        "coverage_dimension_count": 3,
+        "positive_three_core_coverage": False,
+        "negative_boundary_tier": "medium_to_strong",
+        "negative_boundary_blocking": True,
+        "has_extreme_negative_core": False,
+    }
+
+    result = compute_formal_publication_result(lishimin)
+    assert result["formal_score_value_45"] == result["formal_score_candidate_45"]
+    assert result["formal_score_value_suppressed_until_g9"] is False
+    assert result["formal_ranking_suppressed_until_g9"] is False
+    assert result["formal_score_value_released"] is True
+    assert result["formal_ranking_released"] is True
+    assert result["person_specific_override_allowed"] is False
+    assert result["manual_final_grade_allowed"] is False
+    assert result["manual_final_score_allowed"] is False
+
+    rows = build_formal_publication_rows([liuxiu, lishimin])
+    assert [row["person"] for row in rows] == ["李世民", "刘秀"]
+    assert [row["formal_rank"] for row in rows] == [1, 2]
+    assert rows[0]["ranking_basis"] == "formal_score_value_45_desc_then_grade_then_person"
 
 
 def test_algorithm_report_releases_algorithm_but_blocks_g9_outputs(monkeypatch) -> None:
