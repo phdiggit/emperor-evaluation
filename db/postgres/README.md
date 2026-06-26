@@ -142,6 +142,15 @@ python scripts/platform/g7_rule_change_scope_package.py --scope-md
 
 该包默认不读取 `.env`、不连接 PostgreSQL / RabbitMQ、不访问网络，不读取 canonical JSONL，不修改评分标准或分项规则正文，也不写 source/passages/evidence/cluster/anchor/relationship 业务表。G7 只允许准备明确规则变更 workset、审查子项规则定义 diff、记录不含正式分值的影响范围与边界回归测试；正式算法仍需 G8，正式分数 / 排名发布仍需 G9，破坏性清理仍需 G10，Epic 2 仍需 separate ready review。
 
+G7 rule-change workset package 使用：
+
+```bash
+python scripts/platform/g7_rule_change_workset.py --workset-report
+python scripts/platform/g7_rule_change_workset.py --workset-md
+```
+
+该 workset 声明下一批规则变更 PR 必须包含 changed rule paths、before / after diff summary、impact scope、boundary regression tests，并确认正式算法与发布仍由 G8 / G9 阻断。该 workset 不读取或修改评分标准、分项规则、证据规则正文，不读取 `.env`，不连接服务，不写业务表。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

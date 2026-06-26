@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g7-approved-rule-change-scope-package-ready",
+    "current_phase": "g7-rule-change-workset-ready",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -84,6 +84,7 @@ CURRENT_STATE = {
     "g6_formal_evidence_marker_observed": True,
     "g7_approved": True,
     "g7_rule_change_scope_package_ready": True,
+    "g7_rule_change_workset_ready": True,
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -114,6 +115,7 @@ COMPLETED_CHAIN = [
     "g6_formal_evidence_execution_package",
     "g6_formal_evidence_marker_observation",
     "g7_rule_change_scope_package",
+    "g7_rule_change_workset_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -206,6 +208,13 @@ def build_contract_report() -> dict[str, Any]:
                 "contract": True,
                 "apply": False,
                 "boundary": "offline_g7_approved_rule_change_scope_only",
+            },
+            {
+                "name": "g7_rule_change_workset",
+                "path": "scripts/platform/g7_rule_change_workset.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g7_rule_change_workset_declaration_only",
             },
             {
                 "name": "jsonl_staging_mapper",
