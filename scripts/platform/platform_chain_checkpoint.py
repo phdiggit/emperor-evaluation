@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g6-approved-formal-evidence-execution-pending",
+    "current_phase": "g6-formal-evidence-marker-observed",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -23,7 +23,7 @@ CURRENT_STATE = {
     "jsonl_write_frozen": True,
     "postgres_unique_write_source": True,
     "production_runtime_live": True,
-    "formal_evidence_released": False,
+    "formal_evidence_released": True,
     "formal_scoring_released": False,
     "formal_ranking_released": False,
     "g1_canonical_manifest_approved": True,
@@ -74,12 +74,14 @@ CURRENT_STATE = {
     "g6_formal_evidence_boundary_package_ready": True,
     "g6_approved": True,
     "g6_formal_evidence_execution_package_ready": True,
+    "g6_formal_evidence_execution_plan_sha256": "27c93eca232ce4654533cfdc28795be0e366574d182b0e8378ba41ffc242b858",
     "g6_formal_evidence_marker_code": "G6-FORMAL-EVIDENCE-RELEASE-ISSUE292",
-    "g6_formal_evidence_execute_attempted": False,
-    "g6_formal_evidence_execute_status": "not_executed",
-    "g6_formal_evidence_observe_status": "not_observed",
-    "g6_formal_evidence_marker_written": False,
-    "g6_formal_evidence_marker_observed": False,
+    "g6_formal_evidence_execute_attempted": True,
+    "g6_formal_evidence_execute_status": "succeeded",
+    "g6_formal_evidence_observe_status": "succeeded",
+    "g6_formal_evidence_post_apply_observation_completed": True,
+    "g6_formal_evidence_marker_written": True,
+    "g6_formal_evidence_marker_observed": True,
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -108,6 +110,7 @@ COMPLETED_CHAIN = [
     "g5_runtime_execution_observation",
     "g6_formal_evidence_boundary_package",
     "g6_formal_evidence_execution_package",
+    "g6_formal_evidence_marker_observation",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -247,10 +250,10 @@ def build_contract_report() -> dict[str, Any]:
             "offline_contracts_do_not_read_dotenv_or_dsn",
             "apply_smoke_uses_primary_dsn_only_when_opted_in",
             "apply_smoke_uses_random_isolated_schema_and_drop_cleanup",
-            "no_formal_evidence_release_without_g6_approval",
+            "no_business_table_writes_beyond_g6_marker_without_followup_gate",
         ],
         "next_epic_gates": [
-            "epic_1_g6_formal_evidence_release_gate",
+            "epic_1_g7_rule_change_gate",
             "epic_1_source_document_passage_merge_policy_gate",
             "epic_1_evidence_cluster_anchor_relationship_followup_gates",
         ],
