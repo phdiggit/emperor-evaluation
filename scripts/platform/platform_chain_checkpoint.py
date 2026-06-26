@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g5-runtime-executed-observed",
+    "current_phase": "g6-formal-evidence-boundary-package-ready",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -71,6 +71,8 @@ CURRENT_STATE = {
     "production_credentials_enabled": True,
     "rabbitmq_live": True,
     "network_ingestion_live": True,
+    "g6_formal_evidence_boundary_package_ready": True,
+    "g6_approved": False,
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -97,6 +99,7 @@ COMPLETED_CHAIN = [
     "g5_runtime_boundary_package",
     "g5_runtime_execution_package",
     "g5_runtime_execution_observation",
+    "g6_formal_evidence_boundary_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -170,6 +173,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "g5_token_gated_runtime_credentials_rabbitmq_network_smoke_package",
             },
             {
+                "name": "g6_formal_evidence_boundary_package",
+                "path": "scripts/platform/g6_formal_evidence_boundary_package.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g6_preapproval_formal_evidence_boundary_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -222,6 +232,7 @@ def build_contract_report() -> dict[str, Any]:
             "offline_contracts_do_not_read_dotenv_or_dsn",
             "apply_smoke_uses_primary_dsn_only_when_opted_in",
             "apply_smoke_uses_random_isolated_schema_and_drop_cleanup",
+            "no_formal_evidence_release_without_g6_approval",
         ],
         "next_epic_gates": [
             "epic_1_g6_formal_evidence_release_gate",
