@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "issue311-i5b-dictionary-externalization-contract-ready",
+    "current_phase": "issue311-i5b-dictionary-snapshot-loader-validator-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -159,6 +159,12 @@ CURRENT_STATE = {
     "i5b_dictionary_snapshot_schema_defined": True,
     "i5b_dictionary_loader_contract_defined": True,
     "i5b_dictionary_validator_contract_defined": True,
+    "issue311_dictionary_snapshot_loader_validator_ready": True,
+    "issue311_dictionary_snapshot_loader_validator_package": "i5b-dictionary-snapshot-loader-validator-v1",
+    "i5b_dictionary_snapshot_path": "scripts/platform/i5b_dictionary_snapshots/i5b_rule_display_dictionary_snapshot_v1.json",
+    "i5b_dictionary_snapshot_item_count": 5,
+    "i5b_dictionary_snapshot_inventory_symbol_count": 14,
+    "i5b_dictionary_snapshot_digest_validation_passed": True,
     "i5b_runtime_adapter_migrated": False,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
@@ -203,6 +209,7 @@ COMPLETED_CHAIN = [
     "epic5_score_publication_result_contract",
     "epic5_deterministic_rerun_report_contract",
     "issue311_i5b_rule_display_dictionary_contract",
+    "issue311_i5b_dictionary_snapshot_loader_validator",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -374,6 +381,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_issue311_dictionary_inventory_schema_contract_only",
             },
             {
+                "name": "issue311_i5b_dictionary_snapshot_loader_validator",
+                "path": "scripts/platform/i5b_dictionary_snapshot_loader_validator.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_issue311_immutable_snapshot_loader_validator_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -437,9 +451,10 @@ def build_contract_report() -> dict[str, Any]:
             "epic5_score_publication_result_contract_does_not_release_person_scores_or_leaderboards",
             "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings",
             "issue311_dictionary_contract_does_not_create_tables_or_migrate_runtime_adapter",
+            "issue311_dictionary_snapshot_loader_validator_does_not_create_tables_or_migrate_runtime_adapter",
         ],
         "next_epic_gates": [
-            "issue311_dictionary_snapshot_loader_validator_package",
+            "issue311_runtime_adapter_dictionary_readiness_package",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",

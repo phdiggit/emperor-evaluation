@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "issue311-i5b-dictionary-externalization-contract-ready",
+        "current_phase": "issue311-i5b-dictionary-snapshot-loader-validator-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -174,6 +174,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "i5b_dictionary_snapshot_schema_defined": True,
         "i5b_dictionary_loader_contract_defined": True,
         "i5b_dictionary_validator_contract_defined": True,
+        "issue311_dictionary_snapshot_loader_validator_ready": True,
+        "issue311_dictionary_snapshot_loader_validator_package": "i5b-dictionary-snapshot-loader-validator-v1",
+        "i5b_dictionary_snapshot_path": (
+            "scripts/platform/i5b_dictionary_snapshots/i5b_rule_display_dictionary_snapshot_v1.json"
+        ),
+        "i5b_dictionary_snapshot_item_count": 5,
+        "i5b_dictionary_snapshot_inventory_symbol_count": 14,
+        "i5b_dictionary_snapshot_digest_validation_passed": True,
         "i5b_runtime_adapter_migrated": False,
         "i5b_postgres_dictionary_tables_created": False,
         "i5b_canonical_dictionary_write_performed": False,
@@ -205,6 +213,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "epic5_score_publication_result_contract" in report["completed_chain"]
     assert "epic5_deterministic_rerun_report_contract" in report["completed_chain"]
     assert "issue311_i5b_rule_display_dictionary_contract" in report["completed_chain"]
+    assert "issue311_i5b_dictionary_snapshot_loader_validator" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -219,13 +228,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "epic5_score_publication_result_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_deterministic_rerun_report_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "issue311_i5b_rule_display_dictionary_contract" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "issue311_i5b_dictionary_snapshot_loader_validator" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "issue311_dictionary_snapshot_loader_validator_package" in report["next_epic_gates"]
+    assert "issue311_runtime_adapter_dictionary_readiness_package" in report["next_epic_gates"]
     assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]
