@@ -14,7 +14,14 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "epic4-g9-i5b-formal-score-ranking-released",
+    "current_phase": "epic5-boundary-scope-package-ready",
+    "active_epic": 312,
+    "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
+    "last_completed_epic": 211,
+    "last_completed_pr": 310,
+    "last_completed_merge_commit": "831aae51845763ddd2e8944b95e5397320aeff1b",
+    "positive_benefit_total": 1500,
+    "former_active_cap_1440": "obsolete",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -95,7 +102,12 @@ CURRENT_STATE = {
     "g9_approval_comment": 4809664701,
     "g9_i5b_formal_publication_released": True,
     "g9_i5b_formal_publication_package": "g9-i5b-formal-publication-release-v1",
+    "stage_or_final_total_table_released": False,
+    "cross_subitem_leaderboard_released": False,
+    "epic5_boundary_scope_package_ready": True,
+    "epic5_boundary_scope_package": "epic5-scoring-engine-boundary-scope-package-v1",
     "epic_2_entered": False,
+    "epic_3_entered": False,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -129,6 +141,7 @@ COMPLETED_CHAIN = [
     "g7_i5b_three_core_rule_change",
     "g8_i5b_formal_algorithm_release",
     "g9_i5b_formal_publication_release",
+    "epic5_scoring_engine_scope_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -244,6 +257,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_g9_formal_score_ranking_publication_only",
             },
             {
+                "name": "epic5_scoring_engine_scope_package",
+                "path": "scripts/platform/epic5_scoring_engine_scope_package.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_epic5_cross_subitem_engine_scope_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -299,11 +319,19 @@ def build_contract_report() -> dict[str, Any]:
             "no_business_table_writes_beyond_g6_marker_without_followup_gate",
             "g8_algorithm_release_completed_before_g9_publication",
             "g9_publication_released_without_g10_cleanup_or_business_table_writes",
+            "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard",
         ],
         "next_epic_gates": [
-            "epic4_g10_destructive_cleanup_gate",
-            "epic4_source_document_passage_merge_policy_gate",
-            "epic4_evidence_cluster_anchor_relationship_followup_gates",
+            "epic5_per_subitem_g8_algorithm_release_gate",
+            "epic5_per_subitem_g9_publication_gate",
+            "epic5_cross_subitem_leaderboard_publication_gate",
+            "epic5_stage_or_final_total_table_publication_gate",
+            "issue_311_rule_display_dictionary_governance_gate",
+            "g10_destructive_cleanup_gate",
+            "source_document_passage_merge_policy_gate",
+            "evidence_cluster_anchor_relationship_followup_gates",
+            "epic2_separate_ready_review",
+            "epic3_separate_ready_review",
         ],
         "baseline_repair_tracking": {
             "sqlite_build_operational": True,
