@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from export.dimension_export.evidence_index import unique_values
+from export.dimension_adapters.i5b_people_delegation.dictionary_readthrough import values_by_symbol
 
 
 TRIAL_SCORE_MAP = {
@@ -18,138 +19,20 @@ TRIAL_SCORE_MAP = {
 }
 
 
-HIGH_VALUE_ANCHOR_KEYWORDS = (
-    "幕府聚才",
-    "顶级谏臣",
-    "帝国级顶级将帅",
-    "创业期军政支柱",
-    "寒门/后进人才",
-    "功臣安全秩序",
-    "旧敌转用",
-    "跨区域军政协同",
-    "少年将才",
-    "旧臣与宗室辅政",
-    "日食求言",
-    "边疆授权",
-)
-
-
-STARTUP_ANCHOR_KEYWORDS = (
-    "创业期",
-    "军政支柱",
-    "军政授权",
-    "大将军",
-    "将帅",
-    "持节",
-    "专任",
-    "分兵",
-    "偏裨",
-    "幽州",
-    "兵",
-)
-
-
-BOUNDARY_ANCHOR_KEYWORDS = (
-    "边界",
-    "争议",
-    "封顶",
-    "中负",
-    "弱负",
-    "中正锚点",
-)
-
-
-DIRECT_SAFETY_KEYWORDS = (
-    "群臣莫敢正言",
-    "莫敢正言",
-    "明显寒蝉",
-    "寒蝉",
-    "人才退缩",
-    "谏臣安全受损",
-    "能臣安全受损",
-    "表达入口被破坏",
-    "表达入口",
-    "授权可信度破坏",
-    "授权可信度",
-    "表达安全受损",
-    "安全受损",
-    "不能容",
-    "将下斩之",
-    "捶扑",
-    "牵曳",
-    "直言",
-)
-
-
+_RULE_KEYWORD_VALUES = values_by_symbol("i5b.rule_keyword_dictionary.v1")
+HIGH_VALUE_ANCHOR_KEYWORDS = tuple(_RULE_KEYWORD_VALUES["HIGH_VALUE_ANCHOR_KEYWORDS"])
+STARTUP_ANCHOR_KEYWORDS = tuple(_RULE_KEYWORD_VALUES["STARTUP_ANCHOR_KEYWORDS"])
+BOUNDARY_ANCHOR_KEYWORDS = tuple(_RULE_KEYWORD_VALUES["BOUNDARY_ANCHOR_KEYWORDS"])
+DIRECT_SAFETY_KEYWORDS = tuple(_RULE_KEYWORD_VALUES["DIRECT_SAFETY_KEYWORDS"])
 POSITIVE_CORE_KEYWORDS = {
-    "识人任用": (
-        "识人",
-        "择人",
-        "拔擢",
-        "任用",
-        "用人",
-        "人才组织",
-        "幕府聚才",
-        "寒门",
-        "后进",
-        "旧敌转用",
-    ),
-    "授权专任": (
-        "授权",
-        "专任",
-        "持节",
-        "分兵",
-        "边疆授权",
-        "军政授权",
-        "权责清晰",
-    ),
-    "人才生态": (
-        "人才生态",
-        "表达安全",
-        "反馈入口",
-        "容谏",
-        "谏臣",
-        "功臣安全",
-        "异质人才",
-        "保护",
-        "纠错环境",
-    ),
+    str(core): tuple(keywords)
+    for core, keywords in _RULE_KEYWORD_VALUES["POSITIVE_CORE_KEYWORDS"].items()
 }
 REQUIRED_POSITIVE_RULE_CORES = tuple(POSITIVE_CORE_KEYWORDS)
 
 
-RULE_SENSITIVE_POINTS = [
-    {
-        "rule_id": "RULE-I5B-BOUNDARY-WEAK-TO-MEDIUM",
-        "rule_question": "弱负上调为中负的边界负证是否阻断极正或高位上探？",
-        "default_rule": "不阻断；只降低置信度，不进入强负核心。",
-        "why_it_matters": "避免把带 mitigation_flag / upper_bound_flag 的轻边界直接抬成拦截项。",
-    },
-    {
-        "rule_id": "RULE-I5B-BOUNDARY-MEDIUM-TO-STRONG",
-        "rule_question": "中负上调为强负的边界负证是否阻断极正或高位上探？",
-        "default_rule": "阻断；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。",
-        "why_it_matters": "把真正破坏表达安全、人才安全或授权可信度的负证与普通边界负证分开。",
-    },
-    {
-        "rule_id": "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE",
-        "rule_question": "单一维度强正是否可以上探极正？",
-        "default_rule": "默认强正封顶；但同一维度内若至少存在三个强正核心、均为第五项B直接证据，且覆盖识人任用、授权专任、人才生态三类核心，才允许上探极正候选。",
-        "why_it_matters": "把“单维同类证据堆叠封顶”与“单维但覆盖三核心的极正候选”区分开。",
-    },
-    {
-        "rule_id": "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL",
-        "rule_question": "相邻项强负剥离后，第五项B剩余如何执行？",
-        "default_rule": "大案本身严重不等于第五项B强负；若剥离后仅剩人才安全/表达安全的轻微外溢，则默认中负剩余；若出现群臣莫敢正言、明显寒蝉、人才退缩或授权可信度破坏等硬证，才保留强负核心。",
-        "why_it_matters": "把政权安全、司法残酷、行政威慑与B项剩余影响分开。",
-    },
-    {
-        "rule_id": "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS",
-        "rule_question": "强正底盘已经成立时，强负核心如何影响上探？",
-        "default_rule": "保留强正基础，但自动标记为强正受压制，不上探极正；若强负核心呈结构性寒蝉，可进一步压低到中正受强负压制。",
-        "why_it_matters": "防止强正掩盖对表达安全和人才安全的硬伤。",
-    },
-]
+_RULE_DICTIONARY_VALUES = values_by_symbol("i5b.rule_dictionary.v1")
+RULE_SENSITIVE_POINTS = [dict(item) for item in _RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]]
 
 
 DIMENSION_RULES = [
