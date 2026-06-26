@@ -118,7 +118,13 @@ LIMITATIONS = (
     "does_not_read_batch_or_archive_inputs",
     "does_not_generate_business_conclusions",
 )
-BLOCKED_REPORT_TERMS = ("score", "rank", "final_score", "leaderboard")
+BLOCKED_REPORT_TERMS = (
+    '"new_subitem_formal_scores_released": true',
+    '"new_subitem_formal_rankings_released": true',
+    '"stage_or_final_total_table_released": true',
+    '"cross_subitem_leaderboard_released": true',
+    '"person_specific_score_publication_results_built": true',
+)
 
 
 def build_contract_report() -> dict[str, Any]:
