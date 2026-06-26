@@ -248,6 +248,17 @@ python scripts/platform/i5b_runtime_adapter_dictionary_readiness.py --readiness-
 
 该包用 AST 只读核对 `rules.py`、`formal_algorithm.py` 与 adapter 展示函数中的 14 个硬编码符号，确认它们均已被 snapshot 覆盖，并列出 readthrough loader shim、rules.py 词表读取、formal algorithm 映射读取、display dictionary 读取和常量清理五段迁移批次。它不 import runtime adapter、不渲染 exports、不改变输出、不创建 PostgreSQL 字典表、不写 canonical dictionary；下一步只能进入 readthrough loader shim package。
 
+Issue #311 I5B runtime dictionary readthrough shim 已新增：
+
+```python
+from export.dimension_adapters.i5b_people_delegation import dictionary_readthrough
+
+snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+symbols = dictionary_readthrough.source_symbols_by_dictionary_type(snapshot)
+```
+
+该 shim 只读取 repo 内 immutable snapshot 并校验 digest / schema，提供按 `dictionary_type` 与 `rule_id` 查询的稳定 API。当前阶段不替换 `rules.py`、`formal_algorithm.py` 或 adapter 中的常量/展示文案，不渲染 exports，不创建 PostgreSQL 字典表，不写 canonical dictionary；下一步只能进入 `rules.py` 词表读取迁移。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
