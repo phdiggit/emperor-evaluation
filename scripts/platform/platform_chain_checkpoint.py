@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "issue311-rule-display-dictionary-governance-gate-ready",
+    "current_phase": "epic5-per-subitem-g8-algorithm-release-gate-contract-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -191,6 +191,9 @@ CURRENT_STATE = {
     "i5b_dictionary_governance_policy_recorded": True,
     "i5b_future_postgres_dictionary_schema_gate_required": True,
     "i5b_future_canonical_dictionary_write_gate_required": True,
+    "epic5_per_subitem_g8_algorithm_release_gate_contract_ready": True,
+    "per_subitem_g8_gate_contract_count": 3,
+    "per_subitem_g8_algorithm_release_performed": False,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
 }
@@ -243,6 +246,7 @@ COMPLETED_CHAIN = [
     "issue311_i5b_display_dictionary_read",
     "issue311_i5b_python_constant_cleanup_after_readthrough",
     "issue311_rule_display_dictionary_governance_gate",
+    "epic5_per_subitem_g8_algorithm_release_gate_contract",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -500,9 +504,10 @@ def build_contract_report() -> dict[str, Any]:
             "issue311_display_dictionary_read_keeps_exporter_output_parity",
             "issue311_python_constant_cleanup_after_readthrough_keeps_snapshot_and_runtime_parity",
             "issue311_rule_display_dictionary_governance_gate_does_not_create_tables_or_write_canonical",
+            "epic5_per_subitem_g8_gate_contract_does_not_release_new_subitem_scores_or_rankings",
         ],
         "next_epic_gates": [
-            "epic5_per_subitem_g8_algorithm_release_gate",
+            "epic5_per_subitem_g8_algorithm_release_review_or_execution_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
             "epic5_stage_or_final_total_table_publication_gate",

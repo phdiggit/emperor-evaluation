@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "issue311-rule-display-dictionary-governance-gate-ready",
+        "current_phase": "epic5-per-subitem-g8-algorithm-release-gate-contract-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -210,6 +210,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "i5b_dictionary_governance_policy_recorded": True,
         "i5b_future_postgres_dictionary_schema_gate_required": True,
         "i5b_future_canonical_dictionary_write_gate_required": True,
+        "epic5_per_subitem_g8_algorithm_release_gate_contract_ready": True,
+        "per_subitem_g8_gate_contract_count": 3,
+        "per_subitem_g8_algorithm_release_performed": False,
         "i5b_postgres_dictionary_tables_created": False,
         "i5b_canonical_dictionary_write_performed": False,
     }
@@ -249,6 +252,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "issue311_i5b_display_dictionary_read" in report["completed_chain"]
     assert "issue311_i5b_python_constant_cleanup_after_readthrough" in report["completed_chain"]
     assert "issue311_rule_display_dictionary_governance_gate" in report["completed_chain"]
+    assert "epic5_per_subitem_g8_algorithm_release_gate_contract" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -271,7 +275,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
+    assert "epic5_per_subitem_g8_algorithm_release_review_or_execution_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
@@ -330,6 +334,9 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"i5b_dictionary_governance_policy_recorded": true' in text
     assert '"i5b_future_postgres_dictionary_schema_gate_required": true' in text
     assert '"i5b_future_canonical_dictionary_write_gate_required": true' in text
+    assert '"epic5_per_subitem_g8_algorithm_release_gate_contract_ready": true' in text
+    assert '"per_subitem_g8_gate_contract_count": 3' in text
+    assert '"per_subitem_g8_algorithm_release_performed": false' in text
     assert '"i5b_postgres_dictionary_tables_created": false' in text
     assert '"i5b_canonical_dictionary_write_performed": false' in text
     assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
@@ -343,6 +350,7 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "issue311_display_dictionary_read_keeps_exporter_output_parity" in text
     assert "issue311_python_constant_cleanup_after_readthrough_keeps_snapshot_and_runtime_parity" in text
     assert "issue311_rule_display_dictionary_governance_gate_does_not_create_tables_or_write_canonical" in text
+    assert "epic5_per_subitem_g8_gate_contract_does_not_release_new_subitem_scores_or_rankings" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
