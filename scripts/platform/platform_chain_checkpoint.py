@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "epic5-boundary-scope-package-ready",
+    "current_phase": "epic5-minimum-interface-contract-package-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -106,6 +106,11 @@ CURRENT_STATE = {
     "cross_subitem_leaderboard_released": False,
     "epic5_boundary_scope_package_ready": True,
     "epic5_boundary_scope_package": "epic5-scoring-engine-boundary-scope-package-v1",
+    "epic5_boundary_scope_pr": 313,
+    "epic5_boundary_scope_merge_commit": "07af05b3b80311bb19ba642c815a2ea7a517767f",
+    "epic5_minimum_interface_contract_ready": True,
+    "epic5_interface_contract_package": "epic5-scoring-engine-interface-contract-v1",
+    "new_subitem_formal_scores_released": False,
     "epic_2_entered": False,
     "epic_3_entered": False,
 }
@@ -142,6 +147,7 @@ COMPLETED_CHAIN = [
     "g8_i5b_formal_algorithm_release",
     "g9_i5b_formal_publication_release",
     "epic5_scoring_engine_scope_package",
+    "epic5_scoring_engine_interface_contract",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -264,6 +270,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_epic5_cross_subitem_engine_scope_only",
             },
             {
+                "name": "epic5_scoring_engine_interface_contract",
+                "path": "scripts/platform/epic5_scoring_engine_interface_contract.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_epic5_minimum_scoring_engine_interface_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -320,8 +333,10 @@ def build_contract_report() -> dict[str, Any]:
             "g8_algorithm_release_completed_before_g9_publication",
             "g9_publication_released_without_g10_cleanup_or_business_table_writes",
             "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard",
+            "epic5_interface_contract_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard",
         ],
         "next_epic_gates": [
+            "epic5_pilot_subitem_profile_contract_package",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
