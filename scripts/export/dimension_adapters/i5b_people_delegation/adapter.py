@@ -130,7 +130,7 @@ def render_score_mapping_draft() -> str:
     score_rows = [
         {
             "band": "极正候选 / 极正",
-            "entry_condition": "高位强正已经成立，且至少三个强正核心均为第五项B直接证据；没有中负升强负或强负核心阻断。",
+            "entry_condition": "高位强正已经成立，至少三个强正核心均为第五项B直接证据，且覆盖识人任用、授权专任、人才生态三类核心；没有中负升强负或强负核心阻断。",
             "typical_evidence_structure": "多维强正、稳定授权、容谏入口、人才结构厚度、顶级对象锚点。",
             "negative_intercept_condition": "一旦出现中负升强负边界或强负核心，必须回落，不得继续上探。",
             "cross_item_split": "战功、政绩、边疆收益、统一贡献、治世光环全部外剥。",
@@ -317,16 +317,20 @@ def render_score_mapping_draft() -> str:
 def summarize_positive_basis(report: dict[str, Any]) -> str:
     anchors = safe_join(report.get("positive_anchor_names") or [])
     dimensions = safe_join(report.get("positive_dimensions") or [])
+    rule_cores = safe_join(report.get("positive_rule_cores") or [])
     strength = int(report.get("strong_positive_count") or 0)
     coverage = int(report.get("coverage_dimension_count") or 0)
     parts = [
         f"{strength}个强正核心",
         f"{coverage}个正向维度" if coverage else "正向维度未单列",
+        "三核心覆盖已满足" if bool(report.get("positive_three_core_coverage")) else "三核心覆盖不足",
     ]
     if anchors:
         parts.append(f"对象锚点：{anchors}")
     if dimensions:
         parts.append(f"维度摘要：{dimensions}")
+    if rule_cores:
+        parts.append(f"规则核心：{rule_cores}")
     return "；".join(parts)
 
 
@@ -426,6 +430,8 @@ def evaluate_person(
     extreme_negative_count = sum(int(card.get("strength") or 0) == 4 for card in negative_cards)
     core_positive_count = sum("核心" in str(card.get("evidence_role") or "") or "核心" in str(card.get("cluster_role") or "") for card in positive_cards)
     core_negative_count = sum("核心" in str(card.get("evidence_role") or "") or "核心" in str(card.get("cluster_role") or "") for card in negative_cards)
+    positive_rule_cores = infer_positive_rule_cores(positive_cards)
+    positive_three_core_coverage = has_required_positive_rule_cores(positive_cards)
 
     startup_positive_cards = [card for card in positive_cards if is_startup_card(card)]
     startup_share = round(len(startup_positive_cards) / len(positive_cards), 2) if positive_cards else 0.0
@@ -444,12 +450,16 @@ def evaluate_person(
     )
     has_extreme_negative_core = extreme_negative_count > 0
     cross_item_split_required = any(bool(card.get("cross_item_split")) for card in person_cards)
-    positive_extreme_allowed = strong_positive_count >= 3 or (positive_dimension_count >= 3 and not single_dimension_flag)
+    positive_extreme_allowed = (
+        (single_dimension_flag and strong_positive_count >= 3 and positive_three_core_coverage)
+        or (positive_dimension_count >= 3 and not single_dimension_flag)
+    )
     rule_sensitive_points = build_rule_sensitive_points(
         {
             "negative_boundary_tier": negative_boundary_tier,
             "single_dimension_flag": single_dimension_flag,
             "strong_positive_count": strong_positive_count,
+            "positive_three_core_coverage": positive_three_core_coverage,
             "has_strong_negative_core": has_strong_negative_core,
         }
     )
@@ -491,6 +501,7 @@ def evaluate_person(
         "positive_cluster_ids": positive_cluster_ids,
         "negative_cluster_ids": negative_cluster_ids,
         "positive_dimensions": positive_dimensions,
+        "positive_rule_cores": positive_rule_cores,
         "positive_anchor_names": positive_anchor_names,
         "negative_anchor_names": negative_anchor_names,
         "core_positive_count": core_positive_count,
@@ -501,6 +512,7 @@ def evaluate_person(
         "extreme_negative_count": extreme_negative_count,
         "coverage_dimension_count": positive_dimension_count,
         "single_dimension_flag": single_dimension_flag,
+        "positive_three_core_coverage": positive_three_core_coverage,
         "startup_positive_share": startup_share,
         "has_high_value_object_anchor": has_high_value_object_anchor,
         "has_boundary_evidence": has_boundary_evidence,
@@ -565,6 +577,8 @@ AUTO_FEATURE_FIELDS = [
     "extreme_negative_count",
     "coverage_dimension_count",
     "single_dimension_flag",
+    "positive_rule_cores",
+    "positive_three_core_coverage",
     "startup_positive_share",
     "has_high_value_object_anchor",
     "has_boundary_evidence",

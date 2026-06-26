@@ -1011,9 +1011,9 @@ def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> 
             polarity="positive",
             strength=3,
             object_anchor="创业期军政授权",
-            evidence_role="强正核心",
+            evidence_role="识人任用强正核心",
             trigger_family="授权专任",
-            quote_short="测试正证一",
+            quote_short="识人拔擢测试正证",
             upper_bound_flag="不得因战功上探",
             mitigation_flag="不回填后效",
         ),
@@ -1023,9 +1023,9 @@ def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> 
             polarity="positive",
             strength=3,
             object_anchor="创业期军政授权",
-            evidence_role="强正核心",
+            evidence_role="授权专任强正核心",
             trigger_family="授权专任",
-            quote_short="测试正证二",
+            quote_short="授权专任测试正证",
             upper_bound_flag="不得因战功上探",
             mitigation_flag="不回填后效",
         ),
@@ -1035,9 +1035,9 @@ def test_weak_boundary_negative_does_not_block_extreme(temp_auto_data: Path) -> 
             polarity="positive",
             strength=3,
             object_anchor="创业期军政授权",
-            evidence_role="强正核心",
+            evidence_role="人才生态强正核心",
             trigger_family="授权专任",
-            quote_short="测试正证三",
+            quote_short="人才生态与反馈入口测试正证",
             upper_bound_flag="不得因战功上探",
             mitigation_flag="不回填后效",
         ),
@@ -1173,7 +1173,7 @@ def test_medium_boundary_negative_blocks_extreme_and_becomes_core(temp_auto_data
     assert cluster["auto_cluster_result"] == "强负候选"
 
 
-def test_single_dimension_three_strong_positives_can_probe_extreme(temp_auto_data: Path) -> None:
+def test_single_dimension_three_same_core_strong_positives_are_capped(temp_auto_data: Path) -> None:
     cards = [
         make_card(
             evidence_id="EVD-TEST-POS-001",
@@ -1181,7 +1181,7 @@ def test_single_dimension_three_strong_positives_can_probe_extreme(temp_auto_dat
             polarity="positive",
             strength=3,
             object_anchor="创业期军政授权",
-            evidence_role="强正核心",
+            evidence_role="授权强正核心",
             trigger_family="授权专任",
             quote_short="测试正证一",
         ),
@@ -1191,7 +1191,7 @@ def test_single_dimension_three_strong_positives_can_probe_extreme(temp_auto_dat
             polarity="positive",
             strength=3,
             object_anchor="创业期军政授权",
-            evidence_role="强正核心",
+            evidence_role="授权强正核心",
             trigger_family="授权专任",
             quote_short="测试正证二",
         ),
@@ -1201,7 +1201,7 @@ def test_single_dimension_three_strong_positives_can_probe_extreme(temp_auto_dat
             polarity="positive",
             strength=3,
             object_anchor="创业期军政授权",
-            evidence_role="强正核心",
+            evidence_role="授权强正核心",
             trigger_family="授权专任",
             quote_short="测试正证三",
         ),
@@ -1213,7 +1213,7 @@ def test_single_dimension_three_strong_positives_can_probe_extreme(temp_auto_dat
             polarity="positive",
             linked_evidence_ids=["EVD-TEST-POS-001", "EVD-TEST-POS-002", "EVD-TEST-POS-003"],
             candidate_strength=3,
-            summary="单一维度三强正核心",
+            summary="单一维度三条授权强正核心",
         ),
     ]
     build_temp_auto_dataset(temp_auto_data, cards, clusters)
@@ -1223,6 +1223,64 @@ def test_single_dimension_three_strong_positives_can_probe_extreme(temp_auto_dat
 
     assert report["single_dimension_flag"] is True
     assert report["strong_positive_count"] == 3
+    assert report["positive_rule_cores"] == ["授权专任"]
+    assert report["positive_three_core_coverage"] is False
+    assert report["auto_band_direction"] == "强正封顶，不上探极正"
+    assert report["confidence"] == "medium_high"
+
+
+def test_single_dimension_three_distinct_positive_cores_can_probe_extreme(temp_auto_data: Path) -> None:
+    cards = [
+        make_card(
+            evidence_id="EVD-TEST-POS-001",
+            person="测试甲",
+            polarity="positive",
+            strength=3,
+            object_anchor="创业期军政授权",
+            evidence_role="识人任用强正核心",
+            trigger_family="授权专任",
+            quote_short="识人拔擢测试正证",
+        ),
+        make_card(
+            evidence_id="EVD-TEST-POS-002",
+            person="测试甲",
+            polarity="positive",
+            strength=3,
+            object_anchor="创业期军政授权",
+            evidence_role="授权专任强正核心",
+            trigger_family="授权专任",
+            quote_short="授权专任测试正证",
+        ),
+        make_card(
+            evidence_id="EVD-TEST-POS-003",
+            person="测试甲",
+            polarity="positive",
+            strength=3,
+            object_anchor="创业期军政授权",
+            evidence_role="人才生态强正核心",
+            trigger_family="授权专任",
+            quote_short="人才生态与反馈入口测试正证",
+        ),
+    ]
+    clusters = [
+        make_cluster(
+            cluster_id="ADJ-TEST-POS-001",
+            person="测试甲",
+            polarity="positive",
+            linked_evidence_ids=["EVD-TEST-POS-001", "EVD-TEST-POS-002", "EVD-TEST-POS-003"],
+            candidate_strength=3,
+            summary="单一维度三核心覆盖",
+        ),
+    ]
+    build_temp_auto_dataset(temp_auto_data, cards, clusters)
+
+    evidence_lookup = {row["evidence_id"]: row for row in cards}
+    report = auto.evaluate_person("测试甲", clusters, evidence_lookup)
+
+    assert report["single_dimension_flag"] is True
+    assert report["strong_positive_count"] == 3
+    assert report["positive_rule_cores"] == ["识人任用", "授权专任", "人才生态"]
+    assert report["positive_three_core_coverage"] is True
     assert report["auto_band_direction"] == "高位强正，上探极正候选"
     assert report["confidence"] == "high"
 

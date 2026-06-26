@@ -151,6 +151,8 @@ python scripts/platform/g7_rule_change_workset.py --workset-md
 
 该 workset 声明下一批规则变更 PR 必须包含 changed rule paths、before / after diff summary、impact scope、boundary regression tests，并确认正式算法与发布仍由 G8 / G9 阻断。该 workset 不读取或修改评分标准、分项规则、证据规则正文，不读取 `.env`，不连接服务，不写业务表。
 
+G7 实际规则变更实现已进入第五项B三核心覆盖门槛：单一维度三强正只有同时覆盖识人任用、授权专任、人才生态三类核心时，才可上探极正候选；同类强证堆叠默认强正封顶。本变更只修改规则正文、自动结算判定与边界测试，不连接服务、不写业务表、不发布正式算法、不发布正式分值或排名；下一步应进入 G8 boundary / approval package。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
