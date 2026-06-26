@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "epic5-pilot-subitem-evidence-profile-contract-package-ready",
+    "current_phase": "epic5-formal-grade-result-contract-package-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -124,9 +124,16 @@ CURRENT_STATE = {
     "pilot_profile_count": 3,
     "epic5_pilot_subitem_evidence_profile_contract_ready": True,
     "epic5_pilot_subitem_evidence_profile_contract_package": "epic5-pilot-subitem-evidence-profile-contract-v1",
+    "epic5_pilot_subitem_evidence_profile_contract_pr": 316,
+    "epic5_pilot_subitem_evidence_profile_contract_merge_commit": "b72bc06fdd30c6c59b3a5508f7553058deb7c102",
     "evidence_profile_contract_count": 3,
+    "epic5_formal_grade_result_contract_ready": True,
+    "epic5_formal_grade_result_contract_package": "epic5-formal-grade-result-contract-v1",
+    "formal_grade_result_contract_count": 3,
     "person_specific_evidence_profiles_built": False,
+    "person_specific_formal_grade_results_built": False,
     "formal_grade_results_released_for_new_subitems": False,
+    "score_publication_results_built": False,
     "new_subitem_formal_scores_released": False,
     "new_subitem_formal_rankings_released": False,
     "epic_2_entered": False,
@@ -168,6 +175,7 @@ COMPLETED_CHAIN = [
     "epic5_scoring_engine_interface_contract",
     "epic5_pilot_subitem_profile_contract",
     "epic5_pilot_subitem_evidence_profile_contract",
+    "epic5_formal_grade_result_contract",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -311,6 +319,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_epic5_pilot_subitem_evidence_profile_contract_only",
             },
             {
+                "name": "epic5_formal_grade_result_contract",
+                "path": "scripts/platform/epic5_formal_grade_result_contract.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_epic5_formal_grade_result_contract_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -370,9 +385,10 @@ def build_contract_report() -> dict[str, Any]:
             "epic5_interface_contract_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard",
             "epic5_pilot_profile_contract_does_not_publish_evidence_profiles_formal_scores_or_leaderboards",
             "epic5_pilot_evidence_profile_contract_does_not_lookup_sources_or_publish_formal_grade_results",
+            "epic5_formal_grade_result_contract_does_not_publish_scores_or_rankings",
         ],
         "next_epic_gates": [
-            "epic5_formal_grade_result_contract_package",
+            "epic5_score_publication_result_contract_package",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
