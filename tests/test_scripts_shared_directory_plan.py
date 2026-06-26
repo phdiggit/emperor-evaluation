@@ -13,14 +13,15 @@ MIGRATED_SHARED_TOOLS = (
     "i5b_cluster_warning_display.py",
     "i5b_markdown_display.py",
 )
+NEW_SHARED_TOOLS = ("scoring_engine_contracts.py",)
 ROOT_SHARED_TOOLS: tuple[str, ...] = ()
-SHARED_TOOLS = MIGRATED_SHARED_TOOLS + ROOT_SHARED_TOOLS
+SHARED_TOOLS = MIGRATED_SHARED_TOOLS + NEW_SHARED_TOOLS + ROOT_SHARED_TOOLS
 
 
 def test_shared_dependency_plan_doc_exists_and_lists_tools() -> None:
     assert SHARED_PLAN_DOC.is_file()
     content = SHARED_PLAN_DOC.read_text(encoding="utf-8")
-    for tool_name in SHARED_TOOLS:
+    for tool_name in MIGRATED_SHARED_TOOLS:
         assert tool_name in content
     assert "scripts/shared/" in content
 
@@ -69,6 +70,7 @@ def test_canonical_shared_imports() -> None:
         "shared.i5b_cluster_warning_display",
         "shared.i5b_markdown_display",
         "shared.config_loaders",
+        "shared.scoring_engine_contracts",
     ):
         assert importlib.import_module(module_name) is not None
 
