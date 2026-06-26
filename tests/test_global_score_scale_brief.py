@@ -33,9 +33,10 @@ def test_export_md_generates_global_scale_decision_brief_export_only() -> None:
         "历史负债",
         "第五项B",
         "45",
-        "当前阶段不发布人物正式分",
+        "G9 已批准第五项B正式分值与子项排名发布",
         "方案 C",
         "G8 正式算法已释放",
+        "本阶段发布第五项B正式分值和子项排名",
     ]:
         assert needle in content
     for forbidden in [
@@ -44,5 +45,6 @@ def test_export_md_generates_global_scale_decision_brief_export_only() -> None:
         "是否采用单一全局总分",
         "1440",
         "本阶段按1440分执行",
+        "人物级正式值和排名仍等 G9",
     ]:
         assert forbidden not in content

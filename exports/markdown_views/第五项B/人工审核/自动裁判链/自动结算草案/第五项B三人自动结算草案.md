@@ -143,6 +143,8 @@
 * **极强负证据数量（extreme_negative_count）**：0
 * **覆盖维度数量（coverage_dimension_count）**：5
 * **是否单维集中（single_dimension_flag）**：否
+* **正向规则核心覆盖（positive_rule_cores）**：识人任用、人才生态、授权专任
+* **是否满足三核心覆盖（positive_three_core_coverage）**：是
 * **创业期正证占比（startup_positive_share）**：0.33
 * **是否有高价值对象锚点（has_high_value_object_anchor）**：是
 * **是否有边界证据（has_boundary_evidence）**：是
@@ -284,6 +286,8 @@
 * **极强负证据数量（extreme_negative_count）**：0
 * **覆盖维度数量（coverage_dimension_count）**：3
 * **是否单维集中（single_dimension_flag）**：否
+* **正向规则核心覆盖（positive_rule_cores）**：授权专任、识人任用
+* **是否满足三核心覆盖（positive_three_core_coverage）**：否
 * **创业期正证占比（startup_positive_share）**：0.8
 * **是否有高价值对象锚点（has_high_value_object_anchor）**：是
 * **是否有边界证据（has_boundary_evidence）**：是
@@ -409,6 +413,8 @@
 * **极强负证据数量（extreme_negative_count）**：0
 * **覆盖维度数量（coverage_dimension_count）**：3
 * **是否单维集中（single_dimension_flag）**：否
+* **正向规则核心覆盖（positive_rule_cores）**：无
+* **是否满足三核心覆盖（positive_three_core_coverage）**：否
 * **创业期正证占比（startup_positive_share）**：0.33
 * **是否有高价值对象锚点（has_high_value_object_anchor）**：是
 * **是否有边界证据（has_boundary_evidence）**：是

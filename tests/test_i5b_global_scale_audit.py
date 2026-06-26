@@ -36,5 +36,6 @@ def test_i5b_global_scale_audit_is_marked_superseded_by_v32() -> None:
     assert "## 四、V3.2 对齐边界" in score_map_content
     assert "第五项B《用人与授权》正式上限为 45 分" in score_map_content
     assert "内容已改为 45 分正式算法区间" in score_map_content
-    assert "算法可以确定区间和候选值，但 G9 前不得发布人物级正式分值" in score_map_content
+    assert "算法可以确定区间、候选值和 G9 发布值" in score_map_content
+    assert "G9 已批准" in score_map_content
     assert "待总标尺确认" not in score_map_content

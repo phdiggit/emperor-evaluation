@@ -451,8 +451,8 @@ def format_remaining_questions(report: dict[str, Any]) -> str:
 
 def format_score_stage_prerequisites(report: dict[str, Any]) -> str:
     if str(report.get("auto_band_direction") or "") == "自动草案待规则复核":
-        return "需先解决规则复核问题；G9 前不得发布人物正式分值。"
-    return "已具备 G8 正式算法映射；G9 前不得发布人物正式分值、排名或榜单。"
+        return "需先解决规则复核问题；不得发布人物正式分值。"
+    return "已具备 G8 正式算法映射和 G9 发布门；正式分值与排名只能由同一算法版本生成，不得人工覆盖。"
 
 
 def build_negative_intercept_status(report: dict[str, Any]) -> str:

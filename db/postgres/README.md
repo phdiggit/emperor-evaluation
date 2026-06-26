@@ -153,7 +153,9 @@ python scripts/platform/g7_rule_change_workset.py --workset-md
 
 G7 实际规则变更实现已进入第五项B三核心覆盖门槛：单一维度三强正只有同时覆盖识人任用、授权专任、人才生态三类核心时，才可上探极正候选；同类强证堆叠默认强正封顶。本变更只修改规则正文、自动结算判定与边界测试，不连接服务、不写业务表、不发布正式算法、不发布正式分值或排名；下一步应进入 G8 boundary / approval package。
 
-G8 已批准并释放第五项B正式算法版本 `i5b-formal-algorithm-v1`：自动结算方向现在可确定 V3.2 九档枚举、45 分档内区间和可重复候选值。该状态只发布规则/算法版本与聚合影响报告，不发布人物级正式分值、排名、leaderboard 或总榜；G9 仍是正式人物分值和排名发布门，G10 仍是破坏性清理门，Epic 2 仍需 separate ready review。
+G8 已批准并释放第五项B正式算法版本 `i5b-formal-algorithm-v1`：自动结算方向现在可确定 V3.2 九档枚举、45 分档内区间和可重复候选值。该状态只发布规则/算法版本与聚合影响报告，不发布人物级正式分值、排名、leaderboard 或总榜。
+
+G9 已批准并进入第五项B正式分值与子项排名发布：当前发布范围只包含第五项B人物正式分值和子项排名，不包含阶段总榜、总榜、G10 破坏性清理、source/passages 写入、evidence/cluster/anchor/relationship 业务表写入或 Epic 2 entry。
 
 ## JSONL staging mapper prototype
 
