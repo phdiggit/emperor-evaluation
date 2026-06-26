@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "issue311-i5b-display-dictionary-read-ready",
+    "current_phase": "issue311-rule-display-dictionary-governance-gate-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -187,6 +187,10 @@ CURRENT_STATE = {
     "issue311_python_constant_cleanup_after_readthrough_ready": True,
     "i5b_python_constant_cleanup_audit_passed": True,
     "i5b_legacy_python_dictionary_text_removed": True,
+    "issue311_rule_display_dictionary_governance_gate_ready": True,
+    "i5b_dictionary_governance_policy_recorded": True,
+    "i5b_future_postgres_dictionary_schema_gate_required": True,
+    "i5b_future_canonical_dictionary_write_gate_required": True,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
 }
@@ -238,6 +242,7 @@ COMPLETED_CHAIN = [
     "issue311_i5b_rules_py_grade_direction_dictionary_read",
     "issue311_i5b_display_dictionary_read",
     "issue311_i5b_python_constant_cleanup_after_readthrough",
+    "issue311_rule_display_dictionary_governance_gate",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -494,9 +499,9 @@ def build_contract_report() -> dict[str, Any]:
             "issue311_rules_py_grade_direction_dictionary_read_keeps_exporter_output_parity",
             "issue311_display_dictionary_read_keeps_exporter_output_parity",
             "issue311_python_constant_cleanup_after_readthrough_keeps_snapshot_and_runtime_parity",
+            "issue311_rule_display_dictionary_governance_gate_does_not_create_tables_or_write_canonical",
         ],
         "next_epic_gates": [
-            "issue_311_rule_display_dictionary_governance_gate",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",

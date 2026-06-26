@@ -269,6 +269,8 @@ Issue #311 adapter display dictionary readthrough 已启用：`render_score_mapp
 
 Issue #311 Python constant cleanup after readthrough 已完成只读审计：`scripts/platform/i5b_python_constant_cleanup_after_readthrough.py` 核对 `rules.py`、`formal_algorithm.py` 与 adapter 展示函数中登记的 14 个符号，确认 runtime Python 模块仍保留兼容公开接口，但不再承载旧的大段字典 literal 或 G8/G9 展示文案 literal。当前仍保留 immutable snapshot，不创建 PostgreSQL 字典表、不写 canonical dictionary、不发布新分值或排名、不进入 G10；下一步进入 #311 rule/display dictionary governance gate。
 
+Issue #311 rule/display dictionary governance gate 已记录：当前 pre-G10 runtime 继续以 repo 内 immutable snapshot 作为离线发布工件；未来若要创建 PostgreSQL 字典表或写 canonical dictionary，必须单独 schema/write gate、单独 PR、单独审计。当前包不连接数据库、不读取 DSN、不渲染 exports、不发布新分值或排名、不进入 G10；下一步回到 Epic5 pre-G10 contract/schema/report/test/plumbing 工作。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
