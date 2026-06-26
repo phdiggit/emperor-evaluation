@@ -877,7 +877,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "内部试算分" in closure_export_content
     assert "不输出正式分，不排名，不生成阶段总榜或总榜" in closure_export_content
     assert not LEGACY_AUTO_EXPORT_PATH.exists()
-    assert "V3.2 已定义正式总标尺和第五项B 45分上限" in closure_export_content
+    assert "V3.2 已定义 1500 正收益总盘和第五项B 45分上限" in closure_export_content
     assert "G8 正式算法已释放" in closure_export_content
     assert "尚未进入45分正式映射" not in closure_export_content
     assert "G9 前人物级正式分值、排名或总榜仍不得发布" in closure_export_content

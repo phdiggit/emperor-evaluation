@@ -73,6 +73,13 @@ def test_algorithm_report_releases_algorithm_but_blocks_g9_outputs(monkeypatch) 
     assert report["gate_status"] == "approved_algorithm_released"
     assert report["g7_rule_change_pr"] == 308
     assert report["g7_rule_change_merge_commit"] == "ae5d9730ab716c110e521b0bf9076a4470e0123c"
+    assert report["score_framework"]["positive_benefit_total"] == 1500
+    assert report["score_framework"]["positive_item_weights"]["第六项 关键历史决策能力"] == 180
+    assert report["score_framework"]["sixth_item_weights"] == {
+        "A 重大节点判断": 60,
+        "B 风险控制与止损": 50,
+        "C 长期战略眼光": 70,
+    }
     assert report["formal_grade_enum"] == list(FORMAL_GRADE_ENUM)
     assert report["release_state"] == {
         "formal_algorithm_released": True,
@@ -81,6 +88,21 @@ def test_algorithm_report_releases_algorithm_but_blocks_g9_outputs(monkeypatch) 
     }
     assert report["followup_gate_boundaries"]["formal_score_values_or_ranking_publication"] == "G9"
     assert "formal_score_values_released: `false`" in markdown
+    assert "positive_benefit_total: `1500`" in markdown
+
+
+def test_active_scoring_standard_uses_1500_total_and_not_1440_current_cap() -> None:
+    scoring_standard = (ROOT / "docs" / "皇帝综合评价体系评分标准.md").read_text(encoding="utf-8")
+    project_rules = (ROOT / "docs" / "项目总纲" / "总规则.md").read_text(encoding="utf-8")
+
+    assert "正收益总盘1500分" in scoring_standard
+    assert "| 第六项 | 关键历史决策能力 | 180 |" in scoring_standard
+    assert "| **正收益合计** |  | **1500** |" in scoring_standard
+    assert "> 260 + 460 + 250 + 180 + 170 + 180 = 1500" in scoring_standard
+    assert "本阶段按 **正收益上限1440分** 执行" not in scoring_standard
+    assert "正收益合计** |  | **1440" not in scoring_standard
+    assert "V3.2 已定义 1500 正收益总盘" in project_rules
+    assert "V3.2 已定义 1440 正收益总盘" not in project_rules
 
 
 def test_impact_report_is_aggregate_and_suppresses_person_level_values() -> None:

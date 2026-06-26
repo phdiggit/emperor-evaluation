@@ -34,6 +34,21 @@ G7_RULE_CHANGE_PR = 308
 G7_RULE_CHANGE_MERGE_COMMIT = "ae5d9730ab716c110e521b0bf9076a4470e0123c"
 ISSUE = 211
 PARENT_ROADMAP = 287
+POSITIVE_BENEFIT_TOTAL = 1500
+HISTORICAL_DEBT_DEDUCTION_RANGE = "0-300"
+POSITIVE_ITEM_WEIGHTS = {
+    "第一项 创业与政权取得能力": 260,
+    "第二项 治国净收益": 460,
+    "第三项 军事与边疆净收益": 250,
+    "第四项 文明与国家整合收益": 180,
+    "第五项 统治者政治素质": 170,
+    "第六项 关键历史决策能力": 180,
+}
+SIXTH_ITEM_WEIGHTS = {
+    "A 重大节点判断": 60,
+    "B 风险控制与止损": 50,
+    "C 长期战略眼光": 70,
+}
 
 
 def build_algorithm_report() -> dict[str, Any]:
@@ -51,6 +66,12 @@ def build_algorithm_report() -> dict[str, Any]:
         "formal_rule_version": FORMAL_RULE_VERSION,
         "formal_grade_enum": list(FORMAL_GRADE_ENUM),
         "formal_subitem_max_score": str(FORMAL_SUBITEM_MAX_SCORE),
+        "score_framework": {
+            "positive_benefit_total": POSITIVE_BENEFIT_TOTAL,
+            "historical_debt_deduction_range": HISTORICAL_DEBT_DEDUCTION_RANGE,
+            "positive_item_weights": dict(POSITIVE_ITEM_WEIGHTS),
+            "sixth_item_weights": dict(SIXTH_ITEM_WEIGHTS),
+        },
         "mapping_rows": formal_algorithm_mapping_rows(),
         "deterministic_rerun_contract": {
             "inputs": [
@@ -140,6 +161,7 @@ def render_algorithm_md() -> str:
         f"- gate_status: `{report['gate_status']}`",
         "- formal_score_values_released: `false`",
         "- formal_ranking_released: `false`",
+        f"- positive_benefit_total: `{POSITIVE_BENEFIT_TOTAL}`",
         "",
         "## Formal Grade Enum",
         "",
