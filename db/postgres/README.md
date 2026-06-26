@@ -121,6 +121,16 @@ python scripts/platform/g6_formal_evidence_boundary_package.py --boundary-md
 
 该包只列出 G6 将允许 / 禁止的 formal evidence release 边界，不批准 G6，不执行 release，不读取 `.env`，不连接 PostgreSQL / RabbitMQ，不访问网络，不读取 canonical JSONL，也不写 source/passages/evidence/cluster/anchor/relationship 业务表。G6 仍需用户显式批准；即使 G6 获批，也不等于评分规则、评分算法、正式分数、排名、破坏性 cleanup 或 Epic 2 入口获批。
 
+G6 获批后的 formal evidence execution / observation package 使用：
+
+```bash
+python scripts/platform/g6_formal_evidence_execution.py --contract-report
+python scripts/platform/g6_formal_evidence_execution.py --execution-plan-json
+python scripts/platform/g6_formal_evidence_execution.py --operator-checklist-md
+```
+
+该包默认不读取 `.env`、不连接 PostgreSQL / RabbitMQ、不访问网络，不读取 canonical JSONL，也不写 source/passages/evidence/cluster/anchor/relationship 业务表。`--execute` / `--observe` 必须带 G6 token、expected plan sha256，并由 operator 环境提供 `EMPEROR_EVAL_PG_DSN`。执行路径先读回确认 G5 runtime marker，再只允许在 `imports` 表写入 / 更新 `G6-FORMAL-EVIDENCE-RELEASE-ISSUE292` formal evidence release audit marker；当前包不发布评分规则、评分算法、正式分数或排名，也不进入 Epic 2。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

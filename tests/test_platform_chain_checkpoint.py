@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g6-formal-evidence-boundary-package-ready",
+        "current_phase": "g6-approved-formal-evidence-execution-pending",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -87,7 +87,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "rabbitmq_live": True,
         "network_ingestion_live": True,
         "g6_formal_evidence_boundary_package_ready": True,
-        "g6_approved": False,
+        "g6_approved": True,
+        "g6_formal_evidence_execution_package_ready": True,
+        "g6_formal_evidence_marker_code": "G6-FORMAL-EVIDENCE-RELEASE-ISSUE292",
+        "g6_formal_evidence_execute_attempted": False,
+        "g6_formal_evidence_execute_status": "not_executed",
+        "g6_formal_evidence_observe_status": "not_observed",
+        "g6_formal_evidence_marker_written": False,
+        "g6_formal_evidence_marker_observed": False,
         "epic_2_entered": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
@@ -102,7 +109,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g5_runtime_execution_package" in report["completed_chain"]
     assert "g5_runtime_execution_observation" in report["completed_chain"]
     assert "g6_formal_evidence_boundary_package" in report["completed_chain"]
+    assert "g6_formal_evidence_execution_package" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
