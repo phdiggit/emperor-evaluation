@@ -29,12 +29,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "epic5-per-subitem-g8-algorithm-release-gate-contract-ready",
+        "current_phase": "g10_cleanup_inventory_plan_ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
-        "last_completed_pr": 310,
-        "last_completed_merge_commit": "831aae51845763ddd2e8944b95e5397320aeff1b",
+        "last_completed_pr": 330,
+        "last_completed_merge_commit": "cd0fbbc2a28da4194801d906eff742f204faca62",
         "positive_benefit_total": 1500,
         "former_active_cap_1440": "obsolete",
         "canonical_write_source": "postgresql",
@@ -215,6 +215,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "per_subitem_g8_algorithm_release_performed": False,
         "i5b_postgres_dictionary_tables_created": False,
         "i5b_canonical_dictionary_write_performed": False,
+        "g10_plan_issues": [331, 332, 333, 334, 335],
+        "g10_cleanup_inventory_plan_ready": True,
+        "g10_cleanup_inventory_package": "g10-cleanup-inventory-plan-v1",
+        "g10_cleanup_inventory_candidate_count": 10,
+        "g10_execution_started": False,
+        "g10_destructive_cleanup_started": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
     assert "production_schema_live_apply" in report["completed_chain"]
@@ -253,6 +259,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "issue311_i5b_python_constant_cleanup_after_readthrough" in report["completed_chain"]
     assert "issue311_rule_display_dictionary_governance_gate" in report["completed_chain"]
     assert "epic5_per_subitem_g8_algorithm_release_gate_contract" in report["completed_chain"]
+    assert "g10_cleanup_inventory_plan" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -269,13 +276,15 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "issue311_i5b_rule_display_dictionary_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "issue311_i5b_dictionary_snapshot_loader_validator" for tool in report["prototype_tools"])
     assert any(tool["name"] == "issue311_i5b_runtime_adapter_dictionary_readiness" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "g10_cleanup_inventory_plan" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic5_per_subitem_g8_algorithm_release_review_or_execution_gate" in report["next_epic_gates"]
+    assert "g10_1_i5b_rule_display_dictionary_final_cleanup" in report["next_epic_gates"]
+    assert "g10_4_completion_verification_and_roadmap_handoff" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
@@ -339,6 +348,9 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"per_subitem_g8_algorithm_release_performed": false' in text
     assert '"i5b_postgres_dictionary_tables_created": false' in text
     assert '"i5b_canonical_dictionary_write_performed": false' in text
+    assert '"g10_cleanup_inventory_plan_ready": true' in text
+    assert '"g10_execution_started": false' in text
+    assert '"g10_destructive_cleanup_started": false' in text
     assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_interface_contract_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_pilot_profile_contract_does_not_publish_evidence_profiles_formal_scores_or_leaderboards" in text
@@ -351,6 +363,7 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "issue311_python_constant_cleanup_after_readthrough_keeps_snapshot_and_runtime_parity" in text
     assert "issue311_rule_display_dictionary_governance_gate_does_not_create_tables_or_write_canonical" in text
     assert "epic5_per_subitem_g8_gate_contract_does_not_release_new_subitem_scores_or_rankings" in text
+    assert "g10_cleanup_inventory_plan_does_not_move_delete_or_archive_files" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
