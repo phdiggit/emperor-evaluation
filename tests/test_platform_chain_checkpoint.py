@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "issue311-i5b-rules-keyword-dictionary-read-ready",
+        "current_phase": "issue311-i5b-formal-algorithm-grade-dictionary-read-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -194,6 +194,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "issue311_rules_py_keyword_dictionary_read_ready": True,
         "i5b_rules_py_keyword_dictionary_readthrough_enabled": True,
         "i5b_rules_py_rule_sensitive_points_readthrough_enabled": True,
+        "issue311_formal_algorithm_grade_dictionary_read_ready": True,
+        "i5b_formal_algorithm_grade_dictionary_readthrough_enabled": True,
+        "i5b_formal_algorithm_direction_mapping_readthrough_enabled": True,
         "i5b_runtime_adapter_migrated": False,
         "i5b_postgres_dictionary_tables_created": False,
         "i5b_canonical_dictionary_write_performed": False,
@@ -229,6 +232,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "issue311_i5b_runtime_adapter_dictionary_readiness" in report["completed_chain"]
     assert "issue311_i5b_readthrough_loader_shim" in report["completed_chain"]
     assert "issue311_i5b_rules_py_keyword_dictionary_read" in report["completed_chain"]
+    assert "issue311_i5b_formal_algorithm_grade_dictionary_read" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -251,7 +255,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "issue311_formal_algorithm_grade_dictionary_read_package" in report["next_epic_gates"]
+    assert "issue311_rules_py_grade_direction_dictionary_read_package" in report["next_epic_gates"]
     assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]

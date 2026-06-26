@@ -12,7 +12,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from export.dimension_adapters.i5b_people_delegation import dictionary_readthrough, rules  # noqa: E402
+from export.dimension_adapters.i5b_people_delegation import dictionary_readthrough, formal_algorithm, rules  # noqa: E402
 from scripts.platform import i5b_dictionary_snapshot_loader_validator as platform_loader  # noqa: E402
 
 
@@ -82,6 +82,29 @@ def test_readthrough_values_match_rules_module_sensitive_points() -> None:
     assert values["RULE_SENSITIVE_POINTS"] == rules.RULE_SENSITIVE_POINTS
 
 
+def test_readthrough_values_match_formal_algorithm_grade_exports() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.grade_dictionary.v1", snapshot)
+
+    assert tuple(values["FORMAL_GRADE_ENUM"]) == formal_algorithm.FORMAL_GRADE_ENUM
+    assert {
+        grade: {
+            "min_pct": str(spec["min_pct"]),
+            "max_pct": str(spec["max_pct"]),
+            "max_exclusive": spec["max_exclusive"],
+        }
+        for grade, spec in formal_algorithm.FORMAL_GRADE_SPECS.items()
+    } == values["FORMAL_GRADE_SPECS"]
+
+
+def test_readthrough_values_match_formal_algorithm_direction_mapping_exports() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.direction_grade_mapping.v1", snapshot)
+
+    assert values["AUTO_DIRECTION_TO_FORMAL_GRADE"] == formal_algorithm.AUTO_DIRECTION_TO_FORMAL_GRADE
+    assert values["FORMAL_GRADE_BAND_POSITION"] == formal_algorithm.FORMAL_GRADE_BAND_POSITION
+
+
 def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> None:
     source = (
         ROOT
@@ -101,6 +124,24 @@ def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> 
     assert 'values_by_symbol("i5b.rule_dictionary.v1")' in source
     assert '_RULE_KEYWORD_VALUES["POSITIVE_CORE_KEYWORDS"]' in source
     assert '_RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]' in source
+
+
+def test_formal_algorithm_no_longer_embeds_grade_or_direction_mapping_literals() -> None:
+    source = (
+        ROOT
+        / "scripts"
+        / "export"
+        / "dimension_adapters"
+        / "i5b_people_delegation"
+        / "formal_algorithm.py"
+    ).read_text(encoding="utf-8")
+
+    assert "FORMAL_GRADE_ENUM = (" not in source
+    assert '"历史极限": {"min_pct": Decimal("96")' not in source
+    assert "AUTO_DIRECTION_TO_FORMAL_GRADE = {" not in source
+    assert "FORMAL_GRADE_BAND_POSITION = {" not in source
+    assert 'values_by_symbol("i5b.grade_dictionary.v1")' in source
+    assert 'values_by_symbol("i5b.direction_grade_mapping.v1")' in source
 
 
 def test_readthrough_rejects_tampered_digest() -> None:
