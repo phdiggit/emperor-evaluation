@@ -261,6 +261,8 @@ symbols = dictionary_readthrough.source_symbols_by_dictionary_type(snapshot)
 
 Issue #311 `rules.py` keyword / rule dictionary readthrough 已启用：`HIGH_VALUE_ANCHOR_KEYWORDS`、`STARTUP_ANCHOR_KEYWORDS`、`BOUNDARY_ANCHOR_KEYWORDS`、`DIRECT_SAFETY_KEYWORDS`、`POSITIVE_CORE_KEYWORDS` 与 `RULE_SENSITIVE_POINTS` 现在从 immutable snapshot 的 `values_by_symbol` 初始化，并由 parity tests 锁定与原常量值一致。当前仍不迁移 `TRIAL_SCORE_MAP`、`DIMENSION_RULES`、`formal_algorithm.py` 或 adapter display text，不创建 PostgreSQL 字典表，不写 canonical dictionary；下一步只能进入 formal algorithm grade dictionary read package。
 
+Issue #311 `formal_algorithm.py` grade / direction mapping readthrough 已启用：`FORMAL_GRADE_ENUM`、`FORMAL_GRADE_SPECS`、`AUTO_DIRECTION_TO_FORMAL_GRADE` 与 `FORMAL_GRADE_BAND_POSITION` 现在从 immutable snapshot 的 `values_by_symbol` 初始化，`FORMAL_GRADE_SPECS` 中的 percent 字符串在 runtime 转回 `Decimal`。当前仍不迁移 `rules.py` 的 `TRIAL_SCORE_MAP` / `DIMENSION_RULES` 或 adapter display text，不创建 PostgreSQL 字典表，不写 canonical dictionary；下一步只能进入 remaining `rules.py` grade / direction read package。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

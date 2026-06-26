@@ -16,7 +16,7 @@
       "status": "draft",
       "effective_from": "2026-06-26",
       "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
-      "digest_sha256": "12879550e1f12761b1509920a72327737340a450462ce2844205f0e2c4516d22",
+      "digest_sha256": "30abc825e8b93f9a92836d91bbae894407bf9a6d5a478ff6b341d5a5221ac808",
       "payload": {
         "source_symbols": [
           "TRIAL_SCORE_MAP",
@@ -25,7 +25,105 @@
         ],
         "externalization_target": "i5b_grade_dictionary",
         "algorithm_runtime_migrated": false,
-        "contains_release_scores": false
+        "contains_release_scores": false,
+        "values_by_symbol": {
+          "TRIAL_SCORE_MAP": {
+            "极正候选 / 高位强正上探极正": {
+              "score_range": "94-100",
+              "trial_score": 97
+            },
+            "强正受压制": {
+              "score_range": "72-80",
+              "trial_score": 76
+            },
+            "中正受中负压制": {
+              "score_range": "48-57",
+              "trial_score": 53
+            },
+            "强正封顶": {
+              "score_range": "68-75",
+              "trial_score": 72
+            },
+            "中正受强负压制": {
+              "score_range": "38-47",
+              "trial_score": 43
+            },
+            "强正": {
+              "score_range": "78-85",
+              "trial_score": 82
+            },
+            "中正": {
+              "score_range": "58-67",
+              "trial_score": 63
+            },
+            "中负": {
+              "score_range": "20-37",
+              "trial_score": 29
+            },
+            "强负": {
+              "score_range": "0-19",
+              "trial_score": 10
+            }
+          },
+          "FORMAL_GRADE_ENUM": [
+            "历史极限",
+            "历史顶级",
+            "优秀",
+            "良好",
+            "合格",
+            "一般",
+            "较差",
+            "很差",
+            "极差"
+          ],
+          "FORMAL_GRADE_SPECS": {
+            "历史极限": {
+              "min_pct": "96",
+              "max_pct": "98",
+              "max_exclusive": false
+            },
+            "历史顶级": {
+              "min_pct": "90",
+              "max_pct": "95",
+              "max_exclusive": false
+            },
+            "优秀": {
+              "min_pct": "80",
+              "max_pct": "89",
+              "max_exclusive": false
+            },
+            "良好": {
+              "min_pct": "70",
+              "max_pct": "79",
+              "max_exclusive": false
+            },
+            "合格": {
+              "min_pct": "60",
+              "max_pct": "69",
+              "max_exclusive": false
+            },
+            "一般": {
+              "min_pct": "50",
+              "max_pct": "59",
+              "max_exclusive": false
+            },
+            "较差": {
+              "min_pct": "40",
+              "max_pct": "49",
+              "max_exclusive": false
+            },
+            "很差": {
+              "min_pct": "30",
+              "max_pct": "39",
+              "max_exclusive": false
+            },
+            "极差": {
+              "min_pct": "0",
+              "max_pct": "30",
+              "max_exclusive": true
+            }
+          }
+        }
       }
     },
     {
@@ -204,7 +302,7 @@
       "status": "draft",
       "effective_from": "2026-06-26",
       "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
-      "digest_sha256": "6bfc7b2bb31e7730d5b629a38af3c0e400cf27822cd4857bc9a3d05723b6f17c",
+      "digest_sha256": "86e0adb6bb9ea996b3d3e8828be87d07dfba1dcd8ff8a9995e5047a3de41b150",
       "payload": {
         "source_symbols": [
           "DIMENSION_RULES",
@@ -213,7 +311,137 @@
         ],
         "externalization_target": "i5b_direction_grade_mapping",
         "algorithm_runtime_migrated": false,
-        "contains_release_scores": false
+        "contains_release_scores": false,
+        "values_by_symbol": {
+          "DIMENSION_RULES": [
+            [
+              "幕府聚才",
+              "人才组织"
+            ],
+            [
+              "旧敌转用",
+              "旧敌转用"
+            ],
+            [
+              "容谏",
+              "容谏反馈"
+            ],
+            [
+              "反馈入口",
+              "容谏反馈"
+            ],
+            [
+              "谏臣",
+              "容谏反馈"
+            ],
+            [
+              "授权",
+              "授权专任"
+            ],
+            [
+              "专任",
+              "授权专任"
+            ],
+            [
+              "持节",
+              "创业期军政授权"
+            ],
+            [
+              "分兵",
+              "创业期军政授权"
+            ],
+            [
+              "将军",
+              "创业期军政授权"
+            ],
+            [
+              "大将军",
+              "创业期军政授权"
+            ],
+            [
+              "寒门/后进",
+              "寒门后进"
+            ],
+            [
+              "寒门",
+              "寒门后进"
+            ],
+            [
+              "后进",
+              "寒门后进"
+            ],
+            [
+              "功臣安全",
+              "功臣安全"
+            ],
+            [
+              "功臣",
+              "功臣安全"
+            ],
+            [
+              "旧臣与宗室辅政",
+              "辅政"
+            ],
+            [
+              "辅政",
+              "辅政"
+            ],
+            [
+              "边疆授权",
+              "边疆授权"
+            ],
+            [
+              "西域",
+              "边疆授权"
+            ],
+            [
+              "楚狱",
+              "楚狱牵连"
+            ],
+            [
+              "表达安全",
+              "表达安全"
+            ],
+            [
+              "谏臣保护",
+              "表达安全"
+            ],
+            [
+              "反谶",
+              "思想/谏诤受压"
+            ],
+            [
+              "直言",
+              "直言型人才"
+            ],
+            [
+              "身后信用反转",
+              "同一对象反转"
+            ]
+          ],
+          "AUTO_DIRECTION_TO_FORMAL_GRADE": {
+            "高位强正，上探极正候选": "历史极限",
+            "强正": "优秀",
+            "强正受压制，不上探极正": "良好",
+            "强正封顶，不上探极正": "良好",
+            "中正": "合格",
+            "中正受中负压制": "一般",
+            "中正受强负压制": "较差",
+            "中负": "很差",
+            "强负": "极差"
+          },
+          "FORMAL_GRADE_BAND_POSITION": {
+            "高位强正，上探极正候选": "high",
+            "强正": "mid",
+            "强正受压制，不上探极正": "low",
+            "强正封顶，不上探极正": "mid",
+            "中正": "mid",
+            "中正受中负压制": "low",
+            "中正受强负压制": "low",
+            "中负": "mid",
+            "强负": "low"
+          }
+        }
       }
     },
     {

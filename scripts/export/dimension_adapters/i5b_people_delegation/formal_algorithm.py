@@ -3,62 +3,27 @@ from __future__ import annotations
 from decimal import Decimal, ROUND_HALF_UP
 from typing import Any
 
+from export.dimension_adapters.i5b_people_delegation.dictionary_readthrough import values_by_symbol
+
 
 FORMAL_ALGORITHM_VERSION = "i5b-formal-algorithm-v1"
 FORMAL_RULE_VERSION = "i5b-g7-three-core-rule-v1"
 FORMAL_PUBLICATION_GATE = "G9"
 FORMAL_SUBITEM_MAX_SCORE = Decimal("45")
 FORMAL_SCORE_QUANT = Decimal("0.01")
-FORMAL_GRADE_ENUM = (
-    "历史极限",
-    "历史顶级",
-    "优秀",
-    "良好",
-    "合格",
-    "一般",
-    "较差",
-    "很差",
-    "极差",
-)
-
-
+_GRADE_DICTIONARY_VALUES = values_by_symbol("i5b.grade_dictionary.v1")
+_DIRECTION_GRADE_MAPPING_VALUES = values_by_symbol("i5b.direction_grade_mapping.v1")
+FORMAL_GRADE_ENUM = tuple(_GRADE_DICTIONARY_VALUES["FORMAL_GRADE_ENUM"])
 FORMAL_GRADE_SPECS: dict[str, dict[str, Any]] = {
-    "历史极限": {"min_pct": Decimal("96"), "max_pct": Decimal("98"), "max_exclusive": False},
-    "历史顶级": {"min_pct": Decimal("90"), "max_pct": Decimal("95"), "max_exclusive": False},
-    "优秀": {"min_pct": Decimal("80"), "max_pct": Decimal("89"), "max_exclusive": False},
-    "良好": {"min_pct": Decimal("70"), "max_pct": Decimal("79"), "max_exclusive": False},
-    "合格": {"min_pct": Decimal("60"), "max_pct": Decimal("69"), "max_exclusive": False},
-    "一般": {"min_pct": Decimal("50"), "max_pct": Decimal("59"), "max_exclusive": False},
-    "较差": {"min_pct": Decimal("40"), "max_pct": Decimal("49"), "max_exclusive": False},
-    "很差": {"min_pct": Decimal("30"), "max_pct": Decimal("39"), "max_exclusive": False},
-    "极差": {"min_pct": Decimal("0"), "max_pct": Decimal("30"), "max_exclusive": True},
+    str(grade): {
+        "min_pct": Decimal(str(spec["min_pct"])),
+        "max_pct": Decimal(str(spec["max_pct"])),
+        "max_exclusive": bool(spec["max_exclusive"]),
+    }
+    for grade, spec in _GRADE_DICTIONARY_VALUES["FORMAL_GRADE_SPECS"].items()
 }
-
-
-AUTO_DIRECTION_TO_FORMAL_GRADE = {
-    "高位强正，上探极正候选": "历史极限",
-    "强正": "优秀",
-    "强正受压制，不上探极正": "良好",
-    "强正封顶，不上探极正": "良好",
-    "中正": "合格",
-    "中正受中负压制": "一般",
-    "中正受强负压制": "较差",
-    "中负": "很差",
-    "强负": "极差",
-}
-
-
-FORMAL_GRADE_BAND_POSITION = {
-    "高位强正，上探极正候选": "high",
-    "强正": "mid",
-    "强正受压制，不上探极正": "low",
-    "强正封顶，不上探极正": "mid",
-    "中正": "mid",
-    "中正受中负压制": "low",
-    "中正受强负压制": "low",
-    "中负": "mid",
-    "强负": "low",
-}
+AUTO_DIRECTION_TO_FORMAL_GRADE = dict(_DIRECTION_GRADE_MAPPING_VALUES["AUTO_DIRECTION_TO_FORMAL_GRADE"])
+FORMAL_GRADE_BAND_POSITION = dict(_DIRECTION_GRADE_MAPPING_VALUES["FORMAL_GRADE_BAND_POSITION"])
 
 
 def _score_from_pct(percent: Decimal) -> Decimal:

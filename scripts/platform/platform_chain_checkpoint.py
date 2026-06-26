@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "issue311-i5b-rules-keyword-dictionary-read-ready",
+    "current_phase": "issue311-i5b-formal-algorithm-grade-dictionary-read-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -175,6 +175,9 @@ CURRENT_STATE = {
     "issue311_rules_py_keyword_dictionary_read_ready": True,
     "i5b_rules_py_keyword_dictionary_readthrough_enabled": True,
     "i5b_rules_py_rule_sensitive_points_readthrough_enabled": True,
+    "issue311_formal_algorithm_grade_dictionary_read_ready": True,
+    "i5b_formal_algorithm_grade_dictionary_readthrough_enabled": True,
+    "i5b_formal_algorithm_direction_mapping_readthrough_enabled": True,
     "i5b_runtime_adapter_migrated": False,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
@@ -223,6 +226,7 @@ COMPLETED_CHAIN = [
     "issue311_i5b_runtime_adapter_dictionary_readiness",
     "issue311_i5b_readthrough_loader_shim",
     "issue311_i5b_rules_py_keyword_dictionary_read",
+    "issue311_i5b_formal_algorithm_grade_dictionary_read",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -475,9 +479,10 @@ def build_contract_report() -> dict[str, Any]:
             "issue311_runtime_adapter_dictionary_readiness_does_not_modify_runtime_adapter",
             "issue311_readthrough_loader_shim_does_not_replace_rules_or_formal_algorithm_constants",
             "issue311_rules_py_keyword_dictionary_read_keeps_exporter_output_parity",
+            "issue311_formal_algorithm_grade_dictionary_read_keeps_exporter_output_parity",
         ],
         "next_epic_gates": [
-            "issue311_formal_algorithm_grade_dictionary_read_package",
+            "issue311_rules_py_grade_direction_dictionary_read_package",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
