@@ -153,6 +153,8 @@ python scripts/platform/g7_rule_change_workset.py --workset-md
 
 G7 实际规则变更实现已进入第五项B三核心覆盖门槛：单一维度三强正只有同时覆盖识人任用、授权专任、人才生态三类核心时，才可上探极正候选；同类强证堆叠默认强正封顶。本变更只修改规则正文、自动结算判定与边界测试，不连接服务、不写业务表、不发布正式算法、不发布正式分值或排名；下一步应进入 G8 boundary / approval package。
 
+G8 已批准并释放第五项B正式算法版本 `i5b-formal-algorithm-v1`：自动结算方向现在可确定 V3.2 九档枚举、45 分档内区间和可重复候选值。该状态只发布规则/算法版本与聚合影响报告，不发布人物级正式分值、排名、leaderboard 或总榜；G9 仍是正式人物分值和排名发布门，G10 仍是破坏性清理门，Epic 2 仍需 separate ready review。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

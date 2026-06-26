@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g7-i5b-three-core-rule-change-ready",
+    "current_phase": "epic4-g8-i5b-formal-algorithm-released",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -24,7 +24,9 @@ CURRENT_STATE = {
     "postgres_unique_write_source": True,
     "production_runtime_live": True,
     "formal_evidence_released": True,
+    "formal_algorithm_released": True,
     "formal_scoring_released": False,
+    "formal_score_values_released": False,
     "formal_ranking_released": False,
     "g1_canonical_manifest_approved": True,
     "g2_mapping_approved": True,
@@ -86,6 +88,9 @@ CURRENT_STATE = {
     "g7_rule_change_scope_package_ready": True,
     "g7_rule_change_workset_ready": True,
     "g7_i5b_three_core_rule_change_ready": True,
+    "g8_approved": True,
+    "g8_i5b_formal_algorithm_released": True,
+    "g8_i5b_formal_algorithm_version": "i5b-formal-algorithm-v1",
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -118,6 +123,7 @@ COMPLETED_CHAIN = [
     "g7_rule_change_scope_package",
     "g7_rule_change_workset_package",
     "g7_i5b_three_core_rule_change",
+    "g8_i5b_formal_algorithm_release",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -219,6 +225,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_g7_rule_change_workset_declaration_only",
             },
             {
+                "name": "g8_i5b_formal_algorithm_release",
+                "path": "scripts/platform/g8_i5b_formal_algorithm_release.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g8_algorithm_release_and_aggregate_impact_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -272,13 +285,12 @@ def build_contract_report() -> dict[str, Any]:
             "apply_smoke_uses_primary_dsn_only_when_opted_in",
             "apply_smoke_uses_random_isolated_schema_and_drop_cleanup",
             "no_business_table_writes_beyond_g6_marker_without_followup_gate",
-            "no_algorithm_or_publication_without_followup_gate",
+            "g8_algorithm_released_without_g9_person_score_or_ranking_publication",
         ],
         "next_epic_gates": [
-            "epic_1_g8_algorithm_gate",
-            "epic_1_g9_publication_gate",
-            "epic_1_source_document_passage_merge_policy_gate",
-            "epic_1_evidence_cluster_anchor_relationship_followup_gates",
+            "epic4_g9_publication_gate",
+            "epic4_source_document_passage_merge_policy_gate",
+            "epic4_evidence_cluster_anchor_relationship_followup_gates",
         ],
         "baseline_repair_tracking": {
             "sqlite_build_operational": True,

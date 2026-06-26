@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g7-i5b-three-core-rule-change-ready",
+        "current_phase": "epic4-g8-i5b-formal-algorithm-released",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -39,7 +39,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "postgres_unique_write_source": True,
         "production_runtime_live": True,
         "formal_evidence_released": True,
+        "formal_algorithm_released": True,
         "formal_scoring_released": False,
+        "formal_score_values_released": False,
         "formal_ranking_released": False,
         "g1_canonical_manifest_approved": True,
         "g2_mapping_approved": True,
@@ -101,6 +103,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g7_rule_change_scope_package_ready": True,
         "g7_rule_change_workset_ready": True,
         "g7_i5b_three_core_rule_change_ready": True,
+        "g8_approved": True,
+        "g8_i5b_formal_algorithm_released": True,
+        "g8_i5b_formal_algorithm_version": "i5b-formal-algorithm-v1",
         "epic_2_entered": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
@@ -120,18 +125,19 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g7_rule_change_scope_package" in report["completed_chain"]
     assert "g7_rule_change_workset_package" in report["completed_chain"]
     assert "g7_i5b_three_core_rule_change" in report["completed_chain"]
+    assert "g8_i5b_formal_algorithm_release" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_workset" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "g8_i5b_formal_algorithm_release" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic_1_g8_algorithm_gate" in report["next_epic_gates"]
-    assert "epic_1_g9_publication_gate" in report["next_epic_gates"]
+    assert "epic4_g9_publication_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
     assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
@@ -164,6 +170,10 @@ def test_checkpoint_report_is_offline_and_does_not_touch_forbidden_paths(monkeyp
 def test_checkpoint_report_contains_no_blocked_business_terms() -> None:
     text = platform_chain_checkpoint.report_as_json(platform_chain_checkpoint.build_contract_report()).lower()
     text = text.replace('"formal_ranking_released": false', "")
+    text = text.replace('"formal_score_values_released": false', "")
+    text = text.replace('"formal_scoring_released": false', "")
+    text = text.replace('"g8_i5b_formal_algorithm_version": "i5b-formal-algorithm-v1"', "")
+    text = text.replace('"g8_algorithm_released_without_g9_person_score_or_ranking_publication"', "")
 
     for term in BLOCKED_REPORT_TERMS:
         assert term not in text

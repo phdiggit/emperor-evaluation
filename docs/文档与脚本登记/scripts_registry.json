@@ -349,10 +349,24 @@
     {
       "audit_docs": [],
       "category": "export",
+      "id": "export_i5b_people_delegation_formal_algorithm",
+      "implementation": "scripts/export/dimension_adapters/i5b_people_delegation/formal_algorithm.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_g8_i5b_formal_algorithm_release.py",
+        "tests/test_i5b_auto_adjudication.py",
+        "tests/test_scripts_export_directory_layout.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "export",
       "id": "export_i5b_people_delegation_rules",
       "implementation": "scripts/export/dimension_adapters/i5b_people_delegation/rules.py",
       "legacy_wrapper": null,
       "required_tests": [
+        "tests/test_g8_i5b_formal_algorithm_release.py",
         "tests/test_i5b_auto_adjudication.py",
         "tests/test_scripts_export_directory_layout.py"
       ],
@@ -1330,6 +1344,18 @@
       "replacement": null,
       "sunset_milestone": null,
       "last_required_by": "Epic 1 G7 approved rule change workset",
+      "public_cli_stable": true
+    },
+    {
+      "id": "platform_g8_i5b_formal_algorithm_release",
+      "implementation": "scripts/platform/g8_i5b_formal_algorithm_release.py",
+      "capability": "G8 Fifth Item B formal algorithm release and aggregate impact report",
+      "lifecycle_status": "active",
+      "epic_owner": "Epic 4",
+      "risk_class": "high",
+      "replacement": null,
+      "sunset_milestone": null,
+      "last_required_by": "Epic 4 G8 approved formal algorithm implementation",
       "public_cli_stable": true
     },
     {

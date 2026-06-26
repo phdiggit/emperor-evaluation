@@ -29,18 +29,20 @@ def test_export_md_generates_global_scale_decision_brief_export_only() -> None:
     for needle in [
         "全局总标尺执行简报",
         "V3.2",
-        "1440",
+        "1500",
         "历史负债",
         "第五项B",
         "45",
         "当前阶段不发布人物正式分",
         "方案 C",
-        "内部100制相对试算指数",
+        "G8 正式算法已释放",
     ]:
         assert needle in content
     for forbidden in [
         "未发现正式全局分值上限",
         "全局满分或总分基准缺失",
         "是否采用单一全局总分",
+        "1440",
+        "本阶段按1440分执行",
     ]:
         assert forbidden not in content
