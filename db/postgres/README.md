@@ -100,6 +100,16 @@ python scripts/platform/g5_runtime_boundary_package.py --boundary-md
 
 该包只列出 G5 将允许 / 禁止的 runtime、RabbitMQ、network ingestion、production credentials 边界，不执行 G5，不读取 `.env`，不连接 PostgreSQL，不连接 RabbitMQ，不访问网络。G5 仍需用户显式批准；即使 G5 获批，也不等于 formal evidence、评分、分数或排名发布，也不批准 source/passages/evidence/cluster/anchor/relationship 业务表写入。
 
+G5 获批后的 runtime execution / observation package 使用：
+
+```bash
+python scripts/platform/g5_runtime_execution.py --contract-report
+python scripts/platform/g5_runtime_execution.py --execution-plan-json
+python scripts/platform/g5_runtime_execution.py --operator-checklist-md
+```
+
+该包默认不读取 `.env`、不连接 PostgreSQL / RabbitMQ、不访问网络。`--execute` / `--observe` 必须带 G5 token、expected plan sha256，并由 operator 环境提供 `EMPEROR_EVAL_PG_DSN`、RabbitMQ URL / vhost / exchange / queue / routing key / prefetch / TLS 设置，以及 `G5_NETWORK_SOURCE_ALLOWLIST` 与 `G5_NETWORK_PILOT_URL`。缺任一生产凭据、RabbitMQ 配置或 allowlist 时只能返回 blocked/operator-required，不得伪造成功。成功执行只允许写入 `imports` 表的 `G5-RUNTIME-SMOKE-ISSUE292` audit marker；不写 source/passages/evidence/cluster/anchor/relationship 业务表，不发布 formal evidence、评分或排名，也不进入 Epic 2。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

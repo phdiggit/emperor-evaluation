@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g5-boundary-package-ready",
+        "current_phase": "g5-runtime-execution-package-ready",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -68,7 +68,11 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "write_source_cutover_executed": True,
         "epic_1_g1_to_g4_complete": True,
         "g5_runtime_boundary_package_ready": True,
-        "g5_approved": False,
+        "g5_approved": True,
+        "g5_runtime_execution_package_ready": True,
+        "g5_runtime_execute_attempted": False,
+        "g5_runtime_execute_status": "not_executed",
+        "g5_runtime_observe_status": "not_observed",
         "production_credentials_enabled": False,
         "rabbitmq_live": False,
         "network_ingestion_live": False,
@@ -83,6 +87,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g3_postgres_business_write_execution_package" in report["completed_chain"]
     assert "g4_write_source_cutover_execution_package" in report["completed_chain"]
     assert "g5_runtime_boundary_package" in report["completed_chain"]
+    assert "g5_runtime_execution_package" in report["completed_chain"]
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
