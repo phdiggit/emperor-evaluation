@@ -125,6 +125,14 @@ def dictionary_item_by_rule_id(rule_id: str, snapshot: Mapping[str, Any] | None 
     raise KeyError(rule_id)
 
 
+def values_by_symbol(rule_id: str, snapshot: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    item = dictionary_item_by_rule_id(rule_id, snapshot)
+    values = item["payload"].get("values_by_symbol")
+    if not isinstance(values, Mapping):
+        raise KeyError(f"{rule_id}: payload.values_by_symbol")
+    return deepcopy(dict(values))
+
+
 def source_symbols_by_dictionary_type(snapshot: Mapping[str, Any] | None = None) -> dict[str, tuple[str, ...]]:
     grouped = dictionary_items_by_type(snapshot)
     result: dict[str, tuple[str, ...]] = {}

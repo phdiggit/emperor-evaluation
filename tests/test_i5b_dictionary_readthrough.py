@@ -12,7 +12,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from export.dimension_adapters.i5b_people_delegation import dictionary_readthrough  # noqa: E402
+from export.dimension_adapters.i5b_people_delegation import dictionary_readthrough, rules  # noqa: E402
 from scripts.platform import i5b_dictionary_snapshot_loader_validator as platform_loader  # noqa: E402
 
 
@@ -59,6 +59,48 @@ def test_readthrough_supports_rule_id_lookup_and_source_symbol_index() -> None:
     symbols = dictionary_readthrough.source_symbols_by_dictionary_type(snapshot)
     assert "FORMAL_GRADE_ENUM" in symbols["grade_dictionary"]
     assert "render_formal_person_section" in symbols["display_dictionary"]
+
+
+def test_readthrough_values_match_rules_module_keyword_exports() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.rule_keyword_dictionary.v1", snapshot)
+
+    assert tuple(values["HIGH_VALUE_ANCHOR_KEYWORDS"]) == rules.HIGH_VALUE_ANCHOR_KEYWORDS
+    assert tuple(values["STARTUP_ANCHOR_KEYWORDS"]) == rules.STARTUP_ANCHOR_KEYWORDS
+    assert tuple(values["BOUNDARY_ANCHOR_KEYWORDS"]) == rules.BOUNDARY_ANCHOR_KEYWORDS
+    assert tuple(values["DIRECT_SAFETY_KEYWORDS"]) == rules.DIRECT_SAFETY_KEYWORDS
+    assert {
+        core: tuple(keywords)
+        for core, keywords in values["POSITIVE_CORE_KEYWORDS"].items()
+    } == rules.POSITIVE_CORE_KEYWORDS
+
+
+def test_readthrough_values_match_rules_module_sensitive_points() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.rule_dictionary.v1", snapshot)
+
+    assert values["RULE_SENSITIVE_POINTS"] == rules.RULE_SENSITIVE_POINTS
+
+
+def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> None:
+    source = (
+        ROOT
+        / "scripts"
+        / "export"
+        / "dimension_adapters"
+        / "i5b_people_delegation"
+        / "rules.py"
+    ).read_text(encoding="utf-8")
+
+    assert "HIGH_VALUE_ANCHOR_KEYWORDS = (" not in source
+    assert "STARTUP_ANCHOR_KEYWORDS = (" not in source
+    assert "BOUNDARY_ANCHOR_KEYWORDS = (" not in source
+    assert "DIRECT_SAFETY_KEYWORDS = (" not in source
+    assert "RULE-I5B-BOUNDARY-WEAK-TO-MEDIUM" not in source
+    assert 'values_by_symbol("i5b.rule_keyword_dictionary.v1")' in source
+    assert 'values_by_symbol("i5b.rule_dictionary.v1")' in source
+    assert '_RULE_KEYWORD_VALUES["POSITIVE_CORE_KEYWORDS"]' in source
+    assert '_RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]' in source
 
 
 def test_readthrough_rejects_tampered_digest() -> None:
