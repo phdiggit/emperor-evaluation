@@ -29,14 +29,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g4-cutover-blocked-missing-g3-src-hosts-readback",
-        "canonical_write_source": "jsonl",
+        "current_phase": "g4-cutover-executed-postgres-write-source",
+        "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
         "sqlite_build_operational": True,
         "full_pytest_operational": True,
-        "jsonl_write_frozen": False,
-        "postgres_unique_write_source": False,
+        "jsonl_write_frozen": True,
+        "postgres_unique_write_source": True,
         "production_runtime_live": False,
         "formal_scoring_released": False,
         "formal_ranking_released": False,
@@ -45,23 +45,27 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "staging_diff_verification_ready": True,
         "g3_first_business_write_approved": True,
         "first_business_write_execution_package_ready": True,
-        "first_business_write_executed": False,
+        "first_business_write_executed": True,
+        "g3_execution_plan_sha256": "1138f4f0ef95e20e0026185f6530ad4671dc61aba13be330a466b20890ae315d",
+        "g3_execute_status": "succeeded",
+        "g3_observe_status": "succeeded",
+        "g3_src_hosts_rows_written": 1,
+        "g3_src_hosts_zh_wikisource_observed": True,
         "g4_write_source_cutover_approved": True,
         "write_source_cutover_execution_package_ready": True,
         "g4_cutover_package_pr": 297,
         "g4_cutover_package_merge_commit": "e752c0f3f9a62bb03cc6853e7720b4c64139dffa",
         "g4_cutover_plan_sha256": "32d02b0d9ac77a7876fa503fb261f052a22bffe84dead3af865af23fe4806a4a",
         "g4_cutover_execute_attempted": True,
-        "g4_cutover_execute_status": "blocked",
-        "g4_cutover_failure_stage": "g3_observation",
-        "g4_cutover_blocking_failures": ["blocked_missing_g3_src_hosts_readback"],
-        "g4_cutover_observe_status": "failed_observation",
+        "g4_cutover_execute_status": "succeeded",
+        "g4_cutover_failure_stage": None,
+        "g4_cutover_blocking_failures": [],
+        "g4_cutover_observe_status": "succeeded",
         "g4_cutover_post_apply_observation_completed": True,
         "g4_cutover_operator_dsn_read": True,
-        "g3_src_hosts_zh_wikisource_observed": False,
-        "g4_imports_cutover_marker_written": False,
-        "g4_imports_cutover_marker_observed": False,
-        "write_source_cutover_executed": False,
+        "g4_imports_cutover_marker_written": True,
+        "g4_imports_cutover_marker_observed": True,
+        "write_source_cutover_executed": True,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
     assert "production_schema_live_apply" in report["completed_chain"]
@@ -77,7 +81,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic_1_g1_canonical_manifest_approval" in report["next_epic_gates"]
+    assert "epic_1_g5_runtime_credentials_network_ingestion_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
     assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
