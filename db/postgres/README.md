@@ -220,6 +220,15 @@ python scripts/platform/epic5_deterministic_rerun_report_contract.py --rerun-rep
 
 该包只定义第二项、第三项、第六项的 deterministic rerun key、validator checklist、impact report template 与 publication report template 合同：rerun 输入排除 runtime state、史源检索和真实发布输入；validator 合同阻断真实人物发布、stage/final total table 和 cross-subitem leaderboard claim。本包不查史源、不读 JSONL、不构建真实人物发布结果，不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续可继续进入 #311 字典外置或非破坏性治理链路。
 
+Issue #311 I5B rule/display dictionary externalization contract package 使用：
+
+```bash
+python scripts/platform/i5b_rule_display_dictionary_contract.py --contract-report
+python scripts/platform/i5b_rule_display_dictionary_contract.py --dictionary-md
+```
+
+该包只盘点第五项B adapter 中仍硬编码在 Python 模块里的规则词表、档位映射和展示文案，并定义 versioned dictionary snapshot、loader 与 validator 合同。当前包不创建 PostgreSQL 字典表、不写 canonical dictionary、不迁移运行时 adapter，也不让普通导出脚本依赖 live DSN；后续可继续进入 snapshot loader / validator package。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "epic5-deterministic-rerun-report-contract-package-ready",
+    "current_phase": "issue311-i5b-dictionary-externalization-contract-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -139,6 +139,8 @@ CURRENT_STATE = {
     "score_publication_result_contract_count": 3,
     "epic5_deterministic_rerun_report_contract_ready": True,
     "epic5_deterministic_rerun_report_contract_package": "epic5-deterministic-rerun-report-contract-v1",
+    "epic5_deterministic_rerun_report_contract_pr": 319,
+    "epic5_deterministic_rerun_report_contract_merge_commit": "427e1be38d1ad612435e043d501a9850c11bd7a2",
     "deterministic_rerun_report_contract_count": 3,
     "validator_contracts_built": True,
     "impact_report_templates_built": True,
@@ -152,6 +154,14 @@ CURRENT_STATE = {
     "new_subitem_formal_rankings_released": False,
     "epic_2_entered": False,
     "epic_3_entered": False,
+    "issue311_dictionary_contract_ready": True,
+    "issue311_dictionary_contract_package": "i5b-rule-display-dictionary-contract-v1",
+    "i5b_dictionary_snapshot_schema_defined": True,
+    "i5b_dictionary_loader_contract_defined": True,
+    "i5b_dictionary_validator_contract_defined": True,
+    "i5b_runtime_adapter_migrated": False,
+    "i5b_postgres_dictionary_tables_created": False,
+    "i5b_canonical_dictionary_write_performed": False,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -192,6 +202,7 @@ COMPLETED_CHAIN = [
     "epic5_formal_grade_result_contract",
     "epic5_score_publication_result_contract",
     "epic5_deterministic_rerun_report_contract",
+    "issue311_i5b_rule_display_dictionary_contract",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -356,6 +367,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_epic5_deterministic_rerun_report_contract_only",
             },
             {
+                "name": "issue311_i5b_rule_display_dictionary_contract",
+                "path": "scripts/platform/i5b_rule_display_dictionary_contract.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_issue311_dictionary_inventory_schema_contract_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -418,9 +436,10 @@ def build_contract_report() -> dict[str, Any]:
             "epic5_formal_grade_result_contract_does_not_publish_scores_or_rankings",
             "epic5_score_publication_result_contract_does_not_release_person_scores_or_leaderboards",
             "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings",
+            "issue311_dictionary_contract_does_not_create_tables_or_migrate_runtime_adapter",
         ],
         "next_epic_gates": [
-            "issue_311_rule_display_dictionary_externalization_or_non_destructive_governance",
+            "issue311_dictionary_snapshot_loader_validator_package",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
