@@ -31,7 +31,7 @@ from export.dimension_adapters.i5b_people_delegation.formal_algorithm import (  
 PACKAGE_VERSION = "g8-i5b-formal-algorithm-release-v1"
 G8_APPROVAL_COMMENT = 4809210729
 G7_RULE_CHANGE_PR = 308
-G7_RULE_CHANGE_MERGE_COMMIT = "ae5d973e56d97f160b54eb46b674a070ab83c765"
+G7_RULE_CHANGE_MERGE_COMMIT = "ae5d9730ab716c110e521b0bf9076a4470e0123c"
 ISSUE = 211
 PARENT_ROADMAP = 287
 

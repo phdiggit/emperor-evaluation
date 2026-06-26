@@ -71,6 +71,8 @@ def test_algorithm_report_releases_algorithm_but_blocks_g9_outputs(monkeypatch) 
     assert after == before
     assert report["package_version"] == "g8-i5b-formal-algorithm-release-v1"
     assert report["gate_status"] == "approved_algorithm_released"
+    assert report["g7_rule_change_pr"] == 308
+    assert report["g7_rule_change_merge_commit"] == "ae5d9730ab716c110e521b0bf9076a4470e0123c"
     assert report["formal_grade_enum"] == list(FORMAL_GRADE_ENUM)
     assert report["release_state"] == {
         "formal_algorithm_released": True,
