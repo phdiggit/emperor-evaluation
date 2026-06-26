@@ -184,6 +184,9 @@ CURRENT_STATE = {
     "issue311_display_dictionary_read_ready": True,
     "i5b_adapter_display_dictionary_readthrough_enabled": True,
     "i5b_runtime_adapter_migrated": True,
+    "issue311_python_constant_cleanup_after_readthrough_ready": True,
+    "i5b_python_constant_cleanup_audit_passed": True,
+    "i5b_legacy_python_dictionary_text_removed": True,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
 }
@@ -234,6 +237,7 @@ COMPLETED_CHAIN = [
     "issue311_i5b_formal_algorithm_grade_dictionary_read",
     "issue311_i5b_rules_py_grade_direction_dictionary_read",
     "issue311_i5b_display_dictionary_read",
+    "issue311_i5b_python_constant_cleanup_after_readthrough",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -489,14 +493,14 @@ def build_contract_report() -> dict[str, Any]:
             "issue311_formal_algorithm_grade_dictionary_read_keeps_exporter_output_parity",
             "issue311_rules_py_grade_direction_dictionary_read_keeps_exporter_output_parity",
             "issue311_display_dictionary_read_keeps_exporter_output_parity",
+            "issue311_python_constant_cleanup_after_readthrough_keeps_snapshot_and_runtime_parity",
         ],
         "next_epic_gates": [
-            "issue311_python_constant_cleanup_after_readthrough_package",
+            "issue_311_rule_display_dictionary_governance_gate",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
             "epic5_stage_or_final_total_table_publication_gate",
-            "issue_311_rule_display_dictionary_governance_gate",
             "g10_destructive_cleanup_gate",
             "source_document_passage_merge_policy_gate",
             "evidence_cluster_anchor_relationship_followup_gates",
