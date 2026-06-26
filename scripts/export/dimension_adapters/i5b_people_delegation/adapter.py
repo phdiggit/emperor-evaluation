@@ -25,6 +25,7 @@ from export.dimension_adapters.i5b_people_delegation.formal_algorithm import (
     compute_formal_publication_result,
     formal_algorithm_mapping_rows,
 )
+from export.dimension_adapters.i5b_people_delegation.dictionary_readthrough import values_by_symbol
 from export.dimension_adapters.i5b_people_delegation.rules import *  # noqa: F401,F403
 from export.dimension_export.data_loading import (
     DEFAULT_DISPLAY_CONFIG,
@@ -63,6 +64,14 @@ from export.dimension_export.markdown_rendering import (
 from export.dimension_export.output_layout import ensure_directories, remove_existing_paths, write_markdown_outputs
 from export.dimension_export.pipeline import build_dimension_context
 from export.dimension_export.validation import HumanReadableMarkdownValidationError
+
+
+_DISPLAY_DICTIONARY_VALUES = values_by_symbol("i5b.display_dictionary.v1")
+
+
+def _format_display_lines(lines: list[str], context: dict[str, Any]) -> list[str]:
+    return [line.format(**context) for line in lines]
+
 
 def load_i5b_markdown_view_config(path: Path | None = None) -> dict[str, Any]:
     if path is not None:
@@ -135,88 +144,19 @@ def render_display_field(
 def render_score_mapping_draft() -> str:
     display_config = load_i5b_markdown_view_config()
     score_rows = formal_algorithm_mapping_rows(g9_publication=True)
-    lines = [
-        "# 第五项B正式算法标尺与档位映射",
-        "",
-        f"状态：G8 算法已释放 / G9 已批准 / `{FORMAL_ALGORITHM_VERSION}` 正式发布人物分值与排名",
-        "",
-        "## 一、定位",
-        "",
-        "本文件定义第五项B《用人与授权》的 V3.2 九档与 45 分档内自动定分算法版本；G9 已批准后，当前发布包可以发布人物级第五项B正式分值和子项排名。",
-        "",
-        "它只读取已经完成裁量的净证据和正式定档落地表，不回到人物级个案，不允许单人 override、人工最终档位或人工最终分数；本发布包不生成阶段总榜或总榜。",
-        "",
-        "若与第五项B自动结算规则、正式定档落地表、证据裁量总则存在冲突，以已合并的规则结论和“不直接推分”约束为先。",
-        "",
-        "## 二、与现有文档的关系",
-        "",
-        "1. `docs/分项规则/第五项统治者政治素质/B用人与授权.md` 决定 band direction 与规则敏感点。",
-        "2. `exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md` 展示正式档位、45 分正式分值和第五项B子项排名。",
-        "3. 本文件回答自动结算方向如何进入 V3.2 九档、45 分档内区间和 G9 发布值。",
-        "4. 本文件不替代 `docs/分项规则/第五项统治者政治素质/B用人与授权.md`。",
-        "5. 本文件不替代 `docs/证据规则/证据裁量总则.md` 中的评分标尺关系。",
-        "",
-        "## 三、通用映射原则",
-        "",
-        "1. 先看档位，再看压制、封顶、相邻项剥离和负证拦截。",
-        "2. 极正候选 / 极正、高位强正、强正三段，优先作为正向高区间候选。",
-        "3. 强正受压制、强正封顶，仍属正向段，但必须受上限或压制规则控制。",
-        "4. 中正、中正受中负压制、中正受强负压制，属于中位段与压制段。",
-        "5. 中负、强负属于负向段，先完成相邻项切分，再进入区间判断。",
-        "6. 任何档位都不能绕过同一版本规则和算法直接给人物正式分。",
-        "7. 本文给出的区间是算法版本的 45 分区间；G9 发布值只能由该算法候选值提升而来。",
-        "",
-        "## 四、V3.2 对齐边界",
-        "",
-        "1. V3.2 已定义正收益总盘 1500 分、历史负债 0—300 扣分和七大项权重。",
-        "2. 第五项B《用人与授权》正式上限为 45 分。",
-        "3. 本表 `relative_score_range_draft` 栏位沿用展示配置名称，内容已改为 45 分正式算法区间。",
-        "4. 算法可以确定区间、候选值和 G9 发布值。",
-        "5. 本 PR 发布第五项B人物正式分值与子项排名，但不生成阶段总榜或总榜。",
-        "6. 本 PR 不改变任何人物现有 trial index、band、evidence 或 adjudication。",
-        f"7. 正式 45 分映射由 `{FORMAL_ALGORITHM_VERSION}` 承接；G9 发布只解除发布压制，不新增人工调整。",
-        "",
-        "## 五、档位到分值映射草案",
-        "",
-        "说明：以下区间为算法版本的 45 分区间；人物正式分值由同一算法在档内确定。",
-        "",
-        markdown_display_table(
-            human_table_fields("score_mapping_draft", display_config),
-            score_rows,
-            display_config=display_config,
-        ),
-        "",
-        "## 六、正式出分约束",
-        "",
-        "1. 先有同一版本规则和算法产生的正式九档。",
-        "2. 再由算法在档内确定候选值。",
-        "3. G9 已批准后，候选值可发布为人物级第五项B正式分值。",
-        "4. 排名只按同一发布包内的 `formal_score_value_45` 降序生成。",
-        "5. 不允许 person-specific override、人工最终档位或人工最终分数。",
-        "",
-        "## 七、禁止事项",
-        "",
-        "1. 不按旧内部100制指数换算正式分。",
-        "2. 不用人工单人特判改写算法分。",
-        "3. 不把第五项B排名扩展为阶段总榜或总榜。",
-        "4. 不生成跨子项总排名。",
-        "5. 不把战功、政绩、边疆收益、统一贡献、治世光环回填第五项B。",
-        "6. 不把本草案当作正式评分标准。",
-        "",
-        "## 八、待确认事项",
-        "",
-        "1. 总评分标准是否存在全局满分上限。",
-        "2. 第五项B是否需要单独的正负向惩罚系数。",
-        "3. `强正受压制` 与 `强正封顶` 在正式出分时是否同列处理。",
-        "4. `中正受中负压制` 与 `中正受强负压制` 是否需要进一步细分。",
-        "5. 后续是否需要在更大样本池中扩展排名展示。",
-        "",
-        "## 九、结论",
-        "",
-        "本文件是 G9 已批准后的第五项B正式算法发布说明，人物级正式分值和子项排名由同一算法版本生成。",
-        "",
-        "后续若要生成阶段总榜、总榜、跨子项排名或破坏性清理，仍需在对应范围内单独处理。",
-    ]
+    display_values = _DISPLAY_DICTIONARY_VALUES["render_score_mapping_draft"]
+    context = {"formal_algorithm_version": FORMAL_ALGORITHM_VERSION}
+    lines = _format_display_lines(display_values["prefix_lines"], context)
+    lines.extend(
+        [
+            markdown_display_table(
+                human_table_fields("score_mapping_draft", display_config),
+                score_rows,
+                display_config=display_config,
+            ),
+        ]
+    )
+    lines.extend(_format_display_lines(display_values["suffix_lines"], context))
     return "\n".join(lines) + "\n"
 
 
@@ -556,44 +496,49 @@ def render_person_section(
 
 def render_formal_person_section(report: dict[str, Any], publication_row: dict[str, Any] | None = None) -> str:
     display_config = load_i5b_markdown_view_config()
+    display_values = _DISPLAY_DICTIONARY_VALUES["render_formal_person_section"]
     person = report["person"]
     formal_result = compute_formal_publication_result(report)
     row = publication_row or {
         "formal_score_value_45": formal_result["formal_score_value_45"],
         "formal_rank": "待排序",
     }
+    score_context = {
+        "person": person,
+        "auto_band_direction": report["auto_band_direction"],
+        "confidence": display_value(report["confidence"], display_config),
+        "formal_band_draft": build_formal_band_draft(report),
+        "formal_grade": formal_result["formal_grade"],
+        "score_range_45": formal_result["score_range_45"],
+        "formal_score_value_45": row["formal_score_value_45"],
+        "formal_rank": row["formal_rank"],
+        "algorithm_version": formal_result["algorithm_version"],
+        "publication_gate": formal_result["publication_gate"],
+    }
     sections = [
-        f"## {person}",
+        display_values["person_heading_template"].format(**score_context),
         "",
-        "### 正式分值与排名落地",
+        display_values["score_heading"],
         "",
-        f"- **自动结算来源**：{report['auto_band_direction']} / {display_value(report['confidence'], display_config)}",
-        f"- **正式档位草案**：{build_formal_band_draft(report)}",
-        f"- **V3.2 正式九档**：{formal_result['formal_grade']}",
-        f"- **45 分算法区间**：{formal_result['score_range_45']}",
-        f"- **第五项B正式分值**：{row['formal_score_value_45']}",
-        f"- **第五项B子项排名**：第 {row['formal_rank']} 名",
-        f"- **算法版本**：{formal_result['algorithm_version']}",
-        f"- **发布门**：{formal_result['publication_gate']} 已批准；候选值按同一算法版本发布为正式分值。",
-        f"- **边界说明**：本页不生成阶段总榜或总榜，不允许单人 override、人工最终档位或人工最终分数。",
+        *_format_display_lines(display_values["score_lines"], score_context),
         "",
-        "### 正向证据组摘要",
+        display_values["positive_heading"],
         "",
         f"- {summarize_positive_basis(report)}",
         "",
-        "### 负向证据组摘要",
+        display_values["negative_heading"],
         "",
         f"- {summarize_negative_pressure(report)}",
         "",
-        "### 已按规则解决的敏感点",
+        display_values["rule_resolution_heading"],
         "",
         f"- {format_rule_resolutions(report)}",
         "",
-        "### 相邻项剥离说明",
+        display_values["adjacent_split_heading"],
         "",
-        "- 战功、政绩、边疆收益、治世光环、政权安全与司法残酷均不回填第五项B。",
+        display_values["adjacent_split_line"],
         "",
-        "### 规则状态",
+        display_values["rule_status_heading"],
         "",
         *render_display_field("remaining_rule_questions", format_remaining_questions(report), bullet="-"),
         *render_display_field("score_stage_prerequisites", format_score_stage_prerequisites(report), bullet="-"),

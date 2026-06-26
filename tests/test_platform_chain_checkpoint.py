@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "issue311-i5b-rules-grade-direction-dictionary-read-ready",
+        "current_phase": "issue311-i5b-display-dictionary-read-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -200,7 +200,9 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "issue311_rules_py_grade_direction_dictionary_read_ready": True,
         "i5b_rules_py_trial_score_map_readthrough_enabled": True,
         "i5b_rules_py_dimension_rules_readthrough_enabled": True,
-        "i5b_runtime_adapter_migrated": False,
+        "issue311_display_dictionary_read_ready": True,
+        "i5b_adapter_display_dictionary_readthrough_enabled": True,
+        "i5b_runtime_adapter_migrated": True,
         "i5b_postgres_dictionary_tables_created": False,
         "i5b_canonical_dictionary_write_performed": False,
     }
@@ -237,6 +239,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "issue311_i5b_rules_py_keyword_dictionary_read" in report["completed_chain"]
     assert "issue311_i5b_formal_algorithm_grade_dictionary_read" in report["completed_chain"]
     assert "issue311_i5b_rules_py_grade_direction_dictionary_read" in report["completed_chain"]
+    assert "issue311_i5b_display_dictionary_read" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -259,7 +262,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "issue311_display_dictionary_read_package" in report["next_epic_gates"]
+    assert "issue311_python_constant_cleanup_after_readthrough_package" in report["next_epic_gates"]
     assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]
@@ -310,7 +313,9 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"impact_report_templates_built": true' in text
     assert '"publication_report_templates_built": true' in text
     assert '"issue311_dictionary_contract_ready": true' in text
-    assert '"i5b_runtime_adapter_migrated": false' in text
+    assert '"issue311_display_dictionary_read_ready": true' in text
+    assert '"i5b_adapter_display_dictionary_readthrough_enabled": true' in text
+    assert '"i5b_runtime_adapter_migrated": true' in text
     assert '"i5b_postgres_dictionary_tables_created": false' in text
     assert '"i5b_canonical_dictionary_write_performed": false' in text
     assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
@@ -321,6 +326,8 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "epic5_score_publication_result_contract_does_not_release_person_scores_or_leaderboards" in text
     assert "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings" in text
     assert "issue311_dictionary_contract_does_not_create_tables_or_migrate_runtime_adapter" in text
+    assert "issue311_display_dictionary_read_keeps_exporter_output_parity" in text
+    assert "issue311_python_constant_cleanup_after_readthrough_package" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
