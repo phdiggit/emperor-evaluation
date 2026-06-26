@@ -91,6 +91,15 @@ python scripts/platform/g4_write_source_cutover_execution.py --operator-checklis
 
 该包默认不读取 DSN、不连接数据库；`--execute` / `--observe` 才需要 G4 token、expected cutover plan sha256 和 operator 环境中的 `EMPEROR_EVAL_PG_DSN`。执行路径只允许在 `imports` 表写入 / 更新 `G4-WRITE-SOURCE-CUTOVER-ISSUE292` cutover marker，并先读回确认 G3 `src_hosts` 中已存在 `zh.wikisource.org`。G4 不写后续 source/passages/evidence/relationship 业务表，不启动 runtime，也不发布正式评分或排名。
 
+G1-G4 完成观察后的 G5 前置边界包使用：
+
+```bash
+python scripts/platform/g5_runtime_boundary_package.py --contract-report
+python scripts/platform/g5_runtime_boundary_package.py --boundary-md
+```
+
+该包只列出 G5 将允许 / 禁止的 runtime、RabbitMQ、network ingestion、production credentials 边界，不执行 G5，不读取 `.env`，不连接 PostgreSQL，不连接 RabbitMQ，不访问网络。G5 仍需用户显式批准；即使 G5 获批，也不等于 formal evidence、评分、分数或排名发布，也不批准 source/passages/evidence/cluster/anchor/relationship 业务表写入。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
