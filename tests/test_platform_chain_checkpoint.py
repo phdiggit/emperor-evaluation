@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "epic5-minimum-interface-contract-package-ready",
+        "current_phase": "epic5-pilot-subitem-profile-contract-package-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -125,7 +125,18 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "epic5_boundary_scope_merge_commit": "07af05b3b80311bb19ba642c815a2ea7a517767f",
         "epic5_minimum_interface_contract_ready": True,
         "epic5_interface_contract_package": "epic5-scoring-engine-interface-contract-v1",
+        "epic5_interface_contract_pr": 314,
+        "epic5_interface_contract_merge_commit": "e64f9f9089739555823cb9268d283e5632abc893",
+        "epic5_pilot_subitem_profile_contract_ready": True,
+        "epic5_pilot_subitem_profile_contract_package": "epic5-pilot-subitem-profile-contract-v1",
+        "pilot_subitem_profiles_selected": [
+            "second_governance_net_benefit",
+            "third_military_border_net_benefit",
+            "sixth_key_decision_capacity",
+        ],
+        "pilot_profile_count": 3,
         "new_subitem_formal_scores_released": False,
+        "new_subitem_formal_rankings_released": False,
         "epic_2_entered": False,
         "epic_3_entered": False,
     }
@@ -150,6 +161,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g9_i5b_formal_publication_release" in report["completed_chain"]
     assert "epic5_scoring_engine_scope_package" in report["completed_chain"]
     assert "epic5_scoring_engine_interface_contract" in report["completed_chain"]
+    assert "epic5_pilot_subitem_profile_contract" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -158,13 +170,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "g9_i5b_formal_publication_release" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_scoring_engine_scope_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_scoring_engine_interface_contract" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "epic5_pilot_subitem_profile_contract" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic5_pilot_subitem_profile_contract_package" in report["next_epic_gates"]
+    assert "epic5_pilot_subitem_evidence_profile_contract_package" in report["next_epic_gates"]
     assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]
@@ -205,8 +218,10 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"stage_or_final_total_table_released": false' in text
     assert '"cross_subitem_leaderboard_released": false' in text
     assert '"new_subitem_formal_scores_released": false' in text
+    assert '"new_subitem_formal_rankings_released": false' in text
     assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_interface_contract_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
+    assert "epic5_pilot_profile_contract_does_not_publish_evidence_profiles_formal_scores_or_leaderboards" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
