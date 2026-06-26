@@ -112,6 +112,15 @@ python scripts/platform/g5_runtime_execution.py --operator-checklist-md
 
 G5 execute / observe 已成功观察，execution plan sha256 为 `590b083e27e8d6f9b93c3742936ef043e17262abc041a0132d4bcf5364d0edbd`。成功事实包括 G3 `src_hosts` 读回、G4 cutover marker 读回、RabbitMQ binding smoke、outbox / worker runtime smoke、allowlisted network pilot，以及 `G5-RUNTIME-SMOKE-ISSUE292` marker 写入 / 读回。该状态仍不发布 formal evidence、评分或排名，也不进入 Epic 2。
 
+G5 完成观察后的 G6 formal evidence 前置边界包使用：
+
+```bash
+python scripts/platform/g6_formal_evidence_boundary_package.py --contract-report
+python scripts/platform/g6_formal_evidence_boundary_package.py --boundary-md
+```
+
+该包只列出 G6 将允许 / 禁止的 formal evidence release 边界，不批准 G6，不执行 release，不读取 `.env`，不连接 PostgreSQL / RabbitMQ，不访问网络，不读取 canonical JSONL，也不写 source/passages/evidence/cluster/anchor/relationship 业务表。G6 仍需用户显式批准；即使 G6 获批，也不等于评分规则、评分算法、正式分数、排名、破坏性 cleanup 或 Epic 2 入口获批。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
