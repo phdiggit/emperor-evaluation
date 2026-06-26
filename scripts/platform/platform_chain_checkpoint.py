@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g5-boundary-package-ready",
+    "current_phase": "g5-runtime-execution-package-ready",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -53,7 +53,11 @@ CURRENT_STATE = {
     "write_source_cutover_executed": True,
     "epic_1_g1_to_g4_complete": True,
     "g5_runtime_boundary_package_ready": True,
-    "g5_approved": False,
+    "g5_approved": True,
+    "g5_runtime_execution_package_ready": True,
+    "g5_runtime_execute_attempted": False,
+    "g5_runtime_execute_status": "not_executed",
+    "g5_runtime_observe_status": "not_observed",
     "production_credentials_enabled": False,
     "rabbitmq_live": False,
     "network_ingestion_live": False,
@@ -81,6 +85,7 @@ COMPLETED_CHAIN = [
     "g3_postgres_business_write_execution_package",
     "g4_write_source_cutover_execution_package",
     "g5_runtime_boundary_package",
+    "g5_runtime_execution_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -145,6 +150,13 @@ def build_contract_report() -> dict[str, Any]:
                 "contract": True,
                 "apply": False,
                 "boundary": "offline_g5_preapproval_runtime_credentials_network_boundary_only",
+            },
+            {
+                "name": "g5_runtime_execution",
+                "path": "scripts/platform/g5_runtime_execution.py",
+                "contract": True,
+                "apply": True,
+                "boundary": "g5_token_gated_runtime_credentials_rabbitmq_network_smoke_package",
             },
             {
                 "name": "jsonl_staging_mapper",

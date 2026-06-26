@@ -1,5 +1,7 @@
 # Runtime skeleton
 
+G5 之后新增的 `scripts/platform/g5_runtime_execution.py` 是显式 token-gated 的执行/观察入口：默认报告不读取 `.env`、不连接服务；只有 `--execute` / `--observe` 且 operator 提供 DSN、RabbitMQ 与 allowlist 配置时才动态使用真实 PostgreSQL / RabbitMQ / network adapter。除该 G5 入口外，本目录原有 skeleton 仍保持离线 fake runtime 口径。
+
 本目录只定义 PostgreSQL jobs/outbox 与 RabbitMQ 风格投递之间的 runtime skeleton，不连接真实 PostgreSQL / RabbitMQ 服务，也不引入 `pika`、`aio-pika`、`psycopg` 等外部依赖。
 
 - PostgreSQL `jobs` / `outbox` 是任务与投递状态事实源。
