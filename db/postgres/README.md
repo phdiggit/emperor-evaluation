@@ -182,7 +182,16 @@ python scripts/platform/epic5_pilot_subitem_profile_contract.py --contract-repor
 python scripts/platform/epic5_pilot_subitem_profile_contract.py --profiles-md
 ```
 
-该包只固定第二项治国净收益、第三项军事与边疆净收益、第六项关键历史决策能力的 `SubitemProfile` 合同：分值上限分别为 460、250、180；第六项按 60 / 50 / 70 的 A/B/C 分解承接 1500 总盘决策。它不包含 evidence profile、formal grade result 或 score publication result，不读取数据、不连接服务、不写业务表、不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。下一步应进入试点子项 evidence profile contract package。
+该包只固定第二项治国净收益、第三项军事与边疆净收益、第六项关键历史决策能力的 `SubitemProfile` 合同：分值上限分别为 460、250、180；第六项按 60 / 50 / 70 的 A/B/C 分解承接 1500 总盘决策。它不包含 evidence profile、formal grade result 或 score publication result，不读取数据、不连接服务、不写业务表、不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。试点子项 evidence profile contract 已由后续包承接。
+
+Epic5 试点子项 evidence profile contract package 使用：
+
+```bash
+python scripts/platform/epic5_pilot_subitem_evidence_profile_contract.py --contract-report
+python scripts/platform/epic5_pilot_subitem_evidence_profile_contract.py --evidence-md
+```
+
+该包只定义第二项、第三项、第六项的 schema-only `EvidenceProfile` 合同模板：正向信号组、负向信号组、必要字段和相邻项剥离信号。模板 `person_id` 固定为 `__pilot_contract_template__`，不代表任何真实人物；本包不查史源、不读 JSONL、不构建 person-specific evidence profile、不产生 formal grade result 或 score publication result，不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。下一步应进入 formal grade result contract package。
 
 ## JSONL staging mapper prototype
 
