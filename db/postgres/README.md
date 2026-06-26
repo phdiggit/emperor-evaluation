@@ -265,6 +265,8 @@ Issue #311 `formal_algorithm.py` grade / direction mapping readthrough 已启用
 
 Issue #311 remaining `rules.py` grade / direction readthrough 已启用：`TRIAL_SCORE_MAP` 与 `DIMENSION_RULES` 现在也从 immutable snapshot 初始化，并由 parity tests 锁定与原常量值一致。当前仍不迁移 adapter display text，不创建 PostgreSQL 字典表，不写 canonical dictionary；下一步只能进入 display dictionary read package。
 
+Issue #311 adapter display dictionary readthrough 已启用：`render_score_mapping_draft` 的静态段落与 `render_formal_person_section` 的标题 / 行模板现在从 immutable snapshot 初始化，并由 parity tests 锁定输出形态。当前仍不创建 PostgreSQL 字典表、不写 canonical dictionary、不让普通导出依赖 live DSN、不进入 G10；下一步只能进入 Python constant cleanup after readthrough package。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

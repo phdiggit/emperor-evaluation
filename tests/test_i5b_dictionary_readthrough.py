@@ -12,7 +12,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from export.dimension_adapters.i5b_people_delegation import dictionary_readthrough, formal_algorithm, rules  # noqa: E402
+from export.dimension_adapters.i5b_people_delegation import adapter, dictionary_readthrough, formal_algorithm, rules  # noqa: E402
 from scripts.platform import i5b_dictionary_snapshot_loader_validator as platform_loader  # noqa: E402
 
 
@@ -107,6 +107,28 @@ def test_readthrough_values_match_formal_algorithm_direction_mapping_exports() -
     assert tuple(tuple(item) for item in values["DIMENSION_RULES"]) == rules.DIMENSION_RULES
 
 
+def test_readthrough_values_drive_score_mapping_display_text() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.display_dictionary.v1", snapshot)
+    score_mapping = values["render_score_mapping_draft"]
+    rendered = adapter.render_score_mapping_draft()
+
+    assert score_mapping["prefix_lines"][0] in rendered
+    assert score_mapping["suffix_lines"][-1] in rendered
+    assert f"`{adapter.FORMAL_ALGORITHM_VERSION}`" in rendered
+    assert "{formal_algorithm_version}" not in rendered
+
+
+def test_readthrough_values_define_formal_person_section_templates() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.display_dictionary.v1", snapshot)
+    formal_person = values["render_formal_person_section"]
+
+    assert formal_person["person_heading_template"] == "## {person}"
+    assert "formal_score_value_45" in "\n".join(formal_person["score_lines"])
+    assert formal_person["adjacent_split_line"].startswith("- 战功、政绩")
+
+
 def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> None:
     source = (
         ROOT
@@ -132,6 +154,23 @@ def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> 
     assert '_RULE_KEYWORD_VALUES["POSITIVE_CORE_KEYWORDS"]' in source
     assert '_RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]' in source
     assert '_DIRECTION_GRADE_MAPPING_VALUES["DIMENSION_RULES"]' in source
+
+
+def test_adapter_display_functions_read_display_dictionary_values() -> None:
+    source = (
+        ROOT
+        / "scripts"
+        / "export"
+        / "dimension_adapters"
+        / "i5b_people_delegation"
+        / "adapter.py"
+    ).read_text(encoding="utf-8")
+
+    assert 'values_by_symbol("i5b.display_dictionary.v1")' in source
+    assert "_DISPLAY_DICTIONARY_VALUES[\"render_score_mapping_draft\"]" in source
+    assert "_DISPLAY_DICTIONARY_VALUES[\"render_formal_person_section\"]" in source
+    assert "本文件定义第五项B《用人与授权》的 V3.2" not in source
+    assert "### 正式分值与排名落地" not in source
 
 
 def test_formal_algorithm_no_longer_embeds_grade_or_direction_mapping_literals() -> None:
