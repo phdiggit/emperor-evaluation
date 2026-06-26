@@ -273,6 +273,15 @@ Issue #311 rule/display dictionary governance gate 已记录：当前 pre-G10 ru
 
 Epic5 per-subitem G8 algorithm release gate contract 已新增：`scripts/platform/epic5_per_subitem_g8_algorithm_release_gate.py` 为第二项、第三项、第六项试点子项生成 G8 算法释放 gate 模板，复用 subitem profile、formal grade、deterministic rerun、impact report 与 publication report 合同。当前只定义 gate 检查项和禁止输出，不执行真实 G8 release，不查史源，不构建人物级结果，不发布新子项分值或排名，不生成阶段总榜、最终总榜或跨子项 leaderboard。
 
+G10-0 cleanup inventory / mapping / restore plan package 使用：
+
+```bash
+python scripts/platform/g10_cleanup_inventory_plan.py --inventory-report
+python scripts/platform/g10_cleanup_inventory_plan.py --inventory-md
+```
+
+该包只为 #331 锁定 G10 前清单：覆盖 scripts、docs、archives、generated exports、registry entries 与 tests 的候选资产分类，并给 retire / archive / delete 候选写明 replacement mapping 和 restore plan。当前包不读取 `.env`、不连接数据库或网络、不读取 canonical JSONL / batch payload / generated exports 内容，不移动、不删除、不归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续执行顺序为 #332 字典最终收口、#333 历史资产退役、#334 脚本资产风险治理、#335 G10 验收与路线同步。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

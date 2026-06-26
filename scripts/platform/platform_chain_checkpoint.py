@@ -14,12 +14,12 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "epic5-per-subitem-g8-algorithm-release-gate-contract-ready",
+    "current_phase": "g10_cleanup_inventory_plan_ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
-    "last_completed_pr": 310,
-    "last_completed_merge_commit": "831aae51845763ddd2e8944b95e5397320aeff1b",
+    "last_completed_pr": 330,
+    "last_completed_merge_commit": "cd0fbbc2a28da4194801d906eff742f204faca62",
     "positive_benefit_total": 1500,
     "former_active_cap_1440": "obsolete",
     "canonical_write_source": "postgresql",
@@ -196,6 +196,12 @@ CURRENT_STATE = {
     "per_subitem_g8_algorithm_release_performed": False,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
+    "g10_plan_issues": [331, 332, 333, 334, 335],
+    "g10_cleanup_inventory_plan_ready": True,
+    "g10_cleanup_inventory_package": "g10-cleanup-inventory-plan-v1",
+    "g10_cleanup_inventory_candidate_count": 10,
+    "g10_execution_started": False,
+    "g10_destructive_cleanup_started": False,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -247,6 +253,7 @@ COMPLETED_CHAIN = [
     "issue311_i5b_python_constant_cleanup_after_readthrough",
     "issue311_rule_display_dictionary_governance_gate",
     "epic5_per_subitem_g8_algorithm_release_gate_contract",
+    "g10_cleanup_inventory_plan",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -411,6 +418,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_epic5_deterministic_rerun_report_contract_only",
             },
             {
+                "name": "g10_cleanup_inventory_plan",
+                "path": "scripts/platform/g10_cleanup_inventory_plan.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g10_0_inventory_mapping_restore_plan_only",
+            },
+            {
                 "name": "issue311_i5b_rule_display_dictionary_contract",
                 "path": "scripts/platform/i5b_rule_display_dictionary_contract.py",
                 "contract": True,
@@ -505,9 +519,13 @@ def build_contract_report() -> dict[str, Any]:
             "issue311_python_constant_cleanup_after_readthrough_keeps_snapshot_and_runtime_parity",
             "issue311_rule_display_dictionary_governance_gate_does_not_create_tables_or_write_canonical",
             "epic5_per_subitem_g8_gate_contract_does_not_release_new_subitem_scores_or_rankings",
+            "g10_cleanup_inventory_plan_does_not_move_delete_or_archive_files",
         ],
         "next_epic_gates": [
-            "epic5_per_subitem_g8_algorithm_release_review_or_execution_gate",
+            "g10_1_i5b_rule_display_dictionary_final_cleanup",
+            "g10_2_historical_asset_retirement_after_inventory",
+            "g10_3_script_asset_risk_governance_after_inventory",
+            "g10_4_completion_verification_and_roadmap_handoff",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
             "epic5_stage_or_final_total_table_publication_gate",
