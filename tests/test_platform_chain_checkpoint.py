@@ -13,7 +13,7 @@ if str(ROOT) not in sys.path:
 from scripts.platform import platform_chain_checkpoint
 
 
-BLOCKED_FOLLOWUP_CLAIMS = ("g10_approved", "epic_2_entered\": true")
+BLOCKED_FOLLOWUP_CLAIMS = ("g10_approved", "epic_2_entered\": true", "epic_3_entered\": true")
 FORBIDDEN_PATHS = [
     ROOT / "data" / "batches",
     ROOT / "archive" / "data",
@@ -29,7 +29,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "epic4-g9-i5b-formal-score-ranking-released",
+        "current_phase": "epic5-boundary-scope-package-ready",
+        "active_epic": 312,
+        "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
+        "last_completed_epic": 211,
+        "last_completed_pr": 310,
+        "last_completed_merge_commit": "831aae51845763ddd2e8944b95e5397320aeff1b",
+        "positive_benefit_total": 1500,
+        "former_active_cap_1440": "obsolete",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -110,7 +117,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g9_approval_comment": 4809664701,
         "g9_i5b_formal_publication_released": True,
         "g9_i5b_formal_publication_package": "g9-i5b-formal-publication-release-v1",
+        "stage_or_final_total_table_released": False,
+        "cross_subitem_leaderboard_released": False,
+        "epic5_boundary_scope_package_ready": True,
+        "epic5_boundary_scope_package": "epic5-scoring-engine-boundary-scope-package-v1",
         "epic_2_entered": False,
+        "epic_3_entered": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
     assert "production_schema_live_apply" in report["completed_chain"]
@@ -131,19 +143,23 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g7_i5b_three_core_rule_change" in report["completed_chain"]
     assert "g8_i5b_formal_algorithm_release" in report["completed_chain"]
     assert "g9_i5b_formal_publication_release" in report["completed_chain"]
+    assert "epic5_scoring_engine_scope_package" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_workset" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g8_i5b_formal_algorithm_release" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g9_i5b_formal_publication_release" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "epic5_scoring_engine_scope_package" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic4_g10_destructive_cleanup_gate" in report["next_epic_gates"]
+    assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
+    assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
+    assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
     assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
@@ -178,6 +194,9 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"formal_score_values_released": true' in text
     assert '"formal_ranking_released": true' in text
     assert "g9_publication_released_without_g10_cleanup_or_business_table_writes" in text
+    assert '"stage_or_final_total_table_released": false' in text
+    assert '"cross_subitem_leaderboard_released": false' in text
+    assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
