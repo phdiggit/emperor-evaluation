@@ -202,6 +202,15 @@ python scripts/platform/epic5_formal_grade_result_contract.py --formal-grade-md
 
 该包只定义第二项、第三项、第六项的 `FormalGradeResult` 合同模板：每份模板绑定试点 `SubitemProfile`、schema-only `EvidenceProfile`、九档枚举、档内区间、确定性 rerun key 和 no-override policy。模板 `person_id` 仍固定为 `__pilot_contract_template__`，`candidate_value` 只是合同占位值；本包不查史源、不读 JSONL、不构建真实人物 formal grade、不产生 `ScorePublicationResult`，不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。下一步应进入 score publication result contract package。
 
+Epic5 score publication result contract package 使用：
+
+```bash
+python scripts/platform/epic5_score_publication_result_contract.py --contract-report
+python scripts/platform/epic5_score_publication_result_contract.py --publication-md
+```
+
+该包只定义第二项、第三项、第六项的 `ScorePublicationResult` 合同模板：每份模板绑定 formal grade result 模板、G9 publication gate 要求、占位 formal score value、占位子项内 rank，并继续锁定 stage/final total table 与 cross-subitem leaderboard 为未发布。本包不查史源、不读 JSONL、不构建真实人物发布结果，不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。下一步应进入 deterministic rerun / impact report / publication report contract package。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
