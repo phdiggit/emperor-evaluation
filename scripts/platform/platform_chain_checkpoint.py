@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g4-cutover-executed-postgres-write-source",
+    "current_phase": "g5-boundary-package-ready",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -51,6 +51,13 @@ CURRENT_STATE = {
     "g4_imports_cutover_marker_written": True,
     "g4_imports_cutover_marker_observed": True,
     "write_source_cutover_executed": True,
+    "epic_1_g1_to_g4_complete": True,
+    "g5_runtime_boundary_package_ready": True,
+    "g5_approved": False,
+    "production_credentials_enabled": False,
+    "rabbitmq_live": False,
+    "network_ingestion_live": False,
+    "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
     "canonical_jsonl",
@@ -73,6 +80,7 @@ COMPLETED_CHAIN = [
     "jsonl_staging_diff_verification",
     "g3_postgres_business_write_execution_package",
     "g4_write_source_cutover_execution_package",
+    "g5_runtime_boundary_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -130,6 +138,13 @@ def build_contract_report() -> dict[str, Any]:
                 "contract": True,
                 "apply": True,
                 "boundary": "g4_token_gated_imports_marker_cutover_package",
+            },
+            {
+                "name": "g5_runtime_boundary_package",
+                "path": "scripts/platform/g5_runtime_boundary_package.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g5_preapproval_runtime_credentials_network_boundary_only",
             },
             {
                 "name": "jsonl_staging_mapper",
