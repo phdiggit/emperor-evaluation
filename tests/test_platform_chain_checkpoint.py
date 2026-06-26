@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "epic5-score-publication-result-contract-package-ready",
+        "current_phase": "epic5-deterministic-rerun-report-contract-package-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -149,7 +149,15 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "formal_grade_result_contract_count": 3,
         "epic5_score_publication_result_contract_ready": True,
         "epic5_score_publication_result_contract_package": "epic5-score-publication-result-contract-v1",
+        "epic5_score_publication_result_contract_pr": 318,
+        "epic5_score_publication_result_contract_merge_commit": "c800570aead93c146e6598d7246f892bf74aab5f",
         "score_publication_result_contract_count": 3,
+        "epic5_deterministic_rerun_report_contract_ready": True,
+        "epic5_deterministic_rerun_report_contract_package": "epic5-deterministic-rerun-report-contract-v1",
+        "deterministic_rerun_report_contract_count": 3,
+        "validator_contracts_built": True,
+        "impact_report_templates_built": True,
+        "publication_report_templates_built": True,
         "person_specific_evidence_profiles_built": False,
         "person_specific_formal_grade_results_built": False,
         "person_specific_score_publication_results_built": False,
@@ -185,6 +193,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "epic5_pilot_subitem_evidence_profile_contract" in report["completed_chain"]
     assert "epic5_formal_grade_result_contract" in report["completed_chain"]
     assert "epic5_score_publication_result_contract" in report["completed_chain"]
+    assert "epic5_deterministic_rerun_report_contract" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -197,13 +206,16 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "epic5_pilot_subitem_evidence_profile_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_formal_grade_result_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_score_publication_result_contract" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "epic5_deterministic_rerun_report_contract" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic5_deterministic_rerun_and_report_contract_package" in report["next_epic_gates"]
+    assert "issue_311_rule_display_dictionary_externalization_or_non_destructive_governance" in report[
+        "next_epic_gates"
+    ]
     assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]
@@ -250,12 +262,16 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"person_specific_score_publication_results_built": false' in text
     assert '"formal_grade_results_released_for_new_subitems": false' in text
     assert '"score_publication_result_templates_built": true' in text
+    assert '"validator_contracts_built": true' in text
+    assert '"impact_report_templates_built": true' in text
+    assert '"publication_report_templates_built": true' in text
     assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_interface_contract_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_pilot_profile_contract_does_not_publish_evidence_profiles_formal_scores_or_leaderboards" in text
     assert "epic5_pilot_evidence_profile_contract_does_not_lookup_sources_or_publish_formal_grade_results" in text
     assert "epic5_formal_grade_result_contract_does_not_publish_scores_or_rankings" in text
     assert "epic5_score_publication_result_contract_does_not_release_person_scores_or_leaderboards" in text
+    assert "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
