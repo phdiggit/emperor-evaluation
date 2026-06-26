@@ -227,7 +227,17 @@ python scripts/platform/i5b_rule_display_dictionary_contract.py --contract-repor
 python scripts/platform/i5b_rule_display_dictionary_contract.py --dictionary-md
 ```
 
-该包只盘点第五项B adapter 中仍硬编码在 Python 模块里的规则词表、档位映射和展示文案，并定义 versioned dictionary snapshot、loader 与 validator 合同。当前包不创建 PostgreSQL 字典表、不写 canonical dictionary、不迁移运行时 adapter，也不让普通导出脚本依赖 live DSN；后续可继续进入 snapshot loader / validator package。
+该包只盘点第五项B adapter 中仍硬编码在 Python 模块里的规则词表、档位映射和展示文案，并定义 versioned dictionary snapshot、loader 与 validator 合同。当前包不创建 PostgreSQL 字典表、不写 canonical dictionary、不迁移运行时 adapter，也不让普通导出脚本依赖 live DSN。
+
+Issue #311 I5B dictionary snapshot loader / validator package 使用：
+
+```bash
+python scripts/platform/i5b_dictionary_snapshot_loader_validator.py --snapshot-report
+python scripts/platform/i5b_dictionary_snapshot_loader_validator.py --validate-snapshot
+python scripts/platform/i5b_dictionary_snapshot_loader_validator.py --snapshot-md
+```
+
+该包读取 repo 内 immutable snapshot `scripts/platform/i5b_dictionary_snapshots/i5b_rule_display_dictionary_snapshot_v1.json`，校验每个字典 item 的版本、scope、rule_id、locale、status、effective_from、gate_source、payload digest，并确认五类字典覆盖 contract inventory 的 14 个硬编码源符号。它仍不创建 PostgreSQL 字典表、不写 canonical dictionary、不迁移运行时 adapter，也不让普通导出脚本依赖 live DSN；下一步只能进入 runtime adapter dictionary readiness package 或单独 schema/config gate。
 
 ## JSONL staging mapper prototype
 

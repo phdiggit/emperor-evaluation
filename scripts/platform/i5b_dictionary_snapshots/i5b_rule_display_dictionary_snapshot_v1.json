@@ -1,0 +1,128 @@
+{
+  "package_version": "i5b-dictionary-snapshot-loader-validator-v1",
+  "snapshot_version": "i5b-rule-display-dictionary-snapshot-v1",
+  "contract_package_version": "i5b-rule-display-dictionary-contract-v1",
+  "scope": "i5b_people_delegation",
+  "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
+  "created_utc": "2026-06-26",
+  "status": "draft",
+  "items": [
+    {
+      "snapshot_version": "i5b-rule-display-dictionary-snapshot-v1",
+      "scope": "i5b_people_delegation",
+      "rule_id": "i5b.grade_dictionary.v1",
+      "dictionary_type": "grade_dictionary",
+      "locale": "zh-CN",
+      "status": "draft",
+      "effective_from": "2026-06-26",
+      "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
+      "digest_sha256": "12879550e1f12761b1509920a72327737340a450462ce2844205f0e2c4516d22",
+      "payload": {
+        "source_symbols": [
+          "TRIAL_SCORE_MAP",
+          "FORMAL_GRADE_ENUM",
+          "FORMAL_GRADE_SPECS"
+        ],
+        "externalization_target": "i5b_grade_dictionary",
+        "algorithm_runtime_migrated": false,
+        "contains_release_scores": false
+      }
+    },
+    {
+      "snapshot_version": "i5b-rule-display-dictionary-snapshot-v1",
+      "scope": "i5b_people_delegation",
+      "rule_id": "i5b.rule_keyword_dictionary.v1",
+      "dictionary_type": "rule_keyword_dictionary",
+      "locale": "zh-CN",
+      "status": "draft",
+      "effective_from": "2026-06-26",
+      "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
+      "digest_sha256": "de66f1f8422a0851473414d8fed73293d7f45a33edcbf4be7093af3a9f93480f",
+      "payload": {
+        "source_symbols": [
+          "HIGH_VALUE_ANCHOR_KEYWORDS",
+          "STARTUP_ANCHOR_KEYWORDS",
+          "BOUNDARY_ANCHOR_KEYWORDS",
+          "DIRECT_SAFETY_KEYWORDS",
+          "POSITIVE_CORE_KEYWORDS"
+        ],
+        "externalization_target": "i5b_rule_keyword_dictionary",
+        "algorithm_runtime_migrated": false,
+        "contains_release_scores": false
+      }
+    },
+    {
+      "snapshot_version": "i5b-rule-display-dictionary-snapshot-v1",
+      "scope": "i5b_people_delegation",
+      "rule_id": "i5b.rule_dictionary.v1",
+      "dictionary_type": "rule_dictionary",
+      "locale": "zh-CN",
+      "status": "draft",
+      "effective_from": "2026-06-26",
+      "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
+      "digest_sha256": "99394b90d048fe527626958bd0277941eab843aeca41ab5825a6ff6e90c18d9b",
+      "payload": {
+        "source_symbols": [
+          "RULE_SENSITIVE_POINTS"
+        ],
+        "externalization_target": "i5b_rule_dictionary",
+        "algorithm_runtime_migrated": false,
+        "contains_release_scores": false
+      }
+    },
+    {
+      "snapshot_version": "i5b-rule-display-dictionary-snapshot-v1",
+      "scope": "i5b_people_delegation",
+      "rule_id": "i5b.direction_grade_mapping.v1",
+      "dictionary_type": "direction_grade_mapping",
+      "locale": "zh-CN",
+      "status": "draft",
+      "effective_from": "2026-06-26",
+      "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
+      "digest_sha256": "6bfc7b2bb31e7730d5b629a38af3c0e400cf27822cd4857bc9a3d05723b6f17c",
+      "payload": {
+        "source_symbols": [
+          "DIMENSION_RULES",
+          "AUTO_DIRECTION_TO_FORMAL_GRADE",
+          "FORMAL_GRADE_BAND_POSITION"
+        ],
+        "externalization_target": "i5b_direction_grade_mapping",
+        "algorithm_runtime_migrated": false,
+        "contains_release_scores": false
+      }
+    },
+    {
+      "snapshot_version": "i5b-rule-display-dictionary-snapshot-v1",
+      "scope": "i5b_people_delegation",
+      "rule_id": "i5b.display_dictionary.v1",
+      "dictionary_type": "display_dictionary",
+      "locale": "zh-CN",
+      "status": "draft",
+      "effective_from": "2026-06-26",
+      "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
+      "digest_sha256": "d3384be223b39603cf3204b68c430422b15059c83888d4bf51eb5dd210005273",
+      "payload": {
+        "source_symbols": [
+          "render_score_mapping_draft",
+          "render_formal_person_section"
+        ],
+        "externalization_target": "i5b_display_dictionary",
+        "algorithm_runtime_migrated": false,
+        "contains_release_scores": false
+      }
+    }
+  ],
+  "blocked_outputs": [
+    "postgres_dictionary_table_creation",
+    "canonical_dictionary_write",
+    "runtime_adapter_migration",
+    "ordinary_export_runtime_dsn_dependency",
+    "new_subitem_formal_scores",
+    "new_subitem_formal_rankings",
+    "stage_total_table",
+    "final_total_table",
+    "cross_subitem_leaderboard",
+    "g10_destructive_cleanup"
+  ],
+  "next_required_work": "issue311_runtime_adapter_dictionary_readiness_package"
+}
