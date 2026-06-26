@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "epic5-deterministic-rerun-report-contract-package-ready",
+        "current_phase": "issue311-i5b-dictionary-externalization-contract-ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
@@ -154,6 +154,8 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "score_publication_result_contract_count": 3,
         "epic5_deterministic_rerun_report_contract_ready": True,
         "epic5_deterministic_rerun_report_contract_package": "epic5-deterministic-rerun-report-contract-v1",
+        "epic5_deterministic_rerun_report_contract_pr": 319,
+        "epic5_deterministic_rerun_report_contract_merge_commit": "427e1be38d1ad612435e043d501a9850c11bd7a2",
         "deterministic_rerun_report_contract_count": 3,
         "validator_contracts_built": True,
         "impact_report_templates_built": True,
@@ -167,6 +169,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "new_subitem_formal_rankings_released": False,
         "epic_2_entered": False,
         "epic_3_entered": False,
+        "issue311_dictionary_contract_ready": True,
+        "issue311_dictionary_contract_package": "i5b-rule-display-dictionary-contract-v1",
+        "i5b_dictionary_snapshot_schema_defined": True,
+        "i5b_dictionary_loader_contract_defined": True,
+        "i5b_dictionary_validator_contract_defined": True,
+        "i5b_runtime_adapter_migrated": False,
+        "i5b_postgres_dictionary_tables_created": False,
+        "i5b_canonical_dictionary_write_performed": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
     assert "production_schema_live_apply" in report["completed_chain"]
@@ -194,6 +204,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "epic5_formal_grade_result_contract" in report["completed_chain"]
     assert "epic5_score_publication_result_contract" in report["completed_chain"]
     assert "epic5_deterministic_rerun_report_contract" in report["completed_chain"]
+    assert "issue311_i5b_rule_display_dictionary_contract" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -207,15 +218,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "epic5_formal_grade_result_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_score_publication_result_contract" for tool in report["prototype_tools"])
     assert any(tool["name"] == "epic5_deterministic_rerun_report_contract" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "issue311_i5b_rule_display_dictionary_contract" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "issue_311_rule_display_dictionary_externalization_or_non_destructive_governance" in report[
-        "next_epic_gates"
-    ]
+    assert "issue311_dictionary_snapshot_loader_validator_package" in report["next_epic_gates"]
     assert "epic5_per_subitem_g8_algorithm_release_gate" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert "issue_311_rule_display_dictionary_governance_gate" in report["next_epic_gates"]
@@ -265,6 +275,10 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"validator_contracts_built": true' in text
     assert '"impact_report_templates_built": true' in text
     assert '"publication_report_templates_built": true' in text
+    assert '"issue311_dictionary_contract_ready": true' in text
+    assert '"i5b_runtime_adapter_migrated": false' in text
+    assert '"i5b_postgres_dictionary_tables_created": false' in text
+    assert '"i5b_canonical_dictionary_write_performed": false' in text
     assert "epic5_scope_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_interface_contract_does_not_publish_new_subitem_scores_or_cross_subitem_leaderboard" in text
     assert "epic5_pilot_profile_contract_does_not_publish_evidence_profiles_formal_scores_or_leaderboards" in text
@@ -272,6 +286,7 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "epic5_formal_grade_result_contract_does_not_publish_scores_or_rankings" in text
     assert "epic5_score_publication_result_contract_does_not_release_person_scores_or_leaderboards" in text
     assert "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings" in text
+    assert "issue311_dictionary_contract_does_not_create_tables_or_migrate_runtime_adapter" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
