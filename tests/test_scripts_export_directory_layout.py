@@ -23,6 +23,7 @@ DIMENSION_EXPORT_FRAMEWORK_MODULES = (
     "dimension_export/pipeline.py",
     "dimension_export/validation.py",
     "dimension_adapters/i5b_people_delegation/adapter.py",
+    "dimension_adapters/i5b_people_delegation/dictionary_readthrough.py",
     "dimension_adapters/i5b_people_delegation/output_specs.py",
     "dimension_adapters/i5b_people_delegation/rules.py",
 )
