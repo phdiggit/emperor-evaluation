@@ -175,6 +175,15 @@ python scripts/platform/epic5_scoring_engine_interface_contract.py --interface-m
 
 该包固化 `scripts/shared/scoring_engine_contracts.py` 的纯 Python 接口契约和边界校验：`ScoreRange`、`SubitemProfile`、`EvidenceProfile`、`NoOverridePolicy`、`FormalGradeResult`、`ScorePublicationResult`。它只验证 G8/G9 分离、no-override、候选值区间、G9 子项内发布和总榜/leaderboard 锁定，不读取数据、不连接服务、不发布任何新子项分值。
 
+Epic5 试点子项 profile contract package 使用：
+
+```bash
+python scripts/platform/epic5_pilot_subitem_profile_contract.py --contract-report
+python scripts/platform/epic5_pilot_subitem_profile_contract.py --profiles-md
+```
+
+该包只固定第二项治国净收益、第三项军事与边疆净收益、第六项关键历史决策能力的 `SubitemProfile` 合同：分值上限分别为 460、250、180；第六项按 60 / 50 / 70 的 A/B/C 分解承接 1500 总盘决策。它不包含 evidence profile、formal grade result 或 score publication result，不读取数据、不连接服务、不写业务表、不发布任何新子项分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。下一步应进入试点子项 evidence profile contract package。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
