@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g5-runtime-execution-package-ready",
+    "current_phase": "g5-runtime-executed-observed",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -22,7 +22,8 @@ CURRENT_STATE = {
     "full_pytest_operational": True,
     "jsonl_write_frozen": True,
     "postgres_unique_write_source": True,
-    "production_runtime_live": False,
+    "production_runtime_live": True,
+    "formal_evidence_released": False,
     "formal_scoring_released": False,
     "formal_ranking_released": False,
     "g1_canonical_manifest_approved": True,
@@ -55,12 +56,21 @@ CURRENT_STATE = {
     "g5_runtime_boundary_package_ready": True,
     "g5_approved": True,
     "g5_runtime_execution_package_ready": True,
-    "g5_runtime_execute_attempted": False,
-    "g5_runtime_execute_status": "not_executed",
-    "g5_runtime_observe_status": "not_observed",
-    "production_credentials_enabled": False,
-    "rabbitmq_live": False,
-    "network_ingestion_live": False,
+    "g5_runtime_execution_plan_sha256": "590b083e27e8d6f9b93c3742936ef043e17262abc041a0132d4bcf5364d0edbd",
+    "g5_runtime_marker_code": "G5-RUNTIME-SMOKE-ISSUE292",
+    "g5_runtime_execute_attempted": True,
+    "g5_runtime_execute_status": "succeeded",
+    "g5_runtime_observe_status": "succeeded",
+    "g5_runtime_post_apply_observation_completed": True,
+    "g5_runtime_marker_written": True,
+    "g5_runtime_marker_observed": True,
+    "g5_postgres_runtime_smoke_passed": True,
+    "g5_rabbitmq_smoke_passed": True,
+    "g5_outbox_worker_smoke_passed": True,
+    "g5_network_ingestion_pilot_passed": True,
+    "production_credentials_enabled": True,
+    "rabbitmq_live": True,
+    "network_ingestion_live": True,
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -86,6 +96,7 @@ COMPLETED_CHAIN = [
     "g4_write_source_cutover_execution_package",
     "g5_runtime_boundary_package",
     "g5_runtime_execution_package",
+    "g5_runtime_execution_observation",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -213,7 +224,7 @@ def build_contract_report() -> dict[str, Any]:
             "apply_smoke_uses_random_isolated_schema_and_drop_cleanup",
         ],
         "next_epic_gates": [
-            "epic_1_g5_runtime_credentials_network_ingestion_gate",
+            "epic_1_g6_formal_evidence_release_gate",
             "epic_1_source_document_passage_merge_policy_gate",
             "epic_1_evidence_cluster_anchor_relationship_followup_gates",
         ],

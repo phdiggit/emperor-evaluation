@@ -29,7 +29,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g5-runtime-execution-package-ready",
+        "current_phase": "g5-runtime-executed-observed",
         "canonical_write_source": "postgresql",
         "postgres_schema_live": True,
         "postgres_business_data_migrated": False,
@@ -37,7 +37,8 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "full_pytest_operational": True,
         "jsonl_write_frozen": True,
         "postgres_unique_write_source": True,
-        "production_runtime_live": False,
+        "production_runtime_live": True,
+        "formal_evidence_released": False,
         "formal_scoring_released": False,
         "formal_ranking_released": False,
         "g1_canonical_manifest_approved": True,
@@ -70,12 +71,21 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g5_runtime_boundary_package_ready": True,
         "g5_approved": True,
         "g5_runtime_execution_package_ready": True,
-        "g5_runtime_execute_attempted": False,
-        "g5_runtime_execute_status": "not_executed",
-        "g5_runtime_observe_status": "not_observed",
-        "production_credentials_enabled": False,
-        "rabbitmq_live": False,
-        "network_ingestion_live": False,
+        "g5_runtime_execution_plan_sha256": "590b083e27e8d6f9b93c3742936ef043e17262abc041a0132d4bcf5364d0edbd",
+        "g5_runtime_marker_code": "G5-RUNTIME-SMOKE-ISSUE292",
+        "g5_runtime_execute_attempted": True,
+        "g5_runtime_execute_status": "succeeded",
+        "g5_runtime_observe_status": "succeeded",
+        "g5_runtime_post_apply_observation_completed": True,
+        "g5_runtime_marker_written": True,
+        "g5_runtime_marker_observed": True,
+        "g5_postgres_runtime_smoke_passed": True,
+        "g5_rabbitmq_smoke_passed": True,
+        "g5_outbox_worker_smoke_passed": True,
+        "g5_network_ingestion_pilot_passed": True,
+        "production_credentials_enabled": True,
+        "rabbitmq_live": True,
+        "network_ingestion_live": True,
         "epic_2_entered": False,
     }
     assert report["completed_chain"] == platform_chain_checkpoint.COMPLETED_CHAIN
@@ -88,13 +98,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g4_write_source_cutover_execution_package" in report["completed_chain"]
     assert "g5_runtime_boundary_package" in report["completed_chain"]
     assert "g5_runtime_execution_package" in report["completed_chain"]
+    assert "g5_runtime_execution_observation" in report["completed_chain"]
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "epic_1_g5_runtime_credentials_network_ingestion_gate" in report["next_epic_gates"]
+    assert "epic_1_g6_formal_evidence_release_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
     assert report["baseline_repair_tracking"]["sqlite_schema_source"] == "db/sqlite/001_cache.sql"
