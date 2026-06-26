@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "issue311-i5b-dictionary-snapshot-loader-validator-ready",
+    "current_phase": "issue311-i5b-runtime-adapter-dictionary-readiness-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -165,6 +165,10 @@ CURRENT_STATE = {
     "i5b_dictionary_snapshot_item_count": 5,
     "i5b_dictionary_snapshot_inventory_symbol_count": 14,
     "i5b_dictionary_snapshot_digest_validation_passed": True,
+    "issue311_runtime_adapter_dictionary_readiness_ready": True,
+    "issue311_runtime_adapter_dictionary_readiness_package": "i5b-runtime-adapter-dictionary-readiness-v1",
+    "i5b_runtime_symbol_inventory_count": 14,
+    "i5b_runtime_symbol_inventory_complete": True,
     "i5b_runtime_adapter_migrated": False,
     "i5b_postgres_dictionary_tables_created": False,
     "i5b_canonical_dictionary_write_performed": False,
@@ -210,6 +214,7 @@ COMPLETED_CHAIN = [
     "epic5_deterministic_rerun_report_contract",
     "issue311_i5b_rule_display_dictionary_contract",
     "issue311_i5b_dictionary_snapshot_loader_validator",
+    "issue311_i5b_runtime_adapter_dictionary_readiness",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -388,6 +393,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_issue311_immutable_snapshot_loader_validator_only",
             },
             {
+                "name": "issue311_i5b_runtime_adapter_dictionary_readiness",
+                "path": "scripts/platform/i5b_runtime_adapter_dictionary_readiness.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_issue311_runtime_adapter_dictionary_readiness_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -452,9 +464,10 @@ def build_contract_report() -> dict[str, Any]:
             "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings",
             "issue311_dictionary_contract_does_not_create_tables_or_migrate_runtime_adapter",
             "issue311_dictionary_snapshot_loader_validator_does_not_create_tables_or_migrate_runtime_adapter",
+            "issue311_runtime_adapter_dictionary_readiness_does_not_modify_runtime_adapter",
         ],
         "next_epic_gates": [
-            "issue311_runtime_adapter_dictionary_readiness_package",
+            "issue311_readthrough_loader_shim_package",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
