@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g6-formal-evidence-marker-observed",
+    "current_phase": "g7-approved-rule-change-scope-package-ready",
     "canonical_write_source": "postgresql",
     "postgres_schema_live": True,
     "postgres_business_data_migrated": False,
@@ -82,6 +82,8 @@ CURRENT_STATE = {
     "g6_formal_evidence_post_apply_observation_completed": True,
     "g6_formal_evidence_marker_written": True,
     "g6_formal_evidence_marker_observed": True,
+    "g7_approved": True,
+    "g7_rule_change_scope_package_ready": True,
     "epic_2_entered": False,
 }
 COMPLETED_CHAIN = [
@@ -111,6 +113,7 @@ COMPLETED_CHAIN = [
     "g6_formal_evidence_boundary_package",
     "g6_formal_evidence_execution_package",
     "g6_formal_evidence_marker_observation",
+    "g7_rule_change_scope_package",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -198,6 +201,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "g6_token_gated_imports_marker_formal_evidence_release_package",
             },
             {
+                "name": "g7_rule_change_scope_package",
+                "path": "scripts/platform/g7_rule_change_scope_package.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g7_approved_rule_change_scope_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -251,9 +261,11 @@ def build_contract_report() -> dict[str, Any]:
             "apply_smoke_uses_primary_dsn_only_when_opted_in",
             "apply_smoke_uses_random_isolated_schema_and_drop_cleanup",
             "no_business_table_writes_beyond_g6_marker_without_followup_gate",
+            "no_algorithm_or_publication_without_followup_gate",
         ],
         "next_epic_gates": [
-            "epic_1_g7_rule_change_gate",
+            "epic_1_g8_algorithm_gate",
+            "epic_1_g9_publication_gate",
             "epic_1_source_document_passage_merge_policy_gate",
             "epic_1_evidence_cluster_anchor_relationship_followup_gates",
         ],

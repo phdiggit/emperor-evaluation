@@ -131,7 +131,16 @@ python scripts/platform/g6_formal_evidence_execution.py --operator-checklist-md
 
 该包默认不读取 `.env`、不连接 PostgreSQL / RabbitMQ、不访问网络，不读取 canonical JSONL，也不写 source/passages/evidence/cluster/anchor/relationship 业务表。`--execute` / `--observe` 必须带 G6 token、expected plan sha256，并由 operator 环境提供 `EMPEROR_EVAL_PG_DSN`。执行路径先读回确认 G5 runtime marker，再只允许在 `imports` 表写入 / 更新 `G6-FORMAL-EVIDENCE-RELEASE-ISSUE292` formal evidence release audit marker；当前包不发布评分规则、评分算法、正式分数或排名，也不进入 Epic 2。
 
-G6 execute / observe 已成功观察，execution plan sha256 为 `27c93eca232ce4654533cfdc28795be0e366574d182b0e8378ba41ffc242b858`。成功事实包括 G5 `G5-RUNTIME-SMOKE-ISSUE292` marker 读回通过，以及 `G6-FORMAL-EVIDENCE-RELEASE-ISSUE292` marker 写入 / 读回通过。该状态仍不写 source/passages/evidence/cluster/anchor/relationship 业务表，不发布评分规则、评分算法、正式分数或排名，也不进入 Epic 2；G7 仍是后续规则变更前的下一道显式 gate。
+G6 execute / observe 已成功观察，execution plan sha256 为 `27c93eca232ce4654533cfdc28795be0e366574d182b0e8378ba41ffc242b858`。成功事实包括 G5 `G5-RUNTIME-SMOKE-ISSUE292` marker 读回通过，以及 `G6-FORMAL-EVIDENCE-RELEASE-ISSUE292` marker 写入 / 读回通过。该状态仍不写 source/passages/evidence/cluster/anchor/relationship 业务表，不发布评分规则、评分算法、正式分数或排名，也不进入 Epic 2。
+
+G7 获批后的 rule change scope package 使用：
+
+```bash
+python scripts/platform/g7_rule_change_scope_package.py --contract-report
+python scripts/platform/g7_rule_change_scope_package.py --scope-md
+```
+
+该包默认不读取 `.env`、不连接 PostgreSQL / RabbitMQ、不访问网络，不读取 canonical JSONL，不修改评分标准或分项规则正文，也不写 source/passages/evidence/cluster/anchor/relationship 业务表。G7 只允许准备明确规则变更 workset、审查子项规则定义 diff、记录不含正式分值的影响范围与边界回归测试；正式算法仍需 G8，正式分数 / 排名发布仍需 G9，破坏性清理仍需 G10，Epic 2 仍需 separate ready review。
 
 ## JSONL staging mapper prototype
 
