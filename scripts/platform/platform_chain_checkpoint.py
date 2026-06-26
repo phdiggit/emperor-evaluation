@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "epic5-score-publication-result-contract-package-ready",
+    "current_phase": "epic5-deterministic-rerun-report-contract-package-ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
@@ -134,7 +134,15 @@ CURRENT_STATE = {
     "formal_grade_result_contract_count": 3,
     "epic5_score_publication_result_contract_ready": True,
     "epic5_score_publication_result_contract_package": "epic5-score-publication-result-contract-v1",
+    "epic5_score_publication_result_contract_pr": 318,
+    "epic5_score_publication_result_contract_merge_commit": "c800570aead93c146e6598d7246f892bf74aab5f",
     "score_publication_result_contract_count": 3,
+    "epic5_deterministic_rerun_report_contract_ready": True,
+    "epic5_deterministic_rerun_report_contract_package": "epic5-deterministic-rerun-report-contract-v1",
+    "deterministic_rerun_report_contract_count": 3,
+    "validator_contracts_built": True,
+    "impact_report_templates_built": True,
+    "publication_report_templates_built": True,
     "person_specific_evidence_profiles_built": False,
     "person_specific_formal_grade_results_built": False,
     "person_specific_score_publication_results_built": False,
@@ -183,6 +191,7 @@ COMPLETED_CHAIN = [
     "epic5_pilot_subitem_evidence_profile_contract",
     "epic5_formal_grade_result_contract",
     "epic5_score_publication_result_contract",
+    "epic5_deterministic_rerun_report_contract",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -340,6 +349,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_epic5_score_publication_result_contract_only",
             },
             {
+                "name": "epic5_deterministic_rerun_report_contract",
+                "path": "scripts/platform/epic5_deterministic_rerun_report_contract.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_epic5_deterministic_rerun_report_contract_only",
+            },
+            {
                 "name": "jsonl_staging_mapper",
                 "path": "scripts/platform/jsonl_staging_mapper.py",
                 "contract": True,
@@ -401,9 +417,10 @@ def build_contract_report() -> dict[str, Any]:
             "epic5_pilot_evidence_profile_contract_does_not_lookup_sources_or_publish_formal_grade_results",
             "epic5_formal_grade_result_contract_does_not_publish_scores_or_rankings",
             "epic5_score_publication_result_contract_does_not_release_person_scores_or_leaderboards",
+            "epic5_deterministic_rerun_report_contract_does_not_publish_scores_or_rankings",
         ],
         "next_epic_gates": [
-            "epic5_deterministic_rerun_and_report_contract_package",
+            "issue_311_rule_display_dictionary_externalization_or_non_destructive_governance",
             "epic5_per_subitem_g8_algorithm_release_gate",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
