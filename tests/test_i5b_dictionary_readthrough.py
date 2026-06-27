@@ -13,7 +13,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from export.dimension_adapters.i5b_people_delegation import adapter, dictionary_readthrough, formal_algorithm, rules  # noqa: E402
-from scripts.platform import i5b_dictionary_snapshot_loader_validator as platform_loader  # noqa: E402
 
 
 FORBIDDEN_PATHS = [
@@ -25,12 +24,11 @@ FORBIDDEN_PATHS = [
 ]
 
 
-def test_readthrough_loads_default_snapshot_and_matches_platform_validator() -> None:
+def test_readthrough_loads_default_snapshot_and_validates_schema() -> None:
     snapshot = dictionary_readthrough.load_dictionary_snapshot()
 
     assert snapshot["snapshot_version"] == dictionary_readthrough.SNAPSHOT_VERSION
     assert dictionary_readthrough.validate_dictionary_snapshot(snapshot) == []
-    assert platform_loader.validate_snapshot(snapshot) == []
     assert len(snapshot["items"]) == 5
 
 

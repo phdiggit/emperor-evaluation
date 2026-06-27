@@ -90,11 +90,10 @@ def test_validate_all_includes_i5b_cluster_adjudication_config_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
-def test_validate_all_includes_script_lifecycle_registry_step() -> None:
-    assert (
-        "validate_script_lifecycle_registry",
-        ROOT / "scripts" / "validate" / "validate_script_lifecycle_registry.py",
-    ) in validate_all.VALIDATION_STEPS
+def test_validate_all_excludes_script_lifecycle_registry_step() -> None:
+    step_names = {name for name, _path in validate_all.VALIDATION_STEPS}
+
+    assert "validate_script_lifecycle_registry" not in step_names
 
 
 def test_validate_all_includes_human_readable_markdown_export_step() -> None:
