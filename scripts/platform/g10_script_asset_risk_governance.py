@@ -74,8 +74,8 @@ DUPLICATE_CAPABILITY_GROUPS: tuple[dict[str, Any], ...] = (
         "terms": ("schema", "migration", "seed"),
         "decision": "retain_with_reason",
         "reason": (
-            "Historical schema, migration, and seed scaffolds are audit_only, superseded, "
-            "transitional, or retired records and are not default public execution routes."
+            "Historical schema, migration, and seed scaffolds are retired-in-place audit records "
+            "after #346 and are not default public execution routes."
         ),
     },
 )

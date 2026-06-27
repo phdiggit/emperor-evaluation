@@ -71,8 +71,8 @@ def test_registry_analysis_covers_lifecycle_default_routes_and_duplicate_reasons
     assert analysis["default_validate_retired_script_references"] == []
     assert analysis["retired_public_cli_modules"] == []
     assert analysis["retired_scripts_in_default_validate_or_public_cli"] == 0
-    assert analysis["platform_lifecycle_status_counts"]["transitional"] == 4
-    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) >= 6
+    assert set(analysis["platform_lifecycle_status_counts"]) == {"active", "retired"}
+    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) >= 30
     assert {
         "scripts/platform/anchors_schema_proposal.py",
         "scripts/platform/formal_ddl_live_rehearsal.py",
@@ -94,6 +94,9 @@ def test_registry_analysis_covers_lifecycle_default_routes_and_duplicate_reasons
     assert all(item["retain_or_consolidation_reason"] for item in reviews.values())
     assert reviews["gate_approval_preflight"]["module_count"] > 1
     assert reviews["schema_migration_seed_scaffolds"]["decision"] == "retain_with_reason"
+    assert "retired-in-place audit records after #346" in reviews["schema_migration_seed_scaffolds"][
+        "retain_or_consolidation_reason"
+    ]
     assert reviews["redaction_fingerprint_helpers"]["decision"] == "already_consolidated"
 
 

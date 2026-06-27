@@ -29,12 +29,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "post_g10_ready_for_followup_gates_ready",
+        "current_phase": "post_g10_s1_script_lifecycle_finalization_ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
-        "last_completed_pr": 340,
-        "last_completed_merge_commit": "7d0c07a270ddb625d4150f0958c927da258ef66c",
+        "last_completed_pr": 345,
+        "last_completed_merge_commit": "16e8d84f281a1d4b9fef4896ae1f96517d75ba6f",
         "positive_benefit_total": 1500,
         "former_active_cap_1440": "obsolete",
         "canonical_write_source": "postgresql",
@@ -300,7 +300,25 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "post_g10_handoff_merge_commit": "7d0c07a270ddb625d4150f0958c927da258ef66c",
         "post_g10_followup_gate_count": 8,
         "post_g10_followup_gates_requiring_separate_review": 8,
-        "post_g10_next_action": "select_one_followup_gate_and_open_separate_ready_review",
+        "post_g10_next_action": "finish_issue_346_ready_review_before_selecting_non_script_followup_gate",
+        "post_g10_s1_script_lifecycle_finalization_ready": True,
+        "post_g10_script_lifecycle_finalization_package": "post-g10-script-lifecycle-finalization-v1",
+        "post_g10_script_lifecycle_finalization_prerequisite_pr": 345,
+        "post_g10_script_lifecycle_finalization_prerequisite_merge_commit": (
+            "16e8d84f281a1d4b9fef4896ae1f96517d75ba6f"
+        ),
+        "script_lifecycle_finalization_non_active_item_count": 30,
+        "script_lifecycle_finalization_updated_registry_entries": 24,
+        "script_lifecycle_finalization_retired_in_place_count": 30,
+        "script_lifecycle_finalization_restore_instructions_complete": True,
+        "script_lifecycle_finalization_actual_moved_deleted_archived_path_count": 0,
+        "script_lifecycle_finalization_replacement_paths_exist": True,
+        "script_lifecycle_finalization_transitional_scripts_without_sunset": 0,
+        "script_lifecycle_finalization_retired_default_public_route_violations": 0,
+        "script_lifecycle_finalization_duplicate_capability_groups_without_reason": 0,
+        "script_lifecycle_finalization_report_only_tests_replaced": True,
+        "script_lifecycle_finalization_remaining_debt_count": 0,
+        "script_governance_report_only_fallback_allowed": False,
         "epic5_per_subitem_g9_publication_gate_approved": False,
         "epic5_cross_subitem_leaderboard_publication_gate_approved": False,
         "epic5_stage_or_final_total_table_publication_gate_approved": False,
@@ -358,6 +376,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g10_script_governance_enforcement" in report["completed_chain"]
     assert "g10_completion_verification_handoff" in report["completed_chain"]
     assert "post_g10_followup_gates_readiness" in report["completed_chain"]
+    assert "post_g10_script_lifecycle_finalization" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -382,6 +401,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "validate_script_lifecycle_registry" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g10_completion_verification_handoff" for tool in report["prototype_tools"])
     assert any(tool["name"] == "post_g10_followup_gates_readiness" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "post_g10_script_lifecycle_finalization" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
@@ -511,7 +531,22 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"post_g10_handoff_pr": 340' in text
     assert '"post_g10_followup_gate_count": 8' in text
     assert '"post_g10_followup_gates_requiring_separate_review": 8' in text
-    assert '"post_g10_next_action": "select_one_followup_gate_and_open_separate_ready_review"' in text
+    assert '"post_g10_next_action": "finish_issue_346_ready_review_before_selecting_non_script_followup_gate"' in text
+    assert '"post_g10_s1_script_lifecycle_finalization_ready": true' in text
+    assert '"post_g10_script_lifecycle_finalization_package": "post-g10-script-lifecycle-finalization-v1"' in text
+    assert '"post_g10_script_lifecycle_finalization_prerequisite_pr": 345' in text
+    assert '"script_lifecycle_finalization_non_active_item_count": 30' in text
+    assert '"script_lifecycle_finalization_updated_registry_entries": 24' in text
+    assert '"script_lifecycle_finalization_retired_in_place_count": 30' in text
+    assert '"script_lifecycle_finalization_restore_instructions_complete": true' in text
+    assert '"script_lifecycle_finalization_actual_moved_deleted_archived_path_count": 0' in text
+    assert '"script_lifecycle_finalization_replacement_paths_exist": true' in text
+    assert '"script_lifecycle_finalization_transitional_scripts_without_sunset": 0' in text
+    assert '"script_lifecycle_finalization_retired_default_public_route_violations": 0' in text
+    assert '"script_lifecycle_finalization_duplicate_capability_groups_without_reason": 0' in text
+    assert '"script_lifecycle_finalization_report_only_tests_replaced": true' in text
+    assert '"script_lifecycle_finalization_remaining_debt_count": 0' in text
+    assert '"script_governance_report_only_fallback_allowed": false' in text
     assert '"epic5_per_subitem_g9_publication_gate_approved": false' in text
     assert '"epic5_cross_subitem_leaderboard_publication_gate_approved": false' in text
     assert '"epic5_stage_or_final_total_table_publication_gate_approved": false' in text
@@ -561,6 +596,12 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "post_g10_followup_gates_readiness_does_not_publish_scores_rankings_or_leaderboards" in text
     assert "post_g10_followup_gates_readiness_does_not_move_delete_archive_or_write_business_tables" in text
     assert "post_g10_followup_gates_readiness_does_not_enter_epic2_or_epic3" in text
+    assert "post_g10_script_lifecycle_finalization_updates_registry_only" in text
+    assert "post_g10_script_lifecycle_finalization_retires_scripts_in_place" in text
+    assert "post_g10_script_lifecycle_finalization_does_not_touch_data_archive_or_exports" in text
+    assert "post_g10_script_lifecycle_finalization_requires_restore_instruction_per_item" in text
+    assert "post_g10_script_lifecycle_finalization_keeps_retired_scripts_out_of_default_public_routes" in text
+    assert "post_g10_script_lifecycle_finalization_disallows_report_only_fallback" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
