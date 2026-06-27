@@ -461,7 +461,13 @@ AUTO_FEATURE_FIELDS = [
 def render_cluster_cards_or_empty(rows: list[dict[str, Any]], display_config: dict[str, Any]) -> str:
     if rows:
         return render_cluster_cards(rows, display_config)
-    lines = ["无证据簇。"]
+    lines = [
+        "无证据簇：当前人物暂无 I5B 证据卡/证据簇，本页仅为 full-pool stress 占位审查页，"
+        "不代表已完成自动结算或正式评分。",
+        "",
+        "- **证据状态**：missing_evidence",
+        "- **评分状态**：unscored / blocked_before_formal_score",
+    ]
     for field in ["linked_object_anchors", "cross_item_split_signals"]:
         lines.extend(["", *render_numbered_list(display_field_label(field, display_config), [], display_config)])
     return "\n".join(lines)

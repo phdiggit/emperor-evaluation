@@ -706,7 +706,10 @@ def test_person_detail_page_keeps_required_markers_for_empty_cluster_person() ->
 
     detail_content = auto.render_person_detail_page(report)
 
-    assert "无证据簇" in detail_content
+    assert "无证据簇：当前人物暂无 I5B 证据卡/证据簇" in detail_content
+    assert "full-pool stress 占位审查页" in detail_content
+    assert "missing_evidence" in detail_content
+    assert "unscored / blocked_before_formal_score" in detail_content
     assert "* **对象锚点（linked_object_anchors）**" in detail_content
     assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
 
