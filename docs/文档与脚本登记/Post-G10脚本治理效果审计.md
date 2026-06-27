@@ -4,15 +4,40 @@
 
 ## Measurement Scope
 
-- Before ref: `16e8d84f281a1d4b9fef4896ae1f96517d75ba6f` (#345 merge commit, #346/#347 前置状态)。
-- After ref: `78e7e746009124ce14e25b311c1b02c41f6bd4a9` (#347 merge commit)。
-- 文件集合: `git ls-tree -r --name-only <ref>` / `git ls-files` 的 tracked files。
+- 5A baseline source: `皇帝综评_全局路线规划.md` 的 `5A.1 规模基线`，记录日期为 2026-06-25。
+- 5A baseline is not the #345 merge commit. The #345 -> #347 comparison below is only the local Post-G10-S1 delta.
+- Current ref: `78e7e746009124ce14e25b311c1b02c41f6bd4a9` (#347 merge commit)。
+- 文件集合: 5A baseline 使用路线文档记录值；current / local delta 使用 `git ls-tree -r --name-only <ref>` / `git ls-files` 的 tracked files。
 - 文本行: UTF-8 / UTF-8 BOM / UTF-16 可解码且无 NUL byte 的 tracked text files。
 - Estimated code lines: 非空且不以常见注释前缀开头的行；这是比较用估算值，不替代语义审查。
 - Active-root: 物理路径位于 `scripts/platform/*.py` 或同级文本文件，且不在 `scripts/platform/_retired/` 下。
 - Active scripts top 20: registry `lifecycle_status=active` 且路径不在 `_retired` 下的 `scripts/platform/*.py`。
 
-## 5A Before / After
+## Global 5A Baseline / Current
+
+This is the main #348 comparison. It uses the original 5A baseline from the global roadmap instead of PR-local self-reported metrics.
+
+| Metric | 5A baseline | Current after #347 | Delta |
+| --- | ---: | ---: | ---: |
+| tracked files | 477 | 563 | +86 |
+| repository text lines | 89,600 | 91,965 | +2,365 |
+| `scripts/` files | 113 | 158 | +45 |
+| `scripts/` total lines | 34,182 | 47,973 | +13,791 |
+| `scripts/` estimated code lines | 29,381 | 42,650 | +13,269 |
+| `tests/` files | 121 | 159 | +38 |
+| `tests/` total lines | 26,551 | 34,916 | +8,365 |
+| `tests/` estimated code lines | 21,262 | 28,201 | +6,939 |
+| `scripts/platform/` recursive files | 53 | 94 | +41 |
+| `scripts/platform/` recursive total lines | 22,056 | 35,189 | +13,133 |
+| `scripts/platform/` recursive estimated code lines | 19,150 | 31,664 | +12,514 |
+| `scripts/platform/` active-root files | not separately listed | 74 | n/a |
+| `scripts/platform/` active-root total lines | not separately listed | 26,130 | n/a |
+| `scripts/platform/_retired/` files | not separately listed | 14 | n/a |
+| `scripts/platform/_retired/` total lines | not separately listed | 8,137 | n/a |
+
+## Post-G10-S1 Local Delta
+
+This secondary table explains what #347 changed after #345. It is useful for path-movement interpretation, but it is not the original 5A baseline.
 
 | Metric | Before | After | Delta |
 | --- | ---: | ---: | ---: |
@@ -38,8 +63,9 @@
 
 ## Interpretation
 
-- Active-root reduction is real: `scripts/platform/` active-root dropped by 12 files and 7,357 text lines after #347.
-- Repo-wide LOC reduction is not real: repository text lines increased by 1,242 and `scripts/platform/` recursive lines increased by 798.
+- Against the original 5A baseline, repository text lines are up 2,365 and `scripts/platform/` recursive lines are up 13,133. So #348 cannot conclude repository-wide code shrinkage.
+- The #347 active-root reduction is still real in the local delta: `scripts/platform/` active-root dropped by 12 files and 7,357 text lines after #345.
+- Repo-wide LOC reduction is not real even in the local delta: repository text lines increased by 1,242 and `scripts/platform/` recursive lines increased by 798.
 - `_retired` is retained audit footprint: 14 files and 8,137 lines now live under `scripts/platform/_retired/`; these lines remain tracked and reviewable.
 - #347 should be read as active-root cleanup plus first helper extraction, not as repository-wide code deletion.
 - The delta is still useful because default/public routes are cleaner, top active-root retired files moved out of the default path, and active execution scripts now share fingerprint/redaction implementations.
