@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
-import importlib.util
 import json
-import os
 import re
 import secrets
 import sys
@@ -17,6 +14,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.platform import formal_ddl_rehearsal, formal_schema_draft
+from scripts.platform.core.db_env import (
+    ResolvedDsn,
+    is_psycopg_available,
+    make_check_environment,
+    make_integration_skip_reason,
+    make_resolve_dsn,
+)
 
 
 LIVE_REHEARSAL_VERSION = "isolated-formal-ddl-live-rehearsal-v1"
@@ -32,14 +36,12 @@ RESERVED_SCHEMA_NAMES = {"", "public", "postgres", "pg_catalog", "information_sc
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 
-@dataclass(frozen=True)
-class ResolvedDsn:
-    dsn: str | None
-    source: str
-
-    @property
-    def present(self) -> bool:
-        return bool(self.dsn)
+resolve_dsn = make_resolve_dsn()
+check_environment = make_check_environment(resolve_dsn)
+integration_skip_reason = make_integration_skip_reason(
+    resolve_dsn,
+    missing_reason=f"{PRIMARY_ENV_DSN} is not set",
+)
 
 
 def build_contract_report() -> dict[str, Any]:
@@ -102,49 +104,6 @@ def build_contract_report() -> dict[str, Any]:
     }
     _assert_no_blocked_terms(report)
     return report
-
-
-def check_environment(
-    *,
-    env: Mapping[str, str] | None = None,
-    driver_available: bool | None = None,
-) -> dict[str, Any]:
-    resolved = resolve_dsn(env=env)
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    return {
-        "mode": "check",
-        "dsn_present": resolved.present,
-        "dsn_source": resolved.source,
-        "driver": "psycopg",
-        "driver_available": driver_available,
-        "will_apply": False,
-        "default_tests_require_postgres": False,
-    }
-
-
-def resolve_dsn(*, env: Mapping[str, str] | None = None) -> ResolvedDsn:
-    if env is None:
-        env = os.environ
-    if env.get(PRIMARY_ENV_DSN):
-        return ResolvedDsn(env[PRIMARY_ENV_DSN], f"env:{PRIMARY_ENV_DSN}")
-    return ResolvedDsn(None, "skip")
-
-
-def integration_skip_reason(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> str | None:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if not resolved.dsn:
-        return f"{PRIMARY_ENV_DSN} is not set"
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    if not driver_available:
-        return "psycopg is not installed"
-    return None
 
 
 def apply_live_rehearsal(
@@ -317,10 +276,6 @@ def table_names_in_schema(cursor: Any, schema: str, table_names: Sequence[str]) 
         (schema, list(table_names)),
     )
     return [str(row[0]) for row in cursor.fetchall()]
-
-
-def is_psycopg_available() -> bool:
-    return importlib.util.find_spec("psycopg") is not None
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:

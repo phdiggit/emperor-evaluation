@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 from datetime import UTC, datetime
-import importlib.util
 import json
 import os
 from pathlib import Path
@@ -24,6 +23,10 @@ from scripts.platform import (  # noqa: E402
     seed_artifact_plan,
     seed_artifact_renderer,
     seed_artifact_validation_matrix,
+)
+from scripts.platform.core.db_env import (  # noqa: E402
+    is_psycopg_available,
+    primary_env_check_report,
 )
 
 
@@ -133,22 +136,16 @@ def check_environment(
     env: Mapping[str, str] | None = None,
     driver_available: bool | None = None,
 ) -> dict[str, Any]:
-    if env is None:
-        env = os.environ
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    dsn_present = bool(env.get(PRIMARY_ENV_DSN))
-    report = {
-        "mode": "check",
-        "dsn_present": dsn_present,
-        "dsn_source": f"env:{PRIMARY_ENV_DSN}" if dsn_present else "skip",
-        "driver": "psycopg",
-        "driver_available": driver_available,
-        "will_connect_by_default": False,
-        "include_db_evidence_required_for_connection": True,
-        "will_write_db": False,
-        "will_modify_repo": False,
-    }
+    report = primary_env_check_report(
+        env=env,
+        driver_available=driver_available,
+        extra_fields={
+            "will_connect_by_default": False,
+            "include_db_evidence_required_for_connection": True,
+            "will_write_db": False,
+            "will_modify_repo": False,
+        },
+    )
     assert_report_has_no_blocked_terms(report)
     return report
 
@@ -670,10 +667,6 @@ def is_contract_report(report: Mapping[str, Any]) -> bool:
 def source_of_truth_is_canonical_jsonl(report: Mapping[str, Any]) -> bool:
     text = json.dumps(report.get("source_of_truth", ""), ensure_ascii=False).lower()
     return "canonical jsonl" in text and "source-of-truth" in text
-
-
-def is_psycopg_available() -> bool:
-    return importlib.util.find_spec("psycopg") is not None
 
 
 def assert_report_has_no_blocked_terms(report: Mapping[str, Any]) -> None:

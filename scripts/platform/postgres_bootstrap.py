@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
-import os
-from dataclasses import dataclass
 from pathlib import Path
 import re
 import sys
@@ -15,6 +12,13 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.platform.core.db_env import (
+    ResolvedDsn,
+    is_psycopg_available,
+    make_check_environment,
+    make_integration_skip_reason,
+    make_resolve_dsn,
+)
 from scripts.platform.env_loader import read_dotenv_values
 
 
@@ -33,70 +37,17 @@ REQUIRED_TABLES = (
 )
 
 
-@dataclass(frozen=True)
-class ResolvedDsn:
-    dsn: str | None
-    source: str
-
-    @property
-    def present(self) -> bool:
-        return bool(self.dsn)
-
-
-def resolve_dsn(
-    explicit_dsn: str | None = None,
-    *,
-    env: Mapping[str, str] | None = None,
-    env_path: Path = ROOT / ".env",
-) -> ResolvedDsn:
-    if explicit_dsn:
-        return ResolvedDsn(explicit_dsn, "--dsn")
-    if env is None:
-        env = os.environ
-    for name in (PRIMARY_ENV_DSN, LEGACY_ENV_DSN):
-        if env.get(name):
-            return ResolvedDsn(env[name], f"env:{name}")
-    dotenv = read_dotenv_values(env_path)
-    for name in (PRIMARY_ENV_DSN, LEGACY_ENV_DSN):
-        if dotenv.get(name):
-            return ResolvedDsn(dotenv[name], f".env:{name}")
-    return ResolvedDsn(None, "skip")
-
-
-def check_environment(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> dict[str, object]:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    return {
-        "mode": "check",
-        "dsn_present": resolved.present,
-        "dsn_source": resolved.source,
-        "driver": "psycopg",
-        "driver_available": driver_available,
-        "default_tests_require_postgres": False,
-        "will_apply": False,
-    }
-
-
-def integration_skip_reason(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> str | None:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if not resolved.dsn:
-        return f"{PRIMARY_ENV_DSN} or {LEGACY_ENV_DSN} is not set"
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    if not driver_available:
-        return "psycopg is not installed"
-    return None
+resolve_dsn = make_resolve_dsn(
+    env_names=(PRIMARY_ENV_DSN, LEGACY_ENV_DSN),
+    env_path=ROOT / ".env",
+    dotenv_reader=read_dotenv_values,
+    allow_explicit=True,
+)
+check_environment = make_check_environment(resolve_dsn)
+integration_skip_reason = make_integration_skip_reason(
+    resolve_dsn,
+    missing_reason=f"{PRIMARY_ENV_DSN} or {LEGACY_ENV_DSN} is not set",
+)
 
 
 def render_bootstrap_sql(schema: str = DEFAULT_SCHEMA, init_sql_path: Path = INIT_SQL_PATH) -> str:
@@ -216,10 +167,6 @@ def run_pg_sql(dsn: str, sql: str) -> str:
                 return ""
             value: Any = row[0]
             return "" if value is None else str(value)
-
-
-def is_psycopg_available() -> bool:
-    return importlib.util.find_spec("psycopg") is not None
 
 
 def quote_identifier(value: str) -> str:

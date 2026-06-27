@@ -86,6 +86,7 @@ def test_platform_core_helpers_are_registered_as_active_shared_components() -> N
     modules = {module["implementation"]: module for module in registry["platform_modules"]}
 
     for path in [
+        "scripts/platform/core/db_env.py",
         "scripts/platform/core/evidence.py",
         "scripts/platform/core/fingerprints.py",
         "scripts/platform/core/gates.py",

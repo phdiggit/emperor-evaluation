@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 import os
 import sys
@@ -20,6 +19,10 @@ from scripts.platform import (  # noqa: E402
     isolated_seed_dry_apply,
     seed_artifact_renderer,
     seed_artifact_validation_matrix,
+)
+from scripts.platform.core.db_env import (  # noqa: E402
+    is_psycopg_available,
+    primary_env_check_report,
 )
 
 
@@ -130,21 +133,16 @@ def check_environment(
     env: Mapping[str, str] | None = None,
     driver_available: bool | None = None,
 ) -> dict[str, Any]:
-    if env is None:
-        env = os.environ
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    return {
-        "mode": "check",
-        "dsn_present": bool(env.get(PRIMARY_ENV_DSN)),
-        "dsn_source": f"env:{PRIMARY_ENV_DSN}" if env.get(PRIMARY_ENV_DSN) else "skip",
-        "driver": "psycopg",
-        "driver_available": driver_available,
-        "will_connect": False,
-        "will_write_isolated_schema": False,
-        "will_write_public_schema": False,
-        "will_restore_production": False,
-    }
+    return primary_env_check_report(
+        env=env,
+        driver_available=driver_available,
+        extra_fields={
+            "will_connect": False,
+            "will_write_isolated_schema": False,
+            "will_write_public_schema": False,
+            "will_restore_production": False,
+        },
+    )
 
 
 def run_rehearsal(
@@ -368,10 +366,6 @@ def validate_rehearsal_result(report: dict[str, Any]) -> dict[str, Any]:
     report["passed"] = not report["failed"]
     assert_report_has_no_blocked_terms(report)
     return report
-
-
-def is_psycopg_available() -> bool:
-    return importlib.util.find_spec("psycopg") is not None
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:
