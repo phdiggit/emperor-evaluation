@@ -73,8 +73,8 @@ DUPLICATE_CAPABILITY_GROUPS: tuple[dict[str, Any], ...] = (
         "terms": ("schema", "migration", "seed"),
         "decision": "retain_with_reason",
         "reason": (
-            "Historical schema, migration, and seed scaffolds are audit_only, superseded, or "
-            "transitional records and are not default public execution routes."
+            "Historical schema, migration, and seed scaffolds are audit_only, superseded, "
+            "transitional, or retired records and are not default public execution routes."
         ),
     },
 )
@@ -312,7 +312,7 @@ def build_script_delta_report() -> dict[str, Any]:
         "issue_334_inventory_candidates": candidates,
         "outcome_verification_delta": _outcome_verification_delta(candidates),
         "blocked_outputs": list(BLOCKED_OUTPUTS),
-        "next_required_work": "issue335_g10_completion_verification_and_roadmap_handoff",
+        "next_required_work": "issue341_low_risk_script_lifecycle_execution_then_issue342_registry_guard",
     }
 
 
