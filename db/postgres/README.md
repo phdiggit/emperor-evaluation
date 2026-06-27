@@ -327,6 +327,15 @@ python scripts/validate/validate_script_lifecycle_registry.py --guard-report
 
 该 guard 完成 #342 的长期仓库检查：`validate_all.py` 会强制执行 registry lifecycle guard，确认 transitional script 必须有 `sunset_milestone`，retired script 不得进入默认 validate route 或 public CLI，duplicate capability group 若存在多个成员必须有保留理由或治理计划。坏 lifecycle fixture、retired default/public route fixture 和缺少理由的 duplicate fixture 都由 outcome-level tests 锁定。当前 guard 不读取 `.env`，不连接数据库或网络，不读取 batch payload 或 generated export 正文，不触碰 `data/`、`archive/data/` 或 `exports/`，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续回 #335 / #340 修订最终 handoff。
 
+G10-4 completion verification and roadmap handoff package 使用：
+
+```bash
+python scripts/platform/g10_completion_verification_handoff.py --completion-report
+python scripts/platform/g10_completion_verification_handoff.py --completion-md
+```
+
+该包完成 #335 的 G10 收尾验收：汇总 #332 / #333 / #334 / #341 / #342 结果，记录 #336—#339、#343、#344 均已 merge，确认除当前 handoff PR 外 open ready PR count 为 `0`、registry dangling references 为 `0`、G10 report complete、低风险 lifecycle 实执行完成且 registry lifecycle guard 已接入 `validate_all`，并列出 focused tests、`validate_all`、governance checks 和 full pytest 的验证矩阵。当前包只做状态验收和路线交接，不新增退役范围，不移动、删除或归档文件，不连接数据库或网络，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 post-G10 follow-up gates；任何 deferred destructive cleanup 仍必须单独 gate。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

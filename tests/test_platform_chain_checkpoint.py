@@ -29,12 +29,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g10_script_governance_enforcement_ready",
+        "current_phase": "g10_completion_verification_handoff_ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
-        "last_completed_pr": 343,
-        "last_completed_merge_commit": "25d10100c88f83e0f06a8cf98203ac1e4c511858",
+        "last_completed_pr": 344,
+        "last_completed_merge_commit": "b65618797c6f31bf83dd6723ca301e9bb27f8117",
         "positive_benefit_total": 1500,
         "former_active_cap_1440": "obsolete",
         "canonical_write_source": "postgresql",
@@ -280,6 +280,20 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g10_script_lifecycle_current_registry_passes": True,
         "g10_duplicate_capability_exceptions_explicit": True,
         "g10_script_delta_updated_for_roadmap_and_epic": True,
+        "g10_4_completion_verification_handoff_ready": True,
+        "g10_completion_report_package": "g10-completion-verification-handoff-v1",
+        "g10_completion_report_prerequisite_pr": 344,
+        "g10_completion_report_prerequisite_merge_commit": (
+            "b65618797c6f31bf83dd6723ca301e9bb27f8117"
+        ),
+        "g10_current_handoff_pr": 340,
+        "g10_open_ready_prs_excluding_current_handoff": 0,
+        "g10_validation_all_green": True,
+        "g10_registry_dangling_references": 0,
+        "g10_report_complete": True,
+        "g10_low_risk_lifecycle_execution_complete": True,
+        "g10_script_governance_guard_enabled": True,
+        "g10_next_phase_after_handoff_merge": "post_g10_ready_for_followup_gates",
         "g10_execution_started": True,
         "g10_cleanup_execution_started": True,
         "g10_destructive_cleanup_started": False,
@@ -327,6 +341,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g10_script_asset_risk_governance" in report["completed_chain"]
     assert "g10_low_risk_script_lifecycle_execution" in report["completed_chain"]
     assert "g10_script_governance_enforcement" in report["completed_chain"]
+    assert "g10_completion_verification_handoff" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -349,13 +364,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "g10_script_asset_risk_governance" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g10_low_risk_script_lifecycle_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "validate_script_lifecycle_registry" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "g10_completion_verification_handoff" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
-    assert "g10_4_completion_verification_and_roadmap_handoff" in report["next_epic_gates"]
+    assert "post_g10_ready_for_followup_gates" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
     assert report["baseline_repair_tracking"]["full_pytest_operational"] is True
@@ -461,6 +477,17 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"g10_script_lifecycle_current_registry_passes": true' in text
     assert '"g10_duplicate_capability_exceptions_explicit": true' in text
     assert '"g10_script_delta_updated_for_roadmap_and_epic": true' in text
+    assert '"g10_4_completion_verification_handoff_ready": true' in text
+    assert '"g10_completion_report_package": "g10-completion-verification-handoff-v1"' in text
+    assert '"g10_completion_report_prerequisite_pr": 344' in text
+    assert '"g10_current_handoff_pr": 340' in text
+    assert '"g10_open_ready_prs_excluding_current_handoff": 0' in text
+    assert '"g10_validation_all_green": true' in text
+    assert '"g10_registry_dangling_references": 0' in text
+    assert '"g10_report_complete": true' in text
+    assert '"g10_low_risk_lifecycle_execution_complete": true' in text
+    assert '"g10_script_governance_guard_enabled": true' in text
+    assert '"g10_next_phase_after_handoff_merge": "post_g10_ready_for_followup_gates"' in text
     assert '"g10_execution_started": true' in text
     assert '"g10_cleanup_execution_started": true' in text
     assert '"g10_destructive_cleanup_started": false' in text
@@ -493,6 +520,10 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "g10_script_governance_enforcement_fails_bad_lifecycle_fixture" in text
     assert "g10_script_governance_enforcement_keeps_retired_scripts_out_of_default_public_routes" in text
     assert "g10_script_governance_enforcement_requires_duplicate_capability_reason_or_plan" in text
+    assert "g10_completion_verification_handoff_does_not_expand_retirement_scope" in text
+    assert "g10_completion_verification_handoff_does_not_move_delete_or_archive_files" in text
+    assert "g10_completion_verification_handoff_does_not_publish_scores_or_rankings" in text
+    assert "g10_completion_verification_handoff_requires_post_g10_followup_gates" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
