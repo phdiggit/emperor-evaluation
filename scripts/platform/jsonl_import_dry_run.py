@@ -2,9 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import importlib.util
 import json
-import os
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,6 +15,13 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.platform.core.db_env import (
+    ResolvedDsn,
+    is_psycopg_available,
+    make_check_environment,
+    make_integration_skip_reason,
+    make_resolve_dsn,
+)
 from scripts.platform.env_loader import read_dotenv_values
 from scripts.platform.postgres_bootstrap import (
     drop_schema,
@@ -84,16 +89,6 @@ BLOCKED_REPORT_TERMS = ("score", "rank", "final_score", "leaderboard")
 
 
 @dataclass(frozen=True)
-class ResolvedDsn:
-    dsn: str | None
-    source: str
-
-    @property
-    def present(self) -> bool:
-        return bool(self.dsn)
-
-
-@dataclass(frozen=True)
 class ImportRowDraft:
     source_file: str
     line_no: int
@@ -105,55 +100,15 @@ class ImportRowDraft:
     payload: dict[str, Any]
 
 
-def resolve_dsn(
-    *,
-    env: Mapping[str, str] | None = None,
-    env_path: Path = ROOT / ".env",
-) -> ResolvedDsn:
-    if env is None:
-        env = os.environ
-    if env.get(PRIMARY_ENV_DSN):
-        return ResolvedDsn(env[PRIMARY_ENV_DSN], f"env:{PRIMARY_ENV_DSN}")
-    dotenv = read_dotenv_values(env_path)
-    if dotenv.get(PRIMARY_ENV_DSN):
-        return ResolvedDsn(dotenv[PRIMARY_ENV_DSN], f".env:{PRIMARY_ENV_DSN}")
-    return ResolvedDsn(None, "skip")
-
-
-def check_environment(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> dict[str, object]:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    return {
-        "mode": "check",
-        "dsn_present": resolved.present,
-        "dsn_source": resolved.source,
-        "driver": "psycopg",
-        "driver_available": driver_available,
-        "default_tests_require_postgres": False,
-        "will_apply": False,
-    }
-
-
-def integration_skip_reason(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> str | None:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if not resolved.dsn:
-        return f"{PRIMARY_ENV_DSN} is not set"
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    if not driver_available:
-        return "psycopg is not installed"
-    return None
+resolve_dsn = make_resolve_dsn(
+    env_path=ROOT / ".env",
+    dotenv_reader=read_dotenv_values,
+)
+check_environment = make_check_environment(resolve_dsn)
+integration_skip_reason = make_integration_skip_reason(
+    resolve_dsn,
+    missing_reason=f"{PRIMARY_ENV_DSN} is not set",
+)
 
 
 def build_contract_report(
@@ -469,10 +424,6 @@ def assert_report_has_no_blocked_terms(report: Mapping[str, Any]) -> None:
     for term in BLOCKED_REPORT_TERMS:
         if term in text:
             raise AssertionError(f"report unexpectedly contains {term!r}")
-
-
-def is_psycopg_available() -> bool:
-    return importlib.util.find_spec("psycopg") is not None
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:

@@ -1,11 +1,8 @@
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
-import os
 import sys
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -26,6 +23,14 @@ from scripts.platform.anchors_resolver_contract import (
     build_anchor_reference_inputs,
     load_jsonl_rows,
 )
+from scripts.platform.core.db_env import (
+    ResolvedDsn,
+    is_psycopg_available,
+    make_check_environment,
+    make_integration_skip_reason,
+    make_resolve_dsn,
+    make_validate_isolated_schema,
+)
 from scripts.platform.jsonl_target_mapping import MAPPING_VERSION, assert_report_has_no_blocked_terms
 from scripts.platform.postgres_bootstrap import drop_schema, quote_identifier, schema_exists
 
@@ -44,58 +49,16 @@ LIMITATIONS = (
 )
 
 
-@dataclass(frozen=True)
-class ResolvedDsn:
-    dsn: str | None
-    source: str
-
-    @property
-    def present(self) -> bool:
-        return bool(self.dsn)
-
-
-def resolve_dsn(*, env: Mapping[str, str] | None = None) -> ResolvedDsn:
-    if env is None:
-        env = os.environ
-    if env.get(PRIMARY_ENV_DSN):
-        return ResolvedDsn(env[PRIMARY_ENV_DSN], f"env:{PRIMARY_ENV_DSN}")
-    return ResolvedDsn(None, "skip")
-
-
-def check_environment(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> dict[str, object]:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    return {
-        "mode": "check",
-        "dsn_present": resolved.present,
-        "dsn_source": resolved.source,
-        "driver": "psycopg",
-        "driver_available": driver_available,
-        "default_tests_require_postgres": False,
-        "will_apply": False,
-    }
-
-
-def integration_skip_reason(
-    resolved: ResolvedDsn | None = None,
-    *,
-    driver_available: bool | None = None,
-) -> str | None:
-    if resolved is None:
-        resolved = resolve_dsn()
-    if not resolved.dsn:
-        return f"{PRIMARY_ENV_DSN} is not set"
-    if driver_available is None:
-        driver_available = is_psycopg_available()
-    if not driver_available:
-        return "psycopg is not installed"
-    return None
+resolve_dsn = make_resolve_dsn()
+check_environment = make_check_environment(resolve_dsn)
+integration_skip_reason = make_integration_skip_reason(
+    resolve_dsn,
+    missing_reason=f"{PRIMARY_ENV_DSN} is not set",
+)
+validate_isolated_schema = make_validate_isolated_schema(
+    quote_identifier,
+    public_schema_message="refusing to write anchors target mapper prototype into public schema",
+)
 
 
 def build_contract_report(
@@ -386,16 +349,6 @@ def count_rows_by_source_file(rows: Sequence[Any]) -> dict[str, int]:
         source_file = row.source_file if hasattr(row, "source_file") else str(row["source_file"])
         counts[source_file] = counts.get(source_file, 0) + 1
     return counts
-
-
-def validate_isolated_schema(schema: str) -> None:
-    quote_identifier(schema)
-    if schema == "public":
-        raise ValueError("refusing to write anchors target mapper prototype into public schema")
-
-
-def is_psycopg_available() -> bool:
-    return importlib.util.find_spec("psycopg") is not None
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:
