@@ -20,6 +20,7 @@ from validate import validate_human_readable_markdown_exports as human_readable_
 from export.dimension_adapters.i5b_people_delegation.output_specs import *  # noqa: F401,F403
 from export.dimension_adapters.i5b_people_delegation.formal_algorithm import (
     FORMAL_ALGORITHM_VERSION,
+    FORMAL_RULE_VERSION,
     build_formal_publication_rows,
     compute_formal_algorithm_result,
     compute_formal_publication_result,
@@ -334,6 +335,13 @@ def evaluate_person(
     negative_cluster_rows = [evaluate_cluster(row, evidence_lookup) for row in cluster_rows if row.get("person") == person and row.get("polarity") == "negative"]
     positive_cluster_rows.sort(key=lambda row: (-int(row["candidate_strength"] or 0), str(row["cluster_id"])))
     negative_cluster_rows.sort(key=lambda row: (-int(row["candidate_strength"] or 0), str(row["cluster_id"])))
+    evidence_cluster_count = len(positive_cluster_rows) + len(negative_cluster_rows)
+    evidence_coverage_status = "evidence_backed" if person_cards or evidence_cluster_count > 0 else "missing_evidence"
+    formal_scoring_status = (
+        "eligible_for_formal_score"
+        if evidence_coverage_status == "evidence_backed"
+        else "blocked_before_formal_score"
+    )
 
     if max_positive_strength >= 3 and negative_boundary_blocking:
         auto_band_direction = AUTO_BAND_DIRECTIONS["strong_positive_blocked"]
@@ -394,6 +402,10 @@ def evaluate_person(
         "rule_sensitive_points": rule_sensitive_points,
         "positive_cluster_rows": positive_cluster_rows,
         "negative_cluster_rows": negative_cluster_rows,
+        "evidence_card_count": len(person_cards),
+        "evidence_cluster_count": evidence_cluster_count,
+        "evidence_coverage_status": evidence_coverage_status,
+        "formal_scoring_status": formal_scoring_status,
         "person_cards": person_cards,
     }
 
@@ -456,6 +468,61 @@ AUTO_FEATURE_FIELDS = [
     "cross_item_split_required",
     "cross_item_split_residual_level",
 ]
+
+
+def is_formal_score_blocked(report: dict[str, Any]) -> bool:
+    return str(report.get("formal_scoring_status") or "") == "blocked_before_formal_score"
+
+
+def formal_band_draft_for_report(report: dict[str, Any]) -> str:
+    if is_formal_score_blocked(report):
+        return "blocked_before_formal_score"
+    return build_formal_band_draft(report)
+
+
+def blocked_publication_row(report: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "person": str(report.get("person") or ""),
+        "auto_band_direction": str(report.get("auto_band_direction") or ""),
+        "confidence": str(report.get("confidence") or ""),
+        "negative_boundary_tier": str(report.get("negative_boundary_tier") or ""),
+        "formal_grade": "unscored",
+        "score_range_45": "blocked_before_formal_score",
+        "formal_score_value_45": "unscored",
+        "algorithm_version": FORMAL_ALGORITHM_VERSION,
+        "rule_version": FORMAL_RULE_VERSION,
+        "publication_gate": "blocked_before_formal_score",
+        "person_specific_override_allowed": False,
+        "manual_final_grade_allowed": False,
+        "manual_final_score_allowed": False,
+        "formal_rank": "unranked",
+        "ranking_basis": "blocked_before_formal_score",
+    }
+
+
+def build_publication_rows_by_person(person_reports: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    scored_reports = [report for report in person_reports if not is_formal_score_blocked(report)]
+    rows = {row["person"]: row for row in build_formal_publication_rows(scored_reports)}
+    for report in person_reports:
+        if is_formal_score_blocked(report):
+            rows[report["person"]] = blocked_publication_row(report)
+    return rows
+
+
+def evidence_coverage_status_lines(person_reports: list[dict[str, Any]]) -> list[str]:
+    evidence_backed = [report["person"] for report in person_reports if not is_formal_score_blocked(report)]
+    missing = [report["person"] for report in person_reports if is_formal_score_blocked(report)]
+    return [
+        "## 证据覆盖状态",
+        "",
+        f"- **active_person_count**：{len(person_reports)}",
+        f"- **evidence_backed_person_count**：{len(evidence_backed)}",
+        f"- **missing_evidence_person_count**：{len(missing)}",
+        f"- **evidence_backed_persons**：{'、'.join(evidence_backed) if evidence_backed else '无'}",
+        f"- **missing_evidence_persons**：{'、'.join(missing) if missing else '无'}",
+        "- **formal_scoring_gate**：missing_evidence 人物保留 review/stress 占位页，但不得进入数值正式分值或正式排名。",
+        "",
+    ]
 
 
 def render_cluster_cards_or_empty(rows: list[dict[str, Any]], display_config: dict[str, Any]) -> str:
@@ -533,21 +600,25 @@ def render_formal_person_section(report: dict[str, Any], publication_row: dict[s
     display_values = _DISPLAY_DICTIONARY_VALUES["render_formal_person_section"]
     person = report["person"]
     formal_result = compute_formal_publication_result(report)
-    row = publication_row or {
-        "formal_score_value_45": formal_result["formal_score_value_45"],
-        "formal_rank": "待排序",
-    }
+    row = publication_row or (
+        blocked_publication_row(report)
+        if is_formal_score_blocked(report)
+        else {
+            "formal_score_value_45": formal_result["formal_score_value_45"],
+            "formal_rank": "待排序",
+        }
+    )
     score_context = {
         "person": person,
         "auto_band_direction": report["auto_band_direction"],
         "confidence": display_value(report["confidence"], display_config),
-        "formal_band_draft": build_formal_band_draft(report),
-        "formal_grade": formal_result["formal_grade"],
-        "score_range_45": formal_result["score_range_45"],
+        "formal_band_draft": formal_band_draft_for_report(report),
+        "formal_grade": row.get("formal_grade", formal_result["formal_grade"]),
+        "score_range_45": row.get("score_range_45", formal_result["score_range_45"]),
         "formal_score_value_45": row["formal_score_value_45"],
         "formal_rank": row["formal_rank"],
-        "algorithm_version": formal_result["algorithm_version"],
-        "publication_gate": formal_result["publication_gate"],
+        "algorithm_version": row.get("algorithm_version", formal_result["algorithm_version"]),
+        "publication_gate": row.get("publication_gate", formal_result["publication_gate"]),
     }
     sections = [
         display_values["person_heading_template"].format(**score_context),
@@ -556,6 +627,18 @@ def render_formal_person_section(report: dict[str, Any], publication_row: dict[s
         "",
         *_format_display_lines(display_values["score_lines"], score_context),
         "",
+        *(
+            [
+                "### 证据覆盖状态",
+                "",
+                "- **证据状态**：missing_evidence",
+                "- **评分状态**：unscored / blocked_before_formal_score",
+                "- **发布门状态**：不生成数值正式分值，不生成正式排名；保留 review/stress 占位页。",
+                "",
+            ]
+            if is_formal_score_blocked(report)
+            else []
+        ),
         display_values["positive_heading"],
         "",
         f"- {summarize_positive_basis(report)}",
@@ -576,6 +659,8 @@ def render_formal_person_section(report: dict[str, Any], publication_row: dict[s
         "",
         *render_display_field("remaining_rule_questions", format_remaining_questions(report), bullet="-"),
         *render_display_field("score_stage_prerequisites", format_score_stage_prerequisites(report), bullet="-"),
+        *render_display_field("evidence_coverage_status", report["evidence_coverage_status"], bullet="-"),
+        *render_display_field("formal_scoring_status", report["formal_scoring_status"], bullet="-"),
         *render_display_field("formal_score_value_45", row["formal_score_value_45"], bullet="-"),
         *render_display_field("formal_rank", row["formal_rank"], bullet="-"),
         *render_display_field("person_specific_override_allowed", "否", bullet="-"),
@@ -673,6 +758,8 @@ def render_split_index_page(
                 display_config=config,
                 table_appendix_items=table_appendix_items,
             ),
+            "",
+            *evidence_coverage_status_lines(person_reports),
         ]
     )
     if table_appendix_items:
@@ -1120,8 +1207,7 @@ def render_formal_landing_table() -> str:
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
     person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
-    publication_rows = build_formal_publication_rows(person_reports)
-    publication_by_person = {row["person"]: row for row in publication_rows}
+    publication_by_person = build_publication_rows_by_person(person_reports)
 
     table_appendix_items: list[dict[str, Any]] = []
     overview_rows = []
@@ -1131,13 +1217,17 @@ def render_formal_landing_table() -> str:
             {
                 "person": report["person"],
                 "auto_band_direction": report["auto_band_direction"],
-                "formal_band_draft": build_formal_band_draft(report),
+                "formal_band_draft": formal_band_draft_for_report(report),
                 "formal_v3_2_grade": publication_row["formal_grade"],
                 "formal_score_value_45": publication_row["formal_score_value_45"],
                 "formal_rank": publication_row["formal_rank"],
                 "confidence": report["confidence"],
                 "negative_boundary_tier": report["negative_boundary_tier"],
-                "publication_gate_status": "G9 已批准",
+                "evidence_coverage_status": report["evidence_coverage_status"],
+                "formal_scoring_status": report["formal_scoring_status"],
+                "publication_gate_status": "blocked_before_formal_score"
+                if is_formal_score_blocked(report)
+                else "G9 已批准",
             }
         )
 
@@ -1149,6 +1239,7 @@ def render_formal_landing_table() -> str:
         f"- **活动人物组**：{group_label}",
         f"- **覆盖人物**：{'、'.join(targets)}",
         "",
+        *evidence_coverage_status_lines(person_reports),
         "## 一、正式发布总览",
         "",
         markdown_display_table(
@@ -1192,8 +1283,7 @@ def render_three_pilot_closure() -> str:
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
     person_reports = [evaluate_person(person, evidence_clusters, evidence_lookup) for person in targets]
-    publication_rows = build_formal_publication_rows(person_reports)
-    publication_by_person = {row["person"]: row for row in publication_rows}
+    publication_by_person = build_publication_rows_by_person(person_reports)
 
     table_appendix_items: list[dict[str, Any]] = []
     overview_rows = []
@@ -1203,12 +1293,16 @@ def render_three_pilot_closure() -> str:
         overview_rows.append(
             {
                 "person": report["person"],
-                "final_band": build_formal_band_draft(report),
+                "final_band": formal_band_draft_for_report(report),
                 "formal_score_value_45": publication_row["formal_score_value_45"],
                 "formal_rank": publication_row["formal_rank"],
-                "internal_trial_score_range": trial_score_draft["score_range"],
-                "internal_trial_score": trial_score_draft["trial_score"],
-                "extend_pilot_ready": "可",
+                "internal_trial_score_range": "blocked_before_formal_score"
+                if is_formal_score_blocked(report)
+                else trial_score_draft["score_range"],
+                "internal_trial_score": "unscored" if is_formal_score_blocked(report) else trial_score_draft["trial_score"],
+                "evidence_coverage_status": report["evidence_coverage_status"],
+                "formal_scoring_status": report["formal_scoring_status"],
+                "extend_pilot_ready": "否，缺少证据" if is_formal_score_blocked(report) else "可",
             }
         )
 
@@ -1220,6 +1314,7 @@ def render_three_pilot_closure() -> str:
         f"- **活动人物组**：{group_label}",
         f"- **覆盖人物**：{'、'.join(targets)}",
         "",
+        *evidence_coverage_status_lines(person_reports),
         "## 一、内部闭环总览",
         "",
         markdown_display_table(
@@ -1249,18 +1344,26 @@ def render_three_pilot_closure() -> str:
 
     for report in person_reports:
         trial_score_draft = build_trial_score_draft(report)
+        trial_score_range = (
+            "blocked_before_formal_score" if is_formal_score_blocked(report) else trial_score_draft["score_range"]
+        )
+        trial_score = "unscored" if is_formal_score_blocked(report) else trial_score_draft["trial_score"]
         lines.extend(
             [
                 f"### {report['person']}",
                 "",
-                f"- **最终定档**：{build_formal_band_draft(report)}",
-                f"- **内部试算区间**：{trial_score_draft['score_range']}",
-                f"- **内部试算分**：{trial_score_draft['trial_score']}",
+                f"- **最终定档**：{formal_band_draft_for_report(report)}",
+                f"- **内部试算区间**：{trial_score_range}",
+                f"- **内部试算分**：{trial_score}",
+                f"- **证据状态**：{report['evidence_coverage_status']}",
+                f"- **评分状态**：{report['formal_scoring_status']}",
                 f"- **定档依据摘要**：{summarize_positive_basis(report)}",
                 f"- **负证拦截状态**：{build_negative_intercept_status(report)}；{summarize_negative_pressure(report)}",
                 f"- **相邻项剥离状态**：{build_adjacent_item_stripping_status(report)}",
                 f"- **规则敏感点是否已解决**：{format_rule_resolutions(report)}",
-                "- **是否可进入扩展试点**：可",
+                "- **是否可进入扩展试点**：否，缺少证据"
+                if is_formal_score_blocked(report)
+                else "- **是否可进入扩展试点**：可",
                 "",
             ]
         )

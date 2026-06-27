@@ -264,6 +264,62 @@ def test_human_review_export_table_order_follows_config(tmp_path: Path, monkeypa
     assert "| 强正 | 测试人物 | 正向 |" in content
 
 
+def test_empty_person_net_evidence_exports_mark_coverage_gap(tmp_path: Path) -> None:
+    db_path = tmp_path / "evidence_cache.sqlite"
+    net_evidence.DB_PATH = db_path
+    net_evidence.HUMAN_NET_EVIDENCE_DIR = tmp_path / "人工审核" / "净证据池"
+    net_evidence.HUMAN_APPENDIX_DIR = tmp_path / "人工审核" / "附录"
+    net_evidence.MACHINE_NET_EVIDENCE_DIR = tmp_path / "机器审计" / "净证据池"
+    net_evidence.MACHINE_APPENDIX_DIR = tmp_path / "机器审计" / "附录"
+
+    with sqlite3.connect(db_path) as connection:
+        connection.execute(
+            """
+            CREATE TABLE evidence_clusters (
+                person TEXT,
+                subitem TEXT,
+                polarity TEXT,
+                candidate_strength INTEGER,
+                cluster_id TEXT,
+                raw_json TEXT
+            )
+            """
+        )
+        connection.execute(
+            """
+            CREATE TABLE evidence_cards (
+                person TEXT,
+                subitem TEXT,
+                polarity TEXT,
+                strength INTEGER,
+                evidence_id TEXT,
+                raw_json TEXT
+            )
+            """
+        )
+
+    human_path = net_evidence.export_i5b_human_review_net_evidence_pool("空人物")
+    machine_path = net_evidence.export_i5b_machine_audit_net_evidence_pool("空人物")
+
+    human_content = human_path.read_text(encoding="utf-8")
+    machine_content = machine_path.read_text(encoding="utf-8")
+    for content in (human_content, machine_content):
+        assert "missing_evidence" in content
+        assert "unscored / blocked_before_formal_score" in content
+        assert "不得视为已完成自动结算、正式分值或正式排名" in content
+
+
+def test_export_i5b_net_evidence_main_runs_review_profile_export(monkeypatch, tmp_path: Path, capsys) -> None:
+    exported = [tmp_path / "a.md", tmp_path / "b.md"]
+    monkeypatch.setattr(net_evidence, "export_i5b_review_profile_views", lambda: exported)
+
+    assert net_evidence.main() == 0
+
+    output = capsys.readouterr().out
+    assert f"exported {exported[0]}" in output
+    assert f"exported {exported[1]}" in output
+
+
 def test_load_i5b_net_evidence_targets_prefers_project_config(
     tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:

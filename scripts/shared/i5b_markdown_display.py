@@ -28,6 +28,8 @@ DEFAULT_HUMAN_REVIEW_TABLE_FIELDS = {
     ],
     "formal_landing_overview": [
         "person",
+        "evidence_coverage_status",
+        "formal_scoring_status",
         "auto_band_direction",
         "formal_band_draft",
         "formal_v3_2_grade",
@@ -39,6 +41,8 @@ DEFAULT_HUMAN_REVIEW_TABLE_FIELDS = {
     ],
     "trial_closure_overview": [
         "person",
+        "evidence_coverage_status",
+        "formal_scoring_status",
         "final_band",
         "formal_score_value_45",
         "formal_rank",

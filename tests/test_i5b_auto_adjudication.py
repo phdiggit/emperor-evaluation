@@ -706,6 +706,8 @@ def test_person_detail_page_keeps_required_markers_for_empty_cluster_person() ->
 
     detail_content = auto.render_person_detail_page(report)
 
+    assert report["evidence_coverage_status"] == "missing_evidence"
+    assert report["formal_scoring_status"] == "blocked_before_formal_score"
     assert "无证据簇：当前人物暂无 I5B 证据卡/证据簇" in detail_content
     assert "full-pool stress 占位审查页" in detail_content
     assert "missing_evidence" in detail_content
@@ -729,6 +731,9 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detai
     assert targets == workflow_config["targets"]
     assert "# " + workflow_subject + "自动结算草案" in index_content
     assert "## 总览索引" in index_content
+    assert "## 证据覆盖状态" in index_content
+    assert "- **missing_evidence_person_count**：23" in index_content
+    assert "formal_scoring_gate" in index_content
     assert "人工复核提示数量" in index_content
     for person in targets:
         path = auto.person_detail_export_path(person)
@@ -982,10 +987,17 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
-    assert "人物（person） | 自动结算方向（auto_band_direction） | 正式档位草案（formal_band_draft）" in formal_content
-    assert "朱元璋 | 强正封顶，不上探极正 | 强正封顶 | 良好 | 33.36 |" in formal_content
-    assert "刘邦 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 |" in formal_content
-    assert "雍正 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.23 |" in formal_content
+    assert "人物（person） | 证据覆盖状态（evidence_coverage_status） | 正式评分状态（formal_scoring_status）" in formal_content
+    assert "朱元璋 | 已有证据 | 可进入正式评分 | 强正封顶，不上探极正 | 强正封顶 | 良好 | 33.36 |" in formal_content
+    assert "刘邦 | 已有证据 | 可进入正式评分 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 |" in formal_content
+    assert "雍正 | 已有证据 | 可进入正式评分 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.23 |" in formal_content
+    assert "嬴政 | 缺少证据 | 评分前阻断 |" in formal_content
+    assert "弘历 | 缺少证据 | 评分前阻断 |" in formal_content
+    assert "不出分 | 不排名" in formal_content
+    yingzheng_row = next(line for line in formal_content.splitlines() if line.startswith("| 嬴政 |"))
+    assert "| 不出分 | 不出分 | 不排名 |" in yingzheng_row
+    assert "G9 已批准" not in yingzheng_row
+    assert "- **missing_evidence_person_count**：23" in formal_content
     assert "剩余规则问题（remaining_rule_questions）" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "第五项B正式分值（formal_score_value_45）" in formal_content

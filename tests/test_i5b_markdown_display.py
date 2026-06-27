@@ -133,6 +133,8 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     assert table_fields["auto_adjudication_matrix"][0:3] == ["person", "auto_band_direction", "confidence"]
     assert table_fields["formal_landing_overview"] == [
         "person",
+        "evidence_coverage_status",
+        "formal_scoring_status",
         "auto_band_direction",
         "formal_band_draft",
         "formal_v3_2_grade",
@@ -144,7 +146,11 @@ def test_i5b_display_dictionary_contains_context_labels_and_values() -> None:
     ]
     assert table_fields["trial_closure_overview"][0:4] == [
         "person",
+        "evidence_coverage_status",
+        "formal_scoring_status",
         "final_band",
+    ]
+    assert table_fields["trial_closure_overview"][4:6] == [
         "formal_score_value_45",
         "formal_rank",
     ]
