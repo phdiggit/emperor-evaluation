@@ -68,7 +68,15 @@ def test_registry_analysis_covers_lifecycle_default_routes_and_duplicate_reasons
     assert analysis["retired_public_cli_modules"] == []
     assert analysis["retired_scripts_in_default_validate_or_public_cli"] == 0
     assert analysis["platform_lifecycle_status_counts"]["transitional"] == 4
-    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) == 0
+    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) >= 6
+    assert {
+        "scripts/platform/anchors_schema_proposal.py",
+        "scripts/platform/formal_ddl_live_rehearsal.py",
+        "scripts/platform/formal_ddl_rehearsal.py",
+        "scripts/platform/formal_schema_draft.py",
+        "scripts/platform/schema_changing_formal_schema_update.py",
+        "scripts/platform/schema_diff_draft_renderer.py",
+    } <= set(analysis["retired_platform_modules"])
     assert analysis["public_cli_stable_count"] > 0
 
     reviews = {item["group_id"]: item for item in analysis["duplicate_capability_review"]}
@@ -199,7 +207,7 @@ def test_cli_modes_emit_expected_outputs(capsys) -> None:
     assert governance.main(["--script-delta-md"]) == 0
     markdown = capsys.readouterr().out
     assert "schema_migration_seed_scaffolds" in markdown
-    assert "issue335_g10_completion_verification_and_roadmap_handoff" in markdown
+    assert "issue341_low_risk_script_lifecycle_execution_then_issue342_registry_guard" in markdown
 
 
 def test_source_does_not_import_runtime_or_secret_clients() -> None:

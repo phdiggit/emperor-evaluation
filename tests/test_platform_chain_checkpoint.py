@@ -29,12 +29,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g10_script_asset_risk_governance_ready",
+        "current_phase": "g10_low_risk_script_lifecycle_execution_ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
-        "last_completed_pr": 338,
-        "last_completed_merge_commit": "54f7466f4aeb44d5a18bffb1c28a4eda23ca4954",
+        "last_completed_pr": 339,
+        "last_completed_merge_commit": "83c2438e31842f08ed19a1a1b00e965ce1fa9451",
         "positive_benefit_total": 1500,
         "former_active_cap_1440": "obsolete",
         "canonical_write_source": "postgresql",
@@ -215,7 +215,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "per_subitem_g8_algorithm_release_performed": False,
         "i5b_postgres_dictionary_tables_created": False,
         "i5b_canonical_dictionary_write_performed": False,
-        "g10_plan_issues": [331, 332, 333, 334, 335],
+        "g10_plan_issues": [331, 332, 333, 334, 341, 342, 335],
         "g10_cleanup_inventory_plan_ready": True,
         "g10_cleanup_inventory_package": "g10-cleanup-inventory-plan-v1",
         "g10_cleanup_inventory_candidate_count": 10,
@@ -256,6 +256,18 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g10_duplicate_capability_groups_without_reason": 0,
         "g10_script_delta_ready_for_roadmap_comments": True,
         "g10_outcome_verification_tests_added": True,
+        "g10_2b_low_risk_script_lifecycle_execution_ready": True,
+        "g10_low_risk_script_lifecycle_execution_package": "g10-low-risk-script-lifecycle-execution-v1",
+        "g10_low_risk_script_lifecycle_execution_prerequisite_pr": 339,
+        "g10_low_risk_script_lifecycle_execution_prerequisite_merge_commit": (
+            "83c2438e31842f08ed19a1a1b00e965ce1fa9451"
+        ),
+        "g10_low_risk_lifecycle_update_count": 6,
+        "g10_low_risk_updated_registry_entries": 6,
+        "g10_low_risk_actual_moved_deleted_archived_path_count": 0,
+        "g10_low_risk_restore_instructions_complete": True,
+        "g10_low_risk_transitional_scripts_without_sunset": 0,
+        "g10_low_risk_retired_default_public_route_violations": 0,
         "g10_execution_started": True,
         "g10_cleanup_execution_started": True,
         "g10_destructive_cleanup_started": False,
@@ -301,6 +313,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g10_i5b_dictionary_final_cleanup" in report["completed_chain"]
     assert "g10_historical_asset_retirement" in report["completed_chain"]
     assert "g10_script_asset_risk_governance" in report["completed_chain"]
+    assert "g10_low_risk_script_lifecycle_execution" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -321,12 +334,14 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "g10_i5b_dictionary_final_cleanup" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g10_historical_asset_retirement" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g10_script_asset_risk_governance" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "g10_low_risk_script_lifecycle_execution" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_clusters_resolver" in report["apply_capable_tools"]
     assert "jsonl_anchors_target_mapper" in report["apply_capable_tools"]
     assert "anchors_resolver_contract" in report["contract_only_tools"]
+    assert "g10_3b_script_governance_enforcement_after_low_risk_execution" in report["next_epic_gates"]
     assert "g10_4_completion_verification_and_roadmap_handoff" in report["next_epic_gates"]
     assert "epic5_cross_subitem_leaderboard_publication_gate" in report["next_epic_gates"]
     assert report["baseline_repair_tracking"]["sqlite_build_operational"] is True
@@ -417,6 +432,14 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"g10_duplicate_capability_groups_without_reason": 0' in text
     assert '"g10_script_delta_ready_for_roadmap_comments": true' in text
     assert '"g10_outcome_verification_tests_added": true' in text
+    assert '"g10_2b_low_risk_script_lifecycle_execution_ready": true' in text
+    assert '"g10_low_risk_script_lifecycle_execution_package": "g10-low-risk-script-lifecycle-execution-v1"' in text
+    assert '"g10_low_risk_lifecycle_update_count": 6' in text
+    assert '"g10_low_risk_updated_registry_entries": 6' in text
+    assert '"g10_low_risk_actual_moved_deleted_archived_path_count": 0' in text
+    assert '"g10_low_risk_restore_instructions_complete": true' in text
+    assert '"g10_low_risk_transitional_scripts_without_sunset": 0' in text
+    assert '"g10_low_risk_retired_default_public_route_violations": 0' in text
     assert '"g10_execution_started": true' in text
     assert '"g10_cleanup_execution_started": true' in text
     assert '"g10_destructive_cleanup_started": false' in text
@@ -441,6 +464,10 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "g10_script_asset_risk_governance_does_not_change_business_behavior" in text
     assert "g10_script_asset_risk_governance_does_not_move_delete_or_archive_files" in text
     assert "g10_script_asset_risk_governance_keeps_retired_scripts_out_of_default_validate" in text
+    assert "g10_low_risk_script_lifecycle_execution_updates_registry_only" in text
+    assert "g10_low_risk_script_lifecycle_execution_keeps_files_in_place" in text
+    assert "g10_low_risk_script_lifecycle_execution_does_not_touch_data_archive_or_exports" in text
+    assert "g10_low_risk_script_lifecycle_execution_requires_restore_instruction_per_item" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text
