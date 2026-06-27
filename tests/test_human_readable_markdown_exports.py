@@ -308,6 +308,21 @@ def test_validate_exports_reports_warning_section_without_matched_fields(tmp_pat
     assert any("warning section is present but missing '**命中字段**'" in error for error in errors)
 
 
+def test_validate_exports_accepts_warning_section_with_no_extra_hints(tmp_path: Path) -> None:
+    targets = ["李世民"]
+    write_split_export(tmp_path, targets)
+    detail_path = tmp_path / validator.detail_relative_path("李世民")
+    detail_path.write_text(
+        detail_path.read_text(encoding="utf-8").replace(
+            "* **命中字段**：\n  1. linked_cards[0].scoring_effect",
+            "无额外提示。",
+        ),
+        encoding="utf-8",
+    )
+
+    assert validator.validate_exports(tmp_path, targets) == []
+
+
 def write_evidence_chain_export(root: Path, content: str) -> Path:
     write_required_export_layout(root)
     export_path = root / "exports" / "markdown_views" / "第五项B" / "证据链" / "净证据池" / "测试.md"

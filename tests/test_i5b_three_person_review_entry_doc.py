@@ -8,15 +8,16 @@ ENTRY_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核"
 OLD_DOC_PATH = ROOT / "docs" / "第五项B三人专人审核入口.md"
 
 
-def test_i5b_three_person_review_entry_doc_exists_and_covers_people() -> None:
+def test_i5b_review_entry_doc_exists_and_covers_active_people() -> None:
     assert not OLD_DOC_PATH.exists()
     content = ENTRY_PATH.read_text(encoding="utf-8")
 
-    assert "# 第五项B三人专人审核入口" in content
+    assert "# 第五项B扩展第一批专人审核入口" in content
+    assert "- **活动人物组**：扩展第一批" in content
     assert "旧 `docs/` 同名文件已退役" in content
-    for heading in ["### 李世民", "### 刘秀", "### 刘庄"]:
+    for heading in ["### 刘邦", "### 雍正", "### 朱元璋"]:
         assert heading in content
-    for person in ["李世民", "刘秀", "刘庄"]:
+    for person in ["刘邦", "雍正", "朱元璋"]:
         assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in content
         assert f"exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md" in content
 

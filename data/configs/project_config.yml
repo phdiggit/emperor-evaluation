@@ -1,28 +1,30 @@
 # 全项目人工运行入口配置。
-# 只声明当前启用子项、人物组和默认 group selector；不承载候选池、展示细节、关键词或人工复核规则。
+# 只声明当前启用子项、默认人物组、人物组和输出开关；不承载候选池、展示细节、关键词或人工复核规则。
 # 短名单可直接写 persons；长名单请用 persons_ref 指向 data/configs/lists/ 下的 YAML 清单。
 
-version: 1
+version: 2
+
 active_subitem: 第五项B
-subitems:
-  第五项B:
-    groups:
-      three_pilot:
-        label: 三人试点
-        persons:
-        - 李世民
-        - 刘秀
-        - 刘庄
-      expanded_batch1:
-        label: 扩展第一批
-        persons:
-        - 刘邦
-        - 雍正
-        - 朱元璋
-      net_evidence:
-        label: 净证据导出目标
-        persons_from_group: three_pilot
-    defaults:
-      trial_group: three_pilot
-      expanded_group: expanded_batch1
-      net_evidence_group: net_evidence
+default_person_group: expanded_batch1
+
+person_groups:
+  three_pilot:
+    label: 三人试点
+    persons:
+    - 李世民
+    - 刘秀
+    - 刘庄
+  expanded_batch1:
+    label: 扩展第一批
+    persons:
+    - 刘邦
+    - 雍正
+    - 朱元璋
+
+outputs:
+  matrix: true
+  auto_adjudication: true
+  review_entry: true
+  subitem_details: true
+  net_evidence: true
+  evidence_indexes: true

@@ -22,28 +22,31 @@ def write_project_config(
     *,
     active_subitem: str = "第五项B",
     groups: dict[str, dict[str, object]] | None = None,
+    default_person_group: str | None = None,
     defaults: dict[str, str] | None = None,
+    outputs: dict[str, object] | None = None,
     view_groups: list[dict[str, object]] | None = None,
     candidate_pool: list[dict[str, object]] | None = None,
     review_warning_rules: list[dict[str, object]] | None = None,
 ) -> Path:
-    _ = (candidate_pool, review_warning_rules)
+    _ = (candidate_pool, defaults, review_warning_rules)
     path.parent.mkdir(parents=True, exist_ok=True)
     resolved_groups = groups if groups is not None else _project_groups_from_view_groups(view_groups)
-    resolved_defaults = defaults or {
-        "trial_group": "three_pilot",
-        "expanded_group": "expanded_batch1",
-        "net_evidence_group": "net_evidence",
+    resolved_default_group = default_person_group or _default_person_group_from_view_groups(view_groups)
+    resolved_outputs = outputs or {
+        "matrix": True,
+        "auto_adjudication": True,
+        "review_entry": True,
+        "subitem_details": True,
+        "net_evidence": True,
+        "evidence_indexes": True,
     }
     payload = {
-        "version": 1,
+        "version": 2,
         "active_subitem": active_subitem,
-        "subitems": {
-            active_subitem: {
-                "groups": resolved_groups,
-                "defaults": resolved_defaults,
-            }
-        },
+        "default_person_group": resolved_default_group,
+        "person_groups": resolved_groups,
+        "outputs": resolved_outputs,
     }
     path.write_text(yaml.safe_dump(payload, allow_unicode=True, sort_keys=False) + "\n", encoding="utf-8")
     return path
@@ -53,12 +56,10 @@ def _project_groups_from_view_groups(view_groups: list[dict[str, object]] | None
     selector_by_group_id = {
         "第五项B_三人试点": "three_pilot",
         "第五项B_扩展第一批": "expanded_batch1",
-        "第五项B_净证据导出目标": "net_evidence",
     }
     default_groups: dict[str, dict[str, object]] = {
         "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
         "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦", "雍正", "朱元璋"]},
-        "net_evidence": {"label": "净证据导出目标", "persons_from_group": "three_pilot"},
     }
     if view_groups is None:
         return default_groups
@@ -72,12 +73,21 @@ def _project_groups_from_view_groups(view_groups: list[dict[str, object]] | None
             group["persons"] = row["persons"]
         elif "persons_ref" in row:
             group["persons_ref"] = row["persons_ref"]
-        elif "persons_from_group" in row:
-            group["persons_from_group"] = row["persons_from_group"]
         else:
             group["persons"] = []
         groups[selector] = group
     return {**default_groups, **groups}
+
+
+def _default_person_group_from_view_groups(view_groups: list[dict[str, object]] | None) -> str:
+    if not view_groups:
+        return "expanded_batch1"
+    selector_by_group_id = {
+        "第五项B_三人试点": "three_pilot",
+        "第五项B_扩展第一批": "expanded_batch1",
+    }
+    first_group_id = str(view_groups[0].get("group_id"))
+    return selector_by_group_id.get(first_group_id, first_group_id)
 
 
 @pytest.fixture

@@ -19,7 +19,7 @@ REAL_OUTPUT_PATH = (
     / "人工审核"
     / "自动裁判链"
     / "自动结算草案"
-    / "第五项B三人试点正负证矩阵.md"
+    / "第五项B扩展第一批正负证矩阵.md"
 )
 SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
 
@@ -89,21 +89,20 @@ def build_temp_repo(tmp_path: Path) -> Path:
     write_yaml(
         repo / "data" / "configs" / "project_config.yml",
         {
-            "version": 1,
+            "version": 2,
             "active_subitem": "第五项B",
-            "subitems": {
-                "第五项B": {
-                    "groups": {
-                        "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
-                        "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦"]},
-                        "net_evidence": {"label": "净证据导出目标", "persons_from_group": "three_pilot"},
-                    },
-                    "defaults": {
-                        "trial_group": "three_pilot",
-                        "expanded_group": "expanded_batch1",
-                        "net_evidence_group": "net_evidence",
-                    },
-                }
+            "default_person_group": "expanded_batch1",
+            "person_groups": {
+                "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
+                "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦"]},
+            },
+            "outputs": {
+                "matrix": True,
+                "auto_adjudication": True,
+                "review_entry": True,
+                "subitem_details": True,
+                "net_evidence": True,
+                "evidence_indexes": True,
             },
         },
     )
@@ -135,16 +134,17 @@ def test_canonical_cli_generates_matrix_only_in_temp_repo(tmp_path: Path) -> Non
         / "人工审核"
         / "自动裁判链"
         / "自动结算草案"
-        / "第五项B三人试点正负证矩阵.md"
+        / "第五项B扩展第一批正负证矩阵.md"
     )
     first_content = output_path.read_text(encoding="utf-8")
     first_content = output_path.read_text(encoding="utf-8")
 
     assert new_result.returncode == 0, new_result.stdout + new_result.stderr
     assert new_result.stdout.strip() == f"exported {output_path}"
-    assert "李世民" in first_content
-    assert "刘秀" in first_content
-    assert "刘庄" in first_content
+    assert "刘邦" in first_content
+    assert "李世民" not in first_content
+    assert "刘秀" not in first_content
+    assert "刘庄" not in first_content
     assert "正向" in first_content
     assert "负向" in first_content
     assert "识人拔擢" in first_content
