@@ -26,6 +26,12 @@ from scripts.platform.core.db_env import (
     make_resolve_dsn,
     make_validate_isolated_schema,
 )
+from scripts.platform.core.jsonl_target_db import (
+    FetchOneCountStatement,
+    RowCountStatement,
+    make_create_target_prototype_tables,
+    make_insert_target_rows,
+)
 from scripts.platform.jsonl_staging_resolver_contract import RESOLVER_VERSION
 from scripts.platform.jsonl_target_mapping import MAPPING_VERSION, assert_report_has_no_blocked_terms
 from scripts.platform.postgres_bootstrap import drop_schema, quote_identifier, schema_exists
@@ -254,193 +260,180 @@ def apply_target_mapper(
     return report
 
 
-def create_target_prototype_tables(dsn: str, *, schema: str) -> None:
-    import psycopg
+TARGET_TABLE_SQL = """
+DROP TABLE IF EXISTS passages CASCADE;
+DROP TABLE IF EXISTS doc_revs CASCADE;
+DROP TABLE IF EXISTS src_docs CASCADE;
+DROP TABLE IF EXISTS src_hosts CASCADE;
 
-    schema_ident = quote_identifier(schema)
-    sql = """
-    DROP TABLE IF EXISTS passages CASCADE;
-    DROP TABLE IF EXISTS doc_revs CASCADE;
-    DROP TABLE IF EXISTS src_docs CASCADE;
-    DROP TABLE IF EXISTS src_hosts CASCADE;
+CREATE TABLE src_hosts (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT src_hosts_target_mapper_code_uk UNIQUE (code)
+);
 
-    CREATE TABLE src_hosts (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT src_hosts_target_mapper_code_uk UNIQUE (code)
-    );
+CREATE TABLE src_docs (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    title TEXT,
+    canon_url TEXT,
+    host_code TEXT,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT src_docs_target_mapper_code_uk UNIQUE (code)
+);
 
-    CREATE TABLE src_docs (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        title TEXT,
-        canon_url TEXT,
-        host_code TEXT,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT src_docs_target_mapper_code_uk UNIQUE (code)
-    );
+CREATE TABLE doc_revs (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    source_code TEXT NOT NULL,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT doc_revs_target_mapper_code_uk UNIQUE (code)
+);
 
-    CREATE TABLE doc_revs (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        source_code TEXT NOT NULL,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT doc_revs_target_mapper_code_uk UNIQUE (code)
-    );
-
-    CREATE TABLE passages (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        doc_code TEXT NOT NULL,
-        text TEXT NOT NULL,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        candidate_status TEXT NOT NULL DEFAULT 'unreviewed_candidate',
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT passages_target_mapper_code_uk UNIQUE (code)
-    );
-    """
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(sql)
-        conn.commit()
-
-
-def insert_target_rows(dsn: str, *, schema: str) -> dict[str, int]:
-    import psycopg
-
-    schema_ident = quote_identifier(schema)
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(
-                """
-                INSERT INTO src_hosts (code, payload)
-                SELECT DISTINCT
-                    COALESCE(
-                        direct_fields -> 'host' ->> 'value',
-                        direct_fields -> 'source_host' ->> 'value'
-                    ) AS code,
-                    jsonb_build_object(
-                        'source_file', 'data/sources.jsonl',
-                        'host_source', 'direct_host_field'
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/sources.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                  AND COALESCE(
-                        direct_fields -> 'host' ->> 'value',
-                        direct_fields -> 'source_host' ->> 'value'
-                  ) IS NOT NULL
-                ON CONFLICT (code) DO NOTHING
-                """
+CREATE TABLE passages (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    doc_code TEXT NOT NULL,
+    text TEXT NOT NULL,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    candidate_status TEXT NOT NULL DEFAULT 'unreviewed_candidate',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT passages_target_mapper_code_uk UNIQUE (code)
+);
+"""
+TARGET_ROWCOUNT_STATEMENTS = (
+    RowCountStatement(
+        "src_host_rows",
+        """
+        INSERT INTO src_hosts (code, payload)
+        SELECT DISTINCT
+            COALESCE(
+                direct_fields -> 'host' ->> 'value',
+                direct_fields -> 'source_host' ->> 'value'
+            ) AS code,
+            jsonb_build_object(
+                'source_file', 'data/sources.jsonl',
+                'host_source', 'direct_host_field'
             )
-            src_host_rows = cur.rowcount
-            cur.execute(
-                """
-                INSERT INTO src_docs (code, title, canon_url, host_code, payload)
-                SELECT
-                    jsonl_code,
-                    COALESCE(
-                        direct_fields -> 'title' ->> 'value',
-                        direct_fields -> 'source_title' ->> 'value'
-                    ),
-                    COALESCE(
-                        direct_fields -> 'url' ->> 'value',
-                        direct_fields -> 'source_url' ->> 'value'
-                    ),
-                    COALESCE(
-                        direct_fields -> 'host' ->> 'value',
-                        direct_fields -> 'source_host' ->> 'value'
-                    ),
-                    jsonb_build_object(
-                        'source_file', source_file,
-                        'line_no', line_no,
-                        'payload_fields', payload_fields,
-                        'source_id_boundary', 'source_document_code_not_passage_id'
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/sources.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                ON CONFLICT (code) DO NOTHING
-                """
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/sources.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+          AND COALESCE(
+                direct_fields -> 'host' ->> 'value',
+                direct_fields -> 'source_host' ->> 'value'
+          ) IS NOT NULL
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+    RowCountStatement(
+        "src_doc_rows",
+        """
+        INSERT INTO src_docs (code, title, canon_url, host_code, payload)
+        SELECT
+            jsonl_code,
+            COALESCE(
+                direct_fields -> 'title' ->> 'value',
+                direct_fields -> 'source_title' ->> 'value'
+            ),
+            COALESCE(
+                direct_fields -> 'url' ->> 'value',
+                direct_fields -> 'source_url' ->> 'value'
+            ),
+            COALESCE(
+                direct_fields -> 'host' ->> 'value',
+                direct_fields -> 'source_host' ->> 'value'
+            ),
+            jsonb_build_object(
+                'source_file', source_file,
+                'line_no', line_no,
+                'payload_fields', payload_fields,
+                'source_id_boundary', 'source_document_code_not_passage_id'
             )
-            src_doc_rows = cur.rowcount
-            cur.execute(
-                """
-                INSERT INTO doc_revs (code, source_code, payload)
-                SELECT
-                    jsonl_code || '::rev0',
-                    jsonl_code,
-                    jsonb_build_object(
-                        'prototype_revision', true,
-                        'source_file', source_file,
-                        'line_no', line_no,
-                        'payload_fields', payload_fields,
-                        'source_id_boundary', 'source_document_code_not_passage_id'
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/sources.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                ON CONFLICT (code) DO NOTHING
-                """
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/sources.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+    RowCountStatement(
+        "doc_rev_rows",
+        """
+        INSERT INTO doc_revs (code, source_code, payload)
+        SELECT
+            jsonl_code || '::rev0',
+            jsonl_code,
+            jsonb_build_object(
+                'prototype_revision', true,
+                'source_file', source_file,
+                'line_no', line_no,
+                'payload_fields', payload_fields,
+                'source_id_boundary', 'source_document_code_not_passage_id'
             )
-            doc_rev_rows = cur.rowcount
-            cur.execute(
-                """
-                INSERT INTO passages (code, doc_code, text, payload)
-                SELECT
-                    jsonl_code || '::passage0',
-                    jsonl_code,
-                    COALESCE(payload_fields ->> 'quote', payload_fields ->> 'excerpt'),
-                    jsonb_build_object(
-                        'candidate_status', 'unreviewed_candidate',
-                        'source_file', source_file,
-                        'line_no', line_no,
-                        'context', payload_fields -> 'context',
-                        'location', payload_fields -> 'location',
-                        'volume', payload_fields -> 'volume',
-                        'source_id_usage', 'source_document_resolver_input_only'
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/sources.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                  AND COALESCE(payload_fields ->> 'quote', payload_fields ->> 'excerpt') IS NOT NULL
-                ON CONFLICT (code) DO NOTHING
-                """
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/sources.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+    RowCountStatement(
+        "passage_rows",
+        """
+        INSERT INTO passages (code, doc_code, text, payload)
+        SELECT
+            jsonl_code || '::passage0',
+            jsonl_code,
+            COALESCE(payload_fields ->> 'quote', payload_fields ->> 'excerpt'),
+            jsonb_build_object(
+                'candidate_status', 'unreviewed_candidate',
+                'source_file', source_file,
+                'line_no', line_no,
+                'context', payload_fields -> 'context',
+                'location', payload_fields -> 'location',
+                'volume', payload_fields -> 'volume',
+                'source_id_usage', 'source_document_resolver_input_only'
             )
-            passage_rows = cur.rowcount
-            cur.execute(
-                """
-                SELECT COUNT(*)
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/sources.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                """
-            )
-            blocked_relationship_rows = int(cur.fetchone()[0] or 0)
-        conn.commit()
-    return {
-        "src_host_rows": int(src_host_rows),
-        "src_doc_rows": int(src_doc_rows),
-        "doc_rev_rows": int(doc_rev_rows),
-        "passage_rows": int(passage_rows),
-        "blocked_relationship_rows": blocked_relationship_rows,
-    }
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/sources.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+          AND COALESCE(payload_fields ->> 'quote', payload_fields ->> 'excerpt') IS NOT NULL
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+)
+TARGET_FETCHONE_STATEMENTS = (
+    FetchOneCountStatement(
+        ("blocked_relationship_rows",),
+        """
+        SELECT COUNT(*)
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/sources.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        """,
+    ),
+)
+create_target_prototype_tables = make_create_target_prototype_tables(
+    TARGET_TABLE_SQL,
+    quote_identifier=quote_identifier,
+)
+insert_target_rows = make_insert_target_rows(
+    quote_identifier=quote_identifier,
+    rowcount_statements=TARGET_ROWCOUNT_STATEMENTS,
+    fetchone_statements=TARGET_FETCHONE_STATEMENTS,
+)
 
 
 def is_targetable_source_row(row: StagingRow) -> bool:

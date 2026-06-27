@@ -24,6 +24,12 @@ from scripts.platform.core.db_env import (
     make_resolve_dsn,
     make_validate_isolated_schema,
 )
+from scripts.platform.core.jsonl_target_db import (
+    FetchOneCountStatement,
+    RowCountStatement,
+    make_create_target_prototype_tables,
+    make_insert_target_rows,
+)
 from scripts.platform.jsonl_staging_resolver_contract import RESOLVER_VERSION
 from scripts.platform.jsonl_target_mapping import (
     CANONICAL_JSONL_FILES,
@@ -280,116 +286,105 @@ def apply_target_mapper(
     return report
 
 
-def create_target_prototype_tables(dsn: str, *, schema: str) -> None:
-    import psycopg
+TARGET_TABLE_SQL = """
+DROP TABLE IF EXISTS search_tasks CASCADE;
+DROP TABLE IF EXISTS query_profiles CASCADE;
 
-    schema_ident = quote_identifier(schema)
-    sql = """
-    DROP TABLE IF EXISTS search_tasks CASCADE;
-    DROP TABLE IF EXISTS query_profiles CASCADE;
+CREATE TABLE query_profiles (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    scope TEXT,
+    status TEXT,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT qprof_target_mapper_code_uk UNIQUE (code)
+);
 
-    CREATE TABLE query_profiles (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        scope TEXT,
-        status TEXT,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT qprof_target_mapper_code_uk UNIQUE (code)
-    );
-
-    CREATE TABLE search_tasks (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        query_text TEXT,
-        status TEXT,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT stask_target_mapper_code_uk UNIQUE (code)
-    );
-    """
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(sql)
-        conn.commit()
-
-
-def insert_target_rows(dsn: str, *, schema: str) -> dict[str, int]:
-    import psycopg
-
-    schema_ident = quote_identifier(schema)
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(
-                """
-                INSERT INTO query_profiles (code, scope, status, payload)
-                SELECT
-                    jsonl_code,
-                    direct_fields -> 'profile_scope' ->> 'value',
-                    direct_fields -> 'status' ->> 'value',
-                    jsonb_build_object(
-                        'payload_fields', payload_fields,
-                        'range_filter_fields', range_filter_fields,
-                        'reference_risk_fields', reference_risk_fields,
-                        'source_file', source_file,
-                        'line_no', line_no
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/query_profiles.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                ON CONFLICT (code) DO NOTHING
-                """
+CREATE TABLE search_tasks (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    query_text TEXT,
+    status TEXT,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT stask_target_mapper_code_uk UNIQUE (code)
+);
+"""
+TARGET_ROWCOUNT_STATEMENTS = (
+    RowCountStatement(
+        "query_profile_rows",
+        """
+        INSERT INTO query_profiles (code, scope, status, payload)
+        SELECT
+            jsonl_code,
+            direct_fields -> 'profile_scope' ->> 'value',
+            direct_fields -> 'status' ->> 'value',
+            jsonb_build_object(
+                'payload_fields', payload_fields,
+                'range_filter_fields', range_filter_fields,
+                'reference_risk_fields', reference_risk_fields,
+                'source_file', source_file,
+                'line_no', line_no
             )
-            query_profile_rows = cur.rowcount
-            cur.execute(
-                """
-                INSERT INTO search_tasks (code, query_text, status, payload)
-                SELECT
-                    jsonl_code,
-                    COALESCE(
-                        direct_fields -> 'query' ->> 'value',
-                        candidate_fields -> 'query_terms' ->> 'value'
-                    ),
-                    direct_fields -> 'status' ->> 'value',
-                    jsonb_build_object(
-                        'payload_fields', payload_fields,
-                        'candidate_fields', candidate_fields,
-                        'range_filter_fields', range_filter_fields,
-                        'reference_risk_fields', reference_risk_fields,
-                        'source_file', source_file,
-                        'line_no', line_no
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/search_logs.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                ON CONFLICT (code) DO NOTHING
-                """
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/query_profiles.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+    RowCountStatement(
+        "search_task_rows",
+        """
+        INSERT INTO search_tasks (code, query_text, status, payload)
+        SELECT
+            jsonl_code,
+            COALESCE(
+                direct_fields -> 'query' ->> 'value',
+                candidate_fields -> 'query_terms' ->> 'value'
+            ),
+            direct_fields -> 'status' ->> 'value',
+            jsonb_build_object(
+                'payload_fields', payload_fields,
+                'candidate_fields', candidate_fields,
+                'range_filter_fields', range_filter_fields,
+                'reference_risk_fields', reference_risk_fields,
+                'source_file', source_file,
+                'line_no', line_no
             )
-            search_task_rows = cur.rowcount
-            cur.execute(
-                """
-                SELECT COUNT(*)
-                FROM stg_jsonl_rows
-                WHERE source_file IN ('data/query_profiles.jsonl', 'data/search_logs.jsonl')
-                  AND (
-                    range_filter_fields <> '{}'::jsonb
-                    OR reference_risk_fields <> '{}'::jsonb
-                  )
-                """
-            )
-            unresolved_reference_rows = int(cur.fetchone()[0] or 0)
-        conn.commit()
-    return {
-        "query_profile_rows": int(query_profile_rows),
-        "search_task_rows": int(search_task_rows),
-        "unresolved_reference_rows": unresolved_reference_rows,
-    }
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/search_logs.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+)
+TARGET_FETCHONE_STATEMENTS = (
+    FetchOneCountStatement(
+        ("unresolved_reference_rows",),
+        """
+        SELECT COUNT(*)
+        FROM stg_jsonl_rows
+        WHERE source_file IN ('data/query_profiles.jsonl', 'data/search_logs.jsonl')
+          AND (
+            range_filter_fields <> '{}'::jsonb
+            OR reference_risk_fields <> '{}'::jsonb
+          )
+        """,
+    ),
+)
+create_target_prototype_tables = make_create_target_prototype_tables(
+    TARGET_TABLE_SQL,
+    quote_identifier=quote_identifier,
+)
+insert_target_rows = make_insert_target_rows(
+    quote_identifier=quote_identifier,
+    rowcount_statements=TARGET_ROWCOUNT_STATEMENTS,
+    fetchone_statements=TARGET_FETCHONE_STATEMENTS,
+)
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:

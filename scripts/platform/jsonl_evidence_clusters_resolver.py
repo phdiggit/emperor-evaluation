@@ -25,6 +25,12 @@ from scripts.platform.core.db_env import (
     make_resolve_dsn,
     make_validate_isolated_schema,
 )
+from scripts.platform.core.jsonl_target_db import (
+    FetchOneCountStatement,
+    RowCountStatement,
+    make_create_target_prototype_tables,
+    make_insert_target_rows,
+)
 from scripts.platform.jsonl_staging_resolver_contract import RESOLVER_VERSION
 from scripts.platform.jsonl_target_mapping import MAPPING_VERSION, assert_report_has_no_blocked_terms
 from scripts.platform.postgres_bootstrap import drop_schema, quote_identifier, schema_exists
@@ -362,150 +368,138 @@ def apply_resolver(
     return report
 
 
-def create_target_prototype_tables(dsn: str, *, schema: str) -> None:
-    import psycopg
+TARGET_TABLE_SQL = """
+DROP TABLE IF EXISTS cluster_evd_candidates CASCADE;
+DROP TABLE IF EXISTS clusters CASCADE;
 
-    schema_ident = quote_identifier(schema)
-    sql = """
-    DROP TABLE IF EXISTS cluster_evd_candidates CASCADE;
-    DROP TABLE IF EXISTS clusters CASCADE;
+CREATE TABLE clusters (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    summary TEXT,
+    status TEXT,
+    cluster_type TEXT,
+    candidate_strength JSONB,
+    polarity TEXT,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT clusters_resolver_code_uk UNIQUE (code)
+);
 
-    CREATE TABLE clusters (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        summary TEXT,
-        status TEXT,
-        cluster_type TEXT,
-        candidate_strength JSONB,
-        polarity TEXT,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT clusters_resolver_code_uk UNIQUE (code)
-    );
-
-    CREATE TABLE cluster_evd_candidates (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        cluster_code TEXT NOT NULL,
-        evidence_code TEXT NOT NULL,
-        source_file TEXT NOT NULL,
-        line_no INTEGER NOT NULL,
-        resolver_status TEXT NOT NULL CHECK (resolver_status IN ('unresolved_candidate', 'manual_review_required')),
-        blocked_action TEXT NOT NULL CHECK (blocked_action = 'cluster_evd_write'),
-        reason TEXT NOT NULL,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-    );
-    """
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(sql)
-        conn.commit()
-
-
-def insert_target_rows(dsn: str, *, schema: str) -> dict[str, int]:
-    import psycopg
-
-    schema_ident = quote_identifier(schema)
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(
-                """
-                INSERT INTO clusters (code, summary, status, cluster_type, candidate_strength, polarity, payload)
-                SELECT
-                    jsonl_code,
-                    direct_fields -> 'summary' ->> 'value',
-                    direct_fields -> 'status' ->> 'value',
-                    candidate_fields -> 'cluster_type' ->> 'value',
-                    direct_fields -> 'candidate_strength' -> 'value',
-                    direct_fields -> 'polarity' ->> 'value',
-                    jsonb_strip_nulls(jsonb_build_object(
-                        'source_file', source_file,
-                        'line_no', line_no,
-                        'adjudication_status', direct_fields -> 'adjudication_status' -> 'value',
-                        'notes', payload_fields -> 'notes',
-                        'note', payload_fields -> 'note',
-                        'meta', payload_fields -> 'meta',
-                        'five_axis_assessment', payload_fields -> 'five_axis_assessment',
-                        'upper_probe', payload_fields -> 'upper_probe',
-                        'upper_bound', payload_fields -> 'upper_bound',
-                        'cross_item_split', unknown_fields -> 'cross_item_split',
-                        'review_boundary', 'review_state_payload_only',
-                        'relationship_boundary', 'linked_evidence_ids_unresolved_candidates'
-                    ))
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/evidence_clusters.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                ON CONFLICT (code) DO NOTHING
-                """
+CREATE TABLE cluster_evd_candidates (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    cluster_code TEXT NOT NULL,
+    evidence_code TEXT NOT NULL,
+    source_file TEXT NOT NULL,
+    line_no INTEGER NOT NULL,
+    resolver_status TEXT NOT NULL CHECK (resolver_status IN ('unresolved_candidate', 'manual_review_required')),
+    blocked_action TEXT NOT NULL CHECK (blocked_action = 'cluster_evd_write'),
+    reason TEXT NOT NULL,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+"""
+TARGET_ROWCOUNT_STATEMENTS = (
+    RowCountStatement(
+        "cluster_rows",
+        """
+        INSERT INTO clusters (code, summary, status, cluster_type, candidate_strength, polarity, payload)
+        SELECT
+            jsonl_code,
+            direct_fields -> 'summary' ->> 'value',
+            direct_fields -> 'status' ->> 'value',
+            candidate_fields -> 'cluster_type' ->> 'value',
+            direct_fields -> 'candidate_strength' -> 'value',
+            direct_fields -> 'polarity' ->> 'value',
+            jsonb_strip_nulls(jsonb_build_object(
+                'source_file', source_file,
+                'line_no', line_no,
+                'adjudication_status', direct_fields -> 'adjudication_status' -> 'value',
+                'notes', payload_fields -> 'notes',
+                'note', payload_fields -> 'note',
+                'meta', payload_fields -> 'meta',
+                'five_axis_assessment', payload_fields -> 'five_axis_assessment',
+                'upper_probe', payload_fields -> 'upper_probe',
+                'upper_bound', payload_fields -> 'upper_bound',
+                'cross_item_split', unknown_fields -> 'cross_item_split',
+                'review_boundary', 'review_state_payload_only',
+                'relationship_boundary', 'linked_evidence_ids_unresolved_candidates'
+            ))
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/evidence_clusters.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+    RowCountStatement(
+        "cluster_evd_candidate_rows",
+        """
+        INSERT INTO cluster_evd_candidates (
+            cluster_code, evidence_code, source_file, line_no,
+            resolver_status, blocked_action, reason, payload
+        )
+        SELECT
+            jsonl_code,
+            candidate.evidence_code,
+            source_file,
+            line_no,
+            'unresolved_candidate',
+            'cluster_evd_write',
+            'linked_evidence_ids require evidence card resolver output before relationship write',
+            jsonb_build_object(
+                'source_field', 'linked_evidence_ids',
+                'resolver_version', mapping_version,
+                'formal_relationship_table', false
             )
-            cluster_rows = cur.rowcount
-            cur.execute(
-                """
-                INSERT INTO cluster_evd_candidates (
-                    cluster_code, evidence_code, source_file, line_no,
-                    resolver_status, blocked_action, reason, payload
-                )
-                SELECT
-                    jsonl_code,
-                    candidate.evidence_code,
-                    source_file,
-                    line_no,
-                    'unresolved_candidate',
-                    'cluster_evd_write',
-                    'linked_evidence_ids require evidence card resolver output before relationship write',
-                    jsonb_build_object(
-                        'source_field', 'linked_evidence_ids',
-                        'resolver_version', mapping_version,
-                        'formal_relationship_table', false
-                    )
-                FROM stg_jsonl_rows
-                CROSS JOIN LATERAL jsonb_array_elements_text(
-                    CASE
-                        WHEN jsonb_typeof(reference_risk_fields -> 'linked_evidence_ids' -> 'value') = 'array'
-                            THEN reference_risk_fields -> 'linked_evidence_ids' -> 'value'
-                        WHEN reference_risk_fields ? 'linked_evidence_ids'
-                            THEN jsonb_build_array(reference_risk_fields -> 'linked_evidence_ids' -> 'value')
-                        ELSE '[]'::jsonb
-                    END
-                ) AS candidate(evidence_code)
-                WHERE source_file = 'data/evidence_clusters.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                """
+        FROM stg_jsonl_rows
+        CROSS JOIN LATERAL jsonb_array_elements_text(
+            CASE
+                WHEN jsonb_typeof(reference_risk_fields -> 'linked_evidence_ids' -> 'value') = 'array'
+                    THEN reference_risk_fields -> 'linked_evidence_ids' -> 'value'
+                WHEN reference_risk_fields ? 'linked_evidence_ids'
+                    THEN jsonb_build_array(reference_risk_fields -> 'linked_evidence_ids' -> 'value')
+                ELSE '[]'::jsonb
+            END
+        ) AS candidate(evidence_code)
+        WHERE source_file = 'data/evidence_clusters.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        """,
+    ),
+)
+TARGET_FETCHONE_STATEMENTS = (
+    FetchOneCountStatement(
+        ("blocked_cluster_evd_rows", "manual_review_rows"),
+        """
+        SELECT
+            COUNT(*) FILTER (WHERE reference_risk_fields ? 'linked_evidence_ids'),
+            COUNT(*) FILTER (
+                WHERE reference_risk_fields ? 'linked_evidence_ids'
+                   OR direct_fields ? 'adjudication_status'
+                   OR payload_fields ? 'five_axis_assessment'
+                   OR payload_fields ? 'upper_probe'
+                   OR payload_fields ? 'upper_bound'
+                   OR unknown_fields ? 'cross_item_split'
             )
-            candidate_rows = cur.rowcount
-            cur.execute(
-                """
-                SELECT
-                    COUNT(*) FILTER (WHERE reference_risk_fields ? 'linked_evidence_ids'),
-                    COUNT(*) FILTER (
-                        WHERE reference_risk_fields ? 'linked_evidence_ids'
-                           OR direct_fields ? 'adjudication_status'
-                           OR payload_fields ? 'five_axis_assessment'
-                           OR payload_fields ? 'upper_probe'
-                           OR payload_fields ? 'upper_bound'
-                           OR unknown_fields ? 'cross_item_split'
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/evidence_clusters.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                """
-            )
-            row = cur.fetchone()
-        conn.commit()
-    return {
-        "cluster_rows": int(cluster_rows),
-        "cluster_evd_candidate_rows": int(candidate_rows),
-        "blocked_cluster_evd_rows": int(row[0] or 0),
-        "manual_review_rows": int(row[1] or 0),
-    }
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/evidence_clusters.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        """,
+    ),
+)
+create_target_prototype_tables = make_create_target_prototype_tables(
+    TARGET_TABLE_SQL,
+    quote_identifier=quote_identifier,
+)
+insert_target_rows = make_insert_target_rows(
+    quote_identifier=quote_identifier,
+    rowcount_statements=TARGET_ROWCOUNT_STATEMENTS,
+    fetchone_statements=TARGET_FETCHONE_STATEMENTS,
+)
 
 
 def is_targetable_cluster_row(row: StagingRow) -> bool:

@@ -25,6 +25,12 @@ from scripts.platform.core.db_env import (
     make_resolve_dsn,
     make_validate_isolated_schema,
 )
+from scripts.platform.core.jsonl_target_db import (
+    FetchOneCountStatement,
+    RowCountStatement,
+    make_create_target_prototype_tables,
+    make_insert_target_rows,
+)
 from scripts.platform.jsonl_staging_resolver_contract import RESOLVER_VERSION
 from scripts.platform.jsonl_target_mapping import MAPPING_VERSION, assert_report_has_no_blocked_terms
 from scripts.platform.postgres_bootstrap import drop_schema, quote_identifier, schema_exists
@@ -378,108 +384,96 @@ def apply_target_mapper(
     return report
 
 
-def create_target_prototype_tables(dsn: str, *, schema: str) -> None:
-    import psycopg
+TARGET_TABLE_SQL = """
+DROP TABLE IF EXISTS evd_cards CASCADE;
 
-    schema_ident = quote_identifier(schema)
-    sql = """
-    DROP TABLE IF EXISTS evd_cards CASCADE;
-
-    CREATE TABLE evd_cards (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        summary TEXT,
-        claim TEXT,
-        polarity TEXT,
-        confidence TEXT,
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT evd_cards_target_mapper_code_uk UNIQUE (code)
-    );
-    """
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(sql)
-        conn.commit()
-
-
-def insert_target_rows(dsn: str, *, schema: str) -> dict[str, int]:
-    import psycopg
-
-    schema_ident = quote_identifier(schema)
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.execute(
-                """
-                INSERT INTO evd_cards (code, summary, claim, polarity, confidence, payload)
-                SELECT
-                    jsonl_code,
-                    payload_fields ->> 'summary',
-                    payload_fields ->> 'claim',
-                    direct_fields -> 'polarity' ->> 'value',
-                    payload_fields ->> 'confidence',
-                    jsonb_strip_nulls(jsonb_build_object(
-                        'source_file', source_file,
-                        'line_no', line_no,
-                        'verification_status', payload_fields -> 'verification_status',
-                        'adjudication_status', payload_fields -> 'adjudication_status',
-                        'notes', payload_fields -> 'notes',
-                        'note', payload_fields -> 'note',
-                        'meta', payload_fields -> 'meta',
-                        'case_classification', payload_fields -> 'case_classification',
-                        'risk_status', payload_fields -> 'risk_status',
-                        'trigger_family', payload_fields -> 'trigger_family',
-                        'trigger_terms', payload_fields -> 'trigger_terms',
-                        'mitigating_factors', payload_fields -> 'mitigating_factors',
-                        'aggravating_factors', payload_fields -> 'aggravating_factors',
-                        'reversal_or_rehabilitation', payload_fields -> 'reversal_or_rehabilitation',
-                        'mitigation_flag', payload_fields -> 'mitigation_flag',
-                        'upper_bound_flag', payload_fields -> 'upper_bound_flag',
-                        'source_link_boundary', 'source_id_document_code_not_passage_id',
-                        'cluster_link_boundary', 'cluster_fields_report_only',
-                        'anchor_link_boundary', 'anchor_fields_report_only'
-                    ))
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/evidence_cards.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                ON CONFLICT (code) DO NOTHING
-                """
+CREATE TABLE evd_cards (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    summary TEXT,
+    claim TEXT,
+    polarity TEXT,
+    confidence TEXT,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT evd_cards_target_mapper_code_uk UNIQUE (code)
+);
+"""
+TARGET_ROWCOUNT_STATEMENTS = (
+    RowCountStatement(
+        "evd_card_rows",
+        """
+        INSERT INTO evd_cards (code, summary, claim, polarity, confidence, payload)
+        SELECT
+            jsonl_code,
+            payload_fields ->> 'summary',
+            payload_fields ->> 'claim',
+            direct_fields -> 'polarity' ->> 'value',
+            payload_fields ->> 'confidence',
+            jsonb_strip_nulls(jsonb_build_object(
+                'source_file', source_file,
+                'line_no', line_no,
+                'verification_status', payload_fields -> 'verification_status',
+                'adjudication_status', payload_fields -> 'adjudication_status',
+                'notes', payload_fields -> 'notes',
+                'note', payload_fields -> 'note',
+                'meta', payload_fields -> 'meta',
+                'case_classification', payload_fields -> 'case_classification',
+                'risk_status', payload_fields -> 'risk_status',
+                'trigger_family', payload_fields -> 'trigger_family',
+                'trigger_terms', payload_fields -> 'trigger_terms',
+                'mitigating_factors', payload_fields -> 'mitigating_factors',
+                'aggravating_factors', payload_fields -> 'aggravating_factors',
+                'reversal_or_rehabilitation', payload_fields -> 'reversal_or_rehabilitation',
+                'mitigation_flag', payload_fields -> 'mitigation_flag',
+                'upper_bound_flag', payload_fields -> 'upper_bound_flag',
+                'source_link_boundary', 'source_id_document_code_not_passage_id',
+                'cluster_link_boundary', 'cluster_fields_report_only',
+                'anchor_link_boundary', 'anchor_fields_report_only'
+            ))
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/evidence_cards.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        ON CONFLICT (code) DO NOTHING
+        """,
+    ),
+)
+TARGET_FETCHONE_STATEMENTS = (
+    FetchOneCountStatement(
+        ("blocked_source_link_rows", "blocked_cluster_link_rows", "manual_review_rows"),
+        """
+        SELECT
+            COUNT(*) FILTER (
+                WHERE reference_risk_fields ? 'source_id'
+                   OR reference_risk_fields ? 'linked_source_ids'
+            ),
+            COUNT(*) FILTER (
+                WHERE reference_risk_fields ? 'linked_cluster_ids'
+                   OR reference_risk_fields ? 'cluster_candidate_id'
+            ),
+            COUNT(*) FILTER (
+                WHERE unknown_fields ? 'cluster_role'
+                   OR unknown_fields ? 'evidence_role'
             )
-            evd_card_rows = cur.rowcount
-            cur.execute(
-                """
-                SELECT
-                    COUNT(*) FILTER (
-                        WHERE reference_risk_fields ? 'source_id'
-                           OR reference_risk_fields ? 'linked_source_ids'
-                    ),
-                    COUNT(*) FILTER (
-                        WHERE reference_risk_fields ? 'linked_cluster_ids'
-                           OR reference_risk_fields ? 'cluster_candidate_id'
-                    ),
-                    COUNT(*) FILTER (
-                        WHERE unknown_fields ? 'cluster_role'
-                           OR unknown_fields ? 'evidence_role'
-                    )
-                FROM stg_jsonl_rows
-                WHERE source_file = 'data/evidence_cards.jsonl'
-                  AND jsonl_code IS NOT NULL
-                  AND NOT staging_only
-                  AND validation_errors = '[]'::jsonb
-                """
-            )
-            row = cur.fetchone()
-        conn.commit()
-    return {
-        "evd_card_rows": int(evd_card_rows),
-        "blocked_source_link_rows": int(row[0] or 0),
-        "blocked_cluster_link_rows": int(row[1] or 0),
-        "manual_review_rows": int(row[2] or 0),
-    }
+        FROM stg_jsonl_rows
+        WHERE source_file = 'data/evidence_cards.jsonl'
+          AND jsonl_code IS NOT NULL
+          AND NOT staging_only
+          AND validation_errors = '[]'::jsonb
+        """,
+    ),
+)
+create_target_prototype_tables = make_create_target_prototype_tables(
+    TARGET_TABLE_SQL,
+    quote_identifier=quote_identifier,
+)
+insert_target_rows = make_insert_target_rows(
+    quote_identifier=quote_identifier,
+    rowcount_statements=TARGET_ROWCOUNT_STATEMENTS,
+    fetchone_statements=TARGET_FETCHONE_STATEMENTS,
+)
 
 
 def is_targetable_evidence_row(row: StagingRow) -> bool:

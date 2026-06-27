@@ -90,6 +90,7 @@ def test_platform_core_helpers_are_registered_as_active_shared_components() -> N
         "scripts/platform/core/evidence.py",
         "scripts/platform/core/fingerprints.py",
         "scripts/platform/core/gates.py",
+        "scripts/platform/core/jsonl_target_db.py",
         "scripts/platform/core/redaction.py",
     ]:
         assert modules[path]["lifecycle_status"] == "active"
