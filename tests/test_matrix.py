@@ -91,10 +91,12 @@ def build_temp_repo(tmp_path: Path) -> Path:
         {
             "version": 2,
             "active_subitem": "第五项B",
-            "default_person_group": "expanded_batch1",
+            "default_person_group": "custom_review_pool",
             "person_groups": {
                 "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
                 "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦"]},
+                "custom_review_pool": {"label": "自定义复核池", "persons": ["自定义甲"]},
+                "another_review_pool": {"label": "另一个复核池", "persons": ["自定义乙"]},
             },
             "outputs": {
                 "matrix": True,
@@ -134,14 +136,16 @@ def test_canonical_cli_generates_matrix_only_in_temp_repo(tmp_path: Path) -> Non
         / "人工审核"
         / "自动裁判链"
         / "自动结算草案"
-        / "第五项B扩展第一批正负证矩阵.md"
+        / "第五项B自定义复核池正负证矩阵.md"
     )
     first_content = output_path.read_text(encoding="utf-8")
     first_content = output_path.read_text(encoding="utf-8")
 
     assert new_result.returncode == 0, new_result.stdout + new_result.stderr
     assert new_result.stdout.strip() == f"exported {output_path}"
-    assert "刘邦" in first_content
+    assert "自定义甲" in first_content
+    assert "自定义乙" not in first_content
+    assert "刘邦" not in first_content
     assert "李世民" not in first_content
     assert "刘秀" not in first_content
     assert "刘庄" not in first_content

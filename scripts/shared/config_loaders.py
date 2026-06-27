@@ -17,11 +17,6 @@ ROOT = Path(__file__).resolve().parents[2]
 PROJECT_CONFIG_PATH = ROOT / "data" / "configs" / "project_config.yml"
 DEFAULT_I5B_ITEM = "第五项"
 DEFAULT_I5B_SUBITEM = "第五项B"
-I5B_GROUP_ID_BY_SELECTOR = {
-    "three_pilot": "第五项B_三人试点",
-    "expanded_batch1": "第五项B_扩展第一批",
-}
-I5B_SELECTOR_BY_GROUP_ID = {group_id: selector for selector, group_id in I5B_GROUP_ID_BY_SELECTOR.items()}
 I5B_OUTPUT_SWITCHES = {
     "matrix",
     "auto_adjudication",
@@ -54,7 +49,7 @@ def get_subitem_config(subitem: str | None = None) -> dict[str, Any]:
     if target_subitem != active_subitem:
         raise ValueError(f"subitem {target_subitem!r} is not the active project_config.yml workflow")
     return {
-        "default_person_group": _default_i5b_person_group_selector(),
+        "default_person_group": _default_i5b_person_group_key(),
         "person_groups": _load_i5b_person_groups_config(),
         "outputs": _load_i5b_outputs_config(),
     }
@@ -74,10 +69,6 @@ def _load_i5b_outputs_config() -> dict[str, Any]:
     return outputs
 
 
-def _selector_for_group_id(group_id_or_selector: str) -> str:
-    return I5B_SELECTOR_BY_GROUP_ID.get(group_id_or_selector, group_id_or_selector)
-
-
 def _load_persons_ref(persons_ref: str) -> list[str]:
     ref_path = ROOT / persons_ref
     payload = yaml.safe_load(ref_path.read_text(encoding="utf-8"))
@@ -86,30 +77,30 @@ def _load_persons_ref(persons_ref: str) -> list[str]:
     return [str(person) for person in payload]
 
 
-def _resolve_i5b_group_persons(selector: str) -> list[str]:
+def _resolve_i5b_group_persons(group_key: str) -> list[str]:
     groups = _load_i5b_person_groups_config()
-    group = groups.get(selector)
+    group = groups.get(group_key)
     if not isinstance(group, dict):
-        raise ValueError(f"group selector {selector!r} is missing from project_config.yml")
+        raise ValueError(f"group key {group_key!r} is missing from project_config.yml")
 
     if "persons" in group:
         persons = group["persons"]
         if not isinstance(persons, list):
-            raise ValueError(f"group selector {selector!r} persons must be a list")
+            raise ValueError(f"group key {group_key!r} persons must be a list")
         return [str(person) for person in persons]
     if "persons_ref" in group:
         persons_ref = group["persons_ref"]
         if not isinstance(persons_ref, str) or not persons_ref.strip():
-            raise ValueError(f"group selector {selector!r} persons_ref must be a non-empty string")
+            raise ValueError(f"group key {group_key!r} persons_ref must be a non-empty string")
         return _load_persons_ref(persons_ref)
-    raise ValueError(f"group selector {selector!r} must define persons or persons_ref")
+    raise ValueError(f"group key {group_key!r} must define persons or persons_ref")
 
 
-def _default_i5b_person_group_selector() -> str:
-    selector = load_project_config().get("default_person_group")
-    if not isinstance(selector, str) or not selector.strip():
+def _default_i5b_person_group_key() -> str:
+    group_key = load_project_config().get("default_person_group")
+    if not isinstance(group_key, str) or not group_key.strip():
         raise ValueError("project_config.yml default_person_group must be a non-empty string")
-    return selector
+    return group_key
 
 
 def _output_switch(output_name: str) -> dict[str, Any]:
@@ -135,55 +126,53 @@ def load_i5b_person_pool() -> list[dict[str, Any]]:
 
 def load_i5b_view_groups() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for selector, group in _load_i5b_person_groups_config().items():
+    for group_key, group in _load_i5b_person_groups_config().items():
         if not isinstance(group, dict):
-            raise ValueError(f"group selector {selector!r} must be a mapping")
+            raise ValueError(f"group key {group_key!r} must be a mapping")
         label = group.get("label")
         if not isinstance(label, str) or not label.strip():
-            raise ValueError(f"group selector {selector!r} label must be a non-empty string")
+            raise ValueError(f"group key {group_key!r} label must be a non-empty string")
         rows.append(
             {
-                "group_id": I5B_GROUP_ID_BY_SELECTOR.get(selector, selector),
+                "group_id": str(group_key),
                 "group_name": label,
-                "selector": selector,
-                "persons": _resolve_i5b_group_persons(str(selector)),
+                "persons": _resolve_i5b_group_persons(str(group_key)),
             }
         )
     return rows
 
 
-def get_i5b_group(group_id: str) -> dict[str, Any] | None:
-    selector = _selector_for_group_id(group_id)
+def get_i5b_group(group_key: str) -> dict[str, Any] | None:
     for row in load_i5b_view_groups():
-        if row.get("group_id") == group_id or row.get("selector") == selector:
+        if row.get("group_id") == group_key:
             return row
     return None
 
 
-def get_i5b_group_persons(group_id: str) -> list[str] | None:
-    group = get_i5b_group(group_id)
+def get_i5b_group_persons(group_key: str) -> list[str] | None:
+    group = get_i5b_group(group_key)
     if group is None:
         return None
     persons = group.get("persons")
     if not isinstance(persons, list):
-        raise ValueError(f"group {group_id!r} persons must be a list")
+        raise ValueError(f"group {group_key!r} persons must be a list")
     return [str(person) for person in persons]
 
 
 def get_i5b_active_workflow_config() -> dict[str, Any]:
-    selector = _default_i5b_person_group_selector()
-    group = get_i5b_group(selector)
+    group_key = _default_i5b_person_group_key()
+    group = get_i5b_group(group_key)
     if group is None:
-        raise ValueError(f"{selector} group is missing from project_config.yml")
+        raise ValueError(f"{group_key} group is missing from project_config.yml")
     persons = group.get("persons")
     if not isinstance(persons, list):
-        raise ValueError(f"{selector} persons must be a list")
+        raise ValueError(f"{group_key} persons must be a list")
     return {
         "item": DEFAULT_I5B_ITEM,
         "subitem": get_active_subitem(),
-        "default_person_group": selector,
-        "group": selector,
-        "group_label": group.get("group_name") or selector,
+        "default_person_group": group_key,
+        "group": group_key,
+        "group_label": group.get("group_name") or group_key,
         "targets": [str(person) for person in persons],
         "outputs": {name: _output_switch(name) for name in sorted(I5B_OUTPUT_SWITCHES)},
     }
@@ -197,27 +186,27 @@ def get_i5b_output_person_targets(output_name: str) -> list[str]:
     switch = _output_switch(output_name)
     if not switch["enabled"]:
         return []
-    selector = switch.get("person_group_override") or _default_i5b_person_group_selector()
-    persons = get_i5b_group_persons(str(selector))
+    group_key = switch.get("person_group_override") or _default_i5b_person_group_key()
+    persons = get_i5b_group_persons(str(group_key))
     if persons is None:
-        raise ValueError(f"{selector} group is missing from project_config.yml")
+        raise ValueError(f"{group_key} group is missing from project_config.yml")
     return persons
 
 
 def get_i5b_trial_config() -> dict[str, Any]:
-    selector = "three_pilot"
-    group = get_i5b_group(selector)
+    group_key = "three_pilot"
+    group = get_i5b_group(group_key)
     if group is None:
-        raise ValueError(f"{selector} group is missing from project_config.yml")
+        raise ValueError(f"{group_key} group is missing from project_config.yml")
 
     persons = group.get("persons")
     if not isinstance(persons, list):
-        raise ValueError(f"{selector} persons must be a list")
+        raise ValueError(f"{group_key} persons must be a list")
     return {
         "item": DEFAULT_I5B_ITEM,
         "subitem": DEFAULT_I5B_SUBITEM,
         "targets": [str(person) for person in persons],
-        "group": selector,
+        "group": group_key,
     }
 
 
@@ -226,10 +215,10 @@ def get_i5b_trial_targets() -> list[str]:
 
 
 def get_i5b_expanded_batch1_targets() -> list[str]:
-    selector = "expanded_batch1"
-    persons = get_i5b_group_persons(selector)
+    group_key = "expanded_batch1"
+    persons = get_i5b_group_persons(group_key)
     if persons is None:
-        raise ValueError(f"{selector} group is missing from project_config.yml")
+        raise ValueError(f"{group_key} group is missing from project_config.yml")
     return persons
 
 

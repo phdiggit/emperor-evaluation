@@ -269,16 +269,11 @@ def test_load_i5b_net_evidence_targets_prefers_project_config(
 ) -> None:
     config_path = project_config_writer(
         tmp_path / "project_config.yml",
-        view_groups=[
-            {
-                "group_id": "第五项B_扩展第一批",
-                "group_name": "扩展第一批",
-                "group_type": "扩展人物组",
-                "subitem": "第五项B",
-                "persons": ["测试人物"],
-                "note": "测试",
-            }
-        ],
+        default_person_group="custom_review_pool",
+        groups={
+            "custom_review_pool": {"label": "自定义复核池", "persons": ["测试人物"]},
+            "another_review_pool": {"label": "另一个复核池", "persons": ["其他人物"]},
+        },
     )
     monkeypatch.setattr(net_evidence.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 

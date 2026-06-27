@@ -70,6 +70,27 @@ def test_validate_project_config_accepts_minimal_valid_config(tmp_path: Path, pr
     assert validate_project_config.validate(config_path) == []
 
 
+def test_validate_project_config_accepts_custom_person_group_keys(tmp_path: Path, project_config_writer) -> None:
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        default_person_group="custom_review_pool",
+        groups={
+            "custom_review_pool": {"label": "自定义复核池", "persons": ["甲", "乙"]},
+            "another_review_pool": {"label": "另一个复核池", "persons": ["丙"]},
+        },
+        outputs={
+            "matrix": True,
+            "auto_adjudication": True,
+            "review_entry": True,
+            "subitem_details": True,
+            "net_evidence": {"enabled": True, "person_group_override": "another_review_pool"},
+            "evidence_indexes": True,
+        },
+    )
+
+    assert validate_project_config.validate(config_path) == []
+
+
 def test_validate_project_config_rejects_yaml_anchor_alias_and_document_marker(tmp_path: Path) -> None:
     config_path = tmp_path / "project_config.yml"
     config_path.write_text(
