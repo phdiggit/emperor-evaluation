@@ -507,6 +507,18 @@ def _remove_legacy_net_evidence_export(person: str, export_path: Path) -> None:
         legacy_path.unlink()
 
 
+def _person_coverage_intro(person: str, intro: str, cluster_rows: list[dict[str, object]], evidence_rows: list[dict[str, object]]) -> str:
+    if cluster_rows or evidence_rows:
+        return intro
+    return (
+        f"{intro}\n\n"
+        f"- **证据状态**：missing_evidence\n"
+        f"- **评分状态**：unscored / blocked_before_formal_score\n"
+        f"- **覆盖缺口**：{person} 当前暂无 I5B 证据卡/证据簇；本页仅为 active person group review/stress 占位页，"
+        "不得视为已完成自动结算、正式分值或正式排名。"
+    )
+
+
 def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
     cluster_rows = _i5b_cluster_rows(person)
     evidence_rows = _i5b_evidence_rows(person)
@@ -517,10 +529,15 @@ def export_i5b_net_evidence_pool(person: str, export_path: Path) -> Path:
         export_path,
         appendix_path,
         title=f"第五项B_{person}净证据池",
-        intro=(
-            f"{MACHINE_AUDIT_DECLARATION}\n\n"
-            "本文件为定档前净证据池视图；本机器审计全字段版本只汇总已回源原子证据与证据组裁量候选，"
-            "不代表最终档位、得分或排名。"
+        intro=_person_coverage_intro(
+            person,
+            (
+                f"{MACHINE_AUDIT_DECLARATION}\n\n"
+                "本文件为定档前净证据池视图；本机器审计全字段版本只汇总已回源原子证据与证据组裁量候选，"
+                "不代表最终档位、得分或排名。"
+            ),
+            cluster_rows,
+            evidence_rows,
         ),
         sections=[
             ("证据组裁量结论", NET_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",)),
@@ -542,7 +559,12 @@ def export_i5b_human_review_net_evidence_pool(person: str) -> Path:
         export_path,
         appendix_path,
         title=f"第五项B_{person}人工审核净证据池",
-        intro="本文件是定档前人工业务审核主表；机器定位字段隐藏在主表外，可从附录“机器定位信息”或机器审计视图追溯。",
+        intro=_person_coverage_intro(
+            person,
+            "本文件是定档前人工业务审核主表；机器定位字段隐藏在主表外，可从附录“机器定位信息”或机器审计视图追溯。",
+            cluster_rows,
+            evidence_rows,
+        ),
         sections=[
             ("证据组裁量结论", "net_evidence_clusters", cluster_rows, ("cluster_id",)),
             ("原子证据卡", "net_evidence_cards", evidence_rows, ("evidence_id",)),
@@ -561,7 +583,7 @@ def export_i5b_machine_audit_net_evidence_pool(person: str) -> Path:
         export_path,
         appendix_path,
         title=f"第五项B_{person}机器审计净证据池",
-        intro=MACHINE_AUDIT_DECLARATION,
+        intro=_person_coverage_intro(person, MACHINE_AUDIT_DECLARATION, cluster_rows, evidence_rows),
         sections=[
             ("证据组裁量结论", NET_EVIDENCE_CLUSTER_HEADERS, cluster_rows, ("cluster_id",)),
             ("原子证据卡", _headers_with_context(NET_EVIDENCE_CARD_HEADERS, evidence_rows), evidence_rows, ("evidence_id",)),
@@ -714,3 +736,13 @@ def export_i5b_review_profile_views() -> list[Path]:
     paths.append(export_i5b_machine_audit_evidence_clusters_index())
     paths.extend(export_i5b_machine_audit_search_package_index())
     return paths
+
+
+def main() -> int:
+    for path in export_i5b_review_profile_views():
+        print(f"exported {path}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
