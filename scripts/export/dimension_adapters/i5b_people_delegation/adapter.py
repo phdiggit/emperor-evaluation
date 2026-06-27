@@ -458,6 +458,15 @@ AUTO_FEATURE_FIELDS = [
 ]
 
 
+def render_cluster_cards_or_empty(rows: list[dict[str, Any]], display_config: dict[str, Any]) -> str:
+    if rows:
+        return render_cluster_cards(rows, display_config)
+    lines = ["无证据簇。"]
+    for field in ["linked_object_anchors", "cross_item_split_signals"]:
+        lines.extend(["", *render_numbered_list(display_field_label(field, display_config), [], display_config)])
+    return "\n".join(lines)
+
+
 def render_person_section(
     report: dict[str, Any],
     display_warning_section: str = "",
@@ -476,7 +485,7 @@ def render_person_section(
         "",
         "### 证据簇自动结算",
         "",
-        render_cluster_cards(cluster_rows, config),
+        render_cluster_cards_or_empty(cluster_rows, config),
         "",
         "### 自动特征",
         "",

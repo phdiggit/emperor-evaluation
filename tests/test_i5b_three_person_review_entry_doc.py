@@ -1,29 +1,56 @@
 from __future__ import annotations
 
+import subprocess
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from shared import config_loaders
+from export.dimension_adapters.i5b_people_delegation import adapter as auto
+
 ENTRY_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核" / "入口" / "第五项B三人专人审核入口.md"
 OLD_DOC_PATH = ROOT / "docs" / "第五项B三人专人审核入口.md"
+_EXPORTS_REFRESHED = False
+
+
+def read_entry_content() -> str:
+    global _EXPORTS_REFRESHED
+    if not _EXPORTS_REFRESHED:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "export" / "export_md.py"), "--profile", "i5b-auto"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert result.returncode == 0, result.stdout + result.stderr
+        _EXPORTS_REFRESHED = True
+    return ENTRY_PATH.read_text(encoding="utf-8")
 
 
 def test_i5b_review_entry_doc_exists_and_covers_active_people() -> None:
     assert not OLD_DOC_PATH.exists()
-    content = ENTRY_PATH.read_text(encoding="utf-8")
+    content = read_entry_content()
+    workflow_config = auto.active_workflow_config()
+    workflow_subject = auto.active_workflow_subject(workflow_config)
+    group_label = auto.active_group_label(workflow_config)
+    targets = config_loaders.get_i5b_active_person_targets()
 
-    assert "# 第五项B扩展第一批专人审核入口" in content
-    assert "- **活动人物组**：扩展第一批" in content
+    assert "# " + workflow_subject + "专人审核入口" in content
+    assert f"- **活动人物组**：{group_label}" in content
     assert "旧 `docs/` 同名文件已退役" in content
-    for heading in ["### 刘邦", "### 雍正", "### 朱元璋"]:
+    for heading in [f"### {person}" for person in targets]:
         assert heading in content
-    for person in ["刘邦", "雍正", "朱元璋"]:
+    for person in targets:
         assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in content
         assert f"exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md" in content
 
 
 def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_entries() -> None:
-    content = ENTRY_PATH.read_text(encoding="utf-8")
+    content = read_entry_content()
 
     assert "审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`" in content
     assert "以下旧路径若在历史分支或本地残留中出现" in content
@@ -42,7 +69,7 @@ def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_e
 
 
 def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> None:
-    content = ENTRY_PATH.read_text(encoding="utf-8")
+    content = read_entry_content()
 
     assert "## 旧路径禁用" in content
     assert "不作为当前审核入口" in content
@@ -59,7 +86,7 @@ def test_i5b_three_person_review_entry_doc_declares_legacy_paths_disabled() -> N
 
 
 def test_i5b_three_person_review_entry_doc_contains_context_dependent_rules() -> None:
-    content = ENTRY_PATH.read_text(encoding="utf-8")
+    content = read_entry_content()
 
     assert "数据质量核验栏位" in content
     assert "回源状态、上下文充分性、相邻项剥离、证据方向一致性、规则命中异常" in content
@@ -67,7 +94,7 @@ def test_i5b_three_person_review_entry_doc_contains_context_dependent_rules() ->
 
 
 def test_i5b_three_person_review_entry_doc_is_plain_review_markdown_not_scoring() -> None:
-    content = ENTRY_PATH.read_text(encoding="utf-8")
+    content = read_entry_content()
 
     assert "不是正式评分表" in content
     assert "不生成正式分数" in content
