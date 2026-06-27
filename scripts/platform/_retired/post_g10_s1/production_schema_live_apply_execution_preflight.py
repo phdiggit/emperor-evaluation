@@ -9,31 +9,39 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 
-ROOT = Path(__file__).resolve().parents[2]
-ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-execution-pr-scaffold.md"
+def _repo_root() -> Path:
+    for path in Path(__file__).resolve().parents:
+        if (path / "db" / "schema.sql").is_file() and (path / "scripts" / "platform").is_dir():
+            return path
+    raise RuntimeError("could not locate repository root")
+
+
+ROOT = _repo_root()
+ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-production-schema-live-apply-execution-preflight.md"
 SCHEMA_PATHS = (
     ROOT / "db" / "schema.sql",
     ROOT / "db" / "postgres" / "001_init.sql",
 )
-SCAFFOLD_VERSION = "production-schema-live-apply-execution-pr-scaffold-v1"
-SCAFFOLD_STATUS = "Proposed / Production schema live-apply execution PR scaffold only"
+PREFLIGHT_VERSION = "production-schema-live-apply-execution-preflight-v1"
+PREFLIGHT_STATUS = "Proposed / Production schema live-apply execution preflight only"
 SQL_CLIENT = "p" + "sql"
 SHELL_PROCESS_TOKEN = "sub" + "process"
-PRIMARY_ENV_DSN = "EMPEROR" + "_EVAL_PG_DSN"
-LEGACY_ENV_DSN = "PG_SEARCH" + "_BENCH_DSN"
+PRIMARY_DSN_TOKEN = "EMPEROR" + "_EVAL_PG_DSN"
+LEGACY_DSN_TOKEN = "PG_SEARCH" + "_BENCH_DSN"
 REQUIRED_FLAGS = {
-    "live_apply_execution_pr_scaffold_only": True,
-    "schema_files_modified": False,
-    "schema_files_read_only": True,
-    "schema_files_byte_identical_required": True,
-    "production_schema_hashes_rendered": True,
+    "live_apply_execution_preflight_only": True,
     "live_apply_pr_approved": False,
     "live_apply_executed": False,
     "sql_executed": False,
     "production_db_connected": False,
     "production_dsn_read": False,
+    "dsn_required_in_this_pr": False,
     "production_seed_executed": False,
     "seed_apply_executed": False,
+    "schema_files_modified": False,
+    "schema_files_read_only": True,
+    "schema_files_byte_identical_required": True,
+    "production_schema_hashes_rendered": True,
     "operator_evidence_recorded": False,
     "human_signoffs_recorded": False,
     "ready_for_live_apply": False,
@@ -41,52 +49,61 @@ REQUIRED_FLAGS = {
     "future_live_apply_execution_pr_required": True,
     "future_seed_apply_pr_required": True,
 }
+OPTIONAL_FLAGS = {
+    "future_live_apply_execution_pr_can_be_next": True,
+}
 SUPPORTED_MODES = (
     "contract-report",
-    "execution-scaffold-report",
-    "render-execution-request-json",
-    "render-future-pr-body-template",
-    "render-operator-evidence-template-md",
-    "lint-execution-scaffold-report",
+    "preflight-report",
+    "render-preflight-json",
+    "render-operator-evidence-checklist-md",
+    "render-future-live-apply-pr-body-template",
+    "lint-preflight-report",
     "adr-check",
 )
 ALLOWED_OUTPUTS = (
     "stdout_json_report",
-    "in_memory_json",
-    "future_pr_body_template",
-    "operator_evidence_manifest_template",
-    "rollback_restore_placeholder",
-    "schema_metadata_fingerprints",
+    "stdout_markdown_template",
+    "metadata_only_schema_fingerprints",
+    "operator_evidence_checklist_placeholder",
+    "future_live_apply_pr_body_template",
+    "preflight_gate_report",
 )
 FORBIDDEN_ACTIONS = (
+    "approve_live_apply",
     "execute_sql",
     "connect_postgresql",
     "read_production_dsn",
-    "execute_production_seed",
     "execute_live_apply",
+    "execute_production_seed",
     "write_public_schema",
-    "emit_direct_db_command",
+    "emit_database_command",
+    "emit_apply_ready_script",
     "forge_human_signoff",
 )
 SOURCE_INPUTS = (
     "db/schema.sql",
     "db/postgres/001_init.sql",
-    "archive/docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
-    "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
     "archive/docs/adr/ADR-schema-changing-formal-schema-update.md",
+    "archive/docs/adr/ADR-production-schema-live-apply-entrypoint-guard.md",
+    "archive/docs/adr/ADR-production-schema-live-apply-execution-pr-scaffold.md",
+    "archive/docs/adr/ADR-production-schema-live-apply-execution-preflight.md",
 )
-FUTURE_COMMAND_CHECKLIST = (
-    "future execution command placeholder only",
-    "exact database command intentionally omitted",
-    "operator must review command in a separate future PR",
-    "future PR must attach independent approval evidence",
-    "future seed apply PR remains separate",
+PREFLIGHT_EVIDENCE_ITEMS = (
+    "schema source hash alignment reviewed",
+    "schema files byte-identical check reviewed",
+    "table-set consistency reviewed",
+    "anchors table presence reviewed",
+    "operator evidence placeholder reviewed",
+    "rollback and restore placeholder reviewed",
+    "future execution approval boundary reviewed",
+    "future seed apply boundary reviewed",
 )
-ROLLBACK_RESTORE_PLACEHOLDERS = (
+ROLLBACK_RESTORE_CHECKS = (
     "rollback owner placeholder: pending future execution PR",
     "restore source placeholder: pending future execution PR",
-    "backup verification placeholder: pending future execution PR",
-    "post-restore validation placeholder: pending future execution PR",
+    "backup evidence placeholder: pending future execution PR",
+    "post-restore verification placeholder: pending future execution PR",
 )
 LINT_RULES = (
     "schema_files_exist",
@@ -98,34 +115,38 @@ LINT_RULES = (
         for name, expected in REQUIRED_FLAGS.items()
     ),
     "schema_fingerprints_are_metadata_only",
-    "future_body_blocked_by_default",
-    "operator_template_has_no_recorded_approval",
-    "rollback_restore_placeholders_present",
-    "future_command_checklist_is_placeholder_only",
+    "operator_evidence_required_true",
+    "live_apply_command_included_false",
+    "future_pr_body_blocked_by_default",
+    "operator_checklist_has_placeholders_only",
+    "rollback_restore_checks_present",
     "no_connection_material",
     "no_execution_hints",
-    "no_seed_or_data_load",
+    "no_schema_or_seed_body",
     "no_completion_claim",
 )
 ADR_RULES = (
-    ("status_is_execution_pr_scaffold_only", SCAFFOLD_STATUS),
-    ("declares_pr281_chain", "PR #281 has entered the schema-changing file-update chain"),
-    ("declares_pr282_guard", "PR #282 added the production schema live-apply entrypoint guard"),
-    ("declares_scaffold_only", "live-apply execution PR scaffold only"),
-    ("declares_future_pr_body_template", "future PR body template"),
-    ("declares_operator_evidence_template", "operator evidence manifest template"),
-    ("declares_rollback_restore_placeholder", "rollback / restore placeholder"),
-    ("declares_schema_source_fingerprints", "schema source fingerprints"),
+    ("status_is_preflight_only", PREFLIGHT_STATUS),
+    ("declares_pr281_context", "#281 completed the formal schema file update"),
+    ("declares_pr282_context", "#282 added the live-apply entrypoint guard"),
+    ("declares_pr283_context", "#283 added the execution PR scaffold"),
+    ("declares_preflight_package", "non-executing preflight package"),
+    ("declares_contract_report", "contract report"),
+    ("declares_preflight_report", "preflight report"),
+    ("declares_preflight_json", "preflight JSON"),
+    ("declares_operator_checklist", "operator evidence checklist markdown"),
+    ("declares_future_pr_template", "future live apply PR body template"),
+    ("declares_lint_report", "lint report"),
+    ("declares_adr_check", "ADR check"),
     ("declares_no_sql_execution", "No SQL execution"),
     ("declares_no_db_connection", "No DB connection"),
     ("declares_no_dsn_access", "No DSN access"),
     ("declares_no_seed", "No production seed execution"),
     ("declares_no_live_apply", "No live apply execution"),
     ("declares_no_public_schema_write", "No public schema write"),
-    ("declares_no_signoff_forgery", "No sign-off forgery"),
-    ("declares_future_live_apply_pr", "Future live apply execution PR remains required"),
-    ("declares_future_seed_apply_pr", "Future seed apply PR remains required"),
-    ("declares_operator_boundary", "templates are not execution approval"),
+    ("declares_no_signoff_forgery", "No human sign-off forgery"),
+    ("declares_live_apply_gate_completed", "live apply execution gate has since been completed by #285"),
+    ("declares_epic1_target_importer_gate", "epic 1 target importer gate"),
     *[(f"declares_{name}", f"{name}={str(expected).lower()}") for name, expected in REQUIRED_FLAGS.items()],
 )
 ADR_BLOCKED_PHRASES = (
@@ -149,26 +170,23 @@ ADR_BLOCKED_PHRASES = (
         for name, expected in REQUIRED_FLAGS.items()
         if expected is False
     ),
-    "production migration completed",
-    "production migration complete",
-    "seed apply completed",
-    "seed apply complete",
     "live apply completed",
-    "live apply complete",
+    "seed apply completed",
+    "production migration completed",
 )
 
 
 def build_contract_report() -> dict[str, Any]:
     return {
         "mode": "contract-report",
-        "scaffold_version": SCAFFOLD_VERSION,
-        "status": SCAFFOLD_STATUS,
+        "preflight_version": PREFLIGHT_VERSION,
+        "status": PREFLIGHT_STATUS,
         "supported_modes": list(SUPPORTED_MODES),
         "required_flags": dict(REQUIRED_FLAGS),
+        "optional_flags": dict(OPTIONAL_FLAGS),
         "source_inputs": list(SOURCE_INPUTS),
         "allowed_outputs": list(ALLOWED_OUTPUTS),
         "forbidden_actions": list(FORBIDDEN_ACTIONS),
-        "validation_commands": validation_commands(),
         "future_required_prs": [
             "future live apply execution PR required",
             "future seed apply PR required",
@@ -176,26 +194,32 @@ def build_contract_report() -> dict[str, Any]:
     }
 
 
-def render_execution_request_json() -> dict[str, Any]:
+def render_preflight_json() -> dict[str, Any]:
     return {
-        "mode": "render-execution-request-json",
-        "pr_number": 283,
-        "title": "platform: add production schema live-apply execution PR scaffold",
-        "scope": "production_schema_live_apply_execution_pr_scaffold_only",
+        "mode": "render-preflight-json",
+        "pr_number": 284,
+        "title": "platform: add production schema live-apply execution preflight package",
+        "scope": "production_schema_live_apply_execution_preflight_only",
         "required_flags": dict(REQUIRED_FLAGS),
+        "optional_flags": dict(OPTIONAL_FLAGS),
         **REQUIRED_FLAGS,
+        **OPTIONAL_FLAGS,
         "schema_file_fingerprints": schema_file_fingerprints(),
         "schema_consistency": {
             "byte_identical": schema_files_byte_identical(),
             "table_sets_same": schema_table_sets_same(),
             "anchors_table_exists": anchors_table_exists(),
         },
-        "future_pr_body_template_sha256": sha256_text(render_future_pr_body_template()),
-        "operator_evidence_template_sha256": sha256_text(render_operator_evidence_template_md()),
-        "rollback_restore_placeholders": list(ROLLBACK_RESTORE_PLACEHOLDERS),
-        "future_execution_command_checklist": list(FUTURE_COMMAND_CHECKLIST),
+        "operator_evidence_required": True,
+        "live_apply_command_included": False,
+        "future_required_prs": [
+            "future live apply execution PR required",
+            "future seed apply PR required",
+        ],
+        "preflight_evidence_items": list(PREFLIGHT_EVIDENCE_ITEMS),
+        "rollback_restore_checks": list(ROLLBACK_RESTORE_CHECKS),
         "warnings": [
-            "execution PR scaffold only; this is not the live apply PR",
+            "preflight package only; this is not the live apply PR",
             "does not approve live apply",
             "does not execute SQL",
             "does not connect to PostgreSQL",
@@ -210,59 +234,88 @@ def render_execution_request_json() -> dict[str, Any]:
     }
 
 
-def build_execution_scaffold_report() -> dict[str, Any]:
-    request = render_execution_request_json()
-    lint = lint_execution_scaffold_report(request)
+def build_preflight_report() -> dict[str, Any]:
+    preflight = render_preflight_json()
+    lint = lint_preflight_report(preflight)
     failed = list(lint["failed"])
     return {
-        "mode": "execution-scaffold-report",
-        "scaffold_version": SCAFFOLD_VERSION,
-        "scaffold_status": SCAFFOLD_STATUS,
-        **{key: request[key] for key in REQUIRED_FLAGS},
-        "schema_file_fingerprints": list(request["schema_file_fingerprints"]),
-        "schema_consistency": dict(request["schema_consistency"]),
-        "future_pr_body_template_sha256": request["future_pr_body_template_sha256"],
-        "operator_evidence_template_sha256": request["operator_evidence_template_sha256"],
-        "rollback_restore_placeholders": list(request["rollback_restore_placeholders"]),
-        "future_execution_command_checklist": list(request["future_execution_command_checklist"]),
-        "execution_scaffold_lint_passed": bool(lint["passed"]),
-        "execution_scaffold_lint_failed": failed,
+        "mode": "preflight-report",
+        "preflight_version": PREFLIGHT_VERSION,
+        "preflight_status": PREFLIGHT_STATUS,
+        **{key: preflight[key] for key in REQUIRED_FLAGS},
+        **OPTIONAL_FLAGS,
+        "schema_file_fingerprints": list(preflight["schema_file_fingerprints"]),
+        "schema_consistency": dict(preflight["schema_consistency"]),
+        "operator_evidence_required": preflight["operator_evidence_required"],
+        "live_apply_command_included": preflight["live_apply_command_included"],
+        "future_required_prs": list(preflight["future_required_prs"]),
+        "preflight_evidence_items": list(preflight["preflight_evidence_items"]),
+        "rollback_restore_checks": list(preflight["rollback_restore_checks"]),
+        "preflight_lint_passed": bool(lint["passed"]),
+        "preflight_lint_failed": failed,
         "blocking_failures": failed,
         "gate_summary": {
             "passed": [rule["rule"] for rule in lint["checked_rules"] if rule["passed"]],
             "failed": failed,
         },
-        "warnings": list(request["warnings"]),
+        "warnings": list(preflight["warnings"]),
     }
 
 
-def render_future_pr_body_template() -> str:
-    fingerprints = schema_file_fingerprints()
+def render_operator_evidence_checklist_md() -> str:
+    lines = [
+        "# Production Schema Live-Apply Operator Evidence Checklist",
+        "",
+        "PREFLIGHT TEMPLATE ONLY. NO APPROVAL OR SIGN-OFF IS RECORDED HERE.",
+        "",
+        "- live apply approval: placeholder only; not recorded by this preflight.",
+        "- operator evidence: placeholder only; not recorded by this preflight.",
+        "- reviewer sign-off: placeholder only; not recorded by this preflight.",
+        "- rollback owner evidence: placeholder only; not recorded by this preflight.",
+        "- restore verification evidence: placeholder only; not recorded by this preflight.",
+        "- production seed evidence: outside this preflight.",
+        "- ready_for_live_apply: `false`.",
+        "- ready_for_production_migration: `false`.",
+        "",
+        "## Required Future Evidence",
+        "",
+        *[f"- {item}." for item in PREFLIGHT_EVIDENCE_ITEMS],
+        "",
+        "## Rollback / Restore Placeholders",
+        "",
+        *[f"- {item}." for item in ROLLBACK_RESTORE_CHECKS],
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def render_future_live_apply_pr_body_template() -> str:
     lines = [
         "# Future Production Schema Live-Apply Execution PR Template",
         "",
         "BLOCKED BY DEFAULT.",
         "",
-        "This PR is a production schema live-apply execution PR scaffold only.",
+        "This PR is a production schema live-apply execution preflight package only.",
         "It does not approve live apply.",
         "It does not execute SQL.",
         "It does not connect to PostgreSQL.",
         "It does not read DSN material.",
         "It does not execute production seed.",
         "It does not modify schema files.",
-        "`ready_for_live_apply=false`.",
-        "`ready_for_production_migration=false`.",
-        "Future live apply execution PR remains required.",
-        "Future seed apply PR remains required.",
+        "ready_for_live_apply=false.",
+        "ready_for_production_migration=false.",
+        "Live apply execution gate has since been completed by #285.",
+        "Epic 1 target importer gate remains required.",
         "",
         "## Required Flags",
         "",
         *[f"- `{name}={str(expected).lower()}`" for name, expected in REQUIRED_FLAGS.items()],
+        "- `future_live_apply_execution_pr_can_be_next=true`.",
         "",
         "## Schema Source Fingerprints",
         "",
     ]
-    for item in fingerprints:
+    for item in schema_file_fingerprints():
         lines.extend(
             [
                 f"- `{item['path']}`",
@@ -275,19 +328,9 @@ def render_future_pr_body_template() -> str:
     lines.extend(
         [
             "",
-            "## Operator Evidence Manifest Placeholder",
+            "## Minimum Future Evidence Requirements",
             "",
-            "- approval evidence: placeholder only; not recorded by this scaffold.",
-            "- human sign-offs: placeholder only; not recorded by this scaffold.",
-            "- execution evidence: placeholder only; not recorded by this scaffold.",
-            "",
-            "## Rollback / Restore Placeholder",
-            "",
-            *[f"- {item}." for item in ROLLBACK_RESTORE_PLACEHOLDERS],
-            "",
-            "## Future Execution Command Checklist",
-            "",
-            *[f"- {item}." for item in FUTURE_COMMAND_CHECKLIST],
+            *[f"- {item}." for item in PREFLIGHT_EVIDENCE_ITEMS],
             "",
             "## Governance Export Boundary",
             "",
@@ -299,38 +342,12 @@ def render_future_pr_body_template() -> str:
     return "\n".join(lines)
 
 
-def render_operator_evidence_template_md() -> str:
-    lines = [
-        "# Operator Evidence Manifest Template",
-        "",
-        "TEMPLATE ONLY. NO APPROVAL IS RECORDED HERE.",
-        "",
-        "- live apply approval: not recorded by this scaffold.",
-        "- execution operator: placeholder only.",
-        "- reviewer sign-off: placeholder only.",
-        "- rollback owner: placeholder only.",
-        "- restore evidence: placeholder only.",
-        "- production seed evidence: not recorded by this scaffold.",
-        "- ready_for_live_apply: `false`.",
-        "- ready_for_production_migration: `false`.",
-        "",
-        "## Future Evidence Slots",
-        "",
-        "- Future execution PR approval evidence slot.",
-        "- Future execution PR operator transcript slot.",
-        "- Future rollback / restore validation evidence slot.",
-        "- Future seed apply PR evidence slot.",
-        "",
-    ]
-    return "\n".join(lines)
-
-
-def lint_execution_scaffold_report(report: Mapping[str, Any] | None = None) -> dict[str, Any]:
+def lint_preflight_report(report: Mapping[str, Any] | None = None) -> dict[str, Any]:
     if report is None:
-        report = render_execution_request_json()
+        report = render_preflight_json()
     rendered = report_as_json(report).lower()
-    body_template = render_future_pr_body_template()
-    operator_template = render_operator_evidence_template_md()
+    body_template = render_future_live_apply_pr_body_template()
+    operator_checklist = render_operator_evidence_checklist_md()
     checks = {
         "schema_files_exist": all(path.exists() for path in SCHEMA_PATHS),
         "schema_files_byte_identical": schema_files_byte_identical(),
@@ -344,21 +361,21 @@ def lint_execution_scaffold_report(report: Mapping[str, Any] | None = None) -> d
         "schema_fingerprints_are_metadata_only": schema_fingerprints_are_metadata_only(
             report.get("schema_file_fingerprints", [])
         ),
-        "future_body_blocked_by_default": future_body_blocked_by_default(body_template),
-        "operator_template_has_no_recorded_approval": operator_template_has_no_recorded_approval(operator_template),
-        "rollback_restore_placeholders_present": set(report.get("rollback_restore_placeholders", []))
-        == set(ROLLBACK_RESTORE_PLACEHOLDERS),
-        "future_command_checklist_is_placeholder_only": set(report.get("future_execution_command_checklist", []))
-        == set(FUTURE_COMMAND_CHECKLIST),
+        "operator_evidence_required_true": report.get("operator_evidence_required") is True,
+        "live_apply_command_included_false": report.get("live_apply_command_included") is False,
+        "future_pr_body_blocked_by_default": future_pr_body_blocked_by_default(body_template),
+        "operator_checklist_has_placeholders_only": operator_checklist_has_placeholders_only(operator_checklist),
+        "rollback_restore_checks_present": set(report.get("rollback_restore_checks", []))
+        == set(ROLLBACK_RESTORE_CHECKS),
         "no_connection_material": not contains_connection_material(rendered),
         "no_execution_hints": not contains_execution_hints(rendered),
-        "no_seed_or_data_load": not contains_seed_or_data_load(rendered),
+        "no_schema_or_seed_body": not contains_schema_or_seed_body(rendered),
         "no_completion_claim": not contains_completion_claim(rendered),
     }
     checked_rules = [{"rule": rule, "passed": bool(checks[rule])} for rule in LINT_RULES]
     failed = [rule for rule in LINT_RULES if not checks[rule]]
     return {
-        "mode": "lint-execution-scaffold-report",
+        "mode": "lint-preflight-report",
         "passed": not failed,
         "failed": failed,
         "checked_rules": checked_rules,
@@ -380,11 +397,11 @@ def build_adr_check(adr_path: Path = ADR_PATH) -> dict[str, Any]:
     content = adr_path.read_text(encoding="utf-8")
     normalized = normalize_text(content)
     checked_rules = [
-        {"rule": "status_is_execution_pr_scaffold_only", "passed": status_value(content) == SCAFFOLD_STATUS},
+        {"rule": "status_is_preflight_only", "passed": status_value(content) == PREFLIGHT_STATUS},
         *[
             {"rule": rule, "passed": normalize_text(needle) in normalized}
             for rule, needle in ADR_RULES
-            if rule != "status_is_execution_pr_scaffold_only"
+            if rule != "status_is_preflight_only"
         ],
     ]
     blocked_phrases = [phrase for phrase in ADR_BLOCKED_PHRASES if phrase in normalized]
@@ -453,7 +470,7 @@ def schema_fingerprints_are_metadata_only(fingerprints: object) -> bool:
     return True
 
 
-def future_body_blocked_by_default(text: str) -> bool:
+def future_pr_body_blocked_by_default(text: str) -> bool:
     normalized = normalize_text(text)
     required = (
         "blocked by default",
@@ -463,19 +480,20 @@ def future_body_blocked_by_default(text: str) -> bool:
         "does not read dsn material",
         "ready_for_live_apply=false",
         "ready_for_production_migration=false",
-        "future live apply execution pr remains required",
-        "future seed apply pr remains required",
+        "live apply execution gate has since been completed by #285",
+        "epic 1 target importer gate remains required",
     )
     return all(needle in normalized for needle in required)
 
 
-def operator_template_has_no_recorded_approval(text: str) -> bool:
+def operator_checklist_has_placeholders_only(text: str) -> bool:
     normalized = normalize_text(text)
     return (
-        "template only" in normalized
-        and "no approval is recorded here" in normalized
+        "preflight template only" in normalized
+        and "no approval or sign-off is recorded here" in normalized
         and "placeholder only" in normalized
         and "ready_for_live_apply: `false`" in normalized
+        and "ready_for_production_migration: `false`" in normalized
     )
 
 
@@ -485,8 +503,8 @@ def contains_connection_material(text: str) -> bool:
         "postgresql://",
         "password=",
         "connection string",
-        PRIMARY_ENV_DSN.lower(),
-        LEGACY_ENV_DSN.lower(),
+        PRIMARY_DSN_TOKEN.lower(),
+        LEGACY_DSN_TOKEN.lower(),
     )
     return any(token in text for token in tokens)
 
@@ -496,25 +514,28 @@ def contains_execution_hints(text: str) -> bool:
         SQL_CLIENT,
         SHELL_PROCESS_TOKEN,
         "shell out",
-        "apply-ready command",
-        "apply ready command",
-        "direct db command",
+        "apply-ready",
+        "direct database command",
+        "live apply command",
     )
     return any(token in text for token in tokens)
 
 
-def contains_seed_or_data_load(text: str) -> bool:
-    return bool(re.search(r"\b(insert\s+into|copy\s+\w+\s+from|load\s+data)\b", text, flags=re.IGNORECASE))
+def contains_schema_or_seed_body(text: str) -> bool:
+    return bool(
+        re.search(
+            r"\b(create\s+table|alter\s+table|insert\s+into|copy\s+\w+\s+from|load\s+data)\b",
+            text,
+            flags=re.IGNORECASE,
+        )
+    )
 
 
 def contains_completion_claim(text: str) -> bool:
     tokens = (
-        "production migration completed",
-        "production migration complete",
-        "seed apply completed",
-        "seed apply complete",
         "live apply completed",
-        "live apply complete",
+        "seed apply completed",
+        "production migration completed",
     )
     return any(token in text for token in tokens)
 
@@ -537,10 +558,6 @@ def normalize_text(text: str) -> str:
     return " ".join(text.lower().split())
 
 
-def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
 def relative_path(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
@@ -549,55 +566,42 @@ def report_as_json(report: Mapping[str, Any]) -> str:
     return json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True)
 
 
-def validation_commands() -> list[str]:
-    return [
-        "python -m pytest tests/test_production_schema_live_apply_execution_pr_scaffold.py",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --contract-report",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --execution-scaffold-report",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --render-execution-request-json",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --render-future-pr-body-template",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --render-operator-evidence-template-md",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --lint-execution-scaffold-report",
-        "python scripts/platform/production_schema_live_apply_execution_pr_scaffold.py --adr-check",
-    ]
-
-
 def main(argv: Sequence[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stderr.reconfigure(encoding="utf-8")
 
-    parser = argparse.ArgumentParser(description="Render production schema live-apply execution PR scaffold reports.")
+    parser = argparse.ArgumentParser(description="Render production schema live-apply execution preflight reports.")
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--contract-report", action="store_true")
-    mode.add_argument("--execution-scaffold-report", action="store_true")
-    mode.add_argument("--render-execution-request-json", action="store_true")
-    mode.add_argument("--render-future-pr-body-template", action="store_true")
-    mode.add_argument("--render-operator-evidence-template-md", action="store_true")
-    mode.add_argument("--lint-execution-scaffold-report", action="store_true")
+    mode.add_argument("--preflight-report", action="store_true")
+    mode.add_argument("--render-preflight-json", action="store_true")
+    mode.add_argument("--render-operator-evidence-checklist-md", action="store_true")
+    mode.add_argument("--render-future-live-apply-pr-body-template", action="store_true")
+    mode.add_argument("--lint-preflight-report", action="store_true")
     mode.add_argument("--adr-check", action="store_true")
     args = parser.parse_args(argv)
 
-    if args.render_future_pr_body_template:
-        sys.stdout.write(render_future_pr_body_template())
+    if args.render_operator_evidence_checklist_md:
+        sys.stdout.write(render_operator_evidence_checklist_md())
         return 0
-    if args.render_operator_evidence_template_md:
-        sys.stdout.write(render_operator_evidence_template_md())
+    if args.render_future_live_apply_pr_body_template:
+        sys.stdout.write(render_future_live_apply_pr_body_template())
         return 0
     if args.contract_report:
         report = build_contract_report()
-    elif args.execution_scaffold_report:
-        report = build_execution_scaffold_report()
-    elif args.render_execution_request_json:
-        report = render_execution_request_json()
-    elif args.lint_execution_scaffold_report:
-        report = lint_execution_scaffold_report()
+    elif args.preflight_report:
+        report = build_preflight_report()
+    elif args.render_preflight_json:
+        report = render_preflight_json()
+    elif args.lint_preflight_report:
+        report = lint_preflight_report()
     else:
         report = build_adr_check()
 
     sys.stdout.write(report_as_json(report))
     sys.stdout.write("\n")
-    if report.get("mode") in {"execution-scaffold-report", "lint-execution-scaffold-report", "adr-check"} and (
+    if report.get("mode") in {"preflight-report", "lint-preflight-report", "adr-check"} and (
         report.get("blocking_failures") or report.get("failed")
     ):
         return 1

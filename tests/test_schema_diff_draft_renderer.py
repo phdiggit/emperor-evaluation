@@ -412,7 +412,7 @@ def test_blocked_term_in_adr_fails_check(tmp_path: Path) -> None:
 
 
 def test_source_inspection_forbids_unsafe_terms() -> None:
-    source = (ROOT / "scripts" / "platform" / "schema_diff_draft_renderer.py").read_text(encoding="utf-8")
+    source = (Path(renderer.__file__)).read_text(encoding="utf-8")
 
     assert "PG_SEARCH_BENCH_DSN" not in source
     assert "EMPEROR_EVAL_PG_DSN" not in source

@@ -343,7 +343,18 @@ python scripts/platform/post_g10_followup_gates_readiness.py --gates-report
 python scripts/platform/post_g10_followup_gates_readiness.py --gates-md
 ```
 
-该包在 #340 merge 后固化 `post_g10_ready_for_followup_gates_ready`：记录 #340 handoff merge commit，列出 8 个后续 gate，并将每个 gate 保持为 `requires_separate_ready_review`。当前包不批准、不执行 per-subitem G9 发布、leaderboard、阶段/最终总表、G10 destructive cleanup、source/passages 合并策略、evidence/cluster/anchor/relationship 写入或 Epic2 / Epic3 entry；下一步必须选择单个 follow-up gate 并开 separate ready review。
+该包在 #340 merge 后固化 `post_g10_ready_for_followup_gates_ready`：记录 #340 handoff merge commit，列出 8 个后续 gate，并将每个 gate 保持为 `requires_separate_ready_review`。当前包不批准、不执行 per-subitem G9 发布、leaderboard、阶段/最终总表、G10 destructive cleanup、source/passages 合并策略、evidence/cluster/anchor/relationship 写入或 Epic2 / Epic3 entry；#345 之后先进入 #346 script lifecycle finalization，#346 ready review / merge 后再选择单个 non-script follow-up gate。
+
+Post-G10-S1 script lifecycle finalization package 使用：
+
+```bash
+python scripts/platform/post_g10_script_lifecycle_finalization.py --finalization-report
+python scripts/platform/post_g10_script_lifecycle_finalization.py --finalization-md
+```
+
+该包在 #345 之后继续推进 #346，不再停在 readiness / report / handoff：`scripts_registry.json` 中剩余 24 个 `audit_only` / `superseded` / `transitional` platform script asset 已实际推进为 `retired`，并与 #341 已 retired-in-place 的 6 个低风险项合并为 30 个 non-active script asset 的最终 lifecycle manifest。每个影响项都记录最终决策、replacement、sunset / last required by 字段和 restore instruction；其中 13 个超过 500 行的大型 retired 脚本已移动到 documented retired location `scripts/platform/_retired/post_g10_s1`，其余 17 个 retained in place。返修阶段还对 4 个 active 大脚本 `g3_postgres_business_write_execution.py`、`g4_write_source_cutover_execution.py`、`g5_runtime_execution.py`、`g6_formal_evidence_execution.py` 做 helper 抽取，让 plan hash 与连接密钥脱敏复用 `scripts/platform/core/fingerprints.py` / `scripts/platform/core/redaction.py`，active 大脚本行数从 `2647` 降到 `2624`。该移动与抽取只处理 script assets，不删除、不归档，也不触碰 `data/`、`archive/data/` 或 `exports/`。
+
+当前 #346 状态为 `post_g10_s1_script_lifecycle_finalization_ready`：updated registry entries 为 `24`，finalized non-active manifest item 为 `30`，documented retired location 移动数为 `13`，retained-in-place 数为 `17`，active platform root 中 retired script file 从 `30` 降到 `17`，active root line reduction 为 `8132`；active helper extraction 已完成，active 大脚本 refactor 数为 `4`，active large-script line reduction 为 `23`，plan hash helper consolidation 为 `4`，secret redaction helper consolidation 为 `4`。`transitional_scripts_without_sunset = 0`，`retired_scripts_in_default_validate_or_public_cli = 0`，`duplicate_capability_groups_without_reason = 0`，remaining script governance debt 为 `0`。旧 report-only count 断言已由 outcome-level coverage 替换，`validate_script_lifecycle_registry.py` 与 `validate_all.py` 继续阻断无 sunset transitional、retired public/default route 和无理由 duplicate capability group。该阶段只处理 script assets，不碰高风险根目录，不切 runtime，不迁移生产数据，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard，也不进入 Epic2 / Epic3。
 
 ## JSONL staging mapper prototype
 

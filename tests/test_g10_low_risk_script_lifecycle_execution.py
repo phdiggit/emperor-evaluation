@@ -156,7 +156,7 @@ def test_cli_modes_emit_expected_outputs(capsys) -> None:
     assert lifecycle.main(["--lifecycle-md"]) == 0
     markdown = capsys.readouterr().out
     assert "Restore Instructions" in markdown
-    assert "scripts/platform/schema_diff_draft_renderer.py" in markdown
+    assert "scripts/platform/_retired/post_g10_s1/schema_diff_draft_renderer.py" in markdown
 
 
 def test_source_does_not_import_runtime_or_secret_clients() -> None:

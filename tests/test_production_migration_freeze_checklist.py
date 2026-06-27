@@ -526,7 +526,7 @@ def test_source_reports_and_output_have_no_blocked_report_terms() -> None:
 
 
 def test_source_inspection_forbidden_terms_are_absent() -> None:
-    source = (ROOT / "scripts" / "platform" / "production_migration_freeze_checklist.py").read_text(encoding="utf-8")
+    source = (Path(freeze.__file__)).read_text(encoding="utf-8")
 
     for forbidden in [
         "PG_SEARCH_BENCH_DSN",

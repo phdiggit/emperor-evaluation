@@ -193,7 +193,7 @@ def test_cli_safe_modes_output_expected_modes() -> None:
 
 
 def test_source_does_not_print_or_return_dsn_raw() -> None:
-    source = (ROOT / "scripts" / "platform" / "production_schema_live_apply_execution.py").read_text(
+    source = (Path(live.__file__)).read_text(
         encoding="utf-8"
     )
     assert "print(dsn" not in source

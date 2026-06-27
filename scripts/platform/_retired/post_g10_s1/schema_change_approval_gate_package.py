@@ -8,7 +8,14 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 
-ROOT = Path(__file__).resolve().parents[2]
+def _repo_root() -> Path:
+    for path in Path(__file__).resolve().parents:
+        if (path / "db" / "schema.sql").is_file() and (path / "scripts" / "platform").is_dir():
+            return path
+    raise RuntimeError("could not locate repository root")
+
+
+ROOT = _repo_root()
 ADR_PATH = ROOT / "archive" / "docs" / "adr" / "ADR-schema-change-approval-gate-package.md"
 PACKAGE_VERSION = "schema-change-approval-gate-package-v1"
 PACKAGE_STATUS = "Proposed / Approval gate package only"

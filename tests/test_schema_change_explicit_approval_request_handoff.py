@@ -284,7 +284,7 @@ def test_adr_check_fails_if_approval_or_ready_claim_is_injected(tmp_path: Path) 
 
 
 def test_source_inspection_forbidden_terms_are_absent() -> None:
-    source = (ROOT / "scripts" / "platform" / "schema_change_explicit_approval_request_handoff.py").read_text(
+    source = (Path(handoff.__file__)).read_text(
         encoding="utf-8"
     )
 

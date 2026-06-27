@@ -238,7 +238,7 @@ def test_adr_check_fails_if_approval_or_ready_claim_is_injected(tmp_path: Path) 
 
 
 def test_source_inspection_forbidden_terms_are_absent() -> None:
-    source = (ROOT / "scripts" / "platform" / "schema_change_candidate_review_bundle.py").read_text(encoding="utf-8")
+    source = (Path(bundle.__file__)).read_text(encoding="utf-8")
 
     for forbidden in FORBIDDEN_SOURCE_TOKENS:
         assert forbidden not in source

@@ -71,15 +71,15 @@ def test_registry_analysis_covers_lifecycle_default_routes_and_duplicate_reasons
     assert analysis["default_validate_retired_script_references"] == []
     assert analysis["retired_public_cli_modules"] == []
     assert analysis["retired_scripts_in_default_validate_or_public_cli"] == 0
-    assert analysis["platform_lifecycle_status_counts"]["transitional"] == 4
-    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) >= 6
+    assert set(analysis["platform_lifecycle_status_counts"]) == {"active", "retired"}
+    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) >= 30
     assert {
         "scripts/platform/anchors_schema_proposal.py",
         "scripts/platform/formal_ddl_live_rehearsal.py",
         "scripts/platform/formal_ddl_rehearsal.py",
         "scripts/platform/formal_schema_draft.py",
         "scripts/platform/schema_changing_formal_schema_update.py",
-        "scripts/platform/schema_diff_draft_renderer.py",
+        "scripts/platform/_retired/post_g10_s1/schema_diff_draft_renderer.py",
     } <= set(analysis["retired_platform_modules"])
     assert analysis["public_cli_stable_count"] > 0
 
@@ -94,6 +94,9 @@ def test_registry_analysis_covers_lifecycle_default_routes_and_duplicate_reasons
     assert all(item["retain_or_consolidation_reason"] for item in reviews.values())
     assert reviews["gate_approval_preflight"]["module_count"] > 1
     assert reviews["schema_migration_seed_scaffolds"]["decision"] == "retain_with_reason"
+    assert "moved to a documented retired location after #347 review" in reviews["schema_migration_seed_scaffolds"][
+        "retain_or_consolidation_reason"
+    ]
     assert reviews["redaction_fingerprint_helpers"]["decision"] == "already_consolidated"
 
 
