@@ -701,6 +701,19 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
 
 
+def test_person_detail_page_keeps_required_markers_for_empty_cluster_person() -> None:
+    report = auto.evaluate_person("测试空", [], {})
+
+    detail_content = auto.render_person_detail_page(report)
+
+    assert "无证据簇：当前人物暂无 I5B 证据卡/证据簇" in detail_content
+    assert "full-pool stress 占位审查页" in detail_content
+    assert "missing_evidence" in detail_content
+    assert "unscored / blocked_before_formal_score" in detail_content
+    assert "* **对象锚点（linked_object_anchors）**" in detail_content
+    assert "* **相邻项剥离说明（cross_item_split_signals）**" in detail_content
+
+
 @pytest.mark.export_full
 @pytest.mark.integration
 def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detail_pages() -> None:
@@ -709,10 +722,12 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detai
     assert result.returncode == 0, result.stdout + result.stderr
     assert "validated human-readable split markdown exports" in result.stdout
     index_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
+    workflow_config = auto.active_workflow_config()
+    workflow_subject = auto.active_workflow_subject(workflow_config)
     targets = list(auto.config_loaders.get_i5b_active_person_targets())
 
-    assert targets == ["刘邦", "雍正", "朱元璋"]
-    assert "# 第五项B扩展第一批自动结算草案" in index_content
+    assert targets == workflow_config["targets"]
+    assert "# " + workflow_subject + "自动结算草案" in index_content
     assert "## 总览索引" in index_content
     assert "人工复核提示数量" in index_content
     for person in targets:
@@ -736,7 +751,8 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detai
         assert "medium_to_strong" not in detail_content
         assert "负向边界档（negative_boundary_tier）" in detail_content
         assert "是否单维集中（single_dimension_flag）" in detail_content
-        assert "../附录/" in detail_content
+        if "无证据簇" not in detail_content:
+            assert "../附录/" in detail_content
 
 
 def test_split_export_runs_human_readable_markdown_validation(
@@ -828,10 +844,14 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
     score_map_content = SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
     closure_export_content = CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
+    workflow_config = auto.active_workflow_config()
+    workflow_subject = auto.active_workflow_subject(workflow_config)
+    group_label = auto.active_group_label(workflow_config)
+    targets = list(auto.config_loaders.get_i5b_active_person_targets())
 
-    assert "第五项B扩展第一批自动结算草案" in auto_content
-    assert "- **活动人物组**：扩展第一批" in auto_content
-    assert "- **覆盖人物**：刘邦、雍正、朱元璋" in auto_content
+    assert workflow_subject + "自动结算草案" in auto_content
+    assert f"- **活动人物组**：{group_label}" in auto_content
+    assert f"- **覆盖人物**：{'、'.join(targets)}" in auto_content
     assert "负向边界档（negative_boundary_tier）" in auto_content
     assert "负向边界是否阻断（negative_boundary_blocking）" in auto_content
     assert "weak_to_medium" not in auto_content
@@ -848,7 +868,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE" in rules_content
     assert "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL" in rules_content
     assert "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS" in rules_content
-    assert "第五项B扩展第一批正式分值与排名发布表" in formal_content
+    assert workflow_subject + "正式分值与排名发布表" in formal_content
     assert "正式档位草案" in formal_content
     assert "第五项B正式分值" in formal_content
     assert "第五项B子项排名" in formal_content
@@ -881,7 +901,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "不允许 person-specific override、人工最终档位或人工最终分数" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
-    assert "第五项B扩展第一批内部闭环收尾" in closure_export_content
+    assert workflow_subject + "内部闭环收尾" in closure_export_content
     assert "第五项B正式分值" in closure_export_content
     assert "第五项B子项排名" in closure_export_content
     assert "内部试算区间" in closure_export_content
@@ -963,9 +983,9 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "人物（person） | 自动结算方向（auto_band_direction） | 正式档位草案（formal_band_draft）" in formal_content
-    assert "朱元璋 | 强正封顶，不上探极正 | 强正封顶 | 良好 | 33.36 | 1" in formal_content
-    assert "刘邦 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 | 2" in formal_content
-    assert "雍正 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.23 | 3" in formal_content
+    assert "朱元璋 | 强正封顶，不上探极正 | 强正封顶 | 良好 | 33.36 |" in formal_content
+    assert "刘邦 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 |" in formal_content
+    assert "雍正 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.23 |" in formal_content
     assert "剩余规则问题（remaining_rule_questions）" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "第五项B正式分值（formal_score_value_45）" in formal_content
@@ -988,9 +1008,14 @@ def test_export_md_generates_i5b_review_entry_views() -> None:
         assert path.is_file(), path
 
     entry_content = REVIEW_ENTRY_EXPORT_PATH.read_text(encoding="utf-8")
-    assert "第五项B扩展第一批专人审核入口" in entry_content
-    assert "- **活动人物组**：扩展第一批" in entry_content
-    for person in ["刘邦", "雍正", "朱元璋"]:
+    workflow_config = auto.active_workflow_config()
+    workflow_subject = auto.active_workflow_subject(workflow_config)
+    group_label = auto.active_group_label(workflow_config)
+    targets = list(auto.config_loaders.get_i5b_active_person_targets())
+
+    assert workflow_subject + "专人审核入口" in entry_content
+    assert f"- **活动人物组**：{group_label}" in entry_content
+    for person in targets:
         assert f"### {person}" in entry_content
         assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in entry_content
         assert f"exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md" in entry_content

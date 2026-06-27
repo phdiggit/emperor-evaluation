@@ -15,20 +15,18 @@ def test_project_config_loader_reads_repo_config() -> None:
 
     assert config["version"] == 2
     assert config["active_subitem"] == "第五项B"
-    assert config["default_person_group"] == "expanded_batch1"
+    assert config["default_person_group"] == "typical"
     assert "person_groups" in config
     assert "outputs" in config
     assert "net_evidence" not in config["person_groups"]
     assert "candidate_pool" not in config
     assert "review_warning_rules" not in config
-    assert config_loaders.get_i5b_active_person_targets() == ["刘邦", "雍正", "朱元璋"]
+    assert config_loaders.get_i5b_active_person_targets() == config["person_groups"]["typical"]["persons"]
     assert config_loaders.get_i5b_trial_targets() == ["李世民", "刘秀", "刘庄"]
     assert config_loaders.get_i5b_expanded_batch1_targets() == ["刘邦", "雍正", "朱元璋"]
-    assert [person for person, _path in config_loaders.get_i5b_net_evidence_targets()] == [
-        "刘邦",
-        "雍正",
-        "朱元璋",
-    ]
+    assert [person for person, _path in config_loaders.get_i5b_net_evidence_targets()] == config["person_groups"][
+        "typical"
+    ]["persons"]
     assert [row["person"] for row in config_loaders.get_i5b_expanded_candidate_pool_rows()] == [
         "刘邦",
         "雍正",
