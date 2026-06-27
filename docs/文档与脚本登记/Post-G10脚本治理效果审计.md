@@ -1,5 +1,7 @@
 # Post-G10 Script Governance Effect Audit (#348)
 
+> 历史审计快照：本文记录 #348 / #347 阶段的脚本治理效果。#354 合并后，`scripts/platform/`、`scripts/platform/_retired/` 和 `scripts/source_ingest/` 均为 0 个 tracked 文件；本文中的脚本路径和 helper consolidation 建议只保留为历史审计背景，不再代表当前可运行入口或后续任务方向。
+
 本审计按 #348 的 5A 原口径重新统计脚本治理效果。口径是 tracked files，而不是 PR 自报指标；`scripts/platform/_retired/` 作为 retained audit footprint 单独列出，不计为代码消失。
 
 ## Measurement Scope

@@ -1,7 +1,7 @@
 -- Optional PostgreSQL search benchmark contract.
 --
--- The executable fixture-specific SQL is rendered by:
---   python scripts/source_ingest/postgres_search_benchmark.py --sql-only
+-- The source_ingest benchmark runner was removed by #354. This SQL remains as
+-- a historical/reference search-shape contract only.
 --
 -- This file is intentionally isolated from 001_init.sql. It uses temporary
 -- objects only and is not a migration, production schema change, worker hook,
