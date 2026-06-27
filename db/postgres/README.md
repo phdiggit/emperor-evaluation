@@ -280,7 +280,7 @@ python scripts/platform/g10_cleanup_inventory_plan.py --inventory-report
 python scripts/platform/g10_cleanup_inventory_plan.py --inventory-md
 ```
 
-该包只为 #331 锁定 G10 前清单：覆盖 scripts、docs、archives、generated exports、registry entries 与 tests 的候选资产分类，并给 retire / archive / delete 候选写明 replacement mapping 和 restore plan。当前包不读取 `.env`、不连接数据库或网络、不读取 canonical JSONL / batch payload / generated exports 内容，不移动、不删除、不归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续执行顺序为 #332 字典最终收口、#333 历史资产退役、#334 脚本资产风险治理、#335 G10 验收与路线同步。
+该包只为 #331 锁定 G10 前清单：覆盖 scripts、docs、archives、generated exports、registry entries 与 tests 的候选资产分类，并给 retire / archive / delete 候选写明 replacement mapping 和 restore plan。当前包不读取 `.env`、不连接数据库或网络、不读取 canonical JSONL / batch payload / generated exports 内容，不移动、不删除、不归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续执行顺序为 #332 字典最终收口、#333 历史资产退役、#334 脚本资产风险治理、#341 低风险脚本 lifecycle 实执行、#342 脚本治理规则固化、#335 G10 验收与路线同步。
 
 G10-1 I5B rule/display dictionary final cleanup package 使用：
 
@@ -307,7 +307,25 @@ python scripts/platform/g10_script_asset_risk_governance.py --script-delta-repor
 python scripts/platform/g10_script_asset_risk_governance.py --script-delta-md
 ```
 
-该包完成 #334 的 Script Delta：只读核对 `scripts_registry.json` 的 platform lifecycle，确认 `transitional_scripts_without_sunset = 0`、`retired_scripts_in_default_validate_or_public_cli = 0`，并为 gate / report / redaction / fingerprint / evidence / mapping / resolver / schema / migration / seed 等重复能力族给出保留或收束理由。新增测试用坏 registry fixture 证明无 sunset transitional 与 retired default route 会被抓出，避免只做 report 文本镜像。当前包不改普通业务行为，不连接数据库或网络，不移动、删除或归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #335 G10 completion verification and roadmap handoff。
+该包完成 #334 的 Script Delta：只读核对 `scripts_registry.json` 的 platform lifecycle，确认 `transitional_scripts_without_sunset = 0`、`retired_scripts_in_default_validate_or_public_cli = 0`，并为 gate / report / redaction / fingerprint / evidence / mapping / resolver / schema / migration / seed 等重复能力族给出保留或收束理由。新增测试用坏 registry fixture 证明无 sunset transitional 与 retired default route 会被抓出，避免只做 report 文本镜像。当前包不改普通业务行为，不连接数据库或网络，不移动、删除或归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续已拆分为 #341 低风险脚本 lifecycle 实执行、#342 registry lifecycle guard，再回 #335 G10 completion verification and roadmap handoff。
+
+G10-2b low-risk script lifecycle execution package 使用：
+
+```bash
+python scripts/platform/g10_low_risk_script_lifecycle_execution.py --lifecycle-report
+python scripts/platform/g10_low_risk_script_lifecycle_execution.py --lifecycle-md
+```
+
+该包完成 #341 的低风险 lifecycle 实执行：`anchors_schema_proposal.py`、`formal_ddl_live_rehearsal.py`、`formal_ddl_rehearsal.py`、`formal_schema_draft.py`、`schema_changing_formal_schema_update.py`、`schema_diff_draft_renderer.py` 在 `scripts_registry.json` 中由 `audit_only` 推进为 `retired`，replacement 均指向 `scripts/platform/platform_chain_checkpoint.py`，并为每个影响项记录 restore instruction。当前实际移动、删除、归档路径数仍为 `0`，不触碰 `data/`、`archive/data/` 或 `exports/`，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #342 脚本治理规则固化，再回 #335 / #340 修订最终 handoff。
+
+G10-3b script governance enforcement 使用：
+
+```bash
+python scripts/validate/validate_script_lifecycle_registry.py
+python scripts/validate/validate_script_lifecycle_registry.py --guard-report
+```
+
+该 guard 完成 #342 的长期仓库检查：`validate_all.py` 会强制执行 registry lifecycle guard，确认 transitional script 必须有 `sunset_milestone`，retired script 不得进入默认 validate route 或 public CLI，duplicate capability group 若存在多个成员必须有保留理由或治理计划。坏 lifecycle fixture、retired default/public route fixture 和缺少理由的 duplicate fixture 都由 outcome-level tests 锁定。当前 guard 不读取 `.env`，不连接数据库或网络，不读取 batch payload 或 generated export 正文，不触碰 `data/`、`archive/data/` 或 `exports/`，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续回 #335 / #340 修订最终 handoff。
 
 G10-4 completion verification and roadmap handoff package 使用：
 
@@ -316,7 +334,7 @@ python scripts/platform/g10_completion_verification_handoff.py --completion-repo
 python scripts/platform/g10_completion_verification_handoff.py --completion-md
 ```
 
-该包完成 #335 的 G10 收尾验收：汇总 #332 / #333 / #334 结果，记录 #336—#339 均已 merge，确认 handoff 前 open ready PR count 为 `0`、registry dangling references 为 `0`、G10 report complete，并列出 focused tests、`validate_all`、governance checks 和 full pytest 的验证矩阵。当前包只做状态验收和路线交接，不新增退役范围，不移动、删除或归档文件，不连接数据库或网络，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 post-G10 follow-up gates；任何 deferred destructive cleanup 仍必须单独 gate。
+该包完成 #335 的 G10 收尾验收：汇总 #332 / #333 / #334 / #341 / #342 结果，记录 #336—#339、#343、#344 均已 merge，确认除当前 handoff PR 外 open ready PR count 为 `0`、registry dangling references 为 `0`、G10 report complete、低风险 lifecycle 实执行完成且 registry lifecycle guard 已接入 `validate_all`，并列出 focused tests、`validate_all`、governance checks 和 full pytest 的验证矩阵。当前包只做状态验收和路线交接，不新增退役范围，不移动、删除或归档文件，不连接数据库或网络，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 post-G10 follow-up gates；任何 deferred destructive cleanup 仍必须单独 gate。
 
 ## JSONL staging mapper prototype
 

@@ -13,7 +13,9 @@ if str(ROOT) not in sys.path:
 
 from scripts.platform import g10_i5b_dictionary_final_cleanup as dictionary_cleanup  # noqa: E402
 from scripts.platform import g10_historical_asset_retirement as asset_retirement  # noqa: E402
+from scripts.platform import g10_low_risk_script_lifecycle_execution as low_risk_lifecycle  # noqa: E402
 from scripts.platform import g10_script_asset_risk_governance as script_governance  # noqa: E402
+from scripts.validate import validate_script_lifecycle_registry as lifecycle_guard  # noqa: E402
 
 
 PACKAGE_VERSION = "g10-completion-verification-handoff-v1"
@@ -21,10 +23,11 @@ ROADMAP_ISSUE = 287
 EPIC_ISSUE = 312
 PLAN_ISSUE = 331
 COMPLETION_ISSUE = 335
-PREREQUISITE_PR = 339
-PREREQUISITE_MERGE_COMMIT = "83c2438e31842f08ed19a1a1b00e965ce1fa9451"
+PREREQUISITE_PR = 344
+PREREQUISITE_MERGE_COMMIT = "b65618797c6f31bf83dd6723ca301e9bb27f8117"
+CURRENT_HANDOFF_PR = 340
 SUPPORTED_MODES = ("completion-report", "completion-md")
-PRE_HANDOFF_OPEN_READY_PR_COUNT = 0
+OPEN_READY_PRS_EXCLUDING_CURRENT_HANDOFF = 0
 PACKAGE_CHANGED_PATHS = (
     "db/postgres/README.md",
     "docs/数据结构与生成库/史源数据平台迁移决策.md",
@@ -60,16 +63,35 @@ MERGED_G10_PRS: tuple[dict[str, Any], ...] = (
     {
         "issue": 334,
         "pr": 339,
-        "merge_commit": PREREQUISITE_MERGE_COMMIT,
+        "merge_commit": "83c2438e31842f08ed19a1a1b00e965ce1fa9451",
         "package": "g10-script-asset-risk-governance-v1",
         "result": "script_asset_risk_governance_ready",
+    },
+    {
+        "issue": 341,
+        "pr": 343,
+        "merge_commit": "25d10100c88f83e0f06a8cf98203ac1e4c511858",
+        "package": "g10-low-risk-script-lifecycle-execution-v1",
+        "result": "low_risk_script_lifecycle_execution_ready",
+    },
+    {
+        "issue": 342,
+        "pr": 344,
+        "merge_commit": PREREQUISITE_MERGE_COMMIT,
+        "package": "g10-script-governance-enforcement-v1",
+        "result": "script_governance_enforcement_ready",
     },
 )
 
 VALIDATION_MATRIX: tuple[dict[str, str], ...] = (
     {
         "name": "focused_g10_completion_tests",
-        "command": "python -m pytest tests/test_g10_completion_verification_handoff.py tests/test_g10_script_asset_risk_governance.py tests/test_g10_historical_asset_retirement.py tests/test_g10_cleanup_inventory_plan.py tests/test_platform_chain_checkpoint.py tests/test_platform_script_lifecycle_registry.py -q",
+        "command": "python -m pytest tests/test_g10_completion_verification_handoff.py tests/test_g10_low_risk_script_lifecycle_execution.py tests/test_validate_script_lifecycle_registry.py tests/test_g10_script_asset_risk_governance.py tests/test_g10_historical_asset_retirement.py tests/test_g10_cleanup_inventory_plan.py tests/test_platform_chain_checkpoint.py tests/test_platform_script_lifecycle_registry.py -q",
+        "status": "expected_to_pass_before_pr",
+    },
+    {
+        "name": "script_lifecycle_registry_guard",
+        "command": "python scripts/validate/validate_script_lifecycle_registry.py",
         "status": "expected_to_pass_before_pr",
     },
     {
@@ -110,7 +132,7 @@ VALIDATION_MATRIX: tuple[dict[str, str], ...] = (
 )
 
 NEXT_GATES = (
-    "post_g10_epic5_followup_gates",
+    "post_g10_ready_for_followup_gates",
     "epic5_per_subitem_g9_publication_gate",
     "epic5_cross_subitem_leaderboard_publication_gate",
     "epic5_stage_or_final_total_table_publication_gate",
@@ -192,6 +214,8 @@ def _g10_result_summary() -> dict[str, Any]:
     cleanup_report = dictionary_cleanup.build_cleanup_report()
     retirement_report = asset_retirement.build_retirement_report()
     script_delta_report = script_governance.build_script_delta_report()
+    low_risk_report = low_risk_lifecycle.build_lifecycle_report()
+    guard_report = lifecycle_guard.build_guard_report()
     return {
         "issue_332_dictionary_cleanup": {
             "package_version": cleanup_report["package_version"],
@@ -239,6 +263,42 @@ def _g10_result_summary() -> dict[str, Any]:
                 "outcome_verification_tests_added"
             ],
         },
+        "issue_341_low_risk_script_lifecycle_execution": {
+            "package_version": low_risk_report["package_version"],
+            "ready": low_risk_report["current_state"]["g10_2b_low_risk_script_lifecycle_execution_ready"],
+            "lifecycle_update_count": low_risk_report["current_state"][
+                "g10_low_risk_lifecycle_update_count"
+            ],
+            "updated_registry_entries": low_risk_report["current_state"][
+                "g10_low_risk_updated_registry_entries"
+            ],
+            "actual_moved_deleted_archived_path_count": low_risk_report["current_state"][
+                "actual_moved_deleted_archived_path_count"
+            ],
+            "restore_instructions_complete": low_risk_report["current_state"][
+                "restore_instructions_complete"
+            ],
+            "retired_scripts_in_default_validate_or_public_cli": low_risk_report["current_state"][
+                "retired_scripts_in_default_validate_or_public_cli"
+            ],
+        },
+        "issue_342_script_governance_enforcement": {
+            "guard_version": guard_report["guard_version"],
+            "ready": guard_report["current_state"]["registry_lifecycle_guard_ready"],
+            "transitional_scripts_without_sunset": guard_report["current_state"][
+                "transitional_scripts_without_sunset"
+            ],
+            "retired_scripts_in_default_validate_or_public_cli": guard_report["current_state"][
+                "retired_scripts_in_default_validate_or_public_cli"
+            ],
+            "duplicate_capability_exceptions_explicit": guard_report["current_state"][
+                "duplicate_capability_exceptions_explicit"
+            ],
+            "duplicate_capability_exception_count": guard_report["current_state"][
+                "duplicate_capability_exception_count"
+            ],
+            "errors": guard_report["errors"],
+        },
     }
 
 
@@ -246,18 +306,27 @@ def build_completion_report() -> dict[str, Any]:
     result_summary = _g10_result_summary()
     registry_audit = _registry_path_audit()
     acceptance = {
-        "pre_handoff_open_ready_pr_count": PRE_HANDOFF_OPEN_READY_PR_COUNT,
+        "current_handoff_pr": CURRENT_HANDOFF_PR,
+        "open_ready_prs_excluding_current_handoff": OPEN_READY_PRS_EXCLUDING_CURRENT_HANDOFF,
         "validation_all_green": True,
         "registry_dangling_references": registry_audit["registry_dangling_references_total"],
         "g10_report_complete": True,
-        "next_phase": "post_g10_ready_for_followup_gates",
+        "low_risk_lifecycle_execution_complete": result_summary[
+            "issue_341_low_risk_script_lifecycle_execution"
+        ]["ready"],
+        "script_governance_guard_enabled": result_summary["issue_342_script_governance_enforcement"][
+            "ready"
+        ],
+        "next_phase_after_handoff_merge": "post_g10_ready_for_followup_gates",
         "next_gates": list(NEXT_GATES),
     }
     completion_ready = (
-        acceptance["pre_handoff_open_ready_pr_count"] == 0
+        acceptance["open_ready_prs_excluding_current_handoff"] == 0
         and acceptance["validation_all_green"]
         and acceptance["registry_dangling_references"] == 0
         and acceptance["g10_report_complete"]
+        and acceptance["low_risk_lifecycle_execution_complete"]
+        and acceptance["script_governance_guard_enabled"]
         and all(item["ready"] for item in result_summary.values())
     )
     return {
@@ -288,11 +357,16 @@ def build_completion_report() -> dict[str, Any]:
             "g10_completion_report_package": PACKAGE_VERSION,
             "g10_completion_report_prerequisite_pr": PREREQUISITE_PR,
             "g10_completion_report_prerequisite_merge_commit": PREREQUISITE_MERGE_COMMIT,
-            "g10_pre_handoff_open_ready_pr_count": PRE_HANDOFF_OPEN_READY_PR_COUNT,
+            "g10_current_handoff_pr": CURRENT_HANDOFF_PR,
+            "g10_open_ready_prs_excluding_current_handoff": OPEN_READY_PRS_EXCLUDING_CURRENT_HANDOFF,
             "g10_validation_all_green": True,
             "g10_registry_dangling_references": registry_audit["registry_dangling_references_total"],
             "g10_report_complete": True,
-            "g10_next_phase": acceptance["next_phase"],
+            "g10_low_risk_lifecycle_execution_complete": acceptance[
+                "low_risk_lifecycle_execution_complete"
+            ],
+            "g10_script_governance_guard_enabled": acceptance["script_governance_guard_enabled"],
+            "g10_next_phase_after_handoff_merge": acceptance["next_phase_after_handoff_merge"],
             "g10_execution_started": True,
             "g10_cleanup_execution_started": True,
             "g10_destructive_cleanup_started": False,
@@ -326,9 +400,12 @@ def render_completion_md() -> str:
         f"- prerequisite_pr: `#{report['prerequisite_pr']}`",
         f"- current_phase: `{state['current_phase']}`",
         f"- g10_4_completion_verification_handoff_ready: `{str(state['g10_4_completion_verification_handoff_ready']).lower()}`",
-        f"- pre_handoff_open_ready_pr_count: `{acceptance['pre_handoff_open_ready_pr_count']}`",
+        f"- current_handoff_pr: `#{acceptance['current_handoff_pr']}`",
+        f"- open_ready_prs_excluding_current_handoff: `{acceptance['open_ready_prs_excluding_current_handoff']}`",
         f"- registry_dangling_references: `{acceptance['registry_dangling_references']}`",
-        f"- next_phase: `{acceptance['next_phase']}`",
+        f"- low_risk_lifecycle_execution_complete: `{str(acceptance['low_risk_lifecycle_execution_complete']).lower()}`",
+        f"- script_governance_guard_enabled: `{str(acceptance['script_governance_guard_enabled']).lower()}`",
+        f"- next_phase_after_handoff_merge: `{acceptance['next_phase_after_handoff_merge']}`",
         "",
         "## Merged G10 PRs",
         "",

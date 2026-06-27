@@ -54,6 +54,10 @@ def test_script_delta_current_state_records_acceptance_outcomes() -> None:
     assert state["duplicate_capability_groups_without_reason"] == 0
     assert state["script_delta_ready_for_roadmap_comments"] is True
     assert state["outcome_verification_tests_added"] is True
+    assert state["g10_3b_script_governance_enforcement_ready"] is True
+    assert state["registry_lifecycle_guard_enabled"] is True
+    assert state["registry_lifecycle_guard_in_validate_all"] is True
+    assert state["script_delta_updated_for_roadmap_and_epic"] is True
     assert state["g10_destructive_cleanup_started"] is False
     assert state["stage_or_final_total_table_released"] is False
     assert state["cross_subitem_leaderboard_released"] is False
@@ -68,7 +72,15 @@ def test_registry_analysis_covers_lifecycle_default_routes_and_duplicate_reasons
     assert analysis["retired_public_cli_modules"] == []
     assert analysis["retired_scripts_in_default_validate_or_public_cli"] == 0
     assert analysis["platform_lifecycle_status_counts"]["transitional"] == 4
-    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) == 0
+    assert analysis["platform_lifecycle_status_counts"].get("retired", 0) >= 6
+    assert {
+        "scripts/platform/anchors_schema_proposal.py",
+        "scripts/platform/formal_ddl_live_rehearsal.py",
+        "scripts/platform/formal_ddl_rehearsal.py",
+        "scripts/platform/formal_schema_draft.py",
+        "scripts/platform/schema_changing_formal_schema_update.py",
+        "scripts/platform/schema_diff_draft_renderer.py",
+    } <= set(analysis["retired_platform_modules"])
     assert analysis["public_cli_stable_count"] > 0
 
     reviews = {item["group_id"]: item for item in analysis["duplicate_capability_review"]}
@@ -151,7 +163,7 @@ def test_changed_paths_and_script_delta_targets_are_manifested() -> None:
 
     assert set(report["changed_paths_manifest"]) == set(governance.PACKAGE_CHANGED_PATHS)
     assert "scripts/platform/g10_script_asset_risk_governance.py" in report["changed_paths_manifest"]
-    assert report["script_delta_targets"] == [287, 312, 331, 334]
+    assert report["script_delta_targets"] == [287, 312, 331, 334, 342]
 
 
 def test_default_script_delta_report_is_side_effect_free(monkeypatch) -> None:
@@ -199,6 +211,7 @@ def test_cli_modes_emit_expected_outputs(capsys) -> None:
     assert governance.main(["--script-delta-md"]) == 0
     markdown = capsys.readouterr().out
     assert "schema_migration_seed_scaffolds" in markdown
+    assert "registry_lifecycle_guard_enabled" in markdown
     assert "issue335_g10_completion_verification_and_roadmap_handoff" in markdown
 
 

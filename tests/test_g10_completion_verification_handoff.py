@@ -30,7 +30,7 @@ def test_completion_report_declares_g10_4_scope_and_boundaries() -> None:
     assert report["epic_issue"] == 312
     assert report["plan_issue"] == 331
     assert report["completion_issue"] == 335
-    assert report["prerequisite_pr"] == 339
+    assert report["prerequisite_pr"] == 344
     assert report["prerequisite_merge_commit"] == completion.PREREQUISITE_MERGE_COMMIT
     assert report["does_not_read_dotenv"] is True
     assert report["does_not_connect_database"] is True
@@ -48,12 +48,15 @@ def test_completion_current_state_records_handoff_acceptance() -> None:
     assert state["current_phase"] == "g10_completion_verification_handoff_ready"
     assert state["g10_4_completion_verification_handoff_ready"] is True
     assert state["g10_completion_report_package"] == "g10-completion-verification-handoff-v1"
-    assert state["g10_completion_report_prerequisite_pr"] == 339
-    assert state["g10_pre_handoff_open_ready_pr_count"] == 0
+    assert state["g10_completion_report_prerequisite_pr"] == 344
+    assert state["g10_current_handoff_pr"] == 340
+    assert state["g10_open_ready_prs_excluding_current_handoff"] == 0
     assert state["g10_validation_all_green"] is True
     assert state["g10_registry_dangling_references"] == 0
     assert state["g10_report_complete"] is True
-    assert state["g10_next_phase"] == "post_g10_ready_for_followup_gates"
+    assert state["g10_low_risk_lifecycle_execution_complete"] is True
+    assert state["g10_script_governance_guard_enabled"] is True
+    assert state["g10_next_phase_after_handoff_merge"] == "post_g10_ready_for_followup_gates"
     assert state["g10_destructive_cleanup_started"] is False
     assert state["stage_or_final_total_table_released"] is False
     assert state["cross_subitem_leaderboard_released"] is False
@@ -62,8 +65,8 @@ def test_completion_current_state_records_handoff_acceptance() -> None:
 def test_completion_summarizes_merged_g10_prs_and_results() -> None:
     report = completion.build_completion_report()
 
-    assert [item["issue"] for item in report["merged_g10_prs"]] == [331, 332, 333, 334]
-    assert [item["pr"] for item in report["merged_g10_prs"]] == [336, 337, 338, 339]
+    assert [item["issue"] for item in report["merged_g10_prs"]] == [331, 332, 333, 334, 341, 342]
+    assert [item["pr"] for item in report["merged_g10_prs"]] == [336, 337, 338, 339, 343, 344]
     assert all(item["merge_commit"] for item in report["merged_g10_prs"])
 
     summary = report["g10_result_summary"]
@@ -78,6 +81,25 @@ def test_completion_summarizes_merged_g10_prs_and_results() -> None:
     assert summary["issue_334_script_asset_risk_governance"]["transitional_scripts_without_sunset"] == 0
     assert summary["issue_334_script_asset_risk_governance"]["retired_scripts_in_default_validate_or_public_cli"] == 0
     assert summary["issue_334_script_asset_risk_governance"]["duplicate_capability_groups_without_reason"] == 0
+    assert summary["issue_341_low_risk_script_lifecycle_execution"]["ready"] is True
+    assert summary["issue_341_low_risk_script_lifecycle_execution"]["lifecycle_update_count"] == 6
+    assert (
+        summary["issue_341_low_risk_script_lifecycle_execution"][
+            "actual_moved_deleted_archived_path_count"
+        ]
+        == 0
+    )
+    assert summary["issue_341_low_risk_script_lifecycle_execution"]["restore_instructions_complete"] is True
+    assert summary["issue_342_script_governance_enforcement"]["ready"] is True
+    assert summary["issue_342_script_governance_enforcement"]["transitional_scripts_without_sunset"] == 0
+    assert (
+        summary["issue_342_script_governance_enforcement"][
+            "retired_scripts_in_default_validate_or_public_cli"
+        ]
+        == 0
+    )
+    assert summary["issue_342_script_governance_enforcement"]["duplicate_capability_exceptions_explicit"] is True
+    assert summary["issue_342_script_governance_enforcement"]["errors"] == []
 
 
 def test_completion_registry_and_acceptance_verification_are_complete() -> None:
@@ -89,11 +111,14 @@ def test_completion_registry_and_acceptance_verification_are_complete() -> None:
     assert audit["registry_dangling_references_total"] == 0
 
     acceptance = report["acceptance_verification"]
-    assert acceptance["pre_handoff_open_ready_pr_count"] == 0
+    assert acceptance["current_handoff_pr"] == 340
+    assert acceptance["open_ready_prs_excluding_current_handoff"] == 0
     assert acceptance["validation_all_green"] is True
     assert acceptance["registry_dangling_references"] == 0
     assert acceptance["g10_report_complete"] is True
-    assert acceptance["next_phase"] == "post_g10_ready_for_followup_gates"
+    assert acceptance["low_risk_lifecycle_execution_complete"] is True
+    assert acceptance["script_governance_guard_enabled"] is True
+    assert acceptance["next_phase_after_handoff_merge"] == "post_g10_ready_for_followup_gates"
     assert "g10_destructive_cleanup_gate" in acceptance["next_gates"]
     assert "epic2_separate_ready_review" in acceptance["next_gates"]
     assert "epic3_separate_ready_review" in acceptance["next_gates"]
@@ -104,6 +129,7 @@ def test_validation_matrix_and_changed_paths_are_manifested() -> None:
 
     commands = {item["name"]: item["command"] for item in report["validation_matrix"]}
     assert "focused_g10_completion_tests" in commands
+    assert "script_lifecycle_registry_guard" in commands
     assert "validate_all" in commands
     assert "full_pytest" in commands
     assert set(report["changed_paths_manifest"]) == set(completion.PACKAGE_CHANGED_PATHS)
