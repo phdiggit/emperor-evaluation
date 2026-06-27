@@ -8,10 +8,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 
-ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_SNAPSHOT_PATH = (
-    ROOT / "scripts" / "platform" / "i5b_dictionary_snapshots" / "i5b_rule_display_dictionary_snapshot_v1.json"
-)
+DEFAULT_SNAPSHOT_PATH = Path(__file__).resolve().parent / "i5b_rule_display_dictionary_snapshot_v1.json"
 SNAPSHOT_VERSION = "i5b-rule-display-dictionary-snapshot-v1"
 PACKAGE_VERSION = "i5b-runtime-dictionary-readthrough-shim-v1"
 ALLOWED_STATUSES = {"active", "deprecated", "draft"}
