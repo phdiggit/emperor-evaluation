@@ -175,5 +175,6 @@ def test_target_mapper_uses_python_driver_not_psql_subprocess_or_legacy_dsn() ->
     assert "subprocess.run" not in source
     assert '"psql"' not in source
     assert "PG_SEARCH_BENCH_DSN" not in source
-    assert "import psycopg" in source
+    assert "scripts.platform.core.jsonl_target_db" in source
+    assert "run_with_target_schema_cursor" in source
     assert f'"{PRIMARY_ENV_DSN}"' in source

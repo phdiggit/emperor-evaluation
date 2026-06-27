@@ -31,6 +31,10 @@ from scripts.platform.core.db_env import (
     make_resolve_dsn,
     make_validate_isolated_schema,
 )
+from scripts.platform.core.jsonl_target_db import (
+    make_create_target_prototype_tables,
+    run_with_target_schema_cursor,
+)
 from scripts.platform.jsonl_target_mapping import MAPPING_VERSION, assert_report_has_no_blocked_terms
 from scripts.platform.postgres_bootstrap import drop_schema, quote_identifier, schema_exists
 
@@ -207,49 +211,43 @@ def apply_target_mapper(
     return report
 
 
-def create_target_prototype_tables(dsn: str, *, schema: str) -> None:
-    import psycopg
+TARGET_TABLE_SQL = """
+DROP TABLE IF EXISTS anchor_links_candidates CASCADE;
+DROP TABLE IF EXISTS anchors CASCADE;
 
-    schema_ident = quote_identifier(schema)
-    sql = f"""
-    CREATE SCHEMA IF NOT EXISTS {schema_ident};
-    SET search_path TO {schema_ident}, public;
+CREATE TABLE anchors (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code TEXT NOT NULL,
+    anchor_type TEXT,
+    label TEXT,
+    status TEXT NOT NULL CHECK (status IN ('unresolved_candidate', 'manual_review_required', 'blocked_pending_schema')),
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT anchors_target_mapper_code_uk UNIQUE (code)
+);
 
-    DROP TABLE IF EXISTS anchor_links_candidates CASCADE;
-    DROP TABLE IF EXISTS anchors CASCADE;
-
-    CREATE TABLE anchors (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        code TEXT NOT NULL,
-        anchor_type TEXT,
-        label TEXT,
-        status TEXT NOT NULL CHECK (status IN ('unresolved_candidate', 'manual_review_required', 'blocked_pending_schema')),
-        payload JSONB NOT NULL DEFAULT '{{}}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-        CONSTRAINT anchors_target_mapper_code_uk UNIQUE (code)
-    );
-
-    CREATE TABLE anchor_links_candidates (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        anchor_code TEXT NOT NULL,
-        target_domain TEXT NOT NULL,
-        target_code TEXT,
-        link_role TEXT NOT NULL,
-        resolver_status TEXT NOT NULL CHECK (
-            resolver_status IN ('unresolved_candidate', 'manual_review_required', 'blocked_pending_schema')
-        ),
-        blocked_action TEXT NOT NULL CHECK (blocked_action = 'anchor_links_write'),
-        relationship_proven BOOLEAN NOT NULL CHECK (relationship_proven = false),
-        source_file TEXT NOT NULL,
-        line_no INTEGER NOT NULL,
-        payload JSONB NOT NULL DEFAULT '{{}}'::jsonb,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-    );
-    """
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(sql)
-        conn.commit()
+CREATE TABLE anchor_links_candidates (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    anchor_code TEXT NOT NULL,
+    target_domain TEXT NOT NULL,
+    target_code TEXT,
+    link_role TEXT NOT NULL,
+    resolver_status TEXT NOT NULL CHECK (
+        resolver_status IN ('unresolved_candidate', 'manual_review_required', 'blocked_pending_schema')
+    ),
+    blocked_action TEXT NOT NULL CHECK (blocked_action = 'anchor_links_write'),
+    relationship_proven BOOLEAN NOT NULL CHECK (relationship_proven = false),
+    source_file TEXT NOT NULL,
+    line_no INTEGER NOT NULL,
+    payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+"""
+create_target_prototype_tables = make_create_target_prototype_tables(
+    TARGET_TABLE_SQL,
+    quote_identifier=quote_identifier,
+    create_schema=True,
+)
 
 
 def insert_target_rows(
@@ -259,10 +257,8 @@ def insert_target_rows(
     anchor_candidates: Sequence[Mapping[str, Any]],
     link_candidates: Sequence[Mapping[str, Any]],
 ) -> dict[str, int]:
-    import psycopg
     from psycopg.types.json import Jsonb
 
-    schema_ident = quote_identifier(schema)
     anchor_values = [
         (
             candidate["anchor_code_candidate"] or candidate["diagnostic_key"],
@@ -304,43 +300,48 @@ def insert_target_rows(
         )
         for candidate in link_candidates
     ]
-    with psycopg.connect(dsn) as conn:
-        with conn.cursor() as cur:
-            cur.execute(f"SET search_path TO {schema_ident}, public;")
-            cur.executemany(
-                """
-                INSERT INTO anchors (code, anchor_type, label, status, payload)
-                VALUES (%s, %s, %s, %s, %s)
-                ON CONFLICT (code) DO NOTHING
-                """,
-                anchor_values,
+
+    def insert(cur: Any, _schema_ident: str) -> dict[str, int]:
+        cur.executemany(
+            """
+            INSERT INTO anchors (code, anchor_type, label, status, payload)
+            VALUES (%s, %s, %s, %s, %s)
+            ON CONFLICT (code) DO NOTHING
+            """,
+            anchor_values,
+        )
+        anchor_rows = cur.rowcount
+        cur.executemany(
+            """
+            INSERT INTO anchor_links_candidates (
+                anchor_code, target_domain, target_code, link_role, resolver_status,
+                blocked_action, relationship_proven, source_file, line_no, payload
             )
-            anchor_rows = cur.rowcount
-            cur.executemany(
-                """
-                INSERT INTO anchor_links_candidates (
-                    anchor_code, target_domain, target_code, link_role, resolver_status,
-                    blocked_action, relationship_proven, source_file, line_no, payload
-                )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """,
-                link_values,
-            )
-            link_rows = cur.rowcount
-            cur.execute(
-                """
-                SELECT COUNT(*) FILTER (WHERE resolver_status = 'manual_review_required')
-                FROM anchor_links_candidates
-                """
-            )
-            manual_review_rows = int(cur.fetchone()[0] or 0)
-        conn.commit()
-    return {
-        "anchor_rows": int(anchor_rows),
-        "anchor_link_candidate_rows": int(link_rows),
-        "blocked_anchor_link_rows": int(link_rows),
-        "manual_review_rows": manual_review_rows,
-    }
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """,
+            link_values,
+        )
+        link_rows = cur.rowcount
+        cur.execute(
+            """
+            SELECT COUNT(*) FILTER (WHERE resolver_status = 'manual_review_required')
+            FROM anchor_links_candidates
+            """
+        )
+        manual_review_rows = int(cur.fetchone()[0] or 0)
+        return {
+            "anchor_rows": int(anchor_rows),
+            "anchor_link_candidate_rows": int(link_rows),
+            "blocked_anchor_link_rows": int(link_rows),
+            "manual_review_rows": manual_review_rows,
+        }
+
+    return run_with_target_schema_cursor(
+        dsn,
+        schema=schema,
+        quote_identifier=quote_identifier,
+        callback=insert,
+    )
 
 
 def count_rows_by_source_file(rows: Sequence[Any]) -> dict[str, int]:

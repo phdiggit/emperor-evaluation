@@ -210,7 +210,8 @@ def test_resolver_uses_python_driver_not_psql_subprocess_or_legacy_dsn() -> None
     assert "subprocess.run" not in source
     assert '"psql"' not in source
     assert "PG_SEARCH_BENCH_DSN" not in source
-    assert "import psycopg" in source
+    assert "scripts.platform.core.jsonl_target_db" in source
+    assert "make_insert_target_rows" in source
 
 
 def _write_fixture_root(tmp_path: Path) -> Path:
