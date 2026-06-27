@@ -14,12 +14,12 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g10_script_asset_risk_governance_ready",
+    "current_phase": "g10_completion_verification_handoff_ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
-    "last_completed_pr": 338,
-    "last_completed_merge_commit": "54f7466f4aeb44d5a18bffb1c28a4eda23ca4954",
+    "last_completed_pr": 339,
+    "last_completed_merge_commit": "83c2438e31842f08ed19a1a1b00e965ce1fa9451",
     "positive_benefit_total": 1500,
     "former_active_cap_1440": "obsolete",
     "canonical_write_source": "postgresql",
@@ -231,6 +231,15 @@ CURRENT_STATE = {
     "g10_duplicate_capability_groups_without_reason": 0,
     "g10_script_delta_ready_for_roadmap_comments": True,
     "g10_outcome_verification_tests_added": True,
+    "g10_4_completion_verification_handoff_ready": True,
+    "g10_completion_report_package": "g10-completion-verification-handoff-v1",
+    "g10_completion_report_prerequisite_pr": 339,
+    "g10_completion_report_prerequisite_merge_commit": "83c2438e31842f08ed19a1a1b00e965ce1fa9451",
+    "g10_pre_handoff_open_ready_pr_count": 0,
+    "g10_validation_all_green": True,
+    "g10_registry_dangling_references": 0,
+    "g10_report_complete": True,
+    "g10_next_phase": "post_g10_ready_for_followup_gates",
     "g10_execution_started": True,
     "g10_cleanup_execution_started": True,
     "g10_destructive_cleanup_started": False,
@@ -289,6 +298,7 @@ COMPLETED_CHAIN = [
     "g10_i5b_dictionary_final_cleanup",
     "g10_historical_asset_retirement",
     "g10_script_asset_risk_governance",
+    "g10_completion_verification_handoff",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -481,6 +491,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_g10_3_script_asset_risk_governance_only",
             },
             {
+                "name": "g10_completion_verification_handoff",
+                "path": "scripts/platform/g10_completion_verification_handoff.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g10_4_completion_verification_handoff_only",
+            },
+            {
                 "name": "issue311_i5b_rule_display_dictionary_contract",
                 "path": "scripts/platform/i5b_rule_display_dictionary_contract.py",
                 "contract": True,
@@ -584,9 +601,11 @@ def build_contract_report() -> dict[str, Any]:
             "g10_script_asset_risk_governance_does_not_change_business_behavior",
             "g10_script_asset_risk_governance_does_not_move_delete_or_archive_files",
             "g10_script_asset_risk_governance_keeps_retired_scripts_out_of_default_validate",
+            "g10_completion_verification_handoff_does_not_create_new_retirement_scope",
+            "g10_completion_verification_handoff_does_not_publish_scores_or_rankings",
+            "g10_completion_verification_handoff_records_next_phase_only",
         ],
         "next_epic_gates": [
-            "g10_4_completion_verification_and_roadmap_handoff",
             "epic5_per_subitem_g9_publication_gate",
             "epic5_cross_subitem_leaderboard_publication_gate",
             "epic5_stage_or_final_total_table_publication_gate",

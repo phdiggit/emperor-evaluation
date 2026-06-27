@@ -309,6 +309,15 @@ python scripts/platform/g10_script_asset_risk_governance.py --script-delta-md
 
 该包完成 #334 的 Script Delta：只读核对 `scripts_registry.json` 的 platform lifecycle，确认 `transitional_scripts_without_sunset = 0`、`retired_scripts_in_default_validate_or_public_cli = 0`，并为 gate / report / redaction / fingerprint / evidence / mapping / resolver / schema / migration / seed 等重复能力族给出保留或收束理由。新增测试用坏 registry fixture 证明无 sunset transitional 与 retired default route 会被抓出，避免只做 report 文本镜像。当前包不改普通业务行为，不连接数据库或网络，不移动、删除或归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #335 G10 completion verification and roadmap handoff。
 
+G10-4 completion verification and roadmap handoff package 使用：
+
+```bash
+python scripts/platform/g10_completion_verification_handoff.py --completion-report
+python scripts/platform/g10_completion_verification_handoff.py --completion-md
+```
+
+该包完成 #335 的 G10 收尾验收：汇总 #332 / #333 / #334 结果，记录 #336—#339 均已 merge，确认 handoff 前 open ready PR count 为 `0`、registry dangling references 为 `0`、G10 report complete，并列出 focused tests、`validate_all`、governance checks 和 full pytest 的验证矩阵。当前包只做状态验收和路线交接，不新增退役范围，不移动、删除或归档文件，不连接数据库或网络，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 post-G10 follow-up gates；任何 deferred destructive cleanup 仍必须单独 gate。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
