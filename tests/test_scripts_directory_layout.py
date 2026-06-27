@@ -20,6 +20,7 @@ MIGRATED_VALIDATORS = [
     "validate_human_readable_markdown_exports.py",
     "validate_i5b_cluster_adjudication_configs.py",
     "validate_config_readability.py",
+    "validate_script_lifecycle_registry.py",
 ]
 NEWLY_MIGRATED_VALIDATORS = [
     "validate_evidence",
@@ -29,6 +30,7 @@ NEWLY_MIGRATED_VALIDATORS = [
     "validate_chinese_view_configs",
     "validate_review_configs",
     "validate_config_readability",
+    "validate_script_lifecycle_registry",
 ]
 
 

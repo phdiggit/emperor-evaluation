@@ -89,6 +89,14 @@ def test_validate_all_includes_i5b_cluster_adjudication_config_step() -> None:
         ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
     ) in validate_all.VALIDATION_STEPS
 
+
+def test_validate_all_includes_script_lifecycle_registry_step() -> None:
+    assert (
+        "validate_script_lifecycle_registry",
+        ROOT / "scripts" / "validate" / "validate_script_lifecycle_registry.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_includes_human_readable_markdown_export_step() -> None:
     assert (
         "validate_human_readable_markdown_exports",
