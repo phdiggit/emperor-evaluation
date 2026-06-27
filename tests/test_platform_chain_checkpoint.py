@@ -29,12 +29,12 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert report["mode"] == "contract-report"
     assert report["checkpoint_version"] == "platform-chain-checkpoint-v1"
     assert report["current_state"] == {
-        "current_phase": "g10_historical_asset_retirement_ready",
+        "current_phase": "g10_script_asset_risk_governance_ready",
         "active_epic": 312,
         "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
         "last_completed_epic": 211,
-        "last_completed_pr": 337,
-        "last_completed_merge_commit": "703cae862f9fb6363315c85cce629616c8ab5de1",
+        "last_completed_pr": 338,
+        "last_completed_merge_commit": "54f7466f4aeb44d5a18bffb1c28a4eda23ca4954",
         "positive_benefit_total": 1500,
         "former_active_cap_1440": "obsolete",
         "canonical_write_source": "postgresql",
@@ -244,6 +244,18 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "g10_default_validate_retired_script_invocations": 0,
         "g10_replacement_mapping_auditable": True,
         "g10_restore_instructions_complete": True,
+        "g10_3_script_asset_risk_governance_ready": True,
+        "g10_script_asset_risk_governance_package": "g10-script-asset-risk-governance-v1",
+        "g10_script_asset_risk_governance_prerequisite_pr": 338,
+        "g10_script_asset_risk_governance_prerequisite_merge_commit": (
+            "54f7466f4aeb44d5a18bffb1c28a4eda23ca4954"
+        ),
+        "g10_transitional_scripts_without_sunset": 0,
+        "g10_retired_scripts_in_default_validate_or_public_cli": 0,
+        "g10_duplicate_capability_groups_reviewed": 5,
+        "g10_duplicate_capability_groups_without_reason": 0,
+        "g10_script_delta_ready_for_roadmap_comments": True,
+        "g10_outcome_verification_tests_added": True,
         "g10_execution_started": True,
         "g10_cleanup_execution_started": True,
         "g10_destructive_cleanup_started": False,
@@ -288,6 +300,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert "g10_cleanup_inventory_plan" in report["completed_chain"]
     assert "g10_i5b_dictionary_final_cleanup" in report["completed_chain"]
     assert "g10_historical_asset_retirement" in report["completed_chain"]
+    assert "g10_script_asset_risk_governance" in report["completed_chain"]
     assert any(tool["name"] == "g6_formal_evidence_boundary_package" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g6_formal_evidence_execution" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g7_rule_change_scope_package" for tool in report["prototype_tools"])
@@ -307,6 +320,7 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
     assert any(tool["name"] == "g10_cleanup_inventory_plan" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g10_i5b_dictionary_final_cleanup" for tool in report["prototype_tools"])
     assert any(tool["name"] == "g10_historical_asset_retirement" for tool in report["prototype_tools"])
+    assert any(tool["name"] == "g10_script_asset_risk_governance" for tool in report["prototype_tools"])
     assert "jsonl_query_search_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_sources_target_mapper" in report["apply_capable_tools"]
     assert "jsonl_evidence_cards_target_mapper" in report["apply_capable_tools"]
@@ -395,6 +409,14 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"g10_default_validate_retired_script_invocations": 0' in text
     assert '"g10_replacement_mapping_auditable": true' in text
     assert '"g10_restore_instructions_complete": true' in text
+    assert '"g10_3_script_asset_risk_governance_ready": true' in text
+    assert '"g10_script_asset_risk_governance_package": "g10-script-asset-risk-governance-v1"' in text
+    assert '"g10_transitional_scripts_without_sunset": 0' in text
+    assert '"g10_retired_scripts_in_default_validate_or_public_cli": 0' in text
+    assert '"g10_duplicate_capability_groups_reviewed": 5' in text
+    assert '"g10_duplicate_capability_groups_without_reason": 0' in text
+    assert '"g10_script_delta_ready_for_roadmap_comments": true' in text
+    assert '"g10_outcome_verification_tests_added": true' in text
     assert '"g10_execution_started": true' in text
     assert '"g10_cleanup_execution_started": true' in text
     assert '"g10_destructive_cleanup_started": false' in text
@@ -416,6 +438,9 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "g10_historical_asset_retirement_manifests_all_changed_removed_archived_paths" in text
     assert "g10_historical_asset_retirement_does_not_move_delete_or_archive_files" in text
     assert "g10_historical_asset_retirement_defers_data_and_generated_export_destructive_actions" in text
+    assert "g10_script_asset_risk_governance_does_not_change_business_behavior" in text
+    assert "g10_script_asset_risk_governance_does_not_move_delete_or_archive_files" in text
+    assert "g10_script_asset_risk_governance_keeps_retired_scripts_out_of_default_validate" in text
 
     for term in BLOCKED_FOLLOWUP_CLAIMS:
         assert term not in text

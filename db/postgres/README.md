@@ -300,6 +300,15 @@ python scripts/platform/g10_historical_asset_retirement.py --retirement-md
 
 该包完成 #333 的可审计退役执行包：按 #331 inventory 覆盖 Epic5 pre-G10 contract packages、docs registry lifecycle maps、archive docs historical records、archive/data batch history、generated exports 五类候选，写出 changed / removed / archived path manifest、replacement mapping 与 restore instructions。当前实际移动、删除、归档路径数为 `0`；`archive/data`、`data/batches` 与 `exports` 的 destructive action 因存在 batch review context、registry / tests 引用和恢复 gate 要求而继续 deferred。当前包不读取 batch payload 或 generated export 正文，不连接数据库或网络，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #334 script asset risk governance。
 
+G10-3 script asset risk governance package 使用：
+
+```bash
+python scripts/platform/g10_script_asset_risk_governance.py --script-delta-report
+python scripts/platform/g10_script_asset_risk_governance.py --script-delta-md
+```
+
+该包完成 #334 的 Script Delta：只读核对 `scripts_registry.json` 的 platform lifecycle，确认 `transitional_scripts_without_sunset = 0`、`retired_scripts_in_default_validate_or_public_cli = 0`，并为 gate / report / redaction / fingerprint / evidence / mapping / resolver / schema / migration / seed 等重复能力族给出保留或收束理由。新增测试用坏 registry fixture 证明无 sunset transitional 与 retired default route 会被抓出，避免只做 report 文本镜像。当前包不改普通业务行为，不连接数据库或网络，不移动、删除或归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #335 G10 completion verification and roadmap handoff。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
