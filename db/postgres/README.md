@@ -336,6 +336,15 @@ python scripts/platform/g10_completion_verification_handoff.py --completion-md
 
 该包完成 #335 的 G10 收尾验收：汇总 #332 / #333 / #334 / #341 / #342 结果，记录 #336—#339、#343、#344 均已 merge，确认除当前 handoff PR 外 open ready PR count 为 `0`、registry dangling references 为 `0`、G10 report complete、低风险 lifecycle 实执行完成且 registry lifecycle guard 已接入 `validate_all`，并列出 focused tests、`validate_all`、governance checks 和 full pytest 的验证矩阵。当前包只做状态验收和路线交接，不新增退役范围，不移动、删除或归档文件，不连接数据库或网络，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 post-G10 follow-up gates；任何 deferred destructive cleanup 仍必须单独 gate。
 
+Post-G10 follow-up gates readiness package 使用：
+
+```bash
+python scripts/platform/post_g10_followup_gates_readiness.py --gates-report
+python scripts/platform/post_g10_followup_gates_readiness.py --gates-md
+```
+
+该包在 #340 merge 后固化 `post_g10_ready_for_followup_gates_ready`：记录 #340 handoff merge commit，列出 8 个后续 gate，并将每个 gate 保持为 `requires_separate_ready_review`。当前包不批准、不执行 per-subitem G9 发布、leaderboard、阶段/最终总表、G10 destructive cleanup、source/passages 合并策略、evidence/cluster/anchor/relationship 写入或 Epic2 / Epic3 entry；下一步必须选择单个 follow-up gate 并开 separate ready review。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
