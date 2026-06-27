@@ -82,6 +82,23 @@ def test_readthrough_values_match_rules_module_sensitive_points() -> None:
     assert values["RULE_SENSITIVE_POINTS"] == rules.RULE_SENSITIVE_POINTS
 
 
+def test_readthrough_values_drive_rules_runtime_text() -> None:
+    snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
+    values = dictionary_readthrough.values_by_symbol("i5b.rule_dictionary.v1", snapshot)
+    runtime_text = values["RULE_RUNTIME_TEXT"]
+
+    assert runtime_text["auto_band_directions"] == rules.AUTO_BAND_DIRECTIONS
+    assert runtime_text["formal_band_map"][
+        rules.AUTO_BAND_DIRECTIONS["high_strong_extreme_candidate"]
+    ] == "极正候选 / 高位强正上探极正"
+    assert rules.format_score_stage_prerequisites(
+        {"auto_band_direction": rules.AUTO_BAND_DIRECTIONS["rule_review_pending"]}
+    ) == runtime_text["score_stage_prerequisite_text"]["rule_review_required"]
+    assert rules.format_remaining_questions({"negative_boundary_tier": "none"}) == runtime_text[
+        "remaining_question_text"
+    ]["no_new_rule_question"]
+
+
 def test_readthrough_values_match_formal_algorithm_grade_exports() -> None:
     snapshot = dictionary_readthrough.load_validated_dictionary_snapshot()
     values = dictionary_readthrough.values_by_symbol("i5b.grade_dictionary.v1", snapshot)
@@ -105,6 +122,12 @@ def test_readthrough_values_match_formal_algorithm_direction_mapping_exports() -
     assert values["AUTO_DIRECTION_TO_FORMAL_GRADE"] == formal_algorithm.AUTO_DIRECTION_TO_FORMAL_GRADE
     assert values["FORMAL_GRADE_BAND_POSITION"] == formal_algorithm.FORMAL_GRADE_BAND_POSITION
     assert tuple(tuple(item) for item in values["DIMENSION_RULES"]) == rules.DIMENSION_RULES
+    display = values["FORMAL_ALGORITHM_DISPLAY"]
+    assert display["mapping_rows"] == formal_algorithm._FORMAL_ALGORITHM_DISPLAY["mapping_rows"]
+    assert len(display["mapping_rows"]) == 9
+    assert formal_algorithm.formal_algorithm_mapping_rows()[0]["entry_condition"] == display["mapping_rows"][0][
+        "entry_condition"
+    ]
 
 
 def test_readthrough_values_drive_score_mapping_display_text() -> None:
@@ -153,7 +176,11 @@ def test_rules_module_no_longer_embeds_keyword_or_sensitive_point_literals() -> 
     assert '_GRADE_DICTIONARY_VALUES["TRIAL_SCORE_MAP"]' in source
     assert '_RULE_KEYWORD_VALUES["POSITIVE_CORE_KEYWORDS"]' in source
     assert '_RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]' in source
+    assert '_RULE_DICTIONARY_VALUES["RULE_RUNTIME_TEXT"]' in source
     assert '_DIRECTION_GRADE_MAPPING_VALUES["DIMENSION_RULES"]' in source
+    assert 'AUTO_BAND_DIRECTIONS = _RULE_RUNTIME_TEXT["auto_band_directions"]' in source
+    assert "高位强正，上探极正候选" not in source
+    assert "同一维度内至少三个强正核心" not in source
 
 
 def test_adapter_display_functions_read_display_dictionary_values() -> None:
@@ -189,6 +216,8 @@ def test_formal_algorithm_no_longer_embeds_grade_or_direction_mapping_literals()
     assert "FORMAL_GRADE_BAND_POSITION = {" not in source
     assert 'values_by_symbol("i5b.grade_dictionary.v1")' in source
     assert 'values_by_symbol("i5b.direction_grade_mapping.v1")' in source
+    assert '_DIRECTION_GRADE_MAPPING_VALUES["FORMAL_ALGORITHM_DISPLAY"]' in source
+    assert "强负核心或中负升强负边界必须阻断高位上探" not in source
 
 
 def test_readthrough_rejects_tampered_digest() -> None:

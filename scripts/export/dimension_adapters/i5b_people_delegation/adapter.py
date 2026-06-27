@@ -317,27 +317,27 @@ def evaluate_person(
     negative_cluster_rows.sort(key=lambda row: (-int(row["candidate_strength"] or 0), str(row["cluster_id"])))
 
     if max_positive_strength >= 3 and negative_boundary_blocking:
-        auto_band_direction = "强正受压制，不上探极正"
+        auto_band_direction = AUTO_BAND_DIRECTIONS["strong_positive_blocked"]
     elif max_positive_strength >= 3 and positive_extreme_allowed and negative_boundary_tier in {"none", "weak_to_medium", "adjacent_item_medium_residual"}:
-        auto_band_direction = "高位强正，上探极正候选"
+        auto_band_direction = AUTO_BAND_DIRECTIONS["high_strong_extreme_candidate"]
     elif max_positive_strength >= 3:
-        auto_band_direction = "强正封顶，不上探极正"
+        auto_band_direction = AUTO_BAND_DIRECTIONS["strong_positive_capped"]
     elif max_positive_strength <= 2 and negative_residual_level == "medium":
-        auto_band_direction = "中正受中负压制"
+        auto_band_direction = AUTO_BAND_DIRECTIONS["medium_positive_medium_negative_pressure"]
     elif max_positive_strength <= 2 and negative_residual_level in {"strong", "extreme"}:
-        auto_band_direction = "中正受强负压制"
+        auto_band_direction = AUTO_BAND_DIRECTIONS["medium_positive_strong_negative_pressure"]
     else:
-        auto_band_direction = "自动草案待规则复核"
+        auto_band_direction = AUTO_BAND_DIRECTIONS["rule_review_pending"]
 
-    if auto_band_direction == "高位强正，上探极正候选":
+    if auto_band_direction == AUTO_BAND_DIRECTIONS["high_strong_extreme_candidate"]:
         confidence = "high" if negative_boundary_tier == "none" else "high_mid"
-    elif auto_band_direction == "强正封顶，不上探极正":
+    elif auto_band_direction == AUTO_BAND_DIRECTIONS["strong_positive_capped"]:
         confidence = "medium_high" if max_positive_strength >= 3 else "medium"
-    elif auto_band_direction == "强正受压制，不上探极正":
+    elif auto_band_direction == AUTO_BAND_DIRECTIONS["strong_positive_blocked"]:
         confidence = "medium_high"
-    elif auto_band_direction == "中正受中负压制":
+    elif auto_band_direction == AUTO_BAND_DIRECTIONS["medium_positive_medium_negative_pressure"]:
         confidence = "medium"
-    elif auto_band_direction == "中正受强负压制":
+    elif auto_band_direction == AUTO_BAND_DIRECTIONS["medium_positive_strong_negative_pressure"]:
         confidence = "medium"
     else:
         confidence = "medium_low"

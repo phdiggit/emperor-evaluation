@@ -249,7 +249,7 @@
       "status": "draft",
       "effective_from": "2026-06-26",
       "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
-      "digest_sha256": "b6cd75ec841191bda74133197f5676bbae851f966075641088cf8cf450be5d91",
+      "digest_sha256": "5e8f3048bde54c973cd7d8e5f0236e06b49bc7b44de80569a683cac45575df2e",
       "payload": {
         "source_symbols": [
           "RULE_SENSITIVE_POINTS"
@@ -289,7 +289,164 @@
               "default_rule": "保留强正基础，但自动标记为强正受压制，不上探极正；若强负核心呈结构性寒蝉，可进一步压低到中正受强负压制。",
               "why_it_matters": "防止强正掩盖对表达安全和人才安全的硬伤。"
             }
-          ]
+          ],
+          "RULE_RUNTIME_TEXT": {
+            "infer_dimension_fallback_rules": [
+              {
+                "keywords": [
+                  "军政",
+                  "将才",
+                  "分兵",
+                  "持节",
+                  "大将军",
+                  "将军",
+                  "总管"
+                ],
+                "dimension": "创业期军政授权"
+              },
+              {
+                "keywords": [
+                  "纳言",
+                  "纳谏",
+                  "反馈入口",
+                  "求言"
+                ],
+                "dimension": "容谏反馈"
+              },
+              {
+                "keywords": [
+                  "人才",
+                  "用人",
+                  "任用",
+                  "拔擢",
+                  "识人"
+                ],
+                "dimension": "识人任用"
+              }
+            ],
+            "unclassified_label": "未分类",
+            "pending_label": "待定",
+            "negative_boundary_results": {
+              "direct_safety_hard": {
+                "boundary_tier": "medium_to_strong",
+                "residual_level": "strong",
+                "blocking_extreme": true,
+                "auto_cluster_result": "强负候选",
+                "negative_core": true,
+                "hard_evidence": true
+              },
+              "strong_or_cluster_strength": {
+                "boundary_tier": "adjacent_item_medium_residual",
+                "residual_level": "medium",
+                "blocking_extreme": false,
+                "auto_cluster_result": "中负边界",
+                "negative_core": false,
+                "hard_evidence": false
+              },
+              "medium_strength": {
+                "boundary_tier": "weak_to_medium",
+                "residual_level": "medium",
+                "blocking_extreme": false,
+                "auto_cluster_result": "中负边界",
+                "negative_core": false,
+                "hard_evidence": false
+              },
+              "weak_strength": {
+                "boundary_tier": "weak_to_medium",
+                "residual_level": "weak",
+                "blocking_extreme": false,
+                "auto_cluster_result": "弱负边界",
+                "negative_core": false,
+                "hard_evidence": false
+              },
+              "boundary_only": {
+                "boundary_tier": "weak_to_medium",
+                "residual_level": "none",
+                "blocking_extreme": false,
+                "auto_cluster_result": "未定",
+                "negative_core": false,
+                "hard_evidence": false
+              },
+              "none": {
+                "boundary_tier": "none",
+                "residual_level": "none",
+                "blocking_extreme": false,
+                "auto_cluster_result": "未定",
+                "negative_core": false,
+                "hard_evidence": false
+              }
+            },
+            "rule_sensitive_decisions": {
+              "weak_to_medium": {
+                "rule": "弱负上调中负边界",
+                "decision": "不阻断极正或高位上探；只降低置信度，不进入强负核心。"
+              },
+              "medium_to_strong": {
+                "rule": "中负上调强负边界",
+                "decision": "阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。"
+              },
+              "adjacent_item_medium_residual": {
+                "rule": "相邻项主导剥离",
+                "decision": "大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响。"
+              },
+              "single_dimension_three_core": {
+                "rule": "单维强正三核心",
+                "decision_when_covered": "同一维度内至少三个强正核心，且覆盖识人任用、授权专任、人才生态三类核心，允许上探极正候选。",
+                "decision_when_not_covered": "虽有同一维度三条强正，但三核心覆盖不足；默认强正封顶，不上探极正。"
+              },
+              "strong_negative_core": {
+                "rule": "强负核心压制强正",
+                "decision": "保留强正基础，但自动标记为强正受压制，不上探极正。"
+              },
+              "default_medium_negative_residual": {
+                "rule": "B项剩余默认中负",
+                "decision": "默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。"
+              }
+            },
+            "formal_band_map": {
+              "高位强正，上探极正候选": "极正候选 / 高位强正上探极正",
+              "强正受压制，不上探极正": "强正受压制",
+              "强正封顶，不上探极正": "强正封顶",
+              "中正受中负压制": "中正受中负压制",
+              "中正受强负压制": "中正受强负压制"
+            },
+            "score_pending_draft": {
+              "score_range": "待定",
+              "trial_score": "待定"
+            },
+            "rule_resolution_text": {
+              "none": "无",
+              "unnamed_rule": "未命名规则",
+              "resolved_with_decision": "{rule}：已按规则解决（{decision}）",
+              "resolved": "{rule}：已按规则解决"
+            },
+            "remaining_question_text": {
+              "no_new_rule_question": "暂无新增规则问题",
+              "extreme_negative_core_followup": "极负核心是否需要单列更强阻断规则"
+            },
+            "score_stage_prerequisite_text": {
+              "rule_review_required": "需先解决规则复核问题；不得发布人物正式分值。",
+              "g8_g9_ready": "已具备 G8 正式算法映射和 G9 发布门；正式分值与排名只能由同一算法版本生成，不得人工覆盖。"
+            },
+            "negative_intercept_status": {
+              "blocked": "已阻断极正",
+              "not_blocked": "未阻断极正"
+            },
+            "adjacent_item_stripping_status": {
+              "weak_to_medium": "已剥离战果、政绩、边疆收益与治世光环，B项仅保留人才安全轻边界",
+              "medium_to_strong": "已剥离战果、政绩、后效与相邻项外溢，B项保留强负核心",
+              "adjacent_item_medium_residual": "已剥离楚狱、政权安全、司法严酷等相邻项，B项仅留中负剩余",
+              "default": "已完成相邻项剥离"
+            },
+            "auto_band_directions": {
+              "strong_positive_blocked": "强正受压制，不上探极正",
+              "high_strong_extreme_candidate": "高位强正，上探极正候选",
+              "strong_positive_capped": "强正封顶，不上探极正",
+              "medium_positive_medium_negative_pressure": "中正受中负压制",
+              "medium_positive_strong_negative_pressure": "中正受强负压制",
+              "rule_review_pending": "自动草案待规则复核"
+            }
+          }
         }
       }
     },
@@ -302,7 +459,7 @@
       "status": "draft",
       "effective_from": "2026-06-26",
       "gate_source": "Issue #311 / PR #320 dictionary externalization contract",
-      "digest_sha256": "86e0adb6bb9ea996b3d3e8828be87d07dfba1dcd8ff8a9995e5047a3de41b150",
+      "digest_sha256": "879ef2136f9812348a9a150bc9d61c15cec85f05af826349cb086094526cd504",
       "payload": {
         "source_symbols": [
           "DIMENSION_RULES",
@@ -440,6 +597,57 @@
             "中正受强负压制": "low",
             "中负": "mid",
             "强负": "low"
+          },
+          "FORMAL_ALGORITHM_DISPLAY": {
+            "default_formal_grade": "一般",
+            "score_range_text": {
+              "exclusive_range_label": "{min_score} <= 分值 {comparator} {max_score}",
+              "inclusive_range_label": "{min_score}—{max_score}",
+              "percent_range_label": "{min_pct}%—{max_pct}%{suffix}",
+              "max_exclusive_percent_suffix": "以下"
+            },
+            "mapping_rows": [
+              {
+                "auto_direction": "高位强正，上探极正候选",
+                "entry_condition": "三核心覆盖且没有强负阻断，进入第五项B历史天花板候选。"
+              },
+              {
+                "auto_direction": "强正",
+                "entry_condition": "强正证据稳定但未达到历史极限门槛。"
+              },
+              {
+                "auto_direction": "强正受压制，不上探极正",
+                "entry_condition": "强正底盘存在，但直接强负核心阻断上探。"
+              },
+              {
+                "auto_direction": "强正封顶，不上探极正",
+                "entry_condition": "强正成立但被单维、上限或覆盖不足封顶。"
+              },
+              {
+                "auto_direction": "中正",
+                "entry_condition": "中等正向结构成立，未触发高位或强负压制。"
+              },
+              {
+                "auto_direction": "中正受中负压制",
+                "entry_condition": "中正基础被中负边界压制。"
+              },
+              {
+                "auto_direction": "中正受强负压制",
+                "entry_condition": "中正基础被强负核心显著压低。"
+              },
+              {
+                "auto_direction": "中负",
+                "entry_condition": "剥离相邻项后仍残留中等负压。"
+              },
+              {
+                "auto_direction": "强负",
+                "entry_condition": "直接命中表达安全、人才安全或授权可信度破坏。"
+              }
+            ],
+            "negative_intercept_condition": "强负核心或中负升强负边界必须阻断高位上探。",
+            "cross_item_split": "战功、政绩、边疆收益、统一贡献、治世光环全部外剥。",
+            "direct_score_allowed_g9": "是，G9 已批准时可由同一算法版本发布人物正式分值。",
+            "direct_score_allowed_pre_g9": "否，G9 前不发布人物正式分值。"
           }
         }
       }

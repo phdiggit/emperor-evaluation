@@ -14,12 +14,12 @@ if str(ROOT) not in sys.path:
 
 CHECKPOINT_VERSION = "platform-chain-checkpoint-v1"
 CURRENT_STATE = {
-    "current_phase": "g10_cleanup_inventory_plan_ready",
+    "current_phase": "g10_i5b_dictionary_final_cleanup_ready",
     "active_epic": 312,
     "active_epic_title": "Scoring_Engine_Cross_Subitem_Generalization",
     "last_completed_epic": 211,
-    "last_completed_pr": 330,
-    "last_completed_merge_commit": "cd0fbbc2a28da4194801d906eff742f204faca62",
+    "last_completed_pr": 336,
+    "last_completed_merge_commit": "027a084a7045e68343177eb09236cf4f090324d4",
     "positive_benefit_total": 1500,
     "former_active_cap_1440": "obsolete",
     "canonical_write_source": "postgresql",
@@ -200,7 +200,18 @@ CURRENT_STATE = {
     "g10_cleanup_inventory_plan_ready": True,
     "g10_cleanup_inventory_package": "g10-cleanup-inventory-plan-v1",
     "g10_cleanup_inventory_candidate_count": 10,
-    "g10_execution_started": False,
+    "g10_1_i5b_dictionary_final_cleanup_ready": True,
+    "g10_i5b_dictionary_final_cleanup_package": "g10-i5b-dictionary-final-cleanup-v1",
+    "g10_i5b_dictionary_final_cleanup_prerequisite_pr": 336,
+    "g10_i5b_dictionary_final_cleanup_prerequisite_merge_commit": "027a084a7045e68343177eb09236cf4f090324d4",
+    "i5b_rule_runtime_text_readthrough_enabled": True,
+    "i5b_formal_algorithm_display_readthrough_enabled": True,
+    "i5b_adapter_auto_band_directions_readthrough_enabled": True,
+    "i5b_remaining_python_text_classified": True,
+    "i5b_snapshot_final_cleanup_digest_validation_passed": True,
+    "i5b_no_legacy_runtime_copy_regressions": True,
+    "g10_execution_started": True,
+    "g10_cleanup_execution_started": True,
     "g10_destructive_cleanup_started": False,
 }
 COMPLETED_CHAIN = [
@@ -254,6 +265,7 @@ COMPLETED_CHAIN = [
     "issue311_rule_display_dictionary_governance_gate",
     "epic5_per_subitem_g8_algorithm_release_gate_contract",
     "g10_cleanup_inventory_plan",
+    "g10_i5b_dictionary_final_cleanup",
 ]
 CONTRACT_ONLY_TOOLS = [
     "jsonl_unknown_field_triage",
@@ -425,6 +437,13 @@ def build_contract_report() -> dict[str, Any]:
                 "boundary": "offline_g10_0_inventory_mapping_restore_plan_only",
             },
             {
+                "name": "g10_i5b_dictionary_final_cleanup",
+                "path": "scripts/platform/g10_i5b_dictionary_final_cleanup.py",
+                "contract": True,
+                "apply": False,
+                "boundary": "offline_g10_1_i5b_dictionary_final_cleanup_only",
+            },
+            {
                 "name": "issue311_i5b_rule_display_dictionary_contract",
                 "path": "scripts/platform/i5b_rule_display_dictionary_contract.py",
                 "contract": True,
@@ -520,9 +539,10 @@ def build_contract_report() -> dict[str, Any]:
             "issue311_rule_display_dictionary_governance_gate_does_not_create_tables_or_write_canonical",
             "epic5_per_subitem_g8_gate_contract_does_not_release_new_subitem_scores_or_rankings",
             "g10_cleanup_inventory_plan_does_not_move_delete_or_archive_files",
+            "g10_i5b_dictionary_final_cleanup_does_not_create_tables_or_publish_scores",
+            "g10_i5b_dictionary_final_cleanup_does_not_move_delete_or_archive_files",
         ],
         "next_epic_gates": [
-            "g10_1_i5b_rule_display_dictionary_final_cleanup",
             "g10_2_historical_asset_retirement_after_inventory",
             "g10_3_script_asset_risk_governance_after_inventory",
             "g10_4_completion_verification_and_roadmap_handoff",

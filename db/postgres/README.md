@@ -282,6 +282,15 @@ python scripts/platform/g10_cleanup_inventory_plan.py --inventory-md
 
 该包只为 #331 锁定 G10 前清单：覆盖 scripts、docs、archives、generated exports、registry entries 与 tests 的候选资产分类，并给 retire / archive / delete 候选写明 replacement mapping 和 restore plan。当前包不读取 `.env`、不连接数据库或网络、不读取 canonical JSONL / batch payload / generated exports 内容，不移动、不删除、不归档文件，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续执行顺序为 #332 字典最终收口、#333 历史资产退役、#334 脚本资产风险治理、#335 G10 验收与路线同步。
 
+G10-1 I5B rule/display dictionary final cleanup package 使用：
+
+```bash
+python scripts/platform/g10_i5b_dictionary_final_cleanup.py --cleanup-report
+python scripts/platform/g10_i5b_dictionary_final_cleanup.py --cleanup-md
+```
+
+该包完成 #332 的只读收口：`RULE_RUNTIME_TEXT` 与 `FORMAL_ALGORITHM_DISPLAY` 已进入 immutable snapshot，`rules.py` / `formal_algorithm.py` / `adapter.py` 只保留符号、key、loader 调用和运行时不变量；`adapter.py`、`scripts/shared/i5b_markdown_display_defaults.py` 与相关测试中的剩余中文文本已按 display copy、display config source、test fixture 分类。当前包校验 snapshot digest、读穿引用和 legacy runtime copy 回归，但不创建 PostgreSQL 字典表、不写 canonical dictionary、不读取 live DSN、不移动/删除/归档文件，也不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #333 历史资产退役诊断。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。
