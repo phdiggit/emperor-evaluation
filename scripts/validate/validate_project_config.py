@@ -124,9 +124,9 @@ def validate_persons_ref(path: Path, persons_ref: str, label: str) -> list[str]:
     return errors
 
 
-def validate_group(path: Path, groups: dict[str, Any], selector: str, row: object) -> list[str]:
+def validate_group(path: Path, groups: dict[str, Any], group_key: str, row: object) -> list[str]:
     _ = groups
-    label = f"person_groups.{selector}"
+    label = f"person_groups.{group_key}"
     errors: list[str] = []
     if not isinstance(row, dict):
         return [f"{path}: {label} must be a mapping"]
@@ -182,7 +182,7 @@ def validate_outputs(path: Path, outputs: object, groups: dict[str, Any]) -> lis
         override = value.get("person_group_override")
         if override is not None:
             if not is_non_empty_string(override):
-                errors.append(f"{path}: {label}.{key}.person_group_override must be null or a non-empty group selector")
+                errors.append(f"{path}: {label}.{key}.person_group_override must be null or a non-empty group key")
             elif override not in groups:
                 errors.append(f"{path}: {label}.{key}.person_group_override references missing group {override!r}")
     return errors
@@ -193,11 +193,11 @@ def validate_person_groups(path: Path, groups: object) -> list[str]:
     errors: list[str] = []
     if not isinstance(groups, dict) or not groups:
         return [f"{path}: {label} must be a non-empty mapping"]
-    for selector, row in groups.items():
-        if not is_non_empty_string(selector):
-            errors.append(f"{path}: {label}: group selector keys must be non-empty strings")
+    for group_key, row in groups.items():
+        if not is_non_empty_string(group_key):
+            errors.append(f"{path}: {label}: group keys must be non-empty strings")
             continue
-        errors.extend(validate_group(path, groups, str(selector), row))
+        errors.extend(validate_group(path, groups, str(group_key), row))
     return errors
 
 
@@ -236,7 +236,7 @@ def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
     if isinstance(groups, dict):
         default_person_group = payload.get("default_person_group")
         if not is_non_empty_string(default_person_group):
-            errors.append(f"{path}: default_person_group must be a non-empty group selector")
+            errors.append(f"{path}: default_person_group must be a non-empty group key")
         elif default_person_group not in groups:
             errors.append(f"{path}: default_person_group references missing group {default_person_group!r}")
         errors.extend(validate_outputs(path, payload.get("outputs"), groups))

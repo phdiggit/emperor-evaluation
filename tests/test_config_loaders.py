@@ -44,24 +44,10 @@ def test_i5b_active_group_helpers_read_project_config(tmp_path: Path, monkeypatc
     config_path = project_config_writer(
         tmp_path / "project_config.yml",
         default_person_group="expanded_batch1",
-        view_groups=[
-            {
-                "group_id": "第五项B_三人试点",
-                "group_name": "三人试点",
-                "group_type": "试点人物组",
-                "subitem": "第五项B",
-                "persons": ["甲", "乙"],
-                "note": "测试",
-            },
-            {
-                "group_id": "第五项B_扩展第一批",
-                "group_name": "扩展第一批",
-                "group_type": "扩展人物组",
-                "subitem": "第五项B",
-                "persons": ["丙"],
-                "note": "测试",
-            },
-        ],
+        groups={
+            "three_pilot": {"label": "三人试点", "persons": ["甲", "乙"]},
+            "expanded_batch1": {"label": "扩展第一批", "persons": ["丙"]},
+        },
     )
     monkeypatch.setattr(config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
@@ -81,6 +67,58 @@ def test_i5b_active_group_helpers_read_project_config(tmp_path: Path, monkeypatc
             / "第五项B_丙人工审核净证据池.md",
         )
     ]
+
+
+def test_i5b_custom_review_pool_key_drives_active_workflow_and_net_evidence_override(
+    tmp_path: Path, monkeypatch, project_config_writer
+) -> None:
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        default_person_group="custom_review_pool",
+        groups={
+            "custom_review_pool": {"label": "自定义复核池", "persons": ["甲", "乙"]},
+            "another_review_pool": {"label": "另一个复核池", "persons": ["丙"]},
+            "net_evidence_pool": {"label": "净证据导出池", "persons": ["丁"]},
+        },
+        outputs={
+            "matrix": True,
+            "auto_adjudication": True,
+            "review_entry": True,
+            "subitem_details": True,
+            "net_evidence": {"enabled": True, "person_group_override": "net_evidence_pool"},
+            "evidence_indexes": True,
+        },
+    )
+    monkeypatch.setattr(config_loaders, "PROJECT_CONFIG_PATH", config_path)
+
+    workflow_config = config_loaders.get_i5b_active_workflow_config()
+
+    assert workflow_config["default_person_group"] == "custom_review_pool"
+    assert workflow_config["group"] == "custom_review_pool"
+    assert workflow_config["group_label"] == "自定义复核池"
+    assert workflow_config["targets"] == ["甲", "乙"]
+    assert config_loaders.get_i5b_group("another_review_pool")["persons"] == ["丙"]
+    assert [person for person, _path in config_loaders.get_i5b_net_evidence_targets()] == ["丁"]
+
+
+def test_i5b_custom_group_key_supports_persons_ref(tmp_path: Path, monkeypatch, project_config_writer) -> None:
+    list_path = tmp_path / "data" / "configs" / "lists" / "custom_review_pool.yml"
+    list_path.parent.mkdir(parents=True)
+    list_path.write_text("- 甲\n- 乙\n", encoding="utf-8")
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        default_person_group="custom_review_pool",
+        groups={
+            "custom_review_pool": {
+                "label": "自定义复核池",
+                "persons_ref": "data/configs/lists/custom_review_pool.yml",
+            },
+        },
+    )
+    monkeypatch.setattr(config_loaders, "ROOT", tmp_path)
+    monkeypatch.setattr(config_loaders, "PROJECT_CONFIG_PATH", config_path)
+
+    assert config_loaders.get_i5b_active_person_targets() == ["甲", "乙"]
 
 
 def test_i5b_net_evidence_output_override_can_use_another_person_group(

@@ -149,16 +149,10 @@ def test_load_expanded_batch1_persons_reads_project_config(
 ) -> None:
     config_path = project_config_writer(
         tmp_path / "project_config.yml",
-        view_groups=[
-            {
-                "group_id": "第五项B_扩展第一批",
-                "group_name": "扩展第一批",
-                "group_type": "扩展人物组",
-                "subitem": "第五项B",
-                "persons": ["甲", "乙"],
-                "note": "测试",
-            }
-        ],
+        groups={
+            "three_pilot": {"label": "三人试点", "persons": ["李世民"]},
+            "expanded_batch1": {"label": "扩展第一批", "persons": ["甲", "乙"]},
+        },
     )
     monkeypatch.setattr(expanded_batch1.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 

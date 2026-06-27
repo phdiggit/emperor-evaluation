@@ -53,10 +53,6 @@ def write_project_config(
 
 
 def _project_groups_from_view_groups(view_groups: list[dict[str, object]] | None) -> dict[str, dict[str, object]]:
-    selector_by_group_id = {
-        "第五项B_三人试点": "three_pilot",
-        "第五项B_扩展第一批": "expanded_batch1",
-    }
     default_groups: dict[str, dict[str, object]] = {
         "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
         "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦", "雍正", "朱元璋"]},
@@ -66,28 +62,23 @@ def _project_groups_from_view_groups(view_groups: list[dict[str, object]] | None
 
     groups: dict[str, dict[str, object]] = {}
     for row in view_groups:
-        group_id = row.get("group_id")
-        selector = selector_by_group_id.get(str(group_id), str(group_id))
-        group: dict[str, object] = {"label": row.get("group_name") or row.get("label") or selector}
+        group_key = str(row.get("group_id"))
+        group: dict[str, object] = {"label": row.get("group_name") or row.get("label") or group_key}
         if "persons" in row:
             group["persons"] = row["persons"]
         elif "persons_ref" in row:
             group["persons_ref"] = row["persons_ref"]
         else:
             group["persons"] = []
-        groups[selector] = group
+        groups[group_key] = group
     return {**default_groups, **groups}
 
 
 def _default_person_group_from_view_groups(view_groups: list[dict[str, object]] | None) -> str:
     if not view_groups:
         return "expanded_batch1"
-    selector_by_group_id = {
-        "第五项B_三人试点": "three_pilot",
-        "第五项B_扩展第一批": "expanded_batch1",
-    }
     first_group_id = str(view_groups[0].get("group_id"))
-    return selector_by_group_id.get(first_group_id, first_group_id)
+    return first_group_id
 
 
 @pytest.fixture
