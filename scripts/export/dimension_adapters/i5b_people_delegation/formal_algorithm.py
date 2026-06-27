@@ -24,6 +24,9 @@ FORMAL_GRADE_SPECS: dict[str, dict[str, Any]] = {
 }
 AUTO_DIRECTION_TO_FORMAL_GRADE = dict(_DIRECTION_GRADE_MAPPING_VALUES["AUTO_DIRECTION_TO_FORMAL_GRADE"])
 FORMAL_GRADE_BAND_POSITION = dict(_DIRECTION_GRADE_MAPPING_VALUES["FORMAL_GRADE_BAND_POSITION"])
+_FORMAL_ALGORITHM_DISPLAY = _DIRECTION_GRADE_MAPPING_VALUES["FORMAL_ALGORITHM_DISPLAY"]
+_SCORE_RANGE_TEXT = _FORMAL_ALGORITHM_DISPLAY["score_range_text"]
+_FORMAL_ALGORITHM_MAPPING_ROWS = tuple(dict(row) for row in _FORMAL_ALGORITHM_DISPLAY["mapping_rows"])
 
 
 def _score_from_pct(percent: Decimal) -> Decimal:
@@ -35,13 +38,25 @@ def score_range_for_grade(grade: str) -> dict[str, str]:
     min_score = _score_from_pct(spec["min_pct"])
     max_score = _score_from_pct(spec["max_pct"])
     comparator = "<" if spec["max_exclusive"] else "<="
+    percent_suffix = str(_SCORE_RANGE_TEXT["max_exclusive_percent_suffix"]) if spec["max_exclusive"] else ""
     return {
         "min_score": f"{min_score:.2f}",
         "max_score": f"{max_score:.2f}",
-        "range_label": f"{min_score:.2f} <= 分值 {comparator} {max_score:.2f}"
+        "range_label": _SCORE_RANGE_TEXT["exclusive_range_label"].format(
+            min_score=f"{min_score:.2f}",
+            comparator=comparator,
+            max_score=f"{max_score:.2f}",
+        )
         if spec["max_exclusive"]
-        else f"{min_score:.2f}—{max_score:.2f}",
-        "percent_range": f"{spec['min_pct']}%—{spec['max_pct']}%" + ("以下" if spec["max_exclusive"] else ""),
+        else _SCORE_RANGE_TEXT["inclusive_range_label"].format(
+            min_score=f"{min_score:.2f}",
+            max_score=f"{max_score:.2f}",
+        ),
+        "percent_range": _SCORE_RANGE_TEXT["percent_range_label"].format(
+            min_pct=spec["min_pct"],
+            max_pct=spec["max_pct"],
+            suffix=percent_suffix,
+        ),
     }
 
 
@@ -81,7 +96,7 @@ def compute_formal_score_candidate(report: dict[str, Any], grade: str, band_posi
 
 def compute_formal_algorithm_result(report: dict[str, Any]) -> dict[str, Any]:
     auto_direction = str(report.get("auto_band_direction") or "")
-    grade = AUTO_DIRECTION_TO_FORMAL_GRADE.get(auto_direction, "一般")
+    grade = AUTO_DIRECTION_TO_FORMAL_GRADE.get(auto_direction, _FORMAL_ALGORITHM_DISPLAY["default_formal_grade"])
     band_position = FORMAL_GRADE_BAND_POSITION.get(auto_direction, "mid")
     score_range = score_range_for_grade(grade)
     return {
@@ -151,31 +166,21 @@ def build_formal_publication_rows(person_reports: list[dict[str, Any]]) -> list[
 
 
 def formal_algorithm_mapping_rows(*, g9_publication: bool = False) -> list[dict[str, Any]]:
-    direction_rows = [
-        ("高位强正，上探极正候选", "三核心覆盖且没有强负阻断，进入第五项B历史天花板候选。"),
-        ("强正", "强正证据稳定但未达到历史极限门槛。"),
-        ("强正受压制，不上探极正", "强正底盘存在，但直接强负核心阻断上探。"),
-        ("强正封顶，不上探极正", "强正成立但被单维、上限或覆盖不足封顶。"),
-        ("中正", "中等正向结构成立，未触发高位或强负压制。"),
-        ("中正受中负压制", "中正基础被中负边界压制。"),
-        ("中正受强负压制", "中正基础被强负核心显著压低。"),
-        ("中负", "剥离相邻项后仍残留中等负压。"),
-        ("强负", "直接命中表达安全、人才安全或授权可信度破坏。"),
-    ]
     rows: list[dict[str, Any]] = []
-    for auto_direction, entry_condition in direction_rows:
+    for direction_row in _FORMAL_ALGORITHM_MAPPING_ROWS:
+        auto_direction = str(direction_row["auto_direction"])
         grade = AUTO_DIRECTION_TO_FORMAL_GRADE[auto_direction]
         score_range = score_range_for_grade(grade)
         rows.append(
             {
                 "band": grade,
-                "entry_condition": entry_condition,
+                "entry_condition": direction_row["entry_condition"],
                 "typical_evidence_structure": auto_direction,
-                "negative_intercept_condition": "强负核心或中负升强负边界必须阻断高位上探。",
-                "cross_item_split": "战功、政绩、边疆收益、统一贡献、治世光环全部外剥。",
-                "direct_score_allowed": "是，G9 已批准时可由同一算法版本发布人物正式分值。"
+                "negative_intercept_condition": _FORMAL_ALGORITHM_DISPLAY["negative_intercept_condition"],
+                "cross_item_split": _FORMAL_ALGORITHM_DISPLAY["cross_item_split"],
+                "direct_score_allowed": _FORMAL_ALGORITHM_DISPLAY["direct_score_allowed_g9"]
                 if g9_publication
-                else "否，G9 前不发布人物正式分值。",
+                else _FORMAL_ALGORITHM_DISPLAY["direct_score_allowed_pre_g9"],
                 "rule_confirmation_needed": f"{FORMAL_ALGORITHM_VERSION} / {FORMAL_RULE_VERSION}",
                 "relative_score_range_draft": score_range["range_label"],
             }

@@ -22,6 +22,25 @@ REQUIRED_POSITIVE_RULE_CORES = tuple(POSITIVE_CORE_KEYWORDS)
 
 _RULE_DICTIONARY_VALUES = values_by_symbol("i5b.rule_dictionary.v1")
 RULE_SENSITIVE_POINTS = [dict(item) for item in _RULE_DICTIONARY_VALUES["RULE_SENSITIVE_POINTS"]]
+_RULE_RUNTIME_TEXT = _RULE_DICTIONARY_VALUES["RULE_RUNTIME_TEXT"]
+_INFER_DIMENSION_FALLBACK_RULES = tuple(
+    {
+        "keywords": tuple(item["keywords"]),
+        "dimension": str(item["dimension"]),
+    }
+    for item in _RULE_RUNTIME_TEXT["infer_dimension_fallback_rules"]
+)
+_NEGATIVE_BOUNDARY_RESULTS = _RULE_RUNTIME_TEXT["negative_boundary_results"]
+_RULE_SENSITIVE_DECISIONS = _RULE_RUNTIME_TEXT["rule_sensitive_decisions"]
+_FORMAL_BAND_MAP = _RULE_RUNTIME_TEXT["formal_band_map"]
+_SCORE_PENDING_DRAFT = dict(_RULE_RUNTIME_TEXT["score_pending_draft"])
+_RULE_RESOLUTION_TEXT = _RULE_RUNTIME_TEXT["rule_resolution_text"]
+_REMAINING_QUESTION_TEXT = _RULE_RUNTIME_TEXT["remaining_question_text"]
+_SCORE_STAGE_PREREQUISITE_TEXT = _RULE_RUNTIME_TEXT["score_stage_prerequisite_text"]
+_NEGATIVE_INTERCEPT_STATUS = _RULE_RUNTIME_TEXT["negative_intercept_status"]
+_ADJACENT_ITEM_STRIPPING_STATUS = _RULE_RUNTIME_TEXT["adjacent_item_stripping_status"]
+AUTO_BAND_DIRECTIONS = _RULE_RUNTIME_TEXT["auto_band_directions"]
+_AUTO_BAND_DIRECTIONS = AUTO_BAND_DIRECTIONS
 _DIRECTION_GRADE_MAPPING_VALUES = values_by_symbol("i5b.direction_grade_mapping.v1")
 DIMENSION_RULES = tuple(tuple(item) for item in _DIRECTION_GRADE_MAPPING_VALUES["DIMENSION_RULES"])
 
@@ -53,13 +72,10 @@ def infer_dimension(card: dict[str, Any]) -> str:
         if keyword in text:
             return dimension
 
-    if contains_any(text, ("军政", "将才", "分兵", "持节", "大将军", "将军", "总管")):
-        return "创业期军政授权"
-    if contains_any(text, ("纳言", "纳谏", "反馈入口", "求言")):
-        return "容谏反馈"
-    if contains_any(text, ("人才", "用人", "任用", "拔擢", "识人")):
-        return "识人任用"
-    return trigger_family or anchor or "未分类"
+    for rule in _INFER_DIMENSION_FALLBACK_RULES:
+        if contains_any(text, rule["keywords"]):
+            return rule["dimension"]
+    return trigger_family or anchor or str(_RULE_RUNTIME_TEXT["unclassified_label"])
 
 
 def infer_positive_rule_core(card: dict[str, Any]) -> str | None:
@@ -136,63 +152,21 @@ def classify_negative_boundary(
     cluster_strength = int(cluster_candidate_strength or 0)
 
     if direct_safety_hard:
-        return {
-            "boundary_tier": "medium_to_strong",
-            "residual_level": "strong",
-            "blocking_extreme": True,
-            "auto_cluster_result": "强负候选",
-            "negative_core": True,
-            "hard_evidence": True,
-        }
+        return dict(_NEGATIVE_BOUNDARY_RESULTS["direct_safety_hard"])
 
     if max_strength >= 3 or cluster_strength >= 3:
-        return {
-            "boundary_tier": "adjacent_item_medium_residual",
-            "residual_level": "medium",
-            "blocking_extreme": False,
-            "auto_cluster_result": "中负边界",
-            "negative_core": False,
-            "hard_evidence": False,
-        }
+        return dict(_NEGATIVE_BOUNDARY_RESULTS["strong_or_cluster_strength"])
 
     if max_strength == 2:
-        return {
-            "boundary_tier": "weak_to_medium",
-            "residual_level": "medium",
-            "blocking_extreme": False,
-            "auto_cluster_result": "中负边界",
-            "negative_core": False,
-            "hard_evidence": False,
-        }
+        return dict(_NEGATIVE_BOUNDARY_RESULTS["medium_strength"])
 
     if max_strength == 1:
-        return {
-            "boundary_tier": "weak_to_medium",
-            "residual_level": "weak",
-            "blocking_extreme": False,
-            "auto_cluster_result": "弱负边界",
-            "negative_core": False,
-            "hard_evidence": False,
-        }
+        return dict(_NEGATIVE_BOUNDARY_RESULTS["weak_strength"])
 
     if has_boundary:
-        return {
-            "boundary_tier": "weak_to_medium",
-            "residual_level": "none",
-            "blocking_extreme": False,
-            "auto_cluster_result": "未定",
-            "negative_core": False,
-            "hard_evidence": False,
-        }
+        return dict(_NEGATIVE_BOUNDARY_RESULTS["boundary_only"])
 
-    return {
-        "boundary_tier": "none",
-        "residual_level": "none",
-        "blocking_extreme": False,
-        "auto_cluster_result": "未定",
-        "negative_core": False,
-        "hard_evidence": False,
-    }
+    return dict(_NEGATIVE_BOUNDARY_RESULTS["none"])
 
 
 def build_rule_sensitive_points(report: dict[str, Any]) -> list[dict[str, str]]:
@@ -200,117 +174,79 @@ def build_rule_sensitive_points(report: dict[str, Any]) -> list[dict[str, str]]:
     negative_boundary_tier = str(report.get("negative_boundary_tier") or "none")
 
     if negative_boundary_tier == "weak_to_medium":
-        points.append(
-            {
-                "rule": "弱负上调中负边界",
-                "decision": "不阻断极正或高位上探；只降低置信度，不进入强负核心。",
-            }
-        )
+        points.append(dict(_RULE_SENSITIVE_DECISIONS["weak_to_medium"]))
     elif negative_boundary_tier == "medium_to_strong":
-        points.append(
-            {
-                "rule": "中负上调强负边界",
-                "decision": "阻断极正/高位上探；进入强负核心或强负拦截候选，但仍不得机械扩大到极负。",
-            }
-        )
+        points.append(dict(_RULE_SENSITIVE_DECISIONS["medium_to_strong"]))
     elif negative_boundary_tier == "adjacent_item_medium_residual":
-        points.append(
-            {
-                "rule": "相邻项主导剥离",
-                "decision": "大案本身严重不等于第五项B强负；剥离后只保留 B 项剩余影响。",
-            }
-        )
+        points.append(dict(_RULE_SENSITIVE_DECISIONS["adjacent_item_medium_residual"]))
 
     if bool(report.get("single_dimension_flag")) and int(report.get("strong_positive_count") or 0) >= 3:
         if bool(report.get("positive_three_core_coverage")):
-            decision = "同一维度内至少三个强正核心，且覆盖识人任用、授权专任、人才生态三类核心，允许上探极正候选。"
+            decision = _RULE_SENSITIVE_DECISIONS["single_dimension_three_core"]["decision_when_covered"]
         else:
-            decision = "虽有同一维度三条强正，但三核心覆盖不足；默认强正封顶，不上探极正。"
+            decision = _RULE_SENSITIVE_DECISIONS["single_dimension_three_core"]["decision_when_not_covered"]
         points.append(
             {
-                "rule": "单维强正三核心",
+                "rule": _RULE_SENSITIVE_DECISIONS["single_dimension_three_core"]["rule"],
                 "decision": decision,
             }
         )
 
     if bool(report.get("has_strong_negative_core")):
-        points.append(
-            {
-                "rule": "强负核心压制强正",
-                "decision": "保留强正基础，但自动标记为强正受压制，不上探极正。",
-            }
-        )
+        points.append(dict(_RULE_SENSITIVE_DECISIONS["strong_negative_core"]))
 
     if negative_boundary_tier == "adjacent_item_medium_residual":
-        points.append(
-            {
-                "rule": "B项剩余默认中负",
-                "decision": "默认中负剩余；只有直接寒蝉、群臣莫敢正言、人才退缩或授权可信度破坏等硬证时，才保留强负核心。",
-            }
-        )
+        points.append(dict(_RULE_SENSITIVE_DECISIONS["default_medium_negative_residual"]))
 
     return points
 
 
 def build_formal_band_draft(report: dict[str, Any]) -> str:
     auto_band_direction = str(report.get("auto_band_direction") or "")
-    formal_band_map = {
-        "高位强正，上探极正候选": "极正候选 / 高位强正上探极正",
-        "强正受压制，不上探极正": "强正受压制",
-        "强正封顶，不上探极正": "强正封顶",
-        "中正受中负压制": "中正受中负压制",
-        "中正受强负压制": "中正受强负压制",
-    }
-    return formal_band_map.get(auto_band_direction, auto_band_direction or "待定")
+    return _FORMAL_BAND_MAP.get(auto_band_direction, auto_band_direction or str(_RULE_RUNTIME_TEXT["pending_label"]))
 
 
 def build_trial_score_draft(report: dict[str, Any]) -> dict[str, Any]:
     formal_band_draft = build_formal_band_draft(report)
-    return TRIAL_SCORE_MAP.get(formal_band_draft, {"score_range": "待定", "trial_score": "待定"})
+    return TRIAL_SCORE_MAP.get(formal_band_draft, dict(_SCORE_PENDING_DRAFT))
 
 
 def format_rule_resolutions(report: dict[str, Any]) -> str:
     points = report.get("rule_sensitive_points") or []
     if not points:
-        return "无"
+        return str(_RULE_RESOLUTION_TEXT["none"])
     resolutions = []
     for point in points:
-        rule = str(point.get("rule") or "未命名规则")
+        rule = str(point.get("rule") or _RULE_RESOLUTION_TEXT["unnamed_rule"])
         decision = str(point.get("decision") or "").rstrip("。")
         if decision:
-            resolutions.append(f"{rule}：已按规则解决（{decision}）")
+            resolutions.append(_RULE_RESOLUTION_TEXT["resolved_with_decision"].format(rule=rule, decision=decision))
         else:
-            resolutions.append(f"{rule}：已按规则解决")
+            resolutions.append(_RULE_RESOLUTION_TEXT["resolved"].format(rule=rule))
     return "；".join(resolutions)
 
 
 def format_remaining_questions(report: dict[str, Any]) -> str:
     questions: list[str] = []
     if str(report.get("negative_boundary_tier") or "") == "none":
-        questions.append("暂无新增规则问题")
+        questions.append(str(_REMAINING_QUESTION_TEXT["no_new_rule_question"]))
     if bool(report.get("has_extreme_negative_core")) and not bool(report.get("negative_boundary_blocking")):
-        questions.append("极负核心是否需要单列更强阻断规则")
-    return "；".join(questions) if questions else "无"
+        questions.append(str(_REMAINING_QUESTION_TEXT["extreme_negative_core_followup"]))
+    return "；".join(questions) if questions else str(_RULE_RESOLUTION_TEXT["none"])
 
 
 def format_score_stage_prerequisites(report: dict[str, Any]) -> str:
-    if str(report.get("auto_band_direction") or "") == "自动草案待规则复核":
-        return "需先解决规则复核问题；不得发布人物正式分值。"
-    return "已具备 G8 正式算法映射和 G9 发布门；正式分值与排名只能由同一算法版本生成，不得人工覆盖。"
+    if str(report.get("auto_band_direction") or "") == _AUTO_BAND_DIRECTIONS["rule_review_pending"]:
+        return str(_SCORE_STAGE_PREREQUISITE_TEXT["rule_review_required"])
+    return str(_SCORE_STAGE_PREREQUISITE_TEXT["g8_g9_ready"])
 
 
 def build_negative_intercept_status(report: dict[str, Any]) -> str:
     if bool(report.get("negative_boundary_blocking")):
-        return "已阻断极正"
-    return "未阻断极正"
+        return str(_NEGATIVE_INTERCEPT_STATUS["blocked"])
+    return str(_NEGATIVE_INTERCEPT_STATUS["not_blocked"])
 
 
 def build_adjacent_item_stripping_status(report: dict[str, Any]) -> str:
     tier = str(report.get("negative_boundary_tier") or "")
-    if tier == "weak_to_medium":
-        return "已剥离战果、政绩、边疆收益与治世光环，B项仅保留人才安全轻边界"
-    if tier == "medium_to_strong":
-        return "已剥离战果、政绩、后效与相邻项外溢，B项保留强负核心"
-    if tier == "adjacent_item_medium_residual":
-        return "已剥离楚狱、政权安全、司法严酷等相邻项，B项仅留中负剩余"
-    return "已完成相邻项剥离"
+    return str(_ADJACENT_ITEM_STRIPPING_STATUS.get(tier, _ADJACENT_ITEM_STRIPPING_STATUS["default"]))
