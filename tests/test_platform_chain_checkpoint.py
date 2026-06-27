@@ -323,6 +323,13 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "script_lifecycle_finalization_large_script_threshold_lines": 500,
         "script_lifecycle_finalization_large_script_move_count": 13,
         "script_lifecycle_finalization_old_active_paths_removed": True,
+        "script_lifecycle_finalization_active_helper_extraction_completed": True,
+        "script_lifecycle_finalization_active_large_script_refactor_count": 4,
+        "script_lifecycle_finalization_active_large_script_lines_before": 2647,
+        "script_lifecycle_finalization_active_large_script_lines_after": 2624,
+        "script_lifecycle_finalization_active_large_script_line_reduction": 23,
+        "script_lifecycle_finalization_active_plan_hash_helpers_consolidated": 4,
+        "script_lifecycle_finalization_active_secret_redaction_helpers_consolidated": 4,
         "script_lifecycle_finalization_replacement_paths_exist": True,
         "script_lifecycle_finalization_transitional_scripts_without_sunset": 0,
         "script_lifecycle_finalization_retired_default_public_route_violations": 0,
@@ -563,6 +570,13 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"script_lifecycle_finalization_large_script_threshold_lines": 500' in text
     assert '"script_lifecycle_finalization_large_script_move_count": 13' in text
     assert '"script_lifecycle_finalization_old_active_paths_removed": true' in text
+    assert '"script_lifecycle_finalization_active_helper_extraction_completed": true' in text
+    assert '"script_lifecycle_finalization_active_large_script_refactor_count": 4' in text
+    assert '"script_lifecycle_finalization_active_large_script_lines_before": 2647' in text
+    assert '"script_lifecycle_finalization_active_large_script_lines_after": 2624' in text
+    assert '"script_lifecycle_finalization_active_large_script_line_reduction": 23' in text
+    assert '"script_lifecycle_finalization_active_plan_hash_helpers_consolidated": 4' in text
+    assert '"script_lifecycle_finalization_active_secret_redaction_helpers_consolidated": 4' in text
     assert '"script_lifecycle_finalization_replacement_paths_exist": true' in text
     assert '"script_lifecycle_finalization_transitional_scripts_without_sunset": 0' in text
     assert '"script_lifecycle_finalization_retired_default_public_route_violations": 0' in text
@@ -621,6 +635,7 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "post_g10_followup_gates_readiness_does_not_enter_epic2_or_epic3" in text
     assert "post_g10_script_lifecycle_finalization_updates_registry_and_moves_large_retired_scripts" in text
     assert "post_g10_script_lifecycle_finalization_moves_only_to_documented_retired_location" in text
+    assert "post_g10_script_lifecycle_finalization_extracts_active_plan_hash_and_redaction_helpers" in text
     assert "post_g10_script_lifecycle_finalization_does_not_touch_data_archive_or_exports" in text
     assert "post_g10_script_lifecycle_finalization_requires_restore_instruction_per_item" in text
     assert "post_g10_script_lifecycle_finalization_keeps_retired_scripts_out_of_default_public_routes" in text

@@ -71,6 +71,13 @@ def test_finalization_current_state_records_real_lifecycle_actions() -> None:
     assert state["script_lifecycle_finalization_large_script_threshold_lines"] == 500
     assert state["script_lifecycle_finalization_large_script_move_count"] == 13
     assert state["script_lifecycle_finalization_old_active_paths_removed"] is True
+    assert state["script_lifecycle_finalization_active_helper_extraction_completed"] is True
+    assert state["script_lifecycle_finalization_active_large_script_refactor_count"] == 4
+    assert state["script_lifecycle_finalization_active_large_script_lines_before"] == 2647
+    assert state["script_lifecycle_finalization_active_large_script_lines_after"] == 2624
+    assert state["script_lifecycle_finalization_active_large_script_line_reduction"] == 23
+    assert state["script_lifecycle_finalization_active_plan_hash_helpers_consolidated"] == 4
+    assert state["script_lifecycle_finalization_active_secret_redaction_helpers_consolidated"] == 4
     assert state["script_lifecycle_finalization_replacement_paths_exist"] is True
     assert state["transitional_scripts_without_sunset"] == 0
     assert state["retired_scripts_in_default_validate_or_public_cli"] == 0
@@ -161,6 +168,26 @@ def test_duplicate_capability_groups_are_governed_after_finalization() -> None:
         for review in reviews.values()
         if review["module_count"] > 1
     )
+
+
+def test_active_helper_extraction_metrics_record_real_large_script_refactor() -> None:
+    metrics = finalization.build_finalization_report()["before_after_metrics"]
+
+    assert metrics["active_large_script_refactor_modules"] == [
+        "scripts/platform/g3_postgres_business_write_execution.py",
+        "scripts/platform/g4_write_source_cutover_execution.py",
+        "scripts/platform/g5_runtime_execution.py",
+        "scripts/platform/g6_formal_evidence_execution.py",
+    ]
+    assert metrics["active_shared_helper_paths"] == [
+        "scripts/platform/core/fingerprints.py",
+        "scripts/platform/core/redaction.py",
+    ]
+    assert metrics["active_large_script_lines_before"] == 2647
+    assert metrics["active_large_script_lines_after"] == 2624
+    assert metrics["active_large_script_line_reduction"] == 23
+    assert metrics["active_plan_hash_helpers_consolidated"] == 4
+    assert metrics["active_secret_redaction_helpers_consolidated"] == 4
 
 
 def test_report_only_test_consolidation_is_recorded() -> None:

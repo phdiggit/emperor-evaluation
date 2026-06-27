@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import sys
@@ -15,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.platform.core.fingerprints import stable_json_sha256 as _stable_json_sha256  # noqa: E402
+from scripts.platform.core.redaction import redact_connection_secrets  # noqa: E402
 from scripts.platform.env_loader import read_dotenv_values  # noqa: E402
 from scripts.platform.jsonl_staging_diff_verification import build_verification_report  # noqa: E402
 
@@ -500,17 +501,11 @@ def connect_to_database(dsn: str) -> Any:
 
 
 def stable_json_sha256(payload: Mapping[str, Any]) -> str:
-    basis = {key: value for key, value in payload.items() if key != "execution_plan_sha256"}
-    encoded = json.dumps(basis, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
+    return _stable_json_sha256(payload, omit_key="execution_plan_sha256")
 
 
 def redact_secret(text: str) -> str:
-    redacted = text
-    if "postgresql://" in redacted:
-        redacted = redacted.split("postgresql://", 1)[0] + "postgresql://<redacted-dsn>"
-    redacted = redacted.replace("password=", "password=<redacted>")
-    return redacted
+    return redact_connection_secrets(text, schemes=("postgres", "postgresql"))
 
 
 def report_as_json(report: Mapping[str, Any]) -> str:

@@ -29,6 +29,22 @@ LAST_REQUIRED_BY = "Retired in place by Issue #346 Post-G10-S1 script lifecycle 
 DEFAULT_REPLACEMENT = "scripts/platform/platform_chain_checkpoint.py"
 DOCUMENTED_RETIRED_LOCATION = "scripts/platform/_retired/post_g10_s1"
 LARGE_SCRIPT_LINE_THRESHOLD = 500
+ACTIVE_HELPER_EXTRACTION_MODULES = (
+    "scripts/platform/g3_postgres_business_write_execution.py",
+    "scripts/platform/g4_write_source_cutover_execution.py",
+    "scripts/platform/g5_runtime_execution.py",
+    "scripts/platform/g6_formal_evidence_execution.py",
+)
+ACTIVE_SHARED_HELPER_PATHS = (
+    "scripts/platform/core/fingerprints.py",
+    "scripts/platform/core/redaction.py",
+)
+ACTIVE_HELPER_EXTRACTION_BEFORE_LINES = {
+    "scripts/platform/g3_postgres_business_write_execution.py": 563,
+    "scripts/platform/g4_write_source_cutover_execution.py": 577,
+    "scripts/platform/g5_runtime_execution.py": 900,
+    "scripts/platform/g6_formal_evidence_execution.py": 607,
+}
 
 PREVIOUSLY_RETIRED_IN_PLACE_IDS = (
     "platform_anchors_schema_proposal",
@@ -112,6 +128,11 @@ PACKAGE_CHANGED_PATHS = (
     "scripts/platform/_retired/post_g10_s1/schema_change_explicit_approval_request_handoff.py",
     "scripts/platform/_retired/post_g10_s1/schema_diff_draft_renderer.py",
     "scripts/platform/_retired/post_g10_s1/seed_artifact_validation_matrix.py",
+    "scripts/platform/core/redaction.py",
+    "scripts/platform/g3_postgres_business_write_execution.py",
+    "scripts/platform/g4_write_source_cutover_execution.py",
+    "scripts/platform/g5_runtime_execution.py",
+    "scripts/platform/g6_formal_evidence_execution.py",
     "docs/数据结构与生成库/史源数据平台迁移决策.md",
     "docs/文档与脚本登记/scripts_registry.json",
     "scripts/platform/g10_script_asset_risk_governance.py",
@@ -125,6 +146,7 @@ PACKAGE_CHANGED_PATHS = (
     "tests/test_migration_sql_draft_renderer.py",
     "tests/test_platform_chain_checkpoint.py",
     "tests/test_post_g10_script_lifecycle_finalization.py",
+    "tests/test_platform_core_helpers.py",
     "tests/test_production_migration_freeze_checklist.py",
     "tests/test_production_schema_live_apply_execution.py",
     "tests/test_production_schema_live_apply_execution_pr_scaffold.py",
@@ -215,6 +237,21 @@ def _line_count(relative_path: str) -> int:
     if not path.exists():
         return 0
     return len(path.read_text(encoding="utf-8").splitlines())
+
+
+def _active_helper_extraction_metrics() -> dict[str, Any]:
+    after_lines = {path: _line_count(path) for path in ACTIVE_HELPER_EXTRACTION_MODULES}
+    before_total = sum(ACTIVE_HELPER_EXTRACTION_BEFORE_LINES.values())
+    after_total = sum(after_lines.values())
+    return {
+        "active_large_script_refactor_modules": list(ACTIVE_HELPER_EXTRACTION_MODULES),
+        "active_shared_helper_paths": list(ACTIVE_SHARED_HELPER_PATHS),
+        "active_large_script_lines_before": before_total,
+        "active_large_script_lines_after": after_total,
+        "active_large_script_line_reduction": before_total - after_total,
+        "active_plan_hash_helpers_consolidated": len(ACTIVE_HELPER_EXTRACTION_MODULES),
+        "active_secret_redaction_helpers_consolidated": len(ACTIVE_HELPER_EXTRACTION_MODULES),
+    }
 
 
 def _expected_final_fields(item_id: str) -> dict[str, Any]:
@@ -361,6 +398,7 @@ def build_finalization_report(
     moved_items = [item for item in manifest if item["id"] in PHYSICALLY_MOVED_RETIRE_IDS]
     retained_items = [item for item in manifest if item["id"] not in PHYSICALLY_MOVED_RETIRE_IDS]
     moved_line_count = sum(_line_count(item["implementation"]) for item in moved_items)
+    active_helper_metrics = _active_helper_extraction_metrics()
     unexpected_final_fields = [
         {
             "id": item["id"],
@@ -383,6 +421,13 @@ def build_finalization_report(
         and analysis["transitional_scripts_without_sunset_count"] == 0
         and analysis["retired_scripts_in_default_validate_or_public_cli"] == 0
         and not analysis["duplicate_capability_groups_without_reason"]
+        and active_helper_metrics["active_large_script_line_reduction"] > 0
+        and active_helper_metrics["active_plan_hash_helpers_consolidated"] == len(
+            ACTIVE_HELPER_EXTRACTION_MODULES
+        )
+        and active_helper_metrics["active_secret_redaction_helpers_consolidated"] == len(
+            ACTIVE_HELPER_EXTRACTION_MODULES
+        )
     )
     return {
         "mode": "finalization-report",
@@ -434,6 +479,25 @@ def build_finalization_report(
             "script_lifecycle_finalization_old_active_paths_removed": all(
                 item["active_platform_path_absent_after_move"] for item in moved_items
             ),
+            "script_lifecycle_finalization_active_helper_extraction_completed": True,
+            "script_lifecycle_finalization_active_large_script_refactor_count": len(
+                ACTIVE_HELPER_EXTRACTION_MODULES
+            ),
+            "script_lifecycle_finalization_active_large_script_lines_before": active_helper_metrics[
+                "active_large_script_lines_before"
+            ],
+            "script_lifecycle_finalization_active_large_script_lines_after": active_helper_metrics[
+                "active_large_script_lines_after"
+            ],
+            "script_lifecycle_finalization_active_large_script_line_reduction": active_helper_metrics[
+                "active_large_script_line_reduction"
+            ],
+            "script_lifecycle_finalization_active_plan_hash_helpers_consolidated": active_helper_metrics[
+                "active_plan_hash_helpers_consolidated"
+            ],
+            "script_lifecycle_finalization_active_secret_redaction_helpers_consolidated": (
+                active_helper_metrics["active_secret_redaction_helpers_consolidated"]
+            ),
             "script_lifecycle_finalization_replacement_paths_exist": all(
                 item["replacement_exists"] for item in manifest
             ),
@@ -474,6 +538,7 @@ def build_finalization_report(
             "large_retired_script_files_moved": len(moved_items),
             "active_platform_root_line_reduction": moved_line_count,
             "documented_retired_location": DOCUMENTED_RETIRED_LOCATION,
+            **active_helper_metrics,
         },
         "scripts_registry_analysis": {
             "platform_lifecycle_status_counts": analysis["platform_lifecycle_status_counts"],
@@ -514,6 +579,11 @@ def render_finalization_md() -> str:
         f"- moved_to_documented_retired_location: `{state['script_lifecycle_finalization_moved_to_documented_retired_location_count']}`",
         f"- retained_in_place_count: `{state['script_lifecycle_finalization_retained_in_place_count']}`",
         f"- active_root_line_reduction: `{state['script_lifecycle_finalization_active_root_line_reduction']}`",
+        f"- active_helper_extraction_completed: `{str(state['script_lifecycle_finalization_active_helper_extraction_completed']).lower()}`",
+        f"- active_large_script_refactor_count: `{state['script_lifecycle_finalization_active_large_script_refactor_count']}`",
+        f"- active_large_script_line_reduction: `{state['script_lifecycle_finalization_active_large_script_line_reduction']}`",
+        f"- active_plan_hash_helpers_consolidated: `{state['script_lifecycle_finalization_active_plan_hash_helpers_consolidated']}`",
+        f"- active_secret_redaction_helpers_consolidated: `{state['script_lifecycle_finalization_active_secret_redaction_helpers_consolidated']}`",
         f"- transitional_scripts_without_sunset: `{state['transitional_scripts_without_sunset']}`",
         f"- retired_scripts_in_default_validate_or_public_cli: `{state['retired_scripts_in_default_validate_or_public_cli']}`",
         f"- duplicate_capability_groups_without_reason: `{state['duplicate_capability_groups_without_reason']}`",
