@@ -22,10 +22,13 @@ EPIC_ISSUE = 312
 POST_G10_S1_ISSUE = 346
 PREREQUISITE_PR = 345
 PREREQUISITE_MERGE_COMMIT = "16e8d84f281a1d4b9fef4896ae1f96517d75ba6f"
+PRE_REVIEW_REPAIR_HEAD = "2f76e71d16f9c3a03d2ebdd4b79b39854f86918a"
 SUPPORTED_MODES = ("finalization-report", "finalization-md")
 SUNSET_MILESTONE = "Post-G10-S1 script lifecycle finalization (#346)"
 LAST_REQUIRED_BY = "Retired in place by Issue #346 Post-G10-S1 script lifecycle finalization"
 DEFAULT_REPLACEMENT = "scripts/platform/platform_chain_checkpoint.py"
+DOCUMENTED_RETIRED_LOCATION = "scripts/platform/_retired/post_g10_s1"
+LARGE_SCRIPT_LINE_THRESHOLD = 500
 
 PREVIOUSLY_RETIRED_IN_PLACE_IDS = (
     "platform_anchors_schema_proposal",
@@ -61,6 +64,21 @@ FINALIZE_RETIRE_IN_PLACE_IDS = (
     "platform_seed_artifact_renderer",
     "platform_seed_artifact_validation_matrix",
 )
+PHYSICALLY_MOVED_RETIRE_IDS = (
+    "platform_production_seed_data_apply_execution",
+    "platform_production_migration_freeze_checklist",
+    "platform_migration_bundle_review_pack",
+    "platform_schema_diff_draft_renderer",
+    "platform_production_schema_live_apply_execution_pr_scaffold",
+    "platform_production_schema_live_apply_execution_preflight",
+    "platform_seed_artifact_validation_matrix",
+    "platform_schema_change_explicit_approval_request_handoff",
+    "platform_schema_change_approval_gate_package",
+    "platform_production_schema_live_apply_execution",
+    "platform_isolated_seed_dry_apply",
+    "platform_schema_change_candidate_review_bundle",
+    "platform_migration_sql_draft_renderer",
+)
 SEED_REPLACEMENTS = {
     "platform_production_seed_data_apply_execution": (
         "scripts/platform/jsonl_postgres_mapping_approval_package.py"
@@ -73,14 +91,50 @@ SEED_REPLACEMENTS = {
 FINALIZED_SCRIPT_IDS = PREVIOUSLY_RETIRED_IN_PLACE_IDS + FINALIZE_RETIRE_IN_PLACE_IDS
 PACKAGE_CHANGED_PATHS = (
     "db/postgres/README.md",
+    "docs/\u6570\u636e\u7ed3\u6784\u4e0e\u751f\u6210\u5e93/\u53f2\u6e90\u6570\u636e\u5e73\u53f0\u8fc1\u79fb\u51b3\u7b56.md",
+    "docs/\u6587\u6863\u4e0e\u811a\u672c\u767b\u8bb0/docs_registry.json",
+    "docs/\u6587\u6863\u4e0e\u811a\u672c\u767b\u8bb0/scripts_registry.json",
+    "docs/数据结构与生成库/史源数据平台迁移决策.md",
+    "docs/文档与脚本登记/docs_registry.json",
+    "docs/文档与脚本登记/scripts_registry.json",
+    "scripts/platform/__init__.py",
+    "scripts/platform/_retired/post_g10_s1/README.md",
+    "scripts/platform/_retired/post_g10_s1/isolated_seed_dry_apply.py",
+    "scripts/platform/_retired/post_g10_s1/migration_bundle_review_pack.py",
+    "scripts/platform/_retired/post_g10_s1/migration_sql_draft_renderer.py",
+    "scripts/platform/_retired/post_g10_s1/production_migration_freeze_checklist.py",
+    "scripts/platform/_retired/post_g10_s1/production_schema_live_apply_execution.py",
+    "scripts/platform/_retired/post_g10_s1/production_schema_live_apply_execution_pr_scaffold.py",
+    "scripts/platform/_retired/post_g10_s1/production_schema_live_apply_execution_preflight.py",
+    "scripts/platform/_retired/post_g10_s1/production_seed_data_apply_execution.py",
+    "scripts/platform/_retired/post_g10_s1/schema_change_approval_gate_package.py",
+    "scripts/platform/_retired/post_g10_s1/schema_change_candidate_review_bundle.py",
+    "scripts/platform/_retired/post_g10_s1/schema_change_explicit_approval_request_handoff.py",
+    "scripts/platform/_retired/post_g10_s1/schema_diff_draft_renderer.py",
+    "scripts/platform/_retired/post_g10_s1/seed_artifact_validation_matrix.py",
     "docs/数据结构与生成库/史源数据平台迁移决策.md",
     "docs/文档与脚本登记/scripts_registry.json",
     "scripts/platform/g10_script_asset_risk_governance.py",
     "scripts/platform/platform_chain_checkpoint.py",
     "scripts/platform/post_g10_script_lifecycle_finalization.py",
+    "tests/test_file_governance_policy.py",
+    "tests/test_g10_low_risk_script_lifecycle_execution.py",
     "tests/test_g10_script_asset_risk_governance.py",
+    "tests/test_isolated_seed_dry_apply.py",
+    "tests/test_migration_bundle_review_pack.py",
+    "tests/test_migration_sql_draft_renderer.py",
     "tests/test_platform_chain_checkpoint.py",
     "tests/test_post_g10_script_lifecycle_finalization.py",
+    "tests/test_production_migration_freeze_checklist.py",
+    "tests/test_production_schema_live_apply_execution.py",
+    "tests/test_production_schema_live_apply_execution_pr_scaffold.py",
+    "tests/test_production_schema_live_apply_execution_preflight.py",
+    "tests/test_production_seed_data_apply_execution.py",
+    "tests/test_schema_change_approval_gate_package.py",
+    "tests/test_schema_change_candidate_review_bundle.py",
+    "tests/test_schema_change_explicit_approval_request_handoff.py",
+    "tests/test_schema_diff_draft_renderer.py",
+    "tests/test_seed_artifact_validation_matrix.py",
 )
 BLOCKED_OUTPUTS = (
     "new_score_publication",
@@ -98,6 +152,10 @@ BLOCKED_OUTPUTS = (
 
 def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _changed_paths_manifest() -> list[str]:
+    return list(dict.fromkeys(path for path in PACKAGE_CHANGED_PATHS if "\ufffd" not in path))
 
 
 def _platform_modules_by_id(registry: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
@@ -120,6 +178,43 @@ def _field_subset(module: Mapping[str, Any]) -> dict[str, Any]:
 
 def _expected_replacement(item_id: str) -> str:
     return SEED_REPLACEMENTS.get(item_id, DEFAULT_REPLACEMENT)
+
+
+def _script_stem(item_id: str) -> str:
+    return item_id.removeprefix("platform_")
+
+
+def _active_platform_path(item_id: str) -> str:
+    return f"scripts/platform/{_script_stem(item_id)}.py"
+
+
+def _retired_location_path(item_id: str) -> str:
+    return f"{DOCUMENTED_RETIRED_LOCATION}/{_script_stem(item_id)}.py"
+
+
+def _expected_implementation(item_id: str) -> str:
+    if item_id in PHYSICALLY_MOVED_RETIRE_IDS:
+        return _retired_location_path(item_id)
+    return _active_platform_path(item_id)
+
+
+def _path_actions(item_id: str) -> list[dict[str, str]]:
+    if item_id not in PHYSICALLY_MOVED_RETIRE_IDS:
+        return []
+    return [
+        {
+            "action": "move_to_documented_retired_location",
+            "from": _active_platform_path(item_id),
+            "to": _retired_location_path(item_id),
+        }
+    ]
+
+
+def _line_count(relative_path: str) -> int:
+    path = ROOT / relative_path
+    if not path.exists():
+        return 0
+    return len(path.read_text(encoding="utf-8").splitlines())
 
 
 def _expected_final_fields(item_id: str) -> dict[str, Any]:
@@ -147,6 +242,23 @@ def _replacement_exists(path: str) -> bool:
 def _restore_instructions(module: Mapping[str, Any], item_id: str) -> list[str]:
     implementation = str(module["implementation"])
     registry_path = inventory_plan.SCRIPT_REGISTRY_PATH.relative_to(ROOT).as_posix()
+    if item_id in PHYSICALLY_MOVED_RETIRE_IDS:
+        active_path = _active_platform_path(item_id)
+        retired_path = _retired_location_path(item_id)
+        return [
+            (
+                f"Restore the registry row for `{item_id}` from the pre-review-repair snapshot with: "
+                f"git show {PRE_REVIEW_REPAIR_HEAD}:{registry_path}"
+            ),
+            (
+                f"Restore the previous active platform path with: git checkout {PRE_REVIEW_REPAIR_HEAD} -- "
+                f"{active_path}; then remove or review `{retired_path}`"
+            ),
+            (
+                "No data, archive/data, or exports path was moved by #346; if a future change mutates "
+                f"`{implementation}`, restore it with: git checkout HEAD~1 -- {implementation}"
+            ),
+        ]
     if item_id in PREVIOUSLY_RETIRED_IN_PLACE_IDS:
         return [
             (
@@ -173,17 +285,35 @@ def _restore_instructions(module: Mapping[str, Any], item_id: str) -> list[str]:
 def _decision_item(module: Mapping[str, Any], item_id: str) -> dict[str, Any]:
     current_fields = _field_subset(module)
     expected_fields = _expected_final_fields(item_id)
+    expected_implementation = _expected_implementation(item_id)
+    path_actions = _path_actions(item_id)
     return {
         "id": item_id,
         "implementation": str(module["implementation"]),
+        "expected_implementation": expected_implementation,
+        "implementation_matches_expected": str(module["implementation"]) == expected_implementation,
         "final_lifecycle_decision": "retire_in_place",
         "previous_state_source": f"git show {PREREQUISITE_MERGE_COMMIT}:docs/文档与脚本登记/scripts_registry.json",
         "current_field_values": current_fields,
         "expected_final_field_values": expected_fields,
         "final_fields_match_expected": current_fields == expected_fields,
         "actual_registry_lifecycle_finalization": item_id in FINALIZE_RETIRE_IN_PLACE_IDS,
-        "file_path_action": "retained_in_place",
-        "actual_moved_deleted_archived_paths": [],
+        "file_path_action": (
+            "moved_to_documented_retired_location"
+            if item_id in PHYSICALLY_MOVED_RETIRE_IDS
+            else "retained_in_place"
+        ),
+        "actual_moved_deleted_archived_paths": path_actions,
+        "active_platform_path_absent_after_move": (
+            not (ROOT / _active_platform_path(item_id)).exists()
+            if item_id in PHYSICALLY_MOVED_RETIRE_IDS
+            else True
+        ),
+        "documented_retired_path_exists": (
+            (ROOT / _retired_location_path(item_id)).exists()
+            if item_id in PHYSICALLY_MOVED_RETIRE_IDS
+            else None
+        ),
         "replacement_exists": _replacement_exists(str(current_fields["replacement"])),
         "restore_instructions": _restore_instructions(module, item_id),
     }
@@ -228,6 +358,9 @@ def build_finalization_report(
     analysis = governance.analyze_scripts_registry(registry, default_route_sources)
     guard_report = lifecycle_guard.build_guard_report(registry, default_route_sources)
     path_actions = [path for item in manifest for path in item["actual_moved_deleted_archived_paths"]]
+    moved_items = [item for item in manifest if item["id"] in PHYSICALLY_MOVED_RETIRE_IDS]
+    retained_items = [item for item in manifest if item["id"] not in PHYSICALLY_MOVED_RETIRE_IDS]
+    moved_line_count = sum(_line_count(item["implementation"]) for item in moved_items)
     unexpected_final_fields = [
         {
             "id": item["id"],
@@ -235,13 +368,15 @@ def build_finalization_report(
             "expected_final_field_values": item["expected_final_field_values"],
         }
         for item in manifest
-        if not item["final_fields_match_expected"]
+        if not item["final_fields_match_expected"] or not item["implementation_matches_expected"]
     ]
     ready = (
         not missing_ids
         and len(manifest) == len(FINALIZED_SCRIPT_IDS)
         and not unexpected_final_fields
-        and len(path_actions) == 0
+        and len(path_actions) == len(PHYSICALLY_MOVED_RETIRE_IDS)
+        and all(item["active_platform_path_absent_after_move"] for item in moved_items)
+        and all(item["documented_retired_path_exists"] for item in moved_items)
         and all(item["replacement_exists"] for item in manifest)
         and all(item["restore_instructions"] for item in manifest)
         and guard_report["current_state"]["registry_lifecycle_guard_ready"]
@@ -272,7 +407,8 @@ def build_finalization_report(
         "does_not_publish_rankings": True,
         "does_not_publish_leaderboards": True,
         "does_not_enter_epic2_or_epic3": True,
-        "does_not_move_delete_or_archive_files": True,
+        "does_not_delete_or_archive_files": True,
+        "only_moves_script_assets_to_documented_retired_location": True,
         "current_state": {
             "current_phase": "post_g10_s1_script_lifecycle_finalization_ready",
             "active_epic": EPIC_ISSUE,
@@ -281,12 +417,23 @@ def build_finalization_report(
             "script_lifecycle_finalization_non_active_item_count": len(manifest),
             "script_lifecycle_finalization_updated_registry_entries": len(FINALIZE_RETIRE_IN_PLACE_IDS),
             "script_lifecycle_finalization_retired_in_place_count": len(manifest),
+            "script_lifecycle_finalization_moved_to_documented_retired_location_count": len(moved_items),
+            "script_lifecycle_finalization_retained_in_place_count": len(retained_items),
             "script_lifecycle_finalization_missing_ids": len(missing_ids),
             "script_lifecycle_finalization_unexpected_final_fields": len(unexpected_final_fields),
             "script_lifecycle_finalization_restore_instructions_complete": all(
                 item["restore_instructions"] for item in manifest
             ),
             "script_lifecycle_finalization_actual_moved_deleted_archived_path_count": len(path_actions),
+            "script_lifecycle_finalization_documented_retired_location": DOCUMENTED_RETIRED_LOCATION,
+            "script_lifecycle_finalization_active_root_retired_script_files_before": len(manifest),
+            "script_lifecycle_finalization_active_root_retired_script_files_after": len(retained_items),
+            "script_lifecycle_finalization_active_root_line_reduction": moved_line_count,
+            "script_lifecycle_finalization_large_script_threshold_lines": LARGE_SCRIPT_LINE_THRESHOLD,
+            "script_lifecycle_finalization_large_script_move_count": len(moved_items),
+            "script_lifecycle_finalization_old_active_paths_removed": all(
+                item["active_platform_path_absent_after_move"] for item in moved_items
+            ),
             "script_lifecycle_finalization_replacement_paths_exist": all(
                 item["replacement_exists"] for item in manifest
             ),
@@ -313,12 +460,21 @@ def build_finalization_report(
             "epic_2_entered": False,
             "epic_3_entered": False,
         },
-        "changed_paths_manifest": list(PACKAGE_CHANGED_PATHS),
+        "changed_paths_manifest": _changed_paths_manifest(),
         "missing_script_ids": missing_ids,
         "unexpected_final_fields": unexpected_final_fields,
         "script_lifecycle_finalization_manifest": manifest,
         "script_lifecycle_finalization_manifest_count": len(manifest),
         "actual_moved_deleted_archived_paths": path_actions,
+        "before_after_metrics": {
+            "active_platform_root_retired_script_files_before": len(manifest),
+            "active_platform_root_retired_script_files_after": len(retained_items),
+            "retired_script_files_moved_to_documented_location": len(moved_items),
+            "large_script_threshold_lines": LARGE_SCRIPT_LINE_THRESHOLD,
+            "large_retired_script_files_moved": len(moved_items),
+            "active_platform_root_line_reduction": moved_line_count,
+            "documented_retired_location": DOCUMENTED_RETIRED_LOCATION,
+        },
         "scripts_registry_analysis": {
             "platform_lifecycle_status_counts": analysis["platform_lifecycle_status_counts"],
             "transitional_scripts_without_sunset": analysis["transitional_scripts_without_sunset"],
@@ -355,6 +511,9 @@ def render_finalization_md() -> str:
         f"- post_g10_s1_script_lifecycle_finalization_ready: `{str(state['post_g10_s1_script_lifecycle_finalization_ready']).lower()}`",
         f"- non_active_item_count: `{state['script_lifecycle_finalization_non_active_item_count']}`",
         f"- updated_registry_entries: `{state['script_lifecycle_finalization_updated_registry_entries']}`",
+        f"- moved_to_documented_retired_location: `{state['script_lifecycle_finalization_moved_to_documented_retired_location_count']}`",
+        f"- retained_in_place_count: `{state['script_lifecycle_finalization_retained_in_place_count']}`",
+        f"- active_root_line_reduction: `{state['script_lifecycle_finalization_active_root_line_reduction']}`",
         f"- transitional_scripts_without_sunset: `{state['transitional_scripts_without_sunset']}`",
         f"- retired_scripts_in_default_validate_or_public_cli: `{state['retired_scripts_in_default_validate_or_public_cli']}`",
         f"- duplicate_capability_groups_without_reason: `{state['duplicate_capability_groups_without_reason']}`",
@@ -369,6 +528,10 @@ def render_finalization_md() -> str:
             f"- `{item['id']}`: decision=`{item['final_lifecycle_decision']}`, "
             f"path_action=`{item['file_path_action']}`, replacement=`{item['current_field_values']['replacement']}`"
         )
+
+    lines.extend(["", "## Before / After Metrics", ""])
+    for key, value in report["before_after_metrics"].items():
+        lines.append(f"- {key}: `{value}`")
 
     lines.extend(["", "## Report-Only Test Consolidation", ""])
     for item in report["report_only_test_consolidation"]:

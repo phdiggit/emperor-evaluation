@@ -300,7 +300,7 @@ def test_adr_check_fails_for_ready_executed_connected_or_completed_claims(tmp_pa
 
 def test_source_inspection_forbidden_terms_are_absent() -> None:
     source = (
-        ROOT / "scripts" / "platform" / "production_schema_live_apply_execution_pr_scaffold.py"
+        Path(scaffold.__file__)
     ).read_text(encoding="utf-8")
 
     for forbidden in FORBIDDEN_SOURCE_TOKENS:

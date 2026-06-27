@@ -37,7 +37,8 @@ def test_finalization_report_declares_scope_and_boundaries() -> None:
     assert report["does_not_read_batch_payloads"] is True
     assert report["does_not_read_generated_exports"] is True
     assert report["does_not_touch_data_archive_export_roots"] is True
-    assert report["does_not_move_delete_or_archive_files"] is True
+    assert report["does_not_delete_or_archive_files"] is True
+    assert report["only_moves_script_assets_to_documented_retired_location"] is True
     assert report["does_not_publish_scores"] is True
     assert report["does_not_publish_rankings"] is True
     assert report["does_not_publish_leaderboards"] is True
@@ -55,10 +56,21 @@ def test_finalization_current_state_records_real_lifecycle_actions() -> None:
     assert state["script_lifecycle_finalization_non_active_item_count"] == 30
     assert state["script_lifecycle_finalization_updated_registry_entries"] == 24
     assert state["script_lifecycle_finalization_retired_in_place_count"] == 30
+    assert state["script_lifecycle_finalization_moved_to_documented_retired_location_count"] == 13
+    assert state["script_lifecycle_finalization_retained_in_place_count"] == 17
     assert state["script_lifecycle_finalization_missing_ids"] == 0
     assert state["script_lifecycle_finalization_unexpected_final_fields"] == 0
     assert state["script_lifecycle_finalization_restore_instructions_complete"] is True
-    assert state["script_lifecycle_finalization_actual_moved_deleted_archived_path_count"] == 0
+    assert state["script_lifecycle_finalization_actual_moved_deleted_archived_path_count"] == 13
+    assert state["script_lifecycle_finalization_documented_retired_location"] == (
+        "scripts/platform/_retired/post_g10_s1"
+    )
+    assert state["script_lifecycle_finalization_active_root_retired_script_files_before"] == 30
+    assert state["script_lifecycle_finalization_active_root_retired_script_files_after"] == 17
+    assert state["script_lifecycle_finalization_active_root_line_reduction"] == 8132
+    assert state["script_lifecycle_finalization_large_script_threshold_lines"] == 500
+    assert state["script_lifecycle_finalization_large_script_move_count"] == 13
+    assert state["script_lifecycle_finalization_old_active_paths_removed"] is True
     assert state["script_lifecycle_finalization_replacement_paths_exist"] is True
     assert state["transitional_scripts_without_sunset"] == 0
     assert state["retired_scripts_in_default_validate_or_public_cli"] == 0
@@ -84,10 +96,25 @@ def test_all_non_active_script_assets_have_final_decisions_and_restore_instructi
     assert {item["id"] for item in manifest} == set(finalization.FINALIZED_SCRIPT_IDS)
     assert sum(1 for item in manifest if item["actual_registry_lifecycle_finalization"]) == 24
     assert all(item["final_lifecycle_decision"] == "retire_in_place" for item in manifest)
-    assert all(item["file_path_action"] == "retained_in_place" for item in manifest)
-    assert all(item["actual_moved_deleted_archived_paths"] == [] for item in manifest)
+    assert sum(item["file_path_action"] == "moved_to_documented_retired_location" for item in manifest) == 13
+    assert sum(item["file_path_action"] == "retained_in_place" for item in manifest) == 17
+    assert len(report["actual_moved_deleted_archived_paths"]) == 13
     assert all(item["replacement_exists"] is True for item in manifest)
     assert all(item["restore_instructions"] for item in manifest)
+
+    moved = {
+        item["id"]: item
+        for item in manifest
+        if item["file_path_action"] == "moved_to_documented_retired_location"
+    }
+    assert set(moved) == set(finalization.PHYSICALLY_MOVED_RETIRE_IDS)
+    assert all(
+        item["implementation"].startswith("scripts/platform/_retired/post_g10_s1/")
+        for item in moved.values()
+    )
+    assert all(item["active_platform_path_absent_after_move"] is True for item in moved.values())
+    assert all(item["documented_retired_path_exists"] is True for item in moved.values())
+    assert all(item["actual_moved_deleted_archived_paths"] for item in moved.values())
 
     finalized = {
         item["id"]: item
@@ -126,9 +153,9 @@ def test_duplicate_capability_groups_are_governed_after_finalization() -> None:
     }
 
     assert reviews["schema_migration_seed_scaffolds"]["module_count"] >= 1
-    assert "retired-in-place audit records after #346" in reviews["schema_migration_seed_scaffolds"][
-        "retain_or_consolidation_reason"
-    ]
+    assert "moved to a documented retired location after #347 review" in (
+        reviews["schema_migration_seed_scaffolds"]["retain_or_consolidation_reason"]
+    )
     assert all(
         review["retain_or_consolidation_reason"] or review.get("governance_plan")
         for review in reviews.values()

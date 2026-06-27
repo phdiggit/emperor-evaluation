@@ -237,7 +237,7 @@ def test_cli_modes_print_json_and_return_expected_codes(capsys, tmp_path) -> Non
 
 
 def test_source_is_offline_validation_matrix_only() -> None:
-    source = (ROOT / "scripts" / "platform" / "seed_artifact_validation_matrix.py").read_text(encoding="utf-8")
+    source = (Path(matrix.__file__)).read_text(encoding="utf-8")
 
     assert "subprocess.run" not in source
     assert '"psql"' not in source

@@ -310,8 +310,19 @@ def test_checkpoint_report_has_complete_platform_chain() -> None:
         "script_lifecycle_finalization_non_active_item_count": 30,
         "script_lifecycle_finalization_updated_registry_entries": 24,
         "script_lifecycle_finalization_retired_in_place_count": 30,
+        "script_lifecycle_finalization_moved_to_documented_retired_location_count": 13,
+        "script_lifecycle_finalization_retained_in_place_count": 17,
         "script_lifecycle_finalization_restore_instructions_complete": True,
-        "script_lifecycle_finalization_actual_moved_deleted_archived_path_count": 0,
+        "script_lifecycle_finalization_actual_moved_deleted_archived_path_count": 13,
+        "script_lifecycle_finalization_documented_retired_location": (
+            "scripts/platform/_retired/post_g10_s1"
+        ),
+        "script_lifecycle_finalization_active_root_retired_script_files_before": 30,
+        "script_lifecycle_finalization_active_root_retired_script_files_after": 17,
+        "script_lifecycle_finalization_active_root_line_reduction": 8132,
+        "script_lifecycle_finalization_large_script_threshold_lines": 500,
+        "script_lifecycle_finalization_large_script_move_count": 13,
+        "script_lifecycle_finalization_old_active_paths_removed": True,
         "script_lifecycle_finalization_replacement_paths_exist": True,
         "script_lifecycle_finalization_transitional_scripts_without_sunset": 0,
         "script_lifecycle_finalization_retired_default_public_route_violations": 0,
@@ -538,8 +549,20 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert '"script_lifecycle_finalization_non_active_item_count": 30' in text
     assert '"script_lifecycle_finalization_updated_registry_entries": 24' in text
     assert '"script_lifecycle_finalization_retired_in_place_count": 30' in text
+    assert '"script_lifecycle_finalization_moved_to_documented_retired_location_count": 13' in text
+    assert '"script_lifecycle_finalization_retained_in_place_count": 17' in text
     assert '"script_lifecycle_finalization_restore_instructions_complete": true' in text
-    assert '"script_lifecycle_finalization_actual_moved_deleted_archived_path_count": 0' in text
+    assert '"script_lifecycle_finalization_actual_moved_deleted_archived_path_count": 13' in text
+    assert (
+        '"script_lifecycle_finalization_documented_retired_location": '
+        '"scripts/platform/_retired/post_g10_s1"' in text
+    )
+    assert '"script_lifecycle_finalization_active_root_retired_script_files_before": 30' in text
+    assert '"script_lifecycle_finalization_active_root_retired_script_files_after": 17' in text
+    assert '"script_lifecycle_finalization_active_root_line_reduction": 8132' in text
+    assert '"script_lifecycle_finalization_large_script_threshold_lines": 500' in text
+    assert '"script_lifecycle_finalization_large_script_move_count": 13' in text
+    assert '"script_lifecycle_finalization_old_active_paths_removed": true' in text
     assert '"script_lifecycle_finalization_replacement_paths_exist": true' in text
     assert '"script_lifecycle_finalization_transitional_scripts_without_sunset": 0' in text
     assert '"script_lifecycle_finalization_retired_default_public_route_violations": 0' in text
@@ -596,8 +619,8 @@ def test_checkpoint_report_does_not_claim_followup_gates() -> None:
     assert "post_g10_followup_gates_readiness_does_not_publish_scores_rankings_or_leaderboards" in text
     assert "post_g10_followup_gates_readiness_does_not_move_delete_archive_or_write_business_tables" in text
     assert "post_g10_followup_gates_readiness_does_not_enter_epic2_or_epic3" in text
-    assert "post_g10_script_lifecycle_finalization_updates_registry_only" in text
-    assert "post_g10_script_lifecycle_finalization_retires_scripts_in_place" in text
+    assert "post_g10_script_lifecycle_finalization_updates_registry_and_moves_large_retired_scripts" in text
+    assert "post_g10_script_lifecycle_finalization_moves_only_to_documented_retired_location" in text
     assert "post_g10_script_lifecycle_finalization_does_not_touch_data_archive_or_exports" in text
     assert "post_g10_script_lifecycle_finalization_requires_restore_instruction_per_item" in text
     assert "post_g10_script_lifecycle_finalization_keeps_retired_scripts_out_of_default_public_routes" in text

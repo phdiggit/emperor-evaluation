@@ -230,7 +230,7 @@ def test_cli_contract_and_check_print_json(capsys) -> None:
 
 
 def test_source_uses_python_driver_and_guarded_insert_strategy() -> None:
-    source = (ROOT / "scripts" / "platform" / "isolated_seed_dry_apply.py").read_text(encoding="utf-8")
+    source = (Path(dry_apply.__file__)).read_text(encoding="utf-8")
 
     for term in ["COPY ", "ON CONFLICT", "UPSERT", "LOAD DATA", "public."]:
         assert term not in source
