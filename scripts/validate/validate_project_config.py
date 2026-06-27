@@ -10,12 +10,27 @@ from yaml.tokens import AliasToken, AnchorToken, DocumentStartToken, TagToken
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT_CONFIG_PATH = ROOT / "data" / "configs" / "project_config.yml"
-ALLOWED_TOP_LEVEL_KEYS = {"version", "active_subitem", "subitems"}
-ALLOWED_SUBITEM_KEYS = {"groups", "defaults"}
-ALLOWED_GROUP_KEYS = {"label", "persons", "persons_ref", "persons_from_group"}
-ALLOWED_DEFAULT_KEYS = {"trial_group", "expanded_group", "net_evidence_group"}
-PERSON_SOURCE_KEYS = {"persons", "persons_ref", "persons_from_group"}
+ALLOWED_TOP_LEVEL_KEYS = {"version", "active_subitem", "default_person_group", "person_groups", "outputs"}
+ALLOWED_GROUP_KEYS = {"label", "persons", "persons_ref"}
+PERSON_SOURCE_KEYS = {"persons", "persons_ref"}
+ALLOWED_OUTPUT_KEYS = {
+    "matrix",
+    "auto_adjudication",
+    "review_entry",
+    "subitem_details",
+    "net_evidence",
+    "evidence_indexes",
+}
+ALLOWED_OUTPUT_DETAIL_KEYS = {"enabled", "person_group_override"}
 FORBIDDEN_KEYS = {
+    "i5b",
+    "subitems",
+    "groups",
+    "defaults",
+    "trial_group",
+    "expanded_group",
+    "net_evidence_group",
+    "persons_from_group",
     "candidate_pool",
     "review_warning_rules",
     "candidate_type",
@@ -110,13 +125,14 @@ def validate_persons_ref(path: Path, persons_ref: str, label: str) -> list[str]:
 
 
 def validate_group(path: Path, groups: dict[str, Any], selector: str, row: object) -> list[str]:
-    label = f"subitems.*.groups.{selector}"
+    _ = groups
+    label = f"person_groups.{selector}"
     errors: list[str] = []
     if not isinstance(row, dict):
         return [f"{path}: {label} must be a mapping"]
     extra_keys = sorted(set(row) - ALLOWED_GROUP_KEYS)
     if extra_keys:
-        errors.append(f"{path}: {label}: groups only allow label/persons/persons_ref/persons_from_group")
+        errors.append(f"{path}: {label}: person_groups only allow label/persons/persons_ref")
         for key in extra_keys:
             errors.append(f"{path}: {label}.{key}: group field is not allowed")
     if not is_non_empty_string(row.get("label")):
@@ -124,7 +140,7 @@ def validate_group(path: Path, groups: dict[str, Any], selector: str, row: objec
 
     source_keys = [key for key in PERSON_SOURCE_KEYS if key in row]
     if len(source_keys) != 1:
-        errors.append(f"{path}: {label}: provide exactly one of persons, persons_ref, or persons_from_group")
+        errors.append(f"{path}: {label}: provide exactly one of persons or persons_ref")
         return errors
 
     if "persons" in row and not is_non_empty_string_list(row["persons"]):
@@ -135,51 +151,53 @@ def validate_group(path: Path, groups: dict[str, Any], selector: str, row: objec
             errors.append(f"{path}: {label}.persons_ref must be a non-empty string")
         else:
             errors.extend(validate_persons_ref(path, str(persons_ref), label))
-    if "persons_from_group" in row:
-        source_selector = row["persons_from_group"]
-        if not is_non_empty_string(source_selector):
-            errors.append(f"{path}: {label}.persons_from_group must be a non-empty string")
-        elif source_selector == selector:
-            errors.append(f"{path}: {label}.persons_from_group must not reference itself")
-        elif source_selector not in groups:
-            errors.append(f"{path}: {label}.persons_from_group references missing group {source_selector!r}")
     return errors
 
 
-def validate_defaults(path: Path, defaults: object, groups: dict[str, Any]) -> list[str]:
-    label = "subitems.*.defaults"
+def validate_outputs(path: Path, outputs: object, groups: dict[str, Any]) -> list[str]:
+    label = "outputs"
     errors: list[str] = []
-    if not isinstance(defaults, dict):
+    if not isinstance(outputs, dict):
         return [f"{path}: {label} must be a mapping"]
-    extra_keys = sorted(set(defaults) - ALLOWED_DEFAULT_KEYS)
+    extra_keys = sorted(set(outputs) - ALLOWED_OUTPUT_KEYS)
     for key in extra_keys:
-        errors.append(f"{path}: {label}.{key}: defaults only allow group selector fields")
-    for key in sorted(ALLOWED_DEFAULT_KEYS):
-        selector = defaults.get(key)
-        if not is_non_empty_string(selector):
-            errors.append(f"{path}: {label}.{key} must be a non-empty group selector")
-        elif selector not in groups:
-            errors.append(f"{path}: {label}.{key} references missing group {selector!r}")
+        errors.append(f"{path}: {label}.{key}: outputs only allow known product output switches")
+    for key in sorted(ALLOWED_OUTPUT_KEYS):
+        if key not in outputs:
+            errors.append(f"{path}: {label}.{key} must be declared")
+            continue
+        value = outputs[key]
+        if isinstance(value, bool):
+            continue
+        if not isinstance(value, dict):
+            errors.append(f"{path}: {label}.{key} must be a boolean or output switch mapping")
+            continue
+        if key != "net_evidence":
+            errors.append(f"{path}: {label}.{key}: only net_evidence may use an output switch mapping")
+        extra_detail_keys = sorted(set(value) - ALLOWED_OUTPUT_DETAIL_KEYS)
+        for detail_key in extra_detail_keys:
+            errors.append(f"{path}: {label}.{key}.{detail_key}: output switch field is not allowed")
+        if "enabled" in value and not isinstance(value["enabled"], bool):
+            errors.append(f"{path}: {label}.{key}.enabled must be a boolean")
+        override = value.get("person_group_override")
+        if override is not None:
+            if not is_non_empty_string(override):
+                errors.append(f"{path}: {label}.{key}.person_group_override must be null or a non-empty group selector")
+            elif override not in groups:
+                errors.append(f"{path}: {label}.{key}.person_group_override references missing group {override!r}")
     return errors
 
 
-def validate_subitem(path: Path, name: str, value: object) -> list[str]:
-    label = f"subitems.{name}"
+def validate_person_groups(path: Path, groups: object) -> list[str]:
+    label = "person_groups"
     errors: list[str] = []
-    if not isinstance(value, dict):
-        return [f"{path}: {label} must be a mapping"]
-    extra_keys = sorted(set(value) - ALLOWED_SUBITEM_KEYS)
-    for key in extra_keys:
-        errors.append(f"{path}: {label}.{key}: subitem config only allows groups/defaults")
-    groups = value.get("groups")
     if not isinstance(groups, dict) or not groups:
-        return [*errors, f"{path}: {label}.groups must be a non-empty mapping"]
+        return [f"{path}: {label} must be a non-empty mapping"]
     for selector, row in groups.items():
         if not is_non_empty_string(selector):
-            errors.append(f"{path}: {label}.groups: group selector keys must be non-empty strings")
+            errors.append(f"{path}: {label}: group selector keys must be non-empty strings")
             continue
         errors.extend(validate_group(path, groups, str(selector), row))
-    errors.extend(validate_defaults(path, value.get("defaults"), groups))
     return errors
 
 
@@ -203,23 +221,27 @@ def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
 
     extra_top_level = sorted(set(payload) - ALLOWED_TOP_LEVEL_KEYS)
     for key in extra_top_level:
-        errors.append(f"{path}: {key}: top-level config only allows version/active_subitem/subitems")
-    if payload.get("version") != 1:
-        errors.append(f"{path}: version must be 1")
+        errors.append(
+            f"{path}: {key}: top-level config only allows "
+            "version/active_subitem/default_person_group/person_groups/outputs"
+        )
+    if payload.get("version") != 2:
+        errors.append(f"{path}: version must be 2")
     active_subitem = payload.get("active_subitem")
     if not is_non_empty_string(active_subitem):
         errors.append(f"{path}: active_subitem must be a non-empty string")
-    subitems = payload.get("subitems")
-    if not isinstance(subitems, dict) or not subitems:
-        errors.append(f"{path}: subitems must be a non-empty mapping")
-        return errors
-    if is_non_empty_string(active_subitem) and active_subitem not in subitems:
-        errors.append(f"{path}: active_subitem references missing subitem {active_subitem!r}")
-    for name, subitem in subitems.items():
-        if not is_non_empty_string(name):
-            errors.append(f"{path}: subitems keys must be non-empty strings")
-            continue
-        errors.extend(validate_subitem(path, str(name), subitem))
+
+    groups = payload.get("person_groups")
+    errors.extend(validate_person_groups(path, groups))
+    if isinstance(groups, dict):
+        default_person_group = payload.get("default_person_group")
+        if not is_non_empty_string(default_person_group):
+            errors.append(f"{path}: default_person_group must be a non-empty group selector")
+        elif default_person_group not in groups:
+            errors.append(f"{path}: default_person_group references missing group {default_person_group!r}")
+        errors.extend(validate_outputs(path, payload.get("outputs"), groups))
+    else:
+        errors.append(f"{path}: outputs cannot be validated without person_groups")
     return errors
 
 

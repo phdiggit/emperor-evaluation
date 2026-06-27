@@ -13,14 +13,22 @@ config_loaders = importlib.import_module("shared.config_loaders")
 def test_project_config_loader_reads_repo_config() -> None:
     config = config_loaders.load_project_config()
 
-    assert config["version"] == 1
+    assert config["version"] == 2
     assert config["active_subitem"] == "第五项B"
-    assert "第五项B" in config["subitems"]
-    assert "groups" in config["subitems"]["第五项B"]
-    assert "candidate_pool" not in config["subitems"]["第五项B"]
-    assert "review_warning_rules" not in config["subitems"]["第五项B"]
+    assert config["default_person_group"] == "expanded_batch1"
+    assert "person_groups" in config
+    assert "outputs" in config
+    assert "net_evidence" not in config["person_groups"]
+    assert "candidate_pool" not in config
+    assert "review_warning_rules" not in config
+    assert config_loaders.get_i5b_active_person_targets() == ["刘邦", "雍正", "朱元璋"]
     assert config_loaders.get_i5b_trial_targets() == ["李世民", "刘秀", "刘庄"]
     assert config_loaders.get_i5b_expanded_batch1_targets() == ["刘邦", "雍正", "朱元璋"]
+    assert [person for person, _path in config_loaders.get_i5b_net_evidence_targets()] == [
+        "刘邦",
+        "雍正",
+        "朱元璋",
+    ]
     assert [row["person"] for row in config_loaders.get_i5b_expanded_candidate_pool_rows()] == [
         "刘邦",
         "雍正",
@@ -32,9 +40,10 @@ def test_project_config_loader_reads_repo_config() -> None:
     ]
 
 
-def test_i5b_group_helpers_read_project_config(tmp_path: Path, monkeypatch, project_config_writer) -> None:
+def test_i5b_active_group_helpers_read_project_config(tmp_path: Path, monkeypatch, project_config_writer) -> None:
     config_path = project_config_writer(
         tmp_path / "project_config.yml",
+        default_person_group="expanded_batch1",
         view_groups=[
             {
                 "group_id": "第五项B_三人试点",
@@ -52,24 +61,16 @@ def test_i5b_group_helpers_read_project_config(tmp_path: Path, monkeypatch, proj
                 "persons": ["丙"],
                 "note": "测试",
             },
-            {
-                "group_id": "第五项B_净证据导出目标",
-                "group_name": "净证据导出目标",
-                "group_type": "导出人物组",
-                "subitem": "第五项B",
-                "persons": ["丁"],
-                "path_template": "exports/markdown_views/test-{person}.md",
-                "note": "测试",
-            },
         ],
     )
     monkeypatch.setattr(config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
     assert config_loaders.get_i5b_trial_targets() == ["甲", "乙"]
     assert config_loaders.get_i5b_expanded_batch1_targets() == ["丙"]
+    assert config_loaders.get_i5b_active_person_targets() == ["丙"]
     assert config_loaders.get_i5b_net_evidence_targets() == [
         (
-            "丁",
+            "丙",
             config_loaders.ROOT
             / "exports"
             / "markdown_views"
@@ -77,9 +78,34 @@ def test_i5b_group_helpers_read_project_config(tmp_path: Path, monkeypatch, proj
             / "人工审核"
             / "证据链"
             / "净证据池"
-            / "第五项B_丁人工审核净证据池.md",
+            / "第五项B_丙人工审核净证据池.md",
         )
     ]
+
+
+def test_i5b_net_evidence_output_override_can_use_another_person_group(
+    tmp_path: Path, monkeypatch, project_config_writer
+) -> None:
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        default_person_group="expanded_batch1",
+        groups={
+            "three_pilot": {"label": "三人试点", "persons": ["甲"]},
+            "expanded_batch1": {"label": "扩展第一批", "persons": ["乙"]},
+        },
+        outputs={
+            "matrix": True,
+            "auto_adjudication": True,
+            "review_entry": True,
+            "subitem_details": True,
+            "net_evidence": {"enabled": True, "person_group_override": "three_pilot"},
+            "evidence_indexes": True,
+        },
+    )
+    monkeypatch.setattr(config_loaders, "PROJECT_CONFIG_PATH", config_path)
+
+    assert config_loaders.get_i5b_active_person_targets() == ["乙"]
+    assert [person for person, _path in config_loaders.get_i5b_net_evidence_targets()] == ["甲"]
 
 
 def test_i5b_cluster_warning_loader_filters_by_rule_id_warning_type_trigger_type_and_subitem(monkeypatch) -> None:

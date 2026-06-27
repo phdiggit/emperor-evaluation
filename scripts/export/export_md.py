@@ -55,7 +55,8 @@ MARKDOWN_VIEW_ROOT = ROOT / "exports" / "markdown_views"
 SUMMARY_EXPORT_ROOT = MARKDOWN_VIEW_ROOT / "综合汇总"
 I5B_MACHINE_SEARCH_PACKAGE_ROOT = MARKDOWN_VIEW_ROOT / "第五项B" / "机器审计" / "证据链" / "检索包"
 EXPORT_PATH = SUMMARY_EXPORT_ROOT / "史料证据卡索引.md"
-SEARCH_LOGS_EXPORT_PATH = I5B_MACHINE_SEARCH_PACKAGE_ROOT / "第五项B三人试点检索线索.md"
+SEARCH_LOGS_EXPORT_PATH = I5B_MACHINE_SEARCH_PACKAGE_ROOT / "第五项B扩展第一批检索线索.md"
+DEFAULT_SEARCH_LOGS_EXPORT_PATH = SEARCH_LOGS_EXPORT_PATH
 EVIDENCE_CLUSTERS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "证据组裁量索引.md"
 THEMATIC_ANCHORS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "专题锚点索引.md"
 QUERY_PROFILES_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "项目检索包索引.md"
@@ -134,12 +135,28 @@ QUERY_PROFILE_HEADERS = [
 ]
 
 
+def load_i5b_active_targets() -> list[str]:
+    return config_loaders.get_i5b_active_person_targets()
+
+
 def load_i5b_trial_targets() -> list[str]:
     return config_loaders.get_i5b_trial_targets()
 
 
-I5B_TRIAL_TARGETS = load_i5b_trial_targets()
+I5B_ACTIVE_TARGETS = load_i5b_active_targets()
 I5B_SUBITEM = "第五项B"
+
+
+def safe_filename_part(value: object) -> str:
+    return str(value).replace("/", "_").replace("\\", "_").strip()
+
+
+def active_search_logs_export_path(workflow_config: dict[str, object]) -> Path:
+    if SEARCH_LOGS_EXPORT_PATH != DEFAULT_SEARCH_LOGS_EXPORT_PATH:
+        return SEARCH_LOGS_EXPORT_PATH
+    subitem = safe_filename_part(workflow_config.get("subitem") or I5B_SUBITEM)
+    group_label = safe_filename_part(workflow_config.get("group_label") or workflow_config.get("group") or "当前人物组")
+    return DEFAULT_SEARCH_LOGS_EXPORT_PATH.parent / f"{subitem}{group_label}检索线索.md"
 
 
 def export_markdown() -> Path:
@@ -177,11 +194,15 @@ def export_markdown() -> Path:
 
 
 def export_search_logs_markdown() -> Path:
-    SEARCH_LOGS_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    workflow_config = config_loaders.get_i5b_active_workflow_config()
+    targets = list(workflow_config.get("targets") or [])
+    group_label = str(workflow_config.get("group_label") or workflow_config.get("group") or "当前人物组")
+    export_path = active_search_logs_export_path(workflow_config)
+    export_path.parent.mkdir(parents=True, exist_ok=True)
 
     rows = []
-    if DB_PATH.exists():
-        placeholders = ", ".join("?" for _ in I5B_TRIAL_TARGETS)
+    if DB_PATH.exists() and targets:
+        placeholders = ", ".join("?" for _ in targets)
         with sqlite3.connect(DB_PATH) as connection:
             connection.row_factory = sqlite3.Row
             rows = list(
@@ -195,16 +216,19 @@ def export_search_logs_markdown() -> Path:
                       AND person IN ({placeholders})
                     ORDER BY person, polarity, trigger_family, search_id
                     """,
-                    [I5B_SUBITEM, *I5B_TRIAL_TARGETS],
+                    [I5B_SUBITEM, *targets],
                 )
             )
 
     lines = [
-        "# 第五项B三人试点检索线索",
+        f"# {I5B_SUBITEM}{group_label}检索线索",
         "",
         "本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。",
         "",
         "本文件导出待回源检索线索；未回源材料不得入分。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(str(person) for person in targets)}",
         "",
         "| " + " | ".join(SEARCH_LOG_HEADERS) + " |",
         "| " + " | ".join("---" for _ in SEARCH_LOG_HEADERS) + " |",
@@ -213,8 +237,8 @@ def export_search_logs_markdown() -> Path:
     for row in rows:
         lines.append("| " + " | ".join(escape_cell(row[header]) for header in SEARCH_LOG_HEADERS) + " |")
 
-    SEARCH_LOGS_EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return SEARCH_LOGS_EXPORT_PATH
+    export_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return export_path
 
 
 def export_generic_markdown(

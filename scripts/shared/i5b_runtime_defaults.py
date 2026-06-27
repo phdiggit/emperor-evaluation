@@ -83,9 +83,9 @@ I5B_CANDIDATE_POOL_ROWS: list[dict[str, Any]] = [{'person': '刘邦',
   'adjacent_item_risk': '后世褒贬、宗教与宫廷叙事回填。',
   'negative_scan_focus': '酷吏、告密、宗室/储位、称帝叙事、寒蝉。',
   'recommended_priority': 'P7'},
- {'person': '李世民', 'subitem': '第五项B', 'note': '三人试点与净证据导出目标人物；未纳入扩展候选画像。'},
- {'person': '刘秀', 'subitem': '第五项B', 'note': '三人试点与净证据导出目标人物；未纳入扩展候选画像。'},
- {'person': '刘庄', 'subitem': '第五项B', 'note': '三人试点与净证据导出目标人物；未纳入扩展候选画像。'}]
+ {'person': '李世民', 'subitem': '第五项B', 'note': '历史三人试点人物；未纳入扩展候选画像。'},
+ {'person': '刘秀', 'subitem': '第五项B', 'note': '历史三人试点人物；未纳入扩展候选画像。'},
+ {'person': '刘庄', 'subitem': '第五项B', 'note': '历史三人试点人物；未纳入扩展候选画像。'}]
 
 I5B_REVIEW_WARNING_RULES: list[dict[str, Any]] = [{'rule_id': 'I5B-CLUSTER-WARN-ADJACENT-CONTAMINATION',
   'enabled': False,

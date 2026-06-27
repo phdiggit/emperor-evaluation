@@ -8,15 +8,16 @@ WORKBENCH_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审
 OLD_DOC_PATH = ROOT / "docs" / "第五项B三人试点人工复核工作台.md"
 
 
-def test_i5b_human_review_workbench_doc_exists_and_covers_current_trial_people() -> None:
+def test_i5b_human_review_workbench_doc_exists_and_covers_active_people() -> None:
     assert not OLD_DOC_PATH.exists()
     content = WORKBENCH_PATH.read_text(encoding="utf-8")
 
-    assert "# 第五项B三人试点人工复核工作台" in content
+    assert "# 第五项B扩展第一批人工复核工作台" in content
+    assert "- **活动人物组**：扩展第一批" in content
     assert "旧 `docs/` 同名文件已退役" in content
     assert "## 使用边界" in content
     assert "## 人工复核总览" in content
-    for heading in ["## 李世民", "## 刘秀", "## 刘庄"]:
+    for heading in ["## 刘邦", "## 雍正", "## 朱元璋"]:
         assert heading in content
 
 

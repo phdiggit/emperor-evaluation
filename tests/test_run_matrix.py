@@ -17,7 +17,7 @@ EXPECTED_EXPORT_PATH = (
     / "人工审核"
     / "自动裁判链"
     / "自动结算草案"
-    / "第五项B三人试点正负证矩阵.md"
+    / "第五项B扩展第一批正负证矩阵.md"
 )
 EXPECTED_HEADERS = [
     "person",
@@ -51,6 +51,7 @@ def test_paths_and_headers_do_not_drift() -> None:
     assert run_matrix.ROOT == ROOT
     assert run_matrix.DATA_DIR == ROOT / "data"
     assert run_matrix.EXPORT_PATH == EXPECTED_EXPORT_PATH
+    assert run_matrix.DEFAULT_EXPORT_PATH == EXPECTED_EXPORT_PATH
     assert run_matrix.HEADERS == EXPECTED_HEADERS
 
 
@@ -163,7 +164,7 @@ def test_grouped_terms_filters_groups_and_sorts_without_changing_semantics() -> 
     ]
 
 
-def test_export_matrix_uses_trial_config_and_temp_output(tmp_path: Path, monkeypatch, project_config_writer) -> None:
+def test_export_matrix_uses_active_config_and_temp_output(tmp_path: Path, monkeypatch, project_config_writer) -> None:
     data_dir = tmp_path / "data"
     export_path = tmp_path / "matrix.md"
     data_dir.mkdir()
@@ -217,6 +218,8 @@ def test_export_matrix_uses_trial_config_and_temp_output(tmp_path: Path, monkeyp
     assert not EXPECTED_EXPORT_PATH.exists() or EXPECTED_EXPORT_PATH != result_path
     assert content.startswith("# 第五项B三人试点正负证矩阵\n\n")
     assert "本文件为矩阵骨架，尚未检索，不写入 search_logs，不生成 evidence_cards，不生成评分。" in content
+    assert "- **活动人物组**：三人试点" in content
+    assert "- **覆盖人物**：甲、乙" in content
     assert "planned_not_searched" in content
     assert "矩阵骨架，尚未检索，不得入分" in content
     assert content.index("甲") < content.index("乙")

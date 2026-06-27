@@ -79,6 +79,25 @@ def load_i5b_markdown_view_config(path: Path | None = None) -> dict[str, Any]:
     return _load_markdown_view_config()
 
 
+def active_workflow_config() -> dict[str, Any]:
+    return config_loaders.get_i5b_active_workflow_config()
+
+
+def active_group_label(config: dict[str, Any] | None = None) -> str:
+    resolved_config = config if config is not None else active_workflow_config()
+    return str(resolved_config.get("group_label") or resolved_config.get("group") or "当前人物组")
+
+
+def active_workflow_subject(config: dict[str, Any] | None = None) -> str:
+    resolved_config = config if config is not None else active_workflow_config()
+    return f"{resolved_config.get('subitem') or '第五项B'}{active_group_label(resolved_config)}"
+
+
+def active_person_targets(config: dict[str, Any] | None = None) -> list[str]:
+    resolved_config = config if config is not None else active_workflow_config()
+    return [str(person) for person in resolved_config.get("targets") or []]
+
+
 def person_detail_export_path(person: str) -> Path:
     return AUTO_DRAFT_DETAIL_DIR / f"{person}.md"
 
@@ -552,8 +571,8 @@ def render_formal_person_section(report: dict[str, Any], publication_row: dict[s
 
 
 def build_auto_adjudication_context() -> dict[str, Any]:
-    config = config_loaders.get_i5b_trial_config()
-    targets = list(config.get("targets") or [])
+    config = active_workflow_config()
+    targets = active_person_targets(config)
     return build_dimension_context(targets=targets, data_dir=DATA_DIR, evaluate_person=evaluate_person)
 
 
@@ -584,6 +603,9 @@ def render_split_index_page(
     display_config: dict[str, Any] | None = None,
 ) -> str:
     config = display_config if display_config is not None else load_i5b_markdown_view_config()
+    workflow_config = active_workflow_config()
+    workflow_subject = active_workflow_subject(workflow_config)
+    group_label = active_group_label(workflow_config)
     table_appendix_items: list[dict[str, Any]] = []
     overview_rows = []
     for report in person_reports:
@@ -606,17 +628,20 @@ def render_split_index_page(
         )
 
     lines = [
-        "# 第五项B三人自动结算草案",
+        f"# {workflow_subject}自动结算草案",
         "",
         "本文为 Typora 友好的纯 Markdown 索引页。详情页继续保留字段全量展示，不折叠、不截断、不隐藏 `linked_*` 与 `cross_item_split_signals`。",
         "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(report['person'] for report in person_reports)}",
+        "",
         "## 阅读说明",
         "",
-        "1. 先在本页查看三位试点人物总览。",
+        "1. 先在本页查看活动人物组总览。",
         "2. 再通过相对链接进入单个人物详情页。",
         "3. 人工复核提示数量按 display-only 规则统计，只改善阅读组织结构，不改变数据、裁判逻辑或评分结论。",
         "",
-        "## 试点人物列表",
+        "## 活动人物列表",
         "",
     ]
     for report in person_reports:
@@ -706,11 +731,18 @@ def render_person_appendix_page(
 
 
 def render_review_entry_landing() -> str:
-    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    workflow_config = active_workflow_config()
+    targets = active_person_targets(workflow_config)
+    workflow_subject = active_workflow_subject(workflow_config)
+    group_label = active_group_label(workflow_config)
     lines = [
-        "# 第五项B三人专人审核入口",
+        f"# {workflow_subject}专人审核入口",
         "",
-        "本文由 `scripts/export/export_i5b_auto_adjudication.py` 生成，是第五项B三人试点人工审核的当前状态入口；旧 `docs/` 同名文件已退役，不再作为当前入口。",
+        "本文由 `scripts/export/export_i5b_auto_adjudication.py` 生成，是第五项B活动人物组人工审核的当前状态入口；旧 `docs/` 同名文件已退役，不再作为当前入口。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(targets)}",
+        "- **兼容路径说明**：部分既有 Markdown 文件名仍保留历史字样以稳定链接；正文和数据范围以本页活动人物组为准。",
         "",
         "## 使用边界",
         "",
@@ -736,14 +768,14 @@ def render_review_entry_landing() -> str:
         "",
         "## 审核总流程",
         "",
-        "1. 先读三人自动结算索引。",
+        "1. 先读活动人物组自动结算索引。",
         "2. 再读对应人物详情页。",
         "3. 再读该人物人工审核净证据池。",
         "4. 必要时查看人工审核证据卡索引和人工审核证据簇索引。",
         "5. 需要代码追踪、数据追踪或回源定位时，再进入机器审计视图。",
         "6. 最后回到人工复核工作台，只填写数据质量、回源、上下文、剥离和规则级复核状态。",
         "",
-        "## 试点人物入口",
+        "## 活动人物入口",
         "",
     ]
     for person in targets:
@@ -790,6 +822,9 @@ def render_review_entry_landing() -> str:
 def render_review_workbench() -> str:
     context = build_auto_adjudication_context()
     person_reports = context["person_reports"]
+    workflow_config = active_workflow_config()
+    workflow_subject = active_workflow_subject(workflow_config)
+    group_label = active_group_label(workflow_config)
     rows = []
     for report in person_reports:
         rows.append(
@@ -804,9 +839,12 @@ def render_review_workbench() -> str:
         )
 
     lines = [
-        "# 第五项B三人试点人工复核工作台",
+        f"# {workflow_subject}人工复核工作台",
         "",
         "本文由当前 canonical data 与配置生成，是人工复核当前状态视图；旧 `docs/` 同名文件已退役，不再手工维护。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(report['person'] for report in person_reports)}",
         "",
         "## 使用边界",
         "",
@@ -845,13 +883,18 @@ def render_review_workbench() -> str:
 
 
 def render_review_matrix_note() -> str:
-    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    workflow_config = active_workflow_config()
+    targets = active_person_targets(workflow_config)
+    workflow_subject = active_workflow_subject(workflow_config)
+    group_label = active_group_label(workflow_config)
     lines = [
-        "# 第五项B三人试点矩阵说明",
+        f"# {workflow_subject}矩阵说明",
         "",
-        "本文由配置生成当前三人试点矩阵说明。矩阵骨架只规划检索与复核方向，不代表完成检索，不写入 `search_logs`，也不参与定档定分。",
+        "本文由配置生成当前活动人物组矩阵说明。矩阵骨架只规划检索与复核方向，不代表完成检索，不写入 `search_logs`，也不参与定档定分。",
         "",
-        "## 试点人物",
+        f"- **活动人物组**：{group_label}",
+        "",
+        "## 活动人物",
         "",
     ]
     lines.extend(f"- {person}" for person in targets)
@@ -864,11 +907,11 @@ def render_review_matrix_note() -> str:
             "- 实际检索后，矩阵格只能落为 `checked_no_hard_evidence`、`evidence_found_card_created`、`lead_needs_source_review` 或 `routed_to_adjacent_item`。",
             "- 矩阵不写评分结果，不写正式档位，不把人物名望、战功、治绩、盛世光环或边疆收益回填第五项B。",
             "",
-            "## 三人选择原因",
+            "## 当前组用途",
             "",
-            "- 李世民：高位正证样本，用于检验极正与中负拦截并存。",
-            "- 刘秀：旧体系高位被强负证重新打开的样本，用于检验负证召回。",
-            "- 刘庄：旧体系正证漏检与负证强拦截并存的样本，用于检验正负双向检索。",
+            "- 由 `project_config.yml` 的 `default_person_group` 选择当前产品工作流覆盖人物。",
+            "- 用于检验活动人物组的正负证矩阵、触发词、证据卡、相邻项切分、负证拦截和规则级复核全流程。",
+            "- 本页不解释人物选择优先级，不发布正式分数、排名或总榜。",
             "",
             "## 数据质量核验边界",
             "",
@@ -879,31 +922,36 @@ def render_review_matrix_note() -> str:
 
 
 def render_review_pilot_plan() -> str:
-    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    workflow_config = active_workflow_config()
+    targets = active_person_targets(workflow_config)
+    workflow_subject = active_workflow_subject(workflow_config)
+    group_label = active_group_label(workflow_config)
     lines = [
-        "# 第五项B试点计划",
+        f"# {workflow_subject}工作流计划",
         "",
-        "本文由配置生成第五项B三人试点当前计划视图。它只描述试点流程与状态入口，不写评分结果。",
+        "本文由配置生成第五项B当前产品工作流计划视图。它只描述流程与状态入口，不写评分结果。",
         "",
-        "## 试点对象",
+        f"- **活动人物组**：{group_label}",
+        "",
+        "## 活动对象",
         "",
     ]
     lines.extend(f"- {person}" for person in targets)
     lines.extend(
         [
             "",
-            "## 试点原因",
+            "## 工作流用途",
             "",
             "- 第五项B已暴露正证漏检与负证漏检问题。",
             "- 可验证正负证矩阵、触发词、证据卡、相邻项切分、负证拦截和规则级复核全流程。",
-            "- 三人试跑用于校验规则，不用于生成正式分数、排名或总榜。",
+            "- 当前活动人物组用于跑通产品输出链，不用于生成阶段总榜或跨子项总榜。",
             "",
-            "## 试点流程",
+            "## 工作流流程",
             "",
             "1. 定第五项B边界。",
             "2. 建第五项B正证触发词。",
             "3. 建第五项B负证触发词。",
-            "4. 跑三人正负证矩阵。",
+            "4. 跑活动人物组正负证矩阵。",
             "5. 命中材料回源。",
             "6. 生成证据卡。",
             "7. 做相邻项切分。",
@@ -984,8 +1032,10 @@ def render_auto_adjudication(
     warning_rules: list[dict[str, Any]] | None = None,
 ) -> str:
     display_config = load_i5b_markdown_view_config()
-    config = config_loaders.get_i5b_trial_config()
-    targets = list(config.get("targets") or [])
+    config = active_workflow_config()
+    targets = active_person_targets(config)
+    workflow_subject = active_workflow_subject(config)
+    group_label = active_group_label(config)
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
@@ -1010,9 +1060,12 @@ def render_auto_adjudication(
         )
 
     lines = [
-        "# 第五项B三人自动结算草案",
+        f"# {workflow_subject}自动结算草案",
         "",
         "本文件由现有 `evidence_cards` / `evidence_clusters` / `thematic_anchors` 规则派生，只输出 band direction、confidence 与规则敏感点，不生成分数、排名或总榜。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(targets)}",
         "",
             "## 自动结算总览",
             "",
@@ -1044,8 +1097,10 @@ def render_auto_adjudication(
 
 def render_formal_landing_table() -> str:
     display_config = load_i5b_markdown_view_config()
-    config = config_loaders.get_i5b_trial_config()
-    targets = list(config.get("targets") or [])
+    config = active_workflow_config()
+    targets = active_person_targets(config)
+    workflow_subject = active_workflow_subject(config)
+    group_label = active_group_label(config)
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
@@ -1072,9 +1127,12 @@ def render_formal_landing_table() -> str:
         )
 
     lines = [
-        "# 第五项B三人正式分值与排名发布表",
+        f"# {workflow_subject}正式分值与排名发布表",
         "",
         "本文件由自动结算草案、规则级复核结果和 G8 正式算法版本派生；G9 已批准后，输出第五项B正式分值和子项排名。本文件不生成阶段总榜或总榜。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(targets)}",
         "",
         "## 一、正式发布总览",
         "",
@@ -1111,8 +1169,10 @@ def render_formal_landing_table() -> str:
 
 def render_three_pilot_closure() -> str:
     display_config = load_i5b_markdown_view_config()
-    config = config_loaders.get_i5b_trial_config()
-    targets = list(config.get("targets") or [])
+    config = active_workflow_config()
+    targets = active_person_targets(config)
+    workflow_subject = active_workflow_subject(config)
+    group_label = active_group_label(config)
     evidence_cards = read_jsonl(DATA_DIR / "evidence_cards.jsonl")
     evidence_clusters = read_jsonl(DATA_DIR / "evidence_clusters.jsonl")
     evidence_lookup = {row["evidence_id"]: row for row in evidence_cards if row.get("evidence_id")}
@@ -1138,9 +1198,12 @@ def render_three_pilot_closure() -> str:
         )
 
     lines = [
-        "# 第五项B三人试点内部闭环收尾",
+        f"# {workflow_subject}内部闭环收尾",
         "",
-        "本文件做第五项B三人试点的内部闭环收尾；G9 已批准后，本发布包输出第五项B正式分值和子项排名，但不生成阶段总榜或总榜。V3.2 已定义 1500 正收益总盘和第五项B 45分上限，G8 正式算法已释放。",
+        "本文件做第五项B活动人物组的内部闭环收尾；G9 已批准后，本发布包输出第五项B正式分值和子项排名，但不生成阶段总榜或总榜。V3.2 已定义 1500 正收益总盘和第五项B 45分上限，G8 正式算法已释放。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(targets)}",
         "",
         "## 一、内部闭环总览",
         "",
@@ -1192,7 +1255,7 @@ def render_three_pilot_closure() -> str:
 
 def legacy_flat_export_paths() -> list[Path]:
     paths = list(LEGACY_FLAT_EXPORT_PATHS)
-    for person in config_loaders.get_i5b_trial_targets():
+    for person in config_loaders.get_i5b_active_person_targets():
         paths.append(MARKDOWN_VIEW_ROOT / f"第五项B自动结算草案_{person}.md")
     return paths
 
@@ -1230,7 +1293,7 @@ def export_auto_adjudication(
         remove_legacy_flat_exports()
         if validate_output:
             validation_root = MARKDOWN_VIEW_ROOT.parent.parent
-            targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+            targets = list(config_loaders.get_i5b_active_person_targets())
             errors = human_readable_markdown_validator.validate_exports(validation_root, targets)
             if errors:
                 raise HumanReadableMarkdownValidationError(errors)

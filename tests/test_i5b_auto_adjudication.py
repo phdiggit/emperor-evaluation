@@ -376,7 +376,7 @@ def test_display_warnings_default_off_does_not_call_loader(
 
     content = auto.render_auto_adjudication()
 
-    assert "第五项B三人自动结算草案" in content
+    assert "第五项B三人试点自动结算草案" in content
     assert DISPLAY_WARNING_HEADING not in content
 
 
@@ -703,15 +703,16 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
 
 @pytest.mark.export_full
 @pytest.mark.integration
-def test_export_i5b_auto_adjudication_split_layout_writes_index_and_three_detail_pages() -> None:
+def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detail_pages() -> None:
     result = run_script("export_i5b_auto_adjudication.py", "--output-layout", "split", "--include-display-warnings")
 
     assert result.returncode == 0, result.stdout + result.stderr
     assert "validated human-readable split markdown exports" in result.stdout
     index_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
-    targets = list(auto.config_loaders.get_i5b_trial_config()["targets"])
+    targets = list(auto.config_loaders.get_i5b_active_person_targets())
 
-    assert targets == ["李世民", "刘秀", "刘庄"]
+    assert targets == ["刘邦", "雍正", "朱元璋"]
+    assert "# 第五项B扩展第一批自动结算草案" in index_content
     assert "## 总览索引" in index_content
     assert "人工复核提示数量" in index_content
     for person in targets:
@@ -756,7 +757,7 @@ def test_split_export_runs_human_readable_markdown_validation(
     assert calls == [
         (
             auto.MARKDOWN_VIEW_ROOT.parent.parent,
-            list(auto.config_loaders.get_i5b_trial_config()["targets"]),
+            list(auto.config_loaders.get_i5b_active_person_targets()),
         )
     ]
 
@@ -828,7 +829,9 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     score_map_content = SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
     closure_export_content = CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
 
-    assert "第五项B三人自动结算草案" in auto_content
+    assert "第五项B扩展第一批自动结算草案" in auto_content
+    assert "- **活动人物组**：扩展第一批" in auto_content
+    assert "- **覆盖人物**：刘邦、雍正、朱元璋" in auto_content
     assert "负向边界档（negative_boundary_tier）" in auto_content
     assert "负向边界是否阻断（negative_boundary_blocking）" in auto_content
     assert "weak_to_medium" not in auto_content
@@ -837,7 +840,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "：False" not in auto_content
     assert "弱至中" in auto_content
     assert "中至强" in auto_content
-    assert "高位强正，上探极正候选" in auto_content
+    assert "强正封顶，不上探极正" in auto_content
     assert "强正受压制，不上探极正" in auto_content
     assert "中正受中负压制" in auto_content
     assert "RULE-I5B-BOUNDARY-WEAK-TO-MEDIUM" in rules_content
@@ -845,7 +848,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE" in rules_content
     assert "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL" in rules_content
     assert "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS" in rules_content
-    assert "第五项B三人正式分值与排名发布表" in formal_content
+    assert "第五项B扩展第一批正式分值与排名发布表" in formal_content
     assert "正式档位草案" in formal_content
     assert "第五项B正式分值" in formal_content
     assert "第五项B子项排名" in formal_content
@@ -853,9 +856,9 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "已具备 G8 正式算法映射和 G9 发布门；正式分值与排名只能由同一算法版本生成，不得人工覆盖。" in formal_content
     assert "V3.2 正式九档" in formal_content
     assert "45 分算法区间" in formal_content
-    assert "44.02" in formal_content
     assert "32.15" in formal_content
-    assert "23.39" in formal_content
+    assert "23.23" in formal_content
+    assert "33.36" in formal_content
     assert "第 1 名" in formal_content
     assert "第 2 名" in formal_content
     assert "第 3 名" in formal_content
@@ -863,9 +866,9 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "| score |" not in formal_content
     assert "| ranking |" not in formal_content
     assert "| rank |" not in formal_content
-    assert "李世民" in formal_content and "极正候选 / 高位强正上探极正" in formal_content
-    assert "刘秀" in formal_content and "强正受压制" in formal_content
-    assert "刘庄" in formal_content and "中正受中负压制" in formal_content
+    assert "刘邦" in formal_content and "强正受压制" in formal_content
+    assert "雍正" in formal_content and "中正受中负压制" in formal_content
+    assert "朱元璋" in formal_content and "强正封顶" in formal_content
     assert "第五项B正式算法标尺与档位映射" in score_map_content
     assert "状态：G8 算法已释放 / G9 已批准 / `i5b-formal-algorithm-v1` 正式发布人物分值与排名" in score_map_content
     assert "G9 已批准" in score_map_content
@@ -878,7 +881,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "不允许 person-specific override、人工最终档位或人工最终分数" in score_map_content
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
-    assert "第五项B三人试点内部闭环收尾" in closure_export_content
+    assert "第五项B扩展第一批内部闭环收尾" in closure_export_content
     assert "第五项B正式分值" in closure_export_content
     assert "第五项B子项排名" in closure_export_content
     assert "内部试算区间" in closure_export_content
@@ -960,9 +963,9 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     formal_content = FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
 
     assert "人物（person） | 自动结算方向（auto_band_direction） | 正式档位草案（formal_band_draft）" in formal_content
-    assert "李世民 | 高位强正，上探极正候选 | 极正候选 / 高位强正上探极正 | 历史极限 | 44.02 | 1" in formal_content
-    assert "刘秀 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 | 2" in formal_content
-    assert "刘庄 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.39 | 3" in formal_content
+    assert "朱元璋 | 强正封顶，不上探极正 | 强正封顶 | 良好 | 33.36 | 1" in formal_content
+    assert "刘邦 | 强正受压制，不上探极正 | 强正受压制 | 良好 | 32.15 | 2" in formal_content
+    assert "雍正 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.23 | 3" in formal_content
     assert "剩余规则问题（remaining_rule_questions）" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "第五项B正式分值（formal_score_value_45）" in formal_content
@@ -985,7 +988,9 @@ def test_export_md_generates_i5b_review_entry_views() -> None:
         assert path.is_file(), path
 
     entry_content = REVIEW_ENTRY_EXPORT_PATH.read_text(encoding="utf-8")
-    for person in ["李世民", "刘秀", "刘庄"]:
+    assert "第五项B扩展第一批专人审核入口" in entry_content
+    assert "- **活动人物组**：扩展第一批" in entry_content
+    for person in ["刘邦", "雍正", "朱元璋"]:
         assert f"### {person}" in entry_content
         assert f"exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/人物详情/{person}.md" in entry_content
         assert f"exports/markdown_views/第五项B/人工审核/证据链/净证据池/第五项B_{person}人工审核净证据池.md" in entry_content

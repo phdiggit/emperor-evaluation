@@ -271,12 +271,11 @@ def test_load_i5b_net_evidence_targets_prefers_project_config(
         tmp_path / "project_config.yml",
         view_groups=[
             {
-                "group_id": "第五项B_净证据导出目标",
-                "group_name": "净证据导出目标",
-                "group_type": "导出人物组",
+                "group_id": "第五项B_扩展第一批",
+                "group_name": "扩展第一批",
+                "group_type": "扩展人物组",
                 "subitem": "第五项B",
                 "persons": ["测试人物"],
-                "path_template": "exports/markdown_views/test-{person}.md",
                 "note": "测试",
             }
         ],

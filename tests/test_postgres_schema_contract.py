@@ -133,4 +133,5 @@ def test_postgres_schema_contains_anchor_contract_and_neutral_matching_fields() 
 def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
     assert "VARCHAR(" not in schema_text().upper()
 
-    assert changed_paths("data") == []
+    allowed_config_changes = {"data/configs/project_config.yml"}
+    assert [path for path in changed_paths("data") if path not in allowed_config_changes] == []

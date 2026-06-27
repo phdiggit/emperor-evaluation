@@ -85,7 +85,7 @@ def test_i5b_auto_profile_only_runs_auto_adjudication() -> None:
     assert export_md.step_names_for_profile("i5b-auto") == ["auto_adjudication"]
 
 
-def test_load_i5b_trial_targets_prefers_project_config(
+def test_load_i5b_active_targets_prefers_project_config(
     tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
     config_path = project_config_writer(
@@ -103,12 +103,12 @@ def test_load_i5b_trial_targets_prefers_project_config(
     )
     monkeypatch.setattr(export_md.config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
-    targets = export_md.load_i5b_trial_targets()
+    targets = export_md.load_i5b_active_targets()
 
     assert targets == ["甲", "乙"]
 
 
-def test_export_search_logs_markdown_uses_trial_targets_config(
+def test_export_search_logs_markdown_uses_active_targets_config(
     tmp_path: Path, monkeypatch, project_config_writer
 ) -> None:
     db_path = tmp_path / "evidence_cache.sqlite"
@@ -163,7 +163,6 @@ def test_export_search_logs_markdown_uses_trial_targets_config(
 
     export_md.DB_PATH = db_path
     monkeypatch.setattr(export_md.config_loaders, "PROJECT_CONFIG_PATH", config_path)
-    export_md.I5B_TRIAL_TARGETS = export_md.load_i5b_trial_targets()
     export_md.SEARCH_LOGS_EXPORT_PATH = export_path
 
     written_path = export_md.export_search_logs_markdown()
@@ -174,6 +173,7 @@ def test_export_search_logs_markdown_uses_trial_targets_config(
     assert "S2" in content
     assert "甲" in content
     assert "乙" in content
+    assert "- **活动人物组**：三人试点" in content
     assert "S3" not in content
     assert "丙" not in content
     assert "S4" not in content

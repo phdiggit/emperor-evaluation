@@ -203,7 +203,7 @@ def validate_detail(path: Path, content: str, errors: list[str]) -> None:
         if marker not in content:
             errors.append(f"{path}: missing required detail marker {marker!r}")
 
-    if WARNING_HEADING in content and WARNING_MATCHED_FIELDS_LABEL not in content:
+    if WARNING_HEADING in content and "无额外提示。" not in content and WARNING_MATCHED_FIELDS_LABEL not in content:
         errors.append(f"{path}: warning section is present but missing {WARNING_MATCHED_FIELDS_LABEL!r}")
 
     for marker in OLD_CLUSTER_TABLE_MARKERS:
@@ -498,7 +498,7 @@ def validate_machine_audit_markdown(root: Path, errors: list[str]) -> None:
 
 
 def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> list[str]:
-    resolved_targets = targets if targets is not None else list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    resolved_targets = targets if targets is not None else list(config_loaders.get_i5b_active_person_targets())
     errors: list[str] = []
     validate_forbidden_markers_for_all_markdown_exports(root, errors)
     validate_markdown_view_root_layout(root, errors)
@@ -534,7 +534,7 @@ def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> lis
 
 
 def main() -> int:
-    targets = list(config_loaders.get_i5b_trial_config().get("targets") or [])
+    targets = list(config_loaders.get_i5b_active_person_targets())
     existing_files = existing_target_files(ROOT, targets)
     evidence_chain_exists = (ROOT / EVIDENCE_CHAIN_RELATIVE_DIR).exists()
     markdown_view_exists = (ROOT / MARKDOWN_VIEW_RELATIVE_ROOT).exists()

@@ -23,8 +23,9 @@ EXPORT_PATH = (
     / "人工审核"
     / "自动裁判链"
     / "自动结算草案"
-    / "第五项B三人试点正负证矩阵.md"
+    / "第五项B扩展第一批正负证矩阵.md"
 )
+DEFAULT_EXPORT_PATH = EXPORT_PATH
 
 HEADERS = [
     "person",
@@ -61,6 +62,18 @@ def human_display_config() -> dict[str, object]:
     config = dict(load_display_dictionary())
     config["keep_machine_field_name"] = False
     return config
+
+
+def safe_filename_part(value: object) -> str:
+    return str(value).replace("/", "_").replace("\\", "_").strip()
+
+
+def active_matrix_export_path(config: dict[str, Any]) -> Path:
+    if EXPORT_PATH != DEFAULT_EXPORT_PATH:
+        return EXPORT_PATH
+    subitem = safe_filename_part(config.get("subitem") or "第五项B")
+    group_label = safe_filename_part(config.get("group_label") or config.get("group") or "当前人物组")
+    return DEFAULT_EXPORT_PATH.parent / f"{subitem}{group_label}正负证矩阵.md"
 
 
 def term_sort_key(row: dict[str, Any]) -> tuple[str, str]:
@@ -106,17 +119,22 @@ def grouped_terms(
 def export_matrix() -> Path:
     display_config = human_display_config()
     trigger_terms = read_jsonl(DATA_DIR / "trigger_terms.jsonl")
-    config = config_loaders.get_i5b_trial_config()
+    config = config_loaders.get_i5b_active_workflow_config()
     item = str(config["item"])
     subitem = str(config["subitem"])
     targets = list(config["targets"])
+    group_label = str(config.get("group_label") or config.get("group") or "当前人物组")
     term_groups = grouped_terms(trigger_terms, item, subitem)
+    export_path = active_matrix_export_path(config)
 
-    EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    export_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# 第五项B三人试点正负证矩阵",
+        f"# {subitem}{group_label}正负证矩阵",
         "",
         "本文件为矩阵骨架，尚未检索，不写入 search_logs，不生成 evidence_cards，不生成评分。",
+        "",
+        f"- **活动人物组**：{group_label}",
+        f"- **覆盖人物**：{'、'.join(str(person) for person in targets)}",
         "",
         "| " + " | ".join(display_field_label(header, display_config) for header in HEADERS) + " |",
         "| " + " | ".join("---" for _ in HEADERS) + " |",
@@ -137,8 +155,8 @@ def export_matrix() -> Path:
             }
             lines.append("| " + " | ".join(escape_cell(display_value(row[header], display_config)) for header in HEADERS) + " |")
 
-    EXPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return EXPORT_PATH
+    export_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return export_path
 
 
 def main() -> int:

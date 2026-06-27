@@ -26,7 +26,6 @@ def valid_groups() -> dict[str, dict[str, object]]:
     return {
         "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
         "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦", "雍正", "朱元璋"]},
-        "net_evidence": {"label": "净证据导出目标", "persons_from_group": "three_pilot"},
     }
 
 
@@ -37,17 +36,17 @@ def write_raw_config(path: Path, payload: dict[str, object]) -> Path:
 
 def valid_payload(*, groups: dict[str, dict[str, object]] | None = None) -> dict[str, object]:
     return {
-        "version": 1,
+        "version": 2,
         "active_subitem": "第五项B",
-        "subitems": {
-            "第五项B": {
-                "groups": groups or valid_groups(),
-                "defaults": {
-                    "trial_group": "three_pilot",
-                    "expanded_group": "expanded_batch1",
-                    "net_evidence_group": "net_evidence",
-                },
-            }
+        "default_person_group": "expanded_batch1",
+        "person_groups": groups or valid_groups(),
+        "outputs": {
+            "matrix": True,
+            "auto_adjudication": True,
+            "review_entry": True,
+            "subitem_details": True,
+            "net_evidence": True,
+            "evidence_indexes": True,
         },
     }
 
@@ -76,19 +75,21 @@ def test_validate_project_config_rejects_yaml_anchor_alias_and_document_marker(t
     config_path.write_text(
         """
 ---
-version: 1
+version: 2
 active_subitem: 第五项B
-subitems:
-  第五项B:
-    groups:
-      three_pilot: &trial
-        label: 三人试点
-        persons: [李世民]
-      expanded_batch1: *trial
-    defaults:
-      trial_group: three_pilot
-      expanded_group: expanded_batch1
-      net_evidence_group: three_pilot
+default_person_group: three_pilot
+person_groups:
+  three_pilot: &trial
+    label: 三人试点
+    persons: [李世民]
+  expanded_batch1: *trial
+outputs:
+  matrix: true
+  auto_adjudication: true
+  review_entry: true
+  subitem_details: true
+  net_evidence: true
+  evidence_indexes: true
 """,
         encoding="utf-8",
     )
@@ -139,7 +140,7 @@ def test_validate_project_config_rejects_persons_ref_outside_lists(tmp_path: Pat
 
 def test_validate_project_config_rejects_candidate_pool(tmp_path: Path) -> None:
     payload = valid_payload()
-    payload["subitems"]["第五项B"]["candidate_pool"] = []
+    payload["candidate_pool"] = []
     config_path = write_raw_config(tmp_path / "project_config.yml", payload)
 
     errors = validate_project_config.validate(config_path)
@@ -149,7 +150,7 @@ def test_validate_project_config_rejects_candidate_pool(tmp_path: Path) -> None:
 
 def test_validate_project_config_rejects_review_warning_rules(tmp_path: Path) -> None:
     payload = valid_payload()
-    payload["subitems"]["第五项B"]["review_warning_rules"] = []
+    payload["review_warning_rules"] = []
     config_path = write_raw_config(tmp_path / "project_config.yml", payload)
 
     errors = validate_project_config.validate(config_path)
@@ -159,9 +160,9 @@ def test_validate_project_config_rejects_review_warning_rules(tmp_path: Path) ->
 
 def test_validate_project_config_rejects_path_template(tmp_path: Path, project_config_writer) -> None:
     groups = valid_groups()
-    groups["net_evidence"] = {
-        "label": "净证据导出目标",
-        "persons_from_group": "three_pilot",
+    groups["three_pilot"] = {
+        "label": "三人试点",
+        "persons": ["李世民"],
         "path_template": "exports/markdown_views/{person}.md",
     }
     config_path = project_config_writer(tmp_path / "project_config.yml", groups=groups)
@@ -197,6 +198,35 @@ def test_validate_project_config_groups_only_allow_small_fields(tmp_path: Path, 
 
     errors = validate_project_config.validate(config_path)
 
-    assert any("groups only allow label/persons/persons_ref/persons_from_group" in error for error in errors)
+    assert any("person_groups only allow label/persons/persons_ref" in error for error in errors)
     assert any("group_type is not allowed" in error for error in errors)
     assert any("note is not allowed" in error for error in errors)
+
+
+def test_validate_project_config_accepts_net_evidence_output_override(
+    tmp_path: Path, project_config_writer
+) -> None:
+    config_path = project_config_writer(
+        tmp_path / "project_config.yml",
+        groups=valid_groups(),
+        outputs={
+            "matrix": True,
+            "auto_adjudication": True,
+            "review_entry": True,
+            "subitem_details": True,
+            "net_evidence": {"enabled": True, "person_group_override": "three_pilot"},
+            "evidence_indexes": True,
+        },
+    )
+
+    assert validate_project_config.validate(config_path) == []
+
+
+def test_validate_project_config_rejects_net_evidence_fake_group(tmp_path: Path, project_config_writer) -> None:
+    groups = valid_groups()
+    groups["net_evidence"] = {"label": "净证据导出目标", "persons_from_group": "three_pilot"}
+    config_path = project_config_writer(tmp_path / "project_config.yml", groups=groups)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("persons_from_group is not allowed" in error for error in errors)
