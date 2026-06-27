@@ -20,6 +20,7 @@ ROADMAP_ISSUE = 287
 EPIC_ISSUE = 312
 PLAN_ISSUE = 331
 SCRIPT_GOVERNANCE_ISSUE = 334
+SCRIPT_GOVERNANCE_ENFORCEMENT_ISSUE = 342
 PREREQUISITE_PR = 338
 PREREQUISITE_MERGE_COMMIT = "54f7466f4aeb44d5a18bffb1c28a4eda23ca4954"
 SUPPORTED_MODES = ("script-delta-report", "script-delta-md")
@@ -297,6 +298,10 @@ def build_script_delta_report() -> dict[str, Any]:
             ),
             "script_delta_ready_for_roadmap_comments": True,
             "outcome_verification_tests_added": True,
+            "g10_3b_script_governance_enforcement_ready": True,
+            "registry_lifecycle_guard_enabled": True,
+            "registry_lifecycle_guard_in_validate_all": True,
+            "script_delta_updated_for_roadmap_and_epic": True,
             "g10_execution_started": True,
             "g10_cleanup_execution_started": True,
             "g10_destructive_cleanup_started": False,
@@ -306,13 +311,19 @@ def build_script_delta_report() -> dict[str, Any]:
             "new_subitem_formal_rankings_released": False,
         },
         "changed_paths_manifest": list(PACKAGE_CHANGED_PATHS),
-        "script_delta_targets": [ROADMAP_ISSUE, EPIC_ISSUE, PLAN_ISSUE, SCRIPT_GOVERNANCE_ISSUE],
+        "script_delta_targets": [
+            ROADMAP_ISSUE,
+            EPIC_ISSUE,
+            PLAN_ISSUE,
+            SCRIPT_GOVERNANCE_ISSUE,
+            SCRIPT_GOVERNANCE_ENFORCEMENT_ISSUE,
+        ],
         "default_validate_entrypoints": sorted(default_route_sources),
         "scripts_registry_analysis": analysis,
         "issue_334_inventory_candidates": candidates,
         "outcome_verification_delta": _outcome_verification_delta(candidates),
         "blocked_outputs": list(BLOCKED_OUTPUTS),
-        "next_required_work": "issue341_low_risk_script_lifecycle_execution_then_issue342_registry_guard",
+        "next_required_work": "issue335_g10_completion_verification_and_roadmap_handoff",
     }
 
 
@@ -333,6 +344,8 @@ def render_script_delta_md() -> str:
         f"- retired_scripts_in_default_validate_or_public_cli: `{state['retired_scripts_in_default_validate_or_public_cli']}`",
         f"- duplicate_capability_groups_reviewed: `{state['duplicate_capability_groups_reviewed']}`",
         f"- duplicate_capability_groups_without_reason: `{state['duplicate_capability_groups_without_reason']}`",
+        f"- g10_3b_script_governance_enforcement_ready: `{str(state['g10_3b_script_governance_enforcement_ready']).lower()}`",
+        f"- registry_lifecycle_guard_enabled: `{str(state['registry_lifecycle_guard_enabled']).lower()}`",
         f"- next_required_work: `{report['next_required_work']}`",
         "",
         "## Duplicate Capability Review",

@@ -318,6 +318,15 @@ python scripts/platform/g10_low_risk_script_lifecycle_execution.py --lifecycle-m
 
 该包完成 #341 的低风险 lifecycle 实执行：`anchors_schema_proposal.py`、`formal_ddl_live_rehearsal.py`、`formal_ddl_rehearsal.py`、`formal_schema_draft.py`、`schema_changing_formal_schema_update.py`、`schema_diff_draft_renderer.py` 在 `scripts_registry.json` 中由 `audit_only` 推进为 `retired`，replacement 均指向 `scripts/platform/platform_chain_checkpoint.py`，并为每个影响项记录 restore instruction。当前实际移动、删除、归档路径数仍为 `0`，不触碰 `data/`、`archive/data/` 或 `exports/`，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续进入 #342 脚本治理规则固化，再回 #335 / #340 修订最终 handoff。
 
+G10-3b script governance enforcement 使用：
+
+```bash
+python scripts/validate/validate_script_lifecycle_registry.py
+python scripts/validate/validate_script_lifecycle_registry.py --guard-report
+```
+
+该 guard 完成 #342 的长期仓库检查：`validate_all.py` 会强制执行 registry lifecycle guard，确认 transitional script 必须有 `sunset_milestone`，retired script 不得进入默认 validate route 或 public CLI，duplicate capability group 若存在多个成员必须有保留理由或治理计划。坏 lifecycle fixture、retired default/public route fixture 和缺少理由的 duplicate fixture 都由 outcome-level tests 锁定。当前 guard 不读取 `.env`，不连接数据库或网络，不读取 batch payload 或 generated export 正文，不触碰 `data/`、`archive/data/` 或 `exports/`，不发布新分值、排名、阶段总榜、最终总榜或跨子项 leaderboard。后续回 #335 / #340 修订最终 handoff。
+
 ## JSONL staging mapper prototype
 
 `scripts/platform/jsonl_staging_mapper.py` 是 JSONL -> PostgreSQL staging 的隔离 schema 原型。它复用 `jsonl_import_dry_run.py` 的 `imports` / `import_rows` 审计写入，以及 `jsonl_target_mapping.py` 的映射契约，从 `import_rows.payload` 生成 `stg_jsonl_rows`。该工具不迁移 JSONL、不切换写源、不写正式 target business tables，也不依赖 `psql`。

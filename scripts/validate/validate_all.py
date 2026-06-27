@@ -22,6 +22,10 @@ VALIDATION_STEPS = [
         ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",
     ),
     ("validate_config_readability", ROOT / "scripts" / "validate" / "validate_config_readability.py"),
+    (
+        "validate_script_lifecycle_registry",
+        ROOT / "scripts" / "validate" / "validate_script_lifecycle_registry.py",
+    ),
 ]
 
 

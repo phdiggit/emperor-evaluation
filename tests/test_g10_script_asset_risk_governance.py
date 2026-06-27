@@ -54,6 +54,10 @@ def test_script_delta_current_state_records_acceptance_outcomes() -> None:
     assert state["duplicate_capability_groups_without_reason"] == 0
     assert state["script_delta_ready_for_roadmap_comments"] is True
     assert state["outcome_verification_tests_added"] is True
+    assert state["g10_3b_script_governance_enforcement_ready"] is True
+    assert state["registry_lifecycle_guard_enabled"] is True
+    assert state["registry_lifecycle_guard_in_validate_all"] is True
+    assert state["script_delta_updated_for_roadmap_and_epic"] is True
     assert state["g10_destructive_cleanup_started"] is False
     assert state["stage_or_final_total_table_released"] is False
     assert state["cross_subitem_leaderboard_released"] is False
@@ -159,7 +163,7 @@ def test_changed_paths_and_script_delta_targets_are_manifested() -> None:
 
     assert set(report["changed_paths_manifest"]) == set(governance.PACKAGE_CHANGED_PATHS)
     assert "scripts/platform/g10_script_asset_risk_governance.py" in report["changed_paths_manifest"]
-    assert report["script_delta_targets"] == [287, 312, 331, 334]
+    assert report["script_delta_targets"] == [287, 312, 331, 334, 342]
 
 
 def test_default_script_delta_report_is_side_effect_free(monkeypatch) -> None:
@@ -207,7 +211,8 @@ def test_cli_modes_emit_expected_outputs(capsys) -> None:
     assert governance.main(["--script-delta-md"]) == 0
     markdown = capsys.readouterr().out
     assert "schema_migration_seed_scaffolds" in markdown
-    assert "issue341_low_risk_script_lifecycle_execution_then_issue342_registry_guard" in markdown
+    assert "registry_lifecycle_guard_enabled" in markdown
+    assert "issue335_g10_completion_verification_and_roadmap_handoff" in markdown
 
 
 def test_source_does_not_import_runtime_or_secret_clients() -> None:
