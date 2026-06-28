@@ -13,6 +13,7 @@ VALIDATE_DIR = ROOT / "scripts" / "validate"
 MIGRATED_VALIDATORS = [
     "validate_evidence.py",
     "validate_canonical_data_integrity.py",
+    "validate_source_evidence_canonical_stores.py",
     "validate_project_config.py",
     "validate_view_configs.py",
     "validate_chinese_view_configs.py",
@@ -24,6 +25,7 @@ MIGRATED_VALIDATORS = [
 NEWLY_MIGRATED_VALIDATORS = [
     "validate_evidence",
     "validate_canonical_data_integrity",
+    "validate_source_evidence_canonical_stores",
     "validate_project_config",
     "validate_view_configs",
     "validate_chinese_view_configs",

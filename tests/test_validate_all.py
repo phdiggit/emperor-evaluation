@@ -69,6 +69,13 @@ def test_validate_all_includes_project_config_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
+def test_validate_all_includes_source_evidence_canonical_store_step() -> None:
+    assert (
+        "validate_source_evidence_canonical_stores",
+        ROOT / "scripts" / "validate" / "validate_source_evidence_canonical_stores.py",
+    ) in validate_all.VALIDATION_STEPS
+
+
 def test_validate_all_includes_chinese_view_config_step() -> None:
     assert (
         "validate_chinese_view_configs",
