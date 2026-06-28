@@ -26,13 +26,8 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 返修后确认 local HEAD 与 PR head SHA 一致，并在回复或 PR 说明中写明。After repair, confirm local HEAD equals PR head.
 - PR 说明必须包含最终 changed files 列表。PR body must include final changed files.
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
-
-## PR 审查事实包 / PR Review Fact Pack
-
-- 用户要求“PR review / 审查 / 机械事实层 / review pack”时，只做可复验事实层，不单独给最终合并判断。
-- 输出第一段必须写：`base_sha` / `head_sha` / `changed_files` / `commands run` / `tests result`；缺任一项则结论无效。
-- 审查包必须包含：当前 head SHA、scope diff、failed/passed checks、suspicious files。
-- 执行顺序：拉取当前 PR head，列 changed files，运行适用 validators/tests，再生成审查包。
+- 用户要求“PR review / 审查 / 机械事实层 / review pack”时，只做事实包；先拉 PR head、列 changed files、跑适用 validators/tests，再给当前 head SHA、scope diff、failed/passed checks、suspicious files。
+- 审查包输出第一段必须写：`base_sha` / `head_sha` / `changed_files` / `commands run` / `tests result`；缺任一项则结论无效。
 
 ## Shell 与编码 / Shell And Encoding
 
@@ -68,13 +63,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前运行 `python scripts/validate/validate_all.py`。
 - 验证命令若生成或重写 `exports/`、generated docs 或其他范围外副产物，先记录通过结果，再清理副产物；清理后只做 `git status`、`git diff --name-only`、`git diff --check` 等范围核对，不重复运行会再次生成副产物的全量命令。
 
-## 人工阅读型 Markdown 导出高压线 / Human-Readable Markdown Exports
-
-- 展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论。Display-only changes must not alter data or adjudication semantics.
-- 人工复核型 Markdown 默认纯 Markdown，不使用 HTML details。Pure Markdown by default; no HTML details.
-- 不用宽表承载长字段、裁判说明、相邻项剥离说明、warning matched_fields 或 linked evidence 长字段。No wide tables for long fields.
-- `linked_*`、`cross_item_split_signals / 相邻项剥离说明`、warning `matched_fields` 必须全量展示，不得截断。Must show full content; no truncation.
-- 详细规范见 `docs/展示与协作/人工阅读型Markdown导出规范.md`。
+- 人工阅读型 Markdown 导出规则路由到 `docs/AGENTS.md` 和 `docs/展示与协作/人工阅读型Markdown导出规范.md`。
 
 ## 默认忽略 / Default Ignore
 

@@ -60,6 +60,11 @@
 - 面向用户的当前层 Markdown 文件名和正文默认使用中文；`README.md`、`AGENTS.md` 仅因工具链约定保留技术文件名。
 - 单一当前层功能目录超过 8 份直接 Markdown，或同主题族超过 3 份 active 文档时，必须在 `docs_registry.json` 记录密度或主题族 review。
 
+## 人工阅读型 Markdown 导出
+- 展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论。
+- 人工复核型 Markdown 默认纯 Markdown，不用 HTML details；长字段、裁判说明、相邻项剥离、warning matched_fields 或 linked evidence 不用宽表。
+- `linked_*`、`cross_item_split_signals / 相邻项剥离说明`、warning `matched_fields` 必须全量展示；细则见 `docs/展示与协作/人工阅读型Markdown导出规范.md`。
+
 ## 验证要求
 
 - 修改 docs registry、docs 规则或 docs 工具后，运行 `python scripts/dev/docs_tool.py check --registry docs/文档与脚本登记/docs_registry.json`。
