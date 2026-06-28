@@ -1,0 +1,117 @@
+batch_id: i5b_typical_batch_b1_qin_han_20260628
+issue: 366
+scope: I5B typical person pool persistent source/evidence Batch B1 Qin-Han
+persons:
+- 嬴政
+- 刘恒
+persistent_research_data:
+  source_packs: data/source_packs.jsonl
+  query_lane_coverage: data/query_lane_coverage.jsonl
+  object_anchor_coverage: data/object_anchor_coverage.jsonl
+  anchors: data/anchors.jsonl
+  batch_traceability_manifest: data/batches/i5b_typical_batch_b1_qin_han/manifest.yml
+canonical_outputs:
+- data/query_profiles.jsonl
+- data/sources.jsonl
+- data/search_logs.jsonl
+- data/evidence_cards.jsonl
+- data/evidence_clusters.jsonl
+- data/source_packs.jsonl
+- data/anchors.jsonl
+- data/object_anchor_coverage.jsonl
+- data/query_lane_coverage.jsonl
+anti_bloat_contract:
+- no scoring rule changes
+- no framework or runtime registry
+- no dashboard, benchmark, migration, or production database path
+- no all-23-person batch
+traceability:
+  rule: B1 batch folder is review traceability only; canonical source/evidence facts
+    live in data/*.jsonl stores.
+  preserved_assets: canonical_row_refs lists source packs, anchors, coverage rows,
+    query profiles, searches, evidence cards, and clusters absorbed from B1.
+derived_outputs:
+- local DB cache
+- generated Markdown exports
+- net evidence views
+- auto adjudication and formal gate views
+lifecycle_status: absorbed_to_canonical
+canonical_row_refs:
+  source_pack_ids:
+  - SP-I5B-B1-YINGZHENG-LISI-001
+  - SP-I5B-B1-YINGZHENG-WANGJIAN-001
+  - SP-I5B-B1-YINGZHENG-FENSHU-001
+  - SP-I5B-B1-LIUHENG-ZHANGSHIZHI-001
+  - SP-I5B-B1-LIUHENG-FENGTANG-001
+  - SP-I5B-B1-LIUHENG-JIAYI-001
+  anchor_ids:
+  - ANCH-I5B-B1-YINGZHENG-POS-LISI-001
+  - ANCH-I5B-B1-YINGZHENG-POS-WANGJIAN-001
+  - ANCH-I5B-B1-YINGZHENG-NEG-FENSHU-001
+  - ANCH-I5B-B1-YINGZHENG-NEG-ZHAOGAO-001
+  - ANCH-I5B-B1-YINGZHENG-CUT-ADJACENT-001
+  - ANCH-I5B-B1-LIUHENG-POS-ZHANGSHIZHI-001
+  - ANCH-I5B-B1-LIUHENG-POS-FENGTANG-001
+  - ANCH-I5B-B1-LIUHENG-POS-JIAYI-001
+  - ANCH-I5B-B1-LIUHENG-NEG-JIAYI-001
+  - ANCH-I5B-B1-LIUHENG-POS-OLDMINISTERS-001
+  - ANCH-I5B-B1-LIUHENG-NEG-DENGTONG-001
+  - ANCH-I5B-B1-LIUHENG-CUT-ADJACENT-001
+  anchor_coverage_ids:
+  - ANCOV-I5B-B1-YINGZHENG-POS-LISI-001
+  - ANCOV-I5B-B1-YINGZHENG-POS-WANGJIAN-001
+  - ANCOV-I5B-B1-YINGZHENG-NEG-FENSHU-001
+  - ANCOV-I5B-B1-YINGZHENG-NEG-ZHAOGAO-001
+  - ANCOV-I5B-B1-YINGZHENG-CUT-ADJACENT-001
+  - ANCOV-I5B-B1-LIUHENG-POS-ZHANGSHIZHI-001
+  - ANCOV-I5B-B1-LIUHENG-POS-FENGTANG-001
+  - ANCOV-I5B-B1-LIUHENG-POS-JIAYI-001
+  - ANCOV-I5B-B1-LIUHENG-NEG-JIAYI-001
+  - ANCOV-I5B-B1-LIUHENG-POS-OLDMINISTERS-001
+  - ANCOV-I5B-B1-LIUHENG-NEG-DENGTONG-001
+  - ANCOV-I5B-B1-LIUHENG-CUT-ADJACENT-001
+  lane_coverage_ids:
+  - LCOV-I5B-B1-YINGZHENG-POS-LISI-001
+  - LCOV-I5B-B1-YINGZHENG-POS-WANGJIAN-001
+  - LCOV-I5B-B1-YINGZHENG-NEG-FENSHU-001
+  - LCOV-I5B-B1-YINGZHENG-NEG-ZHAOGAO-001
+  - LCOV-I5B-B1-YINGZHENG-CUT-ADJACENT-001
+  - LCOV-I5B-B1-LIUHENG-POS-ZHANGSHIZHI-001
+  - LCOV-I5B-B1-LIUHENG-POS-FENGTANG-001
+  - LCOV-I5B-B1-LIUHENG-POS-JIAYI-001
+  - LCOV-I5B-B1-LIUHENG-NEG-JIAYI-001
+  - LCOV-I5B-B1-LIUHENG-POS-OLDMINISTERS-001
+  - LCOV-I5B-B1-LIUHENG-NEG-DENGTONG-001
+  - LCOV-I5B-B1-LIUHENG-CUT-ADJACENT-001
+  query_profile_ids:
+  - QRY-I5B-LIUHENG-20260628
+  - QRY-I5B-YINGZHENG-20260628
+  search_ids:
+  - SRCH-I5B-YINGZHENG-POS-LISI-001
+  - SRCH-I5B-YINGZHENG-POS-WANGJIAN-001
+  - SRCH-I5B-YINGZHENG-NEG-FENSHU-001
+  - SRCH-I5B-YINGZHENG-NEG-ZHAOGAO-001
+  - SRCH-I5B-YINGZHENG-CUT-ADJACENT-001
+  - SRCH-I5B-LIUHENG-POS-ZHANGSHIZHI-001
+  - SRCH-I5B-LIUHENG-POS-FENGTANG-001
+  - SRCH-I5B-LIUHENG-POS-JIAYI-001
+  - SRCH-I5B-LIUHENG-NEG-JIAYI-001
+  - SRCH-I5B-LIUHENG-POS-OLDMINISTERS-001
+  - SRCH-I5B-LIUHENG-NEG-DENGTONG-001
+  - SRCH-I5B-LIUHENG-CUT-ADJACENT-001
+  evidence_ids:
+  - EVD-I5B-LIUHENG-NEG-JIAYI-SHUYUAN-001
+  - EVD-I5B-LIUHENG-POS-FENGTANG-WEISHANG-001
+  - EVD-I5B-LIUHENG-POS-JIAYI-TALENT-001
+  - EVD-I5B-LIUHENG-POS-ZHANGSHIZHI-RONGJIAN-001
+  - EVD-I5B-YINGZHENG-NEG-FENSHU-001
+  - EVD-I5B-YINGZHENG-POS-LISI-KEQING-001
+  - EVD-I5B-YINGZHENG-POS-WANGJIAN-AUTH-001
+  cluster_ids:
+  - ADJ-I5B-LIUHENG-NEG-JIAYI-TALENT-CHANNEL-001
+  - ADJ-I5B-LIUHENG-POS-FEEDBACK-TALENT-001
+  - ADJ-I5B-YINGZHENG-NEG-EXPRESSION-SAFETY-001
+  - ADJ-I5B-YINGZHENG-POS-TALENT-AUTHORIZATION-001
+absorption_note: 'Issue #379 absorbs B1 source packs, query-lane coverage, and object-anchor
+  coverage into canonical stores; batch-local JSONL files are removed to avoid long-term
+  fact storage under data/batches.'
