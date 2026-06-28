@@ -1,0 +1,29 @@
+batch_id: i5b_typical_batch_b1_qin_han_20260628
+issue: 366
+scope: I5B typical person pool persistent source/evidence Batch B1 Qin-Han
+persons:
+  - 嬴政
+  - 刘恒
+persistent_research_data:
+  query_source_spec: data/batches/i5b_typical_batch_b1_qin_han/source_evidence_specs.jsonl
+  source_pack: data/batches/i5b_typical_batch_b1_qin_han/source_pack.jsonl
+  source_review_log: data/batches/i5b_typical_batch_b1_qin_han/source_review_log.jsonl
+canonical_outputs:
+  - data/query_profiles.jsonl
+  - data/sources.jsonl
+  - data/search_logs.jsonl
+  - data/evidence_cards.jsonl
+  - data/evidence_clusters.jsonl
+anti_bloat_contract:
+  - no scoring rule changes
+  - no framework or runtime registry
+  - no dashboard, benchmark, migration, or production database path
+  - no all-23-person batch
+traceability:
+  rule: canonical evidence cards and clusters must trace back to source pack rows and source/search logs
+  preserved_assets: source/query specs, source/search logs, source locators, excerpts, contexts, lead statuses
+derived_outputs:
+  - local DB cache
+  - generated Markdown exports
+  - net evidence views
+  - auto adjudication and formal gate views

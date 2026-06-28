@@ -15,7 +15,7 @@ from shared.i5b_markdown_display import display_field_label, display_value, load
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
-EXPORT_PATH = (
+DEFAULT_EXPORT_DIR = (
     ROOT
     / "exports"
     / "markdown_views"
@@ -23,8 +23,21 @@ EXPORT_PATH = (
     / "人工审核"
     / "自动裁判链"
     / "自动结算草案"
-    / "第五项B扩展第一批正负证矩阵.md"
 )
+
+
+def safe_filename_part(value: object) -> str:
+    return str(value).replace("/", "_").replace("\\", "_").strip()
+
+
+def default_matrix_export_path() -> Path:
+    config = config_loaders.get_i5b_active_workflow_config()
+    subitem = safe_filename_part(config.get("subitem") or "第五项B")
+    group_label = safe_filename_part(config.get("group_label") or config.get("group") or "当前人物组")
+    return DEFAULT_EXPORT_DIR / f"{subitem}{group_label}正负证矩阵.md"
+
+
+EXPORT_PATH = default_matrix_export_path()
 DEFAULT_EXPORT_PATH = EXPORT_PATH
 
 HEADERS = [
@@ -62,10 +75,6 @@ def human_display_config() -> dict[str, object]:
     config = dict(load_display_dictionary())
     config["keep_machine_field_name"] = False
     return config
-
-
-def safe_filename_part(value: object) -> str:
-    return str(value).replace("/", "_").replace("\\", "_").strip()
 
 
 def active_matrix_export_path(config: dict[str, Any]) -> Path:

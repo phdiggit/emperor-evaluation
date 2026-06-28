@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from shared import config_loaders
 from export.dimension_adapters.i5b_people_delegation import adapter as auto
 
-ENTRY_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核" / "入口" / "第五项B三人专人审核入口.md"
+ENTRY_PATH = auto.REVIEW_ENTRY_EXPORT_PATH
 OLD_DOC_PATH = ROOT / "docs" / "第五项B三人专人审核入口.md"
 _EXPORTS_REFRESHED = False
 
@@ -55,10 +55,10 @@ def test_i5b_three_person_review_entry_doc_points_to_new_paths_only_for_active_e
     assert "审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`" in content
     assert "以下旧路径若在历史分支或本地残留中出现" in content
     for path in [
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
+        auto.repo_relative_path(auto.EXPORT_PATH),
+        auto.repo_relative_path(auto.RULES_EXPORT_PATH),
+        auto.repo_relative_path(auto.FORMAL_EXPORT_PATH),
+        auto.repo_relative_path(auto.SCORE_MAP_DRAFT_EXPORT_PATH),
         "exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md",
         "exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md",
     ]:

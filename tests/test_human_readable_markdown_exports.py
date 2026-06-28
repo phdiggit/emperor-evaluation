@@ -122,7 +122,7 @@ def write_split_export(root: Path, targets: list[str]) -> None:
                 [
                     f"# {person}：第五项B自动结算草案",
                     "",
-                    "[返回索引](../第五项B三人自动结算草案.md)",
+                    validator.DETAIL_REQUIRED_MARKERS[0],
                     "",
                     "## 人物详情",
                     "",
@@ -174,10 +174,10 @@ def write_split_export(root: Path, targets: list[str]) -> None:
             encoding="utf-8",
         )
 
-    (export_dir / "第五项B三人自动结算草案.md").write_text(
+    (root / validator.INDEX_RELATIVE_PATH).write_text(
         "\n".join(
             [
-                "# 第五项B三人自动结算草案",
+                f"# {validator.ACTIVE_OUTPUT_SUBJECT}自动结算草案",
                 "",
                 "## 总览索引",
                 "",
@@ -243,13 +243,13 @@ def test_validate_exports_reports_detail_without_backlink(tmp_path: Path) -> Non
     write_split_export(tmp_path, targets)
     detail_path = tmp_path / validator.detail_relative_path("李世民")
     detail_path.write_text(
-        detail_path.read_text(encoding="utf-8").replace("[返回索引](../第五项B三人自动结算草案.md)", ""),
+        detail_path.read_text(encoding="utf-8").replace(validator.DETAIL_REQUIRED_MARKERS[0], ""),
         encoding="utf-8",
     )
 
     errors = validator.validate_exports(tmp_path, targets)
 
-    assert any("missing required detail marker '[返回索引](../第五项B三人自动结算草案.md)'" in error for error in errors)
+    assert any(f"missing required detail marker {validator.DETAIL_REQUIRED_MARKERS[0]!r}" in error for error in errors)
 
 
 def test_validate_exports_reports_legacy_flat_export(tmp_path: Path) -> None:

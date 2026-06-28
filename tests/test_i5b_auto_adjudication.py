@@ -18,21 +18,22 @@ def script_path(script_name: str) -> Path:
     }
     return ROOT / routes.get(script_name, Path("scripts") / script_name)
 sys.path.insert(0, str(ROOT / "scripts"))
-I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
-AUTO_CHAIN_ROOT = I5B_EXPORT_ROOT / "人工审核" / "自动裁判链"
-AUTO_EXPORT_PATH = AUTO_CHAIN_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
-AUTO_RULES_EXPORT_PATH = AUTO_CHAIN_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
-FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
-SCORE_MAP_DRAFT_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
-CLOSURE_EXPORT_PATH = AUTO_CHAIN_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
-REVIEW_ENTRY_ROOT = I5B_EXPORT_ROOT / "人工审核" / "入口"
-REVIEW_ENTRY_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人专人审核入口.md"
-REVIEW_WORKBENCH_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人试点人工复核工作台.md"
-REVIEW_MATRIX_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人试点矩阵说明.md"
-REVIEW_PLAN_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B试点计划.md"
-LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
 from export import export_i5b_auto_adjudication as auto
+
+I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
+AUTO_CHAIN_ROOT = I5B_EXPORT_ROOT / "人工审核" / "自动裁判链"
+REVIEW_ENTRY_ROOT = I5B_EXPORT_ROOT / "人工审核" / "入口"
+AUTO_EXPORT_PATH = auto.EXPORT_PATH
+AUTO_RULES_EXPORT_PATH = auto.RULES_EXPORT_PATH
+FORMAL_EXPORT_PATH = auto.FORMAL_EXPORT_PATH
+SCORE_MAP_DRAFT_EXPORT_PATH = auto.SCORE_MAP_DRAFT_EXPORT_PATH
+CLOSURE_EXPORT_PATH = auto.CLOSURE_EXPORT_PATH
+REVIEW_ENTRY_EXPORT_PATH = auto.REVIEW_ENTRY_EXPORT_PATH
+REVIEW_WORKBENCH_EXPORT_PATH = auto.REVIEW_WORKBENCH_EXPORT_PATH
+REVIEW_MATRIX_EXPORT_PATH = auto.REVIEW_MATRIX_EXPORT_PATH
+REVIEW_PLAN_EXPORT_PATH = auto.REVIEW_PLAN_EXPORT_PATH
+LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
 
 def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
@@ -158,12 +159,13 @@ def temp_auto_data(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, project_conf
     monkeypatch.setattr(auto, "RULE_SENSITIVE_DIR", auto_chain_dir / "规则敏感点")
     monkeypatch.setattr(auto, "FORMAL_DRAFT_DIR", auto_chain_dir / "正式定档草案")
     monkeypatch.setattr(auto, "TRIAL_CLOSURE_DIR", auto_chain_dir / "试点闭环")
-    monkeypatch.setattr(auto, "EXPORT_PATH", auto_dir / "第五项B三人自动结算草案.md")
+    monkeypatch.setattr(auto, "EXPORT_PATH", auto_dir / "第五项B三人试点自动结算草案.md")
     monkeypatch.setattr(auto, "RULES_EXPORT_PATH", auto_chain_dir / "规则敏感点" / "第五项B自动结算规则敏感点清单.md")
-    monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B三人正式定档落地表.md")
+    monkeypatch.setattr(auto, "FORMAL_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B三人试点正式定档落地表.md")
     monkeypatch.setattr(auto, "SCORE_MAP_DRAFT_EXPORT_PATH", auto_chain_dir / "正式定档草案" / "第五项B评分标尺与档位映射草案.md")
     monkeypatch.setattr(auto, "CLOSURE_EXPORT_PATH", auto_chain_dir / "试点闭环" / "第五项B三人试点内部闭环收尾.md")
     monkeypatch.setattr(auto, "LEGACY_FLAT_EXPORT_PATHS", (tmp_path / "exports" / "markdown_views" / "第五项B三人自动结算草案.md",))
+    monkeypatch.setattr(auto, "LEGACY_GROUP_EXPORT_PATHS", ())
 
     return data_dir
 
@@ -687,7 +689,7 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     assert "## 总览索引" in index_content
     assert "人工复核提示数量" in index_content
     assert "# 测试甲：第五项B自动结算草案" in detail_content
-    assert "[返回索引](../第五项B三人自动结算草案.md)" in detail_content
+    assert f"[返回索引](../{auto.EXPORT_PATH.name})" in detail_content
     assert "## 人工复核提示（display-only）" in detail_content
     assert "* **命中字段**" in detail_content
     assert "linked_cards[0].trigger_terms" in detail_content
@@ -732,7 +734,7 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detai
     assert "# " + workflow_subject + "自动结算草案" in index_content
     assert "## 总览索引" in index_content
     assert "## 证据覆盖状态" in index_content
-    assert "- **missing_evidence_person_count**：21" in index_content
+    assert "- **missing_evidence_person_count**：19" in index_content
     assert "formal_scoring_gate" in index_content
     assert "人工复核提示数量" in index_content
     for person in targets:
@@ -993,13 +995,14 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "雍正 | 已有证据 | 可进入正式评分 | 中正受中负压制 | 中正受中负压制 | 一般 | 23.23 |" in formal_content
     assert "刘彻 | 已有证据 | 可进入正式评分 |" in formal_content
     assert "杨坚 | 已有证据 | 可进入正式评分 |" in formal_content
-    assert "嬴政 | 缺少证据 | 评分前阻断 |" in formal_content
+    assert "嬴政 | 已有证据 | 可进入正式评分 |" in formal_content
+    assert "刘恒 | 已有证据 | 可进入正式评分 |" in formal_content
     assert "弘历 | 缺少证据 | 评分前阻断 |" in formal_content
     assert "不出分 | 不排名" in formal_content
-    yingzheng_row = next(line for line in formal_content.splitlines() if line.startswith("| 嬴政 |"))
-    assert "| 不出分 | 不出分 | 不排名 |" in yingzheng_row
-    assert "G9 已批准" not in yingzheng_row
-    assert "- **missing_evidence_person_count**：21" in formal_content
+    hongli_row = next(line for line in formal_content.splitlines() if line.startswith("| 弘历 |"))
+    assert "| 不出分 | 不出分 | 不排名 |" in hongli_row
+    assert "G9 已批准" not in hongli_row
+    assert "- **missing_evidence_person_count**：19" in formal_content
     assert "剩余规则问题（remaining_rule_questions）" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "第五项B正式分值（formal_score_value_45）" in formal_content

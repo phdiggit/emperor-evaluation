@@ -22,12 +22,26 @@ AUTO_DRAFT_RELATIVE_DIR = HUMAN_AUTO_ADJUDICATION_RELATIVE_DIR / "自动结算�
 DETAIL_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "人物详情"
 APPENDIX_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "附录"
 EVIDENCE_CHAIN_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "证据链"
-INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / "第五项B三人自动结算草案.md"
+
+
+def safe_filename_part(value: object) -> str:
+    return str(value).replace("/", "_").replace("\\", "_").strip()
+
+
+def active_output_subject() -> str:
+    config = config_loaders.get_i5b_active_workflow_config()
+    subitem = safe_filename_part(config.get("subitem") or config_loaders.DEFAULT_I5B_SUBITEM)
+    group_label = safe_filename_part(config.get("group_label") or config.get("group") or "当前人物组")
+    return f"{subitem}{group_label}"
+
+
+ACTIVE_OUTPUT_SUBJECT = active_output_subject()
+INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / f"{ACTIVE_OUTPUT_SUBJECT}自动结算草案.md"
 VIEW_INDEX_RELATIVE_PATH = MARKDOWN_VIEW_RELATIVE_ROOT / "导出视图总索引.md"
 DETAIL_FILENAME_TEMPLATE = "{person}.md"
 FORBIDDEN_MARKERS = ("<details", "<summary", "</details>", "……（共")
 DETAIL_REQUIRED_MARKERS = (
-    "[返回索引](../第五项B三人自动结算草案.md)",
+    f"[返回索引](../{INDEX_RELATIVE_PATH.name})",
     "### 证据簇自动结算",
     "### 自动特征",
     "### 自动结算结论",
@@ -40,10 +54,13 @@ WARNING_HEADING = "## 人工复核提示（display-only）"
 WARNING_MATCHED_FIELDS_LABEL = "**命中字段**"
 LEGACY_FLAT_RELATIVE_PATHS = (
     Path("exports") / "markdown_views" / "第五项B三人自动结算草案.md",
+    Path("exports") / "markdown_views" / f"{ACTIVE_OUTPUT_SUBJECT}自动结算草案.md",
     Path("exports") / "markdown_views" / "第五项B自动结算规则敏感点清单.md",
     Path("exports") / "markdown_views" / "第五项B三人正式定档落地表.md",
+    Path("exports") / "markdown_views" / f"{ACTIVE_OUTPUT_SUBJECT}正式定档落地表.md",
     Path("exports") / "markdown_views" / "第五项B评分标尺与档位映射草案.md",
     Path("exports") / "markdown_views" / "第五项B三人试点内部闭环收尾.md",
+    Path("exports") / "markdown_views" / f"{ACTIVE_OUTPUT_SUBJECT}内部闭环收尾.md",
 )
 LEGACY_FLAT_EVIDENCE_CHAIN_FILENAME_PATTERNS = (
     re.compile(r"^第五项B_.+净证据池\.md$"),

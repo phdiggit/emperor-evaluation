@@ -99,6 +99,13 @@ def active_person_targets(config: dict[str, Any] | None = None) -> list[str]:
     return [str(person) for person in resolved_config.get("targets") or []]
 
 
+def repo_relative_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def person_detail_export_path(person: str) -> Path:
     return AUTO_DRAFT_DETAIL_DIR / f"{person}.md"
 
@@ -844,7 +851,7 @@ def render_review_entry_landing() -> str:
         "",
         f"- **活动人物组**：{group_label}",
         f"- **覆盖人物**：{'、'.join(targets)}",
-        "- **兼容路径说明**：部分既有 Markdown 文件名仍保留历史字样以稳定链接；正文和数据范围以本页活动人物组为准。",
+        "- **路径命名说明**：当前活动组主产物文件名由 `default_person_group` 的 label 派生；历史文件只作为旧路径禁用或归档线索。",
         "",
         "## 使用边界",
         "",
@@ -860,10 +867,10 @@ def render_review_entry_landing() -> str:
         "",
         "- 审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`",
         "- 自动裁判链：`exports/markdown_views/第五项B/人工审核/自动裁判链/`",
-        "- 自动结算索引：`exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md`",
-        "- 规则敏感点：`exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md`",
-        "- 正式定档草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md`",
-        "- 评分映射草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`",
+        f"- 自动结算索引：`{repo_relative_path(EXPORT_PATH)}`",
+        f"- 规则敏感点：`{repo_relative_path(RULES_EXPORT_PATH)}`",
+        f"- 正式定档草案：`{repo_relative_path(FORMAL_EXPORT_PATH)}`",
+        f"- 评分映射草案：`{repo_relative_path(SCORE_MAP_DRAFT_EXPORT_PATH)}`",
         "- 证据卡索引：`exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md`",
         "- 证据簇索引：`exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md`",
         "- 机器审计视图：`exports/markdown_views/第五项B/机器审计/证据链/`",
@@ -1373,6 +1380,7 @@ def render_three_pilot_closure() -> str:
 
 def legacy_flat_export_paths() -> list[Path]:
     paths = list(LEGACY_FLAT_EXPORT_PATHS)
+    paths.extend(LEGACY_GROUP_EXPORT_PATHS)
     for person in config_loaders.get_i5b_active_person_targets():
         paths.append(MARKDOWN_VIEW_ROOT / f"第五项B自动结算草案_{person}.md")
     return paths

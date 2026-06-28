@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from shared import config_loaders
 from export.dimension_adapters.i5b_people_delegation import adapter as auto
 
-WORKBENCH_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核" / "入口" / "第五项B三人试点人工复核工作台.md"
+WORKBENCH_PATH = auto.REVIEW_WORKBENCH_EXPORT_PATH
 OLD_DOC_PATH = ROOT / "docs" / "第五项B三人试点人工复核工作台.md"
 _EXPORTS_REFRESHED = False
 

@@ -17,7 +17,7 @@ EXPECTED_EXPORT_PATH = (
     / "人工审核"
     / "自动裁判链"
     / "自动结算草案"
-    / "第五项B扩展第一批正负证矩阵.md"
+    / "第五项B代表性皇帝正负证矩阵.md"
 )
 EXPECTED_HEADERS = [
     "person",
