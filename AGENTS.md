@@ -27,6 +27,13 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - PR 说明必须包含最终 changed files 列表。PR body must include final changed files.
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
 
+## PR 审查事实包 / PR Review Fact Pack
+
+- 用户要求“PR review / 审查 / 机械事实层 / review pack”时，只做可复验事实层，不单独给最终合并判断。
+- 输出第一段必须写：`base_sha` / `head_sha` / `changed_files` / `commands run` / `tests result`；缺任一项则结论无效。
+- 审查包必须包含：当前 head SHA、scope diff、failed/passed checks、suspicious files。
+- 执行顺序：拉取当前 PR head，列 changed files，运行适用 validators/tests，再生成审查包。
+
 ## Shell 与编码 / Shell And Encoding
 
 - Windows 上涉及中文正文、中文路径、JSON/Markdown 改写或多行脚本时，优先使用 `D:\Git\usr\bin\bash.exe` 运行 Git Bash + UTF-8 shell；若该路径不可用，再回退到 ASCII-only `python -c` 或 UTF-8 临时 `.py` 文件；PowerShell 仅用于简单命令或 Windows 专属 cmdlet。
