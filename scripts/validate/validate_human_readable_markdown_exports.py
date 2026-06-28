@@ -147,6 +147,20 @@ def iter_markdown_exports(root: Path) -> list[Path]:
     return sorted(markdown_root.rglob("*.md"))
 
 
+def has_markdown_export_documents(root: Path) -> bool:
+    return bool(iter_markdown_exports(root))
+
+
+def should_skip_missing_markdown_exports(root: Path, targets: list[str]) -> bool:
+    existing_files = existing_target_files(root, targets)
+    evidence_chain_exists = (root / EVIDENCE_CHAIN_RELATIVE_DIR).exists()
+    return (
+        not has_markdown_export_documents(root)
+        and (not existing_files or not split_export_exists(root, targets))
+        and not evidence_chain_exists
+    )
+
+
 def add_forbidden_marker_errors(path: Path, content: str, errors: list[str]) -> None:
     for marker in FORBIDDEN_MARKERS:
         if marker in content:
@@ -535,11 +549,8 @@ def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> lis
 
 def main() -> int:
     targets = list(config_loaders.get_i5b_active_person_targets())
-    existing_files = existing_target_files(ROOT, targets)
-    evidence_chain_exists = (ROOT / EVIDENCE_CHAIN_RELATIVE_DIR).exists()
-    markdown_view_exists = (ROOT / MARKDOWN_VIEW_RELATIVE_ROOT).exists()
-    if not markdown_view_exists and (not existing_files or not split_export_exists(ROOT, targets)) and not evidence_chain_exists:
-        print("Human-readable Markdown export validation skipped: no I5B split export files found.")
+    if should_skip_missing_markdown_exports(ROOT, targets):
+        print("Human-readable Markdown export validation skipped: no Markdown review artifact files found.")
         return 0
 
     errors = validate_exports(ROOT, targets)

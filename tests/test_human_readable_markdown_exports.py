@@ -191,6 +191,22 @@ def write_split_export(root: Path, targets: list[str]) -> None:
     )
 
 
+def test_missing_export_skip_treats_gitkeep_only_as_canonical_clean(tmp_path: Path) -> None:
+    markdown_root = tmp_path / "exports" / "markdown_views"
+    markdown_root.mkdir(parents=True)
+    (markdown_root / ".gitkeep").write_text("", encoding="utf-8")
+
+    assert validator.should_skip_missing_markdown_exports(tmp_path, ["刘秀"])
+
+
+def test_missing_export_skip_disables_once_markdown_artifact_exists(tmp_path: Path) -> None:
+    markdown_root = tmp_path / "exports" / "markdown_views"
+    markdown_root.mkdir(parents=True)
+    (markdown_root / "导出视图总索引.md").write_text("# index\n", encoding="utf-8")
+
+    assert not validator.should_skip_missing_markdown_exports(tmp_path, ["刘秀"])
+
+
 def test_validate_exports_accepts_valid_split_export(tmp_path: Path) -> None:
     targets = ["李世民", "刘秀", "刘庄"]
     write_split_export(tmp_path, targets)
