@@ -26,7 +26,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 返修后确认 local HEAD 与 PR head SHA 一致，并在回复或 PR 说明中写明。After repair, confirm local HEAD equals PR head.
 - PR 说明必须包含最终 changed files 列表。PR body must include final changed files.
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
-- 用户要求“PR review / 审查 / 机械事实层 / review pack”时，输出 `Codex PR Review Package v1.1`，不做 merge decision。
+- 创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`；用户要求“PR review / 审查 / 机械事实层 / review pack”时也按此包输出，不做 merge decision。
 - 包必须含 `HEAD SNAPSHOT LOCK`、Scope / Ownership、Commands Run、Protocol Compliance、Findings、Failed Checks Classification、Anti-bloat / Lifecycle Notes、Required Next Actions。
 - 必须拉当前 PR head，列 changed files，跑 current-head 与 base-head pytest，区分 PR-induced / baseline / fixed baseline failures。
 - evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
