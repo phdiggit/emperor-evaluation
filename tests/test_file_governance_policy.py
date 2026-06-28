@@ -174,8 +174,37 @@ def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -
         "第一轮只允许诊断，第二轮才允许小范围归档或删除",
         "后续应支持指定导出，避免全量重写",
         "PR 白名单外导出变更必须还原",
+        "canonical branch / mergeable PR",
+        "review branch / review PR",
+        "默认不得包含 `exports/**` 生成物",
+        "分支名使用 `review/*`",
+        "`data/batches/*/source_evidence_specs.jsonl`",
+        "`data/batches/*/source_review_log.jsonl`",
+        "关键词补齐、补搜词、对象锚点扩展和相邻项切分线不得写入 `project_config.yml`",
+        "正向、负向、相邻项 query lanes 的覆盖、转卡、未决和排除理由",
     ]:
         assert needle in content
+
+
+def test_i5b_grading_rubric_guards_object_anchors_and_extreme_positive() -> None:
+    content = read_text(ROOT / "docs" / "分项规则" / "第五项统治者政治素质" / "B用人与授权.md")
+    for needle in [
+        "对象锚点只能帮助回答对象重要性、I5B 直接度、事件性或结构性、核心覆盖和相邻项剥离问题",
+        "对象锚点只能作为定级辅助，不是自动评分、自动档位或对象本身排名",
+        "至少 3 个相互独立的强直接 I5B 顶级对象 / 结构型证据成立",
+        "历史级团队或长期高质量人才网络",
+        "三张事件型正证不够",
+        "person-specific override",
+        "source_evidence_specs",
+        "query_profiles",
+        "search_logs",
+        "source_review_log",
+        "正向、负向、相邻项 query lanes 的覆盖、转卡、未决和排除理由",
+        "只有 3 张正向证据卡",
+        "`blocked_before_formal_score`",
+    ]:
+        assert needle in content
+    assert "刘恒当前已见材料" not in content
 
 
 def test_file_governance_allowlist_has_no_one_off_migration_paths() -> None:
