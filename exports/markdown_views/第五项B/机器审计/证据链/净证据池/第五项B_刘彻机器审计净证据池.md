@@ -2,16 +2,16 @@
 
 本文件为机器审计视图，用于代码审查、数据追踪和回源定位，不作为人工业务审核主入口。
 
-- **证据状态**：missing_evidence
-- **评分状态**：unscored / blocked_before_formal_score
-- **覆盖缺口**：刘彻 当前暂无 I5B 证据卡/证据簇；本页仅为 active person group review/stress 占位页，不得视为已完成自动结算、正式分值或正式排名。
-
 ## 证据组裁量结论
 
 | 证据簇ID（cluster_id） | 人物（person） | 方向（polarity） | 簇类型（cluster_type） | 关联证据ID（linked_evidence_ids） | 候选强度（candidate_strength） | 上探标记（upper_probe） | 裁判状态（adjudication_status） | 摘要（summary） | 相邻项剥离说明（cross_item_split） |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ADJ-I5B-LIUCHE-POS-TALENT-AUTHORIZATION-001 | 刘彻 | 正向 | military_talent_selection_and_authorization | EVD-I5B-LIUCHE-POS-WEIQING-AUTH-001 | 3 | [见附录：上探标记（upper_probe）](../附录/刘彻_机器审计净证据池长字段附录.md#adj-i5b-liuche-pos-talent-authorization-001-upper_probe) | 已回源，待人工裁判 | [见附录：摘要（summary）](../附录/刘彻_机器审计净证据池长字段附录.md#adj-i5b-liuche-pos-talent-authorization-001-summary) | [见附录：相邻项剥离说明（cross_item_split）](../附录/刘彻_机器审计净证据池长字段附录.md#adj-i5b-liuche-pos-talent-authorization-001-cross_item_split) |
+| ADJ-I5B-LIUCHE-NEG-KULI-TALENT-SAFETY-001 | 刘彻 | 负向 | cruel_official_authorization_and_talent_safety | EVD-I5B-LIUCHE-NEG-ZHANGTANG-KULI-001 | 3 | [见附录：上探标记（upper_probe）](../附录/刘彻_机器审计净证据池长字段附录.md#adj-i5b-liuche-neg-kuli-talent-safety-001-upper_probe) | 已回源，待人工裁判 | [见附录：摘要（summary）](../附录/刘彻_机器审计净证据池长字段附录.md#adj-i5b-liuche-neg-kuli-talent-safety-001-summary) | [见附录：相邻项剥离说明（cross_item_split）](../附录/刘彻_机器审计净证据池长字段附录.md#adj-i5b-liuche-neg-kuli-talent-safety-001-cross_item_split) |
 
 ## 原子证据卡
 
-| 证据ID（evidence_id） | 人物（person） | 方向（polarity） | 人工强度（human_level） | 触发类型（trigger_family） | 来源ID（source_id） | 短摘（quote_short） | 对象锚点（object_anchor） | 证据角色（evidence_role） | 减轻/剥离标记（mitigation_flag） | 上限封顶标记（upper_bound_flag） | 簇内角色（cluster_role） | 相邻项剥离说明（cross_item_split） | 评分影响（scoring_effect） | 裁判状态（adjudication_status） |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 证据ID（evidence_id） | 人物（person） | 方向（polarity） | 人工强度（human_level） | 触发类型（trigger_family） | 来源ID（source_id） | 短摘（quote_short） | 对象锚点（object_anchor） | 证据角色（evidence_role） | 减轻/剥离标记（mitigation_flag） | 上限封顶标记（upper_bound_flag） | 簇内角色（cluster_role） | 相邻项剥离说明（cross_item_split） | 评分影响（scoring_effect） | 裁判状态（adjudication_status） | 上下文摘录（quote_context） | 上下文摘要（context_summary） | 上下文范围（context_scope） | 是否需上下文定证（context_required） | 上下文状态（context_status） | 上下文影响（context_effect） | 精确来源定位（source_locator） | 裁判桥接说明（adjudication_bridge） | 上下文处理队列（context_review_queue） |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| EVD-I5B-LIUCHE-POS-WEIQING-AUTH-001 | 刘彻 | 正向 | 强正 | 授权专任 | SRC-SJ-J111-WEIQING-LIUCHE-001 | [见附录：短摘（quote_short）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-pos-weiqing-auth-001-quote_short) | 卫青军事授权 | 强正核心 | 剥离战果与开边收益 | 不得因战果上探极正 | 正向核心 | [见附录：相邻项剥离说明（cross_item_split）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-pos-weiqing-auth-001-cross_item_split) | 强正候选证据；不得直接入分，待人工裁判。 | 已回源，待人工裁判 | [见附录：上下文摘录（quote_context）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-pos-weiqing-auth-001-quote_context) | [见附录：上下文摘要（context_summary）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-pos-weiqing-auth-001-context_summary) | 只覆盖卫青线的军事授权，不覆盖开边收益、战役胜负、财政政策或人才通道制度。 | 是 | 已回源核验 | 增强定证 | 史记/卷111，卫将军骠骑列传，卫青军中拜大将军段 | [见附录：裁判桥接说明（adjudication_bridge）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-pos-weiqing-auth-001-adjudication_bridge) |  |
+| EVD-I5B-LIUCHE-NEG-ZHANGTANG-KULI-001 | 刘彻 | 负向 | 强负 | 权奸酷吏授权 | SRC-SJ-J122-ZHANGTANG-LIUCHE-001 | [见附录：短摘（quote_short）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-neg-zhangtang-kuli-001-quote_short) | 酷吏授权风险 | 强负核心 | 剥离司法残酷性 | 不得上探极负 | 强负核心 | [见附录：相邻项剥离说明（cross_item_split）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-neg-zhangtang-kuli-001-cross_item_split) | 强负候选证据；不得直接入分，待人工裁判。 | 已回源，待人工裁判 | [见附录：上下文摘录（quote_context）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-neg-zhangtang-kuli-001-quote_context) | [见附录：上下文摘要（context_summary）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-neg-zhangtang-kuli-001-context_summary) | 只覆盖酷吏任用和治狱迎合上意造成的用人生态风险；司法残酷性、具体案件冤滥和政治残酷性另切。 | 是 | 已回源核验 | 增强定证 | 史记/卷122，酷吏列传，张汤治狱迎合上意段 | [见附录：裁判桥接说明（adjudication_bridge）](../附录/刘彻_机器审计净证据池长字段附录.md#evd-i5b-liuche-neg-zhangtang-kuli-001-adjudication_bridge) |  |
