@@ -1,5 +1,11 @@
 from __future__ import annotations
 
+# File lifecycle: temporary.
+# Retirement condition: remove this targeted supplement guard once the
+# supplemental evidence IDs and Yongzheng role-class sweep are covered by
+# generic canonical evidence/lane coverage tests or the review snapshot is
+# moved to archive_only.
+
 import json
 import subprocess
 import sys
@@ -10,8 +16,8 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "sources_targeted_supplement.jsonl"
-EVIDENCE_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "evidence_cards_targeted_supplement.jsonl"
+SOURCES_PATH = ROOT / "data" / "sources.jsonl"
+EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 SWEEP_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_role_class_sweep.jsonl"
 EXPORT_PATH = (
     ROOT
@@ -22,6 +28,27 @@ EXPORT_PATH = (
     / "自动裁判链"
     / "试点闭环"
     / "第五项B扩展试点第一批定向补证.md"
+)
+TARGETED_SUPPLEMENT_SOURCE_IDS = (
+    "SRC-QSG-YZ-J293-YUEZHONGQI-001",
+    "SRC-QSG-YZ-J296-YUEZHONGQI-001",
+    "SRC-QSG-YZ-J297-YUEZHONGQI-001",
+    "SRC-MS-J127-LISHANG-001",
+    "SRC-MTZL-J026-XUDA-001",
+    "SRC-MS-J308-HUWENYONG-001",
+)
+TARGETED_SUPPLEMENT_EVIDENCE_IDS = (
+    "EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001",
+    "EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-ADVISE-001",
+    "EVD-I5B-LIUBANG-SUPP-FANKUAI-BUFFER-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-XUDA-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-002",
 )
 
 
@@ -35,8 +62,13 @@ def load_jsonl(path: Path) -> list[dict[str, object]]:
     return rows
 
 
+def rows_by_ids(path: Path, id_field: str, row_ids: tuple[str, ...]) -> list[dict[str, object]]:
+    index = {row.get(id_field): row for row in load_jsonl(path)}
+    return [index[row_id] for row_id in row_ids if row_id in index]
+
+
 def test_targeted_supplement_sources_cover_only_the_new_supplement_set() -> None:
-    rows = load_jsonl(SOURCE_BATCH_PATH)
+    rows = rows_by_ids(SOURCES_PATH, "source_id", TARGETED_SUPPLEMENT_SOURCE_IDS)
 
     assert len(rows) == 6
     assert {row["source_id"] for row in rows} == {
@@ -50,7 +82,7 @@ def test_targeted_supplement_sources_cover_only_the_new_supplement_set() -> None
 
 
 def test_targeted_supplement_evidence_cards_are_source_backed_and_gap_linked() -> None:
-    rows = load_jsonl(EVIDENCE_BATCH_PATH)
+    rows = rows_by_ids(EVIDENCE_CARDS_PATH, "evidence_id", TARGETED_SUPPLEMENT_EVIDENCE_IDS)
 
     assert len(rows) == 11
     assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}

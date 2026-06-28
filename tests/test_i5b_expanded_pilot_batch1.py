@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+# File lifecycle: transitional.
+# Retirement condition: remove this batch-specific guard when the expanded
+# pilot review snapshots move to archive_only or are replaced by generic
+# canonical-store/export coverage tests for the same stable IDs.
+
 import json
 import subprocess
 import sys
@@ -10,8 +15,8 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-QUERY_PROFILE_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "query_profiles.jsonl"
-SEARCH_LOG_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "search_logs.jsonl"
+QUERY_PROFILES_PATH = ROOT / "data" / "query_profiles.jsonl"
+SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
 SOURCES_PATH = ROOT / "data" / "sources.jsonl"
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 EVIDENCE_CLUSTERS_PATH = ROOT / "data" / "evidence_clusters.jsonl"
@@ -40,6 +45,51 @@ EXPANDED_SOURCE_IDS = {
     "SRC-SJ-J56-CHENPING-CONTINUITY-LIUBANG-SUPP-001",
     "SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001",
 }
+EXPANDED_QUERY_PROFILE_IDS = (
+    "QRY-I5B-LIUBANG-20260619",
+    "QRY-I5B-YONGZHENG-20260619",
+    "QRY-I5B-ZHUYUANZHANG-20260619",
+)
+EXPANDED_EVIDENCE_IDS = {
+    "EVD-I5B-LIUBANG-POS-SANJIE-001",
+    "EVD-I5B-LIUBANG-POS-ZHANGLIANG-RONGJIAN-001",
+    "EVD-I5B-LIUBANG-POS-CHENPING-001",
+    "EVD-I5B-LIUBANG-POS-HANXIN-QIWANG-001",
+    "EVD-I5B-LIUBANG-NEG-HANXIN-001",
+    "EVD-I5B-LIUBANG-NEG-PENGYUE-001",
+    "EVD-I5B-LIUBANG-NEG-YINGBU-CHILL-001",
+    "EVD-I5B-LIUBANG-SUPP-XIAOHE-SAFETY-001",
+    "EVD-I5B-LIUBANG-SUPP-CHENPING-CONTINUITY-001",
+    "EVD-I5B-LIUBANG-SUPP-FANKUAI-SAFETY-001",
+    "EVD-I5B-YONGZHENG-POS-SHIREN-001",
+    "EVD-I5B-YONGZHENG-POS-RONGJIAN-001",
+    "EVD-I5B-YONGZHENG-NEG-YIJI-001",
+    "EVD-I5B-YONGZHENG-NEG-YISHIXINGTAI-001",
+    "EVD-I5B-ZHUYUANZHANG-POS-SHIREN-001",
+    "EVD-I5B-ZHUYUANZHANG-POS-SHOUQUAN-001",
+    "EVD-I5B-ZHUYUANZHANG-NEG-HULAN-001",
+    "EVD-I5B-ZHUYUANZHANG-NEG-LANYU-001",
+}
+EXPANDED_SEARCH_IDS = (
+    "SRCH-I5B-LIUBANG-POS-SHIREN-001",
+    "SRCH-I5B-LIUBANG-POS-SHOUQUAN-001",
+    "SRCH-I5B-LIUBANG-NEG-GONGCHEN-001",
+    "SRCH-I5B-LIUBANG-CUT-ADJACENT-001",
+    "SRCH-I5B-YONGZHENG-POS-SHOUQUAN-001",
+    "SRCH-I5B-YONGZHENG-POS-ZHIDU-001",
+    "SRCH-I5B-YONGZHENG-NEG-BIAODA-ANQUAN-001",
+    "SRCH-I5B-YONGZHENG-CUT-ADJACENT-001",
+    "SRCH-I5B-ZHUYUANZHANG-POS-SHIREN-001",
+    "SRCH-I5B-ZHUYUANZHANG-POS-SHOUQUAN-001",
+    "SRCH-I5B-ZHUYUANZHANG-NEG-HULAN-001",
+    "SRCH-I5B-ZHUYUANZHANG-CUT-ADJACENT-001",
+)
+YONGZHENG_20260619_SEARCH_IDS = {
+    "SRCH-I5B-YONGZHENG-POS-SHOUQUAN-001",
+    "SRCH-I5B-YONGZHENG-POS-ZHIDU-001",
+    "SRCH-I5B-YONGZHENG-NEG-BIAODA-ANQUAN-001",
+    "SRCH-I5B-YONGZHENG-CUT-ADJACENT-001",
+}
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:
@@ -53,8 +103,13 @@ def load_jsonl(path: Path) -> list[dict[str, object]]:
     return rows
 
 
+def rows_by_ids(path: Path, id_field: str, row_ids: tuple[str, ...]) -> list[dict[str, object]]:
+    index = {row.get(id_field): row for row in load_jsonl(path)}
+    return [index[row_id] for row_id in row_ids if row_id in index]
+
+
 def test_expanded_pilot_batch1_query_profiles_are_three_person_intake_only() -> None:
-    rows = load_jsonl(QUERY_PROFILE_BATCH_PATH)
+    rows = rows_by_ids(QUERY_PROFILES_PATH, "query_profile_id", EXPANDED_QUERY_PROFILE_IDS)
 
     assert len(rows) == 3
     assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
@@ -66,19 +121,23 @@ def test_expanded_pilot_batch1_query_profiles_are_three_person_intake_only() -> 
         assert "score" not in row
         assert "rank" not in row
 
-
 def test_expanded_pilot_batch1_search_logs_are_three_person_intake_only() -> None:
-    rows = load_jsonl(SEARCH_LOG_BATCH_PATH)
+    rows = rows_by_ids(SEARCH_LOGS_PATH, "search_id", EXPANDED_SEARCH_IDS)
 
     assert len(rows) == 12
     assert {row["person"] for row in rows} == {"刘邦", "雍正", "朱元璋"}
-    assert {row["status"] for row in rows} == {"lead_needs_source_review"}
     for row in rows:
         assert row["subitem"] == "第五项B"
-        assert row["linked_source_ids"] == []
-        assert row["linked_evidence_ids"] == []
         assert "score" not in row
         assert "rank" not in row
+
+    newly_absorbed = [row for row in rows if row["search_id"] in YONGZHENG_20260619_SEARCH_IDS]
+    assert len(newly_absorbed) == 4
+    assert {row["query_profile_id"] for row in newly_absorbed} == {"QRY-I5B-YONGZHENG-20260619"}
+    assert {row["status"] for row in newly_absorbed} == {"lead_needs_source_review"}
+    for row in newly_absorbed:
+        assert row["linked_source_ids"] == []
+        assert row["linked_evidence_ids"] == []
 
 
 def test_expanded_pilot_batch1_sources_are_the_three_person_intake_only() -> None:
@@ -92,7 +151,7 @@ def test_expanded_pilot_batch1_evidence_cards_are_source_backed() -> None:
     rows = [
         row
         for row in load_jsonl(EVIDENCE_CARDS_PATH)
-        if row.get("source_id") in EXPANDED_SOURCE_IDS and row.get("subitem") == "第五项B"
+        if row.get("evidence_id") in EXPANDED_EVIDENCE_IDS
     ]
 
     assert len(rows) == 18
