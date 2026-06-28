@@ -197,6 +197,23 @@ def test_batch_b1_anchors_keep_minimal_metadata_without_scoring() -> None:
         assert "automatic scoring rule" in row["note"]
 
 
+def test_batch_b1_medium_negative_clusters_explain_candidate_strength_floor() -> None:
+    clusters = rows_by_id(DATA / "evidence_clusters.jsonl", "cluster_id")
+
+    for cluster_id in {
+        "ADJ-I5B-YINGZHENG-NEG-EXPRESSION-SAFETY-001",
+        "ADJ-I5B-LIUHENG-NEG-JIAYI-TALENT-CHANNEL-001",
+    }:
+        cluster = clusters[cluster_id]
+        assert cluster["polarity"] == "negative"
+        assert cluster["candidate_strength"] == 3
+        assert len(cluster["linked_evidence_ids"]) == 1
+        rationale = cluster["candidate_strength_rationale"]
+        assert "candidate_strength>=3" in rationale
+        assert "single-card source-verified cluster" in rationale
+        assert "medium negative" in rationale
+
+
 def test_batch_b1_keeps_dengtong_and_zhaogao_unresolved_gates() -> None:
     lanes = rows_by_id(DATA / "query_lane_coverage.jsonl", "lane_coverage_id")
     coverage = rows_by_id(DATA / "object_anchor_coverage.jsonl", "anchor_coverage_id")
