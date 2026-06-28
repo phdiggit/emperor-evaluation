@@ -98,6 +98,18 @@
     {
       "audit_docs": [],
       "category": "validate",
+      "id": "validate_source_evidence_canonical_stores",
+      "implementation": "scripts/validate/validate_source_evidence_canonical_stores.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_source_evidence_canonical_stores.py",
+        "tests/test_scripts_directory_layout.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "validate",
       "id": "validate_chinese_view_configs",
       "implementation": "scripts/validate/validate_chinese_view_configs.py",
       "legacy_wrapper": null,

@@ -134,12 +134,16 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
     assert "VARCHAR(" not in schema_text().upper()
 
     allowed_data_changes = {
+        "data/anchors.jsonl",
+        "data/batches/i5b_typical_batch_a/manifest.yml",
         "data/configs/project_config.yml",
-        "data/batches/i5b_typical_batch_a/",
         "data/evidence_cards.jsonl",
         "data/evidence_clusters.jsonl",
+        "data/object_anchor_coverage.jsonl",
         "data/query_profiles.jsonl",
+        "data/query_lane_coverage.jsonl",
         "data/search_logs.jsonl",
         "data/sources.jsonl",
+        "data/source_packs.jsonl",
     }
     assert [path for path in changed_paths("data") if path not in allowed_data_changes] == []
