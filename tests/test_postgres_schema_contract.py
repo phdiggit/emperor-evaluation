@@ -136,6 +136,7 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
     allowed_data_changes = {
         "data/anchors.jsonl",
         "data/batches/i5b_typical_batch_a/manifest.yml",
+        "data/batches/i5b_typical_batch_b1_qin_han/manifest.yml",
         "data/configs/project_config.yml",
         "data/evidence_cards.jsonl",
         "data/evidence_clusters.jsonl",
