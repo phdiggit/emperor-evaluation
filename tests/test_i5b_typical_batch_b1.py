@@ -38,7 +38,7 @@ def test_batch_b1_persistent_research_assets_are_only_yingzheng_and_liuheng() ->
     }
     assert Counter(row["person"] for row in review_rows) == {
         "嬴政": 5,
-        "刘恒": 6,
+        "刘恒": 7,
     }
     assert {row["lead_status"] for row in review_rows} == {
         "source_verified_evidence_created",
@@ -89,6 +89,7 @@ def test_batch_b1_review_log_keeps_converted_and_still_review_leads() -> None:
         "SRCH-I5B-YINGZHENG-NEG-ZHAOGAO-001",
         "SRCH-I5B-YINGZHENG-CUT-ADJACENT-001",
         "SRCH-I5B-LIUHENG-POS-OLDMINISTERS-001",
+        "SRCH-I5B-LIUHENG-NEG-DENGTONG-001",
         "SRCH-I5B-LIUHENG-CUT-ADJACENT-001",
     }
     for search_id in still_review:
@@ -135,8 +136,33 @@ def test_batch_b1_canonical_rows_trace_to_source_pack_and_search_logs() -> None:
         "SRCH-I5B-YINGZHENG-NEG-ZHAOGAO-001",
         "SRCH-I5B-YINGZHENG-CUT-ADJACENT-001",
         "SRCH-I5B-LIUHENG-POS-OLDMINISTERS-001",
+        "SRCH-I5B-LIUHENG-NEG-DENGTONG-001",
         "SRCH-I5B-LIUHENG-CUT-ADJACENT-001",
     }
     for search_id in still_review:
         assert search_logs[search_id]["result_status"] == "lead_needs_source_review"
         assert search_logs[search_id]["linked_evidence_id"] == ""
+
+
+def test_batch_b1_keeps_high_risk_and_backfilled_negative_lanes_visible() -> None:
+    review_rows = rows_by_id(SOURCE_REVIEW_LOG_PATH, "search_id")
+    search_logs = rows_by_id(ROOT / "data" / "search_logs.jsonl", "search_id")
+    query_profiles = rows_by_id(ROOT / "data" / "query_profiles.jsonl", "query_profile_id")
+
+    dengtong = search_logs["SRCH-I5B-LIUHENG-NEG-DENGTONG-001"]
+    assert dengtong["result_status"] == "lead_needs_source_review"
+    assert dengtong["linked_evidence_id"] == ""
+    assert "邓通" in dengtong["query_terms"]
+    assert "近幸" in dengtong["query_terms"]
+    assert "任人唯亲" in dengtong["query_terms"]
+    assert "不建卡，不得入分" in dengtong["note"]
+    assert review_rows["SRCH-I5B-LIUHENG-NEG-DENGTONG-001"]["lead_status"] == "lead_needs_source_review"
+
+    liuheng_profile = query_profiles["QRY-I5B-LIUHENG-20260628"]
+    assert "SRCH-I5B-LIUHENG-NEG-DENGTONG-001" in liuheng_profile["priority_search_ids"]
+    assert any("邓通" in term and "近幸偏私" in term for term in liuheng_profile["negative_terms"])
+
+    zhaogao = search_logs["SRCH-I5B-YINGZHENG-NEG-ZHAOGAO-001"]
+    assert zhaogao["result_status"] == "lead_needs_source_review"
+    assert "high-risk unresolved lead gate" in zhaogao["result_summary"]
+    assert "high-risk unresolved lead gate" in review_rows["SRCH-I5B-YINGZHENG-NEG-ZHAOGAO-001"]["lead_decision"]

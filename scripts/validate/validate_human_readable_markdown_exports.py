@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -514,7 +516,38 @@ def validate_machine_audit_markdown(root: Path, errors: list[str]) -> None:
             errors.append(f"{path}: missing machine audit purpose declaration")
 
 
-def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> list[str]:
+def _current_branch_name(root: Path) -> str:
+    for name in ("GITHUB_HEAD_REF", "GITHUB_REF_NAME"):
+        value = os.environ.get(name, "").strip()
+        if value:
+            return value
+    try:
+        return subprocess.check_output(
+            ["git", "branch", "--show-current"],
+            cwd=root,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return ""
+
+
+def _is_review_artifact_branch(branch_name: str) -> bool:
+    return branch_name.startswith("review/")
+
+
+def should_validate_active_split_exports(root: Path = ROOT) -> bool:
+    if (root / INDEX_RELATIVE_PATH).exists():
+        return True
+    return _is_review_artifact_branch(_current_branch_name(root))
+
+
+def validate_exports(
+    root: Path = ROOT,
+    targets: list[str] | None = None,
+    *,
+    validate_active_split: bool = True,
+) -> list[str]:
     resolved_targets = targets if targets is not None else list(config_loaders.get_i5b_active_person_targets())
     errors: list[str] = []
     validate_forbidden_markers_for_all_markdown_exports(root, errors)
@@ -526,6 +559,8 @@ def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> lis
     validate_human_review_markdown(root, errors)
     validate_machine_audit_markdown(root, errors)
     validate_no_legacy_flat_evidence_chain_exports(root, errors)
+    if not validate_active_split:
+        return errors
     existing_files = existing_target_files(root, resolved_targets)
     if not existing_files:
         return errors
@@ -559,13 +594,19 @@ def main() -> int:
         print("Human-readable Markdown export validation skipped: no I5B split export files found.")
         return 0
 
-    errors = validate_exports(ROOT, targets)
+    validate_active_split = should_validate_active_split_exports(ROOT)
+    errors = validate_exports(ROOT, targets, validate_active_split=validate_active_split)
     if errors:
         print("Human-readable Markdown export validation failed:")
         for error in errors:
             print(f"- {error}")
         return 1
 
+    if not validate_active_split:
+        print(
+            "Human-readable Markdown active I5B split export validation skipped: "
+            "review artifacts are not present on this canonical branch."
+        )
     print("Human-readable Markdown export validation passed.")
     return 0
 

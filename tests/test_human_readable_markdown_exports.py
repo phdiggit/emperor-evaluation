@@ -628,6 +628,27 @@ def test_validate_exports_reports_machine_audit_missing_declaration(tmp_path: Pa
     assert any("missing machine audit purpose declaration" in error for error in errors)
 
 
+def test_validate_exports_can_skip_active_split_artifacts_for_canonical_branch(tmp_path: Path) -> None:
+    write_required_export_layout(tmp_path)
+    detail_path = tmp_path / validator.detail_relative_path("李世民")
+    detail_path.parent.mkdir(parents=True, exist_ok=True)
+    detail_path.write_text("# 李世民\n", encoding="utf-8")
+
+    errors = validator.validate_exports(tmp_path, ["李世民"], validate_active_split=False)
+
+    assert not any("index page is missing while detail pages exist" in error for error in errors)
+
+
+def test_active_split_validation_remains_required_on_review_branch(tmp_path: Path, monkeypatch) -> None:
+    write_required_export_layout(tmp_path)
+    detail_path = tmp_path / validator.detail_relative_path("李世民")
+    detail_path.parent.mkdir(parents=True, exist_ok=True)
+    detail_path.write_text("# 李世民\n", encoding="utf-8")
+    monkeypatch.setenv("GITHUB_HEAD_REF", "review/i5b-b1-exports")
+
+    assert validator.should_validate_active_split_exports(tmp_path)
+
+
 def test_standalone_cli_passes_on_current_repo_exports() -> None:
     result = subprocess.run(
         [sys.executable, str(SCRIPT_PATH)],

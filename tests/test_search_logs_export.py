@@ -303,6 +303,7 @@ def test_only_task005b4_targets_change_lishimin_positive_search_statuses() -> No
         "SRCH-I5B-YINGZHENG-NEG-ZHAOGAO-001",
         "SRCH-I5B-YINGZHENG-CUT-ADJACENT-001",
         "SRCH-I5B-LIUHENG-POS-OLDMINISTERS-001",
+        "SRCH-I5B-LIUHENG-NEG-DENGTONG-001",
         "SRCH-I5B-LIUHENG-CUT-ADJACENT-001",
     }
     for search_id in untouched_search_ids:
