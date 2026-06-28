@@ -191,6 +191,38 @@ def test_issue380_expanded_review_snapshots_have_archive_triggers() -> None:
             assert row["archive_trigger"] == manifest_entry["archive_trigger"]
 
 
+def test_issue384_object_anchor_coverage_reconciles_canonical_evidence() -> None:
+    evidence_ids = {row["evidence_id"] for row in load_jsonl(ROOT / "data" / "evidence_cards.jsonl")}
+    anchor_rows = load_jsonl(ROOT / "data" / "anchors.jsonl")
+    coverage_rows = load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl")
+    lane_rows = load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl")
+
+    covered_evidence_ids = {evidence_id for row in coverage_rows for evidence_id in row.get("linked_evidence_ids", [])}
+    anchor_linked_evidence_ids = {
+        evidence_id for row in anchor_rows for evidence_id in row.get("linked_evidence_ids", [])
+    }
+    lane_linked_evidence_ids = {
+        evidence_id for row in lane_rows for evidence_id in row.get("linked_evidence_ids", [])
+    }
+
+    assert not [row["anchor_coverage_id"] for row in coverage_rows if row.get("anchor_status") == "no_anchor_pending_review"]
+    assert evidence_ids <= covered_evidence_ids
+    assert anchor_linked_evidence_ids <= covered_evidence_ids
+    assert lane_linked_evidence_ids <= covered_evidence_ids
+    assert not [
+        row["anchor_coverage_id"]
+        for row in coverage_rows
+        if not row.get("anchor_ids") and not row.get("no_anchor_reason")
+    ]
+
+    for batch_id in ["i5b_expanded_pilot_batch1", "i5b_zhu_yuanzhang_micro_supplement"]:
+        manifest_path = ROOT / "data" / "batches" / batch_id / "manifest.yml"
+        manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+        manifest_evidence_ids = set(manifest["canonical_row_refs"]["evidence_ids"])
+
+        assert manifest_evidence_ids <= covered_evidence_ids
+
+
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:
     seed_minimal_data(tmp_path, monkeypatch)
 
