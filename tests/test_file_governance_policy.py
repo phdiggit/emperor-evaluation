@@ -128,11 +128,11 @@ def git_check_ignore(paths: list[str]) -> set[str]:
 
 
 def test_agents_md_contains_file_governance_rules() -> None:
-    content = read_text(ROOT / "AGENTS.md")
+    content = read_text(ROOT / "docs" / "AGENTS.md")
     for needle in [
         "展示优化不得改变源数据、评分、定档、排名、warning 语义或裁判结论",
-        "人工复核型 Markdown 默认纯 Markdown，不使用 HTML details",
-        "详细规范见 `docs/展示与协作/人工阅读型Markdown导出规范.md`",
+        "人工复核型 Markdown 默认纯 Markdown，不用 HTML details",
+        "细则见 `docs/展示与协作/人工阅读型Markdown导出规范.md`",
     ]:
         assert needle in content
 
