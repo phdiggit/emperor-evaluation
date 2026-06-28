@@ -65,31 +65,63 @@ review_only_files:
   role: review_adjudication
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when cluster adjudication drafts are superseded by
+    post-supplement review items or a canonical human-review decision.
+  archive_trigger: Move to archive_only after no exporter/test consumes cluster adjudication
+    drafts for the expanded pilot batch.
 - path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_post_supplement.jsonl
   role: review_adjudication
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when post-supplement adjudication notes are replaced
+    by the final human-review decision or canonical review-item rows.
+  archive_trigger: Move to archive_only after the supplement review path closes and
+    no exporter/test reads this draft.
 - path: data/batches/i5b_expanded_pilot_batch1/review/readiness_audit.jsonl
   role: readiness_audit
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when readiness findings have been consumed by follow-up
+    and human review package rows.
+  archive_trigger: Move to archive_only after follow-up and review package snapshots
+    fully replace this audit as the active review input.
 - path: data/batches/i5b_expanded_pilot_batch1/review/readiness_followup.jsonl
   role: readiness_followup
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when follow-up outcomes are superseded by the human
+    review package or canonical review-item rows.
+  archive_trigger: Move to archive_only after no exporter/test reads readiness follow-up
+    as an active review input.
 - path: data/batches/i5b_expanded_pilot_batch1/review/relative_band_preparation.jsonl
   role: relative_band
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when relative-band preparation is replaced by a human-reviewed
+    band decision or a later canonical review artifact.
+  archive_trigger: Move to archive_only after the relative-band draft is no longer
+    used by exporters/tests or is superseded by a formal review artifact.
 - path: data/batches/i5b_expanded_pilot_batch1/review/human_review_package.jsonl
   role: human_review_package
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when the expanded pilot human-review agenda is closed
+    or migrated to canonical review-item rows.
+  archive_trigger: Move to archive_only after review decisions are recorded outside
+    this batch folder and no exporter/test consumes the package.
 - path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl
   role: rule_boundary_review
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when Yongzheng rule-boundary decisions are captured
+    in the generic rubric, canonical coverage rows, or a later human-review decision.
+  archive_trigger: Move to archive_only after the rule-boundary review is no longer
+    an active gate for the expanded pilot exporters/tests.
 - path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl
   role: role_class_sweep
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
+  retirement_condition: Retire when Yongzheng fallthrough roles are covered by canonical
+    lane/anchor coverage rows or a later review artifact.
+  archive_trigger: Move to archive_only after the role-class sweep is no longer needed
+    by targeted supplement exporters/tests.

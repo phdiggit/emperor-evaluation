@@ -29,6 +29,16 @@ RETIRED_BATCH_LOCAL_FACT_FILES = [
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "sources_targeted_supplement.jsonl",
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "evidence_cards_targeted_supplement.jsonl",
 ]
+EXPANDED_PILOT_REVIEW_FILES = [
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "adjudication_cluster.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "adjudication_post_supplement.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "readiness_audit.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "readiness_followup.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "relative_band_preparation.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "human_review_package.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_rule_boundary_review.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_role_class_sweep.jsonl",
+]
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
     "validate.validate_source_evidence_canonical_stores",
@@ -46,6 +56,10 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
         "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows),
         encoding="utf-8",
     )
+
+
+def load_jsonl(path: Path) -> list[dict[str, Any]]:
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def seed_minimal_data(tmp_path: Path, monkeypatch) -> Path:
@@ -158,6 +172,23 @@ def test_issue380_legacy_batches_no_longer_expose_batch_local_fact_stores() -> N
 
     for path in RETIRED_BATCH_LOCAL_FACT_FILES:
         assert not path.exists(), f"{path} should be represented by canonical_row_refs, not batch-local JSONL"
+
+
+def test_issue380_expanded_review_snapshots_have_archive_triggers() -> None:
+    manifest_path = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "manifest.yml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    review_entries = {ROOT / entry["path"]: entry for entry in manifest["review_only_files"]}
+
+    assert set(review_entries) == set(EXPANDED_PILOT_REVIEW_FILES)
+    for path in EXPANDED_PILOT_REVIEW_FILES:
+        manifest_entry = review_entries[path]
+        assert manifest_entry["current_review_input"] is True
+        assert manifest_entry["retirement_condition"]
+        assert manifest_entry["archive_trigger"]
+
+        for row in load_jsonl(path):
+            assert row["retirement_condition"] == manifest_entry["retirement_condition"]
+            assert row["archive_trigger"] == manifest_entry["archive_trigger"]
 
 
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:

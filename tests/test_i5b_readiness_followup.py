@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+# File lifecycle: temporary.
+# Retirement condition: remove this readiness follow-up guard once the
+# follow-up package is superseded by a human-review decision, folded into
+# generic review-item coverage, or moved to archive_only.
+
 import json
 import subprocess
 import sys

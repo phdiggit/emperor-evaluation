@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+# File lifecycle: transitional.
+# Retirement condition: remove this batch-specific guard when the expanded
+# pilot review snapshots move to archive_only or are replaced by generic
+# canonical-store/export coverage tests for the same stable IDs.
+
 import json
 import subprocess
 import sys

@@ -1,5 +1,11 @@
 from __future__ import annotations
 
+# File lifecycle: temporary.
+# Retirement condition: remove this targeted supplement guard once the
+# supplemental evidence IDs and Yongzheng role-class sweep are covered by
+# generic canonical evidence/lane coverage tests or the review snapshot is
+# moved to archive_only.
+
 import json
 import subprocess
 import sys

@@ -135,20 +135,11 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
 
     allowed_data_changes = {
         "data/anchors.jsonl",
-        "data/batches/i5b_expanded_pilot_batch1/evidence_cards_targeted_supplement.jsonl",
         "data/batches/i5b_expanded_pilot_batch1/manifest.yml",
-        "data/batches/i5b_expanded_pilot_batch1/query_profiles.jsonl",
-        "data/batches/i5b_expanded_pilot_batch1/search_logs.jsonl",
-        "data/batches/i5b_expanded_pilot_batch1/sources_targeted_supplement.jsonl",
         "data/batches/i5b_next_four/manifest.yml",
-        "data/batches/i5b_next_four/query_profiles.jsonl",
-        "data/batches/i5b_next_four/search_logs.jsonl",
         "data/batches/i5b_typical_batch_a/manifest.yml",
         "data/batches/i5b_typical_batch_b1_qin_han/manifest.yml",
-        "data/batches/i5b_zhu_yuanzhang_micro_supplement/evidence_cards.jsonl",
         "data/batches/i5b_zhu_yuanzhang_micro_supplement/manifest.yml",
-        "data/batches/i5b_zhu_yuanzhang_micro_supplement/sources.jsonl",
-        "data/configs/project_config.yml",
         "data/evidence_cards.jsonl",
         "data/evidence_clusters.jsonl",
         "data/object_anchor_coverage.jsonl",
@@ -158,4 +149,15 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
         "data/sources.jsonl",
         "data/source_packs.jsonl",
     }
-    assert [path for path in changed_paths("data") if path not in allowed_data_changes] == []
+    allowed_review_snapshot_lifecycle_changes = {
+        "data/batches/i5b_expanded_pilot_batch1/review/adjudication_cluster.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/adjudication_post_supplement.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/human_review_package.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/readiness_audit.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/readiness_followup.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/relative_band_preparation.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl",
+    }
+    allowed_paths = allowed_data_changes | allowed_review_snapshot_lifecycle_changes
+    assert [path for path in changed_paths("data") if path not in allowed_paths] == []
