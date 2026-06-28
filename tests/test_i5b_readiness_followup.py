@@ -11,8 +11,8 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 RULE_BOUNDARY_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_rule_boundary_review.jsonl"
-SOURCE_BATCH_PATH = ROOT / "data" / "batches" / "i5b_zhu_yuanzhang_micro_supplement" / "sources.jsonl"
-EVIDENCE_BATCH_PATH = ROOT / "data" / "batches" / "i5b_zhu_yuanzhang_micro_supplement" / "evidence_cards.jsonl"
+SOURCES_PATH = ROOT / "data" / "sources.jsonl"
+EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 FOLLOWUP_BATCH_PATH = ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "readiness_followup.jsonl"
 EXPORT_PATH = (
     ROOT
@@ -24,6 +24,17 @@ EXPORT_PATH = (
     / "试点闭环"
     / "第五项B扩展试点第一批readiness后续处理.md"
 )
+ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_IDS = (
+    "SRC-MS-J128-LIUJI-SONGLIAN-001",
+    "SRC-MS-J132-LANYU-001",
+)
+ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_IDS = (
+    "EVD-I5B-ZHUYUANZHANG-MICRO-LIUJI-HIRE-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-LIUJI-RETREAT-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-SONGLIAN-HIRE-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-SONGLIAN-EXILE-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-LANYU-PURGE-001",
+)
 
 
 def load_jsonl(path: Path) -> list[dict[str, object]]:
@@ -34,6 +45,11 @@ def load_jsonl(path: Path) -> list[dict[str, object]]:
             if stripped:
                 rows.append(json.loads(stripped))
     return rows
+
+
+def rows_by_ids(path: Path, id_field: str, row_ids: tuple[str, ...]) -> list[dict[str, object]]:
+    index = {row.get(id_field): row for row in load_jsonl(path)}
+    return [index[row_id] for row_id in row_ids if row_id in index]
 
 
 def test_yongzheng_rule_boundary_review_exists_and_uses_allowed_next_step() -> None:
@@ -59,8 +75,8 @@ def test_yongzheng_rule_boundary_review_exists_and_uses_allowed_next_step() -> N
 
 
 def test_zhu_yuanzhang_micro_supplement_is_source_backed_and_covers_all_priority_people() -> None:
-    source_rows = load_jsonl(SOURCE_BATCH_PATH)
-    evidence_rows = load_jsonl(EVIDENCE_BATCH_PATH)
+    source_rows = rows_by_ids(SOURCES_PATH, "source_id", ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_IDS)
+    evidence_rows = rows_by_ids(EVIDENCE_CARDS_PATH, "evidence_id", ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_IDS)
 
     assert len(source_rows) == 2
     assert len(evidence_rows) >= 3

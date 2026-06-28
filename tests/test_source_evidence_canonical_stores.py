@@ -12,6 +12,24 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Lifecycle: transitional #380 legacy batch cleanup guard. Retire this section
+# after these folders are archived or covered by a generic manifest validator.
+LEGACY_BATCH_CLEANUP_MANIFESTS = {
+    "i5b_zhu_yuanzhang_micro_supplement": "absorbed_to_canonical",
+    "i5b_next_four": "absorbed_to_canonical",
+    "i5b_expanded_pilot_batch1": "active_review_batch",
+}
+RETIRED_BATCH_LOCAL_FACT_FILES = [
+    ROOT / "data" / "batches" / "i5b_zhu_yuanzhang_micro_supplement" / "sources.jsonl",
+    ROOT / "data" / "batches" / "i5b_zhu_yuanzhang_micro_supplement" / "evidence_cards.jsonl",
+    ROOT / "data" / "batches" / "i5b_next_four" / "query_profiles.jsonl",
+    ROOT / "data" / "batches" / "i5b_next_four" / "search_logs.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "query_profiles.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "search_logs.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "sources_targeted_supplement.jsonl",
+    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "evidence_cards_targeted_supplement.jsonl",
+]
+
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
     "validate.validate_source_evidence_canonical_stores",
     ROOT / "scripts" / "validate" / "validate_source_evidence_canonical_stores.py",
@@ -125,6 +143,21 @@ def test_validator_cli_passes_on_repo_data() -> None:
 
     assert result.returncode == 0, result.stdout + result.stderr
     assert "Source/evidence canonical store validation passed." in result.stdout
+
+
+def test_issue380_legacy_batches_no_longer_expose_batch_local_fact_stores() -> None:
+    for batch_id, expected_status in LEGACY_BATCH_CLEANUP_MANIFESTS.items():
+        manifest_path = ROOT / "data" / "batches" / batch_id / "manifest.yml"
+        manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+
+        assert manifest["lifecycle_status"] == expected_status
+        assert manifest.get("status") != "active_batch"
+        assert manifest.get("current_input") is not True
+        assert manifest.get("classification_reason")
+        assert manifest.get("canonical_row_refs")
+
+    for path in RETIRED_BATCH_LOCAL_FACT_FILES:
+        assert not path.exists(), f"{path} should be represented by canonical_row_refs, not batch-local JSONL"
 
 
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:

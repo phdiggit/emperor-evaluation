@@ -1,77 +1,95 @@
 batch_id: i5b_expanded_pilot_batch1
-status: active_batch
-current_input: true
+lifecycle_status: active_review_batch
+current_input: false
+classification_reason: Durable query/search/source/evidence fact rows have canonical
+  homes. The folder remains active only for review-only/audit snapshots used by current
+  human-review exporters and tests.
 canonical_merge_policy: manual_only
-files:
-  - old_path: data/query_profile_batches/i5b_expanded_pilot_batch1_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/query_profiles.jsonl
-    role: query_profiles
-    absorbed_by_canonical: none
-    current_input: true
-    note: "JSON object unchanged; path migrated only."
-  - old_path: data/search_log_batches/i5b_expanded_pilot_batch1_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/search_logs.jsonl
-    role: search_logs
-    absorbed_by_canonical: partial
-    current_input: true
-    note: "JSON object unchanged; path migrated only."
-  - old_path: data/source_batches/i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/sources_targeted_supplement.jsonl
-    role: sources
-    absorbed_by_canonical: none
-    current_input: true
-    note: "JSON object unchanged; path migrated only."
-  - old_path: data/evidence_card_batches/i5b_expanded_pilot_batch1_targeted_supplement_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/evidence_cards_targeted_supplement.jsonl
-    role: evidence_cards
-    absorbed_by_canonical: none
-    current_input: true
-    note: "JSON object unchanged; path migrated only."
-  - old_path: data/adjudication_batches/i5b_expanded_pilot_batch1_cluster_adjudication_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_cluster.jsonl
-    role: review_adjudication
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Review-only material; not merged into canonical."
-  - old_path: data/adjudication_batches/i5b_expanded_pilot_batch1_post_supplement_adjudication_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_post_supplement.jsonl
-    role: review_adjudication
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Review-only material; not merged into canonical."
-  - old_path: data/audit_batches/i5b_expanded_pilot_batch1_readiness_audit_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/readiness_audit.jsonl
-    role: readiness_audit
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Review-only material; not merged into canonical."
-  - old_path: data/audit_batches/i5b_expanded_pilot_batch1_readiness_followup_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/readiness_followup.jsonl
-    role: readiness_followup
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Review-only material; not merged into canonical."
-  - old_path: data/relative_band_batches/i5b_expanded_pilot_batch1_relative_band_preparation_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/relative_band_preparation.jsonl
-    role: relative_band
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Review-only material; not merged into canonical."
-  - old_path: data/review_packages/i5b_expanded_pilot_batch1_human_review_package_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/human_review_package.jsonl
-    role: human_review_package
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Review-only material; not merged into canonical."
-  - old_path: data/rule_boundary_batches/i5b_yongzheng_rule_boundary_review_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl
-    role: rule_boundary_review
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Kept in current batch because exporter/tests still use it."
-  - old_path: data/sweep_batches/i5b_yongzheng_role_class_sweep_20260619.jsonl
-    new_path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl
-    role: role_class_sweep
-    absorbed_by_canonical: n/a
-    current_input: true
-    note: "Kept in current batch because exporter/tests still use it."
+canonical_row_refs:
+  query_profile_ids:
+  - QRY-I5B-LIUBANG-20260619
+  - QRY-I5B-YONGZHENG-20260619
+  - QRY-I5B-ZHUYUANZHANG-20260619
+  search_ids:
+  - SRCH-I5B-LIUBANG-POS-SHIREN-001
+  - SRCH-I5B-LIUBANG-POS-SHOUQUAN-001
+  - SRCH-I5B-LIUBANG-NEG-GONGCHEN-001
+  - SRCH-I5B-LIUBANG-CUT-ADJACENT-001
+  - SRCH-I5B-YONGZHENG-POS-SHOUQUAN-001
+  - SRCH-I5B-YONGZHENG-POS-ZHIDU-001
+  - SRCH-I5B-YONGZHENG-NEG-BIAODA-ANQUAN-001
+  - SRCH-I5B-YONGZHENG-CUT-ADJACENT-001
+  - SRCH-I5B-ZHUYUANZHANG-POS-SHIREN-001
+  - SRCH-I5B-ZHUYUANZHANG-POS-SHOUQUAN-001
+  - SRCH-I5B-ZHUYUANZHANG-NEG-HULAN-001
+  - SRCH-I5B-ZHUYUANZHANG-CUT-ADJACENT-001
+  source_ids:
+  - SRC-QSG-YZ-J293-YUEZHONGQI-001
+  - SRC-QSG-YZ-J296-YUEZHONGQI-001
+  - SRC-QSG-YZ-J297-YUEZHONGQI-001
+  - SRC-MS-J127-LISHANG-001
+  - SRC-MTZL-J026-XUDA-001
+  - SRC-MS-J308-HUWENYONG-001
+  evidence_ids:
+  - EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001
+  - EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-ADVISE-001
+  - EVD-I5B-LIUBANG-SUPP-FANKUAI-BUFFER-001
+  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001
+  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001
+  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001
+  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001
+  - EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001
+  - EVD-I5B-ZHUYUANZHANG-SUPP-XUDA-001
+  - EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001
+  - EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-002
+absorption_notes:
+- Eight Liubang/Zhu Yuanzhang search_ids already existed in data/search_logs.jsonl
+  from the 20260618 intake.
+- Four Yongzheng search_ids were appended from the 20260619 expanded pilot batch.
+- review/*.jsonl remains review-only and is not a canonical source/evidence fact store.
+retired_batch_local_fact_files:
+- path: data/batches/i5b_expanded_pilot_batch1/query_profiles.jsonl
+  role: query_profiles
+  absorbed_by_canonical: data/query_profiles.jsonl
+- path: data/batches/i5b_expanded_pilot_batch1/search_logs.jsonl
+  role: search_logs
+  absorbed_by_canonical: data/search_logs.jsonl
+- path: data/batches/i5b_expanded_pilot_batch1/sources_targeted_supplement.jsonl
+  role: sources
+  absorbed_by_canonical: data/sources.jsonl
+- path: data/batches/i5b_expanded_pilot_batch1/evidence_cards_targeted_supplement.jsonl
+  role: evidence_cards
+  absorbed_by_canonical: data/evidence_cards.jsonl
+review_only_files:
+- path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_cluster.jsonl
+  role: review_adjudication
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/adjudication_post_supplement.jsonl
+  role: review_adjudication
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/readiness_audit.jsonl
+  role: readiness_audit
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/readiness_followup.jsonl
+  role: readiness_followup
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/relative_band_preparation.jsonl
+  role: relative_band
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/human_review_package.jsonl
+  role: human_review_package
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl
+  role: rule_boundary_review
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.
+- path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl
+  role: role_class_sweep
+  current_review_input: true
+  retention_reason: Review-only/audit snapshot; not a canonical fact store.

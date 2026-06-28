@@ -21,11 +21,18 @@ READINESS_AUDIT_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第�
 YONGZHENG_RULE_BOUNDARY_BATCH_PATH = (
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_rule_boundary_review.jsonl"
 )
-ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH = (
-    ROOT / "data" / "batches" / "i5b_zhu_yuanzhang_micro_supplement" / "sources.jsonl"
+SOURCES_PATH = ROOT / "data" / "sources.jsonl"
+EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
+ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_IDS = (
+    "SRC-MS-J128-LIUJI-SONGLIAN-001",
+    "SRC-MS-J132-LANYU-001",
 )
-ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH = (
-    ROOT / "data" / "batches" / "i5b_zhu_yuanzhang_micro_supplement" / "evidence_cards.jsonl"
+ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_IDS = (
+    "EVD-I5B-ZHUYUANZHANG-MICRO-LIUJI-HIRE-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-LIUJI-RETREAT-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-SONGLIAN-HIRE-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-SONGLIAN-EXILE-001",
+    "EVD-I5B-ZHUYUANZHANG-MICRO-LANYU-PURGE-001",
 )
 READINESS_FOLLOWUP_BATCH_PATH = (
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "readiness_followup.jsonl"
@@ -83,6 +90,11 @@ def _table(headers: list[str], rows: list[dict[str, object]], config: dict[str, 
 
 def _human_table_fields(table_key: str, config: dict[str, object]) -> list[str]:
     return human_review_table_fields(table_key, config)
+
+
+def _rows_by_ids(path: Path, id_field: str, row_ids: tuple[str, ...]) -> list[dict[str, object]]:
+    index = {row.get(id_field): row for row in read_jsonl(path)}
+    return [index[row_id] for row_id in row_ids if row_id in index]
 
 
 def export_expanded_i5b_batch1_readiness_audit() -> Path:
@@ -154,8 +166,8 @@ def export_expanded_i5b_batch1_readiness_followup() -> Path:
     display_config = _human_display_config()
 
     boundary_rows = read_jsonl(YONGZHENG_RULE_BOUNDARY_BATCH_PATH)
-    source_rows = read_jsonl(ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_BATCH_PATH)
-    evidence_rows = read_jsonl(ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_BATCH_PATH)
+    source_rows = _rows_by_ids(SOURCES_PATH, "source_id", ZHUYUANZHANG_MICRO_SUPPLEMENT_SOURCE_IDS)
+    evidence_rows = _rows_by_ids(EVIDENCE_CARDS_PATH, "evidence_id", ZHUYUANZHANG_MICRO_SUPPLEMENT_EVIDENCE_IDS)
     followup_rows = read_jsonl(READINESS_FOLLOWUP_BATCH_PATH)
     person_followup_rows = [row for row in followup_rows if row.get("row_type") != "batch_followup_summary"]
 

@@ -38,11 +38,27 @@ EXPANDED_BATCH1_CLUSTER_ADJUDICATION_BATCH_PATH = (
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "adjudication_cluster.jsonl"
 )
 EXPANDED_BATCH1_CLUSTER_ADJUDICATION_EXPORT_PATH = I5B_EVIDENCE_CLUSTER_DIR / "第五项B扩展试点第一批证据簇结算草案.md"
-TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH = (
-    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "sources_targeted_supplement.jsonl"
+SOURCES_PATH = ROOT / "data" / "sources.jsonl"
+TARGETED_SUPPLEMENT_SOURCE_IDS = (
+    "SRC-QSG-YZ-J293-YUEZHONGQI-001",
+    "SRC-QSG-YZ-J296-YUEZHONGQI-001",
+    "SRC-QSG-YZ-J297-YUEZHONGQI-001",
+    "SRC-MS-J127-LISHANG-001",
+    "SRC-MTZL-J026-XUDA-001",
+    "SRC-MS-J308-HUWENYONG-001",
 )
-TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH = (
-    ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "evidence_cards_targeted_supplement.jsonl"
+TARGETED_SUPPLEMENT_EVIDENCE_IDS = (
+    "EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001",
+    "EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-ADVISE-001",
+    "EVD-I5B-LIUBANG-SUPP-FANKUAI-BUFFER-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001",
+    "EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-XUDA-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001",
+    "EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-002",
 )
 TARGETED_SUPPLEMENT_EXPORT_PATH = I5B_HUMAN_AUTO_CHAIN_ROOT / "试点闭环" / "第五项B扩展试点第一批定向补证.md"
 TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH = (
@@ -192,6 +208,11 @@ def _table(headers: list[str], rows: list[dict[str, object]], config: dict[str, 
 
 def _human_table_fields(table_key: str, config: dict[str, object]) -> list[str]:
     return human_review_table_fields(table_key, config)
+
+
+def _rows_by_ids(path: Path, id_field: str, row_ids: tuple[str, ...]) -> list[dict[str, object]]:
+    index = {row.get(id_field): row for row in read_jsonl(path)}
+    return [index[row_id] for row_id in row_ids if row_id in index]
 
 
 def _relative_appendix_path(export_path: Path, appendix_path: Path) -> str:
@@ -397,8 +418,8 @@ def export_expanded_i5b_batch1_targeted_supplement() -> Path:
     TARGETED_SUPPLEMENT_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     display_config = _human_display_config()
 
-    source_rows = read_jsonl(TARGETED_SUPPLEMENT_SOURCE_BATCH_PATH)
-    evidence_rows = read_jsonl(TARGETED_SUPPLEMENT_EVIDENCE_BATCH_PATH)
+    source_rows = _rows_by_ids(SOURCES_PATH, "source_id", TARGETED_SUPPLEMENT_SOURCE_IDS)
+    evidence_rows = _rows_by_ids(EVIDENCE_CARDS_PATH, "evidence_id", TARGETED_SUPPLEMENT_EVIDENCE_IDS)
     sweep_rows = read_jsonl(TARGETED_SUPPLEMENT_ROLE_CLASS_SWEEP_BATCH_PATH)
     person_counts = Counter(row.get("person") for row in evidence_rows)
 
