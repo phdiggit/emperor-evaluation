@@ -26,6 +26,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
 - PR 说明必须包含最终 changed files 列表；创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`，不做 merge decision。
 - evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
+- PR timing / evidence batch timing 只使用 `codex-win timer` 和命令日志的实测结果；没有 timer 时写 `timing unavailable` / `precise timing unavailable`，不得估算 total、per-person 或 per-phase 时间，具体流程见 GitHub 发布规范。
 - PowerShell 中不要拼复杂 `gh --jq`；复杂 JSON 检查优先用 `codex-win gh pr-view`、Python JSON 解析或工具自带 verify。
 
 ## Shell 与编码 / Shell And Encoding

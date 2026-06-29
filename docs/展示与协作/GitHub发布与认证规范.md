@@ -80,6 +80,18 @@ codex-win review-pack apply --pr <PR> --package-file .tmp/review-pack.md --body-
 - 必须拉当前 PR head，列 changed files，跑 current-head 与 base-head pytest，区分 PR-induced / baseline / fixed baseline failures。
 - 创建 PR 后顺手生成/更新审查包，并读回验证 title、body、base、head、draft 状态和 head SHA 不 stale。
 
+## Timing 与命令日志
+
+PR timing、evidence batch timing 和 review package timing 只使用 `codex-win timer` 与 `codex-win run --log` 的实测结果。没有 timer 时写 `timing unavailable` 或 `precise timing unavailable`，不得估算 total、per-person 或 per-phase 时间。
+
+```bash
+codex-win timer start --id <task-id> --state .tmp/codex-timer.json --restart
+codex-win run --log .tmp/codex-commands.jsonl --summary "<summary>" -- <command...>
+codex-win timer finish --id <task-id> --state .tmp/codex-timer.json --command-log .tmp/codex-commands.jsonl --output .tmp/codex-timing.json
+codex-win review-pack --pr <PR> --base GPT --command-log .tmp/codex-timing.json --output .tmp/review-pack.md
+codex-win review-pack apply --pr <PR> --package-file .tmp/review-pack.md --body-file .tmp/pr-body.md --command-log .tmp/codex-timing.json
+```
+
 ## PR Body 与评论正文安全
 
 - 禁止用 PowerShell inline 字符串直接写大段 Markdown PR body、issue comment、PR comment 或 review comment。
