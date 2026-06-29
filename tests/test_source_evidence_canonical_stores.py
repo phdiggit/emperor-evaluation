@@ -248,6 +248,27 @@ def test_issue366_batch_b2_manifest_refs_live_in_canonical_stores() -> None:
         canonical_ids = {row[id_field] for row in load_jsonl(ROOT / "data" / store_name)}
         assert set(refs[ref_key]) <= canonical_ids
 
+    search_rows = {
+        row["search_id"]: row
+        for row in load_jsonl(ROOT / "data" / "search_logs.jsonl")
+        if row["search_id"] in refs["search_ids"]
+    }
+    lane_rows = {
+        row["lane_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl")
+        if row["lane_coverage_id"] in refs["lane_coverage_ids"]
+    }
+
+    assert search_rows
+    assert lane_rows
+    assert all(isinstance(row["query_terms"], list) for row in search_rows.values())
+    assert not [
+        lane_id
+        for row in lane_rows.values()
+        for lane_id in row.get("covered_lane_ids", [])
+        if lane_id.startswith("I5B-I5B-B2-")
+    ]
+
 
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:
     seed_minimal_data(tmp_path, monkeypatch)
