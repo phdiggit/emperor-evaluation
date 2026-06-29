@@ -36,6 +36,27 @@
         "project_config.yml"
       ]
     },
+    "evidence-batch": {
+      "allow": [
+        "data/*.jsonl",
+        "data/batches/**/manifest.yml",
+        "tests/test_i5b_auto_adjudication.py",
+        "tests/test_negative_case_adjudication.py",
+        "tests/test_search_logs_export.py",
+        "tests/test_source_evidence_canonical_stores.py"
+      ],
+      "suspicious": [
+        "AGENTS.md",
+        "docs/**",
+        "scripts/**",
+        ".github/workflows/**",
+        "exports/**"
+      ],
+      "forbid": [
+        "data/configs/**",
+        "project_config.yml"
+      ]
+    },
     "scripts": {
       "allow": [
         "scripts/**",
