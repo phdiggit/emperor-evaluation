@@ -52,6 +52,26 @@ def summarize_unique_values(rows: list[dict[str, object]], field: str) -> str:
     return "；".join(values)
 
 
+def require_db_tables(db_path: Path, tables: Iterable[str]) -> None:
+    required_tables = list(tables)
+    if not db_path.exists():
+        raise FileNotFoundError(
+            f"{db_path} is missing; run python scripts/build/build_db.py before DB-backed Markdown exports."
+        )
+    with sqlite3.connect(db_path) as connection:
+        existing_tables = {
+            str(row[0])
+            for row in connection.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+        }
+    missing_tables = [table for table in required_tables if table not in existing_tables]
+    if missing_tables:
+        joined = ", ".join(missing_tables)
+        raise RuntimeError(
+            f"{db_path} is missing required table(s): {joined}; "
+            "run python scripts/build/build_db.py before DB-backed Markdown exports."
+        )
+
+
 def export_db_table_markdown(
     db_path: Path,
     export_path: Path,
@@ -61,12 +81,12 @@ def export_db_table_markdown(
     order_by: str,
 ) -> Path:
     export_path.parent.mkdir(parents=True, exist_ok=True)
+    require_db_tables(db_path, [table])
 
     rows = []
-    if db_path.exists():
-        with sqlite3.connect(db_path) as connection:
-            connection.row_factory = sqlite3.Row
-            rows = list(connection.execute(f"SELECT raw_json FROM {table} ORDER BY {order_by}"))
+    with sqlite3.connect(db_path) as connection:
+        connection.row_factory = sqlite3.Row
+        rows = list(connection.execute(f"SELECT raw_json FROM {table} ORDER BY {order_by}"))
 
     lines = [
         f"# {title}",

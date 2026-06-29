@@ -18,21 +18,24 @@ def script_path(script_name: str) -> Path:
     }
     return ROOT / routes.get(script_name, Path("scripts") / script_name)
 sys.path.insert(0, str(ROOT / "scripts"))
-I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
-AUTO_CHAIN_ROOT = I5B_EXPORT_ROOT / "人工审核" / "自动裁判链"
-AUTO_EXPORT_PATH = AUTO_CHAIN_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
-AUTO_RULES_EXPORT_PATH = AUTO_CHAIN_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
-FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
-SCORE_MAP_DRAFT_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
-CLOSURE_EXPORT_PATH = AUTO_CHAIN_ROOT / "试点闭环" / "第五项B三人试点内部闭环收尾.md"
-REVIEW_ENTRY_ROOT = I5B_EXPORT_ROOT / "人工审核" / "入口"
-REVIEW_ENTRY_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人专人审核入口.md"
-REVIEW_WORKBENCH_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人试点人工复核工作台.md"
-REVIEW_MATRIX_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B三人试点矩阵说明.md"
-REVIEW_PLAN_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B试点计划.md"
-LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 
 from export import export_i5b_auto_adjudication as auto
+
+I5B_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "第五项B"
+AUTO_CHAIN_ROOT = I5B_EXPORT_ROOT / "人工审核" / "自动裁判链"
+AUTO_EXPORT_PATH = auto.current_auto_export_path()
+AUTO_RULES_EXPORT_PATH = AUTO_CHAIN_ROOT / "规则敏感点" / "第五项B自动结算规则敏感点清单.md"
+FORMAL_EXPORT_PATH = auto.current_formal_export_path()
+SCORE_MAP_DRAFT_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B评分标尺与档位映射草案.md"
+CLOSURE_EXPORT_PATH = auto.current_closure_export_path()
+REVIEW_ENTRY_ROOT = I5B_EXPORT_ROOT / "人工审核" / "入口"
+REVIEW_ENTRY_EXPORT_PATH = auto.current_review_entry_export_path()
+REVIEW_WORKBENCH_EXPORT_PATH = auto.current_review_workbench_export_path()
+REVIEW_MATRIX_EXPORT_PATH = auto.current_review_matrix_export_path()
+REVIEW_PLAN_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B试点计划.md"
+LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
+LEGACY_NESTED_AUTO_EXPORT_PATH = AUTO_CHAIN_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
+LEGACY_NESTED_FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
 
 
 def run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
@@ -206,6 +209,34 @@ def make_display_warning_rule(**overrides: object) -> dict[str, object]:
     }
     rule.update(overrides)
     return rule
+
+
+def test_current_active_group_export_filenames_use_workflow_subject() -> None:
+    workflow_config = auto.active_workflow_config()
+    workflow_subject = auto.active_workflow_subject(workflow_config)
+
+    assert workflow_subject == "第五项B代表性皇帝"
+
+    expected_paths = [
+        auto.current_auto_export_path(workflow_config),
+        auto.current_formal_export_path(workflow_config),
+        auto.current_closure_export_path(workflow_config),
+        auto.current_review_entry_export_path(workflow_config),
+        auto.current_review_workbench_export_path(workflow_config),
+        auto.current_review_matrix_export_path(workflow_config),
+    ]
+    expected_names = [
+        "第五项B代表性皇帝自动结算草案.md",
+        "第五项B代表性皇帝正式定档落地表.md",
+        "第五项B代表性皇帝内部闭环收尾.md",
+        "第五项B代表性皇帝专人审核入口.md",
+        "第五项B代表性皇帝人工复核工作台.md",
+        "第五项B代表性皇帝矩阵说明.md",
+    ]
+
+    assert [path.name for path in expected_paths] == expected_names
+    assert all("三人" not in path.name for path in expected_paths)
+    assert auto.person_detail_backlink() == f"../{auto.current_auto_export_path(workflow_config).name}"
 
 
 def build_display_warning_fixture(
@@ -510,7 +541,7 @@ def test_cli_default_off_does_not_call_warning_stack(
 
     assert auto.main([]) == 0
 
-    auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
+    auto_content = auto.current_auto_export_path().read_text(encoding="utf-8")
     assert DISPLAY_WARNING_HEADING not in auto_content
 
 
@@ -539,10 +570,10 @@ def test_cli_include_display_warnings_writes_temp_auto_draft_only(
 
     assert auto.main(["--include-display-warnings"]) == 0
 
-    auto_content = auto.EXPORT_PATH.read_text(encoding="utf-8")
-    formal_content = auto.FORMAL_EXPORT_PATH.read_text(encoding="utf-8")
+    auto_content = auto.current_auto_export_path().read_text(encoding="utf-8")
+    formal_content = auto.current_formal_export_path().read_text(encoding="utf-8")
     score_map_content = auto.SCORE_MAP_DRAFT_EXPORT_PATH.read_text(encoding="utf-8")
-    closure_export_content = auto.CLOSURE_EXPORT_PATH.read_text(encoding="utf-8")
+    closure_export_content = auto.current_closure_export_path().read_text(encoding="utf-8")
 
     assert DISPLAY_WARNING_HEADING in auto_content
     assert "测试 fixture 人工复核提示。" in auto_content
@@ -681,14 +712,14 @@ def test_split_layout_outputs_index_and_person_detail_page(temp_auto_data: Path)
     )
 
     detail_path = auto.person_detail_export_path("测试甲")
-    index_content = outputs[auto.EXPORT_PATH]
+    index_content = outputs[auto.current_auto_export_path()]
     detail_content = outputs[detail_path]
 
     assert "[测试甲详情](./人物详情/测试甲.md)" in index_content
     assert "## 总览索引" in index_content
     assert "人工复核提示数量" in index_content
     assert "# 测试甲：第五项B自动结算草案" in detail_content
-    assert "[返回索引](../第五项B三人自动结算草案.md)" in detail_content
+    assert f"[返回索引](../{auto.current_auto_export_path().name})" in detail_content
     assert "## 人工复核提示（display-only）" in detail_content
     assert "* **命中字段**" in detail_content
     assert "linked_cards[0].trigger_terms" in detail_content
@@ -808,7 +839,7 @@ def test_split_export_validation_failure_returns_nonzero(
     monkeypatch.setattr(
         auto.human_readable_markdown_validator,
         "validate_exports",
-        lambda root, targets: [f"{auto.EXPORT_PATH}: broken split export"],
+        lambda root, targets: [f"{auto.current_auto_export_path()}: broken split export"],
     )
 
     result = auto.main(["--output-layout", "split"])
@@ -836,6 +867,11 @@ def test_canonical_export_does_not_run_split_validation(
 @pytest.mark.export_full
 @pytest.mark.integration
 def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
+    LEGACY_NESTED_AUTO_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LEGACY_NESTED_FORMAL_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LEGACY_NESTED_AUTO_EXPORT_PATH.write_text("legacy auto", encoding="utf-8")
+    LEGACY_NESTED_FORMAL_EXPORT_PATH.write_text("legacy formal", encoding="utf-8")
+
     result = run_script("export_i5b_auto_adjudication.py")
 
     assert result.returncode == 0, result.stdout + result.stderr
@@ -844,6 +880,14 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert FORMAL_EXPORT_PATH.exists()
     assert SCORE_MAP_DRAFT_EXPORT_PATH.exists()
     assert CLOSURE_EXPORT_PATH.exists()
+    assert "代表性皇帝" in AUTO_EXPORT_PATH.name
+    assert "代表性皇帝" in FORMAL_EXPORT_PATH.name
+    assert "代表性皇帝" in CLOSURE_EXPORT_PATH.name
+    assert "三人" not in AUTO_EXPORT_PATH.name
+    assert "三人" not in FORMAL_EXPORT_PATH.name
+    assert "三人" not in CLOSURE_EXPORT_PATH.name
+    assert not LEGACY_NESTED_AUTO_EXPORT_PATH.exists()
+    assert not LEGACY_NESTED_FORMAL_EXPORT_PATH.exists()
 
     auto_content = AUTO_EXPORT_PATH.read_text(encoding="utf-8")
     rules_content = AUTO_RULES_EXPORT_PATH.read_text(encoding="utf-8")

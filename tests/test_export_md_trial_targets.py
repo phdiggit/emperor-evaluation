@@ -7,6 +7,8 @@ import sqlite3
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -62,13 +64,7 @@ def test_main_profile_is_composite_entry_only() -> None:
     main_steps = set(export_md.step_names_for_profile("main"))
 
     assert main_steps == {"evidence_index", "evidence_clusters", "thematic_anchors", "query_profiles"}
-    for forbidden_step in [
-        "auto_adjudication",
-        "expanded_batch1_readiness_audit",
-        "expanded_batch1_relative_band_preparation",
-        "expanded_batch1_human_review_package",
-    ]:
-        assert forbidden_step not in main_steps
+    assert "auto_adjudication" not in main_steps
     assert not any(step.startswith("expanded_batch1_") for step in main_steps)
 
 
@@ -79,6 +75,8 @@ def test_all_profile_preserves_full_export_step_set() -> None:
     for step_name in export_md.step_names_for_profile("main"):
         assert step_name in all_steps
     assert "auto_adjudication" in all_steps
+    assert not any(step.startswith("expanded_batch1_") for step in all_steps)
+    assert "i5b-expanded-batch1" not in export_md.EXPORT_PROFILES
 
 
 def test_i5b_auto_profile_only_runs_auto_adjudication() -> None:
@@ -177,3 +175,22 @@ def test_export_search_logs_markdown_uses_active_targets_config(
     assert "S3" not in content
     assert "丙" not in content
     assert "S4" not in content
+
+
+def test_db_backed_export_requires_sqlite_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(export_md, "DB_PATH", tmp_path / "missing.sqlite")
+    monkeypatch.setattr(export_md, "EXPORT_PATH", tmp_path / "index.md")
+
+    with pytest.raises(FileNotFoundError, match="build_db.py"):
+        export_md.export_markdown()
+
+
+def test_db_backed_export_rejects_empty_sqlite_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    db_path = tmp_path / "evidence_cache.sqlite"
+    with sqlite3.connect(db_path):
+        pass
+    monkeypatch.setattr(export_md, "DB_PATH", db_path)
+    monkeypatch.setattr(export_md, "EXPORT_PATH", tmp_path / "index.md")
+
+    with pytest.raises(RuntimeError, match="evidence_cards"):
+        export_md.export_markdown()

@@ -5,6 +5,8 @@ import sqlite3
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -307,6 +309,14 @@ def test_empty_person_net_evidence_exports_mark_coverage_gap(tmp_path: Path) -> 
         assert "missing_evidence" in content
         assert "unscored / blocked_before_formal_score" in content
         assert "不得视为已完成自动结算、正式分值或正式排名" in content
+
+
+def test_net_evidence_export_requires_sqlite_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    missing_db_path = tmp_path / "missing.sqlite"
+    monkeypatch.setattr(net_evidence, "DB_PATH", missing_db_path)
+
+    with pytest.raises(FileNotFoundError, match="build_db.py"):
+        net_evidence.export_i5b_human_review_net_evidence_pool("李世民")
 
 
 def test_export_i5b_net_evidence_main_runs_review_profile_export(monkeypatch, tmp_path: Path, capsys) -> None:

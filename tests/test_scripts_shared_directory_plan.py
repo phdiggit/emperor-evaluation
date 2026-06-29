@@ -82,9 +82,7 @@ def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> No
     sys.path.insert(0, str(SCRIPTS_DIR))
     for module_name in (
         "export.export_i5b_net_evidence",
-        "export.export_i5b_expanded_batch1",
         "export.export_project_doc_views",
-        "export.export_i5b_views",
         "export.export_md",
         "export.export_i5b_auto_adjudication",
     ):
@@ -98,7 +96,6 @@ def test_display_dependents_import_shared_i5b_markdown_display() -> None:
     sys.path.insert(0, str(SCRIPTS_DIR))
     for module_name in (
         "export.export_i5b_net_evidence",
-        "export.export_i5b_expanded_batch1",
         "export.export_project_doc_views",
         "export.export_i5b_auto_adjudication",
         "validate.validate_human_readable_markdown_exports",

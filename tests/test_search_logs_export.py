@@ -21,7 +21,6 @@ SEARCH_LOG_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "�
 SUMMARY_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "综合汇总"
 EVIDENCE_CLUSTERS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "证据组裁量索引.md"
 THEMATIC_ANCHORS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "专题锚点索引.md"
-OBJECT_ANCHOR_VIEW_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "人工审核" / "自动裁判链" / "自动结算草案" / "第五项B三人试点对象锚点视图.md"
 QUERY_PROFILES_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "项目检索包索引.md"
 LIUZHUANG_NET_EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "净证据池" / "第五项B_刘庄机器审计净证据池.md"
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
@@ -106,12 +105,11 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     build_result = run_script("build_db.py")
     assert build_result.returncode == 0, build_result.stdout + build_result.stderr
 
-    export_result = run_script("export_md.py", "--profile", "i5b-core")
+    export_result = run_script("export_md.py", "--profile", "all")
     assert export_result.returncode == 0, export_result.stdout + export_result.stderr
     assert SEARCH_LOG_EXPORT_PATH.exists()
     assert EVIDENCE_CLUSTERS_EXPORT_PATH.exists()
     assert THEMATIC_ANCHORS_EXPORT_PATH.exists()
-    assert OBJECT_ANCHOR_VIEW_PATH.exists()
     assert QUERY_PROFILES_EXPORT_PATH.exists()
     assert LIUZHUANG_NET_EVIDENCE_EXPORT_PATH.exists()
 
@@ -153,11 +151,6 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert "ANCH-I5B-LIUXIU-OBJECT-001" in thematic_anchors_content
     assert "ANCH-I5B-LIUZHUANG-OBJECT-001" in thematic_anchors_content
     assert "对象锚点" in thematic_anchors_content
-
-    object_anchor_view_content = OBJECT_ANCHOR_VIEW_PATH.read_text(encoding="utf-8")
-    assert "顶级谏臣（魏征）" in object_anchor_view_content
-    assert "A级开国核心方面军/军政支柱" in object_anchor_view_content
-    assert "楚狱边界负证" in object_anchor_view_content
 
     query_profiles_content = QUERY_PROFILES_EXPORT_PATH.read_text(encoding="utf-8")
     assert "QRY-I5B-001" in query_profiles_content

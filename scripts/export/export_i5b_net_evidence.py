@@ -21,6 +21,7 @@ from shared.i5b_markdown_display import (
     render_appendix_page,
     render_markdown_table,
 )
+from shared.export_md_scaffold import require_db_tables
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -200,8 +201,7 @@ I5B_NET_EVIDENCE_TARGETS = load_i5b_net_evidence_targets()
 
 
 def _raw_rows(table: str, where_sql: str, params: list[object], order_by: str) -> list[dict[str, object]]:
-    if not DB_PATH.exists():
-        return []
+    require_db_tables(DB_PATH, [table])
     with sqlite3.connect(DB_PATH) as connection:
         connection.row_factory = sqlite3.Row
         rows = list(
