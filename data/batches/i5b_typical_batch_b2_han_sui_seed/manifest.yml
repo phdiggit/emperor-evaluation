@@ -1,0 +1,119 @@
+batch_id: i5b_typical_batch_b2_han_sui_seed_20260629
+issue: 366
+scope: I5B typical person pool persistent source/evidence Batch B2 Han-Sui seed
+persons:
+- 刘询
+- 刘启
+- 杨广
+persistent_research_data:
+  source_packs: data/source_packs.jsonl
+  query_lane_coverage: data/query_lane_coverage.jsonl
+  object_anchor_coverage: data/object_anchor_coverage.jsonl
+  anchors: data/anchors.jsonl
+  batch_traceability_manifest: data/batches/i5b_typical_batch_b2_han_sui_seed/manifest.yml
+canonical_outputs:
+- data/query_profiles.jsonl
+- data/sources.jsonl
+- data/search_logs.jsonl
+- data/evidence_cards.jsonl
+- data/evidence_clusters.jsonl
+- data/source_packs.jsonl
+- data/anchors.jsonl
+- data/object_anchor_coverage.jsonl
+- data/query_lane_coverage.jsonl
+anti_bloat_contract:
+- no scoring rule changes
+- no framework or runtime registry
+- no dashboard, benchmark, migration, or production database path
+- no all-23-person batch
+traceability:
+  rule: B2 batch folder is review traceability only; canonical source/evidence facts live in data/*.jsonl stores.
+  preserved_assets: canonical_row_refs lists source packs, anchors, coverage rows, query profiles, searches, evidence cards, and clusters absorbed from B2.
+derived_outputs:
+- local DB cache
+- generated Markdown exports
+- net evidence views
+- auto adjudication and formal gate views
+lifecycle_status: absorbed_to_canonical
+canonical_row_refs:
+  source_pack_ids:
+  - SP-I5B-B2-LIUXUN-BINGJI-001
+  - SP-I5B-B2-LIUXUN-HUANGBA-001
+  - SP-I5B-B2-LIUQI-ZHOUYAFU-AUTH-001
+  - SP-I5B-B2-LIUQI-CHAOCOU-001
+  - SP-I5B-B2-LIUQI-ZHOUYAFU-DEATH-001
+  - SP-I5B-B2-YANGGUANG-YUSHIJI-AUTH-001
+  - SP-I5B-B2-YANGGUANG-GAOJIONG-001
+  - SP-I5B-B2-YANGGUANG-YUSHIJI-FEEDBACK-001
+  anchor_ids:
+  - ANCH-I5B-B2-LIUXUN-POS-BINGJI-001
+  - ANCH-I5B-B2-LIUXUN-POS-HUANGBA-001
+  - ANCH-I5B-B2-LIUXUN-NEG-HUOSHI-001
+  - ANCH-I5B-B2-LIUXUN-CUT-ADJACENT-001
+  - ANCH-I5B-B2-LIUQI-POS-ZHOUYAFU-001
+  - ANCH-I5B-B2-LIUQI-NEG-CHAOCOU-001
+  - ANCH-I5B-B2-LIUQI-NEG-ZHOUYAFU-001
+  - ANCH-I5B-B2-LIUQI-CUT-ADJACENT-001
+  - ANCH-I5B-B2-YANGGUANG-POS-YUSHIJI-001
+  - ANCH-I5B-B2-YANGGUANG-NEG-GAOJIONG-001
+  - ANCH-I5B-B2-YANGGUANG-NEG-YUSHIJI-001
+  - ANCH-I5B-B2-YANGGUANG-CUT-ADJACENT-001
+  anchor_coverage_ids:
+  - ANCOV-I5B-B2-LIUXUN-POS-BINGJI-001
+  - ANCOV-I5B-B2-LIUXUN-POS-HUANGBA-001
+  - ANCOV-I5B-B2-LIUXUN-NEG-HUOSHI-001
+  - ANCOV-I5B-B2-LIUXUN-CUT-ADJACENT-001
+  - ANCOV-I5B-B2-LIUQI-POS-ZHOUYAFU-001
+  - ANCOV-I5B-B2-LIUQI-NEG-CHAOCOU-001
+  - ANCOV-I5B-B2-LIUQI-NEG-ZHOUYAFU-001
+  - ANCOV-I5B-B2-LIUQI-CUT-ADJACENT-001
+  - ANCOV-I5B-B2-YANGGUANG-POS-YUSHIJI-001
+  - ANCOV-I5B-B2-YANGGUANG-NEG-GAOJIONG-001
+  - ANCOV-I5B-B2-YANGGUANG-NEG-YUSHIJI-001
+  - ANCOV-I5B-B2-YANGGUANG-CUT-ADJACENT-001
+  lane_coverage_ids:
+  - LCOV-I5B-B2-LIUXUN-POS-BINGJI-001
+  - LCOV-I5B-B2-LIUXUN-POS-HUANGBA-001
+  - LCOV-I5B-B2-LIUXUN-NEG-HUOSHI-001
+  - LCOV-I5B-B2-LIUXUN-CUT-ADJACENT-001
+  - LCOV-I5B-B2-LIUQI-POS-ZHOUYAFU-001
+  - LCOV-I5B-B2-LIUQI-NEG-CHAOCOU-001
+  - LCOV-I5B-B2-LIUQI-NEG-ZHOUYAFU-001
+  - LCOV-I5B-B2-LIUQI-CUT-ADJACENT-001
+  - LCOV-I5B-B2-YANGGUANG-POS-YUSHIJI-001
+  - LCOV-I5B-B2-YANGGUANG-NEG-GAOJIONG-001
+  - LCOV-I5B-B2-YANGGUANG-NEG-YUSHIJI-001
+  - LCOV-I5B-B2-YANGGUANG-CUT-ADJACENT-001
+  query_profile_ids:
+  - QRY-I5B-LIUXUN-20260629
+  - QRY-I5B-LIUQI-20260629
+  - QRY-I5B-YANGGUANG-20260629
+  search_ids:
+  - SRCH-I5B-LIUXUN-POS-BINGJI-001
+  - SRCH-I5B-LIUXUN-POS-HUANGBA-001
+  - SRCH-I5B-LIUXUN-NEG-HUOSHI-001
+  - SRCH-I5B-LIUXUN-CUT-ADJACENT-001
+  - SRCH-I5B-LIUQI-POS-ZHOUYAFU-001
+  - SRCH-I5B-LIUQI-NEG-CHAOCOU-001
+  - SRCH-I5B-LIUQI-NEG-ZHOUYAFU-001
+  - SRCH-I5B-LIUQI-CUT-ADJACENT-001
+  - SRCH-I5B-YANGGUANG-POS-YUSHIJI-001
+  - SRCH-I5B-YANGGUANG-NEG-GAOJIONG-001
+  - SRCH-I5B-YANGGUANG-NEG-YUSHIJI-001
+  - SRCH-I5B-YANGGUANG-CUT-ADJACENT-001
+  evidence_ids:
+  - EVD-I5B-LIUXUN-POS-BINGJI-ZHIREN-001
+  - EVD-I5B-LIUXUN-POS-HUANGBA-XUNLI-001
+  - EVD-I5B-LIUQI-POS-ZHOUYAFU-AUTH-001
+  - EVD-I5B-LIUQI-NEG-CHAOCOU-SAFETY-001
+  - EVD-I5B-LIUQI-NEG-ZHOUYAFU-DEATH-001
+  - EVD-I5B-YANGGUANG-POS-YUSHIJI-AUTH-001
+  - EVD-I5B-YANGGUANG-NEG-GAOJIONG-OLDMINISTER-001
+  - EVD-I5B-YANGGUANG-NEG-YUSHIJI-FEEDBACK-001
+  cluster_ids:
+  - ADJ-I5B-LIUXUN-POS-FEEDBACK-TALENT-001
+  - ADJ-I5B-LIUQI-POS-MILITARY-AUTH-001
+  - ADJ-I5B-LIUQI-NEG-TALENT-SAFETY-001
+  - ADJ-I5B-YANGGUANG-POS-ADMIN-AUTH-001
+  - ADJ-I5B-YANGGUANG-NEG-TALENT-FEEDBACK-SAFETY-001
+absorption_note: Issue #366 Batch B2 seeds Liu Xun, Liu Qi, and Yang Guang source/evidence rows into canonical stores; batch-local JSONL fact files are intentionally not created.

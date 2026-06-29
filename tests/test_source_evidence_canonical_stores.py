@@ -223,6 +223,53 @@ def test_issue384_object_anchor_coverage_reconciles_canonical_evidence() -> None
         assert manifest_evidence_ids <= covered_evidence_ids
 
 
+def test_issue366_batch_b2_manifest_refs_live_in_canonical_stores() -> None:
+    manifest_path = ROOT / "data" / "batches" / "i5b_typical_batch_b2_han_sui_seed" / "manifest.yml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    refs = manifest["canonical_row_refs"]
+
+    store_specs = {
+        "source_pack_ids": ("source_packs.jsonl", "source_pack_id"),
+        "anchor_ids": ("anchors.jsonl", "anchor_id"),
+        "anchor_coverage_ids": ("object_anchor_coverage.jsonl", "anchor_coverage_id"),
+        "lane_coverage_ids": ("query_lane_coverage.jsonl", "lane_coverage_id"),
+        "query_profile_ids": ("query_profiles.jsonl", "query_profile_id"),
+        "search_ids": ("search_logs.jsonl", "search_id"),
+        "evidence_ids": ("evidence_cards.jsonl", "evidence_id"),
+        "cluster_ids": ("evidence_clusters.jsonl", "cluster_id"),
+    }
+
+    assert manifest["issue"] == 366
+    assert manifest["lifecycle_status"] == "absorbed_to_canonical"
+    assert manifest["persons"] == ["刘询", "刘启", "杨广"]
+    assert "timing" not in manifest
+
+    for ref_key, (store_name, id_field) in store_specs.items():
+        canonical_ids = {row[id_field] for row in load_jsonl(ROOT / "data" / store_name)}
+        assert set(refs[ref_key]) <= canonical_ids
+
+    search_rows = {
+        row["search_id"]: row
+        for row in load_jsonl(ROOT / "data" / "search_logs.jsonl")
+        if row["search_id"] in refs["search_ids"]
+    }
+    lane_rows = {
+        row["lane_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl")
+        if row["lane_coverage_id"] in refs["lane_coverage_ids"]
+    }
+
+    assert search_rows
+    assert lane_rows
+    assert all(isinstance(row["query_terms"], list) for row in search_rows.values())
+    assert not [
+        lane_id
+        for row in lane_rows.values()
+        for lane_id in row.get("covered_lane_ids", [])
+        if lane_id.startswith("I5B-I5B-B2-")
+    ]
+
+
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:
     seed_minimal_data(tmp_path, monkeypatch)
 

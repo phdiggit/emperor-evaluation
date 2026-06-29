@@ -733,7 +733,7 @@ def test_export_i5b_auto_adjudication_split_layout_writes_index_and_active_detai
     assert "# " + workflow_subject + "自动结算草案" in index_content
     assert "## 总览索引" in index_content
     assert "## 证据覆盖状态" in index_content
-    assert "- **missing_evidence_person_count**：19" in index_content
+    assert "- **missing_evidence_person_count**：16" in index_content
     assert "formal_scoring_gate" in index_content
     assert "人工复核提示数量" in index_content
     for person in targets:
@@ -995,13 +995,13 @@ def test_formal_landing_table_reflects_auto_drafts() -> None:
     assert "刘彻 | 已有证据 | 可进入正式评分 |" in formal_content
     assert "杨坚 | 已有证据 | 可进入正式评分 |" in formal_content
     assert "嬴政 | 已有证据 | 可进入正式评分 |" in formal_content
-    assert "刘询 | 缺少证据 | 评分前阻断 |" in formal_content
+    assert "刘询 | 已有证据 | 可进入正式评分 | 强正封顶，不上探极正 |" in formal_content
     assert "弘历 | 缺少证据 | 评分前阻断 |" in formal_content
     assert "不出分 | 不排名" in formal_content
     liuxun_row = next(line for line in formal_content.splitlines() if line.startswith("| 刘询 |"))
-    assert "| 不出分 | 不出分 | 不排名 |" in liuxun_row
-    assert "G9 已批准" not in liuxun_row
-    assert "- **missing_evidence_person_count**：19" in formal_content
+    assert "| 33.53 |" in liuxun_row
+    assert "G9 已批准" in liuxun_row
+    assert "- **missing_evidence_person_count**：16" in formal_content
     assert "剩余规则问题（remaining_rule_questions）" in formal_content
     assert "出分阶段前置条件（score_stage_prerequisites）" in formal_content
     assert "第五项B正式分值（formal_score_value_45）" in formal_content
