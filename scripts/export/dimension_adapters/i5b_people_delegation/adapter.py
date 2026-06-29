@@ -192,7 +192,7 @@ def render_score_mapping_draft() -> str:
     display_values = _DISPLAY_DICTIONARY_VALUES["render_score_mapping_draft"]
     context = {
         "formal_algorithm_version": FORMAL_ALGORITHM_VERSION,
-        "formal_export_relative_path": current_formal_export_path().relative_to(ROOT),
+        "formal_export_relative_path": current_formal_export_path().relative_to(ROOT).as_posix(),
     }
     lines = _format_display_lines(display_values["prefix_lines"], context)
     lines.extend(
@@ -889,9 +889,9 @@ def render_review_entry_landing() -> str:
         "",
         "- 审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`",
         "- 自动裁判链：`exports/markdown_views/第五项B/人工审核/自动裁判链/`",
-        f"- 自动结算索引：`{auto_index_path.relative_to(ROOT)}`",
+        f"- 自动结算索引：`{auto_index_path.relative_to(ROOT).as_posix()}`",
         "- 规则敏感点：`exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md`",
-        f"- 正式定档草案：`{formal_path.relative_to(ROOT)}`",
+        f"- 正式定档草案：`{formal_path.relative_to(ROOT).as_posix()}`",
         "- 评分映射草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`",
         "- 证据卡索引：`exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md`",
         "- 证据簇索引：`exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md`",

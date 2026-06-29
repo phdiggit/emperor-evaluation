@@ -100,6 +100,8 @@ def write_required_export_layout(root: Path, pending_files: list[str] | None = N
 
 def write_split_export(root: Path, targets: list[str]) -> None:
     write_required_export_layout(root)
+    index_relative_path = validator.index_relative_path()
+    detail_backlink_marker = validator.detail_backlink_marker()
     export_dir = (
         root
         / "exports"
@@ -122,7 +124,7 @@ def write_split_export(root: Path, targets: list[str]) -> None:
                 [
                     f"# {person}：第五项B自动结算草案",
                     "",
-                    "[返回索引](../第五项B三人自动结算草案.md)",
+                    detail_backlink_marker,
                     "",
                     "## 人物详情",
                     "",
@@ -174,10 +176,10 @@ def write_split_export(root: Path, targets: list[str]) -> None:
             encoding="utf-8",
         )
 
-    (export_dir / "第五项B三人自动结算草案.md").write_text(
+    (root / index_relative_path).write_text(
         "\n".join(
             [
-                "# 第五项B三人自动结算草案",
+                f"# {validator.active_workflow_subject()}自动结算草案",
                 "",
                 "## 总览索引",
                 "",
@@ -242,7 +244,7 @@ def test_validate_exports_reports_missing_index_link_and_detail_page(tmp_path: P
     write_split_export(tmp_path, targets)
     missing_detail_path = tmp_path / validator.detail_relative_path("刘秀")
     missing_detail_path.unlink()
-    index_path = tmp_path / validator.INDEX_RELATIVE_PATH
+    index_path = tmp_path / validator.index_relative_path()
     index_path.write_text(
         index_path.read_text(encoding="utf-8").replace("[刘秀详情](./人物详情/刘秀.md)", "刘秀详情缺失"),
         encoding="utf-8",
@@ -259,13 +261,13 @@ def test_validate_exports_reports_detail_without_backlink(tmp_path: Path) -> Non
     write_split_export(tmp_path, targets)
     detail_path = tmp_path / validator.detail_relative_path("李世民")
     detail_path.write_text(
-        detail_path.read_text(encoding="utf-8").replace("[返回索引](../第五项B三人自动结算草案.md)", ""),
+        detail_path.read_text(encoding="utf-8").replace(validator.detail_backlink_marker(), ""),
         encoding="utf-8",
     )
 
     errors = validator.validate_exports(tmp_path, targets)
 
-    assert any("missing required detail marker '[返回索引](../第五项B三人自动结算草案.md)'" in error for error in errors)
+    assert any(f"missing required detail marker {validator.detail_backlink_marker()!r}" in error for error in errors)
 
 
 def test_validate_exports_reports_legacy_flat_export(tmp_path: Path) -> None:

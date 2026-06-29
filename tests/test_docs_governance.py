@@ -88,14 +88,14 @@ ARCHIVE_MAP.update(ADR_ARCHIVE_MAP)
 RETIRED_GENERATED_MAP = {
     "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md",
     "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B三人试点内部闭环收尾.md",
+    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B代表性皇帝内部闭环收尾.md",
     "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
     "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
 }
 RETIRED_MIXED_MAP = {
-    "docs/第五项B三人专人审核入口.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人专人审核入口.md",
-    "docs/第五项B三人试点人工复核工作台.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人试点人工复核工作台.md",
-    "docs/第五项B三人试点矩阵说明.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B三人试点矩阵说明.md",
+    "docs/第五项B三人专人审核入口.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B代表性皇帝专人审核入口.md",
+    "docs/第五项B三人试点人工复核工作台.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B代表性皇帝人工复核工作台.md",
+    "docs/第五项B三人试点矩阵说明.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B代表性皇帝矩阵说明.md",
     "docs/第五项B试点计划.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md",
 }
 NEEDS_HUMAN_CONFIRMATION = {
