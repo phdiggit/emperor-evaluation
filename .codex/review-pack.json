@@ -1,0 +1,66 @@
+{
+  "scope_profiles": {
+    "governance": {
+      "allow": [
+        ".codex/**",
+        ".gitignore",
+        "AGENTS.md",
+        "docs/AGENTS.md",
+        "scripts/AGENTS.md"
+      ],
+      "suspicious": [
+        "data/**",
+        "scripts/**/*.py",
+        "tests/**",
+        "exports/**"
+      ],
+      "forbid": [
+        "data/configs/**",
+        "project_config.yml"
+      ]
+    },
+    "data-jsonl": {
+      "allow": [
+        "data/*.jsonl",
+        "data/batches/**/manifest.yml",
+        "tests/test_source_evidence_canonical_stores.py"
+      ],
+      "suspicious": [
+        "AGENTS.md",
+        "docs/**",
+        "scripts/**",
+        "exports/**"
+      ],
+      "forbid": [
+        "data/configs/**",
+        "project_config.yml"
+      ]
+    },
+    "scripts": {
+      "allow": [
+        "scripts/**",
+        "tests/**",
+        "docs/文档与脚本登记/**",
+        "AGENTS.md",
+        "scripts/AGENTS.md"
+      ],
+      "suspicious": [
+        "data/**",
+        "exports/**"
+      ],
+      "forbid": [
+        "data/configs/**",
+        "project_config.yml"
+      ]
+    }
+  },
+  "protocol": {
+    "require_pr_body_head_sha": true,
+    "require_final_changed_files": true,
+    "require_no_merge_decision": true
+  },
+  "generated_artifacts": [
+    "exports/markdown_views/**",
+    ".tmp/**"
+  ]
+}
