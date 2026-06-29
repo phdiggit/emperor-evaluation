@@ -27,6 +27,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - PR 说明必须包含最终 changed files 列表。PR body must include final changed files.
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
 - 创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`；用户要求“PR review / 审查 / 机械事实层 / review pack”时也按此包输出，不做 merge decision。
+- 若当前安装的 `codex-win` 支持 `review-pack`，优先用 `codex-win review-pack --pr <PR> --base GPT --scope-profile <profile> --config .codex/review-pack.json --output .tmp/review-pack.md` 生成机械事实层；否则手工按 v1.1 模板生成。
 - 包必须含 `HEAD SNAPSHOT LOCK`、Scope / Ownership、Commands Run、Protocol Compliance、Findings、Failed Checks Classification、Anti-bloat / Lifecycle Notes、Required Next Actions。
 - 必须拉当前 PR head，列 changed files，跑 current-head 与 base-head pytest，区分 PR-induced / baseline / fixed baseline failures。
 - evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
