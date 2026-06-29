@@ -11,6 +11,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 from shared import config_loaders
 from shared.config_loaders import load_i5b_cluster_warning_rules
+from shared.export_view_index import ensure_i5b_human_readable_export_scaffold, write_export_view_index
 from shared.i5b_cluster_warning_display import (
     match_display_only_cluster_warnings,
     render_display_only_cluster_warning_section,
@@ -1408,6 +1409,8 @@ def export_auto_adjudication(
             warning_rules=warning_rules,
         )
         write_markdown_outputs(split_outputs)
+        ensure_i5b_human_readable_export_scaffold(MARKDOWN_VIEW_ROOT)
+        write_export_view_index(MARKDOWN_VIEW_ROOT)
         remove_legacy_flat_exports()
         if validate_output:
             validation_root = MARKDOWN_VIEW_ROOT.parent.parent
