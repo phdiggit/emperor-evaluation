@@ -22,12 +22,10 @@ AUTO_DRAFT_RELATIVE_DIR = HUMAN_AUTO_ADJUDICATION_RELATIVE_DIR / "自动结算�
 DETAIL_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "人物详情"
 APPENDIX_RELATIVE_DIR = AUTO_DRAFT_RELATIVE_DIR / "附录"
 EVIDENCE_CHAIN_RELATIVE_DIR = I5B_EXPORT_RELATIVE_ROOT / "证据链"
-INDEX_RELATIVE_PATH = AUTO_DRAFT_RELATIVE_DIR / "第五项B三人自动结算草案.md"
 VIEW_INDEX_RELATIVE_PATH = MARKDOWN_VIEW_RELATIVE_ROOT / "导出视图总索引.md"
 DETAIL_FILENAME_TEMPLATE = "{person}.md"
 FORBIDDEN_MARKERS = ("<details", "<summary", "</details>", "……（共")
 DETAIL_REQUIRED_MARKERS = (
-    "[返回索引](../第五项B三人自动结算草案.md)",
     "### 证据簇自动结算",
     "### 自动特征",
     "### 自动结算结论",
@@ -122,6 +120,20 @@ HUMAN_REVIEW_TABLE_KEY_BY_HEADING = {
 }
 
 
+def active_workflow_subject() -> str:
+    config = config_loaders.get_i5b_active_workflow_config()
+    group_label = str(config.get("group_label") or config.get("group") or "当前人物组")
+    return f"{config.get('subitem') or '第五项B'}{group_label}"
+
+
+def index_relative_path() -> Path:
+    return AUTO_DRAFT_RELATIVE_DIR / f"{active_workflow_subject()}自动结算草案.md"
+
+
+def detail_backlink_marker() -> str:
+    return f"[返回索引](../{index_relative_path().name})"
+
+
 def detail_relative_path(person: str) -> Path:
     return DETAIL_RELATIVE_DIR / DETAIL_FILENAME_TEMPLATE.format(person=person)
 
@@ -181,7 +193,7 @@ def add_forbidden_marker_errors_for_all_i5b_exports(root: Path, errors: list[str
 
 
 def existing_target_files(root: Path, targets: list[str]) -> list[Path]:
-    files = [root / INDEX_RELATIVE_PATH]
+    files = [root / index_relative_path()]
     files.extend(root / detail_relative_path(person) for person in targets)
     files.extend(root / APPENDIX_RELATIVE_DIR / f"{person}_长字段附录.md" for person in targets)
     return [path for path in files if path.exists()]
@@ -192,14 +204,14 @@ def existing_detail_files(root: Path, targets: list[str]) -> list[Path]:
 
 
 def split_export_exists(root: Path, targets: list[str]) -> bool:
-    index_path = root / INDEX_RELATIVE_PATH
+    index_path = root / index_relative_path()
     if index_path.exists():
         return "## 总览索引" in read_text(index_path)
     return bool(existing_detail_files(root, targets))
 
 
 def validate_index(root: Path, targets: list[str], content: str, errors: list[str]) -> None:
-    index_path = root / INDEX_RELATIVE_PATH
+    index_path = root / index_relative_path()
     if "## 总览索引" not in content:
         errors.append(f"{index_path}: missing required heading '## 总览索引'")
 
@@ -213,6 +225,10 @@ def validate_index(root: Path, targets: list[str], content: str, errors: list[st
 
 
 def validate_detail(path: Path, content: str, errors: list[str]) -> None:
+    backlink_marker = detail_backlink_marker()
+    if backlink_marker not in content:
+        errors.append(f"{path}: missing required detail marker {backlink_marker!r}")
+
     for marker in DETAIL_REQUIRED_MARKERS:
         if marker not in content:
             errors.append(f"{path}: missing required detail marker {marker!r}")
@@ -231,7 +247,7 @@ def validate_detail(path: Path, content: str, errors: list[str]) -> None:
 
 
 def validate_no_legacy_flat_exports(root: Path, targets: list[str], errors: list[str]) -> None:
-    if not (root / INDEX_RELATIVE_PATH).exists():
+    if not (root / index_relative_path()).exists():
         return
     for relative_path in legacy_flat_relative_paths(targets):
         path = root / relative_path
@@ -533,7 +549,7 @@ def validate_exports(root: Path = ROOT, targets: list[str] | None = None) -> lis
         add_forbidden_marker_errors(path, read_text(path), errors)
     validate_no_legacy_flat_exports(root, resolved_targets, errors)
 
-    index_path = root / INDEX_RELATIVE_PATH
+    index_path = root / index_relative_path()
     if not index_path.exists():
         errors.append(f"{index_path}: index page is missing while detail pages exist")
         return errors

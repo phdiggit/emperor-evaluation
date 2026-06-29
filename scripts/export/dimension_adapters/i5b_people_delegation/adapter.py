@@ -95,6 +95,30 @@ def active_workflow_subject(config: dict[str, Any] | None = None) -> str:
     return f"{resolved_config.get('subitem') or '第五项B'}{active_group_label(resolved_config)}"
 
 
+def current_auto_export_path(config: dict[str, Any] | None = None) -> Path:
+    return auto_export_path(active_workflow_subject(config))
+
+
+def current_formal_export_path(config: dict[str, Any] | None = None) -> Path:
+    return formal_export_path(active_workflow_subject(config))
+
+
+def current_closure_export_path(config: dict[str, Any] | None = None) -> Path:
+    return closure_export_path(active_workflow_subject(config))
+
+
+def current_review_entry_export_path(config: dict[str, Any] | None = None) -> Path:
+    return review_entry_export_path(active_workflow_subject(config))
+
+
+def current_review_workbench_export_path(config: dict[str, Any] | None = None) -> Path:
+    return review_workbench_export_path(active_workflow_subject(config))
+
+
+def current_review_matrix_export_path(config: dict[str, Any] | None = None) -> Path:
+    return review_matrix_export_path(active_workflow_subject(config))
+
+
 def active_person_targets(config: dict[str, Any] | None = None) -> list[str]:
     resolved_config = config if config is not None else active_workflow_config()
     return [str(person) for person in resolved_config.get("targets") or []]
@@ -113,7 +137,7 @@ def person_detail_relative_link(person: str) -> str:
 
 
 def person_detail_backlink() -> str:
-    return f"../{EXPORT_PATH.name}"
+    return f"../{current_auto_export_path().name}"
 
 
 def human_table_fields(table_key: str, display_config: dict[str, Any] | None = None) -> list[str]:
@@ -166,7 +190,10 @@ def render_score_mapping_draft() -> str:
     display_config = load_i5b_markdown_view_config()
     score_rows = formal_algorithm_mapping_rows(g9_publication=True)
     display_values = _DISPLAY_DICTIONARY_VALUES["render_score_mapping_draft"]
-    context = {"formal_algorithm_version": FORMAL_ALGORITHM_VERSION}
+    context = {
+        "formal_algorithm_version": FORMAL_ALGORITHM_VERSION,
+        "formal_export_relative_path": current_formal_export_path().relative_to(ROOT),
+    }
     lines = _format_display_lines(display_values["prefix_lines"], context)
     lines.extend(
         [
@@ -838,6 +865,8 @@ def render_review_entry_landing() -> str:
     targets = active_person_targets(workflow_config)
     workflow_subject = active_workflow_subject(workflow_config)
     group_label = active_group_label(workflow_config)
+    auto_index_path = current_auto_export_path(workflow_config)
+    formal_path = current_formal_export_path(workflow_config)
     lines = [
         f"# {workflow_subject}专人审核入口",
         "",
@@ -845,7 +874,6 @@ def render_review_entry_landing() -> str:
         "",
         f"- **活动人物组**：{group_label}",
         f"- **覆盖人物**：{'、'.join(targets)}",
-        "- **兼容路径说明**：部分既有 Markdown 文件名仍保留历史字样以稳定链接；正文和数据范围以本页活动人物组为准。",
         "",
         "## 使用边界",
         "",
@@ -861,9 +889,9 @@ def render_review_entry_landing() -> str:
         "",
         "- 审核入口视图：`exports/markdown_views/第五项B/人工审核/入口/`",
         "- 自动裁判链：`exports/markdown_views/第五项B/人工审核/自动裁判链/`",
-        "- 自动结算索引：`exports/markdown_views/第五项B/人工审核/自动裁判链/自动结算草案/第五项B三人自动结算草案.md`",
+        f"- 自动结算索引：`{auto_index_path.relative_to(ROOT)}`",
         "- 规则敏感点：`exports/markdown_views/第五项B/人工审核/自动裁判链/规则敏感点/第五项B自动结算规则敏感点清单.md`",
-        "- 正式定档草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B三人正式定档落地表.md`",
+        f"- 正式定档草案：`{formal_path.relative_to(ROOT)}`",
         "- 评分映射草案：`exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md`",
         "- 证据卡索引：`exports/markdown_views/第五项B/人工审核/证据链/证据卡/第五项B人工审核证据卡索引.md`",
         "- 证据簇索引：`exports/markdown_views/第五项B/人工审核/证据链/证据簇/第五项B人工审核证据簇索引.md`",
@@ -1073,10 +1101,11 @@ def render_review_pilot_plan() -> str:
 
 
 def render_review_entry_outputs() -> dict[Path, str]:
+    workflow_config = active_workflow_config()
     return {
-        REVIEW_ENTRY_EXPORT_PATH: render_review_entry_landing(),
-        REVIEW_WORKBENCH_EXPORT_PATH: render_review_workbench(),
-        REVIEW_MATRIX_EXPORT_PATH: render_review_matrix_note(),
+        current_review_entry_export_path(workflow_config): render_review_entry_landing(),
+        current_review_workbench_export_path(workflow_config): render_review_workbench(),
+        current_review_matrix_export_path(workflow_config): render_review_matrix_note(),
         REVIEW_PLAN_EXPORT_PATH: render_review_pilot_plan(),
     }
 
@@ -1087,6 +1116,7 @@ def render_split_auto_adjudication_outputs(
     warning_rules: list[dict[str, Any]] | None = None,
 ) -> dict[Path, str]:
     context = build_auto_adjudication_context()
+    workflow_config = active_workflow_config()
     evidence_lookup = context["evidence_lookup"]
     cluster_lookup = context["cluster_lookup"]
     person_reports = context["person_reports"]
@@ -1094,7 +1124,7 @@ def render_split_auto_adjudication_outputs(
     display_config = load_i5b_markdown_view_config()
 
     outputs: dict[Path, str] = {
-        EXPORT_PATH: render_split_index_page(
+        current_auto_export_path(workflow_config): render_split_index_page(
             person_reports,
             evidence_lookup,
             cluster_lookup,
@@ -1383,6 +1413,10 @@ def remove_legacy_flat_exports() -> None:
     remove_existing_paths(legacy_flat_export_paths())
 
 
+def remove_legacy_subject_exports() -> None:
+    remove_existing_paths(list(LEGACY_NESTED_SUBJECT_EXPORT_PATHS))
+
+
 def export_auto_adjudication(
     *,
     include_display_warnings: bool = False,
@@ -1390,18 +1424,23 @@ def export_auto_adjudication(
     output_layout: str = OUTPUT_LAYOUT_CANONICAL,
     validate_output: bool = True,
 ) -> tuple[Path, Path, Path, Path]:
+    workflow_config = active_workflow_config()
+    export_path = current_auto_export_path(workflow_config)
+    formal_path = current_formal_export_path(workflow_config)
+    closure_path = current_closure_export_path(workflow_config)
     ensure_directories(
         [
-            EXPORT_PATH.parent,
+            export_path.parent,
             AUTO_DRAFT_DETAIL_DIR,
             AUTO_DRAFT_APPENDIX_DIR,
             RULES_EXPORT_PATH.parent,
-            FORMAL_EXPORT_PATH.parent,
+            formal_path.parent,
             SCORE_MAP_DRAFT_EXPORT_PATH.parent,
-            CLOSURE_EXPORT_PATH.parent,
+            closure_path.parent,
             REVIEW_ENTRY_DIR,
         ]
     )
+    remove_legacy_subject_exports()
 
     if output_layout == OUTPUT_LAYOUT_SPLIT:
         split_outputs = render_split_auto_adjudication_outputs(
@@ -1421,7 +1460,7 @@ def export_auto_adjudication(
     else:
         write_markdown_outputs(
             {
-                EXPORT_PATH: render_auto_adjudication(
+                export_path: render_auto_adjudication(
                     include_display_warnings=include_display_warnings,
                     warning_rules=warning_rules,
                 )
@@ -1430,15 +1469,15 @@ def export_auto_adjudication(
     write_markdown_outputs(
         {
             RULES_EXPORT_PATH: render_rule_sensitive_points(),
-            FORMAL_EXPORT_PATH: render_formal_landing_table(),
+            formal_path: render_formal_landing_table(),
             SCORE_MAP_DRAFT_EXPORT_PATH: render_score_mapping_draft(),
         }
     )
     closure_content = render_three_pilot_closure()
-    write_markdown_outputs({CLOSURE_EXPORT_PATH: closure_content})
+    write_markdown_outputs({closure_path: closure_content})
     write_markdown_outputs(render_review_entry_outputs())
     remove_legacy_flat_exports()
-    return EXPORT_PATH, RULES_EXPORT_PATH, FORMAL_EXPORT_PATH, CLOSURE_EXPORT_PATH
+    return export_path, RULES_EXPORT_PATH, formal_path, closure_path
 
 
 def main(argv: list[str] | None = None) -> int:
