@@ -22,16 +22,9 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 - 远端读写默认优先用已认证的 `gh` CLI；只有 `gh` 不可用、未认证、权限不足或确实做不到时才退回 connector，并说明原因。Prefer authenticated `gh`.
 - GitHub 写操作先用最少读取确认目标，再执行一次写入；不要对同一目标反复调用不同接口。Confirm target, then write once.
-- 收到“返修 / 按审查意见修改 / fix review”时，先 checkout/fetch PR head 分支，并读取 PR 评论和 review threads。For fix review, inspect PR context first.
-- 返修后确认 local HEAD 与 PR head SHA 一致，并在回复或 PR 说明中写明。After repair, confirm local HEAD equals PR head.
-- PR 说明必须包含最终 changed files 列表。PR body must include final changed files.
+- 涉及 PR 创建、更新、审查、返修、review package、Issue/PR 评论或 GitHub 正文写入时，先读 `docs/展示与协作/GitHub发布与认证规范.md`。
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
-- 创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`；用户要求“PR review / 审查 / 机械事实层 / review pack”时也按此包输出，不做 merge decision。
-- 若当前安装的 `codex-win` 支持 `review-pack`，优先用 `codex-win review-pack --pr <PR> --base GPT --scope-profile <profile> --config .codex/review-pack.json --output .tmp/review-pack.md` 生成机械事实层；否则手工按 v1.1 模板生成。
-- 需要把 review package 写回 PR body 时，优先用 `codex-win review-pack apply --pr <PR> --package-file .tmp/review-pack.md --body-file .tmp/pr-body.md`；只需写回完整正文时，用 `codex-win body validate .tmp/pr-body.md` 后接 `codex-win body apply --pr <PR> --body-file .tmp/pr-body.md`。
-- 不优先回退到 `scripts/dev/pr_body_tool.py`；只有 `codex-win` 不可用或任务明确要求时才使用仓库本地 PR body 工具，并说明原因。
-- 包必须含 `HEAD SNAPSHOT LOCK`、Reviewer Quick Summary、Scope / Ownership、Commands Run、Protocol Compliance、Findings、Failed Checks Classification、Anti-bloat / Lifecycle Notes、Required Next Actions。
-- 必须拉当前 PR head，列 changed files，跑 current-head 与 base-head pytest，区分 PR-induced / baseline / fixed baseline failures。
+- PR 说明必须包含最终 changed files 列表；创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`，不做 merge decision。
 - evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
 - PowerShell 中不要拼复杂 `gh --jq`；复杂 JSON 检查优先用 `codex-win gh pr-view`、Python JSON 解析或工具自带 verify。
 
@@ -47,10 +40,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 ## GitHub 正文安全 / GitHub Body Safety
 
 - 禁止用 PowerShell inline 字符串直接写大段 Markdown PR body。
-- 凡 PR body、长 issue comment、长 review comment 中包含中文、Markdown 代码围栏、反引号、长文件清单或多段列表，必须先写 `.tmp/bodies/*.md` 或 `.tmp/*.md` UTF-8 文件，并用 `codex-win body normalize/validate` 校验。
-- 更新 PR body 必须使用 `codex-win body apply`、`codex-win review-pack apply` 或 `codex-win gh pr-edit`；直接 `gh pr edit --body-file` 仅作等价 fallback；不得使用 `gh pr edit --body "...大段正文..."`。
-- PR body 更新失败时，不反复调试 BOM；报告“PR body 更新失败/待人工处理”，并保留本地正文文件和验证事实。
-- 提交前必须检查 GitHub 正文不含 `???`、U+FFFD、控制字符、损坏代码围栏。
+- PR body、长 issue comment、长 review comment 的生成、校验、写回和坏字符检查按 `docs/展示与协作/GitHub发布与认证规范.md` 执行。
 
 ## 脚本治理 / Script Governance
 
