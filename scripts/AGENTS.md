@@ -53,6 +53,7 @@
 - scripts 治理 PR 还必须运行 `codex-win run -- python scripts/dev/repo_tool.py agents-check` 和适用的 `scope-check`。
 - scripts 治理 PR 还必须运行 `codex-win run -- python scripts/dev/repo_tool.py canonical-imports-check`；`agents-check` 已包含 canonical import 检查。
 - 验证命令若产生范围外副产物，记录通过结果后用根 AGENTS 指定的 `codex-win cleanup generated` profile 清理，再只做范围核对命令。
+- PR body 或 review package 写回按根 AGENTS 统一走 `codex-win review-pack apply` 或 `codex-win body apply`；不要优先回退到 `scripts/dev/pr_body_tool.py`。
 
 ## registry 与审计文档
 
