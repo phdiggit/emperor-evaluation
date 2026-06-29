@@ -62,13 +62,7 @@ def test_main_profile_is_composite_entry_only() -> None:
     main_steps = set(export_md.step_names_for_profile("main"))
 
     assert main_steps == {"evidence_index", "evidence_clusters", "thematic_anchors", "query_profiles"}
-    for forbidden_step in [
-        "auto_adjudication",
-        "expanded_batch1_readiness_audit",
-        "expanded_batch1_relative_band_preparation",
-        "expanded_batch1_human_review_package",
-    ]:
-        assert forbidden_step not in main_steps
+    assert "auto_adjudication" not in main_steps
     assert not any(step.startswith("expanded_batch1_") for step in main_steps)
 
 
@@ -79,6 +73,8 @@ def test_all_profile_preserves_full_export_step_set() -> None:
     for step_name in export_md.step_names_for_profile("main"):
         assert step_name in all_steps
     assert "auto_adjudication" in all_steps
+    assert not any(step.startswith("expanded_batch1_") for step in all_steps)
+    assert "i5b-expanded-batch1" not in export_md.EXPORT_PROFILES
 
 
 def test_i5b_auto_profile_only_runs_auto_adjudication() -> None:

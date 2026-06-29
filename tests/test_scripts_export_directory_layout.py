@@ -10,9 +10,7 @@ SCRIPTS_DIR = ROOT / "scripts"
 EXPORT_DIR = SCRIPTS_DIR / "export"
 MIGRATED_EXPORTERS = (
     "export_i5b_auto_adjudication",
-    "export_i5b_views",
     "export_i5b_net_evidence",
-    "export_i5b_expanded_batch1",
     "export_project_doc_views",
 )
 DIMENSION_EXPORT_FRAMEWORK_MODULES = (

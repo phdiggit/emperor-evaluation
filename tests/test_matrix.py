@@ -94,7 +94,7 @@ def build_temp_repo(tmp_path: Path) -> Path:
             "default_person_group": "custom_review_pool",
             "person_groups": {
                 "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
-                "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦"]},
+                "archive_review_pool": {"label": "归档复核池", "persons": ["刘邦"]},
                 "custom_review_pool": {"label": "自定义复核池", "persons": ["自定义甲"]},
                 "another_review_pool": {"label": "另一个复核池", "persons": ["自定义乙"]},
             },

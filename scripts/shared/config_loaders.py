@@ -214,14 +214,6 @@ def get_i5b_trial_targets() -> list[str]:
     return [str(person) for person in get_i5b_trial_config()["targets"]]
 
 
-def get_i5b_expanded_batch1_targets() -> list[str]:
-    group_key = "expanded_batch1"
-    persons = get_i5b_group_persons(group_key)
-    if persons is None:
-        raise ValueError(f"{group_key} group is missing from project_config.yml")
-    return persons
-
-
 def get_i5b_net_evidence_targets() -> list[tuple[str, Path]]:
     persons = get_i5b_output_person_targets("net_evidence")
     return [

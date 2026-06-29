@@ -46,8 +46,6 @@ LEGACY_FLAT_RELATIVE_PATHS = (
 LEGACY_FLAT_EVIDENCE_CHAIN_FILENAME_PATTERNS = (
     re.compile(r"^第五项B_.+净证据池\.md$"),
     re.compile(r"^第五项B三人试点检索线索\.md$"),
-    re.compile(r"^第五项B扩展试点第一批证据卡与证据簇草案\.md$"),
-    re.compile(r"^第五项B扩展试点第一批证据簇结算草案\.md$"),
 )
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)#]+)(?:#([^)]+))?\)")
 CHINESE_CHAR_RE = re.compile(r"[\u4e00-\u9fff]")

@@ -23,7 +23,6 @@ def test_project_config_loader_reads_repo_config() -> None:
     assert "review_warning_rules" not in config
     assert config_loaders.get_i5b_active_person_targets() == config["person_groups"]["typical"]["persons"]
     assert config_loaders.get_i5b_trial_targets() == ["李世民", "刘秀", "刘庄"]
-    assert config_loaders.get_i5b_expanded_batch1_targets() == ["刘邦", "雍正", "朱元璋"]
     assert [person for person, _path in config_loaders.get_i5b_net_evidence_targets()] == config["person_groups"][
         "typical"
     ]["persons"]
@@ -41,16 +40,15 @@ def test_project_config_loader_reads_repo_config() -> None:
 def test_i5b_active_group_helpers_read_project_config(tmp_path: Path, monkeypatch, project_config_writer) -> None:
     config_path = project_config_writer(
         tmp_path / "project_config.yml",
-        default_person_group="expanded_batch1",
+        default_person_group="custom_review_pool",
         groups={
             "three_pilot": {"label": "三人试点", "persons": ["甲", "乙"]},
-            "expanded_batch1": {"label": "扩展第一批", "persons": ["丙"]},
+            "custom_review_pool": {"label": "自定义复核池", "persons": ["丙"]},
         },
     )
     monkeypatch.setattr(config_loaders, "PROJECT_CONFIG_PATH", config_path)
 
     assert config_loaders.get_i5b_trial_targets() == ["甲", "乙"]
-    assert config_loaders.get_i5b_expanded_batch1_targets() == ["丙"]
     assert config_loaders.get_i5b_active_person_targets() == ["丙"]
     assert config_loaders.get_i5b_net_evidence_targets() == [
         (
@@ -124,10 +122,10 @@ def test_i5b_net_evidence_output_override_can_use_another_person_group(
 ) -> None:
     config_path = project_config_writer(
         tmp_path / "project_config.yml",
-        default_person_group="expanded_batch1",
+        default_person_group="custom_review_pool",
         groups={
             "three_pilot": {"label": "三人试点", "persons": ["甲"]},
-            "expanded_batch1": {"label": "扩展第一批", "persons": ["乙"]},
+            "custom_review_pool": {"label": "自定义复核池", "persons": ["乙"]},
         },
         outputs={
             "matrix": True,

@@ -25,7 +25,7 @@ PROJECT_CONFIG_SPEC.loader.exec_module(validate_project_config)
 def valid_groups() -> dict[str, dict[str, object]]:
     return {
         "three_pilot": {"label": "三人试点", "persons": ["李世民", "刘秀", "刘庄"]},
-        "expanded_batch1": {"label": "扩展第一批", "persons": ["刘邦", "雍正", "朱元璋"]},
+        "typical": {"label": "代表性皇帝", "persons": ["李世民", "刘秀", "刘庄"]},
     }
 
 
@@ -38,7 +38,7 @@ def valid_payload(*, groups: dict[str, dict[str, object]] | None = None) -> dict
     return {
         "version": 2,
         "active_subitem": "第五项B",
-        "default_person_group": "expanded_batch1",
+        "default_person_group": "typical",
         "person_groups": groups or valid_groups(),
         "outputs": {
             "matrix": True,
@@ -103,7 +103,7 @@ person_groups:
   three_pilot: &trial
     label: 三人试点
     persons: [李世民]
-  expanded_batch1: *trial
+  archive_review_pool: *trial
 outputs:
   matrix: true
   auto_adjudication: true
