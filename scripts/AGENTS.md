@@ -30,7 +30,7 @@
 
 - 移动 Python 文件必须核对 `__file__`、`parents[n]`、`ROOT` 和所有路径常量。
 - import 必须使用当前分层目录的稳定路径；已退役旧路径不得通过 wrapper 恢复。
-- 需要 Git 路径、中文路径或状态核对时，优先使用 `git -c core.quotepath=false ...` 或 `python scripts/dev/repo_tool.py`。
+- 需要 Git 路径、中文路径或状态核对时，优先使用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
 - JSON 输出必须 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进和稳定排序。
 
 ## 迁移纪律
@@ -49,10 +49,10 @@
 ## 验证要求
 
 - 修改已登记模块前，读取 registry 指向的 `audit_docs`；开 PR 前运行 registry 指定测试及适用治理检查。
-- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，开 PR 前运行 `python scripts/validate/validate_all.py`。
-- scripts 治理 PR 还必须运行 `python scripts/dev/repo_tool.py agents-check` 和适用的 `scope-check`。
-- scripts 治理 PR 还必须运行 `python scripts/dev/repo_tool.py canonical-imports-check`；`agents-check` 已包含 canonical import 检查。
-- 验证命令若产生范围外副产物，记录通过结果后清理副产物，再只做范围核对命令。
+- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再用 `codex-win run -- python scripts/validate/validate_all.py`。
+- scripts 治理 PR 还必须运行 `codex-win run -- python scripts/dev/repo_tool.py agents-check` 和适用的 `scope-check`。
+- scripts 治理 PR 还必须运行 `codex-win run -- python scripts/dev/repo_tool.py canonical-imports-check`；`agents-check` 已包含 canonical import 检查。
+- 验证命令若产生范围外副产物，记录通过结果后用根 AGENTS 指定的 `codex-win cleanup generated` profile 清理，再只做范围核对命令。
 
 ## registry 与审计文档
 

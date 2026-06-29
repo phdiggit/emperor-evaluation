@@ -55,8 +55,8 @@
 ## 中文路径与编码
 
 - 中文 Markdown、JSON 和说明文件默认使用 UTF-8 no BOM。
-- 中文路径和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或仓库工具。
-- 长中文 Markdown 正文避免用 PowerShell inline 字符串写入。
+- 中文路径和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或仓库工具。
+- 长中文 Markdown 正文避免用 PowerShell inline 字符串写入；长正文优先走 `codex-win body normalize/validate` 或仓库正文工具。
 - 面向用户的当前层 Markdown 文件名和正文默认使用中文；`README.md`、`AGENTS.md` 仅因工具链约定保留技术文件名。
 - 单一当前层功能目录超过 8 份直接 Markdown，或同主题族超过 3 份 active 文档时，必须在 `docs_registry.json` 记录密度或主题族 review。
 
@@ -67,9 +67,9 @@
 
 ## 验证要求
 
-- 修改 docs registry、docs 规则或 docs 工具后，运行 `python scripts/dev/docs_tool.py check --registry docs/文档与脚本登记/docs_registry.json`。
-- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，继续运行 `python scripts/validate/validate_all.py` 和适用 pytest。
-- 验证命令若生成范围外副产物，记录通过结果后清理，再只做范围核对。
+- 修改 docs registry、docs 规则或 docs 工具后，用 `codex-win run -- python scripts/dev/docs_tool.py check --registry docs/文档与脚本登记/docs_registry.json`。
+- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再用 `codex-win run -- python scripts/validate/validate_all.py` 和适用 pytest。
+- 验证命令若生成范围外副产物，记录通过结果后用根 AGENTS 指定的 `codex-win cleanup generated` profile 清理，再只做范围核对。
 
 ## registry 与治理报告
 
