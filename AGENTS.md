@@ -28,15 +28,18 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 开 PR 后默认 ready for review；Issue 明确要求 draft 时才保持 draft。Default PR state is ready for review.
 - 创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`；用户要求“PR review / 审查 / 机械事实层 / review pack”时也按此包输出，不做 merge decision。
 - 若当前安装的 `codex-win` 支持 `review-pack`，优先用 `codex-win review-pack --pr <PR> --base GPT --scope-profile <profile> --config .codex/review-pack.json --output .tmp/review-pack.md` 生成机械事实层；否则手工按 v1.1 模板生成。
-- 包必须含 `HEAD SNAPSHOT LOCK`、Scope / Ownership、Commands Run、Protocol Compliance、Findings、Failed Checks Classification、Anti-bloat / Lifecycle Notes、Required Next Actions。
+- 需要把 review package 写回 PR body 时，优先用 `codex-win review-pack apply --pr <PR> --package-file .tmp/review-pack.md --body-file .tmp/pr-body.md`；只需写回完整正文时，用 `codex-win body validate .tmp/pr-body.md` 后接 `codex-win body apply --pr <PR> --body-file .tmp/pr-body.md`。
+- 不优先回退到 `scripts/dev/pr_body_tool.py`；只有 `codex-win` 不可用或任务明确要求时才使用仓库本地 PR body 工具，并说明原因。
+- 包必须含 `HEAD SNAPSHOT LOCK`、Reviewer Quick Summary、Scope / Ownership、Commands Run、Protocol Compliance、Findings、Failed Checks Classification、Anti-bloat / Lifecycle Notes、Required Next Actions。
 - 必须拉当前 PR head，列 changed files，跑 current-head 与 base-head pytest，区分 PR-induced / baseline / fixed baseline failures。
 - evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
+- PowerShell 中不要拼复杂 `gh --jq`；复杂 JSON 检查优先用 `codex-win gh pr-view`、Python JSON 解析或工具自带 verify。
 
 ## Shell 与编码 / Shell And Encoding
 
 - Windows 上涉及中文正文、中文路径、JSON/Markdown 改写或多行脚本时，优先使用 `D:\Git\usr\bin\bash.exe` 运行 Git Bash + UTF-8 shell；Python/pytest/validator/export/build/matrix 等子进程优先用 `codex-win run -- ...`；PowerShell 仅用于简单命令或 Windows 专属 cmdlet。
 - 当前在 PowerShell 时使用 PowerShell 语法，不用 Bash 的 `&&` / `||`；当前在 Git Bash 时保持 Git Bash，复杂管道、重定向和命令串联优先切到 Git Bash。
-- 禁止用 PowerShell inline / here-string 管道传递大段中文给 Python 或 `gh`；改用 Git Bash here-doc、UTF-8 临时 `.py` 文件、`codex-win body` / `repo_tool` / `pr_body_tool`，或显式 Unicode escape。
+- 禁止用 PowerShell inline / here-string 管道传递大段中文给 Python 或 `gh`；改用 Git Bash here-doc、UTF-8 临时 `.py` 文件、`codex-win body` / `repo_tool`，或显式 Unicode escape。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本、Markdown、JSON / JSONL 结构化改写优先用 `codex-win encoding`、仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
@@ -44,8 +47,8 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 ## GitHub 正文安全 / GitHub Body Safety
 
 - 禁止用 PowerShell inline 字符串直接写大段 Markdown PR body。
-- 凡 PR body、长 issue comment、长 review comment 中包含中文、Markdown 代码围栏、反引号、长文件清单或多段列表，必须先用 `codex-win body normalize/validate` 或 `scripts/dev/pr_body_tool.py` 生成并校验 UTF-8 no BOM 文件。
-- 更新 PR body 必须使用 `codex-win gh pr-edit`、`gh pr edit --body-file <已校验文件>`，或 `scripts/dev/pr_body_tool.py apply`；不得使用 `gh pr edit --body "...大段正文..."`。
+- 凡 PR body、长 issue comment、长 review comment 中包含中文、Markdown 代码围栏、反引号、长文件清单或多段列表，必须先写 `.tmp/bodies/*.md` 或 `.tmp/*.md` UTF-8 文件，并用 `codex-win body normalize/validate` 校验。
+- 更新 PR body 必须使用 `codex-win body apply`、`codex-win review-pack apply` 或 `codex-win gh pr-edit`；直接 `gh pr edit --body-file` 仅作等价 fallback；不得使用 `gh pr edit --body "...大段正文..."`。
 - PR body 更新失败时，不反复调试 BOM；报告“PR body 更新失败/待人工处理”，并保留本地正文文件和验证事实。
 - 提交前必须检查 GitHub 正文不含 `???`、U+FFFD、控制字符、损坏代码围栏。
 
