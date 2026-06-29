@@ -32,6 +32,7 @@ from shared.export_md_scaffold import (
     export_db_table_markdown,
     join_list_cell,
     read_jsonl,
+    require_db_tables,
     run_export_steps,
     summarize_unique_values,
 )
@@ -149,21 +150,20 @@ def active_search_logs_export_path(workflow_config: dict[str, object]) -> Path:
 
 def export_markdown() -> Path:
     EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    require_db_tables(DB_PATH, ["evidence_cards"])
 
-    rows = []
-    if DB_PATH.exists():
-        with sqlite3.connect(DB_PATH) as connection:
-            connection.row_factory = sqlite3.Row
-            rows = list(
-                connection.execute(
-                    """
-                    SELECT evidence_id, person, subitem, human_level, source_id,
-                           quote_short, verification_status, raw_json
-                    FROM evidence_cards
-                    ORDER BY evidence_id
-                    """
-                )
+    with sqlite3.connect(DB_PATH) as connection:
+        connection.row_factory = sqlite3.Row
+        rows = list(
+            connection.execute(
+                """
+                SELECT evidence_id, person, subitem, human_level, source_id,
+                       quote_short, verification_status, raw_json
+                FROM evidence_cards
+                ORDER BY evidence_id
+                """
             )
+        )
 
     lines = [
         "# 史料证据卡索引",
@@ -187,9 +187,10 @@ def export_search_logs_markdown() -> Path:
     group_label = str(workflow_config.get("group_label") or workflow_config.get("group") or "当前人物组")
     export_path = active_search_logs_export_path(workflow_config)
     export_path.parent.mkdir(parents=True, exist_ok=True)
+    require_db_tables(DB_PATH, ["search_logs"])
 
     rows = []
-    if DB_PATH.exists() and targets:
+    if targets:
         placeholders = ", ".join("?" for _ in targets)
         with sqlite3.connect(DB_PATH) as connection:
             connection.row_factory = sqlite3.Row
@@ -243,32 +244,32 @@ def export_generic_markdown(
 
 def export_evidence_clusters_markdown() -> Path:
     EVIDENCE_CLUSTERS_EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    require_db_tables(DB_PATH, ["evidence_cards", "evidence_clusters"])
 
     cluster_rows = []
     evidence_lookup: dict[str, dict[str, object]] = {}
-    if DB_PATH.exists():
-        with sqlite3.connect(DB_PATH) as connection:
-            connection.row_factory = sqlite3.Row
-            evidence_rows = list(
-                connection.execute(
-                    """
-                    SELECT evidence_id, raw_json
-                    FROM evidence_cards
-                    """
-                )
+    with sqlite3.connect(DB_PATH) as connection:
+        connection.row_factory = sqlite3.Row
+        evidence_rows = list(
+            connection.execute(
+                """
+                SELECT evidence_id, raw_json
+                FROM evidence_cards
+                """
             )
-            for row in evidence_rows:
-                evidence_lookup[row["evidence_id"]] = json.loads(row["raw_json"])
+        )
+        for row in evidence_rows:
+            evidence_lookup[row["evidence_id"]] = json.loads(row["raw_json"])
 
-            cluster_rows = list(
-                connection.execute(
-                    """
-                    SELECT raw_json
-                    FROM evidence_clusters
-                    ORDER BY cluster_id
-                    """
-                )
+        cluster_rows = list(
+            connection.execute(
+                """
+                SELECT raw_json
+                FROM evidence_clusters
+                ORDER BY cluster_id
+                """
             )
+        )
 
     lines = [
         "# 证据组裁量索引",

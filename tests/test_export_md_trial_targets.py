@@ -7,6 +7,8 @@ import sqlite3
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -173,3 +175,22 @@ def test_export_search_logs_markdown_uses_active_targets_config(
     assert "S3" not in content
     assert "丙" not in content
     assert "S4" not in content
+
+
+def test_db_backed_export_requires_sqlite_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(export_md, "DB_PATH", tmp_path / "missing.sqlite")
+    monkeypatch.setattr(export_md, "EXPORT_PATH", tmp_path / "index.md")
+
+    with pytest.raises(FileNotFoundError, match="build_db.py"):
+        export_md.export_markdown()
+
+
+def test_db_backed_export_rejects_empty_sqlite_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    db_path = tmp_path / "evidence_cache.sqlite"
+    with sqlite3.connect(db_path):
+        pass
+    monkeypatch.setattr(export_md, "DB_PATH", db_path)
+    monkeypatch.setattr(export_md, "EXPORT_PATH", tmp_path / "index.md")
+
+    with pytest.raises(RuntimeError, match="evidence_cards"):
+        export_md.export_markdown()
