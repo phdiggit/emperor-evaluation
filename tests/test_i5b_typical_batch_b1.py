@@ -39,7 +39,14 @@ B1_SEARCH_IDS = {
     "SRCH-I5B-LIUHENG-NEG-DENGTONG-001",
     "SRCH-I5B-LIUHENG-CUT-ADJACENT-001",
 }
-B1_ANCHOR_IDS = {search_id.replace("SRCH-I5B-", "ANCH-I5B-B1-") for search_id in B1_SEARCH_IDS}
+B1_PROCESSING_SEARCH_IDS = {
+    "SRCH-I5B-YINGZHENG-CUT-ADJACENT-001",
+    "SRCH-I5B-LIUHENG-CUT-ADJACENT-001",
+}
+B1_ANCHOR_IDS = {
+    search_id.replace("SRCH-I5B-", "ANCH-I5B-B1-")
+    for search_id in B1_SEARCH_IDS - B1_PROCESSING_SEARCH_IDS
+}
 B1_ANCHOR_COVERAGE_IDS = {search_id.replace("SRCH-I5B-", "ANCOV-I5B-B1-") for search_id in B1_SEARCH_IDS}
 B1_LANE_COVERAGE_IDS = {search_id.replace("SRCH-I5B-", "LCOV-I5B-B1-") for search_id in B1_SEARCH_IDS}
 
@@ -165,10 +172,15 @@ def test_batch_b1_object_anchor_coverage_lives_in_canonical_store() -> None:
         assert row["source_batch"] == "data/object_anchor_coverage.jsonl"
         assert row["linked_review_id"].startswith("REV-I5B-")
         assert row["linked_search_id"] in B1_SEARCH_IDS
-        assert len(row["anchor_ids"]) == 1
-        assert row["anchor_ids"][0] in B1_ANCHOR_IDS
-        assert row["anchor_ids"][0] in anchors
-        assert row["no_anchor_reason"] == ""
+        if row["linked_search_id"] in B1_PROCESSING_SEARCH_IDS:
+            assert row["anchor_ids"] == []
+            assert row["processing_outcome"] == "adjacent_only"
+            assert row["no_anchor_reason"]
+        else:
+            assert len(row["anchor_ids"]) == 1
+            assert row["anchor_ids"][0] in B1_ANCHOR_IDS
+            assert row["anchor_ids"][0] in anchors
+            assert row["no_anchor_reason"] == ""
         if row["review_status"] == "source_verified_evidence_created":
             assert row["linked_evidence_ids"]
             assert row["linked_source_pack_ids"]
