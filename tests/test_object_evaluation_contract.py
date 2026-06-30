@@ -7,6 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "object_evaluation_b2_examples.jsonl"
+EXPERIMENTAL_OBJECTS = ROOT / "data" / "experimental" / "objects.jsonl"
+EXPERIMENTAL_OEVALS = ROOT / "data" / "experimental" / "object_evaluations.jsonl"
 
 OBJECT_CLASSES = {
     "person",
@@ -68,6 +70,18 @@ PROCESSING_ALLOWED = {
     "relation",
     "residual",
     "eligible",
+    "diagnostic_only",
+    "feeds_formal_scoring",
+}
+DIAGNOSTIC_FIELDS = {"diagnostic_only", "feeds_formal_scoring"}
+FORMAL_SCORING_FIELDS = {
+    "auto_band_direction",
+    "formal_band_draft",
+    "formal_rank",
+    "formal_score_value_45",
+    "rank",
+    "score",
+    "score_value",
 }
 
 
@@ -79,18 +93,8 @@ def read_jsonl(path: Path) -> list[dict[str, object]]:
     ]
 
 
-def test_b2_fixture_keeps_compact_object_evaluation_fields() -> None:
-    rows = read_jsonl(FIXTURE)
-    object_codes = {
-        str(row["obj_code"])
-        for row in rows
-        if row.get("row_type") == "object"
-    }
-
-    assert object_codes
-
+def assert_dual_key_discipline(rows: list[dict[str, object]]) -> None:
     for row in rows:
-        assert row["outcome"] in OUTCOMES
         for key, value in row.items():
             if key.endswith("_id"):
                 assert value is None or isinstance(value, int), f"{key} must be null or int"
@@ -99,42 +103,84 @@ def test_b2_fixture_keeps_compact_object_evaluation_fields() -> None:
                 assert CODE_RE.fullmatch(value), f"{key} must be a compact code"
                 assert len(value) <= 32
 
-        if row["row_type"] == "object":
-            assert set(row) <= OBJECT_ALLOWED
-            assert row["obj_code"] in object_codes
-            assert row["class"] in OBJECT_CLASSES
-            assert row["outcome"] == "objectized"
-            assert isinstance(row["src_ids"], list)
-            assert isinstance(row["sp_ids"], list)
-            assert "polarity" not in row
-            assert "strength" not in row
-            assert "eligible" not in row
-            continue
 
-        if row["row_type"] == "object_evaluation":
-            assert set(row) == OEVAL_REQUIRED | {"row_type", "outcome"}
-            assert row["outcome"] == "objectized"
-            assert row["obj_code"] in object_codes
-            assert row["class"] in OBJECT_CLASSES
-            assert row["polarity"] in {"positive", "negative"}
-            assert row["strength"] in {1, 2, 3, 4}
-            assert isinstance(row["src_ids"], list) and row["src_ids"]
-            assert isinstance(row["sp_ids"], list) and row["sp_ids"]
-            assert isinstance(row["clus_ids"], list)
-            assert isinstance(row["eligible"], bool)
-            continue
+def assert_primary_codes_unique(rows: list[dict[str, object]]) -> None:
+    object_codes = [row["obj_code"] for row in rows if row.get("row_type") == "object"]
+    oeval_codes = [row["oeval_code"] for row in rows if row.get("row_type") == "object_evaluation"]
+    assert len(object_codes) == len(set(object_codes))
+    assert len(oeval_codes) == len(set(oeval_codes))
 
-        if row["row_type"] == "processing_outcome":
-            assert set(row) <= PROCESSING_ALLOWED
-            assert row["outcome"] == "adjacent_only"
-            assert row["eligible"] is False
-            assert "obj_id" not in row
-            assert "obj_code" not in row
-            assert "oeval_id" not in row
-            assert "oeval_code" not in row
+
+def assert_object_rows(rows: list[dict[str, object]]) -> set[str]:
+    object_codes = {
+        str(row["obj_code"])
+        for row in rows
+        if row.get("row_type") == "object"
+    }
+    assert object_codes
+
+    for row in rows:
+        if row.get("row_type") != "object":
+            continue
+        assert set(row) <= OBJECT_ALLOWED
+        assert row["obj_code"] in object_codes
+        assert row["class"] in OBJECT_CLASSES
+        assert row["outcome"] == "objectized"
+        assert isinstance(row["src_ids"], list)
+        assert isinstance(row["sp_ids"], list)
+        assert "polarity" not in row
+        assert "strength" not in row
+        assert "eligible" not in row
+    return object_codes
+
+
+def assert_object_evaluation_rows(rows: list[dict[str, object]], object_codes: set[str]) -> None:
+    for row in rows:
+        if row.get("row_type") != "object_evaluation":
+            continue
+        required_keys = OEVAL_REQUIRED | {"row_type", "outcome"}
+        assert required_keys <= set(row) <= required_keys | DIAGNOSTIC_FIELDS
+        assert row["outcome"] == "objectized"
+        assert row["obj_code"] in object_codes
+        assert row["class"] in OBJECT_CLASSES
+        assert row["polarity"] in {"positive", "negative"}
+        assert row["strength"] in {1, 2, 3, 4}
+        assert isinstance(row["src_ids"], list) and row["src_ids"]
+        assert isinstance(row["sp_ids"], list) and row["sp_ids"]
+        assert isinstance(row["clus_ids"], list)
+        assert isinstance(row["eligible"], bool)
+        if "diagnostic_only" in row:
+            assert row["diagnostic_only"] is True
+            assert row["feeds_formal_scoring"] is False
+
+
+def assert_processing_rows(rows: list[dict[str, object]]) -> None:
+    for row in rows:
+        if row.get("row_type") != "processing_outcome":
+            continue
+        assert set(row) <= PROCESSING_ALLOWED
+        assert row["outcome"] == "adjacent_only"
+        assert row["eligible"] is False
+        assert "obj_id" not in row
+        assert "obj_code" not in row
+        assert "oeval_id" not in row
+        assert "oeval_code" not in row
+
+
+def test_b2_fixture_keeps_compact_object_evaluation_fields() -> None:
+    rows = read_jsonl(FIXTURE)
+    object_codes = assert_object_rows(rows)
+
+    assert_dual_key_discipline(rows)
+    assert_primary_codes_unique(rows)
+    for row in rows:
+        assert row["outcome"] in OUTCOMES
+        if row["row_type"] in {"object", "object_evaluation", "processing_outcome"}:
             continue
 
         raise AssertionError(f"unexpected row_type: {row['row_type']}")
+    assert_object_evaluation_rows(rows, object_codes)
+    assert_processing_rows(rows)
 
 
 def test_b2_fixture_covers_required_migration_examples() -> None:
@@ -170,3 +216,124 @@ def test_b2_fixture_covers_required_migration_examples() -> None:
         and row.get("polarity") == "positive"
         for row in rows
     )
+
+
+def test_experimental_b2_stores_keep_dual_keys_and_resolve_objects() -> None:
+    object_rows = read_jsonl(EXPERIMENTAL_OBJECTS)
+    oeval_rows = read_jsonl(EXPERIMENTAL_OEVALS)
+    all_rows = object_rows + oeval_rows
+    object_codes = assert_object_rows(object_rows)
+
+    assert_dual_key_discipline(all_rows)
+    assert_primary_codes_unique(all_rows)
+    assert_object_evaluation_rows(oeval_rows, object_codes)
+    assert_processing_rows(oeval_rows)
+    assert not any(row.get("row_type") == "object" and row.get("outcome") == "adjacent_only" for row in object_rows)
+    assert not any(str(row.get("label", "")).startswith("相邻项") for row in object_rows)
+
+
+def test_experimental_b2_examples_cover_required_polarities() -> None:
+    rows = read_jsonl(EXPERIMENTAL_OEVALS)
+
+    assert any(
+        row.get("oeval_code") == "OE-B2-YG-AUTH-YSJ-001"
+        and row.get("obj_code") == "OBJ-B2-YG-YSJ"
+        and row.get("relation") == "专典机密授权"
+        and row.get("polarity") == "positive"
+        for row in rows
+    )
+    assert any(
+        row.get("oeval_code") == "OE-B2-YG-FDBK-BLOCK-001"
+        and row.get("relation") == "反馈壅蔽"
+        and row.get("polarity") == "negative"
+        for row in rows
+    )
+
+
+def build_diagnostic_cluster_summaries(rows: list[dict[str, object]]) -> dict[str, dict[str, object]]:
+    summaries: dict[str, dict[str, object]] = {}
+    for row in rows:
+        if row.get("row_type") != "object_evaluation" or row.get("eligible") is not True:
+            continue
+        for cluster_id in row.get("clus_ids", []):
+            summary = summaries.setdefault(
+                str(cluster_id),
+                {
+                    "linked_oeval_ids": [],
+                    "linked_oeval_codes": [],
+                    "polarity": None,
+                    "max_strength": 0,
+                    "category_counts": {},
+                    "category_core_count": 0,
+                    "positive_total": 0,
+                    "negative_total": 0,
+                    "extreme_candidate": False,
+                    "formula_trace": [],
+                    "diagnostic_only": True,
+                    "feeds_formal_scoring": False,
+                },
+            )
+            oeval_id = row.get("oeval_id")
+            if oeval_id is not None:
+                summary["linked_oeval_ids"].append(oeval_id)
+            summary["linked_oeval_codes"].append(row["oeval_code"])
+            summary["max_strength"] = max(int(summary["max_strength"]), int(row["strength"]))
+            category_counts = summary["category_counts"]
+            assert isinstance(category_counts, dict)
+            category_counts[row["category"]] = int(category_counts.get(row["category"], 0)) + 1
+            if row["relevance"] == "core":
+                summary["category_core_count"] = int(summary["category_core_count"]) + 1
+            polarity = row["polarity"]
+            if polarity == "positive":
+                summary["positive_total"] = int(summary["positive_total"]) + 1
+            else:
+                summary["negative_total"] = int(summary["negative_total"]) + 1
+            if summary["polarity"] is None:
+                summary["polarity"] = polarity
+            elif summary["polarity"] != polarity:
+                summary["polarity"] = "mixed"
+            summary["formula_trace"].append(
+                f"{row['oeval_code']}:{row['polarity']}:{row['strength']}:{row['category']}"
+            )
+
+    for summary in summaries.values():
+        same_direction_total = max(int(summary["positive_total"]), int(summary["negative_total"]))
+        summary["extreme_candidate"] = int(summary["max_strength"]) >= 4 or same_direction_total >= 3
+    return summaries
+
+
+def test_experimental_b2_diagnostic_cluster_summary_is_report_only() -> None:
+    summaries = build_diagnostic_cluster_summaries(read_jsonl(EXPERIMENTAL_OEVALS))
+
+    required_keys = {
+        "linked_oeval_ids",
+        "polarity",
+        "max_strength",
+        "category_core_count",
+        "positive_total",
+        "negative_total",
+        "extreme_candidate",
+        "formula_trace",
+    }
+    assert required_keys <= summaries["ADJ-I5B-YANGGUANG-POS-ADMIN-AUTH-001"].keys()
+    assert summaries["ADJ-I5B-YANGGUANG-POS-ADMIN-AUTH-001"]["polarity"] == "positive"
+    assert summaries["ADJ-I5B-YANGGUANG-POS-ADMIN-AUTH-001"]["positive_total"] == 1
+    assert summaries["ADJ-I5B-YANGGUANG-NEG-TALENT-FEEDBACK-SAFETY-001"]["polarity"] == "negative"
+    assert summaries["ADJ-I5B-LIUQI-NEG-TALENT-SAFETY-001"]["negative_total"] == 2
+    assert all(summary["diagnostic_only"] is True for summary in summaries.values())
+    assert all(summary["feeds_formal_scoring"] is False for summary in summaries.values())
+
+
+def test_experimental_b2_rows_do_not_introduce_formal_scoring_surface() -> None:
+    rows = read_jsonl(EXPERIMENTAL_OBJECTS) + read_jsonl(EXPERIMENTAL_OEVALS)
+
+    for row in rows:
+        assert FORMAL_SCORING_FIELDS.isdisjoint(row)
+
+    for path in [
+        ROOT / "scripts" / "export" / "export_md.py",
+        ROOT / "scripts" / "export" / "dimension_adapters" / "i5b_people_delegation" / "adapter.py",
+    ]:
+        content = path.read_text(encoding="utf-8")
+        assert "data/experimental" not in content
+        assert "object_evaluations.jsonl" not in content

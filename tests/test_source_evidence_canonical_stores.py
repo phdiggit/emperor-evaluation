@@ -39,6 +39,17 @@ EXPANDED_PILOT_REVIEW_FILES = [
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_rule_boundary_review.jsonl",
     ROOT / "data" / "batches" / "i5b_expanded_pilot_batch1" / "review" / "yongzheng_role_class_sweep.jsonl",
 ]
+I5B_TYPICAL_SOURCE_EVIDENCE_MANIFEST = ROOT / "data" / "batches" / "i5b_typical_source_evidence" / "manifest.yml"
+CANONICAL_REF_STORE_SPECS = {
+    "source_pack_ids": ("source_packs.jsonl", "source_pack_id"),
+    "anchor_ids": ("anchors.jsonl", "anchor_id"),
+    "anchor_coverage_ids": ("object_anchor_coverage.jsonl", "anchor_coverage_id"),
+    "lane_coverage_ids": ("query_lane_coverage.jsonl", "lane_coverage_id"),
+    "query_profile_ids": ("query_profiles.jsonl", "query_profile_id"),
+    "search_ids": ("search_logs.jsonl", "search_id"),
+    "evidence_ids": ("evidence_cards.jsonl", "evidence_id"),
+    "cluster_ids": ("evidence_clusters.jsonl", "cluster_id"),
+}
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
     "validate.validate_source_evidence_canonical_stores",
@@ -60,6 +71,18 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def load_manifest(path: Path) -> dict[str, Any]:
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def assert_refs_live_in_canonical_stores(refs: dict[str, list[str]]) -> None:
+    assert set(refs) <= set(CANONICAL_REF_STORE_SPECS)
+    for ref_key, values in refs.items():
+        store_name, id_field = CANONICAL_REF_STORE_SPECS[ref_key]
+        canonical_ids = {row[id_field] for row in load_jsonl(ROOT / "data" / store_name)}
+        assert set(values) <= canonical_ids
 
 
 def seed_minimal_data(tmp_path: Path, monkeypatch) -> Path:
@@ -223,40 +246,41 @@ def test_issue384_object_anchor_coverage_reconciles_canonical_evidence() -> None
         assert manifest_evidence_ids <= covered_evidence_ids
 
 
-def test_issue366_batch_b2_manifest_refs_live_in_canonical_stores() -> None:
-    manifest_path = ROOT / "data" / "batches" / "i5b_typical_batch_b2_han_sui_seed" / "manifest.yml"
-    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
-    refs = manifest["canonical_row_refs"]
-
-    store_specs = {
-        "source_pack_ids": ("source_packs.jsonl", "source_pack_id"),
-        "anchor_ids": ("anchors.jsonl", "anchor_id"),
-        "anchor_coverage_ids": ("object_anchor_coverage.jsonl", "anchor_coverage_id"),
-        "lane_coverage_ids": ("query_lane_coverage.jsonl", "lane_coverage_id"),
-        "query_profile_ids": ("query_profiles.jsonl", "query_profile_id"),
-        "search_ids": ("search_logs.jsonl", "search_id"),
-        "evidence_ids": ("evidence_cards.jsonl", "evidence_id"),
-        "cluster_ids": ("evidence_clusters.jsonl", "cluster_id"),
-    }
+def test_issue366_aggregate_batch_manifest_refs_live_in_canonical_stores() -> None:
+    manifest = load_manifest(I5B_TYPICAL_SOURCE_EVIDENCE_MANIFEST)
+    entries = {entry["batch_id"]: entry for entry in manifest["entries"]}
 
     assert manifest["issue"] == 366
-    assert manifest["lifecycle_status"] == "absorbed_to_canonical"
-    assert manifest["persons"] == ["刘询", "刘启", "杨广"]
+    assert manifest["lifecycle_status"] == "active_review_batch"
+    assert manifest["manifest_kind"] == "aggregate_track_manifest"
+    assert set(entries) == {
+        "i5b_typical_batch_a_20260628",
+        "i5b_typical_batch_b1_qin_han_20260628",
+        "i5b_typical_batch_b2_han_sui_seed_20260629",
+    }
     assert "timing" not in manifest
 
-    for ref_key, (store_name, id_field) in store_specs.items():
-        canonical_ids = {row[id_field] for row in load_jsonl(ROOT / "data" / store_name)}
-        assert set(refs[ref_key]) <= canonical_ids
+    for entry in entries.values():
+        child_manifest = load_manifest(ROOT / entry["source_manifest"])
+        refs = entry["canonical_row_refs"]
 
+        assert child_manifest["issue"] == 366
+        assert entry["batch_id"] == child_manifest["batch_id"]
+        assert entry["persons"] == child_manifest["persons"]
+        assert entry["lifecycle_status"] == child_manifest["lifecycle_status"] == "absorbed_to_canonical"
+        assert refs == child_manifest["canonical_row_refs"]
+        assert_refs_live_in_canonical_stores(refs)
+
+    b2_refs = entries["i5b_typical_batch_b2_han_sui_seed_20260629"]["canonical_row_refs"]
     search_rows = {
         row["search_id"]: row
         for row in load_jsonl(ROOT / "data" / "search_logs.jsonl")
-        if row["search_id"] in refs["search_ids"]
+        if row["search_id"] in b2_refs["search_ids"]
     }
     lane_rows = {
         row["lane_coverage_id"]: row
         for row in load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl")
-        if row["lane_coverage_id"] in refs["lane_coverage_ids"]
+        if row["lane_coverage_id"] in b2_refs["lane_coverage_ids"]
     }
 
     assert search_rows

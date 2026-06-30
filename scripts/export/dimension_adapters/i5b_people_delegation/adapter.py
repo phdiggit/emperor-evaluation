@@ -1263,7 +1263,7 @@ def render_formal_landing_table() -> str:
         )
 
     lines = [
-        f"# {workflow_subject}正式分值与排名发布表",
+        f"# {workflow_subject}正式定档落地表",
         "",
         "本文件由自动结算草案、规则级复核结果和 G8 正式算法版本派生；G9 已批准后，输出第五项B正式分值和子项排名。本文件不生成阶段总榜或总榜。",
         "",
@@ -1417,6 +1417,29 @@ def remove_legacy_subject_exports() -> None:
     remove_existing_paths(list(LEGACY_NESTED_SUBJECT_EXPORT_PATHS))
 
 
+def current_export_view_index_links(workflow_config: dict[str, Any]) -> list[tuple[str, Path]]:
+    workflow_subject = active_workflow_subject(workflow_config)
+    return [
+        (f"{workflow_subject}自动结算草案", current_auto_export_path(workflow_config)),
+        (f"{workflow_subject}正式定档落地表", current_formal_export_path(workflow_config)),
+        (f"{workflow_subject}专人审核入口", current_review_entry_export_path(workflow_config)),
+        (f"{workflow_subject}人工复核工作台", current_review_workbench_export_path(workflow_config)),
+        (f"{workflow_subject}矩阵说明", current_review_matrix_export_path(workflow_config)),
+    ]
+
+
+def write_auto_adjudication_auxiliary_outputs(formal_path: Path, closure_path: Path) -> None:
+    write_markdown_outputs(
+        {
+            RULES_EXPORT_PATH: render_rule_sensitive_points(),
+            formal_path: render_formal_landing_table(),
+            SCORE_MAP_DRAFT_EXPORT_PATH: render_score_mapping_draft(),
+        }
+    )
+    write_markdown_outputs({closure_path: render_three_pilot_closure()})
+    write_markdown_outputs(render_review_entry_outputs())
+
+
 def export_auto_adjudication(
     *,
     include_display_warnings: bool = False,
@@ -1441,6 +1464,7 @@ def export_auto_adjudication(
         ]
     )
     remove_legacy_subject_exports()
+    auxiliary_outputs_written = False
 
     if output_layout == OUTPUT_LAYOUT_SPLIT:
         split_outputs = render_split_auto_adjudication_outputs(
@@ -1448,8 +1472,13 @@ def export_auto_adjudication(
             warning_rules=warning_rules,
         )
         write_markdown_outputs(split_outputs)
+        write_auto_adjudication_auxiliary_outputs(formal_path, closure_path)
+        auxiliary_outputs_written = True
         ensure_i5b_human_readable_export_scaffold(MARKDOWN_VIEW_ROOT)
-        write_export_view_index(MARKDOWN_VIEW_ROOT)
+        write_export_view_index(
+            MARKDOWN_VIEW_ROOT,
+            i5b_active_links=current_export_view_index_links(workflow_config),
+        )
         remove_legacy_flat_exports()
         if validate_output:
             validation_root = MARKDOWN_VIEW_ROOT.parent.parent
@@ -1466,16 +1495,8 @@ def export_auto_adjudication(
                 )
             }
         )
-    write_markdown_outputs(
-        {
-            RULES_EXPORT_PATH: render_rule_sensitive_points(),
-            formal_path: render_formal_landing_table(),
-            SCORE_MAP_DRAFT_EXPORT_PATH: render_score_mapping_draft(),
-        }
-    )
-    closure_content = render_three_pilot_closure()
-    write_markdown_outputs({closure_path: closure_content})
-    write_markdown_outputs(render_review_entry_outputs())
+    if not auxiliary_outputs_written:
+        write_auto_adjudication_auxiliary_outputs(formal_path, closure_path)
     remove_legacy_flat_exports()
     return export_path, RULES_EXPORT_PATH, formal_path, closure_path
 
