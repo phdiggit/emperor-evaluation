@@ -1843,6 +1843,38 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/对象化证据输入模型契约与B2迁移实验.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "对象化证据输入模型的长期字段契约，定义 object/object_evaluation 与 provenance、cluster 的边界，属于数据结构与生成库事实层。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "#370 B2 迁移实验需要稳定记录 object/object_evaluation 字段纪律和不迁移全部数据的边界。",
+      "referenced_by_tests": [
+        "tests/test_object_evaluation_contract.py"
+      ],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "对象化证据输入模型契约与B2迁移实验",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "rule_or_method",
+      "document_type": "canonical_spec",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
@@ -3046,10 +3078,10 @@
   "docs_module_density_reviews": [
     {
       "module_path": "docs/数据结构与生成库",
-      "direct_markdown_count": 12,
+      "direct_markdown_count": 13,
       "threshold": 8,
       "review_status": "reviewed",
-      "decision": "数据平台、SQLite、JSONL、配置和批次生命周期仍同属数据结构模块；本批已移除扁平 docs/adr，后续 SQLite repair 前不再机械拆分。"
+      "decision": "数据平台、SQLite、JSONL、配置、对象化输入契约和批次生命周期仍同属数据结构模块；本批不为 B2 实验机械拆分新目录。"
     }
   ],
   "docs_topic_family_reviews": [
