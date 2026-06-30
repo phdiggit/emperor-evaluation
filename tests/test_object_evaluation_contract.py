@@ -250,6 +250,36 @@ def test_experimental_b2_examples_cover_required_polarities() -> None:
     )
 
 
+def test_experimental_b3_tang_seed_rows_are_diagnostic_only() -> None:
+    object_rows = read_jsonl(EXPERIMENTAL_OBJECTS)
+    oeval_rows = read_jsonl(EXPERIMENTAL_OEVALS)
+    b3_object_codes = {
+        str(row["obj_code"])
+        for row in object_rows
+        if str(row.get("obj_code", "")).startswith("OBJ-B3-")
+    }
+    b3_oevals = [
+        row
+        for row in oeval_rows
+        if str(row.get("oeval_code", "")).startswith("OE-B3-")
+    ]
+    b3_processing = [
+        row
+        for row in oeval_rows
+        if row.get("row_type") == "processing_outcome"
+        and str(row.get("residual", "")).endswith("adjacent-only lane；不创建 object row")
+    ]
+
+    assert len(b3_object_codes) == 9
+    assert len(b3_oevals) == 10
+    assert len(b3_processing) == 5
+    assert {row["obj_code"] for row in b3_oevals} <= b3_object_codes
+    assert {row["polarity"] for row in b3_oevals} == {"positive", "negative"}
+    assert all(row["diagnostic_only"] is True for row in b3_oevals + b3_processing)
+    assert all(row["feeds_formal_scoring"] is False for row in b3_oevals + b3_processing)
+    assert not any("ADJACENT" in code for code in b3_object_codes)
+
+
 def build_diagnostic_cluster_summaries(rows: list[dict[str, object]]) -> dict[str, dict[str, object]]:
     summaries: dict[str, dict[str, object]] = {}
     for row in rows:

@@ -257,6 +257,7 @@ def test_issue366_aggregate_batch_manifest_refs_live_in_canonical_stores() -> No
         "i5b_typical_batch_a_20260628",
         "i5b_typical_batch_b1_qin_han_20260628",
         "i5b_typical_batch_b2_han_sui_seed_20260629",
+        "i5b_typical_batch_b3_tang_seed_20260630",
     }
     assert "timing" not in manifest
 
@@ -292,6 +293,12 @@ def test_issue366_aggregate_batch_manifest_refs_live_in_canonical_stores() -> No
         for lane_id in row.get("covered_lane_ids", [])
         if lane_id.startswith("I5B-I5B-B2-")
     ]
+
+    b3_refs = entries["i5b_typical_batch_b3_tang_seed_20260630"]["canonical_row_refs"]
+    assert len(b3_refs["query_profile_ids"]) == 5
+    assert len(b3_refs["search_ids"]) == 15
+    assert len(b3_refs["evidence_ids"]) == 10
+    assert len(b3_refs["cluster_ids"]) == 10
 
 
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:
