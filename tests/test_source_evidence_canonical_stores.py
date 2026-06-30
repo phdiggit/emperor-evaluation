@@ -50,6 +50,54 @@ CANONICAL_REF_STORE_SPECS = {
     "evidence_ids": ("evidence_cards.jsonl", "evidence_id"),
     "cluster_ids": ("evidence_clusters.jsonl", "cluster_id"),
 }
+B3_CUT_ADJACENT_ANCHOR_IDS = {
+    "ANCH-I5B-B3-LILONGJI-CUT-ADJACENT-001",
+    "ANCH-I5B-B3-WUZETIAN-CUT-ADJACENT-001",
+    "ANCH-I5B-B3-LIZHI-CUT-ADJACENT-001",
+    "ANCH-I5B-B3-LIYUAN-CUT-ADJACENT-001",
+    "ANCH-I5B-B3-LICHUN-CUT-ADJACENT-001",
+}
+B3_CUT_ADJACENT_ANCHOR_COVERAGE_IDS = {
+    "ANCOV-I5B-B3-LILONGJI-CUT-ADJACENT-001",
+    "ANCOV-I5B-B3-WUZETIAN-CUT-ADJACENT-001",
+    "ANCOV-I5B-B3-LIZHI-CUT-ADJACENT-001",
+    "ANCOV-I5B-B3-LIYUAN-CUT-ADJACENT-001",
+    "ANCOV-I5B-B3-LICHUN-CUT-ADJACENT-001",
+}
+B3_CUT_ADJACENT_LANE_COVERAGE_IDS = {
+    "LCOV-I5B-B3-LILONGJI-CUT-ADJACENT-001",
+    "LCOV-I5B-B3-WUZETIAN-CUT-ADJACENT-001",
+    "LCOV-I5B-B3-LIZHI-CUT-ADJACENT-001",
+    "LCOV-I5B-B3-LIYUAN-CUT-ADJACENT-001",
+    "LCOV-I5B-B3-LICHUN-CUT-ADJACENT-001",
+}
+B3_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES = {
+    "ANCH-I5B-B3-LILONGJI-POS-YAOCONG-001": "姚崇",
+    "ANCH-I5B-B3-LILONGJI-NEG-LILINFU-001": "李林甫",
+    "ANCH-I5B-B3-WUZETIAN-POS-LIZHAODE-001": "李昭德",
+    "ANCH-I5B-B3-WUZETIAN-NEG-KULI-001": "酷吏罗织机制",
+    "ANCH-I5B-B3-LIZHI-POS-LAIJI-001": "来济",
+    "ANCH-I5B-B3-LIZHI-NEG-LIYIFU-001": "李义府",
+    "ANCH-I5B-B3-LIYUAN-POS-LIUWENJING-001": "刘文静",
+    "ANCH-I5B-B3-LIYUAN-NEG-LIUWENJING-001": "刘文静",
+    "ANCH-I5B-B3-LICHUN-POS-PEIDU-001": "裴度",
+    "ANCH-I5B-B3-LICHUN-NEG-HANYU-001": "韩愈",
+}
+B3_FORBIDDEN_OBJECT_NAME_LABELS = {
+    "相邻项剥离",
+    "ADJACENT",
+    "授权专任",
+    "容谏纳言",
+    "人才安全",
+    "近臣任用风险",
+    "创业谋议采纳",
+    "功臣旧臣处置",
+    "权相蔽才",
+    "酷吏任用风险",
+    "强正核心",
+    "强负核心",
+    "正向核心",
+}
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
     "validate.validate_source_evidence_canonical_stores",
@@ -297,8 +345,55 @@ def test_issue366_aggregate_batch_manifest_refs_live_in_canonical_stores() -> No
     b3_refs = entries["i5b_typical_batch_b3_tang_seed_20260630"]["canonical_row_refs"]
     assert len(b3_refs["query_profile_ids"]) == 5
     assert len(b3_refs["search_ids"]) == 15
+    assert set(b3_refs["anchor_ids"]) == set(B3_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES)
+    assert not (set(b3_refs["anchor_ids"]) & B3_CUT_ADJACENT_ANCHOR_IDS)
+    assert not (set(b3_refs["anchor_coverage_ids"]) & B3_CUT_ADJACENT_ANCHOR_COVERAGE_IDS)
     assert len(b3_refs["evidence_ids"]) == 10
     assert len(b3_refs["cluster_ids"]) == 10
+
+
+def test_b3_adjacent_only_lanes_do_not_create_object_anchor_rows() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+    coverage = {
+        row["anchor_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl")
+    }
+    lane_rows = {
+        row["lane_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl")
+    }
+
+    assert not (B3_CUT_ADJACENT_ANCHOR_IDS & set(anchors))
+    assert not (B3_CUT_ADJACENT_ANCHOR_COVERAGE_IDS & set(coverage))
+
+    for lane_id in B3_CUT_ADJACENT_LANE_COVERAGE_IDS:
+        row = lane_rows[lane_id]
+        assert row["lane_group"] == "adjacent"
+        assert row["coverage_status"] == "pending_review"
+        assert row["unresolved_reason"]
+        assert row["anchor_coverage_ids"] == []
+        assert row["source_pack_ids"] == []
+        assert row["linked_evidence_ids"] == []
+
+
+def test_b3_source_verified_anchor_object_names_are_real_objects() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+
+    b3_anchor_ids = {
+        anchor_id for anchor_id in anchors if str(anchor_id).startswith("ANCH-I5B-B3-")
+    }
+    assert b3_anchor_ids == set(B3_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES)
+
+    for anchor_id, expected_object_name in B3_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES.items():
+        row = anchors[anchor_id]
+        object_name = str(row["object_name"])
+
+        assert object_name == expected_object_name
+        assert "相邻项剥离" not in object_name
+        assert object_name not in B3_FORBIDDEN_OBJECT_NAME_LABELS
+        assert row["anchor_status"] == "source_verified_card_anchor"
+        assert str(row["anchor_role"]).startswith("source_verified_evidence_anchor")
+        assert row["usable_for"]
 
 
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:
