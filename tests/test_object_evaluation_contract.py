@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 
@@ -26,7 +27,9 @@ OUTCOMES = {
 }
 OEVAL_REQUIRED = {
     "oeval_id",
+    "oeval_code",
     "obj_id",
+    "obj_code",
     "src_ids",
     "sp_ids",
     "clus_ids",
@@ -47,12 +50,14 @@ OBJECT_ALLOWED = {
     "row_type",
     "outcome",
     "obj_id",
+    "obj_code",
     "class",
     "category",
     "label",
     "src_ids",
     "sp_ids",
 }
+CODE_RE = re.compile(r"^[A-Z0-9]+(?:-[A-Z0-9]+)*$")
 PROCESSING_ALLOWED = {
     "row_type",
     "outcome",
@@ -76,20 +81,27 @@ def read_jsonl(path: Path) -> list[dict[str, object]]:
 
 def test_b2_fixture_keeps_compact_object_evaluation_fields() -> None:
     rows = read_jsonl(FIXTURE)
-    object_ids = {
-        str(row["obj_id"])
+    object_codes = {
+        str(row["obj_code"])
         for row in rows
         if row.get("row_type") == "object"
     }
 
-    assert object_ids
+    assert object_codes
 
     for row in rows:
         assert row["outcome"] in OUTCOMES
+        for key, value in row.items():
+            if key.endswith("_id"):
+                assert value is None or isinstance(value, int), f"{key} must be null or int"
+            if key.endswith("_code"):
+                assert isinstance(value, str)
+                assert CODE_RE.fullmatch(value), f"{key} must be a compact code"
+                assert len(value) <= 32
 
         if row["row_type"] == "object":
             assert set(row) <= OBJECT_ALLOWED
-            assert row["obj_id"] in object_ids
+            assert row["obj_code"] in object_codes
             assert row["class"] in OBJECT_CLASSES
             assert row["outcome"] == "objectized"
             assert isinstance(row["src_ids"], list)
@@ -102,7 +114,7 @@ def test_b2_fixture_keeps_compact_object_evaluation_fields() -> None:
         if row["row_type"] == "object_evaluation":
             assert set(row) == OEVAL_REQUIRED | {"row_type", "outcome"}
             assert row["outcome"] == "objectized"
-            assert row["obj_id"] in object_ids
+            assert row["obj_code"] in object_codes
             assert row["class"] in OBJECT_CLASSES
             assert row["polarity"] in {"positive", "negative"}
             assert row["strength"] in {1, 2, 3, 4}
@@ -117,7 +129,9 @@ def test_b2_fixture_keeps_compact_object_evaluation_fields() -> None:
             assert row["outcome"] == "adjacent_only"
             assert row["eligible"] is False
             assert "obj_id" not in row
+            assert "obj_code" not in row
             assert "oeval_id" not in row
+            assert "oeval_code" not in row
             continue
 
         raise AssertionError(f"unexpected row_type: {row['row_type']}")
@@ -151,3 +165,8 @@ def test_b2_fixture_covers_required_migration_examples() -> None:
     } <= relations
     assert {"授权专任", "容谏纳言", "功臣旧臣处置", "识人拔擢"} <= categories
     assert any(row.get("outcome") == "adjacent_only" for row in rows)
+    assert any(
+        row.get("oeval_code") == "OE-B2-YG-AUTH-YSJ-001"
+        and row.get("polarity") == "positive"
+        for row in rows
+    )
