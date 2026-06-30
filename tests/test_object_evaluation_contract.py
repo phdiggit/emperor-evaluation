@@ -358,6 +358,70 @@ def test_experimental_b4_song_seed_rows_align_with_legacy_anchors() -> None:
     assert not any(str(row["label"]) == "相邻项剥离" for row in b4_objects.values())
 
 
+def test_experimental_b5_ming_qing_rows_align_with_legacy_anchors() -> None:
+    object_rows = read_jsonl(EXPERIMENTAL_OBJECTS)
+    oeval_rows = read_jsonl(EXPERIMENTAL_OEVALS)
+    anchor_rows = read_jsonl(ANCHORS)
+    b5_people = {"朱棣", "朱瞻基", "朱由检", "皇太极", "玄烨", "弘历"}
+    expected_objects = {
+        "OBJ-B5-ZD-YGX": ("姚广孝", "person"),
+        "OBJ-B5-ZD-XJ": ("解缙", "person"),
+        "OBJ-B5-ZZJ-YSQ": ("杨士奇", "person"),
+        "OBJ-B5-ZZJ-NST": ("内书堂宦官读书机制", "mechanism"),
+        "OBJ-B5-ZYJ-YCH": ("袁崇焕", "person"),
+        "OBJ-B5-HTJ-FWC": ("范文程", "person"),
+        "OBJ-B5-HTJ-NWW": ("宁完我", "person"),
+        "OBJ-B5-XY-SL": ("施琅", "person"),
+        "OBJ-B5-XY-MZ": ("明珠", "person"),
+        "OBJ-B5-HL-AG": ("阿桂", "person"),
+        "OBJ-B5-HL-HS": ("和珅", "person"),
+    }
+    b5_objects = {
+        str(row["obj_code"]): row
+        for row in object_rows
+        if str(row.get("obj_code", "")).startswith("OBJ-B5-")
+    }
+    b5_oevals = [
+        row
+        for row in oeval_rows
+        if str(row.get("oeval_code", "")).startswith("OE-B5-")
+    ]
+    b5_processing = [
+        row
+        for row in oeval_rows
+        if row.get("row_type") == "processing_outcome"
+        and str(row.get("residual", "")).endswith("adjacent-only lane；不创建 object row")
+        and str(row.get("residual", "")).split(" adjacent-only", maxsplit=1)[0] in b5_people
+    ]
+    b5_anchor_objects = {
+        str(row["object_name"]): str(row["object_class"])
+        for row in anchor_rows
+        if str(row.get("anchor_id", "")).startswith("ANCH-I5B-B5-")
+    }
+
+    assert set(b5_objects) == set(expected_objects)
+    assert {
+        str(row["label"]): str(row["class"])
+        for row in b5_objects.values()
+    } == {label: object_class for label, object_class in expected_objects.values()}
+    assert b5_anchor_objects == {
+        label: object_class for label, object_class in expected_objects.values()
+    }
+    assert len(b5_oevals) == 12
+    assert len(b5_processing) == 6
+    assert {row["obj_code"] for row in b5_oevals} <= set(b5_objects)
+    assert {row["polarity"] for row in b5_oevals} == {"positive", "negative"}
+    assert [
+        row["polarity"]
+        for row in b5_oevals
+        if row["obj_code"] == "OBJ-B5-ZYJ-YCH"
+    ] == ["positive", "negative"]
+    assert all(row["diagnostic_only"] is True for row in b5_oevals + b5_processing)
+    assert all(row["feeds_formal_scoring"] is False for row in b5_oevals + b5_processing)
+    assert all(FORMAL_SCORING_FIELDS.isdisjoint(row) for row in b5_oevals + b5_processing)
+    assert not any(str(row["label"]) == "相邻项剥离" for row in b5_objects.values())
+
+
 def build_diagnostic_cluster_summaries(rows: list[dict[str, object]]) -> dict[str, dict[str, object]]:
     summaries: dict[str, dict[str, object]] = {}
     for row in rows:
