@@ -190,6 +190,27 @@
 
 证据卡必须能直接归入第五项B，或剥离相邻项后仍有第五项B剩余。证据组必须完成相邻项切分，并说明候选强度和人工裁判状态。同类材料达到代表性覆盖后，不继续按条数抬高强度；只有提供新维度、强反证、反转材料或相邻项切分价值时，才更新证据组。
 
+## 分层检索包与对象池构建入口
+
+第五项B对象池构建采用“分层检索包”方法，但检索包本体不长期内嵌在规则文档中。规则文档只保留方法和入口；人物级检索画像进入结构化批次文件，后续扩展到更多人物时按“一人一行 query_profile”追加。
+
+当前首批 29 人基线保存在：
+
+```text
+data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl
+```
+
+每条人物级检索画像应至少包含：
+
+- `source_targets`：本纪、列传、实录、通鉴等回源入口；
+- `object_layers`：核心正向对象、补强对象、负向/反转对象、相邻项剥离对象；
+- `query_bundles`：可执行检索入口，不是证据结论；
+- `expected_lane_outcomes`：预期归 lane 和切分方向，不替代回源后的对象处理状态。
+
+执行时先按对象层级回源，逐个对象写明 `source_verified_objectized`、`source_verified_pending_human_adjudication`、`lead_needs_source_review`、`adjacent_only`、`excluded_with_reason` 或 `no_stable_object` 等处理结论；只有已回源且完成相邻项切分的对象，才允许进入后续证据簇或自动结算流程。
+
+后续追加人物、其他批次或同方法生成的补充检索报告时，不新增第五项B专用规则文档；优先追加结构化 query_profile 批次文件，必要时再由脚本导出人工阅读型 Markdown。
+
 ## 禁止事项
 
 - 不得用第五项B规则覆盖其他项。

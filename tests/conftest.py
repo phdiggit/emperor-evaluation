@@ -21,6 +21,7 @@ def write_project_config(
     path: Path,
     *,
     active_subitem: str = "第五项B",
+    timezone: str = "Asia/Shanghai",
     groups: dict[str, dict[str, object]] | None = None,
     default_person_group: str | None = None,
     defaults: dict[str, str] | None = None,
@@ -43,6 +44,7 @@ def write_project_config(
     }
     payload = {
         "version": 2,
+        "timezone": timezone,
         "active_subitem": active_subitem,
         "default_person_group": resolved_default_group,
         "person_groups": resolved_groups,

@@ -10,7 +10,8 @@ from yaml.tokens import AliasToken, AnchorToken, DocumentStartToken, TagToken
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT_CONFIG_PATH = ROOT / "data" / "configs" / "project_config.yml"
-ALLOWED_TOP_LEVEL_KEYS = {"version", "active_subitem", "default_person_group", "person_groups", "outputs"}
+ALLOWED_TOP_LEVEL_KEYS = {"version", "timezone", "active_subitem", "default_person_group", "person_groups", "outputs"}
+ALLOWED_TIMEZONES = {"Asia/Shanghai"}
 ALLOWED_GROUP_KEYS = {"label", "persons", "persons_ref"}
 PERSON_SOURCE_KEYS = {"persons", "persons_ref"}
 ALLOWED_OUTPUT_KEYS = {
@@ -201,6 +202,14 @@ def validate_person_groups(path: Path, groups: object) -> list[str]:
     return errors
 
 
+def validate_timezone(path: Path, value: object) -> list[str]:
+    if not is_non_empty_string(value):
+        return [f"{path}: timezone must be a non-empty IANA timezone string"]
+    if value not in ALLOWED_TIMEZONES:
+        return [f"{path}: timezone must be one of {sorted(ALLOWED_TIMEZONES)}"]
+    return []
+
+
 def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
     if not path.exists():
         return [f"{path}: file does not exist"]
@@ -223,10 +232,11 @@ def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
     for key in extra_top_level:
         errors.append(
             f"{path}: {key}: top-level config only allows "
-            "version/active_subitem/default_person_group/person_groups/outputs"
+            "version/timezone/active_subitem/default_person_group/person_groups/outputs"
         )
     if payload.get("version") != 2:
         errors.append(f"{path}: version must be 2")
+    errors.extend(validate_timezone(path, payload.get("timezone")))
     active_subitem = payload.get("active_subitem")
     if not is_non_empty_string(active_subitem):
         errors.append(f"{path}: active_subitem must be a non-empty string")

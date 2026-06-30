@@ -37,6 +37,7 @@ def write_raw_config(path: Path, payload: dict[str, object]) -> Path:
 def valid_payload(*, groups: dict[str, dict[str, object]] | None = None) -> dict[str, object]:
     return {
         "version": 2,
+        "timezone": "Asia/Shanghai",
         "active_subitem": "第五项B",
         "default_person_group": "typical",
         "person_groups": groups or valid_groups(),
@@ -68,6 +69,16 @@ def test_validate_project_config_accepts_minimal_valid_config(tmp_path: Path, pr
     config_path = project_config_writer(tmp_path / "project_config.yml", groups=valid_groups())
 
     assert validate_project_config.validate(config_path) == []
+
+
+def test_validate_project_config_rejects_invalid_timezone(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["timezone"] = "UTC"
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("timezone must be one of" in error for error in errors)
 
 
 def test_validate_project_config_accepts_custom_person_group_keys(tmp_path: Path, project_config_writer) -> None:
