@@ -221,6 +221,28 @@ ISSUE370_FORBIDDEN_ACTIVE_OBJECT_NAME_PARTS = {
     "NEIXING",
     "ADJACENT",
 }
+ISSUE370_FORBIDDEN_LEGACY_DISPLAY_CODES = {
+    "SHIREN",
+    "SHOUQUAN",
+    "RONGJIAN",
+    "GONGCHEN",
+    "NEIXING",
+    "TONGDAO",
+    "WUGU",
+    "KULI",
+    "ADJACENT",
+}
+ISSUE370_OBJECT_SEMANTIC_ANCHOR_TYPES = {"object", "event", "mechanism"}
+ISSUE370_OBJECT_CLASSES = {
+    "person",
+    "team",
+    "event_case",
+    "mechanism",
+    "institution",
+    "policy",
+    "relationship",
+    "source_statement",
+}
 ISSUE370_EXPECTED_LEGACY_OBJECTS = {
     "ANCH-I5B-B1-YINGZHENG-NEG-ZHAOGAO-001": ("赵高", "person"),
     "ANCH-I5B-BATCHA-LIUCHE-POS-SHIREN-001": ("卫青", "person"),
@@ -680,6 +702,63 @@ def test_issue370_active_anchor_object_names_do_not_use_dimension_labels() -> No
     assert offenders == []
 
 
+def test_issue370_active_anchor_display_fields_do_not_use_legacy_codes() -> None:
+    project_config = load_manifest(ROOT / "data" / "configs" / "project_config.yml")
+    active_group = project_config["default_person_group"]
+    active_persons = set(project_config["person_groups"][active_group]["persons"])
+    offenders: list[str] = []
+
+    for row in load_jsonl(ROOT / "data" / "anchors.jsonl"):
+        if row.get("subitem") != "第五项B":
+            continue
+        if not (set(row.get("linked_persons", [])) & active_persons):
+            continue
+
+        display_values = [
+            str(row.get("label", "")),
+            str(row.get("category", "")),
+            str(row.get("relation", "")),
+        ]
+        display_values.extend(str(value) for value in row.get("usable_for", []))
+        for value in display_values:
+            for forbidden in ISSUE370_FORBIDDEN_LEGACY_DISPLAY_CODES:
+                if forbidden in value:
+                    offenders.append(f"{row['anchor_id']} {forbidden} in {value}")
+
+    assert offenders == []
+
+
+def test_issue370_active_object_anchors_split_object_category_and_relation() -> None:
+    project_config = load_manifest(ROOT / "data" / "configs" / "project_config.yml")
+    active_group = project_config["default_person_group"]
+    active_persons = set(project_config["person_groups"][active_group]["persons"])
+    offenders: list[str] = []
+
+    for row in load_jsonl(ROOT / "data" / "anchors.jsonl"):
+        if row.get("subitem") != "第五项B":
+            continue
+        if not (set(row.get("linked_persons", [])) & active_persons):
+            continue
+        if row.get("anchor_type") not in ISSUE370_OBJECT_SEMANTIC_ANCHOR_TYPES:
+            continue
+        if not row.get("object_name"):
+            continue
+
+        object_class = row.get("object_class")
+        category = row.get("category")
+        relation = row.get("relation")
+        if object_class not in ISSUE370_OBJECT_CLASSES:
+            offenders.append(f"{row['anchor_id']} object_class={object_class}")
+        if not category:
+            offenders.append(f"{row['anchor_id']} missing category")
+        if not relation:
+            offenders.append(f"{row['anchor_id']} missing relation")
+        if category and relation and category == relation:
+            offenders.append(f"{row['anchor_id']} category duplicates relation: {category}")
+
+    assert offenders == []
+
+
 def test_issue370_legacy_source_backed_anchor_names_are_real_objects() -> None:
     anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
 
@@ -703,8 +782,15 @@ def test_issue370_no_stable_or_adjacent_legacy_rows_are_not_object_anchors() -> 
 
         assert row["anchor_type"] != "object"
         assert row["outcome"] == expected_outcome
+        assert row["processing_outcome"] == expected_outcome
+        assert row["category"]
+        assert row["relation"]
         assert "object_name" not in row
         assert "object_class" not in row
+        assert not (
+            set(row.get("usable_for", []))
+            & ISSUE370_FORBIDDEN_LEGACY_DISPLAY_CODES
+        )
 
 
 def test_issue370_adjacent_only_lanes_do_not_point_to_object_anchors() -> None:
