@@ -291,7 +291,7 @@ def test_docs_module_density_and_topic_reviews_are_recorded() -> None:
     density = {entry["module_path"]: entry for entry in registry["docs_module_density_reviews"]}
     topic = {entry["family_name"]: entry for entry in registry["docs_topic_family_reviews"]}
 
-    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 12
+    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 13
     assert density["docs/数据结构与生成库"]["review_status"] == "reviewed"
     assert "史源数据平台文档族" in topic
     assert PLATFORM_ARCHITECTURE_DECISION_DOC in topic["史源数据平台文档族"]["paths"]
