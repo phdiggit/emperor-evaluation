@@ -260,17 +260,55 @@ ISSUE370_EXPECTED_LEGACY_OBJECTS = {
     "ANCH-I5B-ZHUYUANZHANG-NEG-LANYU-001": ("蓝玉案", "event_case"),
     "ANCH-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001": ("岳钟琪", "person"),
 }
-ISSUE370_DOWNGRADED_PROCESSING_ANCHORS = {
-    "ANCH-I5B-B1-YINGZHENG-CUT-ADJACENT-001": "adjacent_only",
-    "ANCH-I5B-B1-LIUHENG-CUT-ADJACENT-001": "adjacent_only",
-    "ANCH-I5B-BATCHA-LIUCHE-POS-TONGDAO-001": "no_stable_object",
-    "ANCH-I5B-BATCHA-LIUCHE-NEG-WUGU-001": "no_stable_object",
-    "ANCH-I5B-BATCHA-LIUCHE-CUT-ADJACENT-001": "adjacent_only",
-    "ANCH-I5B-BATCHA-YANGJIAN-NEG-NEIXING-001": "no_stable_object",
-    "ANCH-I5B-BATCHA-YANGJIAN-CUT-ADJACENT-001": "adjacent_only",
-    "ANCH-I5B-B2-LIUXUN-CUT-ADJACENT-001": "adjacent_only",
-    "ANCH-I5B-B2-LIUQI-CUT-ADJACENT-001": "adjacent_only",
-    "ANCH-I5B-B2-YANGGUANG-CUT-ADJACENT-001": "adjacent_only",
+ISSUE370_REMOVED_EMPTY_OBJECT_ANCHOR_IDS = {
+    "ANCH-I5B-LISHIMIN-OBJECT-001",
+    "ANCH-I5B-LIUXIU-OBJECT-001",
+    "ANCH-I5B-LIUZHUANG-OBJECT-001",
+    "ANCH-I5B-B1-YINGZHENG-CUT-ADJACENT-001",
+    "ANCH-I5B-B1-LIUHENG-CUT-ADJACENT-001",
+    "ANCH-I5B-BATCHA-LIUCHE-POS-TONGDAO-001",
+    "ANCH-I5B-BATCHA-LIUCHE-NEG-WUGU-001",
+    "ANCH-I5B-BATCHA-LIUCHE-CUT-ADJACENT-001",
+    "ANCH-I5B-BATCHA-YANGJIAN-NEG-NEIXING-001",
+    "ANCH-I5B-BATCHA-YANGJIAN-CUT-ADJACENT-001",
+    "ANCH-I5B-B2-LIUXUN-CUT-ADJACENT-001",
+    "ANCH-I5B-B2-LIUQI-CUT-ADJACENT-001",
+    "ANCH-I5B-B2-YANGGUANG-CUT-ADJACENT-001",
+}
+ISSUE370_SOURCE_VERIFIED_COVERAGE_ANCHOR_BINDINGS = {
+    "ANCOV-I5B-LISHIMIN-POS-SHIREN-FANGDU-001": "ANCH-I5B-PERSON-FANGDU-TOP-MINISTERS-20260618",
+    "ANCOV-I5B-LISHIMIN-POS-SHIREN-WEIZHENG-001": "ANCH-I5B-PERSON-WEIZHENG-TOP-REMONSTRATOR-20260618",
+    "ANCOV-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001": "ANCH-I5B-PERSON-LIJING-LIJI-TOP-GENERALS-20260618",
+    "ANCOV-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001": "ANCH-I5B-PERSON-WEIZHENG-TOP-REMONSTRATOR-20260618",
+    "ANCOV-I5B-LISHIMIN-POS-SHIREN-MAZHOU-001": "ANCH-I5B-PERSON-MAZHOU-LATECOMER-20260618",
+    "ANCOV-I5B-LISHIMIN-POS-GONGCHEN-LIJI-001": "ANCH-I5B-PERSON-LIJING-LIJI-TOP-GENERALS-20260618",
+    "ANCOV-I5B-LISHIMIN-NEG-ZHANGLIANG-001": "ANCH-I5B-PERSON-ZHANGLIANG-HOUJUNJI-BOUNDARY-20260618",
+    "ANCOV-I5B-LISHIMIN-NEG-HOUJUNJI-001": "ANCH-I5B-PERSON-ZHANGLIANG-HOUJUNJI-BOUNDARY-20260618",
+    "ANCOV-I5B-LISHIMIN-NEG-WEIZHENG-001": "ANCH-I5B-PERSON-WEIZHENG-TOP-REMONSTRATOR-20260618",
+    "ANCOV-I5B-LIUXIU-POS-SHIREN-DENGYU-001": "ANCH-I5B-PERSON-LIUXIU-FOUNDING-TALENTS-20260618",
+    "ANCOV-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001": "ANCH-I5B-PERSON-LIUXIU-FOUNDING-TALENTS-20260618",
+    "ANCOV-I5B-LIUXIU-POS-SHOUQUAN-WUHAN-001": "ANCH-I5B-PERSON-LIUXIU-FOUNDING-TALENTS-20260618",
+    "ANCOV-I5B-LIUXIU-POS-SHOUQUAN-KOUXUN-001": "ANCH-I5B-PERSON-LIUXIU-FOUNDING-TALENTS-20260618",
+    "ANCOV-I5B-LIUXIU-POS-SHIREN-GENGYAN-001": "ANCH-I5B-PERSON-LIUXIU-FOUNDING-TALENTS-20260618",
+    "ANCOV-I5B-LIUXIU-NEG-HANXIN-001": "ANCH-I5B-PERSON-HANXIN-LIUXIU-REMONSTRANCE-20260618",
+    "ANCOV-I5B-LIUXIU-NEG-HUANTAN-001": "ANCH-I5B-PERSON-HUANTAN-IDEOLOGICAL-REMONSTRANCE-20260618",
+    "ANCOV-I5B-LIUXIU-NEG-TINGZHANG-001": "ANCH-I5B-MECHANISM-SHENTUGANG-EXPRESSION-SAFETY-20260618",
+    "ANCOV-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001": "ANCH-I5B-PERSON-DENGYU-LIUCANG-AUXILIARY-20260618",
+    "ANCOV-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001": "ANCH-I5B-MECHANISM-LIUZHUANG-QIUYAN-REMONSTRANCE-20260630",
+    "ANCOV-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001": "ANCH-I5B-PERSON-BANCHAO-FRONTIER-TALENT-20260618",
+    "ANCOV-I5B-LIUZHUANG-NEG-YIJI-001": "ANCH-I5B-EVENT-CHUWANGYING-CASE-EXPANSION-20260618",
+}
+ISSUE370_PROCESSING_COVERAGE_OUTCOMES = {
+    "ANCOV-I5B-B1-YINGZHENG-CUT-ADJACENT-001": "adjacent_only",
+    "ANCOV-I5B-B1-LIUHENG-CUT-ADJACENT-001": "adjacent_only",
+    "ANCOV-I5B-BATCHA-LIUCHE-POS-TONGDAO-001": "no_stable_object",
+    "ANCOV-I5B-BATCHA-LIUCHE-NEG-WUGU-001": "no_stable_object",
+    "ANCOV-I5B-BATCHA-LIUCHE-CUT-ADJACENT-001": "adjacent_only",
+    "ANCOV-I5B-BATCHA-YANGJIAN-NEG-NEIXING-001": "no_stable_object",
+    "ANCOV-I5B-BATCHA-YANGJIAN-CUT-ADJACENT-001": "adjacent_only",
+    "ANCOV-I5B-B2-LIUXUN-CUT-ADJACENT-001": "adjacent_only",
+    "ANCOV-I5B-B2-LIUQI-CUT-ADJACENT-001": "adjacent_only",
+    "ANCOV-I5B-B2-YANGGUANG-CUT-ADJACENT-001": "adjacent_only",
 }
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
@@ -774,23 +812,60 @@ def test_issue370_legacy_source_backed_anchor_names_are_real_objects() -> None:
         assert "object_name 仅保留真实对象" in str(row["note"])
 
 
+def test_issue370_anchor_store_has_no_empty_object_names() -> None:
+    blank_anchor_ids = [
+        row["anchor_id"]
+        for row in load_jsonl(ROOT / "data" / "anchors.jsonl")
+        if not str(row.get("object_name", "")).strip()
+    ]
+
+    assert blank_anchor_ids == []
+
+
+def test_issue370_object_anchor_coverage_binds_non_empty_object_names() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+    offenders: list[str] = []
+
+    for row in load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl"):
+        for anchor_id in row.get("anchor_ids", []):
+            anchor = anchors.get(anchor_id)
+            if anchor is None:
+                offenders.append(f"{row['anchor_coverage_id']} missing {anchor_id}")
+            elif not str(anchor.get("object_name", "")).strip():
+                offenders.append(f"{row['anchor_coverage_id']} empty object_name {anchor_id}")
+
+    assert offenders == []
+
+
+def test_issue370_source_verified_backfill_coverage_binds_real_object_anchors() -> None:
+    coverage = {
+        row["anchor_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl")
+    }
+
+    for coverage_id, expected_anchor_id in ISSUE370_SOURCE_VERIFIED_COVERAGE_ANCHOR_BINDINGS.items():
+        row = coverage[coverage_id]
+
+        assert row["anchor_ids"] == [expected_anchor_id]
+        assert row["anchor_status"] == "source_verified_card_anchor"
+        assert row["linked_evidence_ids"]
+        assert row["no_anchor_reason"] == ""
+
+
 def test_issue370_no_stable_or_adjacent_legacy_rows_are_not_object_anchors() -> None:
     anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+    coverage = {
+        row["anchor_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl")
+    }
 
-    for anchor_id, expected_outcome in ISSUE370_DOWNGRADED_PROCESSING_ANCHORS.items():
-        row = anchors[anchor_id]
+    assert not (ISSUE370_REMOVED_EMPTY_OBJECT_ANCHOR_IDS & set(anchors))
+    for coverage_id, expected_outcome in ISSUE370_PROCESSING_COVERAGE_OUTCOMES.items():
+        row = coverage[coverage_id]
 
-        assert row["anchor_type"] != "object"
-        assert row["outcome"] == expected_outcome
+        assert row["anchor_ids"] == []
         assert row["processing_outcome"] == expected_outcome
-        assert row["category"]
-        assert row["relation"]
-        assert "object_name" not in row
-        assert "object_class" not in row
-        assert not (
-            set(row.get("usable_for", []))
-            & ISSUE370_FORBIDDEN_LEGACY_DISPLAY_CODES
-        )
+        assert row["no_anchor_reason"]
 
 
 def test_issue370_adjacent_only_lanes_do_not_point_to_object_anchors() -> None:
