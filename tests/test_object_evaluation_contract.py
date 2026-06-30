@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "object_evaluation_b2_examples.jsonl"
 EXPERIMENTAL_OBJECTS = ROOT / "data" / "experimental" / "objects.jsonl"
 EXPERIMENTAL_OEVALS = ROOT / "data" / "experimental" / "object_evaluations.jsonl"
+ANCHORS = ROOT / "data" / "anchors.jsonl"
 
 OBJECT_CLASSES = {
     "person",
@@ -253,6 +254,7 @@ def test_experimental_b2_examples_cover_required_polarities() -> None:
 def test_experimental_b3_tang_seed_rows_are_diagnostic_only() -> None:
     object_rows = read_jsonl(EXPERIMENTAL_OBJECTS)
     oeval_rows = read_jsonl(EXPERIMENTAL_OEVALS)
+    b3_people = {"李隆基", "武则天", "李治", "李渊", "李纯"}
     b3_object_codes = {
         str(row["obj_code"])
         for row in object_rows
@@ -273,6 +275,7 @@ def test_experimental_b3_tang_seed_rows_are_diagnostic_only() -> None:
         for row in oeval_rows
         if row.get("row_type") == "processing_outcome"
         and str(row.get("residual", "")).endswith("adjacent-only lane；不创建 object row")
+        and str(row.get("residual", "")).split(" adjacent-only", maxsplit=1)[0] in b3_people
     ]
 
     assert len(b3_object_codes) == 9
@@ -295,6 +298,64 @@ def test_experimental_b3_tang_seed_rows_are_diagnostic_only() -> None:
     assert all(row["feeds_formal_scoring"] is False for row in b3_oevals + b3_processing)
     assert not any("ADJACENT" in code for code in b3_object_codes)
     assert not any("相邻项剥离" in label for label in b3_object_labels)
+
+
+def test_experimental_b4_song_seed_rows_align_with_legacy_anchors() -> None:
+    object_rows = read_jsonl(EXPERIMENTAL_OBJECTS)
+    oeval_rows = read_jsonl(EXPERIMENTAL_OEVALS)
+    anchor_rows = read_jsonl(ANCHORS)
+    b4_people = {"赵匡胤", "赵光义", "赵恒", "赵祯", "赵构"}
+    expected_objects = {
+        "OBJ-B4-ZKY-BJSBQ": ("杯酒释兵权", "event_case"),
+        "OBJ-B4-ZKY-ZP": ("赵普", "person"),
+        "OBJ-B4-ZGY-LD": ("吕端", "person"),
+        "OBJ-B4-ZGY-LDX": ("卢多逊", "person"),
+        "OBJ-B4-ZH-WD": ("王旦", "person"),
+        "OBJ-B4-ZH-WQR": ("王钦若", "person"),
+        "OBJ-B4-ZZ-BZ": ("包拯", "person"),
+        "OBJ-B4-ZZ-FZY": ("范仲淹", "person"),
+        "OBJ-B4-ZG-LG": ("李纲", "person"),
+        "OBJ-B4-ZG-YF": ("岳飞", "person"),
+    }
+    b4_objects = {
+        str(row["obj_code"]): row
+        for row in object_rows
+        if str(row.get("obj_code", "")).startswith("OBJ-B4-")
+    }
+    b4_oevals = [
+        row
+        for row in oeval_rows
+        if str(row.get("oeval_code", "")).startswith("OE-B4-")
+    ]
+    b4_processing = [
+        row
+        for row in oeval_rows
+        if row.get("row_type") == "processing_outcome"
+        and str(row.get("residual", "")).endswith("adjacent-only lane；不创建 object row")
+        and str(row.get("residual", "")).split(" adjacent-only", maxsplit=1)[0] in b4_people
+    ]
+    b4_anchor_objects = {
+        str(row["object_name"]): str(row["object_class"])
+        for row in anchor_rows
+        if str(row.get("anchor_id", "")).startswith("ANCH-I5B-B4-")
+    }
+
+    assert set(b4_objects) == set(expected_objects)
+    assert {
+        str(row["label"]): str(row["class"])
+        for row in b4_objects.values()
+    } == {label: object_class for label, object_class in expected_objects.values()}
+    assert b4_anchor_objects == {
+        label: object_class for label, object_class in expected_objects.values()
+    }
+    assert len(b4_oevals) == 10
+    assert len(b4_processing) == 5
+    assert {row["obj_code"] for row in b4_oevals} == set(b4_objects)
+    assert {row["polarity"] for row in b4_oevals} == {"positive", "negative"}
+    assert all(row["diagnostic_only"] is True for row in b4_oevals + b4_processing)
+    assert all(row["feeds_formal_scoring"] is False for row in b4_oevals + b4_processing)
+    assert all(FORMAL_SCORING_FIELDS.isdisjoint(row) for row in b4_oevals + b4_processing)
+    assert not any(str(row["label"]) == "相邻项剥离" for row in b4_objects.values())
 
 
 def build_diagnostic_cluster_summaries(rows: list[dict[str, object]]) -> dict[str, dict[str, object]]:

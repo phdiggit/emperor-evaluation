@@ -98,6 +98,56 @@ B3_FORBIDDEN_OBJECT_NAME_LABELS = {
     "强负核心",
     "正向核心",
 }
+B4_CUT_ADJACENT_ANCHOR_IDS = {
+    "ANCH-I5B-B4-ZHAOKUANGYIN-CUT-ADJACENT-001",
+    "ANCH-I5B-B4-ZHAOGUANGYI-CUT-ADJACENT-001",
+    "ANCH-I5B-B4-ZHAOHENG-CUT-ADJACENT-001",
+    "ANCH-I5B-B4-ZHAOZHEN-CUT-ADJACENT-001",
+    "ANCH-I5B-B4-ZHAOGOU-CUT-ADJACENT-001",
+}
+B4_CUT_ADJACENT_ANCHOR_COVERAGE_IDS = {
+    "ANCOV-I5B-B4-ZHAOKUANGYIN-CUT-ADJACENT-001",
+    "ANCOV-I5B-B4-ZHAOGUANGYI-CUT-ADJACENT-001",
+    "ANCOV-I5B-B4-ZHAOHENG-CUT-ADJACENT-001",
+    "ANCOV-I5B-B4-ZHAOZHEN-CUT-ADJACENT-001",
+    "ANCOV-I5B-B4-ZHAOGOU-CUT-ADJACENT-001",
+}
+B4_CUT_ADJACENT_LANE_COVERAGE_IDS = {
+    "LCOV-I5B-B4-ZHAOKUANGYIN-CUT-ADJACENT-001",
+    "LCOV-I5B-B4-ZHAOGUANGYI-CUT-ADJACENT-001",
+    "LCOV-I5B-B4-ZHAOHENG-CUT-ADJACENT-001",
+    "LCOV-I5B-B4-ZHAOZHEN-CUT-ADJACENT-001",
+    "LCOV-I5B-B4-ZHAOGOU-CUT-ADJACENT-001",
+}
+B4_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES = {
+    "ANCH-I5B-B4-ZHAOKUANGYIN-POS-SHISHOUXIN-001": "杯酒释兵权",
+    "ANCH-I5B-B4-ZHAOKUANGYIN-NEG-ZHAOPU-001": "赵普",
+    "ANCH-I5B-B4-ZHAOGUANGYI-POS-LUDUAN-001": "吕端",
+    "ANCH-I5B-B4-ZHAOGUANGYI-NEG-LUDUOXUN-001": "卢多逊",
+    "ANCH-I5B-B4-ZHAOHENG-POS-WANGDAN-001": "王旦",
+    "ANCH-I5B-B4-ZHAOHENG-NEG-WANGQINRUO-001": "王钦若",
+    "ANCH-I5B-B4-ZHAOZHEN-POS-BAOZHENG-001": "包拯",
+    "ANCH-I5B-B4-ZHAOZHEN-NEG-FANZHONGYAN-001": "范仲淹",
+    "ANCH-I5B-B4-ZHAOGOU-POS-LIGANG-001": "李纲",
+    "ANCH-I5B-B4-ZHAOGOU-NEG-YUEFEI-001": "岳飞",
+}
+B4_SOURCE_VERIFIED_ANCHOR_OBJECT_CLASSES = {
+    "ANCH-I5B-B4-ZHAOKUANGYIN-POS-SHISHOUXIN-001": "event_case",
+    "ANCH-I5B-B4-ZHAOKUANGYIN-NEG-ZHAOPU-001": "person",
+    "ANCH-I5B-B4-ZHAOGUANGYI-POS-LUDUAN-001": "person",
+    "ANCH-I5B-B4-ZHAOGUANGYI-NEG-LUDUOXUN-001": "person",
+    "ANCH-I5B-B4-ZHAOHENG-POS-WANGDAN-001": "person",
+    "ANCH-I5B-B4-ZHAOHENG-NEG-WANGQINRUO-001": "person",
+    "ANCH-I5B-B4-ZHAOZHEN-POS-BAOZHENG-001": "person",
+    "ANCH-I5B-B4-ZHAOZHEN-NEG-FANZHONGYAN-001": "person",
+    "ANCH-I5B-B4-ZHAOGOU-POS-LIGANG-001": "person",
+    "ANCH-I5B-B4-ZHAOGOU-NEG-YUEFEI-001": "person",
+}
+B4_FORBIDDEN_OBJECT_NAME_LABELS = B3_FORBIDDEN_OBJECT_NAME_LABELS | {
+    "第五项B边界",
+    "功臣安全",
+    "权臣用人边界",
+}
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
     "validate.validate_source_evidence_canonical_stores",
@@ -306,6 +356,7 @@ def test_issue366_aggregate_batch_manifest_refs_live_in_canonical_stores() -> No
         "i5b_typical_batch_b1_qin_han_20260628",
         "i5b_typical_batch_b2_han_sui_seed_20260629",
         "i5b_typical_batch_b3_tang_seed_20260630",
+        "i5b_typical_batch_b4_song_seed_20260630",
     }
     assert "timing" not in manifest
 
@@ -351,6 +402,15 @@ def test_issue366_aggregate_batch_manifest_refs_live_in_canonical_stores() -> No
     assert len(b3_refs["evidence_ids"]) == 10
     assert len(b3_refs["cluster_ids"]) == 10
 
+    b4_refs = entries["i5b_typical_batch_b4_song_seed_20260630"]["canonical_row_refs"]
+    assert len(b4_refs["query_profile_ids"]) == 5
+    assert len(b4_refs["search_ids"]) == 15
+    assert set(b4_refs["anchor_ids"]) == set(B4_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES)
+    assert not (set(b4_refs["anchor_ids"]) & B4_CUT_ADJACENT_ANCHOR_IDS)
+    assert not (set(b4_refs["anchor_coverage_ids"]) & B4_CUT_ADJACENT_ANCHOR_COVERAGE_IDS)
+    assert len(b4_refs["evidence_ids"]) == 10
+    assert len(b4_refs["cluster_ids"]) == 10
+
 
 def test_b3_adjacent_only_lanes_do_not_create_object_anchor_rows() -> None:
     anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
@@ -391,6 +451,51 @@ def test_b3_source_verified_anchor_object_names_are_real_objects() -> None:
         assert object_name == expected_object_name
         assert "相邻项剥离" not in object_name
         assert object_name not in B3_FORBIDDEN_OBJECT_NAME_LABELS
+        assert row["anchor_status"] == "source_verified_card_anchor"
+        assert str(row["anchor_role"]).startswith("source_verified_evidence_anchor")
+        assert row["usable_for"]
+
+
+def test_b4_adjacent_only_lanes_do_not_create_object_anchor_rows() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+    coverage = {
+        row["anchor_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl")
+    }
+    lane_rows = {
+        row["lane_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl")
+    }
+
+    assert not (B4_CUT_ADJACENT_ANCHOR_IDS & set(anchors))
+    assert not (B4_CUT_ADJACENT_ANCHOR_COVERAGE_IDS & set(coverage))
+
+    for lane_id in B4_CUT_ADJACENT_LANE_COVERAGE_IDS:
+        row = lane_rows[lane_id]
+        assert row["lane_group"] == "adjacent"
+        assert row["coverage_status"] == "pending_review"
+        assert row["unresolved_reason"]
+        assert row["anchor_coverage_ids"] == []
+        assert row["source_pack_ids"] == []
+        assert row["linked_evidence_ids"] == []
+
+
+def test_b4_source_verified_anchor_object_names_are_real_objects() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+
+    b4_anchor_ids = {
+        anchor_id for anchor_id in anchors if str(anchor_id).startswith("ANCH-I5B-B4-")
+    }
+    assert b4_anchor_ids == set(B4_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES)
+
+    for anchor_id, expected_object_name in B4_SOURCE_VERIFIED_ANCHOR_OBJECT_NAMES.items():
+        row = anchors[anchor_id]
+        object_name = str(row["object_name"])
+
+        assert object_name == expected_object_name
+        assert "相邻项剥离" not in object_name
+        assert object_name not in B4_FORBIDDEN_OBJECT_NAME_LABELS
+        assert row["object_class"] == B4_SOURCE_VERIFIED_ANCHOR_OBJECT_CLASSES[anchor_id]
         assert row["anchor_status"] == "source_verified_card_anchor"
         assert str(row["anchor_role"]).startswith("source_verified_evidence_anchor")
         assert row["usable_for"]
