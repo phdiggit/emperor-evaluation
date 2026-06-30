@@ -33,6 +33,7 @@ REVIEW_ENTRY_EXPORT_PATH = auto.current_review_entry_export_path()
 REVIEW_WORKBENCH_EXPORT_PATH = auto.current_review_workbench_export_path()
 REVIEW_MATRIX_EXPORT_PATH = auto.current_review_matrix_export_path()
 REVIEW_PLAN_EXPORT_PATH = REVIEW_ENTRY_ROOT / "第五项B试点计划.md"
+ROOT_EXPORT_INDEX_PATH = ROOT / "exports" / "markdown_views" / "导出视图总索引.md"
 LEGACY_AUTO_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B三人自动结算草案.md"
 LEGACY_NESTED_AUTO_EXPORT_PATH = AUTO_CHAIN_ROOT / "自动结算草案" / "第五项B三人自动结算草案.md"
 LEGACY_NESTED_FORMAL_EXPORT_PATH = AUTO_CHAIN_ROOT / "正式定档草案" / "第五项B三人正式定档落地表.md"
@@ -900,6 +901,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     targets = list(auto.config_loaders.get_i5b_active_person_targets())
 
     assert workflow_subject + "自动结算草案" in auto_content
+    assert auto_content.splitlines()[0] == f"# {AUTO_EXPORT_PATH.stem}"
     assert f"- **活动人物组**：{group_label}" in auto_content
     assert f"- **覆盖人物**：{'、'.join(targets)}" in auto_content
     assert "负向边界档（negative_boundary_tier）" in auto_content
@@ -918,7 +920,8 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "RULE-I5B-SINGLE-DIMENSION-STRONG-POS-THREE-CORE" in rules_content
     assert "RULE-I5B-ADJACENT-STRONG-NEG-RESIDUAL-DETAIL" in rules_content
     assert "RULE-I5B-STRONG-NEG-CORE-SUPPRESSES-STRONG-POS" in rules_content
-    assert workflow_subject + "正式分值与排名发布表" in formal_content
+    assert workflow_subject + "正式定档落地表" in formal_content
+    assert formal_content.splitlines()[0] == f"# {FORMAL_EXPORT_PATH.stem}"
     assert "正式档位草案" in formal_content
     assert "第五项B正式分值" in formal_content
     assert "第五项B子项排名" in formal_content
@@ -952,6 +955,7 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "| score |" not in score_map_content
     assert "| rank |" not in score_map_content
     assert workflow_subject + "内部闭环收尾" in closure_export_content
+    assert closure_export_content.splitlines()[0] == f"# {CLOSURE_EXPORT_PATH.stem}"
     assert "第五项B正式分值" in closure_export_content
     assert "第五项B子项排名" in closure_export_content
     assert "内部试算区间" in closure_export_content
@@ -964,6 +968,33 @@ def test_export_i5b_auto_adjudication_generates_rule_views() -> None:
     assert "G9 前人物级正式分值、排名或总榜仍不得发布" not in closure_export_content
     assert "后续七大项完成后再统一映射" not in closure_export_content
     assert "**是否可进入扩展试点**：可" in closure_export_content
+
+
+@pytest.mark.export_full
+@pytest.mark.integration
+def test_split_export_root_index_links_current_active_outputs() -> None:
+    result = run_script("export_i5b_auto_adjudication.py", "--output-layout", "split")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert ROOT_EXPORT_INDEX_PATH.exists()
+    index_content = ROOT_EXPORT_INDEX_PATH.read_text(encoding="utf-8")
+    workflow_config = auto.active_workflow_config()
+    current_paths = [
+        auto.current_auto_export_path(workflow_config),
+        auto.current_formal_export_path(workflow_config),
+        auto.current_review_entry_export_path(workflow_config),
+        auto.current_review_workbench_export_path(workflow_config),
+        auto.current_review_matrix_export_path(workflow_config),
+    ]
+    markdown_root = ROOT / "exports" / "markdown_views"
+
+    assert "## 第五项B当前活动产物" in index_content
+    for path in current_paths:
+        assert path.stem in index_content
+        assert f"./{path.relative_to(markdown_root).as_posix()}" in index_content
+        assert "三人" not in path.name
+    assert "第五项B三人自动结算草案.md" not in index_content
+    assert "第五项B三人正式定档落地表.md" not in index_content
 
 
 def test_real_data_reflects_issue46_rule_decisions() -> None:
@@ -1074,6 +1105,7 @@ def test_export_md_generates_i5b_review_entry_views() -> None:
     targets = list(auto.config_loaders.get_i5b_active_person_targets())
 
     assert workflow_subject + "专人审核入口" in entry_content
+    assert entry_content.splitlines()[0] == f"# {REVIEW_ENTRY_EXPORT_PATH.stem}"
     assert f"- **活动人物组**：{group_label}" in entry_content
     for person in targets:
         assert f"### {person}" in entry_content
@@ -1093,10 +1125,12 @@ def test_export_md_generates_i5b_review_entry_views() -> None:
         assert forbidden not in entry_content
 
     workbench_content = REVIEW_WORKBENCH_EXPORT_PATH.read_text(encoding="utf-8")
+    assert workbench_content.splitlines()[0] == f"# {REVIEW_WORKBENCH_EXPORT_PATH.stem}"
     assert "warning 保持 display-only" in workbench_content
     assert "不做单人人工 override" in workbench_content
     assert "数据质量核验栏位" in workbench_content
     matrix_content = REVIEW_MATRIX_EXPORT_PATH.read_text(encoding="utf-8")
+    assert matrix_content.splitlines()[0] == f"# {REVIEW_MATRIX_EXPORT_PATH.stem}"
     assert "checked_no_hard_evidence" in matrix_content
     assert "evidence_found_card_created" in matrix_content
     plan_content = REVIEW_PLAN_EXPORT_PATH.read_text(encoding="utf-8")

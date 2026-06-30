@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from pathlib import Path
 
 
@@ -34,7 +35,19 @@ def ensure_i5b_human_readable_export_scaffold(markdown_view_root: Path) -> None:
         (markdown_view_root / relative_dir).mkdir(parents=True, exist_ok=True)
 
 
-def write_export_view_index(markdown_view_root: Path) -> Path:
+def _format_markdown_link(markdown_view_root: Path, target: Path) -> str:
+    try:
+        relative = target.relative_to(markdown_view_root)
+    except ValueError:
+        relative = target
+    return f"./{relative.as_posix()}"
+
+
+def write_export_view_index(
+    markdown_view_root: Path,
+    *,
+    i5b_active_links: Sequence[tuple[str, Path]] | None = None,
+) -> Path:
     markdown_view_root.mkdir(parents=True, exist_ok=True)
     index_path = markdown_view_root / "导出视图总索引.md"
     lines = [
@@ -50,18 +63,34 @@ def write_export_view_index(markdown_view_root: Path) -> Path:
         "- [第五项B证据链](./第五项B/人工审核/证据链/)",
         "- [第五项B审核入口](./第五项B/人工审核/入口/)",
         "",
-        "## 机器审计入口",
-        "",
-        "- [第五项B机器审计证据链](./第五项B/机器审计/证据链/)",
-        "",
-        "## 待人工确认清单",
-        "",
-        "暂无。",
-        "",
-        "## 旧根目录平铺文件禁用说明",
-        "",
-        "根目录旧式平铺 Markdown 禁用；人工审核和机器审计视图必须归入对应目录。",
-        "",
     ]
+    if i5b_active_links:
+        lines.extend(
+            [
+                "## 第五项B当前活动产物",
+                "",
+                *[
+                    f"- [{label}]({_format_markdown_link(markdown_view_root, path)})"
+                    for label, path in i5b_active_links
+                ],
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "## 机器审计入口",
+            "",
+            "- [第五项B机器审计证据链](./第五项B/机器审计/证据链/)",
+            "",
+            "## 待人工确认清单",
+            "",
+            "暂无。",
+            "",
+            "## 旧根目录平铺文件禁用说明",
+            "",
+            "根目录旧式平铺 Markdown 禁用；人工审核和机器审计视图必须归入对应目录。",
+            "",
+        ]
+    )
     index_path.write_text("\n".join(lines), encoding="utf-8")
     return index_path
