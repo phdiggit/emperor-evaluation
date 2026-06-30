@@ -206,6 +206,50 @@ B5_FORBIDDEN_OBJECT_NAME_LABELS = B4_FORBIDDEN_OBJECT_NAME_LABELS | {
     "将帅授权专任",
     "军政人才任用",
 }
+ISSUE370_FORBIDDEN_ACTIVE_OBJECT_NAME_PARTS = {
+    "相邻项剥离",
+    "授权专任",
+    "容谏纳言",
+    "识人拔擢",
+    "功臣旧臣处置",
+    "近臣任用风险",
+    "人才安全",
+    "SHIREN",
+    "SHOUQUAN",
+    "RONGJIAN",
+    "GONGCHEN",
+    "NEIXING",
+    "ADJACENT",
+}
+ISSUE370_EXPECTED_LEGACY_OBJECTS = {
+    "ANCH-I5B-B1-YINGZHENG-NEG-ZHAOGAO-001": ("赵高", "person"),
+    "ANCH-I5B-BATCHA-LIUCHE-POS-SHIREN-001": ("卫青", "person"),
+    "ANCH-I5B-BATCHA-LIUCHE-POS-SHOUQUAN-001": ("卫青", "person"),
+    "ANCH-I5B-BATCHA-YANGJIAN-POS-SHIREN-001": ("高颎", "person"),
+    "ANCH-I5B-BATCHA-YANGJIAN-POS-SHOUQUAN-001": ("高颎", "person"),
+    "ANCH-I5B-BATCHA-YANGJIAN-POS-RONGJIAN-001": ("苏威", "person"),
+    "ANCH-I5B-BATCHA-YANGJIAN-NEG-GONGCHEN-001": ("史万岁", "person"),
+    "ANCH-I5B-B2-LIUQI-POS-ZHOUYAFU-001": ("周亚夫", "person"),
+    "ANCH-I5B-B2-LIUQI-NEG-CHAOCOU-001": ("晁错", "person"),
+    "ANCH-I5B-B2-LIUQI-NEG-ZHOUYAFU-001": ("周亚夫", "person"),
+    "ANCH-I5B-B2-YANGGUANG-POS-YUSHIJI-001": ("虞世基", "person"),
+    "ANCH-I5B-B2-YANGGUANG-NEG-YUSHIJI-001": ("虞世基", "person"),
+    "ANCH-I5B-ZHUYUANZHANG-POS-SHOUQUAN-001": ("文武授任职责匹配机制", "mechanism"),
+    "ANCH-I5B-ZHUYUANZHANG-NEG-LANYU-001": ("蓝玉案", "event_case"),
+    "ANCH-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001": ("岳钟琪", "person"),
+}
+ISSUE370_DOWNGRADED_PROCESSING_ANCHORS = {
+    "ANCH-I5B-B1-YINGZHENG-CUT-ADJACENT-001": "adjacent_only",
+    "ANCH-I5B-B1-LIUHENG-CUT-ADJACENT-001": "adjacent_only",
+    "ANCH-I5B-BATCHA-LIUCHE-POS-TONGDAO-001": "no_stable_object",
+    "ANCH-I5B-BATCHA-LIUCHE-NEG-WUGU-001": "no_stable_object",
+    "ANCH-I5B-BATCHA-LIUCHE-CUT-ADJACENT-001": "adjacent_only",
+    "ANCH-I5B-BATCHA-YANGJIAN-NEG-NEIXING-001": "no_stable_object",
+    "ANCH-I5B-BATCHA-YANGJIAN-CUT-ADJACENT-001": "adjacent_only",
+    "ANCH-I5B-B2-LIUXUN-CUT-ADJACENT-001": "adjacent_only",
+    "ANCH-I5B-B2-LIUQI-CUT-ADJACENT-001": "adjacent_only",
+    "ANCH-I5B-B2-YANGGUANG-CUT-ADJACENT-001": "adjacent_only",
+}
 
 VALIDATOR_SPEC = importlib.util.spec_from_file_location(
     "validate.validate_source_evidence_canonical_stores",
@@ -612,6 +656,75 @@ def test_b5_source_verified_anchor_object_names_are_real_objects() -> None:
         assert row["anchor_status"] == "source_verified_card_anchor"
         assert str(row["anchor_role"]).startswith("source_verified_evidence_anchor")
         assert row["usable_for"]
+
+
+def test_issue370_active_anchor_object_names_do_not_use_dimension_labels() -> None:
+    project_config = load_manifest(ROOT / "data" / "configs" / "project_config.yml")
+    active_group = project_config["default_person_group"]
+    active_persons = set(project_config["person_groups"][active_group]["persons"])
+    offenders: list[str] = []
+
+    for row in load_jsonl(ROOT / "data" / "anchors.jsonl"):
+        if row.get("subitem") != "第五项B":
+            continue
+        if not (set(row.get("linked_persons", [])) & active_persons):
+            continue
+
+        object_name = str(row.get("object_name", ""))
+        if not object_name:
+            continue
+        for forbidden in ISSUE370_FORBIDDEN_ACTIVE_OBJECT_NAME_PARTS:
+            if forbidden in object_name:
+                offenders.append(f"{row['anchor_id']} object_name={object_name}")
+
+    assert offenders == []
+
+
+def test_issue370_legacy_source_backed_anchor_names_are_real_objects() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+
+    for anchor_id, (expected_object_name, expected_object_class) in ISSUE370_EXPECTED_LEGACY_OBJECTS.items():
+        row = anchors[anchor_id]
+
+        assert row["anchor_type"] == "object"
+        assert row["object_name"] == expected_object_name
+        assert row["object_class"] == expected_object_class
+        assert row["label"]
+        assert row["object_type"]
+        assert row["usable_for"]
+        assert "object_name 仅保留真实对象" in str(row["note"])
+
+
+def test_issue370_no_stable_or_adjacent_legacy_rows_are_not_object_anchors() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+
+    for anchor_id, expected_outcome in ISSUE370_DOWNGRADED_PROCESSING_ANCHORS.items():
+        row = anchors[anchor_id]
+
+        assert row["anchor_type"] != "object"
+        assert row["outcome"] == expected_outcome
+        assert "object_name" not in row
+        assert "object_class" not in row
+
+
+def test_issue370_adjacent_only_lanes_do_not_point_to_object_anchors() -> None:
+    anchors = {row["anchor_id"]: row for row in load_jsonl(ROOT / "data" / "anchors.jsonl")}
+    coverage = {
+        row["anchor_coverage_id"]: row
+        for row in load_jsonl(ROOT / "data" / "object_anchor_coverage.jsonl")
+    }
+
+    offenders: list[str] = []
+    for row in load_jsonl(ROOT / "data" / "query_lane_coverage.jsonl"):
+        if row.get("lane_group") != "adjacent":
+            continue
+        for coverage_id in row.get("anchor_coverage_ids", []):
+            coverage_row = coverage[coverage_id]
+            for anchor_id in coverage_row.get("anchor_ids", []):
+                if anchors[anchor_id].get("anchor_type") == "object":
+                    offenders.append(f"{row['lane_coverage_id']} -> {coverage_id} -> {anchor_id}")
+
+    assert offenders == []
 
 
 def test_validate_source_evidence_store_passes_with_minimal_fixture(tmp_path: Path, monkeypatch) -> None:
