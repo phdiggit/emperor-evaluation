@@ -62,6 +62,17 @@
     },
     {
       "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_chain_runner",
+      "implementation": "scripts/dev/i5b_chain_runner.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_chain_runner.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
       "category": "validate",
       "id": "validate_package",
       "implementation": "scripts/validate/__init__.py",
@@ -535,6 +546,18 @@
         "tests/test_evidence_integrity.py"
       ],
       "status": "migrated"
+    },
+    {
+      "audit_docs": [],
+      "category": "build",
+      "id": "i5b_item_result_calculator",
+      "implementation": "scripts/build/i5b_item_result_calculator.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_item_result_calculator.py",
+        "tests/test_scripts_build_directory_layout.py"
+      ],
+      "status": "active"
     },
     {
       "audit_docs": [],

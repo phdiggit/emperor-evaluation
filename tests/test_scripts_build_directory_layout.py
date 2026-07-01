@@ -59,6 +59,18 @@ def test_registry_records_build_directory_and_modules() -> None:
         ],
         "status": "migrated",
     }
+    assert modules["i5b_item_result_calculator"] == {
+        "audit_docs": [],
+        "category": "build",
+        "id": "i5b_item_result_calculator",
+        "implementation": "scripts/build/i5b_item_result_calculator.py",
+        "legacy_wrapper": None,
+        "required_tests": [
+            "tests/test_i5b_item_result_calculator.py",
+            "tests/test_scripts_build_directory_layout.py",
+        ],
+        "status": "active",
+    }
     assert "scripts/build_db.py" not in root_exception_paths
 
 
