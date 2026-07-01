@@ -174,6 +174,15 @@ python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.js
 python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.json --write-clusters --write-results
 ```
 
+写回受影响证据簇后，必须复跑发现人才覆盖审计。已回源但史料不支撑进入 `talent_discovery` 的对象，只能通过 `--accepted-missing 皇帝:对象` 显式标注，不能静默跳过：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_talent_discovery_audit.py `
+  --fail-on-gap `
+  --accepted-missing 刘邦:曹参
+```
+
 证据簇日志必须保留 `calc_detail`，尤其是：
 
 - `materials[*].obj_src_id`
@@ -251,7 +260,8 @@ logs/evidence_clusters/evidence_cluster_calc.jsonl
 3. 用 `object_pool_importer.py` dry-run 和导入。
 4. 为受影响 rule 更新 factor profile。
 5. 写回受影响 `evd_clusters`。
-6. 从完整日志重放，确认全量结果一致。
+6. 运行 `i5b_talent_discovery_audit.py --fail-on-gap`；确有已回源不支撑入 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
+7. 从完整日志重放，确认全量结果一致。
 
 改结果层公式：
 
@@ -277,6 +287,7 @@ logs/evidence_clusters/evidence_cluster_calc.jsonl
 ```
 
 缺口报告不是正式证据，但应作为下一轮补源清单。
+其中 `talent_discovery` 是硬阀门：新皇帝写回证据簇后必须跑 `i5b_talent_discovery_audit.py --fail-on-gap`。如果缺口属于“已检索且已回源，但当前史料不支撑进入发现人才”，应使用 `--accepted-missing` 留下可见例外；其他缺口必须回到检索、回源或对象链编码补齐。
 
 ## 8. 禁止做法
 

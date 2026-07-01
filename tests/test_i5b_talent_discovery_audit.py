@@ -87,4 +87,48 @@ def test_audit_report_flags_expected_talents_missing_from_cluster(tmp_path: Path
     assert report["ok"] is False
     assert report["rows"][0]["missing"] == ["乙", "丙"]
     assert report["rows"][0]["extra"] == ["丁"]
-    assert "| 测试帝 | 3：甲、乙、丙 | 2：甲、丁 | 乙、丙 | 丁 |" in markdown
+    assert "| 测试帝 | 3：甲、乙、丙 | 2：甲、丁 | 乙、丙 | - | 丁 |" in markdown
+
+
+def test_audit_report_allows_reviewed_missing_talents(tmp_path: Path) -> None:
+    tool = load_tool()
+    profile = tmp_path / "profiles.jsonl"
+    cluster_log = tmp_path / "clusters.jsonl"
+    result_log = tmp_path / "results.jsonl"
+    write_jsonl(
+        profile,
+        [
+            {
+                "person": "测试帝",
+                "query_profile_id": "QRY-1",
+                "expected_lane_outcomes": ["POS-TALENT-RECOGNITION: 甲 / 乙 / 丙"],
+            }
+        ],
+    )
+    write_jsonl(
+        cluster_log,
+        [
+            {
+                "emperor": "测试帝",
+                "rule_code": "talent_discovery",
+                "formula_code": "cluster_formula_test",
+                "calc_detail": {"materials": [{"obj_name": "甲", "side": "positive"}]},
+            }
+        ],
+    )
+    write_jsonl(result_log, [{"emperor": "测试帝", "formula_code": "result_formula_test"}])
+
+    report = tool.build_audit_report(
+        profile_path=profile,
+        cluster_log=cluster_log,
+        result_log=result_log,
+        cluster_formula="cluster_formula_test",
+        result_formula="result_formula_test",
+        accepted_missing=tool.parse_accepted_missing(("测试帝:乙、丙",)),
+    )
+    markdown = tool.render_markdown(report)
+
+    assert report["ok"] is True
+    assert report["rows"][0]["missing"] == []
+    assert report["rows"][0]["accepted_missing"] == ["乙", "丙"]
+    assert "| 测试帝 | 3：甲、乙、丙 | 1：甲 | - | 乙、丙 | - |" in markdown

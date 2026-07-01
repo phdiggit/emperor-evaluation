@@ -28,7 +28,7 @@
 
 - `evidence_cluster_workbench.py`、`i5b_factor_recalculator.py` 只能基于已回源对象链和已确认 factor profile 写入 `evd_clusters` / `emp_item_results`。
 - `i5b_calc_breakdown.py` 是只读日志拆解工具，用于按皇帝/规则调出证据簇计算过程和定分计算过程，不写数据库。
-- `i5b_talent_discovery_audit.py` 是只读覆盖审计工具，用于对比检索包 `POS-TALENT-RECOGNITION` 与最新 `talent_discovery` 入簇对象；补链或重算前必须先看缺口。
+- `i5b_talent_discovery_audit.py` 是只读覆盖审计工具，用于对比检索包 `POS-TALENT-RECOGNITION` 与最新 `talent_discovery` 入簇对象；补链或重算前必须先看缺口，写回受影响证据簇后必须用 `--fail-on-gap` 复跑。已回源但不支撑进入 `talent_discovery` 的对象，用 `--accepted-missing 皇帝:对象` 显式标注，不得静默忽略。
 - 证据簇日志必须保留 `calc_detail.factor_refs`，保证修改规则内部乘数后可从日志重放。
 - 新增史料对象时先补对象链和受影响证据簇，再用完整日志重放检查全量结果。
 

@@ -72,6 +72,24 @@ def load_query_profiles(path: Path) -> dict[str, dict[str, Any]]:
     return profiles
 
 
+def parse_accepted_missing(values: tuple[str, ...]) -> frozenset[tuple[str, str]]:
+    accepted: set[tuple[str, str]] = set()
+    for value in values:
+        if ":" in value:
+            emperor, names_text = value.split(":", 1)
+        elif "：" in value:
+            emperor, names_text = value.split("：", 1)
+        else:
+            raise I5BTalentDiscoveryAuditError(f"accepted missing must be EMPEROR:NAME, got: {value}")
+        emperor = emperor.strip()
+        names = split_expected_names(names_text)
+        if not emperor or not names:
+            raise I5BTalentDiscoveryAuditError(f"accepted missing must include emperor and name: {value}")
+        for name in names:
+            accepted.add((emperor, name))
+    return frozenset(accepted)
+
+
 def current_talent_names(cluster_row: dict[str, Any] | None) -> tuple[str, ...]:
     if cluster_row is None:
         return ()
@@ -106,6 +124,7 @@ def build_audit_report(
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
     result_formula: str = DEFAULT_FORMULA_CODE,
     emperors: tuple[str, ...] = (),
+    accepted_missing: frozenset[tuple[str, str]] = frozenset(),
 ) -> dict[str, Any]:
     profiles = load_query_profiles(profile_path)
     targets = emperors or default_emperors(result_log, result_formula=result_formula)
@@ -125,7 +144,9 @@ def build_audit_report(
         profile = profiles.get(emperor)
         expected = expected_talent_names(profile or {})
         current = current_talent_names(clusters.get((emperor, TALENT_RULE_CODE)))
-        missing = tuple(name for name in expected if name not in current)
+        raw_missing = tuple(name for name in expected if name not in current)
+        accepted = tuple(name for name in raw_missing if (emperor, name) in accepted_missing)
+        missing = tuple(name for name in raw_missing if (emperor, name) not in accepted_missing)
         extra = tuple(name for name in current if name not in expected)
         rows.append(
             {
@@ -134,6 +155,7 @@ def build_audit_report(
                 "expected": list(expected),
                 "current": list(current),
                 "missing": list(missing),
+                "accepted_missing": list(accepted),
                 "extra": list(extra),
                 "expected_count": len(expected),
                 "current_count": len(current),
@@ -163,16 +185,17 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- rule_code: `{report['rule_code']}`",
         f"- ok: `{report['ok']}`",
         "",
-        "| 皇帝 | 检索包预期 | 当前入簇 | 缺口 | 额外入簇 |",
-        "|---|---:|---:|---|---|",
+        "| 皇帝 | 检索包预期 | 当前入簇 | 缺口 | 审定不入 | 额外入簇 |",
+        "|---|---:|---:|---|---|---|",
     ]
     for row in report["rows"]:
         expected = "、".join(row["expected"]) or "-"
         current = "、".join(row["current"]) or "-"
         missing = "、".join(row["missing"]) or "-"
+        accepted = "、".join(row.get("accepted_missing", [])) or "-"
         extra = "、".join(row["extra"]) or "-"
         lines.append(
-            f"| {row['emperor']} | {row['expected_count']}：{expected} | {row['current_count']}：{current} | {missing} | {extra} |"
+            f"| {row['emperor']} | {row['expected_count']}：{expected} | {row['current_count']}：{current} | {missing} | {accepted} | {extra} |"
         )
     return "\n".join(lines).rstrip() + "\n"
 
@@ -198,6 +221,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
     parser.add_argument("--format", choices=("json", "markdown"), default="markdown", help="Output format.")
     parser.add_argument("--output", type=Path, default=None, help="Optional report path; stdout if omitted.")
+    parser.add_argument(
+        "--accepted-missing",
+        action="append",
+        default=None,
+        metavar="EMPEROR:NAME",
+        help="Reviewed expected talent that current sources do not support for talent_discovery; repeatable.",
+    )
     parser.add_argument("--fail-on-gap", action="store_true", help="Exit non-zero when any expected talent is missing.")
     return parser
 
@@ -213,6 +243,7 @@ def main(argv: list[str] | None = None) -> int:
             cluster_formula=args.cluster_formula,
             result_formula=args.result_formula,
             emperors=tuple(args.emperor or ()),
+            accepted_missing=parse_accepted_missing(tuple(args.accepted_missing or ())),
         )
     except I5BTalentDiscoveryAuditError as exc:
         parser.error(str(exc))
@@ -226,6 +257,7 @@ def main(argv: list[str] | None = None) -> int:
                     "format": args.format,
                     "ok": report["ok"],
                     "gap_count": sum(len(row["missing"]) for row in report["rows"]),
+                    "accepted_gap_count": sum(len(row["accepted_missing"]) for row in report["rows"]),
                 },
                 ensure_ascii=False,
                 sort_keys=True,
