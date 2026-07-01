@@ -23,6 +23,12 @@ from scripts.dev.evidence_cluster_workbench import (
     resolve_dsn,
     upsert_clusters,
 )
+from scripts.dev.i5b_factor_consistency_audit import (
+    I5BFactorConsistencyAuditError,
+    assert_no_factor_consistency_errors,
+    build_audit_report_from_inputs,
+)
+from scripts.dev.i5b_rule_object_coverage_audit import attr_value, fetch_emp_object_rows
 from scripts.dev.i5b_calc_logs import latest_cluster_log_rows
 
 
@@ -136,10 +142,20 @@ def lookup_factor(catalog: dict[str, list[FactorRow]], factor_name: str, label: 
     if factor_name not in catalog:
         raise I5BFactorRecalculatorError(f"factor table not found: {factor_name}")
     wanted = normalize_label(label)
+    exact_matches: list[FactorRow] = []
+    fuzzy_matches: list[tuple[int, FactorRow]] = []
     for row in catalog[factor_name]:
         current = normalize_label(row.label)
-        if wanted == current or wanted in current or current in wanted:
-            return row.value
+        if wanted == current:
+            exact_matches.append(row)
+            continue
+        if wanted in current or current in wanted:
+            fuzzy_matches.append((len(current), row))
+    if exact_matches:
+        return exact_matches[0].value
+    if fuzzy_matches:
+        fuzzy_matches.sort(key=lambda item: item[0], reverse=True)
+        return fuzzy_matches[0][1].value
     raise I5BFactorRecalculatorError(f"factor row not found: {factor_name} / {label}")
 
 
@@ -241,6 +257,13 @@ def team_rank_decay(rank_index: int) -> Decimal:
     if rank_index < len(TEAM_BUILDING_RANK_DECAYS):
         return TEAM_BUILDING_RANK_DECAYS[rank_index]
     return Decimal("0.25")
+
+
+def signed_side_signal(scores: list[Decimal]) -> Decimal:
+    if not scores:
+        return Decimal("0.000")
+    raw = math.sqrt(sum(float(abs(score)) ** 2 for score in scores))
+    return quant(Decimal(str(raw)))
 
 
 def require_text(row: dict[str, Any], key: str, path: str) -> str:
@@ -467,6 +490,8 @@ def compute_team_building_cluster(
         )
         candidate = {
             "obj_src_id": material_id,
+            "emp_obj_id": material.get("emp_obj_id"),
+            "obj_id": material.get("obj_id"),
             "obj_key": obj_key,
             "obj_name": obj_name,
             "talent_quality_factor": talent_value,
@@ -478,7 +503,7 @@ def compute_team_building_cluster(
 
     ranked = sorted(
         positive_candidates.values(),
-        key=lambda item: (-item["talent_quality_factor"], item["obj_name"], item["obj_key"]),
+        key=lambda item: (-abs(item["talent_quality_factor"]), item["obj_name"], item["obj_key"]),
     )
     team_quality_components: list[dict[str, Any]] = []
     positive_object_scores: dict[str, Decimal] = {}
@@ -489,6 +514,8 @@ def compute_team_building_cluster(
         component = {
             "rank": index + 1,
             "obj_src_id": item["obj_src_id"],
+            "emp_obj_id": item.get("emp_obj_id"),
+            "obj_id": item.get("obj_id"),
             "obj_key": item["obj_key"],
             "obj_name": item["obj_name"],
             "talent_quality_factor": str(item["talent_quality_factor"]),
@@ -500,6 +527,8 @@ def compute_team_building_cluster(
         calc_materials.append(
             {
                 "obj_src_id": item["obj_src_id"],
+                "emp_obj_id": item.get("emp_obj_id"),
+                "obj_id": item.get("obj_id"),
                 "obj_key": item["obj_key"],
                 "obj_name": item["obj_name"],
                 "side": "positive",
@@ -518,11 +547,16 @@ def compute_team_building_cluster(
         )
 
     if positive_object_scores:
-        quality_raw = math.sqrt(sum(float(score) ** 2 for score in positive_object_scores.values()))
-        team_quality_signal = quant(Decimal(str(quality_raw)))
+        positive_quality_signal = signed_side_signal([score for score in positive_object_scores.values() if score > 0])
+        negative_quality_signal = signed_side_signal([score for score in positive_object_scores.values() if score < 0])
+        team_quality_signal = quant(positive_quality_signal - negative_quality_signal)
     else:
+        positive_quality_signal = Decimal("0.000")
+        negative_quality_signal = Decimal("0.000")
         team_quality_signal = Decimal("0.000")
-    positive_signal = quant(team_quality_signal * complementarity_value * stability_value)
+    team_effect_signal = quant(team_quality_signal * complementarity_value * stability_value)
+    positive_signal = max(team_effect_signal, Decimal("0.000"))
+    team_negative_signal = abs(min(team_effect_signal, Decimal("0.000")))
 
     negative_grouped: dict[str, list[Decimal]] = defaultdict(list)
     for material in negative_materials:
@@ -534,7 +568,8 @@ def compute_team_building_cluster(
     if not isinstance(coverage_value, dict):
         raise I5BFactorRecalculatorError(f"{path}.coverage: expected object")
     negative_coverage = decimal_value(coverage_value.get("negative", "1.0"), path=f"{path}.coverage.negative")
-    negative_signal = side_signal(list(negative_object_scores.values()), negative_coverage)
+    explicit_negative_signal = side_signal(list(negative_object_scores.values()), negative_coverage)
+    negative_signal = quant(team_negative_signal + explicit_negative_signal)
 
     explicit_material_ids = optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids")
     scored_material_ids = tuple(
@@ -546,10 +581,15 @@ def compute_team_building_cluster(
     detail = {
         "item_code": item_code,
         "formula_code": formula_code,
-        "team_formula": "team_quality_signal * role_complementarity_factor * long_term_stability_factor",
+        "team_formula": "(sqrt(sum(positive_weighted_i^2)) - sqrt(sum(abs(negative_weighted_i)^2))) * role_complementarity_factor * long_term_stability_factor",
         "materials": calc_materials,
         "team_quality_components": team_quality_components,
+        "positive_quality_signal": str(positive_quality_signal),
+        "negative_quality_signal": str(negative_quality_signal),
         "team_quality_signal": str(team_quality_signal),
+        "team_effect_signal": str(team_effect_signal),
+        "team_negative_signal": str(team_negative_signal),
+        "explicit_negative_signal": str(explicit_negative_signal),
         "team_factors": {
             "factor_values": {
                 "role_complementarity_factor": str(complementarity_value),
@@ -683,6 +723,93 @@ def cluster_profile_from_log_row(row: dict[str, Any], *, path: str) -> dict[str,
     return profile
 
 
+def _team_building_obj_src_id(row: dict[str, Any]) -> int | None:
+    obj_srcs = row.get("i5b_obj_srcs")
+    if not isinstance(obj_srcs, list):
+        return None
+    for obj_src in obj_srcs:
+        if not isinstance(obj_src, dict):
+            continue
+        if obj_src.get("rule_code") != TEAM_BUILDING_RULE_CODE:
+            continue
+        obj_src_id = obj_src.get("obj_src_id")
+        if isinstance(obj_src_id, int):
+            return obj_src_id
+    return None
+
+
+def team_building_materials_from_emp_objs(
+    *,
+    dsn: str,
+    item_code: str,
+    emperors: tuple[str, ...],
+) -> dict[str, list[dict[str, Any]]]:
+    rows_by_emperor = fetch_emp_object_rows(
+        dsn=dsn,
+        item_code=item_code,
+        rule_code=TEAM_BUILDING_RULE_CODE,
+        emperors=emperors,
+        obj_types=("person",),
+        require_attrs=("talent_quality",),
+    )
+    materials_by_emperor: dict[str, list[dict[str, Any]]] = {}
+    for emperor, rows in rows_by_emperor.items():
+        materials: list[dict[str, Any]] = []
+        for row in rows:
+            talent_quality = attr_value(list(row.get("attrs") or []), "talent_quality")
+            if not talent_quality:
+                continue
+            material: dict[str, Any] = {
+                "obj_src_id": _team_building_obj_src_id(row),
+                "emp_obj_id": row.get("emp_obj_id"),
+                "obj_id": row.get("obj_id"),
+                "obj_name": row.get("obj_name"),
+                "direction": "positive",
+                "factors": {
+                    "talent_quality_factor": {
+                        "label": talent_quality,
+                    }
+                },
+            }
+            if material["obj_src_id"] is None:
+                material.pop("obj_src_id")
+            materials.append(material)
+        materials_by_emperor[emperor] = materials
+    return materials_by_emperor
+
+
+def apply_team_building_emp_obj_materials(
+    profiles: list[dict[str, Any]],
+    *,
+    dsn: str,
+    item_code: str,
+) -> None:
+    emperors = tuple(
+        dict.fromkeys(
+            profile["emperor"]
+            for profile in profiles
+            if profile.get("rule_code") == TEAM_BUILDING_RULE_CODE and isinstance(profile.get("emperor"), str)
+        )
+    )
+    if not emperors:
+        return
+    materials_by_emperor = team_building_materials_from_emp_objs(
+        dsn=dsn,
+        item_code=item_code,
+        emperors=emperors,
+    )
+    for profile in profiles:
+        if profile.get("rule_code") != TEAM_BUILDING_RULE_CODE:
+            continue
+        materials = materials_by_emperor.get(str(profile.get("emperor")), [])
+        if not materials:
+            raise I5BFactorRecalculatorError(
+                f"{profile.get('emperor')}/{TEAM_BUILDING_RULE_CODE}: no emp_objs with talent_quality found"
+            )
+        profile["materials"] = materials
+        profile["calc_note"] = "team_building_materials_from_emp_objs"
+
+
 def load_profile_from_log(
     path: Path,
     *,
@@ -746,6 +873,11 @@ def load_profile_from_details(
         cluster_profile_from_log_row(row, path=f"evd_cluster_calc_details:{index}")
         for index, row in enumerate(latest.values())
     ]
+    apply_team_building_emp_obj_materials(
+        profiles,
+        dsn=dsn,
+        item_code=item_code,
+    )
     raw = {
         "item_code": item_code,
         "formula_code": formula_code,
@@ -850,6 +982,7 @@ def main(argv: list[str] | None = None) -> int:
         item_code, formula_code, clusters = load_profile(args.input, factor_docs=factor_docs)
     payload = clusters_payload(item_code, formula_code, clusters)
     summary = summarize_from_clusters(clusters)
+    factor_audit_summary: dict[str, Any] | None = None
 
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -859,6 +992,21 @@ def main(argv: list[str] | None = None) -> int:
     if args.write_clusters or args.write_results:
         if dsn is None:
             dsn = resolve_dsn(args.dsn_env)
+        try:
+            factor_audit = build_audit_report_from_inputs(
+                dsn=dsn,
+                item_code=item_code,
+                cluster_formula=formula_code,
+                clusters=clusters,
+            )
+            assert_no_factor_consistency_errors(factor_audit)
+        except I5BFactorConsistencyAuditError as exc:
+            parser.error(str(exc))
+        factor_audit_summary = {
+            "ok": factor_audit["ok"],
+            "error_count": factor_audit["error_count"],
+            "warning_count": factor_audit["warning_count"],
+        }
         if args.write_clusters:
             write_report = upsert_clusters(
                 dsn=dsn,
@@ -885,6 +1033,7 @@ def main(argv: list[str] | None = None) -> int:
                 "cluster_formula": formula_code,
                 "cluster_count": len(clusters),
                 "summary": summary,
+                "factor_consistency_audit": factor_audit_summary,
                 "write_report": write_report,
             },
             ensure_ascii=False,

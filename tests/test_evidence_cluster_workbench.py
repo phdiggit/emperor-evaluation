@@ -166,6 +166,33 @@ def test_validate_material_coverage_rejects_missing_calc_detail_materials() -> N
         )
 
 
+def test_validate_material_coverage_allows_team_building_emp_obj_materials() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="team_building",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_detail={
+            "materials": [
+                {"obj_id": 100, "emp_obj_id": 200, "obj_name": "甲"},
+                {"obj_id": 101, "emp_obj_id": 201, "obj_name": "乙"},
+            ]
+        },
+    )
+
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+
 def test_validate_material_coverage_allows_neutral_outside_calc_detail() -> None:
     tool = load_tool()
     cluster = tool.ClusterInput(

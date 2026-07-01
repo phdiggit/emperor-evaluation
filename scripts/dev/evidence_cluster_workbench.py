@@ -324,6 +324,9 @@ def _validate_material_coverage(
             extra=extra,
         )
 
+    if cluster.rule_code == "team_building":
+        return
+
     detail_ids = _calc_detail_material_ids(cluster)
     if detail_ids is None:
         return

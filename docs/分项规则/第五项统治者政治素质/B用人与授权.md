@@ -285,21 +285,28 @@ positive_signal =
   * long_term_stability_factor
 
 team_quality_signal =
-  sqrt(sum((talent_quality_factor_i * rank_decay_i)^2))
+  sqrt(sum(positive_weighted_i^2))
+  - sqrt(sum(abs(negative_weighted_i)^2))
+
+weighted_i = talent_quality_factor_i * rank_decay_i
 ```
 
-`team_quality_signal` 只统计具体人才对象；群体、机制或事件对象不作为单个人才进入排序。人才层级必须来自 `obj_attrs.talent_quality`，不得在证据簇计算时临场补写。
+`team_quality_signal` 从该皇帝 I5B 对象池的具体人才对象计算。候选来自 `emp_objs` 中的皇帝关联人物对象，并要求已有 `obj_attrs.talent_quality`；不再要求对象另有 `team_building` 专属 `obj_srcs`。群体、机制或事件对象不作为单个人才进入排序。人才层级必须来自 `obj_attrs.talent_quality`，不得在证据簇计算时临场补写。
 
 `talent_quality_factor`：
 
 | 值 | 口径 |
 | --- | --- |
-| `1.70` | 历史级人才。 |
+| `2.00` | 历史级人才。 |
 | `1.35` | 顶级人才。 |
 | `1.00` | 重要人才。 |
+| `0.55` | 可用人才。 |
 | `0.55` | 一般人才。 |
+| `-0.55` | 佞臣。 |
+| `-1.35` | 大佞臣。 |
+| `-2.00` | 历史级佞臣。 |
 
-`rank_decay` 按 `talent_quality_factor` 从高到低排序后自动应用：
+`rank_decay` 按 `abs(talent_quality_factor)` 从高到低排序后自动应用：
 
 | 排序 | 衰减 |
 | --- | --- |
@@ -423,8 +430,8 @@ negative_material_score =
 | `0.6` | 象征性信用撤销或轻处分。 |
 | `1.0` | 贬黜、压制、表达入口受损。 |
 | `1.5` | 处死、重罚或严重人才安全事件。 |
-| `2.5` | 大规模牵连、系统清洗或长期人才生态破坏。 |
-| `3.0` | 针对核心能臣、储备或继承人才、功臣集团、表达对象造成灾难级安全破坏，并有具体连坐或处置对象。 |
+| `3.0` | 大规模牵连、系统清洗或长期人才生态破坏。 |
+| `4.0` | 针对核心能臣、储备或继承人才、功臣集团、表达对象造成灾难级安全破坏，并有具体连坐或处置对象。 |
 
 `spillover_factor`：
 
@@ -433,7 +440,7 @@ negative_material_score =
 | `0.7` | 个案事实清楚且主要属于政权安全、司法或相邻项。 |
 | `1.0` | 有争议、反转、追悔或表达安全剩余影响。 |
 | `1.5` | 形成寒蝉、授权信用破裂或人才安全预期下降。 |
-| `2.5` | 系统性外溢到人才生态，或造成跨群体连坐、表达压制预期。 |
+| `4.0` | 系统性外溢到人才生态，或造成跨群体连坐、表达压制预期。 |
 
 `certainty_factor` 只表示事实链确定度，不表示处置是否有争议。事实越确定，负向绝对值越高；事实链不完整则降权。处置正当性争议、追悔、反转或表达安全剩余影响，放在 `spillover_factor` 或 `context_factor` 中处理。
 
@@ -564,7 +571,7 @@ positive_response(signal) =
   5.5 * (1 - exp(-signal / 3.5))
 
 negative_response(signal) =
-  7.0 * (1 - exp(-signal / 4.0))
+  9.0 * (1 - exp(-signal / 5.0))
 
 rule_net_effect(rule) =
   positive_response(positive_signal(rule))
@@ -573,16 +580,16 @@ rule_net_effect(rule) =
 
 `evd_clusters` 保存的是未封顶原始信号，不再把规则材料提前框死在 `[-4, +4]` 的旧强度层级。定分层只处理边际递减：原始信号越厚，增量越小；正负两侧必须先分别响应后再相减。
 
-v6 使用非对称响应。正向响应较 v5 放宽，避免高密度正证过早抹平顶级优势；负向响应上限更高、收敛更慢，使巫蛊、岳飞案等由具体对象拆出的严重负证能在本规则内部形成足够扣分，不再另设规则表严重权重或严重负向补丁。
+v8 使用非对称响应，并调整规则权重。正向响应较 v5 放宽，避免高密度正证过早抹平顶级优势；负向响应上限更高、收敛更慢，使巫蛊、岳飞案等由具体对象拆出的严重负证能在本规则内部形成足够扣分，不再另设规则表严重权重或严重负向补丁。任人信任、合理授权与具体任用结果存在一定交叉，v7 从二者各匀出部分权重给建立团队，提高团队质量聚合对总分的解释力；v8 进一步降低负向响应的收敛程度，将 `negative_response` 调整为 `9.0 * (1 - exp(-signal / 5.0))`。
 
 基础画像：
 
 ```text
 base_core =
   0.19 * talent_discovery.rule_net_effect
-+ 0.22 * appointment_trust.rule_net_effect
-+ 0.20 * delegation.rule_net_effect
-+ 0.15 * team_building.rule_net_effect
++ 0.19 * appointment_trust.rule_net_effect
++ 0.17 * delegation.rule_net_effect
++ 0.21 * team_building.rule_net_effect
 + 0.18 * tolerate_talent.rule_net_effect
 + 0.06 * anti_nepotism.rule_net_effect
 ```

@@ -175,6 +175,25 @@ python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.js
 python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.json --write-clusters --write-results
 ```
 
+`i5b_factor_recalculator.py --write-clusters` 或 `--write-results` 写库前会自动运行因子一致性 hard-error 审计。典型拦截对象是：`disposition_severity >= 2.5`，但材料注释同时写明“不等同于系统清洗”“象征性信用撤销”“轻处分”等低严重度边界。只读审计可单独运行：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_factor_consistency_audit.py `
+  --cluster-formula evidence_cluster_signal_v3 `
+  --fail-on-error
+```
+
+写回受影响证据簇后，还应按目标 rule 从 `emp_objs` 全量扫对象覆盖。普通 rule 用于发现对象已入库但漏挂目标 `rule_code`；`team_building` 用于检查自动团队候选是否已进入计算明细：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_rule_object_coverage_audit.py `
+  --emperor 李世民 `
+  --rule-code team_building `
+  --fail-on-gap
+```
+
 写回受影响证据簇后，必须复跑发现人才覆盖审计。已回源但史料不支撑进入 `talent_discovery` 的对象，只能通过 `--accepted-missing 皇帝:对象` 显式标注，不能静默跳过：
 
 ```powershell
@@ -232,6 +251,7 @@ python scripts/dev/i5b_factor_recalculator.py `
 ```
 
 该路径适用于“只改规则内部乘数因子”的重算。若新增或删除史料对象，必须先补对象链和受影响证据簇，再用明细表重放做全量一致性检查。
+写回路径会先执行因子一致性 hard-error 审计；若审计失败，应回到对应 `obj_srcs.note` 和 `factor_refs` 修正材料编码，不得通过改总分或结果层公式绕过。
 
 ## 6. 常见重算场景
 
@@ -240,7 +260,8 @@ python scripts/dev/i5b_factor_recalculator.py `
 1. 修改分项规则文档中的因子表。
 2. 运行 `i5b_factor_recalculator.py --from-details --dry-run`。
 3. 检查结果。
-4. 运行 `--write-clusters --write-results` 写回。
+4. 运行 `i5b_factor_consistency_audit.py --fail-on-error` 检查因子和材料注释是否自洽。
+5. 运行 `--write-clusters --write-results` 写回；写库前会再次自动执行 hard-error 审计。
 
 新增史料或对象：
 
@@ -249,8 +270,10 @@ python scripts/dev/i5b_factor_recalculator.py `
 3. 用 `object_pool_importer.py` dry-run 和导入。
 4. 为受影响 rule 更新 factor profile。
 5. 写回受影响 `evd_clusters`。
-6. 运行 `i5b_talent_discovery_audit.py --fail-on-gap`；确有已回源不支撑入 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
-7. 从明细表重放，确认全量结果一致。
+6. 运行 `i5b_rule_object_coverage_audit.py --rule-code <rule_code> --fail-on-gap`；普通 rule 若有已回源但不支撑入该 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
+7. 若受影响 rule 是 `talent_discovery`，运行 `i5b_talent_discovery_audit.py --fail-on-gap`；确有已回源不支撑入 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
+8. 运行 `i5b_factor_consistency_audit.py --fail-on-error`，确认高严重度等因子没有和材料注释冲突。
+9. 从明细表重放，确认全量结果一致。
 
 改结果层公式：
 
@@ -277,6 +300,8 @@ python scripts/dev/i5b_factor_recalculator.py `
 
 缺口报告不是正式证据，但应作为下一轮补源清单。
 其中 `talent_discovery` 是硬阀门：新皇帝写回证据簇后必须跑 `i5b_talent_discovery_audit.py --fail-on-gap`。如果缺口属于“已检索且已回源，但当前史料不支撑进入发现人才”，应使用 `--accepted-missing` 留下可见例外；其他缺口必须回到检索、回源或对象链编码补齐。
+通用 rule 对象覆盖也是硬阀门：普通 rule 检查某皇帝已有 `emp_objs` 的对象是否缺少目标 `rule_code` 的 `obj_srcs`；`team_building` 检查 `emp_objs` 中带 `talent_quality` 的人物对象是否进入 `team_quality_components`。该审计不从其他 rule 反推候选，而是直接扫描 `emp_objs` 全量对象。
+因子一致性是另一道硬阀门：新写入或重放证据簇后必须跑 `i5b_factor_consistency_audit.py --fail-on-error`。如果 high-severity 因子被审计拦截，应修正具体材料因子或材料注释；不得把材料边界写成“非系统清洗”，同时给出系统清洗档位。
 
 ## 8. 禁止做法
 
@@ -288,6 +313,7 @@ python scripts/dev/i5b_factor_recalculator.py `
 - 不得为无材料 rule 生成空证据簇。
 - 不得在 `raw_objs.note` 写方向、规则、评分或档位。
 - 不得只改结果层公式处理某一事件；应回到对象、史料、证据簇和规则内部因子。
+- 不得在材料注释已声明低严重度边界时，给出高严重度因子；因子取值必须能被该条 `obj_srcs.note` 中的具体事实支撑。
 
 ## 9. 最小验证
 
@@ -295,8 +321,8 @@ python scripts/dev/i5b_factor_recalculator.py `
 
 ```powershell
 python -m pytest tests/test_source_excerpt_pool.py tests/test_object_pool_importer.py -q
-python -m pytest tests/test_i5b_factor_recalculator.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
-python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/build/i5b_item_result_calculator.py
+python -m pytest tests/test_i5b_factor_recalculator.py tests/test_i5b_factor_consistency_audit.py tests/test_i5b_rule_object_coverage_audit.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
+python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_rule_object_coverage_audit.py scripts/build/i5b_item_result_calculator.py
 ```
 
 涉及 `scripts/**` 或 `docs/**` 的 PR，还应按根目录和对应目录 `AGENTS.md` 运行适用的治理检查。

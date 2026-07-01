@@ -19,7 +19,7 @@ def load_tool():
     return module
 
 
-def test_calculate_formula_uses_asymmetric_v6_responses() -> None:
+def test_calculate_formula_uses_asymmetric_v8_responses() -> None:
     tool = load_tool()
     signals = {
         "tolerate_talent": tool.RuleSignals(
@@ -32,10 +32,10 @@ def test_calculate_formula_uses_asymmetric_v6_responses() -> None:
     result = tool.calculate_formula(signals=signals)
 
     assert result["positive_response_cap"] == "5.5"
-    assert result["negative_response_cap"] == "7.0"
+    assert result["negative_response_cap"] == "9.0"
     assert result["rules"]["tolerate_talent"]["positive_effect"] == "1.706"
-    assert result["rules"]["tolerate_talent"]["negative_effect"] == "4.446"
-    assert result["rules"]["tolerate_talent"]["rule_net_effect"] == "-2.740"
+    assert result["rules"]["tolerate_talent"]["negative_effect"] == "4.983"
+    assert result["rules"]["tolerate_talent"]["rule_net_effect"] == "-3.277"
     assert result["rules"]["tolerate_talent"]["rule_weight"] == "0.180"
     assert "penalty_rate" not in result
     assert "severe_negative_excess" not in result
@@ -53,8 +53,8 @@ def test_negative_response_can_exceed_old_four_point_cap() -> None:
 
     result = tool.calculate_formula(signals=signals)
 
-    assert result["rules"]["appointment_trust"]["negative_effect"] == "6.053"
-    assert result["rules"]["appointment_trust"]["rule_net_effect"] == "-6.053"
+    assert result["rules"]["appointment_trust"]["negative_effect"] == "7.183"
+    assert result["rules"]["appointment_trust"]["rule_net_effect"] == "-7.183"
 
 
 def test_calculate_formula_marks_missing_rule_as_no_material() -> None:

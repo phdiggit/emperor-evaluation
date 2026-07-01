@@ -202,6 +202,29 @@ def test_factor_catalog_accepts_label_then_factor_table(tmp_path: Path) -> None:
     ) == tool.Decimal("2.5")
 
 
+def test_factor_lookup_prefers_exact_label_over_substring(tmp_path: Path) -> None:
+    tool = load_tool()
+    doc = tmp_path / "factors.md"
+    doc.write_text(
+        """# factors
+
+`talent_quality_factor`：
+| 值 | 口径 |
+| --- | --- |
+| `-0.55` | 佞臣。 |
+| `-1.35` | 大佞臣。 |
+| `-1.70` | 历史级佞臣。 |
+""",
+        encoding="utf-8",
+    )
+
+    catalog = tool.parse_factor_catalog((doc,))
+
+    assert tool.lookup_factor(catalog, "talent_quality_factor", "佞臣") == tool.Decimal("-0.55")
+    assert tool.lookup_factor(catalog, "talent_quality_factor", "大佞臣") == tool.Decimal("-1.35")
+    assert tool.lookup_factor(catalog, "talent_quality_factor", "历史级佞臣") == tool.Decimal("-1.70")
+
+
 def test_load_profile_from_log_replays_factor_refs_not_stale_values(tmp_path: Path) -> None:
     tool = load_tool()
     doc = tmp_path / "factors.md"
@@ -401,6 +424,88 @@ def test_team_building_uses_team_quality_aggregate(tmp_path: Path) -> None:
     assert detail["scored_material_ids"] == [4, 1, 2, 3]
     excluded = [item for item in detail["materials"] if item["obj_name"] == "群体对象"][0]
     assert excluded["team_quality_included"] is False
+
+
+def test_team_building_preserves_negative_talent_quality(tmp_path: Path) -> None:
+    tool = load_tool()
+    doc = tmp_path / "factors.md"
+    profile = tmp_path / "profile.json"
+    doc.write_text(
+        """# factors
+
+`talent_quality_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.70` | 历史级人才。 |
+| `1.00` | 重要人才。 |
+| `-1.70` | 历史级佞臣。 |
+
+`role_complementarity_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 常规互补。 |
+
+`long_term_stability_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 稳定团队。 |
+""",
+        encoding="utf-8",
+    )
+    profile.write_text(
+        json.dumps(
+            {
+                "clusters": [
+                    {
+                        "emperor": "测试帝",
+                        "rule_code": "team_building",
+                        "note": "测试团队",
+                        "team_factors": {
+                            "role_complementarity_factor": {"label": "常规互补。"},
+                            "long_term_stability_factor": {"label": "稳定团队。"},
+                        },
+                        "materials": [
+                            {
+                                "obj_src_id": 1,
+                                "obj_id": 10,
+                                "obj_name": "甲",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "历史级人才。"}},
+                            },
+                            {
+                                "obj_src_id": 2,
+                                "obj_id": 20,
+                                "obj_name": "乙",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "历史级佞臣。"}},
+                            },
+                            {
+                                "obj_src_id": 3,
+                                "obj_id": 30,
+                                "obj_name": "丙",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "重要人才。"}},
+                            },
+                        ],
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    _, _, clusters = tool.load_profile(profile, factor_docs=(doc,))
+
+    detail = clusters[0].calc_detail
+    assert detail["positive_quality_signal"] == "1.727"
+    assert detail["negative_quality_signal"] == "1.700"
+    assert detail["team_quality_signal"] == "0.027"
+    assert clusters[0].positive_signal == tool.Decimal("0.027")
+    assert clusters[0].negative_signal == tool.Decimal("0.000")
 
 
 def test_write_clusters_requires_full_material_coverage_by_default(monkeypatch, tmp_path: Path) -> None:
