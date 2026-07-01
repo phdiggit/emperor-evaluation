@@ -14,12 +14,17 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.build.i5b_item_result_calculator import (  # noqa: E402
+    DEFAULT_CLUSTER_FORMULA,
     DEFAULT_FORMULA_CODE,
-    DEFAULT_LOG_PATH as DEFAULT_RESULT_LOG_PATH,
+    DEFAULT_ITEM_CODE,
+    fetch_item_result_calc_detail_rows,
 )
-from scripts.dev.evidence_cluster_workbench import DEFAULT_LOG_PATH as DEFAULT_CLUSTER_LOG_PATH  # noqa: E402
-from scripts.dev.i5b_calc_logs import latest_cluster_log_rows, latest_item_result_log_rows, read_jsonl  # noqa: E402
-from scripts.dev.i5b_factor_recalculator import DEFAULT_CLUSTER_FORMULA  # noqa: E402
+from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
+    EvidenceClusterWorkbenchError,
+    fetch_cluster_calc_detail_rows,
+    resolve_dsn,
+)
+from scripts.dev.i5b_calc_logs import read_jsonl  # noqa: E402
 
 
 DEFAULT_PROFILE = ROOT / "data" / "query_profile_batches" / "i5b_layered_retrieval_profiles_20260630.jsonl"
@@ -111,39 +116,63 @@ def current_talent_names(cluster_row: dict[str, Any] | None) -> tuple[str, ...]:
     return tuple(dict.fromkeys(names))
 
 
-def default_emperors(result_log: Path, *, result_formula: str) -> tuple[str, ...]:
-    rows = latest_item_result_log_rows(result_log, formula_code=result_formula)
+def default_emperors(
+    *,
+    dsn: str,
+    item_code: str,
+    cluster_formula: str,
+    result_formula: str,
+) -> tuple[str, ...]:
+    rows = fetch_item_result_calc_detail_rows(
+        dsn=dsn,
+        item_code=item_code,
+        cluster_formula=cluster_formula,
+        formula_code=result_formula,
+    )
     return tuple(rows)
 
 
 def build_audit_report(
     *,
     profile_path: Path = DEFAULT_PROFILE,
-    cluster_log: Path = DEFAULT_CLUSTER_LOG_PATH,
-    result_log: Path = DEFAULT_RESULT_LOG_PATH,
+    dsn: str | None = None,
+    item_code: str = DEFAULT_ITEM_CODE,
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
     result_formula: str = DEFAULT_FORMULA_CODE,
     emperors: tuple[str, ...] = (),
     accepted_missing: frozenset[tuple[str, str]] = frozenset(),
+    cluster_rows: dict[tuple[str, str], dict[str, Any]] | None = None,
+    result_rows: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     profiles = load_query_profiles(profile_path)
-    targets = emperors or default_emperors(result_log, result_formula=result_formula)
+    if result_rows is None or cluster_rows is None:
+        if dsn is None:
+            raise I5BTalentDiscoveryAuditError("dsn is required when rows are not supplied")
+        result_rows = fetch_item_result_calc_detail_rows(
+            dsn=dsn,
+            item_code=item_code,
+            cluster_formula=cluster_formula,
+            formula_code=result_formula,
+            emperors=emperors,
+        )
+        targets = emperors or tuple(result_rows)
+        cluster_rows = fetch_cluster_calc_detail_rows(
+            dsn=dsn,
+            item_code=item_code,
+            formula_code=cluster_formula,
+            emperors=targets,
+            rule_codes=(TALENT_RULE_CODE,),
+        )
+    else:
+        targets = emperors or tuple(result_rows)
     if not targets:
-        raise I5BTalentDiscoveryAuditError("no emperors found; pass --emperor or check result log")
-
-    clusters = latest_cluster_log_rows(
-        cluster_log,
-        formula_code=cluster_formula,
-        emperors=targets,
-        rule_codes=(TALENT_RULE_CODE,),
-        require_calc_detail=True,
-    )
+        raise I5BTalentDiscoveryAuditError("no emperors found; pass --emperor or check result detail table")
 
     rows: list[dict[str, Any]] = []
     for emperor in targets:
         profile = profiles.get(emperor)
         expected = expected_talent_names(profile or {})
-        current = current_talent_names(clusters.get((emperor, TALENT_RULE_CODE)))
+        current = current_talent_names(cluster_rows.get((emperor, TALENT_RULE_CODE)))
         raw_missing = tuple(name for name in expected if name not in current)
         accepted = tuple(name for name in raw_missing if (emperor, name) in accepted_missing)
         missing = tuple(name for name in raw_missing if (emperor, name) not in accepted_missing)
@@ -166,8 +195,8 @@ def build_audit_report(
     return {
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "profile_path": str(profile_path),
-        "cluster_log": str(cluster_log),
-        "result_log": str(result_log),
+        "source": "postgres",
+        "item_code": item_code,
         "cluster_formula": cluster_formula,
         "result_formula": result_formula,
         "rule_code": TALENT_RULE_CODE,
@@ -213,9 +242,9 @@ def write_report(path: Path, report: dict[str, Any], *, output_format: str) -> N
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Audit I5B talent_discovery coverage against query profile expectations.")
+    parser.add_argument("--dsn-env", default="EMPEROR_EVAL_PG_DSN", help="Environment variable name for PostgreSQL DSN.")
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="Query profile JSONL path.")
-    parser.add_argument("--cluster-log", type=Path, default=DEFAULT_CLUSTER_LOG_PATH, help="Evidence cluster calc JSONL log.")
-    parser.add_argument("--result-log", type=Path, default=DEFAULT_RESULT_LOG_PATH, help="I5B item result calc JSONL log.")
+    parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code.")
     parser.add_argument("--result-formula", default=DEFAULT_FORMULA_CODE, help="Item result formula_code.")
     parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
@@ -238,14 +267,14 @@ def main(argv: list[str] | None = None) -> int:
     try:
         report = build_audit_report(
             profile_path=args.profile,
-            cluster_log=args.cluster_log,
-            result_log=args.result_log,
+            dsn=resolve_dsn(args.dsn_env),
+            item_code=args.item_code,
             cluster_formula=args.cluster_formula,
             result_formula=args.result_formula,
             emperors=tuple(args.emperor or ()),
             accepted_missing=parse_accepted_missing(tuple(args.accepted_missing or ())),
         )
-    except I5BTalentDiscoveryAuditError as exc:
+    except (EvidenceClusterWorkbenchError, I5BTalentDiscoveryAuditError) as exc:
         parser.error(str(exc))
 
     if args.output:

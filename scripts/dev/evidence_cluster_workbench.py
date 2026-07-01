@@ -217,6 +217,75 @@ def _calc_detail_material_ids(cluster: ClusterInput) -> tuple[int, ...] | None:
     return tuple(ids)
 
 
+def _int_tuple_from_detail(detail: dict[str, Any] | None, key: str) -> tuple[int, ...]:
+    if not isinstance(detail, dict):
+        return ()
+    value = detail.get(key)
+    if not isinstance(value, list):
+        return ()
+    ids: list[int] = []
+    for item in value:
+        if isinstance(item, int):
+            ids.append(item)
+    return tuple(ids)
+
+
+def _cluster_detail_arrays(cluster: ClusterInput) -> tuple[tuple[int, ...], tuple[int, ...], tuple[int, ...]]:
+    detail = cluster.calc_detail if isinstance(cluster.calc_detail, dict) else None
+    covered = _int_tuple_from_detail(detail, "covered_material_ids") or cluster.material_ids
+    scored = _int_tuple_from_detail(detail, "scored_material_ids") or (_calc_detail_material_ids(cluster) or ())
+    supporting = _int_tuple_from_detail(detail, "supporting_material_ids")
+    if not supporting:
+        supporting = tuple(material_id for material_id in covered if material_id not in set(scored))
+    return covered, scored, supporting
+
+
+def _jsonb(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True)
+
+
+def _upsert_cluster_calc_detail(
+    cur: psycopg.Cursor,
+    *,
+    cluster_id: int,
+    item_code: str,
+    cluster: ClusterInput,
+) -> None:
+    covered_ids, scored_ids, supporting_ids = _cluster_detail_arrays(cluster)
+    calc_detail = cluster.calc_detail or {}
+    cur.execute(
+        """
+        insert into evd_cluster_calc_details (
+            cluster_id, item_code, formula_code, calc_note,
+            material_ids, covered_material_ids, scored_material_ids,
+            supporting_material_ids, calc_detail
+        )
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb)
+        on conflict (cluster_id) do update set
+            item_code = excluded.item_code,
+            formula_code = excluded.formula_code,
+            calc_note = excluded.calc_note,
+            material_ids = excluded.material_ids,
+            covered_material_ids = excluded.covered_material_ids,
+            scored_material_ids = excluded.scored_material_ids,
+            supporting_material_ids = excluded.supporting_material_ids,
+            calc_detail = excluded.calc_detail,
+            updated_at = now()
+        """,
+        (
+            cluster_id,
+            item_code,
+            cluster.formula_code,
+            cluster.calc_note,
+            list(cluster.material_ids),
+            list(covered_ids),
+            list(scored_ids),
+            list(supporting_ids),
+            _jsonb(calc_detail),
+        ),
+    )
+
+
 def _raise_material_coverage_error(
     *,
     cluster: ClusterInput,
@@ -276,7 +345,7 @@ def upsert_clusters(
     item_code: str,
     clusters: tuple[ClusterInput, ...],
     dry_run: bool = False,
-    log_path: Path = DEFAULT_LOG_PATH,
+    log_path: Path | None = None,
     require_full_material_coverage: bool = True,
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
@@ -326,6 +395,12 @@ def upsert_clusters(
                     ),
                 )
                 cluster_id, net_signal, signal_intensity = cur.fetchone()
+                _upsert_cluster_calc_detail(
+                    cur,
+                    cluster_id=int(cluster_id),
+                    item_code=item_code,
+                    cluster=cluster,
+                )
                 rows.append(
                     {
                         "id": int(cluster_id),
@@ -349,13 +424,15 @@ def upsert_clusters(
         else:
             conn.commit()
 
-    if not dry_run:
-        append_calc_log(log_path, rows)
-
     return {"dry_run": dry_run, "item_code": item_code, "clusters": rows}
 
 
 def append_calc_log(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Append legacy cluster calculation logs.
+
+    Current I5B tooling writes calculation details to PostgreSQL tables instead
+    of JSONL logs. This helper remains for historical log fixtures only.
+    """
     if not rows:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -380,6 +457,74 @@ def append_calc_log(path: Path, rows: list[dict[str, Any]]) -> None:
             if row.get("calc_detail") is not None:
                 payload["calc_detail"] = row["calc_detail"]
             handle.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def _filters(values: tuple[str, ...]) -> set[str]:
+    return {value for value in values if value}
+
+
+def fetch_cluster_calc_detail_rows(
+    *,
+    dsn: str,
+    item_code: str,
+    formula_code: str,
+    emperors: tuple[str, ...] = (),
+    rule_codes: tuple[str, ...] = (),
+) -> dict[tuple[str, str], dict[str, Any]]:
+    emperor_filter = _filters(emperors)
+    rule_filter = _filters(rule_codes)
+    clauses = ["i.item_code = %s", "c.formula_code = %s", "d.formula_code = %s"]
+    params: list[Any] = [item_code, formula_code, formula_code]
+    if emperor_filter:
+        clauses.append("e.name = any(%s)")
+        params.append(sorted(emperor_filter))
+    if rule_filter:
+        clauses.append("r.rule_code = any(%s)")
+        params.append(sorted(rule_filter))
+    where_sql = " and ".join(clauses)
+
+    with psycopg.connect(dsn) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                select
+                    c.id as cluster_id,
+                    e.name as emperor,
+                    r.rule_code,
+                    c.positive_signal,
+                    c.negative_signal,
+                    c.net_signal,
+                    c.signal_intensity,
+                    c.cluster_direction,
+                    c.formula_code,
+                    c.note,
+                    d.material_ids,
+                    d.calc_note,
+                    d.calc_detail
+                  from evd_clusters c
+                  join evd_cluster_calc_details d on d.cluster_id = c.id
+                  join emps e on e.id = c.emp_id
+                  join eval_items i on i.id = c.item_id
+                  join eval_rules r on r.id = c.rule_id
+                 where {where_sql}
+                 order by e.name, r.rule_code
+                """,
+                tuple(params),
+            )
+            columns = [desc.name for desc in cur.description]
+            rows = [dict(zip(columns, row)) for row in cur.fetchall()]
+
+    latest: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in rows:
+        emperor = str(row["emperor"])
+        rule_code = str(row["rule_code"])
+        row["positive_signal"] = str(row["positive_signal"])
+        row["negative_signal"] = str(row["negative_signal"])
+        row["net_signal"] = str(row["net_signal"])
+        row["signal_intensity"] = str(row["signal_intensity"])
+        row["material_ids"] = list(row.get("material_ids") or [])
+        latest[(emperor, rule_code)] = row
+    return latest
 
 
 def fetch_materials(
@@ -516,8 +661,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     upsert = subparsers.add_parser("upsert", help="Upsert judged evidence cluster strengths.")
     upsert.add_argument("--input", type=Path, required=True, help="UTF-8 JSON cluster payload.")
-    upsert.add_argument("--log", type=Path, default=DEFAULT_LOG_PATH, help="JSONL calculation log path.")
-    upsert.add_argument("--dry-run", action="store_true", help="Rollback database writes and skip log append.")
+    upsert.add_argument("--log", type=Path, default=None, help="Deprecated; calculation details are stored in DB.")
+    upsert.add_argument("--dry-run", action="store_true", help="Rollback database writes.")
     upsert.add_argument(
         "--allow-partial-material-coverage",
         action="store_true",

@@ -1,6 +1,6 @@
 # I5B 数据链运行流程
 
-本文是第五项B“用人与授权”当前 PostgreSQL 数据链的执行手册。它说明从检索包到正式子项结果的运行步骤、关键表、日志和重算路径；评分语义仍以分项规则和证据规则文档为准。
+本文是第五项B“用人与授权”当前 PostgreSQL 数据链的执行手册。它说明从检索包到正式子项结果的运行步骤、关键表、计算明细表和重算路径；评分语义仍以分项规则和证据规则文档为准。
 
 ## 入口和边界
 
@@ -19,9 +19,8 @@ data/query_profile_batches/*.jsonl
 -> scripts/dev/source_excerpt_pool.py
 -> scripts/dev/object_pool_importer.py
 -> src_docs / raw_objs / emp_objs / obj_srcs / obj_attrs
--> evd_clusters
--> emp_item_results
--> logs/evidence_clusters/*.jsonl + logs/item_results/*.jsonl
+-> evd_clusters + evd_cluster_calc_details
+-> emp_item_results + emp_item_result_calc_details
 ```
 
 检索包、摘录池和临时 payload 都不是证据。只有回源、人工判断、完成相邻项切分并写入对象链的材料，才可进入证据簇。
@@ -36,7 +35,9 @@ data/query_profile_batches/*.jsonl
 - `obj_srcs`：对象-史源-规则链，必须同时写 `obj_id` 和 `emp_obj_id`。
 - `obj_attrs`：对象属性；`talent_quality` 必须有 `doc_id`，属性史源最好也出现在该对象 `obj_srcs`。
 - `evd_clusters`：证据簇，保存 `positive_signal`、`negative_signal`。
+- `evd_cluster_calc_details`：证据簇计算明细，保存材料因子、`factor_refs`、覆盖关系和对象侧聚合。
 - `emp_item_results`：I5B 子项结果，是公式输出，不是事实源。
+- `emp_item_result_calc_details`：定分计算明细，保存规则输入、响应函数参数、`base_core` 和最终定分过程。
 
 `obj_srcs.emp_obj_id -> emp_objs.id` 是防止跨皇帝串料的关键。生成证据簇时按具体皇帝对象链聚合，不只按 `raw_objs.id` 聚合。
 
@@ -183,7 +184,7 @@ python scripts/dev/i5b_talent_discovery_audit.py `
   --accepted-missing 刘邦:曹参
 ```
 
-证据簇日志必须保留 `calc_detail`，尤其是：
+证据簇计算明细写入 `evd_cluster_calc_details.calc_detail`，尤其是：
 
 - `materials[*].obj_src_id`
 - `materials[*].obj_key`
@@ -211,45 +212,33 @@ docs/分项规则/第五项统治者政治素质/B用人与授权.md
 scripts/build/i5b_item_result_calculator.py
 ```
 
-从完整证据簇日志重放并试算：
+从明细表重放并试算：
 
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/i5b_factor_recalculator.py `
-  --from-log logs/evidence_clusters/evidence_cluster_calc.jsonl `
+  --from-details `
   --dry-run
 ```
 
-从完整证据簇日志重放并写回：
+从明细表重放并写回：
 
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/i5b_factor_recalculator.py `
-  --from-log logs/evidence_clusters/evidence_cluster_calc.jsonl `
+  --from-details `
   --write-clusters `
   --write-results
 ```
 
-该路径适用于“只改规则内部乘数因子”的重算。若新增或删除史料对象，必须先补对象链和受影响证据簇，再用日志重放做全量一致性检查。
-
-结果日志：
-
-```text
-logs/item_results/i5b_item_results_calc.jsonl
-```
-
-证据簇日志：
-
-```text
-logs/evidence_clusters/evidence_cluster_calc.jsonl
-```
+该路径适用于“只改规则内部乘数因子”的重算。若新增或删除史料对象，必须先补对象链和受影响证据簇，再用明细表重放做全量一致性检查。
 
 ## 6. 常见重算场景
 
 只改规则内部乘数：
 
 1. 修改分项规则文档中的因子表。
-2. 运行 `i5b_factor_recalculator.py --from-log ... --dry-run`。
+2. 运行 `i5b_factor_recalculator.py --from-details --dry-run`。
 3. 检查结果。
 4. 运行 `--write-clusters --write-results` 写回。
 
@@ -261,14 +250,14 @@ logs/evidence_clusters/evidence_cluster_calc.jsonl
 4. 为受影响 rule 更新 factor profile。
 5. 写回受影响 `evd_clusters`。
 6. 运行 `i5b_talent_discovery_audit.py --fail-on-gap`；确有已回源不支撑入 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
-7. 从完整日志重放，确认全量结果一致。
+7. 从明细表重放，确认全量结果一致。
 
 改结果层公式：
 
 1. 更新分项规则文档和 `scripts/build/i5b_item_result_calculator.py`。
 2. 提升 `item_result_formula_i5b_*` 版本。
 3. 用现有 `evd_clusters` 重算 `emp_item_results`。
-4. 记录日志和验证命令。
+4. 更新 `emp_item_result_calc_details` 并记录验证命令。
 
 ## 7. 查漏检查
 

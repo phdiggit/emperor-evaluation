@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import importlib.util
-import json
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -78,37 +77,29 @@ def test_parse_cluster_payload_rejects_negative_signal() -> None:
         tool.parse_cluster_payload(raw)
 
 
-def test_append_calc_log_keeps_replay_fields(tmp_path: Path) -> None:
+def test_cluster_detail_arrays_split_covered_scored_and_supporting_ids() -> None:
     tool = load_tool()
-    path = tmp_path / "clusters.jsonl"
-
-    tool.append_calc_log(
-        path,
-        [
-            {
-                "id": 1,
-                "emperor": "Replay Emperor",
-                "rule_code": "tolerate_talent",
-                "cluster_direction": "negative",
-                "positive_signal": "0.000",
-                "negative_signal": "3.000",
-                "net_signal": "-3.000",
-                "signal_intensity": "3.000",
-                "formula_code": "evidence_cluster_signal_test",
-                "note": "replay fixture",
-                "material_ids": [10],
-                "calc_note": "fixture",
-                "calc_detail": {"materials": [{"obj_src_id": 10, "factor_refs": {"severity": {"label": "heavy"}}}]},
-            }
-        ],
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="tolerate_talent",
+        positive_signal=Decimal("0.000"),
+        negative_signal=Decimal("3.000"),
+        formula_code="evidence_cluster_signal_test",
+        note="fixture",
+        material_ids=(10, 11, 12),
+        calc_detail={
+            "covered_material_ids": [10, 11, 12],
+            "scored_material_ids": [10, 12],
+            "supporting_material_ids": [11],
+            "materials": [{"obj_src_id": 10}, {"obj_src_id": 12}],
+        },
     )
 
-    row = json.loads(path.read_text(encoding="utf-8"))
+    covered, scored, supporting = tool._cluster_detail_arrays(cluster)
 
-    assert row["cluster_direction"] == "negative"
-    assert row["signal_intensity"] == "3.000"
-    assert row["note"] == "replay fixture"
-    assert row["calc_detail"]["materials"][0]["factor_refs"]["severity"]["label"] == "heavy"
+    assert covered == (10, 11, 12)
+    assert scored == (10, 12)
+    assert supporting == (11,)
 
 
 class ExpectedMaterialCursor:

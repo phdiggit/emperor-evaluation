@@ -18,7 +18,7 @@
 
 第五项B只评价统治者识人、择人、任人、授权、容纳谏诤、保护表达安全和维持人才生态的能力。评价对象可以是人物、人才群体、任用机制、授权链条或表达安全生态，但它们必须能回到“用人与授权”本项核心。
 
-被任用对象层级只通过本规则中的 `talent_quality_factor`、`object_weight`、`office_weight`、`member_role_value` 等因子影响材料分。顶级人物、制度关键岗位、跨地域或跨系统人才网络可以提高对应材料的因子值；普通个案、低层执行者或偶发任免只能按对应因子进入信号，不另设额外上限或档位判断。
+被任用对象层级只通过本规则中的 `talent_quality_factor`、`object_weight`、`office_weight` 等因子或团队级聚合过程影响材料分。顶级人物、制度关键岗位、跨地域或跨系统人才网络可以提高对应材料的因子值；普通个案、低层执行者或偶发任免只能按对应因子进入信号，不另设额外上限或档位判断。
 
 ## 对象、史料与检索覆盖口径
 
@@ -98,7 +98,7 @@
 
 ## 规则计算复核点
 
-第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_clusters` → `emp_item_results`。人工复核只检查对象覆盖、史料回源、相邻项剥离、规则归属、因子赋值、日志可重放和结果公式版本，不维护额外中间等级。
+第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_clusters` / `evd_cluster_calc_details` → `emp_item_results` / `emp_item_result_calc_details`。人工复核只检查对象覆盖、史料回源、相邻项剥离、规则归属、因子赋值、明细表可重放和结果公式版本，不维护额外中间等级。
 
 当前复核点包括：
 
@@ -109,9 +109,9 @@
 5. 每条计分材料是否有稳定 `obj_key`，并按同一对象完成同向去重；
 6. 因子标签是否能从本规则文档或证据簇公式文档解析到当前数值；
 7. 相邻项材料是否已经剥离，剩余第五项B影响是否对应到具体对象；
-8. 修改规则内部乘数后，是否能从 `calc_detail.factor_refs` 重放并更新结果日志。
+8. 修改规则内部乘数后，是否能从 `evd_cluster_calc_details.calc_detail.factor_refs` 重放并更新证据簇、定分结果和明细表。
 
-规则无法抽象化、schema/回源出现错误或计算日志无法解释时，应回到对象链和证据簇修正，不得直接手写人物级分数或单人 override。
+规则无法抽象化、schema/回源出现错误或计算明细无法解释时，应回到对象链和证据簇修正，不得直接手写人物级分数或单人 override。
 
 ## 证据簇公式
 
@@ -120,7 +120,7 @@
 当前证据簇公式版本：
 
 ```text
-evidence_cluster_signal_v2
+evidence_cluster_signal_v3
 ```
 
 ### `talent_discovery` 发现人才
@@ -279,51 +279,55 @@ material_score =
 适用：形成互补团队、核心幕府、中枢班底、荐才网络或长期人才结构。
 
 ```text
-material_score =
-  direction_sign
-  * member_role_value
-  * object_weight
-  * complementarity_factor
-  * structure_factor
-  * attribution_factor
-  * source_factor
-  * context_factor
+positive_signal =
+  team_quality_signal
+  * role_complementarity_factor
+  * long_term_stability_factor
+
+team_quality_signal =
+  sqrt(sum((talent_quality_factor_i * rank_decay_i)^2))
 ```
 
-`member_role_value`：
+`team_quality_signal` 只统计具体人才对象；群体、机制或事件对象不作为单个人才进入排序。人才层级必须来自 `obj_attrs.talent_quality`，不得在证据簇计算时临场补写。
+
+`talent_quality_factor`：
 
 | 值 | 口径 |
 | --- | --- |
-| `0.7` | 只是团队成员或外围参与者。 |
-| `1.0` | 核心成员。 |
-| `1.2` | 组织、荐引或连接团队的关键成员。 |
-| `1.5` | 团队机制、稳定班底或结构型人才网络。 |
+| `1.70` | 历史级人才。 |
+| `1.35` | 顶级人才。 |
+| `1.00` | 重要人才。 |
+| `0.55` | 一般人才。 |
 
-`complementarity_factor`：
+`rank_decay` 按 `talent_quality_factor` 从高到低排序后自动应用：
+
+| 排序 | 衰减 |
+| --- | --- |
+| 第 1 位 | `1.00` |
+| 第 2 位 | `0.90` |
+| 第 3 位 | `0.80` |
+| 第 4-6 位 | `0.45` |
+| 第 7 位以后 | `0.25` |
+
+`role_complementarity_factor`：
 
 | 值 | 口径 |
 | --- | --- |
-| `0.8` | 同质重复，新增维度有限。 |
-| `1.0` | 与既有对象构成不同角色。 |
-| `1.15` | 补足关键短板或形成文武、内外、谏议、执行等互补结构。 |
+| `0.85` | 同质化明显。 |
+| `1.00` | 常规互补。 |
+| `1.15` | 文武、谋政、执行、反馈等互补清楚。 |
+| `1.30` | 多类型高质量人才高度互补。 |
 
-`structure_factor`：
+`long_term_stability_factor`：
 
 | 值 | 口径 |
 | --- | --- |
-| `0.8` | 临时或松散组合。 |
-| `1.0` | 稳定团队。 |
-| `1.2` | 长期高质量团队或可持续人才网络。 |
+| `0.80` | 零散、短期、临时组合。 |
+| `1.00` | 稳定团队。 |
+| `1.15` | 长期稳定核心班底。 |
+| `1.30` | 长期可持续人才结构或成熟中枢团队。 |
 
-本规则使用专用覆盖系数替代通用 `coverage_factor`：
-
-```text
-team_coverage_factor =
-  min(1.40, 1 + 0.10 * (distinct_role_count - 1)
-            + 0.08 * (independent_core_object_count - 1))
-```
-
-同一合传、同一荐才链或同一事件中的对象必须先拆成原始对象，再由团队公式识别互补关系。
+同一合传、同一荐才链或同一事件中的对象必须先拆成原始对象，再由团队公式聚合团队质量。负向团队破坏材料不进入 `team_quality_signal`，仍必须绑定具体对象和具体史料。
 
 ### `tolerate_talent` 容人保全
 
@@ -531,12 +535,12 @@ item_result_formula_i5b_v6
 1. 选定一个皇帝与 `I5B` 子项，定位 `emps.id` 与 `eval_items.item_code = I5B`。
 2. 读取 I5B 六个固定 `rule_code` 的证据簇：`talent_discovery`、`appointment_trust`、`delegation`、`team_building`、`tolerate_talent`、`anti_nepotism`。
 3. 对每个 `rule_code` 读取 `evd_clusters.positive_signal` 与 `evd_clusters.negative_signal`。
-4. 若某个 `rule_code` 没有证据簇，说明该规则当前没有已回源可计入材料；计算时按 `positive_signal = 0`、`negative_signal = 0` 处理，并在计算日志或缺口报告记录 `no_material`。
+4. 若某个 `rule_code` 没有证据簇，说明该规则当前没有已回源可计入材料；计算时按 `positive_signal = 0`、`negative_signal = 0` 处理，并在 `emp_item_result_calc_details` 或缺口报告记录 `no_material`。
 5. 对每个规则分别计算正向响应、负向响应和净效果；正负两侧必须先分别响应，再相减。
 6. 按六个规则权重聚合为 `base_core`。
 7. 用整体校准公式生成 `base_rate`，再直接裁剪为正式 `score_rate`。
 8. 生成 `score_rate`、`score`、`tier` 和 `tier_band`，写入 `emp_item_results`。
-9. 将本次规则输入、响应结果、`base_core`、最终分值和公式版本追加到 `logs/item_results/`，用于追溯。
+9. 将本次规则输入、响应结果、`base_core`、最终分值和公式版本写入 `emp_item_result_calc_details`，用于当前复算、筛选和审查。
 
 落表边界：
 
@@ -640,7 +644,7 @@ score = max_score * score_rate
 - 需要解释 `obj_srcs.direction`、规则归属或相邻项剩余影响；
 - 需要说明某条史料为何只进入 `supporting_material_ids`，而不进入 `calc_detail.materials`。
 
-上下文说明不得直接用于手写分数或档位。计分只读取对象链、证据簇信号和已登记公式；上下文服务人工审核、回源复核、相邻项切分和日志可追溯。长上下文字段展示规则引用 `展示与协作/人工阅读型Markdown导出规范.md`，不得在分项规则中另开展示规范。
+上下文说明不得直接用于手写分数或档位。计分只读取对象链、证据簇信号和已登记公式；上下文服务人工审核、回源复核、相邻项切分和计算明细追溯。长上下文字段展示规则引用 `展示与协作/人工阅读型Markdown导出规范.md`，不得在分项规则中另开展示规范。
 
 ## 工作流边界
 

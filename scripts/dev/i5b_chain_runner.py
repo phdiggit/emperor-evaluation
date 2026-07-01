@@ -19,11 +19,9 @@ from scripts.build.i5b_item_result_calculator import (  # noqa: E402
     DEFAULT_CLUSTER_FORMULA,
     DEFAULT_FORMULA_CODE,
     DEFAULT_ITEM_CODE,
-    DEFAULT_LOG_PATH as DEFAULT_RESULT_LOG_PATH,
     calculate_item_results,
 )
 from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
-    DEFAULT_LOG_PATH as DEFAULT_CLUSTER_LOG_PATH,
     load_cluster_payload,
     upsert_clusters,
 )
@@ -304,8 +302,6 @@ def run_chain(
     item_code: str,
     cluster_formula: str,
     result_formula: str,
-    cluster_log_path: Path,
-    result_log_path: Path,
     dry_run: bool,
     skip_object_import: bool,
     skip_cluster_upsert: bool,
@@ -334,7 +330,6 @@ def run_chain(
             item_code=item_code,
             clusters=inputs.clusters,
             dry_run=True,
-            log_path=cluster_log_path,
         )
         stages.append({"stage": "cluster_upsert_dry_run", "report": dry_report})
         if not dry_run:
@@ -346,7 +341,6 @@ def run_chain(
                         item_code=item_code,
                         clusters=inputs.clusters,
                         dry_run=False,
-                        log_path=cluster_log_path,
                     ),
                 }
             )
@@ -359,7 +353,6 @@ def run_chain(
             cluster_formula=cluster_formula,
             formula_code=result_formula,
             dry_run=True,
-            log_path=result_log_path,
         )
         stages.append({"stage": "item_results_dry_run", "report": dry_report})
         if not dry_run:
@@ -373,7 +366,6 @@ def run_chain(
                         cluster_formula=cluster_formula,
                         formula_code=result_formula,
                         dry_run=False,
-                        log_path=result_log_path,
                     ),
                 }
             )
@@ -413,10 +405,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Required evd_clusters formula_code.")
     parser.add_argument("--result-formula", default=DEFAULT_FORMULA_CODE, help="emp_item_results formula_code to write.")
-    parser.add_argument("--cluster-log", type=Path, default=DEFAULT_CLUSTER_LOG_PATH, help="Evidence cluster JSONL log path.")
-    parser.add_argument("--result-log", type=Path, default=DEFAULT_RESULT_LOG_PATH, help="Item result JSONL log path.")
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT_PATH, help="UTF-8 JSON run report path.")
-    parser.add_argument("--dry-run", action="store_true", help="Run all dry-run stages and skip database writes/log appends.")
+    parser.add_argument("--dry-run", action="store_true", help="Run all dry-run stages and skip database writes.")
     parser.add_argument("--skip-object-import", action="store_true", help="Skip object payload import stages.")
     parser.add_argument("--skip-cluster-upsert", action="store_true", help="Skip evidence cluster upsert stages.")
     parser.add_argument("--skip-results", action="store_true", help="Skip emp_item_results calculation stages.")
@@ -435,8 +425,6 @@ def main(argv: list[str] | None = None) -> int:
         item_code=args.item_code,
         cluster_formula=args.cluster_formula,
         result_formula=args.result_formula,
-        cluster_log_path=args.cluster_log,
-        result_log_path=args.result_log,
         dry_run=args.dry_run,
         skip_object_import=args.skip_object_import,
         skip_cluster_upsert=args.skip_cluster_upsert,

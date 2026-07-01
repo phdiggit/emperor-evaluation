@@ -16,7 +16,7 @@ import psycopg
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_ITEM_CODE = "I5B"
-DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v2"
+DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
 DEFAULT_FORMULA_CODE = "item_result_formula_i5b_v6"
 DEFAULT_LOG_PATH = ROOT / "logs" / "item_results" / "i5b_item_results_calc.jsonl"
 MAX_SCORE = Decimal("45.000")
@@ -222,10 +222,11 @@ def _upsert_result(
     *,
     emp_id: int,
     item_id: int,
+    cluster_formula: str,
     formula_code: str,
     formula: dict[str, Any],
 ) -> int:
-    note = "v6公式自动计算；规则输入来自 evidence_cluster_signal_v2；无材料规则按0处理。"
+    note = f"v6公式自动计算；规则输入来自 {cluster_formula}；无材料规则按0处理。"
     cur.execute(
         """
         insert into emp_item_results (emp_id, item_id, formula_code, max_score, score, tier, tier_band, note)
@@ -254,7 +255,53 @@ def _upsert_result(
     return int(cur.fetchone()[0])
 
 
+def _jsonb(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True)
+
+
+def _upsert_result_calc_detail(
+    cur: Any,
+    *,
+    result_id: int,
+    item_code: str,
+    cluster_formula: str,
+    formula_code: str,
+    formula: dict[str, Any],
+) -> None:
+    cur.execute(
+        """
+        insert into emp_item_result_calc_details (
+            result_id, item_code, cluster_formula, formula_code,
+            base_core, score_rate, calc_detail
+        )
+        values (%s, %s, %s, %s, %s, %s, %s::jsonb)
+        on conflict (result_id) do update set
+            item_code = excluded.item_code,
+            cluster_formula = excluded.cluster_formula,
+            formula_code = excluded.formula_code,
+            base_core = excluded.base_core,
+            score_rate = excluded.score_rate,
+            calc_detail = excluded.calc_detail,
+            updated_at = now()
+        """,
+        (
+            result_id,
+            item_code,
+            cluster_formula,
+            formula_code,
+            Decimal(str(formula["base_core"])),
+            Decimal(str(formula["score_rate"])),
+            _jsonb(formula),
+        ),
+    )
+
+
 def append_calc_log(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Append legacy item result calculation logs.
+
+    Current I5B tooling writes result calculation details to PostgreSQL tables
+    instead of JSONL logs. This helper remains for historical fixtures only.
+    """
     if not rows:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -271,7 +318,7 @@ def calculate_item_results(
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
     formula_code: str = DEFAULT_FORMULA_CODE,
     dry_run: bool = False,
-    log_path: Path = DEFAULT_LOG_PATH,
+    log_path: Path | None = None,
 ) -> dict[str, Any]:
     if not emperors:
         raise I5BItemResultError("at least one emperor is required")
@@ -290,6 +337,15 @@ def calculate_item_results(
                     cur,
                     emp_id=emp_id,
                     item_id=item_id,
+                    cluster_formula=cluster_formula,
+                    formula_code=formula_code,
+                    formula=formula,
+                )
+                _upsert_result_calc_detail(
+                    cur,
+                    result_id=result_id,
+                    item_code=item_code,
+                    cluster_formula=cluster_formula,
                     formula_code=formula_code,
                     formula=formula,
                 )
@@ -310,9 +366,6 @@ def calculate_item_results(
         else:
             conn.commit()
 
-    if not dry_run:
-        append_calc_log(log_path, rows)
-
     return {
         "dry_run": dry_run,
         "item_code": item_code,
@@ -322,15 +375,86 @@ def calculate_item_results(
     }
 
 
+def _filters(values: tuple[str, ...]) -> set[str]:
+    return {value for value in values if value}
+
+
+def fetch_item_result_calc_detail_rows(
+    *,
+    dsn: str,
+    item_code: str,
+    cluster_formula: str,
+    formula_code: str,
+    emperors: tuple[str, ...] = (),
+) -> dict[str, dict[str, Any]]:
+    emperor_filter = _filters(emperors)
+    clauses = [
+        "i.item_code = %s",
+        "r.formula_code = %s",
+        "d.formula_code = %s",
+        "d.cluster_formula = %s",
+    ]
+    params: list[Any] = [item_code, formula_code, formula_code, cluster_formula]
+    if emperor_filter:
+        clauses.append("e.name = any(%s)")
+        params.append(sorted(emperor_filter))
+    where_sql = " and ".join(clauses)
+
+    with psycopg.connect(dsn) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                select
+                    r.id as result_id,
+                    e.name as emperor,
+                    i.item_code,
+                    d.cluster_formula,
+                    r.formula_code,
+                    r.score,
+                    r.tier,
+                    r.tier_band,
+                    d.calc_detail
+                  from emp_item_results r
+                  join emp_item_result_calc_details d on d.result_id = r.id
+                  join emps e on e.id = r.emp_id
+                  join eval_items i on i.id = r.item_id
+                 where {where_sql}
+                 order by e.name
+                """,
+                tuple(params),
+            )
+            columns = [desc.name for desc in cur.description]
+            rows = [dict(zip(columns, row)) for row in cur.fetchall()]
+
+    latest: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        detail = row.get("calc_detail")
+        if not isinstance(detail, dict):
+            detail = {}
+        payload = {
+            "result_id": int(row["result_id"]),
+            "emperor": str(row["emperor"]),
+            "item_code": str(row["item_code"]),
+            "cluster_formula": str(row["cluster_formula"]),
+            "formula_code": str(row["formula_code"]),
+            **detail,
+            "score": str(row["score"]),
+            "tier": str(row["tier"]),
+            "tier_band": str(row["tier_band"]),
+        }
+        latest[payload["emperor"]] = payload
+    return latest
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Calculate formal I5B item results from evd_clusters.")
     parser.add_argument("--dsn-env", default=DEFAULT_DSN_ENV, help="Environment variable name for PostgreSQL DSN.")
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Required evd_clusters formula_code.")
     parser.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE, help="emp_item_results formula_code to write.")
-    parser.add_argument("--log", type=Path, default=DEFAULT_LOG_PATH, help="JSONL calculation log path.")
+    parser.add_argument("--log", type=Path, default=None, help="Deprecated; calculation details are stored in DB.")
     parser.add_argument("--emperor", action="append", required=True, help="Emperor name; repeat for batch runs.")
-    parser.add_argument("--dry-run", action="store_true", help="Rollback database writes and skip log append.")
+    parser.add_argument("--dry-run", action="store_true", help="Rollback database writes.")
     return parser
 
 

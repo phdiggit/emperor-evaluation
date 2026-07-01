@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import importlib.util
-import json
 import sys
 from pathlib import Path
 
@@ -19,86 +18,71 @@ def load_tool():
     return module
 
 
-def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
-    path.write_text(
-        "\n".join(json.dumps(row, ensure_ascii=False, sort_keys=True) for row in rows) + "\n",
-        encoding="utf-8",
-    )
-
-
-def test_breakdown_report_joins_item_result_and_cluster_materials(tmp_path: Path) -> None:
+def test_breakdown_report_joins_item_result_and_cluster_materials() -> None:
     tool = load_tool()
-    cluster_log = tmp_path / "clusters.jsonl"
-    result_log = tmp_path / "results.jsonl"
-    write_jsonl(
-        cluster_log,
-        [
-            {
-                "emperor": "测试帝",
-                "rule_code": "talent_discovery",
-                "formula_code": "cluster_formula_test",
-                "positive_signal": "1.300",
-                "negative_signal": "0.000",
-                "cluster_direction": "positive",
-                "calc_detail": {
-                    "coverage": {"positive": "1.0", "negative": "1.0"},
-                    "covered_material_ids": [7, 8],
-                    "scored_material_ids": [7],
-                    "supporting_material_ids": [8],
-                    "object_side_scores": {"positive": {"10": "1.300"}, "negative": {}},
-                    "materials": [
-                        {
-                            "obj_src_id": 7,
-                            "obj_key": "10",
-                            "obj_name": "甲",
-                            "side": "positive",
-                            "raw_score": "1.300",
-                            "abs_score": "1.300",
-                            "factor_values": {"talent_quality_factor": "1.3"},
-                            "factor_refs": {"talent_quality_factor": {"label": "重要人才"}},
-                        }
-                    ],
-                },
-            }
-        ],
-    )
-    write_jsonl(
-        result_log,
-        [
-            {
-                "emperor": "测试帝",
-                "formula_code": "result_formula_test",
-                "score": "33.300",
-                "tier": "良好",
-                "tier_band": "正常",
-                "base_core": "1.000",
-                "score_rate": "0.7400",
-                "positive_response_cap": "5.5",
-                "positive_response_tau": "3.5",
-                "negative_response_cap": "7.0",
-                "negative_response_tau": "4.0",
-                "rules": {
-                    "talent_discovery": {
-                        "cluster_id": 1,
-                        "no_material": False,
-                        "positive_signal": "1.300",
-                        "positive_effect": "1.706",
-                        "negative_signal": "0.000",
-                        "negative_effect": "0.000",
-                        "rule_net_effect": "1.706",
-                        "rule_weight": "0.190",
+    cluster_rows = {
+        ("测试帝", "talent_discovery"): {
+            "emperor": "测试帝",
+            "rule_code": "talent_discovery",
+            "formula_code": "cluster_formula_test",
+            "positive_signal": "1.300",
+            "negative_signal": "0.000",
+            "cluster_direction": "positive",
+            "calc_detail": {
+                "coverage": {"positive": "1.0", "negative": "1.0"},
+                "covered_material_ids": [7, 8],
+                "scored_material_ids": [7],
+                "supporting_material_ids": [8],
+                "object_side_scores": {"positive": {"10": "1.300"}, "negative": {}},
+                "materials": [
+                    {
+                        "obj_src_id": 7,
+                        "obj_key": "10",
+                        "obj_name": "甲",
+                        "side": "positive",
+                        "raw_score": "1.300",
+                        "abs_score": "1.300",
+                        "factor_values": {"talent_quality_factor": "1.3"},
+                        "factor_refs": {"talent_quality_factor": {"label": "重要人才"}},
                     }
-                },
-            }
-        ],
-    )
+                ],
+            },
+        }
+    }
+    result_rows = {
+        "测试帝": {
+            "emperor": "测试帝",
+            "formula_code": "result_formula_test",
+            "score": "33.300",
+            "tier": "良好",
+            "tier_band": "正常",
+            "base_core": "1.000",
+            "score_rate": "0.7400",
+            "positive_response_cap": "5.5",
+            "positive_response_tau": "3.5",
+            "negative_response_cap": "7.0",
+            "negative_response_tau": "4.0",
+            "rules": {
+                "talent_discovery": {
+                    "cluster_id": 1,
+                    "no_material": False,
+                    "positive_signal": "1.300",
+                    "positive_effect": "1.706",
+                    "negative_signal": "0.000",
+                    "negative_effect": "0.000",
+                    "rule_net_effect": "1.706",
+                    "rule_weight": "0.190",
+                }
+            },
+        }
+    }
 
     report = tool.build_breakdown_report(
         emperors=("测试帝",),
-        cluster_log=cluster_log,
-        result_log=result_log,
         cluster_formula="cluster_formula_test",
         result_formula="result_formula_test",
+        result_rows=result_rows,
+        cluster_rows=cluster_rows,
     )
     markdown = tool.render_markdown(report)
 
@@ -113,40 +97,34 @@ def test_breakdown_report_joins_item_result_and_cluster_materials(tmp_path: Path
     assert "甲#7(1.300/1.300)" in markdown
 
 
-def test_breakdown_report_allows_no_material_rule_without_cluster_warning(tmp_path: Path) -> None:
+def test_breakdown_report_allows_no_material_rule_without_cluster_warning() -> None:
     tool = load_tool()
-    cluster_log = tmp_path / "clusters.jsonl"
-    result_log = tmp_path / "results.jsonl"
-    cluster_log.write_text("", encoding="utf-8")
-    write_jsonl(
-        result_log,
-        [
-            {
-                "emperor": "测试帝",
-                "formula_code": "result_formula_test",
-                "score": "22.500",
-                "rules": {
-                    "anti_nepotism": {
-                        "cluster_id": None,
-                        "no_material": True,
-                        "positive_signal": "0.000",
-                        "positive_effect": "0.000",
-                        "negative_signal": "0.000",
-                        "negative_effect": "0.000",
-                        "rule_net_effect": "0.000",
-                        "rule_weight": "0.060",
-                    }
-                },
-            }
-        ],
-    )
+    result_rows = {
+        "测试帝": {
+            "emperor": "测试帝",
+            "formula_code": "result_formula_test",
+            "score": "22.500",
+            "rules": {
+                "anti_nepotism": {
+                    "cluster_id": None,
+                    "no_material": True,
+                    "positive_signal": "0.000",
+                    "positive_effect": "0.000",
+                    "negative_signal": "0.000",
+                    "negative_effect": "0.000",
+                    "rule_net_effect": "0.000",
+                    "rule_weight": "0.060",
+                }
+            },
+        }
+    }
 
     report = tool.build_breakdown_report(
         emperors=("测试帝",),
-        cluster_log=cluster_log,
-        result_log=result_log,
         cluster_formula="cluster_formula_test",
         result_formula="result_formula_test",
+        result_rows=result_rows,
+        cluster_rows={},
     )
 
     assert report["warnings"] == []

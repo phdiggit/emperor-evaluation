@@ -44,8 +44,6 @@ def test_expected_talent_names_parses_profile_lane() -> None:
 def test_audit_report_flags_expected_talents_missing_from_cluster(tmp_path: Path) -> None:
     tool = load_tool()
     profile = tmp_path / "profiles.jsonl"
-    cluster_log = tmp_path / "clusters.jsonl"
-    result_log = tmp_path / "results.jsonl"
     write_jsonl(
         profile,
         [
@@ -56,31 +54,28 @@ def test_audit_report_flags_expected_talents_missing_from_cluster(tmp_path: Path
             }
         ],
     )
-    write_jsonl(
-        cluster_log,
-        [
-            {
-                "emperor": "测试帝",
-                "rule_code": "talent_discovery",
-                "formula_code": "cluster_formula_test",
-                "calc_detail": {
-                    "materials": [
-                        {"obj_name": "甲", "side": "positive"},
-                        {"obj_name": "丁", "side": "positive"},
-                        {"obj_name": "戊", "side": "negative"},
-                    ]
-                },
-            }
-        ],
-    )
-    write_jsonl(result_log, [{"emperor": "测试帝", "formula_code": "result_formula_test"}])
+    cluster_rows = {
+        ("测试帝", "talent_discovery"): {
+            "emperor": "测试帝",
+            "rule_code": "talent_discovery",
+            "formula_code": "cluster_formula_test",
+            "calc_detail": {
+                "materials": [
+                    {"obj_name": "甲", "side": "positive"},
+                    {"obj_name": "丁", "side": "positive"},
+                    {"obj_name": "戊", "side": "negative"},
+                ]
+            },
+        }
+    }
+    result_rows = {"测试帝": {"emperor": "测试帝", "formula_code": "result_formula_test"}}
 
     report = tool.build_audit_report(
         profile_path=profile,
-        cluster_log=cluster_log,
-        result_log=result_log,
         cluster_formula="cluster_formula_test",
         result_formula="result_formula_test",
+        cluster_rows=cluster_rows,
+        result_rows=result_rows,
     )
     markdown = tool.render_markdown(report)
 
@@ -93,8 +88,6 @@ def test_audit_report_flags_expected_talents_missing_from_cluster(tmp_path: Path
 def test_audit_report_allows_reviewed_missing_talents(tmp_path: Path) -> None:
     tool = load_tool()
     profile = tmp_path / "profiles.jsonl"
-    cluster_log = tmp_path / "clusters.jsonl"
-    result_log = tmp_path / "results.jsonl"
     write_jsonl(
         profile,
         [
@@ -105,26 +98,23 @@ def test_audit_report_allows_reviewed_missing_talents(tmp_path: Path) -> None:
             }
         ],
     )
-    write_jsonl(
-        cluster_log,
-        [
-            {
-                "emperor": "测试帝",
-                "rule_code": "talent_discovery",
-                "formula_code": "cluster_formula_test",
-                "calc_detail": {"materials": [{"obj_name": "甲", "side": "positive"}]},
-            }
-        ],
-    )
-    write_jsonl(result_log, [{"emperor": "测试帝", "formula_code": "result_formula_test"}])
+    cluster_rows = {
+        ("测试帝", "talent_discovery"): {
+            "emperor": "测试帝",
+            "rule_code": "talent_discovery",
+            "formula_code": "cluster_formula_test",
+            "calc_detail": {"materials": [{"obj_name": "甲", "side": "positive"}]},
+        }
+    }
+    result_rows = {"测试帝": {"emperor": "测试帝", "formula_code": "result_formula_test"}}
 
     report = tool.build_audit_report(
         profile_path=profile,
-        cluster_log=cluster_log,
-        result_log=result_log,
         cluster_formula="cluster_formula_test",
         result_formula="result_formula_test",
         accepted_missing=tool.parse_accepted_missing(("测试帝:乙、丙",)),
+        cluster_rows=cluster_rows,
+        result_rows=result_rows,
     )
     markdown = tool.render_markdown(report)
 

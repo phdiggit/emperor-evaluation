@@ -18,8 +18,8 @@ if str(ROOT) not in sys.path:
 from scripts.build.i5b_item_result_calculator import DEFAULT_FORMULA_CODE, RuleSignals, calculate_formula
 from scripts.build.i5b_item_result_calculator import calculate_item_results as write_item_results
 from scripts.dev.evidence_cluster_workbench import (
-    DEFAULT_LOG_PATH as DEFAULT_CLUSTER_LOG_PATH,
     ClusterInput,
+    fetch_cluster_calc_detail_rows,
     resolve_dsn,
     upsert_clusters,
 )
@@ -27,10 +27,20 @@ from scripts.dev.i5b_calc_logs import latest_cluster_log_rows
 
 
 DEFAULT_ITEM_CODE = "I5B"
-DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v2"
+DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
 DEFAULT_FACTOR_DOCS = (
     ROOT / "docs" / "\u5206\u9879\u89c4\u5219" / "\u7b2c\u4e94\u9879\u7edf\u6cbb\u8005\u653f\u6cbb\u7d20\u8d28" / "B\u7528\u4eba\u4e0e\u6388\u6743.md",
     ROOT / "docs" / "\u8bc1\u636e\u89c4\u5219" / "\u8bc1\u636e\u7c07\u8ba1\u7b97\u516c\u5f0f.md",
+)
+TEAM_BUILDING_RULE_CODE = "team_building"
+TEAM_BUILDING_SOURCE_FORMULA = "evidence_cluster_signal_v2"
+TEAM_BUILDING_RANK_DECAYS = (
+    Decimal("1.00"),
+    Decimal("0.90"),
+    Decimal("0.80"),
+    Decimal("0.45"),
+    Decimal("0.45"),
+    Decimal("0.45"),
 )
 
 
@@ -227,6 +237,12 @@ def side_signal(object_scores: list[Decimal], coverage: Decimal) -> Decimal:
     return quant(Decimal(str(raw)))
 
 
+def team_rank_decay(rank_index: int) -> Decimal:
+    if rank_index < len(TEAM_BUILDING_RANK_DECAYS):
+        return TEAM_BUILDING_RANK_DECAYS[rank_index]
+    return Decimal("0.25")
+
+
 def require_text(row: dict[str, Any], key: str, path: str) -> str:
     value = row.get(key)
     if not isinstance(value, str) or not value.strip():
@@ -242,6 +258,15 @@ def compute_cluster(
     catalog: dict[str, list[FactorRow]],
     path: str,
 ) -> ClusterInput:
+    if row.get("rule_code") == TEAM_BUILDING_RULE_CODE:
+        return compute_team_building_cluster(
+            row,
+            item_code=item_code,
+            formula_code=formula_code,
+            catalog=catalog,
+            path=path,
+        )
+
     materials_value = row.get("materials")
     if not isinstance(materials_value, list) or not materials_value:
         raise I5BFactorRecalculatorError(f"{path}.materials: expected non-empty list")
@@ -322,6 +347,243 @@ def compute_cluster(
     )
 
 
+def material_id_and_object(row: dict[str, Any], *, path: str) -> tuple[int | None, str, str]:
+    material_id = row.get("obj_src_id", row.get("material_id"))
+    if material_id is not None and not isinstance(material_id, int):
+        raise I5BFactorRecalculatorError(f"{path}.obj_src_id: expected integer")
+    obj_key_value = row.get("obj_id") or row.get("obj_key")
+    if obj_key_value is None or not str(obj_key_value).strip():
+        raise I5BFactorRecalculatorError(f"{path}: expected obj_id or obj_key for same-object aggregation")
+    obj_key = str(obj_key_value)
+    obj_name = str(row.get("obj_name") or row.get("name") or obj_key)
+    return material_id, obj_key, obj_name
+
+
+def team_building_side(row: dict[str, Any], *, path: str) -> str:
+    side = row.get("direction", row.get("side"))
+    if side not in {"positive", "negative"}:
+        raise I5BFactorRecalculatorError(f"{path}.direction: expected positive or negative")
+    return str(side)
+
+
+def resolve_team_factor(
+    team_factors: dict[str, Any],
+    factor_name: str,
+    *,
+    catalog: dict[str, list[FactorRow]],
+    path: str,
+) -> tuple[Decimal, Any]:
+    if factor_name not in team_factors:
+        raise I5BFactorRecalculatorError(f"{path}.team_factors.{factor_name}: expected factor")
+    return resolve_factor(
+        team_factors[factor_name],
+        factor_name=factor_name,
+        catalog=catalog,
+        path=f"{path}.team_factors.{factor_name}",
+    )
+
+
+def compute_team_building_cluster(
+    row: dict[str, Any],
+    *,
+    item_code: str,
+    formula_code: str,
+    catalog: dict[str, list[FactorRow]],
+    path: str,
+) -> ClusterInput:
+    materials_value = row.get("materials")
+    if not isinstance(materials_value, list) or not materials_value:
+        raise I5BFactorRecalculatorError(f"{path}.materials: expected non-empty list")
+    if any(not isinstance(material, dict) for material in materials_value):
+        raise I5BFactorRecalculatorError(f"{path}.materials: every item must be an object")
+
+    team_factors = row.get("team_factors")
+    if not isinstance(team_factors, dict) or not team_factors:
+        raise I5BFactorRecalculatorError(f"{path}.team_factors: expected non-empty object")
+    complementarity_value, complementarity_ref = resolve_team_factor(
+        team_factors,
+        "role_complementarity_factor",
+        catalog=catalog,
+        path=path,
+    )
+    stability_value, stability_ref = resolve_team_factor(
+        team_factors,
+        "long_term_stability_factor",
+        catalog=catalog,
+        path=path,
+    )
+
+    positive_candidates: dict[str, dict[str, Any]] = {}
+    calc_materials: list[dict[str, Any]] = []
+    negative_materials: list[MaterialScore] = []
+
+    for index, material in enumerate(materials_value):
+        material_path = f"{path}.materials[{index}]"
+        side = team_building_side(material, path=material_path)
+        if side == "negative":
+            scored = compute_material(material, catalog=catalog, path=material_path)
+            negative_materials.append(scored)
+            calc_materials.append(
+                {
+                    "obj_src_id": scored.material_id,
+                    "obj_key": scored.obj_key,
+                    "obj_name": scored.obj_name,
+                    "side": scored.side,
+                    "raw_score": str(scored.raw_score),
+                    "abs_score": str(scored.abs_score),
+                    "factor_values": scored.factor_values,
+                    "factor_refs": scored.factor_refs,
+                }
+            )
+            continue
+
+        material_id, obj_key, obj_name = material_id_and_object(material, path=material_path)
+        factors = material.get("factors")
+        if not isinstance(factors, dict):
+            raise I5BFactorRecalculatorError(f"{material_path}.factors: expected object")
+        if factors.get("team_quality_excluded"):
+            reason = str(factors["team_quality_excluded"])
+            calc_materials.append(
+                {
+                    "obj_src_id": material_id,
+                    "obj_key": obj_key,
+                    "obj_name": obj_name,
+                    "side": "positive",
+                    "raw_score": "0.000",
+                    "abs_score": "0.000",
+                    "factor_values": {"team_quality_excluded": reason},
+                    "factor_refs": {"team_quality_excluded": reason},
+                    "team_quality_included": False,
+                }
+            )
+            continue
+        if "talent_quality_factor" not in factors:
+            raise I5BFactorRecalculatorError(f"{material_path}.factors.talent_quality_factor: expected factor")
+        talent_value, talent_ref = resolve_factor(
+            factors["talent_quality_factor"],
+            factor_name="talent_quality_factor",
+            catalog=catalog,
+            path=f"{material_path}.factors.talent_quality_factor",
+        )
+        candidate = {
+            "obj_src_id": material_id,
+            "obj_key": obj_key,
+            "obj_name": obj_name,
+            "talent_quality_factor": talent_value,
+            "talent_quality_ref": talent_ref,
+        }
+        current = positive_candidates.get(obj_key)
+        if current is None or talent_value > current["talent_quality_factor"]:
+            positive_candidates[obj_key] = candidate
+
+    ranked = sorted(
+        positive_candidates.values(),
+        key=lambda item: (-item["talent_quality_factor"], item["obj_name"], item["obj_key"]),
+    )
+    team_quality_components: list[dict[str, Any]] = []
+    positive_object_scores: dict[str, Decimal] = {}
+    for index, item in enumerate(ranked):
+        decay = team_rank_decay(index)
+        contribution = quant(item["talent_quality_factor"] * decay)
+        positive_object_scores[str(item["obj_key"])] = contribution
+        component = {
+            "rank": index + 1,
+            "obj_src_id": item["obj_src_id"],
+            "obj_key": item["obj_key"],
+            "obj_name": item["obj_name"],
+            "talent_quality_factor": str(item["talent_quality_factor"]),
+            "talent_quality_ref": item["talent_quality_ref"],
+            "rank_decay": str(decay),
+            "quality_contribution": str(contribution),
+        }
+        team_quality_components.append(component)
+        calc_materials.append(
+            {
+                "obj_src_id": item["obj_src_id"],
+                "obj_key": item["obj_key"],
+                "obj_name": item["obj_name"],
+                "side": "positive",
+                "raw_score": str(contribution),
+                "abs_score": str(contribution),
+                "factor_values": {
+                    "talent_quality_factor": str(item["talent_quality_factor"]),
+                    "rank_decay": str(decay),
+                },
+                "factor_refs": {
+                    "talent_quality_factor": item["talent_quality_ref"],
+                },
+                "team_quality_included": True,
+                "team_quality_rank": index + 1,
+            }
+        )
+
+    if positive_object_scores:
+        quality_raw = math.sqrt(sum(float(score) ** 2 for score in positive_object_scores.values()))
+        team_quality_signal = quant(Decimal(str(quality_raw)))
+    else:
+        team_quality_signal = Decimal("0.000")
+    positive_signal = quant(team_quality_signal * complementarity_value * stability_value)
+
+    negative_grouped: dict[str, list[Decimal]] = defaultdict(list)
+    for material in negative_materials:
+        negative_grouped[material.obj_key].append(material.abs_score)
+    negative_object_scores = {obj_key: object_side_score(scores) for obj_key, scores in negative_grouped.items()}
+    coverage_value = row.get("coverage", {})
+    if coverage_value is None:
+        coverage_value = {}
+    if not isinstance(coverage_value, dict):
+        raise I5BFactorRecalculatorError(f"{path}.coverage: expected object")
+    negative_coverage = decimal_value(coverage_value.get("negative", "1.0"), path=f"{path}.coverage.negative")
+    negative_signal = side_signal(list(negative_object_scores.values()), negative_coverage)
+
+    explicit_material_ids = optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids")
+    scored_material_ids = tuple(
+        material["obj_src_id"] for material in calc_materials if isinstance(material.get("obj_src_id"), int)
+    )
+    material_ids = tuple(dict.fromkeys((*explicit_material_ids, *scored_material_ids)))
+    supporting_material_ids = [material_id for material_id in material_ids if material_id not in scored_material_ids]
+
+    detail = {
+        "item_code": item_code,
+        "formula_code": formula_code,
+        "team_formula": "team_quality_signal * role_complementarity_factor * long_term_stability_factor",
+        "materials": calc_materials,
+        "team_quality_components": team_quality_components,
+        "team_quality_signal": str(team_quality_signal),
+        "team_factors": {
+            "factor_values": {
+                "role_complementarity_factor": str(complementarity_value),
+                "long_term_stability_factor": str(stability_value),
+            },
+            "factor_refs": {
+                "role_complementarity_factor": complementarity_ref,
+                "long_term_stability_factor": stability_ref,
+            },
+        },
+        "object_side_scores": {
+            "positive": {obj_key: str(score) for obj_key, score in positive_object_scores.items()},
+            "negative": {obj_key: str(score) for obj_key, score in negative_object_scores.items()},
+        },
+        "coverage": {"positive": "1.0", "negative": str(negative_coverage)},
+        "covered_material_ids": list(material_ids),
+        "scored_material_ids": list(scored_material_ids),
+        "positive_signal": str(positive_signal),
+        "negative_signal": str(negative_signal),
+        "supporting_material_ids": supporting_material_ids,
+    }
+    return ClusterInput(
+        emperor=require_text(row, "emperor", path),
+        rule_code=TEAM_BUILDING_RULE_CODE,
+        positive_signal=positive_signal,
+        negative_signal=negative_signal,
+        formula_code=str(row.get("formula_code") or formula_code),
+        note=require_text(row, "note", path),
+        material_ids=material_ids,
+        calc_note=str(row.get("calc_note") or "team_quality_aggregate_recalculation"),
+        calc_detail=detail,
+    )
+
+
 def load_profile_raw(
     raw: dict[str, Any],
     *,
@@ -397,12 +659,12 @@ def cluster_profile_from_log_row(row: dict[str, Any], *, path: str) -> dict[str,
         coverage = {}
     if not isinstance(coverage, dict):
         raise I5BFactorRecalculatorError(f"{path}.calc_detail.coverage: expected object")
-    return {
+    profile = {
         "emperor": require_text(row, "emperor", path),
         "rule_code": require_text(row, "rule_code", path),
         "formula_code": str(row.get("formula_code") or calc_detail.get("formula_code") or DEFAULT_CLUSTER_FORMULA),
-        "note": str(row.get("note") or "replayed from evidence cluster calc_detail log"),
-        "calc_note": f"replay_calc_detail_log: {row.get('calc_note') or ''}".strip(),
+        "note": str(row.get("note") or "replayed from evidence cluster calc_detail"),
+        "calc_note": f"replay_calc_detail: {row.get('calc_note') or ''}".strip(),
         "material_ids": optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids"),
         "coverage": {
             "positive": str(coverage.get("positive", "1.0")),
@@ -413,6 +675,12 @@ def cluster_profile_from_log_row(row: dict[str, Any], *, path: str) -> dict[str,
             for index, material in enumerate(materials_value)
         ],
     }
+    team_factors = calc_detail.get("team_factors")
+    if profile["rule_code"] == TEAM_BUILDING_RULE_CODE and isinstance(team_factors, dict):
+        factor_refs = team_factors.get("factor_refs")
+        if isinstance(factor_refs, dict) and factor_refs:
+            profile["team_factors"] = factor_refs
+    return profile
 
 
 def load_profile_from_log(
@@ -453,6 +721,37 @@ def load_profile_from_log(
         "clusters": profiles,
     }
     return load_profile_raw(raw, factor_docs=factor_docs, source_name="calc_log")
+
+
+def load_profile_from_details(
+    *,
+    dsn: str,
+    item_code: str,
+    factor_docs: tuple[Path, ...],
+    formula_code: str = DEFAULT_CLUSTER_FORMULA,
+    emperors: tuple[str, ...] = (),
+    rule_codes: tuple[str, ...] = (),
+) -> tuple[str, str, tuple[ClusterInput, ...]]:
+    latest = fetch_cluster_calc_detail_rows(
+        dsn=dsn,
+        item_code=item_code,
+        formula_code=formula_code,
+        emperors=emperors,
+        rule_codes=rule_codes,
+    )
+
+    if not latest:
+        raise I5BFactorRecalculatorError(f"evd_cluster_calc_details: no rows found for {formula_code}")
+    profiles = [
+        cluster_profile_from_log_row(row, path=f"evd_cluster_calc_details:{index}")
+        for index, row in enumerate(latest.values())
+    ]
+    raw = {
+        "item_code": item_code,
+        "formula_code": formula_code,
+        "clusters": profiles,
+    }
+    return load_profile_raw(raw, factor_docs=factor_docs, source_name="calc_details")
 
 
 def summarize_from_clusters(clusters: tuple[ClusterInput, ...]) -> list[dict[str, Any]]:
@@ -501,17 +800,18 @@ def clusters_payload(item_code: str, formula_code: str, clusters: tuple[ClusterI
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Recalculate I5B evidence clusters from structured material factors.")
     parser.add_argument("--input", type=Path, default=None, help="Structured UTF-8 JSON factor profile.")
-    parser.add_argument("--from-log", type=Path, default=None, help="Replay latest calc_detail rows from an evidence cluster JSONL log.")
+    parser.add_argument("--from-details", action="store_true", help="Replay latest calc_detail rows from DB detail table.")
+    parser.add_argument("--from-log", type=Path, default=None, help="Deprecated: replay latest calc_detail rows from a JSONL log.")
     parser.add_argument("--factor-doc", type=Path, action="append", default=None, help="Markdown doc containing factor tables.")
+    parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code for --from-details.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code to replay from log.")
-    parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter for --from-log; repeatable.")
-    parser.add_argument("--rule-code", action="append", default=None, help="Optional rule_code filter for --from-log; repeatable.")
+    parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
+    parser.add_argument("--rule-code", action="append", default=None, help="Optional rule_code filter; repeatable.")
     parser.add_argument("--output", type=Path, default=None, help="Optional computed cluster payload JSON path.")
     parser.add_argument("--write-clusters", action="store_true", help="Upsert computed evd_clusters.")
     parser.add_argument("--write-results", action="store_true", help="Recalculate emp_item_results after cluster writes.")
     parser.add_argument("--dry-run", action="store_true", help="Rollback database writes; still prints in-memory result summary.")
     parser.add_argument("--dsn-env", default="EMPEROR_EVAL_PG_DSN", help="Environment variable name for PostgreSQL DSN.")
-    parser.add_argument("--cluster-log", type=Path, default=DEFAULT_CLUSTER_LOG_PATH, help="Cluster JSONL calculation log path.")
     parser.add_argument(
         "--allow-partial-material-coverage",
         action="store_true",
@@ -523,10 +823,22 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    if bool(args.input) == bool(args.from_log):
-        parser.error("exactly one of --input or --from-log is required")
+    source_count = sum(1 for enabled in (bool(args.input), bool(args.from_log), bool(args.from_details)) if enabled)
+    if source_count != 1:
+        parser.error("exactly one of --input, --from-details, or --from-log is required")
     factor_docs = tuple(args.factor_doc) if args.factor_doc else DEFAULT_FACTOR_DOCS
-    if args.from_log:
+    dsn: str | None = None
+    if args.from_details:
+        dsn = resolve_dsn(args.dsn_env)
+        item_code, formula_code, clusters = load_profile_from_details(
+            dsn=dsn,
+            item_code=args.item_code,
+            factor_docs=factor_docs,
+            formula_code=args.cluster_formula,
+            emperors=tuple(args.emperor or ()),
+            rule_codes=tuple(args.rule_code or ()),
+        )
+    elif args.from_log:
         item_code, formula_code, clusters = load_profile_from_log(
             args.from_log,
             factor_docs=factor_docs,
@@ -545,14 +857,14 @@ def main(argv: list[str] | None = None) -> int:
 
     write_report: dict[str, Any] | None = None
     if args.write_clusters or args.write_results:
-        dsn = resolve_dsn(args.dsn_env)
+        if dsn is None:
+            dsn = resolve_dsn(args.dsn_env)
         if args.write_clusters:
             write_report = upsert_clusters(
                 dsn=dsn,
                 item_code=item_code,
                 clusters=clusters,
                 dry_run=args.dry_run,
-                log_path=args.cluster_log,
                 require_full_material_coverage=not args.allow_partial_material_coverage,
             )
         if args.write_results and not args.dry_run:

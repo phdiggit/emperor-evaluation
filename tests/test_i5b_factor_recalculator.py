@@ -311,6 +311,98 @@ def test_material_requires_stable_object_key_for_same_object_aggregation(tmp_pat
         raise AssertionError("expected missing object key to fail")
 
 
+def test_team_building_uses_team_quality_aggregate(tmp_path: Path) -> None:
+    tool = load_tool()
+    doc = tmp_path / "factors.md"
+    profile = tmp_path / "profile.json"
+    doc.write_text(
+        """# factors
+
+`talent_quality_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.70` | 历史级人才。 |
+| `1.35` | 顶级人才。 |
+| `1.00` | 重要人才。 |
+
+`role_complementarity_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.15` | 文武、谋政、执行、反馈等互补清楚。 |
+
+`long_term_stability_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.15` | 长期稳定核心班底。 |
+""",
+        encoding="utf-8",
+    )
+    profile.write_text(
+        json.dumps(
+            {
+                "clusters": [
+                    {
+                        "emperor": "测试帝",
+                        "rule_code": "team_building",
+                        "note": "测试团队",
+                        "team_factors": {
+                            "role_complementarity_factor": {
+                                "label": "文武、谋政、执行、反馈等互补清楚。"
+                            },
+                            "long_term_stability_factor": {"label": "长期稳定核心班底。"},
+                        },
+                        "materials": [
+                            {
+                                "obj_src_id": 1,
+                                "obj_id": 10,
+                                "obj_name": "甲",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "历史级人才。"}},
+                            },
+                            {
+                                "obj_src_id": 2,
+                                "obj_id": 20,
+                                "obj_name": "乙",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "顶级人才。"}},
+                            },
+                            {
+                                "obj_src_id": 3,
+                                "obj_id": 30,
+                                "obj_name": "丙",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "重要人才。"}},
+                            },
+                            {
+                                "obj_src_id": 4,
+                                "obj_id": 40,
+                                "obj_name": "群体对象",
+                                "direction": "positive",
+                                "factors": {"team_quality_excluded": "group_object"},
+                            },
+                        ],
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    _, _, clusters = tool.load_profile(profile, factor_docs=(doc,))
+
+    detail = clusters[0].calc_detail
+    assert clusters[0].positive_signal == tool.Decimal("2.958")
+    assert detail["team_quality_signal"] == "2.237"
+    assert [item["rank_decay"] for item in detail["team_quality_components"]] == ["1.00", "0.90", "0.80"]
+    assert detail["scored_material_ids"] == [4, 1, 2, 3]
+    excluded = [item for item in detail["materials"] if item["obj_name"] == "群体对象"][0]
+    assert excluded["team_quality_included"] is False
+
+
 def test_write_clusters_requires_full_material_coverage_by_default(monkeypatch, tmp_path: Path) -> None:
     tool = load_tool()
     cluster = tool.ClusterInput(

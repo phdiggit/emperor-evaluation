@@ -15,14 +15,14 @@ if str(ROOT) not in sys.path:
 from scripts.build.i5b_item_result_calculator import (  # noqa: E402
     DEFAULT_CLUSTER_FORMULA,
     DEFAULT_FORMULA_CODE,
-    DEFAULT_LOG_PATH as DEFAULT_RESULT_LOG_PATH,
+    DEFAULT_ITEM_CODE,
     RULE_ORDER,
+    fetch_item_result_calc_detail_rows,
 )
-from scripts.dev.evidence_cluster_workbench import DEFAULT_LOG_PATH as DEFAULT_CLUSTER_LOG_PATH  # noqa: E402
-from scripts.dev.i5b_calc_logs import (  # noqa: E402
-    I5BCalcLogError,
-    latest_cluster_log_rows,
-    latest_item_result_log_rows,
+from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
+    EvidenceClusterWorkbenchError,
+    fetch_cluster_calc_detail_rows,
+    resolve_dsn,
 )
 
 
@@ -174,23 +174,34 @@ def ordered_rule_codes(result_row: dict[str, Any]) -> list[str]:
 def build_breakdown_report(
     *,
     emperors: tuple[str, ...],
-    cluster_log: Path,
-    result_log: Path,
+    dsn: str | None = None,
+    item_code: str = DEFAULT_ITEM_CODE,
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
     result_formula: str = DEFAULT_FORMULA_CODE,
     rule_codes: tuple[str, ...] = (),
+    result_rows: dict[str, dict[str, Any]] | None = None,
+    cluster_rows: dict[tuple[str, str], dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not emperors:
         raise I5BCalcBreakdownError("at least one emperor is required")
 
-    result_rows = latest_item_result_log_rows(result_log, formula_code=result_formula, emperors=emperors)
-    cluster_rows = latest_cluster_log_rows(
-        cluster_log,
-        formula_code=cluster_formula,
-        emperors=emperors,
-        rule_codes=rule_codes,
-        require_calc_detail=True,
-    )
+    if result_rows is None or cluster_rows is None:
+        if dsn is None:
+            raise I5BCalcBreakdownError("dsn is required when rows are not supplied")
+        result_rows = fetch_item_result_calc_detail_rows(
+            dsn=dsn,
+            item_code=item_code,
+            cluster_formula=cluster_formula,
+            formula_code=result_formula,
+            emperors=emperors,
+        )
+        cluster_rows = fetch_cluster_calc_detail_rows(
+            dsn=dsn,
+            item_code=item_code,
+            formula_code=cluster_formula,
+            emperors=emperors,
+            rule_codes=rule_codes,
+        )
 
     missing_results = [emperor for emperor in emperors if emperor not in result_rows]
     if missing_results:
@@ -213,7 +224,7 @@ def build_breakdown_report(
                 raise I5BCalcBreakdownError(f"{emperor}.{rule_code}: rule result must be an object")
             cluster = normalize_cluster(cluster_rows.get((emperor, rule_code)))
             if cluster is None and not rule_result.get("no_material"):
-                warnings.append(f"{emperor}.{rule_code}: missing replayable cluster calc_detail log row")
+                warnings.append(f"{emperor}.{rule_code}: missing replayable cluster calc_detail row")
             rule_reports.append(
                 {
                     "rule_code": rule_code,
@@ -240,8 +251,8 @@ def build_breakdown_report(
 
     return {
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
-        "cluster_log": str(cluster_log),
-        "result_log": str(result_log),
+        "source": "postgres",
+        "item_code": item_code,
         "cluster_formula": cluster_formula,
         "result_formula": result_formula,
         "emperors": emperor_reports,
@@ -356,11 +367,11 @@ def write_report(path: Path, report: dict[str, Any], *, output_format: str) -> N
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Show I5B evidence-cluster and item-result calculations from JSONL logs.")
+    parser = argparse.ArgumentParser(description="Show I5B evidence-cluster and item-result calculations from DB detail tables.")
+    parser.add_argument("--dsn-env", default="EMPEROR_EVAL_PG_DSN", help="Environment variable name for PostgreSQL DSN.")
+    parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--emperor", action="append", required=True, help="Emperor name; repeat for multiple people.")
     parser.add_argument("--rule-code", action="append", default=None, help="Optional rule_code filter; repeatable.")
-    parser.add_argument("--cluster-log", type=Path, default=DEFAULT_CLUSTER_LOG_PATH, help="Evidence cluster calc JSONL log.")
-    parser.add_argument("--result-log", type=Path, default=DEFAULT_RESULT_LOG_PATH, help="I5B item result calc JSONL log.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code.")
     parser.add_argument("--result-formula", default=DEFAULT_FORMULA_CODE, help="Item result formula_code.")
     parser.add_argument("--format", choices=("json", "markdown"), default="markdown", help="Output format.")
@@ -374,13 +385,13 @@ def main(argv: list[str] | None = None) -> int:
     try:
         report = build_breakdown_report(
             emperors=tuple(args.emperor),
-            cluster_log=args.cluster_log,
-            result_log=args.result_log,
+            dsn=resolve_dsn(args.dsn_env),
+            item_code=args.item_code,
             cluster_formula=args.cluster_formula,
             result_formula=args.result_formula,
             rule_codes=tuple(args.rule_code or ()),
         )
-    except (I5BCalcLogError, I5BCalcBreakdownError) as exc:
+    except (EvidenceClusterWorkbenchError, I5BCalcBreakdownError) as exc:
         parser.error(str(exc))
 
     if args.output:
