@@ -21,10 +21,6 @@ VALIDATION_STEPS = [
         "validate_i5b_cluster_adjudication_configs",
         ROOT / "scripts" / "validate" / "validate_i5b_cluster_adjudication_configs.py",
     ),
-    (
-        "validate_human_readable_markdown_exports",
-        ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",
-    ),
     ("validate_config_readability", ROOT / "scripts" / "validate" / "validate_config_readability.py"),
 ]
 

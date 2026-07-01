@@ -10,7 +10,6 @@ SHARED_PLAN_DOC = ROOT / "archive" / "docs" / "audits" / "scripts共享工具依
 MIGRATED_SHARED_TOOLS = (
     "config_loaders.py",
     "export_md_scaffold.py",
-    "i5b_cluster_warning_display.py",
     "i5b_markdown_display.py",
 )
 NEW_SHARED_TOOLS = ("scoring_engine_contracts.py",)
@@ -33,7 +32,6 @@ def test_scripts_shared_placeholder_exists_without_import_side_effects() -> None
     assert "import config_loaders" not in content
     assert "import export_md_scaffold" not in content
     assert "import i5b_markdown_display" not in content
-    assert "import i5b_cluster_warning_display" not in content
 
 
 def test_current_shared_tools_have_retired_root_paths() -> None:
@@ -67,7 +65,6 @@ def test_canonical_shared_imports() -> None:
     sys.path.insert(0, str(SCRIPTS_DIR))
     for module_name in (
         "shared.export_md_scaffold",
-        "shared.i5b_cluster_warning_display",
         "shared.i5b_markdown_display",
         "shared.config_loaders",
         "shared.scoring_engine_contracts",
@@ -81,24 +78,6 @@ def test_exporters_and_export_md_import_scaffold_through_supported_paths() -> No
 
     sys.path.insert(0, str(SCRIPTS_DIR))
     for module_name in (
-        "export.export_i5b_net_evidence",
-        "export.export_project_doc_views",
         "export.export_md",
-        "export.export_i5b_auto_adjudication",
     ):
         assert importlib.import_module(module_name) is not None
-
-
-def test_display_dependents_import_shared_i5b_markdown_display() -> None:
-    import importlib
-    import sys
-
-    sys.path.insert(0, str(SCRIPTS_DIR))
-    for module_name in (
-        "export.export_i5b_net_evidence",
-        "export.export_project_doc_views",
-        "export.export_i5b_auto_adjudication",
-        "validate.validate_human_readable_markdown_exports",
-    ):
-        module = importlib.import_module(module_name)
-        assert module is not None

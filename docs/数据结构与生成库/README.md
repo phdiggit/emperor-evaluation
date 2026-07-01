@@ -19,6 +19,7 @@
 
 - [`数据主表字段规范.md`](数据主表字段规范.md)
 - [`对象化证据输入模型契约与B2迁移实验.md`](对象化证据输入模型契约与B2迁移实验.md)
+- [`I5B数据链运行流程.md`](I5B数据链运行流程.md)
 - [`query_profile与search_log字段规范.md`](query_profile与search_log字段规范.md)
 - [`稳定ID命名规范.md`](稳定ID命名规范.md)
 - [`SQLite生成库说明.md`](SQLite生成库说明.md)

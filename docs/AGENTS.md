@@ -56,7 +56,7 @@
 
 - 中文 Markdown、JSON 和说明文件默认使用 UTF-8 no BOM。
 - 中文路径和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或仓库工具。
-- 长中文 Markdown 正文避免用 PowerShell inline 字符串写入；长正文优先走 `codex-win body normalize/validate`，需要写回 PR/Issue/评论正文时按根 AGENTS 走 `codex-win body apply` 或 `codex-win review-pack apply`。
+- 长中文 Markdown 正文避免用 `pwsh` / PowerShell inline 字符串写入；长正文优先走 `codex-win body normalize/validate`，需要写回 PR/Issue/评论正文时按根 AGENTS 走 `codex-win body apply` 或 `codex-win review-pack apply`。
 - 面向用户的当前层 Markdown 文件名和正文默认使用中文；`README.md`、`AGENTS.md` 仅因工具链约定保留技术文件名。
 - 单一当前层功能目录超过 8 份直接 Markdown，或同主题族超过 3 份 active 文档时，必须在 `docs_registry.json` 记录密度或主题族 review。
 

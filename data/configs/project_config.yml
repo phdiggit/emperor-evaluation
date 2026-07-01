@@ -1,5 +1,5 @@
 # 全项目人工运行入口配置。
-# 只声明当前启用子项、默认时区、默认人物组、人物组和输出开关；不承载候选池、展示细节、关键词或人工复核规则。
+# 只声明当前启用子项、默认时区、默认人物组、人物组、输出开关和本地工具开关；不承载候选池、展示细节、关键词或人工复核规则。
 # 短名单可直接写 persons；长名单请用 persons_ref 指向 data/configs/lists/ 下的 YAML 清单。
 
 version: 2
@@ -50,8 +50,14 @@ person_groups:
 
 outputs:
   matrix: true
-  auto_adjudication: true
   review_entry: true
   subitem_details: true
-  net_evidence: true
   evidence_indexes: true
+
+tooling:
+  source_excerpt_pool:
+    cache:
+      enabled: true
+      backend: postgres
+      dsn_env: EMPEROR_EVAL_PG_DSN
+      schema: tool_cache

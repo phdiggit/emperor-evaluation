@@ -43,7 +43,7 @@ def test_list_profiles_command_lists_core_profiles() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     assert "main:" in result.stdout
     assert "all:" in result.stdout
-    assert "i5b-auto:" in result.stdout
+    assert "project-docs:" not in result.stdout
 
 
 def test_naked_export_defaults_to_main_profile(monkeypatch) -> None:
@@ -64,7 +64,7 @@ def test_main_profile_is_composite_entry_only() -> None:
     main_steps = set(export_md.step_names_for_profile("main"))
 
     assert main_steps == {"evidence_index", "evidence_clusters", "thematic_anchors", "query_profiles"}
-    assert "auto_adjudication" not in main_steps
+    assert main_steps <= set(export_md.ALL_EXPORT_STEPS)
     assert not any(step.startswith("expanded_batch1_") for step in main_steps)
 
 
@@ -74,13 +74,9 @@ def test_all_profile_preserves_full_export_step_set() -> None:
     assert all_steps == list(export_md.ALL_EXPORT_STEPS)
     for step_name in export_md.step_names_for_profile("main"):
         assert step_name in all_steps
-    assert "auto_adjudication" in all_steps
+    assert set(all_steps) == set(export_md.ALL_EXPORT_STEPS)
     assert not any(step.startswith("expanded_batch1_") for step in all_steps)
     assert "i5b-expanded-batch1" not in export_md.EXPORT_PROFILES
-
-
-def test_i5b_auto_profile_only_runs_auto_adjudication() -> None:
-    assert export_md.step_names_for_profile("i5b-auto") == ["auto_adjudication"]
 
 
 def test_load_i5b_active_targets_prefers_project_config(

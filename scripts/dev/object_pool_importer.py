@@ -30,6 +30,22 @@ GENERIC_OBJ_SRC_NOTE_FRAGMENTS = (
     "事实方向为",
     "I5B回源关联",
 )
+AMBIGUOUS_OBJ_SRC_NOTE_TERMS = (
+    "另切",
+    "不入",
+    "不加",
+    "不计",
+    "回填",
+    "额外收益",
+    "结果反馈",
+    "授权合理性",
+    "只作",
+    "只作为",
+    "只计",
+    "只保留",
+    "不得直接",
+    "不能充分验证",
+)
 
 
 class ImportErrorWithContext(ValueError):
@@ -192,6 +208,7 @@ def _parse_link(row: dict[str, Any], path: str) -> ObjectSourceLink:
         raise ImportErrorWithContext(f"{path}.direction: expected one of {allowed}")
     note = _text(row, "note", path)
     _assert_no_terms(note, GENERIC_OBJ_SRC_NOTE_FRAGMENTS, f"{path}.note")
+    _assert_no_terms(note, AMBIGUOUS_OBJ_SRC_NOTE_TERMS, f"{path}.note")
     return ObjectSourceLink(
         src_key=_text(row, "src_key", path),
         rule_code=_text(row, "rule_code", path),

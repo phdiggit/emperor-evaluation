@@ -103,13 +103,6 @@ def test_validate_all_excludes_script_lifecycle_registry_step() -> None:
     assert "validate_script_lifecycle_registry" not in step_names
 
 
-def test_validate_all_includes_human_readable_markdown_export_step() -> None:
-    assert (
-        "validate_human_readable_markdown_exports",
-        ROOT / "scripts" / "validate" / "validate_human_readable_markdown_exports.py",
-    ) in validate_all.VALIDATION_STEPS
-
-
 def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     called: list[str] = []
 

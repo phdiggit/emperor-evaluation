@@ -76,7 +76,6 @@ PROCESSING_ALLOWED = {
 }
 DIAGNOSTIC_FIELDS = {"diagnostic_only", "feeds_formal_scoring"}
 FORMAL_SCORING_FIELDS = {
-    "auto_band_direction",
     "formal_band_draft",
     "formal_rank",
     "formal_score_value_45",
@@ -504,7 +503,6 @@ def test_experimental_b2_rows_do_not_introduce_formal_scoring_surface() -> None:
 
     for path in [
         ROOT / "scripts" / "export" / "export_md.py",
-        ROOT / "scripts" / "export" / "dimension_adapters" / "i5b_people_delegation" / "adapter.py",
     ]:
         content = path.read_text(encoding="utf-8")
         assert "data/experimental" not in content

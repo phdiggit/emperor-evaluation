@@ -87,7 +87,7 @@ ALLOWED_CHANGED_FILES = {
     "docs/文档与脚本登记/scripts_registry.json",
     "scripts/dev/docs_governance/constants.py",
     "scripts/dev/docs_governance/registry_check.py",
-    "scripts/export/export_i5b_auto_adjudication.py",
+    "scripts/export/export_md.py",
     "tests/test_docs_governance.py",
     "tests/test_docs_tool.py",
     "tests/test_file_governance_policy.py",
@@ -146,7 +146,7 @@ def test_human_readable_markdown_spec_contains_detailed_rules() -> None:
         "`cross_item_split_signals / 相邻项剥离说明` 必须全量展示，不得隐藏",
         "warning `matched_fields / 命中字段` 必须全量展示，不得截断",
         "不使用 `……（共N项）` 或类似文案截断长列表",
-        "[李世民详情](./第五项B自动结算草案_李世民.md)",
+        "详情页不要使用宽表承载长字段",
     ]:
         assert needle in content
 

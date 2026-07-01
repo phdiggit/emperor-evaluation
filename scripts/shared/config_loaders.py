@@ -5,24 +5,14 @@ from typing import Any
 
 import yaml
 
-from shared.i5b_runtime_defaults import (
-    DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE,
-    I5B_CANDIDATE_POOL_REQUIRED_FIELDS,
-    default_i5b_candidate_pool_rows,
-    default_i5b_review_warning_rules,
-)
-
-
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT_CONFIG_PATH = ROOT / "data" / "configs" / "project_config.yml"
 DEFAULT_I5B_ITEM = "第五项"
 DEFAULT_I5B_SUBITEM = "第五项B"
 I5B_OUTPUT_SWITCHES = {
     "matrix",
-    "auto_adjudication",
     "review_entry",
     "subitem_details",
-    "net_evidence",
     "evidence_indexes",
 }
 
@@ -212,49 +202,3 @@ def get_i5b_trial_config() -> dict[str, Any]:
 
 def get_i5b_trial_targets() -> list[str]:
     return [str(person) for person in get_i5b_trial_config()["targets"]]
-
-
-def get_i5b_net_evidence_targets() -> list[tuple[str, Path]]:
-    persons = get_i5b_output_person_targets("net_evidence")
-    return [
-        (str(person), ROOT / DEFAULT_I5B_NET_EVIDENCE_PATH_TEMPLATE.format(person=person))
-        for person in persons
-    ]
-
-
-def get_i5b_expanded_candidate_pool_rows() -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    for row in load_i5b_person_pool():
-        if all(row.get(field) for field in I5B_CANDIDATE_POOL_REQUIRED_FIELDS):
-            rows.append(row)
-    return rows
-
-
-def load_i5b_cluster_warning_rules() -> list[dict[str, Any]]:
-    return default_i5b_review_warning_rules()
-
-
-def get_i5b_cluster_warning_rules(
-    *,
-    rule_id: str | None = None,
-    warning_type: str | None = None,
-    trigger_type: str | None = None,
-    subitem: str | None = None,
-) -> list[dict[str, Any]]:
-    rows = load_i5b_cluster_warning_rules()
-    if rule_id is not None:
-        rows = [row for row in rows if row.get("rule_id") == rule_id]
-    if warning_type is not None:
-        rows = [row for row in rows if row.get("warning_type") == warning_type]
-    if trigger_type is not None:
-        rows = [row for row in rows if row.get("trigger_type") == trigger_type]
-    if subitem is not None:
-        rows = [row for row in rows if row.get("subitem") == subitem]
-    return rows
-
-
-def get_i5b_cluster_warning_rule(rule_id: str) -> dict[str, Any] | None:
-    rows = get_i5b_cluster_warning_rules(rule_id=rule_id)
-    if not rows:
-        return None
-    return rows[0]

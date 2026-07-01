@@ -36,10 +36,8 @@ def write_project_config(
     resolved_default_group = default_person_group or _default_person_group_from_view_groups(view_groups)
     resolved_outputs = outputs or {
         "matrix": True,
-        "auto_adjudication": True,
         "review_entry": True,
         "subitem_details": True,
-        "net_evidence": True,
         "evidence_indexes": True,
     }
     payload = {

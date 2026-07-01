@@ -28,20 +28,20 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - PR 说明必须包含最终 changed files 列表；创建或更新 PR 时默认生成/刷新 `Codex PR Review Package v1.1`，不做 merge decision。
 - evidence 路径只用 repo-relative `path:Lx`，不用本地绝对路径；创建 PR 后顺手生成/更新审查包并读回验证 head/body 不 stale。
 - PR timing / evidence batch timing 只使用 `codex-win timer` 和命令日志的实测结果；没有 timer 时写 `timing unavailable` / `precise timing unavailable`，不得估算 total、per-person 或 per-phase 时间，具体流程见 GitHub 发布规范。
-- PowerShell 中不要拼复杂 `gh --jq`；复杂 JSON 检查优先用 `codex-win gh pr-view`、Python JSON 解析或工具自带 verify。
+- `pwsh` 中不要拼复杂 `gh --jq`；复杂 JSON 检查优先用 `codex-win gh pr-view`、Python JSON 解析或工具自带 verify。
 
 ## Shell 与编码 / Shell And Encoding
 
-- Windows 上涉及中文正文、中文路径、JSON/Markdown 改写或多行脚本时，优先使用 `D:\Git\usr\bin\bash.exe` 运行 Git Bash + UTF-8 shell；Python/pytest/validator/export/build/matrix 等子进程优先用 `codex-win run -- ...`；PowerShell 仅用于简单命令或 Windows 专属 cmdlet。
-- 当前在 PowerShell 时使用 PowerShell 语法，不用 Bash 的 `&&` / `||`；当前在 Git Bash 时保持 Git Bash，复杂管道、重定向和命令串联优先切到 Git Bash。
-- 禁止用 PowerShell inline / here-string 管道传递大段中文给 Python 或 `gh`；改用 Git Bash here-doc、UTF-8 临时 `.py` 文件、`codex-win body` / `repo_tool`，或显式 Unicode escape。
+- Windows 上涉及 PowerShell 的命令默认使用 `pwsh.exe`；Python/pytest/validator/export/build/matrix 等子进程优先用 `codex-win run -- ...`；只有 5.1 专属兼容验证或任务明确要求时才用 `powershell.exe`。
+- 在 `pwsh` 中使用 PowerShell 语法，可以使用 `&&` / `||`；需要 Bash 工具链、POSIX 管道、`.sh` 脚本或 Bash here-doc 时切到 Git Bash。
+- 禁止用 `pwsh` / PowerShell inline、管道或 here-string 传递大段中文给 Python 或 `gh`；改用 UTF-8 临时 `.py` 文件、`codex-win body` / `repo_tool` 或 Git Bash here-doc。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本、Markdown、JSON / JSONL 结构化改写优先用 `codex-win encoding`、仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
 
 ## GitHub 正文安全 / GitHub Body Safety
 
-- 禁止用 PowerShell inline 字符串直接写大段 Markdown PR body。
+- 禁止用 `pwsh` / PowerShell inline 字符串直接写大段 Markdown PR body。
 - PR body、长 issue comment、长 review comment 的生成、校验、写回和坏字符检查按 `docs/展示与协作/GitHub发布与认证规范.md` 执行。
 
 ## 脚本治理 / Script Governance

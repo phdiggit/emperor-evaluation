@@ -60,7 +60,6 @@ def test_file_governance_report_mentions_required_scripts_and_categories() -> No
     content = read_report()
     for needle in [
         "scripts/export/export_md.py",
-        "scripts/export/export_i5b_auto_adjudication.py",
         "scripts/validate/validate_evidence.py",
         "keep_long_term",
         "keep_for_now",

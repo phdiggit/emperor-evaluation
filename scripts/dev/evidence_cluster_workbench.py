@@ -32,6 +32,7 @@ class ClusterInput:
     note: str
     material_ids: tuple[int, ...] = ()
     calc_note: str = ""
+    calc_detail: dict[str, Any] | None = None
 
 
 def load_env(path: Path = ROOT / ".env") -> dict[str, str]:
@@ -119,6 +120,9 @@ def parse_cluster_payload(raw: dict[str, Any]) -> tuple[str, tuple[ClusterInput,
             calc_note = ""
         if not isinstance(calc_note, str):
             raise EvidenceClusterWorkbenchError(f"{path}.calc_note: expected string")
+        calc_detail = item.get("calc_detail")
+        if calc_detail is not None and not isinstance(calc_detail, dict):
+            raise EvidenceClusterWorkbenchError(f"{path}.calc_detail: expected object")
         clusters.append(
             ClusterInput(
                 emperor=_require_text(item, "emperor", path),
@@ -129,6 +133,7 @@ def parse_cluster_payload(raw: dict[str, Any]) -> tuple[str, tuple[ClusterInput,
                 note=_require_text(item, "note", path),
                 material_ids=_optional_int_tuple(item, "material_ids", path),
                 calc_note=calc_note.strip(),
+                calc_detail=calc_detail,
             )
         )
     return item_code, tuple(clusters)
@@ -162,6 +167,109 @@ def _cluster_lookup(cur: psycopg.Cursor, *, emperor: str, item_code: str, rule_c
     return emp_id, item_id, rule_id
 
 
+def _expected_material_id_sets(
+    cur: psycopg.Cursor,
+    *,
+    emp_id: int,
+    item_id: int,
+    rule_id: int,
+) -> tuple[set[int], set[int]]:
+    cur.execute(
+        """
+        select osrc.id, osrc.direction
+        from obj_srcs osrc
+        join emp_objs eo on eo.id = osrc.emp_obj_id
+        where eo.emp_id = %s
+          and osrc.item_id = %s
+          and osrc.rule_id = %s
+        order by osrc.id
+        """,
+        (emp_id, item_id, rule_id),
+    )
+    rows = cur.fetchall()
+    all_ids = {int(row[0]) for row in rows}
+    scoring_ids = {int(row[0]) for row in rows if len(row) < 2 or row[1] != "neutral"}
+    return all_ids, scoring_ids
+
+
+def _calc_detail_material_ids(cluster: ClusterInput) -> tuple[int, ...] | None:
+    if cluster.calc_detail is None:
+        return None
+    materials = cluster.calc_detail.get("materials")
+    if materials is None:
+        return None
+    if not isinstance(materials, list):
+        raise EvidenceClusterWorkbenchError(f"{cluster.emperor}/{cluster.rule_code}: calc_detail.materials expected list")
+    ids: list[int] = []
+    for index, material in enumerate(materials):
+        if not isinstance(material, dict):
+            raise EvidenceClusterWorkbenchError(
+                f"{cluster.emperor}/{cluster.rule_code}: calc_detail.materials[{index}] expected object"
+            )
+        value = material.get("obj_src_id")
+        if value is None:
+            continue
+        if not isinstance(value, int):
+            raise EvidenceClusterWorkbenchError(
+                f"{cluster.emperor}/{cluster.rule_code}: calc_detail.materials[{index}].obj_src_id expected integer"
+            )
+        ids.append(value)
+    return tuple(ids)
+
+
+def _raise_material_coverage_error(
+    *,
+    cluster: ClusterInput,
+    field_name: str,
+    missing: list[int],
+    extra: list[int],
+) -> None:
+    parts = []
+    if missing:
+        parts.append(f"missing obj_srcs={missing}")
+    if extra:
+        parts.append(f"extra obj_srcs={extra}")
+    detail = "; ".join(parts)
+    raise EvidenceClusterWorkbenchError(
+        f"{cluster.emperor}/{cluster.rule_code}: {field_name} does not cover DB obj_srcs; {detail}"
+    )
+
+
+def _validate_material_coverage(
+    cur: psycopg.Cursor,
+    *,
+    emp_id: int,
+    item_id: int,
+    rule_id: int,
+    cluster: ClusterInput,
+) -> None:
+    expected, scoring_expected = _expected_material_id_sets(cur, emp_id=emp_id, item_id=item_id, rule_id=rule_id)
+    material_ids = set(cluster.material_ids)
+    missing = sorted(expected - material_ids)
+    extra = sorted(material_ids - expected)
+    if missing or extra:
+        _raise_material_coverage_error(
+            cluster=cluster,
+            field_name="material_ids",
+            missing=missing,
+            extra=extra,
+        )
+
+    detail_ids = _calc_detail_material_ids(cluster)
+    if detail_ids is None:
+        return
+    detail_set = set(detail_ids)
+    detail_missing = sorted(scoring_expected - detail_set)
+    detail_extra = sorted(detail_set - scoring_expected)
+    if detail_missing or detail_extra:
+        _raise_material_coverage_error(
+            cluster=cluster,
+            field_name="calc_detail.materials",
+            missing=detail_missing,
+            extra=detail_extra,
+        )
+
+
 def upsert_clusters(
     *,
     dsn: str,
@@ -169,6 +277,7 @@ def upsert_clusters(
     clusters: tuple[ClusterInput, ...],
     dry_run: bool = False,
     log_path: Path = DEFAULT_LOG_PATH,
+    require_full_material_coverage: bool = True,
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     with psycopg.connect(dsn) as conn:
@@ -180,6 +289,14 @@ def upsert_clusters(
                     item_code=item_code,
                     rule_code=cluster.rule_code,
                 )
+                if require_full_material_coverage:
+                    _validate_material_coverage(
+                        cur,
+                        emp_id=emp_id,
+                        item_id=item_id,
+                        rule_id=rule_id,
+                        cluster=cluster,
+                    )
                 direction = direction_from_signals(cluster.positive_signal, cluster.negative_signal)
                 cur.execute(
                     """
@@ -220,8 +337,10 @@ def upsert_clusters(
                         "net_signal": str(net_signal),
                         "signal_intensity": str(signal_intensity),
                         "formula_code": cluster.formula_code,
+                        "note": cluster.note,
                         "material_ids": list(cluster.material_ids),
                         "calc_note": cluster.calc_note,
+                        "calc_detail": cluster.calc_detail,
                     }
                 )
 
@@ -251,10 +370,15 @@ def append_calc_log(path: Path, rows: list[dict[str, Any]]) -> None:
                 "positive_signal": row["positive_signal"],
                 "negative_signal": row["negative_signal"],
                 "net_signal": row["net_signal"],
+                "signal_intensity": row["signal_intensity"],
+                "cluster_direction": row["cluster_direction"],
                 "formula_code": row["formula_code"],
+                "note": row["note"],
                 "material_ids": row["material_ids"],
                 "calc_note": row["calc_note"],
             }
+            if row.get("calc_detail") is not None:
+                payload["calc_detail"] = row["calc_detail"]
             handle.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
 
 
@@ -394,6 +518,11 @@ def build_parser() -> argparse.ArgumentParser:
     upsert.add_argument("--input", type=Path, required=True, help="UTF-8 JSON cluster payload.")
     upsert.add_argument("--log", type=Path, default=DEFAULT_LOG_PATH, help="JSONL calculation log path.")
     upsert.add_argument("--dry-run", action="store_true", help="Rollback database writes and skip log append.")
+    upsert.add_argument(
+        "--allow-partial-material-coverage",
+        action="store_true",
+        help="Allow cluster material_ids/calc_detail to omit DB obj_srcs for this emperor/rule.",
+    )
 
     return parser
 
@@ -433,6 +562,7 @@ def main(argv: list[str] | None = None) -> int:
             clusters=clusters,
             dry_run=args.dry_run,
             log_path=args.log,
+            require_full_material_coverage=not args.allow_partial_material_coverage,
         )
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
         return 0

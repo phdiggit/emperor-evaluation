@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import re
 from pathlib import Path
 from typing import Any
 
@@ -10,19 +11,28 @@ from yaml.tokens import AliasToken, AnchorToken, DocumentStartToken, TagToken
 
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT_CONFIG_PATH = ROOT / "data" / "configs" / "project_config.yml"
-ALLOWED_TOP_LEVEL_KEYS = {"version", "timezone", "active_subitem", "default_person_group", "person_groups", "outputs"}
+ALLOWED_TOP_LEVEL_KEYS = {
+    "version",
+    "timezone",
+    "active_subitem",
+    "default_person_group",
+    "person_groups",
+    "outputs",
+    "tooling",
+}
 ALLOWED_TIMEZONES = {"Asia/Shanghai"}
 ALLOWED_GROUP_KEYS = {"label", "persons", "persons_ref"}
 PERSON_SOURCE_KEYS = {"persons", "persons_ref"}
 ALLOWED_OUTPUT_KEYS = {
     "matrix",
-    "auto_adjudication",
     "review_entry",
     "subitem_details",
-    "net_evidence",
     "evidence_indexes",
 }
 ALLOWED_OUTPUT_DETAIL_KEYS = {"enabled", "person_group_override"}
+ALLOWED_TOOLING_KEYS = {"source_excerpt_pool"}
+ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache"}
+ALLOWED_SOURCE_EXCERPT_CACHE_KEYS = {"enabled", "backend", "directory", "dsn_env", "schema"}
 FORBIDDEN_KEYS = {
     "i5b",
     "subitems",
@@ -30,7 +40,6 @@ FORBIDDEN_KEYS = {
     "defaults",
     "trial_group",
     "expanded_group",
-    "net_evidence_group",
     "persons_from_group",
     "candidate_pool",
     "review_warning_rules",
@@ -173,8 +182,7 @@ def validate_outputs(path: Path, outputs: object, groups: dict[str, Any]) -> lis
         if not isinstance(value, dict):
             errors.append(f"{path}: {label}.{key} must be a boolean or output switch mapping")
             continue
-        if key != "net_evidence":
-            errors.append(f"{path}: {label}.{key}: only net_evidence may use an output switch mapping")
+        errors.append(f"{path}: {label}.{key}: output switches no longer accept mapping values")
         extra_detail_keys = sorted(set(value) - ALLOWED_OUTPUT_DETAIL_KEYS)
         for detail_key in extra_detail_keys:
             errors.append(f"{path}: {label}.{key}.{detail_key}: output switch field is not allowed")
@@ -199,6 +207,69 @@ def validate_person_groups(path: Path, groups: object) -> list[str]:
             errors.append(f"{path}: {label}: group keys must be non-empty strings")
             continue
         errors.extend(validate_group(path, groups, str(group_key), row))
+    return errors
+
+
+def validate_cache_directory(path: Path, directory: object, label: str) -> list[str]:
+    if not is_non_empty_string(directory):
+        return [f"{path}: {label} must be a non-empty string"]
+    cache_path = Path(str(directory))
+    if cache_path.is_absolute() or ".." in cache_path.parts:
+        return [f"{path}: {label} must be a repo-relative path without '..'"]
+    if not cache_path.as_posix().startswith(".cache/"):
+        return [f"{path}: {label} must stay under .cache/"]
+    return []
+
+
+def validate_pg_identifier(path: Path, value: object, label: str) -> list[str]:
+    if not is_non_empty_string(value):
+        return [f"{path}: {label} must be a non-empty string"]
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", str(value)):
+        return [f"{path}: {label} must be a PostgreSQL identifier"]
+    return []
+
+
+def validate_tooling(path: Path, tooling: object) -> list[str]:
+    if tooling is None:
+        return []
+    label = "tooling"
+    errors: list[str] = []
+    if not isinstance(tooling, dict):
+        return [f"{path}: {label} must be a mapping"]
+    extra_keys = sorted(set(tooling) - ALLOWED_TOOLING_KEYS)
+    for key in extra_keys:
+        errors.append(f"{path}: {label}.{key}: tooling only allows known local tool sections")
+
+    source_excerpt_pool = tooling.get("source_excerpt_pool")
+    if source_excerpt_pool is None:
+        return errors
+    if not isinstance(source_excerpt_pool, dict):
+        return [*errors, f"{path}: {label}.source_excerpt_pool must be a mapping"]
+    extra_pool_keys = sorted(set(source_excerpt_pool) - ALLOWED_SOURCE_EXCERPT_POOL_KEYS)
+    for key in extra_pool_keys:
+        errors.append(f"{path}: {label}.source_excerpt_pool.{key}: source_excerpt_pool field is not allowed")
+
+    cache = source_excerpt_pool.get("cache")
+    if cache is None:
+        return errors
+    if not isinstance(cache, dict):
+        return [*errors, f"{path}: {label}.source_excerpt_pool.cache must be a mapping"]
+    extra_cache_keys = sorted(set(cache) - ALLOWED_SOURCE_EXCERPT_CACHE_KEYS)
+    for key in extra_cache_keys:
+        errors.append(f"{path}: {label}.source_excerpt_pool.cache.{key}: cache field is not allowed")
+    if "enabled" in cache and not isinstance(cache["enabled"], bool):
+        errors.append(f"{path}: {label}.source_excerpt_pool.cache.enabled must be a boolean")
+    backend = cache.get("backend")
+    if backend is not None and backend not in {"filesystem", "postgres"}:
+        errors.append(f"{path}: {label}.source_excerpt_pool.cache.backend must be filesystem or postgres")
+    if backend == "postgres" and "directory" in cache:
+        errors.append(f"{path}: {label}.source_excerpt_pool.cache.directory is only allowed for filesystem backend")
+    if "directory" in cache:
+        errors.extend(validate_cache_directory(path, cache["directory"], f"{label}.source_excerpt_pool.cache.directory"))
+    if "dsn_env" in cache and not is_non_empty_string(cache["dsn_env"]):
+        errors.append(f"{path}: {label}.source_excerpt_pool.cache.dsn_env must be a non-empty string")
+    if "schema" in cache:
+        errors.extend(validate_pg_identifier(path, cache["schema"], f"{label}.source_excerpt_pool.cache.schema"))
     return errors
 
 
@@ -232,7 +303,7 @@ def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
     for key in extra_top_level:
         errors.append(
             f"{path}: {key}: top-level config only allows "
-            "version/timezone/active_subitem/default_person_group/person_groups/outputs"
+            "version/timezone/active_subitem/default_person_group/person_groups/outputs/tooling"
         )
     if payload.get("version") != 2:
         errors.append(f"{path}: version must be 2")
@@ -252,6 +323,7 @@ def validate(path: Path = PROJECT_CONFIG_PATH) -> list[str]:
         errors.extend(validate_outputs(path, payload.get("outputs"), groups))
     else:
         errors.append(f"{path}: outputs cannot be validated without person_groups")
+    errors.extend(validate_tooling(path, payload.get("tooling")))
     return errors
 
 

@@ -151,3 +151,58 @@ def test_run_chain_write_mode_dry_runs_before_writes(monkeypatch) -> None:
         ("results", False),
     ]
     assert report["validation"] == {"ok": True, "emperors": ("刘邦",)}
+
+
+def test_validate_chain_counts_clusters_after_grouping(monkeypatch) -> None:
+    tool = load_tool()
+
+    class FakeCursor:
+        def __init__(self, columns, rows):
+            self.description = [SimpleNamespace(name=column) for column in columns]
+            self._rows = rows
+
+        def fetchall(self):
+            return self._rows
+
+    class FakeConnection:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def execute(self, query, params):
+            if "from v_emp_item_results_by_id" in query:
+                return FakeCursor(
+                    ["emperor", "item_code", "formula_code", "score", "score_rate", "tier", "tier_band", "updated_at"],
+                    [("刘邦", "I5B", "item_result_formula_i5b_v6", "36.437", "0.8097", "优秀", "低段", "now")],
+                )
+            if "count(distinct sd.id)" in query:
+                return FakeCursor(
+                    ["emperor", "src_docs", "emp_objs", "obj_srcs", "obj_attrs"],
+                    [("刘邦", 11, 12, 27, 2)],
+                )
+            if "from evd_clusters c" in query:
+                return FakeCursor(
+                    ["emperor", "rule_code", "positive_signal", "negative_signal", "cluster_direction"],
+                    [
+                        ("刘邦", "appointment_trust", "4.551", "0.000", "positive"),
+                        ("刘邦", "team_building", "6.403", "0.000", "positive"),
+                    ],
+                )
+            if "having count(os.id) = 0" in query:
+                return FakeCursor(["emperor", "raw_object"], [])
+            if "and not exists" in query:
+                return FakeCursor(["emperor", "raw_object", "attr_code", "doc_id"], [])
+            if "select distinct e.name as emperor" in query:
+                return FakeCursor(["emperor", "raw_object", "note"], [("刘邦", "萧何", "汉初功臣")])
+            raise AssertionError(query)
+
+    monkeypatch.setattr(tool.psycopg, "connect", lambda dsn: FakeConnection())
+
+    report = tool.validate_chain(dsn="postgresql://example", emperors=("刘邦",))
+
+    assert report["ok"] is True
+    assert report["cluster_count"] == 2
+    assert report["cluster_count_by_emperor"] == {"刘邦": 2}
+    assert report["clusters"]["刘邦"][0]["rule_code"] == "appointment_trust"

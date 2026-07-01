@@ -14,7 +14,6 @@ def script_path(script_name: str) -> Path:
         "validate_evidence.py": Path("scripts/validate/validate_evidence.py"),
         "build_db.py": Path("scripts/build/build_db.py"),
         "export_md.py": Path("scripts/export/export_md.py"),
-        "export_i5b_auto_adjudication.py": Path("scripts/export/export_i5b_auto_adjudication.py"),
     }
     return ROOT / routes.get(script_name, Path("scripts") / script_name)
 SEARCH_LOG_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "检索包" / "第五项B机器审计检索线索索引.md"
@@ -22,7 +21,6 @@ SUMMARY_EXPORT_ROOT = ROOT / "exports" / "markdown_views" / "综合汇总"
 EVIDENCE_CLUSTERS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "证据组裁量索引.md"
 THEMATIC_ANCHORS_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "专题锚点索引.md"
 QUERY_PROFILES_EXPORT_PATH = SUMMARY_EXPORT_ROOT / "项目检索包索引.md"
-LIUZHUANG_NET_EVIDENCE_EXPORT_PATH = ROOT / "exports" / "markdown_views" / "第五项B" / "机器审计" / "证据链" / "净证据池" / "第五项B_刘庄机器审计净证据池.md"
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"
 SOURCES_PATH = ROOT / "data" / "sources.jsonl"
 SEARCH_LOGS_PATH = ROOT / "data" / "search_logs.jsonl"
@@ -111,7 +109,6 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert EVIDENCE_CLUSTERS_EXPORT_PATH.exists()
     assert THEMATIC_ANCHORS_EXPORT_PATH.exists()
     assert QUERY_PROFILES_EXPORT_PATH.exists()
-    assert LIUZHUANG_NET_EVIDENCE_EXPORT_PATH.exists()
 
     content = SEARCH_LOG_EXPORT_PATH.read_text(encoding="utf-8")
     assert "李世民" in content
@@ -156,12 +153,6 @@ def test_export_md_generates_i5b_trial_search_leads_view() -> None:
     assert "QRY-I5B-001" in query_profiles_content
     assert "project_driven" in query_profiles_content
     assert "专题锚点池" in query_profiles_content
-
-    liuzhuang_net_content = LIUZHUANG_NET_EVIDENCE_EXPORT_PATH.read_text(encoding="utf-8")
-    assert "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001" in liuzhuang_net_content
-    assert "EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001" in liuzhuang_net_content
-    assert "EVD-I5B-LIUZHUANG-POS-SHOUQUAN-BANCHAO-001" in liuzhuang_net_content
-    assert "EVD-I5B-LIUZHUANG-NEG-YIJI-001" in liuzhuang_net_content
 
 
 def test_source_review_evidence_cards_reference_existing_sources_and_keep_expected_trial_scope() -> None:

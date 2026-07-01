@@ -18,7 +18,6 @@ MIGRATED_VALIDATORS = [
     "validate_view_configs.py",
     "validate_chinese_view_configs.py",
     "validate_review_configs.py",
-    "validate_human_readable_markdown_exports.py",
     "validate_i5b_cluster_adjudication_configs.py",
     "validate_config_readability.py",
 ]
@@ -62,10 +61,6 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
 
     for module_name in NEWLY_MIGRATED_VALIDATORS:
         assert steps[module_name] == VALIDATE_DIR / f"{module_name}.py"
-    assert (
-        steps["validate_human_readable_markdown_exports"]
-        == VALIDATE_DIR / "validate_human_readable_markdown_exports.py"
-    )
     assert (
         steps["validate_i5b_cluster_adjudication_configs"]
         == VALIDATE_DIR / "validate_i5b_cluster_adjudication_configs.py"

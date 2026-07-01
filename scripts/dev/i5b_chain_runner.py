@@ -251,6 +251,7 @@ def validate_chain(
                 }
             )
 
+    cluster_count_by_emperor = Counter(str(row["emperor"]) for row in cluster_rows)
     clusters_by_emperor: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in cluster_rows:
         emperor = str(row.pop("emperor"))
@@ -282,7 +283,7 @@ def validate_chain(
         "chain_counts": chain_counts,
         "clusters": dict(clusters_by_emperor),
         "cluster_count": len(cluster_rows),
-        "cluster_count_by_emperor": dict(Counter(row["emperor"] for row in cluster_rows)),
+        "cluster_count_by_emperor": dict(cluster_count_by_emperor),
         "issues": {
             "counts": issue_counts,
             "missing_results": missing_results,

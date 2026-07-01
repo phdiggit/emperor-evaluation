@@ -14,7 +14,6 @@ def script_path(script_name: str) -> Path:
         "validate_evidence.py": Path("scripts/validate/validate_evidence.py"),
         "build_db.py": Path("scripts/build/build_db.py"),
         "export_md.py": Path("scripts/export/export_md.py"),
-        "export_i5b_auto_adjudication.py": Path("scripts/export/export_i5b_auto_adjudication.py"),
     }
     return ROOT / routes.get(script_name, Path("scripts") / script_name)
 EVIDENCE_CARDS_PATH = ROOT / "data" / "evidence_cards.jsonl"

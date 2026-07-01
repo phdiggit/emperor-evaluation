@@ -9,9 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = ROOT / "scripts"
 EXPORT_DIR = SCRIPTS_DIR / "export"
 MIGRATED_EXPORTERS = (
-    "export_i5b_auto_adjudication",
-    "export_i5b_net_evidence",
-    "export_project_doc_views",
+    "export_md",
 )
 DIMENSION_EXPORT_FRAMEWORK_MODULES = (
     "dimension_export/data_loading.py",
@@ -20,10 +18,6 @@ DIMENSION_EXPORT_FRAMEWORK_MODULES = (
     "dimension_export/output_layout.py",
     "dimension_export/pipeline.py",
     "dimension_export/validation.py",
-    "dimension_adapters/i5b_people_delegation/adapter.py",
-    "dimension_adapters/i5b_people_delegation/dictionary_readthrough.py",
-    "dimension_adapters/i5b_people_delegation/output_specs.py",
-    "dimension_adapters/i5b_people_delegation/rules.py",
 )
 
 
@@ -44,27 +38,6 @@ def test_canonical_exporter_modules_are_importable() -> None:
         __import__(f"export.{module_name}")
 
 
-def test_auto_adjudication_canonical_help_command_runs() -> None:
-    result = subprocess.run(
-        [sys.executable, str(EXPORT_DIR / "export_i5b_auto_adjudication.py"), "--help"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    assert result.returncode == 0
-    assert "--output-layout" in result.stdout
-
-
-def test_auto_adjudication_entrypoint_is_thin_wrapper() -> None:
-    wrapper = EXPORT_DIR / "export_i5b_auto_adjudication.py"
-    lines = wrapper.read_text(encoding="utf-8").splitlines()
-
-    assert len(lines) <= 30
-    assert "dimension_adapters.i5b_people_delegation import adapter as _adapter" in "\n".join(lines)
-    assert "main = _adapter.main" in "\n".join(lines)
-
-
 def test_dimension_export_framework_modules_use_english_paths() -> None:
     for relative_path in DIMENSION_EXPORT_FRAMEWORK_MODULES:
         path = EXPORT_DIR / relative_path
@@ -73,13 +46,10 @@ def test_dimension_export_framework_modules_use_english_paths() -> None:
 
     for path in (EXPORT_DIR / "dimension_export").rglob("*"):
         assert path.relative_to(EXPORT_DIR).as_posix().isascii()
-    for path in (EXPORT_DIR / "dimension_adapters").rglob("*"):
-        assert path.relative_to(EXPORT_DIR).as_posix().isascii()
-
-
-def test_export_md_entrypoint_implementation_lives_under_export_directory() -> None:
-    assert (EXPORT_DIR / "export_md.py").is_file()
-    assert not (SCRIPTS_DIR / "export_md.py").exists()
+    adapters_dir = EXPORT_DIR / "dimension_adapters"
+    if adapters_dir.exists():
+        for path in adapters_dir.rglob("*"):
+            assert path.relative_to(EXPORT_DIR).as_posix().isascii()
 
 
 def test_docs_and_agents_mention_export_directory_rule() -> None:

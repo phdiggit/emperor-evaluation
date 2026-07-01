@@ -166,6 +166,24 @@ def test_parse_payload_rejects_generic_obj_src_note() -> None:
         importer.parse_payload(raw)
 
 
+def test_parse_payload_rejects_ambiguous_obj_src_note_terms() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["links"][0]["note"] = "受任统兵，战果另切。"
+
+    with pytest.raises(importer.ImportErrorWithContext, match="forbidden term"):
+        importer.parse_payload(raw)
+
+
+def test_parse_payload_rejects_obj_src_note_with_patch_explanation() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["links"][0]["note"] = "受任统兵，战果不回填，只作结果反馈。"
+
+    with pytest.raises(importer.ImportErrorWithContext, match="forbidden term"):
+        importer.parse_payload(raw)
+
+
 def test_parse_payload_rejects_unknown_source_reference() -> None:
     importer = load_importer()
     raw = valid_payload()

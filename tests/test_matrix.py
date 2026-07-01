@@ -58,11 +58,6 @@ def build_temp_repo(tmp_path: Path) -> Path:
         SCRIPTS_DIR / "shared" / "i5b_markdown_display_defaults.py",
         repo / "scripts" / "shared" / "i5b_markdown_display_defaults.py",
     )
-    copy_script(
-        SCRIPTS_DIR / "shared" / "i5b_runtime_defaults.py",
-        repo / "scripts" / "shared" / "i5b_runtime_defaults.py",
-    )
-
     write_jsonl(
         repo / "data" / "trigger_terms.jsonl",
         [
@@ -100,10 +95,8 @@ def build_temp_repo(tmp_path: Path) -> Path:
             },
             "outputs": {
                 "matrix": True,
-                "auto_adjudication": True,
                 "review_entry": True,
                 "subitem_details": True,
-                "net_evidence": True,
                 "evidence_indexes": True,
             },
         },

@@ -38,13 +38,18 @@
 
 多余文件、归档候选和删除候选必须另开专门 Issue 处理，不能在普通业务 PR 中顺手删除或移动。
 
-## 新流程
+## 当前 I5B 数据链
 
-规则 → 正负证触发词 → 本地证据库 → 正负证矩阵 → 回源证据卡 → 相邻项切分 → 负证拦截 → 定档定分 → Markdown 导出
+第五项B当前 PostgreSQL 数据链为：
 
-所有新评分必须经过正负证矩阵、证据卡、相邻项切分、负证拦截、定档定分流程。当前阶段只建设规则、数据结构和审阅出口，不生成总榜或排名。
+```text
+检索包 -> 回源摘录 -> src_docs/raw_objs/emp_objs/obj_srcs/obj_attrs
+-> evd_clusters -> emp_item_results -> 计算日志
+```
 
-本仓库禁止迁移旧评分、旧排名、旧加总表、旧正式评分记录和旧证据卡；未回源材料只能作为 `search_logs.jsonl` 的待回源线索。
+执行步骤见 [`docs/数据结构与生成库/I5B数据链运行流程.md`](docs/数据结构与生成库/I5B数据链运行流程.md)。检索包、摘录池、旧 JSONL 证据卡和 Markdown 视图都不是当前 I5B 分值来源；只有已回源并进入对象链的材料才能进入证据簇和结果公式。
+
+本仓库禁止迁移旧评分、旧排名、旧加总表、旧正式评分记录和旧证据卡到当前 I5B 结果链；未回源材料只能作为待回源线索或缺口报告。
 
 ## 运行命令
 
@@ -78,18 +83,12 @@ python scripts/build/build_db.py
 python scripts/export/export_md.py
 ```
 
-该命令默认只运行 `main` profile，生成证据卡索引、证据组裁量索引、专题锚点索引和项目检索包索引等综合入口。子项细节、试点 batch、审计视图、自动结算必须显式指定 profile 或调用专用脚本；旧全量导出行为使用 `python scripts/export/export_md.py --profile all`。
+该命令默认只运行 `main` profile，生成当前保留的 JSONL/SQLite 兼容 Markdown 索引；这些索引不是当前 I5B PostgreSQL 计算链入口。显式全量兼容导出使用 `python scripts/export/export_md.py --profile all`。
 
 查看可用导出 profile：
 
 ```bash
 python scripts/export/export_md.py --list-profiles
-```
-
-单独导出第五项B自动结算视图：
-
-```bash
-python scripts/export/export_i5b_auto_adjudication.py
 ```
 
 导出第五项B三人试点矩阵骨架：

@@ -148,10 +148,7 @@
       "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
+      "generator_candidates": [],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
@@ -159,9 +156,7 @@
       "inbound_references": [
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
       ],
       "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
@@ -919,18 +914,14 @@
       "document_type": "historical_snapshot",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_project_doc_views.py",
-        "tests/test_i5b_global_scale_audit.py"
-      ],
+      "generator_candidates": [],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
       "inbound_references": [
         "archive/docs/audits/post_file_governance_consistency_audit_20260620.md",
-        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-        "scripts/export/export_project_doc_views.py"
+        "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md"
       ],
       "lifecycle_status": "historical",
       "normalized_duplicate_group": null,
@@ -946,8 +937,7 @@
       "title": "第五项B评分映射总标尺对齐审计",
       "unique_source_risk": true,
       "weak_reference_candidates": [
-        "docs/文档与脚本登记/docs_registry.json",
-        "tests/test_i5b_global_scale_audit.py"
+        "docs/文档与脚本登记/docs_registry.json"
       ]
     },
     {
@@ -2617,10 +2607,7 @@
       "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
+      "generator_candidates": [],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
@@ -2628,9 +2615,7 @@
       "inbound_references": [
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
@@ -2882,10 +2867,7 @@
       "document_type": "canonical_spec",
       "duplicate_group": null,
       "exact_duplicate_group": null,
-      "generator_candidates": [
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
-      ],
+      "generator_candidates": [],
       "governance_references": [
         "docs/文档与脚本登记/docs_registry.json"
       ],
@@ -2894,9 +2876,7 @@
         "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
         "docs/数据结构与生成库/批次文件生命周期规则.md",
         "archive/docs/audits/第五项B评分映射总标尺对齐审计.md",
-        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
-        "scripts/export/export_i5b_auto_adjudication.py",
-        "scripts/export/export_project_doc_views.py"
+        "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md"
       ],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
@@ -3019,6 +2999,38 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
+      "inbound_references": [
+        "docs/数据结构与生成库/README.md",
+        "data/query_profile_batches/AGENTS.md",
+        "scripts/dev/AGENTS.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/I5B数据链运行流程.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "I5B PostgreSQL 数据链的稳定运行手册，承接检索包、对象池、证据簇、结果重算和日志审计流程，避免 AGENTS 承载过长操作说明。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前 I5B 数据链日常执行和复核需要统一入口；本文只说明运行流程，不替代评分规则或证据裁量。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "I5B 数据链运行流程",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "stable_operational_guide",
+      "document_type": "operational_guide",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
@@ -3110,7 +3122,7 @@
   "docs_module_density_reviews": [
     {
       "module_path": "docs/数据结构与生成库",
-      "direct_markdown_count": 13,
+      "direct_markdown_count": 14,
       "threshold": 8,
       "review_status": "reviewed",
       "decision": "数据平台、SQLite、JSONL、配置、对象化输入契约和批次生命周期仍同属数据结构模块；本批不为 B2 实验机械拆分新目录。"

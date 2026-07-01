@@ -89,7 +89,6 @@ def test_redundant_file_candidates_report_covers_all_candidates() -> None:
         "exports/markdown_views/project_file_governance_audit_20260618.md",
         "exports/markdown_views/i5b_three_pilot_methodology_migration_audit_20260618.md",
         "exports/markdown_views/i5b_three_pilot_human_adjudication_reading_guide_20260618.md",
-        "exports/markdown_views/i5b_liubang_net_evidence_review_20260618.md",
         "docs/\u5168\u5c40\u603b\u6807\u5c3a\u51b3\u7b56\u7b80\u62a5_\u8ba8\u8bba\u7248.md",
         "exports/markdown_views/\u7b2c\u4e94\u9879B\u4e09\u4eba\u6b63\u5f0f\u5b9a\u6863\u8349\u6848.md",
         "exports/markdown_views/\u7b2c\u4e94\u9879B\u4e09\u4eba\u6b63\u5f0f\u5b9a\u6863\u8868.md",

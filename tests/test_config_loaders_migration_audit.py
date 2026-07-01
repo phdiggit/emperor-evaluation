@@ -42,9 +42,8 @@ def test_audit_doc_describes_key_public_api() -> None:
         "PROJECT_CONFIG_PATH",
         "load_project_config",
         "get_subitem_config",
-        "load_i5b_cluster_warning_rules",
         "get_i5b_trial_targets",
-        "get_i5b_net_evidence_targets",
+        "get_i5b_active_workflow_config",
     ):
         assert api_name in content
 

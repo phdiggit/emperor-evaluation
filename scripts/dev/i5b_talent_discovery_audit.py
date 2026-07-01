@@ -1,0 +1,244 @@
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.build.i5b_item_result_calculator import (  # noqa: E402
+    DEFAULT_FORMULA_CODE,
+    DEFAULT_LOG_PATH as DEFAULT_RESULT_LOG_PATH,
+)
+from scripts.dev.evidence_cluster_workbench import DEFAULT_LOG_PATH as DEFAULT_CLUSTER_LOG_PATH  # noqa: E402
+from scripts.dev.i5b_calc_logs import latest_cluster_log_rows, latest_item_result_log_rows, read_jsonl  # noqa: E402
+from scripts.dev.i5b_factor_recalculator import DEFAULT_CLUSTER_FORMULA  # noqa: E402
+
+
+DEFAULT_PROFILE = ROOT / "data" / "query_profile_batches" / "i5b_layered_retrieval_profiles_20260630.jsonl"
+TALENT_RULE_CODE = "talent_discovery"
+TALENT_PREFIX = "POS-TALENT-RECOGNITION"
+
+
+class I5BTalentDiscoveryAuditError(ValueError):
+    pass
+
+
+def strip_note(value: str) -> str:
+    value = re.sub(r"[（(].*?[）)]", "", value)
+    return value.strip().strip("；;，,。")
+
+
+def split_expected_names(value: str) -> tuple[str, ...]:
+    if ":" in value:
+        value = value.split(":", 1)[1]
+    names: list[str] = []
+    for part in re.split(r"\s*/\s*|、|，|,", value):
+        name = strip_note(part)
+        if not name:
+            continue
+        if any(token in name for token in ("需回源", "待回源", "相邻项", "切分")):
+            continue
+        names.append(name)
+    return tuple(dict.fromkeys(names))
+
+
+def expected_talent_names(profile: dict[str, Any]) -> tuple[str, ...]:
+    outcomes = profile.get("expected_lane_outcomes")
+    if not isinstance(outcomes, list):
+        return ()
+    expected: list[str] = []
+    for item in outcomes:
+        if not isinstance(item, str):
+            continue
+        if item.strip().startswith(TALENT_PREFIX):
+            expected.extend(split_expected_names(item))
+    return tuple(dict.fromkeys(expected))
+
+
+def load_query_profiles(path: Path) -> dict[str, dict[str, Any]]:
+    profiles: dict[str, dict[str, Any]] = {}
+    for row in read_jsonl(path):
+        person = row.get("person")
+        if isinstance(person, str) and person.strip():
+            profiles[person] = row
+    return profiles
+
+
+def current_talent_names(cluster_row: dict[str, Any] | None) -> tuple[str, ...]:
+    if cluster_row is None:
+        return ()
+    detail = cluster_row.get("calc_detail")
+    if not isinstance(detail, dict):
+        return ()
+    materials = detail.get("materials")
+    if not isinstance(materials, list):
+        return ()
+    names: list[str] = []
+    for material in materials:
+        if not isinstance(material, dict):
+            continue
+        if material.get("side") != "positive":
+            continue
+        name = material.get("obj_name") or material.get("object_name")
+        if isinstance(name, str) and name.strip():
+            names.append(name.strip())
+    return tuple(dict.fromkeys(names))
+
+
+def default_emperors(result_log: Path, *, result_formula: str) -> tuple[str, ...]:
+    rows = latest_item_result_log_rows(result_log, formula_code=result_formula)
+    return tuple(rows)
+
+
+def build_audit_report(
+    *,
+    profile_path: Path = DEFAULT_PROFILE,
+    cluster_log: Path = DEFAULT_CLUSTER_LOG_PATH,
+    result_log: Path = DEFAULT_RESULT_LOG_PATH,
+    cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
+    result_formula: str = DEFAULT_FORMULA_CODE,
+    emperors: tuple[str, ...] = (),
+) -> dict[str, Any]:
+    profiles = load_query_profiles(profile_path)
+    targets = emperors or default_emperors(result_log, result_formula=result_formula)
+    if not targets:
+        raise I5BTalentDiscoveryAuditError("no emperors found; pass --emperor or check result log")
+
+    clusters = latest_cluster_log_rows(
+        cluster_log,
+        formula_code=cluster_formula,
+        emperors=targets,
+        rule_codes=(TALENT_RULE_CODE,),
+        require_calc_detail=True,
+    )
+
+    rows: list[dict[str, Any]] = []
+    for emperor in targets:
+        profile = profiles.get(emperor)
+        expected = expected_talent_names(profile or {})
+        current = current_talent_names(clusters.get((emperor, TALENT_RULE_CODE)))
+        missing = tuple(name for name in expected if name not in current)
+        extra = tuple(name for name in current if name not in expected)
+        rows.append(
+            {
+                "emperor": emperor,
+                "query_profile_id": (profile or {}).get("query_profile_id"),
+                "expected": list(expected),
+                "current": list(current),
+                "missing": list(missing),
+                "extra": list(extra),
+                "expected_count": len(expected),
+                "current_count": len(current),
+                "ok": not missing,
+            }
+        )
+
+    return {
+        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "profile_path": str(profile_path),
+        "cluster_log": str(cluster_log),
+        "result_log": str(result_log),
+        "cluster_formula": cluster_formula,
+        "result_formula": result_formula,
+        "rule_code": TALENT_RULE_CODE,
+        "ok": all(row["ok"] for row in rows),
+        "rows": rows,
+    }
+
+
+def render_markdown(report: dict[str, Any]) -> str:
+    lines = [
+        "# I5B 发现人才覆盖审计",
+        "",
+        f"- cluster_formula: `{report['cluster_formula']}`",
+        f"- result_formula: `{report['result_formula']}`",
+        f"- rule_code: `{report['rule_code']}`",
+        f"- ok: `{report['ok']}`",
+        "",
+        "| 皇帝 | 检索包预期 | 当前入簇 | 缺口 | 额外入簇 |",
+        "|---|---:|---:|---|---|",
+    ]
+    for row in report["rows"]:
+        expected = "、".join(row["expected"]) or "-"
+        current = "、".join(row["current"]) or "-"
+        missing = "、".join(row["missing"]) or "-"
+        extra = "、".join(row["extra"]) or "-"
+        lines.append(
+            f"| {row['emperor']} | {row['expected_count']}：{expected} | {row['current_count']}：{current} | {missing} | {extra} |"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def write_report(path: Path, report: dict[str, Any], *, output_format: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if output_format == "json":
+        path.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return
+    if output_format == "markdown":
+        path.write_text(render_markdown(report), encoding="utf-8")
+        return
+    raise I5BTalentDiscoveryAuditError(f"unknown output format: {output_format}")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Audit I5B talent_discovery coverage against query profile expectations.")
+    parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="Query profile JSONL path.")
+    parser.add_argument("--cluster-log", type=Path, default=DEFAULT_CLUSTER_LOG_PATH, help="Evidence cluster calc JSONL log.")
+    parser.add_argument("--result-log", type=Path, default=DEFAULT_RESULT_LOG_PATH, help="I5B item result calc JSONL log.")
+    parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code.")
+    parser.add_argument("--result-formula", default=DEFAULT_FORMULA_CODE, help="Item result formula_code.")
+    parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
+    parser.add_argument("--format", choices=("json", "markdown"), default="markdown", help="Output format.")
+    parser.add_argument("--output", type=Path, default=None, help="Optional report path; stdout if omitted.")
+    parser.add_argument("--fail-on-gap", action="store_true", help="Exit non-zero when any expected talent is missing.")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        report = build_audit_report(
+            profile_path=args.profile,
+            cluster_log=args.cluster_log,
+            result_log=args.result_log,
+            cluster_formula=args.cluster_formula,
+            result_formula=args.result_formula,
+            emperors=tuple(args.emperor or ()),
+        )
+    except I5BTalentDiscoveryAuditError as exc:
+        parser.error(str(exc))
+
+    if args.output:
+        write_report(args.output, report, output_format=args.format)
+        print(
+            json.dumps(
+                {
+                    "output": str(args.output),
+                    "format": args.format,
+                    "ok": report["ok"],
+                    "gap_count": sum(len(row["missing"]) for row in report["rows"]),
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        )
+    elif args.format == "json":
+        print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
+    else:
+        print(render_markdown(report), end="")
+    if args.fail_on_gap and not report["ok"]:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -43,10 +43,8 @@ def valid_payload(*, groups: dict[str, dict[str, object]] | None = None) -> dict
         "person_groups": groups or valid_groups(),
         "outputs": {
             "matrix": True,
-            "auto_adjudication": True,
             "review_entry": True,
             "subitem_details": True,
-            "net_evidence": True,
             "evidence_indexes": True,
         },
     }
@@ -91,10 +89,8 @@ def test_validate_project_config_accepts_custom_person_group_keys(tmp_path: Path
         },
         outputs={
             "matrix": True,
-            "auto_adjudication": True,
             "review_entry": True,
             "subitem_details": True,
-            "net_evidence": {"enabled": True, "person_group_override": "another_review_pool"},
             "evidence_indexes": True,
         },
     )
@@ -117,10 +113,8 @@ person_groups:
   archive_review_pool: *trial
 outputs:
   matrix: true
-  auto_adjudication: true
   review_entry: true
   subitem_details: true
-  net_evidence: true
   evidence_indexes: true
 """,
         encoding="utf-8",
@@ -235,7 +229,7 @@ def test_validate_project_config_groups_only_allow_small_fields(tmp_path: Path, 
     assert any("note is not allowed" in error for error in errors)
 
 
-def test_validate_project_config_accepts_net_evidence_output_override(
+def test_validate_project_config_rejects_output_switch_mapping(
     tmp_path: Path, project_config_writer
 ) -> None:
     config_path = project_config_writer(
@@ -243,20 +237,124 @@ def test_validate_project_config_accepts_net_evidence_output_override(
         groups=valid_groups(),
         outputs={
             "matrix": True,
-            "auto_adjudication": True,
             "review_entry": True,
             "subitem_details": True,
-            "net_evidence": {"enabled": True, "person_group_override": "three_pilot"},
-            "evidence_indexes": True,
+            "evidence_indexes": {"enabled": True, "person_group_override": "three_pilot"},
         },
     )
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("outputs.evidence_indexes: output switches no longer accept mapping values" in error for error in errors)
+
+
+def test_validate_project_config_accepts_source_excerpt_pool_cache_tooling(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "cache": {
+                "enabled": True,
+                "directory": ".cache/wikisource-cache",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
 
     assert validate_project_config.validate(config_path) == []
 
 
-def test_validate_project_config_rejects_net_evidence_fake_group(tmp_path: Path, project_config_writer) -> None:
+def test_validate_project_config_accepts_source_excerpt_pool_postgres_cache(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "cache": {
+                "enabled": True,
+                "backend": "postgres",
+                "dsn_env": "EMPEROR_EVAL_CACHE_PG_DSN",
+                "schema": "source_cache",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    assert validate_project_config.validate(config_path) == []
+
+
+def test_validate_project_config_rejects_source_excerpt_pool_cache_outside_cache(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "cache": {
+                "enabled": True,
+                "directory": "data/cache",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("tooling.source_excerpt_pool.cache.directory must stay under .cache/" in error for error in errors)
+
+
+def test_validate_project_config_rejects_source_excerpt_pool_postgres_directory(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "cache": {
+                "enabled": True,
+                "backend": "postgres",
+                "directory": ".cache/wikisource-cache",
+                "dsn_env": "EMPEROR_EVAL_CACHE_PG_DSN",
+                "schema": "source_cache",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("tooling.source_excerpt_pool.cache.directory is only allowed for filesystem backend" in error for error in errors)
+
+
+def test_validate_project_config_rejects_source_excerpt_pool_bad_cache_backend(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "cache": {
+                "enabled": True,
+                "backend": "redis",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("tooling.source_excerpt_pool.cache.backend must be filesystem or postgres" in error for error in errors)
+
+
+def test_validate_project_config_rejects_source_excerpt_pool_bad_cache_schema(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "cache": {
+                "enabled": True,
+                "backend": "postgres",
+                "schema": "bad-schema",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("tooling.source_excerpt_pool.cache.schema must be a PostgreSQL identifier" in error for error in errors)
+
+
+def test_validate_project_config_rejects_fake_persons_from_group(tmp_path: Path, project_config_writer) -> None:
     groups = valid_groups()
-    groups["net_evidence"] = {"label": "净证据导出目标", "persons_from_group": "three_pilot"}
+    groups["derived_group"] = {"label": "派生目标", "persons_from_group": "three_pilot"}
     config_path = project_config_writer(tmp_path / "project_config.yml", groups=groups)
 
     errors = validate_project_config.validate(config_path)

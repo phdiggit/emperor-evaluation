@@ -12,19 +12,6 @@ SCRIPTS_DIR = Path(__file__).resolve().parents[1]
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from export.export_i5b_auto_adjudication import export_auto_adjudication
-from export.export_i5b_net_evidence import (
-    I5B_NET_EVIDENCE_TARGETS,
-    export_i5b_evidence_cards_index,
-    export_i5b_evidence_clusters_index,
-    export_i5b_net_evidence_pool,
-    export_i5b_review_profile_views,
-    export_i5b_search_package_index,
-)
-from export.export_project_doc_views import (
-    export_expanded_i5b_candidate_pool,
-    export_global_scale_decision_brief,
-)
 from shared import config_loaders
 from shared.export_md_scaffold import (
     ExportStep,
@@ -315,54 +302,18 @@ def build_all_export_steps() -> dict[str, ExportStep]:
                 "query_profile_id",
             ),
         ),
-        **{
-            f"net_evidence_{person}": ExportStep(
-                f"net_evidence_{person}",
-                lambda person=person, net_evidence_path=net_evidence_path: export_i5b_net_evidence_pool(
-                    person, net_evidence_path
-                ),
-            )
-            for person, net_evidence_path in I5B_NET_EVIDENCE_TARGETS
-        },
-        "i5b_evidence_cards_index": ExportStep("i5b_evidence_cards_index", export_i5b_evidence_cards_index),
-        "i5b_evidence_clusters_index": ExportStep("i5b_evidence_clusters_index", export_i5b_evidence_clusters_index),
-        "i5b_search_package_index": ExportStep("i5b_search_package_index", export_i5b_search_package_index),
-        "i5b_review_profile_views": ExportStep("i5b_review_profile_views", export_i5b_review_profile_views),
-        "global_scale_decision_brief": ExportStep("global_scale_decision_brief", export_global_scale_decision_brief),
-        "expanded_i5b_candidate_pool": ExportStep("expanded_i5b_candidate_pool", export_expanded_i5b_candidate_pool),
-        "auto_adjudication": ExportStep("auto_adjudication", export_auto_adjudication),
     }
 
 
 ALL_EXPORT_STEPS = build_all_export_steps()
-I5B_CORE_STEPS = (
-    "search_logs",
-    *(f"net_evidence_{person}" for person, _net_evidence_path in I5B_NET_EVIDENCE_TARGETS),
-    "i5b_evidence_cards_index",
-    "i5b_evidence_clusters_index",
-    "i5b_search_package_index",
-    "i5b_review_profile_views",
-)
 
 EXPORT_PROFILES: dict[str, ExportProfile] = {
     "main": ExportProfile(
         "综合入口和全局索引，默认运行。",
         ("evidence_index", "evidence_clusters", "thematic_anchors", "query_profiles"),
     ),
-    "i5b-core": ExportProfile(
-        "第五项B常规证据链和人工审核细节导出。",
-        I5B_CORE_STEPS,
-    ),
-    "i5b-auto": ExportProfile(
-        "第五项B自动结算导出。",
-        ("auto_adjudication",),
-    ),
-    "project-docs": ExportProfile(
-        "项目级文档导出。",
-        ("global_scale_decision_brief", "expanded_i5b_candidate_pool"),
-    ),
     "all": ExportProfile(
-        "显式全量导出，保留旧行为。",
+        "显式运行当前保留的全部 Markdown 兼容导出。",
         ("*",),
     ),
 }

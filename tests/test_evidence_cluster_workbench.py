@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -43,6 +44,7 @@ def test_parse_cluster_payload_applies_default_formula_code() -> None:
                 "negative_signal": "0",
                 "note": "按当前材料重算，写入正向原始信号。",
                 "material_ids": [1, 2, 3],
+                "calc_detail": {"materials": [{"obj_src_id": 1, "score": "1.0"}]},
             }
         ],
     }
@@ -53,6 +55,7 @@ def test_parse_cluster_payload_applies_default_formula_code() -> None:
     assert clusters[0].formula_code == "evidence_cluster_formula_v6"
     assert clusters[0].positive_signal == Decimal("5.365")
     assert clusters[0].material_ids == (1, 2, 3)
+    assert clusters[0].calc_detail == {"materials": [{"obj_src_id": 1, "score": "1.0"}]}
 
 
 def test_parse_cluster_payload_rejects_negative_signal() -> None:
@@ -73,6 +76,125 @@ def test_parse_cluster_payload_rejects_negative_signal() -> None:
 
     with pytest.raises(tool.EvidenceClusterWorkbenchError, match="non-negative"):
         tool.parse_cluster_payload(raw)
+
+
+def test_append_calc_log_keeps_replay_fields(tmp_path: Path) -> None:
+    tool = load_tool()
+    path = tmp_path / "clusters.jsonl"
+
+    tool.append_calc_log(
+        path,
+        [
+            {
+                "id": 1,
+                "emperor": "Replay Emperor",
+                "rule_code": "tolerate_talent",
+                "cluster_direction": "negative",
+                "positive_signal": "0.000",
+                "negative_signal": "3.000",
+                "net_signal": "-3.000",
+                "signal_intensity": "3.000",
+                "formula_code": "evidence_cluster_signal_test",
+                "note": "replay fixture",
+                "material_ids": [10],
+                "calc_note": "fixture",
+                "calc_detail": {"materials": [{"obj_src_id": 10, "factor_refs": {"severity": {"label": "heavy"}}}]},
+            }
+        ],
+    )
+
+    row = json.loads(path.read_text(encoding="utf-8"))
+
+    assert row["cluster_direction"] == "negative"
+    assert row["signal_intensity"] == "3.000"
+    assert row["note"] == "replay fixture"
+    assert row["calc_detail"]["materials"][0]["factor_refs"]["severity"]["label"] == "heavy"
+
+
+class ExpectedMaterialCursor:
+    def __init__(self, expected_ids: tuple[int | tuple[int, str], ...]) -> None:
+        self.expected_ids = expected_ids
+
+    def execute(self, query: str, params: tuple[int, int, int]) -> None:
+        self.query = query
+        self.params = params
+
+    def fetchall(self) -> list[tuple[int, str]]:
+        rows: list[tuple[int, str]] = []
+        for material_id in self.expected_ids:
+            if isinstance(material_id, tuple):
+                rows.append(material_id)
+            else:
+                rows.append((material_id, "positive"))
+        return rows
+
+
+def test_validate_material_coverage_rejects_missing_material_ids() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10,),
+        calc_detail={"materials": [{"obj_src_id": 10}]},
+    )
+
+    with pytest.raises(tool.EvidenceClusterWorkbenchError, match=r"material_ids.*missing obj_srcs=\[11\]"):
+        tool._validate_material_coverage(
+            ExpectedMaterialCursor((10, 11)),
+            emp_id=1,
+            item_id=2,
+            rule_id=3,
+            cluster=cluster,
+        )
+
+
+def test_validate_material_coverage_rejects_missing_calc_detail_materials() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_detail={"materials": [{"obj_src_id": 10}]},
+    )
+
+    with pytest.raises(tool.EvidenceClusterWorkbenchError, match=r"calc_detail\.materials.*missing obj_srcs=\[11\]"):
+        tool._validate_material_coverage(
+            ExpectedMaterialCursor((10, 11)),
+            emp_id=1,
+            item_id=2,
+            rule_id=3,
+            cluster=cluster,
+        )
+
+
+def test_validate_material_coverage_allows_neutral_outside_calc_detail() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_detail={"materials": [{"obj_src_id": 10}]},
+    )
+
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor(((10, "positive"), (11, "neutral"))),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
 
 
 def test_render_materials_markdown_includes_attrs() -> None:
