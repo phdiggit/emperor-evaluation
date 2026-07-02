@@ -9,8 +9,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
 
-import psycopg
 import yaml
+
+try:
+    import psycopg
+except ModuleNotFoundError:  # pragma: no cover - exercised on lightweight fetch workers.
+    psycopg = None
 
 from .common import (
     CACHE_SCHEMA_VERSION,
@@ -208,6 +212,8 @@ class PostgresCacheStore:
         return f"{quote_pg_identifier(self.schema)}.wikisource_page_cache"
 
     def connection(self) -> Any:
+        if psycopg is None:
+            raise ExcerptPoolError("psycopg is required for PostgreSQL Wikisource cache backend")
         if self._conn is None or getattr(self._conn, "closed", False):
             self._conn = psycopg.connect(resolve_dsn(self.dsn_env))
             self._conn.autocommit = True
@@ -216,6 +222,8 @@ class PostgresCacheStore:
         return self._conn
 
     def ensure_schema(self) -> None:
+        if psycopg is None:
+            raise ExcerptPoolError("psycopg is required for PostgreSQL Wikisource cache backend")
         conn = self._conn
         if conn is None:
             conn = psycopg.connect(resolve_dsn(self.dsn_env))

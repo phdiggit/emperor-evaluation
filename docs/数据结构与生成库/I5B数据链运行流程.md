@@ -16,7 +16,8 @@
 
 ```text
 data/query_profile_batches/*.jsonl
--> scripts/dev/source_excerpt_pool.py
+-> offline source pack（采集层产物，先审计）
+-> scripts/dev/source_excerpt_pool.py --source-pack
 -> scripts/dev/object_pool_importer.py
 -> src_docs / raw_objs / emp_objs / obj_srcs / obj_attrs
 -> fact_relations / rule_evidence_units / rule_evidence_unit_members（影子层，当前不改正式算分）
@@ -58,6 +59,7 @@ data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl
 - 新增校准人物必须追加到同一批次文件，不能只留在 `.tmp`、日志或对话记忆里。
 - `core_positive_objects`、`supplemental_objects`、`negative_or_reversal_objects` 默认都进入待回源队列。
 - `adjacent_split_objects` 用于切分提示，默认不直接入分。
+- 阶段化或事件化对象可用 `object_search_aliases` 补检索词；别名只影响检索，不改变对象身份。
 - 检索包不是证据，不能凭检索包内容写分、写档位或生成证据簇。
 
 离线检查某个人的对象和查询计划：
@@ -75,19 +77,65 @@ python scripts/dev/source_excerpt_pool.py `
 
 默认必须遍历并登记检索包对象。若显式使用 `--max-queries` 或 `--max-queries-per-object`，输出中的 `skipped_search_plans` 必须被视为待处理缺口。
 
-## 2. 摘录和回源
+## 2. 离线史料包和摘录
 
-召回辅助工具：
+联网抓史料属于采集层，不是 I5B 评分主链的一部分。批量抓取、Wikisource 限流处理、页面缓存和人工补页可以离线完成，落成一个 source pack 后再进入 I5B 主链。
+
+当前共享 source pack 根目录登记在 `data/configs/project_config.yml` 的 `tooling.source_excerpt_pool.paths.source_pack_root`。服务器路径为 `/data2/backups/code/emperor-evaluation/source-packs`，本机 SMB 映射路径为 `Y:/code/emperor-evaluation/source-packs`。检索包 canonical 文件仍保留在仓库 `data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl`，共享镜像路径登记在 `tooling.source_excerpt_pool.paths.query_profile_shared_copy`。
+
+服务器常驻服务 `emperor-source-pack-worker.service` 轮询 `/data2/backups/code/emperor-evaluation/jobs/*.json`。本机可向 `Y:/code/emperor-evaluation/jobs/` 写入任务，例如：
+
+```json
+{
+  "person": "武则天",
+  "output_name": "wuzetian_review_pack",
+  "include_adjacent": true,
+  "max_queries_per_object": 4
+}
+```
+
+worker 会把输出写入 `source-packs/<output_name>/`，日志写入 `logs/<output_name>.log`，任务文件处理后移动为 `.done` 或 `.failed`。
+
+抓包状态台账：
 
 ```powershell
 $env:PYTHONUTF8='1'
-python scripts/dev/source_excerpt_pool.py `
+python scripts/dev/i5b_source_pack_status.py `
+  --format markdown `
+  --output .tmp/source-packs/i5b_source_pack_status.md
+```
+
+该脚本只读外置君主名单、query profile、jobs 目录和 source-packs 目录，汇总：
+
+- 缺检索包：君主名单中没有 query profile。
+- 检索包半成品：仍含“待识别对象”或批量补齐占位对象。
+- 成品但尚未投入：已有具体对象 profile，但没有 job 或 source pack。
+- 检索任务排队 / 运行 / 失败：按 jobs 与 logs 状态判断。
+- 抓包成功但需完善检索包：`fetch_report.json` 已 complete，但仍有 `objects_without_page_hits`、`objects_without_excerpts` 或抓页错误。
+- 抓包成功且暂无明显缺口：已 complete，且没有上述对象覆盖缺口。
+
+source pack 最小契约：
+
+```text
+manifest.json
+src_docs.jsonl
+pages/*.txt（或 src_docs.jsonl 行内 text/raw_text）
+excerpts.jsonl（可选，人工预摘录或采集层摘录）
+```
+
+`manifest.json` 必填 `schema_version=1`、`pack_id`、`created_at`、`source_scope`、`status`。`src_docs.jsonl` 每行至少应有 `src_key`、`page_title` 或可解析的 `url`、`title`、`author`、`dynasty`、`locator`、`url`、`text_path`、`fetch_status`、`review_status`。`text_path` 必须指向包内本地 UTF-8 文本，不允许依赖运行时联网补页。
+
+采集层抓包：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_source_pack_fetcher.py `
   --profile data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl `
-  --person 刘彻 `
-  --output .tmp/source-excerpts/liuche_full.json `
-  --format json `
+  --person 武则天 `
+  --output-dir .tmp/source-packs/wuzetian_20260703 `
   --include-adjacent `
-  --pages-per-query 8 `
+  --max-queries-per-object 4 `
+  --pages-per-query 6 `
   --context-chars 420 `
   --max-passages-per-page 4 `
   --request-delay 1.0 `
@@ -95,14 +143,41 @@ python scripts/dev/source_excerpt_pool.py `
   --retry-backoff 3.0
 ```
 
+进入摘录池前先审计：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_source_pack_audit.py `
+  --pack .tmp/source-packs/wuzetian_20260702 `
+  --format markdown `
+  --fail-on-block
+```
+
+从已审计 source pack 生成摘录候选：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/source_excerpt_pool.py `
+  --profile data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl `
+  --person 武则天 `
+  --source-pack .tmp/source-packs/wuzetian_20260702 `
+  --output .tmp/source-excerpts/wuzetian_source_pack.json `
+  --format json `
+  --include-adjacent `
+  --context-chars 420 `
+  --max-passages-per-page 4
+```
+
 注意：
 
 - `source_excerpt_pool.py` 只帮助定位，不写数据库。
+- 带 `--source-pack` 时只读取本地页文，不调用 Wikisource search/fetch；输出 `status=offline_source_pack`。
+- 在线召回命令只属于采集层补包手段，产物仍需落回 source pack 并通过 `i5b_source_pack_audit.py`。
 - 摘录无命中不等于无史料；网络错误、源过滤过严或别字都会造成漏召回。
 - 检索包内对象应逐个查，不能因为自动工具无命中就跳过。
 - 相邻项材料可以保留为切分线索，但不能抽象扣分或抽象加分。
-- Wikisource 在线召回默认启用请求间隔和 429/5xx 重试；大批量跑时优先提高 `--request-delay`、`--max-retries`、`--retry-backoff`，不要减少检索包对象覆盖。
-- 输出中的 `throttle` 记录本次节流参数；`retry_events` 记录每次退避等待；`errors` 记录重试后仍失败的查询或页面。
+- 若采集层使用 Wikisource 在线召回，默认启用请求间隔和 429/5xx 重试；大批量跑时优先提高 `--request-delay`、`--max-retries`、`--retry-backoff`，不要减少检索包对象覆盖。
+- 输出中的 `source_pack` 记录本地包摘要；`throttle` 和 `retry_events` 只反映在线采集或非 source-pack 模式。
 
 ## 3. 对象池导入
 
@@ -487,11 +562,11 @@ python scripts/dev/i5b_health_check.py `
 涉及本链路的常用 focused tests：
 
 ```powershell
-python -m pytest tests/test_source_excerpt_pool.py tests/test_object_pool_importer.py -q
+python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_audit.py tests/test_object_pool_importer.py -q
 python -m pytest tests/test_i5b_factor_recalculator.py tests/test_i5b_factor_consistency_audit.py tests/test_i5b_factor_table_sync.py tests/test_i5b_factor_options_schema.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
 python -m pytest tests/test_i5b_rule_evidence_unit_candidate_builder.py tests/test_i5b_rule_evidence_unit_db_sync.py tests/test_i5b_rule_evidence_unit_preview.py tests/test_i5b_rule_evidence_unit_issue_summary.py tests/test_i5b_fact_relation_candidate_sync.py tests/test_i5b_fact_relation_gap_summary.py tests/test_rule_evidence_units_schema.py -q
 python -m pytest tests/test_i5b_calc_breakdown.py tests/test_i5b_health_check.py tests/test_scripts_dev_i5b_registry.py -q
-python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
+python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_audit.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
 ```
 
 涉及 `scripts/**` 或 `docs/**` 的 PR，还应按根目录和对应目录 `AGENTS.md` 运行适用的治理检查。

@@ -26,6 +26,7 @@ from .profile import (
     limit_search_plans,
     source_title_filters,
 )
+from .source_pack import load_source_pack_page_cache
 from .wikisource import fetch_wikisource_plain_text, search_wikisource, wikisource_page_url
 
 
@@ -85,6 +86,7 @@ def build_excerpt_pool(
     cache_backend: str | None = None,
     cache_dsn_env: str | None = None,
     cache_schema: str | None = None,
+    source_pack: Path | None = None,
 ) -> dict[str, Any]:
     if request_delay_seconds < 0:
         raise ExcerptPoolError("request_delay_seconds must be >= 0")
@@ -99,10 +101,15 @@ def build_excerpt_pool(
     if max_consecutive_errors is not None and max_consecutive_errors <= 0:
         raise ExcerptPoolError("max_consecutive_errors must be > 0")
     cache_config = load_source_excerpt_cache_config()
+    source_pack_cache = None
+    source_pack_report: dict[str, Any] = {"enabled": False}
+    effective_offline = offline or source_pack is not None
+    if source_pack is not None:
+        source_pack_cache, source_pack_report = load_source_pack_page_cache(source_pack)
     api_cache, page_text_cache, cache_store, cache_report_config = make_cache_backends(
         cache_config=cache_config,
         cache_dir=cache_dir,
-        cache_enabled=cache_enabled,
+        cache_enabled=False if source_pack is not None and cache_enabled is None else cache_enabled,
         cache_refresh=cache_refresh,
         cache_backend=cache_backend,
         cache_dsn_env=cache_dsn_env,
@@ -115,13 +122,14 @@ def build_excerpt_pool(
         max_queries_per_object=None,
     )
     explicit_direct_page_plans = build_direct_page_plans(profile, include_adjacent=include_adjacent)
+    direct_page_source = source_pack_cache if source_pack_cache is not None else page_text_cache
     cache_direct_page_plans, direct_page_seed_texts, direct_page_cache_report = build_cache_direct_page_plans(
         profile,
-        page_text_cache if not offline else None,
+        direct_page_source if (source_pack_cache is not None or not effective_offline) else None,
         include_adjacent=include_adjacent,
-        explicit_page_titles=(plan.page_title for plan in explicit_direct_page_plans),
+        explicit_page_titles=() if source_pack_cache is not None else (plan.page_title for plan in explicit_direct_page_plans),
     )
-    direct_page_plans = [*explicit_direct_page_plans, *cache_direct_page_plans]
+    direct_page_plans = cache_direct_page_plans if source_pack_cache is not None else [*explicit_direct_page_plans, *cache_direct_page_plans]
     plans, skipped_plans = limit_search_plans(
         all_plans,
         max_queries=max_queries,
@@ -140,8 +148,8 @@ def build_excerpt_pool(
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "person": profile.get("person"),
         "query_profile_id": profile.get("query_profile_id"),
-        "offline": offline,
-        "status": "offline" if offline else "complete",
+        "offline": effective_offline,
+        "status": "offline_source_pack" if source_pack is not None else ("offline" if offline else "complete"),
         "objects": objects,
         "title_filters": list(source_title_filters(profile)),
         "errors": [],
@@ -169,6 +177,7 @@ def build_excerpt_pool(
             "processed_searches": 0,
         },
         "cache": cache_report(report_config=cache_report_config, api_cache=api_cache, page_text_cache=page_text_cache),
+        "source_pack": source_pack_report,
         "retry_events": [],
         "direct_page_cache": direct_page_cache_report,
         "direct_page_plans": [
@@ -194,7 +203,7 @@ def build_excerpt_pool(
         "skipped_search_plans": skipped_plans,
         "excerpts": [],
     }
-    if offline:
+    if offline and source_pack is None:
         return report
 
     started_at = time.monotonic()
@@ -203,10 +212,11 @@ def build_excerpt_pool(
     def budget_exceeded() -> bool:
         return deadline_at is not None and time.monotonic() >= deadline_at
 
-    def skip_remaining(start_index: int, *, reason: str) -> None:
+    def skip_remaining(start_index: int, *, reason: str, mark_partial: bool = True) -> None:
         if start_index >= len(plans):
             return
-        report["status"] = "partial"
+        if mark_partial:
+            report["status"] = "partial"
         for skipped_plan in plans[start_index:]:
             report["skipped_search_plans"].append(
                 {
@@ -256,6 +266,16 @@ def build_excerpt_pool(
             if title in direct_page_seed_texts:
                 page_cache[title] = direct_page_seed_texts[title]
             elif title not in page_cache:
+                if effective_offline:
+                    report["skipped_direct_page_plans"].append(
+                        {
+                            "object_name": direct_plan.object_name,
+                            "layer": direct_plan.layer,
+                            "page_title": title,
+                            "reason": "offline_missing_page_text",
+                        }
+                    )
+                    continue
                 try:
                     page_cache[title] = fetch_wikisource_plain_text(
                         title,
@@ -309,6 +329,9 @@ def build_excerpt_pool(
                 }
             )
         if stop_before_search:
+            plans = []
+        if effective_offline:
+            skip_remaining(0, reason="source_pack_offline" if source_pack is not None else "offline", mark_partial=False)
             plans = []
         for plan_index, plan in enumerate(plans):
             if plan.object_name in direct_hit_objects:

@@ -23,6 +23,17 @@ def test_project_config_loader_reads_repo_config() -> None:
     assert "review_warning_rules" not in config
     assert config_loaders.get_i5b_active_person_targets() == config["person_groups"]["typical"]["persons"]
     assert config_loaders.get_i5b_trial_targets() == ["李世民", "刘秀", "刘庄"]
+    assert "胤禛" in config["person_groups"]["typical"]["persons"]
+    assert "雍正" not in config["person_groups"]["typical"]["persons"]
+    all_persons = config_loaders.get_i5b_group_persons("all")
+    assert all_persons is not None
+    assert all_persons[:5] == ["嬴政", "刘邦", "刘恒", "刘彻", "刘询"]
+    assert "铁木真" in all_persons
+    assert "成吉思汗" not in all_persons
+    assert "胤禛" in all_persons
+    assert "雍正" not in all_persons
+    assert "慈禧" in all_persons
+    assert "洪秀全" in all_persons
 
 
 def test_i5b_active_group_helpers_read_project_config(tmp_path: Path, monkeypatch, project_config_writer) -> None:

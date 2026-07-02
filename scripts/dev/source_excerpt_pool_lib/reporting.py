@@ -55,6 +55,15 @@ def render_markdown(report: dict[str, Any]) -> str:
         lines.append(f"- source_matched_pages: `{direct_page_cache.get('source_matched_pages')}`")
         lines.append(f"- matched_plans: `{direct_page_cache.get('matched_plans')}`")
 
+    source_pack = report.get("source_pack", {})
+    if source_pack and source_pack.get("enabled"):
+        lines.extend(["", "## Source Pack", ""])
+        lines.append(f"- pack_id: `{source_pack.get('pack_id')}`")
+        lines.append(f"- path: `{source_pack.get('pack_path')}`")
+        lines.append(f"- docs: `{source_pack.get('doc_count')}`")
+        lines.append(f"- pages: `{source_pack.get('page_count')}`")
+        lines.append(f"- warnings: `{source_pack.get('warning_count')}`")
+
     budget = report.get("execution_budget", {})
     if budget:
         lines.extend(["", "## Execution Budget", ""])

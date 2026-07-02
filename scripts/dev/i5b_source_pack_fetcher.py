@@ -3,43 +3,48 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
+from datetime import datetime
 from pathlib import Path
 
-from .builder import build_excerpt_pool, migrate_configured_cache_to_postgres
-from .common import (
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.dev.source_excerpt_pool_lib.common import (  # noqa: E402
     DEFAULT_MAX_RETRIES,
     DEFAULT_PROFILE,
     DEFAULT_REQUEST_DELAY_SECONDS,
     DEFAULT_RETRY_BACKOFF_SECONDS,
     DEFAULT_USER_AGENT,
 )
-from .profile import load_profile
-from .reporting import write_report
+from scripts.dev.source_excerpt_pool_lib.profile import load_profile  # noqa: E402
+from scripts.dev.source_excerpt_pool_lib.source_pack_fetcher import build_source_pack  # noqa: E402
+
+
+def _default_output_dir(person: str) -> Path:
+    stamp = datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
+    return ROOT / ".tmp" / "source-packs" / f"i5b_source_pack_{stamp}"
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Build a review-first source excerpt pool from an I5B query profile.")
+    parser = argparse.ArgumentParser(description="Fetch an offline I5B source pack from a query profile.")
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="Query-profile JSONL path.")
-    parser.add_argument("--person", help="Profile person name.")
-    parser.add_argument("--output", type=Path, help="Output report path.")
-    parser.add_argument("--format", choices=("json", "markdown"), default="json", help="Output format.")
+    parser.add_argument("--person", required=True, help="Profile person name.")
+    parser.add_argument("--output-dir", type=Path, help="Output source pack directory; defaults under .tmp/source-packs/.")
+    parser.add_argument("--pack-id", help="Stable source pack id; default includes query_profile_id, person, and timestamp.")
     parser.add_argument("--include-adjacent", action="store_true", help="Include adjacent_split_objects.")
-    parser.add_argument("--offline", action="store_true", help="Only build object/query plans; do not call Wikisource.")
-    parser.add_argument(
-        "--source-pack",
-        type=Path,
-        help="Offline source pack directory; read local page text and do not call Wikisource.",
-    )
     parser.add_argument("--max-queries", type=int, default=None, help="Global maximum query count.")
     parser.add_argument(
         "--max-queries-per-object",
         type=int,
-        default=None,
-        help="Maximum queries per object; omit to keep every generated query.",
+        default=4,
+        help="Maximum queries per object; default keeps every object but caps redundant fallback plans.",
     )
-    parser.add_argument("--pages-per-query", type=int, default=2, help="Wikisource pages to inspect per query.")
-    parser.add_argument("--context-chars", type=int, default=220, help="Characters before/after each hit.")
-    parser.add_argument("--max-passages-per-page", type=int, default=2, help="Passages to keep per page.")
+    parser.add_argument("--pages-per-query", type=int, default=3, help="Wikisource pages to keep per query.")
+    parser.add_argument("--context-chars", type=int, default=220, help="Characters before/after each excerpt hit.")
+    parser.add_argument("--max-passages-per-page", type=int, default=2, help="Passages to keep per page/object match.")
     parser.add_argument("--timeout", type=int, default=20, help="Network timeout in seconds.")
     parser.add_argument(
         "--request-delay",
@@ -54,24 +59,9 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_RETRY_BACKOFF_SECONDS,
         help="Base seconds for exponential retry backoff when Retry-After is absent.",
     )
-    parser.add_argument(
-        "--max-retry-wait",
-        type=float,
-        default=None,
-        help="Maximum seconds to wait for one retry, including Retry-After.",
-    )
-    parser.add_argument(
-        "--max-wall-seconds",
-        type=float,
-        default=None,
-        help="Maximum wall-clock seconds for one person before writing a partial report.",
-    )
-    parser.add_argument(
-        "--max-consecutive-errors",
-        type=int,
-        default=None,
-        help="Stop after this many consecutive search/page errors and mark remaining plans skipped.",
-    )
+    parser.add_argument("--max-retry-wait", type=float, default=None, help="Maximum seconds to wait for one retry.")
+    parser.add_argument("--max-wall-seconds", type=float, default=None, help="Maximum wall-clock seconds before partial pack.")
+    parser.add_argument("--max-consecutive-errors", type=int, default=None, help="Stop search after consecutive errors.")
     parser.add_argument("--cache-only", action="store_true", help="Use persistent cache only; do not call Wikisource.")
     parser.add_argument(
         "--user-agent",
@@ -84,33 +74,21 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--cache-schema", default=None, help="Override PostgreSQL cache schema.")
     parser.add_argument("--no-cache", action="store_true", help="Disable persistent Wikisource cache.")
     parser.add_argument("--cache-refresh", action="store_true", help="Ignore existing cache entries and overwrite them.")
-    parser.add_argument(
-        "--migrate-cache-to-postgres",
-        action="store_true",
-        help="Import existing filesystem Wikisource cache into the configured PostgreSQL cache tables.",
-    )
+    parser.add_argument("--refresh-pack-pages", action="store_true", help="Refetch page text even if pack pages already exist.")
+    parser.add_argument("--progress-log", type=Path, help="JSONL progress log path; defaults to output_dir/progress.jsonl.")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    if args.migrate_cache_to_postgres:
-        report = migrate_configured_cache_to_postgres(
-            cache_dir=args.cache_dir,
-            cache_backend=args.cache_backend or "postgres",
-            cache_dsn_env=args.cache_dsn_env,
-            cache_schema=args.cache_schema,
-        )
-        print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
-        return 0
-    if not args.person:
-        parser.error("--person is required unless --migrate-cache-to-postgres is used")
-    if args.output is None:
-        parser.error("--output is required unless --migrate-cache-to-postgres is used")
     profile = load_profile(args.profile, args.person)
-    report = build_excerpt_pool(
+    output_dir = args.output_dir or _default_output_dir(args.person)
+    progress_path = args.progress_log or output_dir / "progress.jsonl"
+    report = build_source_pack(
         profile,
+        output_dir=output_dir,
+        pack_id=args.pack_id,
         include_adjacent=args.include_adjacent,
         max_queries=args.max_queries,
         max_queries_per_object=args.max_queries_per_object,
@@ -118,7 +96,6 @@ def main(argv: list[str] | None = None) -> int:
         context_chars=args.context_chars,
         max_passages_per_page=args.max_passages_per_page,
         timeout=args.timeout,
-        offline=args.offline or args.source_pack is not None,
         request_delay_seconds=args.request_delay,
         max_retries=args.max_retries,
         retry_backoff_seconds=args.retry_backoff,
@@ -133,10 +110,25 @@ def main(argv: list[str] | None = None) -> int:
         cache_backend=args.cache_backend,
         cache_dsn_env=args.cache_dsn_env,
         cache_schema=args.cache_schema,
-        source_pack=args.source_pack,
+        refresh_pack_pages=args.refresh_pack_pages,
+        progress_path=progress_path,
     )
-    write_report(args.output, report, output_format=args.format)
-    print(json.dumps({"output": str(args.output), "objects": len(report["objects"]), "excerpts": len(report["excerpts"])}, ensure_ascii=False))
-    return 0
+    print(
+        json.dumps(
+            {
+                "output_dir": str(output_dir),
+                "status": report["status"],
+                "pages": report["written_pages"],
+                "excerpts": report["excerpts"],
+                "errors": len(report["errors"]),
+                "objects_without_excerpts": report["object_coverage"]["objects_without_excerpts"],
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+    )
+    return 0 if report["status"] == "complete" else 1
 
 
+if __name__ == "__main__":
+    raise SystemExit(main())

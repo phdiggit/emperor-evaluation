@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
+
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,11 +40,50 @@ def sample_profile() -> dict:
     }
 
 
+def write_source_pack(tmp_path: Path) -> Path:
+    pack = tmp_path / "source-pack"
+    (pack / "pages").mkdir(parents=True)
+    (pack / "manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "pack_id": "i5b-test-source-pack",
+                "created_at": "2026-07-02T00:00:00+08:00",
+                "source_scope": "I5B test fixture",
+                "status": "review_ready",
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (pack / "pages" / "jts109.txt").write_text(
+        "武则天命王孝杰为清边道行军总管，后张易之兄弟幸于后。",
+        encoding="utf-8",
+    )
+    row = {
+        "src_key": "SRC-JTS-109",
+        "page_title": "旧唐书/卷109",
+        "title": "旧唐书",
+        "author": "刘昫等",
+        "dynasty": "后晋",
+        "locator": "旧唐书/卷109",
+        "url": "https://zh.wikisource.org/zh-hans/旧唐书/卷109",
+        "text_path": "pages/jts109.txt",
+        "fetch_status": "cached",
+        "review_status": "pending",
+    }
+    (pack / "src_docs.jsonl").write_text(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+    return pack
+
+
 def test_derive_search_terms_splits_group_hint() -> None:
     tool = load_tool()
 
     terms = tool.derive_search_terms("铫期等功臣团队")
 
+    assert terms[0] == "铫期"
     assert "铫期" in terms
     assert "功臣" in terms
 
@@ -53,6 +95,17 @@ def test_derive_search_terms_splits_reversal_suffixes() -> None:
     assert "李纲" in tool.derive_search_terms("李纲罢斥")
     assert "胡铨" in tool.derive_search_terms("胡铨贬谪")
     assert "黑齿常之" in tool.derive_search_terms("黑齿常之被诬陷")
+
+
+def test_derive_search_terms_prioritizes_label_free_object_names() -> None:
+    tool = load_tool()
+
+    assert tool.derive_search_terms("姚崇晚期")[0] == "姚崇"
+    assert tool.derive_search_terms("岳钟琪信任回缩")[0] == "岳钟琪"
+    assert tool.derive_search_terms("赵鼎/胡铨贬谪")[:2] == ("赵鼎", "胡铨")
+    assert tool.derive_search_terms("虞世基（先作对象不预设正负）")[0] == "虞世基"
+    assert tool.derive_search_terms("萧望之早期等可回源对象")[0] == "萧望之"
+    assert tool.derive_search_terms("苏威旧臣")[0] == "苏威"
 
 
 def test_candidate_objects_exclude_adjacent_by_default() -> None:
@@ -76,6 +129,31 @@ def test_build_search_plans_uses_matching_query_bundles() -> None:
     assert ("度田事件相关官员", "刘秀 度田 牵连 官员 用人边界") in by_object
 
 
+def test_all_monarchs_have_layered_profiles_with_search_plans() -> None:
+    tool = load_tool()
+    all_persons = yaml.safe_load((ROOT / "data" / "configs" / "lists" / "所有君主.yml").read_text(encoding="utf-8"))
+    rows = [
+        json.loads(line)
+        for line in (ROOT / "data" / "query_profile_batches" / "i5b_layered_retrieval_profiles_20260630.jsonl")
+        .read_text(encoding="utf-8")
+        .splitlines()
+        if line.strip()
+    ]
+    by_person: dict[str, list[dict]] = {}
+    for row in rows:
+        by_person.setdefault(str(row.get("person")), []).append(row)
+
+    assert [person for person in all_persons if person not in by_person] == []
+    assert [person for person, matches in by_person.items() if len(matches) > 1] == []
+
+    missing_plans = []
+    for person in all_persons:
+        plans = tool.build_search_plans(by_person[person][0], max_queries_per_object=1)
+        if not plans:
+            missing_plans.append(person)
+    assert missing_plans == []
+
+
 def test_fallback_queries_use_profile_source_titles() -> None:
     tool = load_tool()
     profile = {
@@ -92,6 +170,44 @@ def test_fallback_queries_use_profile_source_titles() -> None:
     assert any("赵破奴 史记" in query for query in queries)
     assert any("赵破奴 汉书" in query for query in queries)
     assert all("后汉书" not in query for query in queries)
+
+
+def test_object_search_aliases_drive_queries_without_changing_object_name() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["旧唐书 姚崇传"],
+        "object_layers": {"core_positive_objects": ["姚崇早期"]},
+        "object_search_aliases": {"姚崇早期": ["姚崇"]},
+        "query_bundles": [],
+    }
+
+    plans = tool.build_search_plans(profile, max_queries_per_object=2)
+
+    assert {plan.object_name for plan in plans} == {"姚崇早期"}
+    assert all("姚崇早期" not in plan.query for plan in plans)
+    assert any("姚崇 旧唐书" in plan.query for plan in plans)
+    assert "姚崇" in plans[0].search_terms
+    assert "姚崇早期" in plans[0].search_terms
+
+
+def test_sparse_single_object_bundle_is_topped_up_with_fallback_queries() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["旧唐书 / 新唐书 上官婉儿传"],
+        "object_layers": {"supplemental_objects": ["上官婉儿"]},
+        "query_bundles": ["武则天 上官婉儿 文章 任用 内廷"],
+    }
+
+    plans = tool.build_search_plans(profile, max_queries_per_object=4)
+    queries = [plan.query for plan in plans]
+
+    assert queries[0] == "武则天 上官婉儿 文章 任用 内廷"
+    assert any("上官婉儿 旧唐书" in query for query in queries)
+    assert any("上官婉儿 新唐书" in query for query in queries)
 
 
 def test_mixed_object_bundle_adds_single_object_fallback_queries() -> None:
@@ -119,7 +235,7 @@ def test_search_plans_prioritize_distinctive_query_terms() -> None:
     profile["object_layers"] = {"core_positive_objects": ["岳飞"]}
     profile["query_bundles"] = ["高宗 岳飞 十二金字牌 班师"]
 
-    [plan] = tool.build_search_plans(profile)
+    [plan] = tool.build_search_plans(profile, max_queries_per_object=1)
 
     assert plan.search_terms[:2] == ("十二金字牌", "班师")
     assert "岳飞" in plan.search_terms
@@ -244,6 +360,7 @@ def test_build_excerpt_pool_direct_page_hit_skips_matching_search(monkeypatch) -
         cache_enabled=False,
         request_delay_seconds=0,
         max_queries=1,
+        max_queries_per_object=1,
     )
 
     assert searches == []
@@ -251,7 +368,38 @@ def test_build_excerpt_pool_direct_page_hit_skips_matching_search(monkeypatch) -
     assert report["progress"]["processed_searches"] == 0
     assert report["excerpts"][0]["source"] == "direct_page"
     assert report["excerpts"][0]["page_title"] == "旧唐书/卷109"
-    assert {item["reason"] for item in report["skipped_search_plans"]} == {"direct_page_hit"}
+    assert "direct_page_hit" in {item["reason"] for item in report["skipped_search_plans"]}
+
+
+def test_build_excerpt_pool_uses_source_pack_without_network(tmp_path, monkeypatch) -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["旧唐书/卷109"],
+        "object_layers": {
+            "core_positive_objects": ["王孝杰"],
+            "negative_or_reversal_objects": ["张易之"],
+        },
+        "query_bundles": ["武则天 王孝杰 旧唐书", "武则天 张易之 旧唐书"],
+    }
+
+    def fail_network(*args, **kwargs):
+        raise AssertionError("source-pack mode must not call Wikisource")
+
+    monkeypatch.setattr(tool.builder, "fetch_wikisource_plain_text", fail_network)
+    monkeypatch.setattr(tool.builder, "search_wikisource", fail_network)
+
+    report = tool.build_excerpt_pool(profile, source_pack=write_source_pack(tmp_path), cache_enabled=False)
+
+    assert report["offline"] is True
+    assert report["status"] == "offline_source_pack"
+    assert report["source_pack"]["enabled"] is True
+    assert report["progress"]["processed_direct_pages"] == 2
+    assert report["progress"]["processed_searches"] == 0
+    assert {item["object_name"] for item in report["excerpts"]} == {"王孝杰", "张易之"}
+    assert {item["reason"] for item in report["skipped_search_plans"]} == {"source_pack_offline"}
+    assert report["retry_events"] == []
 
 
 def test_fetch_json_retries_429_with_retry_after(monkeypatch) -> None:

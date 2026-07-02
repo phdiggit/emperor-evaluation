@@ -32,6 +32,14 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/source_excerpt_pool_lib/profile.py",
         "required_tests": ["tests/test_source_excerpt_pool.py"],
     },
+    "source_excerpt_pool_source_pack": {
+        "implementation": "scripts/dev/source_excerpt_pool_lib/source_pack.py",
+        "required_tests": ["tests/test_source_excerpt_pool.py", "tests/test_i5b_source_pack_audit.py"],
+    },
+    "source_excerpt_pool_source_pack_fetcher": {
+        "implementation": "scripts/dev/source_excerpt_pool_lib/source_pack_fetcher.py",
+        "required_tests": ["tests/test_i5b_source_pack_fetcher.py"],
+    },
     "source_excerpt_pool_wikisource": {
         "implementation": "scripts/dev/source_excerpt_pool_lib/wikisource.py",
         "required_tests": ["tests/test_source_excerpt_pool.py"],
@@ -115,6 +123,18 @@ EXPECTED_I5B_DEV_MODULES = {
     "i5b_source_key_audit": {
         "implementation": "scripts/dev/i5b_source_key_audit.py",
         "required_tests": ["tests/test_i5b_source_key_audit.py"],
+    },
+    "i5b_source_pack_audit": {
+        "implementation": "scripts/dev/i5b_source_pack_audit.py",
+        "required_tests": ["tests/test_i5b_source_pack_audit.py"],
+    },
+    "i5b_source_pack_fetcher": {
+        "implementation": "scripts/dev/i5b_source_pack_fetcher.py",
+        "required_tests": ["tests/test_i5b_source_pack_fetcher.py"],
+    },
+    "i5b_source_pack_status": {
+        "implementation": "scripts/dev/i5b_source_pack_status.py",
+        "required_tests": ["tests/test_i5b_source_pack_status.py"],
     },
 }
 

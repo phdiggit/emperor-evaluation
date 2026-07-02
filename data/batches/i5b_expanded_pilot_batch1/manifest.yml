@@ -8,17 +8,17 @@ canonical_merge_policy: manual_only
 canonical_row_refs:
   query_profile_ids:
   - QRY-I5B-LIUBANG-20260619
-  - QRY-I5B-YONGZHENG-20260619
+  - QRY-I5B-YINZHEN-20260619
   - QRY-I5B-ZHUYUANZHANG-20260619
   search_ids:
   - SRCH-I5B-LIUBANG-POS-SHIREN-001
   - SRCH-I5B-LIUBANG-POS-SHOUQUAN-001
   - SRCH-I5B-LIUBANG-NEG-GONGCHEN-001
   - SRCH-I5B-LIUBANG-CUT-ADJACENT-001
-  - SRCH-I5B-YONGZHENG-POS-SHOUQUAN-001
-  - SRCH-I5B-YONGZHENG-POS-ZHIDU-001
-  - SRCH-I5B-YONGZHENG-NEG-BIAODA-ANQUAN-001
-  - SRCH-I5B-YONGZHENG-CUT-ADJACENT-001
+  - SRCH-I5B-YINZHEN-POS-SHOUQUAN-001
+  - SRCH-I5B-YINZHEN-POS-ZHIDU-001
+  - SRCH-I5B-YINZHEN-NEG-BIAODA-ANQUAN-001
+  - SRCH-I5B-YINZHEN-CUT-ADJACENT-001
   - SRCH-I5B-ZHUYUANZHANG-POS-SHIREN-001
   - SRCH-I5B-ZHUYUANZHANG-POS-SHOUQUAN-001
   - SRCH-I5B-ZHUYUANZHANG-NEG-HULAN-001
@@ -34,10 +34,10 @@ canonical_row_refs:
   - EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-EXIT-001
   - EVD-I5B-LIUBANG-SUPP-ZHANGLIANG-ADVISE-001
   - EVD-I5B-LIUBANG-SUPP-FANKUAI-BUFFER-001
-  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-AUTH-001
-  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-REUSE-001
-  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-CRITIQUE-001
-  - EVD-I5B-YONGZHENG-SUPP-YUEZHONGQI-SENTENCE-001
+  - EVD-I5B-YINZHEN-SUPP-YUEZHONGQI-AUTH-001
+  - EVD-I5B-YINZHEN-SUPP-YUEZHONGQI-REUSE-001
+  - EVD-I5B-YINZHEN-SUPP-YUEZHONGQI-CRITIQUE-001
+  - EVD-I5B-YINZHEN-SUPP-YUEZHONGQI-SENTENCE-001
   - EVD-I5B-ZHUYUANZHANG-SUPP-LISHANG-001
   - EVD-I5B-ZHUYUANZHANG-SUPP-XUDA-001
   - EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001
@@ -45,7 +45,7 @@ canonical_row_refs:
 absorption_notes:
 - Eight Liubang/Zhu Yuanzhang search_ids already existed in data/search_logs.jsonl
   from the 20260618 intake.
-- Four Yongzheng search_ids were appended from the 20260619 expanded pilot batch.
+- Four Yinzhen search_ids were appended from the 20260619 expanded pilot batch.
 - review/*.jsonl remains review-only and is not a canonical source/evidence fact store.
 retired_batch_local_fact_files:
 - path: data/batches/i5b_expanded_pilot_batch1/query_profiles.jsonl
@@ -109,19 +109,19 @@ review_only_files:
     or migrated to canonical review-item rows.
   archive_trigger: Move to archive_only after review decisions are recorded outside
     this batch folder and no exporter/test consumes the package.
-- path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl
+- path: data/batches/i5b_expanded_pilot_batch1/review/yinzhen_rule_boundary_review.jsonl
   role: rule_boundary_review
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
-  retirement_condition: Retire when Yongzheng rule-boundary decisions are captured
+  retirement_condition: Retire when Yinzhen rule-boundary decisions are captured
     in the generic rubric, canonical coverage rows, or a later human-review decision.
   archive_trigger: Move to archive_only after the rule-boundary review is no longer
     an active gate for the expanded pilot exporters/tests.
-- path: data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl
+- path: data/batches/i5b_expanded_pilot_batch1/review/yinzhen_role_class_sweep.jsonl
   role: role_class_sweep
   current_review_input: true
   retention_reason: Review-only/audit snapshot; not a canonical fact store.
-  retirement_condition: Retire when Yongzheng fallthrough roles are covered by canonical
+  retirement_condition: Retire when Yinzhen fallthrough roles are covered by canonical
     lane/anchor coverage rows or a later review artifact.
   archive_trigger: Move to archive_only after the role-class sweep is no longer needed
     by targeted supplement exporters/tests.

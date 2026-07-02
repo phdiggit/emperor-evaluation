@@ -9,6 +9,9 @@ active_subitem: 第五项B
 default_person_group: typical
 
 person_groups:
+  all:
+    label: 所有君主
+    persons_ref: data/configs/lists/所有君主.yml
   three_pilot:
     label: 三人试点
     persons:
@@ -45,7 +48,7 @@ person_groups:
     - 朱由检
     - 皇太极
     - 玄烨
-    - 雍正
+    - 胤禛
     - 弘历
 
 outputs:
@@ -56,6 +59,14 @@ outputs:
 
 tooling:
   source_excerpt_pool:
+    paths:
+      query_profile: data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl
+      query_profile_shared_copy:
+        server: /data2/backups/code/emperor-evaluation/query-profiles/i5b_layered_retrieval_profiles_20260630.jsonl
+        windows: Y:/code/emperor-evaluation/query-profiles/i5b_layered_retrieval_profiles_20260630.jsonl
+      source_pack_root:
+        server: /data2/backups/code/emperor-evaluation/source-packs
+        windows: Y:/code/emperor-evaluation/source-packs
     cache:
       enabled: true
       backend: postgres

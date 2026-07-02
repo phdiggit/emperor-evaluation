@@ -51,7 +51,15 @@ def changed_paths(*pathspecs: str) -> list[str]:
         text=True,
         capture_output=True,
     )
-    return [line[3:] for line in result.stdout.splitlines() if line.strip()]
+    paths = []
+    for line in result.stdout.splitlines():
+        if not line.strip():
+            continue
+        path = line[3:]
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        paths.append(path)
+    return paths
 
 
 def test_postgres_schema_exists_and_contains_required_tables() -> None:
@@ -140,6 +148,9 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
         "data/batches/i5b_typical_batch_a/manifest.yml",
         "data/batches/i5b_typical_batch_b1_qin_han/manifest.yml",
         "data/batches/i5b_zhu_yuanzhang_micro_supplement/manifest.yml",
+        "data/configs/lists/",
+        "data/configs/lists/所有君主.yml",
+        "data/configs/project_config.yml",
         "data/evidence_cards.jsonl",
         "data/evidence_clusters.jsonl",
         "data/object_anchor_coverage.jsonl",
@@ -157,8 +168,8 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
         "data/batches/i5b_expanded_pilot_batch1/review/readiness_audit.jsonl",
         "data/batches/i5b_expanded_pilot_batch1/review/readiness_followup.jsonl",
         "data/batches/i5b_expanded_pilot_batch1/review/relative_band_preparation.jsonl",
-        "data/batches/i5b_expanded_pilot_batch1/review/yongzheng_role_class_sweep.jsonl",
-        "data/batches/i5b_expanded_pilot_batch1/review/yongzheng_rule_boundary_review.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/yinzhen_role_class_sweep.jsonl",
+        "data/batches/i5b_expanded_pilot_batch1/review/yinzhen_rule_boundary_review.jsonl",
     }
     allowed_paths = allowed_data_changes | allowed_review_snapshot_lifecycle_changes
     assert [path for path in changed_paths("data") if path not in allowed_paths] == []

@@ -32,14 +32,94 @@ def _add_unique(values: list[str], value: str) -> None:
         values.append(cleaned)
 
 
+ANNOTATION_RE = re.compile(r"[（(][^（）()]*[）)]")
+SEARCH_LABEL_SUFFIXES = (
+    "政治风险对象",
+    "近臣风险",
+    "早期任用",
+    "早期信任",
+    "后续处置",
+    "任用边界",
+    "处置边界",
+    "信任回缩",
+    "安全破坏",
+    "安全链",
+    "牵连对象",
+    "相关对象",
+    "相关官员",
+    "可回源对象",
+    "等可回源对象",
+    "无谏诤机制",
+    "功臣团队",
+    "早期",
+    "晚期",
+    "冤狱",
+    "罢斥",
+    "贬谪",
+    "被诬陷",
+    "旧臣处置",
+    "旧臣",
+    "外戚",
+    "近幸",
+    "压力",
+    "使用",
+    "处置",
+    "机制",
+    "本体",
+    "符号",
+    "边界",
+    "团队",
+    "群体",
+    "对象",
+    "事件",
+    "案",
+)
+
+
+def strip_search_label_suffixes(value: str) -> str:
+    cleaned = ANNOTATION_RE.sub("", value).strip()
+    changed = True
+    while changed:
+        changed = False
+        for suffix in SEARCH_LABEL_SUFFIXES:
+            if cleaned.endswith(suffix) and len(cleaned) > len(suffix) + 1:
+                cleaned = cleaned[: -len(suffix)].strip()
+                changed = True
+                break
+    return cleaned
+
+
+def derive_primary_search_terms(raw_name: str) -> tuple[str, ...]:
+    terms: list[str] = []
+    normalized = ANNOTATION_RE.sub("", raw_name).strip()
+    parts = [part.strip() for part in re.split(r"[/／、,，；;\s]+", normalized) if part.strip()]
+    if normalized != raw_name and len(parts) == 1 and "等" not in normalized:
+        _add_unique(terms, strip_search_label_suffixes(normalized))
+    for part in re.split(r"[/／、,，；;\s]+", normalized):
+        part = part.strip()
+        if len(part) < 2:
+            continue
+        if "等" in part:
+            _add_unique(terms, strip_search_label_suffixes(part.split("等", 1)[0]))
+        stripped = strip_search_label_suffixes(part)
+        if stripped != part:
+            _add_unique(terms, stripped)
+        elif len(parts) > 1 and len(part) <= 4:
+            _add_unique(terms, part)
+    return tuple(term for term in terms if len(term) >= 2)
+
+
 def derive_search_terms(raw_name: str) -> tuple[str, ...]:
     terms: list[str] = []
+    for term in derive_primary_search_terms(raw_name):
+        _add_unique(terms, term)
     _add_unique(terms, raw_name)
 
-    for part in re.split(r"[/／、,，；;\s]+", raw_name):
+    normalized = ANNOTATION_RE.sub("", raw_name).strip()
+    for part in re.split(r"[/／、,，；;\s]+", normalized):
         _add_unique(terms, part)
         if "等" in part:
-            _add_unique(terms, part.split("等", 1)[0])
+            _add_unique(terms, strip_search_label_suffixes(part.split("等", 1)[0]))
         if "相关" in part:
             before_related = part.split("相关", 1)[0]
             _add_unique(terms, before_related)
@@ -58,6 +138,34 @@ def derive_search_terms(raw_name: str) -> tuple[str, ...]:
             _add_unique(terms, suffix)
 
     return tuple(term for term in terms if len(term) >= 2)
+
+
+def object_search_terms(profile: dict[str, Any], raw_name: str) -> tuple[str, ...]:
+    terms: list[str] = []
+    alias_map = profile.get("object_search_aliases", {})
+    if alias_map is None:
+        alias_map = {}
+    if not isinstance(alias_map, dict):
+        raise ExcerptPoolError("profile.object_search_aliases: expected object")
+
+    raw_aliases = alias_map.get(raw_name, [])
+    if isinstance(raw_aliases, str):
+        aliases = [raw_aliases]
+    elif isinstance(raw_aliases, list):
+        aliases = raw_aliases
+    elif raw_aliases is None:
+        aliases = []
+    else:
+        raise ExcerptPoolError(f"profile.object_search_aliases.{raw_name}: expected string or list")
+
+    for alias in aliases:
+        if not isinstance(alias, str) or not alias.strip():
+            continue
+        for term in derive_search_terms(alias.strip()):
+            _add_unique(terms, term)
+    for term in derive_search_terms(raw_name):
+        _add_unique(terms, term)
+    return tuple(terms)
 
 
 def derive_query_terms(query: str) -> tuple[str, ...]:
@@ -90,7 +198,8 @@ def iter_candidate_objects(profile: dict[str, Any], *, include_adjacent: bool = 
         for name in names:
             if not isinstance(name, str) or not name.strip():
                 raise ExcerptPoolError(f"profile.object_layers.{layer}: expected non-empty string")
-            candidates.append(CandidateObject(name.strip(), layer, derive_search_terms(name.strip())))
+            raw_name = name.strip()
+            candidates.append(CandidateObject(raw_name, layer, object_search_terms(profile, raw_name)))
     return candidates
 
 
@@ -108,9 +217,13 @@ def _bundle_mentions_other_candidate(bundle: str, candidate: CandidateObject, ca
 
 
 def fallback_source_titles(profile: dict[str, Any]) -> tuple[str, ...]:
-    titles = source_title_filters(profile)
-    if titles:
-        return titles
+    filters = source_title_filters(profile)
+    if filters:
+        titles: list[str] = []
+        for simplified, variants in KNOWN_SOURCE_TITLE_VARIANTS.items():
+            if any(variant in filters for variant in variants):
+                _add_unique(titles, simplified)
+        return tuple(titles or filters)
     return ("正史", "资治通鉴")
 
 
@@ -150,6 +263,11 @@ def build_search_plans(
             primary = candidate.search_terms[0]
             object_plans = fallback_object_queries(profile, person=person, primary=primary)
         elif all(_bundle_mentions_other_candidate(bundle, candidate, candidates) for bundle in object_plans):
+            primary = candidate.search_terms[0]
+            for fallback_query in fallback_object_queries(profile, person=person, primary=primary):
+                _add_unique(object_plans, fallback_query)
+
+        elif len(object_plans) < MIN_OBJECT_QUERY_PLANS_BEFORE_FALLBACK:
             primary = candidate.search_terms[0]
             for fallback_query in fallback_object_queries(profile, person=person, primary=primary):
                 _add_unique(object_plans, fallback_query)
@@ -241,6 +359,7 @@ def _known_source_title_pattern() -> str:
 
 SOURCE_TITLE_PATTERN = _known_source_title_pattern()
 CACHE_DIRECT_GENERIC_TERMS = {"官员", "功臣", "团队", "机制", "对象", "事件", "边界"}
+MIN_OBJECT_QUERY_PLANS_BEFORE_FALLBACK = 2
 
 
 def explicit_page_titles_from_text(text: str) -> tuple[str, ...]:

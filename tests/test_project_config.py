@@ -280,6 +280,52 @@ def test_validate_project_config_accepts_source_excerpt_pool_postgres_cache(tmp_
     assert validate_project_config.validate(config_path) == []
 
 
+def test_validate_project_config_accepts_source_excerpt_pool_paths(tmp_path: Path) -> None:
+    profile_path = tmp_path / "data" / "query_profile_batches" / "profiles.jsonl"
+    profile_path.parent.mkdir(parents=True)
+    profile_path.write_text('{"person":"甲"}\n', encoding="utf-8")
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "paths": {
+                "query_profile": "data/query_profile_batches/profiles.jsonl",
+                "query_profile_shared_copy": {
+                    "server": "/data2/backups/code/emperor-evaluation/query-profiles/profiles.jsonl",
+                    "windows": "Y:/code/emperor-evaluation/query-profiles/profiles.jsonl",
+                },
+                "source_pack_root": {
+                    "server": "/data2/backups/code/emperor-evaluation/source-packs",
+                    "windows": "Y:/code/emperor-evaluation/source-packs",
+                },
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+    old_root = validate_project_config.ROOT
+    validate_project_config.ROOT = tmp_path
+    try:
+        assert validate_project_config.validate(config_path) == []
+    finally:
+        validate_project_config.ROOT = old_root
+
+
+def test_validate_project_config_rejects_source_excerpt_pool_unknown_path_field(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "paths": {
+                "query_profile": "data/query_profile_batches/profiles.jsonl",
+                "scratch_dir": ".tmp/source-packs",
+            }
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("tooling.source_excerpt_pool.paths.scratch_dir: paths field is not allowed" in error for error in errors)
+
+
 def test_validate_project_config_rejects_source_excerpt_pool_cache_outside_cache(tmp_path: Path) -> None:
     payload = valid_payload()
     payload["tooling"] = {

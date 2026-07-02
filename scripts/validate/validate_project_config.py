@@ -31,8 +31,10 @@ ALLOWED_OUTPUT_KEYS = {
 }
 ALLOWED_OUTPUT_DETAIL_KEYS = {"enabled", "person_group_override"}
 ALLOWED_TOOLING_KEYS = {"source_excerpt_pool"}
-ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache"}
+ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache", "paths"}
 ALLOWED_SOURCE_EXCERPT_CACHE_KEYS = {"enabled", "backend", "directory", "dsn_env", "schema"}
+ALLOWED_SOURCE_EXCERPT_PATH_KEYS = {"query_profile", "query_profile_shared_copy", "source_pack_root"}
+ALLOWED_NAMED_EXTERNAL_PATH_KEYS = {"server", "windows"}
 FORBIDDEN_KEYS = {
     "i5b",
     "subitems",
@@ -221,6 +223,41 @@ def validate_cache_directory(path: Path, directory: object, label: str) -> list[
     return []
 
 
+def path_has_parent_ref(value: str) -> bool:
+    normalized = value.replace("\\", "/")
+    return any(part == ".." for part in normalized.split("/"))
+
+
+def validate_query_profile_path(path: Path, value: object, label: str) -> list[str]:
+    if not is_non_empty_string(value):
+        return [f"{path}: {label} must be a non-empty string"]
+    profile_path = Path(str(value))
+    allowed_root = Path("data") / "query_profile_batches"
+    if profile_path.is_absolute() or path_has_parent_ref(str(value)) or not profile_path.as_posix().startswith(
+        allowed_root.as_posix() + "/"
+    ):
+        return [f"{path}: {label} must stay under data/query_profile_batches/"]
+    if not (ROOT / profile_path).exists():
+        return [f"{path}: {label} target does not exist: {value}"]
+    return []
+
+
+def validate_named_external_paths(path: Path, value: object, label: str) -> list[str]:
+    if not isinstance(value, dict) or not value:
+        return [f"{path}: {label} must be a non-empty mapping"]
+    errors: list[str] = []
+    extra_keys = sorted(set(value) - ALLOWED_NAMED_EXTERNAL_PATH_KEYS)
+    for key in extra_keys:
+        errors.append(f"{path}: {label}.{key}: path target must be one of {sorted(ALLOWED_NAMED_EXTERNAL_PATH_KEYS)}")
+    for key in sorted(set(value) & ALLOWED_NAMED_EXTERNAL_PATH_KEYS):
+        path_value = value[key]
+        if not is_non_empty_string(path_value):
+            errors.append(f"{path}: {label}.{key} must be a non-empty string")
+        elif path_has_parent_ref(str(path_value)):
+            errors.append(f"{path}: {label}.{key} must not contain '..'")
+    return errors
+
+
 def validate_pg_identifier(path: Path, value: object, label: str) -> list[str]:
     if not is_non_empty_string(value):
         return [f"{path}: {label} must be a non-empty string"]
@@ -248,6 +285,24 @@ def validate_tooling(path: Path, tooling: object) -> list[str]:
     extra_pool_keys = sorted(set(source_excerpt_pool) - ALLOWED_SOURCE_EXCERPT_POOL_KEYS)
     for key in extra_pool_keys:
         errors.append(f"{path}: {label}.source_excerpt_pool.{key}: source_excerpt_pool field is not allowed")
+
+    paths = source_excerpt_pool.get("paths")
+    if paths is not None:
+        if not isinstance(paths, dict):
+            errors.append(f"{path}: {label}.source_excerpt_pool.paths must be a mapping")
+        else:
+            extra_path_keys = sorted(set(paths) - ALLOWED_SOURCE_EXCERPT_PATH_KEYS)
+            for key in extra_path_keys:
+                errors.append(f"{path}: {label}.source_excerpt_pool.paths.{key}: paths field is not allowed")
+            if "query_profile" in paths:
+                errors.extend(
+                    validate_query_profile_path(path, paths["query_profile"], f"{label}.source_excerpt_pool.paths.query_profile")
+                )
+            for key in ("query_profile_shared_copy", "source_pack_root"):
+                if key in paths:
+                    errors.extend(
+                        validate_named_external_paths(path, paths[key], f"{label}.source_excerpt_pool.paths.{key}")
+                    )
 
     cache = source_excerpt_pool.get("cache")
     if cache is None:
