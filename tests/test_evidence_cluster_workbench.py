@@ -264,3 +264,13 @@ def test_render_materials_markdown_includes_attrs() -> None:
 
     assert "`7` `positive` 邓禹" in rendered
     assert "talent_quality=顶级人才" in rendered
+
+
+def test_legacy_jsonl_log_entrypoint_is_removed() -> None:
+    tool = load_tool()
+    parser = tool.build_parser()
+    upsert = parser._subparsers._group_actions[0].choices["upsert"]
+    options = {option for action in upsert._actions for option in action.option_strings}
+
+    assert "--log" not in options
+    assert not hasattr(tool, "append_calc_log")

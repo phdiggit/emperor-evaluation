@@ -18,7 +18,6 @@ DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_ITEM_CODE = "I5B"
 DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
 DEFAULT_FORMULA_CODE = "item_result_formula_i5b_v8"
-DEFAULT_LOG_PATH = ROOT / "logs" / "item_results" / "i5b_item_results_calc.jsonl"
 MAX_SCORE = Decimal("45.000")
 POSITIVE_RESPONSE_CAP = Decimal("5.5")
 POSITIVE_RESPONSE_TAU = Decimal("3.5")
@@ -296,20 +295,6 @@ def _upsert_result_calc_detail(
     )
 
 
-def append_calc_log(path: Path, rows: list[dict[str, Any]]) -> None:
-    """Append legacy item result calculation logs.
-
-    Current I5B tooling writes result calculation details to PostgreSQL tables
-    instead of JSONL logs. This helper remains for historical fixtures only.
-    """
-    if not rows:
-        return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
-        for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
-
-
 def calculate_item_results(
     *,
     dsn: str,
@@ -318,7 +303,6 @@ def calculate_item_results(
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
     formula_code: str = DEFAULT_FORMULA_CODE,
     dry_run: bool = False,
-    log_path: Path | None = None,
 ) -> dict[str, Any]:
     if not emperors:
         raise I5BItemResultError("at least one emperor is required")
@@ -452,7 +436,6 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Required evd_clusters formula_code.")
     parser.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE, help="emp_item_results formula_code to write.")
-    parser.add_argument("--log", type=Path, default=None, help="Deprecated; calculation details are stored in DB.")
     parser.add_argument("--emperor", action="append", required=True, help="Emperor name; repeat for batch runs.")
     parser.add_argument("--dry-run", action="store_true", help="Rollback database writes.")
     return parser
@@ -468,7 +451,6 @@ def main(argv: list[str] | None = None) -> int:
         cluster_formula=args.cluster_formula,
         formula_code=args.formula_code,
         dry_run=args.dry_run,
-        log_path=args.log,
     )
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
     return 0

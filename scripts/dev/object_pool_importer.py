@@ -58,6 +58,8 @@ SOURCE_BIBLIO_BY_TITLE = {
     "明史": ("张廷玉等", "清"),
     "清史稿": ("赵尔巽等", "民国"),
 }
+NEGATIVE_TALENT_QUALITY_VALUES = {"佞臣", "大佞臣", "历史级佞臣"}
+HARMED_TALENT_RULE_CODE = "tolerate_talent"
 
 
 class ImportErrorWithContext(ValueError):
@@ -261,6 +263,28 @@ def _parse_attr(row: dict[str, Any], path: str, *, default_region: str, default_
     )
 
 
+def _has_negative_talent_quality(attrs: tuple[ObjectAttrRow, ...]) -> bool:
+    return any(
+        attr.attr_code == "talent_quality" and attr.value_text in NEGATIVE_TALENT_QUALITY_VALUES
+        for attr in attrs
+    )
+
+
+def _assert_harmed_talent_links_allowed(
+    *,
+    obj_name: str,
+    attrs: tuple[ObjectAttrRow, ...],
+    links: tuple[ObjectSourceLink, ...],
+    path: str,
+) -> None:
+    if not _has_negative_talent_quality(attrs):
+        return
+    if any(link.rule_code == HARMED_TALENT_RULE_CODE for link in links):
+        raise ImportErrorWithContext(
+            f"{path}.links: {HARMED_TALENT_RULE_CODE} cannot link negative talent object {obj_name}"
+        )
+
+
 def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
     path = f"objects[{index}]"
     note = _text(row, "note", path)
@@ -284,10 +308,12 @@ def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
         )
         for attr_index, attr in enumerate(_require_list(attr_rows, f"{path}.attrs"))
     )
+    obj_name = _text(row, "name", path)
+    _assert_harmed_talent_links_allowed(obj_name=obj_name, attrs=attrs, links=links, path=path)
     return ObjectRow(
         obj_type=_text(row, "obj_type", path),
         period=_text(row, "period", path),
-        name=_text(row, "name", path),
+        name=obj_name,
         note=note,
         links=links,
         attrs=attrs,

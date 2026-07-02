@@ -64,6 +64,38 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_factor_consistency_audit.py",
         "required_tests": ["tests/test_i5b_factor_consistency_audit.py"],
     },
+    "i5b_factor_table_sync": {
+        "implementation": "scripts/dev/i5b_factor_table_sync.py",
+        "required_tests": ["tests/test_i5b_factor_table_sync.py"],
+    },
+    "i5b_health_check": {
+        "implementation": "scripts/dev/i5b_health_check.py",
+        "required_tests": ["tests/test_i5b_health_check.py"],
+    },
+    "i5b_fact_relation_candidate_sync": {
+        "implementation": "scripts/dev/i5b_fact_relation_candidate_sync.py",
+        "required_tests": ["tests/test_i5b_fact_relation_candidate_sync.py"],
+    },
+    "i5b_fact_relation_gap_summary": {
+        "implementation": "scripts/dev/i5b_fact_relation_gap_summary.py",
+        "required_tests": ["tests/test_i5b_fact_relation_gap_summary.py"],
+    },
+    "i5b_rule_evidence_unit_preview": {
+        "implementation": "scripts/dev/i5b_rule_evidence_unit_preview.py",
+        "required_tests": ["tests/test_i5b_rule_evidence_unit_preview.py"],
+    },
+    "i5b_rule_evidence_unit_issue_summary": {
+        "implementation": "scripts/dev/i5b_rule_evidence_unit_issue_summary.py",
+        "required_tests": ["tests/test_i5b_rule_evidence_unit_issue_summary.py"],
+    },
+    "i5b_rule_evidence_unit_candidate_builder": {
+        "implementation": "scripts/dev/i5b_rule_evidence_unit_candidate_builder.py",
+        "required_tests": ["tests/test_i5b_rule_evidence_unit_candidate_builder.py"],
+    },
+    "i5b_rule_evidence_unit_db_sync": {
+        "implementation": "scripts/dev/i5b_rule_evidence_unit_db_sync.py",
+        "required_tests": ["tests/test_i5b_rule_evidence_unit_db_sync.py"],
+    },
     "i5b_factor_recalculator": {
         "implementation": "scripts/dev/i5b_factor_recalculator.py",
         "required_tests": ["tests/test_i5b_factor_recalculator.py"],

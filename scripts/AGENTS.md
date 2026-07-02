@@ -39,6 +39,7 @@
 - 同职责、同风险、同验证链的机械迁移可以批量处理；build、pipeline、matrix 类脚本按专门 PR 分阶段治理。
 - 迁移任务先锁定影响面和测试，再做小步重构；不要通过批量替换绕过审计。
 - 共享工具迁移必须单独治理；已退役旧路径只在 registry 中保留审计映射。
+- 脚本超过 registry `script_bloat_budgets.default_max_lines` 时，必须拆分职责，或在 `script_bloat_budgets.path_budgets` 登记临时行数预算和理由；不得无说明继续堆大文件。
 
 ## 范围边界
 

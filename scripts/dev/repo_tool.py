@@ -582,6 +582,52 @@ def _implementation_paths(registry: dict[str, Any]) -> list[str]:
     return sorted(paths)
 
 
+def _script_bloat_problems(registry: dict[str, Any], registry_path: str) -> list[str]:
+    config = registry.get("script_bloat_budgets")
+    if config is None:
+        return []
+    if not isinstance(config, dict):
+        return [f"{registry_path}: script_bloat_budgets must be an object"]
+
+    problems: list[str] = []
+    default_max_lines = int(config.get("default_max_lines", 0) or 0)
+    path_budgets = config.get("path_budgets", {})
+    if not isinstance(path_budgets, dict):
+        return [f"{registry_path}: script_bloat_budgets.path_budgets must be an object"]
+
+    registered_paths = set(_implementation_paths(registry))
+    normalized_budgets: dict[str, dict[str, Any]] = {}
+    for raw_path, raw_budget in sorted(path_budgets.items()):
+        path = normalize_repo_path(str(raw_path))
+        if path != raw_path:
+            problems.append(f"{raw_path}: script bloat budget path must use repo-normalized separators")
+        if path not in registered_paths:
+            problems.append(f"{path}: script bloat budget target is not a registered implementation")
+        if not isinstance(raw_budget, dict):
+            problems.append(f"{path}: script bloat budget must be an object")
+            continue
+        if not str(raw_budget.get("reason", "")).strip():
+            problems.append(f"{path}: script bloat budget requires reason")
+        max_lines = int(raw_budget.get("max_lines", 0) or 0)
+        if max_lines <= 0:
+            problems.append(f"{path}: script bloat budget requires positive max_lines")
+        normalized_budgets[path] = raw_budget
+
+    for path in sorted(registered_paths):
+        line_count = _line_count(_resolve_repo_path(path))
+        if path in normalized_budgets:
+            max_lines = int(normalized_budgets[path].get("max_lines", 0) or 0)
+            if max_lines > 0 and line_count > max_lines:
+                problems.append(f"{path}: {line_count} lines exceeds script budget {max_lines}")
+            continue
+        if default_max_lines and line_count > default_max_lines:
+            problems.append(
+                f"{path}: {line_count} lines exceeds default script budget {default_max_lines}; "
+                "split the module or add script_bloat_budgets.path_budgets entry with max_lines and reason"
+            )
+    return problems
+
+
 def _legacy_import_problem(path: str, module_name: str, canonical_name: str) -> str:
     return f"{path}: imports legacy wrapper module {module_name!r}; use {canonical_name!r}"
 
@@ -772,6 +818,8 @@ def check_agents(registry_path: str = REGISTRY_PATH) -> list[str]:
         problems.append(f"{path}: duplicate wrapper/root_exception coverage")
     for path in sorted(implementations & wrappers):
         problems.append(f"{path}: path cannot be both implementation and wrapper")
+
+    problems.extend(_script_bloat_problems(registry, registry_path))
 
     if retired_wrappers_valid:
         problems.extend(check_canonical_imports(registry_path))

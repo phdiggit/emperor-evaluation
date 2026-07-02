@@ -19,21 +19,22 @@ def load_tool():
     return module
 
 
-def write_factor_doc(path: Path, disposition_value: str) -> None:
+def write_factor_doc(path: Path, handling_value: str) -> None:
     path.write_text(
         f"""# factors
 
-`disposition_severity`：
+`handling_severity`：
 
 | 值 | 口径 |
 | --- | --- |
-| `{disposition_value}` | 大规模牵连、系统清洗或长期人才生态破坏。 |
+| `{handling_value}` | 大规模牵连、系统清洗或长期人才生态破坏。 |
 
-`spillover_factor`：
+`target_fault_factor`：
 
 | 值 | 口径 |
 | --- | --- |
-| `1.5` | 形成寒蝉、授权信用破裂或人才安全预期下降。 |
+| `1.5` | 无故构陷、冤杀，或因谏言、表达、纠错而受害。 |
+| `0.4` | 违法乱纪、重大过错或危险行为基本成立，但处置仍显过重。 |
 """,
         encoding="utf-8",
     )
@@ -61,14 +62,13 @@ def test_load_profile_substitutes_markdown_factor_values(tmp_path: Path) -> None
                                 "obj_name": "甲",
                                 "direction": "negative",
                                 "factors": {
-                                    "disposition_severity": {
+                                    "handling_severity": {
                                         "label": "大规模牵连、系统清洗或长期人才生态破坏。"
                                     },
                                     "object_weight": "1.0",
-                                    "spillover_factor": {
-                                        "label": "形成寒蝉、授权信用破裂或人才安全预期下降。"
+                                    "target_fault_factor": {
+                                        "label": "无故构陷、冤杀，或因谏言、表达、纠错而受害。"
                                     },
-                                    "certainty_factor": "1.0",
                                     "attribution_factor": "1.0",
                                     "source_factor": "1.0",
                                     "context_factor": "1.0",
@@ -87,7 +87,7 @@ def test_load_profile_substitutes_markdown_factor_values(tmp_path: Path) -> None
 
     assert clusters[0].negative_signal == tool.Decimal("3.750")
     detail = clusters[0].calc_detail
-    assert detail["materials"][0]["factor_values"]["disposition_severity"] == "2.5"
+    assert detail["materials"][0]["factor_values"]["handling_severity"] == "2.5"
     assert detail["materials"][0]["abs_score"] == "3.750"
     assert detail["covered_material_ids"] == [1]
     assert detail["scored_material_ids"] == [1]
@@ -136,10 +136,12 @@ def test_markdown_factor_change_immediately_changes_signal(tmp_path: Path) -> No
                                 "obj_name": "甲",
                                 "direction": "negative",
                                 "factors": {
-                                    "disposition_severity": {
+                                    "handling_severity": {
                                         "label": "大规模牵连、系统清洗或长期人才生态破坏。"
                                     },
-                                    "spillover_factor": "1.0",
+                                    "target_fault_factor": {
+                                        "label": "违法乱纪、重大过错或危险行为基本成立，但处置仍显过重。"
+                                    },
                                 },
                             }
                         ],
@@ -155,8 +157,8 @@ def test_markdown_factor_change_immediately_changes_signal(tmp_path: Path) -> No
     write_factor_doc(doc, "3.0")
     _, _, after = tool.load_profile(profile, factor_docs=(doc,))
 
-    assert before[0].negative_signal == tool.Decimal("2.000")
-    assert after[0].negative_signal == tool.Decimal("3.000")
+    assert before[0].negative_signal == tool.Decimal("0.800")
+    assert after[0].negative_signal == tool.Decimal("1.200")
 
 
 def test_single_material_score_is_capped_at_four(tmp_path: Path) -> None:
@@ -179,10 +181,12 @@ def test_single_material_score_is_capped_at_four(tmp_path: Path) -> None:
                                 "obj_name": "甲",
                                 "direction": "negative",
                                 "factors": {
-                                    "disposition_severity": {
+                                    "handling_severity": {
                                         "label": "大规模牵连、系统清洗或长期人才生态破坏。"
                                     },
-                                    "spillover_factor": "2.0",
+                                    "target_fault_factor": {
+                                        "label": "无故构陷、冤杀，或因谏言、表达、纠错而受害。"
+                                    },
                                 },
                             }
                         ],
@@ -197,7 +201,7 @@ def test_single_material_score_is_capped_at_four(tmp_path: Path) -> None:
     _, _, clusters = tool.load_profile(profile, factor_docs=(doc,))
 
     assert clusters[0].negative_signal == tool.Decimal("4.000")
-    assert clusters[0].calc_detail["materials"][0]["raw_score"] == "6.000"
+    assert clusters[0].calc_detail["materials"][0]["raw_score"] == "4.500"
     assert clusters[0].calc_detail["materials"][0]["abs_score"] == "4.000"
 
 
@@ -279,6 +283,17 @@ def test_load_profile_from_details_replays_factor_refs_not_stale_values(tmp_path
                     "side": "negative",
                     "factor_values": {"severity_factor": "2.0"},
                     "factor_refs": {"severity_factor": {"label": "heavy"}},
+                },
+                {
+                    "obj_src_id": None,
+                    "obj_key": "Replay Emperor:founder_retention_baseline",
+                    "obj_name": "founder_retention_baseline",
+                    "side": "positive",
+                    "factor_values": {"founder_pressure": "1.2", "retention_signal": "1.0"},
+                    "factor_refs": {
+                        "founder_pressure": {"label": "开国/中兴/创业皇帝"},
+                        "retention_signal": {"label": "个体或局部高风险功臣保全"},
+                    },
                 }
             ],
         },
@@ -321,6 +336,106 @@ def test_load_profile_from_details_replays_factor_refs_not_stale_values(tmp_path
     assert after[0].calc_detail["covered_material_ids"] == [1, 2]
     assert after[0].calc_detail["scored_material_ids"] == [1]
     assert after[0].calc_detail["supporting_material_ids"] == [2]
+    assert [item["obj_name"] for item in after[0].calc_detail["materials"]] == ["case"]
+
+
+def test_load_profile_from_details_can_replay_from_factor_table_catalog(monkeypatch) -> None:
+    tool = load_tool()
+    detail_row = {
+        "emperor": "Replay Emperor",
+        "rule_code": "tolerate_talent",
+        "formula_code": "evidence_cluster_signal_test",
+        "positive_signal": "0.000",
+        "negative_signal": "2.000",
+        "material_ids": [1],
+        "calc_detail": {
+            "item_code": "I5B",
+            "formula_code": "evidence_cluster_signal_test",
+            "coverage": {"positive": "1.0", "negative": "1.0"},
+            "materials": [
+                {
+                    "obj_src_id": 1,
+                    "obj_key": "case",
+                    "obj_name": "case",
+                    "side": "negative",
+                    "factor_values": {"severity_factor": "2.0"},
+                    "factor_refs": {"severity_factor": {"label": "heavy"}},
+                }
+            ],
+        },
+    }
+    catalog = tool.parse_factor_catalog_from_rows(
+        [
+            {
+                "factor_option_id": 99,
+                "rule_code": "tolerate_talent",
+                "factor_name": "severity_factor",
+                "factor_scope": "rule",
+                "label": "heavy",
+                "value_num": "3.0",
+                "source_doc": "doc.md",
+                "source_line": 10,
+            }
+        ]
+    )
+
+    monkeypatch.setattr(
+        tool,
+        "fetch_cluster_calc_detail_rows",
+        lambda **kwargs: {
+            ("Replay Emperor", "tolerate_talent"): detail_row,
+        },
+    )
+
+    _, _, clusters = tool.load_profile_from_details(
+        dsn="postgresql://unused",
+        item_code="I5B",
+        factor_docs=(),
+        factor_catalog=catalog,
+        formula_code="evidence_cluster_signal_test",
+    )
+
+    material = clusters[0].calc_detail["materials"][0]
+    assert clusters[0].negative_signal == tool.Decimal("3.000")
+    assert material["factor_values"]["severity_factor"] == "3.0"
+    assert material["factor_refs"]["severity_factor"]["factor_option_id"] == 99
+    assert material["factor_refs"]["severity_factor"]["catalog_value_num"] == "3.0"
+
+
+def test_profile_rejects_retired_founder_baseline_factor(tmp_path: Path) -> None:
+    tool = load_tool()
+    profile = tmp_path / "profile.json"
+    profile.write_text(
+        json.dumps(
+            {
+                "clusters": [
+                    {
+                        "emperor": "测试帝",
+                        "rule_code": "tolerate_talent",
+                        "note": "测试簇",
+                        "materials": [
+                            {
+                                "obj_key": "测试帝:founder_retention_baseline",
+                                "obj_name": "founder_retention_baseline",
+                                "direction": "positive",
+                                "factors": {"founder_pressure": "1.2", "retention_signal": "1.0"},
+                            }
+                        ],
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    try:
+        tool.load_profile(profile, factor_docs=())
+    except tool.I5BFactorRecalculatorError as exc:
+        assert "retired factor" in str(exc)
+        assert "founder_pressure" in str(exc)
+    else:
+        raise AssertionError("expected retired founder baseline factor to fail")
 
 
 def test_material_requires_stable_object_key_for_same_object_aggregation(tmp_path: Path) -> None:

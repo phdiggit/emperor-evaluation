@@ -179,11 +179,12 @@ def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -
 def test_i5b_grading_rubric_guards_object_anchors_and_extreme_positive() -> None:
     content = read_text(ROOT / "docs" / "分项规则" / "第五项统治者政治素质" / "B用人与授权.md")
     for needle in [
-        "第五项B当前计分链只认对象、史源、规则和公式因子",
+        "第五项B当前正式计分链只认已回源对象、史源、规则、结构化因子和计算明细",
         "`raw_objs` 保持原始对象粒度，不能合并加工",
         "每个 `raw_objs` 至少有一条 `obj_srcs` 史料链",
         "`talent_quality` 等对象属性必须来自 `obj_attrs`",
-        "第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_clusters` / `evd_cluster_calc_details` → `emp_item_results` / `emp_item_result_calc_details`",
+        "第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_cluster_calc_details.calc_detail`",
+        "规则承载对象另由 `rule_evidence_units` / `rule_evidence_unit_members` / `fact_relations`",
         "`calc_detail.covered_material_ids`、`scored_material_ids` 和 `supporting_material_ids`",
         "`query_profiles` / `data/query_profile_batches/**`",
         "`search_logs`",

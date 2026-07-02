@@ -109,6 +109,26 @@ def test_parse_payload_accepts_object_attrs() -> None:
     assert attr.obj_name == "邓禹"
 
 
+def test_parse_payload_rejects_tolerate_talent_link_for_negative_talent_object() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["name"] = "来俊臣"
+    raw["objects"][0]["links"][0]["rule_code"] = "tolerate_talent"
+    raw["objects"][0]["links"][0]["direction"] = "negative"
+    raw["objects"][0]["attrs"] = [
+        {
+            "attr_code": "talent_quality",
+            "src_key": "SRC-HHS-J16-DENGYU-TEST",
+            "value_text": "历史级佞臣",
+            "confidence": 0.9,
+            "note": "来俊臣为酷吏系统核心负向对象。",
+        }
+    ]
+
+    with pytest.raises(importer.ImportErrorWithContext, match="cannot link negative talent object"):
+        importer.parse_payload(raw)
+
+
 def test_parse_payload_rejects_object_attr_without_value() -> None:
     importer = load_importer()
     raw = valid_payload()

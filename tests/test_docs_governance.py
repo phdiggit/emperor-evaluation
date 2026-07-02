@@ -282,7 +282,7 @@ def test_docs_module_density_and_topic_reviews_are_recorded() -> None:
     density = {entry["module_path"]: entry for entry in registry["docs_module_density_reviews"]}
     topic = {entry["family_name"]: entry for entry in registry["docs_topic_family_reviews"]}
 
-    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 14
+    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 15
     assert density["docs/数据结构与生成库"]["review_status"] == "reviewed"
     assert "史源数据平台文档族" in topic
     assert PLATFORM_ARCHITECTURE_DECISION_DOC in topic["史源数据平台文档族"]["paths"]
@@ -430,7 +430,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "docs registry 覆盖文档数：95，其中当前 `docs/` 层 40 份，历史归档区 55 份。",
+            "docs registry 覆盖文档数：96，其中当前 `docs/` 层 41 份，历史归档区 55 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 2. 项目驱动文档",

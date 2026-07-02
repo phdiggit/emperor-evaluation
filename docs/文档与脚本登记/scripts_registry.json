@@ -9,6 +9,19 @@
       "max_lines": 90
     }
   },
+  "script_bloat_budgets": {
+    "default_max_lines": 1000,
+    "path_budgets": {
+      "scripts/dev/i5b_factor_recalculator.py": {
+        "max_lines": 1250,
+        "reason": "I5B 因子重放仍承载明细回放、对象候选和结果写回，后续拆分前保留窄预算"
+      },
+      "scripts/dev/i5b_factor_table_sync.py": {
+        "max_lines": 1100,
+        "reason": "I5B 计分细则表同步与 calc_detail 审计暂在同一工具内，稳定后拆分共享 catalog 层"
+      }
+    }
+  },
   "default_forbidden_patterns": [
     "exports/**",
     "data/**",
@@ -217,6 +230,94 @@
     {
       "audit_docs": [],
       "category": "dev",
+      "id": "i5b_factor_table_sync",
+      "implementation": "scripts/dev/i5b_factor_table_sync.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_factor_table_sync.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_health_check",
+      "implementation": "scripts/dev/i5b_health_check.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_health_check.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_fact_relation_candidate_sync",
+      "implementation": "scripts/dev/i5b_fact_relation_candidate_sync.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_fact_relation_candidate_sync.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_fact_relation_gap_summary",
+      "implementation": "scripts/dev/i5b_fact_relation_gap_summary.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_fact_relation_gap_summary.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_rule_evidence_unit_preview",
+      "implementation": "scripts/dev/i5b_rule_evidence_unit_preview.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_rule_evidence_unit_preview.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_rule_evidence_unit_issue_summary",
+      "implementation": "scripts/dev/i5b_rule_evidence_unit_issue_summary.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_rule_evidence_unit_issue_summary.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_rule_evidence_unit_candidate_builder",
+      "implementation": "scripts/dev/i5b_rule_evidence_unit_candidate_builder.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_rule_evidence_unit_candidate_builder.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "i5b_rule_evidence_unit_db_sync",
+      "implementation": "scripts/dev/i5b_rule_evidence_unit_db_sync.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_i5b_rule_evidence_unit_db_sync.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
       "id": "i5b_factor_recalculator",
       "implementation": "scripts/dev/i5b_factor_recalculator.py",
       "legacy_wrapper": null,
@@ -319,8 +420,8 @@
     {
       "audit_docs": [],
       "category": "validate",
-      "id": "validate_i5b_cluster_adjudication_configs",
-      "implementation": "scripts/validate/validate_i5b_cluster_adjudication_configs.py",
+      "id": "validate_i5b_workflow_configs",
+      "implementation": "scripts/validate/validate_i5b_workflow_configs.py",
       "legacy_wrapper": null,
       "required_tests": [
         "tests/test_project_config.py",
@@ -619,7 +720,7 @@
     "scripts/validate_all.py": "validate_all",
     "scripts/validate_chinese_view_configs.py": "validate_chinese_view_configs",
     "scripts/validate_config_readability.py": "validate_config_readability",
-    "scripts/validate_i5b_cluster_adjudication_configs.py": "validate_i5b_cluster_adjudication_configs",
+    "scripts/validate_i5b_cluster_adjudication_configs.py": "validate_i5b_workflow_configs",
     "scripts/validate_review_configs.py": "validate_review_configs",
     "scripts/validate_view_configs.py": "validate_view_configs"
   }

@@ -15,7 +15,7 @@ MIGRATED_VALIDATORS = [
     "validate_view_configs.py",
     "validate_chinese_view_configs.py",
     "validate_review_configs.py",
-    "validate_i5b_cluster_adjudication_configs.py",
+    "validate_i5b_workflow_configs.py",
     "validate_config_readability.py",
 ]
 NEWLY_MIGRATED_VALIDATORS = [
@@ -23,6 +23,7 @@ NEWLY_MIGRATED_VALIDATORS = [
     "validate_view_configs",
     "validate_chinese_view_configs",
     "validate_review_configs",
+    "validate_i5b_workflow_configs",
     "validate_config_readability",
 ]
 
@@ -55,13 +56,10 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
 
     for module_name in NEWLY_MIGRATED_VALIDATORS:
         assert steps[module_name] == VALIDATE_DIR / f"{module_name}.py"
-    assert (
-        steps["validate_i5b_cluster_adjudication_configs"]
-        == VALIDATE_DIR / "validate_i5b_cluster_adjudication_configs.py"
-    )
     assert "validate_evidence" not in steps
     assert "validate_canonical_data_integrity" not in steps
     assert "validate_source_evidence_canonical_stores" not in steps
+    assert "validate_i5b_cluster_adjudication_configs" not in steps
 
 
 def test_validate_all_entrypoint_implementation_lives_under_validate_dir() -> None:

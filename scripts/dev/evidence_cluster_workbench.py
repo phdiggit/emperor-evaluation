@@ -14,7 +14,6 @@ import psycopg
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
-DEFAULT_LOG_PATH = ROOT / "logs" / "evidence_clusters" / "evidence_cluster_calc.jsonl"
 ALLOWED_DIRECTIONS = {"positive", "negative", "mixed"}
 RULE_NOTE_LABELS = {
     "talent_discovery": "发现人才",
@@ -365,7 +364,6 @@ def upsert_clusters(
     item_code: str,
     clusters: tuple[ClusterInput, ...],
     dry_run: bool = False,
-    log_path: Path | None = None,
     require_full_material_coverage: bool = True,
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
@@ -446,38 +444,6 @@ def upsert_clusters(
             conn.commit()
 
     return {"dry_run": dry_run, "item_code": item_code, "clusters": rows}
-
-
-def append_calc_log(path: Path, rows: list[dict[str, Any]]) -> None:
-    """Append legacy cluster calculation logs.
-
-    Current I5B tooling writes calculation details to PostgreSQL tables instead
-    of JSONL logs. This helper remains for historical log fixtures only.
-    """
-    if not rows:
-        return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    generated_at = datetime.now().astimezone().isoformat(timespec="seconds")
-    with path.open("a", encoding="utf-8") as handle:
-        for row in rows:
-            payload = {
-                "generated_at": generated_at,
-                "cluster_id": row["id"],
-                "emperor": row["emperor"],
-                "rule_code": row["rule_code"],
-                "positive_signal": row["positive_signal"],
-                "negative_signal": row["negative_signal"],
-                "net_signal": row["net_signal"],
-                "signal_intensity": row["signal_intensity"],
-                "cluster_direction": row["cluster_direction"],
-                "formula_code": row["formula_code"],
-                "note": row["note"],
-                "material_ids": row["material_ids"],
-                "calc_note": row["calc_note"],
-            }
-            if row.get("calc_detail") is not None:
-                payload["calc_detail"] = row["calc_detail"]
-            handle.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
 
 
 def _filters(values: tuple[str, ...]) -> set[str]:
@@ -682,7 +648,6 @@ def build_parser() -> argparse.ArgumentParser:
 
     upsert = subparsers.add_parser("upsert", help="Upsert judged evidence cluster strengths.")
     upsert.add_argument("--input", type=Path, required=True, help="UTF-8 JSON cluster payload.")
-    upsert.add_argument("--log", type=Path, default=None, help="Deprecated; calculation details are stored in DB.")
     upsert.add_argument("--dry-run", action="store_true", help="Rollback database writes.")
     upsert.add_argument(
         "--allow-partial-material-coverage",
@@ -727,7 +692,6 @@ def main(argv: list[str] | None = None) -> int:
             item_code=item_code,
             clusters=clusters,
             dry_run=args.dry_run,
-            log_path=args.log,
             require_full_material_coverage=not args.allow_partial_material_coverage,
         )
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))

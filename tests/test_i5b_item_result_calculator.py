@@ -84,3 +84,12 @@ def test_parser_requires_at_least_one_emperor() -> None:
         assert exc.code == 2
     else:  # pragma: no cover
         raise AssertionError("argparse should reject missing --emperor")
+
+
+def test_legacy_jsonl_log_entrypoint_is_removed() -> None:
+    tool = load_tool()
+    parser = tool.build_parser()
+    options = {option for action in parser._actions for option in action.option_strings}
+
+    assert "--log" not in options
+    assert not hasattr(tool, "append_calc_log")

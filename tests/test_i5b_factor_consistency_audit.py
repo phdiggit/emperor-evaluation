@@ -99,6 +99,24 @@ def test_high_disposition_with_explicit_support_is_not_flagged() -> None:
     assert report["issues"] == []
 
 
+def test_tolerate_talent_negative_actor_material_is_error() -> None:
+    tool = load_tool()
+
+    report = tool.build_audit_report(
+        cluster_rows=cluster_rows("0.6"),
+        material_notes={
+            17: {
+                "obj_src_note": "来俊臣罗织构陷，造成朝臣恐惧和牵连。",
+                "attrs": [{"attr_code": "talent_quality", "value_text": "历史级佞臣"}],
+            }
+        },
+    )
+
+    assert report["ok"] is False
+    assert report["error_count"] == 1
+    assert report["issues"][0]["code"] == "tolerate_talent_negative_actor_material"
+
+
 def test_assert_no_factor_consistency_errors_raises_on_hard_error() -> None:
     tool = load_tool()
 

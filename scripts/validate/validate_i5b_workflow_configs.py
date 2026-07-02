@@ -22,7 +22,7 @@ def main() -> int:
             print(error)
         return 1
 
-    print("I5B project config entry validation passed.")
+    print("I5B workflow config validation passed.")
     return 0
 
 

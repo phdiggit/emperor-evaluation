@@ -29,6 +29,7 @@ from scripts.dev.i5b_factor_consistency_audit import (
     assert_no_factor_consistency_errors,
     build_audit_report_from_inputs,
 )
+from scripts.dev.i5b_factor_table_sync import dump_db_factor_options
 from scripts.dev.i5b_rule_object_coverage_audit import attr_value, fetch_emp_object_rows
 
 
@@ -48,6 +49,8 @@ TEAM_BUILDING_RANK_DECAYS = (
     Decimal("0.45"),
     Decimal("0.45"),
 )
+RETIRED_FACTOR_NAMES = {"founder_pressure", "retention_signal"}
+RETIRED_FOUNDER_BASELINE_NAME = "founder_retention_baseline"
 
 
 class I5BFactorRecalculatorError(ValueError):
@@ -58,6 +61,12 @@ class I5BFactorRecalculatorError(ValueError):
 class FactorRow:
     value: Decimal
     label: str
+    factor_name: str = ""
+    rule_code: str = ""
+    factor_scope: str = ""
+    option_id: int | None = None
+    source_doc: str = ""
+    source_line: int | None = None
 
 
 @dataclass(frozen=True)
@@ -134,17 +143,79 @@ def parse_factor_catalog(paths: tuple[Path, ...]) -> dict[str, list[FactorRow]]:
                 except (InvalidOperation, IndexError):
                     continue
                 label = first_cell.strip().strip("`")
-            catalog[factor_name].append(FactorRow(parsed, label))
+            catalog[factor_name].append(FactorRow(parsed, label, factor_name=factor_name))
     return dict(catalog)
 
 
-def lookup_factor(catalog: dict[str, list[FactorRow]], factor_name: str, label: str) -> Decimal:
-    if factor_name not in catalog:
+def parse_factor_catalog_from_rows(rows: list[dict[str, Any]]) -> dict[str, list[FactorRow]]:
+    catalog: dict[str, list[FactorRow]] = defaultdict(list)
+    for index, row in enumerate(rows):
+        factor_name = str(row.get("factor_name") or "").strip()
+        label = str(row.get("label") or "").strip()
+        if not factor_name or not label:
+            raise I5BFactorRecalculatorError(f"factor table row {index}: expected factor_name and label")
+        value = decimal_value(row.get("value_num"), path=f"factor table row {index}.value_num")
+        option_id_value = row.get("factor_option_id", row.get("option_id"))
+        option_id = int(option_id_value) if option_id_value is not None else None
+        source_line = row.get("source_line")
+        catalog[factor_name].append(
+            FactorRow(
+                value,
+                label,
+                factor_name=factor_name,
+                rule_code=str(row.get("rule_code") or ""),
+                factor_scope=str(row.get("factor_scope") or ""),
+                option_id=option_id,
+                source_doc=str(row.get("source_doc") or ""),
+                source_line=int(source_line) if source_line is not None else None,
+            )
+        )
+    return dict(catalog)
+
+
+def load_factor_catalog_from_table(
+    *,
+    dsn: str,
+    item_code: str,
+    formula_code: str,
+) -> dict[str, list[FactorRow]]:
+    rows = dump_db_factor_options(dsn=dsn, item_code=item_code, formula_code=formula_code)
+    if not rows:
+        raise I5BFactorRecalculatorError(
+            f"eval_rule_factor_options: no active rows found for {item_code}/{formula_code}"
+        )
+    return parse_factor_catalog_from_rows(rows)
+
+
+def candidate_factor_names(catalog: dict[str, list[FactorRow]], factor_name: str) -> tuple[str, ...]:
+    names = [factor_name]
+    suffix = f"-> {factor_name}"
+    for name in catalog:
+        if name not in names and name.endswith(suffix):
+            names.append(name)
+    return tuple(names)
+
+
+def lookup_factor_row(
+    catalog: dict[str, list[FactorRow]],
+    factor_name: str,
+    label: str,
+    *,
+    rule_code: str = "",
+) -> FactorRow:
+    candidates: list[FactorRow] = []
+    for candidate_name in candidate_factor_names(catalog, factor_name):
+        candidates.extend(catalog.get(candidate_name, ()))
+    if not candidates:
         raise I5BFactorRecalculatorError(f"factor table not found: {factor_name}")
+    if rule_code:
+        rule_candidates = [row for row in candidates if row.rule_code == rule_code]
+        shared_candidates = [row for row in candidates if not row.rule_code]
+        candidates = rule_candidates or shared_candidates
     wanted = normalize_label(label)
     exact_matches: list[FactorRow] = []
     fuzzy_matches: list[tuple[int, FactorRow]] = []
-    for row in catalog[factor_name]:
+    for row in candidates:
         current = normalize_label(row.label)
         if wanted == current:
             exact_matches.append(row)
@@ -152,11 +223,44 @@ def lookup_factor(catalog: dict[str, list[FactorRow]], factor_name: str, label: 
         if wanted in current or current in wanted:
             fuzzy_matches.append((len(current), row))
     if exact_matches:
-        return exact_matches[0].value
+        values = {row.value for row in exact_matches}
+        if len(values) > 1:
+            raise I5BFactorRecalculatorError(f"factor row ambiguous: {factor_name} / {label}")
+        return exact_matches[0]
     if fuzzy_matches:
         fuzzy_matches.sort(key=lambda item: item[0], reverse=True)
-        return fuzzy_matches[0][1].value
+        best_length = fuzzy_matches[0][0]
+        best_matches = [row for length, row in fuzzy_matches if length == best_length]
+        values = {row.value for row in best_matches}
+        if len(values) > 1:
+            raise I5BFactorRecalculatorError(f"factor row ambiguous: {factor_name} / {label}")
+        return best_matches[0]
     raise I5BFactorRecalculatorError(f"factor row not found: {factor_name} / {label}")
+
+
+def lookup_factor(
+    catalog: dict[str, list[FactorRow]],
+    factor_name: str,
+    label: str,
+    *,
+    rule_code: str = "",
+) -> Decimal:
+    return lookup_factor_row(catalog, factor_name, label, rule_code=rule_code).value
+
+
+def factor_ref_with_catalog(value: Any, row: FactorRow) -> Any:
+    if row.option_id is None:
+        return value
+    ref = dict(value) if isinstance(value, dict) else {"label": str(value)}
+    ref.setdefault("label", row.label)
+    ref["factor"] = row.factor_name
+    ref["factor_option_id"] = row.option_id
+    ref["catalog_value_num"] = str(row.value)
+    if row.source_doc:
+        ref["source_doc"] = row.source_doc
+    if row.source_line is not None:
+        ref["source_line"] = row.source_line
+    return ref
 
 
 def resolve_factor(
@@ -165,6 +269,7 @@ def resolve_factor(
     factor_name: str,
     catalog: dict[str, list[FactorRow]],
     path: str,
+    rule_code: str = "",
 ) -> tuple[Decimal, Any]:
     if isinstance(value, dict):
         if "value" in value:
@@ -173,7 +278,8 @@ def resolve_factor(
         ref_name = str(value.get("factor", factor_name))
         if not isinstance(label, str) or not label.strip():
             raise I5BFactorRecalculatorError(f"{path}.label: expected non-empty string")
-        return lookup_factor(catalog, ref_name, label), value
+        row = lookup_factor_row(catalog, ref_name, label, rule_code=rule_code)
+        return row.value, factor_ref_with_catalog(value, row)
     return decimal_value(value, path=path), value
 
 
@@ -193,11 +299,16 @@ def compute_material(
     row: dict[str, Any],
     *,
     catalog: dict[str, list[FactorRow]],
+    rule_code: str,
     path: str,
 ) -> MaterialScore:
     factors = row.get("factors")
     if not isinstance(factors, dict) or not factors:
         raise I5BFactorRecalculatorError(f"{path}.factors: expected non-empty object")
+    retired_factors = sorted(str(name) for name in factors if str(name) in RETIRED_FACTOR_NAMES)
+    if retired_factors:
+        joined = ", ".join(retired_factors)
+        raise I5BFactorRecalculatorError(f"{path}.factors: retired factor(s): {joined}")
 
     factor_values: dict[str, str] = {}
     factor_refs: dict[str, Any] = {}
@@ -208,6 +319,7 @@ def compute_material(
             factor_name=str(name),
             catalog=catalog,
             path=f"{path}.factors.{name}",
+            rule_code=rule_code,
         )
         factor_values[str(name)] = str(factor_value)
         factor_refs[str(name)] = factor_ref
@@ -294,8 +406,9 @@ def compute_cluster(
     if not isinstance(materials_value, list) or not materials_value:
         raise I5BFactorRecalculatorError(f"{path}.materials: expected non-empty list")
 
+    rule_code = require_text(row, "rule_code", path)
     materials = [
-        compute_material(material, catalog=catalog, path=f"{path}.materials[{index}]")
+        compute_material(material, catalog=catalog, rule_code=rule_code, path=f"{path}.materials[{index}]")
         for index, material in enumerate(materials_value)
         if isinstance(material, dict)
     ]
@@ -359,7 +472,7 @@ def compute_cluster(
     detail["supporting_material_ids"] = supporting_material_ids
     return ClusterInput(
         emperor=require_text(row, "emperor", path),
-        rule_code=require_text(row, "rule_code", path),
+        rule_code=rule_code,
         positive_signal=positive_signal,
         negative_signal=negative_signal,
         formula_code=str(row.get("formula_code") or formula_code),
@@ -395,6 +508,7 @@ def resolve_team_factor(
     *,
     catalog: dict[str, list[FactorRow]],
     path: str,
+    rule_code: str,
 ) -> tuple[Decimal, Any]:
     if factor_name not in team_factors:
         raise I5BFactorRecalculatorError(f"{path}.team_factors.{factor_name}: expected factor")
@@ -403,6 +517,7 @@ def resolve_team_factor(
         factor_name=factor_name,
         catalog=catalog,
         path=f"{path}.team_factors.{factor_name}",
+        rule_code=rule_code,
     )
 
 
@@ -428,12 +543,14 @@ def compute_team_building_cluster(
         "role_complementarity_factor",
         catalog=catalog,
         path=path,
+        rule_code=TEAM_BUILDING_RULE_CODE,
     )
     stability_value, stability_ref = resolve_team_factor(
         team_factors,
         "long_term_stability_factor",
         catalog=catalog,
         path=path,
+        rule_code=TEAM_BUILDING_RULE_CODE,
     )
 
     positive_candidates: dict[str, dict[str, Any]] = {}
@@ -444,7 +561,12 @@ def compute_team_building_cluster(
         material_path = f"{path}.materials[{index}]"
         side = team_building_side(material, path=material_path)
         if side == "negative":
-            scored = compute_material(material, catalog=catalog, path=material_path)
+            scored = compute_material(
+                material,
+                catalog=catalog,
+                rule_code=TEAM_BUILDING_RULE_CODE,
+                path=material_path,
+            )
             negative_materials.append(scored)
             calc_materials.append(
                 {
@@ -487,6 +609,7 @@ def compute_team_building_cluster(
             factor_name="talent_quality_factor",
             catalog=catalog,
             path=f"{material_path}.factors.talent_quality_factor",
+            rule_code=TEAM_BUILDING_RULE_CODE,
         )
         candidate = {
             "obj_src_id": material_id,
@@ -628,6 +751,7 @@ def load_profile_raw(
     raw: dict[str, Any],
     *,
     factor_docs: tuple[Path, ...],
+    factor_catalog: dict[str, list[FactorRow]] | None = None,
     source_name: str = "profile",
 ) -> tuple[str, str, tuple[ClusterInput, ...]]:
     if not isinstance(raw, dict):
@@ -635,7 +759,7 @@ def load_profile_raw(
     item_code = str(raw.get("item_code") or DEFAULT_ITEM_CODE)
     formula_code = str(raw.get("formula_code") or DEFAULT_CLUSTER_FORMULA)
     profile_docs = tuple(ROOT / p if not Path(p).is_absolute() else Path(p) for p in raw.get("factor_docs", []))
-    catalog = parse_factor_catalog(profile_docs or factor_docs)
+    catalog = factor_catalog or parse_factor_catalog(profile_docs or factor_docs)
     clusters_value = raw.get("clusters")
     if not isinstance(clusters_value, list) or not clusters_value:
         raise I5BFactorRecalculatorError(f"{source_name}.clusters: expected non-empty list")
@@ -655,9 +779,14 @@ def load_profile_raw(
     return item_code, formula_code, clusters
 
 
-def load_profile(path: Path, *, factor_docs: tuple[Path, ...]) -> tuple[str, str, tuple[ClusterInput, ...]]:
+def load_profile(
+    path: Path,
+    *,
+    factor_docs: tuple[Path, ...],
+    factor_catalog: dict[str, list[FactorRow]] | None = None,
+) -> tuple[str, str, tuple[ClusterInput, ...]]:
     raw = json.loads(path.read_text(encoding="utf-8-sig"))
-    return load_profile_raw(raw, factor_docs=factor_docs)
+    return load_profile_raw(raw, factor_docs=factor_docs, factor_catalog=factor_catalog)
 
 
 def material_profile_from_calc_detail(row: dict[str, Any], *, path: str) -> dict[str, Any]:
@@ -685,6 +814,21 @@ def material_profile_from_calc_detail(row: dict[str, Any], *, path: str) -> dict
     return material
 
 
+def is_retired_founder_baseline_material(row: dict[str, Any]) -> bool:
+    factor_refs = row.get("factor_refs")
+    factor_values = row.get("factor_values")
+    factor_names: set[str] = set()
+    if isinstance(factor_refs, dict):
+        factor_names.update(str(name) for name in factor_refs)
+    if isinstance(factor_values, dict):
+        factor_names.update(str(name) for name in factor_values)
+    if factor_names & RETIRED_FACTOR_NAMES:
+        return True
+    obj_name = str(row.get("obj_name") or row.get("object_name") or "")
+    obj_key = str(row.get("obj_key") or "")
+    return obj_name == RETIRED_FOUNDER_BASELINE_NAME or obj_key.endswith(f":{RETIRED_FOUNDER_BASELINE_NAME}")
+
+
 def cluster_profile_from_calc_detail_row(row: dict[str, Any], *, path: str) -> dict[str, Any]:
     if not isinstance(row, dict):
         raise I5BFactorRecalculatorError(f"{path}: expected object")
@@ -699,6 +843,13 @@ def cluster_profile_from_calc_detail_row(row: dict[str, Any], *, path: str) -> d
         coverage = {}
     if not isinstance(coverage, dict):
         raise I5BFactorRecalculatorError(f"{path}.calc_detail.coverage: expected object")
+    replay_materials = [
+        material
+        for material in materials_value
+        if isinstance(material, dict) and not is_retired_founder_baseline_material(material)
+    ]
+    if not replay_materials:
+        raise I5BFactorRecalculatorError(f"{path}.calc_detail.materials: no active replayable materials")
     profile = {
         "emperor": require_text(row, "emperor", path),
         "rule_code": require_text(row, "rule_code", path),
@@ -712,7 +863,7 @@ def cluster_profile_from_calc_detail_row(row: dict[str, Any], *, path: str) -> d
         },
         "materials": [
             material_profile_from_calc_detail(material, path=f"{path}.calc_detail.materials[{index}]")
-            for index, material in enumerate(materials_value)
+            for index, material in enumerate(replay_materials)
         ],
     }
     team_factors = calc_detail.get("team_factors")
@@ -815,6 +966,7 @@ def load_profile_from_details(
     dsn: str,
     item_code: str,
     factor_docs: tuple[Path, ...],
+    factor_catalog: dict[str, list[FactorRow]] | None = None,
     formula_code: str = DEFAULT_CLUSTER_FORMULA,
     emperors: tuple[str, ...] = (),
     rule_codes: tuple[str, ...] = (),
@@ -843,7 +995,7 @@ def load_profile_from_details(
         "formula_code": formula_code,
         "clusters": profiles,
     }
-    return load_profile_raw(raw, factor_docs=factor_docs, source_name="calc_details")
+    return load_profile_raw(raw, factor_docs=factor_docs, factor_catalog=factor_catalog, source_name="calc_details")
 
 
 def summarize_from_clusters(clusters: tuple[ClusterInput, ...]) -> list[dict[str, Any]]:
@@ -894,6 +1046,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--input", type=Path, default=None, help="Structured UTF-8 JSON factor profile.")
     parser.add_argument("--from-details", action="store_true", help="Replay latest calc_detail rows from DB detail table.")
     parser.add_argument("--factor-doc", type=Path, action="append", default=None, help="Markdown doc containing factor tables.")
+    parser.add_argument(
+        "--factor-source",
+        choices=("auto", "table", "docs"),
+        default="auto",
+        help="Factor catalog source; auto uses table for --from-details and docs for --input.",
+    )
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code for --from-details.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code to replay.")
     parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
@@ -918,19 +1076,44 @@ def main(argv: list[str] | None = None) -> int:
     if source_count != 1:
         parser.error("exactly one of --input or --from-details is required")
     factor_docs = tuple(args.factor_doc) if args.factor_doc else DEFAULT_FACTOR_DOCS
+    factor_source = args.factor_source
+    if factor_source == "auto":
+        factor_source = "table" if args.from_details else "docs"
     dsn: str | None = None
-    if args.from_details:
+    factor_catalog: dict[str, list[FactorRow]] | None = None
+    if factor_source == "table":
         dsn = resolve_dsn(args.dsn_env)
+        formula_for_catalog = args.cluster_formula
+        if args.input:
+            input_raw = json.loads(args.input.read_text(encoding="utf-8-sig"))
+            if isinstance(input_raw, dict):
+                formula_for_catalog = str(input_raw.get("formula_code") or DEFAULT_CLUSTER_FORMULA)
+        factor_catalog = load_factor_catalog_from_table(
+            dsn=dsn,
+            item_code=args.item_code,
+            formula_code=formula_for_catalog,
+        )
+    if args.from_details:
+        if dsn is None:
+            dsn = resolve_dsn(args.dsn_env)
         item_code, formula_code, clusters = load_profile_from_details(
             dsn=dsn,
             item_code=args.item_code,
             factor_docs=factor_docs,
+            factor_catalog=factor_catalog,
             formula_code=args.cluster_formula,
             emperors=tuple(args.emperor or ()),
             rule_codes=tuple(args.rule_code or ()),
         )
     else:
-        item_code, formula_code, clusters = load_profile(args.input, factor_docs=factor_docs)
+        if factor_catalog is None:
+            item_code, formula_code, clusters = load_profile(args.input, factor_docs=factor_docs)
+        else:
+            item_code, formula_code, clusters = load_profile(
+                args.input,
+                factor_docs=factor_docs,
+                factor_catalog=factor_catalog,
+            )
     payload = clusters_payload(item_code, formula_code, clusters)
     summary = summarize_from_clusters(clusters)
     factor_audit_summary: dict[str, Any] | None = None

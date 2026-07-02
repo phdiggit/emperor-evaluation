@@ -111,6 +111,17 @@ def write_minimal_registry(repo_root: Path) -> None:
     target.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def write_agents_files(repo_root: Path) -> None:
+    (repo_root / "AGENTS.md").write_text(
+        "scripts/AGENTS.md\ndocs/文档与脚本登记/scripts_registry.json\n",
+        encoding="utf-8",
+    )
+    (repo_root / "scripts" / "AGENTS.md").write_text(
+        "docs/文档与脚本登记/scripts_registry.json\n",
+        encoding="utf-8",
+    )
+
+
 def write_canonical_import_registry(repo_root: Path) -> None:
     for folder in ("scripts/dev", "scripts/export", "scripts/shared", "tests", "docs/文档与脚本登记"):
         (repo_root / folder).mkdir(parents=True, exist_ok=True)
@@ -531,6 +542,75 @@ def test_agents_check_reports_budget_missing_paths_and_root_coverage(tmp_path: P
     assert "scripts/dev/missing.py: implementation path missing for tool" in problems
     assert "tests/missing_test.py: missing required_tests path for tool" in problems
     assert "scripts/loose.py: root script is neither legacy_wrapper nor root_exception" in problems
+
+
+def test_agents_check_rejects_script_over_default_bloat_budget(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/文档与脚本登记"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    write_agents_files(repo_root)
+    write_minimal_registry(repo_root)
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("A = 1\nB = 2\nC = 3\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry_path = repo_root / "docs" / "文档与脚本登记" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["script_bloat_budgets"] = {"default_max_lines": 2, "path_budgets": {}}
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_agents() == [
+        "scripts/dev/tool.py: 3 lines exceeds default script budget 2; split the module or add "
+        "script_bloat_budgets.path_budgets entry with max_lines and reason"
+    ]
+
+
+def test_agents_check_allows_script_path_bloat_budget_with_reason(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/文档与脚本登记"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    write_agents_files(repo_root)
+    write_minimal_registry(repo_root)
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("A = 1\nB = 2\nC = 3\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry_path = repo_root / "docs" / "文档与脚本登记" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["script_bloat_budgets"] = {
+        "default_max_lines": 2,
+        "path_budgets": {
+            "scripts/dev/tool.py": {"max_lines": 3, "reason": "temporary integration point"},
+        },
+    }
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+
+    assert repo_tool.check_agents() == []
+
+
+def test_agents_check_rejects_script_path_bloat_budget_without_reason_or_headroom(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    for folder in ("scripts/dev", "scripts/validate", "scripts/export", "scripts/shared", "tests", "docs/文档与脚本登记"):
+        (repo_root / folder).mkdir(parents=True, exist_ok=True)
+    write_agents_files(repo_root)
+    write_minimal_registry(repo_root)
+    (repo_root / "scripts" / "dev" / "tool.py").write_text("A = 1\nB = 2\nC = 3\n", encoding="utf-8")
+    (repo_root / "tests" / "test_tool.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    registry_path = repo_root / "docs" / "文档与脚本登记" / "scripts_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["script_bloat_budgets"] = {
+        "default_max_lines": 2,
+        "path_budgets": {
+            "scripts/dev/tool.py": {"max_lines": 2, "reason": ""},
+        },
+    }
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    repo_tool = load_repo_tool(repo_root)
+    problems = repo_tool.check_agents()
+
+    assert "scripts/dev/tool.py: script bloat budget requires reason" in problems
+    assert "scripts/dev/tool.py: 3 lines exceeds script budget 2" in problems
 
 
 def test_agents_check_requires_reason_for_custom_wrapper_line_limit(tmp_path: Path) -> None:

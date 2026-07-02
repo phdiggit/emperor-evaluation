@@ -24,8 +24,12 @@ from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
 )
 
 
-DISPOSITION_FACTOR = "disposition_severity"
+HANDLING_SEVERITY_FACTOR = "handling_severity"
+LEGACY_DISPOSITION_FACTOR = "disposition_severity"
+HIGH_SEVERITY_FACTORS = (HANDLING_SEVERITY_FACTOR, LEGACY_DISPOSITION_FACTOR)
 HIGH_DISPOSITION_THRESHOLD = Decimal("2.5")
+TOLERATE_TALENT_RULE_CODE = "tolerate_talent"
+NEGATIVE_TALENT_QUALITY_VALUES = {"佞臣", "大佞臣", "历史级佞臣"}
 
 LOW_SEVERITY_NOTE_PATTERNS = tuple(
     re.compile(pattern)
@@ -119,17 +123,37 @@ def _obj_src_ids(cluster_rows: dict[tuple[str, str], dict[str, Any]]) -> tuple[i
     return tuple(dict.fromkeys(ids))
 
 
+def _high_severity_factor(material: dict[str, Any]) -> tuple[str, Decimal] | None:
+    values = material.get("factor_values")
+    if not isinstance(values, dict):
+        return None
+    for factor in HIGH_SEVERITY_FACTORS:
+        severity = _decimal(values.get(factor))
+        if severity is not None and severity >= HIGH_DISPOSITION_THRESHOLD:
+            return factor, severity
+    return None
+
+
 def _has_high_disposition(cluster_rows: dict[tuple[str, str], dict[str, Any]]) -> bool:
     for row in cluster_rows.values():
         calc_detail = row.get("calc_detail")
         if not isinstance(calc_detail, dict):
             continue
         for material in _materials(calc_detail):
-            values = material.get("factor_values")
-            if not isinstance(values, dict):
-                continue
-            severity = _decimal(values.get(DISPOSITION_FACTOR))
-            if severity is not None and severity >= HIGH_DISPOSITION_THRESHOLD:
+            if _high_severity_factor(material):
+                return True
+    return False
+
+
+def _has_negative_tolerate_talent_material(cluster_rows: dict[tuple[str, str], dict[str, Any]]) -> bool:
+    for (_, rule_code), row in cluster_rows.items():
+        if rule_code != TOLERATE_TALENT_RULE_CODE:
+            continue
+        calc_detail = row.get("calc_detail")
+        if not isinstance(calc_detail, dict):
+            continue
+        for material in _materials(calc_detail):
+            if material.get("side") == "negative" and isinstance(material.get("obj_src_id"), int):
                 return True
     return False
 
@@ -149,11 +173,23 @@ def fetch_obj_src_notes(*, dsn: str, obj_src_ids: tuple[int, ...]) -> dict[int, 
                     sd.src_key,
                     sd.title,
                     sd.volume,
-                    sd.locator
+                    sd.locator,
+                    coalesce(
+                        jsonb_agg(
+                            jsonb_build_object(
+                                'attr_code', oa.attr_code,
+                                'value_text', oa.value_text,
+                                'value_num', oa.value_num
+                            )
+                        ) filter (where oa.id is not null),
+                        '[]'::jsonb
+                    ) as attrs
                   from obj_srcs osrc
                   join raw_objs ro on ro.id = osrc.obj_id
                   join src_docs sd on sd.id = osrc.doc_id
+                  left join obj_attrs oa on oa.obj_id = ro.id
                  where osrc.id = any(%s)
+                 group by osrc.id, ro.name, ro.note, sd.src_key, sd.title, sd.volume, sd.locator
                  order by osrc.id
                 """,
                 (list(obj_src_ids),),
@@ -173,6 +209,31 @@ def _combined_note(material: dict[str, Any], note_row: dict[str, Any] | None) ->
     return "\n".join(str(part) for part in parts if part)
 
 
+def _attr_rows(note_row: dict[str, Any] | None) -> tuple[dict[str, Any], ...]:
+    if not note_row:
+        return ()
+    raw = note_row.get("attrs")
+    if isinstance(raw, str):
+        try:
+            parsed = json.loads(raw)
+        except json.JSONDecodeError:
+            return ()
+        raw = parsed
+    if not isinstance(raw, list):
+        return ()
+    return tuple(item for item in raw if isinstance(item, dict))
+
+
+def _negative_talent_quality(note_row: dict[str, Any] | None) -> str | None:
+    for attr in _attr_rows(note_row):
+        if attr.get("attr_code") != "talent_quality":
+            continue
+        value_text = str(attr.get("value_text") or "")
+        if value_text in NEGATIVE_TALENT_QUALITY_VALUES:
+            return value_text
+    return None
+
+
 def _matched_patterns(patterns: tuple[re.Pattern[str], ...], text: str) -> tuple[str, ...]:
     return tuple(pattern.pattern for pattern in patterns if pattern.search(text))
 
@@ -189,15 +250,43 @@ def audit_cluster_rows(
         if not isinstance(calc_detail, dict):
             continue
         for material in _materials(calc_detail):
+            obj_src_id = material.get("obj_src_id")
+            note_row = material_notes.get(obj_src_id) if isinstance(obj_src_id, int) else None
+            negative_talent_quality = _negative_talent_quality(note_row)
+            if (
+                rule_code == TOLERATE_TALENT_RULE_CODE
+                and material.get("side") == "negative"
+                and negative_talent_quality is not None
+            ):
+                issues.append(
+                    {
+                        "severity": "error",
+                        "code": "tolerate_talent_negative_actor_material",
+                        "message": "容人保全负向材料必须绑定受损人才或人才安全对象，不能把佞臣、酷吏等施害者本人作为本规则受损对象。",
+                        "emperor": emperor,
+                        "rule_code": rule_code,
+                        "obj_name": material.get("obj_name")
+                        or material.get("object_name")
+                        or (note_row or {}).get("obj_name"),
+                        "obj_src_id": obj_src_id,
+                        "side": material.get("side"),
+                        "factor": "talent_quality",
+                        "factor_value": negative_talent_quality,
+                        "factor_label": negative_talent_quality,
+                        "obj_src_note": (note_row or {}).get("obj_src_note")
+                        or material.get("obj_src_note")
+                        or material.get("note")
+                        or "",
+                    }
+                )
             values = material.get("factor_values")
             refs = material.get("factor_refs")
             if not isinstance(values, dict) or not isinstance(refs, dict):
                 continue
-            severity = _decimal(values.get(DISPOSITION_FACTOR))
-            if severity is None or severity < HIGH_DISPOSITION_THRESHOLD:
+            high_severity = _high_severity_factor(material)
+            if high_severity is None:
                 continue
-            obj_src_id = material.get("obj_src_id")
-            note_row = material_notes.get(obj_src_id) if isinstance(obj_src_id, int) else None
+            severity_factor, severity = high_severity
             note = _combined_note(material, note_row)
             low_matches = _matched_patterns(LOW_SEVERITY_NOTE_PATTERNS, note)
             support_matches = _matched_patterns(HIGH_SEVERITY_SUPPORT_PATTERNS, note)
@@ -208,9 +297,9 @@ def audit_cluster_rows(
                 "obj_name": material.get("obj_name") or material.get("object_name") or (note_row or {}).get("obj_name"),
                 "obj_src_id": obj_src_id,
                 "side": material.get("side"),
-                "factor": DISPOSITION_FACTOR,
+                "factor": severity_factor,
                 "factor_value": str(severity),
-                "factor_label": _factor_label(refs.get(DISPOSITION_FACTOR)),
+                "factor_label": _factor_label(refs.get(severity_factor)),
                 "obj_src_note": (note_row or {}).get("obj_src_note") or material.get("obj_src_note") or material.get("note") or "",
             }
             if low_matches:
@@ -258,7 +347,7 @@ def build_audit_report(
             rule_codes=rule_codes,
         )
     if material_notes is None:
-        if not _has_high_disposition(cluster_rows):
+        if not _has_high_disposition(cluster_rows) and not _has_negative_tolerate_talent_material(cluster_rows):
             material_notes = {}
         elif dsn is None:
             raise I5BFactorConsistencyAuditError("dsn is required when material_notes are not supplied")
