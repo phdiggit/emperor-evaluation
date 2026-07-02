@@ -110,6 +110,7 @@ def run_matrix_cli(repo: Path, script: Path) -> subprocess.CompletedProcess[str]
         cwd=repo,
         capture_output=True,
         text=True,
+        encoding="utf-8",
         check=False,
     )
 

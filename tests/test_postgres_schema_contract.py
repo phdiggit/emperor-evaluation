@@ -144,6 +144,7 @@ def test_postgres_schema_avoids_varchar_and_keeps_data_untouched() -> None:
         "data/evidence_clusters.jsonl",
         "data/object_anchor_coverage.jsonl",
         "data/query_profiles.jsonl",
+        "data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl",
         "data/query_lane_coverage.jsonl",
         "data/search_logs.jsonl",
         "data/sources.jsonl",

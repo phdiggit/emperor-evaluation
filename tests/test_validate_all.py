@@ -69,13 +69,6 @@ def test_validate_all_includes_project_config_step() -> None:
     ) in validate_all.VALIDATION_STEPS
 
 
-def test_validate_all_includes_source_evidence_canonical_store_step() -> None:
-    assert (
-        "validate_source_evidence_canonical_stores",
-        ROOT / "scripts" / "validate" / "validate_source_evidence_canonical_stores.py",
-    ) in validate_all.VALIDATION_STEPS
-
-
 def test_validate_all_includes_chinese_view_config_step() -> None:
     assert (
         "validate_chinese_view_configs",
@@ -103,12 +96,20 @@ def test_validate_all_excludes_script_lifecycle_registry_step() -> None:
     assert "validate_script_lifecycle_registry" not in step_names
 
 
+def test_validate_all_excludes_retired_source_review_jsonl_steps() -> None:
+    step_names = {name for name, _path in validate_all.VALIDATION_STEPS}
+
+    assert "validate_evidence" not in step_names
+    assert "validate_canonical_data_integrity" not in step_names
+    assert "validate_source_evidence_canonical_stores" not in step_names
+
+
 def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     called: list[str] = []
 
     def fake_run_step(name: str, script_path: Path) -> CompletedProcess[str]:
         called.append(name)
-        if name == "validate_evidence":
+        if name == "validate_project_config":
             return CompletedProcess(args=[name], returncode=1, stdout="", stderr="failed\n")
         return CompletedProcess(args=[name], returncode=0, stdout="", stderr="")
 
@@ -117,4 +118,4 @@ def test_validate_all_stops_after_first_failure(monkeypatch) -> None:
     result = validate_all.main()
 
     assert result == 1
-    assert called == ["validate_evidence"]
+    assert called == ["validate_project_config"]

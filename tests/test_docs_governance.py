@@ -87,17 +87,8 @@ ADR_ARCHIVE_MAP = {f"docs/adr/{name}": f"archive/docs/adr/{name}" for name in AD
 ARCHIVE_MAP.update(ADR_ARCHIVE_MAP)
 RETIRED_GENERATED_MAP = {
     "docs/文档治理盘点报告.md": "exports/governance/文档治理盘点报告.md",
-    "docs/全局总标尺决策简报_讨论版.md": "exports/markdown_views/综合汇总/全局总标尺决策简报_讨论版.md",
-    "docs/第五项B三人试点内部闭环收尾.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B代表性皇帝内部闭环收尾.md",
-    "docs/第五项B扩展试点候选池设计.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/试点闭环/第五项B扩展试点候选池设计.md",
-    "docs/第五项B评分标尺与档位映射草案.md": "exports/markdown_views/第五项B/人工审核/自动裁判链/正式定档草案/第五项B评分标尺与档位映射草案.md",
 }
-RETIRED_MIXED_MAP = {
-    "docs/第五项B三人专人审核入口.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B代表性皇帝专人审核入口.md",
-    "docs/第五项B三人试点人工复核工作台.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B代表性皇帝人工复核工作台.md",
-    "docs/第五项B三人试点矩阵说明.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B代表性皇帝矩阵说明.md",
-    "docs/第五项B试点计划.md": "exports/markdown_views/第五项B/人工审核/入口/第五项B试点计划.md",
-}
+RETIRED_MIXED_MAP = {}
 NEEDS_HUMAN_CONFIRMATION = {
     "docs/多余文件候选确认报告.md",
     "docs/多余文件第三批敏感候选复核.md",
@@ -291,7 +282,7 @@ def test_docs_module_density_and_topic_reviews_are_recorded() -> None:
     density = {entry["module_path"]: entry for entry in registry["docs_module_density_reviews"]}
     topic = {entry["family_name"]: entry for entry in registry["docs_topic_family_reviews"]}
 
-    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 13
+    assert density["docs/数据结构与生成库"]["direct_markdown_count"] == 14
     assert density["docs/数据结构与生成库"]["review_status"] == "reviewed"
     assert "史源数据平台文档族" in topic
     assert PLATFORM_ARCHITECTURE_DECISION_DOC in topic["史源数据平台文档族"]["paths"]
@@ -439,7 +430,7 @@ def test_governance_report_exists_and_lists_candidate_classes() -> None:
     assert REPORT.is_file()
     content = REPORT.read_text(encoding="utf-8")
     for needle in [
-        "docs registry 覆盖文档数：92，其中当前 `docs/` 层 37 份，历史归档区 55 份。",
+        "docs registry 覆盖文档数：95，其中当前 `docs/` 层 40 份，历史归档区 55 份。",
         "### 内容角色统计",
         "### 推荐归置动作统计",
         "## 2. 项目驱动文档",

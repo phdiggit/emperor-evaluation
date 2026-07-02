@@ -37,6 +37,7 @@ def test_list_profiles_command_lists_core_profiles() -> None:
         cwd=ROOT,
         capture_output=True,
         text=True,
+        encoding="utf-8",
         check=False,
     )
 

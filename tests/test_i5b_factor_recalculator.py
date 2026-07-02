@@ -94,6 +94,28 @@ def test_load_profile_substitutes_markdown_factor_values(tmp_path: Path) -> None
     assert detail["supporting_material_ids"] == []
 
 
+def test_clusters_payload_uses_chinese_cluster_note() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="appointment_trust",
+        positive_signal=tool.Decimal("1.200"),
+        negative_signal=tool.Decimal("0.300"),
+        formula_code="fixture",
+        note="legacy note",
+        material_ids=(1,),
+        calc_detail={"materials": [{"obj_src_id": 1}]},
+    )
+
+    payload = tool.clusters_payload("I5B", "fixture", (cluster,))
+
+    assert payload["clusters"][0]["note"] == (
+        "本证据簇汇总测试帝在“任人信任”维度的已回源材料，"
+        "正向信号为1.200，负向信号为0.300；"
+        "证据簇只保存原始聚合信号，最终分值由结果层计算。"
+    )
+
+
 def test_markdown_factor_change_immediately_changes_signal(tmp_path: Path) -> None:
     tool = load_tool()
     doc = tmp_path / "factors.md"
@@ -225,10 +247,9 @@ def test_factor_lookup_prefers_exact_label_over_substring(tmp_path: Path) -> Non
     assert tool.lookup_factor(catalog, "talent_quality_factor", "历史级佞臣") == tool.Decimal("-1.70")
 
 
-def test_load_profile_from_log_replays_factor_refs_not_stale_values(tmp_path: Path) -> None:
+def test_load_profile_from_details_replays_factor_refs_not_stale_values(tmp_path: Path, monkeypatch) -> None:
     tool = load_tool()
     doc = tmp_path / "factors.md"
-    log = tmp_path / "cluster.jsonl"
     doc.write_text(
         """# factors
 
@@ -239,39 +260,41 @@ def test_load_profile_from_log_replays_factor_refs_not_stale_values(tmp_path: Pa
 """,
         encoding="utf-8",
     )
-    log.write_text(
-        json.dumps(
-            {
-                "emperor": "Replay Emperor",
-                "rule_code": "tolerate_talent",
-                "formula_code": "evidence_cluster_signal_test",
-                "positive_signal": "0.000",
-                "negative_signal": "2.000",
-                "material_ids": [1, 2],
-                "calc_detail": {
-                    "item_code": "I5B",
-                    "formula_code": "evidence_cluster_signal_test",
-                    "coverage": {"positive": "1.0", "negative": "1.0"},
-                    "materials": [
-                        {
-                            "obj_src_id": 1,
-                            "obj_key": "case",
-                            "obj_name": "case",
-                            "side": "negative",
-                            "factor_values": {"severity_factor": "2.0"},
-                            "factor_refs": {"severity_factor": {"label": "heavy"}},
-                        }
-                    ],
-                },
-            },
-            ensure_ascii=False,
-        )
-        + "\n",
-        encoding="utf-8",
+    detail_row = {
+        "emperor": "Replay Emperor",
+        "rule_code": "tolerate_talent",
+        "formula_code": "evidence_cluster_signal_test",
+        "positive_signal": "0.000",
+        "negative_signal": "2.000",
+        "material_ids": [1, 2],
+        "calc_detail": {
+            "item_code": "I5B",
+            "formula_code": "evidence_cluster_signal_test",
+            "coverage": {"positive": "1.0", "negative": "1.0"},
+            "materials": [
+                {
+                    "obj_src_id": 1,
+                    "obj_key": "case",
+                    "obj_name": "case",
+                    "side": "negative",
+                    "factor_values": {"severity_factor": "2.0"},
+                    "factor_refs": {"severity_factor": {"label": "heavy"}},
+                }
+            ],
+        },
+    }
+
+    monkeypatch.setattr(
+        tool,
+        "fetch_cluster_calc_detail_rows",
+        lambda **kwargs: {
+            ("Replay Emperor", "tolerate_talent"): detail_row,
+        },
     )
 
-    _, _, before = tool.load_profile_from_log(
-        log,
+    _, _, before = tool.load_profile_from_details(
+        dsn="postgresql://unused",
+        item_code="I5B",
         factor_docs=(doc,),
         formula_code="evidence_cluster_signal_test",
     )
@@ -285,8 +308,9 @@ def test_load_profile_from_log_replays_factor_refs_not_stale_values(tmp_path: Pa
 """,
         encoding="utf-8",
     )
-    _, _, after = tool.load_profile_from_log(
-        log,
+    _, _, after = tool.load_profile_from_details(
+        dsn="postgresql://unused",
+        item_code="I5B",
         factor_docs=(doc,),
         formula_code="evidence_cluster_signal_test",
     )

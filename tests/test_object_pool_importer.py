@@ -73,6 +73,19 @@ def test_parse_payload_accepts_valid_payload() -> None:
     assert payload.objects[0].links[0].rule_code == "talent_discovery"
 
 
+def test_parse_payload_fills_known_source_biblio_when_blank() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["sources"][0]["title"] = "史记"
+    raw["sources"][0]["author"] = ""
+    raw["sources"][0]["dynasty"] = ""
+
+    payload = importer.parse_payload(raw)
+
+    assert payload.sources[0].author == "司马迁"
+    assert payload.sources[0].dynasty == "西汉"
+
+
 def test_parse_payload_accepts_object_attrs() -> None:
     importer = load_importer()
     raw = valid_payload()

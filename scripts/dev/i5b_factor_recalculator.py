@@ -20,6 +20,7 @@ from scripts.build.i5b_item_result_calculator import calculate_item_results as w
 from scripts.dev.evidence_cluster_workbench import (
     ClusterInput,
     fetch_cluster_calc_detail_rows,
+    render_cluster_note,
     resolve_dsn,
     upsert_clusters,
 )
@@ -29,7 +30,6 @@ from scripts.dev.i5b_factor_consistency_audit import (
     build_audit_report_from_inputs,
 )
 from scripts.dev.i5b_rule_object_coverage_audit import attr_value, fetch_emp_object_rows
-from scripts.dev.i5b_calc_logs import latest_cluster_log_rows
 
 
 DEFAULT_ITEM_CODE = "I5B"
@@ -685,7 +685,7 @@ def material_profile_from_calc_detail(row: dict[str, Any], *, path: str) -> dict
     return material
 
 
-def cluster_profile_from_log_row(row: dict[str, Any], *, path: str) -> dict[str, Any]:
+def cluster_profile_from_calc_detail_row(row: dict[str, Any], *, path: str) -> dict[str, Any]:
     if not isinstance(row, dict):
         raise I5BFactorRecalculatorError(f"{path}: expected object")
     calc_detail = row.get("calc_detail")
@@ -810,46 +810,6 @@ def apply_team_building_emp_obj_materials(
         profile["calc_note"] = "team_building_materials_from_emp_objs"
 
 
-def load_profile_from_log(
-    path: Path,
-    *,
-    factor_docs: tuple[Path, ...],
-    formula_code: str = DEFAULT_CLUSTER_FORMULA,
-    emperors: tuple[str, ...] = (),
-    rule_codes: tuple[str, ...] = (),
-) -> tuple[str, str, tuple[ClusterInput, ...]]:
-    latest = latest_cluster_log_rows(
-        path,
-        formula_code=formula_code,
-        emperors=emperors,
-        rule_codes=rule_codes,
-        require_calc_detail=True,
-    )
-
-    if not latest:
-        raise I5BFactorRecalculatorError(f"{path}: no replayable calc_detail rows found for {formula_code}")
-    profiles = [
-        cluster_profile_from_log_row(row, path=f"{path}:{index}")
-        for index, row in enumerate(latest.values())
-    ]
-    item_code = str(
-        next(
-            (
-                row.get("calc_detail", {}).get("item_code")
-                for row in latest.values()
-                if isinstance(row.get("calc_detail"), dict) and row.get("calc_detail", {}).get("item_code")
-            ),
-            DEFAULT_ITEM_CODE,
-        )
-    )
-    raw = {
-        "item_code": item_code,
-        "formula_code": formula_code,
-        "clusters": profiles,
-    }
-    return load_profile_raw(raw, factor_docs=factor_docs, source_name="calc_log")
-
-
 def load_profile_from_details(
     *,
     dsn: str,
@@ -870,7 +830,7 @@ def load_profile_from_details(
     if not latest:
         raise I5BFactorRecalculatorError(f"evd_cluster_calc_details: no rows found for {formula_code}")
     profiles = [
-        cluster_profile_from_log_row(row, path=f"evd_cluster_calc_details:{index}")
+        cluster_profile_from_calc_detail_row(row, path=f"evd_cluster_calc_details:{index}")
         for index, row in enumerate(latest.values())
     ]
     apply_team_building_emp_obj_materials(
@@ -919,7 +879,7 @@ def clusters_payload(item_code: str, formula_code: str, clusters: tuple[ClusterI
                 "rule_code": cluster.rule_code,
                 "positive_signal": str(cluster.positive_signal),
                 "negative_signal": str(cluster.negative_signal),
-                "note": cluster.note,
+                "note": render_cluster_note(cluster),
                 "material_ids": list(cluster.material_ids),
                 "calc_note": cluster.calc_note,
                 "calc_detail": cluster.calc_detail,
@@ -933,10 +893,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Recalculate I5B evidence clusters from structured material factors.")
     parser.add_argument("--input", type=Path, default=None, help="Structured UTF-8 JSON factor profile.")
     parser.add_argument("--from-details", action="store_true", help="Replay latest calc_detail rows from DB detail table.")
-    parser.add_argument("--from-log", type=Path, default=None, help="Deprecated: replay latest calc_detail rows from a JSONL log.")
     parser.add_argument("--factor-doc", type=Path, action="append", default=None, help="Markdown doc containing factor tables.")
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code for --from-details.")
-    parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code to replay from log.")
+    parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code to replay.")
     parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
     parser.add_argument("--rule-code", action="append", default=None, help="Optional rule_code filter; repeatable.")
     parser.add_argument("--output", type=Path, default=None, help="Optional computed cluster payload JSON path.")
@@ -955,9 +914,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    source_count = sum(1 for enabled in (bool(args.input), bool(args.from_log), bool(args.from_details)) if enabled)
+    source_count = sum(1 for enabled in (bool(args.input), bool(args.from_details)) if enabled)
     if source_count != 1:
-        parser.error("exactly one of --input, --from-details, or --from-log is required")
+        parser.error("exactly one of --input or --from-details is required")
     factor_docs = tuple(args.factor_doc) if args.factor_doc else DEFAULT_FACTOR_DOCS
     dsn: str | None = None
     if args.from_details:
@@ -965,14 +924,6 @@ def main(argv: list[str] | None = None) -> int:
         item_code, formula_code, clusters = load_profile_from_details(
             dsn=dsn,
             item_code=args.item_code,
-            factor_docs=factor_docs,
-            formula_code=args.cluster_formula,
-            emperors=tuple(args.emperor or ()),
-            rule_codes=tuple(args.rule_code or ()),
-        )
-    elif args.from_log:
-        item_code, formula_code, clusters = load_profile_from_log(
-            args.from_log,
             factor_docs=factor_docs,
             formula_code=args.cluster_formula,
             emperors=tuple(args.emperor or ()),

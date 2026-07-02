@@ -55,7 +55,6 @@ def test_registry_records_build_directory_and_modules() -> None:
         "required_tests": [
             "tests/test_build_db.py",
             "tests/test_scripts_build_directory_layout.py",
-            "tests/test_evidence_integrity.py",
         ],
         "status": "migrated",
     }

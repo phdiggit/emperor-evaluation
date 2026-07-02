@@ -30,6 +30,24 @@ def test_direction_from_signals_uses_uncapped_net() -> None:
     assert tool.direction_from_signals(Decimal("0.2"), Decimal("1.5")) == "negative"
 
 
+def test_render_cluster_note_uses_chinese_narrative() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("3.210"),
+        negative_signal=Decimal("0.000"),
+        formula_code="fixture",
+        note="legacy note",
+    )
+
+    assert tool.render_cluster_note(cluster) == (
+        "本证据簇汇总测试帝在“发现人才”维度的已回源材料，"
+        "正向信号为3.210，负向信号为0.000；"
+        "证据簇只保存原始聚合信号，最终分值由结果层计算。"
+    )
+
+
 def test_parse_cluster_payload_applies_default_formula_code() -> None:
     tool = load_tool()
     raw = {

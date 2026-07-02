@@ -46,6 +46,18 @@ AMBIGUOUS_OBJ_SRC_NOTE_TERMS = (
     "不得直接",
     "不能充分验证",
 )
+SOURCE_BIBLIO_BY_TITLE = {
+    "史记": ("司马迁", "西汉"),
+    "汉书": ("班固", "东汉"),
+    "后汉书": ("范晔", "南朝宋"),
+    "后汉书二十八将传论": ("范晔", "南朝宋"),
+    "旧唐书": ("刘昫等", "后晋"),
+    "新唐书": ("欧阳修、宋祁等", "北宋"),
+    "资治通鉴": ("司马光", "北宋"),
+    "宋史": ("脱脱等", "元"),
+    "明史": ("张廷玉等", "清"),
+    "清史稿": ("赵尔巽等", "民国"),
+}
 
 
 class ImportErrorWithContext(ValueError):
@@ -177,6 +189,10 @@ def _assert_no_terms(value: str, terms: tuple[str, ...], path: str) -> None:
         raise ImportErrorWithContext(f"{path}: forbidden term(s) in note: {joined}")
 
 
+def source_biblio_for_title(title: str) -> tuple[str, str]:
+    return SOURCE_BIBLIO_BY_TITLE.get(title.strip(), ("", ""))
+
+
 def _parse_emperor(row: dict[str, Any]) -> EmperorRow:
     return EmperorRow(
         period=_text(row, "period", "emperor"),
@@ -189,11 +205,13 @@ def _parse_emperor(row: dict[str, Any]) -> EmperorRow:
 
 def _parse_source(row: dict[str, Any], index: int) -> SourceRow:
     path = f"sources[{index}]"
+    title = _text(row, "title", path)
+    default_author, default_dynasty = source_biblio_for_title(title)
     return SourceRow(
         src_key=_text(row, "src_key", path),
-        title=_text(row, "title", path),
-        author=_optional_text(row, "author"),
-        dynasty=_optional_text(row, "dynasty"),
+        title=title,
+        author=_optional_text(row, "author") or default_author,
+        dynasty=_optional_text(row, "dynasty") or default_dynasty,
         volume=_optional_text(row, "volume"),
         locator=_optional_text(row, "locator"),
         url=_optional_text(row, "url"),

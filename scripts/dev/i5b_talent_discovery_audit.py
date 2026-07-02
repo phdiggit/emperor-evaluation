@@ -24,7 +24,6 @@ from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
     fetch_cluster_calc_detail_rows,
     resolve_dsn,
 )
-from scripts.dev.i5b_calc_logs import read_jsonl  # noqa: E402
 
 
 DEFAULT_PROFILE = ROOT / "data" / "query_profile_batches" / "i5b_layered_retrieval_profiles_20260630.jsonl"
@@ -66,6 +65,22 @@ def expected_talent_names(profile: dict[str, Any]) -> tuple[str, ...]:
         if item.strip().startswith(TALENT_PREFIX):
             expected.extend(split_expected_names(item))
     return tuple(dict.fromkeys(expected))
+
+
+def read_jsonl(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        line = raw_line.strip()
+        if not line:
+            continue
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise I5BTalentDiscoveryAuditError(f"{path}:{line_number}: invalid JSON") from exc
+        if not isinstance(value, dict):
+            raise I5BTalentDiscoveryAuditError(f"{path}:{line_number}: expected JSON object")
+        rows.append(value)
+    return rows
 
 
 def load_query_profiles(path: Path) -> dict[str, dict[str, Any]]:

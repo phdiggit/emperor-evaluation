@@ -8,7 +8,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOL_PATH = ROOT / "scripts" / "dev" / "pr_body_tool.py"
-DOC_PATH = ROOT / "docs" / "展示与协作" / "scripts目录规范.md"
+DOC_PATH = ROOT / "docs" / "展示与协作" / "GitHub发布与认证规范.md"
 
 
 def load_pr_body_tool(repo_root: Path | None = None):
@@ -110,5 +110,7 @@ def test_apply_uses_body_file_and_never_body_text(tmp_path: Path, monkeypatch: p
 def test_docs_and_agents_rules_exist() -> None:
     assert DOC_PATH.exists()
     agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    assert "scripts/dev/pr_body_tool.py" in agents
-    assert "--body-file" in agents
+    spec = DOC_PATH.read_text(encoding="utf-8")
+    assert "docs/展示与协作/GitHub发布与认证规范.md" in agents
+    assert "scripts/dev/pr_body_tool.py" in spec
+    assert "--body-file" in spec

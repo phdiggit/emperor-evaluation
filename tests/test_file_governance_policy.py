@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib
 import subprocess
 import sys
 from pathlib import Path
@@ -95,15 +94,6 @@ ALLOWED_CHANGED_FILES = {
     "tests/test_postgres_schema_contract.py",
 }
 
-for module_name in ("test_file_governance_report", "tests.test_file_governance_report"):
-    try:
-        legacy_governance_report = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        continue
-    legacy_governance_report.ALLOWED_CHANGED_FILES.update(ALLOWED_CHANGED_FILES)
-    break
-
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
@@ -189,19 +179,18 @@ def test_governance_rules_document_contains_batch_statuses_and_prerequisites() -
 def test_i5b_grading_rubric_guards_object_anchors_and_extreme_positive() -> None:
     content = read_text(ROOT / "docs" / "分项规则" / "第五项统治者政治素质" / "B用人与授权.md")
     for needle in [
-        "对象锚点只能帮助回答对象重要性、I5B 直接度、事件性或结构性、核心覆盖和相邻项剥离问题",
-        "对象锚点只能作为定级辅助，不是自动评分、自动档位或对象本身排名",
-        "至少 3 个相互独立的强直接 I5B 顶级对象 / 结构型证据成立",
-        "历史级团队或长期高质量人才网络",
-        "三张事件型正证不够",
-        "person-specific override",
-        "source_evidence_specs",
-        "query_profiles",
-        "search_logs",
-        "source_review_log",
-        "正向、负向、相邻项 query lanes 的覆盖、转卡、未决和排除理由",
-        "只有 3 张正向证据卡",
-        "`blocked_before_formal_score`",
+        "第五项B当前计分链只认对象、史源、规则和公式因子",
+        "`raw_objs` 保持原始对象粒度，不能合并加工",
+        "每个 `raw_objs` 至少有一条 `obj_srcs` 史料链",
+        "`talent_quality` 等对象属性必须来自 `obj_attrs`",
+        "第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_clusters` / `evd_cluster_calc_details` → `emp_item_results` / `emp_item_result_calc_details`",
+        "`calc_detail.covered_material_ids`、`scored_material_ids` 和 `supporting_material_ids`",
+        "`query_profiles` / `data/query_profile_batches/**`",
+        "`search_logs`",
+        "`source_review_log`",
+        "正向、负向、相邻项 query lanes 的覆盖、对象化、入库、未决和排除理由",
+        "不得直接手写人物级分数或单人 override",
+        "本公式不设置严重负向硬上限",
     ]:
         assert needle in content
     assert "刘恒当前已见材料" not in content

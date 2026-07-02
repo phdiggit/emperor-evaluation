@@ -16,6 +16,14 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_LOG_PATH = ROOT / "logs" / "evidence_clusters" / "evidence_cluster_calc.jsonl"
 ALLOWED_DIRECTIONS = {"positive", "negative", "mixed"}
+RULE_NOTE_LABELS = {
+    "talent_discovery": "发现人才",
+    "appointment_trust": "任人信任",
+    "delegation": "合理授权",
+    "team_building": "建立团队",
+    "tolerate_talent": "容人保全",
+    "anti_nepotism": "避免任人唯亲",
+}
 
 
 class EvidenceClusterWorkbenchError(ValueError):
@@ -96,6 +104,15 @@ def direction_from_signals(positive_signal: Decimal, negative_signal: Decimal) -
     if net < 0:
         return "negative"
     return "mixed"
+
+
+def render_cluster_note(cluster: ClusterInput) -> str:
+    rule_label = RULE_NOTE_LABELS.get(cluster.rule_code, cluster.rule_code)
+    return (
+        f"本证据簇汇总{cluster.emperor}在“{rule_label}”维度的已回源材料，"
+        f"正向信号为{cluster.positive_signal}，负向信号为{cluster.negative_signal}；"
+        "证据簇只保存原始聚合信号，最终分值由结果层计算。"
+    )
 
 
 def parse_cluster_payload(raw: dict[str, Any]) -> tuple[str, tuple[ClusterInput, ...]]:
@@ -370,6 +387,7 @@ def upsert_clusters(
                         cluster=cluster,
                     )
                 direction = direction_from_signals(cluster.positive_signal, cluster.negative_signal)
+                note = render_cluster_note(cluster)
                 cur.execute(
                     """
                     insert into evd_clusters (
@@ -394,7 +412,7 @@ def upsert_clusters(
                         cluster.positive_signal,
                         cluster.negative_signal,
                         cluster.formula_code,
-                        cluster.note,
+                        note,
                     ),
                 )
                 cluster_id, net_signal, signal_intensity = cur.fetchone()
@@ -415,7 +433,7 @@ def upsert_clusters(
                         "net_signal": str(net_signal),
                         "signal_intensity": str(signal_intensity),
                         "formula_code": cluster.formula_code,
-                        "note": cluster.note,
+                        "note": note,
                         "material_ids": list(cluster.material_ids),
                         "calc_note": cluster.calc_note,
                         "calc_detail": cluster.calc_detail,

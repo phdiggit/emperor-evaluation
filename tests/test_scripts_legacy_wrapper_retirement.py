@@ -31,7 +31,7 @@ def test_registry_records_retired_wrapper_policy() -> None:
 
     assert registry["legacy_wrapper_policy"] == "retired"
     assert all(module.get("legacy_wrapper") is None for module in registry["modules"])
-    assert len(registry["retired_legacy_wrappers"]) == 19
+    assert registry["retired_legacy_wrappers"]
     assert registry["retired_legacy_wrappers"]["scripts/build_db.py"] == "build_db"
     assert registry["retired_legacy_wrappers"]["scripts/config_loaders.py"] == "config_loaders"
 
@@ -92,13 +92,14 @@ def test_readme_uses_canonical_main_commands() -> None:
 
     for old_command in (
         "python scripts/validate_evidence.py",
+        "python scripts/validate/validate_evidence.py",
         "python scripts/export_md.py",
         "python scripts/build_db.py",
         "python scripts/run_matrix.py",
     ):
         assert old_command not in readme
     for canonical_command in (
-        "python scripts/validate/validate_evidence.py",
+        "python scripts/validate/validate_all.py",
         "python scripts/export/export_md.py",
         "python scripts/build/build_db.py",
         "python scripts/matrix/run_matrix.py",

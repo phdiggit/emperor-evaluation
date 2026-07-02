@@ -29,7 +29,7 @@ def test_validate_workflow_keeps_focused_tests_after_unified_validation() -> Non
     steps = workflow["jobs"]["validate"]["steps"]
     focused_step = next(step for step in steps if step["name"] == "Run focused validation tests")
 
-    assert "tests/test_canonical_data_integrity.py tests/test_validate_all.py" in focused_step["run"]
+    assert "tests/test_validate_all.py tests/test_scripts_directory_layout.py" in focused_step["run"]
     assert "always()" not in focused_step["run"]
 
 

@@ -11,9 +11,6 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATE_DIR = ROOT / "scripts" / "validate"
 MIGRATED_VALIDATORS = [
-    "validate_evidence.py",
-    "validate_canonical_data_integrity.py",
-    "validate_source_evidence_canonical_stores.py",
     "validate_project_config.py",
     "validate_view_configs.py",
     "validate_chinese_view_configs.py",
@@ -22,9 +19,6 @@ MIGRATED_VALIDATORS = [
     "validate_config_readability.py",
 ]
 NEWLY_MIGRATED_VALIDATORS = [
-    "validate_evidence",
-    "validate_canonical_data_integrity",
-    "validate_source_evidence_canonical_stores",
     "validate_project_config",
     "validate_view_configs",
     "validate_chinese_view_configs",
@@ -65,6 +59,9 @@ def test_validate_all_points_migrated_validators_to_new_paths() -> None:
         steps["validate_i5b_cluster_adjudication_configs"]
         == VALIDATE_DIR / "validate_i5b_cluster_adjudication_configs.py"
     )
+    assert "validate_evidence" not in steps
+    assert "validate_canonical_data_integrity" not in steps
+    assert "validate_source_evidence_canonical_stores" not in steps
 
 
 def test_validate_all_entrypoint_implementation_lives_under_validate_dir() -> None:

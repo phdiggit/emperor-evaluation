@@ -14,7 +14,6 @@ ALLOWED_CHANGED_FILES = {
     "tests/_git_helpers.py",
     "tests/test_agents_ready_for_review_rule.py",
     "tests/test_file_governance_policy.py",
-    "tests/test_file_governance_report.py",
     "tests/test_redundant_file_candidates_report.py",
 }
 

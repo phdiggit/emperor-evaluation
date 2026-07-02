@@ -52,6 +52,7 @@ def test_derive_search_terms_splits_reversal_suffixes() -> None:
     assert "岳飞" in tool.derive_search_terms("岳飞冤狱")
     assert "李纲" in tool.derive_search_terms("李纲罢斥")
     assert "胡铨" in tool.derive_search_terms("胡铨贬谪")
+    assert "黑齿常之" in tool.derive_search_terms("黑齿常之被诬陷")
 
 
 def test_candidate_objects_exclude_adjacent_by_default() -> None:
@@ -151,6 +152,108 @@ def test_offline_report_contains_plans_without_excerpts() -> None:
     assert report["excerpts"] == []
 
 
+def test_explicit_page_titles_from_text_parses_urls_and_chinese_volumes() -> None:
+    tool = load_tool()
+
+    titles = tool.explicit_page_titles_from_text(
+        "旧唐书 卷一百九；https://zh.wikisource.org/zh-hans/宋史/卷316；舊唐書/卷186上"
+    )
+
+    assert "旧唐书/卷109" in titles
+    assert "宋史/卷316" in titles
+    assert "舊唐書/卷186上" in titles
+
+
+def test_build_direct_page_plans_from_explicit_profile_targets() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["旧唐书/卷109", "宋史 卷三百一十六"],
+        "object_layers": {"core_positive_objects": ["王孝杰"]},
+        "query_bundles": [],
+    }
+
+    plans = tool.build_direct_page_plans(profile)
+
+    assert [(plan.object_name, plan.page_title) for plan in plans] == [
+        ("王孝杰", "旧唐书/卷109"),
+        ("王孝杰", "宋史/卷316"),
+    ]
+    assert plans[0].search_terms[:2] == ("王孝杰", "武则天")
+
+
+def test_build_cache_direct_page_plans_requires_source_filter_and_object_terms() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["旧唐书 / 新唐书 王孝杰传", "唐会要 / 册府元龟（辅助）"],
+        "object_layers": {"core_positive_objects": ["王孝杰"], "negative_or_reversal_objects": ["相关官员"]},
+        "query_bundles": [],
+    }
+
+    class FakePageCache:
+        enabled = True
+        refresh = False
+
+        def iter_pages(self):
+            yield "舊唐書/卷109", "王孝杰为清边道行军总管。"
+            yield "舊唐書/卷183", "张易之兄弟幸于后。"
+            yield "宋史/卷316", "王孝杰误入非目标史书页。"
+            yield "舊唐書 (四庫全書本)/全覽1", "王孝杰出现在过宽全览页。"
+            yield "冊府元龜/卷0274", "王孝杰出现在辅助史书页。"
+
+    plans, seed_texts, report = tool.build_cache_direct_page_plans(profile, FakePageCache())
+
+    assert [(plan.object_name, plan.page_title, plan.source_target) for plan in plans] == [
+        ("王孝杰", "舊唐書/卷109", "page_text_cache")
+    ]
+    assert seed_texts == {"舊唐書/卷109": "王孝杰为清边道行军总管。"}
+    assert report["considered_pages"] == 5
+    assert report["excluded_broad_pages"] == 1
+    assert report["excluded_auxiliary_pages"] == 1
+    assert report["source_matched_pages"] == 2
+    assert report["matched_plans"] == 1
+
+
+def test_build_excerpt_pool_direct_page_hit_skips_matching_search(monkeypatch) -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["旧唐书/卷109"],
+        "object_layers": {"core_positive_objects": ["王孝杰"]},
+        "query_bundles": ["武则天 王孝杰 授军西征"],
+    }
+    searches = []
+
+    def fake_fetch_page(title, *, timeout, fetch_context):
+        assert title == "旧唐书/卷109"
+        return "武则天命王孝杰等出征，材料足以形成直接页摘录。"
+
+    def fake_search(query, **kwargs):
+        searches.append(query)
+        return []
+
+    monkeypatch.setattr(tool.builder, "fetch_wikisource_plain_text", fake_fetch_page)
+    monkeypatch.setattr(tool.builder, "search_wikisource", fake_search)
+
+    report = tool.build_excerpt_pool(
+        profile,
+        cache_enabled=False,
+        request_delay_seconds=0,
+        max_queries=1,
+    )
+
+    assert searches == []
+    assert report["progress"]["processed_direct_pages"] == 1
+    assert report["progress"]["processed_searches"] == 0
+    assert report["excerpts"][0]["source"] == "direct_page"
+    assert report["excerpts"][0]["page_title"] == "旧唐书/卷109"
+    assert {item["reason"] for item in report["skipped_search_plans"]} == {"direct_page_hit"}
+
+
 def test_fetch_json_retries_429_with_retry_after(monkeypatch) -> None:
     tool = load_tool()
     calls = []
@@ -187,7 +290,7 @@ def test_fetch_json_retries_429_with_retry_after(monkeypatch) -> None:
         retry_events=[],
     )
 
-    payload = tool._fetch_json(
+    payload = tool.wikisource._fetch_json(
         "https://example.test/w/api.php",
         timeout=9,
         fetch_context=context,
@@ -210,6 +313,57 @@ def test_fetch_json_retries_429_with_retry_after(monkeypatch) -> None:
             "status_code": 429,
         }
     ]
+
+
+def test_fetch_json_caps_retry_wait(monkeypatch) -> None:
+    tool = load_tool()
+    calls = []
+    sleeps = []
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self):
+            return b'{"ok": true}'
+
+    def fake_urlopen(request, *, timeout):
+        calls.append(request.full_url)
+        if len(calls) == 1:
+            raise tool.urllib.error.HTTPError(
+                request.full_url,
+                429,
+                "Too Many Requests",
+                {"Retry-After": "120"},
+                None,
+            )
+        return FakeResponse()
+
+    monkeypatch.setattr(tool.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(tool.time, "sleep", lambda seconds: sleeps.append(seconds))
+    context = tool.FetchContext(
+        request_delay_seconds=0,
+        max_retries=2,
+        retry_backoff_seconds=3,
+        retry_events=[],
+        max_retry_wait_seconds=5,
+    )
+
+    payload = tool.wikisource._fetch_json(
+        "https://example.test/w/api.php",
+        timeout=9,
+        fetch_context=context,
+        stage="search",
+        label="武则天 张易之",
+    )
+
+    assert payload == {"ok": True}
+    assert sleeps == [5]
+    assert context.retry_events[0]["wait_seconds"] == 5
+    assert context.retry_events[0]["wait_capped"] is True
 
 
 def test_fetch_json_retries_5xx_with_exponential_backoff(monkeypatch) -> None:
@@ -242,7 +396,7 @@ def test_fetch_json_retries_5xx_with_exponential_backoff(monkeypatch) -> None:
         retry_events=[],
     )
 
-    payload = tool._fetch_json(
+    payload = tool.wikisource._fetch_json(
         "https://example.test/w/api.php",
         timeout=9,
         fetch_context=context,
@@ -287,8 +441,8 @@ def test_fetch_json_uses_persistent_api_cache(tmp_path, monkeypatch) -> None:
     )
 
     url = "https://example.test/w/api.php?action=query&list=search&srsearch=桑弘羊"
-    first = tool._fetch_json(url, timeout=9, fetch_context=context, stage="search", label="桑弘羊")
-    second = tool._fetch_json(url, timeout=9, fetch_context=context, stage="search", label="桑弘羊")
+    first = tool.wikisource._fetch_json(url, timeout=9, fetch_context=context, stage="search", label="桑弘羊")
+    second = tool.wikisource._fetch_json(url, timeout=9, fetch_context=context, stage="search", label="桑弘羊")
 
     assert first == {"ok": True, "call": 1}
     assert second == {"ok": True, "call": 1}
@@ -316,7 +470,7 @@ def test_fetch_wikisource_plain_text_uses_page_text_cache(tmp_path, monkeypatch)
         calls.append((url, stage, label))
         return {"parse": {"text": {"*": "<div>桑弘羊以计算用事，侍中。</div>"}}}
 
-    monkeypatch.setattr(tool, "_fetch_json", fake_fetch_json)
+    monkeypatch.setattr(tool.wikisource, "_fetch_json", fake_fetch_json)
 
     first = tool.fetch_wikisource_plain_text("史記/卷030", timeout=9, fetch_context=context)
     second = tool.fetch_wikisource_plain_text("史記/卷030", timeout=9, fetch_context=context)
@@ -344,7 +498,7 @@ tooling:
 """,
         encoding="utf-8",
     )
-    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    monkeypatch.setattr(tool.common, "ROOT", tmp_path)
 
     config = tool.load_source_excerpt_cache_config(config_path)
 
@@ -371,7 +525,7 @@ tooling:
 """,
         encoding="utf-8",
     )
-    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    monkeypatch.setattr(tool.common, "ROOT", tmp_path)
 
     config = tool.load_source_excerpt_cache_config(config_path)
 
@@ -398,7 +552,7 @@ tooling:
 """,
         encoding="utf-8",
     )
-    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    monkeypatch.setattr(tool.common, "ROOT", tmp_path)
 
     try:
         tool.load_source_excerpt_cache_config(config_path)
@@ -411,7 +565,7 @@ tooling:
 def test_offline_report_can_use_postgres_cache_without_connecting(monkeypatch) -> None:
     tool = load_tool()
     monkeypatch.setattr(
-        tool,
+        tool.builder,
         "load_source_excerpt_cache_config",
         lambda: {
             "enabled": True,
@@ -513,16 +667,53 @@ def test_build_excerpt_pool_uses_custom_user_agent(monkeypatch) -> None:
             return {"query": {"search": []}}
         return {"parse": {"text": {"*": ""}}}
 
-    monkeypatch.setattr(tool, "_fetch_json", fake_fetch_json)
+    monkeypatch.setattr(tool.wikisource, "_fetch_json", fake_fetch_json)
 
     report = tool.build_excerpt_pool(
         sample_profile(),
         max_queries=1,
+        cache_enabled=False,
         user_agent="emperor-evaluation-test/0.1 (https://example.test/contact)",
     )
 
     assert report["throttle"]["user_agent"] == "emperor-evaluation-test/0.1 (https://example.test/contact)"
     assert seen_user_agents == ["emperor-evaluation-test/0.1 (https://example.test/contact)"]
+
+
+def test_build_excerpt_pool_wall_budget_skips_remaining_plans() -> None:
+    tool = load_tool()
+
+    report = tool.build_excerpt_pool(sample_profile(), max_queries=2, max_wall_seconds=0)
+
+    assert report["status"] == "partial"
+    assert report["progress"]["processed_searches"] == 0
+    assert report["excerpts"] == []
+    assert "max_wall_seconds" in {
+        item["reason"] for item in report["skipped_search_plans"]
+    }
+
+
+def test_build_excerpt_pool_stops_after_consecutive_errors(monkeypatch) -> None:
+    tool = load_tool()
+
+    def fail_search(*args, **kwargs):
+        raise tool.ExcerptPoolError("network unavailable")
+
+    monkeypatch.setattr(tool.builder, "search_wikisource", fail_search)
+
+    report = tool.build_excerpt_pool(
+        sample_profile(),
+        max_queries=3,
+        max_consecutive_errors=1,
+        cache_enabled=False,
+    )
+
+    assert report["status"] == "partial"
+    assert len(report["errors"]) == 1
+    assert report["progress"]["processed_searches"] == 0
+    assert "max_consecutive_errors" in {
+        item["reason"] for item in report["skipped_search_plans"]
+    }
 
 
 def test_title_filter_rejects_non_target_page() -> None:

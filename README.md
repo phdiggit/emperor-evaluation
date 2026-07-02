@@ -44,7 +44,8 @@
 
 ```text
 检索包 -> 回源摘录 -> src_docs/raw_objs/emp_objs/obj_srcs/obj_attrs
--> evd_clusters -> emp_item_results -> 计算日志
+-> evd_clusters/evd_cluster_calc_details
+-> emp_item_results/emp_item_result_calc_details
 ```
 
 执行步骤见 [`docs/数据结构与生成库/I5B数据链运行流程.md`](docs/数据结构与生成库/I5B数据链运行流程.md)。检索包、摘录池、旧 JSONL 证据卡和 Markdown 视图都不是当前 I5B 分值来源；只有已回源并进入对象链的材料才能进入证据簇和结果公式。
@@ -59,10 +60,10 @@
 python -m pip install -r requirements.txt
 ```
 
-校验证据 JSONL：
+运行当前保留的全项目验证：
 
 ```bash
-python scripts/validate/validate_evidence.py
+python scripts/validate/validate_all.py
 ```
 
 校验全项目人工配置入口：

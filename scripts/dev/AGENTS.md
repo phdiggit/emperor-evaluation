@@ -10,7 +10,7 @@
 
 ## 摘录召回工具
 
-- `source_excerpt_pool.py` 是 review-first 召回工具，只生成对象、查询计划和摘录候选。
+- `source_excerpt_pool.py` 是 review-first 召回工具入口，真实实现拆在 `source_excerpt_pool_lib/`；只生成对象、查询计划和摘录候选。
 - 摘录输出默认写 `.tmp/**`；不得直接覆盖正式 `data/**`。
 - 摘录池的“无命中”不是“无史料”；网络错误、目标页缺失、别字和过滤过严都应进入缺口复核。
 - Wikisource 限流、超时和 5xx 应通过工具内置节流与重试处理；不要通过减少检索包对象覆盖来躲避限流。
@@ -36,6 +36,6 @@
 
 ## 测试
 
-- 修改 `source_excerpt_pool.py` 后运行 `python -m pytest tests/test_source_excerpt_pool.py -q`。
+- 修改 `source_excerpt_pool.py` 或 `source_excerpt_pool_lib/` 后运行 `python -m pytest tests/test_source_excerpt_pool.py -q`。
 - 修改 `object_pool_importer.py` 后运行 `python -m pytest tests/test_object_pool_importer.py -q`。
 - 修改证据簇或重算工具后运行相关 focused tests：`tests/test_evidence_cluster_workbench.py`、`tests/test_i5b_factor_recalculator.py`、`tests/test_i5b_factor_consistency_audit.py`、`tests/test_i5b_rule_object_coverage_audit.py`、`tests/test_i5b_item_result_calculator.py`。
