@@ -293,10 +293,15 @@ def _build_report(
 ) -> dict[str, Any]:
     blocks = [issue for issue in issues if issue.severity == "block"]
     warnings = [issue for issue in issues if issue.severity == "warning"]
+    workflow_code = str(manifest.get("workflow_code") or "").strip()
+    pack_id = str(manifest.get("pack_id") or "").strip()
+    if not workflow_code and (pack_id.upper().startswith("I5B-") or pack_id.lower().startswith("i5b")):
+        workflow_code = "I5B"
     return {
         "ok": not blocks,
         "pack_path": str(pack_dir),
         "pack_id": manifest.get("pack_id", ""),
+        "workflow_code": workflow_code,
         "schema_version": manifest.get("schema_version"),
         "doc_count": len(doc_rows),
         "excerpt_count": len(excerpt_rows),
@@ -323,11 +328,14 @@ def load_source_pack_page_cache(pack_dir: Path) -> tuple[SourcePackPageCache, di
 
 
 def render_audit_markdown(report: dict[str, Any]) -> str:
+    workflow_code = str(report.get("workflow_code") or "").strip()
+    title = f"# {workflow_code} offline source pack audit" if workflow_code else "# Source pack audit"
     lines = [
-        "# I5B offline source pack audit",
+        title,
         "",
         f"- ok: `{report['ok']}`",
         f"- pack_id: `{report.get('pack_id', '')}`",
+        f"- workflow_code: `{workflow_code}`",
         f"- docs: `{report.get('doc_count', 0)}`",
         f"- excerpts: `{report.get('excerpt_count', 0)}`",
         f"- blocks: `{report.get('block_count', 0)}`",

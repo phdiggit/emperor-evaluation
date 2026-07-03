@@ -59,6 +59,7 @@ outputs:
 
 tooling:
   source_excerpt_pool:
+    default_workflow_code: I5B
     paths:
       query_profile: data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl
       query_profile_shared_copy:
@@ -67,6 +68,27 @@ tooling:
       source_pack_root:
         server: /data2/backups/code/emperor-evaluation/source-packs
         windows: Y:/code/emperor-evaluation/source-packs
+    workflows:
+      I5B:
+        adapter: i5b
+        source_scope: I5B offline source pack
+        paths:
+          query_profile: data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl
+          query_profile_shared_copy:
+            server: /data2/backups/code/emperor-evaluation/query-profiles/i5b_layered_retrieval_profiles_20260630.jsonl
+            windows: Y:/code/emperor-evaluation/query-profiles/i5b_layered_retrieval_profiles_20260630.jsonl
+          source_pack_root:
+            server: /data2/backups/code/emperor-evaluation/source-packs
+            windows: Y:/code/emperor-evaluation/source-packs
+          jobs_dir:
+            server: /data2/backups/code/emperor-evaluation/jobs
+            windows: Y:/code/emperor-evaluation/jobs
+          logs_dir:
+            server: /data2/backups/code/emperor-evaluation/logs
+            windows: Y:/code/emperor-evaluation/logs
+          handoff_root:
+            server: /data2/backups/code/emperor-evaluation/handoffs
+            windows: Y:/code/emperor-evaluation/handoffs
     cache:
       enabled: true
       backend: postgres

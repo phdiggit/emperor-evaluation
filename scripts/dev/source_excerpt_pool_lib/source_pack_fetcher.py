@@ -14,10 +14,12 @@ from .common import (
     DEFAULT_REQUEST_DELAY_SECONDS,
     DEFAULT_RETRY_BACKOFF_SECONDS,
     DEFAULT_USER_AGENT,
+    DEFAULT_WORKFLOW_CODE,
     KNOWN_SOURCE_TITLE_VARIANTS,
     RETRY_HTTP_STATUS_CODES,
     ExcerptPoolError,
     TimeBudgetExceeded,
+    normalize_workflow_code,
 )
 from .profile import (
     build_direct_page_plans,
@@ -85,11 +87,11 @@ def _safe_page_name(src_key: str) -> str:
     return f"{src_key}.txt"
 
 
-def _default_pack_id(profile: dict[str, Any]) -> str:
+def _default_pack_id(profile: dict[str, Any], *, workflow_code: str = DEFAULT_WORKFLOW_CODE) -> str:
     person = str(profile.get("person") or "unknown")
     query_profile_id = str(profile.get("query_profile_id") or "no-profile")
     stamp = datetime.now().astimezone().strftime("%Y%m%d%H%M%S")
-    return f"I5B-SOURCE-PACK-{query_profile_id}-{person}-{stamp}"
+    return f"{normalize_workflow_code(workflow_code)}-SOURCE-PACK-{query_profile_id}-{person}-{stamp}"
 
 
 def _is_broad_page(title: str) -> bool:
@@ -160,6 +162,10 @@ def build_source_pack(
     *,
     output_dir: Path,
     pack_id: str | None = None,
+    workflow_code: str = DEFAULT_WORKFLOW_CODE,
+    source_scope: str | None = None,
+    generated_by: str = "scripts/dev/source_excerpt_pool_lib/source_pack_fetcher.py",
+    extraction_method: str = "source_pack_fetcher",
     include_adjacent: bool = False,
     max_queries: int | None = None,
     max_queries_per_object: int | None = None,
@@ -205,7 +211,9 @@ def build_source_pack(
 
     output_dir.mkdir(parents=True, exist_ok=True)
     pages_dir = output_dir / "pages"
-    pack_id = pack_id or _default_pack_id(profile)
+    workflow_code = normalize_workflow_code(workflow_code)
+    pack_id = pack_id or _default_pack_id(profile, workflow_code=workflow_code)
+    source_scope = source_scope or f"{workflow_code} offline source pack for {person}"
     generated_at = datetime.now().astimezone().isoformat(timespec="seconds")
 
     def progress(event: str, **payload: Any) -> None:
@@ -232,8 +240,10 @@ def build_source_pack(
     )
     report: dict[str, Any] = {
         "generated_at": generated_at,
+        "started_at": generated_at,
         "pack_id": pack_id,
         "pack_path": str(output_dir),
+        "workflow_code": workflow_code,
         "person": person,
         "query_profile_id": profile.get("query_profile_id"),
         "status": "complete",
@@ -437,7 +447,7 @@ def build_source_pack(
                             "matched_term": passage.get("matched_term", ""),
                             "quote": passage.get("text", ""),
                             "review_status": "pending",
-                            "extraction_method": "i5b_source_pack_fetcher",
+                            "extraction_method": extraction_method,
                         }
                     )
 
@@ -445,12 +455,13 @@ def build_source_pack(
             "schema_version": SOURCE_PACK_SCHEMA_VERSION,
             "pack_id": pack_id,
             "created_at": generated_at,
-            "source_scope": f"I5B offline source pack for {person}",
+            "workflow_code": workflow_code,
+            "source_scope": source_scope,
             "status": report["status"],
             "person": person,
             "query_profile_id": profile.get("query_profile_id"),
             "profile_batch_id": profile.get("batch_id"),
-            "generated_by": "scripts/dev/i5b_source_pack_fetcher.py",
+            "generated_by": generated_by,
             "files": {
                 "src_docs": SOURCE_PACK_DOCS,
                 "excerpts": SOURCE_PACK_EXCERPTS,
@@ -497,6 +508,7 @@ def build_source_pack(
         if cache_store is not None:
             cache_store.close()
 
+    report["finished_at"] = datetime.now().astimezone().isoformat(timespec="seconds")
     report["cache"] = cache_report(report_config=cache_report_config, api_cache=api_cache, page_text_cache=page_text_cache)
     report["elapsed_seconds"] = round(time.monotonic() - started_at, 3)
     _atomic_write_json(output_dir / "fetch_report.json", report)

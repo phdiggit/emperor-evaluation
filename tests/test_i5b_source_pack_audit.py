@@ -19,22 +19,27 @@ def load_tool():
     return module
 
 
-def write_pack(tmp_path: Path, *, with_text: bool = True, bad_excerpt_src_key: bool = False) -> Path:
+def write_pack(
+    tmp_path: Path,
+    *,
+    with_text: bool = True,
+    bad_excerpt_src_key: bool = False,
+    workflow_code: str = "",
+    pack_id: str = "i5b-source-pack-test",
+) -> Path:
     pack = tmp_path / "source-pack"
     (pack / "pages").mkdir(parents=True)
+    manifest = {
+        "schema_version": 1,
+        "pack_id": pack_id,
+        "created_at": "2026-07-02T00:00:00+08:00",
+        "source_scope": "I5B fixture",
+        "status": "review_ready",
+    }
+    if workflow_code:
+        manifest["workflow_code"] = workflow_code
     (pack / "manifest.json").write_text(
-        json.dumps(
-            {
-                "schema_version": 1,
-                "pack_id": "i5b-source-pack-test",
-                "created_at": "2026-07-02T00:00:00+08:00",
-                "source_scope": "I5B fixture",
-                "status": "review_ready",
-            },
-            ensure_ascii=False,
-            sort_keys=True,
-        )
-        + "\n",
+        json.dumps(manifest, ensure_ascii=False, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     if with_text:
@@ -72,6 +77,18 @@ def test_audit_source_pack_accepts_valid_pack(tmp_path) -> None:
     assert report["block_count"] == 0
     assert report["warning_count"] == 0
     assert report["doc_count"] == 1
+    assert report["workflow_code"] == "I5B"
+
+
+def test_audit_markdown_uses_manifest_workflow_code(tmp_path) -> None:
+    tool = load_tool()
+
+    report = tool.audit_source_pack(write_pack(tmp_path, workflow_code="I5A", pack_id="I5A-source-pack-test"))
+    text = tool.render_audit_markdown(report)
+
+    assert report["workflow_code"] == "I5A"
+    assert text.startswith("# I5A offline source pack audit")
+    assert "- workflow_code: `I5A`" in text
 
 
 def test_audit_source_pack_blocks_missing_local_text(tmp_path) -> None:

@@ -31,9 +31,17 @@ ALLOWED_OUTPUT_KEYS = {
 }
 ALLOWED_OUTPUT_DETAIL_KEYS = {"enabled", "person_group_override"}
 ALLOWED_TOOLING_KEYS = {"source_excerpt_pool"}
-ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache", "paths"}
+ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache", "default_workflow_code", "paths", "workflows"}
 ALLOWED_SOURCE_EXCERPT_CACHE_KEYS = {"enabled", "backend", "directory", "dsn_env", "schema"}
-ALLOWED_SOURCE_EXCERPT_PATH_KEYS = {"query_profile", "query_profile_shared_copy", "source_pack_root"}
+ALLOWED_SOURCE_EXCERPT_PATH_KEYS = {
+    "query_profile",
+    "query_profile_shared_copy",
+    "source_pack_root",
+    "jobs_dir",
+    "logs_dir",
+    "handoff_root",
+}
+ALLOWED_SOURCE_EXCERPT_WORKFLOW_KEYS = {"adapter", "source_scope", "paths"}
 ALLOWED_NAMED_EXTERNAL_PATH_KEYS = {"server", "windows"}
 FORBIDDEN_KEYS = {
     "i5b",
@@ -258,6 +266,21 @@ def validate_named_external_paths(path: Path, value: object, label: str) -> list
     return errors
 
 
+def validate_source_excerpt_paths(path: Path, paths: object, label: str) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(paths, dict):
+        return [f"{path}: {label} must be a mapping"]
+    extra_path_keys = sorted(set(paths) - ALLOWED_SOURCE_EXCERPT_PATH_KEYS)
+    for key in extra_path_keys:
+        errors.append(f"{path}: {label}.{key}: paths field is not allowed")
+    if "query_profile" in paths:
+        errors.extend(validate_query_profile_path(path, paths["query_profile"], f"{label}.query_profile"))
+    for key in ("query_profile_shared_copy", "source_pack_root", "jobs_dir", "logs_dir", "handoff_root"):
+        if key in paths:
+            errors.extend(validate_named_external_paths(path, paths[key], f"{label}.{key}"))
+    return errors
+
+
 def validate_pg_identifier(path: Path, value: object, label: str) -> list[str]:
     if not is_non_empty_string(value):
         return [f"{path}: {label} must be a non-empty string"]
@@ -285,24 +308,35 @@ def validate_tooling(path: Path, tooling: object) -> list[str]:
     extra_pool_keys = sorted(set(source_excerpt_pool) - ALLOWED_SOURCE_EXCERPT_POOL_KEYS)
     for key in extra_pool_keys:
         errors.append(f"{path}: {label}.source_excerpt_pool.{key}: source_excerpt_pool field is not allowed")
+    if "default_workflow_code" in source_excerpt_pool and not is_non_empty_string(source_excerpt_pool["default_workflow_code"]):
+        errors.append(f"{path}: {label}.source_excerpt_pool.default_workflow_code must be a non-empty string")
 
     paths = source_excerpt_pool.get("paths")
     if paths is not None:
-        if not isinstance(paths, dict):
-            errors.append(f"{path}: {label}.source_excerpt_pool.paths must be a mapping")
+        errors.extend(validate_source_excerpt_paths(path, paths, f"{label}.source_excerpt_pool.paths"))
+
+    workflows = source_excerpt_pool.get("workflows")
+    if workflows is not None:
+        if not isinstance(workflows, dict):
+            errors.append(f"{path}: {label}.source_excerpt_pool.workflows must be a mapping")
         else:
-            extra_path_keys = sorted(set(paths) - ALLOWED_SOURCE_EXCERPT_PATH_KEYS)
-            for key in extra_path_keys:
-                errors.append(f"{path}: {label}.source_excerpt_pool.paths.{key}: paths field is not allowed")
-            if "query_profile" in paths:
-                errors.extend(
-                    validate_query_profile_path(path, paths["query_profile"], f"{label}.source_excerpt_pool.paths.query_profile")
-                )
-            for key in ("query_profile_shared_copy", "source_pack_root"):
-                if key in paths:
-                    errors.extend(
-                        validate_named_external_paths(path, paths[key], f"{label}.source_excerpt_pool.paths.{key}")
-                    )
+            for workflow_code, workflow_row in workflows.items():
+                workflow_label = f"{label}.source_excerpt_pool.workflows.{workflow_code}"
+                if not is_non_empty_string(workflow_code):
+                    errors.append(f"{path}: {label}.source_excerpt_pool.workflows: workflow codes must be non-empty strings")
+                    continue
+                if not isinstance(workflow_row, dict):
+                    errors.append(f"{path}: {workflow_label} must be a mapping")
+                    continue
+                extra_workflow_keys = sorted(set(workflow_row) - ALLOWED_SOURCE_EXCERPT_WORKFLOW_KEYS)
+                for key in extra_workflow_keys:
+                    errors.append(f"{path}: {workflow_label}.{key}: workflow field is not allowed")
+                if "adapter" in workflow_row and not is_non_empty_string(workflow_row["adapter"]):
+                    errors.append(f"{path}: {workflow_label}.adapter must be a non-empty string")
+                if "source_scope" in workflow_row and not is_non_empty_string(workflow_row["source_scope"]):
+                    errors.append(f"{path}: {workflow_label}.source_scope must be a non-empty string")
+                if "paths" in workflow_row:
+                    errors.extend(validate_source_excerpt_paths(path, workflow_row["paths"], f"{workflow_label}.paths"))
 
     cache = source_excerpt_pool.get("cache")
     if cache is None:

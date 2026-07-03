@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import platform
 import sys
 from dataclasses import dataclass
 from datetime import datetime
@@ -16,7 +15,13 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.source_excerpt_pool_lib.common import DEFAULT_PROFILE, PROJECT_CONFIG_PATH  # noqa: E402
+from scripts.dev.source_excerpt_pool_lib.common import (  # noqa: E402
+    DEFAULT_PROFILE,
+    DEFAULT_WORKFLOW_CODE,
+    load_source_excerpt_pool_paths,
+    normalize_workflow_code,
+)
+from scripts.dev.source_excerpt_pool_lib.profile import ExcerptPoolError, profile_matches_workflow  # noqa: E402
 
 
 DEFAULT_ALL_LIST = ROOT / "data" / "configs" / "lists" / "所有君主.yml"
@@ -29,6 +34,7 @@ class ProfileStatus:
     query_profile_id: str
     source_group: str
     profile_status: str
+    workflow_code: str
     object_count: int
     placeholder_count: int
 
@@ -39,6 +45,8 @@ class JobStatus:
     output_name: str
     job_status: str
     path: str
+    workflow_code: str = DEFAULT_WORKFLOW_CODE
+    workflow_code_missing: bool = False
     returncode: int | None = None
     started_at: str = ""
     finished_at: str = ""
@@ -50,6 +58,8 @@ class PackStatus:
     output_name: str
     pack_status: str
     path: str
+    workflow_code: str = DEFAULT_WORKFLOW_CODE
+    workflow_code_missing: bool = False
     written_pages: int = 0
     excerpts: int = 0
     errors: int = 0
@@ -102,6 +112,7 @@ def _object_names(profile: Mapping[str, Any]) -> list[str]:
 
 def classify_profile(profile: Mapping[str, Any]) -> ProfileStatus:
     person = str(profile.get("person") or "").strip()
+    workflow_code = normalize_workflow_code(profile.get("workflow_code") or DEFAULT_WORKFLOW_CODE)
     names = _object_names(profile)
     placeholder_count = sum(1 for name in names if PLACEHOLDER_MARKER in name)
     source_group = str(profile.get("source_group") or "").strip()
@@ -116,16 +127,22 @@ def classify_profile(profile: Mapping[str, Any]) -> ProfileStatus:
         query_profile_id=str(profile.get("query_profile_id") or "").strip(),
         source_group=source_group,
         profile_status=profile_status,
+        workflow_code=workflow_code,
         object_count=len(names),
         placeholder_count=placeholder_count,
     )
 
 
-def load_profiles(path: Path) -> dict[str, ProfileStatus]:
+def load_profiles(path: Path, *, workflow_code: str = DEFAULT_WORKFLOW_CODE) -> dict[str, ProfileStatus]:
+    workflow_code = normalize_workflow_code(workflow_code)
     profiles: dict[str, ProfileStatus] = {}
     for row in _read_jsonl(path):
+        if not profile_matches_workflow(row, workflow_code):
+            continue
         profile = classify_profile(row)
         if profile.person:
+            if profile.person in profiles:
+                raise ExcerptPoolError(f"multiple profiles found for person: {profile.person} workflow_code={workflow_code}")
             profiles[profile.person] = profile
     return profiles
 
@@ -179,6 +196,8 @@ def load_jobs(jobs_dir: Path, logs_dir: Path | None = None) -> list[JobStatus]:
                 status_payload = {}
         person = str(payload.get("person") or status_payload.get("person") or "").strip()
         output_name = str(payload.get("output_name") or Path(base_name).stem).strip()
+        workflow_code_raw = status_payload.get("workflow_code") or payload.get("workflow_code")
+        workflow_code = normalize_workflow_code(workflow_code_raw or DEFAULT_WORKFLOW_CODE)
         returncode_raw = status_payload.get("returncode")
         returncode = int(returncode_raw) if isinstance(returncode_raw, int) else None
         jobs.append(
@@ -187,6 +206,8 @@ def load_jobs(jobs_dir: Path, logs_dir: Path | None = None) -> list[JobStatus]:
                 output_name=output_name,
                 job_status=_job_status_from_payload(path_status, status_payload),
                 path=str(path),
+                workflow_code=workflow_code,
+                workflow_code_missing=not bool(str(workflow_code_raw or "").strip()),
                 returncode=returncode,
                 started_at=str(status_payload.get("started_at") or ""),
                 finished_at=str(status_payload.get("finished_at") or ""),
@@ -223,6 +244,8 @@ def load_packs(source_pack_root: Path) -> list[PackStatus]:
         coverage = report.get("object_coverage") if isinstance(report.get("object_coverage"), Mapping) else {}
         person = str(report.get("person") or manifest.get("person") or "").strip()
         output_name = pack_dir.name
+        workflow_code_raw = report.get("workflow_code") or manifest.get("workflow_code")
+        workflow_code = normalize_workflow_code(workflow_code_raw or DEFAULT_WORKFLOW_CODE)
         errors = report.get("errors")
         error_count = len(errors) if isinstance(errors, list) else 0
         packs.append(
@@ -231,6 +254,8 @@ def load_packs(source_pack_root: Path) -> list[PackStatus]:
                 output_name=output_name,
                 pack_status=str(report.get("status") or manifest.get("status") or "unknown"),
                 path=str(pack_dir),
+                workflow_code=workflow_code,
+                workflow_code_missing=not bool(str(workflow_code_raw or "").strip()),
                 written_pages=int(report.get("written_pages") or 0),
                 excerpts=int(report.get("excerpts") or 0),
                 errors=error_count,
@@ -242,10 +267,24 @@ def load_packs(source_pack_root: Path) -> list[PackStatus]:
     return packs
 
 
+def _pack_gap_count(pack: PackStatus) -> int:
+    return len(set(pack.objects_without_page_hits) | set(pack.objects_without_excerpts))
+
+
 def _latest_pack(packs: Sequence[PackStatus]) -> PackStatus | None:
     if not packs:
         return None
-    return sorted(packs, key=lambda item: item.updated_at, reverse=True)[0]
+    return sorted(
+        packs,
+        key=lambda item: (
+            0 if item.pack_status == "complete" else 1,
+            _pack_gap_count(item),
+            item.errors,
+            -item.excerpts,
+            -item.written_pages,
+            item.updated_at,
+        ),
+    )[0]
 
 
 def _primary_job(jobs: Sequence[JobStatus]) -> JobStatus | None:
@@ -297,7 +336,16 @@ def build_status_report(
     profiles: Mapping[str, ProfileStatus],
     jobs: Sequence[JobStatus],
     packs: Sequence[PackStatus],
+    workflow_code: str = DEFAULT_WORKFLOW_CODE,
 ) -> dict[str, Any]:
+    workflow_code = normalize_workflow_code(workflow_code)
+    profiles = {
+        person: profile
+        for person, profile in profiles.items()
+        if normalize_workflow_code(profile.workflow_code) == workflow_code
+    }
+    jobs = [job for job in jobs if normalize_workflow_code(job.workflow_code) == workflow_code]
+    packs = [pack for pack in packs if normalize_workflow_code(pack.workflow_code) == workflow_code]
     job_by_person: dict[str, list[JobStatus]] = {}
     for job in jobs:
         if job.person:
@@ -319,14 +367,19 @@ def build_status_report(
                 "person": person,
                 "action_status": action_status,
                 "profile_status": profile.profile_status if profile else "missing_profile",
+                "profile_workflow_code": profile.workflow_code if profile else "",
                 "query_profile_id": profile.query_profile_id if profile else "",
                 "source_group": profile.source_group if profile else "",
                 "object_count": profile.object_count if profile else 0,
                 "placeholder_count": profile.placeholder_count if profile else 0,
                 "job_status": job.job_status if job else "none",
                 "job_output_name": job.output_name if job else "",
+                "job_workflow_code": job.workflow_code if job else "",
+                "job_workflow_code_missing": job.workflow_code_missing if job else False,
                 "pack_status": pack.pack_status if pack else "none",
                 "pack_output_name": pack.output_name if pack else "",
+                "pack_workflow_code": pack.workflow_code if pack else "",
+                "pack_workflow_code_missing": pack.workflow_code_missing if pack else False,
                 "written_pages": pack.written_pages if pack else 0,
                 "excerpts": pack.excerpts if pack else 0,
                 "pack_errors": pack.errors if pack else 0,
@@ -339,11 +392,14 @@ def build_status_report(
         )
     return {
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "workflow_code": workflow_code,
         "totals": {
             "persons": len(rows),
             "profiles": len(profiles),
             "jobs": len(jobs),
             "packs": len(packs),
+            "jobs_missing_workflow_code": sum(1 for job in jobs if job.workflow_code_missing),
+            "packs_missing_workflow_code": sum(1 for pack in packs if pack.workflow_code_missing),
             "by_action_status": _bucket(rows, "action_status"),
             "by_profile_status": _bucket(rows, "profile_status"),
             "by_job_status": _bucket(rows, "job_status"),
@@ -353,57 +409,26 @@ def build_status_report(
     }
 
 
-def _platform_path(value: Any) -> Path | None:
-    if isinstance(value, str) and value.strip():
-        return Path(value)
-    if not isinstance(value, Mapping):
-        return None
-    key = "windows" if platform.system().lower().startswith("win") else "server"
-    raw = value.get(key) or value.get("server") or value.get("windows")
-    if isinstance(raw, str) and raw.strip():
-        return Path(raw)
-    return None
-
-
-def _load_source_paths(config_path: Path) -> dict[str, Path]:
-    if not config_path.exists():
-        return {}
-    payload = _read_yaml(config_path)
-    if not isinstance(payload, Mapping):
-        return {}
-    tooling = payload.get("tooling")
-    if not isinstance(tooling, Mapping):
-        return {}
-    source_excerpt_pool = tooling.get("source_excerpt_pool")
-    if not isinstance(source_excerpt_pool, Mapping):
-        return {}
-    paths = source_excerpt_pool.get("paths")
-    if not isinstance(paths, Mapping):
-        return {}
-    resolved: dict[str, Path] = {}
-    for key in ("query_profile", "query_profile_shared_copy", "source_pack_root"):
-        path = _platform_path(paths.get(key))
-        if path is not None:
-            resolved[key] = path if path.is_absolute() else ROOT / path
-    return resolved
-
-
-def _default_source_pack_root() -> Path:
-    paths = _load_source_paths(PROJECT_CONFIG_PATH)
+def _default_source_pack_root(*, workflow_code: str = DEFAULT_WORKFLOW_CODE) -> Path:
+    paths = load_source_excerpt_pool_paths(workflow_code=workflow_code)
     return paths.get("source_pack_root") or (ROOT / ".tmp" / "source-packs")
 
 
 def render_markdown(report: Mapping[str, Any]) -> str:
     rows = report.get("rows") if isinstance(report.get("rows"), list) else []
     totals = report.get("totals") if isinstance(report.get("totals"), Mapping) else {}
+    workflow_code = normalize_workflow_code(str(report.get("workflow_code") or DEFAULT_WORKFLOW_CODE))
     lines = [
-        "# I5B 抓包状态台账",
+        f"# {workflow_code} 抓包状态台账",
         "",
         f"- generated_at: `{report.get('generated_at') or ''}`",
+        f"- workflow_code: `{workflow_code}`",
         f"- persons: `{totals.get('persons', 0)}`",
         f"- profiles: `{totals.get('profiles', 0)}`",
         f"- jobs: `{totals.get('jobs', 0)}`",
         f"- packs: `{totals.get('packs', 0)}`",
+        f"- jobs_missing_workflow_code: `{totals.get('jobs_missing_workflow_code', 0)}`",
+        f"- packs_missing_workflow_code: `{totals.get('packs_missing_workflow_code', 0)}`",
         "",
         "## 状态计数",
         "",
@@ -463,8 +488,9 @@ def render_markdown(report: Mapping[str, Any]) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Summarize I5B query-profile and source-pack job status.")
+    parser.add_argument("--workflow-code", default=DEFAULT_WORKFLOW_CODE, help="Workflow/subitem code for report metadata.")
     parser.add_argument("--all-list", type=Path, default=DEFAULT_ALL_LIST, help="YAML list of all target persons.")
-    parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="Query-profile JSONL path.")
+    parser.add_argument("--profile", type=Path, default=None, help="Query-profile JSONL path.")
     parser.add_argument("--source-pack-root", type=Path, default=None, help="Source-pack root directory.")
     parser.add_argument("--jobs-dir", type=Path, default=None, help="Source-pack worker jobs directory.")
     parser.add_argument("--logs-dir", type=Path, default=None, help="Source-pack worker logs directory.")
@@ -476,14 +502,18 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    source_pack_root = args.source_pack_root or _default_source_pack_root()
-    jobs_dir = args.jobs_dir or source_pack_root.parent / "jobs"
-    logs_dir = args.logs_dir or source_pack_root.parent / "logs"
+    workflow_code = normalize_workflow_code(args.workflow_code)
+    source_paths = load_source_excerpt_pool_paths(workflow_code=workflow_code)
+    profile_path = args.profile or source_paths.get("query_profile") or DEFAULT_PROFILE
+    source_pack_root = args.source_pack_root or source_paths.get("source_pack_root") or _default_source_pack_root(workflow_code=workflow_code)
+    jobs_dir = args.jobs_dir or source_paths.get("jobs_dir") or source_pack_root.parent / "jobs"
+    logs_dir = args.logs_dir or source_paths.get("logs_dir") or source_pack_root.parent / "logs"
     report = build_status_report(
         persons=load_persons(args.all_list) if args.all_list.exists() else [],
-        profiles=load_profiles(args.profile) if args.profile.exists() else {},
+        profiles=load_profiles(profile_path, workflow_code=workflow_code) if profile_path.exists() else {},
         jobs=load_jobs(jobs_dir, logs_dir),
         packs=load_packs(source_pack_root),
+        workflow_code=workflow_code,
     )
     text = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n" if args.format == "json" else render_markdown(report)
     if args.output:

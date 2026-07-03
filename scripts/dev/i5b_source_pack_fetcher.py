@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -18,22 +19,41 @@ from scripts.dev.source_excerpt_pool_lib.common import (  # noqa: E402
     DEFAULT_REQUEST_DELAY_SECONDS,
     DEFAULT_RETRY_BACKOFF_SECONDS,
     DEFAULT_USER_AGENT,
+    DEFAULT_WORKFLOW_CODE,
+    load_source_excerpt_pool_runtime,
+    normalize_workflow_code,
+    workflow_slug,
 )
 from scripts.dev.source_excerpt_pool_lib.profile import load_profile  # noqa: E402
 from scripts.dev.source_excerpt_pool_lib.source_pack_fetcher import build_source_pack  # noqa: E402
 
 
-def _default_output_dir(person: str) -> Path:
+DEFAULT_GENERATED_BY = "scripts/dev/i5b_source_pack_fetcher.py"
+DEFAULT_EXTRACTION_METHOD = "i5b_source_pack_fetcher"
+
+
+def _default_output_dir(person: str, *, workflow_code: str = DEFAULT_WORKFLOW_CODE) -> Path:
     stamp = datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
-    return ROOT / ".tmp" / "source-packs" / f"i5b_source_pack_{stamp}"
+    prefix = workflow_slug(workflow_code)
+    return ROOT / ".tmp" / "source-packs" / f"{prefix}_source_pack_{stamp}"
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Fetch an offline I5B source pack from a query profile.")
-    parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="Query-profile JSONL path.")
+    parser.add_argument("--profile", type=Path, default=None, help="Query-profile JSONL path.")
     parser.add_argument("--person", required=True, help="Profile person name.")
     parser.add_argument("--output-dir", type=Path, help="Output source pack directory; defaults under .tmp/source-packs/.")
     parser.add_argument("--pack-id", help="Stable source pack id; default includes query_profile_id, person, and timestamp.")
+    parser.add_argument(
+        "--workflow-code",
+        default=DEFAULT_WORKFLOW_CODE,
+        help="Stable workflow/subitem code for source-pack metadata; defaults to I5B.",
+    )
+    parser.add_argument(
+        "--source-scope",
+        default=None,
+        help="Human-readable source scope for manifest.json; default is '<workflow-code> offline source pack for <person>'.",
+    )
     parser.add_argument("--include-adjacent", action="store_true", help="Include adjacent_split_objects.")
     parser.add_argument("--max-queries", type=int, default=None, help="Global maximum query count.")
     parser.add_argument(
@@ -82,13 +102,24 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    profile = load_profile(args.profile, args.person)
-    output_dir = args.output_dir or _default_output_dir(args.person)
+    workflow_code = normalize_workflow_code(args.workflow_code)
+    runtime = load_source_excerpt_pool_runtime(workflow_code=workflow_code)
+    source_paths = runtime.get("paths") if isinstance(runtime.get("paths"), dict) else {}
+    profile_path = args.profile or source_paths.get("query_profile") or DEFAULT_PROFILE
+    source_scope = args.source_scope or runtime.get("source_scope")
+    started_monotonic = time.monotonic()
+    started_at = datetime.now().astimezone().isoformat(timespec="seconds")
+    profile = load_profile(profile_path, args.person, workflow_code=workflow_code)
+    output_dir = args.output_dir or _default_output_dir(args.person, workflow_code=workflow_code)
     progress_path = args.progress_log or output_dir / "progress.jsonl"
     report = build_source_pack(
         profile,
         output_dir=output_dir,
         pack_id=args.pack_id,
+        workflow_code=workflow_code,
+        source_scope=source_scope,
+        generated_by=DEFAULT_GENERATED_BY,
+        extraction_method=DEFAULT_EXTRACTION_METHOD,
         include_adjacent=args.include_adjacent,
         max_queries=args.max_queries,
         max_queries_per_object=args.max_queries_per_object,
@@ -113,9 +144,14 @@ def main(argv: list[str] | None = None) -> int:
         refresh_pack_pages=args.refresh_pack_pages,
         progress_path=progress_path,
     )
+    finished_at = datetime.now().astimezone().isoformat(timespec="seconds")
     print(
         json.dumps(
             {
+                "at": finished_at,
+                "started_at": started_at,
+                "finished_at": finished_at,
+                "elapsed_seconds": report.get("elapsed_seconds", round(time.monotonic() - started_monotonic, 3)),
                 "output_dir": str(output_dir),
                 "status": report["status"],
                 "pages": report["written_pages"],

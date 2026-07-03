@@ -3,10 +3,13 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import platform
 import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -21,6 +24,7 @@ DEFAULT_CACHE_BACKEND = "postgres"
 DEFAULT_CACHE_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_CACHE_SCHEMA = "tool_cache"
 CACHE_SCHEMA_VERSION = 1
+DEFAULT_WORKFLOW_CODE = "I5B"
 ADJACENT_LAYER = "adjacent_split_objects"
 DEFAULT_REQUEST_DELAY_SECONDS = 0.75
 DEFAULT_MAX_RETRIES = 3
@@ -132,6 +136,97 @@ def quote_pg_identifier(value: str) -> str:
 
 def compact_text(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
+
+
+def normalize_workflow_code(value: str | None, *, default: str = DEFAULT_WORKFLOW_CODE) -> str:
+    raw = value if value is not None else default
+    cleaned = re.sub(r"[^0-9A-Za-z_.\-\u4e00-\u9fff]+", "_", str(raw)).strip("._-")
+    if cleaned:
+        return cleaned
+    fallback = re.sub(r"[^0-9A-Za-z_.\-\u4e00-\u9fff]+", "_", default).strip("._-")
+    return fallback or "SOURCE"
+
+
+def workflow_slug(value: str | None, *, default: str = DEFAULT_WORKFLOW_CODE) -> str:
+    return normalize_workflow_code(value, default=default).lower()
+
+
+def _platform_path(value: Any) -> Path | None:
+    if isinstance(value, str) and value.strip():
+        return Path(value)
+    if not isinstance(value, dict):
+        return None
+    key = "windows" if platform.system().lower().startswith("win") else "server"
+    raw = value.get(key) or value.get("server") or value.get("windows")
+    if isinstance(raw, str) and raw.strip():
+        return Path(raw)
+    return None
+
+
+def _resolve_config_path(path: Path) -> Path:
+    return path if path.is_absolute() else ROOT / path
+
+
+def _collect_source_paths(paths: Any) -> dict[str, Path]:
+    if not isinstance(paths, dict):
+        return {}
+    resolved: dict[str, Path] = {}
+    for key in ("query_profile", "query_profile_shared_copy", "source_pack_root", "jobs_dir", "logs_dir", "handoff_root"):
+        path = _platform_path(paths.get(key))
+        if path is not None:
+            resolved[key] = _resolve_config_path(path)
+    return resolved
+
+
+def load_source_excerpt_pool_runtime(
+    *,
+    workflow_code: str | None = None,
+    config_path: Path = PROJECT_CONFIG_PATH,
+) -> dict[str, Any]:
+    if not config_path.exists():
+        code = normalize_workflow_code(workflow_code or DEFAULT_WORKFLOW_CODE)
+        return {"workflow_code": code, "paths": {}}
+    payload = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        code = normalize_workflow_code(workflow_code or DEFAULT_WORKFLOW_CODE)
+        return {"workflow_code": code, "paths": {}}
+    tooling = payload.get("tooling")
+    if not isinstance(tooling, dict):
+        code = normalize_workflow_code(workflow_code or DEFAULT_WORKFLOW_CODE)
+        return {"workflow_code": code, "paths": {}}
+    source_excerpt_pool = tooling.get("source_excerpt_pool")
+    if not isinstance(source_excerpt_pool, dict):
+        code = normalize_workflow_code(workflow_code or DEFAULT_WORKFLOW_CODE)
+        return {"workflow_code": code, "paths": {}}
+
+    default_code = normalize_workflow_code(source_excerpt_pool.get("default_workflow_code") or DEFAULT_WORKFLOW_CODE)
+    selected_code = normalize_workflow_code(workflow_code or default_code)
+    resolved = _collect_source_paths(source_excerpt_pool.get("paths"))
+    workflows = source_excerpt_pool.get("workflows")
+    workflow_row = None
+    if isinstance(workflows, dict):
+        for key, row in workflows.items():
+            if normalize_workflow_code(str(key)) == selected_code:
+                workflow_row = row
+                break
+    runtime: dict[str, Any] = {"workflow_code": selected_code, "paths": resolved}
+    if isinstance(workflow_row, dict):
+        resolved.update(_collect_source_paths(workflow_row.get("paths")))
+        if isinstance(workflow_row.get("adapter"), str) and workflow_row["adapter"].strip():
+            runtime["adapter"] = workflow_row["adapter"].strip()
+        if isinstance(workflow_row.get("source_scope"), str) and workflow_row["source_scope"].strip():
+            runtime["source_scope"] = workflow_row["source_scope"].strip()
+    return runtime
+
+
+def load_source_excerpt_pool_paths(
+    *,
+    workflow_code: str | None = None,
+    config_path: Path = PROJECT_CONFIG_PATH,
+) -> dict[str, Path]:
+    runtime = load_source_excerpt_pool_runtime(workflow_code=workflow_code, config_path=config_path)
+    paths = runtime.get("paths")
+    return paths if isinstance(paths, dict) else {}
 
 
 def resolve_repo_path(value: str | Path) -> Path:

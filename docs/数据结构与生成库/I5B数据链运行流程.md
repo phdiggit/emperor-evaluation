@@ -79,22 +79,39 @@ python scripts/dev/source_excerpt_pool.py `
 
 ## 2. 离线史料包和摘录
 
-联网抓史料属于采集层，不是 I5B 评分主链的一部分。批量抓取、Wikisource 限流处理、页面缓存和人工补页可以离线完成，落成一个 source pack 后再进入 I5B 主链。
+联网抓史料属于采集层，不是 I5B 评分主链的一部分。批量抓取、Wikisource 限流处理、页面缓存和人工补页可以离线完成，落成一个 source pack 后再进入 I5B 主链。I5B 是当前默认 adapter；公共采集骨架按 `workflow_code`、`source_scope` 和 workflow runtime paths 运行，后续评分项复用采集层时应新增自己的 workflow 配置，而不是复制 I5B 专用脚本逻辑。
 
-当前共享 source pack 根目录登记在 `data/configs/project_config.yml` 的 `tooling.source_excerpt_pool.paths.source_pack_root`。服务器路径为 `/data2/backups/code/emperor-evaluation/source-packs`，本机 SMB 映射路径为 `Y:/code/emperor-evaluation/source-packs`。检索包 canonical 文件仍保留在仓库 `data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl`，共享镜像路径登记在 `tooling.source_excerpt_pool.paths.query_profile_shared_copy`。
+当前 I5B 采集层运行入口登记在 `data/configs/project_config.yml` 的 `tooling.source_excerpt_pool.workflows.I5B.paths`。其中 `query_profile` 指向 canonical 检索包，`query_profile_shared_copy`、`source_pack_root`、`jobs_dir`、`logs_dir` 和 `handoff_root` 指向服务器 / Windows 共享路径；顶层 `tooling.source_excerpt_pool.paths` 仅作为兼容 fallback 保留。
 
-服务器常驻服务 `emperor-source-pack-worker.service` 轮询 `/data2/backups/code/emperor-evaluation/jobs/*.json`。本机可向 `Y:/code/emperor-evaluation/jobs/` 写入任务，例如：
+服务器常驻服务 `emperor-source-pack-worker.service` 轮询 workflow 配置里的 `jobs_dir`。本机可向对应 Windows 共享路径写入任务；任务 payload 必须带 `workflow_code`，例如：
 
 ```json
 {
   "person": "武则天",
+  "workflow_code": "I5B",
   "output_name": "wuzetian_review_pack",
   "include_adjacent": true,
   "max_queries_per_object": 4
 }
 ```
 
-worker 会把输出写入 `source-packs/<output_name>/`，日志写入 `logs/<output_name>.log`，任务文件处理后移动为 `.done` 或 `.failed`。
+worker 会把输出写入 workflow 配置里的 `source_pack_root/<output_name>/`，日志写入 `logs_dir/<output_name>.log`，任务文件处理后移动为 `.done` 或 `.failed`。
+
+服务器服务入口保持一个：`emperor-source-pack-worker.service`。该服务由 `i5b_source_pack_runtime_supervisor.py` 拉起相互独立的采集层子进程：
+
+- 抓包 worker：只消费 `jobs/*.json` 并调用 `i5b_source_pack_fetcher.py`。
+- refiner daemon：只周期刷新状态台账和检索包补强候选报告，不消费 jobs、不联网、不调用抓包逻辑。
+- pipeline daemon：可选启用，读取状态台账和 refiner 候选，按 fingerprint 去重后写派生 query profile 并投递下一轮抓包 job；它不写回 canonical query profile。
+
+refiner daemon 默认输出到 workflow 配置里的 `logs_dir`。I5B 默认文件名为：
+
+```text
+i5b_source_pack_status.json / .md
+i5b_query_profile_refinements.json / .md
+i5b_query_profile_refiner_daemon.status.json
+i5b_source_pack_pipeline_report.json
+i5b_source_pack_pipeline_state.json
+```
 
 抓包状态台账：
 
@@ -114,6 +131,127 @@ python scripts/dev/i5b_source_pack_status.py `
 - 抓包成功但需完善检索包：`fetch_report.json` 已 complete，但仍有 `objects_without_page_hits`、`objects_without_excerpts` 或抓页错误。
 - 抓包成功且暂无明显缺口：已 complete，且没有上述对象覆盖缺口。
 
+检索包补强候选：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_query_profile_refiner.py `
+  --status-report .tmp/source-packs/i5b_source_pack_status.json `
+  --format markdown `
+  --output .tmp/source-packs/i5b_query_profile_refinements.md
+```
+
+该脚本只读 query profile、状态台账和 source pack 覆盖缺口，生成待审 patch 候选，包括：
+
+- 对 `objects_without_page_hits` 自动建议对象别名和追加查询束。
+- 对 `objects_without_excerpts` 自动建议更宽的匹配查询，并从 `src_docs.jsonl` 反推可复用的 direct page `source_targets`。
+- 默认跳过 `adjacent_split_objects`，避免把相邻项切分线索膨胀成主检索补强；确需补相邻项边界时显式加 `--include-adjacent`。
+- 对半成品 profile 只标记为需要先补具体对象，不自动伪造对象或史源。
+
+补强候选默认不直接写回 `data/query_profile_batches/*.jsonl`，也不投递抓包任务；人工审查后可合并到检索包。若只是采集层机械补强，可交给 pipeline daemon 写入 `logs/derived-profiles/*.jsonl` 这种派生 profile，再自动投递下一轮抓包 job；派生 profile 只服务该轮 source pack，不污染 canonical query profile。
+
+单次运行流水线调度：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_source_pack_pipeline_daemon.py `
+  --all-list data/configs/lists/所有君主.yml `
+  --output-dir Y:/code/emperor-evaluation/logs `
+  --workflow-code I5B `
+  --submit-refinements `
+  --max-jobs-per-run 30 `
+  --once
+```
+
+持续服务模式由 supervisor 传入 `--pipeline-script scripts/dev/i5b_source_pack_pipeline_daemon.py` 并显式启用 `--pipeline-submit-refinements` 或 `--pipeline-submit-prepared`。这样状态刷新、补强投递和抓包消费可以持续并行推进，总控只看台账、失败和质量异常。pipeline 默认用 `--max-refine-rounds-per-person 2` 控制机械补强轮次，避免低收益查询扩展无限滚动。
+
+同一人物存在多个 source pack 时，状态台账选择最佳可用包作为主包，而不是盲选最新包：优先 `complete`、gap 少、错误少、摘录和页数多。pipeline 的新尝试如果质量低于旧包，不会覆盖台账主视图。
+
+### 批次 Codex 交接
+
+批次 Codex 进程负责自己认领人物的实质验收，最后写入标准 handoff 目录；总控只做机器契约校验和汇总，不再逐人复判。交接根目录由 workflow 配置的 `handoff_root` 提供，I5B 当前共享路径为：
+
+```text
+/data2/backups/code/emperor-evaluation/handoffs/
+```
+
+初始化一个批次交接目录：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_source_pack_handoff.py `
+  --workflow-code I5B `
+  --init `
+  --batch-id i5b_batch_01 `
+  --owner codex-batch-01 `
+  --person 刘邦 `
+  --person 刘恒
+```
+
+每个批次目录必须包含：
+
+```text
+manifest.json
+accepted_packs.jsonl
+unresolved_gaps.jsonl
+profile_patches.jsonl
+next_stage_queue.jsonl
+acceptance.md
+```
+
+`accepted_packs.jsonl` 的 `acceptance_status` 只允许：
+
+- `accepted`：最终包可直接进入下一阶段；
+- `accepted_with_known_gaps`：可进入下一阶段，但 gap 已说明为非阻断；
+- `needs_more_profile_work`：不得进入下一阶段，回到 profile 补强；
+- `blocked`：交总控处理。
+
+`accepted` / `accepted_with_known_gaps` 必须同时满足：`usable_for_object_pool=true`、`accepted_pack_path` 存在、source pack audit 无 block、并出现在 `next_stage_queue.jsonl`。`needs_more_profile_work` / `blocked` 必须 `usable_for_object_pool=false`，且不能进入 `next_stage_queue.jsonl`。
+
+总控验收所有批次：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_source_pack_handoff.py `
+  --workflow-code I5B `
+  --format markdown `
+  --output .tmp/source-packs/i5b_handoff_validation.md `
+  --fail-on-issue
+```
+
+该工具会校验交接文件、状态语义、下一阶段队列和 source pack 审计；通过后，总控只收 `next_stage_queue.jsonl` 中 `ready=true` 的人物进入摘录池 / payload 骨架阶段。
+
+半成品检索包种子候选：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_query_profile_seed_builder.py `
+  --status-report .tmp/source-packs/i5b_source_pack_status.json `
+  --format markdown `
+  --output .tmp/source-packs/i5b_query_profile_seed_candidates.md
+```
+
+该脚本面向 `profile_needs_work`，从本地已登记的 `query_lane_coverage.jsonl`、`evidence_cards.jsonl`、`source_packs.jsonl`、`anchors.jsonl`、`search_logs.jsonl` 抽取同人对象候选，生成待审 seed patch。没有本地对象候选时，只输出 discovery queries 和 `needs_external_discovery`，不得把占位对象自动升级为成品 profile。
+
+可显式加 `--online-probe` 做小规模 Wikisource search snippet 探针，但它仍只产候选，不抓全文、不落 source pack、不写 profile。search snippet 噪声较高；只有被人工确认的具体人物才可合并进 `object_layers`。
+
+若半成品 profile 完全缺本地对象线索，可用页面全文发现模式生成候选：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_query_profile_seed_builder.py `
+  --status-report .tmp/source-packs/i5b_source_pack_status.json `
+  --person 曹丕 `
+  --source-discovery `
+  --source-discovery-queries-per-person 4 `
+  --source-discovery-pages-per-query 3 `
+  --source-discovery-max-pages-per-person 6 `
+  --format markdown `
+  --output .tmp/source-packs/i5b_query_profile_seed_candidates_caopi.md
+```
+
+`--source-discovery` 会搜索并抓取少量 Wikisource 页面全文，在任用、授官、谏诤、处置、宠幸等动作附近抽取具体人物候选，并在报告里保留页面标题和上下文摘录。该模式可以使用 Wikisource 缓存，但仍是审查工具：不写 query profile、不写 jobs、不生成 source pack、不替代后续正式抓包。
+
 source pack 最小契约：
 
 ```text
@@ -123,15 +261,15 @@ pages/*.txt（或 src_docs.jsonl 行内 text/raw_text）
 excerpts.jsonl（可选，人工预摘录或采集层摘录）
 ```
 
-`manifest.json` 必填 `schema_version=1`、`pack_id`、`created_at`、`source_scope`、`status`。`src_docs.jsonl` 每行至少应有 `src_key`、`page_title` 或可解析的 `url`、`title`、`author`、`dynasty`、`locator`、`url`、`text_path`、`fetch_status`、`review_status`。`text_path` 必须指向包内本地 UTF-8 文本，不允许依赖运行时联网补页。
+新生成的 `manifest.json` 必填 `schema_version=1`、`pack_id`、`workflow_code`、`created_at`、`source_scope`、`status`。旧包缺 `workflow_code` 时只按兼容逻辑推断，不应作为新包模板。`src_docs.jsonl` 每行至少应有 `src_key`、`page_title` 或可解析的 `url`、`title`、`author`、`dynasty`、`locator`、`url`、`text_path`、`fetch_status`、`review_status`。`text_path` 必须指向包内本地 UTF-8 文本，不允许依赖运行时联网补页。
 
 采集层抓包：
 
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/i5b_source_pack_fetcher.py `
-  --profile data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl `
   --person 武则天 `
+  --workflow-code I5B `
   --output-dir .tmp/source-packs/wuzetian_20260703 `
   --include-adjacent `
   --max-queries-per-object 4 `
@@ -158,8 +296,8 @@ python scripts/dev/i5b_source_pack_audit.py `
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/source_excerpt_pool.py `
-  --profile data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl `
   --person 武则天 `
+  --workflow-code I5B `
   --source-pack .tmp/source-packs/wuzetian_20260702 `
   --output .tmp/source-excerpts/wuzetian_source_pack.json `
   --format json `
@@ -562,11 +700,11 @@ python scripts/dev/i5b_health_check.py `
 涉及本链路的常用 focused tests：
 
 ```powershell
-python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_audit.py tests/test_object_pool_importer.py -q
+python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_status.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py tests/test_object_pool_importer.py -q
 python -m pytest tests/test_i5b_factor_recalculator.py tests/test_i5b_factor_consistency_audit.py tests/test_i5b_factor_table_sync.py tests/test_i5b_factor_options_schema.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
 python -m pytest tests/test_i5b_rule_evidence_unit_candidate_builder.py tests/test_i5b_rule_evidence_unit_db_sync.py tests/test_i5b_rule_evidence_unit_preview.py tests/test_i5b_rule_evidence_unit_issue_summary.py tests/test_i5b_fact_relation_candidate_sync.py tests/test_i5b_fact_relation_gap_summary.py tests/test_rule_evidence_units_schema.py -q
 python -m pytest tests/test_i5b_calc_breakdown.py tests/test_i5b_health_check.py tests/test_scripts_dev_i5b_registry.py -q
-python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_audit.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
+python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_audit.py scripts/dev/i5b_source_pack_handoff.py scripts/dev/i5b_query_profile_refiner.py scripts/dev/i5b_query_profile_refiner_daemon.py scripts/dev/i5b_source_pack_runtime_supervisor.py scripts/dev/i5b_source_pack_pipeline_daemon.py scripts/dev/i5b_query_profile_seed_builder.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
 ```
 
 涉及 `scripts/**` 或 `docs/**` 的 PR，还应按根目录和对应目录 `AGENTS.md` 运行适用的治理检查。

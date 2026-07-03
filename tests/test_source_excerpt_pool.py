@@ -129,6 +129,19 @@ def test_build_search_plans_uses_matching_query_bundles() -> None:
     assert ("度田事件相关官员", "刘秀 度田 牵连 官员 用人边界") in by_object
 
 
+def test_load_profile_selects_profile_by_workflow_code(tmp_path: Path) -> None:
+    tool = load_tool()
+    profile_path = tmp_path / "profiles.jsonl"
+    rows = [
+        {**sample_profile(), "person": "甲", "query_profile_id": "QRY-I5B"},
+        {**sample_profile(), "person": "甲", "workflow_code": "I5A", "query_profile_id": "QRY-I5A"},
+    ]
+    profile_path.write_text("\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n", encoding="utf-8")
+
+    assert tool.load_profile(profile_path, "甲")["query_profile_id"] == "QRY-I5B"
+    assert tool.load_profile(profile_path, "甲", workflow_code="I5A")["query_profile_id"] == "QRY-I5A"
+
+
 def test_all_monarchs_have_layered_profiles_with_search_plans() -> None:
     tool = load_tool()
     all_persons = yaml.safe_load((ROOT / "data" / "configs" / "lists" / "所有君主.yml").read_text(encoding="utf-8"))
@@ -655,6 +668,49 @@ tooling:
     assert config["directory"] == tmp_path / ".cache" / "custom-wikisource-cache"
     assert config["dsn_env"] == tool.DEFAULT_CACHE_DSN_ENV
     assert config["schema"] == tool.DEFAULT_CACHE_SCHEMA
+
+
+def test_source_excerpt_runtime_config_reads_workflow_paths(tmp_path, monkeypatch) -> None:
+    tool = load_tool()
+    profile_path = tmp_path / "data" / "query_profile_batches" / "profiles.jsonl"
+    profile_path.parent.mkdir(parents=True)
+    profile_path.write_text('{"person":"甲","workflow_code":"I5A"}\n', encoding="utf-8")
+    config_path = tmp_path / "project_config.yml"
+    config_path.write_text(
+        """
+version: 2
+tooling:
+  source_excerpt_pool:
+    default_workflow_code: I5B
+    paths:
+      source_pack_root:
+        server: /base/source-packs
+        windows: Y:/base/source-packs
+    workflows:
+      I5A:
+        adapter: generic
+        source_scope: I5A offline source pack
+        paths:
+          query_profile: data/query_profile_batches/profiles.jsonl
+          source_pack_root:
+            server: /i5a/source-packs
+            windows: Y:/i5a/source-packs
+          jobs_dir:
+            server: /i5a/jobs
+            windows: Y:/i5a/jobs
+""",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(tool.common, "ROOT", tmp_path)
+
+    runtime = tool.load_source_excerpt_pool_runtime(workflow_code="I5A", config_path=config_path)
+
+    assert runtime["workflow_code"] == "I5A"
+    assert runtime["adapter"] == "generic"
+    assert runtime["source_scope"] == "I5A offline source pack"
+    assert runtime["paths"]["query_profile"] == profile_path
+    assert runtime["paths"]["source_pack_root"].as_posix().endswith("i5a/source-packs")
+    assert runtime["paths"]["jobs_dir"].as_posix().endswith("i5a/jobs")
 
 
 def test_source_excerpt_cache_config_reads_postgres_backend(tmp_path, monkeypatch) -> None:

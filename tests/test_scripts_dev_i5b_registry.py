@@ -128,6 +128,10 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_source_pack_audit.py",
         "required_tests": ["tests/test_i5b_source_pack_audit.py"],
     },
+    "i5b_source_pack_handoff": {
+        "implementation": "scripts/dev/i5b_source_pack_handoff.py",
+        "required_tests": ["tests/test_i5b_source_pack_handoff.py"],
+    },
     "i5b_source_pack_fetcher": {
         "implementation": "scripts/dev/i5b_source_pack_fetcher.py",
         "required_tests": ["tests/test_i5b_source_pack_fetcher.py"],
@@ -135,6 +139,26 @@ EXPECTED_I5B_DEV_MODULES = {
     "i5b_source_pack_status": {
         "implementation": "scripts/dev/i5b_source_pack_status.py",
         "required_tests": ["tests/test_i5b_source_pack_status.py"],
+    },
+    "i5b_query_profile_refiner": {
+        "implementation": "scripts/dev/i5b_query_profile_refiner.py",
+        "required_tests": ["tests/test_i5b_query_profile_refiner.py"],
+    },
+    "i5b_query_profile_refiner_daemon": {
+        "implementation": "scripts/dev/i5b_query_profile_refiner_daemon.py",
+        "required_tests": ["tests/test_i5b_query_profile_refiner_daemon.py"],
+    },
+    "i5b_source_pack_runtime_supervisor": {
+        "implementation": "scripts/dev/i5b_source_pack_runtime_supervisor.py",
+        "required_tests": ["tests/test_i5b_source_pack_runtime_supervisor.py"],
+    },
+    "i5b_source_pack_pipeline_daemon": {
+        "implementation": "scripts/dev/i5b_source_pack_pipeline_daemon.py",
+        "required_tests": ["tests/test_i5b_source_pack_pipeline_daemon.py"],
+    },
+    "i5b_query_profile_seed_builder": {
+        "implementation": "scripts/dev/i5b_query_profile_seed_builder.py",
+        "required_tests": ["tests/test_i5b_query_profile_seed_builder.py"],
     },
 }
 

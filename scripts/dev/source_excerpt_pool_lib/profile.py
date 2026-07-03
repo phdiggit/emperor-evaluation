@@ -3,26 +3,38 @@ from __future__ import annotations
 import re
 import urllib.parse
 from collections import defaultdict
+from pathlib import Path
 from typing import Any, Iterable
 
 from .common import (
     ADJACENT_LAYER,
+    DEFAULT_WORKFLOW_CODE,
     KNOWN_SOURCE_TITLE_VARIANTS,
     CandidateObject,
     DirectPagePlan,
     ExcerptPoolError,
     SearchPlan,
     compact_text,
+    normalize_workflow_code,
     read_jsonl,
 )
 
 
-def load_profile(path: Path, person: str) -> dict[str, Any]:
-    matches = [row for row in read_jsonl(path) if row.get("person") == person]
+def profile_workflow_code(profile: dict[str, Any], *, default: str = DEFAULT_WORKFLOW_CODE) -> str:
+    return normalize_workflow_code(profile.get("workflow_code") or default)
+
+
+def profile_matches_workflow(profile: dict[str, Any], workflow_code: str | None) -> bool:
+    return profile_workflow_code(profile) == normalize_workflow_code(workflow_code)
+
+
+def load_profile(path: Path, person: str, *, workflow_code: str = DEFAULT_WORKFLOW_CODE) -> dict[str, Any]:
+    workflow_code = normalize_workflow_code(workflow_code)
+    matches = [row for row in read_jsonl(path) if row.get("person") == person and profile_matches_workflow(row, workflow_code)]
     if not matches:
-        raise ExcerptPoolError(f"profile not found for person: {person}")
+        raise ExcerptPoolError(f"profile not found for person: {person} workflow_code={workflow_code}")
     if len(matches) > 1:
-        raise ExcerptPoolError(f"multiple profiles found for person: {person}")
+        raise ExcerptPoolError(f"multiple profiles found for person: {person} workflow_code={workflow_code}")
     return matches[0]
 
 

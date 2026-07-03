@@ -309,6 +309,38 @@ def test_validate_project_config_accepts_source_excerpt_pool_paths(tmp_path: Pat
         validate_project_config.ROOT = old_root
 
 
+def test_validate_project_config_accepts_source_excerpt_pool_workflow_paths(tmp_path: Path) -> None:
+    profile_path = tmp_path / "data" / "query_profile_batches" / "profiles.jsonl"
+    profile_path.parent.mkdir(parents=True)
+    profile_path.write_text('{"person":"甲","workflow_code":"I5A"}\n', encoding="utf-8")
+    payload = valid_payload()
+    payload["tooling"] = {
+        "source_excerpt_pool": {
+            "default_workflow_code": "I5B",
+            "workflows": {
+                "I5A": {
+                    "adapter": "generic",
+                    "source_scope": "I5A offline source pack",
+                    "paths": {
+                        "query_profile": "data/query_profile_batches/profiles.jsonl",
+                        "source_pack_root": {"server": "/srv/source-packs", "windows": "Y:/source-packs"},
+                        "jobs_dir": {"server": "/srv/jobs", "windows": "Y:/jobs"},
+                        "logs_dir": {"server": "/srv/logs", "windows": "Y:/logs"},
+                        "handoff_root": {"server": "/srv/handoffs", "windows": "Y:/handoffs"},
+                    },
+                }
+            },
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+    old_root = validate_project_config.ROOT
+    validate_project_config.ROOT = tmp_path
+    try:
+        assert validate_project_config.validate(config_path) == []
+    finally:
+        validate_project_config.ROOT = old_root
+
+
 def test_validate_project_config_rejects_source_excerpt_pool_unknown_path_field(tmp_path: Path) -> None:
     payload = valid_payload()
     payload["tooling"] = {

@@ -12,14 +12,18 @@ from .common import (
     DEFAULT_REQUEST_DELAY_SECONDS,
     DEFAULT_RETRY_BACKOFF_SECONDS,
     DEFAULT_USER_AGENT,
+    DEFAULT_WORKFLOW_CODE,
+    load_source_excerpt_pool_paths,
+    normalize_workflow_code,
 )
 from .profile import load_profile
 from .reporting import write_report
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Build a review-first source excerpt pool from an I5B query profile.")
-    parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE, help="Query-profile JSONL path.")
+    parser = argparse.ArgumentParser(description="Build a review-first source excerpt pool from a workflow query profile.")
+    parser.add_argument("--profile", type=Path, default=None, help="Query-profile JSONL path.")
+    parser.add_argument("--workflow-code", default=DEFAULT_WORKFLOW_CODE, help="Workflow/subitem code used to select the profile row.")
     parser.add_argument("--person", help="Profile person name.")
     parser.add_argument("--output", type=Path, help="Output report path.")
     parser.add_argument("--format", choices=("json", "markdown"), default="json", help="Output format.")
@@ -108,7 +112,10 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--person is required unless --migrate-cache-to-postgres is used")
     if args.output is None:
         parser.error("--output is required unless --migrate-cache-to-postgres is used")
-    profile = load_profile(args.profile, args.person)
+    workflow_code = normalize_workflow_code(args.workflow_code)
+    source_paths = load_source_excerpt_pool_paths(workflow_code=workflow_code)
+    profile_path = args.profile or source_paths.get("query_profile") or DEFAULT_PROFILE
+    profile = load_profile(profile_path, args.person, workflow_code=workflow_code)
     report = build_excerpt_pool(
         profile,
         include_adjacent=args.include_adjacent,
