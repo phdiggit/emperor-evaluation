@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -75,3 +76,38 @@ def test_build_payload_skeleton_can_include_adjacent() -> None:
     payload = tool.build_payload_skeleton(sample_profile(), excerpt_report={}, include_adjacent=True)
 
     assert [obj["name"] for obj in payload["objects"]] == ["姚崇", "来俊臣", "武周革命"]
+
+
+def test_cli_selects_profile_by_workflow_code(tmp_path: Path, capsys) -> None:
+    tool = load_tool()
+    profile_path = tmp_path / "profiles.jsonl"
+    excerpt_path = tmp_path / "excerpt.json"
+    output_path = tmp_path / "payload.json"
+    rows = [
+        {**sample_profile(), "workflow_code": "I5A", "query_profile_id": "QRY-I5A", "object_layers": {"core_positive_objects": ["甲"]}},
+        {**sample_profile(), "workflow_code": "I5B", "query_profile_id": "QRY-I5B"},
+    ]
+    profile_path.write_text("\n".join(json.dumps(row, ensure_ascii=False, sort_keys=True) for row in rows) + "\n", encoding="utf-8")
+    excerpt_path.write_text(json.dumps(sample_excerpt_report(), ensure_ascii=False), encoding="utf-8")
+
+    rc = tool.main(
+        [
+            "--profile",
+            str(profile_path),
+            "--workflow-code",
+            "I5B",
+            "--person",
+            "武则天",
+            "--excerpt-report",
+            str(excerpt_path),
+            "--output",
+            str(output_path),
+        ]
+    )
+
+    out = json.loads(capsys.readouterr().out)
+    payload = json.loads(output_path.read_text(encoding="utf-8"))
+    assert rc == 0
+    assert out["objects"] == 2
+    assert payload["query_profile_id"] == "QRY-I5B"
+    assert [obj["name"] for obj in payload["objects"]] == ["姚崇", "来俊臣"]

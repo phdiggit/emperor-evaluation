@@ -28,7 +28,20 @@ def test_supervisor_builds_independent_worker_and_refiner_commands(tmp_path: Pat
     specs = tool.build_child_specs(args)
 
     assert [spec.name for spec in specs] == ["source-pack-worker", "query-profile-refiner"]
-    assert specs[0].cmd == ["python3", str(tmp_path / "source-pack-worker.py")]
+    assert specs[0].cmd == [
+        "python3",
+        str(tmp_path / "source-pack-worker.py"),
+        "--profile",
+        str(tmp_path / "profiles.jsonl"),
+        "--source-pack-root",
+        str(tmp_path / "source-packs"),
+        "--jobs-dir",
+        str(tmp_path / "jobs"),
+        "--logs-dir",
+        str(tmp_path / "logs"),
+        "--workflow-code",
+        "I5B",
+    ]
     assert str(tmp_path / "i5b_query_profile_refiner_daemon.py") in specs[1].cmd
     assert "--workflow-code" in specs[1].cmd
     assert "I5B" in specs[1].cmd
@@ -67,6 +80,8 @@ def test_supervisor_can_add_pipeline_child_when_enabled(tmp_path: Path) -> None:
     assert [spec.name for spec in specs] == ["source-pack-worker", "query-profile-refiner", "source-pack-pipeline"]
     assert "--workflow-code" in specs[1].cmd
     assert "I5A" in specs[1].cmd
+    assert "--workflow-code" in specs[0].cmd
+    assert "I5A" in specs[0].cmd
     assert str(tmp_path / "i5b_source_pack_pipeline_daemon.py") in specs[2].cmd
     assert "--submit-refinements" in specs[2].cmd
     assert "--include-adjacent" in specs[2].cmd

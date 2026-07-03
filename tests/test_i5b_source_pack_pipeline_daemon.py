@@ -90,6 +90,8 @@ def test_pipeline_applies_refinement_to_derived_profile_and_submits_job(tmp_path
 
     assert report["submitted_jobs"] == 1
     assert report["workflow_code"] == "I5B"
+    assert report["control_summary"]["submitted_people"] == ["甲"]
+    assert report["control_summary"]["action_counts"] == {"submitted": 1}
     action = report["actions"][0]
     assert action["status"] == "submitted"
     assert action["kind"] == "refine"
@@ -115,6 +117,9 @@ def test_pipeline_does_not_resubmit_same_effective_patch(tmp_path: Path) -> None
 
     assert first["submitted_jobs"] == 1
     assert second["submitted_jobs"] == 0
+    assert second["actions"] == []
+    assert second["status_control_summary"]["queues"]["refinement_candidates"] == ["甲"]
+    assert second["refinement_totals"]["patch_suggestions"] == 0
     assert len(list((tmp_path / "jobs").glob("*.json"))) == 1
 
 

@@ -16,6 +16,8 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev import object_pool_importer as importer  # noqa: E402
 from scripts.dev import source_excerpt_pool as excerpts  # noqa: E402
+from scripts.dev.source_excerpt_pool_lib.common import DEFAULT_PROFILE, DEFAULT_WORKFLOW_CODE, load_source_excerpt_pool_paths, normalize_workflow_code  # noqa: E402
+from scripts.dev.source_excerpt_pool_lib.profile import load_profile  # noqa: E402
 
 
 def source_key_from_page_title(page_title: str) -> str:
@@ -211,7 +213,8 @@ def build_payload_skeleton(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Build a richer I5B object payload skeleton from a query profile and excerpt report.")
-    parser.add_argument("--profile", type=Path, default=excerpts.DEFAULT_PROFILE)
+    parser.add_argument("--profile", type=Path, default=None)
+    parser.add_argument("--workflow-code", default=DEFAULT_WORKFLOW_CODE)
     parser.add_argument("--person", required=True)
     parser.add_argument("--excerpt-report", type=Path)
     parser.add_argument("--include-adjacent", action="store_true")
@@ -222,7 +225,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    profile = excerpts.load_profile(args.profile, args.person)
+    workflow_code = normalize_workflow_code(args.workflow_code)
+    source_paths = load_source_excerpt_pool_paths(workflow_code=workflow_code)
+    profile_path = args.profile or source_paths.get("query_profile") or DEFAULT_PROFILE
+    profile = load_profile(profile_path, args.person, workflow_code=workflow_code)
     excerpt_report = _load_excerpt_report(args.excerpt_report)
     payload = build_payload_skeleton(profile, excerpt_report=excerpt_report, include_adjacent=args.include_adjacent)
     args.output.parent.mkdir(parents=True, exist_ok=True)

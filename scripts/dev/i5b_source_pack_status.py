@@ -26,6 +26,16 @@ from scripts.dev.source_excerpt_pool_lib.profile import ExcerptPoolError, profil
 
 DEFAULT_ALL_LIST = ROOT / "data" / "configs" / "lists" / "所有君主.yml"
 PLACEHOLDER_MARKER = "待识别"
+DEFAULT_CONTROL_BATCH_SIZE = 8
+
+CONTROL_QUEUE_STATUSES: dict[str, tuple[str, ...]] = {
+    "handoff_candidates": ("fetched_ok",),
+    "submit_candidates": ("prepared_not_submitted",),
+    "refinement_candidates": ("fetched_needs_profile_work",),
+    "seed_candidates": ("missing_query_profile", "profile_needs_work"),
+    "in_flight": ("fetch_queued", "fetch_running"),
+    "operator_attention": ("fetch_failed", "fetch_success_pack_missing", "pack_incomplete"),
+}
 
 
 @dataclass(frozen=True)
@@ -330,6 +340,32 @@ def _bucket(rows: Iterable[Mapping[str, Any]], key: str) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
+def _chunked(values: Sequence[str], size: int) -> list[list[str]]:
+    if size <= 0:
+        return [list(values)] if values else []
+    return [list(values[index : index + size]) for index in range(0, len(values), size)]
+
+
+def build_control_summary(rows: Sequence[Mapping[str, Any]], *, batch_size: int = DEFAULT_CONTROL_BATCH_SIZE) -> dict[str, Any]:
+    people_by_status: dict[str, list[str]] = {}
+    for row in rows:
+        person = str(row.get("person") or "").strip()
+        status = str(row.get("action_status") or "").strip()
+        if person and status:
+            people_by_status.setdefault(status, []).append(person)
+    queues: dict[str, list[str]] = {}
+    for queue_name, statuses in CONTROL_QUEUE_STATUSES.items():
+        people: list[str] = []
+        for status in statuses:
+            people.extend(people_by_status.get(status, []))
+        queues[queue_name] = list(dict.fromkeys(people))
+    return {
+        "batch_size": batch_size,
+        "queues": queues,
+        "suggested_batches": {name: _chunked(people, batch_size) for name, people in queues.items()},
+    }
+
+
 def build_status_report(
     *,
     persons: Sequence[str],
@@ -337,6 +373,7 @@ def build_status_report(
     jobs: Sequence[JobStatus],
     packs: Sequence[PackStatus],
     workflow_code: str = DEFAULT_WORKFLOW_CODE,
+    control_batch_size: int = DEFAULT_CONTROL_BATCH_SIZE,
 ) -> dict[str, Any]:
     workflow_code = normalize_workflow_code(workflow_code)
     profiles = {
@@ -405,6 +442,7 @@ def build_status_report(
             "by_job_status": _bucket(rows, "job_status"),
             "by_pack_status": _bucket(rows, "pack_status"),
         },
+        "control_summary": build_control_summary(rows, batch_size=control_batch_size),
         "rows": rows,
     }
 
@@ -441,6 +479,14 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     ):
         counts = totals.get(key) if isinstance(totals.get(key), Mapping) else {}
         lines.append(f"- {title}: " + "；".join(f"{name}={count}" for name, count in counts.items()))
+    control = report.get("control_summary") if isinstance(report.get("control_summary"), Mapping) else {}
+    queues = control.get("queues") if isinstance(control.get("queues"), Mapping) else {}
+    if queues:
+        lines.extend(["", "## 主控队列", ""])
+        for name in ("handoff_candidates", "submit_candidates", "refinement_candidates", "seed_candidates", "in_flight", "operator_attention"):
+            people = queues.get(name) if isinstance(queues.get(name), list) else []
+            people_text = "、".join(str(person) for person in people)
+            lines.append(f"- {name}: `{len(people)}`" + (f" ({people_text})" if people_text else ""))
     lines.extend(
         [
             "",
@@ -494,6 +540,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--source-pack-root", type=Path, default=None, help="Source-pack root directory.")
     parser.add_argument("--jobs-dir", type=Path, default=None, help="Source-pack worker jobs directory.")
     parser.add_argument("--logs-dir", type=Path, default=None, help="Source-pack worker logs directory.")
+    parser.add_argument("--batch-size", type=int, default=DEFAULT_CONTROL_BATCH_SIZE, help="Suggested people per control batch.")
     parser.add_argument("--format", choices=("json", "markdown"), default="markdown")
     parser.add_argument("--output", type=Path)
     return parser
@@ -502,6 +549,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.batch_size <= 0:
+        raise SystemExit("--batch-size must be > 0")
     workflow_code = normalize_workflow_code(args.workflow_code)
     source_paths = load_source_excerpt_pool_paths(workflow_code=workflow_code)
     profile_path = args.profile or source_paths.get("query_profile") or DEFAULT_PROFILE
@@ -514,6 +563,7 @@ def main(argv: list[str] | None = None) -> int:
         jobs=load_jobs(jobs_dir, logs_dir),
         packs=load_packs(source_pack_root),
         workflow_code=workflow_code,
+        control_batch_size=args.batch_size,
     )
     text = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n" if args.format == "json" else render_markdown(report)
     if args.output:

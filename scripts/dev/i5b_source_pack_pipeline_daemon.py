@@ -6,6 +6,7 @@ import json
 import re
 import sys
 import time
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -348,6 +349,31 @@ def _append_submission(state: dict[str, Any], submission: Mapping[str, Any]) -> 
         submissions.append(dict(submission))
 
 
+def summarize_actions(actions: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    action_counts: Counter[str] = Counter()
+    people_by_status: dict[str, list[str]] = {}
+    people_by_kind: dict[str, list[str]] = {}
+    for action in actions:
+        status = str(action.get("status") or "").strip()
+        kind = str(action.get("kind") or "").strip()
+        person = str(action.get("person") or "").strip()
+        if status:
+            action_counts[status] += 1
+        if person and status:
+            people_by_status.setdefault(status, []).append(person)
+        if person and kind:
+            people_by_kind.setdefault(kind, []).append(person)
+    return {
+        "action_counts": dict(sorted(action_counts.items())),
+        "people_by_status": {key: sorted(set(values)) for key, values in sorted(people_by_status.items())},
+        "people_by_kind": {key: sorted(set(values)) for key, values in sorted(people_by_kind.items())},
+        "submitted_people": sorted(set(people_by_status.get("submitted", []))),
+        "round_capped_people": sorted(set(people_by_status.get("skip_round_cap", []))),
+        "duplicate_people": sorted(set(people_by_status.get("skip_duplicate", []))),
+        "no_effect_people": sorted(set(people_by_status.get("skip_no_effect", []))),
+    }
+
+
 def run_once(args: argparse.Namespace) -> dict[str, Any]:
     workflow_code = normalize_workflow_code(getattr(args, "workflow_code", DEFAULT_WORKFLOW_CODE))
     source_paths = load_source_excerpt_pool_paths(workflow_code=workflow_code)
@@ -515,7 +541,9 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         "derived_profile_dir": str(derived_dir),
         "submitted_jobs": submitted_count,
         "status_totals": status_report.get("totals", {}),
+        "status_control_summary": status_report.get("control_summary", {}),
         "refinement_totals": refinement_report.get("totals", {}),
+        "control_summary": summarize_actions(actions),
         "actions": actions,
     }
     write_json(report_path, report)

@@ -99,7 +99,7 @@ worker 会把输出写入 workflow 配置里的 `source_pack_root/<output_name>/
 
 服务器服务入口保持一个：`emperor-source-pack-worker.service`。该服务由 `i5b_source_pack_runtime_supervisor.py` 拉起相互独立的采集层子进程：
 
-- 抓包 worker：只消费 `jobs/*.json` 并调用 `i5b_source_pack_fetcher.py`。
+- 抓包 worker：`i5b_source_pack_worker.py` 只消费 `jobs/*.json`，把 `workflow_code`、`source_scope` 和 job 选项透传给 `i5b_source_pack_fetcher.py`。
 - refiner daemon：只周期刷新状态台账和检索包补强候选报告，不消费 jobs、不联网、不调用抓包逻辑。
 - pipeline daemon：可选启用，读取状态台账和 refiner 候选，按 fingerprint 去重后写派生 query profile 并投递下一轮抓包 job；它不写回 canonical query profile。
 
@@ -221,6 +221,34 @@ python scripts/dev/i5b_source_pack_handoff.py `
 
 该工具会校验交接文件、状态语义、下一阶段队列和 source pack 审计；通过后，总控只收 `next_stage_queue.jsonl` 中 `ready=true` 的人物进入摘录池 / payload 骨架阶段。
 
+总控派工单：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_source_pack_control_board.py `
+  --workflow-code I5B `
+  --source-pack-agents 4 `
+  --next-stage-agents 1 `
+  --format markdown `
+  --output .tmp/source-packs/i5b_source_pack_control_board.md `
+  --fail-on-block
+```
+
+`control_board` 只读 handoff / status，生成 `ready_queue`、`source_pack_followup_queue`、`blocked_queue` 和建议子进程分片。`handoff_ready_release=true` 时，下一阶段子进程可消费 ready 队列；若 handoff 有 block，则 ready 队列仍显示给总控，但不会生成 next-stage 派工。抓包补强子进程只负责把分配人物推进到 ready 或 blocked，并更新本批次 handoff；总控只审 blocks、warnings 和下一阶段验收摘要。
+
+批量消费 ready 队列，生成摘录报告和对象 payload 骨架：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_next_stage_queue_runner.py `
+  --workflow-code I5B `
+  --format markdown `
+  --report .tmp/i5b-next-stage/i5b_next_stage_queue_report.md `
+  --fail-on-issue
+```
+
+该入口会先复用 handoff 全局验收，再读取各批次 `next_stage_queue.jsonl` 中 `ready=true` 的人物，从已审计 source pack 本地页文生成 `source_excerpt_pool.json` 和 `object_payload_skeleton.json`。它只写 `.tmp/**`，不写数据库、不导入对象池、不替代人工填写 `rule_code`、`direction`、史源说明或 `talent_quality` 等属性裁量。
+
 半成品检索包种子候选：
 
 ```powershell
@@ -327,6 +355,17 @@ python scripts/dev/object_pool_importer.py `
   --template-from-profile data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl `
   --person 朱祐樘 `
   --output .tmp/object-payloads/zhuyoutang_template.json
+```
+
+若已有 source pack 摘录报告，可生成带候选史源索引的 payload 骨架：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_payload_skeleton.py `
+  --workflow-code I5B `
+  --person 武则天 `
+  --excerpt-report .tmp/i5b-next-stage/i5b/person-xxxx/source_excerpt_pool.json `
+  --output .tmp/object-payloads/wuzetian_payload_skeleton.json
 ```
 
 导入前必须人工补完：
@@ -700,11 +739,11 @@ python scripts/dev/i5b_health_check.py `
 涉及本链路的常用 focused tests：
 
 ```powershell
-python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_status.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py tests/test_object_pool_importer.py -q
+python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_worker.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_control_board.py tests/test_i5b_next_stage_queue_runner.py tests/test_i5b_source_pack_status.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py tests/test_object_pool_importer.py -q
 python -m pytest tests/test_i5b_factor_recalculator.py tests/test_i5b_factor_consistency_audit.py tests/test_i5b_factor_table_sync.py tests/test_i5b_factor_options_schema.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
 python -m pytest tests/test_i5b_rule_evidence_unit_candidate_builder.py tests/test_i5b_rule_evidence_unit_db_sync.py tests/test_i5b_rule_evidence_unit_preview.py tests/test_i5b_rule_evidence_unit_issue_summary.py tests/test_i5b_fact_relation_candidate_sync.py tests/test_i5b_fact_relation_gap_summary.py tests/test_rule_evidence_units_schema.py -q
 python -m pytest tests/test_i5b_calc_breakdown.py tests/test_i5b_health_check.py tests/test_scripts_dev_i5b_registry.py -q
-python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_audit.py scripts/dev/i5b_source_pack_handoff.py scripts/dev/i5b_query_profile_refiner.py scripts/dev/i5b_query_profile_refiner_daemon.py scripts/dev/i5b_source_pack_runtime_supervisor.py scripts/dev/i5b_source_pack_pipeline_daemon.py scripts/dev/i5b_query_profile_seed_builder.py scripts/dev/object_pool_importer.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
+python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_worker.py scripts/dev/i5b_source_pack_audit.py scripts/dev/i5b_source_pack_handoff.py scripts/dev/i5b_source_pack_control_board.py scripts/dev/i5b_next_stage_queue_runner.py scripts/dev/i5b_query_profile_refiner.py scripts/dev/i5b_query_profile_refiner_daemon.py scripts/dev/i5b_source_pack_runtime_supervisor.py scripts/dev/i5b_source_pack_pipeline_daemon.py scripts/dev/i5b_query_profile_seed_builder.py scripts/dev/object_pool_importer.py scripts/dev/i5b_payload_skeleton.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
 ```
 
 涉及 `scripts/**` 或 `docs/**` 的 PR，还应按根目录和对应目录 `AGENTS.md` 运行适用的治理检查。

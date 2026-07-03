@@ -120,6 +120,10 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_payload_skeleton.py",
         "required_tests": ["tests/test_i5b_payload_skeleton.py"],
     },
+    "i5b_next_stage_queue_runner": {
+        "implementation": "scripts/dev/i5b_next_stage_queue_runner.py",
+        "required_tests": ["tests/test_i5b_next_stage_queue_runner.py"],
+    },
     "i5b_source_key_audit": {
         "implementation": "scripts/dev/i5b_source_key_audit.py",
         "required_tests": ["tests/test_i5b_source_key_audit.py"],
@@ -136,9 +140,17 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_source_pack_fetcher.py",
         "required_tests": ["tests/test_i5b_source_pack_fetcher.py"],
     },
+    "i5b_source_pack_worker": {
+        "implementation": "scripts/dev/i5b_source_pack_worker.py",
+        "required_tests": ["tests/test_i5b_source_pack_worker.py"],
+    },
     "i5b_source_pack_status": {
         "implementation": "scripts/dev/i5b_source_pack_status.py",
         "required_tests": ["tests/test_i5b_source_pack_status.py"],
+    },
+    "i5b_source_pack_control_board": {
+        "implementation": "scripts/dev/i5b_source_pack_control_board.py",
+        "required_tests": ["tests/test_i5b_source_pack_control_board.py"],
     },
     "i5b_query_profile_refiner": {
         "implementation": "scripts/dev/i5b_query_profile_refiner.py",

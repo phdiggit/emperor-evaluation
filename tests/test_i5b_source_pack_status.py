@@ -144,6 +144,25 @@ def test_build_source_pack_status_report_classifies_pipeline_states(tmp_path: Pa
     assert report["totals"]["jobs"] == 4
     assert report["totals"]["jobs_missing_workflow_code"] == 4
     assert report["totals"]["packs_missing_workflow_code"] == 0
+    control = report["control_summary"]
+    assert control["queues"]["handoff_candidates"] == ["完成"]
+    assert control["queues"]["submit_candidates"] == ["未投"]
+    assert control["queues"]["refinement_candidates"] == ["需完善"]
+    assert control["queues"]["seed_candidates"] == ["缺包", "半成品"]
+    assert control["queues"]["operator_attention"] == ["失败", "成功无包"]
+
+
+def test_status_control_summary_suggests_batches(tmp_path: Path) -> None:
+    report = tool.build_status_report(
+        persons=["甲", "乙", "丙"],
+        profiles={},
+        jobs=[],
+        packs=[],
+        control_batch_size=2,
+    )
+
+    assert report["control_summary"]["queues"]["seed_candidates"] == ["甲", "乙", "丙"]
+    assert report["control_summary"]["suggested_batches"]["seed_candidates"] == [["甲", "乙"], ["丙"]]
 
 
 def test_status_prefers_best_complete_pack_over_newer_worse_pack(tmp_path: Path) -> None:
@@ -228,6 +247,7 @@ def test_source_pack_status_cli_writes_markdown(tmp_path: Path) -> None:
     assert "- workflow_code: `I5B`" in text
     assert "- jobs_missing_workflow_code: `0`" in text
     assert "- packs_missing_workflow_code: `0`" in text
+    assert "## 主控队列" in text
     assert "成品但尚未投入" in text
     assert "检索包半成品" in text
 

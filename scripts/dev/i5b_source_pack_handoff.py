@@ -101,6 +101,17 @@ def _contract_name(workflow_code: str) -> str:
     return f"{workflow_slug(workflow_code)}_source_pack_handoff_v1"
 
 
+def _row_workflow_code(row: Mapping[str, Any]) -> str:
+    value = str(row.get("workflow_code") or "").strip()
+    return normalize_workflow_code(value) if value else ""
+
+
+def _same_resolved_path(left: Path | None, right: Path | None) -> bool:
+    if left is None or right is None:
+        return left is right
+    return left.resolve(strict=False) == right.resolve(strict=False)
+
+
 def init_handoff(
     *,
     handoff_root: Path,
@@ -159,7 +170,21 @@ def resolve_pack_path(value: Any, *, handoff_dir: Path, source_pack_root: Path |
     if not raw:
         return None
     path = Path(raw)
-    if path.is_absolute():
+    looks_absolute = path.is_absolute() or raw.startswith(("/", "\\"))
+    if looks_absolute:
+        if path.exists():
+            return path
+        if source_pack_root is not None:
+            candidates = [source_pack_root / path.name]
+            parts = path.parts
+            for marker in ("source-packs", "source_pack_root"):
+                if marker in parts:
+                    suffix = Path(*parts[parts.index(marker) + 1 :])
+                    if str(suffix) != ".":
+                        candidates.append(source_pack_root / suffix)
+            for candidate in candidates:
+                if candidate.exists():
+                    return candidate
         return path
     if source_pack_root is not None and (source_pack_root / path).exists():
         return source_pack_root / path
@@ -195,8 +220,19 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
         person = str(row.get("person") or "").strip()
         status = str(row.get("acceptance_status") or "").strip()
         usable = row.get("usable_for_object_pool")
+        row_workflow_code = _row_workflow_code(row)
         if person not in person_set:
             _issue(issues, "block", "unknown_person", "accepted_packs.person must be listed in manifest.persons", person=person)
+        if row_workflow_code and row_workflow_code != manifest_workflow_code:
+            _issue(
+                issues,
+                "block",
+                "accepted_pack_workflow_mismatch",
+                "accepted_packs.workflow_code must match manifest.workflow_code",
+                person=person,
+                value=row_workflow_code,
+                expected=manifest_workflow_code,
+            )
         if status not in ACCEPTANCE_STATUSES:
             _issue(issues, "block", "invalid_acceptance_status", "invalid acceptance_status", person=person, value=status)
         if not isinstance(usable, bool):
@@ -214,8 +250,19 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
     for row in gap_rows:
         person = str(row.get("person") or "").strip()
         decision = str(row.get("decision") or "").strip()
+        row_workflow_code = _row_workflow_code(row)
         if person not in person_set:
             _issue(issues, "block", "unknown_person", "unresolved_gaps.person must be listed in manifest.persons", person=person)
+        if row_workflow_code and row_workflow_code != manifest_workflow_code:
+            _issue(
+                issues,
+                "block",
+                "gap_workflow_mismatch",
+                "unresolved_gaps.workflow_code must match manifest.workflow_code",
+                person=person,
+                value=row_workflow_code,
+                expected=manifest_workflow_code,
+            )
         if decision in LEGACY_GAP_DECISION_ALIASES:
             _issue(
                 issues,
@@ -233,8 +280,19 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
     for row in patch_rows:
         person = str(row.get("person") or "").strip()
         status = str(row.get("patch_status") or "").strip()
+        row_workflow_code = _row_workflow_code(row)
         if person not in person_set:
             _issue(issues, "block", "unknown_person", "profile_patches.person must be listed in manifest.persons", person=person)
+        if row_workflow_code and row_workflow_code != manifest_workflow_code:
+            _issue(
+                issues,
+                "block",
+                "profile_patch_workflow_mismatch",
+                "profile_patches.workflow_code must match manifest.workflow_code",
+                person=person,
+                value=row_workflow_code,
+                expected=manifest_workflow_code,
+            )
         if status and status not in PATCH_STATUSES:
             _issue(issues, "block", "invalid_patch_status", "invalid patch_status", person=person, value=status)
 
@@ -243,13 +301,28 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
         person = str(row.get("person") or "").strip()
         stage = str(row.get("stage") or "").strip()
         ready = row.get("ready")
+        row_workflow_code = _row_workflow_code(row)
         if person not in person_set:
             _issue(issues, "block", "unknown_person", "next_stage_queue.person must be listed in manifest.persons", person=person)
+        if row_workflow_code and row_workflow_code != manifest_workflow_code:
+            _issue(
+                issues,
+                "block",
+                "next_stage_workflow_mismatch",
+                "next_stage_queue.workflow_code must match manifest.workflow_code",
+                person=person,
+                value=row_workflow_code,
+                expected=manifest_workflow_code,
+            )
         if stage not in NEXT_STAGE_VALUES:
             _issue(issues, "block", "invalid_next_stage", "invalid next stage", person=person, value=stage)
         if ready is not True:
             _issue(issues, "block", "next_stage_not_ready", "next_stage_queue rows must have ready=true", person=person)
         queue_by_person.setdefault(person, []).append(row)
+
+    for person, rows in queue_by_person.items():
+        if len(rows) > 1:
+            _issue(issues, "block", "duplicate_next_stage_queue", "each ready person may have only one next_stage_queue row", person=person)
 
     pack_audits: dict[str, dict[str, Any]] = {}
     ready_people: list[str] = []
@@ -285,6 +358,20 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
                 _issue(issues, "block", "ready_person_has_blocking_gaps", "ready person cannot have blocking gap decisions", person=person)
             if not queue_by_person.get(person):
                 _issue(issues, "block", "missing_next_stage_queue", "ready person must be present in next_stage_queue", person=person)
+            for queue_row in queue_by_person.get(person, []):
+                queue_pack_path = resolve_pack_path(queue_row.get("accepted_pack_path"), handoff_dir=handoff_dir, source_pack_root=source_pack_root)
+                if queue_pack_path is None:
+                    _issue(issues, "block", "missing_next_stage_pack_path", "next_stage_queue needs accepted_pack_path", person=person)
+                elif pack_path is not None and not _same_resolved_path(queue_pack_path, pack_path):
+                    _issue(
+                        issues,
+                        "block",
+                        "next_stage_pack_mismatch",
+                        "next_stage_queue.accepted_pack_path must match accepted_packs.accepted_pack_path",
+                        person=person,
+                        path=str(queue_pack_path),
+                        expected=str(pack_path),
+                    )
             ready_people.append(person)
         else:
             if usable is not False:
@@ -300,6 +387,39 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
     block_count = sum(1 for issue in issues if issue["severity"] == "block")
     warning_count = sum(1 for issue in issues if issue["severity"] == "warning")
     acceptance_counts = Counter(str(row.get("acceptance_status") or "") for row in accepted_rows)
+    issues_by_person: dict[str, list[dict[str, Any]]] = {}
+    for issue in issues:
+        person = str(issue.get("person") or "").strip()
+        if person:
+            issues_by_person.setdefault(person, []).append(issue)
+    person_statuses: list[dict[str, Any]] = []
+    for person in persons:
+        accepted = accepted_by_person.get(person, [{}])[0]
+        status = str(accepted.get("acceptance_status") or "").strip()
+        pack_path = resolve_pack_path(accepted.get("accepted_pack_path"), handoff_dir=handoff_dir, source_pack_root=source_pack_root)
+        queue_rows = queue_by_person.get(person, [])
+        queue_row = queue_rows[0] if queue_rows else {}
+        person_issues = issues_by_person.get(person, [])
+        person_statuses.append(
+            {
+                "person": person,
+                "workflow_code": manifest_workflow_code,
+                "acceptance_status": status,
+                "accepted_pack_path": str(accepted.get("accepted_pack_path") or ""),
+                "resolved_pack_path": str(pack_path) if pack_path is not None else "",
+                "usable_for_object_pool": accepted.get("usable_for_object_pool"),
+                "stage": str(queue_row.get("stage") or ""),
+                "ready": queue_row.get("ready") is True,
+                "query_profile_id": str(queue_row.get("query_profile_id") or accepted.get("query_profile_id") or ""),
+                "gap_count": len(gaps_by_person.get(person, [])),
+                "blocking_gap_count": sum(1 for gap in gaps_by_person.get(person, []) if str(gap.get("decision") or "") in BLOCKING_GAP_DECISIONS),
+                "profile_patch_count": len([row for row in patch_rows if str(row.get("person") or "").strip() == person]),
+                "issue_count": len(person_issues),
+                "block_count": sum(1 for issue in person_issues if issue["severity"] == "block"),
+                "warning_count": sum(1 for issue in person_issues if issue["severity"] == "warning"),
+                "ready_for_next_stage": status in READY_STATUSES and not any(issue["severity"] == "block" for issue in person_issues),
+            }
+        )
     return {
         "schema_version": SCHEMA_VERSION,
         "batch_id": manifest.get("batch_id") or handoff_dir.name,
@@ -312,6 +432,7 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
         "ready_people": sorted(set(ready_people)),
         "next_stage_count": len(queue_rows),
         "acceptance_counts": dict(sorted(acceptance_counts.items())),
+        "person_statuses": person_statuses,
         "pack_audits": pack_audits,
         "issues": issues,
     }
@@ -333,10 +454,52 @@ def build_report(
     workflow_code: str = DEFAULT_WORKFLOW_CODE,
 ) -> dict[str, Any]:
     workflow_code = normalize_workflow_code(workflow_code)
-    reports = [validate_handoff_dir(path, source_pack_root=source_pack_root, audit_packs=audit_packs) for path in discover_handoff_dirs(handoff_root)]
+    discovered_reports = [validate_handoff_dir(path, source_pack_root=source_pack_root, audit_packs=audit_packs) for path in discover_handoff_dirs(handoff_root)]
+    reports = [report for report in discovered_reports if normalize_workflow_code(report.get("workflow_code") or DEFAULT_WORKFLOW_CODE) == workflow_code]
+    skipped_workflow_batches = [
+        {"batch_id": report.get("batch_id"), "workflow_code": report.get("workflow_code"), "path": report.get("path")}
+        for report in discovered_reports
+        if normalize_workflow_code(report.get("workflow_code") or DEFAULT_WORKFLOW_CODE) != workflow_code
+    ]
     ready_people = sorted({person for report in reports for person in report.get("ready_people", [])})
-    total_blocks = sum(report["block_count"] for report in reports)
-    total_warnings = sum(report["warning_count"] for report in reports)
+    ready_queue: list[dict[str, Any]] = []
+    needs_more_profile_work: list[dict[str, Any]] = []
+    blocked_people: list[dict[str, Any]] = []
+    for report in reports:
+        batch_id = str(report.get("batch_id") or "")
+        batch_path = str(report.get("path") or "")
+        pack_audits = report.get("pack_audits") if isinstance(report.get("pack_audits"), Mapping) else {}
+        for person_status in report.get("person_statuses") or []:
+            if not isinstance(person_status, Mapping):
+                continue
+            entry = {
+                "person": person_status.get("person", ""),
+                "workflow_code": workflow_code,
+                "batch_id": batch_id,
+                "batch_path": batch_path,
+                "acceptance_status": person_status.get("acceptance_status", ""),
+                "accepted_pack_path": person_status.get("accepted_pack_path", ""),
+                "resolved_pack_path": person_status.get("resolved_pack_path", ""),
+                "stage": person_status.get("stage", ""),
+                "query_profile_id": person_status.get("query_profile_id", ""),
+                "gap_count": person_status.get("gap_count", 0),
+                "blocking_gap_count": person_status.get("blocking_gap_count", 0),
+                "profile_patch_count": person_status.get("profile_patch_count", 0),
+                "pack_audit": pack_audits.get(str(person_status.get("person") or ""), {}),
+            }
+            if person_status.get("ready_for_next_stage"):
+                ready_queue.append(entry)
+            if person_status.get("acceptance_status") == "needs_more_profile_work":
+                needs_more_profile_work.append(entry)
+            if person_status.get("acceptance_status") == "blocked" or int(person_status.get("block_count") or 0) > 0:
+                blocked_people.append(entry)
+    issues: list[dict[str, Any]] = []
+    ready_counter = Counter(str(row.get("person") or "") for row in ready_queue)
+    for person, count in sorted(ready_counter.items()):
+        if person and count > 1:
+            _issue(issues, "block", "duplicate_ready_person", "ready person appears in multiple handoff batches", person=person, count=count)
+    total_blocks = sum(report["block_count"] for report in reports) + sum(1 for issue in issues if issue["severity"] == "block")
+    total_warnings = sum(report["warning_count"] for report in reports) + sum(1 for issue in issues if issue["severity"] == "warning")
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at": iso_now(),
@@ -344,10 +507,16 @@ def build_report(
         "handoff_root": str(handoff_root),
         "ok": total_blocks == 0,
         "batch_count": len(reports),
+        "skipped_batch_count": len(skipped_workflow_batches),
         "ready_people": ready_people,
         "ready_people_count": len(ready_people),
+        "ready_queue": ready_queue,
+        "needs_more_profile_work": needs_more_profile_work,
+        "blocked_people": blocked_people,
         "block_count": total_blocks,
         "warning_count": total_warnings,
+        "issues": issues,
+        "skipped_workflow_batches": skipped_workflow_batches,
         "batches": reports,
     }
 
@@ -362,7 +531,10 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         f"- handoff_root: `{report.get('handoff_root') or ''}`",
         f"- ok: `{str(report.get('ok')).lower()}`",
         f"- batches: `{report.get('batch_count', 0)}`",
+        f"- skipped_batches: `{report.get('skipped_batch_count', 0)}`",
         f"- ready_people: `{report.get('ready_people_count', 0)}`",
+        f"- needs_more_profile_work: `{len(report.get('needs_more_profile_work') or [])}`",
+        f"- blocked_people: `{len(report.get('blocked_people') or [])}`",
         f"- blocks: `{report.get('block_count', 0)}`",
         f"- warnings: `{report.get('warning_count', 0)}`",
         "",
@@ -384,7 +556,30 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 statuses=statuses,
             )
         )
+    ready_queue = report.get("ready_queue") if isinstance(report.get("ready_queue"), list) else []
+    if ready_queue:
+        lines.extend(["", "## Ready Queue", "", "| person | batch | stage | pack | gaps |", "| --- | --- | --- | --- | ---: |"])
+        for row in ready_queue:
+            if not isinstance(row, Mapping):
+                continue
+            lines.append(
+                "| {person} | {batch} | {stage} | {pack} | {gaps} |".format(
+                    person=row.get("person", ""),
+                    batch=row.get("batch_id", ""),
+                    stage=row.get("stage", ""),
+                    pack=row.get("resolved_pack_path") or row.get("accepted_pack_path", ""),
+                    gaps=row.get("gap_count", 0),
+                )
+            )
+    needs = report.get("needs_more_profile_work") if isinstance(report.get("needs_more_profile_work"), list) else []
+    if needs:
+        lines.extend(["", "## Needs More Profile Work", "", "| person | batch | patches | gaps |", "| --- | --- | ---: | ---: |"])
+        for row in needs:
+            if isinstance(row, Mapping):
+                lines.append(f"| {row.get('person', '')} | {row.get('batch_id', '')} | {row.get('profile_patch_count', 0)} | {row.get('gap_count', 0)} |")
     issue_lines: list[str] = []
+    for issue in report.get("issues") or []:
+        issue_lines.append(f"- `global` {issue.get('severity')} {issue.get('code')}: {issue.get('message')} {issue.get('person', '')}".rstrip())
     for batch in report.get("batches") or []:
         for issue in batch.get("issues") or []:
             issue_lines.append(f"- `{batch.get('batch_id')}` {issue.get('severity')} {issue.get('code')}: {issue.get('message')} {issue.get('person', '')}".rstrip())

@@ -51,10 +51,10 @@ def write_pack(root: Path, name: str = "pack-a") -> Path:
     return pack
 
 
-def init_batch(tmp_path: Path, *, persons: list[str] | None = None, workflow_code: str = "I5B") -> Path:
+def init_batch(tmp_path: Path, *, persons: list[str] | None = None, workflow_code: str = "I5B", batch_id: str = "batch01") -> Path:
     return tool.init_handoff(
         handoff_root=tmp_path / "handoffs",
-        batch_id="batch01",
+        batch_id=batch_id,
         persons=persons or ["甲"],
         owner="codex-a",
         workflow_code=workflow_code,
@@ -96,7 +96,61 @@ def test_validate_handoff_accepts_ready_pack(tmp_path: Path) -> None:
     assert report["ok"] is True
     assert report["workflow_code"] == "I5B"
     assert report["ready_people"] == ["甲"]
+    assert report["ready_queue"][0]["person"] == "甲"
+    assert report["ready_queue"][0]["batch_id"] == "batch01"
+    assert report["ready_queue"][0]["stage"] == "source_excerpt_pool"
+    assert report["needs_more_profile_work"] == []
     assert report["batches"][0]["pack_audits"]["甲"]["ok"] is True
+
+
+def test_validate_handoff_maps_server_absolute_pack_path_to_local_root(tmp_path: Path) -> None:
+    pack_root = tmp_path / "source-packs"
+    write_pack(pack_root)
+    handoff = init_batch(tmp_path)
+    server_pack_path = "/data2/backups/code/emperor-evaluation/source-packs/pack-a"
+    write_jsonl(
+        handoff / "accepted_packs.jsonl",
+        [
+            {
+                "person": "甲",
+                "accepted_pack_path": server_pack_path,
+                "acceptance_status": "accepted",
+                "usable_for_object_pool": True,
+            }
+        ],
+    )
+    write_jsonl(handoff / "next_stage_queue.jsonl", [{"person": "甲", "accepted_pack_path": server_pack_path, "stage": "source_excerpt_pool", "ready": True}])
+
+    report = tool.build_report(tmp_path / "handoffs", source_pack_root=pack_root)
+
+    assert report["ok"] is True
+    assert report["ready_people"] == ["甲"]
+    assert report["batches"][0]["pack_audits"]["甲"]["pack_path"] == str(pack_root / "pack-a")
+
+
+def test_validate_handoff_blocks_next_stage_pack_mismatch_and_duplicate_queue(tmp_path: Path) -> None:
+    pack_root = tmp_path / "source-packs"
+    write_pack(pack_root, "pack-a")
+    write_pack(pack_root, "pack-b")
+    handoff = init_batch(tmp_path)
+    write_jsonl(
+        handoff / "accepted_packs.jsonl",
+        [{"person": "甲", "accepted_pack_path": "pack-a", "acceptance_status": "accepted", "usable_for_object_pool": True}],
+    )
+    write_jsonl(
+        handoff / "next_stage_queue.jsonl",
+        [
+            {"person": "甲", "accepted_pack_path": "pack-b", "stage": "source_excerpt_pool", "ready": True},
+            {"person": "甲", "accepted_pack_path": "pack-b", "stage": "source_excerpt_pool", "ready": True},
+        ],
+    )
+
+    report = tool.build_report(tmp_path / "handoffs", source_pack_root=pack_root)
+
+    assert report["ok"] is False
+    issue_codes = {issue["code"] for issue in report["batches"][0]["issues"]}
+    assert "duplicate_next_stage_queue" in issue_codes
+    assert "next_stage_pack_mismatch" in issue_codes
 
 
 def test_validate_handoff_blocks_missing_accepted_pack(tmp_path: Path) -> None:
@@ -193,3 +247,24 @@ def test_handoff_accepts_non_i5b_workflow_metadata(tmp_path: Path) -> None:
     assert report["workflow_code"] == "I5A"
     assert text.startswith("# I5A source pack handoff validation")
     assert "- workflow_code: `I5A`" in text
+
+
+def test_build_report_filters_batches_by_workflow_code_and_tracks_needs_work(tmp_path: Path) -> None:
+    i5b = init_batch(tmp_path, batch_id="i5b_batch")
+    write_jsonl(
+        i5b / "accepted_packs.jsonl",
+        [{"person": "甲", "accepted_pack_path": "", "acceptance_status": "needs_more_profile_work", "usable_for_object_pool": False}],
+    )
+    i5a = init_batch(tmp_path, workflow_code="I5A", batch_id="i5a_batch")
+    write_jsonl(
+        i5a / "accepted_packs.jsonl",
+        [{"person": "甲", "accepted_pack_path": "", "acceptance_status": "blocked", "usable_for_object_pool": False}],
+    )
+
+    report = tool.build_report(tmp_path / "handoffs", audit_packs=False, workflow_code="I5B")
+
+    assert report["batch_count"] == 1
+    assert report["skipped_batch_count"] == 1
+    assert report["batches"][0]["batch_id"] == "i5b_batch"
+    assert report["needs_more_profile_work"][0]["person"] == "甲"
+    assert report["needs_more_profile_work"][0]["batch_id"] == "i5b_batch"

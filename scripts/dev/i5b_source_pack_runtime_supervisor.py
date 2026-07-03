@@ -54,7 +54,23 @@ def build_child_specs(args: argparse.Namespace) -> list[ChildSpec]:
     if args.include_adjacent:
         refiner_cmd.append("--include-adjacent")
     specs = [
-        ChildSpec("source-pack-worker", [python, str(args.worker_script)]),
+        ChildSpec(
+            "source-pack-worker",
+            [
+                python,
+                str(args.worker_script),
+                "--profile",
+                str(args.profile),
+                "--source-pack-root",
+                str(args.source_pack_root),
+                "--jobs-dir",
+                str(args.jobs_dir),
+                "--logs-dir",
+                str(args.logs_dir),
+                "--workflow-code",
+                str(getattr(args, "workflow_code", DEFAULT_WORKFLOW_CODE)),
+            ],
+        ),
         ChildSpec("query-profile-refiner", refiner_cmd),
     ]
     pipeline_script = getattr(args, "pipeline_script", None)
