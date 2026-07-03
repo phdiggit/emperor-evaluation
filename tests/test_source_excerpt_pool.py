@@ -415,6 +415,52 @@ def test_build_excerpt_pool_uses_source_pack_without_network(tmp_path, monkeypat
     assert report["retry_events"] == []
 
 
+def test_build_excerpt_pool_uses_source_pack_excerpts_when_targets_are_broad(tmp_path, monkeypatch) -> None:
+    tool = load_tool()
+    pack = write_source_pack(tmp_path)
+    (pack / "excerpts.jsonl").write_text(
+        json.dumps(
+            {
+                "src_key": "SRC-JTS-109",
+                "object_name": "王孝杰",
+                "layer": "core_positive_objects",
+                "query": "武则天 王孝杰 任用",
+                "page_title": "旧唐书/卷109",
+                "page_url": "https://zh.wikisource.org/zh-hans/旧唐书/卷109",
+                "matched_term": "王孝杰",
+                "quote": "武则天命王孝杰为清边道行军总管。",
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    profile = {
+        **sample_profile(),
+        "person": "武则天",
+        "source_targets": ["宽泛唐代材料"],
+        "object_layers": {"core_positive_objects": ["王孝杰"]},
+        "query_bundles": ["武则天 王孝杰 任用"],
+    }
+
+    def fail_network(*args, **kwargs):
+        raise AssertionError("source-pack mode must not call Wikisource")
+
+    monkeypatch.setattr(tool.builder, "fetch_wikisource_plain_text", fail_network)
+    monkeypatch.setattr(tool.builder, "search_wikisource", fail_network)
+
+    report = tool.build_excerpt_pool(profile, source_pack=pack, cache_enabled=False)
+
+    assert report["status"] == "offline_source_pack"
+    assert report["progress"]["processed_direct_pages"] == 0
+    assert report["source_pack"]["excerpt_count"] == 1
+    assert len(report["excerpts"]) == 1
+    assert report["excerpts"][0]["source"] == "source_pack_excerpt"
+    assert report["excerpts"][0]["object_name"] == "王孝杰"
+    assert report["excerpts"][0]["passages"][0]["matched_term"] == "王孝杰"
+
+
 def test_fetch_json_retries_429_with_retry_after(monkeypatch) -> None:
     tool = load_tool()
     calls = []

@@ -24,6 +24,7 @@
 - `i5b_source_pack_pipeline_daemon.py` 是采集层流水线调度入口，读取状态台账和 refiner 候选，按 fingerprint 去重后写派生 query profile 并投递下一轮抓包 job；它不得写回 canonical query profile，不替代人工对象裁量。
 - `i5b_source_pack_handoff.py` 是批次 Codex 交接契约工具，用于初始化、校验和汇总 source pack 批次验收目录；它只检查交接契约和 source pack 审计，不替代人工回源裁量。
 - `i5b_next_stage_queue_runner.py` 是 source pack handoff 后的收货批处理入口，只消费已通过 `next_stage_queue.jsonl` 的 ready 人物，生成摘录报告和对象 payload 骨架到 `.tmp/**`；它不写数据库、不替代对象规则裁量。
+- `i5b_next_stage_control_board.py` 是 ready 包消费后的总控减负入口，聚合 next-stage 骨架、对象 payload 子进程候选、review 报告和占位符审计结果，生成缺交付派工单与可 dry-run payload 清单；它不写数据库、不替代对象规则裁量。对象 payload 子进程完成后，先用该板确认主控工作区已看到候选文件，再关闭子进程。
 - `i5b_query_profile_seed_builder.py` 是半成品检索包种子候选生成器，从本地已登记 search/source/evidence/anchor 行抽取同人对象候选；显式 `--source-discovery` 时可小规模 search/fetch Wikisource 页面全文来发现候选，但仍不直接升级 profile、不投抓包队列。
 - 摘录输出默认写 `.tmp/**`；不得直接覆盖正式 `data/**`。
 - 摘录池的“无命中”不是“无史料”；网络错误、目标页缺失、别字和过滤过严都应进入缺口复核。
@@ -33,6 +34,8 @@
 ## 对象导入工具
 
 - `object_pool_importer.py` 只导入已经回源并人工判断过的对象 payload。
+- `i5b_object_payload_audit.py` 是对象 payload 候选入库前的只读闸门，复用 importer 结构校验并拦截 `TODO` / `TODO_RULE_CODE` / `TODO_TALENT_QUALITY` / `TODO-SRC` 占位符；它不写数据库。
+- `i5b_object_payload_import_batch.py` 是控制板 ready payload 的批量导入器，读取 `i5b_next_stage_control_board.py` JSON 输出，跳过已有成功回执，只调用 `object_pool_importer.py` 导入新增 payload，并把成功导入写入 `tmp/**` 回执。跨 Codex 子进程的 live handoff 不要放在仓库 `.tmp/**`，pytest 会在 session 结束时清理该目录。
 - `--template-from-profile` 只生成待填写模板；模板中的史源、规则、方向和 note 必须人工补全。
 - 导入前先 dry-run；正式提交前必须校验不存在无史源 `raw_objs`。
 - payload 中每个对象至少有一条史料链接，并保持原始对象粒度。
@@ -58,6 +61,6 @@
 
 ## 测试
 
-- 修改 `source_excerpt_pool.py`、`source_excerpt_pool_lib/`、`i5b_source_pack_fetcher.py`、`i5b_source_pack_worker.py`、`i5b_source_pack_audit.py`、`i5b_source_pack_handoff.py`、`i5b_source_pack_control_board.py`、`i5b_next_stage_queue_runner.py`、`i5b_query_profile_refiner.py`、`i5b_query_profile_refiner_daemon.py`、`i5b_source_pack_runtime_supervisor.py`、`i5b_source_pack_pipeline_daemon.py` 或 `i5b_query_profile_seed_builder.py` 后运行 `python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_worker.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_control_board.py tests/test_i5b_next_stage_queue_runner.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py -q`。
-- 修改 `object_pool_importer.py` 后运行 `python -m pytest tests/test_object_pool_importer.py -q`。
+- 修改 `source_excerpt_pool.py`、`source_excerpt_pool_lib/`、`i5b_source_pack_fetcher.py`、`i5b_source_pack_worker.py`、`i5b_source_pack_audit.py`、`i5b_source_pack_handoff.py`、`i5b_source_pack_control_board.py`、`i5b_next_stage_queue_runner.py`、`i5b_next_stage_control_board.py`、`i5b_query_profile_refiner.py`、`i5b_query_profile_refiner_daemon.py`、`i5b_source_pack_runtime_supervisor.py`、`i5b_source_pack_pipeline_daemon.py` 或 `i5b_query_profile_seed_builder.py` 后运行 `python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_worker.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_control_board.py tests/test_i5b_next_stage_queue_runner.py tests/test_i5b_next_stage_control_board.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py -q`。
+- 修改 `object_pool_importer.py` 或 `i5b_object_payload_audit.py` 后运行 `python -m pytest tests/test_object_pool_importer.py tests/test_i5b_object_payload_audit.py -q`。
 - 修改证据簇、重算、计分细则表、规则承载影子层或健康检查工具后运行对应 focused tests：`tests/test_evidence_cluster_workbench.py`、`tests/test_i5b_factor_recalculator.py`、`tests/test_i5b_factor_consistency_audit.py`、`tests/test_i5b_factor_table_sync.py`、`tests/test_i5b_calc_breakdown.py`、`tests/test_i5b_item_result_calculator.py`、`tests/test_i5b_rule_evidence_unit_candidate_builder.py`、`tests/test_i5b_rule_evidence_unit_db_sync.py`、`tests/test_i5b_rule_evidence_unit_preview.py`、`tests/test_i5b_rule_evidence_unit_issue_summary.py`、`tests/test_i5b_fact_relation_candidate_sync.py`、`tests/test_i5b_fact_relation_gap_summary.py`、`tests/test_i5b_health_check.py`。

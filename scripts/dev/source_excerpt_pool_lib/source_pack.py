@@ -40,6 +40,18 @@ class SourcePackDocument:
     text: str
 
 
+@dataclass(frozen=True)
+class SourcePackExcerpt:
+    object_name: str
+    layer: str
+    query: str
+    page_title: str
+    page_url: str
+    matched_term: str
+    text: str
+    src_key: str
+
+
 class SourcePackPageCache:
     enabled = True
     refresh = False
@@ -202,6 +214,41 @@ def load_source_pack_documents(pack_dir: Path) -> list[SourcePackDocument]:
     return docs
 
 
+def load_source_pack_excerpts(pack_dir: Path) -> list[SourcePackExcerpt]:
+    pack_dir = pack_dir.resolve()
+    if not (pack_dir / SOURCE_PACK_EXCERPTS).exists():
+        return []
+    docs_by_key = {
+        row.get("src_key"): row
+        for row in read_jsonl(pack_dir / SOURCE_PACK_DOCS)
+        if isinstance(row.get("src_key"), str) and row.get("src_key")
+    }
+    excerpts: list[SourcePackExcerpt] = []
+    for row in read_jsonl(pack_dir / SOURCE_PACK_EXCERPTS):
+        object_name = str(row.get("object_name") or "").strip()
+        text = str(row.get("quote") or row.get("text") or "").strip()
+        src_key = str(row.get("src_key") or "").strip()
+        if not object_name or not text:
+            continue
+        src_doc = docs_by_key.get(src_key, {})
+        page_title = str(row.get("page_title") or page_title_from_doc(src_doc) or "").strip()
+        if not page_title:
+            continue
+        excerpts.append(
+            SourcePackExcerpt(
+                object_name=object_name,
+                layer=str(row.get("layer") or "").strip(),
+                query=str(row.get("query") or "").strip(),
+                page_title=page_title,
+                page_url=str(row.get("page_url") or src_doc.get("url") or "").strip(),
+                matched_term=str(row.get("matched_term") or object_name).strip(),
+                text=compact_text(text),
+                src_key=src_key,
+            )
+        )
+    return excerpts
+
+
 def audit_source_pack(pack_dir: Path) -> dict[str, Any]:
     pack_dir = pack_dir.resolve()
     issues: list[SourcePackIssue] = []
@@ -322,6 +369,7 @@ def load_source_pack_page_cache(pack_dir: Path) -> tuple[SourcePackPageCache, di
         "pack_path": report["pack_path"],
         "pack_id": report["pack_id"],
         "doc_count": report["doc_count"],
+        "excerpt_count": report["excerpt_count"],
         "page_count": len({doc.page_title for doc in docs}),
         "warning_count": report["warning_count"],
     }

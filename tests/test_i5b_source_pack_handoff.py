@@ -233,6 +233,62 @@ def test_validate_handoff_warns_for_legacy_i5b_gap_decision(tmp_path: Path) -> N
     assert any(issue["code"] == "legacy_gap_decision" for issue in report["batches"][0]["issues"])
 
 
+def test_validate_handoff_accepts_pipeline_profile_patch_statuses_and_summary_row(tmp_path: Path) -> None:
+    handoff = init_batch(tmp_path, persons=["甲", "乙"])
+    write_jsonl(
+        handoff / "accepted_packs.jsonl",
+        [
+            {"person": "甲", "accepted_pack_path": "", "acceptance_status": "needs_more_profile_work", "usable_for_object_pool": False},
+            {"person": "乙", "accepted_pack_path": "", "acceptance_status": "needs_more_profile_work", "usable_for_object_pool": False},
+        ],
+    )
+    write_jsonl(
+        handoff / "profile_patches.jsonl",
+        [
+            {
+                "person": "甲",
+                "patch_status": "manual_direct_targets_applied_and_job_submitted",
+                "job_path": "/data2/jobs/job-a.json",
+            },
+            {
+                "person": "乙",
+                "patch_status": "canonical_page_title_variants_added",
+                "derived_profile_path": "/data2/handoffs/profile-b.jsonl",
+            },
+            {
+                "person": "乙",
+                "patch_status": "canonical_retry_job_submitted",
+                "job_path": "/data2/jobs/job-b.json",
+            },
+            {
+                "person": "乙",
+                "patch_status": "url_retry_job_submitted",
+                "job_path": "/data2/jobs/job-c.json",
+            },
+            {
+                "patch_status": "final_source_pack_profile_work_summary",
+                "ready_candidates": ["甲", "乙"],
+            },
+        ],
+    )
+
+    report = tool.build_report(tmp_path / "handoffs", audit_packs=False)
+
+    assert report["ok"] is True
+    assert not any(issue["code"] == "invalid_patch_status" for issue in report["batches"][0]["issues"])
+    assert not any(issue["code"] == "unknown_person" for issue in report["batches"][0]["issues"])
+
+
+def test_validate_handoff_still_blocks_unknown_profile_patch_status(tmp_path: Path) -> None:
+    handoff = init_batch(tmp_path)
+    write_jsonl(handoff / "profile_patches.jsonl", [{"person": "甲", "patch_status": "surprise_status"}])
+
+    report = tool.build_report(tmp_path / "handoffs", audit_packs=False)
+
+    assert report["ok"] is False
+    assert any(issue["code"] == "invalid_patch_status" for issue in report["batches"][0]["issues"])
+
+
 def test_handoff_accepts_non_i5b_workflow_metadata(tmp_path: Path) -> None:
     handoff = init_batch(tmp_path, workflow_code="I5A")
 

@@ -26,7 +26,7 @@ from .profile import (
     limit_search_plans,
     source_title_filters,
 )
-from .source_pack import load_source_pack_page_cache
+from .source_pack import load_source_pack_excerpts, load_source_pack_page_cache
 from .wikisource import fetch_wikisource_plain_text, search_wikisource, wikisource_page_url
 
 
@@ -59,6 +59,52 @@ def extract_passages(
             if len(passages) >= max_passages:
                 return passages
     return passages
+
+
+def source_pack_excerpt_items(
+    pack_excerpts: Iterable[Any],
+    profile: dict[str, Any],
+    *,
+    include_adjacent: bool,
+    max_passages_per_page: int,
+) -> list[dict[str, Any]]:
+    candidates = {
+        candidate.raw_name: candidate.layer
+        for candidate in iter_candidate_objects(profile, include_adjacent=include_adjacent)
+    }
+    grouped: dict[tuple[str, str], dict[str, Any]] = {}
+    for excerpt in pack_excerpts:
+        object_name = str(getattr(excerpt, "object_name", "") or "").strip()
+        if object_name not in candidates:
+            continue
+        page_title = str(getattr(excerpt, "page_title", "") or "").strip()
+        text = str(getattr(excerpt, "text", "") or "").strip()
+        if not page_title or not text:
+            continue
+        key = (object_name, page_title)
+        item = grouped.setdefault(
+            key,
+            {
+                "object_name": object_name,
+                "layer": str(getattr(excerpt, "layer", "") or candidates[object_name]),
+                "query": str(getattr(excerpt, "query", "") or f"source_pack_excerpt:{page_title}"),
+                "page_title": page_title,
+                "page_url": str(getattr(excerpt, "page_url", "") or ""),
+                "search_snippet": "",
+                "passages": [],
+                "source": "source_pack_excerpt",
+                "source_target": "source_pack_excerpts",
+            },
+        )
+        if len(item["passages"]) >= max_passages_per_page:
+            continue
+        passage = {
+            "matched_term": str(getattr(excerpt, "matched_term", "") or object_name),
+            "text": text,
+        }
+        if passage not in item["passages"]:
+            item["passages"].append(passage)
+    return list(grouped.values())
 
 
 def build_excerpt_pool(
@@ -102,10 +148,12 @@ def build_excerpt_pool(
         raise ExcerptPoolError("max_consecutive_errors must be > 0")
     cache_config = load_source_excerpt_cache_config()
     source_pack_cache = None
+    source_pack_excerpts: list[Any] = []
     source_pack_report: dict[str, Any] = {"enabled": False}
     effective_offline = offline or source_pack is not None
     if source_pack is not None:
         source_pack_cache, source_pack_report = load_source_pack_page_cache(source_pack)
+        source_pack_excerpts = load_source_pack_excerpts(source_pack)
     api_cache, page_text_cache, cache_store, cache_report_config = make_cache_backends(
         cache_config=cache_config,
         cache_dir=cache_dir,
@@ -247,6 +295,15 @@ def build_excerpt_pool(
     stop_before_search = False
     direct_hit_objects: set[str] = set()
     try:
+        source_pack_excerpt_direct_hits = {
+            str(item.get("object_name") or "")
+            for item in source_pack_excerpt_items(
+                source_pack_excerpts,
+                profile,
+                include_adjacent=include_adjacent,
+                max_passages_per_page=max_passages_per_page,
+            )
+        }
         for plan_index, direct_plan in enumerate(direct_page_plans):
             if budget_exceeded():
                 report["status"] = "partial"
@@ -328,19 +385,39 @@ def build_excerpt_pool(
                     "source_target": direct_plan.source_target,
                 }
             )
+        if source_pack_excerpts:
+            existing = {
+                (
+                    str(item.get("object_name") or ""),
+                    str(item.get("page_title") or ""),
+                    str(item.get("source") or ""),
+                )
+                for item in excerpts
+            }
+            for item in source_pack_excerpt_items(
+                source_pack_excerpts,
+                profile,
+                include_adjacent=include_adjacent,
+                max_passages_per_page=max_passages_per_page,
+            ):
+                key = (str(item.get("object_name") or ""), str(item.get("page_title") or ""), str(item.get("source") or ""))
+                if key in existing:
+                    continue
+                existing.add(key)
+                excerpts.append(item)
         if stop_before_search:
             plans = []
         if effective_offline:
             skip_remaining(0, reason="source_pack_offline" if source_pack is not None else "offline", mark_partial=False)
             plans = []
         for plan_index, plan in enumerate(plans):
-            if plan.object_name in direct_hit_objects:
+            if plan.object_name in direct_hit_objects or plan.object_name in source_pack_excerpt_direct_hits:
                 report["skipped_search_plans"].append(
                     {
                         "object_name": plan.object_name,
                         "layer": plan.layer,
                         "query": plan.query,
-                        "reason": "direct_page_hit",
+                        "reason": "source_pack_excerpt_hit" if plan.object_name in source_pack_excerpt_direct_hits else "direct_page_hit",
                     }
                 )
                 continue

@@ -120,6 +120,18 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_payload_skeleton.py",
         "required_tests": ["tests/test_i5b_payload_skeleton.py"],
     },
+    "i5b_object_payload_audit": {
+        "implementation": "scripts/dev/i5b_object_payload_audit.py",
+        "required_tests": ["tests/test_i5b_object_payload_audit.py"],
+    },
+    "i5b_object_payload_import_batch": {
+        "implementation": "scripts/dev/i5b_object_payload_import_batch.py",
+        "required_tests": ["tests/test_i5b_object_payload_import_batch.py"],
+    },
+    "i5b_next_stage_control_board": {
+        "implementation": "scripts/dev/i5b_next_stage_control_board.py",
+        "required_tests": ["tests/test_i5b_next_stage_control_board.py"],
+    },
     "i5b_next_stage_queue_runner": {
         "implementation": "scripts/dev/i5b_next_stage_queue_runner.py",
         "required_tests": ["tests/test_i5b_next_stage_queue_runner.py"],

@@ -33,7 +33,18 @@ REQUIRED_FILES = (
 )
 ACCEPTANCE_STATUSES = {"accepted", "accepted_with_known_gaps", "needs_more_profile_work", "blocked"}
 READY_STATUSES = {"accepted", "accepted_with_known_gaps"}
-PATCH_STATUSES = {"applied", "proposed", "not_needed", "rejected"}
+PATCH_STATUSES = {
+    "applied",
+    "canonical_page_title_variants_added",
+    "canonical_retry_job_submitted",
+    "final_source_pack_profile_work_summary",
+    "manual_direct_targets_applied_and_job_submitted",
+    "not_needed",
+    "proposed",
+    "rejected",
+    "url_retry_job_submitted",
+}
+SUMMARY_PATCH_STATUSES = {"final_source_pack_profile_work_summary"}
 GAP_DECISIONS = {"known_non_blocking", "out_of_source_scope", "defer", "needs_profile_patch", "needs_manual_source", "blocked"}
 LEGACY_GAP_DECISION_ALIASES = {"not_i5b_main": "out_of_source_scope"}
 BLOCKING_GAP_DECISIONS = {"needs_profile_patch", "needs_manual_source", "blocked"}
@@ -281,7 +292,8 @@ def validate_handoff_dir(handoff_dir: Path, *, source_pack_root: Path | None = N
         person = str(row.get("person") or "").strip()
         status = str(row.get("patch_status") or "").strip()
         row_workflow_code = _row_workflow_code(row)
-        if person not in person_set:
+        summary_row = not person and status in SUMMARY_PATCH_STATUSES
+        if not summary_row and person not in person_set:
             _issue(issues, "block", "unknown_person", "profile_patches.person must be listed in manifest.persons", person=person)
         if row_workflow_code and row_workflow_code != manifest_workflow_code:
             _issue(
