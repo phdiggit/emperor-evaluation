@@ -24,6 +24,11 @@ def test_require_choice_rejects_unknown_rule_and_attr_values() -> None:
         values.require_choice("free_text_level", choices=values.OBJECT_ATTR_CODES, field_name="attr_code")
 
 
+def test_object_alias_finite_values_are_registered() -> None:
+    assert values.require_choice("temple_name", choices=values.OBJECT_ALIAS_KINDS, field_name="alias_kind") == "temple_name"
+    assert values.require_choice("emperor", choices=values.OBJECT_ALIAS_SCOPES, field_name="scope") == "emperor"
+
+
 def test_direction_sets_separate_source_links_from_cluster_signals() -> None:
     assert "neutral" in values.ALLOWED_DIRECTIONS
     assert "neutral" not in values.CLUSTER_DIRECTIONS

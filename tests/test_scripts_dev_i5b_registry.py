@@ -60,6 +60,10 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/object_pool_importer.py",
         "required_tests": ["tests/test_object_pool_importer.py"],
     },
+    "object_pool_aliases": {
+        "implementation": "scripts/dev/object_pool_aliases.py",
+        "required_tests": ["tests/test_object_pool_importer.py"],
+    },
     "evidence_cluster_workbench": {
         "implementation": "scripts/dev/evidence_cluster_workbench.py",
         "required_tests": ["tests/test_evidence_cluster_workbench.py"],

@@ -7,6 +7,8 @@ from pathlib import Path
 
 import pytest
 
+from scripts.dev import object_pool_aliases as aliases
+
 
 ROOT = Path(__file__).resolve().parents[1]
 IMPORTER_PATH = ROOT / "scripts" / "dev" / "object_pool_importer.py"
@@ -71,6 +73,40 @@ def test_parse_payload_accepts_valid_payload() -> None:
     assert payload.emperor.name == "刘秀"
     assert payload.objects[0].name == "邓禹"
     assert payload.objects[0].links[0].rule_code == "talent_discovery"
+
+
+def test_parse_payload_accepts_object_aliases() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["aliases"] = [
+        "仲华",
+        {
+            "alias": "高密侯",
+            "alias_kind": "title",
+            "scope": "emperor",
+            "confidence": 0.9,
+            "note": "封爵称谓，仅在当前皇帝对象链内使用。",
+        },
+    ]
+
+    payload = importer.parse_payload(raw)
+
+    aliases = payload.objects[0].aliases
+    assert aliases[0].alias_text == "仲华"
+    assert aliases[0].alias_kind == "alias"
+    assert aliases[0].scope == "global"
+    assert aliases[1].alias_text == "高密侯"
+    assert aliases[1].alias_kind == "title"
+    assert aliases[1].scope == "emperor"
+
+
+def test_parse_payload_rejects_duplicate_object_aliases() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["aliases"] = ["仲 华", "仲华"]
+
+    with pytest.raises(importer.ImportErrorWithContext, match="duplicate alias"):
+        importer.parse_payload(raw)
 
 
 def test_parse_payload_normalizes_english_period_aliases() -> None:
@@ -578,3 +614,85 @@ def test_insert_object_attr_uses_source_and_object_link() -> None:
         "source note",
         "邓禹",
     )
+
+
+def test_resolve_or_upsert_object_reuses_existing_alias_without_raw_object_insert() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["name"] = "太宗"
+    raw["objects"][0]["period"] = "唐"
+    raw["objects"][0]["aliases"] = [{"alias": "李世民", "alias_kind": "personal_name"}]
+    obj = importer.parse_payload(raw).objects[0]
+
+    class AliasCursor:
+        def __init__(self) -> None:
+            self.next_one = None
+            self.next_many = []
+            self.raw_object_inserted = False
+            self.inserted_aliases: list[tuple[object, ...]] = []
+
+        def execute(self, sql, params=()):
+            if "select distinct a.obj_id" in sql:
+                self.next_many = [(11, "李世民", "李世民")]
+                self.next_one = None
+            elif "insert into raw_objs" in sql:
+                self.raw_object_inserted = True
+                self.next_one = (999,)
+            elif "select id, obj_id, alias_kind" in sql:
+                self.next_many = []
+                self.next_one = (301, 11, "canonical") if params[0] == "李世民" else None
+            elif "update raw_obj_aliases" in sql:
+                self.next_many = []
+                self.next_one = (params[-1],)
+            elif "insert into raw_obj_aliases" in sql:
+                self.next_many = []
+                self.inserted_aliases.append(params)
+                self.next_one = (302,)
+            else:
+                self.next_many = []
+                self.next_one = None
+
+        def fetchone(self):
+            return self.next_one
+
+        def fetchall(self):
+            return self.next_many
+
+    cur = AliasCursor()
+    result = aliases.resolve_or_upsert_object(cur, obj, emp_id=618)
+
+    assert result["obj_id"] == 11
+    assert result["canonical_name"] == "李世民"
+    assert result["resolved_by_alias"] is True
+    assert not cur.raw_object_inserted
+    assert any(params[1] == "太宗" for params in cur.inserted_aliases)
+
+
+def test_resolve_object_alias_rejects_ambiguous_matches() -> None:
+    importer = load_importer()
+    obj = importer.parse_payload(valid_payload()).objects[0]
+
+    class AmbiguousCursor:
+        def execute(self, sql, params=()):
+            self.rows = [(11, "邓禹", "仲华"), (12, "邓禹别录", "仲华")]
+
+        def fetchall(self):
+            return self.rows
+
+    with pytest.raises(aliases.ObjectAliasError, match="ambiguous object alias"):
+        aliases.resolve_object_alias(AmbiguousCursor(), obj, emp_id=2)
+
+
+def test_upsert_object_alias_rejects_conflicting_active_alias() -> None:
+    importer = load_importer()
+
+    class ConflictCursor:
+        def execute(self, sql, params=()):
+            self.next_one = (88, 12, "alias") if "select id, obj_id, alias_kind" in sql else None
+
+        def fetchone(self):
+            return self.next_one
+
+    alias = aliases.ObjectAliasRow("秦王", "title", "emperor", 0.95, "李渊对象链内称谓。")
+    with pytest.raises(aliases.ObjectAliasError, match="object alias conflict"):
+        aliases.upsert_object_alias(ConflictCursor(), obj_id=11, period="唐", emp_id=1, alias=alias)

@@ -34,6 +34,7 @@ data/query_profile_batches/*.jsonl
 - `emps`：皇帝主表。
 - `src_docs`：史源文献粒度。
 - `raw_objs`：原始对象粒度，不预合并、不提前评分。
+- `raw_obj_aliases`：对象身份别名；一条别名一行，用于导入时把称谓、庙号、字号、官爵等归并到 canonical `raw_objs`，并审计别名冲突。
 - `emp_objs`：皇帝-对象关系，同一原始对象可绑定不同皇帝。
 - `obj_srcs`：对象-史源-规则链，必须同时写 `obj_id` 和 `emp_obj_id`。
 - `obj_attrs`：对象属性；`talent_quality` 必须有 `doc_id`，属性史源最好也出现在该对象 `obj_srcs`。
@@ -59,8 +60,9 @@ data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl
 - 一人一行 JSON object。
 - 新增校准人物必须追加到同一批次文件，不能只留在 `.tmp`、日志或对话记忆里。
 - `core_positive_objects`、`supplemental_objects`、`negative_or_reversal_objects` 默认都进入待回源队列。
+- `candidate_inventory` 是抓包前候选对象发现层；可由 source discovery、seed builder 或人工补丁写入，抓包时会和 `object_layers` 一起生成搜索计划。它用于补齐“本来应进入检索范围的人物/事件”，不是抓包后的验收阀门。
 - `adjacent_split_objects` 用于切分提示，默认不直接入分。
-- 阶段化或事件化对象可用 `object_search_aliases` 补检索词；别名只影响检索，不改变对象身份。
+- 阶段化或事件化对象可用 `object_search_aliases` 补检索词；该字段只影响检索，不改变对象身份。需要对象池归并的称谓、庙号、字号、官爵等身份别名，应写入 payload 的 `objects[*].aliases`。
 - 检索包不是证据，不能凭检索包内容写分、写档位或生成证据簇。
 
 离线检查某个人的对象和查询计划：
@@ -129,7 +131,7 @@ python scripts/dev/i5b_source_pack_status.py `
 - 检索包半成品：仍含“待识别对象”或批量补齐占位对象。
 - 成品但尚未投入：已有具体对象 profile，但没有 job 或 source pack。
 - 检索任务排队 / 运行 / 失败：按 jobs 与 logs 状态判断。
-- 抓包成功但需完善检索包：`fetch_report.json` 已 complete，但仍有 `objects_without_page_hits`、`objects_without_excerpts` 或抓页错误。
+- 抓包成功但需完善检索包：`fetch_report.json` 已 complete，但仍有 `objects_without_page_hits`、`objects_without_excerpts` 或抓页错误。若 `object_coverage.objects_with_unsearched_aliases` 非空，表示对象仍有别名兜底查询未执行，不能按“无可用史料”跳过；只有进入 `objects_with_exhausted_alias_searches` 后，才表示声明别名已检索完但仍无页面命中。
 - 抓包成功且暂无明显缺口：已 complete，且没有上述对象覆盖缺口。
 
 检索包补强候选：
@@ -144,7 +146,7 @@ python scripts/dev/i5b_query_profile_refiner.py `
 
 该脚本只读 query profile、状态台账和 source pack 覆盖缺口，生成待审 patch 候选，包括：
 
-- 对 `objects_without_page_hits` 自动建议对象别名和追加查询束。
+- 对 `objects_without_page_hits` 自动建议对象别名和追加查询束；若已有 `object_search_aliases` 但出现在 `objects_with_unsearched_aliases`，应优先补跑被 cap、超时或连续错误跳过的别名查询。
 - 对 `objects_without_excerpts` 自动建议更宽的匹配查询，并从 `src_docs.jsonl` 反推可复用的 direct page `source_targets`。
 - 默认跳过 `adjacent_split_objects`，避免把相邻项切分线索膨胀成主检索补强；确需补相邻项边界时显式加 `--include-adjacent`。
 - 对半成品 profile 只标记为需要先补具体对象，不自动伪造对象或史源。
@@ -388,6 +390,7 @@ python scripts/dev/source_excerpt_pool.py `
 - 检索包内对象应逐个查，不能因为自动工具无命中就跳过。
 - 相邻项材料可以保留为切分线索，但不能抽象扣分或抽象加分。
 - 若采集层使用 Wikisource 在线召回，默认启用请求间隔和 429/5xx 重试；大批量跑时优先提高 `--request-delay`、`--max-retries`、`--retry-backoff`，不要减少检索包对象覆盖。
+- 常驻 worker 默认向 fetcher 传入 `--candidate-discovery`：抓包前先从本纪、列传和编年页文抽取候选对象，临时合并到 `candidate_inventory` 后再生成搜索计划。若需要本地调试最小联网范围，可直接调用 fetcher 且不传该选项。
 - 输出中的 `source_pack` 记录本地包摘要；`throttle` 和 `retry_events` 只反映在线采集或非 source-pack 模式。
 
 ## 3. 对象池导入
@@ -417,6 +420,7 @@ python scripts/dev/i5b_payload_skeleton.py `
 
 - `sources[*]`：史源信息。
 - `objects[*].note`：只写对象身份或事件事实，不写规则、方向、评分。
+- `objects[*].aliases`：可选身份别名；简单别名可写字符串，需限定类型或作用域时写对象，例如 `{"alias": "秦王", "alias_kind": "title", "scope": "emperor", "confidence": 0.95, "note": "李渊对象链内称谓"}`。`scope=global` 表示同朝代全局唯一，`scope=emperor` 表示仅在当前皇帝对象链内解析。
 - `objects[*].links[*]`：史源与 `rule_code`、`direction` 的关系。
 - `objects[*].attrs[*]`：只写可回源属性；`talent_quality` 必须有 `doc_id`。人才层级未复核时，先补 `career_track`、`hard_merit_tags`、`hard_merit_summary`、`hard_merit_scope_hint`、`hard_merit_limitations` 等硬通货属性，并补 `authority_eval_summary`、`authority_eval_sources`、`talent_quality_basis` 等权威评价依据；复合人物可补 `talent_profile_note` 记录“才具强但负面边界明显”的解释性画像。不得用名望或材料密度直接生成 `talent_quality`。
 
@@ -431,6 +435,8 @@ Remove-Item Env:\I5B_OBJECT_POOL_IMPORT_UNFREEZE
 ```
 
 对象池正式写入默认冻结，以免候选 payload 批量覆盖已复核属性。只有完成属性等级复核、dry-run 和控制板验收后，才在当前命令作用域显式设置 `I5B_OBJECT_POOL_IMPORT_UNFREEZE=1`。
+
+导入器会幂等创建 `raw_obj_aliases`，先按 `objects[*].name` 与 `objects[*].aliases` 解析已有对象，再决定是否插入新的 `raw_objs`。同一朝代、同一作用域下，一个 active 别名只能指向一个对象；若命中多个对象或别名已指向其他对象，导入必须失败并交人工复核，不能静默合并。
 
 硬通货属性采集可以并行交给 Codex 子进程，但子进程只产出待审 JSONL / review，不直接写库、不直接改 `talent_quality`。主控验收时检查每条摘要是否绑定史源、是否只写具体战功或文职成果、是否把争议和失败反转写入 `hard_merit_limitations`。
 
@@ -508,6 +514,7 @@ Remove-Item Env:\I5B_OBJECT_POOL_IMPORT_UNFREEZE
 硬规则：
 
 - `raw_objs` 必须保持原始粒度，不能加工合并。
+- `raw_obj_aliases` 只做身份解析和去重，不承载计分事实；模糊称谓优先用 `scope=emperor`，冲突别名必须停下来复核。
 - 所有 `raw_objs` 必须有至少一条 `obj_srcs`。
 - `raw_objs.note` 不写规则、方向、档位、评分或“正负向”。
 - `obj_srcs.note` 可以说明史料对规则维度的帮助，但仍应绑定具体对象和具体事实。

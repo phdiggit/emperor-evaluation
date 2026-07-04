@@ -46,6 +46,7 @@ def test_build_command_forwards_workflow_and_job_options(tmp_path: Path) -> None
     assert cmd[cmd.index("--max-queries-per-object") + 1] == "6"
     assert "--include-adjacent" in cmd
     assert "--no-cache" in cmd
+    assert "--candidate-discovery" in cmd
 
 
 def test_process_job_writes_status_and_moves_done(tmp_path: Path, monkeypatch) -> None:

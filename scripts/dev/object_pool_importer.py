@@ -25,6 +25,13 @@ from scripts.dev.i5b_finite_values import (
     require_direction,
     require_talent_quality,
 )
+from scripts.dev.object_pool_aliases import (
+    ObjectAliasError,
+    ObjectAliasRow,
+    ensure_object_alias_schema,
+    parse_object_aliases,
+    resolve_or_upsert_object,
+)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -130,6 +137,7 @@ class ObjectRow:
     period: str
     name: str
     note: str
+    aliases: tuple[ObjectAliasRow, ...]
     links: tuple[ObjectSourceLink, ...]
     attrs: tuple[ObjectAttrRow, ...]
 
@@ -341,11 +349,16 @@ def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
     )
     obj_name = _text(row, "name", path)
     _assert_harmed_talent_links_allowed(obj_name=obj_name, attrs=attrs, links=links, path=path)
+    try:
+        aliases = parse_object_aliases(row, path)
+    except ObjectAliasError as exc:
+        raise ImportErrorWithContext(str(exc)) from exc
     return ObjectRow(
         obj_type=_text(row, "obj_type", path),
         period=obj_period,
         name=obj_name,
         note=note,
+        aliases=aliases,
         links=links,
         attrs=attrs,
     )
@@ -522,21 +535,6 @@ def _upsert_source(cur: psycopg.Cursor, row: SourceRow) -> int:
         returning id
         """,
         (row.src_key, row.title, row.author, row.dynasty, row.volume, row.locator, row.url, row.note),
-    )
-    return int(cur.fetchone()[0])
-
-
-def _upsert_object(cur: psycopg.Cursor, row: ObjectRow) -> int:
-    cur.execute(
-        """
-        insert into raw_objs (obj_type, period, name, note)
-        values (%s, %s, %s, %s)
-        on conflict (obj_type, period, name) do update set
-            note = excluded.note,
-            updated_at = now()
-        returning id
-        """,
-        (row.obj_type, row.period, row.name, row.note),
     )
     return int(cur.fetchone()[0])
 
@@ -760,16 +758,27 @@ def _import_payload_in_cursor(
     object_rows: list[dict[str, Any]] = []
     link_rows: list[dict[str, Any]] = []
     attr_rows: list[dict[str, Any]] = []
+    alias_rows: list[dict[str, Any]] = []
     for obj in payload.objects:
-        obj_id = _upsert_object(cur, obj)
-        emp_obj_id = _upsert_emp_object(cur, emp_id, obj_id, payload.subitem, obj.name)
+        try:
+            object_result = resolve_or_upsert_object(cur, obj, emp_id=emp_id)
+        except ObjectAliasError as exc:
+            raise ImportErrorWithContext(str(exc)) from exc
+        obj_id = int(object_result["obj_id"])
+        canonical_name = str(object_result["canonical_name"])
+        alias_rows.extend(object_result["aliases"])
+        emp_obj_id = _upsert_emp_object(cur, emp_id, obj_id, payload.subitem, canonical_name)
         object_rows.append(
             {
                 "id": obj_id,
                 "emp_obj_id": emp_obj_id,
                 "name": obj.name,
+                "canonical_name": canonical_name,
+                "resolved_by_alias": object_result["resolved_by_alias"],
+                "matched_alias": object_result["matched_alias"],
                 "link_count": len(obj.links),
                 "attr_count": len(obj.attrs),
+                "alias_count": len(object_result["aliases"]),
             }
         )
 
@@ -789,7 +798,7 @@ def _import_payload_in_cursor(
                 {
                     "id": obj_src_id,
                     "emp_obj_id": emp_obj_id,
-                    "object": obj.name,
+                    "object": canonical_name,
                     "src_key": link_item.src_key,
                     "rule_code": link_item.rule_code,
                     "direction": link_item.direction,
@@ -808,7 +817,7 @@ def _import_payload_in_cursor(
                 attr_rows.append(
                     {
                         "id": attr_id,
-                        "object": obj.name,
+                        "object": canonical_name,
                         "attr_code": attr.attr_code,
                         "value_text": attr.value_text,
                         "value_num": attr.value_num,
@@ -820,11 +829,13 @@ def _import_payload_in_cursor(
         "emperor": {"id": emp_id, "name": payload.emperor.name},
         "sources": sorted(source_ids),
         "objects": object_rows,
+        "object_aliases": alias_rows,
         "obj_srcs": link_rows,
         "obj_attrs": attr_rows,
         "counts": {
             "sources": len(source_ids),
             "objects": len(object_rows),
+            "object_aliases": len(alias_rows),
             "obj_srcs": len(link_rows),
             "obj_attrs": len(attr_rows),
         },
@@ -844,6 +855,7 @@ def import_payloads(payloads: tuple[ImportPayload, ...], dsn: str, *, dry_run: b
         raise ImportErrorWithContext("object pool import frozen; set I5B_OBJECT_POOL_IMPORT_UNFREEZE=1 to write.")
     with psycopg.connect(dsn) as conn:
         with conn.cursor() as cur:
+            ensure_object_alias_schema(cur)
             reports = [
                 _import_payload_in_cursor(cur, payload, emperor_meta=_raw_emperor_meta(payload))
                 for payload in payloads

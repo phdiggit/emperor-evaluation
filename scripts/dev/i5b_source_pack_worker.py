@@ -50,6 +50,7 @@ DEFAULTS: dict[str, Any] = {
     "cache_only": False,
     "cache_refresh": False,
     "refresh_pack_pages": False,
+    "candidate_discovery": True,
 }
 
 VALUE_OPTIONS = {
@@ -68,6 +69,10 @@ VALUE_OPTIONS = {
     "cache_backend": "--cache-backend",
     "cache_dsn_env": "--cache-dsn-env",
     "cache_schema": "--cache-schema",
+    "candidate_discovery_queries": "--candidate-discovery-queries",
+    "candidate_discovery_pages_per_query": "--candidate-discovery-pages-per-query",
+    "candidate_discovery_max_pages": "--candidate-discovery-max-pages",
+    "candidate_discovery_max_candidates": "--candidate-discovery-max-candidates",
 }
 
 BOOL_OPTIONS = {
@@ -76,6 +81,7 @@ BOOL_OPTIONS = {
     "cache_only": "--cache-only",
     "cache_refresh": "--cache-refresh",
     "refresh_pack_pages": "--refresh-pack-pages",
+    "candidate_discovery": "--candidate-discovery",
 }
 
 

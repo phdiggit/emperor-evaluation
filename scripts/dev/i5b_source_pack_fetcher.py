@@ -25,7 +25,9 @@ from scripts.dev.source_excerpt_pool_lib.common import (  # noqa: E402
     workflow_slug,
 )
 from scripts.dev.source_excerpt_pool_lib.profile import load_profile  # noqa: E402
+from scripts.dev.source_excerpt_pool_lib.profile import merge_candidate_inventory  # noqa: E402
 from scripts.dev.source_excerpt_pool_lib.source_pack_fetcher import build_source_pack  # noqa: E402
+from scripts.dev.i5b_query_profile_seed_builder import collect_source_discovery_candidates  # noqa: E402
 
 
 DEFAULT_GENERATED_BY = "scripts/dev/i5b_source_pack_fetcher.py"
@@ -96,7 +98,46 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--cache-refresh", action="store_true", help="Ignore existing cache entries and overwrite them.")
     parser.add_argument("--refresh-pack-pages", action="store_true", help="Refetch page text even if pack pages already exist.")
     parser.add_argument("--progress-log", type=Path, help="JSONL progress log path; defaults to output_dir/progress.jsonl.")
+    parser.add_argument(
+        "--candidate-discovery",
+        action="store_true",
+        help="Run pre-fetch source discovery and merge discovered object candidates into candidate_inventory.",
+    )
+    parser.add_argument("--candidate-discovery-queries", type=int, default=4)
+    parser.add_argument("--candidate-discovery-pages-per-query", type=int, default=2)
+    parser.add_argument("--candidate-discovery-max-pages", type=int, default=6)
+    parser.add_argument("--candidate-discovery-max-candidates", type=int, default=24)
     return parser
+
+
+def _apply_candidate_discovery(profile: dict[str, object], args: argparse.Namespace) -> tuple[dict[str, object], dict[str, object]]:
+    if not args.candidate_discovery:
+        return profile, {"enabled": False, "candidate_count": 0, "skipped_reason": ""}
+    if args.cache_only:
+        return profile, {"enabled": True, "candidate_count": 0, "skipped_reason": "cache_only"}
+
+    candidates = collect_source_discovery_candidates(
+        profile,
+        max_queries=args.candidate_discovery_queries,
+        pages_per_query=args.candidate_discovery_pages_per_query,
+        max_pages_per_person=args.candidate_discovery_max_pages,
+        context_chars=args.context_chars,
+        max_candidates=args.candidate_discovery_max_candidates,
+        timeout=args.timeout,
+        request_delay_seconds=args.request_delay,
+        user_agent=args.user_agent,
+        cache_enabled=False if args.no_cache else None,
+        cache_backend=args.cache_backend,
+        cache_dsn_env=args.cache_dsn_env,
+        cache_schema=args.cache_schema,
+    )
+    updated = merge_candidate_inventory(profile, candidates)
+    return updated, {
+        "enabled": True,
+        "candidate_count": len(candidates),
+        "skipped_reason": "",
+        "candidates": candidates,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -110,6 +151,7 @@ def main(argv: list[str] | None = None) -> int:
     started_monotonic = time.monotonic()
     started_at = datetime.now().astimezone().isoformat(timespec="seconds")
     profile = load_profile(profile_path, args.person, workflow_code=workflow_code)
+    profile, candidate_discovery_report = _apply_candidate_discovery(profile, args)
     output_dir = args.output_dir or _default_output_dir(args.person, workflow_code=workflow_code)
     progress_path = args.progress_log or output_dir / "progress.jsonl"
     report = build_source_pack(
@@ -144,6 +186,10 @@ def main(argv: list[str] | None = None) -> int:
         refresh_pack_pages=args.refresh_pack_pages,
         progress_path=progress_path,
     )
+    report["candidate_discovery"] = candidate_discovery_report
+    fetch_report_path = output_dir / "fetch_report.json"
+    if fetch_report_path.exists():
+        fetch_report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     finished_at = datetime.now().astimezone().isoformat(timespec="seconds")
     print(
         json.dumps(

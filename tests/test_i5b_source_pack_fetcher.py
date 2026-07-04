@@ -97,6 +97,89 @@ def test_build_source_pack_writes_auditable_pack(tmp_path, monkeypatch) -> None:
     assert source_pack.audit_source_pack(output_dir)["ok"] is True
 
 
+def test_build_source_pack_reports_unsearched_aliases_before_skip(tmp_path, monkeypatch) -> None:
+    load_tool()
+    fetcher = sys.modules["scripts.dev.source_excerpt_pool_lib.source_pack_fetcher"]
+
+    searched_queries: list[str] = []
+
+    def fake_search(query, **kwargs):
+        searched_queries.append(query)
+        return []
+
+    monkeypatch.setattr(fetcher, "search_wikisource", fake_search)
+
+    profile = {
+        "person": "李渊",
+        "query_profile_id": "QRY-LY",
+        "source_targets": ["旧唐书 太宗本纪"],
+        "object_layers": {"core_positive_objects": ["李世民"]},
+        "object_search_aliases": {"李世民": ["太宗", "秦王"]},
+        "query_bundles": [],
+    }
+
+    report = fetcher.build_source_pack(
+        profile,
+        output_dir=tmp_path / "pack",
+        cache_enabled=False,
+        request_delay_seconds=0,
+        max_queries_per_object=1,
+    )
+
+    coverage = report["object_coverage"]
+    assert searched_queries
+    assert coverage["objects_without_page_hits"] == ["李世民"]
+    assert coverage["objects_with_unsearched_aliases"][0]["object_name"] == "李世民"
+    assert "秦王" in coverage["objects_with_unsearched_aliases"][0]["unsearched_alias_terms"]
+    assert coverage["objects_with_exhausted_alias_searches"] == []
+
+
+def test_candidate_discovery_merges_inventory_before_fetch(monkeypatch) -> None:
+    tool = load_tool()
+    profile = sample_profile()
+
+    def fake_collect(profile_arg, **kwargs):
+        assert profile_arg["person"] == "武则天"
+        return [
+            {
+                "object_name": "狄仁杰",
+                "suggested_layer": "core_positive_objects",
+                "confidence": "medium",
+                "reason": "source discovery fixture",
+                "supporting_rows": [{"path": "source_discovery_page_text", "id": "q -> p"}],
+            }
+        ]
+
+    monkeypatch.setattr(tool, "collect_source_discovery_candidates", fake_collect)
+
+    args = type(
+        "Args",
+        (),
+        {
+            "candidate_discovery": True,
+            "cache_only": False,
+            "candidate_discovery_queries": 1,
+            "candidate_discovery_pages_per_query": 1,
+            "candidate_discovery_max_pages": 1,
+            "candidate_discovery_max_candidates": 3,
+            "context_chars": 120,
+            "timeout": 5,
+            "request_delay": 0,
+            "user_agent": "test-agent",
+            "no_cache": True,
+            "cache_backend": None,
+            "cache_dsn_env": None,
+            "cache_schema": None,
+        },
+    )()
+
+    updated, report = tool._apply_candidate_discovery(profile, args)
+
+    assert report["enabled"] is True
+    assert report["candidate_count"] == 1
+    assert updated["candidate_inventory"][0]["object_name"] == "狄仁杰"
+
+
 def test_build_source_pack_allows_non_i5b_manifest_metadata(tmp_path, monkeypatch) -> None:
     load_tool()
     fetcher = sys.modules["scripts.dev.source_excerpt_pool_lib.source_pack_fetcher"]

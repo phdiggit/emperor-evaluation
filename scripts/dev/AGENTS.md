@@ -14,6 +14,8 @@
 - `i5b_*source_pack*` 与 `i5b_*query_profile*` 工具当前以 I5B 为默认 adapter；采集链公共元数据使用 `workflow_code` / `source_scope`，新增评分项复用时必须隔离输出文件名、job payload 和 handoff 契约，不得在公共库里继续写死 I5B。
 - 在线抓取属于离线采集准备步骤；I5B 主链优先使用已审计的 source pack，通过 `source_excerpt_pool.py --source-pack` 从本地页文生成摘录候选。
 - `i5b_source_pack_fetcher.py` 是离线史料包抓取入口，从 query profile 调 Wikisource search/fetch 并写 `manifest.json`、`src_docs.jsonl`、`pages/*.txt`、`excerpts.jsonl` 和 `fetch_report.json`；输出默认在 `.tmp/**`，不得写正式 `data/**`。
+- `i5b_source_pack_fetcher.py --candidate-discovery` 是抓包前候选对象发现，不是抓包后验收；它把发现候选临时合并到 `candidate_inventory` 再生成搜索计划。
+- `fetch_report.json` 的 `object_coverage.objects_with_unsearched_aliases` 是硬缺口：声明过别名但别名查询被 cap、超时或连续错误跳过时，不能把该对象按“无史料”跳过；`objects_with_exhausted_alias_searches` 才表示已声明别名都搜过但仍无页面命中。
 - `i5b_source_pack_worker.py` 是抓包 job worker，轮询 workflow 的 `jobs_dir`，把 `workflow_code`、`source_scope` 和 job 选项透传给 fetcher；它只消费 job 文件并写日志/状态，不做 profile 裁量。
 - `i5b_source_pack_audit.py` 是离线史料包审计入口，检查 `manifest.json`、`src_docs.jsonl`、本地页文和可选 `excerpts.jsonl` 的 src_key 关系；通过后才进入摘录池或对象 payload 生成。
 - `i5b_source_pack_status.py` 是只读抓包状态台账入口，汇总全名单、query profile、jobs 和 source-packs，回答缺检索包、半成品、已投未跑、成功、失败和需补检索包等状态。
@@ -34,6 +36,7 @@
 ## 对象导入工具
 
 - `object_pool_importer.py` 只导入已经回源并人工判断过的对象 payload。
+- `object_pool_aliases.py` 是对象池身份别名解析层，负责 `raw_obj_aliases` 幂等建表、别名归一、冲突检查和导入时 canonical object 归并；它不承载计分事实。
 - `i5b_object_payload_audit.py` 是对象 payload 候选入库前的只读闸门，复用 importer 结构校验并拦截 `TODO` / `TODO_RULE_CODE` / `TODO_TALENT_QUALITY` / `TODO-SRC` 占位符；它不写数据库。
 - `i5b_object_payload_import_batch.py` 是控制板 ready payload 的批量导入器，读取 `i5b_next_stage_control_board.py` JSON 输出，跳过已有成功回执，只调用 `object_pool_importer.py` 导入新增 payload，并把成功导入写入 `tmp/**` 回执。跨 Codex 子进程的 live handoff 不要放在仓库 `.tmp/**`，pytest 会在 session 结束时清理该目录。
 - `--template-from-profile` 只生成待填写模板；模板中的史源、规则、方向和 note 必须人工补全。

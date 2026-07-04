@@ -202,7 +202,97 @@ def test_object_search_aliases_drive_queries_without_changing_object_name() -> N
     assert all("姚崇早期" not in plan.query for plan in plans)
     assert any("姚崇 旧唐书" in plan.query for plan in plans)
     assert "姚崇" in plans[0].search_terms
-    assert "姚崇早期" in plans[0].search_terms
+    assert "姚崇早期" not in plans[0].search_terms
+
+
+def test_object_search_aliases_each_get_fallback_queries() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "李渊",
+        "source_targets": ["旧唐书 太宗本纪"],
+        "object_layers": {"core_positive_objects": ["李世民"]},
+        "object_search_aliases": {"李世民": ["太宗", "秦王"]},
+        "query_bundles": [],
+    }
+
+    plans = tool.build_search_plans(profile)
+    queries = [plan.query for plan in plans]
+
+    assert any("太宗 旧唐书" in query for query in queries)
+    assert any("秦王 旧唐书" in query for query in queries)
+    assert any("李世民 旧唐书" in query for query in queries)
+
+
+def test_alias_fallback_queries_are_interleaved_before_per_object_cap() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "李渊",
+        "source_targets": ["旧唐书 太宗本纪", "资治通鉴 唐纪"],
+        "object_layers": {"core_positive_objects": ["李世民"]},
+        "object_search_aliases": {"李世民": ["太宗", "秦王"]},
+        "query_bundles": [],
+    }
+
+    plans = tool.build_search_plans(profile, max_queries_per_object=2)
+    queries = [plan.query for plan in plans]
+
+    assert any("太宗 旧唐书" in query for query in queries)
+    assert any("秦王 旧唐书" in query for query in queries)
+    assert all("资治通鉴" not in query for query in queries)
+
+
+def test_candidate_inventory_extends_search_candidates_without_replacing_layers() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "李渊",
+        "source_targets": ["旧唐书 太宗本纪"],
+        "object_layers": {"core_positive_objects": ["刘文静"]},
+        "candidate_inventory": [
+            {
+                "object_name": "李世民",
+                "suggested_layer": "core_positive_objects",
+                "aliases": ["秦王", "太宗"],
+                "search_terms": ["秦王府"],
+            }
+        ],
+        "query_bundles": [],
+    }
+
+    candidates = tool.iter_candidate_objects(profile)
+    plans = tool.build_search_plans(profile)
+
+    assert {candidate.raw_name for candidate in candidates} == {"刘文静", "李世民"}
+    assert any("秦王 旧唐书" in plan.query for plan in plans if plan.object_name == "李世民")
+    assert any("秦王府 旧唐书" in plan.query for plan in plans if plan.object_name == "李世民")
+
+
+def test_candidate_inventory_alias_is_folded_into_known_object() -> None:
+    tool = load_tool()
+    profile = {
+        **sample_profile(),
+        "person": "李渊",
+        "source_targets": ["旧唐书 太宗本纪"],
+        "object_layers": {"core_positive_objects": ["李世民"]},
+        "object_search_aliases": {"李世民": ["秦王", "太宗"]},
+        "candidate_inventory": [
+            {
+                "object_name": "秦王",
+                "suggested_layer": "core_positive_objects",
+                "search_terms": ["秦王府"],
+            }
+        ],
+        "query_bundles": [],
+    }
+
+    candidates = tool.iter_candidate_objects(profile)
+    plans = tool.build_search_plans(profile)
+
+    assert {candidate.raw_name for candidate in candidates} == {"李世民"}
+    assert any("秦王 旧唐书" in plan.query for plan in plans)
+    assert any("秦王府 旧唐书" in plan.query for plan in plans)
 
 
 def test_sparse_single_object_bundle_is_topped_up_with_fallback_queries() -> None:

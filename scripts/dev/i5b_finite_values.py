@@ -56,6 +56,20 @@ OBJECT_ATTR_CODES = (
     TALENT_PROFILE_NOTE_ATTR,
 )
 
+OBJECT_ALIAS_KINDS = (
+    "canonical",
+    "alias",
+    "personal_name",
+    "courtesy_name",
+    "posthumous_name",
+    "temple_name",
+    "title",
+    "office",
+    "style",
+    "variant",
+)
+OBJECT_ALIAS_SCOPES = ("global", "emperor")
+
 CANONICAL_PERIODS = (
     "秦",
     "西楚",

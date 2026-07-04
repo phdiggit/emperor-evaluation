@@ -24,8 +24,11 @@ from .common import (
 from .profile import (
     build_direct_page_plans,
     build_search_plans,
+    candidate_inventory_items,
+    derive_query_terms,
     iter_candidate_objects,
     limit_search_plans,
+    object_search_alias_terms,
     source_title_filters,
 )
 from .source_pack import (
@@ -130,6 +133,88 @@ def _add_page_hit(
     }
     if match not in hit["matches"]:
         hit["matches"].append(match)
+
+
+def _skipped_search_plan_row(plan: Any, *, reason: str) -> dict[str, Any]:
+    return {
+        "object_name": plan.object_name,
+        "layer": plan.layer,
+        "query": plan.query,
+        "query_terms": list(derive_query_terms(plan.query)),
+        "reason": reason,
+    }
+
+
+def _query_mentions_term(query: str, term: str) -> bool:
+    return bool(term and term in query)
+
+
+def _alias_terms_by_object(profile: dict[str, Any], candidates: Iterable[Any]) -> dict[str, tuple[str, ...]]:
+    return {
+        candidate.raw_name: object_search_alias_terms(profile, candidate.raw_name)
+        for candidate in candidates
+    }
+
+
+def _alias_search_terms_in_queries(
+    *,
+    alias_terms: tuple[str, ...],
+    queries: Iterable[str],
+) -> set[str]:
+    return {
+        term
+        for term in alias_terms
+        if any(_query_mentions_term(query, term) for query in queries)
+    }
+
+
+def _alias_search_coverage(
+    *,
+    profile: dict[str, Any],
+    candidates: Iterable[Any],
+    attempted_queries_by_object: dict[str, list[str]],
+    skipped_search_plans: list[dict[str, Any]],
+    objects_without_page_hits: set[str],
+) -> dict[str, Any]:
+    alias_terms_by_object = _alias_terms_by_object(profile, candidates)
+    skipped_queries_by_object: dict[str, list[str]] = {}
+    for skipped in skipped_search_plans:
+        skipped_queries_by_object.setdefault(str(skipped.get("object_name") or ""), []).append(str(skipped.get("query") or ""))
+
+    objects_without_declared_aliases: list[str] = []
+    objects_with_unsearched_aliases: list[dict[str, Any]] = []
+    objects_with_exhausted_alias_searches: list[dict[str, Any]] = []
+    for object_name in sorted(objects_without_page_hits):
+        alias_terms = alias_terms_by_object.get(object_name, ())
+        if not alias_terms:
+            objects_without_declared_aliases.append(object_name)
+            continue
+        attempted_terms = _alias_search_terms_in_queries(
+            alias_terms=alias_terms,
+            queries=attempted_queries_by_object.get(object_name, []),
+        )
+        skipped_terms = _alias_search_terms_in_queries(
+            alias_terms=alias_terms,
+            queries=skipped_queries_by_object.get(object_name, []),
+        )
+        unsearched_terms = sorted(set(alias_terms) - attempted_terms)
+        row = {
+            "object_name": object_name,
+            "alias_terms": list(alias_terms),
+            "attempted_alias_terms": sorted(attempted_terms),
+            "skipped_alias_terms": sorted(skipped_terms),
+        }
+        if unsearched_terms:
+            row["unsearched_alias_terms"] = unsearched_terms
+            objects_with_unsearched_aliases.append(row)
+        else:
+            objects_with_exhausted_alias_searches.append(row)
+
+    return {
+        "objects_without_declared_aliases": objects_without_declared_aliases,
+        "objects_with_unsearched_aliases": objects_with_unsearched_aliases,
+        "objects_with_exhausted_alias_searches": objects_with_exhausted_alias_searches,
+    }
 
 
 def _build_source_doc_row(page_title: str, text_path: Path, *, hit: dict[str, Any]) -> dict[str, Any]:
@@ -252,6 +337,7 @@ def build_source_pack(
         "query_limits": {
             "max_queries": max_queries,
             "max_queries_per_object": max_queries_per_object,
+            "candidate_inventory_count": len(candidate_inventory_items(profile)),
         },
         "throttle": {
             "request_delay_seconds": request_delay_seconds,
@@ -310,6 +396,7 @@ def build_source_pack(
     )
     consecutive_errors = 0
     processed_searches = 0
+    attempted_queries_by_object: dict[str, list[str]] = {}
     progress(
         "start",
         person=person,
@@ -324,16 +411,10 @@ def build_source_pack(
             if budget_exceeded():
                 report["status"] = "partial"
                 for skipped in search_plans[plan_index:]:
-                    skipped_search_plans.append(
-                        {
-                            "object_name": skipped.object_name,
-                            "layer": skipped.layer,
-                            "query": skipped.query,
-                            "reason": "max_wall_seconds",
-                        }
-                )
+                    skipped_search_plans.append(_skipped_search_plan_row(skipped, reason="max_wall_seconds"))
                 break
             try:
+                attempted_queries_by_object.setdefault(plan.object_name, []).append(plan.query)
                 progress(
                     "search_start",
                     index=plan_index + 1,
@@ -360,14 +441,7 @@ def build_source_pack(
                 if max_consecutive_errors is not None and consecutive_errors >= max_consecutive_errors:
                     report["status"] = "partial"
                     for skipped in search_plans[plan_index + 1 :]:
-                        skipped_search_plans.append(
-                            {
-                                "object_name": skipped.object_name,
-                                "layer": skipped.layer,
-                                "query": skipped.query,
-                                "reason": "max_consecutive_errors",
-                            }
-                        )
+                        skipped_search_plans.append(_skipped_search_plan_row(skipped, reason="max_consecutive_errors"))
                     break
                 continue
             consecutive_errors = 0
@@ -481,6 +555,14 @@ def build_source_pack(
             if match.get("object_name")
         }
         excerpt_objects = {row["object_name"] for row in excerpt_rows if row.get("object_name")}
+        objects_without_page_hits = candidate_names - page_hit_objects
+        alias_search_coverage = _alias_search_coverage(
+            profile=profile,
+            candidates=candidates,
+            attempted_queries_by_object=attempted_queries_by_object,
+            skipped_search_plans=skipped_search_plans,
+            objects_without_page_hits=objects_without_page_hits,
+        )
         report.update(
             {
                 "direct_page_plans": len(direct_page_plans),
@@ -499,8 +581,9 @@ def build_source_pack(
                     "candidate_count": len(candidate_names),
                     "page_hit_count": len(page_hit_objects),
                     "excerpt_count": len(excerpt_objects),
-                    "objects_without_page_hits": sorted(candidate_names - page_hit_objects),
+                    "objects_without_page_hits": sorted(objects_without_page_hits),
                     "objects_without_excerpts": sorted(candidate_names - excerpt_objects),
+                    **alias_search_coverage,
                 },
             }
         )
