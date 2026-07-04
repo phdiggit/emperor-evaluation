@@ -17,12 +17,12 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_ITEM_CODE = "I5B"
 DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
-DEFAULT_FORMULA_CODE = "item_result_formula_i5b_v8"
+DEFAULT_FORMULA_CODE = "item_result_formula_i5b_v9"
 MAX_SCORE = Decimal("45.000")
 POSITIVE_RESPONSE_CAP = Decimal("5.5")
 POSITIVE_RESPONSE_TAU = Decimal("3.5")
-NEGATIVE_RESPONSE_CAP = Decimal("9.0")
-NEGATIVE_RESPONSE_TAU = Decimal("5.0")
+NEGATIVE_RESPONSE_CAP = Decimal("7.0")
+NEGATIVE_RESPONSE_TAU = Decimal("4.0")
 
 RULE_ORDER = (
     "talent_discovery",
@@ -225,7 +225,7 @@ def _upsert_result(
     formula_code: str,
     formula: dict[str, Any],
 ) -> int:
-    note = f"v8公式自动计算；规则输入来自 {cluster_formula}；无材料规则按0处理。"
+    note = f"v9公式自动计算；规则输入来自 {cluster_formula}；无材料规则按0处理。"
     cur.execute(
         """
         insert into emp_item_results (emp_id, item_id, formula_code, max_score, score, tier, tier_band, note)

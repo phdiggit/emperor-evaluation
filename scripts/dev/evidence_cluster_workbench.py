@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -163,12 +163,6 @@ def load_cluster_payload(path: Path) -> tuple[str, tuple[ClusterInput, ...]]:
 
 
 def _cluster_lookup(cur: psycopg.Cursor, *, emperor: str, item_code: str, rule_code: str) -> tuple[int, int, int]:
-    cur.execute("select id from emps where name = %s", (emperor,))
-    emp_row = cur.fetchone()
-    if emp_row is None:
-        raise EvidenceClusterWorkbenchError(f"emps missing emperor: {emperor}")
-    emp_id = int(emp_row[0])
-
     cur.execute("select id from eval_items where item_code = %s", (item_code,))
     item_row = cur.fetchone()
     if item_row is None:
@@ -180,6 +174,31 @@ def _cluster_lookup(cur: psycopg.Cursor, *, emperor: str, item_code: str, rule_c
     if rule_row is None:
         raise EvidenceClusterWorkbenchError(f"eval_rules missing rule_code: {rule_code}")
     rule_id = int(rule_row[0])
+
+    cur.execute(
+        """
+        select e.id
+          from emps e
+          left join emp_objs eo on eo.emp_id = e.id
+          left join obj_srcs osrc
+            on osrc.emp_obj_id = eo.id
+           and osrc.item_id = %s
+           and osrc.rule_id = %s
+          left join evd_clusters c
+            on c.emp_id = e.id
+           and c.item_id = %s
+           and c.rule_id = %s
+         where e.name = %s
+         group by e.id, e.sort_no
+         order by e.sort_no nulls last, count(osrc.id) desc, count(c.id) desc, e.id
+         limit 1
+        """,
+        (item_id, rule_id, item_id, rule_id, emperor),
+    )
+    emp_row = cur.fetchone()
+    if emp_row is None:
+        raise EvidenceClusterWorkbenchError(f"emps missing emperor: {emperor}")
+    emp_id = int(emp_row[0])
     return emp_id, item_id, rule_id
 
 
@@ -246,6 +265,10 @@ def _int_tuple_from_detail(detail: dict[str, Any] | None, key: str) -> tuple[int
     return tuple(ids)
 
 
+def _merge_int_ids(*groups: tuple[int, ...]) -> tuple[int, ...]:
+    return tuple(dict.fromkeys(item for group in groups for item in group))
+
+
 def _cluster_detail_arrays(cluster: ClusterInput) -> tuple[tuple[int, ...], tuple[int, ...], tuple[int, ...]]:
     detail = cluster.calc_detail if isinstance(cluster.calc_detail, dict) else None
     covered = _int_tuple_from_detail(detail, "covered_material_ids") or cluster.material_ids
@@ -254,6 +277,58 @@ def _cluster_detail_arrays(cluster: ClusterInput) -> tuple[tuple[int, ...], tupl
     if not supporting:
         supporting = tuple(material_id for material_id in covered if material_id not in set(scored))
     return covered, scored, supporting
+
+
+def _reconcile_material_coverage(
+    cur: psycopg.Cursor,
+    *,
+    emp_id: int,
+    item_id: int,
+    rule_id: int,
+    cluster: ClusterInput,
+) -> ClusterInput:
+    expected, scoring_expected = _expected_material_id_sets(cur, emp_id=emp_id, item_id=item_id, rule_id=rule_id)
+    detail = dict(cluster.calc_detail or {})
+    scored = _int_tuple_from_detail(detail, "scored_material_ids") or (_calc_detail_material_ids(cluster) or ())
+    pending_existing = _int_tuple_from_detail(detail, "pending_material_ids")
+    supporting_existing = _int_tuple_from_detail(detail, "supporting_material_ids")
+    excluded_existing = _int_tuple_from_detail(detail, "excluded_material_ids")
+    reviewed_non_scoring = set((*supporting_existing, *excluded_existing))
+    missing = tuple(material_id for material_id in sorted(expected) if material_id not in set(cluster.material_ids))
+    detail_missing = tuple(
+        material_id
+        for material_id in sorted(scoring_expected)
+        if material_id not in set(scored) and material_id not in set(pending_existing)
+        and material_id not in reviewed_non_scoring
+    )
+    pending_delta = _merge_int_ids(missing, detail_missing)
+    if not pending_delta:
+        return cluster
+
+    covered = _merge_int_ids(cluster.material_ids, missing, detail_missing)
+    supporting = _merge_int_ids(
+        supporting_existing,
+        tuple(material_id for material_id in covered if material_id not in set(scored)),
+    )
+    pending = _merge_int_ids(pending_existing, pending_delta)
+    detail.update(
+        {
+            "covered_material_ids": list(covered),
+            "scored_material_ids": list(scored),
+            "supporting_material_ids": list(supporting),
+            "pending_material_ids": list(pending),
+        }
+    )
+    detail["coverage_reconciliation"] = {
+        "status": "db_obj_srcs_pending_factor_profile",
+        "added_material_ids": list(missing),
+        "pending_factor_profile_ids": list(detail_missing),
+        "pending_material_ids": list(pending),
+    }
+    calc_note = cluster.calc_note or ""
+    if "db material coverage reconciled" not in calc_note:
+        calc_note = (calc_note + " | " if calc_note else "") + "db material coverage reconciled"
+    return replace(cluster, material_ids=covered, calc_note=calc_note, calc_detail=detail)
 
 
 def _jsonb(value: Any) -> str:
@@ -343,12 +418,16 @@ def _validate_material_coverage(
     if cluster.rule_code == "team_building":
         return
 
-    detail_ids = _calc_detail_material_ids(cluster)
-    if detail_ids is None:
+    calc_detail_ids = _calc_detail_material_ids(cluster)
+    if calc_detail_ids is None:
         return
-    detail_set = set(detail_ids)
-    detail_missing = sorted(scoring_expected - detail_set)
-    detail_extra = sorted(detail_set - scoring_expected)
+    _, scored_ids, _ = _cluster_detail_arrays(cluster)
+    pending_ids = set(_int_tuple_from_detail(cluster.calc_detail, "pending_material_ids"))
+    supporting_ids = set(_int_tuple_from_detail(cluster.calc_detail, "supporting_material_ids"))
+    excluded_ids = set(_int_tuple_from_detail(cluster.calc_detail, "excluded_material_ids"))
+    scored_set = set(scored_ids)
+    detail_missing = sorted(scoring_expected - scored_set - pending_ids - supporting_ids - excluded_ids)
+    detail_extra = sorted(scored_set - scoring_expected)
     if detail_missing or detail_extra:
         _raise_material_coverage_error(
             cluster=cluster,
@@ -377,6 +456,13 @@ def upsert_clusters(
                     rule_code=cluster.rule_code,
                 )
                 if require_full_material_coverage:
+                    cluster = _reconcile_material_coverage(
+                        cur,
+                        emp_id=emp_id,
+                        item_id=item_id,
+                        rule_id=rule_id,
+                        cluster=cluster,
+                    )
                     _validate_material_coverage(
                         cur,
                         emp_id=emp_id,

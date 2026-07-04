@@ -141,8 +141,16 @@ def rule_code_from_heading(heading: str) -> str:
     return ""
 
 
-def factor_scope_for(rule_code: str, factor_name: str) -> str:
-    if factor_name.startswith("obj_attrs."):
+def normalized_factor_name(raw_factor_name: str) -> str:
+    factor_name = clean_cell(raw_factor_name)
+    if "->" not in factor_name:
+        return factor_name
+    return clean_cell(factor_name.rsplit("->", 1)[1])
+
+
+def factor_scope_for(rule_code: str, factor_name: str, raw_factor_name: str = "") -> str:
+    source_name = clean_cell(raw_factor_name or factor_name)
+    if source_name.startswith("obj_attrs.") or re.match(r"^obj_attrs\.[^`]+->", source_name):
         return "attribute_mapping"
     if rule_code == "team_building":
         return "team"
@@ -201,6 +209,7 @@ def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
     current_heading = ""
     current_rule_code = ""
     current_factor = ""
+    current_factor_raw = ""
     table_header: list[str] | None = None
 
     for line_no, line in enumerate(text.splitlines(), start=1):
@@ -209,12 +218,14 @@ def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
             current_heading = heading_match.group(1).strip()
             current_rule_code = rule_code_from_heading(current_heading)
             current_factor = ""
+            current_factor_raw = ""
             table_header = None
             continue
 
         factor_match = re.match(r"^`([^`]+)`.*[\uff1a:]\s*$", line.strip())
         if factor_match:
-            current_factor = factor_match.group(1).strip()
+            current_factor_raw = factor_match.group(1).strip()
+            current_factor = normalized_factor_name(current_factor_raw)
             table_header = None
             continue
 
@@ -242,7 +253,7 @@ def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
                 rule_code=current_rule_code,
                 formula_code=formula_code,
                 factor_name=current_factor,
-                factor_scope=factor_scope_for(current_rule_code, current_factor),
+                factor_scope=factor_scope_for(current_rule_code, current_factor, current_factor_raw),
                 label=label,
                 value_num=value_num,
                 sort_no=sort_counters[key],
@@ -739,10 +750,12 @@ def audit_calc_detail_factor_refs(
             if factor_name == "team_quality_excluded":
                 continue
             if not isinstance(ref, dict):
-                issues.append({**base_issue, "severity": "warning", "status": "literal_factor_ref", "ref": ref})
+                severity = "error" if str(base_issue.get("path") or "").startswith("team_factors.") else "warning"
+                issues.append({**base_issue, "severity": severity, "status": "literal_factor_ref", "ref": ref})
                 continue
             if "value" in ref and "label" not in ref:
-                issues.append({**base_issue, "severity": "warning", "status": "literal_factor_value", "ref": ref})
+                severity = "error" if str(base_issue.get("path") or "").startswith("team_factors.") else "warning"
+                issues.append({**base_issue, "severity": severity, "status": "literal_factor_value", "ref": ref})
                 continue
             label = ref.get("label")
             if not isinstance(label, str) or not label.strip():

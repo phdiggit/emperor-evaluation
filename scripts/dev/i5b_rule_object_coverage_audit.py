@@ -142,6 +142,7 @@ def fetch_emp_object_rows(
                     eo.id as emp_obj_id,
                     ro.id as obj_id,
                     ro.name as obj_name,
+                    ro.period as obj_period,
                     ro.obj_type,
                     eo.note as emp_obj_note,
                     ro.note as obj_note,
@@ -185,7 +186,7 @@ def fetch_emp_object_rows(
                        union
                        select item_name from target_item
                    )
-                 group by e.name, eo.id, ro.id, ro.name, ro.obj_type, eo.note, ro.note
+                 group by e.name, eo.id, ro.id, ro.name, ro.period, ro.obj_type, eo.note, ro.note
                  order by e.name, ro.name, eo.id
                 """,
                 (item_code, rule_code, list(emperors)),
@@ -229,17 +230,97 @@ def _team_building_current_keys(cluster_row: dict[str, Any] | None) -> set[tuple
     return keys
 
 
+def _int_set(value: Any) -> set[int]:
+    if not isinstance(value, list):
+        return set()
+    result: set[int] = set()
+    for item in value:
+        if isinstance(item, int):
+            result.add(item)
+            continue
+        if isinstance(item, str) and item.isdigit():
+            result.add(int(item))
+    return result
+
+
+def _calc_detail_covered_material_ids(cluster_row: dict[str, Any] | None) -> set[int]:
+    if cluster_row is None:
+        return set()
+    detail = cluster_row.get("calc_detail")
+    if not isinstance(detail, dict):
+        return set()
+    covered_ids = (
+        _int_set(detail.get("covered_material_ids"))
+        | _int_set(detail.get("scored_material_ids"))
+        | _int_set(detail.get("supporting_material_ids"))
+        | _int_set(detail.get("excluded_material_ids"))
+    )
+    if covered_ids:
+        return covered_ids
+    raw_materials = detail.get("materials")
+    if not isinstance(raw_materials, list):
+        return set()
+    for item in raw_materials:
+        if not isinstance(item, dict):
+            continue
+        obj_src_id = item.get("obj_src_id")
+        if isinstance(obj_src_id, int):
+            covered_ids.add(obj_src_id)
+        elif isinstance(obj_src_id, str) and obj_src_id.isdigit():
+            covered_ids.add(int(obj_src_id))
+    return covered_ids
+
+
+def _row_rule_obj_src_ids(row: dict[str, Any], *, rule_code: str) -> set[int]:
+    raw_sources = row.get("i5b_obj_srcs")
+    if not isinstance(raw_sources, list):
+        return set()
+    result: set[int] = set()
+    for item in raw_sources:
+        if not isinstance(item, dict) or item.get("rule_code") != rule_code:
+            continue
+        obj_src_id = item.get("obj_src_id")
+        if isinstance(obj_src_id, int):
+            result.add(obj_src_id)
+        elif isinstance(obj_src_id, str) and obj_src_id.isdigit():
+            result.add(int(obj_src_id))
+    return result
+
+
+def _has_rule_obj_src(row: dict[str, Any], *, rule_code: str) -> bool:
+    return bool(_row_rule_obj_src_ids(row, rule_code=rule_code))
+
+
+def _filter_target_rule_rows(rows: list[dict[str, Any]], *, rule_code: str) -> list[dict[str, Any]]:
+    return [row for row in rows if _has_rule_obj_src(row, rule_code=rule_code)]
+
+
+def apply_calc_detail_material_coverage(
+    emp_object_rows: dict[str, list[dict[str, Any]]],
+    *,
+    cluster_rows: dict[tuple[str, str], dict[str, Any]],
+    rule_code: str,
+) -> None:
+    for emperor, rows in emp_object_rows.items():
+        covered_ids = _calc_detail_covered_material_ids(cluster_rows.get((emperor, rule_code)))
+        for row in rows:
+            row["has_rule"] = bool(_row_rule_obj_src_ids(row, rule_code=rule_code) & covered_ids)
+
+
 def apply_team_building_calc_detail_coverage(
     emp_object_rows: dict[str, list[dict[str, Any]]],
     *,
     cluster_rows: dict[tuple[str, str], dict[str, Any]],
 ) -> None:
     for emperor, rows in emp_object_rows.items():
-        current_keys = _team_building_current_keys(cluster_rows.get((emperor, TEAM_BUILDING_RULE_CODE)))
+        cluster_row = cluster_rows.get((emperor, TEAM_BUILDING_RULE_CODE))
+        current_keys = _team_building_current_keys(cluster_row)
+        covered_ids = _calc_detail_covered_material_ids(cluster_row)
         for row in rows:
             row["has_rule"] = (
                 ("obj_id", str(row.get("obj_id"))) in current_keys
                 or ("emp_obj_id", str(row.get("emp_obj_id"))) in current_keys
+                or bool(_row_rule_obj_src_ids(row, rule_code=TEAM_BUILDING_RULE_CODE) & covered_ids)
             )
 
 
@@ -255,6 +336,7 @@ def build_audit_report(
     require_attrs: tuple[str, ...] = (),
     accepted_missing: frozenset[tuple[str, str, str]] = frozenset(),
     emp_object_rows: dict[str, list[dict[str, Any]]] | None = None,
+    cluster_rows: dict[tuple[str, str], dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if rule_code == TEAM_BUILDING_RULE_CODE:
         if not obj_types:
@@ -278,15 +360,13 @@ def build_audit_report(
             obj_types=obj_types,
             require_attrs=require_attrs,
         )
-        if rule_code == TEAM_BUILDING_RULE_CODE:
-            cluster_rows = fetch_cluster_calc_detail_rows(
-                dsn=dsn,
-                item_code=item_code,
-                formula_code=cluster_formula,
-                emperors=targets,
-                rule_codes=(TEAM_BUILDING_RULE_CODE,),
-            )
-            apply_team_building_calc_detail_coverage(emp_object_rows, cluster_rows=cluster_rows)
+        cluster_rows = fetch_cluster_calc_detail_rows(
+            dsn=dsn,
+            item_code=item_code,
+            formula_code=cluster_formula,
+            emperors=targets,
+            rule_codes=(rule_code,),
+        )
     else:
         targets = emperors or tuple(emp_object_rows)
         obj_type_filter = {value for value in obj_types if value}
@@ -299,6 +379,16 @@ def build_audit_report(
             ]
             for emperor, rows in emp_object_rows.items()
         }
+    if rule_code != TEAM_BUILDING_RULE_CODE:
+        emp_object_rows = {
+            emperor: _filter_target_rule_rows(rows, rule_code=rule_code)
+            for emperor, rows in emp_object_rows.items()
+        }
+    if cluster_rows is not None:
+        if rule_code == TEAM_BUILDING_RULE_CODE:
+            apply_team_building_calc_detail_coverage(emp_object_rows, cluster_rows=cluster_rows)
+        else:
+            apply_calc_detail_material_coverage(emp_object_rows, cluster_rows=cluster_rows, rule_code=rule_code)
     if not targets:
         raise I5BRuleObjectCoverageAuditError("no emperors found; pass --emperor or check result detail table")
 

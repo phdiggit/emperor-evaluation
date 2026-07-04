@@ -184,6 +184,205 @@ def test_validate_material_coverage_rejects_missing_calc_detail_materials() -> N
         )
 
 
+def test_validate_material_coverage_allows_pending_calc_detail_materials() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_detail={
+            "materials": [{"obj_src_id": 10}],
+            "scored_material_ids": [10],
+            "pending_material_ids": [11],
+        },
+    )
+
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+
+def test_validate_material_coverage_allows_explicit_supporting_calc_detail_materials() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_detail={
+            "materials": [{"obj_src_id": 10}],
+            "scored_material_ids": [10],
+            "supporting_material_ids": [11],
+            "pending_material_ids": [],
+        },
+    )
+
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+
+def test_validate_material_coverage_allows_explicit_excluded_calc_detail_materials() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_detail={
+            "materials": [{"obj_src_id": 10}],
+            "scored_material_ids": [10],
+            "supporting_material_ids": [],
+            "pending_material_ids": [],
+            "excluded_material_ids": [11],
+        },
+    )
+
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+
+def test_reconcile_material_coverage_marks_missing_db_obj_srcs_pending() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="talent_discovery",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10,),
+        calc_note="fixture recalc",
+        calc_detail={"materials": [{"obj_src_id": 10}]},
+    )
+
+    reconciled = tool._reconcile_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+    assert reconciled.material_ids == (10, 11)
+    assert reconciled.calc_detail["covered_material_ids"] == [10, 11]
+    assert reconciled.calc_detail["scored_material_ids"] == [10]
+    assert reconciled.calc_detail["supporting_material_ids"] == [11]
+    assert reconciled.calc_detail["pending_material_ids"] == [11]
+    assert reconciled.calc_detail["coverage_reconciliation"]["status"] == "db_obj_srcs_pending_factor_profile"
+    assert "db material coverage reconciled" in reconciled.calc_note
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=reconciled,
+    )
+
+
+def test_reconcile_material_coverage_preserves_reviewed_supporting_materials() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="appointment_trust",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_note="fixture recalc",
+        calc_detail={
+            "covered_material_ids": [10, 11],
+            "scored_material_ids": [10],
+            "supporting_material_ids": [11],
+            "materials": [{"obj_src_id": 10}],
+        },
+    )
+
+    reconciled = tool._reconcile_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+    assert reconciled is cluster
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=reconciled,
+    )
+
+
+def test_reconcile_material_coverage_marks_unreviewed_scoring_materials_pending() -> None:
+    tool = load_tool()
+    cluster = tool.ClusterInput(
+        emperor="测试帝",
+        rule_code="appointment_trust",
+        positive_signal=Decimal("1.0"),
+        negative_signal=Decimal("0"),
+        formula_code="fixture",
+        note="fixture",
+        material_ids=(10, 11),
+        calc_note="fixture recalc",
+        calc_detail={
+            "covered_material_ids": [10, 11],
+            "scored_material_ids": [10],
+            "supporting_material_ids": [],
+            "materials": [{"obj_src_id": 10}],
+        },
+    )
+
+    reconciled = tool._reconcile_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=cluster,
+    )
+
+    assert reconciled.material_ids == (10, 11)
+    assert reconciled.calc_detail["covered_material_ids"] == [10, 11]
+    assert reconciled.calc_detail["scored_material_ids"] == [10]
+    assert reconciled.calc_detail["supporting_material_ids"] == [11]
+    assert reconciled.calc_detail["pending_material_ids"] == [11]
+    assert reconciled.calc_detail["coverage_reconciliation"]["added_material_ids"] == []
+    assert reconciled.calc_detail["coverage_reconciliation"]["pending_factor_profile_ids"] == [11]
+    tool._validate_material_coverage(
+        ExpectedMaterialCursor((10, 11)),
+        emp_id=1,
+        item_id=2,
+        rule_id=3,
+        cluster=reconciled,
+    )
+
+
 def test_validate_material_coverage_allows_team_building_emp_obj_materials() -> None:
     tool = load_tool()
     cluster = tool.ClusterInput(

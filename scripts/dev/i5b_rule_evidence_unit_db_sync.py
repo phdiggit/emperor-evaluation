@@ -49,9 +49,11 @@ class SyncStats:
     units_seen: int = 0
     units_inserted: int = 0
     units_updated: int = 0
+    units_retired: int = 0
     members_seen: int = 0
     members_inserted: int = 0
     members_updated: int = 0
+    members_retired: int = 0
     supporting_unattached: int = 0
     preview_issues: int = 0
     preview_blocking: bool = False
@@ -443,6 +445,52 @@ def _update_member(cur: psycopg.Cursor, member_id: int, values: Mapping[str, obj
     )
 
 
+def _retire_stale_candidate_units(
+    cur: psycopg.Cursor,
+    *,
+    emp_id: int,
+    item_id: int,
+    rule_ids: Mapping[str, int],
+    active_unit_ids: Sequence[int],
+) -> tuple[int, int]:
+    if not rule_ids:
+        return 0, 0
+    cur.execute(
+        """
+        update rule_evidence_units
+           set status = 'retired',
+               updated_at = now()
+         where status = 'active'
+           and source_method = %s::public.eval_source_method
+           and review_status = %s::public.eval_review_status
+           and emp_id = %s
+           and item_id = %s
+           and rule_id = any(%s)
+           and not (id = any(%s))
+        returning id
+        """,
+        (SOURCE_METHOD, REVIEW_STATUS, emp_id, item_id, list(rule_ids.values()), list(active_unit_ids)),
+    )
+    retired_unit_ids = [int(row[0]) for row in cur.fetchall()]
+    if not retired_unit_ids:
+        return 0, 0
+    cur.execute(
+        """
+        update rule_evidence_unit_members
+           set status = 'retired',
+               updated_at = now()
+         where status = 'active'
+           and source_method = %s::public.eval_source_method
+           and review_status = %s::public.eval_review_status
+           and unit_id = any(%s)
+        returning id
+        """,
+        (SOURCE_METHOD, REVIEW_STATUS, retired_unit_ids),
+    )
+    retired_member_count = len(cur.fetchall())
+    return len(retired_unit_ids), retired_member_count
+
+
 def sync_payload(
     *,
     cur: psycopg.Cursor,
@@ -468,6 +516,7 @@ def sync_payload(
     emp_id, item_id, rule_ids = _resolve_ids(cur, emperor=emperor, item_code=item_code, rule_codes=rule_codes)
     inserted_units = updated_units = inserted_members = updated_members = 0
     members_seen = 0
+    active_unit_ids: list[int] = []
     for unit in units:
         rule_code = _text(unit.get("rule_code"))
         values = unit_db_values(
@@ -484,6 +533,7 @@ def sync_payload(
         else:
             _update_unit(cur, unit_id, values)
             updated_units += 1
+        active_unit_ids.append(unit_id)
 
         for member in _iter_members(unit):
             members_seen += 1
@@ -495,15 +545,24 @@ def sync_payload(
             else:
                 _update_member(cur, member_id, member_values)
                 updated_members += 1
+    retired_units, retired_members = _retire_stale_candidate_units(
+        cur,
+        emp_id=emp_id,
+        item_id=item_id,
+        rule_ids=rule_ids,
+        active_unit_ids=active_unit_ids,
+    )
 
     return SyncStats(
         emperor=emperor,
         units_seen=len(units),
         units_inserted=inserted_units,
         units_updated=updated_units,
+        units_retired=retired_units,
         members_seen=members_seen,
         members_inserted=inserted_members,
         members_updated=updated_members,
+        members_retired=retired_members,
         supporting_unattached=_supporting_count(payload),
         preview_issues=preview_issues,
         preview_blocking=preview_blocking,
@@ -529,8 +588,8 @@ def render_markdown(stats: Sequence[SyncStats], *, dry_run: bool) -> str:
         f"- generated_at: `{datetime.now().astimezone().isoformat(timespec='seconds')}`",
         f"- dry_run: `{str(dry_run).lower()}`",
         "",
-        "| 皇帝 | units | unit新增 | unit更新 | members | member新增 | member更新 | 未挂支撑 | 预览问题 | 阻塞 |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| 皇帝 | units | unit新增 | unit更新 | unit退役 | members | member新增 | member更新 | member退役 | 未挂支撑 | 预览问题 | 阻塞 |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for row in stats:
         lines.append(
@@ -541,9 +600,11 @@ def render_markdown(stats: Sequence[SyncStats], *, dry_run: bool) -> str:
                     str(row.units_seen),
                     str(row.units_inserted),
                     str(row.units_updated),
+                    str(row.units_retired),
                     str(row.members_seen),
                     str(row.members_inserted),
                     str(row.members_updated),
+                    str(row.members_retired),
                     str(row.supporting_unattached),
                     str(row.preview_issues),
                     "是" if row.preview_blocking else "否",
@@ -555,9 +616,11 @@ def render_markdown(stats: Sequence[SyncStats], *, dry_run: bool) -> str:
         "units_seen": sum(row.units_seen for row in stats),
         "units_inserted": sum(row.units_inserted for row in stats),
         "units_updated": sum(row.units_updated for row in stats),
+        "units_retired": sum(row.units_retired for row in stats),
         "members_seen": sum(row.members_seen for row in stats),
         "members_inserted": sum(row.members_inserted for row in stats),
         "members_updated": sum(row.members_updated for row in stats),
+        "members_retired": sum(row.members_retired for row in stats),
         "supporting_unattached": sum(row.supporting_unattached for row in stats),
         "preview_issues": sum(row.preview_issues for row in stats),
         "preview_blocking": sum(1 for row in stats if row.preview_blocking),
@@ -570,9 +633,11 @@ def render_markdown(stats: Sequence[SyncStats], *, dry_run: bool) -> str:
             f"- units_seen: `{totals['units_seen']}`",
             f"- units_inserted: `{totals['units_inserted']}`",
             f"- units_updated: `{totals['units_updated']}`",
+            f"- units_retired: `{totals['units_retired']}`",
             f"- members_seen: `{totals['members_seen']}`",
             f"- members_inserted: `{totals['members_inserted']}`",
             f"- members_updated: `{totals['members_updated']}`",
+            f"- members_retired: `{totals['members_retired']}`",
             f"- supporting_unattached: `{totals['supporting_unattached']}`",
             f"- preview_issues: `{totals['preview_issues']}`",
             f"- preview_blocking_emperors: `{totals['preview_blocking']}`",
@@ -591,9 +656,11 @@ def _json_stats(stats: Sequence[SyncStats], *, dry_run: bool) -> dict[str, objec
             "units_seen": sum(row.units_seen for row in stats),
             "units_inserted": sum(row.units_inserted for row in stats),
             "units_updated": sum(row.units_updated for row in stats),
+            "units_retired": sum(row.units_retired for row in stats),
             "members_seen": sum(row.members_seen for row in stats),
             "members_inserted": sum(row.members_inserted for row in stats),
             "members_updated": sum(row.members_updated for row in stats),
+            "members_retired": sum(row.members_retired for row in stats),
             "supporting_unattached": sum(row.supporting_unattached for row in stats),
             "preview_issues": sum(row.preview_issues for row in stats),
             "preview_blocking_emperors": sum(1 for row in stats if row.preview_blocking),

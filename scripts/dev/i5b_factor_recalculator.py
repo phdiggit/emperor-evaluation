@@ -11,6 +11,8 @@ from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
 
+import psycopg
+
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -30,6 +32,7 @@ from scripts.dev.i5b_factor_consistency_audit import (
     build_audit_report_from_inputs,
 )
 from scripts.dev.i5b_factor_table_sync import dump_db_factor_options
+from scripts.dev.i5b_finite_values import normalize_period_alias, normalize_team_person_name
 from scripts.dev.i5b_rule_object_coverage_audit import attr_value, fetch_emp_object_rows
 
 
@@ -51,6 +54,17 @@ TEAM_BUILDING_RANK_DECAYS = (
 )
 RETIRED_FACTOR_NAMES = {"founder_pressure", "retention_signal"}
 RETIRED_FOUNDER_BASELINE_NAME = "founder_retention_baseline"
+LEGACY_FACTOR_LABEL_ALIASES = {
+    ("trust_validity", "常规合理信任"): "信任关系存在，但只见任官、亲近、复用或名望，缺少任后结果、岗位适配或公共能力反馈；普通任命默认不得高于此档。",
+    ("role_complementarity_factor", "同质化明显。"): "功能同质化明显，主要集中在单一文官、军功、近幸或地方执行序列。",
+    ("role_complementarity_factor", "同质化明显"): "功能同质化明显，主要集中在单一文官、军功、近幸或地方执行序列。",
+    ("role_complementarity_factor", "常规互补。"): "常规互补，至少两个功能面有称职对象，但关键功能仍明显依赖同一类人才或同一系统。",
+    ("role_complementarity_factor", "常规互补"): "常规互补，至少两个功能面有称职对象，但关键功能仍明显依赖同一类人才或同一系统。",
+    ("role_complementarity_factor", "文武、谋政、执行、反馈等互补成立。"): "较强互补，至少三个功能面有重要及以上对象承担，并能形成决策、执行和纠偏/安全之间的配合。",
+    ("role_complementarity_factor", "文武、谋政、执行、反馈等互补成立"): "较强互补，至少三个功能面有重要及以上对象承担，并能形成决策、执行和纠偏/安全之间的配合。",
+    ("role_complementarity_factor", "多类型高质量人才高度互补。"): "高度互补，四个粗功能面均有重要及以上对象支撑，且其中至少两个功能面有顶级或历史级对象承担核心作用。",
+    ("role_complementarity_factor", "多类型高质量人才高度互补"): "高度互补，四个粗功能面均有重要及以上对象支撑，且其中至少两个功能面有顶级或历史级对象承担核心作用。",
+}
 
 
 class I5BFactorRecalculatorError(ValueError):
@@ -105,8 +119,46 @@ def optional_int_tuple(value: Any, *, path: str) -> tuple[int, ...]:
     return tuple(ids)
 
 
+def coverage_id_sets(
+    row: dict[str, Any],
+    *,
+    scored_material_ids: tuple[int, ...],
+    path: str,
+) -> tuple[tuple[int, ...], tuple[int, ...], tuple[int, ...]]:
+    explicit_material_ids = optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids")
+    explicit_covered_ids = optional_int_tuple(row.get("covered_material_ids"), path=f"{path}.covered_material_ids")
+    explicit_supporting_ids = optional_int_tuple(row.get("supporting_material_ids"), path=f"{path}.supporting_material_ids")
+    explicit_excluded_ids = optional_int_tuple(row.get("excluded_material_ids"), path=f"{path}.excluded_material_ids")
+    covered = tuple(
+        dict.fromkeys(
+            (
+                *explicit_material_ids,
+                *explicit_covered_ids,
+                *scored_material_ids,
+                *explicit_supporting_ids,
+                *explicit_excluded_ids,
+            )
+        )
+    )
+    scored_set = set(scored_material_ids)
+    excluded_set = set(explicit_excluded_ids)
+    supporting = tuple(
+        dict.fromkeys(
+            (
+                *explicit_supporting_ids,
+                *(material_id for material_id in covered if material_id not in scored_set and material_id not in excluded_set),
+            )
+        )
+    )
+    return covered, supporting, explicit_excluded_ids
+
+
 def normalize_label(value: str) -> str:
     return re.sub(r"\s+", "", value.strip().strip("\u3002\uff1b;"))
+
+
+def legacy_factor_label_alias(factor_name: str, label: str) -> str:
+    return LEGACY_FACTOR_LABEL_ALIASES.get((factor_name, label), label)
 
 
 def parse_factor_catalog(paths: tuple[Path, ...]) -> dict[str, list[FactorRow]]:
@@ -212,7 +264,7 @@ def lookup_factor_row(
         rule_candidates = [row for row in candidates if row.rule_code == rule_code]
         shared_candidates = [row for row in candidates if not row.rule_code]
         candidates = rule_candidates or shared_candidates
-    wanted = normalize_label(label)
+    wanted = normalize_label(legacy_factor_label_alias(factor_name, label))
     exact_matches: list[FactorRow] = []
     fuzzy_matches: list[tuple[int, FactorRow]] = []
     for row in candidates:
@@ -238,6 +290,28 @@ def lookup_factor_row(
     raise I5BFactorRecalculatorError(f"factor row not found: {factor_name} / {label}")
 
 
+def lookup_factor_row_by_value(
+    catalog: dict[str, list[FactorRow]],
+    factor_name: str,
+    value: Decimal,
+    *,
+    rule_code: str = "",
+) -> FactorRow:
+    candidates: list[FactorRow] = []
+    for candidate_name in candidate_factor_names(catalog, factor_name):
+        candidates.extend(catalog.get(candidate_name, ()))
+    if rule_code:
+        rule_candidates = [row for row in candidates if row.rule_code == rule_code]
+        shared_candidates = [row for row in candidates if not row.rule_code]
+        candidates = rule_candidates or shared_candidates
+    matches = [row for row in candidates if row.value == value]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        raise I5BFactorRecalculatorError(f"factor row ambiguous by value: {factor_name} / {value}")
+    raise I5BFactorRecalculatorError(f"factor row not found by value: {factor_name} / {value}")
+
+
 def lookup_factor(
     catalog: dict[str, list[FactorRow]],
     factor_name: str,
@@ -252,7 +326,11 @@ def factor_ref_with_catalog(value: Any, row: FactorRow) -> Any:
     if row.option_id is None:
         return value
     ref = dict(value) if isinstance(value, dict) else {"label": str(value)}
-    ref.setdefault("label", row.label)
+    label = str(ref.get("label") or "")
+    if label and normalize_label(label) != normalize_label(row.label):
+        ref["legacy_label"] = label
+    ref.pop("value", None)
+    ref["label"] = row.label
     ref["factor"] = row.factor_name
     ref["factor_option_id"] = row.option_id
     ref["catalog_value_num"] = str(row.value)
@@ -371,6 +449,37 @@ def team_rank_decay(rank_index: int) -> Decimal:
     return Decimal("0.25")
 
 
+def normalize_identity_period(value: Any) -> str:
+    return normalize_period_alias(value)
+
+
+def team_person_identity_key(material: dict[str, Any], *, obj_key: str, obj_name: str) -> str:
+    explicit_key = material.get("identity_key")
+    if isinstance(explicit_key, str) and explicit_key.strip():
+        return explicit_key.strip()
+    normalized_name = normalize_team_person_name(str(obj_name))
+    period = normalize_identity_period(material.get("obj_period") or material.get("period"))
+    if normalized_name and period:
+        return f"{period}:{normalized_name}"
+    if normalized_name:
+        return f"name:{normalized_name}"
+    return f"obj:{obj_key}"
+
+
+def should_replace_team_candidate(current: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    current_value = current["talent_quality_factor"]
+    candidate_value = candidate["talent_quality_factor"]
+    current_abs = abs(current_value)
+    candidate_abs = abs(candidate_value)
+    if candidate_abs != current_abs:
+        return candidate_abs > current_abs
+    current_has_source = current.get("obj_src_id") is not None
+    candidate_has_source = candidate.get("obj_src_id") is not None
+    if candidate_has_source != current_has_source:
+        return candidate_has_source
+    return str(candidate.get("obj_key")) < str(current.get("obj_key"))
+
+
 def signed_side_signal(scores: list[Decimal]) -> Decimal:
     if not scores:
         return Decimal("0.000")
@@ -439,9 +548,11 @@ def compute_cluster(
     positive_signal = side_signal(list(object_scores["positive"].values()), coverage["positive"])
     negative_signal = side_signal(list(object_scores["negative"].values()), coverage["negative"])
     scored_material_ids = tuple(material.material_id for material in materials if material.material_id is not None)
-    explicit_material_ids = optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids")
-    material_ids = tuple(dict.fromkeys((*explicit_material_ids, *scored_material_ids)))
-    supporting_material_ids = [material_id for material_id in material_ids if material_id not in scored_material_ids]
+    material_ids, supporting_material_ids, excluded_material_ids = coverage_id_sets(
+        row,
+        scored_material_ids=scored_material_ids,
+        path=path,
+    )
 
     detail = {
         "item_code": item_code,
@@ -469,7 +580,9 @@ def compute_cluster(
         "positive_signal": str(positive_signal),
         "negative_signal": str(negative_signal),
     }
-    detail["supporting_material_ids"] = supporting_material_ids
+    detail["supporting_material_ids"] = list(supporting_material_ids)
+    if excluded_material_ids:
+        detail["excluded_material_ids"] = list(excluded_material_ids)
     return ClusterInput(
         emperor=require_text(row, "emperor", path),
         rule_code=rule_code,
@@ -512,8 +625,17 @@ def resolve_team_factor(
 ) -> tuple[Decimal, Any]:
     if factor_name not in team_factors:
         raise I5BFactorRecalculatorError(f"{path}.team_factors.{factor_name}: expected factor")
+    raw_value = team_factors[factor_name]
+    if isinstance(raw_value, dict) and "label" not in raw_value and "value" in raw_value:
+        value = decimal_value(raw_value["value"], path=f"{path}.team_factors.{factor_name}.value")
+        row = lookup_factor_row_by_value(catalog, factor_name, value, rule_code=rule_code)
+        return row.value, factor_ref_with_catalog(raw_value, row)
+    if not isinstance(raw_value, dict):
+        value = decimal_value(raw_value, path=f"{path}.team_factors.{factor_name}")
+        row = lookup_factor_row_by_value(catalog, factor_name, value, rule_code=rule_code)
+        return row.value, factor_ref_with_catalog({}, row)
     return resolve_factor(
-        team_factors[factor_name],
+        raw_value,
         factor_name=factor_name,
         catalog=catalog,
         path=f"{path}.team_factors.{factor_name}",
@@ -554,6 +676,7 @@ def compute_team_building_cluster(
     )
 
     positive_candidates: dict[str, dict[str, Any]] = {}
+    duplicate_team_objects: list[dict[str, Any]] = []
     calc_materials: list[dict[str, Any]] = []
     negative_materials: list[MaterialScore] = []
 
@@ -617,12 +740,29 @@ def compute_team_building_cluster(
             "obj_id": material.get("obj_id"),
             "obj_key": obj_key,
             "obj_name": obj_name,
+            "obj_period": material.get("obj_period") or material.get("period"),
+            "identity_key": team_person_identity_key(material, obj_key=obj_key, obj_name=obj_name),
             "talent_quality_factor": talent_value,
             "talent_quality_ref": talent_ref,
         }
-        current = positive_candidates.get(obj_key)
-        if current is None or talent_value > current["talent_quality_factor"]:
-            positive_candidates[obj_key] = candidate
+        current = positive_candidates.get(str(candidate["identity_key"]))
+        if current is None:
+            positive_candidates[str(candidate["identity_key"])] = candidate
+            continue
+        replacement = should_replace_team_candidate(current, candidate)
+        kept = candidate if replacement else current
+        dropped = current if replacement else candidate
+        duplicate_team_objects.append(
+            {
+                "identity_key": candidate["identity_key"],
+                "kept_obj_key": kept["obj_key"],
+                "dropped_obj_key": dropped["obj_key"],
+                "kept_obj_name": kept["obj_name"],
+                "dropped_obj_name": dropped["obj_name"],
+            }
+        )
+        if replacement:
+            positive_candidates[str(candidate["identity_key"])] = candidate
 
     ranked = sorted(
         positive_candidates.values(),
@@ -641,6 +781,8 @@ def compute_team_building_cluster(
             "obj_id": item.get("obj_id"),
             "obj_key": item["obj_key"],
             "obj_name": item["obj_name"],
+            "obj_period": item.get("obj_period"),
+            "identity_key": item.get("identity_key"),
             "talent_quality_factor": str(item["talent_quality_factor"]),
             "talent_quality_ref": item["talent_quality_ref"],
             "rank_decay": str(decay),
@@ -654,6 +796,8 @@ def compute_team_building_cluster(
                 "obj_id": item.get("obj_id"),
                 "obj_key": item["obj_key"],
                 "obj_name": item["obj_name"],
+                "obj_period": item.get("obj_period"),
+                "identity_key": item.get("identity_key"),
                 "side": "positive",
                 "raw_score": str(contribution),
                 "abs_score": str(contribution),
@@ -694,12 +838,14 @@ def compute_team_building_cluster(
     explicit_negative_signal = side_signal(list(negative_object_scores.values()), negative_coverage)
     negative_signal = quant(team_negative_signal + explicit_negative_signal)
 
-    explicit_material_ids = optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids")
     scored_material_ids = tuple(
         material["obj_src_id"] for material in calc_materials if isinstance(material.get("obj_src_id"), int)
     )
-    material_ids = tuple(dict.fromkeys((*explicit_material_ids, *scored_material_ids)))
-    supporting_material_ids = [material_id for material_id in material_ids if material_id not in scored_material_ids]
+    material_ids, supporting_material_ids, excluded_material_ids = coverage_id_sets(
+        row,
+        scored_material_ids=scored_material_ids,
+        path=path,
+    )
 
     detail = {
         "item_code": item_code,
@@ -707,6 +853,7 @@ def compute_team_building_cluster(
         "team_formula": "(sqrt(sum(positive_weighted_i^2)) - sqrt(sum(abs(negative_weighted_i)^2))) * role_complementarity_factor * long_term_stability_factor",
         "materials": calc_materials,
         "team_quality_components": team_quality_components,
+        "duplicate_team_objects": duplicate_team_objects,
         "positive_quality_signal": str(positive_quality_signal),
         "negative_quality_signal": str(negative_quality_signal),
         "team_quality_signal": str(team_quality_signal),
@@ -732,8 +879,10 @@ def compute_team_building_cluster(
         "scored_material_ids": list(scored_material_ids),
         "positive_signal": str(positive_signal),
         "negative_signal": str(negative_signal),
-        "supporting_material_ids": supporting_material_ids,
+        "supporting_material_ids": list(supporting_material_ids),
     }
+    if excluded_material_ids:
+        detail["excluded_material_ids"] = list(excluded_material_ids)
     return ClusterInput(
         emperor=require_text(row, "emperor", path),
         rule_code=TEAM_BUILDING_RULE_CODE,
@@ -812,6 +961,68 @@ def material_profile_from_calc_detail(row: dict[str, Any], *, path: str) -> dict
     if obj_key is not None:
         material["obj_key"] = str(obj_key)
     return material
+
+def refresh_talent_quality_factors_from_attrs(profiles: list[dict[str, Any]], *, dsn: str) -> None:
+    obj_src_ids: list[int] = []
+    for profile in profiles:
+        if profile.get("rule_code") == TEAM_BUILDING_RULE_CODE:
+            continue
+        materials = profile.get("materials")
+        if not isinstance(materials, list):
+            continue
+        for material in materials:
+            if not isinstance(material, dict):
+                continue
+            factors = material.get("factors")
+            if not isinstance(factors, dict) or "talent_quality_factor" not in factors:
+                continue
+            obj_src_id = material.get("obj_src_id")
+            if isinstance(obj_src_id, int):
+                obj_src_ids.append(obj_src_id)
+    if not obj_src_ids:
+        return
+    with psycopg.connect(dsn) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                select distinct on (os.id)
+                    os.id as obj_src_id,
+                    oa.value_text as talent_quality
+                from obj_srcs os
+                join obj_attrs oa on oa.obj_id = os.obj_id
+                where os.id = any(%s)
+                  and oa.attr_code = 'talent_quality'
+                  and btrim(oa.value_text) <> ''
+                order by
+                    os.id,
+                    (oa.obj_src_id = os.id) desc,
+                    oa.updated_at desc,
+                    oa.id desc
+                """,
+                (sorted(set(obj_src_ids)),),
+            )
+            rows = cur.fetchall()
+    by_obj_src = {int(obj_src_id): str(talent_quality) for obj_src_id, talent_quality in rows}
+    missing = sorted(set(obj_src_ids) - set(by_obj_src))
+    if missing:
+        joined = ", ".join(str(value) for value in missing)
+        raise I5BFactorRecalculatorError(f"obj_attrs.talent_quality missing for calc_detail material obj_srcs: {joined}")
+    for profile in profiles:
+        if profile.get("rule_code") == TEAM_BUILDING_RULE_CODE:
+            continue
+        materials = profile.get("materials")
+        if not isinstance(materials, list):
+            continue
+        for material in materials:
+            if not isinstance(material, dict):
+                continue
+            obj_src_id = material.get("obj_src_id")
+            if not isinstance(obj_src_id, int) or obj_src_id not in by_obj_src:
+                continue
+            factors = material.get("factors")
+            if not isinstance(factors, dict) or "talent_quality_factor" not in factors:
+                continue
+            factors["talent_quality_factor"] = {"label": by_obj_src[obj_src_id]}
 
 
 def is_retired_founder_baseline_material(row: dict[str, Any]) -> bool:
@@ -915,6 +1126,7 @@ def team_building_materials_from_emp_objs(
                 "emp_obj_id": row.get("emp_obj_id"),
                 "obj_id": row.get("obj_id"),
                 "obj_name": row.get("obj_name"),
+                "obj_period": row.get("obj_period"),
                 "direction": "positive",
                 "factors": {
                     "talent_quality_factor": {
@@ -985,6 +1197,10 @@ def load_profile_from_details(
         cluster_profile_from_calc_detail_row(row, path=f"evd_cluster_calc_details:{index}")
         for index, row in enumerate(latest.values())
     ]
+    refresh_talent_quality_factors_from_attrs(
+        profiles,
+        dsn=dsn,
+    )
     apply_team_building_emp_obj_materials(
         profiles,
         dsn=dsn,
@@ -1076,18 +1292,26 @@ def main(argv: list[str] | None = None) -> int:
     if source_count != 1:
         parser.error("exactly one of --input or --from-details is required")
     factor_docs = tuple(args.factor_doc) if args.factor_doc else DEFAULT_FACTOR_DOCS
+    input_raw: dict[str, Any] | None = None
+    if args.input and args.input.exists():
+        loaded_input = json.loads(args.input.read_text(encoding="utf-8-sig"))
+        if isinstance(loaded_input, dict):
+            input_raw = loaded_input
     factor_source = args.factor_source
     if factor_source == "auto":
-        factor_source = "table" if args.from_details else "docs"
+        if args.from_details:
+            factor_source = "table"
+        elif input_raw is not None and str(input_raw.get("factor_source") or "").strip() in {"table", "docs"}:
+            factor_source = str(input_raw.get("factor_source")).strip()
+        else:
+            factor_source = "docs"
     dsn: str | None = None
     factor_catalog: dict[str, list[FactorRow]] | None = None
     if factor_source == "table":
         dsn = resolve_dsn(args.dsn_env)
         formula_for_catalog = args.cluster_formula
-        if args.input:
-            input_raw = json.loads(args.input.read_text(encoding="utf-8-sig"))
-            if isinstance(input_raw, dict):
-                formula_for_catalog = str(input_raw.get("formula_code") or DEFAULT_CLUSTER_FORMULA)
+        if input_raw is not None:
+            formula_for_catalog = str(input_raw.get("formula_code") or DEFAULT_CLUSTER_FORMULA)
         factor_catalog = load_factor_catalog_from_table(
             dsn=dsn,
             item_code=args.item_code,

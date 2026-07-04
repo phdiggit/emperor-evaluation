@@ -9,12 +9,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+import psycopg
+
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.i5b_payload_skeleton import build_payload_skeleton  # noqa: E402
+from scripts.dev.object_pool_importer import DEFAULT_DSN_ENV, resolve_dsn  # noqa: E402
 from scripts.dev.i5b_source_pack_handoff import (  # noqa: E402
     build_report as build_handoff_report,
     discover_handoff_dirs,
@@ -59,6 +62,61 @@ def count_todo_markers(value: Any) -> int:
     if isinstance(value, str):
         return value.count("TODO")
     return 0
+
+
+def fetch_existing_db_facts(person: str, *, dsn_env: str = DEFAULT_DSN_ENV) -> dict[str, Any]:
+    try:
+        dsn = resolve_dsn(dsn_env)
+    except Exception:
+        return {}
+    with psycopg.connect(dsn) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                select ro.name,
+                       ro.obj_type,
+                       oa.attr_code,
+                       oa.value_text,
+                       oa.value_num,
+                       oa.value_unit,
+                       oa.confidence,
+                       sd.src_key,
+                       sd.title,
+                       sd.locator,
+                       oa.note
+                  from emp_objs eo
+                  join emps e on e.id = eo.emp_id
+                  join raw_objs ro on ro.id = eo.obj_id
+                  left join obj_attrs oa on oa.obj_id = ro.id
+                  left join src_docs sd on sd.id = oa.doc_id
+                 where e.name = %s
+                 order by ro.name, oa.attr_code, oa.id
+                """,
+                (person,),
+            )
+            rows = cur.fetchall()
+    objects: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        obj_name = str(row[0])
+        record = objects.setdefault(obj_name, {"obj_type": row[1], "attrs": []})
+        if row[2] is None:
+            continue
+        record["attrs"].append(
+            {
+                "attr_code": row[2],
+                "value_text": row[3],
+                "value_num": str(row[4]) if row[4] is not None else None,
+                "value_unit": row[5],
+                "confidence": str(row[6]),
+                "src_key": row[7],
+                "source_title": row[8],
+                "source_locator": row[9],
+                "note": row[10],
+            }
+        )
+    if not objects:
+        return {}
+    return {"source": "postgres", "person": person, "objects": objects}
 
 
 def _read_handoff_jsonl(path: Path, *, required: bool = True) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -170,7 +228,13 @@ def process_ready_item(
             context_chars=context_chars,
             max_passages_per_page=max_passages_per_page,
         )
-        payload = build_payload_skeleton(profile, excerpt_report=excerpt_report, include_adjacent=include_adjacent)
+        existing_db_facts = fetch_existing_db_facts(person)
+        payload = build_payload_skeleton(
+            profile,
+            excerpt_report=excerpt_report,
+            existing_db_facts=existing_db_facts,
+            include_adjacent=include_adjacent,
+        )
         write_json(excerpt_output, excerpt_report)
         write_json(payload_output, payload)
         result.update(
@@ -179,6 +243,7 @@ def process_ready_item(
                 "excerpt_count": len(excerpt_report.get("excerpts") or []),
                 "object_count": len(payload.get("objects") or []),
                 "source_count": len(payload.get("sources") or []),
+                "existing_db_fact_objects": len((existing_db_facts.get("objects") if existing_db_facts else {}) or {}),
                 "todo_markers": count_todo_markers(payload),
             }
         )

@@ -236,6 +236,7 @@ def _assignment_prompt(agent_id: str, people: Sequence[Mapping[str, Any]], targe
         "For each person, read object_payload_skeleton.json and source_excerpt_pool.json, then produce:",
         "- object_payload_candidate.json",
         "- review_report.md",
+        "Before filling attrs, inspect object_payload_skeleton.existing_db_facts and per-object existing_db_facts; preserve table facts and do not downgrade them.",
         "Do not write the database, formal data, scores, ranks, or final adjudication.",
         "Remove unsupported TODO candidates or mark them in review_report instead of leaving TODO markers in JSON.",
         "Acceptance command:",

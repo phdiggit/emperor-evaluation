@@ -73,6 +73,28 @@ def test_parse_payload_accepts_valid_payload() -> None:
     assert payload.objects[0].links[0].rule_code == "talent_discovery"
 
 
+def test_parse_payload_normalizes_english_period_aliases() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["emperor"]["period"] = "Qing"
+    raw["objects"][0]["period"] = "Qing"
+    raw["objects"][0]["attrs"] = [
+        {
+            "attr_code": "talent_quality",
+            "src_key": "SRC-HHS-J16-DENGYU-TEST",
+            "value_text": "重要人才",
+            "confidence": 0.85,
+            "note": "用于验证英文朝代别名不会制造重复对象。",
+        }
+    ]
+
+    payload = importer.parse_payload(raw)
+
+    assert payload.emperor.period == "清"
+    assert payload.objects[0].period == "清"
+    assert payload.objects[0].attrs[0].region == "清"
+
+
 def test_parse_payload_fills_known_source_biblio_when_blank() -> None:
     importer = load_importer()
     raw = valid_payload()
@@ -107,6 +129,215 @@ def test_parse_payload_accepts_object_attrs() -> None:
     assert attr.value_unit == ""
     assert attr.region == "东汉"
     assert attr.obj_name == "邓禹"
+
+
+def test_parse_payload_rejects_noncanonical_talent_quality() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["attrs"] = [
+        {
+            "attr_code": "talent_quality",
+            "src_key": "SRC-HHS-J16-DENGYU-TEST",
+            "value_text": "高质量人才",
+            "confidence": 0.85,
+            "note": "旧式泛化标签，不允许新 payload 写入。",
+        }
+    ]
+
+    with pytest.raises(importer.ImportErrorWithContext, match="talent_quality: unsupported value"):
+        importer.parse_payload(raw)
+
+
+def test_parse_payload_rejects_unknown_rule_code() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["links"][0]["rule_code"] = "TODO_RULE_CODE"
+
+    with pytest.raises(importer.ImportErrorWithContext, match="objects\\[0\\].links\\[0\\].rule_code"):
+        importer.parse_payload(raw)
+
+
+def test_parse_payload_rejects_unknown_item_code() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["item_code"] = "I5C"
+
+    with pytest.raises(importer.ImportErrorWithContext, match="payload.item_code"):
+        importer.parse_payload(raw)
+
+
+def test_parse_payload_rejects_unknown_attr_code() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["attrs"] = [
+        {
+            "attr_code": "free_text_level",
+            "src_key": "SRC-HHS-J16-DENGYU-TEST",
+            "value_text": "whatever",
+            "note": "不允许自由扩展属性码。",
+        }
+    ]
+
+    with pytest.raises(importer.ImportErrorWithContext, match="objects\\[0\\].attrs\\[0\\].attr_code"):
+        importer.parse_payload(raw)
+
+
+def test_parse_payload_rejects_unknown_subitem() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["subitem"] = "第五项C"
+
+    with pytest.raises(importer.ImportErrorWithContext, match="payload.subitem"):
+        importer.parse_payload(raw)
+
+
+def test_parse_payload_accepts_neutral_and_mixed_source_directions() -> None:
+    importer = load_importer()
+    raw = valid_payload()
+    raw["objects"][0]["links"][0]["direction"] = "neutral"
+    neutral_payload = importer.parse_payload(raw)
+    assert neutral_payload.objects[0].links[0].direction == "neutral"
+
+    raw["objects"][0]["links"][0]["direction"] = "mixed"
+    mixed_payload = importer.parse_payload(raw)
+    assert mixed_payload.objects[0].links[0].direction == "mixed"
+
+
+def test_import_payloads_freeze_blocks_non_dry_run(monkeypatch) -> None:
+    importer = load_importer()
+    payload = importer.parse_payload(valid_payload())
+    monkeypatch.delenv("I5B_OBJECT_POOL_IMPORT_UNFREEZE", raising=False)
+
+    with pytest.raises(importer.ImportErrorWithContext, match="frozen"):
+        importer.import_payloads((payload,), "postgres://example", dry_run=False)
+
+
+def test_attr_merge_preserves_higher_talent_quality() -> None:
+    importer = load_importer()
+    incoming = importer.ObjectAttrRow(
+        attr_code="talent_quality",
+        src_key="SRC-HHS-J16-DENGYU-TEST",
+        note="候选 payload 保守标注。",
+        value_text="重要人才",
+        value_num=None,
+        value_unit="",
+        period_start=None,
+        period_end=None,
+        region="东汉",
+        confidence=0.72,
+        obj_name="邓禹",
+    )
+
+    assert not importer._should_replace_existing_attr(
+        {"value_text": "顶级人才", "value_num": None, "confidence": 1.0},
+        incoming,
+    )
+
+
+def test_attr_merge_preserves_higher_confidence_same_talent_quality() -> None:
+    importer = load_importer()
+    incoming = importer.ObjectAttrRow(
+        attr_code="talent_quality",
+        src_key="SRC-HHS-J16-DENGYU-TEST",
+        note="低置信候选 payload。",
+        value_text="重要人才",
+        value_num=None,
+        value_unit="",
+        period_start=None,
+        period_end=None,
+        region="东汉",
+        confidence=0.72,
+        obj_name="邓禹",
+    )
+
+    assert not importer._should_replace_existing_attr(
+        {"value_text": "重要人才", "value_num": None, "confidence": 0.95},
+        incoming,
+    )
+
+
+def test_attr_merge_allows_higher_talent_quality_with_sufficient_confidence() -> None:
+    importer = load_importer()
+    incoming = importer.ObjectAttrRow(
+        attr_code="talent_quality",
+        src_key="SRC-HHS-J16-DENGYU-TEST",
+        note="已复核高层级人才。",
+        value_text="顶级人才",
+        value_num=None,
+        value_unit="",
+        period_start=None,
+        period_end=None,
+        region="东汉",
+        confidence=0.9,
+        obj_name="邓禹",
+    )
+
+    assert importer._should_replace_existing_attr(
+        {"value_text": "重要人才", "value_num": None, "confidence": 0.72},
+        incoming,
+    )
+
+
+def test_attr_merge_preserves_legacy_high_quality_label() -> None:
+    importer = load_importer()
+    incoming = importer.ObjectAttrRow(
+        attr_code="talent_quality",
+        src_key="SRC-HHS-J16-DENGYU-TEST",
+        note="候选 payload 保守标注。",
+        value_text="重要人才",
+        value_num=None,
+        value_unit="",
+        period_start=None,
+        period_end=None,
+        region="东汉",
+        confidence=0.9,
+        obj_name="邓禹",
+    )
+
+    assert not importer._should_replace_existing_attr(
+        {"value_text": "高质量人才", "value_num": None, "confidence": 0.8},
+        incoming,
+    )
+
+
+class EmperorCursor:
+    def __init__(self, existing: tuple[int, int | None] | None) -> None:
+        self.existing = existing
+        self.calls: list[tuple[str, tuple[object, ...]]] = []
+        self.next_row: tuple[int, int | None] | tuple[int] | None = None
+
+    def execute(self, query: str, params: tuple[object, ...]) -> None:
+        self.calls.append((query, params))
+        if query.startswith("select id, sort_no"):
+            self.next_row = self.existing
+        elif query.lstrip().startswith("insert into emps"):
+            self.next_row = (900,)
+        else:
+            self.next_row = None
+
+    def fetchone(self) -> tuple[int, int | None] | tuple[int] | None:
+        return self.next_row
+
+
+def test_upsert_emperor_reuses_canonical_name_without_overwriting_sort_fields() -> None:
+    importer = load_importer()
+    cursor = EmperorCursor((112, 4160))
+    row = importer.EmperorRow(
+        period="Ming",
+        name="朱由检",
+        title="Ming Sizong",
+        sort_no=None,
+        note="payload note",
+    )
+
+    emp_id = importer._upsert_emperor(cursor, row)
+
+    assert emp_id == 112
+    update_query, update_params = cursor.calls[1]
+    assert "update emps set" in update_query
+    assert "period =" not in update_query
+    assert "sort_no =" not in update_query
+    assert update_params == ("payload note", 112)
 
 
 def test_parse_payload_rejects_tolerate_talent_link_for_negative_talent_object() -> None:

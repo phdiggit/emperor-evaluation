@@ -21,6 +21,7 @@ data/query_profile_batches/*.jsonl
 -> scripts/dev/object_pool_importer.py
 -> src_docs / raw_objs / emp_objs / obj_srcs / obj_attrs
 -> fact_relations / rule_evidence_units / rule_evidence_unit_members（影子层，当前不改正式算分）
+-> i5b_initial_factor_profile.py worklist / patch-to-profile（首轮因子化）
 -> evd_clusters + evd_cluster_calc_details
 -> emp_item_results + emp_item_result_calc_details
 ```
@@ -417,14 +418,91 @@ python scripts/dev/i5b_payload_skeleton.py `
 - `sources[*]`：史源信息。
 - `objects[*].note`：只写对象身份或事件事实，不写规则、方向、评分。
 - `objects[*].links[*]`：史源与 `rule_code`、`direction` 的关系。
-- `objects[*].attrs[*]`：只写可回源属性；`talent_quality` 必须有 `doc_id`。
+- `objects[*].attrs[*]`：只写可回源属性；`talent_quality` 必须有 `doc_id`。人才层级未复核时，先补 `career_track`、`hard_merit_tags`、`hard_merit_summary`、`hard_merit_scope_hint`、`hard_merit_limitations` 等硬通货属性，并补 `authority_eval_summary`、`authority_eval_sources`、`talent_quality_basis` 等权威评价依据；复合人物可补 `talent_profile_note` 记录“才具强但负面边界明显”的解释性画像。不得用名望或材料密度直接生成 `talent_quality`。
 
 导入流程：
 
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/object_pool_importer.py --input .tmp/object-payloads/zhuyoutang_payload.json --dry-run
+$env:I5B_OBJECT_POOL_IMPORT_UNFREEZE='1'
 python scripts/dev/object_pool_importer.py --input .tmp/object-payloads/zhuyoutang_payload.json
+Remove-Item Env:\I5B_OBJECT_POOL_IMPORT_UNFREEZE
+```
+
+对象池正式写入默认冻结，以免候选 payload 批量覆盖已复核属性。只有完成属性等级复核、dry-run 和控制板验收后，才在当前命令作用域显式设置 `I5B_OBJECT_POOL_IMPORT_UNFREEZE=1`。
+
+硬通货属性采集可以并行交给 Codex 子进程，但子进程只产出待审 JSONL / review，不直接写库、不直接改 `talent_quality`。主控验收时检查每条摘要是否绑定史源、是否只写具体战功或文职成果、是否把争议和失败反转写入 `hard_merit_limitations`。
+
+同一批硬通货事实还可以产出 `fact_relation_hints.jsonl`，用于记录“皇帝任命/授权某对象执行某任务并取得某结果”这类可复用事实链。例如“李世民任命李靖为河北道行军大总管并攻灭东突厥”既可作为李靖硬通货，也可作为 `I5B.appointment_trust`、`I5B.delegation` 和后续国防安全类项目的候选事实。hint 只保存 `predicate_hint`、`relation_role_hint`、`target_items_hint` 和 `fact_summary`，不得直接写入 `fact_relations`；必须等谓词词表、目标 item/rule 和承载对象确认后，再转换为 `fact_relations` 或 `rule_evidence_units` 候选。
+
+硬通货交付统一用只读验收工具汇总；该工具只校验 JSONL 和生成候选审阅包，不连接数据库、不写 `obj_attrs` / `fact_relations`：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_hard_merit_handoff.py `
+  --work-root tmp/i5b-hard-merit-work `
+  --output-dir tmp/i5b-hard-merit-work/review `
+  --format markdown
+```
+
+当硬通货事实不足以低成本区分臣子高低时，追加权威评价交付层。子进程写 `authority_eval_attrs.jsonl`，用正史本传/史论、后世史书或编年、现代权威工具书/通史/专题研究等来源概括评价共识，并提出 `talent_quality_proposal`。该层只产出待审候选，不写库、不直接改 `talent_quality`：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_authority_eval_handoff.py `
+  --work-root tmp/i5b-authority-eval-work `
+  --output-dir tmp/i5b-authority-eval-work/review `
+  --format markdown
+```
+
+权威评价候选全量覆盖后，还要先跑分布复核阀门，检查 `顶级人才` 是否被“有传、任高官、评价较高”抬高，`重要人才` 是否混入普通任职对象，历史级候选是否缺少第二类权威来源，以及高等级正向人才是否带有 `talent_profile_note` 记录的严酷、屠掠、压制、贪腐等负面边界。该工具只生成复核 worklist，不自动降级、不写库：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_authority_eval_distribution_audit.py `
+  --work-root tmp/i5b-authority-eval-work `
+  --output-dir tmp/i5b-authority-eval-work/review `
+  --format markdown
+```
+
+当 `authority_eval_distribution_audit.py` 输出 `review_candidates=0` 后，才可把候选属性同步到 `obj_attrs`。同步工具默认 dry-run；正式写库需要沿用对象池冻结开关，避免候选层误写正式属性：
+
+```powershell
+$env:PYTHONUTF8='1'
+python scripts/dev/i5b_authority_eval_attr_sync.py `
+  --work-root tmp/i5b-authority-eval-work `
+  --output tmp/i5b-authority-eval-work/review/authority_eval_attr_sync_report.json
+
+$env:I5B_OBJECT_POOL_IMPORT_UNFREEZE='1'
+python scripts/dev/i5b_authority_eval_attr_sync.py `
+  --work-root tmp/i5b-authority-eval-work `
+  --output tmp/i5b-authority-eval-work/review/authority_eval_attr_sync_report.json `
+  --write
+Remove-Item Env:\I5B_OBJECT_POOL_IMPORT_UNFREEZE
+```
+
+`authority_eval_attrs.jsonl` 最小行结构：
+
+```json
+{
+  "emperor": "李世民",
+  "object_name": "李靖",
+  "career_track": "military",
+  "authority_eval_summary": "正史本传和后世编年长期将其列为唐初核心军事人才。",
+  "authority_eval_sources": [
+    {
+      "source_type": "official_history",
+      "source_ref": "旧唐书 卷六十七 李靖传",
+      "evaluation_note": "本传集中记其军事功绩与朝廷任用。"
+    }
+  ],
+  "talent_quality_proposal": "历史级人才",
+  "talent_quality_basis": "authority_consensus",
+  "confidence": "high",
+  "authority_eval_limitations": "只证明对象本身人才层级，不替代李世民发现或授权链条。",
+  "talent_profile_note": "可选。若对象才具很强但存在严酷、屠掠、贪腐、党争或压制人才等负面边界，在此说明；该字段不直接入分。"
+}
 ```
 
 硬规则：
@@ -569,6 +647,28 @@ python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.js
 python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.json --write-clusters --write-results
 ```
 
+对象池已导入、但该皇帝 / rule 尚无 `evd_cluster_calc_details` 时，不走 pending 补材料链，先生成首轮因子化 worklist：
+
+```powershell
+python scripts/dev/i5b_initial_factor_profile.py worklist `
+  --missing-result-only `
+  --batch-size 40 `
+  --format json `
+  --output tmp/i5b-object-payload-work/i5b_initial_factor_worklist.json `
+  --batch-output-dir tmp/i5b-object-payload-work/initial_factor_batches
+```
+
+子进程按 batch 填写 patch JSONL 后，主控只做结构验收并汇总为标准 factor profile；该步骤不连接数据库、不写库：
+
+```powershell
+python scripts/dev/i5b_initial_factor_profile.py patch-to-profile `
+  --batch tmp/i5b-object-payload-work/initial_factor_batches/pending_material_batch_01.json `
+  --patch tmp/i5b-object-payload-work/initial_factor_patches/pending_material_batch_01.jsonl `
+  --output tmp/i5b-object-payload-work/initial_factor_profiles/i5b_initial_factor_profile_batch_01.json
+```
+
+`patch-to-profile` 会在 profile 中写入 `factor_source=table`，因此默认 `--factor-source auto` 会读取 `eval_rule_factor_options`。首轮 profile 仍交给 `i5b_factor_recalculator.py --input` dry-run / 写库 / 重算；不得绕过重算器直接写 `evd_clusters` 或 `emp_item_results`。`team_building` 的对象材料可由对象链和 `talent_quality` 自动列出，但 `role_complementarity_factor`、`long_term_stability_factor` 仍必须由子进程在 patch 中显式选择候选标签。
+
 `i5b_factor_recalculator.py --write-clusters` 或 `--write-results` 写库前会自动运行因子一致性 hard-error 审计。典型拦截对象包括：`handling_severity >= 2.5` 时材料注释同时写明“不等同于系统清洗”“象征性信用撤销”“轻处分”等低严重度边界；或 `tolerate_talent` 负向材料绑定了 `talent_quality` 为佞臣、大佞臣、历史级佞臣的施害者对象。旧明细中的 `disposition_severity` 仍会被审计识别。只读审计可单独运行：
 
 ```powershell
@@ -609,12 +709,38 @@ python scripts/dev/i5b_talent_discovery_audit.py `
 - `covered_material_ids`
 - `scored_material_ids`
 - `supporting_material_ids`
+- `pending_material_ids`
 - `positive_signal`
 - `negative_signal`
 
 `factor_refs` 保存枚举标签，用于后续修改公式表乘数后直接代换重放；`factor_values` 保存当次实际取值，用于审计。
 `obj_key` 必须来自稳定对象标识，例如 `obj_id` 或人工确认的对象 key；不得用 `obj_src_id`、材料行号或临时路径替代，否则会破坏同对象去重。
-`covered_material_ids` 表示本簇覆盖的全部 `obj_srcs`，`scored_material_ids` 表示实际进入 `calc_detail.materials` 的计分材料，`supporting_material_ids` 只表示属性、身份或同对象补源材料，不直接入分。
+`covered_material_ids` 表示本簇覆盖的全部 `obj_srcs`，`scored_material_ids` 表示实际进入 `calc_detail.materials` 的计分材料，`supporting_material_ids` 只表示属性、身份或同对象补源材料，不直接入分，但属于已审的非计分覆盖；对象池导入后若 DB 已有新的 `obj_srcs`，但当前计算明细尚未把它们转成因子材料，写簇工具会把这些材料补入 `covered_material_ids` 并登记到 `pending_material_ids`；pending 只表示待后续因子化消费，不参与正负信号计算。
+
+主控看到健康检查的 `pending_materials` warning 后，不直接人工逐条查库，先生成可派给 Codex 子进程的 worklist：
+
+```powershell
+python scripts/dev/i5b_pending_material_worklist.py --format json --output tmp/i5b-authority-eval-work/review/i5b_pending_material_worklist.json --batch-output-dir tmp/i5b-authority-eval-work/review/pending_material_batches --batch-size 40
+```
+
+该工具只读数据库，补齐 `pending_material_ids` 对应的皇帝、rule、对象、史源和 note，并按材料量输出建议 batch；子进程完成因子化后再由主控重放 `i5b_factor_recalculator.py --from-details --write-clusters --write-results`。
+
+子进程交付 patch JSONL 后，主控先验收 patch，不直接入库：
+
+```powershell
+python scripts/dev/i5b_pending_factor_patch.py --batch tmp/i5b-authority-eval-work/review/pending_material_batches/pending_material_batch_01.json --patch tmp/i5b-authority-eval-work/review/pending_factor_patches/pending_material_batch_01.jsonl --fail-on-issue
+```
+
+patch 行以 `obj_src_id` 为主键，`target_action` 可为 `score`、`supporting_only` 或 `exclude`；`score` 必须填写对应 rule 的 `factor_refs.*.label`，且 label 必须来自 worklist 模板给出的候选项。验收工具还会复用规则承载对象槽位政策：例如 `tolerate_talent` / `anti_nepotism` 的事件、群体、机制对象不能作为 `score` 承载，应改交 `supporting_only` 或 `exclude`，让具体人物对象承载分值。验收工具不连接数据库，只判断子进程交付是否结构完整。
+
+patch 全部验收通过后，先 dry-run 应用，再显式写回明细表：
+
+```powershell
+python scripts/dev/i5b_pending_factor_patch_apply.py --batch tmp/i5b-authority-eval-work/review/pending_material_batches/pending_material_batch_01.json --patch tmp/i5b-authority-eval-work/review/pending_factor_patches/pending_material_batch_01.jsonl
+python scripts/dev/i5b_pending_factor_patch_apply.py --batch tmp/i5b-authority-eval-work/review/pending_material_batches/pending_material_batch_01.json --patch tmp/i5b-authority-eval-work/review/pending_factor_patches/pending_material_batch_01.jsonl --write
+```
+
+`score` 会进入 `calc_detail.materials` 与 `scored_material_ids`，`supporting_only` 会进入 `supporting_material_ids`，`exclude` 会进入 `excluded_material_ids`；三者都会从 `pending_material_ids` 移除。写回后仍以 `i5b_factor_recalculator.py --from-details --write-clusters --write-results` 作为唯一重放入口。
 
 ## 4.1. 计分细则表同步
 
@@ -728,7 +854,7 @@ python scripts/dev/i5b_health_check.py `
 1. 补检索包或确认已有检索包对象。
 2. 回源史料。
 3. 用 `object_pool_importer.py` dry-run 和导入。
-4. 为受影响 rule 更新 factor profile。
+4. 为受影响 rule 更新 factor profile；无 `calc_detail` 的首轮对象用 `i5b_initial_factor_profile.py worklist/patch-to-profile` 生成 profile，已有明细后的增量材料仍走 pending worklist / patch / apply 链。
 5. 写回受影响 `evd_clusters`。
 6. 运行 `i5b_rule_object_coverage_audit.py --rule-code <rule_code> --fail-on-gap`；普通 rule 若有已回源但不支撑入该 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
 7. 若受影响 rule 是 `talent_discovery`，运行 `i5b_talent_discovery_audit.py --fail-on-gap`；确有已回源不支撑入 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
@@ -784,10 +910,10 @@ python scripts/dev/i5b_health_check.py `
 
 ```powershell
 python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_worker.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_control_board.py tests/test_i5b_next_stage_queue_runner.py tests/test_i5b_next_stage_control_board.py tests/test_i5b_source_pack_status.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py tests/test_object_pool_importer.py tests/test_i5b_object_payload_audit.py -q
-python -m pytest tests/test_i5b_factor_recalculator.py tests/test_i5b_factor_consistency_audit.py tests/test_i5b_factor_table_sync.py tests/test_i5b_factor_options_schema.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
+python -m pytest tests/test_i5b_initial_factor_profile.py tests/test_i5b_factor_recalculator.py tests/test_i5b_factor_consistency_audit.py tests/test_i5b_factor_table_sync.py tests/test_i5b_factor_options_schema.py tests/test_evidence_cluster_workbench.py tests/test_i5b_item_result_calculator.py -q
 python -m pytest tests/test_i5b_rule_evidence_unit_candidate_builder.py tests/test_i5b_rule_evidence_unit_db_sync.py tests/test_i5b_rule_evidence_unit_preview.py tests/test_i5b_rule_evidence_unit_issue_summary.py tests/test_i5b_fact_relation_candidate_sync.py tests/test_i5b_fact_relation_gap_summary.py tests/test_rule_evidence_units_schema.py -q
 python -m pytest tests/test_i5b_calc_breakdown.py tests/test_i5b_health_check.py tests/test_scripts_dev_i5b_registry.py -q
-python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_worker.py scripts/dev/i5b_source_pack_audit.py scripts/dev/i5b_source_pack_handoff.py scripts/dev/i5b_source_pack_control_board.py scripts/dev/i5b_next_stage_queue_runner.py scripts/dev/i5b_next_stage_control_board.py scripts/dev/i5b_query_profile_refiner.py scripts/dev/i5b_query_profile_refiner_daemon.py scripts/dev/i5b_source_pack_runtime_supervisor.py scripts/dev/i5b_source_pack_pipeline_daemon.py scripts/dev/i5b_query_profile_seed_builder.py scripts/dev/object_pool_importer.py scripts/dev/i5b_payload_skeleton.py scripts/dev/i5b_object_payload_audit.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
+python -m py_compile scripts/dev/source_excerpt_pool.py scripts/dev/i5b_source_pack_fetcher.py scripts/dev/i5b_source_pack_worker.py scripts/dev/i5b_source_pack_audit.py scripts/dev/i5b_source_pack_handoff.py scripts/dev/i5b_source_pack_control_board.py scripts/dev/i5b_next_stage_queue_runner.py scripts/dev/i5b_next_stage_control_board.py scripts/dev/i5b_query_profile_refiner.py scripts/dev/i5b_query_profile_refiner_daemon.py scripts/dev/i5b_source_pack_runtime_supervisor.py scripts/dev/i5b_source_pack_pipeline_daemon.py scripts/dev/i5b_query_profile_seed_builder.py scripts/dev/object_pool_importer.py scripts/dev/i5b_payload_skeleton.py scripts/dev/i5b_object_payload_audit.py scripts/dev/evidence_cluster_workbench.py scripts/dev/i5b_initial_factor_profile.py scripts/dev/i5b_factor_recalculator.py scripts/dev/i5b_factor_consistency_audit.py scripts/dev/i5b_factor_table_sync.py scripts/dev/i5b_rule_evidence_unit_candidate_builder.py scripts/dev/i5b_rule_evidence_unit_db_sync.py scripts/dev/i5b_rule_evidence_unit_preview.py scripts/dev/i5b_rule_evidence_unit_issue_summary.py scripts/dev/i5b_fact_relation_candidate_sync.py scripts/dev/i5b_fact_relation_gap_summary.py scripts/dev/i5b_health_check.py scripts/build/i5b_item_result_calculator.py
 ```
 
 涉及 `scripts/**` 或 `docs/**` 的 PR，还应按根目录和对应目录 `AGENTS.md` 运行适用的治理检查。

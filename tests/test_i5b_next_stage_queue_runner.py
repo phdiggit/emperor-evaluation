@@ -109,8 +109,28 @@ def write_ready_handoff(root: Path, pack: Path) -> Path:
     return handoff
 
 
-def test_run_queue_generates_excerpt_and_payload_skeleton(tmp_path: Path) -> None:
+def test_run_queue_generates_excerpt_and_payload_skeleton(tmp_path: Path, monkeypatch) -> None:
     tool = load_tool()
+    monkeypatch.setattr(
+        tool,
+        "fetch_existing_db_facts",
+        lambda person: {
+            "source": "fixture",
+            "person": person,
+            "objects": {
+                "姚崇": {
+                    "obj_type": "person",
+                    "attrs": [
+                        {
+                            "attr_code": "talent_quality",
+                            "value_text": "历史级人才",
+                            "confidence": "1.00",
+                        }
+                    ],
+                }
+            },
+        },
+    )
     profile = tmp_path / "profiles.jsonl"
     pack_root = tmp_path / "source-packs"
     output_root = tmp_path / "out"
@@ -137,6 +157,9 @@ def test_run_queue_generates_excerpt_and_payload_skeleton(tmp_path: Path) -> Non
     payload = json.loads(Path(item["payload_output"]).read_text(encoding="utf-8"))
     assert payload["review"]["excerpt_status"] == "offline_source_pack"
     assert {source["title"] for source in payload["sources"]} >= {"旧唐书"}
+    assert item["existing_db_fact_objects"] == 1
+    assert payload["review"]["existing_db_facts"]["source"] == "fixture"
+    assert payload["objects"][0]["existing_db_facts"]["attrs"][0]["value_text"] == "历史级人才"
 
 
 def test_run_queue_stops_when_handoff_validation_blocks(tmp_path: Path) -> None:

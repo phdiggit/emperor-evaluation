@@ -80,6 +80,22 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_health_check.py",
         "required_tests": ["tests/test_i5b_health_check.py"],
     },
+    "i5b_pending_material_worklist": {
+        "implementation": "scripts/dev/i5b_pending_material_worklist.py",
+        "required_tests": ["tests/test_i5b_pending_material_worklist.py"],
+    },
+    "i5b_pending_factor_patch": {
+        "implementation": "scripts/dev/i5b_pending_factor_patch.py",
+        "required_tests": ["tests/test_i5b_pending_factor_patch.py"],
+    },
+    "i5b_pending_factor_patch_apply": {
+        "implementation": "scripts/dev/i5b_pending_factor_patch_apply.py",
+        "required_tests": ["tests/test_i5b_pending_factor_patch_apply.py"],
+    },
+    "i5b_finite_value_audit": {
+        "implementation": "scripts/dev/i5b_finite_value_audit.py",
+        "required_tests": ["tests/test_i5b_finite_value_audit.py", "tests/test_i5b_finite_values.py"],
+    },
     "i5b_fact_relation_candidate_sync": {
         "implementation": "scripts/dev/i5b_fact_relation_candidate_sync.py",
         "required_tests": ["tests/test_i5b_fact_relation_candidate_sync.py"],
@@ -87,6 +103,22 @@ EXPECTED_I5B_DEV_MODULES = {
     "i5b_fact_relation_gap_summary": {
         "implementation": "scripts/dev/i5b_fact_relation_gap_summary.py",
         "required_tests": ["tests/test_i5b_fact_relation_gap_summary.py"],
+    },
+    "i5b_hard_merit_handoff": {
+        "implementation": "scripts/dev/i5b_hard_merit_handoff.py",
+        "required_tests": ["tests/test_i5b_hard_merit_handoff.py"],
+    },
+    "i5b_authority_eval_handoff": {
+        "implementation": "scripts/dev/i5b_authority_eval_handoff.py",
+        "required_tests": ["tests/test_i5b_authority_eval_handoff.py"],
+    },
+    "i5b_authority_eval_distribution_audit": {
+        "implementation": "scripts/dev/i5b_authority_eval_distribution_audit.py",
+        "required_tests": ["tests/test_i5b_authority_eval_distribution_audit.py"],
+    },
+    "i5b_authority_eval_attr_sync": {
+        "implementation": "scripts/dev/i5b_authority_eval_attr_sync.py",
+        "required_tests": ["tests/test_i5b_authority_eval_attr_sync.py"],
     },
     "i5b_rule_evidence_unit_preview": {
         "implementation": "scripts/dev/i5b_rule_evidence_unit_preview.py",

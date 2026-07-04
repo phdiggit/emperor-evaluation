@@ -402,6 +402,194 @@ def test_load_profile_from_details_can_replay_from_factor_table_catalog(monkeypa
     assert material["factor_refs"]["severity_factor"]["catalog_value_num"] == "3.0"
 
 
+def test_legacy_trust_validity_label_maps_to_low_validity() -> None:
+    tool = load_tool()
+    current_label = "信任关系存在，但只见任官、亲近、复用或名望，缺少任后结果、岗位适配或公共能力反馈；普通任命默认不得高于此档。"
+    catalog = tool.parse_factor_catalog_from_rows(
+        [
+            {
+                "factor_option_id": 45,
+                "rule_code": "appointment_trust",
+                "factor_name": "trust_validity",
+                "factor_scope": "rule",
+                "label": current_label,
+                "value_num": "0.3",
+                "source_doc": "doc.md",
+                "source_line": 260,
+            }
+        ]
+    )
+
+    value, ref = tool.resolve_factor(
+        {"label": "常规合理信任"},
+        factor_name="trust_validity",
+        catalog=catalog,
+        path="fixture.factors.trust_validity",
+        rule_code="appointment_trust",
+    )
+
+    assert value == tool.Decimal("0.3")
+    assert ref["label"] == current_label
+    assert ref["legacy_label"] == "常规合理信任"
+    assert ref["factor_option_id"] == 45
+
+
+def test_team_factor_numeric_literal_rewrites_to_catalog_ref() -> None:
+    tool = load_tool()
+    current_label = "高度互补，四个粗功能面均有重要及以上对象支撑，且其中至少两个功能面有顶级或历史级对象承担核心作用。"
+    catalog = tool.parse_factor_catalog_from_rows(
+        [
+            {
+                "factor_option_id": 91,
+                "rule_code": "team_building",
+                "factor_name": "role_complementarity_factor",
+                "factor_scope": "rule",
+                "label": current_label,
+                "value_num": "1.30",
+                "source_doc": "doc.md",
+                "source_line": 384,
+            }
+        ]
+    )
+
+    value, ref = tool.resolve_team_factor(
+        {"role_complementarity_factor": "1.30"},
+        "role_complementarity_factor",
+        catalog=catalog,
+        path="fixture",
+        rule_code="team_building",
+    )
+
+    assert value == tool.Decimal("1.30")
+    assert ref["label"] == current_label
+    assert ref["factor_option_id"] == 91
+    assert ref["catalog_value_num"] == "1.30"
+    assert "value" not in ref
+
+
+def test_legacy_role_complementarity_label_maps_to_coarse_label() -> None:
+    tool = load_tool()
+    current_label = "较强互补，至少三个功能面有重要及以上对象承担，并能形成决策、执行和纠偏/安全之间的配合。"
+    catalog = tool.parse_factor_catalog_from_rows(
+        [
+            {
+                "factor_option_id": 91,
+                "rule_code": "team_building",
+                "factor_name": "role_complementarity_factor",
+                "factor_scope": "rule",
+                "label": current_label,
+                "value_num": "1.15",
+                "source_doc": "doc.md",
+                "source_line": 384,
+            }
+        ]
+    )
+
+    value, ref = tool.resolve_team_factor(
+        {"role_complementarity_factor": {"label": "文武、谋政、执行、反馈等互补成立。"}},
+        "role_complementarity_factor",
+        catalog=catalog,
+        path="fixture",
+        rule_code="team_building",
+    )
+
+    assert value == tool.Decimal("1.15")
+    assert ref["label"] == current_label
+    assert ref["legacy_label"] == "文武、谋政、执行、反馈等互补成立。"
+
+
+def test_load_profile_from_details_refreshes_talent_quality_from_obj_attrs(monkeypatch) -> None:
+    tool = load_tool()
+    detail_row = {
+        "emperor": "Replay Emperor",
+        "rule_code": "talent_discovery",
+        "formula_code": "evidence_cluster_signal_test",
+        "positive_signal": "1.800",
+        "negative_signal": "0.000",
+        "material_ids": [1],
+        "calc_detail": {
+            "item_code": "I5B",
+            "formula_code": "evidence_cluster_signal_test",
+            "coverage": {"positive": "1.0", "negative": "1.0"},
+            "materials": [
+                {
+                    "obj_src_id": 1,
+                    "obj_key": "zhang",
+                    "obj_name": "张九龄",
+                    "side": "positive",
+                    "factor_values": {"talent_quality_factor": "1.8"},
+                    "factor_refs": {
+                        "talent_quality_factor": {
+                            "label": "顶级人才",
+                            "value": "1.8",
+                        }
+                    },
+                }
+            ],
+        },
+    }
+    catalog = tool.parse_factor_catalog_from_rows(
+        [
+            {
+                "factor_option_id": 100,
+                "rule_code": "",
+                "factor_name": "obj_attrs.value_text -> talent_quality_factor",
+                "factor_scope": "attr_mapping",
+                "label": "重要人才",
+                "value_num": "1.3",
+                "source_doc": "doc.md",
+                "source_line": 10,
+            }
+        ]
+    )
+
+    class FakeCursor:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def execute(self, sql, params):
+            self.params = params
+
+        def fetchall(self):
+            return [(1, "重要人才")]
+
+    class FakeConnection:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def cursor(self):
+            return FakeCursor()
+
+    monkeypatch.setattr(
+        tool,
+        "fetch_cluster_calc_detail_rows",
+        lambda **kwargs: {
+            ("Replay Emperor", "talent_discovery"): detail_row,
+        },
+    )
+    monkeypatch.setattr(tool.psycopg, "connect", lambda dsn: FakeConnection())
+
+    _, _, clusters = tool.load_profile_from_details(
+        dsn="postgresql://unused",
+        item_code="I5B",
+        factor_docs=(),
+        factor_catalog=catalog,
+        formula_code="evidence_cluster_signal_test",
+    )
+
+    material = clusters[0].calc_detail["materials"][0]
+    assert clusters[0].positive_signal == tool.Decimal("1.300")
+    assert material["factor_values"]["talent_quality_factor"] == "1.3"
+    assert material["factor_refs"]["talent_quality_factor"]["label"] == "重要人才"
+    assert "value" not in material["factor_refs"]["talent_quality_factor"]
+
+
 def test_profile_rejects_retired_founder_baseline_factor(tmp_path: Path) -> None:
     tool = load_tool()
     profile = tmp_path / "profile.json"
@@ -645,6 +833,160 @@ def test_team_building_preserves_negative_talent_quality(tmp_path: Path) -> None
     assert detail["team_quality_signal"] == "0.027"
     assert clusters[0].positive_signal == tool.Decimal("0.027")
     assert clusters[0].negative_signal == tool.Decimal("0.000")
+
+
+def test_team_building_dedupes_same_person_with_period_alias(tmp_path: Path) -> None:
+    tool = load_tool()
+    doc = tmp_path / "factors.md"
+    profile = tmp_path / "profile.json"
+    doc.write_text(
+        """# factors
+
+`talent_quality_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 重要人才。 |
+
+`role_complementarity_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 常规互补。 |
+
+`long_term_stability_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 稳定团队。 |
+""",
+        encoding="utf-8",
+    )
+    profile.write_text(
+        json.dumps(
+            {
+                "clusters": [
+                    {
+                        "emperor": "测试帝",
+                        "rule_code": "team_building",
+                        "note": "测试团队",
+                        "team_factors": {
+                            "role_complementarity_factor": {"label": "常规互补。"},
+                            "long_term_stability_factor": {"label": "稳定团队。"},
+                        },
+                        "materials": [
+                            {
+                                "obj_src_id": 1,
+                                "obj_id": 10,
+                                "obj_name": "刘墉",
+                                "obj_period": "清",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "重要人才。"}},
+                            },
+                            {
+                                "obj_src_id": 2,
+                                "obj_id": 20,
+                                "obj_name": "刘墉",
+                                "obj_period": "Qing",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "重要人才。"}},
+                            },
+                        ],
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    _, _, clusters = tool.load_profile(profile, factor_docs=(doc,))
+
+    detail = clusters[0].calc_detail
+    assert len(detail["team_quality_components"]) == 1
+    assert detail["team_quality_components"][0]["identity_key"] == "清:刘墉"
+    assert detail["team_quality_signal"] == "1.000"
+    assert detail["duplicate_team_objects"] == [
+        {
+            "identity_key": "清:刘墉",
+            "kept_obj_key": "10",
+            "dropped_obj_key": "20",
+            "kept_obj_name": "刘墉",
+            "dropped_obj_name": "刘墉",
+        }
+    ]
+
+
+def test_team_building_dedupes_phase_name_variants(tmp_path: Path) -> None:
+    tool = load_tool()
+    doc = tmp_path / "factors.md"
+    profile = tmp_path / "profile.json"
+    doc.write_text(
+        """# factors
+
+`talent_quality_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.35` | 顶级人才。 |
+| `1.00` | 重要人才。 |
+
+`role_complementarity_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 常规互补。 |
+
+`long_term_stability_factor`：
+
+| 值 | 口径 |
+| --- | --- |
+| `1.00` | 稳定团队。 |
+""",
+        encoding="utf-8",
+    )
+    profile.write_text(
+        json.dumps(
+            {
+                "clusters": [
+                    {
+                        "emperor": "测试帝",
+                        "rule_code": "team_building",
+                        "note": "测试团队",
+                        "team_factors": {
+                            "role_complementarity_factor": {"label": "常规互补。"},
+                            "long_term_stability_factor": {"label": "稳定团队。"},
+                        },
+                        "materials": [
+                            {
+                                "obj_id": 10,
+                                "obj_name": "姚崇",
+                                "obj_period": "武周",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "顶级人才。"}},
+                            },
+                            {
+                                "obj_id": 20,
+                                "obj_name": "姚崇早期",
+                                "obj_period": "武周",
+                                "direction": "positive",
+                                "factors": {"talent_quality_factor": {"label": "重要人才。"}},
+                            },
+                        ],
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    _, _, clusters = tool.load_profile(profile, factor_docs=(doc,))
+
+    detail = clusters[0].calc_detail
+    assert len(detail["team_quality_components"]) == 1
+    assert detail["team_quality_components"][0]["identity_key"] == "武周:姚崇"
+    assert detail["team_quality_components"][0]["obj_name"] == "姚崇"
 
 
 def test_write_clusters_requires_full_material_coverage_by_default(monkeypatch, tmp_path: Path) -> None:

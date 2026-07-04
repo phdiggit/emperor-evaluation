@@ -34,7 +34,7 @@ def test_extract_current_rule_docs_contains_expected_i5b_factor_options() -> Non
     assert any("多源可互证" in row.description for row in source_rows)
 
     handling_rows = [row for row in rows if row.rule_code == "tolerate_talent" and row.factor_name == "handling_severity"]
-    assert any(row.value_num == Decimal("4.0") and "灾难级安全破坏" in row.label for row in handling_rows)
+    assert any(row.value_num == Decimal("3.0") and "灾难级安全破坏" in row.label for row in handling_rows)
     assert all(row.note != row.label for row in handling_rows)
 
     target_fault_labels = [
@@ -48,6 +48,21 @@ def test_extract_current_rule_docs_contains_expected_i5b_factor_options() -> Non
 
     rank_decay_rows = [row for row in rows if row.rule_code == "team_building" and row.factor_name == "rank_decay"]
     assert [row.label for row in rank_decay_rows] == ["第 1 位", "第 2 位", "第 3 位", "第 4-6 位", "第 7 位以后"]
+
+    discovery_quality_rows = [
+        row
+        for row in rows
+        if row.rule_code == "talent_discovery" and row.factor_name == "talent_quality_factor"
+    ]
+    assert [row.label for row in discovery_quality_rows] == ["普通人才", "可用人才", "重要人才", "顶级人才", "历史级人才"]
+    assert [row.factor_scope for row in discovery_quality_rows] == ["attribute_mapping"] * 5
+    assert [row.value_num for row in discovery_quality_rows] == [
+        Decimal("0.5"),
+        Decimal("0.9"),
+        Decimal("1.3"),
+        Decimal("1.8"),
+        Decimal("2.5"),
+    ]
 
     retired_factor_names = {"founder_pressure", "retention_signal", "certainty_factor", "spillover_factor", "disposition_severity"}
     assert not ({row.factor_name for row in rows} & retired_factor_names)
@@ -191,3 +206,37 @@ def test_audit_calc_detail_factor_refs_reports_table_mismatches() -> None:
     assert "retired_factor" in statuses
     assert report["checked_factor_refs"] == 4
     assert report["matched_factor_refs"] == 1
+
+
+def test_audit_calc_detail_factor_refs_rejects_literal_team_factor() -> None:
+    tool = load_tool()
+    factor_rows = [
+        {
+            "factor_option_id": 91,
+            "rule_code": "team_building",
+            "factor_name": "role_complementarity_factor",
+            "factor_scope": "rule",
+            "label": "高度互补，四个粗功能面均有重要及以上对象支撑，且其中至少两个功能面有顶级或历史级对象承担核心作用。",
+            "value_num": "1.30",
+        }
+    ]
+    calc_rows = [
+        {
+            "cluster_id": 20,
+            "emperor": "测试帝",
+            "rule_code": "team_building",
+            "calc_detail": {
+                "team_factors": {
+                    "factor_values": {"role_complementarity_factor": "1.30"},
+                    "factor_refs": {"role_complementarity_factor": "1.30"},
+                }
+            },
+        }
+    ]
+
+    report = tool.audit_calc_detail_factor_refs(calc_rows, factor_rows)
+
+    assert report["ok"] is False
+    assert report["error_count"] == 1
+    assert report["issues"][0]["path"] == "team_factors.factor_refs.role_complementarity_factor"
+    assert report["issues"][0]["status"] == "literal_factor_ref"

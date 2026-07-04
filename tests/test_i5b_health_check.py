@@ -56,6 +56,12 @@ def test_build_health_report_combines_read_only_gates(monkeypatch) -> None:
         },
     )
     monkeypatch.setattr(tool, "build_breakdown_report", lambda **_kwargs: _breakdown_report())
+    monkeypatch.setattr(
+        tool,
+        "fetch_pending_materials",
+        lambda **_kwargs: [{"emperor": "刘邦", "rule_code": "appointment_trust", "pending_material_ids": [2278]}],
+    )
+    monkeypatch.setattr(tool, "build_finite_value_report", lambda **_kwargs: {"ok": True, "error_count": 0, "warning_count": 0, "issues": []})
 
     report = tool.build_health_report(dsn="postgresql://example", emperors=())
 
@@ -63,8 +69,12 @@ def test_build_health_report_combines_read_only_gates(monkeypatch) -> None:
     assert report["emperors"] == ["刘邦"]
     assert report["gates"]["factor_consistency"]["warnings"] == 2
     assert report["gates"]["rule_evidence_unit_preview"]["details"]["units"] == 6
+    assert report["gates"]["pending_materials"]["warnings"] == 1
+    assert report["gates"]["finite_values"]["errors"] == 0
+    assert report["gates"]["pending_materials"]["details"]["materials"] == 1
     markdown = tool.render_markdown(report)
     assert "| factor_consistency | true | 0 | 2 | - |" in markdown
+    assert "| 刘邦 | appointment_trust | 2278 |" in markdown
     assert "刘邦" in markdown
 
 

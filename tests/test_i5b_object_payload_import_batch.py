@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts.dev import i5b_object_payload_import_batch as tool
 
 
@@ -155,3 +157,49 @@ def test_import_batch_dry_run_does_not_write_receipt(tmp_path: Path, monkeypatch
     assert report["dry_run"] is True
     assert report["imported_count"] == 1
     assert not receipt_log.exists()
+
+
+def test_import_batch_can_allow_partial_board_with_blocks(tmp_path: Path, monkeypatch) -> None:
+    candidate = tmp_path / "candidate.json"
+    write_json(candidate, valid_payload("甲"))
+    board = tmp_path / "board.json"
+    write_json(
+        board,
+        {
+            "schema_version": 1,
+            "summary": {"ok": False, "blocked": 1},
+            "ready_for_import_payloads": [str(candidate)],
+        },
+    )
+    receipt_log = tmp_path / "receipts.jsonl"
+
+    with pytest.raises(ValueError, match="control board is not ok"):
+        tool.import_ready_payloads(
+            control_board=board,
+            receipt_log=receipt_log,
+            dsn_env="TEST_DSN",
+            dry_run=True,
+        )
+
+    monkeypatch.setattr(tool.importer, "resolve_dsn", lambda env_name: "postgres://example")
+    monkeypatch.setattr(
+        tool.importer,
+        "import_payloads",
+        lambda payloads, dsn, *, dry_run=False: {
+            "dry_run": dry_run,
+            "payloads": [{"counts": {"sources": 1, "objects": 1, "obj_srcs": 1, "obj_attrs": 0}}],
+            "unsourced": [],
+        },
+    )
+
+    report = tool.import_ready_payloads(
+        control_board=board,
+        receipt_log=receipt_log,
+        dsn_env="TEST_DSN",
+        dry_run=True,
+        allow_board_blocks=True,
+    )
+
+    assert report["board_ok"] is False
+    assert report["board_blocked"] == 1
+    assert report["imported_count"] == 1

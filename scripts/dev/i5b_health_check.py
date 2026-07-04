@@ -25,6 +25,7 @@ from scripts.dev.i5b_calc_breakdown import build_breakdown_report  # noqa: E402
 from scripts.dev.i5b_factor_consistency_audit import build_audit_report  # noqa: E402
 from scripts.dev.i5b_fact_relation_candidate_sync import DEFAULT_RULE_CODES as DEFAULT_FACT_RULE_CODES  # noqa: E402
 from scripts.dev.i5b_fact_relation_gap_summary import build_gap_summary_from_db  # noqa: E402
+from scripts.dev.i5b_finite_value_audit import build_report as build_finite_value_report  # noqa: E402
 from scripts.dev.i5b_rule_evidence_unit_db_sync import build_payloads  # noqa: E402
 from scripts.dev.i5b_rule_evidence_unit_issue_summary import build_issue_summary  # noqa: E402
 
@@ -104,6 +105,48 @@ def score_rows_from_breakdown(breakdown: Mapping[str, object]) -> list[dict[str,
     return rows
 
 
+def fetch_pending_materials(
+    *,
+    dsn: str,
+    emperors: Sequence[str],
+    item_code: str = DEFAULT_ITEM_CODE,
+    cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
+    rule_codes: Sequence[str] = (),
+) -> list[dict[str, object]]:
+    clauses = ["i.item_code = %s", "c.formula_code = %s", "d.formula_code = %s"]
+    params: list[object] = [item_code, cluster_formula, cluster_formula]
+    if emperors:
+        clauses.append("e.name = any(%s)")
+        params.append(list(emperors))
+    if rule_codes:
+        clauses.append("r.rule_code = any(%s)")
+        params.append(list(rule_codes))
+    with psycopg.connect(dsn) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                select e.name, r.rule_code, d.calc_detail
+                  from evd_clusters c
+                  join evd_cluster_calc_details d on d.cluster_id = c.id
+                  join emps e on e.id = c.emp_id
+                  join eval_items i on i.id = c.item_id
+                  join eval_rules r on r.id = c.rule_id
+                 where {' and '.join(clauses)}
+                 order by e.name, r.rule_code
+                """,
+                tuple(params),
+            )
+            rows = cur.fetchall()
+    pending_rows: list[dict[str, object]] = []
+    for emperor, rule_code, detail in rows:
+        if not isinstance(detail, Mapping):
+            continue
+        pending = [item for item in detail.get("pending_material_ids", []) if isinstance(item, int)]
+        if pending:
+            pending_rows.append({"emperor": str(emperor), "rule_code": str(rule_code), "pending_material_ids": pending})
+    return pending_rows
+
+
 def _gate_status(*, ok: bool, errors: int = 0, warnings: int = 0, details: Mapping[str, object] | None = None) -> dict[str, object]:
     return {
         "ok": ok,
@@ -159,10 +202,19 @@ def build_health_report(
         emperors=names,
         rule_codes=tuple(fact_rule_codes),
     )
+    pending_materials = fetch_pending_materials(
+        dsn=dsn,
+        emperors=names,
+        item_code=item_code,
+        cluster_formula=cluster_formula,
+        rule_codes=tuple(rule_codes),
+    )
+    finite_value_report = build_finite_value_report(dsn=dsn)
 
     unit_totals = unit_summary.get("totals") if isinstance(unit_summary.get("totals"), Mapping) else {}
     fact_totals = fact_summary.get("totals") if isinstance(fact_summary.get("totals"), Mapping) else {}
     breakdown_warnings = breakdown.get("warnings") if isinstance(breakdown.get("warnings"), list) else []
+    pending_total = sum(len(row.get("pending_material_ids", [])) for row in pending_materials)
     gates = {
         "factor_consistency": _gate_status(
             ok=bool(factor_report.get("ok")),
@@ -190,6 +242,17 @@ def build_health_report(
             errors=len(breakdown_warnings),
             warnings=0,
         ),
+        "pending_materials": _gate_status(
+            ok=True,
+            warnings=len(pending_materials),
+            details={"clusters": len(pending_materials), "materials": pending_total},
+        ),
+        "finite_values": _gate_status(
+            ok=bool(finite_value_report.get("ok")),
+            errors=_int(finite_value_report, "error_count"),
+            warnings=_int(finite_value_report, "warning_count"),
+            details={"issues": len(finite_value_report.get("issues") or [])},
+        ),
     }
     ok = all(bool(gate["ok"]) for gate in gates.values())
     return {
@@ -205,12 +268,15 @@ def build_health_report(
         "rule_evidence_unit_preview": unit_summary,
         "fact_relation_gap": fact_summary,
         "calc_breakdown_warnings": breakdown_warnings,
+        "pending_materials": pending_materials,
+        "finite_values": finite_value_report,
     }
 
 
 def render_markdown(report: Mapping[str, object]) -> str:
     gates = report.get("gates") if isinstance(report.get("gates"), Mapping) else {}
     score_rows = report.get("score_rows") if isinstance(report.get("score_rows"), list) else []
+    pending_rows = report.get("pending_materials") if isinstance(report.get("pending_materials"), list) else []
     lines = [
         "# I5B 健康检查",
         "",
@@ -243,6 +309,32 @@ def render_markdown(report: Mapping[str, object]) -> str:
             )
             + " |"
         )
+
+    if pending_rows:
+        lines.extend(
+            [
+                "",
+                "## 待因子化材料",
+                "",
+                "| 皇帝 | rule | pending_material_ids |",
+                "| --- | --- | --- |",
+            ]
+        )
+        for row in pending_rows:
+            if not isinstance(row, Mapping):
+                continue
+            ids = row.get("pending_material_ids") if isinstance(row.get("pending_material_ids"), list) else []
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _text(row.get("emperor")),
+                        _text(row.get("rule_code")),
+                        ", ".join(str(item) for item in ids),
+                    ]
+                )
+                + " |"
+            )
 
     lines.extend(
         [

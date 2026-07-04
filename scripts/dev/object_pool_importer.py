@@ -10,10 +10,25 @@ from typing import Any
 
 import psycopg
 
+from scripts.dev.i5b_finite_values import (
+    ALLOWED_DIRECTIONS,
+    CANONICAL_TALENT_QUALITY_VALUES,
+    FiniteValueError,
+    I5B_ITEM_CODES,
+    I5B_RULE_CODES,
+    I5B_SUBITEMS,
+    NEGATIVE_TALENT_QUALITY_VALUES,
+    OBJECT_ATTR_CODES,
+    TALENT_QUALITY_RANKS,
+    require_choice,
+    require_canonical_period,
+    require_direction,
+    require_talent_quality,
+)
+
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
-ALLOWED_DIRECTIONS = {"positive", "negative", "neutral", "mixed"}
 RAW_NOTE_FORBIDDEN_TERMS = (
     "第五项",
     "I5B",
@@ -58,7 +73,6 @@ SOURCE_BIBLIO_BY_TITLE = {
     "明史": ("张廷玉等", "清"),
     "清史稿": ("赵尔巽等", "民国"),
 }
-NEGATIVE_TALENT_QUALITY_VALUES = {"佞臣", "大佞臣", "历史级佞臣"}
 HARMED_TALENT_RULE_CODE = "tolerate_talent"
 
 
@@ -196,8 +210,12 @@ def source_biblio_for_title(title: str) -> tuple[str, str]:
 
 
 def _parse_emperor(row: dict[str, Any]) -> EmperorRow:
+    try:
+        period = require_canonical_period(_text(row, "period", "emperor"), field_name="emperor.period")
+    except FiniteValueError as exc:
+        raise ImportErrorWithContext(str(exc)) from exc
     return EmperorRow(
-        period=_text(row, "period", "emperor"),
+        period=period,
         name=_text(row, "name", "emperor"),
         title=_optional_text(row, "title"),
         sort_no=_optional_int(row, "sort_no"),
@@ -222,27 +240,36 @@ def _parse_source(row: dict[str, Any], index: int) -> SourceRow:
 
 
 def _parse_link(row: dict[str, Any], path: str) -> ObjectSourceLink:
-    direction = _text(row, "direction", path)
-    if direction not in ALLOWED_DIRECTIONS:
-        allowed = ", ".join(sorted(ALLOWED_DIRECTIONS))
-        raise ImportErrorWithContext(f"{path}.direction: expected one of {allowed}")
+    try:
+        direction = require_direction(_text(row, "direction", path), field_name=f"{path}.direction")
+        rule_code = require_choice(_text(row, "rule_code", path), choices=I5B_RULE_CODES, field_name=f"{path}.rule_code")
+    except FiniteValueError as exc:
+        raise ImportErrorWithContext(str(exc)) from exc
     note = _text(row, "note", path)
     _assert_no_terms(note, GENERIC_OBJ_SRC_NOTE_FRAGMENTS, f"{path}.note")
     _assert_no_terms(note, AMBIGUOUS_OBJ_SRC_NOTE_TERMS, f"{path}.note")
     return ObjectSourceLink(
         src_key=_text(row, "src_key", path),
-        rule_code=_text(row, "rule_code", path),
+        rule_code=rule_code,
         direction=direction,
         note=note,
     )
 
 
 def _parse_attr(row: dict[str, Any], path: str, *, default_region: str, default_obj_name: str) -> ObjectAttrRow:
-    attr_code = _text(row, "attr_code", path)
+    try:
+        attr_code = require_choice(_text(row, "attr_code", path), choices=OBJECT_ATTR_CODES, field_name=f"{path}.attr_code")
+    except FiniteValueError as exc:
+        raise ImportErrorWithContext(str(exc)) from exc
     value_text = _optional_text(row, "value_text")
     value_num = _optional_float(row, "value_num")
     if not value_text and value_num is None:
         raise ImportErrorWithContext(f"{path}: expected value_text or value_num")
+    if attr_code == "talent_quality":
+        try:
+            value_text = require_talent_quality(value_text, field_name=f"{path}.talent_quality")
+        except FiniteValueError as exc:
+            raise ImportErrorWithContext(str(exc)) from exc
     confidence = _optional_float(row, "confidence")
     if confidence is None:
         confidence = 0.85
@@ -289,6 +316,10 @@ def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
     path = f"objects[{index}]"
     note = _text(row, "note", path)
     _assert_no_terms(note, RAW_NOTE_FORBIDDEN_TERMS, f"{path}.note")
+    try:
+        obj_period = require_canonical_period(_text(row, "period", path), field_name=f"{path}.period")
+    except FiniteValueError as exc:
+        raise ImportErrorWithContext(str(exc)) from exc
     link_rows = _require_list(row.get("links"), f"{path}.links")
     if not link_rows:
         raise ImportErrorWithContext(f"{path}.links: object must have at least one source link")
@@ -303,7 +334,7 @@ def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
         _parse_attr(
             _require_mapping(attr, f"{path}.attrs[{attr_index}]"),
             f"{path}.attrs[{attr_index}]",
-            default_region=_text(row, "period", path),
+            default_region=obj_period,
             default_obj_name=_text(row, "name", path),
         )
         for attr_index, attr in enumerate(_require_list(attr_rows, f"{path}.attrs"))
@@ -312,7 +343,7 @@ def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
     _assert_harmed_talent_links_allowed(obj_name=obj_name, attrs=attrs, links=links, path=path)
     return ObjectRow(
         obj_type=_text(row, "obj_type", path),
-        period=_text(row, "period", path),
+        period=obj_period,
         name=obj_name,
         note=note,
         links=links,
@@ -322,8 +353,11 @@ def _parse_object(row: dict[str, Any], index: int) -> ObjectRow:
 
 def parse_payload(raw: dict[str, Any]) -> ImportPayload:
     payload = _require_mapping(raw, "payload")
-    item_code = _text(payload, "item_code", "payload")
-    subitem = _text(payload, "subitem", "payload")
+    try:
+        item_code = require_choice(_text(payload, "item_code", "payload"), choices=I5B_ITEM_CODES, field_name="payload.item_code")
+        subitem = require_choice(_text(payload, "subitem", "payload"), choices=I5B_SUBITEMS, field_name="payload.subitem")
+    except FiniteValueError as exc:
+        raise ImportErrorWithContext(str(exc)) from exc
     raw_emperor = _require_mapping(payload.get("emperor"), "emperor")
     emperor = _parse_emperor(raw_emperor)
 
@@ -409,20 +443,46 @@ def resolve_dsn(env_name: str) -> str:
     return env_file[env_name]
 
 
-def _upsert_emperor(cur: psycopg.Cursor, row: EmperorRow) -> int:
-    cur.execute(
-        """
-        insert into emps (period, name, title, sort_no, note)
-        values (%s, %s, %s, %s, %s)
-        on conflict (period, name) do update set
-            title = excluded.title,
-            sort_no = excluded.sort_no,
-            note = excluded.note,
-            updated_at = now()
-        returning id
-        """,
-        (row.period, row.name, row.title, row.sort_no, row.note),
+def _upsert_emperor(cur: psycopg.Cursor, row: EmperorRow, meta: dict[str, Any] | None = None) -> int:
+    meta = meta or {}
+    meta_fields = (("is_founder", _optional_bool), ("succession_mode", _optional_text), ("power_origin", _optional_text))
+    cur.execute("select id, sort_no from emps where name = %s order by sort_no nulls last, id limit 1", (row.name,))
+    existing = cur.fetchone()
+    if existing is not None:
+        emp_id = int(existing[0])
+        assignments: list[tuple[str, Any]] = [("note", row.note)]
+        if existing[1] is None and row.sort_no is not None:
+            assignments.extend([("period", row.period), ("title", row.title), ("sort_no", row.sort_no)])
+        assignments.extend((key, parser(meta, key)) for key, parser in meta_fields if key in meta)
+        updates = [f"{key} = %s" for key, _ in assignments] + ["updated_at = now()"]
+        values = [value for _, value in assignments] + [emp_id]
+        cur.execute(f"update emps set {', '.join(updates)} where id = %s", tuple(values))
+        return emp_id
+
+    columns = ["period", "name", "title", "sort_no", "note"]
+    values: list[Any] = [row.period, row.name, row.title, row.sort_no, row.note]
+    updates = [
+        "title = excluded.title",
+        "sort_no = excluded.sort_no",
+        "note = excluded.note",
+    ]
+    if "is_founder" in meta:
+        columns.append("is_founder")
+        values.append(_optional_bool(meta, "is_founder"))
+    if "succession_mode" in meta:
+        columns.append("succession_mode")
+        values.append(_optional_text(meta, "succession_mode"))
+    if "power_origin" in meta:
+        columns.append("power_origin")
+        values.append(_optional_text(meta, "power_origin"))
+    updates.extend(f"{key} = excluded.{key}" for key, _ in meta_fields if key in meta)
+    updates.append("updated_at = now()")
+    placeholders = ", ".join(["%s"] * len(columns))
+    sql = (
+        f"insert into emps ({', '.join(columns)}) values ({placeholders}) "
+        f"on conflict (period, name) do update set {', '.join(updates)} returning id"
     )
+    cur.execute(sql, tuple(values))
     return int(cur.fetchone()[0])
 
 
@@ -532,14 +592,6 @@ def _upsert_obj_source(
     return int(cur.fetchone()[0])
 
 
-def _delete_object_attrs(cur: psycopg.Cursor, obj_id: int, attrs: tuple[ObjectAttrRow, ...]) -> None:
-    for attr_code in sorted({attr.attr_code for attr in attrs}):
-        cur.execute(
-            "delete from obj_attrs where obj_id = %s and attr_code = %s",
-            (obj_id, attr_code),
-        )
-
-
 def _insert_object_attr(
     cur: psycopg.Cursor,
     *,
@@ -577,6 +629,99 @@ def _insert_object_attr(
     return int(cur.fetchone()[0])
 
 
+def _fetch_existing_object_attr(cur: psycopg.Cursor, *, obj_id: int, attr: ObjectAttrRow) -> dict[str, Any] | None:
+    cur.execute(
+        """
+        select id, value_text, value_num, confidence
+          from obj_attrs
+         where obj_id = %s
+           and attr_code = %s
+           and period_start is not distinct from %s
+           and period_end is not distinct from %s
+           and region = %s
+        """,
+        (obj_id, attr.attr_code, attr.period_start, attr.period_end, attr.region),
+    )
+    row = cur.fetchone()
+    if row is None:
+        return None
+    return {"id": int(row[0]), "value_text": row[1], "value_num": row[2], "confidence": float(row[3])}
+
+
+def _should_replace_existing_attr(existing: dict[str, Any], attr: ObjectAttrRow) -> bool:
+    existing_confidence = float(existing["confidence"] or 0)
+    incoming_confidence = float(attr.confidence)
+    if attr.attr_code == "talent_quality":
+        existing_rank = TALENT_QUALITY_RANKS.get(str(existing.get("value_text") or ""))
+        incoming_rank = TALENT_QUALITY_RANKS.get(attr.value_text)
+        if existing_rank is not None and incoming_rank is not None:
+            if incoming_rank < existing_rank:
+                return False
+            if incoming_rank > existing_rank:
+                return incoming_confidence >= existing_confidence
+    return incoming_confidence >= existing_confidence
+
+
+def _update_object_attr(
+    cur: psycopg.Cursor,
+    *,
+    attr_id: int,
+    doc_id: int,
+    obj_src_id: int | None,
+    attr: ObjectAttrRow,
+) -> int:
+    cur.execute(
+        """
+        update obj_attrs
+           set value_text = %s,
+               value_num = %s,
+               value_unit = %s,
+               doc_id = %s,
+               obj_src_id = %s,
+               confidence = %s,
+               note = %s,
+               obj_name = %s,
+               updated_at = now()
+         where id = %s
+        returning id
+        """,
+        (
+            attr.value_text,
+            attr.value_num,
+            attr.value_unit,
+            doc_id,
+            obj_src_id,
+            attr.confidence,
+            attr.note,
+            attr.obj_name,
+            attr_id,
+        ),
+    )
+    return int(cur.fetchone()[0])
+
+
+def _upsert_object_attr(
+    cur: psycopg.Cursor,
+    *,
+    obj_id: int,
+    doc_id: int,
+    obj_src_id: int | None,
+    attr: ObjectAttrRow,
+) -> tuple[int, str]:
+    existing = _fetch_existing_object_attr(cur, obj_id=obj_id, attr=attr)
+    if existing is None:
+        return _insert_object_attr(cur, obj_id=obj_id, doc_id=doc_id, obj_src_id=obj_src_id, attr=attr), "inserted"
+    if not _should_replace_existing_attr(existing, attr):
+        return int(existing["id"]), "preserved_existing"
+    return _update_object_attr(
+        cur,
+        attr_id=int(existing["id"]),
+        doc_id=doc_id,
+        obj_src_id=obj_src_id,
+        attr=attr,
+    ), "updated"
+
+
 def _find_unsourced(cur: psycopg.Cursor) -> list[dict[str, Any]]:
     cur.execute(
         """
@@ -609,9 +754,7 @@ def _import_payload_in_cursor(
     if missing_rules:
         raise ImportErrorWithContext(f"eval_rules missing rule_code(s): {', '.join(missing_rules)}")
 
-    emp_id = _upsert_emperor(cur, payload.emperor)
-    if emperor_meta:
-        _update_emperor_meta(cur, emp_id, emperor_meta)
+    emp_id = _upsert_emperor(cur, payload.emperor, emperor_meta)
     source_ids = {source.src_key: _upsert_source(cur, source) for source in payload.sources}
 
     object_rows: list[dict[str, Any]] = []
@@ -654,9 +797,8 @@ def _import_payload_in_cursor(
             )
 
         if obj.attrs:
-            _delete_object_attrs(cur, obj_id, obj.attrs)
             for attr in obj.attrs:
-                attr_id = _insert_object_attr(
+                attr_id, attr_action = _upsert_object_attr(
                     cur,
                     obj_id=obj_id,
                     doc_id=source_ids[attr.src_key],
@@ -670,6 +812,7 @@ def _import_payload_in_cursor(
                         "attr_code": attr.attr_code,
                         "value_text": attr.value_text,
                         "value_num": attr.value_num,
+                        "action": attr_action,
                     }
                 )
 
@@ -697,6 +840,8 @@ def import_payload(payload: ImportPayload, dsn: str, *, dry_run: bool = False) -
 
 
 def import_payloads(payloads: tuple[ImportPayload, ...], dsn: str, *, dry_run: bool = False) -> dict[str, Any]:
+    if not dry_run and os.environ.get("I5B_OBJECT_POOL_IMPORT_UNFREEZE") != "1":
+        raise ImportErrorWithContext("object pool import frozen; set I5B_OBJECT_POOL_IMPORT_UNFREEZE=1 to write.")
     with psycopg.connect(dsn) as conn:
         with conn.cursor() as cur:
             reports = [

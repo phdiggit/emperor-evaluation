@@ -39,9 +39,18 @@ def test_report_flags_emp_objs_missing_target_rule() -> None:
         rule_code="delegation",
         emp_object_rows={
             "测试帝": [
-                row("甲", has_rule=True, talent_quality="历史级人才"),
-                row("乙", has_rule=False, talent_quality="顶级人才"),
-                row("丙", has_rule=False, obj_type="event", talent_quality=""),
+                {
+                    **row("甲", has_rule=True, talent_quality="历史级人才"),
+                    "i5b_obj_srcs": [{"obj_src_id": 10, "rule_code": "delegation"}],
+                },
+                {
+                    **row("乙", has_rule=False, talent_quality="顶级人才"),
+                    "i5b_obj_srcs": [{"obj_src_id": 11, "rule_code": "delegation"}],
+                },
+                {
+                    **row("丙", has_rule=False, obj_type="event", talent_quality=""),
+                    "i5b_obj_srcs": [{"obj_src_id": 12, "rule_code": "delegation"}],
+                },
             ]
         },
     )
@@ -53,6 +62,30 @@ def test_report_flags_emp_objs_missing_target_rule() -> None:
     assert [item["obj_name"] for item in report["rows"][0]["missing"]] == ["乙", "丙"]
     assert "乙（person/顶级人才）" in markdown
     assert "丙（event）" in markdown
+
+
+def test_non_team_report_ignores_other_rule_objects() -> None:
+    tool = load_tool()
+
+    report = tool.build_audit_report(
+        rule_code="talent_discovery",
+        emp_object_rows={
+            "测试帝": [
+                {
+                    **row("甲", has_rule=True),
+                    "i5b_obj_srcs": [{"obj_src_id": 10, "rule_code": "talent_discovery"}],
+                },
+                {
+                    **row("乙", has_rule=True),
+                    "i5b_obj_srcs": [{"obj_src_id": 11, "rule_code": "tolerate_talent"}],
+                },
+            ]
+        },
+    )
+
+    assert report["ok"] is True
+    assert report["rows"][0]["candidate_count"] == 1
+    assert [item["obj_name"] for item in report["rows"][0]["current"]] == ["甲"]
 
 
 def test_report_allows_reviewed_missing_objects() -> None:
@@ -124,5 +157,75 @@ def test_team_building_coverage_uses_calc_detail_components() -> None:
         emp_object_rows=emp_object_rows,
     )
 
+    assert [item["obj_name"] for item in report["rows"][0]["current"]] == ["甲"]
+    assert [item["obj_name"] for item in report["rows"][0]["missing"]] == ["乙"]
+
+
+def test_non_team_rule_coverage_uses_calc_detail_material_ids() -> None:
+    tool = load_tool()
+    emp_object_rows = {
+        "测试帝": [
+            {
+                **row("甲", has_rule=True),
+                "i5b_obj_srcs": [{"obj_src_id": 10, "rule_code": "talent_discovery"}],
+            },
+            {
+                **row("乙", has_rule=True),
+                "i5b_obj_srcs": [{"obj_src_id": 11, "rule_code": "talent_discovery"}],
+            },
+            {
+                **row("丙", has_rule=True),
+                "i5b_obj_srcs": [{"obj_src_id": 12, "rule_code": "talent_discovery"}],
+            },
+        ]
+    }
+
+    report = tool.build_audit_report(
+        rule_code="talent_discovery",
+        emp_object_rows=emp_object_rows,
+        cluster_rows={
+            ("测试帝", "talent_discovery"): {
+                "calc_detail": {
+                    "scored_material_ids": [10],
+                    "supporting_material_ids": [11],
+                    "excluded_material_ids": [12],
+                }
+            }
+        },
+    )
+
+    assert report["ok"] is True
+    assert [item["obj_name"] for item in report["rows"][0]["current"]] == ["甲", "乙", "丙"]
+    assert report["rows"][0]["missing"] == []
+
+
+def test_non_team_rule_coverage_reports_unreviewed_rule_sources() -> None:
+    tool = load_tool()
+    emp_object_rows = {
+        "测试帝": [
+            {
+                **row("甲", has_rule=True),
+                "i5b_obj_srcs": [{"obj_src_id": 10, "rule_code": "delegation"}],
+            },
+            {
+                **row("乙", has_rule=True),
+                "i5b_obj_srcs": [{"obj_src_id": 11, "rule_code": "delegation"}],
+            },
+        ]
+    }
+
+    report = tool.build_audit_report(
+        rule_code="delegation",
+        emp_object_rows=emp_object_rows,
+        cluster_rows={
+            ("测试帝", "delegation"): {
+                "calc_detail": {
+                    "covered_material_ids": [10],
+                }
+            }
+        },
+    )
+
+    assert report["ok"] is False
     assert [item["obj_name"] for item in report["rows"][0]["current"]] == ["甲"]
     assert [item["obj_name"] for item in report["rows"][0]["missing"]] == ["乙"]

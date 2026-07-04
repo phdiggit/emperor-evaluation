@@ -98,14 +98,14 @@
 
 ## 规则计算复核点
 
-第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_cluster_calc_details.calc_detail`（`scored_material_ids` / `covered_material_ids` / `supporting_material_ids`）→ `evd_clusters` → `emp_item_result_calc_details` → `emp_item_results`。规则承载对象另由 `rule_evidence_units` / `rule_evidence_unit_members` / `fact_relations` 作为影子审计层记录；人工复核必须检查对象覆盖、史料回源、相邻项剥离、规则承载、因子赋值、明细表可重放、健康检查和结果公式版本。
+第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_cluster_calc_details.calc_detail`（`scored_material_ids` / `covered_material_ids` / `supporting_material_ids` / `pending_material_ids`）→ `evd_clusters` → `emp_item_result_calc_details` → `emp_item_results`。规则承载对象另由 `rule_evidence_units` / `rule_evidence_unit_members` / `fact_relations` 作为影子审计层记录；人工复核必须检查对象覆盖、史料回源、相邻项剥离、规则承载、因子赋值、明细表可重放、健康检查和结果公式版本。
 
 当前复核点包括：
 
 1. 检索包对象是否都经过回源、排除或待处理记录；
 2. 已入库 `obj_srcs` 是否全部覆盖到对应证据簇的 `material_ids`；
-3. 实际计分材料是否进入 `calc_detail.materials`，属性或身份补源是否进入 `supporting_material_ids`；
-4. `calc_detail.covered_material_ids`、`scored_material_ids` 和 `supporting_material_ids` 是否能分别解释覆盖、计分和补源关系；
+3. 实际计分材料是否进入 `calc_detail.materials`，属性或身份补源是否进入 `supporting_material_ids`，新增但尚未因子化的 DB 材料是否进入 `pending_material_ids`；
+4. `calc_detail.covered_material_ids`、`scored_material_ids` 和 `supporting_material_ids` 是否能分别解释覆盖、计分和补源关系；`pending_material_ids` 只表示待后续因子化消费，不直接入分；
 5. 每条计分材料是否有稳定 `obj_key`，并按同一对象完成同向去重；
 6. 因子标签是否能从本规则文档或证据簇公式文档解析到当前数值；
 7. 相邻项材料是否已经剥离，剩余第五项B影响是否对应到具体对象；
@@ -192,11 +192,29 @@ material_score =
 
 | `obj_attrs.value_text` | 因子 | 口径 |
 | --- | --- | --- |
-| `一般人才` | `0.5` | 只有普通任职或局部能力线索。 |
+| `普通人才` | `0.5` | 只有普通任职或局部能力线索。 |
 | `可用人才` | `0.9` | 有明确职能能力或局部贡献。 |
 | `重要人才` | `1.3` | 能支撑一条稳定政务、军事、谏议或技术线。 |
 | `顶级人才` | `1.8` | 属于一代名臣、名将、核心谏臣或关键制度人才。 |
 | `历史级人才` | `2.5` | 对时代格局、国家核心能力或后世评价有显著权重。 |
+
+`talent_quality` 不应直接凭名望、传世光环或材料密度定级。修复或新增人才层级前，优先补齐“硬通货事实”和“权威评价共识”两层依据：硬通货层防止空泛称誉，权威评价层用于低成本判断一名臣子在后世史书和现代史学中的相对地位。两层依据只作为对象事实输入和人工定级依据，不直接入分，也不得替代本 rule 的发现链条。
+
+| `obj_attrs.attr_code` | `value_text` 口径 |
+| --- | --- |
+| `career_track` | `civil`、`military`、`mixed`、`cultural`、`technical`、`negative`、`unknown`。只标主要职能轨道，不评价高低。 |
+| `hard_merit_tags` | 用分号分隔的事实标签，例如 `military_campaign`、`institution_law`、`fiscal_economic`、`administration`、`frontier_diplomacy`、`cultural_civilizational`、`talent_recommendation`、`political_stabilization`。 |
+| `hard_merit_summary` | 概括可回源的硬事实：武将写战役、战果、守边、平乱、统帅规模；文臣写律令制度、财政经济、行政治理、外交边务、荐才网络、文化工程等具体成果。不得写“名臣”“一代名将”等空泛评价。 |
+| `hard_merit_scope_hint` | `local`、`regional`、`dynasty_core`、`dynasty_shaping`、`cross_era`、`civilizational`、`unknown`。只提示成果影响范围，不直接等同人才等级。 |
+| `hard_merit_limitations` | 记录材料边界、争议、失败反转、仅适合支撑而不宜入分等限制。 |
+| `authority_eval_summary` | 概括正史史论、后世编年或现代权威史学对该对象的稳定评价；可以写“核心名将”“一代名臣”等评价性结论，但必须说明来自何种权威来源，不能只写主控判断。 |
+| `authority_eval_sources` | 记录评价来源，优先级为正史本传/史论、后世史书或编年、现代权威工具书/通史/专题研究；演义、民间传说和单一网络资料只能作为低权重补充。 |
+| `talent_quality_basis` | `authority_consensus`、`mixed`、`hard_merit`、`authority_conflict`、`negative_consensus`、`uncertain`。用于说明定级主要依据，不参与计算。 |
+| `talent_profile_note` | 可选解释性属性，用于记录“才具层级”和“公共后果”分离的复合画像。例如军事才能可列历史级，但用兵严酷、屠掠、贪腐、党争或压制人才等负面边界明显。该字段不直接入分，只提醒后续对象链、负向材料和第七项历史负债复核。 |
+
+人才层级裁量原则：武将仍优先看可确认战功、战略结果、守边或平乱效果；文臣仍优先看律法修订、制度塑形、财政经济、行政治理、工程救灾、外交边务、荐才网络和文化工程等公共成绩。但当硬事实细节不足以横向区分时，可以采用权威评价共识快速定级：多类高权重来源长期稳定评价为一代核心人物、时代格局塑造者或跨时代影响人物者，才可进入 `历史级人才` 候选；仅有泛称名臣名将、文学光环或单源称誉者，最多作为 `顶级人才` / `重要人才` 待审候选。权威评价只回答“对象本身是否高级人才”，不能自动证明皇帝完成了发现、任用、授权或保全。
+
+`talent_profile_note` 不改变 `talent_quality_factor`。复合人物不得通过降低才具等级来表达负面影响：例如某人军事统帅能力足以列 `历史级人才`，但存在严酷屠掠或治理伤害，应保留才具等级，并在 `talent_profile_note`、负向对象链、对应 I5B rule 或第七项历史负债中承载公共损害。反过来，`talent_quality=历史级人才` 也不得被解释为纯正向对象。
 
 `channel_factor`：
 
@@ -223,6 +241,8 @@ material_score =
 
 本规则不先套 `direction_sign`。`trust_validity` 可以为负；若对象明显不适任、佞幸化、破坏公共任用秩序或造成核心人才生态损害，深度信任会放大负向分，而不是生成正向分。
 
+`trust_validity` 衡量“信任关系是否产生了可验证的公共任用收益或损害”，不是人才等级代理。`obj_attrs.talent_quality` 只能帮助判断对象本身的历史能力层级，不能直接推导 `trust_validity`；人才很强但材料只证明其被任官，仍不得自动给高有效性。
+
 `trust_depth`：
 
 | 值 | 口径 |
@@ -236,9 +256,9 @@ material_score =
 
 | 值 | 口径 |
 | --- | --- |
-| `+1.2` | 旧敌、新进、异质人才或高风险岗位仍能任用，且履职表现显示其公共能力和岗位适格性较高。 |
-| `+1.0` | 常规合理信任。 |
-| `+0.3` | 信任存在，但对象适格性、公共能力或结果反馈较弱。 |
+| `+1.2` | 旧敌、新进、异质人才或高风险岗位仍能任用，且材料能显示其任后结果、公共能力和岗位适格性较高。 |
+| `+1.0` | 有明确任后表现、职责匹配、政策/军事/行政成果或持续复用反馈，能够证明这次信任合理。 |
+| `+0.3` | 信任关系存在，但只见任官、亲近、复用或名望，缺少任后结果、岗位适配或公共能力反馈；普通任命默认不得高于此档。 |
 | `-0.6` | 错信、偏信或亲旧近幸色彩明显，已削弱任用质量。 |
 | `-1.5` | 深度信任明显不适任、佞幸化或破坏人才生态的对象。 |
 | `-2.0` | 长期信任核心负向对象，并造成系统性任用污染、表达压制或关键人才损害。 |
@@ -255,6 +275,8 @@ material_score =
 使用限制：
 
 - 不能把“信任很深”本身算成正向材料；深度只提供乘数规模，正负由 `trust_validity` 决定。
+- 不能把“名臣/名将/高人才等级 + 被任官”直接算成高 `trust_validity`；高人才等级主要进入对象质量、发现人才或团队建设判断。
+- 正向任人信任至少需要“信任关系 + 岗位适配/任后效果链”。缺少效果链但对象确实重要时，优先转为 `supporting_only`，或改由 `talent_discovery`、`team_building`、`delegation` 承载。
 - 亲属、私旧、近幸、宠臣或权相不是自动负证；只有公共能力链条不足、岗位不适格、排挤称职人才或污染任用秩序时，才转为负向。
 - 重大事件进入本项时必须绑定具体被信任对象和具体史料事实，不得只用事件名直接给总扣分。
 
@@ -338,10 +360,12 @@ weighted_i = talent_quality_factor_i * rank_decay_i
 | `1.35` | 顶级人才。 |
 | `1.00` | 重要人才。 |
 | `0.55` | 可用人才。 |
-| `0.55` | 一般人才。 |
-| `-0.55` | 佞臣。 |
-| `-1.35` | 大佞臣。 |
-| `-2.00` | 历史级佞臣。 |
+| `0.55` | 普通人才。 |
+| `-0.35` | 佞臣。 |
+| `-0.75` | 大佞臣。 |
+| `-1.15` | 历史级佞臣。 |
+
+建立团队中的负向人才值只衡量团队结构被近幸、佞臣或破坏性权臣污染的程度，不承担完整历史负债或重大政治伤害扣分。信任、授权、任人唯亲、人才生态破坏和第七项历史负债中已有独立负向通道时，不得让单个负向人物在 `team_quality_signal` 中压倒整个人才结构。`历史级佞臣` 可以显著压低团队质量，但不应等价于十名普通/重要人才的总和。
 
 `rank_decay` 按 `abs(talent_quality_factor)` 从高到低排序后自动应用：
 
@@ -355,12 +379,21 @@ weighted_i = talent_quality_factor_i * rank_decay_i
 
 `role_complementarity_factor`：
 
+本因子只评价团队功能互补，不评价团队稳定性，也不替代 `talent_quality_factor`。判断时按以下四个粗功能面归类，避免按具体职业、头衔或个案光环碎片化裁量：
+
+1. 决策与战略：大政方向、战略判断、制度方案、关键政策设计。
+2. 行政与资源：行政组织、财政后勤、选官用人、执行体系。
+3. 军事与安全：军事统帅、边防安全、危机处置、强制力组织。
+4. 纠偏与整合：谏议监察、司法纠偏、文化秩序、政治整合。
+
+高档互补必须同时看“功能面覆盖”和“高质量对象是否真正承担该功能”。同一批文臣在多个功能面留有名声，但材料只证明其同质化中枢任职时，不得重复折算为高度互补；反过来，开国、创业或危局团队若能覆盖决策、资源、军事和整合功能，也不因成员后期不稳定而降低本因子，稳定性只进入 `long_term_stability_factor`。
+
 | 值 | 口径 |
 | --- | --- |
-| `0.85` | 同质化明显。 |
-| `1.00` | 常规互补。 |
-| `1.15` | 文武、谋政、执行、反馈等互补成立。 |
-| `1.30` | 多类型高质量人才高度互补。 |
+| `0.85` | 功能同质化明显，主要集中在单一文官、军功、近幸或地方执行序列。 |
+| `1.00` | 常规互补，至少两个功能面有称职对象，但关键功能仍明显依赖同一类人才或同一系统。 |
+| `1.15` | 较强互补，至少三个功能面有重要及以上对象承担，并能形成决策、执行和纠偏/安全之间的配合。 |
+| `1.30` | 高度互补，四个粗功能面均有重要及以上对象支撑，且其中至少两个功能面有顶级或历史级对象承担核心作用。 |
 
 `long_term_stability_factor`：
 
@@ -435,8 +468,8 @@ negative_material_score =
 | `0.6` | 象征性信用撤销或轻处分。 |
 | `1.0` | 贬黜、压制、表达入口受损。 |
 | `1.5` | 下狱、重罚、处死或严重人才安全事件。 |
-| `3.0` | 大规模牵连、系统清洗或长期人才生态破坏。 |
-| `4.0` | 针对核心能臣、储备或继承人才、功臣集团、表达对象造成灾难级安全破坏，并有具体连坐或处置对象。 |
+| `2.5` | 大规模牵连、系统清洗或长期人才生态破坏。 |
+| `3.0` | 针对核心能臣、储备或继承人才、功臣集团、表达对象造成灾难级安全破坏，并有具体连坐或处置对象。 |
 
 `target_fault_factor`：
 
@@ -530,7 +563,7 @@ negative_material_score =
 当前公式版本：
 
 ```text
-item_result_formula_i5b_v6
+item_result_formula_i5b_v9
 ```
 
 当前执行流程：
@@ -567,7 +600,7 @@ positive_response(signal) =
   5.5 * (1 - exp(-signal / 3.5))
 
 negative_response(signal) =
-  9.0 * (1 - exp(-signal / 5.0))
+  7.0 * (1 - exp(-signal / 4.0))
 
 rule_net_effect(rule) =
   positive_response(positive_signal(rule))
@@ -576,7 +609,7 @@ rule_net_effect(rule) =
 
 `evd_clusters` 保存的是未封顶原始信号，不再把规则材料提前框死在 `[-4, +4]` 的旧强度层级。定分层只处理边际递减：原始信号越厚，增量越小；正负两侧必须先分别响应后再相减。
 
-v8 使用非对称响应，并调整规则权重。正向响应较 v5 放宽，避免高密度正证过早抹平顶级优势；负向响应上限更高、收敛更慢，使巫蛊、岳飞案等由具体对象拆出的严重负证能在本规则内部形成足够扣分，不再另设规则表严重权重或严重负向补丁。任人信任、合理授权与具体任用结果存在一定交叉，v7 从二者各匀出部分权重给建立团队，提高团队质量聚合对总分的解释力；v8 进一步降低负向响应的收敛程度，将 `negative_response` 调整为 `9.0 * (1 - exp(-signal / 5.0))`。
+v9 保留 v8 的规则权重和团队质量聚合方式，但回退负向响应和高档负向材料乘数。第五项B只承担用人与授权维度内的直接人才安全、表达安全和人才生态损害；长期、结构性、灾难性的历史窟窿应按总则切往第七项历史负债，避免同一代价在 I5B 和第七项重复扣分。v9 将 `negative_response` 调整为 `7.0 * (1 - exp(-signal / 4.0))`。
 
 基础画像：
 
@@ -645,7 +678,7 @@ score = max_score * score_rate
 - 涉及谋反、清洗、追责、恢复评价、表达安全或相邻项剥离；
 - 史源只提供身份或属性补源，不应进入正负信号计算；
 - 需要解释 `obj_srcs.direction`、规则归属或相邻项剩余影响；
-- 需要说明某条史料为何只进入 `supporting_material_ids`，而不进入 `calc_detail.materials`。
+- 需要说明某条史料为何只进入 `supporting_material_ids` 或 `pending_material_ids`，而不进入 `calc_detail.materials`。
 
 上下文说明不得直接用于手写分数或档位。计分只读取对象链、证据簇信号和已登记公式；上下文服务人工审核、回源复核、相邻项切分和计算明细追溯。长上下文字段展示规则引用 `展示与协作/人工阅读型Markdown导出规范.md`，不得在分项规则中另开展示规范。
 

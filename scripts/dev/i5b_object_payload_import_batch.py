@@ -58,13 +58,16 @@ def ready_payload_paths(board: dict[str, Any]) -> list[str]:
     return paths
 
 
-def assert_board_importable(board: dict[str, Any]) -> None:
+def assert_board_importable(board: dict[str, Any], *, allow_board_blocks: bool = False) -> None:
     summary = board.get("summary")
     if not isinstance(summary, dict):
         raise ValueError("control board missing summary object")
+    blocked = int(summary.get("blocked") or 0)
+    if allow_board_blocks:
+        return
     if summary.get("ok") is not True:
         raise ValueError("control board is not ok; refuse to import")
-    if int(summary.get("blocked") or 0) > 0:
+    if blocked > 0:
         raise ValueError("control board has blocked payloads; refuse to import")
 
 
@@ -152,9 +155,11 @@ def import_ready_payloads(
     receipt_log: Path,
     dsn_env: str,
     dry_run: bool,
+    allow_board_blocks: bool = False,
 ) -> dict[str, Any]:
     board = load_json(control_board)
-    assert_board_importable(board)
+    assert_board_importable(board, allow_board_blocks=allow_board_blocks)
+    summary = board.get("summary") if isinstance(board.get("summary"), dict) else {}
     ready_paths = ready_payload_paths(board)
     pending, skipped = build_pending_payloads(ready_paths, receipt_log)
 
@@ -165,6 +170,9 @@ def import_ready_payloads(
         "dry_run": dry_run,
         "control_board": str(control_board),
         "receipt_log": str(receipt_log),
+        "board_ok": summary.get("ok"),
+        "board_blocked": int(summary.get("blocked") or 0),
+        "allow_board_blocks": allow_board_blocks,
         "ready_count": len(ready_paths),
         "pending_count": len(pending),
         "skipped_count": len(skipped),
@@ -244,6 +252,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--receipt-log", type=Path, default=DEFAULT_RECEIPT_LOG, help="JSONL import receipt log.")
     parser.add_argument("--dsn-env", default=importer.DEFAULT_DSN_ENV, help="Environment variable name for PostgreSQL DSN.")
     parser.add_argument("--dry-run", action="store_true", help="Run import in a rolled-back transaction and skip receipts.")
+    parser.add_argument(
+        "--allow-board-blocks",
+        action="store_true",
+        help="Import ready_for_import_payloads even when other control-board rows are blocked.",
+    )
     parser.add_argument("--format", choices=("json", "markdown"), default="json")
     parser.add_argument("--output", type=Path, help="Write report here instead of stdout.")
     return parser
@@ -258,6 +271,7 @@ def main(argv: list[str] | None = None) -> int:
             receipt_log=args.receipt_log,
             dsn_env=args.dsn_env,
             dry_run=args.dry_run,
+            allow_board_blocks=args.allow_board_blocks,
         )
     except Exception as exc:
         error_report = {

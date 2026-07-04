@@ -118,7 +118,8 @@ def test_pipeline_does_not_resubmit_same_effective_patch(tmp_path: Path) -> None
     assert first["submitted_jobs"] == 1
     assert second["submitted_jobs"] == 0
     assert second["actions"] == []
-    assert second["status_control_summary"]["queues"]["refinement_candidates"] == ["甲"]
+    assert second["status_control_summary"]["queues"]["refinement_candidates"] == []
+    assert second["status_control_summary"]["queues"]["in_flight"] == ["甲"]
     assert second["refinement_totals"]["patch_suggestions"] == 0
     assert len(list((tmp_path / "jobs").glob("*.json"))) == 1
 

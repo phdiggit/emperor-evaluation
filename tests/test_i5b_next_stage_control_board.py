@@ -71,7 +71,7 @@ def valid_payload(person: str) -> dict:
                     {
                         "attr_code": "talent_quality",
                         "src_key": f"SRC-{person}-001",
-                        "value_text": "高质量人才",
+                        "value_text": "重要人才",
                         "confidence": 0.8,
                         "note": "测试属性说明。",
                     }

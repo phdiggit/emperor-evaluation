@@ -16,6 +16,7 @@ from scripts.dev import object_pool_importer as importer  # noqa: E402
 
 
 TODO_MARKERS = ("TODO", "TODO_RULE_CODE", "TODO_TALENT_QUALITY", "TODO-SRC")
+EMPEROR_META_PLACEHOLDERS = {"not asserted in this candidate payload"}
 
 
 def iso_now() -> str:
@@ -59,6 +60,30 @@ def _issue(issues: list[dict[str, Any]], severity: str, code: str, message: str,
     issues.append({"severity": severity, "code": code, "message": message, **extra})
 
 
+def _audit_emperor_meta(issues: list[dict[str, Any]], emperor: Mapping[str, Any], *, payload_index: int) -> None:
+    if "is_founder" in emperor and not isinstance(emperor.get("is_founder"), bool):
+        _issue(
+            issues,
+            "block",
+            "emperor_is_founder_required",
+            "emperor.is_founder must be true or false when present",
+            payload_index=payload_index,
+            emperor=emperor.get("name") or "",
+        )
+    for key in ("succession_mode", "power_origin"):
+        value = emperor.get(key)
+        if isinstance(value, str) and value.strip().lower() in EMPEROR_META_PLACEHOLDERS:
+            _issue(
+                issues,
+                "block",
+                "emperor_meta_placeholder",
+                f"emperor.{key} still contains a placeholder",
+                payload_index=payload_index,
+                emperor=emperor.get("name") or "",
+                field=key,
+            )
+
+
 def audit_payload_file(path: Path) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     try:
@@ -97,6 +122,7 @@ def audit_payload_file(path: Path) -> dict[str, Any]:
         sources = row.get("sources") if isinstance(row.get("sources"), list) else []
         objects = row.get("objects") if isinstance(row.get("objects"), list) else []
         emperor = row.get("emperor") if isinstance(row.get("emperor"), Mapping) else {}
+        _audit_emperor_meta(issues, emperor, payload_index=index)
         per_payload.append(
             {
                 "payload_index": index,

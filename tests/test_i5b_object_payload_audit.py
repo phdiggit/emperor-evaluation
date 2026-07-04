@@ -87,6 +87,20 @@ def test_audit_payload_file_blocks_todo_markers(tmp_path: Path) -> None:
     assert counts["TODO_TALENT_QUALITY"] == 1
 
 
+def test_audit_payload_file_blocks_emperor_meta_placeholders(tmp_path: Path) -> None:
+    path = tmp_path / "payload.json"
+    payload = valid_payload()
+    payload["emperor"]["is_founder"] = None
+    payload["emperor"]["succession_mode"] = "not asserted in this candidate payload"
+    write_json(path, payload)
+
+    report = tool.audit_payload_file(path)
+
+    assert report["ok"] is False
+    assert any(issue["code"] == "emperor_is_founder_required" for issue in report["issues"])
+    assert any(issue["code"] == "emperor_meta_placeholder" for issue in report["issues"])
+
+
 def test_audit_payload_file_reports_importer_schema_error(tmp_path: Path) -> None:
     path = tmp_path / "payload.json"
     payload = valid_payload()

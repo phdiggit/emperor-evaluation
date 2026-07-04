@@ -127,6 +127,7 @@ def build_payload_skeleton(
     profile: dict[str, Any],
     *,
     excerpt_report: dict[str, Any] | None = None,
+    existing_db_facts: dict[str, Any] | None = None,
     include_adjacent: bool = False,
     item_code: str = "I5B",
     subitem: str = "第五项B",
@@ -167,6 +168,10 @@ def build_payload_skeleton(
             ],
             "attrs": [],
         }
+        existing_objects = (existing_db_facts or {}).get("objects") or {}
+        existing_object_facts = existing_objects.get(candidate.raw_name)
+        if isinstance(existing_object_facts, dict) and existing_object_facts.get("attrs"):
+            obj["existing_db_facts"] = existing_object_facts
         if obj_type == "person":
             obj["attrs"].append(
                 {
@@ -202,9 +207,11 @@ def build_payload_skeleton(
             "excerpt_report_person": excerpt_report.get("person"),
             "excerpt_status": excerpt_report.get("status"),
             "candidate_excerpts": excerpts_by_object,
+            "existing_db_facts": existing_db_facts or {},
             "warnings": [
                 "本文件是待人工回源和填因子的骨架，不得直接导入。",
                 "TODO_RULE_CODE、TODO_TALENT_QUALITY、TODO-SRC 必须处理后才能交给 object_pool_importer。",
+                "若对象带有 existing_db_facts，payload 子进程不得用低置信候选属性降级覆盖表内事实。",
             ],
         },
     }
