@@ -154,7 +154,7 @@ def test_seed_builder_source_discovery_uses_page_text(monkeypatch) -> None:
 
     def fake_fetch(title, **kwargs):
         assert title == "三國志/卷22"
-        return "文皇帝讳丕。帝拜陈群为尚书。任司马懿为侍中。司马懿谏曰。诛曹洪。"
+        return "曹丕，文皇帝讳丕。帝拜陈群为尚书。任司马懿为侍中。司马懿谏曰。诛曹洪。"
 
     monkeypatch.setattr(tool, "search_wikisource", fake_search)
     monkeypatch.setattr(tool, "fetch_wikisource_plain_text", fake_fetch)
@@ -204,7 +204,7 @@ def test_source_discovery_expands_source_index_pages(monkeypatch) -> None:
     def fake_fetch(title, **kwargs):
         fetched_titles.append(title)
         if title == "三國志/卷02":
-            return "文皇帝讳丕。帝拜陈群为尚书。"
+            return "曹丕，文皇帝讳丕。帝拜陈群为尚书。"
         return "曹操起兵。"
 
     monkeypatch.setattr(tool, "search_wikisource", fake_search)
@@ -226,3 +226,33 @@ def test_source_discovery_expands_source_index_pages(monkeypatch) -> None:
     assert "三國志/卷01" not in fetched_titles
     objects = {item["object_name"] for item in report["seeds"][0]["candidate_objects"]}
     assert "陈群" in objects
+
+
+def test_source_discovery_does_not_treat_single_given_name_as_anchor() -> None:
+    profile = half_baked_profile()
+    text = "建安年间，典籍称丕然有文。孙权以吕蒙为南郡太守。"
+
+    candidates = tool.extract_source_discovery_candidates_from_text(
+        text,
+        profile=profile,
+        page_title="资治通鉴/卷六十八",
+        query="曹丕 资治通鉴",
+        context_chars=40,
+    )
+
+    assert candidates == []
+
+
+def test_source_discovery_yiwei_requires_office_tail() -> None:
+    profile = half_baked_profile()
+    text = "曹丕诏曰，以夏数为得天，故即用夏正。"
+
+    candidates = tool.extract_source_discovery_candidates_from_text(
+        text,
+        profile=profile,
+        page_title="三國志/卷02",
+        query="曹丕 三国志",
+        context_chars=40,
+    )
+
+    assert candidates == []

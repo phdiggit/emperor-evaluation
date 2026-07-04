@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -23,6 +23,7 @@ from scripts.dev.i5b_pending_factor_patch import (  # noqa: E402
     flatten_batch_materials,
     read_json,
     read_jsonl,
+    validate_patch_row,
 )
 from scripts.dev.i5b_pending_material_worklist import (  # noqa: E402
     ACTION_OPTIONS,
@@ -33,6 +34,7 @@ from scripts.dev.i5b_pending_material_worklist import (  # noqa: E402
     suggest_batches,
     PendingMaterialRow,
 )
+from scripts.dev.rule_material_policy import RuleMaterialPolicyMap, fetch_policy_map_from_dsn  # noqa: E402
 
 
 DEFAULT_OUTPUT = ROOT / ".tmp" / "i5b" / "i5b_initial_factor_worklist.json"
@@ -40,6 +42,7 @@ DEFAULT_PROFILE_OUTPUT = ROOT / ".tmp" / "i5b" / "i5b_initial_factor_profile.jso
 TEAM_BUILDING_RULE_CODE = "team_building"
 TALENT_DISCOVERY_RULE_CODE = "talent_discovery"
 TEAM_BUILDING_CLUSTER_FACTORS = ("role_complementarity_factor", "long_term_stability_factor")
+TEAM_MEMBER_KEY_PREFIX = "emp_obj"
 
 
 class InitialFactorProfileError(ValueError):
@@ -48,6 +51,24 @@ class InitialFactorProfileError(ValueError):
 
 def _text(value: object) -> str:
     return str(value or "").strip()
+
+
+def _positive_int(value: object) -> int:
+    try:
+        parsed = int(value or 0)
+    except (TypeError, ValueError):
+        return 0
+    return parsed if parsed > 0 else 0
+
+
+def _material_key(row: Mapping[str, object]) -> str:
+    obj_src_id = _positive_int(row.get("obj_src_id"))
+    if obj_src_id:
+        return f"obj_src:{obj_src_id}"
+    emp_obj_id = _positive_int(row.get("emp_obj_id"))
+    if emp_obj_id:
+        return f"{TEAM_MEMBER_KEY_PREFIX}:{emp_obj_id}"
+    return ""
 
 
 def _factor_option_catalog(rows: Sequence[Mapping[str, object]]) -> dict[tuple[str, str], list[dict[str, object]]]:
@@ -133,12 +154,13 @@ def group_rows(
         groups.setdefault((emperor, rule_code), []).append(dict(row))
     result: list[dict[str, object]] = []
     for (emperor, rule_code), items in sorted(groups.items()):
-        items.sort(key=lambda row: int(row.get("obj_src_id") or 0))
+        items.sort(key=lambda row: (_positive_int(row.get("obj_src_id")) or _positive_int(row.get("emp_obj_id")), _text(row.get("obj_name"))))
         group: dict[str, object] = {
             "emperor": emperor,
             "rule_code": rule_code,
             "material_count": len(items),
-            "pending_material_ids": [int(row["obj_src_id"]) for row in items],
+            "pending_material_ids": [_positive_int(row.get("obj_src_id")) for row in items if _positive_int(row.get("obj_src_id"))],
+            "pending_material_keys": [_material_key(row) for row in items if _material_key(row)],
             "materials": items,
         }
         if rule_code == TEAM_BUILDING_RULE_CODE:
@@ -283,6 +305,86 @@ def fetch_initial_material_rows(
                 )
                 item["talent_quality"] = str(row[18] or "")
                 rows.append(item)
+            if not rule_codes or TEAM_BUILDING_RULE_CODE in set(rule_codes):
+                team_clauses = ["(eo.subitem = %s or eo.subitem = i.item_name)", "ro.obj_type = 'person'"]
+                team_params: list[object] = [item_code]
+                if emperors:
+                    team_clauses.append("e.name = any(%s)")
+                    team_params.append(list(emperors))
+                if missing_calc_detail_only:
+                    team_clauses.append("d.cluster_id is null")
+                if missing_result_only:
+                    team_clauses.append("res.id is null")
+                cur.execute(
+                    f"""
+                    select
+                        e.name as emperor,
+                        r.rule_code,
+                        eo.id as emp_obj_id,
+                        ro.id as obj_id,
+                        ro.obj_type,
+                        ro.period as obj_period,
+                        ro.name as obj_name,
+                        eo.note as emp_obj_note,
+                        tq.value_text as talent_quality
+                      from emp_objs eo
+                      join emps e on e.id = eo.emp_id
+                      join raw_objs ro on ro.id = eo.obj_id
+                      join eval_items i on i.item_code = %s
+                      join eval_rules r on r.item_id = i.id and r.rule_code = %s
+                      left join evd_clusters c
+                        on c.emp_id = e.id
+                       and c.item_id = i.id
+                       and c.rule_id = r.id
+                       and c.formula_code = %s
+                      left join evd_cluster_calc_details d
+                        on d.cluster_id = c.id
+                       and d.formula_code = %s
+                      left join emp_item_results res
+                        on res.emp_id = e.id
+                       and res.item_id = i.id
+                       and res.formula_code = %s
+                      join lateral (
+                          select oa.value_text
+                            from obj_attrs oa
+                           where oa.obj_id = ro.id
+                             and oa.attr_code = 'talent_quality'
+                             and btrim(oa.value_text) <> ''
+                           order by
+                             (oa.obj_src_id is not null) desc,
+                             oa.updated_at desc,
+                             oa.id desc
+                           limit 1
+                      ) tq on true
+                     where {' and '.join(team_clauses)}
+                     order by e.sort_no nulls last, e.name, ro.name, eo.id
+                    """,
+                    (item_code, TEAM_BUILDING_RULE_CODE, cluster_formula, cluster_formula, result_formula, *team_params),
+                )
+                for row in cur.fetchall():
+                    rows.append(
+                        {
+                            "emperor": str(row[0]),
+                            "rule_code": str(row[1]),
+                            "obj_src_id": None,
+                            "direction": "positive",
+                            "emp_obj_id": int(row[2]),
+                            "obj_id": int(row[3]),
+                            "obj_type": str(row[4]),
+                            "obj_period": str(row[5] or ""),
+                            "obj_name": str(row[6] or ""),
+                            "src_key": "",
+                            "title": "",
+                            "author": "",
+                            "dynasty": "",
+                            "volume": "",
+                            "locator": "",
+                            "source_url": "",
+                            "obj_src_note": str(row[7] or "team_building member from emp_objs"),
+                            "source_note": "",
+                            "talent_quality": str(row[8] or ""),
+                        }
+                    )
     return rows
 
 
@@ -494,10 +596,66 @@ def _validate_team_cluster_patch(group: Mapping[str, Any], patch: Mapping[str, A
     return issues
 
 
-def validate_initial_patch(batch: Mapping[str, Any], patch_rows: Sequence[Mapping[str, Any]]) -> dict[str, object]:
+def validate_initial_patch(
+    batch: Mapping[str, Any],
+    patch_rows: Sequence[Mapping[str, Any]],
+    *,
+    policies: RuleMaterialPolicyMap | None = None,
+) -> dict[str, object]:
     material_rows = [row for row in patch_rows if row.get("patch_type") != "cluster"]
-    report = build_material_patch_report(batch, material_rows)
+    obj_src_material_rows = [row for row in material_rows if _positive_int(row.get("obj_src_id"))]
+    report = build_material_patch_report(batch, obj_src_material_rows, policies=policies)
     issues = [dict(issue) for issue in report.get("issues", []) if isinstance(issue, Mapping)]
+    emp_obj_materials = {
+        _positive_int(material.get("emp_obj_id")): material
+        for group in batch.get("groups", []) if isinstance(group, Mapping)
+        for material in group.get("materials", []) if isinstance(group.get("materials"), list) and isinstance(material, Mapping)
+        if not _positive_int(material.get("obj_src_id")) and _positive_int(material.get("emp_obj_id"))
+    }
+    seen_emp_obj_ids: dict[int, int] = {}
+    for row in material_rows:
+        if _positive_int(row.get("obj_src_id")):
+            continue
+        emp_obj_id = _positive_int(row.get("emp_obj_id"))
+        if not emp_obj_id:
+            issues.append({"severity": "error", "status": "missing_material_key", "line_no": row.get("_line_no")})
+            continue
+        if emp_obj_id in seen_emp_obj_ids:
+            issues.append(
+                {
+                    "severity": "error",
+                    "status": "duplicate_patch_row",
+                    "emp_obj_id": emp_obj_id,
+                    "line_no": row.get("_line_no"),
+                    "first_line_no": seen_emp_obj_ids[emp_obj_id],
+                }
+            )
+            continue
+        seen_emp_obj_ids[emp_obj_id] = int(row.get("_line_no") or 0)
+        material = emp_obj_materials.get(emp_obj_id)
+        if material is None:
+            issues.append(
+                {
+                    "severity": "error",
+                    "status": "unknown_emp_obj_id",
+                    "emp_obj_id": emp_obj_id,
+                    "line_no": row.get("_line_no"),
+                }
+            )
+            continue
+        issues.extend(validate_patch_row(row, material, policies=policies))
+    for emp_obj_id, material in emp_obj_materials.items():
+        if emp_obj_id not in seen_emp_obj_ids:
+            issues.append(
+                {
+                    "severity": "error",
+                    "status": "missing_patch_row",
+                    "emp_obj_id": emp_obj_id,
+                    "emperor": material.get("emperor"),
+                    "rule_code": material.get("rule_code"),
+                    "obj_name": material.get("obj_name"),
+                }
+            )
     team_patches = _team_factor_labels(batch, patch_rows)
     groups = batch.get("groups") if isinstance(batch.get("groups"), list) else []
     for group in groups:
@@ -512,13 +670,15 @@ def validate_initial_patch(batch: Mapping[str, Any], patch_rows: Sequence[Mappin
         "error_count": error_count,
         "warning_count": warning_count,
         "issues": issues,
+        "expected_materials": int(report.get("expected_materials") or 0) + len(emp_obj_materials),
+        "patch_rows": len(material_rows),
+        "action_counts": dict(Counter(_text(row.get("target_action")) for row in material_rows)),
         "cluster_patch_rows": len(team_patches),
     }
 
 
 def _profile_material(row: Mapping[str, Any], material: Mapping[str, Any]) -> dict[str, object]:
-    return {
-        "obj_src_id": int(row["obj_src_id"]),
+    profile: dict[str, object] = {
         "obj_id": material.get("obj_id"),
         "obj_key": str(material.get("obj_id") or ""),
         "obj_name": material.get("obj_name") or "",
@@ -526,6 +686,13 @@ def _profile_material(row: Mapping[str, Any], material: Mapping[str, Any]) -> di
         "direction": row.get("side") or material.get("direction") or "",
         "factors": dict(row.get("factor_refs") if isinstance(row.get("factor_refs"), Mapping) else {}),
     }
+    obj_src_id = _positive_int(row.get("obj_src_id"))
+    if obj_src_id:
+        profile["obj_src_id"] = obj_src_id
+    emp_obj_id = _positive_int(row.get("emp_obj_id")) or _positive_int(material.get("emp_obj_id"))
+    if emp_obj_id:
+        profile["emp_obj_id"] = emp_obj_id
+    return profile
 
 
 def _coverage_by_action(
@@ -569,42 +736,71 @@ def build_profile_from_patches(
     *,
     item_code: str = DEFAULT_ITEM_CODE,
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA,
+    policies: RuleMaterialPolicyMap | None = None,
 ) -> dict[str, object]:
     grouped_rows: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
-    materials_by_id: dict[int, dict[str, Any]] = {}
+    materials_by_key: dict[str, dict[str, Any]] = {}
     team_patches: dict[tuple[str, str], dict[str, Any]] = {}
     validations: list[dict[str, object]] = []
     for batch_path, batch, patch_rows in pairs:
-        validation = validate_initial_patch(batch, patch_rows)
+        validation = validate_initial_patch(batch, patch_rows, policies=policies)
         validations.append({"batch": str(batch_path), **validation})
         if not validation["ok"]:
             raise InitialFactorProfileError(f"{batch_path}: initial factor patch validation failed")
-        materials_by_id.update(flatten_batch_materials(batch))
+        for material in flatten_batch_materials(batch).values():
+            key = _material_key(material)
+            if key:
+                materials_by_key[key] = material
+        groups = batch.get("groups") if isinstance(batch.get("groups"), list) else []
+        for group in groups:
+            if not isinstance(group, Mapping):
+                continue
+            materials = group.get("materials") if isinstance(group.get("materials"), list) else []
+            for material in materials:
+                if not isinstance(material, Mapping):
+                    continue
+                key = _material_key(material)
+                if key:
+                    materials_by_key[key] = dict(material)
         team_patches.update(_team_factor_labels(batch, patch_rows))
         for row in patch_rows:
             if row.get("patch_type") == "cluster":
                 continue
-            obj_src_id = int(row.get("obj_src_id") or 0)
-            material = materials_by_id[obj_src_id]
+            key = _material_key(row)
+            material = materials_by_key[key]
             grouped_rows[(str(material["emperor"]), str(material["rule_code"]))].append(dict(row))
 
     clusters: list[dict[str, object]] = []
+    no_score_groups: list[dict[str, object]] = []
     skipped_groups: list[dict[str, object]] = []
     for (emperor, rule_code), rows in sorted(grouped_rows.items()):
-        material_rows = {int(row["obj_src_id"]): materials_by_id[int(row["obj_src_id"])] for row in rows}
+        material_rows = {_material_key(row): materials_by_key[_material_key(row)] for row in rows}
         covered, scored, supporting, excluded = _coverage_by_action(rows)
         scored_rows = [row for row in rows if _text(row.get("target_action")) == "score"]
+        team_patch = team_patches.get((emperor, rule_code))
         if not scored_rows:
-            skipped_groups.append(
+            group_report = {
+                "emperor": emperor,
+                "rule_code": rule_code,
+                "covered_material_ids": covered,
+                "reason": "no_scored_materials",
+            }
+            no_score_groups.append(group_report)
+            clusters.append(
                 {
                     "emperor": emperor,
                     "rule_code": rule_code,
-                    "covered_material_ids": covered,
-                    "reason": "no_scored_materials",
+                    "formula_code": cluster_formula,
+                    "note": _cluster_note(emperor, rule_code, rows, team_patch),
+                    "calc_note": "initial_factor_profile_no_scored_materials",
+                    "material_ids": covered,
+                    "supporting_material_ids": supporting,
+                    "excluded_material_ids": excluded,
+                    "materials": [],
+                    "no_score_reason": "no_scored_materials",
                 }
             )
             continue
-        team_patch = team_patches.get((emperor, rule_code))
         cluster: dict[str, object] = {
             "emperor": emperor,
             "rule_code": rule_code,
@@ -614,7 +810,7 @@ def build_profile_from_patches(
             "material_ids": covered,
             "supporting_material_ids": supporting,
             "excluded_material_ids": excluded,
-            "materials": [_profile_material(row, material_rows[int(row["obj_src_id"])]) for row in scored_rows],
+            "materials": [_profile_material(row, material_rows[_material_key(row)]) for row in scored_rows],
         }
         if rule_code == TEAM_BUILDING_RULE_CODE:
             if not isinstance(team_patch, Mapping):
@@ -628,6 +824,7 @@ def build_profile_from_patches(
         "formula_code": cluster_formula,
         "factor_source": "table",
         "clusters": clusters,
+        "no_score_groups": no_score_groups,
         "skipped_groups": skipped_groups,
         "source_batches": [str(path) for path, _, _ in pairs],
         "validation_count": len(validations),
@@ -710,17 +907,33 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "patch-to-profile":
         pairs = load_batch_patch_pairs(args.batch, args.patch)
+        rule_codes = tuple(
+            sorted(
+                {
+                    _text(material.get("rule_code"))
+                    for _, batch, _ in pairs
+                    for material in flatten_batch_materials(batch).values()
+                    if _text(material.get("rule_code"))
+                }
+            )
+        )
+        policies = fetch_policy_map_from_dsn(
+            dsn=args.dsn or resolve_dsn(args.dsn_env),
+            item_code=args.item_code,
+            rule_codes=rule_codes,
+        )
         profile = build_profile_from_patches(
             pairs,
             item_code=args.item_code,
             cluster_formula=args.cluster_formula,
+            policies=policies,
         )
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(profile, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         if args.validation_output:
             validations = []
             for batch_path, batch, patch_rows in pairs:
-                validations.append({"batch": str(batch_path), **validate_initial_patch(batch, patch_rows)})
+                validations.append({"batch": str(batch_path), **validate_initial_patch(batch, patch_rows, policies=policies)})
             args.validation_output.parent.mkdir(parents=True, exist_ok=True)
             args.validation_output.write_text(
                 json.dumps(validations, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

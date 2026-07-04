@@ -9,76 +9,17 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
 
-I5B_RULE_SLOT_POLICIES: dict[str, dict[str, object]] = {
-    "talent_discovery": {
-        "allowed_scoring_roles": {
-            "discovered_talent",
-            "recommended_talent",
-            "recognized_talent",
-            "missed_talent",
-        },
-        "context_roles": {"source_context", "event_context", "mechanism_context"},
-        "disallowed_scored_obj_types": {"mechanism"},
-        "discouraged_scored_obj_types": {"event", "group"},
-        "single_scored_per_chain": False,
-    },
-    "appointment_trust": {
-        "allowed_scoring_roles": {
-            "appointed_talent",
-            "trusted_minister",
-            "entrusted_official",
-            "misappointed_person",
-            "suppressed_talent",
-        },
-        "context_roles": {"source_context", "event_context", "mechanism_context"},
-        "disallowed_scored_obj_types": {"mechanism"},
-        "discouraged_scored_obj_types": {"event", "group"},
-        "single_scored_per_chain": False,
-    },
-    "delegation": {
-        "allowed_scoring_roles": {
-            "delegated_actor",
-            "authority_recipient",
-            "authority_revoked_target",
-            "misdelegated_actor",
-        },
-        "context_roles": {"source_context", "event_context", "mechanism_context"},
-        "disallowed_scored_obj_types": {"mechanism"},
-        "discouraged_scored_obj_types": {"event", "group"},
-        "single_scored_per_chain": False,
-    },
-    "team_building": {
-        "allowed_scoring_roles": {"team_member", "negative_team_member"},
-        "context_roles": {"source_context", "event_context", "mechanism_context"},
-        "disallowed_scored_obj_types": {"mechanism", "event", "group"},
-        "discouraged_scored_obj_types": set(),
-        "single_scored_per_chain": False,
-    },
-    "tolerate_talent": {
-        "allowed_scoring_roles": {
-            "protected_talent",
-            "remonstrance_actor",
-            "expression_safety_unit",
-            "harmed_talent",
-        },
-        "context_roles": {"actor_context", "event_context", "group_context", "mechanism_context", "source_context"},
-        "disallowed_scored_obj_types": {"event", "group", "mechanism"},
-        "discouraged_scored_obj_types": set(),
-        "single_scored_per_chain": True,
-    },
-    "anti_nepotism": {
-        "allowed_scoring_roles": {
-            "anti_nepotism_resisted_actor",
-            "nepotistic_beneficiary",
-            "favorite_beneficiary",
-            "appointment_interferer",
-        },
-        "context_roles": {"actor_context", "event_context", "group_context", "mechanism_context", "source_context"},
-        "disallowed_scored_obj_types": {"event", "group", "mechanism"},
-        "discouraged_scored_obj_types": set(),
-        "single_scored_per_chain": False,
-    },
-}
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.build.i5b_item_result_calculator import DEFAULT_ITEM_CODE  # noqa: E402
+from scripts.dev.evidence_cluster_workbench import DEFAULT_DSN_ENV, resolve_dsn  # noqa: E402
+from scripts.dev.rule_material_policy import (  # noqa: E402
+    RuleMaterialPolicy,
+    RuleMaterialPolicyMap,
+    fetch_policy_map_from_dsn,
+)
 
 
 @dataclass(frozen=True)
@@ -98,13 +39,9 @@ def _as_text(value: object) -> str:
     return str(value or "").strip()
 
 
-def _as_set(policy: Mapping[str, object], key: str) -> set[str]:
-    values = policy.get(key)
-    if isinstance(values, set):
-        return set(values)
-    if isinstance(values, (list, tuple, frozenset)):
-        return {str(value) for value in values}
-    return set()
+def _policy_set(policy: RuleMaterialPolicy, key: str) -> set[str]:
+    values = getattr(policy, key)
+    return {str(value) for value in values}
 
 
 def _obj_name(obj: Mapping[str, object]) -> str:
@@ -149,17 +86,17 @@ def _iter_units(payload: Mapping[str, object]) -> list[Mapping[str, object]]:
     return [unit for unit in units if isinstance(unit, Mapping)]
 
 
-def audit_payload(payload: Mapping[str, object]) -> list[PreviewIssue]:
+def audit_payload(
+    payload: Mapping[str, object],
+    *,
+    policies: RuleMaterialPolicyMap | None = None,
+) -> list[PreviewIssue]:
     issues: list[PreviewIssue] = []
     units = _iter_units(payload)
 
     if not _as_text(payload.get("emperor")):
         issues.append(
             PreviewIssue("block", "missing_emperor", "", "", "", "payload 缺少 emperor")
-        )
-    if _as_text(payload.get("item_code")) not in {"", "I5B"}:
-        issues.append(
-            PreviewIssue("warning", "unexpected_item_code", "", "", "", "当前预览工具只维护 I5B rule 槽位")
         )
     if not units:
         issues.append(
@@ -180,12 +117,12 @@ def audit_payload(payload: Mapping[str, object]) -> list[PreviewIssue]:
         obj_type = _obj_type(scored_obj)
         material_id = _obj_src_id(scored_obj)
 
-        policy = I5B_RULE_SLOT_POLICIES.get(rule_code)
+        policy = (policies or {}).get(rule_code)
         if not rule_code:
             issues.append(_issue("block", "missing_rule_code", unit, name, "unit 缺少 rule_code"))
             continue
         if policy is None:
-            issues.append(_issue("warning", "unknown_rule_code", unit, name, "未知 I5B rule_code"))
+            issues.append(_issue("block", "missing_rule_material_policy", unit, name, "规则材料策略表缺少该 rule 的 active policy"))
             continue
 
         if not chain_key:
@@ -195,10 +132,10 @@ def audit_payload(payload: Mapping[str, object]) -> list[PreviewIssue]:
         if direction not in {"positive", "negative", "neutral", "mixed"}:
             issues.append(_issue("block", "invalid_direction", unit, name, "direction 必须是 positive/negative/neutral/mixed"))
 
-        allowed_roles = _as_set(policy, "allowed_scoring_roles")
-        context_roles = _as_set(policy, "context_roles")
-        disallowed_types = _as_set(policy, "disallowed_scored_obj_types")
-        discouraged_types = _as_set(policy, "discouraged_scored_obj_types")
+        allowed_roles = _policy_set(policy, "allowed_scoring_roles")
+        context_roles = _policy_set(policy, "context_roles")
+        disallowed_types = _policy_set(policy, "disallowed_scored_obj_types")
+        discouraged_types = _policy_set(policy, "discouraged_scored_obj_types")
 
         if scoring_role in context_roles:
             issues.append(
@@ -248,8 +185,8 @@ def audit_payload(payload: Mapping[str, object]) -> list[PreviewIssue]:
             by_scored_material[(rule_code, material_id)].append(unit)
 
     for (rule_code, chain_key), chain_units in sorted(by_chain.items()):
-        policy = I5B_RULE_SLOT_POLICIES.get(rule_code, {})
-        if bool(policy.get("single_scored_per_chain")) and len(chain_units) > 1:
+        policy = (policies or {}).get(rule_code)
+        if policy is not None and policy.single_scored_per_chain and len(chain_units) > 1:
             object_names = "、".join(_obj_name(_unit_scored_obj(unit)) for unit in chain_units)
             issues.append(
                 PreviewIssue(
@@ -280,9 +217,13 @@ def audit_payload(payload: Mapping[str, object]) -> list[PreviewIssue]:
     return issues
 
 
-def build_preview(payload: Mapping[str, object]) -> dict[str, object]:
+def build_preview(
+    payload: Mapping[str, object],
+    *,
+    policies: RuleMaterialPolicyMap | None = None,
+) -> dict[str, object]:
     units = _iter_units(payload)
-    issues = audit_payload(payload)
+    issues = audit_payload(payload, policies=policies)
     return {
         "emperor": _as_text(payload.get("emperor")),
         "item_code": _as_text(payload.get("item_code") or "I5B"),
@@ -386,6 +327,10 @@ def load_payload(path: Path) -> dict[str, object]:
     return payload
 
 
+def _rule_codes_from_payload(payload: Mapping[str, object]) -> tuple[str, ...]:
+    return tuple(dict.fromkeys(_as_text(unit.get("rule_code")) for unit in _iter_units(payload) if _as_text(unit.get("rule_code"))))
+
+
 def write_output(text: str, output: Path | None) -> None:
     if output is None:
         sys.stdout.write(text)
@@ -395,10 +340,13 @@ def write_output(text: str, output: Path | None) -> None:
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Preview I5B rule evidence units in shadow mode.")
+    parser = argparse.ArgumentParser(description="Preview rule evidence units in shadow mode.")
     parser.add_argument("--input", required=True, type=Path, help="JSON payload with emperor/item_code/units.")
     parser.add_argument("--output", type=Path, help="Write report to this path instead of stdout.")
     parser.add_argument("--format", choices=("markdown", "json"), default="markdown")
+    parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code for rule material policies.")
+    parser.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    parser.add_argument("--dsn", help="PostgreSQL DSN; overrides --dsn-env.")
     parser.add_argument("--fail-on-issue", action="store_true", help="Exit non-zero when any issue is found.")
     return parser.parse_args(argv)
 
@@ -406,7 +354,13 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     payload = load_payload(args.input)
-    preview = build_preview(payload)
+    item_code = _as_text(payload.get("item_code")) or args.item_code
+    policies = fetch_policy_map_from_dsn(
+        dsn=args.dsn or resolve_dsn(args.dsn_env),
+        item_code=item_code,
+        rule_codes=_rule_codes_from_payload(payload),
+    )
+    preview = build_preview(payload, policies=policies)
     if args.format == "json":
         text = json.dumps(preview, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     else:

@@ -35,13 +35,9 @@ from scripts.dev.i5b_factor_table_sync import dump_db_factor_options
 from scripts.dev.i5b_finite_values import normalize_period_alias, normalize_team_person_name
 from scripts.dev.i5b_rule_object_coverage_audit import attr_value, fetch_emp_object_rows
 
-
 DEFAULT_ITEM_CODE = "I5B"
 DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
-DEFAULT_FACTOR_DOCS = (
-    ROOT / "docs" / "\u5206\u9879\u89c4\u5219" / "\u7b2c\u4e94\u9879\u7edf\u6cbb\u8005\u653f\u6cbb\u7d20\u8d28" / "B\u7528\u4eba\u4e0e\u6388\u6743.md",
-    ROOT / "docs" / "\u8bc1\u636e\u89c4\u5219" / "\u8bc1\u636e\u7c07\u8ba1\u7b97\u516c\u5f0f.md",
-)
+DEFAULT_FACTOR_DOCS: tuple[Path, ...] = ()
 TEAM_BUILDING_RULE_CODE = "team_building"
 TEAM_BUILDING_SOURCE_FORMULA = "evidence_cluster_signal_v2"
 TEAM_BUILDING_RANK_DECAYS = (
@@ -69,7 +65,6 @@ LEGACY_FACTOR_LABEL_ALIASES = {
 
 class I5BFactorRecalculatorError(ValueError):
     pass
-
 
 @dataclass(frozen=True)
 class FactorRow:
@@ -494,6 +489,44 @@ def require_text(row: dict[str, Any], key: str, path: str) -> str:
     return value.strip()
 
 
+def compute_no_score_cluster(
+    row: dict[str, Any],
+    *,
+    item_code: str,
+    formula_code: str,
+    path: str,
+) -> ClusterInput:
+    rule_code = require_text(row, "rule_code", path)
+    material_ids, supporting_ids, excluded_ids = coverage_id_sets(row, scored_material_ids=(), path=path)
+    reason = str(row.get("no_score_reason") or "no_scored_materials").strip()
+    detail = {
+        "item_code": item_code,
+        "formula_code": formula_code,
+        "materials": [],
+        "coverage": {"positive": "1.0", "negative": "1.0"},
+        "object_side_scores": {"positive": {}, "negative": {}},
+        "covered_material_ids": list(material_ids),
+        "scored_material_ids": [],
+        "supporting_material_ids": list(supporting_ids),
+        "positive_signal": "0.000",
+        "negative_signal": "0.000",
+        "no_score_reason": reason,
+    }
+    if excluded_ids:
+        detail["excluded_material_ids"] = list(excluded_ids)
+    return ClusterInput(
+        emperor=require_text(row, "emperor", path),
+        rule_code=rule_code,
+        positive_signal=Decimal("0.000"),
+        negative_signal=Decimal("0.000"),
+        formula_code=str(row.get("formula_code") or formula_code),
+        note=require_text(row, "note", path),
+        material_ids=material_ids,
+        calc_note=str(row.get("calc_note") or f"no_score_cluster:{reason}"),
+        calc_detail=detail,
+    )
+
+
 def compute_cluster(
     row: dict[str, Any],
     *,
@@ -502,6 +535,13 @@ def compute_cluster(
     catalog: dict[str, list[FactorRow]],
     path: str,
 ) -> ClusterInput:
+    if row.get("no_score_reason"):
+        return compute_no_score_cluster(
+            row,
+            item_code=item_code,
+            formula_code=formula_code,
+            path=path,
+        )
     if row.get("rule_code") == TEAM_BUILDING_RULE_CODE:
         return compute_team_building_cluster(
             row,
@@ -1040,6 +1080,14 @@ def is_retired_founder_baseline_material(row: dict[str, Any]) -> bool:
     return obj_name == RETIRED_FOUNDER_BASELINE_NAME or obj_key.endswith(f":{RETIRED_FOUNDER_BASELINE_NAME}")
 
 
+def replay_calc_note(value: object) -> str:
+    text = str(value or "").strip()
+    prefix = "replay_calc_detail:"
+    while text.startswith(prefix):
+        text = text[len(prefix) :].strip()
+    return f"{prefix} {text}" if text else prefix
+
+
 def cluster_profile_from_calc_detail_row(row: dict[str, Any], *, path: str) -> dict[str, Any]:
     if not isinstance(row, dict):
         raise I5BFactorRecalculatorError(f"{path}: expected object")
@@ -1047,36 +1095,44 @@ def cluster_profile_from_calc_detail_row(row: dict[str, Any], *, path: str) -> d
     if not isinstance(calc_detail, dict):
         raise I5BFactorRecalculatorError(f"{path}.calc_detail: expected object")
     materials_value = calc_detail.get("materials")
-    if not isinstance(materials_value, list) or not materials_value:
-        raise I5BFactorRecalculatorError(f"{path}.calc_detail.materials: expected non-empty list")
+    if not isinstance(materials_value, list):
+        raise I5BFactorRecalculatorError(f"{path}.calc_detail.materials: expected list")
     coverage = calc_detail.get("coverage", {})
     if coverage is None:
         coverage = {}
     if not isinstance(coverage, dict):
         raise I5BFactorRecalculatorError(f"{path}.calc_detail.coverage: expected object")
+    def detail_ids(key: str) -> tuple[int, ...]:
+        return optional_int_tuple(calc_detail.get(key), path=f"{path}.calc_detail.{key}")
+
     replay_materials = [
         material
         for material in materials_value
         if isinstance(material, dict) and not is_retired_founder_baseline_material(material)
     ]
-    if not replay_materials:
-        raise I5BFactorRecalculatorError(f"{path}.calc_detail.materials: no active replayable materials")
     profile = {
         "emperor": require_text(row, "emperor", path),
         "rule_code": require_text(row, "rule_code", path),
         "formula_code": str(row.get("formula_code") or calc_detail.get("formula_code") or DEFAULT_CLUSTER_FORMULA),
         "note": str(row.get("note") or "replayed from evidence cluster calc_detail"),
-        "calc_note": f"replay_calc_detail: {row.get('calc_note') or ''}".strip(),
+        "calc_note": replay_calc_note(row.get("calc_note")),
         "material_ids": optional_int_tuple(row.get("material_ids"), path=f"{path}.material_ids"),
+        "covered_material_ids": detail_ids("covered_material_ids"),
+        "supporting_material_ids": detail_ids("supporting_material_ids"),
+        "excluded_material_ids": detail_ids("excluded_material_ids"),
         "coverage": {
             "positive": str(coverage.get("positive", "1.0")),
             "negative": str(coverage.get("negative", "1.0")),
         },
-        "materials": [
-            material_profile_from_calc_detail(material, path=f"{path}.calc_detail.materials[{index}]")
-            for index, material in enumerate(replay_materials)
-        ],
     }
+    if not replay_materials:
+        profile["materials"] = []
+        profile["no_score_reason"] = str(calc_detail.get("no_score_reason") or "no_scored_materials")
+        return profile
+    profile["materials"] = [
+        material_profile_from_calc_detail(material, path=f"{path}.calc_detail.materials[{index}]")
+        for index, material in enumerate(replay_materials)
+    ]
     team_factors = calc_detail.get("team_factors")
     if profile["rule_code"] == TEAM_BUILDING_RULE_CODE and isinstance(team_factors, dict):
         factor_refs = team_factors.get("factor_refs")
@@ -1261,13 +1317,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Recalculate I5B evidence clusters from structured material factors.")
     parser.add_argument("--input", type=Path, default=None, help="Structured UTF-8 JSON factor profile.")
     parser.add_argument("--from-details", action="store_true", help="Replay latest calc_detail rows from DB detail table.")
-    parser.add_argument("--factor-doc", type=Path, action="append", default=None, help="Markdown doc containing factor tables.")
-    parser.add_argument(
-        "--factor-source",
-        choices=("auto", "table", "docs"),
-        default="auto",
-        help="Factor catalog source; auto uses table for --from-details and docs for --input.",
-    )
+    parser.add_argument("--factor-doc", type=Path, action="append", default=None, help="Explicit fixture/debug Markdown factor table.")
+    parser.add_argument("--factor-source", choices=("auto", "table", "docs"), default="auto", help="Factor catalog source.")
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code for --from-details.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Evidence cluster formula_code to replay.")
     parser.add_argument("--emperor", action="append", default=None, help="Optional emperor filter; repeatable.")
@@ -1277,11 +1328,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--write-results", action="store_true", help="Recalculate emp_item_results after cluster writes.")
     parser.add_argument("--dry-run", action="store_true", help="Rollback database writes; still prints in-memory result summary.")
     parser.add_argument("--dsn-env", default="EMPEROR_EVAL_PG_DSN", help="Environment variable name for PostgreSQL DSN.")
-    parser.add_argument(
-        "--allow-partial-material-coverage",
-        action="store_true",
-        help="Allow replay/upsert to omit DB obj_srcs from material_ids or calc_detail.materials.",
-    )
+    parser.add_argument("--allow-partial-material-coverage", action="store_true", help="Allow partial DB material coverage.")
     return parser
 
 
@@ -1299,12 +1346,9 @@ def main(argv: list[str] | None = None) -> int:
             input_raw = loaded_input
     factor_source = args.factor_source
     if factor_source == "auto":
-        if args.from_details:
-            factor_source = "table"
-        elif input_raw is not None and str(input_raw.get("factor_source") or "").strip() in {"table", "docs"}:
-            factor_source = str(input_raw.get("factor_source")).strip()
-        else:
-            factor_source = "docs"
+        factor_source = "table"
+    if factor_source == "docs" and not args.factor_doc:
+        parser.error("--factor-source docs requires explicit --factor-doc; runtime workflows must read eval_rule_factor_options")
     dsn: str | None = None
     factor_catalog: dict[str, list[FactorRow]] | None = None
     if factor_source == "table":

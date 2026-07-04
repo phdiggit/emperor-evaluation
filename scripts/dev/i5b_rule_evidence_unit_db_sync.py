@@ -28,6 +28,7 @@ from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
 from scripts.dev.i5b_rule_evidence_unit_candidate_builder import (  # noqa: E402
     build_candidate_payload,
 )
+from scripts.dev.rule_material_policy import fetch_policy_map_from_dsn  # noqa: E402
 
 
 SOURCE_METHOD = "candidate_from_calc_detail"
@@ -96,6 +97,15 @@ def _supporting_count(payload: Mapping[str, object]) -> int:
     return len(members) if isinstance(members, list) else 0
 
 
+def _payload_rule_codes(payload: Mapping[str, object], units: Sequence[Mapping[str, object]]) -> tuple[str, ...]:
+    rule_codes: list[str] = []
+    declared = payload.get("rule_codes")
+    if isinstance(declared, list):
+        rule_codes.extend(_text(rule_code) for rule_code in declared)
+    rule_codes.extend(_text(unit.get("rule_code")) for unit in units)
+    return tuple(sorted({rule_code for rule_code in rule_codes if rule_code}))
+
+
 def _preview_stats(payload: Mapping[str, object]) -> tuple[int, bool]:
     preview = payload.get("preview")
     if not isinstance(preview, Mapping):
@@ -147,6 +157,7 @@ def build_payloads(
     if not emperor_filter:
         raise RuleEvidenceUnitDbSyncError("no emperors selected")
     rules = tuple(rule_code for rule_code in rule_codes if rule_code)
+    policies = fetch_policy_map_from_dsn(dsn=dsn, item_code=item_code, rule_codes=rules)
     cluster_rows = fetch_cluster_calc_detail_rows(
         dsn=dsn,
         item_code=item_code,
@@ -170,6 +181,7 @@ def build_payloads(
                 cluster_rows=cluster_rows,
                 materials_report=materials_report,
                 rule_codes=rules,
+                policies=policies,
             )
         )
     return payloads
@@ -465,11 +477,19 @@ def _retire_stale_candidate_units(
            and review_status = %s::public.eval_review_status
            and emp_id = %s
            and item_id = %s
-           and rule_id = any(%s)
+           and (rule_id = any(%s) or rule_code = any(%s))
            and not (id = any(%s))
         returning id
         """,
-        (SOURCE_METHOD, REVIEW_STATUS, emp_id, item_id, list(rule_ids.values()), list(active_unit_ids)),
+        (
+            SOURCE_METHOD,
+            REVIEW_STATUS,
+            emp_id,
+            item_id,
+            list(rule_ids.values()),
+            list(rule_ids.keys()),
+            list(active_unit_ids),
+        ),
     )
     retired_unit_ids = [int(row[0]) for row in cur.fetchall()]
     if not retired_unit_ids:
@@ -500,7 +520,7 @@ def sync_payload(
     emperor = _text(payload.get("emperor"))
     item_code = _text(payload.get("item_code")) or DEFAULT_ITEM_CODE
     units = _iter_units(payload)
-    rule_codes = tuple(_text(unit.get("rule_code")) for unit in units if _text(unit.get("rule_code")))
+    rule_codes = _payload_rule_codes(payload, units)
     preview_issues, preview_blocking = _preview_stats(payload)
 
     if dry_run:

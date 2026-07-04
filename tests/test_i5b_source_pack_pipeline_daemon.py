@@ -63,8 +63,12 @@ def args_for(tmp_path: Path, *, submit_prepared: bool = False, submit_refinement
         workflow_code="I5B",
         status=[],
         submit_prepared=submit_prepared,
+        submit_seeds=False,
+        seed_report=None,
+        seed_derived_source_group="",
         submit_refinements=submit_refinements,
         max_jobs_per_run=0,
+        max_seed_rounds_per_person=1,
         max_refine_rounds_per_person=2,
         include_adjacent=False,
         refine_max_queries_per_object=3,
@@ -80,6 +84,21 @@ def args_for(tmp_path: Path, *, submit_prepared: bool = False, submit_refinement
         max_wall_seconds=3600,
         no_cache=False,
     )
+
+
+def half_baked_profile(person: str = "己") -> dict:
+    return {
+        "person": person,
+        "query_profile_id": f"QRY-{person}",
+        "source_group": "all_monarch_backfill",
+        "source_targets": ["晋书"],
+        "object_layers": {
+            "core_positive_objects": ["任用授权待识别对象"],
+            "negative_or_reversal_objects": ["功臣安全与处置对象"],
+        },
+        "query_bundles": [f"{person} 晋书 任用 授权"],
+        "object_search_aliases": {},
+    }
 
 
 def test_pipeline_applies_refinement_to_derived_profile_and_submits_job(tmp_path: Path) -> None:
@@ -137,6 +156,82 @@ def test_pipeline_submits_prepared_profile_without_derived_profile(tmp_path: Pat
     assert job["profile"] == str(tmp_path / "profiles.jsonl")
     assert job["workflow_code"] == "I5B"
     assert job["pipeline"]["kind"] == "initial"
+
+
+def test_pipeline_applies_reviewed_seed_patch_to_derived_profile(tmp_path: Path) -> None:
+    write_jsonl(tmp_path / "profiles.jsonl", [half_baked_profile()])
+    seed_report = tmp_path / "seed_report.json"
+    write_json(
+        seed_report,
+        {
+            "seeds": [
+                {
+                    "person": "己",
+                    "accepted_for_profile": True,
+                    "review_status": "accepted",
+                    "seed_profile_patch_candidate": {
+                        "replace_object_layers": {
+                            "core_positive_objects": ["陈群", "司马懿"],
+                            "negative_or_reversal_objects": ["曹洪"],
+                        },
+                        "append_query_bundles": ["己 陈群 晋书 任用", "己 曹洪 晋书 处置"],
+                        "merge_object_search_aliases": {"司马懿": ["仲达"]},
+                    },
+                }
+            ]
+        },
+    )
+    args = args_for(tmp_path, submit_prepared=False, submit_refinements=False)
+    args.submit_seeds = True
+    args.seed_report = seed_report
+
+    report = tool.run_once(args)
+
+    assert report["submitted_jobs"] == 1
+    assert report["seed_totals"] == {"seeds": 1, "accepted": 1}
+    action = report["actions"][0]
+    assert action["kind"] == "seed"
+    assert action["status"] == "submitted"
+    derived_profile = Path(action["profile_path"])
+    profile = json.loads(derived_profile.read_text(encoding="utf-8").splitlines()[0])
+    assert profile["source_group"] == "i5b_seed_derived"
+    assert profile["query_profile_id"].startswith("QRY-己-SEED-")
+    assert profile["object_layers"]["core_positive_objects"] == ["陈群", "司马懿"]
+    assert profile["object_layers"]["negative_or_reversal_objects"] == ["曹洪"]
+    assert "任用授权待识别对象" not in json.dumps(profile["object_layers"], ensure_ascii=False)
+    assert profile["object_search_aliases"]["司马懿"] == ["仲达"]
+    job = json.loads(Path(action["job_path"]).read_text(encoding="utf-8"))
+    assert job["profile"] == str(derived_profile)
+    assert job["pipeline"]["kind"] == "seed"
+
+
+def test_pipeline_skips_unreviewed_seed_patch(tmp_path: Path) -> None:
+    write_jsonl(tmp_path / "profiles.jsonl", [half_baked_profile()])
+    seed_report = tmp_path / "seed_report.json"
+    write_json(
+        seed_report,
+        {
+            "seeds": [
+                {
+                    "person": "己",
+                    "seed_profile_patch_candidate": {
+                        "replace_object_layers": {"core_positive_objects": ["陈群"]},
+                        "append_query_bundles": ["己 陈群 晋书 任用"],
+                    },
+                }
+            ]
+        },
+    )
+    args = args_for(tmp_path, submit_prepared=False, submit_refinements=False)
+    args.submit_seeds = True
+    args.seed_report = seed_report
+
+    report = tool.run_once(args)
+
+    assert report["submitted_jobs"] == 0
+    assert report["seed_totals"] == {"seeds": 1, "accepted": 0}
+    assert report["actions"] == [{"person": "己", "kind": "seed", "status": "skip_unreviewed"}]
+    assert not (tmp_path / "jobs").exists()
 
 
 def test_pipeline_uses_workflow_code_for_non_i5b_outputs(tmp_path: Path) -> None:

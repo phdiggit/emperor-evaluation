@@ -25,6 +25,12 @@ from scripts.dev.i5b_rule_evidence_unit_preview import (  # noqa: E402
     build_preview,
     render_markdown as render_preview_markdown,
 )
+from scripts.dev.rule_material_policy import (  # noqa: E402
+    RuleMaterialPolicy,
+    RuleMaterialPolicyMap,
+    candidate_scoring_role_from_policy,
+    fetch_policy_map_from_dsn,
+)
 
 
 SOURCE_METHOD = "candidate_from_calc_detail"
@@ -87,47 +93,34 @@ def _source_lookup(materials_report: Mapping[str, object]) -> dict[int, dict[str
     return lookup
 
 
-def candidate_scoring_role(*, rule_code: str, side: str, obj_type: str, obj_name: str) -> str:
-    if obj_type == "mechanism":
-        return "mechanism_context"
-    if obj_type == "event":
-        return "event_context"
-    if obj_type == "group":
-        return "group_context"
-
-    if rule_code == "anti_nepotism":
-        if side == "positive":
-            return "anti_nepotism_resisted_actor"
-        if obj_type == "person" and obj_name.startswith("武"):
-            return "nepotistic_beneficiary"
-        if obj_type == "person" and obj_name in {"张易之", "张昌宗", "薛怀义"}:
-            return "favorite_beneficiary"
-        return "appointment_interferer"
-
-    if rule_code == "tolerate_talent":
-        if side == "positive":
-            return "protected_talent" if obj_type == "person" else "source_context"
-        return "harmed_talent" if obj_type == "person" else "expression_safety_unit"
-
-    if rule_code == "talent_discovery":
-        return "discovered_talent" if side != "negative" else "missed_talent"
-    if rule_code == "appointment_trust":
-        return "trusted_minister" if side != "negative" else "misappointed_person"
-    if rule_code == "delegation":
-        return "delegated_actor" if side != "negative" else "misdelegated_actor"
-    if rule_code == "team_building":
-        return "team_member" if side != "negative" else "negative_team_member"
-    return "source_context"
+def candidate_scoring_role(
+    *,
+    policy: RuleMaterialPolicy | None,
+    side: str,
+    obj_type: str,
+    obj_name: str,
+) -> str:
+    if policy is None:
+        return "source_context"
+    return candidate_scoring_role_from_policy(policy, side=side, obj_type=obj_type, obj_name=obj_name)
 
 
-def candidate_warnings(*, rule_code: str, obj_type: str, scoring_role: str) -> list[str]:
+def candidate_warnings(
+    *,
+    policy: RuleMaterialPolicy | None,
+    obj_type: str,
+    scoring_role: str,
+) -> list[str]:
     warnings = ["chain_key_defaults_to_obj_src; review and merge same causal chain manually"]
-    if scoring_role.endswith("_context"):
+    if policy is None:
+        warnings.append("missing_rule_material_policy")
+        return warnings
+    if scoring_role in policy.context_roles:
         warnings.append("context_role_is_currently_scored; likely needs carrier reassignment")
-    if rule_code == "anti_nepotism" and obj_type in {"event", "group", "mechanism"}:
-        warnings.append("anti_nepotism_should_use_person_carrier")
-    if rule_code == "tolerate_talent" and obj_type in {"event", "group", "mechanism"}:
-        warnings.append("tolerate_talent_should_use_person_carrier")
+    if obj_type in policy.disallowed_scored_obj_types:
+        warnings.append("policy_disallows_scored_obj_type")
+    elif obj_type in policy.discouraged_scored_obj_types:
+        warnings.append("policy_discourages_scored_obj_type")
     return warnings
 
 
@@ -193,9 +186,11 @@ def build_candidate_payload(
     cluster_rows: Mapping[tuple[str, str], Mapping[str, object]],
     materials_report: Mapping[str, object],
     rule_codes: Sequence[str] = (),
+    policies: RuleMaterialPolicyMap | None = None,
 ) -> dict[str, object]:
     material_lookup = _source_lookup(materials_report)
     rule_filter = {rule for rule in rule_codes if rule}
+    covered_rule_codes: set[str] = set()
     units: list[dict[str, object]] = []
     supporting_materials: list[dict[str, object]] = []
 
@@ -204,6 +199,7 @@ def build_candidate_payload(
             continue
         if rule_filter and rule_code not in rule_filter:
             continue
+        covered_rule_codes.add(rule_code)
         supporting_ids = _supporting_material_ids(cluster_row)
         scored_obj_ids_by_unit: dict[int, list[dict[str, object]]] = {}
         for material in _scored_materials(cluster_row):
@@ -212,8 +208,9 @@ def build_candidate_payload(
             side = _material_side(material, source_row)
             obj_type = _obj_type(material, source_row)
             obj_name = _obj_name(material, source_row)
+            policy = (policies or {}).get(rule_code)
             scoring_role = candidate_scoring_role(
-                rule_code=rule_code,
+                policy=policy,
                 side=side,
                 obj_type=obj_type,
                 obj_name=obj_name,
@@ -239,7 +236,7 @@ def build_candidate_payload(
                 },
                 "members": [],
                 "candidate_warnings": candidate_warnings(
-                    rule_code=rule_code,
+                    policy=policy,
                     obj_type=obj_type,
                     scoring_role=scoring_role,
                 ),
@@ -271,10 +268,11 @@ def build_candidate_payload(
         "emperor": emperor,
         "item_code": item_code,
         "cluster_formula": cluster_formula,
+        "rule_codes": sorted(covered_rule_codes),
         "units": units,
         "supporting_materials": supporting_materials,
     }
-    payload["preview"] = build_preview(payload)
+    payload["preview"] = build_preview(payload, policies=policies)
     return payload
 
 
@@ -349,6 +347,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         emperors=(args.emperor,),
         rule_codes=rules,
     )
+    policy_map = fetch_policy_map_from_dsn(
+        dsn=dsn,
+        item_code=args.item_code,
+        rule_codes=rules,
+    )
     payload = build_candidate_payload(
         emperor=args.emperor,
         item_code=args.item_code,
@@ -356,6 +359,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         cluster_rows=cluster_rows,
         materials_report=materials_report,
         rule_codes=rules,
+        policies=policy_map,
     )
     if args.format == "markdown":
         text = render_candidate_markdown(payload)

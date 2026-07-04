@@ -27,6 +27,7 @@
 - `docs/皇帝综合评价体系评分标准.md` 是项目驱动文档，也是当前评分业务语义的最高层 canonical spec；下位文档冲突必须显式记录。
 - 普通 docs 清理 PR 不得归档、删除、移动或降级该驱动文档；修订其正文必须另开专门 PR并经用户明确确认。
 - docs 当前规范层优先保留稳定方法论、说明和规则；实例数据、配置值、当前批次状态和可重建产物应分别回到 `data/`、`data/configs/` 或 `exports/`，并通过 registry 登记迁移预算。
+- 分项规则文档只承载评分语义、业务公式和稳定边界；运行流程、调度状态、抓包批次、对象导入步骤和表驱动材料策略的执行细节，应落到对应数据链文档、结构化表或脚本 registry。
 - 当前层不再使用扁平 `docs/adr/` 目录；历史 ADR 进入 `archive/docs/adr/`，仍有效的平台、schema、迁移、回滚和 seed 决策必须并入所属中文功能模块。
 - Markdown 生成物必须追溯到 generator；不得用手改生成文档代替修改生成器。
 - 生成物不是事实源；若与 `data/*.jsonl`、配置或 generator 冲突，先回到源头核对。
@@ -67,14 +68,13 @@
 
 ## 验证要求
 
-- 修改 docs registry、docs 规则或 docs 工具后，用 `codex-win run -- python scripts/dev/docs_tool.py check --registry docs/文档与脚本登记/docs_registry.json`。
+- 修改 docs registry、docs 规则或 docs 工具后，用 `codex-win run -- python scripts/dev/docs_tool.py check --registry docs/文档与脚本登记/docs_registry.json`；涉及未提交工作区、新增/改名文档或治理报告字段时，加 `--worktree` 并同步运行 `python scripts/dev/docs_tool.py report --registry docs/文档与脚本登记/docs_registry.json`。
 - 涉及 `scripts/**`、`tests/**` 或 validation 入口时，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再用 `codex-win run -- python scripts/validate/validate_all.py` 和适用 pytest。
 - 验证命令若生成范围外副产物，记录通过结果后用根 AGENTS 指定的 `codex-win cleanup generated` profile 清理，再只做范围核对。
 
 ## registry 与治理报告
 
-- `docs/文档与脚本登记/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源。
-- `docs_registry.json` 不应作为大文件全文阅读入口；优先使用 `python scripts/dev/docs_tool.py check/report` 做校验和摘要，后续可补 query / summary 类命令。
+- `docs/文档与脚本登记/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源；不应作为大文件全文阅读入口，优先使用 `python scripts/dev/docs_tool.py check/report` 做校验和摘要。
 - `exports/governance/文档治理盘点报告.md` 是人工审阅入口，保存本轮统计、候选清单和后续批次建议。
-- 目录迁移 PR 必须同步 registry、治理报告和相关测试；只改 Markdown 导航而不同步机器事实源属于未完成变更。
+- 目录迁移、registry 字段调整和治理分类变化必须同步 registry、治理报告和相关测试；只改 Markdown 导航或只改 registry 而不同步机器事实源 / 生成报告，均属于未完成变更。
 - AGENTS 只保存稳定规则，不逐文件枚举当前状态。

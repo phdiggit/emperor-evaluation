@@ -26,13 +26,15 @@ from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
     fetch_cluster_calc_detail_rows,
     resolve_dsn,
 )
+from scripts.dev.rule_material_policy import (  # noqa: E402
+    RuleMaterialPolicy,
+    RuleMaterialPolicyMap,
+    fetch_policy_map_from_dsn,
+)
 
 
 class I5BRuleObjectCoverageAuditError(ValueError):
     pass
-
-
-TEAM_BUILDING_RULE_CODE = "team_building"
 
 
 def strip_note(value: str) -> str:
@@ -206,15 +208,18 @@ def fetch_emp_object_rows(
     return grouped
 
 
-def _team_building_current_keys(cluster_row: dict[str, Any] | None) -> set[tuple[str, str]]:
+def _component_current_keys(cluster_row: dict[str, Any] | None, *, component_paths: tuple[str, ...]) -> set[tuple[str, str]]:
     if cluster_row is None:
         return set()
     detail = cluster_row.get("calc_detail")
     if not isinstance(detail, dict):
         return set()
-    raw_components = detail.get("team_quality_components")
-    if not isinstance(raw_components, list):
-        raw_components = detail.get("materials")
+    raw_components: object = None
+    for path in component_paths:
+        candidate = detail.get(path)
+        if isinstance(candidate, list):
+            raw_components = candidate
+            break
     if not isinstance(raw_components, list):
         return set()
     keys: set[tuple[str, str]] = set()
@@ -312,16 +317,35 @@ def apply_team_building_calc_detail_coverage(
     *,
     cluster_rows: dict[tuple[str, str], dict[str, Any]],
 ) -> None:
+    apply_component_calc_detail_coverage(
+        emp_object_rows,
+        cluster_rows=cluster_rows,
+        rule_code="team_building",
+        component_paths=("team_quality_components", "materials"),
+    )
+
+
+def apply_component_calc_detail_coverage(
+    emp_object_rows: dict[str, list[dict[str, Any]]],
+    *,
+    cluster_rows: dict[tuple[str, str], dict[str, Any]],
+    rule_code: str,
+    component_paths: tuple[str, ...],
+) -> None:
     for emperor, rows in emp_object_rows.items():
-        cluster_row = cluster_rows.get((emperor, TEAM_BUILDING_RULE_CODE))
-        current_keys = _team_building_current_keys(cluster_row)
+        cluster_row = cluster_rows.get((emperor, rule_code))
+        current_keys = _component_current_keys(cluster_row, component_paths=component_paths)
         covered_ids = _calc_detail_covered_material_ids(cluster_row)
         for row in rows:
             row["has_rule"] = (
                 ("obj_id", str(row.get("obj_id"))) in current_keys
                 or ("emp_obj_id", str(row.get("emp_obj_id"))) in current_keys
-                or bool(_row_rule_obj_src_ids(row, rule_code=TEAM_BUILDING_RULE_CODE) & covered_ids)
+                or bool(_row_rule_obj_src_ids(row, rule_code=rule_code) & covered_ids)
             )
+
+
+def _policy_for_rule(policies: RuleMaterialPolicyMap | None, rule_code: str) -> RuleMaterialPolicy | None:
+    return (policies or {}).get(rule_code)
 
 
 def build_audit_report(
@@ -337,12 +361,16 @@ def build_audit_report(
     accepted_missing: frozenset[tuple[str, str, str]] = frozenset(),
     emp_object_rows: dict[str, list[dict[str, Any]]] | None = None,
     cluster_rows: dict[tuple[str, str], dict[str, Any]] | None = None,
+    policies: RuleMaterialPolicyMap | None = None,
 ) -> dict[str, Any]:
-    if rule_code == TEAM_BUILDING_RULE_CODE:
-        if not obj_types:
-            obj_types = ("person",)
-        if not require_attrs:
-            require_attrs = ("talent_quality",)
+    if policies is None and dsn is not None:
+        policies = fetch_policy_map_from_dsn(dsn=dsn, item_code=item_code, rule_codes=(rule_code,))
+    policy = _policy_for_rule(policies, rule_code)
+    if policy is not None:
+        if not obj_types and policy.candidate_obj_types:
+            obj_types = tuple(sorted(policy.candidate_obj_types))
+        if not require_attrs and policy.require_attrs:
+            require_attrs = tuple(sorted(policy.require_attrs))
     if emp_object_rows is None:
         if dsn is None:
             raise I5BRuleObjectCoverageAuditError("dsn is required when rows are not supplied")
@@ -379,14 +407,20 @@ def build_audit_report(
             ]
             for emperor, rows in emp_object_rows.items()
         }
-    if rule_code != TEAM_BUILDING_RULE_CODE:
+    uses_emp_objs_candidates = policy is not None and policy.material_source == "emp_objs"
+    if not uses_emp_objs_candidates:
         emp_object_rows = {
             emperor: _filter_target_rule_rows(rows, rule_code=rule_code)
             for emperor, rows in emp_object_rows.items()
         }
     if cluster_rows is not None:
-        if rule_code == TEAM_BUILDING_RULE_CODE:
-            apply_team_building_calc_detail_coverage(emp_object_rows, cluster_rows=cluster_rows)
+        if policy is not None and policy.calc_detail_component_paths:
+            apply_component_calc_detail_coverage(
+                emp_object_rows,
+                cluster_rows=cluster_rows,
+                rule_code=rule_code,
+                component_paths=policy.calc_detail_component_paths,
+            )
         else:
             apply_calc_detail_material_coverage(emp_object_rows, cluster_rows=cluster_rows, rule_code=rule_code)
     if not targets:

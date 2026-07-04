@@ -64,6 +64,26 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/object_pool_aliases.py",
         "required_tests": ["tests/test_object_pool_importer.py"],
     },
+    "i5b_object_pool_detail": {
+        "implementation": "scripts/dev/i5b_object_pool_detail.py",
+        "required_tests": ["tests/test_i5b_object_pool_detail.py"],
+    },
+    "i5b_object_pool_integrity_audit": {
+        "implementation": "scripts/dev/i5b_object_pool_integrity_audit.py",
+        "required_tests": ["tests/test_i5b_object_pool_integrity_audit.py"],
+    },
+    "i5b_object_pool_integrity_common": {
+        "implementation": "scripts/dev/i5b_object_pool_integrity_common.py",
+        "required_tests": ["tests/test_i5b_object_pool_integrity_audit.py"],
+    },
+    "i5b_object_pool_integrity_core": {
+        "implementation": "scripts/dev/i5b_object_pool_integrity_core.py",
+        "required_tests": ["tests/test_i5b_object_pool_integrity_audit.py"],
+    },
+    "i5b_object_pool_integrity_shadow": {
+        "implementation": "scripts/dev/i5b_object_pool_integrity_shadow.py",
+        "required_tests": ["tests/test_i5b_object_pool_integrity_audit.py"],
+    },
     "evidence_cluster_workbench": {
         "implementation": "scripts/dev/evidence_cluster_workbench.py",
         "required_tests": ["tests/test_evidence_cluster_workbench.py"],
@@ -79,6 +99,10 @@ EXPECTED_I5B_DEV_MODULES = {
     "i5b_factor_table_sync": {
         "implementation": "scripts/dev/i5b_factor_table_sync.py",
         "required_tests": ["tests/test_i5b_factor_table_sync.py"],
+    },
+    "rule_material_policy": {
+        "implementation": "scripts/dev/rule_material_policy.py",
+        "required_tests": ["tests/test_rule_material_policy.py", "tests/test_rule_material_policy_schema.py"],
     },
     "i5b_health_check": {
         "implementation": "scripts/dev/i5b_health_check.py",

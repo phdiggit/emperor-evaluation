@@ -31,6 +31,13 @@ from scripts.dev.i5b_rule_evidence_unit_issue_summary import build_issue_summary
 
 
 DEFAULT_REPORT_PATH = ROOT / ".tmp" / "i5b" / "i5b_health_check.md"
+SCORE_COVERAGE_CORE_RULES = (
+    "talent_discovery",
+    "appointment_trust",
+    "delegation",
+    "team_building",
+    "tolerate_talent",
+)
 
 
 class I5BHealthCheckError(ValueError):
@@ -55,6 +62,13 @@ def _int(mapping: Mapping[str, object], key: str) -> int:
         return int(value)
     except (TypeError, ValueError):
         return 0
+
+
+def _decimal_text(value: object) -> Decimal:
+    try:
+        return Decimal(str(value or "0"))
+    except Exception:
+        return Decimal("0")
 
 
 def _ordered_unique(values: Sequence[str]) -> tuple[str, ...]:
@@ -102,6 +116,144 @@ def score_rows_from_breakdown(breakdown: Mapping[str, object]) -> list[dict[str,
                 "score_rate": _text(emperor.get("score_rate")),
             }
         )
+    return rows
+
+
+def score_coverage_rows_from_breakdown(breakdown: Mapping[str, object]) -> list[dict[str, object]]:
+    emperor_rows = breakdown.get("emperors")
+    if not isinstance(emperor_rows, list):
+        raise I5BHealthCheckError("calc breakdown report missing emperors")
+    core_rules = set(SCORE_COVERAGE_CORE_RULES)
+    rows: list[dict[str, object]] = []
+    for emperor in emperor_rows:
+        if not isinstance(emperor, Mapping):
+            continue
+        rule_rows = emperor.get("rules")
+        if not isinstance(rule_rows, list):
+            continue
+        no_material_rules: list[str] = []
+        zero_signal_rules: list[str] = []
+        for rule in rule_rows:
+            if not isinstance(rule, Mapping):
+                continue
+            rule_code = _text(rule.get("rule_code"))
+            result = rule.get("result") if isinstance(rule.get("result"), Mapping) else {}
+            if not isinstance(result, Mapping):
+                result = {}
+            if result.get("no_material"):
+                no_material_rules.append(rule_code)
+                continue
+            positive_signal = _decimal_text(result.get("positive_signal"))
+            negative_signal = _decimal_text(result.get("negative_signal"))
+            if positive_signal == 0 and negative_signal == 0:
+                zero_signal_rules.append(rule_code)
+        core_no_material = [rule for rule in no_material_rules if rule in core_rules]
+        core_zero_signal = [rule for rule in zero_signal_rules if rule in core_rules]
+        if core_no_material or core_zero_signal:
+            rows.append(
+                {
+                    "emperor": _text(emperor.get("emperor")),
+                    "core_no_material_rules": core_no_material,
+                    "core_zero_signal_rules": core_zero_signal,
+                    "no_material_rules": no_material_rules,
+                    "zero_signal_rules": zero_signal_rules,
+                }
+            )
+    return rows
+
+
+def duplicate_scored_object_rows_from_breakdown(breakdown: Mapping[str, object]) -> list[dict[str, object]]:
+    emperor_rows = breakdown.get("emperors")
+    if not isinstance(emperor_rows, list):
+        raise I5BHealthCheckError("calc breakdown report missing emperors")
+    rows: list[dict[str, object]] = []
+    for emperor in emperor_rows:
+        if not isinstance(emperor, Mapping):
+            continue
+        rule_rows = emperor.get("rules")
+        if not isinstance(rule_rows, list):
+            continue
+        for rule in rule_rows:
+            if not isinstance(rule, Mapping):
+                continue
+            cluster = rule.get("cluster") if isinstance(rule.get("cluster"), Mapping) else {}
+            if not isinstance(cluster, Mapping):
+                continue
+            materials_by_side = cluster.get("materials")
+            if not isinstance(materials_by_side, Mapping):
+                continue
+            for side in ("positive", "negative"):
+                materials = materials_by_side.get(side)
+                if not isinstance(materials, list):
+                    continue
+                grouped: dict[str, list[Mapping[str, object]]] = {}
+                for material in materials:
+                    if not isinstance(material, Mapping):
+                        continue
+                    obj_key = _text(material.get("obj_key"))
+                    if not obj_key:
+                        continue
+                    grouped.setdefault(obj_key, []).append(material)
+                for obj_key, group in sorted(grouped.items()):
+                    if len(group) <= 1:
+                        continue
+                    rows.append(
+                        {
+                            "emperor": _text(emperor.get("emperor")),
+                            "rule_code": _text(rule.get("rule_code")),
+                            "side": side,
+                            "obj_key": obj_key,
+                            "obj_name": _text(group[0].get("obj_name")),
+                            "obj_src_ids": [
+                                material.get("obj_src_id")
+                                for material in group
+                                if material.get("obj_src_id") is not None
+                            ],
+                            "abs_scores": [_text(material.get("abs_score")) for material in group],
+                        }
+                    )
+    return rows
+
+
+def signal_balance_rows_from_breakdown(breakdown: Mapping[str, object]) -> list[dict[str, object]]:
+    emperor_rows = breakdown.get("emperors")
+    if not isinstance(emperor_rows, list):
+        raise I5BHealthCheckError("calc breakdown report missing emperors")
+    rows: list[dict[str, object]] = []
+    for emperor in emperor_rows:
+        if not isinstance(emperor, Mapping):
+            continue
+        rule_rows = emperor.get("rules")
+        if not isinstance(rule_rows, list):
+            continue
+        positive_sum = Decimal("0")
+        negative_sum = Decimal("0")
+        for rule in rule_rows:
+            if not isinstance(rule, Mapping):
+                continue
+            result = rule.get("result") if isinstance(rule.get("result"), Mapping) else {}
+            if not isinstance(result, Mapping):
+                result = {}
+            positive_sum += _decimal_text(result.get("positive_signal"))
+            negative_sum += _decimal_text(result.get("negative_signal"))
+        if positive_sum > 0 and negative_sum == 0:
+            rows.append(
+                {
+                    "emperor": _text(emperor.get("emperor")),
+                    "signal_balance": "positive_only",
+                    "positive_signal_sum": str(positive_sum),
+                    "negative_signal_sum": str(negative_sum),
+                }
+            )
+        elif negative_sum > 0 and positive_sum == 0:
+            rows.append(
+                {
+                    "emperor": _text(emperor.get("emperor")),
+                    "signal_balance": "negative_only",
+                    "positive_signal_sum": str(positive_sum),
+                    "negative_signal_sum": str(negative_sum),
+                }
+            )
     return rows
 
 
@@ -196,6 +348,9 @@ def build_health_report(
         rule_codes=tuple(rule_codes),
     )
     unit_summary = build_issue_summary(unit_payloads)
+    score_coverage_rows = score_coverage_rows_from_breakdown(breakdown)
+    duplicate_object_rows = duplicate_scored_object_rows_from_breakdown(breakdown)
+    signal_balance_rows = signal_balance_rows_from_breakdown(breakdown)
     fact_summary = build_gap_summary_from_db(
         dsn=dsn,
         item_code=item_code,
@@ -247,6 +402,36 @@ def build_health_report(
             warnings=len(pending_materials),
             details={"clusters": len(pending_materials), "materials": pending_total},
         ),
+        "score_coverage": _gate_status(
+            ok=True,
+            warnings=len(score_coverage_rows),
+            details={
+                "emperors": len(score_coverage_rows),
+                "core_no_material_rules": sum(
+                    len(row.get("core_no_material_rules", [])) for row in score_coverage_rows
+                ),
+                "core_zero_signal_rules": sum(
+                    len(row.get("core_zero_signal_rules", [])) for row in score_coverage_rows
+                ),
+            },
+        ),
+        "duplicate_scored_objects": _gate_status(
+            ok=True,
+            warnings=len(duplicate_object_rows),
+            details={
+                "groups": len(duplicate_object_rows),
+                "emperors": len({row.get("emperor") for row in duplicate_object_rows}),
+            },
+        ),
+        "signal_balance": _gate_status(
+            ok=True,
+            warnings=len(signal_balance_rows),
+            details={
+                "emperors": len(signal_balance_rows),
+                "positive_only": sum(1 for row in signal_balance_rows if row.get("signal_balance") == "positive_only"),
+                "negative_only": sum(1 for row in signal_balance_rows if row.get("signal_balance") == "negative_only"),
+            },
+        ),
         "finite_values": _gate_status(
             ok=bool(finite_value_report.get("ok")),
             errors=_int(finite_value_report, "error_count"),
@@ -269,6 +454,9 @@ def build_health_report(
         "fact_relation_gap": fact_summary,
         "calc_breakdown_warnings": breakdown_warnings,
         "pending_materials": pending_materials,
+        "score_coverage": score_coverage_rows,
+        "duplicate_scored_objects": duplicate_object_rows,
+        "signal_balance": signal_balance_rows,
         "finite_values": finite_value_report,
     }
 
@@ -277,6 +465,11 @@ def render_markdown(report: Mapping[str, object]) -> str:
     gates = report.get("gates") if isinstance(report.get("gates"), Mapping) else {}
     score_rows = report.get("score_rows") if isinstance(report.get("score_rows"), list) else []
     pending_rows = report.get("pending_materials") if isinstance(report.get("pending_materials"), list) else []
+    score_coverage_rows = report.get("score_coverage") if isinstance(report.get("score_coverage"), list) else []
+    duplicate_object_rows = (
+        report.get("duplicate_scored_objects") if isinstance(report.get("duplicate_scored_objects"), list) else []
+    )
+    signal_balance_rows = report.get("signal_balance") if isinstance(report.get("signal_balance"), list) else []
     lines = [
         "# I5B 健康检查",
         "",
@@ -308,7 +501,90 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 ]
             )
             + " |"
+            )
+
+    if score_coverage_rows:
+        lines.extend(
+            [
+                "",
+                "## 分数覆盖提示",
+                "",
+                "| 皇帝 | core_no_material_rules | core_zero_signal_rules |",
+                "| --- | --- | --- |",
+            ]
         )
+        for row in score_coverage_rows:
+            if not isinstance(row, Mapping):
+                continue
+            no_material = row.get("core_no_material_rules") if isinstance(row.get("core_no_material_rules"), list) else []
+            zero_signal = row.get("core_zero_signal_rules") if isinstance(row.get("core_zero_signal_rules"), list) else []
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _text(row.get("emperor")),
+                        ", ".join(str(item) for item in no_material) or "-",
+                        ", ".join(str(item) for item in zero_signal) or "-",
+                    ]
+                )
+                + " |"
+            )
+
+    if signal_balance_rows:
+        lines.extend(
+            [
+                "",
+                "## 单边信号提示",
+                "",
+                "| 皇帝 | signal_balance | positive_signal_sum | negative_signal_sum |",
+                "| --- | --- | ---: | ---: |",
+            ]
+        )
+        for row in signal_balance_rows:
+            if not isinstance(row, Mapping):
+                continue
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _text(row.get("emperor")),
+                        _text(row.get("signal_balance")),
+                        _text(row.get("positive_signal_sum")),
+                        _text(row.get("negative_signal_sum")),
+                    ]
+                )
+                + " |"
+            )
+
+    if duplicate_object_rows:
+        lines.extend(
+            [
+                "",
+                "## 同对象多材料提示",
+                "",
+                "| 皇帝 | rule | side | object | obj_src_ids | abs_scores |",
+                "| --- | --- | --- | --- | --- | --- |",
+            ]
+        )
+        for row in duplicate_object_rows:
+            if not isinstance(row, Mapping):
+                continue
+            ids = row.get("obj_src_ids") if isinstance(row.get("obj_src_ids"), list) else []
+            scores = row.get("abs_scores") if isinstance(row.get("abs_scores"), list) else []
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _text(row.get("emperor")),
+                        _text(row.get("rule_code")),
+                        _text(row.get("side")),
+                        _text(row.get("obj_name")),
+                        ", ".join(str(item) for item in ids) or "-",
+                        ", ".join(str(item) for item in scores) or "-",
+                    ]
+                )
+                + " |"
+            )
 
     if pending_rows:
         lines.extend(

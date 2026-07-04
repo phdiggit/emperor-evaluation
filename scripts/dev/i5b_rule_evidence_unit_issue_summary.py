@@ -23,6 +23,7 @@ from scripts.dev.i5b_rule_evidence_unit_db_sync import (  # noqa: E402
     fetch_emperors_with_calc_details,
 )
 from scripts.dev.i5b_rule_evidence_unit_preview import build_preview  # noqa: E402
+from scripts.dev.rule_material_policy import RuleMaterialPolicyMap, fetch_policy_map_from_dsn  # noqa: E402
 
 
 class RuleEvidenceUnitIssueSummaryError(ValueError):
@@ -64,10 +65,10 @@ def _issues_from_preview(preview: Mapping[str, object]) -> list[dict[str, str]]:
     return issues
 
 
-def summarize_payload(payload: Mapping[str, object]) -> IssueSummaryRow:
+def summarize_payload(payload: Mapping[str, object], *, policies: RuleMaterialPolicyMap | None = None) -> IssueSummaryRow:
     preview = payload.get("preview")
-    if not isinstance(preview, Mapping):
-        preview = build_preview(payload)
+    if policies is not None or not isinstance(preview, Mapping):
+        preview = build_preview(payload, policies=policies)
     issues = _issues_from_preview(preview)
     return IssueSummaryRow(
         emperor=_text(preview.get("emperor") or payload.get("emperor")),
@@ -79,8 +80,12 @@ def summarize_payload(payload: Mapping[str, object]) -> IssueSummaryRow:
     )
 
 
-def build_issue_summary(payloads: Sequence[Mapping[str, object]]) -> dict[str, object]:
-    rows = [summarize_payload(payload) for payload in payloads]
+def build_issue_summary(
+    payloads: Sequence[Mapping[str, object]],
+    *,
+    policies: RuleMaterialPolicyMap | None = None,
+) -> dict[str, object]:
+    rows = [summarize_payload(payload, policies=policies) for payload in payloads]
     return {
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "rows": [asdict(row) for row in rows],
@@ -215,7 +220,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         cluster_formula=args.cluster_formula,
         rule_codes=tuple(args.rule_code),
     )
-    summary = build_issue_summary(payloads)
+    policies = fetch_policy_map_from_dsn(
+        dsn=dsn,
+        item_code=args.item_code,
+        rule_codes=tuple(args.rule_code),
+    )
+    summary = build_issue_summary(payloads, policies=policies)
     if args.format == "json":
         text = json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     else:

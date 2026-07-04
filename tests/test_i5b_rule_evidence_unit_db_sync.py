@@ -116,6 +116,10 @@ def test_sync_payload_dry_run_counts_without_db_writes() -> None:
     assert stats.preview_blocking is True
 
 
+def test_payload_rule_codes_include_declared_rules_without_units() -> None:
+    assert sync._payload_rule_codes({"rule_codes": ["anti_nepotism"]}, []) == ("anti_nepotism",)
+
+
 def test_retire_stale_candidate_units_only_targets_candidate_rows() -> None:
     class FakeCursor:
         calls: list[tuple[str, tuple[object, ...]]] = []
@@ -146,7 +150,8 @@ def test_retire_stale_candidate_units_only_targets_candidate_rows() -> None:
     assert "source_method = %s::public.eval_source_method" in unit_sql
     assert "review_status = %s::public.eval_review_status" in unit_sql
     assert "not (id = any(%s))" in unit_sql
-    assert unit_params[-2:] == ([9], [42])
+    assert "rule_code = any(%s)" in unit_sql
+    assert unit_params[-3:] == ([9], ["tolerate_talent"], [42])
     assert "unit_id = any(%s)" in member_sql
     assert member_params[-1] == [100, 101]
 

@@ -3,6 +3,36 @@ from __future__ import annotations
 import json
 
 from scripts.dev import i5b_rule_evidence_unit_preview as tool
+from scripts.dev.rule_material_policy import policy_map_from_rows
+
+
+def policy_map() -> dict:
+    return policy_map_from_rows(
+        [
+            {
+                "item_code": "I5B",
+                "rule_code": "anti_nepotism",
+                "policy_code": "person_material_policy",
+                "allowed_scoring_roles": [
+                    "anti_nepotism_resisted_actor",
+                    "nepotistic_beneficiary",
+                    "favorite_beneficiary",
+                    "appointment_interferer",
+                ],
+                "context_roles": ["actor_context", "event_context", "group_context", "mechanism_context", "source_context"],
+                "disallowed_scored_obj_types": ["event", "group", "mechanism"],
+            },
+            {
+                "item_code": "I5B",
+                "rule_code": "tolerate_talent",
+                "policy_code": "single_person_chain_policy",
+                "allowed_scoring_roles": ["protected_talent", "remonstrance_actor", "expression_safety_unit", "harmed_talent"],
+                "context_roles": ["actor_context", "event_context", "group_context", "mechanism_context", "source_context"],
+                "disallowed_scored_obj_types": ["event", "group", "mechanism"],
+                "single_scored_per_chain": True,
+            },
+        ]
+    )
 
 
 def valid_wuzetian_payload() -> dict[str, object]:
@@ -59,7 +89,7 @@ def valid_wuzetian_payload() -> dict[str, object]:
 
 
 def test_preview_accepts_rule_bearing_object_with_context_members() -> None:
-    preview = tool.build_preview(valid_wuzetian_payload())
+    preview = tool.build_preview(valid_wuzetian_payload(), policies=policy_map())
 
     assert preview["issue_count"] == 0
     markdown = tool.render_markdown(preview)
@@ -84,7 +114,7 @@ def test_preview_flags_mechanism_as_wrong_anti_nepotism_carrier() -> None:
         }
     ]
 
-    issues = tool.audit_payload(payload)
+    issues = tool.audit_payload(payload, policies=policy_map())
     codes = {issue.code for issue in issues}
 
     assert "context_role_used_as_scoring_role" in codes
@@ -118,14 +148,14 @@ def test_preview_warns_when_same_tolerate_talent_chain_scores_twice() -> None:
         },
     ]
 
-    issues = tool.audit_payload(payload)
+    issues = tool.audit_payload(payload, policies=policy_map())
 
     codes = {issue.code for issue in issues}
     assert "context_role_used_as_scoring_role" in codes
     assert "scored_obj_type_disallowed" in codes
 
 
-def test_cli_outputs_json_and_can_fail_on_issue(tmp_path) -> None:
+def test_cli_outputs_json_and_can_fail_on_issue(monkeypatch, tmp_path) -> None:
     payload_path = tmp_path / "units.json"
     payload = valid_wuzetian_payload()
     payload["units"] = [
@@ -154,6 +184,9 @@ def test_cli_outputs_json_and_can_fail_on_issue(tmp_path) -> None:
     ]
     payload_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     output_path = tmp_path / "preview.json"
+
+    monkeypatch.setattr(tool, "fetch_policy_map_from_dsn", lambda **_kwargs: policy_map())
+    monkeypatch.setattr(tool, "resolve_dsn", lambda _env: "postgresql://example")
 
     exit_code = tool.main(
         [

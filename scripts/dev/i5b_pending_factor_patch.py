@@ -13,7 +13,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.i5b_pending_material_worklist import ACTION_OPTIONS  # noqa: E402
-from scripts.dev.i5b_rule_evidence_unit_preview import I5B_RULE_SLOT_POLICIES  # noqa: E402
+from scripts.dev.evidence_cluster_workbench import DEFAULT_DSN_ENV, resolve_dsn  # noqa: E402
+from scripts.dev.rule_material_policy import RuleMaterialPolicyMap, fetch_policy_map_from_dsn  # noqa: E402
 
 
 DEFAULT_OUTPUT = ROOT / ".tmp" / "i5b" / "i5b_pending_factor_patch_report.json"
@@ -86,19 +87,19 @@ def _text(value: object) -> str:
     return str(value or "").strip()
 
 
-def _policy_set(rule_code: str, key: str) -> set[str]:
-    policy = I5B_RULE_SLOT_POLICIES.get(rule_code)
-    if not isinstance(policy, Mapping):
+def _policy_set(policies: RuleMaterialPolicyMap | None, rule_code: str, key: str) -> set[str]:
+    policy = (policies or {}).get(rule_code)
+    if policy is None:
         return set()
-    values = policy.get(key)
-    if isinstance(values, set):
-        return {str(value) for value in values}
-    if isinstance(values, (list, tuple, frozenset)):
-        return {str(value) for value in values}
-    return set()
+    return {str(value) for value in getattr(policy, key)}
 
 
-def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> list[dict[str, object]]:
+def validate_patch_row(
+    row: Mapping[str, Any],
+    material: Mapping[str, Any],
+    *,
+    policies: RuleMaterialPolicyMap | None = None,
+) -> list[dict[str, object]]:
     obj_src_id = int(row.get("obj_src_id") or 0)
     base = {
         "obj_src_id": obj_src_id,
@@ -119,9 +120,11 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
 
     obj_type = _text(material.get("obj_type") or material.get("type"))
     rule_code = _text(material.get("rule_code"))
-    if obj_type in _policy_set(rule_code, "disallowed_scored_obj_types"):
+    if policies is not None and rule_code and rule_code not in policies:
+        issues.append({**base, "severity": "error", "status": "missing_rule_material_policy", "rule_code": rule_code})
+    if obj_type in _policy_set(policies, rule_code, "disallowed_scored_obj_types"):
         issues.append({**base, "severity": "error", "status": "scored_obj_type_disallowed", "obj_type": obj_type})
-    elif obj_type in _policy_set(rule_code, "discouraged_scored_obj_types"):
+    elif obj_type in _policy_set(policies, rule_code, "discouraged_scored_obj_types"):
         issues.append({**base, "severity": "warning", "status": "scored_obj_type_discouraged", "obj_type": obj_type})
 
     side = _text(row.get("side"))
@@ -174,7 +177,12 @@ def build_patch_template_rows(batch: Mapping[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-def build_report(batch: Mapping[str, Any], patch_rows: Sequence[Mapping[str, Any]]) -> dict[str, object]:
+def build_report(
+    batch: Mapping[str, Any],
+    patch_rows: Sequence[Mapping[str, Any]],
+    *,
+    policies: RuleMaterialPolicyMap | None = None,
+) -> dict[str, object]:
     materials = flatten_batch_materials(batch)
     issues: list[dict[str, object]] = []
     seen: dict[int, int] = {}
@@ -206,7 +214,7 @@ def build_report(batch: Mapping[str, Any], patch_rows: Sequence[Mapping[str, Any
                 }
             )
             continue
-        issues.extend(validate_patch_row(row, material))
+        issues.extend(validate_patch_row(row, material, policies=policies))
     for obj_src_id, material in materials.items():
         if obj_src_id not in seen:
             issues.append(
@@ -286,6 +294,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--batch", type=Path, required=True, help="pending_material_batch_XX.json from i5b_pending_material_worklist.py.")
     parser.add_argument("--patch", type=Path, help="JSONL patch filled by Codex subagent.")
     parser.add_argument("--template-output", type=Path, help="Write blank JSONL patch template for this batch.")
+    parser.add_argument("--item-code", default="I5B")
+    parser.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    parser.add_argument("--dsn", help="PostgreSQL DSN; overrides --dsn-env.")
     parser.add_argument("--format", choices=("json", "markdown"), default="json")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--fail-on-issue", action="store_true")
@@ -300,7 +311,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not args.patch:
         print(json.dumps({"template_output": str(args.template_output) if args.template_output else None}, ensure_ascii=False, sort_keys=True))
         return 0
-    report = build_report(batch, read_jsonl(args.patch))
+    policies = fetch_policy_map_from_dsn(
+        dsn=args.dsn or resolve_dsn(args.dsn_env),
+        item_code=args.item_code,
+        rule_codes=tuple(sorted({_text(material.get("rule_code")) for material in flatten_batch_materials(batch).values()})),
+    )
+    report = build_report(batch, read_jsonl(args.patch), policies=policies)
     text = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n" if args.format == "json" else render_markdown(report)
     write_output(args.output, text)
     print(

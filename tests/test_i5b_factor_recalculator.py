@@ -467,6 +467,105 @@ def test_team_factor_numeric_literal_rewrites_to_catalog_ref() -> None:
     assert "value" not in ref
 
 
+def test_no_score_profile_writes_zero_signal_cluster() -> None:
+    tool = load_tool()
+    raw = {
+        "item_code": "I5B",
+        "formula_code": "fixture",
+        "clusters": [
+            {
+                "emperor": "测试帝",
+                "rule_code": "anti_nepotism",
+                "note": "无合格计分承载。",
+                "material_ids": [10],
+                "supporting_material_ids": [10],
+                "excluded_material_ids": [],
+                "materials": [],
+                "no_score_reason": "no_scored_materials",
+            }
+        ],
+    }
+
+    _, _, clusters = tool.load_profile_raw(raw, factor_docs=(), factor_catalog={})
+
+    cluster = clusters[0]
+    assert cluster.positive_signal == tool.Decimal("0.000")
+    assert cluster.negative_signal == tool.Decimal("0.000")
+    assert cluster.material_ids == (10,)
+    assert cluster.calc_note == "no_score_cluster:no_scored_materials"
+    assert cluster.calc_detail == {
+        "coverage": {"negative": "1.0", "positive": "1.0"},
+        "covered_material_ids": [10],
+        "formula_code": "fixture",
+        "item_code": "I5B",
+        "materials": [],
+        "negative_signal": "0.000",
+        "no_score_reason": "no_scored_materials",
+        "object_side_scores": {"negative": {}, "positive": {}},
+        "positive_signal": "0.000",
+        "scored_material_ids": [],
+        "supporting_material_ids": [10],
+    }
+
+
+def test_load_profile_from_details_replays_no_score_cluster(monkeypatch) -> None:
+    tool = load_tool()
+    detail_row = {
+        "emperor": "Replay Emperor",
+        "rule_code": "tolerate_talent",
+        "formula_code": "evidence_cluster_signal_test",
+        "positive_signal": "0.000",
+        "negative_signal": "0.000",
+        "material_ids": [10, 11],
+        "calc_note": "policy blocked",
+        "calc_detail": {
+            "item_code": "I5B",
+            "formula_code": "evidence_cluster_signal_test",
+            "coverage": {"positive": "1.0", "negative": "1.0"},
+            "materials": [],
+            "covered_material_ids": [10, 11],
+            "scored_material_ids": [],
+            "supporting_material_ids": [10],
+            "excluded_material_ids": [11],
+            "no_score_reason": "policy_block",
+        },
+    }
+    monkeypatch.setattr(
+        tool,
+        "fetch_cluster_calc_detail_rows",
+        lambda **kwargs: {
+            ("Replay Emperor", "tolerate_talent"): detail_row,
+        },
+    )
+
+    _, _, clusters = tool.load_profile_from_details(
+        dsn="postgresql://unused",
+        item_code="I5B",
+        factor_docs=(),
+        factor_catalog={},
+        formula_code="evidence_cluster_signal_test",
+    )
+
+    cluster = clusters[0]
+    assert cluster.positive_signal == tool.Decimal("0.000")
+    assert cluster.negative_signal == tool.Decimal("0.000")
+    assert cluster.material_ids == (10, 11)
+    assert cluster.calc_detail["materials"] == []
+    assert cluster.calc_detail["covered_material_ids"] == [10, 11]
+    assert cluster.calc_detail["scored_material_ids"] == []
+    assert cluster.calc_detail["supporting_material_ids"] == [10]
+    assert cluster.calc_detail["excluded_material_ids"] == [11]
+    assert cluster.calc_detail["no_score_reason"] == "policy_block"
+
+
+def test_replay_calc_note_is_idempotent() -> None:
+    tool = load_tool()
+
+    assert tool.replay_calc_note("replay_calc_detail: replay_calc_detail: original note") == (
+        "replay_calc_detail: original note"
+    )
+
+
 def test_legacy_role_complementarity_label_maps_to_coarse_label() -> None:
     tool = load_tool()
     current_label = "较强互补，至少三个功能面有重要及以上对象承担，并能形成决策、执行和纠偏/安全之间的配合。"
@@ -1012,7 +1111,21 @@ def test_write_clusters_requires_full_material_coverage_by_default(monkeypatch, 
 
     monkeypatch.setattr(tool, "upsert_clusters", fake_upsert_clusters)
 
-    assert tool.main(["--input", str(tmp_path / "profile.json"), "--write-clusters", "--dry-run"]) == 0
+    assert (
+        tool.main(
+            [
+                "--input",
+                str(tmp_path / "profile.json"),
+                "--factor-source",
+                "docs",
+                "--factor-doc",
+                str(tmp_path / "fixture.md"),
+                "--write-clusters",
+                "--dry-run",
+            ]
+        )
+        == 0
+    )
     assert calls[0]["require_full_material_coverage"] is True
 
     calls.clear()
@@ -1021,6 +1134,10 @@ def test_write_clusters_requires_full_material_coverage_by_default(monkeypatch, 
             [
                 "--input",
                 str(tmp_path / "profile.json"),
+                "--factor-source",
+                "docs",
+                "--factor-doc",
+                str(tmp_path / "fixture.md"),
                 "--write-clusters",
                 "--dry-run",
                 "--allow-partial-material-coverage",

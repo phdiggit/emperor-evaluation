@@ -445,11 +445,7 @@ def _person_alias_terms(profile: Mapping[str, Any]) -> tuple[str, ...]:
 
 
 def _person_anchor_terms(profile: Mapping[str, Any]) -> tuple[str, ...]:
-    terms = list(_person_alias_terms(profile))
-    person = str(profile.get("person") or "").strip()
-    if len(person) == 2:
-        _add_unique(terms, person[1])
-    return tuple(terms)
+    return tuple(_person_alias_terms(profile))
 
 
 def _candidate_context(text: str, start: int, end: int, *, context_chars: int) -> str:
@@ -496,6 +492,10 @@ def _extract_person_after_action(
     candidates: list[dict[str, Any]] = []
     for match in re.finditer(pattern, text):
         name = match.group("name")
+        action = match.group("action")
+        following = text[match.end() : match.end() + 8]
+        if action in {"任", "使", "命", "用"} and not any(following.startswith(office) for office in DISCOVERY_POSITIVE_OFFICES):
+            continue
         context = _candidate_context(text, match.start(), match.end(), context_chars=context_chars)
         if name in person_terms or not _looks_like_discovery_person_term(name, context):
             continue
@@ -506,7 +506,7 @@ def _extract_person_after_action(
                 "confidence": "low",
                 "supporting_rows": [],
                 "reason": reason,
-                "matched_action": match.group("action"),
+                "matched_action": action,
                 "context": context,
             }
         )
@@ -552,8 +552,9 @@ def _extract_person_yiwei(
     context_chars: int,
     person_terms: Sequence[str],
 ) -> list[dict[str, Any]]:
+    office_pattern = "|".join(re.escape(office) for office in sorted(DISCOVERY_POSITIVE_OFFICES, key=len, reverse=True))
     candidates: list[dict[str, Any]] = []
-    for match in re.finditer(r"以(?P<name>[\u4e00-\u9fff]{2,4}?)(?=为|爲)", text):
+    for match in re.finditer(rf"以(?P<name>[\u4e00-\u9fff]{{2,4}}?)(?=为|爲)(?:为|爲)(?P<office>{office_pattern})", text):
         name = match.group("name")
         context = _candidate_context(text, match.start(), match.end(), context_chars=context_chars)
         if name in person_terms or not _looks_like_discovery_person_term(name, context):

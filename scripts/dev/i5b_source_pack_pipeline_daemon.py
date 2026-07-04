@@ -103,7 +103,8 @@ def _add_unique(values: list[str], value: Any) -> bool:
 def patch_has_work(patch: Mapping[str, Any]) -> bool:
     aliases = patch.get("merge_object_search_aliases")
     return bool(
-        patch.get("append_query_bundles")
+        patch.get("replace_object_layers")
+        or patch.get("append_query_bundles")
         or patch.get("append_source_targets")
         or (isinstance(aliases, Mapping) and any(aliases.values()))
     )
@@ -111,7 +112,24 @@ def patch_has_work(patch: Mapping[str, Any]) -> bool:
 
 def apply_profile_patch(profile: Mapping[str, Any], patch: Mapping[str, Any]) -> tuple[dict[str, Any], dict[str, int]]:
     updated = json.loads(json.dumps(profile, ensure_ascii=False))
-    stats = {"query_bundles": 0, "source_targets": 0, "object_search_aliases": 0}
+    stats = {"object_layers": 0, "query_bundles": 0, "source_targets": 0, "object_search_aliases": 0}
+
+    replacement_layers = patch.get("replace_object_layers")
+    if isinstance(replacement_layers, Mapping):
+        object_layers: dict[str, list[str]] = {}
+        for layer_name, values in replacement_layers.items():
+            key = str(layer_name).strip()
+            if not key:
+                continue
+            layer_values: list[str] = []
+            if isinstance(values, str):
+                values = [values]
+            for value in values or []:
+                if _add_unique(layer_values, value):
+                    stats["object_layers"] += 1
+            object_layers[key] = layer_values
+        if object_layers:
+            updated["object_layers"] = object_layers
 
     query_bundles = updated.setdefault("query_bundles", [])
     if not isinstance(query_bundles, list):
@@ -153,6 +171,50 @@ def apply_profile_patch(profile: Mapping[str, Any], patch: Mapping[str, Any]) ->
                 alias_map[key] = current_values
 
     return updated, stats
+
+
+def _seed_review_accepted(seed: Mapping[str, Any]) -> bool:
+    if seed.get("accepted_for_profile") is True:
+        return True
+    status = str(seed.get("review_status") or "").strip().lower()
+    return status in {"accepted", "accepted_with_known_gaps", "approved"}
+
+
+def _seed_patch(seed: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    patch = seed.get("seed_profile_patch_candidate")
+    return patch if isinstance(patch, Mapping) else None
+
+
+def _seed_patch_block_reason(patch: Mapping[str, Any]) -> str:
+    layers = patch.get("replace_object_layers")
+    if not isinstance(layers, Mapping) or not layers:
+        return "missing_replace_object_layers"
+    object_count = 0
+    for values in layers.values():
+        if isinstance(values, str):
+            values = [values]
+        for value in values or []:
+            name = str(value).strip()
+            if not name:
+                continue
+            if "待识别" in name:
+                return "placeholder_object"
+            object_count += 1
+    if object_count <= 0:
+        return "empty_object_layers"
+    return ""
+
+
+def load_seed_report(path: Path | None) -> dict[str, Any]:
+    if not path:
+        return {"seeds": []}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("seed report must be a JSON object")
+    seeds = payload.get("seeds")
+    if not isinstance(seeds, list):
+        payload["seeds"] = []
+    return payload
 
 
 def patch_fingerprint(person: str, patch: Mapping[str, Any]) -> str:
@@ -402,6 +464,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         workflow_code=workflow_code,
     )
     effective_profiles = load_effective_profiles(profile_path, state, workflow_code=workflow_code)
+    seed_report = load_seed_report(args.seed_report) if args.submit_seeds else {"seeds": []}
     refinement_report = build_refinement_report(
         profiles=effective_profiles,
         status_rows=status_report["rows"],
@@ -455,6 +518,113 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             }
             _append_submission(state, submission)
             submitted.add(key)
+            submitted_count += 1
+            actions.append({**submission, "status": "submitted"})
+
+    if args.submit_seeds:
+        seed_counts = state_submission_counts(state, kind="seed", workflow_code=workflow_code)
+        for seed in seed_report.get("seeds") or []:
+            if not can_submit():
+                break
+            if not isinstance(seed, Mapping):
+                continue
+            person = str(seed.get("person") or "").strip()
+            if not person:
+                continue
+            if seed_counts.get(person, 0) >= args.max_seed_rounds_per_person:
+                actions.append(
+                    {
+                        "person": person,
+                        "kind": "seed",
+                        "status": "skip_round_cap",
+                        "submitted_rounds": seed_counts.get(person, 0),
+                        "max_seed_rounds_per_person": args.max_seed_rounds_per_person,
+                    }
+                )
+                continue
+            row = status_rows.get(person, {})
+            if row and row.get("action_status") != "profile_needs_work":
+                actions.append(
+                    {
+                        "person": person,
+                        "kind": "seed",
+                        "status": "skip_status",
+                        "action_status": row.get("action_status") or "",
+                    }
+                )
+                continue
+            if not _seed_review_accepted(seed):
+                actions.append({"person": person, "kind": "seed", "status": "skip_unreviewed"})
+                continue
+            profile = effective_profiles.get(person)
+            patch = _seed_patch(seed)
+            if not profile or not isinstance(patch, Mapping) or not patch_has_work(patch):
+                actions.append({"person": person, "kind": "seed", "status": "skip_no_effect"})
+                continue
+            block_reason = _seed_patch_block_reason(patch)
+            if block_reason:
+                actions.append({"person": person, "kind": "seed", "status": "skip_invalid_seed", "reason": block_reason})
+                continue
+            fingerprint_payload = {
+                "base_query_profile_id": profile.get("query_profile_id") or "",
+                "seed_profile_patch_candidate": patch,
+                "review_status": seed.get("review_status") or "",
+                "accepted_for_profile": seed.get("accepted_for_profile") is True,
+            }
+            fingerprint = patch_fingerprint(person, fingerprint_payload)
+            key = (workflow_code, person, "seed", fingerprint)
+            if key in submitted:
+                actions.append({"person": person, "kind": "seed", "status": "skip_duplicate", "fingerprint": fingerprint})
+                continue
+            patched_profile, stats = apply_profile_patch(profile, patch)
+            if not stats.get("object_layers"):
+                actions.append({"person": person, "kind": "seed", "status": "skip_no_effect", "fingerprint": fingerprint})
+                continue
+            output_name = next_output_name(person, "seed", fingerprint, existing_names, workflow_code=workflow_code)
+            derived_profile_path = derived_dir / f"{output_name}.jsonl"
+            base_query_profile_id = str(profile.get("query_profile_id") or "")
+            if base_query_profile_id:
+                patched_profile["query_profile_id"] = f"{base_query_profile_id}-SEED-{fingerprint}"
+            patched_profile["source_group"] = args.seed_derived_source_group or f"{workflow_slug(workflow_code)}_seed_derived"
+            patched_profile["note"] = "采集层 seed 派生 profile；候选已通过显式审查，仅供下一轮 source pack 抓取，不写回 canonical query profile。"
+            patched_profile["seed_provenance"] = {
+                "base_query_profile_id": base_query_profile_id,
+                "fingerprint": fingerprint,
+                "seed_report": str(args.seed_report) if args.seed_report else "",
+                "review_status": seed.get("review_status") or "",
+                "accepted_for_profile": seed.get("accepted_for_profile") is True,
+            }
+            write_jsonl(derived_profile_path, [patched_profile])
+            job_path = submit_job(
+                jobs_dir=jobs_dir,
+                output_name=output_name,
+                person=person,
+                profile_path=derived_profile_path,
+                workflow_code=workflow_code,
+                include_adjacent=args.include_adjacent,
+                fetch_defaults=fetch_defaults,
+                pipeline={
+                    "kind": "seed",
+                    "fingerprint": fingerprint,
+                    "base_query_profile_id": base_query_profile_id,
+                    "seed_report": str(args.seed_report) if args.seed_report else "",
+                    "submitted_at": iso_now(),
+                },
+            )
+            submission = {
+                "person": person,
+                "workflow_code": workflow_code,
+                "kind": "seed",
+                "fingerprint": fingerprint,
+                "profile_path": str(derived_profile_path),
+                "output_name": output_name,
+                "job_path": str(job_path),
+                "patch_stats": stats,
+                "submitted_at": iso_now(),
+            }
+            _append_submission(state, submission)
+            submitted.add(key)
+            seed_counts[person] = seed_counts.get(person, 0) + 1
             submitted_count += 1
             actions.append({**submission, "status": "submitted"})
 
@@ -542,6 +712,10 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         "submitted_jobs": submitted_count,
         "status_totals": status_report.get("totals", {}),
         "status_control_summary": status_report.get("control_summary", {}),
+        "seed_totals": {
+            "seeds": len(seed_report.get("seeds") or []),
+            "accepted": sum(1 for seed in seed_report.get("seeds") or [] if isinstance(seed, Mapping) and _seed_review_accepted(seed)),
+        },
         "refinement_totals": refinement_report.get("totals", {}),
         "control_summary": summarize_actions(actions),
         "actions": actions,
@@ -563,8 +737,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--derived-profile-dir", type=Path, default=None)
     parser.add_argument("--status", action="append", default=[], help="Refiner action_status; defaults to fetched_needs_profile_work.")
     parser.add_argument("--submit-prepared", action="store_true", help="Submit jobs for prepared_not_submitted profiles.")
+    parser.add_argument("--submit-seeds", action="store_true", help="Apply reviewed seed patches to derived profiles and submit jobs.")
+    parser.add_argument("--seed-report", type=Path, default=None, help="JSON report from i5b_query_profile_seed_builder.py with reviewed seed entries.")
+    parser.add_argument("--seed-derived-source-group", default="", help="source_group for seed-derived profiles; defaults to <workflow>_seed_derived.")
     parser.add_argument("--submit-refinements", action="store_true", help="Apply mechanical refinement patches to derived profiles and submit jobs.")
     parser.add_argument("--max-jobs-per-run", type=int, default=0, help="0 means no per-cycle cap.")
+    parser.add_argument("--max-seed-rounds-per-person", type=int, default=1)
     parser.add_argument("--max-refine-rounds-per-person", type=int, default=2)
     parser.add_argument("--include-adjacent", action="store_true")
     parser.add_argument("--refine-max-queries-per-object", type=int, default=6)
@@ -587,8 +765,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     args.workflow_code = normalize_workflow_code(args.workflow_code)
-    if not args.submit_prepared and not args.submit_refinements:
-        raise SystemExit("enable at least one of --submit-prepared or --submit-refinements")
+    if not args.submit_prepared and not args.submit_seeds and not args.submit_refinements:
+        raise SystemExit("enable at least one of --submit-prepared, --submit-seeds, or --submit-refinements")
+    if args.submit_seeds and not args.seed_report:
+        raise SystemExit("--submit-seeds requires --seed-report")
     if args.interval_seconds <= 0:
         raise SystemExit("--interval-seconds must be > 0")
     log(f"pipeline daemon started workflow={args.workflow_code} output={args.output_dir} interval={args.interval_seconds}")

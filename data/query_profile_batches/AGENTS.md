@@ -8,12 +8,14 @@
 - 人物级检索包必须持久化到同一批次 JSONL；不得只留在 `.tmp`、日志或对话上下文。
 - `core_positive_objects`、`supplemental_objects`、`negative_or_reversal_objects` 默认都进入待回源队列。
 - `adjacent_split_objects` 记录相邻项切分和排除提示。
+- 人物、臣僚、机构、事件等对象若有本名、字、封爵、官称、庙号、谥号、常见异写或史书称谓，应在检索画像或候选对象中保留别名线索；别名用于补检和对象归并，不等同于新增对象。
 - 脚本无命中、弱命中或命中非目标源，不得判定为无史料；继续人工补检或记录缺口。
-- 显式 query cap 造成的 skipped plans 必须记录为待处理缺口，不得静默跳过检索包对象。
+- 显式 query cap、超时、连续错误或别名未检索造成的 skipped plans 必须记录为待处理缺口，不得静默跳过检索包对象。声明过别名的对象，只有所有可用别名都检索或明确排除后，才可按无命中处理。
 
 ## 对象链红线
 
 - `raw_objs` 必须保持原始粒度，不提前合并、定强弱或写评分加工。
+- 同一历史对象不得因本名、官称、爵号、谥号或别名差异重复插入；对象 payload 应交由别名归一层归并到 canonical object。
 - 所有 `raw_objs` 必须有 `obj_srcs` 史料链。
 - `raw_objs.note` 只写对象身份或事件事实，不写规则、方向、评分、档位。
 - `obj_srcs` 必须绑定具体 `emp_obj_id`，避免同一原始对象跨皇帝串料。
@@ -23,6 +25,7 @@
 
 - 召回和摘录定位使用 `scripts/dev/source_excerpt_pool.py`；它不写数据库。
 - 已回源、已人工判断的对象 payload 才能交给 `scripts/dev/object_pool_importer.py`。
+- 对象别名归一和重复对象拦截使用 `scripts/dev/object_pool_aliases.py`；检索不到可用史料时，应先尝试对象别名补检，再记录缺口或跳过。
 - 从对象链到证据簇、结果和日志的流程按 I5B 数据链运行流程文档执行。
 
 ## 验证

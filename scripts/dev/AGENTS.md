@@ -23,7 +23,7 @@
 - `i5b_query_profile_refiner.py` 是只读检索包补强候选生成器，从状态台账和 source pack 覆盖缺口生成待审 patch 候选；它不联网、不投抓包队列、不直接修改 query profile。
 - `i5b_query_profile_refiner_daemon.py` 是 refiner 的周期刷新入口，只生成台账和补强报告，不消费 jobs、不调用 Wikisource。
 - `i5b_source_pack_runtime_supervisor.py` 只用于同一服务内拉起抓包 worker、refiner daemon 和可选 pipeline daemon 等独立子进程；不得把它们的业务逻辑耦合到一起。
-- `i5b_source_pack_pipeline_daemon.py` 是采集层流水线调度入口，读取状态台账和 refiner 候选，按 fingerprint 去重后写派生 query profile 并投递下一轮抓包 job；它不得写回 canonical query profile，不替代人工对象裁量。
+- `i5b_source_pack_pipeline_daemon.py` 是采集层流水线调度入口，读取状态台账、refiner 候选和显式传入的已审 seed report，按 fingerprint 去重后写派生 query profile 并投递下一轮抓包 job；它不得写回 canonical query profile，不替代人工对象裁量。seed report 只有带 `accepted_for_profile=true` 或 `review_status=accepted` 的条目才可投递。
 - `i5b_source_pack_handoff.py` 是批次 Codex 交接契约工具，用于初始化、校验和汇总 source pack 批次验收目录；它只检查交接契约和 source pack 审计，不替代人工回源裁量。
 - `i5b_next_stage_queue_runner.py` 是 source pack handoff 后的收货批处理入口，只消费已通过 `next_stage_queue.jsonl` 的 ready 人物，生成摘录报告和对象 payload 骨架到 `.tmp/**`；它不写数据库、不替代对象规则裁量。
 - `i5b_next_stage_control_board.py` 是 ready 包消费后的总控减负入口，聚合 next-stage 骨架、对象 payload 子进程候选、review 报告和占位符审计结果，生成缺交付派工单与可 dry-run payload 清单；它不写数据库、不替代对象规则裁量。对象 payload 子进程完成后，先用该板确认主控工作区已看到候选文件，再关闭子进程。
@@ -37,6 +37,8 @@
 
 - `object_pool_importer.py` 只导入已经回源并人工判断过的对象 payload。
 - `object_pool_aliases.py` 是对象池身份别名解析层，负责 `raw_obj_aliases` 幂等建表、别名归一、冲突检查和导入时 canonical object 归并；它不承载计分事实。
+- `i5b_object_pool_detail.py` 是只读对象池明细工具，用于按皇帝或对象名列出 `emp_objs`、对象属性、`obj_srcs` 史料材料、关联 rule 和对象材料计分；它不写库、不补规则、不替代覆盖审计。
+- `i5b_object_pool_integrity_audit.py` 是对象池重导入前的只读完整性闸门，遍历 `raw_objs`、`raw_obj_aliases`、`emp_objs`、`obj_srcs`、`obj_attrs`、规则策略、影子承载层和计算明细引用；它只报告断链、错链、缺源、属性冲突和策略漂移，不修库、不导入、不重算。
 - `i5b_object_payload_audit.py` 是对象 payload 候选入库前的只读闸门，复用 importer 结构校验并拦截 `TODO` / `TODO_RULE_CODE` / `TODO_TALENT_QUALITY` / `TODO-SRC` 占位符；它不写数据库。
 - `i5b_object_payload_import_batch.py` 是控制板 ready payload 的批量导入器，读取 `i5b_next_stage_control_board.py` JSON 输出，跳过已有成功回执，只调用 `object_pool_importer.py` 导入新增 payload，并把成功导入写入 `tmp/**` 回执。跨 Codex 子进程的 live handoff 不要放在仓库 `.tmp/**`，pytest 会在 session 结束时清理该目录。
 - `--template-from-profile` 只生成待填写模板；模板中的史源、规则、方向和 note 必须人工补全。
@@ -51,10 +53,11 @@
 - `i5b_rule_object_coverage_audit.py` 是只读 rule 对象覆盖审计工具。普通 rule 用它从 `emp_objs` 全量检查是否漏挂目标 `rule_code`；`team_building` 用它检查自动团队候选是否已进入计算明细。
 - `i5b_factor_consistency_audit.py` 是只读因子一致性审计工具，用于检查高严重度等因子是否和材料注释发生明显冲突；`i5b_factor_recalculator.py --write-clusters/--write-results` 写库前会自动执行 hard-error 审计。
 - `i5b_factor_table_sync.py` 是只读规则文档抽取、计分细则表同步和 `calc_detail.factor_refs` 对表审计工具；默认只输出 JSON/Markdown、生成可审阅 upsert SQL 或审计报告，不直接写库或替代人工规则裁量。
+- `rule_material_policy.py` 是规则材料选择策略读取层，运行时工具应从 `eval_rule_material_policies` 读取计分承载、上下文角色、对象类型过滤和覆盖审计策略；除同步/迁移工具外，不得在运行时从评分规则文档推断 rule 材料筛选口径。
 - `i5b_finite_values.py` 是 I5B 有限取值与别名归一的中央 registry；新写入入口不得各自手写 `period`、`rule_code`、`direction`、`talent_quality`、对象属性码等枚举。
 - `i5b_finite_value_audit.py` 是只读 DB 有限取值审计入口，检查已入库对象链是否残留英文朝代别名、未知属性码、未知 rule/subitem/direction 和同名皇帝重复分支；它不修库、不重算。
 - `i5b_health_check.py` 是 I5B 重算后的一键只读健康检查入口，汇总因子一致性、规则承载预览、事实关系 gap、有限取值审计和评分简表；它不重算、不写库。
-- `i5b_initial_factor_profile.py` 是无 `calc_detail` 新皇帝的首轮因子化派工入口；`worklist` 只读对象链生成可交给 Codex 子进程的批次，`patch-to-profile` 只验收 patch 并汇总为 `i5b_factor_recalculator.py --input` profile，不连接数据库、不替代人工因子裁量。
+- `i5b_initial_factor_profile.py` 是无 `calc_detail` 新皇帝或缺失首轮 rule 计算明细的因子化派工入口；`worklist` 只读对象链生成可交给 Codex 子进程的批次，`patch-to-profile` 只验收 patch 并汇总为 `i5b_factor_recalculator.py --input` profile，不连接数据库、不替代人工因子裁量。普通材料 patch 以 `obj_src_id` 为主键；`team_building` 的 `emp_objs` 成员 patch 以 `emp_obj_id` 为主键，不得伪造史料材料 ID。
 - `i5b_pending_material_worklist.py` 是只读 pending 因子化派工入口，从健康检查登记的 `pending_material_ids` 补齐对象、史源和 note，生成可交给 Codex 子进程处理的 JSON/Markdown worklist；它不写库、不自动赋因子。
 - `i5b_pending_factor_patch.py` 是 pending 因子化交付验收入口，校验子进程填写的 patch JSONL 是否覆盖 batch 全部材料、target_action 是否合法、计分材料 factor label 是否来自候选项，并复用规则承载对象槽位政策拦截不允许作为计分承载的对象类型；它不连接数据库、不修改 calc_detail。
 - `i5b_pending_factor_patch_apply.py` 是 pending patch 应用入口，把已验收 patch 写回 `evd_cluster_calc_details.calc_detail` 的 `materials` / `supporting_material_ids` / `excluded_material_ids` / `pending_material_ids`；默认 dry-run，正式落库必须显式 `--write`，写完后仍需用 `i5b_factor_recalculator.py --from-details --write-clusters --write-results` 重放结果。
@@ -70,10 +73,13 @@
 - `i5b_rule_evidence_unit_db_sync.py` 是规则证据单元影子表同步工具，只把候选 payload 幂等写入 `rule_evidence_units` / `rule_evidence_unit_members` 供人工审计；它不得合成未经确认的 `fact_relations`，也不得改变正式算分输入。
 - `i5b_talent_discovery_audit.py` 是只读覆盖审计工具，用于对比检索包 `POS-TALENT-RECOGNITION` 与最新 `talent_discovery` 入簇对象；补链或重算前必须先看缺口，写回受影响证据簇后必须用 `--fail-on-gap` 复跑。已回源但不支撑进入 `talent_discovery` 的对象，用 `--accepted-missing 皇帝:对象` 显式标注，不得静默忽略。
 - 计算明细写入 `evd_cluster_calc_details` 与 `emp_item_result_calc_details`；JSONL 日志不再参与当前计算、审查或重放流程。
-- 修改规则内部乘数后，先同步 `eval_rule_factor_options`，再从明细表 `--from-details` 重放并重算；`--from-details` 默认从细则表读因子值，`--factor-source docs` 只用于本地 fixture 或迁移排障。新增史料对象时先补对象链和受影响证据簇，再用明细表重放检查全量结果。
+- 修改规则内部乘数后，先同步 `eval_rule_factor_options`，再从明细表 `--from-details` 重放并重算；运行时默认从细则表读因子值，不从规则文档推断当前取值。新增史料对象时先补对象链和受影响证据簇，再用明细表重放检查全量结果。
 
 ## 测试
 
-- 修改 `source_excerpt_pool.py`、`source_excerpt_pool_lib/`、`i5b_source_pack_fetcher.py`、`i5b_source_pack_worker.py`、`i5b_source_pack_audit.py`、`i5b_source_pack_handoff.py`、`i5b_source_pack_control_board.py`、`i5b_next_stage_queue_runner.py`、`i5b_next_stage_control_board.py`、`i5b_query_profile_refiner.py`、`i5b_query_profile_refiner_daemon.py`、`i5b_source_pack_runtime_supervisor.py`、`i5b_source_pack_pipeline_daemon.py` 或 `i5b_query_profile_seed_builder.py` 后运行 `python -m pytest tests/test_source_excerpt_pool.py tests/test_i5b_source_pack_fetcher.py tests/test_i5b_source_pack_worker.py tests/test_i5b_source_pack_audit.py tests/test_i5b_source_pack_handoff.py tests/test_i5b_source_pack_control_board.py tests/test_i5b_next_stage_queue_runner.py tests/test_i5b_next_stage_control_board.py tests/test_i5b_query_profile_refiner.py tests/test_i5b_query_profile_refiner_daemon.py tests/test_i5b_source_pack_runtime_supervisor.py tests/test_i5b_source_pack_pipeline_daemon.py tests/test_i5b_query_profile_seed_builder.py -q`。
-- 修改 `object_pool_importer.py` 或 `i5b_object_payload_audit.py` 后运行 `python -m pytest tests/test_object_pool_importer.py tests/test_i5b_object_payload_audit.py -q`。
-- 修改证据簇、重算、计分细则表、有限取值、首轮/pending 材料派工、pending patch 验收/应用、规则承载影子层或健康检查工具后运行对应 focused tests：`tests/test_evidence_cluster_workbench.py`、`tests/test_i5b_factor_recalculator.py`、`tests/test_i5b_factor_consistency_audit.py`、`tests/test_i5b_factor_table_sync.py`、`tests/test_i5b_finite_values.py`、`tests/test_i5b_finite_value_audit.py`、`tests/test_i5b_initial_factor_profile.py`、`tests/test_i5b_pending_material_worklist.py`、`tests/test_i5b_pending_factor_patch.py`、`tests/test_i5b_pending_factor_patch_apply.py`、`tests/test_i5b_calc_breakdown.py`、`tests/test_i5b_item_result_calculator.py`、`tests/test_i5b_rule_evidence_unit_candidate_builder.py`、`tests/test_i5b_rule_evidence_unit_db_sync.py`、`tests/test_i5b_rule_evidence_unit_preview.py`、`tests/test_i5b_rule_evidence_unit_issue_summary.py`、`tests/test_i5b_fact_relation_candidate_sync.py`、`tests/test_i5b_fact_relation_gap_summary.py`、`tests/test_i5b_health_check.py`。
+- 修改抓包、检索包、handoff、控制板或 ready 包消费工具后，运行对应 focused tests，至少覆盖：`tests/test_source_excerpt_pool.py`、`tests/test_i5b_source_pack_fetcher.py`、`tests/test_i5b_source_pack_worker.py`、`tests/test_i5b_source_pack_audit.py`、`tests/test_i5b_source_pack_handoff.py`、`tests/test_i5b_source_pack_status.py`、`tests/test_i5b_source_pack_control_board.py`、`tests/test_i5b_next_stage_queue_runner.py`、`tests/test_i5b_next_stage_control_board.py`、`tests/test_i5b_query_profile_refiner.py`、`tests/test_i5b_query_profile_refiner_daemon.py`、`tests/test_i5b_source_pack_runtime_supervisor.py`、`tests/test_i5b_source_pack_pipeline_daemon.py`、`tests/test_i5b_query_profile_seed_builder.py`。
+- 修改对象导入、别名归一、对象明细、对象池完整性审计或 payload 闸门工具后，至少运行：`tests/test_object_pool_importer.py`、`tests/test_i5b_object_pool_detail.py`、`tests/test_i5b_object_pool_integrity_audit.py`、`tests/test_i5b_object_payload_audit.py`。
+- 修改证据簇、重算、计分细则表、有限取值、规则材料策略、首轮/pending 材料派工、pending patch 验收/应用或明细拆解工具后，至少运行：`tests/test_evidence_cluster_workbench.py`、`tests/test_i5b_factor_recalculator.py`、`tests/test_i5b_factor_consistency_audit.py`、`tests/test_i5b_factor_table_sync.py`、`tests/test_rule_material_policy.py`、`tests/test_rule_material_policy_schema.py`、`tests/test_i5b_finite_values.py`、`tests/test_i5b_finite_value_audit.py`、`tests/test_i5b_initial_factor_profile.py`、`tests/test_i5b_pending_material_worklist.py`、`tests/test_i5b_pending_factor_patch.py`、`tests/test_i5b_pending_factor_patch_apply.py`、`tests/test_i5b_calc_breakdown.py`、`tests/test_i5b_item_result_calculator.py`。
+- 修改硬通货、权威评价、人才等级同步或人才评价分布审计工具后，至少运行：`tests/test_i5b_hard_merit_handoff.py`、`tests/test_i5b_authority_eval_handoff.py`、`tests/test_i5b_authority_eval_distribution_audit.py`、`tests/test_i5b_authority_eval_attr_sync.py`。
+- 修改规则承载影子层、事实关系、rule 覆盖审计或健康检查工具后，至少运行：`tests/test_i5b_rule_evidence_unit_candidate_builder.py`、`tests/test_i5b_rule_evidence_unit_db_sync.py`、`tests/test_i5b_rule_evidence_unit_preview.py`、`tests/test_i5b_rule_evidence_unit_issue_summary.py`、`tests/test_i5b_rule_object_coverage_audit.py`、`tests/test_i5b_fact_relation_candidate_sync.py`、`tests/test_i5b_fact_relation_gap_summary.py`、`tests/test_i5b_health_check.py`。
+- 若不确定某工具的专属测试，以 `docs/文档与脚本登记/scripts_registry.json` 的 `required_tests` 为准，再叠加邻近链路测试和 `tests/test_scripts_dev_i5b_registry.py`。
