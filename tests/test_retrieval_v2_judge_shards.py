@@ -142,6 +142,58 @@ def test_merge_judge_shards_filters_object_role_gaps_resolved_elsewhere() -> Non
     assert merged["coverage_gaps"] == []
 
 
+def test_merge_judge_shards_keeps_queueable_gaps_without_blocking_status() -> None:
+    first = shard_result("JSH-R00-01", "吕余庆")
+    first["payload"]["status"] = "needs_refinement"
+    first["payload"]["coverage_gaps"] = [
+        {
+            "gap_type": "negative_undercoverage",
+            "object_name": "吕余庆",
+            "family_code": "revoked_or_failed_delegate",
+            "diagnosis": "disposition-only material needs consumer-side profile review",
+        },
+        {
+            "gap_type": "fetch_error",
+            "object_name": "",
+            "family_code": "",
+            "diagnosis": "HTTP Error 429",
+        },
+    ]
+
+    merged = tool.merge_judge_shard_results(
+        candidates=sample_candidates(),
+        shard_results=[first, shard_result("JSH-R00-02", "赵普")],
+        elapsed_seconds=1.5,
+        usage={"input_tokens": 10},
+    )
+
+    assert merged["status"] == "succeeded"
+    assert merged["coverage"]["ready_for_object_pool"] is False
+    assert [row["gap_type"] for row in merged["coverage_gaps"]] == ["negative_undercoverage", "fetch_error"]
+
+
+def test_merge_judge_shards_preserves_blocked_status() -> None:
+    first = shard_result("JSH-R00-01", "吕余庆")
+    first["payload"]["status"] = "blocked"
+    first["payload"]["coverage_gaps"] = [
+        {
+            "gap_type": "negative_undercoverage",
+            "object_name": "吕余庆",
+            "family_code": "revoked_or_failed_delegate",
+            "diagnosis": "blocked shard must remain blocked",
+        }
+    ]
+
+    merged = tool.merge_judge_shard_results(
+        candidates=sample_candidates(),
+        shard_results=[first, shard_result("JSH-R00-02", "赵普")],
+        elapsed_seconds=1.5,
+        usage={"input_tokens": 10},
+    )
+
+    assert merged["status"] == "blocked"
+
+
 def test_enrich_judge_payload_materializes_passages_from_slice_refs() -> None:
     payload = {
         "status": "succeeded",

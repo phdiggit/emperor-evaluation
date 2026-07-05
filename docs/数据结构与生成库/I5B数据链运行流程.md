@@ -547,11 +547,11 @@ Remove-Item Env:\I5B_OBJECT_POOL_IMPORT_UNFREEZE
 孤儿对象检查：
 
 ```powershell
-$env:PYTHONUTF8='1'
-python -c "import psycopg; from scripts.dev.evidence_cluster_workbench import resolve_dsn; \
-conn=psycopg.connect(resolve_dsn('EMPEROR_EVAL_PG_DSN')); \
-cur=conn.cursor(); cur.execute(\"select count(*) from raw_objs ro where not exists (select 1 from obj_srcs os where os.obj_id=ro.id)\"); \
-print(cur.fetchone()[0]); conn.close()"
+$psql = if (Get-Command psql -ErrorAction SilentlyContinue) { "psql" } else { "D:\etc-server\pgsql\bin\psql.exe" }
+& $psql -X -q -v ON_ERROR_STOP=1 `
+  -d $env:EMPEROR_EVAL_PG_DSN `
+  -t -A `
+  -c "select count(*) from raw_objs ro where not exists (select 1 from obj_srcs os where os.obj_id = ro.id);"
 ```
 
 结果应为 `0`。

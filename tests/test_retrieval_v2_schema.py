@@ -57,6 +57,8 @@ def test_retrieval_v2_schema_contains_only_retrieval_control_plane_tables() -> N
     assert tables >= {
         "eval_items",
         "eval_rules",
+        "eval_rule_factors",
+        "eval_rule_factor_options",
         "eval_rule_material_policies",
         "fact_relation_predicate_options",
         "rule_contracts",
@@ -102,6 +104,13 @@ def test_retrieval_v2_schema_supports_multi_rule_claim_bindings_and_feedback_eve
     assert "create table if not exists retrieval_v2.coverage_gap_events" in sql
     assert "source_pack_refinement" in sql
     assert "codex_review" in sql
+    assert "source_missing" in sql
+    assert "alias_missing" in sql
+    assert "fetch_error" in sql
+    assert "negative_undercoverage" in sql
+    assert "mixed_claim_not_split" in sql
+    assert "needs_primary_source" in sql
+    assert "drop constraint if exists rv2_coverage_gap_events_gap_type_ck" in sql
 
 
 def test_retrieval_v2_jobs_are_idempotent_and_dispatcher_ready() -> None:

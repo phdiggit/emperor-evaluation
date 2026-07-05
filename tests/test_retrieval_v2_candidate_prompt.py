@@ -63,3 +63,11 @@ def test_build_prompt_keeps_budget_contract() -> None:
     assert "判读预算" in prompt
     assert "每个对象默认最多 2 个" in prompt
     assert '"slice_code": "SLI-001"' in prompt
+
+
+def test_build_prompt_requires_concrete_harm_for_negative_disposition() -> None:
+    prompt = tool.build_prompt(sample_candidates())
+
+    assert "处置结果，不能单独构成 negative claim" in prompt
+    assert "同一候选材料同时证明被授权者在任内造成具体治理损害" in prompt
+    assert "交消费侧结合人物画像判断" in prompt

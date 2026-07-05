@@ -12,7 +12,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -28,13 +27,10 @@ from scripts.dev.retrieval_v2_run_events import RunEventLogger
 from scripts.dev import retrieval_v2_source_candidates as source_candidates
 from scripts.dev import retrieval_v2_task_skeleton as task_skeleton
 
-
 DEFAULT_TARGET_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
-
 
 class RetrievalV2CleanRunnerError(RuntimeError):
     pass
-
 
 @dataclass(frozen=True)
 class CodexInvocation:
@@ -47,28 +43,22 @@ class CodexInvocation:
     timeout_seconds: int
     codex_bin: str
 
-
 @dataclass(frozen=True)
 class CodexResult:
     payload: dict[str, Any]
     elapsed_seconds: float
     usage: dict[str, Any]
 
-
 CodexRunner = Callable[[CodexInvocation], CodexResult]
-
 
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
 
-
 def pretty_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n"
 
-
 def stable_fingerprint(value: Any) -> str:
     return hashlib.sha256(stable_json(value).encode("utf-8")).hexdigest()
-
 
 def atomic_write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -297,6 +287,60 @@ def normalize_task_from_context(task: Mapping[str, Any], context: Mapping[str, A
     return result
 
 
+def _presearch_backed_discovery_source_documents(
+    discovery: Mapping[str, Any],
+    prompt_skeleton: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    search_plan = prompt_skeleton.get("search_plan")
+    if not isinstance(search_plan, Mapping):
+        return []
+    allowed_titles: set[str] = set()
+    allowed_urls: set[str] = set()
+    for hit in search_plan.get("presearch_hits") or []:
+        if not isinstance(hit, Mapping):
+            continue
+        title = str(hit.get("title") or hit.get("wikisource_title") or "").strip()
+        url = str(hit.get("url") or "").strip()
+        if title:
+            allowed_titles.add(title)
+        if url:
+            allowed_urls.add(url)
+    if not allowed_titles and not allowed_urls:
+        return []
+
+    referenced_codes = {
+        str(code).strip()
+        for obj in discovery.get("object_seeds") or []
+        if isinstance(obj, Mapping)
+        for code in obj.get("source_document_codes") or []
+        if str(code).strip()
+    }
+    docs = discovery.get("source_documents") or discovery.get("documents") or []
+    trusted: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for doc in docs:
+        if not isinstance(doc, Mapping):
+            continue
+        document_code = str(doc.get("document_code") or "").strip()
+        if referenced_codes and document_code and document_code not in referenced_codes:
+            continue
+        title = str(doc.get("title") or "").strip()
+        wikisource_title = str(doc.get("wikisource_title") or "").strip()
+        url = str(doc.get("url") or "").strip()
+        if not (
+            (title and title in allowed_titles)
+            or (wikisource_title and wikisource_title in allowed_titles)
+            or (url and url in allowed_urls)
+        ):
+            continue
+        key = (document_code, title or wikisource_title, url)
+        if key in seen:
+            continue
+        seen.add(key)
+        trusted.append(dict(doc))
+    return trusted
+
+
 def run_taskgen(
     *,
     context: Mapping[str, Any],
@@ -402,8 +446,12 @@ def run_taskgen(
     )
     discovery_payload = dict(result.payload)
     if preseed_file is not None and not search:
-        discovery_payload.pop("source_documents", None)
+        trusted_documents = _presearch_backed_discovery_source_documents(discovery_payload, prompt_skeleton)
         discovery_payload.pop("documents", None)
+        if trusted_documents:
+            discovery_payload["source_documents"] = trusted_documents
+        else:
+            discovery_payload.pop("source_documents", None)
     task = task_skeleton.merge_taskgen_discovery(prompt_skeleton, discovery_payload)
     task = normalize_task_from_context(task, context)
     issues = task_skeleton.validate_task_for_candidates(task)
@@ -646,11 +694,9 @@ def process_task(
     max_slices_per_object: int,
     skip_fetch_errors: bool,
     source_cache_root: Path | None,
-    judge_timeout_seconds: int,
-    judge_shard_size: int,
-    judge_shard_workers: int,
+    judge_timeout_seconds: int, judge_shard_size: int, judge_shard_workers: int,
     taskgen: Mapping[str, Any] | None = None,
-    event_logger: RunEventLogger | None = None,
+    event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
 ) -> dict[str, Any]:
     person_dir = run_root / target_dir_name(task)
     person_dir.mkdir(parents=True, exist_ok=True)
@@ -671,10 +717,27 @@ def process_task(
     rounds: list[dict[str, Any]] = []
     final_candidates: dict[str, Any] | None = None
     final_judge: dict[str, Any] | None = None
-    alias_round_limit_reached = False
-    alias_refine_count = 0
-    source_refine_count = 0
-
+    alias_round_limit_reached = external_source_refine_used = False
+    alias_refine_count = source_refine_count = 0
+    def apply_source_refine(stage: str, payload: Mapping[str, Any], object_names: Sequence[str], round_index: int):
+        nonlocal current_task, task_path, source_refine_count
+        refined_task, source_stats = candidate_source_refiner.refine_task_sources_for_candidate_gaps(
+            current_task, payload, object_names=object_names, stage=stage, max_objects=candidate_source_refine_max_objects,
+            pages_per_object=candidate_source_refine_pages_per_object, source_hint_limit=candidate_source_refine_source_hint_limit,
+            timeout=candidate_timeout,
+        )
+        source_refine_path = person_dir / f"task.{stage}_source_refine.round{round_index}.json"
+        atomic_write_json(source_refine_path, refined_task)
+        if not source_stats["added_source_document_count"]:
+            return source_stats, source_refine_path, False
+        issues = task_skeleton.validate_task_for_candidates(refined_task)
+        if issues:
+            raise RetrievalV2CleanRunnerError(f"{stage} source refinement produced invalid task: {issues}")
+        source_refine_count += 1
+        current_task = refined_task
+        task_path = person_dir / f"task.round{round_index + 1}.json"
+        atomic_write_json(task_path, current_task)
+        return source_stats, source_refine_path, True
     for round_index in range(max_alias_refine_rounds + candidate_source_refine_rounds + 1):
         if event_logger is not None:
             event_logger.emit(
@@ -736,8 +799,12 @@ def process_task(
             "judge_shard_count": 0,
             "judge_alias_patch_stats": None,
         }
-        gap_object_names = candidate_source_refiner.candidate_gap_object_names(final_candidates)
+        external_gap_names = list(candidate_source_refine_objects) if not external_source_refine_used else []
+        gap_object_names = candidate_source_refiner.unique_strings(
+            [*candidate_source_refiner.candidate_gap_object_names(final_candidates), *external_gap_names]
+        )
         if gap_object_names and source_refine_count < candidate_source_refine_rounds:
+            external_source_refine_used = external_source_refine_used or bool(external_gap_names)
             if event_logger is not None:
                 event_logger.emit(
                     "candidate_source_refine_start", emperor_name=emperor_name, target_code=target_code,
@@ -746,16 +813,7 @@ def process_task(
                     pages_per_object=candidate_source_refine_pages_per_object,
                     source_hint_limit=candidate_source_refine_source_hint_limit,
                 )
-            refined_task, source_stats = candidate_source_refiner.refine_task_sources_for_candidate_gaps(
-                current_task,
-                final_candidates,
-                max_objects=candidate_source_refine_max_objects,
-                pages_per_object=candidate_source_refine_pages_per_object,
-                source_hint_limit=candidate_source_refine_source_hint_limit,
-                timeout=candidate_timeout,
-            )
-            source_refine_path = person_dir / f"task.candidate_source_refine.round{round_index}.json"
-            atomic_write_json(source_refine_path, refined_task)
+            source_stats, source_refine_path, refined = apply_source_refine("candidate", final_candidates, external_gap_names, round_index)
             round_summary["candidate_source_refine_stats"] = source_stats
             round_summary["candidate_source_refine_task"] = str(source_refine_path)
             if event_logger is not None:
@@ -766,27 +824,19 @@ def process_task(
                     source_document_count=source_stats["source_document_count"], hit_count=source_stats["hit_count"],
                     error_count=source_stats["error_count"],
                 )
-            if source_stats["added_source_document_count"]:
-                issues = task_skeleton.validate_task_for_candidates(refined_task)
-                if issues:
-                    raise RetrievalV2CleanRunnerError(f"candidate source refinement produced invalid task: {issues}")
-                source_refine_count += 1
-                current_task = refined_task
-                task_path = person_dir / f"task.round{round_index + 1}.json"
-                atomic_write_json(task_path, current_task)
+            if refined:
                 rounds.append(round_summary)
                 continue
         if candidate_patch_stats["apply_alias_patch_count"]:
             if alias_refine_count >= max_alias_refine_rounds:
                 alias_round_limit_reached = True
+            else:
+                alias_refine_count += 1
+                current_task = alias_refiner.apply_alias_patches(current_task, candidate_refinement["payload"]["patches"])
+                task_path = person_dir / f"task.round{round_index + 1}.json"
+                atomic_write_json(task_path, current_task)
                 rounds.append(round_summary)
-                break
-            alias_refine_count += 1
-            current_task = alias_refiner.apply_alias_patches(current_task, candidate_refinement["payload"]["patches"])
-            task_path = person_dir / f"task.round{round_index + 1}.json"
-            atomic_write_json(task_path, current_task)
-            rounds.append(round_summary)
-            continue
+                continue
 
         if skip_judge:
             rounds.append(round_summary)
@@ -861,6 +911,14 @@ def process_task(
             atomic_write_json(task_path, current_task)
             rounds.append(round_summary)
             continue
+        judge_gap_names = candidate_source_refiner.judge_gap_object_names(final_judge)
+        if final_judge.get("status") == "needs_refinement" and judge_gap_names and source_refine_count < candidate_source_refine_rounds:
+            source_stats, source_refine_path, refined = apply_source_refine("judge", final_judge, judge_gap_names, round_index)
+            round_summary["candidate_source_refine_stats"] = source_stats
+            round_summary["candidate_source_refine_task"] = str(source_refine_path)
+            if refined:
+                rounds.append(round_summary)
+                continue
         rounds.append(round_summary)
         break
 
@@ -908,12 +966,9 @@ def run_clean_pipeline(
     max_slices_per_object: int = 8,
     skip_fetch_errors: bool = False,
     source_cache_root: Path | None = source_candidates.DEFAULT_CACHE_DIR,
-    judge_timeout_seconds: int = 1800,
-    judge_shard_size: int = 8,
-    judge_shard_workers: int = 2,
+    judge_timeout_seconds: int = 1800, judge_shard_size: int = 8, judge_shard_workers: int = 2,
     taskgen_by_target_code: Mapping[str, Mapping[str, Any]] | None = None,
-    max_workers: int = 4,
-    event_logger: RunEventLogger | None = None,
+    max_workers: int = 4, event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
 ) -> dict[str, Any]:
     started = time.perf_counter()
     run_root.mkdir(parents=True, exist_ok=True)
@@ -949,6 +1004,7 @@ def run_clean_pipeline(
             judge_shard_workers=judge_shard_workers,
             taskgen=taskgen_by_target_code.get(target_code),
             event_logger=event_logger,
+            candidate_source_refine_objects=candidate_source_refine_objects,
         )
 
     workers = max(1, min(max_workers, len(tasks) or 1))

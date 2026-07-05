@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import json
 import os
 import sys
 import time
@@ -18,7 +19,18 @@ from scripts.dev import retrieval_v2_clean_runner as runner
 from scripts.dev.retrieval_v2_run_events import RunEventLogger
 
 
-TARGET_METADATA_KEYS = ("period", "title", "temple_name", "posthumous_name")
+TARGET_METADATA_KEYS = (
+    "period",
+    "title",
+    "temple_name",
+    "posthumous_name",
+    "source_targets",
+    "query_bundles",
+    "object_search_aliases",
+    "expected_lane_outcomes",
+    "retrieval_profile_id",
+    "retrieval_profile_source_group",
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -110,6 +122,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--candidate-source-refine-max-objects", type=int, default=8)
     parser.add_argument("--candidate-source-refine-pages-per-object", type=int, default=2)
     parser.add_argument("--candidate-source-refine-source-hint-limit", type=int, default=2)
+    parser.add_argument(
+        "--candidate-source-refine-object",
+        action="append",
+        default=[],
+        help="Force candidate source refinement to search this object name even when candidate coverage has no gap; repeatable.",
+    )
     parser.add_argument(
         "--judge-shard-size",
         type=int,
@@ -215,6 +233,7 @@ def _run_staged_emperors(
         candidate_source_refine_max_objects=args.candidate_source_refine_max_objects,
         candidate_source_refine_pages_per_object=args.candidate_source_refine_pages_per_object,
         candidate_source_refine_source_hint_limit=args.candidate_source_refine_source_hint_limit,
+        candidate_source_refine_objects=args.candidate_source_refine_object,
         candidate_timeout=args.candidate_timeout,
         context_chars=args.context_chars,
         max_slices_per_object=args.max_slices_per_object,
@@ -246,6 +265,7 @@ def _run_task_files(args: argparse.Namespace, *, run_root: Path, event_logger: R
         candidate_source_refine_max_objects=args.candidate_source_refine_max_objects,
         candidate_source_refine_pages_per_object=args.candidate_source_refine_pages_per_object,
         candidate_source_refine_source_hint_limit=args.candidate_source_refine_source_hint_limit,
+        candidate_source_refine_objects=args.candidate_source_refine_object,
         candidate_timeout=args.candidate_timeout,
         context_chars=args.context_chars,
         max_slices_per_object=args.max_slices_per_object,
@@ -290,13 +310,49 @@ def _fetch_public_emp_metadata(dsn: str, names: Sequence[str]) -> dict[str, dict
     return result
 
 
+def _load_query_profile_metadata(names: Sequence[str]) -> dict[str, dict[str, Any]]:
+    wanted = set(names)
+    if not wanted:
+        return {}
+    path = Path("data/query_profile_batches/i5b_layered_retrieval_profiles_20260630.jsonl")
+    if not path.exists():
+        return {}
+    result: dict[str, dict[str, Any]] = {}
+    with path.open(encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            payload = json.loads(line)
+            person = str(payload.get("person") or "").strip()
+            if person not in wanted:
+                continue
+            metadata = {
+                "source_targets": payload.get("source_targets") or [],
+                "query_bundles": payload.get("query_bundles") or [],
+                "object_search_aliases": payload.get("object_search_aliases") or {},
+                "expected_lane_outcomes": payload.get("expected_lane_outcomes") or [],
+                "retrieval_profile_id": payload.get("query_profile_id") or "",
+                "retrieval_profile_source_group": payload.get("source_group") or "",
+            }
+            result.setdefault(person, {key: value for key, value in metadata.items() if value not in ("", [], {})})
+    return result
+
+
 def _load_emp_metadata(args: argparse.Namespace, names: Sequence[str]) -> dict[str, dict[str, Any]]:
     if not args.taskgen_presearch:
         return {}
+    profile_metadata = _load_query_profile_metadata(names)
     dsn = os.environ.get(args.emp_metadata_dsn_env or "")
     if not dsn:
-        return {}
-    return _fetch_public_emp_metadata(dsn, names)
+        return profile_metadata
+    public_metadata = _fetch_public_emp_metadata(dsn, names)
+    result: dict[str, dict[str, Any]] = {}
+    for name in names:
+        merged = dict(profile_metadata.get(name) or {})
+        merged.update(public_metadata.get(name) or {})
+        if merged:
+            result[name] = merged
+    return result
 
 
 def _build_taskgen_preseed(
@@ -645,6 +701,7 @@ def run_streaming_taskgen_pipeline(
     candidate_source_refine_max_objects: int = 8,
     candidate_source_refine_pages_per_object: int = 2,
     candidate_source_refine_source_hint_limit: int = 2,
+    candidate_source_refine_objects: Sequence[str] = (),
     candidate_timeout: int = 15,
     context_chars: int = 260,
     max_slices_per_object: int = 8,
@@ -689,6 +746,7 @@ def run_streaming_taskgen_pipeline(
             candidate_source_refine_max_objects=candidate_source_refine_max_objects,
             candidate_source_refine_pages_per_object=candidate_source_refine_pages_per_object,
             candidate_source_refine_source_hint_limit=candidate_source_refine_source_hint_limit,
+            candidate_source_refine_objects=candidate_source_refine_objects,
             candidate_timeout=candidate_timeout,
             context_chars=context_chars,
             max_slices_per_object=max_slices_per_object,
@@ -886,6 +944,7 @@ def _run_emperors(
         candidate_source_refine_max_objects=args.candidate_source_refine_max_objects,
         candidate_source_refine_pages_per_object=args.candidate_source_refine_pages_per_object,
         candidate_source_refine_source_hint_limit=args.candidate_source_refine_source_hint_limit,
+        candidate_source_refine_objects=args.candidate_source_refine_object,
         candidate_timeout=args.candidate_timeout,
         context_chars=args.context_chars,
         max_slices_per_object=args.max_slices_per_object,

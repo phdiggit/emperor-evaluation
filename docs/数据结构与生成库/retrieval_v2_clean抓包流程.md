@@ -8,6 +8,10 @@ retrieval_v2 的抓包产物必须由皇帝名单和规则契约驱动，最终�
 
 一个抓到的 claim 可以服务多个 rule，但必须拆成独立的 `claim_rule_bindings`。同一原文可以同时给 primary rule 和 secondary rule 提供线索，不能因为本轮任务只测试一个 rule 就丢弃可复用事实。
 
+`secondary_binding_candidates` 必须作为长期 `claim_rule_binding_candidates` 候选池保留。当前只有 I5B / delegation 可消费时，候选只记录来源 item / rule、候选 rule、理由和置信度，不进入本轮计分；未来其他 item / rule contract 上线后，再由候选解析工具把同一 claim 追加为新的正式 rule binding，不能依赖人工记忆回翻旧包。
+
+消费侧新表迁移必须从建表阶段就带完整注释：所有表和字段都要写清楚语义、来源和幂等关系。带说明性质的字段值使用中文，且只写具体判断、来源、冲突原因、处置意见等信息熵高的文本；模板式说明、字段名复述和低信息套话宁可留空。字段名可保持英文稳定命名，但不要新增泛化 `note` 字段承载多种含义。取值有限的字段优先使用 PostgreSQL enum type，不用裸 `text` 承载状态机、方向、名称类型和队列状态。
+
 正式流水线入口是 `scripts/dev/retrieval_v2_clean_runner.py`。它把任务生成、候选片段、机械别名补抓、候选重跑、Codex 判读和 summary 固化为同一条命令；主控默认只看 `summary.json`、coverage gaps 和少量异常文件。
 
 `--emperor` 目标模式默认采用流式调度：某个目标的 taskgen 一完成，就立即进入候选片段和判读阶段，不等待同批所有目标的 taskgen 全部结束。需要和旧批处理口径对照时，可显式传 `--no-stream-taskgen`。
@@ -98,6 +102,7 @@ clean Codex 子进程默认使用 `exec --ephemeral --ignore-user-config --ignor
    - 对象分片按候选文本量做均衡，不按对象原始顺序硬切；高密度对象应优先被摊开，避免单个 shard 拖慢全局。
    - 分片 judge 的 claim、passage 和 binding 由 runner 聚合并重写 ID，避免不同子进程都输出 `CLM-001` / `PAS-001` 造成撞码。
    - 判读预算服务吞吐量，不改变评分语义：同一对象、同一谓词、同一方向、同一事实类型的多个切片必须合并为代表 claim；每个对象默认最多 2 个可消费 material claim，只有清晰正负拆分或授权/撤权/失败拆分时才超过。
+   - 负向 `delegation` 必须看材料本身是否证明授权对象在任内造成具体治理损害、军政任务失败、人才结构损害或授权链条失控；`伏诛`、`被废`、`被杀`、`罢免`、`削权`、`撤权`、`下狱` 等处置结果不能单独构成可计分 negative claim / binding，应作为 neutral/context 或不可计分材料交给消费侧结合人物画像判断。
    - 输出必须包含 `claims`、`primary_bindings`、`secondary_binding_candidates`、`coverage`、`coverage_gaps`。
    - `direction=mixed` 不能直接消费，必须拆成至少一个授权事实和一个结果、撤权、失误或负面后果事实。
    - runner summary 会自动执行 judge anomaly 自审：`mixed` claim 若带可计分 binding 但没有负向拆分或缺口，记为 `mixed_claim_not_split` block；负向 claim 若不可计分且未进入负向缺口队列，记为 warning。
@@ -145,7 +150,7 @@ clean Codex 子进程默认使用 `exec --ephemeral --ignore-user-config --ignor
 - `military_delegate`：将领任命、方面军、战役指挥、边防和军政委任。
 - `civil_delegate`：宰辅、尚书、地方行政、财政、屯田、法制、选官和后勤治理委任。
 - `strategic_delegate`：谋臣、参谋、规划者、顾问式授权和关键决策采纳。
-- `revoked_or_failed_delegate`：撤权、误任、干预下属决策、亲信失职和授权后果失败。
+- `revoked_or_failed_delegate`：撤权、误任、干预下属决策、亲信失职和授权后果失败；处置性结局本身不等于负向授权，必须同时证明任内具体治理 / 人才结构损害。
 
 如果 `civil_delegate` 或 `revoked_or_failed_delegate` 完全无 claim，不能直接判定为 ready。必须生成 `coverage_gap_events`，让后续补抓子进程按缺口继续找材料。
 
@@ -169,6 +174,40 @@ clean Codex 子进程默认使用 `exec --ephemeral --ignore-user-config --ignor
 - `weak_alias_noise`：降低弱别名排序或要求上下文共现。
 - `fetch_error`：重试、换源或人工标记短期不可达。
 - `true_lack`：只有在 strong/medium 别名、核心史源和相关对象族都检索过后才允许使用。
+
+## 控制面 gap handoff
+
+消费进程通知抓包进程不得依赖聊天消息，正式通知源是 retrieval_v2 控制面队列。
+
+两段机制：
+
+1. 消费进程幂等写入 `retrieval_v2.coverage_gap_events`。幂等键按 `target_code + rule_code + source_pack_code + gap_type + family_code + object_name + predicate` 组成；clean 产物尚无 `source_pack_code` 时，交接工具必须从 `run_root + target_code + rule_code` 派生稳定 `RUN-...` fallback，不能留下空槽。首次插入事件状态写 `ready`；重复写入只刷新诊断和 payload，不得把 `queued`、`running`、`retry_wait`、`deferred`、`resolved`、`blocked` 或 `cancelled` 改回 `ready`。队列按处理面分流：`source_pack_refinement` 处理补源、补别名、fetch error、predicate / civil / negative undercoverage；`codex_review` 处理补判、mixed claim 拆分和 anomaly；`object_payload_or_source_review`、`material_classification_review`、`policy_block_review` 留给消费侧或人工复核。
+2. 抓包调度器只轮询可执行 gap，并幂等转成 `retrieval_v2.jobs`。例如 `source_missing`、`alias_missing`、`predicate_missing` 和 `negative_undercoverage` 进入 `codex_source_pack_refine` 或 search/fetch/refine job；`mixed_claim_not_split` 进入 `codex_material_review`。clean runner 本身不常驻监听数据库。
+
+短期没有常驻 worker 时，消费进程同时生成 `gap_handoff.jsonl` 或 `gap_handoff.md` 作为旁路交接视图；抓包主控下一轮用 `coverage_gap_events where status='ready' and queue='source_pack_refinement'` 认领。仓库工具：
+
+```bash
+python scripts/dev/retrieval_v2_gap_handoff.py emit \
+  --summary tmp/retrieval_v2_clean_runs/<run_name>/summary.json \
+  --output-jsonl tmp/retrieval_v2_clean_runs/<run_name>/gap_handoff.jsonl \
+  --output-md tmp/retrieval_v2_clean_runs/<run_name>/gap_handoff.md
+
+python scripts/dev/retrieval_v2_gap_handoff.py emit \
+  --env-file .env --write-db \
+  --summary tmp/retrieval_v2_clean_runs/<run_name>/summary.json
+
+python scripts/dev/retrieval_v2_gap_handoff.py enqueue-jobs \
+  --env-file .env --queue source_pack_refinement --limit 50
+
+python scripts/dev/retrieval_v2_gap_worker.py plan \
+  --events-jsonl tmp/retrieval_v2_clean_runs/<run_name>/gap_handoff.jsonl \
+  --output tmp/retrieval_v2_clean_runs/<run_name>/gap_worker_plan.json
+
+python scripts/dev/retrieval_v2_gap_worker.py run-plan \
+  --plan tmp/retrieval_v2_clean_runs/<run_name>/gap_worker_plan.json
+```
+
+`retrieval_v2_gap_worker.py plan` 默认只生成 candidate-only clean runner 计划，同一 task 的多个 source-pack gap 会合并成一条命令；`codex_review` 只进入 material review 计划项，不调用 clean runner。只有显式执行 `run-plan --execute` 才会真正跑补抓命令；需要重判时在 plan 阶段使用 `--mode judge`。
 
 ## 验收口径
 

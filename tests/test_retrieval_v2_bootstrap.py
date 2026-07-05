@@ -70,12 +70,16 @@ def test_source_snapshot_fingerprint_covers_rule_policy_and_predicate_rows() -> 
         rule_rows=[{"id": 10, "item_id": 1, "item_code": "I5B", "rule_code": "delegation"}],
         material_policy_rows=[{"id": 20, "rule_code": "delegation", "policy_code": "person"}],
         predicate_option_rows=[{"id": 30, "rule_code": "delegation", "predicate": "delegated_authority"}],
+        factor_rows=[{"id": 40, "rule_code": "delegation", "factor_name": "source_factor"}],
+        factor_option_rows=[{"id": 50, "factor_id": 40, "label": "基础史源"}],
     )
     changed = tool.SourceSnapshot(
         item_rows=snapshot.item_rows,
         rule_rows=snapshot.rule_rows,
         material_policy_rows=snapshot.material_policy_rows,
-        predicate_option_rows=[{"id": 30, "rule_code": "delegation", "predicate": "different"}],
+        predicate_option_rows=snapshot.predicate_option_rows,
+        factor_rows=snapshot.factor_rows,
+        factor_option_rows=[{"id": 50, "factor_id": 40, "label": "不同取值"}],
     )
 
     assert snapshot.fingerprint != changed.fingerprint
@@ -106,6 +110,8 @@ def test_read_schema_sql_points_to_retrieval_v2_migration() -> None:
 
     assert "create schema if not exists retrieval_v2" in sql
     assert "create table if not exists retrieval_v2.rule_contracts" in sql
+    assert "create table if not exists retrieval_v2.claim_rule_binding_candidates" in sql
+    assert "create type retrieval_v2.rv2_review_status as enum" in sql
 
 
 def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> None:
@@ -113,6 +119,7 @@ def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> Non
 
     captured = capsys.readouterr()
     assert "retrieval_v2.claim_rule_bindings" in captured.out
+    assert "retrieval_v2.claim_rule_binding_candidates" in captured.out
 
 
 def test_missing_action_is_a_usage_error() -> None:

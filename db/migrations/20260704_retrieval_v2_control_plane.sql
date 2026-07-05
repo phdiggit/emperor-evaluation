@@ -30,6 +30,60 @@ create table if not exists retrieval_v2.eval_rules (
     constraint rv2_eval_rules_rule_code_not_blank check (btrim(rule_code) <> '')
 );
 
+create table if not exists retrieval_v2.eval_rule_factors (
+    id bigint generated always as identity primary key,
+    item_id bigint not null references retrieval_v2.eval_items(id) on delete restrict,
+    source_factor_id bigint not null,
+    item_code text not null,
+    rule_id bigint references retrieval_v2.eval_rules(id) on delete restrict,
+    rule_code text not null default '',
+    formula_code text not null,
+    factor_name text not null,
+    factor_scope text not null,
+    value_source text not null default 'markdown',
+    source_doc text not null default '',
+    source_heading text not null default '',
+    description text not null default '',
+    factor_status text not null default 'active',
+    source_row jsonb not null,
+    source_fingerprint text not null,
+    copied_at timestamptz not null default now(),
+    constraint rv2_eval_rule_factors_source_uk unique (source_factor_id),
+    constraint rv2_eval_rule_factors_code_uk unique (item_code, rule_code, formula_code, factor_name),
+    constraint rv2_eval_rule_factors_item_code_not_blank check (btrim(item_code) <> ''),
+    constraint rv2_eval_rule_factors_formula_code_not_blank check (btrim(formula_code) <> ''),
+    constraint rv2_eval_rule_factors_factor_name_not_blank check (btrim(factor_name) <> ''),
+    constraint rv2_eval_rule_factors_scope_known check (factor_scope in ('default', 'shared', 'rule', 'attribute_mapping', 'team', 'retired')),
+    constraint rv2_eval_rule_factors_value_source_known check (value_source in ('markdown', 'manual', 'generated')),
+    constraint rv2_eval_rule_factors_status_known check (factor_status in ('active', 'inactive', 'retired')),
+    constraint rv2_eval_rule_factors_rule_code_consistency check (
+        (rule_id is null and rule_code = '')
+        or (rule_id is not null and btrim(rule_code) <> '')
+    )
+);
+
+create table if not exists retrieval_v2.eval_rule_factor_options (
+    id bigint generated always as identity primary key,
+    factor_id bigint not null references retrieval_v2.eval_rule_factors(id) on delete cascade,
+    source_option_id bigint not null,
+    option_code text not null default '',
+    label text not null,
+    value_num numeric(12,4) not null,
+    sort_no integer not null default 0,
+    option_note text not null default '',
+    source_doc text not null default '',
+    source_line integer,
+    option_status text not null default 'active',
+    source_row jsonb not null,
+    source_fingerprint text not null,
+    copied_at timestamptz not null default now(),
+    constraint rv2_eval_rule_factor_options_source_uk unique (source_option_id),
+    constraint rv2_eval_rule_factor_options_factor_label_uk unique (factor_id, label),
+    constraint rv2_eval_rule_factor_options_label_not_blank check (btrim(label) <> ''),
+    constraint rv2_eval_rule_factor_options_status_known check (option_status in ('active', 'inactive', 'retired')),
+    constraint rv2_eval_rule_factor_options_source_line_positive check (source_line is null or source_line > 0)
+);
+
 create table if not exists retrieval_v2.eval_rule_material_policies (
     id bigint generated always as identity primary key,
     item_id bigint references retrieval_v2.eval_items(id) on delete restrict,
@@ -441,8 +495,18 @@ create table if not exists retrieval_v2.coverage_gap_events (
             'core_no_material',
             'core_zero_signal',
             'alias_unsearched',
+            'alias_missing',
+            'source_missing',
+            'fetch_error',
             'source_fetch_failed',
+            'needs_primary_source',
             'predicate_missing',
+            'civil_undercoverage',
+            'negative_undercoverage',
+            'weak_alias_noise',
+            'mixed_claim_not_split',
+            'mixed_claim_needs_review',
+            'negative_claim_not_scoring_without_gap',
             'material_classification_review',
             'object_payload_gap',
             'policy_block',
@@ -466,8 +530,46 @@ create table if not exists retrieval_v2.coverage_gap_events (
     constraint rv2_coverage_gap_events_priority_positive check (priority > 0)
 );
 
+alter table retrieval_v2.coverage_gap_events
+    drop constraint if exists rv2_coverage_gap_events_gap_type_ck;
+
+alter table retrieval_v2.coverage_gap_events
+    add constraint rv2_coverage_gap_events_gap_type_ck check (
+        gap_type in (
+            'core_no_material',
+            'core_zero_signal',
+            'alias_unsearched',
+            'alias_missing',
+            'source_missing',
+            'fetch_error',
+            'source_fetch_failed',
+            'needs_primary_source',
+            'predicate_missing',
+            'civil_undercoverage',
+            'negative_undercoverage',
+            'weak_alias_noise',
+            'mixed_claim_not_split',
+            'mixed_claim_needs_review',
+            'negative_claim_not_scoring_without_gap',
+            'material_classification_review',
+            'object_payload_gap',
+            'policy_block',
+            'true_lack',
+            'other'
+        )
+    );
+
 create index if not exists rv2_eval_rules_lookup_idx
 on retrieval_v2.eval_rules(item_code, rule_code, rule_status);
+
+create index if not exists rv2_eval_rule_factors_lookup_idx
+on retrieval_v2.eval_rule_factors(item_code, rule_code, formula_code, factor_scope, factor_status);
+
+create index if not exists rv2_eval_rule_factor_options_factor_idx
+on retrieval_v2.eval_rule_factor_options(factor_id);
+
+create index if not exists rv2_eval_rule_factor_options_value_idx
+on retrieval_v2.eval_rule_factor_options(factor_id, value_num);
 
 create index if not exists rv2_material_policies_lookup_idx
 on retrieval_v2.eval_rule_material_policies(item_code, rule_code, selection_priority, policy_status);
@@ -517,6 +619,8 @@ on retrieval_v2.coverage_gap_events(priority, created_at) where status in ('read
 comment on schema retrieval_v2 is '抓包链路 v2 控制面：按规则契约驱动 source pack、claim、rule binding 和缺口反馈；不承载正式对象池和计分结果。';
 comment on table retrieval_v2.eval_items is '评价分项快照表：从源库复制 eval_items，用于构建抓包规则契约。';
 comment on table retrieval_v2.eval_rules is '评价规则快照表：从源库复制 eval_rules，按 item_code/rule_code 固定抓包规则边界。';
+comment on table retrieval_v2.eval_rule_factors is '计分因子目录快照表：复制源库结构化因子定义，供消费侧因子化候选和 patch 验收使用。';
+comment on table retrieval_v2.eval_rule_factor_options is '计分因子取值快照表：复制源库结构化取值标签、数值和来源行，供消费侧只读使用。';
 comment on table retrieval_v2.eval_rule_material_policies is '规则材料策略快照表：复制源库材料承载策略，供 claim 到 rule binding 和覆盖验收使用。';
 comment on table retrieval_v2.fact_relation_predicate_options is '事实谓词词表快照表：复制源库谓词选项，供 claim、binding 和人工复核使用。';
 comment on table retrieval_v2.rule_contracts is '规则契约表：source pack 绑定到某一版规则快照，不直接读取实时规则文档。';
@@ -556,6 +660,39 @@ comment on column retrieval_v2.eval_rules.rule_status is '源规则生命周期�
 comment on column retrieval_v2.eval_rules.source_row is '源库 eval_rules 整行 JSON 快照。';
 comment on column retrieval_v2.eval_rules.source_fingerprint is 'source_row 的稳定 hash，用于判断规则行是否漂移。';
 comment on column retrieval_v2.eval_rules.copied_at is '本行从源库复制或刷新到 retrieval_v2 的时间。';
+
+comment on column retrieval_v2.eval_rule_factors.id is '本表内部主键。';
+comment on column retrieval_v2.eval_rule_factors.item_id is '关联 retrieval_v2.eval_items.id。';
+comment on column retrieval_v2.eval_rule_factors.source_factor_id is '源库 eval_rule_factors.id，用于追溯规则表快照来源。';
+comment on column retrieval_v2.eval_rule_factors.item_code is '评价分项代码冗余字段，例如 I5B。';
+comment on column retrieval_v2.eval_rule_factors.rule_id is '关联 retrieval_v2.eval_rules.id；通用或共享因子可为空。';
+comment on column retrieval_v2.eval_rule_factors.rule_code is '评价规则代码冗余字段；通用或共享因子为空字符串。';
+comment on column retrieval_v2.eval_rule_factors.formula_code is '细则所属公式版本，例如 evidence_cluster_signal_v3。';
+comment on column retrieval_v2.eval_rule_factors.factor_name is '因子稳定代码，例如 source_factor。';
+comment on column retrieval_v2.eval_rule_factors.factor_scope is '因子范围，例如 default、shared、rule、attribute_mapping 或 team。';
+comment on column retrieval_v2.eval_rule_factors.value_source is '结构化取值来源，例如 markdown、manual 或 generated。';
+comment on column retrieval_v2.eval_rule_factors.source_doc is '因子定义来源文档路径。';
+comment on column retrieval_v2.eval_rule_factors.source_heading is '因子定义来源文档小节。';
+comment on column retrieval_v2.eval_rule_factors.description is '因子级中文说明；保存整组因子的适用口径，不复制到每个取值行。';
+comment on column retrieval_v2.eval_rule_factors.factor_status is '源因子生命周期状态快照。';
+comment on column retrieval_v2.eval_rule_factors.source_row is '源库 eval_rule_factors 整行 JSON 快照。';
+comment on column retrieval_v2.eval_rule_factors.source_fingerprint is 'source_row 的稳定 hash，用于判断因子定义是否漂移。';
+comment on column retrieval_v2.eval_rule_factors.copied_at is '本行从源库复制或刷新到 retrieval_v2 的时间。';
+
+comment on column retrieval_v2.eval_rule_factor_options.id is '本表内部主键。';
+comment on column retrieval_v2.eval_rule_factor_options.factor_id is '关联 retrieval_v2.eval_rule_factors.id。';
+comment on column retrieval_v2.eval_rule_factor_options.source_option_id is '源库 eval_rule_factor_options.id，用于追溯规则取值快照来源。';
+comment on column retrieval_v2.eval_rule_factor_options.option_code is '取值代码；源表为空时保留空字符串。';
+comment on column retrieval_v2.eval_rule_factor_options.label is '可选因子标签；消费侧 patch 必须引用该标签。';
+comment on column retrieval_v2.eval_rule_factor_options.value_num is '该标签对应的计算数值。';
+comment on column retrieval_v2.eval_rule_factor_options.sort_no is '同一因子下取值展示排序。';
+comment on column retrieval_v2.eval_rule_factor_options.option_note is '取值级中文说明；只写单个标签无法表达的特殊边界，默认留空。';
+comment on column retrieval_v2.eval_rule_factor_options.source_doc is '取值来源文档路径。';
+comment on column retrieval_v2.eval_rule_factor_options.source_line is '取值来源文档行号。';
+comment on column retrieval_v2.eval_rule_factor_options.option_status is '源取值生命周期状态快照。';
+comment on column retrieval_v2.eval_rule_factor_options.source_row is '源库 eval_rule_factor_options 整行 JSON 快照。';
+comment on column retrieval_v2.eval_rule_factor_options.source_fingerprint is 'source_row 的稳定 hash，用于判断取值标签是否漂移。';
+comment on column retrieval_v2.eval_rule_factor_options.copied_at is '本行从源库复制或刷新到 retrieval_v2 的时间。';
 
 comment on column retrieval_v2.eval_rule_material_policies.id is '本表内部主键。';
 comment on column retrieval_v2.eval_rule_material_policies.item_id is '关联 retrieval_v2.eval_items.id；可为空表示跨分项或源行未绑定。';

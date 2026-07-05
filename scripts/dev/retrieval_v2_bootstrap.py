@@ -6,7 +6,7 @@ import json
 import os
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -22,6 +22,10 @@ from scripts.dev.retrieval_v2_contracts import (
 
 
 DEFAULT_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260704_retrieval_v2_control_plane.sql"
+DEFAULT_SCHEMA_PATHS = (
+    DEFAULT_SCHEMA_PATH,
+    ROOT / "db" / "migrations" / "20260705_retrieval_v2_consumption.sql",
+)
 DEFAULT_SOURCE_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_TARGET_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 DEFAULT_CONTRACT_CODE = "I5B-RETRIEVAL-V2-20260704"
@@ -37,6 +41,8 @@ class SourceSnapshot:
     rule_rows: list[dict[str, Any]]
     material_policy_rows: list[dict[str, Any]]
     predicate_option_rows: list[dict[str, Any]]
+    factor_rows: list[dict[str, Any]] = field(default_factory=list)
+    factor_option_rows: list[dict[str, Any]] = field(default_factory=list)
 
     @property
     def fingerprint(self) -> str:
@@ -46,6 +52,8 @@ class SourceSnapshot:
                 "rules": self.rule_rows,
                 "material_policies": self.material_policy_rows,
                 "predicate_options": self.predicate_option_rows,
+                "factors": self.factor_rows,
+                "factor_options": self.factor_option_rows,
             }
         )
 
@@ -70,10 +78,14 @@ def code_hash(value: str, *, length: int = 12) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()[:length].upper()
 
 
-def read_schema_sql(path: Path = DEFAULT_SCHEMA_PATH) -> str:
-    if not path.exists():
-        raise RetrievalV2BootstrapError(f"schema file missing: {path}")
-    return path.read_text(encoding="utf-8")
+def read_schema_sql(path: Path | None = None) -> str:
+    paths = (path,) if path is not None else DEFAULT_SCHEMA_PATHS
+    chunks: list[str] = []
+    for schema_path in paths:
+        if not schema_path.exists():
+            raise RetrievalV2BootstrapError(f"schema file missing: {schema_path}")
+        chunks.append(schema_path.read_text(encoding="utf-8").rstrip())
+    return "\n\n".join(chunks) + "\n"
 
 
 def resolve_dsn(env_name: str) -> str:
@@ -169,6 +181,39 @@ def fetch_source_snapshot(source_dsn: str, *, item_code: str) -> SourceSnapshot:
                     """,
                     (item_code, item_code),
                 )
+            factor_rows: list[dict[str, Any]] = []
+            factor_option_rows: list[dict[str, Any]] = []
+            if table_exists(cur, "eval_rule_factors"):
+                factor_rows = fetch_json_rows(
+                    cur,
+                    """
+                    select to_jsonb(f) as row
+                      from public.eval_rule_factors f
+                     where f.item_code = %s
+                        or f.item_id in (select i.id from public.eval_items i where i.item_code = %s)
+                     order by f.formula_code, f.rule_code, f.factor_scope, f.factor_name, f.id
+                    """,
+                    (item_code, item_code),
+                )
+            if table_exists(cur, "eval_rule_factors") and table_exists(cur, "eval_rule_factor_options"):
+                factor_option_rows = fetch_json_rows(
+                    cur,
+                    """
+                    select to_jsonb(o) || jsonb_build_object(
+                               'item_code', f.item_code,
+                               'rule_code', f.rule_code,
+                               'formula_code', f.formula_code,
+                               'factor_name', f.factor_name,
+                               'factor_scope', f.factor_scope
+                           ) as row
+                      from public.eval_rule_factor_options o
+                      join public.eval_rule_factors f on f.id = o.factor_id
+                     where f.item_code = %s
+                        or f.item_id in (select i.id from public.eval_items i where i.item_code = %s)
+                     order by f.formula_code, f.rule_code, f.factor_name, o.sort_no, o.id
+                    """,
+                    (item_code, item_code),
+                )
             predicate_option_rows: list[dict[str, Any]] = []
             if table_exists(cur, "fact_relation_predicate_options"):
                 predicate_option_rows = fetch_json_rows(
@@ -187,6 +232,8 @@ def fetch_source_snapshot(source_dsn: str, *, item_code: str) -> SourceSnapshot:
         rule_rows=rule_rows,
         material_policy_rows=material_policy_rows,
         predicate_option_rows=predicate_option_rows,
+        factor_rows=factor_rows,
+        factor_option_rows=factor_option_rows,
     )
 
 
@@ -290,6 +337,100 @@ def upsert_rule(cur: Any, row: Mapping[str, Any], item_ids: Mapping[int, int]) -
             rule_code,
             text_from(row, "rule_label", "label", "name", "title"),
             text_from(row, "status", "lifecycle_status") or "active",
+            json_param(row),
+            stable_fingerprint(row),
+        ),
+    )
+    return int(cur.fetchone()["id"])
+
+
+def upsert_factor(cur: Any, row: Mapping[str, Any], item_ids: Mapping[int, int], rule_ids_by_code: Mapping[str, int]) -> int:
+    source_item_id = int(row["item_id"])
+    item_id = item_ids[source_item_id]
+    rule_code = text_from(row, "rule_code")
+    cur.execute(
+        """
+        insert into retrieval_v2.eval_rule_factors (
+            item_id, source_factor_id, item_code, rule_id, rule_code, formula_code,
+            factor_name, factor_scope, value_source, source_doc, source_heading,
+            description, factor_status, source_row, source_fingerprint
+        )
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s)
+        on conflict (source_factor_id) do update set
+            item_id = excluded.item_id,
+            item_code = excluded.item_code,
+            rule_id = excluded.rule_id,
+            rule_code = excluded.rule_code,
+            formula_code = excluded.formula_code,
+            factor_name = excluded.factor_name,
+            factor_scope = excluded.factor_scope,
+            value_source = excluded.value_source,
+            source_doc = excluded.source_doc,
+            source_heading = excluded.source_heading,
+            description = excluded.description,
+            factor_status = excluded.factor_status,
+            source_row = excluded.source_row,
+            source_fingerprint = excluded.source_fingerprint,
+            copied_at = now()
+        returning id
+        """,
+        (
+            item_id,
+            int(row["id"]),
+            text_from(row, "item_code"),
+            rule_ids_by_code.get(rule_code) if rule_code else None,
+            rule_code,
+            text_from(row, "formula_code"),
+            text_from(row, "factor_name"),
+            text_from(row, "factor_scope") or "rule",
+            text_from(row, "value_source") or "markdown",
+            text_from(row, "source_doc"),
+            text_from(row, "source_heading"),
+            text_from(row, "description"),
+            text_from(row, "status") or "active",
+            json_param(row),
+            stable_fingerprint(row),
+        ),
+    )
+    return int(cur.fetchone()["id"])
+
+
+def upsert_factor_option(cur: Any, row: Mapping[str, Any], factor_ids_by_source: Mapping[int, int]) -> int:
+    source_factor_id = int(row["factor_id"])
+    factor_id = factor_ids_by_source[source_factor_id]
+    cur.execute(
+        """
+        insert into retrieval_v2.eval_rule_factor_options (
+            factor_id, source_option_id, option_code, label, value_num, sort_no,
+            option_note, source_doc, source_line, option_status, source_row, source_fingerprint
+        )
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s)
+        on conflict (source_option_id) do update set
+            factor_id = excluded.factor_id,
+            option_code = excluded.option_code,
+            label = excluded.label,
+            value_num = excluded.value_num,
+            sort_no = excluded.sort_no,
+            option_note = excluded.option_note,
+            source_doc = excluded.source_doc,
+            source_line = excluded.source_line,
+            option_status = excluded.option_status,
+            source_row = excluded.source_row,
+            source_fingerprint = excluded.source_fingerprint,
+            copied_at = now()
+        returning id
+        """,
+        (
+            factor_id,
+            int(row["id"]),
+            text_from(row, "option_code"),
+            text_from(row, "label"),
+            row.get("value_num"),
+            int_from(row, "sort_no", default=0),
+            text_from(row, "note"),
+            text_from(row, "source_doc"),
+            row.get("source_line"),
+            text_from(row, "status") or "active",
             json_param(row),
             stable_fingerprint(row),
         ),
@@ -476,6 +617,8 @@ def upsert_contract(cur: Any, *, snapshot: SourceSnapshot, item_code: str, contr
         "source_tables": {
             "eval_items": len(snapshot.item_rows),
             "eval_rules": len(snapshot.rule_rows),
+            "eval_rule_factors": len(snapshot.factor_rows),
+            "eval_rule_factor_options": len(snapshot.factor_option_rows),
             "eval_rule_material_policies": len(snapshot.material_policy_rows),
             "fact_relation_predicate_options": len(snapshot.predicate_option_rows),
         },
@@ -655,7 +798,7 @@ def seed_target(cur: Any, *, emperor_name: str, item_code: str, contract_id: int
     }
 
 
-def apply_schema(target_dsn: str, *, schema_path: Path = DEFAULT_SCHEMA_PATH) -> None:
+def apply_schema(target_dsn: str, *, schema_path: Path | None = None) -> None:
     psycopg, dict_row = import_psycopg()
     sql = read_schema_sql(schema_path)
     with psycopg.connect(target_dsn, row_factory=dict_row) as conn:
@@ -683,6 +826,16 @@ def copy_rule_contract(
             for row in snapshot.rule_rows:
                 rule_id = upsert_rule(cur, row, item_ids_by_source)
                 rule_ids_by_code[text_from(row, "rule_code", "code")] = rule_id
+            factor_ids_by_source: dict[int, int] = {}
+            factor_count = 0
+            for row in snapshot.factor_rows:
+                factor_id = upsert_factor(cur, row, item_ids_by_source, rule_ids_by_code)
+                factor_ids_by_source[int(row["id"])] = factor_id
+                factor_count += 1
+            factor_option_count = 0
+            for row in snapshot.factor_option_rows:
+                upsert_factor_option(cur, row, factor_ids_by_source)
+                factor_option_count += 1
             material_count = 0
             for row in snapshot.material_policy_rows:
                 upsert_material_policy(cur, row, item_ids_by_code, rule_ids_by_code)
@@ -723,6 +876,8 @@ def copy_rule_contract(
         "copied": {
             "eval_items": len(snapshot.item_rows),
             "eval_rules": len(snapshot.rule_rows),
+            "eval_rule_factors": factor_count,
+            "eval_rule_factor_options": factor_option_count,
             "eval_rule_material_policies": material_count,
             "fact_relation_predicate_options": predicate_count,
             "rule_contract_rules": contract_rule_count,
@@ -733,7 +888,7 @@ def copy_rule_contract(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Bootstrap the retrieval_v2 source-pack control plane.")
-    parser.add_argument("--schema-path", type=Path, default=DEFAULT_SCHEMA_PATH)
+    parser.add_argument("--schema-path", type=Path, default=None)
     parser.add_argument("--print-schema", action="store_true", help="Print the retrieval_v2 SQL schema and exit.")
     parser.add_argument("--apply-schema", action="store_true", help="Apply the retrieval_v2 schema to the target DSN.")
     parser.add_argument("--copy-rule-contract", action="store_true", help="Copy item/rule/policy snapshots from source DSN to target DSN.")

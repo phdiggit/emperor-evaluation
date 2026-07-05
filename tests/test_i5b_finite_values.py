@@ -9,6 +9,10 @@ def test_period_aliases_normalize_to_canonical_values() -> None:
     assert values.normalize_period_alias("Qing") == "清"
     assert values.normalize_period_alias("Northern Song") == "北宋"
     assert values.normalize_period_alias("唐、武周") == "武周"
+    assert values.normalize_period_alias("南朝刘宋") == "刘宋"
+    assert values.normalize_period_alias("Southern Liang") == "南梁"
+    assert values.normalize_period_alias("Former Zhao") == "汉赵"
+    assert values.normalize_period_alias("Later Zhao") == "后赵"
 
 
 def test_require_canonical_period_rejects_unknown_text() -> None:

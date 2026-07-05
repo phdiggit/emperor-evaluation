@@ -89,6 +89,25 @@ def task_with_candidate_source_gap() -> dict:
     }
 
 
+def task_with_external_source_refine_object() -> dict:
+    task = task_without_alias_gap()
+    task["coverage_matrix"] = {
+        "rule_code": "delegation",
+        "role_families": [
+            {"family_code": "civil_delegate", "target_min_claims": 1, "required_directions": ["positive"]}
+        ],
+    }
+    task["source_documents"] = [
+        {
+            "document_code": "DOC-SH-001",
+            "title": "宋史/fixture",
+            "source_kind": "primary_source",
+            "text": "太祖命吕余庆参知政事，委以政务。",
+        }
+    ]
+    return task
+
+
 def test_extract_json_accepts_trailing_text() -> None:
     payload = tool.extract_json('{"ok": true, "value": 1}\n补充说明：这里不应影响解析。')
 
@@ -438,6 +457,63 @@ def test_run_taskgen_can_preseed_search_documents_before_codex(tmp_path: Path) -
     assert Path(result["taskgen"]["files"]["preseed"]).exists()
 
 
+def test_run_taskgen_accepts_presearch_backed_taskgen_documents_when_preseed_empty(tmp_path: Path) -> None:
+    def fake_taskgen_with_presearch_doc(invocation: tool.CodexInvocation) -> tool.CodexResult:
+        payload = {
+            "target_profile": {"aliases": ["后唐明宗"]},
+            "object_seeds": [
+                {
+                    "name": "安重诲",
+                    "source_document_codes": ["SD-ZZTJ-274"],
+                }
+            ],
+            "source_documents": [
+                {
+                    "document_code": "SD-ZZTJ-274",
+                    "title": "資治通鑑(四部叢刊本)/卷第二百七十四",
+                    "wikisource_title": "資治通鑑(四部叢刊本)/卷第二百七十四",
+                    "url": "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7274",
+                },
+                {"document_code": "DOC-BAD", "title": "bad", "url": "https://example.test/bad"},
+            ],
+        }
+        invocation.last_message.parent.mkdir(parents=True, exist_ok=True)
+        invocation.last_message.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        invocation.event_log.write_text(
+            '{"type":"turn.completed","usage":{"input_tokens":12,"output_tokens":4}}\n',
+            encoding="utf-8",
+        )
+        return tool.CodexResult(payload=payload, elapsed_seconds=0.5, usage={"input_tokens": 12, "output_tokens": 4})
+
+    preseed = {
+        "source_documents": [],
+        "search_plan": {
+            "presearch_hits": [
+                {
+                    "query": "李嗣源 資治通鑑",
+                    "title": "資治通鑑(四部叢刊本)/卷第二百七十四",
+                    "url": "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7274",
+                    "rejected_reason": "source_root_mismatch",
+                }
+            ]
+        },
+        "clean_audit": {"taskgen_presearch": True, "presearch_hit_count": 1},
+    }
+    context = context_for("李嗣源", "TGT-I5B-LSY")
+
+    result = tool.run_taskgen(
+        context=context,
+        run_root=tmp_path,
+        codex_runner=fake_taskgen_with_presearch_doc,
+        codex_bin="codex",
+        timeout_seconds=30,
+        search=False,
+        preseed_discovery=preseed,
+    )
+
+    assert [row["document_code"] for row in result["task"]["source_documents"]] == ["SD-ZZTJ-274"]
+
+
 def test_cli_merges_public_emp_metadata_into_task_target_payload() -> None:
     task = {"target_code": "TGT-I5B-CC", "target_payload": {"seed_source": "retrieval_v2_bootstrap"}}
     result = retrieval_v2_clean_cli._with_emp_metadata_target_payload(
@@ -451,6 +527,13 @@ def test_cli_merges_public_emp_metadata_into_task_target_payload() -> None:
         "title": "魏武帝",
     }
     assert "ignored" not in result["target_payload"]
+
+
+def test_cli_loads_query_profile_metadata_for_missing_public_emp() -> None:
+    metadata = retrieval_v2_clean_cli._load_query_profile_metadata(["刘娥"])
+
+    assert "宋史 本纪与列传" in metadata["刘娥"]["source_targets"]
+    assert metadata["刘娥"]["retrieval_profile_source_group"] == "all_monarch_backfill"
 
 
 def test_cli_object_source_presearch_keeps_emp_metadata_after_normalize(tmp_path: Path, monkeypatch) -> None:
@@ -722,6 +805,39 @@ def test_clean_pipeline_matches_script_variant_before_judge(tmp_path: Path) -> N
     assert "吕余庆" in final_candidates["candidate_slices"][0]["matched_aliases"]
 
 
+def test_clean_pipeline_judges_when_candidate_alias_budget_is_zero(tmp_path: Path, monkeypatch) -> None:
+    def fake_alias_round(**kwargs) -> dict:
+        stage = kwargs["stage"]
+        stats = {
+            "gap_count": 1,
+            "patch_count": 1 if stage == "candidate" else 0,
+            "apply_alias_patch_count": 1 if stage == "candidate" else 0,
+            "added_alias_count": 1 if stage == "candidate" else 0,
+            "cli_alias_refiner_count": 0,
+        }
+        return {
+            "payload": {"stats": stats, "patches": [{"object_name": "吕余庆", "aliases": ["吕余庆"]}]},
+            "output_path": tmp_path / f"alias_patch.{stage}.json",
+            "prompt_path": None,
+        }
+
+    monkeypatch.setattr(tool, "build_alias_refinement_round", fake_alias_round)
+    summary = tool.run_clean_pipeline(
+        tasks=[task_without_alias_gap()],
+        run_root=tmp_path,
+        codex_runner=fake_judge,
+        skip_judge=False,
+        max_alias_refine_rounds=0,
+        max_workers=1,
+    )
+
+    person = summary["people"][0]
+    assert person["alias_round_limit_reached"] is True
+    assert person["round_count"] == 1
+    assert person["judge_status"] == "succeeded"
+    assert person["rounds"][0]["candidate_alias_patch_stats"]["apply_alias_patch_count"] == 1
+
+
 def test_clean_pipeline_auto_refines_candidate_source_gaps(tmp_path: Path, monkeypatch) -> None:
     queries: list[str] = []
 
@@ -756,6 +872,104 @@ def test_clean_pipeline_auto_refines_candidate_source_gaps(tmp_path: Path, monke
     assert person["candidate_slices"] == 1
     assert person["objects_without_slices"] == []
     assert summary["clean_policy"]["candidate_source_refine_rounds"] == 1
+
+
+def test_clean_pipeline_refines_external_source_gap_objects(tmp_path: Path, monkeypatch) -> None:
+    queries: list[str] = []
+
+    def fake_search(query: str, *, limit: int, timeout: int) -> list[dict]:
+        queries.append(query)
+        return [
+            {
+                "title": "宋史/卷十",
+                "url": "https://example.test/sh10",
+                "snippet": "吕余庆",
+                "text": "太祖命吕余庆参知政事，委以政务。",
+            }
+        ]
+
+    monkeypatch.setattr(tool.candidate_source_refiner, "search_wikisource", fake_search)
+    summary = tool.run_clean_pipeline(
+        tasks=[task_with_external_source_refine_object()],
+        run_root=tmp_path,
+        skip_judge=True,
+        max_alias_refine_rounds=0,
+        candidate_source_refine_rounds=1,
+        candidate_source_refine_max_objects=4,
+        candidate_source_refine_pages_per_object=1,
+        candidate_source_refine_objects=["吕余庆"],
+        max_workers=1,
+    )
+
+    person = summary["people"][0]
+    assert "吕余庆 宋史" in queries
+    assert all(query.endswith(" 宋史") for query in queries)
+    assert person["round_count"] == 2
+    assert person["rounds"][0]["candidate_coverage_gap_count"] == 0
+    assert person["rounds"][0]["candidate_source_refine_stats"]["gap_object_names"] == ["吕余庆"]
+    assert person["rounds"][0]["candidate_source_refine_stats"]["added_source_document_count"] == 1
+
+
+def test_clean_pipeline_refines_judge_source_gap_objects(tmp_path: Path, monkeypatch) -> None:
+    queries: list[str] = []
+    judge_calls: list[str] = []
+
+    def fake_search(query: str, *, limit: int, timeout: int) -> list[dict]:
+        queries.append(query)
+        return [
+            {
+                "title": "宋史/卷十",
+                "url": "https://example.test/sh10",
+                "snippet": "吕余庆",
+                "text": "太祖命吕余庆参知政事，委以政务。",
+            }
+        ]
+
+    def judge_needs_refine_once(invocation: tool.CodexInvocation) -> tool.CodexResult:
+        judge_calls.append(invocation.phase)
+        needs_refine = len(judge_calls) == 1
+        payload = {
+            "job_code": "JOB-I5B-ZKY-DELEGATION",
+            "status": "needs_refinement" if needs_refine else "succeeded",
+            "documents": [],
+            "passages": [],
+            "claims": [],
+            "primary_bindings": [],
+            "secondary_binding_candidates": [],
+            "coverage_matrix": {"rule_code": "delegation", "role_families": []},
+            "coverage": {"ready_for_object_pool": not needs_refine, "checked_objects": ["吕余庆"]},
+            "coverage_gaps": [
+                {"gap_type": "predicate_missing", "object_name": "吕余庆", "family_code": "civil_delegate"}
+            ]
+            if needs_refine
+            else [],
+        }
+        invocation.last_message.parent.mkdir(parents=True, exist_ok=True)
+        invocation.last_message.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        invocation.event_log.write_text('{"type":"turn.completed","usage":{"input_tokens":9}}\n', encoding="utf-8")
+        return tool.CodexResult(payload=payload, elapsed_seconds=1.0, usage={"input_tokens": 9})
+
+    monkeypatch.setattr(tool.candidate_source_refiner, "search_wikisource", fake_search)
+    summary = tool.run_clean_pipeline(
+        tasks=[task_with_external_source_refine_object()],
+        run_root=tmp_path,
+        codex_runner=judge_needs_refine_once,
+        skip_judge=False,
+        max_alias_refine_rounds=0,
+        candidate_source_refine_rounds=1,
+        candidate_source_refine_pages_per_object=1,
+        max_workers=1,
+    )
+
+    person = summary["people"][0]
+    final_task = json.loads(Path(person["files"]["final_task"]).read_text(encoding="utf-8"))
+    assert judge_calls == ["judge", "judge"]
+    assert "吕余庆 宋史" in queries
+    assert person["round_count"] == 2
+    assert person["judge_status"] == "succeeded"
+    assert person["rounds"][0]["candidate_source_refine_stats"]["stage"] == "judge"
+    assert "task.judge_source_refine.round0.json" in person["rounds"][0]["candidate_source_refine_task"]
+    assert final_task["search_plan"]["judge_gap_source_presearch"]["gap_object_names"] == ["吕余庆"]
 
 
 def test_clean_pipeline_can_judge_object_shards_and_merge_ids(tmp_path: Path) -> None:

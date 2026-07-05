@@ -15,6 +15,12 @@ from scripts.dev.source_excerpt_pool_lib.wikisource import search_wikisource
 
 SearchFn = Callable[..., list[dict[str, str]]]
 
+AMBIGUOUS_PRESEARCH_TITLE_ANCHORS = {
+    "承天太后",
+    "齐天后",
+    "齊天后",
+}
+
 
 RULE_QUERY_TERMS = {
     "delegation": ["任", "命", "授", "拜", "相", "將軍", "總督", "經略", "留守"],
@@ -22,7 +28,24 @@ RULE_QUERY_TERMS = {
     "talent_discovery": ["薦", "舉", "用", "拔"],
     "appointment_trust": ["任", "信", "委", "拜"],
 }
-BLOCKED_DOCUMENT_TITLE_FRAGMENTS = ("四部叢刊本", "四部丛刊本", "演義", "演义", "志傳", "志传")
+BLOCKED_DOCUMENT_TITLE_FRAGMENTS = (
+    "四部叢刊本",
+    "四部丛刊本",
+    "演義",
+    "演义",
+    "志傳",
+    "志传",
+    "全覽",
+    "全览",
+    "附錄",
+    "附録",
+    "附录",
+    "提要",
+    "跋",
+    "進元史表",
+    "进元史表",
+    "進續資治通鑑長編表",
+)
 BLOCKED_ROOT_TITLE_FRAGMENTS = (
     "四庫全書本",
     "四库全书本",
@@ -88,7 +111,15 @@ def source_roots_for_hint(source_hint: str, *, emp_metadata: Mapping[str, Any] |
 
 def source_root_allowed(title: str, allowed_roots: Sequence[str]) -> bool:
     root = source_root_from_title(title)
-    return bool(root and root in {normalize_title(value) for value in allowed_roots if value})
+    normalized_title = normalize_title(title)
+    normalized_roots = {normalize_title(value) for value in allowed_roots if value}
+    return bool(
+        root
+        and (
+            root in normalized_roots
+            or any(normalized_title == allowed or normalized_title.startswith(f"{allowed}/") for allowed in normalized_roots)
+        )
+    )
 
 
 def source_hints_in_query(query: str, source_hints: Sequence[str]) -> list[str]:
@@ -154,12 +185,13 @@ def derived_volume_titles_from_root_hit(
 
 
 def source_root_for_snippet_derivation(title: str, allowed_roots: Sequence[str]) -> str:
+    normalized_title = normalize_title(title)
     title_root = source_root_from_title(title)
     allowed = [normalize_title(value) for value in allowed_roots if normalize_title(value)]
     if title_root in allowed:
         return title_root
     for root in sorted(allowed, key=len, reverse=True):
-        if title_root.startswith(root):
+        if normalized_title == root or normalized_title.startswith(f"{root}/") or title_root.startswith(root):
             return root
     return ""
 
@@ -254,6 +286,22 @@ def source_hints_for_context(
     return source_hints_for_metadata(metadata_from_context(context, emp_metadata), max_hints=max_hints)
 
 
+def title_is_ambiguous_presearch_anchor(title: str) -> bool:
+    return title in AMBIGUOUS_PRESEARCH_TITLE_ANCHORS
+
+
+def presearch_anchor_terms(name: str, title: str) -> list[str]:
+    if title and name and title_is_ambiguous_presearch_anchor(title):
+        return unique_strings([name, f"{name} {title}"])
+    return unique_strings([title, name])
+
+
+def preseed_target_title_aliases(name: str, title: str) -> list[str]:
+    if title and title_is_ambiguous_presearch_anchor(title):
+        return []
+    return [title] if title else []
+
+
 def object_source_queries(
     object_name: str,
     context: Mapping[str, Any],
@@ -276,7 +324,7 @@ def build_presearch_queries(
     meta = metadata_from_context(context, emp_metadata)
     name = text_from(context, "emperor_name")
     title = text_from(meta, "title", "temple_name", "posthumous_name")
-    anchors = unique_strings([title, name])
+    anchors = presearch_anchor_terms(name, title)
     source_hints = source_hints_for_context(context, emp_metadata=emp_metadata)
     queries: list[str] = []
     for anchor in anchors:
@@ -307,6 +355,7 @@ def build_taskgen_preseed(
     name = text_from(context, "emperor_name")
     meta = metadata_from_context(context, emp_metadata)
     title_alias = text_from(meta, "title", "temple_name", "posthumous_name")
+    title_aliases = preseed_target_title_aliases(name, title_alias)
     search_names = unique_strings([name, title_alias])
     for query in queries:
         allowed_roots = allowed_source_roots_for_query(query, context, emp_metadata=emp_metadata)
@@ -385,8 +434,8 @@ def build_taskgen_preseed(
         documents_by_title.update(root_documents_by_title)
     return {
         "target_profile": {
-            "aliases": [title_alias] if title_alias else [],
-            "must_check_titles": [title_alias] if title_alias else [],
+            "aliases": title_aliases,
+            "must_check_titles": title_aliases,
         },
         "source_documents": list(documents_by_title.values()),
         "search_plan": {

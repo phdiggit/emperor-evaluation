@@ -351,6 +351,35 @@ def final_status(statuses: Sequence[str]) -> str:
     return "succeeded"
 
 
+QUEUEABLE_GAP_TYPES = {
+    "alias_missing",
+    "civil_undercoverage",
+    "fetch_error",
+    "negative_undercoverage",
+    "needs_primary_source",
+    "predicate_missing",
+    "source_missing",
+    "true_lack",
+    "weak_alias_noise",
+    "other",
+}
+
+
+def queueable_gap_status(
+    statuses: Sequence[str],
+    coverage_gaps: Sequence[Mapping[str, Any]],
+) -> str:
+    status = final_status(statuses)
+    if status == "blocked":
+        return status
+    normalized = [status for status in statuses if status]
+    if any(status not in {"succeeded", "needs_refinement"} for status in normalized):
+        return status
+    if all(str(gap.get("gap_type") or "") in QUEUEABLE_GAP_TYPES for gap in coverage_gaps):
+        return "succeeded"
+    return status
+
+
 def binding_matches_family(binding: Mapping[str, Any], family_code: str) -> bool:
     role = str(binding.get("object_role") or "")
     return bool(family_code and (role == family_code or role in family_code or family_code in role))
@@ -489,9 +518,7 @@ def merge_judge_shard_results(
     secondary_bindings = dedupe_rows(secondary_bindings, ("claim_code", "rule_code", "reason"))
     coverage_gaps = dedupe_rows(coverage_gaps, ("gap_type", "object_name", "family_code", "diagnosis"))
     coverage_gaps = filter_resolved_shard_gaps(coverage_gaps, claims=claims, primary_bindings=primary_bindings)
-    status = final_status(statuses)
-    if status != "blocked" and not coverage_gaps:
-        status = "succeeded"
+    status = queueable_gap_status(statuses, coverage_gaps)
     positive_count = sum(1 for claim in claims if str(claim.get("direction") or "") == "positive")
     negative_count = sum(1 for claim in claims if str(claim.get("direction") or "") == "negative")
     all_checked_objects = sorted(set(objects_from_candidate_slices(candidates)) | set(checked_objects))
