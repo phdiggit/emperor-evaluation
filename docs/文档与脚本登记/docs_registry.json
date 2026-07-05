@@ -2493,6 +2493,38 @@
         "docs/文档与脚本登记/docs_registry.json"
       ],
       "human_confirmation_required": false,
+      "inbound_references": [
+        "AGENTS.md",
+        "docs/数据结构与生成库/README.md",
+        "scripts/dev/AGENTS.md"
+      ],
+      "lifecycle_status": "active",
+      "normalized_duplicate_group": null,
+      "path": "docs/数据结构与生成库/retrieval_v2_clean抓包流程.md",
+      "placement_action": "keep_in_docs",
+      "placement_reason": "retrieval_v2 clean 抓包、判读、覆盖矩阵和缺口补抓的稳定运行手册，承接规则表驱动的采集流程，避免评分规则文档承载运行细节。",
+      "placement_targets": [],
+      "proposed_action": "keep",
+      "reason": "当前 retrieval_v2 抓包链路需要统一 clean 输入边界、子进程判读契约和缺口到补抓任务的转换口径；本文只说明运行流程，不替代评分规则或证据裁量。",
+      "referenced_by_tests": [],
+      "replacement_path": null,
+      "semantic_verification_required": false,
+      "title": "retrieval_v2 clean 抓包流程",
+      "unique_source_risk": true,
+      "weak_reference_candidates": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ]
+    },
+    {
+      "content_role": "stable_operational_guide",
+      "document_type": "operational_guide",
+      "duplicate_group": null,
+      "exact_duplicate_group": null,
+      "generator_candidates": [],
+      "governance_references": [
+        "docs/文档与脚本登记/docs_registry.json"
+      ],
+      "human_confirmation_required": false,
       "inbound_references": [],
       "lifecycle_status": "active",
       "normalized_duplicate_group": null,
@@ -3135,10 +3167,10 @@
   "docs_module_density_reviews": [
     {
       "module_path": "docs/数据结构与生成库",
-      "direct_markdown_count": 15,
+      "direct_markdown_count": 16,
       "threshold": 8,
       "review_status": "reviewed",
-      "decision": "数据平台、SQLite、JSONL、配置、对象化输入契约、规则承载对象关系模型和批次生命周期仍同属数据结构模块；本批不为 I5B 影子层机械拆分新目录。"
+      "decision": "数据平台、SQLite、JSONL、配置、对象化输入契约、规则承载对象关系模型、retrieval_v2 clean 抓包流程和批次生命周期仍同属数据结构模块；本批不为 I5B 影子层机械拆分新目录。"
     }
   ],
   "docs_topic_family_reviews": [

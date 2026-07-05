@@ -16,7 +16,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改前后核对 `git diff --name-only`；白名单外改动必须还原。Check diff scope before and after edits.
 - 返工或收口先定位最小修改点；通常只确认 branch、PR head 和 `git status`。For repair or closeout, start from the smallest fix.
 - 评分、证据、裁判、档位、分值和排名等业务语义先读 `docs/皇帝综合评价体系评分标准.md`；生成物不是事实源，冲突时不得静默覆盖。Generated outputs are views; find the generator before editing exports.
-- 检索包→史料→对象池流程按 `data/query_profile_batches/AGENTS.md` 路由；配套开发工具按 `scripts/dev/AGENTS.md` 路由，根文件只保留入口指向。
+- 检索包→史料→对象池流程按 `data/query_profile_batches/AGENTS.md` 路由；retrieval_v2 clean 抓包、判读和补抓流程先读 `docs/数据结构与生成库/retrieval_v2_clean抓包流程.md`；配套开发工具按 `scripts/dev/AGENTS.md` 路由，根文件只保留入口指向。
 - 清理、归档、删除和 `data/*_batches/` 治理，第一轮只写诊断或候选清单。Cleanup/archive/delete and batch-data governance start with diagnostics only.
 
 ## GitHub

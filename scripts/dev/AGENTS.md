@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本文件只约束 `scripts/dev/**` 下的开发辅助工具。I5B 数据链的完整执行步骤见 [`../../docs/数据结构与生成库/I5B数据链运行流程.md`](../../docs/数据结构与生成库/I5B数据链运行流程.md)。
+本文件只约束 `scripts/dev/**` 下的开发辅助工具。I5B 数据链的完整执行步骤见 [`../../docs/数据结构与生成库/I5B数据链运行流程.md`](../../docs/数据结构与生成库/I5B数据链运行流程.md)；retrieval_v2 clean 抓包、判读和补抓流程见 [`../../docs/数据结构与生成库/retrieval_v2_clean抓包流程.md`](../../docs/数据结构与生成库/retrieval_v2_clean抓包流程.md)。
 
 ## 职责边界
 
@@ -25,6 +25,22 @@
 - `i5b_source_pack_runtime_supervisor.py` 只用于同一服务内拉起抓包 worker、refiner daemon 和可选 pipeline daemon 等独立子进程；不得把它们的业务逻辑耦合到一起。
 - `i5b_source_pack_pipeline_daemon.py` 是采集层流水线调度入口，读取状态台账、refiner 候选和显式传入的已审 seed report，按 fingerprint 去重后写派生 query profile 并投递下一轮抓包 job；它不得写回 canonical query profile，不替代人工对象裁量。seed report 只有带 `accepted_for_profile=true` 或 `review_status=accepted` 的条目才可投递。
 - `i5b_source_pack_handoff.py` 是批次 Codex 交接契约工具，用于初始化、校验和汇总 source pack 批次验收目录；它只检查交接契约和 source pack 审计，不替代人工回源裁量。
+- `retrieval_v2_bootstrap.py` 是抓包控制面 v2 的初始化入口，只创建 `retrieval_v2` schema、复制规则契约快照并播种检索目标；它不创建对象池、证据簇、总分或正式评分结果表。
+- `retrieval_v2_contracts.py` 是 retrieval_v2 clean 抓包的共享契约层，只放覆盖矩阵模板、角色族、二级 rule hint、缺口类型等纯函数和常量；它不联网、不连库、不读取旧结果、不做判读。
+- `retrieval_v2_task_skeleton.py` 是 retrieval_v2 taskgen 骨架和 discovery profile 复用层，从规则契约生成稳定 task 字段，并把 Codex discovery 只合并到对象、别名、史源和查询词等发现字段；它不联网、不写库、不判读。
+- `retrieval_v2_discovery_profiles.py` 是 retrieval_v2 discovery profile 的生成、扫描、校验、选择和写回工具；profile 只复用对象、别名、史源和发现说明，必须重新套当前 rule 的 task skeleton 与 coverage matrix。
+- `retrieval_v2_batch_taskgen.py` 是 retrieval_v2 多目标 taskgen prompt 和 batch discovery 解析层，只共享同一 rule 契约上下文，不合并不同皇帝的对象事实；输出必须逐目标 merge 回各自 task skeleton。
+- `retrieval_v2_taskgen_preseed.py` 是 retrieval_v2 taskgen 前置公开检索层，只用皇帝元数据、taskgen 新发现对象名和 Wikisource search 生成本轮候选 source documents / search hints；它不得读取旧 source pack、旧对象池、旧判读结果或写数据库。
+- `retrieval_v2_clean_runner.py` 是 retrieval_v2 clean 抓包的正式流水线入口，编排 taskgen、候选切片、机械别名补抓、候选重跑、Codex 判读、可选对象分片 judge 聚合和 summary；它只写本轮 `run_root` 和可复用原始史源页 cache，不写数据库，不读旧 source pack / 对象池 / 判读结果。
+- `retrieval_v2_clean_cli.py` 是 `retrieval_v2_clean_runner.py` 的 CLI 和调度层，承载默认流式 taskgen、batch taskgen、进度事件和命令行参数；canonical 命令入口仍是 `retrieval_v2_clean_runner.py`。
+- `retrieval_v2_clean_summary.py` 和 `retrieval_v2_run_events.py` 分别承载 summary 汇总、judge anomaly 自审和 `run_events.jsonl` 事件日志；它们不抓源、不判读、不连接数据库。
+- `retrieval_v2_candidate_source_refiner.py` 是 retrieval_v2 候选缺口补源层，从本轮 candidates 的 `objects_without_slices` / `source_missing` / `alias_missing` 对象生成对象级 Wikisource 检索并合并新的 `source_documents`；它不读旧结果、不判读、不写库。
+- `retrieval_v2_judge_shards.py` 是 retrieval_v2 judge 分片和聚合纯函数层，只切分本轮 candidates、构造 shard prompt、重写聚合 claim/passages/bindings ID；它不调用 Codex、不联网、不读写数据库。
+- `retrieval_v2_candidate_prompt.py` 是 retrieval_v2 judge prompt 构造层，把本轮 candidates 和判读预算契约转成 Codex judge prompt；它不抓源、不判读、不写库。
+- `retrieval_v2_alias_refiner.py` 是 retrieval_v2 覆盖缺口到别名补抓的调度层工具，从本轮 task / candidates / judge result 生成 alias patch、patched task 和可选 CLI alias-refiner prompt；它不联网、不写库、不读旧结果、不抽取事实，只有非机械称谓判断才交给 Codex CLI 子进程。
+- `retrieval_v2_source_candidates.py` 是 retrieval_v2 抓包判读前的候选片段 builder，必须遵守 retrieval_v2 clean 抓包流程；它只负责抓取/缓存源页、按别名和 rule 关键词切片并生成瘦身 Codex prompt，记录 fetch errors 和 coverage gaps；它不读旧判读结果、不写库、不替代 source pack validator。
+- `retrieval_v2_source_document_policy.py` 是 retrieval_v2 source document 门禁层，按目标 source strategy、史源 root 和总称实录目标 metadata 判断某个源页是否可进入候选切片；它不抓取、不判读、不写库。
+- `retrieval_v2_quality_gate.py` 是 retrieval_v2 run 质量对照入口，用旧基准 run 和候选 run 的对象覆盖、claim 数、primary binding 数、无切片对象和状态做离线验收；它只读本地 run 目录，不联网、不读数据库、不替代人工抽样原文。
 - `i5b_next_stage_queue_runner.py` 是 source pack handoff 后的收货批处理入口，只消费已通过 `next_stage_queue.jsonl` 的 ready 人物，生成摘录报告和对象 payload 骨架到 `.tmp/**`；它不写数据库、不替代对象规则裁量。
 - `i5b_next_stage_control_board.py` 是 ready 包消费后的总控减负入口，聚合 next-stage 骨架、对象 payload 子进程候选、review 报告和占位符审计结果，生成缺交付派工单与可 dry-run payload 清单；它不写数据库、不替代对象规则裁量。对象 payload 子进程完成后，先用该板确认主控工作区已看到候选文件，再关闭子进程。
 - `i5b_query_profile_seed_builder.py` 是半成品检索包种子候选生成器，从本地已登记 search/source/evidence/anchor 行抽取同人对象候选；显式 `--source-discovery` 时可小规模 search/fetch Wikisource 页面全文来发现候选，但仍不直接升级 profile、不投抓包队列。
