@@ -7,6 +7,125 @@ from typing import Any, Iterable
 
 PROCESS_DOC_PATH = "docs/数据结构与生成库/retrieval_v2_clean抓包流程.md"
 NON_CORE_RETRIEVAL_RULES = {"anti_nepotism"}
+PERSONNEL_POLITICAL_WIDE_PROFILE = "personnel_political_wide"
+PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE = "personnel_political_wide_shadow"
+POLITICAL_ACTION_FACT_SCHEMA = "political_action_v1"
+CANDIDATE_ROUTE_TABLE_VERSION = "personnel_political_v0_1"
+
+CANDIDATE_HINT_STATUS_CURRENT = "current_rule_candidate"
+CANDIDATE_HINT_STATUS_FUTURE = "future_rule_hint"
+CANDIDATE_HINT_STATUS_CONTEXT = "rejected_or_context_only"
+
+PERSONNEL_POLITICAL_ROUTE_LANES = (
+    {
+        "candidate_item_code": "I5B",
+        "candidate_lane": "delegation",
+        "rule_code": "delegation",
+        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
+        "description": "用人与授权正式候选；必须由消费端窄验后才能晋升入分。",
+    },
+    {
+        "candidate_item_code": "I5B",
+        "candidate_lane": "appointment_trust",
+        "rule_code": "appointment_trust",
+        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "office_or_domain", "outcome", "source_span_refs"],
+        "description": "任命、委任、信任、误任、撤任等任人信任正式候选。",
+    },
+    {
+        "candidate_item_code": "I5B",
+        "candidate_lane": "team_building",
+        "rule_code": "team_building",
+        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "office_or_domain", "outcome", "source_span_refs"],
+        "description": "对象池全部人才对象、团队构成和长期人才结构材料正式候选。",
+    },
+    {
+        "candidate_item_code": "I5B",
+        "candidate_lane": "talent_discovery",
+        "rule_code": "talent_discovery",
+        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "outcome", "source_span_refs"],
+        "description": "荐举、识别、拔擢或识人失误材料正式候选。",
+    },
+    {
+        "candidate_item_code": "I5B",
+        "candidate_lane": "tolerate_talent",
+        "rule_code": "tolerate_talent",
+        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "outcome", "source_span_refs"],
+        "description": "保全、容忍、复用、疑忌和处置人才材料正式候选；处置本身不自动入分。",
+    },
+    {
+        "candidate_item_code": "I5B",
+        "candidate_lane": "anti_nepotism",
+        "rule_code": "anti_nepotism",
+        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "source_span_refs"],
+        "description": "亲族、近臣、朋党、纳贿、专擅和谮害等正式候选。",
+    },
+    {
+        "candidate_item_code": "I5C",
+        "candidate_lane": "power_control",
+        "rule_code": "power_control",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
+        "description": "收兵权、削藩、诛权臣、制外戚、禁军控制、宗室控制等权力控制候选。",
+    },
+    {
+        "candidate_item_code": "I5D",
+        "candidate_lane": "political_character",
+        "rule_code": "political_character",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "outcome", "cost_or_damage", "source_span_refs"],
+        "description": "功臣处置、猜忌、滥杀、背信、宽纵残害和处置程序等政治品格候选。",
+    },
+    {
+        "candidate_item_code": "I5E",
+        "candidate_lane": "cognition_learning",
+        "rule_code": "cognition_learning",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "outcome", "time_context", "source_span_refs"],
+        "description": "纳谏、拒谏、改错、复盘、问策和听取反证等认知纠错候选。",
+    },
+    {
+        "candidate_item_code": "I6",
+        "candidate_lane": "key_decision",
+        "rule_code": "key_decision",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "action_type", "event_scope", "outcome", "cost_or_damage", "source_span_refs"],
+        "description": "危机决策、战略取舍、迁都改革、继承安排和风险止损候选。",
+    },
+    {
+        "candidate_item_code": "I3",
+        "candidate_lane": "military_frontier_result",
+        "rule_code": "military_frontier_result",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
+        "description": "战役结果、边疆治理、军制改革和将帅任用结果候选。",
+    },
+    {
+        "candidate_item_code": "I7",
+        "candidate_lane": "historical_debt",
+        "rule_code": "historical_debt",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "cost_or_damage", "time_context", "source_span_refs"],
+        "description": "大规模屠杀、制度性高压、财政民生长期损害和社会灾难候选。",
+    },
+)
 
 DELEGATION_ROLE_FAMILIES = (
     {
@@ -32,6 +151,45 @@ DELEGATION_ROLE_FAMILIES = (
         "target_min_claims": 1,
         "required_directions": ["negative"],
         "description": "撤权、误任、干预下属决策、亲信失职和授权后果失败；处置结果须同时证明任内具体治理或人才结构损害才算负向。",
+    },
+)
+
+I5B_ITEM_WIDE_ROLE_FAMILIES = (
+    {
+        "family_code": "appointment_trust_material",
+        "target_min_claims": 2,
+        "required_directions": ["positive", "negative"],
+        "description": "任命、委任、信任、误任、撤任等可复核任人信任的事实材料。",
+    },
+    {
+        "family_code": "team_building_material",
+        "target_min_claims": 2,
+        "required_directions": ["positive", "negative"],
+        "description": "对象池全部人才对象及其职能、边疆/财政/水利/中枢等团队构成材料。",
+    },
+    {
+        "family_code": "talent_discovery_material",
+        "target_min_claims": 1,
+        "required_directions": ["positive", "negative"],
+        "description": "荐举、拔擢、识别新人、采纳推荐或识人失误材料。",
+    },
+    {
+        "family_code": "tolerate_talent_material",
+        "target_min_claims": 1,
+        "required_directions": ["positive", "negative"],
+        "description": "保全、容忍、复用、疑忌、处置功臣或人才材料；处置结果本身只作候选事实。",
+    },
+    {
+        "family_code": "anti_nepotism_material",
+        "target_min_claims": 1,
+        "required_directions": ["positive", "negative"],
+        "description": "亲族、近臣、朋党、结党、纳贿、专擅、谮害等反亲私材料。",
+    },
+    {
+        "family_code": "future_power_character_hint",
+        "target_min_claims": 0,
+        "required_directions": ["positive", "negative", "neutral"],
+        "description": "权臣、宗室、军权失控、矫诏专政、待功臣和政治伦理等 future hint，不进入当前 formal rule 消费。",
     },
 )
 
@@ -124,17 +282,130 @@ SECONDARY_RULE_HINTS_BY_RULE = {
     "delegation": (
         {
             "rule_code": "appointment_trust",
-            "reason": "同一任用事实可能支撑任人信任与授权效果判断。",
+            "reason": "任命、委任、信任、误任、撤任等材料可复核任人信任。",
         },
         {
             "rule_code": "team_building",
-            "reason": "同一任用事实可能支撑团队建设成员和角色互补。",
+            "reason": "对象池全部人才对象及其职能材料可复核团队建设。",
         },
         {
             "rule_code": "talent_discovery",
-            "reason": "授权或任命对象若含首次发现、拔擢或重用线索，可留给发现人才复核。",
+            "reason": "荐举、拔擢、识别新人或采纳推荐材料可复核发现人才。",
         },
-    )
+        {
+            "rule_code": "tolerate_talent",
+            "reason": "保全、容忍、复用、疑忌、处置功臣/人才等材料可复核容人保全；处置结果本身不是负向结论。",
+        },
+        {
+            "rule_code": "anti_nepotism",
+            "reason": "亲族、近臣、朋党、结党、纳贿、专擅、谮害等材料可复核避免任人唯亲。",
+        },
+        {
+            "rule_code": "power_control",
+            "reason": "藩镇、权臣、宗室、军权失控、矫诏专政、谋反作乱等材料仅作后续权力控制项候选。",
+            "hint_status": "future_rule_hint",
+        },
+        {
+            "rule_code": "political_character",
+            "reason": "滥杀、待功臣、政治伦理、克制或不克制等材料仅作后续政治品格项候选。",
+            "hint_status": "future_rule_hint",
+        },
+    ),
+    "i5b_item_wide": (
+        {
+            "rule_code": "delegation",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "delegation",
+            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+            "reason": "授权、任命、权责配置和同链条结果材料可复核用人与授权。",
+        },
+        {
+            "rule_code": "appointment_trust",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "appointment_trust",
+            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+            "reason": "任命、委任、信任、误任、撤任等材料可复核任人信任。",
+        },
+        {
+            "rule_code": "team_building",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "team_building",
+            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+            "reason": "对象池全部人才对象及其职能材料可复核团队建设。",
+        },
+        {
+            "rule_code": "talent_discovery",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "talent_discovery",
+            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+            "reason": "荐举、拔擢、识别新人或采纳推荐材料可复核发现人才。",
+        },
+        {
+            "rule_code": "tolerate_talent",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "tolerate_talent",
+            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+            "reason": "保全、容忍、复用、疑忌、处置功臣/人才等材料可复核容人保全；处置结果本身不是负向结论。",
+        },
+        {
+            "rule_code": "anti_nepotism",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "anti_nepotism",
+            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
+            "reason": "亲族、近臣、朋党、结党、纳贿、专擅、谮害等材料可复核避免任人唯亲。",
+        },
+        {
+            "rule_code": "power_control",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "power_control",
+            "reason": "藩镇、权臣、宗室、军权失控、矫诏专政、谋反作乱等材料仅作后续权力控制项候选。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "political_character",
+            "candidate_item_code": "I5D",
+            "candidate_lane": "political_character",
+            "reason": "滥杀、待功臣、政治伦理、克制或不克制等材料仅作后续政治品格项候选。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "cognition_learning",
+            "candidate_item_code": "I5E",
+            "candidate_lane": "cognition_learning",
+            "reason": "纳谏、拒谏、改错、复盘、问策、听取反证等材料仅作后续认知纠错项候选。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "key_decision",
+            "candidate_item_code": "I6",
+            "candidate_lane": "key_decision",
+            "reason": "危机决策、战略取舍、迁都改革、继承安排、风险止损等材料仅作后续关键决策项候选。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "military_frontier_result",
+            "candidate_item_code": "I3",
+            "candidate_lane": "military_frontier_result",
+            "reason": "战役结果、边疆治理、军制改革、将帅任用结果等材料仅作后续军事边疆项候选。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "historical_debt",
+            "candidate_item_code": "I7",
+            "candidate_lane": "historical_debt",
+            "reason": "大规模屠杀、制度性高压、财政民生长期损害、族群或社会灾难等材料仅作后续历史负债项候选。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+    ),
+    PERSONNEL_POLITICAL_WIDE_PROFILE: tuple(
+        {
+            key: row[key]
+            for key in ("rule_code", "candidate_item_code", "candidate_lane", "hint_status")
+            if key in row
+        }
+        | {"reason": row["description"]}
+        for row in PERSONNEL_POLITICAL_ROUTE_LANES
+    ),
 }
 ALIAS_VARIANT_GROUPS = (
     ("党", "黨"),
@@ -532,6 +803,27 @@ SOURCE_PAGE_STRATEGY_BY_RULE = {
             "高密度目标不得只搜本纪；核心对象名必须回到本传或同源列传页补切片。",
             "同一 claim 可服务多个 rule，但必须拆成独立 bindings。",
         ],
+    },
+    "i5b_item_wide": {
+        "required_page_types": [
+            "target_annals_or_benji",
+            "object_biographies_or_liezhuan",
+            "chronicle_cross_check",
+            "institution_or_office_context_pages",
+        ],
+        "object_discovery_families": [
+            "appointment_trust_material",
+            "team_building_material",
+            "talent_discovery_material",
+            "tolerate_talent_material",
+            "anti_nepotism_material",
+            "future_power_character_hint",
+        ],
+        "notes": [
+            "这是 I5B item-wide discovery，不得沿用单一 delegation 对象族作为覆盖边界。",
+            "对象发现必须覆盖任命信任、团队、荐举识才、容才保全、亲私朋党和权力/政治品格 future hint。",
+            "primary_bindings 必须为空；所有 formal rule 归属写入 secondary_binding_candidates。",
+        ],
     }
 }
 
@@ -566,6 +858,11 @@ def source_hints_from_source_targets(source_targets: Any) -> list[str]:
     for value in values:
         text = normalize_source_text(value)
         for canonical, alias in sorted(alias_rows, key=lambda row: len(normalize_source_text(row[1])), reverse=True):
+            normalized_alias = normalize_source_text(alias)
+            if canonical == "魏書" and ("三國志" in text or "三国志" in text) and f"{normalized_alias}/" not in text:
+                continue
+            if canonical == "漢書" and ("後漢書" in text or "后汉书" in text) and f"{normalized_alias}/" not in text:
+                continue
             if normalize_source_text(alias) in text:
                 hints.append(canonical)
     return unique_strings(hints)
@@ -625,6 +922,110 @@ def secondary_rule_hints(rule_code: str) -> list[dict[str, str]]:
 def role_family_terms(rule_code: str, family_code: str) -> list[str]:
     if rule_code == "delegation":
         return list(DELEGATION_ROLE_FAMILY_TERMS.get(family_code, ()))
+    if rule_code == "i5b_item_wide":
+        if family_code == "appointment_trust_material":
+            return ["任", "命", "授", "拜", "委", "信", "相", "將", "将"]
+        if family_code == "team_building_material":
+            return ["相", "將", "将", "大臣", "腹心", "帷幄", "勳", "勋"]
+        if family_code == "talent_discovery_material":
+            return ["薦", "荐", "舉", "举", "拔", "識", "识", "用"]
+        if family_code == "tolerate_talent_material":
+            return [
+                "容",
+                "赦",
+                "保",
+                "復",
+                "复",
+                "疑",
+                "忌",
+                "免",
+                "誅",
+                "诛",
+                "谏",
+                "諫",
+                "诤",
+                "諍",
+                "直言",
+                "上疏",
+                "纳谏",
+                "納諫",
+                "受金",
+                "盗嫂",
+                "盜嫂",
+                "谗",
+                "讒",
+                "谮",
+                "譖",
+                "短",
+                "毁",
+                "毀",
+            ]
+        if family_code == "anti_nepotism_material":
+            return ["親", "亲", "党", "黨", "納賄", "纳贿", "專擅", "专擅", "譖", "谮"]
+        if family_code == "future_power_character_hint":
+            return [
+                "權",
+                "权",
+                "藩",
+                "削藩",
+                "撤藩",
+                "宗室",
+                "外戚",
+                "宦官",
+                "军权",
+                "軍權",
+                "兵权",
+                "兵權",
+                "禁军",
+                "禁軍",
+                "矯詔",
+                "矫诏",
+                "專政",
+                "专政",
+                "擅权",
+                "擅權",
+                "濫殺",
+                "滥杀",
+                "冤杀",
+                "冤殺",
+                "族诛",
+                "族誅",
+                "株连",
+                "株連",
+                "罗织",
+                "羅織",
+                "构陷",
+                "構陷",
+                "大狱",
+                "大獄",
+                "问策",
+                "問策",
+                "从谏",
+                "從諫",
+                "拒谏",
+                "拒諫",
+                "迁都",
+                "遷都",
+                "废立",
+                "廢立",
+                "罢兵",
+                "罷兵",
+                "议和",
+                "議和",
+                "边疆",
+                "邊疆",
+                "设治",
+                "設治",
+                "羁縻",
+                "羈縻",
+                "都护",
+                "都護",
+                "失地",
+                "诏狱",
+                "詔獄",
+                "崩坏",
+                "崩壞",
+            ]
     return []
 
 
@@ -646,6 +1047,8 @@ def coverage_matrix_template(
 ) -> dict[str, Any]:
     if rule_code == "delegation":
         role_families = [dict(row) | {"objects_checked": [], "gaps": []} for row in DELEGATION_ROLE_FAMILIES]
+    elif rule_code == "i5b_item_wide":
+        role_families = [dict(row) | {"objects_checked": [], "gaps": []} for row in I5B_ITEM_WIDE_ROLE_FAMILIES]
     else:
         role_families = [
             {

@@ -67,6 +67,7 @@ class FakeCursor:
     def execute(self, sql: str, params=None) -> None:
         lowered = sql.lower()
         self.conn.statements.append(lowered)
+        self.conn.params.append(params)
         if "from retrieval_v2.object_resolution_queue" in lowered:
             self.rows = [dict(row) for row in self.conn.queue_rows]
             self.row = None
@@ -92,6 +93,7 @@ class FakeConnection:
         self.queue_rows = [queue_row()]
         self.link_rows = [link_row()]
         self.statements: list[str] = []
+        self.params: list[object] = []
         self.committed = False
         self.rolled_back = False
 
@@ -145,6 +147,19 @@ def test_build_object_plan_counts_script_variant_name() -> None:
     assert payload["operation_counts"]["retrieval_v2.object_names"] == 2
 
 
+def test_build_object_plan_accepts_claim_object_fallback_link() -> None:
+    row = link_row()
+    row["role"] = "claim_object"
+    row["binding_ids"] = []
+    row["binding_codes"] = []
+    row["binding_count"] = 0
+
+    payload = tool.build_object_plan([queue_row()], [row])
+
+    assert payload["ok"] is True
+    assert payload["operation_counts"]["retrieval_v2.material_object_links"] == 1
+
+
 def test_apply_defaults_to_db_backed_dry_run_without_writes(tmp_path: Path, monkeypatch, capsys) -> None:
     conn = patch_fake_db(monkeypatch)
     output_json = tmp_path / "objects.json"
@@ -165,6 +180,26 @@ def test_apply_defaults_to_db_backed_dry_run_without_writes(tmp_path: Path, monk
     assert conn.rolled_back is True
     assert not any("insert into retrieval_v2.objects" in statement for statement in conn.statements)
     assert json.loads(capsys.readouterr().out)["ok"] is True
+
+
+def test_apply_can_filter_to_source_pack_code(tmp_path: Path, monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+    output_json = tmp_path / "objects.json"
+    output_md = tmp_path / "objects.md"
+
+    assert tool.main([
+        "apply",
+        "--source-pack-code",
+        "SPK-I5B-LH",
+        "--output-json",
+        str(output_json),
+        "--output-md",
+        str(output_md),
+    ]) == 0
+
+    payload = json.loads(output_json.read_text(encoding="utf-8"))
+    assert payload["source_pack_codes"] == ["SPK-I5B-LH"]
+    assert any("sp.pack_code = any" in statement for statement in conn.statements)
 
 
 def test_execute_writes_objects_before_material_links(tmp_path: Path, monkeypatch) -> None:

@@ -17,6 +17,8 @@ from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev.retrieval_v2_import_plan import (  # noqa: E402
     ImportPlanError,
     build_plan,
+    candidate_hint_status,
+    candidate_required_facts,
     canonical_object_type,
     enum_direction,
     index_by,
@@ -46,7 +48,7 @@ def fetch_one_id(cur: Any) -> int:
     return int(row["id"])
 
 
-def upsert_source_pack(cur: Any, row: Mapping[str, Any], lookup: Mapping[str, Any]) -> int:
+def upsert_source_pack(cur: Any, row: Mapping[str, Any], lookup: Mapping[str, Any], *, source_pack_status: str = "accepted") -> int:
     pack_code = text(row.get("source_pack_code"))
     target = lookup_target(lookup, text(row.get("target_code")))
     fingerprint = stable_hash(row.get("manifest_payload") or row)
@@ -56,9 +58,9 @@ def upsert_source_pack(cur: Any, row: Mapping[str, Any], lookup: Mapping[str, An
             pack_code, target_id, contract_id, pack_version, status, pack_root,
             manifest_payload, coverage_status, accepted_run_fingerprint, intake_manifest_path
         )
-        values (%s, %s, %s, %s, 'accepted', %s, %s::jsonb, 'passed', %s, %s)
+        values (%s, %s, %s, %s, %s, %s, %s::jsonb, 'passed', %s, %s)
         on conflict (pack_code) do update set
-            status = 'accepted',
+            status = excluded.status,
             coverage_status = 'passed',
             pack_root = excluded.pack_root,
             manifest_payload = excluded.manifest_payload,
@@ -72,6 +74,7 @@ def upsert_source_pack(cur: Any, row: Mapping[str, Any], lookup: Mapping[str, An
             target["id"],
             target["contract_id"],
             fingerprint,
+            source_pack_status,
             text(row.get("run_root")),
             json_param(row.get("manifest_payload") or row),
             fingerprint,
@@ -305,15 +308,27 @@ def upsert_claim_rule_binding_candidate(
     candidate_contract_rule_id = lookup_rule_id(lookup, target_code=target_code, rule_code=text(row.get("candidate_rule_code")))
     resolved_code = text(row.get("resolved_binding_code"))
     direction = enum_direction(row.get("candidate_direction"))
+    payload = row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {}
+    candidate_rule_code = text(row.get("candidate_rule_code"))
+    candidate_lane = text(row.get("candidate_lane") or payload.get("candidate_lane") or payload.get("lane") or candidate_rule_code)
+    hint_status = candidate_hint_status(row)
+    required_facts_present = candidate_required_facts(row)
+    routed_by_profile = text(
+        row.get("routed_by_profile")
+        or payload.get("routed_by_profile")
+        or payload.get("capture_profile")
+        or payload.get("created_from")
+    )
     cur.execute(
         """
         insert into retrieval_v2.claim_rule_binding_candidates (
             candidate_code, claim_id, source_contract_rule_id, candidate_contract_rule_id,
             source_item_code, source_rule_code, candidate_item_code, candidate_rule_code,
+            candidate_lane, hint_status, required_facts_present, routed_by_profile,
             candidate_predicate, candidate_object_role, candidate_direction, reason_hash,
             candidate_reason, confidence, review_status, resolved_binding_id, candidate_payload
         )
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::retrieval_v2.rv2_claim_direction, %s, %s, %s, 'pending', %s, %s::jsonb)
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s, %s, %s, %s::retrieval_v2.rv2_claim_direction, %s, %s, %s, 'pending', %s, %s::jsonb)
         on conflict on constraint rv2_claim_rule_binding_candidates_code_uk do update set
             source_contract_rule_id = excluded.source_contract_rule_id,
             candidate_contract_rule_id = excluded.candidate_contract_rule_id,
@@ -321,6 +336,10 @@ def upsert_claim_rule_binding_candidate(
             source_rule_code = excluded.source_rule_code,
             candidate_item_code = excluded.candidate_item_code,
             candidate_rule_code = excluded.candidate_rule_code,
+            candidate_lane = excluded.candidate_lane,
+            hint_status = excluded.hint_status,
+            required_facts_present = excluded.required_facts_present,
+            routed_by_profile = excluded.routed_by_profile,
             candidate_predicate = excluded.candidate_predicate,
             candidate_object_role = excluded.candidate_object_role,
             candidate_direction = excluded.candidate_direction,
@@ -344,7 +363,11 @@ def upsert_claim_rule_binding_candidate(
             text(row.get("source_item_code")),
             text(row.get("source_rule_code")),
             text(row.get("candidate_item_code")),
-            text(row.get("candidate_rule_code")),
+            candidate_rule_code,
+            candidate_lane,
+            hint_status,
+            json_param(required_facts_present),
+            routed_by_profile,
             text(row.get("candidate_predicate")),
             text(row.get("candidate_object_role")),
             direction,
@@ -352,7 +375,7 @@ def upsert_claim_rule_binding_candidate(
             text(row.get("reason")),
             row.get("confidence"),
             binding_ids.get(resolved_code) if resolved_code else None,
-            json_param(row.get("binding_payload") or row),
+            json_param(payload or row.get("binding_payload") or row),
         ),
     )
     return fetch_one_id(cur)
@@ -526,6 +549,7 @@ def execute_upserts(
     normalized_root: Path,
     review_root: Path | None,
     lookup: Mapping[str, Any],
+    source_pack_status: str = "accepted",
 ) -> dict[str, int]:
     rows = load_normalized_rows(normalized_root)
     review_rows = load_review_rows(review_root)
@@ -546,7 +570,7 @@ def execute_upserts(
 
     for row in rows["source_packs"]:
         code = text(row.get("source_pack_code"))
-        ids["source_packs"][code] = upsert_source_pack(cur, row, lookup)
+        ids["source_packs"][code] = upsert_source_pack(cur, row, lookup, source_pack_status=source_pack_status)
         counts["retrieval_v2.source_packs"] += 1
 
     for row in rows["source_pack_artifacts"]:
@@ -646,6 +670,7 @@ def execute_import(
     env_file: Path | None,
     dsn_env: str,
     execute: bool,
+    source_pack_status: str = "accepted",
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
@@ -662,6 +687,7 @@ def execute_import(
                 "write_db": execute,
                 "executed": False,
                 "executed_counts": {},
+                "source_pack_status": source_pack_status,
             }
             if not plan["ok"]:
                 conn.rollback()
@@ -674,6 +700,7 @@ def execute_import(
                 normalized_root=normalized_root,
                 review_root=review_root,
                 lookup=lookup,
+                source_pack_status=source_pack_status,
             )
             report["executed"] = True
         conn.commit()
@@ -690,6 +717,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--output-md", type=Path, required=True)
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
+    apply.add_argument("--source-pack-status", choices=["accepted", "draft", "ready", "needs_refinement"], default="accepted")
     apply.add_argument("--execute", action="store_true", help="Actually write retrieval_v2 consumption rows. Omit for dry-run.")
     return parser
 
@@ -704,6 +732,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         env_file=args.env_file,
         dsn_env=args.dsn_env,
         execute=args.execute,
+        source_pack_status=args.source_pack_status,
     )
     write_json(args.output_json, payload)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -26,10 +27,17 @@ ITEM_CODE = "I5B"
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_FORMULA_CODE = "evidence_cluster_signal_v3"
 DEFAULT_FACTOR_NAMES = {
-    "directness_factor",
     "attribution_factor",
     "source_factor",
     "context_factor",
+}
+KNOWN_I5B_RULE_CODES = {
+    "talent_discovery",
+    "appointment_trust",
+    "delegation",
+    "team_building",
+    "tolerate_talent",
+    "anti_nepotism",
 }
 RETIRED_FACTOR_NAMES = {
     "founder_pressure",
@@ -124,19 +132,14 @@ def parse_decimal_cell(value: str) -> Decimal | None:
         return None
 
 
-def rule_code_from_heading(heading: str) -> str:
+def rule_code_from_heading(heading: str, allowed_rule_codes: set[str] | None = None) -> str:
     match = re.search(r"`([^`]+)`", heading)
     if not match:
         return ""
     code = match.group(1).strip()
-    if code in {
-        "talent_discovery",
-        "appointment_trust",
-        "delegation",
-        "team_building",
-        "tolerate_talent",
-        "anti_nepotism",
-    }:
+    if allowed_rule_codes is not None:
+        return code if code in allowed_rule_codes else ""
+    if re.fullmatch(r"[a-z][a-z0-9_]*", code):
         return code
     return ""
 
@@ -151,6 +154,8 @@ def normalized_factor_name(raw_factor_name: str) -> str:
 def factor_scope_for(rule_code: str, factor_name: str, raw_factor_name: str = "") -> str:
     source_name = clean_cell(raw_factor_name or factor_name)
     if source_name.startswith("obj_attrs.") or re.match(r"^obj_attrs\.[^`]+->", source_name):
+        return "attribute_mapping"
+    if rule_code == "talent_discovery" and factor_name == "talent_quality_factor":
         return "attribute_mapping"
     if rule_code == "team_building":
         return "team"
@@ -199,7 +204,12 @@ def option_note(label: str, note: str) -> str:
     return cleaned
 
 
-def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
+def parse_i5b_rule_doc(
+    path: Path = I5B_RULE_DOC,
+    *,
+    item_code: str = ITEM_CODE,
+    allowed_rule_codes: set[str] | None = KNOWN_I5B_RULE_CODES,
+) -> list[FactorOption]:
     text = path.read_text(encoding="utf-8")
     formula_code = extract_formula_code(text)
     source_doc = repo_relative(path)
@@ -211,21 +221,43 @@ def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
     current_factor = ""
     current_factor_raw = ""
     table_header: list[str] | None = None
+    in_evidence_factor_section = False
 
     for line_no, line in enumerate(text.splitlines(), start=1):
-        heading_match = re.match(r"^###\s+(.+?)\s*$", line)
-        if heading_match:
-            current_heading = heading_match.group(1).strip()
-            current_rule_code = rule_code_from_heading(current_heading)
+        h2_match = re.match(r"^##\s+(.+?)\s*$", line)
+        if h2_match:
+            current_heading = h2_match.group(1).strip()
+            current_rule_code = rule_code_from_heading(current_heading, allowed_rule_codes)
+            in_evidence_factor_section = "证据修正因子" in current_heading
             current_factor = ""
             current_factor_raw = ""
             table_header = None
+            continue
+
+        heading_match = re.match(r"^###\s+(.+?)\s*$", line)
+        if heading_match:
+            current_heading = heading_match.group(1).strip()
+            current_factor = ""
+            current_factor_raw = ""
+            table_header = None
+            factor_heading_match = re.fullmatch(r"`([^`]+)`", current_heading)
+            if factor_heading_match:
+                current_factor_raw = factor_heading_match.group(1).strip()
+                current_factor = normalized_factor_name(current_factor_raw)
+                if in_evidence_factor_section:
+                    current_rule_code = ""
+                continue
+            heading_rule_code = rule_code_from_heading(current_heading, allowed_rule_codes)
+            if heading_rule_code:
+                current_rule_code = heading_rule_code
             continue
 
         factor_match = re.match(r"^`([^`]+)`.*[\uff1a:]\s*$", line.strip())
         if factor_match:
             current_factor_raw = factor_match.group(1).strip()
             current_factor = normalized_factor_name(current_factor_raw)
+            if in_evidence_factor_section:
+                current_rule_code = ""
             table_header = None
             continue
 
@@ -249,7 +281,7 @@ def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
         sort_counters[key] += 1
         rows.append(
             FactorOption(
-                item_code=ITEM_CODE,
+                item_code=item_code,
                 rule_code=current_rule_code,
                 formula_code=formula_code,
                 factor_name=current_factor,
@@ -267,7 +299,7 @@ def parse_i5b_rule_doc(path: Path = I5B_RULE_DOC) -> list[FactorOption]:
     return rows
 
 
-def parse_default_factor_doc(path: Path = DEFAULT_FACTOR_DOC) -> list[FactorOption]:
+def parse_default_factor_doc(path: Path = DEFAULT_FACTOR_DOC, *, item_code: str = ITEM_CODE) -> list[FactorOption]:
     text = path.read_text(encoding="utf-8")
     source_doc = repo_relative(path)
     rows: list[FactorOption] = []
@@ -288,7 +320,7 @@ def parse_default_factor_doc(path: Path = DEFAULT_FACTOR_DOC) -> list[FactorOpti
             sort_counters[factor_name] += 1
             rows.append(
                 FactorOption(
-                    item_code=ITEM_CODE,
+                    item_code=item_code,
                     rule_code="",
                     formula_code=DEFAULT_FORMULA_CODE,
                     factor_name=factor_name,
@@ -311,11 +343,17 @@ def extract_factor_options(
     rule_doc: Path = I5B_RULE_DOC,
     default_doc: Path = DEFAULT_FACTOR_DOC,
     include_defaults: bool = True,
+    item_code: str = ITEM_CODE,
+    allowed_rule_codes: set[str] | None = KNOWN_I5B_RULE_CODES,
 ) -> list[FactorOption]:
-    rows: list[FactorOption] = []
+    rows: list[FactorOption] = parse_i5b_rule_doc(rule_doc, item_code=item_code, allowed_rule_codes=allowed_rule_codes)
     if include_defaults:
-        rows.extend(parse_default_factor_doc(default_doc))
-    rows.extend(parse_i5b_rule_doc(rule_doc))
+        provided_defaults = {row.factor_name for row in rows if row.rule_code == ""}
+        rows.extend(
+            row
+            for row in parse_default_factor_doc(default_doc, item_code=item_code)
+            if row.factor_name not in provided_defaults
+        )
     return rows
 
 
@@ -325,6 +363,21 @@ def sql_literal(value: str) -> str:
 
 def option_code_for(row: FactorOption) -> str:
     return f"opt_{row.sort_no:03d}"
+
+
+def stable_source_id(namespace: str, parts: Sequence[object]) -> int:
+    payload = namespace + "|" + "|".join(str(part) for part in parts)
+    digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+    return 6_000_000_000_000_000_000 + (int(digest[:15], 16) % 1_000_000_000_000_000_000)
+
+
+def jsonb_literal(payload: dict[str, object]) -> str:
+    return sql_literal(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))) + "::jsonb"
+
+
+def source_fingerprint(payload: dict[str, object]) -> str:
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
 
 def factor_group_key(row: FactorOption) -> tuple[str, str, str, str, str, str, str]:
@@ -351,10 +404,42 @@ def render_group_upsert_statement(rows: Sequence[FactorOption]) -> str:
     source_doc = sql_literal(row.source_doc)
     source_heading = sql_literal(row.source_heading)
     description = sql_literal(row.description)
+    factor_payload = {
+        "source": "i5b_factor_table_sync",
+        "item_code": row.item_code,
+        "rule_code": row.rule_code,
+        "formula_code": row.formula_code,
+        "factor_name": row.factor_name,
+        "factor_scope": row.factor_scope,
+        "value_source": "markdown",
+        "source_doc": row.source_doc,
+        "source_heading": row.source_heading,
+        "description": row.description,
+    }
+    source_factor_id = str(
+        stable_source_id(
+            "eval_rule_factors",
+            [row.item_code, row.rule_code, row.formula_code, row.factor_name],
+        )
+    )
+    factor_source_row = jsonb_literal(factor_payload)
+    factor_source_fingerprint = sql_literal(source_fingerprint(factor_payload))
     option_values = ",\n".join(
         "    ("
         + ", ".join(
             [
+                str(
+                    stable_source_id(
+                        "eval_rule_factor_options",
+                        [
+                            option.item_code,
+                            option.rule_code,
+                            option.formula_code,
+                            option.factor_name,
+                            option.label,
+                        ],
+                    )
+                ),
                 sql_literal(option_code_for(option)),
                 sql_literal(option.label),
                 format_decimal(option.value_num),
@@ -362,6 +447,40 @@ def render_group_upsert_statement(rows: Sequence[FactorOption]) -> str:
                 sql_literal(option.note),
                 sql_literal(option.source_doc),
                 str(option.source_line),
+                jsonb_literal(
+                    {
+                        "source": "i5b_factor_table_sync",
+                        "item_code": option.item_code,
+                        "rule_code": option.rule_code,
+                        "formula_code": option.formula_code,
+                        "factor_name": option.factor_name,
+                        "option_code": option_code_for(option),
+                        "label": option.label,
+                        "value_num": format_decimal(option.value_num),
+                        "sort_no": option.sort_no,
+                        "note": option.note,
+                        "source_doc": option.source_doc,
+                        "source_line": option.source_line,
+                    }
+                ),
+                sql_literal(
+                    source_fingerprint(
+                        {
+                            "source": "i5b_factor_table_sync",
+                            "item_code": option.item_code,
+                            "rule_code": option.rule_code,
+                            "formula_code": option.formula_code,
+                            "factor_name": option.factor_name,
+                            "option_code": option_code_for(option),
+                            "label": option.label,
+                            "value_num": format_decimal(option.value_num),
+                            "sort_no": option.sort_no,
+                            "note": option.note,
+                            "source_doc": option.source_doc,
+                            "source_line": option.source_line,
+                        }
+                    )
+                ),
             ]
         )
         + ")"
@@ -372,7 +491,7 @@ def render_group_upsert_statement(rows: Sequence[FactorOption]) -> str:
         rule_row = f"""
 rule_row as (
     select r.id
-    from public.eval_rules r
+    from retrieval_v2.eval_rules r
     join item_row i on i.id = r.item_id
     where r.rule_code = {rule_code}
 )"""
@@ -384,13 +503,14 @@ rule_row as (
 
     return f"""with item_row as (
     select id
-    from public.eval_items
+    from retrieval_v2.eval_items
     where item_code = {item_code}
 ),
 {rule_row},
 factor_row as (
-    insert into public.eval_rule_factors (
+    insert into retrieval_v2.eval_rule_factors (
         item_id,
+        source_factor_id,
         item_code,
         rule_id,
         rule_code,
@@ -401,10 +521,13 @@ factor_row as (
         source_doc,
         source_heading,
         description,
-        status
+        factor_status,
+        source_row,
+        source_fingerprint
     )
     select
         item_row.id,
+        {source_factor_id},
         {item_code},
         rule_row.id,
         {rule_code},
@@ -415,10 +538,12 @@ factor_row as (
         {source_doc},
         {source_heading},
         {description},
-        'active'
+        'active',
+        {factor_source_row},
+        {factor_source_fingerprint}
     from item_row
     cross join rule_row
-    on conflict (item_code, rule_code, formula_code, factor_name) do update set
+    on conflict on constraint rv2_eval_rule_factors_code_uk do update set
         item_id = excluded.item_id,
         rule_id = excluded.rule_id,
         factor_scope = excluded.factor_scope,
@@ -426,46 +551,56 @@ factor_row as (
         source_doc = excluded.source_doc,
         source_heading = excluded.source_heading,
         description = excluded.description,
-        status = excluded.status,
-        updated_at = now()
+        factor_status = excluded.factor_status,
+        source_row = excluded.source_row,
+        source_fingerprint = excluded.source_fingerprint,
+        copied_at = now()
     returning id
 ),
-option_rows(option_code, label, value_num, sort_no, note, source_doc, source_line) as (
+option_rows(source_option_id, option_code, label, value_num, sort_no, option_note, source_doc, source_line, source_row, source_fingerprint) as (
     values
 {option_values}
 )
-insert into public.eval_rule_factor_options (
+insert into retrieval_v2.eval_rule_factor_options (
     factor_id,
+    source_option_id,
     option_code,
     label,
     value_num,
     sort_no,
-    note,
+    option_note,
     source_doc,
     source_line,
-    status
+    option_status,
+    source_row,
+    source_fingerprint
 )
 select
     factor_row.id,
+    option_rows.source_option_id,
     option_rows.option_code,
     option_rows.label,
     option_rows.value_num,
     option_rows.sort_no,
-    option_rows.note,
+    option_rows.option_note,
     option_rows.source_doc,
     option_rows.source_line,
-    'active'
+    'active',
+    option_rows.source_row,
+    option_rows.source_fingerprint
 from factor_row
 cross join option_rows
-on conflict (factor_id, label) do update set
+on conflict on constraint rv2_eval_rule_factor_options_factor_label_uk do update set
     option_code = excluded.option_code,
     value_num = excluded.value_num,
     sort_no = excluded.sort_no,
-    note = excluded.note,
+    option_note = excluded.option_note,
     source_doc = excluded.source_doc,
     source_line = excluded.source_line,
-    status = excluded.status,
-    updated_at = now();"""
+    option_status = excluded.option_status,
+    source_row = excluded.source_row,
+    source_fingerprint = excluded.source_fingerprint,
+    copied_at = now();"""
 
 
 def render_retire_stale_sql(rows: Sequence[FactorOption]) -> str:
@@ -492,7 +627,6 @@ def render_retire_stale_sql(rows: Sequence[FactorOption]) -> str:
             for row in rows
         }
     )
-    source_docs = sorted({row.source_doc for row in rows})
     item_codes = sorted({row.item_code for row in rows})
     formula_codes = sorted({row.formula_code for row in rows})
     if not option_keys:
@@ -504,7 +638,6 @@ def render_retire_stale_sql(rows: Sequence[FactorOption]) -> str:
     factor_values = ",\n".join(
         "    (" + ", ".join(sql_literal(value) for value in key) + ")" for key in factor_keys
     )
-    source_doc_list = ", ".join(sql_literal(value) for value in source_docs)
     item_code_list = ", ".join(sql_literal(value) for value in item_codes)
     formula_code_list = ", ".join(sql_literal(value) for value in formula_codes)
 
@@ -512,16 +645,16 @@ def render_retire_stale_sql(rows: Sequence[FactorOption]) -> str:
     values
 {option_values}
 )
-update public.eval_rule_factor_options erfo
+update retrieval_v2.eval_rule_factor_options erfo
 set
-    status = 'inactive',
-    updated_at = now()
-from public.eval_rule_factors erf
+    option_status = 'inactive',
+    copied_at = now()
+from retrieval_v2.eval_rule_factors erf
 where erf.id = erfo.factor_id
   and erf.value_source = 'markdown'
   and erf.item_code in ({item_code_list})
   and erf.formula_code in ({formula_code_list})
-  and erf.source_doc in ({source_doc_list})
+  and erfo.option_status = 'active'
   and not exists (
       select 1
       from doc_options d
@@ -536,14 +669,14 @@ with doc_factors(item_code, rule_code, formula_code, factor_name) as (
     values
 {factor_values}
 )
-update public.eval_rule_factors erf
+update retrieval_v2.eval_rule_factors erf
 set
-    status = 'inactive',
-    updated_at = now()
+    factor_status = 'inactive',
+    copied_at = now()
 where erf.value_source = 'markdown'
   and erf.item_code in ({item_code_list})
   and erf.formula_code in ({formula_code_list})
-  and erf.source_doc in ({source_doc_list})
+  and erf.factor_status = 'active'
   and not exists (
       select 1
       from doc_factors d

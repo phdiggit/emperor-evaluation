@@ -46,34 +46,63 @@ order by q.priority, q.id
 
 
 MATERIAL_LINK_SQL = """
-select
-    mc.id as claim_id,
-    mc.claim_code,
-    mc.object_name,
-    mc.object_group_key,
-    crb.object_role as role,
-    max(crb.confidence) as confidence,
-    array_agg(crb.id order by crb.id) as binding_ids,
-    array_agg(crb.binding_code order by crb.id) as binding_codes,
-    count(*) as binding_count,
-    sp.id as source_pack_id,
-    rt.id as target_id,
-    rt.target_code
-from retrieval_v2.claim_rule_bindings crb
-join retrieval_v2.material_claims mc on mc.id = crb.claim_id
-join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
-join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
-where crb.usable_for_object_payload
-group by
-    mc.id,
-    mc.claim_code,
-    mc.object_name,
-    mc.object_group_key,
-    crb.object_role,
-    sp.id,
-    rt.id,
-    rt.target_code
-order by mc.id, crb.object_role
+with primary_links as (
+    select
+        mc.id as claim_id,
+        mc.claim_code,
+        mc.object_name,
+        mc.object_group_key,
+        crb.object_role as role,
+        max(crb.confidence) as confidence,
+        array_agg(crb.id order by crb.id) as binding_ids,
+        array_agg(crb.binding_code order by crb.id) as binding_codes,
+        count(*) as binding_count,
+        sp.id as source_pack_id,
+        rt.id as target_id,
+        rt.target_code
+    from retrieval_v2.claim_rule_bindings crb
+    join retrieval_v2.material_claims mc on mc.id = crb.claim_id
+    join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
+    join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
+    where crb.usable_for_object_payload
+    group by
+        mc.id,
+        mc.claim_code,
+        mc.object_name,
+        mc.object_group_key,
+        crb.object_role,
+        sp.id,
+        rt.id,
+        rt.target_code
+),
+claim_object_links as (
+    select
+        mc.id as claim_id,
+        mc.claim_code,
+        mc.object_name,
+        mc.object_group_key,
+        'claim_object' as role,
+        mc.confidence as confidence,
+        array[]::bigint[] as binding_ids,
+        array[]::text[] as binding_codes,
+        0 as binding_count,
+        sp.id as source_pack_id,
+        rt.id as target_id,
+        rt.target_code
+    from retrieval_v2.material_claims mc
+    join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
+    join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
+    where not exists (
+        select 1
+          from retrieval_v2.claim_rule_bindings crb
+         where crb.claim_id = mc.id
+           and crb.usable_for_object_payload
+    )
+)
+select * from primary_links
+union all
+select * from claim_object_links
+order by claim_id, role
 """
 
 
@@ -214,13 +243,32 @@ def build_object_plan(queue_rows: Sequence[Mapping[str, Any]], link_rows: Sequen
     }
 
 
-def fetch_queue_rows(cur: Any) -> list[dict[str, Any]]:
-    cur.execute(QUEUE_SQL)
+def fetch_queue_rows(cur: Any, *, source_pack_codes: Sequence[str] = ()) -> list[dict[str, Any]]:
+    params: list[Any] = []
+    sql = QUEUE_SQL
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    if codes:
+        sql = sql.replace("order by q.priority, q.id", "  and sp.pack_code = any(%s)\norder by q.priority, q.id")
+        params.append(codes)
+    cur.execute(sql, params if params else None)
     return [dict(row) for row in cur.fetchall()]
 
 
-def fetch_link_rows(cur: Any) -> list[dict[str, Any]]:
-    cur.execute(MATERIAL_LINK_SQL)
+def fetch_link_rows(cur: Any, *, source_pack_codes: Sequence[str] = ()) -> list[dict[str, Any]]:
+    params: list[Any] = []
+    sql = MATERIAL_LINK_SQL
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    if codes:
+        sql = sql.replace(
+            "where crb.usable_for_object_payload",
+            "where crb.usable_for_object_payload\n      and sp.pack_code = any(%s)",
+        )
+        sql = sql.replace(
+            "where not exists (",
+            "where sp.pack_code = any(%s)\n      and not exists (",
+        )
+        params.extend([codes, codes])
+    cur.execute(sql, params if params else None)
     return [dict(row) for row in cur.fetchall()]
 
 
@@ -459,18 +507,19 @@ def execute_upserts(cur: Any, queue_rows: Sequence[Mapping[str, Any]], link_rows
     return dict(sorted(counts.items()))
 
 
-def execute_object_consumer(*, env_file: Path | None, dsn_env: str, execute: bool) -> dict[str, Any]:
+def execute_object_consumer(*, env_file: Path | None, dsn_env: str, execute: bool, source_pack_codes: Sequence[str] = ()) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
-            queue_rows = fetch_queue_rows(cur)
-            link_rows = fetch_link_rows(cur)
+            queue_rows = fetch_queue_rows(cur, source_pack_codes=source_pack_codes)
+            link_rows = fetch_link_rows(cur, source_pack_codes=source_pack_codes)
             report = build_object_plan(queue_rows, link_rows)
             report["mode"] = "execute" if execute else "dry_run_object_consumer"
             report["write_db"] = execute
+            report["source_pack_codes"] = [text(code) for code in source_pack_codes if text(code)]
             if not report["ok"]:
                 conn.rollback()
                 return report
@@ -523,6 +572,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--output-md", type=Path, required=True)
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
+    apply.add_argument("--source-pack-code", action="append", default=[])
     apply.add_argument("--execute", action="store_true", help="Actually write objects and material-object links. Omit for dry-run.")
     return parser
 
@@ -531,7 +581,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command != "apply":
         raise ImportPlanError(f"unsupported command: {args.command}")
-    payload = execute_object_consumer(env_file=args.env_file, dsn_env=args.dsn_env, execute=args.execute)
+    payload = execute_object_consumer(
+        env_file=args.env_file,
+        dsn_env=args.dsn_env,
+        execute=args.execute,
+        source_pack_codes=args.source_pack_code,
+    )
     write_json(args.output_json, payload)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
     args.output_md.write_text(markdown_report(payload), encoding="utf-8")

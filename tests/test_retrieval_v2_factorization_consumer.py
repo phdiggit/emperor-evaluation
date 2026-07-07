@@ -51,6 +51,9 @@ def factor_option_rows() -> list[dict[str, object]]:
         ("delegation", "authorization_intensity", "高强度授权", 101),
         ("delegation", "person_post_fit", "人岗匹配", 102),
         ("delegation", "result_feedback", "结果有效", 103),
+        ("team_building", "talent_quality_factor", "历史级人才", 301),
+        ("team_building", "role_complementarity_factor", "高度互补", 302),
+        ("team_building", "long_term_stability_factor", "长期稳定核心班底", 303),
         ("", "attribution_factor", "可归因", 201),
         ("", "source_factor", "正史明载", 202),
         ("", "context_factor", "语境明确", 203),
@@ -147,6 +150,16 @@ class FakeConnection:
                 "source_pack_id": 30,
                 "target_id": 40,
                 "item_code": "I5B",
+            },
+            "BND-TEAM": {
+                "binding_id": 11,
+                "binding_code": "BND-TEAM",
+                "claim_id": 21,
+                "rule_code": "team_building",
+                "binding_direction": "positive",
+                "source_pack_id": 30,
+                "target_id": 40,
+                "item_code": "I5B",
             }
         }
         self.statements: list[str] = []
@@ -197,9 +210,12 @@ def test_apply_patch_rows_dry_run_writes_judgment_and_factor_choices(monkeypatch
     assert payload["ok"] is True
     assert payload["write_db"] is False
     assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_factor_judgments"] == 1
+    assert payload["applied_counts"]["retrieval_v2.claim_rule_bindings_scoring_gate"] == 1
     assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_factor_choices"] == 6
     assert conn.rolled_back is True
     assert any("insert into retrieval_v2.claim_rule_binding_factor_judgments" in statement for statement in conn.statements)
+    assert any("update retrieval_v2.claim_rule_bindings" in statement for statement in conn.statements)
+    assert any("usable_for_scoring_cluster = true" in statement for statement in conn.statements)
     assert any("delete from retrieval_v2.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
     assert any("insert into retrieval_v2.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
 
@@ -221,6 +237,29 @@ def test_apply_patch_rows_canonicalizes_known_factor_label_aliases(monkeypatch: 
     canonicalized = {(row["factor_name"], row["from"], row["to"]) for row in payload["canonicalized_labels"]}
     assert ("authorization_intensity", "高强度授权", "国家级、危局或长期关键授权。") in canonicalized
     assert ("source_factor", "正史明载", "标准史源且事件链清楚") in canonicalized
+
+
+def test_apply_patch_rows_team_building_uses_team_factor_keys_only(monkeypatch: pytest.MonkeyPatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+    row = patch_row(
+        binding_code="BND-TEAM",
+        factor_refs={
+            "talent_quality_factor": {"label": "历史级人才"},
+            "role_complementarity_factor": {"label": "高度互补"},
+            "long_term_stability_factor": {"label": "长期稳定核心班底"},
+        },
+    )
+
+    payload = tool.apply_patch_rows(
+        dsn="postgresql://fake",
+        rows=[row],
+        item_code="I5B",
+        formula_code="evidence_cluster_signal_v3",
+        execute=False,
+    )
+
+    assert payload["ok"] is True
+    assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_factor_choices"] == 3
 
 
 def test_apply_patch_rows_rejects_unknown_factor_label(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -250,13 +289,13 @@ def test_apply_patch_rows_rejects_positive_side_negative_result_feedback(monkeyp
             "factor_name": "result_feedback",
             "factor_option_id": 1104,
             "option_code": "OPT-104",
-            "label": "效果较差",
+            "label": "授权后任务结果较差，显示匹配或授权判断有问题。",
             "value_num": "-0.700000",
         }
     )
     row = patch_row()
     row["factor_refs"] = dict(row["factor_refs"])  # type: ignore[arg-type]
-    row["factor_refs"]["result_feedback"] = {"label": "效果较差"}  # type: ignore[index]
+    row["factor_refs"]["result_feedback"] = {"label": "授权后任务结果较差，显示匹配或授权判断有问题。"}  # type: ignore[index]
 
     with pytest.raises(tool.FactorizationConsumerError, match="positive side cannot use negative result_feedback"):
         tool.apply_patch_rows(

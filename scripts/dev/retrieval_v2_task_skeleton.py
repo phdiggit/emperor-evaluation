@@ -126,7 +126,14 @@ def secondary_rule_candidates_from_matrix(matrix: Mapping[str, Any], rule_code: 
             continue
         candidate_rule = text_from(raw, "rule_code", "code")
         if candidate_rule:
-            rows.append({"rule_code": candidate_rule, "reason": text_from(raw, "reason") or "coverage matrix hint"})
+            row = {
+                key: text_from(raw, key)
+                for key in ("rule_code", "reason", "hint_status", "candidate_item_code")
+                if text_from(raw, key)
+            }
+            row["rule_code"] = candidate_rule
+            row["reason"] = row.get("reason") or "coverage matrix hint"
+            rows.append(row)
     if not rows:
         rows.extend(secondary_rule_hints(rule_code))
     deduped: dict[str, dict[str, str]] = {}
@@ -357,7 +364,8 @@ def discovery_prompt(context: Mapping[str, Any], skeleton: Mapping[str, Any], *,
         "若本次 Codex invocation 未开启 web search，不要编造额外检索结果。\n"
         "最终只输出 JSON 对象，不要 Markdown 代码块。只需包含：target_profile 可补别名、rule 可补 keywords/query_terms/outcome_terms、"
         "object_seeds、source_documents、search_plan、generation_notes、clean_audit。\n"
-        "object_seeds 建议 10-18 个，必须使用瘦字段：name、object_type、aliases、role_families、directions、source_document_codes；"
+        "object_seeds 建议 10-18 个；I5B item-wide 可放宽到 14-26 个，必须使用瘦字段：name、object_type、aliases、role_families、directions、source_document_codes；"
+        "item-wide 发现对象时优先保留具名执行者和共同受命者，遇到同击、从击、使、将兵、分兵、给兵、奉使、说降、制礼等信号，不要只留最有名的一人；"
         "别名最多 4 个且必须标 strength：strong/medium/weak；不要输出 discovery_rationale、why_seeded、scoring_role_hints 或长解释。\n"
         "source_documents 建议 6-12 条，字段只使用 document_code/title/wikisource_title/url/source_kind/why_selected；why_selected 不超过 28 个汉字。generation_notes 最多 3 条短句。\n"
         "脚本生成的 task skeleton：\n"

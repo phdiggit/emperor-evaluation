@@ -75,6 +75,70 @@ def test_build_candidates_reports_slice_coverage() -> None:
     assert "negative_undercoverage" in gap_types
 
 
+def test_delegation_chain_signal_outranks_disposition_noise() -> None:
+    task = copy.deepcopy(sample_task())
+    task["object_seeds"] = [{"name": "冯胜", "aliases": [{"alias": "宋国公", "strength": "medium"}]}]
+    task["source_documents"][0]["text"] = (
+        "宋国公冯胜有罪，坐党，后赐死。"
+        "太祖命宋国公冯胜为征西将军，取甘肃，征扩廓帖木儿；冯胜克甘肃，追败元兵。"
+    )
+
+    rows = tool.select_candidate_slices(task, task["source_documents"], context_chars=24, max_slices_per_object=1)
+
+    assert len(rows) == 1
+    assert "征西将军" in rows[0]["text"]
+    assert "克甘肃" in rows[0]["text"]
+    assert rows[0]["slice_profile"]["has_full_delegation_chain"] is True
+
+
+def test_slice_profile_marks_disposition_noise() -> None:
+    task = copy.deepcopy(sample_task())
+    task["object_seeds"] = [{"name": "李善长", "aliases": [{"alias": "韩国公", "strength": "medium"}]}]
+    task["source_documents"][0]["text"] = (
+        "太祖命有司治韩国公李善长罪，坐胡党，后伏诛。"
+        "太祖命有司治韩国公罪，家属连坐。"
+        "太祖命有司治韩国公有罪，下狱。"
+        "太祖命有司治韩国公谋反，诛。"
+    )
+
+    rows = tool.select_candidate_slices(task, task["source_documents"], context_chars=12, max_slices_per_object=8)
+
+    assert len(rows) >= 4
+    assert all(row["slice_profile"]["disposition_noise_only"] for row in rows)
+
+
+def test_dynamic_slice_budget_keeps_diverse_delegation_signals() -> None:
+    task = copy.deepcopy(sample_task())
+    task["object_seeds"] = [{"name": "冯胜", "aliases": [{"alias": "宋国公", "strength": "medium"}]}]
+    task["source_documents"] = [
+        {
+            "document_code": "DOC-FULL",
+            "title": "明史/卷1",
+            "source_kind": "primary_source",
+            "text": "太祖命宋国公冯胜为征西将军，取甘肃；冯胜克甘肃，追败元兵。",
+        },
+        {
+            "document_code": "DOC-PARTIAL",
+            "title": "明史/卷2",
+            "source_kind": "primary_source",
+            "text": "太祖又命宋国公镇边，统诸军。",
+        },
+        {
+            "document_code": "DOC-NOISE",
+            "title": "明史/卷3",
+            "source_kind": "primary_source",
+            "text": "宋国公冯胜坐事赐死。",
+        },
+    ]
+
+    rows = tool.select_candidate_slices(task, task["source_documents"], context_chars=26, max_slices_per_object=8)
+
+    assert len(rows) >= 2
+    assert any(row["slice_profile"]["has_full_delegation_chain"] for row in rows)
+    assert any(row["slice_profile"]["has_authority_task_chain"] and not row["slice_profile"]["has_full_delegation_chain"] for row in rows)
+    assert any("克甘肃" in row["text"] for row in rows)
+
+
 def test_build_candidates_compacts_overlapping_slices() -> None:
     task = copy.deepcopy(sample_task())
     task["object_seeds"] = [{"name": "李世民", "aliases": [{"alias": "秦王", "strength": "medium"}, "李世民"]}]
@@ -126,6 +190,44 @@ def test_candidate_slices_match_simplified_text_from_traditional_seed() -> None:
     assert row["object_name"] == "房玄齡"
     assert "房玄龄" in row["matched_aliases"]
     assert "左仆射" in row["matched_aliases"]
+
+
+def test_item_wide_tolerate_terms_capture_attacked_talent_protection() -> None:
+    task = copy.deepcopy(sample_task())
+    task["rule_code"] = "i5b_item_wide"
+    task["rule"] = {"rule_code": "i5b_item_wide", "keywords": []}
+    task["coverage_matrix"] = {"rule_code": "i5b_item_wide", "role_families": []}
+    task["object_seeds"] = [
+        {
+            "name": "陈平",
+            "aliases": [{"alias": "陈平", "strength": "strong"}],
+            "role_families": ["tolerate_talent_material"],
+        }
+    ]
+    task["source_documents"][0]["text"] = "或言陈平盗嫂受金，高祖不疑，卒复用陈平。"
+
+    result = tool.build_candidates(task, cache_dir=Path("tmp/test-unused"), timeout=1)
+
+    row = result["candidate_slices"][0]
+    assert row["object_name"] == "陈平"
+    assert "tolerate_talent_material" in row["matched_role_families"]
+    assert {"盗嫂", "受金"} <= set(row["matched_rule_terms"])
+
+
+def test_item_wide_material_terms_capture_cross_item_future_hint_signals() -> None:
+    task = copy.deepcopy(sample_task())
+    task["rule_code"] = "i5b_item_wide"
+    task["rule"] = {"rule_code": "i5b_item_wide", "keywords": []}
+    task["object_seeds"] = [{"name": "某臣", "aliases": [{"alias": "某臣", "strength": "strong"}]}]
+    task["source_documents"][0]["text"] = "帝因边疆失地与徭役横征，问策某臣，遂罢兵议和班师。"
+
+    result = tool.build_candidates(task, cache_dir=Path("tmp/test-unused"), timeout=1)
+
+    row = result["candidate_slices"][0]
+    assert row["object_name"] == "某臣"
+    assert {"边疆", "失地", "徭役", "横征", "问策", "罢兵", "议和", "班师"} & set(row["matched_rule_terms"])
+    assert "future_power_character_hint" in row["matched_role_families"]
+    assert row["slice_profile"]["has_item_wide_signal"] is True
 
 
 def test_build_candidates_skips_root_pages_used_only_for_discovery() -> None:

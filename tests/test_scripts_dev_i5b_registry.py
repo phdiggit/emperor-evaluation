@@ -100,6 +100,10 @@ EXPECTED_I5B_DEV_MODULES = {
         "implementation": "scripts/dev/i5b_factor_table_sync.py",
         "required_tests": ["tests/test_i5b_factor_table_sync.py"],
     },
+    "scoring_rule_table_sync": {
+        "implementation": "scripts/dev/scoring_rule_table_sync.py",
+        "required_tests": ["tests/test_scoring_rule_table_sync.py"],
+    },
     "rule_material_policy": {
         "implementation": "scripts/dev/rule_material_policy.py",
         "required_tests": ["tests/test_rule_material_policy.py", "tests/test_rule_material_policy_schema.py"],

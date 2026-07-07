@@ -44,15 +44,14 @@ High office alone is not enough for the highest intensity. A successful battle a
 
 ## Result Feedback
 
-Judge feedback proven by this material. Do not use overall fame, later biography, or generic victory language.
+Judge the concrete result of the authorization arrangement proven by this material. Do not use overall fame, later biography, generic victory language, later rebellion, alleged treason, self-protection troop gathering, suspicion, demotion, execution, purge, or failure to preserve talent as `delegation` result feedback unless the quote proves those events are the direct execution result of the authorization itself.
 
 - `重大成功强烈体现授权合理` requires a clear authorization chain plus decisive, large-scale, or structurally important success that strongly validates role fit.
 - `正常成功或职责履行良好` fits ordinary victory, competent execution, stable duty performance, or continued use with concrete task feedback.
 - `履职反馈较弱` fits title or appointment facts, weak performance evidence, partial context, or success that is not clearly tied to the authorization.
-- `效果较差` fits bounded failure or weak task result without major structural damage.
-- `重大错授、长期错用或对人才结构造成明显损害` requires wrong person or wrong post with serious harm to governance, military order, or talent structure.
-- `关键战机撤权、撤授权或权责反转` requires the emperor's authorization behavior itself to break task responsibility or block core talent use. Correcting a delegate's mistake is not automatically negative.
-- `连续性人才安全灾难、关键团队崩坏或大规模后续损害` requires broad, sustained, or structural damage. Do not use this for a single defeat or a later scandal unless the authorization chain itself caused the damage.
+- `授权后任务结果较差` fits bounded task failure, poor execution, or limited loss caused by the authorization chain.
+- `授权直接造成重大军政失败、治理损害或关键职责失守` requires a wrong person, wrong post, or wrong authority arrangement that directly causes major military, administrative, fiscal, institutional, or frontier damage.
+- `错误授权直接造成连续性、结构性或大规模后续损害` requires broad, sustained, or systemic damage caused by the authorization chain. Do not use this for a single defeat, later scandal, purge, demotion, or failure to preserve talent unless the authorization itself directly produced that damage.
 
 Side/value guard: positive rows must not choose negative-valued `result_feedback`; negative rows must not choose positive-valued `result_feedback`.
 
@@ -60,8 +59,9 @@ Side/value guard: positive rows must not choose negative-valued `result_feedback
 
 - Do not turn a bare appointment into positive `result_feedback=正常成功`.
 - Do not turn an ordinary campaign win into `重大成功` unless it changes the larger situation.
-- Do not score posthumous slander, merit protection, or political cruelty as delegation unless it directly changes an authorization relationship.
-- Do not treat emperor correction of a delegate as negative unless it destroys authority or talent use.
+- Do not score posthumous slander, merit protection, political cruelty, later rebellion, alleged treason, self-protection troop gathering, suspicion, demotion, execution, purge, or failure to preserve talent as delegation result feedback unless the quote proves an authorization-result chain.
+- If a later rebellion or troop gathering is explained by fear after peer meritorious officials were killed, court suspicion, political insecurity, or self-preservation, use `supporting_only` or `exclude` for delegation; route it to neighboring-rule review.
+- Do not treat revocation or emperor correction of a delegate as negative `result_feedback` unless it is the direct result of the authorization arrangement being assessed.
 
 ## Quick Calibration
 

@@ -91,6 +91,228 @@ DEFAULT_OUTCOME_TERMS = (
     "反",
 )
 ALIAS_STRENGTH_SCORES = {"strong": 12, "medium": 8, "weak": 2}
+DELEGATION_AUTHORITY_TERMS = (
+    "命",
+    "令",
+    "遣",
+    "使",
+    "拜",
+    "授",
+    "任",
+    "以为",
+    "以爲",
+    "诏",
+    "詔",
+    "委",
+)
+DELEGATION_TASK_TERMS = (
+    "将",
+    "將",
+    "帅",
+    "帥",
+    "率",
+    "统",
+    "統",
+    "大将军",
+    "大將軍",
+    "副将军",
+    "副將軍",
+    "征",
+    "讨",
+    "討",
+    "取",
+    "守",
+    "镇",
+    "鎮",
+    "出师",
+    "出師",
+    "行省",
+    "按察",
+    "巡行",
+    "理",
+    "抚纳",
+    "撫納",
+)
+DELEGATION_RESULT_TERMS = (
+    "克",
+    "平",
+    "定",
+    "下",
+    "破",
+    "败",
+    "敗",
+    "降",
+    "安",
+    "击却",
+    "擊卻",
+    "诸郡皆下",
+    "諸郡皆下",
+    "民甚安",
+    "寇盗尽平",
+    "寇盜盡平",
+    "献",
+    "獻",
+)
+DISPOSITION_NOISE_TERMS = (
+    "诛",
+    "誅",
+    "坐",
+    "罪",
+    "谋反",
+    "謀反",
+    "伏诛",
+    "伏誅",
+    "赐死",
+    "賜死",
+    "连坐",
+    "連坐",
+)
+I5B_ITEM_WIDE_MATERIAL_TERMS = (
+    "荐",
+    "薦",
+    "举",
+    "舉",
+    "拔",
+    "擢",
+    "任",
+    "信",
+    "相",
+    "辅",
+    "輔",
+    "将",
+    "將",
+    "保全",
+    "容",
+    "谏",
+    "諫",
+    "诤",
+    "諍",
+    "直言",
+    "上疏",
+    "纳谏",
+    "納諫",
+    "问策",
+    "問策",
+    "受金",
+    "盗嫂",
+    "盜嫂",
+    "谗",
+    "讒",
+    "谮",
+    "譖",
+    "短",
+    "毁",
+    "毀",
+    "从谏",
+    "從諫",
+    "拒谏",
+    "拒諫",
+    "改过",
+    "改過",
+    "弊政",
+    "监察",
+    "監察",
+    "削藩",
+    "撤藩",
+    "收兵权",
+    "收兵權",
+    "夺兵权",
+    "奪兵權",
+    "军权",
+    "軍權",
+    "兵权",
+    "兵權",
+    "权臣",
+    "權臣",
+    "军头",
+    "軍頭",
+    "外戚",
+    "宦官",
+    "宗室",
+    "禁军",
+    "禁軍",
+    "矫诏",
+    "矯詔",
+    "擅权",
+    "擅權",
+    "猜忌",
+    "滥杀",
+    "濫殺",
+    "妄杀",
+    "妄殺",
+    "冤杀",
+    "冤殺",
+    "族诛",
+    "族誅",
+    "株连",
+    "株連",
+    "牵连",
+    "牽連",
+    "罗织",
+    "羅織",
+    "构陷",
+    "構陷",
+    "大狱",
+    "大獄",
+    "迁都",
+    "遷都",
+    "废立",
+    "廢立",
+    "立太子",
+    "废太子",
+    "廢太子",
+    "继承",
+    "繼承",
+    "罢兵",
+    "罷兵",
+    "休兵",
+    "班师",
+    "班師",
+    "议和",
+    "議和",
+    "和亲",
+    "和親",
+    "边疆",
+    "邊疆",
+    "边镇",
+    "邊鎮",
+    "设治",
+    "設治",
+    "羁縻",
+    "羈縻",
+    "都护",
+    "都護",
+    "关隘",
+    "關隘",
+    "屯田",
+    "收复",
+    "收復",
+    "失地",
+    "入寇",
+    "屠",
+    "坑",
+    "连坐",
+    "連坐",
+    "告发",
+    "告發",
+    "诏狱",
+    "詔獄",
+    "徭役",
+    "横征",
+    "橫征",
+    "民变",
+    "民變",
+    "崩坏",
+    "崩壞",
+    "亲",
+    "親",
+    "党",
+    "黨",
+    "贿",
+    "賄",
+    "专",
+    "專",
+)
 
 
 class RetrievalV2CandidateError(RuntimeError):
@@ -345,6 +567,8 @@ def rule_terms(task: Mapping[str, Any]) -> list[str]:
     if isinstance(rule, Mapping):
         terms.extend(rule.get("keywords") or [])
         terms.extend(rule.get("predicate_candidates") or [])
+    if rule_code(task) == "i5b_item_wide":
+        terms.extend(I5B_ITEM_WIDE_MATERIAL_TERMS)
     if not terms:
         terms.extend(DEFAULT_RULE_TERMS)
     return unique_strings(terms)
@@ -446,8 +670,47 @@ def terms_in_text(text: str, terms: Sequence[str]) -> list[str]:
     return [term for term in terms if term and term in text]
 
 
+def delegation_chain_signal_profile(text: str) -> dict[str, Any]:
+    authority_terms = terms_in_text(text, DELEGATION_AUTHORITY_TERMS)
+    task_terms = terms_in_text(text, DELEGATION_TASK_TERMS)
+    result_terms = terms_in_text(text, DELEGATION_RESULT_TERMS)
+    disposition_terms = terms_in_text(text, DISPOSITION_NOISE_TERMS)
+    item_wide_terms = terms_in_text(text, I5B_ITEM_WIDE_MATERIAL_TERMS)
+    has_authority = bool(authority_terms)
+    has_task = bool(task_terms)
+    has_result = bool(result_terms)
+    has_disposition_noise = bool(disposition_terms)
+    return {
+        "authority_terms": authority_terms,
+        "task_terms": task_terms,
+        "result_terms": result_terms,
+        "disposition_noise_terms": disposition_terms,
+        "item_wide_terms": item_wide_terms,
+        "has_full_delegation_chain": has_authority and has_task and has_result,
+        "has_authority_task_chain": has_authority and has_task,
+        "has_task_result_chain": has_task and has_result,
+        "has_item_wide_signal": bool(item_wide_terms),
+        "disposition_noise_only": has_disposition_noise and not (has_authority and has_task and has_result),
+    }
+
+
+def delegation_chain_signal_score(text: str) -> int:
+    profile = delegation_chain_signal_profile(text)
+    score = 0
+    if profile["has_full_delegation_chain"]:
+        score += 24
+    elif profile["has_authority_task_chain"]:
+        score += 12
+    elif profile["has_task_result_chain"]:
+        score += 8
+    if profile["disposition_noise_only"]:
+        score -= 14
+    return score
+
+
 def slice_score(
     *,
+    text: str,
     matched_alias_strengths: Mapping[str, str],
     matched_rule_terms: Sequence[str],
     matched_outcome_terms: Sequence[str],
@@ -462,6 +725,7 @@ def slice_score(
         + len(matched_outcome_terms) * 6
         + len(matched_target_aliases) * 2
         + len(matched_role_families) * 3
+        + delegation_chain_signal_score(text)
         - weak_only_penalty
     )
 
@@ -512,6 +776,7 @@ def select_candidate_slices(
                     continue
                 seen.add(dedupe_key)
                 score = slice_score(
+                    text=excerpt,
                     matched_alias_strengths=alias_strengths,
                     matched_rule_terms=matched_rule_terms,
                     matched_outcome_terms=matched_outcome_terms,
@@ -530,6 +795,7 @@ def select_candidate_slices(
                         "matched_target_aliases": matched_target_aliases,
                         "matched_role_families": matched_role_families,
                         "weak_alias_only": bool(alias_strengths) and set(alias_strengths.values()) == {"weak"},
+                        "slice_profile": delegation_chain_signal_profile(excerpt),
                         "locator": f"chars:{start}-{end}",
                         "score": score,
                         "text": excerpt,
@@ -579,6 +845,7 @@ def merged_slice_row(
         "matched_target_aliases": unique_row_values(rows, "matched_target_aliases"),
         "matched_role_families": unique_row_values(rows, "matched_role_families"),
         "weak_alias_only": bool(alias_strengths) and set(alias_strengths.values()) == {"weak"},
+        "slice_profile": delegation_chain_signal_profile(text),
         "locator": f"chars:{start}-{end}",
         "score": max(int(row.get("score") or 0) for row in rows),
         "text": text,
@@ -890,14 +1157,30 @@ def build_candidates(
         slices=slices,
         fetch_errors=fetch_errors,
     )
+    task_identity = {
+        key: task.get(key)
+        for key in (
+            "job_code",
+            "target_code",
+            "emperor_name",
+            "item_code",
+            "contract_code",
+            "rule_code",
+            "capture_mode",
+            "capture_profile",
+            "fact_schema",
+            "candidate_route_table_version",
+        )
+        if key in task
+    }
+    target_payload = task.get("target_payload") if isinstance(task.get("target_payload"), Mapping) else {}
+    for key in ("capture_profile", "fact_schema", "candidate_route_table_version"):
+        if key not in task_identity and key in target_payload:
+            task_identity[key] = target_payload[key]
     payload = {
         "generated_by": "scripts/dev/retrieval_v2_source_candidates.py",
         "schema_version": 1,
-        "task_identity": {
-            key: task.get(key)
-            for key in ("job_code", "target_code", "emperor_name", "item_code", "contract_code", "rule_code")
-            if key in task
-        },
+        "task_identity": task_identity,
         "target_profile": task.get("target_profile") or {},
         "rule": task.get("rule") or task.get("rule_contract") or {},
         "coverage_matrix": coverage_matrix,

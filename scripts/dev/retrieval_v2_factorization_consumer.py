@@ -18,6 +18,7 @@ from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev.retrieval_v2_factorization_worklists import (  # noqa: E402
     DEFAULT_FORMULA_CODE,
     DEFAULT_ITEM_CODE,
+    build_factor_key_catalog,
     factor_keys_for_material,
 )
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
@@ -27,6 +28,7 @@ from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 TARGET_ACTIONS = {"score", "supporting_only", "exclude"}
 SIDES = {"positive", "negative"}
+TEAM_BUILDING_FACTOR_KEYS = ("talent_quality_factor", "role_complementarity_factor", "long_term_stability_factor")
 FACTOR_LABEL_ALIASES: dict[str, dict[str, str]] = {
     "authorization_intensity": {
         "高强度授权": "国家级、危局或长期关键授权。",
@@ -50,10 +52,13 @@ FACTOR_LABEL_ALIASES: dict[str, dict[str, str]] = {
         "重大成功强烈体现授权合理": "重大成功强烈体现授权合理。",
         "正常成功或职责履行良好": "正常成功或职责履行良好。",
         "履职反馈较弱": "履职反馈较弱，不足以支撑高强度授权正证。",
-        "效果较差": "效果较差，显示匹配或授权判断有问题。",
-        "重大错授、长期错用或对人才结构造成明显损害": "重大错授、长期错用或对人才结构造成明显损害。",
-        "关键战机撤权、撤授权或权责反转": "关键战机撤权、撤授权或权责反转，直接破坏授权信用或核心人才发挥。",
-        "错授或撤权造成连续性人才安全灾难、关键团队崩坏或大规模后续损害": "错授或撤权造成连续性人才安全灾难、关键团队崩坏或大规模后续损害。",
+        "效果较差": "授权后任务结果较差，显示匹配或授权判断有问题。",
+        "授权后任务结果较差": "授权后任务结果较差，显示匹配或授权判断有问题。",
+        "重大错授、长期错用或对人才结构造成明显损害": "授权直接造成重大军政失败、治理损害或关键职责失守。",
+        "授权直接造成重大军政失败": "授权直接造成重大军政失败、治理损害或关键职责失守。",
+        "授权直接造成重大军政失败、治理损害或关键职责失守": "授权直接造成重大军政失败、治理损害或关键职责失守。",
+        "错授或撤权造成连续性人才安全灾难、关键团队崩坏或大规模后续损害": "错误授权直接造成连续性、结构性或大规模后续损害。",
+        "错误授权直接造成连续性、结构性或大规模后续损害": "错误授权直接造成连续性、结构性或大规模后续损害。",
     },
     "attribution_factor": {
         "可归因": "皇帝决策链清楚",
@@ -333,6 +338,7 @@ def factor_choices_for_row(
     *,
     context: Mapping[str, Any],
     catalog: Mapping[tuple[str, str, str], Sequence[Mapping[str, Any]]],
+    factor_key_catalog: Mapping[str, Sequence[Mapping[str, Any]]],
     canonicalizations: list[dict[str, str]] | None = None,
 ) -> list[dict[str, Any]]:
     if row["target_action"] != "score":
@@ -340,7 +346,10 @@ def factor_choices_for_row(
     ref = line_ref(row)
     rule_code = text(context.get("rule_code"))
     side = text(row.get("side"))
-    expected = list(factor_keys_for_material(rule_code, side))
+    if rule_code == "team_building":
+        expected = list(TEAM_BUILDING_FACTOR_KEYS)
+    else:
+        expected = list(factor_keys_for_material(rule_code, side, factor_key_catalog))
     refs = row.get("factor_refs") or {}
     extras = sorted(set(refs) - set(expected))
     missing = [factor_name for factor_name in expected if factor_name not in refs]
@@ -491,6 +500,25 @@ def replace_factor_choices(
         )
 
 
+def mark_binding_scoring_gate_accepted(cur: Any, *, row: Mapping[str, Any], context: Mapping[str, Any]) -> None:
+    payload = {
+        "source": "retrieval_v2_factorization_consumer",
+        "target_action": text(row.get("target_action")),
+        "review_status": "accepted",
+    }
+    cur.execute(
+        """
+        update retrieval_v2.claim_rule_bindings
+           set usable_for_scoring_cluster = true,
+               binding_payload = coalesce(binding_payload, '{}'::jsonb)
+                   || jsonb_build_object('scoring_gate', %s::jsonb),
+               updated_at = now()
+         where id = %s
+        """,
+        (json_param(payload), int(context["binding_id"])),
+    )
+
+
 def apply_patch_rows(
     *,
     dsn: str,
@@ -508,15 +536,23 @@ def apply_patch_rows(
         with conn.cursor() as cur:
             option_rows = fetch_factor_option_rows(cur, item_code=item_code, formula_code=formula_code)
             catalog = build_option_catalog(option_rows)
+            factor_key_catalog = build_factor_key_catalog(option_rows)
             for row in validated:
                 context = fetch_binding_context(cur, text(row["binding_code"]))
                 if text(context.get("item_code")) != item_code:
                     raise FactorizationConsumerError(
                         f"{row['binding_code']}: item_code mismatch, expected {item_code}, got {context.get('item_code')}"
                     )
-                choices = factor_choices_for_row(row, context=context, catalog=catalog, canonicalizations=canonicalizations)
+                choices = factor_choices_for_row(
+                    row,
+                    context=context,
+                    catalog=catalog,
+                    factor_key_catalog=factor_key_catalog,
+                    canonicalizations=canonicalizations,
+                )
                 validate_delegation_result_feedback_side(row=row, context=context, choices=choices)
                 judgment_id = upsert_factor_judgment(cur, row=row, context=context, formula_code=formula_code)
+                mark_binding_scoring_gate_accepted(cur, row=row, context=context)
                 replace_factor_choices(
                     cur,
                     judgment_id=judgment_id,
@@ -526,6 +562,7 @@ def apply_patch_rows(
                     choices=choices,
                 )
                 counts["retrieval_v2.claim_rule_binding_factor_judgments"] += 1
+                counts["retrieval_v2.claim_rule_bindings_scoring_gate"] += 1
                 counts["retrieval_v2.claim_rule_binding_factor_choices"] += len(choices)
                 judgments.append(
                     {

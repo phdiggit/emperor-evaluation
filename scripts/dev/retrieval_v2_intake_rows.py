@@ -35,6 +35,7 @@ CODEX_REVIEW_TYPES = {
     "negative_claim_not_scoring_without_gap",
     "other",
 }
+HINT_STATUSES = {"formal_candidate", "current_rule_candidate", "future_rule_hint", "context_only", "rejected"}
 
 
 class IntakeRowsError(RuntimeError):
@@ -54,6 +55,46 @@ def stable_json(value: Any) -> str:
 
 def stable_hash(value: Any, *, length: int = 12) -> str:
     return hashlib.sha256(stable_json(value).encode("utf-8")).hexdigest()[:length].upper()
+
+
+def json_object_or_array(value: Any) -> dict[str, Any] | list[Any]:
+    if isinstance(value, Mapping):
+        return dict(value)
+    if isinstance(value, list):
+        return list(value)
+    return {}
+
+
+def candidate_hint_status(binding: Mapping[str, Any], candidate_payload: Mapping[str, Any]) -> str:
+    raw = text(
+        binding.get("hint_status")
+        or binding.get("route_status")
+        or candidate_payload.get("hint_status")
+        or candidate_payload.get("route_status")
+    )
+    if raw in HINT_STATUSES:
+        return raw
+    return "formal_candidate"
+
+
+def candidate_lane(
+    binding: Mapping[str, Any],
+    candidate_payload: Mapping[str, Any],
+    *,
+    candidate_item_code: str,
+    candidate_rule_code: str,
+) -> str:
+    explicit = text(
+        binding.get("candidate_lane")
+        or binding.get("lane")
+        or candidate_payload.get("candidate_lane")
+        or candidate_payload.get("lane")
+    )
+    if explicit:
+        return explicit
+    if candidate_item_code and candidate_rule_code:
+        return f"{candidate_item_code}.{candidate_rule_code}"
+    return candidate_rule_code
 
 
 def path_from_artifact(package: Mapping[str, Any], kind: str) -> Path:
@@ -358,6 +399,35 @@ def normalize_package(package: Mapping[str, Any]) -> dict[str, list[dict[str, An
         raw_claim_code = text(binding.get("claim_code"))
         raw_binding_code = text(binding.get("binding_code")) or f"CRBC-S-{index:04d}-{stable_hash(binding, length=8)}"
         candidate_code = namespaced_code(source_pack_code, raw_binding_code, fallback_kind="CRBC", payload=binding)
+        binding_payload = dict(binding)
+        raw_candidate_payload = binding.get("candidate_payload") if isinstance(binding.get("candidate_payload"), Mapping) else {}
+        candidate_payload = {
+            **dict(raw_candidate_payload),
+            "source_binding": binding_payload,
+            "created_from": "secondary_binding_candidates",
+        }
+        for lifted_key in ("candidate_lane", "hint_status", "required_facts_present", "routed_by_profile"):
+            if lifted_key in binding and lifted_key not in candidate_payload:
+                candidate_payload[lifted_key] = binding[lifted_key]
+        candidate_item_code = text(binding.get("candidate_item_code") or binding.get("item_code"))
+        candidate_rule_code = text(binding.get("candidate_rule_code") or binding.get("rule_code"))
+        hint_status = candidate_hint_status(binding, candidate_payload)
+        lane = candidate_lane(
+            binding,
+            candidate_payload,
+            candidate_item_code=candidate_item_code,
+            candidate_rule_code=candidate_rule_code,
+        )
+        required_facts = json_object_or_array(
+            binding.get("required_facts_present") or candidate_payload.get("required_facts_present")
+        )
+        routed_by_profile = text(
+            binding.get("routed_by_profile")
+            or candidate_payload.get("routed_by_profile")
+            or package.get("capture_profile")
+            or package.get("capture_mode")
+            or "secondary_binding_candidates"
+        )
         candidate_row = {
             "source_pack_code": source_pack_code,
             "candidate_code": candidate_code,
@@ -367,8 +437,12 @@ def normalize_package(package: Mapping[str, Any]) -> dict[str, list[dict[str, An
             "raw_claim_code": raw_claim_code,
             "source_item_code": text(package.get("item_code")),
             "source_rule_code": text(package.get("rule_code")),
-            "candidate_item_code": text(binding.get("item_code") or binding.get("candidate_item_code")),
-            "candidate_rule_code": text(binding.get("rule_code") or binding.get("candidate_rule_code")),
+            "candidate_item_code": candidate_item_code,
+            "candidate_rule_code": candidate_rule_code,
+            "candidate_lane": lane,
+            "hint_status": hint_status,
+            "required_facts_present": required_facts,
+            "routed_by_profile": routed_by_profile,
             "candidate_predicate": text(binding.get("predicate") or binding.get("candidate_predicate")),
             "candidate_object_role": text(binding.get("object_role") or binding.get("candidate_object_role")),
             "candidate_direction": text(binding.get("direction") or binding.get("candidate_direction")),
@@ -377,7 +451,8 @@ def normalize_package(package: Mapping[str, Any]) -> dict[str, list[dict[str, An
             "review_status": "pending",
             "resolved_binding_code": "",
             "created_from": "secondary_binding_candidates",
-            "binding_payload": dict(binding),
+            "binding_payload": binding_payload,
+            "candidate_payload": candidate_payload,
         }
         rows["secondary_binding_candidates"].append(candidate_row)
         rows["claim_rule_binding_candidates"].append(candidate_row)

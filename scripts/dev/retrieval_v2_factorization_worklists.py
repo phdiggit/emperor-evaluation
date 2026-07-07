@@ -5,7 +5,7 @@ import hashlib
 import json
 import subprocess
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -17,6 +17,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_factorization_tasks import (  # noqa: E402
+    expected_output_contract,
+    expected_output_contracts_path,
+    patch_path_for_task,
+    prompt_for_batch,
+    task_code,
+)
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
 
@@ -27,33 +34,99 @@ DEFAULT_RULE_CODE = "delegation"
 DEFAULT_FORMULA_CODE = "evidence_cluster_signal_v3"
 SCOPES = ("accepted-packs", "active-targets")
 ACTION_OPTIONS = ("score", "supporting_only", "exclude")
-COMMON_FACTOR_KEYS = ("attribution_factor", "source_factor", "context_factor")
-RULE_FACTOR_KEYS: dict[str, dict[str, tuple[str, ...]]] = {
+AUTO_SCORER_FACTOR_NAMES = {"rank_decay"}
+TEAM_FACTOR_SCOPE = "team"
+SHARED_FACTOR_SCOPES = {"default", "shared"}
+RULE_FACTOR_SCOPES = {"rule", "attribute_mapping"}
+FORMULA_FACTOR_KEYS: dict[str, dict[str, tuple[str, ...]]] = {
     "talent_discovery": {
-        "positive": ("discovery_level", "talent_quality_factor", "channel_factor", *COMMON_FACTOR_KEYS),
-        "negative": ("discovery_level", "talent_quality_factor", "channel_factor", *COMMON_FACTOR_KEYS),
+        "positive": (
+            "discovery_level",
+            "talent_quality_factor",
+            "channel_factor",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
+        "negative": (
+            "discovery_level",
+            "talent_quality_factor",
+            "channel_factor",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
     },
     "appointment_trust": {
-        "positive": ("trust_depth", "object_weight", "trust_validity", "continuity_factor", *COMMON_FACTOR_KEYS),
-        "negative": ("trust_depth", "object_weight", "trust_validity", "continuity_factor", *COMMON_FACTOR_KEYS),
+        "positive": (
+            "trust_depth",
+            "trust_validity",
+            "continuity_factor",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
+        "negative": (
+            "trust_depth",
+            "trust_validity",
+            "continuity_factor",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
     },
     "delegation": {
-        "positive": ("authorization_intensity", "person_post_fit", "result_feedback", *COMMON_FACTOR_KEYS),
-        "negative": ("authorization_intensity", "person_post_fit", "result_feedback", *COMMON_FACTOR_KEYS),
-    },
-    "team_building": {
-        "positive": (),
-        "negative": (),
-        "mixed": (),
-        "neutral": (),
+        "positive": (
+            "authorization_intensity",
+            "person_post_fit",
+            "result_feedback",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
+        "negative": (
+            "authorization_intensity",
+            "person_post_fit",
+            "result_feedback",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
     },
     "tolerate_talent": {
-        "positive": ("feedback_entry", "expression_safety", "protection_repair", "object_weight", *COMMON_FACTOR_KEYS),
-        "negative": ("handling_severity", "target_fault_factor", "object_weight", *COMMON_FACTOR_KEYS),
+        "positive": (
+            "feedback_entry",
+            "expression_safety",
+            "protection_repair",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
+        "negative": (
+            "handling_severity",
+            "target_fault_factor",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
     },
     "anti_nepotism": {
-        "positive": ("selection_openness", "institutionalization", "office_weight", *COMMON_FACTOR_KEYS),
-        "negative": ("favoritism_intensity", "office_weight", "displacement_harm", *COMMON_FACTOR_KEYS),
+        "positive": (
+            "selection_openness",
+            "institutionalization",
+            "office_weight",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
+        "negative": (
+            "favoritism_intensity",
+            "office_weight",
+            "displacement_harm",
+            "attribution_factor",
+            "source_factor",
+            "context_factor",
+        ),
     },
 }
 
@@ -116,13 +189,61 @@ def scope_predicate(scope: str) -> str:
     raise FactorizationWorklistError(f"unsupported scope: {scope}")
 
 
-def factor_keys_for_material(rule_code: str, direction: str) -> tuple[str, ...]:
-    by_direction = RULE_FACTOR_KEYS.get(rule_code, {})
-    if direction in by_direction:
-        return by_direction[direction]
-    if direction == "mixed":
-        return tuple(dict.fromkeys((*by_direction.get("positive", ()), *by_direction.get("negative", ()))))
-    return by_direction.get("positive", ())
+def build_factor_key_catalog(rows: Sequence[Mapping[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    catalog: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    seen: set[tuple[str, str]] = set()
+    for row in rows:
+        rule_code = text(row.get("rule_code"))
+        factor_name = text(row.get("factor_name"))
+        if not factor_name or factor_name in AUTO_SCORER_FACTOR_NAMES:
+            continue
+        key = (rule_code, factor_name)
+        if key in seen:
+            continue
+        seen.add(key)
+        factor_scope = text(row.get("factor_scope"))
+        if not factor_scope:
+            factor_scope = "shared" if not rule_code else "rule"
+        catalog[rule_code].append(
+            {
+                "factor_name": factor_name,
+                "factor_scope": factor_scope,
+                "source_line": row.get("source_line"),
+                "sort_no": row.get("sort_no"),
+            }
+        )
+    return {rule: rows for rule, rows in sorted(catalog.items())}
+
+
+def factor_keys_for_material(
+    rule_code: str,
+    direction: str,
+    factor_key_catalog: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> tuple[str, ...]:
+    rule_rows = [dict(row) for row in factor_key_catalog.get(rule_code, ())]
+    team_rows = [row for row in rule_rows if text(row.get("factor_scope")) == TEAM_FACTOR_SCOPE]
+    if team_rows:
+        return tuple(text(row.get("factor_name")) for row in team_rows)
+    available = {
+        text(row.get("factor_name"))
+        for row in [*factor_key_catalog.get(rule_code, ()), *factor_key_catalog.get("", ())]
+        if text(row.get("factor_name"))
+    }
+    by_direction = FORMULA_FACTOR_KEYS.get(rule_code, {})
+    if by_direction:
+        formula_keys = by_direction.get(direction) or by_direction.get("positive") or ()
+        return tuple(factor_name for factor_name in formula_keys if factor_name in available)
+    rule_keys = [
+        text(row.get("factor_name"))
+        for row in rule_rows
+        if text(row.get("factor_scope")) in RULE_FACTOR_SCOPES
+    ]
+    shared_keys = [
+        text(row.get("factor_name"))
+        for row in factor_key_catalog.get("", ())
+        if text(row.get("factor_scope")) in SHARED_FACTOR_SCOPES
+    ]
+    return tuple(dict.fromkeys([*rule_keys, *shared_keys]))
 
 
 def build_factor_option_catalog(rows: Sequence[Mapping[str, Any]]) -> dict[tuple[str, str], list[dict[str, Any]]]:
@@ -154,18 +275,27 @@ def factor_option_candidates(catalog: Mapping[tuple[str, str], Sequence[Mapping[
     return rows
 
 
-def factor_patch_template(row: Mapping[str, Any], catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]]) -> dict[str, Any]:
+def factor_patch_template(
+    row: Mapping[str, Any],
+    catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]],
+    factor_key_catalog: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> dict[str, Any]:
     rule_code = text(row.get("rule_code"))
     direction = text(row.get("direction"))
-    factor_keys = factor_keys_for_material(rule_code, direction)
+    factor_keys = factor_keys_for_material(rule_code, direction, factor_key_catalog)
     side = direction if direction in {"positive", "negative"} else ""
+    factor_refs = {factor_name: {"label": ""} for factor_name in factor_keys}
+    obj = row.get("object")
+    talent_label = text(obj.get("talent_quality_factor_label")) if isinstance(obj, Mapping) else text(row.get("talent_quality_factor_label"))
+    if talent_label and "talent_quality_factor" in factor_refs:
+        factor_refs["talent_quality_factor"] = {"label": talent_label}
     return {
         "target_action": "review",
         "action_options": list(ACTION_OPTIONS),
         "side": side,
         "side_options": ["positive", "negative"],
         "factor_keys": list(factor_keys),
-        "factor_refs": {factor_name: {"label": ""} for factor_name in factor_keys},
+        "factor_refs": factor_refs,
         "factor_option_candidates": {
             factor_name: factor_option_candidates(catalog, rule_code=rule_code, factor_name=factor_name)
             for factor_name in factor_keys
@@ -182,12 +312,14 @@ def fetch_factor_option_rows(cur: Any, *, item_code: str, formula_code: str) -> 
             f.formula_code,
             f.factor_name,
             f.factor_scope,
+            f.value_source,
             o.id as factor_option_id,
             o.option_code,
             o.label,
             o.value_num::text as value_num,
             o.source_doc,
             o.source_line,
+            o.sort_no,
             o.option_note
           from retrieval_v2.eval_rule_factors f
           join retrieval_v2.eval_rule_factor_options o on o.factor_id = f.id
@@ -195,14 +327,31 @@ def fetch_factor_option_rows(cur: Any, *, item_code: str, formula_code: str) -> 
            and f.formula_code = %s
            and f.factor_status = 'active'
            and o.option_status = 'active'
-         order by f.rule_code, f.factor_name, o.sort_no, o.id
+         order by f.rule_code, min(o.source_line) over (partition by f.id) nulls last, f.factor_name, o.sort_no, o.id
         """,
         (item_code, formula_code),
     )
     return [dict(row) for row in cur.fetchall()]
 
 
-def fetch_material_rows(cur: Any, *, item_code: str, rule_code: str, scope: str) -> list[dict[str, Any]]:
+def source_pack_predicate(scope: str, source_pack_codes: Sequence[str] = ()) -> str:
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    if codes:
+        return "sp.pack_code = any(%s) and sp.coverage_status = 'passed'"
+    return scope_predicate(scope)
+
+
+def fetch_material_rows(
+    cur: Any,
+    *,
+    item_code: str,
+    rule_code: str,
+    formula_code: str,
+    scope: str,
+    source_pack_codes: Sequence[str] = (),
+) -> list[dict[str, Any]]:
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes] if codes else []
     cur.execute(
         f"""
         with passage_agg as (
@@ -289,6 +438,7 @@ def fetch_material_rows(cur: Any, *, item_code: str, rule_code: str, scope: str)
             o.object_type::text as object_type,
             pp.talent_grade::text as talent_grade,
             pp.talent_grade_basis,
+            coalesce(tqfo.label, tbtc.talent_quality_label) as talent_quality_factor_label,
             coalesce(ra.person_roles, '[]'::jsonb) as person_roles,
             coalesce(aa.person_affiliations, '[]'::jsonb) as person_affiliations,
             coalesce(pa.source_passages, '[]'::jsonb) as source_passages
@@ -296,29 +446,79 @@ def fetch_material_rows(cur: Any, *, item_code: str, rule_code: str, scope: str)
           join retrieval_v2.material_claims mc on mc.id = crb.claim_id
           join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
-          join retrieval_v2.material_object_links mol
-            on mol.claim_id = mc.id
-           and mol.role = crb.object_role
-           and mol.review_status = 'accepted'
+          join lateral (
+              select mol1.*
+                from retrieval_v2.material_object_links mol1
+               where mol1.claim_id = mc.id
+                 and mol1.review_status = 'accepted'
+                 and (
+                      (
+                          coalesce(crb.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$'
+                          and mol1.id = (crb.binding_payload->>'promoted_material_object_link_id')::bigint
+                      )
+                      or (
+                          not (coalesce(crb.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$')
+                          and mol1.role = crb.object_role
+                      )
+                 )
+               order by case
+                   when coalesce(crb.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$'
+                    and mol1.id = (crb.binding_payload->>'promoted_material_object_link_id')::bigint
+                       then 0
+                   else 1
+               end,
+               mol1.id
+               limit 1
+          ) mol on true
           join retrieval_v2.objects o on o.id = mol.object_id
           left join retrieval_v2.target_objects tob on tob.id = mol.target_object_id
           left join retrieval_v2.person_profiles pp on pp.object_id = o.id
+          left join retrieval_v2.v_team_building_talent_candidates tbtc
+            on tbtc.target_id = rt.id
+           and tbtc.object_id = o.id
+           and tbtc.rule_code = crb.rule_code
+          left join retrieval_v2.eval_rule_factors tqf
+            on tqf.item_code = rt.item_code
+           and tqf.rule_code = crb.rule_code
+           and tqf.formula_code = %s
+           and tqf.factor_name = 'talent_quality_factor'
+           and tqf.factor_status = 'active'
+          left join retrieval_v2.eval_rule_factor_options tqfo
+            on tqfo.factor_id = tqf.id
+           and tqfo.option_status = 'active'
+           and trim(trailing '。' from tqfo.label) = trim(trailing '。' from tbtc.talent_quality_label)
           left join role_agg ra on ra.object_id = o.id
           left join affiliation_agg aa on aa.object_id = o.id
           left join passage_agg pa on pa.claim_id = mc.id
          where crb.rule_code = %s
-           and crb.usable_for_scoring_cluster
+           and (
+                crb.usable_for_scoring_cluster
+                or (
+                    crb.binding_payload->>'source' = 'retrieval_v2_candidate_promoter'
+                    and nullif(crb.binding_payload->>'candidate_id', '') is not null
+                )
+           )
            and crb.review_status in ('pending', 'accepted')
-           and {scope_predicate(scope)}
+           and not exists (
+                select 1
+                  from retrieval_v2.material_review_queue mrq
+                 where mrq.claim_id = mc.id
+                   and mrq.queue_status in ('ready', 'needs_review', 'running', 'blocked')
+           )
+           and {source_pack_predicate(scope, codes)}
            and (%s = '' or rt.item_code = %s)
          order by rt.emperor_name, crb.direction::text desc, o.canonical_name, crb.id
         """,
-        (rule_code, item_code, item_code),
+        (formula_code, rule_code, *source_pack_params, item_code, item_code),
     )
     return [dict(row) for row in cur.fetchall()]
 
 
-def material_item(row: Mapping[str, Any], catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]]) -> dict[str, Any]:
+def material_item(
+    row: Mapping[str, Any],
+    catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]],
+    factor_key_catalog: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> dict[str, Any]:
     item = {
         "binding_code": text(row.get("binding_code")),
         "binding_id": row.get("binding_id"),
@@ -343,6 +543,7 @@ def material_item(row: Mapping[str, Any], catalog: Mapping[tuple[str, str], Sequ
             "object_type": text(row.get("object_type")),
             "talent_grade": text(row.get("talent_grade")),
             "talent_grade_basis": text(row.get("talent_grade_basis")),
+            "talent_quality_factor_label": text(row.get("talent_quality_factor_label")),
             "person_roles": row.get("person_roles") or [],
             "person_affiliations": row.get("person_affiliations") or [],
         },
@@ -355,7 +556,7 @@ def material_item(row: Mapping[str, Any], catalog: Mapping[tuple[str, str], Sequ
             "source_passages": row.get("source_passages") or [],
         },
     }
-    item["factor_patch_template"] = factor_patch_template(item, catalog)
+    item["factor_patch_template"] = factor_patch_template(item, catalog, factor_key_catalog)
     return item
 
 
@@ -385,16 +586,32 @@ def suggest_batches(groups: Sequence[Mapping[str, Any]], *, batch_size: int) -> 
     batches: list[dict[str, Any]] = []
     current_groups: list[dict[str, Any]] = []
     current_count = 0
-    for group in groups:
-        material_count = int(group.get("material_count") or 0)
-        if current_groups and current_count + material_count > batch_size:
+
+    def append_current() -> None:
+        nonlocal current_groups, current_count
+        if current_groups:
             batches.append({"batch_id": f"rv2_factor_batch_{len(batches) + 1:02d}", "material_count": current_count, "groups": current_groups})
             current_groups = []
             current_count = 0
+
+    for group in groups:
+        material_count = int(group.get("material_count") or 0)
+        materials = [dict(row) for row in group.get("materials") or [] if isinstance(row, Mapping)]
+        if material_count > batch_size and materials:
+            append_current()
+            for index in range(0, len(materials), batch_size):
+                chunk = materials[index : index + batch_size]
+                chunk_group = dict(group)
+                chunk_group["materials"] = chunk
+                chunk_group["material_count"] = len(chunk)
+                chunk_group["binding_codes"] = [text(row.get("binding_code")) for row in chunk]
+                batches.append({"batch_id": f"rv2_factor_batch_{len(batches) + 1:02d}", "material_count": len(chunk), "groups": [chunk_group]})
+            continue
+        if current_groups and current_count + material_count > batch_size:
+            append_current()
         current_groups.append(dict(group))
         current_count += material_count
-    if current_groups:
-        batches.append({"batch_id": f"rv2_factor_batch_{len(batches) + 1:02d}", "material_count": current_count, "groups": current_groups})
+    append_current()
     return batches
 
 
@@ -406,10 +623,12 @@ def build_worklist_from_rows(
     rule_code: str,
     formula_code: str,
     scope: str,
+    source_pack_codes: Sequence[str] = (),
     batch_size: int,
 ) -> dict[str, Any]:
     catalog = build_factor_option_catalog(factor_option_rows)
-    materials = [material_item(row, catalog) for row in material_rows]
+    factor_key_catalog = build_factor_key_catalog(factor_option_rows)
+    materials = [material_item(row, catalog, factor_key_catalog) for row in material_rows]
     groups = group_materials(materials)
     batches = suggest_batches(groups, batch_size=batch_size)
     direction_counts = Counter(text(row.get("direction")) for row in materials)
@@ -421,6 +640,7 @@ def build_worklist_from_rows(
         "rule_code": rule_code,
         "formula_code": formula_code,
         "scope": scope,
+        "source_pack_codes": [text(code) for code in source_pack_codes if text(code)],
         "totals": {
             "materials": len(materials),
             "groups": len(groups),
@@ -460,6 +680,7 @@ def build_worklist(
     formula_code: str,
     scope: str,
     batch_size: int,
+    source_pack_codes: Sequence[str] = (),
     target_names: Sequence[str] = (),
     target_codes: Sequence[str] = (),
 ) -> dict[str, Any]:
@@ -470,7 +691,14 @@ def build_worklist(
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
             factor_rows = fetch_factor_option_rows(cur, item_code=item_code, formula_code=formula_code)
-            material_rows = fetch_material_rows(cur, item_code=item_code, rule_code=rule_code, scope=scope)
+            material_rows = fetch_material_rows(
+                cur,
+                item_code=item_code,
+                rule_code=rule_code,
+                formula_code=formula_code,
+                scope=scope,
+                source_pack_codes=source_pack_codes,
+            )
     material_rows = filter_material_rows(material_rows, target_names=target_names, target_codes=target_codes)
     return build_worklist_from_rows(
         material_rows,
@@ -479,6 +707,7 @@ def build_worklist(
         rule_code=rule_code,
         formula_code=formula_code,
         scope=scope,
+        source_pack_codes=source_pack_codes,
         batch_size=batch_size,
     )
 
@@ -492,6 +721,7 @@ def render_markdown(payload: Mapping[str, Any]) -> str:
         f"- rule_code: `{payload.get('rule_code', '')}`",
         f"- formula_code: `{payload.get('formula_code', '')}`",
         f"- scope: `{payload.get('scope', '')}`",
+        f"- source_pack_codes: `{', '.join(payload.get('source_pack_codes') or [])}`",
         f"- materials: `{payload.get('totals', {}).get('materials', 0)}`",
         f"- groups: `{payload.get('totals', {}).get('groups', 0)}`",
         f"- suggested_batches: `{payload.get('totals', {}).get('suggested_batches', 0)}`",
@@ -595,6 +825,14 @@ def result_feedback_sign_issue(*, side: str, value: Decimal | None) -> str:
     return ""
 
 
+def raw_score_sign_issue(*, side: str, raw_score: Decimal | None) -> str:
+    if raw_score is None or raw_score == 0:
+        return ""
+    if side == "positive" and raw_score < 0:
+        return "positive_side_negative_raw_score"
+    return ""
+
+
 def expected_factor_keys(material: Mapping[str, Any]) -> list[str]:
     template = material.get("factor_patch_template")
     if not isinstance(template, Mapping):
@@ -626,6 +864,11 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
     if not high_information_chinese(row.get("patch_note")):
         issues.append({**base, "severity": "error", "status": "missing_high_information_patch_note", "value": action})
     if action in {"supporting_only", "exclude"}:
+        if text(row.get("side")):
+            issues.append({**base, "severity": "error", "status": "non_score_side_must_be_null", "value": row.get("side")})
+        factor_refs = row.get("factor_refs")
+        if factor_refs not in (None, {}) and factor_refs != {}:
+            issues.append({**base, "severity": "error", "status": "non_score_factor_refs_must_be_empty"})
         return issues
 
     side = text(row.get("side"))
@@ -639,6 +882,7 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
     if not isinstance(factor_refs, Mapping):
         issues.append({**base, "severity": "error", "status": "missing_factor_refs"})
         return issues
+    selected_values: list[Decimal] = []
     for factor_name in expected_keys:
         ref = factor_refs.get(factor_name)
         if not isinstance(ref, Mapping):
@@ -652,9 +896,11 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
         if labels and label not in labels:
             issues.append({**base, "severity": "error", "status": "unknown_factor_label", "factor": factor_name, "label": label})
             continue
+        option = candidate_option_by_label(material, factor_name, label)
+        value = decimal_or_none(option.get("value_num")) if option else None
+        if value is not None:
+            selected_values.append(value)
         if text(material.get("rule_code")) == "delegation" and factor_name == "result_feedback":
-            option = candidate_option_by_label(material, factor_name, label)
-            value = decimal_or_none(option.get("value_num")) if option else None
             status = result_feedback_sign_issue(side=side, value=value)
             if status:
                 issues.append(
@@ -669,6 +915,22 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
                         "value_num": str(value),
                     }
                 )
+    if side in {"positive", "negative"} and len(selected_values) == len(expected_keys):
+        raw_score = Decimal("1")
+        for value in selected_values:
+            raw_score *= value
+        status = raw_score_sign_issue(side=side, raw_score=raw_score)
+        if status:
+            issues.append(
+                {
+                    **base,
+                    "severity": "error",
+                    "status": "side_raw_score_sign_mismatch",
+                    "detail": status,
+                    "side": side,
+                    "raw_score": str(raw_score),
+                }
+            )
     return issues
 
 
@@ -676,6 +938,7 @@ def validate_patch(batch: Mapping[str, Any], patch_rows: Sequence[Mapping[str, A
     materials = flatten_batch_materials(batch)
     issues: list[dict[str, Any]] = []
     seen: dict[str, int] = {}
+    team_factor_labels: dict[str, dict[str, tuple[str, int, str]]] = defaultdict(dict)
     for row in patch_rows:
         binding_code = text(row.get("binding_code"))
         if not binding_code:
@@ -690,6 +953,33 @@ def validate_patch(batch: Mapping[str, Any], patch_rows: Sequence[Mapping[str, A
             issues.append({"severity": "error", "status": "unknown_binding_code", "binding_code": binding_code, "line_no": row.get("_line_no")})
             continue
         issues.extend(validate_patch_row(row, material))
+        if text(material.get("rule_code")) == "team_building" and text(row.get("target_action")) == "score":
+            target_code = text(material.get("target_code"))
+            factor_refs = row.get("factor_refs")
+            if isinstance(factor_refs, Mapping):
+                for factor_name in ("role_complementarity_factor", "long_term_stability_factor"):
+                    ref = factor_refs.get(factor_name)
+                    label = text(ref.get("label")) if isinstance(ref, Mapping) else ""
+                    if not label:
+                        continue
+                    current = team_factor_labels[target_code].get(factor_name)
+                    if current is None:
+                        team_factor_labels[target_code][factor_name] = (label, int(row.get("_line_no") or 0), binding_code)
+                    elif current[0] != label:
+                        issues.append(
+                            {
+                                "severity": "error",
+                                "status": "inconsistent_team_factor_label",
+                                "binding_code": binding_code,
+                                "line_no": row.get("_line_no"),
+                                "target_code": target_code,
+                                "factor": factor_name,
+                                "label": label,
+                                "first_label": current[0],
+                                "first_line_no": current[1],
+                                "first_binding_code": current[2],
+                            }
+                        )
     for binding_code, material in materials.items():
         if binding_code not in seen:
             issues.append(
@@ -745,107 +1035,6 @@ def render_validation_markdown(payload: Mapping[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def task_code(batch: Mapping[str, Any]) -> str:
-    return "RV2F-" + stable_hash([batch.get("batch_id"), [row.get("binding_code") for row in flatten_batch_materials(batch).values()]], length=16)
-
-
-def prompt_passage(row: Mapping[str, Any]) -> dict[str, Any]:
-    quote = text(row.get("quote"))
-    if len(quote) > 420:
-        quote = quote[:420] + "..."
-    return {
-        "source_title": text(row.get("source_title")),
-        "title": text(row.get("title")),
-        "locator": text(row.get("locator")),
-        "quote": quote,
-    }
-
-
-def prompt_material(row: Mapping[str, Any]) -> dict[str, Any]:
-    obj = row.get("object") if isinstance(row.get("object"), Mapping) else {}
-    claim = row.get("claim") if isinstance(row.get("claim"), Mapping) else {}
-    template = row.get("factor_patch_template") if isinstance(row.get("factor_patch_template"), Mapping) else {}
-    return {
-        "binding_code": text(row.get("binding_code")),
-        "emperor_name": text(row.get("emperor_name")),
-        "target_code": text(row.get("target_code")),
-        "rule_code": text(row.get("rule_code")),
-        "direction": text(row.get("direction")),
-        "object_role": text(row.get("object_role")),
-        "predicate": text(row.get("predicate")),
-        "confidence": text(row.get("binding_confidence")),
-        "object": {
-            "canonical_name": text(obj.get("canonical_name")),
-            "object_type": text(obj.get("object_type")),
-            "talent_grade": text(obj.get("talent_grade")),
-            "talent_grade_basis": text(obj.get("talent_grade_basis")),
-            "person_roles": obj.get("person_roles") or [],
-            "person_affiliations": obj.get("person_affiliations") or [],
-        },
-        "claim": {
-            "summary": text(claim.get("summary")),
-            "source_passages": [prompt_passage(item) for item in (claim.get("source_passages") or [])[:4] if isinstance(item, Mapping)],
-        },
-        "required_patch": {
-            "binding_code": text(row.get("binding_code")),
-            "target_action": "score | supporting_only | exclude",
-            "side": template.get("side") or text(row.get("direction")),
-            "factor_refs": template.get("factor_refs") or {},
-            "patch_note": "中文高信息判断",
-        },
-    }
-
-
-def slim_batch_for_prompt(batch: Mapping[str, Any]) -> dict[str, Any]:
-    factor_options: dict[str, list[dict[str, Any]]] = {}
-    materials = list(flatten_batch_materials(batch).values())
-    for material in materials:
-        template = material.get("factor_patch_template") if isinstance(material.get("factor_patch_template"), Mapping) else {}
-        candidates = template.get("factor_option_candidates") if isinstance(template.get("factor_option_candidates"), Mapping) else {}
-        for factor_name, rows in candidates.items():
-            key = text(factor_name)
-            if key and key not in factor_options:
-                factor_options[key] = [dict(row) for row in rows if isinstance(row, Mapping)]
-    return {
-        "batch_id": text(batch.get("batch_id")),
-        "material_count": len(materials),
-        "factor_options_by_factor": dict(sorted(factor_options.items())),
-        "materials": [prompt_material(row) for row in materials],
-    }
-
-
-def prompt_for_batch(*, batch: Mapping[str, Any], patch_path: Path) -> str:
-    prompt_payload = slim_batch_for_prompt(batch)
-    rule_codes = {
-        text(material.get("rule_code"))
-        for material in flatten_batch_materials(batch).values()
-        if text(material.get("rule_code"))
-    }
-    skill_instruction = ""
-    if "delegation" in rule_codes:
-        skill_instruction = (
-            "delegation 轻量校准：包内 direction 就是本轮 side，不重新判断正负；"
-            "positive 行不得选择负值 `result_feedback`，negative 行不得选择正值 `result_feedback`；"
-            "`authorization_intensity` 只看授权范围；`result_feedback` 只看本材料证明的具体履职反馈。\n"
-        )
-    return (
-        "# retrieval_v2 factorization task\n\n"
-        "你是消费侧因子化判断子进程。不要修改代码、数据库或 schema；唯一允许写入的是指定 JSONL patch 文件。\n"
-        "你可以只读查看仓库内已生成材料；不得执行破坏性命令。必须覆盖本 batch 的每一条 material。\n\n"
-        + skill_instruction
-        + f"- patch_path: `{repo_relative(patch_path)}`\n"
-        "- target_action 只能是 `score`、`supporting_only` 或 `exclude`。\n"
-        "- `score` 必须填写 side 和所有 factor_refs；factor_refs.*.label 必须严格使用 factor_options_by_factor 中的 label。\n"
-        "- `supporting_only` 表示材料有上下文价值但不单独入分；`exclude` 表示不应进入本 rule 计分。\n"
-        "- patch_note 必须是中文高信息判断，说明为什么 score/supporting_only/exclude；不要写模板句。\n\n"
-        "输出要求：每行一个 JSON object，字段为 `binding_code`、`target_action`、`side`、`factor_refs`、`patch_note`。不要输出 Markdown。\n\n"
-        "## Batch\n\n"
-        "```json\n"
-        + json.dumps(prompt_payload, ensure_ascii=False, indent=2, sort_keys=True, default=str)
-        + "\n```\n"
-    )
-
-
 def load_batch_files(batch_dir: Path | None, batch_json: Sequence[Path]) -> list[Path]:
     paths = list(batch_json)
     if batch_dir is not None:
@@ -872,9 +1061,9 @@ def build_codex_tasks(*, batch_paths: Sequence[Path], output_root: Path) -> list
             "batch_path": repo_relative(batch_path),
             "material_count": int(batch.get("material_count") or len(flatten_batch_materials(batch))),
             "prompt_path": repo_relative(prompt_path),
-            "patch_path": repo_relative(patch_path),
             "last_message_path": repo_relative(last_message_path),
             "log_path": repo_relative(log_path),
+            "expected_outputs": [expected_output_contract(patch_path)],
             "argv": [
                 "codex",
                 "exec",
@@ -890,7 +1079,7 @@ def build_codex_tasks(*, batch_paths: Sequence[Path], output_root: Path) -> list
         prompt_path.parent.mkdir(parents=True, exist_ok=True)
         patch_path.parent.mkdir(parents=True, exist_ok=True)
         last_message_path.parent.mkdir(parents=True, exist_ok=True)
-        prompt_path.write_text(prompt_for_batch(batch=batch, patch_path=patch_path), encoding="utf-8")
+        prompt_path.write_text(prompt_for_batch(batch=batch, output_jsonl=patch_path), encoding="utf-8")
         tasks.append(task)
     return tasks
 
@@ -917,7 +1106,7 @@ def write_task_outputs(*, batch_paths: Sequence[Path], output_root: Path) -> dic
                 "task_code": task["task_code"],
                 "batch_id": task["batch_id"],
                 "material_count": task["material_count"],
-                "patch_path": task["patch_path"],
+                "patch_path": expected_output_contracts_path(task),
             }
             for task in tasks
         ],
@@ -933,7 +1122,7 @@ def write_task_outputs(*, batch_paths: Sequence[Path], output_root: Path) -> dic
         "| --- | --- | ---: | --- |",
     ]
     for task in tasks:
-        lines.append(f"| `{task['task_code']}` | `{task['batch_id']}` | {task['material_count']} | `{task['patch_path']}` |")
+        lines.append(f"| `{task['task_code']}` | `{task['batch_id']}` | {task['material_count']} | `{expected_output_contracts_path(task)}` |")
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return summary
 
@@ -950,6 +1139,10 @@ def run_codex_tasks(
     max_workers: int = 4,
     timeout_seconds: int = 1800,
     sandbox_profile: str = "local-write",
+    permission_profile: str | None = None,
+    deny_policy: str | None = None,
+    write_roots: Sequence[Path] = (),
+    git_snapshot: str | None = None,
     respect_task_argv: bool = False,
     search: bool = False,
 ) -> dict[str, Any]:
@@ -978,6 +1171,14 @@ def run_codex_tasks(
         "--sandbox-profile",
         sandbox_profile,
     ]
+    if permission_profile:
+        argv.extend(["--permission-profile", permission_profile])
+    if deny_policy:
+        argv.extend(["--deny-policy", deny_policy])
+    for write_root in write_roots:
+        argv.extend(["--write-root", str(write_root)])
+    if git_snapshot:
+        argv.extend(["--git-snapshot", git_snapshot])
     if background:
         argv.append("--background")
     if not execute:
@@ -1118,7 +1319,7 @@ def recover_task_patches(*, tasks_path: Path, output_json: Path | None, output_m
     recovered: list[dict[str, Any]] = []
     for task in tasks:
         rows, sources = recover_rows_for_task(task)
-        patch_path = resolve_repo_path(task.get("patch_path"))
+        patch_path = patch_path_for_task(task)
         expected = int(task.get("material_count") or 0)
         existing_rows = read_jsonl(patch_path) if patch_path.exists() else []
         existing_status = patch_status(existing_rows, expected=expected)
@@ -1208,9 +1409,10 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--rule-code", default=DEFAULT_RULE_CODE)
     worklist.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE)
     worklist.add_argument("--scope", choices=SCOPES, default="accepted-packs")
-    worklist.add_argument("--batch-size", type=int, default=40)
+    worklist.add_argument("--batch-size", type=int, default=8)
     worklist.add_argument("--target-name", action="append", default=[], help="Restrict worklist to this emperor/person target name. Repeatable.")
     worklist.add_argument("--target-code", action="append", default=[], help="Restrict worklist to this retrieval target code. Repeatable.")
+    worklist.add_argument("--source-pack-code", action="append", default=[], help="Restrict worklist to explicit source pack code. Repeatable; allows draft shadow packs.")
     worklist.add_argument("--output-json", type=Path, required=True)
     worklist.add_argument("--output-md", type=Path, required=True)
     worklist.add_argument("--batch-output-dir", type=Path)
@@ -1242,6 +1444,10 @@ def build_parser() -> argparse.ArgumentParser:
     run_plan.add_argument("--max-workers", type=int, default=4)
     run_plan.add_argument("--timeout-seconds", type=int, default=1800)
     run_plan.add_argument("--sandbox-profile", choices=("read-only", "local-write", "bypass"), default="local-write")
+    run_plan.add_argument("--permission-profile", choices=("review-only", "tmp-jsonl-review", "local-write", "repo-editor", "bypass"))
+    run_plan.add_argument("--deny-policy", choices=("fail", "continue-with-final", "deny-fail", "deny-continue", "deny-rewrite"))
+    run_plan.add_argument("--write-root", type=Path, action="append", default=[])
+    run_plan.add_argument("--git-snapshot", choices=("minimal", "full", "none"))
     run_plan.add_argument("--respect-task-argv", action="store_true")
     run_plan.add_argument("--search", action="store_true")
 
@@ -1284,6 +1490,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             max_workers=args.max_workers,
             timeout_seconds=args.timeout_seconds,
             sandbox_profile=args.sandbox_profile,
+            permission_profile=args.permission_profile,
+            deny_policy=args.deny_policy,
+            write_roots=args.write_root,
+            git_snapshot=args.git_snapshot,
             respect_task_argv=args.respect_task_argv,
             search=args.search,
         )
@@ -1302,6 +1512,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         formula_code=args.formula_code,
         scope=args.scope,
         batch_size=args.batch_size,
+        source_pack_codes=args.source_pack_code,
         target_names=args.target_name,
         target_codes=args.target_code,
     )

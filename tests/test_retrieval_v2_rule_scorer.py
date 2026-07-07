@@ -18,6 +18,8 @@ def judgment(
     claim_id: int | None = None,
     predicate: str = "delegated_authority",
     object_role: str = "civil_delegate",
+    rule_code: str = "delegation",
+    side: str = "positive",
     choices: tuple[tool.FactorChoice, ...] | None = None,
 ) -> tool.JudgmentInput:
     return tool.JudgmentInput(
@@ -30,10 +32,10 @@ def judgment(
         emperor_name="刘邦",
         source_pack_id=10,
         item_code="I5B",
-        rule_code="delegation",
+        rule_code=rule_code,
         formula_code="evidence_cluster_signal_v3",
         target_action="score",
-        side="positive",
+        side=side,
         predicate=predicate,
         object_role=object_role,
         object_id=object_id,
@@ -75,6 +77,119 @@ def test_material_score_caps_single_material_at_four() -> None:
     assert score.abs_score == Decimal("4.000")
 
 
+def test_compute_target_cluster_routes_negative_raw_score_to_negative_side() -> None:
+    cluster = tool.compute_target_cluster(
+        [
+            judgment(
+                1,
+                value="1.0",
+                rule_code="appointment_trust",
+                choices=(tool.FactorChoice("trust_validity", "错信", "BAD", Decimal("-2.0")),),
+            )
+        ]
+    )
+
+    assert cluster["positive_signal"] == Decimal("0.000")
+    assert cluster["negative_signal"] == Decimal("2.000")
+    assert cluster["material_scores"][0].score_side == "negative"
+    assert cluster["calc_detail"]["materials"][0]["side"] == "negative"
+    assert cluster["calc_detail"]["materials"][0]["judgment_side"] == "positive"
+    assert cluster["calc_detail"]["object_side_scores"]["negative"]["100"]["score"] == "2.000"
+
+
+def test_compute_target_cluster_keeps_negative_side_for_positive_severity_score() -> None:
+    cluster = tool.compute_target_cluster(
+        [
+            judgment(
+                1,
+                value="1.5",
+                rule_code="tolerate_talent",
+                side="negative",
+                choices=(tool.FactorChoice("handling_severity", "严重处置", "BAD", Decimal("1.5")),),
+            )
+        ]
+    )
+
+    assert cluster["positive_signal"] == Decimal("0.000")
+    assert cluster["negative_signal"] == Decimal("1.500")
+    assert cluster["material_scores"][0].score_side == "negative"
+
+
+def test_compute_team_building_cluster_uses_team_quality_formula() -> None:
+    choices = (
+        tool.FactorChoice("role_complementarity_factor", "较强互补", "COMP", Decimal("1.15")),
+        tool.FactorChoice("long_term_stability_factor", "长期稳定核心班底", "STABLE", Decimal("1.15")),
+    )
+    cluster = tool.compute_target_cluster(
+        [
+            judgment(
+                1,
+                value="1.0",
+                object_id=10,
+                rule_code="team_building",
+                choices=(
+                    tool.FactorChoice("talent_quality_factor", "历史级人才。", "T1", Decimal("2.00")),
+                    *choices,
+                ),
+            ),
+            judgment(
+                2,
+                value="1.0",
+                object_id=20,
+                rule_code="team_building",
+                choices=(
+                    tool.FactorChoice("talent_quality_factor", "顶级人才。", "T2", Decimal("1.35")),
+                    *choices,
+                ),
+            ),
+            judgment(
+                3,
+                value="1.0",
+                object_id=30,
+                rule_code="team_building",
+                choices=(
+                    tool.FactorChoice("talent_quality_factor", "重要人才。", "T3", Decimal("1.00")),
+                    *choices,
+                ),
+            ),
+        ],
+        material_policy={"carrier_mode": "team_core_members"},
+        team_rank_decay_options=(
+            tool.RankDecayOption("第 1 位", Decimal("1.00")),
+            tool.RankDecayOption("第 2 位", Decimal("0.90")),
+            tool.RankDecayOption("第 3 位", Decimal("0.80")),
+            tool.RankDecayOption("第 4-6 位", Decimal("0.45")),
+            tool.RankDecayOption("第 7 位以后", Decimal("0.25")),
+        ),
+    )
+
+    assert cluster["calc_detail"]["team_quality_signal"] == "2.473"
+    assert cluster["positive_signal"] == Decimal("3.271")
+    assert cluster["negative_signal"] == Decimal("0.000")
+    assert [item["rank_decay"] for item in cluster["calc_detail"]["team_quality_components"]] == ["1.00", "0.90", "0.80"]
+
+
+def test_team_rank_decay_uses_table_label_ranges() -> None:
+    options = (
+        tool.RankDecayOption("第 1 位", Decimal("1.00")),
+        tool.RankDecayOption("第 2 位", Decimal("0.90")),
+        tool.RankDecayOption("第 3 位", Decimal("0.80")),
+        tool.RankDecayOption("第 4-6 位", Decimal("0.45")),
+        tool.RankDecayOption("第 7 位以后", Decimal("0.25")),
+    )
+
+    assert [tool.team_rank_decay(index, options) for index in range(8)] == [
+        Decimal("1.00"),
+        Decimal("0.90"),
+        Decimal("0.80"),
+        Decimal("0.45"),
+        Decimal("0.45"),
+        Decimal("0.45"),
+        Decimal("0.25"),
+        Decimal("0.25"),
+    ]
+
+
 def test_material_score_rejects_positive_side_negative_result_feedback() -> None:
     bad = judgment(
         1,
@@ -114,6 +229,8 @@ def flat_rows() -> list[dict[str, object]]:
                 "option_label": "基础史源",
                 "option_code": "SRC",
                 "value_num": value,
+                "active_factor_option_id": judgment_id + 3000,
+                "active_value_num": value,
             }
         )
     rows.append(
@@ -139,9 +256,27 @@ def flat_rows() -> list[dict[str, object]]:
             "option_label": "",
             "option_code": "",
             "value_num": None,
+            "active_factor_option_id": None,
+            "active_value_num": None,
         }
     )
     return rows
+
+
+def test_build_judgments_rejects_stale_factor_choice() -> None:
+    rows = flat_rows()
+    rows[0]["active_factor_option_id"] = None
+
+    with pytest.raises(tool.RetrievalV2RuleScorerError, match="stale or unknown factor option"):
+        tool.build_judgments(rows)
+
+
+def test_build_judgments_rejects_stale_factor_value() -> None:
+    rows = flat_rows()
+    rows[0]["active_value_num"] = "1.0"
+
+    with pytest.raises(tool.RetrievalV2RuleScorerError, match="stale factor value"):
+        tool.build_judgments(rows)
 
 
 class FakeCursor:
@@ -159,8 +294,21 @@ class FakeCursor:
     def execute(self, sql: str, params=None) -> None:
         lowered = sql.lower()
         self.conn.statements.append(lowered)
+        self.conn.params.append(params or ())
+        if "from retrieval_v2.eval_rule_material_policies" in lowered:
+            self.rows = [dict(row) for row in self.conn.material_policy_rows]
+            self.rowcount = len(self.rows)
+            return
+        if "from retrieval_v2.eval_rule_factors f" in lowered and "f.factor_name = 'rank_decay'" in lowered:
+            self.rows = [dict(row) for row in self.conn.factor_option_rows]
+            self.rowcount = len(self.rows)
+            return
         if "group by j.formula_code" in lowered:
             self.rows = [dict(row) for row in self.conn.alternate_formula_rows]
+            self.rowcount = len(self.rows)
+            return
+        if "select distinct" in lowered and "rt.id as target_id" in lowered:
+            self.rows = [dict(row) for row in self.conn.scoring_target_rows]
             self.rowcount = len(self.rows)
             return
         if "from retrieval_v2.claim_rule_binding_factor_judgments j" in lowered:
@@ -178,7 +326,27 @@ class FakeConnection:
     def __init__(self) -> None:
         self.judgment_rows = flat_rows()
         self.alternate_formula_rows: list[dict[str, object]] = []
+        self.scoring_target_rows: list[dict[str, object]] = [
+            {
+                "target_id": 1,
+                "target_code": "RT-I5B-LB",
+                "emperor_name": "刘邦",
+                "item_code": "I5B",
+            }
+        ]
+        self.material_policy_rows: list[dict[str, object]] = [
+            {
+                "id": 1,
+                "policy_code": "person_material_policy",
+                "selection_priority": 100,
+                "carrier_mode": "obj_src_material",
+                "material_source": "obj_srcs",
+                "policy_payload": {},
+            }
+        ]
+        self.factor_option_rows: list[dict[str, object]] = []
         self.statements: list[str] = []
+        self.params: list[object] = []
         self.committed = False
         self.rolled_back = False
 
@@ -227,14 +395,56 @@ def test_apply_rule_scores_defaults_to_db_backed_dry_run(monkeypatch) -> None:
     assert payload["write_db"] is False
     assert payload["totals"] == {"targets": 1, "judgments": 3, "material_scores": 2, "deduped_material_scores": 0}
     assert payload["clusters"][0]["positive_signal"] == "2.350"
+    assert payload["detailed_clusters"][0]["calc_detail"]["materials"][0]["binding_code"] == "BND-1"
+    assert payload["detailed_clusters"][0]["calc_detail"]["object_side_scores"]["positive"]["100"]["score"] == "2.350"
     assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_material_scores"] == 2
     assert payload["applied_counts"]["retrieval_v2.target_rule_score_clusters"] == 1
     assert conn.rolled_back is True
     assert any("insert into retrieval_v2.claim_rule_binding_material_scores" in statement for statement in conn.statements)
     assert any("insert into retrieval_v2.target_rule_score_clusters" in statement for statement in conn.statements)
+    assert any("from retrieval_v2.material_review_queue mrq" in statement for statement in conn.statements)
+    assert any("from retrieval_v2.eval_rule_material_policies" in statement for statement in conn.statements)
+    assert any("mrq.claim_id = j.claim_id" in statement for statement in conn.statements)
+    assert any("b.usable_for_scoring_cluster" in statement for statement in conn.statements)
+    assert any("promoted_material_object_link_id" in statement for statement in conn.statements)
+    assert any("coalesce(b.binding_payload->>'promoted_material_object_link_id', '')" in statement for statement in conn.statements)
+    assert any("mol1.id = (b.binding_payload->>'promoted_material_object_link_id')::bigint" in statement for statement in conn.statements)
     assert any("distinct on (sp2.target_id, sp2.contract_id)" in statement for statement in conn.statements)
     assert any("sp2.status = 'accepted'" in statement for statement in conn.statements)
     assert any("sp2.coverage_status = 'passed'" in statement for statement in conn.statements)
+
+
+def test_apply_rule_scores_can_read_explicit_source_pack_without_accepted_scope(monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+
+    payload = tool.apply_rule_scores(
+        dsn="postgresql://fake",
+        item_code="I5B",
+        rule_code="delegation",
+        formula_code="evidence_cluster_signal_v3",
+        source_pack_codes=["SPK-I5B-SHADOW"],
+        execute=False,
+    )
+
+    assert payload["source_pack_codes"] == ["SPK-I5B-SHADOW"]
+    assert conn.rolled_back is True
+    assert any("sp.pack_code = any(%s)" in statement for statement in conn.statements)
+    assert not any("sp2.status = 'accepted'" in statement for statement in conn.statements)
+    assert any(params == ("I5B", "delegation", "evidence_cluster_signal_v3", ["SPK-I5B-SHADOW"], "", "") for params in conn.params)
+
+
+def test_apply_rule_scores_blocks_explicit_source_pack_execute_by_default(monkeypatch) -> None:
+    patch_fake_db(monkeypatch)
+
+    with pytest.raises(tool.RetrievalV2RuleScorerError, match="dry-run by default"):
+        tool.apply_rule_scores(
+            dsn="postgresql://fake",
+            item_code="I5B",
+            rule_code="delegation",
+            formula_code="evidence_cluster_signal_v3",
+            source_pack_codes=["SPK-I5B-SHADOW"],
+            execute=True,
+        )
 
 
 def test_apply_rule_scores_rejects_empty_wrong_formula_when_alternates_exist(monkeypatch) -> None:
@@ -252,6 +462,27 @@ def test_apply_rule_scores_rejects_empty_wrong_formula_when_alternates_exist(mon
             formula_code="standard",
             execute=False,
         )
+
+
+def test_apply_rule_scores_writes_zero_cluster_when_no_usable_judgments(monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+    conn.judgment_rows = []
+    conn.alternate_formula_rows = []
+
+    payload = tool.apply_rule_scores(
+        dsn="postgresql://fake",
+        item_code="I5B",
+        rule_code="delegation",
+        formula_code="evidence_cluster_signal_v3",
+        execute=False,
+    )
+
+    assert payload["totals"] == {"targets": 1, "judgments": 0, "material_scores": 0, "deduped_material_scores": 0}
+    assert payload["clusters"][0]["positive_signal"] == "0"
+    assert payload["clusters"][0]["negative_signal"] == "0"
+    assert payload["clusters"][0]["action_counts"] == {"score": 0, "supporting_only": 0, "exclude": 0}
+    assert any("delete from retrieval_v2.claim_rule_binding_material_scores" in statement for statement in conn.statements)
+    assert any("insert into retrieval_v2.target_rule_score_clusters" in statement for statement in conn.statements)
 
 
 def test_cli_apply_writes_report(tmp_path: Path, monkeypatch, capsys) -> None:

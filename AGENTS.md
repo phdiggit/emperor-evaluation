@@ -40,6 +40,11 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本、Markdown、JSON / JSONL 结构化改写优先用 `codex-win encoding`、仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
 
+## 子 Agent 与批量任务 / Subagents And Batch Tasks
+- 批量、后台或并发 Codex 子任务优先用 `codex-win agent run-plan`；它只负责进程监管、权限画像、输出契约和结果收集，不替代 retrieval_v2 readiness、dry-run、幂等校验、patch 验收、scorer 或落库逻辑。patch / review / factorization 类默认用 `--permission-profile tmp-jsonl-review --deny-policy deny-rewrite --git-snapshot minimal`，只写 `tmp/**`；无 git 上下文用 `none`，需要 diff stat/name-status 才用 `full`。
+- `codex_tasks.jsonl` 应声明 `task_code`、`prompt_path`、`last_message_path`、`log_path` 和 `expected_outputs`；JSONL patch 用 `expected_outputs.kind=jsonl_patch` 与 `PATCH_JSONL_BEGIN` / `PATCH_JSONL_END` fallback，不只依赖旧式顶层 `patch_path`。prompt、workitems、patch 和 last message 一律通过 UTF-8 文件传递。
+- 子 agent 结果不得只看退出码；必须检查 `results.jsonl` / `summary.json` 的 `status`、`error_type`、`permission_analysis`、`deny_resolution`、`output_analysis`，再交给项目脚本验收。源码写入才用 `repo-editor`，用户明确接受风险才用 `bypass`；后台 run 用 `status`、`wait`、`collect` 收尾，异常后先 `cleanup-stale`。
+
 ## GitHub 正文安全 / GitHub Body Safety
 
 - 禁止用 `pwsh` / PowerShell inline 字符串直接写大段 Markdown PR body。

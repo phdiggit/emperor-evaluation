@@ -108,6 +108,10 @@ def write_fixture(root: Path, review_root: Path | None = None, *, missing_passag
                 "candidate_rule_code": "team_building",
                 "candidate_direction": "sideways" if bad_candidate_direction else "",
                 "reason": "同一事实也可提示团队建设。",
+                "candidate_payload": {
+                    "hint_status": "future_rule_hint",
+                    "source_binding": {"rule_code": "team_building"},
+                },
             }
         ],
     )
@@ -275,6 +279,26 @@ def test_execute_import_uses_dependency_order_with_fake_connection(tmp_path: Pat
     assert any("insert into retrieval_v2.claim_rule_bindings" in statement for statement in insert_statements)
 
 
+def test_execute_import_can_write_draft_source_pack_for_shadow_runs(tmp_path: Path, monkeypatch) -> None:
+    normalized = tmp_path / "normalized"
+    write_fixture(normalized)
+    conn = patch_fake_db(monkeypatch)
+
+    payload = tool.execute_import(
+        normalized_root=normalized,
+        review_root=None,
+        env_file=None,
+        dsn_env="IGNORED_DSN",
+        execute=True,
+        source_pack_status="draft",
+    )
+
+    assert payload["ok"] is True
+    assert payload["source_pack_status"] == "draft"
+    source_pack_params = next(params for sql, params in conn.executions if "insert into retrieval_v2.source_packs" in sql)
+    assert "draft" in source_pack_params
+
+
 def test_execute_import_preserves_claim_and_binding_review_status(tmp_path: Path, monkeypatch) -> None:
     normalized = tmp_path / "normalized"
     write_fixture(normalized)
@@ -307,3 +331,60 @@ def test_execute_import_preserves_claim_and_binding_review_status(tmp_path: Path
     binding_params = next(params for sql, params in conn.executions if "insert into retrieval_v2.claim_rule_bindings" in sql)
     assert "needs_review" in claim_params
     assert "needs_review" in binding_params
+
+
+def test_execute_import_writes_structured_candidate_payload(tmp_path: Path, monkeypatch) -> None:
+    normalized = tmp_path / "normalized"
+    write_fixture(normalized)
+    conn = patch_fake_db(monkeypatch)
+
+    payload = tool.execute_import(
+        normalized_root=normalized,
+        review_root=None,
+        env_file=None,
+        dsn_env="IGNORED_DSN",
+        execute=True,
+    )
+
+    assert payload["ok"] is True
+    candidate_params = next(params for sql, params in conn.executions if "insert into retrieval_v2.claim_rule_binding_candidates" in sql)
+    assert candidate_params[8] == "team_building"
+    assert candidate_params[9] == "future_rule_hint"
+    assert json.loads(candidate_params[10]) == {}
+    candidate_payload = json.loads(candidate_params[-1])
+    assert candidate_payload["hint_status"] == "future_rule_hint"
+    assert candidate_payload["source_binding"]["rule_code"] == "team_building"
+
+
+def test_execute_import_writes_candidate_lane_required_facts_and_profile(tmp_path: Path, monkeypatch) -> None:
+    normalized = tmp_path / "normalized"
+    write_fixture(normalized)
+    rows = [
+        json.loads(line)
+        for line in (normalized / "claim_rule_binding_candidates.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    rows[0]["candidate_item_code"] = "I5C"
+    rows[0]["candidate_rule_code"] = "power_control"
+    rows[0]["candidate_lane"] = "I5C.power_control"
+    rows[0]["hint_status"] = "future_rule_hint"
+    rows[0]["required_facts_present"] = {"actor": True, "action": True, "outcome": False}
+    rows[0]["routed_by_profile"] = "personnel_political_wide"
+    write_jsonl(normalized / "claim_rule_binding_candidates.jsonl", rows)
+    conn = patch_fake_db(monkeypatch)
+
+    payload = tool.execute_import(
+        normalized_root=normalized,
+        review_root=None,
+        env_file=None,
+        dsn_env="IGNORED_DSN",
+        execute=True,
+    )
+
+    assert payload["ok"] is True
+    candidate_params = next(params for sql, params in conn.executions if "insert into retrieval_v2.claim_rule_binding_candidates" in sql)
+    assert candidate_params[7] == "power_control"
+    assert candidate_params[8] == "I5C.power_control"
+    assert candidate_params[9] == "future_rule_hint"
+    assert json.loads(candidate_params[10]) == {"actor": True, "action": True, "outcome": False}
+    assert candidate_params[11] == "personnel_political_wide"

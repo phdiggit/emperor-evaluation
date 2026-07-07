@@ -98,6 +98,28 @@ def test_build_judge_shards_balances_by_candidate_text() -> None:
     assert all(row["payload"]["judge_shard"]["estimated_slice_chars"] > 0 for row in shards)
 
 
+def test_build_judge_shards_penalizes_alias_only_risky_slices() -> None:
+    candidates = sample_candidates()
+    candidates["object_seeds"].append({"name": "李文忠", "aliases": [{"alias": "曹国公", "strength": "medium"}]})
+    candidates["candidate_slices"].append(
+        {
+            "slice_code": "SLI-LWZ-RISK",
+            "document_code": "DOC-001",
+            "object_name": "李文忠",
+            "matched_aliases": ["曹国公"],
+            "matched_alias_strengths": {"曹国公": "medium"},
+            "matched_outcome_terms": ["败绩"],
+            "matched_role_families": ["civil_delegate"],
+            "text": "曹国公李景隆代将，连败于郑村坝、白沟河。",
+        }
+    )
+
+    shards = tool.build_judge_shards(candidates, max_objects_per_shard=2, round_index=0)
+    object_sets = [set(row["object_names"]) for row in shards]
+
+    assert any(names == {"李文忠"} for names in object_sets)
+
+
 def test_merge_judge_shards_rewrites_colliding_codes() -> None:
     merged = tool.merge_judge_shard_results(
         candidates=sample_candidates(),
@@ -215,3 +237,33 @@ def test_enrich_judge_payload_materializes_passages_from_slice_refs() -> None:
     assert enriched["passages"][0]["slice_code"] == "SLI-LYQ"
     assert enriched["passages"][0]["quote"].startswith("太祖命吕余庆")
     assert enriched["claims"][0]["source_passage_refs"] == [enriched["passages"][0]["passage_code"]]
+
+
+def test_materialized_passage_keeps_full_candidate_slice_text() -> None:
+    candidates = sample_candidates()
+    long_result_text = "后续战果：" + ("北取州郡、破敌军。" * 20)
+    full_text = "太祖命常遇春留督诸军，任平章政事。" + ("授权背景。" * 20) + long_result_text
+    candidates["candidate_slices"][0]["slice_code"] = "SLI-CYC"
+    candidates["candidate_slices"][0]["object_name"] = "常遇春"
+    candidates["candidate_slices"][0]["text"] = full_text
+    payload = {
+        "status": "succeeded",
+        "claims": [
+            {
+                "claim_code": "CLM-CYC",
+                "object_name": "常遇春",
+                "claim_summary": "朱元璋命常遇春督军并取得后续战果。",
+                "direction": "positive",
+                "source_slice_refs": ["SLI-CYC"],
+            }
+        ],
+        "primary_bindings": [],
+    }
+
+    enriched = tool.enrich_judge_payload(candidates, payload)
+    passage = enriched["passages"][0]
+
+    assert len(full_text) > 120
+    assert passage["quote"] == full_text
+    assert passage["raw_text"] == full_text
+    assert long_result_text in passage["quote"]

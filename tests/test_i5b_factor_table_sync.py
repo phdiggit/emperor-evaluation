@@ -24,17 +24,16 @@ def test_extract_current_rule_docs_contains_expected_i5b_factor_options() -> Non
     tool = load_tool()
     rows = tool.extract_factor_options()
 
-    object_weight_rows = [row for row in rows if row.factor_name == "object_weight"]
-    assert {row.rule_code for row in object_weight_rows} == {""}
-    assert any(row.value_num == Decimal("1.3") and "核心岗位" in row.label for row in object_weight_rows)
+    assert not any(row.factor_name == "object_weight" and row.rule_code == "" for row in rows)
+    assert not any(row.factor_name == "directness_factor" for row in rows)
 
     source_rows = [row for row in rows if row.factor_name == "source_factor"]
-    assert any(row.value_num == Decimal("1.15") and row.label == "多源可互证" for row in source_rows)
+    assert [row.value_num for row in source_rows] == [Decimal("0.75"), Decimal("1.0"), Decimal("1.1")]
+    assert any(row.value_num == Decimal("1.1") and "关键事实链完整" in row.label for row in source_rows)
     assert all(row.note == "" for row in source_rows)
-    assert any("多源可互证" in row.description for row in source_rows)
 
     handling_rows = [row for row in rows if row.rule_code == "tolerate_talent" and row.factor_name == "handling_severity"]
-    assert any(row.value_num == Decimal("3.0") and "灾难级安全破坏" in row.label for row in handling_rows)
+    assert any(row.value_num == Decimal("3.2") and "灾难级安全破坏" in row.label for row in handling_rows)
     assert all(row.note != row.label for row in handling_rows)
 
     target_fault_labels = [
@@ -57,12 +56,28 @@ def test_extract_current_rule_docs_contains_expected_i5b_factor_options() -> Non
     assert [row.label for row in discovery_quality_rows] == ["普通人才", "可用人才", "重要人才", "顶级人才", "历史级人才"]
     assert [row.factor_scope for row in discovery_quality_rows] == ["attribute_mapping"] * 5
     assert [row.value_num for row in discovery_quality_rows] == [
-        Decimal("0.5"),
+        Decimal("0.6"),
         Decimal("0.9"),
-        Decimal("1.3"),
+        Decimal("1.15"),
+        Decimal("1.45"),
         Decimal("1.8"),
-        Decimal("2.5"),
     ]
+
+    delegation_feedback_rows = [
+        row
+        for row in rows
+        if row.rule_code == "delegation" and row.factor_name == "result_feedback"
+    ]
+    assert [row.value_num for row in delegation_feedback_rows] == [
+        Decimal("1.5"),
+        Decimal("1"),
+        Decimal("0.3"),
+        Decimal("-0.8"),
+        Decimal("-1.8"),
+        Decimal("-2.6"),
+    ]
+    assert not any(row.value_num == Decimal("-2.0") for row in delegation_feedback_rows)
+    assert any("授权直接造成重大军政失败" in row.label for row in delegation_feedback_rows)
 
     retired_factor_names = {"founder_pressure", "retention_signal", "certainty_factor", "spillover_factor", "disposition_severity"}
     assert not ({row.factor_name for row in rows} & retired_factor_names)
@@ -79,13 +94,15 @@ def test_render_upsert_sql_links_factor_options_to_items_and_rules() -> None:
 
     sql = tool.render_upsert_sql(rows)
 
-    assert "public.eval_rule_factors" in sql
-    assert "public.eval_rule_factor_options" in sql
-    assert "public.eval_items" in sql
-    assert "public.eval_rules" in sql
+    assert "retrieval_v2.eval_rule_factors" in sql
+    assert "retrieval_v2.eval_rule_factor_options" in sql
+    assert "retrieval_v2.eval_items" in sql
+    assert "retrieval_v2.eval_rules" in sql
     assert "description" in sql
-    assert "on conflict (item_code, rule_code, formula_code, factor_name)" in sql
-    assert "on conflict (factor_id, label)" in sql
+    assert "source_factor_id" in sql
+    assert "source_option_id" in sql
+    assert "on conflict on constraint rv2_eval_rule_factors_code_uk" in sql
+    assert "on conflict on constraint rv2_eval_rule_factor_options_factor_label_uk" in sql
 
 
 def test_compare_rows_reports_missing_and_extra_options() -> None:

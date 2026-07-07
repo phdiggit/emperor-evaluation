@@ -122,7 +122,57 @@ def test_build_rows_namespaces_codes_and_preserves_refs(tmp_path: Path) -> None:
     assert rows["claim_rule_binding_candidates"][0]["source_rule_code"] == "delegation"
     assert rows["claim_rule_binding_candidates"][0]["candidate_item_code"] == ""
     assert rows["claim_rule_binding_candidates"][0]["candidate_rule_code"] == "team_building"
+    assert rows["claim_rule_binding_candidates"][0]["candidate_lane"] == "team_building"
+    assert rows["claim_rule_binding_candidates"][0]["hint_status"] == "formal_candidate"
+    assert rows["claim_rule_binding_candidates"][0]["required_facts_present"] == {}
+    assert rows["claim_rule_binding_candidates"][0]["routed_by_profile"] == "secondary_binding_candidates"
     assert rows["claim_rule_binding_candidates"][0]["review_status"] == "pending"
+    assert rows["claim_rule_binding_candidates"][0]["candidate_payload"]["created_from"] == "secondary_binding_candidates"
+    assert rows["claim_rule_binding_candidates"][0]["candidate_payload"]["source_binding"]["rule_code"] == "team_building"
+
+
+def test_build_rows_lifts_secondary_candidate_future_hint_payload(tmp_path: Path) -> None:
+    manifest_path = write_manifest_fixture(tmp_path)
+    judge_path = tmp_path / "run" / "TGT-I5B-LH_delegation" / "judge_result.final.json"
+    judge = json.loads(judge_path.read_text(encoding="utf-8"))
+    judge["secondary_binding_candidates"][0]["rule_code"] = "power_control"
+    judge["secondary_binding_candidates"][0]["candidate_payload"] = {"hint_status": "future_rule_hint"}
+    write_json(judge_path, judge)
+
+    rows = tool.build_rows(manifest_path)
+
+    payload = rows["claim_rule_binding_candidates"][0]["candidate_payload"]
+    assert rows["claim_rule_binding_candidates"][0]["candidate_lane"] == "power_control"
+    assert rows["claim_rule_binding_candidates"][0]["hint_status"] == "future_rule_hint"
+    assert payload["hint_status"] == "future_rule_hint"
+    assert payload["source_binding"]["candidate_payload"]["hint_status"] == "future_rule_hint"
+
+
+def test_build_rows_lifts_secondary_candidate_lane_and_required_facts(tmp_path: Path) -> None:
+    manifest_path = write_manifest_fixture(tmp_path)
+    judge_path = tmp_path / "run" / "TGT-I5B-LH_delegation" / "judge_result.final.json"
+    judge = json.loads(judge_path.read_text(encoding="utf-8"))
+    judge["secondary_binding_candidates"][0].update(
+        {
+            "candidate_item_code": "I5C",
+            "candidate_rule_code": "power_control",
+            "candidate_lane": "I5C.power_control",
+            "hint_status": "future_rule_hint",
+            "required_facts_present": {"actor": True, "action": True, "outcome": False},
+            "routed_by_profile": "personnel_political_wide",
+        }
+    )
+    write_json(judge_path, judge)
+
+    rows = tool.build_rows(manifest_path)
+
+    candidate = rows["claim_rule_binding_candidates"][0]
+    assert candidate["candidate_item_code"] == "I5C"
+    assert candidate["candidate_rule_code"] == "power_control"
+    assert candidate["candidate_lane"] == "I5C.power_control"
+    assert candidate["hint_status"] == "future_rule_hint"
+    assert candidate["required_facts_present"] == {"actor": True, "action": True, "outcome": False}
+    assert candidate["routed_by_profile"] == "personnel_political_wide"
 
 
 def test_build_rows_dedupes_passages_by_document_locator_quote(tmp_path: Path) -> None:

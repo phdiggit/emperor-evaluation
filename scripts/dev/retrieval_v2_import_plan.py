@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_contracts import ALIAS_VARIANT_GROUPS  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
 from scripts.dev.retrieval_v2_intake_rows import stable_json  # noqa: E402
 from scripts.dev.retrieval_v2_review_worklists import object_group_key, read_jsonl  # noqa: E402
@@ -21,6 +22,7 @@ from scripts.dev.retrieval_v2_review_worklists import object_group_key, read_jso
 
 DIRECTIONS = {"positive", "negative", "neutral", "mixed"}
 OBJECT_TYPES = {"person", "institution", "place", "event", "text", "other"}
+HINT_STATUSES = {"formal_candidate", "current_rule_candidate", "future_rule_hint", "context_only", "rejected"}
 NORMALIZED_FILES = [
     "source_packs",
     "source_pack_artifacts",
@@ -31,6 +33,7 @@ NORMALIZED_FILES = [
     "claim_rule_binding_candidates",
     "coverage_gap_events",
 ]
+VIRTUAL_SOURCE_RULES = {"i5b_item_wide"}
 
 
 class ImportPlanError(RuntimeError):
@@ -107,6 +110,27 @@ def json_param(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, default=str)
 
 
+def candidate_hint_status(row: Mapping[str, Any]) -> str:
+    payload = row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {}
+    raw = text(row.get("hint_status") or payload.get("hint_status") or payload.get("route_status"))
+    return raw if raw in HINT_STATUSES else "formal_candidate"
+
+
+def candidate_required_facts(row: Mapping[str, Any]) -> dict[str, Any] | list[Any]:
+    value = row.get("required_facts_present")
+    if isinstance(value, Mapping):
+        return dict(value)
+    if isinstance(value, list):
+        return list(value)
+    payload = row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {}
+    value = payload.get("required_facts_present")
+    if isinstance(value, Mapping):
+        return dict(value)
+    if isinstance(value, list):
+        return list(value)
+    return {}
+
+
 def lookup_from_cursor(cur: Any) -> dict[str, Any]:
     cur.execute(
         """
@@ -179,6 +203,75 @@ def blocker(table: str, row_code: str, code: str, message: str) -> dict[str, str
 
 def warning(table: str, row_code: str, code: str, message: str) -> dict[str, str]:
     return {"table": table, "row_code": row_code, "code": code, "message": message}
+
+
+COMMON_CJK_STOP_CHARS = set("之乎者也而以于於其所为為与與及并並乃则則曰云有无無不在是此彼上中下")
+SCRIPT_VARIANT_TRANSLATION = str.maketrans(
+    {
+        variant: group[0]
+        for group in ALIAS_VARIANT_GROUPS
+        for variant in group[1:]
+        if len(group[0]) == 1 and len(variant) == 1
+    }
+)
+
+
+def normalize_alignment_text(value: str) -> str:
+    return value.translate(SCRIPT_VARIANT_TRANSLATION)
+
+
+def cjk_chars(value: str) -> list[str]:
+    normalized = normalize_alignment_text(value)
+    return [char for char in normalized if "\u4e00" <= char <= "\u9fff"]
+
+
+def summary_terms(value: str, *, object_name: str = "") -> set[str]:
+    chars = cjk_chars(value)
+    terms = {
+        "".join(chars[index : index + 2])
+        for index in range(max(0, len(chars) - 1))
+        if not (chars[index] in COMMON_CJK_STOP_CHARS and chars[index + 1] in COMMON_CJK_STOP_CHARS)
+    }
+    if len(object_name) >= 2:
+        terms.add(object_name)
+    return terms
+
+
+def claim_passage_alignment_issue(
+    claim: Mapping[str, Any],
+    passages: Mapping[str, Mapping[str, Any]],
+) -> dict[str, str] | None:
+    summary = text(claim.get("claim_summary"))
+    object_name = normalize_alignment_text(text(claim.get("object_name")))
+    refs = [text(ref) for ref in claim.get("source_passage_refs") or [] if text(ref) in passages]
+    if not summary or not refs:
+        return None
+    haystack = normalize_alignment_text("\n".join(text(passages[ref].get("raw_text")) for ref in refs))
+    if not haystack:
+        return None
+
+    terms = summary_terms(summary, object_name=object_name)
+    overlaps = sorted(term for term in terms if term and term in haystack)
+    object_present = bool(object_name and object_name in haystack)
+    if not overlaps:
+        return {
+            "severity": "blocker",
+            "code": "claim_passage_mismatch",
+            "message": "claim_summary has no meaningful overlap with referenced source_passage raw_text",
+        }
+    if object_name and not object_present and len(overlaps) < 2:
+        return {
+            "severity": "blocker",
+            "code": "claim_passage_object_mismatch",
+            "message": f"object_name not found in referenced passages and summary overlap is weak: {','.join(overlaps[:3])}",
+        }
+    if object_present and overlaps == [object_name]:
+        return {
+            "severity": "warning",
+            "code": "claim_passage_object_only_match",
+            "message": "referenced passages only match claim_summary by object_name; review for summary/passage drift",
+        }
+    return None
 
 
 def build_plan(*, normalized_root: Path, review_root: Path | None = None, lookup: Mapping[str, Any] | None = None) -> dict[str, Any]:
@@ -300,6 +393,13 @@ def build_plan(*, normalized_root: Path, review_root: Path | None = None, lookup
         missing_refs = [ref for ref in claim.get("source_passage_refs") or [] if text(ref) not in passages]
         if missing_refs:
             blockers.append(blocker("material_claims", claim_code, "missing_source_passage_ref", ",".join(text(ref) for ref in missing_refs)))
+        alignment_issue = claim_passage_alignment_issue(claim, passages)
+        if alignment_issue:
+            issue = alignment_issue
+            if issue["severity"] == "blocker":
+                blockers.append(blocker("material_claims", claim_code, issue["code"], issue["message"]))
+            else:
+                warnings.append(warning("material_claims", claim_code, issue["code"], issue["message"]))
         operations.append(
             operation(
                 "retrieval_v2.material_claims",
@@ -367,9 +467,14 @@ def build_plan(*, normalized_root: Path, review_root: Path | None = None, lookup
             blockers.append(blocker("claim_rule_binding_candidates", candidate_code, "missing_claim", claim_code))
         if direction == "":
             blockers.append(blocker("claim_rule_binding_candidates", candidate_code, "invalid_direction", text(candidate.get("candidate_direction"))))
-        if lookup and not lookup_rule_id(lookup, target_code=text(pack.get("target_code")), rule_code=source_rule_code):
+        source_rule_id = lookup_rule_id(lookup, target_code=text(pack.get("target_code")), rule_code=source_rule_code) if lookup else None
+        if lookup and not source_rule_id and source_rule_code not in VIRTUAL_SOURCE_RULES:
             blockers.append(blocker("claim_rule_binding_candidates", candidate_code, "missing_source_contract_rule", source_rule_code))
-        if lookup and candidate_rule_code and not lookup_rule_id(lookup, target_code=text(pack.get("target_code")), rule_code=candidate_rule_code):
+        hint_status = candidate_hint_status(candidate)
+        required_facts_present = candidate_required_facts(candidate)
+        candidate_payload = candidate.get("candidate_payload") if isinstance(candidate.get("candidate_payload"), Mapping) else {}
+        is_future_hint = hint_status == "future_rule_hint"
+        if lookup and candidate_rule_code and not is_future_hint and not lookup_rule_id(lookup, target_code=text(pack.get("target_code")), rule_code=candidate_rule_code):
             warnings.append(warning("claim_rule_binding_candidates", candidate_code, "candidate_rule_not_in_contract", candidate_rule_code))
         operations.append(
             operation(
@@ -378,11 +483,18 @@ def build_plan(*, normalized_root: Path, review_root: Path | None = None, lookup
                     "claim_code": claim_code,
                     "source_rule_code": source_rule_code,
                     "candidate_item_code": text(candidate.get("candidate_item_code")),
+                    "candidate_lane": text(candidate.get("candidate_lane")),
                     "candidate_rule_code": candidate_rule_code,
+                    "hint_status": hint_status,
+                    "required_facts_present": required_facts_present,
                     "reason_hash": reason_hash(text(candidate.get("reason"))),
                 },
                 depends_on=[{"table": "retrieval_v2.material_claims", "claim_code": claim_code}],
-                payload=candidate,
+                payload={
+                    "hint_status": hint_status,
+                    "required_facts_present": required_facts_present,
+                    **candidate,
+                },
             )
         )
 

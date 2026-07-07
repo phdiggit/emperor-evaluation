@@ -10,6 +10,36 @@ retrieval_v2 的抓包产物必须由皇帝名单和规则契约驱动，最终�
 
 `secondary_binding_candidates` 必须作为长期 `claim_rule_binding_candidates` 候选池保留。当前只有 I5B / delegation 可消费时，候选只记录来源 item / rule、候选 rule、理由和置信度，不进入本轮计分；未来其他 item / rule contract 上线后，再由候选解析工具把同一 claim 追加为新的正式 rule binding，不能依赖人工记忆回翻旧包。
 
+新抓包优先由 judge worker 在读史料上下文时输出 `secondary_binding_candidates`：抓包端负责宽抓宽标，顺手记录任人信任、团队、发现人才、容才、反亲私等正式候选，以及权力控制、政治品格、认知纠错、关键决策、军事边疆结果、历史负债等 future hint；消费端负责硬过滤、入库和窄入分，不为普通候选重新起智能体读史料。
+
+`personnel_political_wide` 是 `i5b_item_wide_shadow` 的语义升级版：它仍复用 `rule_code="i5b_item_wide"` 的包外壳，避免新表和正式入分链改造，但在 task、candidate payload 和 summary 中额外写入 `capture_profile="personnel_political_wide"`、`fact_schema="political_action_v1"`、`candidate_route_table_version="personnel_political_v0_1"`。它覆盖 I5B 当前 formal candidates，并给 I5C / I5D / I5E / I6 / I3 / I7 留 future hints；`primary_bindings` 必须为空，所有候选归属都进入 `secondary_binding_candidates`，由消费端窄验晋升或停留为 future hint。
+
+I5B-wide 抓包只能先做 shadow pilot，不能直接全量替代 single-rule clean runner。启用 `retrieval_v2_clean_runner.py --i5b-wide-shadow-pilot` 时，runner 会在 task、candidate payload 和 summary 写入 `capture_mode="i5b_wide_shadow"`、`formal_consumption_source=false`，用于在既有单 rule 任务外壳上评估宽标候选。启用 `--i5b-item-wide-shadow-pilot` 时，runner 会写入 `capture_mode="i5b_item_wide_shadow"`，把 `rule_code` 改为 `i5b_item_wide`，并要求 judge 输出 I5B item-wide material pool。启用 `--personnel-political-wide-shadow-pilot` 时，runner 会写入 `capture_mode="personnel_political_wide_shadow"`，继续复用 `i5b_item_wide` 包外壳，但强制 judge 输出 `political_action_v1` 事实骨架和跨项候选路由。所有 shadow run 都必须使用独立 `run_root`，不直接进入正式消费。正式全量 I5B-wide 等消费端完成 `appointment_trust` / `team_building` 晋升、factorization 和 scorer 闭环后再开启。
+
+`--i5b-item-wide-shadow-pilot` 只保证包形态和判读 prompt 是 item-wide；如果输入仍来自旧 `delegation` task 文件，source/object discovery 仍继承原任务的发现边界，不能宣称已经覆盖整个 I5B。真正的 item-wide 覆盖必须由 item-wide taskgen / discovery profile 生成对象、史源和查询计划，再交给同一 shadow 判读链路验收。
+
+I5B-wide / personnel-political-wide shadow 的 claim 应优先沉淀事实结构层，而不是 rule 专属因子预判。judge 可在每条 claim 中补 `fact_payload`、`evidence_spans` 和 `claim_completeness`：`fact_payload.fact_schema` 固定为 `political_action_v1`，并记录 `actor`、`object`、`action_type`、`event_scope`、`office_or_domain`、`outcome`、`cost_or_damage`、`time_context`、`source_span_refs`、`confidence`、`completeness`；`evidence_spans` 用 `action / object / outcome / reason / institution / context` 短原文 span 指向 `source_slice_ref`，第一版不要求模型给字符 offset；`claim_completeness` 只标 `has_action_span`、`has_object_span`、`has_outcome_span`、`outcome_same_event_chain`、`needs_source_extension`。这些字段只帮助消费端少读全文、少起子进程，不等于最终 factor label、score、supporting/exclude 或人物画像判断。
+
+`personnel_political_v0_1` 候选路由表只定义“哪些事实值得保存、可能喂给谁”，不定义其他项的完整评分公式。`secondary_binding_candidates` 必须允许三种状态：`current_rule_candidate` 表示当前已有 rule 可被消费端窄验；`future_rule_hint` 表示未来评分项候选，不进入 factorization；`context_only` / `rejected` 表示已审但只作上下文或不再消费。第一版 lane 如下：I5B `delegation` / `appointment_trust` / `team_building` / `talent_discovery` / `tolerate_talent` / `anti_nepotism` 为 current；I5C `power_control`、I5D `political_character`、I5E `cognition_learning`、I6 `key_decision`、I3 `military_frontier_result`、I7 `historical_debt` 为 future。每个候选至少写 `candidate_item_code`、`candidate_lane`、`hint_status`、`direction`、`required_facts_present` 和来源 span 线索；入库时这些字段提升到 `claim_rule_binding_candidates` 同名列，原始 judge 输出仍保留在 `candidate_payload`。
+
+I5B-wide 中的 `delegation` 候选必须显式区分自动入分候选和复核/支撑候选。只有同一材料同时证明授权/任命/权责配置、具名被授权者、具体任务或职责、同链条履职结果四项时，judge 才能在 `candidate_payload` 写 `scoring_candidate=true` 且 `usable_for_scoring_cluster=true`，并完整写出 `delegation_chain.has_authorization_or_office`、`has_named_delegate`、`has_task_or_responsibility`、`has_same_chain_outcome` 四个布尔值。任一项不满足时，可以保留 `rule_code="delegation"` 候选，但必须写 `scoring_candidate=false` 或 `usable_for_scoring_cluster=false`，留给 review/supporting。`candidate_payload.candidate_role` 必须直接使用消费侧 `object_role`：`delegated_actor`、`authority_recipient`、`authority_revoked_target`、`misdelegated_actor`；细分领域放 `delegation_domain=military|civil|fiscal|frontier|strategic|institutional`。三杰总评、单纯采纳计策、处置/诱执/撤权结局、人物画像材料不得标成可自动入分的 `delegation` candidate。
+
+同一对象同时存在“封王/任官/总评”和“给兵、给金、遣使、命将、授权任务并有战果或治理结果”时，`delegation` 抓包优先抽取后者；前者通常只作 `appointment_trust`、`team_building` 或 `delegation` review/supporting。如果每对象 claim 预算不足，先丢弃较弱的封王/任官 review claim，也不要丢弃给兵/给金/遣使/命将后的同链条收益 claim；说降或归附后分兵、给兵、与俱收兵、会战、破敌、定地，属于高优先级 `delegation` 正向链。后续反叛、被诛、被废等政治风险不能挤掉同对象更早的正向授权收益链，二者必须拆成不同 claim。若同一片段中多个具名被授权者共同承担同一任务并共享结果，不能只把其他对象埋在某一个人的 `claim_summary` 中；对可作为消费对象的具名 delegate 应分别输出原子 claim。若因对象种子、切片或预算不足无法拆出某个具名对象，必须写 `coverage_gaps`，`object_name` 填未拆对象，诊断说明其被埋在共同任务链中，建议补对象/补源后重判。
+
+shadow pilot 跑完先用 `scripts/dev/retrieval_v2_i5b_shadow_report.py --run-root <run_root>` 生成只读检测报告。主控优先看 `i5b_shadow_report.json` / `.md` 中的耗时、usage、formal / future secondary candidate 数、claim/passage 引用风险、事实骨架覆盖率、span 原文匹配风险、重复 claim 风险、处置性 negative 风险、judge anomaly 和 coverage gap；有 block 或明显 warning 时先调 prompt / 并发 / 补源策略，不把 shadow run 写入正式消费队列。
+
+shadow pilot 试吃可以走完整消费链路，但 source pack 必须以 `draft` 写入，避免在 `accepted-packs` scope 下覆盖同 target / contract 的正式 single-rule 包。推荐顺序是：`retrieval_v2_intake_manifest.py build --emperor <目标>`、`retrieval_v2_intake_rows.py build`、`retrieval_v2_review_worklists.py build`、`retrieval_v2_import_executor.py apply --source-pack-status draft --execute`；随后对象消费必须带 `retrieval_v2_object_consumer.py apply --source-pack-code <shadow_pack_code>` 限定本包范围。完成对象链接后，`retrieval_v2_candidate_promoter.py --source-rule-code i5b_item_wide --scope active-targets --emperor <目标>` 只晋升 formal candidate；future hint、未上线 contract 和不能确定解析的候选继续停留在候选池，不进入因子化或 scorer。
+
+shadow pilot 的后半链路也必须显式限定单包：`retrieval_v2_factorization_worklists.py worklist --source-pack-code <shadow_pack_code>` 生成因子化任务，验收 patch 后再由 `retrieval_v2_factorization_consumer.py apply-patch` 写入因子判断。`retrieval_v2_rule_scorer.py apply --source-pack-code <shadow_pack_code>` 只用于只读算分报告；显式 source pack 默认禁止 `--execute`，避免 draft shadow、历史包或局部包把正式 `target_rule_score_clusters` 覆盖掉。只有确认要把该包升级为正式 accepted 消费源，并处理好正式聚合表写入策略后，才允许讨论写库算分。
+
+`team_building` 是团队聚合公式，不按普通材料逐条乘法入分。消费端 worklist 会把人物画像中的 `talent_grade` 映射为 `talent_quality_factor`，子进程只判断材料是否作为团队成员 `score/supporting_only/exclude`，并选择同一目标团队级的 `role_complementarity_factor` 与 `long_term_stability_factor`。同一目标的 `score` 行必须使用一致团队级因子；生成 shadow 试吃任务时优先用足够大的 `--batch-size` 让同一目标 team_building 材料进入同一 batch。
+
+当前 shadow pilot 的小批量起步命令可先加 `--taskgen-object-source-pages-per-object 1`。刘邦、曹操、李世民、赵匡胤试跑显示该参数能减少对象级补源页数和 judge 输入规模，claim/passage 风险和处置性 negative 风险可保持为 0；但它可能暴露别名或对象源页缺口，例如李世民轮次中李君羨、王玄策仍出现 `alias_missing`。处置性材料不足以证明任内损害时，judge 不应写 `negative_undercoverage`，只能写 `true_lack` 或交消费侧画像复核；`negative_undercoverage` 只用于已有治理损害、军政失败、人才结构损害或授权链条失控线索但证据闭环不足的可执行补抓缺口。`--taskgen-object-source-pages-per-object 1` 只能作为 shadow 起步档，正式默认值需等更多目标验证后再改。
+
+已入库 accepted 包可以用 `scripts/dev/retrieval_v2_cross_rule_router.py` 做 deterministic backfill：默认扫描 `I5B / delegation` claims，按任用信任、团队、荐举、容才/处置边界、亲私朋党、权力控制和政治品格等材料线索补写 `claim_rule_binding_candidates`。正式候选仅限当前合同内 rule，例如 `appointment_trust`、`team_building`、`talent_discovery`、`tolerate_talent`、`anti_nepotism`；`power_control`、`political_character` 等未开 rule 只能写为 `hint_status="future_rule_hint"`。消费端必须同时要求 `candidate_contract_rule_id is not null` 且 `hint_status in ('formal_candidate', 'current_rule_candidate')`，才能进入当前 rule 消费；旧包中的 `candidate_payload.hint_status` 只作兼容回填和审计线索。
+
+消费端用 `scripts/dev/retrieval_v2_candidate_promoter.py` 把可确定解析的 formal candidate 晋升为正式 `claim_rule_bindings`，并补齐目标 scoring role 对应的 `material_object_links`。该工具默认 dry-run，显式 `--execute` 才写库；future hint、缺少 contract rule、已解析候选和仅凭伏诛/被废/撤权等处置结果的候选不得自动晋升，只能进入后续复核或目标 rule 自己的判读。
+
 消费侧新表迁移必须从建表阶段就带完整注释：所有表和字段都要写清楚语义、来源和幂等关系。带说明性质的字段值使用中文，且只写具体判断、来源、冲突原因、处置意见等信息熵高的文本；模板式说明、字段名复述和低信息套话宁可留空。字段名可保持英文稳定命名，但不要新增泛化 `note` 字段承载多种含义。取值有限的字段优先使用 PostgreSQL enum type，不用裸 `text` 承载状态机、方向、名称类型和队列状态。
 
 正式流水线入口是 `scripts/dev/retrieval_v2_clean_runner.py`。它把任务生成、候选片段、机械别名补抓、候选重跑、Codex 判读和 summary 固化为同一条命令；主控默认只看 `summary.json`、coverage gaps 和少量异常文件。
@@ -216,6 +246,12 @@ python scripts/dev/retrieval_v2_gap_worker.py run-plan \
 - clean 输入边界无违规。
 - 核心 rule 的 `coverage_matrix` 已完成，或缺口已进入可追踪补抓队列。
 - claims 都有可定位 source passage。
+- `claim_summary` 必须被其 `source_passage_refs` 原文直接支撑；若 summary 与 passage 摘录明显错位，`retrieval_v2_import_plan.py` 会以 `claim_passage_mismatch` / `claim_passage_object_mismatch` 阻断导入，先回到补判或人工复核。
+- 当 judge 只输出 `source_slice_refs` 而不显式输出 passages 时，抓包聚合器自动 materialize 的 `source_passages.quote/raw_text` 必须保留完整 candidate slice 文本，不得截断为 prompt 摘要长度。prompt 阶段可以瘦身，证据落库和消费端 quote-only 判读必须拿到完整原文片段，避免授权在前、战果在后时被截断。
+- 对已经入库、但历史包因旧聚合逻辑只保留 120 字 passage 的 accepted 包，使用 `scripts/dev/retrieval_v2_passage_fulltext_backfill.py` 从包 artifact 的 `candidates.final.json` 回填完整 candidate slice 文本。该工具只在当前 `raw_text` 是完整 slice 前缀时更新 passage，不改 claim / binding；先 dry-run 核对 `planned_count`，再显式 `--execute` 写库。
+- 对已入库的历史 accepted 包，使用 `scripts/dev/retrieval_v2_claim_passage_audit.py` 做只读审计；显式 `--execute` 后把疑似错位 claim 写入 `material_review_queue`，加 `--write-gap-events` 会同时写 `coverage_gap_events queue=codex_review` 交抓包侧补判。未清材料复核队列会阻断 candidate promoter 和 factorization worklist，避免错位 claim 继续自动入分。
+- 消费侧 `scripts/dev/retrieval_v2_material_review_tasks.py` 只做窄复核：判断当前 `source_passages` 是否直接支撑 `claim_summary`，并把 `supported` / `unsupported` / `needs_context` 写回队列状态。它清理的是入分闸门，不等于修好了 accepted 包体。
+- 抓包侧修包使用 `scripts/dev/retrieval_v2_claim_passage_repair.py`：从 `material_review_queue` 读取 `blocked` / `needs_review` 的错位 claim，补入同 accepted pack 的 `candidate_slices` 上下文，生成 `relink` / `rewrite` / `drop_claim` / `needs_source_refine` patch；显式 `apply-patch --execute` 后才重链 `claim_source_passages`、补 repair passage、改写 claim summary 或标记 claim 废弃。
 - primary binding 命中规则表中的材料策略或谓词选项。
 - secondary binding candidate 不改变主 rule 判读，但保留给后续跨 rule 消费。
 - `mixed` claim 已拆分，或保留为 `needs_review` 且不进入自动导入。

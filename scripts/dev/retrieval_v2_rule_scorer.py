@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -26,6 +27,7 @@ DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 MATERIAL_SCORE_CAP = Decimal("4.0")
 SAME_OBJECT_SECONDARY_FACTOR = Decimal("0.35")
 SAME_OBJECT_CAP_MULTIPLIER = Decimal("1.5")
+TEAM_CORE_CARRIER_MODE = "team_core_members"
 
 
 class RetrievalV2RuleScorerError(ImportPlanError):
@@ -66,9 +68,16 @@ class JudgmentInput:
 @dataclass(frozen=True)
 class MaterialScore:
     judgment: JudgmentInput
+    score_side: str
     raw_score: Decimal
     abs_score: Decimal
     factor_values: dict[str, str]
+
+
+@dataclass(frozen=True)
+class RankDecayOption:
+    option_label: str
+    value_num: Decimal
 
 
 def stable_json(value: Any) -> str:
@@ -99,6 +108,19 @@ def material_raw_score(choices: Sequence[FactorChoice]) -> Decimal:
 
 def material_abs_score(raw_score: Decimal) -> Decimal:
     return quant(min(abs(raw_score), MATERIAL_SCORE_CAP))
+
+
+def score_side_for_raw_score(raw_score: Decimal, fallback_side: str | None) -> str:
+    normalized = text(fallback_side)
+    if normalized == "negative":
+        return "negative"
+    if raw_score < 0:
+        return "negative"
+    if raw_score > 0:
+        return "positive"
+    if normalized == "positive":
+        return normalized
+    return "positive"
 
 
 def result_feedback_sign_issue(*, side: str | None, value: Decimal) -> str:
@@ -141,6 +163,21 @@ def side_signal(object_scores: Sequence[Decimal]) -> Decimal:
     return quant(Decimal(str(raw)))
 
 
+def source_pack_predicate(source_pack_codes: Sequence[str] = ()) -> str:
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    if codes:
+        return "sp.pack_code = any(%s) and sp.coverage_status = 'passed'"
+    return """
+           sp.id in (
+                select distinct on (sp2.target_id, sp2.contract_id) sp2.id
+                  from retrieval_v2.source_packs sp2
+                 where sp2.status = 'accepted'
+                   and sp2.coverage_status = 'passed'
+                 order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc
+           )
+        """
+
+
 def fetch_judgment_rows(
     cur: Any,
     *,
@@ -148,8 +185,11 @@ def fetch_judgment_rows(
     rule_code: str,
     formula_code: str,
     target_code: str,
+    source_pack_codes: Sequence[str] = (),
 ) -> list[dict[str, Any]]:
     target_filter = "and (%s = '' or rt.target_code = %s)"
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes] if codes else []
     cur.execute(
         f"""
         select
@@ -174,31 +214,108 @@ def fetch_judgment_rows(
             c.factor_name,
             c.option_label,
             c.option_code,
-            c.value_num::text as value_num
+            c.value_num::text as value_num,
+            active.factor_option_id as active_factor_option_id,
+            active.active_value::text as active_value_num
           from retrieval_v2.claim_rule_binding_factor_judgments j
           join retrieval_v2.claim_rule_bindings b on b.id = j.binding_id
           join retrieval_v2.retrieval_targets rt on rt.id = j.target_id
           join retrieval_v2.source_packs sp on sp.id = j.source_pack_id
-          left join retrieval_v2.material_object_links mol on mol.claim_id = j.claim_id and mol.role = b.object_role
+          left join lateral (
+              select mol1.*
+                from retrieval_v2.material_object_links mol1
+               where mol1.claim_id = j.claim_id
+                 and mol1.review_status = 'accepted'
+                 and (
+                      (
+                          coalesce(b.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$'
+                          and mol1.id = (b.binding_payload->>'promoted_material_object_link_id')::bigint
+                      )
+                      or (
+                          not (coalesce(b.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$')
+                          and mol1.role = b.object_role
+                      )
+                 )
+               order by case
+                   when coalesce(b.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$'
+                    and mol1.id = (b.binding_payload->>'promoted_material_object_link_id')::bigint
+                       then 0
+                   else 1
+               end,
+               mol1.id
+               limit 1
+          ) mol on true
           left join retrieval_v2.objects o on o.id = mol.object_id
           left join retrieval_v2.claim_rule_binding_factor_choices c on c.factor_judgment_id = j.id
+          left join lateral (
+              select
+                  o2.id as factor_option_id,
+                  o2.value_num as active_value
+                from retrieval_v2.eval_rule_factors f2
+                join retrieval_v2.eval_rule_factor_options o2 on o2.factor_id = f2.id
+               where f2.item_code = j.item_code
+                 and f2.formula_code = j.formula_code
+                 and f2.factor_name = c.factor_name
+                 and f2.factor_status = 'active'
+                 and f2.rule_code in (j.rule_code, '')
+                 and o2.option_status = 'active'
+                 and o2.label = c.option_label
+               order by case when f2.rule_code = j.rule_code then 0 else 1 end, o2.id
+               limit 1
+          ) active on true
          where j.item_code = %s
            and j.rule_code = %s
-           and j.formula_code = %s
+          and j.formula_code = %s
            and j.review_status = 'accepted'
-           and sp.id in (
-                select distinct on (sp2.target_id, sp2.contract_id) sp2.id
-                  from retrieval_v2.source_packs sp2
-                 where sp2.status = 'accepted'
-                   and sp2.coverage_status = 'passed'
-                 order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc
+           and b.usable_for_scoring_cluster
+           and not exists (
+                select 1
+                  from retrieval_v2.material_review_queue mrq
+                 where mrq.claim_id = j.claim_id
+                   and mrq.queue_status in ('ready', 'needs_review', 'running', 'blocked')
            )
+           and {source_pack_predicate(codes)}
            {target_filter}
          order by j.target_id, j.id, c.factor_name
         """,
-        (item_code, rule_code, formula_code, target_code, target_code),
+        (item_code, rule_code, formula_code, *source_pack_params, target_code, target_code),
     )
     return [dict(row) for row in cur.fetchall()]
+
+
+def fetch_scoring_target_rows(
+    cur: Any,
+    *,
+    item_code: str,
+    rule_code: str,
+    formula_code: str,
+    target_code: str,
+    source_pack_codes: Sequence[str] = (),
+) -> list[dict[str, Any]]:
+    target_filter = "and (%s = '' or rt.target_code = %s)"
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes] if codes else []
+    cur.execute(
+        f"""
+        select distinct
+            rt.id as target_id,
+            rt.target_code,
+            rt.emperor_name,
+            rt.item_code
+          from retrieval_v2.retrieval_targets rt
+          join retrieval_v2.source_packs sp on sp.target_id = rt.id
+         where (%s = '' or rt.item_code = %s)
+           and {source_pack_predicate(codes)}
+           {target_filter}
+         order by rt.emperor_name, rt.target_code
+        """,
+        (item_code, item_code, *source_pack_params, target_code, target_code),
+    )
+    rows = [dict(row) for row in cur.fetchall()]
+    for row in rows:
+        row["rule_code"] = rule_code
+        row["formula_code"] = formula_code
+    return rows
 
 
 def fetch_alternate_formula_counts(
@@ -208,8 +325,11 @@ def fetch_alternate_formula_counts(
     rule_code: str,
     formula_code: str,
     target_code: str,
+    source_pack_codes: Sequence[str] = (),
 ) -> list[dict[str, Any]]:
     target_filter = "and (%s = '' or rt.target_code = %s)"
+    codes = [text(code) for code in source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes] if codes else []
     cur.execute(
         f"""
         select
@@ -223,20 +343,69 @@ def fetch_alternate_formula_counts(
            and j.rule_code = %s
            and j.formula_code <> %s
            and j.review_status = 'accepted'
-           and sp.id in (
-                select distinct on (sp2.target_id, sp2.contract_id) sp2.id
-                  from retrieval_v2.source_packs sp2
-                 where sp2.status = 'accepted'
-                   and sp2.coverage_status = 'passed'
-                 order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc
-           )
+           and {source_pack_predicate(codes)}
            {target_filter}
          group by j.formula_code
          order by j.formula_code
         """,
-        (item_code, rule_code, formula_code, target_code, target_code),
+        (item_code, rule_code, formula_code, *source_pack_params, target_code, target_code),
     )
     return [dict(row) for row in cur.fetchall()]
+
+
+def fetch_material_policy(cur: Any, *, item_code: str, rule_code: str) -> dict[str, Any]:
+    cur.execute(
+        """
+        select
+            id,
+            policy_code,
+            selection_priority,
+            carrier_mode,
+            material_source,
+            policy_payload
+          from retrieval_v2.eval_rule_material_policies
+         where item_code = %s
+           and rule_code = %s
+           and policy_status = 'active'
+         order by selection_priority, id
+         limit 1
+        """,
+        (item_code, rule_code),
+    )
+    rows = [dict(row) for row in cur.fetchall()]
+    if not rows:
+        raise RetrievalV2RuleScorerError(f"{item_code}/{rule_code}: missing active material policy")
+    return rows[0]
+
+
+def fetch_rank_decay_options(cur: Any, *, item_code: str, rule_code: str, formula_code: str) -> tuple[RankDecayOption, ...]:
+    cur.execute(
+        """
+        select
+            o.label,
+            o.value_num::text as value_num
+          from retrieval_v2.eval_rule_factors f
+          join retrieval_v2.eval_rule_factor_options o on o.factor_id = f.id
+         where f.item_code = %s
+           and f.rule_code = %s
+           and f.formula_code = %s
+           and f.factor_name = 'rank_decay'
+           and f.factor_status = 'active'
+           and o.option_status = 'active'
+         order by o.sort_no, o.id
+        """,
+        (item_code, rule_code, formula_code),
+    )
+    options = tuple(
+        RankDecayOption(
+            option_label=text(row.get("label")),
+            value_num=decimal_value(row.get("value_num"), path=f"{rule_code}.rank_decay"),
+        )
+        for row in cur.fetchall()
+    )
+    if not options:
+        raise RetrievalV2RuleScorerError(f"{item_code}/{rule_code}/{formula_code}: missing active factor options for rank_decay")
+    return options
 
 
 def build_judgments(rows: Sequence[Mapping[str, Any]]) -> list[JudgmentInput]:
@@ -247,12 +416,23 @@ def build_judgments(rows: Sequence[Mapping[str, Any]]) -> list[JudgmentInput]:
         grouped.setdefault(judgment_id, dict(row))
         factor_name = text(row.get("factor_name"))
         if factor_name:
+            if row.get("active_factor_option_id") is None:
+                raise RetrievalV2RuleScorerError(
+                    f"{row.get('binding_code')}: stale or unknown factor option {factor_name}={row.get('option_label')}"
+                )
+            value_num = decimal_value(row.get("value_num"), path=f"{judgment_id}.{factor_name}.value_num")
+            active_value = decimal_value(row.get("active_value_num"), path=f"{judgment_id}.{factor_name}.active_value_num")
+            if value_num != active_value:
+                raise RetrievalV2RuleScorerError(
+                    f"{row.get('binding_code')}: stale factor value {factor_name}={row.get('option_label')} "
+                    f"judgment={value_num} active={active_value}"
+                )
             choices_by_judgment[judgment_id].append(
                 FactorChoice(
                     factor_name=factor_name,
                     option_label=text(row.get("option_label")),
                     option_code=text(row.get("option_code")),
-                    value_num=decimal_value(row.get("value_num"), path=f"{judgment_id}.{factor_name}.value_num"),
+                    value_num=value_num,
                 )
             )
     judgments: list[JudgmentInput] = []
@@ -300,10 +480,216 @@ def score_material(judgment: JudgmentInput) -> MaterialScore:
     raw_score = material_raw_score(judgment.choices)
     return MaterialScore(
         judgment=judgment,
+        score_side=score_side_for_raw_score(raw_score, judgment.side),
         raw_score=raw_score,
         abs_score=material_abs_score(raw_score),
         factor_values={choice.factor_name: str(choice.value_num) for choice in judgment.choices},
     )
+
+
+def choice_by_factor(judgment: JudgmentInput) -> dict[str, FactorChoice]:
+    return {choice.factor_name: choice for choice in judgment.choices}
+
+
+def require_choice(judgment: JudgmentInput, factor_name: str) -> FactorChoice:
+    choices = choice_by_factor(judgment)
+    if factor_name not in choices:
+        raise RetrievalV2RuleScorerError(f"{judgment.binding_code}: missing {factor_name}")
+    return choices[factor_name]
+
+
+def rank_decay_applies(label: str, rank: int) -> bool:
+    compact = re.sub(r"\s+", "", label)
+    if match := re.fullmatch(r"第(\d+)位", compact):
+        return rank == int(match.group(1))
+    if match := re.fullmatch(r"第(\d+)-(\d+)位", compact):
+        start = int(match.group(1))
+        end = int(match.group(2))
+        return start <= rank <= end
+    if match := re.fullmatch(r"第(\d+)位以后", compact):
+        return rank >= int(match.group(1))
+    return False
+
+
+def team_rank_decay(rank_index: int, rank_decay_options: Sequence[RankDecayOption]) -> Decimal:
+    if not rank_decay_options:
+        raise RetrievalV2RuleScorerError("team_building rank_decay options are required")
+    rank = rank_index + 1
+    for option in rank_decay_options:
+        if rank_decay_applies(option.option_label, rank):
+            return option.value_num
+    raise RetrievalV2RuleScorerError(f"team_building rank_decay has no table option for rank {rank}")
+
+
+def signed_side_signal(scores: Sequence[Decimal]) -> Decimal:
+    if not scores:
+        return Decimal("0.000")
+    raw = math.sqrt(sum(float(abs(score)) ** 2 for score in scores))
+    return quant(Decimal(str(raw)))
+
+
+def compute_team_building_cluster(judgments: Sequence[JudgmentInput], *, rank_decay_options: Sequence[RankDecayOption]) -> dict[str, Any]:
+    if not judgments:
+        raise RetrievalV2RuleScorerError("team_building cluster requires at least one judgment")
+    scored = [judgment for judgment in judgments if judgment.target_action == "score"]
+    action_counts = Counter(judgment.target_action for judgment in judgments)
+    role_values: set[Decimal] = set()
+    role_refs: dict[str, Any] = {}
+    stability_values: set[Decimal] = set()
+    stability_refs: dict[str, Any] = {}
+    candidates: dict[str, dict[str, Any]] = {}
+    duplicate_team_objects: list[dict[str, Any]] = []
+
+    for judgment in scored:
+        talent = require_choice(judgment, "talent_quality_factor")
+        role = require_choice(judgment, "role_complementarity_factor")
+        stability = require_choice(judgment, "long_term_stability_factor")
+        role_values.add(role.value_num)
+        role_refs = {"label": role.option_label, "option_code": role.option_code, "value_num": str(role.value_num)}
+        stability_values.add(stability.value_num)
+        stability_refs = {"label": stability.option_label, "option_code": stability.option_code, "value_num": str(stability.value_num)}
+        object_key = str(judgment.object_id or judgment.binding_id)
+        candidate = {
+            "judgment": judgment,
+            "object_key": object_key,
+            "talent_quality_factor": talent.value_num,
+            "talent_quality_ref": {"label": talent.option_label, "option_code": talent.option_code, "value_num": str(talent.value_num)},
+        }
+        current = candidates.get(object_key)
+        if current is None:
+            candidates[object_key] = candidate
+            continue
+        current_value = abs(current["talent_quality_factor"])
+        candidate_value = abs(candidate["talent_quality_factor"])
+        replace = candidate_value > current_value or (
+            candidate_value == current_value
+            and judgment.factor_judgment_id < current["judgment"].factor_judgment_id
+        )
+        kept = candidate if replace else current
+        dropped = current if replace else candidate
+        duplicate_team_objects.append(
+            {
+                "object_key": object_key,
+                "kept_binding_code": kept["judgment"].binding_code,
+                "dropped_binding_code": dropped["judgment"].binding_code,
+                "reason": "same_team_object",
+            }
+        )
+        if replace:
+            candidates[object_key] = candidate
+
+    if len(role_values) > 1:
+        raise RetrievalV2RuleScorerError("team_building role_complementarity_factor must be consistent within target/rule cluster")
+    if len(stability_values) > 1:
+        raise RetrievalV2RuleScorerError("team_building long_term_stability_factor must be consistent within target/rule cluster")
+    role_value = next(iter(role_values), Decimal("1.000"))
+    stability_value = next(iter(stability_values), Decimal("1.000"))
+
+    ranked = sorted(
+        candidates.values(),
+        key=lambda item: (-abs(item["talent_quality_factor"]), item["judgment"].object_name, item["object_key"]),
+    )
+    material_scores: list[MaterialScore] = []
+    team_quality_components: list[dict[str, Any]] = []
+    positive_contributions: list[Decimal] = []
+    negative_contributions: list[Decimal] = []
+    object_side_scores: dict[str, dict[str, Decimal]] = {"positive": {}, "negative": {}}
+    for index, item in enumerate(ranked):
+        judgment = item["judgment"]
+        decay = team_rank_decay(index, rank_decay_options)
+        contribution = quant(item["talent_quality_factor"] * decay)
+        side = "negative" if contribution < 0 else "positive"
+        if contribution < 0:
+            negative_contributions.append(contribution)
+        else:
+            positive_contributions.append(contribution)
+        object_side_scores[side][item["object_key"]] = quant(abs(contribution))
+        factor_values = {
+            "talent_quality_factor": str(item["talent_quality_factor"]),
+            "rank_decay": str(decay),
+            "role_complementarity_factor": str(role_value),
+            "long_term_stability_factor": str(stability_value),
+        }
+        material_scores.append(
+            MaterialScore(
+                judgment=judgment,
+                score_side=side,
+                raw_score=contribution,
+                abs_score=quant(abs(contribution)),
+                factor_values=factor_values,
+            )
+        )
+        team_quality_components.append(
+            {
+                "rank": index + 1,
+                "binding_code": judgment.binding_code,
+                "claim_id": judgment.claim_id,
+                "object_id": judgment.object_id,
+                "target_object_id": judgment.target_object_id,
+                "object_name": judgment.object_name,
+                "talent_quality_factor": str(item["talent_quality_factor"]),
+                "talent_quality_ref": item["talent_quality_ref"],
+                "rank_decay": str(decay),
+                "quality_contribution": str(contribution),
+            }
+        )
+
+    positive_quality_signal = signed_side_signal(positive_contributions)
+    negative_quality_signal = signed_side_signal(negative_contributions)
+    team_quality_signal = quant(positive_quality_signal - negative_quality_signal)
+    team_effect_signal = quant(team_quality_signal * role_value * stability_value)
+    positive_signal = max(team_effect_signal, Decimal("0.000"))
+    negative_signal = abs(min(team_effect_signal, Decimal("0.000")))
+    calc_detail = {
+        "item_code": judgments[0].item_code,
+        "formula_code": judgments[0].formula_code,
+        "team_formula": "(sqrt(sum(positive_weighted_i^2)) - sqrt(sum(abs(negative_weighted_i)^2))) * role_complementarity_factor * long_term_stability_factor",
+        "team_quality_components": team_quality_components,
+        "duplicate_team_objects": duplicate_team_objects,
+        "positive_quality_signal": str(positive_quality_signal),
+        "negative_quality_signal": str(negative_quality_signal),
+        "team_quality_signal": str(team_quality_signal),
+        "team_effect_signal": str(team_effect_signal),
+        "team_factor_values": {
+            "role_complementarity_factor": str(role_value),
+            "long_term_stability_factor": str(stability_value),
+        },
+        "team_factor_refs": {
+            "role_complementarity_factor": role_refs,
+            "long_term_stability_factor": stability_refs,
+        },
+        "materials": [material_detail(score) for score in material_scores],
+        "object_side_scores": {
+            side: {
+                object_key: {"object_name": next((score.judgment.object_name for score in material_scores if str(score.judgment.object_id or score.judgment.binding_id) == object_key), object_key), "score": str(score)}
+                for object_key, score in side_scores.items()
+            }
+            for side, side_scores in object_side_scores.items()
+        },
+        "covered_factor_judgment_ids": [judgment.factor_judgment_id for judgment in judgments],
+        "scored_factor_judgment_ids": [score.judgment.factor_judgment_id for score in material_scores],
+        "supporting_factor_judgment_ids": [
+            judgment.factor_judgment_id for judgment in judgments if judgment.target_action == "supporting_only"
+        ],
+        "excluded_factor_judgment_ids": [judgment.factor_judgment_id for judgment in judgments if judgment.target_action == "exclude"],
+        "raw_action_counts": dict(action_counts),
+        "positive_signal": str(positive_signal),
+        "negative_signal": str(negative_signal),
+    }
+    return {
+        "target_id": judgments[0].target_id,
+        "target_code": judgments[0].target_code,
+        "emperor_name": judgments[0].emperor_name,
+        "item_code": judgments[0].item_code,
+        "rule_code": judgments[0].rule_code,
+        "formula_code": judgments[0].formula_code,
+        "positive_signal": positive_signal,
+        "negative_signal": negative_signal,
+        "action_counts": dict(action_counts),
+        "material_scores": material_scores,
+        "object_side_scores": object_side_scores,
+        "calc_detail": calc_detail,
+    }
 
 
 def group_by_target(judgments: Sequence[JudgmentInput]) -> dict[int, list[JudgmentInput]]:
@@ -324,7 +710,8 @@ def material_detail(score: MaterialScore) -> dict[str, Any]:
         "object_role": judgment.object_role,
         "predicate": judgment.predicate,
         "object_name": judgment.object_name,
-        "side": judgment.side,
+        "side": score.score_side,
+        "judgment_side": judgment.side,
         "raw_score": str(score.raw_score),
         "abs_score": str(score.abs_score),
         "factor_values": score.factor_values,
@@ -341,7 +728,7 @@ def material_detail(score: MaterialScore) -> dict[str, Any]:
 
 def material_dedup_key(score: MaterialScore) -> tuple[int, int | None, str]:
     judgment = score.judgment
-    return (judgment.claim_id, judgment.object_id, text(judgment.side))
+    return (judgment.claim_id, judgment.object_id, score.score_side)
 
 
 def dedupe_material_scores(scores: Sequence[MaterialScore]) -> tuple[list[MaterialScore], list[dict[str, Any]]]:
@@ -388,16 +775,24 @@ def dedupe_material_scores(scores: Sequence[MaterialScore]) -> tuple[list[Materi
     )
 
 
-def compute_target_cluster(judgments: Sequence[JudgmentInput]) -> dict[str, Any]:
+def compute_target_cluster(
+    judgments: Sequence[JudgmentInput],
+    *,
+    material_policy: Mapping[str, Any] | None = None,
+    team_rank_decay_options: Sequence[RankDecayOption] = (),
+) -> dict[str, Any]:
     if not judgments:
         raise RetrievalV2RuleScorerError("target cluster requires at least one judgment")
+    carrier_mode = text((material_policy or {}).get("carrier_mode"))
+    if carrier_mode == TEAM_CORE_CARRIER_MODE:
+        return compute_team_building_cluster(judgments, rank_decay_options=team_rank_decay_options)
     raw_material_scores = [score_material(judgment) for judgment in judgments if judgment.target_action == "score"]
     material_scores, deduped_material_scores = dedupe_material_scores(raw_material_scores)
     grouped_scores: dict[str, dict[str, list[Decimal]]] = {"positive": defaultdict(list), "negative": defaultdict(list)}
     object_names: dict[str, str] = {}
     for score in material_scores:
         judgment = score.judgment
-        side = text(judgment.side)
+        side = score.score_side
         object_key = str(judgment.object_id)
         grouped_scores[side][object_key].append(score.abs_score)
         object_names[object_key] = judgment.object_name
@@ -457,6 +852,46 @@ def compute_target_cluster(judgments: Sequence[JudgmentInput]) -> dict[str, Any]
     }
 
 
+def empty_target_cluster(target: Mapping[str, Any], *, rule_code: str, formula_code: str) -> dict[str, Any]:
+    calc_detail = {
+        "item_code": text(target.get("item_code")),
+        "rule_code": rule_code,
+        "formula_code": formula_code,
+        "formula_params": {
+            "material_score_cap": str(MATERIAL_SCORE_CAP),
+            "same_object_secondary_factor": str(SAME_OBJECT_SECONDARY_FACTOR),
+            "same_object_cap_multiplier": str(SAME_OBJECT_CAP_MULTIPLIER),
+            "coverage": {"positive": "1.0", "negative": "1.0"},
+        },
+        "materials": [],
+        "deduped_material_scores": [],
+        "object_side_scores": {"positive": {}, "negative": {}},
+        "covered_factor_judgment_ids": [],
+        "scored_factor_judgment_ids": [],
+        "deduped_factor_judgment_ids": [],
+        "raw_action_counts": {},
+        "supporting_factor_judgment_ids": [],
+        "excluded_factor_judgment_ids": [],
+        "positive_signal": "0",
+        "negative_signal": "0",
+        "empty_reason": "no_usable_factor_judgments",
+    }
+    return {
+        "target_id": int(target["target_id"]),
+        "target_code": text(target.get("target_code")),
+        "emperor_name": text(target.get("emperor_name")),
+        "item_code": text(target.get("item_code")),
+        "rule_code": rule_code,
+        "formula_code": formula_code,
+        "positive_signal": Decimal("0"),
+        "negative_signal": Decimal("0"),
+        "action_counts": {"score": 0, "supporting_only": 0, "exclude": 0},
+        "material_scores": [],
+        "object_side_scores": {"positive": {}, "negative": {}},
+        "calc_detail": calc_detail,
+    }
+
+
 def material_score_idem_key(judgment: JudgmentInput) -> str:
     return "|".join([judgment.binding_code, judgment.formula_code, "material_score"])
 
@@ -472,6 +907,8 @@ def upsert_material_score(cur: Any, score: MaterialScore) -> None:
         "source": "retrieval_v2_rule_scorer",
         "binding_code": judgment.binding_code,
         "object_name": judgment.object_name,
+        "judgment_side": judgment.side,
+        "score_side": score.score_side,
         "factor_values": score.factor_values,
     }
     cur.execute(
@@ -511,7 +948,7 @@ def upsert_material_score(cur: Any, score: MaterialScore) -> None:
             judgment.item_code,
             judgment.rule_code,
             judgment.formula_code,
-            judgment.side,
+            score.score_side,
             score.raw_score,
             score.abs_score,
             json_param(score.factor_values),
@@ -616,12 +1053,31 @@ def apply_rule_scores(
     rule_code: str,
     formula_code: str,
     target_code: str = "",
+    source_pack_codes: Sequence[str] = (),
+    allow_source_pack_execute: bool = False,
     execute: bool,
 ) -> dict[str, Any]:
+    source_pack_codes = tuple(text(code) for code in source_pack_codes if text(code))
+    if execute and source_pack_codes and not allow_source_pack_execute:
+        raise RetrievalV2RuleScorerError(
+            "explicit source-pack scoring is dry-run by default; pass --allow-source-pack-execute to write DB"
+        )
     psycopg, dict_row = import_psycopg()
     counts: Counter[str] = Counter()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
+            material_policy = fetch_material_policy(cur, item_code=item_code, rule_code=rule_code)
+            carrier_mode = text(material_policy.get("carrier_mode"))
+            rank_decay_options = (
+                fetch_rank_decay_options(
+                    cur,
+                    item_code=item_code,
+                    rule_code=rule_code,
+                    formula_code=formula_code,
+                )
+                if carrier_mode == TEAM_CORE_CARRIER_MODE
+                else ()
+            )
             judgments = build_judgments(
                 fetch_judgment_rows(
                     cur,
@@ -629,7 +1085,16 @@ def apply_rule_scores(
                     rule_code=rule_code,
                     formula_code=formula_code,
                     target_code=target_code,
+                    source_pack_codes=source_pack_codes,
                 )
+            )
+            scoring_targets = fetch_scoring_target_rows(
+                cur,
+                item_code=item_code,
+                rule_code=rule_code,
+                formula_code=formula_code,
+                target_code=target_code,
+                source_pack_codes=source_pack_codes,
             )
             if not judgments:
                 alternates = fetch_alternate_formula_counts(
@@ -638,6 +1103,7 @@ def apply_rule_scores(
                     rule_code=rule_code,
                     formula_code=formula_code,
                     target_code=target_code,
+                    source_pack_codes=source_pack_codes,
                 )
                 if alternates:
                     available = ", ".join(
@@ -647,7 +1113,16 @@ def apply_rule_scores(
                     raise RetrievalV2RuleScorerError(
                         f"no accepted factor judgments for formula_code={formula_code}; available formula judgments: {available}"
                     )
-            clusters = [compute_target_cluster(rows) for rows in group_by_target(judgments).values()]
+            clusters = [
+                compute_target_cluster(rows, material_policy=material_policy, team_rank_decay_options=rank_decay_options)
+                for rows in group_by_target(judgments).values()
+            ]
+            clustered_target_ids = {int(cluster["target_id"]) for cluster in clusters}
+            clusters.extend(
+                empty_target_cluster(target, rule_code=rule_code, formula_code=formula_code)
+                for target in scoring_targets
+                if int(target["target_id"]) not in clustered_target_ids
+            )
             for cluster in clusters:
                 delete_obsolete_material_scores(cur, cluster=cluster)
                 for score in cluster.get("material_scores") or []:
@@ -669,6 +1144,13 @@ def apply_rule_scores(
         "rule_code": rule_code,
         "formula_code": formula_code,
         "target_code": target_code,
+        "source_pack_codes": list(source_pack_codes),
+        "material_policy": {
+            "policy_code": text(material_policy.get("policy_code")),
+            "selection_priority": material_policy.get("selection_priority"),
+            "carrier_mode": text(material_policy.get("carrier_mode")),
+            "material_source": text(material_policy.get("material_source")),
+        },
         "applied_counts": dict(sorted(counts.items())),
         "totals": {
             "targets": len(clusters),
@@ -690,6 +1172,23 @@ def apply_rule_scores(
             }
             for cluster in clusters
         ],
+        "detailed_clusters": [
+            {
+                "target_id": cluster["target_id"],
+                "target_code": cluster["target_code"],
+                "emperor_name": cluster["emperor_name"],
+                "item_code": cluster["item_code"],
+                "rule_code": cluster["rule_code"],
+                "formula_code": cluster["formula_code"],
+                "positive_signal": str(cluster["positive_signal"]),
+                "negative_signal": str(cluster["negative_signal"]),
+                "action_counts": cluster["action_counts"],
+                "material_scores": len(cluster.get("material_scores") or []),
+                "deduped_material_scores": len((cluster.get("calc_detail") or {}).get("deduped_material_scores") or []),
+                "calc_detail": cluster.get("calc_detail") or {},
+            }
+            for cluster in clusters
+        ],
     }
 
 
@@ -704,6 +1203,8 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
         f"- item_code: `{payload.get('item_code', '')}`",
         f"- rule_code: `{payload.get('rule_code', '')}`",
         f"- formula_code: `{payload.get('formula_code', '')}`",
+        f"- target_code: `{payload.get('target_code', '')}`",
+        f"- source_pack_codes: `{', '.join(payload.get('source_pack_codes') or [])}`",
         "",
     ]
     totals = payload.get("totals")
@@ -742,6 +1243,8 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--rule-code", default=DEFAULT_RULE_CODE)
     apply.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE)
     apply.add_argument("--target-code", default="")
+    apply.add_argument("--source-pack-code", action="append", default=[], help="Restrict scoring to explicit source pack code. Repeatable; dry-run by default for safety.")
+    apply.add_argument("--allow-source-pack-execute", action="store_true", help="Allow --execute with --source-pack-code, which writes formal score tables.")
     apply.add_argument("--output-json", type=Path, required=True)
     apply.add_argument("--output-md", type=Path)
     apply.add_argument("--execute", action="store_true")
@@ -760,6 +1263,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         rule_code=args.rule_code,
         formula_code=args.formula_code,
         target_code=args.target_code,
+        source_pack_codes=args.source_pack_code,
+        allow_source_pack_execute=args.allow_source_pack_execute,
         execute=args.execute,
     )
     write_report(args.output_json, args.output_md, payload)

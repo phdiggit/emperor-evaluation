@@ -47,6 +47,56 @@ def test_build_task_skeleton_fills_stable_contract_fields() -> None:
     assert skeleton["source_documents"] == []
 
 
+def test_default_secondary_rule_candidates_keep_future_hint_status() -> None:
+    context = sample_context()
+    context["requirement_payload"] = {}
+
+    skeleton = tool.build_task_skeleton(context)
+    by_rule = {row["rule_code"]: row for row in skeleton["secondary_rule_candidates"]}
+
+    assert "tolerate_talent" in by_rule
+    assert "anti_nepotism" in by_rule
+    assert by_rule["power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["political_character"]["hint_status"] == "future_rule_hint"
+
+
+def test_item_wide_task_skeleton_uses_i5b_material_families() -> None:
+    context = sample_context()
+    context["rule_code"] = "i5b_item_wide"
+    context["rule_label"] = "I5B item-wide material pool"
+    context["requirement_payload"] = {}
+
+    skeleton = tool.build_task_skeleton(context)
+    family_codes = {row["family_code"] for row in skeleton["coverage_matrix"]["role_families"]}
+    by_rule = {row["rule_code"]: row for row in skeleton["secondary_rule_candidates"]}
+
+    assert skeleton["rule_code"] == "i5b_item_wide"
+    assert "appointment_trust_material" in family_codes
+    assert "team_building_material" in family_codes
+    assert "talent_discovery_material" in family_codes
+    assert "tolerate_talent_material" in family_codes
+    assert "anti_nepotism_material" in family_codes
+    assert "future_power_character_hint" in family_codes
+    assert "institution_or_office_context_pages" in skeleton["source_strategy"]["required_page_types"]
+    assert by_rule["appointment_trust"]["reason"]
+    assert by_rule["power_control"]["hint_status"] == "future_rule_hint"
+
+
+def test_item_wide_discovery_prompt_keeps_co_delegates_in_object_seeds() -> None:
+    context = sample_context()
+    context["rule_code"] = "i5b_item_wide"
+    context["rule_label"] = "I5B item-wide material pool"
+    context["requirement_payload"] = {}
+    skeleton = tool.build_task_skeleton(context)
+
+    prompt = tool.discovery_prompt(context, skeleton, allow_search=False)
+
+    assert "I5B item-wide 可放宽到 14-26 个" in prompt
+    assert "具名执行者和共同受命者" in prompt
+    assert "同击、从击、使、将兵、分兵、给兵、奉使、说降、制礼" in prompt
+    assert "不要只留最有名的一人" in prompt
+
+
 def test_merge_taskgen_discovery_preserves_protected_fields() -> None:
     skeleton = tool.build_task_skeleton(sample_context())
     merged = tool.merge_taskgen_discovery(

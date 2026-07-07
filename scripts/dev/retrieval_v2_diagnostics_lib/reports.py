@@ -51,6 +51,39 @@ def fetch_summary(cur: Any, *, item_code: str, rule_code: str, formula_code: str
             """,
             item_params + (rule_code, rule_code),
         ),
+        "formal_candidate_hints": fetch_scalar(
+            cur,
+            with_cte
+            + """
+            select count(*)::int as n
+              from retrieval_v2.claim_rule_binding_candidates c
+              join retrieval_v2.material_claims mc on mc.id = c.claim_id
+              join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
+              join scoped_targets st on st.id = sp.target_id
+             where coalesce(nullif(c.hint_status, ''), c.candidate_payload->>'hint_status', 'formal_candidate')
+                   in ('formal_candidate', 'current_rule_candidate')
+               and (%s = '' or c.candidate_rule_code = %s)
+            """,
+            item_params + (rule_code, rule_code),
+        ),
+        "future_rule_hints": fetch_scalar(
+            cur,
+            with_cte
+            + """
+            select count(*)::int as n
+              from retrieval_v2.claim_rule_binding_candidates c
+              join retrieval_v2.material_claims mc on mc.id = c.claim_id
+              join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
+              join scoped_targets st on st.id = sp.target_id
+             where (
+                    c.hint_status = 'future_rule_hint'
+                    or c.candidate_payload->>'hint_status' = 'future_rule_hint'
+                    or c.candidate_payload->>'route_status' = 'future_rule_hint'
+               )
+               and (%s = '' or c.candidate_rule_code = %s)
+            """,
+            item_params + (rule_code, rule_code),
+        ),
         "factor_judgments": fetch_scalar(
             cur,
             with_cte

@@ -1015,3 +1015,141 @@ def test_cli_skip_judge_runs_candidate_and_summary(tmp_path: Path, capsys) -> No
     assert payload["people"][0]["judge_status"] is None
     assert payload["people"][0]["candidate_slices"] == 1
     assert payload["clean_policy"]["candidate_alias_missing_auto_patch"] is True
+
+
+def test_cli_i5b_wide_shadow_pilot_marks_outputs_not_formal_consumption(tmp_path: Path, capsys) -> None:
+    task_path = tmp_path / "task.json"
+    run_root = tmp_path / "run"
+    task_path.write_text(json.dumps(task_without_alias_gap(), ensure_ascii=False), encoding="utf-8")
+
+    assert tool.main([
+        "--task",
+        str(task_path),
+        "--run-root",
+        str(run_root),
+        "--skip-judge",
+        "--i5b-wide-shadow-pilot",
+    ]) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    person = payload["people"][0]
+    candidates = json.loads(Path(person["files"]["final_candidates"]).read_text(encoding="utf-8"))
+    final_task = json.loads(Path(person["files"]["final_task"]).read_text(encoding="utf-8"))
+
+    assert payload["capture_mode"] == "i5b_wide_shadow"
+    assert payload["formal_consumption_source"] is False
+    assert payload["clean_policy"]["shadow_pilot"] is True
+    assert person["capture_mode"] == "i5b_wide_shadow"
+    assert person["formal_consumption_source"] is False
+    assert final_task["capture_mode"] == "i5b_wide_shadow"
+    assert candidates["task_identity"]["capture_mode"] == "i5b_wide_shadow"
+
+
+def test_cli_i5b_item_wide_shadow_pilot_uses_item_wide_package_shape(tmp_path: Path, capsys) -> None:
+    task_path = tmp_path / "task.json"
+    run_root = tmp_path / "run"
+    task_path.write_text(json.dumps(task_without_alias_gap(), ensure_ascii=False), encoding="utf-8")
+
+    assert tool.main(
+        [
+            "--task",
+            str(task_path),
+            "--run-root",
+            str(run_root),
+            "--skip-judge",
+            "--i5b-item-wide-shadow-pilot",
+        ]
+    ) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    person = payload["people"][0]
+    candidates = json.loads(Path(person["files"]["final_candidates"]).read_text(encoding="utf-8"))
+    final_task = json.loads(Path(person["files"]["final_task"]).read_text(encoding="utf-8"))
+
+    assert payload["capture_mode"] == "i5b_item_wide_shadow"
+    assert payload["formal_consumption_source"] is False
+    assert payload["clean_policy"]["shadow_pilot"] is True
+    assert person["capture_mode"] == "i5b_item_wide_shadow"
+    assert person["rule_code"] == "i5b_item_wide"
+    assert final_task["rule_code"] == "i5b_item_wide"
+    assert final_task["rule"]["rule_code"] == "i5b_item_wide"
+    assert final_task["coverage_matrix"]["rule_code"] == "i5b_item_wide"
+    assert final_task["target_payload"]["capture_profile"] == "i5b_item_wide"
+    assert candidates["task_identity"]["capture_mode"] == "i5b_item_wide_shadow"
+    assert candidates["task_identity"]["rule_code"] == "i5b_item_wide"
+    assert candidates["task_identity"]["capture_profile"] == "i5b_item_wide"
+
+
+def test_cli_personnel_political_wide_shadow_pilot_uses_generic_fact_contract(tmp_path: Path, capsys) -> None:
+    task_path = tmp_path / "task.json"
+    run_root = tmp_path / "run"
+    task_path.write_text(json.dumps(task_without_alias_gap(), ensure_ascii=False), encoding="utf-8")
+
+    assert tool.main(
+        [
+            "--task",
+            str(task_path),
+            "--run-root",
+            str(run_root),
+            "--skip-judge",
+            "--personnel-political-wide-shadow-pilot",
+        ]
+    ) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    person = payload["people"][0]
+    candidates = json.loads(Path(person["files"]["final_candidates"]).read_text(encoding="utf-8"))
+    final_task = json.loads(Path(person["files"]["final_task"]).read_text(encoding="utf-8"))
+
+    assert payload["capture_mode"] == "personnel_political_wide_shadow"
+    assert payload["capture_profile"] == "personnel_political_wide"
+    assert payload["formal_consumption_source"] is False
+    assert payload["clean_policy"]["shadow_pilot"] is True
+    assert payload["clean_policy"]["capture_profile"] == "personnel_political_wide"
+    assert person["capture_mode"] == "personnel_political_wide_shadow"
+    assert person["rule_code"] == "i5b_item_wide"
+    assert final_task["rule_code"] == "i5b_item_wide"
+    assert final_task["target_payload"]["capture_profile"] == "personnel_political_wide"
+    assert final_task["target_payload"]["fact_schema"] == "political_action_v1"
+    assert final_task["target_payload"]["candidate_route_table_version"] == "personnel_political_v0_1"
+    assert candidates["task_identity"]["capture_mode"] == "personnel_political_wide_shadow"
+    assert candidates["task_identity"]["capture_profile"] == "personnel_political_wide"
+    assert candidates["task_identity"]["fact_schema"] == "political_action_v1"
+    assert candidates["task_identity"]["candidate_route_table_version"] == "personnel_political_v0_1"
+    assert candidates["task_identity"]["rule_code"] == "i5b_item_wide"
+
+
+def test_i5b_item_wide_shadow_context_is_rewritten_before_taskgen() -> None:
+    args = SimpleNamespace(i5b_item_wide_shadow_pilot=True, i5b_wide_shadow_pilot=False)
+
+    context = retrieval_v2_clean_cli._with_shadow_context(task_with_candidate_source_gap(), args)
+    skeleton = retrieval_v2_clean_cli.task_skeleton.build_task_skeleton(context)
+    family_codes = {row["family_code"] for row in skeleton["coverage_matrix"]["role_families"]}
+
+    assert context["rule_code"] == "i5b_item_wide"
+    assert context["target_payload"]["capture_mode"] == "i5b_item_wide_shadow"
+    assert skeleton["rule_code"] == "i5b_item_wide"
+    assert "appointment_trust_material" in family_codes
+    assert "anti_nepotism_material" in family_codes
+    assert "military_delegate" not in family_codes
+
+
+def test_personnel_political_wide_shadow_context_reuses_item_wide_shell() -> None:
+    args = SimpleNamespace(
+        personnel_political_wide_shadow_pilot=True,
+        i5b_item_wide_shadow_pilot=False,
+        i5b_wide_shadow_pilot=False,
+    )
+
+    context = retrieval_v2_clean_cli._with_shadow_context(task_with_candidate_source_gap(), args)
+    skeleton = retrieval_v2_clean_cli.task_skeleton.build_task_skeleton(context)
+    family_codes = {row["family_code"] for row in skeleton["coverage_matrix"]["role_families"]}
+
+    assert context["rule_code"] == "i5b_item_wide"
+    assert context["target_payload"]["capture_mode"] == "personnel_political_wide_shadow"
+    assert context["target_payload"]["capture_profile"] == "personnel_political_wide"
+    assert context["target_payload"]["fact_schema"] == "political_action_v1"
+    assert context["target_payload"]["candidate_route_table_version"] == "personnel_political_v0_1"
+    assert skeleton["rule_code"] == "i5b_item_wide"
+    assert "appointment_trust_material" in family_codes
+    assert "future_power_character_hint" in family_codes

@@ -24,6 +24,7 @@ AMBIGUOUS_PRESEARCH_TITLE_ANCHORS = {
 
 RULE_QUERY_TERMS = {
     "delegation": ["任", "命", "授", "拜", "相", "將軍", "總督", "經略", "留守"],
+    "i5b_item_wide": ["任", "薦", "舉", "結黨", "納賄", "授", "拜", "將軍", "赦", "誅"],
     "team_building": ["任", "相", "將", "大臣", "用"],
     "talent_discovery": ["薦", "舉", "用", "拔"],
     "appointment_trust": ["任", "信", "委", "拜"],
@@ -302,6 +303,33 @@ def preseed_target_title_aliases(name: str, title: str) -> list[str]:
     return [title] if title else []
 
 
+def direct_source_titles_from_source_targets(
+    source_targets: Any,
+    context: Mapping[str, Any],
+    *,
+    emp_metadata: Mapping[str, Any] | None = None,
+) -> list[str]:
+    if isinstance(source_targets, str):
+        values = [source_targets]
+    elif isinstance(source_targets, list):
+        values = [str(value or "") for value in source_targets]
+    else:
+        values = []
+    allowed_roots = unique_strings(
+        root
+        for hint in source_hints_for_context(context, emp_metadata=emp_metadata)
+        for root in source_roots_for_hint(hint, emp_metadata=metadata_from_context(context, emp_metadata))
+    )
+    titles: list[str] = []
+    for value in values:
+        normalized = normalize_title(value)
+        for match in re.finditer(r"([^\s，,；;]+?/卷[0-9零〇一二两兩三四五六七八九十百]+)", normalized):
+            title = match.group(1)
+            if is_probable_source_document_title(title) and source_root_allowed(title, allowed_roots):
+                titles.append(title)
+    return unique_strings(titles)
+
+
 def object_source_queries(
     object_name: str,
     context: Mapping[str, Any],
@@ -357,6 +385,19 @@ def build_taskgen_preseed(
     title_alias = text_from(meta, "title", "temple_name", "posthumous_name")
     title_aliases = preseed_target_title_aliases(name, title_alias)
     search_names = unique_strings([name, title_alias])
+    direct_titles = direct_source_titles_from_source_targets(meta.get("source_targets"), context, emp_metadata=emp_metadata)
+    for direct_title in direct_titles:
+        documents_by_title.setdefault(
+            direct_title,
+            {
+                "document_code": f"DOC-META-{target_code}-{len(documents_by_title) + 1:02d}",
+                "title": direct_title,
+                "wikisource_title": direct_title,
+                "url": "",
+                "source_kind": "wikisource_page",
+                "why_selected": "metadata direct source target",
+            },
+        )
     for query in queries:
         allowed_roots = allowed_source_roots_for_query(query, context, emp_metadata=emp_metadata)
         try:
@@ -444,6 +485,7 @@ def build_taskgen_preseed(
             "discovery_scope": "object_seeds_from_presearch_and_gap_source_documents",
             "presearch_queries": queries,
             "presearch_hits": hits,
+            "direct_source_target_count": len(direct_titles),
             "codex_search_recommended": False,
         },
         "generation_notes": [

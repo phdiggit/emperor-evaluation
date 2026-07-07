@@ -67,6 +67,7 @@ def normalize_material_score_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "target_object_id": int(row["target_object_id"]) if row.get("target_object_id") is not None else None,
         "object_name": text(row.get("object_name")) or text(row.get("claim_object_name")),
         "side": text(row.get("side")),
+        "judgment_side": text(row.get("judgment_side")),
         "raw_score": decimal_text(row.get("raw_score")),
         "abs_score": decimal_text(row.get("abs_score")),
         "factor_values": json_object(row.get("factor_values")),
@@ -124,6 +125,7 @@ def build_score_chain_observations(targets: Sequence[Mapping[str, Any]]) -> list
     duplicate_examples: list[dict[str, Any]] = []
     capped_examples: list[dict[str, Any]] = []
     balance_examples: list[dict[str, Any]] = []
+    side_mismatch_examples: list[dict[str, Any]] = []
     for target in targets:
         positive_signal = numeric_sort_value(target.get("positive_signal"))
         negative_signal = numeric_sort_value(target.get("negative_signal"))
@@ -144,6 +146,21 @@ def build_score_chain_observations(targets: Sequence[Mapping[str, Any]]) -> list
             grouped.setdefault(key, []).append(material)
             raw_score = numeric_sort_value(material.get("raw_score"))
             abs_score = numeric_sort_value(material.get("abs_score"))
+            side = text(material.get("side"))
+            judgment_side = text(material.get("judgment_side"))
+            if judgment_side and judgment_side != side:
+                side_mismatch_examples.append(
+                    {
+                        "target_code": text(target.get("target_code")),
+                        "emperor_name": text(target.get("emperor_name")),
+                        "object_name": text(material.get("object_name")),
+                        "judgment_side": judgment_side,
+                        "score_side": side,
+                        "raw_score": text(material.get("raw_score")),
+                        "abs_score": text(material.get("abs_score")),
+                        "claim_summary": short_text(material.get("claim_summary"), max_chars=100),
+                    }
+                )
             if abs(raw_score) > abs_score + 0.0005:
                 capped_examples.append(
                     {
@@ -197,6 +214,14 @@ def build_score_chain_observations(targets: Sequence[Mapping[str, Any]]) -> list
             owner="human",
             description="单条材料 raw_score 超过材料封顶，abs_score 已按公式封顶；用于观察高强度材料集中度。",
             examples=capped_examples[:10],
+        ),
+        check_entry(
+            "score_chain_judgment_side_score_side_mismatch",
+            count=len(side_mismatch_examples),
+            severity="info",
+            owner="human",
+            description="因子化原始 side 与最终入分 side 不一致；通常表示候选方向为任用事实，但因子乘积转为负向入分。",
+            examples=side_mismatch_examples[:10],
         ),
     ]
 
@@ -273,6 +298,7 @@ def fetch_score_chain(
             mc.claim_summary,
             mc.object_name as claim_object_name,
             mc.direction as claim_direction,
+            j.side::text as judgment_side,
             b.predicate,
             b.direction as binding_direction,
             b.object_role,
@@ -288,6 +314,7 @@ def fetch_score_chain(
           from retrieval_v2.claim_rule_binding_material_scores ms
           join retrieval_v2.retrieval_targets rt on rt.id = ms.target_id
           join scoped_targets st on st.id = ms.target_id
+          join retrieval_v2.claim_rule_binding_factor_judgments j on j.id = ms.factor_judgment_id
           join retrieval_v2.claim_rule_bindings b on b.id = ms.binding_id
           join retrieval_v2.material_claims mc on mc.id = ms.claim_id
           left join retrieval_v2.objects o on o.id = ms.object_id

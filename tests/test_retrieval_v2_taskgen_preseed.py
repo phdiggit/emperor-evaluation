@@ -24,6 +24,20 @@ def test_build_presearch_queries_prefers_title_and_source_hints() -> None:
     assert "李渊 舊唐書" in queries
 
 
+def test_build_presearch_queries_for_item_wide_uses_broad_i5b_terms() -> None:
+    context = sample_context()
+    context["rule_code"] = "i5b_item_wide"
+
+    queries = tool.build_presearch_queries(
+        context,
+        emp_metadata={"title": "唐高祖", "period": "唐"},
+        max_queries=8,
+    )
+
+    assert any("薦" in query or "舉" in query for query in queries)
+    assert any("結黨" in query or "納賄" in query or "誅" in query for query in queries)
+
+
 def test_build_presearch_queries_uses_profile_source_targets_without_period() -> None:
     queries = tool.build_presearch_queries(
         {
@@ -42,6 +56,41 @@ def test_build_presearch_queries_uses_profile_source_targets_without_period() ->
     )
 
     assert queries[:2] == ["刘娥 宋史", "刘娥 續資治通鑑長編"]
+
+
+def test_build_taskgen_preseed_seeds_direct_source_target_pages_before_search() -> None:
+    def fake_search(query: str, *, limit: int, timeout: int) -> list[dict[str, str]]:
+        return []
+
+    preseed = tool.build_taskgen_preseed(
+        {
+            "target_code": "TGT-I5B-CC",
+            "emperor_name": "曹操",
+            "rule_code": "i5b_item_wide",
+            "target_payload": {
+                "period": "东汉",
+                "title": "魏武帝",
+                    "source_targets": [
+                        "三國志/卷1（武帝纪，direct page）",
+                        "三國志/卷10（荀彧荀攸贾诩传，direct page）",
+                        "三國志/卷17（张乐于张徐传，direct page）",
+                        "三国志 魏书 武帝纪（魏书是三国志篇章名，不是北魏魏書史源）",
+                    ],
+                },
+            },
+        max_queries=1,
+        pages_per_query=1,
+        search_fn=fake_search,
+    )
+
+    assert [row["title"] for row in preseed["source_documents"]] == [
+        "三國志/卷1",
+        "三國志/卷10",
+        "三國志/卷17",
+    ]
+    assert all(row["source_kind"] == "wikisource_page" for row in preseed["source_documents"])
+    assert preseed["search_plan"]["direct_source_target_count"] == 3
+    assert all("魏書" not in query for query in preseed["search_plan"]["presearch_queries"])
 
 
 def test_build_presearch_queries_supports_northern_dynasty_source_hints() -> None:

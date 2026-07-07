@@ -271,6 +271,7 @@ def test_fetch_score_chain_builds_target_material_chain(monkeypatch) -> None:
             "target_object_id": 1001,
             "object_name": "萧何",
             "side": "positive",
+            "judgment_side": "positive",
             "raw_score": "2.500",
             "abs_score": "2.500",
             "factor_values": {"trust_validity": "1.0"},
@@ -310,6 +311,7 @@ def test_fetch_score_chain_builds_target_material_chain(monkeypatch) -> None:
             "target_object_id": 1002,
             "object_name": "韩信",
             "side": "negative",
+            "judgment_side": "negative",
             "raw_score": "1.000",
             "abs_score": "1.000",
             "factor_values": {"trust_validity": "1.0"},
@@ -393,6 +395,7 @@ def test_build_score_chain_observations_flags_duplicate_claim_object_side() -> N
                         "object_id": 10,
                         "object_name": "施琅",
                         "side": "positive",
+                        "judgment_side": "negative",
                         "binding_code": "BND-1",
                         "raw_score": "4.500",
                         "abs_score": "4.000",
@@ -418,6 +421,8 @@ def test_build_score_chain_observations_flags_duplicate_claim_object_side() -> N
     assert by_code["score_chain_duplicate_claim_object_side"]["examples"][0]["binding_codes"] == ["BND-1", "BND-2"]
     assert by_code["score_chain_negative_ge_positive"]["count"] == 1
     assert by_code["score_chain_material_score_capped"]["count"] == 1
+    assert by_code["score_chain_judgment_side_score_side_mismatch"]["count"] == 1
+    assert by_code["score_chain_judgment_side_score_side_mismatch"]["examples"][0]["judgment_side"] == "negative"
 
 
 def test_main_score_chain_writes_json_and_markdown(tmp_path: Path, monkeypatch, capsys) -> None:

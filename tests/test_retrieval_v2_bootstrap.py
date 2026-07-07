@@ -44,7 +44,17 @@ def test_delegation_requirement_payload_contains_coverage_contract() -> None:
     secondary_rules = {row["rule_code"] for row in matrix["secondary_rule_hints"]}
 
     assert {"military_delegate", "civil_delegate", "strategic_delegate", "revoked_or_failed_delegate"} <= family_codes
-    assert "appointment_trust" in secondary_rules
+    assert {
+        "appointment_trust",
+        "team_building",
+        "talent_discovery",
+        "tolerate_talent",
+        "anti_nepotism",
+        "power_control",
+        "political_character",
+    } <= secondary_rules
+    future_hints = {row["rule_code"] for row in matrix["secondary_rule_hints"] if row.get("hint_status") == "future_rule_hint"}
+    assert future_hints == {"power_control", "political_character"}
     assert matrix["material_policy_codes"] == ["person"]
     assert matrix["predicate_options"] == ["delegated_authority"]
 
@@ -111,7 +121,11 @@ def test_read_schema_sql_points_to_retrieval_v2_migration() -> None:
     assert "create schema if not exists retrieval_v2" in sql
     assert "create table if not exists retrieval_v2.rule_contracts" in sql
     assert "create table if not exists retrieval_v2.claim_rule_binding_candidates" in sql
+    assert "create table if not exists retrieval_v2.item_rule_score_weights" in sql
+    assert "add column if not exists candidate_lane" in sql
+    assert "rv2_claim_rule_binding_candidates_future_hint_idx" in sql
     assert "create type retrieval_v2.rv2_review_status as enum" in sql
+    assert "create type retrieval_v2.rv2_rule_weight_status as enum" in sql
 
 
 def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> None:
@@ -120,6 +134,7 @@ def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> Non
     captured = capsys.readouterr()
     assert "retrieval_v2.claim_rule_bindings" in captured.out
     assert "retrieval_v2.claim_rule_binding_candidates" in captured.out
+    assert "retrieval_v2.item_rule_score_weights" in captured.out
 
 
 def test_missing_action_is_a_usage_error() -> None:

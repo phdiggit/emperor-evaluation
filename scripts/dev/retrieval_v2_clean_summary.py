@@ -139,6 +139,10 @@ def summarize_person(
         "name": task.get("emperor_name") or "",
         "target_code": task.get("target_code") or "",
         "rule_code": task.get("rule_code") or rule.get("rule_code") or "",
+        "capture_mode": task.get("capture_mode") or "",
+        "formal_consumption_source": (task.get("target_payload") or {}).get("formal_consumption_source")
+        if isinstance(task.get("target_payload"), Mapping)
+        else None,
         "run_dir": str(person_dir),
         "taskgen_elapsed_seconds": taskgen.get("elapsed_seconds") if taskgen else None,
         "taskgen_usage": taskgen.get("usage") if taskgen else {},

@@ -54,8 +54,53 @@ def object_slice_costs(candidates: Mapping[str, Any], object_names: Sequence[str
         name = str(candidate_slice.get("object_name") or "")
         if name not in costs:
             continue
-        costs[name] += len(str(candidate_slice.get("text") or "")) + 180
+        costs[name] += len(str(candidate_slice.get("text") or "")) + 180 + candidate_slice_risk_cost(candidate_slice)
     return costs
+
+
+HIGH_RISK_OUTCOME_TERMS = {
+    "败",
+    "敗",
+    "败绩",
+    "敗績",
+    "杀",
+    "殺",
+    "诛",
+    "誅",
+    "坐",
+    "罪",
+    "谋",
+    "謀",
+    "反",
+    "赐死",
+    "賜死",
+    "伏诛",
+    "伏誅",
+    "有罪",
+    "收印",
+    "收大将军印",
+    "敗绩",
+}
+
+
+def candidate_slice_risk_cost(candidate_slice: Mapping[str, Any]) -> int:
+    text = str(candidate_slice.get("text") or "")
+    object_name = str(candidate_slice.get("object_name") or "").strip()
+    matched_aliases = [str(value or "") for value in candidate_slice.get("matched_aliases") or []]
+    matched_outcome_terms = {str(value or "") for value in candidate_slice.get("matched_outcome_terms") or []}
+    matched_alias_strengths = candidate_slice.get("matched_alias_strengths") or {}
+    risk = 0
+    if candidate_slice.get("weak_alias_only"):
+        risk += 900
+    if object_name and object_name not in text and matched_aliases:
+        risk += 700
+    if isinstance(matched_alias_strengths, Mapping) and matched_alias_strengths:
+        strengths = {str(value or "").lower() for value in matched_alias_strengths.values()}
+        if "strong" not in strengths:
+            risk += 400
+    if matched_outcome_terms & HIGH_RISK_OUTCOME_TERMS:
+        risk += 350
+    return risk
 
 
 def balanced_object_chunks(
@@ -133,6 +178,7 @@ def materialize_passages_from_claims(
                 continue
             candidate_slice = by_slice[slice_code]
             passage_code = passage_code_for_slice(slice_code)
+            slice_text = str(candidate_slice.get("text") or "")
             passage_refs.append(passage_code)
             passages.setdefault(
                 passage_code,
@@ -141,7 +187,8 @@ def materialize_passages_from_claims(
                     "document_code": candidate_slice.get("document_code"),
                     "slice_code": slice_code,
                     "locator": candidate_slice.get("locator") or "",
-                    "quote": str(candidate_slice.get("text") or "")[:120],
+                    "quote": slice_text,
+                    "raw_text": slice_text,
                     "summary": claim.get("claim_summary") or "",
                     "matched_aliases": candidate_slice.get("matched_aliases") or [],
                 },

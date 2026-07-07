@@ -12,6 +12,7 @@ from typing import Any, Mapping, Sequence
 
 from scripts.dev import retrieval_v2_discovery_profiles as discovery_profiles
 from scripts.dev import retrieval_v2_batch_taskgen as batch_taskgen
+from scripts.dev import retrieval_v2_contracts as contracts
 from scripts.dev import retrieval_v2_source_candidates as source_candidates
 from scripts.dev import retrieval_v2_task_skeleton as task_skeleton
 from scripts.dev import retrieval_v2_taskgen_preseed as taskgen_preseed
@@ -41,6 +42,28 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--rule-code", default="delegation")
     parser.add_argument("--contract-code", default=None)
     parser.add_argument("--env-file", type=Path)
+    shadow_group = parser.add_mutually_exclusive_group()
+    shadow_group.add_argument(
+        "--i5b-wide-shadow-pilot",
+        action="store_true",
+        help="Mark this run as an I5B-wide shadow pilot. Output stays in its run_root and must not be used as a formal consumption source.",
+    )
+    shadow_group.add_argument(
+        "--i5b-item-wide-shadow-pilot",
+        action="store_true",
+        help=(
+            "Mark this run as an I5B item-wide shadow pilot. The judge should build a broad "
+            "I5B material pool rather than a single-rule primary package; output stays in run_root."
+        ),
+    )
+    shadow_group.add_argument(
+        "--personnel-political-wide-shadow-pilot",
+        action="store_true",
+        help=(
+            "Mark this run as a personnel_political_wide shadow pilot. It reuses the I5B item-wide "
+            "package shell while emitting political_action_v1 facts and cross-item future hints."
+        ),
+    )
     parser.add_argument(
         "--discovery-profile",
         type=Path,
@@ -168,6 +191,122 @@ def _candidate_source_refine_rounds(args: argparse.Namespace) -> int:
     return 0
 
 
+def _shadow_capture_mode(args: argparse.Namespace | None) -> str:
+    if args is None:
+        return ""
+    if bool(getattr(args, "personnel_political_wide_shadow_pilot", False)):
+        return contracts.PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE
+    if bool(getattr(args, "i5b_item_wide_shadow_pilot", False)):
+        return "i5b_item_wide_shadow"
+    if bool(getattr(args, "i5b_wide_shadow_pilot", False)):
+        return "i5b_wide_shadow"
+    return ""
+
+
+def _is_item_wide_shadow_mode(mode: str) -> bool:
+    return mode in {"i5b_item_wide_shadow", contracts.PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE}
+
+
+def _shadow_capture_profile(mode: str) -> str:
+    if mode == contracts.PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE:
+        return contracts.PERSONNEL_POLITICAL_WIDE_PROFILE
+    if mode == "i5b_item_wide_shadow":
+        return "i5b_item_wide"
+    if mode == "i5b_wide_shadow":
+        return "i5b_wide"
+    return ""
+
+
+def _apply_shadow_target_contract(target_payload: dict[str, Any], mode: str) -> None:
+    target_payload["capture_mode"] = mode
+    target_payload["shadow_pilot"] = True
+    target_payload["formal_consumption_source"] = False
+    profile = _shadow_capture_profile(mode)
+    if profile:
+        target_payload["capture_profile"] = profile
+    if mode == contracts.PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE:
+        target_payload["fact_schema"] = contracts.POLITICAL_ACTION_FACT_SCHEMA
+        target_payload["candidate_route_table_version"] = contracts.CANDIDATE_ROUTE_TABLE_VERSION
+
+
+def _with_shadow_capture_mode(task: Mapping[str, Any], args: argparse.Namespace | None) -> dict[str, Any]:
+    result = dict(task)
+    mode = _shadow_capture_mode(args)
+    if not mode:
+        return result
+    result["capture_mode"] = mode
+    target_payload = dict(result.get("target_payload") or {})
+    _apply_shadow_target_contract(target_payload, mode)
+    result["target_payload"] = target_payload
+    generation_notes = [str(value) for value in result.get("generation_notes") or [] if str(value).strip()]
+    if _is_item_wide_shadow_mode(mode):
+        result["rule_code"] = "i5b_item_wide"
+        result["job_code"] = str(result.get("job_code") or "").replace("-delegation-", "-i5b_item_wide-")
+        rule_payload = dict(result.get("rule") or {})
+        rule_payload["rule_code"] = "i5b_item_wide"
+        rule_payload["rule_label"] = "I5B item-wide material pool"
+        result["rule"] = rule_payload
+        matrix = dict(result.get("coverage_matrix") or {})
+        matrix["rule_code"] = "i5b_item_wide"
+        result["coverage_matrix"] = matrix
+    note = (
+        "I5B item-wide shadow pilot: build broad I5B material pool; not a formal consumption source."
+        if mode == "i5b_item_wide_shadow"
+        else (
+            "personnel_political_wide shadow pilot: emit political_action_v1 facts and cross-item future hints; not a formal consumption source."
+            if mode == contracts.PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE
+            else "I5B-wide shadow pilot: evaluate broad claim capture and secondary candidates; not a formal consumption source."
+        )
+    )
+    if note not in generation_notes:
+        generation_notes.append(note)
+    result["generation_notes"] = generation_notes
+    clean_audit = dict(result.get("clean_audit") or {})
+    clean_audit["capture_mode"] = mode
+    clean_audit["capture_profile"] = _shadow_capture_profile(mode)
+    clean_audit["formal_consumption_source"] = False
+    result["clean_audit"] = clean_audit
+    return result
+
+
+def _with_shadow_context(context: Mapping[str, Any], args: argparse.Namespace | None) -> dict[str, Any]:
+    result = dict(context)
+    mode = _shadow_capture_mode(args)
+    if not _is_item_wide_shadow_mode(mode):
+        return result
+    result["rule_code"] = "i5b_item_wide"
+    result["rule_label"] = "I5B item-wide material pool"
+    intent_code = str(result.get("intent_code") or "")
+    if intent_code:
+        result["intent_code"] = intent_code.replace("-delegation", "-i5b_item_wide").replace("-DELEGATION", "-I5B_ITEM_WIDE")
+    target_payload = dict(result.get("target_payload") or {})
+    _apply_shadow_target_contract(target_payload, mode)
+    result["target_payload"] = target_payload
+    requirement = dict(result.get("requirement_payload") or {})
+    requirement["coverage_matrix"] = contracts.coverage_matrix_template("i5b_item_wide")
+    result["requirement_payload"] = requirement
+    return result
+
+
+def _mark_shadow_summary(summary: dict[str, Any], args: argparse.Namespace | None) -> dict[str, Any]:
+    mode = _shadow_capture_mode(args)
+    if not mode:
+        return summary
+    summary.setdefault("clean_policy", {})["capture_mode"] = mode
+    summary.setdefault("clean_policy", {})["capture_profile"] = _shadow_capture_profile(mode)
+    summary.setdefault("clean_policy", {})["shadow_pilot"] = True
+    summary.setdefault("clean_policy", {})["formal_consumption_source"] = False
+    summary["capture_mode"] = mode
+    summary["capture_profile"] = _shadow_capture_profile(mode)
+    if mode == contracts.PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE:
+        summary.setdefault("clean_policy", {})["fact_schema"] = contracts.POLITICAL_ACTION_FACT_SCHEMA
+        summary.setdefault("clean_policy", {})["candidate_route_table_version"] = contracts.CANDIDATE_ROUTE_TABLE_VERSION
+        summary["fact_schema"] = contracts.POLITICAL_ACTION_FACT_SCHEMA
+        summary["candidate_route_table_version"] = contracts.CANDIDATE_ROUTE_TABLE_VERSION
+    summary["formal_consumption_source"] = False
+    return summary
+
+
 def _with_emp_metadata_target_payload(
     task: Mapping[str, Any],
     emp_metadata: Mapping[str, Any],
@@ -216,6 +355,7 @@ def _run_staged_emperors(
             )
         )
     tasks = [row["task"] for row in taskgen_results]
+    tasks = [_with_shadow_capture_mode(task, args) for task in tasks]
     taskgen_by_target_code = {
         str(row["task"].get("target_code") or ""): row["taskgen"] for row in taskgen_results
     }
@@ -248,13 +388,14 @@ def _run_staged_emperors(
     )
     summary.setdefault("clean_policy", {})["taskgen_presearch"] = bool(args.taskgen_presearch)
     summary.setdefault("clean_policy", {})["taskgen_search_enabled"] = _effective_taskgen_search(args)
+    _mark_shadow_summary(summary, args)
     runner.atomic_write_json(run_root / "summary.json", summary)
     return summary
 
 
 def _run_task_files(args: argparse.Namespace, *, run_root: Path, event_logger: RunEventLogger) -> dict[str, Any]:
-    tasks = [runner.load_json(path) for path in args.task]
-    return runner.run_clean_pipeline(
+    tasks = [_with_shadow_capture_mode(runner.load_json(path), args) for path in args.task]
+    summary = runner.run_clean_pipeline(
         tasks=tasks,
         run_root=run_root,
         codex_runner=runner.run_codex,
@@ -278,6 +419,7 @@ def _run_task_files(args: argparse.Namespace, *, run_root: Path, event_logger: R
         max_workers=args.max_workers,
         event_logger=event_logger,
     )
+    return _mark_shadow_summary(summary, args)
 
 
 def _chunks(values: Sequence[str], size: int) -> list[list[str]]:
@@ -727,12 +869,14 @@ def run_streaming_taskgen_pipeline(
             target_count=len(emperor_names),
             max_workers=max_workers,
             mode="streaming_taskgen",
+            capture_mode=_shadow_capture_mode(args) or None,
             taskgen_batch_size=taskgen_batch_size,
             taskgen_presearch=bool(taskgen_preseeds),
         )
 
     def process_taskgen_result(taskgen_result: Mapping[str, Any]) -> dict[str, Any]:
-        task = taskgen_result["task"]
+        task = _with_shadow_capture_mode(taskgen_result["task"], args)
+        taskgen_result = {**dict(taskgen_result), "task": task}
         for profile_root in profile_roots:
             discovery_profiles.write_profile(discovery_profiles.profile_from_task(task), profile_root)
         return runner.process_task(
@@ -882,6 +1026,7 @@ def run_streaming_taskgen_pipeline(
         taskgen_presearch=bool(taskgen_preseeds),
         taskgen_search_enabled=taskgen_search,
     )
+    _mark_shadow_summary(summary, args)
     runner.atomic_write_json(run_root / "summary.json", summary)
     if event_logger is not None:
         event_logger.emit(
@@ -909,6 +1054,7 @@ def _run_emperors(
         rule_code=args.rule_code,
         contract_code=args.contract_code,
     )
+    contexts = {name: _with_shadow_context(context, args) for name, context in contexts.items()}
     emp_metadata_by_name = _load_emp_metadata(args, args.emperor)
     taskgen_preseeds = _build_taskgen_preseeds(
         args,
@@ -969,7 +1115,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.env_file is not None:
         loaded_env_keys = runner.load_env_file(args.env_file)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_root = args.run_root or runner.ROOT / "tmp" / "retrieval_v2_clean_runs" / f"clean_pipeline_{timestamp}"
+    if args.personnel_political_wide_shadow_pilot:
+        default_run_name = f"personnel_political_wide_shadow_{timestamp}"
+    elif args.i5b_item_wide_shadow_pilot:
+        default_run_name = f"i5b_item_wide_shadow_{timestamp}"
+    elif args.i5b_wide_shadow_pilot:
+        default_run_name = f"i5b_wide_shadow_{timestamp}"
+    else:
+        default_run_name = f"clean_pipeline_{timestamp}"
+    run_root = args.run_root or runner.ROOT / "tmp" / "retrieval_v2_clean_runs" / default_run_name
     event_logger = RunEventLogger(run_root / "run_events.jsonl", echo=args.progress)
 
     loaded_profiles = discovery_profiles.load_profiles(
@@ -987,6 +1141,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     summary["total_elapsed_seconds"] = summary["cli_elapsed_seconds"]
     summary["event_log"] = str(run_root / "run_events.jsonl")
     summary["loaded_env_keys"] = loaded_env_keys
+    _mark_shadow_summary(summary, args)
     runner.atomic_write_json(run_root / "summary.json", summary)
     sys.stdout.write(runner.pretty_json(summary))
     return 0
