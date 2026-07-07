@@ -17,8 +17,7 @@ DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 ALLOWED_DIRECTIONS = {"positive", "negative", "mixed"}
 RULE_NOTE_LABELS = {
     "talent_discovery": "发现人才",
-    "appointment_trust": "任人信任",
-    "delegation": "合理授权",
+    "appointment_delegation": "任用授权",
     "team_building": "建立团队",
     "tolerate_talent": "容人保全",
     "anti_nepotism": "避免任人唯亲",

@@ -10,30 +10,26 @@ NON_CORE_RETRIEVAL_RULES = {"anti_nepotism"}
 PERSONNEL_POLITICAL_WIDE_PROFILE = "personnel_political_wide"
 PERSONNEL_POLITICAL_WIDE_CAPTURE_MODE = "personnel_political_wide_shadow"
 POLITICAL_ACTION_FACT_SCHEMA = "political_action_v1"
-CANDIDATE_ROUTE_TABLE_VERSION = "personnel_political_v0_1"
+CANDIDATE_ROUTE_TABLE_VERSION = "personnel_political_v0_2"
 
-CANDIDATE_HINT_STATUS_CURRENT = "current_rule_candidate"
-CANDIDATE_HINT_STATUS_FUTURE = "future_rule_hint"
-CANDIDATE_HINT_STATUS_CONTEXT = "rejected_or_context_only"
+CANDIDATE_HINT_STATUS_CURRENT, CANDIDATE_HINT_STATUS_FUTURE, CANDIDATE_HINT_STATUS_CONTEXT = "current_rule_candidate", "future_rule_hint", "rejected_or_context_only"
+
+AD_FACTOR_HINT_KEY = "appointment_delegation_factor_hints"
+AD_IMPORTANCE_HINTS = ("nominal_light", "real_duty", "key_military_political", "state_level_long_term", "unknown")
+AD_EFFECT_HINTS = ("weak_feedback", "normal_success", "strong_success", "bad_result", "major_bad", "structural_bad", "unknown")
+AD_CONTINUITY_HINTS = ("single_short", "stable", "long_multi_stage", "unknown")
+AD_HINT_CONFIDENCE_KEYS, AD_HINT_CONFIDENCE_VALUES = ("importance", "effect", "continuity"), ("high", "medium", "low")
+AD_UNCERTAINTY_FLAGS = ("effect_strength_needs_review", "same_chain_result_unclear", "continuity_needs_review", "negative_causality_needs_review")
 
 PERSONNEL_POLITICAL_ROUTE_LANES = (
     {
         "candidate_item_code": "I5B",
-        "candidate_lane": "delegation",
-        "rule_code": "delegation",
+        "candidate_lane": "I5B.appointment_delegation",
+        "rule_code": "appointment_delegation",
         "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
         "direction": "positive | negative | neutral",
         "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
-        "description": "用人与授权正式候选；必须由消费端窄验后才能晋升入分。",
-    },
-    {
-        "candidate_item_code": "I5B",
-        "candidate_lane": "appointment_trust",
-        "rule_code": "appointment_trust",
-        "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
-        "direction": "positive | negative | neutral",
-        "required_facts": ["actor", "object", "action_type", "office_or_domain", "outcome", "source_span_refs"],
-        "description": "任命、委任、信任、误任、撤任等任人信任正式候选。",
+        "description": "任命、委任、信任、授权、误任、错授和同链条结果正式候选；必须由消费端窄验后才能晋升入分。",
     },
     {
         "candidate_item_code": "I5B",
@@ -73,12 +69,39 @@ PERSONNEL_POLITICAL_ROUTE_LANES = (
     },
     {
         "candidate_item_code": "I5C",
-        "candidate_lane": "power_control",
-        "rule_code": "power_control",
+        "candidate_lane": "central_military_power_control",
+        "rule_code": "central_military_power_control",
         "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
         "direction": "positive | negative | neutral",
         "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
-        "description": "收兵权、削藩、诛权臣、制外戚、禁军控制、宗室控制等权力控制候选。",
+        "description": "禁军、兵权、军头、中央宿卫和中枢军事权力收放等 I5C 中央军权控制候选。",
+    },
+    {
+        "candidate_item_code": "I5C",
+        "candidate_lane": "regional_clan_power_control",
+        "rule_code": "regional_clan_power_control",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
+        "description": "藩镇、削藩、宗室、外戚、地方强族、封国和区域割据风险等 I5C 地方/宗族权力控制候选。",
+    },
+    {
+        "candidate_item_code": "I5C",
+        "candidate_lane": "inner_favorite_power_control",
+        "rule_code": "inner_favorite_power_control",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
+        "description": "宦官、近臣、宠臣、内廷、私门、矫诏、专擅等 I5C 内廷近幸权力控制候选。",
+    },
+    {
+        "candidate_item_code": "I5C",
+        "candidate_lane": "institutional_constraint_correction",
+        "rule_code": "institutional_constraint_correction",
+        "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        "direction": "positive | negative | neutral",
+        "required_facts": ["actor", "object", "action_type", "event_scope", "outcome", "source_span_refs"],
+        "description": "制度约束、纠偏、收权、限权、问责和防止权力链条失控等 I5C 制度性制衡纠错候选。",
     },
     {
         "candidate_item_code": "I5D",
@@ -156,10 +179,10 @@ DELEGATION_ROLE_FAMILIES = (
 
 I5B_ITEM_WIDE_ROLE_FAMILIES = (
     {
-        "family_code": "appointment_trust_material",
+        "family_code": "appointment_delegation_material",
         "target_min_claims": 2,
         "required_directions": ["positive", "negative"],
-        "description": "任命、委任、信任、误任、撤任等可复核任人信任的事实材料。",
+        "description": "任命、委任、信任、授权、误任、错授和同链条结果等可复核任用授权质量的事实材料。",
     },
     {
         "family_code": "team_building_material",
@@ -191,6 +214,11 @@ I5B_ITEM_WIDE_ROLE_FAMILIES = (
         "required_directions": ["positive", "negative", "neutral"],
         "description": "权臣、宗室、军权失控、矫诏专政、待功臣和政治伦理等 future hint，不进入当前 formal rule 消费。",
     },
+)
+
+NEGATIVE_AD_POWER_ABUSE_TERMS = (
+    "宠任", "寵任", "专擅", "專擅", "威福", "弄权", "弄權", "壅蔽", "不奏", "径行", "徑行", "封事",
+    "匿闻", "匿聞", "奔竞", "奔競", "趋附", "趨附",
 )
 
 DELEGATION_ROLE_FAMILY_TERMS = {
@@ -279,11 +307,7 @@ DELEGATION_ROLE_FAMILY_TERMS = {
 }
 
 SECONDARY_RULE_HINTS_BY_RULE = {
-    "delegation": (
-        {
-            "rule_code": "appointment_trust",
-            "reason": "任命、委任、信任、误任、撤任等材料可复核任人信任。",
-        },
+    "appointment_delegation": (
         {
             "rule_code": "team_building",
             "reason": "对象池全部人才对象及其职能材料可复核团队建设。",
@@ -301,8 +325,31 @@ SECONDARY_RULE_HINTS_BY_RULE = {
             "reason": "亲族、近臣、朋党、结党、纳贿、专擅、谮害等材料可复核避免任人唯亲。",
         },
         {
-            "rule_code": "power_control",
-            "reason": "藩镇、权臣、宗室、军权失控、矫诏专政、谋反作乱等材料仅作后续权力控制项候选。",
+            "rule_code": "central_military_power_control",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "central_military_power_control",
+            "reason": "禁军、兵权、军头、宿卫和中枢军事权力收放等材料可复核 I5C 中央军权控制。",
+            "hint_status": "future_rule_hint",
+        },
+        {
+            "rule_code": "regional_clan_power_control",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "regional_clan_power_control",
+            "reason": "藩镇、削藩、宗室、外戚、地方强族和区域割据风险等材料可复核 I5C 地方/宗族权力控制。",
+            "hint_status": "future_rule_hint",
+        },
+        {
+            "rule_code": "inner_favorite_power_control",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "inner_favorite_power_control",
+            "reason": "宦官、近臣、宠臣、内廷、私门、矫诏和专擅等材料可复核 I5C 内廷近幸权力控制。",
+            "hint_status": "future_rule_hint",
+        },
+        {
+            "rule_code": "institutional_constraint_correction",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "institutional_constraint_correction",
+            "reason": "制度约束、纠偏、收权、限权、问责和防止权力链条失控等材料可复核 I5C 制度性制衡纠错。",
             "hint_status": "future_rule_hint",
         },
         {
@@ -313,18 +360,11 @@ SECONDARY_RULE_HINTS_BY_RULE = {
     ),
     "i5b_item_wide": (
         {
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
             "candidate_item_code": "I5B",
-            "candidate_lane": "delegation",
+            "candidate_lane": "I5B.appointment_delegation",
             "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
-            "reason": "授权、任命、权责配置和同链条结果材料可复核用人与授权。",
-        },
-        {
-            "rule_code": "appointment_trust",
-            "candidate_item_code": "I5B",
-            "candidate_lane": "appointment_trust",
-            "hint_status": CANDIDATE_HINT_STATUS_CURRENT,
-            "reason": "任命、委任、信任、误任、撤任等材料可复核任人信任。",
+            "reason": "任命、委任、信任、授权、误任、错授和同链条结果材料可复核任用授权质量。",
         },
         {
             "rule_code": "team_building",
@@ -355,10 +395,31 @@ SECONDARY_RULE_HINTS_BY_RULE = {
             "reason": "亲族、近臣、朋党、结党、纳贿、专擅、谮害等材料可复核避免任人唯亲。",
         },
         {
-            "rule_code": "power_control",
+            "rule_code": "central_military_power_control",
             "candidate_item_code": "I5C",
-            "candidate_lane": "power_control",
-            "reason": "藩镇、权臣、宗室、军权失控、矫诏专政、谋反作乱等材料仅作后续权力控制项候选。",
+            "candidate_lane": "central_military_power_control",
+            "reason": "禁军、兵权、军头、宿卫和中枢军事权力收放等材料可复核 I5C 中央军权控制。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "regional_clan_power_control",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "regional_clan_power_control",
+            "reason": "藩镇、削藩、宗室、外戚、地方强族和区域割据风险等材料可复核 I5C 地方/宗族权力控制。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "inner_favorite_power_control",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "inner_favorite_power_control",
+            "reason": "宦官、近臣、宠臣、内廷、私门、矫诏和专擅等材料可复核 I5C 内廷近幸权力控制。",
+            "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
+        },
+        {
+            "rule_code": "institutional_constraint_correction",
+            "candidate_item_code": "I5C",
+            "candidate_lane": "institutional_constraint_correction",
+            "reason": "制度约束、纠偏、收权、限权、问责和防止权力链条失控等材料可复核 I5C 制度性制衡纠错。",
             "hint_status": CANDIDATE_HINT_STATUS_FUTURE,
         },
         {
@@ -787,7 +848,7 @@ TARGET_SOURCE_ROOT_ALIASES = {
 THREE_KINGDOMS_MARKERS = ("曹魏", "三国", "三國", "魏武帝", "魏文帝", "魏明帝")
 
 SOURCE_PAGE_STRATEGY_BY_RULE = {
-    "delegation": {
+    "appointment_delegation": {
         "required_page_types": [
             "target_annals_or_benji",
             "object_biographies_or_liezhuan",
@@ -812,7 +873,7 @@ SOURCE_PAGE_STRATEGY_BY_RULE = {
             "institution_or_office_context_pages",
         ],
         "object_discovery_families": [
-            "appointment_trust_material",
+            "appointment_delegation_material",
             "team_building_material",
             "talent_discovery_material",
             "tolerate_talent_material",
@@ -820,7 +881,7 @@ SOURCE_PAGE_STRATEGY_BY_RULE = {
             "future_power_character_hint",
         ],
         "notes": [
-            "这是 I5B item-wide discovery，不得沿用单一 delegation 对象族作为覆盖边界。",
+            "这是 I5B item-wide discovery，不得沿用单一任用授权对象族作为覆盖边界。",
             "对象发现必须覆盖任命信任、团队、荐举识才、容才保全、亲私朋党和权力/政治品格 future hint。",
             "primary_bindings 必须为空；所有 formal rule 归属写入 secondary_binding_candidates。",
         ],
@@ -920,11 +981,11 @@ def secondary_rule_hints(rule_code: str) -> list[dict[str, str]]:
 
 
 def role_family_terms(rule_code: str, family_code: str) -> list[str]:
-    if rule_code == "delegation":
+    if rule_code == "appointment_delegation":
         return list(DELEGATION_ROLE_FAMILY_TERMS.get(family_code, ()))
     if rule_code == "i5b_item_wide":
-        if family_code == "appointment_trust_material":
-            return ["任", "命", "授", "拜", "委", "信", "相", "將", "将"]
+        if family_code == "appointment_delegation_material":
+            return ["任", "命", "授", "拜", "委", "信", "相", "將", "将", *NEGATIVE_AD_POWER_ABUSE_TERMS]
         if family_code == "team_building_material":
             return ["相", "將", "将", "大臣", "腹心", "帷幄", "勳", "勋"]
         if family_code == "talent_discovery_material":
@@ -1045,7 +1106,7 @@ def coverage_matrix_template(
     material_policy_codes: Iterable[Any] = (),
     predicate_options: Iterable[Any] = (),
 ) -> dict[str, Any]:
-    if rule_code == "delegation":
+    if rule_code == "appointment_delegation":
         role_families = [dict(row) | {"objects_checked": [], "gaps": []} for row in DELEGATION_ROLE_FAMILIES]
     elif rule_code == "i5b_item_wide":
         role_families = [dict(row) | {"objects_checked": [], "gaps": []} for row in I5B_ITEM_WIDE_ROLE_FAMILIES]

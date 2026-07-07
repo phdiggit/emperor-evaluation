@@ -14,9 +14,9 @@ def patch_row(**overrides: object) -> dict[str, object]:
         "target_action": "score",
         "side": "positive",
         "factor_refs": {
-            "authorization_intensity": {"label": "高强度授权"},
-            "person_post_fit": {"label": "人岗匹配"},
-            "result_feedback": {"label": "结果有效"},
+            "appointment_importance": {"label": "高强度授权"},
+            "appointment_effect": {"label": "结果有效"},
+            "continuity_factor": {"label": "稳定任用授权。"},
             "attribution_factor": {"label": "可归因"},
             "source_factor": {"label": "正史明载"},
             "context_factor": {"label": "语境明确"},
@@ -48,9 +48,9 @@ def test_validate_patch_row_rejects_unknown_action_and_duplicate_binding() -> No
 
 def factor_option_rows() -> list[dict[str, object]]:
     labels = [
-        ("delegation", "authorization_intensity", "高强度授权", 101),
-        ("delegation", "person_post_fit", "人岗匹配", 102),
-        ("delegation", "result_feedback", "结果有效", 103),
+        ("appointment_delegation", "appointment_importance", "高强度授权", 101),
+        ("appointment_delegation", "appointment_effect", "结果有效", 102),
+        ("appointment_delegation", "continuity_factor", "稳定任用授权。", 103),
         ("team_building", "talent_quality_factor", "历史级人才", 301),
         ("team_building", "role_complementarity_factor", "高度互补", 302),
         ("team_building", "long_term_stability_factor", "长期稳定核心班底", 303),
@@ -76,9 +76,9 @@ def factor_option_rows() -> list[dict[str, object]]:
 
 def formal_factor_option_rows() -> list[dict[str, object]]:
     labels = [
-        ("delegation", "authorization_intensity", "国家级、危局或长期关键授权。", 101),
-        ("delegation", "person_post_fit", "人岗匹配成立。", 102),
-        ("delegation", "result_feedback", "正常成功或职责履行良好。", 103),
+        ("appointment_delegation", "appointment_importance", "国家级、危局或长期关键授权。", 101),
+        ("appointment_delegation", "appointment_effect", "正常成功或职责履行良好。", 102),
+        ("appointment_delegation", "continuity_factor", "稳定任用授权。", 103),
         ("", "attribution_factor", "皇帝决策链清楚", 201),
         ("", "source_factor", "标准史源且事件链清楚", 202),
         ("", "context_factor", "中性", 203),
@@ -114,6 +114,7 @@ class FakeCursor:
     def execute(self, sql: str, params=None) -> None:
         lowered = sql.lower()
         self.conn.statements.append(lowered)
+        self.conn.params.append(params or ())
         if "from retrieval_v2.eval_rule_factors f" in lowered:
             self.rows = [dict(row) for row in self.conn.factor_option_rows]
             self.row = None
@@ -145,11 +146,40 @@ class FakeConnection:
                 "binding_id": 10,
                 "binding_code": "BND-001",
                 "claim_id": 20,
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "binding_direction": "positive",
+                "binding_usable_for_scoring_cluster": True,
+                "binding_payload": {},
                 "source_pack_id": 30,
                 "target_id": 40,
                 "item_code": "I5B",
+                "candidate_id": None,
+                "candidate_code": None,
+                "candidate_payload": None,
+            },
+            "BND-BLOCKED": {
+                "binding_id": 12,
+                "binding_code": "BND-BLOCKED",
+                "claim_id": 22,
+                "rule_code": "appointment_delegation",
+                "binding_direction": "positive",
+                "binding_usable_for_scoring_cluster": False,
+                "binding_payload": {"source": "retrieval_v2_candidate_promoter", "candidate_id": 120},
+                "source_pack_id": 30,
+                "target_id": 40,
+                "item_code": "I5B",
+                "candidate_id": 120,
+                "candidate_code": "CRBC-BLOCKED",
+                "candidate_payload": {
+                    "scoring_candidate": False,
+                    "usable_for_scoring_cluster": False,
+                    "appointment_delegation_chain": {
+                        "has_appointment_or_authorization": False,
+                        "has_named_actor": True,
+                        "has_task_or_responsibility": False,
+                        "has_result_or_feedback": False,
+                    },
+                },
             },
             "BND-TEAM": {
                 "binding_id": 11,
@@ -157,12 +187,18 @@ class FakeConnection:
                 "claim_id": 21,
                 "rule_code": "team_building",
                 "binding_direction": "positive",
+                "binding_usable_for_scoring_cluster": True,
+                "binding_payload": {},
                 "source_pack_id": 30,
                 "target_id": 40,
                 "item_code": "I5B",
+                "candidate_id": None,
+                "candidate_code": None,
+                "candidate_payload": None,
             }
         }
         self.statements: list[str] = []
+        self.params: list[object] = []
         self.committed = False
         self.rolled_back = False
 
@@ -215,9 +251,40 @@ def test_apply_patch_rows_dry_run_writes_judgment_and_factor_choices(monkeypatch
     assert conn.rolled_back is True
     assert any("insert into retrieval_v2.claim_rule_binding_factor_judgments" in statement for statement in conn.statements)
     assert any("update retrieval_v2.claim_rule_bindings" in statement for statement in conn.statements)
-    assert any("usable_for_scoring_cluster = true" in statement for statement in conn.statements)
+    assert any("usable_for_scoring_cluster = %s" in statement for statement in conn.statements)
+    assert any(params and params[0] is True for params in conn.params)
     assert any("delete from retrieval_v2.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
     assert any("insert into retrieval_v2.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
+
+
+def test_apply_patch_rows_rejects_appointment_delegation_non_scoring_candidate(monkeypatch: pytest.MonkeyPatch) -> None:
+    patch_fake_db(monkeypatch)
+    row = patch_row(binding_code="BND-BLOCKED")
+
+    with pytest.raises(tool.FactorizationConsumerError, match="non-scoring binding"):
+        tool.apply_patch_rows(
+            dsn="postgresql://fake",
+            rows=[row],
+            item_code="I5B",
+            formula_code="evidence_cluster_signal_v3",
+            execute=False,
+        )
+
+
+def test_apply_patch_rows_supporting_marks_binding_not_usable(monkeypatch: pytest.MonkeyPatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+    row = patch_row(target_action="supporting_only", side=None, factor_refs={})
+
+    payload = tool.apply_patch_rows(
+        dsn="postgresql://fake",
+        rows=[row],
+        item_code="I5B",
+        formula_code="evidence_cluster_signal_v3",
+        execute=False,
+    )
+
+    assert payload["action_counts"] == {"supporting_only": 1}
+    assert any(params and params[0] is False for params in conn.params)
 
 
 def test_apply_patch_rows_canonicalizes_known_factor_label_aliases(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -233,9 +300,9 @@ def test_apply_patch_rows_canonicalizes_known_factor_label_aliases(monkeypatch: 
     )
 
     assert payload["ok"] is True
-    assert payload["canonicalized_label_count"] == 6
+    assert payload["canonicalized_label_count"] == 5
     canonicalized = {(row["factor_name"], row["from"], row["to"]) for row in payload["canonicalized_labels"]}
-    assert ("authorization_intensity", "高强度授权", "国家级、危局或长期关键授权。") in canonicalized
+    assert ("appointment_importance", "高强度授权", "国家级、危局或长期关键授权。") in canonicalized
     assert ("source_factor", "正史明载", "标准史源且事件链清楚") in canonicalized
 
 
@@ -278,26 +345,26 @@ def test_apply_patch_rows_rejects_unknown_factor_label(monkeypatch: pytest.Monke
         )
 
 
-def test_apply_patch_rows_rejects_positive_side_negative_result_feedback(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_apply_patch_rows_rejects_positive_side_negative_appointment_effect(monkeypatch: pytest.MonkeyPatch) -> None:
     conn = patch_fake_db(monkeypatch)
     conn.factor_option_rows.append(
         {
             "factor_id": 104,
             "item_code": "I5B",
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
             "formula_code": "evidence_cluster_signal_v3",
-            "factor_name": "result_feedback",
+            "factor_name": "appointment_effect",
             "factor_option_id": 1104,
             "option_code": "OPT-104",
-            "label": "授权后任务结果较差，显示匹配或授权判断有问题。",
+            "label": "错任、错信、偏信、弱匹配或授权后结果较差，显示任用授权判断有问题。",
             "value_num": "-0.700000",
         }
     )
     row = patch_row()
     row["factor_refs"] = dict(row["factor_refs"])  # type: ignore[arg-type]
-    row["factor_refs"]["result_feedback"] = {"label": "授权后任务结果较差，显示匹配或授权判断有问题。"}  # type: ignore[index]
+    row["factor_refs"]["appointment_effect"] = {"label": "错任、错信、偏信、弱匹配或授权后结果较差，显示任用授权判断有问题。"}  # type: ignore[index]
 
-    with pytest.raises(tool.FactorizationConsumerError, match="positive side cannot use negative result_feedback"):
+    with pytest.raises(tool.FactorizationConsumerError, match="positive side cannot use negative appointment_effect"):
         tool.apply_patch_rows(
             dsn="postgresql://fake",
             rows=[row],

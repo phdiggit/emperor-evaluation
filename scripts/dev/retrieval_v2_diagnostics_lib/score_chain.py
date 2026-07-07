@@ -204,7 +204,7 @@ def build_score_chain_observations(targets: Sequence[Mapping[str, Any]]) -> list
             count=len(balance_examples),
             severity="info",
             owner="human",
-            description="负向 delegation 信号大于或等于正向信号；不一定错误，但应优先抽查材料语义。",
+            description="负向 appointment_delegation 信号大于或等于正向信号；不一定错误，但应优先抽查材料语义。",
             examples=balance_examples[:10],
         ),
         check_entry(

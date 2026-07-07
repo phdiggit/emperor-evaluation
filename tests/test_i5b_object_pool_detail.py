@@ -47,7 +47,7 @@ def test_detail_report_groups_object_rules_and_materials() -> None:
                     },
                     {
                         "obj_src_id": 102,
-                        "rule_code": "delegation",
+                        "rule_code": "appointment_delegation",
                         "direction": "positive",
                         "src_key": "SRC-2",
                         "source_title": "新书",
@@ -77,9 +77,9 @@ def test_detail_report_groups_object_rules_and_materials() -> None:
             "note": "审定",
         }
     ]
-    assert [rule["rule_code"] for rule in obj["rules"]] == ["delegation", "talent_discovery"]
+    assert [rule["rule_code"] for rule in obj["rules"]] == ["appointment_delegation", "talent_discovery"]
     assert "| 甲臣 `obj:20` `emp_obj:10` | person/唐 | talent_quality=顶级人才 |" in markdown
-    assert "合理授权 (`delegation`), materials=1" in markdown
+    assert "任用授权 (`appointment_delegation`), materials=1" in markdown
     assert "#101 `positive` SRC-1 卷一: 拔擢甲臣" in markdown
 
 
@@ -115,7 +115,7 @@ def test_detail_report_filters_rules_without_marking_existing_emperor_missing() 
                     },
                     {
                         "obj_src_id": 102,
-                        "rule_code": "delegation",
+                        "rule_code": "appointment_delegation",
                         "direction": "positive",
                         "src_key": "SRC-2",
                         "note": "授权甲臣",
@@ -146,16 +146,16 @@ def test_detail_report_filters_rules_without_marking_existing_emperor_missing() 
     report = tool.build_detail_report(
         emperors=("测试帝",),
         rows_by_emperor=rows_by_emperor,
-        rule_codes=("delegation",),
+        rule_codes=("appointment_delegation",),
     )
     markdown = tool.render_markdown(report)
 
     assert report["missing_emperors"] == []
-    assert report["rule_filter"] == ["delegation"]
+    assert report["rule_filter"] == ["appointment_delegation"]
     assert report["emperors"][0]["object_count"] == 1
     assert report["emperors"][0]["objects"][0]["obj_name"] == "甲臣"
     assert report["emperors"][0]["objects"][0]["material_count"] == 1
-    assert "合理授权(`delegation`)" in markdown
+    assert "任用授权(`appointment_delegation`)" in markdown
     assert "发现人才" not in markdown
     assert "乙臣" not in markdown
 
@@ -183,7 +183,7 @@ def test_object_report_lists_bindings_rules_and_scores() -> None:
                 "emp_obj_id": 10,
                 "emp_obj_note": "皇帝语境说明",
                 "obj_src_id": 101,
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "direction": "positive",
                 "src_key": "SRC-1",
                 "locator": "卷一",
@@ -193,8 +193,8 @@ def test_object_report_lists_bindings_rules_and_scores() -> None:
                     "side": "positive",
                     "raw_score": "1.500",
                     "abs_score": "1.500",
-                    "factor_values": {"authorization_intensity": "1.5"},
-                    "factor_refs": {"authorization_intensity": {"label": "高"}},
+                    "factor_values": {"appointment_importance": "1.5"},
+                    "factor_refs": {"appointment_importance": {"label": "高"}},
                 },
             },
             {
@@ -220,11 +220,11 @@ def test_object_report_lists_bindings_rules_and_scores() -> None:
     assert obj["rule_count"] == 2
     assert obj["scored_material_count"] == 1
     scored_rule = obj["bindings"][1]["rules"][0]
-    assert scored_rule["rule_code"] == "delegation"
+    assert scored_rule["rule_code"] == "appointment_delegation"
     assert scored_rule["raw_score_total"] == "1.500"
     assert scored_rule["abs_score_total"] == "1.500"
     assert "测试帝" in markdown
-    assert "合理授权(`delegation`)" in markdown
+    assert "任用授权(`appointment_delegation`)" in markdown
     assert "#101 `scored` `positive` raw=1.500 abs=1.500 SRC-1 卷一: 授权甲臣" in markdown
     assert "#102 `covered_unscored` `positive` raw=- abs=- SRC-2: 只作覆盖材料" in markdown
 

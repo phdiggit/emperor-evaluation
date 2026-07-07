@@ -92,8 +92,7 @@ def test_item_rule_score_weights_seeds_i5b_formula_weights_from_docs() -> None:
 
     assert weights == {
         "talent_discovery": Decimal("0.190000"),
-        "appointment_trust": Decimal("0.190000"),
-        "delegation": Decimal("0.170000"),
+        "appointment_delegation": Decimal("0.360000"),
         "team_building": Decimal("0.210000"),
         "tolerate_talent": Decimal("0.180000"),
         "anti_nepotism": Decimal("0.060000"),
@@ -101,7 +100,7 @@ def test_item_rule_score_weights_seeds_i5b_formula_weights_from_docs() -> None:
     assert sum(weights.values()) == Decimal("1.000000")
 
     sql = migration_sql()
-    for line in range(539, 545):
+    for line in range(419, 424):
         assert f"'docs/分项规则/第五项统治者政治素质/B用人与授权.md', {line}" in sql
 
 
@@ -114,5 +113,5 @@ def test_item_rule_score_weights_backfills_i5b_contract_rule_labels() -> None:
     assert "rcr.rule_label is distinct from labels.rule_label" in sql
 
     original_sql = migration_sql()
-    for label in ["发现人才", "任人信任", "合理授权", "建立团队", "容人保全", "避免任人唯亲"]:
+    for label in ["发现人才", "任用授权", "建立团队", "容人保全", "避免任人唯亲"]:
         assert label in original_sql

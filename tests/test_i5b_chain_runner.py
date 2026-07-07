@@ -144,7 +144,6 @@ def test_run_chain_write_mode_dry_runs_before_writes(monkeypatch) -> None:
         ("clusters", True),
         ("clusters", False),
         ("results", True),
-        ("results", False),
     ]
     assert report["validation"] == {"ok": True, "emperors": ("刘邦",)}
 
@@ -182,7 +181,7 @@ def test_validate_chain_counts_clusters_after_grouping(monkeypatch) -> None:
                 return FakeCursor(
                     ["emperor", "rule_code", "positive_signal", "negative_signal", "cluster_direction"],
                     [
-                        ("刘邦", "appointment_trust", "4.551", "0.000", "positive"),
+                        ("刘邦", "appointment_delegation", "4.551", "0.000", "positive"),
                         ("刘邦", "team_building", "6.403", "0.000", "positive"),
                     ],
                 )
@@ -201,4 +200,4 @@ def test_validate_chain_counts_clusters_after_grouping(monkeypatch) -> None:
     assert report["ok"] is True
     assert report["cluster_count"] == 2
     assert report["cluster_count_by_emperor"] == {"刘邦": 2}
-    assert report["clusters"]["刘邦"][0]["rule_code"] == "appointment_trust"
+    assert report["clusters"]["刘邦"][0]["rule_code"] == "appointment_delegation"

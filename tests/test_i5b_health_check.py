@@ -115,7 +115,7 @@ def test_signal_balance_warns_when_result_has_only_one_signal_side() -> None:
                 "emperor": "赵匡胤",
                 "rules": [
                     {"rule_code": "talent_discovery", "result": {"positive_signal": "3.2", "negative_signal": "0"}},
-                    {"rule_code": "delegation", "result": {"positive_signal": "1.1", "negative_signal": "0"}},
+                    {"rule_code": "appointment_delegation", "result": {"positive_signal": "1.1", "negative_signal": "0"}},
                 ],
             }
         ]
@@ -156,7 +156,7 @@ def test_build_health_report_combines_read_only_gates(monkeypatch) -> None:
     monkeypatch.setattr(
         tool,
         "fetch_pending_materials",
-        lambda **_kwargs: [{"emperor": "刘邦", "rule_code": "appointment_trust", "pending_material_ids": [2278]}],
+        lambda **_kwargs: [{"emperor": "刘邦", "rule_code": "appointment_delegation", "pending_material_ids": [2278]}],
     )
     monkeypatch.setattr(tool, "build_finite_value_report", lambda **_kwargs: {"ok": True, "error_count": 0, "warning_count": 0, "issues": []})
 
@@ -174,7 +174,7 @@ def test_build_health_report_combines_read_only_gates(monkeypatch) -> None:
     assert report["gates"]["pending_materials"]["details"]["materials"] == 1
     markdown = tool.render_markdown(report)
     assert "| factor_consistency | true | 0 | 2 | - |" in markdown
-    assert "| 刘邦 | appointment_trust | 2278 |" in markdown
+    assert "| 刘邦 | appointment_delegation | 2278 |" in markdown
     assert "刘邦" in markdown
 
 

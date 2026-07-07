@@ -182,7 +182,7 @@ def candidate_payload_paths(row: Mapping[str, Any]) -> list[Path]:
     target_code = text(row.get("target_code"))
     if target_code:
         run_root = ROOT / "tmp" / "retrieval_v2_clean_runs"
-        pattern = f"*/{target_code}_delegation/candidates.final.json"
+        pattern = f"*/{target_code}_appointment_delegation/candidates.final.json"
         fallback_paths = sorted(run_root.glob(pattern), key=lambda path: path.stat().st_mtime if path.exists() else 0, reverse=True)
         paths.extend(path for path in fallback_paths if path not in paths)
     return paths
@@ -319,14 +319,14 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
         "# retrieval_v2 claim/passage repair task\n\n"
         "你是抓包侧修包子进程。禁止联网，禁止修改代码或数据库，禁止读取任务外文件。\n"
         "任务是修复 claim_summary 与 source passage 错位：优先在 candidate_slices 里找能直接支撑 claim 的原文；找不到时再判断是否改写 claim 或废弃 claim。\n\n"
-        "重要原则：伏诛、被废、被杀、撤权等处置性材料，不能单凭处置结果定为 negative delegation；除非材料本身同时证明被授权者在任内造成了具体治理或人才结构损害，否则标为 `needs_source_refine` 或 `drop_claim`，交消费侧结合人物画像判断。\n\n"
+        "重要原则：伏诛、被废、被杀、撤权等处置性材料，不能单凭处置结果定为 negative appointment_delegation；除非材料本身同时证明任用授权安排造成了具体治理或人才结构损害，否则标为 `needs_source_refine` 或 `drop_claim`，交消费侧结合人物画像判断。\n\n"
         f"- task_code: `{task.get('task_code', '')}`\n"
         f"- patch_path: `{repo_relative(patch_path)}`\n\n"
         "每个 workitem 输出一行 JSON object，字段使用 `required_patch` 模板：\n"
         "- `repair_action=relink`, `queue_status=resolved`: 原 claim_summary 可被一个或多个 candidate_slices 直接支撑，`source_slice_codes` 填所选 slice。\n"
         "- `repair_action=rewrite`, `queue_status=resolved`: 原 summary 过宽，但可改写为 candidate_slices 直接支撑的原子 claim；必须填写新的 `claim_summary` 和 `source_slice_codes`。\n"
         "- `repair_action=drop_claim`, `queue_status=blocked`: 这个 claim 在给定上下文中不成立或只靠错位 passage 支撑。\n"
-        "- `repair_action=block_claim`, `queue_status=blocked`: 史料有效但不应作为当前 delegation claim 自动消费；保留 claim 本体，只关闭本复核项。\n"
+        "- `repair_action=block_claim`, `queue_status=blocked`: 史料有效但不应作为当前 appointment_delegation claim 自动消费；保留 claim 本体，只关闭本复核项。\n"
         "- `repair_action=needs_source_refine`, `queue_status=needs_review`: 同包候选不足，需要重新补源、补上下文或重判。\n"
         "`review_note` 必须用中文说明选择依据；不要判断因子，不要给分，不要做跨 rule 晋升。\n"
         "可以尝试写入 patch_path；最终消息必须只包含下列标记包住的完整 JSONL，不要附加解释：\n\n"

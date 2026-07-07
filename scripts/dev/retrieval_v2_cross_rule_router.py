@@ -20,14 +20,17 @@ from scripts.dev.retrieval_v2_review_worklists import object_group_key  # noqa: 
 
 
 FORMAL_CANDIDATE_RULES = {
-    "appointment_trust",
+    "appointment_delegation",
     "team_building",
     "talent_discovery",
     "tolerate_talent",
     "anti_nepotism",
 }
 FUTURE_HINT_RULES = {
-    "power_control",
+    "central_military_power_control",
+    "regional_clan_power_control",
+    "inner_favorite_power_control",
+    "institutional_constraint_correction",
     "political_character",
     "cognition_learning",
     "key_decision",
@@ -53,7 +56,7 @@ class RouteSpec:
     def reason(self) -> str:
         signal_text = "、".join(self.signals)
         term_text = "、".join(self.terms[:8])
-        base = f"delegation claim 可复用于 {self.rule_code} 复核：{signal_text}"
+        base = f"appointment_delegation claim 可复用于 {self.rule_code} 复核：{signal_text}"
         if term_text:
             base = f"{base}；命中词：{term_text}"
         if self.caution:
@@ -62,7 +65,7 @@ class RouteSpec:
 
     @property
     def route_status(self) -> str:
-        return "future_rule_hint" if self.future_hint else "formal_candidate"
+        return "future_rule_hint" if self.future_hint else "current_rule_candidate"
 
 
 def contains_any(haystack: str, terms: Sequence[str]) -> tuple[str, ...]:
@@ -110,7 +113,7 @@ def route_claim(row: Mapping[str, Any]) -> list[RouteSpec]:
         add_route(
             routes,
             RouteSpec(
-                "appointment_trust",
+                "appointment_delegation",
                 ("任用/信任/撤任事实",),
                 appointment_terms,
             ),
@@ -219,12 +222,9 @@ def route_claim(row: Mapping[str, Any]) -> list[RouteSpec]:
             ),
         )
 
-    power_terms = contains_any(
+    central_military_power_terms = contains_any(
         haystack,
         (
-            "撤藩",
-            "削藩",
-            "藩",
             "收兵权",
             "收兵權",
             "夺兵权",
@@ -235,33 +235,121 @@ def route_claim(row: Mapping[str, Any]) -> list[RouteSpec]:
             "兵權",
             "禁军",
             "禁軍",
-            "外戚",
-            "宦官",
-            "宗室",
-            "专政",
-            "矫诏",
-            "矯詔",
-            "擅权",
-            "擅權",
-            "权臣",
-            "權臣",
             "军头",
             "軍頭",
+            "宿卫",
+            "宿衛",
+        ),
+    )
+    if central_military_power_terms:
+        add_route(
+            routes,
+            RouteSpec(
+                "central_military_power_control",
+                ("中央军权控制 future/current candidate",),
+                central_military_power_terms,
+                future_hint=True,
+            ),
+        )
+
+    regional_clan_power_terms = contains_any(
+        haystack,
+        (
+            "撤藩",
+            "削藩",
+            "藩",
+            "外戚",
+            "宗室",
+            "强宗",
+            "豪族",
+            "封国",
+            "封國",
+            "地方",
             "反叛",
             "谋反",
             "起兵",
             "聚兵",
             "作乱",
-            "专擅",
         ),
     )
-    if power_terms:
+    if regional_clan_power_terms:
         add_route(
             routes,
             RouteSpec(
-                "power_control",
-                ("权力控制 future hint",),
-                power_terms,
+                "regional_clan_power_control",
+                ("地方/宗族权力控制 future/current candidate",),
+                regional_clan_power_terms,
+                future_hint=True,
+            ),
+        )
+
+    inner_favorite_power_terms = contains_any(
+        haystack,
+        (
+            "宦官",
+            "近臣",
+            "宠臣",
+            "寵臣",
+            "内廷",
+            "內廷",
+            "私门",
+            "私門",
+            "矫诏",
+            "矯詔",
+            "专擅",
+            "擅权",
+            "擅權",
+            "权臣",
+            "權臣",
+        ),
+    )
+    if inner_favorite_power_terms:
+        add_route(
+            routes,
+            RouteSpec(
+                "inner_favorite_power_control",
+                ("内廷近幸权力控制 future/current candidate",),
+                inner_favorite_power_terms,
+                future_hint=True,
+            ),
+        )
+
+    institutional_constraint_terms = contains_any(
+        haystack,
+        (
+            "收权",
+            "收權",
+            "限权",
+            "限權",
+            "制衡",
+            "纠偏",
+            "糾偏",
+            "问责",
+            "問責",
+            "罢相",
+            "罷相",
+            "废相",
+            "廢相",
+            "中书",
+            "中書",
+            "丞相",
+            "法制",
+            "制度",
+            "台谏",
+            "臺諫",
+            "御史",
+            "监察",
+            "監察",
+            "专政",
+        ),
+    )
+    if institutional_constraint_terms:
+        add_route(
+            routes,
+            RouteSpec(
+                "institutional_constraint_correction",
+                ("制度约束纠偏 future/current candidate",),
+                institutional_constraint_terms,
                 future_hint=True,
             ),
         )
@@ -661,7 +749,7 @@ def upsert_candidate(cur: Any, row: Mapping[str, Any]) -> int | None:
             text(row.get("candidate_item_code")),
             text(row.get("candidate_rule_code")),
             text(row.get("candidate_lane")),
-            text(row.get("hint_status") or "formal_candidate"),
+            text(row.get("hint_status") or "current_rule_candidate"),
             json_param(row.get("required_facts_present") or {}),
             text(row.get("routed_by_profile")),
             text(row.get("candidate_predicate")),
@@ -747,7 +835,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
     parser.add_argument("--item-code", default="I5B")
-    parser.add_argument("--source-rule-code", default="delegation")
+    parser.add_argument("--source-rule-code", default="appointment_delegation")
     parser.add_argument("--emperor", action="append", default=[])
     parser.add_argument("--all-duplicates", action="store_true", help="Do not collapse semantic duplicate candidates.")
     parser.add_argument("--execute", action="store_true", help="Actually write claim_rule_binding_candidates. Omit for dry-run.")

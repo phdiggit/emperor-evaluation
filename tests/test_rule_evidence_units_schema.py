@@ -177,7 +177,9 @@ def test_rule_evidence_unit_migration_seeds_i5b_fact_relation_predicates() -> No
     assert "('anti_nepotism', 'nepotistic_beneficiary', 'favored_kin'" in sql
     assert "('tolerate_talent', 'protected_talent', 'protected_talent'" in sql
     assert "('tolerate_talent', 'harmed_talent', 'harmed_talent'" in sql
-    assert "('appointment_trust', 'misappointed_person', 'misappointed_person'" in sql
-    assert "('delegation', 'misdelegated_actor', 'misdelegated_authority'" in sql
+    assert "('appointment_delegation', 'misappointed_actor', 'misappointed_or_misdelegated_authority'" in sql
+    assert "('appointment_delegation', 'misdelegated_actor', 'misappointed_or_misdelegated_authority'" in sql
+    assert "appointment_trust" not in sql
+    assert "('delegation'," not in sql
     assert "subject_obj_type" in sql
     assert "'person'" in sql

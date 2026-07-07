@@ -23,31 +23,30 @@ DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 DEFAULT_ITEM_CODE = "I5B"
 SCOPES = ("accepted-packs", "active-targets")
 FORMAL_RULES = {
-    "delegation",
-    "appointment_trust",
+    "appointment_delegation",
     "team_building",
     "talent_discovery",
     "tolerate_talent",
     "anti_nepotism",
 }
-PROMOTABLE_HINT_STATUSES = {"", "formal_candidate", "current_rule_candidate", "synthetic_formal_candidate"}
-DELEGATION_CHAIN_KEYS = (
-    "has_authorization_or_office",
-    "has_named_delegate",
+PROMOTABLE_HINT_STATUSES = {"", "formal_candidate", "current_rule_candidate"}
+APPOINTMENT_DELEGATION_REQUIRED_CHAIN_KEYS = (
+    "has_appointment_or_authorization",
+    "has_named_actor",
     "has_task_or_responsibility",
-    "has_same_chain_outcome",
 )
-DELEGATION_OBJECT_ROLES = {
+APPOINTMENT_DELEGATION_FEEDBACK_CHAIN_KEYS = ("has_result_or_feedback", "has_continuity_or_reuse")
+APPOINTMENT_DELEGATION_OBJECT_ROLES = {
+    "appointed_actor",
+    "entrusted_actor",
     "delegated_actor",
-    "authority_recipient",
+    "strategic_advisor",
+    "military_commander",
+    "civil_official",
     "authority_revoked_target",
+    "misappointed_actor",
     "misdelegated_actor",
-}
-LEGACY_DELEGATION_ROLE_MAP = {
-    "military_delegate": "delegated_actor",
-    "civil_delegate": "delegated_actor",
-    "strategic_delegate": "delegated_actor",
-    "revoked_or_failed_delegate": "authority_revoked_target",
+    "misentrusted_actor",
 }
 
 
@@ -125,6 +124,13 @@ def target_object_index(row: Mapping[str, Any]) -> Mapping[str, Any]:
     return value if isinstance(value, Mapping) else {}
 
 
+def claim_object_target(row: Mapping[str, Any]) -> Mapping[str, Any]:
+    object_name = text(row.get("object_name"))
+    if not object_name:
+        return {}
+    return as_mapping(target_object_index(row).get(object_name))
+
+
 def explicit_talent_object_name(row: Mapping[str, Any]) -> str:
     keys = (
         "talent_object",
@@ -189,6 +195,17 @@ def harmed_talent_object_name(row: Mapping[str, Any]) -> str:
 
 def promotion_object_fields(row: Mapping[str, Any], spec: PromotionSpec) -> tuple[dict[str, Any] | None, str]:
     if not spec.object_name_override:
+        if not row.get("object_id"):
+            candidate = claim_object_target(row)
+            if not candidate:
+                return None, "missing_source_object_link"
+            return {
+                "object_name": text(candidate.get("canonical_name")) or text(row.get("object_name")),
+                "object_id": candidate.get("object_id"),
+                "target_object_id": candidate.get("target_object_id"),
+                "object_identity_key": text(candidate.get("object_identity_key")),
+                "object_canonical_name": text(candidate.get("canonical_name")) or text(row.get("object_name")),
+            }, ""
         return {
             "object_name": text(row.get("object_name")),
             "object_id": row.get("object_id"),
@@ -208,10 +225,10 @@ def promotion_object_fields(row: Mapping[str, Any], spec: PromotionSpec) -> tupl
     }, ""
 
 
-def delegation_protocol_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
+def appointment_delegation_protocol_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
     for payload in candidate_payload_variants(row):
         if (
-            "delegation_chain" in payload
+            "appointment_delegation_chain" in payload
             or "scoring_candidate" in payload
             or "candidate_role" in payload
             or "same_chain_outcome_summary" in payload
@@ -220,25 +237,39 @@ def delegation_protocol_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
     return {}
 
 
-def delegation_object_role(row: Mapping[str, Any], default_role: str) -> str:
-    role = text(delegation_protocol_payload(row).get("candidate_role"))
-    role = LEGACY_DELEGATION_ROLE_MAP.get(role, role)
-    if role in DELEGATION_OBJECT_ROLES:
+def appointment_delegation_protocol_direction(row: Mapping[str, Any]) -> str:
+    for payload in candidate_payload_variants(row):
+        direction = text(payload.get("direction"))
+        if direction:
+            return direction
+    return text(row.get("candidate_direction") or row.get("claim_direction"))
+
+
+def appointment_delegation_object_role(row: Mapping[str, Any], default_role: str) -> str:
+    role = text(appointment_delegation_protocol_payload(row).get("candidate_role"))
+    if role in APPOINTMENT_DELEGATION_OBJECT_ROLES:
         return role
     return default_role
 
 
-def delegation_protocol_allows_scoring(row: Mapping[str, Any]) -> bool:
-    payload = delegation_protocol_payload(row)
+def appointment_delegation_protocol_allows_scoring(row: Mapping[str, Any]) -> bool:
+    payload = appointment_delegation_protocol_payload(row)
     if payload.get("scoring_candidate") is not True:
         return False
     if payload.get("usable_for_scoring_cluster") is not True:
         return False
-    chain = as_mapping(payload.get("delegation_chain"))
-    return all(chain.get(key) is True for key in DELEGATION_CHAIN_KEYS)
+    direction = appointment_delegation_protocol_direction(row)
+    if direction and direction not in {"positive", "negative"}:
+        return False
+    chain = as_mapping(payload.get("appointment_delegation_chain"))
+    return all(chain.get(key) is True for key in APPOINTMENT_DELEGATION_REQUIRED_CHAIN_KEYS) and any(
+        chain.get(key) is True for key in APPOINTMENT_DELEGATION_FEEDBACK_CHAIN_KEYS
+    )
 
 
 def skip_reason(row: Mapping[str, Any]) -> str:
+    if row.get("candidate_id") is None:
+        return "missing_candidate_id"
     if text(row.get("candidate_rule_code")) not in FORMAL_RULES:
         return "non_formal_rule"
     if row.get("candidate_contract_rule_id") is None:
@@ -251,40 +282,28 @@ def skip_reason(row: Mapping[str, Any]) -> str:
         return "candidate_item_not_supported"
     if text(row.get("review_status")) not in {"pending", "accepted", "resolved"}:
         return "candidate_status_not_promotable"
-    if not row.get("object_id"):
+    if (
+        text(row.get("candidate_rule_code")) == "appointment_delegation"
+        and not appointment_delegation_protocol_allows_scoring(row)
+    ):
+        return "appointment_delegation_not_scoring_candidate"
+    if not row.get("object_id") and not claim_object_target(row):
         return "missing_source_object_link"
-    if text(row.get("source_link_review_status")) != "accepted":
+    if row.get("object_id") and text(row.get("source_link_review_status")) != "accepted":
         return "source_object_link_not_accepted"
     return ""
 
 
-def resolve_appointment(row: Mapping[str, Any]) -> PromotionSpec | None:
-    haystack = payload_haystack(row)
-    source = source_binding(row)
-    source_direction = text(source.get("direction")) or text(row.get("claim_direction"))
-    source_predicate = text(source.get("predicate"))
-    if source_direction == "positive":
-        trust_terms = contains_any(haystack, ("信", "委", "心膂", "给兵", "将兵", "托付", "付", "问", "从其计", "采纳", "用计"))
-        if trust_terms:
-            return PromotionSpec("entrusted_official", "entrusted_official", "positive", "trusted_delegation", "源 delegation 材料显示明确信任或委任，可作为任用信任正向候选。")
-        appointment_terms = contains_any(haystack, ("任", "拜", "授", "命", "用", "封", "擢", "派", "令", "立", "赐爵", "迁"))
-        if appointment_terms or source_predicate == "delegated_authority":
-            return PromotionSpec("appointed_talent", "appointed_talent", "positive", "appointed_talent", "源 delegation 材料显示任命、授职或实际任用，可作为任用信任正向候选。")
-    if source_direction == "negative":
-        mis_terms = contains_any(haystack, ("误任", "错任", "错用", "任非其人", "用非其人"))
-        if mis_terms:
-            return PromotionSpec("misappointed_person", "misappointed_person", "negative", "misappointment", "材料明确指向误任或错用人员，可作为任用信任负向候选。")
-    return None
-
-
-def resolve_delegation(row: Mapping[str, Any]) -> PromotionSpec | None:
+def resolve_appointment_delegation(row: Mapping[str, Any]) -> PromotionSpec | None:
+    if not appointment_delegation_protocol_allows_scoring(row):
+        return None
     direction = text(row.get("claim_direction"))
     if direction == "positive":
-        role = delegation_object_role(row, "delegated_actor")
-        return PromotionSpec("delegated_authority", role, "positive", "item_wide_delegated_actor", "I5B-wide 材料显示人物获得任用、委任或实质授权，可进入合理授权因子化。")
+        role = appointment_delegation_object_role(row, "appointed_actor")
+        return PromotionSpec("appointed_or_delegated_authority", role, "positive", "item_wide_appointment_delegation", "I5B-wide 材料显示人物获得任用、委任、信任或实质授权，可进入任用授权质量因子化。")
     if direction == "negative":
-        role = delegation_object_role(row, "misdelegated_actor")
-        return PromotionSpec("misdelegated_authority", role, "negative", "item_wide_misdelegated_actor", "I5B-wide 材料标为负向任用或授权后果，可进入合理授权因子化复核。")
+        role = appointment_delegation_object_role(row, "misappointed_actor")
+        return PromotionSpec("misappointed_or_misdelegated_authority", role, "negative", "item_wide_misappointment_delegation", "I5B-wide 材料标为负向任用、错授或授权后果，可进入任用授权质量因子化复核。")
     return None
 
 
@@ -397,8 +416,7 @@ def source_pack_predicate(scope: str, source_pack_codes: Sequence[str] = ()) -> 
 
 
 RESOLVERS = {
-    "delegation": resolve_delegation,
-    "appointment_trust": resolve_appointment,
+    "appointment_delegation": resolve_appointment_delegation,
     "team_building": resolve_team_building,
     "talent_discovery": resolve_talent_discovery,
     "tolerate_talent": resolve_tolerate_talent,
@@ -438,8 +456,8 @@ def promotion_usable_for_scoring(row: Mapping[str, Any], spec: PromotionSpec) ->
         return False
     if "review" in spec.reason_code:
         return False
-    if text(row.get("source_rule_code")) == "i5b_item_wide" and text(row.get("candidate_rule_code")) == "delegation":
-        return candidate_payload_allows_scoring(row) and delegation_protocol_allows_scoring(row)
+    if text(row.get("source_rule_code")) == "i5b_item_wide" and text(row.get("candidate_rule_code")) == "appointment_delegation":
+        return candidate_payload_allows_scoring(row) and appointment_delegation_protocol_allows_scoring(row)
     return candidate_payload_allows_scoring(row)
 
 
@@ -577,97 +595,6 @@ def fetch_candidate_rows(
     return [dict(row) for row in cur.fetchall()]
 
 
-def fetch_item_wide_delegation_rows(
-    cur: Any,
-    *,
-    item_code: str,
-    scope: str,
-    emperors: Sequence[str],
-    source_pack_codes: Sequence[str] = (),
-) -> list[dict[str, Any]]:
-    clauses = [
-        "rt.item_code = %s",
-        "mc.direction::text in ('positive', 'negative')",
-    ]
-    params: list[Any] = [item_code]
-    if emperors:
-        clauses.append("rt.emperor_name = any(%s)")
-        params.append(list(emperors))
-    codes = [text(code) for code in source_pack_codes if text(code)]
-    source_pack_params: list[Any] = [codes] if codes else []
-    cur.execute(
-        f"""
-        select
-            null::bigint as candidate_id,
-            'SYN-DELEGATION-' || left(md5(mc.claim_code), 20) as candidate_code,
-            mc.id as claim_id,
-            mc.claim_code,
-            rcr.id as candidate_contract_rule_id,
-            %s::text as source_item_code,
-            'i5b_item_wide'::text as source_rule_code,
-            %s::text as candidate_item_code,
-            'delegation'::text as candidate_rule_code,
-            'I5B.delegation'::text as candidate_lane,
-            'formal_candidate'::text as hint_status,
-            '{{}}'::jsonb as required_facts_present,
-            'retrieval_v2_candidate_promoter'::text as routed_by_profile,
-            'I5B-wide claim 派生 delegation binding'::text as candidate_reason,
-            null::numeric as candidate_confidence,
-            'pending'::text as review_status,
-            null::bigint as resolved_binding_id,
-            jsonb_build_object(
-                'route_status', 'synthetic_formal_candidate',
-                'source', 'retrieval_v2_candidate_promoter',
-                'source_rule_code', 'i5b_item_wide'
-            ) as candidate_payload,
-            mc.claim_summary,
-            mc.object_name,
-            mc.object_group_key,
-            mc.direction::text as claim_direction,
-            sp.id as source_pack_id,
-            sp.pack_code as source_pack_code,
-            rt.id as target_id,
-            rt.target_code,
-            rt.emperor_name,
-            rt.item_code,
-            mol.id as source_link_id,
-            mol.object_id,
-            mol.target_object_id,
-            mol.role as source_link_role,
-            mol.confidence as source_link_confidence,
-            mol.review_status::text as source_link_review_status,
-            o.object_identity_key,
-            o.canonical_name as object_canonical_name,
-            exists (
-                select 1
-                  from retrieval_v2.material_review_queue mrq
-                 where mrq.claim_id = mc.id
-                   and mrq.queue_status in ('ready', 'needs_review', 'running', 'blocked')
-            ) as has_open_material_review
-          from retrieval_v2.material_claims mc
-          join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
-          join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
-          join retrieval_v2.rule_contracts rc on rc.id = sp.contract_id
-          join retrieval_v2.rule_contract_rules rcr
-            on rcr.contract_id = rc.id
-           and rcr.rule_code = 'delegation'
-          left join lateral (
-              select mol1.*
-                from retrieval_v2.material_object_links mol1
-               where mol1.claim_id = mc.id
-               order by case when mol1.role = 'claim_object' then 0 else 1 end, mol1.id
-               limit 1
-          ) mol on true
-          left join retrieval_v2.objects o on o.id = mol.object_id
-         where {" and ".join(clauses)}
-           and {source_pack_predicate(scope, codes)}
-         order by rt.emperor_name, mc.id
-        """,
-        [item_code, item_code, *params, *source_pack_params],
-    )
-    return [dict(row) for row in cur.fetchall()]
-
-
 def build_plan(
     rows: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
@@ -801,11 +728,7 @@ def upsert_binding(cur: Any, row: Mapping[str, Any]) -> int:
                 when retrieval_v2.claim_rule_bindings.review_status in ('rejected', 'retired') then retrieval_v2.claim_rule_bindings.review_status
                 else retrieval_v2.claim_rule_bindings.review_status
             end,
-            binding_payload = case
-                when excluded.usable_for_scoring_cluster
-                    then retrieval_v2.claim_rule_bindings.binding_payload || excluded.binding_payload
-                else excluded.binding_payload || retrieval_v2.claim_rule_bindings.binding_payload
-            end,
+            binding_payload = retrieval_v2.claim_rule_bindings.binding_payload || excluded.binding_payload,
             binding_code = case
                 when btrim(retrieval_v2.claim_rule_bindings.binding_code) = '' then excluded.binding_code
                 else retrieval_v2.claim_rule_bindings.binding_code
@@ -979,7 +902,6 @@ def reconcile_scoring_gates(
                        'retrieval_v2_candidate_promoter',
                        'reason',
                        case
-                           when crb.binding_payload->>'candidate_id' is null then 'synthetic_without_candidate'
                            when position('review' in lower(coalesce(crb.binding_payload->>'reason_code', ''))) > 0 then 'review_candidate'
                            else 'payload_blocks_scoring'
                        end
@@ -993,8 +915,7 @@ def reconcile_scoring_gates(
            and crb.usable_for_scoring_cluster
            and crb.binding_payload->>'source' = 'retrieval_v2_candidate_promoter'
            and (
-                crb.binding_payload->>'candidate_id' is null
-                or position('review' in lower(coalesce(crb.binding_payload->>'reason_code', ''))) > 0
+                position('review' in lower(coalesce(crb.binding_payload->>'reason_code', ''))) > 0
                 or crb.binding_payload->>'usable_for_scoring_cluster' = 'false'
            )
            and {" and ".join(filters)}
@@ -1058,18 +979,6 @@ def run_promoter(
                 emperors=emperors,
                 source_pack_codes=source_pack_codes,
             )
-            if source_rule_code == "i5b_item_wide" and (
-                not candidate_rule_codes or "delegation" in {text(code) for code in candidate_rule_codes}
-            ):
-                rows.extend(
-                    fetch_item_wide_delegation_rows(
-                        cur,
-                        item_code=item_code,
-                        scope=scope,
-                        emperors=emperors,
-                        source_pack_codes=source_pack_codes,
-                    )
-                )
             plan = build_plan(rows)
             plan["item_code"] = item_code
             plan["source_rule_code"] = source_rule_code
@@ -1102,7 +1011,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE)
-    parser.add_argument("--source-rule-code", default="delegation")
+    parser.add_argument("--source-rule-code", default="i5b_item_wide")
     parser.add_argument("--scope", choices=SCOPES, default="accepted-packs")
     parser.add_argument("--candidate-rule-code", action="append", default=[])
     parser.add_argument("--emperor", action="append", default=[])

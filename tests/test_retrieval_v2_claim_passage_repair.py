@@ -88,8 +88,8 @@ def test_repair_workitem_contains_current_passages_and_patch_template(monkeypatc
 def test_candidate_payload_paths_falls_back_to_latest_target_run(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(tool, "ROOT", tmp_path)
     stale = tmp_path / "missing" / "candidates.final.json"
-    old_path = tmp_path / "tmp" / "retrieval_v2_clean_runs" / "runner_old" / "TGT-1_delegation" / "candidates.final.json"
-    new_path = tmp_path / "tmp" / "retrieval_v2_clean_runs" / "runner_new" / "TGT-1_delegation" / "candidates.final.json"
+    old_path = tmp_path / "tmp" / "retrieval_v2_clean_runs" / "runner_old" / "TGT-1_appointment_delegation" / "candidates.final.json"
+    new_path = tmp_path / "tmp" / "retrieval_v2_clean_runs" / "runner_new" / "TGT-1_appointment_delegation" / "candidates.final.json"
     old_path.parent.mkdir(parents=True)
     new_path.parent.mkdir(parents=True)
     old_path.write_text("{}", encoding="utf-8")
@@ -165,7 +165,7 @@ def test_validate_patch_row_allows_block_claim_without_rejecting_claim() -> None
             "review_code": "MRQ-1",
             "repair_action": "block_claim",
             "queue_status": "blocked",
-            "review_note": "处置性材料不能作为当前 delegation claim 自动消费，但保留史料供后续规则复核。",
+            "review_note": "处置性材料不能作为当前 appointment_delegation claim 自动消费，但保留史料供后续规则复核。",
         }
     )
 

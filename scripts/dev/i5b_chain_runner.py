@@ -266,7 +266,6 @@ def validate_chain(
     ]
 
     issue_counts = {
-        "missing_results": len(missing_results),
         "missing_clusters_from_payload": len(missing_clusters_from_payload),
         "unsourced": len(unsourced),
         "attr_doc_unlinked": len(attr_doc_unlinked),
@@ -285,6 +284,7 @@ def validate_chain(
         "issues": {
             "counts": issue_counts,
             "missing_results": missing_results,
+            "missing_results_are_blocking": False,
             "missing_clusters_from_payload": missing_clusters_from_payload,
             "unsourced": unsourced,
             "attr_doc_unlinked": attr_doc_unlinked,
@@ -346,7 +346,7 @@ def run_chain(
             )
 
     if not skip_results:
-        dry_report = calculate_item_results(
+        raw_signal_report = calculate_item_results(
             dsn=dsn,
             emperors=inputs.emperors,
             item_code=item_code,
@@ -354,21 +354,7 @@ def run_chain(
             formula_code=result_formula,
             dry_run=True,
         )
-        stages.append({"stage": "item_results_dry_run", "report": dry_report})
-        if not dry_run:
-            stages.append(
-                {
-                    "stage": "item_results",
-                    "report": calculate_item_results(
-                        dsn=dsn,
-                        emperors=inputs.emperors,
-                        item_code=item_code,
-                        cluster_formula=cluster_formula,
-                        formula_code=result_formula,
-                        dry_run=False,
-                    ),
-                }
-            )
+        stages.append({"stage": "item_raw_signal_report", "report": raw_signal_report})
 
     validation = None
     if not dry_run and not skip_validation:
@@ -404,12 +390,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--emperor", action="append", default=[], help="Emperor name; repeat to override payload-derived names.")
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Required evd_clusters formula_code.")
-    parser.add_argument("--result-formula", default=DEFAULT_FORMULA_CODE, help="emp_item_results formula_code to write.")
+    parser.add_argument("--result-formula", default=DEFAULT_FORMULA_CODE, help="Raw signal formula code for the item report.")
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT_PATH, help="UTF-8 JSON run report path.")
     parser.add_argument("--dry-run", action="store_true", help="Run all dry-run stages and skip database writes.")
     parser.add_argument("--skip-object-import", action="store_true", help="Skip object payload import stages.")
     parser.add_argument("--skip-cluster-upsert", action="store_true", help="Skip evidence cluster upsert stages.")
-    parser.add_argument("--skip-results", action="store_true", help="Skip emp_item_results calculation stages.")
+    parser.add_argument("--skip-results", action="store_true", help="Skip item raw signal report stage.")
     parser.add_argument("--skip-validation", action="store_true", help="Skip post-write database validation summary.")
     return parser
 

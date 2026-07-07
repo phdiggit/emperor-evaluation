@@ -105,6 +105,7 @@ def test_retrieval_v2_schema_supports_multi_rule_claim_bindings_and_feedback_eve
     assert "source_pack_refinement" in sql
     assert "codex_review" in sql
     assert "source_missing" in sql
+    assert "object_claim_undercoverage" in sql
     assert "alias_missing" in sql
     assert "fetch_error" in sql
     assert "negative_undercoverage" in sql

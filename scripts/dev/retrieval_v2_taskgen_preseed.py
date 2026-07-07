@@ -23,11 +23,10 @@ AMBIGUOUS_PRESEARCH_TITLE_ANCHORS = {
 
 
 RULE_QUERY_TERMS = {
-    "delegation": ["任", "命", "授", "拜", "相", "將軍", "總督", "經略", "留守"],
+    "appointment_delegation": ["任", "命", "授", "拜", "委", "信", "將軍", "總督", "經略", "留守"],
     "i5b_item_wide": ["任", "薦", "舉", "結黨", "納賄", "授", "拜", "將軍", "赦", "誅"],
     "team_building": ["任", "相", "將", "大臣", "用"],
     "talent_discovery": ["薦", "舉", "用", "拔"],
-    "appointment_trust": ["任", "信", "委", "拜"],
 }
 BLOCKED_DOCUMENT_TITLE_FRAGMENTS = (
     "四部叢刊本",
@@ -359,7 +358,7 @@ def build_presearch_queries(
         for source in source_hints:
             queries.append(f"{anchor} {source}")
     rule_code = text_from(context, "rule_code")
-    rule_terms = " ".join(RULE_QUERY_TERMS.get(rule_code, RULE_QUERY_TERMS["delegation"])[:4])
+    rule_terms = " ".join(RULE_QUERY_TERMS.get(rule_code, RULE_QUERY_TERMS["appointment_delegation"])[:4])
     for anchor in anchors:
         if rule_terms:
             queries.append(f"{anchor} {rule_terms}")

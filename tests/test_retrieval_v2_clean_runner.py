@@ -11,15 +11,15 @@ from scripts.dev import retrieval_v2_discovery_profiles
 
 def task_with_alias_gap() -> dict:
     return {
-        "job_code": "JOB-I5B-ZKY-DELEGATION",
+        "job_code": "JOB-I5B-ZKY-APPOINTMENT-DELEGATION",
         "target_code": "TGT-I5B-ZKY",
         "emperor_name": "赵匡胤",
         "item_code": "I5B",
         "contract_code": "I5B-RETRIEVAL-V2-20260704",
-        "rule_code": "delegation",
+        "rule_code": "appointment_delegation",
         "target_profile": {"primary_name": "赵匡胤", "aliases": ["赵匡胤", "太祖"]},
         "rule": {
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
             "keywords": ["命", "参知政事", "委"],
         },
         "object_seeds": [
@@ -63,16 +63,16 @@ def task_for_sharded_judge() -> dict:
 
 def task_with_candidate_source_gap() -> dict:
     return {
-        "job_code": "JOB-I5B-CC-DELEGATION",
+        "job_code": "JOB-I5B-CC-APPOINTMENT-DELEGATION",
         "target_code": "TGT-I5B-CC",
         "emperor_name": "曹操",
         "item_code": "I5B",
         "contract_code": "I5B-RETRIEVAL-V2-20260704",
-        "rule_code": "delegation",
+        "rule_code": "appointment_delegation",
         "target_profile": {"primary_name": "曹操", "aliases": ["曹操", "太祖"]},
-        "rule": {"rule_code": "delegation", "keywords": ["命", "委"]},
+        "rule": {"rule_code": "appointment_delegation", "keywords": ["命", "委"]},
         "coverage_matrix": {
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
             "role_families": [
                 {"family_code": "strategic_delegate", "target_min_claims": 1, "required_directions": ["positive"]}
             ],
@@ -92,7 +92,7 @@ def task_with_candidate_source_gap() -> dict:
 def task_with_external_source_refine_object() -> dict:
     task = task_without_alias_gap()
     task["coverage_matrix"] = {
-        "rule_code": "delegation",
+        "rule_code": "appointment_delegation",
         "role_families": [
             {"family_code": "civil_delegate", "target_min_claims": 1, "required_directions": ["positive"]}
         ],
@@ -120,15 +120,15 @@ def sample_context() -> dict:
         "emperor_name": "赵匡胤",
         "item_code": "I5B",
         "contract_code": "I5B-RETRIEVAL-V2-20260704",
-        "intent_code": "INT-I5B-ZKY-DELEGATION",
-        "rule_code": "delegation",
-        "rule_label": "合理授权",
+        "intent_code": "INT-I5B-ZKY-APPOINTMENT-DELEGATION",
+        "rule_code": "appointment_delegation",
+        "rule_label": "任用授权质量",
         "target_aliases": [{"alias": "赵匡胤", "alias_type": "name", "source": "seed"}],
         "material_policy_payload": [{"policy_code": "person_authority_claim"}],
         "predicate_policy_payload": [{"predicate": "delegated_civil_authority"}],
         "requirement_payload": {
             "coverage_matrix": {
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "role_families": [
                     {"family_code": "civil_delegate", "target_min_claims": 1, "required_directions": ["positive"]}
                 ],
@@ -240,7 +240,7 @@ def fake_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
     assert invocation.last_message.is_absolute()
     assert invocation.event_log.is_absolute()
     payload = {
-        "job_code": "JOB-I5B-ZKY-DELEGATION",
+        "job_code": "JOB-I5B-ZKY-APPOINTMENT-DELEGATION",
         "status": "succeeded",
         "documents": [{"document_code": "DOC-SH-001", "title": "宋史/fixture", "source_kind": "primary_source"}],
         "passages": [
@@ -271,7 +271,7 @@ def fake_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
         "primary_bindings": [
             {
                 "claim_code": "CLM-001",
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "predicate": "delegated_civil_authority",
                 "direction": "positive",
                 "object_role": "civil_delegate",
@@ -281,7 +281,7 @@ def fake_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
             }
         ],
         "secondary_binding_candidates": [],
-        "coverage_matrix": {"rule_code": "delegation", "role_families": []},
+        "coverage_matrix": {"rule_code": "appointment_delegation", "role_families": []},
         "coverage": {
             "ready_for_object_pool": True,
             "checked_objects": ["吕余庆"],
@@ -311,7 +311,7 @@ def fake_shard_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
     else:  # pragma: no cover
         raise AssertionError("shard prompt missing expected object")
     payload = {
-        "job_code": "JOB-I5B-ZKY-DELEGATION",
+        "job_code": "JOB-I5B-ZKY-APPOINTMENT-DELEGATION",
         "status": "succeeded",
         "documents": [{"document_code": "DOC-SH-001", "title": "宋史/fixture", "source_kind": "primary_source"}],
         "passages": [
@@ -342,7 +342,7 @@ def fake_shard_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
         "primary_bindings": [
             {
                 "claim_code": "CLM-001",
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "predicate": "delegated_civil_authority",
                 "direction": "positive",
                 "object_role": "civil_delegate",
@@ -352,7 +352,7 @@ def fake_shard_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
             }
         ],
         "secondary_binding_candidates": [],
-        "coverage_matrix": {"rule_code": "delegation", "role_families": []},
+        "coverage_matrix": {"rule_code": "appointment_delegation", "role_families": []},
         "coverage": {
             "ready_for_object_pool": True,
             "checked_objects": [object_name],
@@ -383,7 +383,7 @@ def test_run_taskgen_uses_script_skeleton_and_merges_discovery(tmp_path: Path) -
 
     task = result["task"]
     assert task["target_code"] == "TGT-I5B-ZKY"
-    assert task["rule_code"] == "delegation"
+    assert task["rule_code"] == "appointment_delegation"
     assert task["object_seeds"][0]["name"] == "吕余庆"
     assert "宋太祖" in task["target_profile"]["aliases"]
     assert result["taskgen"]["mode"] == "skeleton_discovery"
@@ -571,7 +571,7 @@ def test_run_taskgen_can_reuse_discovery_profile_without_codex(tmp_path: Path) -
 
     profile = {
         "emperor_name": "赵匡胤",
-        "rule_code": "delegation",
+        "rule_code": "appointment_delegation",
         "object_seeds": [{"name": "吕余庆", "aliases": [{"alias": "呂餘慶", "strength": "strong"}]}],
         "source_documents": [{"document_code": "DOC-SH-001", "title": "宋史/fixture", "text": "太祖命吕余庆。"}],
     }
@@ -929,14 +929,14 @@ def test_clean_pipeline_refines_judge_source_gap_objects(tmp_path: Path, monkeyp
         judge_calls.append(invocation.phase)
         needs_refine = len(judge_calls) == 1
         payload = {
-            "job_code": "JOB-I5B-ZKY-DELEGATION",
+            "job_code": "JOB-I5B-ZKY-APPOINTMENT-DELEGATION",
             "status": "needs_refinement" if needs_refine else "succeeded",
             "documents": [],
             "passages": [],
             "claims": [],
             "primary_bindings": [],
             "secondary_binding_candidates": [],
-            "coverage_matrix": {"rule_code": "delegation", "role_families": []},
+            "coverage_matrix": {"rule_code": "appointment_delegation", "role_families": []},
             "coverage": {"ready_for_object_pool": not needs_refine, "checked_objects": ["吕余庆"]},
             "coverage_gaps": [
                 {"gap_type": "predicate_missing", "object_name": "吕余庆", "family_code": "civil_delegate"}
@@ -999,6 +999,83 @@ def test_clean_pipeline_can_judge_object_shards_and_merge_ids(tmp_path: Path) ->
     assert summary["totals"]["usage"] == {"input_tokens": 22, "output_tokens": 14}
 
 
+def test_judge_payload_normalizes_candidate_profiles_for_consumption() -> None:
+    payload = {
+        "claims": [],
+        "secondary_binding_candidates": [
+            {
+                "claim_code": "CLM-001",
+                "rule_code": "team_building",
+                "candidate_item_code": "I5B",
+                "candidate_payload": {
+                    "personnel_profile": {"person": "萧何", "person_role": "丞相", "talent_quality": ""},
+                    "power_control_profile": {"power_holder": "萧何"},
+                    "appointment_delegation_factor_hints": {"importance_hint": "real_duty"},
+                    "profile_policy": "do not persist",
+                },
+            },
+            {
+                "claim_code": "CLM-002",
+                "rule_code": "central_military_power_control",
+                "candidate_item_code": "I5C",
+                "candidate_payload": {
+                    "personnel_profile": {"person": "韩信"},
+                    "power_control_profile": {"power_holder": "韩信", "risk_type": ""},
+                    "appointment_delegation_factor_hints": {"importance_hint": "key_military_political"},
+                    "profile_policy": "do not persist",
+                },
+            },
+            {
+                "claim_code": "CLM-003",
+                "rule_code": "military_frontier_result",
+                "candidate_item_code": "I3",
+                "candidate_payload": {
+                    "personnel_profile": {"person": "韩信"},
+                    "power_control_profile": {"power_holder": "韩信"},
+                    "appointment_delegation_factor_hints": {"importance_hint": "key_military_political"},
+                    "profile_policy": "do not persist",
+                },
+            },
+            {
+                "claim_code": "CLM-004",
+                "rule_code": "appointment_delegation",
+                "candidate_item_code": "I5B",
+                "candidate_lane": "I5B.appointment_delegation",
+                "direction": "positive",
+                "candidate_payload": {
+                    "scoring_candidate": True,
+                    "usable_for_scoring_cluster": True,
+                    "appointment_delegation_factor_hints": {
+                        "importance_hint": "key_military_political",
+                        "effect_hint": "strong_success",
+                        "continuity_hint": "stable",
+                        "hint_confidence": {"importance": "high", "effect": "medium", "continuity": "medium"},
+                        "uncertainty_flags": [],
+                    },
+                },
+            },
+        ],
+    }
+
+    normalized = tool.judge_shards.normalize_candidate_payload_profiles(payload)
+    rows = normalized["secondary_binding_candidates"]
+
+    assert rows[0]["candidate_payload"] == {
+        "personnel_profile": {"person": "萧何", "person_role": "丞相"},
+    }
+    assert rows[1]["candidate_payload"] == {
+        "power_control_profile": {"power_holder": "韩信"},
+    }
+    assert rows[2]["candidate_payload"] == {}
+    assert rows[3]["candidate_payload"]["appointment_delegation_factor_hints"] == {
+        "importance_hint": "key_military_political",
+        "effect_hint": "strong_success",
+        "continuity_hint": "stable",
+        "hint_confidence": {"importance": "high", "effect": "medium", "continuity": "medium"},
+        "uncertainty_flags": [],
+    }
+
+
 def test_cli_skip_judge_runs_candidate_and_summary(tmp_path: Path, capsys) -> None:
     task_path = tmp_path / "task.json"
     run_root = tmp_path / "run"
@@ -1015,6 +1092,36 @@ def test_cli_skip_judge_runs_candidate_and_summary(tmp_path: Path, capsys) -> No
     assert payload["people"][0]["judge_status"] is None
     assert payload["people"][0]["candidate_slices"] == 1
     assert payload["clean_policy"]["candidate_alias_missing_auto_patch"] is True
+
+
+def test_cli_defaults_run_root_from_runtime_config(tmp_path: Path, capsys) -> None:
+    task_path = tmp_path / "task.json"
+    task_path.write_text(json.dumps(task_without_alias_gap(), ensure_ascii=False), encoding="utf-8")
+    config = tmp_path / "runtime_paths.json"
+    clean_runs_root = tmp_path / "active" / "clean_runs"
+    source_cache_root = tmp_path / "active" / "source_cache"
+    config.write_text(
+        json.dumps(
+            {
+                "active_root_smb": str(tmp_path / "active"),
+                "archive_root_smb": str(tmp_path / "archive"),
+                "retrieval_v2_clean_runs": str(clean_runs_root),
+                "source_cache": str(source_cache_root),
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    assert tool.main(["--task", str(task_path), "--runtime-paths-config", str(config), "--skip-judge"]) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    run_root = Path(payload["event_log"]).parent
+    assert run_root.parent == clean_runs_root
+    assert payload["runtime_paths"]["uses_runtime_config"] is True
+    assert payload["runtime_paths"]["source_cache_root"] == str(source_cache_root)
+    assert (run_root / "summary.json").exists()
 
 
 def test_cli_i5b_wide_shadow_pilot_marks_outputs_not_formal_consumption(tmp_path: Path, capsys) -> None:
@@ -1109,14 +1216,66 @@ def test_cli_personnel_political_wide_shadow_pilot_uses_generic_fact_contract(tm
     assert person["capture_mode"] == "personnel_political_wide_shadow"
     assert person["rule_code"] == "i5b_item_wide"
     assert final_task["rule_code"] == "i5b_item_wide"
+    assert final_task["coverage_matrix"]["rule_code"] == "i5b_item_wide"
+    family_codes = {row["family_code"] for row in final_task["coverage_matrix"]["role_families"]}
+    candidate_rules = {row["rule_code"] for row in final_task["secondary_rule_candidates"]}
+    candidate_lanes = {row.get("candidate_lane") for row in final_task["secondary_rule_candidates"]}
+    assert "appointment_delegation_material" in family_codes
+    assert "appointment_trust_material" not in family_codes
+    assert "appointment_delegation" in candidate_rules
+    assert "appointment_trust" not in candidate_rules
+    assert "delegation" not in candidate_rules
+    assert "power_control" not in candidate_rules
+    assert "central_military_power_control" in candidate_rules
+    assert "regional_clan_power_control" in candidate_rules
+    assert "inner_favorite_power_control" in candidate_rules
+    assert "institutional_constraint_correction" in candidate_rules
+    assert "I5B.appointment_delegation" in candidate_lanes
+    assert "power_control" not in candidate_lanes
+    assert "central_military_power_control" in candidate_lanes
+    assert "regional_clan_power_control" in candidate_lanes
+    assert "inner_favorite_power_control" in candidate_lanes
+    assert "institutional_constraint_correction" in candidate_lanes
+    final_task_text = json.dumps(final_task, ensure_ascii=False)
+    assert "appointment_trust" not in final_task_text
+    assert "I5B.delegation" not in final_task_text
     assert final_task["target_payload"]["capture_profile"] == "personnel_political_wide"
     assert final_task["target_payload"]["fact_schema"] == "political_action_v1"
-    assert final_task["target_payload"]["candidate_route_table_version"] == "personnel_political_v0_1"
+    assert final_task["target_payload"]["candidate_route_table_version"] == "personnel_political_v0_2"
     assert candidates["task_identity"]["capture_mode"] == "personnel_political_wide_shadow"
     assert candidates["task_identity"]["capture_profile"] == "personnel_political_wide"
     assert candidates["task_identity"]["fact_schema"] == "political_action_v1"
-    assert candidates["task_identity"]["candidate_route_table_version"] == "personnel_political_v0_1"
+    assert candidates["task_identity"]["candidate_route_table_version"] == "personnel_political_v0_2"
     assert candidates["task_identity"]["rule_code"] == "i5b_item_wide"
+
+
+def test_cli_judge_shard_workers_defaults_to_four_for_item_wide_shadow() -> None:
+    args = SimpleNamespace(
+        judge_shard_workers=None,
+        personnel_political_wide_shadow_pilot=True,
+        i5b_item_wide_shadow_pilot=False,
+        i5b_wide_shadow_pilot=False,
+    )
+
+    assert retrieval_v2_clean_cli._effective_judge_shard_workers(args) == 4
+
+
+def test_cli_judge_shard_workers_keeps_non_shadow_default_and_explicit_value() -> None:
+    normal_args = SimpleNamespace(
+        judge_shard_workers=None,
+        personnel_political_wide_shadow_pilot=False,
+        i5b_item_wide_shadow_pilot=False,
+        i5b_wide_shadow_pilot=False,
+    )
+    explicit_args = SimpleNamespace(
+        judge_shard_workers=3,
+        personnel_political_wide_shadow_pilot=True,
+        i5b_item_wide_shadow_pilot=False,
+        i5b_wide_shadow_pilot=False,
+    )
+
+    assert retrieval_v2_clean_cli._effective_judge_shard_workers(normal_args) == 2
+    assert retrieval_v2_clean_cli._effective_judge_shard_workers(explicit_args) == 3
 
 
 def test_i5b_item_wide_shadow_context_is_rewritten_before_taskgen() -> None:
@@ -1129,7 +1288,7 @@ def test_i5b_item_wide_shadow_context_is_rewritten_before_taskgen() -> None:
     assert context["rule_code"] == "i5b_item_wide"
     assert context["target_payload"]["capture_mode"] == "i5b_item_wide_shadow"
     assert skeleton["rule_code"] == "i5b_item_wide"
-    assert "appointment_trust_material" in family_codes
+    assert "appointment_delegation_material" in family_codes
     assert "anti_nepotism_material" in family_codes
     assert "military_delegate" not in family_codes
 
@@ -1149,7 +1308,7 @@ def test_personnel_political_wide_shadow_context_reuses_item_wide_shell() -> Non
     assert context["target_payload"]["capture_mode"] == "personnel_political_wide_shadow"
     assert context["target_payload"]["capture_profile"] == "personnel_political_wide"
     assert context["target_payload"]["fact_schema"] == "political_action_v1"
-    assert context["target_payload"]["candidate_route_table_version"] == "personnel_political_v0_1"
+    assert context["target_payload"]["candidate_route_table_version"] == "personnel_political_v0_2"
     assert skeleton["rule_code"] == "i5b_item_wide"
-    assert "appointment_trust_material" in family_codes
+    assert "appointment_delegation_material" in family_codes
     assert "future_power_character_hint" in family_codes

@@ -21,6 +21,9 @@ from scripts.dev.retrieval_v2_factorization_worklists import (  # noqa: E402
     build_factor_key_catalog,
     factor_keys_for_material,
 )
+from scripts.dev.retrieval_v2_candidate_promoter import (  # noqa: E402
+    appointment_delegation_protocol_allows_scoring,
+)
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 
@@ -30,7 +33,7 @@ TARGET_ACTIONS = {"score", "supporting_only", "exclude"}
 SIDES = {"positive", "negative"}
 TEAM_BUILDING_FACTOR_KEYS = ("talent_quality_factor", "role_complementarity_factor", "long_term_stability_factor")
 FACTOR_LABEL_ALIASES: dict[str, dict[str, str]] = {
-    "authorization_intensity": {
+    "appointment_importance": {
         "高强度授权": "国家级、危局或长期关键授权。",
         "有明确授权": "单一领域的真实授权。",
         "重大军政事务授权": "重大军政事务授权。",
@@ -38,15 +41,13 @@ FACTOR_LABEL_ALIASES: dict[str, dict[str, str]] = {
         "单一领域的真实授权": "单一领域的真实授权。",
         "名义授权或职责不清": "名义授权或职责不清。",
     },
-    "person_post_fit": {
+    "appointment_effect": {
         "人岗匹配": "人岗匹配成立。",
         "人岗高度匹配": "顶级专长与岗位高度匹配。",
         "顶级专长与岗位高度匹配": "顶级专长与岗位高度匹配。",
         "人岗匹配成立": "人岗匹配成立。",
         "匹配关系较弱或只是普通称职": "匹配关系较弱或只是普通称职。",
         "人岗明显不匹配": "人岗明显不匹配。",
-    },
-    "result_feedback": {
         "结果有效": "正常成功或职责履行良好。",
         "结果明确正向": "正常成功或职责履行良好。",
         "重大成功强烈体现授权合理": "重大成功强烈体现授权合理。",
@@ -273,34 +274,53 @@ def resolve_factor_option(
     return dict(matches[0])
 
 
-def result_feedback_sign_issue(*, side: str, value: Decimal) -> str:
+def appointment_effect_sign_issue(*, side: str, value: Decimal) -> str:
     if value == 0:
         return ""
     if side == "positive" and value < 0:
-        return "positive side cannot use negative result_feedback"
+        return "positive side cannot use negative appointment_effect"
     if side == "negative" and value > 0:
-        return "negative side cannot use positive result_feedback"
+        return "negative side cannot use positive appointment_effect"
     return ""
 
 
-def validate_delegation_result_feedback_side(
+def validate_appointment_effect_side(
     *,
     row: Mapping[str, Any],
     context: Mapping[str, Any],
     choices: Sequence[Mapping[str, Any]],
 ) -> None:
-    if text(context.get("rule_code")) != "delegation" or row["target_action"] != "score":
+    if text(context.get("rule_code")) != "appointment_delegation" or row["target_action"] != "score":
         return
     side = text(row.get("side"))
     for choice in choices:
-        if text(choice.get("factor_name")) != "result_feedback":
+        if text(choice.get("factor_name")) != "appointment_effect":
             continue
         value = Decimal(str(choice.get("value_num")))
-        issue = result_feedback_sign_issue(side=side, value=value)
+        issue = appointment_effect_sign_issue(side=side, value=value)
         if issue:
             raise FactorizationConsumerError(
-                f"{line_ref(row)}: {issue}: {row['binding_code']} result_feedback={choice.get('option_label')}"
+                f"{line_ref(row)}: {issue}: {row['binding_code']} appointment_effect={choice.get('option_label')}"
             )
+
+
+def validate_appointment_delegation_scoring_gate(*, row: Mapping[str, Any], context: Mapping[str, Any]) -> None:
+    if text(context.get("rule_code")) != "appointment_delegation" or row["target_action"] != "score":
+        return
+    if context.get("binding_usable_for_scoring_cluster") is False:
+        raise FactorizationConsumerError(f"{line_ref(row)}: appointment_delegation score patch targets non-scoring binding {row['binding_code']}")
+    candidate_id = context.get("candidate_id")
+    binding_payload = context.get("binding_payload") if isinstance(context.get("binding_payload"), Mapping) else {}
+    from_promoter = text(binding_payload.get("source")) == "retrieval_v2_candidate_promoter" or candidate_id is not None
+    if not from_promoter:
+        return
+    candidate_payload = context.get("candidate_payload") if isinstance(context.get("candidate_payload"), Mapping) else {}
+    if not candidate_payload:
+        raise FactorizationConsumerError(f"{line_ref(row)}: appointment_delegation promoted binding lacks candidate_payload gate {row['binding_code']}")
+    if not appointment_delegation_protocol_allows_scoring({"candidate_payload": candidate_payload}):
+        raise FactorizationConsumerError(
+            f"{line_ref(row)}: appointment_delegation candidate_payload is not a scoring candidate {row['binding_code']}"
+        )
 
 
 def fetch_binding_context(cur: Any, binding_code: str) -> dict[str, Any]:
@@ -312,13 +332,29 @@ def fetch_binding_context(cur: Any, binding_code: str) -> dict[str, Any]:
             crb.claim_id,
             crb.rule_code,
             crb.direction as binding_direction,
+            crb.usable_for_scoring_cluster as binding_usable_for_scoring_cluster,
+            crb.binding_payload,
             mc.source_pack_id,
             sp.target_id,
-            rt.item_code
+            rt.item_code,
+            cand.id as candidate_id,
+            cand.candidate_code,
+            cand.candidate_payload
           from retrieval_v2.claim_rule_bindings crb
           join retrieval_v2.material_claims mc on mc.id = crb.claim_id
           join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
+          left join lateral (
+              select c.*
+                from retrieval_v2.claim_rule_binding_candidates c
+               where c.resolved_binding_id = crb.id
+                  or (
+                      coalesce(crb.binding_payload->>'candidate_id', '') ~ '^[0-9]+$'
+                      and c.id = (crb.binding_payload->>'candidate_id')::bigint
+                  )
+               order by case when c.resolved_binding_id = crb.id then 0 else 1 end, c.id
+               limit 1
+          ) cand on true
          where crb.binding_code = %s
         """,
         (binding_code,),
@@ -501,21 +537,23 @@ def replace_factor_choices(
 
 
 def mark_binding_scoring_gate_accepted(cur: Any, *, row: Mapping[str, Any], context: Mapping[str, Any]) -> None:
+    usable_for_scoring = row["target_action"] == "score"
     payload = {
         "source": "retrieval_v2_factorization_consumer",
         "target_action": text(row.get("target_action")),
+        "usable_for_scoring_cluster": usable_for_scoring,
         "review_status": "accepted",
     }
     cur.execute(
         """
         update retrieval_v2.claim_rule_bindings
-           set usable_for_scoring_cluster = true,
+           set usable_for_scoring_cluster = %s,
                binding_payload = coalesce(binding_payload, '{}'::jsonb)
                    || jsonb_build_object('scoring_gate', %s::jsonb),
                updated_at = now()
          where id = %s
         """,
-        (json_param(payload), int(context["binding_id"])),
+        (usable_for_scoring, json_param(payload), int(context["binding_id"])),
     )
 
 
@@ -550,7 +588,8 @@ def apply_patch_rows(
                     factor_key_catalog=factor_key_catalog,
                     canonicalizations=canonicalizations,
                 )
-                validate_delegation_result_feedback_side(row=row, context=context, choices=choices)
+                validate_appointment_delegation_scoring_gate(row=row, context=context)
+                validate_appointment_effect_side(row=row, context=context, choices=choices)
                 judgment_id = upsert_factor_judgment(cur, row=row, context=context, formula_code=formula_code)
                 mark_binding_scoring_gate_accepted(cur, row=row, context=context)
                 replace_factor_choices(

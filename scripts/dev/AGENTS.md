@@ -32,16 +32,17 @@
 - `retrieval_v2_batch_taskgen.py` 是 retrieval_v2 多目标 taskgen prompt 和 batch discovery 解析层，只共享同一 rule 契约上下文，不合并不同皇帝的对象事实；输出必须逐目标 merge 回各自 task skeleton。
 - `retrieval_v2_taskgen_preseed.py` 是 retrieval_v2 taskgen 前置公开检索层，只用皇帝元数据、taskgen 新发现对象名和 Wikisource search 生成本轮候选 source documents / search hints；它不得读取旧 source pack、旧对象池、旧判读结果或写数据库。
 - `retrieval_v2_clean_runner.py` 是 retrieval_v2 clean 抓包的正式流水线入口，编排 taskgen、候选切片、机械别名补抓、候选重跑、Codex 判读、可选对象分片 judge 聚合和 summary；它只写本轮 `run_root` 和可复用原始史源页 cache，不写数据库，不读旧 source pack / 对象池 / 判读结果。
-- `retrieval_v2_clean_cli.py` 是 `retrieval_v2_clean_runner.py` 的 CLI 和调度层，承载默认流式 taskgen、batch taskgen、进度事件和命令行参数；canonical 命令入口仍是 `retrieval_v2_clean_runner.py`。
+- `retrieval_v2_runtime_paths.py` 是 retrieval_v2 运行资产路径解析 helper，默认从 NAS runtime config 生成 clean run、consumption output 和 source cache 路径；显式 `--use-local-runtime` 才回落到 repo-local `tmp/.tmp`。
+- `retrieval_v2_clean_cli.py` 是 `retrieval_v2_clean_runner.py` 的 CLI 和调度层，承载默认流式 taskgen、batch taskgen、进度事件和命令行参数；未显式传 `--run-root` / `--source-cache-root` 时必须通过 `retrieval_v2_runtime_paths.py` 解析默认运行资产目录。canonical 命令入口仍是 `retrieval_v2_clean_runner.py`。
 - `retrieval_v2_clean_summary.py` 和 `retrieval_v2_run_events.py` 分别承载 summary 汇总、judge anomaly 自审和 `run_events.jsonl` 事件日志；它们不抓源、不判读、不连接数据库。
 - `retrieval_v2_intake_manifest.py` 是消费侧 accepted clean run 收货清单生成器，只从本地 summary / task / candidates / judge 产物派生 `source_pack_code`、闸门结果和计数；它不写数据库、不读旧对象池、不执行抓包。
-- `retrieval_v2_intake_rows.py` 是消费侧 normalized staging JSONL 生成器，从 intake manifest 展开 source pack、artifact、document、passage、claim、primary binding、长期 `claim_rule_binding_candidates` 和 gap event 行；它只写本地 `tmp/**`，不写数据库、不读旧对象池。
+- `retrieval_v2_intake_rows.py` 是消费侧 normalized staging JSONL 生成器，从 intake manifest 展开 source pack、artifact、document、passage、claim、primary binding、长期 `claim_rule_binding_candidates` 和 gap event 行；未显式传 `--output-root` 时通过 `retrieval_v2_runtime_paths.py` 写入 runtime consumption 目录，不写数据库、不读旧对象池。
 - `retrieval_v2_review_worklists.py` 是消费侧对象身份与材料复核 worklist 生成器，从 normalized staging JSONL 生成 object resolution 和 material review 派工清单；它不读旧对象池、不自动归并对象、不写数据库。
 - `retrieval_v2_idempotency_report.py` 是消费侧幂等风险报告和 schema 草案生成器，检查 normalized staging JSONL 的 code / natural key / alias 变体重复风险，并输出离线草案；它不写数据库、不修改输入 rowset。
 - `retrieval_v2_diagnostics.py` 是消费侧只读诊断总控薄入口，实际实现拆在 `retrieval_v2_diagnostics_lib/`；当前聚合 readiness、coverage、duplicates、next-actions 和 score-chain，支持 `--type person --role emperor --name ...` 通用目标筛选。它只读 retrieval_v2 并输出 JSON/Markdown，不写库、不重算、不替代具体 consumer/scorer。
 - `retrieval_v2_import_plan.py` 是消费侧入库 dry-run/upsert 计划生成器，从 normalized staging JSONL 和 review worklists 生成按表排序的只读导入计划；默认不连接数据库，显式 `--db-check` 也只读 retrieval_v2 target/rule 元数据，不执行 INSERT/UPDATE。
 - `retrieval_v2_import_executor.py` 是消费侧入库执行器，从 normalized staging JSONL 和 review worklists 幂等 upsert source pack / material / binding / review queue / gap event 行；默认是 DB-backed dry-run 并 rollback，只有显式 `apply --execute` 才写库，且不得自动写入对象身份最终表。I5B item-wide shadow 试吃必须传 `--source-pack-status draft`，不得把 shadow 包写成 accepted 覆盖正式 accepted-packs。
-- `retrieval_v2_cross_rule_router.py` 是已入库 accepted claim 的跨 rule 候选补路由器，从 delegation 等源 rule 的 claim deterministic 补写 `claim_rule_binding_candidates`；默认 DB-backed dry-run，只有显式 `--execute` 才写库。它只产生候选和 future hint，不替代目标 rule 判读、因子化或入分裁量。
+- `retrieval_v2_cross_rule_router.py` 是已入库 accepted claim 的跨 rule 候选补路由器，从 appointment_delegation 等源 rule 的 claim deterministic 补写 `claim_rule_binding_candidates`；默认 DB-backed dry-run，只有显式 `--execute` 才写库。它只产生候选和 future hint，不替代目标 rule 判读、因子化或入分裁量。
 - `retrieval_v2_claim_passage_audit.py` 是已入库 claim 的 summary/passage 对齐审计和返修回填工具；默认只读 dry-run，只有显式 `--execute` 才把疑似错位 claim 写入 `material_review_queue`，加 `--write-gap-events` 才同步写 `coverage_gap_events queue=codex_review` 交抓包侧补判。进入未清材料复核队列的 claim 不得自动晋升候选、派发因子化或继续入分。
 - `retrieval_v2_claim_passage_repair.py` 是抓包侧 claim/passage 错位修包工具，从 `material_review_queue` 读取已阻断或待复核项，补入同 accepted pack 的 `candidate_slices` 上下文生成 Codex 修包任务；默认只生成 worklist / dry-run，只有显式 `apply-patch --execute` 才重链 `claim_source_passages`、补 repair source passage 或标记 claim 废弃。它不做因子化、不打分、不替代跨 rule 晋升。
 - `retrieval_v2_passage_fulltext_backfill.py` 是已入库 accepted 包的 source passage 全文回填工具，从包 artifact 的 `candidates.final.json` 按 `passage_payload.slice_code` 找回完整 candidate slice 文本，只在当前 `raw_text` 是该 slice 前缀且 slice 更长时更新 `source_passages.raw_text/quote_hash/passage_payload`；默认 dry-run，显式 `--execute` 才写库，不改 claim、binding 或 review 队列。
@@ -71,13 +72,17 @@
 - 对 retrieval_v2 因子化，子 agent 不应重判包侧已给出的普通正负向；只有材料 quote 与 summary 不一致、候选 role 不受 quote 支撑、factor sign 与 side 冲突、或 rule 明确要求复核时，才进入 `exclude` / `supporting_only` / 复核队列。
 - 对 `team_building` 因子化，`talent_quality_factor` 使用人物画像中已有 `talent_grade` 映射，不临场定级；`role_complementarity_factor` 和 `long_term_stability_factor` 是同一目标团队级因子，同一目标内所有 score 行必须使用一致 label。生成 team_building 任务时优先让同一目标进入同一 batch，避免团队级因子拆批漂移。
 - 记录耗时时只使用 `codex-win timer`、`codex-win run --log` 或 `results.jsonl` / `summary.json` 中的实测 `duration_sec`、usage；不得估算 per-person、per-batch 或 total timing。
-- `retrieval_v2_candidate_source_refiner.py` 是 retrieval_v2 候选缺口补源层，从本轮 candidates 的 `objects_without_slices` / `source_missing` / `alias_missing` 对象生成对象级 Wikisource 检索并合并新的 `source_documents`；它不读旧结果、不判读、不写库。
+- `retrieval_v2_candidate_source_refiner.py` 是 retrieval_v2 候选缺口补源层，从本轮 candidates 的 `objects_without_slices` / `source_missing` / `object_claim_undercoverage` / `alias_missing` 对象生成对象级 Wikisource 检索并合并新的 `source_documents`；它不读旧结果、不判读、不写库。
 - `retrieval_v2_judge_shards.py` 是 retrieval_v2 judge 分片和聚合纯函数层，只切分本轮 candidates、构造 shard prompt、重写聚合 claim/passages/bindings ID；它不调用 Codex、不联网、不读写数据库。
 - `retrieval_v2_candidate_prompt.py` 是 retrieval_v2 judge prompt 构造层，把本轮 candidates 和判读预算契约转成 Codex judge prompt；它不抓源、不判读、不写库。
 - `retrieval_v2_alias_refiner.py` 是 retrieval_v2 覆盖缺口到别名补抓的调度层工具，从本轮 task / candidates / judge result 生成 alias patch、patched task 和可选 CLI alias-refiner prompt；它不联网、不写库、不读旧结果、不抽取事实，只有非机械称谓判断才交给 Codex CLI 子进程。
 - `retrieval_v2_source_candidates.py` 是 retrieval_v2 抓包判读前的候选片段 builder，必须遵守 retrieval_v2 clean 抓包流程；它只负责抓取/缓存源页、按别名和 rule 关键词切片并生成瘦身 Codex prompt，记录 fetch errors 和 coverage gaps；它不读旧判读结果、不写库、不替代 source pack validator。
 - `retrieval_v2_source_document_policy.py` 是 retrieval_v2 source document 门禁层，按目标 source strategy、史源 root 和总称实录目标 metadata 判断某个源页是否可进入候选切片；它不抓取、不判读、不写库。
 - `retrieval_v2_quality_gate.py` 是 retrieval_v2 run 质量对照入口，用旧基准 run 和候选 run 的对象覆盖、claim 数、primary binding 数、无切片对象和状态做离线验收；它只读本地 run 目录，不联网、不读数据库、不替代人工抽样原文。
+- `retrieval_v2_prompt_governance.py` 是 retrieval_v2 prompt 预算和 prompt debt 快照入口，从本地 run_root、candidate JSON 或内置 debt 模板生成只读报告；它不调用 Codex、不联网、不写数据库、不替代质量验收。
+- `retrieval_v2_recall_term_sampler.py` 是 retrieval_v2 召回词采样治理入口，从本地 candidates.final.json / run_root 的 candidate_slices 统计机制词、条件词、案例词和拒收词；它不联网、不调用 Codex、不写数据库、不直接修改长期 discovery profile。
+- `retrieval_v2_recall_feedback.py` 是 retrieval_v2 消费反馈到召回 overlay 建议的只读汇总入口，从消费端 JSONL 统计 accepted/rejected/supporting_only 等状态和拒收原因；它不写 profile、不改 prompt、不写数据库，输出只用于下一轮 A/B 和人工 review。
+- `retrieval_v2_source_gap_feedback.py` 是 retrieval_v2 消费端 `source_missing` / `object_claim_undercoverage` refinement 反馈到对象补源 refiner 的 shadow 桥接入口；它只读取 feedback JSONL 和本轮 task，生成 refined task、可选 candidates / focused prompt 和报告，不写 profile、不改 prompt、不写数据库。
 - `retrieval_v2_i5b_shadow_report.py` 是 I5B-wide shadow pilot 的只读检测报告入口，从本轮 `summary.json`、`run_events.jsonl`、candidate 和 judge 产物汇总耗时、usage、secondary candidate、claim/passage 风险、重复风险和处置性 negative 风险；它不写数据库、不改变包体、不替代人工抽样回源。
 - `i5b_next_stage_queue_runner.py` 是 source pack handoff 后的收货批处理入口，只消费已通过 `next_stage_queue.jsonl` 的 ready 人物，生成摘录报告和对象 payload 骨架到 `.tmp/**`；它不写数据库、不替代对象规则裁量。
 - `i5b_next_stage_control_board.py` 是 ready 包消费后的总控减负入口，聚合 next-stage 骨架、对象 payload 子进程候选、review 报告和占位符审计结果，生成缺交付派工单与可 dry-run payload 清单；它不写数据库、不替代对象规则裁量。对象 payload 子进程完成后，先用该板确认主控工作区已看到候选文件，再关闭子进程。

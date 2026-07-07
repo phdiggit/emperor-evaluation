@@ -6,7 +6,7 @@ from scripts.dev import i5b_pending_factor_patch_apply as tool
 def material(obj_src_id: int, obj_name: str = "儿宽") -> dict[str, object]:
     return {
         "emperor": "刘彻",
-        "rule_code": "appointment_trust",
+        "rule_code": "appointment_delegation",
         "obj_src_id": obj_src_id,
         "direction": "positive",
         "obj_id": obj_src_id + 1000,
@@ -27,7 +27,7 @@ def test_apply_patch_rows_updates_scored_supporting_excluded_and_pending() -> No
             "obj_src_id": 11,
             "target_action": "score",
             "side": "positive",
-            "factor_refs": {"trust_depth": {"label": "有实际职责的任用。"}},
+            "factor_refs": {"appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"}},
             "patch_note": "可计分。",
         },
         {"obj_src_id": 12, "target_action": "supporting_only", "patch_note": "只作补源。"},
@@ -46,7 +46,9 @@ def test_apply_patch_rows_updates_scored_supporting_excluded_and_pending() -> No
     assert updated["supporting_material_ids"] == [12]
     assert updated["excluded_material_ids"] == [13]
     assert [row["obj_src_id"] for row in updated["materials"]] == [10, 11]
-    assert updated["materials"][1]["factor_refs"] == {"trust_depth": {"label": "有实际职责的任用。"}}
+    assert updated["materials"][1]["factor_refs"] == {
+        "appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"}
+    }
     assert len(updated["pending_factor_patch_reviews"]) == 3
 
 
@@ -63,7 +65,7 @@ def test_apply_patch_rows_is_idempotent_for_existing_material() -> None:
             "obj_src_id": 11,
             "target_action": "score",
             "side": "positive",
-            "factor_refs": {"trust_depth": {"label": "有实际职责的任用。"}},
+            "factor_refs": {"appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"}},
             "patch_note": "更新。",
         }
     ]

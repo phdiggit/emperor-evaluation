@@ -21,6 +21,7 @@
 - [`对象化证据输入模型契约与B2迁移实验.md`](对象化证据输入模型契约与B2迁移实验.md)
 - [`I5B数据链运行流程.md`](I5B数据链运行流程.md)
 - [`retrieval_v2_clean抓包流程.md`](retrieval_v2_clean抓包流程.md)
+- [`retrieval_v2_prompt治理.md`](retrieval_v2_prompt治理.md)
 - [`规则承载对象关系模型.md`](规则承载对象关系模型.md)
 - [`query_profile与search_log字段规范.md`](query_profile与search_log字段规范.md)
 - [`稳定ID命名规范.md`](稳定ID命名规范.md)

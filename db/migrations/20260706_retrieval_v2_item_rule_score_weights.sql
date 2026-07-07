@@ -65,12 +65,11 @@ with i5b_weights (
     source_line
 ) as (
     values
-        ('I5B', 'talent_discovery', '发现人才', 'evidence_cluster_signal_v3', 'v1', 0.190000::numeric(12,6), 10, 'I5B 总分权重：发现人才衡量统治者识别、引入和拔擢人才的能力。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 539),
-        ('I5B', 'appointment_trust', '任人信任', 'evidence_cluster_signal_v3', 'v1', 0.190000::numeric(12,6), 20, 'I5B 总分权重：任人信任衡量统治者是否把关键职责交给可信且适任的人。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 540),
-        ('I5B', 'delegation', '合理授权', 'evidence_cluster_signal_v3', 'v1', 0.170000::numeric(12,6), 30, 'I5B 总分权重：合理授权衡量权责配置、专任授权和结果反馈是否支撑人才发挥。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 541),
-        ('I5B', 'team_building', '建立团队', 'evidence_cluster_signal_v3', 'v1', 0.210000::numeric(12,6), 40, 'I5B 总分权重：建立团队衡量核心团队的人才密度、结构稳定性和负向污染程度。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 542),
-        ('I5B', 'tolerate_talent', '容人保全', 'evidence_cluster_signal_v3', 'v1', 0.180000::numeric(12,6), 50, 'I5B 总分权重：容人保全衡量统治者对功臣、直臣和有缺陷人才的保护或损害。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 543),
-        ('I5B', 'anti_nepotism', '避免任人唯亲', 'evidence_cluster_signal_v3', 'v1', 0.060000::numeric(12,6), 60, 'I5B 总分权重：避免任人唯亲衡量统治者抑制亲族、近幸、朋党和私门干政的能力。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 544)
+        ('I5B', 'talent_discovery', '发现人才', 'evidence_cluster_signal_v3', 'v1', 0.190000::numeric(12,6), 10, 'I5B 总分权重：发现人才衡量统治者识别、引入和拔擢人才的能力。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 419),
+        ('I5B', 'appointment_delegation', '任用授权', 'evidence_cluster_signal_v3', 'v1', 0.360000::numeric(12,6), 20, 'I5B 总分权重：任用授权衡量统治者是否把合适的人放到合适的位置、任务或权责链上，并产生合理后果。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 420),
+        ('I5B', 'team_building', '建立团队', 'evidence_cluster_signal_v3', 'v1', 0.210000::numeric(12,6), 30, 'I5B 总分权重：建立团队衡量核心团队的人才密度、结构稳定性和负向污染程度。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 421),
+        ('I5B', 'tolerate_talent', '容人保全', 'evidence_cluster_signal_v3', 'v1', 0.180000::numeric(12,6), 40, 'I5B 总分权重：容人保全衡量统治者对功臣、直臣和有缺陷人才的保护或损害。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 422),
+        ('I5B', 'anti_nepotism', '避免任人唯亲', 'evidence_cluster_signal_v3', 'v1', 0.060000::numeric(12,6), 50, 'I5B 总分权重：避免任人唯亲衡量统治者抑制亲族、近幸、朋党和私门干政的能力。', 'docs/分项规则/第五项统治者政治素质/B用人与授权.md', 423)
 ),
 resolved as (
     select
@@ -146,8 +145,7 @@ set
 with labels(rule_code, rule_label) as (
     values
         ('talent_discovery', '发现人才'),
-        ('appointment_trust', '任人信任'),
-        ('delegation', '合理授权'),
+        ('appointment_delegation', '任用授权'),
         ('team_building', '建立团队'),
         ('tolerate_talent', '容人保全'),
         ('anti_nepotism', '避免任人唯亲')
@@ -168,7 +166,7 @@ comment on column retrieval_v2.item_rule_score_weights.id is '本表内部主键
 comment on column retrieval_v2.item_rule_score_weights.item_id is '关联 retrieval_v2.eval_items.id；规则快照未复制时可为空，但 item_code 仍必须保留。';
 comment on column retrieval_v2.item_rule_score_weights.rule_id is '关联 retrieval_v2.eval_rules.id；规则快照未复制时可为空，但 rule_code 仍必须保留。';
 comment on column retrieval_v2.item_rule_score_weights.item_code is '评价分项稳定代码，例如 I5B；同一张表可承载所有评价项。';
-comment on column retrieval_v2.item_rule_score_weights.rule_code is '评价规则稳定代码，例如 delegation 或 team_building。';
+comment on column retrieval_v2.item_rule_score_weights.rule_code is '评价规则稳定代码，例如 appointment_delegation 或 team_building。';
 comment on column retrieval_v2.item_rule_score_weights.rule_label is '规则中文名称，用于诊断、导出和人工核对。';
 comment on column retrieval_v2.item_rule_score_weights.formula_code is '总分聚合公式版本，例如 evidence_cluster_signal_v3。';
 comment on column retrieval_v2.item_rule_score_weights.weight_version is '权重版本；同一 item、rule、formula 的权重调整必须升版本或覆盖当前快照。';

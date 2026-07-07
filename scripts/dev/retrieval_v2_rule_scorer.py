@@ -3,8 +3,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
-import re
 import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -18,6 +16,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_candidate_promoter import (  # noqa: E402
+    appointment_delegation_protocol_allows_scoring,
+)
 from scripts.dev.retrieval_v2_factorization_worklists import DEFAULT_FORMULA_CODE, DEFAULT_ITEM_CODE, DEFAULT_RULE_CODE  # noqa: E402
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
@@ -74,12 +75,6 @@ class MaterialScore:
     factor_values: dict[str, str]
 
 
-@dataclass(frozen=True)
-class RankDecayOption:
-    option_label: str
-    value_num: Decimal
-
-
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
 
@@ -123,26 +118,26 @@ def score_side_for_raw_score(raw_score: Decimal, fallback_side: str | None) -> s
     return "positive"
 
 
-def result_feedback_sign_issue(*, side: str | None, value: Decimal) -> str:
+def appointment_effect_sign_issue(*, side: str | None, value: Decimal) -> str:
     if value == 0:
         return ""
     if side == "positive" and value < 0:
-        return "positive side cannot use negative result_feedback"
+        return "positive side cannot use negative appointment_effect"
     if side == "negative" and value > 0:
-        return "negative side cannot use positive result_feedback"
+        return "negative side cannot use positive appointment_effect"
     return ""
 
 
 def validate_material_factor_signs(judgment: JudgmentInput) -> None:
-    if judgment.rule_code != "delegation" or judgment.target_action != "score":
+    if judgment.rule_code != "appointment_delegation" or judgment.target_action != "score":
         return
     for choice in judgment.choices:
-        if choice.factor_name != "result_feedback":
+        if choice.factor_name != "appointment_effect":
             continue
-        issue = result_feedback_sign_issue(side=judgment.side, value=choice.value_num)
+        issue = appointment_effect_sign_issue(side=judgment.side, value=choice.value_num)
         if issue:
             raise RetrievalV2RuleScorerError(
-                f"{judgment.binding_code}: {issue}: result_feedback={choice.option_label}"
+                f"{judgment.binding_code}: {issue}: appointment_effect={choice.option_label}"
             )
 
 
@@ -159,8 +154,7 @@ def object_side_score(scores: Sequence[Decimal]) -> Decimal:
 def side_signal(object_scores: Sequence[Decimal]) -> Decimal:
     if not object_scores:
         return Decimal("0.000")
-    raw = math.sqrt(sum(float(score) ** 2 for score in object_scores))
-    return quant(Decimal(str(raw)))
+    return quant(sum(object_scores, Decimal("0")))
 
 
 def source_pack_predicate(source_pack_codes: Sequence[str] = ()) -> str:
@@ -196,6 +190,11 @@ def fetch_judgment_rows(
             j.id as factor_judgment_id,
             j.binding_id,
             b.binding_code,
+            b.usable_for_scoring_cluster as binding_usable_for_scoring_cluster,
+            b.binding_payload,
+            cand.id as candidate_id,
+            cand.candidate_code,
+            cand.candidate_payload,
             j.claim_id,
             j.target_id,
             rt.target_code,
@@ -219,6 +218,17 @@ def fetch_judgment_rows(
             active.active_value::text as active_value_num
           from retrieval_v2.claim_rule_binding_factor_judgments j
           join retrieval_v2.claim_rule_bindings b on b.id = j.binding_id
+          left join lateral (
+              select c0.*
+                from retrieval_v2.claim_rule_binding_candidates c0
+               where c0.resolved_binding_id = b.id
+                  or (
+                      coalesce(b.binding_payload->>'candidate_id', '') ~ '^[0-9]+$'
+                      and c0.id = (b.binding_payload->>'candidate_id')::bigint
+                  )
+               order by case when c0.resolved_binding_id = b.id then 0 else 1 end, c0.id
+               limit 1
+          ) cand on true
           join retrieval_v2.retrieval_targets rt on rt.id = j.target_id
           join retrieval_v2.source_packs sp on sp.id = j.source_pack_id
           left join lateral (
@@ -378,37 +388,39 @@ def fetch_material_policy(cur: Any, *, item_code: str, rule_code: str) -> dict[s
     return rows[0]
 
 
-def fetch_rank_decay_options(cur: Any, *, item_code: str, rule_code: str, formula_code: str) -> tuple[RankDecayOption, ...]:
-    cur.execute(
-        """
-        select
-            o.label,
-            o.value_num::text as value_num
-          from retrieval_v2.eval_rule_factors f
-          join retrieval_v2.eval_rule_factor_options o on o.factor_id = f.id
-         where f.item_code = %s
-           and f.rule_code = %s
-           and f.formula_code = %s
-           and f.factor_name = 'rank_decay'
-           and f.factor_status = 'active'
-           and o.option_status = 'active'
-         order by o.sort_no, o.id
-        """,
-        (item_code, rule_code, formula_code),
-    )
-    options = tuple(
-        RankDecayOption(
-            option_label=text(row.get("label")),
-            value_num=decimal_value(row.get("value_num"), path=f"{rule_code}.rank_decay"),
-        )
-        for row in cur.fetchall()
-    )
-    if not options:
-        raise RetrievalV2RuleScorerError(f"{item_code}/{rule_code}/{formula_code}: missing active factor options for rank_decay")
-    return options
+def validate_appointment_delegation_scoring_gate_rows(rows: Sequence[Mapping[str, Any]]) -> None:
+    checked: set[int] = set()
+    issues: list[str] = []
+    for row in rows:
+        if text(row.get("rule_code")) != "appointment_delegation" or text(row.get("target_action")) != "score":
+            continue
+        judgment_id = int(row["factor_judgment_id"])
+        if judgment_id in checked:
+            continue
+        checked.add(judgment_id)
+        binding_code = text(row.get("binding_code"))
+        if row.get("binding_usable_for_scoring_cluster") is False:
+            issues.append(f"{binding_code}: binding usable_for_scoring_cluster=false")
+            continue
+        binding_payload = row.get("binding_payload") if isinstance(row.get("binding_payload"), Mapping) else {}
+        candidate_id = row.get("candidate_id")
+        from_promoter = text(binding_payload.get("source")) == "retrieval_v2_candidate_promoter" or candidate_id is not None
+        if not from_promoter:
+            continue
+        candidate_payload = row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {}
+        if not candidate_payload:
+            issues.append(f"{binding_code}: missing candidate_payload")
+            continue
+        if not appointment_delegation_protocol_allows_scoring({"candidate_payload": candidate_payload}):
+            candidate_code = text(row.get("candidate_code"))
+            suffix = f" candidate={candidate_code}" if candidate_code else ""
+            issues.append(f"{binding_code}: candidate_payload is not scoring_candidate{suffix}")
+    if issues:
+        raise RetrievalV2RuleScorerError("appointment_delegation scoring gate violations: " + "; ".join(issues[:20]))
 
 
 def build_judgments(rows: Sequence[Mapping[str, Any]]) -> list[JudgmentInput]:
+    validate_appointment_delegation_scoring_gate_rows(rows)
     grouped: dict[int, dict[str, Any]] = {}
     choices_by_judgment: dict[int, list[FactorChoice]] = defaultdict(list)
     for row in rows:
@@ -498,37 +510,7 @@ def require_choice(judgment: JudgmentInput, factor_name: str) -> FactorChoice:
     return choices[factor_name]
 
 
-def rank_decay_applies(label: str, rank: int) -> bool:
-    compact = re.sub(r"\s+", "", label)
-    if match := re.fullmatch(r"第(\d+)位", compact):
-        return rank == int(match.group(1))
-    if match := re.fullmatch(r"第(\d+)-(\d+)位", compact):
-        start = int(match.group(1))
-        end = int(match.group(2))
-        return start <= rank <= end
-    if match := re.fullmatch(r"第(\d+)位以后", compact):
-        return rank >= int(match.group(1))
-    return False
-
-
-def team_rank_decay(rank_index: int, rank_decay_options: Sequence[RankDecayOption]) -> Decimal:
-    if not rank_decay_options:
-        raise RetrievalV2RuleScorerError("team_building rank_decay options are required")
-    rank = rank_index + 1
-    for option in rank_decay_options:
-        if rank_decay_applies(option.option_label, rank):
-            return option.value_num
-    raise RetrievalV2RuleScorerError(f"team_building rank_decay has no table option for rank {rank}")
-
-
-def signed_side_signal(scores: Sequence[Decimal]) -> Decimal:
-    if not scores:
-        return Decimal("0.000")
-    raw = math.sqrt(sum(float(abs(score)) ** 2 for score in scores))
-    return quant(Decimal(str(raw)))
-
-
-def compute_team_building_cluster(judgments: Sequence[JudgmentInput], *, rank_decay_options: Sequence[RankDecayOption]) -> dict[str, Any]:
+def compute_team_building_cluster(judgments: Sequence[JudgmentInput]) -> dict[str, Any]:
     if not judgments:
         raise RetrievalV2RuleScorerError("team_building cluster requires at least one judgment")
     scored = [judgment for judgment in judgments if judgment.target_action == "score"]
@@ -585,28 +567,20 @@ def compute_team_building_cluster(judgments: Sequence[JudgmentInput], *, rank_de
     role_value = next(iter(role_values), Decimal("1.000"))
     stability_value = next(iter(stability_values), Decimal("1.000"))
 
-    ranked = sorted(
+    team_objects = sorted(
         candidates.values(),
         key=lambda item: (-abs(item["talent_quality_factor"]), item["judgment"].object_name, item["object_key"]),
     )
     material_scores: list[MaterialScore] = []
-    team_quality_components: list[dict[str, Any]] = []
-    positive_contributions: list[Decimal] = []
-    negative_contributions: list[Decimal] = []
+    team_object_components: list[dict[str, Any]] = []
     object_side_scores: dict[str, dict[str, Decimal]] = {"positive": {}, "negative": {}}
-    for index, item in enumerate(ranked):
+    for item in team_objects:
         judgment = item["judgment"]
-        decay = team_rank_decay(index, rank_decay_options)
-        contribution = quant(item["talent_quality_factor"] * decay)
+        contribution = quant(item["talent_quality_factor"] * role_value * stability_value)
         side = "negative" if contribution < 0 else "positive"
-        if contribution < 0:
-            negative_contributions.append(contribution)
-        else:
-            positive_contributions.append(contribution)
         object_side_scores[side][item["object_key"]] = quant(abs(contribution))
         factor_values = {
             "talent_quality_factor": str(item["talent_quality_factor"]),
-            "rank_decay": str(decay),
             "role_complementarity_factor": str(role_value),
             "long_term_stability_factor": str(stability_value),
         }
@@ -619,9 +593,8 @@ def compute_team_building_cluster(judgments: Sequence[JudgmentInput], *, rank_de
                 factor_values=factor_values,
             )
         )
-        team_quality_components.append(
+        team_object_components.append(
             {
-                "rank": index + 1,
                 "binding_code": judgment.binding_code,
                 "claim_id": judgment.claim_id,
                 "object_id": judgment.object_id,
@@ -629,27 +602,20 @@ def compute_team_building_cluster(judgments: Sequence[JudgmentInput], *, rank_de
                 "object_name": judgment.object_name,
                 "talent_quality_factor": str(item["talent_quality_factor"]),
                 "talent_quality_ref": item["talent_quality_ref"],
-                "rank_decay": str(decay),
-                "quality_contribution": str(contribution),
+                "role_complementarity_factor": str(role_value),
+                "long_term_stability_factor": str(stability_value),
+                "object_contribution": str(contribution),
             }
         )
 
-    positive_quality_signal = signed_side_signal(positive_contributions)
-    negative_quality_signal = signed_side_signal(negative_contributions)
-    team_quality_signal = quant(positive_quality_signal - negative_quality_signal)
-    team_effect_signal = quant(team_quality_signal * role_value * stability_value)
-    positive_signal = max(team_effect_signal, Decimal("0.000"))
-    negative_signal = abs(min(team_effect_signal, Decimal("0.000")))
+    positive_signal = side_signal(list(object_side_scores["positive"].values()))
+    negative_signal = side_signal(list(object_side_scores["negative"].values()))
     calc_detail = {
         "item_code": judgments[0].item_code,
         "formula_code": judgments[0].formula_code,
-        "team_formula": "(sqrt(sum(positive_weighted_i^2)) - sqrt(sum(abs(negative_weighted_i)^2))) * role_complementarity_factor * long_term_stability_factor",
-        "team_quality_components": team_quality_components,
+        "team_formula": "sum(positive object_contribution) and sum(abs(negative object_contribution)); object_contribution = talent_quality_factor * role_complementarity_factor * long_term_stability_factor",
+        "team_object_components": team_object_components,
         "duplicate_team_objects": duplicate_team_objects,
-        "positive_quality_signal": str(positive_quality_signal),
-        "negative_quality_signal": str(negative_quality_signal),
-        "team_quality_signal": str(team_quality_signal),
-        "team_effect_signal": str(team_effect_signal),
         "team_factor_values": {
             "role_complementarity_factor": str(role_value),
             "long_term_stability_factor": str(stability_value),
@@ -701,6 +667,7 @@ def group_by_target(judgments: Sequence[JudgmentInput]) -> dict[int, list[Judgme
 
 def material_detail(score: MaterialScore) -> dict[str, Any]:
     judgment = score.judgment
+    capped = abs(score.raw_score) > score.abs_score
     return {
         "factor_judgment_id": judgment.factor_judgment_id,
         "binding_code": judgment.binding_code,
@@ -714,6 +681,8 @@ def material_detail(score: MaterialScore) -> dict[str, Any]:
         "judgment_side": judgment.side,
         "raw_score": str(score.raw_score),
         "abs_score": str(score.abs_score),
+        "capped": capped,
+        "material_score_cap": str(MATERIAL_SCORE_CAP) if capped else "",
         "factor_values": score.factor_values,
         "factor_refs": {
             choice.factor_name: {
@@ -779,13 +748,12 @@ def compute_target_cluster(
     judgments: Sequence[JudgmentInput],
     *,
     material_policy: Mapping[str, Any] | None = None,
-    team_rank_decay_options: Sequence[RankDecayOption] = (),
 ) -> dict[str, Any]:
     if not judgments:
         raise RetrievalV2RuleScorerError("target cluster requires at least one judgment")
     carrier_mode = text((material_policy or {}).get("carrier_mode"))
     if carrier_mode == TEAM_CORE_CARRIER_MODE:
-        return compute_team_building_cluster(judgments, rank_decay_options=team_rank_decay_options)
+        return compute_team_building_cluster(judgments)
     raw_material_scores = [score_material(judgment) for judgment in judgments if judgment.target_action == "score"]
     material_scores, deduped_material_scores = dedupe_material_scores(raw_material_scores)
     grouped_scores: dict[str, dict[str, list[Decimal]]] = {"positive": defaultdict(list), "negative": defaultdict(list)}
@@ -814,6 +782,7 @@ def compute_target_cluster(
             "material_score_cap": str(MATERIAL_SCORE_CAP),
             "same_object_secondary_factor": str(SAME_OBJECT_SECONDARY_FACTOR),
             "same_object_cap_multiplier": str(SAME_OBJECT_CAP_MULTIPLIER),
+            "rule_side_aggregation": "sum_object_side_scores",
             "coverage": {"positive": "1.0", "negative": "1.0"},
         },
         "materials": [material_detail(score) for score in material_scores],
@@ -861,6 +830,7 @@ def empty_target_cluster(target: Mapping[str, Any], *, rule_code: str, formula_c
             "material_score_cap": str(MATERIAL_SCORE_CAP),
             "same_object_secondary_factor": str(SAME_OBJECT_SECONDARY_FACTOR),
             "same_object_cap_multiplier": str(SAME_OBJECT_CAP_MULTIPLIER),
+            "rule_side_aggregation": "sum_object_side_scores",
             "coverage": {"positive": "1.0", "negative": "1.0"},
         },
         "materials": [],
@@ -1067,17 +1037,6 @@ def apply_rule_scores(
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
             material_policy = fetch_material_policy(cur, item_code=item_code, rule_code=rule_code)
-            carrier_mode = text(material_policy.get("carrier_mode"))
-            rank_decay_options = (
-                fetch_rank_decay_options(
-                    cur,
-                    item_code=item_code,
-                    rule_code=rule_code,
-                    formula_code=formula_code,
-                )
-                if carrier_mode == TEAM_CORE_CARRIER_MODE
-                else ()
-            )
             judgments = build_judgments(
                 fetch_judgment_rows(
                     cur,
@@ -1114,7 +1073,7 @@ def apply_rule_scores(
                         f"no accepted factor judgments for formula_code={formula_code}; available formula judgments: {available}"
                     )
             clusters = [
-                compute_target_cluster(rows, material_policy=material_policy, team_rank_decay_options=rank_decay_options)
+                compute_target_cluster(rows, material_policy=material_policy)
                 for rows in group_by_target(judgments).values()
             ]
             clustered_target_ids = {int(cluster["target_id"]) for cluster in clusters}

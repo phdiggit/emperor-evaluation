@@ -300,7 +300,7 @@ def enqueue_material_reviews(cur: Any, flagged_claims: Sequence[Mapping[str, Any
 
 
 def repair_event_from_claim(row: Mapping[str, Any]) -> dict[str, Any]:
-    rule_code = text(row.get("source_rule_code")) or "delegation"
+    rule_code = text(row.get("source_rule_code")) or "appointment_delegation"
     predicate = "claim:" + stable_hash(text(row.get("claim_code")), length=16)
     event = {
         "target_code": text(row.get("target_code")),

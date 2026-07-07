@@ -307,7 +307,7 @@ def test_reconcile_material_coverage_preserves_reviewed_supporting_materials() -
     tool = load_tool()
     cluster = tool.ClusterInput(
         emperor="测试帝",
-        rule_code="appointment_trust",
+        rule_code="appointment_delegation",
         positive_signal=Decimal("1.0"),
         negative_signal=Decimal("0"),
         formula_code="fixture",
@@ -344,7 +344,7 @@ def test_reconcile_material_coverage_marks_unreviewed_scoring_materials_pending(
     tool = load_tool()
     cluster = tool.ClusterInput(
         emperor="测试帝",
-        rule_code="appointment_trust",
+        rule_code="appointment_delegation",
         positive_signal=Decimal("1.0"),
         negative_signal=Decimal("0"),
         formula_code="fixture",

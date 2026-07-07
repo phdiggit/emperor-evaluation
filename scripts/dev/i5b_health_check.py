@@ -33,8 +33,7 @@ from scripts.dev.i5b_rule_evidence_unit_issue_summary import build_issue_summary
 DEFAULT_REPORT_PATH = ROOT / ".tmp" / "i5b" / "i5b_health_check.md"
 SCORE_COVERAGE_CORE_RULES = (
     "talent_discovery",
-    "appointment_trust",
-    "delegation",
+    "appointment_delegation",
     "team_building",
     "tolerate_talent",
 )

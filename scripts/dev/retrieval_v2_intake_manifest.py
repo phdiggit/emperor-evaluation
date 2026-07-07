@@ -99,7 +99,7 @@ def context_from_task_person(task: Mapping[str, Any], person: Mapping[str, Any])
         "target_code": text(task.get("target_code") or person.get("target_code")),
         "emperor_name": text(task.get("emperor_name") or person.get("name")),
         "item_code": text(task.get("item_code") or person.get("item_code") or "I5B"),
-        "rule_code": text(task.get("rule_code") or person.get("rule_code") or "delegation"),
+        "rule_code": text(task.get("rule_code") or person.get("rule_code") or "appointment_delegation"),
     }
 
 

@@ -24,8 +24,8 @@ def material_row(**overrides: object) -> dict[str, object]:
         "binding_id": 20,
         "binding_code": "BND-001",
         "raw_binding_code": "RAW-BND-001",
-        "rule_code": "delegation",
-        "predicate": "delegated_authority",
+        "rule_code": "appointment_delegation",
+        "predicate": "appointed_or_delegated_authority",
         "direction": "positive",
         "object_role": "civil_delegate",
         "binding_confidence": "0.9200",
@@ -63,35 +63,35 @@ def factor_rows() -> list[dict[str, object]]:
             "value_num": "1.0000",
         },
         {
-            "rule_code": "delegation",
-            "factor_name": "authorization_intensity",
+            "rule_code": "appointment_delegation",
+            "factor_name": "appointment_importance",
             "factor_scope": "rule",
             "factor_option_id": 2,
-            "label": "有明确授权",
+            "label": "有实际职责的任用、信任或单一领域真实授权。",
             "value_num": "1.2000",
         },
         {
-            "rule_code": "delegation",
-            "factor_name": "person_post_fit",
+            "rule_code": "appointment_delegation",
+            "factor_name": "appointment_effect",
             "factor_scope": "rule",
             "factor_option_id": 3,
-            "label": "人岗高度匹配",
+            "label": "人岗匹配成立，有明确任后表现、职责履行、政策、军事、行政成果或持续复用反馈。",
             "value_num": "1.1000",
         },
         {
-            "rule_code": "delegation",
-            "factor_name": "result_feedback",
+            "rule_code": "appointment_delegation",
+            "factor_name": "continuity_factor",
             "factor_scope": "rule",
             "factor_option_id": 4,
-            "label": "结果明确正向",
+            "label": "稳定任用授权。",
             "value_num": "1.1000",
         },
         {
-            "rule_code": "delegation",
-            "factor_name": "result_feedback",
+            "rule_code": "appointment_delegation",
+            "factor_name": "appointment_effect",
             "factor_scope": "rule",
             "factor_option_id": 7,
-            "label": "授权后任务结果较差，显示匹配或授权判断有问题。",
+            "label": "错任、错信、偏信、弱匹配或授权后结果较差，显示任用授权判断有问题。",
             "value_num": "-0.7000",
         },
         {
@@ -161,13 +161,13 @@ def factor_rows() -> list[dict[str, object]]:
     ]
 
 
-def test_delegation_factor_keys_match_pending_material_contract() -> None:
+def test_appointment_delegation_factor_keys_match_pending_material_contract() -> None:
     catalog = tool.build_factor_key_catalog(factor_rows())
 
-    assert tool.factor_keys_for_material("delegation", "positive", catalog) == (
-        "authorization_intensity",
-        "person_post_fit",
-        "result_feedback",
+    assert tool.factor_keys_for_material("appointment_delegation", "positive", catalog) == (
+        "appointment_importance",
+        "appointment_effect",
+        "continuity_factor",
         "attribution_factor",
         "source_factor",
         "context_factor",
@@ -194,18 +194,18 @@ def test_delegation_factor_keys_match_pending_material_contract() -> None:
     )
     appointment_catalog = tool.build_factor_key_catalog(
         [
-            {"rule_code": "appointment_trust", "factor_name": "trust_depth", "factor_scope": "rule"},
-            {"rule_code": "appointment_trust", "factor_name": "trust_validity", "factor_scope": "rule"},
-            {"rule_code": "appointment_trust", "factor_name": "continuity_factor", "factor_scope": "rule"},
+            {"rule_code": "appointment_delegation", "factor_name": "appointment_importance", "factor_scope": "rule"},
+            {"rule_code": "appointment_delegation", "factor_name": "appointment_effect", "factor_scope": "rule"},
+            {"rule_code": "appointment_delegation", "factor_name": "continuity_factor", "factor_scope": "rule"},
             {"rule_code": "", "factor_name": "object_weight", "factor_scope": "shared"},
             {"rule_code": "", "factor_name": "attribution_factor", "factor_scope": "shared"},
             {"rule_code": "", "factor_name": "source_factor", "factor_scope": "shared"},
             {"rule_code": "", "factor_name": "context_factor", "factor_scope": "shared"},
         ]
     )
-    assert tool.factor_keys_for_material("appointment_trust", "positive", appointment_catalog) == (
-        "trust_depth",
-        "trust_validity",
+    assert tool.factor_keys_for_material("appointment_delegation", "positive", appointment_catalog) == (
+        "appointment_importance",
+        "appointment_effect",
         "continuity_factor",
         "attribution_factor",
         "source_factor",
@@ -277,7 +277,7 @@ def test_fetch_material_rows_excludes_open_material_reviews() -> None:
     rows = tool.fetch_material_rows(
         cur,
         item_code="I5B",
-        rule_code="appointment_trust",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
     )
@@ -305,7 +305,7 @@ def test_fetch_material_rows_filters_by_source_pack_code_without_accepted_scope(
     rows = tool.fetch_material_rows(
         cur,
         item_code="I5B",
-        rule_code="appointment_trust",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         source_pack_codes=["SPK-I5B-SHADOW"],
@@ -314,7 +314,7 @@ def test_fetch_material_rows_filters_by_source_pack_code_without_accepted_scope(
     assert rows == []
     assert "sp.pack_code = any(%s)" in cur.sql
     assert "sp2.status = 'accepted'" not in cur.sql
-    assert cur.params == ("evidence_cluster_signal_v3", "appointment_trust", ["SPK-I5B-SHADOW"], "I5B", "I5B")
+    assert cur.params == ("evidence_cluster_signal_v3", "appointment_delegation", ["SPK-I5B-SHADOW"], "I5B", "I5B")
 
 
 def test_fetch_material_rows_includes_promoter_review_candidates() -> None:
@@ -338,8 +338,33 @@ def test_fetch_material_rows_includes_promoter_review_candidates() -> None:
     )
 
     assert "crb.usable_for_scoring_cluster" in cur.sql
+    assert "crb.rule_code <> 'appointment_delegation'" in cur.sql
     assert "crb.binding_payload->>'source' = 'retrieval_v2_candidate_promoter'" in cur.sql
     assert "nullif(crb.binding_payload->>'candidate_id', '') is not null" in cur.sql
+
+
+def test_fetch_material_rows_blocks_appointment_delegation_promoter_review_wide_entry() -> None:
+    class FakeCursor:
+        def __init__(self) -> None:
+            self.sql = ""
+
+        def execute(self, sql: str, params=()) -> None:
+            self.sql = sql
+
+        def fetchall(self) -> list[dict[str, object]]:
+            return []
+
+    cur = FakeCursor()
+    tool.fetch_material_rows(
+        cur,
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        formula_code="evidence_cluster_signal_v3",
+        scope="accepted-packs",
+    )
+
+    promoter_gate = cur.sql.split("crb.binding_payload->>'source' = 'retrieval_v2_candidate_promoter'")[0]
+    assert "crb.rule_code <> 'appointment_delegation'" in promoter_gate
 
 
 
@@ -378,11 +403,85 @@ def test_factor_patch_template_merges_generic_and_rule_options() -> None:
 
     assert template["target_action"] == "review"
     assert template["side"] == "positive"
-    assert template["factor_refs"]["authorization_intensity"] == {"label": ""}
-    assert template["factor_option_candidates"]["authorization_intensity"][0]["label"] == "有明确授权"
+    assert template["factor_refs"]["appointment_importance"] == {"label": ""}
+    assert template["factor_option_candidates"]["appointment_importance"][0]["label"] == "有实际职责的任用、信任或单一领域真实授权。"
     assert template["factor_option_candidates"]["source_factor"][0]["label"] == "基础史源"
     assert item["object"]["talent_grade"] == "historic_talent"
     assert item["claim"]["source_passages"][0]["source_title"] == "史记"
+
+
+def test_appointment_delegation_factor_hints_prefill_only_trusted_refs() -> None:
+    rows = [
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_importance", "factor_scope": "rule", "factor_option_id": 1, "option_code": "AD-IMP-KEY", "label": "中枢、军政关键岗位、核心职掌或重大军政事务授权。", "value_num": "1.2500"},
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_effect", "factor_scope": "rule", "factor_option_id": 2, "option_code": "AD-EFF-STRONG", "label": "高风险、关键岗位或高强度授权高度适配，并产生重大成功或强烈体现任用授权合理。", "value_num": "1.5000"},
+        {"rule_code": "appointment_delegation", "factor_name": "continuity_factor", "factor_scope": "rule", "factor_option_id": 3, "option_code": "AD-CONT-SHORT", "label": "短期、单次、临时任用授权，或未形成持续复用。", "value_num": "0.8500"},
+        {"rule_code": "", "factor_name": "attribution_factor", "factor_scope": "shared", "factor_option_id": 4, "label": "皇帝决策链清楚", "value_num": "1.0000"},
+        {"rule_code": "", "factor_name": "source_factor", "factor_scope": "shared", "factor_option_id": 5, "label": "标准史源，事实链清楚。", "value_num": "1.0000"},
+        {"rule_code": "", "factor_name": "context_factor", "factor_scope": "shared", "factor_option_id": 6, "label": "本 rule 语境成立，事实和对象关系清楚。", "value_num": "1.0000"},
+    ]
+    catalog = tool.build_factor_option_catalog(rows)
+    factor_key_catalog = tool.build_factor_key_catalog(rows)
+    item = tool.material_item(
+        material_row(
+            candidate_payload={
+                "appointment_delegation_factor_hints": {
+                    "importance_hint": "key_military_political",
+                    "effect_hint": "strong_success",
+                    "continuity_hint": "single_short",
+                    "hint_confidence": {"importance": "high", "effect": "medium", "continuity": "high"},
+                    "uncertainty_flags": [],
+                }
+            }
+        ),
+        catalog,
+        factor_key_catalog,
+    )
+
+    template = item["factor_patch_template"]
+
+    assert template["factor_refs"]["appointment_importance"]["label"] == "中枢、军政关键岗位、核心职掌或重大军政事务授权。"
+    assert template["factor_refs"]["appointment_effect"]["label"] == "高风险、关键岗位或高强度授权高度适配，并产生重大成功或强烈体现任用授权合理。"
+    assert template["factor_refs"]["continuity_factor"]["label"] == "短期、单次、临时任用授权，或未形成持续复用。"
+    assert template["factor_refs"]["appointment_effect"]["prefill_source"] == "appointment_delegation_factor_hints"
+    assert template["factor_hint_suggestions"]["mapped_refs"]["appointment_effect"]["hint_value"] == "strong_success"
+    assert template["factor_hint_suggestions"]["mapped_refs"]["appointment_effect"]["option_code"]
+    assert "raw_hints" in template["factor_hint_suggestions"]
+
+
+def test_appointment_delegation_factor_hints_withhold_low_or_uncertain_refs() -> None:
+    rows = [
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_importance", "factor_scope": "rule", "factor_option_id": 1, "label": "中枢、军政关键岗位、核心职掌或重大军政事务授权。", "value_num": "1.2500"},
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_effect", "factor_scope": "rule", "factor_option_id": 2, "label": "高风险、关键岗位或高强度授权高度适配，并产生重大成功或强烈体现任用授权合理。", "value_num": "1.5000"},
+        {"rule_code": "appointment_delegation", "factor_name": "continuity_factor", "factor_scope": "rule", "factor_option_id": 3, "label": "长期复用、多阶段持续信任，或同一对象跨阶段承担关键职责。", "value_num": "1.1500"},
+        {"rule_code": "", "factor_name": "attribution_factor", "factor_scope": "shared", "factor_option_id": 4, "label": "皇帝决策链清楚", "value_num": "1.0000"},
+        {"rule_code": "", "factor_name": "source_factor", "factor_scope": "shared", "factor_option_id": 5, "label": "标准史源，事实链清楚。", "value_num": "1.0000"},
+        {"rule_code": "", "factor_name": "context_factor", "factor_scope": "shared", "factor_option_id": 6, "label": "本 rule 语境成立，事实和对象关系清楚。", "value_num": "1.0000"},
+    ]
+    catalog = tool.build_factor_option_catalog(rows)
+    factor_key_catalog = tool.build_factor_key_catalog(rows)
+    item = tool.material_item(
+        material_row(
+            candidate_payload={
+                "appointment_delegation_factor_hints": {
+                    "importance_hint": "key_military_political",
+                    "effect_hint": "strong_success",
+                    "continuity_hint": "long_multi_stage",
+                    "hint_confidence": {"importance_hint": "low", "effect_hint": "high", "continuity_hint": "high"},
+                    "uncertainty_flags": ["effect_strength_needs_review"],
+                }
+            }
+        ),
+        catalog,
+        factor_key_catalog,
+    )
+
+    template = item["factor_patch_template"]
+
+    assert template["factor_refs"]["appointment_importance"] == {"label": ""}
+    assert template["factor_refs"]["appointment_effect"] == {"label": ""}
+    assert template["factor_refs"]["continuity_factor"]["label"] == "长期复用、多阶段持续信任，或同一对象跨阶段承担关键职责。"
+    assert template["factor_hint_suggestions"]["withheld_refs"]["appointment_importance"]["reason"] == "low_or_missing_confidence"
+    assert template["factor_hint_suggestions"]["withheld_refs"]["appointment_effect"]["reason"] == "uncertainty_flag"
 
 
 def test_team_building_template_prefills_talent_grade_factor() -> None:
@@ -490,7 +589,7 @@ def test_build_worklist_groups_materials_and_suggests_batches() -> None:
         ],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=1,
@@ -511,7 +610,7 @@ def test_suggest_batches_splits_single_oversized_group() -> None:
         ],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=2,
@@ -542,7 +641,7 @@ def test_patch_template_and_validation_require_complete_coverage() -> None:
         [material_row()],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -556,9 +655,9 @@ def test_patch_template_and_validation_require_complete_coverage() -> None:
             "target_action": "review",
             "side": "positive",
             "factor_refs": {
-                "authorization_intensity": {"label": ""},
-                "person_post_fit": {"label": ""},
-                "result_feedback": {"label": ""},
+                "appointment_importance": {"label": ""},
+                "appointment_effect": {"label": ""},
+                "continuity_factor": {"label": ""},
                 "attribution_factor": {"label": ""},
                 "source_factor": {"label": ""},
                 "context_factor": {"label": ""},
@@ -572,9 +671,9 @@ def test_patch_template_and_validation_require_complete_coverage() -> None:
         "target_action": "score",
         "side": "positive",
         "factor_refs": {
-            "authorization_intensity": {"label": "有明确授权"},
-            "person_post_fit": {"label": "人岗高度匹配"},
-            "result_feedback": {"label": "结果明确正向"},
+            "appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"},
+            "appointment_effect": {"label": "人岗匹配成立，有明确任后表现、职责履行、政策、军事、行政成果或持续复用反馈。"},
+            "continuity_factor": {"label": "稳定任用授权。"},
             "attribution_factor": {"label": "可归因于皇帝授权"},
             "source_factor": {"label": "基础史源"},
             "context_factor": {"label": "语境清楚"},
@@ -593,7 +692,7 @@ def test_validation_flags_unknown_labels_and_missing_rows() -> None:
         [material_row(binding_code="BND-001"), material_row(binding_code="BND-002")],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -604,9 +703,9 @@ def test_validation_flags_unknown_labels_and_missing_rows() -> None:
         "target_action": "score",
         "side": "positive",
         "factor_refs": {
-            "authorization_intensity": {"label": "不存在的标签"},
-            "person_post_fit": {"label": "人岗高度匹配"},
-            "result_feedback": {"label": "结果明确正向"},
+            "appointment_importance": {"label": "不存在的标签"},
+            "appointment_effect": {"label": "人岗匹配成立，有明确任后表现、职责履行、政策、军事、行政成果或持续复用反馈。"},
+            "continuity_factor": {"label": "稳定任用授权。"},
             "attribution_factor": {"label": "可归因于皇帝授权"},
             "source_factor": {"label": "基础史源"},
             "context_factor": {"label": "语境清楚"},
@@ -621,12 +720,12 @@ def test_validation_flags_unknown_labels_and_missing_rows() -> None:
     assert {"unknown_factor_label", "missing_patch_row"} <= statuses
 
 
-def test_validation_rejects_delegation_side_result_feedback_sign_mismatch() -> None:
+def test_validation_rejects_appointment_delegation_side_appointment_effect_sign_mismatch() -> None:
     payload = tool.build_worklist_from_rows(
         [material_row()],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -637,9 +736,9 @@ def test_validation_rejects_delegation_side_result_feedback_sign_mismatch() -> N
         "target_action": "score",
         "side": "positive",
         "factor_refs": {
-            "authorization_intensity": {"label": "有明确授权"},
-            "person_post_fit": {"label": "人岗高度匹配"},
-            "result_feedback": {"label": "授权后任务结果较差，显示匹配或授权判断有问题。"},
+            "appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"},
+            "appointment_effect": {"label": "错任、错信、偏信、弱匹配或授权后结果较差，显示任用授权判断有问题。"},
+            "continuity_factor": {"label": "稳定任用授权。"},
             "attribution_factor": {"label": "可归因于皇帝授权"},
             "source_factor": {"label": "基础史源"},
             "context_factor": {"label": "语境清楚"},
@@ -651,8 +750,68 @@ def test_validation_rejects_delegation_side_result_feedback_sign_mismatch() -> N
 
     assert report["ok"] is False
     statuses = {issue["status"] for issue in report["issues"]}
-    assert "side_result_feedback_sign_mismatch" in statuses
+    assert "side_appointment_effect_sign_mismatch" in statuses
     assert "side_raw_score_sign_mismatch" in statuses
+
+
+def test_validation_rejects_strong_success_hint_downgraded_to_weak_feedback() -> None:
+    rows = [
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_importance", "factor_scope": "rule", "factor_option_id": 1, "label": "中枢、军政关键岗位、核心职掌或重大军政事务授权。", "value_num": "1.2500"},
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_effect", "factor_scope": "rule", "factor_option_id": 2, "label": "任用、信任、授权关系存在，但只见任官、亲近、名望、任务交付或弱反馈，缺少充分结果或岗位适配证明。", "value_num": "0.4000"},
+        {"rule_code": "appointment_delegation", "factor_name": "appointment_effect", "factor_scope": "rule", "factor_option_id": 3, "label": "高风险、关键岗位或高强度授权高度适配，并产生重大成功或强烈体现任用授权合理。", "value_num": "1.5000"},
+        {"rule_code": "appointment_delegation", "factor_name": "continuity_factor", "factor_scope": "rule", "factor_option_id": 4, "label": "短期、单次、临时任用授权，或未形成持续复用。", "value_num": "0.8500"},
+        {"rule_code": "", "factor_name": "attribution_factor", "factor_scope": "shared", "factor_option_id": 5, "label": "皇帝决策链清楚", "value_num": "1.0000"},
+        {"rule_code": "", "factor_name": "source_factor", "factor_scope": "shared", "factor_option_id": 6, "label": "标准史源且关键事实链完整、对象和动作均明确。", "value_num": "1.1000"},
+        {"rule_code": "", "factor_name": "context_factor", "factor_scope": "shared", "factor_option_id": 7, "label": "本 rule 语境强，材料直接展示该 rule 的核心机制。", "value_num": "1.1000"},
+    ]
+    payload = tool.build_worklist_from_rows(
+        [
+            material_row(
+                candidate_payload={
+                    "appointment_delegation_factor_hints": {
+                        "importance_hint": "key_military_political",
+                        "effect_hint": "strong_success",
+                        "continuity_hint": "single_short",
+                        "hint_confidence": {"importance": "high", "effect": "high", "continuity": "medium"},
+                        "uncertainty_flags": [],
+                    }
+                },
+                source_passages=[
+                    {
+                        "source_title": "明史",
+                        "title": "太祖本纪",
+                        "quote": "以曹国公李文忠为左副将军出应昌。李文忠克应昌，降众五万余人。",
+                    }
+                ],
+            )
+        ],
+        rows,
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        formula_code="evidence_cluster_signal_v3",
+        scope="accepted-packs",
+        batch_size=40,
+    )
+    batch = payload["suggested_batches"][0]
+    patch_row = {
+        "binding_code": "BND-001",
+        "target_action": "score",
+        "side": "positive",
+        "factor_refs": {
+            "appointment_importance": {"label": "中枢、军政关键岗位、核心职掌或重大军政事务授权。"},
+            "appointment_effect": {"label": "任用、信任、授权关系存在，但只见任官、亲近、名望、任务交付或弱反馈，缺少充分结果或岗位适配证明。"},
+            "continuity_factor": {"label": "短期、单次、临时任用授权，或未形成持续复用。"},
+            "attribution_factor": {"label": "皇帝决策链清楚"},
+            "source_factor": {"label": "标准史源且关键事实链完整、对象和动作均明确。"},
+            "context_factor": {"label": "本 rule 语境强，材料直接展示该 rule 的核心机制。"},
+        },
+        "patch_note": "材料中已经出现任命与克应昌战果，但本测试故意降成弱反馈以触发校验。",
+    }
+
+    report = tool.validate_patch(batch, [patch_row])
+
+    assert report["ok"] is False
+    assert any(issue["status"] == "strong_success_hint_downgraded_to_weak_feedback" for issue in report["issues"])
 
 
 def test_validation_rejects_side_on_non_score_rows() -> None:
@@ -660,7 +819,7 @@ def test_validation_rejects_side_on_non_score_rows() -> None:
         [material_row()],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -685,7 +844,7 @@ def test_cli_writes_worklist_outputs(tmp_path: Path, monkeypatch) -> None:
         [material_row()],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -715,7 +874,7 @@ def test_cli_template_and_validate_patch(tmp_path: Path) -> None:
         [material_row()],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -749,7 +908,7 @@ def test_build_codex_tasks_writes_slim_prompt_and_task_jsonl(tmp_path: Path) -> 
         [material_row()],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=40,
@@ -760,10 +919,27 @@ def test_build_codex_tasks_writes_slim_prompt_and_task_jsonl(tmp_path: Path) -> 
     summary = tool.write_task_outputs(batch_paths=[batch_path], output_root=tmp_path / "tasks")
 
     assert summary["totals"] == {"materials": 1, "tasks": 1}
+    assert summary["prompt_budget_summary"]["prompt_chars_total"] > 0
+    assert summary["prompt_budget_summary"]["estimated_prompt_tokens_total"] > 0
+    assert summary["prompt_budget_summary"]["estimated_prompt_tokens_method"] == "ceil(prompt_chars / 2)"
+    assert summary["prompt_budget_summary"]["calibration_sections"] == ["appointment_delegation"]
+    assert summary["prompt_budget_summary"]["cost_attribution"]["fixed_instruction_chars"] > 0
+    assert summary["prompt_budget_summary"]["cost_attribution"]["batch_json_chars"] > 0
+    assert summary["prompt_budget_summary"]["cost_attribution"]["factor_options_json_chars"] > 0
+    assert summary["prompt_budget_summary"]["cost_attribution"]["source_quote_text_chars"] > 0
     tasks = tool.read_jsonl(tmp_path / "tasks" / "factorization_tasks.jsonl")
     assert tasks[0]["task_kind"] == "retrieval_v2_factorization"
     assert "--dangerously-bypass-approvals-and-sandbox" in tasks[0]["argv"]
     assert "patch_path" not in tasks[0]
+    assert tasks[0]["prompt_budget"]["prompt_chars"] == len((Path.cwd() / tasks[0]["prompt_path"]).read_text(encoding="utf-8"))
+    assert tasks[0]["prompt_budget"]["estimated_prompt_tokens"] == (tasks[0]["prompt_budget"]["prompt_chars"] + 1) // 2
+    assert tasks[0]["prompt_budget"]["batch_material_count"] == 1
+    assert tasks[0]["prompt_budget"]["rule_counts"] == {"appointment_delegation": 1}
+    assert tasks[0]["prompt_budget"]["factor_option_count"] > 0
+    assert tasks[0]["prompt_budget"]["calibration_prompt_injected"] is True
+    assert tasks[0]["prompt_budget"]["cost_attribution"]["materials_json_chars"] > 0
+    assert tasks[0]["prompt_budget"]["cost_attribution"]["material_breakdown_chars"]["source_passages_json_chars"] > 0
+    assert tasks[0]["prompt_budget"]["cost_attribution"]["material_breakdown_chars"]["source_quote_text_chars"] > 0
     assert tasks[0]["expected_outputs"][0]["kind"] == "jsonl_patch"
     assert tasks[0]["expected_outputs"][0]["fallback"] == "last_message_marked_block"
     assert "/patches/" in tasks[0]["expected_outputs"][0]["path"].replace("\\", "/")
@@ -771,7 +947,25 @@ def test_build_codex_tasks_writes_slim_prompt_and_task_jsonl(tmp_path: Path) -> 
     assert (tmp_path / "tasks" / "patches").exists()
     assert (tmp_path / "tasks" / "logs").exists()
     prompt_text = (Path.cwd() / tasks[0]["prompt_path"]).read_text(encoding="utf-8")
+    markdown = (tmp_path / "tasks" / "factorization_tasks.md").read_text(encoding="utf-8")
+    assert "prompt_chars_total" in markdown
+    assert "fixed_instruction_chars" in markdown
+    assert "batch_json_chars" in markdown
+    assert "source_quote_text_chars" in markdown
+    assert "| task | batch | materials | prompt chars | est. tokens | factor options | hints | patch |" in markdown
     assert "factor_options_by_factor" in prompt_text
+    assert "patch_requirements" in prompt_text
+    assert "required_patch" not in prompt_text
+    assert '"target_action": "score | supporting_only | exclude"' not in prompt_text
+    assert '"person_roles"' not in prompt_text
+    assert '"person_affiliations"' not in prompt_text
+    assert '"talent_grade_basis"' not in prompt_text
+    assert '"canonical_name": "萧何"' in prompt_text
+    assert "factor_hint_suggestions" in prompt_text
+    assert "raw_hints" not in prompt_text
+    assert "usage_note" not in prompt_text
+    assert '"option_code"' not in prompt_text
+    assert "只是抓包端有限枚举预填建议，不是正式裁判" in prompt_text
     assert "唯一允许写入的是指定 JSONL patch 文件" in prompt_text
     assert "PATCH_JSONL_BEGIN" in prompt_text
     assert "PATCH_JSONL_END" in prompt_text
@@ -779,12 +973,14 @@ def test_build_codex_tasks_writes_slim_prompt_and_task_jsonl(tmp_path: Path) -> 
     assert "因子取值只能使用 source_passages.quote 明示支持的事实" in prompt_text
     assert "`attribution_factor` 最高档只用于 quote 明示皇帝亲自判断" in prompt_text
     assert "$i5b-delegation-factorization" not in prompt_text
-    assert "delegation 轻量校准" in prompt_text
+    assert "appointment_delegation 校准" in prompt_text
     assert "包内 direction 就是本轮 side，不重新判断正负" in prompt_text
     assert "所选 factor 数值乘积为负时必须填 `negative`" in prompt_text
-    assert "positive 行不得选择负值 `result_feedback`" in prompt_text
-    assert "不得把后续撤权、诛废、猜忌、清洗、谋反/反叛、自疑聚兵或功臣不保直接当作 delegation 结果反馈" in prompt_text
-    assert "delegation 的 `result_feedback` 只评价授权安排本身的任务收益或任务损害" in prompt_text
+    assert "positive 行不得选择负值 `appointment_effect`" in prompt_text
+    assert "不得把后续撤权、诛废、猜忌、清洗、谋反/反叛、自疑聚兵或功臣不保直接当作任用授权结果反馈" in prompt_text
+    assert "hint_value=strong_success" in prompt_text
+    assert "降为弱反馈必须在 patch_note 中说明同链不闭合的 quote 依据" in prompt_text
+    assert "appointment_delegation 的 `appointment_effect` 只评价任用授权安排本身的任务收益或任务损害" in prompt_text
     assert "同功者被杀、功臣安全恐惧、猜忌或政权安全压力" in prompt_text
     assert "同一 claim/object/side 拆成多个 role binding 时，默认最多保留一个 `score`" in prompt_text
     assert "重新全量裁判正负" not in prompt_text
@@ -820,7 +1016,7 @@ def test_talent_discovery_prompt_calibrates_promotion_proxy_signal(tmp_path: Pat
     assert "若只有任官而无发现性信号则 `exclude`" in prompt_text
 
 
-def test_factorization_prompt_keeps_late_result_feedback_evidence(tmp_path: Path) -> None:
+def test_factorization_prompt_keeps_late_appointment_effect_evidence(tmp_path: Path) -> None:
     long_quote = (
         "甲申，洮州十八族番叛，命沐英移兵讨之。"
         + "中间经过。" * 80
@@ -838,7 +1034,7 @@ def test_factorization_prompt_keeps_late_result_feedback_evidence(tmp_path: Path
         ],
         factor_rows(),
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         scope="accepted-packs",
         batch_size=8,

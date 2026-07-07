@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v2_clean_summary import judge_anomalies  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
+from scripts.dev import retrieval_v2_runtime_paths as runtime_paths  # noqa: E402
 
 
 SOURCE_PACK_REFINEMENT_TYPES = {
@@ -21,6 +22,7 @@ SOURCE_PACK_REFINEMENT_TYPES = {
     "alias_missing",
     "fetch_error",
     "source_fetch_failed",
+    "object_claim_undercoverage",
     "predicate_missing",
     "civil_undercoverage",
     "negative_undercoverage",
@@ -137,7 +139,7 @@ def queue_for_gap_type(gap_type: str) -> str:
 def priority_for_gap(gap_type: str, queue: str) -> int:
     if queue == "codex_review":
         return 40
-    if gap_type in {"source_missing", "alias_missing", "fetch_error", "source_fetch_failed"}:
+    if gap_type in {"source_missing", "alias_missing", "fetch_error", "source_fetch_failed", "object_claim_undercoverage"}:
         return 50
     if gap_type in {"predicate_missing", "civil_undercoverage", "negative_undercoverage"}:
         return 60
@@ -478,6 +480,14 @@ def build_rows(manifest_path: Path) -> dict[str, list[dict[str, Any]]]:
     return merge_rows(normalize_package(package) for package in packages)
 
 
+def default_package_name(manifest_path: Path) -> str:
+    stem = manifest_path.stem
+    if stem and stem != "intake_manifest":
+        return stem
+    parent = manifest_path.parent.name
+    return parent or stem or "retrieval_v2_consumption"
+
+
 def write_rowset(rows: Mapping[str, Sequence[Mapping[str, Any]]], output_root: Path) -> dict[str, Any]:
     output_root.mkdir(parents=True, exist_ok=True)
     files: dict[str, str] = {}
@@ -504,7 +514,14 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     build = subparsers.add_parser("build", help="Write normalized staging rows.")
     build.add_argument("--manifest", type=Path, required=True)
-    build.add_argument("--output-root", type=Path, required=True)
+    build.add_argument("--output-root", type=Path)
+    build.add_argument("--package-name", help="Runtime output directory name when --output-root is omitted.")
+    build.add_argument("--runtime-paths-config", type=Path, help="Optional runtime_paths.json for output defaults.")
+    build.add_argument(
+        "--use-local-runtime",
+        action="store_true",
+        help="Force repo-local tmp/.tmp runtime defaults instead of NAS/env runtime config.",
+    )
     return parser
 
 
@@ -512,9 +529,30 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command != "build":
         raise IntakeRowsError(f"unsupported command: {args.command}")
+    runtime = runtime_paths.load_runtime_paths(
+        config_path=args.runtime_paths_config,
+        use_local=args.use_local_runtime,
+    )
+    output_root = args.output_root or runtime_paths.default_consumption_root(
+        args.package_name or default_package_name(args.manifest),
+        runtime,
+    )
     rows = build_rows(args.manifest)
-    summary = write_rowset(rows, args.output_root)
-    print(json.dumps({"output_root": str(args.output_root), "totals": summary["totals"]}, ensure_ascii=False, sort_keys=True))
+    summary = write_rowset(rows, output_root)
+    print(
+        json.dumps(
+            {
+                "output_root": str(output_root),
+                "runtime_paths": {
+                    "uses_runtime_config": bool(runtime["uses_runtime_config"]),
+                    "config_source": str(runtime["config_source"]),
+                },
+                "totals": summary["totals"],
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+    )
     return 0
 
 

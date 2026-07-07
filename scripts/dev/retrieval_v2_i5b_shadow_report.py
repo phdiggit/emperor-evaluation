@@ -19,8 +19,7 @@ from scripts.dev.retrieval_v2_rule_scorer import apply_rule_scores
 
 
 FORMAL_RULES = {
-    "delegation",
-    "appointment_trust",
+    "appointment_delegation",
     "team_building",
     "talent_discovery",
     "tolerate_talent",
@@ -28,8 +27,7 @@ FORMAL_RULES = {
 }
 I5B_REVIEW_RULES = (
     "talent_discovery",
-    "appointment_trust",
-    "delegation",
+    "appointment_delegation",
     "team_building",
     "tolerate_talent",
     "anti_nepotism",
@@ -71,19 +69,35 @@ POLITICAL_ACTION_COMPLETENESS_KEYS = (
     "same_event_chain",
     "needs_source_extension",
 )
-DELEGATION_CHAIN_KEYS = (
-    "has_authorization_or_office",
-    "has_named_delegate",
+APPOINTMENT_DELEGATION_REQUIRED_CHAIN_KEYS = (
+    "has_appointment_or_authorization",
+    "has_named_actor",
     "has_task_or_responsibility",
-    "has_same_chain_outcome",
 )
-DELEGATION_CANDIDATE_ROLES = {
+APPOINTMENT_DELEGATION_FEEDBACK_CHAIN_KEYS = (
+    "has_result_or_feedback",
+    "has_continuity_or_reuse",
+)
+APPOINTMENT_DELEGATION_CANDIDATE_ROLES = {
+    "appointed_actor",
+    "entrusted_actor",
     "delegated_actor",
-    "authority_recipient",
-    "authority_revoked_target",
+    "strategic_advisor",
+    "military_commander",
+    "civil_official",
+    "misappointed_actor",
     "misdelegated_actor",
+    "misentrusted_actor",
+    "authority_revoked_target",
 }
-DELEGATION_DOMAINS = {"military", "civil", "fiscal", "frontier", "strategic", "institutional"}
+APPOINTMENT_DELEGATION_DOMAINS = {"military", "civil", "fiscal", "frontier", "strategic", "institutional"}
+AD_FACTOR_HINT_KEY = contracts.AD_FACTOR_HINT_KEY
+AD_IMPORTANCE_HINTS = set(contracts.AD_IMPORTANCE_HINTS)
+AD_EFFECT_HINTS = set(contracts.AD_EFFECT_HINTS)
+AD_CONTINUITY_HINTS = set(contracts.AD_CONTINUITY_HINTS)
+AD_HINT_CONFIDENCE_VALUES = set(contracts.AD_HINT_CONFIDENCE_VALUES)
+AD_HINT_CONFIDENCE_KEYS = set(contracts.AD_HINT_CONFIDENCE_KEYS)
+AD_UNCERTAINTY_FLAGS = set(contracts.AD_UNCERTAINTY_FLAGS)
 DISPOSITION_TERMS = (
     "伏诛",
     "被废",
@@ -243,7 +257,7 @@ def is_future_hint(row: Mapping[str, Any]) -> bool:
 
 
 def is_formal_candidate(row: Mapping[str, Any]) -> bool:
-    return text(row.get("rule_code")) in FORMAL_RULES and not is_future_hint(row)
+    return text(row.get("rule_code")) in FORMAL_RULES and candidate_hint_status(row) == contracts.CANDIDATE_HINT_STATUS_CURRENT
 
 
 def candidate_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
@@ -274,45 +288,120 @@ def boolish_true(value: Any) -> bool:
     return value is True or text(value).lower() == "true"
 
 
-def delegation_candidate_stats(rows: Sequence[Mapping[str, Any]]) -> tuple[dict[str, int], list[dict[str, Any]]]:
+def is_appointment_delegation_scoring_candidate(row: Mapping[str, Any], payload: Mapping[str, Any] | None = None) -> bool:
+    row_payload = payload if payload is not None else candidate_payload(row)
+    if text(row.get("rule_code") or row_payload.get("rule_code")) != "appointment_delegation":
+        return False
+    lane = text(row.get("candidate_lane") or row_payload.get("candidate_lane"))
+    if lane and lane != "I5B.appointment_delegation":
+        return False
+    direction = text(row.get("direction") or row.get("candidate_direction") or row_payload.get("direction"))
+    scoring = boolish_true(row_payload.get("scoring_candidate"))
+    usable = boolish_true(row_payload.get("usable_for_scoring_cluster"))
+    return scoring and usable and direction in {"positive", "negative"}
+
+
+def appointment_delegation_factor_hint_problems(hints: Any) -> list[str]:
+    if not isinstance(hints, Mapping):
+        return ["factor_hints_not_object"]
+    problems: list[str] = []
+    if text(hints.get("importance_hint")) not in AD_IMPORTANCE_HINTS:
+        problems.append("invalid_importance_hint")
+    if text(hints.get("effect_hint")) not in AD_EFFECT_HINTS:
+        problems.append("invalid_effect_hint")
+    if text(hints.get("continuity_hint")) not in AD_CONTINUITY_HINTS:
+        problems.append("invalid_continuity_hint")
+    confidence = hints.get("hint_confidence")
+    if not isinstance(confidence, Mapping):
+        problems.append("invalid_hint_confidence")
+    else:
+        for key in AD_HINT_CONFIDENCE_KEYS:
+            if text(confidence.get(key)) not in AD_HINT_CONFIDENCE_VALUES:
+                problems.append(f"invalid_hint_confidence_{key}")
+    flags = hints.get("uncertainty_flags")
+    if flags is None:
+        flags = []
+    if not isinstance(flags, list):
+        problems.append("invalid_uncertainty_flags")
+    else:
+        invalid_flags = [text(flag) for flag in flags if text(flag) not in AD_UNCERTAINTY_FLAGS]
+        if invalid_flags:
+            problems.append("invalid_uncertainty_flag")
+    return problems
+
+
+def appointment_delegation_candidate_stats(rows: Sequence[Mapping[str, Any]]) -> tuple[dict[str, int], list[dict[str, Any]]]:
     counts = {
-        "delegation_candidate_count": 0,
-        "delegation_scoring_candidate_count": 0,
-        "delegation_scoring_candidate_invalid_count": 0,
-        "delegation_review_candidate_count": 0,
+        "appointment_delegation_candidate_count": 0,
+        "appointment_delegation_scoring_candidate_count": 0,
+        "appointment_delegation_scoring_candidate_invalid_count": 0,
+        "appointment_delegation_review_candidate_count": 0,
+        "appointment_delegation_factor_hint_count": 0,
+        "appointment_delegation_factor_hint_missing_count": 0,
+        "appointment_delegation_factor_hint_invalid_count": 0,
+        "appointment_delegation_factor_hint_offscope_count": 0,
     }
     examples: list[dict[str, Any]] = []
     for row in rows:
-        if text(row.get("rule_code")) != "delegation":
+        if text(row.get("rule_code")) != "appointment_delegation":
             continue
-        counts["delegation_candidate_count"] += 1
+        counts["appointment_delegation_candidate_count"] += 1
         payload = candidate_payload(row)
-        chain = payload.get("delegation_chain")
+        chain = payload.get("appointment_delegation_chain")
         chain = chain if isinstance(chain, Mapping) else {}
-        scoring = boolish_true(payload.get("scoring_candidate")) or boolish_true(payload.get("usable_for_scoring_cluster"))
+        scoring = is_appointment_delegation_scoring_candidate(row, payload)
+        direction = text(row.get("direction") or row.get("candidate_direction") or payload.get("direction"))
+        hints = payload.get(AD_FACTOR_HINT_KEY)
+        has_hints = hints is not None
+        if has_hints and not scoring:
+            counts["appointment_delegation_factor_hint_offscope_count"] += 1
+            examples.append(
+                {
+                    "claim_code": text(row.get("claim_code")),
+                    "problems": ["appointment_delegation_factor_hints_offscope"],
+                    "direction": direction,
+                }
+            )
         if not scoring:
-            counts["delegation_review_candidate_count"] += 1
+            counts["appointment_delegation_review_candidate_count"] += 1
             continue
-        counts["delegation_scoring_candidate_count"] += 1
-        missing = [key for key in DELEGATION_CHAIN_KEYS if not boolish_true(chain.get(key))]
+        counts["appointment_delegation_scoring_candidate_count"] += 1
+        if has_hints:
+            counts["appointment_delegation_factor_hint_count"] += 1
+            hint_problems = appointment_delegation_factor_hint_problems(hints)
+            if hint_problems:
+                counts["appointment_delegation_factor_hint_invalid_count"] += 1
+                examples.append(
+                    {
+                        "claim_code": text(row.get("claim_code")),
+                        "problems": hint_problems,
+                        "direction": direction,
+                    }
+                )
+        else:
+            counts["appointment_delegation_factor_hint_missing_count"] += 1
+        missing = [key for key in APPOINTMENT_DELEGATION_REQUIRED_CHAIN_KEYS if not boolish_true(chain.get(key))]
+        has_feedback = any(boolish_true(chain.get(key)) for key in APPOINTMENT_DELEGATION_FEEDBACK_CHAIN_KEYS)
+        if not has_feedback:
+            missing.append("has_result_or_feedback|has_continuity_or_reuse")
         role = text(payload.get("candidate_role"))
-        domain = text(payload.get("delegation_domain"))
+        domain = text(payload.get("appointment_delegation_domain"))
         problems = []
         if missing:
-            problems.append("delegation_chain_not_all_true")
-        if role not in DELEGATION_CANDIDATE_ROLES:
+            problems.append("appointment_delegation_chain_incomplete")
+        if role not in APPOINTMENT_DELEGATION_CANDIDATE_ROLES:
             problems.append("invalid_candidate_role")
-        if domain and domain not in DELEGATION_DOMAINS:
-            problems.append("invalid_delegation_domain")
+        if domain and domain not in APPOINTMENT_DELEGATION_DOMAINS:
+            problems.append("invalid_appointment_delegation_domain")
         if problems:
-            counts["delegation_scoring_candidate_invalid_count"] += 1
+            counts["appointment_delegation_scoring_candidate_invalid_count"] += 1
             examples.append(
                 {
                     "claim_code": text(row.get("claim_code")),
                     "problems": problems,
                     "missing_chain_keys": missing,
                     "candidate_role": role,
-                    "delegation_domain": domain,
+                    "appointment_delegation_domain": domain,
                 }
             )
     return counts, examples[:30]
@@ -352,6 +441,41 @@ def candidate_route_stats(rows: Sequence[Mapping[str, Any]]) -> tuple[dict[str, 
                 }
             )
     return dict(sorted(status_counts.items())), dict(sorted(item_counts.items())), dict(sorted(lane_counts.items())), examples[:30]
+
+
+def candidate_profile_stats(rows: Sequence[Mapping[str, Any]]) -> tuple[dict[str, int], list[dict[str, Any]]]:
+    counts = {
+        "candidate_payload_with_personnel_profile_count": 0,
+        "candidate_payload_with_power_control_profile_count": 0,
+        "candidate_profile_problem_count": 0,
+    }
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        item_code = candidate_item_code(row)
+        payload = candidate_payload(row)
+        problems: list[str] = []
+        if isinstance(payload.get("personnel_profile"), Mapping):
+            counts["candidate_payload_with_personnel_profile_count"] += 1
+            if item_code != "I5B":
+                problems.append("personnel_profile_on_non_i5b_candidate")
+        if isinstance(payload.get("power_control_profile"), Mapping):
+            counts["candidate_payload_with_power_control_profile_count"] += 1
+            if item_code != "I5C":
+                problems.append("power_control_profile_on_non_i5c_candidate")
+        if "profile_policy" in payload:
+            problems.append("profile_policy_leaked_to_payload")
+        if problems:
+            counts["candidate_profile_problem_count"] += 1
+            examples.append(
+                {
+                    "claim_code": text(row.get("claim_code")),
+                    "rule_code": text(row.get("rule_code")),
+                    "candidate_item_code": item_code,
+                    "candidate_lane": candidate_lane(row),
+                    "problems": problems,
+                }
+            )
+    return counts, examples[:30]
 
 
 def negative_disposition_risks(
@@ -553,8 +677,9 @@ def person_report(person: Mapping[str, Any], events: Sequence[Mapping[str, Any]]
     claims = as_rows(judge.get("claims"))
     bindings = as_rows(judge.get("primary_bindings") or judge.get("bindings"))
     secondary = as_rows(judge.get("secondary_binding_candidates"))
-    delegation_counts, delegation_examples = delegation_candidate_stats(secondary)
+    appointment_delegation_counts, appointment_delegation_examples = appointment_delegation_candidate_stats(secondary)
     status_counts, item_counts, lane_counts, route_examples = candidate_route_stats(secondary)
+    profile_counts, profile_examples = candidate_profile_stats(secondary)
     passage_counts, passage_examples = claim_passage_risks(claims, candidates)
     fact_counts, fact_examples = claim_fact_structure_stats(claims, candidates)
     disposition_risks = negative_disposition_risks(claims, bindings)
@@ -585,8 +710,10 @@ def person_report(person: Mapping[str, Any], events: Sequence[Mapping[str, Any]]
         "candidate_lane_counts": lane_counts,
         "candidate_route_problem_count": len(route_examples),
         "candidate_route_problem_examples": route_examples,
-        **delegation_counts,
-        "delegation_scoring_candidate_invalid_examples": delegation_examples,
+        **profile_counts,
+        "candidate_profile_problem_examples": profile_examples,
+        **appointment_delegation_counts,
+        "appointment_delegation_scoring_candidate_invalid_examples": appointment_delegation_examples,
         "fetch_error_count": integer(person.get("fetch_error_count")),
         "candidate_coverage_gap_count": integer(person.get("candidate_coverage_gap_count")),
         "judge_coverage_gap_count": integer(person.get("judge_coverage_gap_count")),
@@ -642,6 +769,8 @@ def build_recommendations(report: Mapping[str, Any]) -> list[dict[str, str]]:
             recommendations.append({"severity": "warning", "message": "political_action_v1 source_span_refs need repair"})
         if totals["candidate_route_problem_count"]:
             recommendations.append({"severity": "block", "message": "candidate lane/status contract has invalid current/future routing"})
+    if totals["candidate_profile_problem_count"]:
+        recommendations.append({"severity": "warning", "message": "candidate payload profiles should be normalized before long-term consumption"})
     if totals["claim_count"] and totals["claims_with_evidence_spans"] < totals["claim_count"]:
         recommendations.append({"severity": "warning", "message": "some claims lack evidence_spans"})
     if totals["span_missing_source_slice_ref"] or totals["span_unknown_source_slice_ref"] or totals["span_text_not_found"]:
@@ -650,8 +779,12 @@ def build_recommendations(report: Mapping[str, Any]) -> list[dict[str, str]]:
         recommendations.append({"severity": "warning", "message": "dedupe repeated canonical claim summaries before widening"})
     if totals["formal_secondary_candidate_count"] == 0 and totals["claim_count"]:
         recommendations.append({"severity": "warning", "message": "shadow pilot produced claims but no formal secondary candidates"})
-    if totals["delegation_scoring_candidate_invalid_count"]:
-        recommendations.append({"severity": "block", "message": "delegation scoring candidates must have all chain flags true and valid candidate_role"})
+    if totals["appointment_delegation_scoring_candidate_invalid_count"]:
+        recommendations.append({"severity": "block", "message": "appointment_delegation scoring candidates must have all chain flags true and valid candidate_role"})
+    if totals["appointment_delegation_factor_hint_missing_count"]:
+        recommendations.append({"severity": "warning", "message": "appointment_delegation scoring candidates are missing AD factor hint shadow"})
+    if totals["appointment_delegation_factor_hint_invalid_count"] or totals["appointment_delegation_factor_hint_offscope_count"]:
+        recommendations.append({"severity": "block", "message": "appointment_delegation factor hints must use finite enums and only appear on scoring positive/negative AD candidates"})
     if totals["fetch_error_count"]:
         recommendations.append({"severity": "warning", "message": "fetch errors may hide source coverage gaps"})
     return recommendations
@@ -678,12 +811,29 @@ def build_report(run_root: Path) -> dict[str, Any]:
         "candidate_item_counts": merge_count_maps(people, "candidate_item_counts"),
         "candidate_lane_counts": merge_count_maps(people, "candidate_lane_counts"),
         "candidate_route_problem_count": sum(row["candidate_route_problem_count"] for row in people),
-        "delegation_candidate_count": sum(row["delegation_candidate_count"] for row in people),
-        "delegation_scoring_candidate_count": sum(row["delegation_scoring_candidate_count"] for row in people),
-        "delegation_scoring_candidate_invalid_count": sum(
-            row["delegation_scoring_candidate_invalid_count"] for row in people
+        "candidate_payload_with_personnel_profile_count": sum(
+            row["candidate_payload_with_personnel_profile_count"] for row in people
         ),
-        "delegation_review_candidate_count": sum(row["delegation_review_candidate_count"] for row in people),
+        "candidate_payload_with_power_control_profile_count": sum(
+            row["candidate_payload_with_power_control_profile_count"] for row in people
+        ),
+        "candidate_profile_problem_count": sum(row["candidate_profile_problem_count"] for row in people),
+        "appointment_delegation_candidate_count": sum(row["appointment_delegation_candidate_count"] for row in people),
+        "appointment_delegation_scoring_candidate_count": sum(row["appointment_delegation_scoring_candidate_count"] for row in people),
+        "appointment_delegation_scoring_candidate_invalid_count": sum(
+            row["appointment_delegation_scoring_candidate_invalid_count"] for row in people
+        ),
+        "appointment_delegation_review_candidate_count": sum(row["appointment_delegation_review_candidate_count"] for row in people),
+        "appointment_delegation_factor_hint_count": sum(row["appointment_delegation_factor_hint_count"] for row in people),
+        "appointment_delegation_factor_hint_missing_count": sum(
+            row["appointment_delegation_factor_hint_missing_count"] for row in people
+        ),
+        "appointment_delegation_factor_hint_invalid_count": sum(
+            row["appointment_delegation_factor_hint_invalid_count"] for row in people
+        ),
+        "appointment_delegation_factor_hint_offscope_count": sum(
+            row["appointment_delegation_factor_hint_offscope_count"] for row in people
+        ),
         "fetch_error_count": sum(row["fetch_error_count"] for row in people),
         "candidate_coverage_gap_count": sum(row["candidate_coverage_gap_count"] for row in people),
         "judge_coverage_gap_count": sum(row["judge_coverage_gap_count"] for row in people),
@@ -773,8 +923,11 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             row["secondary_binding_count"],
             row["formal_secondary_candidate_count"],
             row["future_hint_count"],
-            row["delegation_scoring_candidate_count"],
-            row["delegation_scoring_candidate_invalid_count"],
+            row["appointment_delegation_scoring_candidate_count"],
+            row["appointment_delegation_scoring_candidate_invalid_count"],
+            row["appointment_delegation_factor_hint_count"],
+            row["appointment_delegation_factor_hint_missing_count"],
+            row["appointment_delegation_factor_hint_invalid_count"],
             row["judge_coverage_gap_count"],
             row["judge_anomaly_block_count"],
             row["negative_disposition_risk_count"],
@@ -805,8 +958,11 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 "secondary",
                 "formal_secondary",
                 "future_hint",
-                "delegation_scoring",
-                "delegation_invalid",
+                "appointment_delegation_scoring",
+                "appointment_delegation_invalid",
+                "ad_factor_hints",
+                "ad_hint_missing",
+                "ad_hint_invalid",
                 "judge_gaps",
                 "blocks",
                 "disposal_risk",
@@ -821,14 +977,21 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         f"- weak_text_overlap: `{totals['weak_text_overlap']}`",
         f"- duplicate_claim_risk_count: `{totals['duplicate_claim_risk_count']}`",
         f"- negative_disposition_risk_count: `{totals['negative_disposition_risk_count']}`",
-        f"- delegation_candidate_count: `{totals['delegation_candidate_count']}`",
-        f"- delegation_scoring_candidate_count: `{totals['delegation_scoring_candidate_count']}`",
-        f"- delegation_scoring_candidate_invalid_count: `{totals['delegation_scoring_candidate_invalid_count']}`",
-        f"- delegation_review_candidate_count: `{totals['delegation_review_candidate_count']}`",
+        f"- appointment_delegation_candidate_count: `{totals['appointment_delegation_candidate_count']}`",
+        f"- appointment_delegation_scoring_candidate_count: `{totals['appointment_delegation_scoring_candidate_count']}`",
+        f"- appointment_delegation_scoring_candidate_invalid_count: `{totals['appointment_delegation_scoring_candidate_invalid_count']}`",
+        f"- appointment_delegation_review_candidate_count: `{totals['appointment_delegation_review_candidate_count']}`",
+        f"- appointment_delegation_factor_hint_count: `{totals['appointment_delegation_factor_hint_count']}`",
+        f"- appointment_delegation_factor_hint_missing_count: `{totals['appointment_delegation_factor_hint_missing_count']}`",
+        f"- appointment_delegation_factor_hint_invalid_count: `{totals['appointment_delegation_factor_hint_invalid_count']}`",
+        f"- appointment_delegation_factor_hint_offscope_count: `{totals['appointment_delegation_factor_hint_offscope_count']}`",
         f"- candidate_status_counts: `{stable_json(totals['candidate_status_counts']).strip()}`",
         f"- candidate_item_counts: `{stable_json(totals['candidate_item_counts']).strip()}`",
         f"- candidate_lane_counts: `{stable_json(totals['candidate_lane_counts']).strip()}`",
         f"- candidate_route_problem_count: `{totals['candidate_route_problem_count']}`",
+        f"- candidate_payload_with_personnel_profile_count: `{totals['candidate_payload_with_personnel_profile_count']}`",
+        f"- candidate_payload_with_power_control_profile_count: `{totals['candidate_payload_with_power_control_profile_count']}`",
+        f"- candidate_profile_problem_count: `{totals['candidate_profile_problem_count']}`",
         f"- claims_with_fact_payload: `{totals['claims_with_fact_payload']}` / `{totals['claim_count']}`",
         f"- claims_with_political_action_v1: `{totals['claims_with_political_action_v1']}` / `{totals['claim_count']}`",
         f"- claims_missing_political_action_fact_fields: `{totals['claims_missing_political_action_fact_fields']}`",

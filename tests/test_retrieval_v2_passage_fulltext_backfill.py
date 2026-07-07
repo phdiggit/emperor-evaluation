@@ -104,6 +104,21 @@ def test_build_backfill_plan_uses_target_fallback_candidates(tmp_path: Path, mon
     assert plan["planned"][0]["raw_text"] == full_text
 
 
+def test_fallback_candidate_paths_uses_appointment_delegation_run_dir(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    candidates = (
+        tmp_path
+        / "tmp"
+        / "retrieval_v2_clean_runs"
+        / "runner"
+        / "TGT-LB_appointment_delegation"
+        / "candidates.final.json"
+    )
+    write_json(candidates, {"candidate_slices": []})
+
+    assert tool.fallback_candidate_paths("TGT-LB") == [candidates]
+
+
 def test_build_backfill_plan_uses_document_cache_locator_when_candidate_slice_missing(tmp_path: Path) -> None:
     cache_root = tmp_path / "source_cache"
     page_text = "史記卷首。" + ("南越王尉佗者，真定人也。" * 30) + "佗即击并桂林、象郡。"

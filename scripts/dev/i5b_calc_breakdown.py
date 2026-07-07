@@ -28,9 +28,9 @@ from scripts.dev.evidence_cluster_workbench import (  # noqa: E402
 
 KEY_FACTOR_ORDER = (
     "talent_quality_factor",
-    "trust_validity",
-    "authorization_intensity",
-    "result_feedback",
+    "appointment_importance",
+    "appointment_effect",
+    "continuity_factor",
     "handling_severity",
     "target_fault_factor",
     "disposition_severity",
@@ -42,8 +42,7 @@ KEY_FACTOR_ORDER = (
 
 RULE_LABELS = {
     "talent_discovery": "发现人才",
-    "appointment_trust": "任人信任",
-    "delegation": "合理授权",
+    "appointment_delegation": "任用授权",
     "team_building": "建立团队",
     "tolerate_talent": "容人保全",
     "anti_nepotism": "避免任人唯亲",
@@ -51,9 +50,9 @@ RULE_LABELS = {
 
 FACTOR_LABELS = {
     "talent_quality_factor": "人才质量",
-    "trust_validity": "信任合理性",
-    "authorization_intensity": "授权强度",
-    "result_feedback": "结果反馈",
+    "appointment_importance": "任用授权重要性",
+    "appointment_effect": "任用授权效果",
+    "continuity_factor": "持续性",
     "handling_severity": "处置严重度",
     "target_fault_factor": "对象过错",
     "disposition_severity": "处置严重度",

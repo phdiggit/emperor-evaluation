@@ -9,9 +9,9 @@ def policy_map() -> dict:
         [
             {
                 "item_code": "I5B",
-                "rule_code": "appointment_trust",
+                "rule_code": "appointment_delegation",
                 "policy_code": "person_material_policy",
-                "allowed_scoring_roles": ["trusted_minister", "misappointed_person"],
+                "allowed_scoring_roles": ["delegated_actor", "misdelegated_actor"],
                 "context_roles": ["source_context"],
                 "disallowed_scored_obj_types": ["mechanism"],
             },
@@ -33,20 +33,22 @@ def batch() -> dict[str, object]:
         "groups": [
             {
                 "emperor": "刘彻",
-                "rule_code": "appointment_trust",
+                "rule_code": "appointment_delegation",
                 "materials": [
                     {
                         "emperor": "刘彻",
-                        "rule_code": "appointment_trust",
+                        "rule_code": "appointment_delegation",
                         "obj_src_id": 2304,
                         "direction": "positive",
                         "obj_name": "儿宽",
                         "factor_patch_template": {
                             "side": "positive",
-                            "factor_keys": ["trust_depth", "source_factor"],
-                            "factor_refs": {"trust_depth": {"label": ""}, "source_factor": {"label": ""}},
+                            "factor_keys": ["appointment_importance", "source_factor"],
+                            "factor_refs": {"appointment_importance": {"label": ""}, "source_factor": {"label": ""}},
                             "factor_option_candidates": {
-                                "trust_depth": [{"label": "有实际职责的任用。", "value_num": "1"}],
+                                "appointment_importance": [
+                                    {"label": "有实际职责的任用、信任或单一领域真实授权。", "value_num": "1"}
+                                ],
                                 "source_factor": [{"label": "基础史源", "value_num": "1"}],
                             },
                         },
@@ -63,10 +65,10 @@ def valid_patch_row() -> dict[str, object]:
         "target_action": "score",
         "side": "positive",
         "factor_refs": {
-            "trust_depth": {"label": "有实际职责的任用。"},
+            "appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"},
             "source_factor": {"label": "基础史源"},
         },
-        "patch_note": "按材料补入常规任用信任因子。",
+        "patch_note": "按材料补入常规任用授权因子。",
     }
 
 
@@ -87,13 +89,13 @@ def test_build_report_flags_missing_patch_rows() -> None:
 
 def test_build_report_flags_unknown_factor_label() -> None:
     row = valid_patch_row()
-    row["factor_refs"]["trust_depth"]["label"] = "不存在的档位"
+    row["factor_refs"]["appointment_importance"]["label"] = "不存在的档位"
 
     report = tool.build_report(batch(), [row], policies=policy_map())
 
     assert report["ok"] is False
     assert report["issues"][0]["status"] == "unknown_factor_label"
-    assert report["issues"][0]["factor"] == "trust_depth"
+    assert report["issues"][0]["factor"] == "appointment_importance"
 
 
 def test_supporting_only_requires_patch_note() -> None:

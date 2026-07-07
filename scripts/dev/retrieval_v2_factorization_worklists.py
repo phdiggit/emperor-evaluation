@@ -22,6 +22,7 @@ from scripts.dev.retrieval_v2_factorization_tasks import (  # noqa: E402
     expected_output_contracts_path,
     patch_path_for_task,
     prompt_for_batch,
+    slim_batch_for_prompt,
     task_code,
 )
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError  # noqa: E402
@@ -30,7 +31,7 @@ from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa
 
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 DEFAULT_ITEM_CODE = "I5B"
-DEFAULT_RULE_CODE = "delegation"
+DEFAULT_RULE_CODE = "appointment_delegation"
 DEFAULT_FORMULA_CODE = "evidence_cluster_signal_v3"
 SCOPES = ("accepted-packs", "active-targets")
 ACTION_OPTIONS = ("score", "supporting_only", "exclude")
@@ -38,6 +39,48 @@ AUTO_SCORER_FACTOR_NAMES = {"rank_decay"}
 TEAM_FACTOR_SCOPE = "team"
 SHARED_FACTOR_SCOPES = {"default", "shared"}
 RULE_FACTOR_SCOPES = {"rule", "attribute_mapping"}
+APPOINTMENT_DELEGATION_HINT_PAYLOAD_KEY = "appointment_delegation_factor_hints"
+APPOINTMENT_DELEGATION_HINT_TO_FACTOR_VALUE = {
+    "importance_hint": {
+        "factor_name": "appointment_importance",
+        "values": {
+            "nominal_light": "0.6000",
+            "real_duty": "1.0000",
+            "key_military_political": "1.2500",
+            "state_level_long_term": "1.4000",
+        },
+    },
+    "effect_hint": {
+        "factor_name": "appointment_effect",
+        "values": {
+            "weak_feedback": "0.4000",
+            "normal_success": "1.0000",
+            "strong_success": "1.5000",
+            "bad_result": "-0.8000",
+            "major_bad": "-1.8000",
+            "structural_bad": "-2.6000",
+        },
+    },
+    "continuity_hint": {
+        "factor_name": "continuity_factor",
+        "values": {
+            "single_short": "0.8500",
+            "stable": "1.0000",
+            "long_multi_stage": "1.1500",
+        },
+    },
+}
+APPOINTMENT_DELEGATION_HINT_BLOCKING_FLAGS = {
+    "appointment_importance": set(),
+    "appointment_effect": {"effect_strength_needs_review", "same_chain_result_unclear", "negative_causality_needs_review"},
+    "continuity_factor": {"continuity_needs_review"},
+}
+HINT_PREFILL_CONFIDENCES = {"high", "medium"}
+APPOINTMENT_DELEGATION_HINT_CONFIDENCE_KEYS = {
+    "importance_hint": ("importance", "importance_hint", "appointment_importance"),
+    "effect_hint": ("effect", "effect_hint", "appointment_effect"),
+    "continuity_hint": ("continuity", "continuity_hint", "continuity_factor"),
+}
 FORMULA_FACTOR_KEYS: dict[str, dict[str, tuple[str, ...]]] = {
     "talent_discovery": {
         "positive": (
@@ -57,37 +100,19 @@ FORMULA_FACTOR_KEYS: dict[str, dict[str, tuple[str, ...]]] = {
             "context_factor",
         ),
     },
-    "appointment_trust": {
+    "appointment_delegation": {
         "positive": (
-            "trust_depth",
-            "trust_validity",
+            "appointment_importance",
+            "appointment_effect",
             "continuity_factor",
             "attribution_factor",
             "source_factor",
             "context_factor",
         ),
         "negative": (
-            "trust_depth",
-            "trust_validity",
+            "appointment_importance",
+            "appointment_effect",
             "continuity_factor",
-            "attribution_factor",
-            "source_factor",
-            "context_factor",
-        ),
-    },
-    "delegation": {
-        "positive": (
-            "authorization_intensity",
-            "person_post_fit",
-            "result_feedback",
-            "attribution_factor",
-            "source_factor",
-            "context_factor",
-        ),
-        "negative": (
-            "authorization_intensity",
-            "person_post_fit",
-            "result_feedback",
             "attribution_factor",
             "source_factor",
             "context_factor",
@@ -133,7 +158,6 @@ FORMULA_FACTOR_KEYS: dict[str, dict[str, tuple[str, ...]]] = {
 
 class FactorizationWorklistError(ImportPlanError):
     pass
-
 
 def read_json(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -275,6 +299,102 @@ def factor_option_candidates(catalog: Mapping[tuple[str, str], Sequence[Mapping[
     return rows
 
 
+def option_by_value(
+    catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]],
+    *,
+    rule_code: str,
+    factor_name: str,
+    value_num: str,
+) -> dict[str, Any] | None:
+    normalized = text(value_num)
+    for row in factor_option_candidates(catalog, rule_code=rule_code, factor_name=factor_name):
+        if text(row.get("value_num")) == normalized:
+            return dict(row)
+    return None
+
+
+def candidate_factor_hints(row: Mapping[str, Any]) -> Mapping[str, Any]:
+    payload = row.get("candidate_payload")
+    if not isinstance(payload, Mapping):
+        return {}
+    hints = payload.get(APPOINTMENT_DELEGATION_HINT_PAYLOAD_KEY)
+    return hints if isinstance(hints, Mapping) else {}
+
+
+def confidence_for_hint(hints: Mapping[str, Any], hint_key: str, factor_name: str) -> str:
+    confidence = hints.get("hint_confidence")
+    if isinstance(confidence, Mapping):
+        for key in APPOINTMENT_DELEGATION_HINT_CONFIDENCE_KEYS.get(hint_key, (hint_key, factor_name)):
+            value = text(confidence.get(key))
+            if value:
+                return value
+        return ""
+    return text(confidence)
+
+
+def uncertainty_flags(hints: Mapping[str, Any]) -> set[str]:
+    raw = hints.get("uncertainty_flags")
+    if not isinstance(raw, Sequence) or isinstance(raw, (str, bytes)):
+        return set()
+    return {text(value) for value in raw if text(value)}
+
+
+def build_appointment_delegation_hint_suggestions(
+    row: Mapping[str, Any],
+    catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]],
+) -> dict[str, Any]:
+    if text(row.get("rule_code")) != "appointment_delegation":
+        return {}
+    hints = candidate_factor_hints(row)
+    if not hints:
+        return {}
+    flags = uncertainty_flags(hints)
+    suggestions: dict[str, Any] = {
+        "source": APPOINTMENT_DELEGATION_HINT_PAYLOAD_KEY,
+        "raw_hints": dict(hints),
+        "mapped_refs": {},
+        "withheld_refs": {},
+        "uncertainty_flags": sorted(flags),
+        "usage_note": "抓包端 hint 只作预填建议；消费端必须按规则表和 quote 独立确认，可覆盖或清空。",
+    }
+    for hint_key, config in APPOINTMENT_DELEGATION_HINT_TO_FACTOR_VALUE.items():
+        hint_value = text(hints.get(hint_key))
+        factor_name = text(config.get("factor_name"))
+        confidence = confidence_for_hint(hints, hint_key, factor_name)
+        values = config.get("values") if isinstance(config.get("values"), Mapping) else {}
+        value_num = text(values.get(hint_value))
+        blocking_flags = APPOINTMENT_DELEGATION_HINT_BLOCKING_FLAGS.get(factor_name, set()) & flags
+        withheld_reason = ""
+        if not hint_value or hint_value == "unknown":
+            withheld_reason = "unknown_hint"
+        elif not value_num:
+            withheld_reason = "unsupported_hint"
+        elif confidence not in HINT_PREFILL_CONFIDENCES:
+            withheld_reason = "low_or_missing_confidence"
+        elif blocking_flags:
+            withheld_reason = "uncertainty_flag"
+        option = option_by_value(catalog, rule_code="appointment_delegation", factor_name=factor_name, value_num=value_num) if value_num else None
+        if not withheld_reason and option is None:
+            withheld_reason = "missing_factor_option"
+        entry = {
+            "hint_key": hint_key,
+            "hint_value": hint_value,
+            "confidence": confidence,
+            "factor_name": factor_name,
+            "value_num": value_num,
+            "uncertainty_flags": sorted(blocking_flags),
+        }
+        if withheld_reason:
+            suggestions["withheld_refs"][factor_name] = {**entry, "reason": withheld_reason}
+            continue
+        suggestions["mapped_refs"][factor_name] = {
+            **entry,
+            "label": text(option.get("label")) if option else "",
+            "option_code": text(option.get("option_code")) if option else "",
+        }
+    return suggestions
+
+
 def factor_patch_template(
     row: Mapping[str, Any],
     catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]],
@@ -289,6 +409,14 @@ def factor_patch_template(
     talent_label = text(obj.get("talent_quality_factor_label")) if isinstance(obj, Mapping) else text(row.get("talent_quality_factor_label"))
     if talent_label and "talent_quality_factor" in factor_refs:
         factor_refs["talent_quality_factor"] = {"label": talent_label}
+    hint_suggestions = build_appointment_delegation_hint_suggestions(row, catalog)
+    for factor_name, ref in (hint_suggestions.get("mapped_refs") or {}).items():
+        if factor_name in factor_refs and text(ref.get("label")):
+            factor_refs[factor_name] = {
+                "label": text(ref.get("label")),
+                "prefill_source": APPOINTMENT_DELEGATION_HINT_PAYLOAD_KEY,
+                "prefill_confidence": text(ref.get("confidence")),
+            }
     return {
         "target_action": "review",
         "action_options": list(ACTION_OPTIONS),
@@ -300,6 +428,7 @@ def factor_patch_template(
             factor_name: factor_option_candidates(catalog, rule_code=rule_code, factor_name=factor_name)
             for factor_name in factor_keys
         },
+        "factor_hint_suggestions": hint_suggestions,
         "patch_note": "",
     }
 
@@ -425,6 +554,8 @@ def fetch_material_rows(
             crb.object_role,
             crb.confidence as binding_confidence,
             crb.review_status as binding_review_status,
+            crb.binding_payload,
+            cand.candidate_payload,
             mol.id as material_object_link_id,
             mol.link_code,
             mol.role as material_role,
@@ -487,6 +618,17 @@ def fetch_material_rows(
             on tqfo.factor_id = tqf.id
            and tqfo.option_status = 'active'
            and trim(trailing '。' from tqfo.label) = trim(trailing '。' from tbtc.talent_quality_label)
+          left join lateral (
+              select c0.candidate_payload
+                from retrieval_v2.claim_rule_binding_candidates c0
+               where c0.resolved_binding_id = crb.id
+                  or (
+                      coalesce(crb.binding_payload->>'candidate_id', '') ~ '^[0-9]+$'
+                      and c0.id = (crb.binding_payload->>'candidate_id')::bigint
+                  )
+               order by case when c0.resolved_binding_id = crb.id then 0 else 1 end, c0.id
+               limit 1
+          ) cand on true
           left join role_agg ra on ra.object_id = o.id
           left join affiliation_agg aa on aa.object_id = o.id
           left join passage_agg pa on pa.claim_id = mc.id
@@ -494,6 +636,8 @@ def fetch_material_rows(
            and (
                 crb.usable_for_scoring_cluster
                 or (
+                    crb.rule_code <> 'appointment_delegation'
+                    and
                     crb.binding_payload->>'source' = 'retrieval_v2_candidate_promoter'
                     and nullif(crb.binding_payload->>'candidate_id', '') is not null
                 )
@@ -535,6 +679,8 @@ def material_item(
         "object_role": text(row.get("object_role")),
         "binding_confidence": text(row.get("binding_confidence")),
         "binding_review_status": text(row.get("binding_review_status")),
+        "binding_payload": row.get("binding_payload") if isinstance(row.get("binding_payload"), Mapping) else {},
+        "candidate_payload": row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {},
         "object": {
             "object_id": row.get("object_id"),
             "object_code": text(row.get("object_code")),
@@ -815,14 +961,47 @@ def decimal_or_none(value: Any) -> Decimal | None:
         return None
 
 
-def result_feedback_sign_issue(*, side: str, value: Decimal | None) -> str:
+def appointment_effect_sign_issue(*, side: str, value: Decimal | None) -> str:
     if value is None or value == 0:
         return ""
     if side == "positive" and value < 0:
-        return "positive_side_negative_result_feedback"
+        return "positive_side_negative_appointment_effect"
     if side == "negative" and value > 0:
-        return "negative_side_positive_result_feedback"
+        return "negative_side_positive_appointment_effect"
     return ""
+
+
+def factor_hint_suggestions(material: Mapping[str, Any]) -> Mapping[str, Any]:
+    template = material.get("factor_patch_template")
+    if not isinstance(template, Mapping):
+        return {}
+    hints = template.get("factor_hint_suggestions")
+    return hints if isinstance(hints, Mapping) else {}
+
+
+def mapped_hint_ref(material: Mapping[str, Any], factor_name: str) -> Mapping[str, Any]:
+    suggestions = factor_hint_suggestions(material)
+    mapped = suggestions.get("mapped_refs")
+    if not isinstance(mapped, Mapping):
+        return {}
+    ref = mapped.get(factor_name)
+    return ref if isinstance(ref, Mapping) else {}
+
+
+def strong_success_downgrade_issue(*, material: Mapping[str, Any], side: str, factor_name: str, value: Decimal | None) -> str:
+    if text(material.get("rule_code")) != "appointment_delegation":
+        return ""
+    if side != "positive" or factor_name != "appointment_effect" or value is None:
+        return ""
+    hint_ref = mapped_hint_ref(material, "appointment_effect")
+    if text(hint_ref.get("hint_value")) != "strong_success":
+        return ""
+    suggested_value = decimal_or_none(hint_ref.get("value_num"))
+    if suggested_value is None or suggested_value <= 0:
+        return ""
+    if value > Decimal("0.4000"):
+        return ""
+    return "strong_success_hint_downgraded_to_weak_feedback"
 
 
 def raw_score_sign_issue(*, side: str, raw_score: Decimal | None) -> str:
@@ -900,19 +1079,41 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
         value = decimal_or_none(option.get("value_num")) if option else None
         if value is not None:
             selected_values.append(value)
-        if text(material.get("rule_code")) == "delegation" and factor_name == "result_feedback":
-            status = result_feedback_sign_issue(side=side, value=value)
+        if text(material.get("rule_code")) == "appointment_delegation" and factor_name == "appointment_effect":
+            status = appointment_effect_sign_issue(side=side, value=value)
             if status:
                 issues.append(
                     {
                         **base,
                         "severity": "error",
-                        "status": "side_result_feedback_sign_mismatch",
+                        "status": "side_appointment_effect_sign_mismatch",
                         "detail": status,
                         "factor": factor_name,
                         "label": label,
                         "side": side,
                         "value_num": str(value),
+                    }
+                )
+            downgrade_status = strong_success_downgrade_issue(
+                material=material,
+                side=side,
+                factor_name=factor_name,
+                value=value,
+            )
+            if downgrade_status:
+                hint_ref = mapped_hint_ref(material, "appointment_effect")
+                issues.append(
+                    {
+                        **base,
+                        "severity": "error",
+                        "status": downgrade_status,
+                        "factor": factor_name,
+                        "label": label,
+                        "side": side,
+                        "value_num": str(value),
+                        "hint_value": text(hint_ref.get("hint_value")),
+                        "hint_confidence": text(hint_ref.get("confidence")),
+                        "hint_value_num": text(hint_ref.get("value_num")),
                     }
                 )
     if side in {"positive", "negative"} and len(selected_values) == len(expected_keys):
@@ -1045,6 +1246,166 @@ def load_batch_files(batch_dir: Path | None, batch_json: Sequence[Path]) -> list
     return list(unique.values())
 
 
+def prompt_token_estimate(prompt_text: str) -> int:
+    return (len(prompt_text) + 1) // 2
+
+
+def json_char_count(value: Any) -> int:
+    return len(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True, default=str))
+
+
+def batch_json_chars(prompt_text: str) -> int:
+    marker = "## Batch\n\n```json\n"
+    start = prompt_text.find(marker)
+    if start < 0:
+        return 0
+    start += len(marker)
+    end = prompt_text.find("\n```", start)
+    if end < 0:
+        return len(prompt_text) - start
+    return end - start
+
+
+def prompt_cost_attribution(payload: Mapping[str, Any], prompt_text: str) -> dict[str, Any]:
+    materials = payload.get("materials") if isinstance(payload.get("materials"), list) else []
+    factor_options = payload.get("factor_options_by_factor") if isinstance(payload.get("factor_options_by_factor"), Mapping) else {}
+    batch_chars = batch_json_chars(prompt_text)
+    factor_options_chars = json_char_count(factor_options)
+    materials_chars = json_char_count(materials)
+    source_passages_chars = 0
+    source_quote_text_chars = 0
+    factor_hints_chars = 0
+    object_profile_chars = 0
+    patch_requirements_chars = 0
+    claim_summary_text_chars = 0
+    for material in materials:
+        if not isinstance(material, Mapping):
+            continue
+        claim = material.get("claim") if isinstance(material.get("claim"), Mapping) else {}
+        passages = claim.get("source_passages") if isinstance(claim.get("source_passages"), list) else []
+        source_passages_chars += json_char_count(passages)
+        claim_summary_text_chars += len(text(claim.get("summary")))
+        for passage in passages:
+            if isinstance(passage, Mapping):
+                source_quote_text_chars += len(text(passage.get("quote")))
+        hints = material.get("factor_hint_suggestions")
+        if isinstance(hints, Mapping) and hints:
+            factor_hints_chars += json_char_count(hints)
+        obj = material.get("object")
+        if isinstance(obj, Mapping):
+            object_profile_chars += json_char_count(obj)
+        patch_requirements = material.get("patch_requirements")
+        if isinstance(patch_requirements, Mapping):
+            patch_requirements_chars += json_char_count(patch_requirements)
+    return {
+        "fixed_instruction_chars": max(0, len(prompt_text) - batch_chars),
+        "batch_json_chars": batch_chars,
+        "factor_options_json_chars": factor_options_chars,
+        "materials_json_chars": materials_chars,
+        "batch_json_overhead_chars": max(0, batch_chars - factor_options_chars - materials_chars),
+        "material_breakdown_chars": {
+            "source_passages_json_chars": source_passages_chars,
+            "source_quote_text_chars": source_quote_text_chars,
+            "factor_hints_json_chars": factor_hints_chars,
+            "object_profile_json_chars": object_profile_chars,
+            "patch_requirements_json_chars": patch_requirements_chars,
+            "claim_summary_text_chars": claim_summary_text_chars,
+        },
+    }
+
+
+def prompt_budget_snapshot(batch: Mapping[str, Any], prompt_text: str) -> dict[str, Any]:
+    payload = slim_batch_for_prompt(batch)
+    materials = payload.get("materials") if isinstance(payload.get("materials"), list) else []
+    factor_options = payload.get("factor_options_by_factor") if isinstance(payload.get("factor_options_by_factor"), Mapping) else {}
+    rule_counts = Counter(text(material.get("rule_code")) for material in materials if isinstance(material, Mapping) and text(material.get("rule_code")))
+    hint_materials = 0
+    hint_mapped_refs = 0
+    hint_withheld_refs = 0
+    for material in materials:
+        if not isinstance(material, Mapping):
+            continue
+        hints = material.get("factor_hint_suggestions")
+        if not isinstance(hints, Mapping) or not hints:
+            continue
+        hint_materials += 1
+        mapped = hints.get("mapped_refs") if isinstance(hints.get("mapped_refs"), Mapping) else {}
+        withheld = hints.get("withheld_refs") if isinstance(hints.get("withheld_refs"), Mapping) else {}
+        hint_mapped_refs += len(mapped)
+        hint_withheld_refs += len(withheld)
+    option_counts = {
+        text(factor_name): len(rows)
+        for factor_name, rows in factor_options.items()
+        if text(factor_name) and isinstance(rows, list)
+    }
+    calibration_sections = [
+        rule_code
+        for rule_code in ("appointment_delegation", "team_building", "talent_discovery")
+        if rule_code in rule_counts
+    ]
+    return {
+        "prompt_chars": len(prompt_text),
+        "prompt_bytes_utf8": len(prompt_text.encode("utf-8")),
+        "estimated_prompt_tokens": prompt_token_estimate(prompt_text),
+        "estimated_prompt_tokens_method": "ceil(prompt_chars / 2)",
+        "batch_material_count": len(materials),
+        "rule_counts": dict(sorted(rule_counts.items())),
+        "factor_option_factor_count": len(option_counts),
+        "factor_option_count": sum(option_counts.values()),
+        "factor_option_counts_by_factor": dict(sorted(option_counts.items())),
+        "factor_hint_suggestion_materials": hint_materials,
+        "factor_hint_mapped_refs": hint_mapped_refs,
+        "factor_hint_withheld_refs": hint_withheld_refs,
+        "calibration_prompt_injected": bool(calibration_sections),
+        "calibration_sections": calibration_sections,
+        "cost_attribution": prompt_cost_attribution(payload, prompt_text),
+    }
+
+
+def sum_nested_int(budgets: Sequence[Mapping[str, Any]], *keys: str) -> int:
+    total = 0
+    for budget in budgets:
+        current: Any = budget
+        for key in keys:
+            current = current.get(key) if isinstance(current, Mapping) else None
+        total += int(current or 0)
+    return total
+
+
+def summarize_prompt_budgets(tasks: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    budgets = [task.get("prompt_budget") for task in tasks if isinstance(task.get("prompt_budget"), Mapping)]
+    if not budgets:
+        return {
+            "prompt_chars_total": 0,
+            "prompt_chars_max": 0,
+            "estimated_prompt_tokens_total": 0,
+            "estimated_prompt_tokens_max": 0,
+            "estimated_prompt_tokens_method": "ceil(prompt_chars / 2)",
+        }
+    max_prompt = max(budgets, key=lambda item: int(item.get("prompt_chars") or 0))
+    calibration_sections = sorted({section for budget in budgets for section in (budget.get("calibration_sections") or []) if text(section)})
+    return {
+        "prompt_chars_total": sum(int(budget.get("prompt_chars") or 0) for budget in budgets),
+        "prompt_chars_max": int(max_prompt.get("prompt_chars") or 0),
+        "estimated_prompt_tokens_total": sum(int(budget.get("estimated_prompt_tokens") or 0) for budget in budgets),
+        "estimated_prompt_tokens_max": int(max_prompt.get("estimated_prompt_tokens") or 0),
+        "estimated_prompt_tokens_method": "ceil(prompt_chars / 2)",
+        "factor_option_count_total": sum(int(budget.get("factor_option_count") or 0) for budget in budgets),
+        "factor_hint_suggestion_materials": sum(int(budget.get("factor_hint_suggestion_materials") or 0) for budget in budgets),
+        "factor_hint_mapped_refs": sum(int(budget.get("factor_hint_mapped_refs") or 0) for budget in budgets),
+        "factor_hint_withheld_refs": sum(int(budget.get("factor_hint_withheld_refs") or 0) for budget in budgets),
+        "calibration_sections": calibration_sections,
+        "cost_attribution": {
+            "fixed_instruction_chars": sum_nested_int(budgets, "cost_attribution", "fixed_instruction_chars"),
+            "batch_json_chars": sum_nested_int(budgets, "cost_attribution", "batch_json_chars"),
+            "factor_options_json_chars": sum_nested_int(budgets, "cost_attribution", "factor_options_json_chars"),
+            "materials_json_chars": sum_nested_int(budgets, "cost_attribution", "materials_json_chars"),
+            "source_quote_text_chars": sum_nested_int(budgets, "cost_attribution", "material_breakdown_chars", "source_quote_text_chars"),
+            "factor_hints_json_chars": sum_nested_int(budgets, "cost_attribution", "material_breakdown_chars", "factor_hints_json_chars"),
+        },
+    }
+
+
 def build_codex_tasks(*, batch_paths: Sequence[Path], output_root: Path) -> list[dict[str, Any]]:
     tasks: list[dict[str, Any]] = []
     for batch_path in batch_paths:
@@ -1079,7 +1440,9 @@ def build_codex_tasks(*, batch_paths: Sequence[Path], output_root: Path) -> list
         prompt_path.parent.mkdir(parents=True, exist_ok=True)
         patch_path.parent.mkdir(parents=True, exist_ok=True)
         last_message_path.parent.mkdir(parents=True, exist_ok=True)
-        prompt_path.write_text(prompt_for_batch(batch=batch, output_jsonl=patch_path), encoding="utf-8")
+        prompt_text = prompt_for_batch(batch=batch, output_jsonl=patch_path)
+        task["prompt_budget"] = prompt_budget_snapshot(batch, prompt_text)
+        prompt_path.write_text(prompt_text, encoding="utf-8")
         tasks.append(task)
     return tasks
 
@@ -1097,6 +1460,7 @@ def write_task_outputs(*, batch_paths: Sequence[Path], output_root: Path) -> dic
             "tasks": len(tasks),
             "materials": sum(int(task.get("material_count") or 0) for task in tasks),
         },
+        "prompt_budget_summary": summarize_prompt_budgets(tasks),
         "files": {
             "tasks_jsonl": repo_relative(tasks_path),
             "markdown": repo_relative(md_path),
@@ -1107,6 +1471,7 @@ def write_task_outputs(*, batch_paths: Sequence[Path], output_root: Path) -> dic
                 "batch_id": task["batch_id"],
                 "material_count": task["material_count"],
                 "patch_path": expected_output_contracts_path(task),
+                "prompt_budget": task.get("prompt_budget") or {},
             }
             for task in tasks
         ],
@@ -1117,12 +1482,23 @@ def write_task_outputs(*, batch_paths: Sequence[Path], output_root: Path) -> dic
         "",
         f"- tasks: `{summary['totals']['tasks']}`",
         f"- materials: `{summary['totals']['materials']}`",
+        f"- prompt_chars_total: `{summary['prompt_budget_summary']['prompt_chars_total']}`",
+        f"- estimated_prompt_tokens_total: `{summary['prompt_budget_summary']['estimated_prompt_tokens_total']}`",
+        f"- fixed_instruction_chars: `{summary['prompt_budget_summary']['cost_attribution']['fixed_instruction_chars']}`",
+        f"- batch_json_chars: `{summary['prompt_budget_summary']['cost_attribution']['batch_json_chars']}`",
+        f"- source_quote_text_chars: `{summary['prompt_budget_summary']['cost_attribution']['source_quote_text_chars']}`",
         "",
-        "| task | batch | materials | patch |",
-        "| --- | --- | ---: | --- |",
+        "| task | batch | materials | prompt chars | est. tokens | factor options | hints | patch |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for task in tasks:
-        lines.append(f"| `{task['task_code']}` | `{task['batch_id']}` | {task['material_count']} | `{expected_output_contracts_path(task)}` |")
+        budget = task.get("prompt_budget") if isinstance(task.get("prompt_budget"), Mapping) else {}
+        hint_refs = int(budget.get("factor_hint_mapped_refs") or 0) + int(budget.get("factor_hint_withheld_refs") or 0)
+        lines.append(
+            f"| `{task['task_code']}` | `{task['batch_id']}` | {task['material_count']} | "
+            f"{budget.get('prompt_chars', 0)} | {budget.get('estimated_prompt_tokens', 0)} | "
+            f"{budget.get('factor_option_count', 0)} | {hint_refs} | `{expected_output_contracts_path(task)}` |"
+        )
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return summary
 
@@ -1187,7 +1563,6 @@ def run_codex_tasks(
         argv.append("--respect-task-argv")
     if search:
         argv.append("--search")
-
     completed = subprocess.run(
         argv,
         cwd=ROOT,
@@ -1413,19 +1788,17 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--target-name", action="append", default=[], help="Restrict worklist to this emperor/person target name. Repeatable.")
     worklist.add_argument("--target-code", action="append", default=[], help="Restrict worklist to this retrieval target code. Repeatable.")
     worklist.add_argument("--source-pack-code", action="append", default=[], help="Restrict worklist to explicit source pack code. Repeatable; allows draft shadow packs.")
-    worklist.add_argument("--output-json", type=Path, required=True)
-    worklist.add_argument("--output-md", type=Path, required=True)
+    for name in ("--output-json", "--output-md"):
+        worklist.add_argument(name, type=Path, required=True)
     worklist.add_argument("--batch-output-dir", type=Path)
 
     template = subparsers.add_parser("template", help="Write a blank factorization patch JSONL for a batch.")
-    template.add_argument("--batch-json", type=Path, required=True)
-    template.add_argument("--output-jsonl", type=Path, required=True)
+    for name in ("--batch-json", "--output-jsonl"):
+        template.add_argument(name, type=Path, required=True)
 
     validate = subparsers.add_parser("validate-patch", help="Validate a factorization patch JSONL against a batch.")
-    validate.add_argument("--batch-json", type=Path, required=True)
-    validate.add_argument("--patch-jsonl", type=Path, required=True)
-    validate.add_argument("--output-json", type=Path, required=True)
-    validate.add_argument("--output-md", type=Path, required=True)
+    for name in ("--batch-json", "--patch-jsonl", "--output-json", "--output-md"):
+        validate.add_argument(name, type=Path, required=True)
     validate.add_argument("--fail-on-issue", action="store_true")
 
     tasks = subparsers.add_parser("tasks", help="Build Codex task prompts from factorization batch JSON files.")
@@ -1435,25 +1808,22 @@ def build_parser() -> argparse.ArgumentParser:
 
     run_plan = subparsers.add_parser("run-plan", help="Run or start Codex factorization tasks via codex-win agent.")
     run_plan.add_argument("--tasks-jsonl", type=Path, required=True)
-    run_plan.add_argument("--execute", action="store_true")
-    run_plan.add_argument("--background", action="store_true")
-    run_plan.add_argument("--limit", type=int, default=0)
-    run_plan.add_argument("--output", type=Path)
-    run_plan.add_argument("--agent-output-root", type=Path)
+    for name in ("--execute", "--background", "--respect-task-argv", "--search"):
+        run_plan.add_argument(name, action="store_true")
+    for name in ("--output", "--agent-output-root"):
+        run_plan.add_argument(name, type=Path)
+    for name, default in (("--limit", 0), ("--max-workers", 4), ("--timeout-seconds", 1800)):
+        run_plan.add_argument(name, type=int, default=default)
     run_plan.add_argument("--codex-win-bin", default="codex-win")
-    run_plan.add_argument("--max-workers", type=int, default=4)
-    run_plan.add_argument("--timeout-seconds", type=int, default=1800)
     run_plan.add_argument("--sandbox-profile", choices=("read-only", "local-write", "bypass"), default="local-write")
     run_plan.add_argument("--permission-profile", choices=("review-only", "tmp-jsonl-review", "local-write", "repo-editor", "bypass"))
     run_plan.add_argument("--deny-policy", choices=("fail", "continue-with-final", "deny-fail", "deny-continue", "deny-rewrite"))
     run_plan.add_argument("--write-root", type=Path, action="append", default=[])
     run_plan.add_argument("--git-snapshot", choices=("minimal", "full", "none"))
-    run_plan.add_argument("--respect-task-argv", action="store_true")
-    run_plan.add_argument("--search", action="store_true")
 
     recover = subparsers.add_parser("recover-patches", help="Recover JSONL patches from Codex task last-message/log files.")
-    recover.add_argument("--tasks-jsonl", type=Path, required=True)
-    recover.add_argument("--output-json", type=Path, required=True)
+    for name in ("--tasks-jsonl", "--output-json"):
+        recover.add_argument(name, type=Path, required=True)
     recover.add_argument("--output-md", type=Path)
     return parser
 
@@ -1521,18 +1891,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     args.output_md.write_text(render_markdown(payload), encoding="utf-8")
     if args.batch_output_dir:
         write_batch_files(args.batch_output_dir, payload.get("suggested_batches") or [])
-    print(
-        json.dumps(
-            {
-                "ok": payload["ok"],
-                "output_json": repo_relative(args.output_json),
-                "materials": payload["totals"]["materials"],
-                "suggested_batches": payload["totals"]["suggested_batches"],
-            },
-            ensure_ascii=False,
-            sort_keys=True,
-        )
-    )
+    result = {"ok": payload["ok"], "output_json": repo_relative(args.output_json), "materials": payload["totals"]["materials"], "suggested_batches": payload["totals"]["suggested_batches"]}
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 0 if payload["ok"] else 1
 
 

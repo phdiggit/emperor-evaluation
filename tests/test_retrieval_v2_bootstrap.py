@@ -22,7 +22,7 @@ def test_normalize_alias_removes_spacing_and_casefolds() -> None:
 
 
 def test_requirement_payload_keeps_anti_nepotism_non_core_for_retrieval_ready() -> None:
-    core = tool.requirement_payload("delegation", [{"policy_code": "person"}], [])
+    core = tool.requirement_payload("appointment_delegation", [{"policy_code": "person"}], [])
     non_core = tool.requirement_payload("anti_nepotism", [], [])
 
     assert core["is_core_for_retrieval"] is True
@@ -32,11 +32,11 @@ def test_requirement_payload_keeps_anti_nepotism_non_core_for_retrieval_ready() 
     assert core["clean_process_doc"] == "docs/数据结构与生成库/retrieval_v2_clean抓包流程.md"
 
 
-def test_delegation_requirement_payload_contains_coverage_contract() -> None:
+def test_appointment_delegation_requirement_payload_contains_coverage_contract() -> None:
     payload = tool.requirement_payload(
-        "delegation",
+        "appointment_delegation",
         [{"policy_code": "person"}],
-        [{"predicate": "delegated_authority"}],
+        [{"predicate": "appointed_or_delegated_authority"}],
     )
 
     matrix = payload["coverage_matrix"]
@@ -45,7 +45,6 @@ def test_delegation_requirement_payload_contains_coverage_contract() -> None:
 
     assert {"military_delegate", "civil_delegate", "strategic_delegate", "revoked_or_failed_delegate"} <= family_codes
     assert {
-        "appointment_trust",
         "team_building",
         "talent_discovery",
         "tolerate_talent",
@@ -56,20 +55,20 @@ def test_delegation_requirement_payload_contains_coverage_contract() -> None:
     future_hints = {row["rule_code"] for row in matrix["secondary_rule_hints"] if row.get("hint_status") == "future_rule_hint"}
     assert future_hints == {"power_control", "political_character"}
     assert matrix["material_policy_codes"] == ["person"]
-    assert matrix["predicate_options"] == ["delegated_authority"]
+    assert matrix["predicate_options"] == ["appointed_or_delegated_authority"]
 
 
 def test_retrieval_intent_payload_embeds_clean_policy_and_coverage_matrix() -> None:
-    requirement = tool.requirement_payload("delegation", [], [])
+    requirement = tool.requirement_payload("appointment_delegation", [], [])
 
     payload = tool.retrieval_intent_payload(
         emperor_name="李渊",
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         requirement=requirement,
     )
 
-    assert payload["coverage_matrix"]["rule_code"] == "delegation"
+    assert payload["coverage_matrix"]["rule_code"] == "appointment_delegation"
     assert payload["clean_input_policy"]["forbid_old_judgement_outputs"] is True
     assert payload["clean_input_policy"]["judge_stage_no_memory"] is True
 
@@ -77,10 +76,10 @@ def test_retrieval_intent_payload_embeds_clean_policy_and_coverage_matrix() -> N
 def test_source_snapshot_fingerprint_covers_rule_policy_and_predicate_rows() -> None:
     snapshot = tool.SourceSnapshot(
         item_rows=[{"id": 1, "item_code": "I5B"}],
-        rule_rows=[{"id": 10, "item_id": 1, "item_code": "I5B", "rule_code": "delegation"}],
-        material_policy_rows=[{"id": 20, "rule_code": "delegation", "policy_code": "person"}],
-        predicate_option_rows=[{"id": 30, "rule_code": "delegation", "predicate": "delegated_authority"}],
-        factor_rows=[{"id": 40, "rule_code": "delegation", "factor_name": "source_factor"}],
+        rule_rows=[{"id": 10, "item_id": 1, "item_code": "I5B", "rule_code": "appointment_delegation"}],
+        material_policy_rows=[{"id": 20, "rule_code": "appointment_delegation", "policy_code": "person"}],
+        predicate_option_rows=[{"id": 30, "rule_code": "appointment_delegation", "predicate": "appointed_or_delegated_authority"}],
+        factor_rows=[{"id": 40, "rule_code": "appointment_delegation", "factor_name": "source_factor"}],
         factor_option_rows=[{"id": 50, "factor_id": 40, "label": "基础史源"}],
     )
     changed = tool.SourceSnapshot(
@@ -100,19 +99,19 @@ def test_contract_rule_payloads_are_rule_scoped() -> None:
         item_rows=[],
         rule_rows=[],
         material_policy_rows=[
-            {"id": 1, "rule_code": "delegation"},
+            {"id": 1, "rule_code": "appointment_delegation"},
             {"id": 2, "rule_code": "talent_discovery"},
         ],
         predicate_option_rows=[
-            {"id": 3, "rule_code": "delegation"},
+            {"id": 3, "rule_code": "appointment_delegation"},
             {"id": 4, "rule_code": "tolerate_talent"},
         ],
     )
 
-    material, predicates = tool.contract_rule_payloads(snapshot, "delegation")
+    material, predicates = tool.contract_rule_payloads(snapshot, "appointment_delegation")
 
-    assert material == [{"id": 1, "rule_code": "delegation"}]
-    assert predicates == [{"id": 3, "rule_code": "delegation"}]
+    assert material == [{"id": 1, "rule_code": "appointment_delegation"}]
+    assert predicates == [{"id": 3, "rule_code": "appointment_delegation"}]
 
 
 def test_read_schema_sql_points_to_retrieval_v2_migration() -> None:

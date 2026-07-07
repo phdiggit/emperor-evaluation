@@ -9,22 +9,22 @@ from scripts.dev import retrieval_v2_source_candidates as tool
 
 def sample_task() -> dict:
     return {
-        "job_code": "JOB-I5B-LIYUAN-DELEGATION-FIXTURE",
+        "job_code": "JOB-I5B-LIYUAN-APPOINTMENT-DELEGATION-FIXTURE",
         "target_code": "TGT-I5B-9909F280EEC3",
         "emperor_name": "李渊",
         "item_code": "I5B",
         "contract_code": "I5B-RETRIEVAL-V2-20260704",
-        "rule_code": "delegation",
+        "rule_code": "appointment_delegation",
         "target_profile": {
             "primary_name": "李渊",
             "aliases": ["李渊", "高祖"],
             "must_check_titles": ["秦王", "齐王"],
         },
         "rule": {
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
             "keywords": ["命", "授", "总管", "元帅", "便宜", "留守"],
         },
-        "secondary_rule_candidates": ["appointment_trust", "team_building"],
+        "secondary_rule_candidates": ["team_building"],
         "object_seeds": [
             {"name": "李世民", "aliases": [{"alias": "秦王", "strength": "medium"}, {"alias": "太宗", "strength": "weak"}]},
             {"name": "李元吉", "aliases": [{"alias": "齐王", "strength": "medium"}, "元吉"]},
@@ -69,7 +69,7 @@ def test_build_candidates_reports_slice_coverage() -> None:
     assert result["stats"]["candidate_slices"] == 2
     assert result["coverage"]["objects_without_slices"] == []
     assert result["coverage"]["object_slice_counts"] == {"李世民": 1, "李元吉": 1}
-    assert result["coverage_matrix"]["rule_code"] == "delegation"
+    assert result["coverage_matrix"]["rule_code"] == "appointment_delegation"
     gap_types = {gap["gap_type"] for gap in result["coverage_gaps"]}
     assert "civil_undercoverage" in gap_types
     assert "negative_undercoverage" in gap_types
@@ -228,6 +228,111 @@ def test_item_wide_material_terms_capture_cross_item_future_hint_signals() -> No
     assert {"边疆", "失地", "徭役", "横征", "问策", "罢兵", "议和", "班师"} & set(row["matched_rule_terms"])
     assert "future_power_character_hint" in row["matched_role_families"]
     assert row["slice_profile"]["has_item_wide_signal"] is True
+
+
+def test_item_wide_material_terms_capture_negative_ad_power_abuse_without_case_terms() -> None:
+    task = copy.deepcopy(sample_task())
+    task["rule_code"] = "i5b_item_wide"
+    task["rule"] = {"rule_code": "i5b_item_wide", "keywords": []}
+    task["object_seeds"] = [{"name": "胡惟庸", "aliases": [{"alias": "胡惟庸", "strength": "strong"}]}]
+    task["source_documents"][0]["text"] = (
+        "帝宠任胡惟庸。胡惟庸专擅威福，内外封事有害己者辄匿闻，"
+        "生杀黜陟或不奏径行，奔竞之徒多趋附。"
+    )
+
+    result = tool.build_candidates(task, cache_dir=Path("tmp/test-unused"), timeout=1)
+
+    row = result["candidate_slices"][0]
+    assert row["object_name"] == "胡惟庸"
+    assert "appointment_delegation_material" in row["matched_role_families"]
+    assert {"宠任", "专擅", "威福", "封事", "不奏", "径行"} <= set(row["matched_rule_terms"])
+    assert row["slice_profile"]["has_negative_ad_power_abuse_signal"] is True
+    assert {"宠任", "专擅", "威福"} <= set(row["slice_profile"]["negative_ad_power_abuse_terms"])
+    assert "刘基" not in tool.NEGATIVE_AD_POWER_ABUSE_TERMS
+    assert "总中书政" not in tool.NEGATIVE_AD_POWER_ABUSE_TERMS
+
+
+def test_guarded_conditional_recall_overlay_requires_guard_terms() -> None:
+    task = copy.deepcopy(sample_task())
+    task["rule"] = {"rule_code": "appointment_delegation", "keywords": ["宠任"]}
+    task["object_seeds"] = [{"name": "胡惟庸", "aliases": [{"alias": "胡惟庸", "strength": "strong"}]}]
+    task["recall_term_overlays"] = [
+        {
+            "conditional_terms_not_injected": [
+                {
+                    "term": "谋反",
+                    "policy_group": "disposition_risk",
+                    "guard": {"requires_near_any": ["宠任", "专擅", "中书"]},
+                },
+                {
+                    "term": "伏诛",
+                    "policy_group": "disposition_risk",
+                    "guard": {"requires_near_any": ["宠任", "专擅", "中书"]},
+                },
+            ]
+        }
+    ]
+    task["source_documents"][0]["text"] = "帝宠任胡惟庸，惟庸专擅中书，后谋反伏诛。"
+
+    rows = tool.select_candidate_slices(task, task["source_documents"], context_chars=32, max_slices_per_object=3)
+
+    assert len(rows) == 1
+    assert {"谋反", "伏诛"} <= set(rows[0]["matched_rule_terms"])
+    assert rows[0]["matched_conditional_recall_terms"] == ["谋反", "伏诛"]
+
+
+def test_guarded_conditional_recall_overlay_does_not_match_without_guard_terms() -> None:
+    task = copy.deepcopy(sample_task())
+    task["rule"] = {"rule_code": "appointment_delegation", "keywords": ["宠任"]}
+    task["object_seeds"] = [{"name": "胡惟庸", "aliases": [{"alias": "胡惟庸", "strength": "strong"}]}]
+    task["recall_term_overlays"] = [
+        {
+            "conditional_terms_not_injected": [
+                {
+                    "term": "谋反",
+                    "policy_group": "disposition_risk",
+                    "guard": {"requires_near_any": ["宠任", "专擅", "中书"]},
+                }
+            ]
+        }
+    ]
+    task["source_documents"][0]["text"] = "胡惟庸谋反伏诛。"
+
+    rows = tool.select_candidate_slices(task, task["source_documents"], context_chars=32, max_slices_per_object=3)
+
+    assert rows == []
+
+
+def test_guarded_conditional_recall_overlay_requires_nearby_nonself_guard() -> None:
+    task = copy.deepcopy(sample_task())
+    task["rule"] = {"rule_code": "appointment_delegation", "keywords": ["宠任"]}
+    task["object_seeds"] = [{"name": "胡惟庸", "aliases": [{"alias": "胡惟庸", "strength": "strong"}]}]
+    task["recall_term_overlays"] = [
+        {
+            "conditional_terms_not_injected": [
+                {
+                    "term": "其党",
+                    "policy_group": "disposition_risk",
+                    "guard": {"requires_near_any": ["其党", "党"]},
+                },
+                {
+                    "term": "谋反",
+                    "policy_group": "disposition_risk",
+                    "guard": {"requires_near_any": ["丞相"]},
+                },
+            ]
+        }
+    ]
+    task["source_documents"][0]["text"] = (
+        "丞相论事甚详，群臣退。"
+        "其后诏书往复，百官议礼，州县奏报，仓储户籍，河渠学校，文字相续。"
+        "又命有司详定礼制，修城浚渠，赈恤流民，清理逋赋，诸司各具奏牍。"
+        "胡惟庸某日谋反。又言其党。"
+    )
+
+    rows = tool.select_candidate_slices(task, task["source_documents"], context_chars=80, max_slices_per_object=3)
+
+    assert rows == []
 
 
 def test_build_candidates_skips_root_pages_used_only_for_discovery() -> None:

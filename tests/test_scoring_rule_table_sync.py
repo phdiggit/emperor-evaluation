@@ -38,14 +38,13 @@ def test_extract_i5b_snapshot_includes_factor_options_and_rule_weights() -> None
     weights = payload["rule_score_weights"]
     assert [row["rule_code"] for row in weights] == [
         "talent_discovery",
-        "appointment_trust",
-        "delegation",
+        "appointment_delegation",
         "team_building",
         "tolerate_talent",
         "anti_nepotism",
     ]
     assert sum(Decimal(str(row["weight_num"])) for row in weights) == Decimal("1.00")
-    assert len({row["source_line"] for row in weights}) == 6
+    assert len({row["source_line"] for row in weights}) == 5
     assert [row["source_line"] for row in weights] == sorted(row["source_line"] for row in weights)
 
 
@@ -122,9 +121,17 @@ def test_main_render_upsert_sql_can_emit_factor_and_weight_sql(capsys) -> None:
     sql = capsys.readouterr().out
     assert "retrieval_v2.eval_rule_factors" in sql
     assert "retrieval_v2.eval_rule_factor_options" in sql
+    assert "retrieval_v2.eval_rules" in sql
+    assert "retrieval_v2.eval_rule_material_policies" in sql
+    assert "retrieval_v2.rule_contract_rules" in sql
     assert "retrieval_v2.item_rule_score_weights" in sql
+    assert "-- eval rules" in sql
+    assert "-- material policies" in sql
+    assert "-- contract rules" in sql
     assert "-- factor options" in sql
     assert "-- rule score weights" in sql
+    assert "appointment_delegation" in sql
+    assert "policy_status = 'inactive'" in sql
 
 
 def test_compare_weight_rows_reports_table_and_doc_diffs() -> None:
@@ -210,9 +217,9 @@ def test_audit_factor_judgments_reports_stale_or_mismatched_choices(monkeypatch)
 
         def fetchall(self):
             return [
-                (1, "刘邦", "TGT-I5B-LB", "appointment_trust", "score", "positive", "BND-1", "object_weight", "旧对象权重", "1.3", None, None, None),
-                (2, "刘邦", "TGT-I5B-LB", "appointment_trust", "score", "positive", "BND-2", "trust_depth", "有实际职责的任用。", "1.5", "appointment_trust", 42, "1.0"),
-                (3, "刘邦", "TGT-I5B-LB", "appointment_trust", "score", "positive", "BND-3", "source_factor", "标准史源，事实链清楚。", "1.0", "", 43, "1.0"),
+                (1, "刘邦", "TGT-I5B-LB", "appointment_delegation", "score", "positive", "BND-1", "object_weight", "旧对象权重", "1.3", None, None, None),
+                (2, "刘邦", "TGT-I5B-LB", "appointment_delegation", "score", "positive", "BND-2", "appointment_importance", "有实际职责的任用、信任或单一领域真实授权。", "1.5", "appointment_delegation", 42, "1.0"),
+                (3, "刘邦", "TGT-I5B-LB", "appointment_delegation", "score", "positive", "BND-3", "source_factor", "标准史源，事实链清楚。", "1.0", "", 43, "1.0"),
             ]
 
         def __enter__(self):
@@ -238,7 +245,7 @@ def test_audit_factor_judgments_reports_stale_or_mismatched_choices(monkeypatch)
         "postgres://example",
         item_code="I5B",
         formula_code="evidence_cluster_signal_v3",
-        rule_codes=("appointment_trust",),
+        rule_codes=("appointment_delegation",),
         target_codes=("TGT-I5B-LB",),
     )
 
@@ -258,7 +265,7 @@ def test_main_audit_factor_judgments_honors_fail_on_diff(monkeypatch, capsys) ->
         lambda *args, **kwargs: {"ok": False, "checked_factor_choices": 1, "judgment_rows": 1, "error_count": 1, "issues": []},
     )
 
-    rc = tool.main(["--audit-factor-judgments", "--rule-code", "appointment_trust", "--target-code", "TGT-I5B-LB", "--fail-on-diff"])
+    rc = tool.main(["--audit-factor-judgments", "--rule-code", "appointment_delegation", "--target-code", "TGT-I5B-LB", "--fail-on-diff"])
 
     assert rc == 1
     payload = json.loads(capsys.readouterr().out)

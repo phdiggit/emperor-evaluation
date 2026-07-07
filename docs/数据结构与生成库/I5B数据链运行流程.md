@@ -43,8 +43,8 @@ data/query_profile_batches/*.jsonl
 - `eval_rule_factors`、`eval_rule_factor_options`：计分细则结构化镜像；从规则文档同步因子名、标签、数值和文档来源行。
 - `evd_clusters`：证据簇，保存 `positive_signal`、`negative_signal`。
 - `evd_cluster_calc_details`：证据簇计算明细，保存材料因子、`factor_refs`、覆盖关系和对象侧聚合。
-- `emp_item_results`：I5B 子项结果，是公式输出，不是事实源。
-- `emp_item_result_calc_details`：定分计算明细，保存规则输入、响应函数参数、`base_core` 和最终定分过程。
+- `emp_item_results`：正式子项结果表；I5B 当前不在单皇帝消费阶段写入，需等待批量动态映射后再生成。
+- `emp_item_result_calc_details`：正式定分计算明细表；I5B 当前原始信号阶段不写入。
 
 `obj_srcs.emp_obj_id -> emp_objs.id` 是防止跨皇帝串料的关键。生成证据簇时按具体皇帝对象链聚合，不只按 `raw_objs.id` 聚合。
 
@@ -465,7 +465,7 @@ Remove-Item Env:\I5B_OBJECT_POOL_IMPORT_UNFREEZE
 
 硬通货属性采集可以并行交给 Codex 子进程，但子进程只产出待审 JSONL / review，不直接写库、不直接改 `talent_quality`。主控验收时检查每条摘要是否绑定史源、是否只写具体战功或文职成果、是否把争议和失败反转写入 `hard_merit_limitations`。
 
-同一批硬通货事实还可以产出 `fact_relation_hints.jsonl`，用于记录“皇帝任命/授权某对象执行某任务并取得某结果”这类可复用事实链。例如“李世民任命李靖为河北道行军大总管并攻灭东突厥”既可作为李靖硬通货，也可作为 `I5B.appointment_trust`、`I5B.delegation` 和后续国防安全类项目的候选事实。hint 只保存 `predicate_hint`、`relation_role_hint`、`target_items_hint` 和 `fact_summary`，不得直接写入 `fact_relations`；必须等谓词词表、目标 item/rule 和承载对象确认后，再转换为 `fact_relations` 或 `rule_evidence_units` 候选。
+同一批硬通货事实还可以产出 `fact_relation_hints.jsonl`，用于记录“皇帝任命/授权某对象执行某任务并取得某结果”这类可复用事实链。例如“李世民任命李靖为河北道行军大总管并攻灭东突厥”既可作为李靖硬通货，也可作为 `I5B.appointment_delegation` 和后续国防安全类项目的候选事实。hint 只保存 `predicate_hint`、`relation_role_hint`、`target_items_hint` 和 `fact_summary`，不得直接写入 `fact_relations`；必须等谓词词表、目标 item/rule 和承载对象确认后，再转换为 `fact_relations` 或 `rule_evidence_units` 候选。
 
 硬通货交付统一用只读验收工具汇总；该工具只校验 JSONL 和生成候选审阅包，不连接数据库、不写 `obj_attrs` / `fact_relations`：
 
@@ -655,11 +655,10 @@ payload 的最小结构：
 
 ## 4. 证据簇计算
 
-证据簇按 I5B 六个固定 `rule_code` 写入：
+证据簇按 I5B 五个固定 `rule_code` 写入：
 
 - `talent_discovery`
-- `appointment_trust`
-- `delegation`
+- `appointment_delegation`
 - `team_building`
 - `tolerate_talent`
 - `anti_nepotism`
@@ -678,7 +677,7 @@ python scripts/dev/evidence_cluster_workbench.py --help
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.json --dry-run
-python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.json --write-clusters --write-results
+python scripts/dev/i5b_factor_recalculator.py --input .tmp/i5b_factor_profile.json --write-clusters
 ```
 
 对象池已导入、但该皇帝 / rule 尚无 `evd_cluster_calc_details` 时，不走 pending 补材料链，先生成首轮因子化 worklist：
@@ -703,7 +702,7 @@ python scripts/dev/i5b_initial_factor_profile.py patch-to-profile `
 
 `patch-to-profile` 会在 profile 中写入 `factor_source=table`，因此默认 `--factor-source auto` 会读取 `eval_rule_factor_options`。首轮 profile 仍交给 `i5b_factor_recalculator.py --input` dry-run / 写库 / 重算；不得绕过重算器直接写 `evd_clusters` 或 `emp_item_results`。`team_building` 的对象材料可由对象链和 `talent_quality` 自动列出；这类成员材料以 `emp_obj_id` 为 patch 主键，不得伪造 `obj_src_id`，也不得把对象关联 ID 写入 `covered_material_ids`。`role_complementarity_factor`、`long_term_stability_factor` 仍必须由子进程在 patch 中显式选择候选标签。
 
-`i5b_factor_recalculator.py --write-clusters` 或 `--write-results` 写库前会自动运行因子一致性 hard-error 审计。典型拦截对象包括：`handling_severity >= 2.5` 时材料注释同时写明“不等同于系统清洗”“象征性信用撤销”“轻处分”等低严重度边界；或 `tolerate_talent` 负向材料绑定了 `talent_quality` 为佞臣、大佞臣、历史级佞臣的施害者对象。旧明细中的 `disposition_severity` 仍会被审计识别。只读审计可单独运行：
+`i5b_factor_recalculator.py --write-clusters` 写库前会自动运行因子一致性 hard-error 审计。典型拦截对象包括：`handling_severity >= 2.5` 时材料注释同时写明“不等同于系统清洗”“象征性信用撤销”“轻处分”等低严重度边界；或 `tolerate_talent` 负向材料绑定了 `talent_quality` 为佞臣、大佞臣、历史级佞臣的施害者对象。旧明细中的 `disposition_severity` 仍会被审计识别。只读审计可单独运行：
 
 ```powershell
 $env:PYTHONUTF8='1'
@@ -757,7 +756,7 @@ python scripts/dev/i5b_talent_discovery_audit.py `
 python scripts/dev/i5b_pending_material_worklist.py --format json --output tmp/i5b-authority-eval-work/review/i5b_pending_material_worklist.json --batch-output-dir tmp/i5b-authority-eval-work/review/pending_material_batches --batch-size 40
 ```
 
-该工具只读数据库，补齐 `pending_material_ids` 对应的皇帝、rule、对象、史源和 note，并按材料量输出建议 batch；子进程完成因子化后再由主控重放 `i5b_factor_recalculator.py --from-details --write-clusters --write-results`。
+该工具只读数据库，补齐 `pending_material_ids` 对应的皇帝、rule、对象、史源和 note，并按材料量输出建议 batch；子进程完成因子化后再由主控重放 `i5b_factor_recalculator.py --from-details --write-clusters`。
 
 子进程交付 patch JSONL 后，主控先验收 patch，不直接入库：
 
@@ -774,7 +773,7 @@ python scripts/dev/i5b_pending_factor_patch_apply.py --batch tmp/i5b-authority-e
 python scripts/dev/i5b_pending_factor_patch_apply.py --batch tmp/i5b-authority-eval-work/review/pending_material_batches/pending_material_batch_01.json --patch tmp/i5b-authority-eval-work/review/pending_factor_patches/pending_material_batch_01.jsonl --write
 ```
 
-`score` 会进入 `calc_detail.materials` 与 `scored_material_ids`，`supporting_only` 会进入 `supporting_material_ids`，`exclude` 会进入 `excluded_material_ids`；三者都会从 `pending_material_ids` 移除。写回后仍以 `i5b_factor_recalculator.py --from-details --write-clusters --write-results` 作为唯一重放入口。
+`score` 会进入 `calc_detail.materials` 与 `scored_material_ids`，`supporting_only` 会进入 `supporting_material_ids`，`exclude` 会进入 `excluded_material_ids`；三者都会从 `pending_material_ids` 移除。写回后仍以 `i5b_factor_recalculator.py --from-details --write-clusters` 作为唯一证据簇重放入口。
 
 ## 4.1. 计分细则表同步
 
@@ -816,9 +815,9 @@ python scripts/dev/i5b_factor_table_sync.py `
   --fail-on-diff
 ```
 
-## 5. 结果重算
+## 5. 原始信号重算
 
-结果层读取 `evd_clusters` 并写入 `emp_item_results`。当前 I5B 结果公式在：
+结果层先读取 `evd_clusters` 并输出各 rule 原始净信号与加权原始信号；不在单个皇帝完成时写入 `emp_item_results`。当前 I5B 原始信号公式在：
 
 ```text
 docs/分项规则/第五项统治者政治素质/B用人与授权.md
@@ -834,14 +833,13 @@ python scripts/dev/i5b_factor_recalculator.py `
   --dry-run
 ```
 
-从明细表重放并写回：
+从明细表重放并写回证据簇：
 
 ```powershell
 $env:PYTHONUTF8='1'
 python scripts/dev/i5b_factor_recalculator.py `
   --from-details `
-  --write-clusters `
-  --write-results
+  --write-clusters
 ```
 
 `--from-details` 和 `--input` 的运行时自动模式都从 `eval_rule_factor_options` 读取当前因子取值；不得用评分规则文档作为运行时取值来源。规则文档只通过同步工具生成可审 SQL / 审计报告，进入表后才被重算器消费。
@@ -849,7 +847,7 @@ python scripts/dev/i5b_factor_recalculator.py `
 该路径适用于“只改规则内部乘数因子”的重算。若新增或删除史料对象，必须先补对象链和受影响证据簇，再用明细表重放做全量一致性检查。
 写回路径会先执行因子一致性 hard-error 审计；若审计失败，应回到对应 `obj_srcs.note` 和 `factor_refs` 修正材料编码，不得通过改总分或结果层公式绕过。
 
-写回证据簇和结果后，应刷新影子承载层与事实关系候选，再运行只读健康检查：
+写回证据簇后，应刷新影子承载层与事实关系候选，再运行只读健康检查：
 
 ```powershell
 $env:PYTHONUTF8='1'
@@ -878,9 +876,9 @@ python scripts/dev/i5b_health_check.py `
 2. 运行 `i5b_factor_table_sync.py --render-upsert-sql`，审阅后把细则表同步到 PostgreSQL。
 3. 运行 `i5b_factor_table_sync.py --check-db-sync --fail-on-diff` 和 `--audit-calc-details --fail-on-diff`。
 4. 运行 `i5b_factor_recalculator.py --from-details --dry-run`。
-5. 检查结果。
+5. 检查原始信号。
 6. 运行 `i5b_factor_consistency_audit.py --fail-on-error` 检查因子和材料注释是否自洽。
-7. 运行 `--write-clusters --write-results` 写回；写库前会再次自动执行 hard-error 审计。
+7. 运行 `--write-clusters` 写回证据簇；写库前会再次自动执行 hard-error 审计。
 8. 运行 shadow / fact candidate 同步，再运行 `i5b_health_check.py --fail-on-issue`。
 
 新增史料或对象：
@@ -893,16 +891,15 @@ python scripts/dev/i5b_health_check.py `
 6. 运行 `i5b_rule_object_coverage_audit.py --rule-code <rule_code> --fail-on-gap`；普通 rule 若有已回源但不支撑入该 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
 7. 若受影响 rule 是 `talent_discovery`，运行 `i5b_talent_discovery_audit.py --fail-on-gap`；确有已回源不支撑入 rule 的对象，用 `--accepted-missing 皇帝:对象` 显式列出。
 8. 运行 `i5b_factor_consistency_audit.py --fail-on-error`，确认高严重度等因子没有和材料注释冲突。
-9. 从明细表重放，确认全量结果一致。
+9. 从明细表重放，确认全量原始信号一致。
 10. 运行 shadow / fact candidate 同步，再运行 `i5b_health_check.py --fail-on-issue`。
 
-改结果层公式：
+改最终动态映射公式：
 
-1. 更新分项规则文档和 `scripts/build/i5b_item_result_calculator.py`。
-2. 提升 `item_result_formula_i5b_*` 版本。
-3. 用现有 `evd_clusters` 重算 `emp_item_results`。
-4. 更新 `emp_item_result_calc_details` 并记录验证命令。
-5. 运行 `i5b_health_check.py --fail-on-issue`；如果未改证据簇明细，可不刷新 shadow / fact candidate。
+1. 先完成一批目标的 I5B 原始信号计算。
+2. 设计动态区间映射，明确标杆人物、分布形态、区分度和评分总则档位约束。
+3. 新增或更新专门的动态映射器，再写入 `emp_item_results` 和 `emp_item_result_calc_details`。
+4. 记录验证命令，并运行 `i5b_health_check.py --fail-on-issue`；如果未改证据簇明细，可不刷新 shadow / fact candidate。
 
 ## 7. 查漏检查
 

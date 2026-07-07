@@ -56,7 +56,7 @@ def fallback_candidate_paths(target_code: str) -> list[Path]:
     if not target_code:
         return []
     run_root = ROOT / "tmp" / "retrieval_v2_clean_runs"
-    pattern = f"*/{target_code}_delegation/candidates.final.json"
+    pattern = f"*/{target_code}_appointment_delegation/candidates.final.json"
     return sorted(
         run_root.glob(pattern),
         key=lambda path: path.stat().st_mtime if path.exists() else 0,

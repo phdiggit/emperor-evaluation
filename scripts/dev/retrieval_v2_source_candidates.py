@@ -31,6 +31,7 @@ from scripts.dev.retrieval_v2_source_document_policy import source_document_skip
 DEFAULT_CACHE_DIR = ROOT / "tmp" / "retrieval_v2_source_cache"
 WIKISOURCE_API = "https://zh.wikisource.org/w/api.php"
 USER_AGENT = "emperor-evaluation-retrieval-v2/0.1"
+CONDITIONAL_RECALL_GUARD_WINDOW_CHARS = 48
 DEFAULT_RULE_TERMS = (
     "命",
     "授",
@@ -166,6 +167,26 @@ DISPOSITION_NOISE_TERMS = (
     "賜死",
     "连坐",
     "連坐",
+)
+NEGATIVE_AD_POWER_ABUSE_TERMS = (
+    "宠任",
+    "寵任",
+    "专擅",
+    "專擅",
+    "威福",
+    "弄权",
+    "弄權",
+    "壅蔽",
+    "不奏",
+    "径行",
+    "徑行",
+    "封事",
+    "匿闻",
+    "匿聞",
+    "奔竞",
+    "奔競",
+    "趋附",
+    "趨附",
 )
 I5B_ITEM_WIDE_MATERIAL_TERMS = (
     "荐",
@@ -312,6 +333,7 @@ I5B_ITEM_WIDE_MATERIAL_TERMS = (
     "賄",
     "专",
     "專",
+    *NEGATIVE_AD_POWER_ABUSE_TERMS,
 )
 
 
@@ -574,6 +596,36 @@ def rule_terms(task: Mapping[str, Any]) -> list[str]:
     return unique_strings(terms)
 
 
+def conditional_recall_terms(task: Mapping[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for overlay in task.get("recall_term_overlays") or []:
+        if not isinstance(overlay, Mapping):
+            continue
+        for raw in overlay.get("conditional_terms_not_injected") or overlay.get("conditional_terms") or []:
+            if not isinstance(raw, Mapping):
+                continue
+            term = str(raw.get("term") or "").strip()
+            guard = raw.get("guard") if isinstance(raw.get("guard"), Mapping) else {}
+            requires_near_any = unique_strings(guard.get("requires_near_any") or [])
+            if term and requires_near_any:
+                rows.append(
+                    {
+                        "term": term,
+                        "requires_near_any": requires_near_any,
+                        "policy_group": raw.get("policy_group"),
+                        "risk_level": raw.get("risk_level"),
+                    }
+                )
+    seen: set[tuple[str, tuple[str, ...]]] = set()
+    result: list[dict[str, Any]] = []
+    for row in rows:
+        key = (str(row["term"]), tuple(row["requires_near_any"]))
+        if key not in seen:
+            seen.add(key)
+            result.append(row)
+    return result
+
+
 def outcome_terms(task: Mapping[str, Any]) -> list[str]:
     terms: list[Any] = []
     terms.extend(task.get("outcome_terms") or [])
@@ -670,12 +722,43 @@ def terms_in_text(text: str, terms: Sequence[str]) -> list[str]:
     return [term for term in terms if term and term in text]
 
 
+def conditional_terms_in_text(
+    text: str,
+    conditional_terms: Sequence[Mapping[str, Any]],
+    *,
+    guard_window_chars: int = CONDITIONAL_RECALL_GUARD_WINDOW_CHARS,
+) -> list[str]:
+    matches: list[str] = []
+    for row in conditional_terms:
+        term = str(row.get("term") or "").strip()
+        guard_terms = [
+            guard_term
+            for guard_term in unique_strings(row.get("requires_near_any") or [])
+            if guard_term != term and guard_term not in term
+        ]
+        if not term or not guard_terms:
+            continue
+        start = 0
+        while True:
+            index = text.find(term, start)
+            if index < 0:
+                break
+            window_start = max(0, index - guard_window_chars)
+            window_end = min(len(text), index + len(term) + guard_window_chars)
+            if terms_in_text(text[window_start:window_end], guard_terms):
+                matches.append(term)
+                break
+            start = index + max(1, len(term))
+    return unique_strings(matches)
+
+
 def delegation_chain_signal_profile(text: str) -> dict[str, Any]:
     authority_terms = terms_in_text(text, DELEGATION_AUTHORITY_TERMS)
     task_terms = terms_in_text(text, DELEGATION_TASK_TERMS)
     result_terms = terms_in_text(text, DELEGATION_RESULT_TERMS)
     disposition_terms = terms_in_text(text, DISPOSITION_NOISE_TERMS)
     item_wide_terms = terms_in_text(text, I5B_ITEM_WIDE_MATERIAL_TERMS)
+    negative_ad_power_abuse_terms = terms_in_text(text, NEGATIVE_AD_POWER_ABUSE_TERMS)
     has_authority = bool(authority_terms)
     has_task = bool(task_terms)
     has_result = bool(result_terms)
@@ -686,10 +769,12 @@ def delegation_chain_signal_profile(text: str) -> dict[str, Any]:
         "result_terms": result_terms,
         "disposition_noise_terms": disposition_terms,
         "item_wide_terms": item_wide_terms,
+        "negative_ad_power_abuse_terms": negative_ad_power_abuse_terms,
         "has_full_delegation_chain": has_authority and has_task and has_result,
         "has_authority_task_chain": has_authority and has_task,
         "has_task_result_chain": has_task and has_result,
         "has_item_wide_signal": bool(item_wide_terms),
+        "has_negative_ad_power_abuse_signal": bool(negative_ad_power_abuse_terms),
         "disposition_noise_only": has_disposition_noise and not (has_authority and has_task and has_result),
     }
 
@@ -739,6 +824,7 @@ def select_candidate_slices(
 ) -> list[dict[str, Any]]:
     seeds = [seed for seed in task.get("object_seeds", []) if isinstance(seed, Mapping)]
     rule_match_terms = rule_terms(task)
+    conditional_match_terms = conditional_recall_terms(task)
     outcome_match_terms = outcome_terms(task)
     target_terms = target_aliases(task)
     role_terms_by_family = role_family_terms(task)
@@ -761,7 +847,8 @@ def select_candidate_slices(
                 excerpt = compact_text(text[start:end])
                 alias_strengths = matched_alias_strengths(excerpt, aliases)
                 matched_aliases = list(alias_strengths)
-                matched_rule_terms = terms_in_text(excerpt, rule_match_terms)
+                matched_conditional_terms = conditional_terms_in_text(excerpt, conditional_match_terms)
+                matched_rule_terms = unique_strings([*terms_in_text(excerpt, rule_match_terms), *matched_conditional_terms])
                 if not matched_rule_terms:
                     continue
                 matched_outcome_terms = terms_in_text(excerpt, outcome_match_terms)
@@ -791,6 +878,7 @@ def select_candidate_slices(
                         "matched_aliases": matched_aliases,
                         "matched_alias_strengths": alias_strengths,
                         "matched_rule_terms": matched_rule_terms,
+                        "matched_conditional_recall_terms": matched_conditional_terms,
                         "matched_outcome_terms": matched_outcome_terms,
                         "matched_target_aliases": matched_target_aliases,
                         "matched_role_families": matched_role_families,
@@ -841,6 +929,7 @@ def merged_slice_row(
         "matched_aliases": list(alias_strengths),
         "matched_alias_strengths": alias_strengths,
         "matched_rule_terms": unique_row_values(rows, "matched_rule_terms"),
+        "matched_conditional_recall_terms": unique_row_values(rows, "matched_conditional_recall_terms"),
         "matched_outcome_terms": unique_row_values(rows, "matched_outcome_terms"),
         "matched_target_aliases": unique_row_values(rows, "matched_target_aliases"),
         "matched_role_families": unique_row_values(rows, "matched_role_families"),

@@ -17,8 +17,12 @@
         "reason": "I5B 因子重放暂含明细回放、对象候选、身份归一、已审非计分覆盖和结果写回，后续拆分前保留过渡预算"
       },
       "scripts/dev/i5b_factor_table_sync.py": {
-        "max_lines": 1100,
+        "max_lines": 1200,
         "reason": "I5B 计分细则表同步与 calc_detail 审计暂在同一工具内，稳定后拆分共享 catalog 层"
+      },
+      "scripts/dev/retrieval_v2_candidate_promoter.py": {
+        "max_lines": 1050,
+        "reason": "retrieval_v2 candidate promoter 暂含 personnel_political_wide 候选晋升、旧口径清理和异常审计，宽包试点稳定后拆分 promotion policy 与 audit 子模块"
       },
       "scripts/dev/object_pool_importer.py": {
         "max_lines": 1100,
@@ -33,16 +37,36 @@
         "reason": "retrieval_v2 clean runner 暂承载 taskgen、候选切片、补源、判读分片和运行交接编排，质量/耗时优化稳定后拆分 orchestration 与阶段执行模块"
       },
       "scripts/dev/retrieval_v2_clean_cli.py": {
-        "max_lines": 1100,
+        "max_lines": 1200,
         "reason": "retrieval_v2 clean CLI 暂承载 taskgen 调度、streaming/batch/presearch 路由和 I5B-wide shadow pilot 标记，稳定后拆分 CLI 参数层与调度策略层"
       },
+      "scripts/dev/retrieval_v2_contracts.py": {
+        "max_lines": 1130,
+        "reason": "retrieval_v2 contracts 暂集中承载 profile、candidate lane、shadow report 和 personnel_political_wide 契约常量，跨项路由稳定后拆分 profile contracts 子模块"
+      },
       "scripts/dev/retrieval_v2_factorization_worklists.py": {
+        "max_lines": 1900,
+        "reason": "retrieval_v2 因子化派工、patch 验收、side/raw-score 入库闸门、表驱动因子模板、AD factor hint 预填建议、factorization prompt budget 快照、Codex 调度和日志恢复仍在联调期共用上下文，稳定后拆分 task runner、hint adapter、prompt budget 与 patch recovery 子模块"
+      },
+      "scripts/dev/retrieval_v2_i5b_shadow_report.py": {
+        "max_lines": 1320,
+        "reason": "retrieval_v2 I5B shadow report 暂含 personnel_political_wide 覆盖、异常、候选 lane、profile normalization 与 AD factor hint 指标和回归摘要，profile 固化后拆分 report sections 子模块"
+      },
+      "scripts/dev/retrieval_v2_recall_term_sampler.py": {
         "max_lines": 1450,
-        "reason": "retrieval_v2 因子化派工、patch 验收、side/raw-score 入库闸门、表驱动因子模板、Codex 调度和日志恢复仍在联调期共用上下文，稳定后拆分 task runner 与 patch recovery 子模块"
+        "reason": "retrieval_v2 recall term sampler 暂含 personnel_political_wide 先验 taxonomy、句子 ngram 降噪、候选采样、profile delta 和 source A/B 报告，召回词策略稳定后拆分 taxonomy、sampler 与 A/B report 子模块"
       },
       "scripts/dev/retrieval_v2_rule_scorer.py": {
-        "max_lines": 1250,
+        "max_lines": 1350,
         "reason": "retrieval_v2 scorer 暂同时承载通用材料聚合、表驱动 material policy 分派、team_building 团队质量公式、scoring gate 过滤和空 cluster 清理；shadow 宽包闭环稳定后拆分 team scorer 与 cleanup 子模块"
+      },
+      "scripts/dev/retrieval_v2_source_candidates.py": {
+        "max_lines": 1375,
+        "reason": "retrieval_v2 source candidates 暂含候选切片、delegation/appointment_delegation 信号、guarded recall overlay matcher、预算分配和宽包源候选策略，抓包 profile 稳定后拆分 slicing、overlay matcher 与 signal scoring 子模块"
+      },
+      "scripts/dev/scoring_rule_table_sync.py": {
+        "max_lines": 1350,
+        "reason": "scoring rule table sync 暂含 I5B rule/factor/weight 抽取、DB 对比和 factor judgment 审计，规则表同步机制稳定后拆分 parser 与 DB audit 子模块"
       }
     }
   },
@@ -441,7 +465,19 @@
       "implementation": "scripts/dev/retrieval_v2_clean_cli.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_clean_runner.py"
+        "tests/test_retrieval_v2_clean_runner.py",
+        "tests/test_retrieval_v2_runtime_paths.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_runtime_paths",
+      "implementation": "scripts/dev/retrieval_v2_runtime_paths.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_runtime_paths.py"
       ],
       "status": "active"
     },
@@ -575,6 +611,53 @@
     {
       "audit_docs": [],
       "category": "dev",
+      "id": "retrieval_v2_prompt_governance",
+      "implementation": "scripts/dev/retrieval_v2_prompt_governance.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_prompt_governance.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_recall_term_sampler",
+      "implementation": "scripts/dev/retrieval_v2_recall_term_sampler.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_recall_term_sampler.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_recall_feedback",
+      "implementation": "scripts/dev/retrieval_v2_recall_feedback.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_recall_feedback.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_source_gap_feedback",
+      "implementation": "scripts/dev/retrieval_v2_source_gap_feedback.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_source_gap_feedback.py",
+        "tests/test_retrieval_v2_recall_feedback.py",
+        "tests/test_retrieval_v2_candidate_source_refiner.py",
+        "tests/test_retrieval_v2_source_candidates.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
       "id": "retrieval_v2_i5b_shadow_report",
       "implementation": "scripts/dev/retrieval_v2_i5b_shadow_report.py",
       "legacy_wrapper": null,
@@ -601,7 +684,8 @@
       "implementation": "scripts/dev/retrieval_v2_intake_rows.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_intake_rows.py"
+        "tests/test_retrieval_v2_intake_rows.py",
+        "tests/test_retrieval_v2_runtime_paths.py"
       ],
       "status": "active"
     },

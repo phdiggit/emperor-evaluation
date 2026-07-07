@@ -78,46 +78,104 @@ def test_shadow_report_counts_secondary_candidates_and_quality_risks(tmp_path: P
                 }
             ],
             "secondary_binding_candidates": [
-                {"claim_code": "CLM-1", "rule_code": "appointment_trust", "confidence": 0.8},
                 {
                     "claim_code": "CLM-1",
-                    "rule_code": "delegation",
+                    "rule_code": "appointment_delegation",
+                    "candidate_item_code": "I5B",
+                    "candidate_lane": "I5B.appointment_delegation",
+                    "hint_status": "current_rule_candidate",
+                    "direction": "positive",
                     "confidence": 0.9,
                     "candidate_payload": {
                         "scoring_candidate": True,
                         "usable_for_scoring_cluster": True,
-                        "delegation_chain": {
-                            "has_authorization_or_office": True,
-                            "has_named_delegate": True,
+                        "appointment_delegation_chain": {
+                            "has_appointment_or_authorization": True,
+                            "has_named_actor": True,
                             "has_task_or_responsibility": True,
-                            "has_same_chain_outcome": True,
+                            "has_result_or_feedback": True,
+                            "has_continuity_or_reuse": False,
                         },
-                        "candidate_role": "delegated_actor",
-                        "delegation_domain": "military",
+                        "appointment_delegation_factor_hints": {
+                            "importance_hint": "key_military_political",
+                            "effect_hint": "strong_success",
+                            "continuity_hint": "stable",
+                            "hint_confidence": {"importance": "high", "effect": "medium", "continuity": "medium"},
+                            "uncertainty_flags": [],
+                        },
+                        "candidate_role": "military_commander",
+                        "appointment_delegation_domain": "military",
                         "same_chain_outcome_summary": "刘邦拜韩信击魏，北举燕赵。",
                     },
                 },
                 {
                     "claim_code": "CLM-2",
-                    "rule_code": "delegation",
+                    "rule_code": "appointment_delegation",
+                    "candidate_item_code": "I5B",
+                    "candidate_lane": "I5B.appointment_delegation",
+                    "hint_status": "current_rule_candidate",
+                    "direction": "negative",
                     "confidence": 0.5,
                     "candidate_payload": {
                         "scoring_candidate": True,
                         "usable_for_scoring_cluster": True,
-                        "delegation_chain": {
-                            "has_authorization_or_office": True,
-                            "has_named_delegate": True,
+                        "appointment_delegation_chain": {
+                            "has_appointment_or_authorization": True,
+                            "has_named_actor": True,
                             "has_task_or_responsibility": False,
-                            "has_same_chain_outcome": False,
+                            "has_result_or_feedback": False,
+                            "has_continuity_or_reuse": False,
                         },
-                        "candidate_role": "military_delegate",
-                        "delegation_domain": "campaign",
+                        "appointment_delegation_factor_hints": {
+                            "importance_hint": "heroic",
+                            "effect_hint": "major_success",
+                            "continuity_hint": "stable",
+                            "hint_confidence": {"importance": "high", "effect": "sure", "continuity": "medium"},
+                            "uncertainty_flags": ["too_broad"],
+                        },
+                        "candidate_role": "invalid_role",
+                        "appointment_delegation_domain": "campaign",
+                    },
+                },
+                {
+                    "claim_code": "CLM-1",
+                    "rule_code": "appointment_delegation",
+                    "candidate_item_code": "I5B",
+                    "candidate_lane": "I5B.appointment_delegation",
+                    "hint_status": "current_rule_candidate",
+                    "direction": "neutral",
+                    "candidate_payload": {
+                        "scoring_candidate": True,
+                        "usable_for_scoring_cluster": True,
+                        "appointment_delegation_chain": {
+                            "has_appointment_or_authorization": True,
+                            "has_named_actor": True,
+                            "has_task_or_responsibility": True,
+                            "has_result_or_feedback": True,
+                            "has_continuity_or_reuse": False,
+                        },
+                        "appointment_delegation_factor_hints": {
+                            "importance_hint": "real_duty",
+                            "effect_hint": "unknown",
+                            "continuity_hint": "single_short",
+                            "hint_confidence": {"importance": "medium", "effect": "low", "continuity": "low"},
+                            "uncertainty_flags": ["same_chain_result_unclear"],
+                        },
+                        "candidate_role": "strategic_advisor",
+                        "appointment_delegation_domain": "strategic",
                     },
                 },
                 {
                     "claim_code": "CLM-2",
-                    "rule_code": "power_control",
-                    "candidate_payload": {"hint_status": "future_rule_hint"},
+                    "rule_code": "military_frontier_result",
+                    "candidate_item_code": "I3",
+                    "candidate_lane": "military_frontier_result",
+                    "candidate_payload": {
+                        "hint_status": "future_rule_hint",
+                        "personnel_profile": {"person": "卢绾"},
+                        "power_control_profile": {"power_holder": "卢绾"},
+                        "profile_policy": "do not persist",
+                    },
                 },
             ],
         },
@@ -187,12 +245,19 @@ def test_shadow_report_counts_secondary_candidates_and_quality_risks(tmp_path: P
     assert report["totals"]["candidate_status_counts"]["current_rule_candidate"] == 3
     assert report["totals"]["candidate_status_counts"]["future_rule_hint"] == 1
     assert report["totals"]["candidate_item_counts"]["I5B"] == 3
-    assert report["totals"]["candidate_lane_counts"]["delegation"] == 2
+    assert report["totals"]["candidate_lane_counts"]["I5B.appointment_delegation"] == 3
     assert report["totals"]["candidate_route_problem_count"] == 0
-    assert report["totals"]["delegation_candidate_count"] == 2
-    assert report["totals"]["delegation_scoring_candidate_count"] == 2
-    assert report["totals"]["delegation_scoring_candidate_invalid_count"] == 1
-    assert report["totals"]["delegation_review_candidate_count"] == 0
+    assert report["totals"]["candidate_payload_with_personnel_profile_count"] == 1
+    assert report["totals"]["candidate_payload_with_power_control_profile_count"] == 1
+    assert report["totals"]["candidate_profile_problem_count"] == 1
+    assert report["totals"]["appointment_delegation_candidate_count"] == 3
+    assert report["totals"]["appointment_delegation_scoring_candidate_count"] == 2
+    assert report["totals"]["appointment_delegation_scoring_candidate_invalid_count"] == 1
+    assert report["totals"]["appointment_delegation_review_candidate_count"] == 1
+    assert report["totals"]["appointment_delegation_factor_hint_count"] == 2
+    assert report["totals"]["appointment_delegation_factor_hint_missing_count"] == 0
+    assert report["totals"]["appointment_delegation_factor_hint_invalid_count"] == 1
+    assert report["totals"]["appointment_delegation_factor_hint_offscope_count"] == 1
     assert report["totals"]["unknown_source_slice_refs"] == 1
     assert report["totals"]["negative_disposition_risk_count"] == 1
     assert report["totals"]["claims_with_fact_payload"] == 1
@@ -205,11 +270,13 @@ def test_shadow_report_counts_secondary_candidates_and_quality_risks(tmp_path: P
     assert report["people"][0]["elapsed_seconds"] == 5
     assert report["people"][0]["object_source_presearch_pages_per_object"] == 1
     assert report["people"][0]["object_source_presearch_hit_count"] == 9
-    assert report["people"][0]["delegation_scoring_candidate_invalid_examples"][0]["claim_code"] == "CLM-2"
+    assert report["people"][0]["appointment_delegation_scoring_candidate_invalid_examples"][0]["claim_code"] == "CLM-2"
     assert any(row["severity"] == "block" for row in report["recommendations"])
     assert any("fact_payload" in row["message"] for row in report["recommendations"])
     assert any("evidence_spans" in row["message"] for row in report["recommendations"])
-    assert any("delegation scoring candidates" in row["message"] for row in report["recommendations"])
+    assert any("appointment_delegation scoring candidates" in row["message"] for row in report["recommendations"])
+    assert any("appointment_delegation factor hints" in row["message"] for row in report["recommendations"])
+    assert any("payload profiles" in row["message"] for row in report["recommendations"])
 
 
 def test_shadow_report_cli_writes_json_and_markdown(tmp_path: Path, capsys) -> None:
@@ -265,7 +332,7 @@ def test_consumed_pack_review_uses_tool_chain(monkeypatch) -> None:
             ],
             "candidate_counts": [
                 {
-                    "hint_status": "formal_candidate",
+                    "hint_status": "current_rule_candidate",
                     "candidate_item_code": "<blank>",
                     "candidate_lane": "team_building",
                     "candidate_rule_code": "team_building",
@@ -464,9 +531,9 @@ def test_shadow_report_summarizes_personnel_political_wide_contract(tmp_path: Pa
             "secondary_binding_candidates": [
                 {
                     "claim_code": "CLM-1",
-                    "rule_code": "delegation",
+                    "rule_code": "appointment_delegation",
                     "candidate_item_code": "I5B",
-                    "candidate_lane": "delegation",
+                    "candidate_lane": "I5B.appointment_delegation",
                     "hint_status": "current_rule_candidate",
                     "direction": "positive",
                     "required_facts_present": ["actor", "object", "action_type", "outcome", "source_span_refs"],
@@ -474,14 +541,15 @@ def test_shadow_report_summarizes_personnel_political_wide_contract(tmp_path: Pa
                         "hint_status": "current_rule_candidate",
                         "scoring_candidate": True,
                         "usable_for_scoring_cluster": True,
-                        "delegation_chain": {
-                            "has_authorization_or_office": True,
-                            "has_named_delegate": True,
+                        "appointment_delegation_chain": {
+                            "has_appointment_or_authorization": True,
+                            "has_named_actor": True,
                             "has_task_or_responsibility": True,
-                            "has_same_chain_outcome": True,
+                            "has_result_or_feedback": True,
+                            "has_continuity_or_reuse": False,
                         },
                         "candidate_role": "delegated_actor",
-                        "delegation_domain": "military",
+                        "appointment_delegation_domain": "military",
                     },
                 },
                 {
@@ -503,7 +571,7 @@ def test_shadow_report_summarizes_personnel_political_wide_contract(tmp_path: Pa
             "capture_mode": "personnel_political_wide_shadow",
             "capture_profile": "personnel_political_wide",
             "fact_schema": "political_action_v1",
-            "candidate_route_table_version": "personnel_political_v0_1",
+            "candidate_route_table_version": "personnel_political_v0_2",
             "formal_consumption_source": False,
             "people": [
                 {

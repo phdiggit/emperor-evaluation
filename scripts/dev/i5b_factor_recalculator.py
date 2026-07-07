@@ -17,8 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.build.i5b_item_result_calculator import DEFAULT_FORMULA_CODE, RuleSignals, calculate_formula
-from scripts.build.i5b_item_result_calculator import calculate_item_results as write_item_results
+from scripts.build.i5b_item_result_calculator import RuleSignals, calculate_formula
 from scripts.dev.evidence_cluster_workbench import (
     ClusterInput,
     fetch_cluster_calc_detail_rows,
@@ -51,7 +50,6 @@ TEAM_BUILDING_RANK_DECAYS = (
 RETIRED_FACTOR_NAMES = {"founder_pressure", "retention_signal"}
 RETIRED_FOUNDER_BASELINE_NAME = "founder_retention_baseline"
 LEGACY_FACTOR_LABEL_ALIASES = {
-    ("trust_validity", "常规合理信任"): "信任关系存在，但只见任官、亲近、复用或名望，缺少任后结果、岗位适配或公共能力反馈；普通任命默认不得高于此档。",
     ("role_complementarity_factor", "同质化明显。"): "功能同质化明显，主要集中在单一文官、军功、近幸或地方执行序列。",
     ("role_complementarity_factor", "同质化明显"): "功能同质化明显，主要集中在单一文官、军功、近幸或地方执行序列。",
     ("role_complementarity_factor", "常规互补。"): "常规互补，至少两个功能面有称职对象，但关键功能仍明显依赖同一类人才或同一系统。",
@@ -1283,11 +1281,9 @@ def summarize_from_clusters(clusters: tuple[ClusterInput, ...]) -> list[dict[str
         rows.append(
             {
                 "emperor": emperor,
-                "score": formula["score"],
-                "score_rate": formula["score_rate"],
-                "tier": formula["tier"],
-                "tier_band": formula["tier_band"],
-                "base_core": formula["base_core"],
+                "formula_stage": formula["formula_stage"],
+                "dynamic_mapping_required": formula["dynamic_mapping_required"],
+                "weighted_raw_signal": formula["weighted_raw_signal"],
             }
         )
     return rows
@@ -1325,7 +1321,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--rule-code", action="append", default=None, help="Optional rule_code filter; repeatable.")
     parser.add_argument("--output", type=Path, default=None, help="Optional computed cluster payload JSON path.")
     parser.add_argument("--write-clusters", action="store_true", help="Upsert computed evd_clusters.")
-    parser.add_argument("--write-results", action="store_true", help="Recalculate emp_item_results after cluster writes.")
+    parser.add_argument(
+        "--write-results",
+        action="store_true",
+        help="Deprecated: final I5B result writes require a dynamic mapping stage.",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Rollback database writes; still prints in-memory result summary.")
     parser.add_argument("--dsn-env", default="EMPEROR_EVAL_PG_DSN", help="Environment variable name for PostgreSQL DSN.")
     parser.add_argument("--allow-partial-material-coverage", action="store_true", help="Allow partial DB material coverage.")
@@ -1338,6 +1338,8 @@ def main(argv: list[str] | None = None) -> int:
     source_count = sum(1 for enabled in (bool(args.input), bool(args.from_details)) if enabled)
     if source_count != 1:
         parser.error("exactly one of --input or --from-details is required")
+    if args.write_results:
+        parser.error("--write-results is disabled; I5B final scores require batch dynamic mapping after raw signals")
     factor_docs = tuple(args.factor_doc) if args.factor_doc else DEFAULT_FACTOR_DOCS
     input_raw: dict[str, Any] | None = None
     if args.input and args.input.exists():
@@ -1417,16 +1419,6 @@ def main(argv: list[str] | None = None) -> int:
                 dry_run=args.dry_run,
                 require_full_material_coverage=not args.allow_partial_material_coverage,
             )
-        if args.write_results and not args.dry_run:
-            write_item_results(
-                dsn=dsn,
-                emperors=tuple(dict.fromkeys(cluster.emperor for cluster in clusters)),
-                item_code=item_code,
-                cluster_formula=formula_code,
-                formula_code=DEFAULT_FORMULA_CODE,
-                dry_run=False,
-            )
-
     print(
         json.dumps(
             {

@@ -21,7 +21,7 @@ from scripts.dev import retrieval_v2_target_person_consumer as target_person_con
 
 STAGES = ("completion",)
 READINESS_SCOPES = ("active-targets", "accepted-packs")
-RULES_REQUIRING_TALENT_GRADE = {"team_building", "talent_discovery", "appointment_trust", "tolerate_talent"}
+RULES_REQUIRING_TALENT_GRADE = {"team_building", "talent_discovery", "appointment_delegation", "tolerate_talent"}
 DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
 
 REASON_CATALOG: dict[str, dict[str, str]] = {
@@ -73,7 +73,7 @@ REASON_CATALOG: dict[str, dict[str, str]] = {
     "factorization_required": {
         "owner": "agent_or_human",
         "severity_default": "downstream",
-        "description": "可计分材料还需选择 trust_validity、result_feedback、object_weight 等因子，consumer 不算分。",
+        "description": "可计分材料还需选择规则表因子，consumer 不算分。",
     },
     "rule_score_required": {
         "owner": "agent_or_human",
@@ -624,7 +624,7 @@ def classify_readiness(snapshot: Mapping[str, int], *, rule_code: str) -> dict[s
             reason_entry(
                 "missing_person_affiliation",
                 count=int(snapshot["missing_target_emperor_affiliations"]),
-                message="目标皇帝缺朝代归属；不阻塞 delegation，但会影响按朝代筛选和后续人物画像检索。",
+                message="目标皇帝缺朝代归属；不阻塞 retrieval_v2 消费，但会影响按朝代筛选和后续人物画像检索。",
             )
         )
 

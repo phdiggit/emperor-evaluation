@@ -19,7 +19,7 @@ def load_tool():
     return module
 
 
-def test_calculate_formula_uses_v9_negative_rollback_response() -> None:
+def test_calculate_formula_reports_raw_signal_without_fixed_response() -> None:
     tool = load_tool()
     signals = {
         "tolerate_talent": tool.RuleSignals(
@@ -31,21 +31,23 @@ def test_calculate_formula_uses_v9_negative_rollback_response() -> None:
 
     result = tool.calculate_formula(signals=signals)
 
-    assert result["positive_response_cap"] == "5.5"
-    assert result["negative_response_cap"] == "7.0"
-    assert result["negative_response_tau"] == "4.0"
-    assert result["rules"]["tolerate_talent"]["positive_effect"] == "1.706"
-    assert result["rules"]["tolerate_talent"]["negative_effect"] == "4.446"
-    assert result["rules"]["tolerate_talent"]["rule_net_effect"] == "-2.740"
+    assert result["formula_stage"] == "raw_signal_only"
+    assert result["dynamic_mapping_required"] is True
+    assert result["score"] is None
+    assert result["tier"] is None
+    assert "positive_response_cap" not in result
+    assert result["rules"]["tolerate_talent"]["rule_raw_net"] == "-2.733"
     assert result["rules"]["tolerate_talent"]["rule_weight"] == "0.180"
+    assert result["rules"]["tolerate_talent"]["weighted_raw_signal"] == "-0.492"
+    assert result["weighted_raw_signal"] == "-0.492"
     assert "penalty_rate" not in result
     assert "severe_negative_excess" not in result
 
 
-def test_negative_response_still_can_exceed_four_point_cap() -> None:
+def test_negative_raw_signal_is_not_response_capped() -> None:
     tool = load_tool()
     signals = {
-        "appointment_trust": tool.RuleSignals(
+        "appointment_delegation": tool.RuleSignals(
             positive_signal=Decimal("0.000"),
             negative_signal=Decimal("8.000"),
             cluster_id=161,
@@ -54,8 +56,9 @@ def test_negative_response_still_can_exceed_four_point_cap() -> None:
 
     result = tool.calculate_formula(signals=signals)
 
-    assert result["rules"]["appointment_trust"]["negative_effect"] == "6.053"
-    assert result["rules"]["appointment_trust"]["rule_net_effect"] == "-6.053"
+    assert result["rules"]["appointment_delegation"]["rule_raw_net"] == "-8.000"
+    assert result["rules"]["appointment_delegation"]["weighted_raw_signal"] == "-2.880"
+    assert result["weighted_raw_signal"] == "-2.880"
 
 
 def test_calculate_formula_marks_missing_rule_as_no_material() -> None:
@@ -68,11 +71,10 @@ def test_calculate_formula_marks_missing_rule_as_no_material() -> None:
     assert result["rules"]["anti_nepotism"]["negative_signal"] == "0.000"
 
 
-def test_tier_for_rate_has_no_decimal_boundary_gaps() -> None:
+def test_fixed_tier_mapping_is_removed() -> None:
     tool = load_tool()
 
-    assert tool.tier_for_rate(Decimal("0.8956")) == ("优秀", "高段")
-    assert tool.tier_for_rate(Decimal("0.5927")) == ("一般", "高段")
+    assert not hasattr(tool, "tier_for_rate")
 
 
 def test_parser_requires_at_least_one_emperor() -> None:

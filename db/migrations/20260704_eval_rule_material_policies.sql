@@ -76,12 +76,12 @@ with seed as (
                 '发现人才：以具体人才材料为主要计分承载。'
             ),
             (
-                'appointment_trust',
+                'appointment_delegation',
                 'person_material_policy',
                 100,
                 'obj_src_material',
                 'obj_srcs',
-                array['appointed_talent','trusted_minister','entrusted_official','misappointed_person','suppressed_talent']::text[],
+                array['appointed_actor','entrusted_actor','delegated_actor','strategic_advisor','military_commander','civil_official','misappointed_actor','misdelegated_actor','misentrusted_actor','authority_revoked_target']::text[],
                 array['source_context','event_context','mechanism_context']::text[],
                 array['mechanism']::text[],
                 array['event','group']::text[],
@@ -96,38 +96,11 @@ with seed as (
                         'group', 'source_context'
                     ),
                     'default_scoring_roles_by_direction', jsonb_build_object(
-                        'non_negative', 'trusted_minister',
-                        'negative', 'misappointed_person'
+                        'non_negative', 'appointed_actor',
+                        'negative', 'misappointed_actor'
                     )
                 ),
-                '任人信任：以具体被任用、被信任或误任人物为主要计分承载。'
-            ),
-            (
-                'delegation',
-                'person_material_policy',
-                100,
-                'obj_src_material',
-                'obj_srcs',
-                array['delegated_actor','authority_recipient','authority_revoked_target','misdelegated_actor']::text[],
-                array['source_context','event_context','mechanism_context']::text[],
-                array['mechanism']::text[],
-                array['event','group']::text[],
-                array[]::text[],
-                array[]::text[],
-                array[]::text[],
-                false,
-                jsonb_build_object(
-                    'context_roles_by_obj_type', jsonb_build_object(
-                        'mechanism', 'mechanism_context',
-                        'event', 'event_context',
-                        'group', 'source_context'
-                    ),
-                    'default_scoring_roles_by_direction', jsonb_build_object(
-                        'non_negative', 'delegated_actor',
-                        'negative', 'misdelegated_actor'
-                    )
-                ),
-                '合理授权：以获得授权、被撤权或被错授的人物为主要计分承载。'
+                '任用授权：以被任用、被信任、获授权、被误任、被错授或被撤权的人物为主要计分承载。'
             ),
             (
                 'team_building',

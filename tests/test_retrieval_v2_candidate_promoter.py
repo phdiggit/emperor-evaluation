@@ -11,21 +11,32 @@ def candidate_row(**overrides):
         "claim_code": "SPK::CLM-001",
         "candidate_contract_rule_id": 20,
         "source_item_code": "I5B",
-        "source_rule_code": "delegation",
+        "source_rule_code": "i5b_item_wide",
         "candidate_item_code": "I5B",
-        "candidate_rule_code": "appointment_trust",
-        "candidate_reason": "delegation claim 可复用于 appointment_trust 复核：任用/信任/撤任事实",
+        "candidate_rule_code": "appointment_delegation",
+        "candidate_reason": "I5B-wide claim 可复用于 appointment_delegation 复核：任用、信任、授权、误任事实",
         "candidate_confidence": None,
         "review_status": "pending",
         "resolved_binding_id": None,
         "candidate_payload": {
             "route_status": "formal_candidate",
+            "candidate_role": "military_commander",
+            "scoring_candidate": True,
+            "usable_for_scoring_cluster": True,
+            "appointment_delegation_chain": {
+                "has_appointment_or_authorization": True,
+                "has_named_actor": True,
+                "has_task_or_responsibility": True,
+                "has_result_or_feedback": True,
+                "has_continuity_or_reuse": False,
+            },
             "source_binding": {
                 "predicate": "delegated_authority",
-                "object_role": "military_delegate",
+                "object_role": "military_commander",
                 "direction": "positive",
             },
         },
+        "claim_direction": "positive",
         "claim_summary": "刘邦拜韩信为大将军，给兵北举燕赵、东击齐。",
         "object_name": "韩信",
         "source_link_review_status": "accepted",
@@ -47,7 +58,7 @@ def candidate_row(**overrides):
             },
         },
         "source_link_id": 400,
-        "source_link_role": "military_delegate",
+        "source_link_role": "military_commander",
         "source_link_confidence": None,
         "source_pack_id": 500,
         "source_pack_code": "SPK",
@@ -55,17 +66,20 @@ def candidate_row(**overrides):
         "target_code": "TGT-I5B-LB",
         "emperor_name": "刘邦",
     }
+    payload_override = overrides.pop("candidate_payload", None)
     row.update(overrides)
+    if payload_override is not None:
+        row["candidate_payload"] = {**row["candidate_payload"], **payload_override}
     return row
 
 
-def test_resolve_candidate_promotes_clear_appointment_trust() -> None:
-    spec, reason = tool.resolve_candidate(candidate_row())
+def test_resolve_candidate_promotes_clear_appointment_delegation() -> None:
+    spec, reason = tool.resolve_candidate(candidate_row(candidate_payload={"candidate_role": "delegated_actor"}))
 
     assert reason == ""
     assert spec is not None
-    assert spec.predicate == "entrusted_official"
-    assert spec.object_role == "entrusted_official"
+    assert spec.predicate == "appointed_or_delegated_authority"
+    assert spec.object_role == "delegated_actor"
     assert spec.direction == "positive"
 
 
@@ -108,6 +122,7 @@ def test_disposition_only_tolerate_talent_is_left_unresolved() -> None:
             "route_status": "formal_candidate",
             "source_binding": {"predicate": "revoked_authority", "object_role": "revoked_or_failed_delegate", "direction": "negative"},
         },
+        source_rule_code="appointment_delegation",
         source_link_role="revoked_or_failed_delegate",
     )
 
@@ -333,35 +348,35 @@ def test_item_wide_harmed_talent_uses_fact_object_as_victim() -> None:
     assert spec.object_name_override == "韩信"
 
 
-def test_synthetic_promotion_is_not_usable_for_scoring() -> None:
+def test_missing_candidate_id_is_not_promoted() -> None:
     row = candidate_row(
         candidate_id=None,
-        candidate_rule_code="delegation",
+        candidate_rule_code="appointment_delegation",
         source_rule_code="i5b_item_wide",
         claim_direction="positive",
-        candidate_payload={"route_status": "synthetic_formal_candidate"},
+        candidate_payload={"route_status": "formal_candidate"},
     )
     spec, reason = tool.resolve_candidate(row)
 
-    assert reason == ""
-    assert spec is not None
-    assert tool.promotion_usable_for_scoring(row, spec) is False
+    assert spec is None
+    assert reason == "missing_candidate_id"
 
 
-def test_item_wide_delegation_protocol_candidate_is_usable_for_scoring() -> None:
+def test_item_wide_appointment_delegation_protocol_candidate_is_usable_for_scoring() -> None:
     row = candidate_row(
-        candidate_rule_code="delegation",
+        candidate_rule_code="appointment_delegation",
         source_rule_code="i5b_item_wide",
         claim_direction="positive",
         candidate_payload={
-            "candidate_role": "authority_recipient",
+            "candidate_role": "entrusted_actor",
             "scoring_candidate": True,
             "usable_for_scoring_cluster": True,
-            "delegation_chain": {
-                "has_authorization_or_office": True,
-                "has_named_delegate": True,
+            "appointment_delegation_chain": {
+                "has_appointment_or_authorization": True,
+                "has_named_actor": True,
                 "has_task_or_responsibility": True,
-                "has_same_chain_outcome": True,
+                "has_result_or_feedback": True,
+                "has_continuity_or_reuse": False,
             },
         },
     )
@@ -369,51 +384,52 @@ def test_item_wide_delegation_protocol_candidate_is_usable_for_scoring() -> None
 
     assert reason == ""
     assert spec is not None
-    assert spec.object_role == "authority_recipient"
+    assert spec.object_role == "entrusted_actor"
     assert tool.promotion_usable_for_scoring(row, spec) is True
 
 
-def test_item_wide_delegation_protocol_requires_complete_chain_for_scoring() -> None:
+def test_item_wide_appointment_delegation_protocol_requires_complete_chain_for_scoring() -> None:
     row = candidate_row(
-        candidate_rule_code="delegation",
+        candidate_rule_code="appointment_delegation",
         source_rule_code="i5b_item_wide",
         claim_direction="positive",
         candidate_payload={
             "candidate_role": "delegated_actor",
             "scoring_candidate": True,
             "usable_for_scoring_cluster": True,
-            "delegation_chain": {
-                "has_authorization_or_office": True,
-                "has_named_delegate": True,
+            "appointment_delegation_chain": {
+                "has_appointment_or_authorization": True,
+                "has_named_actor": True,
                 "has_task_or_responsibility": True,
-                "has_same_chain_outcome": False,
+                "has_result_or_feedback": False,
+                "has_continuity_or_reuse": False,
             },
         },
     )
     spec, reason = tool.resolve_candidate(row)
 
-    assert reason == ""
-    assert spec is not None
-    assert tool.promotion_usable_for_scoring(row, spec) is False
+    assert spec is None
+    assert reason == "appointment_delegation_not_scoring_candidate"
 
 
-def test_item_wide_delegation_protocol_reads_nested_source_binding_payload() -> None:
+def test_item_wide_appointment_delegation_protocol_reads_nested_source_binding_payload() -> None:
     row = candidate_row(
-        candidate_rule_code="delegation",
+        candidate_rule_code="appointment_delegation",
         source_rule_code="i5b_item_wide",
         claim_direction="positive",
         candidate_payload={
             "source_binding": {
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "candidate_payload": {
-                    "candidate_role": "military_delegate",
+                    "candidate_role": "military_commander",
                     "scoring_candidate": True,
                     "usable_for_scoring_cluster": True,
-                    "delegation_chain": {
-                        "has_authorization_or_office": True,
-                        "has_named_delegate": True,
+                    "appointment_delegation_chain": {
+                        "has_appointment_or_authorization": True,
+                        "has_named_actor": True,
                         "has_task_or_responsibility": True,
-                        "has_same_chain_outcome": True,
+                        "has_result_or_feedback": True,
+                        "has_continuity_or_reuse": False,
                     },
                 },
             }
@@ -423,8 +439,38 @@ def test_item_wide_delegation_protocol_reads_nested_source_binding_payload() -> 
 
     assert reason == ""
     assert spec is not None
-    assert spec.object_role == "delegated_actor"
+    assert spec.object_role == "military_commander"
     assert tool.promotion_usable_for_scoring(row, spec) is True
+
+
+def test_item_wide_appointment_delegation_protocol_rejects_neutral_direction() -> None:
+    row = candidate_row(
+        candidate_rule_code="appointment_delegation",
+        source_rule_code="i5b_item_wide",
+        claim_direction="neutral",
+        candidate_payload={
+            "source_binding": {
+                "rule_code": "appointment_delegation",
+                "direction": "neutral",
+                "candidate_payload": {
+                    "candidate_role": "strategic_advisor",
+                    "scoring_candidate": True,
+                    "usable_for_scoring_cluster": True,
+                    "appointment_delegation_chain": {
+                        "has_appointment_or_authorization": True,
+                        "has_named_actor": True,
+                        "has_task_or_responsibility": True,
+                        "has_result_or_feedback": True,
+                        "has_continuity_or_reuse": False,
+                    },
+                },
+            }
+        },
+    )
+    spec, reason = tool.resolve_candidate(row)
+
+    assert spec is None
+    assert reason == "appointment_delegation_not_scoring_candidate"
 
 
 def test_item_wide_harmed_talent_promotion_is_usable_for_factorization_review() -> None:
@@ -446,7 +492,7 @@ def test_item_wide_harmed_talent_promotion_is_usable_for_factorization_review() 
 
 def test_candidate_payload_can_block_scoring_promotion() -> None:
     row = candidate_row(
-        candidate_rule_code="appointment_trust",
+        candidate_rule_code="appointment_delegation",
         candidate_payload={
             "source_binding": {
                 "predicate": "delegated_authority",
@@ -530,19 +576,19 @@ def test_fetch_candidate_rows_can_filter_explicit_source_pack() -> None:
     assert cur.params[-1] == ["SPK-I5B-SHADOW"]
 
 
-def test_resolve_item_wide_delegation_promotes_claim_direction() -> None:
+def test_resolve_item_wide_appointment_delegation_promotes_claim_direction() -> None:
     spec, reason = tool.resolve_candidate(
         candidate_row(
-            candidate_rule_code="delegation",
+            candidate_rule_code="appointment_delegation",
             source_rule_code="i5b_item_wide",
             claim_direction="negative",
-            candidate_payload={"route_status": "synthetic_formal_candidate"},
+            candidate_payload={"candidate_role": "misdelegated_actor"},
         )
     )
 
     assert reason == ""
     assert spec is not None
-    assert spec.predicate == "misdelegated_authority"
+    assert spec.predicate == "misappointed_or_misdelegated_authority"
     assert spec.object_role == "misdelegated_actor"
     assert spec.direction == "negative"
 
@@ -559,7 +605,7 @@ def test_build_plan_promotes_and_skips_with_counts() -> None:
     assert plan["totals"]["candidate_rows"] == 3
     assert plan["totals"]["promotions"] == 2
     assert plan["totals"]["skipped"] == 1
-    assert plan["promoted_by_rule"] == {"appointment_trust": 2}
+    assert plan["promoted_by_rule"] == {"appointment_delegation": 2}
     assert plan["skipped_by_reason"] == {"material_review_pending": 1}
 
 
@@ -568,7 +614,7 @@ def test_resolved_candidate_can_be_replayed_for_idempotent_repair() -> None:
 
     assert reason == ""
     assert spec is not None
-    assert spec.predicate == "entrusted_official"
+    assert spec.predicate == "appointed_or_delegated_authority"
 
 
 class FakeCursor:
@@ -606,29 +652,10 @@ def test_execute_promotions_writes_binding_link_and_resolves_candidate() -> None
     assert "insert into retrieval_v2.claim_rule_bindings" in joined
     assert "retrieval_v2.claim_rule_bindings.usable_for_scoring_cluster" in joined
     assert "or excluded.usable_for_scoring_cluster" in joined
-    assert "else excluded.binding_payload || retrieval_v2.claim_rule_bindings.binding_payload" in joined
+    assert "binding_payload = retrieval_v2.claim_rule_bindings.binding_payload || excluded.binding_payload" in joined
     assert "update retrieval_v2.claim_rule_bindings" in joined
     assert "promoted_material_object_link_id" in str(cur.params)
     assert "promoted_object_name" in str(cur.params)
-
-
-def test_execute_promotions_skips_candidate_update_for_synthetic_rows() -> None:
-    row = dict(candidate_row(candidate_rule_code="delegation", source_rule_code="i5b_item_wide", claim_direction="positive"))
-    row["candidate_id"] = None
-    plan = tool.build_plan([row])
-    cur = FakeCursor()
-
-    counts = tool.execute_promotions(cur, plan["promotions"])
-
-    assert counts == {
-        "retrieval_v2.claim_rule_bindings": 1,
-        "retrieval_v2.material_object_links": 1,
-    }
-    assert plan["promotions"][0]["usable_for_scoring_cluster"] is False
-    assert cur.params[0][6] is False
-    joined = "\n".join(cur.statements)
-    assert "insert into retrieval_v2.material_object_links" in joined
-    assert "update retrieval_v2.claim_rule_binding_candidates" not in joined
 
 
 def test_reconcile_scoring_gates_updates_existing_promoter_bindings() -> None:
@@ -646,7 +673,6 @@ def test_reconcile_scoring_gates_updates_existing_promoter_bindings() -> None:
     assert updated == 2
     sql = cur.statements[-1]
     assert "update retrieval_v2.claim_rule_bindings crb" in sql
-    assert "candidate_id' is null" in sql
     assert "reason_code" in sql and "review" in sql
     assert "usable_for_scoring_cluster' = 'false'" in sql
     assert "sp.pack_code = any(%s)" in sql

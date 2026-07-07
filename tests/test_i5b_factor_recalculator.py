@@ -5,6 +5,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOL_PATH = ROOT / "scripts" / "dev" / "i5b_factor_recalculator.py"
@@ -98,7 +100,7 @@ def test_clusters_payload_uses_chinese_cluster_note() -> None:
     tool = load_tool()
     cluster = tool.ClusterInput(
         emperor="测试帝",
-        rule_code="appointment_trust",
+        rule_code="appointment_delegation",
         positive_signal=tool.Decimal("1.200"),
         negative_signal=tool.Decimal("0.300"),
         formula_code="fixture",
@@ -110,7 +112,7 @@ def test_clusters_payload_uses_chinese_cluster_note() -> None:
     payload = tool.clusters_payload("I5B", "fixture", (cluster,))
 
     assert payload["clusters"][0]["note"] == (
-        "本证据簇汇总测试帝在“任人信任”维度的已回源材料，"
+        "本证据簇汇总测试帝在“任用授权”维度的已回源材料，"
         "正向信号为1.200，负向信号为0.300；"
         "证据簇只保存原始聚合信号，最终分值由结果层计算。"
     )
@@ -402,14 +404,14 @@ def test_load_profile_from_details_can_replay_from_factor_table_catalog(monkeypa
     assert material["factor_refs"]["severity_factor"]["catalog_value_num"] == "3.0"
 
 
-def test_legacy_trust_validity_label_maps_to_low_validity() -> None:
+def test_legacy_trust_validity_label_is_not_accepted() -> None:
     tool = load_tool()
     current_label = "信任关系存在，但只见任官、亲近、复用或名望，缺少任后结果、岗位适配或公共能力反馈；普通任命默认不得高于此档。"
     catalog = tool.parse_factor_catalog_from_rows(
         [
             {
                 "factor_option_id": 45,
-                "rule_code": "appointment_trust",
+                "rule_code": "appointment_delegation",
                 "factor_name": "trust_validity",
                 "factor_scope": "rule",
                 "label": current_label,
@@ -420,18 +422,14 @@ def test_legacy_trust_validity_label_maps_to_low_validity() -> None:
         ]
     )
 
-    value, ref = tool.resolve_factor(
-        {"label": "常规合理信任"},
-        factor_name="trust_validity",
-        catalog=catalog,
-        path="fixture.factors.trust_validity",
-        rule_code="appointment_trust",
-    )
-
-    assert value == tool.Decimal("0.3")
-    assert ref["label"] == current_label
-    assert ref["legacy_label"] == "常规合理信任"
-    assert ref["factor_option_id"] == 45
+    with pytest.raises(tool.I5BFactorRecalculatorError, match="factor row not found"):
+        tool.resolve_factor(
+            {"label": "常规合理信任"},
+            factor_name="trust_validity",
+            catalog=catalog,
+            path="fixture.factors.trust_validity",
+            rule_code="appointment_delegation",
+        )
 
 
 def test_team_factor_numeric_literal_rewrites_to_catalog_ref() -> None:

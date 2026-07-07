@@ -6,7 +6,7 @@ from scripts.dev import i5b_pending_material_worklist as tool
 def pending_row(**overrides: object) -> dict[str, object]:
     row: dict[str, object] = {
         "emperor": "刘彻",
-        "rule_code": "appointment_trust",
+        "rule_code": "appointment_delegation",
         "obj_src_id": 2304,
         "direction": "positive",
         "emp_obj_id": 340,
@@ -33,7 +33,7 @@ def test_build_report_groups_pending_materials_and_suggests_batches() -> None:
         [
             pending_row(obj_src_id=2304),
             pending_row(obj_src_id=2319, obj_name="董仲舒"),
-            pending_row(emperor="刘邦", rule_code="delegation", obj_src_id=2280, obj_name="韩信"),
+            pending_row(emperor="刘邦", rule_code="appointment_delegation", obj_src_id=2280, obj_name="韩信"),
         ],
         batch_size=2,
     )
@@ -41,8 +41,8 @@ def test_build_report_groups_pending_materials_and_suggests_batches() -> None:
     assert report["pending_cluster_count"] == 2
     assert report["pending_material_count"] == 3
     groups = {(group["emperor"], group["rule_code"]): group for group in report["groups"]}
-    assert groups[("刘邦", "delegation")]["pending_material_ids"] == [2280]
-    assert groups[("刘彻", "appointment_trust")]["pending_material_ids"] == [2304, 2319]
+    assert groups[("刘邦", "appointment_delegation")]["pending_material_ids"] == [2280]
+    assert groups[("刘彻", "appointment_delegation")]["pending_material_ids"] == [2304, 2319]
     assert sorted(batch["material_count"] for batch in report["suggested_batches"]) == [1, 2]
 
 
@@ -51,9 +51,9 @@ def test_build_report_adds_factor_patch_templates() -> None:
         [pending_row()],
         factor_options=[
             {
-                "rule_code": "appointment_trust",
-                "factor_name": "trust_depth",
-                "label": "有实际职责的任用。",
+                "rule_code": "appointment_delegation",
+                "factor_name": "appointment_importance",
+                "label": "有实际职责的任用、信任或单一领域真实授权。",
                 "value_num": "1",
                 "factor_option_id": 43,
                 "source_doc": "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
@@ -76,16 +76,15 @@ def test_build_report_adds_factor_patch_templates() -> None:
     assert template["target_action"] == "review"
     assert template["side"] == "positive"
     assert template["factor_keys"] == [
-        "trust_depth",
-        "object_weight",
-        "trust_validity",
+        "appointment_importance",
+        "appointment_effect",
         "continuity_factor",
         "attribution_factor",
         "source_factor",
         "context_factor",
     ]
-    assert template["factor_refs"]["trust_depth"] == {"label": ""}
-    assert template["factor_option_candidates"]["trust_depth"][0]["label"] == "有实际职责的任用。"
+    assert template["factor_refs"]["appointment_importance"] == {"label": ""}
+    assert template["factor_option_candidates"]["appointment_importance"][0]["label"] == "有实际职责的任用、信任或单一领域真实授权。"
     assert template["factor_option_candidates"]["source_factor"][0]["label"] == "基础史源"
 
 
@@ -94,6 +93,6 @@ def test_render_markdown_includes_material_details() -> None:
 
     rendered = tool.render_markdown(report)
 
-    assert "刘彻/appointment_trust" in rendered
+    assert "刘彻/appointment_delegation" in rendered
     assert "儿宽(343)" in rendered
     assert "漢書 卷058 漢書/卷058" in rendered

@@ -198,8 +198,72 @@ def materialize_passages_from_claims(
     return list(passages.values())
 
 
-def enrich_judge_payload(candidates: Mapping[str, Any], payload: Mapping[str, Any]) -> dict[str, Any]:
+def _candidate_item_code(row: Mapping[str, Any], payload: Mapping[str, Any]) -> str:
+    return str(row.get("candidate_item_code") or payload.get("candidate_item_code") or "").strip()
+
+
+def _is_ad_factor_hint_allowed(row: Mapping[str, Any], payload: Mapping[str, Any]) -> bool:
+    rule_code = str(row.get("rule_code") or payload.get("rule_code") or "").strip()
+    lane = str(row.get("candidate_lane") or payload.get("candidate_lane") or "").strip()
+    direction = str(row.get("direction") or row.get("candidate_direction") or payload.get("direction") or "").strip()
+    scoring = payload.get("scoring_candidate") is True or str(payload.get("scoring_candidate") or "").strip().lower() == "true"
+    usable = (
+        payload.get("usable_for_scoring_cluster") is True
+        or str(payload.get("usable_for_scoring_cluster") or "").strip().lower() == "true"
+    )
+    return (
+        rule_code == "appointment_delegation"
+        and lane == "I5B.appointment_delegation"
+        and scoring
+        and usable
+        and direction in {"positive", "negative"}
+    )
+
+
+def _prune_empty_profile_values(profile: Mapping[str, Any]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in profile.items():
+        if value is None:
+            continue
+        if isinstance(value, str) and not value.strip():
+            continue
+        if value == [] or value == {}:
+            continue
+        result[str(key)] = value
+    return result
+
+
+def normalize_candidate_payload_profiles(payload: Mapping[str, Any]) -> dict[str, Any]:
     result = json.loads(stable_json(payload))
+    candidates = [row for row in result.get("secondary_binding_candidates") or [] if isinstance(row, dict)]
+    for row in candidates:
+        raw_payload = row.get("candidate_payload")
+        if not isinstance(raw_payload, Mapping):
+            continue
+        candidate_payload = dict(raw_payload)
+        candidate_item_code = _candidate_item_code(row, candidate_payload)
+        candidate_payload.pop("profile_policy", None)
+        if candidate_item_code != "I5B":
+            candidate_payload.pop("personnel_profile", None)
+        if candidate_item_code != "I5C":
+            candidate_payload.pop("power_control_profile", None)
+        if not _is_ad_factor_hint_allowed(row, candidate_payload):
+            candidate_payload.pop("appointment_delegation_factor_hints", None)
+        for profile_key in ("personnel_profile", "power_control_profile"):
+            profile = candidate_payload.get(profile_key)
+            if isinstance(profile, Mapping):
+                pruned = _prune_empty_profile_values(profile)
+                if pruned:
+                    candidate_payload[profile_key] = pruned
+                else:
+                    candidate_payload.pop(profile_key, None)
+        row["candidate_payload"] = candidate_payload
+    result["secondary_binding_candidates"] = candidates
+    return result
+
+
+def enrich_judge_payload(candidates: Mapping[str, Any], payload: Mapping[str, Any]) -> dict[str, Any]:
+    result = normalize_candidate_payload_profiles(payload)
     claims = [claim for claim in result.get("claims") or [] if isinstance(claim, dict)]
     result["claims"] = claims
     if not result.get("passages"):

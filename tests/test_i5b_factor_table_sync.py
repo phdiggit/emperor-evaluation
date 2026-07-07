@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import inspect
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -45,8 +46,7 @@ def test_extract_current_rule_docs_contains_expected_i5b_factor_options() -> Non
     assert all("政权安全" not in label for label in target_fault_labels)
     assert all("相邻项" not in label for label in target_fault_labels)
 
-    rank_decay_rows = [row for row in rows if row.rule_code == "team_building" and row.factor_name == "rank_decay"]
-    assert [row.label for row in rank_decay_rows] == ["第 1 位", "第 2 位", "第 3 位", "第 4-6 位", "第 7 位以后"]
+    assert not any(row.rule_code == "team_building" and row.factor_name == "rank_decay" for row in rows)
 
     discovery_quality_rows = [
         row
@@ -63,21 +63,26 @@ def test_extract_current_rule_docs_contains_expected_i5b_factor_options() -> Non
         Decimal("1.8"),
     ]
 
-    delegation_feedback_rows = [
+    appointment_effect_rows = [
         row
         for row in rows
-        if row.rule_code == "delegation" and row.factor_name == "result_feedback"
+        if row.rule_code == "appointment_delegation" and row.factor_name == "appointment_effect"
     ]
-    assert [row.value_num for row in delegation_feedback_rows] == [
+    assert [row.value_num for row in appointment_effect_rows] == [
         Decimal("1.5"),
         Decimal("1"),
-        Decimal("0.3"),
+        Decimal("0.4"),
         Decimal("-0.8"),
         Decimal("-1.8"),
         Decimal("-2.6"),
     ]
-    assert not any(row.value_num == Decimal("-2.0") for row in delegation_feedback_rows)
-    assert any("授权直接造成重大军政失败" in row.label for row in delegation_feedback_rows)
+    assert not any(row.value_num == Decimal("-2.0") for row in appointment_effect_rows)
+    assert any("重大军政失败" in row.label for row in appointment_effect_rows)
+    assert not any(
+        row.rule_code in {"delegation", "appointment_trust"}
+        or row.factor_name in {"trust_depth", "trust_validity", "authorization_intensity", "person_post_fit", "result_feedback"}
+        for row in rows
+    )
 
     retired_factor_names = {"founder_pressure", "retention_signal", "certainty_factor", "spillover_factor", "disposition_severity"}
     assert not ({row.factor_name for row in rows} & retired_factor_names)
@@ -103,6 +108,19 @@ def test_render_upsert_sql_links_factor_options_to_items_and_rules() -> None:
     assert "source_option_id" in sql
     assert "on conflict on constraint rv2_eval_rule_factors_code_uk" in sql
     assert "on conflict on constraint rv2_eval_rule_factor_options_factor_label_uk" in sql
+
+
+def test_dump_db_factor_options_reads_retrieval_v2_tables() -> None:
+    tool = load_tool()
+    source = inspect.getsource(tool.dump_db_factor_options)
+
+    assert tool.DEFAULT_DSN_ENV == "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+    assert "from retrieval_v2.eval_rule_factors" in source
+    assert "join retrieval_v2.eval_rule_factor_options" in source
+    assert "erfo.option_note as note" in source
+    assert "erf.factor_status = 'active'" in source
+    assert "erfo.option_status = 'active'" in source
+    assert "public.eval_rule_factors" not in source
 
 
 def test_compare_rows_reports_missing_and_extra_options() -> None:

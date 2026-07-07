@@ -1,15 +1,51 @@
 # 第五项B 用人与授权计分规则
 
-本文规定第五项B“用人与授权”六个 `rule_code` 的材料计分公式、材料信号映射、因子档位和总分层权重。六个 `rule_code` 固定为：
+本文规定第五项B“用人与授权”五个 `rule_code` 的材料计分公式、材料信号映射、因子档位和总分层权重。五个 `rule_code` 固定为：
 
 ```text
 talent_discovery
-appointment_trust
-delegation
+appointment_delegation
 team_building
 tolerate_talent
 anti_nepotism
 ```
+
+## 机器消费摘要
+
+抓包端只需要识别候选事实，不直接判定因子档位或正式入分。推荐把候选事实抽成以下稳定字段：
+
+```json
+{
+  "personnel_profile": {
+    "person": "人才或用人对象",
+    "person_role": "岗位、任务、身份或团队角色",
+    "talent_quality": "ordinary | usable | important | top | historic | negative",
+    "action_type": "discover | appoint | delegate | reuse | build_team | tolerate | protect | select_openly | favor_private",
+    "appointment_or_authorization": "任用、授权、复用或托付事实",
+    "feedback_or_result": "履职结果、复用反馈、损害或治理后果",
+    "team_function": "decision | administration | military | correction | resource | other",
+    "selection_channel": "荐举、公开选任、破格拔擢、亲旧近幸、外戚宦官等渠道",
+    "same_event_chain": true
+  }
+}
+```
+
+候选路由先按“用人行为重心”分流：
+
+| `rule_code` | 快速路由口径 |
+| --- | --- |
+| `talent_discovery` | 识别、引入、召见、试用或拔擢此前未进入核心视野的人才。 |
+| `appointment_delegation` | 把具体人才放到岗位、任务、权责链或长期托付关系中，并可见适配反馈。 |
+| `team_building` | 皇帝对象池整体人才结构、功能互补、核心班底和长期团队质量。 |
+| `tolerate_talent` | 容谏、保全能臣、维护表达安全、修复授权信用，或对应负向破坏。 |
+| `anti_nepotism` | 抑制亲旧、近幸、外戚、宦官、宠臣、小圈子对任免的污染，或公开择才。 |
+
+factorization prompt 只注入当前 rule 的因子表和短边界：
+
+- `team_building` 使用对象池聚合，不以单条 claim 临场给团队成员定级。
+- 其余 rule 使用单材料公式、材料层封顶和正负信号聚合。
+- 任用、授权、复用、信任和结果反馈在 `appointment_delegation` 内一次判读；不得拆成多个旧口径重复入分。
+- 相邻项边界只注入与当前候选最可能混淆的二至三条；不得把本文件全文作为常规 prompt 上下文。
 
 ## 一、材料信号尺度
 
@@ -123,119 +159,79 @@ TODO：待更多皇帝样本跑完后复核“仅有提拔、擢用、任命事�
 | `1.1` | 跨阵营、跨身份、寒门或异质人才通道成立。 |
 | `1.2` | 形成可重复的人才发现机制或稳定荐才网络。 |
 
-## 四、`appointment_trust` 任人信任
+## 四、`appointment_delegation` 任用授权质量
 
-适用：任用、信任、复用关键人才，并赋予可见职责。任人信任必须判断“信任是否合理”。
+适用：任用、信任、复用关键人才，或授予其岗位、任务、军政权责、机要职责。任用授权质量评价的是“皇帝是否把合适的人放到合适的位置、任务或权责链上，并产生合理后果”。
 
-计分承载对象：被任用、被信任、被复用或被长期托付的具体人物。
+计分承载对象：被任用、被信任、被复用、被授权或被长期托付的具体人物及其岗位、任务或权责链。
 
 ```text
 raw_material_score =
-  trust_depth
-  * trust_validity
+  appointment_importance
+  * appointment_effect
   * continuity_factor
   * evidence_factor
 ```
 
-`trust_validity` 可以为负；对象明显不适任、佞幸化、破坏公共任用秩序或造成核心人才生态损害时，深度信任会放大负向分。
+同一条事实链中，“任命某人”“授予某项职责”“该职责结果如何”只在本规则内形成一条入分判断，不拆入多个 rule 重复计分。若同一 claim/object 拆出多个 role binding，默认只保留最能代表任用授权质量的一条 `score`。
 
-### `trust_depth`
+`appointment_effect` 可以为负；对象明显不适任、佞幸化、破坏公共任用秩序，或授权安排直接造成军政治理损害时，任用授权重要性会放大负向分。
 
-| 值 | 口径 |
-| ---: | --- |
-| `0.7` | 普通任命、名义性信任或职责较轻。 |
-| `1.0` | 有实际职责的任用。 |
-| `1.25` | 中枢、军政关键岗位或核心职掌。 |
-| `1.35` | 托孤、危局、旧敌转用、重大机密或国家级信任。 |
+撤权、诛废、猜忌、清洗、功臣不保等处置性材料，本身不作为本规则的结果反馈；只有材料证明其是某次任用授权安排的直接履职后果时，才计入 `appointment_effect`。
 
-### `trust_validity`
+### `appointment_importance`
 
 | 值 | 口径 |
 | ---: | --- |
-| `+1.2` | 高风险、关键岗位或异质对象仍能胜任，且材料显示任后结果、公共能力和岗位适格性较高。 |
-| `+1.0` | 有明确任后表现、职责匹配、政策、军事、行政成果或持续复用反馈。 |
-| `+0.4` | 信任关系存在，但只见任官、亲近、复用或名望，缺少任后结果或岗位适配反馈。 |
-| `-0.8` | 错信、偏信或亲旧近幸色彩明显，削弱任用质量。 |
-| `-1.6` | 深度信任明显不适任、佞幸化或破坏人才生态的对象。 |
-| `-2.2` | 长期信任核心负向对象，并造成系统性任用污染、表达压制或关键人才损害。 |
+| `0.6` | 名义任命、名义授权、职责不清或职责较轻。 |
+| `1.0` | 有实际职责的任用、信任或单一领域真实授权。 |
+| `1.25` | 中枢、军政关键岗位、核心职掌或重大军政事务授权。 |
+| `1.4` | 托孤、危局、旧敌转用、重大机密、国家级或长期关键任用授权。 |
+
+### `appointment_effect`
+
+| 值 | 口径 |
+| ---: | --- |
+| `+1.5` | 高风险、关键岗位或高强度授权高度适配，并产生重大成功或强烈体现任用授权合理。 |
+| `+1.0` | 人岗匹配成立，有明确任后表现、职责履行、政策、军事、行政成果或持续复用反馈。 |
+| `+0.4` | 任用、信任、授权关系存在，但只见任官、亲近、名望、任务交付或弱反馈，缺少充分结果或岗位适配证明。 |
+| `-0.8` | 错任、错信、偏信、弱匹配或授权后结果较差，显示任用授权判断有问题。 |
+| `-1.8` | 深度任用授权明显不适任对象，并直接造成重大军政失败、治理损害、关键职责失守或人才生态损害。 |
+| `-2.6` | 长期或国家级错误任用授权造成连续性、结构性、大规模后续损害，或系统性任用污染、表达压制、关键人才损害。 |
 
 ### `continuity_factor`
 
 | 值 | 口径 |
 | ---: | --- |
-| `0.8` | 短期任用或未形成持续复用。 |
-| `1.0` | 稳定任用。 |
-| `1.15` | 长期复用或多阶段持续信任。 |
+| `0.85` | 短期、单次、临时任用授权，或未形成持续复用。 |
+| `1.0` | 稳定任用授权。 |
+| `1.15` | 长期复用、多阶段持续信任，或同一对象跨阶段承担关键职责。 |
 
-## 五、`delegation` 合理授权
-
-适用：授权专任、权责配置、任将任相、机要托付。合理授权必须看人岗匹配和结果反馈。
-
-计分承载对象：被授权对象及其岗位、职责或权责链。
-
-```text
-raw_material_score =
-  authorization_intensity
-  * person_post_fit
-  * result_feedback
-  * evidence_factor
-```
-
-本规则不先套 `direction_sign`。`result_feedback` 可以为负；授权给明显不适任对象并由该授权直接造成损害时，材料进入负向授权簇。
-
-撤权、诛废、猜忌、清洗、功臣不保等处置性材料，本身不作为本规则的结果反馈；只有材料证明其是某次授权安排的直接履职后果时，才可计入 `delegation`。
-
-### `authorization_intensity`
-
-| 值 | 口径 |
-| ---: | --- |
-| `0.6` | 名义授权或职责不清。 |
-| `1.0` | 单一领域的真实授权。 |
-| `1.25` | 重大军政事务授权。 |
-| `1.4` | 国家级、危局或长期关键授权。 |
-
-### `person_post_fit`
-
-| 值 | 口径 |
-| ---: | --- |
-| `0.5` | 人岗明显不匹配。 |
-| `0.8` | 匹配关系较弱或只是普通称职。 |
-| `1.0` | 人岗匹配成立。 |
-| `1.2` | 顶级专长与岗位高度匹配。 |
-
-### `result_feedback`
-
-| 值 | 口径 |
-| ---: | --- |
-| `+1.5` | 重大成功强烈体现授权合理。 |
-| `+1.0` | 正常成功或职责履行良好。 |
-| `+0.3` | 履职反馈较弱，不足以支撑高强度授权正证。 |
-| `-0.8` | 授权后任务结果较差，显示匹配或授权判断有问题。 |
-| `-1.8` | 授权直接造成重大军政失败、治理损害或关键职责失守。 |
-| `-2.6` | 错误授权直接造成连续性、结构性或大规模后续损害。 |
-
-## 六、`team_building` 建立团队
+## 五、`team_building` 建立团队
 
 适用：形成互补团队、核心幕府、中枢班底、荐才网络或长期人才结构。
 
 计分承载对象：该皇帝对象池中的全部具体人才对象；团队质量由对象池聚合，不由单条材料临场定级。不得因对象不是核心官职、核心将相或长期班底成员而在候选阶段排除；是否弱贡献、负贡献或仅作上下文，由对象属性、团队聚合排序和 `target_action` 决定。
 
 ```text
-team_raw_signal =
-  team_quality_signal
+object_score_i =
+  talent_quality_factor_i
   * role_complementarity_factor
   * long_term_stability_factor
 
-team_rule_signal =
-  4.5 * team_raw_signal / (team_raw_signal + 4.0)                    if team_raw_signal >= 0
-  -6.5 * abs(team_raw_signal) / (abs(team_raw_signal) + 4.5)         if team_raw_signal < 0
+positive_signal =
+  sum(object_score_i for positive team objects)
 
-team_quality_signal =
-  sqrt(sum(positive_weighted_i^2))
-  - sqrt(sum(abs(negative_weighted_i)^2))
+negative_signal =
+  sum(abs(object_score_i) for negative team objects)
 
-weighted_i = talent_quality_factor_i * rank_decay_i
+team_raw_net =
+  positive_signal - negative_signal
 ```
+
+`team_raw_net` 直接作为本 rule 的原始净信号输出，不在 rule 层做响应函数、二次封顶或最终得分映射。
+
+`team_building` 以对象池中的人才对象为计分单元。每个对象在同一目标皇帝下只贡献一次团队信号；多条史料只用于支撑该对象画像、身份和人才层级，不因多条 claim 形成重复入分。若数据链意外产生同一对象多条 `score`，只保留最能代表该对象团队贡献的一条，其余不得叠分。
 
 ### `talent_quality_factor`
 
@@ -246,21 +242,9 @@ weighted_i = talent_quality_factor_i * rank_decay_i
 | 重要人才 | `0.9` |
 | 可用人才 | `0.55` |
 | 普通人才 | `0.35` |
-| 佞臣 | `-0.35` |
-| 大佞臣 | `-0.75` |
-| 历史级佞臣 | `-1.15` |
-
-### `rank_decay`
-
-按 `abs(talent_quality_factor)` 从高到低排序后自动应用：
-
-| 排序 | 衰减 |
-| --- | ---: |
-| 第 1 位 | `1.00` |
-| 第 2 位 | `0.90` |
-| 第 3 位 | `0.80` |
-| 第 4-6 位 | `0.45` |
-| 第 7 位以后 | `0.25` |
+| 佞臣 | `-0.6` |
+| 大佞臣 | `-1.1` |
+| 历史级佞臣 | `-1.7` |
 
 ### `role_complementarity_factor`
 
@@ -280,7 +264,7 @@ weighted_i = talent_quality_factor_i * rank_decay_i
 | `1.1` | 长期稳定核心班底。 |
 | `1.2` | 长期可持续人才结构或成熟中枢团队。 |
 
-## 七、`tolerate_talent` 容人保全
+## 六、`tolerate_talent` 容人保全
 
 适用：容谏、保全能臣、维护表达安全、避免滥杀能臣，以及相关负向反转。
 
@@ -351,7 +335,7 @@ raw_material_score =
 | `0.5` | 违法乱纪、重大过错或危险行为基本成立，但处置仍显过重。 |
 | `0.2` | 谋反、叛乱或严重危害基本坐实，但仍保留极弱的人才安全、表达安全或授权信用残余。 |
 
-## 八、`anti_nepotism` 避免任人唯亲
+## 七、`anti_nepotism` 避免任人唯亲
 
 适用：抑制亲旧、近幸、外戚、宦官、宠臣或小圈子对核心任免的污染；也适用于公开择才、制度化选任、跨身份用人等正向材料。
 
@@ -422,16 +406,26 @@ raw_material_score =
 | `1.4` | 损害团队结构、政策执行或表达安全。 |
 | `2.0` | 形成长期制度性任用污染。 |
 
-## 九、规则原始信号聚合
+## 八、规则原始信号聚合
 
-除 `team_building` 使用团队聚合公式外，各 rule 的材料按正负两侧分别聚合，再直接相减，得到规则原始净信号。规则层不做区间映射、响应函数、二次封顶或人物档位重映射。
+各 rule 的材料按正负两侧分别聚合，再直接相减，得到规则原始净信号。规则层不做区间映射、响应函数、二次封顶或人物档位重映射。
+
+除 `team_building` 为对象池单元、每个对象只贡献一次外，普通 claim-driven rule 先在同一对象内做重复材料衰减：
+
+```text
+object_side_signal =
+  strongest_material_score
+  + 0.35 * sum(other_material_scores)
+```
+
+同一对象内的聚合值不超过单材料最强值的 `1.5` 倍，也不超过单对象上限。随后 rule 侧不再做压缩，只做对象间线性求和：
 
 ```text
 positive_signal(rule) =
-  sqrt(sum(material_score_i^2 for positive materials))
+  sum(object_side_signal_j for positive objects)
 
 negative_signal(rule) =
-  sqrt(sum(abs(material_score_i)^2 for negative materials))
+  sum(object_side_signal_j for negative objects)
 
 rule_raw_net(rule) =
   positive_signal(rule) - negative_signal(rule)
@@ -447,7 +441,7 @@ negative_signal = 0
 rule_raw_net = 0
 ```
 
-## 十、动态计分输入权重
+## 九、动态计分输入权重
 
 输入：
 
@@ -461,11 +455,22 @@ max_score          = 45
 ```text
 weighted_raw_signal =
   0.19 * talent_discovery.rule_raw_net
-+ 0.19 * appointment_trust.rule_raw_net
-+ 0.17 * delegation.rule_raw_net
++ 0.36 * appointment_delegation.rule_raw_net
 + 0.21 * team_building.rule_raw_net
 + 0.18 * tolerate_talent.rule_raw_net
 + 0.06 * anti_nepotism.rule_raw_net
 ```
 
 最终 `score_rate` 和 `score` 不在单个皇帝完成时按固定公式即时生成。应在一批目标的原始信号全部算完后，以标杆人物、分布形态、合理区分度和评分总则档位为约束，进行动态区间映射。评分总则中的历史极限、历史顶级、优秀等最终得分率档位仍保留在最终解释层，不在 rule 原始信号层重复定档。
+
+## 十、相邻项边界
+
+本章用于规则表同步、人工审核和 prompt 裁剪。正式 factorization prompt 不应全量展开本章；只根据当前候选的 `candidate_item_code`、`candidate_lane` 和 `personnel_profile` 注入最可能混淆的相邻项边界。
+
+- 与 I5C：I5B 评价用人、授权、团队、容才和反亲私；I5C 评价权力结构是否可控、可约束、可纠偏。任用某人本身归 I5B；该任用造成权力结构平衡或失控，才作为 I5C 候选窄验。
+- 与 I5D：I5D 评价政治品格、待功臣、猜忌滥杀、仁暴取向等价值面；I5B 只在这些行为影响人才识别、任用授权、团队质量、容人保全或任用公正时入分。
+- 与 I5E：I5E 评价认知、纳谏、学习、纠错能力；I5B 只评价反馈对象是否作为人才被容纳、保全、任用或进入稳定团队链条。
+- 与 I6：I6 评价关键决策质量；I5B 评价关键决策中的用人和授权质量。单次战略正确与否归 I6，任用授权是否适配归 I5B。
+- 与 I3：I3 评价军事边疆结果；I5B 只评价将帅发现、任用授权、团队配置和人才保全。
+
+同一材料可作为跨项候选保留，但正式入分必须分别窄验；不得用同一语义在 I5B 内多个 rule 或 I5B 与相邻项之间重复计分。

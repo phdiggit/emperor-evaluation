@@ -21,7 +21,7 @@ def write_person_run(
     status: str = "succeeded",
     anomaly_blocks: int | None = 0,
 ) -> dict:
-    run_dir = root / f"{target_code}_delegation"
+    run_dir = root / f"{target_code}_appointment_delegation"
     task_path = run_dir / "task.final.json"
     candidates_path = run_dir / "candidates.final.json"
     judge_path = run_dir / "judge_result.final.json"
@@ -31,7 +31,7 @@ def write_person_run(
             "target_code": target_code,
             "emperor_name": name,
             "item_code": "I5B",
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
         },
     )
     write_json(
@@ -49,7 +49,7 @@ def write_person_run(
             "documents": [{"document_code": "DOC-001"}],
             "passages": [{"passage_code": "PAS-001"}],
             "claims": [{"claim_code": "CLM-001", "object_name": "冯唐"}],
-            "primary_bindings": [{"claim_code": "CLM-001", "rule_code": "delegation"}],
+            "primary_bindings": [{"claim_code": "CLM-001", "rule_code": "appointment_delegation"}],
             "secondary_binding_candidates": [{"claim_code": "CLM-001", "rule_code": "team_building"}],
             "coverage_gaps": [{"gap_type": "predicate_missing", "object_name": "冯唐"}],
         },
@@ -86,7 +86,7 @@ def test_build_manifest_accepts_only_gate_passing_people(tmp_path: Path) -> None
     assert manifest["totals"]["rejected"] == 1
     package = manifest["packages"][0]
     assert package["emperor_name"] == "刘恒"
-    assert package["source_pack_code"].startswith("SPK-I5B-LH-DELEGATION-")
+    assert package["source_pack_code"].startswith("SPK-I5B-LH-APPOINTMENT-DELEGATION-")
     assert package["counts"]["claims"] == 1
     assert package["counts"]["primary_bindings"] == 1
     assert package["counts"]["secondary_binding_candidates"] == 1

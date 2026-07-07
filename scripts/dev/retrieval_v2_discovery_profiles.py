@@ -50,6 +50,113 @@ def profile_from_task(task: Mapping[str, Any]) -> dict[str, Any]:
     return task_skeleton.discovery_profile_from_task(task)
 
 
+def recall_terms_from_delta(delta: Mapping[str, Any]) -> list[str]:
+    terms: list[Any] = []
+    updates = delta.get("proposed_updates") if isinstance(delta.get("proposed_updates"), list) else []
+    for update in updates:
+        if not isinstance(update, Mapping):
+            continue
+        if update.get("target_location") != "source_discovery_profile":
+            continue
+        if update.get("target_field") != "rule_terms":
+            continue
+        if update.get("operation") != "append_unique":
+            continue
+        terms.extend(update.get("add_terms") or [])
+    return task_skeleton.unique_strings(terms)
+
+
+def conditional_terms_from_delta(delta: Mapping[str, Any]) -> list[dict[str, Any]]:
+    terms: list[dict[str, Any]] = []
+    updates = delta.get("proposed_updates") if isinstance(delta.get("proposed_updates"), list) else []
+    for update in updates:
+        if not isinstance(update, Mapping):
+            continue
+        if update.get("target_location") != "source_discovery_profile":
+            continue
+        if update.get("target_field") != "conditional_rule_terms":
+            continue
+        if update.get("operation") != "append_guarded_terms":
+            continue
+        for row in update.get("conditional_terms") or []:
+            if isinstance(row, Mapping):
+                terms.append(dict(row))
+    return terms
+
+
+def profile_recall_delta_preview(profile: Mapping[str, Any], delta: Mapping[str, Any]) -> dict[str, Any]:
+    result = json.loads(pretty_json(profile))
+    add_terms = recall_terms_from_delta(delta)
+    conditional_terms = conditional_terms_from_delta(delta)
+    result["rule_terms"] = task_skeleton.unique_strings([*(result.get("rule_terms") or []), *add_terms])
+    result["recall_term_overlays"] = [
+        *(result.get("recall_term_overlays") or []),
+        {
+            "source_delta_version": delta.get("version"),
+            "source_report_type": delta.get("report_type"),
+            "target_location": "source_discovery_profile",
+            "target_field": "rule_terms",
+            "operation": "append_unique",
+            "add_terms": add_terms,
+            "conditional_terms_not_injected": conditional_terms,
+        },
+    ]
+    result["preview_metadata"] = {
+        "generated_by": "scripts/dev/retrieval_v2_discovery_profiles.py",
+        "preview_type": "recall_term_delta_preview",
+        "writes_profile": False,
+        "requires_regression_before_prompt_removal": True,
+        "appended_rule_term_count": len(add_terms),
+        "conditional_term_not_injected_count": len(conditional_terms),
+        "preview_fingerprint": task_skeleton.stable_fingerprint(
+            {
+                "profile_fingerprint": profile.get("profile_fingerprint"),
+                "rule_terms": result["rule_terms"],
+                "delta_version": delta.get("version"),
+            }
+        ),
+    }
+    return result
+
+
+def task_recall_delta_preview(task: Mapping[str, Any], delta: Mapping[str, Any]) -> dict[str, Any]:
+    result = json.loads(pretty_json(task))
+    add_terms = recall_terms_from_delta(delta)
+    conditional_terms = conditional_terms_from_delta(delta)
+    result["rule_terms"] = task_skeleton.unique_strings([*(result.get("rule_terms") or []), *add_terms])
+    result["recall_term_overlays"] = [
+        *(result.get("recall_term_overlays") or []),
+        {
+            "source_delta_version": delta.get("version"),
+            "source_report_type": delta.get("report_type"),
+            "target_location": "task.rule_terms",
+            "operation": "append_unique",
+            "add_terms": add_terms,
+            "conditional_terms_not_injected": conditional_terms,
+        },
+    ]
+    result["preview_metadata"] = {
+        "generated_by": "scripts/dev/retrieval_v2_discovery_profiles.py",
+        "preview_type": "recall_term_delta_task_preview",
+        "writes_task": False,
+        "writes_profile": False,
+        "requires_regression_before_prompt_removal": True,
+        "appended_rule_term_count": len(add_terms),
+        "conditional_term_not_injected_count": len(conditional_terms),
+        "preview_fingerprint": task_skeleton.stable_fingerprint(
+            {
+                "target_code": task.get("target_code"),
+                "task_fingerprint": task.get("task_skeleton", {}).get("context_fingerprint")
+                if isinstance(task.get("task_skeleton"), Mapping)
+                else None,
+                "rule_terms": result["rule_terms"],
+                "delta_version": delta.get("version"),
+            }
+        ),
+    }
+    return result
+
+
 def validate_profile(profile: Mapping[str, Any]) -> list[str]:
     issues: list[str] = []
     if not str(profile.get("emperor_name") or "").strip():
@@ -182,12 +289,61 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--profile-root", type=Path, help="Write profile under this root using a deterministic path.")
     parser.add_argument("--profile", type=Path, action="append", default=[], help="Profile JSON to inspect; repeatable.")
     parser.add_argument("--scan-root", type=Path, action="append", default=[], help="Profile root to scan; repeatable.")
+    parser.add_argument("--recall-term-delta", type=Path, help="Read a recall term profile delta and build a preview.")
+    parser.add_argument("--output-preview", type=Path, help="Write preview JSON without modifying the source profile.")
+    parser.add_argument("--output-task-preview", type=Path, help="Write task preview JSON without modifying the source task.")
     parser.add_argument("--verbose", action="store_true", help="Print full profile JSON when writing from a task.")
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.recall_term_delta:
+        if args.output_task_preview:
+            if not args.from_task:
+                raise RetrievalV2DiscoveryProfileError("--output-task-preview requires --from-task")
+            preview = task_recall_delta_preview(load_json(args.from_task), load_json(args.recall_term_delta))
+            atomic_write_json(args.output_task_preview, preview)
+            sys.stdout.write(
+                pretty_json(
+                    {
+                        "ok": True,
+                        "output": str(args.output_task_preview),
+                        "appended_rule_term_count": preview["preview_metadata"]["appended_rule_term_count"],
+                        "conditional_term_not_injected_count": preview["preview_metadata"][
+                            "conditional_term_not_injected_count"
+                        ],
+                        "writes_task": False,
+                        "writes_profile": False,
+                    }
+                )
+            )
+            return 0
+        if len(args.profile) != 1:
+            raise RetrievalV2DiscoveryProfileError("--recall-term-delta requires exactly one --profile")
+        profile = load_json(args.profile[0])
+        issues = validate_profile(profile)
+        if issues:
+            raise RetrievalV2DiscoveryProfileError(f"invalid discovery profile {args.profile[0]}: {issues}")
+        preview = profile_recall_delta_preview(profile, load_json(args.recall_term_delta))
+        if args.output_preview:
+            atomic_write_json(args.output_preview, preview)
+            sys.stdout.write(
+                pretty_json(
+                    {
+                        "ok": True,
+                        "output": str(args.output_preview),
+                        "appended_rule_term_count": preview["preview_metadata"]["appended_rule_term_count"],
+                        "conditional_term_not_injected_count": preview["preview_metadata"][
+                            "conditional_term_not_injected_count"
+                        ],
+                        "writes_profile": False,
+                    }
+                )
+            )
+        else:
+            sys.stdout.write(pretty_json(preview))
+        return 0
     if args.from_task:
         profile = profile_from_task(load_json(args.from_task))
         output_path: Path | None = None

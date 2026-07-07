@@ -36,12 +36,13 @@ def test_judge_gap_object_names_reads_source_actionable_rows() -> None:
     judge_result = {
         "coverage_gaps": [
             {"gap_type": "predicate_missing", "object_name": "张辅"},
+            {"gap_type": "object_claim_undercoverage", "object_name": "汤和"},
             {"gap_type": "negative_undercoverage", "object_name": "解缙"},
             {"gap_type": "mixed_claim_not_split", "object_name": "纪纲"},
         ]
     }
 
-    assert tool.judge_gap_object_names(judge_result) == ["张辅", "解缙"]
+    assert tool.judge_gap_object_names(judge_result) == ["张辅", "汤和", "解缙"]
 
 
 def test_refine_task_sources_for_candidate_gaps_searches_only_gap_objects() -> None:

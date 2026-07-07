@@ -251,3 +251,42 @@ def test_main_writes_jsonl_rowset(tmp_path: Path, capsys) -> None:
     summary = json.loads((output_root / "normalized_summary.json").read_text(encoding="utf-8"))
     assert summary["totals"]["material_claims"] == 1
     assert json.loads(capsys.readouterr().out)["totals"]["source_packs"] == 1
+
+
+def test_main_defaults_output_root_from_runtime_config(tmp_path: Path, capsys) -> None:
+    manifest_path = write_manifest_fixture(tmp_path)
+    config = tmp_path / "runtime_paths.json"
+    consumption_root = tmp_path / "active" / "consumption"
+    config.write_text(
+        json.dumps(
+            {
+                "active_root_smb": str(tmp_path / "active"),
+                "archive_root_smb": str(tmp_path / "archive"),
+                "retrieval_v2_consumption": str(consumption_root),
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    assert (
+        tool.main(
+            [
+                "build",
+                "--manifest",
+                str(manifest_path),
+                "--runtime-paths-config",
+                str(config),
+                "--package-name",
+                "sample package",
+            ]
+        )
+        == 0
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    output_root = Path(payload["output_root"])
+    assert output_root == consumption_root / "sample_package"
+    assert (output_root / "material_claims.jsonl").exists()
+    assert payload["runtime_paths"]["uses_runtime_config"] is True

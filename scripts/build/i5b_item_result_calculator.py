@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import os
 from dataclasses import dataclass
 from datetime import datetime
@@ -17,25 +16,19 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_ITEM_CODE = "I5B"
 DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
-DEFAULT_FORMULA_CODE = "item_result_formula_i5b_v9"
+DEFAULT_FORMULA_CODE = "item_raw_signal_i5b_v1"
 MAX_SCORE = Decimal("45.000")
-POSITIVE_RESPONSE_CAP = Decimal("5.5")
-POSITIVE_RESPONSE_TAU = Decimal("3.5")
-NEGATIVE_RESPONSE_CAP = Decimal("7.0")
-NEGATIVE_RESPONSE_TAU = Decimal("4.0")
 
 RULE_ORDER = (
     "talent_discovery",
-    "appointment_trust",
-    "delegation",
+    "appointment_delegation",
     "team_building",
     "tolerate_talent",
     "anti_nepotism",
 )
 RULE_WEIGHTS = {
     "talent_discovery": Decimal("0.19"),
-    "appointment_trust": Decimal("0.19"),
-    "delegation": Decimal("0.17"),
+    "appointment_delegation": Decimal("0.36"),
     "team_building": Decimal("0.21"),
     "tolerate_talent": Decimal("0.18"),
     "anti_nepotism": Decimal("0.06"),
@@ -79,48 +72,6 @@ def quant(value: Decimal, places: str) -> Decimal:
     return value.quantize(Decimal(places), rounding=ROUND_HALF_UP)
 
 
-def rule_response(signal: Decimal, *, cap: Decimal, tau: Decimal) -> Decimal:
-    if signal < 0:
-        raise I5BItemResultError("rule signals must be non-negative")
-    effect = Decimal(str(float(cap) * (1 - math.exp(-float(signal) / float(tau)))))
-    return quant(effect, "0.001")
-
-
-def positive_rule_response(signal: Decimal) -> Decimal:
-    return rule_response(signal, cap=POSITIVE_RESPONSE_CAP, tau=POSITIVE_RESPONSE_TAU)
-
-
-def negative_rule_response(signal: Decimal) -> Decimal:
-    return rule_response(signal, cap=NEGATIVE_RESPONSE_CAP, tau=NEGATIVE_RESPONSE_TAU)
-
-
-def tier_for_rate(rate: Decimal) -> tuple[str, str]:
-    ranges = (
-        ("历史极限", Decimal("0.96"), Decimal("0.98")),
-        ("历史顶级", Decimal("0.90"), Decimal("0.96")),
-        ("优秀", Decimal("0.80"), Decimal("0.90")),
-        ("良好", Decimal("0.70"), Decimal("0.80")),
-        ("合格", Decimal("0.60"), Decimal("0.70")),
-        ("一般", Decimal("0.50"), Decimal("0.60")),
-        ("较差", Decimal("0.40"), Decimal("0.50")),
-        ("很差", Decimal("0.30"), Decimal("0.40")),
-        ("极差", Decimal("0.00"), Decimal("0.30")),
-    )
-    for tier, low, high in ranges:
-        if rate >= low:
-            span = high - low
-            if span <= 0:
-                return tier, ""
-            first = low + span / Decimal("3")
-            second = low + span * Decimal("2") / Decimal("3")
-            if rate < first:
-                return tier, "低段"
-            if rate < second:
-                return tier, "正常"
-            return tier, "高段"
-    raise I5BItemResultError(f"score_rate {rate} does not match a configured tier interval")
-
-
 def _zero_signals() -> dict[str, RuleSignals]:
     return {rule: RuleSignals(Decimal("0.000"), Decimal("0.000")) for rule in RULE_ORDER}
 
@@ -133,14 +84,13 @@ def calculate_formula(
     normalized.update(signals)
 
     rule_inputs: dict[str, dict[str, str | bool | None]] = {}
-    base_core = Decimal("0.000")
+    weighted_raw_signal = Decimal("0.000")
 
     for rule in RULE_ORDER:
         rule_signal = normalized[rule]
-        positive_effect = positive_rule_response(rule_signal.positive_signal)
-        negative_effect = negative_rule_response(rule_signal.negative_signal)
-        net_effect = positive_effect - negative_effect
-        base_core += RULE_WEIGHTS[rule] * net_effect
+        rule_raw_net = quant(rule_signal.positive_signal - rule_signal.negative_signal, "0.001")
+        rule_weighted_raw_signal = quant(RULE_WEIGHTS[rule] * rule_raw_net, "0.001")
+        weighted_raw_signal += RULE_WEIGHTS[rule] * rule_raw_net
 
         rule_inputs[rule] = {
             "cluster_id": rule_signal.cluster_id,
@@ -149,30 +99,23 @@ def calculate_formula(
             and rule_signal.negative_signal == 0,
             "positive_signal": str(quant(rule_signal.positive_signal, "0.001")),
             "negative_signal": str(quant(rule_signal.negative_signal, "0.001")),
-            "positive_effect": str(positive_effect),
-            "negative_effect": str(negative_effect),
-            "rule_net_effect": str(quant(net_effect, "0.001")),
+            "rule_raw_net": str(rule_raw_net),
             "rule_weight": str(quant(RULE_WEIGHTS[rule], "0.001")),
+            "weighted_raw_signal": str(rule_weighted_raw_signal),
         }
 
-    base_core = quant(base_core, "0.001")
-    base_rate = quant(Decimal("0.50") + base_core / Decimal("7.5"), "0.0001")
-    score_rate = quant(max(Decimal("0"), min(Decimal("0.98"), base_rate)), "0.0001")
-    score = quant(MAX_SCORE * score_rate, "0.001")
-    tier, tier_band = tier_for_rate(score_rate)
+    weighted_raw_signal = quant(weighted_raw_signal, "0.001")
 
     return {
-        "positive_response_cap": str(POSITIVE_RESPONSE_CAP),
-        "positive_response_tau": str(POSITIVE_RESPONSE_TAU),
-        "negative_response_cap": str(NEGATIVE_RESPONSE_CAP),
-        "negative_response_tau": str(NEGATIVE_RESPONSE_TAU),
+        "formula_stage": "raw_signal_only",
+        "dynamic_mapping_required": True,
+        "max_score": str(MAX_SCORE),
         "rules": rule_inputs,
-        "base_core": str(base_core),
-        "base_rate": str(base_rate),
-        "score_rate": str(score_rate),
-        "score": str(score),
-        "tier": tier,
-        "tier_band": tier_band,
+        "weighted_raw_signal": str(weighted_raw_signal),
+        "score_rate": None,
+        "score": None,
+        "tier": None,
+        "tier_band": None,
     }
 
 
@@ -216,85 +159,6 @@ def _fetch_signals(cur: Any, *, emp_id: int, item_id: int, cluster_formula: str)
     return signals
 
 
-def _upsert_result(
-    cur: Any,
-    *,
-    emp_id: int,
-    item_id: int,
-    cluster_formula: str,
-    formula_code: str,
-    formula: dict[str, Any],
-) -> int:
-    note = f"v9公式自动计算；规则输入来自 {cluster_formula}；无材料规则按0处理。"
-    cur.execute(
-        """
-        insert into emp_item_results (emp_id, item_id, formula_code, max_score, score, tier, tier_band, note)
-        values (%s, %s, %s, %s, %s, %s, %s, %s)
-        on conflict (emp_id, item_id) do update set
-            formula_code = excluded.formula_code,
-            max_score = excluded.max_score,
-            score = excluded.score,
-            tier = excluded.tier,
-            tier_band = excluded.tier_band,
-            note = excluded.note,
-            updated_at = now()
-        returning id
-        """,
-        (
-            emp_id,
-            item_id,
-            formula_code,
-            MAX_SCORE,
-            Decimal(str(formula["score"])),
-            str(formula["tier"]),
-            str(formula["tier_band"]),
-            note,
-        ),
-    )
-    return int(cur.fetchone()[0])
-
-
-def _jsonb(value: Any) -> str:
-    return json.dumps(value, ensure_ascii=False, sort_keys=True)
-
-
-def _upsert_result_calc_detail(
-    cur: Any,
-    *,
-    result_id: int,
-    item_code: str,
-    cluster_formula: str,
-    formula_code: str,
-    formula: dict[str, Any],
-) -> None:
-    cur.execute(
-        """
-        insert into emp_item_result_calc_details (
-            result_id, item_code, cluster_formula, formula_code,
-            base_core, score_rate, calc_detail
-        )
-        values (%s, %s, %s, %s, %s, %s, %s::jsonb)
-        on conflict (result_id) do update set
-            item_code = excluded.item_code,
-            cluster_formula = excluded.cluster_formula,
-            formula_code = excluded.formula_code,
-            base_core = excluded.base_core,
-            score_rate = excluded.score_rate,
-            calc_detail = excluded.calc_detail,
-            updated_at = now()
-        """,
-        (
-            result_id,
-            item_code,
-            cluster_formula,
-            formula_code,
-            Decimal(str(formula["base_core"])),
-            Decimal(str(formula["score_rate"])),
-            _jsonb(formula),
-        ),
-    )
-
-
 def calculate_item_results(
     *,
     dsn: str,
@@ -317,26 +181,10 @@ def calculate_item_results(
                 formula = calculate_formula(
                     signals=_fetch_signals(cur, emp_id=emp_id, item_id=item_id, cluster_formula=cluster_formula),
                 )
-                result_id = _upsert_result(
-                    cur,
-                    emp_id=emp_id,
-                    item_id=item_id,
-                    cluster_formula=cluster_formula,
-                    formula_code=formula_code,
-                    formula=formula,
-                )
-                _upsert_result_calc_detail(
-                    cur,
-                    result_id=result_id,
-                    item_code=item_code,
-                    cluster_formula=cluster_formula,
-                    formula_code=formula_code,
-                    formula=formula,
-                )
                 rows.append(
                     {
                         "generated_at": generated_at,
-                        "result_id": result_id,
+                        "result_id": None,
                         "emperor": emperor,
                         "item_code": item_code,
                         "cluster_formula": cluster_formula,
@@ -345,13 +193,13 @@ def calculate_item_results(
                     }
                 )
 
-        if dry_run:
-            conn.rollback()
-        else:
-            conn.commit()
+        conn.rollback()
 
     return {
-        "dry_run": dry_run,
+        "dry_run": True,
+        "writes_db": False,
+        "write_status": "skipped_dynamic_mapping_required",
+        "requested_write": not dry_run,
         "item_code": item_code,
         "cluster_formula": cluster_formula,
         "formula_code": formula_code,
@@ -431,13 +279,13 @@ def fetch_item_result_calc_detail_rows(
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Calculate formal I5B item results from evd_clusters.")
+    parser = argparse.ArgumentParser(description="Report I5B raw item signals from evd_clusters without final scoring.")
     parser.add_argument("--dsn-env", default=DEFAULT_DSN_ENV, help="Environment variable name for PostgreSQL DSN.")
     parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE, help="Evaluation item code.")
     parser.add_argument("--cluster-formula", default=DEFAULT_CLUSTER_FORMULA, help="Required evd_clusters formula_code.")
-    parser.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE, help="emp_item_results formula_code to write.")
+    parser.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE, help="Raw signal formula code to include in the report.")
     parser.add_argument("--emperor", action="append", required=True, help="Emperor name; repeat for batch runs.")
-    parser.add_argument("--dry-run", action="store_true", help="Rollback database writes.")
+    parser.add_argument("--dry-run", action="store_true", help="Compatibility flag; this command is read-only.")
     return parser
 
 

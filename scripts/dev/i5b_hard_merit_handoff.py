@@ -55,10 +55,21 @@ RELATION_ROLE_HINTS = {
 }
 
 I5B_FORMAL_MAPPINGS = {
-    ("delegated_military_command", "delegation"): ("delegated_actor", "delegated_authority", "scored_candidate"),
-    ("appointed_to_command", "delegation"): ("delegated_actor", "delegated_authority", "scored_candidate"),
-    ("delegated_civil_office", "appointment_trust"): ("entrusted_official", "entrusted_official", "scored_candidate"),
-    ("delegated_civil_office", "delegation"): ("delegated_actor", "delegated_authority", "scored_candidate"),
+    ("delegated_military_command", "appointment_delegation"): (
+        "delegated_actor",
+        "appointed_or_delegated_authority",
+        "scored_candidate",
+    ),
+    ("appointed_to_command", "appointment_delegation"): (
+        "delegated_actor",
+        "appointed_or_delegated_authority",
+        "scored_candidate",
+    ),
+    ("delegated_civil_office", "appointment_delegation"): (
+        "delegated_actor",
+        "appointed_or_delegated_authority",
+        "scored_candidate",
+    ),
     ("recommended_talent", "talent_discovery"): ("recommended_talent", "recommended_talent", "scored_candidate"),
     ("harmed_security", "tolerate_talent"): ("harmed_talent", "harmed_talent", "scored_candidate"),
 }

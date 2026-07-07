@@ -13,7 +13,7 @@ def material(
     *,
     obj_src_id: int = 2304,
     emperor: str = "刘彻",
-    rule_code: str = "appointment_trust",
+    rule_code: str = "appointment_delegation",
     obj_name: str = "儿宽",
     direction: str = "positive",
     talent_quality: str = "",
@@ -74,32 +74,25 @@ def team_member(
 def factor_options() -> list[dict[str, object]]:
     return [
         {
-            "rule_code": "appointment_trust",
-            "factor_name": "trust_depth",
-            "label": "有实际职责的任用。",
+            "rule_code": "appointment_delegation",
+            "factor_name": "appointment_importance",
+            "label": "有实际职责的任用、信任或单一领域真实授权。",
             "value_num": "1",
             "factor_option_id": 43,
         },
         {
-            "rule_code": "appointment_trust",
-            "factor_name": "object_weight",
-            "label": "重要对象。",
+            "rule_code": "appointment_delegation",
+            "factor_name": "appointment_effect",
+            "label": "任用授权结果基本有效。",
             "value_num": "1.2",
             "factor_option_id": 44,
         },
         {
-            "rule_code": "appointment_trust",
-            "factor_name": "trust_validity",
-            "label": "任用结果有效。",
-            "value_num": "1.2",
-            "factor_option_id": 45,
-        },
-        {
-            "rule_code": "appointment_trust",
+            "rule_code": "appointment_delegation",
             "factor_name": "continuity_factor",
             "label": "持续任用。",
             "value_num": "1.1",
-            "factor_option_id": 46,
+            "factor_option_id": 45,
         },
         {"rule_code": "", "factor_name": "attribution_factor", "label": "直接归因", "value_num": "1"},
         {"rule_code": "", "factor_name": "source_factor", "label": "基础史源", "value_num": "1"},
@@ -141,9 +134,8 @@ def appointment_patch(obj_src_id: int = 2304) -> dict[str, object]:
         "target_action": "score",
         "side": "positive",
         "factor_refs": {
-            "trust_depth": {"label": "有实际职责的任用。"},
-            "object_weight": {"label": "重要对象。"},
-            "trust_validity": {"label": "任用结果有效。"},
+            "appointment_importance": {"label": "有实际职责的任用、信任或单一领域真实授权。"},
+            "appointment_effect": {"label": "任用授权结果基本有效。"},
             "continuity_factor": {"label": "持续任用。"},
             "attribution_factor": {"label": "直接归因"},
             "source_factor": {"label": "基础史源"},
@@ -332,10 +324,12 @@ def test_build_profile_from_patches_writes_clusters_and_excluded_ids(tmp_path) -
     assert len(profile["clusters"]) == 1
     cluster = profile["clusters"][0]
     assert cluster["emperor"] == "刘彻"
-    assert cluster["rule_code"] == "appointment_trust"
+    assert cluster["rule_code"] == "appointment_delegation"
     assert cluster["material_ids"] == [2304, 2305]
     assert cluster["excluded_material_ids"] == [2305]
-    assert cluster["materials"][0]["factors"]["trust_depth"] == {"label": "有实际职责的任用。"}
+    assert cluster["materials"][0]["factors"]["appointment_importance"] == {
+        "label": "有实际职责的任用、信任或单一领域真实授权。"
+    }
 
 
 def test_build_profile_from_supporting_only_writes_no_score_cluster(tmp_path) -> None:
@@ -369,7 +363,7 @@ def test_build_profile_from_supporting_only_writes_no_score_cluster(tmp_path) ->
             "covered_material_ids": [2304],
             "emperor": "刘彻",
             "reason": "no_scored_materials",
-            "rule_code": "appointment_trust",
+            "rule_code": "appointment_delegation",
         }
     ]
     cluster = profile["clusters"][0]

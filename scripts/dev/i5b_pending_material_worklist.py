@@ -27,13 +27,9 @@ RULE_FACTOR_KEYS: dict[str, dict[str, tuple[str, ...]]] = {
         "positive": ("discovery_level", "talent_quality_factor", "channel_factor", *COMMON_FACTOR_KEYS),
         "negative": ("discovery_level", "talent_quality_factor", "channel_factor", *COMMON_FACTOR_KEYS),
     },
-    "appointment_trust": {
-        "positive": ("trust_depth", "object_weight", "trust_validity", "continuity_factor", *COMMON_FACTOR_KEYS),
-        "negative": ("trust_depth", "object_weight", "trust_validity", "continuity_factor", *COMMON_FACTOR_KEYS),
-    },
-    "delegation": {
-        "positive": ("authorization_intensity", "person_post_fit", "result_feedback", *COMMON_FACTOR_KEYS),
-        "negative": ("authorization_intensity", "person_post_fit", "result_feedback", *COMMON_FACTOR_KEYS),
+    "appointment_delegation": {
+        "positive": ("appointment_importance", "appointment_effect", "continuity_factor", *COMMON_FACTOR_KEYS),
+        "negative": ("appointment_importance", "appointment_effect", "continuity_factor", *COMMON_FACTOR_KEYS),
     },
     "team_building": {
         "positive": (),

@@ -16,9 +16,9 @@ def judgment(
     object_id: int = 100,
     binding_code: str | None = None,
     claim_id: int | None = None,
-    predicate: str = "delegated_authority",
+    predicate: str = "appointed_or_delegated_authority",
     object_role: str = "civil_delegate",
-    rule_code: str = "delegation",
+    rule_code: str = "appointment_delegation",
     side: str = "positive",
     choices: tuple[tool.FactorChoice, ...] | None = None,
 ) -> tool.JudgmentInput:
@@ -54,6 +54,20 @@ def test_compute_target_cluster_applies_same_object_decay() -> None:
     assert cluster["calc_detail"]["object_side_scores"]["positive"]["100"]["score"] == "2.350"
 
 
+def test_compute_target_cluster_sums_across_objects_without_rule_level_compression() -> None:
+    cluster = tool.compute_target_cluster(
+        [
+            judgment(1, value="3.0", object_id=100),
+            judgment(2, value="4.0", object_id=200),
+        ]
+    )
+
+    assert cluster["calc_detail"]["object_side_scores"]["positive"]["100"]["score"] == "3.000"
+    assert cluster["calc_detail"]["object_side_scores"]["positive"]["200"]["score"] == "4.000"
+    assert cluster["positive_signal"] == Decimal("7.000")
+    assert cluster["negative_signal"] == Decimal("0.000")
+
+
 def test_compute_target_cluster_dedupes_same_claim_object_side() -> None:
     cluster = tool.compute_target_cluster(
         [
@@ -83,8 +97,8 @@ def test_compute_target_cluster_routes_negative_raw_score_to_negative_side() -> 
             judgment(
                 1,
                 value="1.0",
-                rule_code="appointment_trust",
-                choices=(tool.FactorChoice("trust_validity", "错信", "BAD", Decimal("-2.0")),),
+                rule_code="talent_discovery",
+                choices=(tool.FactorChoice("discovery_level", "识人失败", "BAD", Decimal("-2.0")),),
             )
         ]
     )
@@ -154,52 +168,59 @@ def test_compute_team_building_cluster_uses_team_quality_formula() -> None:
             ),
         ],
         material_policy={"carrier_mode": "team_core_members"},
-        team_rank_decay_options=(
-            tool.RankDecayOption("第 1 位", Decimal("1.00")),
-            tool.RankDecayOption("第 2 位", Decimal("0.90")),
-            tool.RankDecayOption("第 3 位", Decimal("0.80")),
-            tool.RankDecayOption("第 4-6 位", Decimal("0.45")),
-            tool.RankDecayOption("第 7 位以后", Decimal("0.25")),
-        ),
     )
 
-    assert cluster["calc_detail"]["team_quality_signal"] == "2.473"
-    assert cluster["positive_signal"] == Decimal("3.271")
+    assert cluster["positive_signal"] == Decimal("5.753")
     assert cluster["negative_signal"] == Decimal("0.000")
-    assert [item["rank_decay"] for item in cluster["calc_detail"]["team_quality_components"]] == ["1.00", "0.90", "0.80"]
+    assert [item["object_contribution"] for item in cluster["calc_detail"]["team_object_components"]] == ["2.645", "1.785", "1.323"]
 
 
-def test_team_rank_decay_uses_table_label_ranges() -> None:
-    options = (
-        tool.RankDecayOption("第 1 位", Decimal("1.00")),
-        tool.RankDecayOption("第 2 位", Decimal("0.90")),
-        tool.RankDecayOption("第 3 位", Decimal("0.80")),
-        tool.RankDecayOption("第 4-6 位", Decimal("0.45")),
-        tool.RankDecayOption("第 7 位以后", Decimal("0.25")),
+def test_compute_team_building_cluster_dedupes_same_object_once() -> None:
+    choices = (
+        tool.FactorChoice("role_complementarity_factor", "常规互补", "COMP", Decimal("1.00")),
+        tool.FactorChoice("long_term_stability_factor", "稳定团队", "STABLE", Decimal("1.00")),
+    )
+    cluster = tool.compute_target_cluster(
+        [
+            judgment(
+                1,
+                value="1.0",
+                object_id=10,
+                rule_code="team_building",
+                choices=(tool.FactorChoice("talent_quality_factor", "重要人才。", "T3", Decimal("0.90")), *choices),
+            ),
+            judgment(
+                2,
+                value="1.0",
+                object_id=10,
+                rule_code="team_building",
+                choices=(tool.FactorChoice("talent_quality_factor", "顶级人才。", "T2", Decimal("1.20")), *choices),
+            ),
+        ],
+        material_policy={"carrier_mode": "team_core_members"},
     )
 
-    assert [tool.team_rank_decay(index, options) for index in range(8)] == [
-        Decimal("1.00"),
-        Decimal("0.90"),
-        Decimal("0.80"),
-        Decimal("0.45"),
-        Decimal("0.45"),
-        Decimal("0.45"),
-        Decimal("0.25"),
-        Decimal("0.25"),
+    assert cluster["positive_signal"] == Decimal("1.200")
+    assert cluster["calc_detail"]["duplicate_team_objects"] == [
+        {
+            "object_key": "10",
+            "kept_binding_code": "BND-2",
+            "dropped_binding_code": "BND-1",
+            "reason": "same_team_object",
+        }
     ]
 
 
-def test_material_score_rejects_positive_side_negative_result_feedback() -> None:
+def test_material_score_rejects_positive_side_negative_appointment_effect() -> None:
     bad = judgment(
         1,
         value="1.0",
         choices=(
-            tool.FactorChoice("result_feedback", "效果较差", "BAD", Decimal("-0.700")),
+            tool.FactorChoice("appointment_effect", "效果较差", "BAD", Decimal("-0.700")),
         ),
     )
 
-    with pytest.raises(tool.RetrievalV2RuleScorerError, match="positive side cannot use negative result_feedback"):
+    with pytest.raises(tool.RetrievalV2RuleScorerError, match="positive side cannot use negative appointment_effect"):
         tool.score_material(bad)
 
 
@@ -217,7 +238,7 @@ def flat_rows() -> list[dict[str, object]]:
                 "emperor_name": "刘邦",
                 "source_pack_id": 10,
                 "item_code": "I5B",
-                "rule_code": "delegation",
+                "rule_code": "appointment_delegation",
                 "formula_code": "evidence_cluster_signal_v3",
                 "target_action": "score",
                 "side": "positive",
@@ -244,7 +265,7 @@ def flat_rows() -> list[dict[str, object]]:
             "emperor_name": "刘邦",
             "source_pack_id": 10,
             "item_code": "I5B",
-            "rule_code": "delegation",
+            "rule_code": "appointment_delegation",
             "formula_code": "evidence_cluster_signal_v3",
             "target_action": "supporting_only",
             "side": "positive",
@@ -279,6 +300,28 @@ def test_build_judgments_rejects_stale_factor_value() -> None:
         tool.build_judgments(rows)
 
 
+def test_build_judgments_rejects_appointment_delegation_non_scoring_candidate() -> None:
+    rows = flat_rows()
+    for row in rows:
+        if row["binding_code"] == "BND-1":
+            row["binding_payload"] = {"source": "retrieval_v2_candidate_promoter", "candidate_id": 10}
+            row["candidate_id"] = 10
+            row["candidate_code"] = "CRBC-BLOCKED"
+            row["candidate_payload"] = {
+                "scoring_candidate": False,
+                "usable_for_scoring_cluster": False,
+                "appointment_delegation_chain": {
+                    "has_appointment_or_authorization": False,
+                    "has_named_actor": True,
+                    "has_task_or_responsibility": False,
+                    "has_result_or_feedback": False,
+                },
+            }
+
+    with pytest.raises(tool.RetrievalV2RuleScorerError, match="candidate_payload is not scoring_candidate"):
+        tool.build_judgments(rows)
+
+
 class FakeCursor:
     def __init__(self, conn: "FakeConnection") -> None:
         self.conn = conn
@@ -297,10 +340,6 @@ class FakeCursor:
         self.conn.params.append(params or ())
         if "from retrieval_v2.eval_rule_material_policies" in lowered:
             self.rows = [dict(row) for row in self.conn.material_policy_rows]
-            self.rowcount = len(self.rows)
-            return
-        if "from retrieval_v2.eval_rule_factors f" in lowered and "f.factor_name = 'rank_decay'" in lowered:
-            self.rows = [dict(row) for row in self.conn.factor_option_rows]
             self.rowcount = len(self.rows)
             return
         if "group by j.formula_code" in lowered:
@@ -344,7 +383,6 @@ class FakeConnection:
                 "policy_payload": {},
             }
         ]
-        self.factor_option_rows: list[dict[str, object]] = []
         self.statements: list[str] = []
         self.params: list[object] = []
         self.committed = False
@@ -386,7 +424,7 @@ def test_apply_rule_scores_defaults_to_db_backed_dry_run(monkeypatch) -> None:
     payload = tool.apply_rule_scores(
         dsn="postgresql://fake",
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         execute=False,
     )
@@ -406,6 +444,8 @@ def test_apply_rule_scores_defaults_to_db_backed_dry_run(monkeypatch) -> None:
     assert any("from retrieval_v2.eval_rule_material_policies" in statement for statement in conn.statements)
     assert any("mrq.claim_id = j.claim_id" in statement for statement in conn.statements)
     assert any("b.usable_for_scoring_cluster" in statement for statement in conn.statements)
+    assert any("claim_rule_binding_candidates c0" in statement for statement in conn.statements)
+    assert any("c0.resolved_binding_id = b.id" in statement for statement in conn.statements)
     assert any("promoted_material_object_link_id" in statement for statement in conn.statements)
     assert any("coalesce(b.binding_payload->>'promoted_material_object_link_id', '')" in statement for statement in conn.statements)
     assert any("mol1.id = (b.binding_payload->>'promoted_material_object_link_id')::bigint" in statement for statement in conn.statements)
@@ -420,7 +460,7 @@ def test_apply_rule_scores_can_read_explicit_source_pack_without_accepted_scope(
     payload = tool.apply_rule_scores(
         dsn="postgresql://fake",
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         source_pack_codes=["SPK-I5B-SHADOW"],
         execute=False,
@@ -430,7 +470,7 @@ def test_apply_rule_scores_can_read_explicit_source_pack_without_accepted_scope(
     assert conn.rolled_back is True
     assert any("sp.pack_code = any(%s)" in statement for statement in conn.statements)
     assert not any("sp2.status = 'accepted'" in statement for statement in conn.statements)
-    assert any(params == ("I5B", "delegation", "evidence_cluster_signal_v3", ["SPK-I5B-SHADOW"], "", "") for params in conn.params)
+    assert any(params == ("I5B", "appointment_delegation", "evidence_cluster_signal_v3", ["SPK-I5B-SHADOW"], "", "") for params in conn.params)
 
 
 def test_apply_rule_scores_blocks_explicit_source_pack_execute_by_default(monkeypatch) -> None:
@@ -440,7 +480,7 @@ def test_apply_rule_scores_blocks_explicit_source_pack_execute_by_default(monkey
         tool.apply_rule_scores(
             dsn="postgresql://fake",
             item_code="I5B",
-            rule_code="delegation",
+            rule_code="appointment_delegation",
             formula_code="evidence_cluster_signal_v3",
             source_pack_codes=["SPK-I5B-SHADOW"],
             execute=True,
@@ -458,7 +498,7 @@ def test_apply_rule_scores_rejects_empty_wrong_formula_when_alternates_exist(mon
         tool.apply_rule_scores(
             dsn="postgresql://fake",
             item_code="I5B",
-            rule_code="delegation",
+            rule_code="appointment_delegation",
             formula_code="standard",
             execute=False,
         )
@@ -472,7 +512,7 @@ def test_apply_rule_scores_writes_zero_cluster_when_no_usable_judgments(monkeypa
     payload = tool.apply_rule_scores(
         dsn="postgresql://fake",
         item_code="I5B",
-        rule_code="delegation",
+        rule_code="appointment_delegation",
         formula_code="evidence_cluster_signal_v3",
         execute=False,
     )

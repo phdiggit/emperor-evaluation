@@ -13,6 +13,7 @@ from typing import Any, Mapping, Sequence
 from scripts.dev import retrieval_v2_discovery_profiles as discovery_profiles
 from scripts.dev import retrieval_v2_batch_taskgen as batch_taskgen
 from scripts.dev import retrieval_v2_contracts as contracts
+from scripts.dev import retrieval_v2_runtime_paths as runtime_paths
 from scripts.dev import retrieval_v2_source_candidates as source_candidates
 from scripts.dev import retrieval_v2_task_skeleton as task_skeleton
 from scripts.dev import retrieval_v2_taskgen_preseed as taskgen_preseed
@@ -39,7 +40,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--task", type=Path, action="append", default=[], help="Existing task envelope JSON; repeatable.")
     parser.add_argument("--emperor", action="append", default=[], help="Emperor name for live DB-driven taskgen; repeatable.")
     parser.add_argument("--item-code", default="I5B")
-    parser.add_argument("--rule-code", default="delegation")
+    parser.add_argument("--rule-code", default="appointment_delegation")
     parser.add_argument("--contract-code", default=None)
     parser.add_argument("--env-file", type=Path)
     shadow_group = parser.add_mutually_exclusive_group()
@@ -85,6 +86,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--target-dsn-env", default=runner.DEFAULT_TARGET_DSN_ENV)
     parser.add_argument("--run-root", type=Path)
+    parser.add_argument("--runtime-paths-config", type=Path, help="Optional runtime_paths.json for run/cache defaults.")
+    parser.add_argument(
+        "--use-local-runtime",
+        action="store_true",
+        help="Force repo-local tmp/.tmp runtime defaults instead of NAS/env runtime config.",
+    )
     parser.add_argument("--codex-bin", default="codex")
     parser.add_argument("--max-workers", type=int, default=4)
     parser.add_argument("--taskgen-timeout", type=int, default=1800)
@@ -125,8 +132,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--source-cache-root",
         type=Path,
-        default=source_candidates.DEFAULT_CACHE_DIR,
-        help="Shared raw source page cache; set to an empty string is not supported, use --run-local-source-cache.",
+        default=None,
+        help="Shared raw source page cache; defaults to runtime path config unless --run-local-source-cache is set.",
     )
     parser.add_argument(
         "--run-local-source-cache",
@@ -160,8 +167,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--judge-shard-workers",
         type=int,
-        default=2,
-        help="Maximum parallel Codex judge shard workers per target.",
+        default=None,
+        help=(
+            "Maximum parallel Codex judge shard workers per target. "
+            "Defaults to 4 for item-wide/personnel-political shadow packages, otherwise 2."
+        ),
     )
     parser.add_argument("--skip-fetch-errors", action="store_true")
     parser.add_argument("--skip-judge", action="store_true", help="Stop after candidates and alias refinement.")
@@ -189,6 +199,14 @@ def _candidate_source_refine_rounds(args: argparse.Namespace) -> int:
     if args.taskgen_presearch and not args.no_taskgen_object_source_presearch:
         return 1
     return 0
+
+
+def _effective_judge_shard_workers(args: argparse.Namespace) -> int:
+    if getattr(args, "judge_shard_workers", None) is not None:
+        return max(1, int(args.judge_shard_workers))
+    if _is_item_wide_shadow_mode(_shadow_capture_mode(args)):
+        return 4
+    return 2
 
 
 def _shadow_capture_mode(args: argparse.Namespace | None) -> str:
@@ -229,11 +247,28 @@ def _apply_shadow_target_contract(target_payload: dict[str, Any], mode: str) -> 
         target_payload["candidate_route_table_version"] = contracts.CANDIDATE_ROUTE_TABLE_VERSION
 
 
+def _sanitize_item_wide_shadow_contract(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {key: _sanitize_item_wide_shadow_contract(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_sanitize_item_wide_shadow_contract(item) for item in value]
+    if isinstance(value, str):
+        mapped = (
+            value.replace("I5B.appointment_trust", "I5B.appointment_delegation")
+            .replace("I5B.delegation", "I5B.appointment_delegation")
+            .replace("appointment_trust_material", "appointment_delegation_material")
+        )
+        if mapped == "appointment_trust" or mapped == "delegation":
+            return "appointment_delegation"
+        return mapped
+    return value
+
+
 def _with_shadow_capture_mode(task: Mapping[str, Any], args: argparse.Namespace | None) -> dict[str, Any]:
-    result = dict(task)
+    result = dict(_sanitize_item_wide_shadow_contract(task))
     mode = _shadow_capture_mode(args)
     if not mode:
-        return result
+        return dict(task)
     result["capture_mode"] = mode
     target_payload = dict(result.get("target_payload") or {})
     _apply_shadow_target_contract(target_payload, mode)
@@ -246,9 +281,8 @@ def _with_shadow_capture_mode(task: Mapping[str, Any], args: argparse.Namespace 
         rule_payload["rule_code"] = "i5b_item_wide"
         rule_payload["rule_label"] = "I5B item-wide material pool"
         result["rule"] = rule_payload
-        matrix = dict(result.get("coverage_matrix") or {})
-        matrix["rule_code"] = "i5b_item_wide"
-        result["coverage_matrix"] = matrix
+        result["coverage_matrix"] = contracts.coverage_matrix_template("i5b_item_wide")
+        result["secondary_rule_candidates"] = contracts.secondary_rule_hints("i5b_item_wide")
     note = (
         "I5B item-wide shadow pilot: build broad I5B material pool; not a formal consumption source."
         if mode == "i5b_item_wide_shadow"
@@ -381,7 +415,7 @@ def _run_staged_emperors(
         source_cache_root=_source_cache_root(args),
         judge_timeout_seconds=args.judge_timeout,
         judge_shard_size=args.judge_shard_size,
-        judge_shard_workers=args.judge_shard_workers,
+        judge_shard_workers=_effective_judge_shard_workers(args),
         taskgen_by_target_code=taskgen_by_target_code,
         max_workers=args.max_workers,
         event_logger=event_logger,
@@ -414,7 +448,7 @@ def _run_task_files(args: argparse.Namespace, *, run_root: Path, event_logger: R
         source_cache_root=_source_cache_root(args),
         judge_timeout_seconds=args.judge_timeout,
         judge_shard_size=args.judge_shard_size,
-        judge_shard_workers=args.judge_shard_workers,
+        judge_shard_workers=_effective_judge_shard_workers(args),
         taskgen_by_target_code={},
         max_workers=args.max_workers,
         event_logger=event_logger,
@@ -1098,7 +1132,7 @@ def _run_emperors(
         source_cache_root=_source_cache_root(args),
         judge_timeout_seconds=args.judge_timeout,
         judge_shard_size=args.judge_shard_size,
-        judge_shard_workers=args.judge_shard_workers,
+        judge_shard_workers=_effective_judge_shard_workers(args),
         max_workers=args.max_workers,
         taskgen_batch_size=args.taskgen_batch_size,
         taskgen_preseeds=taskgen_preseeds,
@@ -1123,7 +1157,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         default_run_name = f"i5b_wide_shadow_{timestamp}"
     else:
         default_run_name = f"clean_pipeline_{timestamp}"
-    run_root = args.run_root or runner.ROOT / "tmp" / "retrieval_v2_clean_runs" / default_run_name
+    runtime = runtime_paths.load_runtime_paths(
+        config_path=args.runtime_paths_config,
+        use_local=args.use_local_runtime,
+    )
+    if args.source_cache_root is None:
+        args.source_cache_root = runtime_paths.default_source_cache_root(runtime)
+    run_root = args.run_root or runtime_paths.default_run_root(default_run_name, runtime)
     event_logger = RunEventLogger(run_root / "run_events.jsonl", echo=args.progress)
 
     loaded_profiles = discovery_profiles.load_profiles(
@@ -1141,6 +1181,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     summary["total_elapsed_seconds"] = summary["cli_elapsed_seconds"]
     summary["event_log"] = str(run_root / "run_events.jsonl")
     summary["loaded_env_keys"] = loaded_env_keys
+    summary["runtime_paths"] = {
+        "uses_runtime_config": bool(runtime["uses_runtime_config"]),
+        "config_source": str(runtime["config_source"]),
+        "active_root": str(runtime["active_root"]),
+        "run_root": str(run_root),
+        "source_cache_root": str(args.source_cache_root),
+    }
     _mark_shadow_summary(summary, args)
     runner.atomic_write_json(run_root / "summary.json", summary)
     sys.stdout.write(runner.pretty_json(summary))

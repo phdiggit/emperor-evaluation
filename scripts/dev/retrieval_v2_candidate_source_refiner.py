@@ -21,10 +21,11 @@ from scripts.dev.source_excerpt_pool_lib.wikisource import search_wikisource
 
 
 SearchFn = Callable[..., list[dict[str, Any]]]
-CANDIDATE_GAP_TYPES_WITH_SOURCE_SIGNAL = {"alias_missing", "source_missing"}
+CANDIDATE_GAP_TYPES_WITH_SOURCE_SIGNAL = {"alias_missing", "source_missing", "object_claim_undercoverage"}
 JUDGE_GAP_TYPES_WITH_SOURCE_SIGNAL = {
     "alias_missing",
     "source_missing",
+    "object_claim_undercoverage",
     "predicate_missing",
     "civil_undercoverage",
     "negative_undercoverage",

@@ -50,7 +50,7 @@ def test_handoff_maps_ready_i5b_catalog_candidate(tmp_path: Path) -> None:
                 "subject_obj_id": 60,
                 "predicate_hint": "delegated_military_command",
                 "relation_role_hint": "cross_item_candidate",
-                "target_items_hint": ["I5B.delegation", "国防安全"],
+                "target_items_hint": ["I5B.appointment_delegation", "国防安全"],
                 "fact_summary": "受命统军攻灭东突厥。",
                 "source_refs": ["旧唐书 卷..."],
             }
@@ -62,8 +62,8 @@ def test_handoff_maps_ready_i5b_catalog_candidate(tmp_path: Path) -> None:
     assert report["blocks"] == 0
     assert report["mapping_status_counts"] == {"cross_item_pending": 1, "ready_i5b_catalog": 1}
     ready = [row for row in candidates if row["mapping_status"] == "ready_i5b_catalog"][0]
-    assert ready["rule_code"] == "delegation"
-    assert ready["formal_predicate"] == "delegated_authority"
+    assert ready["rule_code"] == "appointment_delegation"
+    assert ready["formal_predicate"] == "appointed_or_delegated_authority"
 
 
 def test_negative_attr_row_may_have_no_hard_merit_tags(tmp_path: Path) -> None:

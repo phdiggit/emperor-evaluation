@@ -24,7 +24,7 @@ I5B_RULE_DOC = (
 DEFAULT_FACTOR_DOC = ROOT / "docs" / "\u8bc1\u636e\u89c4\u5219" / "\u8bc1\u636e\u7c07\u8ba1\u7b97\u516c\u5f0f.md"
 
 ITEM_CODE = "I5B"
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
+DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 DEFAULT_FORMULA_CODE = "evidence_cluster_signal_v3"
 DEFAULT_FACTOR_NAMES = {
     "attribution_factor",
@@ -33,8 +33,7 @@ DEFAULT_FACTOR_NAMES = {
 }
 KNOWN_I5B_RULE_CODES = {
     "talent_discovery",
-    "appointment_trust",
-    "delegation",
+    "appointment_delegation",
     "team_building",
     "tolerate_talent",
     "anti_nepotism",
@@ -998,12 +997,12 @@ def dump_db_factor_options(dsn: str, *, item_code: str = ITEM_CODE, formula_code
             erfo.source_doc,
             erf.source_heading,
             erfo.source_line,
-            erfo.note
-        from public.eval_rule_factors erf
-        join public.eval_rule_factor_options erfo on erfo.factor_id = erf.id
+            erfo.option_note as note
+        from retrieval_v2.eval_rule_factors erf
+        join retrieval_v2.eval_rule_factor_options erfo on erfo.factor_id = erf.id
         where erf.item_code = %s
-          and erf.status = 'active'
-          and erfo.status = 'active'
+          and erf.factor_status = 'active'
+          and erfo.option_status = 'active'
           {formula_clause}
         order by erf.rule_code, erf.factor_name, erfo.sort_no, erfo.id
     """

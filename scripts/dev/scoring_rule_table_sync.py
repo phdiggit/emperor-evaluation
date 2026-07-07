@@ -7,7 +7,7 @@ import sys
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev import i5b_factor_table_sync as factor_sync
+from scripts.dev import retrieval_v2_contracts as rv2_contracts
 
 
 DEFAULT_RULE_DOCS = {
@@ -31,6 +32,128 @@ WEIGHT_COMPARISON_KEYS = (
     "weight_num",
     "weight_order",
 )
+
+I5B_MATERIAL_POLICY_TEMPLATES: dict[str, dict[str, object]] = {
+    "talent_discovery": {
+        "policy_code": "person_material_policy",
+        "policy_version": "v1",
+        "selection_priority": 100,
+        "carrier_mode": "obj_src_material",
+        "material_source": "obj_srcs",
+        "allowed_scoring_roles": ["discovered_talent", "recommended_talent", "recognized_talent", "missed_talent"],
+        "context_roles": ["source_context", "event_context", "mechanism_context"],
+        "disallowed_scored_obj_types": ["mechanism"],
+        "discouraged_scored_obj_types": ["event", "group"],
+        "candidate_obj_types": [],
+        "require_attrs": [],
+        "calc_detail_component_paths": [],
+        "single_scored_per_chain": False,
+        "policy_payload": {
+            "context_roles_by_obj_type": {"event": "event_context", "group": "source_context", "mechanism": "mechanism_context"},
+            "default_scoring_roles_by_direction": {"negative": "missed_talent", "non_negative": "discovered_talent"},
+        },
+    },
+    "appointment_delegation": {
+        "policy_code": "person_material_policy",
+        "policy_version": "v1",
+        "selection_priority": 100,
+        "carrier_mode": "obj_src_material",
+        "material_source": "obj_srcs",
+        "allowed_scoring_roles": [
+            "appointed_talent",
+            "trusted_minister",
+            "entrusted_official",
+            "delegated_actor",
+            "authority_recipient",
+            "authority_revoked_target",
+            "misappointed_person",
+            "misdelegated_actor",
+            "suppressed_talent",
+        ],
+        "context_roles": ["source_context", "event_context", "mechanism_context"],
+        "disallowed_scored_obj_types": ["mechanism"],
+        "discouraged_scored_obj_types": ["event", "group"],
+        "candidate_obj_types": [],
+        "require_attrs": [],
+        "calc_detail_component_paths": [],
+        "single_scored_per_chain": False,
+        "policy_payload": {
+            "context_roles_by_obj_type": {"event": "event_context", "group": "source_context", "mechanism": "mechanism_context"},
+            "default_scoring_roles_by_direction": {"negative": "misdelegated_actor", "non_negative": "delegated_actor"},
+        },
+    },
+    "team_building": {
+        "policy_code": "team_core_member_policy",
+        "policy_version": "v1",
+        "selection_priority": 10,
+        "carrier_mode": "team_core_members",
+        "material_source": "emp_objs",
+        "allowed_scoring_roles": ["team_member", "negative_team_member"],
+        "context_roles": ["source_context", "event_context", "mechanism_context"],
+        "disallowed_scored_obj_types": ["mechanism"],
+        "discouraged_scored_obj_types": ["event", "group"],
+        "candidate_obj_types": [],
+        "require_attrs": [],
+        "calc_detail_component_paths": [],
+        "single_scored_per_chain": False,
+        "policy_payload": {
+            "context_roles_by_obj_type": {"event": "event_context", "group": "source_context", "mechanism": "mechanism_context"},
+            "default_scoring_roles_by_direction": {"negative": "negative_team_member", "non_negative": "team_member"},
+        },
+    },
+    "tolerate_talent": {
+        "policy_code": "single_person_chain_policy",
+        "policy_version": "v1",
+        "selection_priority": 100,
+        "carrier_mode": "obj_src_material",
+        "material_source": "obj_srcs",
+        "allowed_scoring_roles": ["protected_talent", "remonstrance_actor", "expression_safety_unit", "harmed_talent"],
+        "context_roles": ["actor_context", "event_context", "group_context", "mechanism_context", "source_context"],
+        "disallowed_scored_obj_types": ["mechanism"],
+        "discouraged_scored_obj_types": ["event", "group"],
+        "candidate_obj_types": [],
+        "require_attrs": [],
+        "calc_detail_component_paths": [],
+        "single_scored_per_chain": True,
+        "policy_payload": {
+            "candidate_role_rules": [
+                {"role": "protected_talent", "when": {"side": "positive", "obj_type": "person"}},
+                {"role": "harmed_talent", "when": {"side": "negative", "obj_type": "person"}},
+            ],
+            "context_roles_by_obj_type": {"event": "event_context", "group": "group_context", "mechanism": "mechanism_context"},
+            "default_scoring_roles_by_direction": {"negative": "harmed_talent", "non_negative": "protected_talent"},
+        },
+    },
+    "anti_nepotism": {
+        "policy_code": "person_material_policy",
+        "policy_version": "v1",
+        "selection_priority": 100,
+        "carrier_mode": "obj_src_material",
+        "material_source": "obj_srcs",
+        "allowed_scoring_roles": [
+            "anti_nepotism_resisted_actor",
+            "nepotistic_beneficiary",
+            "favorite_beneficiary",
+            "appointment_interferer",
+        ],
+        "context_roles": ["actor_context", "event_context", "group_context", "mechanism_context", "source_context"],
+        "disallowed_scored_obj_types": ["mechanism"],
+        "discouraged_scored_obj_types": ["event", "group"],
+        "candidate_obj_types": [],
+        "require_attrs": [],
+        "calc_detail_component_paths": [],
+        "single_scored_per_chain": False,
+        "policy_payload": {
+            "candidate_role_rules": [
+                {"role": "anti_nepotism_resisted_actor", "when": {"side": "positive"}},
+                {"role": "nepotistic_beneficiary", "when": {"obj_type": "person", "name_prefixes": ["武"]}},
+                {"role": "favorite_beneficiary", "when": {"names": ["张易之", "张昌宗", "薛怀义"], "obj_type": "person"}},
+            ],
+            "context_roles_by_obj_type": {"event": "event_context", "group": "group_context", "mechanism": "mechanism_context"},
+            "default_scoring_roles_by_direction": {"negative": "appointment_interferer", "non_negative": "anti_nepotism_resisted_actor"},
+        },
+    },
+}
 
 
 @dataclass(frozen=True)
@@ -409,6 +532,491 @@ def weight_source_fingerprint(row: RuleScoreWeight) -> str:
     return hashlib.md5(source.encode("utf-8")).hexdigest()
 
 
+def render_rule_upsert_sql(rows: Sequence[RuleScoreWeight]) -> str:
+    rule_rows: dict[tuple[str, str], RuleScoreWeight] = {}
+    for row in rows:
+        rule_rows[(row.item_code, row.rule_code)] = row
+    if not rule_rows:
+        return ""
+    values = ",\n".join(
+        "    ("
+        + ", ".join(
+            [
+                factor_sync.sql_literal(row.item_code),
+                factor_sync.sql_literal(row.rule_code),
+                factor_sync.sql_literal(row.rule_label),
+                factor_sync.sql_literal(row.source_doc),
+                str(row.source_line),
+                str(
+                    factor_sync.stable_source_id(
+                        "eval_rules",
+                        [
+                            row.item_code,
+                            row.rule_code,
+                        ],
+                    )
+                ),
+                factor_sync.sql_literal(
+                    factor_sync.source_fingerprint(
+                        {
+                            "source": "scoring_rule_table_sync",
+                            "item_code": row.item_code,
+                            "rule_code": row.rule_code,
+                            "rule_label": row.rule_label,
+                            "source_doc": row.source_doc,
+                            "source_line": row.source_line,
+                        }
+                    )
+                ),
+            ]
+        )
+        + ")"
+        for row in rule_rows.values()
+    )
+    return f"""with doc_rules(item_code, rule_code, rule_label, source_doc, source_line, source_rule_id, source_fingerprint) as (
+    values
+{values}
+),
+resolved as (
+    select
+        ei.id as item_id,
+        doc_rules.*
+    from doc_rules
+    join retrieval_v2.eval_items ei on ei.item_code = doc_rules.item_code
+)
+insert into retrieval_v2.eval_rules (
+    item_id,
+    source_rule_id,
+    item_code,
+    rule_code,
+    rule_label,
+    rule_status,
+    source_row,
+    source_fingerprint
+)
+select
+    item_id,
+    source_rule_id,
+    item_code,
+    rule_code,
+    rule_label,
+    'active',
+    jsonb_build_object(
+        'source', 'scoring_rule_table_sync',
+        'item_code', item_code,
+        'rule_code', rule_code,
+        'rule_label', rule_label,
+        'source_doc', source_doc,
+        'source_line', source_line
+    ),
+    source_fingerprint
+from resolved
+on conflict on constraint rv2_eval_rules_rule_uk do update
+set
+    source_rule_id = excluded.source_rule_id,
+    rule_label = excluded.rule_label,
+    rule_status = excluded.rule_status,
+    source_row = excluded.source_row,
+    source_fingerprint = excluded.source_fingerprint,
+    copied_at = now();
+
+with doc_rule_keys(item_code, rule_code) as (
+    values
+{",\n".join("    (" + factor_sync.sql_literal(row.item_code) + ", " + factor_sync.sql_literal(row.rule_code) + ")" for row in rule_rows.values())}
+)
+update retrieval_v2.eval_rules er
+set
+    rule_status = 'inactive',
+    source_row = coalesce(er.source_row, '{{}}'::jsonb) || jsonb_build_object('retired_by', 'scoring_rule_table_sync'),
+    copied_at = now()
+where er.item_code in ({", ".join(factor_sync.sql_literal(value) for value in sorted({row.item_code for row in rule_rows.values()}))})
+  and er.rule_status = 'active'
+  and not exists (
+      select 1
+      from doc_rule_keys d
+      where d.item_code = er.item_code
+        and d.rule_code = er.rule_code
+  );
+"""
+
+
+def sql_text_array(values: Sequence[object]) -> str:
+    return "array[" + ", ".join(factor_sync.sql_literal(str(value)) for value in values) + "]::text[]"
+
+
+def policy_source_fingerprint(row: RuleScoreWeight, template: Mapping[str, object]) -> str:
+    return factor_sync.source_fingerprint(
+        {
+            "source": "scoring_rule_table_sync",
+            "item_code": row.item_code,
+            "rule_code": row.rule_code,
+            "policy_code": template["policy_code"],
+            "policy_version": template["policy_version"],
+            "template": template,
+        }
+    )
+
+
+def render_material_policy_upsert_sql(rows: Sequence[RuleScoreWeight]) -> str:
+    policy_rows = [
+        (row, I5B_MATERIAL_POLICY_TEMPLATES[row.rule_code])
+        for row in rows
+        if row.item_code == "I5B" and row.rule_code in I5B_MATERIAL_POLICY_TEMPLATES
+    ]
+    if not policy_rows:
+        return ""
+    values = ",\n".join(
+        "    ("
+        + ", ".join(
+            [
+                factor_sync.sql_literal(row.item_code),
+                factor_sync.sql_literal(row.rule_code),
+                str(
+                    factor_sync.stable_source_id(
+                        "eval_rule_material_policies",
+                        [
+                            row.item_code,
+                            row.rule_code,
+                            str(template["policy_code"]),
+                            str(template["policy_version"]),
+                        ],
+                    )
+                ),
+                factor_sync.sql_literal(str(template["policy_code"])),
+                factor_sync.sql_literal(str(template["policy_version"])),
+                str(int(template["selection_priority"])),
+                factor_sync.sql_literal(str(template["carrier_mode"])),
+                factor_sync.sql_literal(str(template["material_source"])),
+                sql_text_array(template["allowed_scoring_roles"] if isinstance(template["allowed_scoring_roles"], Sequence) else []),
+                sql_text_array(template["context_roles"] if isinstance(template["context_roles"], Sequence) else []),
+                sql_text_array(template["disallowed_scored_obj_types"] if isinstance(template["disallowed_scored_obj_types"], Sequence) else []),
+                sql_text_array(template["discouraged_scored_obj_types"] if isinstance(template["discouraged_scored_obj_types"], Sequence) else []),
+                sql_text_array(template["candidate_obj_types"] if isinstance(template["candidate_obj_types"], Sequence) else []),
+                sql_text_array(template["require_attrs"] if isinstance(template["require_attrs"], Sequence) else []),
+                sql_text_array(template["calc_detail_component_paths"] if isinstance(template["calc_detail_component_paths"], Sequence) else []),
+                "true" if template["single_scored_per_chain"] else "false",
+                factor_sync.sql_literal(json.dumps(template["policy_payload"], ensure_ascii=False, sort_keys=True)),
+                factor_sync.sql_literal(
+                    json.dumps(
+                        {
+                            "source": "scoring_rule_table_sync",
+                            "item_code": row.item_code,
+                            "rule_code": row.rule_code,
+                            "policy_code": template["policy_code"],
+                            "policy_version": template["policy_version"],
+                            "source_doc": row.source_doc,
+                            "source_line": row.source_line,
+                        },
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                ),
+                factor_sync.sql_literal(policy_source_fingerprint(row, template)),
+            ]
+        )
+        + ")"
+        for row, template in policy_rows
+    )
+    item_code_list = ", ".join(factor_sync.sql_literal(value) for value in sorted({row.item_code for row, _ in policy_rows}))
+    active_keys = ",\n".join(
+        "    ("
+        + ", ".join(
+            [
+                factor_sync.sql_literal(row.item_code),
+                factor_sync.sql_literal(row.rule_code),
+                factor_sync.sql_literal(str(template["policy_code"])),
+                factor_sync.sql_literal(str(template["policy_version"])),
+            ]
+        )
+        + ")"
+        for row, template in policy_rows
+    )
+    return f"""with doc_policies(
+    item_code,
+    rule_code,
+    source_policy_id,
+    policy_code,
+    policy_version,
+    selection_priority,
+    carrier_mode,
+    material_source,
+    allowed_scoring_roles,
+    context_roles,
+    disallowed_scored_obj_types,
+    discouraged_scored_obj_types,
+    candidate_obj_types,
+    require_attrs,
+    calc_detail_component_paths,
+    single_scored_per_chain,
+    policy_payload,
+    source_row,
+    source_fingerprint
+) as (
+    values
+{values}
+),
+resolved as (
+    select
+        ei.id as item_id,
+        er.id as rule_id,
+        doc_policies.*
+    from doc_policies
+    join retrieval_v2.eval_items ei on ei.item_code = doc_policies.item_code
+    join retrieval_v2.eval_rules er on er.item_id = ei.id and er.rule_code = doc_policies.rule_code
+)
+insert into retrieval_v2.eval_rule_material_policies (
+    item_id,
+    rule_id,
+    source_policy_id,
+    item_code,
+    rule_code,
+    policy_code,
+    policy_version,
+    selection_priority,
+    carrier_mode,
+    material_source,
+    allowed_scoring_roles,
+    context_roles,
+    disallowed_scored_obj_types,
+    discouraged_scored_obj_types,
+    candidate_obj_types,
+    require_attrs,
+    calc_detail_component_paths,
+    single_scored_per_chain,
+    policy_payload,
+    policy_status,
+    source_row,
+    source_fingerprint
+)
+select
+    item_id,
+    rule_id,
+    source_policy_id,
+    item_code,
+    rule_code,
+    policy_code,
+    policy_version,
+    selection_priority,
+    carrier_mode,
+    material_source,
+    allowed_scoring_roles,
+    context_roles,
+    disallowed_scored_obj_types,
+    discouraged_scored_obj_types,
+    candidate_obj_types,
+    require_attrs,
+    calc_detail_component_paths,
+    single_scored_per_chain,
+    policy_payload::jsonb,
+    'active',
+    source_row::jsonb,
+    source_fingerprint
+from resolved
+on conflict on constraint rv2_material_policies_policy_uk do update
+set
+    item_id = excluded.item_id,
+    rule_id = excluded.rule_id,
+    source_policy_id = excluded.source_policy_id,
+    selection_priority = excluded.selection_priority,
+    carrier_mode = excluded.carrier_mode,
+    material_source = excluded.material_source,
+    allowed_scoring_roles = excluded.allowed_scoring_roles,
+    context_roles = excluded.context_roles,
+    disallowed_scored_obj_types = excluded.disallowed_scored_obj_types,
+    discouraged_scored_obj_types = excluded.discouraged_scored_obj_types,
+    candidate_obj_types = excluded.candidate_obj_types,
+    require_attrs = excluded.require_attrs,
+    calc_detail_component_paths = excluded.calc_detail_component_paths,
+    single_scored_per_chain = excluded.single_scored_per_chain,
+    policy_payload = excluded.policy_payload,
+    policy_status = excluded.policy_status,
+    source_row = excluded.source_row,
+    source_fingerprint = excluded.source_fingerprint,
+    copied_at = now();
+
+with doc_policy_keys(item_code, rule_code, policy_code, policy_version) as (
+    values
+{active_keys}
+)
+update retrieval_v2.eval_rule_material_policies p
+set
+    policy_status = 'inactive',
+    source_row = coalesce(p.source_row, '{{}}'::jsonb) || jsonb_build_object('retired_by', 'scoring_rule_table_sync'),
+    copied_at = now()
+where p.item_code in ({item_code_list})
+  and p.policy_status = 'active'
+  and not exists (
+      select 1
+      from doc_policy_keys d
+      where d.item_code = p.item_code
+        and d.rule_code = p.rule_code
+        and d.policy_code = p.policy_code
+        and d.policy_version = p.policy_version
+  );
+"""
+
+
+def contract_requirement_payload(row: RuleScoreWeight) -> dict[str, object]:
+    template = I5B_MATERIAL_POLICY_TEMPLATES.get(row.rule_code, {})
+    material_policy_codes = [str(template.get("policy_code"))] if template else []
+    coverage_matrix = rv2_contracts.coverage_matrix_template(
+        row.rule_code,
+        material_policy_codes=material_policy_codes,
+        predicate_options=(),
+    )
+    is_core = row.rule_code != "anti_nepotism"
+    return {
+        "binding_grain": "claim_rule_binding",
+        "is_core_for_retrieval": is_core,
+        "min_usable_claims": 1 if is_core else 0,
+        "material_policy_count": len(material_policy_codes),
+        "predicate_option_count": 0,
+        "coverage_matrix": coverage_matrix,
+        "secondary_rule_hints": coverage_matrix["secondary_rule_hints"],
+        "gap_policy": {
+            "gap_event_idempotent": True,
+            "needs_refinement_is_worker_signal": True,
+            "true_lack_requires_alias_and_source_exhaustion": True,
+        },
+        "clean_process_doc": rv2_contracts.PROCESS_DOC_PATH,
+    }
+
+
+def render_contract_rule_upsert_sql(rows: Sequence[RuleScoreWeight]) -> str:
+    contract_rows = [row for row in rows if row.item_code == "I5B"]
+    if not contract_rows:
+        return ""
+    values = ",\n".join(
+        "    ("
+        + ", ".join(
+            [
+                factor_sync.sql_literal(row.item_code),
+                factor_sync.sql_literal(row.rule_code),
+                factor_sync.sql_literal(row.rule_label),
+                str(row.weight_order),
+                "false" if row.rule_code == "anti_nepotism" else "true",
+                factor_sync.sql_literal(
+                    json.dumps(
+                        [
+                            {
+                                "policy_code": I5B_MATERIAL_POLICY_TEMPLATES[row.rule_code]["policy_code"],
+                                "policy_version": I5B_MATERIAL_POLICY_TEMPLATES[row.rule_code]["policy_version"],
+                            }
+                        ],
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                    if row.rule_code in I5B_MATERIAL_POLICY_TEMPLATES
+                    else "[]"
+                ),
+                factor_sync.sql_literal("[]"),
+                factor_sync.sql_literal(json.dumps(contract_requirement_payload(row), ensure_ascii=False, sort_keys=True)),
+                factor_sync.sql_literal(
+                    factor_sync.source_fingerprint(
+                        {
+                            "source": "scoring_rule_table_sync",
+                            "item_code": row.item_code,
+                            "rule_code": row.rule_code,
+                            "rule_label": row.rule_label,
+                            "rule_order": row.weight_order,
+                            "requirement": contract_requirement_payload(row),
+                        }
+                    )
+                ),
+            ]
+        )
+        + ")"
+        for row in contract_rows
+    )
+    item_code_list = ", ".join(factor_sync.sql_literal(value) for value in sorted({row.item_code for row in contract_rows}))
+    active_keys = ",\n".join(
+        "    (" + factor_sync.sql_literal(row.item_code) + ", " + factor_sync.sql_literal(row.rule_code) + ")"
+        for row in contract_rows
+    )
+    return f"""with doc_contract_rules(
+    item_code,
+    rule_code,
+    rule_label,
+    rule_order,
+    is_core_for_retrieval,
+    material_policy_payload,
+    predicate_policy_payload,
+    requirement_payload,
+    source_fingerprint
+) as (
+    values
+{values}
+),
+resolved as (
+    select
+        rc.id as contract_id,
+        er.id as rule_id,
+        doc_contract_rules.*
+    from doc_contract_rules
+    join retrieval_v2.rule_contracts rc
+      on rc.item_code = doc_contract_rules.item_code
+     and rc.status = 'active'
+    join retrieval_v2.eval_rules er
+      on er.item_code = doc_contract_rules.item_code
+     and er.rule_code = doc_contract_rules.rule_code
+)
+insert into retrieval_v2.rule_contract_rules (
+    contract_id,
+    rule_id,
+    rule_code,
+    rule_label,
+    rule_order,
+    is_core_for_retrieval,
+    material_policy_payload,
+    predicate_policy_payload,
+    requirement_payload,
+    source_fingerprint
+)
+select
+    contract_id,
+    rule_id,
+    rule_code,
+    rule_label,
+    rule_order,
+    is_core_for_retrieval,
+    material_policy_payload::jsonb,
+    predicate_policy_payload::jsonb,
+    requirement_payload::jsonb,
+    source_fingerprint
+from resolved
+on conflict on constraint rv2_contract_rules_rule_uk do update
+set
+    rule_id = excluded.rule_id,
+    rule_label = excluded.rule_label,
+    rule_order = excluded.rule_order,
+    is_core_for_retrieval = excluded.is_core_for_retrieval,
+    material_policy_payload = excluded.material_policy_payload,
+    predicate_policy_payload = excluded.predicate_policy_payload,
+    requirement_payload = excluded.requirement_payload,
+    source_fingerprint = excluded.source_fingerprint;
+
+with doc_contract_rule_keys(item_code, rule_code) as (
+    values
+{active_keys}
+)
+update retrieval_v2.rule_contract_rules rcr
+set
+    is_core_for_retrieval = false,
+    requirement_payload = coalesce(rcr.requirement_payload, '{{}}'::jsonb)
+        || jsonb_build_object('retired_by', 'scoring_rule_table_sync')
+from retrieval_v2.rule_contracts rc
+where rc.id = rcr.contract_id
+  and rc.item_code in ({item_code_list})
+  and rc.status = 'active'
+  and not exists (
+      select 1
+      from doc_contract_rule_keys d
+      where d.item_code = rc.item_code
+        and d.rule_code = rcr.rule_code
+  );
+"""
+
+
 def render_weight_upsert_sql(rows: Sequence[RuleScoreWeight]) -> str:
     if not rows:
         return ""
@@ -432,6 +1040,16 @@ def render_weight_upsert_sql(rows: Sequence[RuleScoreWeight]) -> str:
         + ")"
         for row in rows
     )
+    keys = sorted({(row.item_code, row.rule_code, row.formula_code, row.weight_version) for row in rows})
+    item_codes = sorted({row.item_code for row in rows})
+    formula_codes = sorted({row.formula_code for row in rows})
+    versions = sorted({row.weight_version for row in rows})
+    retire_values = ",\n".join(
+        "    (" + ", ".join(factor_sync.sql_literal(value) for value in key) + ")" for key in keys
+    )
+    item_code_list = ", ".join(factor_sync.sql_literal(value) for value in item_codes)
+    formula_code_list = ", ".join(factor_sync.sql_literal(value) for value in formula_codes)
+    version_list = ", ".join(factor_sync.sql_literal(value) for value in versions)
     return f"""with doc_weights(
     item_code,
     rule_code,
@@ -505,6 +1123,28 @@ set
     source_fingerprint = excluded.source_fingerprint,
     weight_payload = retrieval_v2.item_rule_score_weights.weight_payload || excluded.weight_payload,
     updated_at = now();
+
+with doc_weight_keys(item_code, rule_code, formula_code, weight_version) as (
+    values
+{retire_values}
+)
+update retrieval_v2.item_rule_score_weights w
+set
+    weight_status = 'inactive',
+    updated_at = now(),
+    weight_payload = w.weight_payload || jsonb_build_object('retired_by', 'scoring_rule_table_sync')
+where w.item_code in ({item_code_list})
+  and w.formula_code in ({formula_code_list})
+  and w.weight_version in ({version_list})
+  and w.weight_status = 'active'
+  and not exists (
+      select 1
+      from doc_weight_keys d
+      where d.item_code = w.item_code
+        and d.rule_code = w.rule_code
+        and d.formula_code = w.formula_code
+        and d.weight_version = w.weight_version
+  );
 """
 
 
@@ -594,6 +1234,18 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.render_upsert_sql or args.render_weight_upsert_sql:
         chunks: list[str] = []
+        weight_rows = extract_rule_score_weights(rule_doc, item_code=args.item_code)
+        if args.render_upsert_sql and args.scope in {"all", "weights"}:
+            chunks.append("-- eval rules -> retrieval_v2.eval_rules\n")
+            chunks.append(render_rule_upsert_sql(weight_rows).rstrip() + "\n")
+            material_policy_sql = render_material_policy_upsert_sql(weight_rows)
+            if material_policy_sql:
+                chunks.append("-- material policies -> retrieval_v2.eval_rule_material_policies\n")
+                chunks.append(material_policy_sql.rstrip() + "\n")
+            contract_rule_sql = render_contract_rule_upsert_sql(weight_rows)
+            if contract_rule_sql:
+                chunks.append("-- contract rules -> retrieval_v2.rule_contract_rules\n")
+                chunks.append(contract_rule_sql.rstrip() + "\n")
         if args.render_upsert_sql and args.scope in {"all", "factors"}:
             factor_rows = factor_sync.extract_factor_options(
                 rule_doc=rule_doc,
@@ -605,7 +1257,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             chunks.append("-- factor options -> retrieval_v2.eval_rule_factors / retrieval_v2.eval_rule_factor_options\n")
             chunks.append(factor_sync.render_upsert_sql(factor_rows).rstrip() + "\n")
         if args.scope in {"all", "weights"}:
-            weight_rows = extract_rule_score_weights(rule_doc, item_code=args.item_code)
             chunks.append("-- rule score weights -> retrieval_v2.item_rule_score_weights\n")
             chunks.append(render_weight_upsert_sql(weight_rows).rstrip() + "\n")
         factor_sync.write_output("\n".join(chunks), args.output)
