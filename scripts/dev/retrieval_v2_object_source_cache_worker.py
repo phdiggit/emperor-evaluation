@@ -633,9 +633,15 @@ def claim_candidate_quality_flags(candidate: Mapping[str, Any]) -> list[str]:
     payload = candidate.get("object_source_cache") if isinstance(candidate.get("object_source_cache"), Mapping) else {}
     shape = text(payload.get("source_shape"))
     role = text(payload.get("source_role"))
+    section_heading = text(payload.get("section_heading"))
     flags: list[str] = []
     positions = candidate_alias_positions(candidate)
     first_alias_pos = min(positions) if positions else -1
+    aliases = [object_name, *(text(alias) for alias in candidate.get("matched_aliases") or [])]
+
+    if section_heading and shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
+        if not any(alias and alias in section_heading for alias in aliases):
+            flags.append("wrong_person_section")
 
     first_heading = SECTION_HEADING_RE.search(raw_text)
     if first_heading and first_heading.group(1) != object_name and 0 <= first_alias_pos < first_heading.start():
@@ -651,7 +657,7 @@ def claim_candidate_quality_flags(candidate: Mapping[str, Any]) -> list[str]:
 
 def is_claim_candidate_slice_eligible(candidate: Mapping[str, Any]) -> bool:
     flags = set(claim_candidate_quality_flags(candidate))
-    return not ({"navigation_header", "weak_late_object_mention"} & flags)
+    return not ({"navigation_header", "weak_late_object_mention", "wrong_person_section"} & flags)
 
 
 def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] | None = None) -> dict[str, Any]:
@@ -675,6 +681,7 @@ def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] 
             "source_role": text(row.get("source_role") or (doc or {}).get("source_role")),
             "source_shape": text((doc or {}).get("source_shape")),
             "slice_cache_code": text(row.get("slice_cache_code")),
+            "section_heading": text(row.get("section_heading")),
             "quality_flags": [],
         },
     }

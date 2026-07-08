@@ -264,6 +264,49 @@ def test_selected_object_cache_slices_filters_navigation_and_weak_late_mentions(
     ]
 
 
+def test_selected_object_cache_slices_filters_wrong_person_section() -> None:
+    docs_by_code = {
+        "OSD-LWZ": {
+            "document_cache_code": "OSD-LWZ",
+            "person_name": "李文忠",
+            "source_role": "object_biography_or_mentions",
+            "source_shape": "object_biography_candidate",
+        }
+    }
+    rows = [
+        {
+            "slice_cache_code": "OSS-LWZ-WRONG-SECTION",
+            "document_cache_code": "OSD-LWZ",
+            "person_name": "李文忠",
+            "source_role": "object_biography_or_mentions",
+            "section_heading": "邓愈",
+            "matched_aliases": ["李文忠"],
+            "raw_text": "愈为人简重慎密，将军严，善抚降附。兵兴，诸将早贵未有如愈与李文忠者。",
+        },
+        {
+            "slice_cache_code": "OSS-LWZ-GOOD",
+            "document_cache_code": "OSD-LWZ",
+            "person_name": "李文忠",
+            "source_role": "object_biography_or_mentions",
+            "section_heading": "李文忠",
+            "matched_aliases": ["李文忠"],
+            "raw_text": "李文忠从太祖攻建德、严州，屡破敌军，后以大都督府事受任。",
+        },
+    ]
+
+    selected = tool.selected_object_cache_slices(
+        rows,
+        docs_by_code,
+        max_slices_per_person=2,
+        max_total_slices=0,
+    )
+
+    assert [row["slice_code"] for row in selected] == ["OSS-LWZ-GOOD"]
+    assert tool.claim_candidate_quality_flags(tool.object_cache_candidate_slice(rows[0], docs_by_code["OSD-LWZ"])) == [
+        "wrong_person_section"
+    ]
+
+
 def test_job_from_seed_builds_stable_queue_payload(tmp_path: Path) -> None:
     seed = tmp_path / "seed.jsonl"
     write_seed(seed)

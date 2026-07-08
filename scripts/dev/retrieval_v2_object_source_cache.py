@@ -83,6 +83,8 @@ SearchFn = Callable[..., list[dict[str, Any]]]
 DEFAULT_OUTPUT_ROOT = ROOT / "tmp" / "retrieval_v2_object_source_cache"
 SCHEMA_VERSION = 1
 OBJECT_BIOGRAPHY_QUERY_SUFFIXES = ("列传", "列傳", "本传", "本傳", "功臣", "奸臣")
+SECTION_HEADING_RE = re.compile(r"([A-Za-z0-9_\-\u3400-\u9fff·]+)\s*\[\s*编辑\s*\]")
+CHAR_LOCATOR_RE = re.compile(r"chars:(\d+)-(\d+)")
 
 PGSQL_SCHEMA_DRAFT = """
 -- retrieval_v2 object source cache draft schema.
@@ -462,6 +464,15 @@ def source_shape(seed: Mapping[str, Any], document: Mapping[str, Any], full_text
     return "unmatched_fetched_source"
 
 
+def nearest_section_heading(full_text: str, index: int) -> str:
+    heading = ""
+    for match in SECTION_HEADING_RE.finditer(full_text):
+        if match.start() > index:
+            break
+        heading = match.group(1).strip()
+    return heading
+
+
 def build_mention_slices(
     seed: Mapping[str, Any],
     document: Mapping[str, Any],
@@ -484,22 +495,23 @@ def build_mention_slices(
             start = index + max(1, len(alias))
     if not positions:
         return []
-    windows: list[tuple[int, int, list[str]]] = []
+    windows: list[tuple[int, int, list[str], int]] = []
     for index, alias in sorted(positions, key=lambda item: item[0]):
         start, end = context_bounds(full_text, index, context_chars=context_chars)
         if windows and start <= windows[-1][1] + 20:
-            prev_start, prev_end, prev_aliases = windows[-1]
-            windows[-1] = (prev_start, max(prev_end, end), unique_strings([*prev_aliases, alias]))
+            prev_start, prev_end, prev_aliases, prev_anchor = windows[-1]
+            windows[-1] = (prev_start, max(prev_end, end), unique_strings([*prev_aliases, alias]), prev_anchor)
             continue
-        windows.append((start, end, [alias]))
+        windows.append((start, end, [alias], index))
         if len(windows) >= max_slices_per_document:
             break
 
     rows: list[dict[str, Any]] = []
-    for start, end, matched_aliases in windows:
+    for start, end, matched_aliases, anchor_index in windows:
         text = compact_text(full_text[start:end])
         doc_code = text_from(document, "document_cache_code")
         person_code = person_cache_code(seed)
+        section_heading = nearest_section_heading(full_text, anchor_index)
         rows.append(
             {
                 "slice_cache_code": slice_cache_code(doc_code, person_code, start, end, matched_aliases),
@@ -509,6 +521,7 @@ def build_mention_slices(
                 "source_title": text_from(document, "source_title", "title", "wikisource_title"),
                 "source_role": document.get("source_role") or source_role_for_seed(seed),
                 "locator": f"chars:{start}-{end}",
+                "section_heading": section_heading,
                 "matched_aliases": matched_aliases,
                 "raw_text": text,
                 "quote_hash": sha256_text(text),
@@ -1050,6 +1063,255 @@ def build_cache(
     return manifest
 
 
+def local_runtime_path(path_text: str) -> Path:
+    raw = str(path_text or "").strip()
+    if not raw:
+        return Path()
+    normalized = raw.replace("\\", "/")
+    prefix = "//192.168.1.37/data1/"
+    if normalized.startswith(prefix):
+        return Path("/data1") / normalized[len(prefix) :]
+    return Path(raw)
+
+
+def reslice_cache(
+    *,
+    input_root: Path,
+    output_root: Path,
+    context_chars: int = 220,
+    max_slices_per_document: int = 8,
+) -> dict[str, Any]:
+    started = time.perf_counter()
+    output_root.mkdir(parents=True, exist_ok=True)
+    (output_root / "bundles").mkdir(parents=True, exist_ok=True)
+    seeds = [normalize_seed(row, seed_source="reslice") for row in read_jsonl(input_root / "person_seeds.jsonl")]
+    seeds_by_code = {person_cache_code(seed): seed for seed in seeds}
+    seeds_by_name = {seed_name(seed): seed for seed in seeds}
+    source_documents = read_jsonl(input_root / "source_documents.jsonl")
+    old_slices = read_jsonl(input_root / "mention_slices.jsonl") if (input_root / "mention_slices.jsonl").exists() else []
+    old_slice_codes = {
+        (
+            text_from(row, "person_name"),
+            text_from(row, "document_cache_code"),
+            text_from(row, "quote_hash"),
+        ): text_from(row, "slice_cache_code")
+        for row in old_slices
+        if text_from(row, "person_name") and text_from(row, "document_cache_code") and text_from(row, "quote_hash") and text_from(row, "slice_cache_code")
+    }
+    search_hits = read_jsonl(input_root / "search_hits.jsonl") if (input_root / "search_hits.jsonl").exists() else []
+    source_documents_out: list[dict[str, Any]] = []
+    mention_slices: list[dict[str, Any]] = []
+    coverage_rows: list[dict[str, Any]] = []
+    fetch_errors: list[dict[str, Any]] = []
+    docs_by_person: dict[str, list[dict[str, Any]]] = {}
+    slices_by_person: dict[str, list[dict[str, Any]]] = {}
+    for document in source_documents:
+        doc = dict(document)
+        person_code = text_from(doc, "person_cache_code")
+        person_name = text_from(doc, "person_name")
+        seed = seeds_by_code.get(person_code) or seeds_by_name.get(person_name) or normalize_seed({"name": person_name}, seed_source="reslice_document")
+        raw_text_path = text_from(doc, "shared_cache_text_path")
+        text_path = local_runtime_path(raw_text_path)
+        full_text = ""
+        if raw_text_path and text_path.exists():
+            full_text = text_path.read_text(encoding="utf-8", errors="replace")
+        else:
+            fetch_errors.append(
+                {
+                    "person_cache_code": person_cache_code(seed),
+                    "person_name": seed_name(seed),
+                    "source_title": doc.get("source_title") or doc.get("title"),
+                    "error": f"cached text not found: {text_path}",
+                }
+            )
+        slices = build_mention_slices(
+            seed,
+            doc,
+            full_text,
+            context_chars=context_chars,
+            max_slices_per_document=max_slices_per_document,
+        )
+        if not slices:
+            slices = build_locator_backed_slice(seed, doc, full_text, context_chars=context_chars)
+        for row in slices:
+            stable_code = old_slice_codes.get((text_from(row, "person_name"), text_from(row, "document_cache_code"), text_from(row, "quote_hash")))
+            if stable_code:
+                row["slice_cache_code"] = stable_code
+        doc["mention_slice_count"] = len(slices)
+        doc["source_shape"] = source_shape(seed, doc, full_text, len(slices))
+        source_documents_out.append(doc)
+        docs_by_person.setdefault(person_cache_code(seed), []).append(doc)
+        slices_by_person.setdefault(person_cache_code(seed), []).extend(slices)
+        mention_slices.extend(slices)
+
+    agent_rows: list[dict[str, Any]] = []
+    for seed in seeds:
+        code = person_cache_code(seed)
+        seed_docs = docs_by_person.get(code, [])
+        seed_slices = slices_by_person.get(code, [])
+        coverage = coverage_for_seed(seed, seed_docs, seed_slices)
+        bundle_path = output_root / "bundles" / f"{coverage['person_cache_code']}.json"
+        coverage["agent_input_bundle_path"] = str(bundle_path) if coverage["needs_agent_review"] else ""
+        write_json(
+            bundle_path,
+            {
+                "schema_version": SCHEMA_VERSION,
+                "person": seed,
+                "source_documents": seed_docs,
+                "mention_slices": seed_slices,
+                "coverage": coverage,
+            },
+        )
+        coverage_rows.append(coverage)
+        if coverage["needs_agent_review"]:
+            agent_rows.append(build_agent_review_row(seed, coverage))
+
+    artifacts = {
+        "person_seeds": output_root / "person_seeds.jsonl",
+        "source_documents": output_root / "source_documents.jsonl",
+        "mention_slices": output_root / "mention_slices.jsonl",
+        "person_coverage": output_root / "person_coverage.jsonl",
+        "search_hits": output_root / "search_hits.jsonl",
+        "fetch_errors": output_root / "fetch_errors.jsonl",
+        "agent_review_queue": output_root / "agent_review_queue.jsonl",
+        "pgsql_schema_draft": output_root / "pgsql_schema_draft.sql",
+        "manifest": output_root / "manifest.json",
+        "report": output_root / "report.md",
+    }
+    write_jsonl(artifacts["person_seeds"], seeds)
+    write_jsonl(artifacts["source_documents"], source_documents_out)
+    write_jsonl(artifacts["mention_slices"], mention_slices)
+    write_jsonl(artifacts["person_coverage"], coverage_rows)
+    write_jsonl(artifacts["search_hits"], search_hits)
+    write_jsonl(artifacts["fetch_errors"], fetch_errors)
+    write_jsonl(artifacts["agent_review_queue"], agent_rows)
+    write_text(artifacts["pgsql_schema_draft"], PGSQL_SCHEMA_DRAFT)
+    elapsed = round(time.perf_counter() - started, 3)
+    manifest = {
+        "generated_by": "scripts/dev/retrieval_v2_object_source_cache.py reslice",
+        "schema_version": SCHEMA_VERSION,
+        "mode": "offline_reslice_existing_cache",
+        "write_db": False,
+        "agent_invocation_enabled": False,
+        "input_root": str(input_root),
+        "output_root": str(output_root),
+        "artifacts": {key: str(path) for key, path in artifacts.items() if key not in {"manifest", "report"}},
+        "totals": {
+            "persons": len(seeds),
+            "source_documents": len(source_documents_out),
+            "mention_slices": len(mention_slices),
+            "coverage_needs_agent_review": len(agent_rows),
+            "search_hits": len(search_hits),
+            "fetch_errors": len(fetch_errors),
+            "elapsed_seconds": elapsed,
+        },
+        "coverage_summary": {
+            "with_source_document": sum(1 for row in coverage_rows if row["has_source_document"]),
+            "with_biography_source": sum(1 for row in coverage_rows if row["has_biography_source"]),
+            "with_emperor_context_source": sum(1 for row in coverage_rows if row["has_emperor_context_source"]),
+            "with_claim_closure_risk": sum(1 for row in coverage_rows if row["claim_closure_risk"]),
+        },
+    }
+    write_json(artifacts["manifest"], manifest)
+    write_text(artifacts["report"], markdown_report(manifest, coverage_rows))
+    return manifest
+
+
+def annotate_cache_slices(*, input_root: Path, output_root: Path) -> dict[str, Any]:
+    started = time.perf_counter()
+    output_root.mkdir(parents=True, exist_ok=True)
+    source_documents = read_jsonl(input_root / "source_documents.jsonl")
+    docs_by_code = {text_from(row, "document_cache_code"): row for row in source_documents if text_from(row, "document_cache_code")}
+    page_text_by_doc: dict[str, str] = {}
+    fetch_errors: list[dict[str, Any]] = []
+    annotated_slices: list[dict[str, Any]] = []
+    for source_slice in read_jsonl(input_root / "mention_slices.jsonl"):
+        row = dict(source_slice)
+        doc_code = text_from(row, "document_cache_code")
+        document = docs_by_code.get(doc_code, {})
+        full_text = page_text_by_doc.get(doc_code)
+        if full_text is None:
+            raw_path = text_from(document, "shared_cache_text_path")
+            text_path = local_runtime_path(raw_path)
+            if raw_path and text_path.exists():
+                full_text = text_path.read_text(encoding="utf-8", errors="replace")
+            else:
+                full_text = ""
+                fetch_errors.append(
+                    {
+                        "person_cache_code": text_from(row, "person_cache_code"),
+                        "person_name": text_from(row, "person_name"),
+                        "source_title": document.get("source_title") or document.get("title") or row.get("source_title"),
+                        "error": f"cached text not found: {text_path}",
+                    }
+                )
+            page_text_by_doc[doc_code] = full_text
+        locator = text_from(row, "locator")
+        match = CHAR_LOCATOR_RE.search(locator)
+        anchor = int(match.group(1)) if match else 0
+        if match and full_text:
+            start = int(match.group(1))
+            end = int(match.group(2))
+            for alias in row.get("matched_aliases") or [row.get("person_name")]:
+                alias_text = text_from({"alias": alias}, "alias")
+                if not alias_text:
+                    continue
+                found = full_text.find(alias_text, start, min(end, len(full_text)))
+                if found >= 0:
+                    anchor = found
+                    break
+        row["section_heading"] = nearest_section_heading(full_text, anchor) if full_text else ""
+        annotated_slices.append(row)
+
+    for file_name in ["person_seeds.jsonl", "source_documents.jsonl", "person_coverage.jsonl", "search_hits.jsonl", "agent_review_queue.jsonl"]:
+        source = input_root / file_name
+        if source.exists():
+            (output_root / file_name).write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+    write_jsonl(output_root / "mention_slices.jsonl", annotated_slices)
+    write_jsonl(output_root / "fetch_errors.jsonl", fetch_errors)
+    write_text(output_root / "pgsql_schema_draft.sql", PGSQL_SCHEMA_DRAFT)
+    coverage_rows = read_jsonl(input_root / "person_coverage.jsonl") if (input_root / "person_coverage.jsonl").exists() else []
+    search_hits = read_jsonl(input_root / "search_hits.jsonl") if (input_root / "search_hits.jsonl").exists() else []
+    seeds = read_jsonl(input_root / "person_seeds.jsonl") if (input_root / "person_seeds.jsonl").exists() else []
+    manifest = {
+        "generated_by": "scripts/dev/retrieval_v2_object_source_cache.py annotate-slices",
+        "schema_version": SCHEMA_VERSION,
+        "mode": "offline_annotate_existing_slices",
+        "write_db": False,
+        "agent_invocation_enabled": False,
+        "input_root": str(input_root),
+        "output_root": str(output_root),
+        "artifacts": {
+            "person_seeds": str(output_root / "person_seeds.jsonl"),
+            "source_documents": str(output_root / "source_documents.jsonl"),
+            "mention_slices": str(output_root / "mention_slices.jsonl"),
+            "person_coverage": str(output_root / "person_coverage.jsonl"),
+            "search_hits": str(output_root / "search_hits.jsonl"),
+            "fetch_errors": str(output_root / "fetch_errors.jsonl"),
+            "agent_review_queue": str(output_root / "agent_review_queue.jsonl"),
+            "pgsql_schema_draft": str(output_root / "pgsql_schema_draft.sql"),
+        },
+        "totals": {
+            "persons": len(seeds),
+            "source_documents": len(source_documents),
+            "mention_slices": len(annotated_slices),
+            "coverage_needs_agent_review": sum(1 for row in coverage_rows if row.get("needs_agent_review")),
+            "search_hits": len(search_hits),
+            "fetch_errors": len(fetch_errors),
+            "elapsed_seconds": round(time.perf_counter() - started, 3),
+        },
+        "coverage_summary": {
+            "with_source_document": sum(1 for row in coverage_rows if row.get("has_source_document")),
+            "with_biography_source": sum(1 for row in coverage_rows if row.get("has_biography_source")),
+            "with_emperor_context_source": sum(1 for row in coverage_rows if row.get("has_emperor_context_source")),
+            "with_claim_closure_risk": sum(1 for row in coverage_rows if row.get("claim_closure_risk")),
+        },
+    }
+    write_json(output_root / "manifest.json", manifest)
+    write_text(output_root / "report.md", markdown_report(manifest, coverage_rows))
+    return manifest
+
+
 def markdown_report(manifest: Mapping[str, Any], coverage_rows: Sequence[Mapping[str, Any]]) -> str:
     totals = manifest.get("totals") or {}
     summary = manifest.get("coverage_summary") or {}
@@ -1236,6 +1498,16 @@ def build_parser() -> argparse.ArgumentParser:
     merge_rescue.add_argument("--rescue-cache-root", type=Path, required=True)
     merge_rescue.add_argument("--output-root", type=Path, required=True)
 
+    reslice = subparsers.add_parser("reslice", help="Rebuild mention_slices from an existing object source cache without search/fetch.")
+    reslice.add_argument("--input-root", type=Path, required=True)
+    reslice.add_argument("--output-root", type=Path, required=True)
+    reslice.add_argument("--context-chars", type=int, default=220)
+    reslice.add_argument("--max-slices-per-document", type=int, default=8)
+
+    annotate = subparsers.add_parser("annotate-slices", help="Copy an existing cache and annotate mention_slices with section headings without changing slice codes.")
+    annotate.add_argument("--input-root", type=Path, required=True)
+    annotate.add_argument("--output-root", type=Path, required=True)
+
     schema = subparsers.add_parser("schema-draft", help="Write the optional PG schema draft for this cache index.")
     schema.add_argument("--output-sql", type=Path, required=True)
 
@@ -1372,6 +1644,19 @@ def main(argv: Sequence[str] | None = None) -> int:
                 sort_keys=True,
             )
         )
+        return 0
+    if args.command == "reslice":
+        manifest = reslice_cache(
+            input_root=args.input_root,
+            output_root=args.output_root,
+            context_chars=args.context_chars,
+            max_slices_per_document=args.max_slices_per_document,
+        )
+        print(json.dumps({"ok": True, "manifest": manifest}, ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command == "annotate-slices":
+        manifest = annotate_cache_slices(input_root=args.input_root, output_root=args.output_root)
+        print(json.dumps({"ok": True, "manifest": manifest}, ensure_ascii=False, sort_keys=True))
         return 0
     if args.command == "build-shards":
         seeds = read_jsonl(args.seed_jsonl)

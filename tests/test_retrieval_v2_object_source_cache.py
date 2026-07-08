@@ -304,6 +304,118 @@ def test_existing_source_hint_with_mention_closes_claim_source() -> None:
     assert coverage["needs_agent_review"] is False
 
 
+def test_mention_slices_record_nearest_section_heading() -> None:
+    full_text = (
+        "邓愈 [ 编辑 ] 邓愈从太祖征伐，守洪都有功。兵兴诸将早贵，未有如愈与李文忠者。"
+        "中间叙事继续铺开，使两个窗口不合并。又记军令严明，士卒不敢犯民。"
+        "又记屯田、招抚、转运、守备诸事，文字继续展开，拉开两个命中点的距离。"
+        "李文忠 [ 编辑 ] 李文忠从太祖攻建德、严州，屡破敌军。"
+    )
+    rows = tool.build_mention_slices(
+        {"name": "李文忠"},
+        {
+            "document_cache_code": "OSD-LWZ",
+            "source_title": "明史/卷126",
+            "source_role": "object_biography_or_mentions",
+        },
+        full_text,
+        context_chars=16,
+        max_slices_per_document=4,
+    )
+
+    assert [row["section_heading"] for row in rows] == ["邓愈", "李文忠"]
+
+
+def test_reslice_cache_rebuilds_slices_from_cached_text(tmp_path: Path) -> None:
+    input_root = tmp_path / "old"
+    output_root = tmp_path / "new"
+    page_text = tmp_path / "page.txt"
+    full_text = "邓愈 [ 编辑 ] 邓愈从太祖征伐，未有如愈与李文忠者。"
+    page_text.write_text(full_text, encoding="utf-8")
+    tool.write_jsonl(input_root / "person_seeds.jsonl", [{"name": "李文忠"}])
+    tool.write_jsonl(
+        input_root / "source_documents.jsonl",
+        [
+            {
+                "document_cache_code": "OSD-LWZ",
+                "person_cache_code": tool.person_cache_code({"name": "李文忠"}),
+                "person_name": "李文忠",
+                "source_title": "明史/卷126",
+                "source_role": "object_biography_or_mentions",
+                "source_shape": "object_biography_candidate",
+                "shared_cache_text_path": str(page_text),
+            }
+        ],
+    )
+    tool.write_jsonl(
+        input_root / "mention_slices.jsonl",
+        [
+            {
+                "slice_cache_code": "OSS-OLD-STABLE",
+                "document_cache_code": "OSD-LWZ",
+                "person_name": "李文忠",
+                "quote_hash": tool.sha256_text(tool.compact_text(full_text)),
+            }
+        ],
+    )
+    tool.write_jsonl(input_root / "search_hits.jsonl", [])
+
+    manifest = tool.reslice_cache(input_root=input_root, output_root=output_root, context_chars=100)
+    slices = [json.loads(line) for line in (output_root / "mention_slices.jsonl").read_text(encoding="utf-8").splitlines()]
+
+    assert manifest["mode"] == "offline_reslice_existing_cache"
+    assert manifest["totals"]["mention_slices"] == 1
+    assert slices[0]["slice_cache_code"] == "OSS-OLD-STABLE"
+    assert slices[0]["section_heading"] == "邓愈"
+
+
+def test_annotate_cache_slices_preserves_slice_code(tmp_path: Path) -> None:
+    input_root = tmp_path / "old"
+    output_root = tmp_path / "annotated"
+    page_text = tmp_path / "page.txt"
+    full_text = "邓愈 [ 编辑 ] 邓愈从太祖征伐，未有如愈与李文忠者。"
+    page_text.write_text(full_text, encoding="utf-8")
+    tool.write_jsonl(input_root / "person_seeds.jsonl", [{"name": "李文忠"}])
+    tool.write_jsonl(
+        input_root / "source_documents.jsonl",
+        [
+            {
+                "document_cache_code": "OSD-LWZ",
+                "person_cache_code": tool.person_cache_code({"name": "李文忠"}),
+                "person_name": "李文忠",
+                "source_title": "明史/卷126",
+                "source_role": "object_biography_or_mentions",
+                "source_shape": "object_biography_candidate",
+                "shared_cache_text_path": str(page_text),
+            }
+        ],
+    )
+    tool.write_jsonl(
+        input_root / "mention_slices.jsonl",
+        [
+            {
+                "slice_cache_code": "OSS-OLD-STABLE",
+                "document_cache_code": "OSD-LWZ",
+                "person_cache_code": tool.person_cache_code({"name": "李文忠"}),
+                "person_name": "李文忠",
+                "locator": "chars:0-35",
+                "matched_aliases": ["李文忠"],
+                "raw_text": full_text,
+                "quote_hash": tool.sha256_text(tool.compact_text(full_text)),
+            }
+        ],
+    )
+    for name in ["person_coverage.jsonl", "search_hits.jsonl", "agent_review_queue.jsonl"]:
+        tool.write_jsonl(input_root / name, [])
+
+    manifest = tool.annotate_cache_slices(input_root=input_root, output_root=output_root)
+    slices = [json.loads(line) for line in (output_root / "mention_slices.jsonl").read_text(encoding="utf-8").splitlines()]
+
+    assert manifest["mode"] == "offline_annotate_existing_slices"
+    assert slices[0]["slice_cache_code"] == "OSS-OLD-STABLE"
+    assert slices[0]["section_heading"] == "邓愈"
+
+
 def test_biography_hint_without_literal_mention_gets_locator_backed_slice(tmp_path: Path, monkeypatch) -> None:
     def fake_fetch(document: dict, *, cache_dir: Path, timeout: int) -> tuple[str, dict]:
         return "列传第一 后妃上 昭容。其文辞明习，内掌诏命。", {"source_key": "wikisource:旧唐书/卷51"}
