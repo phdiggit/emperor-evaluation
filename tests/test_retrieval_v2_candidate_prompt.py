@@ -54,6 +54,24 @@ def sample_candidates() -> dict:
     }
 
 
+def sample_multi_object_candidates() -> dict:
+    candidates = sample_candidates()
+    candidates["candidate_slices"].append(
+        {
+            "slice_code": "SLI-002",
+            "document_code": "DOC-002",
+            "object_name": "尉迟敬德",
+            "matched_aliases": ["敬德"],
+            "matched_rule_terms": ["命"],
+            "matched_outcome_terms": [],
+            "matched_role_families": ["military_delegate"],
+            "score": 87,
+            "text": "高祖命敬德从秦王讨贼。",
+        }
+    )
+    return candidates
+
+
 def test_prompt_payload_preserves_candidate_context() -> None:
     payload = tool.prompt_payload(sample_candidates())
 
@@ -67,7 +85,32 @@ def test_prompt_payload_preserves_candidate_context() -> None:
     assert "matched_conditional_recall_terms" not in payload["candidate_slices"][0]
     assert "merged_from_slice_codes" not in payload["candidate_slices"][0]
     assert "object_source_cache" not in payload["candidate_slices"][0]
+    assert "slice_risk_flags" not in payload["candidate_slices"][0]
+    assert payload["source_ref_policy"] == {}
     assert "secondary_candidate_routing_policy" not in payload
+
+
+def test_prompt_payload_groups_allowed_source_refs_for_multi_object_shards() -> None:
+    payload = tool.prompt_payload(sample_multi_object_candidates())
+
+    assert payload["source_ref_policy"] == {
+        "policy_code": "object_ref_gate_v1",
+        "allowed_source_refs_by_object": {"尉迟敬德": ["SLI-002"], "李世民": ["SLI-001"]},
+        "runner_enforced": True,
+    }
+
+
+def test_prompt_payload_marks_high_risk_biography_slices_only_when_needed() -> None:
+    candidates = sample_candidates()
+    candidates["candidate_slices"][0]["object_source_cache"]["section_heading"] = "尉迟敬德"
+    candidates["candidate_slices"][0]["text"] = "奉命西讨，诸将皆从。" * 30 + "李世民至军中。"
+
+    payload = tool.prompt_payload(candidates)
+
+    assert payload["candidate_slices"][0]["slice_risk_flags"] == [
+        "wrong_person_section_risk",
+        "weak_single_mention_risk",
+    ]
 
 
 def test_prompt_payload_strips_candidate_debug_profile() -> None:
@@ -98,7 +141,8 @@ def test_build_prompt_keeps_budget_contract() -> None:
     assert '"slice_code": "SLI-001"' not in prompt
     assert "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑" in prompt
     assert "不要把 A 片段的摘录挂到 B 事件 summary" in prompt
-    assert "不得用其他对象的 slice 支撑本对象 claim" in prompt
+    assert "allowed_source_refs_by_object" in prompt
+    assert "runner 会拒收跨对象 refs" in prompt
     assert "任何带 usable_for_scoring_cluster=true binding 的 claim 都不得使用 direction=mixed" in prompt
     assert "不要把不同事件链的正负材料合成 direction=mixed" in prompt
     assert "不要把“本片段不支撑某对象/某 rule”写成 context_claim" in prompt
@@ -151,8 +195,8 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "8 个及以上 slices 的重要对象通常抽 5-8 条" in prompt
     assert "不同任命/授权、不同战役、不同边疆或中枢任务" in prompt
     assert "不要只输出“最有名”或最容易摘要的三条" in prompt
-    assert "每条 claim 的 object_name 与 fact_payload.object 必须等于其所有 source_slice_refs" in prompt
-    assert "没有同对象 slice 就不要输出该对象 claim" in prompt
+    assert "只能从该对象 allowed_source_refs_by_object 中取 refs" in prompt
+    assert "runner 会拒收跨对象 refs" in prompt
     assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
 
 
