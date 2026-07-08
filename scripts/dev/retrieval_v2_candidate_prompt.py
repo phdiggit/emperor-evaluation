@@ -55,6 +55,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v2_budgeted"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -120,9 +121,14 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "如果没有同链条结果反馈，就把 has_outcome=false / has_outcome_span=false，不要为了完整而臆造 outcome。"
         "direction 不要使用 mixed；如果同一材料同时有正负事实，拆成两条 claim，无法拆分时用 neutral 并说明到 coverage_gaps。"
         "最终 JSON 默认不要复述 documents/passages，runner 会按 slice_code 自动生成 passages。\n\n"
-        "判读预算：candidate_slices 是候选证据，不是逐条生成 claim 的清单。"
-        "同一对象、同一动作、同一方向、同一事实类型的多个切片应合并成一个 claim，并把最多 3 个最强 slice_code 放入 source_slice_refs。"
-        "不要为了每个官职、每场战役或每个相近片段各写一个 claim；选择能支撑后续规则复核的代表性原子事实。\n\n"
+        "claim-only 抽取预算：本阶段是 claim cache 构建，不是最终消费包压缩。"
+        "不要把一个对象压缩成少数代表性 claim；要按独立事件链、职责域、结果反馈、正负方向拆分。"
+        "同一对象同一事件链的连续切片可合并成一个 claim，并把最多 3 个最强 slice_code 放入 source_slice_refs；"
+        "但不同任命/授权、不同战役、不同边疆或中枢任务、不同处置/失控/评价事实必须拆成多条 claim。"
+        "经验目标：每对象 1-3 个 slices 通常抽 1-3 条；4-7 个 slices 通常抽 3-5 条；"
+        "8 个及以上 slices 的重要对象通常抽 5-8 条，除非事实确实高度重复。"
+        "如果因为输出预算仍无法拆完，必须在 object_claim_undercoverage 中点明未拆事实类型和建议提高 claim 预算；"
+        "不要只输出“最有名”或最容易摘要的三条。\n\n"
         "输入 JSON：\n"
         f"{prompt_json(payload)}\n"
         "最终回复必须只输出一个 JSON 对象，不要 Markdown 代码块，不要解释性前后文。JSON 结构如下：\n"

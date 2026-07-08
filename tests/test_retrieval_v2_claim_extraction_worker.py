@@ -140,6 +140,7 @@ def test_write_mini_run_artifacts_is_import_run_compatible(tmp_path: Path) -> No
     assert (run_root / "summary.json").exists()
     assert summary["people"][0]["files"]["final_candidates"].endswith("candidates.final.json")
     assert summary["clean_policy"]["judge_mode"] == retrieval_v2_candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE
+    assert summary["clean_policy"]["extractor_version"] == retrieval_v2_candidate_prompt.CLAIM_EXTRACTOR_VERSION
 
 
 def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypatch) -> None:

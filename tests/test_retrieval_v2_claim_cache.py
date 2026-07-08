@@ -69,7 +69,7 @@ def sample_candidates() -> dict:
     }
 
 
-def write_run(tmp_path: Path, *, claim: dict | None = None) -> Path:
+def write_run(tmp_path: Path, *, claim: dict | None = None, clean_policy: dict | None = None) -> Path:
     run_root = tmp_path / "run"
     person_dir = run_root / "TGT-I5B-ZYZ"
     candidates_path = person_dir / "candidates.final.json"
@@ -89,7 +89,7 @@ def write_run(tmp_path: Path, *, claim: dict | None = None) -> Path:
         {
             "elapsed_seconds": 1.0,
             "targets": ["朱元璋"],
-            "clean_policy": {"judge_mode": "claim_extraction_only"},
+            "clean_policy": clean_policy or {"judge_mode": "claim_extraction_only"},
             "people": [
                 {
                     "name": "朱元璋",
@@ -144,6 +144,30 @@ def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> 
     assert report["by_object"]["汤和"]["cached"] == 1
     assert report["by_object"]["常遇春"]["uncovered"] == 1
     assert [row["slice_code"] for row in uncovered["candidate_slices"]] == ["SLI-002"]
+
+
+def test_plan_candidates_can_require_current_extractor_version(tmp_path: Path) -> None:
+    run_root = write_run(
+        tmp_path,
+        clean_policy={"judge_mode": "claim_extraction_only", "extractor_version": "claim_extraction_only:v1"},
+    )
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+    candidates_path = run_root / "TGT-I5B-ZYZ" / "candidates.final.json"
+    uncovered_path = tmp_path / "uncovered_candidates.json"
+
+    report = tool.plan_candidates(
+        candidates_path,
+        cache_root,
+        uncovered_path,
+        required_extractor_version="claim_extraction_only:v2_budgeted",
+    )
+    uncovered = json.loads(uncovered_path.read_text(encoding="utf-8"))
+
+    assert report["required_extractor_version"] == "claim_extraction_only:v2_budgeted"
+    assert report["cached_slice_count"] == 0
+    assert report["uncovered_slice_count"] == 2
+    assert [row["slice_code"] for row in uncovered["candidate_slices"]] == ["SLI-001", "SLI-002"]
 
 
 def test_cache_inventory_reports_objects_and_candidate_plan(tmp_path: Path) -> None:

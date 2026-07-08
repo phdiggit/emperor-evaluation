@@ -949,6 +949,7 @@ def plan_claim_extraction_from_cache(
     dsn: str = "",
     claim_run_root: Path | None = None,
     priority: int = 100,
+    required_extractor_version: str = "",
 ) -> dict[str, Any]:
     candidates = object_cache_to_claim_candidates(
         cache_root=cache_root,
@@ -965,7 +966,12 @@ def plan_claim_extraction_from_cache(
         pilot_profile_signals=load_profile_signals(pilot_profile_signals_path, priority_objects=pilot_priority_objects),
     )
     write_json(output_candidates, candidates)
-    cache_plan = claim_cache.plan_candidates(output_candidates, claim_cache_root, output_uncovered_candidates)
+    cache_plan = claim_cache.plan_candidates(
+        output_candidates,
+        claim_cache_root,
+        output_uncovered_candidates,
+        required_extractor_version=required_extractor_version or claim_worker.candidate_prompt.CLAIM_EXTRACTOR_VERSION,
+    )
     enqueue_result: dict[str, Any] | None = None
     claim_job: dict[str, Any] | None = None
     if enqueue_claim_job and int(cache_plan.get("uncovered_slice_count") or 0) > 0:
@@ -1147,6 +1153,7 @@ def build_parser() -> argparse.ArgumentParser:
     claim_plan.add_argument("--enqueue-claim-job", action="store_true")
     claim_plan.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
     claim_plan.add_argument("--priority", type=int, default=100)
+    claim_plan.add_argument("--required-extractor-version", default=claim_worker.candidate_prompt.CLAIM_EXTRACTOR_VERSION)
     claim_plan.add_argument("--env-file", type=Path)
     claim_plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
     claim_plan.add_argument("--output-json", type=Path)
@@ -1198,6 +1205,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             dsn=dsn,
             claim_run_root=args.claim_run_root,
             priority=args.priority,
+            required_extractor_version=args.required_extractor_version,
         )
     else:  # pragma: no cover
         raise ObjectSourceCacheWorkerError(f"unsupported command: {args.command}")

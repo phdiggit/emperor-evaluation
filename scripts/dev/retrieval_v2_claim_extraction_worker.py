@@ -371,7 +371,10 @@ def write_mini_run_artifacts(
         "run_root": str(run_root),
         "targets": [task["emperor_name"]],
         "elapsed_seconds": judge_result.get("elapsed_seconds"),
-        "clean_policy": {"judge_mode": candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE},
+        "clean_policy": {
+            "judge_mode": candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
+            "extractor_version": candidate_prompt.CLAIM_EXTRACTOR_VERSION,
+        },
         "people": [
             {
                 "name": task["emperor_name"],

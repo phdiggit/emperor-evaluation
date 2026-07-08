@@ -199,7 +199,8 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
     if not isinstance(summary, Mapping):
         raise ClaimCacheError(f"{summary_path}: expected JSON object")
     run = run_code(run_root, summary)
-    extractor_version = str(summary.get("clean_policy", {}).get("judge_mode") or "")
+    clean_policy = summary.get("clean_policy") if isinstance(summary.get("clean_policy"), Mapping) else {}
+    extractor_version = str(clean_policy.get("extractor_version") or clean_policy.get("judge_mode") or "")
     existing = load_existing_cache(cache_root)
     stats: Counter[str] = Counter()
     by_object: Counter[str] = Counter()
@@ -309,14 +310,24 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
     return report
 
 
-def plan_candidates(candidates_path: Path, cache_root: Path, uncovered_candidates_path: Path | None = None) -> dict[str, Any]:
+def plan_candidates(
+    candidates_path: Path,
+    cache_root: Path,
+    uncovered_candidates_path: Path | None = None,
+    *,
+    required_extractor_version: str = "",
+) -> dict[str, Any]:
     candidates = read_json(candidates_path)
     if not isinstance(candidates, Mapping):
         raise ClaimCacheError(f"{candidates_path}: expected JSON object")
     existing = load_existing_cache(cache_root)
     slice_to_claims: dict[str, set[str]] = defaultdict(set)
     for row in existing["evidence"].values():
-        slice_to_claims[str(row.get("slice_hash") or "")].add(str(row.get("claim_key") or ""))
+        claim_key_value = str(row.get("claim_key") or "")
+        claim = existing["claims"].get(claim_key_value)
+        if required_extractor_version and str((claim or {}).get("extractor_version") or "") != required_extractor_version:
+            continue
+        slice_to_claims[str(row.get("slice_hash") or "")].add(claim_key_value)
     by_object: dict[str, Counter[str]] = defaultdict(Counter)
     cached_claim_keys: set[str] = set()
     uncovered_slices: list[dict[str, Any]] = []
@@ -340,6 +351,7 @@ def plan_candidates(candidates_path: Path, cache_root: Path, uncovered_candidate
         filtered["claim_cache_plan"] = {
             "source_candidates": str(candidates_path),
             "cache_root": str(cache_root),
+            "required_extractor_version": required_extractor_version,
             "policy": "cached slices removed; run claim extraction only for uncovered slices",
         }
         write_json(uncovered_candidates_path, filtered)
@@ -354,6 +366,7 @@ def plan_candidates(candidates_path: Path, cache_root: Path, uncovered_candidate
         "uncovered_slice_count": total - cached,
         "cached_claim_key_count": len(cached_claim_keys),
         "cached_claim_keys": sorted(cached_claim_keys),
+        "required_extractor_version": required_extractor_version,
         "by_object": {name: dict(counter) for name, counter in sorted(by_object.items())},
         "uncovered_candidates_path": str(uncovered_candidates_path) if uncovered_candidates_path else "",
         "suggested_policy": "skip cached slices unless extractor_version or claim schema changes",
@@ -370,6 +383,7 @@ def compact_plan_report(report: Mapping[str, Any]) -> dict[str, Any]:
         "cached_slice_count": report.get("cached_slice_count"),
         "uncovered_slice_count": report.get("uncovered_slice_count"),
         "cached_claim_key_count": report.get("cached_claim_key_count"),
+        "required_extractor_version": report.get("required_extractor_version"),
         "by_object": report.get("by_object") or {},
         "suggested_policy": report.get("suggested_policy"),
     }
@@ -561,6 +575,7 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--cache-root", type=Path, default=DEFAULT_CACHE_ROOT)
     plan.add_argument("--report-json", type=Path)
     plan.add_argument("--write-uncovered-candidates", type=Path)
+    plan.add_argument("--required-extractor-version", default="")
     plan.set_defaults(func=run_plan_command)
 
     inventory = sub.add_parser("inventory", help="Summarize filesystem claim cache coverage and optional candidate hits.")
@@ -586,7 +601,12 @@ def run_import_command(args: argparse.Namespace) -> int:
 
 
 def run_plan_command(args: argparse.Namespace) -> int:
-    report = plan_candidates(args.candidates, args.cache_root, args.write_uncovered_candidates)
+    report = plan_candidates(
+        args.candidates,
+        args.cache_root,
+        args.write_uncovered_candidates,
+        required_extractor_version=args.required_extractor_version,
+    )
     if args.report_json is not None:
         write_json(args.report_json, report)
     sys.stdout.write(pretty_json(report))

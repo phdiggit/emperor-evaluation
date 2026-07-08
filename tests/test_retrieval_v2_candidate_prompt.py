@@ -137,6 +137,12 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "appointment_delegation scoring candidate 硬协议" not in prompt
     assert "不要写 candidate_payload" in prompt
     assert '"candidate_payload": {' not in prompt
+    assert "本阶段是 claim cache 构建，不是最终消费包压缩" in prompt
+    assert "不要把一个对象压缩成少数代表性 claim" in prompt
+    assert "8 个及以上 slices 的重要对象通常抽 5-8 条" in prompt
+    assert "不同任命/授权、不同战役、不同边疆或中枢任务" in prompt
+    assert "不要只输出“最有名”或最容易摘要的三条" in prompt
+    assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
 
 
 def test_build_prompt_requires_concrete_harm_for_negative_disposition() -> None:
