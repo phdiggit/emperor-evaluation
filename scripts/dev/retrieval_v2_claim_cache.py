@@ -301,7 +301,7 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
         for claim in judge.get("claims") or []:
             if not isinstance(claim, Mapping):
                 continue
-            key = claim_key(claim)
+            key = str(claim.get("cached_claim_key") or "") or claim_key(claim)
             imported_claim_keys.append(key)
             by_object[str(claim.get("object_name") or "")] += 1
             if key in existing["claims"]:
@@ -456,6 +456,106 @@ def compact_plan_report(report: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def cached_claims_for_candidates(candidates: Mapping[str, Any], cache_root: Path) -> dict[str, Any]:
+    existing = load_existing_cache(cache_root)
+    evidence_by_slice: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    for evidence in existing["evidence"].values():
+        evidence_by_slice[str(evidence.get("slice_hash") or "")].append(evidence)
+
+    claims_by_key: dict[str, dict[str, Any]] = {}
+    by_object: dict[str, Counter[str]] = defaultdict(Counter)
+    matched_slice_count = 0
+    for source_slice in candidates.get("candidate_slices") or []:
+        if not isinstance(source_slice, Mapping):
+            continue
+        s_hash = slice_hash_from_row(source_slice)
+        evidence_rows = evidence_by_slice.get(s_hash) or []
+        if not evidence_rows:
+            continue
+        matched_slice_count += 1
+        current_ref = str(source_slice.get("slice_code") or "")
+        for evidence in evidence_rows:
+            key = str(evidence.get("claim_key") or "")
+            claim = existing["claims"].get(key)
+            if not key or not claim:
+                continue
+            object_name = str(claim.get("object_name") or evidence.get("object_name") or "")
+            by_object[object_name]["claim_evidence_hits"] += 1
+            entry = claims_by_key.setdefault(
+                key,
+                {
+                    "claim": claim,
+                    "source_slice_refs": set(),
+                    "evidence_spans": [],
+                },
+            )
+            if current_ref:
+                entry["source_slice_refs"].add(current_ref)
+            span = dict(evidence.get("span_payload") or {})
+            if current_ref:
+                span["source_slice_ref"] = current_ref
+            if span:
+                entry["evidence_spans"].append(span)
+
+    claims: list[dict[str, Any]] = []
+    for key, entry in sorted(claims_by_key.items()):
+        row = entry["claim"]
+        fact = dict(row.get("fact_payload") or {})
+        source_refs = sorted(entry["source_slice_refs"])
+        if source_refs:
+            fact["source_span_refs"] = source_refs
+        claim = {
+            "claim_code": key,
+            "cached_claim_key": key,
+            "cache_status": "cached",
+            "emperor_name": row.get("emperor_name") or "",
+            "object_name": row.get("object_name") or "",
+            "object_type": row.get("object_type") or "person",
+            "claim_kind": row.get("claim_kind") or "material_claim",
+            "claim_summary": row.get("claim_summary") or "",
+            "direction": row.get("direction") or "",
+            "confidence": row.get("confidence"),
+            "source_slice_refs": source_refs,
+            "fact_payload": fact,
+            "evidence_spans": entry["evidence_spans"],
+        }
+        claims.append(claim)
+
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "cache_root": str(cache_root),
+        "matched_slice_count": matched_slice_count,
+        "claim_count": len(claims),
+        "claims": claims,
+        "by_object": {name: dict(counter) for name, counter in sorted(by_object.items())},
+    }
+
+
+def merge_cached_claims(judge_payload: Mapping[str, Any], cached_report: Mapping[str, Any]) -> dict[str, Any]:
+    result = dict(judge_payload)
+    live_claims = [dict(row) for row in result.get("claims") or [] if isinstance(row, Mapping)]
+    cached_claims = [dict(row) for row in cached_report.get("claims") or [] if isinstance(row, Mapping)]
+    live_keys = {str(row.get("cached_claim_key") or claim_key(row)) for row in live_claims}
+    merged_cached = [row for row in cached_claims if str(row.get("cached_claim_key") or "") not in live_keys]
+    claims = merged_cached + live_claims
+    result["claims"] = claims
+    coverage = dict(result.get("coverage") or {})
+    if claims:
+        object_names = sorted({str(row.get("object_name") or "") for row in claims if str(row.get("object_name") or "")})
+        coverage["checked_objects"] = sorted(set(coverage.get("checked_objects") or []) | set(object_names))
+        coverage["positive_claim_count"] = sum(1 for row in claims if str(row.get("direction") or "") == "positive")
+        coverage["negative_claim_count"] = sum(1 for row in claims if str(row.get("direction") or "") == "negative")
+    result["coverage"] = coverage
+    result["_claim_cache_hydrated"] = {
+        "cache_root": cached_report.get("cache_root"),
+        "matched_slice_count": cached_report.get("matched_slice_count"),
+        "cached_claim_count": len(cached_claims),
+        "merged_cached_claim_count": len(merged_cached),
+        "final_claim_count": len(claims),
+    }
+    return result
+
+
 def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sample_limit: int = 3) -> dict[str, Any]:
     existing = load_existing_cache(cache_root)
     by_object: dict[str, dict[str, Any]] = defaultdict(
@@ -516,7 +616,12 @@ def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sa
         "by_object": objects,
     }
     if candidates_path is not None:
+        candidates = read_json(candidates_path)
+        if not isinstance(candidates, Mapping):
+            raise ClaimCacheError(f"{candidates_path}: expected JSON object")
         report["candidate_plan"] = compact_plan_report(plan_candidates(candidates_path, cache_root))
+        cached_report = cached_claims_for_candidates(candidates, cache_root)
+        report["candidate_cached_claim_count"] = cached_report["claim_count"]
     return report
 
 

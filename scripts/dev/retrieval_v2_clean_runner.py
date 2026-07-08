@@ -975,11 +975,13 @@ def process_task(
 
         judge_candidates = final_candidates
         claim_cache_plan: dict[str, Any] | None = None
+        cached_claim_report: dict[str, Any] | None = None
         if (
             claim_cache_root is not None
             and claim_cache_skip_cached_slices
             and judge_mode == candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE
         ):
+            cached_claim_report = claim_cache.cached_claims_for_candidates(final_candidates, claim_cache_root)
             judge_candidates, claim_cache_plan, uncovered_path = apply_claim_cache_to_candidates(
                 final_candidates,
                 cache_root=claim_cache_root,
@@ -988,6 +990,7 @@ def process_task(
             )
             round_summary["claim_cache_plan"] = compact_claim_cache_plan(claim_cache_plan)
             round_summary["claim_cache_uncovered_candidates"] = str(uncovered_path)
+            round_summary["claim_cache_hydrated_claim_count"] = cached_claim_report["claim_count"]
             if event_logger is not None:
                 event_logger.emit(
                     "claim_cache_plan_done",
@@ -1000,6 +1003,7 @@ def process_task(
                     cached_slice_count=claim_cache_plan["cached_slice_count"],
                     uncovered_slice_count=claim_cache_plan["uncovered_slice_count"],
                     cached_claim_key_count=claim_cache_plan["cached_claim_key_count"],
+                    hydrated_claim_count=cached_claim_report["claim_count"],
                 )
             uncovered_count = len(judge_candidates.get("candidate_slices") or [])
             min_uncovered = max(1, int(claim_cache_min_uncovered_slices_for_judge))
@@ -1040,6 +1044,7 @@ def process_task(
                     "_judge_mode": judge_mode or "",
                     "_claim_cache_plan": claim_cache_plan,
                 }
+                final_judge = claim_cache.merge_cached_claims(final_judge, cached_claim_report)
                 round_summary["judge_elapsed_seconds"] = 0.0
                 round_summary["judge_status"] = final_judge["status"]
                 if event_logger is not None:
@@ -1080,6 +1085,8 @@ def process_task(
             judge_mode=judge_mode,
         )
         final_judge = dict(judge_result["payload"])
+        if cached_claim_report is not None:
+            final_judge = claim_cache.merge_cached_claims(final_judge, cached_claim_report)
         final_judge["_elapsed_seconds"] = judge_result["elapsed_seconds"]
         final_judge["_usage"] = judge_result["usage"]
         final_judge["_judge_mode"] = judge_mode or ""

@@ -162,6 +162,55 @@ def test_cache_inventory_reports_objects_and_candidate_plan(tmp_path: Path) -> N
     assert report["candidate_plan"]["cached_slice_count"] == 1
     assert report["candidate_plan"]["uncovered_slice_count"] == 1
     assert "cached_claim_keys" not in report["candidate_plan"]
+    assert report["candidate_cached_claim_count"] == 1
+
+
+def test_cached_claims_for_candidates_remaps_slice_refs(tmp_path: Path) -> None:
+    run_root = write_run(tmp_path)
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+    candidates = sample_candidates()
+    candidates["candidate_slices"][0]["slice_code"] = "SLI-CURRENT"
+
+    report = tool.cached_claims_for_candidates(candidates, cache_root)
+
+    assert report["claim_count"] == 1
+    assert report["matched_slice_count"] == 1
+    assert report["claims"][0]["cache_status"] == "cached"
+    assert report["claims"][0]["source_slice_refs"] == ["SLI-CURRENT"]
+    assert report["claims"][0]["fact_payload"]["source_span_refs"] == ["SLI-CURRENT"]
+
+
+def test_merge_cached_claims_prepends_cached_claims_and_updates_counts(tmp_path: Path) -> None:
+    run_root = write_run(tmp_path)
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+    cached = tool.cached_claims_for_candidates(sample_candidates(), cache_root)
+
+    merged = tool.merge_cached_claims(
+        {
+            "status": "succeeded",
+            "claims": [
+                {
+                    "claim_code": "CLM-NEW",
+                    "emperor_name": "朱元璋",
+                    "object_name": "常遇春",
+                    "object_type": "person",
+                    "claim_kind": "material_claim",
+                    "claim_summary": "朱元璋命常遇春进兵。",
+                    "direction": "positive",
+                    "source_slice_refs": ["SLI-002"],
+                    "fact_payload": {"actor": "朱元璋", "object": "常遇春"},
+                }
+            ],
+            "coverage": {},
+        },
+        cached,
+    )
+
+    assert [row["object_name"] for row in merged["claims"]] == ["汤和", "常遇春"]
+    assert merged["coverage"]["positive_claim_count"] == 2
+    assert merged["_claim_cache_hydrated"]["merged_cached_claim_count"] == 1
 
 
 def test_emit_pg_schema_contains_hot_index_tables() -> None:

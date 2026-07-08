@@ -1179,7 +1179,27 @@ def test_clean_pipeline_can_skip_cached_claim_slices_and_import_new_claims(tmp_p
     )
     tool.claim_cache.write_jsonl(
         cache_root / "claims.jsonl",
-        [{"claim_key": "CLMK-CACHED", "object_name": "汤和", "seen_count": 1}],
+        [
+            {
+                "claim_key": "CLMK-CACHED",
+                "emperor_name": "朱元璋",
+                "object_name": "汤和",
+                "object_type": "person",
+                "claim_kind": "material_claim",
+                "claim_summary": "朱元璋命汤和镇守常州。",
+                "direction": "positive",
+                "action_type": "授权",
+                "fact_payload": {
+                    "actor": "朱元璋",
+                    "object": "汤和",
+                    "action_type": "授权",
+                    "event_scope": "军事",
+                    "office_or_domain": "常州镇守",
+                    "outcome": "常州安辑",
+                },
+                "seen_count": 1,
+            }
+        ],
     )
     tool.claim_cache.write_jsonl(
         cache_root / "source_slices.jsonl",
@@ -1278,7 +1298,10 @@ def test_clean_pipeline_can_skip_cached_claim_slices_and_import_new_claims(tmp_p
     round_summary = summary["people"][0]["rounds"][0]
     assert round_summary["claim_cache_plan"]["cached_slice_count"] == 1
     assert round_summary["claim_cache_plan"]["uncovered_slice_count"] == 1
+    assert round_summary["claim_cache_hydrated_claim_count"] == 1
     assert summary["claim_cache_import"]["stats"]["new_claim_count"] == 1
+    assert summary["claim_cache_import"]["stats"]["duplicate_claim_count"] == 1
+    assert summary["people"][0]["claim_count"] == 2
     cached_claims = tool.claim_cache.read_jsonl(cache_root / "claims.jsonl")
     assert {row["object_name"] for row in cached_claims} == {"汤和", "常遇春"}
 
@@ -1301,6 +1324,23 @@ def test_clean_pipeline_can_skip_small_claim_cache_tail_without_judge(tmp_path: 
     tool.claim_cache.write_jsonl(
         cache_root / "claim_evidence.jsonl",
         [{"evidence_key": "EVD-CACHED", "claim_key": "CLMK-CACHED", "slice_hash": cached_hash}],
+    )
+    tool.claim_cache.write_jsonl(
+        cache_root / "claims.jsonl",
+        [
+            {
+                "claim_key": "CLMK-CACHED",
+                "emperor_name": "朱元璋",
+                "object_name": "汤和",
+                "object_type": "person",
+                "claim_kind": "material_claim",
+                "claim_summary": "朱元璋命汤和镇守常州。",
+                "direction": "positive",
+                "action_type": "授权",
+                "fact_payload": {"actor": "朱元璋", "object": "汤和", "action_type": "授权"},
+                "seen_count": 1,
+            }
+        ],
     )
 
     def fake_candidate_round(**kwargs) -> dict:
@@ -1345,8 +1385,12 @@ def test_clean_pipeline_can_skip_small_claim_cache_tail_without_judge(tmp_path: 
     result = json.loads(Path(person["files"]["final_judge_result"]).read_text(encoding="utf-8"))
     assert person["judge_status"] == "needs_refinement"
     assert person["judge_elapsed_seconds"] == 0.0
+    assert person["claim_count"] == 1
+    assert result["claims"][0]["cached_claim_key"] == "CLMK-CACHED"
+    assert result["claims"][0]["source_slice_refs"] == ["SLI-CACHED"]
     assert result["coverage_gaps"][0]["gap_type"] == "claim_cache_tail_uncovered"
     assert result["_claim_cache_plan"]["uncovered_slice_count"] == 1
+    assert result["_claim_cache_hydrated"]["merged_cached_claim_count"] == 1
 
 
 def test_judge_payload_normalizes_candidate_profiles_for_consumption() -> None:
