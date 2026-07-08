@@ -178,6 +178,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--skip-fetch-errors", action="store_true")
     parser.add_argument("--skip-judge", action="store_true", help="Stop after candidates and alias refinement.")
     parser.add_argument("--claim-only-judge", action="store_true", help="Only extract claims; skip binding/scoring payloads.")
+    parser.add_argument("--claim-cache-root", type=Path, help="Filesystem claim cache root for claim-only skip/import.")
+    parser.add_argument("--claim-cache-skip-cached-slices", action="store_true", help="In claim-only mode, remove candidate slices already covered by cached claims before judge.")
+    parser.add_argument("--claim-cache-import-final", action="store_true", help="Import the final claim-only run into --claim-cache-root after summary is written.")
     parser.add_argument("--no-taskgen-search", action="store_true", help="Disable web search in live taskgen.")
     parser.add_argument(
         "--no-stream-taskgen",
@@ -427,6 +430,9 @@ def _run_staged_emperors(
         judge_shard_size=args.judge_shard_size,
         judge_shard_workers=_effective_judge_shard_workers(args),
         judge_mode=_judge_mode(args),
+        claim_cache_root=args.claim_cache_root,
+        claim_cache_skip_cached_slices=args.claim_cache_skip_cached_slices,
+        claim_cache_import_final=args.claim_cache_import_final,
         taskgen_by_target_code=taskgen_by_target_code,
         max_workers=args.max_workers,
         event_logger=event_logger,
@@ -463,6 +469,9 @@ def _run_task_files(args: argparse.Namespace, *, run_root: Path, event_logger: R
         judge_shard_size=args.judge_shard_size,
         judge_shard_workers=_effective_judge_shard_workers(args),
         judge_mode=_judge_mode(args),
+        claim_cache_root=args.claim_cache_root,
+        claim_cache_skip_cached_slices=args.claim_cache_skip_cached_slices,
+        claim_cache_import_final=args.claim_cache_import_final,
         taskgen_by_target_code={},
         max_workers=args.max_workers,
         event_logger=event_logger,
@@ -904,6 +913,9 @@ def run_streaming_taskgen_pipeline(
     judge_shard_size: int = 8,
     judge_shard_workers: int = 2,
     judge_mode: str | None = None,
+    claim_cache_root: Path | None = None,
+    claim_cache_skip_cached_slices: bool = False,
+    claim_cache_import_final: bool = False,
     max_workers: int = 4,
     taskgen_batch_size: int = 1,
     taskgen_preseeds: Mapping[str, Mapping[str, Any]] | None = None,
@@ -953,6 +965,8 @@ def run_streaming_taskgen_pipeline(
             judge_shard_size=judge_shard_size,
             judge_shard_workers=judge_shard_workers,
             judge_mode=judge_mode,
+            claim_cache_root=claim_cache_root,
+            claim_cache_skip_cached_slices=claim_cache_skip_cached_slices,
             taskgen=taskgen_result["taskgen"],
             event_logger=event_logger,
         )
@@ -1081,8 +1095,15 @@ def run_streaming_taskgen_pipeline(
         taskgen_search_enabled=taskgen_search,
     )
     summary.setdefault("clean_policy", {})["judge_mode"] = judge_mode or "full"
+    if claim_cache_root is not None:
+        summary.setdefault("clean_policy", {})["claim_cache_root"] = str(claim_cache_root)
+        summary.setdefault("clean_policy", {})["claim_cache_skip_cached_slices"] = bool(claim_cache_skip_cached_slices)
+        summary.setdefault("clean_policy", {})["claim_cache_import_final"] = bool(claim_cache_import_final)
     _mark_shadow_summary(summary, args)
     runner.atomic_write_json(run_root / "summary.json", summary)
+    if claim_cache_root is not None and claim_cache_import_final:
+        summary["claim_cache_import"] = runner.claim_cache.import_run(run_root, claim_cache_root)
+        runner.atomic_write_json(run_root / "summary.json", summary)
     if event_logger is not None:
         event_logger.emit(
             "pipeline_done",
@@ -1156,6 +1177,9 @@ def _run_emperors(
         judge_shard_size=args.judge_shard_size,
         judge_shard_workers=_effective_judge_shard_workers(args),
         judge_mode=_judge_mode(args),
+        claim_cache_root=args.claim_cache_root,
+        claim_cache_skip_cached_slices=args.claim_cache_skip_cached_slices,
+        claim_cache_import_final=args.claim_cache_import_final,
         max_workers=args.max_workers,
         taskgen_batch_size=args.taskgen_batch_size,
         taskgen_preseeds=taskgen_preseeds,

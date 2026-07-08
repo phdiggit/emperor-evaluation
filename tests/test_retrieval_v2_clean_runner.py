@@ -1158,6 +1158,131 @@ def test_clean_pipeline_can_run_claim_only_judge_mode(tmp_path: Path) -> None:
     assert result["secondary_binding_candidates"] == []
 
 
+def test_clean_pipeline_can_skip_cached_claim_slices_and_import_new_claims(tmp_path: Path, monkeypatch) -> None:
+    cached_slice = {
+        "slice_code": "SLI-CACHED",
+        "document_code": "DOC-001",
+        "object_name": "汤和",
+        "text": "帝命汤和守常州，常州安辑。",
+    }
+    new_slice = {
+        "slice_code": "SLI-NEW",
+        "document_code": "DOC-001",
+        "object_name": "常遇春",
+        "text": "帝命常遇春进兵，克敌。",
+    }
+    cache_root = tmp_path / "claim_cache"
+    cached_hash = tool.claim_cache.slice_hash_from_row(cached_slice)
+    tool.claim_cache.write_jsonl(
+        cache_root / "claim_evidence.jsonl",
+        [{"evidence_key": "EVD-CACHED", "claim_key": "CLMK-CACHED", "slice_hash": cached_hash}],
+    )
+    tool.claim_cache.write_jsonl(
+        cache_root / "claims.jsonl",
+        [{"claim_key": "CLMK-CACHED", "object_name": "汤和", "seen_count": 1}],
+    )
+    tool.claim_cache.write_jsonl(
+        cache_root / "source_slices.jsonl",
+        [{"slice_hash": cached_hash, "object_name": "汤和", "seen_count": 1}],
+    )
+
+    def fake_candidate_round(**kwargs) -> dict:
+        person_dir = kwargs["person_dir"]
+        prompt_path = person_dir / "judge_prompt.round0.md"
+        prompt_path.parent.mkdir(parents=True, exist_ok=True)
+        prompt_path.write_text("placeholder", encoding="utf-8")
+        return {
+            "payload": {
+                "task_identity": {"emperor_name": "朱元璋", "rule_code": "i5b_item_wide"},
+                "target_profile": {"primary_name": "朱元璋"},
+                "rule": {"rule_code": "i5b_item_wide"},
+                "object_seeds": [{"name": "汤和"}, {"name": "常遇春"}],
+                "source_documents": [{"document_code": "DOC-001", "title": "fixture"}],
+                "candidate_slices": [cached_slice, new_slice],
+                "coverage_gaps": [],
+                "fetch_errors": [],
+                "stats": {"candidate_slices": 2},
+            },
+            "elapsed_seconds": 0.01,
+            "output_path": person_dir / "candidates.round0.json",
+            "prompt_path": prompt_path,
+        }
+
+    def fake_claim_only_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
+        assert "SLI-NEW" in invocation.prompt
+        assert "SLI-CACHED" not in invocation.prompt
+        payload = {
+            "job_code": "JOB-CLAIM-CACHE",
+            "status": "succeeded",
+            "documents": [],
+            "passages": [],
+            "claims": [
+                {
+                    "claim_code": "CLM-NEW",
+                    "emperor_name": "朱元璋",
+                    "object_name": "常遇春",
+                    "object_type": "person",
+                    "claim_kind": "material_claim",
+                    "claim_summary": "朱元璋命常遇春进兵并克敌。",
+                    "direction": "positive",
+                    "confidence": 0.9,
+                    "source_slice_refs": ["SLI-NEW"],
+                    "fact_payload": {
+                        "fact_schema": "political_action_v1",
+                        "actor": "朱元璋",
+                        "object": "常遇春",
+                        "action_type": "授权",
+                        "event_scope": "军事",
+                        "office_or_domain": "进兵",
+                        "outcome": "克敌",
+                        "time_context": "",
+                        "source_span_refs": ["SLI-NEW"],
+                        "confidence": 0.9,
+                        "completeness": {"has_actor": True, "has_object": True, "has_action": True},
+                    },
+                    "evidence_spans": [
+                        {"span_type": "action", "source_slice_ref": "SLI-NEW", "text": "命常遇春进兵"},
+                        {"span_type": "outcome", "source_slice_ref": "SLI-NEW", "text": "克敌"},
+                    ],
+                }
+            ],
+            "primary_bindings": [],
+            "secondary_binding_candidates": [],
+            "coverage_matrix": {"rule_code": "i5b_item_wide", "role_families": []},
+            "coverage": {},
+            "coverage_gaps": [],
+        }
+        invocation.last_message.parent.mkdir(parents=True, exist_ok=True)
+        invocation.last_message.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        invocation.event_log.write_text(
+            '{"type":"turn.completed","usage":{"input_tokens":5,"output_tokens":3}}\n',
+            encoding="utf-8",
+        )
+        return tool.CodexResult(payload=payload, elapsed_seconds=0.2, usage={"input_tokens": 5, "output_tokens": 3})
+
+    monkeypatch.setattr(tool, "build_candidate_round", fake_candidate_round)
+    summary = tool.run_clean_pipeline(
+        tasks=[task_without_alias_gap()],
+        run_root=tmp_path / "run",
+        codex_runner=fake_claim_only_judge,
+        skip_judge=False,
+        max_alias_refine_rounds=0,
+        judge_shard_size=0,
+        judge_mode=tool.candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
+        claim_cache_root=cache_root,
+        claim_cache_skip_cached_slices=True,
+        claim_cache_import_final=True,
+        max_workers=1,
+    )
+
+    round_summary = summary["people"][0]["rounds"][0]
+    assert round_summary["claim_cache_plan"]["cached_slice_count"] == 1
+    assert round_summary["claim_cache_plan"]["uncovered_slice_count"] == 1
+    assert summary["claim_cache_import"]["stats"]["new_claim_count"] == 1
+    cached_claims = tool.claim_cache.read_jsonl(cache_root / "claims.jsonl")
+    assert {row["object_name"] for row in cached_claims} == {"汤和", "常遇春"}
+
+
 def test_judge_payload_normalizes_candidate_profiles_for_consumption() -> None:
     payload = {
         "claims": [],

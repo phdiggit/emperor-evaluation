@@ -21,6 +21,7 @@ if __name__ == "__main__":
 from scripts.dev import retrieval_v2_alias_refiner as alias_refiner
 from scripts.dev import retrieval_v2_candidate_source_refiner as candidate_source_refiner
 from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt
+from scripts.dev import retrieval_v2_claim_cache as claim_cache
 from scripts.dev import retrieval_v2_judge_shards as judge_shards
 from scripts.dev import retrieval_v2_object_source_cache as object_source_cache
 from scripts.dev.retrieval_v2_clean_summary import build_batch_summary, sum_usage, summarize_person
@@ -576,6 +577,44 @@ def apply_object_source_cache_overlay(
     return overlaid, stats
 
 
+def apply_claim_cache_to_candidates(
+    candidates: Mapping[str, Any],
+    *,
+    cache_root: Path,
+    person_dir: Path,
+    round_index: int,
+) -> tuple[dict[str, Any], dict[str, Any], Path]:
+    input_path = person_dir / f"candidates.round{round_index}.claim_cache_input.json"
+    output_path = person_dir / f"candidates.round{round_index}.claim_cache_uncovered.json"
+    atomic_write_json(input_path, candidates)
+    report = claim_cache.plan_candidates(input_path, cache_root, output_path)
+    filtered = load_json(output_path)
+    stats = dict(filtered.get("stats") or {})
+    stats["candidate_slices_before_claim_cache"] = report["candidate_slice_count"]
+    stats["candidate_slices"] = report["uncovered_slice_count"]
+    stats["claim_cache_cached_slice_count"] = report["cached_slice_count"]
+    stats["claim_cache_cached_claim_key_count"] = report["cached_claim_key_count"]
+    filtered["stats"] = stats
+    filtered["claim_cache_plan"] = report
+    atomic_write_json(output_path, filtered)
+    return filtered, report, output_path
+
+
+def compact_claim_cache_plan(report: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": report.get("schema_version"),
+        "cache_root": report.get("cache_root"),
+        "candidates_path": report.get("candidates_path"),
+        "uncovered_candidates_path": report.get("uncovered_candidates_path"),
+        "candidate_slice_count": report.get("candidate_slice_count"),
+        "cached_slice_count": report.get("cached_slice_count"),
+        "uncovered_slice_count": report.get("uncovered_slice_count"),
+        "cached_claim_key_count": report.get("cached_claim_key_count"),
+        "by_object": report.get("by_object") or {},
+        "suggested_policy": report.get("suggested_policy"),
+    }
+
+
 def build_alias_refinement_round(
     *,
     task_path: Path,
@@ -764,6 +803,8 @@ def process_task(
     source_cache_root: Path | None,
     judge_timeout_seconds: int, judge_shard_size: int, judge_shard_workers: int,
     judge_mode: str | None = None,
+    claim_cache_root: Path | None = None,
+    claim_cache_skip_cached_slices: bool = False,
     object_source_cache_root: Path | None = None,
     taskgen: Mapping[str, Any] | None = None,
     event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
@@ -885,6 +926,8 @@ def process_task(
             "judge_sharded": False,
             "judge_shard_count": 0,
             "judge_alias_patch_stats": None,
+            "claim_cache_plan": None,
+            "claim_cache_uncovered_candidates": None,
         }
         external_gap_names = list(candidate_source_refine_objects) if not external_source_refine_used else []
         gap_object_names = candidate_source_refiner.unique_strings(
@@ -929,6 +972,72 @@ def process_task(
             rounds.append(round_summary)
             break
 
+        judge_candidates = final_candidates
+        claim_cache_plan: dict[str, Any] | None = None
+        if (
+            claim_cache_root is not None
+            and claim_cache_skip_cached_slices
+            and judge_mode == candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE
+        ):
+            judge_candidates, claim_cache_plan, uncovered_path = apply_claim_cache_to_candidates(
+                final_candidates,
+                cache_root=claim_cache_root,
+                person_dir=person_dir,
+                round_index=round_index,
+            )
+            round_summary["claim_cache_plan"] = compact_claim_cache_plan(claim_cache_plan)
+            round_summary["claim_cache_uncovered_candidates"] = str(uncovered_path)
+            if event_logger is not None:
+                event_logger.emit(
+                    "claim_cache_plan_done",
+                    emperor_name=emperor_name,
+                    target_code=target_code,
+                    rule_code=rule_code,
+                    round=round_index,
+                    cache_root=str(claim_cache_root),
+                    candidate_slice_count=claim_cache_plan["candidate_slice_count"],
+                    cached_slice_count=claim_cache_plan["cached_slice_count"],
+                    uncovered_slice_count=claim_cache_plan["uncovered_slice_count"],
+                    cached_claim_key_count=claim_cache_plan["cached_claim_key_count"],
+                )
+            if not (judge_candidates.get("candidate_slices") or []):
+                final_judge = {
+                    "job_code": f"JOB-{target_code}-{rule_code}-CLAIM-CACHE-HIT",
+                    "status": "succeeded",
+                    "documents": [],
+                    "passages": [],
+                    "claims": [],
+                    "primary_bindings": [],
+                    "secondary_binding_candidates": [],
+                    "coverage_matrix": {"rule_code": rule_code, "role_families": []},
+                    "coverage": {
+                        "ready_for_object_pool": False,
+                        "checked_objects": [],
+                        "missing_core_objects": [],
+                        "positive_claim_count": 0,
+                        "negative_claim_count": 0,
+                        "alias_coverage_note": "claim_cache_all_slices_cached",
+                    },
+                    "coverage_gaps": [],
+                    "_elapsed_seconds": 0.0,
+                    "_usage": {},
+                    "_judge_mode": judge_mode or "",
+                    "_claim_cache_plan": claim_cache_plan,
+                }
+                round_summary["judge_elapsed_seconds"] = 0.0
+                round_summary["judge_status"] = "succeeded"
+                if event_logger is not None:
+                    event_logger.emit(
+                        "judge_skipped_by_claim_cache",
+                        emperor_name=emperor_name,
+                        target_code=target_code,
+                        rule_code=rule_code,
+                        round=round_index,
+                        cached_slice_count=claim_cache_plan["cached_slice_count"],
+                    )
+                rounds.append(round_summary)
+                break
+
         if event_logger is not None:
             event_logger.emit(
                 "judge_start",
@@ -941,7 +1050,7 @@ def process_task(
                 judge_mode=judge_mode,
             )
         judge_result = run_judge(
-            candidates=final_candidates,
+            candidates=judge_candidates,
             prompt_path=candidate_result["prompt_path"],
             person_dir=person_dir,
             round_index=round_index,
@@ -956,6 +1065,8 @@ def process_task(
         final_judge["_elapsed_seconds"] = judge_result["elapsed_seconds"]
         final_judge["_usage"] = judge_result["usage"]
         final_judge["_judge_mode"] = judge_mode or ""
+        if claim_cache_plan is not None:
+            final_judge["_claim_cache_plan"] = claim_cache_plan
         round_summary["judge_elapsed_seconds"] = judge_result["elapsed_seconds"]
         round_summary["judge_status"] = final_judge.get("status")
         round_summary["judge_sharded"] = bool(judge_result.get("sharded"))
@@ -1059,6 +1170,9 @@ def run_clean_pipeline(
     object_source_cache_root: Path | None = None,
     judge_timeout_seconds: int = 1800, judge_shard_size: int = 8, judge_shard_workers: int = 2,
     judge_mode: str | None = None,
+    claim_cache_root: Path | None = None,
+    claim_cache_skip_cached_slices: bool = False,
+    claim_cache_import_final: bool = False,
     taskgen_by_target_code: Mapping[str, Mapping[str, Any]] | None = None,
     max_workers: int = 4, event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
 ) -> dict[str, Any]:
@@ -1096,6 +1210,8 @@ def run_clean_pipeline(
             judge_shard_size=judge_shard_size,
             judge_shard_workers=judge_shard_workers,
             judge_mode=judge_mode,
+            claim_cache_root=claim_cache_root,
+            claim_cache_skip_cached_slices=claim_cache_skip_cached_slices,
             taskgen=taskgen_by_target_code.get(target_code),
             event_logger=event_logger,
             candidate_source_refine_objects=candidate_source_refine_objects,
@@ -1120,7 +1236,15 @@ def run_clean_pipeline(
         taskgen_batch_size=1,
     )
     summary.setdefault("clean_policy", {})["judge_mode"] = judge_mode or "full"
+    if claim_cache_root is not None:
+        summary.setdefault("clean_policy", {})["claim_cache_root"] = str(claim_cache_root)
+        summary.setdefault("clean_policy", {})["claim_cache_skip_cached_slices"] = bool(claim_cache_skip_cached_slices)
+        summary.setdefault("clean_policy", {})["claim_cache_import_final"] = bool(claim_cache_import_final)
     atomic_write_json(run_root / "summary.json", summary)
+    if claim_cache_root is not None and claim_cache_import_final:
+        import_report = claim_cache.import_run(run_root, claim_cache_root)
+        summary["claim_cache_import"] = import_report
+        atomic_write_json(run_root / "summary.json", summary)
     if event_logger is not None:
         event_logger.emit(
             "pipeline_done",
