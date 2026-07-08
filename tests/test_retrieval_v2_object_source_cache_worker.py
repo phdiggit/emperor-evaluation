@@ -63,6 +63,24 @@ def write_object_cache(cache_root: Path) -> None:
                 "source_role": "emperor_context",
                 "source_shape": "emperor_context_candidate",
             },
+            {
+                "document_cache_code": "OSD-DY",
+                "person_cache_code": "PSC-DY",
+                "person_name": "邓愈",
+                "source_title": "明史/卷126",
+                "source_url": "https://example.test/mingshi126-dy",
+                "source_role": "object_biography",
+                "source_shape": "object_biography_candidate",
+            },
+            {
+                "document_cache_code": "OSD-ZL",
+                "person_cache_code": "PSC-ZL",
+                "person_name": "张良",
+                "source_title": "史记/卷55",
+                "source_url": "https://example.test/shiji55",
+                "source_role": "object_mention",
+                "source_shape": "object_mention_candidate",
+            },
         ],
     )
     write_jsonl(
@@ -71,6 +89,8 @@ def write_object_cache(cache_root: Path) -> None:
             {"person_name": "汤和", "mention_slice_count": 2},
             {"person_name": "常遇春", "mention_slice_count": 1},
             {"person_name": "朱元璋", "mention_slice_count": 1},
+            {"person_name": "邓愈", "mention_slice_count": 2},
+            {"person_name": "张良", "mention_slice_count": 2},
         ],
     )
     write_jsonl(
@@ -119,6 +139,50 @@ def write_object_cache(cache_root: Path) -> None:
                 "locator": "chars:0-80",
                 "matched_aliases": ["朱元璋"],
                 "raw_text": "太祖起兵濠州，诸将从之。",
+            },
+            {
+                "slice_cache_code": "OSS-DY-1",
+                "document_cache_code": "OSD-DY",
+                "person_cache_code": "PSC-DY",
+                "person_name": "邓愈",
+                "source_title": "明史/卷126",
+                "source_role": "object_biography",
+                "locator": "chars:0-80",
+                "matched_aliases": ["邓愈"],
+                "raw_text": "邓愈从征吐蕃，克敌有功。",
+            },
+            {
+                "slice_cache_code": "OSS-DY-2",
+                "document_cache_code": "OSD-DY",
+                "person_cache_code": "PSC-DY",
+                "person_name": "邓愈",
+                "source_title": "明史/卷126",
+                "source_role": "object_biography",
+                "locator": "chars:80-160",
+                "matched_aliases": ["邓愈"],
+                "raw_text": "邓愈镇守边疆，军令严明。",
+            },
+            {
+                "slice_cache_code": "OSS-ZL-1",
+                "document_cache_code": "OSD-ZL",
+                "person_cache_code": "PSC-ZL",
+                "person_name": "张良",
+                "source_title": "史记/卷55",
+                "source_role": "object_mention",
+                "locator": "chars:0-80",
+                "matched_aliases": ["张良"],
+                "raw_text": "张良数从汉王谋议。",
+            },
+            {
+                "slice_cache_code": "OSS-ZL-2",
+                "document_cache_code": "OSD-ZL",
+                "person_cache_code": "PSC-ZL",
+                "person_name": "张良",
+                "source_title": "史记/卷55",
+                "source_role": "object_mention",
+                "locator": "chars:80-160",
+                "matched_aliases": ["张良"],
+                "raw_text": "张良劝汉王还军。",
             },
         ],
     )
@@ -296,14 +360,15 @@ def test_claim_plan_builds_uncovered_candidates_without_db(tmp_path: Path, monke
     uncovered = json.loads((tmp_path / "claim_candidates.uncovered.json").read_text(encoding="utf-8"))
 
     assert called == {"resolve_dsn": 0, "enqueue": 0}
-    assert plan["uncovered_slice_count"] == 2
+    assert plan["uncovered_slice_count"] == 4
     assert candidates["task_identity"]["judge_mode"] == "claim_extraction_only"
     assert candidates["task_identity"]["emperor_name"] == "朱元璋"
-    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"汤和", "常遇春"}
+    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"汤和", "常遇春", "邓愈", "张良"}
     assert candidates["claim_plan_audit"]["excluded_object_names"] == ["朱元璋"]
-    assert candidates["claim_plan_audit"]["object_count"] == 2
+    assert candidates["claim_plan_audit"]["object_count"] == 4
     assert candidates["claim_plan_audit"]["by_object"]["汤和"]["has_biography_source"] is True
-    assert candidates["claim_plan_audit"]["source_shape_counts"] == {"object_biography_candidate": 2}
+    assert candidates["claim_plan_audit"]["by_object"]["张良"]["has_biography_source"] is False
+    assert candidates["claim_plan_audit"]["source_shape_counts"] == {"object_biography_candidate": 3, "object_mention_candidate": 1}
     assert uncovered["candidate_slices"] == candidates["candidate_slices"]
 
 
@@ -324,11 +389,40 @@ def test_claim_plan_can_include_target_emperor_object_when_requested(tmp_path: P
     candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
 
     assert result["claim_plan_audit"]["excluded_object_names"] == []
-    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"朱元璋", "汤和", "常遇春"}
+    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"朱元璋", "汤和", "常遇春", "邓愈", "张良"}
     assert candidates["claim_plan_audit"]["source_shape_counts"] == {
         "emperor_context_candidate": 1,
-        "object_biography_candidate": 2,
+        "object_biography_candidate": 3,
+        "object_mention_candidate": 1,
     }
+
+
+def test_claim_plan_pilot_selects_high_value_small_batch(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_object_cache(cache_root)
+
+    result = tool.plan_claim_extraction_from_cache(
+        cache_root=cache_root,
+        claim_cache_root=tmp_path / "claim_cache",
+        output_candidates=tmp_path / "claim_candidates.json",
+        output_uncovered_candidates=tmp_path / "claim_candidates.uncovered.json",
+        emperor_name="朱元璋",
+        target_code="TGT-ZYZ",
+        max_slices_per_person=2,
+        selection_profile="pilot",
+        pilot_object_limit=2,
+        pilot_slices_per_object=1,
+    )
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+    selection = candidates["claim_plan_audit"]["selection"]
+
+    assert result["candidate_slice_count"] == 2
+    assert selection["selection_profile"] == "pilot"
+    assert selection["selected_objects"] == ["汤和", "邓愈"]
+    assert "张良" in selection["dropped_objects"]
+    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"汤和", "邓愈"}
+    assert candidates["stats"]["pre_selection_candidate_slices"] == 7
+    assert candidates["stats"]["candidate_slices"] == 2
 
 
 def test_claim_plan_can_enqueue_claim_job_without_running_judge(tmp_path: Path, monkeypatch) -> None:

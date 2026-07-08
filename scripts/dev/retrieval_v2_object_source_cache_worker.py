@@ -632,6 +632,84 @@ def claim_plan_audit(
     }
 
 
+def candidate_source_shapes(row: Mapping[str, Any]) -> list[str]:
+    payload = row.get("object_source_cache") if isinstance(row.get("object_source_cache"), Mapping) else {}
+    shape = text(payload.get("source_shape"))
+    return [shape] if shape else ["unknown"]
+
+
+def select_claim_plan_pilot(
+    candidates: Sequence[Mapping[str, Any]],
+    audit: Mapping[str, Any],
+    *,
+    pilot_object_limit: int,
+    pilot_slices_per_object: int,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    by_object = audit.get("by_object") if isinstance(audit.get("by_object"), Mapping) else {}
+    object_scores: list[tuple[tuple[int, int, int, int, str], str]] = []
+    for name, payload in by_object.items():
+        if not isinstance(payload, Mapping):
+            continue
+        has_bio = 1 if payload.get("has_biography_source") else 0
+        capped = 1 if payload.get("capped_by_max_slices_per_person") else 0
+        slice_count = int(payload.get("slice_count") or 0)
+        max_score = int(payload.get("max_score") or 0)
+        object_scores.append(((-has_bio, -capped, -slice_count, -max_score, str(name)), str(name)))
+    selected_objects = [name for _score, name in sorted(object_scores)[: max(1, int(pilot_object_limit))]]
+    selected_set = set(selected_objects)
+    by_selected: dict[str, list[dict[str, Any]]] = {name: [] for name in selected_objects}
+    for row in candidates:
+        object_name = text(row.get("object_name"))
+        if object_name in selected_set:
+            by_selected.setdefault(object_name, []).append(dict(row))
+    selected_rows: list[dict[str, Any]] = []
+    per_object_limit = max(1, int(pilot_slices_per_object))
+    for object_name in selected_objects:
+        rows = sorted(
+            by_selected.get(object_name, []),
+            key=lambda row: (-int(row.get("score") or 0), str(row.get("document_code")), str(row.get("locator"))),
+        )
+        selected_rows.extend(rows[:per_object_limit])
+    selected_rows.sort(key=lambda row: (str(row.get("object_name")), -int(row.get("score") or 0), str(row.get("document_code"))))
+    dropped_objects = sorted(set(str(name) for name in by_object) - selected_set)
+    return selected_rows, {
+        "selection_profile": "pilot",
+        "pilot_object_limit": max(1, int(pilot_object_limit)),
+        "pilot_slices_per_object": per_object_limit,
+        "selected_objects": selected_objects,
+        "dropped_objects": dropped_objects,
+        "pre_selection_slice_count": len(candidates),
+        "selected_slice_count": len(selected_rows),
+        "ranking_policy": "prefer biography source, capped objects, larger slice inventory, higher max score",
+    }
+
+
+def apply_claim_plan_selection(
+    candidates: Sequence[Mapping[str, Any]],
+    audit: Mapping[str, Any],
+    *,
+    selection_profile: str,
+    pilot_object_limit: int,
+    pilot_slices_per_object: int,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    if selection_profile == "all":
+        return [dict(row) for row in candidates], {
+            "selection_profile": "all",
+            "selected_objects": sorted({text(row.get("object_name")) for row in candidates if text(row.get("object_name"))}),
+            "dropped_objects": [],
+            "pre_selection_slice_count": len(candidates),
+            "selected_slice_count": len(candidates),
+        }
+    if selection_profile == "pilot":
+        return select_claim_plan_pilot(
+            candidates,
+            audit,
+            pilot_object_limit=pilot_object_limit,
+            pilot_slices_per_object=pilot_slices_per_object,
+        )
+    raise ObjectSourceCacheWorkerError(f"unsupported claim-plan selection profile: {selection_profile}")
+
+
 def object_cache_to_claim_candidates(
     *,
     cache_root: Path,
@@ -642,6 +720,9 @@ def object_cache_to_claim_candidates(
     max_slices_per_person: int = 12,
     max_total_slices: int = 0,
     include_target_emperor_object: bool = False,
+    selection_profile: str = "all",
+    pilot_object_limit: int = 4,
+    pilot_slices_per_object: int = 8,
 ) -> dict[str, Any]:
     source_documents = read_jsonl(cache_root / "source_documents.jsonl")
     mention_slices = read_jsonl(cache_root / "mention_slices.jsonl")
@@ -666,12 +747,6 @@ def object_cache_to_claim_candidates(
         )
         - excluded_object_names
     )
-    selected_document_codes = {text(row.get("document_code")) for row in candidates if text(row.get("document_code"))}
-    slim_docs = [
-        object_cache_document_row(row)
-        for row in source_documents
-        if text(row.get("document_cache_code") or row.get("document_code")) in selected_document_codes
-    ]
     audit = claim_plan_audit(
         source_documents=source_documents,
         candidates=candidates,
@@ -681,6 +756,21 @@ def object_cache_to_claim_candidates(
         max_slices_per_person=max_slices_per_person,
         max_total_slices=max_total_slices,
     )
+    selected_candidates, selection = apply_claim_plan_selection(
+        candidates,
+        audit,
+        selection_profile=selection_profile,
+        pilot_object_limit=pilot_object_limit,
+        pilot_slices_per_object=pilot_slices_per_object,
+    )
+    selected_object_names = sorted({text(row.get("object_name")) for row in selected_candidates if text(row.get("object_name"))})
+    selected_document_codes = {text(row.get("document_code")) for row in selected_candidates if text(row.get("document_code"))}
+    slim_docs = [
+        object_cache_document_row(row)
+        for row in source_documents
+        if text(row.get("document_cache_code") or row.get("document_code")) in selected_document_codes
+    ]
+    audit["selection"] = selection
     return {
         "schema_version": 1,
         "generated_by": "scripts/dev/retrieval_v2_object_source_cache_worker.py claim-plan",
@@ -693,25 +783,27 @@ def object_cache_to_claim_candidates(
         },
         "target_profile": {"primary_name": emperor_name},
         "rule": {"rule_code": rule_code},
-        "object_seeds": [{"name": name} for name in object_names],
+        "object_seeds": [{"name": name} for name in selected_object_names],
         "source_documents": slim_docs,
-        "candidate_slices": candidates,
+        "candidate_slices": selected_candidates,
         "coverage": {
             "object_slice_counts": {
-                name: sum(1 for row in candidates if row.get("object_name") == name)
-                for name in object_names
+                name: sum(1 for row in selected_candidates if row.get("object_name") == name)
+                for name in selected_object_names
             },
             "objects_without_slices": [
-                name for name in object_names if not any(row.get("object_name") == name for row in candidates)
+                name for name in selected_object_names if not any(row.get("object_name") == name for row in selected_candidates)
             ],
         },
         "stats": {
             "source_documents": len(slim_docs),
             "mention_slices": len(mention_slices),
-            "candidate_slices": len(candidates),
+            "candidate_slices": len(selected_candidates),
+            "pre_selection_candidate_slices": len(candidates),
             "max_slices_per_person": max_slices_per_person,
             "max_total_slices": max_total_slices,
             "excluded_object_count": len(excluded_object_names),
+            "selection_profile": selection_profile,
         },
         "claim_bridge": {
             "cache_root": str(cache_root),
@@ -734,6 +826,9 @@ def plan_claim_extraction_from_cache(
     max_slices_per_person: int = 12,
     max_total_slices: int = 0,
     include_target_emperor_object: bool = False,
+    selection_profile: str = "all",
+    pilot_object_limit: int = 4,
+    pilot_slices_per_object: int = 8,
     enqueue_claim_job: bool = False,
     dsn: str = "",
     claim_run_root: Path | None = None,
@@ -748,6 +843,9 @@ def plan_claim_extraction_from_cache(
         max_slices_per_person=max_slices_per_person,
         max_total_slices=max_total_slices,
         include_target_emperor_object=include_target_emperor_object,
+        selection_profile=selection_profile,
+        pilot_object_limit=pilot_object_limit,
+        pilot_slices_per_object=pilot_slices_per_object,
     )
     write_json(output_candidates, candidates)
     cache_plan = claim_cache.plan_candidates(output_candidates, claim_cache_root, output_uncovered_candidates)
@@ -924,6 +1022,9 @@ def build_parser() -> argparse.ArgumentParser:
     claim_plan.add_argument("--max-slices-per-person", type=int, default=12)
     claim_plan.add_argument("--max-total-slices", type=int, default=0)
     claim_plan.add_argument("--include-target-emperor-object", action="store_true")
+    claim_plan.add_argument("--selection-profile", choices=("all", "pilot"), default="all")
+    claim_plan.add_argument("--pilot-object-limit", type=int, default=4)
+    claim_plan.add_argument("--pilot-slices-per-object", type=int, default=8)
     claim_plan.add_argument("--enqueue-claim-job", action="store_true")
     claim_plan.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
     claim_plan.add_argument("--priority", type=int, default=100)
@@ -969,6 +1070,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             max_slices_per_person=args.max_slices_per_person,
             max_total_slices=args.max_total_slices,
             include_target_emperor_object=bool(args.include_target_emperor_object),
+            selection_profile=args.selection_profile,
+            pilot_object_limit=args.pilot_object_limit,
+            pilot_slices_per_object=args.pilot_slices_per_object,
             enqueue_claim_job=bool(args.enqueue_claim_job),
             dsn=dsn,
             claim_run_root=args.claim_run_root,
