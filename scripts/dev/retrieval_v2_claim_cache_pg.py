@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
+from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
     DEFAULT_PG_SCHEMA,
@@ -113,6 +114,14 @@ def int_count(value: Any, *, default: int = 1) -> int:
     return parsed if parsed >= 1 else default
 
 
+def json_mapping(value: Any) -> dict[str, Any]:
+    return dict(value) if isinstance(value, Mapping) else {}
+
+
+def json_list(value: Any) -> list[Any]:
+    return list(value) if isinstance(value, list) else []
+
+
 def load_cache(cache_root: Path) -> dict[str, list[dict[str, Any]]]:
     paths = fs_cache.cache_paths(cache_root)
     return {
@@ -143,6 +152,7 @@ def source_slice_row(row: Mapping[str, Any]) -> dict[str, Any]:
 
 def claim_row(row: Mapping[str, Any]) -> dict[str, Any]:
     payload = fact_payload(row)
+    quality = claim_quality.claim_quality_payload(row)
     return {
         "claim_key": text(row.get("claim_key")),
         "claim_type": claim_type(row),
@@ -159,6 +169,11 @@ def claim_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "claim_summary": text(row.get("claim_summary") or row.get("summary")),
         "confidence": confidence(row.get("confidence")),
         "fact_payload": payload,
+        "canonical_event_key": text(row.get("canonical_event_key") or quality["canonical_event_key"]),
+        "canonical_event_payload": json_mapping(row.get("canonical_event_payload")) or quality["canonical_event_payload"],
+        "near_duplicate_group_payload": json_mapping(row.get("near_duplicate_group_payload")) or quality["near_duplicate_group_payload"],
+        "claim_grain": text(row.get("claim_grain") or quality["claim_grain"]),
+        "quality_flags": json_list(row.get("quality_flags")),
         "first_run_code": text(row.get("first_run_code")),
         "last_run_code": text(row.get("last_run_code")),
         "raw_output_path": text(row.get("raw_output_path")),
@@ -316,13 +331,15 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
         insert into retrieval_v2.claim_cache (
             claim_key, claim_type, fact_schema, emperor_name, object_name, object_type,
             direction, action_type, event_scope, office_or_domain, time_context, outcome,
-            claim_summary, confidence, fact_payload, first_run_code, last_run_code,
+            claim_summary, confidence, fact_payload, canonical_event_key, canonical_event_payload,
+            near_duplicate_group_payload, claim_grain, quality_flags, first_run_code, last_run_code,
             raw_output_path, extractor_version, status, seen_count
         )
         values (
             %s, %s, %s, %s, %s, %s,
             %s, %s, %s, %s, %s, %s,
-            %s, %s, %s::jsonb, %s, %s,
+            %s, %s, %s::jsonb, %s, %s::jsonb,
+            %s::jsonb, %s, %s::jsonb, %s, %s,
             %s, %s, %s, %s
         )
         on conflict (claim_key) do update set
@@ -340,6 +357,11 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             claim_summary = excluded.claim_summary,
             confidence = excluded.confidence,
             fact_payload = excluded.fact_payload,
+            canonical_event_key = excluded.canonical_event_key,
+            canonical_event_payload = excluded.canonical_event_payload,
+            near_duplicate_group_payload = excluded.near_duplicate_group_payload,
+            claim_grain = excluded.claim_grain,
+            quality_flags = excluded.quality_flags,
             first_run_code = coalesce(nullif(retrieval_v2.claim_cache.first_run_code, ''), excluded.first_run_code),
             last_run_code = excluded.last_run_code,
             raw_output_path = excluded.raw_output_path,
@@ -367,6 +389,11 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             row["claim_summary"],
             row["confidence"],
             stable_json(row["fact_payload"]),
+            row["canonical_event_key"],
+            stable_json(row["canonical_event_payload"]),
+            stable_json(row["near_duplicate_group_payload"]),
+            row["claim_grain"],
+            stable_json(row["quality_flags"]),
             row["first_run_code"],
             row["last_run_code"],
             row["raw_output_path"],
@@ -518,6 +545,97 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
     }
 
 
+def pg_claim_rows_for_quality_backfill(cur: Any, *, only_missing: bool = True) -> list[dict[str, Any]]:
+    where = "where canonical_event_key = '' or claim_grain = '' or canonical_event_payload = '{}'::jsonb or near_duplicate_group_payload = '{}'::jsonb"
+    cur.execute(
+        f"""
+        select
+            claim_key,
+            emperor_name,
+            object_name,
+            object_type::text as object_type,
+            direction::text as direction,
+            action_type,
+            event_scope,
+            office_or_domain,
+            time_context,
+            outcome,
+            claim_summary,
+            fact_payload,
+            canonical_event_key,
+            claim_grain
+          from retrieval_v2.claim_cache
+          {where if only_missing else ''}
+         order by claim_key
+        """
+    )
+    return [dict(row) for row in cur.fetchall()]
+
+
+def update_claim_quality_fields(cur: Any, row: Mapping[str, Any]) -> None:
+    quality = claim_quality.claim_quality_payload(row)
+    cur.execute(
+        """
+        update retrieval_v2.claim_cache
+           set canonical_event_key = %s,
+               canonical_event_payload = %s::jsonb,
+               near_duplicate_group_payload = %s::jsonb,
+               claim_grain = %s,
+               updated_at = now()
+         where claim_key = %s
+        """,
+        (
+            quality["canonical_event_key"],
+            stable_json(quality["canonical_event_payload"]),
+            stable_json(quality["near_duplicate_group_payload"]),
+            quality["claim_grain"],
+            text(row.get("claim_key")),
+        ),
+    )
+
+
+def backfill_quality_fields(
+    *,
+    env_file: Path | None,
+    dsn_env: str,
+    schema_name: str,
+    execute: bool,
+    all_rows: bool = False,
+) -> dict[str, Any]:
+    if env_file is not None:
+        load_env_file(env_file)
+    psycopg, dict_row = import_psycopg()
+    dsn = resolve_dsn(dsn_env)
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            rows = pg_claim_rows_for_quality_backfill(cur, only_missing=not all_rows)
+            report: dict[str, Any] = {
+                "ok": True,
+                "generated_by": "scripts/dev/retrieval_v2_claim_cache_pg.py",
+                "mode": "execute" if execute else "dry_run_quality_backfill",
+                "write_db": execute,
+                "executed": False,
+                "schema_name": schema_name,
+                "all_rows": all_rows,
+                "totals": {
+                    "candidate_claims": len(rows),
+                    "pg_claim_cache": pg_table_counts(cur, schema_name=schema_name)[table_label("claim_cache", schema_name=schema_name)],
+                },
+                "executed_counts": {},
+            }
+            if execute:
+                for row in rows:
+                    update_claim_quality_fields(cur, row)
+                report["executed"] = True
+                report["executed_counts"] = {table_label("claim_cache", schema_name=schema_name): len(rows)}
+        if execute:
+            conn.commit()
+        else:
+            conn.rollback()
+    return report
+
+
 def apply_cache_to_pg(
     *,
     cache_root: Path,
@@ -610,6 +728,14 @@ def build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     inventory.add_argument("--sample-limit", type=int, default=0)
     inventory.add_argument("--output-json", type=Path)
+
+    backfill = sub.add_parser("backfill-quality", help="Backfill canonical event and claim-grain hot fields from PG claim rows.")
+    backfill.add_argument("--env-file", type=Path)
+    backfill.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    backfill.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    backfill.add_argument("--output-json", type=Path)
+    backfill.add_argument("--execute", action="store_true")
+    backfill.add_argument("--all-rows", action="store_true", help="Recompute all claim rows instead of only missing hot fields.")
     return parser
 
 
@@ -629,6 +755,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             dsn_env=args.dsn_env,
             sample_limit=max(0, int(args.sample_limit)),
             schema_name=args.pg_schema,
+        )
+    elif args.command == "backfill-quality":
+        report = backfill_quality_fields(
+            env_file=args.env_file,
+            dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
+            execute=bool(args.execute),
+            all_rows=bool(args.all_rows),
         )
     else:  # pragma: no cover
         raise ClaimCachePgError(f"unsupported command: {args.command}")

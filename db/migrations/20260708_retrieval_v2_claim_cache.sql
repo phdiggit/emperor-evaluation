@@ -127,6 +127,11 @@ create table if not exists retrieval_v2.claim_cache (
     claim_summary text not null,
     confidence numeric(5,4),
     fact_payload jsonb not null default '{}'::jsonb,
+    canonical_event_key text not null default '',
+    canonical_event_payload jsonb not null default '{}'::jsonb,
+    near_duplicate_group_payload jsonb not null default '{}'::jsonb,
+    claim_grain text not null default '',
+    quality_flags jsonb not null default '[]'::jsonb,
     first_run_code text not null default '',
     last_run_code text not null default '',
     raw_output_path text not null default '',
@@ -140,7 +145,10 @@ create table if not exists retrieval_v2.claim_cache (
     constraint rv2_claim_cache_summary_not_blank check (btrim(claim_summary) <> ''),
     constraint rv2_claim_cache_confidence_ck check (confidence is null or (confidence >= 0 and confidence <= 1)),
     constraint rv2_claim_cache_seen_count_ck check (seen_count >= 1),
-    constraint rv2_claim_cache_fact_payload_ck check (jsonb_typeof(fact_payload) = 'object')
+    constraint rv2_claim_cache_fact_payload_ck check (jsonb_typeof(fact_payload) = 'object'),
+    constraint rv2_claim_cache_canonical_payload_ck check (jsonb_typeof(canonical_event_payload) = 'object'),
+    constraint rv2_claim_cache_near_duplicate_payload_ck check (jsonb_typeof(near_duplicate_group_payload) = 'object'),
+    constraint rv2_claim_cache_quality_flags_ck check (jsonb_typeof(quality_flags) = 'array')
 );
 
 create table if not exists retrieval_v2.claim_source_slices (
@@ -230,6 +238,11 @@ alter table retrieval_v2.claim_cache
     add column if not exists office_or_domain text not null default '',
     add column if not exists time_context text not null default '',
     add column if not exists outcome text not null default '',
+    add column if not exists canonical_event_key text not null default '',
+    add column if not exists canonical_event_payload jsonb not null default '{}'::jsonb,
+    add column if not exists near_duplicate_group_payload jsonb not null default '{}'::jsonb,
+    add column if not exists claim_grain text not null default '',
+    add column if not exists quality_flags jsonb not null default '[]'::jsonb,
     add column if not exists first_run_code text not null default '',
     add column if not exists last_run_code text not null default '',
     add column if not exists raw_output_path text not null default '',
@@ -271,6 +284,16 @@ alter table retrieval_v2.claim_route_cache
 
 alter table retrieval_v2.claim_cache
     drop constraint if exists rv2_claim_cache_status_ck;
+
+alter table retrieval_v2.claim_cache
+    drop constraint if exists rv2_claim_cache_canonical_payload_ck,
+    drop constraint if exists rv2_claim_cache_near_duplicate_payload_ck,
+    drop constraint if exists rv2_claim_cache_quality_flags_ck;
+
+alter table retrieval_v2.claim_cache
+    add constraint rv2_claim_cache_canonical_payload_ck check (jsonb_typeof(canonical_event_payload) = 'object'),
+    add constraint rv2_claim_cache_near_duplicate_payload_ck check (jsonb_typeof(near_duplicate_group_payload) = 'object'),
+    add constraint rv2_claim_cache_quality_flags_ck check (jsonb_typeof(quality_flags) = 'array');
 
 alter table retrieval_v2.claim_cache
     drop column if exists claim_kind;
@@ -367,6 +390,12 @@ on retrieval_v2.claim_cache(claim_type, fact_schema, status);
 create index if not exists rv2_claim_cache_action_idx
 on retrieval_v2.claim_cache(action_type, event_scope, office_or_domain);
 
+create index if not exists rv2_claim_cache_canonical_event_idx
+on retrieval_v2.claim_cache(canonical_event_key) where status in ('active', 'needs_review');
+
+create index if not exists rv2_claim_cache_grain_idx
+on retrieval_v2.claim_cache(claim_grain, status);
+
 create index if not exists rv2_claim_source_slices_object_idx
 on retrieval_v2.claim_source_slices(object_name, document_code);
 
@@ -404,6 +433,11 @@ comment on column retrieval_v2.claim_cache.outcome is '结果、影响或后果�
 comment on column retrieval_v2.claim_cache.claim_summary is 'claim 中文摘要；应为具体事实，不写模板句。';
 comment on column retrieval_v2.claim_cache.confidence is 'claim 抽取置信度，范围 0 到 1；未知时为空。';
 comment on column retrieval_v2.claim_cache.fact_payload is '按 fact_schema 保存的结构化事实 payload。';
+comment on column retrieval_v2.claim_cache.canonical_event_key is 'claim 规范化事件键；由对象、动作、时间、结果和摘要签名等字段生成，用于近重复和回填审计。';
+comment on column retrieval_v2.claim_cache.canonical_event_payload is '生成 canonical_event_key 的规范化字段 payload，便于解释和重算。';
+comment on column retrieval_v2.claim_cache.near_duplicate_group_payload is '近重复分组 payload；比 canonical_event_key 粒度略粗，用于发现同事件多条 claim。';
+comment on column retrieval_v2.claim_cache.claim_grain is 'claim 粒度标记，例如 event_chain 或 sub_event；用于混粒度审计。';
+comment on column retrieval_v2.claim_cache.quality_flags is 'claim 质量与自动化策略标记数组；只保存审计/路由信号，不直接表示评分结论。';
 comment on column retrieval_v2.claim_cache.first_run_code is '首次导入该 claim 的 run_code。';
 comment on column retrieval_v2.claim_cache.last_run_code is '最近一次观察到该 claim 的 run_code。';
 comment on column retrieval_v2.claim_cache.raw_output_path is '首次或主要抽取产物路径，用于追溯原始 judge 输出。';

@@ -89,6 +89,10 @@ def test_prepared_cache_rows_maps_filesystem_cache_to_pg_shape(tmp_path: Path) -
     assert rows["claims"][0]["fact_schema"] == "political_action_v1"
     assert rows["claims"][0]["action_type"] == "授权"
     assert rows["claims"][0]["seen_count"] == 2
+    assert rows["claims"][0]["canonical_event_key"].startswith("CEK-")
+    assert rows["claims"][0]["claim_grain"] == "event_chain"
+    assert rows["claims"][0]["near_duplicate_group_payload"]["object_name"] == "汤和"
+    assert rows["claims"][0]["quality_flags"] == []
     assert rows["source_slices"][0]["text_hash"]
     assert rows["claim_evidence"][0]["support_level"] == "direct"
     assert rows["claim_evidence"][0]["quote_preview"] == "命汤和守常州"
@@ -134,7 +138,136 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert tool.DEFAULT_DSN_ENV == "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
     assert tool.DEFAULT_PG_SCHEMA == "retrieval_v3"
     assert "retrieval_v2.claim_cache" in source
+    assert "canonical_event_key" in source
+    assert "near_duplicate_group_payload" in source
+    assert "claim_grain" in source
+    assert "quality_flags" in source
     assert "retrieval_v2.claim_source_slices" in source
     assert "retrieval_v2.claim_evidence" in source
     assert "insert into retrieval_v2.claim_rule_bindings" not in source
     assert "insert into retrieval_v2.target_rule_score_clusters" not in source
+
+
+class FakeCursor:
+    def __init__(self, conn: "FakeConnection") -> None:
+        self.conn = conn
+        self.rows: list[dict] = []
+        self.row: dict | None = None
+
+    def __enter__(self) -> "FakeCursor":
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        return None
+
+    def execute(self, sql: str, params=None) -> None:
+        lowered = sql.lower()
+        self.conn.statements.append(lowered)
+        self.conn.params.append(params)
+        if "from retrieval_v3.claim_cache" in lowered and "count(*) as count" not in lowered:
+            self.rows = [dict(row) for row in self.conn.claim_rows]
+            self.row = None
+            return
+        if "select count(*) as count from retrieval_v3." in lowered:
+            self.row = {"count": len(self.conn.claim_rows) if "retrieval_v3.claim_cache" in lowered else 0}
+            self.rows = []
+            return
+        self.row = None
+        self.rows = []
+
+    def fetchall(self) -> list[dict]:
+        return self.rows
+
+    def fetchone(self) -> dict | None:
+        return self.row
+
+
+class FakeConnection:
+    def __init__(self) -> None:
+        self.claim_rows = [
+            {
+                "claim_key": "CLMK-001",
+                "emperor_name": "朱元璋",
+                "object_name": "汤和",
+                "object_type": "person",
+                "direction": "positive",
+                "action_type": "授权",
+                "event_scope": "军事",
+                "office_or_domain": "常州镇守",
+                "time_context": "洪武初",
+                "outcome": "常州安辑",
+                "claim_summary": "朱元璋命汤和镇守常州。",
+                "fact_payload": {"fact_schema": "political_action_v1", "object": "汤和"},
+                "canonical_event_key": "",
+                "claim_grain": "",
+            }
+        ]
+        self.statements: list[str] = []
+        self.params: list[object] = []
+        self.committed = False
+        self.rolled_back = False
+
+    def __enter__(self) -> "FakeConnection":
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        return None
+
+    def cursor(self) -> FakeCursor:
+        return FakeCursor(self)
+
+    def commit(self) -> None:
+        self.committed = True
+
+    def rollback(self) -> None:
+        self.rolled_back = True
+
+
+class FakePsycopg:
+    def __init__(self, conn: FakeConnection) -> None:
+        self.conn = conn
+
+    def connect(self, *args, **kwargs) -> FakeConnection:
+        return self.conn
+
+
+def patch_fake_db(monkeypatch) -> FakeConnection:
+    conn = FakeConnection()
+    monkeypatch.setattr(tool, "import_psycopg", lambda: (FakePsycopg(conn), object()))
+    monkeypatch.setattr(tool, "resolve_dsn", lambda env: "postgresql://fake")
+    return conn
+
+
+def test_quality_backfill_defaults_to_dry_run(monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+
+    report = tool.backfill_quality_fields(
+        env_file=None,
+        dsn_env="IGNORED",
+        schema_name="retrieval_v3",
+        execute=False,
+    )
+
+    assert report["write_db"] is False
+    assert report["totals"]["candidate_claims"] == 1
+    assert conn.rolled_back is True
+    assert not any("update retrieval_v3.claim_cache" in statement for statement in conn.statements)
+
+
+def test_quality_backfill_execute_updates_hot_fields(monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+
+    report = tool.backfill_quality_fields(
+        env_file=None,
+        dsn_env="IGNORED",
+        schema_name="retrieval_v3",
+        execute=True,
+    )
+
+    assert report["executed"] is True
+    assert report["executed_counts"]["retrieval_v3.claim_cache"] == 1
+    assert conn.committed is True
+    assert any("update retrieval_v3.claim_cache" in statement for statement in conn.statements)
+    update_params = next(params for statement, params in zip(conn.statements, conn.params) if "update retrieval_v3.claim_cache" in statement)
+    assert update_params[0].startswith("CEK-")
+    assert update_params[3] == "event_chain"
