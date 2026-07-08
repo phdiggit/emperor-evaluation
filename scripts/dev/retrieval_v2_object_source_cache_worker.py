@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -606,10 +607,57 @@ def object_cache_slice_score(row: Mapping[str, Any], doc: Mapping[str, Any] | No
     return score
 
 
+SECTION_HEADING_RE = re.compile(r"([A-Za-z0-9_\-\u3400-\u9fff·]+)\s*\[\s*编辑\s*\]")
+NAVIGATION_MARKERS = ("姊妹计划", "数据项", "◄", "►", "列传第")
+
+
+def candidate_alias_positions(candidate: Mapping[str, Any]) -> list[int]:
+    raw_text = text(candidate.get("text"))
+    aliases = [text(candidate.get("object_name"))]
+    aliases.extend(text(alias) for alias in candidate.get("matched_aliases") or [])
+    positions: set[int] = set()
+    for alias in sorted({alias for alias in aliases if alias}, key=len, reverse=True):
+        start = 0
+        while True:
+            idx = raw_text.find(alias, start)
+            if idx < 0:
+                break
+            positions.add(idx)
+            start = idx + len(alias)
+    return sorted(positions)
+
+
+def claim_candidate_quality_flags(candidate: Mapping[str, Any]) -> list[str]:
+    raw_text = text(candidate.get("text"))
+    object_name = text(candidate.get("object_name"))
+    payload = candidate.get("object_source_cache") if isinstance(candidate.get("object_source_cache"), Mapping) else {}
+    shape = text(payload.get("source_shape"))
+    role = text(payload.get("source_role"))
+    flags: list[str] = []
+    positions = candidate_alias_positions(candidate)
+    first_alias_pos = min(positions) if positions else -1
+
+    first_heading = SECTION_HEADING_RE.search(raw_text)
+    if first_heading and first_heading.group(1) != object_name and 0 <= first_alias_pos < first_heading.start():
+        prefix = raw_text[: first_heading.start()]
+        if any(marker in prefix for marker in NAVIGATION_MARKERS):
+            flags.append("navigation_header")
+
+    if shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
+        if role == "object_biography" and len(positions) <= 1 and first_alias_pos >= 120:
+            flags.append("weak_late_object_mention")
+    return flags
+
+
+def is_claim_candidate_slice_eligible(candidate: Mapping[str, Any]) -> bool:
+    flags = set(claim_candidate_quality_flags(candidate))
+    return not ({"navigation_header", "weak_late_object_mention"} & flags)
+
+
 def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] | None = None) -> dict[str, Any]:
     document_code = text(row.get("document_cache_code") or row.get("document_code"))
     object_name = text(row.get("person_name") or row.get("object_name"))
-    return {
+    candidate = {
         "slice_code": text(row.get("slice_cache_code")) or "OSS-" + stable_hash(row, length=18),
         "document_code": document_code,
         "object_name": object_name,
@@ -627,8 +675,11 @@ def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] 
             "source_role": text(row.get("source_role") or (doc or {}).get("source_role")),
             "source_shape": text((doc or {}).get("source_shape")),
             "slice_cache_code": text(row.get("slice_cache_code")),
+            "quality_flags": [],
         },
     }
+    candidate["object_source_cache"]["quality_flags"] = claim_candidate_quality_flags(candidate)
+    return candidate
 
 
 def selected_object_cache_slices(
@@ -647,6 +698,8 @@ def selected_object_cache_slices(
         if not candidate["object_name"] or not candidate["text"]:
             continue
         if candidate["object_name"] in excluded:
+            continue
+        if not is_claim_candidate_slice_eligible(candidate):
             continue
         by_person.setdefault(candidate["object_name"], []).append(candidate)
     selected: list[dict[str, Any]] = []

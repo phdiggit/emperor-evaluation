@@ -188,6 +188,82 @@ def write_object_cache(cache_root: Path) -> None:
     )
 
 
+def test_selected_object_cache_slices_filters_navigation_and_weak_late_mentions() -> None:
+    docs_by_code = {
+        "OSD-FYD": {
+            "document_cache_code": "OSD-FYD",
+            "person_name": "傅友德",
+            "source_role": "object_biography",
+            "source_shape": "object_biography_candidate",
+        },
+        "OSD-LWZ": {
+            "document_cache_code": "OSD-LWZ",
+            "person_name": "李文忠",
+            "source_role": "object_biography",
+            "source_shape": "object_biography_candidate",
+        },
+    }
+    rows = [
+        {
+            "slice_cache_code": "OSS-FYD-NAV",
+            "document_cache_code": "OSD-FYD",
+            "person_name": "傅友德",
+            "source_role": "object_biography",
+            "matched_aliases": ["傅友德"],
+            "raw_text": (
+                "← 列传第十六 刘基 宋濂 ◄ 明史 卷一百二十九 列传第十七 ► 列传第十八 → "
+                "姊妹计划 : 数据项 冯胜 傅友德 廖永忠 附:赵庸 杨璟 胡美 冯胜 [ 编辑 ] "
+                "冯胜，定远人。太祖略地至妙山，国用偕胜来归。"
+            ),
+        },
+        {
+            "slice_cache_code": "OSS-FYD-GOOD",
+            "document_cache_code": "OSD-FYD",
+            "person_name": "傅友德",
+            "source_role": "object_biography",
+            "matched_aliases": ["傅友德"],
+            "raw_text": "傅友德从太祖取陈友谅，后以征南将军平云南，军功甚著。",
+        },
+        {
+            "slice_cache_code": "OSS-LWZ-WEAK",
+            "document_cache_code": "OSD-LWZ",
+            "person_name": "李文忠",
+            "source_role": "object_biography",
+            "matched_aliases": ["李文忠"],
+            "raw_text": (
+                "既而徐达还师复洪都，复命愈佐大都督朱文正镇之。友谅众六十万入寇，围数百重。"
+                "愈分守抚州门，当要冲。太祖自将来援，围始解，论功与克敌等。"
+                "愈为人简重慎密，不惮危苦，将军严，善抚降附。其徇安福也，部卒有虏掠者，"
+                "判官潘枢入谒，面责之，愈惊起谢，趣下令掠民者斩，民大悦。"
+                "兵兴，诸将早贵未有如愈与李文忠者。"
+            ),
+        },
+        {
+            "slice_cache_code": "OSS-LWZ-GOOD",
+            "document_cache_code": "OSD-LWZ",
+            "person_name": "李文忠",
+            "source_role": "object_biography",
+            "matched_aliases": ["李文忠"],
+            "raw_text": "李文忠从太祖攻建德、严州，屡破敌军，后以大都督府事受任。",
+        },
+    ]
+
+    selected = tool.selected_object_cache_slices(
+        rows,
+        docs_by_code,
+        max_slices_per_person=2,
+        max_total_slices=0,
+    )
+
+    assert [row["slice_code"] for row in selected] == ["OSS-FYD-GOOD", "OSS-LWZ-GOOD"]
+    assert tool.claim_candidate_quality_flags(tool.object_cache_candidate_slice(rows[0], docs_by_code["OSD-FYD"])) == [
+        "navigation_header"
+    ]
+    assert tool.claim_candidate_quality_flags(tool.object_cache_candidate_slice(rows[2], docs_by_code["OSD-LWZ"])) == [
+        "weak_late_object_mention"
+    ]
+
+
 def test_job_from_seed_builds_stable_queue_payload(tmp_path: Path) -> None:
     seed = tmp_path / "seed.jsonl"
     write_seed(seed)
