@@ -470,6 +470,60 @@ def test_run_codex_uses_server_env_bin_sandbox_and_add_dirs(tmp_path: Path, monk
     assert extra_dir.resolve() in add_dirs
 
 
+def test_codex_bin_keeps_explicit_binary(monkeypatch) -> None:
+    monkeypatch.setenv(tool.CODEX_BIN_ENV, "/home/penghao/.local/bin/codex")
+    invocation = tool.CodexInvocation(
+        phase="judge",
+        prompt="{}",
+        cwd=Path("."),
+        last_message=Path("last.json"),
+        event_log=Path("events.jsonl"),
+        search=False,
+        timeout_seconds=30,
+        codex_bin="/opt/codex/bin/codex",
+    )
+
+    assert tool._codex_bin(invocation) == "/opt/codex/bin/codex"
+
+
+def test_codex_bin_resolves_from_path_when_default(monkeypatch) -> None:
+    monkeypatch.delenv(tool.CODEX_BIN_ENV, raising=False)
+    monkeypatch.setattr(tool.shutil, "which", lambda name: "/usr/local/bin/codex" if name == "codex" else None)
+    invocation = tool.CodexInvocation(
+        phase="judge",
+        prompt="{}",
+        cwd=Path("."),
+        last_message=Path("last.json"),
+        event_log=Path("events.jsonl"),
+        search=False,
+        timeout_seconds=30,
+        codex_bin="codex",
+    )
+
+    assert tool._codex_bin(invocation) == "/usr/local/bin/codex"
+
+
+def test_codex_bin_falls_back_to_user_local_bin(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.delenv(tool.CODEX_BIN_ENV, raising=False)
+    monkeypatch.setattr(tool.shutil, "which", lambda name: None)
+    monkeypatch.setattr(tool.Path, "home", staticmethod(lambda: tmp_path))
+    codex_bin = tmp_path / ".local" / "bin" / "codex"
+    codex_bin.parent.mkdir(parents=True)
+    codex_bin.write_text("#!/usr/bin/env node\n", encoding="utf-8")
+    invocation = tool.CodexInvocation(
+        phase="judge",
+        prompt="{}",
+        cwd=Path("."),
+        last_message=Path("last.json"),
+        event_log=Path("events.jsonl"),
+        search=False,
+        timeout_seconds=30,
+        codex_bin="codex",
+    )
+
+    assert tool._codex_bin(invocation) == str(codex_bin)
+
+
 def test_run_taskgen_can_preseed_search_documents_before_codex(tmp_path: Path) -> None:
     preseed = {
         "source_documents": [

@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -173,7 +174,22 @@ def _env_list(name: str) -> list[str]:
 def _codex_bin(invocation: CodexInvocation) -> str:
     if invocation.codex_bin != "codex":
         return invocation.codex_bin
-    return os.environ.get(CODEX_BIN_ENV) or invocation.codex_bin
+    env_bin = os.environ.get(CODEX_BIN_ENV)
+    if env_bin:
+        return os.path.expanduser(env_bin)
+    path_bin = shutil.which("codex")
+    if path_bin:
+        return path_bin
+    home = Path.home()
+    candidates = [
+        home / ".local" / "bin" / "codex",
+        home / ".npm-global" / "bin" / "codex",
+    ]
+    candidates.extend(sorted(home.glob(".nvm/versions/node/*/bin/codex"), reverse=True))
+    for candidate in candidates:
+        if candidate.exists():
+            return str(candidate)
+    return invocation.codex_bin
 
 def _codex_sandbox() -> str:
     value = os.environ.get(CODEX_SANDBOX_ENV, DEFAULT_CODEX_SANDBOX).strip()
