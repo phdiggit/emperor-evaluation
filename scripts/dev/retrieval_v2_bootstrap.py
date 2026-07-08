@@ -27,6 +27,8 @@ DEFAULT_SCHEMA_PATHS = (
     ROOT / "db" / "migrations" / "20260705_retrieval_v2_consumption.sql",
     ROOT / "db" / "migrations" / "20260706_retrieval_v2_item_rule_score_weights.sql",
     ROOT / "db" / "migrations" / "20260707_retrieval_v2_candidate_lanes.sql",
+    ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_cache.sql",
+    ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_extraction_jobs.sql",
 )
 DEFAULT_SOURCE_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
 DEFAULT_TARGET_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"

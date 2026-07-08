@@ -1,0 +1,587 @@
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import sys
+import time
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt  # noqa: E402
+from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
+from scripts.dev import retrieval_v2_claim_cache_pg as pg_cache  # noqa: E402
+from scripts.dev import retrieval_v2_clean_runner as clean_runner  # noqa: E402
+from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+
+
+DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_RUN_ROOT = ROOT / "tmp" / "retrieval_v2_claim_extraction_runs"
+
+
+class ClaimExtractionWorkerError(RuntimeError):
+    pass
+
+
+def stable_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def pretty_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n"
+
+
+def stable_hash(value: Any, *, length: int = 16) -> str:
+    return hashlib.sha256(stable_json(value).encode("utf-8")).hexdigest()[:length].upper()
+
+
+def text(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def write_json(path: Path | None, payload: Mapping[str, Any]) -> None:
+    if path is None:
+        print(pretty_json(payload), end="")
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(pretty_json(payload), encoding="utf-8", newline="\n")
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ClaimExtractionWorkerError(f"{path}: expected JSON object")
+    return payload
+
+
+def resolve_path(value: str) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    return ROOT / path
+
+
+def target_dir_name(job: Mapping[str, Any]) -> str:
+    target_code = text(job.get("target_code")) or "target"
+    rule_code = text(job.get("rule_code")) or "claim_only"
+    return f"{target_code}_{rule_code}_{stable_hash(job.get('idem_key') or job, length=8)}"
+
+
+def candidates_identity(candidates: Mapping[str, Any]) -> dict[str, str]:
+    task_identity = candidates.get("task_identity") if isinstance(candidates.get("task_identity"), Mapping) else {}
+    target_profile = candidates.get("target_profile") if isinstance(candidates.get("target_profile"), Mapping) else {}
+    rule = candidates.get("rule") if isinstance(candidates.get("rule"), Mapping) else {}
+    return {
+        "emperor_name": text(task_identity.get("emperor_name") or target_profile.get("primary_name")),
+        "target_code": text(task_identity.get("target_code")),
+        "rule_code": text(task_identity.get("rule_code") or rule.get("rule_code")),
+        "capture_profile": text(task_identity.get("capture_profile") or candidates.get("capture_profile")),
+    }
+
+
+def job_from_candidates(
+    *,
+    candidates_path: Path,
+    cache_root: Path,
+    run_root: Path,
+    priority: int = 100,
+) -> dict[str, Any]:
+    candidates = read_json(candidates_path)
+    slices = [row for row in candidates.get("candidate_slices") or [] if isinstance(row, Mapping)]
+    identity = candidates_identity(candidates)
+    idem_payload = {
+        "candidates_path": str(candidates_path),
+        "slice_hashes": [fs_cache.slice_hash_from_row(row) for row in slices],
+        "cache_root": str(cache_root),
+    }
+    idem_key = "CLMEXT|" + stable_hash(idem_payload, length=24)
+    job_code = "CLMEXT-" + stable_hash(idem_key, length=16)
+    return {
+        "job_code": job_code,
+        "idem_key": idem_key,
+        "status": "ready",
+        "priority": max(1, int(priority)),
+        "emperor_name": identity["emperor_name"],
+        "target_code": identity["target_code"],
+        "rule_code": identity["rule_code"] or "claim_extraction_only",
+        "capture_profile": identity["capture_profile"],
+        "candidate_payload_path": str(candidates_path),
+        "run_root": str(run_root / job_code),
+        "cache_root": str(cache_root),
+        "uncovered_slice_count": len(slices),
+        "job_payload": {
+            "source": "enqueue-from-candidates",
+            "candidates_path": str(candidates_path),
+            "cache_root": str(cache_root),
+            "slice_count": len(slices),
+            "slice_hashes": idem_payload["slice_hashes"],
+        },
+    }
+
+
+def apply_schema(target_dsn: str) -> None:
+    psycopg, dict_row = import_psycopg()
+    sql = (ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_extraction_jobs.sql").read_text(encoding="utf-8")
+    with psycopg.connect(target_dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql)
+        conn.commit()
+
+
+def upsert_job(cur: Any, job: Mapping[str, Any]) -> int:
+    cur.execute(
+        """
+        insert into retrieval_v2.claim_extraction_jobs (
+            job_code, idem_key, status, priority, emperor_name, target_code, rule_code,
+            capture_profile, candidate_payload_path, run_root, cache_root, uncovered_slice_count, job_payload
+        )
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb)
+        on conflict (idem_key) do update set
+            priority = least(retrieval_v2.claim_extraction_jobs.priority, excluded.priority),
+            candidate_payload_path = excluded.candidate_payload_path,
+            run_root = excluded.run_root,
+            cache_root = excluded.cache_root,
+            uncovered_slice_count = excluded.uncovered_slice_count,
+            job_payload = retrieval_v2.claim_extraction_jobs.job_payload || excluded.job_payload,
+            status = case
+                when retrieval_v2.claim_extraction_jobs.status::text in ('succeeded', 'running', 'cancelled')
+                    then retrieval_v2.claim_extraction_jobs.status
+                else excluded.status
+            end,
+            updated_at = now()
+        returning id
+        """,
+        (
+            job["job_code"],
+            job["idem_key"],
+            job["status"],
+            job["priority"],
+            job["emperor_name"],
+            job["target_code"],
+            job["rule_code"],
+            job["capture_profile"],
+            job["candidate_payload_path"],
+            job["run_root"],
+            job["cache_root"],
+            job["uncovered_slice_count"],
+            stable_json(job["job_payload"]),
+        ),
+    )
+    return int(cur.fetchone()["id"])
+
+
+def enqueue_job(*, dsn: str, job: Mapping[str, Any]) -> dict[str, Any]:
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            job_id = upsert_job(cur, job)
+        conn.commit()
+    return {"job_id": job_id, "job_code": job["job_code"], "idem_key": job["idem_key"]}
+
+
+def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 120) -> dict[str, Any] | None:
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                with picked as (
+                    select id
+                      from retrieval_v2.claim_extraction_jobs
+                     where status in ('ready', 'retry_wait')
+                       and attempt_count < max_attempts
+                       and (lease_until is null or lease_until < now())
+                     order by priority, created_at
+                     limit 1
+                     for update skip locked
+                )
+                update retrieval_v2.claim_extraction_jobs j
+                   set status = 'running',
+                       attempt_count = attempt_count + 1,
+                       locked_by = %s,
+                       locked_at = now(),
+                       lease_until = now() + (%s::text || ' minutes')::interval,
+                       last_error = null,
+                       updated_at = now()
+                  from picked
+                 where j.id = picked.id
+                returning j.*
+                """,
+                (worker_id, lease_minutes),
+            )
+            row = cur.fetchone()
+        conn.commit()
+    return dict(row) if row else None
+
+
+def fetch_next_ready_job(*, dsn: str) -> dict[str, Any] | None:
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                select *
+                  from retrieval_v2.claim_extraction_jobs
+                 where status in ('ready', 'retry_wait')
+                   and attempt_count < max_attempts
+                   and (lease_until is null or lease_until < now())
+                 order by priority, created_at
+                 limit 1
+                """
+            )
+            row = cur.fetchone()
+    return dict(row) if row else None
+
+
+def create_job_run(cur: Any, *, job: Mapping[str, Any], worker_id: str, run_code: str, input_fingerprint: str) -> int:
+    cur.execute(
+        """
+        insert into retrieval_v2.claim_extraction_job_runs (
+            run_code, job_id, worker_id, status, input_fingerprint, run_root, run_payload
+        )
+        values (%s, %s, %s, 'running', %s, %s, %s::jsonb)
+        returning id
+        """,
+        (
+            run_code,
+            int(job["id"]),
+            worker_id,
+            input_fingerprint,
+            text(job.get("run_root")),
+            stable_json({"job_code": job.get("job_code"), "candidate_payload_path": job.get("candidate_payload_path")}),
+        ),
+    )
+    return int(cur.fetchone()["id"])
+
+
+def finish_job_run(
+    cur: Any,
+    *,
+    run_id: int,
+    job_id: int,
+    status: str,
+    output_fingerprint: str = "",
+    claim_count: int = 0,
+    usage_payload: Mapping[str, Any] | None = None,
+    error_type: str = "",
+    error_msg: str = "",
+    run_payload: Mapping[str, Any] | None = None,
+) -> None:
+    cur.execute(
+        """
+        update retrieval_v2.claim_extraction_job_runs
+           set status = %s,
+               ended_at = now(),
+               output_fingerprint = %s,
+               claim_count = %s,
+               usage_payload = %s::jsonb,
+               error_type = %s,
+               error_msg = %s,
+               run_payload = run_payload || %s::jsonb
+         where id = %s
+        """,
+        (
+            status,
+            output_fingerprint,
+            claim_count,
+            stable_json(usage_payload or {}),
+            error_type,
+            error_msg,
+            stable_json(run_payload or {}),
+            run_id,
+        ),
+    )
+    if status == "succeeded":
+        cur.execute(
+            """
+            update retrieval_v2.claim_extraction_jobs
+               set status = 'succeeded',
+                   locked_by = null,
+                   locked_at = null,
+                   lease_until = null,
+                   last_error = null,
+                   updated_at = now()
+             where id = %s
+            """,
+            (job_id,),
+        )
+    elif status == "failed":
+        cur.execute(
+            """
+            update retrieval_v2.claim_extraction_jobs
+               set status = case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end,
+                   locked_by = null,
+                   locked_at = null,
+                   lease_until = null,
+                   last_error = %s,
+                   updated_at = now()
+             where id = %s
+            """,
+            (error_msg, job_id),
+        )
+
+
+def job_plan(job: Mapping[str, Any]) -> dict[str, Any]:
+    candidates_path = resolve_path(text(job.get("candidate_payload_path")))
+    run_root = resolve_path(text(job.get("run_root")))
+    cache_root = resolve_path(text(job.get("cache_root"))) if text(job.get("cache_root")) else fs_cache.DEFAULT_CACHE_ROOT
+    return {
+        "job_code": job.get("job_code"),
+        "candidate_payload_path": str(candidates_path),
+        "run_root": str(run_root),
+        "cache_root": str(cache_root),
+        "uncovered_slice_count": int(job.get("uncovered_slice_count") or 0),
+        "execute_effect": "claim-only judge -> filesystem claim cache -> optional PG claim cache",
+    }
+
+
+def write_mini_run_artifacts(
+    *,
+    job: Mapping[str, Any],
+    candidates: Mapping[str, Any],
+    judge_payload: Mapping[str, Any],
+    judge_result: Mapping[str, Any],
+    run_root: Path,
+) -> dict[str, Any]:
+    person_dir = run_root / target_dir_name(job)
+    person_dir.mkdir(parents=True, exist_ok=True)
+    task_identity = candidates.get("task_identity") if isinstance(candidates.get("task_identity"), Mapping) else {}
+    task = {
+        "target_code": text(job.get("target_code")) or text(task_identity.get("target_code")),
+        "emperor_name": text(job.get("emperor_name")) or text(task_identity.get("emperor_name")),
+        "rule_code": text(job.get("rule_code")) or text(task_identity.get("rule_code")),
+        "capture_profile": text(job.get("capture_profile")) or text(candidates.get("capture_profile")),
+        "capture_mode": "claim_extraction_worker",
+    }
+    fs_cache.write_json(person_dir / "task.final.json", task)
+    fs_cache.write_json(person_dir / "candidates.final.json", candidates)
+    fs_cache.write_json(person_dir / "judge_result.final.json", judge_payload)
+    claim_count = len(judge_payload.get("claims") or [])
+    summary = {
+        "ok": True,
+        "generated_by": "scripts/dev/retrieval_v2_claim_extraction_worker.py",
+        "run_root": str(run_root),
+        "targets": [task["emperor_name"]],
+        "elapsed_seconds": judge_result.get("elapsed_seconds"),
+        "clean_policy": {"judge_mode": candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE},
+        "people": [
+            {
+                "name": task["emperor_name"],
+                "target_code": task["target_code"],
+                "rule_code": task["rule_code"],
+                "run_dir": str(person_dir),
+                "candidate_slices": len(candidates.get("candidate_slices") or []),
+                "judge_status": judge_payload.get("status"),
+                "judge_elapsed_seconds": judge_result.get("elapsed_seconds"),
+                "judge_usage": judge_result.get("usage") or {},
+                "claim_count": claim_count,
+                "files": {
+                    "final_task": str(person_dir / "task.final.json"),
+                    "final_candidates": str(person_dir / "candidates.final.json"),
+                    "final_judge_result": str(person_dir / "judge_result.final.json"),
+                },
+            }
+        ],
+        "totals": {
+            "candidate_slices": len(candidates.get("candidate_slices") or []),
+            "claim_count": claim_count,
+            "usage": judge_result.get("usage") or {},
+        },
+    }
+    fs_cache.write_json(run_root / "summary.json", summary)
+    return summary
+
+
+def execute_job(
+    *,
+    job: Mapping[str, Any],
+    codex_bin: str,
+    judge_timeout_seconds: int,
+    judge_shard_size: int,
+    judge_shard_workers: int,
+    import_pg: bool,
+    dsn_env: str,
+) -> dict[str, Any]:
+    candidates_path = resolve_path(text(job.get("candidate_payload_path")))
+    candidates = read_json(candidates_path)
+    run_root = resolve_path(text(job.get("run_root")))
+    cache_root = resolve_path(text(job.get("cache_root"))) if text(job.get("cache_root")) else fs_cache.DEFAULT_CACHE_ROOT
+    person_dir = run_root / target_dir_name(job)
+    person_dir.mkdir(parents=True, exist_ok=True)
+    judge_result = clean_runner.run_judge(
+        candidates=candidates,
+        prompt_path=person_dir / "judge_prompt.round0.md",
+        person_dir=person_dir,
+        round_index=0,
+        codex_runner=clean_runner.run_codex,
+        codex_bin=codex_bin,
+        timeout_seconds=judge_timeout_seconds,
+        judge_shard_size=judge_shard_size,
+        judge_shard_workers=judge_shard_workers,
+        judge_mode=candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
+    )
+    judge_payload = dict(judge_result["payload"])
+    judge_payload["_elapsed_seconds"] = judge_result["elapsed_seconds"]
+    judge_payload["_usage"] = judge_result["usage"]
+    summary = write_mini_run_artifacts(
+        job=job,
+        candidates=candidates,
+        judge_payload=judge_payload,
+        judge_result=judge_result,
+        run_root=run_root,
+    )
+    fs_import = fs_cache.import_run(run_root, cache_root)
+    pg_import: dict[str, Any] | None = None
+    if import_pg:
+        pg_import = pg_cache.apply_cache_to_pg(cache_root=cache_root, env_file=None, dsn_env=dsn_env, execute=True)
+    return {
+        "run_root": str(run_root),
+        "summary": summary,
+        "filesystem_import": fs_import,
+        "pg_import": pg_import,
+        "claim_count": summary["totals"]["claim_count"],
+        "usage": judge_result["usage"],
+    }
+
+
+def once(
+    *,
+    dsn: str,
+    worker_id: str,
+    execute: bool,
+    codex_bin: str = "codex",
+    judge_timeout_seconds: int = 1800,
+    judge_shard_size: int = 4,
+    judge_shard_workers: int = 4,
+    import_pg: bool = True,
+    dsn_env: str = DEFAULT_DSN_ENV,
+) -> dict[str, Any]:
+    job = claim_ready_job(dsn=dsn, worker_id=worker_id) if execute else fetch_next_ready_job(dsn=dsn)
+    if job is None:
+        return {"ok": True, "status": "idle", "job": None}
+    plan = job_plan(job)
+    run_code = "CLMRUN-" + stable_hash([job.get("job_code"), time.time()], length=16)
+    input_fingerprint = stable_hash(job)
+    if not execute:
+        return {"ok": True, "status": "planned", "job": dict(job), "plan": plan}
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            run_id = create_job_run(cur, job=job, worker_id=worker_id, run_code=run_code, input_fingerprint=input_fingerprint)
+        conn.commit()
+    try:
+        result = execute_job(
+            job=job,
+            codex_bin=codex_bin,
+            judge_timeout_seconds=judge_timeout_seconds,
+            judge_shard_size=judge_shard_size,
+            judge_shard_workers=judge_shard_workers,
+            import_pg=import_pg,
+            dsn_env=dsn_env,
+        )
+    except Exception as exc:
+        with psycopg.connect(dsn, row_factory=dict_row) as conn:
+            with conn.cursor() as cur:
+                finish_job_run(
+                    cur,
+                    run_id=run_id,
+                    job_id=int(job["id"]),
+                    status="failed",
+                    error_type=exc.__class__.__name__,
+                    error_msg=str(exc)[:1000],
+                )
+            conn.commit()
+        raise
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as cur:
+            finish_job_run(
+                cur,
+                run_id=run_id,
+                job_id=int(job["id"]),
+                status="succeeded",
+                output_fingerprint=stable_hash(result),
+                claim_count=int(result.get("claim_count") or 0),
+                usage_payload=result.get("usage") or {},
+                run_payload=result,
+            )
+        conn.commit()
+    return {"ok": True, "status": "succeeded", "job": dict(job), "result": result}
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Claim-only extraction worker for uncovered retrieval_v2 candidate slices.")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    schema = sub.add_parser("apply-schema", help="Apply claim extraction queue schema.")
+    schema.add_argument("--env-file", type=Path)
+    schema.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+
+    enqueue = sub.add_parser("enqueue-from-candidates", help="Create one claim extraction job from uncovered candidates JSON.")
+    enqueue.add_argument("--candidates", type=Path, required=True)
+    enqueue.add_argument("--cache-root", type=Path, required=True)
+    enqueue.add_argument("--run-root", type=Path, default=DEFAULT_RUN_ROOT)
+    enqueue.add_argument("--priority", type=int, default=100)
+    enqueue.add_argument("--env-file", type=Path)
+    enqueue.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    enqueue.add_argument("--output-json", type=Path)
+
+    plan = sub.add_parser("plan", help="Show the next ready claim extraction job without taking a lease.")
+    plan.add_argument("--env-file", type=Path)
+    plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    plan.add_argument("--worker-id", default="retrieval_v2_claim_extraction_worker")
+    plan.add_argument("--output-json", type=Path)
+
+    once_cmd = sub.add_parser("once", help="Claim and optionally execute one ready job.")
+    once_cmd.add_argument("--env-file", type=Path)
+    once_cmd.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    once_cmd.add_argument("--worker-id", default="retrieval_v2_claim_extraction_worker")
+    once_cmd.add_argument("--execute", action="store_true")
+    once_cmd.add_argument("--codex-bin", default="codex")
+    once_cmd.add_argument("--judge-timeout", type=int, default=1800)
+    once_cmd.add_argument("--judge-shard-size", type=int, default=4)
+    once_cmd.add_argument("--judge-shard-workers", type=int, default=4)
+    once_cmd.add_argument("--no-import-pg", action="store_true")
+    once_cmd.add_argument("--output-json", type=Path)
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    if getattr(args, "env_file", None) is not None:
+        load_env_file(args.env_file)
+    dsn = resolve_dsn(args.dsn_env)
+    if args.command == "apply-schema":
+        apply_schema(dsn)
+        payload = {"ok": True, "action": "apply_schema"}
+    elif args.command == "enqueue-from-candidates":
+        job = job_from_candidates(candidates_path=args.candidates, cache_root=args.cache_root, run_root=args.run_root, priority=args.priority)
+        payload = {"ok": True, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job)}
+    elif args.command == "plan":
+        job = fetch_next_ready_job(dsn=dsn)
+        payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
+    elif args.command == "once":
+        payload = once(
+            dsn=dsn,
+            worker_id=args.worker_id,
+            execute=bool(args.execute),
+            codex_bin=args.codex_bin,
+            judge_timeout_seconds=args.judge_timeout,
+            judge_shard_size=args.judge_shard_size,
+            judge_shard_workers=args.judge_shard_workers,
+            import_pg=not bool(args.no_import_pg),
+            dsn_env=args.dsn_env,
+        )
+    else:  # pragma: no cover
+        raise ClaimExtractionWorkerError(f"unsupported command: {args.command}")
+    write_json(getattr(args, "output_json", None), payload)
+    return 0 if payload.get("ok") else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

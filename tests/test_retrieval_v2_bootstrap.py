@@ -49,11 +49,20 @@ def test_appointment_delegation_requirement_payload_contains_coverage_contract()
         "talent_discovery",
         "tolerate_talent",
         "anti_nepotism",
-        "power_control",
+        "central_military_power_control",
+        "regional_clan_power_control",
+        "inner_favorite_power_control",
+        "institutional_constraint_correction",
         "political_character",
     } <= secondary_rules
     future_hints = {row["rule_code"] for row in matrix["secondary_rule_hints"] if row.get("hint_status") == "future_rule_hint"}
-    assert future_hints == {"power_control", "political_character"}
+    assert future_hints == {
+        "central_military_power_control",
+        "regional_clan_power_control",
+        "inner_favorite_power_control",
+        "institutional_constraint_correction",
+        "political_character",
+    }
     assert matrix["material_policy_codes"] == ["person"]
     assert matrix["predicate_options"] == ["appointed_or_delegated_authority"]
 
@@ -125,6 +134,9 @@ def test_read_schema_sql_points_to_retrieval_v2_migration() -> None:
     assert "rv2_claim_rule_binding_candidates_future_hint_idx" in sql
     assert "create type retrieval_v2.rv2_review_status as enum" in sql
     assert "create type retrieval_v2.rv2_rule_weight_status as enum" in sql
+    assert "create table if not exists retrieval_v2.claim_cache" in sql
+    assert "create table if not exists retrieval_v2.claim_extraction_jobs" in sql
+    assert "create type retrieval_v2.rv2_claim_extraction_job_status as enum" in sql
 
 
 def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> None:
@@ -134,6 +146,7 @@ def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> Non
     assert "retrieval_v2.claim_rule_bindings" in captured.out
     assert "retrieval_v2.claim_rule_binding_candidates" in captured.out
     assert "retrieval_v2.item_rule_score_weights" in captured.out
+    assert "retrieval_v2.claim_extraction_jobs" in captured.out
 
 
 def test_missing_action_is_a_usage_error() -> None:
