@@ -1283,6 +1283,72 @@ def test_clean_pipeline_can_skip_cached_claim_slices_and_import_new_claims(tmp_p
     assert {row["object_name"] for row in cached_claims} == {"汤和", "常遇春"}
 
 
+def test_clean_pipeline_can_skip_small_claim_cache_tail_without_judge(tmp_path: Path, monkeypatch) -> None:
+    cached_slice = {
+        "slice_code": "SLI-CACHED",
+        "document_code": "DOC-001",
+        "object_name": "汤和",
+        "text": "帝命汤和守常州，常州安辑。",
+    }
+    new_slice = {
+        "slice_code": "SLI-TAIL",
+        "document_code": "DOC-001",
+        "object_name": "常遇春",
+        "text": "帝命常遇春进兵。",
+    }
+    cache_root = tmp_path / "claim_cache"
+    cached_hash = tool.claim_cache.slice_hash_from_row(cached_slice)
+    tool.claim_cache.write_jsonl(
+        cache_root / "claim_evidence.jsonl",
+        [{"evidence_key": "EVD-CACHED", "claim_key": "CLMK-CACHED", "slice_hash": cached_hash}],
+    )
+
+    def fake_candidate_round(**kwargs) -> dict:
+        person_dir = kwargs["person_dir"]
+        prompt_path = person_dir / "judge_prompt.round0.md"
+        prompt_path.parent.mkdir(parents=True, exist_ok=True)
+        prompt_path.write_text("placeholder", encoding="utf-8")
+        return {
+            "payload": {
+                "task_identity": {"emperor_name": "朱元璋", "rule_code": "i5b_item_wide"},
+                "target_profile": {"primary_name": "朱元璋"},
+                "rule": {"rule_code": "i5b_item_wide"},
+                "candidate_slices": [cached_slice, new_slice],
+                "coverage_gaps": [],
+                "fetch_errors": [],
+                "stats": {"candidate_slices": 2},
+            },
+            "elapsed_seconds": 0.01,
+            "output_path": person_dir / "candidates.round0.json",
+            "prompt_path": prompt_path,
+        }
+
+    def fail_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
+        raise AssertionError("judge should be skipped for small claim-cache tail")
+
+    monkeypatch.setattr(tool, "build_candidate_round", fake_candidate_round)
+    summary = tool.run_clean_pipeline(
+        tasks=[task_without_alias_gap()],
+        run_root=tmp_path / "run",
+        codex_runner=fail_judge,
+        skip_judge=False,
+        max_alias_refine_rounds=0,
+        judge_shard_size=0,
+        judge_mode=tool.candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
+        claim_cache_root=cache_root,
+        claim_cache_skip_cached_slices=True,
+        claim_cache_min_uncovered_slices_for_judge=2,
+        max_workers=1,
+    )
+
+    person = summary["people"][0]
+    result = json.loads(Path(person["files"]["final_judge_result"]).read_text(encoding="utf-8"))
+    assert person["judge_status"] == "needs_refinement"
+    assert person["judge_elapsed_seconds"] == 0.0
+    assert result["coverage_gaps"][0]["gap_type"] == "claim_cache_tail_uncovered"
+    assert result["_claim_cache_plan"]["uncovered_slice_count"] == 1
+
+
 def test_judge_payload_normalizes_candidate_profiles_for_consumption() -> None:
     payload = {
         "claims": [],

@@ -805,6 +805,7 @@ def process_task(
     judge_mode: str | None = None,
     claim_cache_root: Path | None = None,
     claim_cache_skip_cached_slices: bool = False,
+    claim_cache_min_uncovered_slices_for_judge: int = 1,
     object_source_cache_root: Path | None = None,
     taskgen: Mapping[str, Any] | None = None,
     event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
@@ -1000,10 +1001,13 @@ def process_task(
                     uncovered_slice_count=claim_cache_plan["uncovered_slice_count"],
                     cached_claim_key_count=claim_cache_plan["cached_claim_key_count"],
                 )
-            if not (judge_candidates.get("candidate_slices") or []):
+            uncovered_count = len(judge_candidates.get("candidate_slices") or [])
+            min_uncovered = max(1, int(claim_cache_min_uncovered_slices_for_judge))
+            if uncovered_count < min_uncovered:
+                all_cached = uncovered_count == 0
                 final_judge = {
                     "job_code": f"JOB-{target_code}-{rule_code}-CLAIM-CACHE-HIT",
-                    "status": "succeeded",
+                    "status": "succeeded" if all_cached else "needs_refinement",
                     "documents": [],
                     "passages": [],
                     "claims": [],
@@ -1018,14 +1022,26 @@ def process_task(
                         "negative_claim_count": 0,
                         "alias_coverage_note": "claim_cache_all_slices_cached",
                     },
-                    "coverage_gaps": [],
+                    "coverage_gaps": []
+                    if all_cached
+                    else [
+                        {
+                            "gap_type": "claim_cache_tail_uncovered",
+                            "object_name": "",
+                            "family_code": "",
+                            "queue": "claim_cache_tail_review",
+                            "diagnosis": f"{uncovered_count} uncovered candidate slices below claim_cache_min_uncovered_slices_for_judge={min_uncovered}",
+                            "recommended_action": "batch_tail_claim_extraction_or_accept_cached_claim_set",
+                            "do_not_add_recall_terms": True,
+                        }
+                    ],
                     "_elapsed_seconds": 0.0,
                     "_usage": {},
                     "_judge_mode": judge_mode or "",
                     "_claim_cache_plan": claim_cache_plan,
                 }
                 round_summary["judge_elapsed_seconds"] = 0.0
-                round_summary["judge_status"] = "succeeded"
+                round_summary["judge_status"] = final_judge["status"]
                 if event_logger is not None:
                     event_logger.emit(
                         "judge_skipped_by_claim_cache",
@@ -1034,6 +1050,8 @@ def process_task(
                         rule_code=rule_code,
                         round=round_index,
                         cached_slice_count=claim_cache_plan["cached_slice_count"],
+                        uncovered_slice_count=uncovered_count,
+                        min_uncovered_slices_for_judge=min_uncovered,
                     )
                 rounds.append(round_summary)
                 break
@@ -1172,6 +1190,7 @@ def run_clean_pipeline(
     judge_mode: str | None = None,
     claim_cache_root: Path | None = None,
     claim_cache_skip_cached_slices: bool = False,
+    claim_cache_min_uncovered_slices_for_judge: int = 1,
     claim_cache_import_final: bool = False,
     taskgen_by_target_code: Mapping[str, Mapping[str, Any]] | None = None,
     max_workers: int = 4, event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
@@ -1212,6 +1231,7 @@ def run_clean_pipeline(
             judge_mode=judge_mode,
             claim_cache_root=claim_cache_root,
             claim_cache_skip_cached_slices=claim_cache_skip_cached_slices,
+            claim_cache_min_uncovered_slices_for_judge=claim_cache_min_uncovered_slices_for_judge,
             taskgen=taskgen_by_target_code.get(target_code),
             event_logger=event_logger,
             candidate_source_refine_objects=candidate_source_refine_objects,
@@ -1239,6 +1259,7 @@ def run_clean_pipeline(
     if claim_cache_root is not None:
         summary.setdefault("clean_policy", {})["claim_cache_root"] = str(claim_cache_root)
         summary.setdefault("clean_policy", {})["claim_cache_skip_cached_slices"] = bool(claim_cache_skip_cached_slices)
+        summary.setdefault("clean_policy", {})["claim_cache_min_uncovered_slices_for_judge"] = int(claim_cache_min_uncovered_slices_for_judge)
         summary.setdefault("clean_policy", {})["claim_cache_import_final"] = bool(claim_cache_import_final)
     atomic_write_json(run_root / "summary.json", summary)
     if claim_cache_root is not None and claim_cache_import_final:
