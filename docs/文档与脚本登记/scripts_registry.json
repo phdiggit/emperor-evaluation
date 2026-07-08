@@ -44,6 +44,10 @@
         "max_lines": 1150,
         "reason": "retrieval_v2 contracts 暂集中承载 profile、candidate lane、shadow report、personnel_political_wide 契约常量和繁简别名扩展，跨项路由稳定后拆分 profile contracts 与 alias helpers 子模块"
       },
+      "scripts/dev/retrieval_v2_claim_cache_pg.py": {
+        "max_lines": 1100,
+        "reason": "retrieval_v2 claim cache PG 工具暂含导入、质量热字段回填和误导入清理闸门，v3 claim-cache 稳定后拆分 import policy 与 cleanup 子模块"
+      },
       "scripts/dev/retrieval_v2_factorization_worklists.py": {
         "max_lines": 1900,
         "reason": "retrieval_v2 因子化派工、patch 验收、side/raw-score 入库闸门、表驱动因子模板、AD factor hint 预填建议、factorization prompt budget 快照、Codex 调度和日志恢复仍在联调期共用上下文，稳定后拆分 task runner、hint adapter、prompt budget 与 patch recovery 子模块"

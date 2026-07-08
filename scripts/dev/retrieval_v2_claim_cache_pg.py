@@ -24,6 +24,7 @@ from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
+DEFAULT_ALLOWED_EXTRACTOR_VERSIONS = ("claim_extraction_only:v4_structured_ref_policy",)
 
 CLAIM_TYPES = {"material_action", "outcome", "evaluation", "relationship", "institution", "numeric", "context"}
 FACT_SCHEMAS = {
@@ -235,6 +236,37 @@ def validate_prepared_rows(rows: Mapping[str, Sequence[Mapping[str, Any]]]) -> l
         if text(row.get("slice_hash")) not in slice_hashes:
             issues.append({"kind": "evidence_missing_slice", "evidence_key": row.get("evidence_key"), "slice_hash": row.get("slice_hash")})
     return issues
+
+
+def extractor_version_counts(rows: Mapping[str, Sequence[Mapping[str, Any]]]) -> dict[str, int]:
+    counts: Counter[str] = Counter()
+    for row in rows["claims"]:
+        counts[text(row.get("extractor_version")) or "<blank>"] += 1
+    return dict(sorted(counts.items()))
+
+
+def validate_extractor_version_policy(
+    rows: Mapping[str, Sequence[Mapping[str, Any]]],
+    *,
+    allowed_extractor_versions: Sequence[str],
+    allow_legacy_extractor_version: bool = False,
+) -> list[dict[str, Any]]:
+    if allow_legacy_extractor_version:
+        return []
+    allowed = {text(version) for version in allowed_extractor_versions if text(version)}
+    observed = extractor_version_counts(rows)
+    blocked = {version: count for version, count in observed.items() if version not in allowed}
+    if not blocked:
+        return []
+    return [
+        {
+            "kind": "unsupported_extractor_version",
+            "allowed_extractor_versions": sorted(allowed),
+            "observed_extractor_versions": observed,
+            "blocked_extractor_versions": dict(sorted(blocked.items())),
+            "hint": "Pass --allowed-extractor-version for a reviewed current version, or --allow-legacy-extractor-version for an explicit legacy import.",
+        }
+    ]
 
 
 def row_counts(rows: Mapping[str, Sequence[Mapping[str, Any]]]) -> dict[str, int]:
@@ -572,6 +604,176 @@ def pg_claim_rows_for_quality_backfill(cur: Any, *, only_missing: bool = True) -
     return [dict(row) for row in cur.fetchall()]
 
 
+def list_arg(values: Sequence[str] | None) -> list[str]:
+    return [text(value) for value in values or [] if text(value)]
+
+
+def cleanup_where_clause(
+    *,
+    last_run_codes: Sequence[str] | None = None,
+    extractor_versions: Sequence[str] | None = None,
+    emperor_names: Sequence[str] | None = None,
+) -> tuple[str, list[list[str]]]:
+    clauses: list[str] = []
+    params: list[list[str]] = []
+    run_codes = list_arg(last_run_codes)
+    versions = list_arg(extractor_versions)
+    emperors = list_arg(emperor_names)
+    if run_codes:
+        clauses.append("last_run_code = any(%s)")
+        params.append(run_codes)
+    if versions:
+        clauses.append("extractor_version = any(%s)")
+        params.append(versions)
+    if emperors:
+        clauses.append("emperor_name = any(%s)")
+        params.append(emperors)
+    if not clauses:
+        raise ClaimCachePgError("cleanup-runs requires at least one selector: --last-run-code, --extractor-version, or --emperor-name")
+    return "where " + " and ".join(clauses), params
+
+
+def cleanup_claim_runs(
+    *,
+    env_file: Path | None,
+    dsn_env: str,
+    schema_name: str,
+    execute: bool,
+    last_run_codes: Sequence[str] | None = None,
+    extractor_versions: Sequence[str] | None = None,
+    emperor_names: Sequence[str] | None = None,
+) -> dict[str, Any]:
+    if env_file is not None:
+        load_env_file(env_file)
+    where_sql, params = cleanup_where_clause(
+        last_run_codes=last_run_codes,
+        extractor_versions=extractor_versions,
+        emperor_names=emperor_names,
+    )
+    psycopg, dict_row = import_psycopg()
+    dsn = resolve_dsn(dsn_env)
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            cur.execute(
+                f"""
+                select emperor_name, extractor_version, last_run_code, count(*) as claim_count
+                  from retrieval_v2.claim_cache
+                 {where_sql}
+                 group by emperor_name, extractor_version, last_run_code
+                 order by emperor_name, extractor_version, last_run_code
+                """,
+                params,
+            )
+            groups = [dict(row) for row in cur.fetchall()]
+            cur.execute(
+                f"""
+                select count(*) as evidence_count
+                  from retrieval_v2.claim_evidence e
+                  join retrieval_v2.claim_cache c on c.claim_key = e.claim_key
+                 {where_sql.replace('last_run_code', 'c.last_run_code').replace('extractor_version', 'c.extractor_version').replace('emperor_name', 'c.emperor_name')}
+                """,
+                params,
+            )
+            evidence_count = int(cur.fetchone()["evidence_count"])
+            deleted: list[dict[str, Any]] = []
+            if execute:
+                cur.execute(
+                    f"""
+                    delete from retrieval_v2.claim_cache
+                     {where_sql}
+                     returning emperor_name, extractor_version, last_run_code, claim_key
+                    """,
+                    params,
+                )
+                deleted = [dict(row) for row in cur.fetchall()]
+            report: dict[str, Any] = {
+                "ok": True,
+                "generated_by": "scripts/dev/retrieval_v2_claim_cache_pg.py",
+                "mode": "execute" if execute else "dry_run_cleanup_runs",
+                "write_db": execute,
+                "executed": bool(execute),
+                "schema_name": schema_name,
+                "selectors": {
+                    "last_run_codes": list_arg(last_run_codes),
+                    "extractor_versions": list_arg(extractor_versions),
+                    "emperor_names": list_arg(emperor_names),
+                },
+                "planned": {
+                    "claim_cache": sum(int(row["claim_count"]) for row in groups),
+                    "claim_evidence_cascade": evidence_count,
+                },
+                "groups": groups,
+                "executed_counts": {table_label("claim_cache", schema_name=schema_name): len(deleted)} if execute else {},
+            }
+        if execute:
+            conn.commit()
+        else:
+            conn.rollback()
+    return report
+
+
+def cleanup_orphan_source_slices(
+    *,
+    env_file: Path | None,
+    dsn_env: str,
+    schema_name: str,
+    execute: bool,
+) -> dict[str, Any]:
+    if env_file is not None:
+        load_env_file(env_file)
+    psycopg, dict_row = import_psycopg()
+    dsn = resolve_dsn(dsn_env)
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            cur.execute(
+                """
+                select s.object_name, count(*) as slice_count
+                  from retrieval_v2.claim_source_slices s
+                 where not exists (
+                       select 1
+                         from retrieval_v2.claim_evidence e
+                        where e.slice_hash = s.slice_hash
+                 )
+                 group by s.object_name
+                 order by s.object_name
+                """
+            )
+            groups = [dict(row) for row in cur.fetchall()]
+            total = sum(int(row["slice_count"]) for row in groups)
+            deleted: list[dict[str, Any]] = []
+            if execute:
+                cur.execute(
+                    """
+                    delete from retrieval_v2.claim_source_slices s
+                     where not exists (
+                           select 1
+                             from retrieval_v2.claim_evidence e
+                            where e.slice_hash = s.slice_hash
+                     )
+                     returning s.object_name, s.slice_hash
+                    """
+                )
+                deleted = [dict(row) for row in cur.fetchall()]
+            report: dict[str, Any] = {
+                "ok": True,
+                "generated_by": "scripts/dev/retrieval_v2_claim_cache_pg.py",
+                "mode": "execute" if execute else "dry_run_cleanup_orphan_source_slices",
+                "write_db": execute,
+                "executed": bool(execute),
+                "schema_name": schema_name,
+                "planned": {"claim_source_slices": total},
+                "groups": groups,
+                "executed_counts": {table_label("claim_source_slices", schema_name=schema_name): len(deleted)} if execute else {},
+            }
+        if execute:
+            conn.commit()
+        else:
+            conn.rollback()
+    return report
+
+
 def update_claim_quality_fields(cur: Any, row: Mapping[str, Any]) -> None:
     quality = claim_quality.claim_quality_payload(row)
     cur.execute(
@@ -643,11 +845,20 @@ def apply_cache_to_pg(
     dsn_env: str,
     schema_name: str,
     execute: bool,
+    allowed_extractor_versions: Sequence[str] = DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
+    allow_legacy_extractor_version: bool = False,
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     rows = prepared_cache_rows(cache_root)
     issues = validate_prepared_rows(rows)
+    issues.extend(
+        validate_extractor_version_policy(
+            rows,
+            allowed_extractor_versions=allowed_extractor_versions,
+            allow_legacy_extractor_version=allow_legacy_extractor_version,
+        )
+    )
     report: dict[str, Any] = {
         "ok": not issues,
         "generated_by": "scripts/dev/retrieval_v2_claim_cache_pg.py",
@@ -658,6 +869,11 @@ def apply_cache_to_pg(
         "cache_root": str(cache_root),
         "totals": row_counts(rows),
         "by_object": object_inventory(rows),
+        "extractor_version_policy": {
+            "allow_legacy_extractor_version": allow_legacy_extractor_version,
+            "allowed_extractor_versions": list(allowed_extractor_versions),
+            "observed_extractor_versions": extractor_version_counts(rows),
+        },
         "issues": issues,
         "existing_before": {},
         "planned": {},
@@ -721,6 +937,17 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     apply.add_argument("--output-json", type=Path)
     apply.add_argument("--execute", action="store_true")
+    apply.add_argument(
+        "--allowed-extractor-version",
+        action="append",
+        dest="allowed_extractor_versions",
+        help="Extractor version accepted by default import policy; repeatable.",
+    )
+    apply.add_argument(
+        "--allow-legacy-extractor-version",
+        action="store_true",
+        help="Explicitly allow importing cache rows from legacy or mixed extractor versions.",
+    )
 
     inventory = sub.add_parser("inventory", help="Read PostgreSQL claim cache inventory.")
     inventory.add_argument("--env-file", type=Path)
@@ -736,6 +963,23 @@ def build_parser() -> argparse.ArgumentParser:
     backfill.add_argument("--output-json", type=Path)
     backfill.add_argument("--execute", action="store_true")
     backfill.add_argument("--all-rows", action="store_true", help="Recompute all claim rows instead of only missing hot fields.")
+
+    cleanup = sub.add_parser("cleanup-runs", help="Dry-run or delete imported claim rows selected by run/version/emperor.")
+    cleanup.add_argument("--env-file", type=Path)
+    cleanup.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    cleanup.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    cleanup.add_argument("--output-json", type=Path)
+    cleanup.add_argument("--execute", action="store_true")
+    cleanup.add_argument("--last-run-code", action="append", dest="last_run_codes")
+    cleanup.add_argument("--extractor-version", action="append", dest="extractor_versions")
+    cleanup.add_argument("--emperor-name", action="append", dest="emperor_names")
+
+    orphan_slices = sub.add_parser("cleanup-orphan-source-slices", help="Dry-run or delete source slices no longer referenced by claim evidence.")
+    orphan_slices.add_argument("--env-file", type=Path)
+    orphan_slices.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    orphan_slices.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    orphan_slices.add_argument("--output-json", type=Path)
+    orphan_slices.add_argument("--execute", action="store_true")
     return parser
 
 
@@ -748,6 +992,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
             execute=bool(args.execute),
+            allowed_extractor_versions=args.allowed_extractor_versions or DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
+            allow_legacy_extractor_version=bool(args.allow_legacy_extractor_version),
         )
     elif args.command == "inventory":
         report = inventory_from_pg(
@@ -763,6 +1009,23 @@ def main(argv: Sequence[str] | None = None) -> int:
             schema_name=args.pg_schema,
             execute=bool(args.execute),
             all_rows=bool(args.all_rows),
+        )
+    elif args.command == "cleanup-runs":
+        report = cleanup_claim_runs(
+            env_file=args.env_file,
+            dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
+            execute=bool(args.execute),
+            last_run_codes=args.last_run_codes,
+            extractor_versions=args.extractor_versions,
+            emperor_names=args.emperor_names,
+        )
+    elif args.command == "cleanup-orphan-source-slices":
+        report = cleanup_orphan_source_slices(
+            env_file=args.env_file,
+            dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
+            execute=bool(args.execute),
         )
     else:  # pragma: no cover
         raise ClaimCachePgError(f"unsupported command: {args.command}")

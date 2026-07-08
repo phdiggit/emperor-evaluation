@@ -137,15 +137,72 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert rendered
     assert tool.DEFAULT_DSN_ENV == "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
     assert tool.DEFAULT_PG_SCHEMA == "retrieval_v3"
+    assert tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS == ("claim_extraction_only:v4_structured_ref_policy",)
     assert "retrieval_v2.claim_cache" in source
     assert "canonical_event_key" in source
     assert "near_duplicate_group_payload" in source
     assert "claim_grain" in source
     assert "quality_flags" in source
+    assert "cleanup-orphan-source-slices" in source
     assert "retrieval_v2.claim_source_slices" in source
     assert "retrieval_v2.claim_evidence" in source
     assert "insert into retrieval_v2.claim_rule_bindings" not in source
     assert "insert into retrieval_v2.target_rule_score_clusters" not in source
+
+
+def test_extractor_version_policy_blocks_legacy_by_default(tmp_path: Path) -> None:
+    cache_root = tmp_path / "claim_cache"
+    write_cache(cache_root)
+    rows = tool.prepared_cache_rows(cache_root)
+
+    issues = tool.validate_extractor_version_policy(
+        rows,
+        allowed_extractor_versions=tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
+    )
+
+    assert issues == [
+        {
+            "kind": "unsupported_extractor_version",
+            "allowed_extractor_versions": ["claim_extraction_only:v4_structured_ref_policy"],
+            "observed_extractor_versions": {"claim_extraction_only": 1},
+            "blocked_extractor_versions": {"claim_extraction_only": 1},
+            "hint": "Pass --allowed-extractor-version for a reviewed current version, or --allow-legacy-extractor-version for an explicit legacy import.",
+        }
+    ]
+
+
+def test_extractor_version_policy_allows_explicit_legacy_import(tmp_path: Path) -> None:
+    cache_root = tmp_path / "claim_cache"
+    write_cache(cache_root)
+    rows = tool.prepared_cache_rows(cache_root)
+
+    issues = tool.validate_extractor_version_policy(
+        rows,
+        allowed_extractor_versions=tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
+        allow_legacy_extractor_version=True,
+    )
+
+    assert issues == []
+
+
+def test_cleanup_where_clause_requires_selector() -> None:
+    try:
+        tool.cleanup_where_clause()
+    except tool.ClaimCachePgError as exc:
+        assert "requires at least one selector" in str(exc)
+    else:  # pragma: no cover
+        raise AssertionError("cleanup_where_clause should reject empty selectors")
+
+
+def test_cleanup_where_clause_is_parameterized() -> None:
+    where_sql, params = tool.cleanup_where_clause(
+        last_run_codes=["RUN-OLD"],
+        extractor_versions=["claim_extraction_only"],
+        emperor_names=["朱元璋"],
+    )
+
+    assert where_sql == "where last_run_code = any(%s) and extractor_version = any(%s) and emperor_name = any(%s)"
+    assert params == [["RUN-OLD"], ["claim_extraction_only"], ["朱元璋"]]
 
 
 class FakeCursor:
