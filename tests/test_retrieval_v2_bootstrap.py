@@ -137,6 +137,8 @@ def test_read_schema_sql_points_to_retrieval_v2_migration() -> None:
     assert "create table if not exists retrieval_v2.claim_cache" in sql
     assert "create table if not exists retrieval_v2.claim_extraction_jobs" in sql
     assert "create type retrieval_v2.rv2_claim_extraction_job_status as enum" in sql
+    assert "create table if not exists retrieval_v2.object_source_cache_jobs" in sql
+    assert "create type retrieval_v2.rv2_object_source_cache_job_status as enum" in sql
 
 
 def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> None:
@@ -147,6 +149,7 @@ def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> Non
     assert "retrieval_v2.claim_rule_binding_candidates" in captured.out
     assert "retrieval_v2.item_rule_score_weights" in captured.out
     assert "retrieval_v2.claim_extraction_jobs" in captured.out
+    assert "retrieval_v2.object_source_cache_jobs" in captured.out
 
 
 def test_missing_action_is_a_usage_error() -> None:
