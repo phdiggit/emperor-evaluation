@@ -17,90 +17,9 @@ if str(ROOT) not in sys.path:
 
 DEFAULT_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
 SCHEMA_VERSION = 1
+PGSQL_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_cache.sql"
 
-PGSQL_SCHEMA_DRAFT = """
--- retrieval_v2 claim cache draft schema.
--- The first rollout writes filesystem artifacts; these tables reserve the PG-backed hot index shape.
-
-create schema if not exists retrieval_v2;
-
-create table if not exists retrieval_v2.claim_cache (
-    claim_key text primary key,
-    emperor_name text not null,
-    object_name text not null,
-    object_type text not null default 'person',
-    claim_kind text not null default 'material_claim',
-    direction text not null default '',
-    action_type text not null default '',
-    event_scope text not null default '',
-    office_or_domain text not null default '',
-    time_context text not null default '',
-    outcome text not null default '',
-    claim_summary text not null default '',
-    confidence numeric,
-    fact_payload jsonb not null default '{}'::jsonb,
-    first_run_code text not null default '',
-    last_run_code text not null default '',
-    raw_output_path text not null default '',
-    extractor_version text not null default '',
-    status text not null default 'active',
-    seen_count integer not null default 1,
-    created_at timestamptz not null default now(),
-    updated_at timestamptz not null default now(),
-    constraint rv2_claim_cache_object_not_blank check (btrim(object_name) <> ''),
-    constraint rv2_claim_cache_status_ck check (status in ('active', 'superseded', 'needs_review', 'rejected'))
-);
-
-create table if not exists retrieval_v2.claim_evidence (
-    evidence_key text primary key,
-    claim_key text not null references retrieval_v2.claim_cache(claim_key) on delete cascade,
-    slice_hash text not null,
-    source_slice_ref text not null default '',
-    document_code text not null default '',
-    object_name text not null default '',
-    span_payload jsonb not null default '{}'::jsonb,
-    slice_text_preview text not null default '',
-    raw_output_path text not null default '',
-    first_run_code text not null default '',
-    created_at timestamptz not null default now()
-);
-
-create table if not exists retrieval_v2.claim_source_slices (
-    slice_hash text primary key,
-    object_name text not null default '',
-    document_code text not null default '',
-    source_slice_ref text not null default '',
-    slice_text_preview text not null default '',
-    first_run_code text not null default '',
-    seen_count integer not null default 1,
-    created_at timestamptz not null default now(),
-    updated_at timestamptz not null default now()
-);
-
-create table if not exists retrieval_v2.claim_route_cache (
-    route_key text primary key,
-    claim_key text not null references retrieval_v2.claim_cache(claim_key) on delete cascade,
-    candidate_item_code text not null default '',
-    candidate_rule_code text not null default '',
-    candidate_lane text not null default '',
-    route_status text not null default 'unrouted',
-    route_payload jsonb not null default '{}'::jsonb,
-    created_at timestamptz not null default now(),
-    updated_at timestamptz not null default now()
-);
-
-create index if not exists rv2_claim_cache_object_idx
-on retrieval_v2.claim_cache(emperor_name, object_name, direction);
-
-create index if not exists rv2_claim_cache_action_idx
-on retrieval_v2.claim_cache(action_type, event_scope, office_or_domain);
-
-create index if not exists rv2_claim_evidence_claim_idx
-on retrieval_v2.claim_evidence(claim_key, slice_hash);
-
-create index if not exists rv2_claim_route_idx
-on retrieval_v2.claim_route_cache(candidate_item_code, candidate_rule_code, route_status);
-""".strip() + "\n"
+PGSQL_SCHEMA_DRAFT = PGSQL_SCHEMA_PATH.read_text(encoding="utf-8")
 
 
 class ClaimCacheError(RuntimeError):
