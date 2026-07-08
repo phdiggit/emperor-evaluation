@@ -442,6 +442,84 @@ def plan_candidates(candidates_path: Path, cache_root: Path, uncovered_candidate
     return report
 
 
+def compact_plan_report(report: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": report.get("schema_version"),
+        "cache_root": report.get("cache_root"),
+        "candidates_path": report.get("candidates_path"),
+        "candidate_slice_count": report.get("candidate_slice_count"),
+        "cached_slice_count": report.get("cached_slice_count"),
+        "uncovered_slice_count": report.get("uncovered_slice_count"),
+        "cached_claim_key_count": report.get("cached_claim_key_count"),
+        "by_object": report.get("by_object") or {},
+        "suggested_policy": report.get("suggested_policy"),
+    }
+
+
+def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sample_limit: int = 3) -> dict[str, Any]:
+    existing = load_existing_cache(cache_root)
+    by_object: dict[str, dict[str, Any]] = defaultdict(
+        lambda: {
+            "claim_count": 0,
+            "slice_count": 0,
+            "evidence_count": 0,
+            "direction_counts": Counter(),
+            "action_type_counts": Counter(),
+            "sample_claims": [],
+        }
+    )
+    for claim in existing["claims"].values():
+        object_name = str(claim.get("object_name") or "")
+        row = by_object[object_name]
+        row["claim_count"] += 1
+        direction = str(claim.get("direction") or "")
+        action_type = str(claim.get("action_type") or "")
+        if direction:
+            row["direction_counts"][direction] += 1
+        if action_type:
+            row["action_type_counts"][action_type] += 1
+        if len(row["sample_claims"]) < sample_limit:
+            row["sample_claims"].append(
+                {
+                    "claim_key": claim.get("claim_key"),
+                    "direction": direction,
+                    "action_type": action_type,
+                    "summary": claim.get("claim_summary") or "",
+                }
+            )
+    for source_slice in existing["slices"].values():
+        by_object[str(source_slice.get("object_name") or "")]["slice_count"] += 1
+    for evidence in existing["evidence"].values():
+        by_object[str(evidence.get("object_name") or "")]["evidence_count"] += 1
+
+    objects: dict[str, dict[str, Any]] = {}
+    for object_name, row in sorted(by_object.items()):
+        objects[object_name] = {
+            "claim_count": row["claim_count"],
+            "slice_count": row["slice_count"],
+            "evidence_count": row["evidence_count"],
+            "direction_counts": dict(sorted(row["direction_counts"].items())),
+            "action_type_counts": dict(sorted(row["action_type_counts"].items())),
+            "sample_claims": row["sample_claims"],
+        }
+
+    report: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "cache_root": str(cache_root),
+        "totals": {
+            "claim_count": len(existing["claims"]),
+            "slice_count": len(existing["slices"]),
+            "evidence_count": len(existing["evidence"]),
+            "run_count": len(existing["runs"]),
+            "object_count": len([name for name in objects if name]),
+        },
+        "by_object": objects,
+    }
+    if candidates_path is not None:
+        report["candidate_plan"] = compact_plan_report(plan_candidates(candidates_path, cache_root))
+    return report
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Manage retrieval_v2 claim-only extraction cache.")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -460,6 +538,13 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--report-json", type=Path)
     plan.add_argument("--write-uncovered-candidates", type=Path)
     plan.set_defaults(func=run_plan_command)
+
+    inventory = sub.add_parser("inventory", help="Summarize filesystem claim cache coverage and optional candidate hits.")
+    inventory.add_argument("--cache-root", type=Path, default=DEFAULT_CACHE_ROOT)
+    inventory.add_argument("--candidates", type=Path)
+    inventory.add_argument("--report-json", type=Path)
+    inventory.add_argument("--sample-limit", type=int, default=3)
+    inventory.set_defaults(func=run_inventory_command)
     return parser
 
 
@@ -478,6 +563,14 @@ def run_import_command(args: argparse.Namespace) -> int:
 
 def run_plan_command(args: argparse.Namespace) -> int:
     report = plan_candidates(args.candidates, args.cache_root, args.write_uncovered_candidates)
+    if args.report_json is not None:
+        write_json(args.report_json, report)
+    sys.stdout.write(pretty_json(report))
+    return 0
+
+
+def run_inventory_command(args: argparse.Namespace) -> int:
+    report = cache_inventory(args.cache_root, args.candidates, sample_limit=max(0, int(args.sample_limit)))
     if args.report_json is not None:
         write_json(args.report_json, report)
     sys.stdout.write(pretty_json(report))

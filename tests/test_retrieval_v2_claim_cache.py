@@ -146,6 +146,24 @@ def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> 
     assert [row["slice_code"] for row in uncovered["candidate_slices"]] == ["SLI-002"]
 
 
+def test_cache_inventory_reports_objects_and_candidate_plan(tmp_path: Path) -> None:
+    run_root = write_run(tmp_path)
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+    candidates_path = run_root / "TGT-I5B-ZYZ" / "candidates.final.json"
+
+    report = tool.cache_inventory(cache_root, candidates_path)
+
+    assert report["totals"]["claim_count"] == 1
+    assert report["totals"]["slice_count"] == 1
+    assert report["totals"]["object_count"] == 1
+    assert report["by_object"]["汤和"]["claim_count"] == 1
+    assert report["by_object"]["汤和"]["direction_counts"] == {"positive": 1}
+    assert report["candidate_plan"]["cached_slice_count"] == 1
+    assert report["candidate_plan"]["uncovered_slice_count"] == 1
+    assert "cached_claim_keys" not in report["candidate_plan"]
+
+
 def test_emit_pg_schema_contains_hot_index_tables() -> None:
     assert "retrieval_v2.claim_cache" in tool.PGSQL_SCHEMA_DRAFT
     assert "retrieval_v2.claim_evidence" in tool.PGSQL_SCHEMA_DRAFT
@@ -155,3 +173,14 @@ def test_emit_pg_schema_contains_hot_index_tables() -> None:
 def test_emit_pg_schema_command_returns_success(capsys) -> None:
     assert tool.main(["emit-pg-schema"]) == 0
     assert "retrieval_v2.claim_cache" in capsys.readouterr().out
+
+
+def test_inventory_command_returns_success(tmp_path: Path, capsys) -> None:
+    run_root = write_run(tmp_path)
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+
+    assert tool.main(["inventory", "--cache-root", str(cache_root), "--sample-limit", "0"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["totals"]["claim_count"] == 1
+    assert payload["by_object"]["汤和"]["sample_claims"] == []
