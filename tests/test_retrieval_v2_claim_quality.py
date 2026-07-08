@@ -115,3 +115,55 @@ def test_opportunity_estimator_marks_possible_undercoverage() -> None:
     assert row["opportunity_count"] == 3
     assert row["actual_claim_count"] == 1
     assert row["undercoverage_risk"] == "possible_undercoverage"
+
+
+def test_opportunity_estimator_ignores_absent_object_false_positive() -> None:
+    slices = [
+        {
+            "slice_code": "SLI-001",
+            "object_name": "卢绾",
+            "matched_aliases": ["燕王"],
+            "object_source_cache": {
+                "source_shape": "object_mention_candidate",
+                "source_title": "漢書/卷063",
+            },
+            "text": "太子之亡也，东至湖。久之，巫蛊事多不信，天子乃下诏宽赦。",
+        }
+    ]
+
+    eligibility = tool.slice_claim_eligibility(slices[0])
+    report = tool.estimate_claim_opportunities(slices, claims=[])
+    row = report["objects"]["卢绾"]
+
+    assert eligibility["claim_eligible"] is False
+    assert "object_absent_risk" in eligibility["risk_flags"]
+    assert row["eligible_slice_count"] == 0
+    assert row["opportunity_count"] == 0
+    assert row["suggested_claim_budget"] == 0
+    assert row["undercoverage_risk"] == ""
+
+
+def test_opportunity_estimator_requires_primary_object_signal_for_alias_hits() -> None:
+    slices = [
+        {
+            "slice_code": "SLI-001",
+            "object_name": "卢绾",
+            "matched_aliases": ["燕王"],
+            "object_source_cache": {
+                "source_shape": "object_mention_candidate",
+                "source_title": "漢書/卷063",
+            },
+            "text": "燕王使人入朝，天子下诏封赏，又命将军率兵平乱。",
+        }
+    ]
+
+    opportunity = tool.slice_opportunity(slices[0])
+    report = tool.estimate_claim_opportunities(slices, claims=[])
+    row = report["objects"]["卢绾"]
+
+    assert opportunity["claim_eligible"] is True
+    assert opportunity["has_primary_object_signal"] is False
+    assert row["eligible_slice_count"] == 1
+    assert row["opportunity_count"] == 0
+    assert row["suggested_claim_budget"] == 0
+    assert row["undercoverage_risk"] == ""

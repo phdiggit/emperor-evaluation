@@ -107,6 +107,11 @@ def candidate_aliases(row: Mapping[str, Any]) -> list[str]:
     return sorted(aliases, key=len, reverse=True)
 
 
+def primary_candidate_aliases(row: Mapping[str, Any]) -> list[str]:
+    aliases = unique_strings([row.get("object_name"), row.get("person_name")])
+    return sorted(aliases, key=len, reverse=True)
+
+
 def alias_positions(text: str, aliases: list[str]) -> list[int]:
     positions: set[int] = set()
     for alias in aliases:
@@ -125,6 +130,22 @@ def alias_positions(text: str, aliases: list[str]) -> list[int]:
 def alias_mention_count(text: str, aliases: list[str]) -> int:
     positions = alias_positions(normalized_text(text), [normalized_text(alias) for alias in aliases])
     return len(positions)
+
+
+def alias_in_slice_metadata(row: Mapping[str, Any], aliases: list[str]) -> bool:
+    object_cache = object_cache_row(row)
+    metadata_text = normalized_text(
+        " ".join(
+            str(value or "")
+            for value in (
+                row.get("section_heading"),
+                row.get("source_title"),
+                object_cache.get("section_heading"),
+                object_cache.get("source_title"),
+            )
+        )
+    )
+    return bool(metadata_text and any(normalized_text(alias) in metadata_text for alias in aliases if alias))
 
 
 def biography_like_source(row: Mapping[str, Any]) -> bool:
@@ -172,6 +193,8 @@ def slice_claim_eligibility(row: Mapping[str, Any]) -> dict[str, Any]:
     mention_role = "primary" if mention_count > 1 or has_action or has_outcome else "incidental"
     claim_eligible = True
     reasons: list[str] = []
+    if aliases and mention_count == 0 and not alias_in_slice_metadata(row, aliases):
+        risk_flags = [*risk_flags, "object_absent_risk"]
     if risk_flags and mention_role == "incidental":
         claim_eligible = False
         reasons.extend(risk_flags)
@@ -194,10 +217,14 @@ def anchor_terms_in_text(text: str, terms: tuple[str, ...]) -> list[str]:
 def slice_opportunity(row: Mapping[str, Any]) -> dict[str, Any]:
     text = str(row.get("text") or row.get("raw_text") or "")
     eligibility = slice_claim_eligibility(row)
+    primary_aliases = primary_candidate_aliases(row)
+    has_primary_object_signal = bool(
+        alias_mention_count(text, primary_aliases) or alias_in_slice_metadata(row, primary_aliases)
+    )
     action_terms = anchor_terms_in_text(text, OPPORTUNITY_ACTION_TERMS)
     outcome_terms = anchor_terms_in_text(text, OPPORTUNITY_OUTCOME_TERMS)
     negative_terms = anchor_terms_in_text(text, NEGATIVE_ACTION_TERMS)
-    has_opportunity = bool(eligibility["claim_eligible"] and (action_terms or outcome_terms))
+    has_opportunity = bool(eligibility["claim_eligible"] and has_primary_object_signal and (action_terms or outcome_terms))
     weight = 0
     if has_opportunity:
         weight = 1
@@ -216,6 +243,7 @@ def slice_opportunity(row: Mapping[str, Any]) -> dict[str, Any]:
         "slice_code": str(row.get("slice_code") or row.get("slice_cache_code") or ""),
         "object_name": str(row.get("object_name") or row.get("person_name") or ""),
         "claim_eligible": eligibility["claim_eligible"],
+        "has_primary_object_signal": has_primary_object_signal,
     }
 
 
