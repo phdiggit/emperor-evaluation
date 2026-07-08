@@ -540,12 +540,16 @@ def selected_object_cache_slices(
     *,
     max_slices_per_person: int,
     max_total_slices: int,
+    excluded_object_names: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     by_person: dict[str, list[dict[str, Any]]] = {}
+    excluded = excluded_object_names or set()
     for row in rows:
         document_code = text(row.get("document_cache_code") or row.get("document_code"))
         candidate = object_cache_candidate_slice(row, docs_by_code.get(document_code))
         if not candidate["object_name"] or not candidate["text"]:
+            continue
+        if candidate["object_name"] in excluded:
             continue
         by_person.setdefault(candidate["object_name"], []).append(candidate)
     selected: list[dict[str, Any]] = []
@@ -562,6 +566,72 @@ def selected_object_cache_slices(
     return selected
 
 
+def claim_plan_audit(
+    *,
+    source_documents: Sequence[Mapping[str, Any]],
+    candidates: Sequence[Mapping[str, Any]],
+    object_names: Sequence[str],
+    excluded_object_names: Sequence[str],
+    include_target_emperor_object: bool,
+    max_slices_per_person: int,
+    max_total_slices: int,
+) -> dict[str, Any]:
+    docs_by_code = {
+        text(row.get("document_cache_code") or row.get("document_code")): row
+        for row in source_documents
+        if text(row.get("document_cache_code") or row.get("document_code"))
+    }
+    by_object: dict[str, dict[str, Any]] = {}
+    source_shape_counts: dict[str, int] = {}
+    for row in candidates:
+        object_name = text(row.get("object_name"))
+        document_code = text(row.get("document_code"))
+        doc = docs_by_code.get(document_code, {})
+        shape = text((row.get("object_source_cache") or {}).get("source_shape") if isinstance(row.get("object_source_cache"), Mapping) else "")
+        shape = shape or text(doc.get("source_shape")) or "unknown"
+        source_shape_counts[shape] = source_shape_counts.get(shape, 0) + 1
+        current = by_object.setdefault(
+            object_name,
+            {
+                "slice_count": 0,
+                "document_codes": set(),
+                "source_shapes": set(),
+                "has_biography_source": False,
+                "max_score": 0,
+            },
+        )
+        current["slice_count"] += 1
+        current["document_codes"].add(document_code)
+        current["source_shapes"].add(shape)
+        current["has_biography_source"] = bool(current["has_biography_source"]) or shape in {
+            "object_biography_candidate",
+            "object_existing_source_candidate",
+            "title_name_candidate",
+        }
+        current["max_score"] = max(int(current["max_score"]), int(row.get("score") or 0))
+    normalized_by_object = {
+        name: {
+            "slice_count": int(payload["slice_count"]),
+            "document_count": len(payload["document_codes"]),
+            "source_shapes": sorted(payload["source_shapes"]),
+            "has_biography_source": bool(payload["has_biography_source"]),
+            "max_score": int(payload["max_score"]),
+            "capped_by_max_slices_per_person": int(payload["slice_count"]) >= max(1, int(max_slices_per_person)),
+        }
+        for name, payload in sorted(by_object.items())
+    }
+    return {
+        "include_target_emperor_object": include_target_emperor_object,
+        "excluded_object_names": sorted(excluded_object_names),
+        "object_count": len(object_names),
+        "candidate_slice_count": len(candidates),
+        "source_shape_counts": dict(sorted(source_shape_counts.items())),
+        "by_object": normalized_by_object,
+        "max_slices_per_person": max_slices_per_person,
+        "max_total_slices": max_total_slices,
+    }
+
+
 def object_cache_to_claim_candidates(
     *,
     cache_root: Path,
@@ -571,10 +641,12 @@ def object_cache_to_claim_candidates(
     capture_profile: str = "personnel_political_wide",
     max_slices_per_person: int = 12,
     max_total_slices: int = 0,
+    include_target_emperor_object: bool = False,
 ) -> dict[str, Any]:
     source_documents = read_jsonl(cache_root / "source_documents.jsonl")
     mention_slices = read_jsonl(cache_root / "mention_slices.jsonl")
     coverage_rows = read_jsonl(cache_root / "person_coverage.jsonl") if (cache_root / "person_coverage.jsonl").exists() else []
+    excluded_object_names = {emperor_name} if emperor_name and not include_target_emperor_object else set()
     docs_by_code = {
         text(row.get("document_cache_code") or row.get("document_code")): row
         for row in source_documents
@@ -585,9 +657,30 @@ def object_cache_to_claim_candidates(
         docs_by_code,
         max_slices_per_person=max_slices_per_person,
         max_total_slices=max_total_slices,
+        excluded_object_names=excluded_object_names,
     )
-    object_names = sorted({text(row.get("person_name")) for row in coverage_rows if text(row.get("person_name"))} or {str(row["object_name"]) for row in candidates})
-    slim_docs = [object_cache_document_row(row) for row in source_documents if text(row.get("document_cache_code") or row.get("document_code"))]
+    object_names = sorted(
+        (
+            {text(row.get("person_name")) for row in coverage_rows if text(row.get("person_name"))}
+            or {str(row["object_name"]) for row in candidates}
+        )
+        - excluded_object_names
+    )
+    selected_document_codes = {text(row.get("document_code")) for row in candidates if text(row.get("document_code"))}
+    slim_docs = [
+        object_cache_document_row(row)
+        for row in source_documents
+        if text(row.get("document_cache_code") or row.get("document_code")) in selected_document_codes
+    ]
+    audit = claim_plan_audit(
+        source_documents=source_documents,
+        candidates=candidates,
+        object_names=object_names,
+        excluded_object_names=sorted(excluded_object_names),
+        include_target_emperor_object=include_target_emperor_object,
+        max_slices_per_person=max_slices_per_person,
+        max_total_slices=max_total_slices,
+    )
     return {
         "schema_version": 1,
         "generated_by": "scripts/dev/retrieval_v2_object_source_cache_worker.py claim-plan",
@@ -618,11 +711,13 @@ def object_cache_to_claim_candidates(
             "candidate_slices": len(candidates),
             "max_slices_per_person": max_slices_per_person,
             "max_total_slices": max_total_slices,
+            "excluded_object_count": len(excluded_object_names),
         },
         "claim_bridge": {
             "cache_root": str(cache_root),
             "policy": "object source cache mention_slices converted to claim-only candidates; no judge execution",
         },
+        "claim_plan_audit": audit,
     }
 
 
@@ -638,6 +733,7 @@ def plan_claim_extraction_from_cache(
     capture_profile: str = "personnel_political_wide",
     max_slices_per_person: int = 12,
     max_total_slices: int = 0,
+    include_target_emperor_object: bool = False,
     enqueue_claim_job: bool = False,
     dsn: str = "",
     claim_run_root: Path | None = None,
@@ -651,6 +747,7 @@ def plan_claim_extraction_from_cache(
         capture_profile=capture_profile,
         max_slices_per_person=max_slices_per_person,
         max_total_slices=max_total_slices,
+        include_target_emperor_object=include_target_emperor_object,
     )
     write_json(output_candidates, candidates)
     cache_plan = claim_cache.plan_candidates(output_candidates, claim_cache_root, output_uncovered_candidates)
@@ -677,6 +774,7 @@ def plan_claim_extraction_from_cache(
         "cached_slice_count": cache_plan.get("cached_slice_count"),
         "uncovered_slice_count": cache_plan.get("uncovered_slice_count"),
         "by_object": cache_plan.get("by_object") or {},
+        "claim_plan_audit": candidates.get("claim_plan_audit") or {},
         "enqueue_claim_job": bool(enqueue_claim_job),
         "claim_job": claim_job,
         "enqueue": enqueue_result,
@@ -825,6 +923,7 @@ def build_parser() -> argparse.ArgumentParser:
     claim_plan.add_argument("--capture-profile", default="personnel_political_wide")
     claim_plan.add_argument("--max-slices-per-person", type=int, default=12)
     claim_plan.add_argument("--max-total-slices", type=int, default=0)
+    claim_plan.add_argument("--include-target-emperor-object", action="store_true")
     claim_plan.add_argument("--enqueue-claim-job", action="store_true")
     claim_plan.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
     claim_plan.add_argument("--priority", type=int, default=100)
@@ -869,6 +968,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             capture_profile=args.capture_profile,
             max_slices_per_person=args.max_slices_per_person,
             max_total_slices=args.max_total_slices,
+            include_target_emperor_object=bool(args.include_target_emperor_object),
             enqueue_claim_job=bool(args.enqueue_claim_job),
             dsn=dsn,
             claim_run_root=args.claim_run_root,
