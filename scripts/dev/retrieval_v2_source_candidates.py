@@ -707,6 +707,35 @@ def context_bounds(text: str, center: int, *, context_chars: int) -> tuple[int, 
     return start, end
 
 
+def object_section_start(text: str, object_name: str, position: int) -> int | None:
+    if not object_name:
+        return None
+    heading_bounds: list[tuple[int, int]] = []
+    for name in unique_strings([object_name, *alias_script_variants(object_name)]):
+        for marker in (f"{name} [ 编辑 ]", f"{name}[编辑]", f"{name} [ 編輯 ]", f"{name}[編輯]"):
+            start = text.rfind(marker, 0, position + len(marker))
+            if start >= 0:
+                heading_bounds.append((start, start + len(marker)))
+    if not heading_bounds:
+        return None
+    section_start, _heading_end = max(heading_bounds, key=lambda row: row[0])
+    return section_start
+
+
+def object_scoped_context_bounds(
+    text: str,
+    object_name: str,
+    center: int,
+    *,
+    context_chars: int,
+) -> tuple[int, int]:
+    start, end = context_bounds(text, center, context_chars=context_chars)
+    section_start = object_section_start(text, object_name, center)
+    if section_start is None:
+        return start, end
+    return max(start, section_start), end
+
+
 def parse_char_locator(value: Any) -> tuple[int, int] | None:
     match = re.fullmatch(r"chars:(\d+)-(\d+)", str(value or "").strip())
     if not match:
@@ -815,6 +844,22 @@ def slice_score(
     )
 
 
+def object_source_cache_owner(document: Mapping[str, Any]) -> str:
+    payload = document.get("object_source_cache")
+    if not isinstance(payload, Mapping):
+        return ""
+    return str(payload.get("person_name") or "").strip()
+
+
+def object_source_cache_document_matches_seed(document: Mapping[str, Any], seed_name: str) -> bool:
+    owner = object_source_cache_owner(document)
+    if not owner:
+        return True
+    owner_terms = {owner, *alias_script_variants(owner)}
+    seed_terms = {seed_name, *alias_script_variants(seed_name)}
+    return bool(owner_terms & seed_terms)
+
+
 def select_candidate_slices(
     task: Mapping[str, Any],
     documents: Sequence[Mapping[str, Any]],
@@ -829,7 +874,7 @@ def select_candidate_slices(
     target_terms = target_aliases(task)
     role_terms_by_family = role_family_terms(task)
     candidates: list[dict[str, Any]] = []
-    seen: set[tuple[str, str, str]] = set()
+    seen: set[tuple[str, str]] = set()
 
     for seed in seeds:
         name = object_seed_name(seed)
@@ -839,11 +884,13 @@ def select_candidate_slices(
         alias_texts = [row["alias"] for row in aliases]
         object_rows: list[dict[str, Any]] = []
         for document in documents:
+            if not object_source_cache_document_matches_seed(document, name):
+                continue
             text = str(document.get("text") or "")
             if not text:
                 continue
             for alias, position in iter_term_positions(text, alias_texts):
-                start, end = context_bounds(text, position, context_chars=context_chars)
+                start, end = object_scoped_context_bounds(text, name, position, context_chars=context_chars)
                 excerpt = compact_text(text[start:end])
                 alias_strengths = matched_alias_strengths(excerpt, aliases)
                 matched_aliases = list(alias_strengths)
@@ -858,7 +905,7 @@ def select_candidate_slices(
                     for family_code, family_terms in role_terms_by_family.items()
                     if family_terms and terms_in_text(excerpt, family_terms)
                 ]
-                dedupe_key = (str(document.get("document_code")), name, excerpt)
+                dedupe_key = (name, excerpt)
                 if dedupe_key in seen:
                     continue
                 seen.add(dedupe_key)

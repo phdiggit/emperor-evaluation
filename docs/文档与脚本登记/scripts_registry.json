@@ -41,8 +41,8 @@
         "reason": "retrieval_v2 clean CLI 暂承载 taskgen 调度、streaming/batch/presearch 路由和 I5B-wide shadow pilot 标记，稳定后拆分 CLI 参数层与调度策略层"
       },
       "scripts/dev/retrieval_v2_contracts.py": {
-        "max_lines": 1130,
-        "reason": "retrieval_v2 contracts 暂集中承载 profile、candidate lane、shadow report 和 personnel_political_wide 契约常量，跨项路由稳定后拆分 profile contracts 子模块"
+        "max_lines": 1150,
+        "reason": "retrieval_v2 contracts 暂集中承载 profile、candidate lane、shadow report、personnel_political_wide 契约常量和繁简别名扩展，跨项路由稳定后拆分 profile contracts 与 alias helpers 子模块"
       },
       "scripts/dev/retrieval_v2_factorization_worklists.py": {
         "max_lines": 1900,
@@ -63,6 +63,10 @@
       "scripts/dev/retrieval_v2_source_candidates.py": {
         "max_lines": 1375,
         "reason": "retrieval_v2 source candidates 暂含候选切片、delegation/appointment_delegation 信号、guarded recall overlay matcher、预算分配和宽包源候选策略，抓包 profile 稳定后拆分 slicing、overlay matcher 与 signal scoring 子模块"
+      },
+      "scripts/dev/retrieval_v2_object_source_cache.py": {
+        "max_lines": 1450,
+        "reason": "retrieval_v2 对象级离线源缓存主入口暂含 Wikisource managed cache/discovery、标题候选空文本回退、artifact 输出、agent slot、task overlay 和 build-shards CLI 接线；seed/alias/对象池读取与 shard 监管已拆出，缓存接入稳定后继续拆 discovery 与 overlay 子模块"
       },
       "scripts/dev/scoring_rule_table_sync.py": {
         "max_lines": 1350,
@@ -658,6 +662,98 @@
     {
       "audit_docs": [],
       "category": "dev",
+      "id": "retrieval_v2_calibration_package",
+      "implementation": "scripts/dev/retrieval_v2_calibration_package.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_calibration_package.py",
+        "tests/test_retrieval_v2_object_source_cache.py",
+        "tests/test_retrieval_v2_source_candidates.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_claim_cache",
+      "implementation": "scripts/dev/retrieval_v2_claim_cache.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_claim_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_object_source_cache",
+      "implementation": "scripts/dev/retrieval_v2_object_source_cache.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_object_source_cache.py",
+        "tests/test_retrieval_v2_taskgen_preseed.py",
+        "tests/test_retrieval_v2_source_candidates.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_object_source_cache_seed",
+      "implementation": "scripts/dev/retrieval_v2_object_source_cache_seed.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_object_source_cache_shards",
+      "implementation": "scripts/dev/retrieval_v2_object_source_cache_shards.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_object_source_cache_audit",
+      "implementation": "scripts/dev/retrieval_v2_object_source_cache_audit.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_object_source_cache_hint_worklist",
+      "implementation": "scripts/dev/retrieval_v2_object_source_cache_hint_worklist.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_object_source_cache_patch",
+      "implementation": "scripts/dev/retrieval_v2_object_source_cache_patch.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
       "id": "retrieval_v2_i5b_shadow_report",
       "implementation": "scripts/dev/retrieval_v2_i5b_shadow_report.py",
       "legacy_wrapper": null,
@@ -723,12 +819,15 @@
       "status": "active"
     },
     {
+      "audit_docs": [],
+      "category": "dev",
       "id": "retrieval_v2_claim_passage_audit",
       "implementation": "scripts/dev/retrieval_v2_claim_passage_audit.py",
-      "status": "active",
+      "legacy_wrapper": null,
       "required_tests": [
         "tests/test_retrieval_v2_claim_passage_audit.py"
-      ]
+      ],
+      "status": "active"
     },
     {
       "audit_docs": [],

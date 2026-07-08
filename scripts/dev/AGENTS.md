@@ -83,6 +83,9 @@
 - `retrieval_v2_recall_term_sampler.py` 是 retrieval_v2 召回词采样治理入口，从本地 candidates.final.json / run_root 的 candidate_slices 统计机制词、条件词、案例词和拒收词；它不联网、不调用 Codex、不写数据库、不直接修改长期 discovery profile。
 - `retrieval_v2_recall_feedback.py` 是 retrieval_v2 消费反馈到召回 overlay 建议的只读汇总入口，从消费端 JSONL 统计 accepted/rejected/supporting_only 等状态和拒收原因；它不写 profile、不改 prompt、不写数据库，输出只用于下一轮 A/B 和人工 review。
 - `retrieval_v2_source_gap_feedback.py` 是 retrieval_v2 消费端 `source_missing` / `object_claim_undercoverage` refinement 反馈到对象补源 refiner 的 shadow 桥接入口；它只读取 feedback JSONL 和本轮 task，生成 refined task、可选 candidates / focused prompt 和报告，不写 profile、不改 prompt、不写数据库。
+- `retrieval_v2_calibration_package.py` 是 retrieval_v2 调校包入口，只跑对象源缓存 overlay、candidate-only 切片和对象政治叙事 sufficiency/claim budget 审计，输出画像候选信号；它不调用 Codex judge、不生成消费包、不写数据库、不替代正式人物画像裁量。
+- `retrieval_v2_claim_cache.py` 是 retrieval_v2 claim-only 抽取后的最小 claim 管理闭环入口，从本地 clean run / candidates 导入、去重和规划可跳过 slices；第一版只写 filesystem cache/report 和 PG schema 草案，不调用 Codex、不改抓包结果、不替代消费端 rule 聚类或计分。
+- `retrieval_v2_object_source_cache.py` 是 retrieval_v2 对象级离线史源缓存入口，从当前对象表、历史 clean run 或显式 seed JSONL 生成人物源缓存、mention slice、coverage summary、agent review 占位队列和 PG schema 草案；第一版不调用 Codex、不写数据库、不替代抓包 judge 或消费端裁量。
 - `retrieval_v2_i5b_shadow_report.py` 是 I5B-wide shadow pilot 的只读检测报告入口，从本轮 `summary.json`、`run_events.jsonl`、candidate 和 judge 产物汇总耗时、usage、secondary candidate、claim/passage 风险、重复风险和处置性 negative 风险；它不写数据库、不改变包体、不替代人工抽样回源。
 - `i5b_next_stage_queue_runner.py` 是 source pack handoff 后的收货批处理入口，只消费已通过 `next_stage_queue.jsonl` 的 ready 人物，生成摘录报告和对象 payload 骨架到 `.tmp/**`；它不写数据库、不替代对象规则裁量。
 - `i5b_next_stage_control_board.py` 是 ready 包消费后的总控减负入口，聚合 next-stage 骨架、对象 payload 子进程候选、review 报告和占位符审计结果，生成缺交付派工单与可 dry-run payload 清单；它不写数据库、不替代对象规则裁量。对象 payload 子进程完成后，先用该板确认主控工作区已看到候选文件，再关闭子进程。

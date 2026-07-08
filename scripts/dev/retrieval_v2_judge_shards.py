@@ -158,6 +158,100 @@ def candidate_slices_by_code(candidates: Mapping[str, Any]) -> dict[str, dict[st
     return result
 
 
+def compact_for_contains(value: Any) -> str:
+    return "".join(str(value or "").split())
+
+
+def slice_contains_span(candidate_slice: Mapping[str, Any], span_text: str) -> bool:
+    needle = compact_for_contains(span_text)
+    if not needle:
+        return False
+    return needle in compact_for_contains(candidate_slice.get("text"))
+
+
+def choose_evidence_slice_ref(
+    *,
+    by_slice: Mapping[str, Mapping[str, Any]],
+    claim: Mapping[str, Any],
+    span_text: str,
+    current_ref: str,
+    claim_refs: Sequence[str],
+    evidence_texts: Sequence[str],
+) -> str:
+    matches = sorted(code for code, row in by_slice.items() if slice_contains_span(row, span_text))
+    if not matches:
+        return ""
+    current_doc = str((by_slice.get(current_ref) or {}).get("document_code") or "")
+    object_name = str(claim.get("object_name") or "").strip()
+
+    def score(slice_code: str) -> tuple[int, int, int, int, int]:
+        candidate_slice = by_slice[slice_code]
+        slice_text = str(candidate_slice.get("text") or "")
+        compact_slice = compact_for_contains(slice_text)
+        evidence_hits = sum(1 for text in evidence_texts if compact_for_contains(text) in compact_slice)
+        return (
+            int(slice_code in claim_refs),
+            int(bool(current_doc) and str(candidate_slice.get("document_code") or "") == current_doc),
+            int(object_name and str(candidate_slice.get("object_name") or "") == object_name),
+            evidence_hits,
+            len(slice_text),
+        )
+
+    return max(matches, key=score)
+
+
+def repair_evidence_span_refs(candidates: Mapping[str, Any], claims: Sequence[dict[str, Any]]) -> None:
+    by_slice = candidate_slices_by_code(candidates)
+    if not by_slice:
+        return
+    for claim in claims:
+        initial_refs = unique_texts(claim.get("source_slice_refs") or [])
+        known_refs = [ref for ref in initial_refs if ref in by_slice]
+        if len(known_refs) != len(initial_refs):
+            claim["source_slice_refs"] = known_refs
+            fact_payload = claim.get("fact_payload")
+            if isinstance(fact_payload, dict):
+                fact_payload["source_span_refs"] = [
+                    ref for ref in unique_texts(fact_payload.get("source_span_refs") or []) if ref in by_slice
+                ]
+        spans = [span for span in claim.get("evidence_spans") or [] if isinstance(span, dict)]
+        if not spans:
+            continue
+        claim_refs = unique_texts(claim.get("source_slice_refs") or [])
+        evidence_texts = [str(span.get("text") or "").strip() for span in spans if span.get("text")]
+        added_refs: list[str] = []
+        for span in spans:
+            span_text = str(span.get("text") or "").strip()
+            if not span_text:
+                continue
+            current_ref = str(span.get("source_slice_ref") or "").strip()
+            current_slice = by_slice.get(current_ref)
+            if current_slice and slice_contains_span(current_slice, span_text):
+                if current_ref not in claim_refs:
+                    added_refs.append(current_ref)
+                continue
+            repaired_ref = choose_evidence_slice_ref(
+                by_slice=by_slice,
+                claim=claim,
+                span_text=span_text,
+                current_ref=current_ref,
+                claim_refs=claim_refs,
+                evidence_texts=evidence_texts,
+            )
+            if not repaired_ref:
+                continue
+            span["source_slice_ref"] = repaired_ref
+            if repaired_ref not in claim_refs and repaired_ref not in added_refs:
+                added_refs.append(repaired_ref)
+        if added_refs:
+            claim["source_slice_refs"] = unique_texts([*claim_refs, *added_refs])
+            fact_payload = claim.get("fact_payload")
+            if isinstance(fact_payload, dict):
+                fact_payload["source_span_refs"] = unique_texts(
+                    [*(fact_payload.get("source_span_refs") or []), *added_refs]
+                )
+
+
 def passage_code_for_slice(slice_code: str) -> str:
     return f"PAS-{stable_fingerprint(slice_code)[:12].upper()}"
 
@@ -233,15 +327,66 @@ def _prune_empty_profile_values(profile: Mapping[str, Any]) -> dict[str, Any]:
     return result
 
 
+def _claim_by_code(payload: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+    result: dict[str, Mapping[str, Any]] = {}
+    for claim in payload.get("claims") or []:
+        if isinstance(claim, Mapping) and claim.get("claim_code"):
+            result.setdefault(str(claim.get("claim_code")), claim)
+    return result
+
+
+def _fact_payload_for_claim(claim: Mapping[str, Any] | None) -> Mapping[str, Any]:
+    if not isinstance(claim, Mapping):
+        return {}
+    fact_payload = claim.get("fact_payload")
+    if isinstance(fact_payload, Mapping):
+        return fact_payload
+    return {}
+
+
+def inferred_personnel_profile(row: Mapping[str, Any], claim: Mapping[str, Any] | None) -> dict[str, Any]:
+    fact_payload = _fact_payload_for_claim(claim)
+    completeness = fact_payload.get("completeness") if isinstance(fact_payload.get("completeness"), Mapping) else {}
+    return _prune_empty_profile_values(
+        {
+            "person": (claim or {}).get("object_name") or fact_payload.get("object"),
+            "person_role": (row.get("candidate_payload") or {}).get("candidate_role") if isinstance(row.get("candidate_payload"), Mapping) else "",
+            "talent_quality": "",
+            "action_type": fact_payload.get("action_type"),
+            "appointment_or_authorization": fact_payload.get("office_or_domain") or fact_payload.get("action_type"),
+            "feedback_or_result": fact_payload.get("outcome") or fact_payload.get("cost_or_damage"),
+            "team_function": row.get("candidate_lane"),
+            "selection_channel": "",
+            "same_event_chain": completeness.get("same_event_chain"),
+        }
+    )
+
+
+def inferred_power_control_profile(row: Mapping[str, Any], claim: Mapping[str, Any] | None) -> dict[str, Any]:
+    fact_payload = _fact_payload_for_claim(claim)
+    completeness = fact_payload.get("completeness") if isinstance(fact_payload.get("completeness"), Mapping) else {}
+    return _prune_empty_profile_values(
+        {
+            "power_holder": (claim or {}).get("object_name") or fact_payload.get("object"),
+            "power_base": fact_payload.get("office_or_domain"),
+            "power_channel": fact_payload.get("action_type"),
+            "control_action": row.get("rule_code"),
+            "control_result": fact_payload.get("outcome") or fact_payload.get("cost_or_damage"),
+            "risk_type": row.get("candidate_lane"),
+            "same_event_chain": completeness.get("same_event_chain"),
+        }
+    )
+
+
 def normalize_candidate_payload_profiles(payload: Mapping[str, Any]) -> dict[str, Any]:
     result = json.loads(stable_json(payload))
+    claims_by_code = _claim_by_code(result)
     candidates = [row for row in result.get("secondary_binding_candidates") or [] if isinstance(row, dict)]
     for row in candidates:
         raw_payload = row.get("candidate_payload")
-        if not isinstance(raw_payload, Mapping):
-            continue
-        candidate_payload = dict(raw_payload)
+        candidate_payload = dict(raw_payload) if isinstance(raw_payload, Mapping) else {}
         candidate_item_code = _candidate_item_code(row, candidate_payload)
+        claim = claims_by_code.get(str(row.get("claim_code") or ""))
         candidate_payload.pop("profile_policy", None)
         if candidate_item_code != "I5B":
             candidate_payload.pop("personnel_profile", None)
@@ -257,6 +402,14 @@ def normalize_candidate_payload_profiles(payload: Mapping[str, Any]) -> dict[str
                     candidate_payload[profile_key] = pruned
                 else:
                     candidate_payload.pop(profile_key, None)
+        if candidate_item_code == "I5B" and not isinstance(candidate_payload.get("personnel_profile"), Mapping):
+            profile = inferred_personnel_profile(row, claim)
+            if profile:
+                candidate_payload["personnel_profile"] = profile
+        if candidate_item_code == "I5C" and not isinstance(candidate_payload.get("power_control_profile"), Mapping):
+            profile = inferred_power_control_profile(row, claim)
+            if profile:
+                candidate_payload["power_control_profile"] = profile
         row["candidate_payload"] = candidate_payload
     result["secondary_binding_candidates"] = candidates
     return result
@@ -265,9 +418,25 @@ def normalize_candidate_payload_profiles(payload: Mapping[str, Any]) -> dict[str
 def enrich_judge_payload(candidates: Mapping[str, Any], payload: Mapping[str, Any]) -> dict[str, Any]:
     result = normalize_candidate_payload_profiles(payload)
     claims = [claim for claim in result.get("claims") or [] if isinstance(claim, dict)]
+    repair_evidence_span_refs(candidates, claims)
     result["claims"] = claims
+    materialized_passages = materialize_passages_from_claims(candidates, claims)
     if not result.get("passages"):
-        result["passages"] = materialize_passages_from_claims(candidates, claims)
+        result["passages"] = materialized_passages
+    else:
+        passage_codes = {
+            str(passage.get("passage_code") or "")
+            for passage in result.get("passages") or []
+            if isinstance(passage, Mapping) and passage.get("passage_code")
+        }
+        result["passages"] = [
+            *(result.get("passages") or []),
+            *[
+                passage
+                for passage in materialized_passages
+                if str(passage.get("passage_code") or "") not in passage_codes
+            ],
+        ]
 
     documents_by_code = source_documents_by_code(candidates)
     referenced_doc_codes = {
@@ -504,24 +673,89 @@ def claim_object_by_code(claims: Sequence[Mapping[str, Any]]) -> dict[str, str]:
     }
 
 
+def claim_has_complete_action_object(claim: Mapping[str, Any]) -> bool:
+    completeness = claim.get("claim_completeness") if isinstance(claim.get("claim_completeness"), Mapping) else {}
+    if not completeness:
+        return bool(claim.get("claim_summary") or claim.get("summary")) and bool(claim.get("source_passage_refs") or claim.get("source_slice_refs"))
+    return bool(completeness.get("has_action_span")) and bool(completeness.get("has_object_span")) and not bool(
+        completeness.get("needs_source_extension")
+    )
+
+
+def complete_claim_objects(claims: Sequence[Mapping[str, Any]]) -> set[str]:
+    return {
+        str(claim.get("object_name") or "")
+        for claim in claims
+        if claim.get("object_name") and claim_has_complete_action_object(claim)
+    }
+
+
+def gap_has_actionable_diagnosis(gap: Mapping[str, Any]) -> bool:
+    return any(
+        str(gap.get(key) or "").strip()
+        for key in ("diagnosis", "diagnostic", "reason", "recommended_action", "suggested_action")
+    )
+
+
+def secondary_binding_object_name(binding: Mapping[str, Any], claim_objects: Mapping[str, str]) -> str:
+    payload = binding.get("candidate_payload") if isinstance(binding.get("candidate_payload"), Mapping) else {}
+    personnel_profile = payload.get("personnel_profile") if isinstance(payload.get("personnel_profile"), Mapping) else {}
+    return str(
+        binding.get("object_name")
+        or payload.get("person")
+        or personnel_profile.get("person")
+        or claim_objects.get(str(binding.get("claim_code") or ""))
+        or ""
+    )
+
+
+def secondary_binding_matches_family(binding: Mapping[str, Any], family_code: str) -> bool:
+    lane = str(binding.get("candidate_lane") or binding.get("rule_code") or "")
+    if not family_code:
+        return True
+    if family_code == "appointment_delegation_material":
+        return lane in {"I5B.appointment_delegation", "appointment_delegation"}
+    if family_code == "anti_nepotism_material":
+        return lane in {"anti_nepotism", "I5B.anti_nepotism"}
+    normalized_family = family_code.replace("_material", "")
+    return normalized_family and (lane == normalized_family or normalized_family in lane)
+
+
 def filter_resolved_shard_gaps(
     coverage_gaps: Sequence[Mapping[str, Any]],
     *,
     claims: Sequence[Mapping[str, Any]],
     primary_bindings: Sequence[Mapping[str, Any]],
+    secondary_bindings: Sequence[Mapping[str, Any]] = (),
 ) -> list[dict[str, Any]]:
     claim_objects = claim_object_by_code(claims)
+    complete_objects = complete_claim_objects(claims)
     covered: dict[str, list[Mapping[str, Any]]] = {}
     for binding in primary_bindings:
         object_name = str(binding.get("object_name") or claim_objects.get(str(binding.get("claim_code") or "")) or "")
         if object_name:
             covered.setdefault(object_name, []).append(binding)
+    secondary_covered: dict[str, list[Mapping[str, Any]]] = {}
+    for binding in secondary_bindings:
+        object_name = secondary_binding_object_name(binding, claim_objects)
+        if object_name:
+            secondary_covered.setdefault(object_name, []).append(binding)
     resolved_gap_types = {"predicate_missing", "weak_alias_noise", "civil_undercoverage", "negative_undercoverage"}
     result: list[dict[str, Any]] = []
     for gap in coverage_gaps:
         gap_type = str(gap.get("gap_type") or "")
         object_name = str(gap.get("object_name") or "")
         family_code = str(gap.get("family_code") or "")
+        if (
+            gap_type == "object_claim_undercoverage"
+            and object_name in complete_objects
+            and not gap_has_actionable_diagnosis(gap)
+            and (
+                any(binding_matches_family(binding, family_code) for binding in covered.get(object_name, []))
+                or any(secondary_binding_matches_family(binding, family_code) for binding in secondary_covered.get(object_name, []))
+            )
+        ):
+            continue
         if gap_type in resolved_gap_types and object_name and any(
             binding_matches_family(binding, family_code) for binding in covered.get(object_name, [])
         ):
@@ -628,7 +862,12 @@ def merge_judge_shard_results(
     primary_bindings = dedupe_rows(primary_bindings, ("claim_code", "rule_code", "predicate", "object_role"))
     secondary_bindings = dedupe_rows(secondary_bindings, ("claim_code", "rule_code", "reason"))
     coverage_gaps = dedupe_rows(coverage_gaps, ("gap_type", "object_name", "family_code", "diagnosis"))
-    coverage_gaps = filter_resolved_shard_gaps(coverage_gaps, claims=claims, primary_bindings=primary_bindings)
+    coverage_gaps = filter_resolved_shard_gaps(
+        coverage_gaps,
+        claims=claims,
+        primary_bindings=primary_bindings,
+        secondary_bindings=secondary_bindings,
+    )
     status = queueable_gap_status(statuses, coverage_gaps)
     positive_count = sum(1 for claim in claims if str(claim.get("direction") or "") == "positive")
     negative_count = sum(1 for claim in claims if str(claim.get("direction") or "") == "negative")

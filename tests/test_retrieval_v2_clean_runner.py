@@ -7,6 +7,7 @@ from types import SimpleNamespace
 from scripts.dev import retrieval_v2_clean_cli
 from scripts.dev import retrieval_v2_clean_runner as tool
 from scripts.dev import retrieval_v2_discovery_profiles
+from scripts.dev import retrieval_v2_source_candidates
 
 
 def task_with_alias_gap() -> dict:
@@ -425,6 +426,46 @@ def test_run_codex_ignores_user_config_and_rules_by_default(tmp_path: Path, monk
     assert "--search" not in captured["cmd"]
     assert "standalone_web_search" in captured["cmd"]
     assert "browser_use" in captured["cmd"]
+
+
+def test_run_codex_uses_server_env_bin_sandbox_and_add_dirs(tmp_path: Path, monkeypatch) -> None:
+    captured: dict[str, list[str]] = {}
+    extra_dir = tmp_path / "runtime"
+
+    def fake_run(cmd: list[str], **kwargs) -> SimpleNamespace:
+        captured["cmd"] = cmd
+        last_message = Path(cmd[cmd.index("--output-last-message") + 1])
+        last_message.parent.mkdir(parents=True, exist_ok=True)
+        last_message.write_text('{"ok": true}', encoding="utf-8")
+        return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+    monkeypatch.setenv(tool.CODEX_BIN_ENV, "/home/penghao/.local/bin/codex")
+    monkeypatch.setenv(tool.CODEX_SANDBOX_ENV, "workspace-write")
+    monkeypatch.setenv(tool.CODEX_ADD_DIRS_ENV, str(extra_dir))
+    monkeypatch.setattr(tool.subprocess, "run", fake_run)
+
+    tool.run_codex(
+        tool.CodexInvocation(
+            phase="judge",
+            prompt="{}",
+            cwd=tmp_path / "cwd",
+            last_message=tmp_path / "last.json",
+            event_log=tmp_path / "events.jsonl",
+            search=False,
+            timeout_seconds=30,
+            codex_bin="codex",
+        )
+    )
+
+    assert captured["cmd"][0] == "/home/penghao/.local/bin/codex"
+    assert captured["cmd"][captured["cmd"].index("-s") + 1] == "workspace-write"
+    add_dirs = [
+        Path(captured["cmd"][index + 1])
+        for index, value in enumerate(captured["cmd"])
+        if value == "--add-dir"
+    ]
+    assert (tmp_path / "cwd").resolve() in add_dirs
+    assert extra_dir.resolve() in add_dirs
 
 
 def test_run_taskgen_can_preseed_search_documents_before_codex(tmp_path: Path) -> None:
@@ -874,6 +915,59 @@ def test_clean_pipeline_auto_refines_candidate_source_gaps(tmp_path: Path, monke
     assert summary["clean_policy"]["candidate_source_refine_rounds"] == 1
 
 
+def test_clean_pipeline_overlays_object_source_cache_before_candidates(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    cache_root.mkdir()
+    (cache_root / "source_documents.jsonl").write_text(
+        json.dumps(
+            {
+                "document_cache_code": "OSD-LYQ",
+                "person_cache_code": "PSC-LYQ",
+                "person_name": "吕余庆",
+                "source_title": "宋史/卷999",
+                "wikisource_title": "宋史/卷999",
+                "source_kind": "wikisource_page",
+                "source_role": "object_biography_or_mentions",
+                "source_shape": "object_biography_candidate",
+                "mention_slice_count": 1,
+                "text_chars": 120,
+                "source_key": "wikisource:宋史/卷999",
+                "shared_cache_text_path": str(tmp_path / "source_cache" / "dummy.txt"),
+            },
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    source_cache = tmp_path / "source_cache"
+    retrieval_v2_source_candidates.write_cached_text(
+        source_cache,
+        "wikisource:宋史/卷999",
+        "太祖命吕余庆参知政事，委以政务。吕余庆传。",
+        {"cache_status": "test", "source_kind": "wikisource", "source_key": "wikisource:宋史/卷999"},
+    )
+
+    summary = tool.run_clean_pipeline(
+        tasks=[task_without_alias_gap()],
+        run_root=tmp_path / "run",
+        skip_judge=True,
+        max_alias_refine_rounds=0,
+        source_cache_root=source_cache,
+        object_source_cache_root=cache_root,
+        max_workers=1,
+    )
+
+    person = summary["people"][0]
+    final_task = json.loads(Path(person["files"]["final_task"]).read_text(encoding="utf-8"))
+    final_candidates = json.loads(Path(person["files"]["final_candidates"]).read_text(encoding="utf-8"))
+    overlay = json.loads((Path(person["run_dir"]) / "object_source_cache_overlay.json").read_text(encoding="utf-8"))
+
+    assert overlay["stats"]["added_source_document_count"] == 1
+    assert any(row["title"] == "宋史/卷999" for row in final_task["source_documents"])
+    assert any(row["title"] == "宋史/卷999" for row in final_candidates["source_documents"])
+    assert person["objects_without_slices"] == []
+
+
 def test_clean_pipeline_refines_external_source_gap_objects(tmp_path: Path, monkeypatch) -> None:
     queries: list[str] = []
 
@@ -997,6 +1091,71 @@ def test_clean_pipeline_can_judge_object_shards_and_merge_ids(tmp_path: Path) ->
     assert all(code.startswith("JSH-R00-") for code in claim_codes)
     assert all(binding["claim_code"] in claim_codes for binding in result["primary_bindings"])
     assert summary["totals"]["usage"] == {"input_tokens": 22, "output_tokens": 14}
+
+
+def test_clean_pipeline_can_run_claim_only_judge_mode(tmp_path: Path) -> None:
+    def fake_claim_only_judge(invocation: tool.CodexInvocation) -> tool.CodexResult:
+        assert invocation.phase == "judge"
+        assert "本轮只抽取 claim" in invocation.prompt
+        assert "不要输出 primary_bindings" in invocation.prompt
+        assert '"secondary_binding_candidates": []' in invocation.prompt
+        assert "appointment_delegation scoring candidate 硬协议" not in invocation.prompt
+        payload = {
+            "job_code": "JOB-I5B-ZKY-CLAIM-ONLY",
+            "status": "succeeded",
+            "documents": [],
+            "passages": [],
+            "claims": [
+                {
+                    "claim_code": "CLM-001",
+                    "emperor_name": "赵匡胤",
+                    "object_name": "吕余庆",
+                    "object_type": "person",
+                    "claim_kind": "material_claim",
+                    "claim_summary": "赵匡胤任吕余庆参知政事。",
+                    "direction": "positive",
+                    "confidence": 0.8,
+                    "source_slice_refs": ["SLI-001"],
+                }
+            ],
+            "primary_bindings": [],
+            "secondary_binding_candidates": [],
+            "coverage_matrix": {"rule_code": "appointment_delegation", "role_families": []},
+            "coverage": {
+                "ready_for_object_pool": False,
+                "checked_objects": ["吕余庆"],
+                "missing_core_objects": [],
+                "positive_claim_count": 1,
+                "negative_claim_count": 0,
+            },
+            "coverage_gaps": [],
+        }
+        invocation.last_message.parent.mkdir(parents=True, exist_ok=True)
+        invocation.last_message.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        invocation.event_log.write_text(
+            '{"type":"turn.completed","usage":{"input_tokens":8,"output_tokens":3}}\n',
+            encoding="utf-8",
+        )
+        return tool.CodexResult(payload=payload, elapsed_seconds=0.5, usage={"input_tokens": 8, "output_tokens": 3})
+
+    summary = tool.run_clean_pipeline(
+        tasks=[task_without_alias_gap()],
+        run_root=tmp_path,
+        codex_runner=fake_claim_only_judge,
+        skip_judge=False,
+        max_alias_refine_rounds=0,
+        judge_shard_size=0,
+        judge_mode=tool.candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
+        max_workers=1,
+    )
+
+    person = summary["people"][0]
+    result = json.loads(Path(person["files"]["final_judge_result"]).read_text(encoding="utf-8"))
+    assert summary["clean_policy"]["judge_mode"] == "claim_extraction_only"
+    assert result["_judge_mode"] == "claim_extraction_only"
+    assert result["claims"]
+    assert result["primary_bindings"] == []
+    assert result["secondary_binding_candidates"] == []
 
 
 def test_judge_payload_normalizes_candidate_profiles_for_consumption() -> None:

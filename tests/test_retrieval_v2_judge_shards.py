@@ -141,6 +141,124 @@ def test_merge_judge_shards_rewrites_colliding_codes() -> None:
     assert all(binding["claim_code"] in claim_codes for binding in merged["primary_bindings"])
 
 
+def test_merge_judge_shards_repairs_evidence_span_refs_from_candidate_slices() -> None:
+    candidates = sample_candidates()
+    candidates["candidate_slices"].append(
+        {
+            "slice_code": "SLI-CORRECT",
+            "document_code": "DOC-001",
+            "object_name": "赵普",
+            "matched_role_families": ["civil_delegate"],
+            "text": "太祖命吕余庆参知政事，吕余庆奏事称旨。",
+        }
+    )
+    result = shard_result("JSH-R00-01", "吕余庆")
+    claim = result["payload"]["claims"][0]
+    claim["claim_summary"] = "太祖命吕余庆参知政事，吕余庆奏事称旨。"
+    claim["source_slice_refs"] = ["SLI-LYQ"]
+    claim["evidence_spans"] = [
+        {
+            "source_slice_ref": "SLI-LYQ",
+            "span_type": "outcome",
+            "text": "吕余庆奏事称旨",
+        }
+    ]
+    claim["fact_payload"] = {"source_span_refs": ["SLI-LYQ"]}
+
+    merged = tool.merge_judge_shard_results(
+        candidates=candidates,
+        shard_results=[result],
+        elapsed_seconds=1.0,
+        usage={},
+    )
+
+    merged_claim = merged["claims"][0]
+    assert merged_claim["evidence_spans"][0]["source_slice_ref"] == "SLI-CORRECT"
+    assert "SLI-CORRECT" in merged_claim["source_slice_refs"]
+    assert "SLI-CORRECT" in merged_claim["fact_payload"]["source_span_refs"]
+    assert any(passage["slice_code"] == "SLI-CORRECT" for passage in merged["passages"])
+
+
+def test_merge_judge_shards_repairs_span_refs_when_current_slice_has_no_document_code() -> None:
+    candidates = sample_candidates()
+    candidates["candidate_slices"][0].pop("document_code", None)
+    candidates["candidate_slices"].append(
+        {
+            "slice_code": "SLI-CORRECT",
+            "document_code": "DOC-001",
+            "object_name": "吕余庆",
+            "matched_role_families": ["civil_delegate"],
+            "text": "吕余庆奏事称旨。",
+        }
+    )
+    result = shard_result("JSH-R00-01", "吕余庆")
+    claim = result["payload"]["claims"][0]
+    claim["source_slice_refs"] = ["SLI-LYQ"]
+    claim["evidence_spans"] = [{"source_slice_ref": "SLI-LYQ", "span_type": "outcome", "text": "奏事称旨"}]
+
+    merged = tool.merge_judge_shard_results(
+        candidates=candidates,
+        shard_results=[result],
+        elapsed_seconds=1.0,
+        usage={},
+    )
+
+    assert merged["claims"][0]["evidence_spans"][0]["source_slice_ref"] == "SLI-CORRECT"
+
+
+def test_merge_judge_shards_drops_unknown_source_slice_refs() -> None:
+    result = shard_result("JSH-R00-01", "吕余庆")
+    claim = result["payload"]["claims"][0]
+    claim["source_slice_refs"] = ["SLI-LYQ", "SLI-HALLUCINATED"]
+    claim["fact_payload"] = {"source_span_refs": ["SLI-LYQ", "SLI-HALLUCINATED"]}
+
+    merged = tool.merge_judge_shard_results(
+        candidates=sample_candidates(),
+        shard_results=[result],
+        elapsed_seconds=1.0,
+        usage={},
+    )
+
+    assert merged["claims"][0]["source_slice_refs"] == ["SLI-LYQ"]
+    assert merged["claims"][0]["fact_payload"]["source_span_refs"] == ["SLI-LYQ"]
+
+
+def test_merge_judge_shards_infers_candidate_payload_profiles() -> None:
+    result = shard_result("JSH-R00-01", "吕余庆")
+    claim = result["payload"]["claims"][0]
+    claim["fact_payload"] = {
+        "fact_schema": "political_action_v1",
+        "object": "吕余庆",
+        "action_type": "任命",
+        "office_or_domain": "中枢",
+        "outcome": "参知政事",
+        "completeness": {"same_event_chain": True},
+    }
+    result["payload"]["secondary_binding_candidates"] = [
+        {
+            "claim_code": "CLM-001",
+            "rule_code": "appointment_delegation",
+            "candidate_item_code": "I5B",
+            "candidate_lane": "I5B.appointment_delegation",
+            "hint_status": "current_rule_candidate",
+            "direction": "positive",
+            "candidate_payload": {"scoring_candidate": True, "usable_for_scoring_cluster": True},
+        }
+    ]
+
+    merged = tool.merge_judge_shard_results(
+        candidates=sample_candidates(),
+        shard_results=[result],
+        elapsed_seconds=1.0,
+        usage={},
+    )
+
+    payload = merged["secondary_binding_candidates"][0]["candidate_payload"]
+    assert payload["personnel_profile"]["person"] == "吕余庆"
+    assert payload["personnel_profile"]["action_type"] == "任命"
+    assert payload["personnel_profile"]["same_event_chain"] is True
+
+
 def test_merge_judge_shards_filters_object_role_gaps_resolved_elsewhere() -> None:
     first = shard_result("JSH-R00-01", "吕余庆")
     first["payload"]["status"] = "needs_refinement"
@@ -162,6 +280,81 @@ def test_merge_judge_shards_filters_object_role_gaps_resolved_elsewhere() -> Non
 
     assert merged["status"] == "succeeded"
     assert merged["coverage_gaps"] == []
+
+
+def test_merge_judge_shards_filters_diagnosisless_object_undercoverage_when_candidate_exists() -> None:
+    first = shard_result("JSH-R00-01", "吕余庆")
+    first["payload"]["claims"][0]["claim_summary"] = "赵匡胤授权吕余庆处理政务。"
+    first["payload"]["claims"][0]["claim_completeness"] = {
+        "has_action_span": True,
+        "has_object_span": True,
+        "has_outcome_span": True,
+        "needs_source_extension": False,
+        "outcome_same_event_chain": True,
+    }
+    first["payload"]["primary_bindings"] = []
+    first["payload"]["secondary_binding_candidates"] = [
+        {
+            "claim_code": "CLM-001",
+            "candidate_lane": "I5B.appointment_delegation",
+            "hint_status": "current_rule_candidate",
+            "candidate_payload": {"personnel_profile": {"person": "吕余庆"}},
+        }
+    ]
+    first["payload"]["coverage_gaps"] = [
+        {
+            "gap_type": "object_claim_undercoverage",
+            "object_name": "吕余庆",
+            "family_code": "appointment_delegation_material",
+        }
+    ]
+
+    merged = tool.merge_judge_shard_results(
+        candidates=sample_candidates(),
+        shard_results=[first, shard_result("JSH-R00-02", "赵普")],
+        elapsed_seconds=1.5,
+        usage={"input_tokens": 10},
+    )
+
+    assert merged["coverage_gaps"] == []
+
+
+def test_merge_judge_shards_keeps_actionable_object_undercoverage_diagnosis() -> None:
+    first = shard_result("JSH-R00-01", "吕余庆")
+    first["payload"]["claims"][0]["claim_summary"] = "赵匡胤授权吕余庆处理政务。"
+    first["payload"]["claim_completeness"] = {
+        "has_action_span": True,
+        "has_object_span": True,
+        "has_outcome_span": True,
+        "needs_source_extension": False,
+        "outcome_same_event_chain": True,
+    }
+    first["payload"]["secondary_binding_candidates"] = [
+        {
+            "claim_code": "CLM-001",
+            "candidate_lane": "I5B.appointment_delegation",
+            "hint_status": "current_rule_candidate",
+            "candidate_payload": {"personnel_profile": {"person": "吕余庆"}},
+        }
+    ]
+    first["payload"]["coverage_gaps"] = [
+        {
+            "gap_type": "object_claim_undercoverage",
+            "object_name": "吕余庆",
+            "family_code": "appointment_delegation_material",
+            "diagnosis": "另有共同任务链未拆出赵普。",
+            "recommended_action": "rerun_object_shard",
+        }
+    ]
+
+    merged = tool.merge_judge_shard_results(
+        candidates=sample_candidates(),
+        shard_results=[first, shard_result("JSH-R00-02", "赵普")],
+        elapsed_seconds=1.5,
+        usage={"input_tokens": 10},
+    )
+
+    assert [row["gap_type"] for row in merged["coverage_gaps"]] == ["object_claim_undercoverage"]
 
 
 def test_merge_judge_shards_keeps_queueable_gaps_without_blocking_status() -> None:

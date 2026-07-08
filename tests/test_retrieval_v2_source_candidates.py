@@ -62,6 +62,51 @@ def test_select_candidate_slices_matches_aliases_and_rule_terms() -> None:
     assert {"留守"} <= set(lyj["matched_rule_terms"])
 
 
+def test_select_candidate_slices_keeps_object_cache_documents_owner_scoped() -> None:
+    task = copy.deepcopy(sample_task())
+    task["object_seeds"] = [{"name": "李文忠"}, {"name": "沐英"}]
+    docs = [
+        {
+            "document_code": "DOC-LWZ",
+            "text": "太祖命李文忠督军事，李文忠克敌有功。",
+            "object_source_cache": {"person_name": "李文忠"},
+        },
+        {
+            "document_code": "DOC-MY",
+            "text": "太祖命沐英征西番，沐英平定诸蛮。旁及李文忠旧事。",
+            "object_source_cache": {"person_name": "沐英"},
+        },
+    ]
+
+    rows = tool.select_candidate_slices(task, docs, context_chars=40, max_slices_per_object=4)
+
+    assert {row["object_name"] for row in rows} == {"李文忠", "沐英"}
+    assert all(row["document_code"] == "DOC-LWZ" for row in rows if row["object_name"] == "李文忠")
+    assert all(row["document_code"] == "DOC-MY" for row in rows if row["object_name"] == "沐英")
+
+
+def test_select_candidate_slices_keeps_wikisource_biography_section_boundary() -> None:
+    task = copy.deepcopy(sample_task())
+    task["object_seeds"] = [{"name": "沐英"}]
+    docs = [
+        {
+            "document_code": "DOC-MY",
+            "text": (
+                "曾孙 胤𪟝 [ 编辑 ] 胤𪟝命守孤山，寇至战死。"
+                "沐英 [ 编辑 ] 沐英字文英。太祖命沐英征西番，沐英平定诸蛮。"
+                "下一人 [ 编辑 ] 下一人命守边。"
+            ),
+            "object_source_cache": {"person_name": "沐英"},
+        }
+    ]
+
+    rows = tool.select_candidate_slices(task, docs, context_chars=80, max_slices_per_object=3)
+
+    assert rows
+    assert rows[0]["text"].startswith("沐英 [ 编辑 ]")
+    assert "胤𪟝命守孤山" not in rows[0]["text"]
+
+
 def test_build_candidates_reports_slice_coverage() -> None:
     result = tool.build_candidates(sample_task(), cache_dir=Path("tmp/test-unused"), timeout=1)
 

@@ -55,7 +55,10 @@ def test_prompt_payload_preserves_candidate_context() -> None:
     assert payload["object_seeds"][0]["aliases"][0]["alias"] == "秦王"
     assert payload["source_documents"][0]["why_selected"]
     assert payload["candidate_slices"][0]["score"] == 99
-    assert payload["candidate_slices"][0]["matched_conditional_recall_terms"] == ["谋反"]
+    assert payload["candidate_slices"][0]["matched_aliases"] == ["秦王"]
+    assert payload["candidate_slices"][0]["matched_rule_terms"] == ["命"]
+    assert "matched_conditional_recall_terms" not in payload["candidate_slices"][0]
+    assert "merged_from_slice_codes" not in payload["candidate_slices"][0]
     assert "secondary_candidate_routing_policy" not in payload
 
 
@@ -78,7 +81,9 @@ def test_build_prompt_keeps_budget_contract() -> None:
     assert "多个完整 appointment_delegation scoring 链" in prompt
     assert "不要让弱 review、future hint 或单纯履历材料占掉这些名额" in prompt
     assert "核心对象超过预算而未拆出的事实必须进入 object_claim_undercoverage coverage_gaps" in prompt
-    assert "每条 claim 默认最多 3 个 secondary_binding_candidates" in prompt
+    assert "每条 claim 默认最多 2 个 secondary_binding_candidates" in prompt
+    assert "同一 claim 的 future_rule_hint 最多 1 个" in prompt
+    assert "优先保留 current_rule_candidate" in prompt
     assert "低价值 review 不要为了填满规则而输出" in prompt
     assert "不要在 reason 里重复长篇解释" in prompt
     assert '"slice_code":"SLI-001"' in prompt
@@ -90,12 +95,48 @@ def test_build_prompt_keeps_budget_contract() -> None:
     assert "不要把“本片段不支撑某对象/某 rule”写成 context_claim" in prompt
     assert "优先选择完整“授权/职责 + 同链条结果/复用”的代表事实" in prompt
     assert "source candidate 层已负责召回和补源" in prompt
+    assert "出征、留守、镇守、督军、提督、平乱、防边" in prompt
+    assert "不要只保留最早、最有名或最容易摘要的一条代表性材料" in prompt
+    assert "预算或对象缺失导致无法拆出时写 object_claim_undercoverage coverage_gaps" in prompt
+    assert "只有确认为谓词词表缺失或别名缺失时" in prompt
     assert "personnel_political_wide 通用对象覆盖门禁" in prompt
     assert "不得只输出一条代表性 claim" in prompt
     assert "gap_type=object_claim_undercoverage" in prompt
+    assert "queue=claim_budget_refinement" in prompt
+    assert "recommended_action=raise_claim_budget_or_split_object_claims" in prompt
+    assert "gap_type=source_missing" in prompt
     assert "queue=source_pack_refinement" in prompt
     assert "do_not_add_recall_terms=true" in prompt
     assert "claim 原子化/对象覆盖问题" in prompt
+    assert "同一对象的第 3 条及以后完整强链" in prompt
+    assert "应提高 claim 预算/拆分对象 claim" in prompt
+
+
+def test_build_prompt_can_extract_claims_only() -> None:
+    candidates = sample_candidates()
+    candidates["task_identity"]["judge_mode"] = tool.CLAIM_EXTRACTION_ONLY_MODE
+    candidates["task_identity"]["capture_profile"] = "personnel_political_wide"
+
+    prompt = tool.build_prompt(candidates)
+
+    assert "只抽取可复用政治行动 claim" in prompt
+    assert "不要输出 primary_bindings" in prompt
+    assert "不要输出 secondary_binding_candidates" in prompt
+    assert "不要输出 notes" in prompt
+    assert "不要输出 source_passage_refs" in prompt
+    assert "不要输出 claim_completeness" in prompt
+    assert "direction 不要使用 mixed" in prompt
+    assert '"primary_bindings": []' in prompt
+    assert '"secondary_binding_candidates": []' in prompt
+    assert '"direction": "positive | negative | neutral"' in prompt
+    assert '"claim_completeness": {' not in prompt
+    assert '"notes":' not in prompt
+    assert '"source_passage_refs":' not in prompt
+    assert "object_claim_undercoverage" in prompt
+    assert "raise_claim_budget_or_split_object_claims" in prompt
+    assert "appointment_delegation scoring candidate 硬协议" not in prompt
+    assert "不要写 candidate_payload" in prompt
+    assert '"candidate_payload": {' not in prompt
 
 
 def test_build_prompt_requires_concrete_harm_for_negative_disposition() -> None:
@@ -107,6 +148,9 @@ def test_build_prompt_requires_concrete_harm_for_negative_disposition() -> None:
     assert "如果本 shard 只是未见负向授权损害" in prompt
     assert "不要写 negative_undercoverage" in prompt
     assert "出现明确的治理损害、军政失败、人才结构损害或授权链条失控线索" in prompt
+    assert "只召回本纪处置线、谋反/伏诛/废官/废制度等结局线" in prompt
+    assert "不要硬写 appointment_delegation 负向 scoring candidate" in prompt
+    assert "需要补本传授权滥用链" in prompt
 
 
 def test_build_prompt_requires_cross_rule_candidate_routing_policy() -> None:
@@ -129,10 +173,10 @@ def test_build_prompt_requires_cross_rule_candidate_routing_policy() -> None:
     assert "单纯任用、信任、团队成员、采纳一般计策，不能自动转成 tolerate_talent positive" in prompt
     assert "team_building 按皇帝对象池整体聚合" in prompt
     assert "对象弱贡献、负贡献或 supporting_only 交给消费端窄验" in prompt
-    assert "personnel_profile" in prompt
-    assert "person、person_role、talent_quality、action_type" in prompt
-    assert "power_control_profile" in prompt
-    assert "power_holder、power_base、power_channel" in prompt
+    assert "不要手写 candidate_payload.personnel_profile 或 power_control_profile" in prompt
+    assert "runner 会按 claim.fact_payload 本地补齐" in prompt
+    assert '"personnel_profile": {' not in prompt
+    assert '"power_control_profile": {' not in prompt
     assert "current_rule_candidate、future_rule_hint、rejected_or_context_only" in prompt
     assert "future_rule_hint 和 rejected_or_context_only 不得进入 factorization" in prompt
     assert '"candidate_payload": {' in prompt
@@ -167,7 +211,8 @@ def test_build_prompt_requires_appointment_delegation_scoring_candidate_contract
     assert "appointment_delegation 判读选择" in prompt
     assert "弱任官履历、总评、后续处置或政治风险不得挤掉更早的完整授权收益链" in prompt
     assert "同一任务链里有多个具名 delegate" in prompt
-    assert "predicate_missing / alias_missing coverage_gaps" in prompt
+    assert "object_claim_undercoverage coverage_gaps" in prompt
+    assert "谓词词表缺失或别名缺失" in prompt
     assert '"rule_code": "talent_discovery | appointment_delegation | team_building' in prompt
     assert '"candidate_lane": "I5B.appointment_delegation' in prompt
 
@@ -190,7 +235,8 @@ def test_build_prompt_requests_item_wide_fact_structure() -> None:
     assert '"evidence_spans": [' in prompt
     assert '"claim_completeness": {' in prompt
     assert '"gap_type": "source_missing | object_claim_undercoverage' in prompt
-    assert '"recommended_action": "run_object_source_refiner | ..."' in prompt
+    assert '"queue": "source_pack_refinement | claim_budget_refinement | ..."' in prompt
+    assert '"recommended_action": "run_object_source_refiner | raise_claim_budget_or_split_object_claims | ..."' in prompt
 
 
 def test_build_prompt_marks_i5b_wide_shadow_pilot_not_formal_consumption() -> None:

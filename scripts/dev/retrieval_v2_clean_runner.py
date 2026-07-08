@@ -22,6 +22,7 @@ from scripts.dev import retrieval_v2_alias_refiner as alias_refiner
 from scripts.dev import retrieval_v2_candidate_source_refiner as candidate_source_refiner
 from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt
 from scripts.dev import retrieval_v2_judge_shards as judge_shards
+from scripts.dev import retrieval_v2_object_source_cache as object_source_cache
 from scripts.dev.retrieval_v2_clean_summary import build_batch_summary, sum_usage, summarize_person
 from scripts.dev.retrieval_v2_run_events import RunEventLogger
 from scripts.dev import retrieval_v2_source_candidates as source_candidates
@@ -50,6 +51,11 @@ class CodexResult:
     usage: dict[str, Any]
 
 CodexRunner = Callable[[CodexInvocation], CodexResult]
+
+DEFAULT_CODEX_SANDBOX = "read-only"
+CODEX_SANDBOX_ENV = "RETRIEVAL_V2_CODEX_SANDBOX"
+CODEX_ADD_DIRS_ENV = "RETRIEVAL_V2_CODEX_ADD_DIRS"
+CODEX_BIN_ENV = "CODEX_BIN"
 
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
@@ -152,18 +158,53 @@ def usage_from_events(stdout_text: str) -> dict[str, Any]:
             usage = dict(event["usage"])
     return usage
 
+def _env_list(name: str) -> list[str]:
+    raw = os.environ.get(name, "")
+    if not raw.strip():
+        return []
+    values: list[str] = []
+    for chunk in re.split(r"[;\n]", raw):
+        chunk = chunk.strip()
+        if chunk:
+            values.append(chunk)
+    return values
+
+def _codex_bin(invocation: CodexInvocation) -> str:
+    if invocation.codex_bin != "codex":
+        return invocation.codex_bin
+    return os.environ.get(CODEX_BIN_ENV) or invocation.codex_bin
+
+def _codex_sandbox() -> str:
+    value = os.environ.get(CODEX_SANDBOX_ENV, DEFAULT_CODEX_SANDBOX).strip()
+    return value or DEFAULT_CODEX_SANDBOX
+
+def _codex_add_dirs(cwd: Path) -> list[Path]:
+    seen: set[str] = set()
+    result: list[Path] = []
+    for raw in [str(cwd), *_env_list(CODEX_ADD_DIRS_ENV)]:
+        path = Path(raw).expanduser().resolve()
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(path)
+    return result
+
 
 def run_codex(invocation: CodexInvocation) -> CodexResult:
     cwd = invocation.cwd.resolve()
     last_message = invocation.last_message.resolve()
     event_log = invocation.event_log.resolve()
     cwd.mkdir(parents=True, exist_ok=True)
-    cmd = [invocation.codex_bin]
+    cmd = [_codex_bin(invocation)]
     if invocation.search:
         cmd.append("--search")
     else:
         cmd.extend(["--disable", "standalone_web_search", "--disable", "browser_use", "--disable", "browser_use_external"])
-    cmd.extend(["-a", "never", "-s", "read-only"])
+    cmd.extend(["-a", "never", "-s", _codex_sandbox()])
+    for add_dir in _codex_add_dirs(cwd):
+        add_dir.mkdir(parents=True, exist_ok=True)
+        cmd.extend(["--add-dir", str(add_dir)])
     cmd.extend(
         [
             "exec",
@@ -523,6 +564,18 @@ def build_candidate_round(
     }
 
 
+def apply_object_source_cache_overlay(
+    task: Mapping[str, Any],
+    *,
+    cache_root: Path,
+    person_dir: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    overlaid, stats = object_source_cache.overlay_task_from_cache(task, cache_root=cache_root)
+    atomic_write_json(person_dir / "object_source_cache_overlay.json", {"cache_root": str(cache_root), "stats": stats})
+    atomic_write_json(person_dir / "task.object_source_cache_overlay.json", overlaid)
+    return overlaid, stats
+
+
 def build_alias_refinement_round(
     *,
     task_path: Path,
@@ -579,6 +632,18 @@ def run_judge_round(
     }
 
 
+def with_judge_mode(candidates: Mapping[str, Any], judge_mode: str | None) -> dict[str, Any]:
+    result = json.loads(stable_json(candidates))
+    if not judge_mode:
+        return result
+    task_identity = result.get("task_identity")
+    if not isinstance(task_identity, dict):
+        task_identity = {}
+    task_identity["judge_mode"] = judge_mode
+    result["task_identity"] = task_identity
+    return result
+
+
 def run_judge(
     *,
     candidates: Mapping[str, Any],
@@ -590,7 +655,10 @@ def run_judge(
     timeout_seconds: int,
     judge_shard_size: int,
     judge_shard_workers: int,
+    judge_mode: str | None = None,
 ) -> dict[str, Any]:
+    candidates = with_judge_mode(candidates, judge_mode)
+    atomic_write_text(prompt_path, candidate_prompt.build_prompt(candidates))
     shards = judge_shards.build_judge_shards(
         candidates,
         max_objects_per_shard=judge_shard_size,
@@ -695,12 +763,31 @@ def process_task(
     skip_fetch_errors: bool,
     source_cache_root: Path | None,
     judge_timeout_seconds: int, judge_shard_size: int, judge_shard_workers: int,
+    judge_mode: str | None = None,
+    object_source_cache_root: Path | None = None,
     taskgen: Mapping[str, Any] | None = None,
     event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
 ) -> dict[str, Any]:
     person_dir = run_root / target_dir_name(task)
     person_dir.mkdir(parents=True, exist_ok=True)
     current_task = json.loads(stable_json(task))
+    if object_source_cache_root is not None:
+        current_task, overlay_stats = apply_object_source_cache_overlay(
+            current_task,
+            cache_root=object_source_cache_root,
+            person_dir=person_dir,
+        )
+        if event_logger is not None:
+            event_logger.emit(
+                "object_source_cache_overlay_done",
+                emperor_name=str(current_task.get("emperor_name") or ""),
+                target_code=str(current_task.get("target_code") or ""),
+                rule_code=str(current_task.get("rule_code") or source_candidates.rule_code(current_task)),
+                cache_root=str(object_source_cache_root),
+                added_source_document_count=overlay_stats.get("added_source_document_count"),
+                source_document_count=overlay_stats.get("source_document_count"),
+                matched_object_count=len(overlay_stats.get("matched_object_names") or []),
+            )
     target_code = str(current_task.get("target_code") or "")
     emperor_name = str(current_task.get("emperor_name") or "")
     rule_code = str(current_task.get("rule_code") or source_candidates.rule_code(current_task))
@@ -851,6 +938,7 @@ def process_task(
                 round=round_index,
                 judge_shard_size=judge_shard_size,
                 judge_shard_workers=judge_shard_workers,
+                judge_mode=judge_mode,
             )
         judge_result = run_judge(
             candidates=final_candidates,
@@ -862,10 +950,12 @@ def process_task(
             timeout_seconds=judge_timeout_seconds,
             judge_shard_size=judge_shard_size,
             judge_shard_workers=judge_shard_workers,
+            judge_mode=judge_mode,
         )
         final_judge = dict(judge_result["payload"])
         final_judge["_elapsed_seconds"] = judge_result["elapsed_seconds"]
         final_judge["_usage"] = judge_result["usage"]
+        final_judge["_judge_mode"] = judge_mode or ""
         round_summary["judge_elapsed_seconds"] = judge_result["elapsed_seconds"]
         round_summary["judge_status"] = final_judge.get("status")
         round_summary["judge_sharded"] = bool(judge_result.get("sharded"))
@@ -966,7 +1056,9 @@ def run_clean_pipeline(
     max_slices_per_object: int = 8,
     skip_fetch_errors: bool = False,
     source_cache_root: Path | None = source_candidates.DEFAULT_CACHE_DIR,
+    object_source_cache_root: Path | None = None,
     judge_timeout_seconds: int = 1800, judge_shard_size: int = 8, judge_shard_workers: int = 2,
+    judge_mode: str | None = None,
     taskgen_by_target_code: Mapping[str, Mapping[str, Any]] | None = None,
     max_workers: int = 4, event_logger: RunEventLogger | None = None, candidate_source_refine_objects: Sequence[str] = (),
 ) -> dict[str, Any]:
@@ -999,9 +1091,11 @@ def run_clean_pipeline(
             max_slices_per_object=max_slices_per_object,
             skip_fetch_errors=skip_fetch_errors,
             source_cache_root=source_cache_root,
+            object_source_cache_root=object_source_cache_root,
             judge_timeout_seconds=judge_timeout_seconds,
             judge_shard_size=judge_shard_size,
             judge_shard_workers=judge_shard_workers,
+            judge_mode=judge_mode,
             taskgen=taskgen_by_target_code.get(target_code),
             event_logger=event_logger,
             candidate_source_refine_objects=candidate_source_refine_objects,
@@ -1025,6 +1119,7 @@ def run_clean_pipeline(
         taskgen_streaming=False,
         taskgen_batch_size=1,
     )
+    summary.setdefault("clean_policy", {})["judge_mode"] = judge_mode or "full"
     atomic_write_json(run_root / "summary.json", summary)
     if event_logger is not None:
         event_logger.emit(

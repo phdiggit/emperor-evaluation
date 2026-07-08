@@ -87,6 +87,15 @@ def test_alias_script_variants_cover_common_simplified_traditional_forms() -> No
     assert {"朱祁鈺", "朱祁钰"} <= set(alias_script_variants("朱祁钰"))
     assert {"朱見深", "朱见深"} <= set(alias_script_variants("朱见深"))
     assert {"載湉", "载湉"} <= set(alias_script_variants("载湉"))
+    assert {"湯和", "汤和"} <= set(alias_script_variants("汤和"))
+    assert {"鄧愈", "邓愈"} <= set(alias_script_variants("邓愈"))
+    assert {"藍玉", "蓝玉"} <= set(alias_script_variants("蓝玉"))
+    assert {"懷義", "怀义"} <= set(alias_script_variants("怀义"))
+    assert {"劉蒼", "刘苍"} <= set(alias_script_variants("刘苍"))
+    assert {"劉曄", "刘晔"} <= set(alias_script_variants("刘晔"))
+    assert {"鍾離意", "钟离意"} <= set(alias_script_variants("钟离意"))
+    assert {"婁圭", "娄圭"} <= set(alias_script_variants("娄圭"))
+    assert {"狄仁傑", "狄仁杰"} <= set(alias_script_variants("狄仁杰"))
 
 
 def test_build_alias_patches_splits_mechanical_and_cli_work() -> None:

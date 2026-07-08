@@ -26,19 +26,13 @@ PROMPT_CANDIDATE_SLICE_KEYS = (
     "slice_code",
     "document_code",
     "object_name",
-    "matched_aliases",
-    "matched_alias_strengths",
-    "matched_rule_terms",
-    "matched_conditional_recall_terms",
-    "matched_outcome_terms",
-    "matched_target_aliases",
-    "matched_role_families",
-    "weak_alias_only",
     "locator",
     "score",
+    "matched_aliases",
+    "matched_rule_terms",
+    "matched_outcome_terms",
+    "matched_role_families",
     "text",
-    "merged_from_slice_codes",
-    "merged_slice_count",
 )
 
 AD_IMPORTANCE_HINT_TEXT = enum_text(contracts.AD_IMPORTANCE_HINTS)
@@ -58,6 +52,9 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
     f'"uncertainty_flags": ["{AD_UNCERTAINTY_FLAGS_SCHEMA_TEXT}"]'
     "}"
 )
+
+
+CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -95,9 +92,60 @@ def candidate_route_lanes_text() -> str:
     return "；".join(rows)
 
 
+def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
+    payload = prompt_payload(candidates)
+    task_identity = payload.get("task_identity") if isinstance(payload.get("task_identity"), Mapping) else {}
+    capture_profile = str(task_identity.get("capture_profile") or "").strip()
+    profile_note = (
+        "本轮仍属于 personnel_political_wide 的第一阶段，只抽取可复用政治行动 claim；不做 rule 路由、AD scoring、factor hints 或 future hints。\n"
+        if capture_profile == contracts.PERSONNEL_POLITICAL_WIDE_PROFILE
+        else "本轮只抽取 claim；不做 rule 路由、factor hints 或 future hints。\n"
+    )
+    return (
+        "你是 emperor-evaluation 项目的 retrieval_v2 claim 抽取 worker。本轮脚本已经完成源页抓取、缓存、别名命中和候选片段切片；"
+        "你不要联网，不要使用记忆，不要读取旧结果文件，不要修改文件，不要写数据库，只根据本轮输入里的 candidate_slices 抽取事实。\n\n"
+        f"{profile_note}"
+        "目标：只生成 material_claims/context_claims/counter_claims，要求事实原子化、对象明确、动作明确、source_slice_refs 可复核。"
+        "不要输出 primary_bindings，不要输出 secondary_binding_candidates，不要判断 appointment_delegation scoring，不要写 candidate_payload。"
+        "如果同一对象有多条独立任务链，优先拆成多条 claim；如果预算不足但源片段已召回，写 object_claim_undercoverage，"
+        "queue=claim_budget_refinement，recommended_action=raise_claim_budget_or_split_object_claims，do_not_add_recall_terms=true。"
+        "如果当前源片段不足以支撑事实闭环，写 source_missing/source_gap，不要臆造 claim。\n\n"
+        "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
+        "输出要极简：不要输出 notes，不要输出 source_passage_refs，不要输出 claim_completeness；"
+        "每条 claim 保留 fact_payload 和最多 2 条 evidence_spans 即可，这些字段只记录原文已经明确看到的事实结构。"
+        f"fact_payload 使用 {contracts.POLITICAL_ACTION_FACT_SCHEMA} 字段：fact_schema、actor、object、action_type、event_scope、office_or_domain、"
+        "outcome、cost_or_damage、time_context、source_span_refs、confidence、completeness。"
+        "fact_schema 必须等于 political_action_v1；source_span_refs 必须引用本 claim 的 source_slice_refs 或 evidence_spans。"
+        "evidence_spans.text 必须是对应 source_slice_ref 原文中的连续短句或短语，每条 text 尽量不超过 12 个汉字；优先 action/object/outcome。"
+        "如果没有同链条结果反馈，就把 has_outcome=false / has_outcome_span=false，不要为了完整而臆造 outcome。"
+        "direction 不要使用 mixed；如果同一材料同时有正负事实，拆成两条 claim，无法拆分时用 neutral 并说明到 coverage_gaps。"
+        "最终 JSON 默认不要复述 documents/passages，runner 会按 slice_code 自动生成 passages。\n\n"
+        "判读预算：candidate_slices 是候选证据，不是逐条生成 claim 的清单。"
+        "同一对象、同一动作、同一方向、同一事实类型的多个切片应合并成一个 claim，并把最多 3 个最强 slice_code 放入 source_slice_refs。"
+        "不要为了每个官职、每场战役或每个相近片段各写一个 claim；选择能支撑后续规则复核的代表性原子事实。\n\n"
+        "输入 JSON：\n"
+        f"{prompt_json(payload)}\n"
+        "最终回复必须只输出一个 JSON 对象，不要 Markdown 代码块，不要解释性前后文。JSON 结构如下：\n"
+        "{\n"
+        '  "job_code": "...",\n'
+        '  "status": "succeeded | needs_refinement | blocked",\n'
+        '  "documents": [],\n'
+        '  "passages": [],\n'
+        '  "claims": [{"claim_code": "CLM-...", "emperor_name": "...", "object_name": "...", "object_type": "person | event | group | mechanism", "claim_kind": "material_claim | context_claim | counter_claim", "claim_summary": "...", "direction": "positive | negative | neutral", "confidence": 0.0, "source_slice_refs": ["SLI-..."], "fact_payload": {"fact_schema": "political_action_v1", "actor": "...", "object": "...", "action_type": "任命 | 授权 | 荐举 | 保全 | 处置 | 结党 | 收权 | 纳谏 | 拒谏 | 战役 | 制度高压 | 其他", "event_scope": "中枢 | 军事 | 地方 | 边疆 | 财政 | 监察 | 宗室 | 外戚 | 民生 | 其他", "office_or_domain": "...", "outcome": "...", "cost_or_damage": "...", "time_context": "...", "source_span_refs": ["SLI-..."], "confidence": 0.0, "completeness": {"has_actor": true, "has_object": true, "has_action": true, "has_outcome": false, "same_event_chain": false, "needs_source_extension": false}}, "evidence_spans": [{"span_type": "action | object | outcome | reason | institution | context", "source_slice_ref": "SLI-...", "text": "..."}]}],\n'
+        '  "primary_bindings": [],\n'
+        '  "secondary_binding_candidates": [],\n'
+        '  "coverage_matrix": {"rule_code": "...", "role_families": [{"family_code": "...", "candidate_slice_count": 0, "accepted_claim_count": 0, "objects_checked": ["..."], "gaps": []}]},\n'
+        '  "coverage": {"ready_for_object_pool": false, "checked_objects": ["..."], "missing_core_objects": ["..."], "positive_claim_count": 0, "negative_claim_count": 0, "alias_coverage_note": "claim_extraction_only"},\n'
+        '  "coverage_gaps": [{"gap_type": "source_missing | object_claim_undercoverage | predicate_missing | needs_primary_source | alias_missing | fetch_error | true_lack | other", "object_name": "...", "family_code": "...", "queue": "source_pack_refinement | claim_budget_refinement | ...", "diagnosis": "...", "recommended_action": "run_object_source_refiner | raise_claim_budget_or_split_object_claims | ...", "do_not_add_recall_terms": true}]\n'
+        "}\n"
+    )
+
+
 def build_prompt(candidates: Mapping[str, Any]) -> str:
     payload = prompt_payload(candidates)
     task_identity = payload.get("task_identity") if isinstance(payload.get("task_identity"), Mapping) else {}
+    if str(task_identity.get("judge_mode") or "").strip() == CLAIM_EXTRACTION_ONLY_MODE:
+        return build_claim_extraction_prompt(candidates)
     coverage_matrix = payload.get("coverage_matrix") if isinstance(payload.get("coverage_matrix"), Mapping) else {}
     target_rule_code = str(task_identity.get("rule_code") or coverage_matrix.get("rule_code") or "target_rule")
     capture_mode = str(task_identity.get("capture_mode") or "").strip()
@@ -175,10 +223,8 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "单纯任用、信任、团队成员、采纳一般计策，不能自动转成 tolerate_talent positive。"
         "team_building 按皇帝对象池整体聚合；抓包候选阶段不要因为对象不是核心官职、核心将相或长期班底就排除，"
         "对象弱贡献、负贡献或 supporting_only 交给消费端窄验。\n\n"
-        "I5B 候选建议在 candidate_payload.personnel_profile 写 person、person_role、talent_quality、action_type、"
-        "appointment_or_authorization、feedback_or_result、team_function、selection_channel、same_event_chain。"
-        "I5C 候选建议在 candidate_payload.power_control_profile 写 power_holder、power_base、power_channel、"
-        "control_action、control_result、risk_type、same_event_chain。"
+        "不要手写 candidate_payload.personnel_profile 或 power_control_profile；runner 会按 claim.fact_payload 本地补齐，避免重复输出。"
+        "如果确有无法从 fact_payload 推导的简短角色信息，可写 candidate_role、appointment_delegation_domain 或 same_chain_outcome_summary。"
         "personnel_political_wide 中必须把每个候选分成三态：current_rule_candidate、future_rule_hint、rejected_or_context_only；"
         "future_rule_hint 和 rejected_or_context_only 不得进入 factorization。\n\n"
         "appointment_delegation 覆盖皇帝对对象的任用、委任、信任、授权、托付、采纳、实际职责交付，以及这些安排的结果反馈和持续复用情况。"
@@ -206,13 +252,20 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "否则 effect_hint=unknown 或低置信，并加 negative_causality_needs_review。\n\n"
         "appointment_delegation 判读选择：source candidate 层已负责召回和补源；你只从输入片段中优先选择完整“授权/职责 + 同链条结果/复用”的代表事实。"
         "弱任官履历、总评、后续处置或政治风险不得挤掉更早的完整授权收益链；正向授权链和后续风险必须拆成不同 claim。"
-        "同一任务链里有多个具名 delegate 时，对可消费对象分别输出原子 claim；预算或对象缺失导致无法拆出时写 predicate_missing / alias_missing coverage_gaps。\n\n"
+        "同一对象有多条完整强链时，优先拆出出征、留守、镇守、督军、提督、平乱、防边、财政/行政专任等可独立闭合的任务链；"
+        "不要只保留最早、最有名或最容易摘要的一条代表性材料。"
+        "同一任务链里有多个具名 delegate 时，对可消费对象分别输出原子 claim；预算或对象缺失导致无法拆出时写 object_claim_undercoverage coverage_gaps。"
+        "只有确认为谓词词表缺失或别名缺失时，才写 predicate_missing / alias_missing。\n\n"
         "personnel_political_wide 通用对象覆盖门禁：如果同一核心对象在 source passages、object biography 或 annals cross-check 中出现多条可复用 political_action_v1 事实，"
         "不得只输出一条代表性 claim。遇到任命/授权/委任/留守/镇守/总制/提督/出使/采纳/保全/处置/纠偏/约束/撤权/惩戒/平乱/出征/防边，"
         "且同时具备具体任务、职责、制度或事件，并出现结果、代价、持续复用、权力变化或治理反馈时，应尽量拆成独立原子 claim，分别路由到对应 candidate lane。"
-        "若预算不足、共同任务链中多个对象未能全部拆出，或本传/本纪线索显示核心对象仍有未拆事实，必须写 coverage_gap："
-        "gap_type=object_claim_undercoverage，queue=source_pack_refinement，recommended_action=run_object_source_refiner，do_not_add_recall_terms=true。"
-        "如果源片段已经召回但对象没有被拆成 claim，这是 claim 原子化/对象覆盖问题，不要优先处理成新增召回词。\n\n"
+        "若源片段已经召回、但预算不足或共同任务链中多个对象未能全部拆出，必须写 coverage_gap："
+        "gap_type=object_claim_undercoverage，queue=claim_budget_refinement，recommended_action=raise_claim_budget_or_split_object_claims，do_not_add_recall_terms=true。"
+        "如果源片段已经召回但对象没有被拆成 claim，这是 claim 原子化/对象覆盖问题，不要优先处理成新增召回词。"
+        "只有本传/本纪线索显示核心对象仍有未拆事实、但当前 source passages/object biography/annals cross-check 没有召回可验证原文时，"
+        "才写 gap_type=source_missing，queue=source_pack_refinement，recommended_action=run_object_source_refiner。"
+        "如果当前只召回本纪处置线、谋反/伏诛/废官/废制度等结局线，缺少对象本传中的任用、宠任、专擅、职责滥用和直接后果链，"
+        "不要硬写 appointment_delegation 负向 scoring candidate；写 source_missing/source_gap 或保留不可计分 review/context，诊断说明需要补本传授权滥用链。\n\n"
         "personnel_political_wide / I5B-wide 事实骨架：每条 material_claim 尽量补充 fact_payload、evidence_spans、claim_completeness，"
         "这些字段只记录抓包端读原文时已经明确看到的事实结构，不是最终 factor label 或入分结论。"
         f"fact_payload 使用 {contracts.POLITICAL_ACTION_FACT_SCHEMA} 字段：fact_schema、actor、object、action_type、event_scope、office_or_domain、"
@@ -237,8 +290,10 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "每个对象默认最多 2 个可消费 material_claim；只有同时存在清晰正向与负向、授权事实与撤权/失败事实必须拆分，"
         "或 personnel_political_wide 核心对象存在多条可复用 political_action_v1 事实时才允许超过 2 个。"
         "如果同一对象存在多个完整 appointment_delegation scoring 链，优先保留最多 2 条完整 scoring 链；不要让弱 review、future hint 或单纯履历材料占掉这些名额。"
+        "同一对象的第 3 条及以后完整强链可不全量展开；只有材料类型、方向、职责域或结果反馈相对独立时，才在 object_claim_undercoverage 中点明未拆事实类型和应提高 claim 预算/拆分对象 claim。"
         "核心对象超过预算而未拆出的事实必须进入 object_claim_undercoverage coverage_gaps，而不是静默丢弃。"
-        "每条 claim 默认最多 3 个 secondary_binding_candidates；只保留最可复核的 rule 候选，低价值 review 不要为了填满规则而输出。"
+        "每条 claim 默认最多 2 个 secondary_binding_candidates；优先保留 current_rule_candidate，尤其是 appointment_delegation scoring candidate。"
+        "同一 claim 的 future_rule_hint 最多 1 个，且只在确有独立可复核价值时输出；低价值 review 不要为了填满规则而输出。"
         "secondary_binding_candidates.reason、binding_note、notes 都写短句；能用 candidate_payload 结构表达的链条状态，不要在 reason 里重复长篇解释。"
         "不要为了每个官职、每场战役或每个相近片段各写一个 claim；选择最能支撑规则覆盖矩阵的代表事实。\n\n"
         "输入 JSON：\n"
@@ -251,11 +306,11 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         '  "passages": [],\n'
         '  "claims": [{"claim_code": "CLM-...", "emperor_name": "...", "object_name": "...", "object_type": "person | event | group | mechanism", "claim_kind": "material_claim | context_claim | counter_claim", "claim_summary": "...", "direction": "positive | negative | neutral | mixed", "confidence": 0.0, "source_slice_refs": ["SLI-..."], "fact_payload": {"fact_schema": "political_action_v1", "actor": "...", "object": "...", "action_type": "任命 | 授权 | 荐举 | 保全 | 处置 | 结党 | 收权 | 纳谏 | 拒谏 | 战役 | 制度高压 | 其他", "event_scope": "中枢 | 军事 | 地方 | 边疆 | 财政 | 监察 | 宗室 | 外戚 | 民生 | 其他", "office_or_domain": "...", "outcome": "...", "cost_or_damage": "...", "time_context": "...", "source_span_refs": ["SLI-..."], "confidence": 0.0, "completeness": {"has_actor": true, "has_object": true, "has_action": true, "has_outcome": false, "same_event_chain": false, "needs_source_extension": false}}, "evidence_spans": [{"span_type": "action | object | outcome | reason | institution | context", "source_slice_ref": "SLI-...", "text": "..."}], "claim_completeness": {"has_action_span": true, "has_object_span": true, "has_outcome_span": false, "outcome_same_event_chain": false, "needs_source_extension": false}, "notes": "..."}],\n'
         + primary_bindings_schema
-        + '  "secondary_binding_candidates": [{"claim_code": "CLM-...", "rule_code": "talent_discovery | appointment_delegation | team_building | tolerate_talent | anti_nepotism | central_military_power_control | regional_clan_power_control | inner_favorite_power_control | institutional_constraint_correction | political_character | cognition_learning | key_decision | military_frontier_result | historical_debt", "candidate_item_code": "I5B | I5C | I5D | I5E | I6 | I3 | I7", "candidate_lane": "I5B.appointment_delegation | team_building | talent_discovery | tolerate_talent | anti_nepotism | central_military_power_control | regional_clan_power_control | inner_favorite_power_control | institutional_constraint_correction | political_character | cognition_learning | key_decision | military_frontier_result | historical_debt", "hint_status": "current_rule_candidate | future_rule_hint | rejected_or_context_only", "direction": "positive | negative | neutral", "required_facts_present": ["actor", "object", "action_type", "source_span_refs"], "reason": "...", "confidence": 0.0, "candidate_payload": {"scoring_candidate": true, "usable_for_scoring_cluster": true, "personnel_profile": {"person": "...", "person_role": "...", "talent_quality": "...", "action_type": "...", "appointment_or_authorization": "...", "feedback_or_result": "...", "team_function": "...", "selection_channel": "...", "same_event_chain": true}, "power_control_profile": {"power_holder": "...", "power_base": "...", "power_channel": "...", "control_action": "...", "control_result": "...", "risk_type": "...", "same_event_chain": true}, "appointment_delegation_chain": {"has_appointment_or_authorization": true, "has_named_actor": true, "has_task_or_responsibility": true, "has_result_or_feedback": true, "has_continuity_or_reuse": false}, '
+        + '  "secondary_binding_candidates": [{"claim_code": "CLM-...", "rule_code": "talent_discovery | appointment_delegation | team_building | tolerate_talent | anti_nepotism | central_military_power_control | regional_clan_power_control | inner_favorite_power_control | institutional_constraint_correction | political_character | cognition_learning | key_decision | military_frontier_result | historical_debt", "candidate_item_code": "I5B | I5C | I5D | I5E | I6 | I3 | I7", "candidate_lane": "I5B.appointment_delegation | team_building | talent_discovery | tolerate_talent | anti_nepotism | central_military_power_control | regional_clan_power_control | inner_favorite_power_control | institutional_constraint_correction | political_character | cognition_learning | key_decision | military_frontier_result | historical_debt", "hint_status": "current_rule_candidate | future_rule_hint | rejected_or_context_only", "direction": "positive | negative | neutral", "required_facts_present": ["actor", "object", "action_type", "source_span_refs"], "reason": "...", "confidence": 0.0, "candidate_payload": {"scoring_candidate": true, "usable_for_scoring_cluster": true, "appointment_delegation_chain": {"has_appointment_or_authorization": true, "has_named_actor": true, "has_task_or_responsibility": true, "has_result_or_feedback": true, "has_continuity_or_reuse": false}, '
         + AD_FACTOR_HINT_SCHEMA_TEXT
         + ', "candidate_role": "appointed_actor | entrusted_actor | delegated_actor | strategic_advisor | military_commander | civil_official | misappointed_actor | misdelegated_actor | misentrusted_actor | authority_revoked_target", "appointment_delegation_domain": "military | civil | fiscal | frontier | strategic | institutional", "same_chain_outcome_summary": "...", "hint_status": "current_rule_candidate"}}],\n'
         '  "coverage_matrix": {"rule_code": "...", "role_families": [{"family_code": "...", "candidate_slice_count": 0, "accepted_claim_count": 0, "objects_checked": ["..."], "gaps": []}]},\n'
         '  "coverage": {"ready_for_object_pool": false, "checked_objects": ["..."], "missing_core_objects": ["..."], "positive_claim_count": 0, "negative_claim_count": 0, "alias_coverage_note": "..."},\n'
-        '  "coverage_gaps": [{"gap_type": "source_missing | object_claim_undercoverage | predicate_missing | needs_primary_source | alias_missing | civil_undercoverage | negative_undercoverage | weak_alias_noise | fetch_error | true_lack | other", "object_name": "...", "family_code": "...", "queue": "source_pack_refinement | ...", "diagnosis": "...", "recommended_action": "run_object_source_refiner | ...", "do_not_add_recall_terms": true}]\n'
+        '  "coverage_gaps": [{"gap_type": "source_missing | object_claim_undercoverage | predicate_missing | needs_primary_source | alias_missing | civil_undercoverage | negative_undercoverage | weak_alias_noise | fetch_error | true_lack | other", "object_name": "...", "family_code": "...", "queue": "source_pack_refinement | claim_budget_refinement | ...", "diagnosis": "...", "recommended_action": "run_object_source_refiner | raise_claim_budget_or_split_object_claims | ...", "do_not_add_recall_terms": true}]\n'
         "}\n"
     )

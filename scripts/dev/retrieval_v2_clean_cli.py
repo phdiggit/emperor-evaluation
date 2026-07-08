@@ -33,6 +33,7 @@ TARGET_METADATA_KEYS = (
     "retrieval_profile_id",
     "retrieval_profile_source_group",
 )
+CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -140,6 +141,7 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Use the run directory source_cache instead of the shared raw source page cache.",
     )
+    parser.add_argument("--object-source-cache-root", type=Path, help="Offline object source cache root to overlay before candidate slicing.")
     parser.add_argument("--context-chars", type=int, default=260)
     parser.add_argument("--max-slices-per-object", type=int, default=8)
     parser.add_argument("--max-alias-refine-rounds", type=int, default=2)
@@ -175,6 +177,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--skip-fetch-errors", action="store_true")
     parser.add_argument("--skip-judge", action="store_true", help="Stop after candidates and alias refinement.")
+    parser.add_argument("--claim-only-judge", action="store_true", help="Only extract claims; skip binding/scoring payloads.")
     parser.add_argument("--no-taskgen-search", action="store_true", help="Disable web search in live taskgen.")
     parser.add_argument(
         "--no-stream-taskgen",
@@ -207,6 +210,12 @@ def _effective_judge_shard_workers(args: argparse.Namespace) -> int:
     if _is_item_wide_shadow_mode(_shadow_capture_mode(args)):
         return 4
     return 2
+
+
+def _judge_mode(args: argparse.Namespace | None) -> str | None:
+    if args is not None and bool(getattr(args, "claim_only_judge", False)):
+        return CLAIM_EXTRACTION_ONLY_MODE
+    return None
 
 
 def _shadow_capture_mode(args: argparse.Namespace | None) -> str:
@@ -413,13 +422,16 @@ def _run_staged_emperors(
         max_slices_per_object=args.max_slices_per_object,
         skip_fetch_errors=args.skip_fetch_errors,
         source_cache_root=_source_cache_root(args),
+        object_source_cache_root=args.object_source_cache_root,
         judge_timeout_seconds=args.judge_timeout,
         judge_shard_size=args.judge_shard_size,
         judge_shard_workers=_effective_judge_shard_workers(args),
+        judge_mode=_judge_mode(args),
         taskgen_by_target_code=taskgen_by_target_code,
         max_workers=args.max_workers,
         event_logger=event_logger,
     )
+    summary.setdefault("clean_policy", {})["judge_mode"] = _judge_mode(args) or "full"
     summary.setdefault("clean_policy", {})["taskgen_presearch"] = bool(args.taskgen_presearch)
     summary.setdefault("clean_policy", {})["taskgen_search_enabled"] = _effective_taskgen_search(args)
     _mark_shadow_summary(summary, args)
@@ -446,14 +458,18 @@ def _run_task_files(args: argparse.Namespace, *, run_root: Path, event_logger: R
         max_slices_per_object=args.max_slices_per_object,
         skip_fetch_errors=args.skip_fetch_errors,
         source_cache_root=_source_cache_root(args),
+        object_source_cache_root=args.object_source_cache_root,
         judge_timeout_seconds=args.judge_timeout,
         judge_shard_size=args.judge_shard_size,
         judge_shard_workers=_effective_judge_shard_workers(args),
+        judge_mode=_judge_mode(args),
         taskgen_by_target_code={},
         max_workers=args.max_workers,
         event_logger=event_logger,
     )
-    return _mark_shadow_summary(summary, args)
+    summary = _mark_shadow_summary(summary, args)
+    summary.setdefault("clean_policy", {})["judge_mode"] = _judge_mode(args) or "full"
+    return summary
 
 
 def _chunks(values: Sequence[str], size: int) -> list[list[str]]:
@@ -883,9 +899,11 @@ def run_streaming_taskgen_pipeline(
     max_slices_per_object: int = 8,
     skip_fetch_errors: bool = False,
     source_cache_root: Path | None = source_candidates.DEFAULT_CACHE_DIR,
+    object_source_cache_root: Path | None = None,
     judge_timeout_seconds: int = 1800,
     judge_shard_size: int = 8,
     judge_shard_workers: int = 2,
+    judge_mode: str | None = None,
     max_workers: int = 4,
     taskgen_batch_size: int = 1,
     taskgen_preseeds: Mapping[str, Mapping[str, Any]] | None = None,
@@ -930,9 +948,11 @@ def run_streaming_taskgen_pipeline(
             max_slices_per_object=max_slices_per_object,
             skip_fetch_errors=skip_fetch_errors,
             source_cache_root=source_cache_root,
+            object_source_cache_root=object_source_cache_root,
             judge_timeout_seconds=judge_timeout_seconds,
             judge_shard_size=judge_shard_size,
             judge_shard_workers=judge_shard_workers,
+            judge_mode=judge_mode,
             taskgen=taskgen_result["taskgen"],
             event_logger=event_logger,
         )
@@ -1060,6 +1080,7 @@ def run_streaming_taskgen_pipeline(
         taskgen_presearch=bool(taskgen_preseeds),
         taskgen_search_enabled=taskgen_search,
     )
+    summary.setdefault("clean_policy", {})["judge_mode"] = judge_mode or "full"
     _mark_shadow_summary(summary, args)
     runner.atomic_write_json(run_root / "summary.json", summary)
     if event_logger is not None:
@@ -1130,9 +1151,11 @@ def _run_emperors(
         max_slices_per_object=args.max_slices_per_object,
         skip_fetch_errors=args.skip_fetch_errors,
         source_cache_root=_source_cache_root(args),
+        object_source_cache_root=args.object_source_cache_root,
         judge_timeout_seconds=args.judge_timeout,
         judge_shard_size=args.judge_shard_size,
         judge_shard_workers=_effective_judge_shard_workers(args),
+        judge_mode=_judge_mode(args),
         max_workers=args.max_workers,
         taskgen_batch_size=args.taskgen_batch_size,
         taskgen_preseeds=taskgen_preseeds,
@@ -1189,6 +1212,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "source_cache_root": str(args.source_cache_root),
     }
     _mark_shadow_summary(summary, args)
+    summary.setdefault("clean_policy", {})["judge_mode"] = _judge_mode(args) or summary.setdefault("clean_policy", {}).get("judge_mode", "full")
     runner.atomic_write_json(run_root / "summary.json", summary)
     sys.stdout.write(runner.pretty_json(summary))
     return 0
