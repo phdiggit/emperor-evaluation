@@ -7,6 +7,35 @@ from scripts.dev import retrieval_v2_claim_audit as tool
 from scripts.dev import retrieval_v2_claim_cache as claim_cache
 
 
+def test_claim_semantic_findings_accepts_classical_authorization_anchors() -> None:
+    claims = [
+        {
+            "claim_key": "CLM-001",
+            "object_name": "戴胄",
+            "claim_summary": "太宗时，戴胄与房玄龄、李靖、温彦博、魏徵、王珪同知国政。",
+            "action_type": "授权",
+            "direction": "positive",
+        },
+        {
+            "claim_key": "CLM-002",
+            "object_name": "褚遂良",
+            "claim_summary": "贞观十年，褚遂良自秘书郎迁起居郎。",
+            "action_type": "任命",
+            "direction": "positive",
+        },
+        {
+            "claim_key": "CLM-003",
+            "object_name": "长孙无忌",
+            "claim_summary": "太宗曾留长孙无忌、房玄龄、李𪟝及褚遂良定策立高宗。",
+            "action_type": "授权",
+            "direction": "positive",
+        },
+    ]
+
+    for claim in claims:
+        assert tool.claim_semantic_findings(claim) == []
+
+
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in rows), encoding="utf-8")
@@ -176,6 +205,39 @@ def test_claim_audit_flags_negative_authorization_disposition_only(tmp_path: Pat
     assert report["issue_counts"]["negative_authorization_disposition_only_review"] == 1
 
 
+def test_claim_audit_excludes_rejected_claims_from_active_findings(tmp_path: Path) -> None:
+    claim_root = tmp_path / "claim_cache"
+    object_root = tmp_path / "object_cache"
+    paths = claim_cache.cache_paths(claim_root)
+    write_jsonl(
+        paths["claims"],
+        [
+            {
+                "claim_key": "CLM-HWY",
+                "emperor_name": "朱元璋",
+                "object_name": "胡惟庸",
+                "direction": "negative",
+                "action_type": "授权",
+                "claim_summary": "胡惟庸谋反伏诛，朱元璋废丞相。",
+                "fact_payload": {},
+                "status": "rejected",
+            }
+        ],
+    )
+    write_jsonl(paths["evidence"], [{"claim_key": "CLM-HWY", "evidence_key": "EVD-1", "source_slice_ref": "SLI-1"}])
+    write_jsonl(paths["slices"], [])
+    write_jsonl(paths["runs"], [])
+    write_jsonl(object_root / "source_documents.jsonl", [])
+    write_jsonl(object_root / "mention_slices.jsonl", [])
+
+    report = tool.build_claim_audit(claim_cache_root=claim_root, object_cache_root=object_root)
+
+    assert report["totals"]["claims"] == 1
+    assert report["totals"]["active_claims"] == 0
+    assert report["totals"]["claim_status_counts"] == {"rejected": 1}
+    assert report["issue_counts"] == {}
+
+
 def test_claim_audit_uses_candidates_for_opportunity_estimate(tmp_path: Path) -> None:
     claim_root = tmp_path / "claim_cache"
     object_root = tmp_path / "object_cache"
@@ -216,3 +278,22 @@ def test_claim_audit_uses_candidates_for_opportunity_estimate(tmp_path: Path) ->
     assert estimate["suggested_claim_budget"] == 2
     assert estimate["undercoverage_risk"] == "missing_claims"
     assert report["issue_counts"]["claim_opportunity_undercoverage"] == 1
+
+
+def test_dedupe_findings_keeps_object_level_undercoverage_separate() -> None:
+    findings = [
+        {
+            "issue_code": "claim_opportunity_undercoverage",
+            "severity": "low",
+            "object_name": "张亮",
+            "detail": "possible_undercoverage",
+        },
+        {
+            "issue_code": "claim_opportunity_undercoverage",
+            "severity": "low",
+            "object_name": "长孙无忌",
+            "detail": "possible_undercoverage",
+        },
+    ]
+
+    assert len(tool.dedupe_findings(findings)) == 2

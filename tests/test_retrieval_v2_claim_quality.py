@@ -88,6 +88,31 @@ def test_opportunity_estimator_suggests_budget_and_uses_new_action_anchors() -> 
     assert "领" in row["action_terms"]
 
 
+def test_slice_claim_eligibility_recognizes_classical_advice_and_office_anchors() -> None:
+    advice = {
+        "slice_code": "SLI-ADVICE",
+        "object_name": "魏徵",
+        "matched_aliases": ["魏徵"],
+        "source_shape": "object_biography_candidate",
+        "text": "所司必谘而后行。魏徵见其倚昵，恐浸启侈端，劝帝斥之。",
+    }
+    office = {
+        "slice_code": "SLI-OFFICE",
+        "object_name": "戴胄",
+        "matched_aliases": ["戴胄"],
+        "source_shape": "object_biography_candidate",
+        "text": "太宗时，戴胄与房玄龄、李靖、温彦博、魏徵、王珪同知国政。",
+    }
+
+    advice_eligibility = tool.slice_claim_eligibility(advice)
+    office_opportunity = tool.slice_opportunity(office)
+
+    assert advice_eligibility["claim_eligible"] is True
+    assert advice_eligibility["near_object_anchors"]["action"] is True
+    assert office_opportunity["has_opportunity"] is True
+    assert "同知" in office_opportunity["action_terms"]
+
+
 def test_opportunity_estimator_marks_possible_undercoverage() -> None:
     slices = [
         {

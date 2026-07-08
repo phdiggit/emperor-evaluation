@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 DEFAULT_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
 SCHEMA_VERSION = 1
 PGSQL_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_cache.sql"
+REUSABLE_CLAIM_STATUSES = {"active"}
 
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 
@@ -393,6 +394,8 @@ def plan_candidates(
     for row in existing["evidence"].values():
         claim_key_value = str(row.get("claim_key") or "")
         claim = existing["claims"].get(claim_key_value)
+        if not claim or str(claim.get("status") or "active") not in REUSABLE_CLAIM_STATUSES:
+            continue
         if required_extractor_version and str((claim or {}).get("extractor_version") or "") != required_extractor_version:
             continue
         slice_to_claims[str(row.get("slice_hash") or "")].add(claim_key_value)
@@ -479,6 +482,8 @@ def cached_claims_for_candidates(candidates: Mapping[str, Any], cache_root: Path
             key = str(evidence.get("claim_key") or "")
             claim = existing["claims"].get(key)
             if not key or not claim:
+                continue
+            if str(claim.get("status") or "active") not in REUSABLE_CLAIM_STATUSES:
                 continue
             object_name = str(claim.get("object_name") or evidence.get("object_name") or "")
             by_object[object_name]["claim_evidence_hits"] += 1

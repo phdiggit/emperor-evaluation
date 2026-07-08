@@ -210,6 +210,27 @@ def test_plan_candidates_can_require_current_extractor_version(tmp_path: Path) -
     assert [row["slice_code"] for row in uncovered["candidate_slices"]] == ["SLI-001", "SLI-002"]
 
 
+def test_plan_candidates_ignores_non_active_cached_claims(tmp_path: Path) -> None:
+    run_root = write_run(tmp_path)
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+    paths = tool.cache_paths(cache_root)
+    claims = tool.read_jsonl(paths["claims"])
+    claims[0]["status"] = "rejected"
+    tool.write_jsonl(paths["claims"], claims)
+    candidates_path = run_root / "TGT-I5B-ZYZ" / "candidates.final.json"
+    uncovered_path = tmp_path / "uncovered_candidates.json"
+
+    report = tool.plan_candidates(candidates_path, cache_root, uncovered_path)
+    cached = tool.cached_claims_for_candidates(sample_candidates(), cache_root)
+    uncovered = json.loads(uncovered_path.read_text(encoding="utf-8"))
+
+    assert report["cached_slice_count"] == 0
+    assert report["uncovered_slice_count"] == 2
+    assert cached["claim_count"] == 0
+    assert [row["slice_code"] for row in uncovered["candidate_slices"]] == ["SLI-001", "SLI-002"]
+
+
 def test_cache_inventory_reports_objects_and_candidate_plan(tmp_path: Path) -> None:
     run_root = write_run(tmp_path)
     cache_root = tmp_path / "claim_cache"

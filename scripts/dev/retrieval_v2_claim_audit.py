@@ -28,10 +28,13 @@ APPOINTMENT_AUTHORIZATION_TERMS = (
     "授",
     "用",
     "擢",
+    "迁",
     "委",
     "使",
     "令",
     "领",
+    "同知",
+    "定策",
     "为",
     "充",
     "副",
@@ -185,6 +188,9 @@ def build_claim_audit(
     evidences = read_jsonl(claim_paths["evidence"])
     source_slices = read_jsonl(claim_paths["slices"])
     claims_by_key = {text_from(row, "claim_key"): row for row in claims if text_from(row, "claim_key")}
+    active_claims = [row for row in claims if text_from(row, "status") in {"", "active"}]
+    active_claim_keys = {text_from(row, "claim_key") for row in active_claims if text_from(row, "claim_key")}
+    active_evidences = [row for row in evidences if text_from(row, "claim_key") in active_claim_keys]
     source_by_hash = {text_from(row, "slice_hash"): row for row in source_slices if text_from(row, "slice_hash")}
     object_slices = load_object_slice_index(object_cache_root)
     candidates = claim_cache.read_json(candidates_path) if candidates_path else {}
@@ -195,11 +201,10 @@ def build_claim_audit(
     )
     findings: list[dict[str, Any]] = []
 
-    for claim in claims:
-        if text_from(claim, "status") == "active":
-            findings.extend(claim_semantic_findings(claim))
+    for claim in active_claims:
+        findings.extend(claim_semantic_findings(claim))
 
-    for evidence in evidences:
+    for evidence in active_evidences:
         claim_key = text_from(evidence, "claim_key")
         claim = claims_by_key.get(claim_key, {})
         if not claim:
@@ -285,9 +290,7 @@ def build_claim_audit(
             )
 
     groups: dict[tuple[str, ...], list[dict[str, Any]]] = defaultdict(list)
-    for claim in claims:
-        if text_from(claim, "status") != "active":
-            continue
+    for claim in active_claims:
         groups[duplicate_group_key(claim)].append(claim)
     for key, rows in groups.items():
         if len(rows) < 2 or not any(key):
@@ -308,9 +311,8 @@ def build_claim_audit(
             }
         )
     grain_groups: dict[tuple[str, ...], list[dict[str, Any]]] = defaultdict(list)
-    for claim in claims:
-        if text_from(claim, "status") == "active":
-            grain_groups[grain_group_key(claim)].append(claim)
+    for claim in active_claims:
+        grain_groups[grain_group_key(claim)].append(claim)
     for rows in grain_groups.values():
         grains = sorted({text_from(row, "claim_grain") or claim_quality.claim_grain(row) for row in rows})
         if len(rows) < 2 or len(grains) < 2:
@@ -332,7 +334,7 @@ def build_claim_audit(
         )
 
     if not candidate_slices:
-        seen_refs = {text_from(evidence, "source_slice_ref") for evidence in evidences if text_from(evidence, "source_slice_ref")}
+        seen_refs = {text_from(evidence, "source_slice_ref") for evidence in active_evidences if text_from(evidence, "source_slice_ref")}
         for source_ref in sorted(seen_refs):
             object_slice = object_slices.get(source_ref, {})
             source_row = next((row for row in source_slices if text_from(row, "source_slice_ref") == source_ref), {})
@@ -346,7 +348,7 @@ def build_claim_audit(
                     "text": text_from(object_slice, "raw_text") or text_from(source_row, "slice_text_preview"),
                 }
             )
-    opportunity_estimate = claim_quality.estimate_claim_opportunities(candidate_slices, claims)
+    opportunity_estimate = claim_quality.estimate_claim_opportunities(candidate_slices, active_claims)
     for object_name, row in opportunity_estimate.get("objects", {}).items():
         if row.get("undercoverage_risk"):
             findings.append(
@@ -373,11 +375,14 @@ def build_claim_audit(
         "candidates_path": str(candidates_path) if candidates_path else "",
         "totals": {
             "claims": len(claims),
+            "active_claims": len(active_claims),
             "evidence": len(evidences),
+            "active_evidence": len(active_evidences),
             "source_slices": len(source_slices),
             "object_cache_slices": len(object_slices),
             "findings": len(findings),
             "reported_findings": len(limited),
+            "claim_status_counts": dict(Counter(text_from(row, "status") or "active" for row in claims)),
         },
         "issue_counts": dict(Counter(str(row.get("issue_code")) for row in findings)),
         "severity_counts": dict(Counter(str(row.get("severity")) for row in findings)),
@@ -393,6 +398,7 @@ def dedupe_findings(findings: Sequence[Mapping[str, Any]]) -> list[dict[str, Any
         key = (
             str(row.get("issue_code") or ""),
             str(row.get("claim_key") or ""),
+            str(row.get("object_name") or ""),
             str(row.get("source_slice_ref") or ""),
             str(row.get("detail") or ""),
         )
