@@ -55,7 +55,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
-CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v2_budgeted"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v3_object_ref_gate"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -63,7 +63,13 @@ def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any
     for row in candidates.get("candidate_slices") or []:
         if not isinstance(row, Mapping):
             continue
-        rows.append({key: row[key] for key in PROMPT_CANDIDATE_SLICE_KEYS if key in row})
+        payload = {key: row[key] for key in PROMPT_CANDIDATE_SLICE_KEYS if key in row}
+        object_cache = row.get("object_source_cache") if isinstance(row.get("object_source_cache"), Mapping) else {}
+        if object_cache.get("section_heading"):
+            payload["section_heading"] = object_cache.get("section_heading")
+        if object_cache.get("quality_flags"):
+            payload["quality_flags"] = object_cache.get("quality_flags")
+        rows.append(payload)
     return rows
 
 
@@ -112,6 +118,8 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "queue=claim_budget_refinement，recommended_action=raise_claim_budget_or_split_object_claims，do_not_add_recall_terms=true。"
         "如果当前源片段不足以支撑事实闭环，写 source_missing/source_gap，不要臆造 claim。\n\n"
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
+        "硬约束：每条 claim 的 object_name 与 fact_payload.object 必须等于其所有 source_slice_refs 对应 candidate_slices.object_name；"
+        "不得用其他对象的 slice 支撑本对象 claim。多人同事件需要分别为各自对象使用各自对象名下的 slice；没有同对象 slice 就不要输出该对象 claim，改写 coverage_gaps。"
         "输出要极简：不要输出 notes，不要输出 source_passage_refs，不要输出 claim_completeness；"
         "每条 claim 保留 fact_payload 和最多 2 条 evidence_spans 即可，这些字段只记录原文已经明确看到的事实结构。"
         f"fact_payload 使用 {contracts.POLITICAL_ACTION_FACT_SCHEMA} 字段：fact_schema、actor、object、action_type、event_scope、office_or_domain、"
@@ -287,6 +295,8 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "如果没有结果反馈，就把 has_outcome_span=false，不要为了完整而臆造 outcome；如果 action 和 outcome 不在同一事件链，outcome_same_event_chain=false。\n\n"
         "为节省 token，最终 JSON 默认不要复述 documents/passages；每条 claim 必须填写 source_slice_refs，runner 会按 slice_code 自动生成 passages 和 source_passage_refs。"
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
+        "硬约束：每条 claim 的 object_name 与 fact_payload.object 必须等于其所有 source_slice_refs 对应 candidate_slices.object_name；"
+        "不得用其他对象的 slice 支撑本对象 claim。多人同事件需要分别为各自对象使用各自对象名下的 slice；没有同对象 slice 就不要输出该对象 claim，改写 coverage_gaps。"
         "如果一个 summary 需要多个不同事实片段才能成立，拆成多个原子 claim，或把不确定部分放入 notes/coverage_gaps。"
         "不要把“本片段不支撑某对象/某 rule”写成 context_claim；这类不足只写 coverage_gaps。"
         "context_claim 只保留可被后续对象画像或跨 rule 复用的正向背景事实。"

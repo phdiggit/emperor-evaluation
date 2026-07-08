@@ -92,6 +92,60 @@ def claim_fact(claim: Mapping[str, Any]) -> dict[str, Any]:
     return dict(payload) if isinstance(payload, Mapping) else {}
 
 
+def claim_object_name(claim: Mapping[str, Any]) -> str:
+    fact = claim_fact(claim)
+    return str(claim.get("object_name") or fact.get("object") or "")
+
+
+def filter_claim_source_refs(
+    claim: Mapping[str, Any],
+    slices: Mapping[str, Mapping[str, Any]],
+    stats: Counter[str],
+) -> tuple[dict[str, Any] | None, list[str]]:
+    source_refs = [str(ref) for ref in claim.get("source_slice_refs") or [] if str(ref)]
+    if not source_refs:
+        return dict(claim), []
+
+    target_object = claim_object_name(claim)
+    normalized_target = normalized_text(target_object)
+    valid_refs: list[str] = []
+    for source_ref in source_refs:
+        slice_row = slices.get(source_ref)
+        if not slice_row:
+            stats["missing_source_ref_dropped"] += 1
+            continue
+        if normalized_text(slice_row.get("object_name")) != normalized_target:
+            stats["cross_object_source_ref_dropped"] += 1
+            continue
+        valid_refs.append(source_ref)
+
+    if not valid_refs:
+        stats["claims_skipped_cross_object_only"] += 1
+        return None, []
+
+    valid_ref_set = set(valid_refs)
+    sanitized = dict(claim)
+    sanitized["source_slice_refs"] = valid_refs
+    fact = claim_fact(sanitized)
+    source_span_refs = [str(ref) for ref in fact.get("source_span_refs") or [] if str(ref) in valid_ref_set]
+    if source_span_refs or "source_span_refs" in fact:
+        fact["source_span_refs"] = source_span_refs
+    if target_object and not str(sanitized.get("object_name") or ""):
+        sanitized["object_name"] = target_object
+    if target_object and not str(fact.get("object") or ""):
+        fact["object"] = target_object
+    if fact:
+        sanitized["fact_payload"] = fact
+
+    spans = sanitized.get("evidence_spans") if isinstance(sanitized.get("evidence_spans"), list) else []
+    sanitized["evidence_spans"] = [
+        dict(span)
+        for span in spans
+        if isinstance(span, Mapping) and str(span.get("source_slice_ref") or "") in valid_ref_set
+    ]
+    return sanitized, valid_refs
+
+
 def claim_identity_payload(claim: Mapping[str, Any]) -> dict[str, str]:
     fact = claim_fact(claim)
     return {
@@ -221,28 +275,30 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
         for claim in judge.get("claims") or []:
             if not isinstance(claim, Mapping):
                 continue
-            key = str(claim.get("cached_claim_key") or "") or claim_key(claim)
+            sanitized_claim, source_refs = filter_claim_source_refs(claim, slices, stats)
+            if sanitized_claim is None:
+                continue
+            key = str(sanitized_claim.get("cached_claim_key") or "") or claim_key(sanitized_claim)
             imported_claim_keys.append(key)
-            by_object[str(claim.get("object_name") or "")] += 1
+            by_object[claim_object_name(sanitized_claim)] += 1
             if key in existing["claims"]:
                 existing["claims"][key]["seen_count"] = int(existing["claims"][key].get("seen_count") or 1) + 1
                 existing["claims"][key]["last_run_code"] = run
                 stats["duplicate_claim_count"] += 1
             else:
                 existing["claims"][key] = claim_row(
-                    claim=claim,
+                    claim=sanitized_claim,
                     cache_key=key,
                     run=run,
                     raw_output_path=judge_path,
                     extractor_version=extractor_version,
                 )
                 stats["new_claim_count"] += 1
-            source_refs = [str(ref) for ref in claim.get("source_slice_refs") or [] if str(ref)]
-            spans = claim.get("evidence_spans") if isinstance(claim.get("evidence_spans"), list) else []
+            spans = sanitized_claim.get("evidence_spans") if isinstance(sanitized_claim.get("evidence_spans"), list) else []
             if not source_refs:
                 stats["claims_without_source_slice_refs"] += 1
             for source_ref in source_refs:
-                slice_row = slices.get(source_ref, {"slice_code": source_ref, "object_name": claim.get("object_name")})
+                slice_row = slices.get(source_ref, {"slice_code": source_ref, "object_name": sanitized_claim.get("object_name")})
                 s_hash = slice_hash_from_row(slice_row)
                 if s_hash in existing["slices"]:
                     existing["slices"][s_hash]["seen_count"] = int(existing["slices"][s_hash].get("seen_count") or 1) + 1
@@ -251,7 +307,7 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                     existing["slices"][s_hash] = {
                         "schema_version": SCHEMA_VERSION,
                         "slice_hash": s_hash,
-                        "object_name": str(slice_row.get("object_name") or claim.get("object_name") or ""),
+                        "object_name": str(slice_row.get("object_name") or sanitized_claim.get("object_name") or ""),
                         "document_code": str(slice_row.get("document_code") or ""),
                         "source_slice_ref": source_ref,
                         "slice_text_preview": compact_preview(str(slice_row.get("text") or "")),
@@ -274,7 +330,7 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                         "slice_hash": s_hash,
                         "source_slice_ref": source_ref,
                         "document_code": str(slice_row.get("document_code") or ""),
-                        "object_name": str(slice_row.get("object_name") or claim.get("object_name") or ""),
+                        "object_name": str(slice_row.get("object_name") or sanitized_claim.get("object_name") or ""),
                         "span_payload": dict(span),
                         "slice_text_preview": compact_preview(str(slice_row.get("text") or "")),
                         "raw_output_path": str(judge_path),

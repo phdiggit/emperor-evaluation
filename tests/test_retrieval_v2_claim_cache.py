@@ -128,6 +128,42 @@ def test_import_run_dedupes_claims_slices_and_evidence(tmp_path: Path) -> None:
     assert len(tool.read_jsonl(cache_root / "source_slices.jsonl")) == 1
 
 
+def test_import_run_drops_cross_object_source_refs(tmp_path: Path) -> None:
+    claim = sample_claim()
+    claim["source_slice_refs"] = ["SLI-001", "SLI-002"]
+    claim["fact_payload"]["source_span_refs"] = ["SLI-001", "SLI-002"]
+    claim["evidence_spans"].append({"span_type": "action", "source_slice_ref": "SLI-002", "text": "命常遇春进兵"})
+    run_root = write_run(tmp_path, claim=claim)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    evidence = tool.read_jsonl(cache_root / "claim_evidence.jsonl")
+    assert report["stats"]["cross_object_source_ref_dropped"] == 1
+    assert report["stats"]["new_claim_count"] == 1
+    assert claims[0]["object_name"] == "汤和"
+    assert claims[0]["fact_payload"]["source_span_refs"] == ["SLI-001"]
+    assert {row["source_slice_ref"] for row in evidence} == {"SLI-001"}
+    assert {row["object_name"] for row in evidence} == {"汤和"}
+
+
+def test_import_run_skips_claim_with_only_cross_object_refs(tmp_path: Path) -> None:
+    claim = sample_claim()
+    claim["source_slice_refs"] = ["SLI-002"]
+    claim["fact_payload"]["source_span_refs"] = ["SLI-002"]
+    claim["evidence_spans"] = [{"span_type": "action", "source_slice_ref": "SLI-002", "text": "命常遇春进兵"}]
+    run_root = write_run(tmp_path, claim=claim)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    assert report["stats"]["cross_object_source_ref_dropped"] == 1
+    assert report["stats"]["claims_skipped_cross_object_only"] == 1
+    assert report["total_cached_claims"] == 0
+    assert tool.read_jsonl(cache_root / "claim_evidence.jsonl") == []
+
+
 def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> None:
     run_root = write_run(tmp_path)
     cache_root = tmp_path / "claim_cache"
