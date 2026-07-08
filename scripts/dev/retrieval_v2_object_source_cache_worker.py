@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.dev import retrieval_v2_claim_cache as claim_cache  # noqa: E402
+from scripts.dev import retrieval_v2_claim_extraction_worker as claim_worker  # noqa: E402
 from scripts.dev import retrieval_v2_object_source_cache as object_cache  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 
@@ -20,6 +22,7 @@ from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, re
 DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 DEFAULT_OUTPUT_ROOT = ROOT / "tmp" / "retrieval_v2_object_source_cache_runs"
 DEFAULT_PAGE_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_source_pages"
+DEFAULT_CLAIM_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
 
 
 class ObjectSourceCacheWorkerError(RuntimeError):
@@ -475,6 +478,212 @@ def execute_job(*, job: Mapping[str, Any], max_docs_per_person: int = 6) -> dict
     }
 
 
+def object_cache_document_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "document_code": text(row.get("document_cache_code") or row.get("document_code")),
+        "title": text(row.get("source_title") or row.get("title") or row.get("wikisource_title")),
+        "url": text(row.get("source_url") or row.get("url")),
+        "source_kind": text(row.get("source_kind")) or "wikisource_page",
+        "source_role": text(row.get("source_role")),
+        "source_shape": text(row.get("source_shape")),
+        "object_source_cache": {
+            "person_name": text(row.get("person_name")),
+            "person_cache_code": text(row.get("person_cache_code")),
+            "source_shape": text(row.get("source_shape")),
+            "source_role": text(row.get("source_role")),
+        },
+    }
+
+
+def object_cache_slice_score(row: Mapping[str, Any], doc: Mapping[str, Any] | None) -> int:
+    shape = text((doc or {}).get("source_shape"))
+    role = text(row.get("source_role") or (doc or {}).get("source_role"))
+    score = 30
+    if shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
+        score += 20
+    elif shape == "object_mention_candidate":
+        score += 10
+    if role == "object_biography":
+        score += 8
+    score += min(12, len(text(row.get("raw_text"))) // 120)
+    return score
+
+
+def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    document_code = text(row.get("document_cache_code") or row.get("document_code"))
+    object_name = text(row.get("person_name") or row.get("object_name"))
+    return {
+        "slice_code": text(row.get("slice_cache_code")) or "OSS-" + stable_hash(row, length=18),
+        "document_code": document_code,
+        "object_name": object_name,
+        "locator": text(row.get("locator")),
+        "score": object_cache_slice_score(row, doc),
+        "matched_aliases": [text(alias) for alias in row.get("matched_aliases") or [] if text(alias)],
+        "matched_rule_terms": [],
+        "matched_outcome_terms": [],
+        "matched_role_families": ["object_source_cache"],
+        "text": text(row.get("raw_text") or row.get("text") or row.get("quote")),
+        "object_source_cache": {
+            "person_name": object_name,
+            "person_cache_code": text(row.get("person_cache_code")),
+            "source_title": text(row.get("source_title") or (doc or {}).get("source_title") or (doc or {}).get("title")),
+            "source_role": text(row.get("source_role") or (doc or {}).get("source_role")),
+            "source_shape": text((doc or {}).get("source_shape")),
+            "slice_cache_code": text(row.get("slice_cache_code")),
+        },
+    }
+
+
+def selected_object_cache_slices(
+    rows: Sequence[Mapping[str, Any]],
+    docs_by_code: Mapping[str, Mapping[str, Any]],
+    *,
+    max_slices_per_person: int,
+    max_total_slices: int,
+) -> list[dict[str, Any]]:
+    by_person: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        document_code = text(row.get("document_cache_code") or row.get("document_code"))
+        candidate = object_cache_candidate_slice(row, docs_by_code.get(document_code))
+        if not candidate["object_name"] or not candidate["text"]:
+            continue
+        by_person.setdefault(candidate["object_name"], []).append(candidate)
+    selected: list[dict[str, Any]] = []
+    per_person_limit = max(1, int(max_slices_per_person))
+    for person_name in sorted(by_person):
+        rows_for_person = sorted(
+            by_person[person_name],
+            key=lambda row: (-int(row.get("score") or 0), str(row.get("document_code")), str(row.get("locator"))),
+        )
+        selected.extend(rows_for_person[:per_person_limit])
+    selected.sort(key=lambda row: (str(row.get("object_name")), -int(row.get("score") or 0), str(row.get("document_code"))))
+    if max_total_slices > 0:
+        selected = selected[:max_total_slices]
+    return selected
+
+
+def object_cache_to_claim_candidates(
+    *,
+    cache_root: Path,
+    emperor_name: str = "",
+    target_code: str = "",
+    rule_code: str = "i5b_item_wide",
+    capture_profile: str = "personnel_political_wide",
+    max_slices_per_person: int = 12,
+    max_total_slices: int = 0,
+) -> dict[str, Any]:
+    source_documents = read_jsonl(cache_root / "source_documents.jsonl")
+    mention_slices = read_jsonl(cache_root / "mention_slices.jsonl")
+    coverage_rows = read_jsonl(cache_root / "person_coverage.jsonl") if (cache_root / "person_coverage.jsonl").exists() else []
+    docs_by_code = {
+        text(row.get("document_cache_code") or row.get("document_code")): row
+        for row in source_documents
+        if text(row.get("document_cache_code") or row.get("document_code"))
+    }
+    candidates = selected_object_cache_slices(
+        mention_slices,
+        docs_by_code,
+        max_slices_per_person=max_slices_per_person,
+        max_total_slices=max_total_slices,
+    )
+    object_names = sorted({text(row.get("person_name")) for row in coverage_rows if text(row.get("person_name"))} or {str(row["object_name"]) for row in candidates})
+    slim_docs = [object_cache_document_row(row) for row in source_documents if text(row.get("document_cache_code") or row.get("document_code"))]
+    return {
+        "schema_version": 1,
+        "generated_by": "scripts/dev/retrieval_v2_object_source_cache_worker.py claim-plan",
+        "task_identity": {
+            "emperor_name": emperor_name,
+            "target_code": target_code,
+            "rule_code": rule_code,
+            "capture_profile": capture_profile,
+            "judge_mode": "claim_extraction_only",
+        },
+        "target_profile": {"primary_name": emperor_name},
+        "rule": {"rule_code": rule_code},
+        "object_seeds": [{"name": name} for name in object_names],
+        "source_documents": slim_docs,
+        "candidate_slices": candidates,
+        "coverage": {
+            "object_slice_counts": {
+                name: sum(1 for row in candidates if row.get("object_name") == name)
+                for name in object_names
+            },
+            "objects_without_slices": [
+                name for name in object_names if not any(row.get("object_name") == name for row in candidates)
+            ],
+        },
+        "stats": {
+            "source_documents": len(slim_docs),
+            "mention_slices": len(mention_slices),
+            "candidate_slices": len(candidates),
+            "max_slices_per_person": max_slices_per_person,
+            "max_total_slices": max_total_slices,
+        },
+        "claim_bridge": {
+            "cache_root": str(cache_root),
+            "policy": "object source cache mention_slices converted to claim-only candidates; no judge execution",
+        },
+    }
+
+
+def plan_claim_extraction_from_cache(
+    *,
+    cache_root: Path,
+    claim_cache_root: Path,
+    output_candidates: Path,
+    output_uncovered_candidates: Path,
+    emperor_name: str = "",
+    target_code: str = "",
+    rule_code: str = "i5b_item_wide",
+    capture_profile: str = "personnel_political_wide",
+    max_slices_per_person: int = 12,
+    max_total_slices: int = 0,
+    enqueue_claim_job: bool = False,
+    dsn: str = "",
+    claim_run_root: Path | None = None,
+    priority: int = 100,
+) -> dict[str, Any]:
+    candidates = object_cache_to_claim_candidates(
+        cache_root=cache_root,
+        emperor_name=emperor_name,
+        target_code=target_code,
+        rule_code=rule_code,
+        capture_profile=capture_profile,
+        max_slices_per_person=max_slices_per_person,
+        max_total_slices=max_total_slices,
+    )
+    write_json(output_candidates, candidates)
+    cache_plan = claim_cache.plan_candidates(output_candidates, claim_cache_root, output_uncovered_candidates)
+    enqueue_result: dict[str, Any] | None = None
+    claim_job: dict[str, Any] | None = None
+    if enqueue_claim_job and int(cache_plan.get("uncovered_slice_count") or 0) > 0:
+        if not dsn:
+            raise ObjectSourceCacheWorkerError("--enqueue-claim-job requires a resolved DSN")
+        claim_job = claim_worker.job_from_candidates(
+            candidates_path=output_uncovered_candidates,
+            cache_root=claim_cache_root,
+            run_root=claim_run_root or claim_worker.DEFAULT_RUN_ROOT,
+            priority=priority,
+        )
+        enqueue_result = claim_worker.enqueue_job(dsn=dsn, job=claim_job)
+    return {
+        "ok": True,
+        "status": "planned",
+        "cache_root": str(cache_root),
+        "claim_cache_root": str(claim_cache_root),
+        "output_candidates": str(output_candidates),
+        "output_uncovered_candidates": str(output_uncovered_candidates),
+        "candidate_slice_count": cache_plan.get("candidate_slice_count"),
+        "cached_slice_count": cache_plan.get("cached_slice_count"),
+        "uncovered_slice_count": cache_plan.get("uncovered_slice_count"),
+        "by_object": cache_plan.get("by_object") or {},
+        "enqueue_claim_job": bool(enqueue_claim_job),
+        "claim_job": claim_job,
+        "enqueue": enqueue_result,
+        "execute_effect": "plan claim extraction candidates from object source cache; optional enqueue only, no judge execution",
+    }
+
+
 def once(
     *,
     dsn: str,
@@ -604,6 +813,24 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--execute", action="store_true")
     once_cmd.add_argument("--max-docs-per-person", type=int, default=6)
     once_cmd.add_argument("--output-json", type=Path)
+
+    claim_plan = sub.add_parser("claim-plan", help="Build claim-only candidates from an object source cache and run claim-cache uncovered planning.")
+    claim_plan.add_argument("--cache-root", type=Path, required=True)
+    claim_plan.add_argument("--claim-cache-root", type=Path, default=DEFAULT_CLAIM_CACHE_ROOT)
+    claim_plan.add_argument("--output-candidates", type=Path, required=True)
+    claim_plan.add_argument("--output-uncovered-candidates", type=Path, required=True)
+    claim_plan.add_argument("--emperor-name", default="")
+    claim_plan.add_argument("--target-code", default="")
+    claim_plan.add_argument("--rule-code", default="i5b_item_wide")
+    claim_plan.add_argument("--capture-profile", default="personnel_political_wide")
+    claim_plan.add_argument("--max-slices-per-person", type=int, default=12)
+    claim_plan.add_argument("--max-total-slices", type=int, default=0)
+    claim_plan.add_argument("--enqueue-claim-job", action="store_true")
+    claim_plan.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
+    claim_plan.add_argument("--priority", type=int, default=100)
+    claim_plan.add_argument("--env-file", type=Path)
+    claim_plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    claim_plan.add_argument("--output-json", type=Path)
     return parser
 
 
@@ -611,7 +838,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if getattr(args, "env_file", None) is not None:
         load_env_file(args.env_file)
-    dsn = resolve_dsn(args.dsn_env)
+    needs_dsn = args.command in {"apply-schema", "enqueue-from-seed", "plan", "once"} or bool(getattr(args, "enqueue_claim_job", False))
+    dsn = resolve_dsn(args.dsn_env) if needs_dsn else ""
     if args.command == "apply-schema":
         apply_schema(dsn)
         payload = {"ok": True, "action": "apply_schema"}
@@ -629,6 +857,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
     elif args.command == "once":
         payload = once(dsn=dsn, worker_id=args.worker_id, execute=bool(args.execute), max_docs_per_person=args.max_docs_per_person)
+    elif args.command == "claim-plan":
+        payload = plan_claim_extraction_from_cache(
+            cache_root=args.cache_root,
+            claim_cache_root=args.claim_cache_root,
+            output_candidates=args.output_candidates,
+            output_uncovered_candidates=args.output_uncovered_candidates,
+            emperor_name=args.emperor_name,
+            target_code=args.target_code,
+            rule_code=args.rule_code,
+            capture_profile=args.capture_profile,
+            max_slices_per_person=args.max_slices_per_person,
+            max_total_slices=args.max_total_slices,
+            enqueue_claim_job=bool(args.enqueue_claim_job),
+            dsn=dsn,
+            claim_run_root=args.claim_run_root,
+            priority=args.priority,
+        )
     else:  # pragma: no cover
         raise ObjectSourceCacheWorkerError(f"unsupported command: {args.command}")
     write_json(getattr(args, "output_json", None), payload)

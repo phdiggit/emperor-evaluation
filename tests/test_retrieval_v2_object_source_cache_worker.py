@@ -7,6 +7,11 @@ from types import SimpleNamespace
 from scripts.dev import retrieval_v2_object_source_cache_worker as tool
 
 
+def write_jsonl(path: Path, rows: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in rows), encoding="utf-8")
+
+
 def write_seed(path: Path) -> list[dict]:
     rows = [
         {
@@ -25,6 +30,77 @@ def write_seed(path: Path) -> list[dict]:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
     return rows
+
+
+def write_object_cache(cache_root: Path) -> None:
+    write_jsonl(
+        cache_root / "source_documents.jsonl",
+        [
+            {
+                "document_cache_code": "OSD-TH",
+                "person_cache_code": "PSC-TH",
+                "person_name": "汤和",
+                "source_title": "明史/卷126",
+                "source_url": "https://example.test/mingshi126",
+                "source_role": "object_biography",
+                "source_shape": "object_biography_candidate",
+            },
+            {
+                "document_cache_code": "OSD-CYC",
+                "person_cache_code": "PSC-CYC",
+                "person_name": "常遇春",
+                "source_title": "明史/卷125",
+                "source_url": "https://example.test/mingshi125",
+                "source_role": "object_biography",
+                "source_shape": "object_biography_candidate",
+            },
+        ],
+    )
+    write_jsonl(
+        cache_root / "person_coverage.jsonl",
+        [
+            {"person_name": "汤和", "mention_slice_count": 2},
+            {"person_name": "常遇春", "mention_slice_count": 1},
+        ],
+    )
+    write_jsonl(
+        cache_root / "mention_slices.jsonl",
+        [
+            {
+                "slice_cache_code": "OSS-TH-1",
+                "document_cache_code": "OSD-TH",
+                "person_cache_code": "PSC-TH",
+                "person_name": "汤和",
+                "source_title": "明史/卷126",
+                "source_role": "object_biography",
+                "locator": "chars:0-80",
+                "matched_aliases": ["汤和"],
+                "raw_text": "太祖命汤和守常州，汤和安辑军民。",
+            },
+            {
+                "slice_cache_code": "OSS-TH-2",
+                "document_cache_code": "OSD-TH",
+                "person_cache_code": "PSC-TH",
+                "person_name": "汤和",
+                "source_title": "明史/卷126",
+                "source_role": "object_biography",
+                "locator": "chars:80-160",
+                "matched_aliases": ["汤和"],
+                "raw_text": "汤和后镇海上，严戢士卒。",
+            },
+            {
+                "slice_cache_code": "OSS-CYC-1",
+                "document_cache_code": "OSD-CYC",
+                "person_cache_code": "PSC-CYC",
+                "person_name": "常遇春",
+                "source_title": "明史/卷125",
+                "source_role": "object_biography",
+                "locator": "chars:0-80",
+                "matched_aliases": ["常遇春"],
+                "raw_text": "常遇春从太祖渡江，屡破敌军。",
+            },
+        ],
+    )
 
 
 def test_job_from_seed_builds_stable_queue_payload(tmp_path: Path) -> None:
@@ -154,6 +230,96 @@ def test_execute_job_runs_build_and_review_without_codex(tmp_path: Path, monkeyp
         "fetch_error_count": 0,
         "review_queue_count": 1,
     }
+
+
+def test_claim_plan_builds_uncovered_candidates_without_db(tmp_path: Path, monkeypatch) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_object_cache(cache_root)
+    called = {"resolve_dsn": 0, "enqueue": 0}
+
+    def fake_resolve_dsn(_env):
+        called["resolve_dsn"] += 1
+        raise AssertionError("dry-run claim-plan must not resolve a DSN")
+
+    def fake_enqueue_job(**_kwargs):
+        called["enqueue"] += 1
+        raise AssertionError("dry-run claim-plan must not enqueue")
+
+    monkeypatch.setattr(tool, "resolve_dsn", fake_resolve_dsn)
+    monkeypatch.setattr(tool.claim_worker, "enqueue_job", fake_enqueue_job)
+
+    assert tool.main(
+        [
+            "claim-plan",
+            "--cache-root",
+            str(cache_root),
+            "--claim-cache-root",
+            str(tmp_path / "claim_cache"),
+            "--output-candidates",
+            str(tmp_path / "claim_candidates.json"),
+            "--output-uncovered-candidates",
+            str(tmp_path / "claim_candidates.uncovered.json"),
+            "--emperor-name",
+            "朱元璋",
+            "--target-code",
+            "TGT-ZYZ",
+            "--max-slices-per-person",
+            "1",
+            "--output-json",
+            str(tmp_path / "claim_plan.json"),
+        ]
+    ) == 0
+
+    plan = json.loads((tmp_path / "claim_plan.json").read_text(encoding="utf-8"))
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+    uncovered = json.loads((tmp_path / "claim_candidates.uncovered.json").read_text(encoding="utf-8"))
+
+    assert called == {"resolve_dsn": 0, "enqueue": 0}
+    assert plan["uncovered_slice_count"] == 2
+    assert candidates["task_identity"]["judge_mode"] == "claim_extraction_only"
+    assert candidates["task_identity"]["emperor_name"] == "朱元璋"
+    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"汤和", "常遇春"}
+    assert uncovered["candidate_slices"] == candidates["candidate_slices"]
+
+
+def test_claim_plan_can_enqueue_claim_job_without_running_judge(tmp_path: Path, monkeypatch) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_object_cache(cache_root)
+    calls: list[str] = []
+
+    def fake_job_from_candidates(**kwargs):
+        calls.append("job_from_candidates")
+        assert kwargs["candidates_path"].name == "claim_candidates.uncovered.json"
+        assert kwargs["cache_root"] == tmp_path / "claim_cache"
+        return {"job_code": "CLMEXT-TEST", "idem_key": "idem", "uncovered_slice_count": 3}
+
+    def fake_enqueue_job(*, dsn: str, job: dict):
+        calls.append("enqueue_job")
+        assert dsn == "postgres://example"
+        assert job["job_code"] == "CLMEXT-TEST"
+        return {"job_id": 9, "job_code": job["job_code"], "idem_key": job["idem_key"]}
+
+    def fake_execute_job(**_kwargs):
+        raise AssertionError("claim-plan must not execute claim judge")
+
+    monkeypatch.setattr(tool.claim_worker, "job_from_candidates", fake_job_from_candidates)
+    monkeypatch.setattr(tool.claim_worker, "enqueue_job", fake_enqueue_job)
+    monkeypatch.setattr(tool.claim_worker, "execute_job", fake_execute_job)
+
+    result = tool.plan_claim_extraction_from_cache(
+        cache_root=cache_root,
+        claim_cache_root=tmp_path / "claim_cache",
+        output_candidates=tmp_path / "claim_candidates.json",
+        output_uncovered_candidates=tmp_path / "claim_candidates.uncovered.json",
+        emperor_name="朱元璋",
+        target_code="TGT-ZYZ",
+        enqueue_claim_job=True,
+        dsn="postgres://example",
+    )
+
+    assert calls == ["job_from_candidates", "enqueue_job"]
+    assert result["enqueue"] == {"job_id": 9, "job_code": "CLMEXT-TEST", "idem_key": "idem"}
+    assert result["claim_job"]["job_code"] == "CLMEXT-TEST"
 
 
 def test_execute_once_records_success(monkeypatch) -> None:

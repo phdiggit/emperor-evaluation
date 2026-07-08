@@ -89,7 +89,7 @@
 - `retrieval_v2_claim_cache.py` 是 retrieval_v2 claim-only 抽取后的最小 claim 管理闭环入口；`retrieval_v2_claim_cache_pg.py` 只把 filesystem claim cache 幂等写入 `claim_cache` / `claim_source_slices` / `claim_evidence` 并做库存审计，默认 DB-backed dry-run，显式 `--execute` 才写库；二者都不写正式 binding、不触发 factorization 或 scorer。
 - `retrieval_v2_claim_extraction_worker.py` 是抓包侧 claim-only 抽取 worker，消费 `claim_extraction_jobs` 中的 uncovered candidates，显式 `once --execute` 才调用 Codex；它只产出 mini clean run 并回填 claim cache，不写消费端 binding、factorization 或 scorer。
 - `retrieval_v2_object_source_cache.py` 是 retrieval_v2 对象级离线史源缓存入口，从当前对象表、历史 clean run 或显式 seed JSONL 生成人物源缓存、mention slice、coverage summary、agent review 占位队列和 PG schema 草案；第一版不调用 Codex、不写数据库、不替代抓包 judge 或消费端裁量。
-- `retrieval_v2_object_source_cache_worker.py` 是抓包侧对象源缓存队列 worker，消费 `object_source_cache_jobs` 并执行 `build-shards` / `review-audit`；它不调用 Codex、不导入 claim、不写对象池、不触发消费端或评分。
+- `retrieval_v2_object_source_cache_worker.py` 是抓包侧对象源缓存队列 worker，消费 `object_source_cache_jobs` 并执行 `build-shards` / `review-audit`；`claim-plan` 只把对象源缓存转成 claim-only candidates 并可选写入 `claim_extraction_jobs`，不调用 Codex、不导入 claim、不写对象池、不触发消费端或评分。
 - `retrieval_v2_i5b_shadow_report.py` 是 I5B-wide shadow pilot 的只读检测报告入口，从本轮 `summary.json`、`run_events.jsonl`、candidate 和 judge 产物汇总耗时、usage、secondary candidate、claim/passage 风险、重复风险和处置性 negative 风险；它不写数据库、不改变包体、不替代人工抽样回源。
 - `i5b_next_stage_queue_runner.py` 是 source pack handoff 后的收货批处理入口，只消费已通过 `next_stage_queue.jsonl` 的 ready 人物，生成摘录报告和对象 payload 骨架到 `.tmp/**`；它不写数据库、不替代对象规则裁量。
 - `i5b_next_stage_control_board.py` 是 ready 包消费后的总控减负入口，聚合 next-stage 骨架、对象 payload 子进程候选、review 报告和占位符审计结果，生成缺交付派工单与可 dry-run payload 清单；它不写数据库、不替代对象规则裁量。对象 payload 子进程完成后，先用该板确认主控工作区已看到候选文件，再关闭子进程。
