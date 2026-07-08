@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev import retrieval_v2_claim_cache as claim_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_extraction_worker as claim_worker  # noqa: E402
+from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev import retrieval_v2_object_source_cache as object_cache  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 
@@ -945,6 +946,7 @@ def object_cache_to_claim_candidates(
         if text(row.get("document_cache_code") or row.get("document_code")) in selected_document_codes
     ]
     audit["selection"] = selection
+    opportunity_estimate = claim_quality.estimate_claim_opportunities(selected_candidates)
     return {
         "schema_version": 1,
         "generated_by": "scripts/dev/retrieval_v2_object_source_cache_worker.py claim-plan",
@@ -984,6 +986,7 @@ def object_cache_to_claim_candidates(
             "policy": "object source cache mention_slices converted to claim-only candidates; no judge execution",
         },
         "claim_plan_audit": audit,
+        "claim_opportunity_estimate": opportunity_estimate,
     }
 
 
@@ -1056,6 +1059,7 @@ def plan_claim_extraction_from_cache(
         "uncovered_slice_count": cache_plan.get("uncovered_slice_count"),
         "by_object": cache_plan.get("by_object") or {},
         "claim_plan_audit": candidates.get("claim_plan_audit") or {},
+        "claim_opportunity_estimate": candidates.get("claim_opportunity_estimate") or {},
         "enqueue_claim_job": bool(enqueue_claim_job),
         "claim_job": claim_job,
         "enqueue": enqueue_result,

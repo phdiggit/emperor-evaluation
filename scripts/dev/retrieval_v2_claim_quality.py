@@ -3,11 +3,12 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 
 BIOGRAPHY_SOURCE_SHAPES = {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}
 ACTION_ANCHORS = (
+    "诏",
     "命",
     "拜",
     "授",
@@ -18,6 +19,7 @@ ACTION_ANCHORS = (
     "使",
     "遣",
     "令",
+    "领",
     "将兵",
     "将军",
     "帅",
@@ -65,6 +67,9 @@ OUTCOME_ANCHORS = (
     "害",
     "乱",
 )
+OPPORTUNITY_ACTION_TERMS = tuple(dict.fromkeys((*ACTION_ANCHORS, "独专", "专擅", "擅权", "纳贿", "构党", "结党", "壅蔽")))
+OPPORTUNITY_OUTCOME_TERMS = tuple(dict.fromkeys((*OUTCOME_ANCHORS, "获", "俘", "斩", "擒", "降", "赐", "赏", "追封", "配享")))
+NEGATIVE_ACTION_TERMS = ("诛", "伏诛", "被诛", "罢", "废", "黜", "下狱", "坐罪", "谋反", "专擅", "擅权", "纳贿", "构党", "结党", "壅蔽")
 TACTICAL_SUBEVENT_ANCHORS = ("攻", "克", "破", "下", "败", "追", "斩", "擒")
 CHAIN_ANCHORS = ("征", "讨", "伐", "平", "镇", "守", "留守", "总制", "提督", "任", "拜", "授", "命")
 
@@ -179,6 +184,123 @@ def slice_claim_eligibility(row: Mapping[str, Any]) -> dict[str, Any]:
         "risk_flags": risk_flags,
         "near_object_anchors": {"action": has_action, "outcome": has_outcome},
         "reasons": reasons,
+    }
+
+
+def anchor_terms_in_text(text: str, terms: tuple[str, ...]) -> list[str]:
+    return [term for term in terms if term and term in text]
+
+
+def slice_opportunity(row: Mapping[str, Any]) -> dict[str, Any]:
+    text = str(row.get("text") or row.get("raw_text") or "")
+    eligibility = slice_claim_eligibility(row)
+    action_terms = anchor_terms_in_text(text, OPPORTUNITY_ACTION_TERMS)
+    outcome_terms = anchor_terms_in_text(text, OPPORTUNITY_OUTCOME_TERMS)
+    negative_terms = anchor_terms_in_text(text, NEGATIVE_ACTION_TERMS)
+    has_opportunity = bool(eligibility["claim_eligible"] and (action_terms or outcome_terms))
+    weight = 0
+    if has_opportunity:
+        weight = 1
+        if action_terms and outcome_terms:
+            weight += 1
+        if negative_terms:
+            weight += 1
+        if len(set(action_terms)) >= 3 or len(set(outcome_terms)) >= 3:
+            weight += 1
+    return {
+        "has_opportunity": has_opportunity,
+        "opportunity_weight": weight,
+        "action_terms": action_terms[:12],
+        "outcome_terms": outcome_terms[:12],
+        "negative_terms": negative_terms[:8],
+        "slice_code": str(row.get("slice_code") or row.get("slice_cache_code") or ""),
+        "object_name": str(row.get("object_name") or row.get("person_name") or ""),
+        "claim_eligible": eligibility["claim_eligible"],
+    }
+
+
+def suggested_claim_budget(opportunity_count: int, opportunity_weight: int, slice_count: int) -> int:
+    if opportunity_count <= 0:
+        return 0
+    base = max(opportunity_count, (opportunity_weight + 1) // 2)
+    cap = 8 if slice_count >= 4 else max(3, slice_count * 2)
+    return max(1, min(cap, base))
+
+
+def estimate_claim_opportunities(
+    candidate_slices: Sequence[Mapping[str, Any]],
+    claims: Sequence[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    by_object: dict[str, dict[str, Any]] = {}
+    for row in candidate_slices:
+        object_name = str(row.get("object_name") or row.get("person_name") or "").strip()
+        if not object_name:
+            continue
+        entry = by_object.setdefault(
+            object_name,
+            {
+                "slice_count": 0,
+                "eligible_slice_count": 0,
+                "opportunity_count": 0,
+                "opportunity_weight": 0,
+                "action_terms": set(),
+                "outcome_terms": set(),
+                "negative_terms": set(),
+                "opportunity_slices": [],
+            },
+        )
+        entry["slice_count"] += 1
+        opportunity = slice_opportunity(row)
+        if opportunity["claim_eligible"]:
+            entry["eligible_slice_count"] += 1
+        if opportunity["has_opportunity"]:
+            entry["opportunity_count"] += 1
+            entry["opportunity_weight"] += int(opportunity["opportunity_weight"])
+            entry["action_terms"].update(opportunity["action_terms"])
+            entry["outcome_terms"].update(opportunity["outcome_terms"])
+            entry["negative_terms"].update(opportunity["negative_terms"])
+            entry["opportunity_slices"].append(opportunity["slice_code"])
+    claim_counts: dict[str, int] = {}
+    for claim in claims or []:
+        object_name = claim_text(claim, "object_name", "object").strip()
+        if object_name:
+            claim_counts[object_name] = claim_counts.get(object_name, 0) + 1
+    objects: dict[str, dict[str, Any]] = {}
+    for object_name, entry in sorted(by_object.items()):
+        budget = suggested_claim_budget(
+            int(entry["opportunity_count"]),
+            int(entry["opportunity_weight"]),
+            int(entry["slice_count"]),
+        )
+        actual = claim_counts.get(object_name, 0)
+        risk = ""
+        if actual and budget and actual < max(1, budget - 1):
+            risk = "possible_undercoverage"
+        elif not actual and budget:
+            risk = "missing_claims"
+        objects[object_name] = {
+            "slice_count": entry["slice_count"],
+            "eligible_slice_count": entry["eligible_slice_count"],
+            "opportunity_count": entry["opportunity_count"],
+            "opportunity_weight": entry["opportunity_weight"],
+            "suggested_claim_budget": budget,
+            "actual_claim_count": actual,
+            "undercoverage_risk": risk,
+            "action_terms": sorted(entry["action_terms"]),
+            "outcome_terms": sorted(entry["outcome_terms"]),
+            "negative_terms": sorted(entry["negative_terms"]),
+            "opportunity_slices": entry["opportunity_slices"][:16],
+        }
+    return {
+        "objects": objects,
+        "totals": {
+            "objects": len(objects),
+            "candidate_slices": sum(int(row["slice_count"]) for row in objects.values()),
+            "opportunities": sum(int(row["opportunity_count"]) for row in objects.values()),
+            "suggested_claim_budget": sum(int(row["suggested_claim_budget"]) for row in objects.values()),
+            "actual_claim_count": sum(int(row["actual_claim_count"]) for row in objects.values()),
+            "undercoverage_objects": sum(1 for row in objects.values() if row["undercoverage_risk"]),
+        },
     }
 
 

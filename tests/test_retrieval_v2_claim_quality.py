@@ -55,3 +55,63 @@ def test_canonical_near_duplicate_group_ignores_summary_wording() -> None:
     assert tool.canonical_event_key(first) != tool.canonical_event_key(second)
     assert tool.near_duplicate_group_key(first) == tool.near_duplicate_group_key(second)
     assert tool.claim_quality_payload(first)["claim_grain"] == "event_chain"
+
+
+def test_opportunity_estimator_suggests_budget_and_uses_new_action_anchors() -> None:
+    slices = [
+        {
+            "slice_code": "SLI-001",
+            "object_name": "李文忠",
+            "matched_aliases": ["李文忠"],
+            "source_shape": "object_biography_candidate",
+            "section_heading": "李文忠",
+            "text": "洪武二年，太祖诏李文忠领常遇春众，仍命其北征，克应昌。",
+        },
+        {
+            "slice_code": "SLI-002",
+            "object_name": "李文忠",
+            "matched_aliases": ["李文忠"],
+            "source_shape": "object_biography_candidate",
+            "section_heading": "李文忠",
+            "text": "李文忠往蜀拊循，筑成都新城，发军戍诸郡要害。",
+        },
+    ]
+
+    report = tool.estimate_claim_opportunities(slices, claims=[])
+    row = report["objects"]["李文忠"]
+
+    assert row["opportunity_count"] == 2
+    assert row["suggested_claim_budget"] >= 2
+    assert row["actual_claim_count"] == 0
+    assert row["undercoverage_risk"] == "missing_claims"
+    assert "诏" in row["action_terms"]
+    assert "领" in row["action_terms"]
+
+
+def test_opportunity_estimator_marks_possible_undercoverage() -> None:
+    slices = [
+        {
+            "slice_code": f"SLI-{idx}",
+            "object_name": "汤和",
+            "matched_aliases": ["汤和"],
+            "source_shape": "object_biography_candidate",
+            "section_heading": "汤和",
+            "text": text,
+        }
+        for idx, text in enumerate(
+            [
+                "朱元璋命汤和守常州，常州安辑。",
+                "汤和从伐陈友谅，克其水寨。",
+                "汤和镇守海防，筑城备倭。",
+            ],
+            start=1,
+        )
+    ]
+    claims = [{"object_name": "汤和", "claim_summary": "朱元璋命汤和守常州。"}]
+
+    report = tool.estimate_claim_opportunities(slices, claims=claims)
+    row = report["objects"]["汤和"]
+
+    assert row["opportunity_count"] == 3
+    assert row["actual_claim_count"] == 1
+    assert row["undercoverage_risk"] == "possible_undercoverage"

@@ -174,3 +174,45 @@ def test_claim_audit_flags_negative_authorization_disposition_only(tmp_path: Pat
     report = tool.build_claim_audit(claim_cache_root=claim_root, object_cache_root=object_root)
 
     assert report["issue_counts"]["negative_authorization_disposition_only_review"] == 1
+
+
+def test_claim_audit_uses_candidates_for_opportunity_estimate(tmp_path: Path) -> None:
+    claim_root = tmp_path / "claim_cache"
+    object_root = tmp_path / "object_cache"
+    paths = claim_cache.cache_paths(claim_root)
+    write_jsonl(paths["claims"], [])
+    write_jsonl(paths["evidence"], [])
+    write_jsonl(paths["slices"], [])
+    write_jsonl(paths["runs"], [])
+    write_jsonl(object_root / "source_documents.jsonl", [])
+    write_jsonl(object_root / "mention_slices.jsonl", [])
+    candidates_path = tmp_path / "candidates.json"
+    candidates_path.write_text(
+        json.dumps(
+            {
+                "candidate_slices": [
+                    {
+                        "slice_code": "SLI-001",
+                        "object_name": "李文忠",
+                        "matched_aliases": ["李文忠"],
+                        "source_shape": "object_biography_candidate",
+                        "section_heading": "李文忠",
+                        "text": "太祖诏李文忠领常遇春众，命其北征，克应昌。",
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    report = tool.build_claim_audit(
+        claim_cache_root=claim_root,
+        object_cache_root=object_root,
+        candidates_path=candidates_path,
+    )
+
+    estimate = report["claim_opportunity_estimate"]["objects"]["李文忠"]
+    assert estimate["suggested_claim_budget"] == 2
+    assert estimate["undercoverage_risk"] == "missing_claims"
+    assert report["issue_counts"]["claim_opportunity_undercoverage"] == 1

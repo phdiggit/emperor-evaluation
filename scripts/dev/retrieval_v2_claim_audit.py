@@ -21,6 +21,7 @@ from scripts.dev.retrieval_v2_taskgen_preseed import text_from  # noqa: E402
 BIOGRAPHY_SHAPES = {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}
 DISPOSITION_ONLY_TERMS = ("伏诛", "被诛", "诛", "谋反", "废", "罢", "下狱", "坐罪", "族诛")
 APPOINTMENT_AUTHORIZATION_TERMS = (
+    "诏",
     "命",
     "任",
     "拜",
@@ -30,6 +31,7 @@ APPOINTMENT_AUTHORIZATION_TERMS = (
     "委",
     "使",
     "令",
+    "领",
     "为",
     "充",
     "副",
@@ -175,6 +177,7 @@ def build_claim_audit(
     *,
     claim_cache_root: Path,
     object_cache_root: Path,
+    candidates_path: Path | None = None,
     max_findings: int = 200,
 ) -> dict[str, Any]:
     claim_paths = claim_cache.cache_paths(claim_cache_root)
@@ -184,6 +187,12 @@ def build_claim_audit(
     claims_by_key = {text_from(row, "claim_key"): row for row in claims if text_from(row, "claim_key")}
     source_by_hash = {text_from(row, "slice_hash"): row for row in source_slices if text_from(row, "slice_hash")}
     object_slices = load_object_slice_index(object_cache_root)
+    candidates = claim_cache.read_json(candidates_path) if candidates_path else {}
+    candidate_slices = (
+        [row for row in candidates.get("candidate_slices") or [] if isinstance(row, Mapping)]
+        if isinstance(candidates, Mapping)
+        else []
+    )
     findings: list[dict[str, Any]] = []
 
     for claim in claims:
@@ -322,6 +331,37 @@ def build_claim_audit(
             }
         )
 
+    if not candidate_slices:
+        seen_refs = {text_from(evidence, "source_slice_ref") for evidence in evidences if text_from(evidence, "source_slice_ref")}
+        for source_ref in sorted(seen_refs):
+            object_slice = object_slices.get(source_ref, {})
+            source_row = next((row for row in source_slices if text_from(row, "source_slice_ref") == source_ref), {})
+            candidate_slices.append(
+                {
+                    "slice_code": source_ref,
+                    "object_name": text_from(source_row, "object_name") or text_from(object_slice, "person_name"),
+                    "matched_aliases": object_slice.get("matched_aliases") or [],
+                    "source_shape": text_from(object_slice, "source_shape"),
+                    "section_heading": text_from(object_slice, "section_heading"),
+                    "text": text_from(object_slice, "raw_text") or text_from(source_row, "slice_text_preview"),
+                }
+            )
+    opportunity_estimate = claim_quality.estimate_claim_opportunities(candidate_slices, claims)
+    for object_name, row in opportunity_estimate.get("objects", {}).items():
+        if row.get("undercoverage_risk"):
+            findings.append(
+                {
+                    "issue_code": "claim_opportunity_undercoverage",
+                    "severity": "low",
+                    "object_name": object_name,
+                    "claim_count": row.get("actual_claim_count"),
+                    "suggested_claim_budget": row.get("suggested_claim_budget"),
+                    "opportunity_count": row.get("opportunity_count"),
+                    "opportunity_weight": row.get("opportunity_weight"),
+                    "detail": row.get("undercoverage_risk"),
+                }
+            )
+
     findings = dedupe_findings(findings)
     order = {"high": 0, "medium": 1, "low": 2}
     findings.sort(key=lambda row: (order.get(str(row.get("severity")), 9), str(row.get("issue_code")), str(row.get("object_name")), str(row.get("claim_key"))))
@@ -330,6 +370,7 @@ def build_claim_audit(
         "generated_by": "scripts/dev/retrieval_v2_claim_audit.py",
         "claim_cache_root": str(claim_cache_root),
         "object_cache_root": str(object_cache_root),
+        "candidates_path": str(candidates_path) if candidates_path else "",
         "totals": {
             "claims": len(claims),
             "evidence": len(evidences),
@@ -341,6 +382,7 @@ def build_claim_audit(
         "issue_counts": dict(Counter(str(row.get("issue_code")) for row in findings)),
         "severity_counts": dict(Counter(str(row.get("severity")) for row in findings)),
         "object_issue_counts": dict(Counter(str(row.get("object_name")) for row in findings if row.get("object_name"))),
+        "claim_opportunity_estimate": opportunity_estimate,
         "findings": limited,
     }
 
@@ -402,6 +444,15 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "## Issue Counts",
         "",
     ]
+    opportunity = report.get("claim_opportunity_estimate") if isinstance(report.get("claim_opportunity_estimate"), Mapping) else {}
+    opportunity_totals = opportunity.get("totals") if isinstance(opportunity.get("totals"), Mapping) else {}
+    if opportunity_totals:
+        lines[8:8] = [
+            f"- opportunity_suggested_claim_budget: `{opportunity_totals.get('suggested_claim_budget', 0)}`",
+            f"- opportunity_actual_claim_count: `{opportunity_totals.get('actual_claim_count', 0)}`",
+            f"- opportunity_undercoverage_objects: `{opportunity_totals.get('undercoverage_objects', 0)}`",
+            "",
+        ]
     for key, count in sorted((report.get("issue_counts") or {}).items()):
         lines.append(f"- {key}: `{count}`")
     lines.extend(["", "## Findings", "", "| severity | issue | object | claim | section | summary |", "| --- | --- | --- | --- | --- | --- |"])
@@ -427,6 +478,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Audit retrieval_v2 claim cache against annotated object source cache slices.")
     parser.add_argument("--claim-cache-root", type=Path, required=True)
     parser.add_argument("--object-cache-root", type=Path, required=True)
+    parser.add_argument("--candidates-path", type=Path)
     parser.add_argument("--output-json", type=Path)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--max-findings", type=int, default=200)
@@ -438,6 +490,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     report = build_claim_audit(
         claim_cache_root=args.claim_cache_root,
         object_cache_root=args.object_cache_root,
+        candidates_path=args.candidates_path,
         max_findings=args.max_findings,
     )
     if args.output_json is not None:
