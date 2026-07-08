@@ -64,6 +64,7 @@
 
 ## retrieval_v2 子 Agent 批量任务
 
+- 新会话、跨命令或跨子进程还要继续使用的临时脚本和 handoff 文件不得放仓库 `.tmp/**`；`.tmp/**` 会被 pytest session 或清理工具删除，只适合一次性报告、PR body 和可丢弃输出。需要稳定复用时使用 `tmp/**`、服务器 runtime 目录，或把脚本正式纳入 `scripts/dev/**`。
 - `retrieval_v2_material_review_tasks.py`、`retrieval_v2_factorization_worklists.py`、`retrieval_v2_judgment_worklists.py` 等生成 Codex 子任务的工具，应把 prompt、task JSONL、patch、last message、log 全部放在 `tmp/**`，并通过 UTF-8 文件传递中文和 JSONL。
 - 运行批量子任务时优先走工具自带 `run-plan` 子命令；没有专用封装时直接用 `codex-win agent run-plan --permission-profile tmp-jsonl-review --deny-policy deny-rewrite --git-snapshot minimal`。材料判读和因子化通常不需要 git 上下文，性能敏感时可改用 `--git-snapshot none`；只有诊断子进程需要 changed files 时才用 `--git-snapshot full`。
 - 新生成的 `codex_tasks.jsonl` 应优先声明 `expected_outputs`，格式为 `kind=jsonl_patch`，并配置 `PATCH_JSONL_BEGIN` / `PATCH_JSONL_END` fallback；兼容旧任务可以读取顶层 `patch_path`，但新任务不要只靠旧 `patch_path` 让 codex-win 判断产物。

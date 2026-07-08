@@ -36,6 +36,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - Windows 上涉及 PowerShell 的命令默认使用 `pwsh.exe`；Python/pytest/validator/export/build/matrix 等子进程优先用 `codex-win run -- ...`；只有 5.1 专属兼容验证或任务明确要求时才用 `powershell.exe`。
 - 在 `pwsh` 中使用 PowerShell 语法，可以使用 `&&` / `||`；需要 Bash 工具链、POSIX 管道、`.sh` 脚本或 Bash here-doc 时切到 Git Bash。
 - 禁止用 `pwsh` / PowerShell inline、管道或 here-string 传递大段中文给 Python 或 `gh`；改用 UTF-8 临时 `.py` 文件、`codex-win body` / `repo_tool` 或 Git Bash here-doc。
+- 仓库根 `.tmp/**` 可能被 pytest session 或清理工具自动删除；跨命令、跨子进程、跨会话仍要复用的临时脚本、handoff 文件、patch 输入输出一律放 `tmp/**`、服务器 runtime 目录或正式 `scripts/dev/**`，不要放 `.tmp/**`。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
 - 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
 - 中文文本、Markdown、JSON / JSONL 结构化改写优先用 `codex-win encoding`、仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
@@ -83,3 +84,5 @@ tmp/
 ```
 
 只做范围核对时，优先用 `git diff --name-only` / `git status --short`，不要展开读取目录内容。`docs/`、`tests/` 不默认全量扫描；仅在任务点名、PR diff 涉及、验证失败、或需要查某份具体规范/测试时按文件读取。
+
+`.tmp/**` 只用于一次性报告、PR body、短命令输出等“可随时丢弃”的临时产物；需要在多步执行中复用的脚本或交接文件使用 `tmp/**` 或仓库外 runtime 目录。
