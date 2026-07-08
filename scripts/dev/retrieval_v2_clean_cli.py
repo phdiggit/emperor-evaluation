@@ -182,6 +182,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--claim-cache-skip-cached-slices", action="store_true", help="In claim-only mode, remove candidate slices already covered by cached claims before judge.")
     parser.add_argument("--claim-cache-min-uncovered-slices-for-judge", type=int, default=1, help="When claim-cache skip leaves fewer slices than this threshold, skip judge and queue the tail.")
     parser.add_argument("--claim-cache-min-hit-ratio-for-judge", type=float, default=0.0, help="When claim-cache skip hit ratio is below this threshold, skip judge and report a cache-stability gap.")
+    parser.add_argument(
+        "--claim-cache-stable-rerun-preset",
+        action="store_true",
+        help=(
+            "Apply the calibrated claim-cache rerun defaults: claim-only, skip cached slices, "
+            "ctx=180, cap=12, alias/source refine off, shard=4, low-hit guard=0.8."
+        ),
+    )
     parser.add_argument("--claim-cache-import-final", action="store_true", help="Import the final claim-only run into --claim-cache-root after summary is written.")
     parser.add_argument("--no-taskgen-search", action="store_true", help="Disable web search in live taskgen.")
     parser.add_argument(
@@ -199,6 +207,23 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _source_cache_root(args: argparse.Namespace) -> Path | None:
     return None if args.run_local_source_cache else args.source_cache_root
+
+
+def _apply_claim_cache_stable_rerun_preset(args: argparse.Namespace) -> None:
+    if not bool(getattr(args, "claim_cache_stable_rerun_preset", False)):
+        return
+    if args.claim_cache_root is None:
+        raise runner.RetrievalV2CleanRunnerError("--claim-cache-stable-rerun-preset requires --claim-cache-root")
+    args.claim_only_judge = True
+    args.claim_cache_skip_cached_slices = True
+    args.claim_cache_min_uncovered_slices_for_judge = 8
+    args.claim_cache_min_hit_ratio_for_judge = max(float(args.claim_cache_min_hit_ratio_for_judge or 0.0), 0.8)
+    args.context_chars = 180
+    args.max_slices_per_object = 12
+    args.max_alias_refine_rounds = 0
+    args.candidate_source_refine_rounds = 0
+    args.judge_shard_size = 4
+    args.judge_shard_workers = 4
 
 
 def _candidate_source_refine_rounds(args: argparse.Namespace) -> int:
@@ -1209,6 +1234,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     loaded_env_keys: list[str] = []
     if args.env_file is not None:
         loaded_env_keys = runner.load_env_file(args.env_file)
+    explicit_source_cache_root = args.source_cache_root is not None
+    _apply_claim_cache_stable_rerun_preset(args)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     if args.personnel_political_wide_shadow_pilot:
         default_run_name = f"personnel_political_wide_shadow_{timestamp}"
@@ -1222,6 +1249,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         config_path=args.runtime_paths_config,
         use_local=args.use_local_runtime,
     )
+    if (
+        args.claim_cache_stable_rerun_preset
+        and not explicit_source_cache_root
+        and not bool(runtime["uses_runtime_config"])
+    ):
+        raise runner.RetrievalV2CleanRunnerError(
+            "--claim-cache-stable-rerun-preset requires --source-cache-root when runtime paths fall back to local tmp"
+        )
     if args.source_cache_root is None:
         args.source_cache_root = runtime_paths.default_source_cache_root(runtime)
     run_root = args.run_root or runtime_paths.default_run_root(default_run_name, runtime)
@@ -1250,7 +1285,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         "source_cache_root": str(args.source_cache_root),
     }
     _mark_shadow_summary(summary, args)
-    summary.setdefault("clean_policy", {})["judge_mode"] = _judge_mode(args) or summary.setdefault("clean_policy", {}).get("judge_mode", "full")
+    clean_policy = summary.setdefault("clean_policy", {})
+    clean_policy["judge_mode"] = _judge_mode(args) or clean_policy.get("judge_mode", "full")
+    clean_policy["context_chars"] = int(args.context_chars)
+    clean_policy["max_slices_per_object"] = int(args.max_slices_per_object)
+    clean_policy["claim_cache_stable_rerun_preset"] = bool(args.claim_cache_stable_rerun_preset)
     runner.atomic_write_json(run_root / "summary.json", summary)
     sys.stdout.write(runner.pretty_json(summary))
     return 0

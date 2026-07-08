@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from scripts.dev import retrieval_v2_clean_cli
 from scripts.dev import retrieval_v2_clean_runner as tool
 from scripts.dev import retrieval_v2_discovery_profiles
@@ -1607,6 +1609,64 @@ def test_cli_defaults_run_root_from_runtime_config(tmp_path: Path, capsys) -> No
     assert payload["runtime_paths"]["uses_runtime_config"] is True
     assert payload["runtime_paths"]["source_cache_root"] == str(source_cache_root)
     assert (run_root / "summary.json").exists()
+
+
+def test_cli_claim_cache_stable_rerun_preset_applies_safe_defaults(tmp_path: Path, capsys) -> None:
+    task_path = tmp_path / "task.json"
+    run_root = tmp_path / "run"
+    cache_root = tmp_path / "claim_cache"
+    source_cache_root = tmp_path / "source_cache"
+    task_path.write_text(json.dumps(task_without_alias_gap(), ensure_ascii=False), encoding="utf-8")
+
+    assert tool.main(
+        [
+            "--task",
+            str(task_path),
+            "--run-root",
+            str(run_root),
+            "--source-cache-root",
+            str(source_cache_root),
+            "--claim-cache-root",
+            str(cache_root),
+            "--claim-cache-stable-rerun-preset",
+            "--skip-judge",
+        ]
+    ) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    policy = payload["clean_policy"]
+    assert policy["claim_cache_stable_rerun_preset"] is True
+    assert policy["judge_mode"] == "claim_extraction_only"
+    assert policy["claim_cache_skip_cached_slices"] is True
+    assert policy["claim_cache_min_uncovered_slices_for_judge"] == 8
+    assert policy["claim_cache_min_hit_ratio_for_judge"] == 0.8
+    assert policy["context_chars"] == 180
+    assert policy["max_slices_per_object"] == 12
+    assert policy["max_alias_refine_rounds"] == 0
+    assert policy["candidate_source_refine_rounds"] == 0
+    assert policy["judge_shard_size"] == 4
+    assert policy["judge_shard_workers"] == 4
+    assert payload["runtime_paths"]["source_cache_root"] == str(source_cache_root)
+
+
+def test_cli_claim_cache_stable_rerun_preset_rejects_local_source_cache_fallback(tmp_path: Path) -> None:
+    task_path = tmp_path / "task.json"
+    task_path.write_text(json.dumps(task_without_alias_gap(), ensure_ascii=False), encoding="utf-8")
+
+    with pytest.raises(tool.RetrievalV2CleanRunnerError, match="requires --source-cache-root"):
+        tool.main(
+            [
+                "--task",
+                str(task_path),
+                "--run-root",
+                str(tmp_path / "run"),
+                "--use-local-runtime",
+                "--claim-cache-root",
+                str(tmp_path / "claim_cache"),
+                "--claim-cache-stable-rerun-preset",
+                "--skip-judge",
+            ]
+        )
 
 
 def test_cli_i5b_wide_shadow_pilot_marks_outputs_not_formal_consumption(tmp_path: Path, capsys) -> None:
