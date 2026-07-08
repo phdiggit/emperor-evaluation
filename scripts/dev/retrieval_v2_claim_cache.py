@@ -446,7 +446,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Manage retrieval_v2 claim-only extraction cache.")
     sub = parser.add_subparsers(dest="command", required=True)
     emit = sub.add_parser("emit-pg-schema", help="Print PostgreSQL schema draft for the hot claim index.")
-    emit.set_defaults(func=lambda _args: sys.stdout.write(PGSQL_SCHEMA_DRAFT))
+    emit.set_defaults(func=run_emit_pg_schema_command)
 
     import_cmd = sub.add_parser("import-run", help="Import a claim-only clean run into the filesystem claim cache.")
     import_cmd.add_argument("--run-root", type=Path, required=True)
@@ -461,6 +461,11 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--write-uncovered-candidates", type=Path)
     plan.set_defaults(func=run_plan_command)
     return parser
+
+
+def run_emit_pg_schema_command(_args: argparse.Namespace) -> int:
+    sys.stdout.write(PGSQL_SCHEMA_DRAFT)
+    return 0
 
 
 def run_import_command(args: argparse.Namespace) -> int:

@@ -150,3 +150,8 @@ def test_emit_pg_schema_contains_hot_index_tables() -> None:
     assert "retrieval_v2.claim_cache" in tool.PGSQL_SCHEMA_DRAFT
     assert "retrieval_v2.claim_evidence" in tool.PGSQL_SCHEMA_DRAFT
     assert "retrieval_v2.claim_route_cache" in tool.PGSQL_SCHEMA_DRAFT
+
+
+def test_emit_pg_schema_command_returns_success(capsys) -> None:
+    assert tool.main(["emit-pg-schema"]) == 0
+    assert "retrieval_v2.claim_cache" in capsys.readouterr().out
