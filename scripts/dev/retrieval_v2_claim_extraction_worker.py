@@ -315,7 +315,9 @@ def finish_job_run(
         cur.execute(
             """
             update retrieval_v2.claim_extraction_jobs
-               set status = case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end,
+               set status = (
+                       case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end
+                   )::retrieval_v2.rv2_claim_extraction_job_status,
                    locked_by = null,
                    locked_at = null,
                    lease_until = null,

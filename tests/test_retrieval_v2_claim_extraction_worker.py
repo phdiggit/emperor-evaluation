@@ -272,3 +272,24 @@ def test_execute_once_records_success(monkeypatch) -> None:
     assert events[0][0] == "create_run"
     assert ("finish_run", "succeeded") in events
     assert ("finish_job", "") in events
+
+
+def test_finish_job_run_failure_casts_status_case_to_enum() -> None:
+    statements: list[str] = []
+
+    class FakeCursor:
+        def execute(self, sql, params=None):
+            statements.append(sql)
+
+    tool.finish_job_run(
+        FakeCursor(),
+        run_id=7,
+        job_id=5,
+        status="failed",
+        error_type="FileNotFoundError",
+        error_msg="codex not found",
+    )
+
+    job_update_sql = statements[-1]
+    assert "case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end" in job_update_sql
+    assert "::retrieval_v2.rv2_claim_extraction_job_status" in job_update_sql
