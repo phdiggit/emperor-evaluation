@@ -129,3 +129,33 @@ def test_rebind_plan_keeps_review_and_person_material_but_not_matched() -> None:
     plan = tool.rebind_plan(findings)
 
     assert [row["claim_key"] for row in plan] == ["CLMK-REBIND"]
+
+
+def test_executable_rebind_plan_only_keeps_deterministic_rebind_candidates() -> None:
+    aliases = tool.load_owner_aliases()
+    findings = [
+        tool.classify_claim_owner(claim_row(claim_key="CLMK-REBIND"), aliases),
+        tool.classify_claim_owner(
+            claim_row(
+                claim_key="CLMK-REVIEW",
+                fact_payload={"actor": "褚遂良", "object": "废后议", "action_type": "纳谏"},
+                claim_summary="高宗时，褚遂良固谏。",
+                action_type="纳谏",
+            ),
+            aliases,
+        ),
+        tool.classify_claim_owner(
+            claim_row(
+                claim_key="CLMK-MATCHED",
+                fact_payload={"actor": "李世民", "object": "褚遂良", "action_type": "任命"},
+                claim_summary="李世民任褚遂良为起居郎。",
+                action_type="任命",
+            ),
+            aliases,
+        ),
+    ]
+
+    plan = tool.executable_rebind_plan(findings)
+
+    assert [row["claim_key"] for row in plan] == ["CLMK-REBIND"]
+    assert plan[0]["suggested_owner_name"] == "李治"

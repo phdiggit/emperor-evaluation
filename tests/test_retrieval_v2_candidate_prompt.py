@@ -117,6 +117,35 @@ def test_prompt_payload_marks_high_risk_biography_slices_only_when_needed() -> N
     assert payload["candidate_slices"][0]["slice_claim_eligibility"]["support_level_hint"] == "context"
 
 
+def test_prompt_payload_includes_deterministic_other_owner_alias_mentions() -> None:
+    candidates = sample_candidates()
+    candidates["task_identity"]["emperor_name"] = "李世民"
+    candidates["target_profile"] = {"primary_name": "李世民", "aliases": ["李世民", "太宗"]}
+    candidates["source_documents"][0]["title"] = "旧唐书/卷八十"
+    candidates["candidate_slices"][0]["object_name"] = "褚遂良"
+    candidates["candidate_slices"][0]["matched_aliases"] = ["褚遂良"]
+    candidates["candidate_slices"][0]["text"] = "高宗欲废王皇后，褚遂良固谏，左授潭州都督。"
+
+    payload = tool.prompt_payload(candidates)
+
+    assert payload["candidate_slices"][0]["alias_mentions"] == [
+        {
+            "alias": "高宗",
+            "alias_type": "temple_name",
+            "confidence": "deterministic",
+            "end": 2,
+            "matched_text": "高宗",
+            "owner_relation_to_requested": "other_owner",
+            "resolved_owner_name": "李治",
+            "resolution_rule": "source_title_dynasty_bare_title",
+            "resolution_status": "resolved",
+            "scopes": ["李世民", "李治", "武则天"],
+            "source_dynasty_prefixes": ["唐"],
+            "start": 0,
+        }
+    ]
+
+
 def test_prompt_payload_strips_candidate_debug_profile() -> None:
     candidates = sample_candidates()
     candidates["candidate_slices"][0]["slice_profile"] = {"has_full_delegation_chain": True}

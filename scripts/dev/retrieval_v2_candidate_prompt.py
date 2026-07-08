@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any, Mapping
 
+from scripts.dev import retrieval_v2_alias_pretag as alias_pretag
 from scripts.dev import retrieval_v2_claim_quality as claim_quality
 from scripts.dev import retrieval_v2_contracts as contracts
 
@@ -61,6 +62,13 @@ CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v4_structured_ref_policy"
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    requested_owner = alias_pretag.candidate_requested_owner(candidates)
+    resolver = alias_pretag.load_alias_resolver()
+    source_titles = {
+        str(row.get("document_code") or ""): str(row.get("title") or row.get("source_title") or "")
+        for row in candidates.get("source_documents") or []
+        if isinstance(row, Mapping) and str(row.get("document_code") or "")
+    }
     for row in candidates.get("candidate_slices") or []:
         if not isinstance(row, Mapping):
             continue
@@ -76,6 +84,14 @@ def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any
             payload["slice_risk_flags"] = risk_flags
         if risk_flags or not eligibility.get("claim_eligible", True):
             payload["slice_claim_eligibility"] = eligibility
+        alias_mentions = alias_pretag.slice_alias_mentions(
+            {**row, "source_title": row.get("source_title") or source_titles.get(str(row.get("document_code") or ""), "")},
+            requested_owner_name=requested_owner,
+            resolver=resolver,
+            only_prompt_relevant=True,
+        )
+        if alias_mentions:
+            payload["alias_mentions"] = alias_mentions
         rows.append(payload)
     return rows
 
@@ -127,6 +143,8 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "如果当前源片段不足以支撑事实闭环，写 source_missing/source_gap，不要臆造 claim。\n\n"
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
         "如输入含 source_ref_policy，只能从该对象 allowed_source_refs_by_object 中取 refs；runner 会拒收跨对象 refs。"
+        "如 candidate_slices[].alias_mentions 给出 deterministic resolved_owner_name，说明该片段中的皇帝别名已由本地别名表机械解析；"
+        "若 claim 主行为人/actor 是该别名，claim.emperor_name 必须写 resolved_owner_name，不要绑到本轮 target emperor。"
         "输出要极简：不要输出 notes，不要输出 source_passage_refs，不要输出 claim_completeness；"
         "每条 claim 保留 fact_payload 和最多 2 条 evidence_spans 即可，这些字段只记录原文已经明确看到的事实结构。"
         f"fact_payload 使用 {contracts.POLITICAL_ACTION_FACT_SCHEMA} 字段：fact_schema、actor、object、action_type、event_scope、office_or_domain、"
@@ -303,6 +321,8 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "为节省 token，最终 JSON 默认不要复述 documents/passages；每条 claim 必须填写 source_slice_refs，runner 会按 slice_code 自动生成 passages 和 source_passage_refs。"
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
         "如输入含 source_ref_policy，只能从该对象 allowed_source_refs_by_object 中取 refs；runner 会拒收跨对象 refs。"
+        "如 candidate_slices[].alias_mentions 给出 deterministic resolved_owner_name，说明该片段中的皇帝别名已由本地别名表机械解析；"
+        "若 claim 主行为人/actor 是该别名，claim.emperor_name 必须写 resolved_owner_name，不要绑到本轮 target emperor。"
         "如果一个 summary 需要多个不同事实片段才能成立，拆成多个原子 claim，或把不确定部分放入 notes/coverage_gaps。"
         "不要把“本片段不支撑某对象/某 rule”写成 context_claim；这类不足只写 coverage_gaps。"
         "context_claim 只保留可被后续对象画像或跨 rule 复用的正向背景事实。"

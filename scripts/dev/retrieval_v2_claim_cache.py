@@ -20,6 +20,7 @@ SCHEMA_VERSION = 1
 PGSQL_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_cache.sql"
 REUSABLE_CLAIM_STATUSES = {"active"}
 
+from scripts.dev import retrieval_v2_alias_pretag as alias_pretag  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import render_sql  # noqa: E402
 
@@ -206,13 +207,55 @@ def load_existing_cache(cache_root: Path) -> dict[str, dict[str, dict[str, Any]]
 
 def slice_lookup(candidates: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
     result: dict[str, dict[str, Any]] = {}
+    source_titles = {
+        str(row.get("document_code") or ""): str(row.get("title") or row.get("source_title") or "")
+        for row in candidates.get("source_documents") or []
+        if isinstance(row, Mapping) and str(row.get("document_code") or "")
+    }
     for row in candidates.get("candidate_slices") or []:
         if not isinstance(row, Mapping):
             continue
         code = str(row.get("slice_code") or "")
         if code:
-            result[code] = dict(row)
+            payload = dict(row)
+            if not payload.get("source_title"):
+                payload["source_title"] = source_titles.get(str(payload.get("document_code") or ""), "")
+            result[code] = payload
     return result
+
+
+def requested_owner_name(candidates: Mapping[str, Any]) -> str:
+    return alias_pretag.candidate_requested_owner(candidates)
+
+
+def rebind_claim_owner_from_source_aliases(
+    claim: Mapping[str, Any],
+    *,
+    source_refs: Sequence[str],
+    slices: Mapping[str, Mapping[str, Any]],
+    requested_owner: str,
+    stats: Counter[str],
+) -> dict[str, Any]:
+    if not source_refs or not requested_owner:
+        return dict(claim)
+    alias_index = alias_pretag.alias_owner_index_for_slices(
+        {ref: slices[ref] for ref in source_refs if ref in slices},
+        requested_owner_name=requested_owner,
+    )
+    rebind = alias_pretag.claim_owner_rebind_from_alias_mentions(
+        claim,
+        source_refs=source_refs,
+        alias_mentions_by_ref=alias_index,
+    )
+    if not rebind:
+        return dict(claim)
+    stats["claims_rebound_by_alias_mentions"] += 1
+    rebound = alias_pretag.apply_claim_owner_rebind(claim, rebind)
+    fact = claim_fact(rebound)
+    fact["owner_rebind_payload"] = rebind
+    rebound["fact_payload"] = fact
+    rebound["owner_rebind_payload"] = rebind
+    return rebound
 
 
 def claim_row(
@@ -281,12 +324,20 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
         judge = read_json(judge_path)
         candidates = read_json(candidates_path)
         slices = slice_lookup(candidates if isinstance(candidates, Mapping) else {})
+        requested_owner = requested_owner_name(candidates if isinstance(candidates, Mapping) else {})
         for claim in judge.get("claims") or []:
             if not isinstance(claim, Mapping):
                 continue
             sanitized_claim, source_refs = filter_claim_source_refs(claim, slices, stats)
             if sanitized_claim is None:
                 continue
+            sanitized_claim = rebind_claim_owner_from_source_aliases(
+                sanitized_claim,
+                source_refs=source_refs,
+                slices=slices,
+                requested_owner=requested_owner,
+                stats=stats,
+            )
             key = str(sanitized_claim.get("cached_claim_key") or "") or claim_key(sanitized_claim)
             imported_claim_keys.append(key)
             by_object[claim_object_name(sanitized_claim)] += 1

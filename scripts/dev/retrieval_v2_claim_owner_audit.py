@@ -319,6 +319,48 @@ def rebind_plan(findings: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     ]
 
 
+def executable_rebind_plan(findings: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        dict(row)
+        for row in findings
+        if text(row.get("owner_status")) == "rebind_candidate"
+        and text(row.get("suggested_owner_name"))
+        and text(row.get("suggested_owner_name")) != text(row.get("requested_emperor_name"))
+    ]
+
+
+def apply_rebind_plan(cur: Any, rows: Sequence[Mapping[str, Any]]) -> int:
+    updated = 0
+    for row in rows:
+        payload = {
+            "from_emperor_name": text(row.get("requested_emperor_name")),
+            "to_emperor_name": text(row.get("suggested_owner_name")),
+            "reason": text(row.get("owner_risk_kind")),
+            "matched_alias": text(row.get("matched_owner_alias")),
+            "actor": text(row.get("actor")),
+            "source": "retrieval_v2_claim_owner_audit",
+        }
+        cur.execute(
+            """
+            update retrieval_v2.claim_cache
+               set emperor_name = %s,
+                   fact_payload = fact_payload || %s::jsonb,
+                   updated_at = now()
+             where claim_key = %s
+               and emperor_name = %s
+               and status::text = 'active'
+            """,
+            (
+                payload["to_emperor_name"],
+                json.dumps({"owner_rebind_payload": payload}, ensure_ascii=False, sort_keys=True, separators=(",", ":")),
+                text(row.get("claim_key")),
+                payload["from_emperor_name"],
+            ),
+        )
+        updated += int(getattr(cur, "rowcount", 0) or 0)
+    return updated
+
+
 def audit_claim_owners(
     *,
     env_file: Path | None,
@@ -327,23 +369,30 @@ def audit_claim_owners(
     emperor_names: Sequence[str],
     statuses: Sequence[str],
     owner_aliases_json: Path | None = None,
+    execute_rebind: bool = False,
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
+    executed_count = 0
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             aliases = load_owner_aliases(owner_aliases_json) if owner_aliases_json is not None else fetch_owner_alias_book(cur)
             rows = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses)
-        conn.rollback()
-    findings = [classify_claim_owner(row, aliases) for row in rows]
+            findings = [classify_claim_owner(row, aliases) for row in rows]
+            executable_plan = executable_rebind_plan(findings)
+            if execute_rebind:
+                executed_count = apply_rebind_plan(cur, executable_plan)
+                conn.commit()
+            else:
+                conn.rollback()
     return {
         "ok": True,
         "generated_by": "scripts/dev/retrieval_v2_claim_owner_audit.py",
-        "mode": "dry_run_owner_audit",
-        "write_db": False,
+        "mode": "execute_rebind" if execute_rebind else "dry_run_owner_audit",
+        "write_db": execute_rebind,
         "schema_name": schema_name,
         "filters": {
             "emperor_names": [text(name) for name in emperor_names if text(name)],
@@ -358,6 +407,8 @@ def audit_claim_owners(
         "summary": summarize_findings(findings),
         "findings": findings,
         "rebind_plan": rebind_plan(findings),
+        "executable_rebind_plan": executable_plan,
+        "executed_counts": {"claim_cache_rebound": executed_count} if execute_rebind else {},
     }
 
 
@@ -441,6 +492,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--emperor-name", action="append", default=[])
     parser.add_argument("--status", action="append", default=["active"])
     parser.add_argument("--owner-aliases-json", type=Path)
+    parser.add_argument("--execute-rebind", action="store_true", help="Apply deterministic rebind_candidate rows to claim_cache.")
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--output-csv", type=Path)
@@ -456,6 +508,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         emperor_names=args.emperor_name or [],
         statuses=args.status or [],
         owner_aliases_json=args.owner_aliases_json,
+        execute_rebind=bool(args.execute_rebind),
     )
     write_json(args.output_json, payload)
     if args.output_md is not None:

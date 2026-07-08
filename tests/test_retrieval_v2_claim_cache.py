@@ -69,12 +69,18 @@ def sample_candidates() -> dict:
     }
 
 
-def write_run(tmp_path: Path, *, claim: dict | None = None, clean_policy: dict | None = None) -> Path:
+def write_run(
+    tmp_path: Path,
+    *,
+    claim: dict | None = None,
+    candidates: dict | None = None,
+    clean_policy: dict | None = None,
+) -> Path:
     run_root = tmp_path / "run"
     person_dir = run_root / "TGT-I5B-ZYZ"
     candidates_path = person_dir / "candidates.final.json"
     judge_path = person_dir / "judge_result.final.json"
-    write_json(candidates_path, sample_candidates())
+    write_json(candidates_path, candidates or sample_candidates())
     write_json(
         judge_path,
         {
@@ -166,6 +172,49 @@ def test_import_run_skips_claim_with_only_cross_object_refs(tmp_path: Path) -> N
     assert report["stats"]["claims_skipped_cross_object_only"] == 1
     assert report["total_cached_claims"] == 0
     assert tool.read_jsonl(cache_root / "claim_evidence.jsonl") == []
+
+
+def test_import_run_rebinds_claim_owner_from_resolved_actor_alias(tmp_path: Path) -> None:
+    candidates = {
+        "task_identity": {"emperor_name": "李世民", "rule_code": "i5b_item_wide"},
+        "candidate_slices": [
+            {
+                "slice_code": "SLI-CSL",
+                "document_code": "DOC-CSL",
+                "object_name": "褚遂良",
+                "text": "高宗欲废王皇后，褚遂良固谏，左授潭州都督。",
+            }
+        ],
+    }
+    claim = {
+        "claim_code": "CLM-CSL",
+        "emperor_name": "李世民",
+        "object_name": "褚遂良",
+        "object_type": "person",
+        "claim_kind": "material_claim",
+        "claim_summary": "高宗因褚遂良固谏废后而左授其潭州都督。",
+        "direction": "negative",
+        "confidence": 0.9,
+        "source_slice_refs": ["SLI-CSL"],
+        "fact_payload": {
+            "fact_schema": "political_action_v1",
+            "actor": "高宗",
+            "object": "褚遂良",
+            "action_type": "处置",
+            "source_span_refs": ["SLI-CSL"],
+        },
+        "evidence_spans": [{"span_type": "action", "source_slice_ref": "SLI-CSL", "text": "左授潭州都督"}],
+    }
+    run_root = write_run(tmp_path, claim=claim, candidates=candidates)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    assert report["stats"]["claims_rebound_by_alias_mentions"] == 1
+    assert claims[0]["emperor_name"] == "李治"
+    assert claims[0]["fact_payload"]["owner_rebind_payload"]["from_emperor_name"] == "李世民"
+    assert claims[0]["fact_payload"]["owner_rebind_payload"]["to_emperor_name"] == "李治"
 
 
 def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> None:
