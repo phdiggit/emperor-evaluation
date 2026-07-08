@@ -23,6 +23,44 @@ DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 DEFAULT_OUTPUT_ROOT = ROOT / "tmp" / "retrieval_v2_object_source_cache_runs"
 DEFAULT_PAGE_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_source_pages"
 DEFAULT_CLAIM_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
+PROFILE_SIGNAL_WEIGHTS = {
+    "historical_core": 80,
+    "core": 70,
+    "top": 70,
+    "major": 55,
+    "important": 40,
+    "major_sycophant": 65,
+    "major_power_holder": 65,
+    "power_abuse_actor": 60,
+    "chancellor": 60,
+    "prime_minister": 60,
+    "minister": 45,
+    "founding_minister": 55,
+    "founding_merit": 55,
+    "merit_official": 45,
+    "general": 45,
+    "military_commander": 45,
+    "strategist": 45,
+    "empress": 40,
+    "consort": 35,
+    "relative": 35,
+    "rebel": 35,
+    "top_talent": 55,
+    "historical_talent": 55,
+    "major_talent": 45,
+    "important_talent": 35,
+    "丞相": 60,
+    "相臣": 60,
+    "权臣": 60,
+    "奸臣": 55,
+    "功臣": 55,
+    "开国功臣": 55,
+    "名将": 45,
+    "将领": 45,
+    "谋臣": 45,
+    "后妃": 40,
+    "外戚": 35,
+}
 
 
 class ObjectSourceCacheWorkerError(RuntimeError):
@@ -78,6 +116,14 @@ def count_jsonl(path: Path) -> int:
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
 
 
+def list_texts(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return [value] if text(value) else []
+    if isinstance(value, Sequence) and not isinstance(value, (bytes, bytearray)):
+        return [text(item) for item in value if text(item)]
+    return []
+
+
 def resolve_path(value: str) -> Path:
     path = Path(value)
     if path.is_absolute():
@@ -100,6 +146,57 @@ def seed_identity(rows: Sequence[Mapping[str, Any]]) -> dict[str, str]:
     emperor_name = max(emperor_counts.items(), key=lambda item: item[1])[0] if emperor_counts else ""
     capture_profile = max(profile_counts.items(), key=lambda item: item[1])[0] if profile_counts else ""
     return {"emperor_name": emperor_name, "capture_profile": capture_profile}
+
+
+def profile_signal_name(row: Mapping[str, Any]) -> str:
+    return text(row.get("person_name") or row.get("object_name") or row.get("name"))
+
+
+def load_profile_signals(path: Path | None, *, priority_objects: Sequence[str] = ()) -> dict[str, dict[str, Any]]:
+    signals: dict[str, dict[str, Any]] = {}
+    if path is not None:
+        for row in read_jsonl(path):
+            name = profile_signal_name(row)
+            if not name:
+                continue
+            current = dict(signals.get(name) or {})
+            current.update(row)
+            signals[name] = current
+    for name in priority_objects:
+        clean = text(name)
+        if not clean:
+            continue
+        current = dict(signals.get(clean) or {})
+        current["manual_priority"] = True
+        current["priority_score"] = max(int(current.get("priority_score") or 0), 100)
+        signals[clean] = current
+    return signals
+
+
+def profile_signal_score(row: Mapping[str, Any] | None) -> tuple[int, list[str]]:
+    if not isinstance(row, Mapping):
+        return 0, []
+    score = int(row.get("priority_score") or row.get("claim_priority_score") or 0)
+    reasons: list[str] = []
+    if score:
+        reasons.append(f"priority_score={score}")
+    for field in ("importance_tier", "object_importance", "person_tier", "talent_grade", "object_type", "profile_role"):
+        value = text(row.get(field))
+        if not value:
+            continue
+        weight = PROFILE_SIGNAL_WEIGHTS.get(value, 0)
+        if weight:
+            score += weight
+            reasons.append(f"{field}:{value}+{weight}")
+    for field in ("profile_tags", "role_tags", "object_roles", "roles"):
+        for value in list_texts(row.get(field)):
+            weight = PROFILE_SIGNAL_WEIGHTS.get(value, 0)
+            if weight:
+                score += weight
+                reasons.append(f"{field}:{value}+{weight}")
+    if row.get("manual_priority"):
+        reasons.append("manual_priority")
+    return score, reasons
 
 
 def default_job_output_root(seed_jsonl: Path, job_code: str, output_root: Path) -> Path:
@@ -575,6 +672,7 @@ def claim_plan_audit(
     include_target_emperor_object: bool,
     max_slices_per_person: int,
     max_total_slices: int,
+    pilot_profile_signals: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     docs_by_code = {
         text(row.get("document_cache_code") or row.get("document_code")): row
@@ -598,6 +696,8 @@ def claim_plan_audit(
                 "source_shapes": set(),
                 "has_biography_source": False,
                 "max_score": 0,
+                "profile_signal_score": 0,
+                "profile_signal_reasons": [],
             },
         )
         current["slice_count"] += 1
@@ -609,6 +709,11 @@ def claim_plan_audit(
             "title_name_candidate",
         }
         current["max_score"] = max(int(current["max_score"]), int(row.get("score") or 0))
+    profile_signals = pilot_profile_signals or {}
+    for object_name, current in by_object.items():
+        profile_score, profile_reasons = profile_signal_score(profile_signals.get(object_name))
+        current["profile_signal_score"] = profile_score
+        current["profile_signal_reasons"] = profile_reasons
     normalized_by_object = {
         name: {
             "slice_count": int(payload["slice_count"]),
@@ -616,6 +721,8 @@ def claim_plan_audit(
             "source_shapes": sorted(payload["source_shapes"]),
             "has_biography_source": bool(payload["has_biography_source"]),
             "max_score": int(payload["max_score"]),
+            "profile_signal_score": int(payload["profile_signal_score"]),
+            "profile_signal_reasons": list(payload["profile_signal_reasons"]),
             "capped_by_max_slices_per_person": int(payload["slice_count"]) >= max(1, int(max_slices_per_person)),
         }
         for name, payload in sorted(by_object.items())
@@ -646,15 +753,16 @@ def select_claim_plan_pilot(
     pilot_slices_per_object: int,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     by_object = audit.get("by_object") if isinstance(audit.get("by_object"), Mapping) else {}
-    object_scores: list[tuple[tuple[int, int, int, int, str], str]] = []
+    object_scores: list[tuple[tuple[int, int, int, int, int, str], str]] = []
     for name, payload in by_object.items():
         if not isinstance(payload, Mapping):
             continue
+        profile_score = int(payload.get("profile_signal_score") or 0)
         has_bio = 1 if payload.get("has_biography_source") else 0
         capped = 1 if payload.get("capped_by_max_slices_per_person") else 0
         slice_count = int(payload.get("slice_count") or 0)
         max_score = int(payload.get("max_score") or 0)
-        object_scores.append(((-has_bio, -capped, -slice_count, -max_score, str(name)), str(name)))
+        object_scores.append(((-profile_score, -has_bio, -capped, -slice_count, -max_score, str(name)), str(name)))
     selected_objects = [name for _score, name in sorted(object_scores)[: max(1, int(pilot_object_limit))]]
     selected_set = set(selected_objects)
     by_selected: dict[str, list[dict[str, Any]]] = {name: [] for name in selected_objects}
@@ -680,7 +788,11 @@ def select_claim_plan_pilot(
         "dropped_objects": dropped_objects,
         "pre_selection_slice_count": len(candidates),
         "selected_slice_count": len(selected_rows),
-        "ranking_policy": "prefer biography source, capped objects, larger slice inventory, higher max score",
+        "ranking_policy": "prefer profile/object-type signals, biography source, capped objects, larger slice inventory, higher max score",
+        "selected_object_scores": {
+            name: (by_object.get(name) or {}).get("profile_signal_score", 0)
+            for name in selected_objects
+        },
     }
 
 
@@ -723,6 +835,7 @@ def object_cache_to_claim_candidates(
     selection_profile: str = "all",
     pilot_object_limit: int = 4,
     pilot_slices_per_object: int = 8,
+    pilot_profile_signals: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     source_documents = read_jsonl(cache_root / "source_documents.jsonl")
     mention_slices = read_jsonl(cache_root / "mention_slices.jsonl")
@@ -755,6 +868,7 @@ def object_cache_to_claim_candidates(
         include_target_emperor_object=include_target_emperor_object,
         max_slices_per_person=max_slices_per_person,
         max_total_slices=max_total_slices,
+        pilot_profile_signals=pilot_profile_signals,
     )
     selected_candidates, selection = apply_claim_plan_selection(
         candidates,
@@ -829,6 +943,8 @@ def plan_claim_extraction_from_cache(
     selection_profile: str = "all",
     pilot_object_limit: int = 4,
     pilot_slices_per_object: int = 8,
+    pilot_profile_signals_path: Path | None = None,
+    pilot_priority_objects: Sequence[str] = (),
     enqueue_claim_job: bool = False,
     dsn: str = "",
     claim_run_root: Path | None = None,
@@ -846,6 +962,7 @@ def plan_claim_extraction_from_cache(
         selection_profile=selection_profile,
         pilot_object_limit=pilot_object_limit,
         pilot_slices_per_object=pilot_slices_per_object,
+        pilot_profile_signals=load_profile_signals(pilot_profile_signals_path, priority_objects=pilot_priority_objects),
     )
     write_json(output_candidates, candidates)
     cache_plan = claim_cache.plan_candidates(output_candidates, claim_cache_root, output_uncovered_candidates)
@@ -1025,6 +1142,8 @@ def build_parser() -> argparse.ArgumentParser:
     claim_plan.add_argument("--selection-profile", choices=("all", "pilot"), default="all")
     claim_plan.add_argument("--pilot-object-limit", type=int, default=4)
     claim_plan.add_argument("--pilot-slices-per-object", type=int, default=8)
+    claim_plan.add_argument("--pilot-profile-signals-jsonl", type=Path)
+    claim_plan.add_argument("--pilot-priority-object", action="append", default=[])
     claim_plan.add_argument("--enqueue-claim-job", action="store_true")
     claim_plan.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
     claim_plan.add_argument("--priority", type=int, default=100)
@@ -1073,6 +1192,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             selection_profile=args.selection_profile,
             pilot_object_limit=args.pilot_object_limit,
             pilot_slices_per_object=args.pilot_slices_per_object,
+            pilot_profile_signals_path=args.pilot_profile_signals_jsonl,
+            pilot_priority_objects=args.pilot_priority_object,
             enqueue_claim_job=bool(args.enqueue_claim_job),
             dsn=dsn,
             claim_run_root=args.claim_run_root,

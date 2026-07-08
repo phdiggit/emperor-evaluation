@@ -425,6 +425,80 @@ def test_claim_plan_pilot_selects_high_value_small_batch(tmp_path: Path) -> None
     assert candidates["stats"]["candidate_slices"] == 2
 
 
+def test_claim_plan_pilot_uses_profile_signals_jsonl(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_object_cache(cache_root)
+    signals = tmp_path / "profile_signals.jsonl"
+    write_jsonl(
+        signals,
+        [
+            {"person_name": "张良", "object_type": "strategist", "importance_tier": "core"},
+            {"person_name": "常遇春", "object_type": "general", "importance_tier": "important"},
+        ],
+    )
+
+    result = tool.plan_claim_extraction_from_cache(
+        cache_root=cache_root,
+        claim_cache_root=tmp_path / "claim_cache",
+        output_candidates=tmp_path / "claim_candidates.json",
+        output_uncovered_candidates=tmp_path / "claim_candidates.uncovered.json",
+        emperor_name="朱元璋",
+        target_code="TGT-ZYZ",
+        max_slices_per_person=2,
+        selection_profile="pilot",
+        pilot_object_limit=2,
+        pilot_slices_per_object=1,
+        pilot_profile_signals_path=signals,
+    )
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+    selection = result["claim_plan_audit"]["selection"]
+
+    assert selection["selected_objects"] == ["张良", "常遇春"]
+    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"张良", "常遇春"}
+    assert result["claim_plan_audit"]["by_object"]["张良"]["profile_signal_score"] == 115
+    assert result["claim_plan_audit"]["by_object"]["张良"]["has_biography_source"] is False
+
+
+def test_claim_plan_cli_priority_object_overrides_mechanical_order(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_object_cache(cache_root)
+
+    assert tool.main(
+        [
+            "claim-plan",
+            "--cache-root",
+            str(cache_root),
+            "--claim-cache-root",
+            str(tmp_path / "claim_cache"),
+            "--output-candidates",
+            str(tmp_path / "claim_candidates.json"),
+            "--output-uncovered-candidates",
+            str(tmp_path / "claim_candidates.uncovered.json"),
+            "--emperor-name",
+            "朱元璋",
+            "--selection-profile",
+            "pilot",
+            "--pilot-object-limit",
+            "1",
+            "--pilot-slices-per-object",
+            "1",
+            "--pilot-priority-object",
+            "张良",
+            "--output-json",
+            str(tmp_path / "claim_plan.json"),
+        ]
+    ) == 0
+    plan = json.loads((tmp_path / "claim_plan.json").read_text(encoding="utf-8"))
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+
+    assert plan["claim_plan_audit"]["selection"]["selected_objects"] == ["张良"]
+    assert candidates["candidate_slices"][0]["object_name"] == "张良"
+    assert plan["claim_plan_audit"]["by_object"]["张良"]["profile_signal_reasons"] == [
+        "priority_score=100",
+        "manual_priority",
+    ]
+
+
 def test_claim_plan_can_enqueue_claim_job_without_running_judge(tmp_path: Path, monkeypatch) -> None:
     cache_root = tmp_path / "object_cache"
     write_object_cache(cache_root)

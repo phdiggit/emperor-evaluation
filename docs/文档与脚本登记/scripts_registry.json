@@ -68,6 +68,10 @@
         "max_lines": 1450,
         "reason": "retrieval_v2 对象级离线源缓存主入口暂含 Wikisource managed cache/discovery、标题候选空文本回退、artifact 输出、agent slot、task overlay 和 build-shards CLI 接线；seed/alias/对象池读取与 shard 监管已拆出，缓存接入稳定后继续拆 discovery 与 overlay 子模块"
       },
+      "scripts/dev/retrieval_v2_object_source_cache_worker.py": {
+        "max_lines": 1250,
+        "reason": "retrieval_v2 对象源缓存队列 worker 暂含 PG job 生命周期、claim-plan 桥接、pilot selection 和 profile signal 排序；服务联动稳定后拆出 claim_plan_selection/profile_signal 子模块"
+      },
       "scripts/dev/scoring_rule_table_sync.py": {
         "max_lines": 1350,
         "reason": "scoring rule table sync 暂含 I5B rule/factor/weight 抽取、DB 对比和 factor judgment 审计，规则表同步机制稳定后拆分 parser 与 DB audit 子模块"
