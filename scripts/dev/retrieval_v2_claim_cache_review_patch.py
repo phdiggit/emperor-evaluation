@@ -18,9 +18,10 @@ from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache_pg as pg_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 PATCH_TYPES = {"claim_update", "evidence_drop"}
 CLAIM_FIELD_PATCH_KEYS = {
     "claim_summary",
@@ -261,12 +262,13 @@ def apply_patch_to_cache(cache_root: Path, rows: Sequence[Mapping[str, Any]], *,
     }
 
 
-def sync_pg_deletes(*, dsn: str, dropped_evidence_keys: Sequence[str], execute: bool) -> dict[str, Any]:
+def sync_pg_deletes(*, dsn: str, dropped_evidence_keys: Sequence[str], execute: bool, schema_name: str) -> dict[str, Any]:
     if not dropped_evidence_keys:
         return {"planned_delete_count": 0, "deleted": [], "existing_before": []}
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             cur.execute(
                 "select evidence_key, claim_key, source_slice_ref from retrieval_v2.claim_evidence where evidence_key = any(%s)",
                 (list(dropped_evidence_keys),),
@@ -299,6 +301,7 @@ def apply_review_patch(
     sync_pg: bool,
     env_file: Path | None,
     dsn_env: str,
+    schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
     validation_issues = validate_patch_rows(patch_rows)
     report: dict[str, Any] = {
@@ -325,7 +328,13 @@ def apply_review_patch(
         return report
     if env_file is not None:
         load_env_file(env_file)
-    pg_apply_report = pg_cache.apply_cache_to_pg(cache_root=cache_root, env_file=None, dsn_env=dsn_env, execute=execute)
+    pg_apply_report = pg_cache.apply_cache_to_pg(
+        cache_root=cache_root,
+        env_file=None,
+        dsn_env=dsn_env,
+        schema_name=schema_name,
+        execute=execute,
+    )
     report["pg_apply_report"] = pg_apply_report
     dropped_keys: list[str] = []
     for item in cache_report.get("applied") or []:
@@ -335,6 +344,7 @@ def apply_review_patch(
         dsn=resolve_dsn(dsn_env),
         dropped_evidence_keys=sorted(set(dropped_keys)),
         execute=execute,
+        schema_name=schema_name,
     )
     report["ok"] = bool(report["ok"] and pg_apply_report.get("ok"))
     return report
@@ -379,6 +389,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--sync-pg", action="store_true")
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    apply.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     apply.add_argument("--output-json", type=Path, required=True)
     apply.add_argument("--output-md", type=Path)
     return parser
@@ -396,6 +407,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             sync_pg=args.sync_pg,
             env_file=args.env_file,
             dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
         )
         write_json(args.output_json, payload)
         if args.output_md is not None:

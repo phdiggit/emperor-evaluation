@@ -19,9 +19,15 @@ from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache_pg as pg_cache  # noqa: E402
 from scripts.dev import retrieval_v2_clean_runner as clean_runner  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
+    DEFAULT_PG_SCHEMA,
+    DEFAULT_V3_DSN_ENV,
+    render_sql,
+    schema_cursor,
+)
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_RUN_ROOT = ROOT / "tmp" / "retrieval_v2_claim_extraction_runs"
 
 
@@ -125,12 +131,12 @@ def job_from_candidates(
     }
 
 
-def apply_schema(target_dsn: str) -> None:
+def apply_schema(target_dsn: str, *, schema_name: str = DEFAULT_PG_SCHEMA) -> None:
     psycopg, dict_row = import_psycopg()
     sql = (ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_extraction_jobs.sql").read_text(encoding="utf-8")
     with psycopg.connect(target_dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
-            cur.execute(sql)
+            cur.execute(render_sql(sql, schema_name=schema_name))
         conn.commit()
 
 
@@ -176,19 +182,21 @@ def upsert_job(cur: Any, job: Mapping[str, Any]) -> int:
     return int(cur.fetchone()["id"])
 
 
-def enqueue_job(*, dsn: str, job: Mapping[str, Any]) -> dict[str, Any]:
+def enqueue_job(*, dsn: str, job: Mapping[str, Any], schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             job_id = upsert_job(cur, job)
         conn.commit()
     return {"job_id": job_id, "job_code": job["job_code"], "idem_key": job["idem_key"]}
 
 
-def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 120) -> dict[str, Any] | None:
+def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 120, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any] | None:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             cur.execute(
                 """
                 with picked as (
@@ -220,10 +228,11 @@ def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 120) -> di
     return dict(row) if row else None
 
 
-def fetch_next_ready_job(*, dsn: str) -> dict[str, Any] | None:
+def fetch_next_ready_job(*, dsn: str, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any] | None:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             cur.execute(
                 """
                 select *
@@ -412,6 +421,7 @@ def execute_job(
     judge_shard_workers: int,
     import_pg: bool,
     dsn_env: str,
+    schema_name: str,
 ) -> dict[str, Any]:
     candidates_path = resolve_path(text(job.get("candidate_payload_path")))
     candidates = read_json(candidates_path)
@@ -444,7 +454,13 @@ def execute_job(
     fs_import = fs_cache.import_run(run_root, cache_root)
     pg_import: dict[str, Any] | None = None
     if import_pg:
-        pg_import = pg_cache.apply_cache_to_pg(cache_root=cache_root, env_file=None, dsn_env=dsn_env, execute=True)
+        pg_import = pg_cache.apply_cache_to_pg(
+            cache_root=cache_root,
+            env_file=None,
+            dsn_env=dsn_env,
+            schema_name=schema_name,
+            execute=True,
+        )
     return {
         "run_root": str(run_root),
         "summary": summary,
@@ -466,8 +482,9 @@ def once(
     judge_shard_workers: int = 4,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
+    schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
-    job = claim_ready_job(dsn=dsn, worker_id=worker_id) if execute else fetch_next_ready_job(dsn=dsn)
+    job = claim_ready_job(dsn=dsn, worker_id=worker_id, schema_name=schema_name) if execute else fetch_next_ready_job(dsn=dsn, schema_name=schema_name)
     if job is None:
         return {"ok": True, "status": "idle", "job": None}
     plan = job_plan(job)
@@ -477,7 +494,8 @@ def once(
         return {"ok": True, "status": "planned", "job": dict(job), "plan": plan}
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             run_id = create_job_run(cur, job=job, worker_id=worker_id, run_code=run_code, input_fingerprint=input_fingerprint)
         conn.commit()
     try:
@@ -489,10 +507,12 @@ def once(
             judge_shard_workers=judge_shard_workers,
             import_pg=import_pg,
             dsn_env=dsn_env,
+            schema_name=schema_name,
         )
     except Exception as exc:
         with psycopg.connect(dsn, row_factory=dict_row) as conn:
-            with conn.cursor() as cur:
+            with conn.cursor() as raw_cur:
+                cur = schema_cursor(raw_cur, schema_name=schema_name)
                 finish_job_run(
                     cur,
                     run_id=run_id,
@@ -504,7 +524,8 @@ def once(
             conn.commit()
         raise
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             finish_job_run(
                 cur,
                 run_id=run_id,
@@ -526,6 +547,7 @@ def build_parser() -> argparse.ArgumentParser:
     schema = sub.add_parser("apply-schema", help="Apply claim extraction queue schema.")
     schema.add_argument("--env-file", type=Path)
     schema.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    schema.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
 
     enqueue = sub.add_parser("enqueue-from-candidates", help="Create one claim extraction job from uncovered candidates JSON.")
     enqueue.add_argument("--candidates", type=Path, required=True)
@@ -534,17 +556,20 @@ def build_parser() -> argparse.ArgumentParser:
     enqueue.add_argument("--priority", type=int, default=100)
     enqueue.add_argument("--env-file", type=Path)
     enqueue.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    enqueue.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     enqueue.add_argument("--output-json", type=Path)
 
     plan = sub.add_parser("plan", help="Show the next ready claim extraction job without taking a lease.")
     plan.add_argument("--env-file", type=Path)
     plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    plan.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     plan.add_argument("--worker-id", default="retrieval_v2_claim_extraction_worker")
     plan.add_argument("--output-json", type=Path)
 
     once_cmd = sub.add_parser("once", help="Claim and optionally execute one ready job.")
     once_cmd.add_argument("--env-file", type=Path)
     once_cmd.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    once_cmd.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     once_cmd.add_argument("--worker-id", default="retrieval_v2_claim_extraction_worker")
     once_cmd.add_argument("--execute", action="store_true")
     once_cmd.add_argument("--codex-bin", default="codex")
@@ -562,13 +587,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         load_env_file(args.env_file)
     dsn = resolve_dsn(args.dsn_env)
     if args.command == "apply-schema":
-        apply_schema(dsn)
-        payload = {"ok": True, "action": "apply_schema"}
+        apply_schema(dsn, schema_name=args.pg_schema)
+        payload = {"ok": True, "action": "apply_schema", "schema_name": args.pg_schema}
     elif args.command == "enqueue-from-candidates":
         job = job_from_candidates(candidates_path=args.candidates, cache_root=args.cache_root, run_root=args.run_root, priority=args.priority)
-        payload = {"ok": True, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job)}
+        payload = {"ok": True, "schema_name": args.pg_schema, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job, schema_name=args.pg_schema)}
     elif args.command == "plan":
-        job = fetch_next_ready_job(dsn=dsn)
+        job = fetch_next_ready_job(dsn=dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
     elif args.command == "once":
         payload = once(
@@ -581,6 +606,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_shard_workers=args.judge_shard_workers,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
         )
     else:  # pragma: no cover
         raise ClaimExtractionWorkerError(f"unsupported command: {args.command}")

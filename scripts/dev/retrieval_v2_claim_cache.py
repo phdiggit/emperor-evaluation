@@ -21,8 +21,9 @@ PGSQL_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_ca
 REUSABLE_CLAIM_STATUSES = {"active"}
 
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import render_sql  # noqa: E402
 
-PGSQL_SCHEMA_DRAFT = PGSQL_SCHEMA_PATH.read_text(encoding="utf-8")
+PGSQL_SCHEMA_DRAFT = render_sql(PGSQL_SCHEMA_PATH.read_text(encoding="utf-8"))
 
 
 class ClaimCacheError(RuntimeError):

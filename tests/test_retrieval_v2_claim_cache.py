@@ -299,18 +299,18 @@ def test_merge_cached_claims_prepends_cached_claims_and_updates_counts(tmp_path:
 
 
 def test_emit_pg_schema_contains_hot_index_tables() -> None:
-    assert "retrieval_v2.claim_cache" in tool.PGSQL_SCHEMA_DRAFT
-    assert "retrieval_v2.claim_source_slices" in tool.PGSQL_SCHEMA_DRAFT
-    assert "retrieval_v2.claim_evidence" in tool.PGSQL_SCHEMA_DRAFT
-    assert "retrieval_v2.claim_route_cache" in tool.PGSQL_SCHEMA_DRAFT
-    assert "retrieval_v2.person_profile_claim_links" in tool.PGSQL_SCHEMA_DRAFT
-    assert "rv2_claim_cache_type" in tool.PGSQL_SCHEMA_DRAFT
-    assert "comment on column retrieval_v2.claim_cache.claim_type is" in tool.PGSQL_SCHEMA_DRAFT
+    assert "retrieval_v3.claim_cache" in tool.PGSQL_SCHEMA_DRAFT
+    assert "retrieval_v3.claim_source_slices" in tool.PGSQL_SCHEMA_DRAFT
+    assert "retrieval_v3.claim_evidence" in tool.PGSQL_SCHEMA_DRAFT
+    assert "retrieval_v3.claim_route_cache" in tool.PGSQL_SCHEMA_DRAFT
+    assert "retrieval_v3.person_profile_claim_links" in tool.PGSQL_SCHEMA_DRAFT
+    assert "rv3_claim_cache_type" in tool.PGSQL_SCHEMA_DRAFT
+    assert "comment on column retrieval_v3.claim_cache.claim_type is" in tool.PGSQL_SCHEMA_DRAFT
 
 
 def test_emit_pg_schema_command_returns_success(capsys) -> None:
     assert tool.main(["emit-pg-schema"]) == 0
-    assert "retrieval_v2.claim_cache" in capsys.readouterr().out
+    assert "retrieval_v3.claim_cache" in capsys.readouterr().out
 
 
 def test_inventory_command_returns_success(tmp_path: Path, capsys) -> None:

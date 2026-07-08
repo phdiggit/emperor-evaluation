@@ -56,7 +56,9 @@ def test_default_secondary_rule_candidates_keep_future_hint_status() -> None:
 
     assert "tolerate_talent" in by_rule
     assert "anti_nepotism" in by_rule
-    assert by_rule["power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["central_military_power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["regional_clan_power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["inner_favorite_power_control"]["hint_status"] == "future_rule_hint"
     assert by_rule["political_character"]["hint_status"] == "future_rule_hint"
 
 
@@ -79,7 +81,9 @@ def test_item_wide_task_skeleton_uses_i5b_material_families() -> None:
     assert "future_power_character_hint" in family_codes
     assert "institution_or_office_context_pages" in skeleton["source_strategy"]["required_page_types"]
     assert by_rule["appointment_delegation"]["reason"]
-    assert by_rule["power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["central_military_power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["regional_clan_power_control"]["hint_status"] == "future_rule_hint"
+    assert by_rule["inner_favorite_power_control"]["hint_status"] == "future_rule_hint"
 
 
 def test_item_wide_discovery_prompt_keeps_co_delegates_in_object_seeds() -> None:

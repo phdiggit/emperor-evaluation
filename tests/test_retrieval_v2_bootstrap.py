@@ -123,33 +123,33 @@ def test_contract_rule_payloads_are_rule_scoped() -> None:
     assert predicates == [{"id": 3, "rule_code": "appointment_delegation"}]
 
 
-def test_read_schema_sql_points_to_retrieval_v2_migration() -> None:
+def test_read_schema_sql_renders_retrieval_v3_by_default() -> None:
     sql = tool.read_schema_sql()
 
-    assert "create schema if not exists retrieval_v2" in sql
-    assert "create table if not exists retrieval_v2.rule_contracts" in sql
-    assert "create table if not exists retrieval_v2.claim_rule_binding_candidates" in sql
-    assert "create table if not exists retrieval_v2.item_rule_score_weights" in sql
+    assert "create schema if not exists retrieval_v3" in sql
+    assert "create table if not exists retrieval_v3.rule_contracts" in sql
+    assert "create table if not exists retrieval_v3.claim_rule_binding_candidates" in sql
+    assert "create table if not exists retrieval_v3.item_rule_score_weights" in sql
     assert "add column if not exists candidate_lane" in sql
-    assert "rv2_claim_rule_binding_candidates_future_hint_idx" in sql
-    assert "create type retrieval_v2.rv2_review_status as enum" in sql
-    assert "create type retrieval_v2.rv2_rule_weight_status as enum" in sql
-    assert "create table if not exists retrieval_v2.claim_cache" in sql
-    assert "create table if not exists retrieval_v2.claim_extraction_jobs" in sql
-    assert "create type retrieval_v2.rv2_claim_extraction_job_status as enum" in sql
-    assert "create table if not exists retrieval_v2.object_source_cache_jobs" in sql
-    assert "create type retrieval_v2.rv2_object_source_cache_job_status as enum" in sql
+    assert "rv3_claim_rule_binding_candidates_future_hint_idx" in sql
+    assert "create type retrieval_v3.rv3_review_status as enum" in sql
+    assert "create type retrieval_v3.rv3_rule_weight_status as enum" in sql
+    assert "create table if not exists retrieval_v3.claim_cache" in sql
+    assert "create table if not exists retrieval_v3.claim_extraction_jobs" in sql
+    assert "create type retrieval_v3.rv3_claim_extraction_job_status as enum" in sql
+    assert "create table if not exists retrieval_v3.object_source_cache_jobs" in sql
+    assert "create type retrieval_v3.rv3_object_source_cache_job_status as enum" in sql
 
 
 def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> None:
     assert tool.main(["--print-schema"]) == 0
 
     captured = capsys.readouterr()
-    assert "retrieval_v2.claim_rule_bindings" in captured.out
-    assert "retrieval_v2.claim_rule_binding_candidates" in captured.out
-    assert "retrieval_v2.item_rule_score_weights" in captured.out
-    assert "retrieval_v2.claim_extraction_jobs" in captured.out
-    assert "retrieval_v2.object_source_cache_jobs" in captured.out
+    assert "retrieval_v3.claim_rule_bindings" in captured.out
+    assert "retrieval_v3.claim_rule_binding_candidates" in captured.out
+    assert "retrieval_v3.item_rule_score_weights" in captured.out
+    assert "retrieval_v3.claim_extraction_jobs" in captured.out
+    assert "retrieval_v3.object_source_cache_jobs" in captured.out
 
 
 def test_missing_action_is_a_usage_error() -> None:

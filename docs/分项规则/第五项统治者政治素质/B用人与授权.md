@@ -47,6 +47,14 @@ factorization prompt 只注入当前 rule 的因子表和短边界：
 - 任用、授权、复用、信任和结果反馈在 `appointment_delegation` 内一次判读；不得拆成多个旧口径重复入分。
 - 相邻项边界只注入与当前候选最可能混淆的二至三条；不得把本文件全文作为常规 prompt 上下文。
 
+数据链硬边界：
+
+- 第五项B当前正式计分链只认已回源对象、史源、规则、结构化因子和计算明细；不得直接手写人物级分数或单人 override。
+- `raw_objs` 保持原始对象粒度，不能合并加工；每个 `raw_objs` 至少有一条 `obj_srcs` 史料链，`talent_quality` 等对象属性必须来自 `obj_attrs`。
+- 第五项B当前计算链为 `obj_srcs` / `obj_attrs` → `evd_cluster_calc_details.calc_detail`；规则承载对象另由 `rule_evidence_units` / `rule_evidence_unit_members` / `fact_relations` 表达。
+- `calc_detail.covered_material_ids`、`scored_material_ids` 和 `supporting_material_ids` 必须能回到源材料；`query_profiles` / `data/query_profile_batches/**`、`search_logs`、`source_review_log` 只记录召回、抓包和复核过程。
+- 正向、负向、相邻项 query lanes 的覆盖、对象化、入库、未决和排除理由必须可审计；本公式不设置严重负向硬上限。
+
 ## 一、材料信号尺度
 
 单条材料先计算 `raw_material_score`，再进入材料层封顶：

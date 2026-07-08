@@ -129,6 +129,10 @@ def test_object_inventory_counts_directions_and_actions(tmp_path: Path) -> None:
 def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     source = Path(tool.__file__).read_text(encoding="utf-8")
 
+    rendered = tool.schema_cursor
+    assert rendered
+    assert tool.DEFAULT_DSN_ENV == "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
+    assert tool.DEFAULT_PG_SCHEMA == "retrieval_v3"
     assert "retrieval_v2.claim_cache" in source
     assert "retrieval_v2.claim_source_slices" in source
     assert "retrieval_v2.claim_evidence" in source

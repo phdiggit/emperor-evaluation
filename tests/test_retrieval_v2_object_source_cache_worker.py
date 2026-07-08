@@ -352,7 +352,7 @@ def test_job_plan_is_offline_and_does_not_claim(tmp_path: Path) -> None:
 def test_once_without_execute_fetches_but_does_not_claim(monkeypatch) -> None:
     called = {"claim": 0}
 
-    def fake_fetch_next_ready_job(*, dsn: str):
+    def fake_fetch_next_ready_job(*, dsn: str, **_kwargs):
         assert dsn == "postgres://example"
         return {
             "job_code": "OSCACHE-001",
@@ -629,7 +629,7 @@ def test_claim_plan_can_enqueue_claim_job_without_running_judge(tmp_path: Path, 
         assert kwargs["cache_root"] == tmp_path / "claim_cache"
         return {"job_code": "CLMEXT-TEST", "idem_key": "idem", "uncovered_slice_count": 3}
 
-    def fake_enqueue_job(*, dsn: str, job: dict):
+    def fake_enqueue_job(*, dsn: str, job: dict, **_kwargs):
         calls.append("enqueue_job")
         assert dsn == "postgres://example"
         assert job["job_code"] == "CLMEXT-TEST"
@@ -669,11 +669,11 @@ def test_execute_once_records_success(monkeypatch) -> None:
             return False
 
         def execute(self, sql, params=None):
-            if "insert into retrieval_v2.object_source_cache_job_runs" in sql:
+            if "insert into retrieval_v3.object_source_cache_job_runs" in sql:
                 events.append(("create_run", params[0]))
-            elif "update retrieval_v2.object_source_cache_job_runs" in sql:
+            elif "update retrieval_v3.object_source_cache_job_runs" in sql:
                 events.append(("finish_run", params[0]))
-            elif "update retrieval_v2.object_source_cache_jobs" in sql:
+            elif "update retrieval_v3.object_source_cache_jobs" in sql:
                 events.append(("finish_job", ""))
 
         def fetchone(self):
@@ -751,3 +751,4 @@ def test_finish_job_run_failure_casts_status_case_to_enum() -> None:
     job_update_sql = statements[-1]
     assert "case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end" in job_update_sql
     assert "::retrieval_v2.rv2_object_source_cache_job_status" in job_update_sql
+    assert "::retrieval_v3.rv3_object_source_cache_job_status" in tool.render_sql(job_update_sql)

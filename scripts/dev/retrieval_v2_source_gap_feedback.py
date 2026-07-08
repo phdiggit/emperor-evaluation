@@ -17,6 +17,7 @@ from scripts.dev.retrieval_v2_recall_feedback import (
     load_jsonl,
     source_gap_feedback_rows,
 )
+from scripts.dev.retrieval_v2_taskgen_preseed import alias_script_variants
 
 
 REPORT_VERSION = "source_gap_feedback_bridge_v0_2"
@@ -79,6 +80,17 @@ def source_gap_search_fn(
     *,
     base_search: source_refiner.SearchFn | None = None,
 ) -> source_refiner.SearchFn | None:
+    exact_query_names = {
+        str(row.get("object_name") or "").strip()
+        for row in gap_rows
+        if str(row.get("recommended_action") or "") == SOURCE_REFINER_ACTION and bool(row.get("do_not_add_recall_terms"))
+    }
+    blocked_query_prefixes = {
+        variant
+        for name in exact_query_names
+        for variant in alias_script_variants(name)
+        if variant and variant != name
+    }
     suffixes_by_object = {
         str(row.get("object_name") or "").strip(): source_gap_query_suffixes(row)
         for row in gap_rows
@@ -90,6 +102,8 @@ def source_gap_search_fn(
     search = base_search or source_refiner.search_wikisource
 
     def wrapped_search(query: str, *, limit: int, timeout: int) -> list[dict[str, Any]]:
+        if any(query == prefix or query.startswith(f"{prefix} ") for prefix in blocked_query_prefixes):
+            return []
         suffixes: list[str] = []
         for object_name, object_suffixes in suffixes_by_object.items():
             if object_name and object_name in query:

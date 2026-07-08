@@ -2,7 +2,7 @@
   "agents_budgets": {
     "AGENTS.md": {
       "max_bytes": 12288,
-      "max_lines": 85
+      "max_lines": 88
     },
     "scripts/AGENTS.md": {
       "max_bytes": 14336,
@@ -33,11 +33,11 @@
         "reason": "半成品 profile 种子候选与 source-discovery 仍在稳定语义，后续继续扩展前拆分 discovery/extractor 子模块"
       },
       "scripts/dev/retrieval_v2_clean_runner.py": {
-        "max_lines": 1150,
+        "max_lines": 1337,
         "reason": "retrieval_v2 clean runner 暂承载 taskgen、候选切片、补源、判读分片和运行交接编排，质量/耗时优化稳定后拆分 orchestration 与阶段执行模块"
       },
       "scripts/dev/retrieval_v2_clean_cli.py": {
-        "max_lines": 1200,
+        "max_lines": 1295,
         "reason": "retrieval_v2 clean CLI 暂承载 taskgen 调度、streaming/batch/presearch 路由和 I5B-wide shadow pilot 标记，稳定后拆分 CLI 参数层与调度策略层"
       },
       "scripts/dev/retrieval_v2_contracts.py": {
@@ -61,16 +61,16 @@
         "reason": "retrieval_v2 scorer 暂同时承载通用材料聚合、表驱动 material policy 分派、team_building 团队质量公式、scoring gate 过滤和空 cluster 清理；shadow 宽包闭环稳定后拆分 team scorer 与 cleanup 子模块"
       },
       "scripts/dev/retrieval_v2_source_candidates.py": {
-        "max_lines": 1375,
+        "max_lines": 1406,
         "reason": "retrieval_v2 source candidates 暂含候选切片、delegation/appointment_delegation 信号、guarded recall overlay matcher、预算分配和宽包源候选策略，抓包 profile 稳定后拆分 slicing、overlay matcher 与 signal scoring 子模块"
       },
       "scripts/dev/retrieval_v2_object_source_cache.py": {
-        "max_lines": 1450,
+        "max_lines": 1740,
         "reason": "retrieval_v2 对象级离线源缓存主入口暂含 Wikisource managed cache/discovery、标题候选空文本回退、artifact 输出、agent slot、task overlay 和 build-shards CLI 接线；seed/alias/对象池读取与 shard 监管已拆出，缓存接入稳定后继续拆 discovery 与 overlay 子模块"
       },
       "scripts/dev/retrieval_v2_object_source_cache_worker.py": {
-        "max_lines": 1250,
-        "reason": "retrieval_v2 对象源缓存队列 worker 暂含 PG job 生命周期、claim-plan 桥接、pilot selection 和 profile signal 排序；服务联动稳定后拆出 claim_plan_selection/profile_signal 子模块"
+        "max_lines": 1296,
+        "reason": "retrieval_v2 对象源缓存队列 worker 暂含 PG job 生命周期、claim-plan 桥接、pilot selection、profile signal 排序和 v3 schema 路由；服务联动稳定后拆出 claim_plan_selection/profile_signal/schema adapter 子模块"
       },
       "scripts/dev/scoring_rule_table_sync.py": {
         "max_lines": 1350,

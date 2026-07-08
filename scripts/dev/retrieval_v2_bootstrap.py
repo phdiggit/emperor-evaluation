@@ -19,6 +19,12 @@ from scripts.dev.retrieval_v2_contracts import (
     PROCESS_DOC_PATH,
     coverage_matrix_template,
 )
+from scripts.dev.retrieval_v2_pg_schema import (
+    DEFAULT_PG_SCHEMA,
+    DEFAULT_V3_DSN_ENV,
+    render_sql,
+    schema_cursor,
+)
 
 
 DEFAULT_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260704_retrieval_v2_control_plane.sql"
@@ -32,7 +38,7 @@ DEFAULT_SCHEMA_PATHS = (
     ROOT / "db" / "migrations" / "20260708_retrieval_v2_object_source_cache_jobs.sql",
 )
 DEFAULT_SOURCE_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
-DEFAULT_TARGET_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_TARGET_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_CONTRACT_CODE = "I5B-RETRIEVAL-V2-20260704"
 
 
@@ -83,14 +89,14 @@ def code_hash(value: str, *, length: int = 12) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()[:length].upper()
 
 
-def read_schema_sql(path: Path | None = None) -> str:
+def read_schema_sql(path: Path | None = None, *, schema_name: str = DEFAULT_PG_SCHEMA) -> str:
     paths = (path,) if path is not None else DEFAULT_SCHEMA_PATHS
     chunks: list[str] = []
     for schema_path in paths:
         if not schema_path.exists():
             raise RetrievalV2BootstrapError(f"schema file missing: {schema_path}")
         chunks.append(schema_path.read_text(encoding="utf-8").rstrip())
-    return "\n\n".join(chunks) + "\n"
+    return render_sql("\n\n".join(chunks) + "\n", schema_name=schema_name)
 
 
 def resolve_dsn(env_name: str) -> str:
@@ -803,9 +809,9 @@ def seed_target(cur: Any, *, emperor_name: str, item_code: str, contract_id: int
     }
 
 
-def apply_schema(target_dsn: str, *, schema_path: Path | None = None) -> None:
+def apply_schema(target_dsn: str, *, schema_path: Path | None = None, schema_name: str = DEFAULT_PG_SCHEMA) -> None:
     psycopg, dict_row = import_psycopg()
-    sql = read_schema_sql(schema_path)
+    sql = read_schema_sql(schema_path, schema_name=schema_name)
     with psycopg.connect(target_dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
             cur.execute(sql)
@@ -820,11 +826,13 @@ def copy_rule_contract(
     contract_code: str,
     source_database_label: str,
     seed_targets: Sequence[str],
+    schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
     snapshot = fetch_source_snapshot(source_dsn, item_code=item_code)
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(target_dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             item_ids_by_source = {int(row["id"]): upsert_item(cur, row) for row in snapshot.item_rows}
             item_ids_by_code = {text_from(row, "item_code", "code"): item_ids_by_source[int(row["id"])] for row in snapshot.item_rows}
             rule_ids_by_code: dict[str, int] = {}
@@ -894,6 +902,7 @@ def copy_rule_contract(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Bootstrap the retrieval_v2 source-pack control plane.")
     parser.add_argument("--schema-path", type=Path, default=None)
+    parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--print-schema", action="store_true", help="Print the retrieval_v2 SQL schema and exit.")
     parser.add_argument("--apply-schema", action="store_true", help="Apply the retrieval_v2 schema to the target DSN.")
     parser.add_argument("--copy-rule-contract", action="store_true", help="Copy item/rule/policy snapshots from source DSN to target DSN.")
@@ -913,12 +922,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.env_file is not None:
         loaded_env_keys = load_env_file(args.env_file)
     if args.print_schema:
-        sys.stdout.write(read_schema_sql(args.schema_path))
+        sys.stdout.write(read_schema_sql(args.schema_path, schema_name=args.pg_schema))
         return 0
     report: dict[str, Any] = {"ok": True, "actions": [], "loaded_env_keys": loaded_env_keys}
     target_dsn = resolve_dsn(args.target_dsn_env) if (args.apply_schema or args.copy_rule_contract) else ""
     if args.apply_schema:
-        apply_schema(target_dsn, schema_path=args.schema_path)
+        apply_schema(target_dsn, schema_path=args.schema_path, schema_name=args.pg_schema)
         report["actions"].append("apply_schema")
     if args.copy_rule_contract:
         source_dsn = resolve_dsn(args.source_dsn_env)
@@ -929,6 +938,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             contract_code=args.contract_code,
             source_database_label=args.source_database_label,
             seed_targets=args.seed_target,
+            schema_name=args.pg_schema,
         )
         report["actions"].append("copy_rule_contract")
         report["copy_rule_contract"] = copy_report

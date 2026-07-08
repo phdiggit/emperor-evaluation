@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from scripts.dev.retrieval_v2_pg_schema import render_sql
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MIGRATION_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_extraction_jobs.sql"
@@ -10,17 +12,17 @@ MIGRATION_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_extra
 
 def migration_sql() -> str:
     assert MIGRATION_PATH.exists()
-    return MIGRATION_PATH.read_text(encoding="utf-8")
+    return render_sql(MIGRATION_PATH.read_text(encoding="utf-8"))
 
 
 def created_tables(sql: str) -> set[str]:
-    return set(re.findall(r"create table if not exists retrieval_v2\.([a-z_]+)\s*\(", sql, flags=re.IGNORECASE))
+    return set(re.findall(r"create table if not exists retrieval_v3\.([a-z_]+)\s*\(", sql, flags=re.IGNORECASE))
 
 
 def created_table_columns(sql: str) -> dict[str, set[str]]:
     columns_by_table: dict[str, set[str]] = {}
     table_pattern = re.compile(
-        r"create table if not exists retrieval_v2\.([a-z_]+)\s*\((.*?)\n\);",
+        r"create table if not exists retrieval_v3\.([a-z_]+)\s*\((.*?)\n\);",
         flags=re.IGNORECASE | re.DOTALL,
     )
     for match in table_pattern.finditer(sql):
@@ -38,13 +40,13 @@ def created_table_columns(sql: str) -> dict[str, set[str]]:
 
 
 def commented_tables(sql: str) -> set[str]:
-    return set(re.findall(r"comment on table retrieval_v2\.([a-z_]+)\s+is\s+", sql, flags=re.IGNORECASE))
+    return set(re.findall(r"comment on table retrieval_v3\.([a-z_]+)\s+is\s+", sql, flags=re.IGNORECASE))
 
 
 def commented_columns(sql: str) -> set[tuple[str, str]]:
     return set(
         re.findall(
-            r"comment on column retrieval_v2\.([a-z_]+)\.([a-z0-9_]+)\s+is\s+",
+            r"comment on column retrieval_v3\.([a-z_]+)\.([a-z0-9_]+)\s+is\s+",
             sql,
             flags=re.IGNORECASE,
         )
@@ -52,11 +54,11 @@ def commented_columns(sql: str) -> set[tuple[str, str]]:
 
 
 def enum_types(sql: str) -> set[str]:
-    return set(re.findall(r"create type retrieval_v2\.(rv2_[a-z_]+)\s+as enum", sql, flags=re.IGNORECASE))
+    return set(re.findall(r"create type retrieval_v3\.(rv3_[a-z_]+)\s+as enum", sql, flags=re.IGNORECASE))
 
 
 def commented_types(sql: str) -> set[str]:
-    return set(re.findall(r"comment on type retrieval_v2\.(rv2_[a-z_]+)\s+is\s+", sql, flags=re.IGNORECASE))
+    return set(re.findall(r"comment on type retrieval_v3\.(rv3_[a-z_]+)\s+is\s+", sql, flags=re.IGNORECASE))
 
 
 def test_claim_extraction_jobs_schema_creates_queue_tables() -> None:
@@ -70,12 +72,12 @@ def test_claim_extraction_jobs_schema_uses_enums() -> None:
     sql = migration_sql()
 
     assert enum_types(sql) == {
-        "rv2_claim_extraction_job_status",
-        "rv2_claim_extraction_run_status",
+        "rv3_claim_extraction_job_status",
+        "rv3_claim_extraction_run_status",
     }
     assert commented_types(sql) == enum_types(sql)
-    assert "status retrieval_v2.rv2_claim_extraction_job_status" in sql
-    assert "status retrieval_v2.rv2_claim_extraction_run_status" in sql
+    assert "status retrieval_v3.rv3_claim_extraction_job_status" in sql
+    assert "status retrieval_v3.rv3_claim_extraction_run_status" in sql
     assert "不用 text + check 承载状态机" in sql
 
 

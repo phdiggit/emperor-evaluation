@@ -76,7 +76,7 @@ def test_job_plan_resolves_paths_without_consumption_actions(tmp_path: Path) -> 
 def test_once_without_execute_fetches_but_does_not_claim(monkeypatch) -> None:
     called = {"claim": 0}
 
-    def fake_fetch_next_ready_job(*, dsn: str):
+    def fake_fetch_next_ready_job(*, dsn: str, **_kwargs):
         assert dsn == "postgres://example"
         return {
             "job_code": "CLMEXT-001",
@@ -202,7 +202,8 @@ def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypat
         judge_shard_size=4,
         judge_shard_workers=1,
         import_pg=False,
-        dsn_env="EMPEROR_EVAL_RETRIEVAL_V2_DSN",
+        dsn_env="EMPEROR_EVAL_RETRIEVAL_V3_DSN",
+        schema_name="retrieval_v3",
     )
 
     assert calls == ["judge", "fs_import"]
@@ -221,11 +222,11 @@ def test_execute_once_records_success(monkeypatch) -> None:
             return False
 
         def execute(self, sql, params=None):
-            if "insert into retrieval_v2.claim_extraction_job_runs" in sql:
+            if "insert into retrieval_v3.claim_extraction_job_runs" in sql:
                 events.append(("create_run", params[0]))
-            elif "update retrieval_v2.claim_extraction_job_runs" in sql:
+            elif "update retrieval_v3.claim_extraction_job_runs" in sql:
                 events.append(("finish_run", params[0]))
-            elif "update retrieval_v2.claim_extraction_jobs" in sql:
+            elif "update retrieval_v3.claim_extraction_jobs" in sql:
                 events.append(("finish_job", ""))
 
         def fetchone(self):
@@ -294,3 +295,4 @@ def test_finish_job_run_failure_casts_status_case_to_enum() -> None:
     job_update_sql = statements[-1]
     assert "case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end" in job_update_sql
     assert "::retrieval_v2.rv2_claim_extraction_job_status" in job_update_sql
+    assert "::retrieval_v3.rv3_claim_extraction_job_status" in tool.render_sql(job_update_sql)

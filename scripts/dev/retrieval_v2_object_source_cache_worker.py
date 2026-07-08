@@ -19,9 +19,10 @@ from scripts.dev import retrieval_v2_claim_extraction_worker as claim_worker  # 
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev import retrieval_v2_object_source_cache as object_cache  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, render_sql, schema_cursor  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_OUTPUT_ROOT = ROOT / "tmp" / "retrieval_v2_object_source_cache_runs"
 DEFAULT_PAGE_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_source_pages"
 DEFAULT_CLAIM_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
@@ -248,12 +249,12 @@ def job_from_seed(
     }
 
 
-def apply_schema(target_dsn: str) -> None:
+def apply_schema(target_dsn: str, *, schema_name: str = DEFAULT_PG_SCHEMA) -> None:
     psycopg, dict_row = import_psycopg()
     sql = (ROOT / "db" / "migrations" / "20260708_retrieval_v2_object_source_cache_jobs.sql").read_text(encoding="utf-8")
     with psycopg.connect(target_dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
-            cur.execute(sql)
+            cur.execute(render_sql(sql, schema_name=schema_name))
         conn.commit()
 
 
@@ -297,19 +298,21 @@ def upsert_job(cur: Any, job: Mapping[str, Any]) -> int:
     return int(cur.fetchone()["id"])
 
 
-def enqueue_job(*, dsn: str, job: Mapping[str, Any]) -> dict[str, Any]:
+def enqueue_job(*, dsn: str, job: Mapping[str, Any], schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             job_id = upsert_job(cur, job)
         conn.commit()
     return {"job_id": job_id, "job_code": job["job_code"], "idem_key": job["idem_key"]}
 
 
-def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 240) -> dict[str, Any] | None:
+def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 240, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any] | None:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             cur.execute(
                 """
                 with picked as (
@@ -341,10 +344,11 @@ def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 240) -> di
     return dict(row) if row else None
 
 
-def fetch_next_ready_job(*, dsn: str) -> dict[str, Any] | None:
+def fetch_next_ready_job(*, dsn: str, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any] | None:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             cur.execute(
                 """
                 select *
@@ -1013,6 +1017,7 @@ def plan_claim_extraction_from_cache(
     claim_run_root: Path | None = None,
     priority: int = 100,
     required_extractor_version: str = "",
+    schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
     candidates = object_cache_to_claim_candidates(
         cache_root=cache_root,
@@ -1046,7 +1051,7 @@ def plan_claim_extraction_from_cache(
             run_root=claim_run_root or claim_worker.DEFAULT_RUN_ROOT,
             priority=priority,
         )
-        enqueue_result = claim_worker.enqueue_job(dsn=dsn, job=claim_job)
+        enqueue_result = claim_worker.enqueue_job(dsn=dsn, job=claim_job, schema_name=schema_name)
     return {
         "ok": True,
         "status": "planned",
@@ -1073,8 +1078,9 @@ def once(
     worker_id: str,
     execute: bool,
     max_docs_per_person: int = 6,
+    schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
-    job = claim_ready_job(dsn=dsn, worker_id=worker_id) if execute else fetch_next_ready_job(dsn=dsn)
+    job = claim_ready_job(dsn=dsn, worker_id=worker_id, schema_name=schema_name) if execute else fetch_next_ready_job(dsn=dsn, schema_name=schema_name)
     if job is None:
         return {"ok": True, "status": "idle", "job": None}
     plan = job_plan(job)
@@ -1084,14 +1090,16 @@ def once(
         return {"ok": True, "status": "planned", "job": dict(job), "plan": plan}
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             run_id = create_job_run(cur, job=job, worker_id=worker_id, run_code=run_code, input_fingerprint=input_fingerprint)
         conn.commit()
     try:
         result = execute_job(job=job, max_docs_per_person=max_docs_per_person)
     except Exception as exc:
         with psycopg.connect(dsn, row_factory=dict_row) as conn:
-            with conn.cursor() as cur:
+            with conn.cursor() as raw_cur:
+                cur = schema_cursor(raw_cur, schema_name=schema_name)
                 finish_job_run(
                     cur,
                     run_id=run_id,
@@ -1103,7 +1111,8 @@ def once(
             conn.commit()
         raise
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             finish_job_run(
                 cur,
                 run_id=run_id,
@@ -1172,6 +1181,7 @@ def build_parser() -> argparse.ArgumentParser:
     schema = sub.add_parser("apply-schema", help="Apply object source cache queue schema.")
     schema.add_argument("--env-file", type=Path)
     schema.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    schema.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     schema.add_argument("--output-json", type=Path)
 
     enqueue = sub.add_parser("enqueue-from-seed", help="Create one object source cache job from seed JSONL.")
@@ -1181,17 +1191,20 @@ def build_parser() -> argparse.ArgumentParser:
     enqueue.add_argument("--priority", type=int, default=100)
     enqueue.add_argument("--env-file", type=Path)
     enqueue.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    enqueue.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     enqueue.add_argument("--output-json", type=Path)
     add_build_args(enqueue)
 
     plan = sub.add_parser("plan", help="Show the next ready object source cache job without taking a lease.")
     plan.add_argument("--env-file", type=Path)
     plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    plan.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     plan.add_argument("--output-json", type=Path)
 
     once_cmd = sub.add_parser("once", help="Claim and optionally execute one ready object source cache job.")
     once_cmd.add_argument("--env-file", type=Path)
     once_cmd.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    once_cmd.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     once_cmd.add_argument("--worker-id", default="retrieval_v2_object_source_cache_worker")
     once_cmd.add_argument("--execute", action="store_true")
     once_cmd.add_argument("--max-docs-per-person", type=int, default=6)
@@ -1220,6 +1233,7 @@ def build_parser() -> argparse.ArgumentParser:
     claim_plan.add_argument("--required-extractor-version", default=claim_worker.candidate_prompt.CLAIM_EXTRACTOR_VERSION)
     claim_plan.add_argument("--env-file", type=Path)
     claim_plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    claim_plan.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     claim_plan.add_argument("--output-json", type=Path)
     return parser
 
@@ -1231,8 +1245,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     needs_dsn = args.command in {"apply-schema", "enqueue-from-seed", "plan", "once"} or bool(getattr(args, "enqueue_claim_job", False))
     dsn = resolve_dsn(args.dsn_env) if needs_dsn else ""
     if args.command == "apply-schema":
-        apply_schema(dsn)
-        payload = {"ok": True, "action": "apply_schema"}
+        apply_schema(dsn, schema_name=args.pg_schema)
+        payload = {"ok": True, "action": "apply_schema", "schema_name": args.pg_schema}
     elif args.command == "enqueue-from-seed":
         job = job_from_seed(
             seed_jsonl=args.seed_jsonl,
@@ -1241,12 +1255,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             priority=args.priority,
             build_options=build_options_from_args(args),
         )
-        payload = {"ok": True, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job)}
+        payload = {"ok": True, "schema_name": args.pg_schema, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job, schema_name=args.pg_schema)}
     elif args.command == "plan":
-        job = fetch_next_ready_job(dsn=dsn)
+        job = fetch_next_ready_job(dsn=dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
     elif args.command == "once":
-        payload = once(dsn=dsn, worker_id=args.worker_id, execute=bool(args.execute), max_docs_per_person=args.max_docs_per_person)
+        payload = once(dsn=dsn, worker_id=args.worker_id, execute=bool(args.execute), max_docs_per_person=args.max_docs_per_person, schema_name=args.pg_schema)
     elif args.command == "claim-plan":
         payload = plan_claim_extraction_from_cache(
             cache_root=args.cache_root,
@@ -1270,6 +1284,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             claim_run_root=args.claim_run_root,
             priority=args.priority,
             required_extractor_version=args.required_extractor_version,
+            schema_name=args.pg_schema,
         )
     else:  # pragma: no cover
         raise ObjectSourceCacheWorkerError(f"unsupported command: {args.command}")

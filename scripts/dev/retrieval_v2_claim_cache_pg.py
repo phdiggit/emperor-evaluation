@@ -14,9 +14,15 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
+    DEFAULT_PG_SCHEMA,
+    DEFAULT_V3_DSN_ENV,
+    schema_cursor,
+    table_label,
+)
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 
 CLAIM_TYPES = {"material_action", "outcome", "evaluation", "relationship", "institution", "numeric", "context"}
 FACT_SCHEMAS = {
@@ -410,29 +416,29 @@ def upsert_evidence(cur: Any, row: Mapping[str, Any]) -> None:
     )
 
 
-def execute_upserts(cur: Any, rows: Mapping[str, Sequence[Mapping[str, Any]]]) -> dict[str, int]:
+def execute_upserts(cur: Any, rows: Mapping[str, Sequence[Mapping[str, Any]]], *, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, int]:
     counts: Counter[str] = Counter()
     for row in rows["source_slices"]:
         upsert_source_slice(cur, row)
-        counts["retrieval_v2.claim_source_slices"] += 1
+        counts[table_label("claim_source_slices", schema_name=schema_name)] += 1
     for row in rows["claims"]:
         upsert_claim(cur, row)
-        counts["retrieval_v2.claim_cache"] += 1
+        counts[table_label("claim_cache", schema_name=schema_name)] += 1
     for row in rows["claim_evidence"]:
         upsert_evidence(cur, row)
-        counts["retrieval_v2.claim_evidence"] += 1
+        counts[table_label("claim_evidence", schema_name=schema_name)] += 1
     return dict(sorted(counts.items()))
 
 
-def pg_table_counts(cur: Any) -> dict[str, int]:
+def pg_table_counts(cur: Any, *, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, int]:
     result: dict[str, int] = {}
     for table in ["claim_cache", "claim_source_slices", "claim_evidence", "claim_route_cache", "person_profile_claim_links"]:
         cur.execute(f"select count(*) as count from retrieval_v2.{table}")
-        result[f"retrieval_v2.{table}"] = int(cur.fetchone()["count"])
+        result[table_label(table, schema_name=schema_name)] = int(cur.fetchone()["count"])
     return result
 
 
-def pg_inventory(cur: Any, *, sample_limit: int = 0) -> dict[str, Any]:
+def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any]:
     cur.execute(
         """
         select object_name, direction::text as direction, action_type, count(*) as claim_count
@@ -496,7 +502,8 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0) -> dict[str, Any]:
                     }
                 )
     return {
-        "totals": pg_table_counts(cur),
+        "schema_name": schema_name,
+        "totals": pg_table_counts(cur, schema_name=schema_name),
         "by_object": {
             object_name: {
                 "claim_count": entry.get("claim_count", 0),
@@ -516,6 +523,7 @@ def apply_cache_to_pg(
     cache_root: Path,
     env_file: Path | None,
     dsn_env: str,
+    schema_name: str,
     execute: bool,
 ) -> dict[str, Any]:
     if env_file is not None:
@@ -528,6 +536,7 @@ def apply_cache_to_pg(
         "mode": "execute" if execute else "dry_run_executor",
         "write_db": execute,
         "executed": False,
+        "schema_name": schema_name,
         "cache_root": str(cache_root),
         "totals": row_counts(rows),
         "by_object": object_inventory(rows),
@@ -542,7 +551,8 @@ def apply_cache_to_pg(
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             existing = existing_key_counts(cur, rows)
             report["existing_before"] = existing
             report["planned"] = {
@@ -558,8 +568,8 @@ def apply_cache_to_pg(
                     "claim_evidence": len(rows["claim_evidence"]),
                 }.items()
             }
-            report["executed_counts"] = execute_upserts(cur, rows)
-            report["pg_totals_after"] = pg_table_counts(cur)
+            report["executed_counts"] = execute_upserts(cur, rows, schema_name=schema_name)
+            report["pg_totals_after"] = pg_table_counts(cur, schema_name=schema_name)
         if execute:
             conn.commit()
             report["executed"] = True
@@ -568,14 +578,15 @@ def apply_cache_to_pg(
     return report
 
 
-def inventory_from_pg(*, env_file: Path | None, dsn_env: str, sample_limit: int) -> dict[str, Any]:
+def inventory_from_pg(*, env_file: Path | None, dsn_env: str, sample_limit: int, schema_name: str) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
-            report = pg_inventory(cur, sample_limit=sample_limit)
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            report = pg_inventory(cur, sample_limit=sample_limit, schema_name=schema_name)
     report["ok"] = True
     report["generated_by"] = "scripts/dev/retrieval_v2_claim_cache_pg.py"
     return report
@@ -589,12 +600,14 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--cache-root", type=Path, required=True)
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    apply.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     apply.add_argument("--output-json", type=Path)
     apply.add_argument("--execute", action="store_true")
 
     inventory = sub.add_parser("inventory", help="Read PostgreSQL claim cache inventory.")
     inventory.add_argument("--env-file", type=Path)
     inventory.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    inventory.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     inventory.add_argument("--sample-limit", type=int, default=0)
     inventory.add_argument("--output-json", type=Path)
     return parser
@@ -607,10 +620,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             cache_root=args.cache_root,
             env_file=args.env_file,
             dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
             execute=bool(args.execute),
         )
     elif args.command == "inventory":
-        report = inventory_from_pg(env_file=args.env_file, dsn_env=args.dsn_env, sample_limit=max(0, int(args.sample_limit)))
+        report = inventory_from_pg(
+            env_file=args.env_file,
+            dsn_env=args.dsn_env,
+            sample_limit=max(0, int(args.sample_limit)),
+            schema_name=args.pg_schema,
+        )
     else:  # pragma: no cover
         raise ClaimCachePgError(f"unsupported command: {args.command}")
     if args.output_json is not None:

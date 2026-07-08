@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from scripts.dev import retrieval_v2_bootstrap as bootstrap
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "db" / "migrations" / "20260704_retrieval_v2_control_plane.sql"
@@ -10,17 +12,17 @@ SCHEMA_PATH = ROOT / "db" / "migrations" / "20260704_retrieval_v2_control_plane.
 
 def schema_text() -> str:
     assert SCHEMA_PATH.exists()
-    return SCHEMA_PATH.read_text(encoding="utf-8")
+    return bootstrap.read_schema_sql(SCHEMA_PATH)
 
 
-def created_tables(sql: str) -> set[str]:
-    return set(re.findall(r"create table if not exists retrieval_v2\.([a-z_]+)\s*\(", sql, flags=re.IGNORECASE))
+def created_tables(sql: str, *, schema_name: str = "retrieval_v3") -> set[str]:
+    return set(re.findall(rf"create table if not exists {schema_name}\.([a-z_]+)\s*\(", sql, flags=re.IGNORECASE))
 
 
-def created_table_columns(sql: str) -> dict[str, set[str]]:
+def created_table_columns(sql: str, *, schema_name: str = "retrieval_v3") -> dict[str, set[str]]:
     columns_by_table: dict[str, set[str]] = {}
     table_pattern = re.compile(
-        r"create table if not exists retrieval_v2\.([a-z_]+)\s*\((.*?)\n\);",
+        rf"create table if not exists {schema_name}\.([a-z_]+)\s*\((.*?)\n\);",
         flags=re.IGNORECASE | re.DOTALL,
     )
     for match in table_pattern.finditer(sql):
@@ -37,14 +39,14 @@ def created_table_columns(sql: str) -> dict[str, set[str]]:
     return columns_by_table
 
 
-def commented_tables(sql: str) -> set[str]:
-    return set(re.findall(r"comment on table retrieval_v2\.([a-z_]+)\s+is\s+", sql, flags=re.IGNORECASE))
+def commented_tables(sql: str, *, schema_name: str = "retrieval_v3") -> set[str]:
+    return set(re.findall(rf"comment on table {schema_name}\.([a-z_]+)\s+is\s+", sql, flags=re.IGNORECASE))
 
 
-def commented_columns(sql: str) -> set[tuple[str, str]]:
+def commented_columns(sql: str, *, schema_name: str = "retrieval_v3") -> set[tuple[str, str]]:
     return set(
         re.findall(
-            r"comment on column retrieval_v2\.([a-z_]+)\.([a-z0-9_]+)\s+is\s+",
+            rf"comment on column {schema_name}\.([a-z_]+)\.([a-z0-9_]+)\s+is\s+",
             sql,
             flags=re.IGNORECASE,
         )
@@ -86,22 +88,22 @@ def test_retrieval_v2_schema_contains_only_retrieval_control_plane_tables() -> N
 def test_retrieval_v2_schema_anchors_source_packs_to_rule_contracts() -> None:
     sql = schema_text()
 
-    assert "create schema if not exists retrieval_v2" in sql
-    assert "contract_id bigint not null references retrieval_v2.rule_contracts" in sql
-    assert "target_id bigint not null references retrieval_v2.retrieval_targets" in sql
-    assert "constraint rv2_source_packs_target_contract_version_uk unique" in sql
-    assert "constraint rv2_contract_rules_rule_uk unique (contract_id, rule_code)" in sql
+    assert "create schema if not exists retrieval_v3" in sql
+    assert "contract_id bigint not null references retrieval_v3.rule_contracts" in sql
+    assert "target_id bigint not null references retrieval_v3.retrieval_targets" in sql
+    assert "constraint rv3_source_packs_target_contract_version_uk unique" in sql
+    assert "constraint rv3_contract_rules_rule_uk unique (contract_id, rule_code)" in sql
 
 
 def test_retrieval_v2_schema_supports_multi_rule_claim_bindings_and_feedback_events() -> None:
     sql = schema_text()
 
-    assert "claim_id bigint not null references retrieval_v2.material_claims" in sql
-    assert "contract_rule_id bigint not null references retrieval_v2.rule_contract_rules" in sql
-    assert "constraint rv2_claim_rule_bindings_uk unique (claim_id, contract_rule_id, predicate, object_role)" in sql
+    assert "claim_id bigint not null references retrieval_v3.material_claims" in sql
+    assert "contract_rule_id bigint not null references retrieval_v3.rule_contract_rules" in sql
+    assert "constraint rv3_claim_rule_bindings_uk unique (claim_id, contract_rule_id, predicate, object_role)" in sql
     assert "usable_for_object_payload boolean not null default false" in sql
     assert "usable_for_scoring_cluster boolean not null default false" in sql
-    assert "create table if not exists retrieval_v2.coverage_gap_events" in sql
+    assert "create table if not exists retrieval_v3.coverage_gap_events" in sql
     assert "source_pack_refinement" in sql
     assert "codex_review" in sql
     assert "source_missing" in sql
@@ -111,16 +113,16 @@ def test_retrieval_v2_schema_supports_multi_rule_claim_bindings_and_feedback_eve
     assert "negative_undercoverage" in sql
     assert "mixed_claim_not_split" in sql
     assert "needs_primary_source" in sql
-    assert "drop constraint if exists rv2_coverage_gap_events_gap_type_ck" in sql
+    assert "drop constraint if exists rv3_coverage_gap_events_gap_type_ck" in sql
 
 
 def test_retrieval_v2_jobs_are_idempotent_and_dispatcher_ready() -> None:
     sql = schema_text()
 
-    assert "constraint rv2_jobs_idem_uk unique (idem_key)" in sql
+    assert "constraint rv3_jobs_idem_uk unique (idem_key)" in sql
     assert "locked_by text" in sql
     assert "lease_until timestamptz" in sql
-    assert "rv2_jobs_ready_idx" in sql
+    assert "rv3_jobs_ready_idx" in sql
     assert "where status in ('ready', 'retry_wait')" in sql
 
 
