@@ -80,6 +80,7 @@
 - `retrieval_v2_source_candidates.py` 是 retrieval_v2 抓包判读前的候选片段 builder，必须遵守 retrieval_v2 clean 抓包流程；它只负责抓取/缓存源页、按别名和 rule 关键词切片并生成瘦身 Codex prompt，记录 fetch errors 和 coverage gaps；它不读旧判读结果、不写库、不替代 source pack validator。
 - `retrieval_v2_source_document_policy.py` 是 retrieval_v2 source document 门禁层，按目标 source strategy、史源 root 和总称实录目标 metadata 判断某个源页是否可进入候选切片；它不抓取、不判读、不写库。
 - `retrieval_v2_quality_gate.py` 是 retrieval_v2 run 质量对照入口，用旧基准 run 和候选 run 的对象覆盖、claim 数、primary binding 数、无切片对象和状态做离线验收；它只读本地 run 目录，不联网、不读数据库、不替代人工抽样原文。
+- `retrieval_v2_calibration_report.py` 是 retrieval_v2 调校 run 成本与质量汇总入口，聚合 summary、run_events、claim cache 命中、quality gate 和 alerts；它只读本地 run/cache，不联网、不写库、不调用 Codex。
 - `retrieval_v2_prompt_governance.py` 是 retrieval_v2 prompt 预算和 prompt debt 快照入口，从本地 run_root、candidate JSON 或内置 debt 模板生成只读报告；它不调用 Codex、不联网、不写数据库、不替代质量验收。
 - `retrieval_v2_recall_term_sampler.py` 是 retrieval_v2 召回词采样治理入口，从本地 candidates.final.json / run_root 的 candidate_slices 统计机制词、条件词、案例词和拒收词；它不联网、不调用 Codex、不写数据库、不直接修改长期 discovery profile。
 - `retrieval_v2_recall_feedback.py` 是 retrieval_v2 消费反馈到召回 overlay 建议的只读汇总入口，从消费端 JSONL 统计 accepted/rejected/supporting_only 等状态和拒收原因；它不写 profile、不改 prompt、不写数据库，输出只用于下一轮 A/B 和人工 review。
