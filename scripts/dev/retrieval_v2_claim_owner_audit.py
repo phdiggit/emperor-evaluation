@@ -148,15 +148,37 @@ def scoped_aliases_by_owner(requested_emperor_name: str, alias_book: OwnerAliasB
     return scoped
 
 
+def alias_context_valid(text_value: str, alias: str, index: int) -> bool:
+    if alias == "吕后" and index > 0 and text_value[index - 1] == "诸":
+        return False
+    suffix = text_value[index + len(alias) : index + len(alias) + 4]
+    if suffix.startswith(("崩后", "崩後", "卒后", "卒後", "死后", "死後")):
+        return False
+    return True
+
+
 def alias_matches(text_value: str, aliases_by_owner: Mapping[str, Sequence[str]]) -> list[OwnerMatch]:
     matches: list[OwnerMatch] = []
     for owner_name, aliases in sorted(aliases_by_owner.items()):
         for alias in aliases:
             term = text(alias)
-            if term and term in text_value:
-                matches.append(OwnerMatch(owner_name=text(owner_name), alias=term, source="text"))
+            if not term:
+                continue
+            start = 0
+            while True:
+                index = text_value.find(term, start)
+                if index < 0:
+                    break
+                if alias_context_valid(text_value, term, index):
+                    matches.append(OwnerMatch(owner_name=text(owner_name), alias=term, source="text"))
+                    break
+                start = index + max(1, len(term))
     matches.sort(key=lambda item: (-len(item.alias), item.owner_name, item.alias))
     return matches
+
+
+def unique_match_owners(matches: Sequence[OwnerMatch]) -> list[str]:
+    return unique_strings([match.owner_name for match in matches])
 
 
 def claim_search_text(row: Mapping[str, Any]) -> str:
@@ -167,7 +189,6 @@ def claim_search_text(row: Mapping[str, Any]) -> str:
         text(row.get("outcome")),
         text(row.get("office_or_domain")),
         text(payload.get("actor")),
-        text(payload.get("object")),
         text(payload.get("time_context")),
         text(payload.get("outcome")),
     ]
@@ -183,11 +204,15 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
     status = text(row.get("status"))
     searchable = claim_search_text(row)
     actor_matches = alias_matches(actor, scoped_aliases)
+    fact_object_matches = alias_matches(text(payload.get("object")), scoped_aliases)
     text_matches = alias_matches(searchable, scoped_aliases)
     requested_actor_matches = [match for match in actor_matches if match.owner_name == requested]
     requested_text_matches = [match for match in text_matches if match.owner_name == requested]
     other_actor_matches = [match for match in actor_matches if match.owner_name != requested]
+    other_fact_object_matches = [match for match in fact_object_matches if match.owner_name != requested]
     other_text_matches = [match for match in text_matches if match.owner_name != requested]
+    other_fact_object_owner_names = unique_match_owners(other_fact_object_matches)
+    other_text_owner_names = unique_match_owners(other_text_matches)
     suggested_owner = ""
     matched_alias = ""
     owner_status = "matched"
@@ -205,6 +230,16 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
         matched_alias = other_actor_matches[0].alias
         owner_status = "rebind_candidate"
         risk_kind = "ruler_action_actor_matches_other_owner"
+    elif not requested_text_matches and len(other_fact_object_owner_names) == 1 and other_fact_object_owner_names[0] in other_text_owner_names:
+        suggested_owner = other_fact_object_owner_names[0]
+        matched_alias = next((match.alias for match in other_fact_object_matches if match.owner_name == suggested_owner), "")
+        owner_status = "rebind_candidate"
+        risk_kind = "fact_object_owner_context_without_requested_owner"
+    elif not requested_text_matches and len(other_text_owner_names) == 1:
+        suggested_owner = other_text_owner_names[0]
+        matched_alias = next((match.alias for match in other_text_matches if match.owner_name == suggested_owner), "")
+        owner_status = "rebind_candidate"
+        risk_kind = "single_other_owner_context_without_requested_owner"
     elif other_text_matches:
         suggested_owner = other_text_matches[0].owner_name
         matched_alias = other_text_matches[0].alias
@@ -329,6 +364,16 @@ def executable_rebind_plan(findings: Sequence[Mapping[str, Any]]) -> list[dict[s
     ]
 
 
+def executable_review_status_plan(findings: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        dict(row)
+        for row in findings
+        if text(row.get("owner_status")) == "needs_review"
+        and text(row.get("owner_risk_kind")) == "other_owner_or_reign_mentioned"
+        and not bool(row.get("target_owner_mentioned"))
+    ]
+
+
 def apply_rebind_plan(cur: Any, rows: Sequence[Mapping[str, Any]]) -> int:
     updated = 0
     for row in rows:
@@ -361,6 +406,37 @@ def apply_rebind_plan(cur: Any, rows: Sequence[Mapping[str, Any]]) -> int:
     return updated
 
 
+def apply_review_status_plan(cur: Any, rows: Sequence[Mapping[str, Any]]) -> int:
+    updated = 0
+    for row in rows:
+        payload = {
+            "from_emperor_name": text(row.get("requested_emperor_name")),
+            "reason": text(row.get("owner_risk_kind")),
+            "matched_alias": text(row.get("matched_owner_alias")),
+            "suggested_owner_name": text(row.get("suggested_owner_name")),
+            "actor": text(row.get("actor")),
+            "source": "retrieval_v2_claim_owner_audit",
+        }
+        cur.execute(
+            """
+            update retrieval_v2.claim_cache
+               set status = 'needs_review'::retrieval_v2.rv2_claim_cache_status,
+                   fact_payload = fact_payload || %s::jsonb,
+                   updated_at = now()
+             where claim_key = %s
+               and emperor_name = %s
+               and status::text = 'active'
+            """,
+            (
+                json.dumps({"owner_review_payload": payload}, ensure_ascii=False, sort_keys=True, separators=(",", ":")),
+                text(row.get("claim_key")),
+                payload["from_emperor_name"],
+            ),
+        )
+        updated += int(getattr(cur, "rowcount", 0) or 0)
+    return updated
+
+
 def audit_claim_owners(
     *,
     env_file: Path | None,
@@ -370,12 +446,14 @@ def audit_claim_owners(
     statuses: Sequence[str],
     owner_aliases_json: Path | None = None,
     execute_rebind: bool = False,
+    execute_review_status: bool = False,
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     executed_count = 0
+    review_status_count = 0
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
@@ -383,16 +461,20 @@ def audit_claim_owners(
             rows = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses)
             findings = [classify_claim_owner(row, aliases) for row in rows]
             executable_plan = executable_rebind_plan(findings)
+            review_status_plan = executable_review_status_plan(findings)
             if execute_rebind:
                 executed_count = apply_rebind_plan(cur, executable_plan)
+            if execute_review_status:
+                review_status_count = apply_review_status_plan(cur, review_status_plan)
+            if execute_rebind or execute_review_status:
                 conn.commit()
             else:
                 conn.rollback()
     return {
         "ok": True,
         "generated_by": "scripts/dev/retrieval_v2_claim_owner_audit.py",
-        "mode": "execute_rebind" if execute_rebind else "dry_run_owner_audit",
-        "write_db": execute_rebind,
+        "mode": "execute_owner_repair" if execute_rebind or execute_review_status else "dry_run_owner_audit",
+        "write_db": execute_rebind or execute_review_status,
         "schema_name": schema_name,
         "filters": {
             "emperor_names": [text(name) for name in emperor_names if text(name)],
@@ -408,7 +490,12 @@ def audit_claim_owners(
         "findings": findings,
         "rebind_plan": rebind_plan(findings),
         "executable_rebind_plan": executable_plan,
-        "executed_counts": {"claim_cache_rebound": executed_count} if execute_rebind else {},
+        "executable_review_status_plan": review_status_plan,
+        "executed_counts": (
+            {"claim_cache_rebound": executed_count, "claim_cache_marked_needs_review": review_status_count}
+            if execute_rebind or execute_review_status
+            else {}
+        ),
     }
 
 
@@ -493,6 +580,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--status", action="append", default=["active"])
     parser.add_argument("--owner-aliases-json", type=Path)
     parser.add_argument("--execute-rebind", action="store_true", help="Apply deterministic rebind_candidate rows to claim_cache.")
+    parser.add_argument("--execute-review-status", action="store_true", help="Mark ambiguous non-target owner context rows as needs_review.")
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--output-csv", type=Path)
@@ -509,6 +597,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         statuses=args.status or [],
         owner_aliases_json=args.owner_aliases_json,
         execute_rebind=bool(args.execute_rebind),
+        execute_review_status=bool(args.execute_review_status),
     )
     write_json(args.output_json, payload)
     if args.output_md is not None:
