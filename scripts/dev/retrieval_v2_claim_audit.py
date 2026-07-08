@@ -14,10 +14,36 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev import retrieval_v2_claim_cache as claim_cache  # noqa: E402
+from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev.retrieval_v2_taskgen_preseed import text_from  # noqa: E402
 
 
 BIOGRAPHY_SHAPES = {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}
+DISPOSITION_ONLY_TERMS = ("伏诛", "被诛", "诛", "谋反", "废", "罢", "下狱", "坐罪", "族诛")
+APPOINTMENT_AUTHORIZATION_TERMS = (
+    "命",
+    "任",
+    "拜",
+    "授",
+    "用",
+    "擢",
+    "委",
+    "使",
+    "令",
+    "为",
+    "充",
+    "副",
+    "摄",
+    "封",
+    "镇",
+    "守",
+    "督",
+    "备边",
+    "总制",
+    "提督",
+    "参军国事",
+)
+GOVERNANCE_DAMAGE_TERMS = ("专擅", "擅权", "纳贿", "壅蔽", "害政", "乱政", "败", "失", "误", "杀", "构党", "结党")
 
 
 class ClaimAuditError(RuntimeError):
@@ -88,17 +114,61 @@ def load_object_slice_index(object_cache_root: Path) -> dict[str, dict[str, Any]
 
 
 def duplicate_group_key(claim: Mapping[str, Any]) -> tuple[str, ...]:
-    fact = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
+    return claim_quality.near_duplicate_group_key(claim)
+
+
+def grain_group_key(claim: Mapping[str, Any]) -> tuple[str, ...]:
+    payload = claim_quality.near_duplicate_group_payload(claim)
     return (
-        normalized_text(claim.get("emperor_name")),
-        normalized_text(claim.get("object_name")),
-        normalized_text(claim.get("direction")),
-        normalized_text(claim.get("action_type") or fact.get("action_type")),
-        normalized_text(claim.get("event_scope") or fact.get("event_scope")),
-        normalized_text(claim.get("office_or_domain") or fact.get("office_or_domain")),
-        normalized_text(claim.get("time_context") or fact.get("time_context")),
-        normalized_text(claim.get("outcome") or fact.get("outcome")),
+        payload["emperor_name"],
+        payload["object_name"],
+        payload["direction"],
+        payload["action_type"],
+        payload["event_scope"],
+        payload["office_or_domain"],
+        payload["time_context"],
     )
+
+
+def claim_semantic_findings(claim: Mapping[str, Any]) -> list[dict[str, Any]]:
+    action_type = text_from(claim, "action_type")
+    direction = text_from(claim, "direction")
+    summary = text_from(claim, "claim_summary")
+    fact = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
+    combined = summary + text_from(claim, "outcome") + text_from(fact, "outcome") + text_from(fact, "cost_or_damage")
+    findings: list[dict[str, Any]] = []
+    if direction == "negative" and action_type in {"任命", "授权"}:
+        has_disposition = any(term in combined for term in DISPOSITION_ONLY_TERMS)
+        has_damage = any(term in combined for term in GOVERNANCE_DAMAGE_TERMS)
+        if has_disposition and not has_damage:
+            findings.append(
+                {
+                    "issue_code": "negative_authorization_disposition_only_review",
+                    "severity": "medium",
+                    "claim_key": claim.get("claim_key"),
+                    "object_name": claim.get("object_name"),
+                    "direction": direction,
+                    "action_type": action_type,
+                    "time_context": claim.get("time_context"),
+                    "claim_summary": compact_preview(summary, limit=180),
+                    "detail": "negative appointment/authorization claim appears to rely on disposition ending without same-chain governance damage",
+                }
+            )
+    if action_type in {"任命", "授权"} and not any(term in combined for term in APPOINTMENT_AUTHORIZATION_TERMS):
+        findings.append(
+            {
+                "issue_code": "action_type_authorization_anchor_missing",
+                "severity": "low",
+                "claim_key": claim.get("claim_key"),
+                "object_name": claim.get("object_name"),
+                "direction": direction,
+                "action_type": action_type,
+                "time_context": claim.get("time_context"),
+                "claim_summary": compact_preview(summary, limit=180),
+                "detail": "claim action_type is appointment/authorization but summary/outcome lacks local appointment or authorization anchor",
+            }
+        )
+    return findings
 
 
 def build_claim_audit(
@@ -115,6 +185,10 @@ def build_claim_audit(
     source_by_hash = {text_from(row, "slice_hash"): row for row in source_slices if text_from(row, "slice_hash")}
     object_slices = load_object_slice_index(object_cache_root)
     findings: list[dict[str, Any]] = []
+
+    for claim in claims:
+        if text_from(claim, "status") == "active":
+            findings.extend(claim_semantic_findings(claim))
 
     for evidence in evidences:
         claim_key = text_from(evidence, "claim_key")
@@ -181,6 +255,25 @@ def build_claim_audit(
                     detail=f"object mention count={len(positions)}; source_shape={source_shape}",
                 )
             )
+        eligibility = claim_quality.slice_claim_eligibility(
+            {
+                **object_slice,
+                "object_name": claim_object,
+                "matched_aliases": object_slice.get("matched_aliases") or [],
+                "text": text,
+            }
+        )
+        if not eligibility["claim_eligible"]:
+            findings.append(
+                finding_row(
+                    "ineligible_slice_claim_evidence",
+                    "medium",
+                    claim,
+                    evidence,
+                    object_slice,
+                    detail=f"mention_role={eligibility['mention_role']}; reasons={','.join(eligibility['reasons'])}",
+                )
+            )
 
     groups: dict[tuple[str, ...], list[dict[str, Any]]] = defaultdict(list)
     for claim in claims:
@@ -198,10 +291,34 @@ def build_claim_audit(
                 "object_name": rows[0].get("object_name"),
                 "direction": rows[0].get("direction"),
                 "action_type": rows[0].get("action_type"),
+                "canonical_group_payload": claim_quality.near_duplicate_group_payload(rows[0]),
                 "claim_count": len(rows),
                 "claim_keys": [row.get("claim_key") for row in rows[:12]],
                 "claim_summaries": [compact_preview(row.get("claim_summary"), limit=120) for row in rows[:5]],
                 "detail": "same object/direction/action/time/outcome cluster has multiple active claims",
+            }
+        )
+    grain_groups: dict[tuple[str, ...], list[dict[str, Any]]] = defaultdict(list)
+    for claim in claims:
+        if text_from(claim, "status") == "active":
+            grain_groups[grain_group_key(claim)].append(claim)
+    for rows in grain_groups.values():
+        grains = sorted({text_from(row, "claim_grain") or claim_quality.claim_grain(row) for row in rows})
+        if len(rows) < 2 or len(grains) < 2:
+            continue
+        findings.append(
+            {
+                "issue_code": "mixed_claim_grain_group",
+                "severity": "low",
+                "claim_key": rows[0].get("claim_key"),
+                "object_name": rows[0].get("object_name"),
+                "direction": rows[0].get("direction"),
+                "action_type": rows[0].get("action_type"),
+                "claim_count": len(rows),
+                "claim_grains": grains,
+                "claim_keys": [row.get("claim_key") for row in rows[:12]],
+                "claim_summaries": [compact_preview(row.get("claim_summary"), limit=120) for row in rows[:5]],
+                "detail": "same object/action/time group mixes event_chain and sub_event grains",
             }
         )
 

@@ -86,6 +86,7 @@ def test_prompt_payload_preserves_candidate_context() -> None:
     assert "merged_from_slice_codes" not in payload["candidate_slices"][0]
     assert "object_source_cache" not in payload["candidate_slices"][0]
     assert "slice_risk_flags" not in payload["candidate_slices"][0]
+    assert "slice_claim_eligibility" not in payload["candidate_slices"][0]
     assert payload["source_ref_policy"] == {}
     assert "secondary_candidate_routing_policy" not in payload
 
@@ -103,7 +104,7 @@ def test_prompt_payload_groups_allowed_source_refs_for_multi_object_shards() -> 
 def test_prompt_payload_marks_high_risk_biography_slices_only_when_needed() -> None:
     candidates = sample_candidates()
     candidates["candidate_slices"][0]["object_source_cache"]["section_heading"] = "尉迟敬德"
-    candidates["candidate_slices"][0]["text"] = "奉命西讨，诸将皆从。" * 30 + "李世民至军中。"
+    candidates["candidate_slices"][0]["text"] = "其人简重慎密，诸人皆称之。" * 30 + "李世民至军中。"
 
     payload = tool.prompt_payload(candidates)
 
@@ -111,6 +112,9 @@ def test_prompt_payload_marks_high_risk_biography_slices_only_when_needed() -> N
         "wrong_person_section_risk",
         "weak_single_mention_risk",
     ]
+    assert payload["candidate_slices"][0]["slice_claim_eligibility"]["claim_eligible"] is False
+    assert payload["candidate_slices"][0]["slice_claim_eligibility"]["mention_role"] == "incidental"
+    assert payload["candidate_slices"][0]["slice_claim_eligibility"]["support_level_hint"] == "context"
 
 
 def test_prompt_payload_strips_candidate_debug_profile() -> None:

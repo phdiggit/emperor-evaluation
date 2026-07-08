@@ -106,9 +106,11 @@ def test_claim_audit_flags_wrong_person_section_and_duplicates(tmp_path: Path) -
     issue_codes = [row["issue_code"] for row in report["findings"]]
 
     assert "wrong_person_section" in issue_codes
+    assert "ineligible_slice_claim_evidence" in issue_codes
     assert "claim_evidence_object_mismatch" in issue_codes
     assert "near_duplicate_claim_group" in issue_codes
     assert report["issue_counts"]["wrong_person_section"] == 1
+    assert report["issue_counts"]["ineligible_slice_claim_evidence"] == 1
     assert report["totals"]["claims"] == 2
 
 
@@ -138,3 +140,37 @@ def test_claim_audit_cli_writes_reports(tmp_path: Path, capsys) -> None:
     assert json.loads((tmp_path / "audit.json").read_text(encoding="utf-8"))["totals"]["claims"] == 0
     assert "# retrieval_v2 claim cache audit" in (tmp_path / "audit.md").read_text(encoding="utf-8")
     assert json.loads(capsys.readouterr().out)["ok"] is True
+
+
+def test_claim_audit_flags_negative_authorization_disposition_only(tmp_path: Path) -> None:
+    claim_root = tmp_path / "claim_cache"
+    object_root = tmp_path / "object_cache"
+    paths = claim_cache.cache_paths(claim_root)
+    write_jsonl(
+        paths["claims"],
+        [
+            {
+                "claim_key": "CLM-HWY",
+                "emperor_name": "朱元璋",
+                "object_name": "胡惟庸",
+                "direction": "negative",
+                "action_type": "授权",
+                "event_scope": "中枢",
+                "office_or_domain": "丞相",
+                "time_context": "洪武十三年",
+                "outcome": "谋反伏诛，废丞相",
+                "claim_summary": "胡惟庸谋反伏诛，朱元璋废丞相。",
+                "fact_payload": {},
+                "status": "active",
+            }
+        ],
+    )
+    write_jsonl(paths["evidence"], [])
+    write_jsonl(paths["slices"], [])
+    write_jsonl(paths["runs"], [])
+    write_jsonl(object_root / "source_documents.jsonl", [])
+    write_jsonl(object_root / "mention_slices.jsonl", [])
+
+    report = tool.build_claim_audit(claim_cache_root=claim_root, object_cache_root=object_root)
+
+    assert report["issue_counts"]["negative_authorization_disposition_only_review"] == 1

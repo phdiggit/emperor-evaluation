@@ -19,6 +19,8 @@ DEFAULT_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
 SCHEMA_VERSION = 1
 PGSQL_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_cache.sql"
 
+from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
+
 PGSQL_SCHEMA_DRAFT = PGSQL_SCHEMA_PATH.read_text(encoding="utf-8")
 
 
@@ -220,9 +222,14 @@ def claim_row(
     extractor_version: str,
 ) -> dict[str, Any]:
     fact = claim_fact(claim)
+    quality = claim_quality.claim_quality_payload(claim)
     return {
         "schema_version": SCHEMA_VERSION,
         "claim_key": cache_key,
+        "canonical_event_key": quality["canonical_event_key"],
+        "canonical_event_payload": quality["canonical_event_payload"],
+        "near_duplicate_group_payload": quality["near_duplicate_group_payload"],
+        "claim_grain": quality["claim_grain"],
         "emperor_name": str(claim.get("emperor_name") or ""),
         "object_name": str(claim.get("object_name") or fact.get("object") or ""),
         "object_type": str(claim.get("object_type") or "person"),
@@ -284,6 +291,11 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
             if key in existing["claims"]:
                 existing["claims"][key]["seen_count"] = int(existing["claims"][key].get("seen_count") or 1) + 1
                 existing["claims"][key]["last_run_code"] = run
+                quality = claim_quality.claim_quality_payload(sanitized_claim)
+                existing["claims"][key].setdefault("canonical_event_key", quality["canonical_event_key"])
+                existing["claims"][key].setdefault("canonical_event_payload", quality["canonical_event_payload"])
+                existing["claims"][key].setdefault("near_duplicate_group_payload", quality["near_duplicate_group_payload"])
+                existing["claims"][key].setdefault("claim_grain", quality["claim_grain"])
                 stats["duplicate_claim_count"] += 1
             else:
                 existing["claims"][key] = claim_row(

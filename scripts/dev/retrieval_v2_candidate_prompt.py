@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-import re
 from typing import Any, Mapping
 
+from scripts.dev import retrieval_v2_claim_quality as claim_quality
 from scripts.dev import retrieval_v2_contracts as contracts
 
 
@@ -57,84 +57,6 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
 CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v4_structured_ref_policy"
-BIOGRAPHY_SOURCE_SHAPES = {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}
-
-
-def normalized_text(value: Any) -> str:
-    return re.sub(r"\s+", "", str(value or "")).casefold()
-
-
-def unique_strings(values: list[Any]) -> list[str]:
-    result: list[str] = []
-    seen: set[str] = set()
-    for value in values:
-        text = str(value or "").strip()
-        if not text or text in seen:
-            continue
-        seen.add(text)
-        result.append(text)
-    return result
-
-
-def object_cache_row(row: Mapping[str, Any]) -> Mapping[str, Any]:
-    return row.get("object_source_cache") if isinstance(row.get("object_source_cache"), Mapping) else {}
-
-
-def candidate_aliases(row: Mapping[str, Any]) -> list[str]:
-    aliases = unique_strings([row.get("object_name"), *(row.get("matched_aliases") or [])])
-    return sorted(aliases, key=len, reverse=True)
-
-
-def alias_mention_count(text: str, aliases: list[str]) -> int:
-    count = 0
-    normalized = normalized_text(text)
-    for alias in aliases:
-        needle = normalized_text(alias)
-        if needle:
-            count += normalized.count(needle)
-    return count
-
-
-def biography_like_source(row: Mapping[str, Any]) -> bool:
-    object_cache = object_cache_row(row)
-    source_shape = str(object_cache.get("source_shape") or row.get("source_shape") or "")
-    quality_flags = {str(flag) for flag in object_cache.get("quality_flags") or row.get("quality_flags") or []}
-    return source_shape in BIOGRAPHY_SOURCE_SHAPES or "object_biography" in quality_flags
-
-
-def candidate_slice_risk_flags(row: Mapping[str, Any]) -> list[str]:
-    if not biography_like_source(row):
-        return []
-    object_cache = object_cache_row(row)
-    aliases = candidate_aliases(row)
-    section_heading = str(object_cache.get("section_heading") or row.get("section_heading") or "").strip()
-    flags: list[str] = []
-    if section_heading and aliases and not any(alias in section_heading for alias in aliases):
-        flags.append("wrong_person_section_risk")
-    text = str(row.get("text") or "")
-    if len(text) >= 260 and alias_mention_count(text, aliases) <= 1:
-        flags.append("weak_single_mention_risk")
-    return flags
-
-
-def source_ref_policy(candidates: Mapping[str, Any]) -> dict[str, Any]:
-    refs_by_object: dict[str, list[str]] = {}
-    for row in candidates.get("candidate_slices") or []:
-        if not isinstance(row, Mapping):
-            continue
-        object_name = str(row.get("object_name") or "").strip()
-        slice_code = str(row.get("slice_code") or "").strip()
-        if not object_name or not slice_code:
-            continue
-        refs_by_object.setdefault(object_name, []).append(slice_code)
-    refs_by_object = {key: value for key, value in sorted(refs_by_object.items()) if value}
-    if len(refs_by_object) <= 1:
-        return {}
-    return {
-        "policy_code": "object_ref_gate_v1",
-        "allowed_source_refs_by_object": refs_by_object,
-        "runner_enforced": True,
-    }
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -143,14 +65,17 @@ def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any
         if not isinstance(row, Mapping):
             continue
         payload = {key: row[key] for key in PROMPT_CANDIDATE_SLICE_KEYS if key in row}
-        object_cache = object_cache_row(row)
+        object_cache = claim_quality.object_cache_row(row)
         if object_cache.get("section_heading"):
             payload["section_heading"] = object_cache.get("section_heading")
         if object_cache.get("quality_flags"):
             payload["quality_flags"] = object_cache.get("quality_flags")
-        risk_flags = candidate_slice_risk_flags(row)
+        eligibility = claim_quality.slice_claim_eligibility(row)
+        risk_flags = eligibility.get("risk_flags") or []
         if risk_flags:
             payload["slice_risk_flags"] = risk_flags
+        if risk_flags or not eligibility.get("claim_eligible", True):
+            payload["slice_claim_eligibility"] = eligibility
         rows.append(payload)
     return rows
 
@@ -166,7 +91,7 @@ def prompt_payload(candidates: Mapping[str, Any]) -> dict[str, Any]:
         "source_documents": candidates.get("source_documents") or [],
         "fetch_errors": candidates.get("fetch_errors") or [],
         "candidate_slices": prompt_candidate_slices(candidates),
-        "source_ref_policy": source_ref_policy(candidates),
+        "source_ref_policy": claim_quality.source_ref_policy(candidates),
         "coverage": candidates.get("coverage") or {},
         "coverage_gaps": candidates.get("coverage_gaps") or [],
     }

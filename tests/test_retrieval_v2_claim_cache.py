@@ -124,7 +124,11 @@ def test_import_run_dedupes_claims_slices_and_evidence(tmp_path: Path) -> None:
     assert first["stats"]["new_evidence_count"] == 2
     assert second["stats"]["duplicate_claim_count"] == 1
     assert second["total_cached_claims"] == 1
-    assert len(tool.read_jsonl(cache_root / "claims.jsonl")) == 1
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    assert len(claims) == 1
+    assert claims[0]["canonical_event_key"].startswith("CEK-")
+    assert claims[0]["claim_grain"] == "event_chain"
+    assert claims[0]["near_duplicate_group_payload"]["object_name"] == "汤和"
     assert len(tool.read_jsonl(cache_root / "source_slices.jsonl")) == 1
 
 
