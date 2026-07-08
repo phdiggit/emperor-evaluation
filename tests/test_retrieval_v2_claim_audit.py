@@ -205,6 +205,22 @@ def test_claim_audit_flags_negative_authorization_disposition_only(tmp_path: Pat
     assert report["issue_counts"]["negative_authorization_disposition_only_review"] == 1
 
 
+def test_claim_audit_flags_negative_direction_without_actual_damage_anchor() -> None:
+    findings = tool.claim_semantic_findings(
+        {
+            "claim_key": "CLM-WZ",
+            "object_name": "魏徵",
+            "direction": "negative",
+            "action_type": "纳谏",
+            "claim_summary": "魏徵劝李世民斥退阎立本，李世民因其强济而未斥。",
+            "outcome": "未斥",
+            "fact_payload": {},
+        }
+    )
+
+    assert [row["issue_code"] for row in findings] == ["negative_direction_damage_anchor_missing_review"]
+
+
 def test_claim_audit_excludes_rejected_claims_from_active_findings(tmp_path: Path) -> None:
     claim_root = tmp_path / "claim_cache"
     object_root = tmp_path / "object_cache"

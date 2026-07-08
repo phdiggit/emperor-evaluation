@@ -28,6 +28,7 @@ from scripts.dev.retrieval_v2_target_alias_backfill import (  # noqa: E402
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 RULER_ACTION_TYPES = {"任命", "授权", "处置", "收权", "制度高压"}
+CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
 
 
 class ClaimOwnerAuditError(RuntimeError):
@@ -195,6 +196,18 @@ def claim_search_text(row: Mapping[str, Any]) -> str:
     return " ".join(part for part in parts if part)
 
 
+def requested_owner_context_only(row: Mapping[str, Any], requested_matches: Sequence[OwnerMatch]) -> bool:
+    aliases = unique_strings([match.alias for match in requested_matches])
+    if not aliases:
+        return False
+    searchable = claim_search_text(row)
+    for alias in aliases:
+        for relation in CONTEXT_ONLY_OWNER_RELATION_TERMS:
+            if f"受{alias}{relation}" in searchable or f"为{alias}{relation}" in searchable or f"为{alias}所{relation}" in searchable:
+                return True
+    return False
+
+
 def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> dict[str, Any]:
     requested = text(row.get("emperor_name"))
     scoped_aliases = scoped_aliases_by_owner(requested, alias_book)
@@ -208,6 +221,7 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
     text_matches = alias_matches(searchable, scoped_aliases)
     requested_actor_matches = [match for match in actor_matches if match.owner_name == requested]
     requested_text_matches = [match for match in text_matches if match.owner_name == requested]
+    requested_context_only = bool(requested_text_matches) and requested_owner_context_only(row, requested_text_matches)
     other_actor_matches = [match for match in actor_matches if match.owner_name != requested]
     other_fact_object_matches = [match for match in fact_object_matches if match.owner_name != requested]
     other_text_matches = [match for match in text_matches if match.owner_name != requested]
@@ -230,16 +244,16 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
         matched_alias = other_actor_matches[0].alias
         owner_status = "rebind_candidate"
         risk_kind = "ruler_action_actor_matches_other_owner"
-    elif not requested_text_matches and len(other_fact_object_owner_names) == 1 and other_fact_object_owner_names[0] in other_text_owner_names:
+    elif (not requested_text_matches or requested_context_only) and len(other_fact_object_owner_names) == 1 and other_fact_object_owner_names[0] in other_text_owner_names:
         suggested_owner = other_fact_object_owner_names[0]
         matched_alias = next((match.alias for match in other_fact_object_matches if match.owner_name == suggested_owner), "")
         owner_status = "rebind_candidate"
         risk_kind = "fact_object_owner_context_without_requested_owner"
-    elif not requested_text_matches and len(other_text_owner_names) == 1:
+    elif (not requested_text_matches or requested_context_only) and len(other_text_owner_names) == 1:
         suggested_owner = other_text_owner_names[0]
         matched_alias = next((match.alias for match in other_text_matches if match.owner_name == suggested_owner), "")
         owner_status = "rebind_candidate"
-        risk_kind = "single_other_owner_context_without_requested_owner"
+        risk_kind = "single_other_owner_context_with_requested_owner_context_only" if requested_context_only else "single_other_owner_context_without_requested_owner"
     elif other_text_matches:
         suggested_owner = other_text_matches[0].owner_name
         matched_alias = other_text_matches[0].alias
@@ -270,6 +284,7 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
         "time_context": text(row.get("time_context") or payload.get("time_context")),
         "claim_summary": text(row.get("claim_summary")),
         "target_owner_mentioned": bool(requested_text_matches),
+        "target_owner_context_only": requested_context_only,
         "other_owner_mentions": [
             {"owner_name": match.owner_name, "alias": match.alias}
             for match in other_text_matches[:6]

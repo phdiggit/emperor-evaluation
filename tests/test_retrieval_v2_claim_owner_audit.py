@@ -261,6 +261,27 @@ def test_fact_object_owner_breaks_multi_owner_context_toward_event_target() -> N
     assert result["suggested_owner_name"] == "刘恒"
 
 
+def test_context_only_requested_owner_mention_does_not_block_unique_other_owner_rebind() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="李世民",
+            object_name="房玄龄",
+            action_type="处置",
+            time_context="武德末隐太子将有变前",
+            claim_summary="隐太子忌惮房玄龄、杜如晦受李世民亲礼，向高祖谮毁二人，使房玄龄与杜如晦被驱斥。",
+            fact_payload={"actor": "隐太子", "object": "房玄龄", "action_type": "处置", "outcome": "被驱斥"},
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "rebind_candidate"
+    assert result["owner_risk_kind"] == "single_other_owner_context_with_requested_owner_context_only"
+    assert result["suggested_owner_name"] == "李渊"
+    assert result["target_owner_context_only"] is True
+
+
 def test_executable_review_status_plan_keeps_multi_owner_timelines_out_of_active_rebinds() -> None:
     aliases = tool.load_owner_aliases()
     finding = tool.classify_claim_owner(

@@ -49,6 +49,7 @@ APPOINTMENT_AUTHORIZATION_TERMS = (
     "参军国事",
 )
 GOVERNANCE_DAMAGE_TERMS = ("专擅", "擅权", "纳贿", "壅蔽", "害政", "乱政", "败", "失", "误", "杀", "构党", "结党")
+NEGATIVE_CONTEXT_TERMS = DISPOSITION_ONLY_TERMS + ("弹劾", "劾", "谏", "诤", "讽", "罢", "斥")
 
 
 class ClaimAuditError(RuntimeError):
@@ -142,6 +143,23 @@ def claim_semantic_findings(claim: Mapping[str, Any]) -> list[dict[str, Any]]:
     fact = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
     combined = summary + text_from(claim, "outcome") + text_from(fact, "outcome") + text_from(fact, "cost_or_damage")
     findings: list[dict[str, Any]] = []
+    if direction == "negative":
+        has_damage = any(term in combined for term in GOVERNANCE_DAMAGE_TERMS)
+        has_negative_context = any(term in combined for term in NEGATIVE_CONTEXT_TERMS)
+        if has_negative_context and not has_damage:
+            findings.append(
+                {
+                    "issue_code": "negative_direction_damage_anchor_missing_review",
+                    "severity": "medium",
+                    "claim_key": claim.get("claim_key"),
+                    "object_name": claim.get("object_name"),
+                    "direction": direction,
+                    "action_type": action_type,
+                    "time_context": claim.get("time_context"),
+                    "claim_summary": compact_preview(summary, limit=180),
+                    "detail": "negative claim has disposition/remonstrance/impeachment context but lacks same-chain governance damage",
+                }
+            )
     if direction == "negative" and action_type in {"任命", "授权"}:
         has_disposition = any(term in combined for term in DISPOSITION_ONLY_TERMS)
         has_damage = any(term in combined for term in GOVERNANCE_DAMAGE_TERMS)
