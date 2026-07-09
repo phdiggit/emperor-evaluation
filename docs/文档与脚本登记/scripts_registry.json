@@ -45,7 +45,7 @@
         "reason": "retrieval_v2 contracts 暂集中承载 profile、candidate lane、shadow report、personnel_political_wide 契约常量和繁简别名扩展，跨项路由稳定后拆分 profile contracts 与 alias helpers 子模块"
       },
       "scripts/dev/retrieval_v2_claim_cache_pg.py": {
-        "max_lines": 1100,
+        "max_lines": 1120,
         "reason": "retrieval_v2 claim cache PG 工具暂含导入、质量热字段回填和误导入清理闸门，v3 claim-cache 稳定后拆分 import policy 与 cleanup 子模块"
       },
       "scripts/dev/retrieval_v2_factorization_worklists.py": {
@@ -737,6 +737,18 @@
         "tests/test_retrieval_v2_claim_event_groups.py",
         "tests/test_retrieval_v2_claim_quality.py",
         "tests/test_retrieval_v2_claim_cache_pg.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v2_claim_chain_candidates",
+      "implementation": "scripts/dev/retrieval_v2_claim_chain_candidates.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v2_claim_chain_candidates.py",
+        "tests/test_retrieval_v2_claim_event_groups.py"
       ],
       "status": "active"
     },
