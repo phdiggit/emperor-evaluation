@@ -678,6 +678,10 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
                 flags.append("time_context_only_actor_matches_from_owner")
         else:
             flags.append("matched_alias_not_in_current_claim_text")
+            if set(rules) & OWNER_REBIND_BARE_TITLE_RULES:
+                flags.append("bare_title_rule_without_current_alias")
+            if "source_title_dynasty_bare_title" in rules:
+                flags.append("source_title_rule_without_current_alias")
     return unique_strings(flags)
 
 

@@ -614,6 +614,40 @@ def test_owner_rebind_payload_inventory_flags_time_context_actor_from_owner() ->
     assert inventory["risk_counts"]["time_context_only_actor_matches_from_owner"] == 1
 
 
+def test_owner_rebind_payload_inventory_flags_source_title_rule_without_current_alias() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-SOURCE-TITLE-ONLY",
+            emperor_name="李世民",
+            object_name="段志玄",
+            action_type="战功",
+            time_context="义兵起后",
+            claim_summary="段志玄随军平霍邑、下绛郡、攻永丰仓，均担任先锋。",
+            fact_payload={
+                "actor": "段志玄",
+                "object": "平霍邑、下绛郡、攻永丰仓",
+                "action_type": "战功",
+                "time_context": "义兵起后",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "李渊",
+                    "to_emperor_name": "李世民",
+                    "reason": "source_unique_owner_anchor_without_requested_owner_in_claim",
+                    "matched_aliases": ["太宗"],
+                    "resolution_rules": ["source_title_dynasty_bare_title"],
+                    "evidence": [{"alias": "太宗", "resolution_rule": "source_title_dynasty_bare_title"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["risk_counts"]["matched_alias_not_in_current_claim_text"] == 1
+    assert inventory["risk_counts"]["bare_title_rule_without_current_alias"] == 1
+    assert inventory["risk_counts"]["source_title_rule_without_current_alias"] == 1
+
+
 def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:
     source = (tool.ROOT / "scripts/dev/retrieval_v2_claim_owner_audit.py").read_text(encoding="utf-8")
 
