@@ -651,7 +651,8 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
     if set(rules) & OWNER_REBIND_BARE_TITLE_RULES:
         flags.append("bare_title_rebind_payload")
     evidence = payload.get("evidence") if isinstance(payload.get("evidence"), list) else []
-    if evidence and not any("owner_anchor_eligible" in as_mapping(item) for item in evidence):
+    evidence_lacks_owner_anchor_fields = bool(evidence and not any("owner_anchor_eligible" in as_mapping(item) for item in evidence))
+    if evidence_lacks_owner_anchor_fields:
         flags.append("payload_evidence_lacks_owner_anchor_fields")
     for alias in aliases:
         if alias in OWNER_REBIND_HIGH_RISK_ALIASES:
@@ -689,6 +690,8 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
                 flags.extend(f"current_suppression.{reason}" for reason in reasons)
             if not resolved_mentions:
                 flags.append("current_mechanism_does_not_reproduce_rebind_anchor")
+            elif evidence_lacks_owner_anchor_fields:
+                flags.append("payload_evidence_missing_fields_current_anchor_reproduced")
         elif alias and alias in time_context:
             flags.append("time_context_only_matched_alias")
             if from_owner and text(as_mapping(row.get("fact_payload")).get("actor")) == from_owner:

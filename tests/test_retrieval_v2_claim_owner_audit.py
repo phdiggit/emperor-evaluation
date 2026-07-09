@@ -718,6 +718,38 @@ def test_owner_rebind_payload_inventory_flags_bare_title_rule_without_claim_or_e
     assert inventory["risk_counts"]["bare_title_rule_without_claim_or_evidence_alias"] == 1
 
 
+def test_owner_rebind_payload_inventory_flags_legacy_payload_current_anchor_reproduced() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-LEGACY-REPRODUCED",
+            emperor_name="李世民",
+            object_name="尉迟敬德",
+            action_type="处置",
+            claim_summary="尉迟敬德请求李渊降手敕，令诸军受秦王处分，李渊从之。",
+            fact_payload={
+                "actor": "尉迟敬德",
+                "object": "诸军",
+                "action_type": "处置",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "李渊",
+                    "to_emperor_name": "李世民",
+                    "reason": "fact_object_owner_context_without_requested_owner",
+                    "matched_aliases": ["秦王"],
+                    "resolution_rules": ["unique_global_alias"],
+                    "evidence": [{"alias": "秦王", "resolution_rule": "unique_global_alias"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["risk_counts"]["payload_evidence_lacks_owner_anchor_fields"] == 1
+    assert inventory["risk_counts"]["payload_evidence_missing_fields_current_anchor_reproduced"] == 1
+    assert "current_mechanism_does_not_reproduce_rebind_anchor" not in inventory["risk_counts"]
+
+
 def test_owner_rebind_payload_inventory_flags_alias_in_evidence_only() -> None:
     aliases = tool.load_owner_aliases()
     rows = [

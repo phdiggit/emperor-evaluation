@@ -229,6 +229,8 @@ claim 抽取后的 owner 改绑只使用机械 alias 预识别结果，不额外
 
 对已入库库存，还应定期复跑 `owner_rebind_payload` 风险审计：把旧 payload 的 `matched_aliases` / `resolution_rules` 和当前 mention 级机制对齐检查，重点看高风险短 alias、裸庙号 / 谥号、time_context-only 命中、书名括号命中、陵墓 / 山陵指称命中、旧 source-title 裸称规则但当前 claim 文本无 alias，以及当前机制无法复现的旧改绑。若 alias 只出现在 `time_context`，且事实 `actor` 正是旧 `from_emperor_name`，应优先视作旧 owner rebind 假阳性修复候选；若 `actor` 与旧 owner 不同，只能列入 review，不能按同一硬条件撤 owner。若裸称 alias 不在当前 claim 文本，也不在 evidence 预览中，可作为旧 owner rebind 硬假阳性候选；若 alias 只出现在较长 evidence slice 预览或旧 source-title 推断中，应单列 review，不可直接当作原子 claim 的 owner anchor。
 
+旧 `owner_rebind_payload.evidence` 若缺少 `owner_anchor_eligible`、`mention_role`、`resolution_status` 等 mention 级字段，但当前机制能在 claim 文本中复现同一 resolved owner anchor，可列为结构补写候选；这类旧格式 payload 不应和无法复现、time_context-only 或 evidence-only 风险混在一起。
+
 ## 缺口到任务的映射
 
 - `source_missing`：补充史源页、卷目或页面标题。
