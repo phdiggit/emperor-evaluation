@@ -535,9 +535,11 @@ def test_owner_rebind_payload_inventory_flags_book_title_alias() -> None:
     assert inventory["risk_counts"]["current_mechanism_does_not_reproduce_rebind_anchor"] == 1
     sample = inventory["samples"]["current_suppression.alias_inside_book_title"][0]
     assert sample["claim_key"] == "CLMK-BOOK"
+    assert inventory["rows"][0]["claim_key"] == "CLMK-BOOK"
+    assert inventory["rows"][0]["risk_flags"] == sample["risk_flags"]
 
 
-def test_owner_rebind_payload_inventory_flags_time_context_only_alias() -> None:
+def test_owner_rebind_payload_inventory_flags_time_context_only_alias(tmp_path) -> None:
     aliases = tool.load_owner_aliases()
     rows = [
         claim_row(
@@ -570,6 +572,13 @@ def test_owner_rebind_payload_inventory_flags_time_context_only_alias() -> None:
     assert inventory["risk_counts"]["time_context_only_matched_alias"] == 1
     assert inventory["risk_counts"]["high_risk_matched_alias"] == 1
     assert inventory["risk_counts"]["short_matched_alias"] == 1
+
+    output_csv = tmp_path / "owner_rebind_payload.csv"
+    tool.write_owner_rebind_payload_csv(output_csv, inventory["rows"])
+    csv_text = output_csv.read_text(encoding="utf-8")
+    assert "claim_key,emperor_name,object_name,status,from_emperor_name,to_emperor_name" in csv_text
+    assert "CLMK-TIME" in csv_text
+    assert "time_context_only_matched_alias" in csv_text
 
 
 def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:

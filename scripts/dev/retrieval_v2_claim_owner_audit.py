@@ -710,6 +710,7 @@ def owner_rebind_payload_inventory(
     by_rule: Counter[str] = Counter()
     risk_counts: Counter[str] = Counter()
     samples: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    inventory_rows: list[dict[str, Any]] = []
     payload_claim_count = 0
     for row in rows:
         payload = owner_rebind_payload(row)
@@ -727,6 +728,7 @@ def owner_rebind_payload_inventory(
         if not flags:
             flags = ["no_risk_flags"]
         sample = sample_owner_rebind_payload(row, flags)
+        inventory_rows.append(sample)
         for flag in flags:
             risk_counts[flag] += 1
             if len(samples[flag]) < sample_limit:
@@ -737,6 +739,7 @@ def owner_rebind_payload_inventory(
         "by_matched_alias": dict(sorted(by_alias.items())),
         "by_resolution_rule": dict(sorted(by_rule.items())),
         "risk_counts": dict(sorted(risk_counts.items())),
+        "rows": inventory_rows,
         "samples": dict(sorted(samples.items())),
     }
 
@@ -935,6 +938,34 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
         writer.writerows(rows)
 
 
+def write_owner_rebind_payload_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = [
+        "claim_key",
+        "emperor_name",
+        "object_name",
+        "status",
+        "from_emperor_name",
+        "to_emperor_name",
+        "reason",
+        "matched_aliases",
+        "resolution_rules",
+        "risk_flags",
+        "action_type",
+        "actor",
+        "time_context",
+        "claim_summary",
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, extrasaction="ignore")
+        writer.writeheader()
+        for row in rows:
+            output = dict(row)
+            for key in ("matched_aliases", "resolution_rules", "risk_flags"):
+                output[key] = ";".join(text(item) for item in output.get(key) or [])
+            writer.writerow(output)
+
+
 def markdown_report(payload: Mapping[str, Any]) -> str:
     summary = as_mapping(payload.get("summary"))
     inventory = as_mapping(payload.get("owner_binding_inventory"))
@@ -1022,6 +1053,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--output-csv", type=Path)
+    parser.add_argument("--output-rebind-payload-csv", type=Path)
     return parser
 
 
@@ -1044,6 +1076,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.output_md.write_text(markdown_report(payload), encoding="utf-8", newline="\n")
     if args.output_csv is not None:
         write_csv(args.output_csv, payload.get("rebind_plan") or [])
+    if args.output_rebind_payload_csv is not None:
+        rebind_inventory = as_mapping(payload.get("owner_rebind_payload_inventory"))
+        write_owner_rebind_payload_csv(args.output_rebind_payload_csv, rebind_inventory.get("rows") or [])
     print(json.dumps({"ok": payload["ok"], "summary": payload["summary"]}, ensure_ascii=False, sort_keys=True))
     return 0 if payload["ok"] else 1
 
