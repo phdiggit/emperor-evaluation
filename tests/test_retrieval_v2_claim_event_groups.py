@@ -129,12 +129,34 @@ def test_event_group_fetch_uses_owner_scope_view_without_prompt_cost() -> None:
 
     assert "claim_owner_scopes" in source
     assert "os.owner_scope = any(%s)" in source
-    assert "cc.direction::text as direction" in source
-    assert "join retrieval_v2.claim_cache cc on cc.claim_key = c.claim_key" in source
+    assert "c.atomic_fact_payload" in source
+    assert "c.event_group_payload" in source
+    assert "direction::text as direction" not in source
+    assert "join retrieval_v2.claim_cache cc" not in source
     assert "--owner-scope" in source
     assert "--replace-existing" in source
     assert "claim_owner_scopes" not in prompt_source
     assert "external_or_unregistered_owner" not in prompt_source
+
+
+def test_claim_member_row_uses_atomic_negative_support_without_direction() -> None:
+    row = claim(
+        direction="",
+        atomic_fact_payload={"negative_support": "governance_damage_supported", "outcome_support": "direct"},
+        event_group_key="CEG-STORED",
+        event_group_payload={"object_name": "萧瑀"},
+        fact_type="material_action",
+        outcome_support="direct",
+    )
+
+    member = tool.claim_member_row(row)
+    seed = tool.claim_group_seed(row)
+
+    assert member["group_key"] == "CEG-STORED"
+    assert member["member_payload"]["negative_support"]["support"] == "governance_damage_supported"
+    assert member["member_payload"]["atomic_fact_payload"]["negative_support"] == "governance_damage_supported"
+    assert seed["group_key"] == "CEG-STORED"
+    assert seed["group_payload"] == {"object_name": "萧瑀"}
 
 
 class CaptureCursor:

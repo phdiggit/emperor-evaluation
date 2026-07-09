@@ -45,6 +45,10 @@ def enum_value(value: Any, allowed: set[str], default: str) -> str:
     return candidate if candidate in allowed else default
 
 
+def json_mapping(value: Any) -> dict[str, Any]:
+    return dict(value) if isinstance(value, Mapping) else {}
+
+
 def counter_json(values: Sequence[str]) -> dict[str, int]:
     return dict(sorted(Counter(values).items()))
 
@@ -61,18 +65,27 @@ def owner_scope_values(values: Sequence[str] | None) -> list[str]:
 
 def claim_member_row(claim: Mapping[str, Any]) -> dict[str, Any]:
     quality = claim_quality.claim_quality_payload(claim)
-    outcome_support = enum_value(quality["outcome_support"], OUTCOME_SUPPORTS, "missing")
+    atomic_payload = json_mapping(claim.get("atomic_fact_payload")) or quality["atomic_fact_payload"]
+    negative_support = text(atomic_payload.get("negative_support")) or quality["negative_support_payload"]["support"]
+    outcome_support = enum_value(claim.get("outcome_support") or quality["outcome_support"], OUTCOME_SUPPORTS, "missing")
     member_role = enum_value(quality["usage_role_hint"], USAGE_ROLES, "supporting_context")
     return {
-        "group_key": quality["event_group_key"],
+        "group_key": text(claim.get("event_group_key") or quality["event_group_key"]),
         "claim_key": text(claim.get("claim_key")),
         "member_role": member_role,
         "outcome_support": outcome_support,
         "member_payload": {
             "claim_summary": text(claim.get("claim_summary")),
-            "fact_type": quality["fact_type"],
-            "atomic_fact_payload": quality["atomic_fact_payload"],
-            "negative_support": quality["negative_support_payload"],
+            "fact_type": text(claim.get("fact_type") or quality["fact_type"]),
+            "atomic_fact_payload": atomic_payload,
+            "negative_support": {
+                "support": negative_support,
+                "has_governance_damage": negative_support == "governance_damage_supported",
+                "has_negative_context": negative_support in {
+                    "governance_damage_supported",
+                    "negative_context_without_damage_anchor",
+                },
+            },
         },
     }
 
@@ -89,12 +102,12 @@ def claim_field(claim: Mapping[str, Any], field: str) -> str:
 
 def claim_group_seed(claim: Mapping[str, Any]) -> dict[str, Any]:
     quality = claim_quality.claim_quality_payload(claim)
-    payload = quality["event_group_payload"]
+    payload = json_mapping(claim.get("event_group_payload")) or quality["event_group_payload"]
     return {
-        "group_key": quality["event_group_key"],
+        "group_key": text(claim.get("event_group_key") or quality["event_group_key"]),
         "emperor_name": text(claim.get("emperor_name")),
         "object_name": text(claim.get("object_name")),
-        "fact_type": quality["fact_type"],
+        "fact_type": text(claim.get("fact_type") or quality["fact_type"]),
         "action_type": claim_field(claim, "action_type"),
         "event_scope": claim_field(claim, "event_scope"),
         "office_or_domain": claim_field(claim, "office_or_domain"),
@@ -234,7 +247,8 @@ def fetch_claim_rows(
             c.emperor_name,
             c.object_name,
             c.object_type::text as object_type,
-            cc.direction::text as direction,
+            c.fact_type,
+            c.outcome_support::text as outcome_support,
             c.action_type,
             c.event_scope,
             c.office_or_domain,
@@ -242,11 +256,13 @@ def fetch_claim_rows(
             c.outcome,
             c.claim_summary,
             c.fact_payload,
+            c.atomic_fact_payload,
+            c.event_group_key,
+            c.event_group_payload,
             c.status::text as status,
             os.owner_scope,
             os.owner_target_code
           from retrieval_v2.claim_atomic_facts c
-          join retrieval_v2.claim_cache cc on cc.claim_key = c.claim_key
           join retrieval_v2.claim_owner_scopes os on os.claim_key = c.claim_key
           {'where ' + ' and '.join(clauses) if clauses else ''}
          order by c.emperor_name, c.object_name, c.claim_key
