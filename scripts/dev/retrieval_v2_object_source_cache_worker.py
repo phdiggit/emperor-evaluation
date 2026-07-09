@@ -18,6 +18,7 @@ from scripts.dev import retrieval_v2_claim_extraction_worker as claim_worker  # 
 from scripts.dev import retrieval_v2_claim_plan_quality as claim_plan_quality  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev import retrieval_v2_object_source_cache as object_cache  # noqa: E402
+from scripts.dev.retrieval_v2_contracts import alias_script_variants  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, render_sql, schema_cursor  # noqa: E402
 
@@ -64,6 +65,17 @@ PROFILE_SIGNAL_WEIGHTS = {
     "后妃": 40,
     "外戚": 35,
 }
+PROFILE_LAYER_PRIORITY = {
+    "core_positive_objects": 120,
+    "negative_or_reversal_objects": 95,
+    "supplemental_objects": 70,
+    "adjacent_split_objects": 30,
+}
+PROFILE_LAYER_IMPORTANCE = {
+    "core_positive_objects": "core",
+    "negative_or_reversal_objects": "important",
+    "supplemental_objects": "important",
+}
 
 
 class ObjectSourceCacheWorkerError(RuntimeError):
@@ -92,6 +104,12 @@ def write_json(path: Path | None, payload: Mapping[str, Any]) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(pretty_json(payload), encoding="utf-8", newline="\n")
+
+
+def write_jsonl(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = "".join(json.dumps(dict(row), ensure_ascii=False, sort_keys=True, default=str) + "\n" for row in rows)
+    path.write_text(payload, encoding="utf-8", newline="\n")
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -155,16 +173,160 @@ def profile_signal_name(row: Mapping[str, Any]) -> str:
     return text(row.get("person_name") or row.get("object_name") or row.get("name"))
 
 
-def load_profile_signals(path: Path | None, *, priority_objects: Sequence[str] = ()) -> dict[str, dict[str, Any]]:
+def merge_profile_signal(current: Mapping[str, Any] | None, row: Mapping[str, Any]) -> dict[str, Any]:
+    merged = dict(current or {})
+    for key, value in row.items():
+        if key == "priority_score":
+            merged[key] = max(int(merged.get(key) or 0), int(value or 0))
+        elif key == "profile_layers":
+            layers = list_texts(merged.get(key)) + list_texts(value)
+            merged[key] = sorted(set(layers))
+        elif key == "profile_source_persons":
+            persons = list_texts(merged.get(key)) + list_texts(value)
+            merged[key] = sorted(set(persons))
+        elif key not in merged or merged.get(key) in (None, "", [], {}):
+            merged[key] = value
+    return merged
+
+
+def profile_layer_signal_rows(row: Mapping[str, Any]) -> list[dict[str, Any]]:
+    object_layers = row.get("object_layers")
+    if not isinstance(object_layers, Mapping):
+        return []
+    profile_person = text(row.get("person") or row.get("emperor_name") or row.get("target_emperor"))
+    object_aliases = row.get("object_search_aliases") if isinstance(row.get("object_search_aliases"), Mapping) else {}
+    signals: list[dict[str, Any]] = []
+    for layer, names in object_layers.items():
+        layer_name = text(layer)
+        if not layer_name:
+            continue
+        for index, name in enumerate(list_texts(names)):
+            priority = PROFILE_LAYER_PRIORITY.get(layer_name, 10)
+            signals.append(
+                {
+                    "person_name": name,
+                    "object_name": name,
+                    "profile_layer": layer_name,
+                    "profile_layers": [layer_name],
+                    "profile_source_persons": [profile_person] if profile_person else [],
+                    "priority_score": max(1, priority - min(index, 20)),
+                    "object_importance": PROFILE_LAYER_IMPORTANCE.get(layer_name, ""),
+                    "aliases": list_texts(object_aliases.get(name)) if isinstance(object_aliases, Mapping) else [],
+                    "generated_from_profile_object_layers": True,
+                }
+            )
+    return signals
+
+
+def profile_seed_rows(
+    *,
+    profile_path: Path,
+    emperor_name: str,
+    capture_profile: str = "personnel_political_wide",
+    include_layers: Sequence[str] = (),
+    max_objects: int = 0,
+) -> list[dict[str, Any]]:
+    layers = {text(layer) for layer in include_layers if text(layer)}
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for profile in read_jsonl(profile_path):
+        if not profile_signal_row_matches_target(profile, emperor_name):
+            continue
+        query_profile_id = text(profile.get("query_profile_id"))
+        for signal in profile_layer_signal_rows(profile):
+            object_name = profile_signal_name(signal)
+            layer = text(signal.get("profile_layer"))
+            if not object_name or object_name in seen:
+                continue
+            if layers and layer not in layers:
+                continue
+            aliases = seed_aliases_for_object(object_name, list_texts(signal.get("aliases")))
+            rows.append(
+                {
+                    "person_name": object_name,
+                    "target_emperor": emperor_name,
+                    "capture_profile": capture_profile,
+                    "aliases": aliases,
+                    "profile_layer": layer,
+                    "query_profile_id": query_profile_id,
+                    "source": "profile_object_layers",
+                }
+            )
+            seen.add(object_name)
+            if max_objects > 0 and len(rows) >= max_objects:
+                return rows
+    return rows
+
+
+def seed_aliases_for_object(object_name: str, aliases: Sequence[str]) -> list[str]:
+    result: list[str] = []
+    seen = {object_name}
+    for alias in [*aliases, *alias_script_variants(object_name)]:
+        clean = text(alias)
+        if not clean or clean in seen:
+            continue
+        result.append(clean)
+        seen.add(clean)
+    return result
+
+
+def build_profile_seed(
+    *,
+    profile_path: Path,
+    emperor_name: str,
+    output_seed_jsonl: Path,
+    capture_profile: str = "personnel_political_wide",
+    include_layers: Sequence[str] = (),
+    max_objects: int = 0,
+) -> dict[str, Any]:
+    rows = profile_seed_rows(
+        profile_path=profile_path,
+        emperor_name=emperor_name,
+        capture_profile=capture_profile,
+        include_layers=include_layers,
+        max_objects=max_objects,
+    )
+    write_jsonl(output_seed_jsonl, rows)
+    by_layer: dict[str, int] = {}
+    for row in rows:
+        layer = text(row.get("profile_layer")) or "unknown"
+        by_layer[layer] = by_layer.get(layer, 0) + 1
+    return {
+        "ok": True,
+        "status": "seed_written",
+        "profile_path": str(profile_path),
+        "emperor_name": emperor_name,
+        "capture_profile": capture_profile,
+        "output_seed_jsonl": str(output_seed_jsonl),
+        "seed_count": len(rows),
+        "by_layer": dict(sorted(by_layer.items())),
+        "object_names": [str(row.get("person_name")) for row in rows],
+        "execute_effect": "write object source cache seed jsonl only; no enqueue, no PG write, no judge execution",
+    }
+
+
+def profile_signal_row_matches_target(row: Mapping[str, Any], target_person: str) -> bool:
+    target = text(target_person)
+    if not target:
+        return True
+    owner = text(row.get("person") or row.get("emperor_name") or row.get("target_emperor"))
+    return not owner or owner == target
+
+
+def load_profile_signals(path: Path | None, *, priority_objects: Sequence[str] = (), target_person: str = "") -> dict[str, dict[str, Any]]:
     signals: dict[str, dict[str, Any]] = {}
     if path is not None:
         for row in read_jsonl(path):
+            if not profile_signal_row_matches_target(row, target_person):
+                continue
             name = profile_signal_name(row)
             if not name:
+                for signal in profile_layer_signal_rows(row):
+                    signal_name = profile_signal_name(signal)
+                    if signal_name:
+                        signals[signal_name] = merge_profile_signal(signals.get(signal_name), signal)
                 continue
-            current = dict(signals.get(name) or {})
-            current.update(row)
-            signals[name] = current
+            signals[name] = merge_profile_signal(signals.get(name), row)
     for name in priority_objects:
         clean = text(name)
         if not clean:
@@ -199,6 +361,8 @@ def profile_signal_score(row: Mapping[str, Any] | None) -> tuple[int, list[str]]
                 reasons.append(f"{field}:{value}+{weight}")
     if row.get("manual_priority"):
         reasons.append("manual_priority")
+    for layer in list_texts(row.get("profile_layers")):
+        reasons.append(f"profile_layer:{layer}")
     return score, reasons
 
 
@@ -858,6 +1022,48 @@ def apply_claim_plan_selection(
     raise ObjectSourceCacheWorkerError(f"unsupported claim-plan selection profile: {selection_profile}")
 
 
+def profile_signal_coverage_audit(
+    profile_signals: Mapping[str, Mapping[str, Any]] | None,
+    *,
+    selected_object_names: Sequence[str],
+    by_object: Mapping[str, Any],
+) -> dict[str, Any]:
+    signals = profile_signals or {}
+    selected = {text(name) for name in selected_object_names if text(name)}
+    inventory = {text(name) for name in by_object if text(name)}
+    scored_objects: list[dict[str, Any]] = []
+    for name, signal in sorted(signals.items()):
+        score, reasons = profile_signal_score(signal)
+        if score <= 0:
+            continue
+        clean = text(name)
+        if not clean:
+            continue
+        scored_objects.append(
+            {
+                "object_name": clean,
+                "profile_signal_score": score,
+                "profile_signal_reasons": reasons,
+                "has_candidate_slices": clean in inventory,
+                "selected": clean in selected,
+            }
+        )
+    without_candidates = [row["object_name"] for row in scored_objects if not row["has_candidate_slices"]]
+    dropped_by_selection = [
+        row["object_name"]
+        for row in scored_objects
+        if row["has_candidate_slices"] and not row["selected"]
+    ]
+    return {
+        "profile_signal_object_count": len(scored_objects),
+        "selected_profile_signal_objects": [row["object_name"] for row in scored_objects if row["selected"]],
+        "profile_objects_without_candidate_slices": without_candidates,
+        "profile_objects_dropped_by_selection": dropped_by_selection,
+        "undercoverage_risk": bool(without_candidates or dropped_by_selection),
+        "objects": scored_objects,
+    }
+
+
 def object_cache_to_claim_candidates(
     *,
     cache_root: Path,
@@ -926,6 +1132,11 @@ def object_cache_to_claim_candidates(
         if text(row.get("document_cache_code") or row.get("document_code")) in selected_document_codes
     ]
     audit["selection"] = selection
+    audit["profile_signal_coverage"] = profile_signal_coverage_audit(
+        pilot_profile_signals,
+        selected_object_names=selected_object_names,
+        by_object=audit.get("by_object") if isinstance(audit.get("by_object"), Mapping) else {},
+    )
     opportunity_estimate = claim_quality.estimate_claim_opportunities(selected_candidates)
     return {
         "schema_version": 1,
@@ -1007,7 +1218,11 @@ def plan_claim_extraction_from_cache(
         selection_profile=selection_profile,
         pilot_object_limit=pilot_object_limit,
         pilot_slices_per_object=pilot_slices_per_object,
-        pilot_profile_signals=load_profile_signals(pilot_profile_signals_path, priority_objects=pilot_priority_objects),
+        pilot_profile_signals=load_profile_signals(
+            pilot_profile_signals_path,
+            priority_objects=pilot_priority_objects,
+            target_person=emperor_name,
+        ),
     )
     write_json(output_candidates, candidates)
     cache_plan = claim_cache.plan_candidates(
@@ -1171,6 +1386,15 @@ def build_parser() -> argparse.ArgumentParser:
     enqueue.add_argument("--output-json", type=Path)
     add_build_args(enqueue)
 
+    profile_seed = sub.add_parser("profile-seed", help="Write object source cache seed JSONL from a layered query profile.")
+    profile_seed.add_argument("--profile-jsonl", type=Path, required=True)
+    profile_seed.add_argument("--emperor-name", required=True)
+    profile_seed.add_argument("--output-seed-jsonl", type=Path, required=True)
+    profile_seed.add_argument("--capture-profile", default="personnel_political_wide")
+    profile_seed.add_argument("--include-layer", action="append", default=[])
+    profile_seed.add_argument("--max-objects", type=int, default=0)
+    profile_seed.add_argument("--output-json", type=Path)
+
     plan = sub.add_parser("plan", help="Show the next ready object source cache job without taking a lease.")
     plan.add_argument("--env-file", type=Path)
     plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
@@ -1232,6 +1456,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             build_options=build_options_from_args(args),
         )
         payload = {"ok": True, "schema_name": args.pg_schema, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job, schema_name=args.pg_schema)}
+    elif args.command == "profile-seed":
+        payload = build_profile_seed(
+            profile_path=args.profile_jsonl,
+            emperor_name=args.emperor_name,
+            output_seed_jsonl=args.output_seed_jsonl,
+            capture_profile=args.capture_profile,
+            include_layers=args.include_layer,
+            max_objects=args.max_objects,
+        )
     elif args.command == "plan":
         job = fetch_next_ready_job(dsn=dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}

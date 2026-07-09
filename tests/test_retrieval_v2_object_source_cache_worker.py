@@ -404,6 +404,59 @@ def test_job_from_seed_builds_stable_queue_payload(tmp_path: Path) -> None:
     assert first["job_payload"]["build_options"] == build_options
 
 
+def test_profile_seed_writes_layered_profile_objects_without_enqueue(tmp_path: Path) -> None:
+    profile = tmp_path / "profiles.jsonl"
+    output_seed = tmp_path / "seed.jsonl"
+    output_json = tmp_path / "summary.json"
+    write_jsonl(
+        profile,
+        [
+            {
+                "person": "朱元璋",
+                "query_profile_id": "QRY-ZYZ",
+                "object_layers": {
+                    "core_positive_objects": ["汤和", "李绩"],
+                    "supplemental_objects": ["常遇春"],
+                    "negative_or_reversal_objects": ["胡惟庸"],
+                },
+                "object_search_aliases": {"胡惟庸": ["胡丞相"]},
+            },
+            {
+                "person": "其他皇帝",
+                "query_profile_id": "QRY-OTHER",
+                "object_layers": {"core_positive_objects": ["张良"]},
+            },
+        ],
+    )
+
+    assert tool.main(
+        [
+            "profile-seed",
+            "--profile-jsonl",
+            str(profile),
+            "--emperor-name",
+            "朱元璋",
+            "--output-seed-jsonl",
+            str(output_seed),
+            "--include-layer",
+            "core_positive_objects",
+            "--include-layer",
+            "negative_or_reversal_objects",
+            "--output-json",
+            str(output_json),
+        ]
+    ) == 0
+    rows = [json.loads(line) for line in output_seed.read_text(encoding="utf-8").splitlines()]
+    summary = json.loads(output_json.read_text(encoding="utf-8"))
+
+    assert [row["person_name"] for row in rows] == ["汤和", "李绩", "胡惟庸"]
+    assert "李勣" in rows[1]["aliases"]
+    assert rows[2]["aliases"] == ["胡丞相"]
+    assert rows[2]["capture_profile"] == "personnel_political_wide"
+    assert summary["seed_count"] == 3
+    assert summary["execute_effect"] == "write object source cache seed jsonl only; no enqueue, no PG write, no judge execution"
+
+
 def test_job_plan_is_offline_and_does_not_claim(tmp_path: Path) -> None:
     job = {
         "job_code": "OSCACHE-001",
@@ -647,6 +700,56 @@ def test_claim_plan_pilot_uses_profile_signals_jsonl(tmp_path: Path) -> None:
     assert {row["object_name"] for row in candidates["candidate_slices"]} == {"张良", "常遇春"}
     assert result["claim_plan_audit"]["by_object"]["张良"]["profile_signal_score"] == 115
     assert result["claim_plan_audit"]["by_object"]["张良"]["has_biography_source"] is False
+
+
+def test_claim_plan_pilot_expands_layered_profile_object_signals(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_object_cache(cache_root)
+    signals = tmp_path / "layered_profile.jsonl"
+    write_jsonl(
+        signals,
+        [
+            {
+                "person": "朱元璋",
+                "object_layers": {
+                    "core_positive_objects": ["张良", "邓愈"],
+                    "supplemental_objects": ["常遇春"],
+                    "negative_or_reversal_objects": ["不存在对象"],
+                },
+            },
+            {
+                "person": "其他皇帝",
+                "object_layers": {
+                    "core_positive_objects": ["汤和"],
+                },
+            },
+        ],
+    )
+
+    result = tool.plan_claim_extraction_from_cache(
+        cache_root=cache_root,
+        claim_cache_root=tmp_path / "claim_cache",
+        output_candidates=tmp_path / "claim_candidates.json",
+        output_uncovered_candidates=tmp_path / "claim_candidates.uncovered.json",
+        emperor_name="朱元璋",
+        target_code="TGT-ZYZ",
+        max_slices_per_person=2,
+        selection_profile="pilot",
+        pilot_object_limit=2,
+        pilot_slices_per_object=1,
+        pilot_profile_signals_path=signals,
+    )
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+    coverage = result["claim_plan_audit"]["profile_signal_coverage"]
+
+    assert result["claim_plan_audit"]["selection"]["selected_objects"] == ["张良", "邓愈"]
+    assert {row["object_name"] for row in candidates["candidate_slices"]} == {"张良", "邓愈"}
+    assert result["claim_plan_audit"]["by_object"]["张良"]["profile_signal_score"] >= 120
+    assert "profile_layer:core_positive_objects" in result["claim_plan_audit"]["by_object"]["张良"]["profile_signal_reasons"]
+    assert result["claim_plan_audit"]["by_object"]["汤和"]["profile_signal_score"] == 0
+    assert coverage["profile_objects_without_candidate_slices"] == ["不存在对象"]
+    assert "常遇春" in coverage["profile_objects_dropped_by_selection"]
+    assert coverage["undercoverage_risk"] is True
 
 
 def test_claim_plan_cli_priority_object_overrides_mechanical_order(tmp_path: Path) -> None:
