@@ -108,6 +108,24 @@ def test_emperor_context_does_not_require_person_mention_for_agent_review() -> N
     assert coverage["needs_agent_review"] is False
 
 
+def test_mention_slices_match_chinese_alias_split_by_whitespace() -> None:
+    rows = tool.build_mention_slices(
+        {"name": "李绩", "aliases": ["李勣"]},
+        {
+            "document_cache_code": "OSD-LIJI",
+            "source_title": "旧唐书/卷67",
+            "source_role": "object_biography_or_mentions",
+        },
+        "卷六十七 列傳第十七 李 靖 客師 令問 彥芳 李 𪟝 孫敬業。太宗委任之。",
+        context_chars=40,
+        max_slices_per_document=3,
+    )
+
+    assert len(rows) == 1
+    assert "李𪟝" in rows[0]["matched_aliases"]
+    assert rows[0]["person_name"] == "李绩"
+
+
 def test_discovery_expands_non_emperor_biography_queries() -> None:
     queries: list[str] = []
 

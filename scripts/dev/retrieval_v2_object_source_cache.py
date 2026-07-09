@@ -302,7 +302,8 @@ def has_biography_signal(seed: Mapping[str, Any], document: Mapping[str, Any], f
     if hint_text and any(alias and normalize_title(alias) in hint_text for alias in aliases) and any(term in hint_text for term in ("傳", "传")):
         return True
     head = full_text[:800]
-    has_name_in_head = any(alias and alias in head for alias in aliases)
+    normalized_head = normalize_title(head)
+    has_name_in_head = any(alias and normalize_title(alias) in normalized_head for alias in aliases)
     has_bio_heading = any(term in head for term in ("列传", "列傳", "傳第", "传第", "本傳", "本传", "傳", "传"))
     return has_name_in_head and has_bio_heading
 
@@ -473,6 +474,49 @@ def nearest_section_heading(full_text: str, index: int) -> str:
     return heading
 
 
+def whitespace_insensitive_text_index(full_text: str) -> tuple[str, list[int]]:
+    chars: list[str] = []
+    positions: list[int] = []
+    for index, char in enumerate(full_text):
+        if char.isspace():
+            continue
+        chars.append(char)
+        positions.append(index)
+    return "".join(chars), positions
+
+
+def alias_positions(full_text: str, alias: str) -> list[int]:
+    clean_alias = text_from({"alias": alias}, "alias")
+    if not clean_alias:
+        return []
+    positions: list[int] = []
+    seen: set[int] = set()
+    start = 0
+    while True:
+        index = full_text.find(clean_alias, start)
+        if index < 0:
+            break
+        if index not in seen:
+            positions.append(index)
+            seen.add(index)
+        start = index + max(1, len(clean_alias))
+    normalized_alias = normalize_title(clean_alias)
+    if len(normalized_alias) >= 2:
+        compact_text_value, index_map = whitespace_insensitive_text_index(full_text)
+        start = 0
+        while True:
+            compact_index = compact_text_value.find(normalized_alias, start)
+            if compact_index < 0:
+                break
+            if compact_index < len(index_map):
+                original_index = index_map[compact_index]
+                if original_index not in seen:
+                    positions.append(original_index)
+                    seen.add(original_index)
+            start = compact_index + max(1, len(normalized_alias))
+    return positions
+
+
 def build_mention_slices(
     seed: Mapping[str, Any],
     document: Mapping[str, Any],
@@ -486,13 +530,8 @@ def build_mention_slices(
     for alias in aliases:
         if not alias:
             continue
-        start = 0
-        while True:
-            index = full_text.find(alias, start)
-            if index < 0:
-                break
+        for index in alias_positions(full_text, alias):
             positions.append((index, alias))
-            start = index + max(1, len(alias))
     if not positions:
         return []
     windows: list[tuple[int, int, list[str], int]] = []

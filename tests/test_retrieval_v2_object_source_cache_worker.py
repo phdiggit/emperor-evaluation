@@ -414,6 +414,11 @@ def test_profile_seed_writes_layered_profile_objects_without_enqueue(tmp_path: P
             {
                 "person": "朱元璋",
                 "query_profile_id": "QRY-ZYZ",
+                "source_targets": [
+                    "明史 汤和传 / 邓愈传",
+                    "旧唐书 / 新唐书 李绩传",
+                    "资治通鉴 通用校验",
+                ],
                 "object_layers": {
                     "core_positive_objects": ["汤和", "李绩"],
                     "supplemental_objects": ["常遇春"],
@@ -451,6 +456,8 @@ def test_profile_seed_writes_layered_profile_objects_without_enqueue(tmp_path: P
 
     assert [row["person_name"] for row in rows] == ["汤和", "李绩", "胡惟庸"]
     assert "李勣" in rows[1]["aliases"]
+    assert rows[1]["source_hints"][:2] == ["舊唐書", "新唐書"]
+    assert rows[1]["source_target_refs"] == ["旧唐书 / 新唐书 李绩传"]
     assert rows[2]["aliases"] == ["胡丞相"]
     assert rows[2]["capture_profile"] == "personnel_political_wide"
     assert summary["seed_count"] == 3

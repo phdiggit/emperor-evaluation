@@ -18,7 +18,7 @@ from scripts.dev import retrieval_v2_claim_extraction_worker as claim_worker  # 
 from scripts.dev import retrieval_v2_claim_plan_quality as claim_plan_quality  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev import retrieval_v2_object_source_cache as object_cache  # noqa: E402
-from scripts.dev.retrieval_v2_contracts import alias_script_variants  # noqa: E402
+from scripts.dev.retrieval_v2_contracts import alias_script_variants, source_hints_from_source_targets, unique_strings  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, render_sql, schema_cursor  # noqa: E402
 
@@ -241,12 +241,15 @@ def profile_seed_rows(
             if layers and layer not in layers:
                 continue
             aliases = seed_aliases_for_object(object_name, list_texts(signal.get("aliases")))
+            source_hints, matched_source_targets = profile_source_hints_for_object(profile, object_name=object_name, aliases=aliases)
             rows.append(
                 {
                     "person_name": object_name,
                     "target_emperor": emperor_name,
                     "capture_profile": capture_profile,
                     "aliases": aliases,
+                    "source_hints": source_hints,
+                    "source_target_refs": matched_source_targets,
                     "profile_layer": layer,
                     "query_profile_id": query_profile_id,
                     "source": "profile_object_layers",
@@ -268,6 +271,22 @@ def seed_aliases_for_object(object_name: str, aliases: Sequence[str]) -> list[st
         result.append(clean)
         seen.add(clean)
     return result
+
+
+def profile_source_hints_for_object(profile: Mapping[str, Any], *, object_name: str, aliases: Sequence[str]) -> tuple[list[str], list[str]]:
+    source_targets = list_texts(profile.get("source_targets"))
+    if not source_targets:
+        return [], []
+    search_terms = unique_strings([object_name, *aliases, *alias_script_variants(object_name)])
+    normalized_terms = [text(term).replace(" ", "") for term in search_terms if text(term)]
+    matched_targets = [
+        target
+        for target in source_targets
+        if any(term and term in target.replace(" ", "") for term in normalized_terms)
+    ]
+    targeted_hints = source_hints_from_source_targets(matched_targets)
+    fallback_hints = source_hints_from_source_targets(source_targets)
+    return unique_strings([*targeted_hints, *fallback_hints]), matched_targets
 
 
 def build_profile_seed(
