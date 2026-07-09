@@ -175,6 +175,12 @@ def claim_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "near_duplicate_group_payload": json_mapping(row.get("near_duplicate_group_payload")) or quality["near_duplicate_group_payload"],
         "claim_grain": text(row.get("claim_grain") or quality["claim_grain"]),
         "quality_flags": json_list(row.get("quality_flags")),
+        "fact_type": text(row.get("fact_type") or quality["fact_type"]),
+        "outcome_support": enum_value(row.get("outcome_support") or quality["outcome_support"], {"direct", "implicit", "missing", "not_applicable", "mixed"}, "missing"),
+        "atomic_fact_payload": json_mapping(row.get("atomic_fact_payload")) or quality["atomic_fact_payload"],
+        "event_group_key": text(row.get("event_group_key") or quality["event_group_key"]),
+        "event_group_payload": json_mapping(row.get("event_group_payload")) or quality["event_group_payload"],
+        "claim_usage_flags": json_list(row.get("claim_usage_flags")),
         "first_run_code": text(row.get("first_run_code")),
         "last_run_code": text(row.get("last_run_code")),
         "raw_output_path": text(row.get("raw_output_path")),
@@ -364,7 +370,9 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             claim_key, claim_type, fact_schema, emperor_name, object_name, object_type,
             direction, action_type, event_scope, office_or_domain, time_context, outcome,
             claim_summary, confidence, fact_payload, canonical_event_key, canonical_event_payload,
-            near_duplicate_group_payload, claim_grain, quality_flags, first_run_code, last_run_code,
+            near_duplicate_group_payload, claim_grain, quality_flags, fact_type, outcome_support,
+            atomic_fact_payload, event_group_key, event_group_payload, claim_usage_flags,
+            first_run_code, last_run_code,
             raw_output_path, extractor_version, status, seen_count
         )
         values (
@@ -372,6 +380,8 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             %s, %s, %s, %s, %s, %s,
             %s, %s, %s::jsonb, %s, %s::jsonb,
             %s::jsonb, %s, %s::jsonb, %s, %s,
+            %s::jsonb, %s, %s::jsonb, %s::jsonb,
+            %s, %s,
             %s, %s, %s, %s
         )
         on conflict (claim_key) do update set
@@ -394,6 +404,12 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             near_duplicate_group_payload = excluded.near_duplicate_group_payload,
             claim_grain = excluded.claim_grain,
             quality_flags = excluded.quality_flags,
+            fact_type = excluded.fact_type,
+            outcome_support = excluded.outcome_support,
+            atomic_fact_payload = excluded.atomic_fact_payload,
+            event_group_key = excluded.event_group_key,
+            event_group_payload = excluded.event_group_payload,
+            claim_usage_flags = excluded.claim_usage_flags,
             first_run_code = coalesce(nullif(retrieval_v2.claim_cache.first_run_code, ''), excluded.first_run_code),
             last_run_code = excluded.last_run_code,
             raw_output_path = excluded.raw_output_path,
@@ -426,6 +442,12 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             stable_json(row["near_duplicate_group_payload"]),
             row["claim_grain"],
             stable_json(row["quality_flags"]),
+            row["fact_type"],
+            row["outcome_support"],
+            stable_json(row["atomic_fact_payload"]),
+            row["event_group_key"],
+            stable_json(row["event_group_payload"]),
+            stable_json(row["claim_usage_flags"]),
             row["first_run_code"],
             row["last_run_code"],
             row["raw_output_path"],
@@ -783,6 +805,11 @@ def update_claim_quality_fields(cur: Any, row: Mapping[str, Any]) -> None:
                canonical_event_payload = %s::jsonb,
                near_duplicate_group_payload = %s::jsonb,
                claim_grain = %s,
+               fact_type = %s,
+               outcome_support = %s,
+               atomic_fact_payload = %s::jsonb,
+               event_group_key = %s,
+               event_group_payload = %s::jsonb,
                updated_at = now()
          where claim_key = %s
         """,
@@ -791,6 +818,11 @@ def update_claim_quality_fields(cur: Any, row: Mapping[str, Any]) -> None:
             stable_json(quality["canonical_event_payload"]),
             stable_json(quality["near_duplicate_group_payload"]),
             quality["claim_grain"],
+            quality["fact_type"],
+            quality["outcome_support"],
+            stable_json(quality["atomic_fact_payload"]),
+            quality["event_group_key"],
+            stable_json(quality["event_group_payload"]),
             text(row.get("claim_key")),
         ),
     )

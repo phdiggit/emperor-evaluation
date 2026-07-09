@@ -76,6 +76,7 @@ OPPORTUNITY_OUTCOME_TERMS = tuple(dict.fromkeys((*OUTCOME_ANCHORS, "获", "俘",
 NEGATIVE_ACTION_TERMS = ("诛", "伏诛", "被诛", "罢", "废", "黜", "下狱", "坐罪", "谋反", "专擅", "擅权", "纳贿", "构党", "结党", "壅蔽")
 TACTICAL_SUBEVENT_ANCHORS = ("攻", "克", "破", "下", "败", "追", "斩", "擒")
 CHAIN_ANCHORS = ("征", "讨", "伐", "平", "镇", "守", "留守", "总制", "提督", "任", "拜", "授", "命")
+OUTCOME_SUPPORT_TERMS = tuple(dict.fromkeys((*OUTCOME_ANCHORS, "贬", "左迁", "削", "罢", "免", "释", "不问", "不发", "失权", "械系")))
 
 
 def stable_json(value: Any) -> str:
@@ -388,6 +389,88 @@ def canonical_event_payload(claim: Mapping[str, Any]) -> dict[str, str]:
     }
 
 
+def claim_fact_type(claim: Mapping[str, Any]) -> str:
+    explicit = claim_text(claim, "fact_type", "claim_type")
+    if explicit:
+        return explicit
+    schema = claim_text(claim, "fact_schema")
+    if schema == "political_action_v1":
+        return "material_action"
+    if schema.endswith("_v1"):
+        stem = schema.removesuffix("_v1")
+        return "numeric" if stem == "numeric_fact" else stem
+    return "material_action"
+
+
+def claim_outcome_support(claim: Mapping[str, Any]) -> str:
+    fact_type = claim_fact_type(claim)
+    if fact_type in {"evaluation", "relationship", "institution", "numeric", "context"}:
+        return "not_applicable"
+    fact = claim_fact(claim)
+    completeness = fact.get("completeness") if isinstance(fact.get("completeness"), Mapping) else {}
+    if completeness.get("has_outcome") is True:
+        return "direct"
+    outcome_text = claim_text(claim, "outcome")
+    cost_text = claim_text(claim, "cost_or_damage")
+    if normalized_text(outcome_text) or normalized_text(cost_text):
+        return "direct"
+    summary = claim_text(claim, "claim_summary", "summary")
+    if any(term in summary for term in OUTCOME_SUPPORT_TERMS):
+        return "implicit"
+    return "missing"
+
+
+def atomic_fact_payload(claim: Mapping[str, Any]) -> dict[str, str]:
+    return {
+        "emperor_name": normalized_text(claim_text(claim, "emperor_name")),
+        "object_name": normalized_text(claim_text(claim, "object_name", "object")),
+        "fact_type": normalized_text(claim_fact_type(claim)),
+        "actor": normalized_text(claim_text(claim, "actor")),
+        "fact_object": normalized_text(claim_text(claim, "object")),
+        "action_type": normalized_text(claim_text(claim, "action_type")),
+        "event_scope": normalized_text(claim_text(claim, "event_scope")),
+        "office_or_domain": normalized_text(claim_text(claim, "office_or_domain")),
+        "time_context": normalized_text(claim_text(claim, "time_context")),
+        "outcome": normalized_text(claim_text(claim, "outcome")),
+        "cost_or_damage": normalized_text(claim_text(claim, "cost_or_damage")),
+        "outcome_support": claim_outcome_support(claim),
+    }
+
+
+def event_group_payload(claim: Mapping[str, Any]) -> dict[str, str]:
+    atomic = atomic_fact_payload(claim)
+    return {
+        key: atomic[key]
+        for key in (
+            "emperor_name",
+            "object_name",
+            "fact_type",
+            "actor",
+            "fact_object",
+            "action_type",
+            "event_scope",
+            "office_or_domain",
+            "time_context",
+        )
+    }
+
+
+def event_group_key(claim: Mapping[str, Any]) -> str:
+    return "CEG-" + sha256_text(stable_json(event_group_payload(claim)))
+
+
+def claim_usage_role_hint(claim: Mapping[str, Any]) -> str:
+    fact_type = claim_fact_type(claim)
+    support = claim_outcome_support(claim)
+    if fact_type == "evaluation":
+        return "evaluation_context"
+    if fact_type == "context":
+        return "background_context"
+    if support in {"direct", "implicit"}:
+        return "direct_material_candidate"
+    return "supporting_context"
+
+
 def canonical_event_key(claim: Mapping[str, Any]) -> str:
     return "CEK-" + sha256_text(stable_json(canonical_event_payload(claim)))
 
@@ -435,4 +518,10 @@ def claim_quality_payload(claim: Mapping[str, Any]) -> dict[str, Any]:
         "canonical_event_payload": canonical_event_payload(claim),
         "near_duplicate_group_payload": near_duplicate_group_payload(claim),
         "claim_grain": claim_grain(claim),
+        "fact_type": claim_fact_type(claim),
+        "outcome_support": claim_outcome_support(claim),
+        "atomic_fact_payload": atomic_fact_payload(claim),
+        "event_group_key": event_group_key(claim),
+        "event_group_payload": event_group_payload(claim),
+        "usage_role_hint": claim_usage_role_hint(claim),
     }

@@ -90,7 +90,11 @@ def test_prepared_cache_rows_maps_filesystem_cache_to_pg_shape(tmp_path: Path) -
     assert rows["claims"][0]["action_type"] == "授权"
     assert rows["claims"][0]["seen_count"] == 2
     assert rows["claims"][0]["canonical_event_key"].startswith("CEK-")
+    assert rows["claims"][0]["event_group_key"].startswith("CEG-")
     assert rows["claims"][0]["claim_grain"] == "event_chain"
+    assert rows["claims"][0]["fact_type"] == "material_action"
+    assert rows["claims"][0]["outcome_support"] == "direct"
+    assert rows["claims"][0]["atomic_fact_payload"]["outcome_support"] == "direct"
     assert rows["claims"][0]["near_duplicate_group_payload"]["object_name"] == "汤和"
     assert rows["claims"][0]["quality_flags"] == []
     assert rows["source_slices"][0]["text_hash"]
@@ -143,6 +147,8 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert "near_duplicate_group_payload" in source
     assert "claim_grain" in source
     assert "quality_flags" in source
+    assert "event_group_key" in source
+    assert "atomic_fact_payload" in source
     assert "cleanup-orphan-source-slices" in source
     assert "retrieval_v2.claim_source_slices" in source
     assert "retrieval_v2.claim_evidence" in source
