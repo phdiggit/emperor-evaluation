@@ -226,18 +226,23 @@ def fetch_claim_rows(
     emperor_names: Sequence[str],
     statuses: Sequence[str],
     owner_scopes: Sequence[str],
+    last_run_codes: Sequence[str],
 ) -> list[dict[str, Any]]:
     clauses: list[str] = []
     params: list[Any] = []
     clean_emperors = [text(name) for name in emperor_names if text(name)]
     clean_statuses = [text(status) for status in statuses if text(status)]
     clean_owner_scopes = owner_scope_values(owner_scopes)
+    clean_run_codes = [text(code) for code in last_run_codes if text(code)]
     if clean_emperors:
         clauses.append("c.emperor_name = any(%s)")
         params.append(clean_emperors)
     if clean_statuses:
         clauses.append("c.status::text = any(%s)")
         params.append(clean_statuses)
+    if clean_run_codes:
+        clauses.append("c.last_run_code = any(%s)")
+        params.append(clean_run_codes)
     clauses.append("os.owner_scope = any(%s)")
     params.append(clean_owner_scopes)
     cur.execute(
@@ -278,18 +283,23 @@ def fetch_owner_scope_inventory(
     emperor_names: Sequence[str],
     statuses: Sequence[str],
     owner_scopes: Sequence[str],
+    last_run_codes: Sequence[str],
 ) -> dict[str, Any]:
     clauses: list[str] = []
     params: list[Any] = []
     clean_emperors = [text(name) for name in emperor_names if text(name)]
     clean_statuses = [text(status) for status in statuses if text(status)]
     clean_owner_scopes = owner_scope_values(owner_scopes)
+    clean_run_codes = [text(code) for code in last_run_codes if text(code)]
     if clean_emperors:
         clauses.append("owner_name = any(%s)")
         params.append(clean_emperors)
     if clean_statuses:
         clauses.append("status::text = any(%s)")
         params.append(clean_statuses)
+    if clean_run_codes:
+        clauses.append("last_run_code = any(%s)")
+        params.append(clean_run_codes)
     cur.execute(
         f"""
         select owner_scope, count(*) as claim_count
@@ -481,6 +491,7 @@ def event_group_report(
     emperor_names: Sequence[str],
     statuses: Sequence[str],
     owner_scopes: Sequence[str],
+    last_run_codes: Sequence[str],
     execute: bool,
     replace_existing: bool,
     sample_limit: int,
@@ -496,8 +507,15 @@ def event_group_report(
                 emperor_names=emperor_names,
                 statuses=statuses,
                 owner_scopes=owner_scopes,
+                last_run_codes=last_run_codes,
             )
-            claims = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses, owner_scopes=owner_scopes)
+            claims = fetch_claim_rows(
+                cur,
+                emperor_names=emperor_names,
+                statuses=statuses,
+                owner_scopes=owner_scopes,
+                last_run_codes=last_run_codes,
+            )
             built = build_event_groups(claims)
             summary = summarize_event_groups(built["groups"], built["members"], sample_limit=sample_limit)
             executed_counts: dict[str, int] = {}
@@ -525,6 +543,7 @@ def event_group_report(
             "emperor_names": [text(name) for name in emperor_names if text(name)],
             "statuses": [text(status) for status in statuses if text(status)],
             "owner_scopes": owner_scope_values(owner_scopes),
+            "last_run_codes": [text(code) for code in last_run_codes if text(code)],
         },
         "owner_scope_inventory": owner_scope_inventory,
         **summary,
@@ -545,6 +564,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--emperor-name", action="append", default=[])
     parser.add_argument("--status", action="append", default=["active"])
     parser.add_argument("--owner-scope", action="append", default=[], choices=sorted(OWNER_SCOPES), help="Owner scope to include; defaults to target_emperor only.")
+    parser.add_argument("--last-run-code", action="append", default=[], help="Limit claim rows to specific claim_cache last_run_code values.")
     parser.add_argument("--sample-limit", type=int, default=20)
     parser.add_argument("--execute", action="store_true", help="Write claim_event_groups shadow tables.")
     parser.add_argument("--replace-existing", action="store_true", help="With --execute, replace existing event groups in the selected owner/emperor scope before upsert.")
@@ -561,6 +581,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         emperor_names=args.emperor_name or [],
         statuses=args.status or [],
         owner_scopes=args.owner_scope or [],
+        last_run_codes=args.last_run_code or [],
         execute=bool(args.execute),
         replace_existing=bool(args.replace_existing),
         sample_limit=max(0, int(args.sample_limit)),

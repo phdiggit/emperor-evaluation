@@ -129,11 +129,13 @@ def test_event_group_fetch_uses_owner_scope_view_without_prompt_cost() -> None:
 
     assert "claim_owner_scopes" in source
     assert "os.owner_scope = any(%s)" in source
+    assert "c.last_run_code = any(%s)" in source
     assert "c.atomic_fact_payload" in source
     assert "c.event_group_payload" in source
     assert "direction::text as direction" not in source
     assert "join retrieval_v2.claim_cache cc" not in source
     assert "--owner-scope" in source
+    assert "--last-run-code" in source
     assert "--replace-existing" in source
     assert "claim_owner_scopes" not in prompt_source
     assert "external_or_unregistered_owner" not in prompt_source
