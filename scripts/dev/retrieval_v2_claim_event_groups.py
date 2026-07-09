@@ -234,6 +234,7 @@ def fetch_claim_rows(
             c.emperor_name,
             c.object_name,
             c.object_type::text as object_type,
+            cc.direction::text as direction,
             c.action_type,
             c.event_scope,
             c.office_or_domain,
@@ -245,6 +246,7 @@ def fetch_claim_rows(
             os.owner_scope,
             os.owner_target_code
           from retrieval_v2.claim_atomic_facts c
+          join retrieval_v2.claim_cache cc on cc.claim_key = c.claim_key
           join retrieval_v2.claim_owner_scopes os on os.claim_key = c.claim_key
           {'where ' + ' and '.join(clauses) if clauses else ''}
          order by c.emperor_name, c.object_name, c.claim_key
@@ -313,6 +315,53 @@ def delete_excluded_owner_scope_event_groups(cur: Any, owner_scopes: Sequence[st
         (clean_owner_scopes,),
     )
     return int(getattr(cur, "rowcount", 0) or 0)
+
+
+def selected_event_group_where(*, owner_scopes: Sequence[str], emperor_names: Sequence[str]) -> tuple[str, list[Any]]:
+    clauses = [
+        """
+        (
+            case
+                when btrim(g.emperor_name) = '' then 'blank_owner'
+                when exists (
+                    select 1
+                      from retrieval_v2.retrieval_targets t
+                     where t.emperor_name = g.emperor_name
+                ) then 'target_emperor'
+                else 'external_or_unregistered_owner'
+            end
+        ) = any(%s)
+        """
+    ]
+    params: list[Any] = [owner_scope_values(owner_scopes)]
+    clean_emperors = [text(name) for name in emperor_names if text(name)]
+    if clean_emperors:
+        clauses.append("g.emperor_name = any(%s)")
+        params.append(clean_emperors)
+    return " and ".join(clauses), params
+
+
+def replace_existing_event_groups(cur: Any, *, owner_scopes: Sequence[str], emperor_names: Sequence[str]) -> dict[str, int]:
+    where_sql, params = selected_event_group_where(owner_scopes=owner_scopes, emperor_names=emperor_names)
+    cur.execute(
+        f"""
+        delete from retrieval_v2.claim_event_group_members m
+         using retrieval_v2.claim_event_groups g
+         where m.group_key = g.group_key
+           and {where_sql}
+        """,
+        params,
+    )
+    deleted_members = int(getattr(cur, "rowcount", 0) or 0)
+    cur.execute(
+        f"""
+        delete from retrieval_v2.claim_event_groups g
+         where {where_sql}
+        """,
+        params,
+    )
+    deleted_groups = int(getattr(cur, "rowcount", 0) or 0)
+    return {"deleted_groups": deleted_groups, "deleted_members": deleted_members}
 
 
 def upsert_event_group(cur: Any, row: Mapping[str, Any]) -> None:
@@ -384,10 +433,17 @@ def apply_event_groups(
     *,
     schema_name: str,
     owner_scopes: Sequence[str],
+    emperor_names: Sequence[str],
+    replace_existing: bool,
 ) -> dict[str, int]:
     groups = list(payload.get("groups") or [])
     members = list(payload.get("members") or [])
-    deleted = delete_excluded_owner_scope_event_groups(cur, owner_scopes)
+    replaced = {"deleted_groups": 0, "deleted_members": 0}
+    deleted = 0
+    if replace_existing:
+        replaced = replace_existing_event_groups(cur, owner_scopes=owner_scopes, emperor_names=emperor_names)
+    else:
+        deleted = delete_excluded_owner_scope_event_groups(cur, owner_scopes)
     for group in groups:
         upsert_event_group(cur, group)
     for member in members:
@@ -396,6 +452,8 @@ def apply_event_groups(
         table_label("claim_event_groups", schema_name=schema_name): len(groups),
         table_label("claim_event_group_members", schema_name=schema_name): len(members),
         f"{table_label('claim_event_groups', schema_name=schema_name)}_deleted_by_owner_scope": deleted,
+        f"{table_label('claim_event_groups', schema_name=schema_name)}_replace_deleted": replaced["deleted_groups"],
+        f"{table_label('claim_event_group_members', schema_name=schema_name)}_replace_deleted": replaced["deleted_members"],
     }
 
 
@@ -408,6 +466,7 @@ def event_group_report(
     statuses: Sequence[str],
     owner_scopes: Sequence[str],
     execute: bool,
+    replace_existing: bool,
     sample_limit: int,
 ) -> dict[str, Any]:
     if env_file is not None:
@@ -427,7 +486,14 @@ def event_group_report(
             summary = summarize_event_groups(built["groups"], built["members"], sample_limit=sample_limit)
             executed_counts: dict[str, int] = {}
             if execute:
-                executed_counts = apply_event_groups(cur, built, schema_name=schema_name, owner_scopes=owner_scopes)
+                executed_counts = apply_event_groups(
+                    cur,
+                    built,
+                    schema_name=schema_name,
+                    owner_scopes=owner_scopes,
+                    emperor_names=emperor_names,
+                    replace_existing=replace_existing,
+                )
         if execute:
             conn.commit()
         else:
@@ -437,6 +503,7 @@ def event_group_report(
         "generated_by": "scripts/dev/retrieval_v2_claim_event_groups.py",
         "mode": "execute" if execute else "dry_run_event_group_audit",
         "write_db": execute,
+        "replace_existing": bool(replace_existing),
         "schema_name": schema_name,
         "filters": {
             "emperor_names": [text(name) for name in emperor_names if text(name)],
@@ -464,6 +531,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--owner-scope", action="append", default=[], choices=sorted(OWNER_SCOPES), help="Owner scope to include; defaults to target_emperor only.")
     parser.add_argument("--sample-limit", type=int, default=20)
     parser.add_argument("--execute", action="store_true", help="Write claim_event_groups shadow tables.")
+    parser.add_argument("--replace-existing", action="store_true", help="With --execute, replace existing event groups in the selected owner/emperor scope before upsert.")
     parser.add_argument("--output-json", type=Path)
     return parser
 
@@ -478,6 +546,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         statuses=args.status or [],
         owner_scopes=args.owner_scope or [],
         execute=bool(args.execute),
+        replace_existing=bool(args.replace_existing),
         sample_limit=max(0, int(args.sample_limit)),
     )
     if args.output_json is not None:

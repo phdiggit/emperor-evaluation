@@ -129,6 +129,39 @@ def test_event_group_fetch_uses_owner_scope_view_without_prompt_cost() -> None:
 
     assert "claim_owner_scopes" in source
     assert "os.owner_scope = any(%s)" in source
+    assert "cc.direction::text as direction" in source
+    assert "join retrieval_v2.claim_cache cc on cc.claim_key = c.claim_key" in source
     assert "--owner-scope" in source
+    assert "--replace-existing" in source
     assert "claim_owner_scopes" not in prompt_source
     assert "external_or_unregistered_owner" not in prompt_source
+
+
+class CaptureCursor:
+    def __init__(self) -> None:
+        self.statements: list[str] = []
+        self.params: list[object] = []
+        self.rowcount = 0
+
+    def execute(self, sql: str, params=None) -> None:
+        normalized = " ".join(sql.split())
+        self.statements.append(normalized)
+        self.params.append(params)
+        if normalized.startswith("delete from retrieval_v2.claim_event_group_members"):
+            self.rowcount = 2
+        elif normalized.startswith("delete from retrieval_v2.claim_event_groups"):
+            self.rowcount = 1
+        else:
+            self.rowcount = 0
+
+
+def test_replace_existing_event_groups_deletes_selected_scope_before_rebuild() -> None:
+    cur = CaptureCursor()
+
+    deleted = tool.replace_existing_event_groups(cur, owner_scopes=["target_emperor"], emperor_names=["李世民"])
+
+    assert deleted == {"deleted_groups": 1, "deleted_members": 2}
+    assert cur.statements[0].startswith("delete from retrieval_v2.claim_event_group_members")
+    assert cur.statements[1].startswith("delete from retrieval_v2.claim_event_groups")
+    assert cur.params[0] == [["target_emperor"], ["李世民"]]
+    assert cur.params[1] == [["target_emperor"], ["李世民"]]
