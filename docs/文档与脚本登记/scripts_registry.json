@@ -33,8 +33,8 @@
         "reason": "半成品 profile 种子候选与 source-discovery 仍在稳定语义，后续继续扩展前拆分 discovery/extractor 子模块"
       },
       "scripts/dev/retrieval_v2_clean_runner.py": {
-        "max_lines": 1337,
-        "reason": "retrieval_v2 clean runner 暂承载 taskgen、候选切片、补源、判读分片和运行交接编排，质量/耗时优化稳定后拆分 orchestration 与阶段执行模块"
+        "max_lines": 1450,
+        "reason": "retrieval_v2 clean runner 暂承载 taskgen、候选切片、补源、判读分片和运行交接编排；DeepSeek/OpenAI-compatible provider 细节已拆到 retrieval_v2_llm_providers.py，后续稳定后继续拆 judge 编排模块"
       },
       "scripts/dev/retrieval_v2_clean_cli.py": {
         "max_lines": 1295,
