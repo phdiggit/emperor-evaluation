@@ -683,6 +683,41 @@ def test_owner_rebind_payload_inventory_flags_source_title_rule_without_current_
     assert inventory["risk_counts"]["source_title_rule_without_claim_or_evidence_alias"] == 1
 
 
+def test_owner_rebind_payload_inventory_flags_bare_title_rule_without_claim_or_evidence_alias() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-BARE-TITLE-NO-EVIDENCE",
+            emperor_name="吕雉",
+            object_name="彭越",
+            action_type="评价",
+            time_context="班固评",
+            claim_summary="班固评价彭越等异姓王凭权变诈力成功，后因疑惧而谋叛灭亡。",
+            evidence_text="班固评价异姓王得失。",
+            fact_payload={
+                "actor": "班固",
+                "object": "彭越",
+                "action_type": "评价",
+                "time_context": "班固评",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "刘邦",
+                    "to_emperor_name": "吕雉",
+                    "reason": "source_unique_owner_anchor_without_requested_owner_in_claim",
+                    "matched_aliases": ["高后"],
+                    "resolution_rules": ["same_dynasty_bare_title_scope"],
+                    "evidence": [{"alias": "高后", "resolution_rule": "same_dynasty_bare_title_scope"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["risk_counts"]["matched_alias_not_in_current_claim_text"] == 1
+    assert inventory["risk_counts"]["bare_title_rule_without_current_alias"] == 1
+    assert inventory["risk_counts"]["bare_title_rule_without_claim_or_evidence_alias"] == 1
+
+
 def test_owner_rebind_payload_inventory_flags_alias_in_evidence_only() -> None:
     aliases = tool.load_owner_aliases()
     rows = [

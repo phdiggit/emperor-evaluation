@@ -702,6 +702,8 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
                 flags.append("matched_alias_in_evidence_text_only")
             if set(rules) & OWNER_REBIND_BARE_TITLE_RULES:
                 flags.append("bare_title_rule_without_current_alias")
+                if not alias_in_evidence_only:
+                    flags.append("bare_title_rule_without_claim_or_evidence_alias")
             if "source_title_dynasty_bare_title" in rules:
                 flags.append("source_title_rule_without_current_alias")
                 if alias_in_evidence_only:
