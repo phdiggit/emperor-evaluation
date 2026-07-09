@@ -217,6 +217,50 @@ def test_import_run_rebinds_claim_owner_from_resolved_actor_alias(tmp_path: Path
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["to_emperor_name"] == "李治"
 
 
+def test_import_run_rebinds_owner_from_unique_other_context_when_target_is_context_only(tmp_path: Path) -> None:
+    text = "隐太子忌惮房玄龄、杜如晦受李世民亲礼，向高祖谮毁二人，使房玄龄与杜如晦被驱斥。"
+    candidates = {
+        "task_identity": {"emperor_name": "李世民", "rule_code": "i5b_item_wide"},
+        "candidate_slices": [
+            {
+                "slice_code": "SLI-FXL",
+                "document_code": "DOC-FXL",
+                "object_name": "房玄龄",
+                "text": text,
+            }
+        ],
+    }
+    claim = {
+        "claim_code": "CLM-FXL",
+        "emperor_name": "李世民",
+        "object_name": "房玄龄",
+        "object_type": "person",
+        "claim_kind": "material_claim",
+        "claim_summary": text,
+        "direction": "negative",
+        "confidence": 0.9,
+        "source_slice_refs": ["SLI-FXL"],
+        "fact_payload": {
+            "fact_schema": "political_action_v1",
+            "actor": "隐太子",
+            "object": "房玄龄",
+            "action_type": "处置",
+            "outcome": "被驱斥",
+            "source_span_refs": ["SLI-FXL"],
+        },
+        "evidence_spans": [{"span_type": "action", "source_slice_ref": "SLI-FXL", "text": "向高祖谮毁"}],
+    }
+    run_root = write_run(tmp_path, claim=claim, candidates=candidates)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    assert report["stats"]["claims_rebound_by_alias_mentions"] == 1
+    assert claims[0]["emperor_name"] == "李渊"
+    assert claims[0]["fact_payload"]["owner_rebind_payload"]["reason"] == "claim_context_unique_resolved_owner_with_requested_owner_context_only"
+
+
 def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> None:
     run_root = write_run(tmp_path)
     cache_root = tmp_path / "claim_cache"

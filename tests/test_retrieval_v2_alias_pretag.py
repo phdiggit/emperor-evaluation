@@ -72,7 +72,7 @@ def test_claim_owner_rebind_uses_actor_alias_not_context_only_mentions() -> None
     assert rebound["owner_rebind_payload"]["from_emperor_name"] == "李世民"
 
 
-def test_claim_owner_rebind_ignores_context_mentions_when_actor_is_minister() -> None:
+def test_claim_owner_rebind_uses_unique_other_owner_context_when_target_absent() -> None:
     alias_mentions = {
         "SLI-001": tool.alias_mentions_in_text(
             "高宗时，褚遂良固谏。",
@@ -82,6 +82,7 @@ def test_claim_owner_rebind_ignores_context_mentions_when_actor_is_minister() ->
     claim = {
         "emperor_name": "李世民",
         "source_slice_refs": ["SLI-001"],
+        "claim_summary": "高宗时，褚遂良固谏废后议。",
         "fact_payload": {"actor": "褚遂良", "object": "废后议", "action_type": "纳谏"},
     }
 
@@ -91,4 +92,30 @@ def test_claim_owner_rebind_ignores_context_mentions_when_actor_is_minister() ->
         alias_mentions_by_ref=alias_mentions,
     )
 
-    assert rebind == {}
+    assert rebind["to_emperor_name"] == "李治"
+    assert rebind["reason"] == "claim_context_unique_resolved_owner_without_requested_owner"
+
+
+def test_claim_owner_rebind_uses_other_owner_when_target_is_context_only() -> None:
+    alias_mentions = {
+        "SLI-001": tool.alias_mentions_in_text(
+            "隐太子忌惮房玄龄、杜如晦受李世民亲礼，向高祖谮毁二人，使房玄龄与杜如晦被驱斥。",
+            requested_owner_name="李世民",
+        )
+    }
+    claim = {
+        "emperor_name": "李世民",
+        "source_slice_refs": ["SLI-001"],
+        "claim_summary": "隐太子忌惮房玄龄、杜如晦受李世民亲礼，向高祖谮毁二人，使房玄龄与杜如晦被驱斥。",
+        "fact_payload": {"actor": "隐太子", "object": "房玄龄", "action_type": "处置", "outcome": "被驱斥"},
+    }
+
+    rebind = tool.claim_owner_rebind_from_alias_mentions(
+        claim,
+        source_refs=["SLI-001"],
+        alias_mentions_by_ref=alias_mentions,
+    )
+
+    assert rebind["to_emperor_name"] == "李渊"
+    assert rebind["matched_aliases"] == ["高祖"]
+    assert rebind["reason"] == "claim_context_unique_resolved_owner_with_requested_owner_context_only"

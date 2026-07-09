@@ -20,6 +20,7 @@ from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 
 RULER_ACTION_TYPES = {"任命", "授权", "处置", "收权", "制度高压", "纳谏", "拒谏", "战役", "其他"}
 BARE_TITLE_TYPES = {"temple_name", "posthumous_name"}
+CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
 SOURCE_TITLE_DYNASTY_MARKERS = (
     ("旧唐书", "唐"),
     ("舊唐書", "唐"),
@@ -308,6 +309,95 @@ def claim_action_type(claim: Mapping[str, Any]) -> str:
     return text(claim.get("action_type")) or text(payload.get("action_type"))
 
 
+def claim_search_text(claim: Mapping[str, Any]) -> str:
+    payload = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
+    parts = [
+        text(claim.get("claim_summary") or claim.get("summary")),
+        text(claim.get("time_context")),
+        text(claim.get("outcome")),
+        text(payload.get("actor")),
+        text(payload.get("object")),
+        text(payload.get("time_context")),
+        text(payload.get("outcome")),
+    ]
+    return " ".join(part for part in parts if part)
+
+
+def owner_mentions_from_refs(
+    *,
+    source_refs: Sequence[str],
+    alias_mentions_by_ref: Mapping[str, Sequence[Mapping[str, Any]]],
+    current_owner: str,
+) -> list[dict[str, Any]]:
+    mentions: list[dict[str, Any]] = []
+    for source_ref in source_refs:
+        for mention in alias_mentions_by_ref.get(source_ref) or []:
+            if text(mention.get("resolution_status")) != "resolved":
+                continue
+            owner = text(mention.get("resolved_owner_name"))
+            alias = text(mention.get("alias"))
+            if not owner or not alias:
+                continue
+            row = dict(mention)
+            row["source_slice_ref"] = source_ref
+            row["owner_relation_to_current"] = "current_owner" if owner == current_owner else "other_owner"
+            mentions.append(row)
+    return mentions
+
+
+def owner_aliases_in_claim_text(claim_text: str, mentions: Sequence[Mapping[str, Any]], owner_name: str) -> list[str]:
+    return unique_texts(
+        [
+            mention.get("alias")
+            for mention in mentions
+            if text(mention.get("resolved_owner_name")) == text(owner_name)
+            and text(mention.get("alias"))
+            and text(mention.get("alias")) in claim_text
+        ]
+    )
+
+
+def requested_owner_context_only(claim_text: str, requested_aliases: Sequence[str]) -> bool:
+    for alias in requested_aliases:
+        for relation in CONTEXT_ONLY_OWNER_RELATION_TERMS:
+            if f"受{alias}{relation}" in claim_text or f"为{alias}{relation}" in claim_text or f"为{alias}所{relation}" in claim_text:
+                return True
+    return False
+
+
+def rebind_payload_from_mentions(
+    *,
+    claim: Mapping[str, Any],
+    mentions: Sequence[Mapping[str, Any]],
+    from_owner: str,
+    to_owner: str,
+    matched_aliases: Sequence[str],
+    reason: str,
+) -> dict[str, Any]:
+    evidence = [
+        {
+            "source_slice_ref": text(mention.get("source_slice_ref")),
+            "alias": text(mention.get("alias")),
+            "from_emperor_name": from_owner,
+            "to_emperor_name": to_owner,
+            "resolution_rule": text(mention.get("resolution_rule")),
+            "confidence": text(mention.get("confidence")) or "deterministic",
+        }
+        for mention in mentions
+        if text(mention.get("resolved_owner_name")) == to_owner
+        and text(mention.get("alias")) in set(matched_aliases)
+    ]
+    return {
+        "from_emperor_name": from_owner,
+        "to_emperor_name": to_owner,
+        "reason": reason,
+        "matched_aliases": unique_texts(matched_aliases),
+        "source_slice_refs": unique_texts([row["source_slice_ref"] for row in evidence]),
+        "resolution_rules": unique_texts([row["resolution_rule"] for row in evidence]),
+        "evidence": evidence,
+    }
+
+
 def claim_owner_rebind_from_alias_mentions(
     claim: Mapping[str, Any],
     *,
@@ -316,38 +406,65 @@ def claim_owner_rebind_from_alias_mentions(
 ) -> dict[str, Any]:
     current_owner = text(claim.get("emperor_name"))
     actor = claim_actor_text(claim)
-    if not actor or claim_action_type(claim) not in RULER_ACTION_TYPES:
+    action_type = claim_action_type(claim)
+    if action_type not in RULER_ACTION_TYPES:
         return {}
-    candidates: list[dict[str, Any]] = []
-    for source_ref in source_refs:
-        for mention in alias_mentions_by_ref.get(source_ref) or []:
-            if text(mention.get("resolution_status")) != "resolved":
-                continue
-            owner = text(mention.get("resolved_owner_name"))
-            alias = text(mention.get("alias"))
-            if owner and owner != current_owner and alias and alias in actor:
-                candidates.append(
-                    {
-                        "source_slice_ref": source_ref,
-                        "alias": alias,
-                        "from_emperor_name": current_owner,
-                        "to_emperor_name": owner,
-                        "resolution_rule": text(mention.get("resolution_rule")),
-                        "confidence": text(mention.get("confidence")) or "deterministic",
-                    }
-                )
-    owners = unique_texts([row["to_emperor_name"] for row in candidates])
-    if len(owners) != 1:
+    mentions = owner_mentions_from_refs(
+        source_refs=source_refs,
+        alias_mentions_by_ref=alias_mentions_by_ref,
+        current_owner=current_owner,
+    )
+    if not mentions:
         return {}
-    return {
-        "from_emperor_name": current_owner,
-        "to_emperor_name": owners[0],
-        "reason": "claim_actor_matches_resolved_owner_alias",
-        "matched_aliases": unique_texts([row["alias"] for row in candidates]),
-        "source_slice_refs": unique_texts([row["source_slice_ref"] for row in candidates]),
-        "resolution_rules": unique_texts([row["resolution_rule"] for row in candidates]),
-        "evidence": candidates,
-    }
+    other_mentions = [mention for mention in mentions if text(mention.get("resolved_owner_name")) != current_owner]
+    other_owner_names = unique_texts([mention.get("resolved_owner_name") for mention in other_mentions])
+    if len(other_owner_names) != 1:
+        return {}
+    to_owner = other_owner_names[0]
+    claim_text = claim_search_text(claim)
+
+    actor_aliases = owner_aliases_in_claim_text(actor, other_mentions, to_owner)
+    if actor_aliases:
+        return rebind_payload_from_mentions(
+            claim=claim,
+            mentions=other_mentions,
+            from_owner=current_owner,
+            to_owner=to_owner,
+            matched_aliases=actor_aliases,
+            reason="claim_actor_matches_resolved_owner_alias",
+        )
+
+    payload = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
+    fact_object_aliases = owner_aliases_in_claim_text(text(payload.get("object")), other_mentions, to_owner)
+    if fact_object_aliases:
+        return rebind_payload_from_mentions(
+            claim=claim,
+            mentions=other_mentions,
+            from_owner=current_owner,
+            to_owner=to_owner,
+            matched_aliases=fact_object_aliases,
+            reason="claim_fact_object_matches_resolved_owner_alias",
+        )
+
+    other_aliases_in_claim = owner_aliases_in_claim_text(claim_text, other_mentions, to_owner)
+    if not other_aliases_in_claim:
+        return {}
+    current_aliases_in_claim = owner_aliases_in_claim_text(claim_text, mentions, current_owner)
+    current_context_only = bool(current_aliases_in_claim) and requested_owner_context_only(claim_text, current_aliases_in_claim)
+    if current_aliases_in_claim and not current_context_only:
+        return {}
+    return rebind_payload_from_mentions(
+        claim=claim,
+        mentions=other_mentions,
+        from_owner=current_owner,
+        to_owner=to_owner,
+        matched_aliases=other_aliases_in_claim,
+        reason=(
+            "claim_context_unique_resolved_owner_with_requested_owner_context_only"
+            if current_context_only
+            else "claim_context_unique_resolved_owner_without_requested_owner"
+        ),
+    )
 
 
 def apply_claim_owner_rebind(claim: Mapping[str, Any], rebind: Mapping[str, Any]) -> dict[str, Any]:

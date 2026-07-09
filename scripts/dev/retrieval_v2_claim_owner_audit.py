@@ -277,7 +277,6 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
         "owner_risk_kind": risk_kind,
         "suggested_owner_name": suggested_owner,
         "matched_owner_alias": matched_alias,
-        "direction": text(row.get("direction")),
         "action_type": action_type,
         "actor": actor,
         "fact_object": text(payload.get("object")),
@@ -315,14 +314,13 @@ def fetch_claim_rows(
             emperor_name,
             object_name,
             status::text as status,
-            direction::text as direction,
             action_type,
             office_or_domain,
             time_context,
             outcome,
             claim_summary,
             fact_payload
-          from retrieval_v2.claim_cache
+          from retrieval_v2.claim_atomic_facts
           {'where ' + ' and '.join(where) if where else ''}
          order by emperor_name, object_name, claim_key
         """,
@@ -525,7 +523,6 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
         "owner_risk_kind",
         "suggested_owner_name",
         "matched_owner_alias",
-        "direction",
         "action_type",
         "actor",
         "fact_object",

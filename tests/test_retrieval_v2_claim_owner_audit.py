@@ -29,6 +29,7 @@ def test_owner_aliases_resolve_titles_to_canonical_personal_names() -> None:
     assert result["owner_risk_kind"] == "ruler_action_actor_matches_other_owner"
     assert result["suggested_owner_name"] == "李治"
     assert result["matched_owner_alias"] == "高宗"
+    assert "direction" not in result
 
 
 def test_owner_aliases_resolve_han_wendi_to_liu_heng() -> None:
@@ -298,3 +299,11 @@ def test_executable_review_status_plan_keeps_multi_owner_timelines_out_of_active
 
     assert tool.executable_rebind_plan([finding]) == []
     assert [row["claim_key"] for row in tool.executable_review_status_plan([finding])] == ["CLMK-001"]
+
+
+def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:
+    source = (tool.ROOT / "scripts/dev/retrieval_v2_claim_owner_audit.py").read_text(encoding="utf-8")
+
+    assert "from retrieval_v2.claim_atomic_facts" in source
+    assert "direction::text as direction" not in source
+    assert '"direction",' not in source
