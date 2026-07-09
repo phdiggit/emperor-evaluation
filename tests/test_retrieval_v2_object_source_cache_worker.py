@@ -1041,6 +1041,60 @@ def test_execute_once_auto_enqueues_claim_bridge_after_success(tmp_path: Path, m
     assert ("finish_run", "succeeded") in events
 
 
+def test_bridge_succeeded_once_records_backlog_bridge_result(tmp_path: Path, monkeypatch) -> None:
+    object_cache = tmp_path / "object_cache"
+    object_cache.mkdir(parents=True)
+    (object_cache / "source_documents.jsonl").write_text("", encoding="utf-8")
+    (object_cache / "mention_slices.jsonl").write_text("", encoding="utf-8")
+    recorded: list[dict[str, object]] = []
+
+    monkeypatch.setattr(
+        tool,
+        "fetch_next_succeeded_unbridged_job",
+        lambda **_kwargs: {
+            "id": 5,
+            "bridge_run_id": 77,
+            "job_code": "OSCACHE-001",
+            "priority": 10,
+            "emperor_name": "李世民",
+            "capture_profile": "personnel_political_wide",
+            "output_root": str(object_cache),
+        },
+    )
+    monkeypatch.setattr(
+        tool,
+        "plan_claim_extraction_after_object_cache_job",
+        lambda **_kwargs: {"ok": True, "status": "planned", "claim_job": {"job_code": "CLMEXT-TEST"}},
+    )
+    monkeypatch.setattr(tool, "record_claim_bridge_result", lambda **kwargs: recorded.append(kwargs))
+
+    result = tool.bridge_succeeded_once(
+        dsn="postgres://example",
+        claim_cache_root=tmp_path / "claim_cache",
+        claim_run_root=tmp_path / "claim_runs",
+        claim_plan_output_root=tmp_path / "claim_plans",
+    )
+
+    assert result["status"] == "bridged"
+    assert result["result"]["claim_job"]["job_code"] == "CLMEXT-TEST"
+    assert recorded == [
+        {
+            "dsn": "postgres://example",
+            "run_id": 77,
+            "bridge_result": {"ok": True, "status": "planned", "claim_job": {"job_code": "CLMEXT-TEST"}},
+            "schema_name": tool.DEFAULT_PG_SCHEMA,
+        }
+    ]
+
+
+def test_bridge_succeeded_once_idle_when_no_backlog(monkeypatch) -> None:
+    monkeypatch.setattr(tool, "fetch_next_succeeded_unbridged_job", lambda **_kwargs: None)
+
+    result = tool.bridge_succeeded_once(dsn="postgres://example", claim_cache_root=Path("tmp/claim_cache"))
+
+    assert result == {"ok": True, "status": "idle", "job": None}
+
+
 def test_finish_job_run_failure_casts_status_case_to_enum() -> None:
     statements: list[str] = []
 

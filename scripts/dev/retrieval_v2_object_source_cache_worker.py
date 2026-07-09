@@ -547,6 +547,43 @@ def fetch_next_ready_job(*, dsn: str, schema_name: str = DEFAULT_PG_SCHEMA) -> d
     return dict(row) if row else None
 
 
+def fetch_next_succeeded_unbridged_job(
+    *,
+    dsn: str,
+    min_created_at: str = "",
+    schema_name: str = DEFAULT_PG_SCHEMA,
+) -> dict[str, Any] | None:
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            min_created = text(min_created_at)
+            created_filter = "and j.created_at >= %s::timestamptz" if min_created else ""
+            cur.execute(
+                f"""
+                select j.*, r.id as bridge_run_id
+                  from retrieval_v2.object_source_cache_jobs j
+                  join lateral (
+                        select id, run_payload
+                          from retrieval_v2.object_source_cache_job_runs
+                         where job_id = j.id
+                           and status = 'succeeded'
+                         order by ended_at desc nulls last, id desc
+                         limit 1
+                  ) r on true
+                 where j.status = 'succeeded'
+                   and btrim(j.emperor_name) <> ''
+                   and not (r.run_payload ? 'claim_bridge_result')
+                   {created_filter}
+                 order by j.priority, j.updated_at
+                 limit 1
+                """,
+                (min_created,) if min_created else (),
+            )
+            row = cur.fetchone()
+    return dict(row) if row else None
+
+
 def create_job_run(cur: Any, *, job: Mapping[str, Any], worker_id: str, run_code: str, input_fingerprint: str) -> int:
     cur.execute(
         """
@@ -566,6 +603,28 @@ def create_job_run(cur: Any, *, job: Mapping[str, Any], worker_id: str, run_code
         ),
     )
     return int(cur.fetchone()["id"])
+
+
+def record_claim_bridge_result(
+    *,
+    dsn: str,
+    run_id: int,
+    bridge_result: Mapping[str, Any],
+    schema_name: str = DEFAULT_PG_SCHEMA,
+) -> None:
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            cur.execute(
+                """
+                update retrieval_v2.object_source_cache_job_runs
+                   set run_payload = run_payload || %s::jsonb
+                 where id = %s
+                """,
+                (stable_json({"claim_bridge_result": dict(bridge_result)}), int(run_id)),
+            )
+        conn.commit()
 
 
 def finish_job_run(
@@ -1438,6 +1497,75 @@ def once(
     return {"ok": True, "status": "succeeded", "job": dict(job), "result": result}
 
 
+def bridge_succeeded_once(
+    *,
+    dsn: str,
+    claim_cache_root: Path,
+    bridge_min_created_at: str = "",
+    claim_run_root: Path | None = None,
+    claim_plan_output_root: Path | None = None,
+    claim_rule_code: str = "i5b_item_wide",
+    claim_max_slices_per_person: int = 12,
+    claim_max_total_slices: int = 0,
+    claim_include_target_emperor_object: bool = False,
+    claim_selection_profile: str = "all",
+    claim_pilot_object_limit: int = 4,
+    claim_pilot_slices_per_object: int = 8,
+    claim_pilot_profile_signals_path: Path | None = None,
+    claim_pilot_priority_objects: Sequence[str] = (),
+    claim_priority: int | None = None,
+    required_extractor_version: str = "",
+    schema_name: str = DEFAULT_PG_SCHEMA,
+) -> dict[str, Any]:
+    job = fetch_next_succeeded_unbridged_job(
+        dsn=dsn,
+        min_created_at=bridge_min_created_at,
+        schema_name=schema_name,
+    )
+    if job is None:
+        return {"ok": True, "status": "idle", "job": None}
+    output_root = Path(str(job["output_root"]))
+    missing_inputs = [
+        str(path)
+        for path in (output_root / "source_documents.jsonl", output_root / "mention_slices.jsonl")
+        if not path.exists()
+    ]
+    if missing_inputs:
+        bridge_result = {
+            "ok": False,
+            "status": "skipped_missing_object_cache_files",
+            "missing_inputs": missing_inputs,
+            "execute_effect": "record bridge skip only; no claim job enqueued",
+        }
+    else:
+        bridge_result = plan_claim_extraction_after_object_cache_job(
+            job=job,
+            dsn=dsn,
+            claim_cache_root=claim_cache_root,
+            claim_run_root=claim_run_root,
+            claim_plan_output_root=claim_plan_output_root,
+            rule_code=claim_rule_code,
+            max_slices_per_person=claim_max_slices_per_person,
+            max_total_slices=claim_max_total_slices,
+            include_target_emperor_object=claim_include_target_emperor_object,
+            selection_profile=claim_selection_profile,
+            pilot_object_limit=claim_pilot_object_limit,
+            pilot_slices_per_object=claim_pilot_slices_per_object,
+            pilot_profile_signals_path=claim_pilot_profile_signals_path,
+            pilot_priority_objects=claim_pilot_priority_objects,
+            priority=claim_priority,
+            required_extractor_version=required_extractor_version,
+            schema_name=schema_name,
+        )
+    record_claim_bridge_result(
+        dsn=dsn,
+        run_id=int(job["bridge_run_id"]),
+        bridge_result=bridge_result,
+        schema_name=schema_name,
+    )
+    return {"ok": True, "status": "bridged", "job": dict(job), "result": bridge_result}
+
+
 def build_options_from_args(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "shard_size": args.shard_size,
@@ -1546,6 +1674,27 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--required-extractor-version", default=claim_worker.candidate_prompt.CLAIM_EXTRACTOR_VERSION)
     once_cmd.add_argument("--output-json", type=Path)
 
+    bridge = sub.add_parser("bridge-succeeded", help="Bridge one succeeded object source cache job that has not yet planned claim extraction.")
+    bridge.add_argument("--env-file", type=Path)
+    bridge.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    bridge.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    bridge.add_argument("--bridge-min-created-at", default="")
+    bridge.add_argument("--claim-cache-root", type=Path, default=DEFAULT_CLAIM_CACHE_ROOT)
+    bridge.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
+    bridge.add_argument("--claim-plan-output-root", type=Path)
+    bridge.add_argument("--claim-rule-code", default="i5b_item_wide")
+    bridge.add_argument("--claim-max-slices-per-person", type=int, default=12)
+    bridge.add_argument("--claim-max-total-slices", type=int, default=0)
+    bridge.add_argument("--claim-include-target-emperor-object", action="store_true")
+    bridge.add_argument("--claim-selection-profile", choices=("all", "pilot"), default="all")
+    bridge.add_argument("--claim-pilot-object-limit", type=int, default=4)
+    bridge.add_argument("--claim-pilot-slices-per-object", type=int, default=8)
+    bridge.add_argument("--claim-pilot-profile-signals-jsonl", type=Path)
+    bridge.add_argument("--claim-pilot-priority-object", action="append", default=[])
+    bridge.add_argument("--claim-priority", type=int)
+    bridge.add_argument("--required-extractor-version", default=claim_worker.candidate_prompt.CLAIM_EXTRACTOR_VERSION)
+    bridge.add_argument("--output-json", type=Path)
+
     claim_plan = sub.add_parser("claim-plan", help="Build claim-only candidates from an object source cache and run claim-cache uncovered planning.")
     claim_plan.add_argument("--cache-root", type=Path, required=True)
     claim_plan.add_argument("--claim-cache-root", type=Path, default=DEFAULT_CLAIM_CACHE_ROOT)
@@ -1578,7 +1727,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if getattr(args, "env_file", None) is not None:
         load_env_file(args.env_file)
-    needs_dsn = args.command in {"apply-schema", "enqueue-from-seed", "plan", "once"} or bool(getattr(args, "enqueue_claim_job", False))
+    needs_dsn = args.command in {"apply-schema", "enqueue-from-seed", "plan", "once", "bridge-succeeded"} or bool(getattr(args, "enqueue_claim_job", False))
     dsn = resolve_dsn(args.dsn_env) if needs_dsn else ""
     if args.command == "apply-schema":
         apply_schema(dsn, schema_name=args.pg_schema)
@@ -1626,6 +1775,26 @@ def main(argv: Sequence[str] | None = None) -> int:
             claim_pilot_priority_objects=args.claim_pilot_priority_object,
             claim_priority=args.claim_priority,
             required_extractor_version=args.required_extractor_version,
+        )
+    elif args.command == "bridge-succeeded":
+        payload = bridge_succeeded_once(
+            dsn=dsn,
+            claim_cache_root=args.claim_cache_root,
+            bridge_min_created_at=args.bridge_min_created_at,
+            claim_run_root=args.claim_run_root,
+            claim_plan_output_root=args.claim_plan_output_root,
+            claim_rule_code=args.claim_rule_code,
+            claim_max_slices_per_person=args.claim_max_slices_per_person,
+            claim_max_total_slices=args.claim_max_total_slices,
+            claim_include_target_emperor_object=bool(args.claim_include_target_emperor_object),
+            claim_selection_profile=args.claim_selection_profile,
+            claim_pilot_object_limit=args.claim_pilot_object_limit,
+            claim_pilot_slices_per_object=args.claim_pilot_slices_per_object,
+            claim_pilot_profile_signals_path=args.claim_pilot_profile_signals_jsonl,
+            claim_pilot_priority_objects=args.claim_pilot_priority_object,
+            claim_priority=args.claim_priority,
+            required_extractor_version=args.required_extractor_version,
+            schema_name=args.pg_schema,
         )
     elif args.command == "claim-plan":
         payload = plan_claim_extraction_from_cache(
