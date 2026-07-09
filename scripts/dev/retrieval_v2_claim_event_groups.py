@@ -20,6 +20,8 @@ from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 OUTCOME_SUPPORTS = {"direct", "implicit", "missing", "not_applicable", "mixed"}
 USAGE_ROLES = {"direct_material_candidate", "supporting_context", "evaluation_context", "background_context", "rejected"}
+OWNER_SCOPES = {"target_emperor", "external_or_unregistered_owner", "blank_owner"}
+DEFAULT_OWNER_SCOPES = ("target_emperor",)
 
 
 class ClaimEventGroupError(RuntimeError):
@@ -45,6 +47,16 @@ def enum_value(value: Any, allowed: set[str], default: str) -> str:
 
 def counter_json(values: Sequence[str]) -> dict[str, int]:
     return dict(sorted(Counter(values).items()))
+
+
+def owner_scope_values(values: Sequence[str] | None) -> list[str]:
+    scopes = [text(value) for value in values or [] if text(value)]
+    if not scopes:
+        return list(DEFAULT_OWNER_SCOPES)
+    bad = [scope for scope in scopes if scope not in OWNER_SCOPES]
+    if bad:
+        raise ClaimEventGroupError(f"unsupported owner scope: {', '.join(bad)}")
+    return sorted(set(scopes))
 
 
 def claim_member_row(claim: Mapping[str, Any]) -> dict[str, Any]:
@@ -194,39 +206,112 @@ def summarize_event_groups(groups: Sequence[Mapping[str, Any]], members: Sequenc
     }
 
 
-def fetch_claim_rows(cur: Any, *, emperor_names: Sequence[str], statuses: Sequence[str]) -> list[dict[str, Any]]:
+def fetch_claim_rows(
+    cur: Any,
+    *,
+    emperor_names: Sequence[str],
+    statuses: Sequence[str],
+    owner_scopes: Sequence[str],
+) -> list[dict[str, Any]]:
     clauses: list[str] = []
     params: list[Any] = []
     clean_emperors = [text(name) for name in emperor_names if text(name)]
     clean_statuses = [text(status) for status in statuses if text(status)]
+    clean_owner_scopes = owner_scope_values(owner_scopes)
     if clean_emperors:
-        clauses.append("emperor_name = any(%s)")
+        clauses.append("c.emperor_name = any(%s)")
+        params.append(clean_emperors)
+    if clean_statuses:
+        clauses.append("c.status::text = any(%s)")
+        params.append(clean_statuses)
+    clauses.append("os.owner_scope = any(%s)")
+    params.append(clean_owner_scopes)
+    cur.execute(
+        f"""
+        select
+            c.claim_key,
+            c.emperor_name,
+            c.object_name,
+            c.object_type::text as object_type,
+            c.action_type,
+            c.event_scope,
+            c.office_or_domain,
+            c.time_context,
+            c.outcome,
+            c.claim_summary,
+            c.fact_payload,
+            c.status::text as status,
+            os.owner_scope,
+            os.owner_target_code
+          from retrieval_v2.claim_atomic_facts c
+          join retrieval_v2.claim_owner_scopes os on os.claim_key = c.claim_key
+          {'where ' + ' and '.join(clauses) if clauses else ''}
+         order by c.emperor_name, c.object_name, c.claim_key
+        """,
+        params,
+    )
+    return [dict(row) for row in cur.fetchall()]
+
+
+def fetch_owner_scope_inventory(
+    cur: Any,
+    *,
+    emperor_names: Sequence[str],
+    statuses: Sequence[str],
+    owner_scopes: Sequence[str],
+) -> dict[str, Any]:
+    clauses: list[str] = []
+    params: list[Any] = []
+    clean_emperors = [text(name) for name in emperor_names if text(name)]
+    clean_statuses = [text(status) for status in statuses if text(status)]
+    clean_owner_scopes = owner_scope_values(owner_scopes)
+    if clean_emperors:
+        clauses.append("owner_name = any(%s)")
         params.append(clean_emperors)
     if clean_statuses:
         clauses.append("status::text = any(%s)")
         params.append(clean_statuses)
     cur.execute(
         f"""
-        select
-            claim_key,
-            emperor_name,
-            object_name,
-            object_type::text as object_type,
-            action_type,
-            event_scope,
-            office_or_domain,
-            time_context,
-            outcome,
-            claim_summary,
-            fact_payload,
-            status::text as status
-          from retrieval_v2.claim_atomic_facts
+        select owner_scope, count(*) as claim_count
+          from retrieval_v2.claim_owner_scopes
           {'where ' + ' and '.join(clauses) if clauses else ''}
-         order by emperor_name, object_name, claim_key
+         group by owner_scope
+         order by owner_scope
         """,
         params,
     )
-    return [dict(row) for row in cur.fetchall()]
+    by_scope = {text(row["owner_scope"]): int(row["claim_count"]) for row in cur.fetchall()}
+    selected = sum(count for scope, count in by_scope.items() if scope in clean_owner_scopes)
+    total = sum(by_scope.values())
+    return {
+        "claim_count_by_owner_scope": dict(sorted(by_scope.items())),
+        "selected_owner_scopes": clean_owner_scopes,
+        "selected_claim_count": selected,
+        "skipped_claim_count": max(0, total - selected),
+    }
+
+
+def delete_excluded_owner_scope_event_groups(cur: Any, owner_scopes: Sequence[str]) -> int:
+    clean_owner_scopes = owner_scope_values(owner_scopes)
+    cur.execute(
+        """
+        delete from retrieval_v2.claim_event_groups g
+         where (
+            case
+                when btrim(g.emperor_name) = '' then 'blank_owner'
+                when exists (
+                    select 1
+                      from retrieval_v2.retrieval_targets t
+                     where t.emperor_name = g.emperor_name
+                ) then 'target_emperor'
+                else 'external_or_unregistered_owner'
+            end
+         ) <> all(%s)
+        """,
+        (clean_owner_scopes,),
+    )
+    return int(getattr(cur, "rowcount", 0) or 0)
 
 
 def upsert_event_group(cur: Any, row: Mapping[str, Any]) -> None:
@@ -292,9 +377,16 @@ def upsert_event_group_member(cur: Any, row: Mapping[str, Any]) -> None:
     )
 
 
-def apply_event_groups(cur: Any, payload: Mapping[str, Sequence[Mapping[str, Any]]], *, schema_name: str) -> dict[str, int]:
+def apply_event_groups(
+    cur: Any,
+    payload: Mapping[str, Sequence[Mapping[str, Any]]],
+    *,
+    schema_name: str,
+    owner_scopes: Sequence[str],
+) -> dict[str, int]:
     groups = list(payload.get("groups") or [])
     members = list(payload.get("members") or [])
+    deleted = delete_excluded_owner_scope_event_groups(cur, owner_scopes)
     for group in groups:
         upsert_event_group(cur, group)
     for member in members:
@@ -302,6 +394,7 @@ def apply_event_groups(cur: Any, payload: Mapping[str, Sequence[Mapping[str, Any
     return {
         table_label("claim_event_groups", schema_name=schema_name): len(groups),
         table_label("claim_event_group_members", schema_name=schema_name): len(members),
+        f"{table_label('claim_event_groups', schema_name=schema_name)}_deleted_by_owner_scope": deleted,
     }
 
 
@@ -312,6 +405,7 @@ def event_group_report(
     schema_name: str,
     emperor_names: Sequence[str],
     statuses: Sequence[str],
+    owner_scopes: Sequence[str],
     execute: bool,
     sample_limit: int,
 ) -> dict[str, Any]:
@@ -321,12 +415,18 @@ def event_group_report(
     with psycopg.connect(resolve_dsn(dsn_env), row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
-            claims = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses)
+            owner_scope_inventory = fetch_owner_scope_inventory(
+                cur,
+                emperor_names=emperor_names,
+                statuses=statuses,
+                owner_scopes=owner_scopes,
+            )
+            claims = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses, owner_scopes=owner_scopes)
             built = build_event_groups(claims)
             summary = summarize_event_groups(built["groups"], built["members"], sample_limit=sample_limit)
             executed_counts: dict[str, int] = {}
             if execute:
-                executed_counts = apply_event_groups(cur, built, schema_name=schema_name)
+                executed_counts = apply_event_groups(cur, built, schema_name=schema_name, owner_scopes=owner_scopes)
         if execute:
             conn.commit()
         else:
@@ -340,7 +440,9 @@ def event_group_report(
         "filters": {
             "emperor_names": [text(name) for name in emperor_names if text(name)],
             "statuses": [text(status) for status in statuses if text(status)],
+            "owner_scopes": owner_scope_values(owner_scopes),
         },
+        "owner_scope_inventory": owner_scope_inventory,
         **summary,
         "executed_counts": executed_counts,
     }
@@ -358,6 +460,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--emperor-name", action="append", default=[])
     parser.add_argument("--status", action="append", default=["active"])
+    parser.add_argument("--owner-scope", action="append", default=[], choices=sorted(OWNER_SCOPES), help="Owner scope to include; defaults to target_emperor only.")
     parser.add_argument("--sample-limit", type=int, default=20)
     parser.add_argument("--execute", action="store_true", help="Write claim_event_groups shadow tables.")
     parser.add_argument("--output-json", type=Path)
@@ -372,6 +475,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         schema_name=args.pg_schema,
         emperor_names=args.emperor_name or [],
         statuses=args.status or [],
+        owner_scopes=args.owner_scope or [],
         execute=bool(args.execute),
         sample_limit=max(0, int(args.sample_limit)),
     )

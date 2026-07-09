@@ -112,3 +112,22 @@ def test_claim_group_seed_has_clean_action_fields() -> None:
     assert seed["fact_type"] == "material_action"
     assert seed["action_type"] == "处置"
     assert seed["event_scope"] == "中枢"
+
+
+def test_owner_scope_values_default_to_target_emperor() -> None:
+    assert tool.owner_scope_values([]) == ["target_emperor"]
+    assert tool.owner_scope_values(["external_or_unregistered_owner", "target_emperor"]) == [
+        "external_or_unregistered_owner",
+        "target_emperor",
+    ]
+
+
+def test_event_group_fetch_uses_owner_scope_view_without_prompt_cost() -> None:
+    source = (tool.ROOT / "scripts/dev/retrieval_v2_claim_event_groups.py").read_text(encoding="utf-8")
+    prompt_source = (tool.ROOT / "scripts/dev/retrieval_v2_candidate_prompt.py").read_text(encoding="utf-8")
+
+    assert "claim_owner_scopes" in source
+    assert "os.owner_scope = any(%s)" in source
+    assert "--owner-scope" in source
+    assert "claim_owner_scopes" not in prompt_source
+    assert "external_or_unregistered_owner" not in prompt_source
