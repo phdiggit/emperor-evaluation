@@ -161,7 +161,6 @@ def claim_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "emperor_name": text(row.get("emperor_name")),
         "object_name": text(row.get("object_name") or payload.get("object")),
         "object_type": enum_value(row.get("object_type"), OBJECT_TYPES, "person"),
-        "direction": enum_value(row.get("direction"), DIRECTIONS, "neutral"),
         "action_type": text(row.get("action_type") or payload.get("action_type")),
         "event_scope": text(row.get("event_scope") or payload.get("event_scope")),
         "office_or_domain": text(row.get("office_or_domain") or payload.get("office_or_domain")),
@@ -290,17 +289,15 @@ def object_inventory(rows: Mapping[str, Sequence[Mapping[str, Any]]]) -> dict[st
         name = text(claim.get("object_name"))
         entry = by_object.setdefault(
             name,
-            {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()},
+            {"claim_count": 0, "action_type_counts": Counter()},
         )
         entry["claim_count"] += 1
-        entry["direction_hint_counts"][text(claim.get("direction"))] += 1
         action = text(claim.get("action_type"))
         if action:
             entry["action_type_counts"][action] += 1
     return {
         name: {
             "claim_count": entry["claim_count"],
-            "direction_hint_counts": dict(sorted(entry["direction_hint_counts"].items())),
             "action_type_counts": dict(sorted(entry["action_type_counts"].items())),
         }
         for name, entry in sorted(by_object.items())
@@ -368,7 +365,7 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
         """
         insert into retrieval_v2.claim_cache (
             claim_key, claim_type, fact_schema, emperor_name, object_name, object_type,
-            direction, action_type, event_scope, office_or_domain, time_context, outcome,
+            action_type, event_scope, office_or_domain, time_context, outcome,
             claim_summary, confidence, fact_payload, canonical_event_key, canonical_event_payload,
             near_duplicate_group_payload, claim_grain, quality_flags, fact_type, outcome_support,
             atomic_fact_payload, event_group_key, event_group_payload, claim_usage_flags,
@@ -377,7 +374,7 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
         )
         values (
             %s, %s, %s, %s, %s, %s,
-            %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s,
             %s, %s, %s::jsonb, %s, %s::jsonb,
             %s::jsonb, %s, %s::jsonb, %s, %s,
             %s::jsonb, %s, %s::jsonb, %s::jsonb,
@@ -390,7 +387,6 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             emperor_name = excluded.emperor_name,
             object_name = excluded.object_name,
             object_type = excluded.object_type,
-            direction = excluded.direction,
             action_type = excluded.action_type,
             event_scope = excluded.event_scope,
             office_or_domain = excluded.office_or_domain,
@@ -428,7 +424,6 @@ def upsert_claim(cur: Any, row: Mapping[str, Any]) -> None:
             row["emperor_name"],
             row["object_name"],
             row["object_type"],
-            row["direction"],
             row["action_type"],
             row["event_scope"],
             row["office_or_domain"],
@@ -555,19 +550,18 @@ def pg_owner_scope_inventory(cur: Any) -> dict[str, Any]:
 def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any]:
     cur.execute(
         """
-        select object_name, direction::text as direction, action_type, count(*) as claim_count
+        select object_name, action_type, count(*) as claim_count
           from retrieval_v2.claim_cache
-         group by object_name, direction::text, action_type
-         order by object_name, direction::text, action_type
+         group by object_name, action_type
+         order by object_name, action_type
         """
     )
     by_object: dict[str, dict[str, Any]] = {}
     for row in cur.fetchall():
         object_name = text(row["object_name"])
-        entry = by_object.setdefault(object_name, {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()})
+        entry = by_object.setdefault(object_name, {"claim_count": 0, "action_type_counts": Counter()})
         count = int(row["claim_count"])
         entry["claim_count"] += count
-        entry["direction_hint_counts"][text(row["direction"])] += count
         action = text(row["action_type"])
         if action:
             entry["action_type_counts"][action] += count
@@ -575,12 +569,12 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
         """
         select object_name, count(*) as evidence_count
           from retrieval_v2.claim_evidence
-         group by object_name
+        group by object_name
          order by object_name
         """
     )
     for row in cur.fetchall():
-        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()})[
+        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "action_type_counts": Counter()})[
             "evidence_count"
         ] = int(row["evidence_count"])
     cur.execute(
@@ -592,14 +586,14 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
         """
     )
     for row in cur.fetchall():
-        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()})[
+        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "action_type_counts": Counter()})[
             "slice_count"
         ] = int(row["slice_count"])
     samples: dict[str, list[dict[str, Any]]] = {}
     if sample_limit > 0:
         cur.execute(
             """
-            select object_name, claim_key, direction::text as direction, action_type, claim_summary
+            select object_name, claim_key, action_type, claim_summary
               from retrieval_v2.claim_cache
              order by object_name, claim_key
             """
@@ -610,7 +604,6 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
                 bucket.append(
                     {
                         "claim_key": row["claim_key"],
-                        "direction_hint": row["direction"],
                         "action_type": row["action_type"],
                         "summary": row["claim_summary"],
                     }
@@ -624,7 +617,6 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
                 "claim_count": entry.get("claim_count", 0),
                 "slice_count": entry.get("slice_count", 0),
                 "evidence_count": entry.get("evidence_count", 0),
-                "direction_hint_counts": dict(sorted(entry["direction_hint_counts"].items())),
                 "action_type_counts": dict(sorted(entry["action_type_counts"].items())),
                 "sample_claims": samples.get(object_name, []),
             }
@@ -642,7 +634,6 @@ def pg_claim_rows_for_quality_backfill(cur: Any, *, only_missing: bool = True) -
             emperor_name,
             object_name,
             object_type::text as object_type,
-            direction::text as direction,
             action_type,
             event_scope,
             office_or_domain,

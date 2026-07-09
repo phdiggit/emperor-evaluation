@@ -157,7 +157,6 @@ def claim_identity_payload(claim: Mapping[str, Any]) -> dict[str, str]:
         "emperor_name": normalized_text(claim.get("emperor_name")),
         "object_name": normalized_text(claim.get("object_name") or fact.get("object")),
         "claim_kind": normalized_text(claim.get("claim_kind") or "material_claim"),
-        "direction": normalized_text(claim.get("direction")),
         "action_type": normalized_text(fact.get("action_type")),
         "event_scope": normalized_text(fact.get("event_scope")),
         "office_or_domain": normalized_text(fact.get("office_or_domain")),
@@ -291,7 +290,6 @@ def claim_row(
         "object_name": str(claim.get("object_name") or fact.get("object") or ""),
         "object_type": str(claim.get("object_type") or "person"),
         "claim_kind": str(claim.get("claim_kind") or "material_claim"),
-        "direction": str(claim.get("direction") or ""),
         "action_type": str(fact.get("action_type") or ""),
         "event_scope": str(fact.get("event_scope") or ""),
         "office_or_domain": str(fact.get("office_or_domain") or ""),
@@ -585,7 +583,6 @@ def cached_claims_for_candidates(candidates: Mapping[str, Any], cache_root: Path
             "object_type": row.get("object_type") or "person",
             "claim_kind": row.get("claim_kind") or "material_claim",
             "claim_summary": row.get("claim_summary") or "",
-            "direction": row.get("direction") or "",
             "confidence": row.get("confidence"),
             "source_slice_refs": source_refs,
             "fact_payload": fact,
@@ -615,8 +612,7 @@ def merge_cached_claims(judge_payload: Mapping[str, Any], cached_report: Mapping
     if claims:
         object_names = sorted({str(row.get("object_name") or "") for row in claims if str(row.get("object_name") or "")})
         coverage["checked_objects"] = sorted(set(coverage.get("checked_objects") or []) | set(object_names))
-        coverage["positive_claim_count"] = sum(1 for row in claims if str(row.get("direction") or "") == "positive")
-        coverage["negative_claim_count"] = sum(1 for row in claims if str(row.get("direction") or "") == "negative")
+        coverage["claim_count"] = len(claims)
     result["coverage"] = coverage
     result["_claim_cache_hydrated"] = {
         "cache_root": cached_report.get("cache_root"),
@@ -635,7 +631,6 @@ def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sa
             "claim_count": 0,
             "slice_count": 0,
             "evidence_count": 0,
-            "direction_counts": Counter(),
             "action_type_counts": Counter(),
             "sample_claims": [],
         }
@@ -644,17 +639,13 @@ def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sa
         object_name = str(claim.get("object_name") or "")
         row = by_object[object_name]
         row["claim_count"] += 1
-        direction = str(claim.get("direction") or "")
         action_type = str(claim.get("action_type") or "")
-        if direction:
-            row["direction_counts"][direction] += 1
         if action_type:
             row["action_type_counts"][action_type] += 1
         if len(row["sample_claims"]) < sample_limit:
             row["sample_claims"].append(
                 {
                     "claim_key": claim.get("claim_key"),
-                    "direction": direction,
                     "action_type": action_type,
                     "summary": claim.get("claim_summary") or "",
                 }
@@ -670,7 +661,6 @@ def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sa
             "claim_count": row["claim_count"],
             "slice_count": row["slice_count"],
             "evidence_count": row["evidence_count"],
-            "direction_counts": dict(sorted(row["direction_counts"].items())),
             "action_type_counts": dict(sorted(row["action_type_counts"].items())),
             "sample_claims": row["sample_claims"],
         }

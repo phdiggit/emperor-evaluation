@@ -90,7 +90,6 @@ def test_claim_cache_schema_uses_enums_for_finite_value_fields() -> None:
         "claim_type retrieval_v2.rv2_claim_cache_type",
         "fact_schema retrieval_v2.rv2_claim_fact_schema",
         "object_type retrieval_v2.rv2_object_type",
-        "direction retrieval_v2.rv2_claim_direction",
         "status retrieval_v2.rv2_claim_cache_status",
         "support_level retrieval_v2.rv2_claim_support_level",
         "candidate_direction retrieval_v2.rv2_claim_direction",

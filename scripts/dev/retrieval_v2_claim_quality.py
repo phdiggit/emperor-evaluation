@@ -418,7 +418,6 @@ def canonical_event_payload(claim: Mapping[str, Any]) -> dict[str, str]:
     return {
         "emperor_name": normalized_text(claim_text(claim, "emperor_name")),
         "object_name": normalized_text(claim_text(claim, "object_name", "object")),
-        "direction": normalized_text(claim_text(claim, "direction")),
         "action_type": normalized_text(claim_text(claim, "action_type")),
         "event_scope": normalized_text(claim_text(claim, "event_scope")),
         "office_or_domain": normalized_text(claim_text(claim, "office_or_domain")),
@@ -472,17 +471,14 @@ def terms_in_claim(claim: Mapping[str, Any], terms: tuple[str, ...]) -> list[str
 
 
 def claim_negative_support(claim: Mapping[str, Any]) -> dict[str, Any]:
-    direction = normalized_text(claim_text(claim, "direction"))
     damage_terms = terms_in_claim(claim, GOVERNANCE_DAMAGE_TERMS)
     context_terms = terms_in_claim(claim, NEGATIVE_CONTEXT_TERMS)
-    if direction != "negative":
-        support = "not_applicable"
-    elif damage_terms:
+    if damage_terms:
         support = "governance_damage_supported"
     elif context_terms:
         support = "negative_context_without_damage_anchor"
     else:
-        support = "negative_label_without_local_anchor"
+        support = "not_applicable"
     return {
         "support": support,
         "has_governance_damage": bool(damage_terms),
@@ -555,7 +551,6 @@ def near_duplicate_group_payload(claim: Mapping[str, Any]) -> dict[str, str]:
         for key in (
             "emperor_name",
             "object_name",
-            "direction",
             "action_type",
             "event_scope",
             "office_or_domain",

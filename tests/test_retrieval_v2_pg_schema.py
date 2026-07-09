@@ -35,7 +35,8 @@ def test_rendered_bootstrap_schema_contains_claim_event_group_shadow_layer() -> 
     assert "retrieval_v3.claim_owner_scopes" in sql
     assert "external_or_unregistered_owner" in sql
     assert "rv3_claim_outcome_support" in sql
-    assert "legacy extraction hint" in sql
+    assert "legacy extraction hint" not in sql
+    assert "claim_cache.direction" not in sql
 
 
 def test_claim_atomic_facts_view_is_direction_free() -> None:

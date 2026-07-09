@@ -100,7 +100,7 @@ begin
 end;
 $$;
 
-comment on type retrieval_v2.rv2_claim_direction is 'claim 对评分语义的材料方向；positive、negative、neutral、mixed。';
+comment on type retrieval_v2.rv2_claim_direction is 'claim 路由或规则方向枚举；原子 claim_cache 不保存该字段。';
 comment on type retrieval_v2.rv2_object_type is 'claim 或对象身份的对象类型枚举；person、institution、event 等。';
 comment on type retrieval_v2.rv2_claim_cache_type is 'claim cache 的分型材料类型；用于区分行为、结果、评价、关系、制度、数值和上下文材料。';
 comment on type retrieval_v2.rv2_claim_fact_schema is 'claim fact_payload 采用的结构化事实 schema 版本。';
@@ -118,7 +118,6 @@ create table if not exists retrieval_v2.claim_cache (
     object_name text not null,
     object_id bigint references retrieval_v2.objects(id) on delete set null,
     object_type retrieval_v2.rv2_object_type not null default 'person',
-    direction retrieval_v2.rv2_claim_direction not null default 'neutral',
     action_type text not null default '',
     event_scope text not null default '',
     office_or_domain text not null default '',
@@ -296,7 +295,8 @@ alter table retrieval_v2.claim_cache
     add constraint rv2_claim_cache_quality_flags_ck check (jsonb_typeof(quality_flags) = 'array');
 
 alter table retrieval_v2.claim_cache
-    drop column if exists claim_kind;
+    drop column if exists claim_kind,
+    drop column if exists direction;
 
 alter table retrieval_v2.claim_route_cache
     drop column if exists route_payload;
@@ -320,25 +320,6 @@ begin
                     else 'person'::retrieval_v2.rv2_object_type
                 end,
             alter column object_type set default 'person';
-    end if;
-
-    if exists (
-        select 1
-          from information_schema.columns
-         where table_schema = 'retrieval_v2'
-           and table_name = 'claim_cache'
-           and column_name = 'direction'
-           and udt_name <> 'rv2_claim_direction'
-    ) then
-        alter table retrieval_v2.claim_cache
-            alter column direction drop default,
-            alter column direction type retrieval_v2.rv2_claim_direction
-                using case
-                    when direction::text in ('positive', 'negative', 'neutral', 'mixed')
-                        then direction::text::retrieval_v2.rv2_claim_direction
-                    else 'neutral'::retrieval_v2.rv2_claim_direction
-                end,
-            alter column direction set default 'neutral';
     end if;
 
     if exists (
@@ -381,8 +362,10 @@ begin
 end;
 $$;
 
+drop index if exists retrieval_v2.rv2_claim_cache_object_idx;
+
 create index if not exists rv2_claim_cache_object_idx
-on retrieval_v2.claim_cache(emperor_name, object_name, direction, status);
+on retrieval_v2.claim_cache(emperor_name, object_name, status);
 
 create index if not exists rv2_claim_cache_type_schema_idx
 on retrieval_v2.claim_cache(claim_type, fact_schema, status);
@@ -424,7 +407,6 @@ comment on column retrieval_v2.claim_cache.emperor_name is 'claim 所属目标�
 comment on column retrieval_v2.claim_cache.object_name is 'claim 主要对象名称；人物 claim 通常为臣子或相关人物。';
 comment on column retrieval_v2.claim_cache.object_id is '已解析对象的 retrieval_v2.objects.id；未解析时为空。';
 comment on column retrieval_v2.claim_cache.object_type is 'claim 主要对象类型。';
-comment on column retrieval_v2.claim_cache.direction is 'claim 对评分语义的材料方向。';
 comment on column retrieval_v2.claim_cache.action_type is '行为类 claim 的动作类型；非行为类可留空。';
 comment on column retrieval_v2.claim_cache.event_scope is '事件领域，例如军事、政务、人事、制度；未知时留空。';
 comment on column retrieval_v2.claim_cache.office_or_domain is '官职、职责或治理领域；未知时留空。';

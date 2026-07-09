@@ -19,7 +19,6 @@ def sample_claim(summary: str = "朱元璋命汤和镇守常州。") -> dict:
         "object_type": "person",
         "claim_kind": "material_claim",
         "claim_summary": summary,
-        "direction": "positive",
         "confidence": 0.9,
         "source_slice_refs": ["SLI-001"],
         "fact_payload": {
@@ -193,7 +192,6 @@ def test_import_run_rebinds_claim_owner_from_resolved_actor_alias(tmp_path: Path
         "object_type": "person",
         "claim_kind": "material_claim",
         "claim_summary": "高宗因褚遂良固谏废后而左授其潭州都督。",
-        "direction": "negative",
         "confidence": 0.9,
         "source_slice_refs": ["SLI-CSL"],
         "fact_payload": {
@@ -238,7 +236,6 @@ def test_import_run_rebinds_owner_from_unique_other_context_when_target_is_conte
         "object_type": "person",
         "claim_kind": "material_claim",
         "claim_summary": text,
-        "direction": "negative",
         "confidence": 0.9,
         "source_slice_refs": ["SLI-FXL"],
         "fact_payload": {
@@ -287,7 +284,6 @@ def test_import_run_rejects_when_source_owner_anchor_contradicts_requested_owner
         "object_type": "person",
         "claim_kind": "material_claim",
         "claim_summary": "太宗问为何无人进谏时，李绩回答陛下所为尽善，群臣无得而谏。",
-        "direction": "negative",
         "confidence": 0.8,
         "source_slice_refs": ["SLI-LINDE"],
         "fact_payload": {
@@ -340,7 +336,6 @@ def test_import_run_rebinds_when_source_owner_anchor_is_omitted_from_claim(tmp_p
         "object_type": "person",
         "claim_kind": "material_claim",
         "claim_summary": "皇帝问为何无人进谏时，李绩回答陛下所为尽善，群臣无得而谏。",
-        "direction": "neutral",
         "confidence": 0.8,
         "source_slice_refs": ["SLI-LINDE"],
         "fact_payload": {
@@ -443,7 +438,7 @@ def test_cache_inventory_reports_objects_and_candidate_plan(tmp_path: Path) -> N
     assert report["totals"]["slice_count"] == 1
     assert report["totals"]["object_count"] == 1
     assert report["by_object"]["汤和"]["claim_count"] == 1
-    assert report["by_object"]["汤和"]["direction_counts"] == {"positive": 1}
+    assert report["by_object"]["汤和"]["action_type_counts"] == {"授权": 1}
     assert report["candidate_plan"]["cached_slice_count"] == 1
     assert report["candidate_plan"]["uncovered_slice_count"] == 1
     assert "cached_claim_keys" not in report["candidate_plan"]
@@ -483,7 +478,6 @@ def test_merge_cached_claims_prepends_cached_claims_and_updates_counts(tmp_path:
                     "object_type": "person",
                     "claim_kind": "material_claim",
                     "claim_summary": "朱元璋命常遇春进兵。",
-                    "direction": "positive",
                     "source_slice_refs": ["SLI-002"],
                     "fact_payload": {"actor": "朱元璋", "object": "常遇春"},
                 }
@@ -494,7 +488,7 @@ def test_merge_cached_claims_prepends_cached_claims_and_updates_counts(tmp_path:
     )
 
     assert [row["object_name"] for row in merged["claims"]] == ["汤和", "常遇春"]
-    assert merged["coverage"]["positive_claim_count"] == 2
+    assert merged["coverage"]["claim_count"] == 2
     assert merged["_claim_cache_hydrated"]["merged_cached_claim_count"] == 1
 
 

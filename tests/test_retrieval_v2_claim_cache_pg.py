@@ -26,7 +26,6 @@ def write_cache(cache_root: Path) -> None:
         "emperor_name": "朱元璋",
         "object_name": "汤和",
         "object_type": "person",
-        "direction": "positive",
         "claim_summary": "朱元璋命汤和镇守常州。",
         "confidence": 0.9,
         "fact_payload": {
@@ -123,14 +122,13 @@ def test_validate_prepared_rows_reports_broken_evidence(tmp_path: Path) -> None:
     assert {issue["kind"] for issue in issues} == {"evidence_missing_claim", "evidence_missing_slice"}
 
 
-def test_object_inventory_counts_directions_and_actions(tmp_path: Path) -> None:
+def test_object_inventory_counts_actions(tmp_path: Path) -> None:
     cache_root = tmp_path / "claim_cache"
     write_cache(cache_root)
 
     inventory = tool.object_inventory(tool.prepared_cache_rows(cache_root))
 
     assert inventory["汤和"]["claim_count"] == 1
-    assert inventory["汤和"]["direction_hint_counts"] == {"positive": 1}
     assert inventory["汤和"]["action_type_counts"] == {"授权": 1}
 
 
@@ -150,7 +148,7 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert "quality_flags" in source
     assert "event_group_key" in source
     assert "atomic_fact_payload" in source
-    assert "direction_hint_counts" in source
+    assert "direction_hint_counts" not in source
     assert "claim_owner_scopes" in source
     assert "owner_scope_inventory" in source
     assert "claim_owner_scopes" not in prompt_source
@@ -233,11 +231,10 @@ class FakeCursor:
         lowered = sql.lower()
         self.conn.statements.append(lowered)
         self.conn.params.append(params)
-        if "from retrieval_v3.claim_cache" in lowered and "group by object_name, direction::text, action_type" in lowered:
+        if "from retrieval_v3.claim_cache" in lowered and "group by object_name, action_type" in lowered:
             self.rows = [
                 {
                     "object_name": "汤和",
-                    "direction": "positive",
                     "action_type": "授权",
                     "claim_count": 1,
                 }
@@ -278,7 +275,6 @@ class FakeConnection:
                 "emperor_name": "朱元璋",
                 "object_name": "汤和",
                 "object_type": "person",
-                "direction": "positive",
                 "action_type": "授权",
                 "event_scope": "军事",
                 "office_or_domain": "常州镇守",

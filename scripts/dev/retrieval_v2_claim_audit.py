@@ -127,7 +127,6 @@ def grain_group_key(claim: Mapping[str, Any]) -> tuple[str, ...]:
     return (
         payload["emperor_name"],
         payload["object_name"],
-        payload["direction"],
         payload["action_type"],
         payload["event_scope"],
         payload["office_or_domain"],
@@ -137,42 +136,38 @@ def grain_group_key(claim: Mapping[str, Any]) -> tuple[str, ...]:
 
 def claim_semantic_findings(claim: Mapping[str, Any]) -> list[dict[str, Any]]:
     action_type = text_from(claim, "action_type")
-    direction = text_from(claim, "direction")
     summary = text_from(claim, "claim_summary")
     fact = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
     combined = summary + text_from(claim, "outcome") + text_from(fact, "outcome") + text_from(fact, "cost_or_damage")
     findings: list[dict[str, Any]] = []
-    if direction == "negative":
-        negative_support = claim_quality.claim_negative_support(claim)
-        if negative_support["support"] == "negative_context_without_damage_anchor":
-            findings.append(
-                {
-                    "issue_code": "negative_direction_damage_anchor_missing_review",
-                    "severity": "medium",
-                    "claim_key": claim.get("claim_key"),
-                    "object_name": claim.get("object_name"),
-                    "direction": direction,
-                    "action_type": action_type,
-                    "time_context": claim.get("time_context"),
-                    "claim_summary": compact_preview(summary, limit=180),
-                    "detail": "negative claim has disposition/remonstrance/impeachment context but lacks same-chain governance damage",
-                }
-            )
-    if direction == "negative" and action_type in {"任命", "授权"}:
+    negative_support = claim_quality.claim_negative_support(claim)
+    if negative_support["support"] == "negative_context_without_damage_anchor":
+        findings.append(
+            {
+                "issue_code": "negative_context_damage_anchor_missing_review",
+                "severity": "medium",
+                "claim_key": claim.get("claim_key"),
+                "object_name": claim.get("object_name"),
+                "action_type": action_type,
+                "time_context": claim.get("time_context"),
+                "claim_summary": compact_preview(summary, limit=180),
+                "detail": "claim has disposition/remonstrance/impeachment context but lacks same-chain governance damage",
+            }
+        )
+    if action_type in {"任命", "授权"}:
         has_disposition = any(term in combined for term in DISPOSITION_ONLY_TERMS)
         has_damage = any(term in combined for term in GOVERNANCE_DAMAGE_TERMS)
         if has_disposition and not has_damage:
             findings.append(
                 {
-                    "issue_code": "negative_authorization_disposition_only_review",
+                    "issue_code": "authorization_disposition_only_review",
                     "severity": "medium",
                     "claim_key": claim.get("claim_key"),
                     "object_name": claim.get("object_name"),
-                    "direction": direction,
                     "action_type": action_type,
                     "time_context": claim.get("time_context"),
                     "claim_summary": compact_preview(summary, limit=180),
-                    "detail": "negative appointment/authorization claim appears to rely on disposition ending without same-chain governance damage",
+                    "detail": "appointment/authorization claim appears to rely on disposition ending without same-chain governance damage",
                 }
             )
     if action_type in {"任命", "授权"} and not any(term in combined for term in APPOINTMENT_AUTHORIZATION_TERMS):
@@ -182,7 +177,6 @@ def claim_semantic_findings(claim: Mapping[str, Any]) -> list[dict[str, Any]]:
                 "severity": "low",
                 "claim_key": claim.get("claim_key"),
                 "object_name": claim.get("object_name"),
-                "direction": direction,
                 "action_type": action_type,
                 "time_context": claim.get("time_context"),
                 "claim_summary": compact_preview(summary, limit=180),
@@ -317,13 +311,12 @@ def build_claim_audit(
                 "severity": "low",
                 "claim_key": rows[0].get("claim_key"),
                 "object_name": rows[0].get("object_name"),
-                "direction": rows[0].get("direction"),
                 "action_type": rows[0].get("action_type"),
                 "canonical_group_payload": claim_quality.near_duplicate_group_payload(rows[0]),
                 "claim_count": len(rows),
                 "claim_keys": [row.get("claim_key") for row in rows[:12]],
                 "claim_summaries": [compact_preview(row.get("claim_summary"), limit=120) for row in rows[:5]],
-                "detail": "same object/direction/action/time/outcome cluster has multiple active claims",
+                "detail": "same object/action/time/outcome cluster has multiple active claims",
             }
         )
     grain_groups: dict[tuple[str, ...], list[dict[str, Any]]] = defaultdict(list)
@@ -339,7 +332,6 @@ def build_claim_audit(
                 "severity": "low",
                 "claim_key": rows[0].get("claim_key"),
                 "object_name": rows[0].get("object_name"),
-                "direction": rows[0].get("direction"),
                 "action_type": rows[0].get("action_type"),
                 "claim_count": len(rows),
                 "claim_grains": grains,
@@ -438,7 +430,6 @@ def finding_row(
         "claim_key": claim.get("claim_key"),
         "evidence_key": evidence.get("evidence_key"),
         "object_name": claim.get("object_name"),
-        "direction": claim.get("direction"),
         "action_type": claim.get("action_type"),
         "time_context": claim.get("time_context"),
         "claim_summary": compact_preview(claim.get("claim_summary"), limit=180),

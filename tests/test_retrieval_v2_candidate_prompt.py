@@ -176,8 +176,9 @@ def test_build_prompt_keeps_budget_contract() -> None:
     assert "不要把 A 片段的摘录挂到 B 事件 summary" in prompt
     assert "allowed_source_refs_by_object" in prompt
     assert "runner 会拒收跨对象 refs" in prompt
-    assert "任何带 usable_for_scoring_cluster=true binding 的 claim 都不得使用 direction=mixed" in prompt
-    assert "不要把不同事件链的正负材料合成 direction=mixed" in prompt
+    assert "如果同一事实同时有授权和失败、撤权或负面后果，必须拆成授权事实与结果/撤权/失误事实" in prompt
+    assert "不要把不同事件链合成一个 claim" in prompt
+    assert "应拆成多条原子 claim" in prompt
     assert "不要把“本片段不支撑某对象/某 rule”写成 context_claim" in prompt
     assert "优先选择完整“授权/职责 + 同链条结果/复用”的代表事实" in prompt
     assert "source candidate 层已负责召回和补源" in prompt
@@ -211,10 +212,10 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "不要输出 notes" in prompt
     assert "不要输出 source_passage_refs" in prompt
     assert "不要输出 claim_completeness" in prompt
-    assert "direction 不要使用 mixed" in prompt
+    assert "claim 不输出 direction" in prompt
     assert '"primary_bindings": []' in prompt
     assert '"secondary_binding_candidates": []' in prompt
-    assert '"direction": "positive | negative | neutral"' in prompt
+    assert '"direction": "positive | negative | neutral"' not in prompt
     assert '"claim_completeness": {' not in prompt
     assert '"notes":' not in prompt
     assert '"source_passage_refs":' not in prompt

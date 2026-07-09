@@ -10,7 +10,6 @@ def claim(**overrides):
         "emperor_name": "李世民",
         "object_name": "萧瑀",
         "object_type": "person",
-        "direction": "neutral",
         "action_type": "处置",
         "event_scope": "中枢",
         "office_or_domain": "中书门下",
@@ -34,14 +33,14 @@ def claim(**overrides):
 
 
 def test_claim_quality_builds_direction_free_event_group_payload() -> None:
-    negative = claim(direction="negative")
-    neutral = claim(direction="neutral")
+    first = claim()
+    second = claim(claim_summary="萧瑀奏称房玄龄以下内臣结为朋党。")
 
-    assert quality.claim_outcome_support(neutral) == "missing"
-    assert quality.claim_usage_role_hint(neutral) == "supporting_context"
-    assert quality.event_group_payload(negative) == quality.event_group_payload(neutral)
-    assert quality.event_group_key(negative) == quality.event_group_key(neutral)
-    assert "direction" not in quality.event_group_payload(neutral)
+    assert quality.claim_outcome_support(second) == "missing"
+    assert quality.claim_usage_role_hint(second) == "supporting_context"
+    assert quality.event_group_payload(first) == quality.event_group_payload(second)
+    assert quality.event_group_key(first) == quality.event_group_key(second)
+    assert "direction" not in quality.event_group_payload(second)
 
 
 def test_claim_quality_marks_direct_outcome_as_direct_material_candidate() -> None:
@@ -143,7 +142,6 @@ def test_event_group_fetch_uses_owner_scope_view_without_prompt_cost() -> None:
 
 def test_claim_member_row_uses_atomic_negative_support_without_direction() -> None:
     row = claim(
-        direction="",
         atomic_fact_payload={"negative_support": "governance_damage_supported", "outcome_support": "direct"},
         event_group_key="CEG-STORED",
         event_group_payload={"object_name": "萧瑀"},

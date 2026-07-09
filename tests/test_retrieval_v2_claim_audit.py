@@ -14,21 +14,18 @@ def test_claim_semantic_findings_accepts_classical_authorization_anchors() -> No
             "object_name": "戴胄",
             "claim_summary": "太宗时，戴胄与房玄龄、李靖、温彦博、魏徵、王珪同知国政。",
             "action_type": "授权",
-            "direction": "positive",
         },
         {
             "claim_key": "CLM-002",
             "object_name": "褚遂良",
             "claim_summary": "贞观十年，褚遂良自秘书郎迁起居郎。",
             "action_type": "任命",
-            "direction": "positive",
         },
         {
             "claim_key": "CLM-003",
             "object_name": "长孙无忌",
             "claim_summary": "太宗曾留长孙无忌、房玄龄、李𪟝及褚遂良定策立高宗。",
             "action_type": "授权",
-            "direction": "positive",
         },
     ]
 
@@ -49,7 +46,6 @@ def test_claim_audit_flags_wrong_person_section_and_duplicates(tmp_path: Path) -
         "claim_key": "CLM-1",
         "emperor_name": "朱元璋",
         "object_name": "李文忠",
-        "direction": "positive",
         "action_type": "战役",
         "event_scope": "军事",
         "office_or_domain": "建德",
@@ -182,7 +178,6 @@ def test_claim_audit_flags_negative_authorization_disposition_only(tmp_path: Pat
                 "claim_key": "CLM-HWY",
                 "emperor_name": "朱元璋",
                 "object_name": "胡惟庸",
-                "direction": "negative",
                 "action_type": "授权",
                 "event_scope": "中枢",
                 "office_or_domain": "丞相",
@@ -202,15 +197,14 @@ def test_claim_audit_flags_negative_authorization_disposition_only(tmp_path: Pat
 
     report = tool.build_claim_audit(claim_cache_root=claim_root, object_cache_root=object_root)
 
-    assert report["issue_counts"]["negative_authorization_disposition_only_review"] == 1
+    assert report["issue_counts"]["authorization_disposition_only_review"] == 1
 
 
-def test_claim_audit_flags_negative_direction_without_actual_damage_anchor() -> None:
+def test_claim_audit_flags_negative_context_without_actual_damage_anchor() -> None:
     findings = tool.claim_semantic_findings(
         {
             "claim_key": "CLM-WZ",
             "object_name": "魏徵",
-            "direction": "negative",
             "action_type": "纳谏",
             "claim_summary": "魏徵劝李世民斥退阎立本，李世民因其强济而未斥。",
             "outcome": "未斥",
@@ -218,7 +212,7 @@ def test_claim_audit_flags_negative_direction_without_actual_damage_anchor() -> 
         }
     )
 
-    assert [row["issue_code"] for row in findings] == ["negative_direction_damage_anchor_missing_review"]
+    assert [row["issue_code"] for row in findings] == ["negative_context_damage_anchor_missing_review"]
 
 
 def test_claim_audit_excludes_rejected_claims_from_active_findings(tmp_path: Path) -> None:
@@ -232,7 +226,6 @@ def test_claim_audit_excludes_rejected_claims_from_active_findings(tmp_path: Pat
                 "claim_key": "CLM-HWY",
                 "emperor_name": "朱元璋",
                 "object_name": "胡惟庸",
-                "direction": "negative",
                 "action_type": "授权",
                 "claim_summary": "胡惟庸谋反伏诛，朱元璋废丞相。",
                 "fact_payload": {},
