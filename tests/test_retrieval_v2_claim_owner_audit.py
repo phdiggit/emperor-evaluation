@@ -614,6 +614,40 @@ def test_owner_rebind_payload_inventory_flags_time_context_actor_from_owner() ->
     assert inventory["risk_counts"]["time_context_only_actor_matches_from_owner"] == 1
 
 
+def test_owner_rebind_payload_inventory_flags_time_context_actor_differs_from_owner_review() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-TIME-ACTOR-DIFFERS",
+            emperor_name="吕雉",
+            object_name="陈平",
+            action_type="收权",
+            time_context="高后八年",
+            claim_summary="吕氏将兵居南北军时，陈平与周勃谋划使吕禄交出兵权。",
+            fact_payload={
+                "actor": "陈平",
+                "object": "吕禄",
+                "action_type": "收权",
+                "time_context": "高后八年",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "刘邦",
+                    "to_emperor_name": "吕雉",
+                    "reason": "single_other_owner_context_without_requested_owner",
+                    "matched_aliases": ["高后"],
+                    "resolution_rules": [],
+                    "evidence": [{"alias": "高后"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["risk_counts"]["time_context_only_matched_alias"] == 1
+    assert inventory["risk_counts"]["time_context_only_actor_differs_from_from_owner_review"] == 1
+    assert "time_context_only_actor_matches_from_owner" not in inventory["risk_counts"]
+
+
 def test_owner_rebind_payload_inventory_flags_source_title_rule_without_current_alias() -> None:
     aliases = tool.load_owner_aliases()
     rows = [
