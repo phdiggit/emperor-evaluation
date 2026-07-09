@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import re
 import sys
 import time
 from pathlib import Path
@@ -16,6 +15,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev import retrieval_v2_claim_cache as claim_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_extraction_worker as claim_worker  # noqa: E402
+from scripts.dev import retrieval_v2_claim_plan_quality as claim_plan_quality  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev import retrieval_v2_object_source_cache as object_cache  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
@@ -612,57 +612,12 @@ def object_cache_slice_score(row: Mapping[str, Any], doc: Mapping[str, Any] | No
     return score
 
 
-SECTION_HEADING_RE = re.compile(r"([A-Za-z0-9_\-\u3400-\u9fff·]+)\s*\[\s*编辑\s*\]")
-NAVIGATION_MARKERS = ("姊妹计划", "数据项", "◄", "►", "列传第")
-
-
-def candidate_alias_positions(candidate: Mapping[str, Any]) -> list[int]:
-    raw_text = text(candidate.get("text"))
-    aliases = [text(candidate.get("object_name"))]
-    aliases.extend(text(alias) for alias in candidate.get("matched_aliases") or [])
-    positions: set[int] = set()
-    for alias in sorted({alias for alias in aliases if alias}, key=len, reverse=True):
-        start = 0
-        while True:
-            idx = raw_text.find(alias, start)
-            if idx < 0:
-                break
-            positions.add(idx)
-            start = idx + len(alias)
-    return sorted(positions)
-
-
 def claim_candidate_quality_flags(candidate: Mapping[str, Any]) -> list[str]:
-    raw_text = text(candidate.get("text"))
-    object_name = text(candidate.get("object_name"))
-    payload = candidate.get("object_source_cache") if isinstance(candidate.get("object_source_cache"), Mapping) else {}
-    shape = text(payload.get("source_shape"))
-    role = text(payload.get("source_role"))
-    section_heading = text(payload.get("section_heading"))
-    flags: list[str] = []
-    positions = candidate_alias_positions(candidate)
-    first_alias_pos = min(positions) if positions else -1
-    aliases = [object_name, *(text(alias) for alias in candidate.get("matched_aliases") or [])]
-
-    if section_heading and shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
-        if not any(alias and alias in section_heading for alias in aliases):
-            flags.append("wrong_person_section")
-
-    first_heading = SECTION_HEADING_RE.search(raw_text)
-    if first_heading and first_heading.group(1) != object_name and 0 <= first_alias_pos < first_heading.start():
-        prefix = raw_text[: first_heading.start()]
-        if any(marker in prefix for marker in NAVIGATION_MARKERS):
-            flags.append("navigation_header")
-
-    if shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
-        if role == "object_biography" and len(positions) <= 1 and first_alias_pos >= 120:
-            flags.append("weak_late_object_mention")
-    return flags
+    return claim_plan_quality.claim_candidate_quality_flags(candidate)
 
 
 def is_claim_candidate_slice_eligible(candidate: Mapping[str, Any]) -> bool:
-    flags = set(claim_candidate_quality_flags(candidate))
-    return not ({"navigation_header", "weak_late_object_mention", "wrong_person_section"} & flags)
+    return claim_plan_quality.is_claim_candidate_slice_eligible(candidate)
 
 
 def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] | None = None) -> dict[str, Any]:
@@ -726,6 +681,22 @@ def selected_object_cache_slices(
     if max_total_slices > 0:
         selected = selected[:max_total_slices]
     return selected
+
+
+def claim_candidate_quality_audit(
+    rows: Sequence[Mapping[str, Any]],
+    docs_by_code: Mapping[str, Mapping[str, Any]],
+    *,
+    excluded_object_names: set[str] | None = None,
+) -> dict[str, Any]:
+    candidates = [
+        object_cache_candidate_slice(row, docs_by_code.get(text(row.get("document_cache_code") or row.get("document_code"))))
+        for row in rows
+    ]
+    return claim_plan_quality.claim_candidate_quality_audit(
+        candidates,
+        excluded_object_names=excluded_object_names,
+    )
 
 
 def claim_plan_audit(
@@ -934,6 +905,11 @@ def object_cache_to_claim_candidates(
         max_slices_per_person=max_slices_per_person,
         max_total_slices=max_total_slices,
         pilot_profile_signals=pilot_profile_signals,
+    )
+    audit["candidate_quality"] = claim_candidate_quality_audit(
+        mention_slices,
+        docs_by_code,
+        excluded_object_names=excluded_object_names,
     )
     selected_candidates, selection = apply_claim_plan_selection(
         candidates,

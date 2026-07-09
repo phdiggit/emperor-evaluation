@@ -307,6 +307,77 @@ def test_selected_object_cache_slices_filters_wrong_person_section() -> None:
     ]
 
 
+def test_selected_object_cache_slices_filters_ambiguous_alias_only_mentions() -> None:
+    docs_by_code = {
+        "OSD-LW": {
+            "document_cache_code": "OSD-LW",
+            "person_name": "卢绾",
+            "source_role": "object_mention",
+            "source_shape": "object_mention_candidate",
+        },
+        "OSD-ZL": {
+            "document_cache_code": "OSD-ZL",
+            "person_name": "张良",
+            "source_role": "object_mention",
+            "source_shape": "object_mention_candidate",
+        },
+    }
+    rows = [
+        {
+            "slice_cache_code": "OSS-LW-YANWANG",
+            "document_cache_code": "OSD-LW",
+            "person_name": "卢绾",
+            "source_role": "object_mention",
+            "matched_aliases": ["燕王"],
+            "raw_text": "燕王旦坐谋反，事在昭帝时，与本轮高祖功臣对象无关。",
+        },
+        {
+            "slice_cache_code": "OSS-ZL-GOOD",
+            "document_cache_code": "OSD-ZL",
+            "person_name": "张良",
+            "source_role": "object_mention",
+            "matched_aliases": ["张良"],
+            "raw_text": "张良劝汉王还军，汉王从其计。",
+        },
+    ]
+
+    selected = tool.selected_object_cache_slices(
+        rows,
+        docs_by_code,
+        max_slices_per_person=2,
+        max_total_slices=0,
+    )
+    audit = tool.claim_candidate_quality_audit(rows, docs_by_code)
+
+    assert [row["slice_code"] for row in selected] == ["OSS-ZL-GOOD"]
+    assert tool.claim_candidate_quality_flags(tool.object_cache_candidate_slice(rows[0], docs_by_code["OSD-LW"])) == [
+        "ambiguous_alias_only_mention"
+    ]
+    assert audit["quality_flag_counts"] == {"ambiguous_alias_only_mention": 1}
+    assert audit["by_object"]["卢绾"]["ineligible_slice_rows"] == 1
+
+
+def test_claim_candidate_quality_flags_marks_late_object_heading_for_review_only() -> None:
+    doc = {
+        "document_cache_code": "OSD-ZL",
+        "person_name": "张亮",
+        "source_role": "object_biography",
+        "source_shape": "object_biography_candidate",
+    }
+    row = {
+        "slice_cache_code": "OSS-ZL-LATE",
+        "document_cache_code": "OSD-ZL",
+        "person_name": "张亮",
+        "source_role": "object_biography",
+        "matched_aliases": ["张亮"],
+        "raw_text": "侯君集自恃有功，居怏怏不平。" * 12 + "张亮 [ 编辑 ] 张亮起畎亩，后授郑州刺史。",
+    }
+    candidate = tool.object_cache_candidate_slice(row, doc)
+
+    assert "object_heading_late_context_prefix" in tool.claim_candidate_quality_flags(candidate)
+    assert tool.is_claim_candidate_slice_eligible(candidate) is True
+
+
 def test_job_from_seed_builds_stable_queue_payload(tmp_path: Path) -> None:
     seed = tmp_path / "seed.jsonl"
     write_seed(seed)

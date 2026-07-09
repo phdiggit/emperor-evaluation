@@ -36,6 +36,24 @@ def test_slice_claim_eligibility_rejects_incidental_wrong_section_mentions() -> 
     assert eligibility["reasons"] == ["wrong_person_section_risk", "no_action_or_outcome_near_object"]
 
 
+def test_slice_claim_eligibility_rejects_ambiguous_alias_only_mentions() -> None:
+    row = {
+        "object_name": "卢绾",
+        "matched_aliases": ["燕王"],
+        "object_source_cache": {
+            "source_shape": "object_mention_candidate",
+            "quality_flags": ["ambiguous_alias_only_mention"],
+        },
+        "text": "燕王旦谋反，事在昭帝时。",
+    }
+
+    eligibility = tool.slice_claim_eligibility(row)
+
+    assert eligibility["claim_eligible"] is False
+    assert eligibility["risk_flags"] == ["ambiguous_alias_only_mention_risk"]
+    assert eligibility["support_level_hint"] == "context"
+
+
 def test_canonical_near_duplicate_group_ignores_summary_wording() -> None:
     first = {
         "emperor_name": "朱元璋",

@@ -175,8 +175,14 @@ def has_anchor_near_alias(text: str, aliases: list[str], anchors: tuple[str, ...
 
 def candidate_slice_risk_flags(row: Mapping[str, Any]) -> list[str]:
     if not biography_like_source(row):
-        return []
+        object_cache = object_cache_row(row)
+        quality_flags = {str(flag) for flag in object_cache.get("quality_flags") or row.get("quality_flags") or []}
+        flags: list[str] = []
+        if "ambiguous_alias_only_mention" in quality_flags:
+            flags.append("ambiguous_alias_only_mention_risk")
+        return flags
     object_cache = object_cache_row(row)
+    quality_flags = {str(flag) for flag in object_cache.get("quality_flags") or row.get("quality_flags") or []}
     aliases = candidate_aliases(row)
     section_heading = str(object_cache.get("section_heading") or row.get("section_heading") or "").strip()
     flags: list[str] = []
@@ -185,6 +191,10 @@ def candidate_slice_risk_flags(row: Mapping[str, Any]) -> list[str]:
     text = str(row.get("text") or row.get("raw_text") or "")
     if len(text) >= 260 and alias_mention_count(text, aliases) <= 1:
         flags.append("weak_single_mention_risk")
+    if "ambiguous_alias_only_mention" in quality_flags:
+        flags.append("ambiguous_alias_only_mention_risk")
+    if "object_heading_late_context_prefix" in quality_flags:
+        flags.append("object_heading_late_context_risk")
     return flags
 
 
@@ -200,7 +210,10 @@ def slice_claim_eligibility(row: Mapping[str, Any]) -> dict[str, Any]:
     reasons: list[str] = []
     if aliases and mention_count == 0 and not alias_in_slice_metadata(row, aliases):
         risk_flags = [*risk_flags, "object_absent_risk"]
-    if risk_flags and mention_role == "incidental":
+    if "ambiguous_alias_only_mention_risk" in risk_flags:
+        claim_eligible = False
+        reasons.extend(risk_flags)
+    elif risk_flags and mention_role == "incidental":
         claim_eligible = False
         reasons.extend(risk_flags)
         reasons.append("no_action_or_outcome_near_object")
