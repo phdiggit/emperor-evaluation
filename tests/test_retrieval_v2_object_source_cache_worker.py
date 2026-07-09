@@ -759,6 +759,137 @@ def test_claim_plan_can_include_target_emperor_object_when_requested(tmp_path: P
     }
 
 
+def test_claim_plan_prioritizes_and_preserves_summary_lead_slices(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_jsonl(
+        cache_root / "source_documents.jsonl",
+        [
+            {
+                "document_cache_code": "OSD-LSC",
+                "person_cache_code": "PSC-LSC",
+                "person_name": "李善长",
+                "source_title": "明史/卷127",
+                "source_role": "object_biography",
+                "source_shape": "object_biography_candidate",
+            }
+        ],
+    )
+    write_jsonl(cache_root / "person_coverage.jsonl", [{"person_name": "李善长", "mention_slice_count": 2}])
+    write_jsonl(
+        cache_root / "mention_slices.jsonl",
+        [
+            {
+                "slice_cache_code": "OSS-LSC-GENERIC",
+                "document_cache_code": "OSD-LSC",
+                "person_cache_code": "PSC-LSC",
+                "person_name": "李善长",
+                "source_title": "明史/卷127",
+                "source_role": "object_biography",
+                "locator": "chars:0-80",
+                "section_heading": "李善长",
+                "matched_aliases": ["李善长"],
+                "raw_text": "李善长少读书有智计，佐太祖定天下，封韩国公。",
+            },
+            {
+                "slice_cache_code": "OSS-LSC-LEAD",
+                "document_cache_code": "OSD-LSC",
+                "person_cache_code": "PSC-LSC",
+                "person_name": "李善长",
+                "source_title": "明史/卷127",
+                "source_role": "object_biography",
+                "locator": "chars:400-520",
+                "section_heading": "李善长",
+                "matched_aliases": ["善长"],
+                "lead_terms": ["谋反", "伏诛", "党死", "妻女弟侄"],
+                "slice_kind": "summary_lead_term_anchor",
+                "raw_text": "惟庸谋反伏诛，坐党死者甚众，善长如故；后词连善长，妻女弟侄七十余人徙边。",
+            },
+        ],
+    )
+
+    result = tool.plan_claim_extraction_from_cache(
+        cache_root=cache_root,
+        claim_cache_root=tmp_path / "claim_cache",
+        output_candidates=tmp_path / "claim_candidates.json",
+        output_uncovered_candidates=tmp_path / "claim_candidates.uncovered.json",
+        emperor_name="朱元璋",
+        max_slices_per_person=1,
+    )
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+    row = candidates["candidate_slices"][0]
+
+    assert result["candidate_slice_count"] == 1
+    assert row["slice_code"] == "OSS-LSC-LEAD"
+    assert row["matched_outcome_terms"] == ["谋反", "伏诛", "党死", "妻女弟侄"]
+    assert row["object_source_cache"]["slice_kind"] == "summary_lead_term_anchor"
+    assert row["object_source_cache"]["lead_terms"] == ["谋反", "伏诛", "党死", "妻女弟侄"]
+
+
+def test_claim_plan_prefers_summary_lead_slice_in_object_section(tmp_path: Path) -> None:
+    cache_root = tmp_path / "object_cache"
+    write_jsonl(
+        cache_root / "source_documents.jsonl",
+        [
+            {
+                "document_cache_code": "OSD-HWY",
+                "person_cache_code": "PSC-HWY",
+                "person_name": "胡惟庸",
+                "source_title": "明史/卷308",
+                "source_role": "object_biography",
+                "source_shape": "object_biography_candidate",
+            }
+        ],
+    )
+    write_jsonl(cache_root / "person_coverage.jsonl", [{"person_name": "胡惟庸", "mention_slice_count": 2}])
+    write_jsonl(
+        cache_root / "mention_slices.jsonl",
+        [
+            {
+                "slice_cache_code": "OSS-HWY-OTHER-SECTION",
+                "document_cache_code": "OSD-HWY",
+                "person_cache_code": "PSC-HWY",
+                "person_name": "胡惟庸",
+                "source_title": "明史/卷308",
+                "source_role": "object_biography",
+                "locator": "chars:1000-1200",
+                "section_heading": "陈宁",
+                "matched_aliases": ["胡惟庸"],
+                "lead_terms": ["伏诛", "诛"],
+                "slice_kind": "summary_lead_term_anchor",
+                "raw_text": "陈宁以胡惟庸荐，后坐事伏诛，文字较长。" * 8,
+            },
+            {
+                "slice_cache_code": "OSS-HWY-OWN-SECTION",
+                "document_cache_code": "OSD-HWY",
+                "person_cache_code": "PSC-HWY",
+                "person_name": "胡惟庸",
+                "source_title": "明史/卷308",
+                "source_role": "object_biography",
+                "locator": "chars:500-700",
+                "section_heading": "胡惟庸",
+                "matched_aliases": ["胡惟庸"],
+                "lead_terms": ["诛"],
+                "slice_kind": "summary_lead_term_anchor",
+                "raw_text": "胡惟庸专权，后帝怒，乃诛惟庸。",
+            },
+        ],
+    )
+
+    result = tool.plan_claim_extraction_from_cache(
+        cache_root=cache_root,
+        claim_cache_root=tmp_path / "claim_cache",
+        output_candidates=tmp_path / "claim_candidates.json",
+        output_uncovered_candidates=tmp_path / "claim_candidates.uncovered.json",
+        emperor_name="朱元璋",
+        max_slices_per_person=1,
+    )
+    candidates = json.loads((tmp_path / "claim_candidates.json").read_text(encoding="utf-8"))
+
+    assert result["candidate_slice_count"] == 1
+    assert candidates["candidate_slices"][0]["slice_code"] == "OSS-HWY-OWN-SECTION"
+    assert candidates["candidate_slices"][0]["object_source_cache"]["section_heading"] == "胡惟庸"
+
+
 def test_claim_plan_pilot_selects_high_value_small_batch(tmp_path: Path) -> None:
     cache_root = tmp_path / "object_cache"
     write_object_cache(cache_root)

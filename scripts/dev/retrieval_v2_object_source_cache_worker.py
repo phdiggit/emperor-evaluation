@@ -98,6 +98,10 @@ def text(value: Any) -> str:
     return str(value or "").strip()
 
 
+def compact_identity_text(value: Any) -> str:
+    return text(value).replace(" ", "")
+
+
 def write_json(path: Path | None, payload: Mapping[str, Any]) -> None:
     if path is None:
         print(pretty_json(payload), end="")
@@ -840,9 +844,21 @@ def object_cache_document_row(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def text_list(values: Any) -> list[str]:
+    if isinstance(values, str):
+        return [values] if text(values) else []
+    if isinstance(values, Sequence) and not isinstance(values, (str, bytes)):
+        return [text(value) for value in values if text(value)]
+    return []
+
+
 def object_cache_slice_score(row: Mapping[str, Any], doc: Mapping[str, Any] | None) -> int:
     shape = text((doc or {}).get("source_shape"))
     role = text(row.get("source_role") or (doc or {}).get("source_role"))
+    slice_kind = text(row.get("slice_kind"))
+    lead_terms = text_list(row.get("lead_terms"))
+    object_name = compact_identity_text(row.get("person_name") or row.get("object_name"))
+    section_heading = compact_identity_text(row.get("section_heading"))
     score = 30
     if shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
         score += 20
@@ -850,6 +866,14 @@ def object_cache_slice_score(row: Mapping[str, Any], doc: Mapping[str, Any] | No
         score += 10
     if role == "object_biography":
         score += 8
+    if slice_kind == "summary_lead_term_anchor":
+        score += 12
+        score += min(8, len(lead_terms) * 2)
+    if section_heading:
+        if object_name and object_name in section_heading:
+            score += 16
+        else:
+            score -= 6
     score += min(12, len(text(row.get("raw_text"))) // 120)
     return score
 
@@ -865,6 +889,8 @@ def is_claim_candidate_slice_eligible(candidate: Mapping[str, Any]) -> bool:
 def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] | None = None) -> dict[str, Any]:
     document_code = text(row.get("document_cache_code") or row.get("document_code"))
     object_name = text(row.get("person_name") or row.get("object_name"))
+    lead_terms = text_list(row.get("lead_terms"))
+    slice_kind = text(row.get("slice_kind"))
     candidate = {
         "slice_code": text(row.get("slice_cache_code")) or "OSS-" + stable_hash(row, length=18),
         "document_code": document_code,
@@ -873,7 +899,7 @@ def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] 
         "score": object_cache_slice_score(row, doc),
         "matched_aliases": [text(alias) for alias in row.get("matched_aliases") or [] if text(alias)],
         "matched_rule_terms": [],
-        "matched_outcome_terms": [],
+        "matched_outcome_terms": lead_terms,
         "matched_role_families": ["object_source_cache"],
         "text": text(row.get("raw_text") or row.get("text") or row.get("quote")),
         "object_source_cache": {
@@ -884,6 +910,8 @@ def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] 
             "source_shape": text((doc or {}).get("source_shape")),
             "slice_cache_code": text(row.get("slice_cache_code")),
             "section_heading": text(row.get("section_heading")),
+            "slice_kind": slice_kind,
+            "lead_terms": lead_terms,
             "quality_flags": [],
         },
     }
