@@ -268,6 +268,21 @@ def test_claim_audit_flags_negative_context_without_actual_damage_anchor() -> No
     assert [row["issue_code"] for row in findings] == ["negative_context_damage_anchor_missing_review"]
 
 
+def test_claim_audit_accepts_family_execution_as_damage_anchor() -> None:
+    findings = tool.claim_semantic_findings(
+        {
+            "claim_key": "CLM-LSC",
+            "object_name": "李善长",
+            "action_type": "处置",
+            "claim_summary": "胡惟庸案中，帝遂并其妻女弟侄家口七十余人诛之。",
+            "outcome": "七十馀人诛之",
+            "fact_payload": {"cost_or_damage": "妻女弟侄家口七十馀人被诛"},
+        }
+    )
+
+    assert findings == []
+
+
 def test_claim_audit_excludes_rejected_claims_from_active_findings(tmp_path: Path) -> None:
     claim_root = tmp_path / "claim_cache"
     object_root = tmp_path / "object_cache"
