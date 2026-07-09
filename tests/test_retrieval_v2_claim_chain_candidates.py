@@ -322,3 +322,13 @@ def test_markdown_report_contains_samples() -> None:
     assert "Claim Chain Candidate Report" in markdown
     assert "CLMK-A" in markdown
     assert "write_db: `False`" in markdown
+
+
+def test_chain_candidate_fetch_stays_on_direction_free_atomic_view() -> None:
+    source = (tool.ROOT / "scripts/dev/retrieval_v2_claim_chain_candidates.py").read_text(encoding="utf-8")
+
+    assert "from retrieval_v2.claim_atomic_facts c" in source
+    assert "c.atomic_fact_payload" in source
+    assert "direction::text as direction" not in source
+    assert "join retrieval_v2.claim_cache" not in source
+    assert "claim_cache.direction" not in source

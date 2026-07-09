@@ -38,6 +38,20 @@ def test_rendered_bootstrap_schema_contains_claim_event_group_shadow_layer() -> 
     assert "legacy extraction hint" in sql
 
 
+def test_claim_atomic_facts_view_is_direction_free() -> None:
+    from scripts.dev import retrieval_v2_bootstrap as bootstrap
+
+    sql = bootstrap.read_schema_sql(schema_name="retrieval_v3")
+    view_sql = sql.split("create or replace view retrieval_v3.claim_atomic_facts as", 1)[1].split(
+        "create or replace view retrieval_v3.claim_owner_scopes as",
+        1,
+    )[0]
+
+    assert "direction" not in view_sql
+    assert "atomic_fact_payload" in view_sql
+    assert "event_group_payload" in view_sql
+
+
 def test_pg_schema_name_rejects_unsafe_identifier() -> None:
     with pytest.raises(tool.RetrievalPgSchemaError):
         tool.pg_schema_name("retrieval_v3;drop schema public")
