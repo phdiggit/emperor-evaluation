@@ -358,6 +358,33 @@ def test_book_title_owner_alias_does_not_create_owner_rebind() -> None:
     assert result["other_owner_mentions"] == []
 
 
+def test_tomb_reference_owner_alias_does_not_create_owner_rebind() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="李世民",
+            object_name="房玄龄",
+            action_type="其他",
+            claim_summary="房玄龄等议定唐高祖陵坟高度，李世民采纳依原陵之制的方案。",
+            fact_payload={
+                "actor": "房玄龄等",
+                "object": "高祖陵制",
+                "action_type": "其他",
+                "outcome": "从之",
+                "source_title": "旧唐书/卷七十三",
+            },
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "needs_review"
+    assert result["owner_risk_kind"] == "minister_actor_requested_context_review"
+    assert result["suggested_owner_name"] == ""
+    assert result["matched_owner_alias"] == ""
+    assert result["other_owner_mentions"] == []
+
+
 def test_context_only_requested_owner_mention_does_not_block_unique_other_owner_rebind() -> None:
     aliases = tool.load_owner_aliases()
 

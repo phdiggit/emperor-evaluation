@@ -125,10 +125,24 @@ def test_alias_inside_book_title_is_not_owner_anchor() -> None:
         include_suppressed=True,
     )
 
-    gaozu = next(row for row in mentions if row["alias"] == "高祖")
+    gaozu = next(row for row in mentions if row["alias"] in {"高祖", "唐高祖"})
     assert gaozu["resolution_status"] == "suppressed"
     assert gaozu["owner_anchor_eligible"] is False
     assert gaozu["suppression_reason"] == "alias_inside_book_title"
+
+
+def test_bare_title_before_tomb_reference_is_not_owner_anchor() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "房玄龄等议定唐高祖陵坟高度，李世民从之。",
+        requested_owner_name="李世民",
+        source_title="旧唐书/卷七十三",
+        include_suppressed=True,
+    )
+
+    gaozu = next(row for row in mentions if row["alias"] in {"高祖", "唐高祖"})
+    assert gaozu["resolution_status"] == "suppressed"
+    assert gaozu["owner_anchor_eligible"] is False
+    assert gaozu["suppression_reason"] == "bare_title_alias_tomb_reference"
 
 
 def test_source_title_dynasty_resolves_bare_title_without_requested_scope() -> None:

@@ -23,6 +23,7 @@ BARE_TITLE_TYPES = {"temple_name", "posthumous_name"}
 CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
 TITLE_ALIAS_TYPES = {"title"}
 TITLE_ALIAS_BOUNDARY_FOLLOWERS = set("曰云言谓謂问問命诏詔使遣以为為用处處即及与與从從在于於之所将將率领領召征徵至入出拜授封立废廢薨崩卒死杀殺诛誅罢罷怒喜")
+BARE_TITLE_TOMB_FOLLOWERS = ("山陵", "陵寝", "陵寢", "陵坟", "陵墳", "陵制", "陵旁", "陵园", "陵園", "陵")
 COMMON_CJK_SURNAME_CHARS = set(
     "赵錢钱孙孫李周吴吳郑鄭王冯馮陈陳褚卫衛蒋蔣沈韩韓杨楊朱秦尤许許何吕呂施张張孔曹严嚴华華金魏陶姜戚谢謝邹鄒喻柏水窦竇章云雲苏蘇潘葛奚范彭郎鲁魯韦韋昌马馬苗凤鳳花方俞任袁柳鲍鮑史唐费費廉岑薛雷贺賀倪汤湯滕殷罗羅毕畢郝邬鄔安常乐樂于於时時傅皮卞齐齊康伍余元卜顾顧孟平黄黃和穆萧蕭尹姚邵湛汪祁毛禹狄米贝貝明臧计計伏成戴宋茅庞龐熊纪紀舒屈项項祝董梁杜阮蓝藍闵閔席季麻强強贾賈路娄婁危江童颜顏郭梅盛林刁钟鍾徐邱骆駱高夏蔡田胡凌霍虞万萬支柯昝管卢盧莫经經房裘缪繆干解应應宗丁宣邓鄧郁单單杭洪包诸諸左石崔吉龚龔程邢裴陆陸荣榮翁荀羊甄曲家封芮羿储儲靳汲邴糜松井段富巫乌烏焦巴弓牧隗山谷车車侯宓蓬全郗班仰秋仲伊宫宮宁甯仇栾欒暴甘斜厉厲戎祖武符刘劉景詹束龙龍叶葉幸司韶郜黎蓟薊薄印宿白怀懷蒲台臺从從鄂索咸籍赖賴卓蔺藺屠蒙池乔喬阴陰胥能苍蒼双雙闻聞莘党黨翟谭譚贡貢劳勞逄姬申扶堵冉宰郦酈雍璩桑桂濮牛寿壽通边邊扈燕冀郏郟浦尚农農温别別庄莊晏柴瞿阎閻充慕连連茹习習宦艾鱼魚容向古易慎戈廖庾终終暨居衡步都耿满滿弘匡国國文寇广廣禄祿阙闕东東殴歐殳沃利蔚越夔隆师師巩鞏厍厙聂聶晁勾敖融冷訾辛阚闞那简簡饶饒空曾毋沙乜养養鞠须須丰豐巢关關蒯相查后荆荊红紅游竺权權逯盖蓋益桓公"
 )
@@ -233,6 +234,13 @@ def title_alias_followed_by_non_owner_name(text_value: str, alias_end: int, entr
     return True
 
 
+def bare_title_alias_tomb_reference(text_value: str, alias_end: int, entries: Sequence[AliasEntry]) -> bool:
+    if not entries:
+        return False
+    suffix = text_value[alias_end : alias_end + 4]
+    return any(suffix.startswith(term) for term in BARE_TITLE_TOMB_FOLLOWERS)
+
+
 def alias_inside_book_title(text_value: str, alias_start: int, alias_end: int) -> bool:
     left = text_value.rfind("《", 0, alias_start + 1)
     right = text_value.find("》", alias_end)
@@ -262,6 +270,8 @@ def alias_suppression_reason(
 ) -> str:
     if alias_inside_book_title(text_value, start, end):
         return "alias_inside_book_title"
+    if bare_title_alias_tomb_reference(text_value, end, active_entries):
+        return "bare_title_alias_tomb_reference"
     if short_alias_embedded_after_surname(text_value, start, alias):
         return "short_alias_embedded_after_surname"
     if title_alias_followed_by_non_owner_name(text_value, end, active_entries):
