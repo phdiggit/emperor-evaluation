@@ -48,8 +48,7 @@ APPOINTMENT_AUTHORIZATION_TERMS = (
     "提督",
     "参军国事",
 )
-GOVERNANCE_DAMAGE_TERMS = ("专擅", "擅权", "纳贿", "壅蔽", "害政", "乱政", "败", "失", "误", "杀", "构党", "结党")
-NEGATIVE_CONTEXT_TERMS = DISPOSITION_ONLY_TERMS + ("弹劾", "劾", "谏", "诤", "讽", "罢", "斥")
+GOVERNANCE_DAMAGE_TERMS = claim_quality.GOVERNANCE_DAMAGE_TERMS
 
 
 class ClaimAuditError(RuntimeError):
@@ -144,9 +143,8 @@ def claim_semantic_findings(claim: Mapping[str, Any]) -> list[dict[str, Any]]:
     combined = summary + text_from(claim, "outcome") + text_from(fact, "outcome") + text_from(fact, "cost_or_damage")
     findings: list[dict[str, Any]] = []
     if direction == "negative":
-        has_damage = any(term in combined for term in GOVERNANCE_DAMAGE_TERMS)
-        has_negative_context = any(term in combined for term in NEGATIVE_CONTEXT_TERMS)
-        if has_negative_context and not has_damage:
+        negative_support = claim_quality.claim_negative_support(claim)
+        if negative_support["support"] == "negative_context_without_damage_anchor":
             findings.append(
                 {
                     "issue_code": "negative_direction_damage_anchor_missing_review",

@@ -77,6 +77,32 @@ NEGATIVE_ACTION_TERMS = ("诛", "伏诛", "被诛", "罢", "废", "黜", "下狱
 TACTICAL_SUBEVENT_ANCHORS = ("攻", "克", "破", "下", "败", "追", "斩", "擒")
 CHAIN_ANCHORS = ("征", "讨", "伐", "平", "镇", "守", "留守", "总制", "提督", "任", "拜", "授", "命")
 OUTCOME_SUPPORT_TERMS = tuple(dict.fromkeys((*OUTCOME_ANCHORS, "贬", "左迁", "削", "罢", "免", "释", "不问", "不发", "失权", "械系")))
+DISPOSITION_ONLY_TERMS = ("伏诛", "被诛", "诛", "谋反", "废", "罢", "下狱", "坐罪", "族诛")
+GOVERNANCE_DAMAGE_TERMS = (
+    "专擅",
+    "擅权",
+    "纳贿",
+    "壅蔽",
+    "隐匿不上闻",
+    "不奏",
+    "害政",
+    "乱政",
+    "败",
+    "失",
+    "误",
+    "构陷",
+    "诬奏",
+    "驱斥",
+    "斥逐",
+    "左迁",
+    "贬",
+    "削官爵",
+    "免官",
+    "致人死亡",
+    "构党",
+    "结党",
+)
+NEGATIVE_CONTEXT_TERMS = tuple(dict.fromkeys((*DISPOSITION_ONLY_TERMS, "弹劾", "劾", "谏", "诤", "讽", "罢", "斥")))
 
 
 def stable_json(value: Any) -> str:
@@ -433,6 +459,39 @@ def claim_outcome_support(claim: Mapping[str, Any]) -> str:
     return "missing"
 
 
+def terms_in_claim(claim: Mapping[str, Any], terms: tuple[str, ...]) -> list[str]:
+    combined = (
+        claim_text(claim, "claim_summary", "summary")
+        + claim_text(claim, "outcome")
+        + claim_text(claim, "cost_or_damage")
+    )
+    fact = claim_fact(claim)
+    if fact:
+        combined += str(fact.get("outcome") or "") + str(fact.get("cost_or_damage") or "")
+    return [term for term in terms if term and term in combined]
+
+
+def claim_negative_support(claim: Mapping[str, Any]) -> dict[str, Any]:
+    direction = normalized_text(claim_text(claim, "direction"))
+    damage_terms = terms_in_claim(claim, GOVERNANCE_DAMAGE_TERMS)
+    context_terms = terms_in_claim(claim, NEGATIVE_CONTEXT_TERMS)
+    if direction != "negative":
+        support = "not_applicable"
+    elif damage_terms:
+        support = "governance_damage_supported"
+    elif context_terms:
+        support = "negative_context_without_damage_anchor"
+    else:
+        support = "negative_label_without_local_anchor"
+    return {
+        "support": support,
+        "has_governance_damage": bool(damage_terms),
+        "has_negative_context": bool(context_terms),
+        "damage_terms": damage_terms,
+        "context_terms": context_terms,
+    }
+
+
 def atomic_fact_payload(claim: Mapping[str, Any]) -> dict[str, str]:
     return {
         "emperor_name": normalized_text(claim_text(claim, "emperor_name")),
@@ -447,6 +506,7 @@ def atomic_fact_payload(claim: Mapping[str, Any]) -> dict[str, str]:
         "outcome": normalized_text(claim_text(claim, "outcome")),
         "cost_or_damage": normalized_text(claim_text(claim, "cost_or_damage")),
         "outcome_support": claim_outcome_support(claim),
+        "negative_support": claim_negative_support(claim)["support"],
     }
 
 
@@ -533,6 +593,7 @@ def claim_quality_payload(claim: Mapping[str, Any]) -> dict[str, Any]:
         "claim_grain": claim_grain(claim),
         "fact_type": claim_fact_type(claim),
         "outcome_support": claim_outcome_support(claim),
+        "negative_support_payload": claim_negative_support(claim),
         "atomic_fact_payload": atomic_fact_payload(claim),
         "event_group_key": event_group_key(claim),
         "event_group_payload": event_group_payload(claim),

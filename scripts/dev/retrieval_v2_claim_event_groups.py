@@ -72,6 +72,7 @@ def claim_member_row(claim: Mapping[str, Any]) -> dict[str, Any]:
             "claim_summary": text(claim.get("claim_summary")),
             "fact_type": quality["fact_type"],
             "atomic_fact_payload": quality["atomic_fact_payload"],
+            "negative_support": quality["negative_support_payload"],
         },
     }
 

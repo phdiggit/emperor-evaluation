@@ -40,6 +40,7 @@ def claim(**overrides):
             "outcome": row["outcome"],
             "cost_or_damage": row.get("cost_or_damage", ""),
             "outcome_support": row.get("outcome_support", "direct"),
+            "negative_support": row.get("negative_support", "not_applicable"),
         }
     return row
 
@@ -111,6 +112,21 @@ def test_hu_weiyong_claims_build_delegated_power_abuse_strong_chain() -> None:
     assert chain["role_family_counts"]["damage"] == 2
     assert chain["role_family_counts"]["terminal"] == 1
     assert [member["member_role"] for member in chain["members"]][-1] == "terminal_negative_outcome"
+
+
+def test_claim_member_carries_negative_support_without_changing_role() -> None:
+    row = claim(
+        claim_key="CLMK-NEG-CONTEXT",
+        action_type="纳谏",
+        outcome="未斥",
+        negative_support="negative_context_without_damage_anchor",
+        claim_summary="魏徵劝李世民斥退阎立本，李世民因其强济而未斥。",
+    )
+
+    member = tool.claim_member(row)
+
+    assert member["negative_support"] == "negative_context_without_damage_anchor"
+    assert member["member_role"] == "direct_material_candidate"
 
 
 def test_same_biography_many_independent_merits_stays_context_bundle() -> None:

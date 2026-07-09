@@ -253,6 +253,7 @@ def claim_member(claim: Mapping[str, Any]) -> dict[str, Any]:
         "outcome": text(atomic.get("outcome") or claim.get("outcome")),
         "cost_or_damage": text(atomic.get("cost_or_damage")),
         "outcome_support": text(atomic.get("outcome_support") or claim.get("outcome_support")),
+        "negative_support": text(atomic.get("negative_support") or claim.get("negative_support")),
         "claim_summary": summary,
         "source_slice_refs": unique_strings(claim.get("source_slice_refs") or []),
         "document_codes": unique_strings(claim.get("document_codes") or []),

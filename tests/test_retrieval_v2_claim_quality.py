@@ -75,6 +75,32 @@ def test_canonical_near_duplicate_group_ignores_summary_wording() -> None:
     assert tool.claim_quality_payload(first)["claim_grain"] == "event_chain"
 
 
+def test_claim_negative_support_distinguishes_context_from_damage() -> None:
+    context_only = {
+        "direction": "negative",
+        "claim_summary": "魏徵劝李世民斥退阎立本，李世民因其强济而未斥。",
+        "outcome": "未斥",
+        "fact_payload": {},
+    }
+    damage = {
+        "direction": "negative",
+        "claim_summary": "胡惟庸专擅中书省事，壅蔽奏章，害政甚多。",
+        "fact_payload": {},
+    }
+    consequence = {
+        "direction": "negative",
+        "claim_summary": "褚遂良构陷卢承庆，使卢承庆左迁简州司马；房玄龄与杜如晦也一度被斥逐。",
+        "fact_payload": {},
+    }
+    neutral = {"direction": "neutral", "claim_summary": "戴胄同知国政。", "fact_payload": {}}
+
+    assert tool.claim_negative_support(context_only)["support"] == "negative_context_without_damage_anchor"
+    assert tool.atomic_fact_payload(context_only)["negative_support"] == "negative_context_without_damage_anchor"
+    assert tool.claim_negative_support(damage)["support"] == "governance_damage_supported"
+    assert tool.claim_negative_support(consequence)["support"] == "governance_damage_supported"
+    assert tool.claim_negative_support(neutral)["support"] == "not_applicable"
+
+
 def test_opportunity_estimator_suggests_budget_and_uses_new_action_anchors() -> None:
     slices = [
         {
