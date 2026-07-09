@@ -58,7 +58,6 @@ def claim_member_row(claim: Mapping[str, Any]) -> dict[str, Any]:
         "outcome_support": outcome_support,
         "member_payload": {
             "claim_summary": text(claim.get("claim_summary")),
-            "direction_hint": text(claim.get("direction")),
             "fact_type": quality["fact_type"],
             "atomic_fact_payload": quality["atomic_fact_payload"],
         },
@@ -213,7 +212,6 @@ def fetch_claim_rows(cur: Any, *, emperor_names: Sequence[str], statuses: Sequen
             emperor_name,
             object_name,
             object_type::text as object_type,
-            direction::text as direction,
             action_type,
             event_scope,
             office_or_domain,
@@ -222,7 +220,7 @@ def fetch_claim_rows(cur: Any, *, emperor_names: Sequence[str], statuses: Sequen
             claim_summary,
             fact_payload,
             status::text as status
-          from retrieval_v2.claim_cache
+          from retrieval_v2.claim_atomic_facts
           {'where ' + ' and '.join(clauses) if clauses else ''}
          order by emperor_name, object_name, claim_key
         """,

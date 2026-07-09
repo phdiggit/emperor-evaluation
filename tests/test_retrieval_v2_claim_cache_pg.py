@@ -130,7 +130,7 @@ def test_object_inventory_counts_directions_and_actions(tmp_path: Path) -> None:
     inventory = tool.object_inventory(tool.prepared_cache_rows(cache_root))
 
     assert inventory["汤和"]["claim_count"] == 1
-    assert inventory["汤和"]["direction_counts"] == {"positive": 1}
+    assert inventory["汤和"]["direction_hint_counts"] == {"positive": 1}
     assert inventory["汤和"]["action_type_counts"] == {"授权": 1}
 
 
@@ -149,6 +149,7 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert "quality_flags" in source
     assert "event_group_key" in source
     assert "atomic_fact_payload" in source
+    assert "direction_hint_counts" in source
     assert "cleanup-orphan-source-slices" in source
     assert "retrieval_v2.claim_source_slices" in source
     assert "retrieval_v2.claim_evidence" in source

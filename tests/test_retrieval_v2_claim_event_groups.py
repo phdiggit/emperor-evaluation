@@ -85,6 +85,7 @@ def test_build_event_groups_keeps_action_only_claims_as_supporting_context() -> 
     built = tool.build_event_groups(rows)
     assert len(built["groups"]) == 1
     assert len(built["members"]) == 2
+    assert "direction_hint" not in built["members"][0]["member_payload"]
     group = built["groups"][0]
     assert group["outcome_support_summary"] == {"direct": 1, "missing": 1}
     assert group["usage_summary"] == {"direct_material_candidate": 1, "supporting_context": 1}

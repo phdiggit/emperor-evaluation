@@ -290,17 +290,17 @@ def object_inventory(rows: Mapping[str, Sequence[Mapping[str, Any]]]) -> dict[st
         name = text(claim.get("object_name"))
         entry = by_object.setdefault(
             name,
-            {"claim_count": 0, "direction_counts": Counter(), "action_type_counts": Counter()},
+            {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()},
         )
         entry["claim_count"] += 1
-        entry["direction_counts"][text(claim.get("direction"))] += 1
+        entry["direction_hint_counts"][text(claim.get("direction"))] += 1
         action = text(claim.get("action_type"))
         if action:
             entry["action_type_counts"][action] += 1
     return {
         name: {
             "claim_count": entry["claim_count"],
-            "direction_counts": dict(sorted(entry["direction_counts"].items())),
+            "direction_hint_counts": dict(sorted(entry["direction_hint_counts"].items())),
             "action_type_counts": dict(sorted(entry["action_type_counts"].items())),
         }
         for name, entry in sorted(by_object.items())
@@ -531,10 +531,10 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
     by_object: dict[str, dict[str, Any]] = {}
     for row in cur.fetchall():
         object_name = text(row["object_name"])
-        entry = by_object.setdefault(object_name, {"claim_count": 0, "direction_counts": Counter(), "action_type_counts": Counter()})
+        entry = by_object.setdefault(object_name, {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()})
         count = int(row["claim_count"])
         entry["claim_count"] += count
-        entry["direction_counts"][text(row["direction"])] += count
+        entry["direction_hint_counts"][text(row["direction"])] += count
         action = text(row["action_type"])
         if action:
             entry["action_type_counts"][action] += count
@@ -547,7 +547,7 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
         """
     )
     for row in cur.fetchall():
-        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "direction_counts": Counter(), "action_type_counts": Counter()})[
+        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()})[
             "evidence_count"
         ] = int(row["evidence_count"])
     cur.execute(
@@ -559,7 +559,7 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
         """
     )
     for row in cur.fetchall():
-        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "direction_counts": Counter(), "action_type_counts": Counter()})[
+        by_object.setdefault(text(row["object_name"]), {"claim_count": 0, "direction_hint_counts": Counter(), "action_type_counts": Counter()})[
             "slice_count"
         ] = int(row["slice_count"])
     samples: dict[str, list[dict[str, Any]]] = {}
@@ -577,7 +577,7 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
                 bucket.append(
                     {
                         "claim_key": row["claim_key"],
-                        "direction": row["direction"],
+                        "direction_hint": row["direction"],
                         "action_type": row["action_type"],
                         "summary": row["claim_summary"],
                     }
@@ -590,7 +590,7 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
                 "claim_count": entry.get("claim_count", 0),
                 "slice_count": entry.get("slice_count", 0),
                 "evidence_count": entry.get("evidence_count", 0),
-                "direction_counts": dict(sorted(entry["direction_counts"].items())),
+                "direction_hint_counts": dict(sorted(entry["direction_hint_counts"].items())),
                 "action_type_counts": dict(sorted(entry["action_type_counts"].items())),
                 "sample_claims": samples.get(object_name, []),
             }

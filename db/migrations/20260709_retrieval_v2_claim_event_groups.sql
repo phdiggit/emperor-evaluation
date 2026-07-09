@@ -116,6 +116,44 @@ on retrieval_v2.claim_event_group_members(claim_key, member_role, outcome_suppor
 create index if not exists rv2_claim_rule_routes_group_idx
 on retrieval_v2.claim_rule_routes(group_key, candidate_rule_code, route_status);
 
+create or replace view retrieval_v2.claim_atomic_facts as
+select
+    claim_key,
+    claim_type,
+    fact_schema,
+    emperor_name,
+    object_name,
+    object_id,
+    object_type,
+    fact_type,
+    outcome_support,
+    action_type,
+    event_scope,
+    office_or_domain,
+    time_context,
+    outcome,
+    claim_summary,
+    confidence,
+    fact_payload,
+    atomic_fact_payload,
+    event_group_key,
+    event_group_payload,
+    claim_usage_flags,
+    canonical_event_key,
+    canonical_event_payload,
+    near_duplicate_group_payload,
+    claim_grain,
+    quality_flags,
+    first_run_code,
+    last_run_code,
+    raw_output_path,
+    extractor_version,
+    status,
+    seen_count,
+    created_at,
+    updated_at
+from retrieval_v2.claim_cache;
+
 comment on column retrieval_v2.claim_cache.direction is 'legacy extraction hint；原子 claim 不再以该字段作为最终评分方向，规则方向应写在 claim_rule_routes.route_direction。';
 comment on column retrieval_v2.claim_cache.fact_type is '原子事实类型，例如 material_action、evaluation、relationship；从 claim_type/fact_schema 派生，供事件组聚合。';
 comment on column retrieval_v2.claim_cache.outcome_support is '原子 claim 自身是否支撑结果：direct、implicit、missing、not_applicable 或 mixed。';
@@ -126,3 +164,4 @@ comment on column retrieval_v2.claim_cache.claim_usage_flags is 'claim 在中间
 comment on table retrieval_v2.claim_event_groups is 'claim 中间层事件组；聚合同一事件链的原子事实，不直接写评分结论。';
 comment on table retrieval_v2.claim_event_group_members is '事件组与原子 claim 的成员关系，记录 direct/supporting/evaluation/background 使用角色。';
 comment on table retrieval_v2.claim_rule_routes is '事件组或 claim 到规则的 shadow route；最终 rule direction 只在这里或正式 binding 层裁决。';
+comment on view retrieval_v2.claim_atomic_facts is '无 direction 字段的原子事实视图；中间层和消费前工具应优先读取此视图，避免把 claim_cache.direction 当作正式评分方向。';
