@@ -24,8 +24,23 @@ class LlmProviderError(RuntimeError):
     pass
 
 
+class LlmProviderResponseError(LlmProviderError):
+    def __init__(self, message: str, *, diagnostics: Mapping[str, Any]) -> None:
+        super().__init__(message)
+        self.diagnostics = dict(diagnostics)
+
+
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def text_excerpt(value: str, *, limit: int = 1200) -> dict[str, Any]:
+    text = str(value or "")
+    return {
+        "length": len(text),
+        "head": text[:limit],
+        "tail": text[-limit:] if len(text) > limit else text,
+    }
 
 
 def normalize_judge_provider(value: str | None) -> str:
@@ -124,8 +139,22 @@ def run_deepseek_chat(
     usage["thinking"] = thinking_mode
     if resolved_max_tokens is not None:
         usage["max_tokens"] = resolved_max_tokens
+    try:
+        payload = parse_json_model_content(content)
+    except LlmProviderError as exc:
+        choice = (response_payload.get("choices") or [{}])[0]
+        diagnostics = {
+            "provider": DEEPSEEK_PROVIDER,
+            "model": resolved_model,
+            "thinking": thinking_mode,
+            "max_tokens": resolved_max_tokens,
+            "finish_reason": choice.get("finish_reason"),
+            "usage": usage,
+            "content_excerpt": text_excerpt(content),
+        }
+        raise LlmProviderResponseError(str(exc), diagnostics=diagnostics) from exc
     return {
-        "payload": parse_json_model_content(content),
+        "payload": payload,
         "elapsed_seconds": round(time.perf_counter() - started, 3),
         "usage": usage,
     }

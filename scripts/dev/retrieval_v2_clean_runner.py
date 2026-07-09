@@ -184,6 +184,34 @@ def parse_json_model_content(content: str) -> dict[str, Any]:
         raise RetrievalV2CleanRunnerError(str(exc)) from exc
 
 
+def provider_diagnostics(exc: BaseException) -> dict[str, Any]:
+    diagnostics = getattr(exc, "diagnostics", None)
+    return dict(diagnostics) if isinstance(diagnostics, Mapping) else {}
+
+
+def provider_failure_path(last_message_path: Path) -> Path:
+    return last_message_path.with_suffix(".raw_failure.json")
+
+
+def write_provider_failure_artifact(
+    *,
+    last_message_path: Path,
+    phase: str,
+    provider: str,
+    exc: BaseException,
+) -> Path:
+    payload = {
+        "phase": phase,
+        "provider": provider,
+        "error_type": exc.__class__.__name__,
+        "error": str(exc),
+        "diagnostics": provider_diagnostics(exc),
+    }
+    output_path = provider_failure_path(last_message_path)
+    atomic_write_json(output_path, payload)
+    return output_path
+
+
 def run_deepseek_judge(
     *,
     prompt: str,
@@ -205,7 +233,10 @@ def run_deepseek_judge(
             max_tokens=max_tokens,
         )
     except llm_providers.LlmProviderError as exc:
-        raise RetrievalV2CleanRunnerError(str(exc)) from exc
+        error = RetrievalV2CleanRunnerError(str(exc))
+        if isinstance(exc, llm_providers.LlmProviderResponseError):
+            setattr(error, "diagnostics", exc.diagnostics)
+        raise error from exc
     return CodexResult(
         payload=result["payload"],
         elapsed_seconds=float(result["elapsed_seconds"]),
@@ -728,15 +759,37 @@ def run_judge_round(
     last_message = (person_dir / f"judge_last_message.round{round_index}.json").resolve()
     event_log = (person_dir / f"judge_events.round{round_index}.jsonl").resolve()
     if provider == DEEPSEEK_PROVIDER:
-        result = run_deepseek_judge(
-            prompt=prompt,
-            model=judge_model,
-            api_key_env=judge_api_key_env,
-            base_url=judge_base_url,
-            timeout_seconds=timeout_seconds,
-            thinking=judge_thinking,
-            max_tokens=judge_max_tokens,
-        )
+        try:
+            result = run_deepseek_judge(
+                prompt=prompt,
+                model=judge_model,
+                api_key_env=judge_api_key_env,
+                base_url=judge_base_url,
+                timeout_seconds=timeout_seconds,
+                thinking=judge_thinking,
+                max_tokens=judge_max_tokens,
+            )
+        except RetrievalV2CleanRunnerError as exc:
+            failure_path = write_provider_failure_artifact(
+                last_message_path=last_message,
+                phase="judge",
+                provider=provider,
+                exc=exc,
+            )
+            atomic_write_text(
+                event_log,
+                stable_json(
+                    {
+                        "type": "turn.failed",
+                        "provider": provider,
+                        "error_type": exc.__class__.__name__,
+                        "error": str(exc),
+                        "failure_artifact": str(failure_path),
+                    }
+                )
+                + "\n",
+            )
+            raise
         last_message.parent.mkdir(parents=True, exist_ok=True)
         atomic_write_json(last_message, result.payload)
         atomic_write_text(event_log, stable_json({"type": "turn.completed", "usage": result.usage}) + "\n")
@@ -841,15 +894,37 @@ def run_judge(
         last_message = (person_dir / f"judge_last_message.round{round_index}.{shard_code}.json").resolve()
         event_log = (person_dir / f"judge_events.round{round_index}.{shard_code}.jsonl").resolve()
         if provider == DEEPSEEK_PROVIDER:
-            result = run_deepseek_judge(
-                prompt=shard_prompt,
-                model=judge_model,
-                api_key_env=judge_api_key_env,
-                base_url=judge_base_url,
-                timeout_seconds=timeout_seconds,
-                thinking=judge_thinking,
-                max_tokens=judge_max_tokens,
-            )
+            try:
+                result = run_deepseek_judge(
+                    prompt=shard_prompt,
+                    model=judge_model,
+                    api_key_env=judge_api_key_env,
+                    base_url=judge_base_url,
+                    timeout_seconds=timeout_seconds,
+                    thinking=judge_thinking,
+                    max_tokens=judge_max_tokens,
+                )
+            except RetrievalV2CleanRunnerError as exc:
+                failure_path = write_provider_failure_artifact(
+                    last_message_path=last_message,
+                    phase="judge_shard",
+                    provider=provider,
+                    exc=exc,
+                )
+                atomic_write_text(
+                    event_log,
+                    stable_json(
+                        {
+                            "type": "turn.failed",
+                            "provider": provider,
+                            "error_type": exc.__class__.__name__,
+                            "error": str(exc),
+                            "failure_artifact": str(failure_path),
+                        }
+                    )
+                    + "\n",
+                )
+                raise
             last_message.parent.mkdir(parents=True, exist_ok=True)
             atomic_write_json(last_message, result.payload)
             atomic_write_text(event_log, stable_json({"type": "turn.completed", "usage": result.usage}) + "\n")
