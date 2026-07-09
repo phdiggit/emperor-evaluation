@@ -227,7 +227,7 @@ claim 抽取后的 owner 改绑只使用机械 alias 预识别结果，不额外
 
 因此 alias 机制的输出不应只是 `alias -> owner`，而应至少带上 `resolution_status`、`resolution_rule`、`owner_anchor_eligible`、`mention_role`、`suppression_reason` 和 `risk_flags`。自动改绑只消费 `resolution_status=resolved` 且 `owner_anchor_eligible=true` 的 mention；被 suppressed 的 mention 可以留给调试和后续审计，但不能影响 claim owner。
 
-对已入库库存，还应定期复跑 `owner_rebind_payload` 风险审计：把旧 payload 的 `matched_aliases` / `resolution_rules` 和当前 mention 级机制对齐检查，重点看高风险短 alias、裸庙号 / 谥号、time_context-only 命中、书名括号命中、陵墓 / 山陵指称命中，以及当前机制无法复现的旧改绑。
+对已入库库存，还应定期复跑 `owner_rebind_payload` 风险审计：把旧 payload 的 `matched_aliases` / `resolution_rules` 和当前 mention 级机制对齐检查，重点看高风险短 alias、裸庙号 / 谥号、time_context-only 命中、书名括号命中、陵墓 / 山陵指称命中，以及当前机制无法复现的旧改绑。若 alias 只出现在 `time_context`，且事实 `actor` 正是旧 `from_emperor_name`，应优先视作旧 owner rebind 假阳性修复候选。
 
 ## 缺口到任务的映射
 

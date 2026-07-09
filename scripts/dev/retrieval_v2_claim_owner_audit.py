@@ -674,6 +674,8 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
                 flags.append("current_mechanism_does_not_reproduce_rebind_anchor")
         elif alias and alias in time_context:
             flags.append("time_context_only_matched_alias")
+            if from_owner and text(as_mapping(row.get("fact_payload")).get("actor")) == from_owner:
+                flags.append("time_context_only_actor_matches_from_owner")
         else:
             flags.append("matched_alias_not_in_current_claim_text")
     return unique_strings(flags)

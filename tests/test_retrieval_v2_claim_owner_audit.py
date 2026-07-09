@@ -581,6 +581,39 @@ def test_owner_rebind_payload_inventory_flags_time_context_only_alias(tmp_path) 
     assert "time_context_only_matched_alias" in csv_text
 
 
+def test_owner_rebind_payload_inventory_flags_time_context_actor_from_owner() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-TIME-ACTOR",
+            emperor_name="李世民",
+            object_name="殷开山",
+            action_type="任命",
+            time_context="癸亥秦王至长安后，己巳",
+            claim_summary="李渊在长安享劳将士后，恢复殷开山爵位。",
+            fact_payload={
+                "actor": "李渊",
+                "object": "殷开山",
+                "action_type": "任命",
+                "time_context": "癸亥秦王至长安后，己巳",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "李渊",
+                    "to_emperor_name": "李世民",
+                    "reason": "claim_context_unique_resolved_owner_without_requested_owner",
+                    "matched_aliases": ["秦王"],
+                    "resolution_rules": ["unique_global_alias"],
+                    "evidence": [{"alias": "秦王", "resolution_rule": "unique_global_alias"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["risk_counts"]["time_context_only_matched_alias"] == 1
+    assert inventory["risk_counts"]["time_context_only_actor_matches_from_owner"] == 1
+
+
 def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:
     source = (tool.ROOT / "scripts/dev/retrieval_v2_claim_owner_audit.py").read_text(encoding="utf-8")
 
