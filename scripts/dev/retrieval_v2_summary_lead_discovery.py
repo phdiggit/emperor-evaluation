@@ -79,6 +79,18 @@ def write_jsonl(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
     path.write_text("".join(stable_json(row) + "\n" for row in rows), encoding="utf-8", newline="\n")
 
 
+def read_jsonl(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        if not line.strip():
+            continue
+        payload = json.loads(line)
+        if not isinstance(payload, dict):
+            raise SummaryLeadDiscoveryError(f"{path}:{line_no}: expected JSON object")
+        rows.append(payload)
+    return rows
+
+
 def fetch_url(url: str, *, timeout: int) -> str:
     request = urllib.request.Request(url, headers={"User-Agent": DEFAULT_USER_AGENT})
     with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -372,12 +384,87 @@ def discover_from_html(
     return leads, report
 
 
+def job_sections(job: Mapping[str, Any]) -> list[str]:
+    raw = job.get("sections") or job.get("section")
+    if isinstance(raw, str):
+        values = [raw]
+    elif isinstance(raw, Sequence) and not isinstance(raw, (bytes, str)):
+        values = [str(value or "") for value in raw]
+    else:
+        values = []
+    sections = unique_strings(value.strip() for value in values if value.strip())
+    if not sections:
+        raise SummaryLeadDiscoveryError(f"lead discovery job missing section(s): {job}")
+    return sections
+
+
+def job_lead_terms(job: Mapping[str, Any], base_terms: Sequence[str]) -> list[str]:
+    raw = job.get("lead_terms") or job.get("lead_term") or []
+    if isinstance(raw, str):
+        values = [raw]
+    elif isinstance(raw, Sequence) and not isinstance(raw, (bytes, str)):
+        values = [str(value or "") for value in raw]
+    else:
+        values = []
+    return unique_strings([*base_terms, *values])
+
+
+def html_for_job(job: Mapping[str, Any], *, timeout: int) -> str:
+    html_path = text_from(job, "input_html", "html_path")
+    if html_path:
+        return Path(html_path).read_text(encoding="utf-8")
+    url = text_from(job, "url", "discovery_url")
+    if not url:
+        raise SummaryLeadDiscoveryError(f"lead discovery job missing url: {job}")
+    return fetch_url(url, timeout=timeout)
+
+
+def discover_job(job: Mapping[str, Any], *, timeout: int, lead_terms: Sequence[str]) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
+    person_name = text_from(job, "person", "person_name", "name", "object_name")
+    if not person_name:
+        raise SummaryLeadDiscoveryError(f"lead discovery job missing person: {job}")
+    url = text_from(job, "url", "discovery_url")
+    if not url:
+        raise SummaryLeadDiscoveryError(f"lead discovery job missing url: {job}")
+    leads, report = discover_from_html(
+        html_for_job(job, timeout=timeout),
+        person_name=person_name,
+        discovery_url=url,
+        section_titles=job_sections(job),
+        lead_terms=job_lead_terms(job, lead_terms),
+    )
+    seed = seed_patch_from_leads(person_name, leads)
+    return leads, seed, report
+
+
+def discover_jobs(jobs: Sequence[Mapping[str, Any]], *, timeout: int, lead_terms: Sequence[str]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    all_leads: list[dict[str, Any]] = []
+    seeds: list[dict[str, Any]] = []
+    reports: list[dict[str, Any]] = []
+    for job in jobs:
+        leads, seed, report = discover_job(job, timeout=timeout, lead_terms=lead_terms)
+        all_leads.extend(leads)
+        seeds.append(seed)
+        reports.append(report)
+    return all_leads, seeds, {
+        "ok": True,
+        "generated_by": "scripts/dev/retrieval_v2_summary_lead_discovery.py",
+        "job_count": len(jobs),
+        "lead_count": len(all_leads),
+        "seed_count": len(seeds),
+        "source_document_hint_count": sum(len(lead.get("source_document_hints") or []) for lead in all_leads),
+        "resolvable_source_document_hint_count": sum(len(seed.get("source_document_hints") or []) for seed in seeds),
+        "jobs": reports,
+    }
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build lead-only source hints from summary pages such as Wikipedia.")
-    parser.add_argument("--url", required=True, help="Summary page URL. Used as fetch target unless --input-html is set.")
+    parser.add_argument("--url", help="Summary page URL. Used as fetch target unless --input-html is set.")
     parser.add_argument("--input-html", type=Path, help="Read already-fetched HTML from this file instead of fetching --url.")
-    parser.add_argument("--person", required=True, help="Person/object name for generated seed rows.")
-    parser.add_argument("--section", action="append", required=True, help="Section title to mine. Repeat for multiple sections.")
+    parser.add_argument("--person", help="Person/object name for generated seed rows.")
+    parser.add_argument("--section", action="append", default=[], help="Section title to mine. Repeat for multiple sections.")
+    parser.add_argument("--input-jobs-jsonl", type=Path, help="Batch jobs JSONL with person/url/sections and optional input_html.")
     parser.add_argument("--lead-term", action="append", default=[], help="Additional lead trigger term to record when present.")
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument("--output-leads-jsonl", type=Path)
@@ -385,20 +472,25 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--output-report-json", type=Path)
     args = parser.parse_args(argv)
 
-    html_text = args.input_html.read_text(encoding="utf-8") if args.input_html else fetch_url(args.url, timeout=args.timeout)
     lead_terms = unique_strings([*DEFAULT_LEAD_TERMS, *args.lead_term])
-    leads, report = discover_from_html(
-        html_text,
-        person_name=args.person,
-        discovery_url=args.url,
-        section_titles=args.section,
-        lead_terms=lead_terms,
-    )
-    seed = seed_patch_from_leads(args.person, leads)
+    if args.input_jobs_jsonl:
+        leads, seeds, report = discover_jobs(read_jsonl(args.input_jobs_jsonl), timeout=args.timeout, lead_terms=lead_terms)
+    else:
+        if not args.url or not args.person or not args.section:
+            raise SummaryLeadDiscoveryError("single-page mode requires --url, --person and at least one --section")
+        html_text = args.input_html.read_text(encoding="utf-8") if args.input_html else fetch_url(args.url, timeout=args.timeout)
+        leads, report = discover_from_html(
+            html_text,
+            person_name=args.person,
+            discovery_url=args.url,
+            section_titles=args.section,
+            lead_terms=lead_terms,
+        )
+        seeds = [seed_patch_from_leads(args.person, leads)]
     if args.output_leads_jsonl:
         write_jsonl(args.output_leads_jsonl, leads)
     if args.output_seeds_jsonl:
-        write_jsonl(args.output_seeds_jsonl, [seed])
+        write_jsonl(args.output_seeds_jsonl, seeds)
     if args.output_report_json:
         write_json(args.output_report_json, report)
     print(pretty_json(report), end="")

@@ -26,6 +26,29 @@ LI_SHANCHANG_HTML = """
 </html>
 """
 
+HU_WEIYONG_HTML = """
+<html>
+  <body>
+    <h1>胡惟庸</h1>
+    <h2>胡惟庸案</h2>
+    <p>洪武十三年，胡惟庸以谋反伏诛，其党羽坐死者甚众。</p>
+    <h2>延伸阅读</h2>
+    <p><a href="https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7308#%E8%83%A1%E6%83%9F%E5%BA%B8">明史卷三百八</a></p>
+  </body>
+</html>
+"""
+
+LAN_YU_HTML = """
+<html>
+  <body>
+    <h1>蓝玉</h1>
+    <h2>被杀</h2>
+    <p>洪武二十六年，蓝玉坐谋反，被族诛，牵连者甚众。</p>
+    <p><a href="https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132#%E8%97%8D%E7%8E%89">明史卷一百三十二</a></p>
+  </body>
+</html>
+"""
+
 
 def test_summary_lead_discovers_wikisource_hints_from_wikipedia_section() -> None:
     leads, report = tool.discover_from_html(
@@ -94,6 +117,82 @@ def test_summary_lead_uses_page_level_wikisource_links_when_section_has_only_int
 
     assert report["source_document_hint_count"] == 1
     assert leads[0]["source_document_hints"][0]["wikisource_title"] == "明史/卷127"
+
+
+def test_batch_jobs_cover_multiple_negative_case_leads(tmp_path) -> None:
+    fixtures = [
+        ("li.html", "李善长", "https://zh.wikipedia.org/wiki/李善長", "获罪身死", LI_SHANCHANG_HTML, ["國朝獻徵錄/卷11", "明史/卷127"]),
+        ("hu.html", "胡惟庸", "https://zh.wikipedia.org/wiki/胡惟庸", "胡惟庸案", HU_WEIYONG_HTML, ["明史/卷308"]),
+        ("lan.html", "蓝玉", "https://zh.wikipedia.org/wiki/蓝玉", "被杀", LAN_YU_HTML, ["明史/卷132"]),
+    ]
+    jobs_path = tmp_path / "jobs.jsonl"
+    job_rows = []
+    for file_name, person, url, section, html, _titles in fixtures:
+        html_path = tmp_path / file_name
+        html_path.write_text(html, encoding="utf-8")
+        job_rows.append({"person": person, "url": url, "sections": [section], "input_html": str(html_path)})
+    jobs_path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in job_rows), encoding="utf-8")
+
+    leads, seeds, report = tool.discover_jobs(tool.read_jsonl(jobs_path), timeout=3, lead_terms=tool.DEFAULT_LEAD_TERMS)
+
+    assert report["job_count"] == 3
+    assert report["lead_count"] == 3
+    assert report["seed_count"] == 3
+    assert report["resolvable_source_document_hint_count"] == 4
+    assert [seed["name"] for seed in seeds] == ["李善长", "胡惟庸", "蓝玉"]
+    assert [[hint["wikisource_title"] for hint in seed["source_document_hints"]] for seed in seeds] == [
+        ["國朝獻徵錄/卷11", "明史/卷127"],
+        ["明史/卷308"],
+        ["明史/卷132"],
+    ]
+    assert all(lead["evidence_policy"] == "lead_only_not_provenance" for lead in leads)
+
+
+def test_batch_seed_output_feeds_object_source_cache_without_search(tmp_path) -> None:
+    jobs_path = tmp_path / "jobs.jsonl"
+    html_path = tmp_path / "lan.html"
+    html_path.write_text(LAN_YU_HTML, encoding="utf-8")
+    jobs_path.write_text(
+        json.dumps(
+            {
+                "person": "蓝玉",
+                "url": "https://zh.wikipedia.org/wiki/蓝玉",
+                "section": "被杀",
+                "input_html": str(html_path),
+            },
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    seeds_path = tmp_path / "seeds.jsonl"
+
+    tool.main(
+        [
+            "--input-jobs-jsonl",
+            str(jobs_path),
+            "--output-seeds-jsonl",
+            str(seeds_path),
+        ]
+    )
+    seed = json.loads(seeds_path.read_text(encoding="utf-8").splitlines()[0])
+
+    def fail_search(query: str, *, limit: int, timeout: int) -> list[dict[str, str]]:
+        raise AssertionError(f"search should not be called: {query}")
+
+    docs, hits = object_cache.discover_source_documents(
+        seed,
+        search_fn=fail_search,
+        pages_per_query=0,
+        timeout=3,
+        source_hint_limit=1,
+        max_search_names=1,
+        include_emperor_annals=True,
+    )
+
+    assert hits == []
+    assert [row["source_title"] for row in docs] == ["明史/卷132"]
+    assert docs[0]["source_document_hint"]["evidence_policy"] == "lead_only_not_provenance"
 
 
 def test_cli_writes_leads_and_seed_jsonl(tmp_path, capsys) -> None:

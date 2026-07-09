@@ -86,6 +86,55 @@ OBJECT_BIOGRAPHY_QUERY_SUFFIXES = ("列传", "列傳", "本传", "本傳", "功�
 SECTION_HEADING_RE = re.compile(r"([A-Za-z0-9_\-\u3400-\u9fff·]+)\s*\[\s*编辑\s*\]")
 CHAR_LOCATOR_RE = re.compile(r"chars:(\d+)-(\d+)")
 SOURCE_TARGET_REF_SPLIT_RE = re.compile(r"[\s，,。；;：:、/／()（）\[\]【】《》<>〈〉]+")
+SUMMARY_LEAD_ALLOWED_SINGLE_CHAR_TERMS = {"诛", "誅"}
+SUMMARY_LEAD_LOW_PRIORITY_TERMS = {"诛", "誅", "连坐", "連坐", "大逆", "不轨", "不軌"}
+SUMMARY_LEAD_HIGH_PRIORITY_TERMS = {
+    "赐死",
+    "賜死",
+    "自尽",
+    "自盡",
+    "赐自尽",
+    "賜自盡",
+    "处死",
+    "處死",
+    "坐死",
+    "党死",
+    "黨死",
+    "伏诛",
+    "伏誅",
+    "诛死",
+    "誅死",
+    "三族",
+    "九族",
+    "族诛",
+    "族誅",
+    "灭族",
+    "滅族",
+    "妻女弟侄",
+    "七十余人",
+    "谋反",
+    "謀反",
+    "谋叛",
+    "謀叛",
+    "反状",
+    "反狀",
+    "坐党",
+    "坐黨",
+}
+SUMMARY_LEAD_TERM_EXPANSIONS = {
+    "赐死": ("自尽", "自盡", "赐自尽", "賜自盡", "坐死", "党死", "黨死", "伏诛", "伏誅"),
+    "处死": ("處死", "坐死", "党死", "黨死", "伏诛", "伏誅", "诛死", "誅死"),
+    "處死": ("处死", "坐死", "党死", "黨死", "伏诛", "伏誅", "诛死", "誅死"),
+    "株连": ("株連", "牵连", "牽連", "连坐", "連坐", "坐死", "党死", "黨死", "亲族", "親族", "妻女弟侄", "七十余人"),
+    "株連": ("株连", "牵连", "牽連", "连坐", "連坐", "坐死", "党死", "黨死", "亲族", "親族", "妻女弟侄", "七十余人"),
+    "三族": ("族诛", "族誅", "灭族", "滅族", "亲族", "親族", "妻女弟侄", "七十余人"),
+    "九族": ("灭族", "滅族", "亲族", "親族", "妻女弟侄"),
+    "谋反": ("谋叛", "謀叛", "逆谋", "逆謀", "不轨", "不軌", "反状", "反狀", "坐党", "坐黨", "党死", "黨死"),
+    "謀反": ("谋叛", "謀叛", "逆谋", "逆謀", "不轨", "不軌", "反状", "反狀", "坐党", "坐黨", "党死", "黨死"),
+    "大逆": ("不轨", "不軌", "逆谋", "逆謀", "反状", "反狀", "坐党", "坐黨"),
+    "诛": ("伏诛", "伏誅", "诛死", "誅死", "族诛", "族誅", "大诛", "大誅"),
+    "誅": ("伏诛", "伏誅", "诛死", "誅死", "族诛", "族誅", "大诛", "大誅"),
+}
 
 PGSQL_SCHEMA_DRAFT = """
 -- retrieval_v2 object source cache draft schema.
@@ -723,6 +772,63 @@ def alias_positions(full_text: str, alias: str) -> list[int]:
     return positions
 
 
+def seed_summary_lead_terms(seed: Mapping[str, Any]) -> list[str]:
+    raw_leads = seed.get("summary_leads")
+    if isinstance(raw_leads, Mapping):
+        lead_rows: Sequence[Any] = [raw_leads]
+    elif isinstance(raw_leads, Sequence) and not isinstance(raw_leads, (str, bytes)):
+        lead_rows = raw_leads
+    else:
+        lead_rows = []
+    terms: list[str] = []
+    for lead in lead_rows:
+        if not isinstance(lead, Mapping):
+            continue
+        raw_terms = lead.get("lead_terms")
+        if isinstance(raw_terms, str):
+            terms.append(raw_terms)
+        elif isinstance(raw_terms, Sequence) and not isinstance(raw_terms, (str, bytes)):
+            terms.extend(str(term or "") for term in raw_terms)
+    expanded_terms = list(terms)
+    normalized_terms = {normalize_title(term) for term in terms if term}
+    for trigger, expansions in SUMMARY_LEAD_TERM_EXPANSIONS.items():
+        if normalize_title(trigger) in normalized_terms:
+            expanded_terms.extend(expansions)
+    return unique_strings(
+        term
+        for term in expanded_terms
+        if len(normalize_title(term)) >= 2 or normalize_title(term) in SUMMARY_LEAD_ALLOWED_SINGLE_CHAR_TERMS
+    )
+
+
+def seed_summary_lead_anchor_aliases(seed: Mapping[str, Any]) -> list[str]:
+    aliases = seed_aliases(seed)
+    name = seed_name(seed)
+    normalized = normalize_title(name)
+    if len(normalized) == 3 and all("\u3400" <= char <= "\u9fff" for char in normalized):
+        aliases.append(normalized[1:])
+    return unique_strings(alias for alias in aliases if alias)
+
+
+def matched_aliases_in_text(text: str, aliases: Sequence[str]) -> list[str]:
+    normalized_text = normalize_title(text)
+    return unique_strings(alias for alias in aliases if alias and normalize_title(alias) in normalized_text)
+
+
+def matched_lead_terms_in_text(text: str, lead_terms: Sequence[str]) -> list[str]:
+    normalized_text = normalize_title(text)
+    return unique_strings(term for term in lead_terms if term and normalize_title(term) in normalized_text)
+
+
+def summary_lead_term_priority(term: str) -> int:
+    normalized = normalize_title(term)
+    if normalized in SUMMARY_LEAD_HIGH_PRIORITY_TERMS:
+        return 0
+    if normalized in SUMMARY_LEAD_LOW_PRIORITY_TERMS:
+        return 2
+    return 1
+
+
 def build_mention_slices(
     seed: Mapping[str, Any],
     document: Mapping[str, Any],
@@ -732,46 +838,101 @@ def build_mention_slices(
     max_slices_per_document: int,
 ) -> list[dict[str, Any]]:
     aliases = seed_aliases(seed)
-    positions: list[tuple[int, str]] = []
+    lead_anchor_aliases = seed_summary_lead_anchor_aliases(seed)
+    lead_terms = seed_summary_lead_terms(seed)
+    anchors: list[dict[str, Any]] = []
+    for term in lead_terms:
+        for index in alias_positions(full_text, term):
+            start, end = context_bounds(full_text, index, context_chars=context_chars)
+            matched_aliases = matched_aliases_in_text(full_text[start:end], lead_anchor_aliases)
+            if not matched_aliases:
+                continue
+            anchors.append(
+                {
+                    "index": index,
+                    "matched_aliases": matched_aliases,
+                    "matched_lead_terms": [term],
+                    "priority": summary_lead_term_priority(term),
+                    "slice_kind": "summary_lead_term_anchor",
+                }
+            )
     for alias in aliases:
         if not alias:
             continue
         for index in alias_positions(full_text, alias):
-            positions.append((index, alias))
-    if not positions:
+            start, end = context_bounds(full_text, index, context_chars=context_chars)
+            anchors.append(
+                {
+                    "index": index,
+                    "matched_aliases": [alias],
+                    "matched_lead_terms": matched_lead_terms_in_text(full_text[start:end], lead_terms),
+                    "priority": 10,
+                    "slice_kind": "person_alias_anchor",
+                }
+            )
+    if not anchors:
         return []
-    windows: list[tuple[int, int, list[str], int]] = []
-    for index, alias in sorted(positions, key=lambda item: item[0]):
+    windows: list[dict[str, Any]] = []
+    for anchor in sorted(anchors, key=lambda item: (int(item["priority"]), int(item["index"]))):
+        index = int(anchor["index"])
         start, end = context_bounds(full_text, index, context_chars=context_chars)
-        if windows and start <= windows[-1][1] + 20:
-            prev_start, prev_end, prev_aliases, prev_anchor = windows[-1]
-            windows[-1] = (prev_start, max(prev_end, end), unique_strings([*prev_aliases, alias]), prev_anchor)
+        merged = False
+        for window in windows:
+            if start <= int(window["end"]) + 20 and end >= int(window["start"]) - 20:
+                window["start"] = min(int(window["start"]), start)
+                window["end"] = max(int(window["end"]), end)
+                window["matched_aliases"] = unique_strings([*window["matched_aliases"], *anchor["matched_aliases"]])
+                window["matched_lead_terms"] = unique_strings([*window["matched_lead_terms"], *anchor["matched_lead_terms"]])
+                if int(anchor["priority"]) < int(window["priority"]):
+                    window["priority"] = anchor["priority"]
+                    window["anchor_index"] = index
+                    window["slice_kind"] = anchor["slice_kind"]
+                merged = True
+                break
+        if merged:
             continue
-        windows.append((start, end, [alias], index))
         if len(windows) >= max_slices_per_document:
-            break
+            continue
+        windows.append(
+            {
+                "start": start,
+                "end": end,
+                "matched_aliases": list(anchor["matched_aliases"]),
+                "matched_lead_terms": list(anchor["matched_lead_terms"]),
+                "anchor_index": index,
+                "priority": anchor["priority"],
+                "slice_kind": anchor["slice_kind"],
+            }
+        )
 
     rows: list[dict[str, Any]] = []
-    for start, end, matched_aliases, anchor_index in windows:
+    for window in windows:
+        start = int(window["start"])
+        end = int(window["end"])
+        matched_aliases = list(window["matched_aliases"])
+        anchor_index = int(window["anchor_index"])
         text = compact_text(full_text[start:end])
         doc_code = text_from(document, "document_cache_code")
         person_code = person_cache_code(seed)
         section_heading = nearest_section_heading(full_text, anchor_index)
-        rows.append(
-            {
-                "slice_cache_code": slice_cache_code(doc_code, person_code, start, end, matched_aliases),
-                "document_cache_code": doc_code,
-                "person_cache_code": person_code,
-                "person_name": seed_name(seed),
-                "source_title": text_from(document, "source_title", "title", "wikisource_title"),
-                "source_role": document.get("source_role") or source_role_for_seed(seed),
-                "locator": f"chars:{start}-{end}",
-                "section_heading": section_heading,
-                "matched_aliases": matched_aliases,
-                "raw_text": text,
-                "quote_hash": sha256_text(text),
-            }
-        )
+        row = {
+            "slice_cache_code": slice_cache_code(doc_code, person_code, start, end, matched_aliases),
+            "document_cache_code": doc_code,
+            "person_cache_code": person_code,
+            "person_name": seed_name(seed),
+            "source_title": text_from(document, "source_title", "title", "wikisource_title"),
+            "source_role": document.get("source_role") or source_role_for_seed(seed),
+            "locator": f"chars:{start}-{end}",
+            "section_heading": section_heading,
+            "matched_aliases": matched_aliases,
+            "raw_text": text,
+            "quote_hash": sha256_text(text),
+        }
+        matched_lead_terms = list(window["matched_lead_terms"])
+        if matched_lead_terms:
+            row["lead_terms"] = matched_lead_terms
+            row["slice_kind"] = window["slice_kind"]
+        rows.append(row)
     return rows
 
 

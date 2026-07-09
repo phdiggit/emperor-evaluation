@@ -126,6 +126,65 @@ def test_mention_slices_match_chinese_alias_split_by_whitespace() -> None:
     assert rows[0]["person_name"] == "李绩"
 
 
+def test_summary_lead_terms_prioritize_negative_source_window() -> None:
+    full_text = (
+        "李善长 [ 编辑 ] 李善长少读书有智计，佐太祖定天下，封韩国公。"
+        "中间叙功臣封爵、议礼、营建、告归等事，文字继续铺开，使前后窗口分离。"
+        "又记洪武初年诸臣进退，仍未涉及获罪。"
+        "获罪身死 [ 编辑 ] 胡惟庸事发后，朱元璋赐死李善长，株连三族。"
+    )
+    rows = tool.build_mention_slices(
+        {
+            "name": "李善长",
+            "summary_leads": [{"lead_terms": ["赐死", "株连三族"]}],
+        },
+        {
+            "document_cache_code": "OSD-LSC-MINGSHI127",
+            "source_title": "明史/卷127",
+            "source_role": "object_biography_or_mentions",
+        },
+        full_text,
+        context_chars=18,
+        max_slices_per_document=1,
+    )
+
+    assert len(rows) == 1
+    assert rows[0]["slice_kind"] == "summary_lead_term_anchor"
+    assert rows[0]["lead_terms"] == ["赐死", "株连三族"]
+    assert "赐死李善长" in rows[0]["raw_text"]
+    assert "少读书有智计" not in rows[0]["raw_text"]
+
+
+def test_summary_lead_terms_expand_to_classical_negative_variants() -> None:
+    full_text = (
+        "李善长 [ 编辑 ] 李善长少读书有智计，佐太祖定天下，封韩国公。"
+        "太祖曾谓善长法有连坐三条，命其裁定律令。"
+        "中间叙功臣封爵、议礼、营建、告归等事，文字继续铺开，使前后窗口分离。"
+        "获罪身死 [ 编辑 ] 二十三年，善长坐惟庸党死，妻女弟侄七十余人徙边。"
+    )
+    rows = tool.build_mention_slices(
+        {
+            "name": "李善长",
+            "summary_leads": [{"lead_terms": ["株连", "三族"]}],
+        },
+        {
+            "document_cache_code": "OSD-LSC-MINGSHI127",
+            "source_title": "明史/卷127",
+            "source_role": "object_biography_or_mentions",
+        },
+        full_text,
+        context_chars=20,
+        max_slices_per_document=1,
+    )
+
+    assert len(rows) == 1
+    assert rows[0]["slice_kind"] == "summary_lead_term_anchor"
+    assert "善长" in rows[0]["matched_aliases"]
+    assert set(rows[0]["lead_terms"]) >= {"党死", "妻女弟侄"}
+    assert "坐惟庸党死" in rows[0]["raw_text"]
+    assert "少读书有智计" not in rows[0]["raw_text"]
+
+
 def test_discovery_expands_non_emperor_biography_queries() -> None:
     queries: list[str] = []
 
