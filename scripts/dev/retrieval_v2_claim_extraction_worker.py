@@ -66,6 +66,11 @@ def read_json(path: Path) -> dict[str, Any]:
     return payload
 
 
+def optional_int(value: Any) -> int | None:
+    raw = text(value)
+    return int(raw) if raw else None
+
+
 def resolve_path(value: str) -> Path:
     path = Path(value)
     if path.is_absolute():
@@ -425,6 +430,7 @@ def execute_job(
     judge_api_key_env: str = clean_runner.DEEPSEEK_API_KEY_ENV,
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
+    judge_max_tokens: int | None = None,
     import_pg: bool,
     dsn_env: str,
     schema_name: str,
@@ -451,6 +457,7 @@ def execute_job(
         judge_api_key_env=judge_api_key_env,
         judge_base_url=judge_base_url,
         judge_thinking=judge_thinking,
+        judge_max_tokens=judge_max_tokens,
     )
     judge_payload = dict(judge_result["payload"])
     judge_payload["_elapsed_seconds"] = judge_result["elapsed_seconds"]
@@ -497,6 +504,7 @@ def extract_from_candidates(
     judge_api_key_env: str = clean_runner.DEEPSEEK_API_KEY_ENV,
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
+    judge_max_tokens: int | None = None,
     import_pg: bool = False,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -514,6 +522,7 @@ def extract_from_candidates(
         judge_api_key_env=judge_api_key_env,
         judge_base_url=judge_base_url,
         judge_thinking=judge_thinking,
+        judge_max_tokens=judge_max_tokens,
         import_pg=import_pg,
         dsn_env=dsn_env,
         schema_name=schema_name,
@@ -541,6 +550,7 @@ def once(
     judge_api_key_env: str = clean_runner.DEEPSEEK_API_KEY_ENV,
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
+    judge_max_tokens: int | None = None,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -571,6 +581,7 @@ def once(
             judge_api_key_env=judge_api_key_env,
             judge_base_url=judge_base_url,
             judge_thinking=judge_thinking,
+            judge_max_tokens=judge_max_tokens,
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -641,6 +652,7 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--judge-api-key-env", default=clean_runner.DEEPSEEK_API_KEY_ENV)
     extract.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     extract.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
+    extract.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
     extract.add_argument("--import-pg", action="store_true", help="Opt in to PG import; default is filesystem cache only.")
     extract.add_argument("--output-json", type=Path)
 
@@ -666,6 +678,7 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--judge-api-key-env", default=clean_runner.DEEPSEEK_API_KEY_ENV)
     once_cmd.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     once_cmd.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
+    once_cmd.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
     once_cmd.add_argument("--no-import-pg", action="store_true")
     once_cmd.add_argument("--output-json", type=Path)
     return parser
@@ -697,6 +710,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_api_key_env=args.judge_api_key_env,
             judge_base_url=args.judge_base_url,
             judge_thinking=args.judge_thinking,
+            judge_max_tokens=args.judge_max_tokens,
             import_pg=bool(args.import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
@@ -720,6 +734,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_api_key_env=args.judge_api_key_env,
             judge_base_url=args.judge_base_url,
             judge_thinking=args.judge_thinking,
+            judge_max_tokens=args.judge_max_tokens,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,

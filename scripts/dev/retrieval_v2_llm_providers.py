@@ -14,6 +14,7 @@ DEEPSEEK_PROVIDER = "deepseek"
 DEEPSEEK_API_KEY_ENV = "DEEPSEEK_API_KEY"
 DEEPSEEK_BASE_URL_ENV = "DEEPSEEK_BASE_URL"
 DEEPSEEK_MODEL_ENV = "DEEPSEEK_MODEL"
+DEEPSEEK_MAX_TOKENS_ENV = "DEEPSEEK_MAX_TOKENS"
 DEFAULT_DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_THINKING = "disabled"
@@ -71,6 +72,7 @@ def run_deepseek_chat(
     base_url: str | None,
     timeout_seconds: int,
     thinking: str | None,
+    max_tokens: int | None = None,
 ) -> dict[str, Any]:
     api_key = os.environ.get(api_key_env)
     if not api_key:
@@ -81,6 +83,9 @@ def run_deepseek_chat(
     thinking_mode = (thinking or os.environ.get("DEEPSEEK_THINKING") or DEFAULT_DEEPSEEK_THINKING).strip().lower()
     if thinking_mode not in {"enabled", "disabled"}:
         raise LlmProviderError(f"unsupported DeepSeek thinking mode: {thinking_mode}")
+    resolved_max_tokens = max_tokens
+    if resolved_max_tokens is None and os.environ.get(DEEPSEEK_MAX_TOKENS_ENV):
+        resolved_max_tokens = int(os.environ[DEEPSEEK_MAX_TOKENS_ENV])
     body = {
         "model": resolved_model,
         "messages": [
@@ -91,6 +96,10 @@ def run_deepseek_chat(
         "response_format": {"type": "json_object"},
         "thinking": {"type": thinking_mode},
     }
+    if resolved_max_tokens is not None:
+        if resolved_max_tokens <= 0:
+            raise LlmProviderError(f"DeepSeek max_tokens must be positive: {resolved_max_tokens}")
+        body["max_tokens"] = resolved_max_tokens
     request = urllib.request.Request(
         f"{resolved_base_url}/chat/completions",
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
@@ -113,6 +122,8 @@ def run_deepseek_chat(
     usage["provider"] = DEEPSEEK_PROVIDER
     usage["model"] = resolved_model
     usage["thinking"] = thinking_mode
+    if resolved_max_tokens is not None:
+        usage["max_tokens"] = resolved_max_tokens
     return {
         "payload": parse_json_model_content(content),
         "elapsed_seconds": round(time.perf_counter() - started, 3),

@@ -85,6 +85,7 @@ def test_run_judge_round_can_use_deepseek_provider(tmp_path: Path, monkeypatch) 
         judge_provider="deepseek",
         judge_model="deepseek-v4-flash",
         judge_thinking="disabled",
+        judge_max_tokens=8192,
     )
 
     assert result["provider"] == "deepseek"
@@ -94,6 +95,7 @@ def test_run_judge_round_can_use_deepseek_provider(tmp_path: Path, monkeypatch) 
     assert captured["url"] == "https://api.deepseek.com/chat/completions"
     assert captured["auth"] == "Bearer test-key"
     assert captured["body"]["model"] == "deepseek-v4-flash"
+    assert captured["body"]["max_tokens"] == 8192
     assert captured["body"]["thinking"] == {"type": "disabled"}
     assert captured["body"]["response_format"] == {"type": "json_object"}
     assert json.loads((tmp_path / "judge_last_message.round0.json").read_text(encoding="utf-8"))["status"] == "succeeded"

@@ -228,6 +228,7 @@ def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, m
         run_root=tmp_path / "run",
         judge_provider="deepseek",
         judge_model="deepseek-v4-flash",
+        judge_max_tokens=8192,
     )
 
     assert result["ok"] is True
@@ -236,6 +237,7 @@ def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, m
     assert captured["judge_provider"] == "deepseek"
     assert captured["judge_model"] == "deepseek-v4-flash"
     assert captured["judge_api_key_env"] == "DEEPSEEK_API_KEY"
+    assert captured["judge_max_tokens"] == 8192
 
 
 def test_cli_extract_from_candidates_does_not_require_dsn(tmp_path: Path, monkeypatch, capsys) -> None:

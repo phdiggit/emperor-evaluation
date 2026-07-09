@@ -64,6 +64,7 @@ DEEPSEEK_PROVIDER = llm_providers.DEEPSEEK_PROVIDER
 DEEPSEEK_API_KEY_ENV = llm_providers.DEEPSEEK_API_KEY_ENV
 DEEPSEEK_BASE_URL_ENV = llm_providers.DEEPSEEK_BASE_URL_ENV
 DEEPSEEK_MODEL_ENV = llm_providers.DEEPSEEK_MODEL_ENV
+DEEPSEEK_MAX_TOKENS_ENV = llm_providers.DEEPSEEK_MAX_TOKENS_ENV
 DEFAULT_DEEPSEEK_MODEL = llm_providers.DEFAULT_DEEPSEEK_MODEL
 DEFAULT_DEEPSEEK_THINKING = llm_providers.DEFAULT_DEEPSEEK_THINKING
 
@@ -191,6 +192,7 @@ def run_deepseek_judge(
     base_url: str | None,
     timeout_seconds: int,
     thinking: str | None,
+    max_tokens: int | None = None,
 ) -> CodexResult:
     try:
         result = llm_providers.run_deepseek_chat(
@@ -200,6 +202,7 @@ def run_deepseek_judge(
             base_url=base_url,
             timeout_seconds=timeout_seconds,
             thinking=thinking,
+            max_tokens=max_tokens,
         )
     except llm_providers.LlmProviderError as exc:
         raise RetrievalV2CleanRunnerError(str(exc)) from exc
@@ -718,6 +721,7 @@ def run_judge_round(
     judge_api_key_env: str = DEEPSEEK_API_KEY_ENV,
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
+    judge_max_tokens: int | None = None,
 ) -> dict[str, Any]:
     prompt = prompt_path.read_text(encoding="utf-8")
     provider = normalize_judge_provider(judge_provider)
@@ -731,6 +735,7 @@ def run_judge_round(
             base_url=judge_base_url,
             timeout_seconds=timeout_seconds,
             thinking=judge_thinking,
+            max_tokens=judge_max_tokens,
         )
         last_message.parent.mkdir(parents=True, exist_ok=True)
         atomic_write_json(last_message, result.payload)
@@ -788,6 +793,7 @@ def run_judge(
     judge_api_key_env: str = DEEPSEEK_API_KEY_ENV,
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
+    judge_max_tokens: int | None = None,
 ) -> dict[str, Any]:
     candidates = with_judge_mode(candidates, judge_mode)
     provider = normalize_judge_provider(judge_provider)
@@ -810,6 +816,7 @@ def run_judge(
             judge_api_key_env=judge_api_key_env,
             judge_base_url=judge_base_url,
             judge_thinking=judge_thinking,
+            judge_max_tokens=judge_max_tokens,
         )
         result["payload"] = judge_shards.enrich_judge_payload(candidates, result["payload"])
         enriched_output_path = person_dir / f"judge_result.round{round_index}.enriched.json"
@@ -841,6 +848,7 @@ def run_judge(
                 base_url=judge_base_url,
                 timeout_seconds=timeout_seconds,
                 thinking=judge_thinking,
+                max_tokens=judge_max_tokens,
             )
             last_message.parent.mkdir(parents=True, exist_ok=True)
             atomic_write_json(last_message, result.payload)
