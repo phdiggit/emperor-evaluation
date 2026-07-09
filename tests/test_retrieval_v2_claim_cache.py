@@ -134,6 +134,7 @@ def test_import_run_dedupes_claims_slices_and_evidence(tmp_path: Path) -> None:
     assert claims[0]["canonical_event_key"].startswith("CEK-")
     assert claims[0]["claim_grain"] == "event_chain"
     assert claims[0]["near_duplicate_group_payload"]["object_name"] == "汤和"
+    assert claims[0]["source_slice_refs"] == ["SLI-001"]
     assert len(tool.read_jsonl(cache_root / "source_slices.jsonl")) == 1
 
 
@@ -152,6 +153,7 @@ def test_import_run_drops_cross_object_source_refs(tmp_path: Path) -> None:
     assert report["stats"]["cross_object_source_ref_dropped"] == 1
     assert report["stats"]["new_claim_count"] == 1
     assert claims[0]["object_name"] == "汤和"
+    assert claims[0]["source_slice_refs"] == ["SLI-001"]
     assert claims[0]["fact_payload"]["source_span_refs"] == ["SLI-001"]
     assert {row["source_slice_ref"] for row in evidence} == {"SLI-001"}
     assert {row["object_name"] for row in evidence} == {"汤和"}

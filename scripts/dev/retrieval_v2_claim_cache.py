@@ -53,6 +53,18 @@ def compact_preview(value: str, *, limit: int = 160) -> str:
     return text if len(text) <= limit else text[: limit - 1] + "…"
 
 
+def unique_texts(values: Sequence[Any]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        clean = str(value or "").strip()
+        if not clean or clean in seen:
+            continue
+        seen.add(clean)
+        result.append(clean)
+    return result
+
+
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -296,6 +308,8 @@ def claim_row(
 ) -> dict[str, Any]:
     fact = claim_fact(claim)
     quality = claim_quality.claim_quality_payload(claim)
+    source_slice_refs = unique_texts(claim.get("source_slice_refs") or [])
+    source_passage_refs = unique_texts(claim.get("source_passage_refs") or [])
     return {
         "schema_version": SCHEMA_VERSION,
         "claim_key": cache_key,
@@ -314,6 +328,8 @@ def claim_row(
         "outcome": str(fact.get("outcome") or ""),
         "claim_summary": str(claim.get("claim_summary") or claim.get("summary") or ""),
         "confidence": claim.get("confidence"),
+        "source_slice_refs": source_slice_refs,
+        "source_passage_refs": source_passage_refs,
         "fact_payload": fact,
         "first_run_code": run,
         "last_run_code": run,
@@ -373,13 +389,18 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
             imported_claim_keys.append(key)
             by_object[claim_object_name(sanitized_claim)] += 1
             if key in existing["claims"]:
-                existing["claims"][key]["seen_count"] = int(existing["claims"][key].get("seen_count") or 1) + 1
-                existing["claims"][key]["last_run_code"] = run
+                existing_claim = existing["claims"][key]
+                existing_claim["seen_count"] = int(existing_claim.get("seen_count") or 1) + 1
+                existing_claim["last_run_code"] = run
+                existing_claim["source_slice_refs"] = unique_texts([*(existing_claim.get("source_slice_refs") or []), *source_refs])
+                existing_claim["source_passage_refs"] = unique_texts(
+                    [*(existing_claim.get("source_passage_refs") or []), *(sanitized_claim.get("source_passage_refs") or [])]
+                )
                 quality = claim_quality.claim_quality_payload(sanitized_claim)
-                existing["claims"][key].setdefault("canonical_event_key", quality["canonical_event_key"])
-                existing["claims"][key].setdefault("canonical_event_payload", quality["canonical_event_payload"])
-                existing["claims"][key].setdefault("near_duplicate_group_payload", quality["near_duplicate_group_payload"])
-                existing["claims"][key].setdefault("claim_grain", quality["claim_grain"])
+                existing_claim.setdefault("canonical_event_key", quality["canonical_event_key"])
+                existing_claim.setdefault("canonical_event_payload", quality["canonical_event_payload"])
+                existing_claim.setdefault("near_duplicate_group_payload", quality["near_duplicate_group_payload"])
+                existing_claim.setdefault("claim_grain", quality["claim_grain"])
                 stats["duplicate_claim_count"] += 1
             else:
                 existing["claims"][key] = claim_row(
