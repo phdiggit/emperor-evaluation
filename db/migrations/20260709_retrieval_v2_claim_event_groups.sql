@@ -154,6 +154,26 @@ select
     updated_at
 from retrieval_v2.claim_cache;
 
+create or replace view retrieval_v2.claim_owner_scopes as
+select
+    c.claim_key,
+    c.emperor_name as owner_name,
+    case
+        when btrim(c.emperor_name) = '' then 'blank_owner'
+        when t.id is not null then 'target_emperor'
+        else 'external_or_unregistered_owner'
+    end as owner_scope,
+    t.target_code as owner_target_code,
+    c.object_name,
+    c.claim_summary,
+    c.status,
+    c.first_run_code,
+    c.last_run_code,
+    c.updated_at
+from retrieval_v2.claim_cache c
+left join retrieval_v2.retrieval_targets t
+  on t.emperor_name = c.emperor_name;
+
 comment on column retrieval_v2.claim_cache.direction is 'legacy extraction hint；原子 claim 不再以该字段作为最终评分方向，规则方向应写在 claim_rule_routes.route_direction。';
 comment on column retrieval_v2.claim_cache.fact_type is '原子事实类型，例如 material_action、evaluation、relationship；从 claim_type/fact_schema 派生，供事件组聚合。';
 comment on column retrieval_v2.claim_cache.outcome_support is '原子 claim 自身是否支撑结果：direct、implicit、missing、not_applicable 或 mixed。';
@@ -165,3 +185,4 @@ comment on table retrieval_v2.claim_event_groups is 'claim 中间层事件组；
 comment on table retrieval_v2.claim_event_group_members is '事件组与原子 claim 的成员关系，记录 direct/supporting/evaluation/background 使用角色。';
 comment on table retrieval_v2.claim_rule_routes is '事件组或 claim 到规则的 shadow route；最终 rule direction 只在这里或正式 binding 层裁决。';
 comment on view retrieval_v2.claim_atomic_facts is '无 direction 字段的原子事实视图；中间层和消费前工具应优先读取此视图，避免把 claim_cache.direction 当作正式评分方向。';
+comment on view retrieval_v2.claim_owner_scopes is '零 token owner scope 视图；从 PG claim_cache 左连 retrieval_targets 判定 target_emperor、external_or_unregistered_owner 或 blank_owner，不进入 prompt。';

@@ -519,6 +519,39 @@ def pg_table_counts(cur: Any, *, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[s
     return result
 
 
+def pg_owner_scope_inventory(cur: Any) -> dict[str, Any]:
+    cur.execute(
+        """
+        select owner_scope, count(*) as claim_count
+          from retrieval_v2.claim_owner_scopes
+         group by owner_scope
+         order by owner_scope
+        """
+    )
+    by_scope = {text(row["owner_scope"]): int(row["claim_count"]) for row in cur.fetchall()}
+    cur.execute(
+        """
+        select owner_name, owner_scope, count(*) as claim_count
+          from retrieval_v2.claim_owner_scopes
+         where owner_scope <> 'target_emperor'
+         group by owner_name, owner_scope
+         order by claim_count desc, owner_name
+        """
+    )
+    non_target_owners = [
+        {
+            "owner_name": text(row["owner_name"]),
+            "owner_scope": text(row["owner_scope"]),
+            "claim_count": int(row["claim_count"]),
+        }
+        for row in cur.fetchall()
+    ]
+    return {
+        "claim_count_by_owner_scope": dict(sorted(by_scope.items())),
+        "non_target_owners": non_target_owners,
+    }
+
+
 def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_PG_SCHEMA) -> dict[str, Any]:
     cur.execute(
         """
@@ -585,6 +618,7 @@ def pg_inventory(cur: Any, *, sample_limit: int = 0, schema_name: str = DEFAULT_
     return {
         "schema_name": schema_name,
         "totals": pg_table_counts(cur, schema_name=schema_name),
+        "owner_scope_inventory": pg_owner_scope_inventory(cur),
         "by_object": {
             object_name: {
                 "claim_count": entry.get("claim_count", 0),

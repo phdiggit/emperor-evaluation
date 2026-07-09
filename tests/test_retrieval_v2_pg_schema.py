@@ -32,6 +32,8 @@ def test_rendered_bootstrap_schema_contains_claim_event_group_shadow_layer() -> 
     assert "retrieval_v3.claim_event_group_members" in sql
     assert "retrieval_v3.claim_rule_routes" in sql
     assert "retrieval_v3.claim_atomic_facts" in sql
+    assert "retrieval_v3.claim_owner_scopes" in sql
+    assert "external_or_unregistered_owner" in sql
     assert "rv3_claim_outcome_support" in sql
     assert "legacy extraction hint" in sql
 

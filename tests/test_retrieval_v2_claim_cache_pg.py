@@ -136,6 +136,7 @@ def test_object_inventory_counts_directions_and_actions(tmp_path: Path) -> None:
 
 def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     source = Path(tool.__file__).read_text(encoding="utf-8")
+    prompt_source = (Path(tool.__file__).parents[2] / "scripts/dev/retrieval_v2_candidate_prompt.py").read_text(encoding="utf-8")
 
     rendered = tool.schema_cursor
     assert rendered
@@ -150,6 +151,10 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert "event_group_key" in source
     assert "atomic_fact_payload" in source
     assert "direction_hint_counts" in source
+    assert "claim_owner_scopes" in source
+    assert "owner_scope_inventory" in source
+    assert "claim_owner_scopes" not in prompt_source
+    assert "external_or_unregistered_owner" not in prompt_source
     assert "cleanup-orphan-source-slices" in source
     assert "retrieval_v2.claim_source_slices" in source
     assert "retrieval_v2.claim_evidence" in source
@@ -228,8 +233,27 @@ class FakeCursor:
         lowered = sql.lower()
         self.conn.statements.append(lowered)
         self.conn.params.append(params)
+        if "from retrieval_v3.claim_cache" in lowered and "group by object_name, direction::text, action_type" in lowered:
+            self.rows = [
+                {
+                    "object_name": "汤和",
+                    "direction": "positive",
+                    "action_type": "授权",
+                    "claim_count": 1,
+                }
+            ]
+            self.row = None
+            return
         if "from retrieval_v3.claim_cache" in lowered and "count(*) as count" not in lowered:
             self.rows = [dict(row) for row in self.conn.claim_rows]
+            self.row = None
+            return
+        if "from retrieval_v3.claim_owner_scopes" in lowered and "group by owner_scope" in lowered:
+            self.rows = [{"owner_scope": "target_emperor", "claim_count": 1}]
+            self.row = None
+            return
+        if "from retrieval_v3.claim_owner_scopes" in lowered and "group by owner_name, owner_scope" in lowered:
+            self.rows = []
             self.row = None
             return
         if "select count(*) as count from retrieval_v3." in lowered:
@@ -335,3 +359,15 @@ def test_quality_backfill_execute_updates_hot_fields(monkeypatch) -> None:
     update_params = next(params for statement, params in zip(conn.statements, conn.params) if "update retrieval_v3.claim_cache" in statement)
     assert update_params[0].startswith("CEK-")
     assert update_params[3] == "event_chain"
+
+
+def test_pg_owner_scope_inventory_reads_scope_view(monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+
+    report = tool.inventory_from_pg(env_file=None, dsn_env="IGNORED", sample_limit=0, schema_name="retrieval_v3")
+
+    assert report["owner_scope_inventory"] == {
+        "claim_count_by_owner_scope": {"target_emperor": 1},
+        "non_target_owners": [],
+    }
+    assert any("from retrieval_v3.claim_owner_scopes" in statement for statement in conn.statements)
