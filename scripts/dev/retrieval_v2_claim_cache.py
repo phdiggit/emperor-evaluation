@@ -192,6 +192,74 @@ def slice_hash_from_row(row: Mapping[str, Any]) -> str:
     return "SLH-" + sha256_text(stable_json(payload), length=24).upper()
 
 
+def slice_match_text(row: Mapping[str, Any]) -> str:
+    text = str(row.get("text") or row.get("raw_text") or row.get("quote") or row.get("slice_text") or row.get("slice_text_preview") or "")
+    if text.endswith("…"):
+        text = text[:-1]
+    return normalized_text(text)
+
+
+def slice_identity(row: Mapping[str, Any]) -> tuple[str, str]:
+    return (normalized_text(row.get("object_name")), normalized_text(row.get("document_code")))
+
+
+def slices_textually_overlap(candidate: Mapping[str, Any], cached_slice: Mapping[str, Any], *, min_chars: int = 40) -> bool:
+    if slice_identity(candidate) != slice_identity(cached_slice):
+        return False
+    candidate_text = slice_match_text(candidate)
+    cached_text = slice_match_text(cached_slice)
+    if len(candidate_text) < min_chars or len(cached_text) < min_chars:
+        return False
+    return cached_text in candidate_text or candidate_text in cached_text
+
+
+def reusable_claim_keys_for_slice_hash(
+    slice_hash: str,
+    existing: Mapping[str, Mapping[str, dict[str, Any]]],
+    *,
+    required_extractor_version: str = "",
+) -> set[str]:
+    keys: set[str] = set()
+    for row in existing.get("evidence", {}).values():
+        if str(row.get("slice_hash") or "") != slice_hash:
+            continue
+        claim_key_value = str(row.get("claim_key") or "")
+        claim = existing.get("claims", {}).get(claim_key_value)
+        if not claim or str(claim.get("status") or "active") not in REUSABLE_CLAIM_STATUSES:
+            continue
+        if required_extractor_version and str(claim.get("extractor_version") or "") != required_extractor_version:
+            continue
+        keys.add(claim_key_value)
+    return keys
+
+
+def reusable_slice_hashes_for_candidate(
+    candidate: Mapping[str, Any],
+    existing: Mapping[str, Mapping[str, dict[str, Any]]],
+    *,
+    required_extractor_version: str = "",
+) -> tuple[set[str], str]:
+    exact_hash = slice_hash_from_row(candidate)
+    if reusable_claim_keys_for_slice_hash(
+        exact_hash,
+        existing,
+        required_extractor_version=required_extractor_version,
+    ):
+        return {exact_hash}, "exact_hash"
+
+    fuzzy_hashes: set[str] = set()
+    for s_hash, cached_slice in existing.get("slices", {}).items():
+        if not slices_textually_overlap(candidate, cached_slice):
+            continue
+        if reusable_claim_keys_for_slice_hash(
+            str(s_hash),
+            existing,
+            required_extractor_version=required_extractor_version,
+        ):
+            fuzzy_hashes.add(str(s_hash))
+    return fuzzy_hashes, "text_overlap" if fuzzy_hashes else "miss"
+
+
 def evidence_key(claim_cache_key: str, slice_hash: str, span: Mapping[str, Any]) -> str:
     payload = {
         "claim_key": claim_cache_key,
@@ -427,6 +495,7 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                         "object_name": str(slice_row.get("object_name") or sanitized_claim.get("object_name") or ""),
                         "document_code": str(slice_row.get("document_code") or ""),
                         "source_slice_ref": source_ref,
+                        "slice_text": str(slice_row.get("text") or ""),
                         "slice_text_preview": compact_preview(str(slice_row.get("text") or "")),
                         "first_run_code": run,
                         "seen_count": 1,
@@ -494,27 +563,31 @@ def plan_candidates(
     if not isinstance(candidates, Mapping):
         raise ClaimCacheError(f"{candidates_path}: expected JSON object")
     existing = load_existing_cache(cache_root)
-    slice_to_claims: dict[str, set[str]] = defaultdict(set)
-    for row in existing["evidence"].values():
-        claim_key_value = str(row.get("claim_key") or "")
-        claim = existing["claims"].get(claim_key_value)
-        if not claim or str(claim.get("status") or "active") not in REUSABLE_CLAIM_STATUSES:
-            continue
-        if required_extractor_version and str((claim or {}).get("extractor_version") or "") != required_extractor_version:
-            continue
-        slice_to_claims[str(row.get("slice_hash") or "")].add(claim_key_value)
     by_object: dict[str, Counter[str]] = defaultdict(Counter)
     cached_claim_keys: set[str] = set()
     uncovered_slices: list[dict[str, Any]] = []
     for row in candidates.get("candidate_slices") or []:
         if not isinstance(row, Mapping):
             continue
-        s_hash = slice_hash_from_row(row)
         object_name = str(row.get("object_name") or "")
         by_object[object_name]["total"] += 1
-        claim_keys = slice_to_claims.get(s_hash, set())
+        reusable_hashes, match_mode = reusable_slice_hashes_for_candidate(
+            row,
+            existing,
+            required_extractor_version=required_extractor_version,
+        )
+        claim_keys: set[str] = set()
+        for s_hash in reusable_hashes:
+            claim_keys.update(
+                reusable_claim_keys_for_slice_hash(
+                    s_hash,
+                    existing,
+                    required_extractor_version=required_extractor_version,
+                )
+            )
         if claim_keys:
             by_object[object_name]["cached"] += 1
+            by_object[object_name][f"cached_{match_mode}"] += 1
             cached_claim_keys.update(claim_keys)
         else:
             by_object[object_name]["uncovered"] += 1
@@ -576,8 +649,10 @@ def cached_claims_for_candidates(candidates: Mapping[str, Any], cache_root: Path
     for source_slice in candidates.get("candidate_slices") or []:
         if not isinstance(source_slice, Mapping):
             continue
-        s_hash = slice_hash_from_row(source_slice)
-        evidence_rows = evidence_by_slice.get(s_hash) or []
+        reusable_hashes, _match_mode = reusable_slice_hashes_for_candidate(source_slice, existing)
+        evidence_rows: list[Mapping[str, Any]] = []
+        for s_hash in sorted(reusable_hashes):
+            evidence_rows.extend(evidence_by_slice.get(s_hash) or [])
         if not evidence_rows:
             continue
         matched_slice_count += 1

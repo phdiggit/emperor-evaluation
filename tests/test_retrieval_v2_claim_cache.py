@@ -510,6 +510,38 @@ def test_cached_claims_for_candidates_remaps_slice_refs(tmp_path: Path) -> None:
     assert report["claims"][0]["fact_payload"]["source_span_refs"] == ["SLI-CURRENT"]
 
 
+def test_claim_cache_plan_reuses_overlapping_same_document_slice(tmp_path: Path) -> None:
+    old_text = (
+        "太祖召汤和入见，命汤和守常州，常州安辑，军民帖服。"
+        "汤和因城守有方，转调粮饷无乏，诸将皆以为可任边防。"
+        "其后巡视诸营，申明约束，修缮城池，百姓得安，士卒无扰。"
+    )
+    candidates = sample_candidates()
+    candidates["candidate_slices"][0]["text"] = old_text
+    run_root = write_run(tmp_path, candidates=candidates)
+    cache_root = tmp_path / "claim_cache"
+    tool.import_run(run_root, cache_root)
+    candidates["candidate_slices"][0] = {
+        "slice_code": "SLI-WIDER",
+        "document_code": "DOC-001",
+        "object_name": "汤和",
+        "text": f"洪武初，朱元璋召诸将议事。{old_text}又命诸军修城池以备守御。",
+    }
+    candidates_path = tmp_path / "candidates.json"
+    uncovered_path = tmp_path / "uncovered.json"
+    write_json(candidates_path, candidates)
+
+    report = tool.plan_candidates(candidates_path, cache_root, uncovered_path)
+    hydrated = tool.cached_claims_for_candidates(candidates, cache_root)
+
+    assert report["cached_slice_count"] == 1
+    assert report["uncovered_slice_count"] == 1
+    assert report["by_object"]["汤和"]["cached_text_overlap"] == 1
+    assert hydrated["claim_count"] == 1
+    assert hydrated["claims"][0]["source_slice_refs"] == ["SLI-WIDER"]
+    assert json.loads(uncovered_path.read_text(encoding="utf-8"))["candidate_slices"][0]["object_name"] == "常遇春"
+
+
 def test_merge_cached_claims_prepends_cached_claims_and_updates_counts(tmp_path: Path) -> None:
     run_root = write_run(tmp_path)
     cache_root = tmp_path / "claim_cache"
