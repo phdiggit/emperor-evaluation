@@ -216,6 +216,40 @@ def requested_owner_context_only(row: Mapping[str, Any], requested_matches: Sequ
     return False
 
 
+def owner_review_class(
+    *,
+    owner_status: str,
+    risk_kind: str,
+    target_owner_mentioned: bool,
+    target_owner_context_only: bool,
+    other_owner_mentions: Sequence[Mapping[str, Any]],
+) -> str:
+    status = text(owner_status)
+    risk = text(risk_kind)
+    if status == "matched":
+        return "target_owner_actor_matched"
+    if status == "non_active":
+        return "non_active_already_gated"
+    if status == "rebind_candidate":
+        return "rebind_candidate"
+    if status == "person_material":
+        return "person_material_without_owner_anchor"
+    if target_owner_context_only:
+        return "target_context_only_review"
+    if risk == "ruler_action_without_requested_owner_mention":
+        return "ruler_action_without_owner_anchor"
+    if risk == "other_owner_or_reign_mentioned":
+        other_owner_names = unique_strings([text(row.get("owner_name")) for row in other_owner_mentions])
+        if len(other_owner_names) > 1:
+            return "multi_owner_timeline_review"
+        return "other_owner_mentioned_review"
+    if risk == "minister_actor_requested_context_review" and target_owner_mentioned:
+        return "minister_actor_target_context_ok"
+    if risk == "minister_actor_requested_context_review":
+        return "minister_actor_without_target_anchor_review"
+    return risk or status or "unknown"
+
+
 def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> dict[str, Any]:
     requested = text(row.get("emperor_name"))
     scoped_aliases = scoped_aliases_by_owner(requested, alias_book)
@@ -276,6 +310,17 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
     else:
         owner_status = "needs_review"
         risk_kind = "minister_actor_requested_context_review"
+    other_owner_mentions = [
+        {"owner_name": match.owner_name, "alias": match.alias}
+        for match in other_text_matches[:6]
+    ]
+    review_class = owner_review_class(
+        owner_status=owner_status,
+        risk_kind=risk_kind,
+        target_owner_mentioned=bool(requested_text_matches),
+        target_owner_context_only=requested_context_only,
+        other_owner_mentions=other_owner_mentions,
+    )
     return {
         "claim_key": text(row.get("claim_key")),
         "requested_emperor_name": requested,
@@ -292,10 +337,8 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
         "claim_summary": text(row.get("claim_summary")),
         "target_owner_mentioned": bool(requested_text_matches),
         "target_owner_context_only": requested_context_only,
-        "other_owner_mentions": [
-            {"owner_name": match.owner_name, "alias": match.alias}
-            for match in other_text_matches[:6]
-        ],
+        "owner_review_class": review_class,
+        "other_owner_mentions": other_owner_mentions,
     }
 
 
@@ -341,12 +384,14 @@ def summarize_findings(findings: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     by_emperor_status: Counter[tuple[str, str]] = Counter()
     by_emperor_kind: Counter[tuple[str, str]] = Counter()
     by_emperor_owner_status: Counter[tuple[str, str]] = Counter()
+    by_emperor_review_class: Counter[tuple[str, str]] = Counter()
     by_suggested_owner: Counter[tuple[str, str]] = Counter()
     for row in findings:
         emperor = text(row.get("requested_emperor_name"))
         by_emperor_status[(emperor, text(row.get("status")))] += 1
         by_emperor_kind[(emperor, text(row.get("owner_risk_kind")))] += 1
         by_emperor_owner_status[(emperor, text(row.get("owner_status")))] += 1
+        by_emperor_review_class[(emperor, text(row.get("owner_review_class")))] += 1
         suggested = text(row.get("suggested_owner_name"))
         if suggested:
             by_suggested_owner[(emperor, suggested)] += 1
@@ -355,6 +400,7 @@ def summarize_findings(findings: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         "by_emperor_status": counter_pairs(by_emperor_status, ("requested_emperor_name", "status")),
         "by_emperor_owner_status": counter_pairs(by_emperor_owner_status, ("requested_emperor_name", "owner_status")),
         "by_emperor_risk_kind": counter_pairs(by_emperor_kind, ("requested_emperor_name", "owner_risk_kind")),
+        "by_emperor_review_class": counter_pairs(by_emperor_review_class, ("requested_emperor_name", "owner_review_class")),
         "by_suggested_owner": counter_pairs(by_suggested_owner, ("requested_emperor_name", "suggested_owner_name")),
     }
 
@@ -367,6 +413,7 @@ def sample_finding(row: Mapping[str, Any]) -> dict[str, Any]:
         "status": text(row.get("status")),
         "owner_status": text(row.get("owner_status")),
         "owner_risk_kind": text(row.get("owner_risk_kind")),
+        "owner_review_class": text(row.get("owner_review_class")),
         "suggested_owner_name": text(row.get("suggested_owner_name")),
         "matched_owner_alias": text(row.get("matched_owner_alias")),
         "action_type": text(row.get("action_type")),
@@ -402,10 +449,14 @@ def owner_binding_inventory(
     external_owner_counts: Counter[str] = Counter()
     suggested_external_counts: Counter[str] = Counter()
     anomaly_counts: Counter[str] = Counter()
+    review_class_counts: Counter[str] = Counter()
     samples: dict[str, list[dict[str, Any]]] = {
         "external_or_unregistered_owner_claims": [],
         "rebind_candidates": [],
         "ambiguous_owner_reviews": [],
+        "multi_owner_timeline_reviews": [],
+        "ruler_action_without_owner_anchor": [],
+        "minister_actor_target_context_ok": [],
         "person_material_without_requested_owner": [],
         "target_context_only_claims": [],
     }
@@ -419,6 +470,9 @@ def owner_binding_inventory(
             append_sample(samples["external_or_unregistered_owner_claims"], row, sample_limit=sample_limit)
         owner_status = text(row.get("owner_status"))
         risk_kind = text(row.get("owner_risk_kind"))
+        review_class = text(row.get("owner_review_class"))
+        if review_class:
+            review_class_counts[review_class] += 1
         suggested = text(row.get("suggested_owner_name"))
         if owner_status == "rebind_candidate":
             anomaly_counts["rebind_candidate"] += 1
@@ -428,6 +482,12 @@ def owner_binding_inventory(
         if risk_kind == "other_owner_or_reign_mentioned":
             anomaly_counts["other_owner_or_reign_mentioned"] += 1
             append_sample(samples["ambiguous_owner_reviews"], row, sample_limit=sample_limit)
+        if review_class == "multi_owner_timeline_review":
+            append_sample(samples["multi_owner_timeline_reviews"], row, sample_limit=sample_limit)
+        if review_class == "ruler_action_without_owner_anchor":
+            append_sample(samples["ruler_action_without_owner_anchor"], row, sample_limit=sample_limit)
+        if review_class == "minister_actor_target_context_ok":
+            append_sample(samples["minister_actor_target_context_ok"], row, sample_limit=sample_limit)
         if owner_status == "person_material":
             anomaly_counts["person_material_without_requested_owner"] += 1
             append_sample(samples["person_material_without_requested_owner"], row, sample_limit=sample_limit)
@@ -449,6 +509,7 @@ def owner_binding_inventory(
             for owner, count in sorted(suggested_external_counts.items(), key=lambda item: (-item[1], item[0]))
         ],
         "anomaly_counts": dict(sorted(anomaly_counts.items())),
+        "review_class_counts": dict(sorted(review_class_counts.items())),
         "samples": samples,
     }
 
@@ -626,6 +687,7 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
         "status",
         "owner_status",
         "owner_risk_kind",
+        "owner_review_class",
         "suggested_owner_name",
         "matched_owner_alias",
         "action_type",
@@ -659,6 +721,12 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
     ]
     for row in summary.get("by_emperor_owner_status") or []:
         lines.append(f"| {row.get('requested_emperor_name')} | {row.get('owner_status')} | {row.get('count')} |")
+    lines.extend(["", "## Owner Review Class", "", "| requested_emperor_name | owner_review_class | count |", "| --- | --- | ---: |"])
+    for row in summary.get("by_emperor_review_class") or []:
+        lines.append(f"| {row.get('requested_emperor_name')} | {row.get('owner_review_class')} | {row.get('count')} |")
+    lines.extend(["", "## Review Class Totals", "", "| owner_review_class | count |", "| --- | ---: |"])
+    for review_class, count in (inventory.get("review_class_counts") or {}).items():
+        lines.append(f"| {review_class} | {count} |")
     lines.extend(["", "## Owner Pool", "", "| owner_pool_status | count |", "| --- | ---: |"])
     for status, count in (inventory.get("claim_count_by_owner_pool_status") or {}).items():
         lines.append(f"| {status} | {count} |")

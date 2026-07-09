@@ -27,6 +27,7 @@ def test_owner_aliases_resolve_titles_to_canonical_personal_names() -> None:
 
     assert result["owner_status"] == "rebind_candidate"
     assert result["owner_risk_kind"] == "ruler_action_actor_matches_other_owner"
+    assert result["owner_review_class"] == "rebind_candidate"
     assert result["suggested_owner_name"] == "李治"
     assert result["matched_owner_alias"] == "高宗"
     assert "direction" not in result
@@ -69,6 +70,7 @@ def test_scoped_gaozu_alias_keeps_liubang_claims_on_liubang() -> None:
     )
 
     assert result["owner_status"] == "matched"
+    assert result["owner_review_class"] == "target_owner_actor_matched"
     assert result["suggested_owner_name"] == "刘邦"
     assert result["matched_owner_alias"] == "高祖"
 
@@ -109,6 +111,7 @@ def test_person_material_without_requested_owner_is_not_rejected() -> None:
     )
 
     assert result["owner_status"] == "person_material"
+    assert result["owner_review_class"] == "person_material_without_owner_anchor"
     assert result["suggested_owner_name"] == ""
 
 
@@ -279,6 +282,7 @@ def test_context_only_requested_owner_mention_does_not_block_unique_other_owner_
 
     assert result["owner_status"] == "rebind_candidate"
     assert result["owner_risk_kind"] == "single_other_owner_context_with_requested_owner_context_only"
+    assert result["owner_review_class"] == "rebind_candidate"
     assert result["suggested_owner_name"] == "李渊"
     assert result["target_owner_context_only"] is True
 
@@ -299,6 +303,44 @@ def test_executable_review_status_plan_keeps_multi_owner_timelines_out_of_active
 
     assert tool.executable_rebind_plan([finding]) == []
     assert [row["claim_key"] for row in tool.executable_review_status_plan([finding])] == ["CLMK-001"]
+    assert finding["owner_review_class"] == "multi_owner_timeline_review"
+
+
+def test_minister_actor_target_context_is_downgraded_to_ok_class() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="李世民",
+            object_name="萧瑀",
+            action_type="处置",
+            claim_summary="萧瑀弹劾房玄龄、魏徵、温彦博的小过失，李世民最终不问所劾之罪。",
+            fact_payload={"actor": "萧瑀", "object": "房玄龄、魏徵、温彦博", "action_type": "处置"},
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "needs_review"
+    assert result["owner_risk_kind"] == "minister_actor_requested_context_review"
+    assert result["owner_review_class"] == "minister_actor_target_context_ok"
+
+
+def test_ruler_action_without_owner_anchor_gets_specific_review_class() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="李世民",
+            object_name="萧瑀",
+            action_type="处置",
+            claim_summary="萧瑀弹劾房玄龄、魏徵、温彦博的小过失，所劾之罪最终不问。",
+            fact_payload={"actor": "萧瑀", "object": "房玄龄、魏徵、温彦博", "action_type": "处置"},
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "needs_review"
+    assert result["owner_review_class"] == "ruler_action_without_owner_anchor"
 
 
 def test_owner_binding_inventory_reports_external_and_review_samples() -> None:
@@ -333,6 +375,8 @@ def test_owner_binding_inventory_reports_external_and_review_samples() -> None:
     assert inventory["external_or_unregistered_owners"] == [{"owner_name": "王世充", "claim_count": 1}]
     assert inventory["anomaly_counts"]["external_or_unregistered_owner"] == 1
     assert inventory["anomaly_counts"]["rebind_candidate"] == 1
+    assert inventory["review_class_counts"]["person_material_without_owner_anchor"] == 1
+    assert inventory["review_class_counts"]["rebind_candidate"] == 1
     assert inventory["samples"]["external_or_unregistered_owner_claims"][0]["claim_key"] == "CLMK-EXT"
     assert inventory["samples"]["rebind_candidates"][0]["claim_key"] == "CLMK-REBIND"
 
