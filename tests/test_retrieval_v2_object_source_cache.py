@@ -290,6 +290,36 @@ def test_discovery_uses_seed_source_document_hints_before_search() -> None:
     assert docs[0]["wikisource_title_candidates"] == ["三國志/卷10", "三国志/卷10"]
 
 
+def test_discovery_prioritizes_source_target_refs_for_biography_location() -> None:
+    queries: list[str] = []
+
+    def fake_search(query: str, *, limit: int, timeout: int) -> list[dict[str, str]]:
+        queries.append(query)
+        if query == "李孝恭 舊唐書 宗室传":
+            return [{"title": "舊唐書", "url": "https://example.test/jts", "snippet": "卷六十 宗室 河間王李孝恭傳"}]
+        return []
+
+    docs, hits = tool.discover_source_documents(
+        {
+            "name": "李孝恭",
+            "source_hints": ["舊唐書", "新唐書"],
+            "source_target_refs": ["旧唐书 宗室传 李孝恭"],
+        },
+        search_fn=fake_search,
+        pages_per_query=1,
+        timeout=3,
+        source_hint_limit=2,
+        max_search_names=1,
+        include_emperor_annals=True,
+    )
+
+    assert queries[0] == "李孝恭 舊唐書 宗室传"
+    assert [row["source_title"] for row in docs] == ["舊唐書/卷60"]
+    assert docs[0]["source_target_ref"] == "旧唐书 宗室传 李孝恭"
+    assert hits[0]["query_kind"] == "source_target_ref"
+    assert hits[0]["derived_source_titles"] == ["舊唐書/卷60"]
+
+
 def test_discovery_adds_title_candidates_for_search_hits() -> None:
     def fake_search(query: str, *, limit: int, timeout: int) -> list[dict[str, str]]:
         return [{"title": "三國志(四庫全書本)/魏志/卷23", "url": "https://example.test/sgz23", "snippet": "曹仁傳"}]

@@ -179,6 +179,21 @@ def alias_in_slice_metadata(row: Mapping[str, Any], aliases: list[str]) -> bool:
     return bool(metadata_text and any(normalized_text(alias) in metadata_text for alias in aliases if alias))
 
 
+def section_heading_matches_candidate(section_heading: str, aliases: Sequence[str]) -> bool:
+    heading = normalized_text(section_heading)
+    if not heading:
+        return True
+    for alias in aliases:
+        normalized_alias = normalized_text(alias)
+        if not normalized_alias:
+            continue
+        if normalized_alias in heading:
+            return True
+        if len(heading) >= 2 and heading in normalized_alias:
+            return True
+    return False
+
+
 def biography_like_source(row: Mapping[str, Any]) -> bool:
     object_cache = object_cache_row(row)
     source_shape = str(object_cache.get("source_shape") or row.get("source_shape") or "")
@@ -212,7 +227,7 @@ def candidate_slice_risk_flags(row: Mapping[str, Any]) -> list[str]:
     aliases = candidate_aliases(row)
     section_heading = str(object_cache.get("section_heading") or row.get("section_heading") or "").strip()
     flags: list[str] = []
-    if section_heading and aliases and not any(alias in section_heading for alias in aliases):
+    if section_heading and aliases and not section_heading_matches_candidate(section_heading, aliases):
         flags.append("wrong_person_section_risk")
     text = str(row.get("text") or row.get("raw_text") or "")
     if len(text) >= 260 and alias_mention_count(text, aliases) <= 1:

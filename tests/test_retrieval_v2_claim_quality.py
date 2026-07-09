@@ -36,6 +36,28 @@ def test_slice_claim_eligibility_rejects_incidental_wrong_section_mentions() -> 
     assert eligibility["reasons"] == ["wrong_person_section_risk", "no_action_or_outcome_near_object"]
 
 
+def test_slice_claim_eligibility_allows_given_name_subheading_in_group_biography() -> None:
+    right_section = {
+        "object_name": "李孝恭",
+        "matched_aliases": ["河间王"],
+        "source_shape": "object_biography_candidate",
+        "section_heading": "孝恭",
+        "text": "河间王孝恭从平萧铣，拜荆州大总管，威惠著于江汉。",
+    }
+    wrong_section = {
+        **right_section,
+        "section_heading": "道宗",
+        "text": "道宗从征高丽，道宗请罪，太宗舍而不问。旁及河间王旧事。",
+    }
+
+    right = tool.slice_claim_eligibility(right_section)
+    wrong = tool.slice_claim_eligibility(wrong_section)
+
+    assert "wrong_person_section_risk" not in right["risk_flags"]
+    assert right["claim_eligible"] is True
+    assert "wrong_person_section_risk" in wrong["risk_flags"]
+
+
 def test_slice_claim_eligibility_rejects_ambiguous_alias_only_mentions() -> None:
     row = {
         "object_name": "卢绾",

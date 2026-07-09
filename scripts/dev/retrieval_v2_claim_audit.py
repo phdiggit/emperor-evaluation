@@ -262,7 +262,7 @@ def build_claim_audit(
         source_shape = text_from(object_slice, "source_shape")
         if section_heading and source_shape in BIOGRAPHY_SHAPES:
             aliases = object_aliases({"object_name": claim_object, **object_slice})
-            if aliases and not any(alias in section_heading for alias in aliases):
+            if aliases and not claim_quality.section_heading_matches_candidate(section_heading, aliases):
                 findings.append(
                     finding_row(
                         "wrong_person_section",

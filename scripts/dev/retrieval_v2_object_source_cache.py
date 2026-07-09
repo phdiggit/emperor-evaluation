@@ -17,7 +17,7 @@ if str(ROOT) not in sys.path:
 from scripts.dev.retrieval_v2_bootstrap import (  # noqa: E402
     RetrievalV2BootstrapError,
 )
-from scripts.dev.retrieval_v2_contracts import alias_script_variants, unique_strings  # noqa: E402
+from scripts.dev.retrieval_v2_contracts import SOURCE_HINT_TEXT_ALIASES, alias_script_variants, unique_strings  # noqa: E402
 from scripts.dev.retrieval_v2_object_source_cache_seed import (  # noqa: E402
     ObjectSourceCacheSeedError,
     clean_name,
@@ -85,6 +85,7 @@ SCHEMA_VERSION = 1
 OBJECT_BIOGRAPHY_QUERY_SUFFIXES = ("列传", "列傳", "本传", "本傳", "功臣", "奸臣")
 SECTION_HEADING_RE = re.compile(r"([A-Za-z0-9_\-\u3400-\u9fff·]+)\s*\[\s*编辑\s*\]")
 CHAR_LOCATOR_RE = re.compile(r"chars:(\d+)-(\d+)")
+SOURCE_TARGET_REF_SPLIT_RE = re.compile(r"[\s，,。；;：:、/／()（）\[\]【】《》<>〈〉]+")
 
 PGSQL_SCHEMA_DRAFT = """
 -- retrieval_v2 object source cache draft schema.
@@ -231,6 +232,103 @@ def search_query_name_variants(search_name: str, *, max_variants: int = 2) -> li
     return unique_strings([name, *same_length])[: max(1, max_variants)]
 
 
+def seed_source_target_refs(seed: Mapping[str, Any]) -> list[str]:
+    values: list[str] = []
+    for key in ("source_target_refs", "source_targets"):
+        raw = seed.get(key)
+        if isinstance(raw, str):
+            values.append(raw)
+        elif isinstance(raw, Sequence) and not isinstance(raw, (str, bytes)):
+            values.extend(str(value or "") for value in raw)
+    return unique_strings(clean_name(value) for value in values if clean_name(value))
+
+
+def source_hint_text_aliases(source_hint: str) -> list[str]:
+    normalized = normalize_title(source_hint)
+    aliases = [normalized]
+    aliases.extend(SOURCE_HINT_TEXT_ALIASES.get(normalized, ()))
+    return unique_strings(alias for alias in aliases if alias)
+
+
+def source_target_ref_matches_hint(source_target_ref: str, source_hint: str) -> bool:
+    normalized_ref = normalize_title(source_target_ref)
+    return any(alias and alias in normalized_ref for alias in source_hint_text_aliases(source_hint))
+
+
+def source_target_ref_terms(source_target_ref: str, seed: Mapping[str, Any], source_hint: str) -> list[str]:
+    source_aliases = set(source_hint_text_aliases(source_hint))
+    seed_alias_values = {normalize_title(alias) for alias in seed_aliases(seed) if alias}
+    terms: list[str] = []
+    for raw_token in SOURCE_TARGET_REF_SPLIT_RE.split(source_target_ref):
+        token = normalize_title(raw_token)
+        if not token or token in source_aliases or token in seed_alias_values:
+            continue
+        if token in {"传", "傳", "列传", "列傳", "本传", "本傳"}:
+            continue
+        terms.append(token)
+    return unique_strings(terms)[:2]
+
+
+def source_target_ref_query_rows(
+    seed: Mapping[str, Any],
+    *,
+    source_hints: Sequence[str],
+    max_search_names: int,
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    search_names = search_names_for_seed(seed, max_search_names=max_search_names)
+    for source_target_ref in seed_source_target_refs(seed):
+        matched_hints = [hint for hint in source_hints if source_target_ref_matches_hint(source_target_ref, hint)]
+        for source_hint in matched_hints or list(source_hints):
+            terms = source_target_ref_terms(source_target_ref, seed, source_hint)
+            for search_name in search_names:
+                for query_name in search_query_name_variants(search_name):
+                    query_parts = [query_name, source_hint, *terms]
+                    query = " ".join(part for part in query_parts if part).strip()
+                    if not query:
+                        continue
+                    rows.append(
+                        {
+                            "query": query,
+                            "base_query": query,
+                            "query_name": query_name,
+                            "search_name": search_name,
+                            "source_hint": source_hint,
+                            "source_target_ref": source_target_ref,
+                            "query_kind": "source_target_ref",
+                        }
+                    )
+    return rows
+
+
+def generic_object_source_query_rows(
+    seed: Mapping[str, Any],
+    *,
+    source_hints: Sequence[str],
+    max_search_names: int,
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for search_name in search_names_for_seed(seed, max_search_names=max_search_names):
+        for query_name in search_query_name_variants(search_name):
+            for source_hint in source_hints:
+                base_query = f"{query_name} {source_hint}".strip()
+                queries = [base_query]
+                if not seed_is_emperor(seed):
+                    queries.extend(f"{base_query} {suffix}".strip() for suffix in OBJECT_BIOGRAPHY_QUERY_SUFFIXES)
+                for query in unique_strings(queries):
+                    rows.append(
+                        {
+                            "query": query,
+                            "base_query": base_query,
+                            "query_name": query_name,
+                            "search_name": search_name,
+                            "source_hint": source_hint,
+                            "query_kind": "generic_object_source",
+                        }
+                    )
+    return rows
+
+
 def cached_search_wikisource(
     search_fn: SearchFn,
     query: str,
@@ -353,100 +451,119 @@ def discover_source_documents(
         )
     if pages_per_query <= 0:
         return list(documents.values()), hits
-    for search_name in search_names_for_seed(seed, max_search_names=max_search_names):
-        for query_name in search_query_name_variants(search_name):
-            for source_hint in source_hints:
-                base_query = f"{query_name} {source_hint}".strip()
-                queries = [base_query]
-                if not seed_is_emperor(seed):
-                    queries.extend(f"{base_query} {suffix}".strip() for suffix in OBJECT_BIOGRAPHY_QUERY_SUFFIXES)
-                allowed_roots = source_roots_for_hint(source_hint, emp_metadata=dict(seed))
-                seen_titles_for_base: set[str] = set()
-                for query in unique_strings(queries):
-                    try:
-                        pages = cached_search_wikisource(
-                            search_fn,
-                            query,
-                            limit=pages_per_query,
-                            timeout=timeout,
-                            fetch_context=fetch_context,
-                        )
-                    except Exception as exc:
-                        hits.append({"query": query, "person_name": seed_name(seed), "source_hint": source_hint, "error": repr(exc)})
-                        continue
-                    for page in pages:
-                        title = normalize_title(clean_name(page.get("title")))
-                        if title in seen_titles_for_base:
-                            continue
-                        seen_titles_for_base.add(title)
-                        snippet = clean_name(page.get("snippet"))
-                        hit = {
-                            "query": query,
-                            "person_name": seed_name(seed),
-                            "source_hint": source_hint,
-                            "title": title,
-                            "url": page.get("url") or "",
-                            "snippet": snippet,
-                        }
-                        if query_name != search_name:
-                            hit["script_variant_query"] = True
-                            hit["base_search_name"] = search_name
-                        if query != base_query:
-                            hit["expanded_query"] = True
-                        hits.append(hit)
-                        source_titles = [title] if title and is_allowed_source_document_title(title, allowed_roots) else []
-                        if not source_titles:
-                            source_titles = derived_volume_titles_from_source_hit(
-                                title=title,
-                                snippet=snippet,
-                                allowed_roots=allowed_roots,
-                                search_names=[query_name, search_name, seed_name(seed)],
-                            )
-                            if source_titles:
-                                hit["derived_source_titles"] = source_titles
-                        if not source_titles:
-                            source_titles = derived_volume_titles_from_root_hit(
-                                title=title,
-                                snippet=snippet,
-                                allowed_roots=allowed_roots,
-                                search_names=[query_name, search_name, seed_name(seed)],
-                            )
-                            if source_titles:
-                                hit["derived_source_titles"] = source_titles
-                        if not source_titles:
-                            source_titles, directory_meta = derived_volume_titles_from_directory_hit(
-                                title=title,
-                                allowed_roots=allowed_roots,
-                                search_names=[query_name, search_name, seed_name(seed)],
-                                timeout=timeout,
-                                fetch_context=fetch_context,
-                            )
-                            hit.update(directory_meta)
-                        if not source_titles:
-                            hit["rejected_reason"] = "source_root_mismatch_or_not_volume"
-                            hit["allowed_source_roots"] = allowed_roots
-                            continue
-                        for source_title in source_titles:
-                            key = normalize_title(source_title)
-                            documents.setdefault(
-                                key,
-                                {
-                                    "document_cache_code": document_cache_code(seed, source_title, source_role),
-                                    "person_cache_code": person_cache_code(seed),
-                                    "person_name": seed_name(seed),
-                                    "source_title": source_title,
-                                    "title": source_title,
-                                    "wikisource_title": source_title,
-                                    "url": page.get("url") or "" if source_title == title else "",
-                                    "source_role": source_role,
-                                    "source_kind": "wikisource_page",
-                                    "why_selected": f"object source cache search for {seed_name(seed)}",
-                                    "search_query": query,
-                                    "search_snippet": snippet,
-                                    "source_hint": source_hint,
-                                    "wikisource_title_candidates": source_document_title_candidates(source_title) or [source_title],
-                                },
-                            )
+    query_rows = [
+        *source_target_ref_query_rows(seed, source_hints=source_hints, max_search_names=max_search_names),
+        *generic_object_source_query_rows(seed, source_hints=source_hints, max_search_names=max_search_names),
+    ]
+    seen_query_keys: set[tuple[str, str]] = set()
+    seen_titles_for_base: dict[str, set[str]] = {}
+    for query_row in query_rows:
+        query = query_row["query"]
+        source_hint = query_row["source_hint"]
+        query_key = (query, source_hint)
+        if query_key in seen_query_keys:
+            continue
+        seen_query_keys.add(query_key)
+        base_query = query_row.get("base_query") or query
+        query_name = query_row.get("query_name") or seed_name(seed)
+        search_name = query_row.get("search_name") or query_name
+        allowed_roots = source_roots_for_hint(source_hint, emp_metadata=dict(seed))
+        base_seen = seen_titles_for_base.setdefault(base_query, set())
+        try:
+            pages = cached_search_wikisource(
+                search_fn,
+                query,
+                limit=pages_per_query,
+                timeout=timeout,
+                fetch_context=fetch_context,
+            )
+        except Exception as exc:
+            hit_error = {"query": query, "person_name": seed_name(seed), "source_hint": source_hint, "error": repr(exc)}
+            if query_row.get("source_target_ref"):
+                hit_error["source_target_ref"] = query_row["source_target_ref"]
+                hit_error["query_kind"] = query_row.get("query_kind") or ""
+            hits.append(hit_error)
+            continue
+        for page in pages:
+            title = normalize_title(clean_name(page.get("title")))
+            if title in base_seen:
+                continue
+            base_seen.add(title)
+            snippet = clean_name(page.get("snippet"))
+            hit = {
+                "query": query,
+                "person_name": seed_name(seed),
+                "source_hint": source_hint,
+                "title": title,
+                "url": page.get("url") or "",
+                "snippet": snippet,
+            }
+            if query_row.get("source_target_ref"):
+                hit["source_target_ref"] = query_row["source_target_ref"]
+                hit["query_kind"] = query_row.get("query_kind") or ""
+            if query_name != search_name:
+                hit["script_variant_query"] = True
+                hit["base_search_name"] = search_name
+            if query != base_query:
+                hit["expanded_query"] = True
+            hits.append(hit)
+            source_titles = [title] if title and is_allowed_source_document_title(title, allowed_roots) else []
+            if not source_titles:
+                source_titles = derived_volume_titles_from_source_hit(
+                    title=title,
+                    snippet=snippet,
+                    allowed_roots=allowed_roots,
+                    search_names=[query_name, search_name, seed_name(seed)],
+                )
+                if source_titles:
+                    hit["derived_source_titles"] = source_titles
+            if not source_titles:
+                source_titles = derived_volume_titles_from_root_hit(
+                    title=title,
+                    snippet=snippet,
+                    allowed_roots=allowed_roots,
+                    search_names=[query_name, search_name, seed_name(seed)],
+                )
+                if source_titles:
+                    hit["derived_source_titles"] = source_titles
+            if not source_titles:
+                source_titles, directory_meta = derived_volume_titles_from_directory_hit(
+                    title=title,
+                    allowed_roots=allowed_roots,
+                    search_names=[query_name, search_name, seed_name(seed)],
+                    timeout=timeout,
+                    fetch_context=fetch_context,
+                )
+                hit.update(directory_meta)
+            if not source_titles:
+                hit["rejected_reason"] = "source_root_mismatch_or_not_volume"
+                hit["allowed_source_roots"] = allowed_roots
+                continue
+            for source_title in source_titles:
+                key = normalize_title(source_title)
+                why_selected = f"object source cache search for {seed_name(seed)}"
+                if query_row.get("source_target_ref"):
+                    why_selected = f"object source cache source_target_ref search for {seed_name(seed)}"
+                documents.setdefault(
+                    key,
+                    {
+                        "document_cache_code": document_cache_code(seed, source_title, source_role),
+                        "person_cache_code": person_cache_code(seed),
+                        "person_name": seed_name(seed),
+                        "source_title": source_title,
+                        "title": source_title,
+                        "wikisource_title": source_title,
+                        "url": page.get("url") or "" if source_title == title else "",
+                        "source_role": source_role,
+                        "source_kind": "wikisource_page",
+                        "why_selected": why_selected,
+                        "search_query": query,
+                        "search_snippet": snippet,
+                        "source_hint": source_hint,
+                        "source_target_ref": query_row.get("source_target_ref") or "",
+                        "wikisource_title_candidates": source_document_title_candidates(source_title) or [source_title],
+                    },
+                )
     return list(documents.values()), hits
 
 

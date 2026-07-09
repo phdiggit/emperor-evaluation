@@ -307,6 +307,33 @@ def test_selected_object_cache_slices_filters_wrong_person_section() -> None:
     ]
 
 
+def test_claim_candidate_quality_allows_given_name_group_biography_heading() -> None:
+    doc = {
+        "document_cache_code": "OSD-LXG",
+        "person_name": "李孝恭",
+        "source_role": "object_biography_or_mentions",
+        "source_shape": "object_biography_candidate",
+    }
+    right = {
+        "slice_cache_code": "OSS-LXG-RIGHT",
+        "document_cache_code": "OSD-LXG",
+        "person_name": "李孝恭",
+        "source_role": "object_biography_or_mentions",
+        "section_heading": "孝恭",
+        "matched_aliases": ["河间王"],
+        "raw_text": "河间王孝恭从平萧铣，拜荆州大总管，威惠著于江汉。",
+    }
+    wrong = {
+        **right,
+        "slice_cache_code": "OSS-LXG-WRONG",
+        "section_heading": "道宗",
+        "raw_text": "道宗从征高丽，道宗请罪，太宗舍而不问。旁及河间王旧事。",
+    }
+
+    assert tool.claim_candidate_quality_flags(tool.object_cache_candidate_slice(right, doc)) == []
+    assert tool.claim_candidate_quality_flags(tool.object_cache_candidate_slice(wrong, doc)) == ["wrong_person_section"]
+
+
 def test_selected_object_cache_slices_filters_ambiguous_alias_only_mentions() -> None:
     docs_by_code = {
         "OSD-LW": {

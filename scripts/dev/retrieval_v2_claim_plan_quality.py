@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from typing import Any, Mapping, Sequence
 
+from scripts.dev import retrieval_v2_claim_quality as claim_quality
+
 
 AMBIGUOUS_CLAIM_ALIAS_TERMS = {
     "王",
@@ -142,7 +144,7 @@ def claim_candidate_quality_flags(candidate: Mapping[str, Any]) -> list[str]:
     aliases = [object_name, *(text(alias) for alias in candidate.get("matched_aliases") or [])]
 
     if section_heading and shape in {"object_biography_candidate", "object_existing_source_candidate", "title_name_candidate"}:
-        if not any(alias and alias in section_heading for alias in aliases):
+        if not claim_quality.section_heading_matches_candidate(section_heading, aliases):
             flags.append("wrong_person_section")
 
     first_heading = re.search(r"([^\s\[]+)\s*\[\s*编辑\s*\]", raw_text)
