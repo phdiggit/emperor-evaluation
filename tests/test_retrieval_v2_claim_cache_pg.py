@@ -140,7 +140,7 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert rendered
     assert tool.DEFAULT_DSN_ENV == "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
     assert tool.DEFAULT_PG_SCHEMA == "retrieval_v3"
-    assert tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS == ("claim_extraction_only:v4_structured_ref_policy",)
+    assert tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS == ("claim_extraction_only:v5_direction_free",)
     assert "retrieval_v2.claim_cache" in source
     assert "canonical_event_key" in source
     assert "near_duplicate_group_payload" in source
@@ -173,7 +173,7 @@ def test_extractor_version_policy_blocks_legacy_by_default(tmp_path: Path) -> No
     assert issues == [
         {
             "kind": "unsupported_extractor_version",
-            "allowed_extractor_versions": ["claim_extraction_only:v4_structured_ref_policy"],
+            "allowed_extractor_versions": ["claim_extraction_only:v5_direction_free"],
             "observed_extractor_versions": {"claim_extraction_only": 1},
             "blocked_extractor_versions": {"claim_extraction_only": 1},
             "hint": "Pass --allowed-extractor-version for a reviewed current version, or --allow-legacy-extractor-version for an explicit legacy import.",
@@ -193,6 +193,56 @@ def test_extractor_version_policy_allows_explicit_legacy_import(tmp_path: Path) 
     )
 
     assert issues == []
+
+
+def test_filter_prepared_rows_by_run_codes_keeps_related_evidence_and_slices(tmp_path: Path) -> None:
+    cache_root = tmp_path / "claim_cache"
+    write_cache(cache_root)
+    base_claim = tool.prepared_cache_rows(cache_root)["claims"][0]
+    base_slice = tool.prepared_cache_rows(cache_root)["source_slices"][0]
+    base_evidence = tool.prepared_cache_rows(cache_root)["claim_evidence"][0]
+    new_slice = dict(base_slice)
+    new_slice["slice_hash"] = "SLH-NEW"
+    new_slice["source_slice_ref"] = "SLI-NEW"
+    new_slice["first_run_code"] = "RUN-NEW"
+    new_claim = dict(base_claim)
+    new_claim["claim_key"] = "CLMK-NEW"
+    new_claim["first_run_code"] = "RUN-NEW"
+    new_claim["last_run_code"] = "RUN-NEW"
+    new_claim["extractor_version"] = "claim_extraction_only:v5_direction_free"
+    old_claim = dict(base_claim)
+    old_claim["claim_key"] = "CLMK-OLD"
+    old_claim["first_run_code"] = "RUN-OLD"
+    old_claim["last_run_code"] = "RUN-OLD"
+    old_claim["extractor_version"] = "claim_extraction_only:v4_structured_ref_policy"
+    new_evidence = dict(base_evidence)
+    new_evidence["evidence_key"] = "EVD-NEW"
+    new_evidence["claim_key"] = "CLMK-NEW"
+    new_evidence["slice_hash"] = "SLH-NEW"
+    new_evidence["source_slice_ref"] = "SLI-NEW"
+    new_evidence["first_run_code"] = "RUN-NEW"
+    old_evidence = dict(base_evidence)
+    old_evidence["evidence_key"] = "EVD-OLD"
+    old_evidence["claim_key"] = "CLMK-OLD"
+    old_evidence["first_run_code"] = "RUN-OLD"
+
+    rows = {
+        "claims": [old_claim, new_claim],
+        "source_slices": [base_slice, new_slice],
+        "claim_evidence": [old_evidence, new_evidence],
+        "import_runs": [{"run_code": "RUN-OLD"}, {"run_code": "RUN-NEW"}],
+    }
+
+    filtered = tool.filter_prepared_rows_by_run_codes(rows, ["RUN-NEW"])
+
+    assert [row["claim_key"] for row in filtered["claims"]] == ["CLMK-NEW"]
+    assert [row["evidence_key"] for row in filtered["claim_evidence"]] == ["EVD-NEW"]
+    assert [row["slice_hash"] for row in filtered["source_slices"]] == ["SLH-NEW"]
+    assert [row["run_code"] for row in filtered["import_runs"]] == ["RUN-NEW"]
+    assert tool.validate_extractor_version_policy(
+        filtered,
+        allowed_extractor_versions=tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
+    ) == []
 
 
 def test_cleanup_where_clause_requires_selector() -> None:

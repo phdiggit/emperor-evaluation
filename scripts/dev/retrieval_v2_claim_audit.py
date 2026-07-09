@@ -191,12 +191,20 @@ def build_claim_audit(
     claim_cache_root: Path,
     object_cache_root: Path,
     candidates_path: Path | None = None,
+    last_run_codes: Sequence[str] | None = None,
     max_findings: int = 200,
 ) -> dict[str, Any]:
     claim_paths = claim_cache.cache_paths(claim_cache_root)
     claims = read_jsonl(claim_paths["claims"])
     evidences = read_jsonl(claim_paths["evidence"])
     source_slices = read_jsonl(claim_paths["slices"])
+    run_code_set = {str(code or "").strip() for code in (last_run_codes or []) if str(code or "").strip()}
+    if run_code_set:
+        claims = [row for row in claims if text_from(row, "last_run_code") in run_code_set]
+        claim_key_set = {text_from(row, "claim_key") for row in claims if text_from(row, "claim_key")}
+        evidences = [row for row in evidences if text_from(row, "claim_key") in claim_key_set]
+        slice_hash_set = {text_from(row, "slice_hash") for row in evidences if text_from(row, "slice_hash")}
+        source_slices = [row for row in source_slices if text_from(row, "slice_hash") in slice_hash_set]
     claims_by_key = {text_from(row, "claim_key"): row for row in claims if text_from(row, "claim_key")}
     active_claims = [row for row in claims if text_from(row, "status") in {"", "active"}]
     active_claim_keys = {text_from(row, "claim_key") for row in active_claims if text_from(row, "claim_key")}
@@ -381,6 +389,9 @@ def build_claim_audit(
         "claim_cache_root": str(claim_cache_root),
         "object_cache_root": str(object_cache_root),
         "candidates_path": str(candidates_path) if candidates_path else "",
+        "selectors": {
+            "last_run_codes": sorted(run_code_set),
+        },
         "totals": {
             "claims": len(claims),
             "active_claims": len(active_claims),
@@ -492,6 +503,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--claim-cache-root", type=Path, required=True)
     parser.add_argument("--object-cache-root", type=Path, required=True)
     parser.add_argument("--candidates-path", type=Path)
+    parser.add_argument("--last-run-code", action="append", dest="last_run_codes")
     parser.add_argument("--output-json", type=Path)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--max-findings", type=int, default=200)
@@ -504,6 +516,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         claim_cache_root=args.claim_cache_root,
         object_cache_root=args.object_cache_root,
         candidates_path=args.candidates_path,
+        last_run_codes=args.last_run_codes,
         max_findings=args.max_findings,
     )
     if args.output_json is not None:

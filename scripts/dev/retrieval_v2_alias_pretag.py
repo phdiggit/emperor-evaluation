@@ -21,6 +21,8 @@ from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 RULER_ACTION_TYPES = {"任命", "授权", "处置", "收权", "制度高压", "纳谏", "拒谏", "战役", "其他"}
 BARE_TITLE_TYPES = {"temple_name", "posthumous_name"}
 CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
+TITLE_ALIAS_TYPES = {"title"}
+TITLE_ALIAS_BOUNDARY_FOLLOWERS = set("曰云言谓謂问問命诏詔使遣以为為即及与與从從在于於之所将將率领領召征徵至入出拜授封立废廢薨崩卒死杀殺诛誅罢罷怒喜")
 SOURCE_TITLE_DYNASTY_MARKERS = (
     ("旧唐书", "唐"),
     ("舊唐書", "唐"),
@@ -100,6 +102,22 @@ def load_alias_resolver(
         for row in alias_rows_for_emperors(emperor_names, alias_seed)
     ]
     return alias_resolver_from_rows(rows, source=str(alias_file))
+
+
+def canonical_owner_name(value: str, *, resolver: AliasResolver | None = None) -> str:
+    resolver = resolver or load_alias_resolver()
+    name = text(value)
+    if not name:
+        return ""
+    if any(entry.owner_name == name for entry in resolver.entries):
+        return name
+    matches = [
+        entry
+        for entry in resolver.entries
+        if entry.alias == name and (not entry.scopes or len(entry.alias) > 2)
+    ]
+    owners = sorted({entry.owner_name for entry in matches})
+    return owners[0] if len(owners) == 1 else name
 
 
 def candidate_requested_owner(candidates: Mapping[str, Any]) -> str:
@@ -189,6 +207,28 @@ def overlap(span: tuple[int, int], used: Sequence[tuple[int, int]]) -> bool:
     return any(start < used_end and end > used_start for used_start, used_end in used)
 
 
+def is_cjk_char(value: str) -> bool:
+    return len(value) == 1 and "\u4e00" <= value <= "\u9fff"
+
+
+def title_alias_followed_by_non_owner_name(text_value: str, alias_end: int, entries: Sequence[AliasEntry]) -> bool:
+    if not any(entry.alias_type in TITLE_ALIAS_TYPES for entry in entries):
+        return False
+    suffix = text_value[alias_end : alias_end + 4]
+    if not suffix or not is_cjk_char(suffix[0]) or suffix[0] in TITLE_ALIAS_BOUNDARY_FOLLOWERS:
+        return False
+    for entry in entries:
+        if entry.alias_type not in TITLE_ALIAS_TYPES:
+            continue
+        owner = text(entry.owner_name)
+        owner_given = owner[1:] if len(owner) >= 2 else owner
+        if owner and suffix.startswith(owner):
+            return False
+        if owner_given and suffix.startswith(owner_given):
+            return False
+    return True
+
+
 def alias_mentions_in_text(
     text_value: str,
     *,
@@ -212,6 +252,8 @@ def alias_mentions_in_text(
             source_dynasty_prefixes=source_dynasty_prefixes,
         )
         if not active:
+            continue
+        if title_alias_followed_by_non_owner_name(text_value, end, active):
             continue
         dynasty_owners = owners_for_dynasty_bare_alias(
             resolver,

@@ -363,6 +363,49 @@ def test_import_run_rebinds_when_source_owner_anchor_is_omitted_from_claim(tmp_p
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["matched_aliases"] == ["高宗"]
 
 
+def test_import_run_normalizes_full_owner_alias_before_rebind(tmp_path: Path) -> None:
+    candidates = {
+        "task_identity": {"emperor_name": "李世民", "rule_code": "i5b_item_wide"},
+        "candidate_slices": [
+            {
+                "slice_code": "SLI-QTT",
+                "document_code": "DOC-SUI-53",
+                "object_name": "屈突通",
+                "source_title": "隋书/卷五十三",
+                "text": "炀帝即位后遣屈突通持诏召汉王谅，谅验书无符，通占对无屈。",
+            }
+        ],
+    }
+    claim = {
+        "claim_code": "CLM-QTT",
+        "emperor_name": "隋炀帝",
+        "object_name": "屈突通",
+        "object_type": "person",
+        "claim_kind": "material_claim",
+        "claim_summary": "炀帝即位后遣屈突通持诏召汉王谅。",
+        "confidence": 0.8,
+        "source_slice_refs": ["SLI-QTT"],
+        "fact_payload": {
+            "fact_schema": "political_action_v1",
+            "actor": "隋炀帝",
+            "object": "屈突通",
+            "action_type": "授权",
+            "time_context": "炀帝即位",
+            "source_span_refs": ["SLI-QTT"],
+        },
+        "evidence_spans": [{"span_type": "action", "source_slice_ref": "SLI-QTT", "text": "遣屈突通持诏召汉王谅"}],
+    }
+    run_root = write_run(tmp_path, claim=claim, candidates=candidates)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    assert report["stats"]["claims_owner_normalized_by_alias"] == 1
+    assert report["stats"]["claims_owner_normalized_by_alias.隋炀帝->杨广"] == 1
+    assert claims[0]["emperor_name"] == "杨广"
+
+
 def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> None:
     run_root = write_run(tmp_path)
     cache_root = tmp_path / "claim_cache"

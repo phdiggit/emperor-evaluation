@@ -139,6 +139,59 @@ def test_claim_audit_flags_wrong_person_section_and_duplicates(tmp_path: Path) -
     assert report["totals"]["claims"] == 2
 
 
+def test_claim_audit_last_run_code_filters_related_rows(tmp_path: Path) -> None:
+    claim_root = tmp_path / "claim_cache"
+    object_root = tmp_path / "object_cache"
+    paths = claim_cache.cache_paths(claim_root)
+    claim_a = {
+        "claim_key": "CLM-A",
+        "object_name": "魏徵",
+        "action_type": "纳谏",
+        "claim_summary": "魏徵进谏。",
+        "fact_payload": {},
+        "status": "active",
+        "last_run_code": "RUN-A",
+    }
+    claim_b = {
+        "claim_key": "CLM-B",
+        "object_name": "房玄龄",
+        "action_type": "任命",
+        "claim_summary": "房玄龄任官。",
+        "fact_payload": {},
+        "status": "active",
+        "last_run_code": "RUN-B",
+    }
+    write_jsonl(paths["claims"], [claim_a, claim_b])
+    write_jsonl(
+        paths["evidence"],
+        [
+            {"evidence_key": "EVD-A", "claim_key": "CLM-A", "slice_hash": "SLH-A", "source_slice_ref": "OSS-A", "object_name": "魏徵"},
+            {"evidence_key": "EVD-B", "claim_key": "CLM-B", "slice_hash": "SLH-B", "source_slice_ref": "OSS-B", "object_name": "房玄龄"},
+        ],
+    )
+    write_jsonl(
+        paths["slices"],
+        [
+            {"slice_hash": "SLH-A", "source_slice_ref": "OSS-A", "object_name": "魏徵"},
+            {"slice_hash": "SLH-B", "source_slice_ref": "OSS-B", "object_name": "房玄龄"},
+        ],
+    )
+    write_jsonl(paths["runs"], [])
+    write_jsonl(object_root / "source_documents.jsonl", [])
+    write_jsonl(object_root / "mention_slices.jsonl", [])
+
+    report = tool.build_claim_audit(
+        claim_cache_root=claim_root,
+        object_cache_root=object_root,
+        last_run_codes=["RUN-A"],
+    )
+
+    assert report["selectors"]["last_run_codes"] == ["RUN-A"]
+    assert report["totals"]["claims"] == 1
+    assert report["totals"]["evidence"] == 1
+    assert report["totals"]["source_slices"] == 1
+
+
 def test_claim_audit_cli_writes_reports(tmp_path: Path, capsys) -> None:
     claim_root = tmp_path / "claim_cache"
     object_root = tmp_path / "object_cache"

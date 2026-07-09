@@ -551,6 +551,7 @@ def execute_job(
             dsn_env=dsn_env,
             schema_name=schema_name,
             execute=True,
+            last_run_codes=[text(fs_import.get("run_code"))],
         )
     return {
         "run_root": str(run_root),

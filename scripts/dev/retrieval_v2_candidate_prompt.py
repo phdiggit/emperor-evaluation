@@ -57,7 +57,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
-CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v4_structured_ref_policy"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v5_direction_free"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:

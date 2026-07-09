@@ -269,6 +269,23 @@ def rebind_claim_owner_from_source_aliases(
     return rebound
 
 
+def normalize_claim_owner_name(
+    claim: Mapping[str, Any],
+    *,
+    resolver: alias_pretag.AliasResolver | None = None,
+    stats: Counter[str] | None = None,
+) -> dict[str, Any]:
+    current = str(claim.get("emperor_name") or "").strip()
+    canonical = alias_pretag.canonical_owner_name(current, resolver=resolver)
+    result = dict(claim)
+    if canonical and current and canonical != current:
+        result["emperor_name"] = canonical
+        if stats is not None:
+            stats["claims_owner_normalized_by_alias"] += 1
+            stats[f"claims_owner_normalized_by_alias.{current}->{canonical}"] += 1
+    return result
+
+
 def claim_row(
     *,
     claim: Mapping[str, Any],
@@ -335,12 +352,14 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
         candidates = read_json(candidates_path)
         slices = slice_lookup(candidates if isinstance(candidates, Mapping) else {})
         requested_owner = requested_owner_name(candidates if isinstance(candidates, Mapping) else {})
+        resolver = alias_pretag.load_alias_resolver()
         for claim in judge.get("claims") or []:
             if not isinstance(claim, Mapping):
                 continue
             sanitized_claim, source_refs = filter_claim_source_refs(claim, slices, stats)
             if sanitized_claim is None:
                 continue
+            sanitized_claim = normalize_claim_owner_name(sanitized_claim, resolver=resolver, stats=stats)
             sanitized_claim = rebind_claim_owner_from_source_aliases(
                 sanitized_claim,
                 source_refs=source_refs,

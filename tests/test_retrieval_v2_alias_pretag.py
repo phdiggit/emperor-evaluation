@@ -24,6 +24,34 @@ def test_longer_dynasty_alias_wins_over_embedded_bare_title() -> None:
     assert mentions[0]["resolution_rule"] == "unique_global_alias"
 
 
+def test_canonical_owner_name_normalizes_full_aliases_not_bare_titles() -> None:
+    assert tool.canonical_owner_name("隋炀帝") == "杨广"
+    assert tool.canonical_owner_name("隋文帝") == "杨坚"
+    assert tool.canonical_owner_name("高宗") == "高宗"
+
+
+def test_title_alias_followed_by_other_person_name_is_not_owner_anchor() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "炀帝即位后遣屈突通持诏召汉王谅。",
+        requested_owner_name="李世民",
+        source_title="隋书/卷五十三",
+    )
+
+    assert all(row["resolved_owner_name"] != "刘邦" for row in mentions)
+    assert "汉王" not in [row["alias"] for row in mentions]
+
+
+def test_title_alias_followed_by_owner_given_name_still_resolves() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "秦王世民命房玄龄入府。",
+        requested_owner_name="李渊",
+        source_title="旧唐书/卷一",
+    )
+
+    qinwang = next(row for row in mentions if row["alias"] == "秦王")
+    assert qinwang["resolved_owner_name"] == "李世民"
+
+
 def test_source_title_dynasty_resolves_bare_title_without_requested_scope() -> None:
     mentions = tool.alias_mentions_in_text(
         "高宗欲废王皇后，褚遂良固谏。",

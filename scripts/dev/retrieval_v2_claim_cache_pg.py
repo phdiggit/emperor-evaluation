@@ -24,7 +24,7 @@ from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
-DEFAULT_ALLOWED_EXTRACTOR_VERSIONS = ("claim_extraction_only:v4_structured_ref_policy",)
+DEFAULT_ALLOWED_EXTRACTOR_VERSIONS = ("claim_extraction_only:v5_direction_free",)
 
 CLAIM_TYPES = {"material_action", "outcome", "evaluation", "relationship", "institution", "numeric", "context"}
 FACT_SCHEMAS = {
@@ -216,6 +216,28 @@ def prepared_cache_rows(cache_root: Path) -> dict[str, list[dict[str, Any]]]:
         "source_slices": [source_slice_row(row) for row in cache["source_slices"]],
         "claim_evidence": [evidence_row(row) for row in cache["claim_evidence"]],
         "import_runs": list(cache["import_runs"]),
+    }
+
+
+def filter_prepared_rows_by_run_codes(
+    rows: Mapping[str, Sequence[Mapping[str, Any]]],
+    last_run_codes: Sequence[str] | None,
+) -> dict[str, list[dict[str, Any]]]:
+    run_codes = {text(code) for code in (last_run_codes or []) if text(code)}
+    if not run_codes:
+        return {key: [dict(row) for row in value] for key, value in rows.items()}
+
+    claims = [dict(row) for row in rows["claims"] if text(row.get("last_run_code")) in run_codes]
+    claim_keys = {text(row.get("claim_key")) for row in claims if text(row.get("claim_key"))}
+    evidence = [dict(row) for row in rows["claim_evidence"] if text(row.get("claim_key")) in claim_keys]
+    slice_hashes = {text(row.get("slice_hash")) for row in evidence if text(row.get("slice_hash"))}
+    source_slices = [dict(row) for row in rows["source_slices"] if text(row.get("slice_hash")) in slice_hashes]
+    import_runs = [dict(row) for row in rows["import_runs"] if text(row.get("run_code")) in run_codes]
+    return {
+        "claims": claims,
+        "source_slices": source_slices,
+        "claim_evidence": evidence,
+        "import_runs": import_runs,
     }
 
 
@@ -902,12 +924,13 @@ def apply_cache_to_pg(
     dsn_env: str,
     schema_name: str,
     execute: bool,
+    last_run_codes: Sequence[str] | None = None,
     allowed_extractor_versions: Sequence[str] = DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
     allow_legacy_extractor_version: bool = False,
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
-    rows = prepared_cache_rows(cache_root)
+    rows = filter_prepared_rows_by_run_codes(prepared_cache_rows(cache_root), last_run_codes)
     issues = validate_prepared_rows(rows)
     issues.extend(
         validate_extractor_version_policy(
@@ -924,6 +947,9 @@ def apply_cache_to_pg(
         "executed": False,
         "schema_name": schema_name,
         "cache_root": str(cache_root),
+        "selectors": {
+            "last_run_codes": list_arg(last_run_codes),
+        },
         "totals": row_counts(rows),
         "by_object": object_inventory(rows),
         "extractor_version_policy": {
@@ -994,6 +1020,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     apply.add_argument("--output-json", type=Path)
     apply.add_argument("--execute", action="store_true")
+    apply.add_argument("--last-run-code", action="append", dest="last_run_codes")
     apply.add_argument(
         "--allowed-extractor-version",
         action="append",
@@ -1049,6 +1076,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
             execute=bool(args.execute),
+            last_run_codes=args.last_run_codes,
             allowed_extractor_versions=args.allowed_extractor_versions or DEFAULT_ALLOWED_EXTRACTOR_VERSIONS,
             allow_legacy_extractor_version=bool(args.allow_legacy_extractor_version),
         )
