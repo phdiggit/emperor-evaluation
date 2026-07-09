@@ -76,6 +76,21 @@ def test_title_alias_followed_by_action_verb_still_resolves() -> None:
     assert lvhou["owner_anchor_eligible"] is True
 
 
+def test_title_alias_followed_by_sui_action_word_still_resolves() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "陈平再拜称少帝等不当奉宗庙，请代王即天子位，代王遂即天子位。",
+        requested_owner_name="刘邦",
+        source_title="史记/卷十",
+        include_suppressed=True,
+    )
+
+    daiwang_mentions = [row for row in mentions if row["alias"] == "代王"]
+    assert daiwang_mentions
+    assert all(row["resolved_owner_name"] == "刘恒" for row in daiwang_mentions)
+    assert all(row["owner_anchor_eligible"] is True for row in daiwang_mentions)
+    assert all(row["resolution_status"] == "resolved" for row in daiwang_mentions)
+
+
 def test_short_owner_alias_inside_longer_person_name_is_not_owner_anchor() -> None:
     mentions = tool.alias_mentions_in_text(
         "李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
