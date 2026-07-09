@@ -315,6 +315,21 @@ def test_claim_audit_excludes_rejected_claims_from_active_findings(tmp_path: Pat
     assert report["issue_counts"] == {}
 
 
+def test_claim_audit_accepts_mass_party_execution_as_damage_anchor() -> None:
+    findings = tool.claim_semantic_findings(
+        {
+            "claim_key": "CLMK-HWY",
+            "object_name": "胡惟庸",
+            "action_type": "制度高压",
+            "claim_summary": "朱元璋处死胡惟庸，夷三族，并尽诛其僚属党与一万五千人。",
+            "outcome": "夷三族，尽诛其僚属党与一万五千人",
+            "fact_payload": {},
+        }
+    )
+
+    assert findings == []
+
+
 def test_claim_audit_uses_candidates_for_opportunity_estimate(tmp_path: Path) -> None:
     claim_root = tmp_path / "claim_cache"
     object_root = tmp_path / "object_cache"

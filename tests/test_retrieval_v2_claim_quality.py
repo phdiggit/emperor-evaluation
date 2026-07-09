@@ -133,6 +133,10 @@ def test_claim_negative_support_distinguishes_context_from_damage() -> None:
         "claim_summary": "胡惟庸案中，帝遂并李善长妻女弟侄家口七十余人诛之。",
         "fact_payload": {"cost_or_damage": "妻女弟侄家口七十馀人被诛"},
     }
+    mass_execution = {
+        "claim_summary": "朱元璋处死胡惟庸，夷三族，并尽诛其僚属党与一万五千人。",
+        "fact_payload": {},
+    }
     neutral = {"claim_summary": "戴胄同知国政。", "fact_payload": {}}
 
     assert tool.claim_negative_support(context_only)["support"] == "negative_context_without_damage_anchor"
@@ -140,6 +144,7 @@ def test_claim_negative_support_distinguishes_context_from_damage() -> None:
     assert tool.claim_negative_support(damage)["support"] == "governance_damage_supported"
     assert tool.claim_negative_support(consequence)["support"] == "governance_damage_supported"
     assert tool.claim_negative_support(family_execution)["support"] == "governance_damage_supported"
+    assert tool.claim_negative_support(mass_execution)["support"] == "governance_damage_supported"
     assert tool.claim_negative_support(neutral)["support"] == "not_applicable"
 
 
