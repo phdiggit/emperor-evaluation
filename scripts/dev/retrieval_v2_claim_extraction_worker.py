@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache_pg as pg_cache  # noqa: E402
+from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
 from scripts.dev import retrieval_v2_clean_runner as clean_runner  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
@@ -69,6 +70,66 @@ def read_json(path: Path) -> dict[str, Any]:
 def optional_int(value: Any) -> int | None:
     raw = text(value)
     return int(raw) if raw else None
+
+
+def provider_default_filter_ineligible_slices(judge_provider: str) -> bool:
+    return clean_runner.normalize_judge_provider(judge_provider) == clean_runner.DEEPSEEK_PROVIDER
+
+
+def claim_slice_filter_report(candidates: Mapping[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    filtered = json.loads(stable_json(candidates))
+    kept: list[dict[str, Any]] = []
+    filtered_rows: list[dict[str, Any]] = []
+    reason_counts: dict[str, int] = {}
+    by_object: dict[str, dict[str, Any]] = {}
+    for row in filtered.get("candidate_slices") or []:
+        if not isinstance(row, Mapping):
+            continue
+        eligibility = claim_quality.slice_claim_eligibility(row)
+        object_name = text(row.get("object_name"))
+        if eligibility.get("claim_eligible") is False:
+            reasons = [text(reason) for reason in eligibility.get("reasons") or [] if text(reason)]
+            for reason in reasons:
+                reason_counts[reason] = reason_counts.get(reason, 0) + 1
+            current = by_object.setdefault(object_name, {"filtered_slice_count": 0, "reason_counts": {}})
+            current["filtered_slice_count"] += 1
+            for reason in reasons:
+                current["reason_counts"][reason] = current["reason_counts"].get(reason, 0) + 1
+            filtered_rows.append(
+                {
+                    "slice_code": text(row.get("slice_code")),
+                    "object_name": object_name,
+                    "reasons": reasons,
+                    "risk_flags": list(eligibility.get("risk_flags") or []),
+                    "mention_role": eligibility.get("mention_role"),
+                    "support_level_hint": eligibility.get("support_level_hint"),
+                }
+            )
+            continue
+        kept.append(dict(row))
+    original_count = len([row for row in candidates.get("candidate_slices") or [] if isinstance(row, Mapping)])
+    filtered["candidate_slices"] = kept
+    stats = dict(filtered.get("stats") or {})
+    stats["candidate_slices_before_ineligible_filter"] = original_count
+    stats["candidate_slices"] = len(kept)
+    stats["ineligible_candidate_slices_filtered"] = len(filtered_rows)
+    filtered["stats"] = stats
+    report = {
+        "enabled": True,
+        "input_slice_count": original_count,
+        "kept_slice_count": len(kept),
+        "filtered_slice_count": len(filtered_rows),
+        "reason_counts": dict(sorted(reason_counts.items())),
+        "by_object": {
+            name: {
+                **payload,
+                "reason_counts": dict(sorted((payload.get("reason_counts") or {}).items())),
+            }
+            for name, payload in sorted(by_object.items())
+        },
+        "filtered_slices": filtered_rows,
+    }
+    return filtered, report
 
 
 def resolve_path(value: str) -> Path:
@@ -364,6 +425,7 @@ def write_mini_run_artifacts(
     judge_payload: Mapping[str, Any],
     judge_result: Mapping[str, Any],
     run_root: Path,
+    filter_report: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     person_dir = run_root / target_dir_name(job)
     person_dir.mkdir(parents=True, exist_ok=True)
@@ -389,6 +451,7 @@ def write_mini_run_artifacts(
             "judge_mode": candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
             "extractor_version": candidate_prompt.CLAIM_EXTRACTOR_VERSION,
             "judge_provider": judge_result.get("provider") or clean_runner.DEFAULT_JUDGE_PROVIDER,
+            "ineligible_slice_filter": filter_report or {"enabled": False},
         },
         "people": [
             {
@@ -405,6 +468,7 @@ def write_mini_run_artifacts(
                     "final_task": str(person_dir / "task.final.json"),
                     "final_candidates": str(person_dir / "candidates.final.json"),
                     "final_judge_result": str(person_dir / "judge_result.final.json"),
+                    "claim_slice_filter_report": str(run_root / "claim_slice_filter_report.json") if filter_report else None,
                 },
             }
         ],
@@ -414,6 +478,8 @@ def write_mini_run_artifacts(
             "usage": judge_result.get("usage") or {},
         },
     }
+    if filter_report:
+        fs_cache.write_json(run_root / "claim_slice_filter_report.json", filter_report)
     fs_cache.write_json(run_root / "summary.json", summary)
     return summary
 
@@ -431,6 +497,7 @@ def execute_job(
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
+    filter_ineligible_slices: bool | None = None,
     import_pg: bool,
     dsn_env: str,
     schema_name: str,
@@ -441,8 +508,13 @@ def execute_job(
     cache_root = resolve_path(text(job.get("cache_root"))) if text(job.get("cache_root")) else fs_cache.DEFAULT_CACHE_ROOT
     person_dir = run_root / target_dir_name(job)
     person_dir.mkdir(parents=True, exist_ok=True)
+    filter_enabled = provider_default_filter_ineligible_slices(judge_provider) if filter_ineligible_slices is None else bool(filter_ineligible_slices)
+    filter_report: dict[str, Any] | None = None
+    judge_candidates = candidates
+    if filter_enabled:
+        judge_candidates, filter_report = claim_slice_filter_report(candidates)
     judge_result = clean_runner.run_judge(
-        candidates=candidates,
+        candidates=judge_candidates,
         prompt_path=person_dir / "judge_prompt.round0.md",
         person_dir=person_dir,
         round_index=0,
@@ -464,10 +536,11 @@ def execute_job(
     judge_payload["_usage"] = judge_result["usage"]
     summary = write_mini_run_artifacts(
         job=job,
-        candidates=candidates,
+        candidates=judge_candidates,
         judge_payload=judge_payload,
         judge_result=judge_result,
         run_root=run_root,
+        filter_report=filter_report,
     )
     fs_import = fs_cache.import_run(run_root, cache_root)
     pg_import: dict[str, Any] | None = None
@@ -505,6 +578,7 @@ def extract_from_candidates(
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
+    filter_ineligible_slices: bool | None = None,
     import_pg: bool = False,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -523,6 +597,7 @@ def extract_from_candidates(
         judge_base_url=judge_base_url,
         judge_thinking=judge_thinking,
         judge_max_tokens=judge_max_tokens,
+        filter_ineligible_slices=filter_ineligible_slices,
         import_pg=import_pg,
         dsn_env=dsn_env,
         schema_name=schema_name,
@@ -551,6 +626,7 @@ def once(
     judge_base_url: str | None = None,
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
+    filter_ineligible_slices: bool | None = None,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -582,6 +658,7 @@ def once(
             judge_base_url=judge_base_url,
             judge_thinking=judge_thinking,
             judge_max_tokens=judge_max_tokens,
+            filter_ineligible_slices=filter_ineligible_slices,
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -653,6 +730,10 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     extract.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
     extract.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
+    extract_filter = extract.add_mutually_exclusive_group()
+    extract_filter.add_argument("--filter-ineligible-slices", dest="filter_ineligible_slices", action="store_true")
+    extract_filter.add_argument("--no-filter-ineligible-slices", dest="filter_ineligible_slices", action="store_false")
+    extract.set_defaults(filter_ineligible_slices=None)
     extract.add_argument("--import-pg", action="store_true", help="Opt in to PG import; default is filesystem cache only.")
     extract.add_argument("--output-json", type=Path)
 
@@ -679,6 +760,10 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     once_cmd.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
     once_cmd.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
+    once_filter = once_cmd.add_mutually_exclusive_group()
+    once_filter.add_argument("--filter-ineligible-slices", dest="filter_ineligible_slices", action="store_true")
+    once_filter.add_argument("--no-filter-ineligible-slices", dest="filter_ineligible_slices", action="store_false")
+    once_cmd.set_defaults(filter_ineligible_slices=None)
     once_cmd.add_argument("--no-import-pg", action="store_true")
     once_cmd.add_argument("--output-json", type=Path)
     return parser
@@ -711,6 +796,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_base_url=args.judge_base_url,
             judge_thinking=args.judge_thinking,
             judge_max_tokens=args.judge_max_tokens,
+            filter_ineligible_slices=args.filter_ineligible_slices,
             import_pg=bool(args.import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
@@ -735,6 +821,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_base_url=args.judge_base_url,
             judge_thinking=args.judge_thinking,
             judge_max_tokens=args.judge_max_tokens,
+            filter_ineligible_slices=args.filter_ineligible_slices,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
