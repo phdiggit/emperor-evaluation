@@ -263,6 +263,111 @@ def test_import_run_rebinds_owner_from_unique_other_context_when_target_is_conte
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["reason"] == "claim_context_unique_resolved_owner_with_requested_owner_context_only"
 
 
+def test_import_run_rejects_when_source_owner_anchor_contradicts_requested_owner_alias(tmp_path: Path) -> None:
+    source_text = (
+        "高宗天皇大圣大弘孝皇帝中之上麟德二年，"
+        "上语及隋炀帝，谓侍臣曰：朕常以为戒，虚心求谏；而竟无谏者，何也？"
+        "李绩对曰：陛下所为尽善，群臣无得而谏。"
+    )
+    candidates = {
+        "task_identity": {"emperor_name": "李世民", "rule_code": "i5b_item_wide"},
+        "candidate_slices": [
+            {
+                "slice_code": "SLI-LINDE",
+                "document_code": "DOC-ZZTJ-201",
+                "object_name": "李绩",
+                "text": source_text,
+            }
+        ],
+    }
+    claim = {
+        "claim_code": "CLM-LINDE",
+        "emperor_name": "李世民",
+        "object_name": "李绩",
+        "object_type": "person",
+        "claim_kind": "material_claim",
+        "claim_summary": "太宗问为何无人进谏时，李绩回答陛下所为尽善，群臣无得而谏。",
+        "direction": "negative",
+        "confidence": 0.8,
+        "source_slice_refs": ["SLI-LINDE"],
+        "fact_payload": {
+            "fact_schema": "political_action_v1",
+            "actor": "李绩",
+            "object": "李世民求谏",
+            "action_type": "拒谏",
+            "time_context": "麟德二年二月",
+            "source_span_refs": ["SLI-LINDE"],
+        },
+        "evidence_spans": [{"span_type": "action", "source_slice_ref": "SLI-LINDE", "text": "无得而谏"}],
+    }
+    run_root = write_run(tmp_path, claim=claim, candidates=candidates)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    assert report["stats"]["claims_rejected_by_owner_alias_policy"] == 1
+    assert (
+        report["stats"][
+            "claims_rejected_by_owner_alias_policy.source_unique_owner_anchor_rejects_unsupported_requested_owner_alias"
+        ]
+        == 1
+    )
+    assert claims == []
+
+
+def test_import_run_rebinds_when_source_owner_anchor_is_omitted_from_claim(tmp_path: Path) -> None:
+    source_text = (
+        "高宗天皇大圣大弘孝皇帝中之上麟德二年，"
+        "上语及隋炀帝，谓侍臣曰：朕常以为戒，虚心求谏；而竟无谏者，何也？"
+        "李绩对曰：陛下所为尽善，群臣无得而谏。"
+    )
+    candidates = {
+        "task_identity": {"emperor_name": "李世民", "rule_code": "i5b_item_wide"},
+        "candidate_slices": [
+            {
+                "slice_code": "SLI-LINDE",
+                "document_code": "DOC-ZZTJ-201",
+                "object_name": "李绩",
+                "text": source_text,
+            }
+        ],
+    }
+    claim = {
+        "claim_code": "CLM-LINDE",
+        "emperor_name": "李世民",
+        "object_name": "李绩",
+        "object_type": "person",
+        "claim_kind": "material_claim",
+        "claim_summary": "皇帝问为何无人进谏时，李绩回答陛下所为尽善，群臣无得而谏。",
+        "direction": "neutral",
+        "confidence": 0.8,
+        "source_slice_refs": ["SLI-LINDE"],
+        "fact_payload": {
+            "fact_schema": "political_action_v1",
+            "actor": "李绩",
+            "object": "皇帝求谏",
+            "action_type": "其他",
+            "time_context": "麟德二年二月",
+            "source_span_refs": ["SLI-LINDE"],
+        },
+        "evidence_spans": [{"span_type": "action", "source_slice_ref": "SLI-LINDE", "text": "无得而谏"}],
+    }
+    run_root = write_run(tmp_path, claim=claim, candidates=candidates)
+    cache_root = tmp_path / "claim_cache"
+
+    report = tool.import_run(run_root, cache_root)
+
+    claims = tool.read_jsonl(cache_root / "claims.jsonl")
+    assert report["stats"]["claims_rebound_by_alias_mentions"] == 1
+    assert (
+        report["stats"]["claims_rebound_by_alias_mentions.source_unique_owner_anchor_without_requested_owner_in_claim"]
+        == 1
+    )
+    assert claims[0]["emperor_name"] == "李治"
+    assert claims[0]["fact_payload"]["owner_rebind_payload"]["matched_aliases"] == ["高宗"]
+
+
 def test_plan_candidates_reports_cached_and_uncovered_slices(tmp_path: Path) -> None:
     run_root = write_run(tmp_path)
     cache_root = tmp_path / "claim_cache"

@@ -238,17 +238,26 @@ def rebind_claim_owner_from_source_aliases(
 ) -> dict[str, Any]:
     if not source_refs or not requested_owner:
         return dict(claim)
+    resolver = alias_pretag.load_alias_resolver()
     alias_index = alias_pretag.alias_owner_index_for_slices(
         {ref: slices[ref] for ref in source_refs if ref in slices},
         requested_owner_name=requested_owner,
+        resolver=resolver,
     )
     rebind = alias_pretag.claim_owner_rebind_from_alias_mentions(
         claim,
         source_refs=source_refs,
         alias_mentions_by_ref=alias_index,
+        resolver=resolver,
     )
     if not rebind:
         return dict(claim)
+    if rebind.get("reject_claim"):
+        stats["claims_rejected_by_owner_alias_policy"] += 1
+        reason = normalized_text(rebind.get("reason"))
+        if reason:
+            stats[f"claims_rejected_by_owner_alias_policy.{reason}"] += 1
+        return None
     stats["claims_rebound_by_alias_mentions"] += 1
     reason = normalized_text(rebind.get("reason"))
     if reason:
@@ -341,6 +350,8 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                 requested_owner=requested_owner,
                 stats=stats,
             )
+            if sanitized_claim is None:
+                continue
             key = str(sanitized_claim.get("cached_claim_key") or "") or claim_key(sanitized_claim)
             imported_claim_keys.append(key)
             by_object[claim_object_name(sanitized_claim)] += 1

@@ -357,6 +357,44 @@ def owner_aliases_in_claim_text(claim_text: str, mentions: Sequence[Mapping[str,
     )
 
 
+def resolved_owner_mentions_in_claim_text(
+    claim_text: str,
+    *,
+    current_owner: str,
+    resolver: AliasResolver | None = None,
+) -> list[dict[str, Any]]:
+    return [
+        mention
+        for mention in alias_mentions_in_text(
+            claim_text,
+            requested_owner_name=current_owner,
+            resolver=resolver,
+        )
+        if text(mention.get("resolution_status")) == "resolved"
+    ]
+
+
+def owner_aliases_from_mentions(mentions: Sequence[Mapping[str, Any]], owner_name: str) -> list[str]:
+    return unique_texts(
+        [
+            mention.get("alias")
+            for mention in mentions
+            if text(mention.get("resolved_owner_name")) == text(owner_name)
+            and text(mention.get("alias"))
+        ]
+    )
+
+
+def source_owner_anchor_mentions(mentions: Sequence[Mapping[str, Any]], *, max_start: int = 220) -> list[dict[str, Any]]:
+    return [
+        dict(mention)
+        for mention in mentions
+        if text(mention.get("resolution_rule"))
+        in {"same_dynasty_bare_title_scope", "source_title_dynasty_bare_title"}
+        and int(mention.get("start") or 0) <= max_start
+    ]
+
+
 def requested_owner_context_only(claim_text: str, requested_aliases: Sequence[str]) -> bool:
     for alias in requested_aliases:
         for relation in CONTEXT_ONLY_OWNER_RELATION_TERMS:
@@ -403,6 +441,7 @@ def claim_owner_rebind_from_alias_mentions(
     *,
     source_refs: Sequence[str],
     alias_mentions_by_ref: Mapping[str, Sequence[Mapping[str, Any]]],
+    resolver: AliasResolver | None = None,
 ) -> dict[str, Any]:
     current_owner = text(claim.get("emperor_name"))
     actor = claim_actor_text(claim)
@@ -417,11 +456,43 @@ def claim_owner_rebind_from_alias_mentions(
     if not mentions:
         return {}
     other_mentions = [mention for mention in mentions if text(mention.get("resolved_owner_name")) != current_owner]
+    source_anchor_mentions = source_owner_anchor_mentions(other_mentions)
+    source_anchor_owner_names = unique_texts([mention.get("resolved_owner_name") for mention in source_anchor_mentions])
+    claim_text = claim_search_text(claim)
+    claim_mentions = resolved_owner_mentions_in_claim_text(claim_text, current_owner=current_owner, resolver=resolver)
+    claim_current_aliases = owner_aliases_from_mentions(claim_mentions, current_owner)
+    source_current_aliases = owner_aliases_from_mentions(mentions, current_owner)
+    if len(source_anchor_owner_names) == 1:
+        source_anchor_owner = source_anchor_owner_names[0]
+        claim_anchor_owner_aliases = owner_aliases_from_mentions(claim_mentions, source_anchor_owner)
+        source_anchor_aliases = owner_aliases_from_mentions(source_anchor_mentions, source_anchor_owner)
+        if source_anchor_aliases and claim_current_aliases and not source_current_aliases and not claim_anchor_owner_aliases:
+            payload = rebind_payload_from_mentions(
+                claim=claim,
+                mentions=source_anchor_mentions,
+                from_owner=current_owner,
+                to_owner=source_anchor_owner,
+                matched_aliases=source_anchor_aliases,
+                reason="source_unique_owner_anchor_rejects_unsupported_requested_owner_alias",
+            )
+            payload["reject_claim"] = True
+            payload["unsupported_requested_owner_aliases"] = claim_current_aliases
+            return payload
+        if source_anchor_aliases and not claim_current_aliases and not claim_anchor_owner_aliases:
+            return rebind_payload_from_mentions(
+                claim=claim,
+                mentions=source_anchor_mentions,
+                from_owner=current_owner,
+                to_owner=source_anchor_owner,
+                matched_aliases=source_anchor_aliases,
+                reason="source_unique_owner_anchor_without_requested_owner_in_claim",
+            )
+
     other_owner_names = unique_texts([mention.get("resolved_owner_name") for mention in other_mentions])
     if len(other_owner_names) != 1:
         return {}
     to_owner = other_owner_names[0]
-    claim_text = claim_search_text(claim)
+    claim_other_aliases = owner_aliases_from_mentions(claim_mentions, to_owner)
 
     actor_aliases = owner_aliases_in_claim_text(actor, other_mentions, to_owner)
     if actor_aliases:
