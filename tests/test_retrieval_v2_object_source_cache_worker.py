@@ -839,6 +839,40 @@ def test_claim_plan_can_enqueue_claim_job_without_running_judge(tmp_path: Path, 
     assert result["claim_job"]["job_code"] == "CLMEXT-TEST"
 
 
+def test_auto_claim_bridge_inherits_object_job_priority_and_paths(tmp_path: Path, monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    def fake_plan_claim_extraction_from_cache(**kwargs):
+        captured.update(kwargs)
+        return {"ok": True, "status": "planned", "uncovered_slice_count": 2}
+
+    monkeypatch.setattr(tool, "plan_claim_extraction_from_cache", fake_plan_claim_extraction_from_cache)
+
+    result = tool.plan_claim_extraction_after_object_cache_job(
+        job={
+            "job_code": "OSCACHE-001",
+            "priority": 10,
+            "emperor_name": "李世民",
+            "capture_profile": "personnel_political_wide",
+            "output_root": str(tmp_path / "object_cache"),
+        },
+        dsn="postgres://example",
+        claim_cache_root=tmp_path / "claim_cache",
+        claim_run_root=tmp_path / "claim_runs",
+        claim_plan_output_root=tmp_path / "claim_plans",
+    )
+
+    assert result["ok"] is True
+    assert captured["cache_root"] == tmp_path / "object_cache"
+    assert captured["claim_cache_root"] == tmp_path / "claim_cache"
+    assert captured["output_candidates"] == tmp_path / "claim_plans" / "oscache-001" / "claim_candidates.json"
+    assert captured["output_uncovered_candidates"] == tmp_path / "claim_plans" / "oscache-001" / "claim_candidates.uncovered.json"
+    assert captured["emperor_name"] == "李世民"
+    assert captured["target_code"] == "TGT-OSCACHE-001"
+    assert captured["priority"] == 10
+    assert captured["enqueue_claim_job"] is True
+
+
 def test_execute_once_records_success(monkeypatch) -> None:
     events: list[tuple[str, str]] = []
 
@@ -911,6 +945,100 @@ def test_execute_once_records_success(monkeypatch) -> None:
     assert events[0][0] == "create_run"
     assert ("finish_run", "succeeded") in events
     assert ("finish_job", "") in events
+
+
+def test_execute_once_auto_enqueues_claim_bridge_after_success(tmp_path: Path, monkeypatch) -> None:
+    events: list[tuple[str, str]] = []
+    bridge_calls: list[dict[str, object]] = []
+
+    class FakeCursor:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def execute(self, sql, params=None):
+            if "insert into retrieval_v3.object_source_cache_job_runs" in sql:
+                events.append(("create_run", params[0]))
+            elif "update retrieval_v3.object_source_cache_job_runs" in sql:
+                events.append(("finish_run", params[0]))
+            elif "update retrieval_v3.object_source_cache_jobs" in sql:
+                events.append(("finish_job", ""))
+
+        def fetchone(self):
+            return {"id": 7}
+
+    class FakeConn:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def cursor(self):
+            return FakeCursor()
+
+        def commit(self):
+            events.append(("commit", ""))
+
+    def fake_import_psycopg():
+        return SimpleNamespace(connect=lambda *_args, **_kwargs: FakeConn()), dict
+
+    def fake_bridge(**kwargs):
+        bridge_calls.append(kwargs)
+        return {"ok": True, "status": "planned", "claim_job": {"job_code": "CLMEXT-TEST"}}
+
+    monkeypatch.setattr(tool, "import_psycopg", fake_import_psycopg)
+    monkeypatch.setattr(
+        tool,
+        "claim_ready_job",
+        lambda **_kwargs: {
+            "id": 5,
+            "job_code": "OSCACHE-001",
+            "priority": 10,
+            "emperor_name": "李世民",
+            "capture_profile": "personnel_political_wide",
+            "seed_jsonl_path": "tmp/seed.jsonl",
+            "output_root": "tmp/out",
+            "page_cache_root": "tmp/pages",
+            "seed_count": 1,
+            "job_payload": {"build_options": {}},
+        },
+    )
+    monkeypatch.setattr(
+        tool,
+        "execute_job",
+        lambda **_kwargs: {
+            "counts": {
+                "person_count": 1,
+                "source_document_count": 2,
+                "mention_slice_count": 3,
+                "fetch_error_count": 0,
+                "review_queue_count": 0,
+            },
+            "output_root": "tmp/out",
+        },
+    )
+    monkeypatch.setattr(tool, "plan_claim_extraction_after_object_cache_job", fake_bridge)
+
+    result = tool.once(
+        dsn="postgres://example",
+        worker_id="worker",
+        execute=True,
+        auto_enqueue_claim_job=True,
+        claim_cache_root=tmp_path / "claim_cache",
+        claim_run_root=tmp_path / "claim_runs",
+        claim_plan_output_root=tmp_path / "claim_plans",
+    )
+
+    assert result["status"] == "succeeded"
+    assert result["result"]["claim_bridge_result"]["claim_job"]["job_code"] == "CLMEXT-TEST"
+    assert len(bridge_calls) == 1
+    assert bridge_calls[0]["claim_cache_root"] == tmp_path / "claim_cache"
+    assert bridge_calls[0]["claim_run_root"] == tmp_path / "claim_runs"
+    assert bridge_calls[0]["claim_plan_output_root"] == tmp_path / "claim_plans"
+    assert ("finish_run", "succeeded") in events
 
 
 def test_finish_job_run_failure_casts_status_case_to_enum() -> None:

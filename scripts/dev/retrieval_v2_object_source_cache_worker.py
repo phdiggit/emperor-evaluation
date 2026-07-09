@@ -1282,6 +1282,70 @@ def plan_claim_extraction_from_cache(
     }
 
 
+def claim_plan_output_paths(
+    *,
+    job: Mapping[str, Any],
+    claim_plan_output_root: Path | None = None,
+) -> tuple[Path, Path]:
+    if claim_plan_output_root is None:
+        root = Path(str(job["output_root"])) / "claim_plan"
+    else:
+        job_code = text(job.get("job_code")) or stable_hash(job, length=16)
+        root = claim_plan_output_root / job_code.lower()
+    return root / "claim_candidates.json", root / "claim_candidates.uncovered.json"
+
+
+def plan_claim_extraction_after_object_cache_job(
+    *,
+    job: Mapping[str, Any],
+    dsn: str,
+    claim_cache_root: Path,
+    claim_run_root: Path | None = None,
+    claim_plan_output_root: Path | None = None,
+    rule_code: str = "i5b_item_wide",
+    max_slices_per_person: int = 12,
+    max_total_slices: int = 0,
+    include_target_emperor_object: bool = False,
+    selection_profile: str = "all",
+    pilot_object_limit: int = 4,
+    pilot_slices_per_object: int = 8,
+    pilot_profile_signals_path: Path | None = None,
+    pilot_priority_objects: Sequence[str] = (),
+    priority: int | None = None,
+    required_extractor_version: str = "",
+    schema_name: str = DEFAULT_PG_SCHEMA,
+) -> dict[str, Any]:
+    output_candidates, output_uncovered_candidates = claim_plan_output_paths(
+        job=job,
+        claim_plan_output_root=claim_plan_output_root,
+    )
+    job_priority = int(job.get("priority") or 100)
+    return plan_claim_extraction_from_cache(
+        cache_root=Path(str(job["output_root"])),
+        claim_cache_root=claim_cache_root,
+        output_candidates=output_candidates,
+        output_uncovered_candidates=output_uncovered_candidates,
+        emperor_name=text(job.get("emperor_name")),
+        target_code=f"TGT-{text(job.get('job_code')) or stable_hash(job, length=16)}",
+        rule_code=rule_code,
+        capture_profile=text(job.get("capture_profile")) or "personnel_political_wide",
+        max_slices_per_person=max_slices_per_person,
+        max_total_slices=max_total_slices,
+        include_target_emperor_object=include_target_emperor_object,
+        selection_profile=selection_profile,
+        pilot_object_limit=pilot_object_limit,
+        pilot_slices_per_object=pilot_slices_per_object,
+        pilot_profile_signals_path=pilot_profile_signals_path,
+        pilot_priority_objects=pilot_priority_objects,
+        enqueue_claim_job=True,
+        dsn=dsn,
+        claim_run_root=claim_run_root,
+        priority=max(1, int(priority if priority is not None else job_priority)),
+        required_extractor_version=required_extractor_version,
+        schema_name=schema_name,
+    )
+
+
 def once(
     *,
     dsn: str,
@@ -1289,6 +1353,21 @@ def once(
     execute: bool,
     max_docs_per_person: int = 6,
     schema_name: str = DEFAULT_PG_SCHEMA,
+    auto_enqueue_claim_job: bool = False,
+    claim_cache_root: Path | None = None,
+    claim_run_root: Path | None = None,
+    claim_plan_output_root: Path | None = None,
+    claim_rule_code: str = "i5b_item_wide",
+    claim_max_slices_per_person: int = 12,
+    claim_max_total_slices: int = 0,
+    claim_include_target_emperor_object: bool = False,
+    claim_selection_profile: str = "all",
+    claim_pilot_object_limit: int = 4,
+    claim_pilot_slices_per_object: int = 8,
+    claim_pilot_profile_signals_path: Path | None = None,
+    claim_pilot_priority_objects: Sequence[str] = (),
+    claim_priority: int | None = None,
+    required_extractor_version: str = "",
 ) -> dict[str, Any]:
     job = claim_ready_job(dsn=dsn, worker_id=worker_id, schema_name=schema_name) if execute else fetch_next_ready_job(dsn=dsn, schema_name=schema_name)
     if job is None:
@@ -1306,6 +1385,29 @@ def once(
         conn.commit()
     try:
         result = execute_job(job=job, max_docs_per_person=max_docs_per_person)
+        if auto_enqueue_claim_job:
+            if claim_cache_root is None:
+                raise ObjectSourceCacheWorkerError("--auto-enqueue-claim-job requires --claim-cache-root")
+            result = dict(result)
+            result["claim_bridge_result"] = plan_claim_extraction_after_object_cache_job(
+                job=job,
+                dsn=dsn,
+                claim_cache_root=claim_cache_root,
+                claim_run_root=claim_run_root,
+                claim_plan_output_root=claim_plan_output_root,
+                rule_code=claim_rule_code,
+                max_slices_per_person=claim_max_slices_per_person,
+                max_total_slices=claim_max_total_slices,
+                include_target_emperor_object=claim_include_target_emperor_object,
+                selection_profile=claim_selection_profile,
+                pilot_object_limit=claim_pilot_object_limit,
+                pilot_slices_per_object=claim_pilot_slices_per_object,
+                pilot_profile_signals_path=claim_pilot_profile_signals_path,
+                pilot_priority_objects=claim_pilot_priority_objects,
+                priority=claim_priority,
+                required_extractor_version=required_extractor_version,
+                schema_name=schema_name,
+            )
     except Exception as exc:
         with psycopg.connect(dsn, row_factory=dict_row) as conn:
             with conn.cursor() as raw_cur:
@@ -1427,6 +1529,21 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--worker-id", default="retrieval_v2_object_source_cache_worker")
     once_cmd.add_argument("--execute", action="store_true")
     once_cmd.add_argument("--max-docs-per-person", type=int, default=6)
+    once_cmd.add_argument("--auto-enqueue-claim-job", action="store_true")
+    once_cmd.add_argument("--claim-cache-root", type=Path, default=DEFAULT_CLAIM_CACHE_ROOT)
+    once_cmd.add_argument("--claim-run-root", type=Path, default=claim_worker.DEFAULT_RUN_ROOT)
+    once_cmd.add_argument("--claim-plan-output-root", type=Path)
+    once_cmd.add_argument("--claim-rule-code", default="i5b_item_wide")
+    once_cmd.add_argument("--claim-max-slices-per-person", type=int, default=12)
+    once_cmd.add_argument("--claim-max-total-slices", type=int, default=0)
+    once_cmd.add_argument("--claim-include-target-emperor-object", action="store_true")
+    once_cmd.add_argument("--claim-selection-profile", choices=("all", "pilot"), default="all")
+    once_cmd.add_argument("--claim-pilot-object-limit", type=int, default=4)
+    once_cmd.add_argument("--claim-pilot-slices-per-object", type=int, default=8)
+    once_cmd.add_argument("--claim-pilot-profile-signals-jsonl", type=Path)
+    once_cmd.add_argument("--claim-pilot-priority-object", action="append", default=[])
+    once_cmd.add_argument("--claim-priority", type=int)
+    once_cmd.add_argument("--required-extractor-version", default=claim_worker.candidate_prompt.CLAIM_EXTRACTOR_VERSION)
     once_cmd.add_argument("--output-json", type=Path)
 
     claim_plan = sub.add_parser("claim-plan", help="Build claim-only candidates from an object source cache and run claim-cache uncovered planning.")
@@ -1488,7 +1605,28 @@ def main(argv: Sequence[str] | None = None) -> int:
         job = fetch_next_ready_job(dsn=dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
     elif args.command == "once":
-        payload = once(dsn=dsn, worker_id=args.worker_id, execute=bool(args.execute), max_docs_per_person=args.max_docs_per_person, schema_name=args.pg_schema)
+        payload = once(
+            dsn=dsn,
+            worker_id=args.worker_id,
+            execute=bool(args.execute),
+            max_docs_per_person=args.max_docs_per_person,
+            schema_name=args.pg_schema,
+            auto_enqueue_claim_job=bool(args.auto_enqueue_claim_job),
+            claim_cache_root=args.claim_cache_root,
+            claim_run_root=args.claim_run_root,
+            claim_plan_output_root=args.claim_plan_output_root,
+            claim_rule_code=args.claim_rule_code,
+            claim_max_slices_per_person=args.claim_max_slices_per_person,
+            claim_max_total_slices=args.claim_max_total_slices,
+            claim_include_target_emperor_object=bool(args.claim_include_target_emperor_object),
+            claim_selection_profile=args.claim_selection_profile,
+            claim_pilot_object_limit=args.claim_pilot_object_limit,
+            claim_pilot_slices_per_object=args.claim_pilot_slices_per_object,
+            claim_pilot_profile_signals_path=args.claim_pilot_profile_signals_jsonl,
+            claim_pilot_priority_objects=args.claim_pilot_priority_object,
+            claim_priority=args.claim_priority,
+            required_extractor_version=args.required_extractor_version,
+        )
     elif args.command == "claim-plan":
         payload = plan_claim_extraction_from_cache(
             cache_root=args.cache_root,
