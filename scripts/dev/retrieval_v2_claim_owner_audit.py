@@ -697,13 +697,16 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
                 flags.append("time_context_only_actor_differs_from_from_owner_review")
         else:
             flags.append("matched_alias_not_in_current_claim_text")
-            if alias and alias in evidence_text:
+            alias_in_evidence_only = bool(alias and alias in evidence_text)
+            if alias_in_evidence_only:
                 flags.append("matched_alias_in_evidence_text_only")
             if set(rules) & OWNER_REBIND_BARE_TITLE_RULES:
                 flags.append("bare_title_rule_without_current_alias")
             if "source_title_dynasty_bare_title" in rules:
                 flags.append("source_title_rule_without_current_alias")
-                if not alias or alias not in evidence_text:
+                if alias_in_evidence_only:
+                    flags.append("source_title_rule_evidence_only_review")
+                else:
                     flags.append("source_title_rule_without_claim_or_evidence_alias")
     return unique_strings(flags)
 

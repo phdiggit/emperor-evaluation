@@ -716,6 +716,7 @@ def test_owner_rebind_payload_inventory_flags_alias_in_evidence_only() -> None:
     assert inventory["risk_counts"]["matched_alias_not_in_current_claim_text"] == 1
     assert inventory["risk_counts"]["matched_alias_in_evidence_text_only"] == 1
     assert inventory["risk_counts"]["source_title_rule_without_current_alias"] == 1
+    assert inventory["risk_counts"]["source_title_rule_evidence_only_review"] == 1
     assert "source_title_rule_without_claim_or_evidence_alias" not in inventory["risk_counts"]
 
 
