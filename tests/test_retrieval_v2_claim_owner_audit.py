@@ -265,6 +265,99 @@ def test_fact_object_owner_breaks_multi_owner_context_toward_event_target() -> N
     assert result["suggested_owner_name"] == "刘恒"
 
 
+def test_short_alias_embedded_in_person_name_does_not_create_owner_rebind() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="李世民",
+            object_name="李君羡",
+            action_type="战役",
+            claim_summary="李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
+            fact_payload={"actor": "李君羡", "object": "刘武周、王世充", "action_type": "战役", "source_title": "旧唐书/卷六十九"},
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "person_material"
+    assert result["suggested_owner_name"] == ""
+    assert result["matched_owner_alias"] == ""
+    assert result["other_owner_mentions"] == []
+
+
+def test_title_alias_followed_by_other_person_name_does_not_create_owner_rebind() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="杨坚",
+            object_name="杨谅",
+            action_type="处置",
+            claim_summary="汉王谅起兵反，朝廷遣杨素讨平。",
+            fact_payload={"actor": "汉王谅", "object": "杨素", "action_type": "处置", "source_title": "隋书/卷五十三"},
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "needs_review"
+    assert result["owner_risk_kind"] == "ruler_action_without_requested_owner_mention"
+    assert result["suggested_owner_name"] == ""
+    assert result["matched_owner_alias"] == ""
+    assert result["other_owner_mentions"] == []
+
+
+def test_time_context_owner_alias_does_not_create_owner_rebind() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="刘邦",
+            object_name="陆贾",
+            action_type="其他",
+            time_context="孝惠帝时，吕太后用事",
+            claim_summary="吕太后用事、诸吕擅权时，陆贾自度不能争，称病免官家居。",
+            fact_payload={
+                "actor": "陆贾",
+                "object": "诸吕擅权局面",
+                "action_type": "其他",
+                "time_context": "孝惠帝时，吕太后用事",
+            },
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "person_material"
+    assert result["suggested_owner_name"] == ""
+    assert result["matched_owner_alias"] == ""
+    assert result["other_owner_mentions"] == []
+
+
+def test_book_title_owner_alias_does_not_create_owner_rebind() -> None:
+    aliases = tool.load_owner_aliases()
+
+    result = tool.classify_claim_owner(
+        claim_row(
+            emperor_name="李世民",
+            object_name="房玄龄",
+            action_type="授权",
+            claim_summary="李世民命监修国史房玄龄撰次《高祖》《今上实录》以闻，书成后又命削去浮词、直书其事。",
+            fact_payload={
+                "actor": "李世民",
+                "object": "房玄龄",
+                "action_type": "授权",
+                "outcome": "房玄龄等删为《高祖》《今上实录》并上书",
+                "source_title": "旧唐书/卷七十三",
+            },
+        ),
+        aliases,
+    )
+
+    assert result["owner_status"] == "matched"
+    assert result["suggested_owner_name"] == "李世民"
+    assert result["matched_owner_alias"] == "李世民"
+    assert result["other_owner_mentions"] == []
+
+
 def test_context_only_requested_owner_mention_does_not_block_unique_other_owner_rebind() -> None:
     aliases = tool.load_owner_aliases()
 
@@ -379,6 +472,77 @@ def test_owner_binding_inventory_reports_external_and_review_samples() -> None:
     assert inventory["review_class_counts"]["rebind_candidate"] == 1
     assert inventory["samples"]["external_or_unregistered_owner_claims"][0]["claim_key"] == "CLMK-EXT"
     assert inventory["samples"]["rebind_candidates"][0]["claim_key"] == "CLMK-REBIND"
+
+
+def test_owner_rebind_payload_inventory_flags_book_title_alias() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-BOOK",
+            emperor_name="李渊",
+            object_name="房玄龄",
+            action_type="授权",
+            claim_summary="李世民命监修国史房玄龄撰次《高祖》《今上实录》以闻。",
+            fact_payload={
+                "actor": "李世民",
+                "object": "房玄龄",
+                "action_type": "授权",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "李世民",
+                    "to_emperor_name": "李渊",
+                    "reason": "claim_context_unique_resolved_owner_without_requested_owner",
+                    "matched_aliases": ["高祖"],
+                    "resolution_rules": ["same_dynasty_bare_title_scope"],
+                    "evidence": [{"alias": "高祖", "resolution_rule": "same_dynasty_bare_title_scope"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["payload_claim_count"] == 1
+    assert inventory["by_matched_alias"]["高祖"] == 1
+    assert inventory["risk_counts"]["current_suppression.alias_inside_book_title"] == 1
+    assert inventory["risk_counts"]["current_mechanism_suppresses_matched_alias"] == 1
+    assert inventory["risk_counts"]["current_mechanism_does_not_reproduce_rebind_anchor"] == 1
+    sample = inventory["samples"]["current_suppression.alias_inside_book_title"][0]
+    assert sample["claim_key"] == "CLMK-BOOK"
+
+
+def test_owner_rebind_payload_inventory_flags_time_context_only_alias() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-TIME",
+            emperor_name="刘盈",
+            object_name="陆贾",
+            action_type="其他",
+            time_context="孝惠帝时，吕太后用事",
+            claim_summary="吕太后用事、诸吕擅权时，陆贾自度不能争，称病免官家居。",
+            fact_payload={
+                "actor": "陆贾",
+                "object": "诸吕擅权局面",
+                "action_type": "其他",
+                "time_context": "孝惠帝时，吕太后用事",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "刘邦",
+                    "to_emperor_name": "刘盈",
+                    "reason": "claim_context_unique_resolved_owner_without_requested_owner",
+                    "matched_aliases": ["惠帝"],
+                    "resolution_rules": ["same_dynasty_bare_title_scope"],
+                    "evidence": [{"alias": "惠帝", "resolution_rule": "same_dynasty_bare_title_scope"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["payload_claim_count"] == 1
+    assert inventory["risk_counts"]["time_context_only_matched_alias"] == 1
+    assert inventory["risk_counts"]["high_risk_matched_alias"] == 1
+    assert inventory["risk_counts"]["short_matched_alias"] == 1
 
 
 def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:

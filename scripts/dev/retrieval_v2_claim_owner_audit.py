@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev import retrieval_v2_alias_pretag as alias_pretag  # noqa: E402
 from scripts.dev.retrieval_v2_target_alias_backfill import (  # noqa: E402
     DEFAULT_ALIAS_FILE,
     DEFAULT_EMPEROR_LIST,
@@ -30,6 +31,8 @@ DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 RULER_ACTION_TYPES = {"任命", "授权", "处置", "收权", "制度高压"}
 CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
 DEFAULT_INVENTORY_SAMPLE_LIMIT = 20
+OWNER_REBIND_HIGH_RISK_ALIASES = {"高祖", "高宗", "太宗", "文帝", "惠帝", "汉王", "武周"}
+OWNER_REBIND_BARE_TITLE_RULES = {"same_dynasty_bare_title_scope", "source_title_dynasty_bare_title"}
 
 
 class ClaimOwnerAuditError(RuntimeError):
@@ -41,6 +44,7 @@ class OwnerAliasBook:
     aliases_by_owner: dict[str, list[str]]
     scoped_aliases_by_requested: dict[str, dict[str, list[str]]]
     source: str
+    resolver: alias_pretag.AliasResolver
 
 
 @dataclass(frozen=True)
@@ -48,6 +52,7 @@ class OwnerMatch:
     owner_name: str
     alias: str
     source: str
+    mention: dict[str, Any]
 
 
 def text(value: Any) -> str:
@@ -99,6 +104,7 @@ def owner_alias_book_from_rows(rows: Sequence[Mapping[str, Any]], *, source: str
             for requested, owner_map in sorted(scoped.items())
         },
         source=source,
+        resolver=alias_pretag.alias_resolver_from_rows(rows, source=source),
     )
 
 
@@ -133,6 +139,7 @@ def fetch_owner_alias_book(cur: Any) -> OwnerAliasBook:
         select
             t.emperor_name,
             a.alias,
+            a.alias_type,
             a.alias_payload
           from retrieval_v2.retrieval_targets t
           join retrieval_v2.target_aliases a on a.target_id = t.id
@@ -166,7 +173,41 @@ def alias_context_valid(text_value: str, alias: str, index: int) -> bool:
     return True
 
 
-def alias_matches(text_value: str, aliases_by_owner: Mapping[str, Sequence[str]]) -> list[OwnerMatch]:
+def alias_matches(
+    text_value: str,
+    aliases_by_owner: Mapping[str, Sequence[str]],
+    *,
+    requested_owner_name: str = "",
+    alias_book: OwnerAliasBook | None = None,
+    source_title: str = "",
+) -> list[OwnerMatch]:
+    if alias_book is not None:
+        matches: list[OwnerMatch] = []
+        for mention in alias_pretag.alias_mentions_in_text(
+            text_value,
+            requested_owner_name=requested_owner_name,
+            source_title=source_title,
+            resolver=alias_book.resolver,
+        ):
+            if text(mention.get("resolution_status")) != "resolved":
+                continue
+            if mention.get("owner_anchor_eligible") is False:
+                continue
+            alias = text(mention.get("alias"))
+            start = int(mention.get("start") or 0)
+            if not alias or not alias_context_valid(text_value, alias, start):
+                continue
+            matches.append(
+                OwnerMatch(
+                    owner_name=text(mention.get("resolved_owner_name")),
+                    alias=alias,
+                    source="structured_mention",
+                    mention=dict(mention),
+                )
+            )
+        matches.sort(key=lambda item: (-len(item.alias), item.owner_name, item.alias))
+        return matches
+
     matches: list[OwnerMatch] = []
     for owner_name, aliases in sorted(aliases_by_owner.items()):
         for alias in aliases:
@@ -179,7 +220,7 @@ def alias_matches(text_value: str, aliases_by_owner: Mapping[str, Sequence[str]]
                 if index < 0:
                     break
                 if alias_context_valid(text_value, term, index):
-                    matches.append(OwnerMatch(owner_name=text(owner_name), alias=term, source="text"))
+                    matches.append(OwnerMatch(owner_name=text(owner_name), alias=term, source="text", mention={}))
                     break
                 start = index + max(1, len(term))
     matches.sort(key=lambda item: (-len(item.alias), item.owner_name, item.alias))
@@ -194,14 +235,17 @@ def claim_search_text(row: Mapping[str, Any]) -> str:
     payload = as_mapping(row.get("fact_payload"))
     parts = [
         text(row.get("claim_summary")),
-        text(row.get("time_context")),
         text(row.get("outcome")),
         text(row.get("office_or_domain")),
         text(payload.get("actor")),
-        text(payload.get("time_context")),
         text(payload.get("outcome")),
     ]
     return " ".join(part for part in parts if part)
+
+
+def claim_source_title(row: Mapping[str, Any]) -> str:
+    payload = as_mapping(row.get("fact_payload"))
+    return text(row.get("source_title") or payload.get("source_title"))
 
 
 def requested_owner_context_only(row: Mapping[str, Any], requested_matches: Sequence[OwnerMatch]) -> bool:
@@ -258,9 +302,28 @@ def classify_claim_owner(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> 
     action_type = text(row.get("action_type") or payload.get("action_type"))
     status = text(row.get("status"))
     searchable = claim_search_text(row)
-    actor_matches = alias_matches(actor, scoped_aliases)
-    fact_object_matches = alias_matches(text(payload.get("object")), scoped_aliases)
-    text_matches = alias_matches(searchable, scoped_aliases)
+    source_title = claim_source_title(row)
+    actor_matches = alias_matches(
+        actor,
+        scoped_aliases,
+        requested_owner_name=requested,
+        alias_book=alias_book,
+        source_title=source_title,
+    )
+    fact_object_matches = alias_matches(
+        text(payload.get("object")),
+        scoped_aliases,
+        requested_owner_name=requested,
+        alias_book=alias_book,
+        source_title=source_title,
+    )
+    text_matches = alias_matches(
+        searchable,
+        scoped_aliases,
+        requested_owner_name=requested,
+        alias_book=alias_book,
+        source_title=source_title,
+    )
     requested_actor_matches = [match for match in actor_matches if match.owner_name == requested]
     requested_text_matches = [match for match in text_matches if match.owner_name == requested]
     requested_context_only = bool(requested_text_matches) and requested_owner_context_only(row, requested_text_matches)
@@ -514,6 +577,170 @@ def owner_binding_inventory(
     }
 
 
+def owner_rebind_payload(row: Mapping[str, Any]) -> dict[str, Any]:
+    return as_mapping(as_mapping(row.get("fact_payload")).get("owner_rebind_payload"))
+
+
+def owner_rebind_payload_aliases(payload: Mapping[str, Any]) -> list[str]:
+    aliases = payload.get("matched_aliases")
+    if isinstance(aliases, list):
+        return unique_strings([text(alias) for alias in aliases])
+    return unique_strings([text(payload.get("matched_alias"))])
+
+
+def owner_rebind_payload_rules(payload: Mapping[str, Any]) -> list[str]:
+    rules = payload.get("resolution_rules")
+    if isinstance(rules, list):
+        return unique_strings([text(rule) for rule in rules])
+    evidence = payload.get("evidence") if isinstance(payload.get("evidence"), list) else []
+    return unique_strings([text(as_mapping(row).get("resolution_rule")) for row in evidence])
+
+
+def alias_mentions_for_payload(
+    row: Mapping[str, Any],
+    alias_book: OwnerAliasBook,
+    *,
+    alias: str,
+    requested_owner_name: str,
+    include_suppressed: bool,
+) -> list[dict[str, Any]]:
+    return [
+        dict(mention)
+        for mention in alias_pretag.alias_mentions_in_text(
+            claim_search_text(row),
+            requested_owner_name=requested_owner_name,
+            source_title=claim_source_title(row),
+            resolver=alias_book.resolver,
+            include_suppressed=include_suppressed,
+        )
+        if text(mention.get("alias")) == text(alias)
+    ]
+
+
+def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAliasBook) -> list[str]:
+    payload = owner_rebind_payload(row)
+    if not payload:
+        return []
+    aliases = owner_rebind_payload_aliases(payload)
+    rules = owner_rebind_payload_rules(payload)
+    from_owner = text(payload.get("from_emperor_name"))
+    to_owner = text(payload.get("to_emperor_name"))
+    requested_owner = from_owner or text(row.get("emperor_name"))
+    claim_text = claim_search_text(row)
+    time_context = text(row.get("time_context") or as_mapping(row.get("fact_payload")).get("time_context"))
+    flags: list[str] = []
+    if to_owner and text(row.get("emperor_name")) != to_owner:
+        flags.append("payload_to_owner_mismatch")
+    if set(rules) & OWNER_REBIND_BARE_TITLE_RULES:
+        flags.append("bare_title_rebind_payload")
+    evidence = payload.get("evidence") if isinstance(payload.get("evidence"), list) else []
+    if evidence and not any("owner_anchor_eligible" in as_mapping(item) for item in evidence):
+        flags.append("payload_evidence_lacks_owner_anchor_fields")
+    for alias in aliases:
+        if alias in OWNER_REBIND_HIGH_RISK_ALIASES:
+            flags.append("high_risk_matched_alias")
+        if 0 < len(alias) <= 2:
+            flags.append("short_matched_alias")
+        if alias and alias in claim_text:
+            suppressed_mentions = [
+                mention
+                for mention in alias_mentions_for_payload(
+                    row,
+                    alias_book,
+                    alias=alias,
+                    requested_owner_name=requested_owner,
+                    include_suppressed=True,
+                )
+                if text(mention.get("resolution_status")) == "suppressed"
+            ]
+            resolved_mentions = [
+                mention
+                for mention in alias_mentions_for_payload(
+                    row,
+                    alias_book,
+                    alias=alias,
+                    requested_owner_name=requested_owner,
+                    include_suppressed=False,
+                )
+                if text(mention.get("resolution_status")) == "resolved"
+                and text(mention.get("resolved_owner_name")) == to_owner
+                and mention.get("owner_anchor_eligible") is not False
+            ]
+            if suppressed_mentions:
+                flags.append("current_mechanism_suppresses_matched_alias")
+                reasons = unique_strings([text(mention.get("suppression_reason")) for mention in suppressed_mentions])
+                flags.extend(f"current_suppression.{reason}" for reason in reasons)
+            if not resolved_mentions:
+                flags.append("current_mechanism_does_not_reproduce_rebind_anchor")
+        elif alias and alias in time_context:
+            flags.append("time_context_only_matched_alias")
+        else:
+            flags.append("matched_alias_not_in_current_claim_text")
+    return unique_strings(flags)
+
+
+def sample_owner_rebind_payload(row: Mapping[str, Any], flags: Sequence[str]) -> dict[str, Any]:
+    payload = owner_rebind_payload(row)
+    return {
+        "claim_key": text(row.get("claim_key")),
+        "emperor_name": text(row.get("emperor_name")),
+        "object_name": text(row.get("object_name")),
+        "status": text(row.get("status")),
+        "from_emperor_name": text(payload.get("from_emperor_name")),
+        "to_emperor_name": text(payload.get("to_emperor_name")),
+        "reason": text(payload.get("reason")),
+        "matched_aliases": owner_rebind_payload_aliases(payload),
+        "resolution_rules": owner_rebind_payload_rules(payload),
+        "risk_flags": list(flags),
+        "action_type": text(row.get("action_type") or as_mapping(row.get("fact_payload")).get("action_type")),
+        "actor": text(as_mapping(row.get("fact_payload")).get("actor")),
+        "time_context": text(row.get("time_context") or as_mapping(row.get("fact_payload")).get("time_context")),
+        "claim_summary": text(row.get("claim_summary")),
+    }
+
+
+def owner_rebind_payload_inventory(
+    rows: Sequence[Mapping[str, Any]],
+    alias_book: OwnerAliasBook,
+    *,
+    sample_limit: int = DEFAULT_INVENTORY_SAMPLE_LIMIT,
+) -> dict[str, Any]:
+    by_reason: Counter[str] = Counter()
+    by_alias: Counter[str] = Counter()
+    by_rule: Counter[str] = Counter()
+    risk_counts: Counter[str] = Counter()
+    samples: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    payload_claim_count = 0
+    for row in rows:
+        payload = owner_rebind_payload(row)
+        if not payload:
+            continue
+        payload_claim_count += 1
+        by_reason[text(payload.get("reason")) or "<blank>"] += 1
+        aliases = owner_rebind_payload_aliases(payload)
+        rules = owner_rebind_payload_rules(payload)
+        for alias in aliases or ["<blank>"]:
+            by_alias[alias] += 1
+        for rule in rules or ["<blank>"]:
+            by_rule[rule] += 1
+        flags = owner_rebind_payload_risk_flags(row, alias_book)
+        if not flags:
+            flags = ["no_risk_flags"]
+        sample = sample_owner_rebind_payload(row, flags)
+        for flag in flags:
+            risk_counts[flag] += 1
+            if len(samples[flag]) < sample_limit:
+                samples[flag].append(sample)
+    return {
+        "payload_claim_count": payload_claim_count,
+        "by_reason": dict(sorted(by_reason.items())),
+        "by_matched_alias": dict(sorted(by_alias.items())),
+        "by_resolution_rule": dict(sorted(by_rule.items())),
+        "risk_counts": dict(sorted(risk_counts.items())),
+        "samples": dict(sorted(samples.items())),
+    }
+
+
 def counter_pairs(counter: Counter[tuple[str, str]], keys: tuple[str, str]) -> list[dict[str, Any]]:
     first_key, second_key = keys
     return [
@@ -638,6 +865,11 @@ def audit_claim_owners(
             rows = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses)
             findings = [classify_claim_owner(row, aliases) for row in rows]
             inventory = owner_binding_inventory(findings, aliases, sample_limit=max(0, int(inventory_sample_limit)))
+            rebind_payload_inventory = owner_rebind_payload_inventory(
+                rows,
+                aliases,
+                sample_limit=max(0, int(inventory_sample_limit)),
+            )
             executable_plan = executable_rebind_plan(findings)
             review_status_plan = executable_review_status_plan(findings)
             if execute_rebind:
@@ -666,6 +898,7 @@ def audit_claim_owners(
         },
         "summary": summarize_findings(findings),
         "owner_binding_inventory": inventory,
+        "owner_rebind_payload_inventory": rebind_payload_inventory,
         "findings": findings,
         "rebind_plan": rebind_plan(findings),
         "executable_rebind_plan": executable_plan,
@@ -705,6 +938,7 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 def markdown_report(payload: Mapping[str, Any]) -> str:
     summary = as_mapping(payload.get("summary"))
     inventory = as_mapping(payload.get("owner_binding_inventory"))
+    rebind_inventory = as_mapping(payload.get("owner_rebind_payload_inventory"))
     lines = [
         "# Claim Owner Audit",
         "",
@@ -713,6 +947,7 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
         f"- write_db: `{str(payload.get('write_db')).lower()}`",
         f"- total_claims: `{summary.get('total_claims', 0)}`",
         f"- registered_owner_count: `{inventory.get('registered_owner_count', 0)}`",
+        f"- owner_rebind_payload_claims: `{rebind_inventory.get('payload_claim_count', 0)}`",
         "",
         "## Owner Status",
         "",
@@ -739,6 +974,15 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
     lines.extend(["", "## Suggested Rebind Owners", "", "| requested_emperor_name | suggested_owner_name | count |", "| --- | --- | ---: |"])
     for row in summary.get("by_suggested_owner") or []:
         lines.append(f"| {row.get('requested_emperor_name')} | {row.get('suggested_owner_name')} | {row.get('count')} |")
+    lines.extend(["", "## Existing Owner Rebind Payload Risk", "", "| risk_flag | count |", "| --- | ---: |"])
+    for flag, count in (rebind_inventory.get("risk_counts") or {}).items():
+        lines.append(f"| {flag} | {count} |")
+    lines.extend(["", "## Existing Owner Rebind Payload Aliases", "", "| matched_alias | count |", "| --- | ---: |"])
+    for alias, count in (rebind_inventory.get("by_matched_alias") or {}).items():
+        lines.append(f"| {alias} | {count} |")
+    lines.extend(["", "## Existing Owner Rebind Payload Reasons", "", "| reason | count |", "| --- | ---: |"])
+    for reason, count in (rebind_inventory.get("by_reason") or {}).items():
+        lines.append(f"| {reason} | {count} |")
     lines.extend(
         [
             "",

@@ -52,6 +52,30 @@ def test_title_alias_followed_by_owner_given_name_still_resolves() -> None:
     assert qinwang["resolved_owner_name"] == "李世民"
 
 
+def test_title_alias_followed_by_action_word_still_resolves() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "尉迟敬德请求李渊降手敕，令诸军受秦王处分，李渊从之。",
+        requested_owner_name="李渊",
+        source_title="旧唐书/卷六十八",
+    )
+
+    qinwang = next(row for row in mentions if row["alias"] == "秦王")
+    assert qinwang["resolved_owner_name"] == "李世民"
+    assert qinwang["owner_anchor_eligible"] is True
+
+
+def test_title_alias_followed_by_action_verb_still_resolves() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "吕后用萧何之计诛杀韩信。",
+        requested_owner_name="刘邦",
+        source_title="史记/卷五十三",
+    )
+
+    lvhou = next(row for row in mentions if row["alias"] == "吕后")
+    assert lvhou["resolved_owner_name"] == "吕雉"
+    assert lvhou["owner_anchor_eligible"] is True
+
+
 def test_short_owner_alias_inside_longer_person_name_is_not_owner_anchor() -> None:
     mentions = tool.alias_mentions_in_text(
         "李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
@@ -91,6 +115,20 @@ def test_suppressed_title_alias_is_available_for_debug_only() -> None:
     assert hanwang["resolution_status"] == "suppressed"
     assert hanwang["owner_anchor_eligible"] is False
     assert hanwang["suppression_reason"] == "title_alias_followed_by_non_owner_name"
+
+
+def test_alias_inside_book_title_is_not_owner_anchor() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "李世民命房玄龄撰次《高祖》《今上实录》以闻。",
+        requested_owner_name="李世民",
+        source_title="旧唐书/卷七十三",
+        include_suppressed=True,
+    )
+
+    gaozu = next(row for row in mentions if row["alias"] == "高祖")
+    assert gaozu["resolution_status"] == "suppressed"
+    assert gaozu["owner_anchor_eligible"] is False
+    assert gaozu["suppression_reason"] == "alias_inside_book_title"
 
 
 def test_source_title_dynasty_resolves_bare_title_without_requested_scope() -> None:
@@ -163,6 +201,30 @@ def test_claim_owner_rebind_ignores_suppressed_embedded_alias() -> None:
         claim,
         source_refs=["SLI-001"],
         alias_mentions_by_ref=alias_mentions,
+    )
+
+    assert rebind == {}
+
+
+def test_claim_owner_rebind_ignores_time_context_owner_alias() -> None:
+    claim = {
+        "emperor_name": "刘邦",
+        "source_slice_refs": ["SLI-001"],
+        "action_type": "其他",
+        "claim_summary": "吕太后用事、诸吕擅权时，陆贾自度不能争，称病免官家居。",
+        "time_context": "孝惠帝时，吕太后用事",
+        "fact_payload": {
+            "actor": "陆贾",
+            "object": "诸吕擅权局面",
+            "action_type": "其他",
+            "time_context": "孝惠帝时",
+        },
+    }
+
+    rebind = tool.claim_owner_rebind_from_alias_mentions(
+        claim,
+        source_refs=["SLI-001"],
+        alias_mentions_by_ref={},
     )
 
     assert rebind == {}

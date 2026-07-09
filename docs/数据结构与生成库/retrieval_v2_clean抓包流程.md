@@ -219,10 +219,14 @@ claim 抽取后的 owner 改绑只使用机械 alias 预识别结果，不额外
 已暴露的 alias 错绑可归为三类，应由通用机制处理，不再打单人补丁：
 
 - 裸庙号 / 谥号跨同朝皇帝：如本朝材料中的 `高宗`、`高祖`，必须结合 requested owner scope 或史书书名朝代判断；能唯一落到本朝皇帝时才可作为 owner anchor。
-- 封号 / 职称后接他人名：如 `汉王谅` 一类文本，`汉王` 不能被机械解作另一个 owner。
+- 封号 / 职称后接他人名：如 `汉王谅` 一类文本，`汉王` 不能被机械解作另一个 owner；但后接动作词或谓词时，如 `秦王处分`、`吕后用...之计`，仍可作为 owner anchor。
 - 短别名嵌入更长人名：如 `刘武周` 中的 `武周`，不能触发武则天 owner 改绑。
+- 纯时间上下文：如 `孝惠帝时` 只说明事件时点，不能单独作为 claim owner 改绑锚点。
+- 书名 / 篇名括号：如 `《高祖》《今上实录》` 中的 `高祖` 是文本标题，不是 owner anchor。
 
 因此 alias 机制的输出不应只是 `alias -> owner`，而应至少带上 `resolution_status`、`resolution_rule`、`owner_anchor_eligible`、`mention_role`、`suppression_reason` 和 `risk_flags`。自动改绑只消费 `resolution_status=resolved` 且 `owner_anchor_eligible=true` 的 mention；被 suppressed 的 mention 可以留给调试和后续审计，但不能影响 claim owner。
+
+对已入库库存，还应定期复跑 `owner_rebind_payload` 风险审计：把旧 payload 的 `matched_aliases` / `resolution_rules` 和当前 mention 级机制对齐检查，重点看高风险短 alias、裸庙号 / 谥号、time_context-only 命中、书名括号命中，以及当前机制无法复现的旧改绑。
 
 ## 缺口到任务的映射
 
