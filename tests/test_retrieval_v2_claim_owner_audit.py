@@ -646,6 +646,43 @@ def test_owner_rebind_payload_inventory_flags_source_title_rule_without_current_
     assert inventory["risk_counts"]["matched_alias_not_in_current_claim_text"] == 1
     assert inventory["risk_counts"]["bare_title_rule_without_current_alias"] == 1
     assert inventory["risk_counts"]["source_title_rule_without_current_alias"] == 1
+    assert inventory["risk_counts"]["source_title_rule_without_claim_or_evidence_alias"] == 1
+
+
+def test_owner_rebind_payload_inventory_flags_alias_in_evidence_only() -> None:
+    aliases = tool.load_owner_aliases()
+    rows = [
+        claim_row(
+            claim_key="CLMK-EVIDENCE-ONLY",
+            emperor_name="李世民",
+            object_name="刘弘基",
+            action_type="任命",
+            time_context="师至河东后",
+            claim_summary="刘弘基任渭北道大使时，以殷开山为副。",
+            evidence_text="会高祖镇太原，遂自结托，又察太宗有非常之度，尤委心焉。",
+            fact_payload={
+                "actor": "刘弘基",
+                "object": "殷开山",
+                "action_type": "任命",
+                "time_context": "师至河东后",
+                "owner_rebind_payload": {
+                    "from_emperor_name": "李渊",
+                    "to_emperor_name": "李世民",
+                    "reason": "source_unique_owner_anchor_without_requested_owner_in_claim",
+                    "matched_aliases": ["太宗"],
+                    "resolution_rules": ["source_title_dynasty_bare_title"],
+                    "evidence": [{"alias": "太宗", "resolution_rule": "source_title_dynasty_bare_title"}],
+                },
+            },
+        )
+    ]
+
+    inventory = tool.owner_rebind_payload_inventory(rows, aliases, sample_limit=2)
+
+    assert inventory["risk_counts"]["matched_alias_not_in_current_claim_text"] == 1
+    assert inventory["risk_counts"]["matched_alias_in_evidence_text_only"] == 1
+    assert inventory["risk_counts"]["source_title_rule_without_current_alias"] == 1
+    assert "source_title_rule_without_claim_or_evidence_alias" not in inventory["risk_counts"]
 
 
 def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:

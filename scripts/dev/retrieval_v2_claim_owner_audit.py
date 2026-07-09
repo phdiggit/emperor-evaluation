@@ -248,6 +248,10 @@ def claim_source_title(row: Mapping[str, Any]) -> str:
     return text(row.get("source_title") or payload.get("source_title"))
 
 
+def claim_evidence_text(row: Mapping[str, Any]) -> str:
+    return text(row.get("evidence_text"))
+
+
 def requested_owner_context_only(row: Mapping[str, Any], requested_matches: Sequence[OwnerMatch]) -> bool:
     aliases = unique_strings([match.alias for match in requested_matches])
     if not aliases:
@@ -416,27 +420,39 @@ def fetch_claim_rows(
     where: list[str] = []
     params: list[Any] = []
     if emperor_filter:
-        where.append("emperor_name = any(%s)")
+        where.append("f.emperor_name = any(%s)")
         params.append(emperor_filter)
     if status_filter:
-        where.append("status::text = any(%s)")
+        where.append("f.status::text = any(%s)")
         params.append(status_filter)
     cur.execute(
         f"""
         select
-            claim_key,
-            emperor_name,
-            object_name,
-            status::text as status,
-            action_type,
-            office_or_domain,
-            time_context,
-            outcome,
-            claim_summary,
-            fact_payload
-          from retrieval_v2.claim_atomic_facts
+            f.claim_key,
+            f.emperor_name,
+            f.object_name,
+            f.status::text as status,
+            f.action_type,
+            f.office_or_domain,
+            f.time_context,
+            f.outcome,
+            f.claim_summary,
+            f.fact_payload,
+            coalesce(ev.evidence_text, '') as evidence_text
+          from retrieval_v2.claim_atomic_facts f
+          left join (
+                select
+                    e.claim_key,
+                    string_agg(
+                        distinct concat_ws(' ', e.quote_preview, s.source_title, s.slice_text_preview),
+                        ' '
+                    ) as evidence_text
+                  from retrieval_v2.claim_evidence e
+                  left join retrieval_v2.claim_source_slices s on s.slice_hash = e.slice_hash
+                 group by e.claim_key
+          ) ev on ev.claim_key = f.claim_key
           {'where ' + ' and '.join(where) if where else ''}
-         order by emperor_name, object_name, claim_key
+         order by f.emperor_name, f.object_name, f.claim_key
         """,
         params,
     )
@@ -627,6 +643,7 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
     to_owner = text(payload.get("to_emperor_name"))
     requested_owner = from_owner or text(row.get("emperor_name"))
     claim_text = claim_search_text(row)
+    evidence_text = claim_evidence_text(row)
     time_context = text(row.get("time_context") or as_mapping(row.get("fact_payload")).get("time_context"))
     flags: list[str] = []
     if to_owner and text(row.get("emperor_name")) != to_owner:
@@ -678,10 +695,14 @@ def owner_rebind_payload_risk_flags(row: Mapping[str, Any], alias_book: OwnerAli
                 flags.append("time_context_only_actor_matches_from_owner")
         else:
             flags.append("matched_alias_not_in_current_claim_text")
+            if alias and alias in evidence_text:
+                flags.append("matched_alias_in_evidence_text_only")
             if set(rules) & OWNER_REBIND_BARE_TITLE_RULES:
                 flags.append("bare_title_rule_without_current_alias")
             if "source_title_dynasty_bare_title" in rules:
                 flags.append("source_title_rule_without_current_alias")
+                if not alias or alias not in evidence_text:
+                    flags.append("source_title_rule_without_claim_or_evidence_alias")
     return unique_strings(flags)
 
 
