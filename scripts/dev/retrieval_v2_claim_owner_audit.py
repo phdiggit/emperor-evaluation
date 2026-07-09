@@ -29,6 +29,7 @@ from scripts.dev.retrieval_v2_target_alias_backfill import (  # noqa: E402
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 RULER_ACTION_TYPES = {"任命", "授权", "处置", "收权", "制度高压"}
 CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
+DEFAULT_INVENTORY_SAMPLE_LIMIT = 20
 
 
 class ClaimOwnerAuditError(RuntimeError):
@@ -147,6 +148,13 @@ def scoped_aliases_by_owner(requested_emperor_name: str, alias_book: OwnerAliasB
     for owner_name, aliases in (alias_book.scoped_aliases_by_requested.get(text(requested_emperor_name)) or {}).items():
         scoped[text(owner_name)] = unique_strings([*scoped.get(text(owner_name), []), *aliases])
     return scoped
+
+
+def registered_owner_names(alias_book: OwnerAliasBook) -> set[str]:
+    names = set(alias_book.aliases_by_owner)
+    for owner_map in alias_book.scoped_aliases_by_requested.values():
+        names.update(owner_map)
+    return {name for name in names if name}
 
 
 def alias_context_valid(text_value: str, alias: str, index: int) -> bool:
@@ -351,6 +359,100 @@ def summarize_findings(findings: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     }
 
 
+def sample_finding(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "claim_key": text(row.get("claim_key")),
+        "requested_emperor_name": text(row.get("requested_emperor_name")),
+        "object_name": text(row.get("object_name")),
+        "status": text(row.get("status")),
+        "owner_status": text(row.get("owner_status")),
+        "owner_risk_kind": text(row.get("owner_risk_kind")),
+        "suggested_owner_name": text(row.get("suggested_owner_name")),
+        "matched_owner_alias": text(row.get("matched_owner_alias")),
+        "action_type": text(row.get("action_type")),
+        "actor": text(row.get("actor")),
+        "fact_object": text(row.get("fact_object")),
+        "time_context": text(row.get("time_context")),
+        "claim_summary": text(row.get("claim_summary")),
+    }
+
+
+def append_sample(target: list[dict[str, Any]], row: Mapping[str, Any], *, sample_limit: int) -> None:
+    if len(target) < sample_limit:
+        target.append(sample_finding(row))
+
+
+def owner_pool_status(owner_name: str, registered_owners: set[str]) -> str:
+    owner = text(owner_name)
+    if not owner:
+        return "blank_owner"
+    if owner in registered_owners:
+        return "registered_target_owner"
+    return "external_or_unregistered_owner"
+
+
+def owner_binding_inventory(
+    findings: Sequence[Mapping[str, Any]],
+    alias_book: OwnerAliasBook,
+    *,
+    sample_limit: int = DEFAULT_INVENTORY_SAMPLE_LIMIT,
+) -> dict[str, Any]:
+    registered_owners = registered_owner_names(alias_book)
+    pool_counts: Counter[str] = Counter()
+    external_owner_counts: Counter[str] = Counter()
+    suggested_external_counts: Counter[str] = Counter()
+    anomaly_counts: Counter[str] = Counter()
+    samples: dict[str, list[dict[str, Any]]] = {
+        "external_or_unregistered_owner_claims": [],
+        "rebind_candidates": [],
+        "ambiguous_owner_reviews": [],
+        "person_material_without_requested_owner": [],
+        "target_context_only_claims": [],
+    }
+    for row in findings:
+        requested = text(row.get("requested_emperor_name"))
+        status = owner_pool_status(requested, registered_owners)
+        pool_counts[status] += 1
+        if status == "external_or_unregistered_owner":
+            external_owner_counts[requested] += 1
+            anomaly_counts["external_or_unregistered_owner"] += 1
+            append_sample(samples["external_or_unregistered_owner_claims"], row, sample_limit=sample_limit)
+        owner_status = text(row.get("owner_status"))
+        risk_kind = text(row.get("owner_risk_kind"))
+        suggested = text(row.get("suggested_owner_name"))
+        if owner_status == "rebind_candidate":
+            anomaly_counts["rebind_candidate"] += 1
+            append_sample(samples["rebind_candidates"], row, sample_limit=sample_limit)
+        if owner_status == "needs_review":
+            anomaly_counts["needs_review"] += 1
+        if risk_kind == "other_owner_or_reign_mentioned":
+            anomaly_counts["other_owner_or_reign_mentioned"] += 1
+            append_sample(samples["ambiguous_owner_reviews"], row, sample_limit=sample_limit)
+        if owner_status == "person_material":
+            anomaly_counts["person_material_without_requested_owner"] += 1
+            append_sample(samples["person_material_without_requested_owner"], row, sample_limit=sample_limit)
+        if bool(row.get("target_owner_context_only")):
+            anomaly_counts["target_owner_context_only"] += 1
+            append_sample(samples["target_context_only_claims"], row, sample_limit=sample_limit)
+        if suggested and owner_pool_status(suggested, registered_owners) == "external_or_unregistered_owner":
+            suggested_external_counts[suggested] += 1
+    return {
+        "registered_owner_count": len(registered_owners),
+        "registered_owner_source": alias_book.source,
+        "claim_count_by_owner_pool_status": dict(sorted(pool_counts.items())),
+        "external_or_unregistered_owners": [
+            {"owner_name": owner, "claim_count": count}
+            for owner, count in sorted(external_owner_counts.items(), key=lambda item: (-item[1], item[0]))
+        ],
+        "suggested_external_or_unregistered_owners": [
+            {"owner_name": owner, "claim_count": count}
+            for owner, count in sorted(suggested_external_counts.items(), key=lambda item: (-item[1], item[0]))
+        ],
+        "anomaly_counts": dict(sorted(anomaly_counts.items())),
+        "samples": samples,
+    }
+
+
 def counter_pairs(counter: Counter[tuple[str, str]], keys: tuple[str, str]) -> list[dict[str, Any]]:
     first_key, second_key = keys
     return [
@@ -460,6 +562,7 @@ def audit_claim_owners(
     owner_aliases_json: Path | None = None,
     execute_rebind: bool = False,
     execute_review_status: bool = False,
+    inventory_sample_limit: int = DEFAULT_INVENTORY_SAMPLE_LIMIT,
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
@@ -473,6 +576,7 @@ def audit_claim_owners(
             aliases = load_owner_aliases(owner_aliases_json) if owner_aliases_json is not None else fetch_owner_alias_book(cur)
             rows = fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses)
             findings = [classify_claim_owner(row, aliases) for row in rows]
+            inventory = owner_binding_inventory(findings, aliases, sample_limit=max(0, int(inventory_sample_limit)))
             executable_plan = executable_rebind_plan(findings)
             review_status_plan = executable_review_status_plan(findings)
             if execute_rebind:
@@ -500,6 +604,7 @@ def audit_claim_owners(
             "note": "suggested_owner_name is always a canonical personal name; matched_owner_alias records the title/name that triggered the match.",
         },
         "summary": summarize_findings(findings),
+        "owner_binding_inventory": inventory,
         "findings": findings,
         "rebind_plan": rebind_plan(findings),
         "executable_rebind_plan": executable_plan,
@@ -537,6 +642,7 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 
 def markdown_report(payload: Mapping[str, Any]) -> str:
     summary = as_mapping(payload.get("summary"))
+    inventory = as_mapping(payload.get("owner_binding_inventory"))
     lines = [
         "# Claim Owner Audit",
         "",
@@ -544,6 +650,7 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
         f"- schema_name: `{payload.get('schema_name')}`",
         f"- write_db: `{str(payload.get('write_db')).lower()}`",
         f"- total_claims: `{summary.get('total_claims', 0)}`",
+        f"- registered_owner_count: `{inventory.get('registered_owner_count', 0)}`",
         "",
         "## Owner Status",
         "",
@@ -552,6 +659,12 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
     ]
     for row in summary.get("by_emperor_owner_status") or []:
         lines.append(f"| {row.get('requested_emperor_name')} | {row.get('owner_status')} | {row.get('count')} |")
+    lines.extend(["", "## Owner Pool", "", "| owner_pool_status | count |", "| --- | ---: |"])
+    for status, count in (inventory.get("claim_count_by_owner_pool_status") or {}).items():
+        lines.append(f"| {status} | {count} |")
+    lines.extend(["", "## External Or Unregistered Owners", "", "| owner_name | claim_count |", "| --- | ---: |"])
+    for row in inventory.get("external_or_unregistered_owners") or []:
+        lines.append(f"| {row.get('owner_name')} | {row.get('claim_count')} |")
     lines.extend(["", "## Risk Kind", "", "| requested_emperor_name | owner_risk_kind | count |", "| --- | --- | ---: |"])
     for row in summary.get("by_emperor_risk_kind") or []:
         lines.append(f"| {row.get('requested_emperor_name')} | {row.get('owner_risk_kind')} | {row.get('count')} |")
@@ -593,6 +706,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--owner-aliases-json", type=Path)
     parser.add_argument("--execute-rebind", action="store_true", help="Apply deterministic rebind_candidate rows to claim_cache.")
     parser.add_argument("--execute-review-status", action="store_true", help="Mark ambiguous non-target owner context rows as needs_review.")
+    parser.add_argument("--inventory-sample-limit", type=int, default=DEFAULT_INVENTORY_SAMPLE_LIMIT)
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--output-csv", type=Path)
@@ -610,6 +724,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         owner_aliases_json=args.owner_aliases_json,
         execute_rebind=bool(args.execute_rebind),
         execute_review_status=bool(args.execute_review_status),
+        inventory_sample_limit=max(0, int(args.inventory_sample_limit)),
     )
     write_json(args.output_json, payload)
     if args.output_md is not None:

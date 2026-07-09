@@ -250,6 +250,9 @@ def rebind_claim_owner_from_source_aliases(
     if not rebind:
         return dict(claim)
     stats["claims_rebound_by_alias_mentions"] += 1
+    reason = normalized_text(rebind.get("reason"))
+    if reason:
+        stats[f"claims_rebound_by_alias_mentions.{reason}"] += 1
     rebound = alias_pretag.apply_claim_owner_rebind(claim, rebind)
     fact = claim_fact(rebound)
     fact["owner_rebind_payload"] = rebind

@@ -212,6 +212,7 @@ def test_import_run_rebinds_claim_owner_from_resolved_actor_alias(tmp_path: Path
 
     claims = tool.read_jsonl(cache_root / "claims.jsonl")
     assert report["stats"]["claims_rebound_by_alias_mentions"] == 1
+    assert report["stats"]["claims_rebound_by_alias_mentions.claim_actor_matches_resolved_owner_alias"] == 1
     assert claims[0]["emperor_name"] == "李治"
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["from_emperor_name"] == "李世民"
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["to_emperor_name"] == "李治"
@@ -257,6 +258,7 @@ def test_import_run_rebinds_owner_from_unique_other_context_when_target_is_conte
 
     claims = tool.read_jsonl(cache_root / "claims.jsonl")
     assert report["stats"]["claims_rebound_by_alias_mentions"] == 1
+    assert report["stats"]["claims_rebound_by_alias_mentions.claim_context_unique_resolved_owner_with_requested_owner_context_only"] == 1
     assert claims[0]["emperor_name"] == "李渊"
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["reason"] == "claim_context_unique_resolved_owner_with_requested_owner_context_only"
 

@@ -301,6 +301,42 @@ def test_executable_review_status_plan_keeps_multi_owner_timelines_out_of_active
     assert [row["claim_key"] for row in tool.executable_review_status_plan([finding])] == ["CLMK-001"]
 
 
+def test_owner_binding_inventory_reports_external_and_review_samples() -> None:
+    aliases = tool.load_owner_aliases()
+    findings = [
+        tool.classify_claim_owner(
+            claim_row(
+                claim_key="CLMK-EXT",
+                emperor_name="王世充",
+                object_name="戴胄",
+                action_type="其他",
+                claim_summary="王世充谋篡时，戴胄切谏。",
+                fact_payload={"actor": "戴胄", "object": "王世充", "action_type": "其他"},
+            ),
+            aliases,
+        ),
+        tool.classify_claim_owner(
+            claim_row(
+                claim_key="CLMK-REBIND",
+                emperor_name="李世民",
+                claim_summary="高宗欲废王皇后后，褚遂良因忤旨被左授潭州都督。",
+                fact_payload={"actor": "高宗", "object": "褚遂良", "action_type": "处置"},
+            ),
+            aliases,
+        ),
+    ]
+
+    inventory = tool.owner_binding_inventory(findings, aliases, sample_limit=1)
+
+    assert inventory["claim_count_by_owner_pool_status"]["external_or_unregistered_owner"] == 1
+    assert inventory["claim_count_by_owner_pool_status"]["registered_target_owner"] == 1
+    assert inventory["external_or_unregistered_owners"] == [{"owner_name": "王世充", "claim_count": 1}]
+    assert inventory["anomaly_counts"]["external_or_unregistered_owner"] == 1
+    assert inventory["anomaly_counts"]["rebind_candidate"] == 1
+    assert inventory["samples"]["external_or_unregistered_owner_claims"][0]["claim_key"] == "CLMK-EXT"
+    assert inventory["samples"]["rebind_candidates"][0]["claim_key"] == "CLMK-REBIND"
+
+
 def test_owner_audit_reads_atomic_fact_view_without_direction_hint() -> None:
     source = (tool.ROOT / "scripts/dev/retrieval_v2_claim_owner_audit.py").read_text(encoding="utf-8")
 
