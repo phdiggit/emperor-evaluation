@@ -214,6 +214,10 @@ def test_import_run_rebinds_claim_owner_from_resolved_actor_alias(tmp_path: Path
     assert claims[0]["emperor_name"] == "李治"
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["from_emperor_name"] == "李世民"
     assert claims[0]["fact_payload"]["owner_rebind_payload"]["to_emperor_name"] == "李治"
+    evidence = claims[0]["fact_payload"]["owner_rebind_payload"]["evidence"][0]
+    assert evidence["resolution_status"] == "resolved"
+    assert evidence["owner_anchor_eligible"] is True
+    assert evidence["mention_role"] == "owner_anchor"
 
 
 def test_import_run_rebinds_owner_from_unique_other_context_when_target_is_context_only(tmp_path: Path) -> None:

@@ -605,10 +605,17 @@ def rebind_payload_from_mentions(
         {
             "source_slice_ref": text(mention.get("source_slice_ref")),
             "alias": text(mention.get("alias")),
+            "matched_text": text(mention.get("matched_text")),
             "from_emperor_name": from_owner,
             "to_emperor_name": to_owner,
+            "resolved_owner_name": text(mention.get("resolved_owner_name")),
+            "resolution_status": text(mention.get("resolution_status")),
             "resolution_rule": text(mention.get("resolution_rule")),
             "confidence": text(mention.get("confidence")) or "deterministic",
+            "owner_anchor_eligible": mention.get("owner_anchor_eligible") is not False,
+            "mention_role": text(mention.get("mention_role")),
+            "suppression_reason": text(mention.get("suppression_reason")),
+            "risk_flags": list(mention.get("risk_flags") or []),
         }
         for mention in mentions
         if text(mention.get("resolved_owner_name")) == to_owner

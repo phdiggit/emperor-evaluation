@@ -206,6 +206,9 @@ def test_claim_owner_rebind_uses_actor_alias_not_context_only_mentions() -> None
 
     assert rebind["to_emperor_name"] == "李治"
     assert rebind["matched_aliases"] == ["高宗"]
+    assert rebind["evidence"][0]["resolution_status"] == "resolved"
+    assert rebind["evidence"][0]["owner_anchor_eligible"] is True
+    assert rebind["evidence"][0]["mention_role"] == "owner_anchor"
     assert rebound["emperor_name"] == "李治"
     assert rebound["owner_rebind_payload"]["from_emperor_name"] == "李世民"
 
