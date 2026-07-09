@@ -23,6 +23,10 @@ BARE_TITLE_TYPES = {"temple_name", "posthumous_name"}
 CONTEXT_ONLY_OWNER_RELATION_TERMS = ("亲礼", "所亲", "亲待", "礼遇")
 TITLE_ALIAS_TYPES = {"title"}
 TITLE_ALIAS_BOUNDARY_FOLLOWERS = set("曰云言谓謂问問命诏詔使遣以为為即及与與从從在于於之所将將率领領召征徵至入出拜授封立废廢薨崩卒死杀殺诛誅罢罷怒喜")
+COMMON_CJK_SURNAME_CHARS = set(
+    "赵錢钱孙孫李周吴吳郑鄭王冯馮陈陳褚卫衛蒋蔣沈韩韓杨楊朱秦尤许許何吕呂施张張孔曹严嚴华華金魏陶姜戚谢謝邹鄒喻柏水窦竇章云雲苏蘇潘葛奚范彭郎鲁魯韦韋昌马馬苗凤鳳花方俞任袁柳鲍鮑史唐费費廉岑薛雷贺賀倪汤湯滕殷罗羅毕畢郝邬鄔安常乐樂于於时時傅皮卞齐齊康伍余元卜顾顧孟平黄黃和穆萧蕭尹姚邵湛汪祁毛禹狄米贝貝明臧计計伏成戴宋茅庞龐熊纪紀舒屈项項祝董梁杜阮蓝藍闵閔席季麻强強贾賈路娄婁危江童颜顏郭梅盛林刁钟鍾徐邱骆駱高夏蔡田胡凌霍虞万萬支柯昝管卢盧莫经經房裘缪繆干解应應宗丁宣邓鄧郁单單杭洪包诸諸左石崔吉龚龔程邢裴陆陸荣榮翁荀羊甄曲家封芮羿储儲靳汲邴糜松井段富巫乌烏焦巴弓牧隗山谷车車侯宓蓬全郗班仰秋仲伊宫宮宁甯仇栾欒暴甘斜厉厲戎祖武符刘劉景詹束龙龍叶葉幸司韶郜黎蓟薊薄印宿白怀懷蒲台臺从從鄂索咸籍赖賴卓蔺藺屠蒙池乔喬阴陰胥能苍蒼双雙闻聞莘党黨翟谭譚贡貢劳勞逄姬申扶堵冉宰郦酈雍璩桑桂濮牛寿壽通边邊扈燕冀郏郟浦尚农農温别別庄莊晏柴瞿阎閻充慕连連茹习習宦艾鱼魚容向古易慎戈廖庾终終暨居衡步都耿满滿弘匡国國文寇广廣禄祿阙闕东東殴歐殳沃利蔚越夔隆师師巩鞏厍厙聂聶晁勾敖融冷訾辛阚闞那简簡饶饒空曾毋沙乜养養鞠须須丰豐巢关關蒯相查后荆荊红紅游竺权權逯盖蓋益桓公"
+)
+SHORT_ALIAS_BOUNDARY_PRECEDERS = set("向问問谓謂白告奏诏詔命令使遣从從随隨及与與为為以于於至入出拜授封立废廢诛誅杀殺罢罷")
 SOURCE_TITLE_DYNASTY_MARKERS = (
     ("旧唐书", "唐"),
     ("舊唐書", "唐"),
@@ -229,12 +233,139 @@ def title_alias_followed_by_non_owner_name(text_value: str, alias_end: int, entr
     return True
 
 
+def short_alias_embedded_after_surname(text_value: str, alias_start: int, alias: str) -> bool:
+    if len(alias) > 2 or alias_start <= 0:
+        return False
+    previous = text_value[alias_start - 1]
+    if previous in SHORT_ALIAS_BOUNDARY_PRECEDERS:
+        return False
+    return is_cjk_char(previous) and previous in COMMON_CJK_SURNAME_CHARS
+
+
+def alias_suppression_reason(
+    text_value: str,
+    *,
+    alias: str,
+    start: int,
+    end: int,
+    active_entries: Sequence[AliasEntry],
+) -> str:
+    if short_alias_embedded_after_surname(text_value, start, alias):
+        return "short_alias_embedded_after_surname"
+    if title_alias_followed_by_non_owner_name(text_value, end, active_entries):
+        return "title_alias_followed_by_non_owner_name"
+    return ""
+
+
+def alias_risk_flags(
+    *,
+    alias: str,
+    entries: Sequence[AliasEntry],
+    source_dynasty_prefixes: Sequence[str],
+    suppression_reason: str = "",
+) -> list[str]:
+    flags: list[str] = []
+    alias_types = {entry.alias_type for entry in entries}
+    if suppression_reason:
+        flags.append(suppression_reason)
+    if len(alias) <= 2:
+        flags.append("short_alias")
+    if alias_types & BARE_TITLE_TYPES:
+        flags.append("bare_title_alias")
+        if not source_dynasty_prefixes:
+            flags.append("bare_title_without_source_title_dynasty")
+    if alias_types & TITLE_ALIAS_TYPES:
+        flags.append("title_alias")
+    return unique_texts(flags)
+
+
+def resolved_alias_mention(
+    *,
+    text_value: str,
+    alias: str,
+    start: int,
+    end: int,
+    entry: AliasEntry,
+    requested_owner_name: str,
+    source_dynasty_prefixes: Sequence[str],
+    dynasty_owners: set[str],
+    suppression_reason: str = "",
+) -> dict[str, Any]:
+    suppressed = bool(suppression_reason)
+    return {
+        "alias": alias,
+        "matched_text": text_value[start:end],
+        "resolved_owner_name": entry.owner_name,
+        "resolution_status": "suppressed" if suppressed else "resolved",
+        "resolution_rule": resolution_rule(
+            entry,
+            requested_owner_name=requested_owner_name,
+            source_dynasty_prefixes=source_dynasty_prefixes,
+            source_dynasty_owner_match=entry.owner_name in dynasty_owners,
+        ),
+        "confidence": "not_owner_anchor" if suppressed else "deterministic",
+        "alias_type": entry.alias_type,
+        "start": start,
+        "end": end,
+        "owner_relation_to_requested": "target_owner" if entry.owner_name == requested_owner_name else "other_owner",
+        "scopes": list(entry.scopes),
+        "source_dynasty_prefixes": list(source_dynasty_prefixes),
+        "owner_anchor_eligible": not suppressed,
+        "mention_role": "suppressed_owner_alias" if suppressed else "owner_anchor",
+        "suppression_reason": suppression_reason,
+        "risk_flags": alias_risk_flags(
+            alias=alias,
+            entries=[entry],
+            source_dynasty_prefixes=source_dynasty_prefixes,
+            suppression_reason=suppression_reason,
+        ),
+    }
+
+
+def ambiguous_alias_mention(
+    *,
+    text_value: str,
+    alias: str,
+    start: int,
+    end: int,
+    active_entries: Sequence[AliasEntry],
+    source_dynasty_prefixes: Sequence[str],
+    suppression_reason: str = "",
+) -> dict[str, Any]:
+    owners = sorted({entry.owner_name for entry in active_entries})
+    suppressed = bool(suppression_reason)
+    return {
+        "alias": alias,
+        "matched_text": text_value[start:end],
+        "resolved_owner_name": "",
+        "candidate_owner_names": owners,
+        "resolution_status": "suppressed" if suppressed else "ambiguous",
+        "resolution_rule": "suppressed_ambiguous_alias" if suppressed else "ambiguous_alias",
+        "confidence": "not_owner_anchor" if suppressed else "review",
+        "start": start,
+        "end": end,
+        "owner_relation_to_requested": "ambiguous",
+        "scopes": sorted({scope for entry in active_entries for scope in entry.scopes}),
+        "source_dynasty_prefixes": list(source_dynasty_prefixes),
+        "owner_anchor_eligible": False,
+        "mention_role": "suppressed_owner_alias" if suppressed else "ambiguous_owner_alias",
+        "suppression_reason": suppression_reason,
+        "risk_flags": alias_risk_flags(
+            alias=alias,
+            entries=active_entries,
+            source_dynasty_prefixes=source_dynasty_prefixes,
+            suppression_reason=suppression_reason,
+        ),
+    }
+
+
 def alias_mentions_in_text(
     text_value: str,
     *,
     requested_owner_name: str,
     source_title: str = "",
     resolver: AliasResolver | None = None,
+    include_suppressed: bool = False,
 ) -> list[dict[str, Any]]:
     resolver = resolver or load_alias_resolver()
     requested = text(requested_owner_name)
@@ -253,7 +384,14 @@ def alias_mentions_in_text(
         )
         if not active:
             continue
-        if title_alias_followed_by_non_owner_name(text_value, end, active):
+        suppression_reason = alias_suppression_reason(
+            text_value,
+            alias=alias,
+            start=start,
+            end=end,
+            active_entries=active,
+        )
+        if suppression_reason and not include_suppressed:
             continue
         dynasty_owners = owners_for_dynasty_bare_alias(
             resolver,
@@ -264,42 +402,29 @@ def alias_mentions_in_text(
         if len(owners) == 1:
             entry = active[0]
             mentions.append(
-                {
-                    "alias": alias,
-                    "matched_text": text_value[start:end],
-                    "resolved_owner_name": entry.owner_name,
-                    "resolution_status": "resolved",
-                    "resolution_rule": resolution_rule(
-                        entry,
-                        requested_owner_name=requested,
-                        source_dynasty_prefixes=source_dynasty_prefixes,
-                        source_dynasty_owner_match=entry.owner_name in dynasty_owners,
-                    ),
-                    "confidence": "deterministic",
-                    "alias_type": entry.alias_type,
-                    "start": start,
-                    "end": end,
-                    "owner_relation_to_requested": "target_owner" if entry.owner_name == requested else "other_owner",
-                    "scopes": list(entry.scopes),
-                    "source_dynasty_prefixes": source_dynasty_prefixes,
-                }
+                resolved_alias_mention(
+                    text_value=text_value,
+                    alias=alias,
+                    start=start,
+                    end=end,
+                    entry=entry,
+                    requested_owner_name=requested,
+                    source_dynasty_prefixes=source_dynasty_prefixes,
+                    dynasty_owners=dynasty_owners,
+                    suppression_reason=suppression_reason,
+                )
             )
         else:
             mentions.append(
-                {
-                    "alias": alias,
-                    "matched_text": text_value[start:end],
-                    "resolved_owner_name": "",
-                    "candidate_owner_names": owners,
-                    "resolution_status": "ambiguous",
-                    "resolution_rule": "ambiguous_alias",
-                    "confidence": "review",
-                    "start": start,
-                    "end": end,
-                    "owner_relation_to_requested": "ambiguous",
-                    "scopes": sorted({scope for entry in active for scope in entry.scopes}),
-                    "source_dynasty_prefixes": source_dynasty_prefixes,
-                }
+                ambiguous_alias_mention(
+                    text_value=text_value,
+                    alias=alias,
+                    start=start,
+                    end=end,
+                    active_entries=active,
+                    source_dynasty_prefixes=source_dynasty_prefixes,
+                    suppression_reason=suppression_reason,
+                )
             )
         used_spans.append((start, end))
     return mentions
@@ -375,6 +500,8 @@ def owner_mentions_from_refs(
     for source_ref in source_refs:
         for mention in alias_mentions_by_ref.get(source_ref) or []:
             if text(mention.get("resolution_status")) != "resolved":
+                continue
+            if mention.get("owner_anchor_eligible") is False:
                 continue
             owner = text(mention.get("resolved_owner_name"))
             alias = text(mention.get("alias"))

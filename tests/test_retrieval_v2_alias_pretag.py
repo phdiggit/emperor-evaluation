@@ -52,6 +52,47 @@ def test_title_alias_followed_by_owner_given_name_still_resolves() -> None:
     assert qinwang["resolved_owner_name"] == "李世民"
 
 
+def test_short_owner_alias_inside_longer_person_name_is_not_owner_anchor() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
+        requested_owner_name="李世民",
+        source_title="旧唐书/卷六十九",
+    )
+
+    assert "武周" not in [row["alias"] for row in mentions]
+    assert all(row.get("resolved_owner_name") != "武则天" for row in mentions)
+
+
+def test_suppressed_embedded_alias_is_available_for_debug_only() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
+        requested_owner_name="李世民",
+        source_title="旧唐书/卷六十九",
+        include_suppressed=True,
+    )
+
+    wuzhou = next(row for row in mentions if row["alias"] == "武周")
+    assert wuzhou["resolution_status"] == "suppressed"
+    assert wuzhou["resolved_owner_name"] == "武则天"
+    assert wuzhou["owner_anchor_eligible"] is False
+    assert wuzhou["mention_role"] == "suppressed_owner_alias"
+    assert "short_alias_embedded_after_surname" in wuzhou["risk_flags"]
+
+
+def test_suppressed_title_alias_is_available_for_debug_only() -> None:
+    mentions = tool.alias_mentions_in_text(
+        "炀帝即位后遣屈突通持诏召汉王谅。",
+        requested_owner_name="李世民",
+        source_title="隋书/卷五十三",
+        include_suppressed=True,
+    )
+
+    hanwang = next(row for row in mentions if row["alias"] == "汉王")
+    assert hanwang["resolution_status"] == "suppressed"
+    assert hanwang["owner_anchor_eligible"] is False
+    assert hanwang["suppression_reason"] == "title_alias_followed_by_non_owner_name"
+
+
 def test_source_title_dynasty_resolves_bare_title_without_requested_scope() -> None:
     mentions = tool.alias_mentions_in_text(
         "高宗欲废王皇后，褚遂良固谏。",
@@ -63,6 +104,8 @@ def test_source_title_dynasty_resolves_bare_title_without_requested_scope() -> N
     assert mentions[0]["resolved_owner_name"] == "李治"
     assert mentions[0]["resolution_rule"] == "source_title_dynasty_bare_title"
     assert mentions[0]["source_dynasty_prefixes"] == ["唐"]
+    assert mentions[0]["owner_anchor_eligible"] is True
+    assert mentions[0]["mention_role"] == "owner_anchor"
 
 
 def test_prompt_relevant_mentions_omit_current_target_aliases() -> None:
@@ -98,6 +141,31 @@ def test_claim_owner_rebind_uses_actor_alias_not_context_only_mentions() -> None
     assert rebind["matched_aliases"] == ["高宗"]
     assert rebound["emperor_name"] == "李治"
     assert rebound["owner_rebind_payload"]["from_emperor_name"] == "李世民"
+
+
+def test_claim_owner_rebind_ignores_suppressed_embedded_alias() -> None:
+    alias_mentions = {
+        "SLI-001": tool.alias_mentions_in_text(
+            "李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
+            requested_owner_name="李世民",
+            source_title="旧唐书/卷六十九",
+            include_suppressed=True,
+        )
+    }
+    claim = {
+        "emperor_name": "李世民",
+        "source_slice_refs": ["SLI-001"],
+        "claim_summary": "李君羡从讨刘武周、王世充等，每战单骑先锋陷阵。",
+        "fact_payload": {"actor": "李君羡", "object": "刘武周、王世充等", "action_type": "战役"},
+    }
+
+    rebind = tool.claim_owner_rebind_from_alias_mentions(
+        claim,
+        source_refs=["SLI-001"],
+        alias_mentions_by_ref=alias_mentions,
+    )
+
+    assert rebind == {}
 
 
 def test_claim_owner_rebind_uses_unique_other_owner_context_when_target_absent() -> None:

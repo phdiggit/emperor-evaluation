@@ -237,6 +237,19 @@ def test_candidate_slices_match_simplified_text_from_traditional_seed() -> None:
     assert "左仆射" in row["matched_aliases"]
 
 
+def test_candidate_slices_match_traditional_text_from_simplified_seed() -> None:
+    task = copy.deepcopy(sample_task())
+    task["object_seeds"] = [{"name": "陆贾", "aliases": []}]
+    task["source_documents"][0]["text"] = "高祖命陸賈使南越，授尉佗印，因說以中國新定。"
+
+    result = tool.build_candidates(task, cache_dir=Path("tmp/test-unused"), timeout=1)
+
+    assert result["coverage"]["objects_without_slices"] == []
+    row = result["candidate_slices"][0]
+    assert row["object_name"] == "陆贾"
+    assert "陸賈" in row["matched_aliases"]
+
+
 def test_item_wide_tolerate_terms_capture_attacked_talent_protection() -> None:
     task = copy.deepcopy(sample_task())
     task["rule_code"] = "i5b_item_wide"
@@ -496,7 +509,7 @@ def test_cli_writes_candidates_and_prompt(tmp_path: Path) -> None:
     assert "primary_bindings" in prompt
     assert "secondary_binding_candidates" in prompt
     assert "不要联网" in prompt
-    assert "mixed claim" in prompt
+    assert "拆成多条原子 claim" in prompt
     assert "判读预算" in prompt
     assert "每个对象默认最多 2 个" in prompt
     assert "civil_undercoverage" in prompt

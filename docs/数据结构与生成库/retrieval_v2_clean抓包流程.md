@@ -20,6 +20,12 @@ I5B-wide 抓包只能先做 shadow pilot，不能直接全量替代 single-rule 
 
 I5B-wide / personnel-political-wide shadow 的 claim 应优先沉淀事实结构层，而不是 rule 专属因子预判。judge 可在每条 claim 中补 `fact_payload`、`evidence_spans` 和 `claim_completeness`：`fact_payload.fact_schema` 固定为 `political_action_v1`，并记录 `actor`、`object`、`action_type`、`event_scope`、`office_or_domain`、`outcome`、`cost_or_damage`、`time_context`、`source_span_refs`、`confidence`、`completeness`；`evidence_spans` 用 `action / object / outcome / reason / institution / context` 短原文 span 指向 `source_slice_ref`，第一版不要求模型给字符 offset；`claim_completeness` 只标 `has_action_span`、`has_object_span`、`has_outcome_span`、`outcome_same_event_chain`、`needs_source_extension`。这些字段只帮助消费端少读全文、少起子进程，不等于最终 factor label、score、supporting/exclude 或人物画像判断。
 
+claim 抽取服务只负责原子事实入库和 claim 侧预计算，不负责把完整中间层表同步到最新状态。`retrieval_v2_claim_extraction_worker.py once --execute` 在 `import_pg=true` 时会写 `claim_cache`、`claim_source_slices`、`claim_evidence`，并通过 `claim_cache` 字段写入 `fact_type`、`outcome_support`、`atomic_fact_payload`、`event_group_key`、`event_group_payload`、`claim_usage_flags` 等零 token 预计算结果；它不得直接写正式 binding、factorization 或 scorer，也不应把 `claim_event_groups` 当作抽取 prompt 的一部分。`claim_event_groups` / `claim_event_group_members` 是 claim cache 到消费端之间可重建的 shadow 中间层，必须在 PG claim import 完成之后、candidate promoter / factorization / scorer 之前由 `retrieval_v2_claim_event_groups.py` 刷新。
+
+自动化接入顺序应固定为：对象源缓存 -> claim-plan -> claim 抽取 -> filesystem claim cache -> PG claim cache/evidence/source_slices -> event group rebuild -> chain candidate / route candidate -> 消费端。event group rebuild 使用 `scripts/dev/retrieval_v2_claim_event_groups.py --owner-scope target_emperor --status active --replace-existing --execute`，默认按受影响 owner 局部重建，不全表扫写。受影响 owner 不能只取 claim job 的 `emperor_name`，因为跨代传记材料可能在 claim import 阶段被机械改绑；claim worker 完成 PG import 后应按本次 `run_code` 查询 `select distinct emperor_name from retrieval_v3.claim_cache where last_run_code = :run_code and status in ('active','needs_review')`，再对查询出的 owner emperor 逐个 enqueue 或执行 event group rebuild。例如李世民任务触发的李孝恭材料，实际 owner 是李渊，重建目标必须是李渊而不是李世民。
+
+短期可在 claim worker 上增加显式 opt-in 参数，例如 `--auto-rebuild-event-groups`、`--event-group-replace-existing`、`--event-group-status active`，默认关闭，服务启动参数显式打开。中期生产形态应使用独立轻量队列，例如 `claim_event_group_rebuild_jobs`：claim worker 只按受影响 owner enqueue 幂等任务，event group worker 负责 debounce、局部 replace、执行和报告，避免多个 claim job 连续完成时反复重建同一 owner。`strong_chain`、`probable_chain`、`context_bundle` 当前由 `retrieval_v2_claim_chain_candidates.py` 从原子 claim / event group 动态计算；若后续要全自动消费，应在 event group rebuild 之后再 materialize chain candidates，或扩展 event group 表保存 `chain_strength` 等字段，不要把链强度判断塞回 claim 抽取服务。
+
 候选 payload 可补 profile，但不直接判 factor 档位。I5B 候选建议写 `candidate_payload.personnel_profile`：`person`、`person_role`、`talent_quality`、`action_type`、`appointment_or_authorization`、`feedback_or_result`、`team_function`、`selection_channel`、`same_event_chain`。I5C 候选建议写 `candidate_payload.power_control_profile`：`power_holder`、`power_base`、`power_channel`、`control_action`、`control_result`、`risk_type`、`same_event_chain`。`team_building` 在抓包候选阶段按皇帝对象池整体聚合，不因对象不是核心官职、核心将相或长期班底而排除；对象弱贡献、负贡献或 `supporting_only` 由消费端窄验。
 
 runner 聚合 judge 结果后必须做确定性 profile normalization：`profile_policy` 不入最终 payload；非 I5B 候选删除 `personnel_profile`，非 I5C 候选删除 `power_control_profile`，profile 内空字符串、空对象和空数组删除。该步骤不改变 claim、candidate lane、hint_status 或 scoring chain，只为长期消费、入库 payload 和后续 dry-run scorer 降低噪声。shadow report 必须显示 `candidate_payload_with_personnel_profile_count`、`candidate_payload_with_power_control_profile_count` 和 `candidate_profile_problem_count`，消费包应以 `candidate_profile_problem_count=0` 为收货条件之一。
@@ -201,6 +207,22 @@ clean Codex 子进程默认使用 `exec --ephemeral --ignore-user-config --ignor
 - `weak`：谥号、爵号、泛称、容易重名的官号或只在后世语境稳定的称呼。
 
 弱别名不能独立把片段排到高置信命中。弱别名命中必须有目标皇帝、时代、官职、同段人物或事件共同确认。发现弱别名噪声时，生成 `weak_alias_noise` 缺口，补强别名策略，而不是把噪声材料交给判读。
+
+### owner alias 预识别与改绑边界
+
+claim 抽取后的 owner 改绑只使用机械 alias 预识别结果，不额外增加模型 token。预识别层必须先产出 mention 分类，再决定是否可作为 owner anchor：
+
+- `owner_anchor`：可进入 owner 归一、跨代材料改绑和 prompt 中的 other-owner 提醒。
+- `ambiguous_owner_alias`：只用于审计或人工复核，不能自动改绑。
+- `suppressed_owner_alias`：命中了字符串，但结构上更像非 owner 文本，例如短别名嵌在更长人名中，或封号 / 职称后直接接其他人名；默认不进入 prompt 和改绑链路。
+
+已暴露的 alias 错绑可归为三类，应由通用机制处理，不再打单人补丁：
+
+- 裸庙号 / 谥号跨同朝皇帝：如本朝材料中的 `高宗`、`高祖`，必须结合 requested owner scope 或史书书名朝代判断；能唯一落到本朝皇帝时才可作为 owner anchor。
+- 封号 / 职称后接他人名：如 `汉王谅` 一类文本，`汉王` 不能被机械解作另一个 owner。
+- 短别名嵌入更长人名：如 `刘武周` 中的 `武周`，不能触发武则天 owner 改绑。
+
+因此 alias 机制的输出不应只是 `alias -> owner`，而应至少带上 `resolution_status`、`resolution_rule`、`owner_anchor_eligible`、`mention_role`、`suppression_reason` 和 `risk_flags`。自动改绑只消费 `resolution_status=resolved` 且 `owner_anchor_eligible=true` 的 mention；被 suppressed 的 mention 可以留给调试和后续审计，但不能影响 claim owner。
 
 ## 缺口到任务的映射
 

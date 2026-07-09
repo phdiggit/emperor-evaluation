@@ -194,6 +194,22 @@ def section_heading_matches_candidate(section_heading: str, aliases: Sequence[st
     return False
 
 
+def biography_section_context_aliases(row: Mapping[str, Any], aliases: Sequence[str]) -> list[str]:
+    if not biography_like_source(row):
+        return []
+    object_cache = object_cache_row(row)
+    section_heading = str(object_cache.get("section_heading") or row.get("section_heading") or "").strip()
+    if not section_heading or not section_heading_matches_candidate(section_heading, aliases):
+        return []
+    heading = normalized_text(section_heading)
+    candidates = [heading, *(normalized_text(alias) for alias in aliases)]
+    short_aliases: list[str] = []
+    for candidate in candidates:
+        if 2 <= len(candidate) <= 4:
+            short_aliases.append(candidate[-1])
+    return unique_strings(short_aliases)
+
+
 def biography_like_source(row: Mapping[str, Any]) -> bool:
     object_cache = object_cache_row(row)
     source_shape = str(object_cache.get("source_shape") or row.get("source_shape") or "")
@@ -242,10 +258,11 @@ def candidate_slice_risk_flags(row: Mapping[str, Any]) -> list[str]:
 def slice_claim_eligibility(row: Mapping[str, Any]) -> dict[str, Any]:
     text = str(row.get("text") or row.get("raw_text") or "")
     aliases = candidate_aliases(row)
+    effective_aliases = unique_strings([*aliases, *biography_section_context_aliases(row, aliases)])
     risk_flags = candidate_slice_risk_flags(row)
-    mention_count = alias_mention_count(text, aliases)
-    has_action = has_anchor_near_alias(text, aliases, ACTION_ANCHORS)
-    has_outcome = has_anchor_near_alias(text, aliases, OUTCOME_ANCHORS)
+    mention_count = alias_mention_count(text, effective_aliases)
+    has_action = has_anchor_near_alias(text, effective_aliases, ACTION_ANCHORS)
+    has_outcome = has_anchor_near_alias(text, effective_aliases, OUTCOME_ANCHORS)
     mention_role = "primary" if mention_count > 1 or has_action or has_outcome else "incidental"
     claim_eligible = True
     reasons: list[str] = []

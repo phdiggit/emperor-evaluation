@@ -301,6 +301,84 @@ def source_target_ref_query_rows(
     return rows
 
 
+def source_target_ref_directory_documents(
+    seed: Mapping[str, Any],
+    *,
+    source_hints: Sequence[str],
+    timeout: int,
+    fetch_context: FetchContext | None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    if fetch_context is None:
+        return [], []
+    source_role = source_role_for_seed(seed)
+    documents: dict[str, dict[str, Any]] = {}
+    hits: list[dict[str, Any]] = []
+    search_names = search_names_for_seed(seed, max_search_names=4)
+    for source_target_ref in seed_source_target_refs(seed):
+        matched_hints = [hint for hint in source_hints if source_target_ref_matches_hint(source_target_ref, hint)]
+        for source_hint in matched_hints or list(source_hints):
+            allowed_roots = source_roots_for_hint(source_hint, emp_metadata=dict(seed))
+            for root_title in allowed_roots:
+                if not is_allowed_source_root_title(root_title, allowed_roots):
+                    continue
+                try:
+                    directory_text = fetch_wikisource_plain_text(root_title, timeout=timeout, fetch_context=fetch_context)
+                except Exception as exc:
+                    hits.append(
+                        {
+                            "query": root_title,
+                            "person_name": seed_name(seed),
+                            "source_hint": source_hint,
+                            "source_target_ref": source_target_ref,
+                            "query_kind": "source_target_ref_directory",
+                            "error": repr(exc),
+                        }
+                    )
+                    continue
+                source_titles = derived_volume_titles_from_directory_text(
+                    title=root_title,
+                    directory_text=directory_text,
+                    allowed_roots=allowed_roots,
+                    search_names=[*search_names, seed_name(seed)],
+                )
+                hit = {
+                    "query": root_title,
+                    "person_name": seed_name(seed),
+                    "source_hint": source_hint,
+                    "source_target_ref": source_target_ref,
+                    "query_kind": "source_target_ref_directory",
+                    "title": root_title,
+                }
+                if source_titles:
+                    hit["derived_source_titles"] = source_titles
+                else:
+                    hit["rejected_reason"] = "directory_no_matching_volume"
+                hits.append(hit)
+                for source_title in source_titles:
+                    key = normalize_title(source_title)
+                    documents.setdefault(
+                        key,
+                        {
+                            "document_cache_code": document_cache_code(seed, source_title, source_role),
+                            "person_cache_code": person_cache_code(seed),
+                            "person_name": seed_name(seed),
+                            "source_title": source_title,
+                            "title": source_title,
+                            "wikisource_title": source_title,
+                            "url": "",
+                            "source_role": source_role,
+                            "source_kind": "wikisource_page",
+                            "why_selected": f"object source cache source_target_ref directory for {seed_name(seed)}",
+                            "search_query": root_title,
+                            "search_snippet": "",
+                            "source_hint": source_hint,
+                            "source_target_ref": source_target_ref,
+                            "wikisource_title_candidates": source_document_title_candidates(source_title) or [source_title],
+                        },
+                    )
+    return list(documents.values()), hits
+
+
 def generic_object_source_query_rows(
     seed: Mapping[str, Any],
     *,
@@ -451,6 +529,17 @@ def discover_source_documents(
         )
     if pages_per_query <= 0:
         return list(documents.values()), hits
+    direct_documents, direct_hits = source_target_ref_directory_documents(
+        seed,
+        source_hints=source_hints,
+        timeout=timeout,
+        fetch_context=fetch_context,
+    )
+    hits.extend(direct_hits)
+    for document in direct_documents:
+        key = normalize_title(text_from(document, "source_title", "wikisource_title", "title"))
+        if key:
+            documents.setdefault(key, document)
     query_rows = [
         *source_target_ref_query_rows(seed, source_hints=source_hints, max_search_names=max_search_names),
         *generic_object_source_query_rows(seed, source_hints=source_hints, max_search_names=max_search_names),

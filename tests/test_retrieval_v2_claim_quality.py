@@ -58,6 +58,25 @@ def test_slice_claim_eligibility_allows_given_name_subheading_in_group_biography
     assert "wrong_person_section_risk" in wrong["risk_flags"]
 
 
+def test_slice_claim_eligibility_allows_biography_heading_short_name_context() -> None:
+    row = {
+        "object_name": "宋濂",
+        "matched_aliases": ["宋景濂"],
+        "source_shape": "object_biography_candidate",
+        "section_heading": "宋濂",
+        "text": "帝得舆图一卷，令濂询访，随处言之。翼日，问濂昨饮酒否，濂具以实对。",
+    }
+    wrong_section = {**row, "section_heading": "刘基"}
+
+    eligibility = tool.slice_claim_eligibility(row)
+    wrong = tool.slice_claim_eligibility(wrong_section)
+
+    assert eligibility["claim_eligible"] is True
+    assert eligibility["mention_role"] == "primary"
+    assert eligibility["near_object_anchors"]["action"] is True
+    assert wrong["claim_eligible"] is False
+
+
 def test_slice_claim_eligibility_rejects_ambiguous_alias_only_mentions() -> None:
     row = {
         "object_name": "卢绾",

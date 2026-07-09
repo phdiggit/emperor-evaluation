@@ -491,6 +491,91 @@ def test_profile_seed_writes_layered_profile_objects_without_enqueue(tmp_path: P
     assert summary["execute_effect"] == "write object source cache seed jsonl only; no enqueue, no PG write, no judge execution"
 
 
+def test_profile_seed_adds_common_classical_script_variants(tmp_path: Path) -> None:
+    profile = tmp_path / "profile.jsonl"
+    output_seed = tmp_path / "seed.jsonl"
+    output_json = tmp_path / "summary.json"
+    write_jsonl(
+        profile,
+        [
+            {
+                "person": "刘邦",
+                "query_profile_id": "QRY-LB",
+                "source_targets": ["史记 郦生陆贾列传", "汉书 郦陆朱刘叔孙传"],
+                "object_layers": {
+                    "supplemental_objects": ["郦食其", "陆贾"],
+                },
+            }
+        ],
+    )
+
+    assert tool.main(
+        [
+            "profile-seed",
+            "--profile-jsonl",
+            str(profile),
+            "--emperor-name",
+            "刘邦",
+            "--output-seed-jsonl",
+            str(output_seed),
+            "--include-layer",
+            "supplemental_objects",
+            "--output-json",
+            str(output_json),
+        ]
+    ) == 0
+    rows = [json.loads(line) for line in output_seed.read_text(encoding="utf-8").splitlines()]
+
+    assert "酈食其" in rows[0]["aliases"]
+    assert "陸賈" in rows[1]["aliases"]
+
+
+def test_profile_seed_preserves_declared_biography_title_aliases(tmp_path: Path) -> None:
+    profile = tmp_path / "profile.jsonl"
+    output_seed = tmp_path / "seed.jsonl"
+    output_json = tmp_path / "summary.json"
+    write_jsonl(
+        profile,
+        [
+            {
+                "person": "朱元璋",
+                "query_profile_id": "QRY-ZYZ",
+                "source_targets": ["明史 刘基传、李善长传、徐达传"],
+                "object_layers": {
+                    "core_positive_objects": ["徐达", "刘基", "李善长"],
+                },
+                "object_search_aliases": {
+                    "徐达": ["魏国公", "中山王"],
+                    "刘基": ["刘伯温", "诚意伯"],
+                    "李善长": ["韩国公", "宣国公"],
+                },
+            }
+        ],
+    )
+
+    assert tool.main(
+        [
+            "profile-seed",
+            "--profile-jsonl",
+            str(profile),
+            "--emperor-name",
+            "朱元璋",
+            "--output-seed-jsonl",
+            str(output_seed),
+            "--include-layer",
+            "core_positive_objects",
+            "--output-json",
+            str(output_json),
+        ]
+    ) == 0
+    rows = {row["person_name"]: row for row in (json.loads(line) for line in output_seed.read_text(encoding="utf-8").splitlines())}
+
+    assert {"魏国公", "中山王"}.issubset(set(rows["徐达"]["aliases"]))
+    assert {"刘伯温", "诚意伯"}.issubset(set(rows["刘基"]["aliases"]))
+    assert {"韩国公", "宣国公"}.issubset(set(rows["李善长"]["aliases"]))
+    assert rows["徐达"]["source_target_refs"] == ["明史 刘基传、李善长传、徐达传"]
+
+
 def test_job_plan_is_offline_and_does_not_claim(tmp_path: Path) -> None:
     job = {
         "job_code": "OSCACHE-001",

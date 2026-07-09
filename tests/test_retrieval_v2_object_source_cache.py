@@ -320,6 +320,37 @@ def test_discovery_prioritizes_source_target_refs_for_biography_location() -> No
     assert hits[0]["derived_source_titles"] == ["舊唐書/卷60"]
 
 
+def test_discovery_uses_source_target_ref_directory_before_search(monkeypatch) -> None:
+    def fake_fetch(title: str, *, timeout: int, fetch_context: object | None = None) -> str:
+        assert title == "明史"
+        return "卷一百二十五 列傳第十三 徐達 常遇春\n卷一百二十八 列傳第十六 劉基 宋濂"
+
+    def fake_search(query: str, *, limit: int, timeout: int, fetch_context: object | None = None) -> list[dict[str, str]]:
+        return []
+
+    monkeypatch.setattr(tool, "fetch_wikisource_plain_text", fake_fetch)
+
+    docs, hits = tool.discover_source_documents(
+        {
+            "name": "刘基",
+            "aliases": ["劉基"],
+            "source_hints": ["明史"],
+            "source_target_refs": ["明史 刘基传、宋濂传、李善长传、徐达传、常遇春传"],
+        },
+        search_fn=fake_search,
+        pages_per_query=1,
+        timeout=3,
+        source_hint_limit=1,
+        max_search_names=1,
+        include_emperor_annals=True,
+        fetch_context=object(),
+    )
+
+    assert [row["source_title"] for row in docs] == ["明史/卷128"]
+    assert docs[0]["why_selected"] == "object source cache source_target_ref directory for 刘基"
+    assert any(hit.get("query_kind") == "source_target_ref_directory" for hit in hits)
+
+
 def test_discovery_adds_title_candidates_for_search_hits() -> None:
     def fake_search(query: str, *, limit: int, timeout: int) -> list[dict[str, str]]:
         return [{"title": "三國志(四庫全書本)/魏志/卷23", "url": "https://example.test/sgz23", "snippet": "曹仁傳"}]
