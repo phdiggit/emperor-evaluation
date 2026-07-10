@@ -55,7 +55,7 @@ def fetch_groups(cur: Any) -> dict[int, list[dict[str, Any]]]:
         """
         select c.id as candidate_id, c.candidate_code, c.candidate_payload,
                mc.object_name, mc.object_type::text as object_type,
-               rt.target_id, rt.target_code,
+               rt.id as target_id, rt.target_code,
                o.id as object_id, o.canonical_name, o.identity_status::text as identity_status,
                tob.id as target_object_id, tob.review_status::text as target_object_status
           from retrieval_v3.claim_rule_binding_candidates c
