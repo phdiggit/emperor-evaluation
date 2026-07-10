@@ -388,6 +388,33 @@ def test_item_wide_appointment_delegation_protocol_candidate_is_usable_for_scori
     assert tool.promotion_usable_for_scoring(row, spec) is True
 
 
+def test_item_wide_appointment_delegation_uses_reviewed_payload_direction() -> None:
+    row = candidate_row(
+        candidate_rule_code="appointment_delegation",
+        source_rule_code="i5b_item_wide",
+        claim_direction="neutral",
+        candidate_payload={
+            "candidate_role": "misdelegated_actor",
+            "direction": "negative",
+            "scoring_candidate": True,
+            "usable_for_scoring_cluster": True,
+            "appointment_delegation_chain": {
+                "has_appointment_or_authorization": True,
+                "has_named_actor": True,
+                "has_task_or_responsibility": True,
+                "has_result_or_feedback": True,
+                "has_continuity_or_reuse": False,
+            },
+        },
+    )
+
+    spec, reason = tool.resolve_candidate(row)
+
+    assert reason == ""
+    assert spec is not None
+    assert spec.direction == "negative"
+
+
 def test_item_wide_appointment_delegation_protocol_requires_complete_chain_for_scoring() -> None:
     row = candidate_row(
         candidate_rule_code="appointment_delegation",
@@ -410,6 +437,15 @@ def test_item_wide_appointment_delegation_protocol_requires_complete_chain_for_s
 
     assert spec is None
     assert reason == "appointment_delegation_not_scoring_candidate"
+
+
+def test_appointment_delegation_waits_for_explicit_formal_binding_gate() -> None:
+    row = candidate_row(candidate_payload={"formal_binding_allowed": False})
+
+    spec, reason = tool.resolve_candidate(row)
+
+    assert spec is None
+    assert reason == "formal_binding_not_allowed"
 
 
 def test_item_wide_appointment_delegation_protocol_reads_nested_source_binding_payload() -> None:

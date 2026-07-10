@@ -239,11 +239,18 @@ def appointment_delegation_protocol_payload(row: Mapping[str, Any]) -> Mapping[s
 
 
 def appointment_delegation_protocol_direction(row: Mapping[str, Any]) -> str:
-    for payload in candidate_payload_variants(row):
-        direction = text(payload.get("direction"))
+    payload = appointment_delegation_protocol_payload(row)
+    direction = text(payload.get("direction"))
+    if direction:
+        return direction
+    direction = text(row.get("candidate_direction") or row.get("claim_direction"))
+    if direction:
+        return direction
+    for nested_payload in candidate_payload_variants(row):
+        direction = text(nested_payload.get("direction"))
         if direction:
             return direction
-    return text(row.get("candidate_direction") or row.get("claim_direction"))
+    return ""
 
 
 def appointment_delegation_object_role(row: Mapping[str, Any], default_role: str) -> str:
@@ -283,6 +290,9 @@ def skip_reason(row: Mapping[str, Any]) -> str:
         return "candidate_item_not_supported"
     if text(row.get("review_status")) not in {"pending", "accepted", "resolved"}:
         return "candidate_status_not_promotable"
+    payload = appointment_delegation_protocol_payload(row)
+    if text(row.get("candidate_rule_code")) == "appointment_delegation" and payload.get("formal_binding_allowed") is False:
+        return "formal_binding_not_allowed"
     if (
         text(row.get("candidate_rule_code")) == "appointment_delegation"
         and not appointment_delegation_protocol_allows_scoring(row)
@@ -298,7 +308,7 @@ def skip_reason(row: Mapping[str, Any]) -> str:
 def resolve_appointment_delegation(row: Mapping[str, Any]) -> PromotionSpec | None:
     if not appointment_delegation_protocol_allows_scoring(row):
         return None
-    direction = text(row.get("claim_direction"))
+    direction = appointment_delegation_protocol_direction(row)
     if direction == "positive":
         role = appointment_delegation_object_role(row, "appointed_actor")
         return PromotionSpec("appointed_or_delegated_authority", role, "positive", "item_wide_appointment_delegation", "I5B-wide 材料显示人物获得任用、委任、信任或实质授权，可进入任用授权质量因子化。")
