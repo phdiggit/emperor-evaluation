@@ -24,7 +24,6 @@ from scripts.dev import retrieval_v2_candidate_source_refiner as candidate_sourc
 from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt
 from scripts.dev import retrieval_v2_claim_cache as claim_cache
 from scripts.dev import retrieval_v2_judge_shards as judge_shards
-from scripts.dev import retrieval_v2_llm_providers as llm_providers
 from scripts.dev import retrieval_v2_object_source_cache as object_source_cache
 from scripts.dev.retrieval_v2_clean_summary import build_batch_summary, sum_usage, summarize_person
 from scripts.dev.retrieval_v2_run_events import RunEventLogger
@@ -59,14 +58,6 @@ DEFAULT_CODEX_SANDBOX = "read-only"
 CODEX_SANDBOX_ENV = "RETRIEVAL_V2_CODEX_SANDBOX"
 CODEX_ADD_DIRS_ENV = "RETRIEVAL_V2_CODEX_ADD_DIRS"
 CODEX_BIN_ENV = "CODEX_BIN"
-DEFAULT_JUDGE_PROVIDER = llm_providers.DEFAULT_JUDGE_PROVIDER
-DEEPSEEK_PROVIDER = llm_providers.DEEPSEEK_PROVIDER
-DEEPSEEK_API_KEY_ENV = llm_providers.DEEPSEEK_API_KEY_ENV
-DEEPSEEK_BASE_URL_ENV = llm_providers.DEEPSEEK_BASE_URL_ENV
-DEEPSEEK_MODEL_ENV = llm_providers.DEEPSEEK_MODEL_ENV
-DEEPSEEK_MAX_TOKENS_ENV = llm_providers.DEEPSEEK_MAX_TOKENS_ENV
-DEFAULT_DEEPSEEK_MODEL = llm_providers.DEFAULT_DEEPSEEK_MODEL
-DEFAULT_DEEPSEEK_THINKING = llm_providers.DEFAULT_DEEPSEEK_THINKING
 
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
@@ -168,80 +159,6 @@ def usage_from_events(stdout_text: str) -> dict[str, Any]:
         if event.get("type") == "turn.completed" and isinstance(event.get("usage"), dict):
             usage = dict(event["usage"])
     return usage
-
-
-def normalize_judge_provider(value: str | None) -> str:
-    try:
-        return llm_providers.normalize_judge_provider(value)
-    except llm_providers.LlmProviderError as exc:
-        raise RetrievalV2CleanRunnerError(str(exc)) from exc
-
-
-def parse_json_model_content(content: str) -> dict[str, Any]:
-    try:
-        return llm_providers.parse_json_model_content(content)
-    except llm_providers.LlmProviderError as exc:
-        raise RetrievalV2CleanRunnerError(str(exc)) from exc
-
-
-def provider_diagnostics(exc: BaseException) -> dict[str, Any]:
-    diagnostics = getattr(exc, "diagnostics", None)
-    return dict(diagnostics) if isinstance(diagnostics, Mapping) else {}
-
-
-def provider_failure_path(last_message_path: Path) -> Path:
-    return last_message_path.with_suffix(".raw_failure.json")
-
-
-def write_provider_failure_artifact(
-    *,
-    last_message_path: Path,
-    phase: str,
-    provider: str,
-    exc: BaseException,
-) -> Path:
-    payload = {
-        "phase": phase,
-        "provider": provider,
-        "error_type": exc.__class__.__name__,
-        "error": str(exc),
-        "diagnostics": provider_diagnostics(exc),
-    }
-    output_path = provider_failure_path(last_message_path)
-    atomic_write_json(output_path, payload)
-    return output_path
-
-
-def run_deepseek_judge(
-    *,
-    prompt: str,
-    model: str | None,
-    api_key_env: str,
-    base_url: str | None,
-    timeout_seconds: int,
-    thinking: str | None,
-    max_tokens: int | None = None,
-) -> CodexResult:
-    try:
-        result = llm_providers.run_deepseek_chat(
-            prompt=prompt,
-            model=model,
-            api_key_env=api_key_env,
-            base_url=base_url,
-            timeout_seconds=timeout_seconds,
-            thinking=thinking,
-            max_tokens=max_tokens,
-        )
-    except llm_providers.LlmProviderError as exc:
-        error = RetrievalV2CleanRunnerError(str(exc))
-        if isinstance(exc, llm_providers.LlmProviderResponseError):
-            setattr(error, "diagnostics", exc.diagnostics)
-        raise error from exc
-    return CodexResult(
-        payload=result["payload"],
-        elapsed_seconds=float(result["elapsed_seconds"]),
-        usage=result["usage"],
-    )
 
 def _env_list(name: str) -> list[str]:
     raw = os.environ.get(name, "")
@@ -747,65 +664,19 @@ def run_judge_round(
     codex_runner: CodexRunner,
     codex_bin: str,
     timeout_seconds: int,
-    judge_provider: str = DEFAULT_JUDGE_PROVIDER,
-    judge_model: str | None = None,
-    judge_api_key_env: str = DEEPSEEK_API_KEY_ENV,
-    judge_base_url: str | None = None,
-    judge_thinking: str | None = None,
-    judge_max_tokens: int | None = None,
 ) -> dict[str, Any]:
-    prompt = prompt_path.read_text(encoding="utf-8")
-    provider = normalize_judge_provider(judge_provider)
-    last_message = (person_dir / f"judge_last_message.round{round_index}.json").resolve()
-    event_log = (person_dir / f"judge_events.round{round_index}.jsonl").resolve()
-    if provider == DEEPSEEK_PROVIDER:
-        try:
-            result = run_deepseek_judge(
-                prompt=prompt,
-                model=judge_model,
-                api_key_env=judge_api_key_env,
-                base_url=judge_base_url,
-                timeout_seconds=timeout_seconds,
-                thinking=judge_thinking,
-                max_tokens=judge_max_tokens,
-            )
-        except RetrievalV2CleanRunnerError as exc:
-            failure_path = write_provider_failure_artifact(
-                last_message_path=last_message,
-                phase="judge",
-                provider=provider,
-                exc=exc,
-            )
-            atomic_write_text(
-                event_log,
-                stable_json(
-                    {
-                        "type": "turn.failed",
-                        "provider": provider,
-                        "error_type": exc.__class__.__name__,
-                        "error": str(exc),
-                        "failure_artifact": str(failure_path),
-                    }
-                )
-                + "\n",
-            )
-            raise
-        last_message.parent.mkdir(parents=True, exist_ok=True)
-        atomic_write_json(last_message, result.payload)
-        atomic_write_text(event_log, stable_json({"type": "turn.completed", "usage": result.usage}) + "\n")
-    else:
-        result = codex_runner(
-            CodexInvocation(
-                phase="judge",
-                prompt=prompt,
-                cwd=(person_dir / f"judge.round{round_index}").resolve(),
-                last_message=last_message,
-                event_log=event_log,
-                search=False,
-                timeout_seconds=timeout_seconds,
-                codex_bin=codex_bin,
-            )
+    result = codex_runner(
+        CodexInvocation(
+            phase="judge",
+            prompt=prompt_path.read_text(encoding="utf-8"),
+            cwd=(person_dir / f"judge.round{round_index}").resolve(),
+            last_message=(person_dir / f"judge_last_message.round{round_index}.json").resolve(),
+            event_log=(person_dir / f"judge_events.round{round_index}.jsonl").resolve(),
+            search=False,
+            timeout_seconds=timeout_seconds,
+            codex_bin=codex_bin,
         )
+    )
     output_path = person_dir / f"judge_result.round{round_index}.json"
     atomic_write_json(output_path, result.payload)
     return {
@@ -813,7 +684,6 @@ def run_judge_round(
         "elapsed_seconds": result.elapsed_seconds,
         "usage": result.usage,
         "output_path": output_path,
-        "provider": provider,
     }
 
 
@@ -841,15 +711,8 @@ def run_judge(
     judge_shard_size: int,
     judge_shard_workers: int,
     judge_mode: str | None = None,
-    judge_provider: str = DEFAULT_JUDGE_PROVIDER,
-    judge_model: str | None = None,
-    judge_api_key_env: str = DEEPSEEK_API_KEY_ENV,
-    judge_base_url: str | None = None,
-    judge_thinking: str | None = None,
-    judge_max_tokens: int | None = None,
 ) -> dict[str, Any]:
     candidates = with_judge_mode(candidates, judge_mode)
-    provider = normalize_judge_provider(judge_provider)
     atomic_write_text(prompt_path, candidate_prompt.build_prompt(candidates))
     shards = judge_shards.build_judge_shards(
         candidates,
@@ -864,12 +727,6 @@ def run_judge(
             codex_runner=codex_runner,
             codex_bin=codex_bin,
             timeout_seconds=timeout_seconds,
-            judge_provider=provider,
-            judge_model=judge_model,
-            judge_api_key_env=judge_api_key_env,
-            judge_base_url=judge_base_url,
-            judge_thinking=judge_thinking,
-            judge_max_tokens=judge_max_tokens,
         )
         result["payload"] = judge_shards.enrich_judge_payload(candidates, result["payload"])
         enriched_output_path = person_dir / f"judge_result.round{round_index}.enriched.json"
@@ -890,57 +747,18 @@ def run_judge(
 
     def run_one(shard: Mapping[str, Any]) -> dict[str, Any]:
         shard_code = str(shard["shard_code"])
-        shard_prompt = (person_dir / f"judge_prompt.round{round_index}.{shard_code}.md").read_text(encoding="utf-8")
-        last_message = (person_dir / f"judge_last_message.round{round_index}.{shard_code}.json").resolve()
-        event_log = (person_dir / f"judge_events.round{round_index}.{shard_code}.jsonl").resolve()
-        if provider == DEEPSEEK_PROVIDER:
-            try:
-                result = run_deepseek_judge(
-                    prompt=shard_prompt,
-                    model=judge_model,
-                    api_key_env=judge_api_key_env,
-                    base_url=judge_base_url,
-                    timeout_seconds=timeout_seconds,
-                    thinking=judge_thinking,
-                    max_tokens=judge_max_tokens,
-                )
-            except RetrievalV2CleanRunnerError as exc:
-                failure_path = write_provider_failure_artifact(
-                    last_message_path=last_message,
-                    phase="judge_shard",
-                    provider=provider,
-                    exc=exc,
-                )
-                atomic_write_text(
-                    event_log,
-                    stable_json(
-                        {
-                            "type": "turn.failed",
-                            "provider": provider,
-                            "error_type": exc.__class__.__name__,
-                            "error": str(exc),
-                            "failure_artifact": str(failure_path),
-                        }
-                    )
-                    + "\n",
-                )
-                raise
-            last_message.parent.mkdir(parents=True, exist_ok=True)
-            atomic_write_json(last_message, result.payload)
-            atomic_write_text(event_log, stable_json({"type": "turn.completed", "usage": result.usage}) + "\n")
-        else:
-            result = codex_runner(
-                CodexInvocation(
-                    phase="judge_shard",
-                    prompt=shard_prompt,
-                    cwd=(person_dir / f"judge.round{round_index}.{shard_code}").resolve(),
-                    last_message=last_message,
-                    event_log=event_log,
-                    search=False,
-                    timeout_seconds=timeout_seconds,
-                    codex_bin=codex_bin,
-                )
+        result = codex_runner(
+            CodexInvocation(
+                phase="judge_shard",
+                prompt=(person_dir / f"judge_prompt.round{round_index}.{shard_code}.md").read_text(encoding="utf-8"),
+                cwd=(person_dir / f"judge.round{round_index}.{shard_code}").resolve(),
+                last_message=(person_dir / f"judge_last_message.round{round_index}.{shard_code}.json").resolve(),
+                event_log=(person_dir / f"judge_events.round{round_index}.{shard_code}.jsonl").resolve(),
+                search=False,
+                timeout_seconds=timeout_seconds,
+                codex_bin=codex_bin,
             )
+        )
         output_path = person_dir / f"judge_result.round{round_index}.{shard_code}.json"
         atomic_write_json(output_path, result.payload)
         return {
@@ -949,7 +767,6 @@ def run_judge(
             "elapsed_seconds": result.elapsed_seconds,
             "usage": result.usage,
             "output_path": str(output_path),
-            "provider": provider,
         }
 
     workers = max(1, min(judge_shard_workers, len(shards)))
@@ -980,7 +797,6 @@ def run_judge(
         "output_path": output_path,
         "sharded": True,
         "shard_count": len(shards),
-        "provider": provider,
     }
 
 

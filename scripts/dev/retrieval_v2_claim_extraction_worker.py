@@ -66,11 +66,6 @@ def read_json(path: Path) -> dict[str, Any]:
     return payload
 
 
-def optional_int(value: Any) -> int | None:
-    raw = text(value)
-    return int(raw) if raw else None
-
-
 def resolve_path(value: str) -> Path:
     path = Path(value)
     if path.is_absolute():
@@ -388,7 +383,6 @@ def write_mini_run_artifacts(
         "clean_policy": {
             "judge_mode": candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
             "extractor_version": candidate_prompt.CLAIM_EXTRACTOR_VERSION,
-            "judge_provider": judge_result.get("provider") or clean_runner.DEFAULT_JUDGE_PROVIDER,
         },
         "people": [
             {
@@ -425,12 +419,6 @@ def execute_job(
     judge_timeout_seconds: int,
     judge_shard_size: int,
     judge_shard_workers: int,
-    judge_provider: str = clean_runner.DEFAULT_JUDGE_PROVIDER,
-    judge_model: str | None = None,
-    judge_api_key_env: str = clean_runner.DEEPSEEK_API_KEY_ENV,
-    judge_base_url: str | None = None,
-    judge_thinking: str | None = None,
-    judge_max_tokens: int | None = None,
     import_pg: bool,
     dsn_env: str,
     schema_name: str,
@@ -452,12 +440,6 @@ def execute_job(
         judge_shard_size=judge_shard_size,
         judge_shard_workers=judge_shard_workers,
         judge_mode=candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
-        judge_provider=judge_provider,
-        judge_model=judge_model,
-        judge_api_key_env=judge_api_key_env,
-        judge_base_url=judge_base_url,
-        judge_thinking=judge_thinking,
-        judge_max_tokens=judge_max_tokens,
     )
     judge_payload = dict(judge_result["payload"])
     judge_payload["_elapsed_seconds"] = judge_result["elapsed_seconds"]
@@ -487,53 +469,6 @@ def execute_job(
         "pg_import": pg_import,
         "claim_count": summary["totals"]["claim_count"],
         "usage": judge_result["usage"],
-        "judge_provider": judge_result.get("provider") or clean_runner.DEFAULT_JUDGE_PROVIDER,
-    }
-
-
-def extract_from_candidates(
-    *,
-    candidates_path: Path,
-    cache_root: Path,
-    run_root: Path,
-    codex_bin: str = "codex",
-    judge_timeout_seconds: int = 1800,
-    judge_shard_size: int = 4,
-    judge_shard_workers: int = 4,
-    judge_provider: str = clean_runner.DEFAULT_JUDGE_PROVIDER,
-    judge_model: str | None = None,
-    judge_api_key_env: str = clean_runner.DEEPSEEK_API_KEY_ENV,
-    judge_base_url: str | None = None,
-    judge_thinking: str | None = None,
-    judge_max_tokens: int | None = None,
-    import_pg: bool = False,
-    dsn_env: str = DEFAULT_DSN_ENV,
-    schema_name: str = DEFAULT_PG_SCHEMA,
-) -> dict[str, Any]:
-    job = job_from_candidates(candidates_path=candidates_path, cache_root=cache_root, run_root=run_root)
-    job["status"] = "shadow"
-    result = execute_job(
-        job=job,
-        codex_bin=codex_bin,
-        judge_timeout_seconds=judge_timeout_seconds,
-        judge_shard_size=judge_shard_size,
-        judge_shard_workers=judge_shard_workers,
-        judge_provider=judge_provider,
-        judge_model=judge_model,
-        judge_api_key_env=judge_api_key_env,
-        judge_base_url=judge_base_url,
-        judge_thinking=judge_thinking,
-        judge_max_tokens=judge_max_tokens,
-        import_pg=import_pg,
-        dsn_env=dsn_env,
-        schema_name=schema_name,
-    )
-    return {
-        "ok": True,
-        "status": "succeeded",
-        "mode": "extract_from_candidates",
-        "job": job,
-        "result": result,
     }
 
 
@@ -546,12 +481,6 @@ def once(
     judge_timeout_seconds: int = 1800,
     judge_shard_size: int = 4,
     judge_shard_workers: int = 4,
-    judge_provider: str = clean_runner.DEFAULT_JUDGE_PROVIDER,
-    judge_model: str | None = None,
-    judge_api_key_env: str = clean_runner.DEEPSEEK_API_KEY_ENV,
-    judge_base_url: str | None = None,
-    judge_thinking: str | None = None,
-    judge_max_tokens: int | None = None,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -577,12 +506,6 @@ def once(
             judge_timeout_seconds=judge_timeout_seconds,
             judge_shard_size=judge_shard_size,
             judge_shard_workers=judge_shard_workers,
-            judge_provider=judge_provider,
-            judge_model=judge_model,
-            judge_api_key_env=judge_api_key_env,
-            judge_base_url=judge_base_url,
-            judge_thinking=judge_thinking,
-            judge_max_tokens=judge_max_tokens,
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -637,26 +560,6 @@ def build_parser() -> argparse.ArgumentParser:
     enqueue.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     enqueue.add_argument("--output-json", type=Path)
 
-    extract = sub.add_parser("extract-from-candidates", help="Run claim extraction directly from candidates JSON; defaults to no PG import.")
-    extract.add_argument("--candidates", type=Path, required=True)
-    extract.add_argument("--cache-root", type=Path, required=True)
-    extract.add_argument("--run-root", type=Path, default=DEFAULT_RUN_ROOT)
-    extract.add_argument("--env-file", type=Path)
-    extract.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
-    extract.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
-    extract.add_argument("--codex-bin", default="codex")
-    extract.add_argument("--judge-timeout", type=int, default=1800)
-    extract.add_argument("--judge-shard-size", type=int, default=4)
-    extract.add_argument("--judge-shard-workers", type=int, default=4)
-    extract.add_argument("--judge-provider", choices=["codex", "deepseek"], default=os.environ.get("EMPEROR_EVAL_CLAIM_PROVIDER") or os.environ.get("EMPEROR_EVAL_JUDGE_PROVIDER") or clean_runner.DEFAULT_JUDGE_PROVIDER)
-    extract.add_argument("--judge-model", default=os.environ.get("EMPEROR_EVAL_CLAIM_MODEL") or os.environ.get(clean_runner.DEEPSEEK_MODEL_ENV))
-    extract.add_argument("--judge-api-key-env", default=clean_runner.DEEPSEEK_API_KEY_ENV)
-    extract.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
-    extract.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
-    extract.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
-    extract.add_argument("--import-pg", action="store_true", help="Opt in to PG import; default is filesystem cache only.")
-    extract.add_argument("--output-json", type=Path)
-
     plan = sub.add_parser("plan", help="Show the next ready claim extraction job without taking a lease.")
     plan.add_argument("--env-file", type=Path)
     plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
@@ -674,12 +577,6 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--judge-timeout", type=int, default=1800)
     once_cmd.add_argument("--judge-shard-size", type=int, default=4)
     once_cmd.add_argument("--judge-shard-workers", type=int, default=4)
-    once_cmd.add_argument("--judge-provider", choices=["codex", "deepseek"], default=os.environ.get("EMPEROR_EVAL_CLAIM_PROVIDER") or os.environ.get("EMPEROR_EVAL_JUDGE_PROVIDER") or clean_runner.DEFAULT_JUDGE_PROVIDER)
-    once_cmd.add_argument("--judge-model", default=os.environ.get("EMPEROR_EVAL_CLAIM_MODEL") or os.environ.get(clean_runner.DEEPSEEK_MODEL_ENV))
-    once_cmd.add_argument("--judge-api-key-env", default=clean_runner.DEEPSEEK_API_KEY_ENV)
-    once_cmd.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
-    once_cmd.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
-    once_cmd.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
     once_cmd.add_argument("--no-import-pg", action="store_true")
     once_cmd.add_argument("--output-json", type=Path)
     return parser
@@ -689,39 +586,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if getattr(args, "env_file", None) is not None:
         load_env_file(args.env_file)
+    dsn = resolve_dsn(args.dsn_env)
     if args.command == "apply-schema":
-        dsn = resolve_dsn(args.dsn_env)
         apply_schema(dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "action": "apply_schema", "schema_name": args.pg_schema}
     elif args.command == "enqueue-from-candidates":
-        dsn = resolve_dsn(args.dsn_env)
         job = job_from_candidates(candidates_path=args.candidates, cache_root=args.cache_root, run_root=args.run_root, priority=args.priority)
         payload = {"ok": True, "schema_name": args.pg_schema, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job, schema_name=args.pg_schema)}
-    elif args.command == "extract-from-candidates":
-        payload = extract_from_candidates(
-            candidates_path=args.candidates,
-            cache_root=args.cache_root,
-            run_root=args.run_root,
-            codex_bin=args.codex_bin,
-            judge_timeout_seconds=args.judge_timeout,
-            judge_shard_size=args.judge_shard_size,
-            judge_shard_workers=args.judge_shard_workers,
-            judge_provider=args.judge_provider,
-            judge_model=args.judge_model,
-            judge_api_key_env=args.judge_api_key_env,
-            judge_base_url=args.judge_base_url,
-            judge_thinking=args.judge_thinking,
-            judge_max_tokens=args.judge_max_tokens,
-            import_pg=bool(args.import_pg),
-            dsn_env=args.dsn_env,
-            schema_name=args.pg_schema,
-        )
     elif args.command == "plan":
-        dsn = resolve_dsn(args.dsn_env)
         job = fetch_next_ready_job(dsn=dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
     elif args.command == "once":
-        dsn = resolve_dsn(args.dsn_env)
         payload = once(
             dsn=dsn,
             worker_id=args.worker_id,
@@ -730,12 +605,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_timeout_seconds=args.judge_timeout,
             judge_shard_size=args.judge_shard_size,
             judge_shard_workers=args.judge_shard_workers,
-            judge_provider=args.judge_provider,
-            judge_model=args.judge_model,
-            judge_api_key_env=args.judge_api_key_env,
-            judge_base_url=args.judge_base_url,
-            judge_thinking=args.judge_thinking,
-            judge_max_tokens=args.judge_max_tokens,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
