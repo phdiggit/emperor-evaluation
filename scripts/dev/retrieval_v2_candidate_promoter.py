@@ -713,6 +713,8 @@ def build_plan(
 def upsert_binding(cur: Any, row: Mapping[str, Any]) -> int:
     payload = {
         "source": "retrieval_v2_candidate_promoter",
+        "assessment_lane": "exception_resolved",
+        "candidate_required": True,
         "candidate_id": row.get("candidate_id"),
         "candidate_code": text(row.get("candidate_code")),
         "source_link_id": row.get("source_link_id"),
