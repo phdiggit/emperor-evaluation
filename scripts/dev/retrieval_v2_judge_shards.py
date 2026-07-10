@@ -481,12 +481,6 @@ def build_judge_shards(
     max_objects_per_shard: int,
     round_index: int,
 ) -> list[dict[str, Any]]:
-    claim_shard_plan = candidates.get("claim_shard_plan") if isinstance(candidates.get("claim_shard_plan"), Mapping) else {}
-    planned_shards = claim_shard_plan.get("shards") if isinstance(claim_shard_plan.get("shards"), list) else []
-    if claim_shard_plan.get("mode") == "owner_aware" and planned_shards:
-        if len(planned_shards) <= 1:
-            return []
-        return build_judge_shards_from_plan(candidates, planned_shards, round_index=round_index)
     if max_objects_per_shard <= 0:
         return []
     object_names = objects_from_candidate_slices(candidates)
@@ -542,65 +536,6 @@ def build_judge_shards(
                 "payload": shard_payload,
             }
         )
-    return shards
-
-
-def build_judge_shards_from_plan(
-    candidates: Mapping[str, Any],
-    planned_shards: Sequence[Any],
-    *,
-    round_index: int,
-) -> list[dict[str, Any]]:
-    seed_by_name = object_seed_map(candidates)
-    base_matrix = candidates.get("coverage_matrix") if isinstance(candidates.get("coverage_matrix"), Mapping) else {}
-    by_slice_code = {
-        str(row.get("slice_code") or ""): dict(row)
-        for row in candidates.get("candidate_slices") or []
-        if isinstance(row, Mapping) and row.get("slice_code")
-    }
-    shards: list[dict[str, Any]] = []
-    for shard_index, raw_shard in enumerate(planned_shards, start=1):
-        if not isinstance(raw_shard, Mapping):
-            continue
-        slice_codes = [str(value or "") for value in raw_shard.get("slice_codes") or [] if str(value or "")]
-        shard_slices = [by_slice_code[code] for code in slice_codes if code in by_slice_code]
-        if not shard_slices:
-            continue
-        object_names = unique_texts(raw_shard.get("object_names") or [row.get("object_name") for row in shard_slices])
-        object_seeds = [dict(seed_by_name[name]) for name in object_names if name in seed_by_name]
-        object_slice_counts = {
-            name: sum(1 for row in shard_slices if str(row.get("object_name") or "") == name) for name in object_names
-        }
-        shard_code = str(raw_shard.get("shard_code") or f"CSH-R{round_index:02d}-{shard_index:02d}")
-        shard_payload = json.loads(stable_json(candidates))
-        shard_payload["judge_shard"] = {
-            "shard_code": shard_code,
-            "round": round_index,
-            "shard_index": shard_index,
-            "shard_count": len(planned_shards),
-            "object_names": object_names,
-            "estimated_slice_chars": raw_shard.get("estimated_slice_chars"),
-            "owner_anchor_class": raw_shard.get("owner_anchor_class"),
-            "partial_judge": True,
-        }
-        shard_payload["object_seeds"] = object_seeds
-        shard_payload["source_documents"] = filter_source_documents(candidates, shard_slices)
-        shard_payload["candidate_slices"] = shard_slices
-        shard_payload["coverage_matrix"] = shard_coverage_matrix(base_matrix, shard_slices)
-        shard_payload["coverage"] = {
-            "object_slice_counts": object_slice_counts,
-            "objects_without_slices": [name for name, count in object_slice_counts.items() if count == 0],
-            "ready_for_judgement": all(count > 0 for count in object_slice_counts.values()),
-            "partial_judge": True,
-        }
-        name_set = set(object_names)
-        shard_payload["coverage_gaps"] = [
-            dict(gap)
-            for gap in candidates.get("coverage_gaps") or []
-            if isinstance(gap, Mapping)
-            and (not str(gap.get("object_name") or "").strip() or str(gap.get("object_name") or "") in name_set)
-        ]
-        shards.append({"shard_code": shard_code, "object_names": object_names, "payload": shard_payload})
     return shards
 
 
