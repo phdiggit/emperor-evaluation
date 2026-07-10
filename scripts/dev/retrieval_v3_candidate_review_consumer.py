@@ -59,6 +59,17 @@ def review_status_for_verdict(verdict: str) -> str:
     return "needs_review"
 
 
+def review_route_for_verdict(verdict: str) -> str:
+    """Separate terminal support from work that actually needs context expansion."""
+    if verdict == "accepted_candidate":
+        return "identity_gate"
+    if verdict == "rejected":
+        return "terminal_rejected"
+    if verdict == "supporting_only":
+        return "terminal_supporting_only"
+    return "needs_context_expansion"
+
+
 def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
     code = text(row.get("review_code"))
     verdict = text(row.get("review_verdict"))
@@ -97,6 +108,8 @@ def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
         "review_code": code,
         "review_verdict": verdict,
         "review_status": review_status_for_verdict(verdict),
+        "review_route": review_route_for_verdict(verdict),
+        "second_review_required": verdict == "needs_context",
         "review_note": text(row.get("review_note")),
         "candidate_role": role,
         "direction": direction,
@@ -137,11 +150,14 @@ def run_consumer(*, patch_rows: Sequence[Mapping[str, Any]], dsn: str, schema_na
             if missing:
                 raise CandidateReviewConsumerError(f"review candidates not found: {missing[:5]}")
             counts: Counter[str] = Counter()
+            route_counts: Counter[str] = Counter()
             for patch in patches:
                 current = lookup[patch["review_code"]]
                 current_payload = current.get("candidate_payload") if isinstance(current.get("candidate_payload"), Mapping) else {}
                 review_payload = {
                     "review_verdict": patch["review_verdict"],
+                    "review_route": patch["review_route"],
+                    "second_review_required": patch["second_review_required"],
                     "review_note": patch["review_note"],
                     "required_facts": patch["required_facts"],
                     "candidate_role": patch["candidate_role"],
@@ -176,6 +192,7 @@ def run_consumer(*, patch_rows: Sequence[Mapping[str, Any]], dsn: str, schema_na
                         ),
                     )
                 counts[patch["review_status"]] += 1
+                route_counts[patch["review_route"]] += 1
         if execute:
             conn.commit()
         else:
@@ -186,6 +203,7 @@ def run_consumer(*, patch_rows: Sequence[Mapping[str, Any]], dsn: str, schema_na
         "executed": execute,
         "input_rows": len(patches),
         "counts_by_review_status": dict(sorted(counts.items())),
+        "counts_by_review_route": dict(sorted(route_counts.items())),
         "formal_binding_created": 0,
         "identity_rows_changed": 0,
         "legacy_data_reads": False,

@@ -29,7 +29,34 @@ def patch_row(**overrides):
 def test_validate_patch_maps_review_status_and_keeps_gate() -> None:
     validated = tool.validate_patch(patch_row())
     assert validated["review_status"] == "accepted"
+    assert validated["review_route"] == "identity_gate"
+    assert validated["second_review_required"] is False
     assert validated["identity_gate"] == "identity_pending"
+
+
+def test_review_routes_supporting_only_without_second_review() -> None:
+    validated = tool.validate_patch(
+        patch_row(
+            review_verdict="supporting_only",
+            scoring_candidate=False,
+            usable_for_scoring_cluster=False,
+        )
+    )
+    assert validated["review_status"] == "needs_review"
+    assert validated["review_route"] == "terminal_supporting_only"
+    assert validated["second_review_required"] is False
+
+
+def test_review_routes_needs_context_to_expansion() -> None:
+    validated = tool.validate_patch(
+        patch_row(
+            review_verdict="needs_context",
+            scoring_candidate=False,
+            usable_for_scoring_cluster=False,
+        )
+    )
+    assert validated["review_route"] == "needs_context_expansion"
+    assert validated["second_review_required"] is True
 
 
 def test_validate_patch_rejects_protocol_violation() -> None:

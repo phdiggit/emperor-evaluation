@@ -50,6 +50,10 @@ def classify_group(rows: Sequence[Mapping[str, Any]]) -> tuple[str, dict[str, An
     return "identity_ready_for_accept", {"object_id": object_row["object_id"], "target_object_id": target_row["target_object_id"]}
 
 
+def syncs_candidate_identity_gate(decision: str) -> bool:
+    return decision in {"identity_ready_for_accept", "identity_ready"}
+
+
 def fetch_groups(cur: Any) -> dict[int, list[dict[str, Any]]]:
     cur.execute(
         """
@@ -84,11 +88,14 @@ def run_consumer(*, dsn: str, schema_name: str, execute: bool) -> dict[str, Any]
             groups = fetch_groups(cur)
             decisions: Counter[str] = Counter()
             eligible: list[dict[str, Any]] = []
+            ready_candidates: list[dict[str, Any]] = []
             for candidate_id, rows in groups.items():
                 decision, ids = classify_group(rows)
                 decisions[decision] += 1
                 if decision == "identity_ready_for_accept":
                     eligible.append({"candidate_id": candidate_id, **ids})
+                if syncs_candidate_identity_gate(decision):
+                    ready_candidates.append({"candidate_id": candidate_id, **ids})
             changed_target_objects = 0
             changed_candidates = 0
             if execute:
@@ -109,6 +116,7 @@ def run_consumer(*, dsn: str, schema_name: str, execute: bool) -> dict[str, Any]
                         ),
                     )
                     changed_target_objects += cur.rowcount
+                for item in ready_candidates:
                     cur.execute(
                         """
                         update retrieval_v3.claim_rule_binding_candidates
@@ -138,6 +146,7 @@ def run_consumer(*, dsn: str, schema_name: str, execute: bool) -> dict[str, Any]
         "accepted_candidates": len(groups),
         "decision_counts": dict(sorted(decisions.items())),
         "eligible_candidate_count": len(eligible),
+        "identity_ready_candidate_count": len(ready_candidates),
         "target_objects_changed": changed_target_objects,
         "candidate_payloads_changed": changed_candidates,
         "formal_binding_created": 0,

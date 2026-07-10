@@ -25,3 +25,10 @@ def test_classify_group_blocks_missing_and_ambiguous_identity() -> None:
 
 def test_classify_group_blocks_non_active_object() -> None:
     assert tool.classify_group([row(identity_status="needs_review")])[0] == "object_not_active"
+
+
+def test_identity_ready_still_synchronizes_candidate_gate() -> None:
+    decision, _ = tool.classify_group([row(target_object_status="accepted")])
+    assert decision == "identity_ready"
+    assert tool.syncs_candidate_identity_gate(decision) is True
+    assert tool.syncs_candidate_identity_gate("identity_missing") is False
