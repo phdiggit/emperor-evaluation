@@ -21,12 +21,10 @@ from scripts.dev.retrieval_v2_factorization_worklists import (  # noqa: E402
     build_factor_key_catalog,
     factor_keys_for_material,
 )
-from scripts.dev.retrieval_v2_candidate_promoter import (  # noqa: E402
-    appointment_delegation_protocol_allows_scoring,
-)
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor, table_label  # noqa: E402
+from scripts.dev.retrieval_v3_score_lane import classify_score_lane  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -308,17 +306,14 @@ def validate_appointment_effect_side(
 def validate_appointment_delegation_scoring_gate(*, row: Mapping[str, Any], context: Mapping[str, Any]) -> None:
     if text(context.get("rule_code")) != "appointment_delegation" or row["target_action"] != "score":
         return
-    if context.get("binding_usable_for_scoring_cluster") is False:
+    decision = classify_score_lane(context)
+    if decision.reason == "binding_not_scoring":
         raise FactorizationConsumerError(f"{line_ref(row)}: appointment_delegation score patch targets non-scoring binding {row['binding_code']}")
-    candidate_id = context.get("candidate_id")
-    binding_payload = context.get("binding_payload") if isinstance(context.get("binding_payload"), Mapping) else {}
-    from_promoter = text(binding_payload.get("source")) == "retrieval_v2_candidate_promoter" or candidate_id is not None
-    if not from_promoter:
-        return
-    candidate_payload = context.get("candidate_payload") if isinstance(context.get("candidate_payload"), Mapping) else {}
-    if not candidate_payload:
+    if decision.reason == "identity_not_ready":
+        raise FactorizationConsumerError(f"{line_ref(row)}: appointment_delegation score patch lacks accepted identity anchor {row['binding_code']}")
+    if decision.reason == "missing_candidate_payload":
         raise FactorizationConsumerError(f"{line_ref(row)}: appointment_delegation promoted binding lacks candidate_payload gate {row['binding_code']}")
-    if not appointment_delegation_protocol_allows_scoring({"candidate_payload": candidate_payload}):
+    if decision.reason == "candidate_not_scoring":
         raise FactorizationConsumerError(
             f"{line_ref(row)}: appointment_delegation candidate_payload is not a scoring candidate {row['binding_code']}"
         )
@@ -338,6 +333,14 @@ def fetch_binding_context(cur: Any, binding_code: str) -> dict[str, Any]:
             mc.source_pack_id,
             sp.target_id,
             rt.item_code,
+            exists (
+                select 1
+                  from retrieval_v2.material_object_links mol
+                 where mol.claim_id = crb.claim_id
+                   and mol.role = crb.object_role
+                   and mol.target_object_id is not null
+                   and mol.review_status = 'accepted'
+            ) as identity_ready,
             cand.id as candidate_id,
             cand.candidate_code,
             cand.candidate_payload

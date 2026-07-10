@@ -1332,6 +1332,19 @@
     {
       "audit_docs": [],
       "category": "dev",
+      "id": "retrieval_v3_score_lane",
+      "implementation": "scripts/dev/retrieval_v3_score_lane.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_score_lane.py",
+        "tests/test_retrieval_v2_factorization_consumer.py",
+        "tests/test_retrieval_v2_rule_scorer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
       "id": "retrieval_v2_factorization_task_runner",
       "implementation": "scripts/dev/retrieval_v2_factorization_task_runner.py",
       "legacy_wrapper": null,

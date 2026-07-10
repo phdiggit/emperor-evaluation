@@ -16,13 +16,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_candidate_promoter import (  # noqa: E402
-    appointment_delegation_protocol_allows_scoring,
-)
 from scripts.dev.retrieval_v2_factorization_worklists import DEFAULT_FORMULA_CODE, DEFAULT_ITEM_CODE, DEFAULT_RULE_CODE  # noqa: E402
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor, table_label  # noqa: E402
+from scripts.dev.retrieval_v3_score_lane import classify_score_lane  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -400,19 +398,14 @@ def validate_appointment_delegation_scoring_gate_rows(rows: Sequence[Mapping[str
             continue
         checked.add(judgment_id)
         binding_code = text(row.get("binding_code"))
-        if row.get("binding_usable_for_scoring_cluster") is False:
+        decision = classify_score_lane(row)
+        if decision.reason == "binding_not_scoring":
             issues.append(f"{binding_code}: binding usable_for_scoring_cluster=false")
-            continue
-        binding_payload = row.get("binding_payload") if isinstance(row.get("binding_payload"), Mapping) else {}
-        candidate_id = row.get("candidate_id")
-        from_promoter = text(binding_payload.get("source")) == "retrieval_v2_candidate_promoter" or candidate_id is not None
-        if not from_promoter:
-            continue
-        candidate_payload = row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {}
-        if not candidate_payload:
+        elif decision.reason == "identity_not_ready":
+            issues.append(f"{binding_code}: accepted identity anchor is missing")
+        elif decision.reason == "missing_candidate_payload":
             issues.append(f"{binding_code}: missing candidate_payload")
-            continue
-        if not appointment_delegation_protocol_allows_scoring({"candidate_payload": candidate_payload}):
+        elif decision.reason == "candidate_not_scoring":
             candidate_code = text(row.get("candidate_code"))
             suffix = f" candidate={candidate_code}" if candidate_code else ""
             issues.append(f"{binding_code}: candidate_payload is not scoring_candidate{suffix}")
