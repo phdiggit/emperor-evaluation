@@ -70,3 +70,28 @@ def test_judge_shards_consumes_owner_aware_manifest_without_repacking() -> None:
     assert [shard["shard_code"] for shard in shards] == ["CSH-A-01", "CSH-B-01"]
     assert [row["slice_code"] for row in shards[0]["payload"]["candidate_slices"]] == ["A-1"]
     assert shards[1]["payload"]["judge_shard"]["owner_anchor_class"] == "B"
+
+
+def test_owner_aware_plan_keeps_one_object_in_its_highest_priority_bundle(monkeypatch) -> None:
+    payload = candidates()
+    payload["candidate_slices"].append(
+        {"slice_code": "A-2", "document_code": "DOC-1", "object_name": "乙", "text": "目标君主任命乙。"}
+    )
+
+    monkeypatch.setattr(planner.alias_pretag, "load_alias_resolver", lambda: object())
+    monkeypatch.setattr(
+        planner.alias_pretag,
+        "alias_mentions_in_text",
+        lambda text_value, **_kwargs: [{"resolution_status": "resolved", "resolved_owner_name": "目标君主", "owner_anchor_eligible": True}]
+        if "目标君主" in text_value
+        else [],
+    )
+    monkeypatch.setattr(planner.claim_quality, "slice_claim_eligibility", lambda _row: {"claim_eligible": True, "reasons": []})
+    monkeypatch.setattr(planner.claim_quality, "biography_like_source", lambda _row: True)
+
+    planned, manifest = planner.apply_owner_aware_shard_plan(payload, max_objects_per_shard=1)
+
+    beta_rows = [row for row in planned["candidate_slices"] if row["object_name"] == "乙"]
+    assert {row["object_bundle_class"] for row in beta_rows} == {"A"}
+    assert any("object_bundle_promoted_to_A" in row["selection_reason_codes"] for row in beta_rows)
+    assert sum("乙" in shard["object_names"] for shard in manifest["shards"]) == 1
