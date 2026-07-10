@@ -65,6 +65,16 @@ def resolve_rows(cur: Any, candidates: Sequence[Mapping[str, Any]]) -> tuple[lis
         if db_row is None:
             missing.append({"source_material_claim_code": claim_code, "reason": "material_claim_not_found"})
             continue
+        required_facts = (
+            dict(candidate.get("required_facts_present"))
+            if isinstance(candidate.get("required_facts_present"), Mapping)
+            else {
+                "source_material_claim": True,
+                "matched_signal": bool(candidate.get("matched_signals")),
+                "matched_term": bool(candidate.get("matched_terms")),
+                "source_binding": False,
+            }
+        )
         resolved.append(
             {
                 **dict(candidate),
@@ -78,17 +88,12 @@ def resolve_rows(cur: Any, candidates: Sequence[Mapping[str, Any]]) -> tuple[lis
                 "source_item_code": ITEM_CODE,
                 "source_rule_code": "claim_cache_material",
                 "candidate_predicate": "",
-                "candidate_object_role": "",
-                "candidate_direction": None,
+                "candidate_object_role": text(candidate.get("candidate_object_role")),
+                "candidate_direction": text(candidate.get("candidate_direction")) or None,
                 "reason_hash": reason_hash(text(candidate.get("candidate_reason"))),
                 "confidence": None,
                 "review_status": "pending",
-                "required_facts_present": {
-                    "source_material_claim": True,
-                    "matched_signal": bool(candidate.get("matched_signals")),
-                    "matched_term": bool(candidate.get("matched_terms")),
-                    "source_binding": False,
-                },
+                "required_facts_present": required_facts,
                 "routed_by_profile": "retrieval_v3_material_candidate_plan",
             }
         )

@@ -57,7 +57,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
-CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v6_focal_object_owner"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v7_negative_harm_split"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -145,6 +145,12 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "evidence_spans.text 必须是对应 source_slice_ref 原文中的连续短句或短语，每条 text 尽量不超过 12 个汉字；优先 action/object/outcome。"
         "如果没有同链条结果反馈，就把 has_outcome=false / has_outcome_span=false，不要为了完整而臆造 outcome。"
         "claim 不输出 direction；如果同一材料包含不同事实链，拆成多条 claim，无法拆分时说明到 coverage_gaps。"
+        "若原文同时写明焦点人物在任内的失职、构陷、滥权、败事或其他实际损害，以及皇帝后来对其贬谪、罢免、下狱、诛杀等处置，"
+        "必须拆成至少两条原子 claim：一条只写任内行为/不作为及其直接损害，另一条写后续处置。"
+        "任内损害 claim 的 action_type 使用失职、构陷、滥权或与原文相符的动作，不得写处置；"
+        "其 outcome/cost_or_damage 不得拿后续获罪、贬谪、赐死冒充损害。"
+        "即使追责理由只出现在处置句中，只要原文明确陈述了焦点人物此前的具体失职或害政事实，也要单独抽取该事实；"
+        "如果原文只有罪名或处置、没有具体任内行为，则只抽处置 claim，不得臆造损害 claim。"
         "最终 JSON 默认不要复述 documents/passages，runner 会按 slice_code 自动生成 passages。\n\n"
         "claim-only 抽取预算：本阶段是 claim cache 构建，不是最终消费包压缩。"
         "不要把一个对象压缩成少数代表性 claim；要按独立事件链、职责域和结果反馈拆分。"
@@ -162,7 +168,7 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         '  "status": "succeeded | needs_refinement | blocked",\n'
         '  "documents": [],\n'
         '  "passages": [],\n'
-        '  "claims": [{"claim_code": "CLM-...", "emperor_name": "...", "object_name": "...", "object_type": "person | event | group | mechanism", "claim_kind": "material_claim | context_claim | counter_claim", "claim_summary": "...", "confidence": 0.0, "source_slice_refs": ["SLI-..."], "fact_payload": {"fact_schema": "political_action_v1", "actor": "...", "object": "...", "action_type": "任命 | 授权 | 荐举 | 保全 | 处置 | 结党 | 收权 | 纳谏 | 拒谏 | 战役 | 制度高压 | 其他", "event_scope": "中枢 | 军事 | 地方 | 边疆 | 财政 | 监察 | 宗室 | 外戚 | 民生 | 其他", "office_or_domain": "...", "outcome": "...", "cost_or_damage": "...", "time_context": "...", "source_span_refs": ["SLI-..."], "confidence": 0.0, "completeness": {"has_actor": true, "has_object": true, "has_action": true, "has_outcome": false, "same_event_chain": false, "needs_source_extension": false}}, "evidence_spans": [{"span_type": "action | object | outcome | reason | institution | context", "source_slice_ref": "SLI-...", "text": "..."}]}],\n'
+        '  "claims": [{"claim_code": "CLM-...", "emperor_name": "...", "object_name": "...", "object_type": "person | event | group | mechanism", "claim_kind": "material_claim | context_claim | counter_claim", "claim_summary": "...", "confidence": 0.0, "source_slice_refs": ["SLI-..."], "fact_payload": {"fact_schema": "political_action_v1", "actor": "...", "object": "...", "action_type": "任命 | 授权 | 荐举 | 保全 | 处置 | 失职 | 构陷 | 滥权 | 结党 | 收权 | 纳谏 | 拒谏 | 战役 | 制度高压 | 其他", "event_scope": "中枢 | 军事 | 地方 | 边疆 | 财政 | 监察 | 宗室 | 外戚 | 民生 | 其他", "office_or_domain": "...", "outcome": "...", "cost_or_damage": "...", "time_context": "...", "source_span_refs": ["SLI-..."], "confidence": 0.0, "completeness": {"has_actor": true, "has_object": true, "has_action": true, "has_outcome": false, "same_event_chain": false, "needs_source_extension": false}}, "evidence_spans": [{"span_type": "action | object | outcome | reason | institution | context", "source_slice_ref": "SLI-...", "text": "..."}]}],\n'
         '  "primary_bindings": [],\n'
         '  "secondary_binding_candidates": [],\n'
         '  "coverage_matrix": {"rule_code": "...", "role_families": [{"family_code": "...", "candidate_slice_count": 0, "accepted_claim_count": 0, "objects_checked": ["..."], "gaps": []}]},\n'

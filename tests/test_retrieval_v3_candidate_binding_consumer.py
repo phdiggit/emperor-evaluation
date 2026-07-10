@@ -54,3 +54,12 @@ def test_candidate_binding_consumer_does_not_connect_nonworkflow_tables() -> Non
 
     assert "target_rule_requirements" not in source
     assert "retrieval_intents" not in source
+
+
+def test_candidate_binding_consumer_merges_material_candidates_into_native_binding_lane() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "MATERIAL_CANDIDATE_PROFILE" in source
+    assert "c.routed_by_profile = any(%s)" in source
+    assert "matched_object.canonical_name" in source
+    assert "rc.contract_code = %s" in source

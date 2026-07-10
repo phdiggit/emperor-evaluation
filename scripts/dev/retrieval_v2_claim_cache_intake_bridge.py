@@ -22,6 +22,7 @@ from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_STATUSES = ("active",)
+TARGET_MODES = ("canonical", "v3_native")
 ITEM_CODE = "I5B"
 RULE_CODE = "appointment_delegation"
 ROUTABLE_CHAIN_TYPES = {"delegated_power_abuse_chain", "appointment_to_outcome_chain"}
@@ -63,7 +64,14 @@ def ready_chains(claims: Sequence[Mapping[str, Any]], *, min_members: int) -> li
     ]
 
 
-def fetch_targets(cur: Any, *, emperor_names: Sequence[str]) -> list[dict[str, Any]]:
+def fetch_targets(
+    cur: Any,
+    *,
+    emperor_names: Sequence[str],
+    target_mode: str = "canonical",
+) -> list[dict[str, Any]]:
+    if target_mode not in TARGET_MODES:
+        raise ClaimCacheIntakeBridgeError(f"unsupported target_mode: {target_mode!r}")
     names = [text(name) for name in emperor_names if text(name)]
     if not names:
         return []
@@ -81,16 +89,10 @@ def fetch_targets(cur: Any, *, emperor_names: Sequence[str]) -> list[dict[str, A
     selected: dict[str, dict[str, Any]] = {}
     for row in rows:
         emperor = text(row.get("emperor_name"))
-        current = selected.get(emperor)
-        if current is None:
-            selected[emperor] = row
+        row_is_v3_native = "-V3N-" in text(row.get("target_code"))
+        if row_is_v3_native != (target_mode == "v3_native"):
             continue
-        # Native claim-cache bridge packs stay on the canonical bootstrap
-        # target when a later v3-native shadow target exists for the same
-        # emperor.  Do not let a duplicate target make read-only intake fail.
-        current_is_native_shadow = "-V3N-" in text(current.get("target_code"))
-        row_is_native_shadow = "-V3N-" in text(row.get("target_code"))
-        if current_is_native_shadow and not row_is_native_shadow:
+        if emperor not in selected:
             selected[emperor] = row
     return [selected[name] for name in sorted(selected)]
 
@@ -402,6 +404,8 @@ def report_from_pg(
     owner_scopes: Sequence[str],
     min_members: int,
     cache_root: Path,
+    target_mode: str = "canonical",
+    selected_claim_keys: Sequence[str] = (),
 ) -> tuple[dict[str, Any], dict[str, list[dict[str, Any]]]]:
     if env_file is not None:
         load_env_file(env_file)
@@ -410,8 +414,19 @@ def report_from_pg(
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             claims = chain_candidates.fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses, owner_scopes=owner_scopes)
+            requested_keys = {text(key) for key in selected_claim_keys if text(key)}
+            if requested_keys:
+                available_keys = {text(claim.get("claim_key")) for claim in claims}
+                missing_keys = sorted(requested_keys - available_keys)
+                if missing_keys:
+                    raise ClaimCacheIntakeBridgeError("requested claim keys not found: " + ",".join(missing_keys))
+                claims = [claim for claim in claims if text(claim.get("claim_key")) in requested_keys]
             chains = ready_chains(claims, min_members=min_members)
-            targets = fetch_targets(cur, emperor_names=sorted({text(claim.get("emperor_name")) for claim in claims}))
+            targets = fetch_targets(
+                cur,
+                emperor_names=sorted({text(claim.get("emperor_name")) for claim in claims}),
+                target_mode=target_mode,
+            )
             evidence_rows = fetch_cache_evidence_rows(cur, claim_keys=claim_keys_from_claims(claims))
         conn.rollback()
     cached_texts = full_text_by_slice(cache_root)
@@ -428,6 +443,8 @@ def report_from_pg(
         "mode": "dry_run_claim_cache_intake_bridge",
         "write_db": False,
         "formal_binding_allowed": False,
+        "target_mode": target_mode,
+        "requested_claim_key_count": len({text(key) for key in selected_claim_keys if text(key)}),
         "object_identity_gate": "deferred_until_formal_binding",
         "input_claim_count": len(claims),
         "ready_chain_count": len(chains),
@@ -450,6 +467,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--status", action="append", default=[])
     parser.add_argument("--owner-scope", action="append", default=[])
     parser.add_argument("--min-members", type=int, default=chain_candidates.CHAIN_MIN_MEMBERS)
+    parser.add_argument("--target-mode", choices=TARGET_MODES, default="canonical")
+    parser.add_argument("--claim-key", action="append", default=[])
     parser.add_argument("--claim-cache-root", type=Path, required=True, help="Filesystem cache root containing source_slices.jsonl full slice_text.")
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--output-report", type=Path, required=True)
@@ -467,6 +486,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         owner_scopes=args.owner_scope,
         min_members=args.min_members,
         cache_root=args.claim_cache_root,
+        target_mode=args.target_mode,
+        selected_claim_keys=args.claim_key,
     )
     write_rows(args.output_root, rows)
     args.output_report.parent.mkdir(parents=True, exist_ok=True)

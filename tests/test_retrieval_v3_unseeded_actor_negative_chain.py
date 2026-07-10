@@ -6,6 +6,7 @@ import pytest
 
 from scripts.dev import retrieval_v3_unseeded_actor_negative_chain_consumer as consumer
 from scripts.dev import retrieval_v3_unseeded_actor_negative_chain_tasks as tasks
+from scripts.dev import retrieval_v3_candidate_review_consumer as review_consumer
 
 
 def actor_row(name: str = "杨宪") -> dict:
@@ -72,9 +73,80 @@ def test_consumer_emits_only_file_candidate_for_complete_chain() -> None:
     assert reviewed[0]["review_verdict"] == "negative_chain_ready"
     assert candidates[0]["direction"] == "negative"
     assert candidates[0]["write_db"] is False
-    assert candidates[0]["claim_refinement_required"] is True
+    assert candidates[0]["appointment_claim_keys"] == [consumer.claim_key(claim_payload()["claims"][0])]
+    assert candidates[0]["harm_claim_keys"] == [consumer.claim_key(claim_payload()["claims"][0])]
+    assert candidates[0]["claim_refinement_required"] is False
+    assert candidates[0]["native_candidate_ready"] is True
+    assert candidates[0]["next_action"] == "prepare_v3_native_material_candidate"
     assert candidates[0]["binding_allowed"] is False
     assert candidates[0]["scoring_allowed"] is False
+
+
+def test_complete_chain_converts_to_standard_material_candidate_and_review_patch() -> None:
+    workitem = tasks.build_chain_workitems([actor_row()], claim_payload())[0]
+    _, candidates = consumer.consume([workitem], [ready_patch()])
+    key = candidates[0]["harm_claim_keys"][0]
+    plan, patches = consumer.build_material_candidate_plan(
+        candidates,
+        [
+            {
+                "source_pack_code": "SPK-V3N-1",
+                "claim_code": "CLM-V3N-1",
+                "emperor_name": "朱元璋",
+                "object_name": "杨宪",
+                "claim_summary": "杨宪任内造成损害。",
+                "source_passage_refs": ["PAS-1"],
+                "claim_payload": {"cached_claim_key": key},
+            }
+        ],
+    )
+
+    assert plan["ok"] is True
+    assert plan["candidate_count"] == 1
+    assert plan["candidates"][0]["source_material_claim_code"] == "CLM-V3N-1"
+    assert plan["candidates"][0]["candidate_direction"] == "negative"
+    assert plan["candidates"][0]["candidate_payload"]["negative_chain"]["reviewed_complete_chain"] is True
+    validated = review_consumer.validate_patch(patches[0])
+    assert validated["review_verdict"] == "accepted_candidate"
+    assert validated["candidate_role"] == "misappointed_actor"
+    assert validated["scoring_candidate"] is True
+
+
+def test_refinement_candidate_is_blocked_from_material_candidate_plan() -> None:
+    payload = claim_payload()
+    row = actor_row()
+    row["discovery_evidence"] = [{"window_hash": "UAW-001", "focus_text": "太祖所任杨宪。"}]
+    workitem = tasks.build_chain_workitems([row], payload)[0]
+    patch = ready_patch()
+    patch["appointment_claim_codes"] = []
+    _, candidates = consumer.consume([workitem], [patch])
+
+    plan, patches = consumer.build_material_candidate_plan(candidates, [])
+
+    assert plan["ok"] is False
+    assert plan["candidate_count"] == 0
+    assert plan["blocked"] == [
+        {
+            "negative_candidate_code": candidates[0]["candidate_code"],
+            "object_name": "杨宪",
+            "reason": "claim_refinement_required",
+        }
+    ]
+    assert patches == []
+
+
+def test_disposition_claim_cannot_carry_negative_harm_into_native_candidate() -> None:
+    payload = claim_payload()
+    payload["claims"][0]["fact_payload"]["action_type"] = "处置"
+    workitem = tasks.build_chain_workitems([actor_row()], payload)[0]
+
+    reviewed, candidates = consumer.consume([workitem], [ready_patch()])
+
+    assert reviewed[0]["harm_claim_action_types"] == ["处置"]
+    assert reviewed[0]["harm_claim_material_ready"] is False
+    assert candidates[0]["claim_refinement_required"] is True
+    assert candidates[0]["claim_refinement_reasons"] == ["harm_is_only_disposition_claim"]
+    assert candidates[0]["native_candidate_ready"] is False
 
 
 def test_consumer_rejects_incomplete_negative_ready_chain() -> None:
@@ -98,6 +170,10 @@ def test_consumer_allows_discovery_window_as_appointment_support() -> None:
 
     assert reviewed[0]["appointment_discovery_window_hashes"] == ["UAW-001"]
     assert candidates[0]["appointment_discovery_window_hashes"] == ["UAW-001"]
+    assert candidates[0]["appointment_claim_keys"] == []
+    assert candidates[0]["claim_refinement_required"] is True
+    assert candidates[0]["native_candidate_ready"] is False
+    assert candidates[0]["next_action"] == "refine_claims_before_native_candidate_binding"
 
 
 def test_identity_mismatch_requires_cross_target_evidence() -> None:

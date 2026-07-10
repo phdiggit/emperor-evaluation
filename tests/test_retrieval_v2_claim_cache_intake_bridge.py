@@ -6,6 +6,17 @@ from scripts.dev import retrieval_v2_claim_cache_intake_bridge as tool
 from scripts.dev import retrieval_v2_import_plan as import_plan
 
 
+class TargetCursor:
+    def execute(self, sql, params) -> None:
+        self.params = params
+
+    def fetchall(self):
+        return [
+            {"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"},
+            {"target_code": "TGT-I5B-V3N-LB", "emperor_name": "刘邦", "item_code": "I5B"},
+        ]
+
+
 def chain() -> dict:
     return {
         "emperor_name": "刘邦",
@@ -34,6 +45,13 @@ def evidence(claim_key: str) -> dict:
         "source_slice_ref": f"SLI-{claim_key}",
         "text_hash": "",
     }
+
+
+def test_fetch_targets_can_select_v3_native_contract_target() -> None:
+    assert tool.fetch_targets(TargetCursor(), emperor_names=["刘邦"])[0]["target_code"] == "TGT-I5B-LB"
+    assert tool.fetch_targets(
+        TargetCursor(), emperor_names=["刘邦"], target_mode="v3_native"
+    )[0]["target_code"] == "TGT-I5B-V3N-LB"
 
 
 def test_build_rows_creates_draft_materials_without_object_or_binding_rows(tmp_path) -> None:

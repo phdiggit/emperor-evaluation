@@ -236,6 +236,11 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "只能从该对象 allowed_source_refs_by_object 中取 refs" in prompt
     assert "顶层 claim.object_name 是 claim cache 的焦点人物" in prompt
     assert "runner 会拒收跨对象 refs" in prompt
+    assert "必须拆成至少两条原子 claim" in prompt
+    assert "不得拿后续获罪、贬谪、赐死冒充损害" in prompt
+    assert "如果原文只有罪名或处置、没有具体任内行为" in prompt
+    assert "失职 | 构陷 | 滥权" in prompt
+    assert tool.CLAIM_EXTRACTOR_VERSION == "claim_extraction_only:v7_negative_harm_split"
     assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
 
 

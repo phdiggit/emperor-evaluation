@@ -16,7 +16,11 @@ from scripts.dev.retrieval_v2_import_plan import json_param, stable_hash  # noqa
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v3_contract_reanchor_consumer import REANCHOR_PROFILE  # noqa: E402
-from scripts.dev.retrieval_v3_contract_reanchor_plan import RULE_CODE  # noqa: E402
+from scripts.dev.retrieval_v3_contract_reanchor_plan import NATIVE_CONTRACT_CODE, RULE_CODE  # noqa: E402
+
+
+MATERIAL_CANDIDATE_PROFILE = "retrieval_v3_material_candidate_plan"
+BINDING_PROFILES = (REANCHOR_PROFILE, MATERIAL_CANDIDATE_PROFILE)
 
 
 class CandidateBindingConsumerError(RuntimeError):
@@ -95,10 +99,35 @@ def fetch_candidates(cur: Any) -> list[dict[str, Any]]:
           join retrieval_v2.material_claims mc on mc.id = c.claim_id
           join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
+          join retrieval_v2.rule_contracts rc on rc.id = rt.contract_id and rc.contract_code = %s
           join retrieval_v2.target_objects tob
-            on tob.id = nullif(c.candidate_payload #>> '{reanchor,native_target_object_id}', '')::bigint
+            on (
+                c.routed_by_profile = %s
+                and tob.id = nullif(c.candidate_payload #>> '{reanchor,native_target_object_id}', '')::bigint
+            ) or (
+                c.routed_by_profile = %s
+                and tob.target_id = rt.id
+                and exists (
+                    select 1
+                      from retrieval_v2.objects matched_object
+                     where matched_object.id = tob.object_id
+                       and (
+                           lower(matched_object.canonical_name) = lower(mc.object_name)
+                           or exists (
+                               select 1
+                                 from retrieval_v2.object_names onm
+                                where onm.object_id = matched_object.id
+                                  and onm.review_status::text = 'accepted'
+                                  and (
+                                      lower(onm.name_text) = lower(mc.object_name)
+                                      or lower(onm.normalized_name) = lower(mc.object_name)
+                                  )
+                           )
+                       )
+                )
+            )
           join retrieval_v2.objects o on o.id = tob.object_id
-         where c.routed_by_profile = %s
+         where c.routed_by_profile = any(%s)
            and c.candidate_rule_code = %s
            and c.review_status = 'accepted'
            and c.resolved_binding_id is null
@@ -110,7 +139,7 @@ def fetch_candidates(cur: Any) -> list[dict[str, Any]]:
            and tob.review_status = 'accepted'
          order by rt.emperor_name, c.id
         """,
-        (REANCHOR_PROFILE, RULE_CODE),
+        (NATIVE_CONTRACT_CODE, REANCHOR_PROFILE, MATERIAL_CANDIDATE_PROFILE, list(BINDING_PROFILES), RULE_CODE),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -299,7 +328,7 @@ def run(cur: Any, *, execute: bool) -> dict[str, Any]:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Promote re-anchored v3 candidates into formal native v3 bindings.")
+    parser = argparse.ArgumentParser(description="Promote accepted v3 candidates into formal native v3 bindings.")
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
