@@ -1,6 +1,7 @@
 ﻿import os
 import shutil
 import tempfile
+from functools import lru_cache
 from pathlib import Path
 
 import pytest
@@ -9,12 +10,53 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTEST_TMP_ROOT = ROOT / ".tmp"
+CURRENT_WORKFLOW_TESTS = ROOT / "tests" / "current_workflow_tests.txt"
 
 PYTEST_TMP_ROOT.mkdir(exist_ok=True)
 os.environ.setdefault("TMP", str(PYTEST_TMP_ROOT))
 os.environ.setdefault("TEMP", str(PYTEST_TMP_ROOT))
 os.environ.setdefault("TMPDIR", str(PYTEST_TMP_ROOT))
 tempfile.tempdir = str(PYTEST_TMP_ROOT)
+
+
+def pytest_addoption(parser) -> None:
+    parser.addoption(
+        "--all-workflows",
+        action="store_true",
+        default=False,
+        help="Collect historical and non-current workflow tests in addition to the default retrieval claim-cache profile.",
+    )
+
+
+@lru_cache(maxsize=1)
+def current_workflow_test_names() -> frozenset[str]:
+    names = {
+        line.strip()
+        for line in CURRENT_WORKFLOW_TESTS.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    }
+    return frozenset(names)
+
+
+def _explicit_test_files(config) -> set[Path]:
+    explicit: set[Path] = set()
+    for raw_arg in config.invocation_params.args:
+        value = str(raw_arg).split("::", 1)[0]
+        if not value or value.startswith("-"):
+            continue
+        path = Path(value)
+        if path.suffix == ".py":
+            explicit.add((Path.cwd() / path).resolve() if not path.is_absolute() else path.resolve())
+    return explicit
+
+
+def pytest_ignore_collect(collection_path: Path, config) -> bool | None:
+    path = Path(str(collection_path)).resolve()
+    if config.getoption("--all-workflows") or path in _explicit_test_files(config):
+        return None
+    if path.parent != (ROOT / "tests").resolve() or not path.name.startswith("test_") or path.suffix != ".py":
+        return None
+    return path.name not in current_workflow_test_names()
 
 
 def write_project_config(

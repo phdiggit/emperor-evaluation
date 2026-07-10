@@ -2,13 +2,27 @@
 
 `tests/` 继续进入 Git 管理；测试运行产生的缓存、覆盖率文件、SQLite 数据库、临时 Markdown 导出和 `.tmp/` 内容不得提交。
 
-默认 PR 守门使用：
+默认开发守门使用：
 
 ```bash
 pytest -q
 ```
 
-本次只登记 marker，不设置默认排除项，因此 `pytest -q` 仍会运行现有测试集。需要显式查看重型或导出相关测试时使用：
+默认只收集 `current_workflow_tests.txt` 登记的 retrieval v3 native claim-cache 当前链条，包括 claim/object-source、candidate/binding、factorization/scorer 和运行配置测试。历史 exporter、旧批次评分、旧对象池以及 docs/agents/legacy-wrapper 等独立治理测试不再进入默认收集；治理继续分别使用 `validate_all.py`、`docs_tool.py check --worktree`、`repo_tool.py agents-check` 和 CI 点名测试。
+
+需要运行全部历史工作流时显式使用：
+
+```bash
+pytest -q --all-workflows
+```
+
+点名单个未登记测试文件时仍会运行，便于窄回归：
+
+```bash
+pytest -q tests/test_object_pool_importer.py
+```
+
+需要按 marker 查看重型或导出相关测试时使用：
 
 ```bash
 pytest -q -m "export_full or integration or slow or snapshot or db"
