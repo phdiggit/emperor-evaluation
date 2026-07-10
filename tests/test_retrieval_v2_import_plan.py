@@ -21,6 +21,7 @@ def write_fixture(
     source_rule_code: str = "delegation",
     candidate_rule_code: str = "team_building",
     candidate_payload: dict | None = None,
+    material_review_row: dict | None = None,
 ) -> dict[str, str]:
     pack = "SPK-I5B-LH-DELEGATION-ABC"
     target = "TGT-I5B-LH"
@@ -149,6 +150,7 @@ def write_fixture(
                     "review_flags": ["low_confidence"],
                     "claim_code": claim,
                     "binding_code": binding,
+                    **(material_review_row or {}),
                 }
             ],
         )
@@ -171,6 +173,41 @@ def test_build_plan_creates_dry_run_operations(tmp_path: Path) -> None:
     assert payload["operation_counts"]["retrieval_v2.material_review_queue"] == 1
     assert payload["deferred"]["objects"] == 1
     assert payload["review_queue"]["queued_material_reviews"] == 1
+
+
+def test_build_plan_allows_unbound_material_claim_review(tmp_path: Path) -> None:
+    normalized = tmp_path / "normalized"
+    review = tmp_path / "review"
+    values = write_fixture(
+        normalized,
+        review,
+        material_review_row={"binding_code": "", "allow_unbound_claim_review": True},
+    )
+
+    payload = tool.build_plan(normalized_root=normalized, review_root=review)
+
+    assert payload["ok"] is True
+    review_operation = next(
+        item for item in payload["operations"] if item["table"] == "retrieval_v2.material_review_queue"
+    )
+    assert review_operation["depends_on"] == [
+        {"table": "retrieval_v2.material_claims", "claim_code": values["claim"]}
+    ]
+
+
+def test_build_plan_blocks_unbound_review_with_unknown_binding_code(tmp_path: Path) -> None:
+    normalized = tmp_path / "normalized"
+    review = tmp_path / "review"
+    write_fixture(
+        normalized,
+        review,
+        material_review_row={"binding_code": "BND-NOT-FOUND", "allow_unbound_claim_review": True},
+    )
+
+    payload = tool.build_plan(normalized_root=normalized, review_root=review)
+
+    assert payload["ok"] is False
+    assert any(item["code"] == "missing_binding" for item in payload["blockers"])
 
 
 def test_build_plan_blocks_missing_passage_refs(tmp_path: Path) -> None:

@@ -546,18 +546,20 @@ def build_plan(*, normalized_root: Path, review_root: Path | None = None, lookup
         code = text(item.get("material_review_code"))
         claim_code = text(item.get("claim_code"))
         binding_code = text(item.get("binding_code"))
+        allow_unbound_claim_review = item.get("allow_unbound_claim_review") is True
         if claim_code not in claims:
             blockers.append(blocker("material_review_queue", code, "missing_claim", claim_code))
-        if binding_code not in bindings:
+        unbound_claim_review = allow_unbound_claim_review and not binding_code
+        if binding_code not in bindings and not unbound_claim_review:
             blockers.append(blocker("material_review_queue", code, "missing_binding", binding_code))
+        dependencies = [{"table": "retrieval_v2.material_claims", "claim_code": claim_code}]
+        if binding_code:
+            dependencies.append({"table": "retrieval_v2.claim_rule_bindings", "binding_code": binding_code})
         operations.append(
             operation(
                 "retrieval_v2.material_review_queue",
                 {"idem_key": "|".join([claim_code, binding_code, "material_review"])},
-                depends_on=[
-                    {"table": "retrieval_v2.material_claims", "claim_code": claim_code},
-                    {"table": "retrieval_v2.claim_rule_bindings", "binding_code": binding_code},
-                ],
+                depends_on=dependencies,
                 payload={
                     "review_code": code,
                     "review_kind": ",".join(text(value) for value in item.get("review_flags") or [] if text(value)) or "material_review",
