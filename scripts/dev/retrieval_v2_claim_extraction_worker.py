@@ -15,7 +15,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt  # noqa: E402
-from scripts.dev import retrieval_v2_claim_candidate_triage as candidate_triage  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache_pg as pg_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
@@ -428,7 +427,6 @@ def write_mini_run_artifacts(
     judge_result: Mapping[str, Any],
     run_root: Path,
     filter_report: Mapping[str, Any] | None = None,
-    triage_report: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     person_dir = run_root / target_dir_name(job)
     person_dir.mkdir(parents=True, exist_ok=True)
@@ -455,7 +453,6 @@ def write_mini_run_artifacts(
             "extractor_version": candidate_prompt.CLAIM_EXTRACTOR_VERSION,
             "judge_provider": judge_result.get("provider") or clean_runner.DEFAULT_JUDGE_PROVIDER,
             "ineligible_slice_filter": filter_report or {"enabled": False},
-            "candidate_triage": triage_report or {"enabled": False},
         },
         "people": [
             {
@@ -473,7 +470,6 @@ def write_mini_run_artifacts(
                     "final_candidates": str(person_dir / "candidates.final.json"),
                     "final_judge_result": str(person_dir / "judge_result.final.json"),
                     "claim_slice_filter_report": str(run_root / "claim_slice_filter_report.json") if filter_report else None,
-                    "claim_candidate_triage": str(person_dir / "claim_candidate_triage.json") if triage_report and triage_report.get("enabled") else None,
                 },
             }
         ],
@@ -485,8 +481,6 @@ def write_mini_run_artifacts(
     }
     if filter_report:
         fs_cache.write_json(run_root / "claim_slice_filter_report.json", filter_report)
-    if triage_report and triage_report.get("enabled"):
-        fs_cache.write_json(person_dir / "claim_candidate_triage.json", triage_report)
     fs_cache.write_json(run_root / "summary.json", summary)
     return summary
 
@@ -505,8 +499,6 @@ def execute_job(
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
-    candidate_triage_provider: str = candidate_triage.TRIAGE_PROVIDER_NONE,
-    candidate_triage_duplicate_text_similarity: float = candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY,
     import_pg: bool,
     dsn_env: str,
     schema_name: str,
@@ -519,21 +511,9 @@ def execute_job(
     person_dir.mkdir(parents=True, exist_ok=True)
     filter_enabled = provider_default_filter_ineligible_slices(judge_provider) if filter_ineligible_slices is None else bool(filter_ineligible_slices)
     filter_report: dict[str, Any] | None = None
-    triage_report: dict[str, Any] | None = None
     judge_candidates = candidates
     if filter_enabled:
         judge_candidates, filter_report = claim_slice_filter_report(candidates)
-    judge_candidates, triage_report = candidate_triage.triage_candidates(
-        judge_candidates,
-        provider=candidate_triage_provider,
-        model=judge_model,
-        api_key_env=judge_api_key_env,
-        base_url=judge_base_url,
-        timeout_seconds=min(judge_timeout_seconds, candidate_triage.DEFAULT_TIMEOUT_SECONDS),
-        thinking=judge_thinking,
-        max_tokens=judge_max_tokens or candidate_triage.DEFAULT_MAX_TOKENS,
-        duplicate_text_similarity=candidate_triage_duplicate_text_similarity,
-    )
     judge_result = clean_runner.run_judge(
         candidates=judge_candidates,
         prompt_path=person_dir / "judge_prompt.round0.md",
@@ -562,7 +542,6 @@ def execute_job(
         judge_result=judge_result,
         run_root=run_root,
         filter_report=filter_report,
-        triage_report=triage_report,
     )
     fs_import = fs_cache.import_run(run_root, cache_root)
     pg_import: dict[str, Any] | None = None
@@ -602,8 +581,6 @@ def extract_from_candidates(
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
-    candidate_triage_provider: str = candidate_triage.TRIAGE_PROVIDER_NONE,
-    candidate_triage_duplicate_text_similarity: float = candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY,
     import_pg: bool = False,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -623,8 +600,6 @@ def extract_from_candidates(
         judge_thinking=judge_thinking,
         judge_max_tokens=judge_max_tokens,
         filter_ineligible_slices=filter_ineligible_slices,
-        candidate_triage_provider=candidate_triage_provider,
-        candidate_triage_duplicate_text_similarity=candidate_triage_duplicate_text_similarity,
         import_pg=import_pg,
         dsn_env=dsn_env,
         schema_name=schema_name,
@@ -654,8 +629,6 @@ def once(
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
-    candidate_triage_provider: str = candidate_triage.TRIAGE_PROVIDER_NONE,
-    candidate_triage_duplicate_text_similarity: float = candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -688,8 +661,6 @@ def once(
             judge_thinking=judge_thinking,
             judge_max_tokens=judge_max_tokens,
             filter_ineligible_slices=filter_ineligible_slices,
-            candidate_triage_provider=candidate_triage_provider,
-            candidate_triage_duplicate_text_similarity=candidate_triage_duplicate_text_similarity,
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -761,8 +732,6 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     extract.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
     extract.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
-    extract.add_argument("--candidate-triage-provider", choices=[candidate_triage.TRIAGE_PROVIDER_NONE, candidate_triage.TRIAGE_PROVIDER_DEEPSEEK], default=candidate_triage.TRIAGE_PROVIDER_NONE, help="Optional DeepSeek duplicate suggestion; only mechanically verified near-duplicates are deferred from Codex.")
-    extract.add_argument("--candidate-triage-duplicate-text-similarity", type=float, default=candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY)
     extract_filter = extract.add_mutually_exclusive_group()
     extract_filter.add_argument("--filter-ineligible-slices", dest="filter_ineligible_slices", action="store_true")
     extract_filter.add_argument("--no-filter-ineligible-slices", dest="filter_ineligible_slices", action="store_false")
@@ -793,8 +762,6 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     once_cmd.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
     once_cmd.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
-    once_cmd.add_argument("--candidate-triage-provider", choices=[candidate_triage.TRIAGE_PROVIDER_NONE, candidate_triage.TRIAGE_PROVIDER_DEEPSEEK], default=candidate_triage.TRIAGE_PROVIDER_NONE, help="Optional DeepSeek duplicate suggestion; only mechanically verified near-duplicates are deferred from Codex.")
-    once_cmd.add_argument("--candidate-triage-duplicate-text-similarity", type=float, default=candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY)
     once_filter = once_cmd.add_mutually_exclusive_group()
     once_filter.add_argument("--filter-ineligible-slices", dest="filter_ineligible_slices", action="store_true")
     once_filter.add_argument("--no-filter-ineligible-slices", dest="filter_ineligible_slices", action="store_false")
@@ -832,8 +799,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_thinking=args.judge_thinking,
             judge_max_tokens=args.judge_max_tokens,
             filter_ineligible_slices=args.filter_ineligible_slices,
-            candidate_triage_provider=args.candidate_triage_provider,
-            candidate_triage_duplicate_text_similarity=args.candidate_triage_duplicate_text_similarity,
             import_pg=bool(args.import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
@@ -859,8 +824,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_thinking=args.judge_thinking,
             judge_max_tokens=args.judge_max_tokens,
             filter_ineligible_slices=args.filter_ineligible_slices,
-            candidate_triage_provider=args.candidate_triage_provider,
-            candidate_triage_duplicate_text_similarity=args.candidate_triage_duplicate_text_similarity,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
