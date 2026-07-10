@@ -113,18 +113,19 @@ class FakeCursor:
 
     def execute(self, sql: str, params=None) -> None:
         lowered = sql.lower()
+        routed = lowered.replace("retrieval_v3", "retrieval_v2")
         self.conn.statements.append(lowered)
         self.conn.params.append(params or ())
-        if "from retrieval_v2.eval_rule_factors f" in lowered:
+        if "from retrieval_v2.eval_rule_factors f" in routed:
             self.rows = [dict(row) for row in self.conn.factor_option_rows]
             self.row = None
             return
-        if "from retrieval_v2.claim_rule_bindings crb" in lowered:
+        if "from retrieval_v2.claim_rule_bindings crb" in routed:
             binding_code = params[0]
             self.row = dict(self.conn.binding_rows.get(binding_code)) if binding_code in self.conn.binding_rows else None
             self.rows = []
             return
-        if "insert into retrieval_v2.claim_rule_binding_factor_judgments" in lowered:
+        if "insert into retrieval_v2.claim_rule_binding_factor_judgments" in routed:
             self.row = {"id": 900}
             self.rows = []
             return
@@ -245,16 +246,16 @@ def test_apply_patch_rows_dry_run_writes_judgment_and_factor_choices(monkeypatch
 
     assert payload["ok"] is True
     assert payload["write_db"] is False
-    assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_factor_judgments"] == 1
-    assert payload["applied_counts"]["retrieval_v2.claim_rule_bindings_scoring_gate"] == 1
-    assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_factor_choices"] == 6
+    assert payload["applied_counts"]["retrieval_v3.claim_rule_binding_factor_judgments"] == 1
+    assert payload["applied_counts"]["retrieval_v3.claim_rule_bindings_scoring_gate"] == 1
+    assert payload["applied_counts"]["retrieval_v3.claim_rule_binding_factor_choices"] == 6
     assert conn.rolled_back is True
-    assert any("insert into retrieval_v2.claim_rule_binding_factor_judgments" in statement for statement in conn.statements)
-    assert any("update retrieval_v2.claim_rule_bindings" in statement for statement in conn.statements)
+    assert any("insert into retrieval_v3.claim_rule_binding_factor_judgments" in statement for statement in conn.statements)
+    assert any("update retrieval_v3.claim_rule_bindings" in statement for statement in conn.statements)
     assert any("usable_for_scoring_cluster = %s" in statement for statement in conn.statements)
     assert any(params and params[0] is True for params in conn.params)
-    assert any("delete from retrieval_v2.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
-    assert any("insert into retrieval_v2.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
+    assert any("delete from retrieval_v3.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
+    assert any("insert into retrieval_v3.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
 
 
 def test_apply_patch_rows_rejects_appointment_delegation_non_scoring_candidate(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -326,7 +327,7 @@ def test_apply_patch_rows_team_building_uses_team_factor_keys_only(monkeypatch: 
     )
 
     assert payload["ok"] is True
-    assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_factor_choices"] == 3
+    assert payload["applied_counts"]["retrieval_v3.claim_rule_binding_factor_choices"] == 3
 
 
 def test_apply_patch_rows_rejects_unknown_factor_label(monkeypatch: pytest.MonkeyPatch) -> None:

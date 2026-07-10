@@ -22,9 +22,10 @@ from scripts.dev.retrieval_v2_candidate_promoter import (  # noqa: E402
 from scripts.dev.retrieval_v2_factorization_worklists import DEFAULT_FORMULA_CODE, DEFAULT_ITEM_CODE, DEFAULT_RULE_CODE  # noqa: E402
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor, table_label  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 MATERIAL_SCORE_CAP = Decimal("4.0")
 SAME_OBJECT_SECONDARY_FACTOR = Decimal("0.35")
 SAME_OBJECT_CAP_MULTIPLIER = Decimal("1.5")
@@ -1019,6 +1020,7 @@ def upsert_rule_score_cluster(cur: Any, cluster: Mapping[str, Any]) -> None:
 def apply_rule_scores(
     *,
     dsn: str,
+    schema_name: str = DEFAULT_PG_SCHEMA,
     item_code: str,
     rule_code: str,
     formula_code: str,
@@ -1035,7 +1037,8 @@ def apply_rule_scores(
     psycopg, dict_row = import_psycopg()
     counts: Counter[str] = Counter()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             material_policy = fetch_material_policy(cur, item_code=item_code, rule_code=rule_code)
             judgments = build_judgments(
                 fetch_judgment_rows(
@@ -1086,9 +1089,9 @@ def apply_rule_scores(
                 delete_obsolete_material_scores(cur, cluster=cluster)
                 for score in cluster.get("material_scores") or []:
                     upsert_material_score(cur, score)
-                    counts["retrieval_v2.claim_rule_binding_material_scores"] += 1
+                    counts[table_label("claim_rule_binding_material_scores", schema_name=schema_name)] += 1
                 upsert_rule_score_cluster(cur, cluster)
-                counts["retrieval_v2.target_rule_score_clusters"] += 1
+                counts[table_label("target_rule_score_clusters", schema_name=schema_name)] += 1
         if execute:
             conn.commit()
         else:
@@ -1198,6 +1201,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply = subparsers.add_parser("apply", help="Calculate and optionally write target rule score clusters.")
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    apply.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     apply.add_argument("--item-code", default=DEFAULT_ITEM_CODE)
     apply.add_argument("--rule-code", default=DEFAULT_RULE_CODE)
     apply.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE)
@@ -1218,6 +1222,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise RetrievalV2RuleScorerError(f"unsupported command: {args.command}")
     payload = apply_rule_scores(
         dsn=resolve_dsn(args.dsn_env),
+        schema_name=args.pg_schema,
         item_code=args.item_code,
         rule_code=args.rule_code,
         formula_code=args.formula_code,

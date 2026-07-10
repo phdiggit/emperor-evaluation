@@ -26,9 +26,10 @@ from scripts.dev.retrieval_v2_candidate_promoter import (  # noqa: E402
 )
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor, table_label  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 TARGET_ACTIONS = {"score", "supporting_only", "exclude"}
 SIDES = {"positive", "negative"}
 TEAM_BUILDING_FACTOR_KEYS = ("talent_quality_factor", "role_complementarity_factor", "long_term_stability_factor")
@@ -560,6 +561,7 @@ def mark_binding_scoring_gate_accepted(cur: Any, *, row: Mapping[str, Any], cont
 def apply_patch_rows(
     *,
     dsn: str,
+    schema_name: str = DEFAULT_PG_SCHEMA,
     rows: Sequence[Mapping[str, Any]],
     item_code: str,
     formula_code: str,
@@ -571,7 +573,8 @@ def apply_patch_rows(
     judgments: list[dict[str, Any]] = []
     canonicalizations: list[dict[str, str]] = []
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             option_rows = fetch_factor_option_rows(cur, item_code=item_code, formula_code=formula_code)
             catalog = build_option_catalog(option_rows)
             factor_key_catalog = build_factor_key_catalog(option_rows)
@@ -600,9 +603,9 @@ def apply_patch_rows(
                     formula_code=formula_code,
                     choices=choices,
                 )
-                counts["retrieval_v2.claim_rule_binding_factor_judgments"] += 1
-                counts["retrieval_v2.claim_rule_bindings_scoring_gate"] += 1
-                counts["retrieval_v2.claim_rule_binding_factor_choices"] += len(choices)
+                counts[table_label("claim_rule_binding_factor_judgments", schema_name=schema_name)] += 1
+                counts[f"{table_label('claim_rule_bindings', schema_name=schema_name)}_scoring_gate"] += 1
+                counts[table_label("claim_rule_binding_factor_choices", schema_name=schema_name)] += len(choices)
                 judgments.append(
                     {
                         "binding_code": row["binding_code"],
@@ -674,6 +677,7 @@ def build_parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--env-file", type=Path)
     common.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    common.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     common.add_argument("--output-json", type=Path, required=True)
     common.add_argument("--output-md", type=Path)
 
@@ -693,6 +697,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         rows = [row for path in args.patch_jsonl for row in read_patch_jsonl(path)]
         payload = apply_patch_rows(
             dsn=resolve_dsn(args.dsn_env),
+            schema_name=args.pg_schema,
             rows=rows,
             item_code=args.item_code,
             formula_code=args.formula_code,

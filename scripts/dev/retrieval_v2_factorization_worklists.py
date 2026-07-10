@@ -27,9 +27,10 @@ from scripts.dev.retrieval_v2_factorization_tasks import (  # noqa: E402
 )
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_ITEM_CODE = "I5B"
 DEFAULT_RULE_CODE = "appointment_delegation"
 DEFAULT_FORMULA_CODE = "evidence_cluster_signal_v3"
@@ -821,6 +822,7 @@ def build_worklist(
     *,
     env_file: Path | None,
     dsn_env: str,
+    schema_name: str = DEFAULT_PG_SCHEMA,
     item_code: str,
     rule_code: str,
     formula_code: str,
@@ -835,7 +837,8 @@ def build_worklist(
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             factor_rows = fetch_factor_option_rows(cur, item_code=item_code, formula_code=formula_code)
             material_rows = fetch_material_rows(
                 cur,
@@ -1780,6 +1783,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist = subparsers.add_parser("worklist", help="Build DB-backed factorization worklist.")
     worklist.add_argument("--env-file", type=Path)
     worklist.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    worklist.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     worklist.add_argument("--item-code", default=DEFAULT_ITEM_CODE)
     worklist.add_argument("--rule-code", default=DEFAULT_RULE_CODE)
     worklist.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE)
@@ -1791,21 +1795,17 @@ def build_parser() -> argparse.ArgumentParser:
     for name in ("--output-json", "--output-md"):
         worklist.add_argument(name, type=Path, required=True)
     worklist.add_argument("--batch-output-dir", type=Path)
-
     template = subparsers.add_parser("template", help="Write a blank factorization patch JSONL for a batch.")
     for name in ("--batch-json", "--output-jsonl"):
         template.add_argument(name, type=Path, required=True)
-
     validate = subparsers.add_parser("validate-patch", help="Validate a factorization patch JSONL against a batch.")
     for name in ("--batch-json", "--patch-jsonl", "--output-json", "--output-md"):
         validate.add_argument(name, type=Path, required=True)
     validate.add_argument("--fail-on-issue", action="store_true")
-
     tasks = subparsers.add_parser("tasks", help="Build Codex task prompts from factorization batch JSON files.")
     tasks.add_argument("--batch-dir", type=Path)
     tasks.add_argument("--batch-json", type=Path, action="append", default=[])
     tasks.add_argument("--output-root", type=Path, required=True)
-
     run_plan = subparsers.add_parser("run-plan", help="Run or start Codex factorization tasks via codex-win agent.")
     run_plan.add_argument("--tasks-jsonl", type=Path, required=True)
     for name in ("--execute", "--background", "--respect-task-argv", "--search"):
@@ -1820,7 +1820,6 @@ def build_parser() -> argparse.ArgumentParser:
     run_plan.add_argument("--deny-policy", choices=("fail", "continue-with-final", "deny-fail", "deny-continue", "deny-rewrite"))
     run_plan.add_argument("--write-root", type=Path, action="append", default=[])
     run_plan.add_argument("--git-snapshot", choices=("minimal", "full", "none"))
-
     recover = subparsers.add_parser("recover-patches", help="Recover JSONL patches from Codex task last-message/log files.")
     for name in ("--tasks-jsonl", "--output-json"):
         recover.add_argument(name, type=Path, required=True)
@@ -1877,6 +1876,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     payload = build_worklist(
         env_file=args.env_file,
         dsn_env=args.dsn_env,
+        schema_name=args.pg_schema,
         item_code=args.item_code,
         rule_code=args.rule_code,
         formula_code=args.formula_code,

@@ -336,21 +336,22 @@ class FakeCursor:
 
     def execute(self, sql: str, params=None) -> None:
         lowered = sql.lower()
+        routed = lowered.replace("retrieval_v3", "retrieval_v2")
         self.conn.statements.append(lowered)
         self.conn.params.append(params or ())
-        if "from retrieval_v2.eval_rule_material_policies" in lowered:
+        if "from retrieval_v2.eval_rule_material_policies" in routed:
             self.rows = [dict(row) for row in self.conn.material_policy_rows]
             self.rowcount = len(self.rows)
             return
-        if "group by j.formula_code" in lowered:
+        if "group by j.formula_code" in routed:
             self.rows = [dict(row) for row in self.conn.alternate_formula_rows]
             self.rowcount = len(self.rows)
             return
-        if "select distinct" in lowered and "rt.id as target_id" in lowered:
+        if "select distinct" in routed and "rt.id as target_id" in routed:
             self.rows = [dict(row) for row in self.conn.scoring_target_rows]
             self.rowcount = len(self.rows)
             return
-        if "from retrieval_v2.claim_rule_binding_factor_judgments j" in lowered:
+        if "from retrieval_v2.claim_rule_binding_factor_judgments j" in routed:
             self.rows = [dict(row) for row in self.conn.judgment_rows]
             self.rowcount = len(self.rows)
             return
@@ -435,13 +436,13 @@ def test_apply_rule_scores_defaults_to_db_backed_dry_run(monkeypatch) -> None:
     assert payload["clusters"][0]["positive_signal"] == "2.350"
     assert payload["detailed_clusters"][0]["calc_detail"]["materials"][0]["binding_code"] == "BND-1"
     assert payload["detailed_clusters"][0]["calc_detail"]["object_side_scores"]["positive"]["100"]["score"] == "2.350"
-    assert payload["applied_counts"]["retrieval_v2.claim_rule_binding_material_scores"] == 2
-    assert payload["applied_counts"]["retrieval_v2.target_rule_score_clusters"] == 1
+    assert payload["applied_counts"]["retrieval_v3.claim_rule_binding_material_scores"] == 2
+    assert payload["applied_counts"]["retrieval_v3.target_rule_score_clusters"] == 1
     assert conn.rolled_back is True
-    assert any("insert into retrieval_v2.claim_rule_binding_material_scores" in statement for statement in conn.statements)
-    assert any("insert into retrieval_v2.target_rule_score_clusters" in statement for statement in conn.statements)
-    assert any("from retrieval_v2.material_review_queue mrq" in statement for statement in conn.statements)
-    assert any("from retrieval_v2.eval_rule_material_policies" in statement for statement in conn.statements)
+    assert any("insert into retrieval_v3.claim_rule_binding_material_scores" in statement for statement in conn.statements)
+    assert any("insert into retrieval_v3.target_rule_score_clusters" in statement for statement in conn.statements)
+    assert any("from retrieval_v3.material_review_queue mrq" in statement for statement in conn.statements)
+    assert any("from retrieval_v3.eval_rule_material_policies" in statement for statement in conn.statements)
     assert any("mrq.claim_id = j.claim_id" in statement for statement in conn.statements)
     assert any("b.usable_for_scoring_cluster" in statement for statement in conn.statements)
     assert any("claim_rule_binding_candidates c0" in statement for statement in conn.statements)
@@ -521,8 +522,8 @@ def test_apply_rule_scores_writes_zero_cluster_when_no_usable_judgments(monkeypa
     assert payload["clusters"][0]["positive_signal"] == "0"
     assert payload["clusters"][0]["negative_signal"] == "0"
     assert payload["clusters"][0]["action_counts"] == {"score": 0, "supporting_only": 0, "exclude": 0}
-    assert any("delete from retrieval_v2.claim_rule_binding_material_scores" in statement for statement in conn.statements)
-    assert any("insert into retrieval_v2.target_rule_score_clusters" in statement for statement in conn.statements)
+    assert any("delete from retrieval_v3.claim_rule_binding_material_scores" in statement for statement in conn.statements)
+    assert any("insert into retrieval_v3.target_rule_score_clusters" in statement for statement in conn.statements)
 
 
 def test_cli_apply_writes_report(tmp_path: Path, monkeypatch, capsys) -> None:
