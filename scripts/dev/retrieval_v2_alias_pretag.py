@@ -470,8 +470,9 @@ def slice_alias_mentions(
     return [
         mention
         for mention in mentions
-        if mention.get("resolution_status") != "resolved"
-        or text(mention.get("resolved_owner_name")) != text(requested_owner_name)
+        if mention.get("resolution_status") == "resolved"
+        and mention.get("owner_anchor_eligible") is not False
+        and text(mention.get("resolved_owner_name")) != text(requested_owner_name)
     ]
 
 

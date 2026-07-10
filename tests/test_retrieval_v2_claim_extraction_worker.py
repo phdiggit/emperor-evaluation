@@ -314,6 +314,49 @@ def test_execute_job_keeps_ineligible_slices_for_codex_by_default(tmp_path: Path
     assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001", "SLI-INELIGIBLE"]
 
 
+def test_execute_job_owner_aware_sharding_writes_manifest_and_keeps_legacy_opt_in(tmp_path: Path, monkeypatch) -> None:
+    candidates_path = tmp_path / "candidates.json"
+    write_candidates(candidates_path)
+    captured: dict = {}
+
+    def fake_run_judge(**kwargs):
+        captured["candidates"] = kwargs["candidates"]
+        return {
+            "payload": {"status": "succeeded", "claims": []},
+            "elapsed_seconds": 0.2,
+            "usage": {"input_tokens": 10, "output_tokens": 5},
+            "provider": "codex",
+        }
+
+    monkeypatch.setattr(tool.clean_runner, "run_judge", fake_run_judge)
+    monkeypatch.setattr(tool.fs_cache, "import_run", lambda *_args, **_kwargs: {"total_cached_claims": 0})
+
+    result = tool.execute_job(
+        job={
+            "job_code": "CLMEXT-001",
+            "idem_key": "idem",
+            "target_code": "TGT-ZYZ",
+            "rule_code": "i5b_item_wide",
+            "emperor_name": "朱元璋",
+            "candidate_payload_path": str(candidates_path),
+            "run_root": str(tmp_path / "run"),
+            "cache_root": str(tmp_path / "cache"),
+        },
+        codex_bin="codex",
+        judge_timeout_seconds=30,
+        judge_shard_size=8,
+        judge_shard_workers=1,
+        claim_shard_mode="owner_aware",
+        import_pg=False,
+        dsn_env="EMPEROR_EVAL_RETRIEVAL_V3_DSN",
+        schema_name="retrieval_v3",
+    )
+
+    assert captured["candidates"]["claim_shard_plan"]["mode"] == "owner_aware"
+    assert Path(result["summary"]["people"][0]["files"]["claim_shard_plan"]).exists()
+    assert result["summary"]["clean_policy"]["claim_shard"]["mode"] == "owner_aware"
+
+
 def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, monkeypatch) -> None:
     candidates_path = tmp_path / "candidates.json"
     write_candidates(candidates_path)

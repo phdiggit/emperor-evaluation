@@ -18,6 +18,7 @@ from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt  # noq
 from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_cache_pg as pg_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
+from scripts.dev import retrieval_v2_claim_shard_planner as claim_shard_planner  # noqa: E402
 from scripts.dev import retrieval_v2_clean_runner as clean_runner  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
@@ -426,6 +427,7 @@ def write_mini_run_artifacts(
     judge_result: Mapping[str, Any],
     run_root: Path,
     filter_report: Mapping[str, Any] | None = None,
+    claim_shard_plan: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     person_dir = run_root / target_dir_name(job)
     person_dir.mkdir(parents=True, exist_ok=True)
@@ -452,6 +454,11 @@ def write_mini_run_artifacts(
             "extractor_version": candidate_prompt.CLAIM_EXTRACTOR_VERSION,
             "judge_provider": judge_result.get("provider") or clean_runner.DEFAULT_JUDGE_PROVIDER,
             "ineligible_slice_filter": filter_report or {"enabled": False},
+            "claim_shard": {
+                "mode": claim_shard_plan.get("mode") if claim_shard_plan else claim_shard_planner.LEGACY_MODE,
+                "shard_count": claim_shard_plan.get("summary", {}).get("shard_count") if claim_shard_plan else None,
+                "audit_only_slice_count": claim_shard_plan.get("summary", {}).get("audit_only_slice_count") if claim_shard_plan else 0,
+            },
         },
         "people": [
             {
@@ -469,6 +476,7 @@ def write_mini_run_artifacts(
                     "final_candidates": str(person_dir / "candidates.final.json"),
                     "final_judge_result": str(person_dir / "judge_result.final.json"),
                     "claim_slice_filter_report": str(run_root / "claim_slice_filter_report.json") if filter_report else None,
+                    "claim_shard_plan": str(run_root / "claim_shard_plan.json") if claim_shard_plan else None,
                 },
             }
         ],
@@ -480,6 +488,8 @@ def write_mini_run_artifacts(
     }
     if filter_report:
         fs_cache.write_json(run_root / "claim_slice_filter_report.json", filter_report)
+    if claim_shard_plan:
+        fs_cache.write_json(run_root / "claim_shard_plan.json", claim_shard_plan)
     fs_cache.write_json(run_root / "summary.json", summary)
     return summary
 
@@ -498,6 +508,9 @@ def execute_job(
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
+    claim_shard_mode: str = claim_shard_planner.LEGACY_MODE,
+    claim_shard_max_slices: int = 0,
+    claim_shard_max_chars: int = 0,
     import_pg: bool,
     dsn_env: str,
     schema_name: str,
@@ -510,9 +523,19 @@ def execute_job(
     person_dir.mkdir(parents=True, exist_ok=True)
     filter_enabled = provider_default_filter_ineligible_slices(judge_provider) if filter_ineligible_slices is None else bool(filter_ineligible_slices)
     filter_report: dict[str, Any] | None = None
+    shard_plan: dict[str, Any] | None = None
     judge_candidates = candidates
     if filter_enabled:
         judge_candidates, filter_report = claim_slice_filter_report(candidates)
+    if claim_shard_mode == claim_shard_planner.OWNER_AWARE_MODE:
+        judge_candidates, shard_plan = claim_shard_planner.apply_owner_aware_shard_plan(
+            judge_candidates,
+            max_objects_per_shard=judge_shard_size,
+            max_slices_per_shard=claim_shard_max_slices,
+            max_chars_per_shard=claim_shard_max_chars,
+        )
+    elif claim_shard_mode != claim_shard_planner.LEGACY_MODE:
+        raise ClaimExtractionWorkerError(f"unsupported claim shard mode: {claim_shard_mode}")
     judge_result = clean_runner.run_judge(
         candidates=judge_candidates,
         prompt_path=person_dir / "judge_prompt.round0.md",
@@ -541,6 +564,7 @@ def execute_job(
         judge_result=judge_result,
         run_root=run_root,
         filter_report=filter_report,
+        claim_shard_plan=shard_plan,
     )
     fs_import = fs_cache.import_run(run_root, cache_root)
     pg_import: dict[str, Any] | None = None
@@ -580,6 +604,9 @@ def extract_from_candidates(
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
+    claim_shard_mode: str = claim_shard_planner.LEGACY_MODE,
+    claim_shard_max_slices: int = 0,
+    claim_shard_max_chars: int = 0,
     import_pg: bool = False,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -599,6 +626,9 @@ def extract_from_candidates(
         judge_thinking=judge_thinking,
         judge_max_tokens=judge_max_tokens,
         filter_ineligible_slices=filter_ineligible_slices,
+        claim_shard_mode=claim_shard_mode,
+        claim_shard_max_slices=claim_shard_max_slices,
+        claim_shard_max_chars=claim_shard_max_chars,
         import_pg=import_pg,
         dsn_env=dsn_env,
         schema_name=schema_name,
@@ -628,6 +658,9 @@ def once(
     judge_thinking: str | None = None,
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
+    claim_shard_mode: str = claim_shard_planner.LEGACY_MODE,
+    claim_shard_max_slices: int = 0,
+    claim_shard_max_chars: int = 0,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -660,6 +693,9 @@ def once(
             judge_thinking=judge_thinking,
             judge_max_tokens=judge_max_tokens,
             filter_ineligible_slices=filter_ineligible_slices,
+            claim_shard_mode=claim_shard_mode,
+            claim_shard_max_slices=claim_shard_max_slices,
+            claim_shard_max_chars=claim_shard_max_chars,
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -725,6 +761,9 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--judge-timeout", type=int, default=1800)
     extract.add_argument("--judge-shard-size", type=int, default=4)
     extract.add_argument("--judge-shard-workers", type=int, default=4)
+    extract.add_argument("--claim-shard-mode", choices=[claim_shard_planner.LEGACY_MODE, claim_shard_planner.OWNER_AWARE_MODE], default=claim_shard_planner.LEGACY_MODE)
+    extract.add_argument("--claim-shard-max-slices", type=int, default=0, help="Owner-aware mode only; 0 keeps each object-count shard unbounded by slice count.")
+    extract.add_argument("--claim-shard-max-chars", type=int, default=0, help="Owner-aware mode only; 0 favors larger prompts and lower invocation overhead.")
     extract.add_argument("--judge-provider", choices=["codex", "deepseek"], default=os.environ.get("EMPEROR_EVAL_CLAIM_PROVIDER") or os.environ.get("EMPEROR_EVAL_JUDGE_PROVIDER") or clean_runner.DEFAULT_JUDGE_PROVIDER)
     extract.add_argument("--judge-model", default=os.environ.get("EMPEROR_EVAL_CLAIM_MODEL") or os.environ.get(clean_runner.DEEPSEEK_MODEL_ENV))
     extract.add_argument("--judge-api-key-env", default=clean_runner.DEEPSEEK_API_KEY_ENV)
@@ -755,6 +794,9 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--judge-timeout", type=int, default=1800)
     once_cmd.add_argument("--judge-shard-size", type=int, default=4)
     once_cmd.add_argument("--judge-shard-workers", type=int, default=4)
+    once_cmd.add_argument("--claim-shard-mode", choices=[claim_shard_planner.LEGACY_MODE, claim_shard_planner.OWNER_AWARE_MODE], default=claim_shard_planner.LEGACY_MODE)
+    once_cmd.add_argument("--claim-shard-max-slices", type=int, default=0, help="Owner-aware mode only; 0 keeps each object-count shard unbounded by slice count.")
+    once_cmd.add_argument("--claim-shard-max-chars", type=int, default=0, help="Owner-aware mode only; 0 favors larger prompts and lower invocation overhead.")
     once_cmd.add_argument("--judge-provider", choices=["codex", "deepseek"], default=os.environ.get("EMPEROR_EVAL_CLAIM_PROVIDER") or os.environ.get("EMPEROR_EVAL_JUDGE_PROVIDER") or clean_runner.DEFAULT_JUDGE_PROVIDER)
     once_cmd.add_argument("--judge-model", default=os.environ.get("EMPEROR_EVAL_CLAIM_MODEL") or os.environ.get(clean_runner.DEEPSEEK_MODEL_ENV))
     once_cmd.add_argument("--judge-api-key-env", default=clean_runner.DEEPSEEK_API_KEY_ENV)
@@ -798,6 +840,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_thinking=args.judge_thinking,
             judge_max_tokens=args.judge_max_tokens,
             filter_ineligible_slices=args.filter_ineligible_slices,
+            claim_shard_mode=args.claim_shard_mode,
+            claim_shard_max_slices=args.claim_shard_max_slices,
+            claim_shard_max_chars=args.claim_shard_max_chars,
             import_pg=bool(args.import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
@@ -823,6 +868,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_thinking=args.judge_thinking,
             judge_max_tokens=args.judge_max_tokens,
             filter_ineligible_slices=args.filter_ineligible_slices,
+            claim_shard_mode=args.claim_shard_mode,
+            claim_shard_max_slices=args.claim_shard_max_slices,
+            claim_shard_max_chars=args.claim_shard_max_chars,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,

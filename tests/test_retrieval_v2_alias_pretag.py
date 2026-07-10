@@ -184,6 +184,21 @@ def test_prompt_relevant_mentions_omit_current_target_aliases() -> None:
     assert mentions[0]["resolved_owner_name"] == "李治"
 
 
+def test_prompt_relevant_mentions_omit_ambiguous_or_ineligible_aliases(monkeypatch) -> None:
+    monkeypatch.setattr(
+        tool,
+        "alias_mentions_in_text",
+        lambda *_args, **_kwargs: [
+            {"alias": "高宗", "resolution_status": "ambiguous", "owner_anchor_eligible": False},
+            {"alias": "汉王", "resolution_status": "resolved", "resolved_owner_name": "杨广", "owner_anchor_eligible": False},
+        ],
+    )
+
+    mentions = tool.slice_alias_mentions({"text": "测试"}, requested_owner_name="李世民", only_prompt_relevant=True)
+
+    assert mentions == []
+
+
 def test_claim_owner_rebind_uses_actor_alias_not_context_only_mentions() -> None:
     alias_mentions = {
         "SLI-001": tool.alias_mentions_in_text(
