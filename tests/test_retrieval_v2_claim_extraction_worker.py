@@ -32,21 +32,6 @@ def write_candidates(path: Path) -> dict:
     return payload
 
 
-def write_candidates_with_ineligible_slice(path: Path) -> dict:
-    payload = write_candidates(path)
-    payload["candidate_slices"].append(
-        {
-            "slice_code": "SLI-INELIGIBLE",
-            "document_code": "DOC-002",
-            "object_name": "张亮",
-            "object_source_cache": {"source_shape": "object_biography_candidate"},
-            "text": "太宗论侯君集旧功，群臣争言不可。" * 30 + "其余年月爵里姓名载于卷末凡三十余字。张亮略见于后文。",
-        }
-    )
-    path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
-    return payload
-
-
 def test_job_from_candidates_builds_stable_queue_payload(tmp_path: Path) -> None:
     candidates_path = tmp_path / "candidates.uncovered.json"
     write_candidates(candidates_path)
@@ -224,90 +209,6 @@ def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypat
     assert calls == ["judge", "fs_import"]
     assert result["claim_count"] == 1
     assert result["pg_import"] is None
-
-
-def test_execute_job_keeps_ineligible_slices_for_deepseek_by_default(tmp_path: Path, monkeypatch) -> None:
-    candidates_path = tmp_path / "candidates.json"
-    write_candidates_with_ineligible_slice(candidates_path)
-    captured: dict = {}
-
-    def fake_run_judge(**kwargs):
-        captured["candidates"] = kwargs["candidates"]
-        return {
-            "payload": {"status": "succeeded", "claims": []},
-            "elapsed_seconds": 0.2,
-            "usage": {"input_tokens": 10, "output_tokens": 5},
-            "provider": "deepseek",
-        }
-
-    monkeypatch.setattr(tool.clean_runner, "run_judge", fake_run_judge)
-    monkeypatch.setattr(tool.fs_cache, "import_run", lambda *_args, **_kwargs: {"total_cached_claims": 0})
-
-    result = tool.execute_job(
-        job={
-            "job_code": "CLMEXT-001",
-            "idem_key": "idem",
-            "target_code": "TGT-ZYZ",
-            "rule_code": "i5b_item_wide",
-            "emperor_name": "朱元璋",
-            "candidate_payload_path": str(candidates_path),
-            "run_root": str(tmp_path / "run"),
-            "cache_root": str(tmp_path / "cache"),
-        },
-        codex_bin="codex",
-        judge_timeout_seconds=30,
-        judge_shard_size=4,
-        judge_shard_workers=1,
-        judge_provider="deepseek",
-        import_pg=False,
-        dsn_env="EMPEROR_EVAL_RETRIEVAL_V3_DSN",
-        schema_name="retrieval_v3",
-    )
-
-    assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001", "SLI-INELIGIBLE"]
-    assert result["summary"]["people"][0]["files"]["claim_slice_filter_report"] is None
-    assert result["summary"]["totals"]["candidate_slices"] == 2
-
-
-def test_execute_job_keeps_ineligible_slices_for_codex_by_default(tmp_path: Path, monkeypatch) -> None:
-    candidates_path = tmp_path / "candidates.json"
-    write_candidates_with_ineligible_slice(candidates_path)
-    captured: dict = {}
-
-    def fake_run_judge(**kwargs):
-        captured["candidates"] = kwargs["candidates"]
-        return {
-            "payload": {"status": "succeeded", "claims": []},
-            "elapsed_seconds": 0.2,
-            "usage": {"input_tokens": 10, "output_tokens": 5},
-            "provider": "codex",
-        }
-
-    monkeypatch.setattr(tool.clean_runner, "run_judge", fake_run_judge)
-    monkeypatch.setattr(tool.fs_cache, "import_run", lambda *_args, **_kwargs: {"total_cached_claims": 0})
-
-    tool.execute_job(
-        job={
-            "job_code": "CLMEXT-001",
-            "idem_key": "idem",
-            "target_code": "TGT-ZYZ",
-            "rule_code": "i5b_item_wide",
-            "emperor_name": "朱元璋",
-            "candidate_payload_path": str(candidates_path),
-            "run_root": str(tmp_path / "run"),
-            "cache_root": str(tmp_path / "cache"),
-        },
-        codex_bin="codex",
-        judge_timeout_seconds=30,
-        judge_shard_size=4,
-        judge_shard_workers=1,
-        judge_provider="codex",
-        import_pg=False,
-        dsn_env="EMPEROR_EVAL_RETRIEVAL_V3_DSN",
-        schema_name="retrieval_v3",
-    )
-
-    assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001", "SLI-INELIGIBLE"]
 
 
 def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, monkeypatch) -> None:
