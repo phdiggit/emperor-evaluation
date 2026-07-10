@@ -1,13 +1,18 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from collections import Counter
+from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn
 from scripts.dev.retrieval_v2_import_plan import json_param
 from scripts.dev.retrieval_v2_intake_manifest import text
 from scripts.dev.retrieval_v3_direct_binding_plan import validate_direct_assessment
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor
+from scripts.dev.retrieval_v3_direct_binding_plan import read_jsonl
 
 
 class DirectBindingConsumerError(ValueError):
@@ -91,3 +96,31 @@ def apply_direct_assessments(cur: Any, rows: Sequence[Mapping[str, Any]]) -> dic
         counts["claim_rule_bindings"] += 1
         counts["material_object_links"] += 1
     return dict(counts)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Apply v3 direct formal bindings; dry-run unless --execute.")
+    parser.add_argument("--input-jsonl", type=Path, required=True)
+    parser.add_argument("--output-json", type=Path, required=True)
+    parser.add_argument("--env-file", type=Path)
+    parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
+    parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    parser.add_argument("--execute", action="store_true")
+    args = parser.parse_args(argv)
+    if args.env_file:
+        load_env_file(args.env_file)
+    rows = read_jsonl(args.input_jsonl)
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(resolve_dsn(args.dsn_env), row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            counts = apply_direct_assessments(schema_cursor(raw_cur, schema_name=args.pg_schema), rows)
+        (conn.commit() if args.execute else conn.rollback())
+    payload = {"ok": True, "executed": args.execute, "write_db": args.execute, "schema": args.pg_schema, "counts": counts}
+    args.output_json.parent.mkdir(parents=True, exist_ok=True)
+    args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
