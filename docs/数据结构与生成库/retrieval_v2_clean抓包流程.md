@@ -52,7 +52,7 @@ claim 抽取服务只负责原子事实入库和 claim 侧预计算，不负责�
 
 ## 服务器版本同步与服务切换
 
-服务器不再接收散装脚本覆盖。`retrieval_v3_runtime_release.py` 只允许从干净工作区的已提交 SHA 生成 `git archive`，清单记录 commit SHA、归档 SHA256 和运行必需文件；服务器按不可变目录 `<release_root>/releases/<commit_sha>` 解包，并以 `<release_root>/current` 原子软链接切换两个独立 systemd 服务。两个 unit 的 `WorkingDirectory` 和脚本路径都应指向 `current`，数据库 DSN、令牌等密钥继续放在服务器环境文件，不进入发布归档。
+服务器不再接收散装脚本覆盖。`retrieval_v3_runtime_release.py` 只允许从干净工作区的已提交 SHA 生成 `git archive`，清单记录 commit SHA、归档 SHA256 和运行必需文件；服务器按不可变目录 `<release_root>/releases/<commit_sha>` 解包，并以 `<release_root>/current` 原子软链接切换两个独立 systemd 服务。两个 unit 与循环脚本都纳入 `scripts/dev/server_runtime/`，`WorkingDirectory` 和脚本路径统一指向 `current`；claim 循环脚本不再传 `--judge-*`，由 Python worker 读取 `tooling.agent_runtime.claim_extraction`。数据库 DSN、令牌等密钥继续放在服务器 `shared/*.env`，不进入发布归档。
 
 本地提交并推送后打包：
 

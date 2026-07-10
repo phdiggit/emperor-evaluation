@@ -85,3 +85,17 @@ def test_archive_inspection_rejects_path_traversal(tmp_path: Path) -> None:
 def test_service_names_are_strict() -> None:
     with pytest.raises(release.RuntimeReleaseError, match="invalid systemd"):
         release.validate_services(["claim-worker.service; reboot"])
+
+
+def test_server_runtime_scripts_are_release_relative_and_config_driven() -> None:
+    root = Path(__file__).resolve().parents[1]
+    claim_script = (root / "scripts/dev/server_runtime/retrieval_v3_claim_worker_loop.sh").read_text(encoding="utf-8")
+    object_script = (root / "scripts/dev/server_runtime/retrieval_v3_object_source_cache_worker_loop.sh").read_text(encoding="utf-8")
+
+    assert "object_cache_runner_" not in claim_script + object_script
+    assert 'BASH_SOURCE[0]' in claim_script
+    assert 'BASH_SOURCE[0]' in object_script
+    assert "--judge-timeout" not in claim_script
+    assert "--judge-shard-size" not in claim_script
+    assert "--judge-shard-workers" not in claim_script
+    assert "--env-file" not in claim_script + object_script
