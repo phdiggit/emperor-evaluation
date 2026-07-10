@@ -58,6 +58,8 @@ DEFAULT_CODEX_SANDBOX = "read-only"
 CODEX_SANDBOX_ENV = "RETRIEVAL_V2_CODEX_SANDBOX"
 CODEX_ADD_DIRS_ENV = "RETRIEVAL_V2_CODEX_ADD_DIRS"
 CODEX_BIN_ENV = "CODEX_BIN"
+CODEX_MODEL_ENV = "RETRIEVAL_V2_CODEX_MODEL"
+CODEX_REASONING_EFFORT_ENV = "RETRIEVAL_V2_CODEX_REASONING_EFFORT"
 
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
@@ -208,12 +210,24 @@ def _codex_add_dirs(cwd: Path) -> list[Path]:
     return result
 
 
+def _codex_model_options() -> list[str]:
+    options: list[str] = []
+    model = os.environ.get(CODEX_MODEL_ENV, "").strip()
+    reasoning_effort = os.environ.get(CODEX_REASONING_EFFORT_ENV, "").strip()
+    if model:
+        options.extend(["--model", model])
+    if reasoning_effort:
+        options.extend(["--config", f'model_reasoning_effort="{reasoning_effort}"'])
+    return options
+
+
 def run_codex(invocation: CodexInvocation) -> CodexResult:
     cwd = invocation.cwd.resolve()
     last_message = invocation.last_message.resolve()
     event_log = invocation.event_log.resolve()
     cwd.mkdir(parents=True, exist_ok=True)
     cmd = [_codex_bin(invocation)]
+    cmd.extend(_codex_model_options())
     if invocation.search:
         cmd.append("--search")
     else:

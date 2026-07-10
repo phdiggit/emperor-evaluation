@@ -470,6 +470,37 @@ def test_run_codex_uses_server_env_bin_sandbox_and_add_dirs(tmp_path: Path, monk
     assert extra_dir.resolve() in add_dirs
 
 
+def test_run_codex_uses_explicit_model_and_reasoning_env(tmp_path: Path, monkeypatch) -> None:
+    captured: dict[str, list[str]] = {}
+
+    def fake_run(cmd: list[str], **kwargs) -> SimpleNamespace:
+        captured["cmd"] = cmd
+        last_message = Path(cmd[cmd.index("--output-last-message") + 1])
+        last_message.parent.mkdir(parents=True, exist_ok=True)
+        last_message.write_text('{"ok": true}', encoding="utf-8")
+        return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+    monkeypatch.setenv(tool.CODEX_MODEL_ENV, "gpt-5.4-mini")
+    monkeypatch.setenv(tool.CODEX_REASONING_EFFORT_ENV, "medium")
+    monkeypatch.setattr(tool.subprocess, "run", fake_run)
+
+    tool.run_codex(
+        tool.CodexInvocation(
+            phase="judge",
+            prompt="{}",
+            cwd=tmp_path / "cwd",
+            last_message=tmp_path / "last.json",
+            event_log=tmp_path / "events.jsonl",
+            search=False,
+            timeout_seconds=30,
+            codex_bin="codex",
+        )
+    )
+
+    assert captured["cmd"][1:3] == ["--model", "gpt-5.4-mini"]
+    assert "model_reasoning_effort=\"medium\"" in captured["cmd"]
+
+
 def test_codex_bin_keeps_explicit_binary(monkeypatch) -> None:
     monkeypatch.setenv(tool.CODEX_BIN_ENV, "/home/penghao/.local/bin/codex")
     invocation = tool.CodexInvocation(
