@@ -13,7 +13,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
-from scripts.dev.retrieval_v3_candidate_review_worklist import stable_code, text  # noqa: E402
+from scripts.dev.retrieval_v3_candidate_review_worklist import stable_code, stable_json, text  # noqa: E402
 
 
 PROFILE = "retrieval_v3_material_candidate_plan"
@@ -33,6 +33,16 @@ def read_json(value: Any) -> Mapping[str, Any]:
 
 def current_review(candidate_payload: Any) -> Mapping[str, Any]:
     return read_json(read_json(candidate_payload).get("candidate_review"))
+
+
+def material_protocol_satisfied(row: Mapping[str, Any]) -> bool:
+    facts = read_json(current_review(row.get("candidate_payload")).get("required_facts"))
+    return bool(
+        facts.get("has_appointment_or_authorization")
+        and facts.get("has_named_actor")
+        and facts.get("has_task_or_responsibility")
+        and (facts.get("has_result_or_feedback") or facts.get("has_continuity_or_reuse"))
+    )
 
 
 def classify_context_reasons(row: Mapping[str, Any]) -> list[str]:
@@ -56,6 +66,14 @@ def classify_context_reasons(row: Mapping[str, Any]) -> list[str]:
     if text(review.get("identity_gate")) not in {"", "identity_ready"}:
         reasons.append("identity_blocked")
     return reasons or ["context_review"]
+
+
+def next_action_for(row: Mapping[str, Any], context_passages: Sequence[Mapping[str, Any]]) -> str:
+    if material_protocol_satisfied(row):
+        return "identity_resolution_only"
+    if context_passages:
+        return "context_review"
+    return "targeted_v3_source_pack_fetch"
 
 
 def context_terms(row: Mapping[str, Any]) -> tuple[str, ...]:
@@ -177,6 +195,7 @@ def build_workitem(row: Mapping[str, Any], document_passages: Mapping[int, Seque
     for document_id in document_ids:
         context.extend(rank_context_passages(document_passages.get(document_id, []), row))
     context.sort(key=lambda item: (-int(item.get("context_score") or 0), text(item.get("passage_code"))))
+    next_action = next_action_for(row, context)
     return {
         "workitem_code": stable_code(f"needs-context::{text(row.get('candidate_code'))}"),
         "review_code": stable_code(text(row.get("candidate_code"))),
@@ -191,6 +210,8 @@ def build_workitem(row: Mapping[str, Any], document_passages: Mapping[int, Seque
         "target_code": text(row.get("target_code")),
         "identity_gate": text(current_review(row.get("candidate_payload")).get("identity_gate")),
         "context_reasons": classify_context_reasons(row),
+        "material_protocol_satisfied": material_protocol_satisfied(row),
+        "next_action": next_action,
         "context_terms": list(context_terms(row)),
         "current_source_passages": current,
         "context_passages": context[:6],
@@ -199,7 +220,11 @@ def build_workitem(row: Mapping[str, Any], document_passages: Mapping[int, Seque
             "scope": "retrieval_v3_same_source_document",
             "source_document_ids": document_ids,
             "terms": list(context_terms(row)),
-            "fallback": "targeted_v3_source_pack_fetch_required" if not context else "none",
+            "fallback": (
+                "identity_resolution_only"
+                if next_action == "identity_resolution_only"
+                else "targeted_v3_source_pack_fetch_required" if next_action == "targeted_v3_source_pack_fetch" else "none"
+            ),
             "legacy_data_reads": False,
             "legacy_data_migrated": False,
         },
@@ -222,12 +247,36 @@ def build_workitems(*, dsn: str, schema_name: str, limit: int) -> list[dict[str,
     return [build_workitem(row, document_passages) for row in rows]
 
 
+def identity_resolution_patch(item: Mapping[str, Any]) -> dict[str, Any]:
+    review = dict(read_json(item.get("candidate_review")))
+    if not review:
+        raise NeedsContextWorklistError(f"{text(item.get('review_code'))}: candidate_review is required")
+    review.update({
+        "review_code": text(item.get("review_code")),
+        "review_verdict": "accepted_candidate",
+        "review_note": text(review.get("review_note")) + " [routing: material protocol satisfied; identity handled separately]",
+        "scoring_candidate": True,
+        "usable_for_scoring_cluster": True,
+    })
+    return review
+
+
 def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path) -> dict[str, Any]:
     output_root.mkdir(parents=True, exist_ok=True)
     workitem_path = output_root / "needs_context_workitems.jsonl"
     with workitem_path.open("w", encoding="utf-8", newline="\n") as handle:
         for item in workitems:
             handle.write(json.dumps(item, ensure_ascii=False, sort_keys=True) + "\n")
+    by_action: dict[str, list[Mapping[str, Any]]] = {}
+    for item in workitems:
+        by_action.setdefault(text(item.get("next_action")), []).append(item)
+    identity_items = by_action.get("identity_resolution_only", [])
+    (output_root / "identity_resolution_workitems.jsonl").write_text(
+        "".join(stable_json(item) + "\n" for item in identity_items), encoding="utf-8"
+    )
+    (output_root / "identity_resolution_promotion_patch.jsonl").write_text(
+        "".join(stable_json(identity_resolution_patch(item)) + "\n" for item in identity_items), encoding="utf-8"
+    )
     reason_counts: Counter[str] = Counter(
         reason for item in workitems for reason in item.get("context_reasons", [])
     )
@@ -235,9 +284,10 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path) -> 
     summary = {
         "generated_by": "scripts/dev/retrieval_v3_needs_context_worklist.py",
         "candidate_count": len(workitems),
-        "second_review_required": len(workitems),
+        "second_review_required": len(by_action.get("context_review", [])),
         "with_same_document_context": with_context,
         "without_same_document_context": len(workitems) - with_context,
+        "next_action_counts": {key: len(value) for key, value in sorted(by_action.items())},
         "context_reason_counts": dict(sorted(reason_counts.items())),
         "workitem_path": str(workitem_path),
         "legacy_data_reads": False,

@@ -31,7 +31,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def reviewable(item: Mapping[str, Any]) -> bool:
-    return bool(item.get("context_passages"))
+    return text(item.get("next_action")) == "context_review"
 
 
 def chunks(rows: Sequence[Mapping[str, Any]], size: int) -> list[list[Mapping[str, Any]]]:

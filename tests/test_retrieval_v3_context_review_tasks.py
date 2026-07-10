@@ -5,6 +5,7 @@ def item(code: str, *, has_context: bool) -> dict:
     return {
         "workitem_code": f"CTX-{code}",
         "review_code": code,
+        "next_action": "context_review" if has_context else "targeted_v3_source_pack_fetch",
         "context_passages": [{"passage_code": "PAS-X", "raw_text": "命魏徵。"}] if has_context else [],
     }
 

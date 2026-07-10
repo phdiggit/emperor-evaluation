@@ -60,3 +60,33 @@ def test_build_workitem_is_v3_only_and_records_fallback() -> None:
     assert built["context_passages"] == []
     assert built["context_search_plan"]["scope"] == "retrieval_v3_same_source_document"
     assert built["context_search_plan"]["legacy_data_reads"] is False
+
+
+def test_identity_only_context_routes_to_identity_resolution_and_promotion() -> None:
+    facts = {
+        "has_appointment_or_authorization": True,
+        "has_named_actor": True,
+        "has_task_or_responsibility": True,
+        "has_result_or_feedback": True,
+        "has_continuity_or_reuse": False,
+    }
+    built = tool.build_workitem(row(facts=facts, passages=[]), {})
+    assert built["material_protocol_satisfied"] is True
+    assert built["next_action"] == "identity_resolution_only"
+    patch = tool.identity_resolution_patch(built)
+    assert patch["review_verdict"] == "accepted_candidate"
+    assert patch["scoring_candidate"] is True
+
+
+def test_identity_only_items_do_not_count_as_second_review(tmp_path) -> None:
+    facts = {
+        "has_appointment_or_authorization": True,
+        "has_named_actor": True,
+        "has_task_or_responsibility": True,
+        "has_result_or_feedback": True,
+        "has_continuity_or_reuse": False,
+    }
+    workitem = tool.build_workitem(row(facts=facts, passages=[]), {})
+    summary = tool.write_outputs([workitem], tmp_path)
+    assert summary["next_action_counts"] == {"identity_resolution_only": 1}
+    assert summary["second_review_required"] == 0
