@@ -83,6 +83,7 @@ def build_workitem(row: Mapping[str, Any]) -> dict[str, Any]:
         "emperor_name": text(row.get("emperor_name")),
         "source_pack_code": text(row.get("source_pack_code")),
         "object_name": text(row.get("object_name")),
+        "claim_direction": text(row.get("claim_direction")),
         "claim_summary": text(row.get("claim_summary")),
         "candidate_reason": text(row.get("candidate_reason")),
         "candidate_payload": row.get("candidate_payload") if isinstance(row.get("candidate_payload"), Mapping) else {},
@@ -102,7 +103,7 @@ def build_workitem(row: Mapping[str, Any]) -> dict[str, Any]:
                 "has_continuity_or_reuse": None,
             },
             "candidate_role": "",
-            "direction": "",
+            "direction": text(row.get("claim_direction")),
             "scoring_candidate": False,
             "usable_for_scoring_cluster": False,
             "identity_gate": identity_gate,
@@ -130,7 +131,7 @@ def fetch_rows(cur: Any, *, profile: str, review_status: str, limit: int) -> lis
         )
         select c.id as candidate_id, c.candidate_code, c.claim_id,
                c.candidate_reason, c.candidate_payload,
-               mc.claim_code, mc.object_name, mc.claim_summary, mc.emperor_name,
+               mc.claim_code, mc.object_name, mc.claim_summary, mc.emperor_name, mc.direction::text as claim_direction,
                sp.pack_code as source_pack_code, rt.target_code,
                coalesce(pa.source_passages, '[]'::jsonb) as source_passages,
                coalesce(jsonb_agg(distinct jsonb_build_object(
@@ -152,7 +153,7 @@ def fetch_rows(cur: Any, *, profile: str, review_status: str, limit: int) -> lis
            and c.review_status::text = %s
            and c.candidate_rule_code = %s
          group by c.id, c.candidate_code, c.claim_id, c.candidate_reason, c.candidate_payload,
-                  mc.claim_code, mc.object_name, mc.claim_summary, mc.emperor_name,
+                  mc.claim_code, mc.object_name, mc.claim_summary, mc.emperor_name, mc.direction,
                   sp.pack_code, rt.target_code, pa.source_passages
          order by mc.emperor_name, c.id
          limit case when %s > 0 then %s else 2147483647 end
@@ -182,6 +183,8 @@ def prompt_for_task(task_code: str, workitems: Sequence[Mapping[str, Any]]) -> s
         "先判断候选是否真的是皇帝对具名对象的任用/授权/权责交付；再填写五个 required_facts。\n"
         "前三项必须同时为 true，且 result/feedback 或 continuity/reuse 至少一项为 true，才允许 scoring_candidate=true。\n"
         "封爵、追封、画像、总评、单纯采纳计策、只有处置结局而无任用授权链的材料，不得作为自动入分 candidate。\n"
+        "candidate_role 只能使用以下枚举：appointed_actor、entrusted_actor、delegated_actor、strategic_advisor、military_commander、civil_official、misappointed_actor、misdelegated_actor、misentrusted_actor、authority_revoked_target；无法归类时填空。\n"
+        "direction 只能是 positive 或 negative；优先沿用 workitem 的 claim_direction，不要写人物关系、自由描述或中文句子。\n"
         "identity_gate 只能复述输入状态，不能自行创造 object_id 或接受 target_object。\n\n"
         f"task_code: {task_code}\n"
         "输出只能是 PATCH_JSONL_BEGIN/END 包住的 JSONL，每行对应一个 workitem。\n"
@@ -200,7 +203,7 @@ def prompt_for_task(task_code: str, workitems: Sequence[Mapping[str, Any]]) -> s
                     "has_continuity_or_reuse": False,
                 },
                 "candidate_role": "",
-                "direction": "",
+                "direction": "positive",
                 "scoring_candidate": False,
                 "usable_for_scoring_cluster": False,
                 "identity_gate": "identity_pending",
