@@ -301,6 +301,37 @@ def test_discovery_can_use_source_document_hints_without_search() -> None:
     assert docs[0]["source_document_hint"]["locator"] == "奸臣胡惟庸传"
 
 
+def test_discovery_accepts_explicit_public_ocr_source_document_hint() -> None:
+    docs, hits = tool.discover_source_documents(
+        {
+            "name": "朱檀",
+            "aliases": ["鲁王"],
+            "source_hints": ["明史"],
+            "source_document_hints": [
+                {
+                    "title": "御制纪非录",
+                    "locator": "御制纪非录正文 宗室条 朱檀 鲁王",
+                    "url": "https://example.test/jifeilu",
+                    "source_kind": "public_ocr_page",
+                    "fetch_mode": "url",
+                }
+            ],
+        },
+        search_fn=lambda *_args, **_kwargs: [],
+        pages_per_query=0,
+        timeout=3,
+        source_hint_limit=1,
+        max_search_names=1,
+        include_emperor_annals=True,
+    )
+
+    assert hits == []
+    assert docs[0]["source_title"] == "御制纪非录"
+    assert docs[0]["wikisource_title"] == ""
+    assert docs[0]["fetch_mode"] == "url"
+    assert docs[0]["source_kind"] == "public_ocr_page"
+
+
 def test_discovery_keeps_script_variant_query_with_single_search_name() -> None:
     queries: list[str] = []
 

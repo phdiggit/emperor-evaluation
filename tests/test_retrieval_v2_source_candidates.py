@@ -493,6 +493,25 @@ def test_fetch_document_text_falls_back_to_url_when_wikisource_title_is_empty(tm
     assert meta["fallback_url"] == "https://example.test/siku"
 
 
+def test_fetch_document_text_uses_explicit_public_ocr_url_without_wikisource_probe(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(tool, "fetch_wikisource_title", lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("no Wikisource probe")))
+    monkeypatch.setattr(tool, "request_text", lambda url, *, timeout: "<p>鲁王一打死火者二名。</p>")
+
+    text, meta = tool.fetch_document_text(
+        {
+            "title": "御制纪非录",
+            "url": "https://example.test/jifeilu",
+            "source_kind": "public_ocr_page",
+            "fetch_mode": "url",
+        },
+        cache_dir=tmp_path,
+        timeout=1,
+    )
+
+    assert "鲁王" in text
+    assert meta["source_kind"] == "url"
+
+
 def test_cli_writes_candidates_and_prompt(tmp_path: Path) -> None:
     task_path = tmp_path / "task.json"
     output_path = tmp_path / "candidates.json"

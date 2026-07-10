@@ -42,6 +42,7 @@ def test_build_task_skeleton_fills_stable_contract_fields() -> None:
     assert skeleton["coverage_matrix"]["role_families"][0]["family_code"] == "civil_delegate"
     assert skeleton["source_strategy"]["source_hints"] == ["宋史", "續資治通鑑長編", "資治通鑑"]
     assert "object_biographies_or_liezhuan" in skeleton["source_strategy"]["required_page_types"]
+    assert "royal_clan_delegate" in skeleton["source_strategy"]["object_discovery_families"]
     assert skeleton["secondary_rule_candidates"] == [{"rule_code": "team_building", "reason": "reuse"}]
     assert skeleton["object_seeds"] == []
     assert skeleton["source_documents"] == []
@@ -80,6 +81,7 @@ def test_item_wide_task_skeleton_uses_i5b_material_families() -> None:
     assert "anti_nepotism_material" in family_codes
     assert "future_power_character_hint" in family_codes
     assert "institution_or_office_context_pages" in skeleton["source_strategy"]["required_page_types"]
+    assert "royal_clan_power_holder" in skeleton["source_strategy"]["object_discovery_families"]
     assert by_rule["appointment_delegation"]["reason"]
     assert by_rule["central_military_power_control"]["hint_status"] == "future_rule_hint"
     assert by_rule["regional_clan_power_control"]["hint_status"] == "future_rule_hint"

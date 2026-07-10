@@ -29,6 +29,7 @@ BOOLEAN_FIELDS = (
     "has_harm_or_failure_signal",
     "has_disposition_only",
 )
+JIFEILU_URL = "https://www.shidianguji.com/book/NGJ89241199901269069717/chapter/1lmyda88zy80y"
 
 
 class ActorReviewConsumerError(ValueError):
@@ -110,6 +111,32 @@ def source_refiner_priority(row: Mapping[str, Any]) -> int:
     return 40
 
 
+def source_profile_fields(row: Mapping[str, Any], canonical_name: str, aliases: Sequence[str]) -> dict[str, Any]:
+    actor_scope = text(row.get("actor_scope")) or "official_or_other"
+    fields: dict[str, Any] = {
+        "actor_scope": actor_scope,
+        "object_search_scopes": ["person", "royal_clan"] if actor_scope == "royal_clan" else ["person"],
+    }
+    if actor_scope != "royal_clan":
+        return fields
+    source_hints = [text(value) for value in row.get("source_hints") or [] if text(value)]
+    fields["source_target_refs"] = [f"{hint} 宗室 藩王 {canonical_name}" for hint in source_hints]
+    if text(row.get("emperor_name")) == "朱元璋":
+        references = " ".join(dict.fromkeys([canonical_name, *aliases]))
+        fields["source_document_hints"] = [
+            {
+                "title": "御制纪非录",
+                "source_title": "御制纪非录",
+                "locator": f"御制纪非录正文 宗室条 {references}",
+                "url": JIFEILU_URL,
+                "source_kind": "public_ocr_page",
+                "fetch_mode": "url",
+                "ocr_requires_image_review": True,
+            }
+        ]
+    return fields
+
+
 def source_refiner_rows(reviewed_rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     seeds: list[dict[str, Any]] = []
     for row in reviewed_rows:
@@ -125,6 +152,7 @@ def source_refiner_rows(reviewed_rows: Sequence[Mapping[str, Any]]) -> list[dict
                 f"{row.get('candidate_code')}: source_refine requires deterministic target_period and source_hints"
             )
         aliases = [] if canonical_name == observed_name else [observed_name]
+        aliases = list(dict.fromkeys([*aliases, *[text(value) for value in row.get("reference_aliases") or [] if text(value)]]))
         evidence = [
             dict(window)
             for window in row.get("evidence_windows") or []
@@ -138,6 +166,7 @@ def source_refiner_rows(reviewed_rows: Sequence[Mapping[str, Any]]) -> list[dict
                 "target_emperors": [text(row.get("emperor_name"))],
                 "period": target_period,
                 "source_hints": list(dict.fromkeys(source_hints)),
+                **source_profile_fields(row, canonical_name, aliases),
                 "is_emperor": False,
                 "priority": source_refiner_priority(row),
                 "capture_profile": "personnel_political_wide",
@@ -151,6 +180,7 @@ def source_refiner_rows(reviewed_rows: Sequence[Mapping[str, Any]]) -> list[dict
                     "appointment_or_authorization": True,
                     "task_or_responsibility": True,
                     "same_chain_harm_or_failure": True,
+                    "royal_clan_power_or_fief": text(row.get("actor_scope")) == "royal_clan",
                     "disposition_alone_is_not_scoring": True,
                 },
                 "write_db": False,

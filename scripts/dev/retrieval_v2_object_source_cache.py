@@ -569,10 +569,10 @@ def discover_source_documents(
     documents: dict[str, dict[str, Any]] = {}
     hits: list[dict[str, Any]] = []
     for hint in seed_source_document_hints(seed):
-        source_title = text_from(hint, "wikisource_title")
+        source_title = text_from(hint, "wikisource_title", "source_title", "title")
         if not source_title:
             continue
-        key = normalize_title(source_title)
+        key = normalize_title(text_from(hint, "url") or source_title)
         documents.setdefault(
             key,
             {
@@ -581,10 +581,11 @@ def discover_source_documents(
                 "person_name": seed_name(seed),
                 "source_title": source_title,
                 "title": source_title,
-                "wikisource_title": source_title,
+                "wikisource_title": text_from(hint, "wikisource_title"),
                 "url": hint.get("url") or "",
                 "source_role": source_role,
-                "source_kind": "wikisource_page",
+                "source_kind": hint.get("source_kind") or "wikisource_page",
+                "fetch_mode": hint.get("fetch_mode") or "",
                 "why_selected": f"object source cache source_document_hint for {seed_name(seed)}",
                 "search_query": "",
                 "search_snippet": "",
@@ -1052,8 +1053,7 @@ def fetch_and_slice_document(
     max_slices_per_document: int,
     fetch_context: FetchContext | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    title = text_from(document, "wikisource_title", "title")
-    if fetch_context is not None and title:
+    if fetch_context is not None and text_from(document, "wikisource_title"):
         full_text, fetch_meta = fetch_managed_wikisource_text(
             document,
             cache_dir=cache_dir,

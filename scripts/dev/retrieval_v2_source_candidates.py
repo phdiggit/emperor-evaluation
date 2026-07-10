@@ -542,9 +542,11 @@ def fetch_document_text(
 ) -> tuple[str, dict[str, Any]]:
     if isinstance(document.get("text"), str):
         return compact_text(str(document["text"])), {"cache_status": "embedded"}
-
+    source_kind = str(document.get("source_kind") or "").strip()
     title = str(document.get("wikisource_title") or document.get("title") or "").strip()
     url = str(document.get("url") or "").strip()
+    if document.get("fetch_mode") == "url" or (source_kind and "wikisource" not in source_kind):
+        title = ""
     source_key = f"wikisource:{title}" if title else f"url:{url}"
     if not source_key.endswith(":"):
         cached = read_cached_text(cache_dir, source_key)
@@ -561,18 +563,12 @@ def fetch_document_text(
             if not url:
                 raise
             text = strip_html(request_text(url, timeout=timeout))
-            meta = {
-                "cache_status": "miss",
-                "source_kind": "url_fallback",
-                "source_key": source_key,
-                "fallback_url": url,
-            }
+            meta = {"cache_status": "miss", "source_kind": "url_fallback", "source_key": source_key, "fallback_url": url}
     elif url:
         text = strip_html(request_text(url, timeout=timeout))
         meta = {"cache_status": "miss", "source_kind": "url", "source_key": source_key}
     else:
         raise RetrievalV2CandidateError("document requires text, wikisource_title/title, or url")
-
     write_cached_text(cache_dir, source_key, text, meta)
     return text, meta
 

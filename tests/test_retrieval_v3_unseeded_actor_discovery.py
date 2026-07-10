@@ -190,6 +190,28 @@ def test_structured_claim_actor_skips_emperor_and_non_adverse_relation() -> None
     assert result["candidates"] == []
 
 
+def test_structured_claim_actor_marks_royal_clan_and_extracts_title_alias() -> None:
+    result = tool.discover_candidates_from_claim_actors(
+        [
+            {
+                "claim_key": "CLMK-ROYAL-1",
+                "emperor_name": "朱元璋",
+                "object_name": "受害军民",
+                "claim_summary": "鲁王朱檀滥权害民。",
+                "confidence": 0.9,
+                "fact_payload": {"actor": "朱檀", "object": "受害军民", "action_type": "滥权", "outcome": "王府多人受害"},
+                "evidence": [{"document_code": "DOC-JFL", "source_title": "御制纪非录", "source_slice_ref": "JFL-LU", "slice_text_preview": "鲁王朱檀滥权害民。"}],
+            }
+        ],
+        [],
+        [target_row(1)],
+    )
+
+    candidate = result["candidates"][0]
+    assert candidate["actor_scope"] == "royal_clan"
+    assert candidate["reference_aliases"] == ["鲁王"]
+
+
 def test_script_does_not_hardcode_acceptance_name_or_connect_legacy_contract_tables() -> None:
     source = Path(tool.__file__).read_text(encoding="utf-8")
 

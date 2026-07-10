@@ -874,6 +874,7 @@ SOURCE_PAGE_STRATEGY_BY_RULE = {
             "civil_delegate",
             "strategic_delegate",
             "revoked_or_failed_delegate",
+            "royal_clan_delegate",
         ],
         "notes": [
             "高密度目标不得只搜本纪；核心对象名必须回到本传或同源列传页补切片。",
@@ -894,10 +895,11 @@ SOURCE_PAGE_STRATEGY_BY_RULE = {
             "tolerate_talent_material",
             "anti_nepotism_material",
             "future_power_character_hint",
+            "royal_clan_power_holder",
         ],
         "notes": [
             "这是 I5B item-wide discovery，不得沿用单一任用授权对象族作为覆盖边界。",
-            "对象发现必须覆盖任命信任、团队、荐举识才、容才保全、亲私朋党和权力/政治品格 future hint。",
+            "对象发现必须覆盖任命信任、团队、荐举识才、容才保全、亲私朋党、皇子宗室和权力/政治品格 future hint。",
             "primary_bindings 必须为空；所有 formal rule 归属写入 secondary_binding_candidates。",
         ],
     }

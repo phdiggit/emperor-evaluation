@@ -571,6 +571,13 @@ def seed_source_document_hints(seed: Mapping[str, Any]) -> list[dict[str, Any]]:
                 row["wikisource_title"] = title
                 row["wikisource_title_candidates"] = source_document_hint_title_candidates(raw_hint)
                 rows.append(row)
+            elif text_from(raw_hint, "url") and text_from(raw_hint, "title", "source_title"):
+                row = dict(raw_hint)
+                row["title"] = text_from(raw_hint, "title", "source_title")
+                row["source_title"] = row["title"]
+                row["source_kind"] = text_from(raw_hint, "source_kind") or "url_page"
+                row["fetch_mode"] = "url"
+                rows.append(row)
     return rows
 
 
@@ -585,7 +592,7 @@ def _sorted_counts(counter: Mapping[str, int]) -> dict[str, int]:
 def _hint_has_resolvable_locator(hint: Mapping[str, Any]) -> bool:
     if text_from(hint, "locator", "source_title", "wikisource_title"):
         return True
-    if "/wiki/" in text_from(hint, "url"):
+    if text_from(hint, "url").startswith(("http://", "https://")):
         return True
     return bool(source_root_from_title(text_from(hint, "title", "source_root")) and text_from(hint, "volume"))
 

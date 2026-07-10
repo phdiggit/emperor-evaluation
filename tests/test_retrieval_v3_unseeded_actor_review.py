@@ -9,7 +9,7 @@ from scripts.dev import retrieval_v3_unseeded_actor_review_consumer as consumer
 from scripts.dev import retrieval_v3_unseeded_actor_review_tasks as tasks
 
 
-def workitem(code: str = "UAC-001", *, stage: str = "appointment_disposition_lead") -> dict:
+def workitem(code: str = "UAC-001", *, stage: str = "appointment_disposition_lead", actor_scope: str = "official_or_other") -> dict:
     return {
         "candidate_code": code,
         "emperor_name": "朱元璋",
@@ -20,6 +20,8 @@ def workitem(code: str = "UAC-001", *, stage: str = "appointment_disposition_lea
         "resolved_object_id": None,
         "resolved_canonical_name": "",
         "discovery_status": "unresolved_name_candidate",
+        "actor_scope": actor_scope,
+        "reference_aliases": ["鲁王"] if actor_scope == "royal_clan" else [],
         "lead_stages": [stage],
         "evidence_windows": [
             {
@@ -109,3 +111,28 @@ def test_consumer_fails_closed_when_source_context_is_missing() -> None:
 
     with pytest.raises(consumer.ActorReviewConsumerError, match="deterministic target_period"):
         consumer.source_refiner_rows(reviewed)
+
+
+def test_consumer_routes_royal_clan_to_shared_source_chain_and_jifeilu() -> None:
+    item = workitem(actor_scope="royal_clan")
+    item["observed_name"] = "朱檀"
+    reviewed = consumer.validate_review_package([item], [patch()])
+
+    seed = consumer.source_refiner_rows(reviewed)[0]
+
+    assert seed["actor_scope"] == "royal_clan"
+    assert seed["object_search_scopes"] == ["person", "royal_clan"]
+    assert seed["aliases"] == ["鲁王"]
+    assert seed["required_chain"]["royal_clan_power_or_fief"] is True
+    assert seed["source_document_hints"] == [
+        {
+            "title": "御制纪非录",
+            "source_title": "御制纪非录",
+            "locator": "御制纪非录正文 宗室条 朱檀 鲁王",
+            "url": consumer.JIFEILU_URL,
+            "source_kind": "public_ocr_page",
+            "fetch_mode": "url",
+            "ocr_requires_image_review": True,
+        }
+    ]
+    assert seed["source_target_refs"] == ["明史 宗室 藩王 朱檀", "明實錄 宗室 藩王 朱檀"]

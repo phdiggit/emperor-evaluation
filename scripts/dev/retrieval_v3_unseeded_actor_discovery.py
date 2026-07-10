@@ -89,6 +89,7 @@ DISPOSITION_TERMS = (
 WARNING_TERMS = ("劾", "谏", "言其不可", "不听", "仍用", "益信", "庇护", "复任")
 CLAIM_ACTOR_ADVERSE_ACTION_TYPES = {"处置", "失职", "构陷", "滥权", "结党", "拒谏", "制度高压"}
 CLAIM_ACTOR_ADVERSE_TERMS = ("告", "劾", "谮", "诬", "陷", "害", "杀", "鞫", "毒", "专擅", "擅权", "谋反")
+ROYAL_CLAN_TERMS = ("皇子", "宗室", "宗亲", "宗親", "亲王", "親王", "藩王", "王府", "就藩", "就籓", "封王")
 
 SENTENCE_SPLIT_RE = re.compile(r"(?<=[。！？；])|[\r\n]+")
 CJK_NAME = r"[\u3400-\u9fff\U00020000-\U0002fa1f]{2,4}"
@@ -99,6 +100,7 @@ ENUMERATION_RE = re.compile(
 DIRECT_NEGATIVE_RE = re.compile(
     rf"(?P<name>{CJK_NAME})(?P<outcome>获罪|伏诛|赐死|下狱|罢免|免官|谋反|专擅|擅权|专权|酷虐|暴虐|枉法|诬陷|构陷|谮害|卖官|扰民|纵兵|乱政|害民|失职|误国)"
 )
+ROYAL_TITLE_RE = re.compile(r"^[\u3400-\u9fff\U00020000-\U0002fa1f]{1,4}(?:王|太子|世子|公主|郡主)$")
 
 PREFIX_CUES = ("所任", "任用", "任命", "委任", "授任", "拜", "以", "命", "令", "使", "擢", "授", "留")
 NAME_STOPWORDS = {
@@ -183,6 +185,30 @@ def valid_candidate_name(value: str) -> bool:
     if name in NAME_STOPWORDS:
         return False
     return not any(fragment in name for fragment in NAME_BAD_FRAGMENTS)
+
+
+def actor_scope_and_aliases(observed_name: str, evidence_windows: Sequence[Mapping[str, Any]]) -> tuple[str, list[str]]:
+    name = normalize_object_alias(observed_name)
+    evidence_text = " ".join(
+        text(window.get(key))
+        for window in evidence_windows
+        if isinstance(window, Mapping)
+        for key in ("focus_text", "window", "claim_actor", "claim_object")
+    )
+    aliases: list[str] = []
+    royal_title = r"[\u3400-\u9fff\U00020000-\U0002fa1f]{1,4}(?:王|太子|世子|公主|郡主)"
+    if name:
+        patterns = (rf"(?P<title>{royal_title})[、，,:：\s]*{re.escape(name)}", rf"{re.escape(name)}[、，,:：\s]*(?P<title>{royal_title})")
+        aliases.extend(match.group("title") for pattern in patterns for match in re.finditer(pattern, evidence_text))
+    aliases = sorted({normalize_object_alias(alias) for alias in aliases if normalize_object_alias(alias) != name})
+    is_royal = bool(ROYAL_TITLE_RE.fullmatch(name) or aliases or any(term in evidence_text for term in ROYAL_CLAN_TERMS))
+    return ("royal_clan" if is_royal else "official_or_other"), aliases
+
+
+def enrich_actor_scope(candidate: dict[str, Any]) -> None:
+    scope, aliases = actor_scope_and_aliases(text(candidate.get("observed_name")), candidate.get("evidence_windows") or [])
+    candidate["actor_scope"] = scope
+    candidate["reference_aliases"] = aliases
 
 
 def strip_enumeration_prefix(value: str) -> str:
@@ -460,6 +486,7 @@ def discover_candidates_from_rows(
         ),
     )
     for candidate in candidates:
+        enrich_actor_scope(candidate)
         stats["unseeded_actor_candidates"] += 1
         stats[text(candidate.get("discovery_status"))] += 1
         by_emperor[text(candidate.get("emperor_name"))] += 1
@@ -581,6 +608,7 @@ def discover_candidates_from_claim_actors(
         if len(matches) > 1:
             candidate["identity_ambiguous"] = True
             candidate["matching_object_ids"] = sorted(int(match["object_id"]) for match in matches)
+        enrich_actor_scope(candidate)
         candidates.append(candidate)
         stats["claim_actor_candidates"] += 1
     return {"candidates": candidates, "counts": dict(sorted(stats.items()))}
@@ -600,7 +628,7 @@ def merge_discoveries(*discoveries: Mapping[str, Any]) -> dict[str, Any]:
                 continue
             for key in (
                 "extraction_methods", "lead_stages", "appointment_signals", "harm_signals",
-                "disposition_signals", "warning_signals",
+                "disposition_signals", "warning_signals", "reference_aliases",
             ):
                 current[key] = sorted(set(current.get(key) or []) | set(row.get(key) or []))
             current["max_extraction_confidence"] = max(
@@ -616,6 +644,8 @@ def merge_discoveries(*discoveries: Mapping[str, Any]) -> dict[str, Any]:
         merged.values(),
         key=lambda row: (text(row.get("emperor_name")), -float(row.get("max_extraction_confidence") or 0), text(row.get("observed_name"))),
     )
+    for candidate in candidates:
+        enrich_actor_scope(candidate)
     for key in ("unseeded_actor_candidates", "unresolved_name_candidate", "known_object_not_attached", "ambiguous_known_name_not_attached"):
         counts.pop(key, None)
     by_emperor = Counter()
@@ -835,6 +865,8 @@ def build_judge_worklist(report: Mapping[str, Any]) -> list[dict[str, Any]]:
             "resolved_object_id": row.get("resolved_object_id"),
             "resolved_canonical_name": row.get("resolved_canonical_name"),
             "discovery_status": row.get("discovery_status"),
+            "actor_scope": row.get("actor_scope"),
+            "reference_aliases": row.get("reference_aliases"),
             "lead_stages": row.get("lead_stages"),
             "evidence_windows": row.get("evidence_windows"),
             "required_review": {
