@@ -87,6 +87,21 @@ def test_service_names_are_strict() -> None:
         release.validate_services(["claim-worker.service; reboot"])
 
 
+def test_current_path_for_apply_does_not_dereference_existing_symlink(tmp_path: Path) -> None:
+    target = tmp_path / "releases" / ("a" * 40)
+    target.mkdir(parents=True)
+    current = tmp_path / "current"
+    try:
+        current.symlink_to(target, target_is_directory=True)
+    except OSError as exc:
+        pytest.skip(f"symlink unavailable: {exc}")
+
+    unresolved = release.current_path_for_apply({"current_path": str(current)})
+
+    assert unresolved == current.absolute()
+    assert unresolved != target.resolve()
+
+
 def test_server_runtime_scripts_are_release_relative_and_config_driven() -> None:
     root = Path(__file__).resolve().parents[1]
     claim_script = (root / "scripts/dev/server_runtime/retrieval_v3_claim_worker_loop.sh").read_text(encoding="utf-8")

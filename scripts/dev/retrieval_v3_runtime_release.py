@@ -208,6 +208,11 @@ def systemctl_argv(plan: Mapping[str, Any], action: str, service: str) -> list[s
     return [*argv, action, service]
 
 
+def current_path_for_apply(plan: Mapping[str, Any]) -> Path:
+    """Return an absolute current-link path without dereferencing the link."""
+    return Path(os.path.abspath(str(plan["current_path"])))
+
+
 def execute_apply(plan: Mapping[str, Any], *, archive_path: Path) -> dict[str, Any]:
     if os.name != "posix":
         raise RuntimeReleaseError("--execute is supported only on the Linux server")
@@ -217,8 +222,12 @@ def execute_apply(plan: Mapping[str, Any], *, archive_path: Path) -> dict[str, A
     release_root = Path(str(plan["release_root"])).resolve()
     releases_root = (release_root / "releases").resolve()
     release_path = Path(str(plan["release_path"])).resolve()
-    current_path = Path(str(plan["current_path"])).resolve()
-    if not _within(releases_root, release_root) or not _within(release_path, releases_root):
+    current_path = current_path_for_apply(plan)
+    if (
+        not _within(releases_root, release_root)
+        or not _within(release_path, releases_root)
+        or not _within(current_path.parent, release_root)
+    ):
         raise RuntimeReleaseError("resolved release paths escape release_root")
     releases_root.mkdir(parents=True, exist_ok=True)
     previous_target = current_path.resolve() if current_path.is_symlink() else None
