@@ -890,12 +890,14 @@ def build_mention_slices(
             continue
         for index in alias_positions(full_text, alias):
             start, end = context_bounds(full_text, index, context_chars=context_chars)
+            section_heading = nearest_section_heading(full_text, index)
+            priority = 5 if matched_aliases_in_text(section_heading, lead_anchor_aliases) else 10
             anchors.append(
                 {
                     "index": index,
                     "matched_aliases": [alias],
                     "matched_lead_terms": matched_lead_terms_in_text(full_text[start:end], lead_terms),
-                    "priority": 10,
+                    "priority": priority,
                     "slice_kind": "person_alias_anchor",
                 }
             )

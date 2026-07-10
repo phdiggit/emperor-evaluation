@@ -229,6 +229,24 @@ def test_summary_lead_anchor_rejects_adjacent_person_section() -> None:
     assert "诛死" in rows[0]["lead_terms"]
 
 
+def test_person_alias_anchor_prioritizes_matching_biography_section() -> None:
+    rows = tool.build_mention_slices(
+        {"name": "傅友德"},
+        {
+            "document_cache_code": "OSD-FYD-MINGSHI129",
+            "source_title": "明史/卷129",
+            "source_role": "object_biography_or_mentions",
+        },
+        "冯胜 [ 编辑 ] 冯胜与傅友德同征。傅友德 [ 编辑 ] 傅友德又明年赐死。",
+        context_chars=20,
+        max_slices_per_document=1,
+    )
+
+    assert len(rows) == 1
+    assert rows[0]["section_heading"] == "傅友德"
+    assert "傅友德又明年赐死" in rows[0]["raw_text"]
+
+
 def test_discovery_expands_non_emperor_biography_queries() -> None:
     queries: list[str] = []
 
@@ -505,7 +523,7 @@ def test_mention_slices_record_nearest_section_heading() -> None:
         max_slices_per_document=4,
     )
 
-    assert [row["section_heading"] for row in rows] == ["邓愈", "李文忠"]
+    assert [row["section_heading"] for row in rows] == ["李文忠", "邓愈"]
 
 
 def test_reslice_cache_rebuilds_slices_from_cached_text(tmp_path: Path) -> None:
