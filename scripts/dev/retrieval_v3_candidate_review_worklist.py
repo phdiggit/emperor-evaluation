@@ -154,7 +154,7 @@ def fetch_rows(cur: Any, *, profile: str, review_status: str, limit: int) -> lis
          group by c.id, c.candidate_code, c.claim_id, c.candidate_reason, c.candidate_payload,
                   mc.claim_code, mc.object_name, mc.claim_summary, mc.emperor_name,
                   sp.pack_code, rt.target_code, pa.source_passages
-         order by rt.emperor_name, c.id
+         order by mc.emperor_name, c.id
          limit case when %s > 0 then %s else 2147483647 end
         """,
         (profile, review_status, RULE_CODE, limit, limit),
