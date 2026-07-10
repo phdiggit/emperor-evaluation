@@ -46,21 +46,22 @@ def test_missing_cache_to_material_mapping_stays_at_intake_gate() -> None:
     row = plan["chains"][0]
 
     assert row["next_step"] == "needs_cache_intake"
-    assert row["blockers"] == ["missing_cache_claim_intake_mapping", "missing_accepted_target_object"]
+    assert row["blockers"] == ["missing_cache_claim_intake_mapping"]
+    assert row["object_alignment"]["identity_status"] == "deferred_identity_resolution"
     assert row["formal_binding_allowed"] is False
 
 
-def test_consumable_material_and_accepted_object_reaches_candidate_generation_gate() -> None:
+def test_consumable_material_reaches_rule_review_without_waiting_for_object_resolution() -> None:
     plan = tool.build_shadow_plan(
         [chain()],
         material_rows=[material("CLMK-001"), material("CLMK-002"), material("CLMK-003")],
-        object_rows=[accepted_object()],
+        object_rows=[],
     )
     row = plan["chains"][0]
 
-    assert row["next_step"] == "ready_for_binding_candidate_generation"
+    assert row["next_step"] == "ready_for_rule_candidate_review"
     assert row["material_alignment"]["consumable_material_claim_count"] == 3
-    assert row["object_alignment"]["accepted_target_object_count"] == 1
+    assert row["object_alignment"]["identity_gate"] == "deferred_until_formal_binding"
 
 
 def test_open_material_review_blocks_candidate_generation() -> None:

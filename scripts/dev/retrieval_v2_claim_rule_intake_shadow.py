@@ -140,16 +140,12 @@ def shadow_chain_row(
         blockers.append("material_not_consumable")
     if has_open_review:
         blockers.append("open_material_review")
-    if not accepted_objects:
-        blockers.append("missing_accepted_target_object")
     if missing_claim_keys:
         next_step = "needs_cache_intake"
     elif has_open_review or len(consumable_rows) < len(material_rows):
         next_step = "needs_passage_review"
-    elif not accepted_objects:
-        next_step = "needs_object_resolution"
     else:
-        next_step = "ready_for_binding_candidate_generation"
+        next_step = "ready_for_rule_candidate_review"
     return {
         "chain_key": text(chain.get("chain_key")),
         "emperor_name": emperor_name,
@@ -168,6 +164,8 @@ def shadow_chain_row(
             "has_open_material_review": has_open_review,
         },
         "object_alignment": {
+            "identity_gate": "deferred_until_formal_binding",
+            "identity_status": "accepted_target_object_available" if accepted_objects else "deferred_identity_resolution",
             "target_object_count": len(object_rows),
             "accepted_target_object_count": len(accepted_objects),
             "accepted_target_objects": [
@@ -290,7 +288,7 @@ def markdown_report(payload: Mapping[str, Any]) -> str:
                 f"- next_step: `{row.get('next_step')}`",
                 f"- blockers: `{', '.join(row.get('blockers') or []) or 'none'}`",
                 f"- cache claims: `{len(row.get('claim_keys') or [])}`; mapped material claims: `{material.get('material_claim_count', 0)}`; consumable: `{material.get('consumable_material_claim_count', 0)}`",
-                f"- accepted target objects: `{objects.get('accepted_target_object_count', 0)}`",
+                f"- object identity: `{objects.get('identity_status')}`; accepted target objects: `{objects.get('accepted_target_object_count', 0)}`",
                 "",
             ]
         )
