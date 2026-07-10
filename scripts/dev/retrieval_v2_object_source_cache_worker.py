@@ -727,9 +727,9 @@ def build_shards_argv(job: Mapping[str, Any], options: Mapping[str, Any]) -> lis
         "--cache-dir",
         str(resolve_path(text(job.get("page_cache_root")))),
         "--shard-size",
-        str(int(options.get("shard_size") or 20)),
+        str(int(options.get("shard_size") or 4)),
         "--shard-timeout",
-        str(float(options.get("shard_timeout") or 120.0)),
+        str(float(options.get("shard_timeout") or 300.0)),
         "--pages-per-query",
         str(int(options.get("pages_per_query") or 1)),
         "--source-hint-limit",
@@ -792,6 +792,16 @@ def execute_job(*, job: Mapping[str, Any], max_docs_per_person: int = 6) -> dict
     rc = object_cache.main(build_argv)
     if rc != 0:
         raise ObjectSourceCacheWorkerError(f"object source cache build-shards failed with exit code {rc}")
+    summary_path = output_root / "shard_summary.json"
+    summary = read_json(summary_path) if summary_path.exists() else {}
+    totals = summary.get("totals") if isinstance(summary.get("totals"), Mapping) else {}
+    failed_shards = int(totals.get("failed") or 0)
+    timed_out_shards = int(totals.get("timed_out") or 0)
+    if failed_shards or timed_out_shards:
+        raise ObjectSourceCacheWorkerError(
+            "object source cache build incomplete: "
+            f"failed_shards={failed_shards}, timed_out_shards={timed_out_shards}"
+        )
     review_json = output_root / "review_audit.json"
     review_md = output_root / "review_audit.md"
     review_rc = object_cache.main(
@@ -809,8 +819,6 @@ def execute_job(*, job: Mapping[str, Any], max_docs_per_person: int = 6) -> dict
     )
     if review_rc != 0:
         raise ObjectSourceCacheWorkerError(f"object source cache review-audit failed with exit code {review_rc}")
-    summary_path = output_root / "shard_summary.json"
-    summary = read_json(summary_path) if summary_path.exists() else {}
     review = read_json(review_json) if review_json.exists() else {}
     counts = summary_counts(output_root)
     return {
@@ -1620,8 +1628,8 @@ def build_options_from_args(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def add_build_args(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--shard-size", type=int, default=20)
-    parser.add_argument("--shard-timeout", type=float, default=120.0)
+    parser.add_argument("--shard-size", type=int, default=4)
+    parser.add_argument("--shard-timeout", type=float, default=300.0)
     parser.add_argument("--max-shards", type=int, default=0)
     parser.add_argument("--rerun-completed", action="store_true")
     parser.add_argument("--pages-per-query", type=int, default=1)

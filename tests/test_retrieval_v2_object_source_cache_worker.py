@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from scripts.dev import retrieval_v2_object_source_cache_worker as tool
 
 
@@ -637,6 +639,9 @@ def test_execute_job_runs_build_and_review_without_codex(tmp_path: Path, monkeyp
                 json.dumps(
                     {
                         "totals": {
+                            "completed": 1,
+                            "failed": 0,
+                            "timed_out": 0,
                             "persons": 2,
                             "source_documents": 3,
                             "mention_slices": 1,
@@ -677,6 +682,39 @@ def test_execute_job_runs_build_and_review_without_codex(tmp_path: Path, monkeyp
         "fetch_error_count": 0,
         "review_queue_count": 1,
     }
+
+
+def test_execute_job_rejects_timed_out_shards_before_review(tmp_path: Path, monkeypatch) -> None:
+    seed = tmp_path / "seed.jsonl"
+    write_seed(seed)
+    out = tmp_path / "out"
+    calls: list[str] = []
+
+    def fake_object_cache_main(argv):
+        calls.append(argv[0])
+        if argv[0] == "build-shards":
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "shard_summary.json").write_text(
+                json.dumps({"totals": {"completed": 0, "failed": 0, "timed_out": 1}}),
+                encoding="utf-8",
+            )
+            return 0
+        raise AssertionError("review-audit must not run after a timed-out shard")
+
+    monkeypatch.setattr(tool.object_cache, "main", fake_object_cache_main)
+
+    with pytest.raises(tool.ObjectSourceCacheWorkerError, match="timed_out_shards=1"):
+        tool.execute_job(
+            job={
+                "job_code": "OSCACHE-001",
+                "seed_jsonl_path": str(seed),
+                "output_root": str(out),
+                "page_cache_root": str(tmp_path / "pages"),
+                "job_payload": {"build_options": {"shard_size": 4, "shard_timeout": 300}},
+            }
+        )
+
+    assert calls == ["build-shards"]
 
 
 def test_claim_plan_builds_uncovered_candidates_without_db(tmp_path: Path, monkeypatch) -> None:
