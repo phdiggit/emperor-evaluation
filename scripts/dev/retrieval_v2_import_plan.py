@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v2_contracts import ALIAS_VARIANT_GROUPS  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
 from scripts.dev.retrieval_v2_intake_rows import stable_json  # noqa: E402
@@ -160,13 +161,14 @@ def lookup_from_cursor(cur: Any) -> dict[str, Any]:
     return {"targets": targets, "contract_rules": rules}
 
 
-def db_lookup(*, env_file: Path | None, dsn_env: str) -> dict[str, Any]:
+def db_lookup(*, env_file: Path | None, dsn_env: str, schema_name: str = "retrieval_v2") -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             return lookup_from_cursor(cur)
 
 
@@ -651,6 +653,7 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--db-check", action="store_true", help="Read retrieval_v2 target/rule metadata to validate FK lookups.")
     plan.add_argument("--env-file", type=Path)
     plan.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
+    plan.add_argument("--pg-schema", default="retrieval_v2", help="Schema used only by --db-check; defaults to retrieval_v2 for compatibility.")
     return parser
 
 
@@ -658,7 +661,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command != "plan":
         raise ImportPlanError(f"unsupported command: {args.command}")
-    lookup = db_lookup(env_file=args.env_file, dsn_env=args.dsn_env) if args.db_check else None
+    lookup = db_lookup(env_file=args.env_file, dsn_env=args.dsn_env, schema_name=args.pg_schema) if args.db_check else None
     payload = build_plan(normalized_root=args.normalized_root, review_root=args.review_root, lookup=lookup)
     write_json(args.output_json, payload)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)

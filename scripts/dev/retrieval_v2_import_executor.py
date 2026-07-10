@@ -34,6 +34,7 @@ from scripts.dev.retrieval_v2_import_plan import (  # noqa: E402
     write_json,
 )
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v2_review_worklists import object_group_key  # noqa: E402
 
 
@@ -671,13 +672,15 @@ def execute_import(
     dsn_env: str,
     execute: bool,
     source_pack_status: str = "accepted",
+    schema_name: str = "retrieval_v2",
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             lookup = lookup_from_cursor(cur)
             plan = build_plan(normalized_root=normalized_root, review_root=review_root, lookup=lookup)
             report = {
@@ -717,6 +720,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--output-md", type=Path, required=True)
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
+    apply.add_argument("--pg-schema", default="retrieval_v2", help="Schema used by the importer; defaults to retrieval_v2 for compatibility.")
     apply.add_argument("--source-pack-status", choices=["accepted", "draft", "ready", "needs_refinement"], default="accepted")
     apply.add_argument("--execute", action="store_true", help="Actually write retrieval_v2 consumption rows. Omit for dry-run.")
     return parser
@@ -733,6 +737,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         dsn_env=args.dsn_env,
         execute=args.execute,
         source_pack_status=args.source_pack_status,
+        schema_name=args.pg_schema,
     )
     write_json(args.output_json, payload)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
