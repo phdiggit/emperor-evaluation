@@ -56,6 +56,21 @@ def apply_direct_assessments(cur: Any, rows: Sequence[Mapping[str, Any]]) -> dic
     for raw in rows:
         row = validate_direct_assessment(raw)
         verify_identity_anchor(cur, row)
+        cur.execute(
+            """
+            select binding_payload->>'source' as source
+              from retrieval_v2.claim_rule_bindings
+             where claim_id = %s and contract_rule_id = %s and predicate = %s
+               and direction = %s and object_role = %s
+            """,
+            (row["claim_id"], row["contract_rule_id"], row["predicate"], row["direction"], row["object_role"]),
+        )
+        existing = cur.fetchone()
+        existing_source = text(existing.get("source")) if existing else ""
+        if existing_source and existing_source != "retrieval_v3_direct_binding_consumer":
+            raise DirectBindingConsumerError(
+                f"claim_id={row['claim_id']}: existing binding belongs to {existing_source}; direct lane will not overwrite it"
+            )
         payload = {
             "source": "retrieval_v3_direct_binding_consumer",
             "assessment_lane": "normal_direct",
