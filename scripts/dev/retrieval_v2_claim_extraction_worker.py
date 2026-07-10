@@ -25,6 +25,7 @@ from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
     render_sql,
     schema_cursor,
 )
+from scripts.shared import agent_runtime_config  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -89,6 +90,129 @@ def candidates_identity(candidates: Mapping[str, Any]) -> dict[str, str]:
         "rule_code": text(task_identity.get("rule_code") or rule.get("rule_code")),
         "capture_profile": text(task_identity.get("capture_profile") or candidates.get("capture_profile")),
     }
+
+
+def gate_claims_to_target_emperor(
+    judge_payload: Mapping[str, Any],
+    *,
+    target_emperor: str,
+) -> dict[str, Any]:
+    """Fail closed before claim-cache import when a target-specific run crosses emperors."""
+    payload = dict(judge_payload)
+    claims = [dict(row) for row in judge_payload.get("claims") or [] if isinstance(row, Mapping)]
+    target = text(target_emperor)
+    if not target:
+        payload["_target_emperor_gate"] = {
+            "status": "not_applicable",
+            "target_emperor": "",
+            "input_claim_count": len(claims),
+            "accepted_claim_count": len(claims),
+            "rejected_claim_count": 0,
+            "rejected_claims": [],
+        }
+        return payload
+
+    accepted: list[dict[str, Any]] = []
+    rejected: list[dict[str, Any]] = []
+    for claim in claims:
+        claim_emperor = text(claim.get("emperor_name"))
+        if claim_emperor == target:
+            accepted.append(claim)
+            continue
+        rejected.append(
+            {
+                "reason": "cross_target_emperor" if claim_emperor else "missing_target_emperor",
+                "claim_emperor": claim_emperor,
+                "claim": claim,
+            }
+        )
+    payload["claims"] = accepted
+    payload["_target_emperor_gate"] = {
+        "status": "applied",
+        "target_emperor": target,
+        "input_claim_count": len(claims),
+        "accepted_claim_count": len(accepted),
+        "rejected_claim_count": len(rejected),
+        "rejected_claims": rejected,
+    }
+    coverage = dict(payload.get("coverage")) if isinstance(payload.get("coverage"), Mapping) else {}
+    if coverage:
+        coverage["claim_count"] = len(accepted)
+        payload["coverage"] = coverage
+    return payload
+
+
+def gate_claims_to_candidate_objects(
+    judge_payload: Mapping[str, Any],
+    *,
+    candidates: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Keep claim-cache ownership on the focal source-cache person, not the grammatical patient."""
+    payload = dict(judge_payload)
+    slice_owners = {
+        text(row.get("slice_code")): text(row.get("object_name"))
+        for row in candidates.get("candidate_slices") or []
+        if isinstance(row, Mapping) and text(row.get("slice_code")) and text(row.get("object_name"))
+    }
+    accepted: list[dict[str, Any]] = []
+    normalized: list[dict[str, Any]] = []
+    rejected: list[dict[str, Any]] = []
+    for raw_claim in judge_payload.get("claims") or []:
+        if not isinstance(raw_claim, Mapping):
+            continue
+        claim = dict(raw_claim)
+        refs = [text(value) for value in claim.get("source_slice_refs") or [] if text(value)]
+        owners = sorted({slice_owners[ref] for ref in refs if ref in slice_owners})
+        if len(owners) != 1:
+            rejected.append(
+                {
+                    "reason": "missing_or_mixed_candidate_object_owner",
+                    "candidate_owners": owners,
+                    "claim": claim,
+                }
+            )
+            continue
+        owner = owners[0]
+        current = text(claim.get("object_name"))
+        if current == owner:
+            accepted.append(claim)
+            continue
+        fact = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
+        if owner not in {text(fact.get("actor")), text(fact.get("object"))}:
+            rejected.append(
+                {
+                    "reason": "candidate_owner_not_in_fact_chain",
+                    "candidate_owner": owner,
+                    "claim_object_name": current,
+                    "claim": claim,
+                }
+            )
+            continue
+        claim["object_name"] = owner
+        accepted.append(claim)
+        normalized.append(
+            {
+                "claim_code": text(claim.get("claim_code")),
+                "from_object_name": current,
+                "to_object_name": owner,
+                "reason": "candidate_owner_is_fact_actor_or_object",
+            }
+        )
+    payload["claims"] = accepted
+    payload["_candidate_object_gate"] = {
+        "status": "applied",
+        "input_claim_count": len([row for row in judge_payload.get("claims") or [] if isinstance(row, Mapping)]),
+        "accepted_claim_count": len(accepted),
+        "normalized_claim_count": len(normalized),
+        "rejected_claim_count": len(rejected),
+        "normalized_claims": normalized,
+        "rejected_claims": rejected,
+    }
+    coverage = dict(payload.get("coverage")) if isinstance(payload.get("coverage"), Mapping) else {}
+    if coverage:
+        coverage["claim_count"] = len(accepted)
+        payload["coverage"] = coverage
+    return payload
 
 
 def job_from_candidates(
@@ -440,8 +564,13 @@ def execute_job(
         judge_shard_size=judge_shard_size,
         judge_shard_workers=judge_shard_workers,
         judge_mode=candidate_prompt.CLAIM_EXTRACTION_ONLY_MODE,
+        agent_stage="claim_extraction",
     )
-    judge_payload = dict(judge_result["payload"])
+    judge_payload = gate_claims_to_target_emperor(
+        judge_result["payload"],
+        target_emperor=text(job.get("emperor_name")) or candidates_identity(candidates)["emperor_name"],
+    )
+    judge_payload = gate_claims_to_candidate_objects(judge_payload, candidates=candidates)
     judge_payload["_elapsed_seconds"] = judge_result["elapsed_seconds"]
     judge_payload["_usage"] = judge_result["usage"]
     summary = write_mini_run_artifacts(
@@ -478,22 +607,23 @@ def extract_from_candidates(
     cache_root: Path,
     run_root: Path,
     codex_bin: str = "codex",
-    judge_timeout_seconds: int = 1800,
-    judge_shard_size: int = 4,
-    judge_shard_workers: int = 4,
+    judge_timeout_seconds: int | None = None,
+    judge_shard_size: int | None = None,
+    judge_shard_workers: int | None = None,
     import_pg: bool = False,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
     """Run one candidate payload directly without queue or database access by default."""
+    runtime = agent_runtime_config.resolve_agent_stage("claim_extraction")
     job = job_from_candidates(candidates_path=candidates_path, cache_root=cache_root, run_root=run_root)
     job["status"] = "shadow"
     result = execute_job(
         job=job,
         codex_bin=codex_bin,
-        judge_timeout_seconds=judge_timeout_seconds,
-        judge_shard_size=judge_shard_size,
-        judge_shard_workers=judge_shard_workers,
+        judge_timeout_seconds=int(judge_timeout_seconds or runtime["timeout_seconds"]),
+        judge_shard_size=int(judge_shard_size or runtime["shard_size"]),
+        judge_shard_workers=int(judge_shard_workers or runtime["max_workers"]),
         import_pg=import_pg,
         dsn_env=dsn_env,
         schema_name=schema_name,
@@ -513,13 +643,14 @@ def once(
     worker_id: str,
     execute: bool,
     codex_bin: str = "codex",
-    judge_timeout_seconds: int = 1800,
-    judge_shard_size: int = 4,
-    judge_shard_workers: int = 4,
+    judge_timeout_seconds: int | None = None,
+    judge_shard_size: int | None = None,
+    judge_shard_workers: int | None = None,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
+    runtime = agent_runtime_config.resolve_agent_stage("claim_extraction")
     job = claim_ready_job(dsn=dsn, worker_id=worker_id, schema_name=schema_name) if execute else fetch_next_ready_job(dsn=dsn, schema_name=schema_name)
     if job is None:
         return {"ok": True, "status": "idle", "job": None}
@@ -538,9 +669,9 @@ def once(
         result = execute_job(
             job=job,
             codex_bin=codex_bin,
-            judge_timeout_seconds=judge_timeout_seconds,
-            judge_shard_size=judge_shard_size,
-            judge_shard_workers=judge_shard_workers,
+            judge_timeout_seconds=int(judge_timeout_seconds or runtime["timeout_seconds"]),
+            judge_shard_size=int(judge_shard_size or runtime["shard_size"]),
+            judge_shard_workers=int(judge_shard_workers or runtime["max_workers"]),
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -603,9 +734,9 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
     extract.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     extract.add_argument("--codex-bin", default="codex")
-    extract.add_argument("--judge-timeout", type=int, default=1800)
-    extract.add_argument("--judge-shard-size", type=int, default=4)
-    extract.add_argument("--judge-shard-workers", type=int, default=4)
+    extract.add_argument("--judge-timeout", type=int)
+    extract.add_argument("--judge-shard-size", type=int)
+    extract.add_argument("--judge-shard-workers", type=int)
     extract.add_argument("--import-pg", action="store_true")
     extract.add_argument("--output-json", type=Path)
 
@@ -623,9 +754,9 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--worker-id", default="retrieval_v2_claim_extraction_worker")
     once_cmd.add_argument("--execute", action="store_true")
     once_cmd.add_argument("--codex-bin", default="codex")
-    once_cmd.add_argument("--judge-timeout", type=int, default=1800)
-    once_cmd.add_argument("--judge-shard-size", type=int, default=4)
-    once_cmd.add_argument("--judge-shard-workers", type=int, default=4)
+    once_cmd.add_argument("--judge-timeout", type=int)
+    once_cmd.add_argument("--judge-shard-size", type=int)
+    once_cmd.add_argument("--judge-shard-workers", type=int)
     once_cmd.add_argument("--no-import-pg", action="store_true")
     once_cmd.add_argument("--output-json", type=Path)
     return parser

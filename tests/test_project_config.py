@@ -69,6 +69,48 @@ def test_validate_project_config_accepts_minimal_valid_config(tmp_path: Path, pr
     assert validate_project_config.validate(config_path) == []
 
 
+def test_validate_project_config_accepts_complete_agent_runtime(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "agent_runtime": {
+            "defaults": {
+                "model": "gpt-5.6-luna",
+                "reasoning_effort": "medium",
+                "max_workers": 4,
+                "timeout_seconds": 1800,
+            },
+            "stages": {
+                stage: {"max_workers": 2, "timeout_seconds": 900}
+                for stage in validate_project_config.REQUIRED_AGENT_STAGES
+            },
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    assert validate_project_config.validate(config_path) == []
+
+
+def test_validate_project_config_rejects_incomplete_agent_runtime(tmp_path: Path) -> None:
+    payload = valid_payload()
+    payload["tooling"] = {
+        "agent_runtime": {
+            "defaults": {
+                "model": "gpt-5.6-luna",
+                "reasoning_effort": "medium",
+                "max_workers": 0,
+                "timeout_seconds": 1800,
+            },
+            "stages": {},
+        }
+    }
+    config_path = write_raw_config(tmp_path / "project_config.yml", payload)
+
+    errors = validate_project_config.validate(config_path)
+
+    assert any("required agent stage is missing" in error for error in errors)
+    assert any("max_workers must be a positive integer" in error for error in errors)
+
+
 def test_validate_project_config_rejects_invalid_timezone(tmp_path: Path) -> None:
     payload = valid_payload()
     payload["timezone"] = "UTC"

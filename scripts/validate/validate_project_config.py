@@ -30,7 +30,26 @@ ALLOWED_OUTPUT_KEYS = {
     "evidence_indexes",
 }
 ALLOWED_OUTPUT_DETAIL_KEYS = {"enabled", "person_group_override"}
-ALLOWED_TOOLING_KEYS = {"source_excerpt_pool"}
+ALLOWED_TOOLING_KEYS = {"agent_runtime", "source_excerpt_pool"}
+ALLOWED_AGENT_RUNTIME_KEYS = {"defaults", "stages"}
+ALLOWED_AGENT_DEFAULT_KEYS = {"model", "reasoning_effort", "max_workers", "timeout_seconds"}
+ALLOWED_AGENT_STAGE_KEYS = ALLOWED_AGENT_DEFAULT_KEYS | {"batch_size", "shard_size"}
+ALLOWED_REASONING_EFFORTS = {"low", "medium", "high"}
+REQUIRED_AGENT_STAGES = {
+    "retrieval_taskgen",
+    "retrieval_judge",
+    "alias_refiner",
+    "object_source_hint_review",
+    "claim_extraction",
+    "claim_passage_repair",
+    "material_review",
+    "identity_judgment",
+    "factorization",
+    "v3_candidate_review",
+    "v3_context_review",
+    "v3_unseeded_actor_review",
+    "v3_negative_chain_review",
+}
 ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache", "default_workflow_code", "paths", "workflows"}
 ALLOWED_SOURCE_EXCERPT_CACHE_KEYS = {"enabled", "backend", "directory", "dsn_env", "schema"}
 ALLOWED_SOURCE_EXCERPT_PATH_KEYS = {
@@ -121,7 +140,8 @@ def find_forbidden_keys(path: Path, value: object, label: str = "$") -> list[str
     if isinstance(value, dict):
         for key, item in value.items():
             child_label = f"{label}.{key}" if label != "$" else str(key)
-            if isinstance(key, str) and key in FORBIDDEN_KEYS:
+            allowed_agent_defaults = child_label == "tooling.agent_runtime.defaults"
+            if isinstance(key, str) and key in FORBIDDEN_KEYS and not allowed_agent_defaults:
                 errors.append(f"{path}: {child_label}: {key} is not allowed in project_config.yml")
             errors.extend(find_forbidden_keys(path, item, child_label))
     elif isinstance(value, list):
@@ -289,6 +309,58 @@ def validate_pg_identifier(path: Path, value: object, label: str) -> list[str]:
     return []
 
 
+def validate_positive_int(path: Path, value: object, label: str) -> list[str]:
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        return [f"{path}: {label} must be a positive integer"]
+    return []
+
+
+def validate_agent_runtime(path: Path, runtime: object) -> list[str]:
+    label = "tooling.agent_runtime"
+    if not isinstance(runtime, dict):
+        return [f"{path}: {label} must be a mapping"]
+    errors: list[str] = []
+    for key in sorted(set(runtime) - ALLOWED_AGENT_RUNTIME_KEYS):
+        errors.append(f"{path}: {label}.{key}: agent_runtime field is not allowed")
+    defaults = runtime.get("defaults")
+    if not isinstance(defaults, dict):
+        errors.append(f"{path}: {label}.defaults must be a mapping")
+    else:
+        for key in sorted(set(defaults) - ALLOWED_AGENT_DEFAULT_KEYS):
+            errors.append(f"{path}: {label}.defaults.{key}: default field is not allowed")
+        if not is_non_empty_string(defaults.get("model")):
+            errors.append(f"{path}: {label}.defaults.model must be a non-empty string")
+        if defaults.get("reasoning_effort") not in ALLOWED_REASONING_EFFORTS:
+            errors.append(f"{path}: {label}.defaults.reasoning_effort must be one of {sorted(ALLOWED_REASONING_EFFORTS)}")
+        for key in ("max_workers", "timeout_seconds"):
+            errors.extend(validate_positive_int(path, defaults.get(key), f"{label}.defaults.{key}"))
+    stages = runtime.get("stages")
+    if not isinstance(stages, dict):
+        errors.append(f"{path}: {label}.stages must be a mapping")
+        return errors
+    missing = sorted(REQUIRED_AGENT_STAGES - set(stages))
+    extra = sorted(set(stages) - REQUIRED_AGENT_STAGES)
+    for stage in missing:
+        errors.append(f"{path}: {label}.stages.{stage}: required agent stage is missing")
+    for stage in extra:
+        errors.append(f"{path}: {label}.stages.{stage}: unknown agent stage")
+    for stage, row in stages.items():
+        stage_label = f"{label}.stages.{stage}"
+        if not isinstance(row, dict):
+            errors.append(f"{path}: {stage_label} must be a mapping")
+            continue
+        for key in sorted(set(row) - ALLOWED_AGENT_STAGE_KEYS):
+            errors.append(f"{path}: {stage_label}.{key}: stage field is not allowed")
+        if "model" in row and not is_non_empty_string(row["model"]):
+            errors.append(f"{path}: {stage_label}.model must be a non-empty string")
+        if "reasoning_effort" in row and row["reasoning_effort"] not in ALLOWED_REASONING_EFFORTS:
+            errors.append(f"{path}: {stage_label}.reasoning_effort must be one of {sorted(ALLOWED_REASONING_EFFORTS)}")
+        for key in ("max_workers", "timeout_seconds", "batch_size", "shard_size"):
+            if key in row:
+                errors.extend(validate_positive_int(path, row[key], f"{stage_label}.{key}"))
+    return errors
+
+
 def validate_tooling(path: Path, tooling: object) -> list[str]:
     if tooling is None:
         return []
@@ -299,6 +371,10 @@ def validate_tooling(path: Path, tooling: object) -> list[str]:
     extra_keys = sorted(set(tooling) - ALLOWED_TOOLING_KEYS)
     for key in extra_keys:
         errors.append(f"{path}: {label}.{key}: tooling only allows known local tool sections")
+
+    agent_runtime = tooling.get("agent_runtime")
+    if agent_runtime is not None:
+        errors.extend(validate_agent_runtime(path, agent_runtime))
 
     source_excerpt_pool = tooling.get("source_excerpt_pool")
     if source_excerpt_pool is None:

@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v3_candidate_review_worklist import PATCH_BEGIN, PATCH_END, stable_json, text  # noqa: E402
+from scripts.shared import agent_runtime_config  # noqa: E402
 
 
 class ContextReviewTaskError(ValueError):
@@ -80,6 +81,7 @@ def prompt_for_task(task_code: str, workitems: Sequence[Mapping[str, Any]]) -> s
 
 
 def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, *, batch_size: int) -> dict[str, Any]:
+    runtime = agent_runtime_config.resolve_agent_stage("v3_context_review")
     output_root.mkdir(parents=True, exist_ok=True)
     eligible = [dict(item) for item in workitems if reviewable(item)]
     deferred = [dict(item) for item in workitems if not reviewable(item)]
@@ -98,7 +100,7 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, *, 
             "patch_path": str(output_root / "patches" / f"{task_code}.jsonl"),
             "last_message_path": str(output_root / "logs" / f"{task_code}.last.md"),
             "log_path": str(output_root / "logs" / f"{task_code}.jsonl"),
-            "argv": ["codex", "-m", "gpt-5.6-luna", "-c", 'model_reasoning_effort="medium"', "exec", "-"],
+            "argv": agent_runtime_config.codex_task_argv("v3_context_review"),
         })
     (output_root / "context_review_workitems.jsonl").write_text(
         "".join(stable_json(item) + "\n" for item in eligible), encoding="utf-8"
@@ -116,6 +118,7 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, *, 
         "deferred_source_fetch_count": len(deferred),
         "task_count": len(tasks),
         "batch_size": batch_size,
+        "agent_runtime": runtime,
         "legacy_data_reads": False,
         "legacy_data_migrated": False,
         "write_db": False,
@@ -128,9 +131,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate narrow second-review Codex tasks from v3 needs_context workitems.")
     parser.add_argument("--workitems-jsonl", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
-    parser.add_argument("--batch-size", type=int, default=6)
+    parser.add_argument("--batch-size", type=int)
     args = parser.parse_args(argv)
-    summary = write_outputs(read_jsonl(args.workitems_jsonl), args.output_root, batch_size=max(1, args.batch_size))
+    runtime = agent_runtime_config.resolve_agent_stage("v3_context_review")
+    summary = write_outputs(
+        read_jsonl(args.workitems_jsonl),
+        args.output_root,
+        batch_size=max(1, int(args.batch_size or runtime["batch_size"])),
+    )
     print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
     return 0
 

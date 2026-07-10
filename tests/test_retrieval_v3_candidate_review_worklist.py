@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from scripts.dev import retrieval_v3_candidate_review_worklist as tool
 
 
@@ -35,3 +37,19 @@ def test_build_workitem_keeps_identity_gate_and_patch_defaults() -> None:
     assert item["source_passages"][0]["passage_code"] == "P-X"
     assert item["required_patch"]["scoring_candidate"] is False
     assert item["required_patch"]["usable_for_scoring_cluster"] is False
+
+
+def test_worklist_resolves_claim_object_through_accepted_object_names() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "from retrieval_v3.object_names onm" in source
+    assert "lower(onm.name_text) = lower(mc.object_name)" in source
+    assert "onm.review_status::text = 'accepted'" in source
+
+
+def test_review_prompt_does_not_route_qualifying_results_away() -> None:
+    prompt = tool.prompt_for_task("CRW-TEST", [])
+
+    assert "采纳计策、制度成果或军事成果只要满足上述链条" in prompt
+    assert "不得因同一事实也符合其他 rule 或 item" in prompt
+    assert "封爵、追封、画像、总评、单纯采纳计策" not in prompt

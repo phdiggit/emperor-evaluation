@@ -28,6 +28,7 @@ from scripts.dev.retrieval_v2_import_plan import ImportPlanError  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev import retrieval_v2_factorization_task_runner as task_runner  # noqa: E402
+from scripts.shared import agent_runtime_config  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -303,10 +304,22 @@ def build_factor_option_catalog(rows: Sequence[Mapping[str, Any]]) -> dict[tuple
     return catalog
 
 
+RULE_ROUTING_OPTION_MARKERS = ("相邻项", "相邻 rule", "相邻rule", "跨项切分", "跨 rule")
+
+
+def is_rule_routing_option(row: Mapping[str, Any]) -> bool:
+    text_fields = " ".join(
+        text(row.get(key))
+        for key in ("option_code", "label", "option_note")
+        if text(row.get(key))
+    ).lower()
+    return any(marker.lower() in text_fields for marker in RULE_ROUTING_OPTION_MARKERS)
+
+
 def factor_option_candidates(catalog: Mapping[tuple[str, str], Sequence[Mapping[str, Any]]], *, rule_code: str, factor_name: str) -> list[dict[str, Any]]:
-    rows = [dict(row) for row in catalog.get(("", factor_name), ())]
-    rows.extend(dict(row) for row in catalog.get((rule_code, factor_name), ()))
-    return rows
+    rule_rows = [dict(row) for row in catalog.get((rule_code, factor_name), ())]
+    rows = rule_rows or [dict(row) for row in catalog.get(("", factor_name), ())]
+    return [row for row in rows if not is_rule_routing_option(row)]
 
 
 def option_by_value(
@@ -1437,17 +1450,13 @@ def build_codex_tasks(*, batch_paths: Sequence[Path], output_root: Path) -> list
             "last_message_path": repo_relative(last_message_path),
             "log_path": repo_relative(log_path),
             "expected_outputs": [expected_output_contract(patch_path)],
-            "argv": [
-                "codex",
-                "exec",
-                "-C",
-                str(ROOT),
-                "--dangerously-bypass-approvals-and-sandbox",
-                "--output-last-message",
-                str(last_message_path),
-                "--json",
-                "-",
-            ],
+            "argv": agent_runtime_config.codex_task_argv(
+                "factorization",
+                exec_args=[
+                    "-C", str(ROOT), "--dangerously-bypass-approvals-and-sandbox",
+                    "--output-last-message", str(last_message_path), "--json", "-",
+                ],
+            ),
         }
         prompt_path.parent.mkdir(parents=True, exist_ok=True)
         patch_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1530,7 +1539,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--rule-code", default=DEFAULT_RULE_CODE)
     worklist.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE)
     worklist.add_argument("--scope", choices=SCOPES, default="accepted-packs")
-    worklist.add_argument("--batch-size", type=int, default=8)
+    worklist.add_argument("--batch-size", type=int)
     worklist.add_argument("--target-name", action="append", default=[], help="Restrict worklist to this emperor/person target name. Repeatable.")
     worklist.add_argument("--target-code", action="append", default=[], help="Restrict worklist to this retrieval target code. Repeatable.")
     worklist.add_argument("--source-pack-code", action="append", default=[], help="Restrict worklist to explicit source pack code. Repeatable; allows draft shadow packs.")
@@ -1554,7 +1563,7 @@ def build_parser() -> argparse.ArgumentParser:
         run_plan.add_argument(name, action="store_true")
     for name in ("--output", "--agent-output-root"):
         run_plan.add_argument(name, type=Path)
-    for name, default in (("--limit", 0), ("--max-workers", 4), ("--timeout-seconds", 1800)):
+    for name, default in (("--limit", 0), ("--max-workers", None), ("--timeout-seconds", None)):
         run_plan.add_argument(name, type=int, default=default)
     run_plan.add_argument("--codex-win-bin", default="codex-win")
     run_plan.add_argument("--sandbox-profile", choices=("read-only", "local-write", "bypass"), default="local-write")
@@ -1590,6 +1599,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps({"ok": True, "tasks": summary["totals"]["tasks"], "materials": summary["totals"]["materials"], "tasks_jsonl": summary["files"]["tasks_jsonl"]}, ensure_ascii=False, sort_keys=True))
         return 0
     if args.command == "run-plan":
+        runtime = agent_runtime_config.resolve_agent_stage("factorization")
         payload = run_codex_tasks(
             tasks_path=args.tasks_jsonl,
             execute=args.execute,
@@ -1598,8 +1608,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             output=args.output,
             agent_output_root=args.agent_output_root,
             codex_win_bin=args.codex_win_bin,
-            max_workers=args.max_workers,
-            timeout_seconds=args.timeout_seconds,
+            max_workers=int(args.max_workers or runtime["max_workers"]),
+            timeout_seconds=int(args.timeout_seconds or runtime["timeout_seconds"]),
             sandbox_profile=args.sandbox_profile,
             permission_profile=args.permission_profile,
             deny_policy=args.deny_policy,
@@ -1615,6 +1625,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0 if payload["ok"] else 1
     if args.command != "worklist":
         raise FactorizationWorklistError(f"unsupported command: {args.command}")
+    runtime = agent_runtime_config.resolve_agent_stage("factorization")
     payload = build_worklist(
         env_file=args.env_file,
         dsn_env=args.dsn_env,
@@ -1623,7 +1634,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         rule_code=args.rule_code,
         formula_code=args.formula_code,
         scope=args.scope,
-        batch_size=args.batch_size,
+        batch_size=int(args.batch_size or runtime["batch_size"]),
         source_pack_codes=args.source_pack_code,
         target_names=args.target_name,
         target_codes=args.target_code,

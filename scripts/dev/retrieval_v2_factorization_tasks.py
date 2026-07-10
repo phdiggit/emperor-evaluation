@@ -19,6 +19,7 @@ PROMPT_QUOTE_LIMIT = 900
 PROMPT_PROFILE_LIST_LIMIT = 3
 PATCH_FALLBACK_BEGIN = "PATCH_JSONL_BEGIN"
 PATCH_FALLBACK_END = "PATCH_JSONL_END"
+RULE_ROUTING_PROMPT_MARKERS = ("相邻项", "相邻 rule", "相邻rule", "跨项切分", "跨 rule")
 
 
 def stable_json(value: Any) -> str:
@@ -97,6 +98,14 @@ def prompt_factor_hint_suggestions(template: Mapping[str, Any]) -> dict[str, Any
     return {key: value for key, value in result.items() if value}
 
 
+def prompt_factor_option(row: Mapping[str, Any]) -> dict[str, str] | None:
+    label = text(row.get("label"))
+    searchable = " ".join([text(row.get("option_code")), label, text(row.get("option_note"))]).lower()
+    if any(marker.lower() in searchable for marker in RULE_ROUTING_PROMPT_MARKERS):
+        return None
+    return {"label": label, "value_num": text(row.get("value_num"))}
+
+
 def prompt_object(row: Mapping[str, Any], obj: Mapping[str, Any]) -> dict[str, Any]:
     base = {
         "canonical_name": text(obj.get("canonical_name")),
@@ -148,14 +157,7 @@ def slim_batch_for_prompt(batch: Mapping[str, Any]) -> dict[str, Any]:
         for factor_name, rows in candidates.items():
             key = text(factor_name)
             if key and key not in factor_options:
-                factor_options[key] = [
-                    {
-                        "label": text(row.get("label")),
-                        "value_num": text(row.get("value_num")),
-                    }
-                    for row in rows
-                    if isinstance(row, Mapping)
-                ]
+                factor_options[key] = [option for row in rows if isinstance(row, Mapping) if (option := prompt_factor_option(row))]
     return {
         "batch_id": text(batch.get("batch_id")),
         "material_count": len(materials),
@@ -215,8 +217,8 @@ def prompt_for_batch(*, batch: Mapping[str, Any], output_jsonl: Path) -> str:
             "同链任用授权后若 quote 明示职责履行、战果、行政成果、说降成功、供给不断等结果，"
             "`appointment_effect` 不得降为弱反馈；`source_factor`/`context_factor` 看事实链完整度和规则机制直接性，"
             "若 `factor_hint_suggestions.mapped_refs.appointment_effect.hint_value=strong_success` 且无不确定标记，降为弱反馈必须在 patch_note 中说明同链不闭合的 quote 依据；"
-            "不得因 `appointment_effect` 较弱而同步降档；相邻战事、同人别功或同段其它对象战果不能用来升高本次 `appointment_effect`，"
-            "但若本次任用授权事实本身成立，不得因此直接 `exclude`，应按弱反馈或本次明示结果入分；多段 source_passages 可共同支撑同一对象的长期复用；"
+            "不得因 `appointment_effect` 较弱而同步降档；只使用本对象、本次任用授权链及其 source_passages 明示的结果，"
+            "若事实满足当前 rule，必须按本次明示结果入分，不得因同一事实也符合其他 rule 或 item 而降权、`supporting_only` 或 `exclude`；多段 source_passages 可共同支撑同一对象的长期复用；"
             "临终后事指定、继任安排或国家安危托付可按国家级/托付级任用理解；随征、从征、群体封赏对象不得仅凭头衔上拔 `appointment_importance`。\n"
         )
     if "team_building" in rule_codes:
@@ -244,7 +246,8 @@ def prompt_for_batch(*, batch: Mapping[str, Any], output_jsonl: Path) -> str:
         "- `factor_hint_suggestions` 只是抓包端有限枚举预填建议，不是正式裁判；必须用 quote 和规则表独立确认，发现不合规则时直接覆盖、清空或改为 `supporting_only` / `exclude`。\n"
         "- `score.side` 是最终入分方向，不是候选包 direction；所选 factor 数值乘积为负时必须填 `negative`，为正时必须填 `positive`。\n"
         "- `supporting_only` 表示材料有上下文价值但不单独入分；`exclude` 表示不应进入本 rule 计分；两者必须写 `side:null` 和 `factor_refs:{}`。\n"
-        "- claim.summary 只作索引；因子取值只能使用 source_passages.quote 明示支持的事实，不得用 summary、历史常识或相邻未给出的上下文补齐战果、撤权、处置或履职结果。\n"
+        "- claim.summary 只作索引；因子取值只能使用 source_passages.quote 明示支持的事实，不得用 summary、历史常识或未给出的上下文补齐战果、撤权、处置或履职结果。\n"
+        "- 各 rule 独立判断；材料只要满足当前 rule 说明就必须正常入分。同一事实也符合其他 rule 或 item，不构成本 rule 的降权或排除理由。\n"
         "- appointment_delegation 的 `appointment_effect` 只评价任用授权安排本身的任务收益或任务损害；撤权、诛废、猜忌、清洗、谋反/反叛、自疑聚兵、功臣不保等处置性材料，只有证明其是该任用授权安排的直接履职结果时才可入分，否则用 `supporting_only` 或 `exclude`。\n"
         "- 若藩王/重臣后续谋反、反叛或聚兵，quote 又把原因解释为同功者被杀、功臣安全恐惧、猜忌或政权安全压力，不得按 appointment_delegation 负向结果入分；改用 `supporting_only` 或 `exclude`。\n"
         "- `attribution_factor` 最高档只用于 quote 明示皇帝亲自判断且存在逆阻力/反常规取舍；普通诏命、任官、谕令、群体“某等”受命一般不超过“皇帝决策链清楚”。\n"

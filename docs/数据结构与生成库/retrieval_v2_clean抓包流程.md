@@ -26,6 +26,63 @@ claim 抽取服务只负责原子事实入库和 claim 侧预计算，不负责�
 
 短期可在 claim worker 上增加显式 opt-in 参数，例如 `--auto-rebuild-event-groups`、`--event-group-replace-existing`、`--event-group-status active`，默认关闭，服务启动参数显式打开。中期生产形态应使用独立轻量队列，例如 `claim_event_group_rebuild_jobs`：claim worker 只按受影响 owner enqueue 幂等任务，event group worker 负责 debounce、局部 replace、执行和报告，避免多个 claim job 连续完成时反复重建同一 owner。`strong_chain`、`probable_chain`、`context_bundle` 当前由 `retrieval_v2_claim_chain_candidates.py` 从原子 claim / event group 动态计算；若后续要全自动消费，应在 event group rebuild 之后再 materialize chain candidates，或扩展 event group 表保存 `chain_strength` 等字段，不要把链强度判断塞回 claim 抽取服务。
 
+## 智能体运行配置
+
+所有会实际调用 Codex，或已经形成待调用队列的环节，统一在 `data/configs/project_config.yml` 的 `tooling.agent_runtime` 下登记。默认模型固定为 `gpt-5.6-luna`，新会话、本地批处理和服务器 claim worker 都从该配置解析；不再依赖某个 PowerShell 会话临时保留模型环境变量。命令行显式值优先于配置，并保留环境变量覆盖能力：阶段专用 `EMPEROR_EVAL_AGENT_<STAGE>_MODEL` / `..._REASONING_EFFORT` / `..._MAX_WORKERS` / `..._TIMEOUT_SECONDS` / `..._BATCH_SIZE` / `..._SHARD_SIZE`，其次是通用 `EMPEROR_EVAL_AGENT_MODEL` / `EMPEROR_EVAL_AGENT_REASONING_EFFORT`，再兼容旧 `RETRIEVAL_V2_CODEX_MODEL` / `RETRIEVAL_V2_CODEX_REASONING_EFFORT`。
+
+| stage | 智能体职责 | 当前入口 | 并发含义 |
+| --- | --- | --- | --- |
+| `retrieval_taskgen` | 从目标与规则骨架发现对象、史源和查询计划 | `retrieval_v2_clean_runner.py` | 目标级 `max_workers`，每任务 `batch_size` |
+| `retrieval_judge` | 阅读候选切片并抽取宽 claim / candidate | `retrieval_v2_clean_runner.py` | 单目标 shard `max_workers`，每 shard `shard_size` |
+| `alias_refiner` | 只处理机械规则不能消解的别名缺口 | `retrieval_v2_alias_refiner.py` 生成 prompt；当前仍为条件式人工启动 | task `batch_size` / `max_workers` |
+| `object_source_hint_review` | 复核对象源缓存中不确定的来源形态或别名冲突 | `retrieval_v2_object_source_cache.py` 的 `agent_review_queue.jsonl`；当前只排队，不自动调用 | task `batch_size` / `max_workers` |
+| `claim_extraction` | 服务器从 uncovered candidate slice 抽取原子 claim | `retrieval_v2_claim_extraction_worker.py` | 单 job shard `max_workers`，每 shard `shard_size` |
+| `claim_passage_repair` | 窄修 claim 与 passage 错位 | `retrieval_v2_claim_passage_repair.py` | task `batch_size`，run-plan `max_workers` |
+| `material_review` | 判断 passage 是否直接支撑 claim | `retrieval_v2_material_review_tasks.py` | task `batch_size`，run-plan `max_workers` |
+| `identity_judgment` | 目标时期、人物角色和人物档位等有限值判读 | `retrieval_v2_judgment_worklists.py` | task `batch_size`，run-plan `max_workers` |
+| `factorization` | 对正式 binding 选择有限因子档位 | `retrieval_v2_factorization_worklists.py` | task `batch_size`，run-plan `max_workers` |
+| `v3_candidate_review` | 复核 v3 appointment_delegation candidate 准入事实 | `retrieval_v3_candidate_review_worklist.py` | task `batch_size`，run-plan `max_workers` |
+| `v3_context_review` | 对 needs_context 候选做同文档二审 | `retrieval_v3_context_review_tasks.py` | task `batch_size`，run-plan `max_workers` |
+| `v3_unseeded_actor_review` | 复核史源驱动发现的未种子人物是否值得补抓 | `retrieval_v3_unseeded_actor_review_tasks.py` | task `batch_size`，run-plan `max_workers` |
+| `v3_negative_chain_review` | 复核负向任用链是否同时具备任用、职责和实际损害 | `retrieval_v3_unseeded_actor_negative_chain_tasks.py` | task `batch_size`，run-plan `max_workers` |
+
+对象源抓取、别名精确匹配、claim cache 命中、event group 重建、candidate 提升、binding、落库、scorer 和报告渲染均为确定性环节，不应因为有 `agent_review` 字段就自动启动模型。负向链也不是独立 claim 系统：它复用对象源缓存和 claim extraction，只在 candidate review 处增加有限负向事实链判断；未补齐 claim 的对象必须保持 `claim_refinement_required`，不能直接 binding 或入分。
+
+`retrieval_v2_claim_extraction_worker.py once --execute` 以及 `extract-from-candidates` 在没有显式传 `--judge-timeout`、`--judge-shard-size`、`--judge-shard-workers` 时，必须读取 `claim_extraction` 配置。服务器发布包必须同时包含该 worker、`retrieval_v2_clean_runner.py`、`scripts/shared/agent_runtime_config.py` 和 `project_config.yml`，避免只替换 worker 脚本而遗漏模型与并发配置。
+
+## 服务器版本同步与服务切换
+
+服务器不再接收散装脚本覆盖。`retrieval_v3_runtime_release.py` 只允许从干净工作区的已提交 SHA 生成 `git archive`，清单记录 commit SHA、归档 SHA256 和运行必需文件；服务器按不可变目录 `<release_root>/releases/<commit_sha>` 解包，并以 `<release_root>/current` 原子软链接切换两个独立 systemd 服务。两个 unit 的 `WorkingDirectory` 和脚本路径都应指向 `current`，数据库 DSN、令牌等密钥继续放在服务器环境文件，不进入发布归档。
+
+本地提交并推送后打包：
+
+```powershell
+python scripts/dev/retrieval_v3_runtime_release.py package `
+  --archive tmp/runtime_release/emperor-evaluation.tar.gz `
+  --manifest tmp/runtime_release/emperor-evaluation.manifest.json
+```
+
+使用 `scp` 或受控发布通道传输归档和清单后，先在服务器只读验收，再显式切换。unit 名称属于服务器环境配置，必须传真实名称，不能写死在仓库：
+
+```bash
+python scripts/dev/retrieval_v3_runtime_release.py apply \
+  --archive /srv/emperor-evaluation/incoming/emperor-evaluation.tar.gz \
+  --manifest /srv/emperor-evaluation/incoming/emperor-evaluation.manifest.json \
+  --release-root /srv/emperor-evaluation \
+  --service '<object-source-unit>' \
+  --service '<claim-extraction-unit>'
+
+python scripts/dev/retrieval_v3_runtime_release.py apply \
+  --archive /srv/emperor-evaluation/incoming/emperor-evaluation.tar.gz \
+  --manifest /srv/emperor-evaluation/incoming/emperor-evaluation.manifest.json \
+  --release-root /srv/emperor-evaluation \
+  --service '<object-source-unit>' \
+  --service '<claim-extraction-unit>' \
+  --execute
+```
+
+`apply` 默认只验 SHA256、归档路径安全和必需文件，不写服务器；`--execute` 才切换并依次 restart / is-active。任一服务未通过健康检查时自动把 `current` 恢复到切换前目录并重启旧版本；旧 release 不自动删除，便于人工审计和回退。该发布动作只同步代码和项目配置，不执行数据库迁移、claim 抽取、binding、factorization 或 scorer。
+
 候选 payload 可补 profile，但不直接判 factor 档位。I5B 候选建议写 `candidate_payload.personnel_profile`：`person`、`person_role`、`talent_quality`、`action_type`、`appointment_or_authorization`、`feedback_or_result`、`team_function`、`selection_channel`、`same_event_chain`。I5C 候选建议写 `candidate_payload.power_control_profile`：`power_holder`、`power_base`、`power_channel`、`control_action`、`control_result`、`risk_type`、`same_event_chain`。`team_building` 在抓包候选阶段按皇帝对象池整体聚合，不因对象不是核心官职、核心将相或长期班底而排除；对象弱贡献、负贡献或 `supporting_only` 由消费端窄验。
 
 runner 聚合 judge 结果后必须做确定性 profile normalization：`profile_policy` 不入最终 payload；非 I5B 候选删除 `personnel_profile`，非 I5C 候选删除 `power_control_profile`，profile 内空字符串、空对象和空数组删除。该步骤不改变 claim、candidate lane、hint_status 或 scoring chain，只为长期消费、入库 payload 和后续 dry-run scorer 降低噪声。shadow report 必须显示 `candidate_payload_with_personnel_profile_count`、`candidate_payload_with_power_control_profile_count` 和 `candidate_profile_problem_count`，消费包应以 `candidate_profile_problem_count=0` 为收货条件之一。

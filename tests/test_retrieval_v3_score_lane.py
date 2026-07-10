@@ -25,6 +25,35 @@ def test_candidate_is_an_exception_not_a_direct_lane_requirement() -> None:
     assert decision.reason == "candidate_not_scoring"
 
 
+def test_candidate_review_payload_can_satisfy_appointment_gate() -> None:
+    decision = tool.classify_score_lane(
+        {
+            "rule_code": "appointment_delegation",
+            "binding_usable_for_scoring_cluster": True,
+            "identity_ready": True,
+            "candidate_id": 1,
+            "candidate_payload": {
+                "candidate_review": {
+                    "direction": "positive",
+                    "candidate_role": "civil_official",
+                    "scoring_candidate": True,
+                    "usable_for_scoring_cluster": True,
+                    "required_facts": {
+                        "has_appointment_or_authorization": True,
+                        "has_named_actor": True,
+                        "has_task_or_responsibility": True,
+                        "has_result_or_feedback": True,
+                        "has_continuity_or_reuse": False,
+                    },
+                }
+            },
+        }
+    )
+
+    assert decision.lane == "normal_resolved_exception"
+    assert decision.allowed is True
+
+
 def test_identity_anchor_is_required_before_any_score_lane() -> None:
     decision = tool.classify_score_lane(
         {"rule_code": "appointment_delegation", "binding_usable_for_scoring_cluster": True, "identity_ready": False}

@@ -58,6 +58,65 @@ outputs:
   evidence_indexes: true
 
 tooling:
+  agent_runtime:
+    defaults:
+      model: gpt-5.6-luna
+      reasoning_effort: medium
+      max_workers: 4
+      timeout_seconds: 1800
+    stages:
+      retrieval_taskgen:
+        batch_size: 1
+        max_workers: 4
+        timeout_seconds: 1800
+      retrieval_judge:
+        shard_size: 8
+        max_workers: 4
+        timeout_seconds: 1800
+      alias_refiner:
+        batch_size: 8
+        max_workers: 2
+        timeout_seconds: 1200
+      object_source_hint_review:
+        batch_size: 8
+        max_workers: 2
+        timeout_seconds: 1200
+      claim_extraction:
+        shard_size: 4
+        max_workers: 4
+        timeout_seconds: 1800
+      claim_passage_repair:
+        batch_size: 5
+        max_workers: 4
+        timeout_seconds: 1800
+      material_review:
+        batch_size: 8
+        max_workers: 4
+        timeout_seconds: 1800
+      identity_judgment:
+        batch_size: 12
+        max_workers: 4
+        timeout_seconds: 1800
+      factorization:
+        batch_size: 8
+        max_workers: 4
+        timeout_seconds: 1800
+      v3_candidate_review:
+        batch_size: 8
+        max_workers: 4
+        timeout_seconds: 1800
+      v3_context_review:
+        batch_size: 6
+        max_workers: 4
+        timeout_seconds: 1800
+      v3_unseeded_actor_review:
+        batch_size: 8
+        max_workers: 2
+        timeout_seconds: 1200
+      v3_negative_chain_review:
+        batch_size: 4
+        max_workers: 2
+        timeout_seconds: 1200
   source_excerpt_pool:
     default_workflow_code: I5B
     paths:

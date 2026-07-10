@@ -234,6 +234,7 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "不同任命/授权、不同战役、不同边疆或中枢任务" in prompt
     assert "不要只输出“最有名”或最容易摘要的三条" in prompt
     assert "只能从该对象 allowed_source_refs_by_object 中取 refs" in prompt
+    assert "顶层 claim.object_name 是 claim cache 的焦点人物" in prompt
     assert "runner 会拒收跨对象 refs" in prompt
     assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
 
@@ -256,6 +257,8 @@ def test_build_prompt_requires_cross_rule_candidate_routing_policy() -> None:
     prompt = tool.build_prompt(sample_candidates())
 
     assert "必须顺手为同一 claim 标出可复用的 secondary_binding_candidates" in prompt
+    assert "每个 rule 按自身说明独立判断" in prompt
+    assert "不得以另一个 lane 更典型为由删除、降级当前 rule 候选" in prompt
     assert "I5B 固定只有五个正式候选 rule" in prompt
     assert "talent_discovery、appointment_delegation、team_building、tolerate_talent、anti_nepotism" in prompt
     assert "旧 appointment_trust / delegation 兼容口径已放弃" in prompt
@@ -278,6 +281,7 @@ def test_build_prompt_requires_cross_rule_candidate_routing_policy() -> None:
     assert '"power_control_profile": {' not in prompt
     assert "current_rule_candidate、future_rule_hint、rejected_or_context_only" in prompt
     assert "future_rule_hint 和 rejected_or_context_only 不得进入 factorization" in prompt
+    assert "如事实同时满足当前 I5B rule，仍必须保留 current_rule_candidate" in prompt
     assert '"candidate_payload": {' in prompt
 
 
@@ -295,7 +299,8 @@ def test_build_prompt_requires_appointment_delegation_scoring_candidate_contract
     assert "candidate_payload.candidate_role 必须使用" in prompt
     assert "appointment_delegation_domain" in prompt
     assert "same_chain_outcome_summary" in prompt
-    assert "三杰总评" in prompt
+    assert "采纳计策、制度成果或军事成果只要满足上述链条" in prompt
+    assert "应路由到 team_building / tolerate_talent / future hint" not in prompt
     assert "appointment_delegation factor hint shadow" in prompt
     assert "appointment_delegation_factor_hints" in prompt
     assert "importance_hint" in prompt
@@ -310,6 +315,8 @@ def test_build_prompt_requires_appointment_delegation_scoring_candidate_contract
     assert "appointment_delegation 判读选择" in prompt
     assert "弱任官履历、总评、后续处置或政治风险不得挤掉更早的完整授权收益链" in prompt
     assert "同一任务链里有多个具名 delegate" in prompt
+    assert "不同任用授权任务、不同战役或不同职责结果应分别保留 claim" in prompt
+    assert "不要为了每个官职、每场战役" not in prompt
     assert "object_claim_undercoverage coverage_gaps" in prompt
     assert "谓词词表缺失或别名缺失" in prompt
     assert '"rule_code": "talent_discovery | appointment_delegation | team_building' in prompt
@@ -377,6 +384,8 @@ def test_build_prompt_personnel_political_wide_uses_route_table_and_fact_schema(
     assert "personnel_political_wide shadow pilot" in prompt
     assert "fact_schema=political_action_v1" in prompt
     assert "personnel_political_v0_2" in prompt
+    assert "跨项候选路由表" not in prompt
+    assert "不要向模型注入跨项排他路由表" in prompt
     assert "candidate_item_code" in prompt
     assert "candidate_lane" in prompt
     assert "required_facts_present" in prompt

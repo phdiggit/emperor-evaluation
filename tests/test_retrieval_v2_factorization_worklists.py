@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from scripts.dev import retrieval_v2_factorization_worklists as tool
+from scripts.dev import retrieval_v2_factorization_tasks as task_tool
 
 
 def material_row(**overrides: object) -> dict[str, object]:
@@ -241,6 +242,81 @@ def test_appointment_delegation_factor_keys_match_pending_material_contract() ->
         "role_complementarity_factor",
         "long_term_stability_factor",
     )
+
+
+def test_factor_options_prefer_rule_catalog_and_drop_legacy_routing_labels() -> None:
+    catalog = tool.build_factor_option_catalog(
+        [
+            {
+                "rule_code": "",
+                "factor_name": "context_factor",
+                "option_code": "shared-weak",
+                "label": "相邻项剩余很弱",
+                "value_num": "0.5000",
+            },
+            {
+                "rule_code": "appointment_delegation",
+                "factor_name": "context_factor",
+                "option_code": "adjacent",
+                "label": "与本 rule 相关但边界较弱，容易被相邻 rule 吸收。",
+                "value_num": "0.7000",
+            },
+            {
+                "rule_code": "appointment_delegation",
+                "factor_name": "context_factor",
+                "option_code": "clear",
+                "label": "本 rule 语境成立，事实和对象关系清楚。",
+                "value_num": "1.0000",
+            },
+        ]
+    )
+
+    assert tool.factor_option_candidates(
+        catalog,
+        rule_code="appointment_delegation",
+        factor_name="context_factor",
+    ) == [
+        {
+            "factor_option_id": None,
+            "option_code": "clear",
+            "label": "本 rule 语境成立，事实和对象关系清楚。",
+            "value_num": "1.0000",
+            "source_doc": "",
+            "source_line": None,
+            "option_note": "",
+        }
+    ]
+
+
+def test_prompt_slimming_drops_legacy_routing_labels_from_existing_worklist() -> None:
+    batch = {
+        "batch_id": "legacy-worklist",
+        "groups": [
+            {
+                "materials": [
+                    {
+                        "binding_code": "BND-LEGACY",
+                        "rule_code": "appointment_delegation",
+                        "factor_patch_template": {
+                            "factor_refs": {"context_factor": {"label": ""}},
+                            "factor_option_candidates": {
+                                "context_factor": [
+                                    {"label": "相邻项剩余很弱", "value_num": "0.5000"},
+                                    {"label": "本 rule 语境成立，事实和对象关系清楚。", "value_num": "1.0000"},
+                                ]
+                            },
+                        },
+                    }
+                ]
+            }
+        ],
+    }
+
+    payload = task_tool.slim_batch_for_prompt(batch)
+
+    assert payload["factor_options_by_factor"]["context_factor"] == [
+        {"label": "本 rule 语境成立，事实和对象关系清楚。", "value_num": "1.0000"}
+    ]
 
 
 def test_accepted_pack_scope_uses_latest_passed_pack_per_target_contract() -> None:
@@ -982,6 +1058,10 @@ def test_build_codex_tasks_writes_slim_prompt_and_task_jsonl(tmp_path: Path) -> 
     assert "降为弱反馈必须在 patch_note 中说明同链不闭合的 quote 依据" in prompt_text
     assert "appointment_delegation 的 `appointment_effect` 只评价任用授权安排本身的任务收益或任务损害" in prompt_text
     assert "同功者被杀、功臣安全恐惧、猜忌或政权安全压力" in prompt_text
+    assert "各 rule 独立判断" in prompt_text
+    assert "同一事实也符合其他 rule 或 item，不构成本 rule 的降权或排除理由" in prompt_text
+    assert "相邻战事、同人别功" not in prompt_text
+    assert "相邻未给出的上下文" not in prompt_text
     assert "同一 claim/object/side 拆成多个 role binding 时，默认最多保留一个 `score`" in prompt_text
     assert "重新全量裁判正负" not in prompt_text
     assert "刘邦委任萧何镇守关中" in prompt_text

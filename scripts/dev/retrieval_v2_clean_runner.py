@@ -29,6 +29,7 @@ from scripts.dev.retrieval_v2_clean_summary import build_batch_summary, sum_usag
 from scripts.dev.retrieval_v2_run_events import RunEventLogger
 from scripts.dev import retrieval_v2_source_candidates as source_candidates
 from scripts.dev import retrieval_v2_task_skeleton as task_skeleton
+from scripts.shared import agent_runtime_config  # noqa: E402
 
 DEFAULT_TARGET_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
 
@@ -45,6 +46,7 @@ class CodexInvocation:
     search: bool
     timeout_seconds: int
     codex_bin: str
+    agent_stage: str = ""
 
 @dataclass(frozen=True)
 class CodexResult:
@@ -210,15 +212,20 @@ def _codex_add_dirs(cwd: Path) -> list[Path]:
     return result
 
 
-def _codex_model_options() -> list[str]:
-    options: list[str] = []
-    model = os.environ.get(CODEX_MODEL_ENV, "").strip()
-    reasoning_effort = os.environ.get(CODEX_REASONING_EFFORT_ENV, "").strip()
-    if model:
-        options.extend(["--model", model])
-    if reasoning_effort:
-        options.extend(["--config", f'model_reasoning_effort="{reasoning_effort}"'])
-    return options
+def _agent_stage(invocation: CodexInvocation) -> str:
+    if invocation.agent_stage:
+        return invocation.agent_stage
+    return "retrieval_taskgen" if invocation.phase.startswith("taskgen") else "retrieval_judge"
+
+
+def _codex_model_options(invocation: CodexInvocation) -> list[str]:
+    runtime = agent_runtime_config.resolve_agent_stage(_agent_stage(invocation))
+    return [
+        "--model",
+        runtime["model"],
+        "--config",
+        f'model_reasoning_effort="{runtime["reasoning_effort"]}"',
+    ]
 
 
 def run_codex(invocation: CodexInvocation) -> CodexResult:
@@ -227,7 +234,7 @@ def run_codex(invocation: CodexInvocation) -> CodexResult:
     event_log = invocation.event_log.resolve()
     cwd.mkdir(parents=True, exist_ok=True)
     cmd = [_codex_bin(invocation)]
-    cmd.extend(_codex_model_options())
+    cmd.extend(_codex_model_options(invocation))
     if invocation.search:
         cmd.append("--search")
     else:
@@ -514,6 +521,7 @@ def run_taskgen(
             search=search,
             timeout_seconds=timeout_seconds,
             codex_bin=codex_bin,
+            agent_stage="retrieval_taskgen",
         )
     )
     discovery_payload = dict(result.payload)
@@ -678,6 +686,7 @@ def run_judge_round(
     codex_runner: CodexRunner,
     codex_bin: str,
     timeout_seconds: int,
+    agent_stage: str = "retrieval_judge",
 ) -> dict[str, Any]:
     result = codex_runner(
         CodexInvocation(
@@ -689,6 +698,7 @@ def run_judge_round(
             search=False,
             timeout_seconds=timeout_seconds,
             codex_bin=codex_bin,
+            agent_stage=agent_stage,
         )
     )
     output_path = person_dir / f"judge_result.round{round_index}.json"
@@ -725,6 +735,7 @@ def run_judge(
     judge_shard_size: int,
     judge_shard_workers: int,
     judge_mode: str | None = None,
+    agent_stage: str = "retrieval_judge",
 ) -> dict[str, Any]:
     candidates = with_judge_mode(candidates, judge_mode)
     atomic_write_text(prompt_path, candidate_prompt.build_prompt(candidates))
@@ -741,6 +752,7 @@ def run_judge(
             codex_runner=codex_runner,
             codex_bin=codex_bin,
             timeout_seconds=timeout_seconds,
+            agent_stage=agent_stage,
         )
         result["payload"] = judge_shards.enrich_judge_payload(candidates, result["payload"])
         enriched_output_path = person_dir / f"judge_result.round{round_index}.enriched.json"
@@ -771,6 +783,7 @@ def run_judge(
                 search=False,
                 timeout_seconds=timeout_seconds,
                 codex_bin=codex_bin,
+                agent_stage=agent_stage,
             )
         )
         output_path = person_dir / f"judge_result.round{round_index}.{shard_code}.json"

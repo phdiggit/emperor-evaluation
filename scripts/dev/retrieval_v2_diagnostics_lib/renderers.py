@@ -86,6 +86,11 @@ def render_score_chain_markdown(payload: Mapping[str, Any]) -> str:
         lines.append(
             f"- scope: `{scope.get('scope')}` / `{scope.get('item_code')}` / `{scope.get('rule_code')}` / `{scope.get('formula_code')}`{target_part}{emperor_part}"
         )
+    source = payload.get("source")
+    if isinstance(source, Mapping) and source:
+        source_path = f" / path=`{source.get('path')}`" if source.get("path") else ""
+        enriched = f" / claim_details_enriched=`{str(source.get('claim_details_enriched')).lower()}`" if "claim_details_enriched" in source else ""
+        lines.append(f"- source: `{source.get('kind')}` / write_db=`{str(source.get('write_db')).lower()}`{enriched}{source_path}")
     formula_params = payload.get("formula_params")
     if isinstance(formula_params, Mapping) and formula_params:
         lines.append(

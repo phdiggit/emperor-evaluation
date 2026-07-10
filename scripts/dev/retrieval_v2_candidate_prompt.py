@@ -57,7 +57,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
-CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v5_direction_free"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v6_focal_object_owner"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -113,16 +113,6 @@ def prompt_payload(candidates: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def candidate_route_lanes_text() -> str:
-    rows = []
-    for row in contracts.PERSONNEL_POLITICAL_ROUTE_LANES:
-        rows.append(
-            f"{row['candidate_item_code']} {row['candidate_lane']} "
-            f"({row['hint_status']}): {row['description']}"
-        )
-    return "；".join(rows)
-
-
 def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
     payload = prompt_payload(candidates)
     task_identity = payload.get("task_identity") if isinstance(payload.get("task_identity"), Mapping) else {}
@@ -143,6 +133,8 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "如果当前源片段不足以支撑事实闭环，写 source_missing/source_gap，不要臆造 claim。\n\n"
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
         "如输入含 source_ref_policy，只能从该对象 allowed_source_refs_by_object 中取 refs；runner 会拒收跨对象 refs。"
+        "顶层 claim.object_name 是 claim cache 的焦点人物，必须等于 source_slice_refs 唯一对应的 candidate_slices[].object_name。"
+        "若焦点人物是施害者、受事者另有其人，顶层 object_name 仍写焦点人物，受事者只写 fact_payload.object；runner 会机械校验并修正或拒收。"
         "如 candidate_slices[].alias_mentions 给出 deterministic resolved_owner_name，说明该片段中的皇帝别名已由本地别名表机械解析；"
         "若 claim 主行为人/actor 是该别名，claim.emperor_name 必须写 resolved_owner_name，不要绑到本轮 target emperor。"
         "输出要极简：不要输出 notes，不要输出 source_passage_refs，不要输出 claim_completeness；"
@@ -227,10 +219,10 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
             "secondary_binding_candidates 必须显式写 candidate_item_code、candidate_lane、hint_status、direction、required_facts_present。"
             "hint_status 只能是 current_rule_candidate、future_rule_hint、rejected_or_context_only；"
             "只有 current_rule_candidate 才可能被消费端窄验晋升，future_rule_hint 和 rejected_or_context_only 不进入 factorization。"
-            f"跨项候选路由表 {contracts.CANDIDATE_ROUTE_TABLE_VERSION}：{candidate_route_lanes_text()}。\n\n"
+            "不要向模型注入跨项排他路由表；每个 rule 只按自身说明独立判断。\n\n"
         )
         binding_instruction = (
-            "任务目标：生成 personnel_political_wide material_claims，并为每条 claim 标出当前 I5B 正式候选或跨项 future hint。"
+            "任务目标：生成 personnel_political_wide material_claims，并为每条 claim 独立判断其满足的每个 rule；其他 item 的 future hint 不得排除当前 I5B 候选。"
             "本模式下 primary_bindings 必须为空数组；所有候选归属都写入 secondary_binding_candidates，消费端再窄验晋升。"
         )
         primary_bindings_schema = '  "primary_bindings": [],\n'
@@ -249,13 +241,14 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "否则将处置事实标为 neutral/context_claim 或不可计分 binding，并在 notes/binding_note 写明交消费侧结合人物画像判断。\n\n"
         "coverage_gaps 必须是后续可执行的补抓/补判任务：如果本 shard 只是未见负向授权损害，或仅见处置结果但不足以证明任内损害，不要写 negative_undercoverage。"
         "只有候选材料出现明确的治理损害、军政失败、人才结构损害或授权链条失控线索，但缺少足够原文闭环时，才写 negative_undercoverage。\n\n"
-        "跨 rule 候选：你已经在读史料上下文，必须顺手为同一 claim 标出可复用的 secondary_binding_candidates。"
+        "多 rule 候选：你已经在读史料上下文，必须顺手为同一 claim 标出可复用的 secondary_binding_candidates。"
+        "每个 rule 按自身说明独立判断；同一事实满足多个 rule 或 item 时应同时保留对应候选，不得以另一个 lane 更典型为由删除、降级当前 rule 候选。"
         "I5B 固定只有五个正式候选 rule：talent_discovery、appointment_delegation、team_building、tolerate_talent、anti_nepotism；"
         "旧 appointment_trust / delegation 兼容口径已放弃，任用、授权、复用、信任、职责结果反馈统一路由到 appointment_delegation。"
         "I5C 已有权力控制草案 lane：central_military_power_control、regional_clan_power_control、inner_favorite_power_control、institutional_constraint_correction；"
         "在本 shadow 抓包中默认作为 future/current candidate 线索输出，不直接判因子档位或入分。"
         "I5D political_character、I5E cognition_learning、I6 key_decision、I3 military_frontier_result、I7 historical_debt "
-        "只能作为 future hint，必须在 candidate_payload 或 reason 中明确 hint_status=future_rule_hint。"
+        "在本轮只能额外记录为 future hint，必须在 candidate_payload 或 reason 中明确 hint_status=future_rule_hint；如事实同时满足当前 I5B rule，仍必须保留 current_rule_candidate。"
         "secondary candidate 只是后续复核线索，不是候选 rule 的入分结论；处置性材料尤其不能自动推成 tolerate_talent 或 appointment_delegation 负向结论。"
         "tolerate_talent 正向必须直接体现容谏、保全能臣、维护表达安全、修复授权信用，或对被谗毁/被疑/品行攻击人才的保护；"
         "单纯任用、信任、团队成员、采纳一般计策，不能自动转成 tolerate_talent positive。"
@@ -278,8 +271,8 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "candidate_payload.candidate_role 必须使用：appointed_actor、entrusted_actor、delegated_actor、strategic_advisor、military_commander、civil_official、"
         "misappointed_actor、misdelegated_actor、misentrusted_actor、authority_revoked_target。"
         "细分领域放 candidate_payload.appointment_delegation_domain，可用 military / civil / fiscal / frontier / strategic / institutional。"
-        "same_chain_outcome_summary 用一句话说明同链条结果。三杰总评、单纯采纳计策、处置/诱执/撤权结局、人物画像材料，不得标 appointment_delegation usable_for_scoring_cluster=true；"
-        "应路由到 team_building / tolerate_talent / future hint，或作为 appointment_delegation review candidate。\n\n"
+        "same_chain_outcome_summary 用一句话说明同链条结果。只有未证明具名对象、任用授权、具体任务/职责及同链结果或复用时，才不得标 appointment_delegation usable_for_scoring_cluster=true。"
+        "采纳计策、制度成果或军事成果只要满足上述链条，就必须保留 appointment_delegation scoring candidate；是否也支持其他 rule 或 item 不影响本 rule。\n\n"
         "appointment_delegation factor hint shadow：只对 rule_code=appointment_delegation、candidate_lane=I5B.appointment_delegation、"
         "scoring_candidate=true、usable_for_scoring_cluster=true 且 direction=positive/negative 的候选，"
         "可在 candidate_payload.appointment_delegation_factor_hints 输出有限枚举预填建议；direction=neutral 不得输出该 hint。"
@@ -336,7 +329,7 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
         "每条 claim 默认最多 2 个 secondary_binding_candidates；优先保留 current_rule_candidate，尤其是 appointment_delegation scoring candidate。"
         "同一 claim 的 future_rule_hint 最多 1 个，且只在确有独立可复核价值时输出；低价值 review 不要为了填满规则而输出。"
         "secondary_binding_candidates.reason、binding_note、notes 都写短句；能用 candidate_payload 结构表达的链条状态，不要在 reason 里重复长篇解释。"
-        "不要为了每个官职、每场战役或每个相近片段各写一个 claim；选择最能支撑规则覆盖矩阵的代表事实。\n\n"
+        "同一事件链的相近片段应合并；不同任用授权任务、不同战役或不同职责结果应分别保留 claim 和符合条件的 current_rule_candidate，不得用代表性摘要吞掉独立强链。\n\n"
         "输入 JSON：\n"
         f"{prompt_json(payload)}\n"
         "最终回复必须只输出一个 JSON 对象，不要 Markdown 代码块，不要解释性前后文。JSON 结构如下；documents/passages 可省略或置空：\n"

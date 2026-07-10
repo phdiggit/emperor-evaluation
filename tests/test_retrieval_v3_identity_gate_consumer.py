@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from scripts.dev import retrieval_v3_identity_gate_consumer as tool
 
 
@@ -32,3 +34,10 @@ def test_identity_ready_still_synchronizes_candidate_gate() -> None:
     assert decision == "identity_ready"
     assert tool.syncs_candidate_identity_gate(decision) is True
     assert tool.syncs_candidate_identity_gate("identity_missing") is False
+
+
+def test_identity_gate_resolves_accepted_alias_names() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "from retrieval_v3.object_names onm" in source
+    assert "lower(onm.normalized_name) = lower(mc.object_name)" in source

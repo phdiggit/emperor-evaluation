@@ -47,6 +47,60 @@ def normalize_factor_choices(value: Any) -> list[dict[str, str]]:
         )
     return rows
 
+
+def factor_choices_from_refs(value: Any) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    refs = json_object(value)
+    for factor_name in sorted(refs):
+        ref = refs.get(factor_name)
+        if not isinstance(ref, Mapping):
+            continue
+        rows.append(
+            {
+                "factor_name": text(factor_name),
+                "option_code": text(ref.get("option_code")),
+                "option_label": text(ref.get("label")) or text(ref.get("option_label")) or text(ref.get("option_code")),
+                "value_num": decimal_text(ref.get("value_num")),
+            }
+        )
+    return rows
+
+
+def normalize_rule_scorer_material(
+    row: Mapping[str, Any],
+    *,
+    target_code: str,
+    emperor_name: str,
+) -> dict[str, Any]:
+    claim_summary = text(row.get("claim_summary")) or text(row.get("patch_note"))
+    return {
+        "target_code": target_code,
+        "emperor_name": emperor_name,
+        "factor_judgment_id": int(row.get("factor_judgment_id") or 0),
+        "binding_id": int(row.get("binding_id") or 0),
+        "binding_code": text(row.get("binding_code")),
+        "claim_id": int(row.get("claim_id") or 0),
+        "claim_code": text(row.get("claim_code")),
+        "claim_summary": claim_summary,
+        "claim_summary_short": short_text(claim_summary, max_chars=120),
+        "claim_object_name": text(row.get("object_name")),
+        "claim_direction": text(row.get("judgment_side")),
+        "predicate": text(row.get("predicate")),
+        "binding_direction": text(row.get("binding_direction")),
+        "object_role": text(row.get("object_role")),
+        "object_id": int(row["object_id"]) if row.get("object_id") is not None else None,
+        "target_object_id": int(row["target_object_id"]) if row.get("target_object_id") is not None else None,
+        "object_name": text(row.get("object_name")),
+        "side": text(row.get("side")),
+        "judgment_side": text(row.get("judgment_side")),
+        "raw_score": decimal_text(row.get("raw_score")),
+        "abs_score": decimal_text(row.get("abs_score")),
+        "factor_values": json_object(row.get("factor_values")),
+        "factor_choices": factor_choices_from_refs(row.get("factor_refs")),
+        "passages": normalize_passages(row.get("passages")),
+    }
+
+
 def normalize_material_score_row(row: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "target_code": text(row.get("target_code")),
@@ -120,6 +174,183 @@ def top_materials(materials: Sequence[Mapping[str, Any]], limit: int) -> list[di
     if limit <= 0:
         return [dict(row) for row in sorted_rows]
     return [dict(row) for row in sorted_rows[:limit]]
+
+
+def build_score_chain_from_rule_scorer_payload(
+    rule_scorer_payload: Mapping[str, Any],
+    *,
+    target_code: str = "",
+    target_codes: Sequence[str] | None = None,
+    emperors: Sequence[str] | None = None,
+    selector_type: str = "",
+    selector_role: str = "",
+    names: Sequence[str] | None = None,
+    top_materials_per_target: int = DEFAULT_TOP_MATERIALS_PER_TARGET,
+) -> dict[str, Any]:
+    selector_payload = build_score_chain_selectors(
+        target_code=target_code,
+        target_codes=target_codes,
+        emperors=emperors,
+        selector_type=selector_type,
+        selector_role=selector_role,
+        names=names,
+    )
+    selected_target_codes = set(selector_payload["target_codes"])
+    selected_emperors = set(selector_payload["emperors"])
+    targets: list[dict[str, Any]] = []
+    formula_params: dict[str, Any] = {}
+    for cluster in json_array(rule_scorer_payload.get("detailed_clusters")):
+        if not isinstance(cluster, Mapping):
+            continue
+        cluster_target_code = text(cluster.get("target_code"))
+        emperor_name = text(cluster.get("emperor_name"))
+        if selected_target_codes and cluster_target_code not in selected_target_codes:
+            continue
+        if selected_emperors and emperor_name not in selected_emperors:
+            continue
+        calc_detail = json_object(cluster.get("calc_detail"))
+        target_materials = [
+            normalize_rule_scorer_material(row, target_code=cluster_target_code, emperor_name=emperor_name)
+            for row in json_array(calc_detail.get("materials"))
+            if isinstance(row, Mapping)
+        ]
+        if not formula_params:
+            formula_params = json_object(calc_detail.get("formula_params"))
+        action_counts = json_object(cluster.get("action_counts")) or json_object(calc_detail.get("raw_action_counts"))
+        target_entry = {
+            "target_id": int(cluster.get("target_id") or 0),
+            "target_code": cluster_target_code,
+            "emperor_name": emperor_name,
+            "item_code": text(cluster.get("item_code") or rule_scorer_payload.get("item_code")),
+            "rule_code": text(cluster.get("rule_code") or rule_scorer_payload.get("rule_code")),
+            "formula_code": text(cluster.get("formula_code") or rule_scorer_payload.get("formula_code")),
+            "positive_signal": decimal_text(cluster.get("positive_signal")),
+            "negative_signal": decimal_text(cluster.get("negative_signal")),
+            "scored_judgment_count": int(action_counts.get("score") or len(target_materials)),
+            "supporting_judgment_count": int(action_counts.get("supporting_only") or 0),
+            "excluded_judgment_count": int(action_counts.get("exclude") or 0),
+            "review_status": text(cluster.get("review_status")) or "dry_run",
+            "formula_params": json_object(calc_detail.get("formula_params")),
+            "object_side_scores": object_side_summary({"object_side_scores": {}, "calc_detail": calc_detail}, target_materials),
+            "top_materials": top_materials(target_materials, top_materials_per_target),
+            "materials": target_materials,
+        }
+        targets.append(target_entry)
+    totals = {
+        "targets": len(targets),
+        "clusters": len(targets),
+        "material_scores": sum(len(target.get("materials") or []) for target in targets),
+        "scored_judgments": sum(int(target.get("scored_judgment_count") or 0) for target in targets),
+        "supporting_judgments": sum(int(target.get("supporting_judgment_count") or 0) for target in targets),
+        "excluded_judgments": sum(int(target.get("excluded_judgment_count") or 0) for target in targets),
+    }
+    observations = build_score_chain_observations(targets)
+    totals["observations"] = sum(1 for row in observations if int(row.get("count") or 0) > 0)
+    return {
+        "generated_by": "scripts/dev/retrieval_v2_diagnostics.py",
+        "command": "score-chain",
+        "ok": True,
+        "source": {
+            "kind": "rule_scorer_json",
+            "generated_by": text(rule_scorer_payload.get("generated_by")),
+            "write_db": bool(rule_scorer_payload.get("write_db")),
+        },
+        "scope": {
+            "item_code": text(rule_scorer_payload.get("item_code")),
+            "rule_code": text(rule_scorer_payload.get("rule_code")),
+            "formula_code": text(rule_scorer_payload.get("formula_code")),
+            "scope": "rule-scorer-json",
+            "target_code": target_code,
+            "target_codes": selector_payload["target_codes"],
+            "emperors": selector_payload["emperors"],
+            "selectors": selector_payload["selectors"],
+        },
+        "render_options": {"top_materials_per_target": top_materials_per_target},
+        "formula_params": formula_params,
+        "observations": observations,
+        "totals": totals,
+        "targets": targets,
+    }
+
+
+def enrich_score_chain_claim_details(cur: Any, payload: Mapping[str, Any]) -> dict[str, Any]:
+    result = dict(payload)
+    targets = [dict(target) for target in payload.get("targets") or [] if isinstance(target, Mapping)]
+    claim_ids = sorted(
+        {
+            int(material.get("claim_id") or 0)
+            for target in targets
+            for material in target.get("materials") or []
+            if isinstance(material, Mapping) and int(material.get("claim_id") or 0) > 0
+        }
+    )
+    if not claim_ids:
+        result["targets"] = targets
+        return result
+    rows = fetch_rows(
+        cur,
+        """
+        select
+            mc.id as claim_id,
+            mc.claim_code,
+            mc.claim_summary,
+            mc.object_name as claim_object_name,
+            mc.direction as claim_direction,
+            coalesce(ev.passages, '[]'::jsonb) as passages
+          from retrieval_v2.material_claims mc
+          left join lateral (
+                select jsonb_agg(
+                    jsonb_build_object(
+                        'source_title', sd.source_title,
+                        'title', sd.title,
+                        'locator', spg.locator,
+                        'passage_code', spg.passage_code,
+                        'quote', left(spg.raw_text, 220)
+                    )
+                    order by csp.id
+                ) as passages
+                  from retrieval_v2.claim_source_passages csp
+                  join retrieval_v2.source_passages spg on spg.id = csp.source_passage_id
+                  join retrieval_v2.source_documents sd on sd.id = spg.source_document_id
+                 where csp.claim_id = mc.id
+          ) ev on true
+         where mc.id = any(%s)
+        """,
+        (claim_ids,),
+    )
+    lookup = {int(row.get("claim_id") or 0): row for row in rows}
+
+    def enrich_material(material: Mapping[str, Any]) -> dict[str, Any]:
+        enriched = dict(material)
+        row = lookup.get(int(enriched.get("claim_id") or 0))
+        if not row:
+            return enriched
+        enriched["claim_code"] = text(row.get("claim_code")) or text(enriched.get("claim_code"))
+        enriched["claim_summary"] = text(row.get("claim_summary")) or text(enriched.get("claim_summary"))
+        enriched["claim_summary_short"] = short_text(enriched.get("claim_summary"), max_chars=120)
+        enriched["claim_object_name"] = text(row.get("claim_object_name")) or text(enriched.get("claim_object_name"))
+        enriched["claim_direction"] = text(row.get("claim_direction")) or text(enriched.get("claim_direction"))
+        passages = normalize_passages(row.get("passages"))
+        if passages:
+            enriched["passages"] = passages
+        return enriched
+
+    enriched_targets: list[dict[str, Any]] = []
+    for target in targets:
+        enriched_target = dict(target)
+        enriched_target["materials"] = [
+            enrich_material(material) for material in target.get("materials") or [] if isinstance(material, Mapping)
+        ]
+        enriched_target["top_materials"] = [
+            enrich_material(material) for material in target.get("top_materials") or [] if isinstance(material, Mapping)
+        ]
+        enriched_targets.append(enriched_target)
+    result["targets"] = enriched_targets
+    source = dict(result.get("source") or {})
+    source["claim_details_enriched"] = True
+    result["source"] = source
+    return result
+
 
 def build_score_chain_observations(targets: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     duplicate_examples: list[dict[str, Any]] = []

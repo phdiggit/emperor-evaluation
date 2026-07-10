@@ -19,6 +19,7 @@ from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa
 from scripts.dev.retrieval_v2_intake_rows import stable_json  # noqa: E402
 from scripts.dev.retrieval_v2_judgment_worklists import run_codex_tasks  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.shared import agent_runtime_config  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -322,17 +323,13 @@ def build_codex_tasks(workitems: Sequence[Mapping[str, Any]], *, output_root: Pa
             "patch_path": repo_relative(patch_path),
             "last_message_path": repo_relative(last_message_path),
             "log_path": repo_relative(log_path),
-            "argv": [
-                "codex",
-                "exec",
-                "-C",
-                str(ROOT),
-                "--dangerously-bypass-approvals-and-sandbox",
-                "--output-last-message",
-                str(last_message_path),
-                "--json",
-                "-",
-            ],
+            "argv": agent_runtime_config.codex_task_argv(
+                "material_review",
+                exec_args=[
+                    "-C", str(ROOT), "--dangerously-bypass-approvals-and-sandbox",
+                    "--output-last-message", str(last_message_path), "--json", "-",
+                ],
+            ),
         }
         prompt_path.parent.mkdir(parents=True, exist_ok=True)
         prompt_path.write_text(prompt_for_task(task=task, workitems=batch, patch_path=patch_path), encoding="utf-8")
@@ -474,7 +471,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--target-name", action="append", default=[])
     worklist.add_argument("--target-code", action="append", default=[])
     worklist.add_argument("--limit", type=int, default=0)
-    worklist.add_argument("--batch-size", type=int, default=8)
+    worklist.add_argument("--batch-size", type=int)
     worklist.add_argument("--output-root", type=Path, required=True)
 
     run_plan = subparsers.add_parser("run-plan", help="Run or start Codex CLI tasks from codex_tasks.jsonl.")
@@ -485,8 +482,8 @@ def build_parser() -> argparse.ArgumentParser:
     run_plan.add_argument("--output", type=Path)
     run_plan.add_argument("--agent-output-root", type=Path)
     run_plan.add_argument("--codex-win-bin", default="codex-win")
-    run_plan.add_argument("--max-workers", type=int, default=4)
-    run_plan.add_argument("--timeout-seconds", type=int, default=1800)
+    run_plan.add_argument("--max-workers", type=int)
+    run_plan.add_argument("--timeout-seconds", type=int)
     run_plan.add_argument("--sandbox-profile", choices=("read-only", "local-write", "bypass"), default="local-write")
     run_plan.add_argument("--respect-task-argv", action="store_true")
     run_plan.add_argument("--search", action="store_true")
@@ -513,10 +510,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             limit=max(0, args.limit),
             schema_name=args.pg_schema,
         )
-        summary = write_worklist_outputs(output_root=args.output_root, workitems=workitems, batch_size=args.batch_size)
+        runtime = agent_runtime_config.resolve_agent_stage("material_review")
+        summary = write_worklist_outputs(
+            output_root=args.output_root,
+            workitems=workitems,
+            batch_size=int(args.batch_size or runtime["batch_size"]),
+        )
         print(json.dumps({"output_root": str(args.output_root), "totals": summary["totals"], "counts_by_target": summary["counts_by_target"]}, ensure_ascii=False, sort_keys=True))
         return 0
     if args.command == "run-plan":
+        runtime = agent_runtime_config.resolve_agent_stage("material_review")
         payload = run_codex_tasks(
             tasks_path=args.tasks_jsonl,
             execute=args.execute,
@@ -525,8 +528,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             output=args.output,
             agent_output_root=args.agent_output_root,
             codex_win_bin=args.codex_win_bin,
-            max_workers=args.max_workers,
-            timeout_seconds=args.timeout_seconds,
+            max_workers=int(args.max_workers or runtime["max_workers"]),
+            timeout_seconds=int(args.timeout_seconds or runtime["timeout_seconds"]),
             sandbox_profile=args.sandbox_profile,
             respect_task_argv=args.respect_task_argv,
             search=args.search,

@@ -42,8 +42,8 @@ factorization prompt 只注入当前 rule 的因子表和短边界：
 
 - 三个对象域 rule 共用 `power_scale_factor`、`control_outcome_factor`、`risk_context_factor` 和证据修正因子。
 - `institutional_constraint_correction` 单独使用 `mechanism_strength_factor`、`correction_effect_factor`、`institutional_scope_factor` 和证据修正因子。
-- 相邻项边界只注入与当前候选最可能混淆的二至三条；不得把本文件全文作为常规 prompt 上下文。
-- 同一材料只按最主要权力风险来源进入一个 I5C rule；跨项候选可以保留，但正式入分必须窄验。
+- 不向 prompt 注入跨项或跨 rule 的排他性标签；每个 rule 只按自身适用说明判断。
+- 同一材料满足多个 rule 时分别保留候选并窄验；不得因另一个权力风险来源也成立而排除当前 rule。
 
 ## 一、材料信号尺度
 
@@ -105,7 +105,7 @@ evidence_factor = clamp(evidence_factor, 0.45, 1.25)
 
 | 值 | 口径 |
 | ---: | --- |
-| `0.7` | 与本 rule 相关但边界较弱，容易被相邻 rule 吸收。 |
+| `0.7` | 已满足本 rule 的适用条件，但事实链较弱或上下文不完整。 |
 | `1.0` | 本 rule 语境成立，事实和对象关系清楚。 |
 | `1.1` | 本 rule 语境强，材料直接展示权力控制、约束、监督或纠偏机制。 |
 
@@ -335,11 +335,11 @@ negative_signal = sqrt(sum(abs(negative_object_side_score)^2))
 
 `positive_signal` 与 `negative_signal` 均作为原始信号输出。最终第五项C分数应在一批目标完成后，再按动态区间映射和总分权重公式处理。
 
-## 九、相邻项边界
+## 九、跨项复用边界
 
-本章用于规则表同步、人工审核和 prompt 裁剪。正式 factorization prompt 不应全量展开本章；只根据当前候选的 `candidate_item_code`、`candidate_lane` 和 `power_control_profile` 注入最可能混淆的相邻项边界。
+本章只用于人工审核和跨项候选复用，不得作为 candidate 或 factorization prompt 的排他性门禁。每个 rule 按自身适用说明独立判断；满足当前 rule 的材料必须保留和计分，可同时复用为其他 rule 或 item 的候选。
 
-- 与 I5B：I5B 评价任人、授权、团队、容才和反亲私；I5C 评价权力结构是否可控、可约束、可纠偏。同一事实可作为候选进入两项，但必须分别窄验，不能重复用同一语义入分。
+- 与 I5B：I5B 评价任人、授权、团队、容才和反亲私；I5C 评价权力结构是否可控、可约束、可纠偏。同一事实满足两边 rule 时可同时进入并分别窄验，不以跨项重叠为由预先排除。
 - 与 I5D：I5D 评价政治品格、待功臣、猜忌滥杀、仁暴取向等价值面；I5C 只在这些行为影响权力结构控制、制度监督或纠偏机制时入分。
 - 与 I5E：I5E 评价认知、纳谏、学习、纠错能力；I5C 只评价制度化监督、复核、问责和权力纠偏机制。
 - 与 I6：I6 评价关键决策质量；I5C 评价决策背后的权力控制结构。单次迁都、战争、改革是否正确，归 I6；其是否重塑或破坏权力控制结构，归 I5C。

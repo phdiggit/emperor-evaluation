@@ -351,6 +351,119 @@ def test_fetch_score_chain_builds_target_material_chain(monkeypatch) -> None:
     assert target["materials"][0]["factor_choices"][0]["option_label"] == "有效信任"
 
 
+def test_score_chain_can_render_rule_scorer_dry_run_payload() -> None:
+    payload = score_chain.build_score_chain_from_rule_scorer_payload(
+        {
+            "generated_by": "scripts/dev/retrieval_v2_rule_scorer.py",
+            "item_code": "I5B",
+            "rule_code": "appointment_delegation",
+            "formula_code": "evidence_cluster_signal_v3",
+            "write_db": False,
+            "detailed_clusters": [
+                {
+                    "target_id": 1,
+                    "target_code": "TGT-I5B-LS",
+                    "emperor_name": "李世民",
+                    "item_code": "I5B",
+                    "rule_code": "appointment_delegation",
+                    "formula_code": "evidence_cluster_signal_v3",
+                    "positive_signal": "2.500",
+                    "negative_signal": "1.000",
+                    "action_counts": {"score": 2},
+                    "calc_detail": {
+                        "formula_params": {"material_score_cap": "4.0"},
+                        "object_side_scores": {
+                            "positive": {"10": {"object_name": "房玄龄", "score": "2.500"}},
+                            "negative": {"11": {"object_name": "萧瑀", "score": "1.000"}},
+                        },
+                        "materials": [
+                            {
+                                "factor_judgment_id": 101,
+                                "binding_code": "BND-101",
+                                "claim_id": 301,
+                                "object_id": 10,
+                                "target_object_id": 1001,
+                                "object_name": "房玄龄",
+                                "side": "positive",
+                                "judgment_side": "positive",
+                                "raw_score": "2.500",
+                                "abs_score": "2.500",
+                                "factor_refs": {
+                                    "appointment_effect": {
+                                        "option_code": "strong_success",
+                                        "label": "强成功",
+                                        "value_num": "1.5",
+                                    }
+                                },
+                            },
+                            {
+                                "factor_judgment_id": 102,
+                                "binding_code": "BND-102",
+                                "claim_id": 302,
+                                "object_id": 11,
+                                "target_object_id": 1002,
+                                "object_name": "萧瑀",
+                                "side": "negative",
+                                "judgment_side": "negative",
+                                "raw_score": "-1.000",
+                                "abs_score": "1.000",
+                                "factor_refs": {},
+                            },
+                        ],
+                    },
+                }
+            ],
+        },
+        emperors=["李世民"],
+        top_materials_per_target=1,
+    )
+
+    assert payload["ok"] is True
+    assert payload["source"]["kind"] == "rule_scorer_json"
+    assert payload["source"]["write_db"] is False
+    assert payload["totals"]["material_scores"] == 2
+    target = payload["targets"][0]
+    assert target["object_side_scores"]["positive"][0]["object_name"] == "房玄龄"
+    assert target["object_side_scores"]["negative"][0]["object_name"] == "萧瑀"
+    assert target["top_materials"][0]["factor_choices"][0]["option_label"] == "强成功"
+
+
+def test_enrich_score_chain_claim_details_fills_claim_and_passages(monkeypatch) -> None:
+    payload = {
+        "source": {"kind": "rule_scorer_json", "write_db": False},
+        "targets": [
+            {
+                "target_code": "TGT-I5B-LS",
+                "materials": [{"claim_id": 301, "claim_summary": "", "passages": []}],
+                "top_materials": [{"claim_id": 301, "claim_summary": "", "passages": []}],
+            }
+        ],
+    }
+
+    def fake_fetch_rows(_cur, sql, params):
+        assert "material_claims" in sql
+        assert params == ([301],)
+        return [
+            {
+                "claim_id": 301,
+                "claim_code": "CLM-301",
+                "claim_summary": "李世民任用房玄龄。",
+                "claim_object_name": "房玄龄",
+                "claim_direction": "positive",
+                "passages": [{"source_title": "旧唐书", "title": "房玄龄传", "locator": "卷", "passage_code": "PAS-1", "quote": "太宗任之。"}],
+            }
+        ]
+
+    monkeypatch.setattr(score_chain, "fetch_rows", fake_fetch_rows)
+
+    enriched = score_chain.enrich_score_chain_claim_details(object(), payload)
+
+    material = enriched["targets"][0]["materials"][0]
+    assert material["claim_summary"] == "李世民任用房玄龄。"
+    assert material["passages"][0]["source_title"] == "旧唐书"
+    assert enriched["source"]["claim_details_enriched"] is True
+
+
 def test_score_chain_filter_values_accepts_multiple_emperors_and_targets() -> None:
     target_codes, emperors = selectors.score_chain_filter_values(
         target_code="TGT-I5B-LB",
@@ -525,4 +638,86 @@ def test_main_score_chain_writes_json_and_markdown(tmp_path: Path, monkeypatch, 
     assert "# retrieval_v2 score chain" in md
     assert "萧何" in md
     assert "有效信任" in md
+    assert json.loads(capsys.readouterr().out)["ok"] is True
+
+
+def test_main_score_chain_can_render_rule_scorer_json(tmp_path: Path, capsys) -> None:
+    input_json = tmp_path / "rule_scorer.json"
+    output_json = tmp_path / "score_chain.json"
+    output_md = tmp_path / "score_chain.md"
+    input_json.write_text(
+        json.dumps(
+            {
+                "generated_by": "scripts/dev/retrieval_v2_rule_scorer.py",
+                "item_code": "I5B",
+                "rule_code": "appointment_delegation",
+                "formula_code": "evidence_cluster_signal_v3",
+                "write_db": False,
+                "detailed_clusters": [
+                    {
+                        "target_id": 1,
+                        "target_code": "TGT-I5B-LS",
+                        "emperor_name": "李世民",
+                        "item_code": "I5B",
+                        "rule_code": "appointment_delegation",
+                        "formula_code": "evidence_cluster_signal_v3",
+                        "positive_signal": "2.500",
+                        "negative_signal": "0.000",
+                        "action_counts": {"score": 1},
+                        "calc_detail": {
+                            "formula_params": {"material_score_cap": "4.0"},
+                            "object_side_scores": {
+                                "positive": {"10": {"object_name": "房玄龄", "score": "2.500"}},
+                                "negative": {},
+                            },
+                            "materials": [
+                                {
+                                    "factor_judgment_id": 101,
+                                    "binding_code": "BND-101",
+                                    "claim_id": 301,
+                                    "object_id": 10,
+                                    "object_name": "房玄龄",
+                                    "side": "positive",
+                                    "judgment_side": "positive",
+                                    "raw_score": "2.500",
+                                    "abs_score": "2.500",
+                                    "factor_refs": {
+                                        "appointment_effect": {
+                                            "option_code": "strong_success",
+                                            "label": "强成功",
+                                            "value_num": "1.5",
+                                        }
+                                    },
+                                }
+                            ],
+                        },
+                    }
+                ],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    assert cli.main(
+        [
+            "score-chain",
+            "--input-rule-scorer-json",
+            str(input_json),
+            "--emperor",
+            "李世民",
+            "--output-json",
+            str(output_json),
+            "--output-md",
+            str(output_md),
+        ]
+    ) == 0
+
+    payload = json.loads(output_json.read_text(encoding="utf-8"))
+    assert payload["source"]["path"] == str(input_json)
+    assert payload["totals"]["material_scores"] == 1
+    md = output_md.read_text(encoding="utf-8")
+    assert "source: `rule_scorer_json`" in md
+    assert "房玄龄" in md
+    assert "强成功" in md
     assert json.loads(capsys.readouterr().out)["ok"] is True

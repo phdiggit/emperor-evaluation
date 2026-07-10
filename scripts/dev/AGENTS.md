@@ -89,6 +89,8 @@
 - `retrieval_v2_claim_cache.py` 是 retrieval_v2 claim-only 抽取后的最小 claim 管理闭环入口；`retrieval_v2_claim_cache_pg.py` 只把 filesystem claim cache 幂等写入 `claim_cache` / `claim_source_slices` / `claim_evidence` 并做库存审计，默认 DB-backed dry-run，显式 `--execute` 才写库；二者都不写正式 binding、不触发 factorization 或 scorer。
 - `retrieval_v2_claim_event_groups.py` 是 claim cache 到消费端之间的 shadow 中间层工具，从原子 claim 聚合同一事件链并区分 direct material candidate / supporting context；默认只读 dry-run，显式 `--execute` 只写 `claim_event_groups` / `claim_event_group_members` shadow 表，不写正式 binding、不触发 factorization 或 scorer。
 - `retrieval_v2_claim_extraction_worker.py` 是抓包侧 claim-only 抽取 worker，消费 `claim_extraction_jobs` 中的 uncovered candidates，显式 `once --execute` 才调用 Codex；它只产出 mini clean run 并回填 claim cache，不写消费端 binding、factorization 或 scorer。
+- 所有 Codex 环节的模型、reasoning、batch/shard、并发和 timeout 统一从 `data/configs/project_config.yml` 的 `tooling.agent_runtime` 读取；公共解析只用 `scripts/shared/agent_runtime_config.py`，不得在新任务生成器、worker 或服务启动脚本中另写模型默认值。
+- `retrieval_v3_runtime_release.py` 只从干净工作区的已提交 SHA 打包运行代码与项目配置；服务器端默认只读验收，显式 `apply --execute` 才允许原子切换 `current` 并重启传入的 systemd unit。不得用该工具顺带执行数据库迁移、消费或计分。
 - `retrieval_v2_summary_lead_discovery.py` 是综述页到对象源缓存的 lead-only 发现工具，可从 Wikipedia 等总结页抽取原文页 source_document_hints；它不得把综述页作为 claim evidence / provenance，不抓 claim、不写库、不调用 Codex。
 - `retrieval_v2_summary_lead_pilot.py` 是综述页入口的本地 pilot 串联工具，只执行 lead discovery -> object source cache -> claim-plan，默认不做额外搜索、不调用 Codex、不写 PG、不触发消费端或评分。
 - `retrieval_v2_object_source_cache.py` 是 retrieval_v2 对象级离线史源缓存入口，从当前对象表、历史 clean run 或显式 seed JSONL 生成人物源缓存、mention slice、coverage summary、agent review 占位队列和 PG schema 草案；第一版不调用 Codex、不写数据库、不替代抓包 judge 或消费端裁量。

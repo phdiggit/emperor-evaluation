@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Sequence
 
+from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn
 from scripts.dev.retrieval_v2_consumer import fetch_readiness_report
 from scripts.dev.retrieval_v2_diagnostics_lib.common import (
     DEFAULT_DSN_ENV,
@@ -17,6 +18,8 @@ from scripts.dev.retrieval_v2_diagnostics_lib.common import (
 )
 from scripts.dev.retrieval_v2_diagnostics_lib.orchestrator import fetch_db_report, fetch_report
 from scripts.dev.retrieval_v2_diagnostics_lib.renderers import write_report
+from scripts.dev.retrieval_v2_diagnostics_lib.score_chain import build_score_chain_from_rule_scorer_payload, enrich_score_chain_claim_details
+from scripts.dev.retrieval_v2_pg_schema import schema_cursor
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Read-only diagnostic aggregator for retrieval_v2 consumption.")
@@ -34,6 +37,11 @@ def build_parser() -> argparse.ArgumentParser:
     common.add_argument("--role", dest="selector_role", default="")
     common.add_argument("--name", action="append", default=[])
     common.add_argument("--top-materials-per-target", type=int, default=DEFAULT_TOP_MATERIALS_PER_TARGET)
+    common.add_argument(
+        "--input-rule-scorer-json",
+        type=Path,
+        help="For score-chain only: render a retrieval_v2_rule_scorer.py apply JSON payload without reading score tables.",
+    )
     common.add_argument("--output-json", type=Path, required=True)
     common.add_argument("--output-md", type=Path)
     for command in ("summary", "readiness", "coverage", "duplicates", "next-actions", "report", "score-chain"):
@@ -61,22 +69,43 @@ def main(argv: Sequence[str] | None = None) -> int:
             command=args.command,
         )
     elif args.command == "score-chain":
-        payload = fetch_db_report(
-            env_file=args.env_file,
-            dsn_env=args.dsn_env,
-            item_code=args.item_code,
-            rule_code=args.rule_code,
-            formula_code=args.formula_code,
-            scope=args.scope,
-            command=args.command,
-            target_code="",
-            target_codes=args.target_code,
-            emperors=args.emperor,
-            selector_type=args.selector_type,
-            selector_role=args.selector_role,
-            names=args.name,
-            top_materials_per_target=args.top_materials_per_target,
-        )
+        if args.input_rule_scorer_json:
+            with args.input_rule_scorer_json.open("r", encoding="utf-8") as handle:
+                rule_scorer_payload = json.load(handle)
+            payload = build_score_chain_from_rule_scorer_payload(
+                rule_scorer_payload,
+                target_code="",
+                target_codes=args.target_code,
+                emperors=args.emperor,
+                selector_type=args.selector_type,
+                selector_role=args.selector_role,
+                names=args.name,
+                top_materials_per_target=args.top_materials_per_target,
+            )
+            payload["source"]["path"] = str(args.input_rule_scorer_json)
+            if args.env_file is not None:
+                load_env_file(args.env_file)
+                psycopg, dict_row = import_psycopg()
+                with psycopg.connect(resolve_dsn(args.dsn_env), row_factory=dict_row) as conn:
+                    with conn.cursor() as raw:
+                        payload = enrich_score_chain_claim_details(schema_cursor(raw), payload)
+        else:
+            payload = fetch_db_report(
+                env_file=args.env_file,
+                dsn_env=args.dsn_env,
+                item_code=args.item_code,
+                rule_code=args.rule_code,
+                formula_code=args.formula_code,
+                scope=args.scope,
+                command=args.command,
+                target_code="",
+                target_codes=args.target_code,
+                emperors=args.emperor,
+                selector_type=args.selector_type,
+                selector_role=args.selector_role,
+                names=args.name,
+                top_materials_per_target=args.top_materials_per_target,
+            )
     elif args.command == "report":
         payload = fetch_report(
             env_file=args.env_file,

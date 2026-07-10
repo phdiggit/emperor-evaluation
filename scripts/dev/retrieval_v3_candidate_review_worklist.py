@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.shared import agent_runtime_config  # noqa: E402
 
 
 PROFILE = "retrieval_v3_material_candidate_plan"
@@ -147,7 +148,18 @@ def fetch_rows(cur: Any, *, profile: str, review_status: str, limit: int) -> lis
           join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
           left join passage_agg pa on pa.claim_id = mc.id
-          left join retrieval_v3.objects o on lower(o.canonical_name) = lower(mc.object_name)
+          left join retrieval_v3.objects o
+            on lower(o.canonical_name) = lower(mc.object_name)
+            or exists (
+                select 1
+                  from retrieval_v3.object_names onm
+                 where onm.object_id = o.id
+                   and onm.review_status::text = 'accepted'
+                   and (
+                       lower(onm.name_text) = lower(mc.object_name)
+                       or lower(onm.normalized_name) = lower(mc.object_name)
+                   )
+            )
           left join retrieval_v3.target_objects tob on tob.target_id = rt.id and tob.object_id = o.id
          where c.routed_by_profile = %s
            and c.review_status::text = %s
@@ -182,7 +194,8 @@ def prompt_for_task(task_code: str, workitems: Sequence[Mapping[str, Any]]) -> s
         "只依据给出的完整 source_passages 复核 appointment_delegation 候选。禁止联网、禁止写库、禁止改代码。\n"
         "先判断候选是否真的是皇帝对具名对象的任用/授权/权责交付；再填写五个 required_facts。\n"
         "前三项必须同时为 true，且 result/feedback 或 continuity/reuse 至少一项为 true，才允许 scoring_candidate=true。\n"
-        "封爵、追封、画像、总评、单纯采纳计策、只有处置结局而无任用授权链的材料，不得作为自动入分 candidate。\n"
+        "只有未形成具名对象、任用授权、具体任务/职责及同链结果或复用时，才不得作为自动入分 candidate。\n"
+        "采纳计策、制度成果或军事成果只要满足上述链条，就必须保留 scoring candidate；不得因同一事实也符合其他 rule 或 item 而降级、supporting_only 或 rejected。\n"
         "candidate_role 只能使用以下枚举：appointed_actor、entrusted_actor、delegated_actor、strategic_advisor、military_commander、civil_official、misappointed_actor、misdelegated_actor、misentrusted_actor、authority_revoked_target；无法归类时填空。\n"
         "direction 只能是 positive 或 negative；优先沿用 workitem 的 claim_direction，不要写人物关系、自由描述或中文句子。\n"
         "identity_gate 只能复述输入状态，不能自行创造 object_id 或接受 target_object。\n\n"
@@ -218,6 +231,7 @@ def prompt_for_task(task_code: str, workitems: Sequence[Mapping[str, Any]]) -> s
 
 
 def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, batch_size: int) -> dict[str, Any]:
+    runtime = agent_runtime_config.resolve_agent_stage("v3_candidate_review")
     output_root.mkdir(parents=True, exist_ok=True)
     tasks = []
     for index, batch in enumerate(chunks(workitems, batch_size), start=1):
@@ -234,7 +248,7 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, bat
             "patch_path": str(output_root / "patches" / f"{task_code}.jsonl"),
             "last_message_path": str(output_root / "logs" / f"{task_code}.last.md"),
             "log_path": str(output_root / "logs" / f"{task_code}.jsonl"),
-            "argv": ["codex", "-m", "gpt-5.6-luna", "-c", 'model_reasoning_effort="medium"', "exec", "-"],
+            "argv": agent_runtime_config.codex_task_argv("v3_candidate_review"),
         })
     (output_root / "candidate_review_workitems.jsonl").write_text("".join(stable_json(row) + "\n" for row in workitems), encoding="utf-8")
     (output_root / "codex_tasks.jsonl").write_text("".join(stable_json(row) + "\n" for row in tasks), encoding="utf-8")
@@ -247,6 +261,7 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, bat
         "task_count": len(tasks),
         "identity_gate_counts": dict(sorted(gate_counts.items())),
         "candidate_counts_by_emperor": dict(sorted(emperor_counts.items())),
+        "agent_runtime": runtime,
         "legacy_data_reads": False,
         "legacy_data_migrated": False,
         "write_db": False,
@@ -263,7 +278,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--profile", default=PROFILE)
     parser.add_argument("--review-status", default="pending")
     parser.add_argument("--limit", type=int, default=0)
-    parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--batch-size", type=int)
     parser.add_argument("--output-root", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
@@ -275,7 +290,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         review_status=args.review_status,
         limit=max(0, args.limit),
     )
-    summary = write_outputs(workitems, args.output_root, args.batch_size)
+    runtime = agent_runtime_config.resolve_agent_stage("v3_candidate_review")
+    summary = write_outputs(workitems, args.output_root, int(args.batch_size or runtime["batch_size"]))
     print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
     return 0
 

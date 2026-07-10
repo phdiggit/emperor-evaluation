@@ -20,7 +20,27 @@ def as_mapping(value: Any) -> Mapping[str, Any]:
 
 def is_candidate_exception(row: Mapping[str, Any]) -> bool:
     binding_payload = as_mapping(row.get("binding_payload"))
-    return text(binding_payload.get("source")) == "retrieval_v2_candidate_promoter" or row.get("candidate_id") is not None
+    return text(binding_payload.get("source")) in {
+        "retrieval_v2_candidate_promoter",
+        "retrieval_v3_candidate_binding_consumer",
+    } or row.get("candidate_id") is not None
+
+
+def appointment_candidate_payload_allows_scoring(candidate_payload: Mapping[str, Any]) -> bool:
+    if appointment_delegation_protocol_allows_scoring({"candidate_payload": candidate_payload}):
+        return True
+    review = as_mapping(candidate_payload.get("candidate_review"))
+    required_facts = as_mapping(review.get("required_facts"))
+    if not review or not required_facts:
+        return False
+    protocol_payload = {
+        "scoring_candidate": review.get("scoring_candidate"),
+        "usable_for_scoring_cluster": review.get("usable_for_scoring_cluster"),
+        "direction": text(review.get("direction")),
+        "candidate_role": text(review.get("candidate_role")),
+        "appointment_delegation_chain": dict(required_facts),
+    }
+    return appointment_delegation_protocol_allows_scoring({"candidate_payload": protocol_payload})
 
 
 def classify_score_lane(row: Mapping[str, Any]) -> ScoreLaneDecision:
@@ -45,6 +65,6 @@ def classify_score_lane(row: Mapping[str, Any]) -> ScoreLaneDecision:
     candidate_payload = as_mapping(row.get("candidate_payload"))
     if not candidate_payload:
         return ScoreLaneDecision("exception_blocked", False, "missing_candidate_payload")
-    if not appointment_delegation_protocol_allows_scoring({"candidate_payload": candidate_payload}):
+    if not appointment_candidate_payload_allows_scoring(candidate_payload):
         return ScoreLaneDecision("exception_blocked", False, "candidate_not_scoring")
     return ScoreLaneDecision("normal_resolved_exception", True)

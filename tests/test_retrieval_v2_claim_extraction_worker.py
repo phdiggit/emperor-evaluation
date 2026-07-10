@@ -143,6 +143,83 @@ def test_write_mini_run_artifacts_is_import_run_compatible(tmp_path: Path) -> No
     assert summary["clean_policy"]["extractor_version"] == retrieval_v2_candidate_prompt.CLAIM_EXTRACTOR_VERSION
 
 
+def test_target_emperor_gate_rejects_cross_target_and_missing_owner_claims() -> None:
+    payload = tool.gate_claims_to_target_emperor(
+        {
+            "status": "succeeded",
+            "claims": [
+                {"claim_code": "CLM-KEEP", "emperor_name": "朱元璋"},
+                {"claim_code": "CLM-OTHER", "emperor_name": "朱棣"},
+                {"claim_code": "CLM-BLANK", "emperor_name": ""},
+            ],
+            "coverage": {"claim_count": 3},
+        },
+        target_emperor="朱元璋",
+    )
+
+    assert [row["claim_code"] for row in payload["claims"]] == ["CLM-KEEP"]
+    assert payload["coverage"]["claim_count"] == 1
+    gate = payload["_target_emperor_gate"]
+    assert gate["accepted_claim_count"] == 1
+    assert gate["rejected_claim_count"] == 2
+    assert [row["reason"] for row in gate["rejected_claims"]] == [
+        "cross_target_emperor",
+        "missing_target_emperor",
+    ]
+
+
+def test_target_emperor_gate_is_non_destructive_for_non_target_run() -> None:
+    payload = tool.gate_claims_to_target_emperor(
+        {"claims": [{"claim_code": "CLM-ANY", "emperor_name": "朱棣"}]},
+        target_emperor="",
+    )
+
+    assert [row["claim_code"] for row in payload["claims"]] == ["CLM-ANY"]
+    assert payload["_target_emperor_gate"]["status"] == "not_applicable"
+
+
+def test_candidate_object_gate_keeps_focal_actor_when_patient_is_another_person() -> None:
+    payload = tool.gate_claims_to_candidate_objects(
+        {
+            "claims": [
+                {
+                    "claim_code": "CLM-YX",
+                    "object_name": "汪广洋",
+                    "source_slice_refs": ["SLI-YX"],
+                    "fact_payload": {"actor": "杨宪", "object": "汪广洋"},
+                }
+            ],
+            "coverage": {"claim_count": 1},
+        },
+        candidates={"candidate_slices": [{"slice_code": "SLI-YX", "object_name": "杨宪"}]},
+    )
+
+    assert payload["claims"][0]["object_name"] == "杨宪"
+    gate = payload["_candidate_object_gate"]
+    assert gate["accepted_claim_count"] == 1
+    assert gate["normalized_claim_count"] == 1
+    assert gate["rejected_claim_count"] == 0
+
+
+def test_candidate_object_gate_rejects_unrelated_cross_object_claim() -> None:
+    payload = tool.gate_claims_to_candidate_objects(
+        {
+            "claims": [
+                {
+                    "claim_code": "CLM-OTHER",
+                    "object_name": "汪广洋",
+                    "source_slice_refs": ["SLI-YX"],
+                    "fact_payload": {"actor": "朱元璋", "object": "汪广洋"},
+                }
+            ]
+        },
+        candidates={"candidate_slices": [{"slice_code": "SLI-YX", "object_name": "杨宪"}]},
+    )
+
+    assert payload["claims"] == []
+    assert payload["_candidate_object_gate"]["rejected_claims"][0]["reason"] == "candidate_owner_not_in_fact_chain"
+
+
 def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypatch) -> None:
     candidates_path = tmp_path / "candidates.json"
     write_candidates(candidates_path)
@@ -234,6 +311,39 @@ def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, m
     assert captured["import_pg"] is False
     assert captured["judge_shard_size"] == 4
     assert captured["judge_shard_workers"] == 4
+
+
+def test_extract_from_candidates_reads_server_agent_runtime_defaults(tmp_path: Path, monkeypatch) -> None:
+    candidates_path = tmp_path / "candidates.json"
+    write_candidates(candidates_path)
+    captured: dict = {}
+    monkeypatch.setattr(
+        tool.agent_runtime_config,
+        "resolve_agent_stage",
+        lambda stage: {
+            "stage": stage,
+            "model": "configured-model",
+            "reasoning_effort": "high",
+            "timeout_seconds": 91,
+            "shard_size": 3,
+            "max_workers": 7,
+        },
+    )
+    monkeypatch.setattr(
+        tool,
+        "execute_job",
+        lambda **kwargs: captured.update(kwargs) or {"claim_count": 1},
+    )
+
+    tool.extract_from_candidates(
+        candidates_path=candidates_path,
+        cache_root=tmp_path / "cache",
+        run_root=tmp_path / "run",
+    )
+
+    assert captured["judge_timeout_seconds"] == 91
+    assert captured["judge_shard_size"] == 3
+    assert captured["judge_shard_workers"] == 7
 
 
 def test_cli_extract_from_candidates_does_not_require_dsn(tmp_path: Path, monkeypatch) -> None:

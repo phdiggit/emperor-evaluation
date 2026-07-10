@@ -1,0 +1,82 @@
+from __future__ import annotations
+
+import hashlib
+import io
+import json
+import tarfile
+from pathlib import Path
+
+import pytest
+
+from scripts.dev import retrieval_v3_runtime_release as release
+
+
+def write_archive(path: Path, names: list[str]) -> None:
+    with tarfile.open(path, "w:gz") as archive:
+        for name in names:
+            payload = b"runtime\n"
+            member = tarfile.TarInfo(name)
+            member.size = len(payload)
+            archive.addfile(member, io.BytesIO(payload))
+
+
+def write_manifest(path: Path, archive: Path, required_paths: list[str]) -> None:
+    path.write_text(
+        json.dumps(
+            {
+                "schema": release.SCHEMA,
+                "commit_sha": "a" * 40,
+                "archive_sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
+                "required_paths": required_paths,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
+def test_apply_plan_validates_archive_and_keeps_server_read_only(tmp_path: Path) -> None:
+    archive = tmp_path / "release.tar.gz"
+    manifest = tmp_path / "manifest.json"
+    write_archive(archive, ["scripts/worker.py", "data/config.yml"])
+    write_manifest(manifest, archive, ["scripts/worker.py", "data/config.yml"])
+
+    plan = release.plan_apply(
+        archive_path=archive,
+        manifest_path=manifest,
+        release_root=tmp_path / "server-runtime",
+        services=["claim-worker.service", "source-cache@1.service"],
+    )
+
+    assert plan["write_server"] is False
+    assert plan["commit_sha"] == "a" * 40
+    assert plan["services"] == ["claim-worker.service", "source-cache@1.service"]
+    assert not (tmp_path / "server-runtime").exists()
+
+
+def test_apply_plan_rejects_checksum_mismatch(tmp_path: Path) -> None:
+    archive = tmp_path / "release.tar.gz"
+    manifest = tmp_path / "manifest.json"
+    write_archive(archive, ["scripts/worker.py"])
+    write_manifest(manifest, archive, ["scripts/worker.py"])
+    archive.write_bytes(archive.read_bytes() + b"tampered")
+
+    with pytest.raises(release.RuntimeReleaseError, match="SHA256"):
+        release.plan_apply(
+            archive_path=archive,
+            manifest_path=manifest,
+            release_root=tmp_path / "server-runtime",
+            services=[],
+        )
+
+
+def test_archive_inspection_rejects_path_traversal(tmp_path: Path) -> None:
+    archive = tmp_path / "release.tar.gz"
+    write_archive(archive, ["../escape.py"])
+
+    with pytest.raises(release.RuntimeReleaseError, match="unsafe archive member"):
+        release.inspect_archive(archive)
+
+
+def test_service_names_are_strict() -> None:
+    with pytest.raises(release.RuntimeReleaseError, match="invalid systemd"):
+        release.validate_services(["claim-worker.service; reboot"])

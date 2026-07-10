@@ -94,12 +94,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Force repo-local tmp/.tmp runtime defaults instead of NAS/env runtime config.",
     )
     parser.add_argument("--codex-bin", default="codex")
-    parser.add_argument("--max-workers", type=int, default=4)
-    parser.add_argument("--taskgen-timeout", type=int, default=1800)
+    parser.add_argument("--max-workers", type=int, default=runner.agent_runtime_config.resolve_agent_stage("retrieval_taskgen")["max_workers"])
+    parser.add_argument("--taskgen-timeout", type=int, default=runner.agent_runtime_config.resolve_agent_stage("retrieval_taskgen")["timeout_seconds"])
     parser.add_argument(
         "--taskgen-batch-size",
         type=int,
-        default=1,
+        default=runner.agent_runtime_config.resolve_agent_stage("retrieval_taskgen")["batch_size"],
         help="Batch live skeleton discovery for this many no-profile emperor targets per Codex taskgen call; 1 keeps fastest per-target parallelism.",
     )
     parser.add_argument(
@@ -128,7 +128,7 @@ def build_parser() -> argparse.ArgumentParser:
         default="EMPEROR_EVAL_PG_DSN",
         help="Optional source DB env var for public.emps title/period hints used only by --taskgen-presearch.",
     )
-    parser.add_argument("--judge-timeout", type=int, default=1800)
+    parser.add_argument("--judge-timeout", type=int, default=runner.agent_runtime_config.resolve_agent_stage("retrieval_judge")["timeout_seconds"])
     parser.add_argument("--candidate-timeout", type=int, default=15)
     parser.add_argument(
         "--source-cache-root",
@@ -163,13 +163,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--judge-shard-size",
         type=int,
-        default=8,
+        default=runner.agent_runtime_config.resolve_agent_stage("retrieval_judge")["shard_size"],
         help="Maximum objects per judge shard; use 0 to force a single judge call.",
     )
     parser.add_argument(
         "--judge-shard-workers",
         type=int,
-        default=None,
+        default=runner.agent_runtime_config.resolve_agent_stage("retrieval_judge")["max_workers"],
         help=(
             "Maximum parallel Codex judge shard workers per target. "
             "Defaults to 4 for item-wide/personnel-political shadow packages, otherwise 2."
