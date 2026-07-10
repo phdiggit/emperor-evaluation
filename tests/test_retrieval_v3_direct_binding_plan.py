@@ -1,6 +1,7 @@
 import pytest
 
 from scripts.dev import retrieval_v3_direct_binding_plan as tool
+from scripts.dev import retrieval_v3_direct_binding_consumer as consumer
 
 
 def direct_row(**overrides: object) -> dict[str, object]:
@@ -25,3 +26,10 @@ def test_direct_plan_requires_no_candidate() -> None:
 def test_direct_plan_rejects_missing_identity_anchor() -> None:
     with pytest.raises(tool.DirectBindingPlanError, match="target_object_id"):
         tool.build_plan([direct_row(target_object_id=None)])
+
+
+def test_direct_binding_codes_are_stable_and_candidate_free() -> None:
+    row = tool.validate_direct_assessment(direct_row())
+
+    assert consumer.binding_code(row).startswith("CRB-DIRECT-")
+    assert consumer.link_code(row).startswith("MOL-DIRECT-")
