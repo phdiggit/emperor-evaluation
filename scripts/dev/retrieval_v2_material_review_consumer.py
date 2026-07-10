@@ -15,9 +15,10 @@ if str(ROOT) not in sys.path:
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 REVIEW_SCOPES = ("active-targets", "accepted-packs")
 PATCH_QUEUE_STATUSES = {"resolved", "blocked", "cancelled", "needs_review"}
 TERMINAL_QUEUE_STATUSES = {"resolved", "blocked", "cancelled"}
@@ -268,13 +269,14 @@ def update_material_review(cur: Any, row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def apply_patch_rows(*, dsn: str, rows: Sequence[Mapping[str, Any]], execute: bool) -> dict[str, Any]:
+def apply_patch_rows(*, dsn: str, rows: Sequence[Mapping[str, Any]], execute: bool, schema_name: str = "retrieval_v2") -> dict[str, Any]:
     validated = validate_patch_rows(rows)
     psycopg, dict_row = import_psycopg()
     counts: Counter[str] = Counter()
     reviews: list[dict[str, Any]] = []
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             for row in validated:
                 result = update_material_review(cur, row)
                 counts["retrieval_v2.material_review_queue"] += 1
@@ -299,13 +301,14 @@ def apply_patch_rows(*, dsn: str, rows: Sequence[Mapping[str, Any]], execute: bo
     }
 
 
-def worklist_report(*, env_file: Path | None, dsn_env: str, item_code: str, scope: str) -> dict[str, Any]:
+def worklist_report(*, env_file: Path | None, dsn_env: str, item_code: str, scope: str, schema_name: str = "retrieval_v2") -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             rows = fetch_material_review_items(cur, item_code=item_code, scope=scope)
     status_counts = Counter(text(row.get("queue_status")) for row in rows)
     kind_counts = Counter(text(row.get("review_kind")) for row in rows)
@@ -379,6 +382,7 @@ def build_parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--env-file", type=Path)
     common.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    common.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     common.add_argument("--output-json", type=Path, required=True)
     common.add_argument("--output-md", type=Path)
 
@@ -397,10 +401,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.env_file is not None:
         load_env_file(args.env_file)
     if args.command == "worklist":
-        payload = worklist_report(env_file=None, dsn_env=args.dsn_env, item_code=args.item_code, scope=args.scope)
+        payload = worklist_report(env_file=None, dsn_env=args.dsn_env, item_code=args.item_code, scope=args.scope, schema_name=args.pg_schema)
     elif args.command == "apply-patch":
         rows = [row for path in args.patch_jsonl for row in read_patch_jsonl(path)]
-        payload = apply_patch_rows(dsn=resolve_dsn(args.dsn_env), rows=rows, execute=args.execute)
+        payload = apply_patch_rows(dsn=resolve_dsn(args.dsn_env), rows=rows, execute=args.execute, schema_name=args.pg_schema)
     else:
         raise MaterialReviewConsumerError(f"unsupported command: {args.command}")
     write_report(args.output_json, args.output_md, payload)

@@ -18,9 +18,10 @@ from scripts.dev.retrieval_v2_import_plan import stable_hash, write_json  # noqa
 from scripts.dev.retrieval_v2_intake_manifest import repo_relative, text  # noqa: E402
 from scripts.dev.retrieval_v2_intake_rows import stable_json  # noqa: E402
 from scripts.dev.retrieval_v2_judgment_worklists import run_codex_tasks  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V2_DSN"
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_ITEM_CODE = "I5B"
 REVIEW_SCOPES = ("active-targets", "accepted-packs")
 OPEN_QUEUE_STATUSES = ("ready", "needs_review")
@@ -263,10 +264,11 @@ def review_item(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_workitems(*, dsn: str, item_code: str, scope: str, review_kinds: Sequence[str], target_names: Sequence[str], target_codes: Sequence[str], limit: int) -> list[dict[str, Any]]:
+def build_workitems(*, dsn: str, item_code: str, scope: str, review_kinds: Sequence[str], target_names: Sequence[str], target_codes: Sequence[str], limit: int, schema_name: str = "retrieval_v2") -> list[dict[str, Any]]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             rows = fetch_material_review_rows(
                 cur,
                 item_code=item_code,
@@ -465,6 +467,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist = subparsers.add_parser("worklist", help="Build DB-backed material review workitems and Codex task prompts.")
     worklist.add_argument("--env-file", type=Path)
     worklist.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    worklist.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     worklist.add_argument("--item-code", default=DEFAULT_ITEM_CODE)
     worklist.add_argument("--scope", choices=REVIEW_SCOPES, default="accepted-packs")
     worklist.add_argument("--review-kind", action="append", choices=CLAIM_PASSAGE_REVIEW_KINDS, default=[])
@@ -508,6 +511,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             target_names=args.target_name,
             target_codes=args.target_code,
             limit=max(0, args.limit),
+            schema_name=args.pg_schema,
         )
         summary = write_worklist_outputs(output_root=args.output_root, workitems=workitems, batch_size=args.batch_size)
         print(json.dumps({"output_root": str(args.output_root), "totals": summary["totals"], "counts_by_target": summary["counts_by_target"]}, ensure_ascii=False, sort_keys=True))

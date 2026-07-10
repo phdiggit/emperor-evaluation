@@ -166,9 +166,11 @@ def test_cli_apply_patch_reads_jsonl(tmp_path: Path, monkeypatch: pytest.MonkeyP
 
     assert tool.main([
         "apply-patch",
-        "--patch-jsonl",
-        str(patch_path),
-        "--output-json",
+            "--patch-jsonl",
+            str(patch_path),
+            "--pg-schema",
+            "retrieval_v2",
+            "--output-json",
         str(output_json),
     ]) == 0
 
