@@ -64,6 +64,22 @@ def test_consumable_material_reaches_rule_review_without_waiting_for_object_reso
     assert row["object_alignment"]["identity_gate"] == "deferred_until_formal_binding"
 
 
+def test_passed_draft_material_reaches_candidate_review_but_not_formal_binding() -> None:
+    plan = tool.build_shadow_plan(
+        [chain()],
+        material_rows=[
+            material("CLMK-001", source_pack_status="draft"),
+            material("CLMK-002", source_pack_status="draft"),
+            material("CLMK-003", source_pack_status="draft"),
+        ],
+        object_rows=[],
+    )
+    row = plan["chains"][0]
+
+    assert row["next_step"] == "ready_for_rule_candidate_review"
+    assert row["formal_binding_allowed"] is False
+
+
 def test_open_material_review_blocks_candidate_generation() -> None:
     plan = tool.build_shadow_plan(
         [chain()],

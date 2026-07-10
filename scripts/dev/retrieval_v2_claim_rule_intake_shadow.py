@@ -23,6 +23,7 @@ DEFAULT_STATUSES = ("active",)
 ROUTABLE_CHAIN_TYPES = {"delegated_power_abuse_chain", "appointment_to_outcome_chain"}
 READY_CHAIN_READINESS = "ready_for_chain_route_review"
 OPEN_MATERIAL_REVIEW_STATUSES = ("ready", "needs_review", "running", "blocked")
+CANDIDATE_CONSUMABLE_SOURCE_PACK_STATUSES = ("accepted", "draft")
 
 
 def text(value: Any) -> str:
@@ -108,7 +109,7 @@ def fetch_object_rows(cur: Any, *, chains: Sequence[Mapping[str, Any]]) -> list[
 
 def material_is_consumable(row: Mapping[str, Any]) -> bool:
     return (
-        text(row.get("source_pack_status")) == "accepted"
+        text(row.get("source_pack_status")) in CANDIDATE_CONSUMABLE_SOURCE_PACK_STATUSES
         and text(row.get("source_pack_coverage_status")) == "passed"
         and not bool(row.get("has_open_material_review"))
         and int(row.get("linked_passage_count") or 0) > 0
