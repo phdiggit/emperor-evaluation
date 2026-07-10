@@ -45,11 +45,16 @@ def test_apply_plan_validates_archive_and_keeps_server_read_only(tmp_path: Path)
         manifest_path=manifest,
         release_root=tmp_path / "server-runtime",
         services=["claim-worker.service", "source-cache@1.service"],
+        systemctl_scope="user",
     )
 
     assert plan["write_server"] is False
     assert plan["commit_sha"] == "a" * 40
     assert plan["services"] == ["claim-worker.service", "source-cache@1.service"]
+    assert plan["systemctl_scope"] == "user"
+    assert release.systemctl_argv(plan, "restart", "claim-worker.service") == [
+        "systemctl", "--user", "restart", "claim-worker.service"
+    ]
     assert not (tmp_path / "server-runtime").exists()
 
 

@@ -151,6 +151,7 @@ def plan_apply(
     manifest_path: Path,
     release_root: Path,
     services: Sequence[str],
+    systemctl_scope: str = "system",
 ) -> dict[str, Any]:
     archive_path = archive_path.resolve()
     manifest = read_manifest(manifest_path.resolve())
@@ -162,6 +163,8 @@ def plan_apply(
     if missing:
         raise RuntimeReleaseError(f"archive is missing required runtime paths: {', '.join(missing)}")
     service_names = validate_services(services)
+    if systemctl_scope not in {"system", "user"}:
+        raise RuntimeReleaseError("systemctl_scope must be system or user")
     release_root = release_root.resolve()
     commit_sha = str(manifest["commit_sha"])
     return {
@@ -173,6 +176,7 @@ def plan_apply(
         "release_path": str(release_root / "releases" / commit_sha),
         "current_path": str(release_root / "current"),
         "services": service_names,
+        "systemctl_scope": systemctl_scope,
         "required_paths": list(manifest["required_paths"]),
     }
 
@@ -191,6 +195,13 @@ def _switch_symlink(current_path: Path, target: Path) -> None:
         link_path.unlink()
     os.symlink(target, link_path, target_is_directory=True)
     os.replace(link_path, current_path)
+
+
+def systemctl_argv(plan: Mapping[str, Any], action: str, service: str) -> list[str]:
+    argv = ["systemctl"]
+    if plan.get("systemctl_scope") == "user":
+        argv.append("--user")
+    return [*argv, action, service]
 
 
 def execute_apply(plan: Mapping[str, Any], *, archive_path: Path) -> dict[str, Any]:
@@ -229,14 +240,14 @@ def execute_apply(plan: Mapping[str, Any], *, archive_path: Path) -> dict[str, A
     _switch_symlink(current_path, release_path)
     try:
         for service in services:
-            run_checked(["systemctl", "restart", service])
+            run_checked(systemctl_argv(plan, "restart", service))
         for service in services:
-            run_checked(["systemctl", "is-active", "--quiet", service])
+            run_checked([*systemctl_argv(plan, "is-active", service)[:-1], "--quiet", service])
     except Exception:
         if previous_target is not None:
             _switch_symlink(current_path, previous_target)
             for service in services:
-                subprocess.run(["systemctl", "restart", service], check=False)
+                subprocess.run(systemctl_argv(plan, "restart", service), check=False)
         elif current_path.is_symlink():
             current_path.unlink()
         raise
@@ -265,6 +276,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--manifest", type=Path, required=True)
     apply.add_argument("--release-root", type=Path, required=True)
     apply.add_argument("--service", action="append", default=[])
+    apply.add_argument("--systemctl-scope", choices=("system", "user"), default="system")
     apply.add_argument("--execute", action="store_true")
     apply.add_argument("--output-json", type=Path)
     return parser
@@ -285,6 +297,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             manifest_path=args.manifest,
             release_root=args.release_root,
             services=args.service,
+            systemctl_scope=args.systemctl_scope,
         )
         if args.execute:
             payload = execute_apply(payload, archive_path=args.archive)

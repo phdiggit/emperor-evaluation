@@ -62,22 +62,24 @@ python scripts/dev/retrieval_v3_runtime_release.py package `
   --manifest tmp/runtime_release/emperor-evaluation.manifest.json
 ```
 
-使用 `scp` 或受控发布通道传输归档和清单后，先在服务器只读验收，再显式切换。unit 名称属于服务器环境配置，必须传真实名称，不能写死在仓库：
+使用 `scp` 或受控发布通道传输归档和清单后，先在服务器只读验收，再显式切换。当前服务器实际使用 user-level unit：`emperor-retrieval-v3-object-source-cache-worker.service` 与 `emperor-retrieval-v3-claim-worker.service`；因此传 `--systemctl-scope user`。首次发布前必须先把两个 unit 的 `WorkingDirectory` 和 `ExecStart` 从旧快照目录改到 `/home/penghao/emperor-evaluation-runtime/current`，并执行 `systemctl --user daemon-reload`；完成这次一次性接线前不得执行 release apply。
 
 ```bash
 python scripts/dev/retrieval_v3_runtime_release.py apply \
   --archive /srv/emperor-evaluation/incoming/emperor-evaluation.tar.gz \
   --manifest /srv/emperor-evaluation/incoming/emperor-evaluation.manifest.json \
-  --release-root /srv/emperor-evaluation \
-  --service '<object-source-unit>' \
-  --service '<claim-extraction-unit>'
+  --release-root /home/penghao/emperor-evaluation-runtime \
+  --systemctl-scope user \
+  --service emperor-retrieval-v3-object-source-cache-worker.service \
+  --service emperor-retrieval-v3-claim-worker.service
 
 python scripts/dev/retrieval_v3_runtime_release.py apply \
   --archive /srv/emperor-evaluation/incoming/emperor-evaluation.tar.gz \
   --manifest /srv/emperor-evaluation/incoming/emperor-evaluation.manifest.json \
-  --release-root /srv/emperor-evaluation \
-  --service '<object-source-unit>' \
-  --service '<claim-extraction-unit>' \
+  --release-root /home/penghao/emperor-evaluation-runtime \
+  --systemctl-scope user \
+  --service emperor-retrieval-v3-object-source-cache-worker.service \
+  --service emperor-retrieval-v3-claim-worker.service \
   --execute
 ```
 
