@@ -389,6 +389,7 @@ def claim_row(
         "object_name": str(claim.get("object_name") or fact.get("object") or ""),
         "object_type": str(claim.get("object_type") or "person"),
         "claim_kind": str(claim.get("claim_kind") or "material_claim"),
+        "direction": str(claim.get("direction") or fact.get("direction") or ""),
         "action_type": str(fact.get("action_type") or ""),
         "event_scope": str(fact.get("event_scope") or ""),
         "office_or_domain": str(fact.get("office_or_domain") or ""),
