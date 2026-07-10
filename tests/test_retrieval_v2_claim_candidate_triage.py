@@ -85,6 +85,22 @@ def test_invalid_deepseek_response_falls_back_without_dropping_slices(monkeypatc
     assert "missing_decision:SLI-002" in report["validation_errors"]
 
 
+def test_prompt_budget_never_defers_high_priority_slice() -> None:
+    decisions = {
+        "SLI-001": {"priority": "high", "duplicate_of": "", "reason": "事件一"},
+        "SLI-002": {"priority": "high", "duplicate_of": "", "reason": "事件二"},
+        "SLI-003": {"priority": "high", "duplicate_of": "", "reason": "事件三"},
+        "SLI-004": {"priority": "low", "duplicate_of": "", "reason": "普通材料"},
+    }
+
+    candidates = sample_candidates()
+    candidates["candidate_slices"][3]["object_name"] = "胡惟庸"
+    selected, report = tool.select_prompt_candidates(candidates, decisions, max_slices_per_object=2)
+
+    assert [row["slice_code"] for row in selected["candidate_slices"]] == ["SLI-001", "SLI-002", "SLI-003"]
+    assert report["deferred_slices"][0]["slice_code"] == "SLI-004"
+
+
 def test_triage_rejects_non_positive_prompt_budget() -> None:
     try:
         tool.triage_candidates(

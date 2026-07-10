@@ -129,12 +129,17 @@ def select_prompt_candidates(
                 item[0],
             ),
         )
-        chosen = ranked[:max_slices_per_object]
+        high_priority = [item for item in ranked if decisions[text(item[1].get("slice_code"))]["priority"] == "high"]
+        non_high = [item for item in ranked if decisions[text(item[1].get("slice_code"))]["priority"] != "high"]
+        chosen = high_priority + non_high[: max(0, max_slices_per_object - len(high_priority))]
         chosen_codes = [text(row.get("slice_code")) for _, row in chosen]
         selected_by_object[object_name] = chosen_codes
         selected_codes.update(chosen_codes)
-        for index, row in ranked[max_slices_per_object:]:
+        chosen_code_set = {text(row.get("slice_code")) for _, row in chosen}
+        for index, row in ranked:
             slice_code = text(row.get("slice_code"))
+            if slice_code in chosen_code_set:
+                continue
             decision = decisions[slice_code]
             deferred.append(
                 {
