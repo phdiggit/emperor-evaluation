@@ -185,6 +185,50 @@ def test_summary_lead_terms_expand_to_classical_negative_variants() -> None:
     assert "少读书有智计" not in rows[0]["raw_text"]
 
 
+def test_summary_lead_anchors_support_historical_name_character_variants() -> None:
+    rows = tool.build_mention_slices(
+        {
+            "name": "叶昇",
+            "summary_leads": [{"lead_terms": ["被杀", "连坐"]}],
+        },
+        {
+            "document_cache_code": "OSD-YES-MINGSHI131",
+            "source_title": "明史/卷131",
+            "source_role": "object_biography_or_mentions",
+        },
+        "叶升 [ 编辑 ] 二十五年，坐交通胡惟庸事觉，诛死，籍其家。",
+        context_chars=30,
+        max_slices_per_document=2,
+    )
+
+    assert len(rows) == 1
+    assert rows[0]["slice_kind"] == "summary_lead_term_anchor"
+    assert "叶升" in rows[0]["matched_aliases"]
+    assert set(rows[0]["lead_terms"]) >= {"诛", "诛死", "籍其家"}
+
+
+def test_summary_lead_anchor_rejects_adjacent_person_section() -> None:
+    rows = tool.build_mention_slices(
+        {
+            "name": "叶昇",
+            "summary_leads": [{"lead_terms": ["诛杀"]}],
+        },
+        {
+            "document_cache_code": "OSD-YES-MINGSHI131",
+            "source_title": "明史/卷131",
+            "source_role": "object_biography_or_mentions",
+        },
+        "黄彬 [ 编辑 ] 黄彬坐胡惟庸党死，爵除。叶升 [ 编辑 ] 叶升二十五年坐交通胡惟庸事觉，诛死，籍其家。",
+        context_chars=40,
+        max_slices_per_document=1,
+    )
+
+    assert len(rows) == 1
+    assert rows[0]["slice_kind"] == "summary_lead_term_anchor"
+    assert "叶升二十五年" in rows[0]["raw_text"]
+    assert "诛死" in rows[0]["lead_terms"]
+
+
 def test_discovery_expands_non_emperor_biography_queries() -> None:
     queries: list[str] = []
 

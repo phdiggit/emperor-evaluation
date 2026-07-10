@@ -31,6 +31,12 @@ DEFAULT_USER_AGENT = "emperor-evaluation-retrieval-v2-summary-lead/0.1"
 DEFAULT_LEAD_TERMS = (
     "赐死",
     "賜死",
+    "被杀",
+    "被殺",
+    "诛杀",
+    "誅殺",
+    "诛死",
+    "誅死",
     "诛",
     "誅",
     "处死",
@@ -45,6 +51,14 @@ DEFAULT_LEAD_TERMS = (
     "謀反",
     "伏诛",
     "伏誅",
+    "自尽",
+    "自盡",
+    "自刎",
+    "籍其家",
+    "籍没",
+    "籍沒",
+    "流放",
+    "流徙",
     "大逆",
 )
 

@@ -70,6 +70,25 @@ def test_summary_lead_discovers_wikisource_hints_from_wikipedia_section() -> Non
     ]
 
 
+def test_summary_lead_discovers_execution_and_household_disposition_terms() -> None:
+    html = """
+    <html><body>
+      <h1>叶昇</h1>
+      <h2>生平</h2>
+      <p>叶昇被杀，籍其家；傅友德自刎，家属流徙。</p>
+    </body></html>
+    """
+
+    leads, _report = tool.discover_from_html(
+        html,
+        person_name="叶昇",
+        discovery_url="https://zh.wikipedia.org/wiki/叶昇",
+        section_titles=["生平"],
+    )
+
+    assert set(leads[0]["lead_terms"]) >= {"被杀", "籍其家", "自刎", "流徙"}
+
+
 def test_summary_lead_seed_patch_feeds_object_source_cache_without_search() -> None:
     leads, _report = tool.discover_from_html(
         LI_SHANCHANG_HTML,

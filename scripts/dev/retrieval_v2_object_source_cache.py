@@ -91,8 +91,13 @@ SUMMARY_LEAD_LOW_PRIORITY_TERMS = {"诛", "誅", "连坐", "連坐", "大逆", "
 SUMMARY_LEAD_HIGH_PRIORITY_TERMS = {
     "赐死",
     "賜死",
+    "被杀",
+    "被殺",
+    "诛杀",
+    "誅殺",
     "自尽",
     "自盡",
+    "自刎",
     "赐自尽",
     "賜自盡",
     "处死",
@@ -120,9 +125,18 @@ SUMMARY_LEAD_HIGH_PRIORITY_TERMS = {
     "反狀",
     "坐党",
     "坐黨",
+    "籍其家",
+    "籍没",
+    "籍沒",
+    "流放",
+    "流徙",
 }
 SUMMARY_LEAD_TERM_EXPANSIONS = {
     "赐死": ("自尽", "自盡", "赐自尽", "賜自盡", "坐死", "党死", "黨死", "伏诛", "伏誅"),
+    "被杀": ("被殺", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
+    "被殺": ("被杀", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
+    "诛杀": ("誅殺", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
+    "誅殺": ("诛杀", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
     "处死": ("處死", "坐死", "党死", "黨死", "伏诛", "伏誅", "诛死", "誅死"),
     "處死": ("处死", "坐死", "党死", "黨死", "伏诛", "伏誅", "诛死", "誅死"),
     "株连": ("株連", "牵连", "牽連", "连坐", "連坐", "坐死", "党死", "黨死", "亲族", "親族", "妻女弟侄", "七十余人"),
@@ -134,6 +148,9 @@ SUMMARY_LEAD_TERM_EXPANSIONS = {
     "大逆": ("不轨", "不軌", "逆谋", "逆謀", "反状", "反狀", "坐党", "坐黨"),
     "诛": ("伏诛", "伏誅", "诛死", "誅死", "族诛", "族誅", "大诛", "大誅"),
     "誅": ("伏诛", "伏誅", "诛死", "誅死", "族诛", "族誅", "大诛", "大誅"),
+    "自尽": ("自盡", "自刎", "赐自尽", "賜自盡", "流放", "流徙"),
+    "自盡": ("自尽", "自刎", "赐自尽", "賜自盡", "流放", "流徙"),
+    "籍其家": ("籍没", "籍沒", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死"),
 }
 
 PGSQL_SCHEMA_DRAFT = """
@@ -844,7 +861,19 @@ def build_mention_slices(
     for term in lead_terms:
         for index in alias_positions(full_text, term):
             start, end = context_bounds(full_text, index, context_chars=context_chars)
-            matched_aliases = matched_aliases_in_text(full_text[start:end], lead_anchor_aliases)
+            term_section_heading = nearest_section_heading(full_text, index)
+            matched_aliases = []
+            for alias in lead_anchor_aliases:
+                alias_in_same_section = any(
+                    start <= alias_index < end
+                    and (
+                        not term_section_heading
+                        or nearest_section_heading(full_text, alias_index) == term_section_heading
+                    )
+                    for alias_index in alias_positions(full_text, alias)
+                )
+                if alias_in_same_section:
+                    matched_aliases.append(alias)
             if not matched_aliases:
                 continue
             anchors.append(

@@ -53,6 +53,7 @@ def sample_judge_result() -> dict:
 
 def test_alias_script_variants_cover_common_simplified_traditional_forms() -> None:
     assert {"党進", "党进", "黨進", "黨进"} <= set(alias_script_variants("党進"))
+    assert {"叶升", "叶昇"} <= set(alias_script_variants("叶昇"))
     variants = set(alias_script_variants("呂餘慶"))
     assert {"呂餘慶", "吕余庆", "吕馀庆", "呂余慶"} <= variants
     assert {"張亮", "张亮"} <= set(alias_script_variants("張亮"))
