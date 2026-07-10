@@ -5,7 +5,12 @@ import hashlib
 import json
 from collections import Counter
 from pathlib import Path
+import sys
 from typing import Any, Mapping, Sequence
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn
 from scripts.dev.retrieval_v2_import_plan import json_param
