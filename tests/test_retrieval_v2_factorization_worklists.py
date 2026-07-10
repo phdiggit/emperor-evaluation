@@ -1153,7 +1153,7 @@ def test_run_plan_dry_run_delegates_to_codex_win(tmp_path: Path, monkeypatch: py
 
         return Completed()
 
-    monkeypatch.setattr(tool.subprocess, "run", fake_run)
+    monkeypatch.setattr(tool.task_runner.subprocess, "run", fake_run)
 
     payload = tool.run_codex_tasks(
         tasks_path=tasks_path,
@@ -1182,3 +1182,18 @@ def test_run_plan_dry_run_delegates_to_codex_win(tmp_path: Path, monkeypatch: py
     assert argv[argv.index("--deny-policy") + 1] == "deny-rewrite"
     assert argv[argv.index("--git-snapshot") + 1] == "none"
     assert str(tmp_path / "tasks") in argv
+
+
+def test_run_plan_keeps_worklist_error_type_for_invalid_runner_output(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    tasks_path = tmp_path / "tasks.jsonl"
+    tool.write_jsonl(tasks_path, [{"task_code": "RV2F-1"}])
+
+    class Completed:
+        returncode = 1
+        stdout = "not-json"
+        stderr = "runner failed"
+
+    monkeypatch.setattr(tool.task_runner.subprocess, "run", lambda *args, **kwargs: Completed())
+
+    with pytest.raises(tool.FactorizationWorklistError, match="non-JSON stdout"):
+        tool.run_codex_tasks(tasks_path=tasks_path, execute=False, background=False, limit=0, output=None)
