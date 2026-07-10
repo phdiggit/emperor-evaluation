@@ -226,7 +226,7 @@ def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypat
     assert result["pg_import"] is None
 
 
-def test_execute_job_filters_ineligible_slices_for_deepseek_by_default(tmp_path: Path, monkeypatch) -> None:
+def test_execute_job_keeps_ineligible_slices_for_deepseek_by_default(tmp_path: Path, monkeypatch) -> None:
     candidates_path = tmp_path / "candidates.json"
     write_candidates_with_ineligible_slice(candidates_path)
     captured: dict = {}
@@ -264,13 +264,9 @@ def test_execute_job_filters_ineligible_slices_for_deepseek_by_default(tmp_path:
         schema_name="retrieval_v3",
     )
 
-    assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001"]
-    report_path = Path(result["summary"]["people"][0]["files"]["claim_slice_filter_report"])
-    report = json.loads(report_path.read_text(encoding="utf-8"))
-    assert report["filtered_slice_count"] == 1
-    assert report["filtered_slices"][0]["slice_code"] == "SLI-INELIGIBLE"
-    assert "weak_single_mention_risk" in report["filtered_slices"][0]["reasons"]
-    assert result["summary"]["totals"]["candidate_slices"] == 1
+    assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001", "SLI-INELIGIBLE"]
+    assert result["summary"]["people"][0]["files"]["claim_slice_filter_report"] is None
+    assert result["summary"]["totals"]["candidate_slices"] == 2
 
 
 def test_execute_job_keeps_ineligible_slices_for_codex_by_default(tmp_path: Path, monkeypatch) -> None:
@@ -312,6 +308,70 @@ def test_execute_job_keeps_ineligible_slices_for_codex_by_default(tmp_path: Path
     )
 
     assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001", "SLI-INELIGIBLE"]
+
+
+def test_execute_job_uses_deepseek_triage_before_codex_and_writes_audit(tmp_path: Path, monkeypatch) -> None:
+    candidates_path = tmp_path / "candidates.json"
+    write_candidates_with_ineligible_slice(candidates_path)
+    captured: dict = {}
+
+    monkeypatch.setattr(
+        tool.candidate_triage,
+        "triage_candidates",
+        lambda candidates, **kwargs: (
+            {**candidates, "candidate_slices": [dict(candidates["candidate_slices"][0])]},
+            {
+                "enabled": True,
+                "status": "succeeded",
+                "provider": "deepseek",
+                "input_slice_count": 2,
+                "selected_slice_count": 1,
+                "deferred_slice_count": 1,
+                "deferred_slices": [{"slice_code": "SLI-INELIGIBLE", "defer_reason": "prompt_budget"}],
+            },
+        ),
+    )
+    def fake_run_judge(**kwargs):
+        captured["candidates"] = kwargs["candidates"]
+        return {
+            "payload": {"status": "succeeded", "claims": []},
+            "elapsed_seconds": 0.2,
+            "usage": {"input_tokens": 10, "output_tokens": 5},
+            "provider": "codex",
+        }
+
+    monkeypatch.setattr(tool.clean_runner, "run_judge", fake_run_judge)
+    monkeypatch.setattr(tool.fs_cache, "import_run", lambda *_args, **_kwargs: {"total_cached_claims": 0})
+
+    result = tool.execute_job(
+        job={
+            "job_code": "CLMEXT-001",
+            "idem_key": "idem",
+            "target_code": "TGT-ZYZ",
+            "rule_code": "i5b_item_wide",
+            "emperor_name": "朱元璋",
+            "candidate_payload_path": str(candidates_path),
+            "run_root": str(tmp_path / "run"),
+            "cache_root": str(tmp_path / "cache"),
+        },
+        codex_bin="codex",
+        judge_timeout_seconds=30,
+        judge_shard_size=4,
+        judge_shard_workers=1,
+        judge_provider="codex",
+        candidate_triage_provider="deepseek",
+        candidate_triage_max_slices_per_object=1,
+        import_pg=False,
+        dsn_env="EMPEROR_EVAL_RETRIEVAL_V3_DSN",
+        schema_name="retrieval_v3",
+    )
+
+    assert [row["slice_code"] for row in captured["candidates"]["candidate_slices"]] == ["SLI-001"]
+    triage_path = Path(result["summary"]["people"][0]["files"]["claim_candidate_triage"])
+    report = json.loads(triage_path.read_text(encoding="utf-8"))
+    assert report["deferred_slices"][0]["slice_code"] == "SLI-INELIGIBLE"
+    final_candidates = json.loads(Path(result["summary"]["people"][0]["files"]["final_candidates"]).read_text(encoding="utf-8"))
+    assert [row["slice_code"] for row in final_candidates["candidate_slices"]] == ["SLI-001"]
 
 
 def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, monkeypatch) -> None:
