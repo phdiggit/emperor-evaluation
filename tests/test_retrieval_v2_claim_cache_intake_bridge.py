@@ -69,6 +69,47 @@ def test_build_rows_rejects_preview_only_slice() -> None:
         raise AssertionError("preview-only material must not enter staging")
 
 
+def test_build_rows_for_claims_is_rule_neutral_and_only_gates_evidence_text() -> None:
+    claims = [
+        {"claim_key": "CLMK-1", "emperor_name": "刘邦"},
+        {"claim_key": "CLMK-2", "emperor_name": "刘邦"},
+    ]
+    rows, gate = tool.build_rows_for_claims(
+        claims=claims,
+        targets=[{"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"}],
+        evidence_rows=[evidence("CLMK-1"), evidence("CLMK-2")],
+        full_texts={"SLH-CLMK-1": "完整史料一", "SLH-CLMK-2": "完整史料二"},
+    )
+
+    assert len(rows["material_claims"]) == 2
+    assert gate == {
+        "input_claims": 2,
+        "eligible_material_claims": 2,
+        "excluded_missing_evidence": 0,
+        "excluded_missing_full_slice": 0,
+        "partial_missing_full_slice": 0,
+        "rule_filter_applied": 0,
+    }
+    assert rows["material_claims"][0]["claim_payload"]["cache_intake"]["material_scope"] == "rule_neutral"
+    assert rows["material_claims"][0]["claim_payload"]["cache_intake"]["rule_filter_applied"] is False
+
+
+def test_build_rows_for_claims_excludes_only_missing_full_slice() -> None:
+    rows, gate = tool.build_rows_for_claims(
+        claims=[
+            {"claim_key": "CLMK-1", "emperor_name": "刘邦"},
+            {"claim_key": "CLMK-2", "emperor_name": "刘邦"},
+        ],
+        targets=[{"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"}],
+        evidence_rows=[evidence("CLMK-1"), evidence("CLMK-2")],
+        full_texts={"SLH-CLMK-1": "完整史料一"},
+    )
+
+    assert [row["raw_claim_code"] for row in rows["material_claims"]] == ["CLMK-1"]
+    assert gate["excluded_missing_full_slice"] == 1
+    assert gate["rule_filter_applied"] == 0
+
+
 def test_hydrate_full_texts_from_original_candidate_artifact(tmp_path) -> None:
     run_dir = tmp_path / "run"
     run_dir.mkdir()

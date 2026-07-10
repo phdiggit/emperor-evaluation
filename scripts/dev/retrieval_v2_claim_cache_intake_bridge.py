@@ -77,7 +77,22 @@ def fetch_targets(cur: Any, *, emperor_names: Sequence[str]) -> list[dict[str, A
         """,
         [names, ITEM_CODE],
     )
-    return [dict(row) for row in cur.fetchall()]
+    rows = [dict(row) for row in cur.fetchall()]
+    selected: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        emperor = text(row.get("emperor_name"))
+        current = selected.get(emperor)
+        if current is None:
+            selected[emperor] = row
+            continue
+        # Native claim-cache bridge packs stay on the canonical bootstrap
+        # target when a later v3-native shadow target exists for the same
+        # emperor.  Do not let a duplicate target make read-only intake fail.
+        current_is_native_shadow = "-V3N-" in text(current.get("target_code"))
+        row_is_native_shadow = "-V3N-" in text(row.get("target_code"))
+        if current_is_native_shadow and not row_is_native_shadow:
+            selected[emperor] = row
+    return [selected[name] for name in sorted(selected)]
 
 
 def fetch_cache_evidence_rows(cur: Any, *, claim_keys: Sequence[str]) -> list[dict[str, Any]]:
@@ -156,6 +171,76 @@ def claim_keys_from_chains(chains: Sequence[Mapping[str, Any]]) -> list[str]:
     )
 
 
+def claim_keys_from_claims(claims: Sequence[Mapping[str, Any]]) -> list[str]:
+    return sorted({text(claim.get("claim_key")) for claim in claims if text(claim.get("claim_key"))})
+
+
+def build_rows_for_claims(
+    *,
+    claims: Sequence[Mapping[str, Any]],
+    targets: Sequence[Mapping[str, Any]],
+    evidence_rows: Sequence[Mapping[str, Any]],
+    full_texts: Mapping[str, str],
+) -> tuple[dict[str, list[dict[str, Any]]], dict[str, int]]:
+    """Build rule-neutral material rows after evidence/text gates.
+
+    Rule-chain readiness is intentionally not consulted here.  Claims with no
+    evidence or no rehydrated full slice remain outside the material intake
+    until the source layer can satisfy the evidence contract; they are not
+    silently promoted or scored.
+    """
+    claim_keys = claim_keys_from_claims(claims)
+    evidence_by_claim: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    for row in evidence_rows:
+        evidence_by_claim[text(row.get("claim_key"))].append(row)
+    eligible_claims: list[Mapping[str, Any]] = []
+    eligible_keys: set[str] = set()
+    missing_evidence = 0
+    missing_full_slice = 0
+    partial_full_slice = 0
+    for claim in claims:
+        claim_key = text(claim.get("claim_key"))
+        evidence = evidence_by_claim.get(claim_key, [])
+        if not evidence:
+            missing_evidence += 1
+            continue
+        complete_evidence = [row for row in evidence if text(full_texts.get(text(row.get("slice_hash"))))]
+        if not complete_evidence:
+            missing_full_slice += 1
+            continue
+        if len(complete_evidence) != len(evidence):
+            partial_full_slice += 1
+        eligible_claims.append(claim)
+        eligible_keys.add(claim_key)
+    grouped_claims: dict[str, list[str]] = defaultdict(list)
+    for claim in eligible_claims:
+        grouped_claims[text(claim.get("emperor_name"))].append(text(claim.get("claim_key")))
+    intake_chains = [
+        {"emperor_name": emperor, "members": [{"claim_key": key} for key in sorted(keys)]}
+        for emperor, keys in sorted(grouped_claims.items())
+    ]
+    eligible_evidence = [
+        row
+        for row in evidence_rows
+        if text(row.get("claim_key")) in eligible_keys
+        and text(full_texts.get(text(row.get("slice_hash"))))
+    ]
+    rows = build_rows(
+        chains=intake_chains,
+        targets=targets,
+        evidence_rows=eligible_evidence,
+        full_texts=full_texts,
+    )
+    return rows, {
+        "input_claims": len(claim_keys),
+        "eligible_material_claims": len(rows["material_claims"]),
+        "excluded_missing_evidence": missing_evidence,
+        "excluded_missing_full_slice": missing_full_slice,
+        "partial_missing_full_slice": partial_full_slice,
+        "rule_filter_applied": 0,
+    }
+
+
 def build_rows(
     *,
     chains: Sequence[Mapping[str, Any]],
@@ -206,6 +291,8 @@ def build_rows(
                     "acceptance_status": "draft",
                     "formal_binding_allowed": False,
                     "object_identity_gate": "deferred_until_formal_binding",
+                    "material_scope": "rule_neutral",
+                    "rule_filter_applied": False,
                 },
             }
         )
@@ -283,7 +370,12 @@ def build_rows(
                     "fact_payload": fact_payload,
                     "canonical_event_key": text(claim.get("canonical_event_key")),
                     "event_group_key": text(claim.get("event_group_key")),
-                    "cache_intake": {"formal_binding_allowed": False, "object_identity_gate": "deferred_until_formal_binding"},
+                    "cache_intake": {
+                        "formal_binding_allowed": False,
+                        "object_identity_gate": "deferred_until_formal_binding",
+                        "material_scope": "rule_neutral",
+                        "rule_filter_applied": False,
+                    },
                 },
             }
         )
@@ -319,12 +411,17 @@ def report_from_pg(
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             claims = chain_candidates.fetch_claim_rows(cur, emperor_names=emperor_names, statuses=statuses, owner_scopes=owner_scopes)
             chains = ready_chains(claims, min_members=min_members)
-            targets = fetch_targets(cur, emperor_names=[text(chain.get("emperor_name")) for chain in chains])
-            evidence_rows = fetch_cache_evidence_rows(cur, claim_keys=claim_keys_from_chains(chains))
+            targets = fetch_targets(cur, emperor_names=sorted({text(claim.get("emperor_name")) for claim in claims}))
+            evidence_rows = fetch_cache_evidence_rows(cur, claim_keys=claim_keys_from_claims(claims))
         conn.rollback()
     cached_texts = full_text_by_slice(cache_root)
     full_texts = hydrate_full_texts_from_raw_runs(evidence_rows, full_texts=cached_texts)
-    rows = build_rows(chains=chains, targets=targets, evidence_rows=evidence_rows, full_texts=full_texts)
+    rows, material_gate = build_rows_for_claims(
+        claims=claims,
+        targets=targets,
+        evidence_rows=evidence_rows,
+        full_texts=full_texts,
+    )
     report = {
         "ok": True,
         "generated_by": "scripts/dev/retrieval_v2_claim_cache_intake_bridge.py",
@@ -334,6 +431,7 @@ def report_from_pg(
         "object_identity_gate": "deferred_until_formal_binding",
         "input_claim_count": len(claims),
         "ready_chain_count": len(chains),
+        "material_gate": material_gate,
         "full_slice_text_sources": {
             "filesystem_cache_count": len(cached_texts),
             "available_after_raw_run_rehydrate": len(full_texts),
