@@ -17,6 +17,10 @@ from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev.retrieval_v2_import_plan import json_param, reason_hash, stable_hash, write_json  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
 from scripts.dev.retrieval_v2_review_worklists import object_group_key  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+
+
+DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 
 
 FORMAL_CANDIDATE_RULES = {
@@ -806,13 +810,15 @@ def run_router(
     emperors: Sequence[str],
     canonical_only: bool,
     execute: bool,
+    schema_name: str = DEFAULT_PG_SCHEMA,
 ) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             plan = build_plan(
                 cur,
                 item_code=item_code,
@@ -833,7 +839,8 @@ def run_router(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Backfill cross-rule candidates from accepted retrieval_v2 claims.")
     parser.add_argument("--env-file", type=Path)
-    parser.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
+    parser.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--item-code", default="I5B")
     parser.add_argument("--source-rule-code", default="appointment_delegation")
     parser.add_argument("--emperor", action="append", default=[])
@@ -854,6 +861,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         emperors=tuple(args.emperor or ()),
         canonical_only=not args.all_duplicates,
         execute=args.execute,
+        schema_name=args.pg_schema,
     )
     write_json(args.output_json, payload)
     if args.output_md is not None:
