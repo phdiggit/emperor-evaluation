@@ -506,7 +506,7 @@ def execute_job(
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
     candidate_triage_provider: str = candidate_triage.TRIAGE_PROVIDER_NONE,
-    candidate_triage_max_slices_per_object: int = candidate_triage.DEFAULT_MAX_SLICES_PER_OBJECT,
+    candidate_triage_duplicate_text_similarity: float = candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY,
     import_pg: bool,
     dsn_env: str,
     schema_name: str,
@@ -532,7 +532,7 @@ def execute_job(
         timeout_seconds=min(judge_timeout_seconds, candidate_triage.DEFAULT_TIMEOUT_SECONDS),
         thinking=judge_thinking,
         max_tokens=judge_max_tokens or candidate_triage.DEFAULT_MAX_TOKENS,
-        max_slices_per_object=candidate_triage_max_slices_per_object,
+        duplicate_text_similarity=candidate_triage_duplicate_text_similarity,
     )
     judge_result = clean_runner.run_judge(
         candidates=judge_candidates,
@@ -603,7 +603,7 @@ def extract_from_candidates(
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
     candidate_triage_provider: str = candidate_triage.TRIAGE_PROVIDER_NONE,
-    candidate_triage_max_slices_per_object: int = candidate_triage.DEFAULT_MAX_SLICES_PER_OBJECT,
+    candidate_triage_duplicate_text_similarity: float = candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY,
     import_pg: bool = False,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -624,7 +624,7 @@ def extract_from_candidates(
         judge_max_tokens=judge_max_tokens,
         filter_ineligible_slices=filter_ineligible_slices,
         candidate_triage_provider=candidate_triage_provider,
-        candidate_triage_max_slices_per_object=candidate_triage_max_slices_per_object,
+        candidate_triage_duplicate_text_similarity=candidate_triage_duplicate_text_similarity,
         import_pg=import_pg,
         dsn_env=dsn_env,
         schema_name=schema_name,
@@ -655,7 +655,7 @@ def once(
     judge_max_tokens: int | None = None,
     filter_ineligible_slices: bool | None = None,
     candidate_triage_provider: str = candidate_triage.TRIAGE_PROVIDER_NONE,
-    candidate_triage_max_slices_per_object: int = candidate_triage.DEFAULT_MAX_SLICES_PER_OBJECT,
+    candidate_triage_duplicate_text_similarity: float = candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY,
     import_pg: bool = True,
     dsn_env: str = DEFAULT_DSN_ENV,
     schema_name: str = DEFAULT_PG_SCHEMA,
@@ -689,7 +689,7 @@ def once(
             judge_max_tokens=judge_max_tokens,
             filter_ineligible_slices=filter_ineligible_slices,
             candidate_triage_provider=candidate_triage_provider,
-            candidate_triage_max_slices_per_object=candidate_triage_max_slices_per_object,
+            candidate_triage_duplicate_text_similarity=candidate_triage_duplicate_text_similarity,
             import_pg=import_pg,
             dsn_env=dsn_env,
             schema_name=schema_name,
@@ -761,8 +761,8 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     extract.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
     extract.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
-    extract.add_argument("--candidate-triage-provider", choices=[candidate_triage.TRIAGE_PROVIDER_NONE, candidate_triage.TRIAGE_PROVIDER_DEEPSEEK], default=candidate_triage.TRIAGE_PROVIDER_NONE, help="Optional low-risk slice triage before the primary judge; DeepSeek output only controls a reversible prompt budget.")
-    extract.add_argument("--candidate-triage-max-slices-per-object", type=int, default=candidate_triage.DEFAULT_MAX_SLICES_PER_OBJECT)
+    extract.add_argument("--candidate-triage-provider", choices=[candidate_triage.TRIAGE_PROVIDER_NONE, candidate_triage.TRIAGE_PROVIDER_DEEPSEEK], default=candidate_triage.TRIAGE_PROVIDER_NONE, help="Optional DeepSeek duplicate suggestion; only mechanically verified near-duplicates are deferred from Codex.")
+    extract.add_argument("--candidate-triage-duplicate-text-similarity", type=float, default=candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY)
     extract_filter = extract.add_mutually_exclusive_group()
     extract_filter.add_argument("--filter-ineligible-slices", dest="filter_ineligible_slices", action="store_true")
     extract_filter.add_argument("--no-filter-ineligible-slices", dest="filter_ineligible_slices", action="store_false")
@@ -793,8 +793,8 @@ def build_parser() -> argparse.ArgumentParser:
     once_cmd.add_argument("--judge-base-url", default=os.environ.get(clean_runner.DEEPSEEK_BASE_URL_ENV))
     once_cmd.add_argument("--judge-thinking", choices=["enabled", "disabled"], default=os.environ.get("DEEPSEEK_THINKING") or clean_runner.DEFAULT_DEEPSEEK_THINKING)
     once_cmd.add_argument("--judge-max-tokens", type=int, default=optional_int(os.environ.get(clean_runner.DEEPSEEK_MAX_TOKENS_ENV)))
-    once_cmd.add_argument("--candidate-triage-provider", choices=[candidate_triage.TRIAGE_PROVIDER_NONE, candidate_triage.TRIAGE_PROVIDER_DEEPSEEK], default=candidate_triage.TRIAGE_PROVIDER_NONE, help="Optional low-risk slice triage before the primary judge; DeepSeek output only controls a reversible prompt budget.")
-    once_cmd.add_argument("--candidate-triage-max-slices-per-object", type=int, default=candidate_triage.DEFAULT_MAX_SLICES_PER_OBJECT)
+    once_cmd.add_argument("--candidate-triage-provider", choices=[candidate_triage.TRIAGE_PROVIDER_NONE, candidate_triage.TRIAGE_PROVIDER_DEEPSEEK], default=candidate_triage.TRIAGE_PROVIDER_NONE, help="Optional DeepSeek duplicate suggestion; only mechanically verified near-duplicates are deferred from Codex.")
+    once_cmd.add_argument("--candidate-triage-duplicate-text-similarity", type=float, default=candidate_triage.DEFAULT_DUPLICATE_TEXT_SIMILARITY)
     once_filter = once_cmd.add_mutually_exclusive_group()
     once_filter.add_argument("--filter-ineligible-slices", dest="filter_ineligible_slices", action="store_true")
     once_filter.add_argument("--no-filter-ineligible-slices", dest="filter_ineligible_slices", action="store_false")
@@ -833,7 +833,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_max_tokens=args.judge_max_tokens,
             filter_ineligible_slices=args.filter_ineligible_slices,
             candidate_triage_provider=args.candidate_triage_provider,
-            candidate_triage_max_slices_per_object=args.candidate_triage_max_slices_per_object,
+            candidate_triage_duplicate_text_similarity=args.candidate_triage_duplicate_text_similarity,
             import_pg=bool(args.import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,
@@ -860,7 +860,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             judge_max_tokens=args.judge_max_tokens,
             filter_ineligible_slices=args.filter_ineligible_slices,
             candidate_triage_provider=args.candidate_triage_provider,
-            candidate_triage_max_slices_per_object=args.candidate_triage_max_slices_per_object,
+            candidate_triage_duplicate_text_similarity=args.candidate_triage_duplicate_text_similarity,
             import_pg=not bool(args.no_import_pg),
             dsn_env=args.dsn_env,
             schema_name=args.pg_schema,

@@ -360,7 +360,7 @@ def test_execute_job_uses_deepseek_triage_before_codex_and_writes_audit(tmp_path
         judge_shard_workers=1,
         judge_provider="codex",
         candidate_triage_provider="deepseek",
-        candidate_triage_max_slices_per_object=1,
+        candidate_triage_duplicate_text_similarity=0.72,
         import_pg=False,
         dsn_env="EMPEROR_EVAL_RETRIEVAL_V3_DSN",
         schema_name="retrieval_v3",

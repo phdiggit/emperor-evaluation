@@ -8,10 +8,9 @@ from scripts.dev import retrieval_v2_llm_providers as llm_providers
 
 TRIAGE_PROVIDER_NONE = "none"
 TRIAGE_PROVIDER_DEEPSEEK = "deepseek"
-DEFAULT_MAX_SLICES_PER_OBJECT = 2
 DEFAULT_TIMEOUT_SECONDS = 180
 DEFAULT_MAX_TOKENS = 2048
-_PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2}
+DEFAULT_DUPLICATE_TEXT_SIMILARITY = 0.72
 
 
 class ClaimCandidateTriageError(RuntimeError):
@@ -56,10 +55,10 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
     return "\n".join(
         [
             "你是候选史料切片的低风险分诊器，不是事实裁判。",
-            "只按同一 object 内的材料信息密度和重复程度排序，不判断 claim 是否成立、人物归属、正负向或证据强度。",
-            "每个 slice_code 必须恰好输出一条 decision：priority 只能为 high、medium、low；duplicate_of 只能是同 object 的另一 slice_code 或空字符串。",
-            "reason 只写简短理由。没有把握时 priority=high，duplicate_of 置空。",
-            "只返回一个 JSON object：{\"decisions\":[{\"slice_code\":\"...\",\"priority\":\"high\",\"duplicate_of\":\"\",\"reason\":\"...\"}]}。",
+            "你只能识别同一 object、同一 source document 内近乎重复的同一事件切片，不判断 claim、人物归属、正负向、证据强度或切片优先级。",
+            "每个 slice_code 必须恰好输出一条 decision。仅当它和更早出现的另一 slice_code 叙述同一事件、且没有新增时间、行动、结果或人物时，duplicate_of 才可写该更早 slice_code；否则必须为空字符串。",
+            "不同 source document、不同事件、不同时间、不同 outcome 或拿不准时一律 duplicate_of 置空。reason 只写简短理由。",
+            "只返回一个 JSON object：{\"decisions\":[{\"slice_code\":\"...\",\"duplicate_of\":\"\",\"reason\":\"...\"}]}。",
             "输入：",
             stable_json(payload),
         ]
@@ -68,6 +67,7 @@ def build_prompt(candidates: Mapping[str, Any]) -> str:
 
 def normalize_decisions(payload: Mapping[str, Any], rows: Sequence[Mapping[str, Any]]) -> tuple[dict[str, dict[str, str]], list[str]]:
     row_by_code = {text(row.get("slice_code")): row for row in rows if text(row.get("slice_code"))}
+    position_by_code = {code: index for index, code in enumerate(row_by_code)}
     errors: list[str] = []
     decisions: dict[str, dict[str, str]] = {}
     raw_decisions = payload.get("decisions") if isinstance(payload.get("decisions"), list) else []
@@ -76,7 +76,6 @@ def normalize_decisions(payload: Mapping[str, Any], rows: Sequence[Mapping[str, 
             errors.append("decision_not_object")
             continue
         slice_code = text(raw.get("slice_code"))
-        priority = text(raw.get("priority")).lower()
         duplicate_of = text(raw.get("duplicate_of"))
         if slice_code not in row_by_code:
             errors.append(f"unknown_slice_code:{slice_code or '<empty>'}")
@@ -84,17 +83,18 @@ def normalize_decisions(payload: Mapping[str, Any], rows: Sequence[Mapping[str, 
         if slice_code in decisions:
             errors.append(f"duplicate_decision:{slice_code}")
             continue
-        if priority not in _PRIORITY_RANK:
-            errors.append(f"invalid_priority:{slice_code}")
-            continue
         if duplicate_of:
             original = row_by_code[slice_code]
             duplicate = row_by_code.get(duplicate_of)
-            if duplicate is None or text(duplicate.get("object_name")) != text(original.get("object_name")):
+            if (
+                duplicate is None
+                or text(duplicate.get("object_name")) != text(original.get("object_name"))
+                or text(duplicate.get("document_code")) != text(original.get("document_code"))
+                or position_by_code[duplicate_of] >= position_by_code[slice_code]
+            ):
                 errors.append(f"invalid_duplicate_of:{slice_code}")
                 continue
         decisions[slice_code] = {
-            "priority": priority,
             "duplicate_of": duplicate_of,
             "reason": text(raw.get("reason")),
         }
@@ -104,54 +104,60 @@ def normalize_decisions(payload: Mapping[str, Any], rows: Sequence[Mapping[str, 
     return decisions, errors
 
 
+def text_similarity(left: str, right: str) -> float:
+    normalized_left = "".join(left.split())
+    normalized_right = "".join(right.split())
+    if normalized_left == normalized_right:
+        return 1.0
+    if not normalized_left or not normalized_right:
+        return 0.0
+    width = 3
+    left_grams = {normalized_left[index : index + width] for index in range(max(1, len(normalized_left) - width + 1))}
+    right_grams = {normalized_right[index : index + width] for index in range(max(1, len(normalized_right) - width + 1))}
+    return len(left_grams & right_grams) / len(left_grams | right_grams)
+
+
+def distinct_event_terms(left: Mapping[str, Any], right: Mapping[str, Any]) -> bool:
+    left_terms = {text(value) for value in left.get("matched_outcome_terms") or [] if text(value)}
+    right_terms = {text(value) for value in right.get("matched_outcome_terms") or [] if text(value)}
+    return bool(left_terms and right_terms and left_terms != right_terms)
+
+
 def select_prompt_candidates(
     candidates: Mapping[str, Any],
     decisions: Mapping[str, Mapping[str, str]],
     *,
-    max_slices_per_object: int,
+    duplicate_text_similarity: float,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    if max_slices_per_object < 1:
-        raise ClaimCandidateTriageError("max_slices_per_object must be at least 1")
+    if not 0 < duplicate_text_similarity <= 1:
+        raise ClaimCandidateTriageError("duplicate_text_similarity must be in (0, 1]")
     result = json.loads(stable_json(candidates))
     rows = candidate_slices(result)
-    grouped: dict[str, list[tuple[int, dict[str, Any]]]] = {}
-    for index, row in enumerate(rows):
-        grouped.setdefault(text(row.get("object_name")) or "<unknown>", []).append((index, row))
-    selected_codes: set[str] = set()
+    rows_by_code = {text(row.get("slice_code")): row for row in rows}
+    selected_codes = set(rows_by_code)
     deferred: list[dict[str, Any]] = []
-    selected_by_object: dict[str, list[str]] = {}
-    for object_name, object_rows in grouped.items():
-        ranked = sorted(
-            object_rows,
-            key=lambda item: (
-                _PRIORITY_RANK[decisions[text(item[1].get("slice_code"))]["priority"]],
-                bool(decisions[text(item[1].get("slice_code"))]["duplicate_of"]),
-                item[0],
-            ),
+    for index, row in enumerate(rows):
+        slice_code = text(row.get("slice_code"))
+        decision = decisions[slice_code]
+        duplicate_of = decision["duplicate_of"]
+        if not duplicate_of:
+            continue
+        representative = rows_by_code[duplicate_of]
+        similarity = text_similarity(text(row.get("text")), text(representative.get("text")))
+        if similarity < duplicate_text_similarity or distinct_event_terms(row, representative):
+            continue
+        selected_codes.discard(slice_code)
+        deferred.append(
+            {
+                "slice_code": slice_code,
+                "object_name": text(row.get("object_name")),
+                "duplicate_of": duplicate_of,
+                "reason": decision["reason"],
+                "defer_reason": "verified_near_duplicate",
+                "text_similarity": round(similarity, 4),
+                "original_index": index,
+            }
         )
-        high_priority = [item for item in ranked if decisions[text(item[1].get("slice_code"))]["priority"] == "high"]
-        non_high = [item for item in ranked if decisions[text(item[1].get("slice_code"))]["priority"] != "high"]
-        chosen = high_priority + non_high[: max(0, max_slices_per_object - len(high_priority))]
-        chosen_codes = [text(row.get("slice_code")) for _, row in chosen]
-        selected_by_object[object_name] = chosen_codes
-        selected_codes.update(chosen_codes)
-        chosen_code_set = {text(row.get("slice_code")) for _, row in chosen}
-        for index, row in ranked:
-            slice_code = text(row.get("slice_code"))
-            if slice_code in chosen_code_set:
-                continue
-            decision = decisions[slice_code]
-            deferred.append(
-                {
-                    "slice_code": slice_code,
-                    "object_name": object_name,
-                    "priority": decision["priority"],
-                    "duplicate_of": decision["duplicate_of"],
-                    "reason": decision["reason"],
-                    "defer_reason": "prompt_budget",
-                    "original_index": index,
-                }
-            )
     result["candidate_slices"] = [row for row in rows if text(row.get("slice_code")) in selected_codes]
     stats = dict(result.get("stats") or {})
     stats["candidate_slices_before_triage"] = len(rows)
@@ -160,12 +166,11 @@ def select_prompt_candidates(
     result["stats"] = stats
     report = {
         "status": "succeeded",
-        "mode": "deepseek_prompt_budget",
+        "mode": "deepseek_duplicate_suggestion",
         "input_slice_count": len(rows),
         "selected_slice_count": len(result["candidate_slices"]),
         "deferred_slice_count": len(deferred),
-        "max_slices_per_object": max_slices_per_object,
-        "selected_slice_codes_by_object": selected_by_object,
+        "duplicate_text_similarity": duplicate_text_similarity,
         "deferred_slices": deferred,
         "decisions": [
             {
@@ -189,11 +194,11 @@ def triage_candidates(
     timeout_seconds: int,
     thinking: str | None,
     max_tokens: int | None,
-    max_slices_per_object: int,
+    duplicate_text_similarity: float,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     normalized_provider = text(provider).lower() or TRIAGE_PROVIDER_NONE
-    if max_slices_per_object < 1:
-        raise ClaimCandidateTriageError("max_slices_per_object must be at least 1")
+    if not 0 < duplicate_text_similarity <= 1:
+        raise ClaimCandidateTriageError("duplicate_text_similarity must be in (0, 1]")
     original = json.loads(stable_json(candidates))
     rows = prompt_rows(original)
     if normalized_provider == TRIAGE_PROVIDER_NONE:
@@ -225,7 +230,7 @@ def triage_candidates(
                 "usage": response.get("usage") or {},
                 "elapsed_seconds": response.get("elapsed_seconds"),
             }
-        selected, report = select_prompt_candidates(original, decisions, max_slices_per_object=max_slices_per_object)
+        selected, report = select_prompt_candidates(original, decisions, duplicate_text_similarity=duplicate_text_similarity)
         report.update({"enabled": True, "provider": normalized_provider, "usage": response.get("usage") or {}, "elapsed_seconds": response.get("elapsed_seconds")})
         return selected, report
     except (llm_providers.LlmProviderError, ValueError, TypeError) as exc:
