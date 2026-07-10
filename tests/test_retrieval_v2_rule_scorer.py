@@ -488,6 +488,28 @@ def test_apply_rule_scores_blocks_explicit_source_pack_execute_by_default(monkey
         )
 
 
+def test_apply_rule_scores_can_add_supplemental_pack_to_latest_accepted_scope(monkeypatch) -> None:
+    conn = patch_fake_db(monkeypatch)
+
+    payload = tool.apply_rule_scores(
+        dsn="postgresql://fake",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        formula_code="evidence_cluster_signal_v3",
+        supplemental_source_pack_codes=["SPK-I5B-SUPPLEMENT"],
+        execute=False,
+    )
+
+    assert payload["source_pack_codes"] == []
+    assert payload["supplemental_source_pack_codes"] == ["SPK-I5B-SUPPLEMENT"]
+    assert any("distinct on (sp2.target_id, sp2.contract_id)" in statement for statement in conn.statements)
+    assert any("or sp.pack_code = any(%s)" in statement for statement in conn.statements)
+    assert any(
+        params == ("I5B", "appointment_delegation", "evidence_cluster_signal_v3", ["SPK-I5B-SUPPLEMENT"], "", "")
+        for params in conn.params
+    )
+
+
 def test_apply_rule_scores_rejects_empty_wrong_formula_when_alternates_exist(monkeypatch) -> None:
     conn = patch_fake_db(monkeypatch)
     conn.judgment_rows = []

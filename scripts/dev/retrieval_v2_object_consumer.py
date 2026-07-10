@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_import_plan import ImportPlanError, json_param, stable_hash, write_json  # noqa: E402
 from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import schema_cursor  # noqa: E402
 
 
 QUEUE_SQL = """
@@ -507,19 +508,28 @@ def execute_upserts(cur: Any, queue_rows: Sequence[Mapping[str, Any]], link_rows
     return dict(sorted(counts.items()))
 
 
-def execute_object_consumer(*, env_file: Path | None, dsn_env: str, execute: bool, source_pack_codes: Sequence[str] = ()) -> dict[str, Any]:
+def execute_object_consumer(
+    *,
+    env_file: Path | None,
+    dsn_env: str,
+    execute: bool,
+    source_pack_codes: Sequence[str] = (),
+    schema_name: str = "retrieval_v2",
+) -> dict[str, Any]:
     if env_file is not None:
         load_env_file(env_file)
     psycopg, dict_row = import_psycopg()
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        with conn.cursor() as cur:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
             queue_rows = fetch_queue_rows(cur, source_pack_codes=source_pack_codes)
             link_rows = fetch_link_rows(cur, source_pack_codes=source_pack_codes)
             report = build_object_plan(queue_rows, link_rows)
             report["mode"] = "execute" if execute else "dry_run_object_consumer"
             report["write_db"] = execute
             report["source_pack_codes"] = [text(code) for code in source_pack_codes if text(code)]
+            report["schema_name"] = schema_name
             if not report["ok"]:
                 conn.rollback()
                 return report
@@ -572,6 +582,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--output-md", type=Path, required=True)
     apply.add_argument("--env-file", type=Path)
     apply.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V2_DSN")
+    apply.add_argument("--pg-schema", default="retrieval_v2")
     apply.add_argument("--source-pack-code", action="append", default=[])
     apply.add_argument("--execute", action="store_true", help="Actually write objects and material-object links. Omit for dry-run.")
     return parser
@@ -586,6 +597,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         dsn_env=args.dsn_env,
         execute=args.execute,
         source_pack_codes=args.source_pack_code,
+        schema_name=args.pg_schema,
     )
     write_json(args.output_json, payload)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)

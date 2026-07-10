@@ -41,3 +41,10 @@ def test_identity_gate_resolves_accepted_alias_names() -> None:
 
     assert "from retrieval_v3.object_names onm" in source
     assert "lower(onm.normalized_name) = lower(mc.object_name)" in source
+
+
+def test_identity_gate_supports_narrow_source_pack_filter() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "sp.pack_code = any(%s::text[])" in source
+    assert 'parser.add_argument("--source-pack-code", action="append", default=[])' in source

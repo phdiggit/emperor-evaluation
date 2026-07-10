@@ -202,6 +202,28 @@ def test_apply_can_filter_to_source_pack_code(tmp_path: Path, monkeypatch) -> No
     assert any("sp.pack_code = any" in statement for statement in conn.statements)
 
 
+def test_apply_forwards_explicit_pg_schema(tmp_path: Path, monkeypatch) -> None:
+    captured = {}
+
+    def fake_execute(**kwargs):
+        captured.update(kwargs)
+        return {"ok": True, "totals": {}, "write_db": False, "executed": False}
+
+    monkeypatch.setattr(tool, "execute_object_consumer", fake_execute)
+
+    assert tool.main([
+        "apply",
+        "--pg-schema",
+        "retrieval_v3",
+        "--output-json",
+        str(tmp_path / "objects.json"),
+        "--output-md",
+        str(tmp_path / "objects.md"),
+    ]) == 0
+
+    assert captured["schema_name"] == "retrieval_v3"
+
+
 def test_execute_writes_objects_before_material_links(tmp_path: Path, monkeypatch) -> None:
     conn = patch_fake_db(monkeypatch)
 

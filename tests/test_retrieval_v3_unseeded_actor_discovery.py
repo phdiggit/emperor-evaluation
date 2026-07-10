@@ -126,6 +126,70 @@ def test_disposition_lead_never_becomes_negative_score() -> None:
     assert all(row["required_review"]["has_disposition_only"] is None for row in worklist)
 
 
+def test_structured_claim_actor_discovers_unseeded_suspect_without_scoring() -> None:
+    result = tool.discover_candidates_from_claim_actors(
+        [
+            {
+                "claim_key": "CLMK-68E4582CE4336A12C8BB",
+                "emperor_name": "朱元璋",
+                "object_name": "蓝玉",
+                "claim_summary": "洪武二十六年二月，蒋𤩽告蓝玉谋反。",
+                "confidence": 0.9,
+                "fact_payload": {
+                    "actor": "蒋𤩽",
+                    "object": "蓝玉",
+                    "action_type": "处置",
+                    "office_or_domain": "锦衣卫告发谋反",
+                    "outcome": "蓝玉下吏鞫讯",
+                },
+                "evidence": [
+                    {
+                        "document_code": "DOC-MINGSHA",
+                        "source_title": "明史",
+                        "source_slice_ref": "OSS-001",
+                        "slice_text_preview": "锦衣卫指挥蒋𤩽告玉谋反，下吏鞫讯。",
+                    }
+                ],
+            }
+        ],
+        [name_row(1, "蓝玉")],
+        [target_row(1)],
+    )
+
+    assert len(result["candidates"]) == 1
+    candidate = result["candidates"][0]
+    assert candidate["observed_name"] == "蒋𤩽"
+    assert candidate["extraction_methods"] == ["claim_fact_actor"]
+    assert candidate["lead_stages"] == ["claim_actor_adverse_relation_lead"]
+    assert candidate["evidence_windows"][0]["claim_key"] == "CLMK-68E4582CE4336A12C8BB"
+    assert candidate["scoring_allowed"] is False
+
+
+def test_structured_claim_actor_skips_emperor_and_non_adverse_relation() -> None:
+    rows = [
+        {
+            "claim_key": "CLMK-1",
+            "emperor_name": "朱元璋",
+            "object_name": "蓝玉",
+            "claim_summary": "朱元璋任命蓝玉。",
+            "confidence": 0.9,
+            "fact_payload": {"actor": "朱元璋", "object": "蓝玉", "action_type": "任命"},
+        },
+        {
+            "claim_key": "CLMK-2",
+            "emperor_name": "朱元璋",
+            "object_name": "蓝玉",
+            "claim_summary": "傅友德协助蓝玉整军。",
+            "confidence": 0.9,
+            "fact_payload": {"actor": "傅友德", "object": "蓝玉", "action_type": "协助"},
+        },
+    ]
+
+    result = tool.discover_candidates_from_claim_actors(rows, [name_row(1, "蓝玉")], [target_row(1)])
+
+    assert result["candidates"] == []
+
+
 def test_script_does_not_hardcode_acceptance_name_or_connect_legacy_contract_tables() -> None:
     source = Path(tool.__file__).read_text(encoding="utf-8")
 

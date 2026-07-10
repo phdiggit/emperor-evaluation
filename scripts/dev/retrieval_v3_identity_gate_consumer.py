@@ -54,7 +54,8 @@ def syncs_candidate_identity_gate(decision: str) -> bool:
     return decision in {"identity_ready_for_accept", "identity_ready"}
 
 
-def fetch_groups(cur: Any) -> dict[int, list[dict[str, Any]]]:
+def fetch_groups(cur: Any, *, source_pack_codes: Sequence[str] = ()) -> dict[int, list[dict[str, Any]]]:
+    pack_codes = [text(code) for code in source_pack_codes if text(code)]
     cur.execute(
         """
         select c.id as candidate_id, c.candidate_code, c.candidate_payload,
@@ -82,8 +83,9 @@ def fetch_groups(cur: Any) -> dict[int, list[dict[str, Any]]]:
          where c.routed_by_profile = %s
            and c.review_status::text = %s
            and c.candidate_rule_code = %s
+           and (coalesce(array_length(%s::text[], 1), 0) = 0 or sp.pack_code = any(%s::text[]))
         """,
-        (PROFILE, "accepted", "appointment_delegation"),
+        (PROFILE, "accepted", "appointment_delegation", pack_codes, pack_codes),
     )
     grouped: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for row in cur.fetchall():
@@ -91,12 +93,18 @@ def fetch_groups(cur: Any) -> dict[int, list[dict[str, Any]]]:
     return grouped
 
 
-def run_consumer(*, dsn: str, schema_name: str, execute: bool) -> dict[str, Any]:
+def run_consumer(
+    *,
+    dsn: str,
+    schema_name: str,
+    execute: bool,
+    source_pack_codes: Sequence[str] = (),
+) -> dict[str, Any]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
-            groups = fetch_groups(cur)
+            groups = fetch_groups(cur, source_pack_codes=source_pack_codes)
             decisions: Counter[str] = Counter()
             eligible: list[dict[str, Any]] = []
             ready_candidates: list[dict[str, Any]] = []
@@ -164,6 +172,7 @@ def run_consumer(*, dsn: str, schema_name: str, execute: bool) -> dict[str, Any]
         "material_object_links_created": 0,
         "legacy_data_reads": False,
         "legacy_data_migrated": False,
+        "source_pack_codes": [text(code) for code in source_pack_codes if text(code)],
     }
 
 
@@ -173,11 +182,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--source-pack-code", action="append", default=[])
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
         load_env_file(args.env_file)
-    payload = run_consumer(dsn=resolve_dsn(args.dsn_env), schema_name=args.pg_schema, execute=args.execute)
+    payload = run_consumer(
+        dsn=resolve_dsn(args.dsn_env),
+        schema_name=args.pg_schema,
+        execute=args.execute,
+        source_pack_codes=args.source_pack_code,
+    )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(payload, ensure_ascii=False, sort_keys=True))

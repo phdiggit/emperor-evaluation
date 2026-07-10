@@ -156,10 +156,28 @@ def side_signal(object_scores: Sequence[Decimal]) -> Decimal:
     return quant(sum(object_scores, Decimal("0")))
 
 
-def source_pack_predicate(source_pack_codes: Sequence[str] = ()) -> str:
+def source_pack_predicate(
+    source_pack_codes: Sequence[str] = (),
+    supplemental_source_pack_codes: Sequence[str] = (),
+) -> str:
     codes = [text(code) for code in source_pack_codes if text(code)]
     if codes:
         return "sp.pack_code = any(%s) and sp.coverage_status = 'passed'"
+    supplemental = [text(code) for code in supplemental_source_pack_codes if text(code)]
+    if supplemental:
+        return """
+           (
+               sp.id in (
+                    select distinct on (sp2.target_id, sp2.contract_id) sp2.id
+                      from retrieval_v2.source_packs sp2
+                     where sp2.status = 'accepted'
+                       and sp2.coverage_status = 'passed'
+                     order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc
+               )
+               or sp.pack_code = any(%s)
+           )
+           and sp.coverage_status = 'passed'
+        """
     return """
            sp.id in (
                 select distinct on (sp2.target_id, sp2.contract_id) sp2.id
@@ -179,10 +197,12 @@ def fetch_judgment_rows(
     formula_code: str,
     target_code: str,
     source_pack_codes: Sequence[str] = (),
+    supplemental_source_pack_codes: Sequence[str] = (),
 ) -> list[dict[str, Any]]:
     target_filter = "and (%s = '' or rt.target_code = %s)"
     codes = [text(code) for code in source_pack_codes if text(code)]
-    source_pack_params: list[Any] = [codes] if codes else []
+    supplemental = [text(code) for code in supplemental_source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes or supplemental] if (codes or supplemental) else []
     cur.execute(
         f"""
         select
@@ -283,7 +303,7 @@ def fetch_judgment_rows(
                  where mrq.claim_id = j.claim_id
                    and mrq.queue_status in ('ready', 'needs_review', 'running', 'blocked')
            )
-           and {source_pack_predicate(codes)}
+           and {source_pack_predicate(codes, supplemental)}
            {target_filter}
          order by j.target_id, j.id, c.factor_name
         """,
@@ -300,10 +320,12 @@ def fetch_scoring_target_rows(
     formula_code: str,
     target_code: str,
     source_pack_codes: Sequence[str] = (),
+    supplemental_source_pack_codes: Sequence[str] = (),
 ) -> list[dict[str, Any]]:
     target_filter = "and (%s = '' or rt.target_code = %s)"
     codes = [text(code) for code in source_pack_codes if text(code)]
-    source_pack_params: list[Any] = [codes] if codes else []
+    supplemental = [text(code) for code in supplemental_source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes or supplemental] if (codes or supplemental) else []
     cur.execute(
         f"""
         select distinct
@@ -314,7 +336,7 @@ def fetch_scoring_target_rows(
           from retrieval_v2.retrieval_targets rt
           join retrieval_v2.source_packs sp on sp.target_id = rt.id
          where (%s = '' or rt.item_code = %s)
-           and {source_pack_predicate(codes)}
+           and {source_pack_predicate(codes, supplemental)}
            {target_filter}
          order by rt.emperor_name, rt.target_code
         """,
@@ -335,10 +357,12 @@ def fetch_alternate_formula_counts(
     formula_code: str,
     target_code: str,
     source_pack_codes: Sequence[str] = (),
+    supplemental_source_pack_codes: Sequence[str] = (),
 ) -> list[dict[str, Any]]:
     target_filter = "and (%s = '' or rt.target_code = %s)"
     codes = [text(code) for code in source_pack_codes if text(code)]
-    source_pack_params: list[Any] = [codes] if codes else []
+    supplemental = [text(code) for code in supplemental_source_pack_codes if text(code)]
+    source_pack_params: list[Any] = [codes or supplemental] if (codes or supplemental) else []
     cur.execute(
         f"""
         select
@@ -352,7 +376,7 @@ def fetch_alternate_formula_counts(
            and j.rule_code = %s
            and j.formula_code <> %s
            and j.review_status = 'accepted'
-           and {source_pack_predicate(codes)}
+           and {source_pack_predicate(codes, supplemental)}
            {target_filter}
          group by j.formula_code
          order by j.formula_code
@@ -1019,11 +1043,15 @@ def apply_rule_scores(
     formula_code: str,
     target_code: str = "",
     source_pack_codes: Sequence[str] = (),
+    supplemental_source_pack_codes: Sequence[str] = (),
     allow_source_pack_execute: bool = False,
     execute: bool,
 ) -> dict[str, Any]:
     source_pack_codes = tuple(text(code) for code in source_pack_codes if text(code))
-    if execute and source_pack_codes and not allow_source_pack_execute:
+    supplemental_source_pack_codes = tuple(text(code) for code in supplemental_source_pack_codes if text(code))
+    if source_pack_codes and supplemental_source_pack_codes:
+        raise RetrievalV2RuleScorerError("explicit and supplemental source-pack scopes cannot be combined")
+    if execute and (source_pack_codes or supplemental_source_pack_codes) and not allow_source_pack_execute:
         raise RetrievalV2RuleScorerError(
             "explicit source-pack scoring is dry-run by default; pass --allow-source-pack-execute to write DB"
         )
@@ -1041,6 +1069,7 @@ def apply_rule_scores(
                     formula_code=formula_code,
                     target_code=target_code,
                     source_pack_codes=source_pack_codes,
+                    supplemental_source_pack_codes=supplemental_source_pack_codes,
                 )
             )
             scoring_targets = fetch_scoring_target_rows(
@@ -1050,6 +1079,7 @@ def apply_rule_scores(
                 formula_code=formula_code,
                 target_code=target_code,
                 source_pack_codes=source_pack_codes,
+                supplemental_source_pack_codes=supplemental_source_pack_codes,
             )
             if not judgments:
                 alternates = fetch_alternate_formula_counts(
@@ -1059,6 +1089,7 @@ def apply_rule_scores(
                     formula_code=formula_code,
                     target_code=target_code,
                     source_pack_codes=source_pack_codes,
+                    supplemental_source_pack_codes=supplemental_source_pack_codes,
                 )
                 if alternates:
                     available = ", ".join(
@@ -1100,6 +1131,7 @@ def apply_rule_scores(
         "formula_code": formula_code,
         "target_code": target_code,
         "source_pack_codes": list(source_pack_codes),
+        "supplemental_source_pack_codes": list(supplemental_source_pack_codes),
         "material_policy": {
             "policy_code": text(material_policy.get("policy_code")),
             "selection_priority": material_policy.get("selection_priority"),
@@ -1200,6 +1232,12 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--formula-code", default=DEFAULT_FORMULA_CODE)
     apply.add_argument("--target-code", default="")
     apply.add_argument("--source-pack-code", action="append", default=[], help="Restrict scoring to explicit source pack code. Repeatable; dry-run by default for safety.")
+    apply.add_argument(
+        "--supplemental-source-pack-code",
+        action="append",
+        default=[],
+        help="Add reviewed supplemental packs to the latest accepted primary packs. Repeatable; dry-run by default.",
+    )
     apply.add_argument("--allow-source-pack-execute", action="store_true", help="Allow --execute with --source-pack-code, which writes formal score tables.")
     apply.add_argument("--output-json", type=Path, required=True)
     apply.add_argument("--output-md", type=Path)
@@ -1221,6 +1259,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         formula_code=args.formula_code,
         target_code=args.target_code,
         source_pack_codes=args.source_pack_code,
+        supplemental_source_pack_codes=args.supplemental_source_pack_code,
         allow_source_pack_execute=args.allow_source_pack_execute,
         execute=args.execute,
     )

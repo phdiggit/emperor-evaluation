@@ -87,6 +87,8 @@ DISPOSITION_TERMS = (
     "谋反",
 )
 WARNING_TERMS = ("劾", "谏", "言其不可", "不听", "仍用", "益信", "庇护", "复任")
+CLAIM_ACTOR_ADVERSE_ACTION_TYPES = {"处置", "失职", "构陷", "滥权", "结党", "拒谏", "制度高压"}
+CLAIM_ACTOR_ADVERSE_TERMS = ("告", "劾", "谮", "诬", "陷", "害", "杀", "鞫", "毒", "专擅", "擅权", "谋反")
 
 SENTENCE_SPLIT_RE = re.compile(r"(?<=[。！？；])|[\r\n]+")
 CJK_NAME = r"[\u3400-\u9fff\U00020000-\U0002fa1f]{2,4}"
@@ -468,13 +470,173 @@ def discover_candidates_from_rows(
     }
 
 
+def discover_candidates_from_claim_actors(
+    claim_rows: Sequence[Mapping[str, Any]],
+    name_rows: Sequence[Mapping[str, Any]],
+    target_rows: Sequence[Mapping[str, Any]],
+    *,
+    min_confidence: float = DEFAULT_MIN_CONFIDENCE,
+) -> dict[str, Any]:
+    name_index, _scan_names = build_name_index(name_rows)
+    target_object_ids: dict[str, set[int]] = defaultdict(set)
+    target_period_candidates: dict[str, set[str]] = defaultdict(set)
+    for row in target_rows:
+        emperor = text(row.get("emperor_name"))
+        if row.get("object_id") is not None:
+            target_object_ids[emperor].add(int(row["object_id"]))
+        target_period_candidates[emperor].update(text(value) for value in row.get("dynasty_labels") or [] if text(value))
+
+    candidates: list[dict[str, Any]] = []
+    stats = Counter()
+    for row in claim_rows:
+        fact = row.get("fact_payload") if isinstance(row.get("fact_payload"), Mapping) else {}
+        emperor = text(row.get("emperor_name"))
+        focal_object = normalize_object_alias(row.get("object_name"))
+        actor = normalize_object_alias(fact.get("actor"))
+        action_type = text(fact.get("action_type"))
+        relation_text = " ".join(
+            text(value)
+            for value in (
+                row.get("claim_summary"),
+                fact.get("outcome"),
+                fact.get("cost_or_damage"),
+                fact.get("office_or_domain"),
+            )
+        )
+        stats["claim_actor_rows_checked"] += 1
+        if not valid_candidate_name(actor) or actor in {normalize_object_alias(emperor), focal_object}:
+            stats["claim_actor_not_candidate"] += 1
+            continue
+        adverse_terms = signal_terms(relation_text, CLAIM_ACTOR_ADVERSE_TERMS)
+        if action_type not in CLAIM_ACTOR_ADVERSE_ACTION_TYPES and not adverse_terms:
+            stats["claim_actor_non_adverse_relation"] += 1
+            continue
+        confidence = float(row.get("confidence") or 0)
+        if confidence < float(min_confidence):
+            stats["claim_actor_below_confidence"] += 1
+            continue
+        matches = list(name_index.get(actor, ()))
+        resolved_id = int(matches[0]["object_id"]) if len(matches) == 1 else None
+        if resolved_id is not None and resolved_id in target_object_ids.get(emperor, set()):
+            stats["existing_target_object_mentions"] += 1
+            continue
+        if len(matches) > 1:
+            discovery_status = "ambiguous_known_name_not_attached"
+        else:
+            discovery_status = "known_object_not_attached" if resolved_id is not None else "unresolved_name_candidate"
+        period_candidates = sorted(target_period_candidates.get(emperor, set()))
+        target_period = period_candidates[0] if len(period_candidates) == 1 else ""
+        evidence_windows = []
+        for evidence in row.get("evidence") or []:
+            if not isinstance(evidence, Mapping):
+                continue
+            source_ref = text(evidence.get("source_slice_ref"))
+            window = text(evidence.get("slice_text_preview"))
+            evidence_windows.append(
+                {
+                    "passage_code": "",
+                    "document_code": text(evidence.get("document_code")),
+                    "source_title": text(evidence.get("source_title")),
+                    "locator": source_ref,
+                    "source_pack_code": "",
+                    "owner_names": [focal_object] if focal_object else [],
+                    "focus_text": text(row.get("claim_summary")),
+                    "window": window,
+                    "appointment_signals": [],
+                    "harm_signals": ["structured_adverse_actor_relation"],
+                    "disposition_signals": [action_type] if action_type == "处置" else [],
+                    "warning_signals": adverse_terms,
+                    "claim_key": text(row.get("claim_key")),
+                    "claim_actor": actor,
+                    "claim_object": focal_object,
+                    "claim_action_type": action_type,
+                    "window_hash": stable_code("UAW-", emperor, text(row.get("claim_key")), source_ref, actor),
+                }
+            )
+        candidate = {
+            "candidate_code": stable_code("UAC-", emperor, actor, resolved_id),
+            "emperor_name": emperor,
+            "target_period": target_period,
+            "target_period_candidates": period_candidates,
+            "source_hints": source_hints_for_period(target_period) if target_period else [],
+            "observed_name": actor,
+            "normalized_name": actor,
+            "resolved_object_id": resolved_id,
+            "resolved_canonical_name": text(matches[0].get("canonical_name")) if len(matches) == 1 else "",
+            "identity_status": text(matches[0].get("identity_status")) if len(matches) == 1 else "",
+            "discovery_status": discovery_status,
+            "extraction_methods": ["claim_fact_actor"],
+            "max_extraction_confidence": min(confidence, 0.95),
+            "lead_stages": ["claim_actor_adverse_relation_lead"],
+            "appointment_signals": [],
+            "harm_signals": ["structured_adverse_actor_relation"],
+            "disposition_signals": [action_type] if action_type == "处置" else [],
+            "warning_signals": adverse_terms,
+            "evidence_windows": evidence_windows[:MAX_EVIDENCE_WINDOWS],
+            "judge_required": True,
+            "scoring_allowed": False,
+            "negative_chain_level": None,
+            "next_action": "run_object_source_refiner_then_negative_chain_review",
+        }
+        if len(matches) > 1:
+            candidate["identity_ambiguous"] = True
+            candidate["matching_object_ids"] = sorted(int(match["object_id"]) for match in matches)
+        candidates.append(candidate)
+        stats["claim_actor_candidates"] += 1
+    return {"candidates": candidates, "counts": dict(sorted(stats.items()))}
+
+
+def merge_discoveries(*discoveries: Mapping[str, Any]) -> dict[str, Any]:
+    merged: dict[str, dict[str, Any]] = {}
+    counts = Counter()
+    for discovery in discoveries:
+        counts.update(discovery.get("counts") or {})
+        for source in discovery.get("candidates") or []:
+            row = dict(source)
+            code = text(row.get("candidate_code"))
+            current = merged.get(code)
+            if current is None:
+                merged[code] = row
+                continue
+            for key in (
+                "extraction_methods", "lead_stages", "appointment_signals", "harm_signals",
+                "disposition_signals", "warning_signals",
+            ):
+                current[key] = sorted(set(current.get(key) or []) | set(row.get(key) or []))
+            current["max_extraction_confidence"] = max(
+                float(current.get("max_extraction_confidence") or 0),
+                float(row.get("max_extraction_confidence") or 0),
+            )
+            existing_hashes = {text(item.get("window_hash")) for item in current.get("evidence_windows") or []}
+            for evidence in row.get("evidence_windows") or []:
+                if text(evidence.get("window_hash")) not in existing_hashes:
+                    current.setdefault("evidence_windows", []).append(evidence)
+            current["evidence_windows"] = current.get("evidence_windows", [])[:MAX_EVIDENCE_WINDOWS]
+    candidates = sorted(
+        merged.values(),
+        key=lambda row: (text(row.get("emperor_name")), -float(row.get("max_extraction_confidence") or 0), text(row.get("observed_name"))),
+    )
+    for key in ("unseeded_actor_candidates", "unresolved_name_candidate", "known_object_not_attached", "ambiguous_known_name_not_attached"):
+        counts.pop(key, None)
+    by_emperor = Counter()
+    for row in candidates:
+        counts["unseeded_actor_candidates"] += 1
+        counts[text(row.get("discovery_status"))] += 1
+        by_emperor[text(row.get("emperor_name"))] += 1
+    return {
+        "candidates": candidates,
+        "counts": dict(sorted(counts.items())),
+        "candidate_counts_by_emperor": dict(sorted(by_emperor.items())),
+    }
+
+
 def fetch_discovery_rows(
     *,
     dsn: str,
     schema_name: str,
     contract_code: str,
     emperors: Sequence[str],
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     psycopg, dict_row = import_psycopg()
     emperor_names = [text(name) for name in emperors if text(name)]
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
@@ -540,7 +702,30 @@ def fetch_discovery_rows(
                 (contract_code, emperor_names, emperor_names),
             )
             target_rows = [dict(row) for row in cur.fetchall()]
-    return passage_rows, name_rows, target_rows
+            cur.execute(
+                """
+                select c.claim_key, c.emperor_name, c.object_name, c.claim_summary,
+                       c.confidence, c.fact_payload,
+                       coalesce(jsonb_agg(distinct jsonb_build_object(
+                           'document_code', s.document_code,
+                           'source_title', s.source_title,
+                           'source_url', s.source_url,
+                           'source_slice_ref', s.source_slice_ref,
+                           'slice_text_preview', s.slice_text_preview
+                       )) filter (where s.slice_hash is not null), '[]'::jsonb) as evidence
+                  from retrieval_v3.claim_cache c
+                  left join retrieval_v3.claim_evidence e on e.claim_key = c.claim_key
+                  left join retrieval_v3.claim_source_slices s on s.slice_hash = e.slice_hash
+                 where c.status::text = 'active'
+                   and (coalesce(array_length(%s::text[], 1), 0) = 0 or c.emperor_name = any(%s::text[]))
+                 group by c.claim_key, c.emperor_name, c.object_name, c.claim_summary,
+                          c.confidence, c.fact_payload
+                 order by c.emperor_name, c.claim_key
+                """,
+                (emperor_names, emperor_names),
+            )
+            claim_rows = [dict(row) for row in cur.fetchall()]
+    return passage_rows, name_rows, target_rows, claim_rows
 
 
 def build_report(
@@ -552,12 +737,21 @@ def build_report(
     contract_code: str,
     emperors: Sequence[str],
     min_confidence: float,
+    claim_rows: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
-    discovery = discover_candidates_from_rows(
-        passage_rows,
-        name_rows,
-        target_rows,
-        min_confidence=min_confidence,
+    discovery = merge_discoveries(
+        discover_candidates_from_rows(
+            passage_rows,
+            name_rows,
+            target_rows,
+            min_confidence=min_confidence,
+        ),
+        discover_candidates_from_claim_actors(
+            claim_rows,
+            name_rows,
+            target_rows,
+            min_confidence=min_confidence,
+        ),
     )
     return {
         "ok": True,
@@ -569,6 +763,7 @@ def build_report(
         "emperors": [text(name) for name in emperors if text(name)],
         "min_confidence": float(min_confidence),
         "source_passage_count": len(passage_rows),
+        "claim_actor_source_count": len(claim_rows),
         "known_object_count": len(name_rows),
         "target_object_link_count": len(target_rows),
         "counts": discovery["counts"],
@@ -675,7 +870,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.env_file is not None:
         load_env_file(args.env_file)
     emperors = args.emperor or list(DEFAULT_EMPERORS)
-    passage_rows, name_rows, target_rows = fetch_discovery_rows(
+    passage_rows, name_rows, target_rows, claim_rows = fetch_discovery_rows(
         dsn=resolve_dsn(args.dsn_env),
         schema_name=args.pg_schema,
         contract_code=args.contract_code,
@@ -689,6 +884,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         contract_code=args.contract_code,
         emperors=emperors,
         min_confidence=args.min_confidence,
+        claim_rows=claim_rows,
     )
     if args.output_json is not None:
         write_text(args.output_json, pretty_json(report))
