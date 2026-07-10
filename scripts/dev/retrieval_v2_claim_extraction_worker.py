@@ -472,6 +472,41 @@ def execute_job(
     }
 
 
+def extract_from_candidates(
+    *,
+    candidates_path: Path,
+    cache_root: Path,
+    run_root: Path,
+    codex_bin: str = "codex",
+    judge_timeout_seconds: int = 1800,
+    judge_shard_size: int = 4,
+    judge_shard_workers: int = 4,
+    import_pg: bool = False,
+    dsn_env: str = DEFAULT_DSN_ENV,
+    schema_name: str = DEFAULT_PG_SCHEMA,
+) -> dict[str, Any]:
+    """Run one candidate payload directly without queue or database access by default."""
+    job = job_from_candidates(candidates_path=candidates_path, cache_root=cache_root, run_root=run_root)
+    job["status"] = "shadow"
+    result = execute_job(
+        job=job,
+        codex_bin=codex_bin,
+        judge_timeout_seconds=judge_timeout_seconds,
+        judge_shard_size=judge_shard_size,
+        judge_shard_workers=judge_shard_workers,
+        import_pg=import_pg,
+        dsn_env=dsn_env,
+        schema_name=schema_name,
+    )
+    return {
+        "ok": True,
+        "status": "succeeded",
+        "mode": "extract_from_candidates",
+        "job": job,
+        "result": result,
+    }
+
+
 def once(
     *,
     dsn: str,
@@ -560,6 +595,20 @@ def build_parser() -> argparse.ArgumentParser:
     enqueue.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     enqueue.add_argument("--output-json", type=Path)
 
+    extract = sub.add_parser("extract-from-candidates", help="Extract claims directly from one candidates JSON without queue access.")
+    extract.add_argument("--candidates", type=Path, required=True)
+    extract.add_argument("--cache-root", type=Path, required=True)
+    extract.add_argument("--run-root", type=Path, default=DEFAULT_RUN_ROOT)
+    extract.add_argument("--env-file", type=Path)
+    extract.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
+    extract.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    extract.add_argument("--codex-bin", default="codex")
+    extract.add_argument("--judge-timeout", type=int, default=1800)
+    extract.add_argument("--judge-shard-size", type=int, default=4)
+    extract.add_argument("--judge-shard-workers", type=int, default=4)
+    extract.add_argument("--import-pg", action="store_true")
+    extract.add_argument("--output-json", type=Path)
+
     plan = sub.add_parser("plan", help="Show the next ready claim extraction job without taking a lease.")
     plan.add_argument("--env-file", type=Path)
     plan.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
@@ -586,17 +635,33 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if getattr(args, "env_file", None) is not None:
         load_env_file(args.env_file)
-    dsn = resolve_dsn(args.dsn_env)
     if args.command == "apply-schema":
+        dsn = resolve_dsn(args.dsn_env)
         apply_schema(dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "action": "apply_schema", "schema_name": args.pg_schema}
     elif args.command == "enqueue-from-candidates":
+        dsn = resolve_dsn(args.dsn_env)
         job = job_from_candidates(candidates_path=args.candidates, cache_root=args.cache_root, run_root=args.run_root, priority=args.priority)
         payload = {"ok": True, "schema_name": args.pg_schema, "job": job, "enqueue": enqueue_job(dsn=dsn, job=job, schema_name=args.pg_schema)}
+    elif args.command == "extract-from-candidates":
+        payload = extract_from_candidates(
+            candidates_path=args.candidates,
+            cache_root=args.cache_root,
+            run_root=args.run_root,
+            codex_bin=args.codex_bin,
+            judge_timeout_seconds=args.judge_timeout,
+            judge_shard_size=args.judge_shard_size,
+            judge_shard_workers=args.judge_shard_workers,
+            import_pg=bool(args.import_pg),
+            dsn_env=args.dsn_env,
+            schema_name=args.pg_schema,
+        )
     elif args.command == "plan":
+        dsn = resolve_dsn(args.dsn_env)
         job = fetch_next_ready_job(dsn=dsn, schema_name=args.pg_schema)
         payload = {"ok": True, "status": "idle", "job": None} if job is None else {"ok": True, "status": "planned", "job": dict(job), "plan": job_plan(job)}
     elif args.command == "once":
+        dsn = resolve_dsn(args.dsn_env)
         payload = once(
             dsn=dsn,
             worker_id=args.worker_id,

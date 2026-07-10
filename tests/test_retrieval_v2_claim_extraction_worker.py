@@ -211,6 +211,58 @@ def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypat
     assert result["pg_import"] is None
 
 
+def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, monkeypatch) -> None:
+    candidates_path = tmp_path / "candidates.json"
+    write_candidates(candidates_path)
+    captured: dict = {}
+
+    def fake_execute_job(**kwargs):
+        captured.update(kwargs)
+        return {"claim_count": 1, "run_root": str(tmp_path / "run")}
+
+    monkeypatch.setattr(tool, "execute_job", fake_execute_job)
+
+    result = tool.extract_from_candidates(
+        candidates_path=candidates_path,
+        cache_root=tmp_path / "cache",
+        run_root=tmp_path / "run",
+    )
+
+    assert result["ok"] is True
+    assert result["mode"] == "extract_from_candidates"
+    assert result["job"]["status"] == "shadow"
+    assert captured["import_pg"] is False
+    assert captured["judge_shard_size"] == 4
+    assert captured["judge_shard_workers"] == 4
+
+
+def test_cli_extract_from_candidates_does_not_require_dsn(tmp_path: Path, monkeypatch) -> None:
+    candidates_path = tmp_path / "candidates.json"
+    write_candidates(candidates_path)
+
+    def fail_resolve_dsn(_value: str):
+        raise AssertionError("direct filesystem extraction must not resolve a DSN")
+
+    monkeypatch.setattr(tool, "resolve_dsn", fail_resolve_dsn)
+    monkeypatch.setattr(
+        tool,
+        "extract_from_candidates",
+        lambda **kwargs: {"ok": True, "mode": "extract_from_candidates", "import_pg": kwargs["import_pg"]},
+    )
+
+    assert tool.main(
+        [
+            "extract-from-candidates",
+            "--candidates",
+            str(candidates_path),
+            "--cache-root",
+            str(tmp_path / "cache"),
+            "--run-root",
+            str(tmp_path / "run"),
+        ]
+    ) == 0
+
+
 def test_execute_once_records_success(monkeypatch) -> None:
     events: list[tuple[str, str]] = []
 
