@@ -349,9 +349,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         reconciliation_report = read_json(args.reconciliation_report_json)
         if reconciliation_report.get("progress_allowed") is True:
             raise ExpectedEventSourceRefinementError("reconciliation gate already allows progress; source refinement is not the gate bypass")
-    packages, seeds, report = build_refinement_packages(read_jsonl(args.inventory_jsonl), read_jsonl(args.reconciliation_jsonl))
+    inventory_rows = read_jsonl(args.inventory_jsonl)
+    reconciliation_rows = read_jsonl(args.reconciliation_jsonl)
+    packages, seeds, report = build_refinement_packages(inventory_rows, reconciliation_rows)
+    event_selection = [row for row in reconciliation_rows if text(row.get("decision")) == FETCH_DECISION]
     write_jsonl(args.output_root / "source_refinement_packages.jsonl", packages)
     write_jsonl(args.output_root / "object_source_cache_seeds.jsonl", seeds)
+    write_jsonl(args.output_root / "event_selection.jsonl", event_selection)
     write_json(args.output_root / "report.json", report)
     (args.output_root / "report.md").write_text(render_markdown(report, packages), encoding="utf-8", newline="\n")
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))

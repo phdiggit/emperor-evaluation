@@ -116,6 +116,8 @@ def test_cli_writes_report_only_handoff(tmp_path: Path) -> None:
 
     assert (output_root / "source_refinement_packages.jsonl").exists()
     assert (output_root / "object_source_cache_seeds.jsonl").exists()
+    selected = tool.read_jsonl(output_root / "event_selection.jsonl")
+    assert [row["event_inventory_code"] for row in selected] == ["EEI-1"]
     report = json.loads((output_root / "report.json").read_text(encoding="utf-8"))
     assert report["write_db"] is False
     assert report["enqueue_allowed"] is False

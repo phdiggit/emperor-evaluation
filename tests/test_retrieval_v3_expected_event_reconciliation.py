@@ -172,6 +172,69 @@ def test_gate_passes_for_cached_source_reextraction(tmp_path: Path) -> None:
     assert report["gate_passed"] is True
 
 
+def test_repair_verification_does_not_count_repeated_reextraction_as_resolved(tmp_path: Path) -> None:
+    write_merge_fixture(tmp_path, decision="reextract_cached_source")
+
+    _, report = tool.merge_results(
+        tmp_path,
+        min_existing_source_resolution_rate=0.5,
+        gate_mode="repair_verification",
+    )
+
+    assert report["gate_metric"] == "verified_coverage_rate"
+    assert report["actionable_without_new_source_rate"] == 1.0
+    assert report["verified_coverage_rate"] == 0.0
+    assert report["existing_source_resolution_rate"] == 0.0
+    assert report["gate_passed"] is False
+    assert report["progress_allowed"] is False
+
+
+def test_repair_verification_passes_only_for_actual_coverage(tmp_path: Path) -> None:
+    write_merge_fixture(tmp_path, decision="already_covered")
+
+    _, report = tool.merge_results(
+        tmp_path,
+        min_existing_source_resolution_rate=0.5,
+        gate_mode="repair_verification",
+    )
+
+    assert report["verified_coverage_rate"] == 1.0
+    assert report["gate_passed"] is True
+    assert report["next_action"] == "continue_verified_repairs"
+
+
+def test_repair_verification_counts_fact_complete_event_group_rebuild(tmp_path: Path) -> None:
+    workitem = tool.build_workitems([event()], [claim()], [source_slice()])[0]
+    workitem["events"][0]["allowed_group_keys"].append("CEG-2")
+    workitem["events"][0]["allowed_claim_keys"].append("CLMK-2")
+    (tmp_path / "patches").mkdir(parents=True)
+    (tmp_path / "workitems.jsonl").write_text(json.dumps(workitem, ensure_ascii=False) + "\n", encoding="utf-8")
+    patch = {
+        "event_inventory_code": "EEI-EAST-TURK",
+        "decision": "rebuild_event_group",
+        "has_appointment": True,
+        "has_duty": True,
+        "has_outcome": True,
+        "same_event": True,
+        "group_keys": ["CEG-1", "CEG-2"],
+        "claim_keys": ["CLMK-1", "CLMK-2"],
+        "source_slice_refs": [],
+        "missing_facets": [],
+        "confidence": "high",
+        "review_note": "事实链完整但分属两个事件组。",
+    }
+    (tmp_path / "patches" / "task.jsonl").write_text(json.dumps(patch, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    _, report = tool.merge_results(
+        tmp_path,
+        min_existing_source_resolution_rate=0.5,
+        gate_mode="repair_verification",
+    )
+
+    assert report["verified_coverage_rate"] == 1.0
+    assert report["gate_passed"] is True
+
+
 def test_merge_can_consume_capacity_retry_patch_root(tmp_path: Path) -> None:
     write_merge_fixture(tmp_path, decision="fetch_missing_source")
     original_patch = next((tmp_path / "patches").glob("*.jsonl"))
@@ -225,6 +288,40 @@ def test_local_source_cache_rows_can_overlay_newly_fetched_slices(tmp_path: Path
             "source_cache_root": str(cache_root),
         }
     ]
+
+
+def test_local_extracted_claim_rows_can_overlay_repair_claims(tmp_path: Path) -> None:
+    result_path = tmp_path / "judge.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "claims": [
+                    {
+                        "claim_code": "CLM-NEW",
+                        "emperor_name": "李世民",
+                        "object_name": "李绩",
+                        "claim_summary": "李绩在诺真水大破薛延陀。",
+                        "source_slice_refs": ["OSS-1"],
+                        "evidence_spans": [{"source_slice_ref": "OSS-1", "text": "大破之"}],
+                        "fact_payload": {
+                            "action_type": "战役",
+                            "office_or_domain": "诺真水",
+                            "outcome": "大破薛延陀",
+                        },
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    rows = tool.local_extracted_claim_rows(result_path)
+
+    assert rows[0]["claim_key"] == "CLM-NEW"
+    assert rows[0]["outcome_support"] == "direct"
+    assert rows[0]["event_group_keys"][0].startswith("CEG-REX-")
+    assert rows[0]["evidence"][0]["quote_preview"] == "大破之"
 
 
 def test_reconciliation_is_read_only_and_does_not_use_legacy_contract_tables() -> None:

@@ -30,6 +30,8 @@ DECISIONS = {
     "identity_mismatch",
 }
 RESOLVED_WITHOUT_NEW_SOURCE = {"already_covered", "rebuild_event_group", "reextract_cached_source"}
+VERIFIED_AFTER_REPAIR = {"already_covered", "rebuild_event_group"}
+GATE_MODES = {"initial_actionability", "repair_verification"}
 CONFIDENCE_LEVELS = {"high", "medium", "low"}
 FACETS = ("appointment", "duty", "outcome", "same_event")
 PLACEHOLDER_FRAGMENTS = ("示例", "EXAMPLE", "某事件", "某人物")
@@ -492,8 +494,14 @@ def validate_result(row: Mapping[str, Any], event: Mapping[str, Any]) -> dict[st
 
 
 def merge_results(
-    tasks_root: Path, *, min_existing_source_resolution_rate: float, patch_roots: Sequence[Path] = ()
+    tasks_root: Path,
+    *,
+    min_existing_source_resolution_rate: float,
+    patch_roots: Sequence[Path] = (),
+    gate_mode: str = "initial_actionability",
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    if gate_mode not in GATE_MODES:
+        raise ExpectedEventReconciliationError(f"unsupported gate mode: {gate_mode}")
     workitems = read_jsonl(tasks_root / "workitems.jsonl")
     events = {
         text(event.get("event_inventory_code")): {
@@ -526,8 +534,11 @@ def merge_results(
             errors.append(str(exc))
     missing = sorted(set(events) - seen)
     decision_counts = Counter(row["decision"] for row in results)
-    resolved_count = sum(row["decision"] in RESOLVED_WITHOUT_NEW_SOURCE for row in results)
     denominator = len(events)
+    actionable_count = sum(row["decision"] in RESOLVED_WITHOUT_NEW_SOURCE for row in results)
+    verified_count = sum(row["decision"] in VERIFIED_AFTER_REPAIR for row in results)
+    resolved_decisions = VERIFIED_AFTER_REPAIR if gate_mode == "repair_verification" else RESOLVED_WITHOUT_NEW_SOURCE
+    resolved_count = sum(row["decision"] in resolved_decisions for row in results)
     rate = resolved_count / denominator if denominator else 1.0
     complete = not errors and not missing and len(results) == denominator
     gate_passed = complete and rate >= float(min_existing_source_resolution_rate)
@@ -539,6 +550,13 @@ def merge_results(
         "event_count": denominator,
         "validated_result_count": len(results),
         "decision_counts": dict(sorted(decision_counts.items())),
+        "gate_mode": gate_mode,
+        "gate_metric": "verified_coverage_rate" if gate_mode == "repair_verification" else "actionable_without_new_source_rate",
+        "gate_resolution_decisions": sorted(resolved_decisions),
+        "actionable_without_new_source_count": actionable_count,
+        "actionable_without_new_source_rate": round(actionable_count / denominator if denominator else 1.0, 6),
+        "verified_coverage_count": verified_count,
+        "verified_coverage_rate": round(verified_count / denominator if denominator else 1.0, 6),
         "resolved_without_new_source_count": resolved_count,
         "existing_source_resolution_rate": round(rate, 6),
         "min_existing_source_resolution_rate": float(min_existing_source_resolution_rate),
@@ -547,7 +565,13 @@ def merge_results(
         "missing_event_codes": missing,
         "errors": errors,
         "results": results,
-        "next_action": "continue_existing_source_repairs" if gate_passed else "stop_and_optimize_reconciliation",
+        "next_action": (
+            "continue_verified_repairs"
+            if gate_passed and gate_mode == "repair_verification"
+            else "continue_existing_source_repairs"
+            if gate_passed
+            else "stop_and_optimize_reconciliation"
+        ),
     }
     return results, report
 
@@ -560,7 +584,11 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         f"- gate_passed: `{str(bool(report.get('gate_passed'))).lower()}`",
         f"- progress_allowed: `{str(bool(report.get('progress_allowed'))).lower()}`",
         f"- events: `{report.get('event_count', 0)}`",
-        f"- existing-source resolution rate: `{float(report.get('existing_source_resolution_rate', 0)):.1%}`",
+        f"- gate mode: `{report.get('gate_mode', 'initial_actionability')}`",
+        f"- gate metric: `{report.get('gate_metric', 'actionable_without_new_source_rate')}`",
+        f"- gate rate: `{float(report.get('existing_source_resolution_rate', 0)):.1%}`",
+        f"- actionable without new source: `{float(report.get('actionable_without_new_source_rate', 0)):.1%}`",
+        f"- verified coverage: `{float(report.get('verified_coverage_rate', 0)):.1%}`",
         f"- minimum rate: `{float(report.get('min_existing_source_resolution_rate', 0)):.1%}`",
         f"- next_action: `{report.get('next_action')}`",
         "",
@@ -608,6 +636,45 @@ def local_source_cache_rows(cache_root: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def local_extracted_claim_rows(result_path: Path) -> list[dict[str, Any]]:
+    payload = json.loads(result_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, Mapping):
+        raise ExpectedEventReconciliationError(f"{result_path}: expected JSON object")
+    claims = payload.get("claims")
+    if not isinstance(claims, Sequence) or isinstance(claims, (str, bytes)):
+        raise ExpectedEventReconciliationError(f"{result_path}: claims must be a list")
+    rows: list[dict[str, Any]] = []
+    for raw in claims:
+        if not isinstance(raw, Mapping):
+            continue
+        fact = raw.get("fact_payload") if isinstance(raw.get("fact_payload"), Mapping) else {}
+        refs = [text(ref) for ref in raw.get("source_slice_refs") or [] if text(ref)]
+        rows.append(
+            {
+                "claim_key": text(raw.get("claim_code") or raw.get("claim_key")),
+                "emperor_name": text(raw.get("emperor_name")),
+                "object_id": None,
+                "object_name": text(raw.get("object_name")),
+                "action_type": text(fact.get("action_type")),
+                "fact_type": "material_action",
+                "office_or_domain": text(fact.get("office_or_domain")),
+                "outcome": text(fact.get("outcome")),
+                "outcome_support": "direct" if text(fact.get("outcome")) else "missing",
+                "claim_summary": text(raw.get("claim_summary")),
+                "event_group_keys": [stable_code("CEG-REX-", ref) for ref in refs] or [stable_code("CEG-REX-", raw)],
+                "evidence": [
+                    {
+                        "source_slice_ref": text(span.get("source_slice_ref")),
+                        "quote_preview": text(span.get("text")),
+                    }
+                    for span in raw.get("evidence_spans") or []
+                    if isinstance(span, Mapping) and text(span.get("source_slice_ref"))
+                ],
+            }
+        )
+    return rows
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Reconcile expected events against current v3 claims and cached sources.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -618,6 +685,8 @@ def build_parser() -> argparse.ArgumentParser:
     tasks.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     tasks.add_argument("--output-root", type=Path, required=True)
     tasks.add_argument("--source-cache-root", type=Path, action="append", default=[])
+    tasks.add_argument("--claim-result-json", type=Path, action="append", default=[])
+    tasks.add_argument("--event-selection-jsonl", type=Path)
     tasks.add_argument("--object-name", action="append", default=[])
     tasks.add_argument("--batch-size", type=int)
     tasks.add_argument("--max-groups", type=int, default=3)
@@ -626,6 +695,7 @@ def build_parser() -> argparse.ArgumentParser:
     merge.add_argument("--tasks-root", type=Path, required=True)
     merge.add_argument("--patch-root", type=Path, action="append", default=[])
     merge.add_argument("--min-existing-source-resolution-rate", type=float, default=DEFAULT_MIN_EXISTING_SOURCE_RESOLUTION_RATE)
+    merge.add_argument("--gate-mode", choices=sorted(GATE_MODES), default="initial_actionability")
     merge.add_argument("--output-jsonl", type=Path, required=True)
     merge.add_argument("--output-report-json", type=Path, required=True)
     merge.add_argument("--output-report-md", type=Path, required=True)
@@ -638,6 +708,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.env_file is not None:
             load_env_file(args.env_file)
         inventory_rows = read_jsonl(args.inventory_jsonl)
+        if args.event_selection_jsonl is not None:
+            selected_codes = {
+                text(row.get("event_inventory_code"))
+                for row in read_jsonl(args.event_selection_jsonl)
+                if text(row.get("event_inventory_code"))
+            }
+            inventory_rows = [row for row in inventory_rows if text(row.get("event_inventory_code")) in selected_codes]
         selected_names = {normalize_object_alias(value) for value in args.object_name if text(value)}
         if selected_names:
             inventory_rows = [
@@ -646,6 +723,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         claim_rows, source_rows = fetch_context_rows(
             dsn=resolve_dsn(args.dsn_env), schema_name=args.pg_schema, inventory_rows=inventory_rows
         )
+        for result_path in args.claim_result_json:
+            claim_rows.extend(local_extracted_claim_rows(result_path))
         for cache_root in args.source_cache_root:
             source_rows.extend(local_source_cache_rows(cache_root))
         workitems = build_workitems(
@@ -659,6 +738,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.tasks_root,
         min_existing_source_resolution_rate=args.min_existing_source_resolution_rate,
         patch_roots=args.patch_root,
+        gate_mode=args.gate_mode,
     )
     write_jsonl(args.output_jsonl, results)
     write_json(args.output_report_json, report)

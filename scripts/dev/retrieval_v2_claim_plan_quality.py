@@ -165,7 +165,15 @@ def claim_candidate_quality_flags(candidate: Mapping[str, Any]) -> list[str]:
 
 def is_claim_candidate_slice_eligible(candidate: Mapping[str, Any]) -> bool:
     flags = set(claim_candidate_quality_flags(candidate))
-    return not (set(HARD_FILTER_FLAGS) & flags)
+    hard_flags = set(HARD_FILTER_FLAGS) & flags
+    if not hard_flags:
+        return True
+    payload = candidate.get("object_source_cache") if isinstance(candidate.get("object_source_cache"), Mapping) else {}
+    if hard_flags != {"wrong_person_section"} or text(payload.get("slice_kind")) != "expected_event_repair":
+        return False
+    raw_text = compact_text(candidate.get("text"))
+    aliases = [compact_text(alias) for alias in candidate.get("matched_aliases") or [] if compact_text(alias)]
+    return bool(aliases and any(alias in raw_text for alias in aliases))
 
 
 def claim_candidate_quality_audit(
