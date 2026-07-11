@@ -1,0 +1,622 @@
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from collections import Counter, defaultdict
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.dev.object_pool_aliases import normalize_object_alias  # noqa: E402
+from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+
+
+DEFAULT_ITEM_CODE = "I5B"
+DEFAULT_RULE_CODE = "appointment_delegation"
+ACTIVE_STATUSES = ("active", "needs_review")
+APPOINTMENT_TERMS = ("任命", "任用", "委任", "授", "拜", "擢", "命", "令", "使", "统", "領", "领", "留守", "托付")
+RESPONSIBILITY_TERMS = ("负责", "主持", "掌", "典", "总", "统", "领", "修订", "征", "讨", "守", "治", "辅政")
+RESULT_TERMS = ("成功", "平定", "攻克", "灭", "破", "败", "失守", "治理", "完成", "奏效", "有功", "获罪", "伏诛", "害民")
+EMPTY_OUTCOME_SUPPORT = {"", "none", "unknown", "unclear", "not_applicable", "context_only"}
+
+
+def text(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def as_int(value: Any) -> int:
+    try:
+        return int(value or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def contains_any(value: Any, terms: Sequence[str]) -> bool:
+    normalized = text(value).lower()
+    return any(term.lower() in normalized for term in terms)
+
+
+def timestamp(value: Any) -> datetime | None:
+    if isinstance(value, datetime):
+        return value
+    raw = text(value)
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def later_than(left: Any, right: Any) -> bool:
+    left_dt = timestamp(left)
+    right_dt = timestamp(right)
+    if left_dt is None:
+        return False
+    if right_dt is None:
+        return True
+    try:
+        return left_dt > right_dt
+    except TypeError:
+        return text(left) > text(right)
+
+
+def identity_key(row: Mapping[str, Any]) -> str:
+    object_id = as_int(row.get("object_id"))
+    if object_id:
+        return f"id:{object_id}"
+    return "name:" + normalize_object_alias(row.get("object_name"))
+
+
+def claim_signals(row: Mapping[str, Any]) -> tuple[bool, bool, bool]:
+    payload = row.get("fact_payload") if isinstance(row.get("fact_payload"), Mapping) else {}
+    action = " ".join(
+        text(value)
+        for value in (
+            row.get("action_type"),
+            row.get("fact_type"),
+            payload.get("action_type"),
+            payload.get("relation"),
+        )
+    )
+    responsibility = " ".join(
+        text(value)
+        for value in (
+            row.get("office_or_domain"),
+            payload.get("office_or_domain"),
+            payload.get("task"),
+            payload.get("responsibility"),
+            row.get("claim_summary"),
+        )
+    )
+    outcome = " ".join(
+        text(value)
+        for value in (
+            row.get("outcome"),
+            payload.get("outcome"),
+            payload.get("result"),
+            row.get("claim_summary"),
+        )
+    )
+    outcome_support = text(row.get("outcome_support") or payload.get("outcome_support")).lower()
+    has_appointment = contains_any(action + " " + responsibility, APPOINTMENT_TERMS)
+    has_responsibility = bool(text(row.get("office_or_domain")) or text(payload.get("office_or_domain"))) or contains_any(
+        action + " " + responsibility, RESPONSIBILITY_TERMS
+    )
+    has_result = outcome_support not in EMPTY_OUTCOME_SUPPORT or contains_any(outcome, RESULT_TERMS)
+    return has_appointment, has_responsibility, has_result
+
+
+def merge_rows(
+    claim_rows: Sequence[Mapping[str, Any]],
+    downstream_rows: Sequence[Mapping[str, Any]],
+    target_rows: Sequence[Mapping[str, Any]],
+    source_rows: Sequence[Mapping[str, Any]] = (),
+) -> list[dict[str, Any]]:
+    aliases: dict[tuple[str, str], str] = {}
+    for row in (*target_rows, *claim_rows, *source_rows, *downstream_rows):
+        emperor = text(row.get("emperor_name"))
+        object_id = as_int(row.get("object_id"))
+        names = [row.get("object_name"), row.get("canonical_name")]
+        if isinstance(row.get("names"), Sequence) and not isinstance(row.get("names"), (str, bytes)):
+            names.extend(row.get("names") or [])
+        if emperor and object_id:
+            for raw_name in names:
+                name = normalize_object_alias(raw_name)
+                if name:
+                    aliases.setdefault((emperor, name), f"id:{object_id}")
+
+    merged: dict[tuple[str, str], dict[str, Any]] = {}
+    for source, rows in (
+        ("target", target_rows),
+        ("source", source_rows),
+        ("claim", claim_rows),
+        ("downstream", downstream_rows),
+    ):
+        for raw_row in rows:
+            row = dict(raw_row)
+            emperor = text(row.get("emperor_name"))
+            name = normalize_object_alias(row.get("object_name"))
+            key = identity_key(row)
+            if key.startswith("name:"):
+                key = aliases.get((emperor, name), key)
+            merged_row = merged.setdefault(
+                (emperor, key),
+                {
+                    "emperor_name": emperor,
+                    "object_id": as_int(row.get("object_id")) or None,
+                    "object_name": text(row.get("canonical_name") or row.get("object_name")),
+                    "object_type": text(row.get("object_type")),
+                    "target_attached": False,
+                    "active_claim_count": 0,
+                    "source_document_count": 0,
+                    "source_slice_count": 0,
+                    "claimed_source_slice_count": 0,
+                    "evidence_count": 0,
+                    "event_group_count": 0,
+                    "event_group_member_count": 0,
+                    "_event_group_keys": set(),
+                    "material_claim_count": 0,
+                    "candidate_count": 0,
+                    "unresolved_candidate_count": 0,
+                    "binding_count": 0,
+                    "scoring_binding_count": 0,
+                    "factor_judgment_count": 0,
+                    "has_appointment": False,
+                    "has_responsibility": False,
+                    "has_result": False,
+                    "_chain_by_group": {},
+                    "latest_claim_at": None,
+                    "latest_consumed_at": None,
+                },
+            )
+            if not merged_row["object_id"] and as_int(row.get("object_id")):
+                merged_row["object_id"] = as_int(row.get("object_id"))
+            if not merged_row["object_name"]:
+                merged_row["object_name"] = text(row.get("canonical_name") or row.get("object_name"))
+            if source == "target":
+                merged_row["target_attached"] = True
+                if text(row.get("object_type")):
+                    merged_row["object_type"] = text(row.get("object_type"))
+            elif source == "source":
+                merged_row["source_slice_count"] += as_int(row.get("source_slice_count"))
+                merged_row["claimed_source_slice_count"] += as_int(row.get("claimed_source_slice_count"))
+                merged_row["source_document_count"] = max(
+                    as_int(merged_row.get("source_document_count")), as_int(row.get("source_document_count"))
+                )
+            elif source == "claim":
+                for field in (
+                    "active_claim_count",
+                    "evidence_count",
+                    "event_group_member_count",
+                ):
+                    merged_row[field] += as_int(row.get(field))
+                group_keys = row.get("event_group_keys") or []
+                if isinstance(group_keys, Sequence) and not isinstance(group_keys, (str, bytes)):
+                    merged_row["_event_group_keys"].update(text(value) for value in group_keys if text(value))
+                appointment, responsibility, result = claim_signals(row)
+                merged_row["has_appointment"] |= appointment
+                merged_row["has_responsibility"] |= responsibility
+                merged_row["has_result"] |= result
+                for group_key in group_keys:
+                    chain = merged_row["_chain_by_group"].setdefault(
+                        text(group_key), {"appointment": False, "responsibility": False, "result": False}
+                    )
+                    chain["appointment"] |= appointment
+                    chain["responsibility"] |= responsibility
+                    chain["result"] |= result
+                if later_than(row.get("latest_claim_at"), merged_row["latest_claim_at"]):
+                    merged_row["latest_claim_at"] = row.get("latest_claim_at")
+            else:
+                for field in (
+                    "material_claim_count",
+                    "candidate_count",
+                    "unresolved_candidate_count",
+                    "binding_count",
+                    "scoring_binding_count",
+                    "factor_judgment_count",
+                ):
+                    merged_row[field] += as_int(row.get(field))
+                if later_than(row.get("latest_consumed_at"), merged_row["latest_consumed_at"]):
+                    merged_row["latest_consumed_at"] = row.get("latest_consumed_at")
+    result = []
+    for row in merged.values():
+        row["event_group_count"] = len(row.pop("_event_group_keys"))
+        chains = row.pop("_chain_by_group")
+        row["chain_ready"] = any(all(chain.values()) for chain in chains.values())
+        result.append(row)
+    identities_by_name: dict[tuple[str, str], set[int]] = defaultdict(set)
+    for row in result:
+        object_id = as_int(row.get("object_id"))
+        name_key = normalize_object_alias(row.get("object_name"))
+        if object_id and name_key:
+            identities_by_name[(text(row.get("emperor_name")), name_key)].add(object_id)
+    for row in result:
+        ids = identities_by_name[(text(row.get("emperor_name")), normalize_object_alias(row.get("object_name")))]
+        row["identity_conflict_ids"] = sorted(ids) if len(ids) > 1 else []
+    return sorted(result, key=lambda row: (text(row["emperor_name"]), text(row["object_name"])))
+
+
+def gap(gap_type: str, action: str, reason: str, *, blocking: bool = False) -> dict[str, Any]:
+    return {"gap_type": gap_type, "next_action": action, "reason": reason, "blocking": blocking}
+
+
+def assess_object(row: Mapping[str, Any]) -> dict[str, Any]:
+    result = dict(row)
+    claim_count = as_int(row.get("active_claim_count"))
+    downstream_started = any(
+        as_int(row.get(field))
+        for field in ("candidate_count", "binding_count", "factor_judgment_count")
+    )
+    chain_ready = bool(row.get("chain_ready"))
+    scoring_relevant = bool(chain_ready or downstream_started)
+    gaps: list[dict[str, Any]] = []
+    if row.get("identity_conflict_ids"):
+        gaps.append(
+            gap(
+                "identity_conflict",
+                "identity_review",
+                "the same normalized name resolves to multiple v3 object identities for this emperor",
+                blocking=True,
+            )
+        )
+    if (row.get("target_attached") or as_int(row.get("source_slice_count"))) and not claim_count:
+        gaps.append(gap("claim_cache_missing", "object_source_cache", "target object has no active claim cache", blocking=True))
+    if claim_count and not row.get("object_id"):
+        gaps.append(gap("identity_missing", "identity_review", "claim cache object has no resolved v3 object identity", blocking=True))
+    if claim_count and as_int(row.get("evidence_count")) == 0:
+        gaps.append(gap("source_evidence_missing", "object_source_cache", "active claims have no claim evidence", blocking=True))
+    unclaimed_slices = max(as_int(row.get("source_slice_count")) - as_int(row.get("claimed_source_slice_count")), 0)
+    result["unclaimed_source_slice_count"] = unclaimed_slices
+    if unclaimed_slices:
+        gaps.append(
+            gap(
+                "source_slice_unclaimed",
+                "claim_extraction_coverage_review",
+                "cached source slices are not referenced by any active claim evidence",
+            )
+        )
+    if claim_count and as_int(row.get("event_group_member_count")) < claim_count:
+        gaps.append(
+            gap(
+                "event_group_stale_or_missing",
+                "rebuild_event_groups",
+                "not every active claim is represented in the rebuildable event-group shadow",
+            )
+        )
+    if claim_count and row.get("has_appointment") and not row.get("has_responsibility"):
+        gaps.append(gap("responsibility_missing", "claim_source_refinement", "appointment signal lacks a concrete duty or task"))
+    if claim_count and row.get("has_appointment") and not row.get("has_result"):
+        gaps.append(gap("result_feedback_missing", "claim_source_refinement", "appointment chain lacks result or continuity feedback"))
+    if chain_ready and claim_count and as_int(row.get("material_claim_count")) == 0:
+        gaps.append(gap("material_claim_missing", "promote_claim_cache_to_material", "ready claim chain has not entered native material claims", blocking=True))
+    if chain_ready and as_int(row.get("material_claim_count")) and as_int(row.get("candidate_count")) == 0:
+        gaps.append(gap("candidate_missing", "route_material_candidates", "material claims have no appointment_delegation candidate", blocking=True))
+    if scoring_relevant and as_int(row.get("candidate_count")) and as_int(row.get("binding_count")) == 0:
+        gaps.append(gap("binding_missing", "candidate_review_and_binding", "rule candidates have no formal binding", blocking=True))
+    if as_int(row.get("scoring_binding_count")) and as_int(row.get("factor_judgment_count")) < as_int(row.get("scoring_binding_count")):
+        gaps.append(gap("factorization_missing", "build_factorization_worklist", "scoring bindings are not fully factorized", blocking=True))
+    if downstream_started and later_than(row.get("latest_claim_at"), row.get("latest_consumed_at")):
+        gaps.append(gap("consumption_stale", "rerun_native_consumers", "claim cache changed after the latest downstream consumption"))
+    result["chain_ready"] = chain_ready
+    result["scoring_relevant"] = scoring_relevant
+    result["coverage_status"] = "blocked" if any(item["blocking"] for item in gaps) else ("gap" if gaps else "complete")
+    result["gaps"] = gaps
+    return result
+
+
+def build_report(
+    *,
+    claim_rows: Sequence[Mapping[str, Any]],
+    downstream_rows: Sequence[Mapping[str, Any]],
+    target_rows: Sequence[Mapping[str, Any]],
+    source_rows: Sequence[Mapping[str, Any]] = (),
+    schema_name: str,
+    item_code: str,
+    rule_code: str,
+    emperors: Sequence[str],
+) -> dict[str, Any]:
+    objects = [assess_object(row) for row in merge_rows(claim_rows, downstream_rows, target_rows, source_rows)]
+    action_counts: Counter[str] = Counter()
+    gap_counts: Counter[str] = Counter()
+    emperor_stats: dict[str, Counter[str]] = defaultdict(Counter)
+    for row in objects:
+        stats = emperor_stats[text(row.get("emperor_name"))]
+        stats["objects"] += 1
+        stats[row["coverage_status"]] += 1
+        if row["chain_ready"]:
+            stats["chain_ready"] += 1
+        if row["scoring_relevant"]:
+            stats["scoring_relevant"] += 1
+        for item in row["gaps"]:
+            gap_counts[item["gap_type"]] += 1
+            action_counts[item["next_action"]] += 1
+    return {
+        "ok": True,
+        "generated_by": "scripts/dev/retrieval_v3_coverage_controller.py",
+        "mode": "read_only_source_to_score_coverage",
+        "write_db": False,
+        "schema_name": schema_name,
+        "item_code": item_code,
+        "rule_code": rule_code,
+        "emperors": list(emperors),
+        "coverage_scope": "observed_cached_sources_and_native_pipeline",
+        "historical_event_coverage_status": "unassessed_without_expected_event_inventory",
+        "counts": {
+            "objects": len(objects),
+            "complete": sum(row["coverage_status"] == "complete" for row in objects),
+            "gap": sum(row["coverage_status"] == "gap" for row in objects),
+            "blocked": sum(row["coverage_status"] == "blocked" for row in objects),
+            "chain_ready": sum(bool(row["chain_ready"]) for row in objects),
+            "scoring_relevant": sum(bool(row["scoring_relevant"]) for row in objects),
+        },
+        "gap_counts": dict(sorted(gap_counts.items())),
+        "repair_plan": [
+            {"next_action": action, "object_count": count}
+            for action, count in sorted(action_counts.items(), key=lambda pair: (-pair[1], pair[0]))
+        ],
+        "by_emperor": {name: dict(sorted(stats.items())) for name, stats in sorted(emperor_stats.items())},
+        "objects": objects,
+        "execute_effect": "read-only diagnosis; no queue writes, no database writes, no scoring",
+    }
+
+
+def fetch_rows(
+    *, dsn: str, schema_name: str, item_code: str, rule_code: str, emperors: Sequence[str]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    psycopg, dict_row = import_psycopg()
+    emperor_names = [text(name) for name in emperors if text(name)]
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            cur.execute(
+                """
+                with evidence as (
+                    select e.claim_key, count(distinct e.evidence_key) as evidence_count,
+                           count(distinct s.document_code) as source_document_count
+                      from retrieval_v3.claim_evidence e
+                      left join retrieval_v3.claim_source_slices s on s.slice_hash = e.slice_hash
+                     group by e.claim_key
+                ), groups as (
+                    select m.claim_key, count(distinct m.group_key) as event_group_count,
+                           count(*) as event_group_member_count,
+                           array_agg(distinct m.group_key) as event_group_keys
+                      from retrieval_v3.claim_event_group_members m
+                      join retrieval_v3.claim_event_groups g on g.group_key = m.group_key
+                     where g.group_status::text not in ('rejected', 'retired')
+                     group by m.claim_key
+                )
+                select c.emperor_name, c.object_id, c.object_name, c.object_type,
+                       1 as active_claim_count,
+                       coalesce(e.source_document_count, 0) as source_document_count,
+                       coalesce(e.evidence_count, 0) as evidence_count,
+                       coalesce(g.event_group_count, 0) as event_group_count,
+                       coalesce(g.event_group_member_count, 0) as event_group_member_count,
+                       coalesce(g.event_group_keys, array[]::text[]) as event_group_keys,
+                       c.action_type, c.fact_type, c.office_or_domain, c.outcome,
+                       c.outcome_support, c.claim_summary, c.fact_payload, c.updated_at as latest_claim_at
+                  from retrieval_v3.claim_cache c
+                  left join evidence e on e.claim_key = c.claim_key
+                  left join groups g on g.claim_key = c.claim_key
+                 where c.status::text = any(%s::text[])
+                   and (coalesce(array_length(%s::text[], 1), 0) = 0 or c.emperor_name = any(%s::text[]))
+                 order by c.emperor_name, c.object_name, c.claim_key
+                """,
+                (list(ACTIVE_STATUSES), emperor_names, emperor_names),
+            )
+            claim_rows = [dict(row) for row in cur.fetchall()]
+            cur.execute(
+                """
+                with owners as (
+                    select distinct emperor_name, object_id, object_name
+                      from retrieval_v3.claim_cache
+                     where status::text = any(%s::text[])
+                       and (coalesce(array_length(%s::text[], 1), 0) = 0 or emperor_name = any(%s::text[]))
+                ), claimed as (
+                    select distinct e.slice_hash
+                      from retrieval_v3.claim_evidence e
+                      join retrieval_v3.claim_cache c on c.claim_key = e.claim_key
+                     where c.status::text = any(%s::text[])
+                       and (coalesce(array_length(%s::text[], 1), 0) = 0 or c.emperor_name = any(%s::text[]))
+                )
+                select o.emperor_name, o.object_id, o.object_name,
+                       count(distinct s.slice_hash) as source_slice_count,
+                       count(distinct s.document_code) as source_document_count,
+                       count(distinct s.slice_hash) filter (where c.slice_hash is not null) as claimed_source_slice_count
+                  from owners o
+                  join retrieval_v3.claim_source_slices s
+                    on (o.object_id is not null and s.object_id = o.object_id)
+                    or (o.object_id is null and s.object_id is null and s.object_name = o.object_name)
+                  left join claimed c on c.slice_hash = s.slice_hash
+                 group by o.emperor_name, o.object_id, o.object_name
+                 order by o.emperor_name, o.object_name
+                """,
+                (
+                    list(ACTIVE_STATUSES),
+                    emperor_names,
+                    emperor_names,
+                    list(ACTIVE_STATUSES),
+                    emperor_names,
+                    emperor_names,
+                ),
+            )
+            source_rows = [dict(row) for row in cur.fetchall()]
+            cur.execute(
+                """
+                with candidates as (
+                    select claim_id, count(*) as candidate_count,
+                           count(*) filter (where resolved_binding_id is null) as unresolved_candidate_count
+                      from retrieval_v3.claim_rule_binding_candidates
+                     where candidate_item_code = %s and candidate_rule_code = %s
+                       and review_status::text not in ('rejected', 'retired')
+                     group by claim_id
+                ), bindings as (
+                    select claim_id, count(*) as binding_count,
+                           count(*) filter (where usable_for_scoring_cluster and review_status::text = 'accepted') as scoring_binding_count,
+                           max(updated_at) as latest_binding_at
+                      from retrieval_v3.claim_rule_bindings
+                     where rule_code = %s and review_status::text not in ('rejected', 'retired')
+                     group by claim_id
+                ), factors as (
+                    select claim_id, count(distinct binding_id) as factor_judgment_count,
+                           max(updated_at) as latest_factor_at
+                      from retrieval_v3.claim_rule_binding_factor_judgments
+                     where item_code = %s and rule_code = %s and review_status::text not in ('rejected', 'retired')
+                     group by claim_id
+                )
+                select mc.emperor_name, mc.object_name, mc.object_type,
+                       count(*) as material_claim_count,
+                       sum(coalesce(c.candidate_count, 0)) as candidate_count,
+                       sum(coalesce(c.unresolved_candidate_count, 0)) as unresolved_candidate_count,
+                       sum(coalesce(b.binding_count, 0)) as binding_count,
+                       sum(coalesce(b.scoring_binding_count, 0)) as scoring_binding_count,
+                       sum(coalesce(f.factor_judgment_count, 0)) as factor_judgment_count,
+                       greatest(max(mc.updated_at), max(b.latest_binding_at), max(f.latest_factor_at)) as latest_consumed_at
+                  from retrieval_v3.material_claims mc
+                  join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
+                  join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
+                  left join candidates c on c.claim_id = mc.id
+                  left join bindings b on b.claim_id = mc.id
+                  left join factors f on f.claim_id = mc.id
+                 where rt.item_code = %s
+                   and mc.review_status::text not in ('rejected', 'retired')
+                   and (coalesce(array_length(%s::text[], 1), 0) = 0 or mc.emperor_name = any(%s::text[]))
+                 group by mc.emperor_name, mc.object_name, mc.object_type
+                 order by mc.emperor_name, mc.object_name
+                """,
+                (item_code, rule_code, rule_code, item_code, rule_code, item_code, emperor_names, emperor_names),
+            )
+            downstream_rows = [dict(row) for row in cur.fetchall()]
+            cur.execute(
+                """
+                select rt.emperor_name, o.id as object_id, o.canonical_name, o.canonical_name as object_name,
+                       o.object_type,
+                       coalesce(jsonb_agg(distinct onm.name_text) filter (
+                           where onm.id is not null and onm.review_status::text = 'accepted'
+                       ), '[]'::jsonb) as names
+                  from retrieval_v3.retrieval_targets rt
+                  join retrieval_v3.target_objects tob on tob.target_id = rt.id
+                  join retrieval_v3.objects o on o.id = tob.object_id
+                  left join retrieval_v3.object_names onm on onm.object_id = o.id
+                 where rt.item_code = %s
+                   and rt.target_status::text not in ('rejected', 'retired')
+                   and tob.review_status::text not in ('rejected', 'retired')
+                   and (coalesce(array_length(%s::text[], 1), 0) = 0 or rt.emperor_name = any(%s::text[]))
+                 group by rt.emperor_name, o.id, o.canonical_name, o.object_type
+                 order by rt.emperor_name, o.canonical_name
+                """,
+                (item_code, emperor_names, emperor_names),
+            )
+            target_rows = [dict(row) for row in cur.fetchall()]
+    return claim_rows, downstream_rows, target_rows, source_rows
+
+
+def markdown_cell(value: Any, limit: int = 120) -> str:
+    result = text(value).replace("\r", " ").replace("\n", " ").replace("|", "\\|")
+    return result if len(result) <= limit else result[: limit - 1] + "…"
+
+
+def render_markdown(report: Mapping[str, Any]) -> str:
+    counts = report.get("counts") or {}
+    lines = [
+        "# retrieval_v3 源头到计分覆盖报告",
+        "",
+        f"- schema: `{report.get('schema_name')}`",
+        f"- item/rule: `{report.get('item_code')}/{report.get('rule_code')}`",
+        "- write_db: `false`",
+        f"- objects: `{counts.get('objects', 0)}`; complete: `{counts.get('complete', 0)}`; gap: `{counts.get('gap', 0)}`; blocked: `{counts.get('blocked', 0)}`",
+        "",
+        "> 只读控制面报告。只有同一 event group 的事实链已完整或下游已启动的对象，才会产生 material/candidate/binding/factorization 缺口。",
+        "> `complete` 只表示已观察到的缓存史源和 native 管线机械闭合；未提供预期史源/事件清单时，不代表历史事件覆盖完整。",
+        "",
+        "## 修复队列",
+        "",
+        "| 动作 | 对象数 |",
+        "| --- | ---: |",
+    ]
+    for row in report.get("repair_plan") or []:
+        lines.append(f"| {markdown_cell(row.get('next_action'))} | {row.get('object_count', 0)} |")
+    lines.extend(
+        [
+            "",
+            "## 对象覆盖",
+            "",
+            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factors | 链完整 | 管线状态 | 缺口 |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
+        ]
+    )
+    for row in report.get("objects") or []:
+        lines.append(
+            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {factors} | {ready} | {status} | {gaps} |".format(
+                emperor=markdown_cell(row.get("emperor_name")),
+                object_name=markdown_cell(row.get("object_name")),
+                slices=f"{as_int(row.get('claimed_source_slice_count'))}/{as_int(row.get('source_slice_count'))}",
+                claims=as_int(row.get("active_claim_count")),
+                groups=as_int(row.get("event_group_count")),
+                materials=as_int(row.get("material_claim_count")),
+                candidates=as_int(row.get("candidate_count")),
+                bindings=as_int(row.get("binding_count")),
+                factors=as_int(row.get("factor_judgment_count")),
+                ready="是" if row.get("chain_ready") else "否",
+                status=markdown_cell(row.get("coverage_status")),
+                gaps=markdown_cell(", ".join(item["gap_type"] for item in row.get("gaps") or [])),
+            )
+        )
+    return "\n".join(lines) + "\n"
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Read-only retrieval_v3 source-to-score coverage controller.")
+    parser.add_argument("--env-file", type=Path)
+    parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
+    parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    parser.add_argument("--item-code", default=DEFAULT_ITEM_CODE)
+    parser.add_argument("--rule-code", default=DEFAULT_RULE_CODE)
+    parser.add_argument("--emperor", action="append", default=[])
+    parser.add_argument("--output-json", type=Path)
+    parser.add_argument("--output-md", type=Path)
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    if args.env_file is not None:
+        load_env_file(args.env_file)
+    claim_rows, downstream_rows, target_rows, source_rows = fetch_rows(
+        dsn=resolve_dsn(args.dsn_env),
+        schema_name=args.pg_schema,
+        item_code=args.item_code,
+        rule_code=args.rule_code,
+        emperors=args.emperor,
+    )
+    report = build_report(
+        claim_rows=claim_rows,
+        downstream_rows=downstream_rows,
+        target_rows=target_rows,
+        source_rows=source_rows,
+        schema_name=args.pg_schema,
+        item_code=args.item_code,
+        rule_code=args.rule_code,
+        emperors=args.emperor,
+    )
+    payload = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n"
+    if args.output_json is not None:
+        args.output_json.parent.mkdir(parents=True, exist_ok=True)
+        args.output_json.write_text(payload, encoding="utf-8", newline="\n")
+    elif args.output_md is None:
+        print(payload, end="")
+    if args.output_md is not None:
+        args.output_md.parent.mkdir(parents=True, exist_ok=True)
+        args.output_md.write_text(render_markdown(report), encoding="utf-8", newline="\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

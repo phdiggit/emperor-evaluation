@@ -50,6 +50,8 @@ claim 抽取服务只负责原子事实入库和 claim 侧预计算，不负责�
 
 对象源抓取、别名精确匹配、claim cache 命中、event group 重建、candidate 提升、binding、落库、scorer 和报告渲染均为确定性环节，不应因为有 `agent_review` 字段就自动启动模型。负向链也不是独立 claim 系统：它复用对象源缓存和 claim extraction，只在 candidate review 处增加有限负向事实链判断；未补齐 claim 的对象必须保持 `claim_refinement_required`，不能直接 binding 或入分。
 
+`retrieval_v3_coverage_controller.py` 是上述链路的只读控制面入口。它按皇帝/对象合并 v3 identity alias，检查缓存 source slice 是否被 claim evidence 消费、active claim 是否进入 event group、同一 event group 内是否同时具备任用/职责/结果、以及 material -> candidate -> binding -> factor judgment 是否闭合；同名对应多个 object id 时必须报告 `identity_conflict`，不得静默按字符串合并。修复动作只形成报告，不直接 enqueue 或写库。控制器的 `complete` 只表示“当前已观察 source cache + native pipeline”机械闭合；它无法凭空发现尚未进入 source cache 的东突厥主战役、修律、裁冗官等历史事件。要自动发现这类漏召回，必须另有预期史源/事件 inventory，并将 inventory 与 source document、slice、event group 对账；没有 inventory 时报告固定标记 `historical_event_coverage_status=unassessed_without_expected_event_inventory`，不得宣称历史覆盖完成。
+
 `claim_extraction.shard_size` 按对象数解释；服务器默认设为 `1`，保证每个对象独立 judge，避免一个对象的长切片挤占同 shard 中其他对象的 claim 输出。`max_workers` 仍控制跨对象并发，因此对象隔离不会把整批强制串行化。
 
 `retrieval_v2_claim_extraction_worker.py once --execute` 以及 `extract-from-candidates` 在没有显式传 `--judge-timeout`、`--judge-shard-size`、`--judge-shard-workers` 时，必须读取 `claim_extraction` 配置。服务器发布包必须同时包含该 worker、`retrieval_v2_clean_runner.py`、`scripts/shared/agent_runtime_config.py` 和 `project_config.yml`，避免只替换 worker 脚本而遗漏模型与并发配置。

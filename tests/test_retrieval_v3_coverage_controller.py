@@ -1,0 +1,196 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from scripts.dev import retrieval_v3_coverage_controller as tool
+
+
+def claim(
+    *,
+    name: str = "测试对象",
+    object_id: int | None = 7,
+    action: str = "任命",
+    domain: str = "主持修订法典",
+    outcome: str = "修订完成并施行",
+    groups: list[str] | None = None,
+    updated_at: str = "2026-07-11T10:00:00+08:00",
+) -> dict:
+    group_keys = groups if groups is not None else ["CEG-1"]
+    return {
+        "emperor_name": "测试帝",
+        "object_id": object_id,
+        "object_name": name,
+        "object_type": "臣僚",
+        "active_claim_count": 1,
+        "source_document_count": 1,
+        "evidence_count": 1,
+        "event_group_count": len(group_keys),
+        "event_group_member_count": 1 if group_keys else 0,
+        "event_group_keys": group_keys,
+        "action_type": action,
+        "fact_type": "appointment",
+        "office_or_domain": domain,
+        "outcome": outcome,
+        "outcome_support": "positive",
+        "claim_summary": f"{name}{domain}，{outcome}。",
+        "fact_payload": {},
+        "latest_claim_at": updated_at,
+    }
+
+
+def target(*, name: str = "测试对象", object_id: int = 7, aliases: list[str] | None = None) -> dict:
+    return {
+        "emperor_name": "测试帝",
+        "object_id": object_id,
+        "object_name": name,
+        "canonical_name": name,
+        "object_type": "臣僚",
+        "names": aliases or [],
+    }
+
+
+def downstream(
+    *,
+    name: str = "测试对象",
+    materials: int = 1,
+    candidates: int = 1,
+    bindings: int = 1,
+    scoring_bindings: int = 1,
+    factors: int = 1,
+    updated_at: str = "2026-07-11T11:00:00+08:00",
+) -> dict:
+    return {
+        "emperor_name": "测试帝",
+        "object_name": name,
+        "object_type": "臣僚",
+        "material_claim_count": materials,
+        "candidate_count": candidates,
+        "unresolved_candidate_count": max(candidates - bindings, 0),
+        "binding_count": bindings,
+        "scoring_binding_count": scoring_bindings,
+        "factor_judgment_count": factors,
+        "latest_consumed_at": updated_at,
+    }
+
+
+def report(claims: list[dict], downstream_rows: list[dict], targets: list[dict]) -> dict:
+    return tool.build_report(
+        claim_rows=claims,
+        downstream_rows=downstream_rows,
+        target_rows=targets,
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+    )
+
+
+def test_cache_only_mention_does_not_create_downstream_scoring_work() -> None:
+    row = claim(action="记载", domain="", outcome="", groups=[])
+    row["fact_type"] = "biography_context"
+    row["outcome_support"] = "context_only"
+
+    result = report([row], [], [target()])
+
+    object_row = result["objects"][0]
+    assert object_row["scoring_relevant"] is False
+    assert [gap["gap_type"] for gap in object_row["gaps"]] == ["event_group_stale_or_missing"]
+
+
+def test_ready_claim_chain_is_blocked_until_native_material_promotion() -> None:
+    result = report([claim()], [], [target()])
+
+    object_row = result["objects"][0]
+    assert object_row["chain_ready"] is True
+    assert object_row["coverage_status"] == "blocked"
+    assert "material_claim_missing" in [gap["gap_type"] for gap in object_row["gaps"]]
+    assert result["repair_plan"][0] == {"next_action": "promote_claim_cache_to_material", "object_count": 1}
+
+
+def test_incomplete_downstream_chain_reports_candidate_binding_and_factor_gaps() -> None:
+    candidate_gap = report([claim()], [downstream(candidates=0, bindings=0, scoring_bindings=0, factors=0)], [target()])
+    binding_gap = report([claim()], [downstream(bindings=0, scoring_bindings=0, factors=0)], [target()])
+    factor_gap = report([claim()], [downstream(factors=0)], [target()])
+
+    assert "candidate_missing" in [item["gap_type"] for item in candidate_gap["objects"][0]["gaps"]]
+    assert "binding_missing" in [item["gap_type"] for item in binding_gap["objects"][0]["gaps"]]
+    assert "factorization_missing" in [item["gap_type"] for item in factor_gap["objects"][0]["gaps"]]
+
+
+def test_alias_name_merges_downstream_with_canonical_identity() -> None:
+    result = report(
+        [claim(name="李勣")],
+        [downstream(name="李绩")],
+        [target(name="李勣", aliases=["李绩", "徐世勣"])],
+    )
+
+    assert len(result["objects"]) == 1
+    assert result["objects"][0]["object_id"] == 7
+    assert result["objects"][0]["material_claim_count"] == 1
+
+
+def test_new_claim_after_consumption_is_marked_stale() -> None:
+    result = report(
+        [claim(updated_at="2026-07-11T12:00:00+08:00")],
+        [downstream(updated_at="2026-07-11T11:00:00+08:00")],
+        [target()],
+    )
+
+    assert "consumption_stale" in [item["gap_type"] for item in result["objects"][0]["gaps"]]
+
+
+def test_signals_from_different_event_groups_do_not_form_a_ready_chain() -> None:
+    appointment = claim(action="任命", domain="", outcome="", groups=["CEG-A"])
+    appointment["outcome_support"] = "unknown"
+    result_claim = claim(action="记载", domain="", outcome="大破敌军", groups=["CEG-B"])
+    result_claim["fact_type"] = "result"
+
+    result = report([appointment, result_claim], [], [target()])
+
+    assert result["objects"][0]["chain_ready"] is False
+    assert "material_claim_missing" not in [item["gap_type"] for item in result["objects"][0]["gaps"]]
+
+
+def test_same_name_with_two_object_ids_is_an_identity_conflict() -> None:
+    result = report([claim(object_id=8)], [], [target(object_id=7)])
+
+    assert len(result["objects"]) == 2
+    assert all("identity_conflict" in [gap["gap_type"] for gap in row["gaps"]] for row in result["objects"])
+
+
+def test_unclaimed_cached_source_slice_creates_extraction_coverage_gap() -> None:
+    result = tool.build_report(
+        claim_rows=[claim()],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        source_rows=[
+            {
+                "emperor_name": "测试帝",
+                "object_id": 7,
+                "object_name": "测试对象",
+                "source_slice_count": 3,
+                "claimed_source_slice_count": 2,
+                "source_document_count": 2,
+            }
+        ],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+    )
+
+    object_row = result["objects"][0]
+    assert object_row["unclaimed_source_slice_count"] == 1
+    assert "source_slice_unclaimed" in [gap["gap_type"] for gap in object_row["gaps"]]
+
+
+def test_controller_is_read_only_and_does_not_connect_legacy_contract_tables() -> None:
+    result = report([claim()], [downstream()], [target()])
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert result["write_db"] is False
+    assert result["mode"] == "read_only_source_to_score_coverage"
+    assert result["historical_event_coverage_status"] == "unassessed_without_expected_event_inventory"
+    assert "target_rule_requirements" not in source
+    assert "retrieval_intents" not in source
+    assert "insert into" not in source.lower()
