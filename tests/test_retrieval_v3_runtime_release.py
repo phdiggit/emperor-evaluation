@@ -114,3 +114,9 @@ def test_server_runtime_scripts_are_release_relative_and_config_driven() -> None
     assert "--judge-shard-size" not in claim_script
     assert "--judge-shard-workers" not in claim_script
     assert "--env-file" not in claim_script + object_script
+    assert 'RETRIEVAL_V3_CLAIM_JOB_WORKERS:-2' in claim_script
+    assert 'for slot in $(seq 1 "${worker_count}")' in claim_script
+    assert 'for update skip locked' in (
+        root / "scripts/dev/retrieval_v3_claim_extraction_worker.py"
+    ).read_text(encoding="utf-8").lower()
+    assert 'retrieval_v3_claim_worker_service_${slot}' in claim_script
