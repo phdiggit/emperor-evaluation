@@ -168,6 +168,14 @@ def test_import_run_dedupes_claims_slices_and_evidence(tmp_path: Path) -> None:
 def test_import_run_blocks_ocr_claim_until_image_review(tmp_path: Path) -> None:
     candidates = sample_candidates()
     candidates["candidate_slices"][0]["ocr_requires_image_review"] = True
+    candidates["source_documents"] = [
+        {
+            "document_code": "DOC-001",
+            "title": "御制纪非录",
+            "url": "https://example.test/jifeilu",
+            "ocr_requires_image_review": True,
+        }
+    ]
     run_root = write_run(tmp_path, candidates=candidates)
     cache_root = tmp_path / "claim_cache"
 
@@ -179,6 +187,8 @@ def test_import_run_blocks_ocr_claim_until_image_review(tmp_path: Path) -> None:
     assert claim["status"] == "needs_review"
     assert claim["quality_flags"] == ["ocr_requires_image_review"]
     assert source_slice["ocr_requires_image_review"] is True
+    assert source_slice["source_title"] == "御制纪非录"
+    assert source_slice["source_url"] == "https://example.test/jifeilu"
 
 
 def test_import_run_drops_cross_object_source_refs(tmp_path: Path) -> None:

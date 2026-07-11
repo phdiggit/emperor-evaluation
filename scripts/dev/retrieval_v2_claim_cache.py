@@ -287,8 +287,8 @@ def load_existing_cache(cache_root: Path) -> dict[str, dict[str, dict[str, Any]]
 
 def slice_lookup(candidates: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
     result: dict[str, dict[str, Any]] = {}
-    source_titles = {
-        str(row.get("document_code") or ""): str(row.get("title") or row.get("source_title") or "")
+    source_documents = {
+        str(row.get("document_code") or ""): row
         for row in candidates.get("source_documents") or []
         if isinstance(row, Mapping) and str(row.get("document_code") or "")
     }
@@ -298,8 +298,13 @@ def slice_lookup(candidates: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
         code = str(row.get("slice_code") or "")
         if code:
             payload = dict(row)
+            source_document = source_documents.get(str(payload.get("document_code") or ""), {})
             if not payload.get("source_title"):
-                payload["source_title"] = source_titles.get(str(payload.get("document_code") or ""), "")
+                payload["source_title"] = str(source_document.get("title") or source_document.get("source_title") or "")
+            if not payload.get("source_url"):
+                payload["source_url"] = str(source_document.get("url") or "")
+            if bool(source_document.get(OCR_IMAGE_REVIEW_FLAG)):
+                payload[OCR_IMAGE_REVIEW_FLAG] = True
             result[code] = payload
     return result
 
@@ -520,6 +525,8 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                         "slice_hash": s_hash,
                         "object_name": str(slice_row.get("object_name") or sanitized_claim.get("object_name") or ""),
                         "document_code": str(slice_row.get("document_code") or ""),
+                        "source_title": str(slice_row.get("source_title") or ""),
+                        "source_url": str(slice_row.get("source_url") or ""),
                         "source_slice_ref": source_ref,
                         "slice_text": str(slice_row.get("text") or ""),
                         "slice_text_preview": compact_preview(str(slice_row.get("text") or "")),
