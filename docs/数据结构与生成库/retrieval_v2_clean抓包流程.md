@@ -50,6 +50,8 @@ claim 抽取服务只负责原子事实入库和 claim 侧预计算，不负责�
 
 对象源抓取、别名精确匹配、claim cache 命中、event group 重建、candidate 提升、binding、落库、scorer 和报告渲染均为确定性环节，不应因为有 `agent_review` 字段就自动启动模型。负向链也不是独立 claim 系统：它复用对象源缓存和 claim extraction，只在 candidate review 处增加有限负向事实链判断；未补齐 claim 的对象必须保持 `claim_refinement_required`，不能直接 binding 或入分。
 
+`claim_extraction.shard_size` 按对象数解释；服务器默认设为 `1`，保证每个对象独立 judge，避免一个对象的长切片挤占同 shard 中其他对象的 claim 输出。`max_workers` 仍控制跨对象并发，因此对象隔离不会把整批强制串行化。
+
 `retrieval_v2_claim_extraction_worker.py once --execute` 以及 `extract-from-candidates` 在没有显式传 `--judge-timeout`、`--judge-shard-size`、`--judge-shard-workers` 时，必须读取 `claim_extraction` 配置。服务器发布包必须同时包含该 worker、`retrieval_v2_clean_runner.py`、`scripts/shared/agent_runtime_config.py` 和 `project_config.yml`，避免只替换 worker 脚本而遗漏模型与并发配置。
 
 ## 服务器版本同步与服务切换

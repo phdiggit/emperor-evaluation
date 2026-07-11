@@ -309,7 +309,7 @@ def test_extract_from_candidates_defaults_to_filesystem_shadow(tmp_path: Path, m
     assert result["mode"] == "extract_from_candidates"
     assert result["job"]["status"] == "shadow"
     assert captured["import_pg"] is False
-    assert captured["judge_shard_size"] == 4
+    assert captured["judge_shard_size"] == 1
     assert captured["judge_shard_workers"] == 4
 
 

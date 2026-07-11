@@ -8,7 +8,7 @@ def test_repo_agent_runtime_lists_every_known_stage() -> None:
 
     assert set(config["stages"]) == set(tool.AGENT_STAGES)
     assert config["defaults"]["model"] == "gpt-5.6-luna"
-    assert config["stages"]["claim_extraction"]["shard_size"] == 4
+    assert config["stages"]["claim_extraction"]["shard_size"] == 1
 
 
 def test_stage_resolution_uses_project_defaults_and_stage_concurrency() -> None:
@@ -17,7 +17,7 @@ def test_stage_resolution_uses_project_defaults_and_stage_concurrency() -> None:
     assert runtime["model"] == "gpt-5.6-luna"
     assert runtime["reasoning_effort"] == "medium"
     assert runtime["max_workers"] == 4
-    assert runtime["shard_size"] == 4
+    assert runtime["shard_size"] == 1
     assert runtime["timeout_seconds"] == 1800
 
 
