@@ -803,6 +803,50 @@ def cache_inventory(cache_root: Path, candidates_path: Path | None = None, *, sa
     return report
 
 
+def cleanup_runs(cache_root: Path, run_codes: Sequence[str], *, execute: bool = False) -> dict[str, Any]:
+    selected = set(unique_texts(list(run_codes)))
+    paths = cache_paths(cache_root)
+    claims = read_jsonl(paths["claims"])
+    evidence = read_jsonl(paths["evidence"])
+    slices = read_jsonl(paths["slices"])
+    runs = read_jsonl(paths["runs"])
+    removed_claim_keys = {
+        str(row.get("claim_key") or "")
+        for row in claims
+        if str(row.get("last_run_code") or "") in selected
+    }
+    kept_claims = [row for row in claims if str(row.get("claim_key") or "") not in removed_claim_keys]
+    kept_evidence = [row for row in evidence if str(row.get("claim_key") or "") not in removed_claim_keys]
+    referenced_slice_hashes = {str(row.get("slice_hash") or "") for row in kept_evidence if row.get("slice_hash")}
+    removed_slices = [
+        row for row in slices
+        if str(row.get("first_run_code") or "") in selected
+        and str(row.get("slice_hash") or "") not in referenced_slice_hashes
+    ]
+    removed_slice_hashes = {str(row.get("slice_hash") or "") for row in removed_slices}
+    kept_slices = [row for row in slices if str(row.get("slice_hash") or "") not in removed_slice_hashes]
+    kept_runs = [row for row in runs if str(row.get("run_code") or "") not in selected]
+    report = {
+        "ok": True,
+        "mode": "execute" if execute else "dry_run_cleanup_runs",
+        "cache_root": str(cache_root),
+        "selectors": {"last_run_codes": sorted(selected)},
+        "planned": {
+            "claims": len(claims) - len(kept_claims),
+            "evidence": len(evidence) - len(kept_evidence),
+            "slices": len(slices) - len(kept_slices),
+            "runs": len(runs) - len(kept_runs),
+        },
+        "executed": execute,
+    }
+    if execute:
+        write_jsonl(paths["claims"], kept_claims)
+        write_jsonl(paths["evidence"], kept_evidence)
+        write_jsonl(paths["slices"], kept_slices)
+        write_jsonl(paths["runs"], kept_runs)
+    return report
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Manage retrieval_v2 claim-only extraction cache.")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -829,6 +873,13 @@ def build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--report-json", type=Path)
     inventory.add_argument("--sample-limit", type=int, default=3)
     inventory.set_defaults(func=run_inventory_command)
+
+    cleanup = sub.add_parser("cleanup-runs", help="Dry-run or remove exact runs from the filesystem claim cache.")
+    cleanup.add_argument("--cache-root", type=Path, default=DEFAULT_CACHE_ROOT)
+    cleanup.add_argument("--last-run-code", dest="last_run_codes", action="append", required=True)
+    cleanup.add_argument("--execute", action="store_true")
+    cleanup.add_argument("--report-json", type=Path)
+    cleanup.set_defaults(func=run_cleanup_command)
     return parser
 
 
@@ -860,6 +911,14 @@ def run_plan_command(args: argparse.Namespace) -> int:
 
 def run_inventory_command(args: argparse.Namespace) -> int:
     report = cache_inventory(args.cache_root, args.candidates, sample_limit=max(0, int(args.sample_limit)))
+    if args.report_json is not None:
+        write_json(args.report_json, report)
+    sys.stdout.write(pretty_json(report))
+    return 0
+
+
+def run_cleanup_command(args: argparse.Namespace) -> int:
+    report = cleanup_runs(args.cache_root, args.last_run_codes, execute=bool(args.execute))
     if args.report_json is not None:
         write_json(args.report_json, report)
     sys.stdout.write(pretty_json(report))

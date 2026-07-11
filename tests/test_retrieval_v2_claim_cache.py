@@ -68,6 +68,33 @@ def sample_candidates() -> dict:
     }
 
 
+def test_cleanup_runs_is_dry_run_then_removes_cascaded_rows(tmp_path: Path) -> None:
+    cache_root = tmp_path / "cache"
+    paths = tool.cache_paths(cache_root)
+    tool.write_jsonl(paths["claims"], [
+        {"claim_key": "CLMK-DROP", "last_run_code": "RUN-DROP"},
+        {"claim_key": "CLMK-KEEP", "last_run_code": "RUN-KEEP"},
+    ])
+    tool.write_jsonl(paths["evidence"], [
+        {"evidence_key": "EVD-DROP", "claim_key": "CLMK-DROP", "slice_hash": "SLH-DROP"},
+        {"evidence_key": "EVD-KEEP", "claim_key": "CLMK-KEEP", "slice_hash": "SLH-KEEP"},
+    ])
+    tool.write_jsonl(paths["slices"], [
+        {"slice_hash": "SLH-DROP", "first_run_code": "RUN-DROP"},
+        {"slice_hash": "SLH-KEEP", "first_run_code": "RUN-KEEP"},
+    ])
+    tool.write_jsonl(paths["runs"], [{"run_code": "RUN-DROP"}, {"run_code": "RUN-KEEP"}])
+
+    dry_run = tool.cleanup_runs(cache_root, ["RUN-DROP"])
+    assert dry_run["planned"] == {"claims": 1, "evidence": 1, "slices": 1, "runs": 1}
+    assert len(tool.read_jsonl(paths["claims"])) == 2
+
+    executed = tool.cleanup_runs(cache_root, ["RUN-DROP"], execute=True)
+    assert executed["executed"] is True
+    assert [row["claim_key"] for row in tool.read_jsonl(paths["claims"])] == ["CLMK-KEEP"]
+    assert [row["slice_hash"] for row in tool.read_jsonl(paths["slices"])] == ["SLH-KEEP"]
+
+
 def write_run(
     tmp_path: Path,
     *,
