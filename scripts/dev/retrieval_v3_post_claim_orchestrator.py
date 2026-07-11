@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -98,9 +99,12 @@ def execute_plan(plan: Mapping[str, Any]) -> dict[str, Any]:
         return dict(plan)
     Path(text(plan.get("output_root"))).mkdir(parents=True, exist_ok=True)
     executions: list[dict[str, Any]] = []
+    child_env = dict(os.environ)
+    current_pythonpath = text(child_env.get("PYTHONPATH"))
+    child_env["PYTHONPATH"] = os.pathsep.join(value for value in (str(ROOT), current_pythonpath) if value)
     for command in plan.get("commands") or []:
         argv = [text(value) for value in command.get("argv") or []]
-        completed = subprocess.run(argv, check=False, capture_output=True, text=True, encoding="utf-8")
+        completed = subprocess.run(argv, check=False, capture_output=True, text=True, encoding="utf-8", env=child_env)
         execution = {
             "stage": command.get("stage"),
             "returncode": completed.returncode,

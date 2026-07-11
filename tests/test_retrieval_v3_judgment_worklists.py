@@ -85,7 +85,7 @@ def test_talent_item_uses_authority_consensus_v2_contract() -> None:
         }
     )
 
-    assert item["context"]["rubric_version"] == "talent-grade-v2"
+    assert item["context"]["rubric_version"] == "talent-grade-v3"
     assert item["context"]["authority_evaluations"]
     assert any("不能据此排除 top_talent" in rule for rule in item["context"]["grade_boundary_rules"])
     assert any("不得按朝代分配档位人数" in rule for rule in item["context"]["grade_boundary_rules"])

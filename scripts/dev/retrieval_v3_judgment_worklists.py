@@ -34,7 +34,7 @@ TALENT_GRADES = {
     "usable_talent",
     "ordinary_talent",
 }
-TALENT_GRADE_VERSION = "talent-grade-v2"
+TALENT_GRADE_VERSION = "talent-grade-v3"
 NEGATIVE_TALENT_VERSION = "negative-talent-v1"
 AUTHORITY_CONSENSUS_VALUES = {"none", "weak", "moderate", "strong", "disputed"}
 EVIDENCE_STRENGTH_VALUES = {"none", "weak", "moderate", "strong"}
@@ -654,7 +654,7 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
     schema_notes = {
         TARGET_PERIOD_KIND: "为每个目标皇帝填写 dynasty_label；必须是 allowed_dynasty_labels 之一。basis 只写具体判断，例如“司马炎为西晋开国皇帝”。",
         PERSON_ROLE_KIND: "为每个人物填写 role_kind；只能用 allowed_role_kinds。只有无法判定时才用 other，并在 basis 写明原因。",
-        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识，再用 evidence_claims 校准；必须逐条遵守 grade_boundary_rules，只能用 allowed_talent_grades。先把具体政策、持续治理结果、战役战区、制度工程、作品或原创成果归并为 achievement_clusters，并写入 patch。治世簇必须主动检查吏治、人才发现与组织使用、财政经济、社会恢复、行政执行、边疆经营和危机治理，不要求命名政策或成文制度。historic_talent 通常至少三个国家级、时代转型级或领域基础性成就簇；基础法典、独立巨著或原创体系例外时必须同时证明主持定稿、施行传播和长期标杆。top_talent 至少两个独立重要成就簇，或一个极高难度第一梯队成果。权威材料含具体责任、持续结果或治世评价时可支持长期治理成就簇，泛泛赞誉不能。禁止仅凭重大职位、单次高光、一般后世影响或朝代配额入档。政治品格、党争结局或受诛受贬不得降低能力档。若输入没有权威评价，必须只读检索正史论赞、后世史论或现代专业研究，并把来源标题、定位和评价摘要写入 authority_sources；找不到有效权威来源则不要输出。材料不足降低 coverage 和 confidence，不得直接降为普通。talent_grade_basis 必须以“姓名，”开头，说明史论共识、成就簇校准及限制。",
+        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识，再用 evidence_claims 校准；必须逐条遵守 grade_boundary_rules，只能用 allowed_talent_grades。先把具体政策、持续治理结果、战役战区、制度工程、作品或原创成果归并为 achievement_clusters，并写入 patch。historic_talent 采用严格守门员：治国人物以房玄龄为最低标杆，必须与公认治世、重大制度转型或长期治理标杆直接关联，政绩和治世成果不够突出、主要属于一般尽职或个人归属性弱者降为 top_talent。军事人物以李绩、苏定方为最低标杆，必须满足其一：在开国统一过程中作为主导统帅负责多个决定性核心战役或战略要地；或对外取得足以重创、覆灭匈奴/突厥等大国的辉煌战绩；或独立覆灭多个中小国。普通多战役、持续任职、参与协同或若干局部胜利不足以进入 historic_talent。基础法典、独立巨著或原创体系例外时仍须同时证明主持定稿、施行传播和长期标杆。top_talent 至少两个独立重要成就簇，或一个极高难度第一梯队成果。禁止仅凭重大职位、簇数量、单次高光、一般后世影响或朝代配额入档。政治品格、党争结局或受诛受贬不得降低能力档。若输入没有权威评价，必须只读检索正史论赞、后世史论或现代专业研究，并把来源标题、定位和评价摘要写入 authority_sources；找不到有效权威来源则不要输出。材料不足降低 coverage 和 confidence，不得直接降为普通。talent_grade_basis 必须以“姓名，”开头，说明史论共识、守门员比较、成就簇校准及限制。",
         PERSON_NEGATIVE_TALENT_KIND: "先用 authority_evaluations 判断负面政治风险共识，再用 evidence_claims 校准。实际举兵反叛其效忠君主或所属政治共同体、主动倒戈或资敌，通常应评 traitorous_actor；只有谋反指控、诬告、未证实嫌疑、被诛结局或政治清洗不得据此定性。若没有稳定负面分类，has_negative_talent_class=false，其余类型和严重度留空，但仍填写共识、事实支持、覆盖度、置信度和依据。能力、品格和政治风险必须分开。",
         PERSON_PROFILE_BASIS_KIND: "只补人物评价简介 talent_grade_basis，不修改 talent_grade。talent_grade_basis 必须以“姓名，”开头，写高信息量中文评价，不写模板句。",
     }
@@ -1254,7 +1254,7 @@ def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
         authority_source_value = existing_authority_source_refs(cur, object_id=object_id, lane="talent_grade")
     authority_sources = require_authority_sources(authority_source_value)
     if authority_consensus == "none":
-        raise JudgmentWorklistError(f"{row.get('_line_no')}: talent-grade-v2 requires authority consensus and authority_sources")
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: {TALENT_GRADE_VERSION} requires authority consensus and authority_sources")
     performance_support = require_choice(row.get("talent_performance_support"), EVIDENCE_STRENGTH_VALUES, "talent_performance_support")
     evidence_coverage = require_choice(row.get("talent_evidence_coverage"), EVIDENCE_COVERAGE_VALUES, "talent_evidence_coverage")
     basis = text(row.get("talent_grade_basis"))
@@ -1431,7 +1431,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--item-code", default="I5B")
     worklist.add_argument("--kind", choices=TASK_KINDS, action="append", default=[])
     worklist.add_argument("--object-id", type=int, action="append", default=[], help="Limit person workitems to explicit retrieval_v3 object IDs; repeatable.")
-    worklist.add_argument("--refresh-talent", action="store_true", help="Rebuild talent-grade workitems even when the current profile already uses talent-grade-v2.")
+    worklist.add_argument("--refresh-talent", action="store_true", help="Rebuild talent-grade workitems even when the current profile already uses the current rubric version.")
     worklist.add_argument("--refresh-negative", action="store_true", help="Rebuild negative-risk workitems even when the profile already has the current negative review version.")
     worklist.add_argument("--batch-size", type=int)
     worklist.add_argument("--output-root", type=Path, required=True)

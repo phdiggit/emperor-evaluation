@@ -38,3 +38,19 @@ def test_non_success_claim_job_is_skipped(tmp_path: Path) -> None:
 def test_succeeded_job_requires_emperor(tmp_path: Path) -> None:
     with pytest.raises(tool.PostClaimOrchestratorError, match="missing emperor_name"):
         tool.build_post_claim_plan({"status": "succeeded", "job": {}, "result": {}}, output_root=tmp_path)
+
+
+def test_execute_plan_provides_release_root_pythonpath(monkeypatch, tmp_path: Path) -> None:
+    seen = {}
+
+    def fake_run(argv, **kwargs):
+        seen["env"] = kwargs["env"]
+        return type("Done", (), {"returncode": 0, "stdout": "", "stderr": ""})()
+
+    monkeypatch.setattr(tool.subprocess, "run", fake_run)
+    result = tool.execute_plan(
+        {"status": "ready", "output_root": str(tmp_path), "commands": [{"stage": "x", "argv": ["python", "x.py"]}]}
+    )
+
+    assert result["status"] == "succeeded"
+    assert str(tool.ROOT) in seen["env"]["PYTHONPATH"]
