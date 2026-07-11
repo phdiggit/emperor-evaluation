@@ -143,6 +143,11 @@ def test_read_schema_sql_renders_retrieval_v3_by_default() -> None:
     assert "create type retrieval_v3.rv3_claim_extraction_job_status as enum" in sql
     assert "create table if not exists retrieval_v3.object_source_cache_jobs" in sql
     assert "create type retrieval_v3.rv3_object_source_cache_job_status as enum" in sql
+    assert "create type retrieval_v3.rv3_authority_consensus as enum" in sql
+    assert "create type retrieval_v3.rv3_negative_talent_severity as enum" in sql
+    assert "add column if not exists talent_grade_confidence" in sql
+    assert "add column if not exists negative_talent_basis" in sql
+    assert "comment on column retrieval_v3.person_profiles.negative_talent_class" in sql
 
 
 def test_print_schema_cli_outputs_sql(capsys: pytest.CaptureFixture[str]) -> None:

@@ -24,8 +24,9 @@ DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
 TARGET_PERIOD_KIND = "target_emperor_period"
 PERSON_ROLE_KIND = "person_role"
 PERSON_TALENT_KIND = "person_talent_grade"
+PERSON_NEGATIVE_TALENT_KIND = "person_negative_talent"
 PERSON_PROFILE_BASIS_KIND = "person_profile_basis"
-TASK_KINDS = (TARGET_PERIOD_KIND, PERSON_ROLE_KIND, PERSON_TALENT_KIND, PERSON_PROFILE_BASIS_KIND)
+TASK_KINDS = (TARGET_PERIOD_KIND, PERSON_ROLE_KIND, PERSON_TALENT_KIND, PERSON_NEGATIVE_TALENT_KIND, PERSON_PROFILE_BASIS_KIND)
 TALENT_GRADES = {
     "historic_talent",
     "top_talent",
@@ -33,7 +34,18 @@ TALENT_GRADES = {
     "usable_talent",
     "ordinary_talent",
 }
-TALENT_GRADE_VERSION = "talent-grade-v1"
+TALENT_GRADE_VERSION = "talent-grade-v2"
+NEGATIVE_TALENT_VERSION = "negative-talent-v1"
+AUTHORITY_CONSENSUS_VALUES = {"none", "weak", "moderate", "strong", "disputed"}
+EVIDENCE_STRENGTH_VALUES = {"none", "weak", "moderate", "strong"}
+EVIDENCE_COVERAGE_VALUES = {"insufficient", "partial", "substantial", "comprehensive"}
+NEGATIVE_TALENT_CLASSES = {
+    "sycophant", "favorite", "power_abuser", "framer", "extractive_official",
+    "cruel_official", "incompetent_harmful", "traitorous_actor", "mixed_or_disputed",
+}
+NEGATIVE_TALENT_SEVERITIES = {"minor", "material", "major", "historic"}
+PATCH_JSONL_BEGIN = "PATCH_JSONL_BEGIN"
+PATCH_JSONL_END = "PATCH_JSONL_END"
 ROLE_KINDS = {
     "emperor",
     "heir",
@@ -180,7 +192,8 @@ def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
             array_remove(array_agg(distinct rt.emperor_name order by rt.emperor_name), null) as target_emperors,
             array_remove(array_agg(distinct pa.dynasty_label order by pa.dynasty_label), null) as known_dynasties,
             array_remove(array_agg(distinct pr.role_kind::text order by pr.role_kind::text), null) as role_kinds,
-            coalesce(ev.evidence_claims, '[]'::jsonb) as evidence_claims
+            coalesce(ev.evidence_claims, '[]'::jsonb) as evidence_claims,
+            coalesce(av.authority_evaluations, '[]'::jsonb) as authority_evaluations
           from retrieval_v3.objects o
           join retrieval_v3.person_profiles pp on pp.object_id = o.id
           join retrieval_v3.target_objects tob on tob.object_id = o.id
@@ -213,14 +226,37 @@ def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
                      limit 40
                 ) q
           ) ev on true
+          left join lateral (
+              select jsonb_agg(jsonb_build_object(
+                         'claim_key', q.claim_key,
+                         'proposal_status', q.proposal_status,
+                         'basis', q.basis,
+                         'claim_summary', q.claim_summary,
+                         'source_titles', q.source_titles
+                     ) order by q.claim_key) as authority_evaluations
+                from (
+                    select ppl.claim_key, ppl.proposal_status::text as proposal_status,
+                           ppl.basis, cc.claim_summary,
+                           coalesce(array_agg(distinct css.source_title) filter (where btrim(css.source_title) <> ''), array[]::text[]) as source_titles
+                      from retrieval_v3.person_profile_claim_links ppl
+                      join retrieval_v3.claim_cache cc on cc.claim_key = ppl.claim_key
+                      left join retrieval_v3.claim_evidence ce on ce.claim_key = cc.claim_key
+                      left join retrieval_v3.claim_source_slices css on css.slice_hash = ce.slice_hash
+                     where coalesce(ppl.object_id, cc.object_id) = o.id
+                       and ppl.profile_field = 'authority_evaluation'
+                       and ppl.proposal_status in ('accepted', 'candidate', 'needs_review')
+                     group by ppl.claim_key, ppl.proposal_status, ppl.basis, cc.claim_summary
+                ) q
+          ) av on true
          where o.object_type = 'person'
            and tob.object_role <> 'target_emperor'
            and (%s = '' or rt.item_code = %s)
-           and pp.talent_grade is null
-         group by o.id, o.object_code, o.canonical_name, o.normalized_name, pp.id, pp.talent_grade_basis, pp.review_status, ev.evidence_claims
+           and (pp.talent_grade is null or pp.talent_grade_version <> %s)
+         group by o.id, o.object_code, o.canonical_name, o.normalized_name, pp.id, pp.talent_grade_basis, pp.review_status,
+                  ev.evidence_claims, av.authority_evaluations
          order by o.canonical_name
         """,
-        (item_code, item_code),
+        (item_code, item_code, TALENT_GRADE_VERSION),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -269,6 +305,61 @@ def fetch_incomplete_profile_basis(cur: Any, *, item_code: str) -> list[dict[str
          order by bool_or(tob.object_role = 'target_emperor') desc, o.canonical_name
         """,
         (item_code, item_code),
+    )
+    return [dict(row) for row in cur.fetchall()]
+
+
+def fetch_pending_negative_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
+    cur.execute(
+        """
+        select distinct on (o.id)
+            o.id as object_id,
+            o.object_code,
+            o.canonical_name,
+            o.normalized_name,
+            pp.negative_talent_class::text as current_negative_talent_class,
+            pp.negative_talent_severity::text as current_negative_talent_severity,
+            pp.negative_talent_basis,
+            coalesce(av.authority_evaluations, '[]'::jsonb) as authority_evaluations,
+            coalesce(ev.evidence_claims, '[]'::jsonb) as evidence_claims
+          from retrieval_v3.objects o
+          join retrieval_v3.person_profiles pp on pp.object_id = o.id
+          join retrieval_v3.target_objects tob on tob.object_id = o.id and tob.object_role <> 'target_emperor'
+          join retrieval_v3.retrieval_targets rt on rt.id = tob.target_id
+          left join lateral (
+              select jsonb_agg(jsonb_build_object(
+                         'claim_key', ppl.claim_key,
+                         'proposal_status', ppl.proposal_status::text,
+                         'basis', ppl.basis,
+                         'claim_summary', cc.claim_summary
+                     ) order by ppl.claim_key) as authority_evaluations
+                from retrieval_v3.person_profile_claim_links ppl
+                join retrieval_v3.claim_cache cc on cc.claim_key = ppl.claim_key
+               where coalesce(ppl.object_id, cc.object_id) = o.id
+                 and ppl.profile_field = 'authority_evaluation'
+                 and ppl.proposal_status in ('accepted', 'candidate', 'needs_review')
+          ) av on true
+          left join lateral (
+              select jsonb_agg(jsonb_build_object(
+                         'claim_key', q.claim_key,
+                         'claim_summary', q.claim_summary,
+                         'outcome', q.outcome
+                     ) order by q.claim_key) as evidence_claims
+                from (
+                    select cc.claim_key, cc.claim_summary, cc.outcome
+                      from retrieval_v3.claim_cache cc
+                     where cc.object_id = o.id and cc.status = 'active'
+                     order by cc.updated_at desc, cc.claim_key
+                     limit 40
+                ) q
+          ) ev on true
+         where o.object_type = 'person'
+           and (%s = '' or rt.item_code = %s)
+           and pp.talent_grade is not null
+           and pp.negative_talent_version <> %s
+         order by o.id, rt.id
+        """,
+        (item_code, item_code, NEGATIVE_TALENT_VERSION),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -357,20 +448,82 @@ def talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
             "allowed_talent_grades": sorted(TALENT_GRADES),
             "rubric_version": TALENT_GRADE_VERSION,
             "rubric": {
-                "ordinary_talent": "能胜任明确职责，有具体能力或业绩，但主要影响局部事务或一般职责。",
-                "usable_talent": "有稳定可用表现和明确成果，超过一般胜任，但尚未达到政权级重要贡献。",
-                "important_talent": "在主要领域有政权级重要贡献，或有多次显著、可独立归因的成果。",
-                "top_talent": "重大历史进程关键人物，在至少一个领域处于同时代第一梯队，并有跨场景重复成果。",
-                "historic_talent": "具有结构性、跨时代影响和稳定史论共识，属于极少数历史标杆。",
+                "ordinary_talent": "史料确认能够胜任职责，但没有形成明显的突出能力共识。",
+                "usable_talent": "有明确专长和可靠表现，受到一定肯定，但影响主要限于局部或具体阶段。",
+                "important_talent": "在政权运作、重大事务或专业领域发挥重要作用，史论评价较稳定。",
+                "top_talent": "同时代同领域第一梯队，对重大历史进程、制度或文化建设具有关键作用。",
+                "historic_talent": "跨时代公认的标杆人物，其方法、制度、思想或成就具有持续历史影响。",
             },
             "evidence_claims": row.get("evidence_claims") if isinstance(row.get("evidence_claims"), list) else [],
+            "authority_evaluations": row.get("authority_evaluations") if isinstance(row.get("authority_evaluations"), list) else [],
+            "allowed_authority_consensus": sorted(AUTHORITY_CONSENSUS_VALUES),
+            "allowed_performance_support": sorted(EVIDENCE_STRENGTH_VALUES),
+            "allowed_evidence_coverage": sorted(EVIDENCE_COVERAGE_VALUES),
         },
         "required_patch": {
             "task_kind": PERSON_TALENT_KIND,
             "workitem_code": code,
             "object_id": row.get("object_id"),
             "talent_grade": "",
+            "talent_grade_confidence": None,
+            "talent_authority_consensus": "",
+            "talent_performance_support": "",
+            "talent_evidence_coverage": "",
+            "authority_sources": [],
             "talent_grade_basis": f"{text(row.get('canonical_name'))}，",
+        },
+    }
+
+
+def negative_talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
+    code = workitem_code(PERSON_NEGATIVE_TALENT_KIND, row.get("object_id"))
+    return {
+        "workitem_code": code,
+        "task_kind": PERSON_NEGATIVE_TALENT_KIND,
+        "priority": 65,
+        "subject": {
+            "object_id": row.get("object_id"),
+            "object_code": text(row.get("object_code")),
+            "canonical_name": text(row.get("canonical_name")),
+            "normalized_name": text(row.get("normalized_name")),
+        },
+        "context": {
+            "rubric_version": NEGATIVE_TALENT_VERSION,
+            "current_negative_talent_class": text(row.get("current_negative_talent_class")),
+            "current_negative_talent_severity": text(row.get("current_negative_talent_severity")),
+            "current_negative_talent_basis": text(row.get("negative_talent_basis")),
+            "allowed_negative_talent_classes": sorted(NEGATIVE_TALENT_CLASSES),
+            "allowed_negative_talent_severities": sorted(NEGATIVE_TALENT_SEVERITIES),
+            "allowed_authority_consensus": sorted(AUTHORITY_CONSENSUS_VALUES),
+            "allowed_fact_support": sorted(EVIDENCE_STRENGTH_VALUES),
+            "allowed_evidence_coverage": sorted(EVIDENCE_COVERAGE_VALUES),
+            "authority_evaluations": row.get("authority_evaluations") if isinstance(row.get("authority_evaluations"), list) else [],
+            "evidence_claims": row.get("evidence_claims") if isinstance(row.get("evidence_claims"), list) else [],
+            "class_rubric": {
+                "sycophant": "以迎合、谄媚或取悦君主获得或维持权力。",
+                "favorite": "主要依赖私人宠信、宫廷或亲缘关系取得政治影响。",
+                "power_abuser": "滥权、专权、结党或破坏正常政治秩序。",
+                "framer": "通过构陷、诬告或制造冤狱伤害他人。",
+                "extractive_official": "通过聚敛、盘剥或财政行政手段造成显著社会损害。",
+                "cruel_official": "酷烈执法、滥刑或以恐怖手段治理。",
+                "incompetent_harmful": "能力不足却占据关键位置并造成明确重大损害。",
+                "traitorous_actor": "有明确背叛其政治共同体的行为；不得仅据败亡、投降或敌对史书定性。",
+                "mixed_or_disputed": "权威来源之间存在无法消解的类型或性质冲突。",
+            },
+        },
+        "required_patch": {
+            "task_kind": PERSON_NEGATIVE_TALENT_KIND,
+            "workitem_code": code,
+            "object_id": row.get("object_id"),
+            "has_negative_talent_class": None,
+            "negative_talent_class": "",
+            "negative_talent_severity": "",
+            "negative_talent_confidence": None,
+            "negative_authority_consensus": "",
+            "negative_fact_support": "",
+            "negative_evidence_coverage": "",
+            "authority_sources": [],
+            "negative_talent_basis": f"{text(row.get('canonical_name'))}，",
         },
     }
 
@@ -407,7 +560,7 @@ def profile_basis_item(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_workitems(*, dsn: str, item_code: str, kinds: Sequence[str]) -> list[dict[str, Any]]:
+def build_workitems(*, dsn: str, item_code: str, kinds: Sequence[str], object_ids: Sequence[int] = ()) -> list[dict[str, Any]]:
     selected = set(kinds or TASK_KINDS)
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
@@ -419,8 +572,13 @@ def build_workitems(*, dsn: str, item_code: str, kinds: Sequence[str]) -> list[d
                 rows.extend(role_item(row) for row in fetch_missing_roles(cur, item_code=item_code))
             if PERSON_TALENT_KIND in selected:
                 rows.extend(talent_item(row) for row in fetch_missing_talent(cur, item_code=item_code))
+            if PERSON_NEGATIVE_TALENT_KIND in selected:
+                rows.extend(negative_talent_item(row) for row in fetch_pending_negative_talent(cur, item_code=item_code))
             if PERSON_PROFILE_BASIS_KIND in selected:
                 rows.extend(profile_basis_item(row) for row in fetch_incomplete_profile_basis(cur, item_code=item_code))
+    selected_object_ids = {int(value) for value in object_ids}
+    if selected_object_ids:
+        rows = [row for row in rows if int((row.get("subject") or {}).get("object_id") or 0) in selected_object_ids]
     return sorted(rows, key=lambda row: (int(row.get("priority") or 0), text(row.get("task_kind")), text(row.get("workitem_code"))))
 
 
@@ -429,7 +587,8 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
     schema_notes = {
         TARGET_PERIOD_KIND: "为每个目标皇帝填写 dynasty_label；必须是 allowed_dynasty_labels 之一。basis 只写具体判断，例如“司马炎为西晋开国皇帝”。",
         PERSON_ROLE_KIND: "为每个人物填写 role_kind；只能用 allowed_role_kinds。只有无法判定时才用 other，并在 basis 写明原因。",
-        PERSON_TALENT_KIND: "按 rubric_version 与 evidence_claims 为每个人物填写全局能力 talent_grade；只能用 allowed_talent_grades。不得用官职、名气、忠诚或政治品格替代能力证据。talent_grade_basis 必须以“姓名，”开头，写明主要领域、独立成果、影响范围与限制。",
+        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识基础档，再用 evidence_claims 校准；只能用 allowed_talent_grades。若输入没有权威评价，必须只读检索正史论赞、后世史论或现代专业研究，并把来源标题、定位和评价摘要写入 authority_sources；找不到有效权威来源则不要输出该人物。材料不足降低 evidence_coverage 和 confidence，不得直接降为普通。不得用官职、名气、忠诚、政治结局或品格替代能力判断。talent_grade_basis 必须以“姓名，”开头，分别说明史论共识、事实校准、主要限制或争议。",
+        PERSON_NEGATIVE_TALENT_KIND: "先用 authority_evaluations 判断负面政治风险共识，再用 evidence_claims 校准。若没有稳定负面分类，has_negative_talent_class=false，其余类型和严重度留空，但仍填写共识、事实支持、覆盖度、置信度和依据。不得仅凭被诛、被贬、败亡、投降、党争结局或单一敌对来源定性；能力、品格和政治风险必须分开。",
         PERSON_PROFILE_BASIS_KIND: "只补人物评价简介 talent_grade_basis，不修改 talent_grade。talent_grade_basis 必须以“姓名，”开头，写高信息量中文评价，不写模板句。",
     }
     return (
@@ -439,7 +598,8 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
         f"- task_kind: `{kind}`\n"
         f"- patch_path: `{repo_relative(patch_path)}`\n"
         f"- 要求: {schema_notes.get(kind, '')}\n\n"
-        "输出要求：每行一个 JSON object，字段必须符合每个 workitem 的 `required_patch`。无法判断的项不要写入 patch。\n\n"
+        "输出要求：每行一个 JSON object，字段必须符合每个 workitem 的 `required_patch`。无法判断的项不要写入 patch。\n"
+        f"若不能写入 patch 文件，在最终消息中用独占行 {PATCH_JSONL_BEGIN} 和 {PATCH_JSONL_END} 包住同样的 JSONL。\n\n"
         "## Workitems\n\n"
         "```json\n"
         + json.dumps(list(workitems), ensure_ascii=False, indent=2, sort_keys=True, default=str)
@@ -466,6 +626,15 @@ def build_codex_tasks(workitems: Sequence[Mapping[str, Any]], *, output_root: Pa
                 "workitem_codes": [text(row.get("workitem_code")) for row in batch],
                 "prompt_path": repo_relative(prompt_path),
                 "patch_path": repo_relative(patch_path),
+                "expected_outputs": [
+                    {
+                        "kind": "jsonl_patch",
+                        "path": repo_relative(patch_path),
+                        "fallback": "last_message_marked_block",
+                        "begin": PATCH_JSONL_BEGIN,
+                        "end": PATCH_JSONL_END,
+                    }
+                ],
                 "last_message_path": repo_relative(last_message_path),
                 "log_path": repo_relative(log_path),
                 "argv": agent_runtime_config.codex_task_argv(
@@ -650,6 +819,23 @@ def require_grade(value: Any) -> str:
     return grade
 
 
+def require_choice(value: Any, allowed: set[str], field: str) -> str:
+    selected = text(value)
+    if selected not in allowed:
+        raise JudgmentWorklistError(f"unsupported {field}: {selected}")
+    return selected
+
+
+def require_confidence(value: Any, field: str) -> float:
+    try:
+        confidence = float(value)
+    except (TypeError, ValueError) as exc:
+        raise JudgmentWorklistError(f"unsupported {field}: {value}") from exc
+    if confidence < 0 or confidence > 1:
+        raise JudgmentWorklistError(f"unsupported {field}: {value}")
+    return confidence
+
+
 def fetch_one(cur: Any) -> dict[str, Any]:
     row = cur.fetchone()
     if not row:
@@ -794,6 +980,13 @@ def upsert_person_role(cur: Any, row: Mapping[str, Any]) -> None:
 def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
     object_id = int(row.get("object_id") or 0)
     grade = require_grade(row.get("talent_grade"))
+    confidence = require_confidence(row.get("talent_grade_confidence"), "talent_grade_confidence")
+    authority_consensus = require_choice(row.get("talent_authority_consensus"), AUTHORITY_CONSENSUS_VALUES, "talent_authority_consensus")
+    authority_sources = row.get("authority_sources")
+    if authority_consensus == "none" or not isinstance(authority_sources, list) or not authority_sources:
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: talent-grade-v2 requires authority consensus and authority_sources")
+    performance_support = require_choice(row.get("talent_performance_support"), EVIDENCE_STRENGTH_VALUES, "talent_performance_support")
+    evidence_coverage = require_choice(row.get("talent_evidence_coverage"), EVIDENCE_COVERAGE_VALUES, "talent_evidence_coverage")
     basis = text(row.get("talent_grade_basis"))
     if not object_id or not basis or "，" not in basis:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: object_id and Chinese talent_grade_basis are required")
@@ -804,12 +997,68 @@ def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
            set talent_grade = %s::retrieval_v3.rv3_person_talent_grade,
                talent_grade_basis = %s,
                talent_grade_version = %s,
+               talent_grade_confidence = %s,
+               talent_authority_consensus = %s::retrieval_v3.rv3_authority_consensus,
+               talent_performance_support = %s::retrieval_v3.rv3_evidence_strength,
+               talent_evidence_coverage = %s::retrieval_v3.rv3_evidence_coverage,
                review_status = 'accepted',
                profile_payload = profile_payload || %s::jsonb,
                updated_at = now()
          where object_id = %s
         """,
-        (grade, basis, TALENT_GRADE_VERSION, json_param(payload | {"talent_grade_version": TALENT_GRADE_VERSION}), object_id),
+        (
+            grade, basis, TALENT_GRADE_VERSION, confidence, authority_consensus,
+            performance_support, evidence_coverage,
+            json_param(payload | {"talent_grade_version": TALENT_GRADE_VERSION}), object_id,
+        ),
+    )
+    if cur.rowcount != 1:
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: person profile not found for object_id {object_id}")
+
+
+def update_negative_talent(cur: Any, row: Mapping[str, Any]) -> None:
+    object_id = int(row.get("object_id") or 0)
+    has_negative = row.get("has_negative_talent_class")
+    if not isinstance(has_negative, bool):
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: has_negative_talent_class must be boolean")
+    negative_class = text(row.get("negative_talent_class"))
+    severity = text(row.get("negative_talent_severity"))
+    if has_negative:
+        negative_class = require_choice(negative_class, NEGATIVE_TALENT_CLASSES, "negative_talent_class")
+        severity = require_choice(severity, NEGATIVE_TALENT_SEVERITIES, "negative_talent_severity")
+    elif negative_class or severity:
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: negative class and severity must be blank when has_negative_talent_class is false")
+    confidence = require_confidence(row.get("negative_talent_confidence"), "negative_talent_confidence")
+    authority_consensus = require_choice(row.get("negative_authority_consensus"), AUTHORITY_CONSENSUS_VALUES, "negative_authority_consensus")
+    authority_sources = row.get("authority_sources")
+    if has_negative and (authority_consensus == "none" or not isinstance(authority_sources, list) or not authority_sources):
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: negative classification requires authority consensus and authority_sources")
+    fact_support = require_choice(row.get("negative_fact_support"), EVIDENCE_STRENGTH_VALUES, "negative_fact_support")
+    evidence_coverage = require_choice(row.get("negative_evidence_coverage"), EVIDENCE_COVERAGE_VALUES, "negative_evidence_coverage")
+    basis = text(row.get("negative_talent_basis"))
+    if not object_id or not basis or "，" not in basis:
+        raise JudgmentWorklistError(f"{row.get('_line_no')}: object_id and Chinese negative_talent_basis are required")
+    payload = {"source": "retrieval_v3_judgment_patch", "patch": {k: v for k, v in row.items() if not str(k).startswith("_")}}
+    cur.execute(
+        """
+        update retrieval_v3.person_profiles
+           set negative_talent_class = %s::retrieval_v3.rv3_negative_talent_class,
+               negative_talent_severity = %s::retrieval_v3.rv3_negative_talent_severity,
+               negative_talent_confidence = %s,
+               negative_authority_consensus = %s::retrieval_v3.rv3_authority_consensus,
+               negative_fact_support = %s::retrieval_v3.rv3_evidence_strength,
+               negative_evidence_coverage = %s::retrieval_v3.rv3_evidence_coverage,
+               negative_talent_basis = %s,
+               negative_talent_version = %s,
+               profile_payload = profile_payload || %s::jsonb,
+               updated_at = now()
+         where object_id = %s
+        """,
+        (
+            negative_class or None, severity or None, confidence, authority_consensus,
+            fact_support, evidence_coverage, basis, NEGATIVE_TALENT_VERSION,
+            json_param(payload | {"negative_talent_version": NEGATIVE_TALENT_VERSION}), object_id,
+        ),
     )
     if cur.rowcount != 1:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: person profile not found for object_id {object_id}")
@@ -862,6 +1111,8 @@ def apply_patch_rows(*, dsn: str, rows: Sequence[Mapping[str, Any]], execute: bo
                     upsert_person_role(cur, row)
                 elif kind == PERSON_TALENT_KIND:
                     update_talent_grade(cur, row)
+                elif kind == PERSON_NEGATIVE_TALENT_KIND:
+                    update_negative_talent(cur, row)
                 elif kind == PERSON_PROFILE_BASIS_KIND:
                     update_profile_basis(cur, row)
                 else:
@@ -889,6 +1140,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--dsn-env", default=DEFAULT_DSN_ENV)
     worklist.add_argument("--item-code", default="I5B")
     worklist.add_argument("--kind", choices=TASK_KINDS, action="append", default=[])
+    worklist.add_argument("--object-id", type=int, action="append", default=[], help="Limit person workitems to explicit retrieval_v3 object IDs; repeatable.")
     worklist.add_argument("--batch-size", type=int)
     worklist.add_argument("--output-root", type=Path, required=True)
 
@@ -920,7 +1172,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "worklist":
         load_env_file(args.env_file)
         dsn = resolve_dsn(args.dsn_env)
-        workitems = build_workitems(dsn=dsn, item_code=args.item_code, kinds=args.kind or TASK_KINDS)
+        workitems = build_workitems(
+            dsn=dsn,
+            item_code=args.item_code,
+            kinds=args.kind or TASK_KINDS,
+            object_ids=args.object_id,
+        )
         runtime = agent_runtime_config.resolve_agent_stage("identity_judgment")
         summary = write_worklist_outputs(
             output_root=args.output_root,

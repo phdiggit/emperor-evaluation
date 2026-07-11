@@ -75,6 +75,53 @@ def test_profile_basis_item_only_requests_intro_patch() -> None:
     assert "style:子房" in item["context"]["known_names"]
 
 
+def test_talent_item_uses_authority_consensus_v2_contract() -> None:
+    item = tool.talent_item(
+        {
+            "object_id": 31,
+            "canonical_name": "马周",
+            "authority_evaluations": [{"source_titles": ["旧唐书"], "basis": "史臣称许其识度。"}],
+            "evidence_claims": [{"claim_summary": "上疏论刺史县令选任。"}],
+        }
+    )
+
+    assert item["context"]["rubric_version"] == "talent-grade-v2"
+    assert item["context"]["authority_evaluations"]
+    assert item["required_patch"]["talent_grade_confidence"] is None
+    assert item["required_patch"]["talent_authority_consensus"] == ""
+    assert item["required_patch"]["authority_sources"] == []
+    assert "材料不足" in tool.prompt_for_task(
+        task={"task_kind": tool.PERSON_TALENT_KIND},
+        workitems=[item],
+        patch_path=Path("tmp/talent.jsonl"),
+    )
+
+
+def test_negative_talent_item_keeps_type_and_severity_separate() -> None:
+    item = tool.negative_talent_item(
+        {
+            "object_id": 32,
+            "canonical_name": "某臣",
+            "authority_evaluations": [],
+            "evidence_claims": [],
+        }
+    )
+
+    assert item["context"]["rubric_version"] == "negative-talent-v1"
+    assert "power_abuser" in item["context"]["allowed_negative_talent_classes"]
+    assert item["required_patch"]["has_negative_talent_class"] is None
+    assert item["required_patch"]["negative_talent_severity"] == ""
+
+
+def test_v2_profile_value_validators_reject_invalid_values() -> None:
+    assert tool.require_confidence("0.75", "confidence") == 0.75
+    assert tool.require_choice("strong", tool.AUTHORITY_CONSENSUS_VALUES, "consensus") == "strong"
+    with pytest.raises(tool.JudgmentWorklistError, match="unsupported confidence"):
+        tool.require_confidence(1.1, "confidence")
+    with pytest.raises(tool.JudgmentWorklistError, match="unsupported consensus"):
+        tool.require_choice("unanimous", tool.AUTHORITY_CONSENSUS_VALUES, "consensus")
+
+
 def test_write_worklist_outputs_builds_codex_prompts(tmp_path: Path) -> None:
     workitems = [
         tool.target_period_item(
@@ -111,6 +158,8 @@ def test_write_worklist_outputs_builds_codex_prompts(tmp_path: Path) -> None:
     assert "--ask-for-approval" not in tasks[0]["argv"]
     assert "--dangerously-bypass-approvals-and-sandbox" in tasks[0]["argv"]
     assert tasks[0]["argv"][-1] == "-"
+    assert tasks[0]["expected_outputs"][0]["kind"] == "jsonl_patch"
+    assert tasks[0]["expected_outputs"][0]["begin"] == "PATCH_JSONL_BEGIN"
     prompt_text = (Path.cwd() / tasks[0]["prompt_path"]).read_text(encoding="utf-8")
     assert "唯一允许写入的是指定 JSONL patch 文件" in prompt_text
     basis_prompt = tool.prompt_for_task(

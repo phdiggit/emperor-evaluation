@@ -252,6 +252,10 @@ team_raw_net =
 
 `talent_quality_factor` 是人物级属性，只能由已接受且版本匹配的人物画像预填；材料 factorization 不得临场赋值或改档。`role_complementarity_factor` 与 `long_term_stability_factor` 是目标皇帝团队级属性，在对象池求和后各乘一次，不属于单条材料属性。
 
+人物画像采用两条正交轴。`talent_grade` 只表示全局能力和历史地位，按“史论共识基础档 + 具体事迹校准”确定；材料覆盖不足只降低 `talent_evidence_coverage` 与 `talent_grade_confidence`，不得直接把人物降为普通。`negative_talent_class` 只表示稳定的负面政治风险类型，并另记 `negative_talent_severity`、史论共识、事实支持、覆盖度和置信度；不得把忠奸、被诛被贬或政治结局混入能力档位。
+
+负面人物画像不直接复用 `talent_quality_factor` 的正面人才档位，也不因存在负面风险而抹去其能力等级。具体 rule 是否以及如何消费负面类型，必须另有规则级相关性和因子映射；同一负面画像不得在多个 rule 中无条件重复扣分。
+
 ### `talent_quality_factor`
 
 | 人才层级 | 因子 |
@@ -261,9 +265,6 @@ team_raw_net =
 | 重要人才 | `0.9` |
 | 可用人才 | `0.55` |
 | 普通人才 | `0.35` |
-| 佞臣 | `-0.6` |
-| 大佞臣 | `-1.1` |
-| 历史级佞臣 | `-1.7` |
 
 ### `role_complementarity_factor`
 
