@@ -37,6 +37,7 @@ DEFAULT_SCHEMA_PATHS = (
     ROOT / "db" / "migrations" / "20260709_retrieval_v3_claim_event_groups.sql",
     ROOT / "db" / "migrations" / "20260708_retrieval_v3_claim_extraction_jobs.sql",
     ROOT / "db" / "migrations" / "20260708_retrieval_v3_object_source_cache_jobs.sql",
+    ROOT / "db" / "migrations" / "20260711_retrieval_v3_talent_grade_v1.sql",
 )
 DEFAULT_SOURCE_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
 DEFAULT_TARGET_DSN_ENV = DEFAULT_V3_DSN_ENV

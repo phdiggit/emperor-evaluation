@@ -617,6 +617,49 @@ def test_team_building_template_prefills_talent_grade_factor() -> None:
     }
 
 
+def test_team_building_worklist_rejects_missing_talent_grade() -> None:
+    with pytest.raises(tool.FactorizationWorklistError, match="requires accepted person_profiles.talent_grade"):
+        tool.build_worklist_from_rows(
+            [material_row(rule_code="team_building", talent_grade=None)],
+            factor_rows(),
+            item_code="I5B",
+            rule_code="team_building",
+            formula_code="evidence_cluster_signal_v3",
+            scope="accepted-packs",
+            batch_size=40,
+        )
+
+
+def test_team_building_validation_rejects_talent_grade_override() -> None:
+    payload = tool.build_worklist_from_rows(
+        [material_row(rule_code="team_building", talent_grade="historic_talent")],
+        factor_rows(),
+        item_code="I5B",
+        rule_code="team_building",
+        formula_code="evidence_cluster_signal_v3",
+        scope="accepted-packs",
+        batch_size=40,
+    )
+    patch_rows = [
+        {
+            "binding_code": "BND-001",
+            "target_action": "score",
+            "side": "positive",
+            "factor_refs": {
+                "talent_quality_factor": {"label": "顶级人才。"},
+                "role_complementarity_factor": {"label": "常规互补。"},
+                "long_term_stability_factor": {"label": "稳定团队。"},
+            },
+            "patch_note": "故意覆盖人物画像中的历史级人才，用于验证画像预填不可被改写。",
+        }
+    ]
+
+    report = tool.validate_patch(payload["suggested_batches"][0], patch_rows)
+
+    assert report["ok"] is False
+    assert any(issue["status"] == "team_talent_grade_prefill_mismatch" for issue in report["issues"])
+
+
 def test_team_building_validation_requires_consistent_team_factors() -> None:
     payload = tool.build_worklist_from_rows(
         [

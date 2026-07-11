@@ -796,6 +796,13 @@ def build_worklist_from_rows(
     source_pack_codes: Sequence[str] = (),
     batch_size: int,
 ) -> dict[str, Any]:
+    if rule_code == "team_building":
+        missing = [text(row.get("binding_code")) for row in material_rows if not text(row.get("talent_grade"))]
+        if missing:
+            raise FactorizationWorklistError(
+                "team_building requires accepted person_profiles.talent_grade before factorization: "
+                + ", ".join(missing[:20])
+            )
     catalog = build_factor_option_catalog(factor_option_rows)
     factor_key_catalog = build_factor_key_catalog(factor_option_rows)
     materials = [material_item(row, catalog, factor_key_catalog) for row in material_rows]
@@ -1167,8 +1174,20 @@ def validate_patch(batch: Mapping[str, Any], patch_rows: Sequence[Mapping[str, A
             continue
         issues.extend(validate_patch_row(row, material))
         if text(material.get("rule_code")) == "team_building" and text(row.get("target_action")) == "score":
+            obj = material.get("object") if isinstance(material.get("object"), Mapping) else {}
+            expected_talent_label = text(obj.get("talent_quality_factor_label"))
+            factor_refs = row.get("factor_refs") if isinstance(row.get("factor_refs"), Mapping) else {}
+            actual_ref = factor_refs.get("talent_quality_factor")
+            actual_talent_label = text(actual_ref.get("label")) if isinstance(actual_ref, Mapping) else ""
+            if not expected_talent_label or actual_talent_label != expected_talent_label:
+                issues.append({
+                    "severity": "error",
+                    "status": "team_talent_grade_prefill_mismatch",
+                    "binding_code": binding_code,
+                    "expected_label": expected_talent_label,
+                    "actual_label": actual_talent_label,
+                })
             target_code = text(material.get("target_code"))
-            factor_refs = row.get("factor_refs")
             if isinstance(factor_refs, Mapping):
                 for factor_name in ("role_complementarity_factor", "long_term_stability_factor"):
                     ref = factor_refs.get(factor_name)

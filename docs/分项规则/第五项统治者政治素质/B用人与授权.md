@@ -226,16 +226,21 @@ raw_material_score =
 计分承载对象：该皇帝对象池中的全部具体人才对象；团队质量由对象池聚合，不由单条材料临场定级。不得因对象不是核心官职、核心将相或长期班底成员而在候选阶段排除；是否弱贡献、负贡献或仅作上下文，由对象属性、团队聚合排序和 `target_action` 决定。
 
 ```text
-object_score_i =
-  talent_quality_factor_i
+positive_pool =
+  sum(talent_quality_factor_i for each unique positive team person)
+
+negative_pool =
+  sum(abs(talent_quality_factor_i) for each unique negative team person)
+
+positive_signal =
+  positive_pool
   * role_complementarity_factor
   * long_term_stability_factor
 
-positive_signal =
-  sum(object_score_i for positive team objects)
-
 negative_signal =
-  sum(abs(object_score_i) for negative team objects)
+  negative_pool
+  * role_complementarity_factor
+  * long_term_stability_factor
 
 team_raw_net =
   positive_signal - negative_signal
@@ -244,6 +249,8 @@ team_raw_net =
 `team_raw_net` 直接作为本 rule 的原始净信号输出，不在 rule 层做响应函数、二次封顶或最终得分映射。
 
 `team_building` 以对象池中的人才对象为计分单元。每个对象在同一目标皇帝下只贡献一次团队信号；多条史料只用于支撑该对象画像、身份和人才层级，不因多条 claim 形成重复入分。若数据链意外产生同一对象多条 `score`，只保留最能代表该对象团队贡献的一条，其余不得叠分。
+
+`talent_quality_factor` 是人物级属性，只能由已接受且版本匹配的人物画像预填；材料 factorization 不得临场赋值或改档。`role_complementarity_factor` 与 `long_term_stability_factor` 是目标皇帝团队级属性，在对象池求和后各乘一次，不属于单条材料属性。
 
 ### `talent_quality_factor`
 

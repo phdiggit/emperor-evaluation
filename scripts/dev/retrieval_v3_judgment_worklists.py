@@ -30,11 +30,10 @@ TALENT_GRADES = {
     "historic_talent",
     "top_talent",
     "important_talent",
+    "usable_talent",
     "ordinary_talent",
-    "sycophant",
-    "major_sycophant",
-    "historic_sycophant",
 }
+TALENT_GRADE_VERSION = "talent-grade-v1"
 ROLE_KINDS = {
     "emperor",
     "heir",
@@ -180,7 +179,8 @@ def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
             pp.review_status::text as profile_status,
             array_remove(array_agg(distinct rt.emperor_name order by rt.emperor_name), null) as target_emperors,
             array_remove(array_agg(distinct pa.dynasty_label order by pa.dynasty_label), null) as known_dynasties,
-            array_remove(array_agg(distinct pr.role_kind::text order by pr.role_kind::text), null) as role_kinds
+            array_remove(array_agg(distinct pr.role_kind::text order by pr.role_kind::text), null) as role_kinds,
+            coalesce(ev.evidence_claims, '[]'::jsonb) as evidence_claims
           from retrieval_v3.objects o
           join retrieval_v3.person_profiles pp on pp.object_id = o.id
           join retrieval_v3.target_objects tob on tob.object_id = o.id
@@ -191,11 +191,33 @@ def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
           left join retrieval_v3.person_roles pr
             on pr.object_id = o.id
            and pr.review_status in ('pending', 'accepted')
+          left join lateral (
+              select jsonb_agg(jsonb_build_object(
+                         'claim_code', q.claim_code,
+                         'direction', q.direction,
+                         'claim_summary', q.claim_summary,
+                         'source_document_codes', q.source_document_codes
+                     ) order by q.claim_code) as evidence_claims
+                from (
+                    select mc.claim_code, mc.direction::text as direction, mc.claim_summary,
+                           coalesce(array_agg(distinct sd.document_code) filter (where sd.id is not null), array[]::text[]) as source_document_codes
+                      from retrieval_v3.material_object_links mol
+                      join retrieval_v3.material_claims mc on mc.id = mol.claim_id
+                      left join retrieval_v3.claim_source_passages csp on csp.claim_id = mc.id
+                      left join retrieval_v3.source_passages spg on spg.id = csp.source_passage_id
+                      left join retrieval_v3.source_documents sd on sd.id = spg.source_document_id
+                     where mol.object_id = o.id
+                       and mol.review_status = 'accepted'
+                     group by mc.id, mc.claim_code, mc.direction, mc.claim_summary
+                     order by mc.id
+                     limit 40
+                ) q
+          ) ev on true
          where o.object_type = 'person'
            and tob.object_role <> 'target_emperor'
            and (%s = '' or rt.item_code = %s)
            and pp.talent_grade is null
-         group by o.id, o.object_code, o.canonical_name, o.normalized_name, pp.id, pp.talent_grade_basis, pp.review_status
+         group by o.id, o.object_code, o.canonical_name, o.normalized_name, pp.id, pp.talent_grade_basis, pp.review_status, ev.evidence_claims
          order by o.canonical_name
         """,
         (item_code, item_code),
@@ -333,6 +355,15 @@ def talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
             "role_kinds": [text(value) for value in row.get("role_kinds") or [] if text(value)],
             "current_profile_basis": text(row.get("talent_grade_basis")),
             "allowed_talent_grades": sorted(TALENT_GRADES),
+            "rubric_version": TALENT_GRADE_VERSION,
+            "rubric": {
+                "ordinary_talent": "能胜任明确职责，有具体能力或业绩，但主要影响局部事务或一般职责。",
+                "usable_talent": "有稳定可用表现和明确成果，超过一般胜任，但尚未达到政权级重要贡献。",
+                "important_talent": "在主要领域有政权级重要贡献，或有多次显著、可独立归因的成果。",
+                "top_talent": "重大历史进程关键人物，在至少一个领域处于同时代第一梯队，并有跨场景重复成果。",
+                "historic_talent": "具有结构性、跨时代影响和稳定史论共识，属于极少数历史标杆。",
+            },
+            "evidence_claims": row.get("evidence_claims") if isinstance(row.get("evidence_claims"), list) else [],
         },
         "required_patch": {
             "task_kind": PERSON_TALENT_KIND,
@@ -398,7 +429,7 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
     schema_notes = {
         TARGET_PERIOD_KIND: "为每个目标皇帝填写 dynasty_label；必须是 allowed_dynasty_labels 之一。basis 只写具体判断，例如“司马炎为西晋开国皇帝”。",
         PERSON_ROLE_KIND: "为每个人物填写 role_kind；只能用 allowed_role_kinds。只有无法判定时才用 other，并在 basis 写明原因。",
-        PERSON_TALENT_KIND: "为每个人物填写 talent_grade；只能用 allowed_talent_grades。talent_grade_basis 必须以“姓名，”开头，并写高信息量中文评价依据。",
+        PERSON_TALENT_KIND: "按 rubric_version 与 evidence_claims 为每个人物填写全局能力 talent_grade；只能用 allowed_talent_grades。不得用官职、名气、忠诚或政治品格替代能力证据。talent_grade_basis 必须以“姓名，”开头，写明主要领域、独立成果、影响范围与限制。",
         PERSON_PROFILE_BASIS_KIND: "只补人物评价简介 talent_grade_basis，不修改 talent_grade。talent_grade_basis 必须以“姓名，”开头，写高信息量中文评价，不写模板句。",
     }
     return (
@@ -772,12 +803,13 @@ def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
         update retrieval_v3.person_profiles
            set talent_grade = %s::retrieval_v3.rv3_person_talent_grade,
                talent_grade_basis = %s,
+               talent_grade_version = %s,
                review_status = 'accepted',
                profile_payload = profile_payload || %s::jsonb,
                updated_at = now()
          where object_id = %s
         """,
-        (grade, basis, json_param(payload), object_id),
+        (grade, basis, TALENT_GRADE_VERSION, json_param(payload | {"talent_grade_version": TALENT_GRADE_VERSION}), object_id),
     )
     if cur.rowcount != 1:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: person profile not found for object_id {object_id}")

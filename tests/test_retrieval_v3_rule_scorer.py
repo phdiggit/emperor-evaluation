@@ -224,7 +224,8 @@ def test_compute_team_building_cluster_uses_team_quality_formula() -> None:
 
     assert cluster["positive_signal"] == Decimal("5.753")
     assert cluster["negative_signal"] == Decimal("0.000")
-    assert [item["object_contribution"] for item in cluster["calc_detail"]["team_object_components"]] == ["2.645", "1.785", "1.323"]
+    assert [item["object_contribution"] for item in cluster["calc_detail"]["team_object_components"]] == ["2.000", "1.350", "1.000"]
+    assert cluster["calc_detail"]["team_pool_values"] == {"positive": "4.350", "negative": "0.000"}
 
 
 def test_compute_team_building_cluster_dedupes_same_object_once() -> None:

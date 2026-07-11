@@ -620,7 +620,7 @@ def compute_team_building_cluster(judgments: Sequence[JudgmentInput]) -> dict[st
     object_side_scores: dict[str, dict[str, Decimal]] = {"positive": {}, "negative": {}}
     for item in team_objects:
         judgment = item["judgment"]
-        contribution = quant(item["talent_quality_factor"] * role_value * stability_value)
+        contribution = quant(item["talent_quality_factor"])
         side = "negative" if contribution < 0 else "positive"
         object_side_scores[side][item["object_key"]] = quant(abs(contribution))
         factor_values = {
@@ -652,12 +652,15 @@ def compute_team_building_cluster(judgments: Sequence[JudgmentInput]) -> dict[st
             }
         )
 
-    positive_signal = side_signal(list(object_side_scores["positive"].values()))
-    negative_signal = side_signal(list(object_side_scores["negative"].values()))
+    positive_pool = side_signal(list(object_side_scores["positive"].values()))
+    negative_pool = side_signal(list(object_side_scores["negative"].values()))
+    positive_signal = quant(positive_pool * role_value * stability_value)
+    negative_signal = quant(negative_pool * role_value * stability_value)
     calc_detail = {
         "item_code": judgments[0].item_code,
         "formula_code": judgments[0].formula_code,
-        "team_formula": "sum(positive object_contribution) and sum(abs(negative object_contribution)); object_contribution = talent_quality_factor * role_complementarity_factor * long_term_stability_factor",
+        "team_formula": "positive_signal = sum(unique positive talent_quality_factor) * role_complementarity_factor * long_term_stability_factor; negative_signal = sum(abs(unique negative talent_quality_factor)) * role_complementarity_factor * long_term_stability_factor",
+        "team_pool_values": {"positive": str(positive_pool), "negative": str(negative_pool)},
         "team_object_components": team_object_components,
         "duplicate_team_objects": duplicate_team_objects,
         "team_factor_values": {
