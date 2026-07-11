@@ -136,6 +136,27 @@ def test_negative_talent_item_keeps_type_and_severity_separate() -> None:
     assert item["required_patch"]["negative_talent_severity"] == ""
 
 
+def test_negative_talent_worklist_covers_every_active_profile() -> None:
+    class Cursor:
+        def __init__(self) -> None:
+            self.sql = ""
+            self.params = ()
+
+        def execute(self, sql: str, params: tuple[str, ...]) -> None:
+            self.sql = sql
+            self.params = params
+
+        def fetchall(self) -> list[dict]:
+            return []
+
+    cur = Cursor()
+    assert tool.fetch_pending_negative_talent(cur, item_code="I5B") == []
+    assert "o.identity_status = 'active'" in cur.sql
+    assert "join retrieval_v3.target_objects" not in cur.sql
+    assert "pp.talent_grade is not null" not in cur.sql
+    assert cur.params == (tool.NEGATIVE_TALENT_VERSION,)
+
+
 def test_v2_profile_value_validators_reject_invalid_values() -> None:
     assert tool.require_confidence("0.75", "confidence") == 0.75
     assert tool.require_choice("strong", tool.AUTHORITY_CONSENSUS_VALUES, "consensus") == "strong"

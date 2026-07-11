@@ -347,8 +347,6 @@ def fetch_pending_negative_talent(cur: Any, *, item_code: str) -> list[dict[str,
             coalesce(ev.evidence_claims, '[]'::jsonb) as evidence_claims
           from retrieval_v3.objects o
           join retrieval_v3.person_profiles pp on pp.object_id = o.id
-          join retrieval_v3.target_objects tob on tob.object_id = o.id and tob.object_role <> 'target_emperor'
-          join retrieval_v3.retrieval_targets rt on rt.id = tob.target_id
           left join lateral (
               select jsonb_agg(jsonb_build_object(
                          'claim_key', ppl.claim_key,
@@ -385,12 +383,11 @@ def fetch_pending_negative_talent(cur: Any, *, item_code: str) -> list[dict[str,
                 ) q
           ) ev on true
          where o.object_type = 'person'
-           and (%s = '' or rt.item_code = %s)
-           and pp.talent_grade is not null
+           and o.identity_status = 'active'
            and pp.negative_talent_version <> %s
-         order by o.id, rt.id
+         order by o.id
         """,
-        (item_code, item_code, NEGATIVE_TALENT_VERSION),
+        (NEGATIVE_TALENT_VERSION,),
     )
     return [dict(row) for row in cur.fetchall()]
 
