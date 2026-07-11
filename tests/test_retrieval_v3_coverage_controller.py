@@ -296,3 +296,52 @@ def test_controller_is_read_only_and_does_not_connect_legacy_contract_tables() -
     assert "target_rule_requirements" not in source
     assert "retrieval_intents" not in source
     assert "insert into" not in source.lower()
+
+
+def test_repair_verification_overrides_mechanical_event_status_and_preserves_history() -> None:
+    reports = [
+        {
+            "gate_mode": "initial_actionability",
+            "results": [{"event_inventory_code": "EEI-EAST-TURK", "decision": "reextract_cached_source"}],
+        },
+        {
+            "gate_mode": "repair_verification",
+            "results": [{"event_inventory_code": "EEI-EAST-TURK", "decision": "rebuild_event_group"}],
+        },
+    ]
+    result = tool.build_report(
+        claim_rows=[claim(action="任命行军总管", domain="出征东突厥", outcome="推进至阴山")],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+        expected_events=[expected_event()],
+        reconciliation_reports=reports,
+    )
+
+    event = result["objects"][0]["expected_event_assessments"][0]
+    assert event["mechanical_coverage_status"] == "partial"
+    assert event["coverage_status"] == "covered"
+    assert event["reconciliation_attempt_count"] == 2
+    assert event["reconciliation_previous_decisions"] == ["reextract_cached_source"]
+    assert result["verified_expected_event_count"] == 1
+
+
+def test_gap_router_is_report_only_and_stable() -> None:
+    result = tool.build_report(
+        claim_rows=[claim()],
+        downstream_rows=[],
+        target_rows=[target()],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+    )
+
+    first = tool.build_gap_router(result)
+    second = tool.build_gap_router(result)
+    assert first == second
+    assert first[0]["idempotency_key"].startswith("CGR-")
+    assert all(row["write_job"] is False and row["write_db"] is False for row in first)

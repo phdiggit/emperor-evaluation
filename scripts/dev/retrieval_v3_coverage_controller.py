@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter, defaultdict
@@ -25,6 +26,14 @@ APPOINTMENT_TERMS = ("任命", "任用", "委任", "授", "拜", "擢", "命", "
 RESPONSIBILITY_TERMS = ("负责", "主持", "掌", "典", "总", "统", "领", "修订", "征", "讨", "守", "治", "辅政")
 RESULT_TERMS = ("成功", "平定", "攻克", "灭", "破", "败", "失守", "治理", "完成", "奏效", "有功", "获罪", "伏诛", "害民")
 EMPTY_OUTCOME_SUPPORT = {"", "none", "unknown", "unclear", "not_applicable", "context_only"}
+VERIFIED_RECONCILIATION_DECISIONS = {"already_covered", "rebuild_event_group"}
+RECONCILIATION_ROUTES = dict(
+    already_covered=("none", True, False), rebuild_event_group=("rebuild_event_groups", False, False),
+    reextract_cached_source=("claim_extraction", False, True), fetch_missing_source=("source_refinement", False, True),
+    identity_mismatch=("identity_review", False, False),
+    inventory_needs_review=("expected_event_inventory_review", False, False),
+    insufficient_for_scoring=("expected_event_inventory_review", False, False),
+)
 
 
 def text(value: Any) -> str:
@@ -72,6 +81,29 @@ def list_texts(value: Any) -> list[str]:
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return []
     return [text(item) for item in value if text(item)]
+
+
+def stable_key(prefix: str, *parts: Any) -> str:
+    payload = "\x1f".join(text(part) for part in parts)
+    return f"{prefix}-{hashlib.sha256(payload.encode('utf-8')).hexdigest()[:20].upper()}"
+def reconciliation_index(reports: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
+    history: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for report_index, report in enumerate(reports, start=1):
+        gate_mode = text(report.get("gate_mode")) or "initial_actionability"
+        for result in report.get("results") or []:
+            if not isinstance(result, Mapping):
+                continue
+            code = text(result.get("event_inventory_code"))
+            if not code:
+                continue
+            history[code].append({
+                "attempt": len(history[code]) + 1, "report_index": report_index, "gate_mode": gate_mode,
+                "decision": text(result.get("decision")), "confidence": text(result.get("confidence")),
+                "review_note": text(result.get("review_note")),
+                "group_keys": list_texts(result.get("group_keys")), "claim_keys": list_texts(result.get("claim_keys")),
+                "source_slice_refs": list_texts(result.get("source_slice_refs")),
+            })
+    return {code: {"current": rows[-1], "history": rows} for code, rows in history.items()}
 
 
 def identity_key(row: Mapping[str, Any]) -> str:
@@ -431,6 +463,7 @@ def apply_expected_event_inventory(
     objects: Sequence[Mapping[str, Any]],
     claim_rows: Sequence[Mapping[str, Any]],
     expected_events: Sequence[Mapping[str, Any]],
+    reconciliation: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     groups = claim_group_index(claim_rows)
     event_records = [row for row in expected_events if text(row.get("record_type")) != "object_assessment"]
@@ -441,6 +474,28 @@ def apply_expected_event_inventory(
         events = [event for event in event_records if event_matches_object(event, row)]
         object_assessments = [record for record in assessment_records if event_matches_object(record, row)]
         assessments = [assess_expected_event(event, groups) for event in events]
+        for assessment in assessments:
+            reconciled = (reconciliation or {}).get(text(assessment.get("event_inventory_code")))
+            if not reconciled:
+                assessment["repair_state"] = "not_reconciled"
+                continue
+            current = dict(reconciled.get("current") or {})
+            history = list(reconciled.get("history") or [])
+            decision = text(current.get("decision"))
+            verified = text(current.get("gate_mode")) == "repair_verification" and decision in VERIFIED_RECONCILIATION_DECISIONS
+            next_action, terminal, retryable = RECONCILIATION_ROUTES.get(decision, ("reconciliation_review", False, False))
+            assessment.update({
+                "mechanical_coverage_status": assessment["coverage_status"],
+                "coverage_status": "covered" if verified else assessment["coverage_status"],
+                "reconciliation_decision": decision,
+                "reconciliation_gate_mode": text(current.get("gate_mode")),
+                "reconciliation_attempt_count": len(history),
+                "reconciliation_previous_decisions": [text(item.get("decision")) for item in history[:-1]],
+                "repair_state": "verified_covered" if verified else "pending_repair",
+                "repair_terminal": terminal,
+                "repair_retryable": retryable,
+                "repair_next_action": next_action,
+            })
         inventory_verdicts = list_texts([record.get("inventory_verdict") for record in object_assessments])
         if events:
             historical_status = "assessed"
@@ -507,11 +562,14 @@ def build_report(
     rule_code: str,
     emperors: Sequence[str],
     expected_events: Sequence[Mapping[str, Any]] = (),
+    reconciliation_reports: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
+    reconciliations = reconciliation_index(reconciliation_reports)
     objects = apply_expected_event_inventory(
         [assess_object(row) for row in merge_rows(claim_rows, downstream_rows, target_rows, source_rows)],
         claim_rows,
         expected_events,
+        reconciliations,
     )
     action_counts: Counter[str] = Counter()
     gap_counts: Counter[str] = Counter()
@@ -546,6 +604,12 @@ def build_report(
         "inventory_object_assessment_count": sum(
             text(row.get("record_type")) == "object_assessment" for row in expected_events
         ),
+        "reconciliation_report_count": len(reconciliation_reports),
+        "reconciled_expected_event_count": len(reconciliations),
+        "verified_expected_event_count": sum(
+            text(item.get("current", {}).get("gate_mode")) == "repair_verification" and
+            text(item.get("current", {}).get("decision")) in VERIFIED_RECONCILIATION_DECISIONS
+            for item in reconciliations.values()),
         "counts": {
             "objects": len(objects),
             "complete": sum(row["coverage_status"] == "complete" for row in objects),
@@ -734,6 +798,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "> `complete` 只表示已观察到的缓存史源和 native 管线机械闭合；未提供预期史源/事件清单时，不代表历史事件覆盖完整。",
         "",
         f"- expected events: `{report.get('expected_event_count', 0)}`; historical coverage: `{report.get('historical_event_coverage_status')}`",
+        f"- reconciled events: `{report.get('reconciled_expected_event_count', 0)}`; verified events: `{report.get('verified_expected_event_count', 0)}`",
         "",
         "## 修复队列",
         "",
@@ -791,27 +856,19 @@ def build_source_refinement_worklist(report: Mapping[str, Any]) -> list[dict[str
                 ("secondary", "missing"): 30,
                 ("secondary", "partial"): 40,
             }.get((importance, coverage_status), 50)
-            worklist.append(
-                {
-                    "repair_code": "EER-" + text(event.get("event_inventory_code")).removeprefix("EEI-"),
-                    "emperor_name": text(row.get("emperor_name")),
-                    "object_id": row.get("object_id"),
-                    "object_name": text(row.get("object_name")),
-                    "event_inventory_code": text(event.get("event_inventory_code")),
-                    "event_label": text(event.get("event_label")),
-                    "importance": importance,
-                    "direction": text(event.get("direction")),
-                    "coverage_status": coverage_status,
-                    "priority": priority,
-                    "matched_group_key": text(event.get("matched_group_key")),
-                    "missing_facets": [name for name, present in facets.items() if not present],
-                    "source_document_hints": event.get("source_leads") or [],
-                    "next_stage": "object_source_cache_then_claim_extraction",
-                    "evidence_status": "retrieval_lead_only",
-                    "write_db": False,
-                    "scoring_allowed": False,
-                }
-            )
+            worklist.append({
+                "repair_code": "EER-" + text(event.get("event_inventory_code")).removeprefix("EEI-"),
+                "emperor_name": text(row.get("emperor_name")), "object_id": row.get("object_id"),
+                "object_name": text(row.get("object_name")),
+                "event_inventory_code": text(event.get("event_inventory_code")),
+                "event_label": text(event.get("event_label")), "importance": importance,
+                "direction": text(event.get("direction")), "coverage_status": coverage_status, "priority": priority,
+                "matched_group_key": text(event.get("matched_group_key")),
+                "missing_facets": [name for name, present in facets.items() if not present],
+                "source_document_hints": event.get("source_leads") or [],
+                "next_stage": "object_source_cache_then_claim_extraction", "evidence_status": "retrieval_lead_only",
+                "write_db": False, "scoring_allowed": False,
+            })
     return sorted(
         worklist,
         key=lambda row: (
@@ -821,8 +878,40 @@ def build_source_refinement_worklist(report: Mapping[str, Any]) -> list[dict[str
             text(row.get("event_inventory_code")),
         ),
     )
-
-
+def build_gap_router(report: Mapping[str, Any]) -> list[dict[str, Any]]:
+    routes: list[dict[str, Any]] = []
+    for row in report.get("objects") or []:
+        for item in row.get("gaps") or []:
+            action = text(item.get("next_action")) or "manual_review"
+            routes.append({
+                "idempotency_key": stable_key("CGR", report.get("item_code"), report.get("rule_code"),
+                                              row.get("emperor_name"), identity_key(row), item.get("gap_type"), action),
+                "emperor_name": text(row.get("emperor_name")), "object_id": row.get("object_id"),
+                "object_name": text(row.get("object_name")), "gap_type": text(item.get("gap_type")),
+                "attempt_count": 0, "previous_decision": "", "terminal": False, "retryable": True,
+                "next_action": action, "write_job": False, "write_db": False,
+            })
+        for event in row.get("expected_event_assessments") or []:
+            if not text(event.get("reconciliation_decision")):
+                continue
+            action = text(event.get("repair_next_action"))
+            if action == "none":
+                continue
+            routes.append({
+                "idempotency_key": stable_key("CGR", report.get("item_code"), report.get("rule_code"),
+                                              event.get("event_inventory_code"), action),
+                "emperor_name": text(row.get("emperor_name")), "object_id": row.get("object_id"),
+                "object_name": text(row.get("object_name")),
+                "event_inventory_code": text(event.get("event_inventory_code")),
+                "gap_type": "historical_event_reconciliation",
+                "attempt_count": as_int(event.get("reconciliation_attempt_count")),
+                "previous_decision": (list_texts(event.get("reconciliation_previous_decisions")) or [""])[-1],
+                "current_decision": text(event.get("reconciliation_decision")),
+                "terminal": bool(event.get("repair_terminal")), "retryable": bool(event.get("repair_retryable")),
+                "next_action": action, "write_job": False, "write_db": False,
+            })
+    return sorted(routes, key=lambda row: (text(row.get("emperor_name")), text(row.get("object_name")),
+                                           text(row.get("idempotency_key"))))
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Read-only retrieval_v3 source-to-score coverage controller.")
     parser.add_argument("--env-file", type=Path)
@@ -834,11 +923,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-json", type=Path)
     parser.add_argument("--output-md", type=Path)
     parser.add_argument("--expected-events-jsonl", type=Path)
+    parser.add_argument("--reconciliation-report", type=Path, action="append", default=[])
     parser.add_argument("--output-repair-worklist", type=Path)
+    parser.add_argument("--output-gap-router", type=Path)
     parser.add_argument("--repair-limit", type=int, default=0)
     return parser
-
-
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.env_file is not None:
@@ -859,6 +948,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             if not isinstance(value, Mapping):
                 raise ValueError(f"{args.expected_events_jsonl}:{line_no}: expected object")
             expected_events.append(dict(value))
+    reconciliation_reports: list[dict[str, Any]] = []
+    for report_path in args.reconciliation_report:
+        value = json.loads(report_path.read_text(encoding="utf-8"))
+        if not isinstance(value, Mapping):
+            raise ValueError(f"{report_path}: expected object")
+        reconciliation_reports.append(dict(value))
     report = build_report(
         claim_rows=claim_rows,
         downstream_rows=downstream_rows,
@@ -869,6 +964,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         rule_code=args.rule_code,
         emperors=args.emperor,
         expected_events=expected_events,
+        reconciliation_reports=reconciliation_reports,
     )
     payload = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n"
     if args.output_json is not None:
@@ -892,6 +988,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             encoding="utf-8",
             newline="\n",
         )
+    if args.output_gap_router is not None:
+        args.output_gap_router.parent.mkdir(parents=True, exist_ok=True)
+        rows = build_gap_router(report)
+        payload = "".join(json.dumps(row, ensure_ascii=False, sort_keys=True, default=str) + "\n" for row in rows)
+        args.output_gap_router.write_text(payload, encoding="utf-8", newline="\n")
     return 0
 
 
