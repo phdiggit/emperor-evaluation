@@ -46,7 +46,7 @@ claim 抽取服务只负责原子事实入库和 claim 侧预计算，不负责�
 | `v3_unseeded_actor_review` | 复核史源驱动发现的未种子人物是否值得补抓 | `retrieval_v3_unseeded_actor_review_tasks.py` | task `batch_size`，run-plan `max_workers` |
 | `v3_negative_chain_review` | 复核负向任用链是否同时具备任用、职责和实际损害 | `retrieval_v3_unseeded_actor_negative_chain_tasks.py` | task `batch_size`，run-plan `max_workers` |
 
-负向对象发现范围同时覆盖臣僚与皇子、亲王、藩王等宗室人物；宗室只增加 `actor_scope=royal_clan`、封号别名和宗室史源提示，仍复用同一 object source cache、claim extraction、candidate、binding 与 factorization 链，不建立旁路。显式 `source_document_hints` 可指向公开 OCR 页面；此类来源必须保留原页 URL，并以 `ocr_requires_image_review=true` 标记，OCR 未对照原图前只能触发补抓和 claim 复核。识典古籍页面正文从页面 `window._ROUTER_DATA` 的 `paragraphList` 提取，不能用普通 HTML 去标签结果冒充正文；若提取不到段落，必须保持零切片。当前《御制纪非录》只作为朱元璋宗室候选的优先提示，不扩散为所有明代人物的通用来源。
+负向对象发现范围同时覆盖臣僚与皇子、亲王、藩王等宗室人物；宗室只增加 `actor_scope=royal_clan`、封号别名和宗室史源提示，仍复用同一 object source cache、claim extraction、candidate、binding 与 factorization 链，不建立旁路。显式 `source_document_hints` 可指向公开 OCR 页面；此类来源必须保留原页 URL，并以 `ocr_requires_image_review=true` 标记，OCR 未对照原图前只能触发补抓和 claim 复核。识典古籍页面正文从页面 `window._ROUTER_DATA` 的 `paragraphList` 提取，不能用普通 HTML 去标签结果冒充正文；若提取不到段落，必须保持零切片。来源提示显式提供 `ocr_aliases` 时，该来源内必须用其覆盖普通人物别名，避免正确别名在其他章节的偶然提及抢先生成错位切片。当前《御制纪非录》只作为朱元璋宗室候选的优先提示，不扩散为所有明代人物的通用来源。
 
 对象源抓取、别名精确匹配、claim cache 命中、event group 重建、candidate 提升、binding、落库、scorer 和报告渲染均为确定性环节，不应因为有 `agent_review` 字段就自动启动模型。负向链也不是独立 claim 系统：它复用对象源缓存和 claim extraction，只在 candidate review 处增加有限负向事实链判断；未补齐 claim 的对象必须保持 `claim_refinement_required`，不能直接 binding 或入分。
 
