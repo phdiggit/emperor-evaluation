@@ -51,3 +51,9 @@ def test_execute_task_enables_web_search(monkeypatch, tmp_path: Path) -> None:
     )
     assert "--search" in seen["argv"]
     assert result["patch_exists"] is True
+
+
+def test_main_uses_injected_environment_without_env_file(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(worker, "resolve_dsn", lambda _name: "postgresql://injected")
+    monkeypatch.setattr(worker, "run_once", lambda **_kwargs: {"status": "idle"})
+    assert worker.main(["--output-root", str(tmp_path)]) == 0

@@ -162,7 +162,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    load_env_file(args.env_file)
+    if args.env_file is not None:
+        load_env_file(args.env_file)
     payload = run_once(
         dsn=resolve_dsn(args.dsn_env),worker_id=args.worker_id,output_root=args.output_root,
         timeout_seconds=max(1,args.timeout_seconds),
