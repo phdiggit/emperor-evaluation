@@ -55,6 +55,69 @@ def syncs_candidate_identity_gate(decision: str) -> bool:
     return decision in {"identity_ready_for_accept", "identity_ready"}
 
 
+def target_object_attachment_candidates(
+    groups: Mapping[int, Sequence[Mapping[str, Any]]],
+) -> list[dict[str, Any]]:
+    candidates: dict[tuple[int, int], dict[str, Any]] = {}
+    for rows in groups.values():
+        decision, ids = classify_group(rows)
+        if decision != "target_object_missing":
+            continue
+        row = dict(rows[0])
+        object_id = int(ids.get("object_id") or row.get("object_id") or 0)
+        target_id = int(row.get("target_id") or 0)
+        if object_id and target_id:
+            candidates.setdefault((target_id, object_id), row)
+    return list(candidates.values())
+
+
+def attach_existing_target_object(cur: Any, row: Mapping[str, Any]) -> int:
+    object_id = int(row["object_id"])
+    object_identity_key = text(row.get("object_identity_key"))
+    if not object_identity_key:
+        raise IdentityGateConsumerError(f"object {object_id}: missing object_identity_key")
+    payload = {
+        "source": "retrieval_v3_identity_gate_consumer",
+        "identity_gate": {"status": "accepted", "decision": "unique_existing_object"},
+    }
+    cur.execute(
+        """
+        insert into retrieval_v3.target_objects (
+            target_object_code, target_id, object_id, source_pack_id, first_claim_id,
+            scope_code, object_role, review_status, target_object_payload
+        )
+        values (%s, %s, %s, %s, %s, 'item', '', 'accepted', %s::jsonb)
+        on conflict on constraint rv3_target_objects_scope_uk do update set
+            source_pack_id = coalesce(retrieval_v3.target_objects.source_pack_id, excluded.source_pack_id),
+            first_claim_id = coalesce(retrieval_v3.target_objects.first_claim_id, excluded.first_claim_id),
+            review_status = case
+                when retrieval_v3.target_objects.review_status in ('rejected', 'retired')
+                    then retrieval_v3.target_objects.review_status
+                else 'accepted'::retrieval_v3.rv3_review_status
+            end,
+            target_object_payload = retrieval_v3.target_objects.target_object_payload || excluded.target_object_payload,
+            updated_at = now()
+        returning id
+        """,
+        (
+            object_consumer.target_object_code(
+                target_code=text(row.get("target_code")),
+                object_id_key=object_identity_key,
+                scope_code="item",
+            ),
+            int(row["target_id"]),
+            object_id,
+            int(row["source_pack_id"]),
+            int(row["claim_id"]),
+            json_param(payload),
+        ),
+    )
+    result = cur.fetchone()
+    if not result:
+        raise IdentityGateConsumerError(f"object {object_id}: target_object insert returned no row")
+    return int(result["id"])
+
+
 def fetch_groups(
     cur: Any,
     *,
@@ -68,7 +131,7 @@ def fetch_groups(
                c.claim_id, mc.object_name, mc.object_type::text as object_type,
                sp.id as source_pack_id,
                rt.id as target_id, rt.target_code,
-               o.id as object_id, o.canonical_name, o.identity_status::text as identity_status,
+               o.id as object_id, o.object_identity_key, o.canonical_name, o.identity_status::text as identity_status,
                tob.id as target_object_id, tob.review_status::text as target_object_status
           from retrieval_v3.claim_rule_binding_candidates c
           join retrieval_v3.material_claims mc on mc.id = c.claim_id
@@ -108,12 +171,14 @@ def run_consumer(
     source_pack_codes: Sequence[str] = (),
     profile: str = PROFILE,
     create_missing_person_objects: bool = False,
+    attach_missing_target_objects: bool = False,
 ) -> dict[str, Any]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
+            attachment_rows = target_object_attachment_candidates(groups)
             created_objects = 0
             created_names = 0
             created_target_objects = 0
@@ -151,6 +216,13 @@ def run_consumer(
                     created_names += 1
                     created_target_objects += 1
                 if missing_rows:
+                    groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
+                    attachment_rows = target_object_attachment_candidates(groups)
+            if execute and attach_missing_target_objects:
+                for row in attachment_rows:
+                    attach_existing_target_object(cur, row)
+                    created_target_objects += 1
+                if attachment_rows:
                     groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
             decisions: Counter[str] = Counter()
             eligible: list[dict[str, Any]] = []
@@ -236,6 +308,17 @@ def run_consumer(
         "source_pack_codes": [text(code) for code in source_pack_codes if text(code)],
         "profile": profile,
         "create_missing_person_objects": create_missing_person_objects,
+        "attach_missing_target_objects": attach_missing_target_objects,
+        "attachable_target_object_count": len(attachment_rows),
+        "attachable_target_objects": [
+            {
+                "target_id": int(row["target_id"]),
+                "target_code": text(row.get("target_code")),
+                "object_id": int(row["object_id"]),
+                "object_name": text(row.get("object_name")),
+            }
+            for row in attachment_rows
+        ],
         "objects_created": created_objects,
         "object_names_created": created_names,
         "target_objects_created": created_target_objects,
@@ -251,6 +334,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--source-pack-code", action="append", default=[])
     parser.add_argument("--profile", default=PROFILE)
     parser.add_argument("--create-missing-person-objects", action="store_true")
+    parser.add_argument(
+        "--attach-missing-target-objects",
+        action="store_true",
+        help="Attach a unique active existing object to the current target when target_object is missing.",
+    )
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
@@ -262,6 +350,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         source_pack_codes=args.source_pack_code,
         profile=args.profile,
         create_missing_person_objects=args.create_missing_person_objects,
+        attach_missing_target_objects=args.attach_missing_target_objects,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

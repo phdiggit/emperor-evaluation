@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from decimal import Decimal
+
 from scripts.dev import retrieval_v3_i5b_item_raw_score as tool
 
 
@@ -23,3 +25,28 @@ def test_tool_is_read_only_and_does_not_write_final_results() -> None:
     assert "insert into" not in source
     assert "update emp_item_results" not in source
     assert "final_score_generated\": false" in source
+    assert "public." not in source
+
+
+def test_fetch_v3_rule_signals_uses_v3_clusters_only() -> None:
+    class Cursor:
+        sql = ""
+
+        def execute(self, sql, _params):
+            self.sql = sql
+
+        @staticmethod
+        def fetchall():
+            return [("appointment_delegation", 7, Decimal("2.500"), Decimal("0.500"))]
+
+    cur = Cursor()
+    signals = tool.fetch_v3_rule_signals(
+        cur,
+        emperor="测试帝",
+        item_code="I5B",
+        cluster_formula="evidence_cluster_signal_v3",
+    )
+
+    assert "retrieval_v3.target_rule_score_clusters" in cur.sql
+    assert signals["appointment_delegation"].positive_signal == Decimal("2.500")
+    assert signals["appointment_delegation"].negative_signal == Decimal("0.500")
