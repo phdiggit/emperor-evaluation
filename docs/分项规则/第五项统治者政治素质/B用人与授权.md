@@ -76,6 +76,8 @@ material_score = clamp(raw_material_score, -4.0, +4.0)
 
 除 `team_building` 外，同一 `claim_id + object_id + side` 下拆出的多个 role binding，默认只保留一条最能代表本 rule 的 `score` 材料；其余材料若有上下文价值，记为 `supporting_only`。
 
+这里排除的是同一 claim 被技术性拆成多个 role binding 造成的重复绑定，不是删除已经独立成立的入分材料。凡已通过门禁并形成正式 material score 的材料，都必须进入后续聚合；不得用 Top-K、只取最强材料或材料数量硬上限裁掉。
+
 ## 二、证据修正因子
 
 三项证据修正因子适用于除 `team_building` 聚合内置对象排序外的材料公式：
@@ -186,6 +188,35 @@ raw_material_score =
 `appointment_effect` 可以为负；对象明显不适任、佞幸化、破坏公共任用秩序，或授权安排直接造成军政治理损害时，任用授权重要性会放大负向分。
 
 撤权、诛废、猜忌、清洗、功臣不保等处置性材料，本身不作为本规则的结果反馈；只有材料证明其是某次任用授权安排的直接履职后果时，才计入 `appointment_effect`。
+
+### 入分材料密度聚合
+
+`appointment_delegation` 使用 `policy_version=v3-native-density-decay-20260711` 的三层连续递减聚合。每条正式入分材料都参与计算，且聚合权重严格大于零；同事件、同对象或同方向对象越密集，新增材料的边际贡献越小，但不会被删除或归零。
+
+对正负两侧分别执行：
+
+```text
+material_weight(rank) = 1 / rank
+event_weight(rank) = 1 / rank
+object_weight(rank) = 1 / sqrt(rank)
+
+event_value = sum(material_score_i * material_weight(rank_i))
+object_value = sum(event_value_j * event_weight(rank_j))
+side_signal_unscaled = sum(object_value_k * object_weight(rank_k))
+
+positive_signal = 1.5 * positive_signal_unscaled
+negative_signal = 1.0 * negative_signal_unscaled
+```
+
+排序均在本层按绝对材料贡献从强到弱进行，并用稳定 claim、event group、object 标识打破并列。材料先按 `canonical_event_group` 聚合；缺少 event group 的正式入分材料以自身 claim key 作为独立事件键，不得丢弃。
+
+边界：
+
+- 每条正式入分材料都在 `rank_decay_detail` 中记录 `claim_key`、`binding_code`、`factor_judgment_id`、rank、weight 和 weighted value。
+- 不使用 Top-K，不设置事件数、对象数或材料数硬上限，不在聚合层截断总信号。
+- 单条材料仍遵守本文件既有 `[-4.0, +4.0]` 材料尺度；这是材料因子结果边界，不是材料数量上限。
+- 正向 `1.5`、负向 `1.0` 是刘邦、李世民、朱元璋三人试点的临时尺度参数。扩展其他皇帝前必须对全体样本重新做敏感性分析，不得把三人缩放当作永久全局标尺。
+- raw claim 数量只进入覆盖和诊断报告，不作为额外加分因子。
 
 ### `appointment_importance`
 

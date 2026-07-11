@@ -57,6 +57,32 @@ def test_compute_target_cluster_applies_same_object_decay() -> None:
     assert cluster["calc_detail"]["object_side_scores"]["positive"]["100"]["score"] == "2.350"
 
 
+def test_appointment_policy_uses_all_material_rank_decay_without_aggregation_cap() -> None:
+    cluster = tool.compute_target_cluster(
+        [judgment(1, value="2.0", claim_id=2001), judgment(2, value="1.0", claim_id=2002)],
+        material_policy={
+            "policy_code": "POL-I5B-APPOINTMENT",
+            "policy_version": "v3-native-density-decay-20260711",
+            "carrier_mode": "claim_materials",
+            "policy_payload": {"side_aggregation": {
+                "mode": "hierarchical_rank_decay",
+                "material_decay": "1",
+                "event_decay": "1",
+                "object_decay": "0.5",
+                "positive_lane_scale": "1.5",
+                "negative_lane_scale": "1.0",
+            }},
+        },
+    )
+
+    assert cluster["positive_signal"] == Decimal("3.750")
+    assert cluster["action_counts"]["score"] == 2
+    assert cluster["calc_detail"]["aggregation_policy"]["all_scored_materials_contribute"] is True
+    assert cluster["calc_detail"]["aggregation_policy"]["hard_aggregation_cap"] is False
+    assert cluster["calc_detail"]["aggregation_policy"]["policy_version"] == "v3-native-density-decay-20260711"
+    assert cluster["calc_detail"]["rank_decay_detail"]["positive"]["material_count"] == 2
+
+
 def test_compute_target_cluster_sums_across_objects_without_rule_level_compression() -> None:
     cluster = tool.compute_target_cluster(
         [

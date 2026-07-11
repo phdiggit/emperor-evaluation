@@ -21,6 +21,7 @@ from scripts.dev.retrieval_v3_import_plan import ImportPlanError, json_param  # 
 from scripts.dev.retrieval_v3_intake_manifest import text  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor, table_label  # noqa: E402
 from scripts.dev.retrieval_v3_score_lane import classify_score_lane  # noqa: E402
+from scripts.dev.retrieval_v3_material_density_sensitivity import aggregate_side  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -28,6 +29,7 @@ MATERIAL_SCORE_CAP = Decimal("4.0")
 SAME_OBJECT_SECONDARY_FACTOR = Decimal("0.35")
 SAME_OBJECT_CAP_MULTIPLIER = Decimal("1.5")
 TEAM_CORE_CARRIER_MODE = "team_core_members"
+HIERARCHICAL_RANK_DECAY_MODE = "hierarchical_rank_decay"
 
 
 class RetrievalV3RuleScorerError(ImportPlanError):
@@ -412,6 +414,7 @@ def fetch_material_policy(cur: Any, *, item_code: str, rule_code: str) -> dict[s
         select
             id,
             policy_code,
+            policy_version,
             selection_priority,
             carrier_mode,
             material_source,
@@ -798,6 +801,13 @@ def compute_target_cluster(
     carrier_mode = text((material_policy or {}).get("carrier_mode"))
     if carrier_mode == TEAM_CORE_CARRIER_MODE:
         return compute_team_building_cluster(judgments)
+    policy_payload = (material_policy or {}).get("policy_payload") or {}
+    aggregation = policy_payload.get("side_aggregation") or {}
+    if (
+        judgments[0].rule_code == "appointment_delegation"
+        and text(aggregation.get("mode")) == HIERARCHICAL_RANK_DECAY_MODE
+    ):
+        return compute_rank_decay_cluster(judgments, material_policy=material_policy)
     raw_material_scores = [score_material(judgment) for judgment in judgments if judgment.target_action == "score"]
     material_scores, deduped_material_scores = dedupe_material_scores(raw_material_scores)
     grouped_scores: dict[str, dict[str, list[Decimal]]] = {"positive": defaultdict(list), "negative": defaultdict(list)}
@@ -846,6 +856,100 @@ def compute_target_cluster(
             judgment.factor_judgment_id for judgment in judgments if judgment.target_action == "supporting_only"
         ],
         "excluded_factor_judgment_ids": [judgment.factor_judgment_id for judgment in judgments if judgment.target_action == "exclude"],
+        "positive_signal": str(positive_signal),
+        "negative_signal": str(negative_signal),
+    }
+    return {
+        "target_id": judgments[0].target_id,
+        "target_code": judgments[0].target_code,
+        "emperor_name": judgments[0].emperor_name,
+        "item_code": judgments[0].item_code,
+        "rule_code": judgments[0].rule_code,
+        "formula_code": judgments[0].formula_code,
+        "positive_signal": positive_signal,
+        "negative_signal": negative_signal,
+        "action_counts": dict(action_counts),
+        "material_scores": material_scores,
+        "object_side_scores": object_side_scores,
+        "calc_detail": calc_detail,
+    }
+
+
+def compute_rank_decay_cluster(
+    judgments: Sequence[JudgmentInput], *, material_policy: Mapping[str, Any]
+) -> dict[str, Any]:
+    if not judgments:
+        raise RetrievalV3RuleScorerError("rank-decay cluster requires at least one judgment")
+    aggregation = ((material_policy.get("policy_payload") or {}).get("side_aggregation") or {})
+    material_decay = decimal_value(aggregation.get("material_decay", "1"), path="side_aggregation.material_decay")
+    event_decay = decimal_value(aggregation.get("event_decay", "1"), path="side_aggregation.event_decay")
+    object_decay = decimal_value(aggregation.get("object_decay", "0.5"), path="side_aggregation.object_decay")
+    positive_scale = decimal_value(aggregation.get("positive_lane_scale", "1"), path="side_aggregation.positive_lane_scale")
+    negative_scale = decimal_value(aggregation.get("negative_lane_scale", "1"), path="side_aggregation.negative_lane_scale")
+    if min(material_decay, event_decay, object_decay, positive_scale, negative_scale) < 0:
+        raise RetrievalV3RuleScorerError("rank-decay aggregation parameters must be non-negative")
+    raw_material_scores = [score_material(judgment) for judgment in judgments if judgment.target_action == "score"]
+    material_scores, deduped_material_scores = dedupe_material_scores(raw_material_scores)
+    material_details = [material_detail(score) for score in material_scores]
+    positive = aggregate_side(
+        [row for row in material_details if text(row.get("side")) == "positive"],
+        material_decay=material_decay, event_decay=event_decay, object_decay=object_decay)
+    negative = aggregate_side(
+        [row for row in material_details if text(row.get("side")) == "negative"],
+        material_decay=material_decay, event_decay=event_decay, object_decay=object_decay)
+    positive_signal = quant(decimal_value(positive["signal"], path="positive.signal") * positive_scale)
+    negative_signal = quant(decimal_value(negative["signal"], path="negative.signal") * negative_scale)
+    object_names = {
+        str(score.judgment.object_id): score.judgment.object_name for score in material_scores
+    }
+    object_side_scores = {
+        "positive": {
+            row["object_key"]: {
+                "object_name": object_names.get(row["object_key"], row["object_key"]),
+                "score": str(quant(decimal_value(row["object_value"], path="positive.object_value") * positive_scale)),
+            }
+            for row in positive["object_rows"]
+        },
+        "negative": {
+            row["object_key"]: {
+                "object_name": object_names.get(row["object_key"], row["object_key"]),
+                "score": str(quant(decimal_value(row["object_value"], path="negative.object_value") * negative_scale)),
+            }
+            for row in negative["object_rows"]
+        },
+    }
+    raw_action_counts = Counter(judgment.target_action for judgment in judgments)
+    action_counts = Counter(raw_action_counts)
+    action_counts["score"] = len(material_scores)
+    calc_detail = {
+        "item_code": judgments[0].item_code,
+        "rule_code": judgments[0].rule_code,
+        "formula_code": judgments[0].formula_code,
+        "aggregation_policy": {
+            "policy_code": text(material_policy.get("policy_code")),
+            "policy_version": text(material_policy.get("policy_version")),
+            "mode": HIERARCHICAL_RANK_DECAY_MODE,
+            "material_decay": str(material_decay),
+            "event_decay": str(event_decay),
+            "object_decay": str(object_decay),
+            "positive_lane_scale": str(positive_scale),
+            "negative_lane_scale": str(negative_scale),
+            "all_scored_materials_contribute": True,
+            "hard_aggregation_cap": False,
+            "top_k": False,
+        },
+        "materials": material_details,
+        "deduped_material_scores": deduped_material_scores,
+        "rank_decay_detail": {"positive": positive, "negative": negative},
+        "object_side_scores": object_side_scores,
+        "covered_factor_judgment_ids": [judgment.factor_judgment_id for judgment in judgments],
+        "scored_factor_judgment_ids": [score.judgment.factor_judgment_id for score in material_scores],
+        "deduped_factor_judgment_ids": [int(row["factor_judgment_id"]) for row in deduped_material_scores],
+        "raw_action_counts": dict(raw_action_counts),
+        "supporting_factor_judgment_ids": [
+            judgment.factor_judgment_id for judgment in judgments if judgment.target_action == "supporting_only"],
+        "excluded_factor_judgment_ids": [
+            judgment.factor_judgment_id for judgment in judgments if judgment.target_action == "exclude"],
         "positive_signal": str(positive_signal),
         "negative_signal": str(negative_signal),
     }
