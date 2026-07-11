@@ -90,7 +90,6 @@ def identity_key(row: Mapping[str, Any]) -> str:
         return f"id:{object_id}"
     return "name:" + normalize_object_alias(row.get("object_name"))
 
-
 def claim_signals(row: Mapping[str, Any]) -> tuple[bool, bool, bool]:
     payload = row.get("fact_payload") if isinstance(row.get("fact_payload"), Mapping) else {}
     action = " ".join(
@@ -715,9 +714,10 @@ def fetch_rows(
                      group by claim_id
                 ), factors as (
                     select claim_id, count(distinct binding_id) as factor_judgment_count, count(distinct binding_id) filter (where target_action::text = 'score') as scoring_factor_judgment_count,
-                           max(updated_at) as latest_factor_at
-                      from retrieval_v3.claim_rule_binding_factor_judgments
-                     where item_code = %s and rule_code = %s and review_status::text not in ('rejected', 'retired')
+                           max(f.updated_at) as latest_factor_at
+                      from retrieval_v3.claim_rule_binding_factor_judgments f join retrieval_v3.source_packs fsp on fsp.id = f.source_pack_id
+                     where f.item_code = %s and f.rule_code = %s and f.review_status::text not in ('rejected', 'retired')
+                       and fsp.id in (select distinct on (sp2.target_id, sp2.contract_id) sp2.id from retrieval_v3.source_packs sp2 where sp2.status = 'accepted' and sp2.coverage_status = 'passed' order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc)
                      group by claim_id
                 ), scores as (
                     select claim_id, count(*) as material_score_count, max(updated_at) as latest_material_score_at
