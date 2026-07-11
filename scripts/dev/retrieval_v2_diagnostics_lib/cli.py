@@ -88,7 +88,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 psycopg, dict_row = import_psycopg()
                 with psycopg.connect(resolve_dsn(args.dsn_env), row_factory=dict_row) as conn:
                     with conn.cursor() as raw:
-                        payload = enrich_score_chain_claim_details(schema_cursor(raw), payload)
+                        # Rule score rows may live in the selected v3 scoring schema,
+                        # but imported claim and passage provenance remains in the
+                        # native retrieval_v2 consumption tables.
+                        payload = enrich_score_chain_claim_details(raw, payload)
         else:
             payload = fetch_db_report(
                 env_file=args.env_file,

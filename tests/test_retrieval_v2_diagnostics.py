@@ -464,6 +464,69 @@ def test_enrich_score_chain_claim_details_fills_claim_and_passages(monkeypatch) 
     assert enriched["source"]["claim_details_enriched"] is True
 
 
+def test_input_rule_scorer_enrichment_keeps_native_claim_schema(monkeypatch, tmp_path: Path) -> None:
+    input_path = tmp_path / "rule_scorer.json"
+    input_path.write_text(
+        json.dumps(
+            {
+                "generated_by": "scripts/dev/retrieval_v2_rule_scorer.py",
+                "write_db": True,
+                "item_code": "I5B",
+                "rule_code": "appointment_delegation",
+                "formula_code": "appointment_delegation_v1",
+                "detailed_clusters": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    output_path = tmp_path / "score_chain.json"
+    raw_cursor = object()
+
+    class CursorContext:
+        def __enter__(self):
+            return raw_cursor
+
+        def __exit__(self, *_args):
+            return None
+
+    class ConnectionContext:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        def cursor(self):
+            return CursorContext()
+
+    class Psycopg:
+        @staticmethod
+        def connect(*_args, **_kwargs):
+            return ConnectionContext()
+
+    monkeypatch.setattr(cli, "load_env_file", lambda _path: None)
+    monkeypatch.setattr(cli, "resolve_dsn", lambda _name: "dsn")
+    monkeypatch.setattr(cli, "import_psycopg", lambda: (Psycopg, object()))
+    monkeypatch.setattr(
+        cli,
+        "enrich_score_chain_claim_details",
+        lambda cursor, payload: {**payload, "native_cursor": cursor is raw_cursor},
+    )
+
+    assert cli.main(
+        [
+            "score-chain",
+            "--env-file",
+            str(tmp_path / ".env"),
+            "--input-rule-scorer-json",
+            str(input_path),
+            "--output-json",
+            str(output_path),
+        ]
+    ) == 0
+    assert json.loads(output_path.read_text(encoding="utf-8"))["native_cursor"] is True
+
+
 def test_score_chain_filter_values_accepts_multiple_emperors_and_targets() -> None:
     target_codes, emperors = selectors.score_chain_filter_values(
         target_code="TGT-I5B-LB",
