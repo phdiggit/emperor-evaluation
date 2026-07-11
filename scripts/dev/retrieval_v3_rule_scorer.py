@@ -924,7 +924,7 @@ def upsert_material_score(cur: Any, score: MaterialScore) -> None:
             updated_at = now()
         """,
         (
-            "RV2MS-" + stable_hash(idem_key, length=16),
+            "RV3MS-" + stable_hash(idem_key, length=16),
             idem_key,
             judgment.factor_judgment_id,
             judgment.binding_id,
@@ -1016,7 +1016,7 @@ def upsert_rule_score_cluster(cur: Any, cluster: Mapping[str, Any]) -> None:
             updated_at = now()
         """,
         (
-            "RV2RS-" + stable_hash(idem_key, length=16),
+            "RV3RS-" + stable_hash(idem_key, length=16),
             idem_key,
             int(cluster["target_id"]),
             text(cluster.get("item_code")),

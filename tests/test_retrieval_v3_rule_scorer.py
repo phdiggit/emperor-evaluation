@@ -453,6 +453,9 @@ def test_apply_rule_scores_defaults_to_db_backed_dry_run(monkeypatch) -> None:
     assert any("distinct on (sp2.target_id, sp2.contract_id)" in statement for statement in conn.statements)
     assert any("sp2.status = 'accepted'" in statement for statement in conn.statements)
     assert any("sp2.coverage_status = 'passed'" in statement for statement in conn.statements)
+    generated_codes = [value for params in conn.params for value in params if isinstance(value, str)]
+    assert any(value.startswith("RV3MS-") for value in generated_codes)
+    assert any(value.startswith("RV3RS-") for value in generated_codes)
 
 
 def test_apply_rule_scores_can_read_explicit_source_pack_without_accepted_scope(monkeypatch) -> None:

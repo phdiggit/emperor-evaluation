@@ -19,6 +19,7 @@ from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev.retrieval_v3_factorization_tasks import (  # noqa: E402
     expected_output_contract,
     expected_output_contracts_path,
+    flatten_batch_materials,
     patch_path_for_task,
     prompt_for_batch,
     slim_batch_for_prompt,
@@ -920,20 +921,6 @@ def write_batch_files(output_dir: Path, batches: Sequence[Mapping[str, Any]]) ->
         if not batch_id:
             continue
         write_json(output_dir / f"{batch_id}.json", batch)
-
-
-def flatten_batch_materials(batch: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
-    materials: dict[str, dict[str, Any]] = {}
-    for group in batch.get("groups") or []:
-        if not isinstance(group, Mapping):
-            continue
-        for row in group.get("materials") or []:
-            if not isinstance(row, Mapping):
-                continue
-            binding_code = text(row.get("binding_code"))
-            if binding_code:
-                materials[binding_code] = dict(row)
-    return materials
 
 
 def patch_template_rows(batch: Mapping[str, Any]) -> list[dict[str, Any]]:

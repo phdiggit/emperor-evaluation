@@ -751,8 +751,8 @@ def rows_from_db(
     dsn = resolve_dsn(dsn_env)
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as cur:
-            use_retrieval_v3 = source == "retrieval-v2" or (source == "auto" and relation_available(cur, "retrieval_v3.objects"))
-            if source == "retrieval-v2" and not relation_available(cur, "retrieval_v3.objects"):
+            use_retrieval_v3 = source == "retrieval-v3" or (source == "auto" and relation_available(cur, "retrieval_v3.objects"))
+            if source == "retrieval-v3" and not relation_available(cur, "retrieval_v3.objects"):
                 raise ObjectSourceCacheSeedError("retrieval_v3.objects table is not available")
             if not use_retrieval_v3 and not relation_available(cur, "raw_objs"):
                 raise ObjectSourceCacheSeedError("raw_objs table is not available")

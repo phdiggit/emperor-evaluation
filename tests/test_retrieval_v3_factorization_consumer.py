@@ -256,6 +256,11 @@ def test_apply_patch_rows_dry_run_writes_judgment_and_factor_choices(monkeypatch
     assert any(params and params[0] is True for params in conn.params)
     assert any("delete from retrieval_v3.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
     assert any("insert into retrieval_v3.claim_rule_binding_factor_choices" in statement for statement in conn.statements)
+    assert any(
+        isinstance(value, str) and value.startswith("RV3FJ-")
+        for params in conn.params
+        for value in params
+    )
 
 
 def test_apply_patch_rows_rejects_appointment_delegation_non_scoring_candidate(monkeypatch: pytest.MonkeyPatch) -> None:

@@ -30,7 +30,7 @@ from scripts.dev.retrieval_v3_source_document_policy import source_document_skip
 
 DEFAULT_CACHE_DIR = ROOT / "tmp" / "retrieval_v3_source_cache"
 WIKISOURCE_API = "https://zh.wikisource.org/w/api.php"
-USER_AGENT = "emperor-evaluation-retrieval-v2/0.1"
+USER_AGENT = "emperor-evaluation-retrieval-v3/0.1"
 CONDITIONAL_RECALL_GUARD_WINDOW_CHARS = 48
 DEFAULT_RULE_TERMS = (
     "命",

@@ -456,7 +456,7 @@ def upsert_factor_judgment(
         returning id
         """,
         (
-            "RV2FJ-" + stable_hash(idem_key, length=16),
+            "RV3FJ-" + stable_hash(idem_key, length=16),
             idem_key,
             int(context["binding_id"]),
             int(context["claim_id"]),
@@ -525,7 +525,7 @@ def replace_factor_choices(
                 updated_at = now()
             """,
             (
-                "RV2FC-" + stable_hash(idem_key, length=16),
+                "RV3FC-" + stable_hash(idem_key, length=16),
                 idem_key,
                 judgment_id,
                 int(context["binding_id"]),

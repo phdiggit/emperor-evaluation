@@ -14,7 +14,7 @@
 
 - 当前检索脚本、模块、测试和运行命令统一使用 `retrieval_v3` 命名。
 - 所有数据库入口默认使用 `EMPEROR_EVAL_RETRIEVAL_V3_DSN` 和 `retrieval_v3` schema。
-- 不得恢复 v2 wrapper、v2 schema routing、旧 DSN 默认值或跨数据库数字 ID 关联。
+- 不得恢复旧版 wrapper、旧 schema routing、旧 DSN 默认值或跨数据库数字 ID 关联。
 - 显式写库仍必须使用各工具的 `--execute`；默认保持只读或 rollback dry-run。
 
 ## 修改与验证

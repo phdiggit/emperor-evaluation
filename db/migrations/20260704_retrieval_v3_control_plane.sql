@@ -618,7 +618,7 @@ on retrieval_v3.coverage_reports(source_pack_id, report_status);
 create index if not exists rv3_coverage_gap_events_ready_idx
 on retrieval_v3.coverage_gap_events(priority, created_at) where status in ('ready', 'retry_wait');
 
-comment on schema retrieval_v3 is '抓包链路 v2 控制面：按规则契约驱动 source pack、claim、rule binding 和缺口反馈；不承载正式对象池和计分结果。';
+comment on schema retrieval_v3 is 'retrieval v3 控制面：按规则契约驱动 source pack、claim、rule binding 和缺口反馈；不承载正式对象池和计分结果。';
 comment on table retrieval_v3.eval_items is '评价分项快照表：从源库复制 eval_items，用于构建抓包规则契约。';
 comment on table retrieval_v3.eval_rules is '评价规则快照表：从源库复制 eval_rules，按 item_code/rule_code 固定抓包规则边界。';
 comment on table retrieval_v3.eval_rule_factors is '计分因子目录快照表：复制源库结构化因子定义，供消费侧因子化候选和 patch 验收使用。';

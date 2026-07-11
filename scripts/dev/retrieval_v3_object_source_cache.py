@@ -1898,7 +1898,7 @@ def build_parser() -> argparse.ArgumentParser:
     seed_db.add_argument("--limit", type=int, default=0)
     seed_db.add_argument(
         "--source",
-        choices=("auto", "retrieval-v2", "object-pool"),
+        choices=("auto", "retrieval-v3", "object-pool"),
         default="auto",
         help="Seed source table family. auto uses retrieval_v3.objects when present, otherwise raw_objs.",
     )

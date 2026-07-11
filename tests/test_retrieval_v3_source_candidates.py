@@ -35,7 +35,7 @@ def sample_task() -> dict:
         "target_code": "TGT-I5B-9909F280EEC3",
         "emperor_name": "李渊",
         "item_code": "I5B",
-        "contract_code": "I5B-RETRIEVAL-V2-20260704",
+        "contract_code": "I5B-RETRIEVAL-V3-20260704",
         "rule_code": "appointment_delegation",
         "target_profile": {
             "primary_name": "李渊",

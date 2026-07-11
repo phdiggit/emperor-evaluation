@@ -23,13 +23,24 @@ def test_current_v3_tools_are_registered_and_resolve() -> None:
         assert relative in implementations
 
 
-def test_registry_has_no_retired_v2_paths_or_missing_tests() -> None:
+def test_registry_has_no_retired_pre_v3_paths_or_missing_tests() -> None:
     registry = load_registry()
     serialized = json.dumps(registry, ensure_ascii=False)
 
-    assert "retrieval_" + "v2" not in serialized
+    assert f"retrieval_v{2}" not in serialized
     assert registry["retired_legacy_wrappers"] == []
     for module in registry["modules"]:
         assert (ROOT / module["implementation"]).is_file()
         for test_path in module.get("required_tests", []):
             assert (ROOT / test_path).is_file()
+
+
+def test_active_runtime_has_no_pre_v3_markers() -> None:
+    retired_markers = (f"retrieval_v{2}", f"retrieval-v{2}", f"RV{2}")
+
+    for base in (ROOT / "scripts", ROOT / "db/migrations"):
+        for path in base.rglob("*"):
+            if not path.is_file() or path.suffix not in {".py", ".sql", ".sh", ".service"}:
+                continue
+            text = path.read_text(encoding="utf-8")
+            assert not any(marker in text for marker in retired_markers), path

@@ -9,6 +9,11 @@ from scripts.dev import retrieval_v3_factorization_worklists as tool
 from scripts.dev import retrieval_v3_factorization_tasks as task_tool
 
 
+def test_factorization_batch_flattening_has_one_shared_implementation() -> None:
+    assert tool.flatten_batch_materials is task_tool.flatten_batch_materials
+    assert task_tool.task_code({"batch_id": "B1", "groups": []}).startswith("RV3F-")
+
+
 def material_row(**overrides: object) -> dict[str, object]:
     row: dict[str, object] = {
         "target_code": "TGT-I5B-LB",
@@ -1127,8 +1132,8 @@ def test_factorization_prompt_keeps_late_appointment_effect_evidence(tmp_path: P
 
 def test_recover_patches_from_last_message(tmp_path: Path) -> None:
     tasks_path = tmp_path / "tasks.jsonl"
-    last_message_path = tmp_path / "logs" / "RV2F-1.last.md"
-    patch_path = tmp_path / "patches" / "RV2F-1.jsonl"
+    last_message_path = tmp_path / "logs" / "RV3F-1.last.md"
+    patch_path = tmp_path / "patches" / "RV3F-1.jsonl"
     last_message_path.parent.mkdir(parents=True)
     last_message_path.write_text(
         "\n".join(
@@ -1143,12 +1148,12 @@ def test_recover_patches_from_last_message(tmp_path: Path) -> None:
         tasks_path,
         [
             {
-                "task_code": "RV2F-1",
+                "task_code": "RV3F-1",
                 "batch_id": "rv3_factor_batch_01",
                 "material_count": 1,
                 "patch_path": str(patch_path),
                 "last_message_path": str(last_message_path),
-                "log_path": str(tmp_path / "logs" / "RV2F-1.jsonl"),
+                "log_path": str(tmp_path / "logs" / "RV3F-1.jsonl"),
             }
         ],
     )
@@ -1165,8 +1170,8 @@ def test_recover_patches_from_last_message(tmp_path: Path) -> None:
 
 def test_recover_patches_preserves_existing_complete_patch(tmp_path: Path) -> None:
     tasks_path = tmp_path / "tasks.jsonl"
-    last_message_path = tmp_path / "logs" / "RV2F-1.last.md"
-    patch_path = tmp_path / "patches" / "RV2F-1.jsonl"
+    last_message_path = tmp_path / "logs" / "RV3F-1.last.md"
+    patch_path = tmp_path / "patches" / "RV3F-1.jsonl"
     last_message_path.parent.mkdir(parents=True)
     complete_rows = [
         {"binding_code": "BND-001", "target_action": "score", "side": "positive", "factor_refs": {}, "patch_note": "既有完整补丁第一行。"},
@@ -1181,12 +1186,12 @@ def test_recover_patches_preserves_existing_complete_patch(tmp_path: Path) -> No
         tasks_path,
         [
             {
-                "task_code": "RV2F-1",
+                "task_code": "RV3F-1",
                 "batch_id": "rv3_factor_batch_01",
                 "material_count": 2,
                 "patch_path": str(patch_path),
                 "last_message_path": str(last_message_path),
-                "log_path": str(tmp_path / "logs" / "RV2F-1.jsonl"),
+                "log_path": str(tmp_path / "logs" / "RV3F-1.jsonl"),
             }
         ],
     )
@@ -1205,7 +1210,7 @@ def test_run_plan_dry_run_delegates_to_codex_win(tmp_path: Path, monkeypatch: py
         tasks_path,
         [
             {
-                "task_code": "RV2F-1",
+                "task_code": "RV3F-1",
                 "task_kind": "retrieval_v3_factorization",
                 "prompt_path": "tmp/no-such-prompt.md",
                 "expected_outputs": [
@@ -1228,7 +1233,7 @@ def test_run_plan_dry_run_delegates_to_codex_win(tmp_path: Path, monkeypatch: py
 
         class Completed:
             returncode = 0
-            stdout = json.dumps({"tasks": [{"task_code": "RV2F-1", "status": "planned"}], "totals": {"planned": 1}}, ensure_ascii=False)
+            stdout = json.dumps({"tasks": [{"task_code": "RV3F-1", "status": "planned"}], "totals": {"planned": 1}}, ensure_ascii=False)
             stderr = ""
 
         return Completed()
@@ -1266,7 +1271,7 @@ def test_run_plan_dry_run_delegates_to_codex_win(tmp_path: Path, monkeypatch: py
 
 def test_run_plan_keeps_worklist_error_type_for_invalid_runner_output(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     tasks_path = tmp_path / "tasks.jsonl"
-    tool.write_jsonl(tasks_path, [{"task_code": "RV2F-1"}])
+    tool.write_jsonl(tasks_path, [{"task_code": "RV3F-1"}])
 
     class Completed:
         returncode = 1

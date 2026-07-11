@@ -45,7 +45,7 @@ def flatten_batch_materials(batch: Mapping[str, Any]) -> dict[str, dict[str, Any
 
 
 def task_code(batch: Mapping[str, Any]) -> str:
-    return "RV2F-" + stable_hash([batch.get("batch_id"), [row.get("binding_code") for row in flatten_batch_materials(batch).values()]], length=16)
+    return "RV3F-" + stable_hash([batch.get("batch_id"), [row.get("binding_code") for row in flatten_batch_materials(batch).values()]], length=16)
 
 
 def prompt_passage(row: Mapping[str, Any]) -> dict[str, Any]:

@@ -8,7 +8,7 @@ def sample_context() -> dict:
         "target_code": "TGT-I5B-ZKY",
         "emperor_name": "赵匡胤",
         "item_code": "I5B",
-        "contract_code": "I5B-RETRIEVAL-V2-20260704",
+        "contract_code": "I5B-RETRIEVAL-V3-20260704",
         "intent_code": "INT-I5B-ZKY-APPOINTMENT-DELEGATION",
         "rule_code": "appointment_delegation",
         "rule_label": "任用授权质量",

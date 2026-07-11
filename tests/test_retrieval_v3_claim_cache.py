@@ -497,11 +497,11 @@ def test_plan_candidates_can_require_current_extractor_version(tmp_path: Path) -
         candidates_path,
         cache_root,
         uncovered_path,
-        required_extractor_version="claim_extraction_only:v2_budgeted",
+        required_extractor_version="claim_extraction_only:old_budgeted",
     )
     uncovered = json.loads(uncovered_path.read_text(encoding="utf-8"))
 
-    assert report["required_extractor_version"] == "claim_extraction_only:v2_budgeted"
+    assert report["required_extractor_version"] == "claim_extraction_only:old_budgeted"
     assert report["cached_slice_count"] == 0
     assert report["uncovered_slice_count"] == 2
     assert [row["slice_code"] for row in uncovered["candidate_slices"]] == ["SLI-001", "SLI-002"]

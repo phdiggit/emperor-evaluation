@@ -8,6 +8,10 @@ import pytest
 from scripts.dev import retrieval_v3_bootstrap as tool
 
 
+def test_default_contract_is_v3_native_named() -> None:
+    assert tool.DEFAULT_CONTRACT_CODE == "I5B-RETRIEVAL-V3-20260704"
+
+
 def test_stable_fingerprint_is_key_order_independent() -> None:
     left = {"b": [2, 1], "a": {"z": "x"}}
     right = {"a": {"z": "x"}, "b": [2, 1]}

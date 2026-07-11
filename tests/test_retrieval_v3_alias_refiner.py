@@ -13,7 +13,7 @@ def sample_task() -> dict:
         "target_code": "TGT-I5B-2E7B9861051F",
         "emperor_name": "赵匡胤",
         "item_code": "I5B",
-        "contract_code": "I5B-RETRIEVAL-V2-20260704",
+        "contract_code": "I5B-RETRIEVAL-V3-20260704",
         "rule_code": "delegation",
         "object_seeds": [
             {"aliases": [{"text": "党進", "strength": "strong"}, {"text": "侍衛步軍指揮使", "strength": "medium"}]},
