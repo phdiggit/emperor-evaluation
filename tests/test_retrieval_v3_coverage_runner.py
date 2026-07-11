@@ -81,3 +81,26 @@ def test_runner_source_does_not_use_forbidden_contract_tables() -> None:
     assert "target_rule_" + "requirements" not in source
     assert "retrieval_" + "intents" not in source
     assert "insert into" not in source.lower()
+
+
+def test_run_contract_routes_manifest_pack_scope(monkeypatch, tmp_path) -> None:
+    captured: dict = {}
+
+    def fake_fetch_rows(**kwargs):
+        captured.update(kwargs)
+        return [], [], [], []
+
+    monkeypatch.setattr(tool, "fetch_rows", fake_fetch_rows)
+    monkeypatch.setattr(tool, "build_report", lambda **kwargs: {
+        "item_code": "I5B", "rule_code": "appointment_delegation", "emperors": ["甲"],
+        "objects": [], "counts": {}, "mechanical_coverage_counts": {},
+        "convergence_counts": {}, "gap_counts": {}, "expected_event_count": 0,
+    })
+
+    tool.run_contract(
+        dsn="postgresql://unused", schema_name="retrieval_v3",
+        contract_rows=[contract_row("甲")], output_root=tmp_path,
+        scope_inputs={"I5B__appointment_delegation": {"source_pack_codes": ["SPK-A", "SPK-B"]}},
+    )
+
+    assert captured["source_pack_codes"] == ["SPK-A", "SPK-B"]

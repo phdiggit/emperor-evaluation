@@ -204,9 +204,10 @@ def run_contract(
     for scope in group_contract(contract_rows):
         item_code, rule_code = scope["item_code"], scope["rule_code"]
         stem = scope_stem(item_code, rule_code)
-        claims, downstream, targets, sources = fetch_rows(
-            dsn=dsn, schema_name=schema_name, item_code=item_code, rule_code=rule_code, emperors=scope["emperors"])
         scope_input = (scope_inputs or {}).get(stem) or {}
+        claims, downstream, targets, sources = fetch_rows(
+            dsn=dsn, schema_name=schema_name, item_code=item_code, rule_code=rule_code,
+            emperors=scope["emperors"], source_pack_codes=scope_input.get("source_pack_codes") or [])
         expected_path = Path(text(scope_input.get("expected_events_jsonl"))) if text(scope_input.get("expected_events_jsonl")) else None
         expected = read_jsonl(expected_path or (inputs_root / f"{stem}.expected_events.jsonl" if inputs_root else None))
         reconciliation = []
@@ -226,6 +227,7 @@ def run_contract(
         previous = read_jsonl(previous_root / f"{stem}.repair_ledger.jsonl" if previous_root else None)
         ledger = build_repair_ledger(report, previous); apply_convergence(report, ledger)
         report["coverage_contract"] = scope
+        report["source_pack_codes"] = list(scope_input.get("source_pack_codes") or [])
         report["contract_cell_assessments"] = build_contract_cell_assessments(report)
         delta = build_convergence_delta(ledger, previous)
         report["delta_counts"] = delta["counts"]

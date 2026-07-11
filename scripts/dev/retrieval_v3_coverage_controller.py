@@ -617,10 +617,12 @@ def build_report(
 
 
 def fetch_rows(
-    *, dsn: str, schema_name: str, item_code: str, rule_code: str, emperors: Sequence[str]
+    *, dsn: str, schema_name: str, item_code: str, rule_code: str, emperors: Sequence[str],
+    source_pack_codes: Sequence[str] = (),
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     psycopg, dict_row = import_psycopg()
     emperor_names = [text(name) for name in emperors if text(name)]
+    pack_codes = [text(code) for code in source_pack_codes if text(code)]
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
@@ -717,11 +719,27 @@ def fetch_rows(
                            max(f.updated_at) as latest_factor_at
                       from retrieval_v3.claim_rule_binding_factor_judgments f join retrieval_v3.source_packs fsp on fsp.id = f.source_pack_id
                      where f.item_code = %s and f.rule_code = %s and f.review_status::text not in ('rejected', 'retired')
-                       and fsp.id in (select distinct on (sp2.target_id, sp2.contract_id) sp2.id from retrieval_v3.source_packs sp2 where sp2.status = 'accepted' and sp2.coverage_status = 'passed' order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc)
+                       and (
+                           (coalesce(array_length(%s::text[], 1), 0) > 0
+                            and fsp.pack_code = any(%s::text[]) and fsp.coverage_status = 'passed')
+                           or
+                           (coalesce(array_length(%s::text[], 1), 0) = 0
+                            and fsp.id in (select distinct on (sp2.target_id, sp2.contract_id) sp2.id from retrieval_v3.source_packs sp2 where sp2.status = 'accepted' and sp2.coverage_status = 'passed' order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc))
+                       )
                      group by claim_id
                 ), scores as (
-                    select claim_id, count(*) as material_score_count, max(updated_at) as latest_material_score_at
-                      from retrieval_v3.claim_rule_binding_material_scores where item_code = %s and rule_code = %s group by claim_id
+                    select ms.claim_id, count(*) as material_score_count, max(ms.updated_at) as latest_material_score_at
+                      from retrieval_v3.claim_rule_binding_material_scores ms
+                      join retrieval_v3.source_packs msp on msp.id = ms.source_pack_id
+                     where ms.item_code = %s and ms.rule_code = %s
+                       and (
+                           (coalesce(array_length(%s::text[], 1), 0) > 0
+                            and msp.pack_code = any(%s::text[]) and msp.coverage_status = 'passed')
+                           or
+                           (coalesce(array_length(%s::text[], 1), 0) = 0
+                            and msp.id in (select distinct on (sp3.target_id, sp3.contract_id) sp3.id from retrieval_v3.source_packs sp3 where sp3.status = 'accepted' and sp3.coverage_status = 'passed' order by sp3.target_id, sp3.contract_id, sp3.updated_at desc, sp3.id desc))
+                       )
+                     group by ms.claim_id
                 ), clusters as (
                     select target_id, count(*) as rule_score_cluster_count, max(updated_at) as latest_rule_cluster_at from retrieval_v3.target_rule_score_clusters where item_code = %s and rule_code = %s
                        and review_status::text not in ('rejected', 'retired') group by target_id
@@ -748,12 +766,16 @@ def fetch_rows(
                   left join clusters cl on cl.target_id = rt.id
                  where rt.item_code = %s
                    and mc.review_status::text not in ('rejected', 'retired')
+                   and (coalesce(array_length(%s::text[], 1), 0) = 0
+                        or (sp.pack_code = any(%s::text[]) and sp.coverage_status = 'passed'))
                    and (coalesce(array_length(%s::text[], 1), 0) = 0 or mc.emperor_name = any(%s::text[]))
                  group by mc.emperor_name, mc.object_name, mc.object_type
                  order by mc.emperor_name, mc.object_name
                 """,
-                (item_code, rule_code, rule_code, item_code, rule_code, item_code, rule_code,
-                 item_code, rule_code, item_code, emperor_names, emperor_names),
+                (item_code, rule_code, rule_code, item_code, rule_code, pack_codes, pack_codes, pack_codes,
+                 item_code, rule_code, pack_codes, pack_codes, pack_codes, item_code, rule_code,
+                 item_code, pack_codes, pack_codes,
+                 emperor_names, emperor_names),
             )
             downstream_rows = [dict(row) for row in cur.fetchall()]
             cur.execute(
