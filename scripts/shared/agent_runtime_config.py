@@ -25,6 +25,7 @@ AGENT_STAGES = (
     "v3_unseeded_actor_review",
     "v3_negative_chain_review",
     "v3_expected_event_inventory",
+    "v3_expected_event_reconciliation",
 )
 MODEL_ENV = "EMPEROR_EVAL_AGENT_MODEL"
 REASONING_EFFORT_ENV = "EMPEROR_EVAL_AGENT_REASONING_EFFORT"

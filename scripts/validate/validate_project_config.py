@@ -50,6 +50,7 @@ REQUIRED_AGENT_STAGES = {
     "v3_unseeded_actor_review",
     "v3_negative_chain_review",
     "v3_expected_event_inventory",
+    "v3_expected_event_reconciliation",
 }
 ALLOWED_SOURCE_EXCERPT_POOL_KEYS = {"cache", "default_workflow_code", "paths", "workflows"}
 ALLOWED_SOURCE_EXCERPT_CACHE_KEYS = {"enabled", "backend", "directory", "dsn_env", "schema"}

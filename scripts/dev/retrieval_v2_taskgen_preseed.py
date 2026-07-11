@@ -7,6 +7,7 @@ from typing import Any, Callable, Mapping, Sequence
 from scripts.dev.retrieval_v2_contracts import (
     alias_script_variants,
     source_root_aliases_for_hint,
+    source_hints_from_source_targets,
     source_hints_for_metadata,
     unique_strings,
 )
@@ -105,7 +106,8 @@ def canonical_volume_title(source_root: str, volume_number: int) -> str:
 
 
 def source_roots_for_hint(source_hint: str, *, emp_metadata: Mapping[str, Any] | None = None) -> list[str]:
-    hint = normalize_title(source_hint)
+    canonical = source_hints_from_source_targets([source_hint])
+    hint = normalize_title(canonical[0] if canonical else source_hint)
     return source_root_aliases_for_hint(hint, dict(emp_metadata or {})) if hint else []
 
 

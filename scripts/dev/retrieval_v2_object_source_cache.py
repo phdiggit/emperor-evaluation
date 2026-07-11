@@ -63,6 +63,7 @@ from scripts.dev.retrieval_v2_taskgen_preseed import (  # noqa: E402
     source_roots_for_hint,
     text_from,
 )
+from scripts.dev import retrieval_v3_expected_event_source_refinement as expected_event_refinement  # noqa: E402
 from scripts.dev.source_excerpt_pool_lib.cache import (  # noqa: E402
     FetchContext,
     cache_report,
@@ -608,6 +609,7 @@ def discover_source_documents(
         if key:
             documents.setdefault(key, document)
     query_rows = [
+        *expected_event_refinement.object_source_cache_query_rows(seed),
         *source_target_ref_query_rows(seed, source_hints=source_hints, max_search_names=max_search_names),
         *generic_object_source_query_rows(seed, source_hints=source_hints, max_search_names=max_search_names),
     ]
