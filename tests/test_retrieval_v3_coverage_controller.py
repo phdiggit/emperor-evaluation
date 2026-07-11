@@ -184,6 +184,108 @@ def test_unclaimed_cached_source_slice_creates_extraction_coverage_gap() -> None
     assert "source_slice_unclaimed" in [gap["gap_type"] for gap in object_row["gaps"]]
 
 
+def expected_event(*, outcome_terms: list[str] | None = None) -> dict:
+    return {
+        "event_inventory_code": "EEI-EAST-TURK",
+        "emperor_name": "测试帝",
+        "object_id": 7,
+        "object_name": "测试对象",
+        "event_label": "受命出征并灭东突厥",
+        "importance": "major",
+        "direction": "positive",
+        "event_anchor_terms": ["东突厥", "颉利"],
+        "duty_anchor_terms": ["行军总管", "出征"],
+        "outcome_anchor_terms": outcome_terms or ["俘颉利", "灭东突厥"],
+        "source_leads": [{"source_title": "旧唐书"}],
+    }
+
+
+def test_expected_major_event_requires_explicit_result_anchor_in_same_group() -> None:
+    row = claim(action="任命行军总管", domain="出征东突厥", outcome="推进至阴山")
+    row["claim_summary"] = "任命为行军总管，出征东突厥并推进至阴山。"
+    result = tool.build_report(
+        claim_rows=[row],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+        expected_events=[expected_event()],
+    )
+
+    object_row = result["objects"][0]
+    assert object_row["expected_event_assessments"][0]["coverage_status"] == "partial"
+    assert "historical_event_missing" in [gap["gap_type"] for gap in object_row["gaps"]]
+    assert object_row["coverage_status"] == "blocked"
+
+
+def test_expected_event_is_covered_only_when_all_facets_share_event_group() -> None:
+    row = claim(action="任命行军总管", domain="出征东突厥", outcome="俘颉利，灭东突厥")
+    row["claim_summary"] = "任命为行军总管，出征东突厥并追击颉利，最终俘颉利、灭东突厥。"
+    result = tool.build_report(
+        claim_rows=[row],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+        expected_events=[expected_event()],
+    )
+
+    object_row = result["objects"][0]
+    assert object_row["covered_expected_event_count"] == 1
+    assert object_row["expected_event_assessments"][0]["coverage_status"] == "covered"
+    assert "historical_event_missing" not in [gap["gap_type"] for gap in object_row["gaps"]]
+
+
+def test_missing_expected_event_becomes_read_only_source_refinement_workitem() -> None:
+    row = claim(action="任命行军总管", domain="出征东突厥", outcome="推进至阴山")
+    row["claim_summary"] = "任命为行军总管，出征东突厥并推进至阴山。"
+    result = tool.build_report(
+        claim_rows=[row],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+        expected_events=[expected_event()],
+    )
+
+    workitem = tool.build_source_refinement_worklist(result)[0]
+    assert workitem["event_inventory_code"] == "EEI-EAST-TURK"
+    assert workitem["missing_facets"] == ["event_anchor", "outcome"]
+    assert workitem["priority"] == 20
+    assert workitem["next_stage"] == "object_source_cache_then_claim_extraction"
+    assert workitem["scoring_allowed"] is False
+
+
+def test_no_relevant_event_assessment_is_not_treated_as_unassessed() -> None:
+    assessment = {
+        "record_type": "object_assessment",
+        "emperor_name": "测试帝",
+        "object_name": "测试对象",
+        "inventory_verdict": "no_relevant_events",
+    }
+    result = tool.build_report(
+        claim_rows=[claim()],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+        expected_events=[assessment],
+    )
+
+    object_row = result["objects"][0]
+    assert object_row["historical_event_coverage_status"] == "assessed_no_relevant_events"
+    assert object_row["expected_event_count"] == 0
+    assert result["inventory_object_assessment_count"] == 1
+
+
 def test_controller_is_read_only_and_does_not_connect_legacy_contract_tables() -> None:
     result = report([claim()], [downstream()], [target()])
     source = Path(tool.__file__).read_text(encoding="utf-8")

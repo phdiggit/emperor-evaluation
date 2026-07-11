@@ -68,6 +68,12 @@ def later_than(left: Any, right: Any) -> bool:
         return text(left) > text(right)
 
 
+def list_texts(value: Any) -> list[str]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return []
+    return [text(item) for item in value if text(item)]
+
+
 def identity_key(row: Mapping[str, Any]) -> str:
     object_id = as_int(row.get("object_id"))
     if object_id:
@@ -312,6 +318,184 @@ def assess_object(row: Mapping[str, Any]) -> dict[str, Any]:
     return result
 
 
+def claim_group_index(claim_rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for row in claim_rows:
+        group_keys = list_texts(row.get("event_group_keys"))
+        if not group_keys:
+            continue
+        object_token = f"id:{as_int(row.get('object_id'))}" if as_int(row.get("object_id")) else "name:" + normalize_object_alias(row.get("object_name"))
+        payload = row.get("fact_payload") if isinstance(row.get("fact_payload"), Mapping) else {}
+        blob = " ".join(
+            text(value)
+            for value in (
+                row.get("claim_summary"),
+                row.get("action_type"),
+                row.get("fact_type"),
+                row.get("office_or_domain"),
+                row.get("outcome"),
+                row.get("outcome_support"),
+                json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str),
+            )
+        )
+        appointment, responsibility, result = claim_signals(row)
+        for group_key in group_keys:
+            group = groups.setdefault(
+                (text(row.get("emperor_name")), object_token, group_key),
+                {
+                    "emperor_name": text(row.get("emperor_name")),
+                    "object_id": as_int(row.get("object_id")) or None,
+                    "object_name": text(row.get("object_name")),
+                    "group_key": group_key,
+                    "text": "",
+                    "has_appointment": False,
+                    "has_responsibility": False,
+                    "has_result": False,
+                },
+            )
+            group["text"] += " " + blob
+            group["has_appointment"] |= appointment
+            group["has_responsibility"] |= responsibility
+            group["has_result"] |= result
+    return list(groups.values())
+
+
+def event_matches_object(event: Mapping[str, Any], row: Mapping[str, Any]) -> bool:
+    if text(event.get("emperor_name")) != text(row.get("emperor_name")):
+        return False
+    event_id = as_int(event.get("object_id"))
+    row_id = as_int(row.get("object_id"))
+    if event_id and row_id:
+        return event_id == row_id
+    return normalize_object_alias(event.get("object_name")) == normalize_object_alias(row.get("object_name"))
+
+
+def assess_expected_event(event: Mapping[str, Any], groups: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    event_terms = list_texts(event.get("event_anchor_terms"))
+    duty_terms = list_texts(event.get("duty_anchor_terms"))
+    outcome_terms = list_texts(event.get("outcome_anchor_terms"))
+    best: dict[str, Any] | None = None
+    for group in groups:
+        if not event_matches_object(event, group):
+            continue
+        blob = text(group.get("text"))
+        matched_event_terms = [term for term in event_terms if term in blob]
+        matched_duty_terms = [term for term in duty_terms if term in blob]
+        matched_outcome_terms = [term for term in outcome_terms if term in blob]
+        required_event_term_count = min(2, len(event_terms))
+        facets = {
+            "event_anchor": len(matched_event_terms) >= required_event_term_count,
+            "appointment": bool(group.get("has_appointment")),
+            "duty": bool(matched_duty_terms or group.get("has_responsibility")),
+            "outcome": bool(matched_outcome_terms),
+        }
+        candidate = {
+            "group_key": text(group.get("group_key")),
+            "facets": facets,
+            "matched_event_terms": matched_event_terms,
+            "matched_duty_terms": matched_duty_terms,
+            "matched_outcome_terms": matched_outcome_terms,
+            "required_event_term_count": required_event_term_count,
+            "facet_count": sum(facets.values()),
+        }
+        if best is None or candidate["facet_count"] > best["facet_count"]:
+            best = candidate
+    best = best or {
+        "group_key": "",
+        "facets": {"event_anchor": False, "appointment": False, "duty": False, "outcome": False},
+        "matched_event_terms": [],
+        "matched_duty_terms": [],
+        "matched_outcome_terms": [],
+        "required_event_term_count": min(2, len(event_terms)),
+        "facet_count": 0,
+    }
+    status = "covered" if best["facet_count"] == 4 else ("partial" if best["facet_count"] else "missing")
+    return {
+        "event_inventory_code": text(event.get("event_inventory_code")),
+        "event_label": text(event.get("event_label")),
+        "importance": text(event.get("importance")),
+        "direction": text(event.get("direction")),
+        "coverage_status": status,
+        "matched_group_key": best["group_key"],
+        "matched_facets": best["facets"],
+        "matched_event_terms": best["matched_event_terms"],
+        "matched_duty_terms": best["matched_duty_terms"],
+        "matched_outcome_terms": best["matched_outcome_terms"],
+        "required_event_term_count": best["required_event_term_count"],
+        "source_leads": event.get("source_leads") or [],
+        "scoring_allowed": False,
+    }
+
+
+def apply_expected_event_inventory(
+    objects: Sequence[Mapping[str, Any]],
+    claim_rows: Sequence[Mapping[str, Any]],
+    expected_events: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    groups = claim_group_index(claim_rows)
+    event_records = [row for row in expected_events if text(row.get("record_type")) != "object_assessment"]
+    assessment_records = [row for row in expected_events if text(row.get("record_type")) == "object_assessment"]
+    results: list[dict[str, Any]] = []
+    for raw_row in objects:
+        row = dict(raw_row)
+        events = [event for event in event_records if event_matches_object(event, row)]
+        object_assessments = [record for record in assessment_records if event_matches_object(record, row)]
+        assessments = [assess_expected_event(event, groups) for event in events]
+        inventory_verdicts = list_texts([record.get("inventory_verdict") for record in object_assessments])
+        if events:
+            historical_status = "assessed"
+        elif "no_relevant_events" in inventory_verdicts:
+            historical_status = "assessed_no_relevant_events"
+        elif "identity_mismatch_needs_review" in inventory_verdicts:
+            historical_status = "identity_mismatch_needs_review"
+        else:
+            historical_status = "unassessed"
+        row["historical_event_coverage_status"] = historical_status
+        row["inventory_verdicts"] = inventory_verdicts
+        row["expected_event_count"] = len(assessments)
+        row["covered_expected_event_count"] = sum(item["coverage_status"] == "covered" for item in assessments)
+        row["partial_expected_event_count"] = sum(item["coverage_status"] == "partial" for item in assessments)
+        row["missing_expected_event_count"] = sum(item["coverage_status"] == "missing" for item in assessments)
+        row["expected_event_assessments"] = assessments
+        uncovered_major = [
+            item for item in assessments if item["importance"] == "major" and item["coverage_status"] != "covered"
+        ]
+        uncovered_secondary = [
+            item for item in assessments if item["importance"] == "secondary" and item["coverage_status"] != "covered"
+        ]
+        gaps = list(row.get("gaps") or [])
+        if historical_status == "identity_mismatch_needs_review":
+            gaps.append(
+                gap(
+                    "inventory_identity_mismatch",
+                    "identity_review",
+                    "expected-event inventory found a target-period identity mismatch",
+                    blocking=True,
+                )
+            )
+        if uncovered_major:
+            gaps.append(
+                gap(
+                    "historical_event_missing",
+                    "source_document_refinement",
+                    f"{len(uncovered_major)} major expected events lack a complete source-to-event-group chain",
+                    blocking=True,
+                )
+            )
+        if uncovered_secondary:
+            gaps.append(
+                gap(
+                    "historical_event_gap",
+                    "source_document_refinement",
+                    f"{len(uncovered_secondary)} secondary expected events lack a complete source-to-event-group chain",
+                )
+            )
+        row["gaps"] = gaps
+        row["coverage_status"] = "blocked" if any(item["blocking"] for item in gaps) else ("gap" if gaps else "complete")
+        results.append(row)
+    return results
+
+
 def build_report(
     *,
     claim_rows: Sequence[Mapping[str, Any]],
@@ -322,8 +506,13 @@ def build_report(
     item_code: str,
     rule_code: str,
     emperors: Sequence[str],
+    expected_events: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
-    objects = [assess_object(row) for row in merge_rows(claim_rows, downstream_rows, target_rows, source_rows)]
+    objects = apply_expected_event_inventory(
+        [assess_object(row) for row in merge_rows(claim_rows, downstream_rows, target_rows, source_rows)],
+        claim_rows,
+        expected_events,
+    )
     action_counts: Counter[str] = Counter()
     gap_counts: Counter[str] = Counter()
     emperor_stats: dict[str, Counter[str]] = defaultdict(Counter)
@@ -348,7 +537,15 @@ def build_report(
         "rule_code": rule_code,
         "emperors": list(emperors),
         "coverage_scope": "observed_cached_sources_and_native_pipeline",
-        "historical_event_coverage_status": "unassessed_without_expected_event_inventory",
+        "historical_event_coverage_status": (
+            "partially_assessed_by_expected_event_inventory"
+            if expected_events
+            else "unassessed_without_expected_event_inventory"
+        ),
+        "expected_event_count": sum(text(row.get("record_type")) != "object_assessment" for row in expected_events),
+        "inventory_object_assessment_count": sum(
+            text(row.get("record_type")) == "object_assessment" for row in expected_events
+        ),
         "counts": {
             "objects": len(objects),
             "complete": sum(row["coverage_status"] == "complete" for row in objects),
@@ -536,6 +733,8 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "> 只读控制面报告。只有同一 event group 的事实链已完整或下游已启动的对象，才会产生 material/candidate/binding/factorization 缺口。",
         "> `complete` 只表示已观察到的缓存史源和 native 管线机械闭合；未提供预期史源/事件清单时，不代表历史事件覆盖完整。",
         "",
+        f"- expected events: `{report.get('expected_event_count', 0)}`; historical coverage: `{report.get('historical_event_coverage_status')}`",
+        "",
         "## 修复队列",
         "",
         "| 动作 | 对象数 |",
@@ -548,13 +747,13 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             "",
             "## 对象覆盖",
             "",
-            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factors | 链完整 | 管线状态 | 缺口 |",
-            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
+            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factors | 预期事件覆盖 | 链完整 | 管线状态 | 缺口 |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
         ]
     )
     for row in report.get("objects") or []:
         lines.append(
-            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {factors} | {ready} | {status} | {gaps} |".format(
+            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {factors} | {events} | {ready} | {status} | {gaps} |".format(
                 emperor=markdown_cell(row.get("emperor_name")),
                 object_name=markdown_cell(row.get("object_name")),
                 slices=f"{as_int(row.get('claimed_source_slice_count'))}/{as_int(row.get('source_slice_count'))}",
@@ -564,12 +763,64 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 candidates=as_int(row.get("candidate_count")),
                 bindings=as_int(row.get("binding_count")),
                 factors=as_int(row.get("factor_judgment_count")),
+                events=(
+                    f"{as_int(row.get('covered_expected_event_count'))}/{as_int(row.get('expected_event_count'))}"
+                    if as_int(row.get("expected_event_count"))
+                    else "未评估"
+                ),
                 ready="是" if row.get("chain_ready") else "否",
                 status=markdown_cell(row.get("coverage_status")),
                 gaps=markdown_cell(", ".join(item["gap_type"] for item in row.get("gaps") or [])),
             )
         )
     return "\n".join(lines) + "\n"
+
+
+def build_source_refinement_worklist(report: Mapping[str, Any]) -> list[dict[str, Any]]:
+    worklist: list[dict[str, Any]] = []
+    for row in report.get("objects") or []:
+        for event in row.get("expected_event_assessments") or []:
+            if event.get("coverage_status") == "covered":
+                continue
+            facets = event.get("matched_facets") if isinstance(event.get("matched_facets"), Mapping) else {}
+            importance = text(event.get("importance"))
+            coverage_status = text(event.get("coverage_status"))
+            priority = {
+                ("major", "missing"): 10,
+                ("major", "partial"): 20,
+                ("secondary", "missing"): 30,
+                ("secondary", "partial"): 40,
+            }.get((importance, coverage_status), 50)
+            worklist.append(
+                {
+                    "repair_code": "EER-" + text(event.get("event_inventory_code")).removeprefix("EEI-"),
+                    "emperor_name": text(row.get("emperor_name")),
+                    "object_id": row.get("object_id"),
+                    "object_name": text(row.get("object_name")),
+                    "event_inventory_code": text(event.get("event_inventory_code")),
+                    "event_label": text(event.get("event_label")),
+                    "importance": importance,
+                    "direction": text(event.get("direction")),
+                    "coverage_status": coverage_status,
+                    "priority": priority,
+                    "matched_group_key": text(event.get("matched_group_key")),
+                    "missing_facets": [name for name, present in facets.items() if not present],
+                    "source_document_hints": event.get("source_leads") or [],
+                    "next_stage": "object_source_cache_then_claim_extraction",
+                    "evidence_status": "retrieval_lead_only",
+                    "write_db": False,
+                    "scoring_allowed": False,
+                }
+            )
+    return sorted(
+        worklist,
+        key=lambda row: (
+            as_int(row.get("priority")),
+            text(row.get("emperor_name")),
+            text(row.get("object_name")),
+            text(row.get("event_inventory_code")),
+        ),
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -582,6 +833,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--emperor", action="append", default=[])
     parser.add_argument("--output-json", type=Path)
     parser.add_argument("--output-md", type=Path)
+    parser.add_argument("--expected-events-jsonl", type=Path)
+    parser.add_argument("--output-repair-worklist", type=Path)
+    parser.add_argument("--repair-limit", type=int, default=0)
     return parser
 
 
@@ -596,6 +850,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         rule_code=args.rule_code,
         emperors=args.emperor,
     )
+    expected_events: list[dict[str, Any]] = []
+    if args.expected_events_jsonl is not None:
+        for line_no, line in enumerate(args.expected_events_jsonl.read_text(encoding="utf-8").splitlines(), start=1):
+            if not line.strip():
+                continue
+            value = json.loads(line)
+            if not isinstance(value, Mapping):
+                raise ValueError(f"{args.expected_events_jsonl}:{line_no}: expected object")
+            expected_events.append(dict(value))
     report = build_report(
         claim_rows=claim_rows,
         downstream_rows=downstream_rows,
@@ -605,6 +868,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         item_code=args.item_code,
         rule_code=args.rule_code,
         emperors=args.emperor,
+        expected_events=expected_events,
     )
     payload = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n"
     if args.output_json is not None:
@@ -615,6 +879,19 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.output_md is not None:
         args.output_md.parent.mkdir(parents=True, exist_ok=True)
         args.output_md.write_text(render_markdown(report), encoding="utf-8", newline="\n")
+    if args.output_repair_worklist is not None:
+        args.output_repair_worklist.parent.mkdir(parents=True, exist_ok=True)
+        repair_rows = build_source_refinement_worklist(report)
+        if args.repair_limit > 0:
+            repair_rows = repair_rows[: args.repair_limit]
+        args.output_repair_worklist.write_text(
+            "".join(
+                json.dumps(row, ensure_ascii=False, sort_keys=True, default=str) + "\n"
+                for row in repair_rows
+            ),
+            encoding="utf-8",
+            newline="\n",
+        )
     return 0
 
 
