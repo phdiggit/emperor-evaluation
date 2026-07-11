@@ -17,6 +17,7 @@ from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev import retrieval_v3_claim_chain_candidates as claim_chain_candidates
 from scripts.dev import retrieval_v3_claim_rule_route_plan as claim_rule_route_plan
 from scripts.dev import retrieval_v3_cross_rule_router as cross_rule_router
+from scripts.dev import retrieval_v3_candidate_promoter as candidate_promoter
 from scripts.dev.retrieval_v3_coverage_runner import fetch_coverage_contract, run_contract
 from scripts.dev.retrieval_v3_evidence_sufficiency import build_evidence_sufficiency, render_markdown as render_evidence_markdown
 from scripts.dev.retrieval_v3_material_density_sensitivity import build_sensitivity_report, render_markdown as render_density_markdown
@@ -364,7 +365,7 @@ def combine_reuse_candidates(
                 and text(row.get("emperor_name")) == emperor_name
             ]
             formal = [
-                dict(row) for row in cross_candidates
+                preview_reuse_promotion(row) for row in cross_candidates
                 if text(row.get("candidate_rule_code")) == rule_code
                 and text(row.get("emperor_name")) == emperor_name
             ]
@@ -375,6 +376,7 @@ def combine_reuse_candidates(
                 "appointment_reuse_candidate_count": len(formal),
                 "mechanical_object_count": len({text(row.get("object_name")) for row in mechanical if text(row.get("object_name"))}),
                 "appointment_reuse_object_count": len({text(row.get("object_name")) for row in formal if text(row.get("object_name"))}),
+                "promotion_preview_counts": dict(sorted(Counter(text(row.get("promotion_preview_status")) for row in formal).items())),
                 "route_status_counts": dict(sorted(Counter(text(row.get("route_status")) for row in mechanical).items())),
                 "mechanical_routes": mechanical,
                 "appointment_reuse_candidates": formal,
@@ -390,8 +392,28 @@ def combine_reuse_candidates(
         "cell_count": len(cells),
         "mechanical_route_count": sum(int(row["mechanical_route_count"]) for row in cells),
         "appointment_reuse_candidate_count": sum(int(row["appointment_reuse_candidate_count"]) for row in cells),
+        "promotion_preview_counts": dict(sorted(Counter(
+            text(candidate.get("promotion_preview_status"))
+            for row in cells for candidate in row.get("appointment_reuse_candidates") or []
+        ).items())),
         "cells": cells,
     }
+
+
+def preview_reuse_promotion(row: Mapping[str, Any]) -> dict[str, Any]:
+    result = dict(row)
+    rule_code = text(row.get("candidate_rule_code"))
+    resolver = candidate_promoter.RESOLVERS.get(rule_code)
+    spec = resolver(row) if resolver is not None else None
+    if spec is None:
+        result["promotion_preview_status"] = "needs_rule_review"
+        result["promotion_preview_reason"] = f"unresolved_{rule_code}"
+        result["promotion_spec"] = None
+        return result
+    result["promotion_preview_status"] = "deterministic_promotion_candidate"
+    result["promotion_preview_reason"] = spec.reason_code
+    result["promotion_spec"] = asdict(spec)
+    return result
 
 
 def build_reuse_candidate_report(
@@ -433,14 +455,67 @@ def render_reuse_markdown(report: Mapping[str, Any]) -> str:
         f"- input_active_claim_count: `{report.get('input_active_claim_count', 0)}`",
         f"- mechanical_route_count: `{report.get('mechanical_route_count', 0)}`",
         f"- appointment_reuse_candidate_count: `{report.get('appointment_reuse_candidate_count', 0)}`", "",
-        "| 皇帝 | rule | mechanical routes | mechanical objects | appointment reuse | reuse objects |",
-        "| --- | --- | ---: | ---: | ---: | ---: |",
+        f"- promotion_preview_counts: `{json.dumps(report.get('promotion_preview_counts') or {}, ensure_ascii=False, sort_keys=True)}`", "",
+        "| 皇帝 | rule | mechanical routes | mechanical objects | appointment reuse | reuse objects | deterministic | review |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in report.get("cells") or []:
         lines.append(
             f"| {row.get('emperor_name')} | {row.get('rule_code')} | {row.get('mechanical_route_count', 0)} | "
             f"{row.get('mechanical_object_count', 0)} | {row.get('appointment_reuse_candidate_count', 0)} | "
-            f"{row.get('appointment_reuse_object_count', 0)} |"
+            f"{row.get('appointment_reuse_object_count', 0)} | "
+            f"{(row.get('promotion_preview_counts') or {}).get('deterministic_promotion_candidate', 0)} | "
+            f"{(row.get('promotion_preview_counts') or {}).get('needs_rule_review', 0)} |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def build_promotion_worklists(report: Mapping[str, Any]) -> dict[str, Any]:
+    candidates = [
+        dict(candidate)
+        for cell in report.get("cells") or []
+        for candidate in cell.get("appointment_reuse_candidates") or []
+    ]
+    deterministic = [row for row in candidates if text(row.get("promotion_preview_status")) == "deterministic_promotion_candidate"]
+    review = [row for row in candidates if text(row.get("promotion_preview_status")) == "needs_rule_review"]
+    return {
+        "ok": len(deterministic) + len(review) == len(candidates),
+        "mode": "read_only_promotion_worklists",
+        "write_db": False,
+        "agent_called": False,
+        "candidate_count": len(candidates),
+        "deterministic_count": len(deterministic),
+        "rule_review_count": len(review),
+        "deterministic_by_rule": dict(sorted(Counter(text(row.get("candidate_rule_code")) for row in deterministic).items())),
+        "rule_review_by_rule": dict(sorted(Counter(text(row.get("candidate_rule_code")) for row in review).items())),
+        "deterministic_promotions": deterministic,
+        "rule_review_worklist": review,
+    }
+
+
+def render_promotion_worklists(report: Mapping[str, Any]) -> str:
+    lines = [
+        "# retrieval_v3 I5B 候选晋升预判", "",
+        "- mode: `read_only_promotion_worklists`",
+        "- write_db/agent_called: `false/false`",
+        f"- candidate_count: `{report.get('candidate_count', 0)}`",
+        f"- deterministic_count: `{report.get('deterministic_count', 0)}`",
+        f"- rule_review_count: `{report.get('rule_review_count', 0)}`", "",
+        "## 确定性晋升候选", "",
+        "| 皇帝 | rule | 对象 | predicate | direction | claim |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ]
+    for row in report.get("deterministic_promotions") or []:
+        spec = row.get("promotion_spec") or {}
+        lines.append(
+            f"| {row.get('emperor_name')} | {row.get('candidate_rule_code')} | {row.get('object_name')} | "
+            f"{spec.get('predicate', '')} | {spec.get('direction', '')} | {row.get('claim_summary', '')} |"
+        )
+    lines.extend(["", "## 需要窄规则复核", "", "| 皇帝 | rule | 对象 | 原因 | claim |", "| --- | --- | --- | --- | --- |"])
+    for row in report.get("rule_review_worklist") or []:
+        lines.append(
+            f"| {row.get('emperor_name')} | {row.get('candidate_rule_code')} | {row.get('object_name')} | "
+            f"{row.get('promotion_preview_reason', '')} | {row.get('claim_summary', '')} |"
         )
     return "\n".join(lines) + "\n"
 
@@ -702,6 +777,14 @@ def run_matrix(
     (output_root / "reuse_candidates.md").write_text(
         render_reuse_markdown(reuse_candidates), encoding="utf-8", newline="\n",
     )
+    promotion_worklists = build_promotion_worklists(reuse_candidates)
+    (output_root / "promotion_worklists.json").write_text(
+        json.dumps(promotion_worklists, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n",
+        encoding="utf-8", newline="\n",
+    )
+    (output_root / "promotion_worklists.md").write_text(
+        render_promotion_worklists(promotion_worklists), encoding="utf-8", newline="\n",
+    )
     reuse_seconds = round(time.perf_counter() - reuse_started, 3)
 
     coverage_started = time.perf_counter()
@@ -742,7 +825,10 @@ def run_matrix(
             "mode": reuse_candidates["mode"],
             "mechanical_route_count": reuse_candidates["mechanical_route_count"],
             "appointment_reuse_candidate_count": reuse_candidates["appointment_reuse_candidate_count"],
+            "promotion_preview_counts": reuse_candidates["promotion_preview_counts"],
             "formal_candidates_missing_contract_rule": reuse_candidates["formal_candidates_missing_contract_rule"],
+            "deterministic_promotion_count": promotion_worklists["deterministic_count"],
+            "rule_review_count": promotion_worklists["rule_review_count"],
         },
         "coverage_summary": coverage,
         "stage_timings": {"audit": audit_seconds, "reuse_candidates": reuse_seconds, "coverage": coverage_seconds},
@@ -752,6 +838,8 @@ def run_matrix(
             "report_md": str(output_root / "report.md"),
             "reuse_candidates_json": str(output_root / "reuse_candidates.json"),
             "reuse_candidates_md": str(output_root / "reuse_candidates.md"),
+            "promotion_worklists_json": str(output_root / "promotion_worklists.json"),
+            "promotion_worklists_md": str(output_root / "promotion_worklists.md"),
             "coverage_root": str(output_root / "coverage"),
         },
     }

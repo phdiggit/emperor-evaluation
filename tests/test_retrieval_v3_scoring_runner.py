@@ -95,6 +95,39 @@ def test_combine_reuse_candidates_builds_emperor_rule_matrix() -> None:
     assert by_cell[("乙", "talent_discovery")]["mechanical_route_count"] == 0
 
 
+def test_preview_reuse_promotion_separates_deterministic_and_review() -> None:
+    team = tool.preview_reuse_promotion({
+        "candidate_rule_code": "team_building",
+        "claim_direction": "positive",
+        "candidate_payload": {"source_binding": {"direction": "positive"}},
+    })
+    tolerance = tool.preview_reuse_promotion({
+        "candidate_rule_code": "tolerate_talent",
+        "claim_summary": "仅有一般任用事实",
+        "candidate_payload": {"source_binding": {"direction": "positive"}},
+    })
+
+    assert team["promotion_preview_status"] == "deterministic_promotion_candidate"
+    assert team["promotion_spec"]["predicate"] == "team_member"
+    assert tolerance["promotion_preview_status"] == "needs_rule_review"
+
+
+def test_build_promotion_worklists_splits_preview_statuses() -> None:
+    report = tool.build_promotion_worklists({
+        "cells": [{
+            "appointment_reuse_candidates": [
+                {"candidate_rule_code": "team_building", "promotion_preview_status": "deterministic_promotion_candidate"},
+                {"candidate_rule_code": "tolerate_talent", "promotion_preview_status": "needs_rule_review"},
+            ],
+        }],
+    })
+
+    assert report["ok"] is True
+    assert report["deterministic_count"] == 1
+    assert report["rule_review_count"] == 1
+    assert report["deterministic_by_rule"] == {"team_building": 1}
+
+
 def test_parser_is_read_only_by_default() -> None:
     args = tool.build_parser().parse_args([
         "--manifest", "manifest.json", "--output-root", "tmp/run"])
