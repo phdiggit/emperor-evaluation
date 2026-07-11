@@ -395,7 +395,39 @@ def test_fetch_material_rows_filters_by_source_pack_code_without_accepted_scope(
     assert rows == []
     assert "sp.pack_code = any(%s)" in cur.sql
     assert "sp2.status = 'accepted'" not in cur.sql
-    assert cur.params == ("evidence_cluster_signal_v3", "appointment_delegation", ["SPK-I5B-SHADOW"], "I5B", "I5B")
+    assert "existing_judgment.binding_id = crb.id" in cur.sql
+    assert cur.params == (
+        "evidence_cluster_signal_v3",
+        "appointment_delegation",
+        ["SPK-I5B-SHADOW"],
+        "I5B",
+        "I5B",
+        "evidence_cluster_signal_v3",
+    )
+
+
+def test_fetch_material_rows_full_review_mode_can_include_existing_judgments() -> None:
+    class FakeCursor:
+        def __init__(self) -> None:
+            self.sql = ""
+
+        def execute(self, sql: str, params=()) -> None:
+            self.sql = sql
+
+        def fetchall(self) -> list[dict[str, object]]:
+            return []
+
+    cur = FakeCursor()
+    tool.fetch_material_rows(
+        cur,
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        formula_code="evidence_cluster_signal_v3",
+        scope="active-targets",
+        include_judged=True,
+    )
+
+    assert "existing_judgment.binding_id = crb.id" not in cur.sql
 
 
 def test_fetch_material_rows_includes_promoter_review_candidates() -> None:

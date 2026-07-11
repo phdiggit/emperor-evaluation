@@ -502,9 +502,21 @@ def fetch_material_rows(
     formula_code: str,
     scope: str,
     source_pack_codes: Sequence[str] = (),
+    include_judged: bool = False,
 ) -> list[dict[str, Any]]:
     codes = [text(code) for code in source_pack_codes if text(code)]
     source_pack_params: list[Any] = [codes] if codes else []
+    judgment_delta_predicate = "" if include_judged else """
+           and not exists (
+                select 1
+                  from retrieval_v3.claim_rule_binding_factor_judgments existing_judgment
+                 where existing_judgment.binding_id = crb.id
+                   and existing_judgment.item_code = rt.item_code
+                   and existing_judgment.rule_code = crb.rule_code
+                   and existing_judgment.formula_code = %s
+                   and existing_judgment.review_status::text not in ('rejected', 'retired')
+           )
+    """
     cur.execute(
         f"""
         with passage_agg as (
@@ -675,9 +687,10 @@ def fetch_material_rows(
            )
            and {source_pack_predicate(scope, codes)}
            and (%s = '' or rt.item_code = %s)
+           {judgment_delta_predicate}
          order by rt.emperor_name, crb.direction::text desc, o.canonical_name, crb.id
         """,
-        (formula_code, rule_code, *source_pack_params, item_code, item_code),
+        (formula_code, rule_code, *source_pack_params, item_code, item_code, *([] if include_judged else [formula_code])),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -859,6 +872,7 @@ def build_worklist(
     scope: str,
     batch_size: int,
     source_pack_codes: Sequence[str] = (),
+    include_judged: bool = False,
     target_names: Sequence[str] = (),
     target_codes: Sequence[str] = (),
 ) -> dict[str, Any]:
@@ -877,9 +891,10 @@ def build_worklist(
                 formula_code=formula_code,
                 scope=scope,
                 source_pack_codes=source_pack_codes,
+                include_judged=include_judged,
             )
     material_rows = filter_material_rows(material_rows, target_names=target_names, target_codes=target_codes)
-    return build_worklist_from_rows(
+    payload = build_worklist_from_rows(
         material_rows,
         factor_rows,
         item_code=item_code,
@@ -889,6 +904,8 @@ def build_worklist(
         source_pack_codes=source_pack_codes,
         batch_size=batch_size,
     )
+    payload["selection_mode"] = "all_bindings" if include_judged else "unjudged_delta"
+    return payload
 
 
 def render_markdown(payload: Mapping[str, Any]) -> str:
@@ -1549,6 +1566,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--target-name", action="append", default=[], help="Restrict worklist to this emperor/person target name. Repeatable.")
     worklist.add_argument("--target-code", action="append", default=[], help="Restrict worklist to this retrieval target code. Repeatable.")
     worklist.add_argument("--source-pack-code", action="append", default=[], help="Restrict worklist to explicit source pack code. Repeatable; allows draft shadow packs.")
+    worklist.add_argument("--include-judged", action="store_true", help="Explicit full re-review mode; include bindings that already have a live judgment for this formula.")
     for name in ("--output-json", "--output-md"):
         worklist.add_argument(name, type=Path, required=True)
     worklist.add_argument("--batch-output-dir", type=Path)
@@ -1642,6 +1660,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         scope=args.scope,
         batch_size=int(args.batch_size or runtime["batch_size"]),
         source_pack_codes=args.source_pack_code,
+        include_judged=args.include_judged,
         target_names=args.target_name,
         target_codes=args.target_code,
     )

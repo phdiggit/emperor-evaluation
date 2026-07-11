@@ -21,6 +21,14 @@ def test_stage_resolution_uses_project_defaults_and_stage_concurrency() -> None:
     assert runtime["timeout_seconds"] == 1800
 
 
+def test_review_and_factorization_defaults_use_high_throughput_batches() -> None:
+    factorization = tool.resolve_agent_stage("factorization", environ={})
+    candidate_review = tool.resolve_agent_stage("v3_candidate_review", environ={})
+
+    assert (factorization["batch_size"], factorization["max_workers"]) == (16, 8)
+    assert (candidate_review["batch_size"], candidate_review["max_workers"]) == (16, 8)
+
+
 def test_stage_specific_environment_has_highest_runtime_precedence() -> None:
     runtime = tool.resolve_agent_stage(
         "claim_extraction",
