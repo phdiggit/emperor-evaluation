@@ -40,3 +40,17 @@ def test_object_pool_rejects_incomplete_profile() -> None:
         assert "incomplete profile" in str(exc)
     else:
         raise AssertionError("expected incomplete profile rejection")
+
+
+def test_object_pool_accepts_punctuation_normalized_labels_and_label_choices() -> None:
+    factor_options = options()
+    factor_options["talent_quality_factor"]["T1"]["label"] = "历史级人才"
+    resolved = tool.option(factor_options, "role_complementarity_factor", "高度互补。")
+    assert resolved["option_code"] == "R"
+    people = [{"emperor_name": "甲", "object_id": 1, "canonical_name": "甲臣", "talent_grade": "historic_talent", "talent_grade_version": "v", "readiness_status": "profile_complete", "source_target_ids": [1], "target_object_ids": [1]}]
+    clusters = tool.build_clusters(
+        people=people, targets={"甲": {"target_id": 1}}, options=factor_options,
+        choices={"甲": {"role_complementarity_factor": "高度互补。", "long_term_stability_factor": "稳定"}},
+        formula_code="F",
+    )
+    assert clusters[0]["positive_signal"] == Decimal("2.080")

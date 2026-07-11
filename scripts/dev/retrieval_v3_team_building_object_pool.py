@@ -30,6 +30,10 @@ def text(value: Any) -> str:
     return str(value or "").strip()
 
 
+def normalized_option_label(value: Any) -> str:
+    return text(value).rstrip("。；;")
+
+
 def read_factor_choices(path: Path) -> dict[str, dict[str, str]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, Mapping):
@@ -102,10 +106,13 @@ def fetch_canonical_targets(cur: Any, *, emperors: Sequence[str]) -> dict[str, d
 
 
 def option(options: Mapping[str, Mapping[str, Mapping[str, Any]]], factor: str, code: str) -> dict[str, Any]:
-    try:
-        return dict(options[factor][code])
-    except KeyError as exc:
-        raise TeamBuildingObjectPoolError(f"unsupported {factor} option: {code}") from exc
+    factor_options = options.get(factor, {})
+    if code in factor_options:
+        return dict(factor_options[code])
+    matches = [dict(row) for row in factor_options.values() if normalized_option_label(row.get("label")) == normalized_option_label(code)]
+    if len(matches) == 1:
+        return matches[0]
+    raise TeamBuildingObjectPoolError(f"unsupported {factor} option: {code}")
 
 
 def build_clusters(
@@ -144,7 +151,7 @@ def build_clusters(
             if not talent_label:
                 raise TeamBuildingObjectPoolError(f"{emperor}/{raw.get('canonical_name')}: unsupported talent grade {grade}")
             talent = next(
-                (dict(row) for row in options["talent_quality_factor"].values() if text(row.get("label")) == talent_label),
+                (dict(row) for row in options["talent_quality_factor"].values() if normalized_option_label(row.get("label")) == normalized_option_label(talent_label)),
                 None,
             )
             if talent is None:
