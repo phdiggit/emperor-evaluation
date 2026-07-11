@@ -85,7 +85,7 @@ def test_talent_item_uses_authority_consensus_v2_contract() -> None:
         }
     )
 
-    assert item["context"]["rubric_version"] == "talent-grade-v3"
+    assert item["context"]["rubric_version"] == "talent-grade-v4"
     assert item["context"]["authority_evaluations"]
     assert any("不能据此排除 top_talent" in rule for rule in item["context"]["grade_boundary_rules"])
     assert any("不得按朝代分配档位人数" in rule for rule in item["context"]["grade_boundary_rules"])
@@ -203,6 +203,20 @@ def test_authority_sources_accept_persisted_claim_reference() -> None:
     assert tool.require_authority_sources([{"claim_key": "PCA-EXISTING"}]) == [{"claim_key": "PCA-EXISTING"}]
     with pytest.raises(tool.JudgmentWorklistError, match="must start with PCA-"):
         tool.require_authority_sources([{"claim_key": "CLMK-WRONG-LANE"}])
+
+
+def test_authority_sources_normalize_web_search_aliases() -> None:
+    assert tool.require_authority_sources(
+        [{"title": "明史", "locator": "卷一", "stable_url": "https://example.test", "summary": "史论摘要"}]
+    ) == [
+        {
+            "source_title": "明史",
+            "source_locator": "卷一",
+            "source_url": "https://example.test",
+            "evaluation_summary": "史论摘要",
+            "quote_preview": "",
+        }
+    ]
 
 
 class _RecordingCursor:
