@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 import time
+from collections import Counter
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -13,6 +14,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn
+from scripts.dev import retrieval_v3_claim_chain_candidates as claim_chain_candidates
+from scripts.dev import retrieval_v3_claim_rule_route_plan as claim_rule_route_plan
+from scripts.dev import retrieval_v3_cross_rule_router as cross_rule_router
 from scripts.dev.retrieval_v3_coverage_runner import fetch_coverage_contract, run_contract
 from scripts.dev.retrieval_v3_evidence_sufficiency import build_evidence_sufficiency, render_markdown as render_evidence_markdown
 from scripts.dev.retrieval_v3_material_density_sensitivity import build_sensitivity_report, render_markdown as render_density_markdown
@@ -346,6 +350,101 @@ def fetch_audit_matrix(
     return rows
 
 
+def combine_reuse_candidates(
+    *, rules: Sequence[str], emperors: Sequence[str],
+    claim_routes: Sequence[Mapping[str, Any]], cross_candidates: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    cells: list[dict[str, Any]] = []
+    selected_rules = [text(rule) for rule in rules if text(rule) and text(rule) != "appointment_delegation"]
+    for rule_code in selected_rules:
+        for emperor_name in emperors:
+            mechanical = [
+                dict(row) for row in claim_routes
+                if text(row.get("candidate_rule_code")) == rule_code
+                and text(row.get("emperor_name")) == emperor_name
+            ]
+            formal = [
+                dict(row) for row in cross_candidates
+                if text(row.get("candidate_rule_code")) == rule_code
+                and text(row.get("emperor_name")) == emperor_name
+            ]
+            cells.append({
+                "emperor_name": emperor_name,
+                "rule_code": rule_code,
+                "mechanical_route_count": len(mechanical),
+                "appointment_reuse_candidate_count": len(formal),
+                "mechanical_object_count": len({text(row.get("object_name")) for row in mechanical if text(row.get("object_name"))}),
+                "appointment_reuse_object_count": len({text(row.get("object_name")) for row in formal if text(row.get("object_name"))}),
+                "route_status_counts": dict(sorted(Counter(text(row.get("route_status")) for row in mechanical).items())),
+                "mechanical_routes": mechanical,
+                "appointment_reuse_candidates": formal,
+            })
+    return {
+        "ok": len(cells) == len(selected_rules) * len(emperors),
+        "mode": "read_only_existing_claim_reuse_plan",
+        "write_db": False,
+        "write_job": False,
+        "agent_called": False,
+        "rules": selected_rules,
+        "emperors": list(emperors),
+        "cell_count": len(cells),
+        "mechanical_route_count": sum(int(row["mechanical_route_count"]) for row in cells),
+        "appointment_reuse_candidate_count": sum(int(row["appointment_reuse_candidate_count"]) for row in cells),
+        "cells": cells,
+    }
+
+
+def build_reuse_candidate_report(
+    *, dsn: str, schema_name: str, manifest: Mapping[str, Any]
+) -> dict[str, Any]:
+    emperors = [text(row.get("emperor_name")) for row in manifest.get("targets") or []]
+    rules = [text(row.get("rule_code")) for row in manifest.get("rules") or []]
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            claims = claim_chain_candidates.fetch_claim_rows(
+                cur, emperor_names=emperors, statuses=("active",), owner_scopes=(),
+            )
+            claim_plan = claim_rule_route_plan.build_plan(claims, min_members=2)
+            cross_plan = cross_rule_router.build_plan(
+                cur, item_code=text(manifest.get("item_code")),
+                source_rule_code="appointment_delegation", emperors=emperors,
+                canonical_only=True,
+            )
+        conn.rollback()
+    report = combine_reuse_candidates(
+        rules=rules, emperors=emperors,
+        claim_routes=claim_plan.get("routes") or [],
+        cross_candidates=cross_plan.get("candidates") or [],
+    )
+    report["input_active_claim_count"] = int(claim_plan.get("input_claim_count") or 0)
+    report["appointment_source_claim_count"] = int((cross_plan.get("totals") or {}).get("source_claims") or 0)
+    report["formal_candidates_missing_contract_rule"] = int(
+        (cross_plan.get("totals") or {}).get("formal_candidates_missing_contract_rule") or 0)
+    return report
+
+
+def render_reuse_markdown(report: Mapping[str, Any]) -> str:
+    lines = [
+        "# retrieval_v3 三人 I5B 现有材料复用计划", "",
+        "- mode: `read_only_existing_claim_reuse_plan`",
+        "- write_db/write_job/agent_called: `false/false/false`",
+        f"- input_active_claim_count: `{report.get('input_active_claim_count', 0)}`",
+        f"- mechanical_route_count: `{report.get('mechanical_route_count', 0)}`",
+        f"- appointment_reuse_candidate_count: `{report.get('appointment_reuse_candidate_count', 0)}`", "",
+        "| 皇帝 | rule | mechanical routes | mechanical objects | appointment reuse | reuse objects |",
+        "| --- | --- | ---: | ---: | ---: | ---: |",
+    ]
+    for row in report.get("cells") or []:
+        lines.append(
+            f"| {row.get('emperor_name')} | {row.get('rule_code')} | {row.get('mechanical_route_count', 0)} | "
+            f"{row.get('mechanical_object_count', 0)} | {row.get('appointment_reuse_candidate_count', 0)} | "
+            f"{row.get('appointment_reuse_object_count', 0)} |"
+        )
+    return "\n".join(lines) + "\n"
+
+
 def score_summary(payload: Mapping[str, Any], target_code: str) -> dict[str, Any]:
     matches = [row for row in payload.get("clusters") or [] if text(row.get("target_code")) == target_code]
     if len(matches) != 1:
@@ -594,6 +693,17 @@ def run_matrix(
     cells = fetch_audit_matrix(dsn=dsn, schema_name=schema_name, manifest=manifest)
     audit_seconds = round(time.perf_counter() - audit_started, 3)
 
+    reuse_started = time.perf_counter()
+    reuse_candidates = build_reuse_candidate_report(dsn=dsn, schema_name=schema_name, manifest=manifest)
+    (output_root / "reuse_candidates.json").write_text(
+        json.dumps(reuse_candidates, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n",
+        encoding="utf-8", newline="\n",
+    )
+    (output_root / "reuse_candidates.md").write_text(
+        render_reuse_markdown(reuse_candidates), encoding="utf-8", newline="\n",
+    )
+    reuse_seconds = round(time.perf_counter() - reuse_started, 3)
+
     coverage_started = time.perf_counter()
     rules = [text(row.get("rule_code")) for row in manifest.get("rules") or []]
     emperors = [text(row.get("emperor_name")) for row in manifest.get("targets") or []]
@@ -628,12 +738,20 @@ def run_matrix(
         "dirty_cell_count": sum(text(row.get("dirty_state")) == "dirty" for row in cells),
         "complete_rule_coverage": all(text(row.get("cluster_state")) == "current" for row in cells),
         "cells": cells,
+        "reuse_candidates": {
+            "mode": reuse_candidates["mode"],
+            "mechanical_route_count": reuse_candidates["mechanical_route_count"],
+            "appointment_reuse_candidate_count": reuse_candidates["appointment_reuse_candidate_count"],
+            "formal_candidates_missing_contract_rule": reuse_candidates["formal_candidates_missing_contract_rule"],
+        },
         "coverage_summary": coverage,
-        "stage_timings": {"audit": audit_seconds, "coverage": coverage_seconds},
+        "stage_timings": {"audit": audit_seconds, "reuse_candidates": reuse_seconds, "coverage": coverage_seconds},
         "elapsed_seconds": round(time.perf_counter() - started, 3),
         "artifacts": {
             "report_json": str(output_root / "report.json"),
             "report_md": str(output_root / "report.md"),
+            "reuse_candidates_json": str(output_root / "reuse_candidates.json"),
+            "reuse_candidates_md": str(output_root / "reuse_candidates.md"),
             "coverage_root": str(output_root / "coverage"),
         },
     }

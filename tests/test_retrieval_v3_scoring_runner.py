@@ -72,6 +72,29 @@ def test_score_summary_requires_exact_target() -> None:
     assert tool.score_summary(payload, "TGT-A")["positive_signal"] == "1.000"
 
 
+def test_combine_reuse_candidates_builds_emperor_rule_matrix() -> None:
+    report = tool.combine_reuse_candidates(
+        rules=("talent_discovery", "appointment_delegation", "team_building"),
+        emperors=("甲", "乙"),
+        claim_routes=[
+            {"emperor_name": "甲", "candidate_rule_code": "talent_discovery", "object_name": "才一", "route_status": "review"},
+            {"emperor_name": "甲", "candidate_rule_code": "team_building", "object_name": "才一", "route_status": "pool"},
+        ],
+        cross_candidates=[
+            {"emperor_name": "甲", "candidate_rule_code": "team_building", "object_name": "才一"},
+            {"emperor_name": "乙", "candidate_rule_code": "team_building", "object_name": "才二"},
+        ],
+    )
+
+    assert report["cell_count"] == 4
+    assert report["mechanical_route_count"] == 2
+    assert report["appointment_reuse_candidate_count"] == 2
+    assert report["rules"] == ["talent_discovery", "team_building"]
+    by_cell = {(row["emperor_name"], row["rule_code"]): row for row in report["cells"]}
+    assert by_cell[("甲", "team_building")]["appointment_reuse_object_count"] == 1
+    assert by_cell[("乙", "talent_discovery")]["mechanical_route_count"] == 0
+
+
 def test_parser_is_read_only_by_default() -> None:
     args = tool.build_parser().parse_args([
         "--manifest", "manifest.json", "--output-root", "tmp/run"])
