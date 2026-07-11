@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Type=simple
 WorkingDirectory=/home/penghao/emperor-evaluation-runtime/current
-EnvironmentFile=/home/penghao/emperor-evaluation-runtime/shared/retrieval_v3_server_codex.env
+EnvironmentFile=/home/penghao/emperor-evaluation-runtime/shared/retrieval_v2_server_codex.env
 EnvironmentFile=/home/penghao/emperor-evaluation-runtime/shared/retrieval_v3.env
 ExecStart=/usr/bin/bash /home/penghao/emperor-evaluation-runtime/current/scripts/dev/server_runtime/retrieval_v3_claim_worker_loop.sh
 Restart=always
