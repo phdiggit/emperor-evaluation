@@ -132,7 +132,7 @@ def test_consumer_routes_royal_clan_to_shared_source_chain_and_jifeilu() -> None
             "url": consumer.JIFEILU_URL,
             "source_kind": "public_ocr_page",
             "fetch_mode": "url",
-            "ocr_requires_image_review": True,
+            "ocr_text_policy": "site_result_accepted",
             "ocr_aliases": ["魚王", "鱼王"],
             "section_start_aliases": ["魚王", "鱼王"],
         }

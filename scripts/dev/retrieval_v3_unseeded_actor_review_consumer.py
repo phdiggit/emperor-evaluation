@@ -133,7 +133,7 @@ def source_profile_fields(row: Mapping[str, Any], canonical_name: str, aliases: 
                 "url": JIFEILU_URL,
                 "source_kind": "public_ocr_page",
                 "fetch_mode": "url",
-                "ocr_requires_image_review": True,
+                "ocr_text_policy": "site_result_accepted",
                 "ocr_aliases": JIFEILU_OCR_ALIASES.get(canonical_name, []),
                 "section_start_aliases": JIFEILU_SECTION_START_ALIASES.get(canonical_name, []),
             }

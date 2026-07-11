@@ -934,7 +934,6 @@ def select_candidate_slices(
                         "locator": f"chars:{start}-{end}",
                         "score": score,
                         "text": excerpt,
-                        "ocr_requires_image_review": bool(document.get("ocr_requires_image_review")),
                     }
                 )
         object_rows.sort(key=lambda row: (-int(row["score"]), str(row["document_code"]), str(row["locator"])))
@@ -987,7 +986,6 @@ def merged_slice_row(
         "text": text,
         "merged_from_slice_codes": merged_from,
         "merged_slice_count": len(rows),
-        "ocr_requires_image_review": any(bool(row.get("ocr_requires_image_review")) for row in rows),
     }
 
 def compacted_slice_row(rows: Sequence[Mapping[str, Any]], *, document_text: str, start: int, end: int) -> dict[str, Any]:
@@ -1280,7 +1278,6 @@ def build_candidates(
             "source_kind": row.get("source_kind") or row.get("fetch_meta", {}).get("source_kind") or "unknown",
             "text_chars": row["text_chars"],
             "cache_status": row.get("fetch_meta", {}).get("cache_status"),
-            "ocr_requires_image_review": bool(row.get("ocr_requires_image_review")),
         }
         for row in documents
     ]

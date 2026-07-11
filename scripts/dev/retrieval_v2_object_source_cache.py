@@ -956,8 +956,6 @@ def build_mention_slices(
             "raw_text": text,
             "quote_hash": sha256_text(text),
         }
-        if bool(hint.get("ocr_requires_image_review")):
-            row["ocr_requires_image_review"] = True
         matched_lead_terms = list(window["matched_lead_terms"])
         if matched_lead_terms:
             row["lead_terms"] = matched_lead_terms
@@ -998,8 +996,6 @@ def build_locator_backed_slice(
             "quote_hash": sha256_text(text),
             "slice_kind": "source_document_hint_locator",
         }
-    if bool(hint.get("ocr_requires_image_review")):
-        row["ocr_requires_image_review"] = True
     return [row]
 
 def document_wikisource_titles(document: Mapping[str, Any]) -> list[str]:
@@ -1205,7 +1201,6 @@ def task_target_names(task: Mapping[str, Any]) -> list[str]:
 
 def overlay_document_row(row: Mapping[str, Any], *, object_name: str, index: int) -> dict[str, Any]:
     title = text_from(row, "wikisource_title", "source_title", "title")
-    hint = row.get("source_document_hint") if isinstance(row.get("source_document_hint"), Mapping) else {}
     result = {
         "document_code": f"DOC-CACHE-{stable_hash([row.get('document_cache_code'), title, index], length=12)}",
         "title": title,
@@ -1224,9 +1219,6 @@ def overlay_document_row(row: Mapping[str, Any], *, object_name: str, index: int
             "mention_slice_count": row.get("mention_slice_count") or 0,
         },
     }
-    if bool(hint.get("ocr_requires_image_review")):
-        result["ocr_requires_image_review"] = True
-        result["object_source_cache"]["ocr_requires_image_review"] = True
     return result
 
 def overlay_task_from_cache(

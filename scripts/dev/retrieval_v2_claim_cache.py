@@ -19,7 +19,6 @@ DEFAULT_CACHE_ROOT = ROOT / "tmp" / "retrieval_v2_claim_cache"
 SCHEMA_VERSION = 1
 PGSQL_SCHEMA_PATH = ROOT / "db" / "migrations" / "20260708_retrieval_v2_claim_cache.sql"
 REUSABLE_CLAIM_STATUSES = {"active"}
-OCR_IMAGE_REVIEW_FLAG = "ocr_requires_image_review"
 
 from scripts.dev import retrieval_v2_alias_pretag as alias_pretag  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
@@ -303,30 +302,12 @@ def slice_lookup(candidates: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
                 payload["source_title"] = str(source_document.get("title") or source_document.get("source_title") or "")
             if not payload.get("source_url"):
                 payload["source_url"] = str(source_document.get("url") or "")
-            if bool(source_document.get(OCR_IMAGE_REVIEW_FLAG)):
-                payload[OCR_IMAGE_REVIEW_FLAG] = True
             result[code] = payload
     return result
 
 
 def requested_owner_name(candidates: Mapping[str, Any]) -> str:
     return alias_pretag.candidate_requested_owner(candidates)
-
-
-def claim_source_review_flags(
-    source_refs: Sequence[str],
-    slices: Mapping[str, Mapping[str, Any]],
-) -> list[str]:
-    if any(bool(slices.get(source_ref, {}).get(OCR_IMAGE_REVIEW_FLAG)) for source_ref in source_refs):
-        return [OCR_IMAGE_REVIEW_FLAG]
-    return []
-
-
-def apply_source_review_flags(row: dict[str, Any], flags: Sequence[str]) -> None:
-    if not flags:
-        return
-    row["quality_flags"] = unique_texts([*(row.get("quality_flags") or []), *flags])
-    row["status"] = "needs_review"
 
 
 def rebind_claim_owner_from_source_aliases(
@@ -477,7 +458,6 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
             if sanitized_claim is None:
                 continue
             key = str(sanitized_claim.get("cached_claim_key") or "") or claim_key(sanitized_claim)
-            source_review_flags = claim_source_review_flags(source_refs, slices)
             imported_claim_keys.append(key)
             by_object[claim_object_name(sanitized_claim)] += 1
             if key in existing["claims"]:
@@ -493,9 +473,6 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                 existing_claim.setdefault("canonical_event_payload", quality["canonical_event_payload"])
                 existing_claim.setdefault("near_duplicate_group_payload", quality["near_duplicate_group_payload"])
                 existing_claim.setdefault("claim_grain", quality["claim_grain"])
-                apply_source_review_flags(existing_claim, source_review_flags)
-                if source_review_flags:
-                    stats["claims_needing_ocr_image_review"] += 1
                 stats["duplicate_claim_count"] += 1
             else:
                 new_claim = claim_row(
@@ -505,10 +482,7 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                     raw_output_path=judge_path,
                     extractor_version=extractor_version,
                 )
-                apply_source_review_flags(new_claim, source_review_flags)
                 existing["claims"][key] = new_claim
-                if source_review_flags:
-                    stats["claims_needing_ocr_image_review"] += 1
                 stats["new_claim_count"] += 1
             spans = sanitized_claim.get("evidence_spans") if isinstance(sanitized_claim.get("evidence_spans"), list) else []
             if not source_refs:
@@ -533,8 +507,6 @@ def import_run(run_root: Path, cache_root: Path) -> dict[str, Any]:
                         "first_run_code": run,
                         "seen_count": 1,
                     }
-                    if bool(slice_row.get(OCR_IMAGE_REVIEW_FLAG)):
-                        existing["slices"][s_hash][OCR_IMAGE_REVIEW_FLAG] = True
                     stats["new_slice_count"] += 1
                 related_spans = [span for span in spans if isinstance(span, Mapping) and str(span.get("source_slice_ref") or "") == source_ref]
                 if not related_spans:

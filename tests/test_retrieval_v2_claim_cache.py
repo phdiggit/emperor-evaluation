@@ -165,7 +165,7 @@ def test_import_run_dedupes_claims_slices_and_evidence(tmp_path: Path) -> None:
     assert len(tool.read_jsonl(cache_root / "source_slices.jsonl")) == 1
 
 
-def test_import_run_blocks_ocr_claim_until_image_review(tmp_path: Path) -> None:
+def test_import_run_accepts_site_ocr_and_preserves_source_provenance(tmp_path: Path) -> None:
     candidates = sample_candidates()
     candidates["candidate_slices"][0]["ocr_requires_image_review"] = True
     candidates["source_documents"] = [
@@ -183,10 +183,10 @@ def test_import_run_blocks_ocr_claim_until_image_review(tmp_path: Path) -> None:
 
     claim = tool.read_jsonl(cache_root / "claims.jsonl")[0]
     source_slice = tool.read_jsonl(cache_root / "source_slices.jsonl")[0]
-    assert report["stats"]["claims_needing_ocr_image_review"] == 1
-    assert claim["status"] == "needs_review"
-    assert claim["quality_flags"] == ["ocr_requires_image_review"]
-    assert source_slice["ocr_requires_image_review"] is True
+    assert "claims_needing_ocr_image_review" not in report["stats"]
+    assert claim["status"] == "active"
+    assert claim.get("quality_flags") in (None, [])
+    assert "ocr_requires_image_review" not in source_slice
     assert source_slice["source_title"] == "御制纪非录"
     assert source_slice["source_url"] == "https://example.test/jifeilu"
 

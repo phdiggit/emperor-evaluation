@@ -356,7 +356,7 @@ def test_fetched_public_ocr_document_does_not_become_wikisource(tmp_path: Path, 
     assert slices[0]["matched_aliases"] == ["魚王"]
     assert "魯王" not in slices[0]["matched_aliases"]
     assert slices[0]["raw_text"] == "魚王为恶。"
-    assert slices[0]["ocr_requires_image_review"] is True
+    assert "ocr_requires_image_review" not in slices[0]
 
 
 def test_discovery_keeps_script_variant_query_with_single_search_name() -> None:
