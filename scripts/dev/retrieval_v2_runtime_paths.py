@@ -42,6 +42,8 @@ def _local_paths() -> dict[str, Any]:
         "config_source": "local_fallback",
         "active_root": active_root,
         "archive_root": ROOT / ".tmp" / "runtime-archive",
+        "active_root_linux": "",
+        "archive_root_linux": "",
         "retrieval_v2_clean_runs": active_root / "retrieval_v2_clean_runs",
         "retrieval_v2_consumption": active_root / "retrieval_v2_consumption",
         "retrieval_v2_feedback": active_root / "retrieval_v2_feedback",
@@ -60,6 +62,8 @@ def _paths_from_config(payload: Mapping[str, Any], *, config_source: str) -> dic
         "config_source": config_source,
         "active_root": active_root,
         "archive_root": archive_root,
+        "active_root_linux": _clean_text(payload.get("active_root_linux")),
+        "archive_root_linux": _clean_text(payload.get("archive_root_linux")),
         "retrieval_v2_clean_runs": _path_from(payload.get("retrieval_v2_clean_runs"))
         or active_root
         / "retrieval_v2_clean_runs",

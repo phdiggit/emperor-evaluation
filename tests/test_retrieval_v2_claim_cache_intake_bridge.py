@@ -12,8 +12,13 @@ class TargetCursor:
 
     def fetchall(self):
         return [
-            {"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"},
-            {"target_code": "TGT-I5B-V3N-LB", "emperor_name": "刘邦", "item_code": "I5B"},
+            {"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B", "contract_code": "legacy"},
+            {
+                "target_code": "TGT-I5B-R3R-LB",
+                "emperor_name": "刘邦",
+                "item_code": "I5B",
+                "contract_code": tool.NATIVE_CONTRACT_CODE,
+            },
         ]
 
 
@@ -51,7 +56,7 @@ def test_fetch_targets_can_select_v3_native_contract_target() -> None:
     assert tool.fetch_targets(TargetCursor(), emperor_names=["刘邦"])[0]["target_code"] == "TGT-I5B-LB"
     assert tool.fetch_targets(
         TargetCursor(), emperor_names=["刘邦"], target_mode="v3_native"
-    )[0]["target_code"] == "TGT-I5B-V3N-LB"
+    )[0]["target_code"] == "TGT-I5B-R3R-LB"
 
 
 def test_build_rows_creates_draft_materials_without_object_or_binding_rows(tmp_path) -> None:
@@ -96,7 +101,10 @@ def test_build_rows_for_claims_is_rule_neutral_and_only_gates_evidence_text() ->
         claims=claims,
         targets=[{"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"}],
         evidence_rows=[evidence("CLMK-1"), evidence("CLMK-2")],
-        full_texts={"SLH-CLMK-1": "完整史料一", "SLH-CLMK-2": "完整史料二"},
+        full_texts={
+            "SLH-CLMK-1": "刘邦任用郦食其 CLMK-1",
+            "SLH-CLMK-2": "刘邦任用郦食其 CLMK-2",
+        },
     )
 
     assert len(rows["material_claims"]) == 2
@@ -105,6 +113,8 @@ def test_build_rows_for_claims_is_rule_neutral_and_only_gates_evidence_text() ->
         "eligible_material_claims": 2,
         "excluded_missing_evidence": 0,
         "excluded_missing_full_slice": 0,
+        "excluded_claim_passage_alignment": 0,
+        "claim_passage_alignment_blockers": [],
         "partial_missing_full_slice": 0,
         "rule_filter_applied": 0,
     }
@@ -120,7 +130,7 @@ def test_build_rows_for_claims_excludes_only_missing_full_slice() -> None:
         ],
         targets=[{"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"}],
         evidence_rows=[evidence("CLMK-1"), evidence("CLMK-2")],
-        full_texts={"SLH-CLMK-1": "完整史料一"},
+        full_texts={"SLH-CLMK-1": "刘邦任用郦食其 CLMK-1"},
     )
 
     assert [row["raw_claim_code"] for row in rows["material_claims"]] == ["CLMK-1"]
@@ -142,3 +152,30 @@ def test_hydrate_full_texts_from_original_candidate_artifact(tmp_path) -> None:
     )
 
     assert texts[slice_hash] == "刘邦任用郦食其"
+
+
+def test_hydrate_full_texts_resolves_linux_runtime_path_to_smb_root(tmp_path) -> None:
+    active_root = tmp_path / "active"
+    run_dir = active_root / "retrieval_v2_claim_extraction_runs" / "run"
+    run_dir.mkdir(parents=True)
+    candidate = {"document_code": "DOC-1", "slice_code": "SLI-1", "text": "朱元璋任用胡惟庸"}
+    slice_hash = tool.fs_cache.slice_hash_from_row(candidate)
+    (run_dir / "candidates.final.json").write_text(
+        json.dumps({"candidate_slices": [candidate]}, ensure_ascii=False), encoding="utf-8"
+    )
+
+    texts = tool.hydrate_full_texts_from_raw_runs(
+        [
+            {
+                "slice_hash": slice_hash,
+                "raw_output_path": "/data1/emperor-evaluation/runtime/active/retrieval_v2_claim_extraction_runs/run/judge_result.final.json",
+            }
+        ],
+        full_texts={},
+        runtime_paths={
+            "active_root_linux": "/data1/emperor-evaluation/runtime/active",
+            "active_root": str(active_root),
+        },
+    )
+
+    assert texts[slice_hash] == "朱元璋任用胡惟庸"

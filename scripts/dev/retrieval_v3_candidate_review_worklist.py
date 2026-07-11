@@ -239,13 +239,22 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, bat
         prompt_path = output_root / "prompts" / f"{task_code}.md"
         prompt_path.parent.mkdir(parents=True, exist_ok=True)
         prompt_path.write_text(prompt_for_task(task_code, batch), encoding="utf-8")
+        patch_path = output_root / "patches" / f"{task_code}.jsonl"
         tasks.append({
             "task_code": task_code,
             "task_kind": "retrieval_v3_candidate_review",
             "batch_index": index,
             "workitem_codes": [text(row.get("workitem_code")) for row in batch],
             "prompt_path": str(prompt_path),
-            "patch_path": str(output_root / "patches" / f"{task_code}.jsonl"),
+            "expected_outputs": [
+                {
+                    "kind": "jsonl_patch",
+                    "path": str(patch_path),
+                    "fallback": "last_message_marked_block",
+                    "begin": PATCH_BEGIN,
+                    "end": PATCH_END,
+                }
+            ],
             "last_message_path": str(output_root / "logs" / f"{task_code}.last.md"),
             "log_path": str(output_root / "logs" / f"{task_code}.jsonl"),
             "argv": agent_runtime_config.codex_task_argv("v3_candidate_review"),

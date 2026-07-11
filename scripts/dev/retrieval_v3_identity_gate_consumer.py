@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_import_plan import json_param  # noqa: E402
+from scripts.dev import retrieval_v2_object_consumer as object_consumer  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
@@ -54,12 +55,18 @@ def syncs_candidate_identity_gate(decision: str) -> bool:
     return decision in {"identity_ready_for_accept", "identity_ready"}
 
 
-def fetch_groups(cur: Any, *, source_pack_codes: Sequence[str] = ()) -> dict[int, list[dict[str, Any]]]:
+def fetch_groups(
+    cur: Any,
+    *,
+    source_pack_codes: Sequence[str] = (),
+    profile: str = PROFILE,
+) -> dict[int, list[dict[str, Any]]]:
     pack_codes = [text(code) for code in source_pack_codes if text(code)]
     cur.execute(
         """
         select c.id as candidate_id, c.candidate_code, c.candidate_payload,
-               mc.object_name, mc.object_type::text as object_type,
+               c.claim_id, mc.object_name, mc.object_type::text as object_type,
+               sp.id as source_pack_id,
                rt.id as target_id, rt.target_code,
                o.id as object_id, o.canonical_name, o.identity_status::text as identity_status,
                tob.id as target_object_id, tob.review_status::text as target_object_status
@@ -85,7 +92,7 @@ def fetch_groups(cur: Any, *, source_pack_codes: Sequence[str] = ()) -> dict[int
            and c.candidate_rule_code = %s
            and (coalesce(array_length(%s::text[], 1), 0) = 0 or sp.pack_code = any(%s::text[]))
         """,
-        (PROFILE, "accepted", "appointment_delegation", pack_codes, pack_codes),
+        (profile, "accepted", "appointment_delegation", pack_codes, pack_codes),
     )
     grouped: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for row in cur.fetchall():
@@ -99,12 +106,52 @@ def run_consumer(
     schema_name: str,
     execute: bool,
     source_pack_codes: Sequence[str] = (),
+    profile: str = PROFILE,
+    create_missing_person_objects: bool = False,
 ) -> dict[str, Any]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
-            groups = fetch_groups(cur, source_pack_codes=source_pack_codes)
+            groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
+            created_objects = 0
+            created_names = 0
+            created_target_objects = 0
+            if execute and create_missing_person_objects:
+                missing_rows: dict[tuple[int, str], dict[str, Any]] = {}
+                for rows in groups.values():
+                    decision, _ids = classify_group(rows)
+                    row = rows[0]
+                    name = text(row.get("object_name"))
+                    if decision == "identity_missing" and text(row.get("object_type")) == "person" and 2 <= len(name) <= 12:
+                        missing_rows.setdefault((int(row["target_id"]), name), row)
+                for row in missing_rows.values():
+                    synthetic = {
+                        "target_id": row["target_id"],
+                        "target_code": row["target_code"],
+                        "object_name": row["object_name"],
+                        "normalized_name": row["object_name"],
+                        "object_type": "person",
+                        "object_group_key": row["object_name"],
+                        "source_pack_id": row["source_pack_id"],
+                        "resolution_code": "RSL-V3-IDENTITY-GATE",
+                        "idem_key": f"{row['target_code']}|person|{row['object_name']}",
+                        "queue_payload": {
+                            "source": "retrieval_v3_identity_gate_consumer",
+                            "review_reasons": ["single_person_like_name"],
+                            "observed_names": [row["object_name"]],
+                            "object_types": ["person"],
+                            "claim_count": 1,
+                        },
+                    }
+                    object_id = object_consumer.upsert_object(cur, synthetic)
+                    object_consumer.upsert_object_name(cur, synthetic, object_id)
+                    object_consumer.upsert_target_object(cur, synthetic, object_id, int(row["claim_id"]))
+                    created_objects += 1
+                    created_names += 1
+                    created_target_objects += 1
+                if missing_rows:
+                    groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
             decisions: Counter[str] = Counter()
             eligible: list[dict[str, Any]] = []
             ready_candidates: list[dict[str, Any]] = []
@@ -114,7 +161,17 @@ def run_consumer(
                 if decision == "identity_ready_for_accept":
                     eligible.append({"candidate_id": candidate_id, **ids})
                 if syncs_candidate_identity_gate(decision):
-                    ready_candidates.append({"candidate_id": candidate_id, **ids})
+                    payload = rows[0].get("candidate_payload") if isinstance(rows[0].get("candidate_payload"), Mapping) else {}
+                    review = payload.get("candidate_review") if isinstance(payload.get("candidate_review"), Mapping) else {}
+                    facts = review.get("required_facts") if isinstance(review.get("required_facts"), Mapping) else {}
+                    scoring_ready = bool(
+                        text(review.get("review_verdict")) == "accepted_candidate"
+                        and facts.get("has_appointment_or_authorization") is True
+                        and facts.get("has_named_actor") is True
+                        and facts.get("has_task_or_responsibility") is True
+                        and (facts.get("has_result_or_feedback") is True or facts.get("has_continuity_or_reuse") is True)
+                    )
+                    ready_candidates.append({"candidate_id": candidate_id, "scoring_ready": scoring_ready, **ids})
             changed_target_objects = 0
             changed_candidates = 0
             if execute:
@@ -140,16 +197,21 @@ def run_consumer(
                         """
                         update retrieval_v3.claim_rule_binding_candidates
                            set candidate_payload = jsonb_set(
-                               candidate_payload,
-                               %s::text[],
-                               %s::jsonb,
-                               true
+                               jsonb_set(
+                                   jsonb_set(candidate_payload, %s::text[], %s::jsonb, true),
+                                   %s::text[], %s::jsonb, true
+                               ),
+                               %s::text[], %s::jsonb, true
                            ), updated_at = now()
                          where id = %s
                         """,
                         (
                             ["candidate_review", "identity_gate"],
                             json_param("identity_ready"),
+                            ["candidate_review", "scoring_candidate"],
+                            json_param(bool(item["scoring_ready"])),
+                            ["candidate_review", "usable_for_scoring_cluster"],
+                            json_param(bool(item["scoring_ready"])),
                             item["candidate_id"],
                         ),
                     )
@@ -173,6 +235,11 @@ def run_consumer(
         "legacy_data_reads": False,
         "legacy_data_migrated": False,
         "source_pack_codes": [text(code) for code in source_pack_codes if text(code)],
+        "profile": profile,
+        "create_missing_person_objects": create_missing_person_objects,
+        "objects_created": created_objects,
+        "object_names_created": created_names,
+        "target_objects_created": created_target_objects,
     }
 
 
@@ -183,6 +250,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--source-pack-code", action="append", default=[])
+    parser.add_argument("--profile", default=PROFILE)
+    parser.add_argument("--create-missing-person-objects", action="store_true")
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
@@ -192,6 +261,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         schema_name=args.pg_schema,
         execute=args.execute,
         source_pack_codes=args.source_pack_code,
+        profile=args.profile,
+        create_missing_person_objects=args.create_missing_person_objects,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

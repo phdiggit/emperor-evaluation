@@ -68,7 +68,14 @@ def link_code_for(claim_code: str, object_identity_key: str, role: str) -> str:
     return "MOL-R3R-" + stable_hash([claim_code, object_identity_key, role], length=20)
 
 
-def fetch_candidates(cur: Any) -> list[dict[str, Any]]:
+def fetch_candidates(
+    cur: Any,
+    *,
+    profiles: Sequence[str] = BINDING_PROFILES,
+    emperor_names: Sequence[str] = (),
+) -> list[dict[str, Any]]:
+    selected_profiles = [text(value) for value in profiles if text(value)]
+    selected_emperors = [text(value) for value in emperor_names if text(value)]
     cur.execute(
         """
         select
@@ -105,7 +112,7 @@ def fetch_candidates(cur: Any) -> list[dict[str, Any]]:
                 c.routed_by_profile = %s
                 and tob.id = nullif(c.candidate_payload #>> '{reanchor,native_target_object_id}', '')::bigint
             ) or (
-                c.routed_by_profile = %s
+                c.routed_by_profile <> %s
                 and tob.target_id = rt.id
                 and exists (
                     select 1
@@ -128,6 +135,7 @@ def fetch_candidates(cur: Any) -> list[dict[str, Any]]:
             )
           join retrieval_v2.objects o on o.id = tob.object_id
          where c.routed_by_profile = any(%s)
+           and (coalesce(array_length(%s::text[], 1), 0) = 0 or rt.emperor_name = any(%s::text[]))
            and c.candidate_rule_code = %s
            and c.review_status = 'accepted'
            and c.resolved_binding_id is null
@@ -139,7 +147,7 @@ def fetch_candidates(cur: Any) -> list[dict[str, Any]]:
            and tob.review_status = 'accepted'
          order by rt.emperor_name, c.id
         """,
-        (NATIVE_CONTRACT_CODE, REANCHOR_PROFILE, MATERIAL_CANDIDATE_PROFILE, list(BINDING_PROFILES), RULE_CODE),
+        (NATIVE_CONTRACT_CODE, REANCHOR_PROFILE, REANCHOR_PROFILE, selected_profiles, selected_emperors, selected_emperors, RULE_CODE),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -296,8 +304,14 @@ def mark_candidate_resolved(cur: Any, row: Mapping[str, Any], fields: Mapping[st
         raise CandidateBindingConsumerError(f"failed to mark candidate resolved: {row.get('candidate_code')}")
 
 
-def run(cur: Any, *, execute: bool) -> dict[str, Any]:
-    rows = fetch_candidates(cur)
+def run(
+    cur: Any,
+    *,
+    execute: bool,
+    profiles: Sequence[str] = BINDING_PROFILES,
+    emperor_names: Sequence[str] = (),
+) -> dict[str, Any]:
+    rows = fetch_candidates(cur, profiles=profiles, emperor_names=emperor_names)
     counts: Counter[str] = Counter()
     skipped: Counter[str] = Counter()
     for row in rows:
@@ -324,6 +338,8 @@ def run(cur: Any, *, execute: bool) -> dict[str, Any]:
         "direction_counts": dict(sorted(Counter(binding_fields(row)["direction"] for row in rows if review_payload(row)).items())),
         "requirements_written": 0,
         "intents_written": 0,
+        "profiles": [text(value) for value in profiles if text(value)],
+        "emperors": [text(value) for value in emperor_names if text(value)],
     }
 
 
@@ -333,6 +349,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--profile", action="append", default=[])
+    parser.add_argument("--emperor-name", action="append", default=[])
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
@@ -340,7 +358,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(resolve_dsn(args.dsn_env), row_factory=dict_row) as conn:
         with conn.cursor() as raw:
-            payload = run(schema_cursor(raw, schema_name=args.pg_schema), execute=args.execute)
+            payload = run(
+                schema_cursor(raw, schema_name=args.pg_schema),
+                execute=args.execute,
+                profiles=args.profile or BINDING_PROFILES,
+                emperor_names=args.emperor_name,
+            )
         if args.execute:
             conn.commit()
         else:

@@ -201,6 +201,11 @@ def route_chain(chain: Mapping[str, Any]) -> list[dict[str, Any]]:
             reason_codes=(chain_type, text(chain.get("chain_strength")), readiness),
             evidence={
                 "member_count": int(chain.get("member_count") or 0),
+                "member_claim_keys": [
+                    text(member.get("claim_key"))
+                    for member in (chain.get("members") or [])
+                    if isinstance(member, Mapping) and text(member.get("claim_key"))
+                ],
                 "role_family_counts": dict(as_mapping(chain.get("role_family_counts"))),
                 "source_slice_refs": list(chain.get("source_slice_refs") or []),
             },

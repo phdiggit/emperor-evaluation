@@ -121,7 +121,7 @@ def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def candidate_lookup(cur: Any) -> dict[str, dict[str, Any]]:
+def candidate_lookup(cur: Any, *, profile: str = PROFILE) -> dict[str, dict[str, Any]]:
     cur.execute(
         """
         select id, candidate_code, candidate_payload, candidate_direction::text as candidate_direction,
@@ -129,7 +129,7 @@ def candidate_lookup(cur: Any) -> dict[str, dict[str, Any]]:
           from retrieval_v3.claim_rule_binding_candidates
          where routed_by_profile = %s and candidate_rule_code = %s
         """,
-        (PROFILE, "appointment_delegation"),
+        (profile, "appointment_delegation"),
     )
     rows = {}
     for row in cur.fetchall():
@@ -139,13 +139,20 @@ def candidate_lookup(cur: Any) -> dict[str, dict[str, Any]]:
     return rows
 
 
-def run_consumer(*, patch_rows: Sequence[Mapping[str, Any]], dsn: str, schema_name: str, execute: bool) -> dict[str, Any]:
+def run_consumer(
+    *,
+    patch_rows: Sequence[Mapping[str, Any]],
+    dsn: str,
+    schema_name: str,
+    execute: bool,
+    profile: str = PROFILE,
+) -> dict[str, Any]:
     patches = [validate_patch(row) for row in patch_rows]
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
-            lookup = candidate_lookup(cur)
+            lookup = candidate_lookup(cur, profile=profile)
             missing = sorted(set(row["review_code"] for row in patches) - set(lookup))
             if missing:
                 raise CandidateReviewConsumerError(f"review candidates not found: {missing[:5]}")
@@ -202,6 +209,7 @@ def run_consumer(*, patch_rows: Sequence[Mapping[str, Any]], dsn: str, schema_na
         "write_db": execute,
         "executed": execute,
         "input_rows": len(patches),
+        "profile": profile,
         "counts_by_review_status": dict(sorted(counts.items())),
         "counts_by_review_route": dict(sorted(route_counts.items())),
         "formal_binding_created": 0,
@@ -217,6 +225,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
+    parser.add_argument("--profile", default=PROFILE)
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
@@ -227,6 +236,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         dsn=resolve_dsn(args.dsn_env),
         schema_name=args.pg_schema,
         execute=args.execute,
+        profile=args.profile,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

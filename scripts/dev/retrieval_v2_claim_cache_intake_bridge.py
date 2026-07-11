@@ -15,9 +15,12 @@ if str(ROOT) not in sys.path:
 from scripts.dev import retrieval_v2_claim_cache as fs_cache  # noqa: E402
 from scripts.dev import retrieval_v2_claim_chain_candidates as chain_candidates  # noqa: E402
 from scripts.dev import retrieval_v2_claim_quality as claim_quality  # noqa: E402
+from scripts.dev import retrieval_v2_import_plan as import_plan  # noqa: E402
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_claim_event_groups import owner_scope_values  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v2_runtime_paths import load_runtime_paths  # noqa: E402
+from scripts.dev.retrieval_v3_contract_reanchor_plan import NATIVE_CONTRACT_CODE  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -77,10 +80,11 @@ def fetch_targets(
         return []
     cur.execute(
         """
-        select target_code, emperor_name, item_code
-          from retrieval_v2.retrieval_targets
-         where emperor_name = any(%s)
-           and item_code = %s
+        select rt.target_code, rt.emperor_name, rt.item_code, rc.contract_code
+          from retrieval_v2.retrieval_targets rt
+          join retrieval_v2.rule_contracts rc on rc.id = rt.contract_id
+         where rt.emperor_name = any(%s)
+           and rt.item_code = %s
          order by emperor_name, target_code
         """,
         [names, ITEM_CODE],
@@ -89,7 +93,9 @@ def fetch_targets(
     selected: dict[str, dict[str, Any]] = {}
     for row in rows:
         emperor = text(row.get("emperor_name"))
-        row_is_v3_native = "-V3N-" in text(row.get("target_code"))
+        row_is_v3_native = text(row.get("contract_code")) == NATIVE_CONTRACT_CODE
+        if not text(row.get("contract_code")):
+            row_is_v3_native = "-V3N-" in text(row.get("target_code")) or "-R3R-" in text(row.get("target_code"))
         if row_is_v3_native != (target_mode == "v3_native"):
             continue
         if emperor not in selected:
@@ -137,13 +143,31 @@ def hydrate_full_texts_from_raw_runs(
     evidence_rows: Sequence[Mapping[str, Any]],
     *,
     full_texts: Mapping[str, str],
+    runtime_paths: Mapping[str, Any] | None = None,
 ) -> dict[str, str]:
     result = dict(full_texts)
     missing_by_output: dict[Path, set[str]] = defaultdict(set)
+    resolved_runtime_paths = dict(runtime_paths or load_runtime_paths())
+    linux_roots = (
+        (text(resolved_runtime_paths.get("active_root_linux")), text(resolved_runtime_paths.get("active_root"))),
+        (text(resolved_runtime_paths.get("archive_root_linux")), text(resolved_runtime_paths.get("archive_root"))),
+    )
     for row in evidence_rows:
         slice_hash = text(row.get("slice_hash"))
         if slice_hash and not text(result.get(slice_hash)) and text(row.get("raw_output_path")):
-            missing_by_output[Path(text(row.get("raw_output_path")))].add(slice_hash)
+            raw_path = text(row.get("raw_output_path"))
+            resolved_path = Path(raw_path)
+            if not resolved_path.is_file():
+                normalized = raw_path.replace("\\", "/")
+                for linux_root, smb_root in linux_roots:
+                    normalized_root = linux_root.rstrip("/")
+                    if normalized_root and smb_root and (
+                        normalized == normalized_root or normalized.startswith(normalized_root + "/")
+                    ):
+                        relative = normalized[len(normalized_root) :].lstrip("/")
+                        resolved_path = Path(smb_root).joinpath(*relative.split("/"))
+                        break
+            missing_by_output[resolved_path].add(slice_hash)
     for judge_path, needed_hashes in missing_by_output.items():
         candidates_path = judge_path.parent / "candidates.final.json"
         if not candidates_path.is_file():
@@ -233,11 +257,30 @@ def build_rows_for_claims(
         evidence_rows=eligible_evidence,
         full_texts=full_texts,
     )
+    passages = {text(row.get("passage_code")): row for row in rows["source_passages"]}
+    alignment_blockers: list[dict[str, str]] = []
+    aligned_materials: list[dict[str, Any]] = []
+    for material in rows["material_claims"]:
+        issue = import_plan.claim_passage_alignment_issue(material, passages)
+        if issue and text(issue.get("severity")) == "blocker":
+            alignment_blockers.append(
+                {
+                    "claim_code": text(material.get("claim_code")),
+                    "claim_key": text(material.get("raw_claim_code")),
+                    "code": text(issue.get("code")),
+                    "message": text(issue.get("message")),
+                }
+            )
+            continue
+        aligned_materials.append(material)
+    rows["material_claims"] = aligned_materials
     return rows, {
         "input_claims": len(claim_keys),
         "eligible_material_claims": len(rows["material_claims"]),
         "excluded_missing_evidence": missing_evidence,
         "excluded_missing_full_slice": missing_full_slice,
+        "excluded_claim_passage_alignment": len(alignment_blockers),
+        "claim_passage_alignment_blockers": alignment_blockers,
         "partial_missing_full_slice": partial_full_slice,
         "rule_filter_applied": 0,
     }
