@@ -47,7 +47,17 @@ def build_post_claim_plan(payload: Mapping[str, Any], *, output_root: Path) -> d
         "output_root": str(run_root),
         "commands": [
             {
-                "stage": "event_group",
+                "stage": "semantic_identity",
+                "argv": [
+                    sys.executable,
+                    str(ROOT / "scripts/dev/retrieval_v3_claim_semantic_identity_backfill.py"),
+                    "--execute",
+                    "--output-json",
+                    str(run_root / "semantic_identity.json"),
+                ],
+            },
+            {
+                "stage": "event_group_target",
                 "argv": [
                     sys.executable,
                     str(ROOT / "scripts/dev/retrieval_v3_claim_event_groups.py"),

@@ -8,6 +8,14 @@ from scripts.dev import retrieval_v3_claim_extraction_worker as tool
 from scripts.dev import retrieval_v3_candidate_prompt
 
 
+def test_claim_job_lease_query_reclaims_expired_running_jobs() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "status in ('ready', 'retry_wait', 'running')" in source
+    assert "status = 'running' and lease_until < now()" in source
+    assert "for update skip locked" in source.lower()
+
+
 def write_candidates(path: Path) -> dict:
     payload = {
         "task_identity": {

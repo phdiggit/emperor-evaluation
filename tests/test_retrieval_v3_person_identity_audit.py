@@ -20,6 +20,15 @@ def test_stage_identity_without_base_fails_closed() -> None:
     assert report["candidates"][0]["status"] == "missing_canonical"
 
 
+def test_semantic_stage_variants_are_audited_without_changing_ingest_suffixes() -> None:
+    report = tool.identity_candidates(
+        [row(10, "宋璟"), row(11, "宋璟晚期执政"), row(12, "宋璟某阶段")]
+    )
+
+    assert {item["merge_object_ids"][0] for item in report["candidates"]} == {11, 12}
+    assert all(item["status"] == "auto_merge_ready" for item in report["candidates"])
+
+
 def test_exact_active_duplicates_require_review() -> None:
     report = tool.identity_candidates([row(1, "王珪"), row(2, "王珪")])
     assert report["candidates"][0]["candidate_type"] == "exact_name_duplicate"

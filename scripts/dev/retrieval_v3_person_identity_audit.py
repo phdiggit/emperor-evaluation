@@ -11,10 +11,23 @@ from scripts.dev.retrieval_v3_object_source_cache_seed import STAGED_NAME_SUFFIX
 
 
 ACTIVE_STATUSES = {"active", "draft", "needs_review"}
+SEMANTIC_STAGE_SUFFIXES = (
+    "早期任用", "晚期执政", "中期执政", "早期执政", "执政前期", "执政后期",
+    "任用阶段", "执政阶段", "早期", "中期", "晚期", "前期", "后期", "後期",
+    "早年", "晚年", "初期", "末期", "某阶段",
+)
 
 
 def text(value: Any) -> str:
     return str(value or "").strip()
+
+
+def semantic_stage_base_name(value: Any) -> str:
+    name = text(value)
+    for suffix in SEMANTIC_STAGE_SUFFIXES:
+        if name.endswith(suffix) and len(name) > len(suffix):
+            return name[: -len(suffix)].strip()
+    return stage_base_name(name)
 
 
 def identity_candidates(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -43,7 +56,7 @@ def identity_candidates(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
 
     for row in active:
         name = text(row.get("canonical_name"))
-        base = stage_base_name(name)
+        base = semantic_stage_base_name(name)
         if not base or normalized_name(base) == normalized_name(name):
             continue
         stage_id = int(row["object_id"])
@@ -61,7 +74,7 @@ def identity_candidates(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             {
                 "candidate_type": "staged_identity_duplicate",
                 "base_name": base,
-                "stage_suffixes": [suffix for suffix in STAGED_NAME_SUFFIXES if name.endswith(suffix)],
+                "stage_suffixes": [suffix for suffix in SEMANTIC_STAGE_SUFFIXES if name.endswith(suffix)],
                 "status": status,
                 "canonical_candidates": [int(candidate["object_id"]) for candidate in canonical],
                 "merge_object_ids": [stage_id],

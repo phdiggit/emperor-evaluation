@@ -154,7 +154,21 @@ def test_negative_talent_worklist_covers_every_active_profile() -> None:
     assert "o.identity_status = 'active'" in cur.sql
     assert "join retrieval_v3.target_objects" not in cur.sql
     assert "pp.talent_grade is not null" not in cur.sql
-    assert cur.params == (tool.NEGATIVE_TALENT_VERSION,)
+    assert cur.params == (False, tool.NEGATIVE_TALENT_VERSION)
+
+    tool.fetch_pending_negative_talent(cur, item_code="I5B", include_existing=True)
+    assert cur.params == (True, tool.NEGATIVE_TALENT_VERSION)
+
+
+def test_negative_prompt_distinguishes_actual_rebellion_from_accusation() -> None:
+    prompt = tool.prompt_for_task(
+        task={"task_code": "T", "task_kind": tool.PERSON_NEGATIVE_TALENT_KIND},
+        workitems=[],
+        patch_path=Path("tmp/negative.jsonl"),
+    )
+
+    assert "实际举兵反叛" in prompt
+    assert "谋反指控、诬告、未证实嫌疑" in prompt
 
 
 def test_v2_profile_value_validators_reject_invalid_values() -> None:

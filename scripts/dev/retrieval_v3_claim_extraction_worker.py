@@ -341,9 +341,12 @@ def claim_ready_job(*, dsn: str, worker_id: str, lease_minutes: int = 120, schem
                 with picked as (
                     select id
                       from retrieval_v3.claim_extraction_jobs
-                     where status in ('ready', 'retry_wait')
+                     where status in ('ready', 'retry_wait', 'running')
                        and attempt_count < max_attempts
-                       and (lease_until is null or lease_until < now())
+                       and (
+                            (status in ('ready', 'retry_wait') and (lease_until is null or lease_until < now()))
+                            or (status = 'running' and lease_until < now())
+                       )
                      order by priority, created_at
                      limit 1
                      for update skip locked
@@ -376,9 +379,12 @@ def fetch_next_ready_job(*, dsn: str, schema_name: str = DEFAULT_PG_SCHEMA) -> d
                 """
                 select *
                   from retrieval_v3.claim_extraction_jobs
-                 where status in ('ready', 'retry_wait')
+                 where status in ('ready', 'retry_wait', 'running')
                    and attempt_count < max_attempts
-                   and (lease_until is null or lease_until < now())
+                   and (
+                        (status in ('ready', 'retry_wait') and (lease_until is null or lease_until < now()))
+                        or (status = 'running' and lease_until < now())
+                   )
                  order by priority, created_at
                  limit 1
                 """

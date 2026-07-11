@@ -332,7 +332,7 @@ def fetch_incomplete_profile_basis(cur: Any, *, item_code: str) -> list[dict[str
     return [dict(row) for row in cur.fetchall()]
 
 
-def fetch_pending_negative_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
+def fetch_pending_negative_talent(cur: Any, *, item_code: str, include_existing: bool = False) -> list[dict[str, Any]]:
     cur.execute(
         """
         select distinct on (o.id)
@@ -384,10 +384,10 @@ def fetch_pending_negative_talent(cur: Any, *, item_code: str) -> list[dict[str,
           ) ev on true
          where o.object_type = 'person'
            and o.identity_status = 'active'
-           and pp.negative_talent_version <> %s
+           and (%s or pp.negative_talent_version <> %s)
          order by o.id
         """,
-        (NEGATIVE_TALENT_VERSION,),
+        (include_existing, NEGATIVE_TALENT_VERSION),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -620,6 +620,7 @@ def build_workitems(
     kinds: Sequence[str],
     object_ids: Sequence[int] = (),
     refresh_talent: bool = False,
+    refresh_negative: bool = False,
 ) -> list[dict[str, Any]]:
     selected = set(kinds or TASK_KINDS)
     psycopg, dict_row = import_psycopg()
@@ -636,7 +637,10 @@ def build_workitems(
                     for row in fetch_missing_talent(cur, item_code=item_code, include_existing=refresh_talent)
                 )
             if PERSON_NEGATIVE_TALENT_KIND in selected:
-                rows.extend(negative_talent_item(row) for row in fetch_pending_negative_talent(cur, item_code=item_code))
+                rows.extend(
+                    negative_talent_item(row)
+                    for row in fetch_pending_negative_talent(cur, item_code=item_code, include_existing=refresh_negative)
+                )
             if PERSON_PROFILE_BASIS_KIND in selected:
                 rows.extend(profile_basis_item(row) for row in fetch_incomplete_profile_basis(cur, item_code=item_code))
     selected_object_ids = {int(value) for value in object_ids}
@@ -651,7 +655,7 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
         TARGET_PERIOD_KIND: "为每个目标皇帝填写 dynasty_label；必须是 allowed_dynasty_labels 之一。basis 只写具体判断，例如“司马炎为西晋开国皇帝”。",
         PERSON_ROLE_KIND: "为每个人物填写 role_kind；只能用 allowed_role_kinds。只有无法判定时才用 other，并在 basis 写明原因。",
         PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识，再用 evidence_claims 校准；必须逐条遵守 grade_boundary_rules，只能用 allowed_talent_grades。先把具体政策、持续治理结果、战役战区、制度工程、作品或原创成果归并为 achievement_clusters，并写入 patch。治世簇必须主动检查吏治、人才发现与组织使用、财政经济、社会恢复、行政执行、边疆经营和危机治理，不要求命名政策或成文制度。historic_talent 通常至少三个国家级、时代转型级或领域基础性成就簇；基础法典、独立巨著或原创体系例外时必须同时证明主持定稿、施行传播和长期标杆。top_talent 至少两个独立重要成就簇，或一个极高难度第一梯队成果。权威材料含具体责任、持续结果或治世评价时可支持长期治理成就簇，泛泛赞誉不能。禁止仅凭重大职位、单次高光、一般后世影响或朝代配额入档。政治品格、党争结局或受诛受贬不得降低能力档。若输入没有权威评价，必须只读检索正史论赞、后世史论或现代专业研究，并把来源标题、定位和评价摘要写入 authority_sources；找不到有效权威来源则不要输出。材料不足降低 coverage 和 confidence，不得直接降为普通。talent_grade_basis 必须以“姓名，”开头，说明史论共识、成就簇校准及限制。",
-        PERSON_NEGATIVE_TALENT_KIND: "先用 authority_evaluations 判断负面政治风险共识，再用 evidence_claims 校准。若没有稳定负面分类，has_negative_talent_class=false，其余类型和严重度留空，但仍填写共识、事实支持、覆盖度、置信度和依据。不得仅凭被诛、被贬、败亡、投降、党争结局或单一敌对来源定性；能力、品格和政治风险必须分开。",
+        PERSON_NEGATIVE_TALENT_KIND: "先用 authority_evaluations 判断负面政治风险共识，再用 evidence_claims 校准。实际举兵反叛其效忠君主或所属政治共同体、主动倒戈或资敌，通常应评 traitorous_actor；只有谋反指控、诬告、未证实嫌疑、被诛结局或政治清洗不得据此定性。若没有稳定负面分类，has_negative_talent_class=false，其余类型和严重度留空，但仍填写共识、事实支持、覆盖度、置信度和依据。能力、品格和政治风险必须分开。",
         PERSON_PROFILE_BASIS_KIND: "只补人物评价简介 talent_grade_basis，不修改 talent_grade。talent_grade_basis 必须以“姓名，”开头，写高信息量中文评价，不写模板句。",
     }
     return (
@@ -1428,6 +1432,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--kind", choices=TASK_KINDS, action="append", default=[])
     worklist.add_argument("--object-id", type=int, action="append", default=[], help="Limit person workitems to explicit retrieval_v3 object IDs; repeatable.")
     worklist.add_argument("--refresh-talent", action="store_true", help="Rebuild talent-grade workitems even when the current profile already uses talent-grade-v2.")
+    worklist.add_argument("--refresh-negative", action="store_true", help="Rebuild negative-risk workitems even when the profile already has the current negative review version.")
     worklist.add_argument("--batch-size", type=int)
     worklist.add_argument("--output-root", type=Path, required=True)
 
@@ -1465,6 +1470,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             kinds=args.kind or TASK_KINDS,
             object_ids=args.object_id,
             refresh_talent=args.refresh_talent,
+            refresh_negative=args.refresh_negative,
         )
         runtime = agent_runtime_config.resolve_agent_stage("identity_judgment")
         summary = write_worklist_outputs(

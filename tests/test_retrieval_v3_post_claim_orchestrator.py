@@ -17,11 +17,15 @@ def succeeded_payload() -> dict:
 
 def test_success_plan_rebuilds_event_groups_before_discovery(tmp_path: Path) -> None:
     plan = tool.build_post_claim_plan(succeeded_payload(), output_root=tmp_path)
-    assert [row["stage"] for row in plan["commands"]] == ["event_group", "related_object_discovery"]
-    event_argv = plan["commands"][0]["argv"]
+    assert [row["stage"] for row in plan["commands"]] == [
+        "semantic_identity",
+        "event_group_target",
+        "related_object_discovery",
+    ]
+    event_argv = plan["commands"][1]["argv"]
     assert "--execute" in event_argv
     assert "--replace-existing" in event_argv
-    discovery_argv = plan["commands"][1]["argv"]
+    discovery_argv = plan["commands"][2]["argv"]
     assert discovery_argv[discovery_argv.index("--emperor") + 1] == "李世民"
     assert plan["identity_gate"]["automatic_canonical_person_creation"] is False
 
