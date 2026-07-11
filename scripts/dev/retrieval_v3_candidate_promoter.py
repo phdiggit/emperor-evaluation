@@ -84,6 +84,16 @@ def contains_any(value: str, terms: Sequence[str]) -> tuple[str, ...]:
 
 def payload_haystack(row: Mapping[str, Any]) -> str:
     source = source_binding(row)
+    payload = as_mapping(row.get("candidate_payload"))
+    claim_payload = as_mapping(row.get("claim_payload"))
+    fact_payload = as_mapping(claim_payload.get("fact_payload"))
+    if text(payload.get("created_from")) == "retrieval_v3_cross_rule_router":
+        parts = [
+            text(row.get("claim_summary")),
+            text(row.get("object_name")),
+            stable_json(fact_payload) if fact_payload else "",
+        ]
+        return " ".join(part for part in parts if part)
     parts = [
         text(row.get("candidate_reason")),
         text(row.get("claim_summary")),

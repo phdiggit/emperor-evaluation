@@ -205,6 +205,20 @@ def test_talent_discovery_uses_explicit_target_talent_payload() -> None:
     assert plan["promotions"][0]["object_role"] == "recognized_talent"
 
 
+def test_cross_rule_router_reason_terms_do_not_retrigger_promotion() -> None:
+    row = candidate_row(
+        candidate_rule_code="talent_discovery",
+        candidate_reason="appointment claim 可复用于 talent_discovery；命中词：荐",
+        claim_summary="宋濂被任为江南儒学提举，并受命教授太子经书。",
+        candidate_payload={
+            "created_from": "retrieval_v3_cross_rule_router",
+            "source_binding": {"rule_code": "appointment_delegation", "direction": "positive"},
+        },
+    )
+
+    assert tool.resolve_talent_discovery(row) is None
+
+
 def test_anti_nepotism_does_not_promote_generic_family_aftermath() -> None:
     row = candidate_row(
         candidate_rule_code="anti_nepotism",
