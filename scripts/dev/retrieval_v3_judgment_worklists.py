@@ -34,7 +34,7 @@ TALENT_GRADES = {
     "usable_talent",
     "ordinary_talent",
 }
-TALENT_GRADE_VERSION = "talent-grade-v4"
+TALENT_GRADE_VERSION = "talent-grade-v5"
 NEGATIVE_TALENT_VERSION = "negative-talent-v1"
 AUTHORITY_CONSENSUS_VALUES = {"none", "weak", "moderate", "strong", "disputed"}
 EVIDENCE_STRENGTH_VALUES = {"none", "weak", "moderate", "strong"}
@@ -654,7 +654,7 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
     schema_notes = {
         TARGET_PERIOD_KIND: "为每个目标皇帝填写 dynasty_label；必须是 allowed_dynasty_labels 之一。basis 只写具体判断，例如“司马炎为西晋开国皇帝”。",
         PERSON_ROLE_KIND: "为每个人物填写 role_kind；只能用 allowed_role_kinds。只有无法判定时才用 other，并在 basis 写明原因。",
-        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识，再用 evidence_claims 校准；必须逐条遵守 grade_boundary_rules，只能用 allowed_talent_grades。数据库 claim 可能不全，不能把 evidence_claims 的覆盖范围当成人物政绩上限：评审每个人都必须联网只读检索正史本传、权威史论或现代专业研究，主动核查 claim 之外的重要政绩、战功、作品和长期结果；把来源标题、稳定 URL 或卷篇定位、评价摘要写入 authority_sources，并在成就簇 basis 中明确哪些事实来自联网补充、尚未进入 claim 链。先把具体政策、持续治理结果、战役战区、制度工程、作品或原创成果归并为 achievement_clusters，并写入 patch。historic_talent 采用严格守门员：治国人物以房玄龄为最低标杆，必须与公认治世、重大制度转型或长期治理标杆直接关联，政绩和治世成果不够突出、主要属于一般尽职或个人归属性弱者降为 top_talent。史书把某人比拟房杜、姚宋等名臣，只能作为共识证据，不能代替逐项政绩、长期结果和个人归属性；同类人物必须做横向一致性检查。军事人物以李绩、苏定方为最低标杆，必须满足其一：在开国统一过程中作为主导统帅负责多个决定性核心战役或战略要地；或对外取得足以重创、覆灭匈奴/突厥等大国的辉煌战绩；或独立覆灭多个中小国。普通多战役、持续任职、参与协同或若干局部胜利不足以进入 historic_talent。若人物留下作者归属可靠、具有原创或系统军事思想且长期成为军事范式的传世兵法、兵书或军事理论体系，可作为独立高强度加成簇，补强其战功路径；普通编纂、存疑托名、零散论兵或仅有著录不得加成，也不得只凭一部兵书自动进入 historic_talent。基础法典、独立巨著或原创体系例外时仍须同时证明主持定稿、施行传播和长期标杆。top_talent 至少两个独立重要成就簇，或一个极高难度第一梯队成果。禁止仅凭重大职位、簇数量、单次高光、一般后世影响或朝代配额入档。政治品格、党争结局或受诛受贬不得降低能力档。找不到有效权威来源则不要输出。材料不足降低 coverage 和 confidence，不得直接降为普通。talent_grade_basis 必须以“姓名，”开头，说明史论共识、守门员比较、成就簇校准及限制。",
+        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识，再用 evidence_claims 校准；必须逐条遵守 grade_boundary_rules，只能用 allowed_talent_grades。数据库 claim 可能不全，不能把 evidence_claims 的覆盖范围当成人物政绩上限：评审每个人都必须联网只读检索正史本传、权威史论或现代专业研究，主动核查 claim 之外的重要政绩、战功、作品和长期结果；把来源标题、稳定 URL 或卷篇定位、评价摘要写入 authority_sources，并在成就簇 basis 中明确哪些事实来自联网补充、尚未进入 claim 链。先把具体政策、持续治理结果、战役战区、制度工程、作品或原创成果归并为 achievement_clusters，并写入 patch。historic_talent 采用严格守门员：治国人物以房玄龄为最低标杆，必须与公认治世、重大制度转型或长期治理标杆直接关联；军事人物以李绩、苏定方为最低标杆，必须主导开国统一中的多个决定性核心战役或战略要地，或重创覆灭匈奴、突厥等大国，或独立覆灭多个中小国，普通多战役或一般参与不足。军事传世兵法加成仍要求可靠作者归属、原创系统思想和长期范式，不能凭托名或普通编纂加成。top_talent 也采用领域守门员并严格降档：治国以姚崇、宋璟、杜如晦为下限，必须直接负责公认治世或至少两个有实际结果、高个人归属性的重要治理簇；一般尽职、长期任官、清正声望和泛泛辅政不足。军事以班超、马援、韩世忠为下限，通常至少两个相互独立的战役或战区级成果，并体现独立统帅、战略设计、军队组织或持续方面责任；随征、冲阵、护卫、救主、先锋高光和一般参与不能累计成 top_talent。谋略以陈平、张良为下限，通常至少两个跨独立阶段、被采纳且产生决定性结果的核心谋划，或一个改变国家存亡及秩序的极高难度成果；泛泛献策、幕僚参与和事后声誉不足。法律制度以陈群、叔孙通为下限，须有核心设计、主持定稿或推动正式施行的制度工程；普通参修不足。文化学术以宋濂、虞世南为下限，须有可靠独立作品、原创成果、代表性范式或领域第一梯队公认地位；仅有文名、馆阁职务、奉敕参编或少量作品不足。跨领域人物不能把多个普通履职簇相加凑成顶级，至少一个核心领域必须达到对应守门员；同类人物必须横向一致。top_talent 仍可由一个极高难度、足证同时代第一梯队的核心成果例外进入，但必须有明确个人责任、实际结果和强权威评价。禁止仅凭重大职位、簇数量、单次高光、一般后世影响或朝代配额入档。政治品格、党争结局、投降、受诛受贬不得直接降低能力档，但真实指挥失误、政策失败和判断缺陷属于能力校准。找不到有效权威来源则不要输出。材料不足降低 coverage 和 confidence，不得直接降为普通；低于 top_talent 守门员但仍有国家或领域重要成果者通常降为 important_talent。talent_grade_basis 必须以“姓名，”开头，说明史论共识、对应领域守门员比较、成就簇校准及限制。",
         PERSON_NEGATIVE_TALENT_KIND: "先用 authority_evaluations 判断负面政治风险共识，再用 evidence_claims 校准。实际举兵反叛其效忠君主或所属政治共同体、主动倒戈或资敌，通常应评 traitorous_actor；只有谋反指控、诬告、未证实嫌疑、被诛结局或政治清洗不得据此定性。若没有稳定负面分类，has_negative_talent_class=false，其余类型和严重度留空，但仍填写共识、事实支持、覆盖度、置信度和依据。能力、品格和政治风险必须分开。",
         PERSON_PROFILE_BASIS_KIND: "只补人物评价简介 talent_grade_basis，不修改 talent_grade。talent_grade_basis 必须以“姓名，”开头，写高信息量中文评价，不写模板句。",
     }
@@ -923,7 +923,7 @@ def require_authority_sources(value: Any) -> list[dict[str, str]]:
             "source_title": text(raw.get("source_title") or raw.get("title")),
             "source_locator": text(raw.get("source_locator") or raw.get("locator") or raw.get("location")),
             "source_url": text(raw.get("source_url") or raw.get("stable_url") or raw.get("url")),
-            "evaluation_summary": text(raw.get("evaluation_summary") or raw.get("summary")),
+            "evaluation_summary": text(raw.get("evaluation_summary") or raw.get("summary") or raw.get("evaluation")),
             "quote_preview": text(raw.get("quote_preview")),
         }
         if not source["source_title"] or not source["source_locator"] or not source["evaluation_summary"]:

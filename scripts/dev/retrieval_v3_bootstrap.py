@@ -47,6 +47,7 @@ DEFAULT_SCHEMA_PATHS = (
     ROOT / "db" / "migrations" / "20260712_retrieval_v3_person_profile_merge_cleanup.sql",
     ROOT / "db" / "migrations" / "20260712_retrieval_v3_talent_grade_v3.sql",
     ROOT / "db" / "migrations" / "20260712_retrieval_v3_talent_grade_v4.sql",
+    ROOT / "db" / "migrations" / "20260712_retrieval_v3_talent_grade_v5.sql",
 )
 DEFAULT_SOURCE_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
 DEFAULT_TARGET_DSN_ENV = DEFAULT_V3_DSN_ENV
