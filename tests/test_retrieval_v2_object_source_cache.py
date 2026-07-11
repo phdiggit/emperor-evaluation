@@ -339,7 +339,11 @@ def test_fetched_public_ocr_document_does_not_become_wikisource(tmp_path: Path, 
         "url": "https://example.test/jifeilu",
         "source_kind": "public_ocr_page",
         "fetch_mode": "url",
-        "source_document_hint": {"ocr_aliases": ["魚王"], "section_start_aliases": ["魚王"]},
+        "source_document_hint": {
+            "ocr_aliases": ["魚王"],
+            "section_start_aliases": ["魚王"],
+            "ocr_requires_image_review": True,
+        },
     }
     monkeypatch.setattr(tool, "fetch_document_text", lambda *_args, **_kwargs: ("魯王只是他处提及。魚王为恶。", {"source_key": "url:test", "cache_status": "miss"}))
 
@@ -352,6 +356,7 @@ def test_fetched_public_ocr_document_does_not_become_wikisource(tmp_path: Path, 
     assert slices[0]["matched_aliases"] == ["魚王"]
     assert "魯王" not in slices[0]["matched_aliases"]
     assert slices[0]["raw_text"] == "魚王为恶。"
+    assert slices[0]["ocr_requires_image_review"] is True
 
 
 def test_discovery_keeps_script_variant_query_with_single_search_name() -> None:

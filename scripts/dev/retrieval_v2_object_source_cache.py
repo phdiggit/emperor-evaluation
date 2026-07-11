@@ -827,16 +827,13 @@ def seed_summary_lead_anchor_aliases(seed: Mapping[str, Any]) -> list[str]:
         aliases.append(normalized[1:])
     return unique_strings(alias for alias in aliases if alias)
 
-
 def matched_aliases_in_text(text: str, aliases: Sequence[str]) -> list[str]:
     normalized_text = normalize_title(text)
     return unique_strings(alias for alias in aliases if alias and normalize_title(alias) in normalized_text)
 
-
 def matched_lead_terms_in_text(text: str, lead_terms: Sequence[str]) -> list[str]:
     normalized_text = normalize_title(text)
     return unique_strings(term for term in lead_terms if term and normalize_title(term) in normalized_text)
-
 
 def summary_lead_term_priority(term: str) -> int:
     normalized = normalize_title(term)
@@ -845,7 +842,6 @@ def summary_lead_term_priority(term: str) -> int:
     if normalized in SUMMARY_LEAD_LOW_PRIORITY_TERMS:
         return 2
     return 1
-
 
 def build_mention_slices(
     seed: Mapping[str, Any],
@@ -960,13 +956,14 @@ def build_mention_slices(
             "raw_text": text,
             "quote_hash": sha256_text(text),
         }
+        if bool(hint.get("ocr_requires_image_review")):
+            row["ocr_requires_image_review"] = True
         matched_lead_terms = list(window["matched_lead_terms"])
         if matched_lead_terms:
             row["lead_terms"] = matched_lead_terms
             row["slice_kind"] = window["slice_kind"]
         rows.append(row)
     return rows
-
 
 def build_locator_backed_slice(
     seed: Mapping[str, Any],
@@ -988,8 +985,7 @@ def build_locator_backed_slice(
         return []
     doc_code = text_from(document, "document_cache_code")
     person_code = person_cache_code(seed)
-    return [
-        {
+    row = {
             "slice_cache_code": slice_cache_code(doc_code, person_code, 0, end, matched_aliases),
             "document_cache_code": doc_code,
             "person_cache_code": person_code,
@@ -1002,8 +998,9 @@ def build_locator_backed_slice(
             "quote_hash": sha256_text(text),
             "slice_kind": "source_document_hint_locator",
         }
-    ]
-
+    if bool(hint.get("ocr_requires_image_review")):
+        row["ocr_requires_image_review"] = True
+    return [row]
 
 def document_wikisource_titles(document: Mapping[str, Any]) -> list[str]:
     candidates = [text_from(document, "wikisource_title", "title")]
@@ -1011,7 +1008,6 @@ def document_wikisource_titles(document: Mapping[str, Any]) -> list[str]:
     if isinstance(raw_candidates, Sequence) and not isinstance(raw_candidates, (str, bytes)):
         candidates.extend(text_from({"value": value}, "value") for value in raw_candidates)
     return unique_strings(candidate for candidate in candidates if candidate)
-
 
 def fetch_managed_wikisource_text(
     document: Mapping[str, Any],
@@ -1209,7 +1205,8 @@ def task_target_names(task: Mapping[str, Any]) -> list[str]:
 
 def overlay_document_row(row: Mapping[str, Any], *, object_name: str, index: int) -> dict[str, Any]:
     title = text_from(row, "wikisource_title", "source_title", "title")
-    return {
+    hint = row.get("source_document_hint") if isinstance(row.get("source_document_hint"), Mapping) else {}
+    result = {
         "document_code": f"DOC-CACHE-{stable_hash([row.get('document_cache_code'), title, index], length=12)}",
         "title": title,
         "wikisource_title": title,
@@ -1227,7 +1224,10 @@ def overlay_document_row(row: Mapping[str, Any], *, object_name: str, index: int
             "mention_slice_count": row.get("mention_slice_count") or 0,
         },
     }
-
+    if bool(hint.get("ocr_requires_image_review")):
+        result["ocr_requires_image_review"] = True
+        result["object_source_cache"]["ocr_requires_image_review"] = True
+    return result
 
 def overlay_task_from_cache(
     task: Mapping[str, Any],

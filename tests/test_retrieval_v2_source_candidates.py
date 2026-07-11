@@ -84,6 +84,22 @@ def test_select_candidate_slices_matches_aliases_and_rule_terms() -> None:
     assert {"留守"} <= set(lyj["matched_rule_terms"])
 
 
+def test_select_candidate_slices_propagates_ocr_image_review_gate() -> None:
+    task = sample_task()
+    docs = [
+        {
+            "document_code": "DOC-OCR",
+            "text": "高祖命秦王为西讨元帅征之。",
+            "ocr_requires_image_review": True,
+        }
+    ]
+
+    rows = tool.select_candidate_slices(task, docs, context_chars=40, max_slices_per_object=3)
+
+    assert rows
+    assert all(row["ocr_requires_image_review"] is True for row in rows)
+
+
 def test_select_candidate_slices_keeps_object_cache_documents_owner_scoped() -> None:
     task = copy.deepcopy(sample_task())
     task["object_seeds"] = [{"name": "李文忠"}, {"name": "沐英"}]
