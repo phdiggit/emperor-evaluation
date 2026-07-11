@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -20,6 +21,7 @@ from scripts.dev.retrieval_v3_pg_schema import DEFAULT_V3_DSN_ENV, pg_schema_nam
 
 SOURCE = "retrieval_v3_object_source_cache_pg_backfill"
 PERSON_OBJECT_TYPES = {"person"}
+PERSON_STAGE_SUFFIX_RE = re.compile(r"(?:早期|中期|晚期)$")
 
 TARGET_SQL = """
 select
@@ -74,6 +76,12 @@ def load_cache_rows(cache_root: Path) -> dict[str, list[dict[str, Any]]]:
 
 def normalized_name(value: Any) -> str:
     return "".join(str(value or "").split())
+
+
+def canonical_person_name(value: Any) -> str:
+    name = text(value)
+    canonical = PERSON_STAGE_SUFFIX_RE.sub("", name).strip()
+    return canonical or name
 
 
 def list_texts(value: Any) -> list[str]:
@@ -267,18 +275,25 @@ def build_object_rows(
 
     for seed in cache_rows.get("seeds") or []:
         object_type = text(seed.get("object_type") or "person")
-        name = text(seed.get("name"))
-        if not name:
+        source_name = text(seed.get("name"))
+        if not source_name:
             continue
+        name = canonical_person_name(source_name)
         if object_type not in PERSON_OBJECT_TYPES:
             review_needed["unsupported_object_type"].append({"name": name, "object_type": object_type})
             continue
         identity_key = raw_object_identity(seed)
         obj_code = object_code(identity_key)
-        identity_names = sorted({normalized_name(row["name_text"]) for row in alias_rows(seed) if normalized_name(row["name_text"])})
-        coverage = coverage_index.get(name) or {}
-        documents = docs_index.get(name) or []
-        mention_slices = slices_index.get(name) or []
+        identity_names = sorted(
+            {
+                normalized_name(canonical_person_name(row["name_text"]))
+                for row in alias_rows(seed)
+                if normalized_name(canonical_person_name(row["name_text"]))
+            }
+        )
+        coverage = coverage_index.get(source_name) or {}
+        documents = docs_index.get(source_name) or []
+        mention_slices = slices_index.get(source_name) or []
         payload = seed_payload(
             seed,
             coverage=coverage,
@@ -293,7 +308,7 @@ def build_object_rows(
                     "object_code": obj_code,
                     "object_identity_key": identity_key,
                     "canonical_name": name,
-                    "normalized_name": normalized_name(seed.get("normalized_name") or name),
+                    "normalized_name": normalized_name(name),
                     "object_type": "person",
                     "identity_status": "active",
                     "curator_note": "",
@@ -336,7 +351,7 @@ def build_object_rows(
                 review_needed["missing_period"].append({"name": name, "object_code": obj_code})
 
         for alias in alias_rows(seed):
-            alias_text = text(alias.get("name_text"))
+            alias_text = canonical_person_name(alias.get("name_text"))
             kind = text(alias.get("name_kind"))
             norm = normalized_name(alias_text)
             name_key = (identity_key, norm, kind)
@@ -588,7 +603,7 @@ def upsert_profile(cur: Any, row: Mapping[str, Any], *, object_id: int) -> int:
         )
         values (%s, %s, %s::retrieval_v3.rv3_person_talent_grade, %s, %s::retrieval_v3.rv3_review_status, %s::jsonb)
         on conflict on constraint rv3_person_profiles_object_uk do update set
-            person_profile_code = excluded.person_profile_code,
+            person_profile_code = retrieval_v3.person_profiles.person_profile_code,
             talent_grade = coalesce(retrieval_v3.person_profiles.talent_grade, excluded.talent_grade),
             talent_grade_basis = case
                 when btrim(retrieval_v3.person_profiles.talent_grade_basis) <> ''
@@ -616,6 +631,41 @@ def upsert_profile(cur: Any, row: Mapping[str, Any], *, object_id: int) -> int:
 
 
 def upsert_affiliation(cur: Any, row: Mapping[str, Any], *, object_id: int) -> int:
+    cur.execute(
+        """
+        select id
+          from retrieval_v3.person_affiliations
+         where object_id=%s
+           and affiliation_kind=%s::retrieval_v3.rv3_person_affiliation_kind
+           and dynasty_label=%s
+           and polity_label=%s
+           and affiliation_label=%s
+           and period_label=%s
+           and review_status in ('pending','accepted')
+         order by id
+         limit 1
+        """,
+        (
+            object_id,
+            text(row.get("affiliation_kind")),
+            text(row.get("dynasty_label")),
+            text(row.get("polity_label")),
+            text(row.get("affiliation_label")),
+            text(row.get("period_label")),
+        ),
+    )
+    existing = cur.fetchone()
+    if existing and existing.get("id") is not None:
+        cur.execute(
+            """
+            update retrieval_v3.person_affiliations
+               set affiliation_payload=affiliation_payload||%s::jsonb, updated_at=now()
+             where id=%s
+         returning id
+            """,
+            (json_param(row.get("affiliation_payload") or {}), int(existing["id"])),
+        )
+        return fetch_one_id(cur)
     cur.execute(
         """
         insert into retrieval_v3.person_affiliations (

@@ -161,6 +161,62 @@ def test_build_object_rows_from_cache_artifacts(tmp_path: Path) -> None:
     assert payload["object_rows"][0]["identity_period"] == "西汉"
 
 
+def test_build_object_rows_collapses_life_stage_suffix_into_canonical_person(tmp_path: Path) -> None:
+    root = cache_root(tmp_path)
+    seed_path = root / "seeds" / "shard_0001.jsonl"
+    rows = [json.loads(line) for line in seed_path.read_text(encoding="utf-8").splitlines()]
+    rows[0].update(
+        {
+            "name": "宋璟晚期",
+            "normalized_name": "宋璟晚期",
+            "object_pool_aliases": [{"alias": "宋璟晚期", "alias_kind": "canonical"}],
+            "aliases": ["宋璟晚期"],
+            "expanded_aliases": ["宋璟晚期"],
+        }
+    )
+    write_jsonl(seed_path, rows)
+
+    payload = tool.build_object_rows(
+        cache_root=root,
+        cache_rows=tool.load_cache_rows(root),
+        target_rows=[],
+        item_code="I5B",
+        schema_name="retrieval_v3",
+    )
+
+    assert payload["object_rows"][0]["canonical_name"] == "宋璟"
+    assert payload["object_rows"][0]["normalized_name"] == "宋璟"
+    assert payload["object_rows"][0]["identity_aliases"] == ["宋璟"]
+    assert {row["name_text"] for row in payload["object_name_rows"]} == {"宋璟"}
+
+
+def test_profile_upsert_preserves_stable_code_after_alias_identity_reuse() -> None:
+    class Cursor:
+        def __init__(self) -> None:
+            self.sql = ""
+
+        def execute(self, sql: str, params=None) -> None:
+            self.sql = sql
+
+        def fetchone(self) -> dict:
+            return {"id": 77}
+
+    cur = Cursor()
+    tool.upsert_profile(
+        cur,
+        {
+            "person_profile_code": "PRF-STAGE-SEED",
+            "talent_grade": None,
+            "talent_grade_basis": "",
+            "review_status": "pending",
+            "profile_payload": {},
+        },
+        object_id=77,
+    )
+
+    assert "person_profile_code = retrieval_v3.person_profiles.person_profile_code" in cur.sql
+
+
 def test_apply_defaults_to_dry_run_without_inserts(tmp_path: Path, monkeypatch) -> None:
     conn = patch_fake_db(monkeypatch)
     root = cache_root(tmp_path)
