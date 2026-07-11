@@ -21,11 +21,14 @@ REQUIRED_RUNTIME_PATHS = (
     "scripts/dev/retrieval_v3_clean_runner.py",
     "scripts/dev/retrieval_v3_object_source_cache_worker.py",
     "scripts/dev/retrieval_v3_claim_extraction_worker.py",
+    "scripts/dev/retrieval_v3_person_profile_worker.py",
     "scripts/dev/retrieval_v3_runtime_release.py",
     "scripts/dev/server_runtime/retrieval_v3_claim_worker_loop.sh",
     "scripts/dev/server_runtime/retrieval_v3_object_source_cache_worker_loop.sh",
+    "scripts/dev/server_runtime/retrieval_v3_person_profile_worker_loop.sh",
     "scripts/dev/server_runtime/emperor-retrieval-v3-claim-worker.service",
     "scripts/dev/server_runtime/emperor-retrieval-v3-object-source-cache-worker.service",
+    "scripts/dev/server_runtime/emperor-retrieval-v3-person-profile-worker.service",
 )
 SERVICE_RE = re.compile(r"^[A-Za-z0-9_.@-]+$")
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
