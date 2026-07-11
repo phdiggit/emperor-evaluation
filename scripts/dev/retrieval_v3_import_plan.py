@@ -405,7 +405,7 @@ def build_plan(*, normalized_root: Path, review_root: Path | None = None, lookup
         operations.append(
             operation(
                 "retrieval_v3.material_claims",
-                {"source_pack_code": pack_code, "raw_claim_code": text(claim.get("raw_claim_code"))},
+                {"raw_claim_code": text(claim.get("raw_claim_code"))},
                 depends_on=[{"table": "retrieval_v3.source_packs", "pack_code": pack_code}],
                 payload={
                     "claim_code": claim_code,

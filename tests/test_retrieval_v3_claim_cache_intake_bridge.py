@@ -78,6 +78,26 @@ def test_build_rows_creates_draft_materials_without_object_or_binding_rows(tmp_p
     assert plan["blockers"] == []
 
 
+def test_material_claim_identity_does_not_depend_on_source_pack() -> None:
+    evidence_row = evidence("CLMK-1")
+    first = tool.build_rows(
+        chains=[chain()],
+        targets=[{"target_code": "TGT-I5B-LB", "emperor_name": "刘邦", "item_code": "I5B"}],
+        evidence_rows=[evidence_row, evidence("CLMK-2"), evidence("CLMK-3")],
+        full_texts={f"SLH-CLMK-{index}": f"text {index}" for index in range(1, 4)},
+    )
+    second_evidence = [dict(evidence(key), emperor_name="李世民") for key in ("CLMK-1", "CLMK-2", "CLMK-3")]
+    second = tool.build_rows(
+        chains=[{"emperor_name": "李世民", "members": chain()["members"]}],
+        targets=[{"target_code": "TGT-I5B-LSM", "emperor_name": "李世民", "item_code": "I5B"}],
+        evidence_rows=second_evidence,
+        full_texts={f"SLH-CLMK-{index}": f"text {index}" for index in range(1, 4)},
+    )
+
+    assert first["source_packs"][0]["source_pack_code"] != second["source_packs"][0]["source_pack_code"]
+    assert first["material_claims"][0]["claim_code"] == second["material_claims"][0]["claim_code"]
+
+
 def test_build_rows_rejects_preview_only_slice() -> None:
     try:
         tool.build_rows(

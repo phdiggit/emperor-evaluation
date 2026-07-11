@@ -396,7 +396,10 @@ def build_rows(
         rows["material_claims"].append(
             {
                 "source_pack_code": pack_code,
-                "claim_code": stable_code("CLM", pack_code, claim_key),
+                # A cached claim is globally identified by its CLMK key.  Source
+                # packs are provenance containers and must not create a second
+                # material claim when the same fact is replayed from another pack.
+                "claim_code": stable_code("CLM", claim_key),
                 "raw_claim_code": claim_key,
                 "emperor_name": emperor,
                 "object_name": text(claim.get("object_name")),
