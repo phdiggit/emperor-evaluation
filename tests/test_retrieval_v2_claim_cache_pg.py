@@ -140,7 +140,7 @@ def test_claim_cache_pg_sql_stays_in_cache_tables() -> None:
     assert rendered
     assert tool.DEFAULT_DSN_ENV == "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
     assert tool.DEFAULT_PG_SCHEMA == "retrieval_v3"
-    assert tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS == ("claim_extraction_only:v7_negative_harm_split",)
+    assert tool.DEFAULT_ALLOWED_EXTRACTOR_VERSIONS == ("claim_extraction_only:v8_source_alias",)
     assert "retrieval_v2.claim_cache" in source
     assert "canonical_event_key" in source
     assert "near_duplicate_group_payload" in source
@@ -173,7 +173,7 @@ def test_extractor_version_policy_blocks_legacy_by_default(tmp_path: Path) -> No
     assert issues == [
         {
             "kind": "unsupported_extractor_version",
-            "allowed_extractor_versions": ["claim_extraction_only:v7_negative_harm_split"],
+                "allowed_extractor_versions": ["claim_extraction_only:v8_source_alias"],
             "observed_extractor_versions": {"claim_extraction_only": 1},
             "blocked_extractor_versions": {"claim_extraction_only": 1},
             "hint": "Pass --allowed-extractor-version for a reviewed current version, or --allow-legacy-extractor-version for an explicit legacy import.",
@@ -209,7 +209,7 @@ def test_filter_prepared_rows_by_run_codes_keeps_related_evidence_and_slices(tmp
     new_claim["claim_key"] = "CLMK-NEW"
     new_claim["first_run_code"] = "RUN-NEW"
     new_claim["last_run_code"] = "RUN-NEW"
-    new_claim["extractor_version"] = "claim_extraction_only:v7_negative_harm_split"
+    new_claim["extractor_version"] = "claim_extraction_only:v8_source_alias"
     old_claim = dict(base_claim)
     old_claim["claim_key"] = "CLMK-OLD"
     old_claim["first_run_code"] = "RUN-OLD"

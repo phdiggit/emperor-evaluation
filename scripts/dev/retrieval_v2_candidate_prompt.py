@@ -57,7 +57,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
-CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v7_negative_harm_split"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v8_source_alias"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -134,6 +134,7 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
         "如输入含 source_ref_policy，只能从该对象 allowed_source_refs_by_object 中取 refs；runner 会拒收跨对象 refs。"
         "顶层 claim.object_name 是 claim cache 的焦点人物，必须等于 source_slice_refs 唯一对应的 candidate_slices[].object_name。"
+        "candidate_slices[].matched_aliases 已由本地切片器确定归属；即使它是来源级 OCR 别名且字面不同于 object_name，也必须按该 object_name 抽取，不得因此跳过事实或改绑其他对象。"
         "若焦点人物是施害者、受事者另有其人，顶层 object_name 仍写焦点人物，受事者只写 fact_payload.object；runner 会机械校验并修正或拒收。"
         "如 candidate_slices[].alias_mentions 给出 deterministic resolved_owner_name，说明该片段中的皇帝别名已由本地别名表机械解析；"
         "若 claim 主行为人/actor 是该别名，claim.emperor_name 必须写 resolved_owner_name，不要绑到本轮 target emperor。"

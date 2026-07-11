@@ -240,7 +240,8 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "不得拿后续获罪、贬谪、赐死冒充损害" in prompt
     assert "如果原文只有罪名或处置、没有具体任内行为" in prompt
     assert "失职 | 构陷 | 滥权" in prompt
-    assert tool.CLAIM_EXTRACTOR_VERSION == "claim_extraction_only:v7_negative_harm_split"
+    assert tool.CLAIM_EXTRACTOR_VERSION == "claim_extraction_only:v8_source_alias"
+    assert "来源级 OCR 别名" in prompt
     assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
 
 

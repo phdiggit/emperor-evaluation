@@ -24,7 +24,7 @@ from scripts.dev.retrieval_v2_pg_schema import (  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
-DEFAULT_ALLOWED_EXTRACTOR_VERSIONS = ("claim_extraction_only:v7_negative_harm_split",)
+DEFAULT_ALLOWED_EXTRACTOR_VERSIONS = ("claim_extraction_only:v8_source_alias",)
 
 CLAIM_TYPES = {"material_action", "outcome", "evaluation", "relationship", "institution", "numeric", "context"}
 FACT_SCHEMAS = {
