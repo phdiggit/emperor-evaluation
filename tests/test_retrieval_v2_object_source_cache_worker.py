@@ -433,6 +433,21 @@ def test_job_from_seed_builds_stable_queue_payload(tmp_path: Path) -> None:
     assert first["job_payload"]["build_options"] == build_options
 
 
+def test_job_from_seed_accepts_plural_target_emperors(tmp_path: Path) -> None:
+    seed = tmp_path / "royal_clan_seed.jsonl"
+    write_jsonl(
+        seed,
+        [
+            {"name": "朱樉", "target_emperors": ["朱元璋"]},
+            {"name": "朱檀", "target_emperors": ["朱元璋"]},
+        ],
+    )
+
+    job = tool.job_from_seed(seed_jsonl=seed)
+
+    assert job["emperor_name"] == "朱元璋"
+
+
 def test_profile_seed_writes_layered_profile_objects_without_enqueue(tmp_path: Path) -> None:
     profile = tmp_path / "profiles.jsonl"
     output_seed = tmp_path / "seed.jsonl"

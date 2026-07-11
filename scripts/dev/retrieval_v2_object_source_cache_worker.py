@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 import sys
 import time
 from pathlib import Path
 from typing import Any, Mapping, Sequence
-
-
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -157,13 +156,13 @@ def resolve_path(value: str) -> Path:
 
 
 def seed_identity(rows: Sequence[Mapping[str, Any]]) -> dict[str, str]:
-    emperor_counts: dict[str, int] = {}
+    emperor_counts: Counter[str] = Counter()
     profile_counts: dict[str, int] = {}
     for row in rows:
-        for key, counts in (("target_emperor", emperor_counts), ("emperor_name", emperor_counts)):
-            value = text(row.get(key))
-            if value:
-                counts[value] = counts.get(value, 0) + 1
+        for key in ("target_emperor", "target_emperors", "emperor_name"):
+            values = list_texts(row.get(key))
+            if values:
+                emperor_counts.update(values)
                 break
         profile = text(row.get("capture_profile") or row.get("source_profile"))
         if profile:

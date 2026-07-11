@@ -1082,7 +1082,7 @@ def fetch_and_slice_document(
             "source_key": source_key,
             "source_title": fetched_title or text_from(document, "source_title", "title", "wikisource_title"),
             "title": fetched_title or text_from(document, "title", "wikisource_title"),
-            "wikisource_title": fetched_title or text_from(document, "wikisource_title", "title"),
+            "wikisource_title": fetched_title or text_from(document, "wikisource_title") or (text_from(document, "title") if "wikisource" in text_from(document, "source_kind") else ""),
             "shared_cache_text_path": str(text_path) if text_path else "",
             "shared_cache_meta_path": str(meta_path) if meta_path else "",
             "cache_status": fetch_meta.get("cache_status"),

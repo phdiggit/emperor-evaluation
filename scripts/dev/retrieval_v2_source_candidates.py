@@ -25,8 +25,8 @@ from scripts.dev.retrieval_v2_contracts import (
     unique_strings,
 )
 from scripts.dev import retrieval_v2_candidate_prompt as candidate_prompt
+from scripts.dev.retrieval_v2_public_ocr import extract_public_ocr_text
 from scripts.dev.retrieval_v2_source_document_policy import source_document_skip
-
 
 DEFAULT_CACHE_DIR = ROOT / "tmp" / "retrieval_v2_source_cache"
 WIKISOURCE_API = "https://zh.wikisource.org/w/api.php"
@@ -562,11 +562,15 @@ def fetch_document_text(
         except RetrievalV2CandidateError:
             if not url:
                 raise
-            text = strip_html(request_text(url, timeout=timeout))
-            meta = {"cache_status": "miss", "source_kind": "url_fallback", "source_key": source_key, "fallback_url": url}
+            raw_html = request_text(url, timeout=timeout)
+            text, extractor = extract_public_ocr_text(url, raw_html)
+            text = text if extractor else strip_html(raw_html)
+            meta = {"cache_status": "miss", "source_kind": "url_fallback", "source_key": source_key, "fallback_url": url, **({"content_extractor": extractor} if extractor else {})}
     elif url:
-        text = strip_html(request_text(url, timeout=timeout))
-        meta = {"cache_status": "miss", "source_kind": "url", "source_key": source_key}
+        raw_html = request_text(url, timeout=timeout)
+        text, extractor = extract_public_ocr_text(url, raw_html)
+        text = text if extractor else strip_html(raw_html)
+        meta = {"cache_status": "miss", "source_kind": "url", "source_key": source_key, **({"content_extractor": extractor} if extractor else {})}
     else:
         raise RetrievalV2CandidateError("document requires text, wikisource_title/title, or url")
     write_cached_text(cache_dir, source_key, text, meta)

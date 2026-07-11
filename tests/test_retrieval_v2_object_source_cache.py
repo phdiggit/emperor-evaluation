@@ -332,6 +332,24 @@ def test_discovery_accepts_explicit_public_ocr_source_document_hint() -> None:
     assert docs[0]["source_kind"] == "public_ocr_page"
 
 
+def test_fetched_public_ocr_document_does_not_become_wikisource(tmp_path: Path, monkeypatch) -> None:
+    document = {
+        "title": "御制纪非录",
+        "source_title": "御制纪非录",
+        "url": "https://example.test/jifeilu",
+        "source_kind": "public_ocr_page",
+        "fetch_mode": "url",
+    }
+    monkeypatch.setattr(tool, "fetch_document_text", lambda *_args, **_kwargs: ("鲁王为恶。", {"source_key": "url:test", "cache_status": "miss"}))
+
+    fetched, slices = tool.fetch_and_slice_document(
+        {"name": "朱檀", "aliases": ["鲁王"]}, document, cache_dir=tmp_path, timeout=1, context_chars=20, max_slices_per_document=2
+    )
+
+    assert fetched["wikisource_title"] == ""
+    assert len(slices) == 1
+
+
 def test_discovery_keeps_script_variant_query_with_single_search_name() -> None:
     queries: list[str] = []
 

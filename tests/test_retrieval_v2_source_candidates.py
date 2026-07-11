@@ -5,6 +5,28 @@ import json
 from pathlib import Path
 
 from scripts.dev import retrieval_v2_source_candidates as tool
+from scripts.dev.retrieval_v2_public_ocr import extract_public_ocr_text
+
+
+def test_extract_public_ocr_text_reads_shidian_router_paragraphs() -> None:
+    paragraph = json.dumps(
+        {"lines": [{"content": "秦王多有过失。"}, {"content": "太祖召还京师。"}]},
+        ensure_ascii=False,
+    )
+    router = {"loaderData": {"book": {"paragraphList": [{"content": paragraph}]}}}
+    html = f'<html><script>window._ROUTER_DATA = {json.dumps(router, ensure_ascii=False)}</script></html>'
+
+    text, extractor = extract_public_ocr_text("https://www.shidianguji.com/book/x/chapter/y", html)
+
+    assert text == "秦王多有过失。\n太祖召还京师。"
+    assert extractor == "shidianguji_router_data"
+
+
+def test_extract_public_ocr_text_marks_empty_shidian_page_shell() -> None:
+    text, extractor = extract_public_ocr_text("https://www.shidianguji.com/book/x/chapter/y", "<html>title only</html>")
+
+    assert text == ""
+    assert extractor == "shidianguji_router_data_empty"
 
 
 def sample_task() -> dict:
