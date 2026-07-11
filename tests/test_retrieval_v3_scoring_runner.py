@@ -73,7 +73,13 @@ def test_read_only_unchanged_contract_uses_input_fingerprint(monkeypatch, tmp_pa
     })
     monkeypatch.setattr(tool, "apply_rule_scores", lambda **kwargs: (_ for _ in ()).throw(AssertionError("scorer called")))
     monkeypatch.setattr(tool, "fetch_coverage_contract", lambda **kwargs: [{}])
-    monkeypatch.setattr(tool, "run_contract", lambda **kwargs: {"ok": True})
+    def fake_run_contract(**kwargs):
+        scope = kwargs["output_root"] / "I5B__appointment_delegation.json"
+        scope.parent.mkdir(parents=True, exist_ok=True)
+        scope.write_text('{"objects": []}', encoding="utf-8")
+        return {"ok": True}
+
+    monkeypatch.setattr(tool, "run_contract", fake_run_contract)
 
     report = tool.run(
         dsn="postgresql://unused",

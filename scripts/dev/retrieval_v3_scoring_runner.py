@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn
 from scripts.dev.retrieval_v3_coverage_runner import fetch_coverage_contract, run_contract
+from scripts.dev.retrieval_v3_evidence_sufficiency import build_evidence_sufficiency, render_markdown as render_evidence_markdown
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor
 from scripts.dev.retrieval_v3_rule_scorer import (
     DEFAULT_FORMULA_CODE,
@@ -252,6 +253,21 @@ def run(
         },
     )
     coverage_seconds = round(time.perf_counter() - coverage_started, 3)
+
+    evidence_started = time.perf_counter()
+    coverage_detail_path = output_root / "coverage" / f"{manifest.get('item_code')}__{manifest.get('rule_code')}.json"
+    coverage_detail = read_json(coverage_detail_path)
+    evidence_sufficiency = build_evidence_sufficiency(
+        coverage=coverage_detail,
+        score_details=details,
+        emperors=[text(row.get("emperor_name")) for row in manifest.get("targets") or []],
+    )
+    (output_root / "evidence_sufficiency.json").write_text(
+        json.dumps(evidence_sufficiency, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+    (output_root / "evidence_sufficiency.md").write_text(
+        render_evidence_markdown(evidence_sufficiency), encoding="utf-8", newline="\n")
+    evidence_seconds = round(time.perf_counter() - evidence_started, 3)
     elapsed = round(time.perf_counter() - started, 3)
     report = {
         "ok": True,
@@ -266,10 +282,17 @@ def run(
         "skipped_target_count": sum(row["status"] == "skipped_unchanged" for row in target_reports),
         "targets": target_reports,
         "coverage_summary": coverage,
-        "stage_timings": {"scoring": scoring_seconds, "coverage": coverage_seconds},
+        "evidence_sufficiency": evidence_sufficiency,
+        "stage_timings": {
+            "scoring": scoring_seconds,
+            "coverage": coverage_seconds,
+            "evidence_sufficiency": evidence_seconds,
+        },
         "elapsed_seconds": elapsed,
         "artifacts": {
             "score_details_json": str(output_root / "score_details.json"),
+            "evidence_sufficiency_json": str(output_root / "evidence_sufficiency.json"),
+            "evidence_sufficiency_md": str(output_root / "evidence_sufficiency.md"),
             "coverage_root": str(output_root / "coverage"),
             "run_events_jsonl": str(output_root / "run_events.jsonl"),
         },

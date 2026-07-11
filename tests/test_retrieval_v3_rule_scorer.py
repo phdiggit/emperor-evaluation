@@ -41,6 +41,9 @@ def judgment(
         object_id=object_id,
         target_object_id=object_id + 5000,
         object_name="萧何",
+        claim_key=f"CLMK-{judgment_id}",
+        event_group_keys=(f"CEG-{judgment_id}",),
+        source_document_codes=(f"DOC-{judgment_id}",),
         choices=choices or (tool.FactorChoice("source_factor", "基础史源", "SRC", Decimal(value)),),
     )
 

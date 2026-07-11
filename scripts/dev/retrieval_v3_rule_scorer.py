@@ -62,6 +62,9 @@ class JudgmentInput:
     object_id: int | None
     target_object_id: int | None
     object_name: str
+    claim_key: str
+    event_group_keys: tuple[str, ...]
+    source_document_codes: tuple[str, ...]
     choices: tuple[FactorChoice, ...]
 
 
@@ -215,6 +218,9 @@ def fetch_judgment_rows(
             cand.candidate_code,
             cand.candidate_payload,
             j.claim_id,
+            coalesce(mc.claim_payload->>'cached_claim_key', mc.raw_claim_code, mc.claim_code) as claim_key,
+            coalesce(event_lineage.event_group_keys, array[]::text[]) as event_group_keys,
+            coalesce(source_lineage.source_document_codes, array[]::text[]) as source_document_codes,
             j.target_id,
             rt.target_code,
             rt.emperor_name,
@@ -237,6 +243,7 @@ def fetch_judgment_rows(
             active.active_value::text as active_value_num
           from retrieval_v3.claim_rule_binding_factor_judgments j
           join retrieval_v3.claim_rule_bindings b on b.id = j.binding_id
+          join retrieval_v3.material_claims mc on mc.id = j.claim_id
           left join lateral (
               select c0.*
                 from retrieval_v3.claim_rule_binding_candidates c0
@@ -250,6 +257,19 @@ def fetch_judgment_rows(
           ) cand on true
           join retrieval_v3.retrieval_targets rt on rt.id = j.target_id
           join retrieval_v3.source_packs sp on sp.id = j.source_pack_id
+          left join lateral (
+              select array_agg(distinct gm.group_key order by gm.group_key) as event_group_keys
+                from retrieval_v3.claim_event_group_members gm
+                join retrieval_v3.claim_event_groups eg on eg.group_key = gm.group_key
+               where gm.claim_key = coalesce(mc.claim_payload->>'cached_claim_key', mc.raw_claim_code, mc.claim_code)
+                 and eg.group_status::text not in ('rejected', 'retired')
+          ) event_lineage on true
+          left join lateral (
+              select array_agg(distinct css.document_code order by css.document_code) as source_document_codes
+                from retrieval_v3.claim_evidence ce
+                join retrieval_v3.claim_source_slices css on css.slice_hash = ce.slice_hash
+               where ce.claim_key = coalesce(mc.claim_payload->>'cached_claim_key', mc.raw_claim_code, mc.claim_code)
+          ) source_lineage on true
           left join lateral (
               select mol1.*
                 from retrieval_v3.material_object_links mol1
@@ -499,6 +519,9 @@ def build_judgments(rows: Sequence[Mapping[str, Any]]) -> list[JudgmentInput]:
                 object_id=int(object_id) if object_id is not None else None,
                 target_object_id=int(target_object_id) if target_object_id is not None else None,
                 object_name=text(row.get("object_name")) or text(row.get("binding_code")),
+                claim_key=text(row.get("claim_key")),
+                event_group_keys=tuple(sorted(text(key) for key in row.get("event_group_keys") or [] if text(key))),
+                source_document_codes=tuple(sorted(text(code) for code in row.get("source_document_codes") or [] if text(code))),
                 choices=choices,
             )
         )
@@ -690,6 +713,9 @@ def material_detail(score: MaterialScore) -> dict[str, Any]:
         "factor_judgment_id": judgment.factor_judgment_id,
         "binding_code": judgment.binding_code,
         "claim_id": judgment.claim_id,
+        "claim_key": judgment.claim_key,
+        "event_group_keys": list(judgment.event_group_keys),
+        "source_document_codes": list(judgment.source_document_codes),
         "object_id": judgment.object_id,
         "target_object_id": judgment.target_object_id,
         "object_role": judgment.object_role,
