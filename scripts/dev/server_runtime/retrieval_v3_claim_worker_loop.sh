@@ -33,6 +33,12 @@ print(
     "claim_count=" + str(result.get("claim_count")),
 )
 PY
+    post_out="${LOG_ROOT}/post_claim_${stamp}.json"
+    python3 scripts/dev/retrieval_v3_post_claim_orchestrator.py \
+      --claim-worker-output "${out}" \
+      --output-root "${RETRIEVAL_V3_POST_CLAIM_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v3_post_claim}" \
+      --output-json "${post_out}" \
+      --execute || echo "post_claim_orchestrator_failed output=${post_out}" >&2
   else
     rc=$?
     echo "claim_worker_once_failed rc=${rc} output=${out}" >&2

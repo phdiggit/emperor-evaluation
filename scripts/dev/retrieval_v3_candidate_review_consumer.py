@@ -13,9 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v3_import_plan import json_param  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
-from scripts.dev.retrieval_v3_candidate_review_worklist import stable_code, stable_json, text  # noqa: E402
 
 
 PROFILE = "retrieval_v3_material_candidate_plan"
@@ -33,6 +31,22 @@ ALLOWED_ROLES = {
     "misentrusted_actor",
     "authority_revoked_target",
 }
+
+
+def text(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def stable_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def stable_code(value: Any) -> str:
+    return "CRW-" + hashlib.sha256(stable_json(value).encode("utf-8")).hexdigest()[:16].upper()
+
+
+def json_param(value: Any) -> str:
+    return stable_json(value)
 
 
 class CandidateReviewConsumerError(ValueError):
@@ -152,6 +166,8 @@ def run_consumer(
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
+            if execute:
+                cur.execute("set local retrieval_v3.rebuild_bypass='on'")
             lookup = candidate_lookup(cur, profile=profile)
             missing = sorted(set(row["review_code"] for row in patches) - set(lookup))
             if missing:

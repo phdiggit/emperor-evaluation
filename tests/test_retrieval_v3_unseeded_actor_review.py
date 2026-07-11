@@ -138,3 +138,39 @@ def test_consumer_routes_royal_clan_to_shared_source_chain_and_jifeilu() -> None
         }
     ]
     assert seed["source_target_refs"] == ["明史 宗室 藩王 朱檀", "明實錄 宗室 藩王 朱檀"]
+
+
+def test_source_refiner_enqueue_requires_request_key(tmp_path: Path) -> None:
+    seed_path = tmp_path / "source_refiner.jsonl"
+    seed_path.write_text(json.dumps(consumer.source_refiner_rows(consumer.validate_review_package([workitem()], [patch()]))[0], ensure_ascii=False) + "\n", encoding="utf-8")
+    with pytest.raises(consumer.ActorReviewConsumerError, match="request-key"):
+        consumer.enqueue_source_refiner_job(
+            seed_jsonl=seed_path,
+            dsn_env="TEST_DSN",
+            pg_schema="retrieval_v3",
+            priority=40,
+            request_key="",
+        )
+
+
+def test_source_refiner_enqueue_builds_supplement_job(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    seed_path = tmp_path / "source_refiner.jsonl"
+    seed_path.write_text(json.dumps(consumer.source_refiner_rows(consumer.validate_review_package([workitem()], [patch()]))[0], ensure_ascii=False) + "\n", encoding="utf-8")
+    captured: dict = {}
+    monkeypatch.setattr(consumer, "resolve_dsn", lambda _name: "postgresql://test")
+    monkeypatch.setattr(
+        consumer.source_worker,
+        "enqueue_job",
+        lambda **kwargs: captured.update(kwargs) or {"job_id": 1, "job_code": kwargs["job"]["job_code"]},
+    )
+    result = consumer.enqueue_source_refiner_job(
+        seed_jsonl=seed_path,
+        dsn_env="TEST_DSN",
+        pg_schema="retrieval_v3",
+        priority=35,
+        request_key="REVIEW-1",
+    )
+    options = result["job"]["job_payload"]["build_options"]
+    assert options["intake_mode"] == "supplement"
+    assert options["intake_request_key"] == "REVIEW-1"
+    assert captured["schema_name"] == "retrieval_v3"

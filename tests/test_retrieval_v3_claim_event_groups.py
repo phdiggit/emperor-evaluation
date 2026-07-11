@@ -140,6 +140,13 @@ def test_event_group_fetch_uses_owner_scope_view_without_prompt_cost() -> None:
     assert "external_or_unregistered_owner" not in prompt_source
 
 
+def test_owner_scope_migration_prevents_multi_target_fanout() -> None:
+    source = (tool.ROOT / "db/migrations/20260712_retrieval_v3_claim_owner_scope_dedupe.sql").read_text(encoding="utf-8")
+    assert "left join lateral" in source.lower()
+    assert "limit 1" in source.lower()
+    assert "order by rt.id" in source.lower()
+
+
 def test_claim_member_row_uses_atomic_negative_support_without_direction() -> None:
     row = claim(
         atomic_fact_payload={"negative_support": "governance_damage_supported", "outcome_support": "direct"},

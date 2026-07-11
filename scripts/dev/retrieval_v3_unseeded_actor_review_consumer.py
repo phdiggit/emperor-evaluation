@@ -14,6 +14,8 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v3_unseeded_actor_discovery import stable_code, text, write_jsonl, write_text  # noqa: E402
 from scripts.dev.retrieval_v3_unseeded_actor_review_tasks import read_jsonl  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev import retrieval_v3_object_source_cache_worker as source_worker  # noqa: E402
 
 
 ALLOWED_VERDICTS = {"source_refine", "reject_name", "needs_context"}
@@ -209,18 +211,69 @@ def build_report(reviewed_rows: Sequence[Mapping[str, Any]], source_rows: Sequen
     }
 
 
+def enqueue_source_refiner_job(
+    *,
+    seed_jsonl: Path,
+    dsn_env: str,
+    pg_schema: str,
+    priority: int,
+    request_key: str,
+) -> dict[str, Any]:
+    if not text(request_key):
+        raise ActorReviewConsumerError("--request-key is required when enqueueing source-refiner work")
+    job = source_worker.job_from_seed(
+        seed_jsonl=seed_jsonl,
+        priority=priority,
+        build_options={
+            "intake_mode": "supplement",
+            "intake_request_key": text(request_key),
+            "cache_refresh": False,
+            "source": "unseeded_actor_identity_review",
+        },
+    )
+    enqueue = source_worker.enqueue_job(dsn=resolve_dsn(dsn_env), job=job, schema_name=pg_schema)
+    return {"job": job, "enqueue": enqueue}
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate actor-review patches and emit file-only source-refiner seeds.")
     parser.add_argument("--workitems-jsonl", type=Path, required=True)
     parser.add_argument("--patch-jsonl", type=Path, required=True)
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-source-refiner-jsonl", type=Path, required=True)
+    parser.add_argument("--enqueue-source-job", action="store_true")
+    parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--request-key", default="")
+    parser.add_argument("--priority", type=int, default=40)
+    parser.add_argument("--env-file", type=Path)
+    parser.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V3_DSN")
+    parser.add_argument("--pg-schema", default="retrieval_v3")
     args = parser.parse_args(argv)
+    if args.execute and not args.enqueue_source_job:
+        parser.error("--execute requires --enqueue-source-job")
     reviewed = validate_review_package(read_jsonl(args.workitems_jsonl), read_jsonl(args.patch_jsonl))
     source_rows = source_refiner_rows(reviewed)
-    report = build_report(reviewed, source_rows)
-    write_text(args.output_json, json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
     write_jsonl(args.output_source_refiner_jsonl, source_rows)
+    report = build_report(reviewed, source_rows)
+    report["enqueue_source_job"] = bool(args.enqueue_source_job)
+    report["execute"] = bool(args.execute)
+    if args.enqueue_source_job:
+        if not source_rows:
+            report["source_enqueue"] = {"status": "skipped", "reason": "no_source_refine_rows"}
+        elif not args.execute:
+            report["source_enqueue"] = {"status": "planned", "seed_jsonl": str(args.output_source_refiner_jsonl)}
+        else:
+            if args.env_file is not None:
+                load_env_file(args.env_file)
+            report["source_enqueue"] = enqueue_source_refiner_job(
+                seed_jsonl=args.output_source_refiner_jsonl,
+                dsn_env=args.dsn_env,
+                pg_schema=args.pg_schema,
+                priority=args.priority,
+                request_key=args.request_key,
+            )
+            report["execute_effect"] = "validated identity review and enqueued an idempotent object-source supplement job; no canonical person or score writes"
+    write_text(args.output_json, json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
     print(json.dumps({key: value for key, value in report.items() if key != "reviewed_candidates"}, ensure_ascii=False, sort_keys=True))
     return 0
 

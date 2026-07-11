@@ -577,6 +577,8 @@ def apply_patch_rows(
     canonicalizations: list[dict[str, str]] = []
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
+            # Both execute and rollback-only dry-run belong to the protected rebuild lane.
+            raw_cur.execute("set local retrieval_v3.rebuild_bypass='on'")
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             option_rows = fetch_factor_option_rows(cur, item_code=item_code, formula_code=formula_code)
             catalog = build_option_catalog(option_rows)

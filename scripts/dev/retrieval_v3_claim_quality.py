@@ -478,6 +478,26 @@ def canonical_event_payload(claim: Mapping[str, Any]) -> dict[str, str]:
     }
 
 
+def normalized_time_context(value: Any) -> str:
+    normalized = normalized_text(value)
+    return re.sub(r"[（(]\d{3,4}年[）)]", "", normalized)
+
+
+def canonical_event_identity_payload(claim: Mapping[str, Any]) -> dict[str, str]:
+    payload = canonical_event_payload(claim)
+    identity = {
+        "emperor_name": payload["emperor_name"],
+        "object_name": payload["object_name"],
+        "action_type": payload["action_type"],
+        "event_scope": payload["event_scope"],
+        "office_or_domain": payload["office_or_domain"],
+        "time_context": normalized_time_context(payload["time_context"]),
+    }
+    if any(identity[key] for key in ("action_type", "event_scope", "office_or_domain", "time_context")):
+        return identity
+    return payload
+
+
 def claim_fact_type(claim: Mapping[str, Any]) -> str:
     explicit = claim_text(claim, "fact_type", "claim_type")
     if explicit:
@@ -558,21 +578,8 @@ def atomic_fact_payload(claim: Mapping[str, Any]) -> dict[str, str]:
 
 
 def event_group_payload(claim: Mapping[str, Any]) -> dict[str, str]:
-    atomic = atomic_fact_payload(claim)
-    return {
-        key: atomic[key]
-        for key in (
-            "emperor_name",
-            "object_name",
-            "fact_type",
-            "actor",
-            "fact_object",
-            "action_type",
-            "event_scope",
-            "office_or_domain",
-            "time_context",
-        )
-    }
+    identity = canonical_event_identity_payload(claim)
+    return {key: value for key, value in identity.items() if key != "summary_signature"}
 
 
 def event_group_key(claim: Mapping[str, Any]) -> str:
@@ -592,23 +599,11 @@ def claim_usage_role_hint(claim: Mapping[str, Any]) -> str:
 
 
 def canonical_event_key(claim: Mapping[str, Any]) -> str:
-    return "CEK-" + sha256_text(stable_json(canonical_event_payload(claim)))
+    return "CEK-" + sha256_text(stable_json(canonical_event_identity_payload(claim)))
 
 
 def near_duplicate_group_payload(claim: Mapping[str, Any]) -> dict[str, str]:
-    payload = canonical_event_payload(claim)
-    return {
-        key: payload[key]
-        for key in (
-            "emperor_name",
-            "object_name",
-            "action_type",
-            "event_scope",
-            "office_or_domain",
-            "time_context",
-            "outcome",
-        )
-    }
+    return canonical_event_identity_payload(claim)
 
 
 def near_duplicate_group_key(claim: Mapping[str, Any]) -> tuple[str, ...]:

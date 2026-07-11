@@ -39,6 +39,10 @@ DEFAULT_SCHEMA_PATHS = (
     ROOT / "db" / "migrations" / "20260708_retrieval_v3_object_source_cache_jobs.sql",
     ROOT / "db" / "migrations" / "20260711_retrieval_v3_talent_grade_v1.sql",
     ROOT / "db" / "migrations" / "20260711_retrieval_v3_talent_grade_v2.sql",
+    ROOT / "db" / "migrations" / "20260712_retrieval_v3_claim_owner_scope_dedupe.sql",
+    ROOT / "db" / "migrations" / "20260712_retrieval_v3_pipeline_rebuild_gate.sql",
+    ROOT / "db" / "migrations" / "20260712_retrieval_v3_canonical_materials.sql",
+    ROOT / "db" / "migrations" / "20260712_retrieval_v3_downstream_event_dedupe.sql",
 )
 DEFAULT_SOURCE_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
 DEFAULT_TARGET_DSN_ENV = DEFAULT_V3_DSN_ENV

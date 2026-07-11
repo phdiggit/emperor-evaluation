@@ -503,9 +503,9 @@ def test_apply_rule_scores_defaults_to_db_backed_dry_run(monkeypatch) -> None:
     assert any("promoted_material_object_link_id" in statement for statement in conn.statements)
     assert any("coalesce(b.binding_payload->>'promoted_material_object_link_id', '')" in statement for statement in conn.statements)
     assert any("mol1.id = (b.binding_payload->>'promoted_material_object_link_id')::bigint" in statement for statement in conn.statements)
-    assert any("distinct on (sp2.target_id, sp2.contract_id)" in statement for statement in conn.statements)
-    assert any("sp2.status = 'accepted'" in statement for statement in conn.statements)
-    assert any("sp2.coverage_status = 'passed'" in statement for statement in conn.statements)
+    assert any("sp.coverage_status = 'passed'" in statement for statement in conn.statements)
+    assert any("from retrieval_v3.claim_rule_binding_factor_judgments j" in statement for statement in conn.statements)
+    assert any("j.target_id = rt.id" in statement for statement in conn.statements)
     generated_codes = [value for params in conn.params for value in params if isinstance(value, str)]
     assert any(value.startswith("RV3MS-") for value in generated_codes)
     assert any(value.startswith("RV3RS-") for value in generated_codes)

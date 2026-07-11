@@ -110,9 +110,30 @@ def test_canonical_near_duplicate_group_ignores_summary_wording() -> None:
     }
     second = {**first, "claim_summary": "太祖令汤和镇守常州。"}
 
-    assert tool.canonical_event_key(first) != tool.canonical_event_key(second)
+    assert tool.canonical_event_key(first) == tool.canonical_event_key(second)
     assert tool.near_duplicate_group_key(first) == tool.near_duplicate_group_key(second)
     assert tool.claim_quality_payload(first)["claim_grain"] == "event_chain"
+
+
+def test_canonical_event_identity_normalizes_parenthetical_gregorian_year() -> None:
+    first = {
+        "emperor_name": "李治",
+        "object_name": "苏定方",
+        "claim_summary": "任命苏定方为神丘道行军大总管。",
+        "fact_payload": {
+            "action_type": "任命",
+            "office_or_domain": "神丘道行军大总管",
+            "time_context": "显庆五年",
+        },
+    }
+    second = {
+        **first,
+        "claim_summary": "显庆五年命苏定方统军征百济。",
+        "fact_payload": {**first["fact_payload"], "time_context": "显庆五年（660年）"},
+    }
+
+    assert tool.canonical_event_identity_payload(first) == tool.canonical_event_identity_payload(second)
+    assert tool.canonical_event_key(first) == tool.canonical_event_key(second)
 
 
 def test_claim_negative_support_distinguishes_context_from_damage() -> None:

@@ -183,15 +183,10 @@ def source_pack_predicate(
            )
            and sp.coverage_status = 'passed'
         """
-    return """
-           sp.id in (
-                select distinct on (sp2.target_id, sp2.contract_id) sp2.id
-                  from retrieval_v3.source_packs sp2
-                 where sp2.status = 'accepted'
-                   and sp2.coverage_status = 'passed'
-                 order by sp2.target_id, sp2.contract_id, sp2.updated_at desc, sp2.id desc
-           )
-        """
+    # A reviewed factor judgment is the scoring gate. Canonical cache packs can remain
+    # draft while their claims are rebuilt; limiting this stage to the latest accepted
+    # pack silently discards reviewed canonical events from earlier/cache packs.
+    return "sp.coverage_status = 'passed'"
 
 
 def fetch_judgment_rows(
@@ -359,10 +354,19 @@ def fetch_scoring_target_rows(
           join retrieval_v3.source_packs sp on sp.target_id = rt.id
          where (%s = '' or rt.item_code = %s)
            and {source_pack_predicate(codes, supplemental)}
+           and exists (
+                select 1
+                  from retrieval_v3.claim_rule_binding_factor_judgments j
+                 where j.target_id = rt.id
+                   and j.item_code = %s
+                   and j.rule_code = %s
+                   and j.formula_code = %s
+                   and j.review_status = 'accepted'
+           )
            {target_filter}
          order by rt.emperor_name, rt.target_code
         """,
-        (item_code, item_code, *source_pack_params, target_code, target_code),
+        (item_code, item_code, *source_pack_params, item_code, rule_code, formula_code, target_code, target_code),
     )
     rows = [dict(row) for row in cur.fetchall()]
     for row in rows:
@@ -1189,6 +1193,7 @@ def apply_rule_scores(
     counts: Counter[str] = Counter()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
+            raw_cur.execute("set local retrieval_v3.rebuild_bypass='on'")
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             material_policy = fetch_material_policy(cur, item_code=item_code, rule_code=rule_code)
             judgments = build_judgments(

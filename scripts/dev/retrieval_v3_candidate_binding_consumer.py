@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter
@@ -12,8 +13,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v3_import_plan import json_param, stable_hash  # noqa: E402
-from scripts.dev.retrieval_v3_intake_manifest import text  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v3_contracts import APPOINTMENT_DELEGATION_RULE_CODE, NATIVE_CONTRACT_CODE  # noqa: E402
 
@@ -26,6 +25,19 @@ BINDING_PROFILES = (CLAIM_ROUTE_PROFILE, MATERIAL_CANDIDATE_PROFILE)
 
 class CandidateBindingConsumerError(RuntimeError):
     pass
+
+
+def text(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def json_param(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, default=str)
+
+
+def stable_hash(value: Any, *, length: int = 16) -> str:
+    payload = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:length].upper()
 
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
@@ -345,6 +357,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(resolve_dsn(args.dsn_env), row_factory=dict_row) as conn:
         with conn.cursor() as raw:
+            # Dry-run exercises the same writes inside a rolled-back transaction, so both
+            # paths must explicitly enter the protected rebuild lane.
+            raw.execute("set local retrieval_v3.rebuild_bypass='on'")
             payload = run(
                 schema_cursor(raw, schema_name=args.pg_schema),
                 execute=args.execute,

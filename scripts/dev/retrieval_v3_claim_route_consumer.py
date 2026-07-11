@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter
@@ -14,13 +15,21 @@ if str(ROOT) not in sys.path:
 from scripts.dev import retrieval_v3_claim_chain_candidates as chain_candidates  # noqa: E402
 from scripts.dev import retrieval_v3_claim_rule_route_plan as route_plan  # noqa: E402
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v3_import_plan import json_param, stable_hash  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v3_contracts import APPOINTMENT_DELEGATION_RULE_CODE, NATIVE_CONTRACT_CODE  # noqa: E402
 
 PROFILE = "retrieval_v3_claim_route_consumer"
 RULE_CODE = APPOINTMENT_DELEGATION_RULE_CODE
 ROUTABLE_STATUSES = {"mechanical_current_rule_candidate", "ready_for_rule_route_review", "needs_light_rule_review"}
+
+
+def stable_hash(value: Any, *, length: int = 20) -> str:
+    raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:length].upper()
+
+
+def json_param(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
 
 
 def text(value: Any) -> str:
@@ -68,22 +77,21 @@ def fetch_materials(cur: Any, claim_keys: Sequence[str], emperor_names: Sequence
         return {}
     cur.execute(
         """
-        select distinct on (mc.claim_payload->>'cached_claim_key')
-               mc.claim_payload->>'cached_claim_key' as claim_key,
+        select distinct on (mm.claim_key)
+               mm.claim_key,
                mc.id as claim_id, mc.claim_code, mc.emperor_name, mc.object_name,
-               mc.direction::text as claim_direction, mc.confidence,
+               mc.direction::text as claim_direction, mc.confidence, mc.canonical_event_key,
+               mc.raw_claim_code as representative_claim_key,
                sp.id as source_pack_id, sp.pack_code, rt.target_code
           from retrieval_v3.material_claims mc
+          join retrieval_v3.material_claim_members mm on mm.material_id = mc.id
           join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
-          join retrieval_v3.rule_contracts rc on rc.id = rt.contract_id
-         where mc.claim_payload->>'cached_claim_key' = any(%s)
+         where mm.claim_key = any(%s)
            and mc.emperor_name = any(%s)
-           and rc.contract_code = %s
-           and sp.manifest_payload->>'source' = 'claim_cache_intake_bridge'
-         order by mc.claim_payload->>'cached_claim_key', mc.updated_at desc, mc.id desc
+         order by mm.claim_key, mc.updated_at desc, mc.id desc
         """,
-        (list(claim_keys), list(emperor_names), NATIVE_CONTRACT_CODE),
+        (list(claim_keys), list(emperor_names)),
     )
     return {text(row["claim_key"]): dict(row) for row in cur.fetchall()}
 
@@ -204,25 +212,26 @@ def run(cur: Any, *, emperor_names: Sequence[str], execute: bool) -> dict[str, A
     materials = fetch_materials(cur, claim_keys, names)
     counts: Counter[str] = Counter()
     missing_material_keys: set[str] = set()
+    event_routes: dict[str, tuple[Mapping[str, Any], Mapping[str, Any]]] = {}
+    for route in routes:
+        for claim_key in route_claim_keys(route):
+            material = materials.get(claim_key)
+            if material is None:
+                missing_material_keys.add(claim_key)
+                continue
+            event_key = text(material.get("canonical_event_key"))
+            event_routes.setdefault(event_key, (route, material))
     if execute:
-        for route in routes:
-            for claim_key in route_claim_keys(route):
-                upsert_route_cache(cur, route, claim_key)
-                counts["retrieval_v3.claim_route_cache"] += 1
-                material = materials.get(claim_key)
-                if material is None:
-                    missing_material_keys.add(claim_key)
-                    continue
-                upsert_candidate(cur, route, claim_key, material, contract_rule_id=contract_rule_id)
-                counts["retrieval_v3.claim_rule_binding_candidates"] += 1
+        cur.execute("set local retrieval_v3.rebuild_bypass='on'")
+        for event_key, (route, material) in sorted(event_routes.items()):
+            claim_key = text(material.get("representative_claim_key"))
+            upsert_route_cache(cur, route, claim_key)
+            counts["retrieval_v3.claim_route_cache"] += 1
+            upsert_candidate(cur, route, claim_key, material, contract_rule_id=contract_rule_id)
+            counts["retrieval_v3.claim_rule_binding_candidates"] += 1
     else:
-        for route in routes:
-            for claim_key in route_claim_keys(route):
-                counts["retrieval_v3.claim_route_cache"] += 1
-                if claim_key in materials:
-                    counts["retrieval_v3.claim_rule_binding_candidates"] += 1
-                else:
-                    missing_material_keys.add(claim_key)
+        counts["retrieval_v3.claim_route_cache"] = len(event_routes)
+        counts["retrieval_v3.claim_rule_binding_candidates"] = len(event_routes)
     return {
         "ok": True,
         "generated_by": "scripts/dev/retrieval_v3_claim_route_consumer.py",
@@ -234,6 +243,7 @@ def run(cur: Any, *, emperor_names: Sequence[str], execute: bool) -> dict[str, A
         "appointment_route_count": len(routes),
         "route_claim_key_count": len(claim_keys),
         "material_match_count": len(materials),
+        "canonical_event_route_count": len(event_routes),
         "missing_material_claim_keys": sorted(missing_material_keys),
         "material_route_complete": not missing_material_keys,
         "counts": dict(sorted(counts.items())),
