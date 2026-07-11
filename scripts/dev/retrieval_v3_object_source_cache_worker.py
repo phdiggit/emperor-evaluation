@@ -922,6 +922,8 @@ def object_cache_candidate_slice(row: Mapping[str, Any], doc: Mapping[str, Any] 
             "quality_flags": [],
         },
     }
+    if isinstance(row.get("expected_event_repair"), Mapping):
+        candidate["expected_event_repair"] = dict(row["expected_event_repair"])
     candidate["object_source_cache"]["quality_flags"] = claim_candidate_quality_flags(candidate)
     return candidate
 

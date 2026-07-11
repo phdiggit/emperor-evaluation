@@ -572,6 +572,37 @@ def build_report(
         for item in row["gaps"]:
             gap_counts[item["gap_type"]] += 1
             action_counts[item["next_action"]] += 1
+    closeout_blockers: list[dict[str, Any]] = []
+    objects_without_inventory = [
+        {"emperor_name": text(row.get("emperor_name")), "object_name": text(row.get("object_name"))}
+        for row in objects
+        if text(row.get("historical_event_coverage_status")) in {"unassessed", ""}
+    ]
+    objects_with_unclaimed_slices = [
+        {
+            "emperor_name": text(row.get("emperor_name")),
+            "object_name": text(row.get("object_name")),
+            "unclaimed_source_slice_count": as_int(row.get("unclaimed_source_slice_count")),
+        }
+        for row in objects
+        if as_int(row.get("unclaimed_source_slice_count")) > 0
+    ]
+    if objects_without_inventory:
+        closeout_blockers.append(
+            {
+                "code": "expected_event_inventory_missing",
+                "object_count": len(objects_without_inventory),
+                "objects": objects_without_inventory,
+            }
+        )
+    if objects_with_unclaimed_slices:
+        closeout_blockers.append(
+            {
+                "code": "source_slices_unclaimed",
+                "object_count": len(objects_with_unclaimed_slices),
+                "objects": objects_with_unclaimed_slices,
+            }
+        )
     return {
         "ok": True,
         "generated_by": "scripts/dev/retrieval_v3_coverage_controller.py",
@@ -597,6 +628,8 @@ def build_report(
             text(item.get("current", {}).get("gate_mode")) == "repair_verification" and
             text(item.get("current", {}).get("decision")) in VERIFIED_RECONCILIATION_DECISIONS
             for item in reconciliations.values()),
+        "historical_closeout_allowed": not closeout_blockers,
+        "historical_closeout_blockers": closeout_blockers,
         "counts": {
             "objects": len(objects),
             "complete": sum(row["coverage_status"] == "complete" for row in objects),

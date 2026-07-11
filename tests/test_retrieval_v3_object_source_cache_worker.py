@@ -309,6 +309,32 @@ def test_selected_object_cache_slices_filters_wrong_person_section() -> None:
     ]
 
 
+def test_expected_event_repair_keeps_target_biography_after_shared_navigation_header() -> None:
+    doc = {
+        "document_cache_code": "OSD-LIJI",
+        "person_name": "李绩",
+        "source_role": "object_biography_or_mentions",
+        "source_shape": "object_biography_candidate",
+    }
+    row = {
+        "slice_cache_code": "OSS-LIJI-REPAIR",
+        "document_cache_code": "OSD-LIJI",
+        "person_name": "李绩",
+        "source_role": "object_biography_or_mentions",
+        "slice_kind": "expected_event_repair",
+        "section_heading": "",
+        "matched_aliases": ["李𪟝"],
+        "expected_event_repair": {"event_inventory_codes": ["EEI-EAST-TURK"]},
+        "raw_text": "李靖 李𪟝 ◄ 旧唐书 [ 编辑 ] 李靖传略。李𪟝 [ 编辑 ] 李𪟝为通漠道行军总管，大破突厥。",
+    }
+
+    candidate = tool.object_cache_candidate_slice(row, doc)
+
+    assert "navigation_header" in tool.claim_candidate_quality_flags(candidate)
+    assert tool.is_claim_candidate_slice_eligible(candidate) is True
+    assert candidate["expected_event_repair"]["event_inventory_codes"] == ["EEI-EAST-TURK"]
+
+
 def test_claim_candidate_quality_allows_given_name_group_biography_heading() -> None:
     doc = {
         "document_cache_code": "OSD-LXG",

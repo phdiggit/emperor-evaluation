@@ -165,10 +165,13 @@ def candidate_slices(
 ) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     for raw_row in source_rows:
-        if not object_matches(event, raw_row):
+        score = lexical_score(event, text(raw_row.get("slice_text_preview")))
+        direct_object_match = object_matches(event, raw_row)
+        if not direct_object_match and score <= 0:
             continue
         row = dict(raw_row)
-        row["lexical_score"] = lexical_score(event, text(row.get("slice_text_preview")))
+        row["lexical_score"] = score
+        row["cross_object_source_candidate"] = not direct_object_match
         candidates.append(row)
     return sorted(
         candidates,
@@ -281,6 +284,8 @@ def fetch_context_rows(
     emperors = sorted({text(row.get("emperor_name")) for row in events if text(row.get("emperor_name"))})
     object_ids = sorted({int(row.get("object_id")) for row in events if row.get("object_id")})
     object_names = sorted({text(row.get("object_name")) for row in events if text(row.get("object_name"))})
+    cross_object_terms = event_source_lookup_terms(events)
+    cross_object_patterns = [f"%{term}%" for term in cross_object_terms]
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
@@ -323,13 +328,27 @@ def fetch_context_rows(
                 select slice_hash, object_id, object_name, document_code, source_title,
                        source_url, source_slice_ref, slice_text_preview
                   from retrieval_v3.claim_source_slices
-                 where (object_id is not null and object_id = any(%s::bigint[])) or object_name = any(%s::text[])
+                 where (object_id is not null and object_id = any(%s::bigint[]))
+                    or object_name = any(%s::text[])
+                    or slice_text_preview like any(%s::text[])
                  order by object_name, document_code, source_slice_ref
                 """,
-                (object_ids, object_names),
+                (object_ids, object_names, cross_object_patterns),
             )
             source_rows = [dict(row) for row in cur.fetchall()]
     return claim_rows, source_rows
+
+
+def event_source_lookup_terms(events: Sequence[Mapping[str, Any]], *, limit: int = 80) -> list[str]:
+    """Build bounded, event-specific terms that can recover useful slices owned by another person."""
+    values: list[str] = []
+    for event in events:
+        values.extend(list_texts(event.get("event_anchor_terms")))
+        values.extend(list_texts(event.get("duty_anchor_terms")))
+        for lead in event.get("source_leads") or []:
+            if isinstance(lead, Mapping):
+                values.extend(list_texts(lead.get("query_terms")))
+    return list(dict.fromkeys(term for term in values if len(term) >= 3))[: max(1, int(limit))]
 
 
 def prompt_for_task(task_code: str, workitems: Sequence[Mapping[str, Any]], output_path: Path) -> str:

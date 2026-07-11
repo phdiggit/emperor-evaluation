@@ -333,9 +333,43 @@ def test_controller_is_read_only_and_does_not_connect_legacy_contract_tables() -
     assert result["write_db"] is False
     assert result["mode"] == "read_only_source_to_score_coverage"
     assert result["historical_event_coverage_status"] == "unassessed_without_expected_event_inventory"
+    assert result["historical_closeout_allowed"] is False
+    assert result["historical_closeout_blockers"][0]["code"] == "expected_event_inventory_missing"
     assert "target_rule_requirements" not in source
     assert "retrieval_intents" not in source
     assert "insert into" not in source.lower()
+
+
+def test_unclaimed_source_slices_block_historical_closeout_even_when_pipeline_is_otherwise_complete() -> None:
+    result = tool.build_report(
+        claim_rows=[claim()],
+        downstream_rows=[downstream()],
+        target_rows=[target()],
+        source_rows=[
+            {
+                "emperor_name": "测试帝",
+                "object_id": 7,
+                "object_name": "测试对象",
+                "source_slice_count": 2,
+                "claimed_source_slice_count": 1,
+            }
+        ],
+        schema_name="retrieval_v3",
+        item_code="I5B",
+        rule_code="appointment_delegation",
+        emperors=["测试帝"],
+        expected_events=[
+            {
+                "record_type": "object_assessment",
+                "emperor_name": "测试帝",
+                "object_name": "测试对象",
+                "inventory_verdict": "no_relevant_events",
+            }
+        ],
+    )
+
+    assert result["historical_closeout_allowed"] is False
+    assert [row["code"] for row in result["historical_closeout_blockers"]] == ["source_slices_unclaimed"]
 
 
 def test_repair_verification_overrides_mechanical_event_status_and_preserves_history() -> None:

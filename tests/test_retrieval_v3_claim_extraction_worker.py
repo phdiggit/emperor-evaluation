@@ -220,6 +220,27 @@ def test_candidate_object_gate_rejects_unrelated_cross_object_claim() -> None:
     assert payload["_candidate_object_gate"]["rejected_claims"][0]["reason"] == "candidate_owner_not_in_fact_chain"
 
 
+def test_candidate_object_gate_preserves_explicit_actor_discovered_in_another_person_slice() -> None:
+    payload = tool.gate_claims_to_candidate_objects(
+        {
+            "claims": [
+                {
+                    "claim_code": "CLM-LIJI-XUEYANTUO",
+                    "object_name": "李世勣",
+                    "source_slice_refs": ["SLI-XIAOYU"],
+                    "fact_payload": {"actor": "李世勣", "object": "薛延陀"},
+                }
+            ]
+        },
+        candidates={"candidate_slices": [{"slice_code": "SLI-XIAOYU", "object_name": "萧瑀"}]},
+    )
+
+    assert payload["claims"][0]["object_name"] == "李世勣"
+    gate = payload["_candidate_object_gate"]
+    assert gate["cross_object_actor_discovery_count"] == 1
+    assert gate["cross_object_actor_discoveries"][0]["slice_owner"] == "萧瑀"
+
+
 def test_execute_job_runs_claim_only_and_imports_cache(tmp_path: Path, monkeypatch) -> None:
     candidates_path = tmp_path / "candidates.json"
     write_candidates(candidates_path)

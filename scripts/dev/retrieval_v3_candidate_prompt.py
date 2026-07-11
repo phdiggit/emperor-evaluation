@@ -34,6 +34,7 @@ PROMPT_CANDIDATE_SLICE_KEYS = (
     "matched_rule_terms",
     "matched_outcome_terms",
     "matched_role_families",
+    "expected_event_repair",
     "text",
 )
 
@@ -122,10 +123,22 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         if capture_profile == contracts.PERSONNEL_POLITICAL_WIDE_PROFILE
         else "本轮只抽取 claim；不做 rule 路由、factor hints 或 future hints。\n"
     )
+    expected_event_repair = any(
+        isinstance(row, Mapping) and isinstance(row.get("expected_event_repair"), Mapping)
+        for row in payload.get("candidate_slices") or []
+    )
+    repair_note = (
+        "本轮是 expected-event 窄修：只能抽取 candidate_slices[].expected_event_repair.event_inventory_codes 对应的事件，"
+        "不得顺手抽取同一长传记中的其他人物、其他皇帝时期或未列入 repair 的事实。"
+        "遇到合传页面时必须以 matched_aliases 和事件锚点共同确认焦点人物；不得把相邻人物传记的事实改写给焦点人物。\n"
+        if expected_event_repair
+        else ""
+    )
     return (
         "你是 emperor-evaluation 项目的 retrieval_v3 claim 抽取 worker。本轮脚本已经完成源页抓取、缓存、别名命中和候选片段切片；"
         "你不要联网，不要使用记忆，不要读取旧结果文件，不要修改文件，不要写数据库，只根据本轮输入里的 candidate_slices 抽取事实。\n\n"
         f"{profile_note}"
+        f"{repair_note}"
         "目标：只生成 material_claims/context_claims/counter_claims，要求事实原子化、对象明确、动作明确、source_slice_refs 可复核。"
         "不要输出 primary_bindings，不要输出 secondary_binding_candidates，不要判断 appointment_delegation scoring，不要写 candidate_payload。"
         "如果同一对象有多条独立任务链，优先拆成多条 claim；如果预算不足但源片段已召回，写 object_claim_undercoverage，"
@@ -133,8 +146,10 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         "如果当前源片段不足以支撑事实闭环，写 source_missing/source_gap，不要臆造 claim。\n\n"
         "claim_summary 必须能被所列 source_slice_refs 的原文直接支撑；不要把 A 片段的摘录挂到 B 事件 summary。"
         "如输入含 source_ref_policy，只能从该对象 allowed_source_refs_by_object 中取 refs；runner 会拒收跨对象 refs。"
-        "顶层 claim.object_name 是 claim cache 的焦点人物，必须等于 source_slice_refs 唯一对应的 candidate_slices[].object_name。"
+        "通常顶层 claim.object_name 等于 source_slice_refs 对应的 candidate_slices[].object_name。"
         "candidate_slices[].matched_aliases 已由本地切片器确定归属；即使它是来源级 OCR 别名且字面不同于 object_name，也必须按该 object_name 抽取，不得因此跳过事实或改绑其他对象。"
+        "但若切片正文明确出现另一具名人物作为 fact_payload.actor，且该人物就是 claim.object_name，可以保留为跨对象 actor discovery；"
+        "不得仅因宾语、同列名单或上下文提及而改绑。"
         "若焦点人物是施害者、受事者另有其人，顶层 object_name 仍写焦点人物，受事者只写 fact_payload.object；runner 会机械校验并修正或拒收。"
         "如 candidate_slices[].alias_mentions 给出 deterministic resolved_owner_name，说明该片段中的皇帝别名已由本地别名表机械解析；"
         "若 claim 主行为人/actor 是该别名，claim.emperor_name 必须写 resolved_owner_name，不要绑到本轮 target emperor。"

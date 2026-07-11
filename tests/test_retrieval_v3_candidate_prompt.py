@@ -234,7 +234,8 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "不同任命/授权、不同战役、不同边疆或中枢任务" in prompt
     assert "不要只输出“最有名”或最容易摘要的三条" in prompt
     assert "只能从该对象 allowed_source_refs_by_object 中取 refs" in prompt
-    assert "顶层 claim.object_name 是 claim cache 的焦点人物" in prompt
+    assert "通常顶层 claim.object_name 等于" in prompt
+    assert "跨对象 actor discovery" in prompt
     assert "runner 会拒收跨对象 refs" in prompt
     assert "必须拆成至少两条原子 claim" in prompt
     assert "不得拿后续获罪、贬谪、赐死冒充损害" in prompt
@@ -243,6 +244,20 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert tool.CLAIM_EXTRACTOR_VERSION == "claim_extraction_only:v8_source_alias"
     assert "来源级 OCR 别名" in prompt
     assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
+
+
+def test_claim_extraction_prompt_limits_expected_event_repair_to_selected_events() -> None:
+    candidates = sample_candidates()
+    candidates["task_identity"]["judge_mode"] = tool.CLAIM_EXTRACTION_ONLY_MODE
+    candidates["candidate_slices"][0]["expected_event_repair"] = {
+        "event_inventory_codes": ["EEI-EAST-TURK"]
+    }
+
+    prompt = tool.build_prompt(candidates)
+
+    assert "本轮是 expected-event 窄修" in prompt
+    assert "不得顺手抽取同一长传记中的其他人物、其他皇帝时期" in prompt
+    assert "EEI-EAST-TURK" in prompt
 
 
 def test_build_prompt_requires_concrete_harm_for_negative_disposition() -> None:

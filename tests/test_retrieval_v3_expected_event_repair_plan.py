@@ -43,6 +43,8 @@ def test_build_repair_plan_keeps_only_reconciled_slices_and_docs() -> None:
     assert [row["slice_cache_code"] for row in plan["mention_slices"]] == ["OSS-1"]
     assert [row["document_cache_code"] for row in plan["source_documents"]] == ["DOC-1"]
     assert plan["mention_slices"][0]["expected_event_repair"]["event_inventory_codes"] == ["EEI-reextract_cached_source"]
+    assert plan["mention_slices"][0]["expected_event_repair"]["event_labels"] == ["目标事件"]
+    assert plan["mention_slices"][0]["expected_event_repair"]["events"][0]["review_note"] == "有限修复。"
     assert plan["report"]["reextract_event_count"] == 1
     assert plan["report"]["rebuild_event_group_count"] == 1
     assert plan["report"]["new_source_fetch_allowed"] is False

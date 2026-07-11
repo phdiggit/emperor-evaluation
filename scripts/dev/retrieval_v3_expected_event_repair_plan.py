@@ -92,15 +92,24 @@ def build_repair_plan(
     target_names = {text(row.get("object_name")) for row in reextract if text(row.get("object_name"))}
     target_seeds = [dict(row) for row in person_seeds if text(row.get("name") or row.get("person_name")) in target_names]
     target_coverage = [dict(row) for row in person_coverage if text(row.get("person_name")) in target_names]
-    events_by_ref: dict[str, list[str]] = {}
+    events_by_ref: dict[str, list[dict[str, str]]] = {}
     for row in reextract:
         for ref in row.get("source_slice_refs") or []:
             if text(ref):
-                events_by_ref.setdefault(text(ref), []).append(text(row.get("event_inventory_code")))
+                events_by_ref.setdefault(text(ref), []).append(
+                    {
+                        "event_inventory_code": text(row.get("event_inventory_code")),
+                        "event_label": text(row.get("event_label")),
+                        "review_note": text(row.get("review_note")),
+                    }
+                )
     for row in target_slices:
+        repair_events = events_by_ref.get(source_ref(row), [])
         row["slice_kind"] = "expected_event_repair"
         row["expected_event_repair"] = {
-            "event_inventory_codes": sorted(set(events_by_ref.get(source_ref(row), []))),
+            "events": repair_events,
+            "event_inventory_codes": sorted({event["event_inventory_code"] for event in repair_events}),
+            "event_labels": list(dict.fromkeys(event["event_label"] for event in repair_events if event["event_label"])),
             "reconciliation_decision": "reextract_cached_source",
         }
     reextract_targets = [

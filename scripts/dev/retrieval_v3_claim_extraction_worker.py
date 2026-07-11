@@ -147,7 +147,7 @@ def gate_claims_to_candidate_objects(
     *,
     candidates: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Keep claim-cache ownership on the focal source-cache person, not the grammatical patient."""
+    """Keep focal-actor ownership while preserving explicit cross-object actor discovery."""
     payload = dict(judge_payload)
     slice_owners = {
         text(row.get("slice_code")): text(row.get("object_name"))
@@ -156,6 +156,7 @@ def gate_claims_to_candidate_objects(
     }
     accepted: list[dict[str, Any]] = []
     normalized: list[dict[str, Any]] = []
+    discovered: list[dict[str, Any]] = []
     rejected: list[dict[str, Any]] = []
     for raw_claim in judge_payload.get("claims") or []:
         if not isinstance(raw_claim, Mapping):
@@ -178,6 +179,18 @@ def gate_claims_to_candidate_objects(
             accepted.append(claim)
             continue
         fact = claim.get("fact_payload") if isinstance(claim.get("fact_payload"), Mapping) else {}
+        actor = text(fact.get("actor"))
+        if current and current == actor and owner not in {actor, text(fact.get("object"))}:
+            accepted.append(claim)
+            discovered.append(
+                {
+                    "claim_code": text(claim.get("claim_code")),
+                    "slice_owner": owner,
+                    "discovered_actor": current,
+                    "reason": "explicit_fact_actor_discovered_in_cross_object_slice",
+                }
+            )
+            continue
         if owner not in {text(fact.get("actor")), text(fact.get("object"))}:
             rejected.append(
                 {
@@ -204,8 +217,10 @@ def gate_claims_to_candidate_objects(
         "input_claim_count": len([row for row in judge_payload.get("claims") or [] if isinstance(row, Mapping)]),
         "accepted_claim_count": len(accepted),
         "normalized_claim_count": len(normalized),
+        "cross_object_actor_discovery_count": len(discovered),
         "rejected_claim_count": len(rejected),
         "normalized_claims": normalized,
+        "cross_object_actor_discoveries": discovered,
         "rejected_claims": rejected,
     }
     coverage = dict(payload.get("coverage")) if isinstance(payload.get("coverage"), Mapping) else {}

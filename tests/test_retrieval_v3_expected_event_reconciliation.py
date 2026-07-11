@@ -62,6 +62,17 @@ def test_lexical_score_prefers_explicit_outcome_group() -> None:
     assert strong > weak
 
 
+def test_event_source_lookup_terms_include_specific_cross_object_retrieval_leads() -> None:
+    row = event()
+    row["source_leads"] = [
+        {"query_terms": ["李世勣", "诺真水", "薛延陀"]},
+    ]
+
+    terms = tool.event_source_lookup_terms([row])
+
+    assert {"李世勣", "诺真水", "薛延陀", "东突厥", "行军总管"} <= set(terms)
+
+
 def test_build_workitems_attaches_nearest_groups_and_cached_slices() -> None:
     workitems = tool.build_workitems(
         [event()],
@@ -75,6 +86,20 @@ def test_build_workitems_attaches_nearest_groups_and_cached_slices() -> None:
     event_row = workitems[0]["events"][0]
     assert event_row["candidate_groups"][0]["group_key"] == "CEG-1"
     assert event_row["candidate_cached_slices"][0]["source_slice_ref"] == "OSS-RESULT"
+
+
+def test_build_workitems_recovers_event_specific_slice_owned_by_another_person() -> None:
+    misplaced = {
+        **source_slice("李世勣为行军总管出击东突厥，颉利被擒，东突厥平定。"),
+        "object_id": 99,
+        "object_name": "温彦博",
+        "source_slice_ref": "OSS-MISOWNED",
+    }
+
+    workitem = tool.build_workitems([event()], [claim()], [misplaced], max_slices=2)[0]
+
+    assert workitem["events"][0]["candidate_cached_slices"][0]["source_slice_ref"] == "OSS-MISOWNED"
+    assert workitem["cached_source_slices"][0]["cross_object_source_candidate"] is True
 
 
 def reconciliation_event() -> dict:
