@@ -1,0 +1,203 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import pytest
+
+from scripts.dev import retrieval_v3_judgment_worklists as tool
+
+
+def test_target_period_item_contains_patch_template() -> None:
+    item = tool.target_period_item(
+        {
+            "target_id": 1,
+            "target_code": "TGT-1",
+            "emperor_name": "司马炎",
+            "item_code": "I5B",
+            "object_id": 10,
+            "object_code": "OBJ-10",
+            "role_title": "",
+            "talent_grade_basis": "司马炎，当前评价项目标皇帝。",
+        }
+    )
+
+    assert item["task_kind"] == "target_emperor_period"
+    assert item["required_patch"]["dynasty_label"] == ""
+    assert item["required_patch"]["emperor_name"] == "司马炎"
+    assert "西晋" in item["context"]["allowed_dynasty_labels"]
+
+
+def test_role_item_does_not_guess_from_failed_delegate() -> None:
+    item = tool.role_item(
+        {
+            "object_id": 20,
+            "object_code": "OBJ-20",
+            "canonical_name": "王德用",
+            "normalized_name": "王德用",
+            "target_code": "TGT-SR",
+            "emperor_name": "赵祯",
+            "item_code": "I5B",
+            "material_roles": ["revoked_or_failed_delegate"],
+            "known_dynasties": ["北宋"],
+        }
+    )
+
+    assert item["required_patch"]["role_kind"] == ""
+    assert item["context"]["material_roles"] == ["revoked_or_failed_delegate"]
+    assert "general" in item["context"]["allowed_role_kinds"]
+
+
+def test_profile_basis_item_only_requests_intro_patch() -> None:
+    item = tool.profile_basis_item(
+        {
+            "object_id": 30,
+            "object_code": "OBJ-30",
+            "canonical_name": "张良",
+            "normalized_name": "张良",
+            "talent_grade": "historic_talent",
+            "talent_grade_basis": "",
+            "target_emperors": ["刘邦"],
+            "known_dynasties": ["西汉"],
+            "role_kinds": ["minister"],
+            "known_names": ["canonical:张良", "style:子房"],
+        }
+    )
+
+    assert item["task_kind"] == "person_profile_basis"
+    assert item["required_patch"] == {
+        "task_kind": "person_profile_basis",
+        "workitem_code": item["workitem_code"],
+        "object_id": 30,
+        "talent_grade_basis": "张良，",
+    }
+    assert item["context"]["current_talent_grade"] == "historic_talent"
+    assert "style:子房" in item["context"]["known_names"]
+
+
+def test_write_worklist_outputs_builds_codex_prompts(tmp_path: Path) -> None:
+    workitems = [
+        tool.target_period_item(
+            {
+                "target_id": 1,
+                "target_code": "TGT-1",
+                "emperor_name": "司马炎",
+                "item_code": "I5B",
+                "object_id": 10,
+                "object_code": "OBJ-10",
+            }
+        ),
+        tool.talent_item(
+            {
+                "object_id": 2,
+                "object_code": "OBJ-2",
+                "canonical_name": "傅友德",
+                "normalized_name": "傅友德",
+                "target_emperors": ["朱元璋"],
+                "known_dynasties": ["明"],
+                "role_kinds": ["general"],
+            }
+        ),
+    ]
+
+    summary = tool.write_worklist_outputs(output_root=tmp_path, workitems=workitems, batch_size=1)
+
+    assert summary["totals"] == {"codex_tasks": 2, "workitems": 2}
+    assert (tmp_path / "judgment_workitems.jsonl").exists()
+    assert (tmp_path / "codex_tasks.jsonl").exists()
+    tasks = [json.loads(line) for line in (tmp_path / "codex_tasks.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert len(tasks) == 2
+    assert all(Path(task["prompt_path"]).name.endswith(".md") for task in tasks)
+    assert "--ask-for-approval" not in tasks[0]["argv"]
+    assert "--dangerously-bypass-approvals-and-sandbox" in tasks[0]["argv"]
+    assert tasks[0]["argv"][-1] == "-"
+    prompt_text = (Path.cwd() / tasks[0]["prompt_path"]).read_text(encoding="utf-8")
+    assert "唯一允许写入的是指定 JSONL patch 文件" in prompt_text
+    basis_prompt = tool.prompt_for_task(
+        task={"task_kind": "person_profile_basis"},
+        workitems=[tool.profile_basis_item({"object_id": 1, "canonical_name": "张良"})],
+        patch_path=tmp_path / "basis.jsonl",
+    )
+    assert "不修改 talent_grade" in basis_prompt
+
+
+def test_run_codex_tasks_dry_run_delegates_to_codex_win(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    tasks = [
+        {
+            "task_code": "CJT-1",
+            "task_kind": "target_emperor_period",
+            "prompt_path": "tmp/no-such-prompt.md",
+            "patch_path": "tmp/no-such-patch.jsonl",
+            "log_path": "tmp/no-such-log.jsonl",
+            "argv": ["codex", "exec", "-"],
+        },
+        {
+            "task_code": "CJT-2",
+            "task_kind": "person_profile_basis",
+            "prompt_path": "tmp/no-such-prompt-2.md",
+            "patch_path": "tmp/no-such-patch-2.jsonl",
+            "log_path": "tmp/no-such-log-2.jsonl",
+            "argv": ["codex", "exec", "-"],
+        },
+    ]
+    tasks_path = tmp_path / "tasks.jsonl"
+    tool.write_jsonl(tasks_path, tasks)
+    calls: list[list[str]] = []
+
+    def fake_run(argv: list[str], **kwargs: object) -> object:
+        calls.append(argv)
+
+        class Completed:
+            returncode = 0
+            stdout = json.dumps(
+                {
+                    "status": "planned",
+                    "tasks": [{"task_code": "CJT-1", "status": "planned"}],
+                    "totals": {"planned": 1},
+                },
+                ensure_ascii=False,
+            )
+            stderr = ""
+
+        return Completed()
+
+    monkeypatch.setattr(tool.subprocess, "run", fake_run)
+
+    agent_root = tmp_path / "agent"
+    payload = tool.run_codex_tasks(
+        tasks_path=tasks_path,
+        execute=False,
+        background=False,
+        limit=1,
+        output=None,
+        agent_output_root=agent_root,
+        codex_win_bin="codex-win-test",
+        max_workers=2,
+        timeout_seconds=60,
+    )
+
+    assert payload["totals"] == {"planned": 1}
+    assert payload["runner"] == "codex-win agent run-plan"
+    assert payload["results"] == [{"task_code": "CJT-1", "status": "planned"}]
+    assert calls
+    argv = calls[0]
+    assert argv[:3] == ["codex-win-test", "agent", "run-plan"]
+    assert "--dry-run" in argv
+    assert "--background" not in argv
+    assert argv[argv.index("--max-workers") + 1] == "2"
+    assert argv[argv.index("--timeout-seconds") + 1] == "60"
+    assert argv[argv.index("--sandbox-profile") + 1] == "local-write"
+    limited_rows = [
+        json.loads(line)
+        for line in (agent_root / "limited_tasks.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    assert [row["task_code"] for row in limited_rows] == ["CJT-1"]
+
+
+def test_apply_patch_rows_rejects_unknown_values() -> None:
+    with pytest.raises(tool.JudgmentWorklistError, match="unsupported dynasty_label"):
+        tool.require_period("Neo-Qing")
+    with pytest.raises(tool.JudgmentWorklistError, match="unsupported role_kind"):
+        tool.require_role("wizard")
+    with pytest.raises(tool.JudgmentWorklistError, match="unsupported talent_grade"):
+        tool.require_grade("巨佬")

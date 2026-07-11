@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v3_candidate_review_worklist import stable_code, stable_json, text  # noqa: E402
 
 
@@ -226,7 +226,6 @@ def build_workitem(row: Mapping[str, Any], document_passages: Mapping[int, Seque
                 else "targeted_v3_source_pack_fetch_required" if next_action == "targeted_v3_source_pack_fetch" else "none"
             ),
             "legacy_data_reads": False,
-            "legacy_data_migrated": False,
         },
     }
 
@@ -291,7 +290,6 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path) -> 
         "context_reason_counts": dict(sorted(reason_counts.items())),
         "workitem_path": str(workitem_path),
         "legacy_data_reads": False,
-        "legacy_data_migrated": False,
         "write_db": False,
     }
     (output_root / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

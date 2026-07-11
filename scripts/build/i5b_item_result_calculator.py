@@ -13,7 +13,7 @@ import psycopg
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
+DEFAULT_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
 DEFAULT_ITEM_CODE = "I5B"
 DEFAULT_CLUSTER_FORMULA = "evidence_cluster_signal_v3"
 DEFAULT_FORMULA_CODE = "item_raw_signal_i5b_v1"

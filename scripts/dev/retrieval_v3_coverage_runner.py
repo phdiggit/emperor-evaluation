@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor
 from scripts.dev.retrieval_v3_coverage_controller import build_report, fetch_rows, render_markdown
 from scripts.dev.retrieval_v3_coverage_convergence import (
     apply_convergence,

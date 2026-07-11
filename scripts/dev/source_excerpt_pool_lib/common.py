@@ -21,7 +21,7 @@ DEFAULT_USER_AGENT = (
     "(https://github.com/phdiggit/emperor-evaluation; source review tool) Python-urllib"
 )
 DEFAULT_CACHE_BACKEND = "postgres"
-DEFAULT_CACHE_DSN_ENV = "EMPEROR_EVAL_PG_DSN"
+DEFAULT_CACHE_DSN_ENV = "EMPEROR_EVAL_RETRIEVAL_V3_DSN"
 DEFAULT_CACHE_SCHEMA = "tool_cache"
 CACHE_SCHEMA_VERSION = 1
 DEFAULT_WORKFLOW_CODE = "I5B"

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-LOG_ROOT="${RETRIEVAL_V3_OBJECT_SOURCE_WORKER_LOG_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v2_object_source_cache_worker_logs}"
+LOG_ROOT="${RETRIEVAL_V3_OBJECT_SOURCE_WORKER_LOG_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v3_object_source_cache_worker_logs}"
 mkdir -p "${LOG_ROOT}"
 cd "${ROOT}"
 
@@ -12,9 +12,9 @@ echo "runner=${ROOT}"
 claim_bridge_args=(
   --dsn-env "${RETRIEVAL_V3_OBJECT_SOURCE_DSN_ENV:-EMPEROR_EVAL_RETRIEVAL_V3_DSN}"
   --pg-schema "${RETRIEVAL_V3_OBJECT_SOURCE_PG_SCHEMA:-retrieval_v3}"
-  --claim-cache-root "${RETRIEVAL_V3_CLAIM_CACHE_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v2_quality_pilot/claim_cache}"
-  --claim-run-root "${RETRIEVAL_V3_CLAIM_RUN_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v2_quality_pilot/claim_runs}"
-  --claim-plan-output-root "${RETRIEVAL_V3_CLAIM_PLAN_OUTPUT_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v2_quality_pilot/object_source_claim_plans}"
+  --claim-cache-root "${RETRIEVAL_V3_CLAIM_CACHE_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v3_quality_pilot/claim_cache}"
+  --claim-run-root "${RETRIEVAL_V3_CLAIM_RUN_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v3_quality_pilot/claim_runs}"
+  --claim-plan-output-root "${RETRIEVAL_V3_CLAIM_PLAN_OUTPUT_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v3_quality_pilot/object_source_claim_plans}"
   --claim-max-slices-per-person "${RETRIEVAL_V3_CLAIM_PLAN_MAX_SLICES_PER_PERSON:-12}"
   --claim-max-total-slices "${RETRIEVAL_V3_CLAIM_PLAN_MAX_TOTAL_SLICES:-0}"
   --claim-selection-profile "${RETRIEVAL_V3_CLAIM_PLAN_SELECTION_PROFILE:-all}"
@@ -23,7 +23,7 @@ claim_bridge_args=(
 while true; do
   stamp="$(date -u +%Y%m%dT%H%M%SZ)"
   out="${LOG_ROOT}/object_source_cache_worker_once_${stamp}.json"
-  if python3 scripts/dev/retrieval_v2_object_source_cache_worker.py once \
+  if python3 scripts/dev/retrieval_v3_object_source_cache_worker.py once \
       --execute \
       "${claim_bridge_args[@]}" \
       --worker-id retrieval_v3_object_source_cache_worker_service \
@@ -63,7 +63,7 @@ PY
   fi
 
   bridge_out="${LOG_ROOT}/object_source_cache_bridge_succeeded_${stamp}.json"
-  if python3 scripts/dev/retrieval_v2_object_source_cache_worker.py bridge-succeeded \
+  if python3 scripts/dev/retrieval_v3_object_source_cache_worker.py bridge-succeeded \
       "${claim_bridge_args[@]}" \
       --bridge-min-created-at "${RETRIEVAL_V3_OBJECT_SOURCE_BRIDGE_MIN_CREATED_AT:-2026-07-09T13:00:00Z}" \
       --output-json "${bridge_out}"; then

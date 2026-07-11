@@ -1,63 +1,25 @@
 # scripts/AGENTS.md
 
-本文件只约束 `scripts/**` 范围内的长期稳定行为规则。仓库级规则仍以根 `AGENTS.md` 为入口；Issue / PR 白名单和禁止事项优先级更高。
-
-## 适用范围与优先级
-
-- 修改、迁移、审查或新增 `scripts/**` 文件前，先读取本文件和任务点名的审计文档。
-- 根 `AGENTS.md` 负责全仓高压线；本文件负责 scripts 目录职责、retired wrapper、路径和验证纪律。
-- 当前模块状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/文档与脚本登记/scripts_registry.json` 为准，本文件不维护项目状态日志。
+本目录只保留 retrieval v3 当前工作流及其直接依赖。
 
 ## 目录职责
 
-- `scripts/dev/`：开发辅助工具，供 Codex、维护者和本地开发使用；可提供采集、导入、审计、重算和本地报告入口，但不得成为评分规则、证据裁量、档位结论或正式验证语义的事实源。写库型 dev 工具必须显式 opt-in，并以规则文档、结构化表和计算明细为输入。
-- `scripts/validate/`：validator 真实实现目录，新增 validator 默认放在这里。
-- `scripts/export/`：exporter 真实实现目录，新增 exporter 默认放在这里。
-- `scripts/build/`：数据库和其他构建步骤的真实实现目录；构建脚本测试不得直接覆盖真实工作区数据库，默认使用 `tmp_path` 或临时仓库。
-- `scripts/matrix/`：矩阵规划和矩阵视图生成脚本的真实实现目录；matrix 测试默认使用 `tmp_path`、临时输出路径或临时仓库，不允许直接重写真实 `exports/**`。矩阵骨架不等于检索结果，不得写入评分或证据数据。
-- `scripts/shared/`：多职责链共享实现目录，放置 exporter、validator、pipeline 共同依赖的工具。
-- `scripts/` 根目录：不再保留 Python wrapper；仅允许 registry `root_exceptions` 登记的非 Python 稳定入口，例如 `scripts/publish_pr.ps1`。新增 Python 脚本不得放回根目录。
+- `scripts/dev/`：retrieval v3 采集、claim cache、消费、覆盖控制和评分辅助工具。
+- `scripts/dev/server_runtime/`：v3 worker 的 systemd 与 shell 运行模板。
+- `scripts/build/`：当前 I5B item raw signal 计算器。
+- `scripts/shared/`：当前工作流共享配置与 agent runtime。
+- `scripts/validate/`：仅保留当前项目配置验证器。
 
-## 真实实现与 retired wrapper
+## 命名与数据库
 
-- 迁移后真实实现只能保留一份，并位于 registry 指向的 canonical implementation。
-- legacy Python wrappers 已集中退役；不得在 `scripts/` 根目录新增或恢复 `*.py` wrapper。
-- 修改已迁移脚本时优先改 registry 指向的真实实现，再验证 canonical import 或 canonical CLI。
-- 仓库内部真实实现、测试、README 和外部命令说明必须使用 canonical 路径；不得恢复已退役 import name。
-- `retired_legacy_wrappers` 只作为旧路径审计记录，不表示旧路径仍可 import 或运行。
+- 当前检索脚本、模块、测试和运行命令统一使用 `retrieval_v3` 命名。
+- 所有数据库入口默认使用 `EMPEROR_EVAL_RETRIEVAL_V3_DSN` 和 `retrieval_v3` schema。
+- 不得恢复 v2 wrapper、v2 schema routing、旧 DSN 默认值或跨数据库数字 ID 关联。
+- 显式写库仍必须使用各工具的 `--execute`；默认保持只读或 rollback dry-run。
 
-## 路径和 import
+## 修改与验证
 
-- 移动 Python 文件必须核对 `__file__`、`parents[n]`、`ROOT` 和所有路径常量。
-- import 必须使用当前分层目录的稳定路径；已退役旧路径不得通过 wrapper 恢复。
-- 需要 Git 路径、中文路径或状态核对时，优先使用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
-- JSON 输出必须 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进和稳定排序。
-
-## 迁移纪律
-
-- 普通业务 PR 不顺手迁移其他脚本，也不顺手改业务语义。
-- 同职责、同风险、同验证链的机械迁移可以批量处理；build、pipeline、matrix 类脚本按专门 PR 分阶段治理。
-- 迁移任务先锁定影响面和测试，再做小步重构；不要通过批量替换绕过审计。
-- 共享工具迁移必须单独治理；已退役旧路径只在 registry 中保留审计映射。
-- 脚本超过 registry `script_bloat_budgets.default_max_lines` 时，必须拆分职责，或在 `script_bloat_budgets.path_budgets` 登记临时行数预算和理由；不得无说明继续堆大文件。
-
-## 范围边界
-
-- 不得修改 `exports/**`、`data/**`、SQLite 或数据库副产物，除非任务白名单明确允许。
-- 本目录治理不得改变真实评分、排名、正式定档、证据事实、证据簇裁判结论或 Markdown 导出的业务格式和内容。
-- 生成物不是事实源；需要改导出内容时先定位生成器。
-
-## 验证要求
-
-- 修改已登记模块前，读取 registry 指向的 `audit_docs`；开 PR 前运行 registry 指定测试及适用治理检查。
-- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再用 `codex-win run -- python scripts/validate/validate_all.py`。
-- scripts 治理 PR 还必须运行 `codex-win run -- python scripts/dev/repo_tool.py agents-check` 和适用的 `scope-check`。
-- scripts 治理 PR 还必须运行 `codex-win run -- python scripts/dev/repo_tool.py canonical-imports-check`；`agents-check` 已包含 canonical import 检查。
-- 验证命令若产生范围外副产物，记录通过结果后用根 AGENTS 指定的 `codex-win cleanup generated` profile 清理，再只做范围核对命令。
-- PR body 或 review package 写回按根 AGENTS 统一走 `codex-win review-pack apply` 或 `codex-win body apply`；不要优先回退到 `scripts/dev/pr_body_tool.py`。
-
-## registry 与审计文档
-
-- `docs/文档与脚本登记/scripts_registry.json` 是当前实现路径、迁移状态、retired legacy wrapper、root exception、audit docs 和 required tests 的机器可读事实源。
-- `docs/文档与脚本登记/README.md` 说明规则分类；新增规则先按该表决定写入位置。
-- 高风险模块的维护要求应放在审计文档或 registry，不继续堆进根 `AGENTS.md` 或本文件。
+- 移动或改名后同步更新 import、CLI、server runtime、registry 和对应测试。
+- 当前测试面以 `tests/current_workflow_tests.txt` 为准；仓库不再保留非当前工作流测试。
+- 提交前至少运行 `python -m compileall -q scripts tests`、`python -m pytest -q` 和 `git diff --check`。
+- `docs/文档与脚本登记/scripts_registry.json` 只登记真实存在的当前实现与测试。

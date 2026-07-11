@@ -18,9 +18,9 @@ SCHEMA = "emperor-evaluation-runtime-release/v1"
 REQUIRED_RUNTIME_PATHS = (
     "data/configs/project_config.yml",
     "scripts/shared/agent_runtime_config.py",
-    "scripts/dev/retrieval_v2_clean_runner.py",
-    "scripts/dev/retrieval_v2_object_source_cache_worker.py",
-    "scripts/dev/retrieval_v2_claim_extraction_worker.py",
+    "scripts/dev/retrieval_v3_clean_runner.py",
+    "scripts/dev/retrieval_v3_object_source_cache_worker.py",
+    "scripts/dev/retrieval_v3_claim_extraction_worker.py",
     "scripts/dev/retrieval_v3_runtime_release.py",
     "scripts/dev/server_runtime/retrieval_v3_claim_worker_loop.sh",
     "scripts/dev/server_runtime/retrieval_v3_object_source_cache_worker_loop.sh",

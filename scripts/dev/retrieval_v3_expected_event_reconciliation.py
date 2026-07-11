@@ -14,8 +14,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.object_pool_aliases import normalize_object_alias  # noqa: E402
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v3_expected_event_inventory import read_jsonl, stable_code, stable_json, text  # noqa: E402
 from scripts.dev.retrieval_v3_unseeded_actor_review_tasks import PATCH_BEGIN, PATCH_END  # noqa: E402
 from scripts.shared import agent_runtime_config  # noqa: E402

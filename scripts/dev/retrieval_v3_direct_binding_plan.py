@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_intake_manifest import text
+from scripts.dev.retrieval_v3_intake_manifest import text
 
 
 REQUIRED_KEYS = (

@@ -11,10 +11,10 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_import_plan import json_param  # noqa: E402
-from scripts.dev import retrieval_v2_object_consumer as object_consumer  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_import_plan import json_param  # noqa: E402
+from scripts.dev import retrieval_v3_object_consumer as object_consumer  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
 PROFILE = "retrieval_v3_material_candidate_plan"
@@ -233,7 +233,6 @@ def run_consumer(
         "formal_binding_created": 0,
         "material_object_links_created": 0,
         "legacy_data_reads": False,
-        "legacy_data_migrated": False,
         "source_pack_codes": [text(code) for code in source_pack_codes if text(code)],
         "profile": profile,
         "create_missing_person_objects": create_missing_person_objects,

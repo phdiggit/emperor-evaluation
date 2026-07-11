@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.shared import agent_runtime_config  # noqa: E402
 
 
@@ -272,7 +272,6 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, bat
         "candidate_counts_by_emperor": dict(sorted(emperor_counts.items())),
         "agent_runtime": runtime,
         "legacy_data_reads": False,
-        "legacy_data_migrated": False,
         "write_db": False,
     }
     (output_root / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

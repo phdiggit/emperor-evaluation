@@ -120,7 +120,6 @@ def write_outputs(workitems: Sequence[Mapping[str, Any]], output_root: Path, *, 
         "batch_size": batch_size,
         "agent_runtime": runtime,
         "legacy_data_reads": False,
-        "legacy_data_migrated": False,
         "write_db": False,
     }
     (output_root / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

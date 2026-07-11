@@ -11,16 +11,17 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_import_plan import json_param, stable_hash  # noqa: E402
-from scripts.dev.retrieval_v2_intake_manifest import text  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
-from scripts.dev.retrieval_v3_contract_reanchor_consumer import REANCHOR_PROFILE  # noqa: E402
-from scripts.dev.retrieval_v3_contract_reanchor_plan import NATIVE_CONTRACT_CODE, RULE_CODE  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_import_plan import json_param, stable_hash  # noqa: E402
+from scripts.dev.retrieval_v3_intake_manifest import text  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_contracts import APPOINTMENT_DELEGATION_RULE_CODE, NATIVE_CONTRACT_CODE  # noqa: E402
 
 
 MATERIAL_CANDIDATE_PROFILE = "retrieval_v3_material_candidate_plan"
-BINDING_PROFILES = (REANCHOR_PROFILE, MATERIAL_CANDIDATE_PROFILE)
+CLAIM_ROUTE_PROFILE = "retrieval_v3_claim_route_consumer"
+RULE_CODE = APPOINTMENT_DELEGATION_RULE_CODE
+BINDING_PROFILES = (CLAIM_ROUTE_PROFILE, MATERIAL_CANDIDATE_PROFILE)
 
 
 class CandidateBindingConsumerError(RuntimeError):
@@ -38,14 +39,6 @@ def review_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
         return {}
     review = payload.get("candidate_review")
     return review if isinstance(review, Mapping) else {}
-
-
-def reanchor_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
-    payload = row.get("candidate_payload")
-    if not isinstance(payload, Mapping):
-        return {}
-    reanchor = payload.get("reanchor")
-    return reanchor if isinstance(reanchor, Mapping) else {}
 
 
 def binding_fields(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -102,38 +95,32 @@ def fetch_candidates(
             o.canonical_name,
             tob.id as target_object_id,
             tob.review_status::text as target_object_review_status
-          from retrieval_v2.claim_rule_binding_candidates c
-          join retrieval_v2.material_claims mc on mc.id = c.claim_id
-          join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
-          join retrieval_v2.retrieval_targets rt on rt.id = sp.target_id
-          join retrieval_v2.rule_contracts rc on rc.id = rt.contract_id and rc.contract_code = %s
-          join retrieval_v2.target_objects tob
-            on (
-                c.routed_by_profile = %s
-                and tob.id = nullif(c.candidate_payload #>> '{reanchor,native_target_object_id}', '')::bigint
-            ) or (
-                c.routed_by_profile <> %s
-                and tob.target_id = rt.id
-                and exists (
-                    select 1
-                      from retrieval_v2.objects matched_object
-                     where matched_object.id = tob.object_id
-                       and (
-                           lower(matched_object.canonical_name) = lower(mc.object_name)
-                           or exists (
-                               select 1
-                                 from retrieval_v2.object_names onm
-                                where onm.object_id = matched_object.id
-                                  and onm.review_status::text = 'accepted'
-                                  and (
-                                      lower(onm.name_text) = lower(mc.object_name)
-                                      or lower(onm.normalized_name) = lower(mc.object_name)
-                                  )
-                           )
+          from retrieval_v3.claim_rule_binding_candidates c
+          join retrieval_v3.material_claims mc on mc.id = c.claim_id
+          join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
+          join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
+          join retrieval_v3.rule_contracts rc on rc.id = rt.contract_id and rc.contract_code = %s
+          join retrieval_v3.target_objects tob
+            on tob.target_id = rt.id
+           and exists (
+                select 1
+                  from retrieval_v3.objects matched_object
+                 where matched_object.id = tob.object_id
+                   and (
+                       lower(matched_object.canonical_name) = lower(mc.object_name)
+                       or exists (
+                           select 1
+                             from retrieval_v3.object_names onm
+                            where onm.object_id = matched_object.id
+                              and onm.review_status::text = 'accepted'
+                              and (
+                                  lower(onm.name_text) = lower(mc.object_name)
+                                  or lower(onm.normalized_name) = lower(mc.object_name)
+                              )
                        )
-                )
+                   )
             )
-          join retrieval_v2.objects o on o.id = tob.object_id
+          join retrieval_v3.objects o on o.id = tob.object_id
          where c.routed_by_profile = any(%s)
            and (coalesce(array_length(%s::text[], 1), 0) = 0 or rt.emperor_name = any(%s::text[]))
            and c.candidate_rule_code = %s
@@ -147,7 +134,7 @@ def fetch_candidates(
            and tob.review_status = 'accepted'
          order by rt.emperor_name, c.id
         """,
-        (NATIVE_CONTRACT_CODE, REANCHOR_PROFILE, REANCHOR_PROFILE, selected_profiles, selected_emperors, selected_emperors, RULE_CODE),
+        (NATIVE_CONTRACT_CODE, selected_profiles, selected_emperors, selected_emperors, RULE_CODE),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -168,23 +155,23 @@ def upsert_binding(cur: Any, row: Mapping[str, Any], fields: Mapping[str, Any]) 
     }
     cur.execute(
         """
-        insert into retrieval_v2.claim_rule_bindings (
+        insert into retrieval_v3.claim_rule_bindings (
             claim_id, contract_rule_id, rule_code, predicate, direction, object_role,
             usable_for_object_payload, usable_for_scoring_cluster, confidence, review_status,
             binding_payload, binding_code, raw_binding_code
         )
         values (%s, %s, %s, %s, %s, %s, false, true, %s, 'pending', %s::jsonb, %s, '')
-        on conflict on constraint rv2_claim_rule_bindings_uk do update set
+        on conflict on constraint rv3_claim_rule_bindings_uk do update set
             usable_for_scoring_cluster = true,
-            confidence = coalesce(retrieval_v2.claim_rule_bindings.confidence, excluded.confidence),
+            confidence = coalesce(retrieval_v3.claim_rule_bindings.confidence, excluded.confidence),
             review_status = case
-                when retrieval_v2.claim_rule_bindings.review_status in ('rejected', 'retired') then retrieval_v2.claim_rule_bindings.review_status
-                else retrieval_v2.claim_rule_bindings.review_status
+                when retrieval_v3.claim_rule_bindings.review_status in ('rejected', 'retired') then retrieval_v3.claim_rule_bindings.review_status
+                else retrieval_v3.claim_rule_bindings.review_status
             end,
-            binding_payload = retrieval_v2.claim_rule_bindings.binding_payload || excluded.binding_payload,
+            binding_payload = retrieval_v3.claim_rule_bindings.binding_payload || excluded.binding_payload,
             binding_code = case
-                when btrim(retrieval_v2.claim_rule_bindings.binding_code) = '' then excluded.binding_code
-                else retrieval_v2.claim_rule_bindings.binding_code
+                when btrim(retrieval_v3.claim_rule_bindings.binding_code) = '' then excluded.binding_code
+                else retrieval_v3.claim_rule_bindings.binding_code
             end,
             updated_at = now()
         returning id
@@ -218,23 +205,23 @@ def upsert_material_object_link(cur: Any, row: Mapping[str, Any], fields: Mappin
     }
     cur.execute(
         """
-        insert into retrieval_v2.material_object_links (
+        insert into retrieval_v3.material_object_links (
             link_code, claim_id, object_id, target_object_id, role,
             confidence, review_status, link_payload
         )
         values (%s, %s, %s, %s, %s, %s, 'accepted', %s::jsonb)
-        on conflict on constraint rv2_material_object_links_uk do update set
-            target_object_id = coalesce(retrieval_v2.material_object_links.target_object_id, excluded.target_object_id),
+        on conflict on constraint rv3_material_object_links_uk do update set
+            target_object_id = coalesce(retrieval_v3.material_object_links.target_object_id, excluded.target_object_id),
             confidence = case
-                when excluded.confidence is null then retrieval_v2.material_object_links.confidence
-                when retrieval_v2.material_object_links.confidence is null then excluded.confidence
-                else greatest(retrieval_v2.material_object_links.confidence, excluded.confidence)
+                when excluded.confidence is null then retrieval_v3.material_object_links.confidence
+                when retrieval_v3.material_object_links.confidence is null then excluded.confidence
+                else greatest(retrieval_v3.material_object_links.confidence, excluded.confidence)
             end,
             review_status = case
-                when retrieval_v2.material_object_links.review_status in ('rejected', 'retired') then retrieval_v2.material_object_links.review_status
+                when retrieval_v3.material_object_links.review_status in ('rejected', 'retired') then retrieval_v3.material_object_links.review_status
                 else excluded.review_status
             end,
-            link_payload = retrieval_v2.material_object_links.link_payload || excluded.link_payload,
+            link_payload = retrieval_v3.material_object_links.link_payload || excluded.link_payload,
             updated_at = now()
         returning id
         """,
@@ -264,7 +251,7 @@ def attach_link_to_binding(cur: Any, row: Mapping[str, Any], fields: Mapping[str
     }
     cur.execute(
         """
-        update retrieval_v2.claim_rule_bindings
+        update retrieval_v3.claim_rule_bindings
            set binding_payload = binding_payload || %s::jsonb,
                updated_at = now()
          where id = %s
@@ -290,9 +277,9 @@ def mark_candidate_resolved(cur: Any, row: Mapping[str, Any], fields: Mapping[st
     }
     cur.execute(
         """
-        update retrieval_v2.claim_rule_binding_candidates
+        update retrieval_v3.claim_rule_binding_candidates
            set resolved_binding_id = %s,
-               review_status = 'resolved'::retrieval_v2.rv2_review_status,
+               review_status = 'resolved'::retrieval_v3.rv3_review_status,
                candidate_payload = candidate_payload || %s::jsonb,
                updated_at = now()
          where id = %s

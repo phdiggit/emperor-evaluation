@@ -17,7 +17,7 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 返工或收口先定位最小修改点；通常只确认 branch、PR head 和 `git status`。For repair or closeout, start from the smallest fix.
 - 评分、证据、裁判、档位、分值和排名等业务语义先读 `docs/皇帝综合评价体系评分标准.md`；生成物不是事实源，冲突时不得静默覆盖。Generated outputs are views; find the generator before editing exports.
 - 评分因子赋值 skill 只按 `docs/证据规则/评分因子赋值Skill治理.md` 的三档治理启用；只对不小比例系统性偏差的因子建窄 skill，小比例问题走诊断或 worklist，不做大而全通用 skill。
-- 检索包→史料→对象池流程按 `data/query_profile_batches/AGENTS.md` 路由；retrieval_v2 clean 抓包、判读和补抓流程先读 `docs/数据结构与生成库/retrieval_v2_clean抓包流程.md`；配套开发工具按 `scripts/dev/AGENTS.md` 路由，根文件只保留入口指向。
+- 检索包→史料→对象池流程按 `data/query_profile_batches/AGENTS.md` 路由；retrieval v3 clean 抓包、判读和补抓流程先读 `docs/数据结构与生成库/retrieval_v3_clean抓包流程.md`；配套开发工具按 `scripts/dev/AGENTS.md` 路由，根文件只保留入口指向。
 - 清理、归档、删除和 `data/*_batches/` 治理，第一轮只写诊断或候选清单。Cleanup/archive/delete and batch-data governance start with diagnostics only.
 
 ## GitHub
@@ -35,14 +35,14 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 
 - Windows 上涉及 PowerShell 的命令默认使用 `pwsh.exe`；Python/pytest/validator/export/build/matrix 等子进程优先用 `codex-win run -- ...`；只有 5.1 专属兼容验证或任务明确要求时才用 `powershell.exe`。
 - 在 `pwsh` 中使用 PowerShell 语法，可以使用 `&&` / `||`；需要 Bash 工具链、POSIX 管道、`.sh` 脚本或 Bash here-doc 时切到 Git Bash。
-- 禁止用 `pwsh` / PowerShell inline、管道或 here-string 传递大段中文给 Python 或 `gh`；改用 UTF-8 临时 `.py` 文件、`codex-win body` / `repo_tool` 或 Git Bash here-doc。
+- 禁止用 `pwsh` / PowerShell inline、管道或 here-string 传递大段中文给 Python 或 `gh`；改用 UTF-8 临时文件、`codex-win body` 或 Git Bash here-doc。
 - 仓库根 `.tmp/**` 可能被 pytest session 或清理工具自动删除；跨命令、跨子进程、跨会话仍要复用的临时脚本、handoff 文件、patch 输入输出一律放 `tmp/**`、服务器 runtime 目录或正式 `scripts/dev/**`，不要放 `.tmp/**`。
 - 多关键词搜索优先用一条 `rg -n "A|B|C" <paths>`，避免复杂嵌套引号。
-- 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...`、`codex-win run -- git ...` 或 `python scripts/dev/repo_tool.py`。
+- 中文路径、状态和 diff 范围核对优先用 `git -c core.quotepath=false ...` 或 `codex-win run -- git ...`。
 - 中文文本、Markdown、JSON / JSONL 结构化改写优先用 `codex-win encoding`、仓库工具或 Python 标准库；输出用 UTF-8 no BOM、`ensure_ascii=False`、稳定缩进。
 
 ## 子 Agent 与批量任务 / Subagents And Batch Tasks
-- 批量、后台或并发 Codex 子任务优先用 `codex-win agent run-plan`；它只负责进程监管、权限画像、输出契约和结果收集，不替代 retrieval_v2 readiness、dry-run、幂等校验、patch 验收、scorer 或落库逻辑。patch / review / factorization 类默认用 `--permission-profile tmp-jsonl-review --deny-policy deny-rewrite --git-snapshot minimal`，只写 `tmp/**`；无 git 上下文用 `none`，需要 diff stat/name-status 才用 `full`。
+- 批量、后台或并发 Codex 子任务优先用 `codex-win agent run-plan`；它只负责进程监管、权限画像、输出契约和结果收集，不替代 retrieval v3 readiness、dry-run、幂等校验、patch 验收、scorer 或落库逻辑。patch / review / factorization 类默认用 `--permission-profile tmp-jsonl-review --deny-policy deny-rewrite --git-snapshot minimal`，只写 `tmp/**`；无 git 上下文用 `none`，需要 diff stat/name-status 才用 `full`。
 - `codex_tasks.jsonl` 应声明 `task_code`、`prompt_path`、`last_message_path`、`log_path` 和 `expected_outputs`；JSONL patch 用 `expected_outputs.kind=jsonl_patch` 与 `PATCH_JSONL_BEGIN` / `PATCH_JSONL_END` fallback，不只依赖旧式顶层 `patch_path`。prompt、workitems、patch 和 last message 一律通过 UTF-8 文件传递。
 - 子 agent 结果不得只看退出码；必须检查 `results.jsonl` / `summary.json` 的 `status`、`error_type`、`permission_analysis`、`deny_resolution`、`output_analysis`，再交给项目脚本验收。源码写入才用 `repo-editor`，用户明确接受风险才用 `bypass`；后台 run 用 `status`、`wait`、`collect` 收尾，异常后先 `cleanup-stale`。
 
@@ -58,14 +58,14 @@ Priority: issue / PR allowlist and forbiddens > this `AGENTS.md` > confirmed loc
 - 修改已迁移脚本时只改 canonical 真实实现，并验证 canonical import/CLI；不得恢复已退役 wrapper。
 - 普通功能 PR 不顺手迁移其他职责域；迁移任务按同一职责链成批处理。
 - 当前路径、迁移状态、retired wrapper 审计记录、审计文档和专属测试以 `docs/文档与脚本登记/scripts_registry.json` 为准。
-- scripts 治理 PR 开 PR前必须运行适用测试、`python scripts/validate/validate_all.py`、scope-check 和 agents-check。
+- scripts 治理提交前必须运行当前工作流 pytest、Python compileall、registry 完整性测试和 `git diff --check`。
 
 ## 改动与验证 / Changes And Validation
 
 - 大范围改脚本前，先用 `rg` / `git grep` 精确定位，再做小补丁。Locate precisely before large script edits.
 - 机械替换只在白名单路径内做；测试文件只改展示断言，不全局替换 fixture key。Keep mechanical rewrites scoped.
 - 大脚本治理必须小步重构并有测试锁定；业务 PR 不顺手拆脚本。Keep business PRs scoped.
-- 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的 PR，开 PR 前先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再用 `codex-win run -- python scripts/validate/validate_all.py` 与 focused tests；full pytest 同一 head SHA 最多一次。
+- 涉及 `data/`、`scripts/`、`tests/`、`.github/workflows/` 或 validation 入口的提交，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再运行 focused tests；full pytest 同一 head SHA 最多一次。
 - 验证命令若生成或重写 `exports/`、generated docs 或其他范围外副产物，先记录通过结果，再用 `codex-win cleanup generated --profile emperor-markdown-exports --config .codex/generated-cleanup.json --target .` dry-run 后按需 `--apply` 清理；清理后只做范围核对，不重复运行会再次生成副产物的全量命令。
 
 - 人工阅读型 Markdown 导出规则路由到 `docs/AGENTS.md` 和 `docs/展示与协作/人工阅读型Markdown导出规范.md`。

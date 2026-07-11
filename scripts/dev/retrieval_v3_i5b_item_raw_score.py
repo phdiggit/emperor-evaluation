@@ -13,14 +13,13 @@ if str(ROOT) not in sys.path:
 
 from scripts.build.i5b_item_result_calculator import (  # noqa: E402
     DEFAULT_CLUSTER_FORMULA,
-    DEFAULT_DSN_ENV as LEGACY_DSN_ENV,
     DEFAULT_FORMULA_CODE,
     DEFAULT_ITEM_CODE,
     RuleSignals,
     calculate_formula,
 )
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
 def fetch_v3_appointment_signal(
@@ -50,7 +49,7 @@ def fetch_v3_appointment_signal(
     return signal, payload
 
 
-def fetch_legacy_signals(cur: Any, *, emperor: str, item_code: str, cluster_formula: str) -> dict[str, RuleSignals]:
+def fetch_base_rule_signals(cur: Any, *, emperor: str, item_code: str, cluster_formula: str) -> dict[str, RuleSignals]:
     cur.execute(
         """
         select er.rule_code, ec.id, ec.positive_signal, ec.negative_signal
@@ -69,25 +68,19 @@ def fetch_legacy_signals(cur: Any, *, emperor: str, item_code: str, cluster_form
     }
 
 
-def calculate_hybrid_raw_scores(
-    *, dsn: str, legacy_dsn: str, schema_name: str, emperors: Sequence[str], item_code: str = DEFAULT_ITEM_CODE,
+def calculate_v3_raw_scores(
+    *, dsn: str, schema_name: str, emperors: Sequence[str], item_code: str = DEFAULT_ITEM_CODE,
     cluster_formula: str = DEFAULT_CLUSTER_FORMULA, formula_code: str = DEFAULT_FORMULA_CODE,
 ) -> dict[str, Any]:
     if not emperors:
         raise ValueError("at least one emperor is required")
     psycopg, _ = import_psycopg(); rows: list[dict[str, Any]] = []
-    legacy_by_emperor: dict[str, dict[str, RuleSignals]] = {}
-    with psycopg.connect(legacy_dsn) as legacy_conn:
-        with legacy_conn.cursor() as legacy_cur:
-            for emperor in emperors:
-                legacy_by_emperor[emperor] = fetch_legacy_signals(
-                    legacy_cur, emperor=emperor, item_code=item_code, cluster_formula=cluster_formula)
-        legacy_conn.rollback()
     with psycopg.connect(dsn) as conn:
         with conn.cursor() as raw_cur:
             v3_cur = schema_cursor(raw_cur, schema_name=schema_name)
             for emperor in emperors:
-                signals = dict(legacy_by_emperor[emperor])
+                signals = fetch_base_rule_signals(
+                    raw_cur, emperor=emperor, item_code=item_code, cluster_formula=cluster_formula)
                 appointment, lineage = fetch_v3_appointment_signal(
                     v3_cur, emperor=emperor, item_code=item_code, formula_code=cluster_formula)
                 signals["appointment_delegation"] = appointment
@@ -100,7 +93,7 @@ def calculate_hybrid_raw_scores(
                 })
         conn.rollback()
     return {
-        "ok": True, "mode": "hybrid_item_raw_signal_only", "write_db": False,
+        "ok": True, "mode": "v3_item_raw_signal_only", "write_db": False,
         "dynamic_mapping_required": True, "final_score_generated": False,
         "results": rows,
     }
@@ -124,14 +117,13 @@ def render_markdown(report: dict[str, Any]) -> str:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build I5B raw item signals with v3 appointment score clusters.")
     parser.add_argument("--env-file", type=Path); parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
-    parser.add_argument("--legacy-dsn-env", default=LEGACY_DSN_ENV)
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA); parser.add_argument("--emperor", action="append", required=True)
     parser.add_argument("--output-json", type=Path, required=True); parser.add_argument("--output-md", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
         load_env_file(args.env_file)
-    report = calculate_hybrid_raw_scores(
-        dsn=resolve_dsn(args.dsn_env), legacy_dsn=resolve_dsn(args.legacy_dsn_env),
+    report = calculate_v3_raw_scores(
+        dsn=resolve_dsn(args.dsn_env),
         schema_name=args.pg_schema, emperors=args.emperor)
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(

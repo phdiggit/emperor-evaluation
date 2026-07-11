@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from scripts.dev import retrieval_v3_expected_event_repair_plan as tool
-from scripts.dev import retrieval_v2_claim_plan_quality as claim_plan_quality
+from scripts.dev import retrieval_v3_claim_plan_quality as claim_plan_quality
 
 
 def reconciliation(decision: str, *, ref: str = "OSS-1") -> dict:

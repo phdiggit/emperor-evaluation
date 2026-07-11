@@ -9,275 +9,43 @@
       "max_lines": 90
     }
   },
-  "script_bloat_budgets": {
-    "default_max_lines": 1000,
-    "path_budgets": {
-      "scripts/dev/i5b_factor_recalculator.py": {
-        "max_lines": 1450,
-        "reason": "I5B 因子重放暂含明细回放、对象候选、身份归一、已审非计分覆盖和结果写回，后续拆分前保留过渡预算"
-      },
-      "scripts/dev/i5b_factor_table_sync.py": {
-        "max_lines": 1200,
-        "reason": "I5B 计分细则表同步与 calc_detail 审计暂在同一工具内，稳定后拆分共享 catalog 层"
-      },
-      "scripts/dev/retrieval_v2_candidate_promoter.py": {
-        "max_lines": 1064,
-        "reason": "retrieval_v2 candidate promoter 暂含 personnel_political_wide 候选晋升、v3 identity gate、旧口径清理和异常审计，宽包试点稳定后拆分 promotion policy 与 audit 子模块"
-      },
-      "scripts/dev/object_pool_importer.py": {
-        "max_lines": 1100,
-        "reason": "对象池导入器暂含 payload 解析、有限取值闸门、模板生成和写库冻结逻辑，后续拆分 schema/parser 层"
-      },
-      "scripts/dev/i5b_query_profile_seed_builder.py": {
-        "max_lines": 1250,
-        "reason": "半成品 profile 种子候选与 source-discovery 仍在稳定语义，后续继续扩展前拆分 discovery/extractor 子模块"
-      },
-      "scripts/dev/retrieval_v2_clean_runner.py": {
-        "max_lines": 1364,
-        "reason": "retrieval_v2 clean runner 暂承载 taskgen、候选切片、补源、判读分片、共享智能体运行配置和运行交接编排，质量/耗时优化稳定后拆分 orchestration 与阶段执行模块"
-      },
-      "scripts/dev/retrieval_v2_clean_cli.py": {
-        "max_lines": 1295,
-        "reason": "retrieval_v2 clean CLI 暂承载 taskgen 调度、streaming/batch/presearch 路由和 I5B-wide shadow pilot 标记，稳定后拆分 CLI 参数层与调度策略层"
-      },
-      "scripts/dev/retrieval_v2_contracts.py": {
-        "max_lines": 1150,
-        "reason": "retrieval_v2 contracts 暂集中承载 profile、candidate lane、shadow report、personnel_political_wide 契约常量和繁简别名扩展，跨项路由稳定后拆分 profile contracts 与 alias helpers 子模块"
-      },
-      "scripts/dev/retrieval_v2_claim_cache_pg.py": {
-        "max_lines": 1124,
-        "reason": "retrieval_v2 claim cache PG 工具暂含 v3 extractor 版本闸门、导入、质量热字段回填和误导入清理，v3 claim-cache 稳定后拆分 import policy 与 cleanup 子模块"
-      },
-      "scripts/dev/retrieval_v2_claim_owner_audit.py": {
-        "max_lines": 1124,
-        "reason": "retrieval_v2 claim owner audit 暂含跨代 owner 诊断、候选生成、patch 校验与修复报告，owner 治理稳定后拆分 audit 与 patch 子模块"
-      },
-      "scripts/dev/retrieval_v2_factorization_worklists.py": {
-        "max_lines": 1900,
-        "reason": "retrieval_v2 因子化派工、patch 验收、side/raw-score 入库闸门、表驱动因子模板、AD factor hint 预填建议、factorization prompt budget 快照、Codex 调度和日志恢复仍在联调期共用上下文，稳定后拆分 task runner、hint adapter、prompt budget 与 patch recovery 子模块"
-      },
-      "scripts/dev/retrieval_v2_i5b_shadow_report.py": {
-        "max_lines": 1320,
-        "reason": "retrieval_v2 I5B shadow report 暂含 personnel_political_wide 覆盖、异常、候选 lane、profile normalization 与 AD factor hint 指标和回归摘要，profile 固化后拆分 report sections 子模块"
-      },
-      "scripts/dev/retrieval_v2_recall_term_sampler.py": {
-        "max_lines": 1450,
-        "reason": "retrieval_v2 recall term sampler 暂含 personnel_political_wide 先验 taxonomy、句子 ngram 降噪、候选采样、profile delta 和 source A/B 报告，召回词策略稳定后拆分 taxonomy、sampler 与 A/B report 子模块"
-      },
-      "scripts/dev/retrieval_v2_rule_scorer.py": {
-        "max_lines": 1350,
-        "reason": "retrieval_v2 scorer 暂同时承载通用材料聚合、表驱动 material policy 分派、team_building 团队质量公式、scoring gate 过滤和空 cluster 清理；shadow 宽包闭环稳定后拆分 team scorer 与 cleanup 子模块"
-      },
-      "scripts/dev/retrieval_v2_source_candidates.py": {
-        "max_lines": 1406,
-        "reason": "retrieval_v2 source candidates 暂含候选切片、delegation/appointment_delegation 信号、guarded recall overlay matcher、预算分配和宽包源候选策略，抓包 profile 稳定后拆分 slicing、overlay matcher 与 signal scoring 子模块"
-      },
-      "scripts/dev/retrieval_v2_object_source_cache.py": {
-        "max_lines": 2177,
-        "reason": "retrieval_v2 对象级离线源缓存主入口暂含 Wikisource managed cache/discovery、来源形态判别、artifact 输出、agent review queue、task overlay 和 build-shards CLI 接线；缓存接入稳定后继续拆 discovery、review queue 与 overlay 子模块"
-      },
-      "scripts/dev/retrieval_v2_object_source_cache_worker.py": {
-        "max_lines": 1867,
-        "reason": "retrieval_v2 对象源缓存队列 worker 暂含 PG job 生命周期、claim-plan 桥接、负向覆盖 pilot、profile signal 排序和 v3 schema 路由；服务联动稳定后拆出 claim_plan_selection、negative coverage 与 schema adapter 子模块"
-      },
-      "scripts/dev/scoring_rule_table_sync.py": {
-        "max_lines": 1350,
-        "reason": "scoring rule table sync 暂含 I5B rule/factor/weight 抽取、DB 对比和 factor judgment 审计，规则表同步机制稳定后拆分 parser 与 DB audit 子模块"
-      }
-    }
-  },
   "default_forbidden_patterns": [
     "exports/**",
     "data/**",
     "*.sqlite",
     "*.db"
   ],
-  "directories": {
-    "build": "scripts/build",
-    "dev": "scripts/dev",
-    "export": "scripts/export",
-    "matrix": "scripts/matrix",
-    "shared": "scripts/shared",
-    "validate": "scripts/validate"
-  },
+  "directories": [],
+  "legacy_wrapper_policy": "retired",
   "modules": [
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "pr_body_tool",
-      "implementation": "scripts/dev/pr_body_tool.py",
+      "category": "build",
+      "id": "build_package",
+      "implementation": "scripts/build/__init__.py",
+      "legacy_wrapper": null,
+      "required_tests": [],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "build",
+      "id": "i5b_item_result_calculator",
+      "implementation": "scripts/build/i5b_item_result_calculator.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_pr_body_tool.py"
+        "tests/test_i5b_item_result_calculator.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "repo_tool",
-      "implementation": "scripts/dev/repo_tool.py",
+      "id": "scripts_dev_i5b_finite_values",
+      "implementation": "scripts/dev/i5b_finite_values.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_repo_tool.py",
-        "tests/test_agents_governance.py",
-        "tests/test_scripts_canonical_imports.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "docs_tool",
-      "implementation": "scripts/dev/docs_tool.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_docs_tool.py",
-        "tests/test_docs_governance.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_chain_runner",
-      "implementation": "scripts/dev/i5b_chain_runner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_chain_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool",
-      "implementation": "scripts/dev/source_excerpt_pool.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_package",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_common",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/common.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_cache",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/cache.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_profile",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/profile.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_source_pack",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/source_pack.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py",
-        "tests/test_i5b_source_pack_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_source_pack_fetcher",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/source_pack_fetcher.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_fetcher.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_wikisource",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/wikisource.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_builder",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/builder.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_reporting",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/reporting.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "source_excerpt_pool_cli",
-      "implementation": "scripts/dev/source_excerpt_pool_lib/cli.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_source_excerpt_pool.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "object_pool_importer",
-      "implementation": "scripts/dev/object_pool_importer.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_object_pool_importer.py"
+        "tests/test_i5b_finite_values.py"
       ],
       "status": "active"
     },
@@ -287,1060 +55,537 @@
       "id": "object_pool_aliases",
       "implementation": "scripts/dev/object_pool_aliases.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_object_pool_importer.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_pool_detail",
-      "implementation": "scripts/dev/i5b_object_pool_detail.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_pool_detail.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_pool_integrity_audit",
-      "implementation": "scripts/dev/i5b_object_pool_integrity_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_pool_integrity_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_pool_integrity_common",
-      "implementation": "scripts/dev/i5b_object_pool_integrity_common.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_pool_integrity_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_pool_integrity_core",
-      "implementation": "scripts/dev/i5b_object_pool_integrity_core.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_pool_integrity_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_pool_integrity_shadow",
-      "implementation": "scripts/dev/i5b_object_pool_integrity_shadow.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_pool_integrity_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "evidence_cluster_workbench",
-      "implementation": "scripts/dev/evidence_cluster_workbench.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_evidence_cluster_workbench.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_calc_breakdown",
-      "implementation": "scripts/dev/i5b_calc_breakdown.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_calc_breakdown.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_factor_consistency_audit",
-      "implementation": "scripts/dev/i5b_factor_consistency_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_factor_consistency_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_factor_table_sync",
-      "implementation": "scripts/dev/i5b_factor_table_sync.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_factor_table_sync.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "scoring_rule_table_sync",
-      "implementation": "scripts/dev/scoring_rule_table_sync.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scoring_rule_table_sync.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "rule_material_policy",
-      "implementation": "scripts/dev/rule_material_policy.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_rule_material_policy.py",
-        "tests/test_rule_material_policy_schema.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_bootstrap",
-      "implementation": "scripts/dev/retrieval_v2_bootstrap.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_bootstrap.py",
-        "tests/test_retrieval_v2_schema.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_contracts",
-      "implementation": "scripts/dev/retrieval_v2_contracts.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_bootstrap.py",
-        "tests/test_retrieval_v2_source_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_task_skeleton",
-      "implementation": "scripts/dev/retrieval_v2_task_skeleton.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_task_skeleton.py",
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_discovery_profiles",
-      "implementation": "scripts/dev/retrieval_v2_discovery_profiles.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_discovery_profiles.py",
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_clean_runner",
-      "implementation": "scripts/dev/retrieval_v2_clean_runner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_clean_runner.py",
-        "tests/test_retrieval_v2_judge_shards.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_clean_cli",
-      "implementation": "scripts/dev/retrieval_v2_clean_cli.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_clean_runner.py",
-        "tests/test_retrieval_v2_runtime_paths.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_runtime_paths",
-      "implementation": "scripts/dev/retrieval_v2_runtime_paths.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_runtime_paths.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_alias_pretag",
-      "implementation": "scripts/dev/retrieval_v2_alias_pretag.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_alias_pretag.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_batch_taskgen",
-      "implementation": "scripts/dev/retrieval_v2_batch_taskgen.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_taskgen_preseed",
-      "implementation": "scripts/dev/retrieval_v2_taskgen_preseed.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_taskgen_preseed.py",
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_clean_summary",
-      "implementation": "scripts/dev/retrieval_v2_clean_summary.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_clean_summary.py",
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_candidate_source_refiner",
-      "implementation": "scripts/dev/retrieval_v2_candidate_source_refiner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_candidate_source_refiner.py",
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_run_events",
-      "implementation": "scripts/dev/retrieval_v2_run_events.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_judge_shards",
-      "implementation": "scripts/dev/retrieval_v2_judge_shards.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_judge_shards.py",
-        "tests/test_retrieval_v2_clean_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_alias_refiner",
-      "implementation": "scripts/dev/retrieval_v2_alias_refiner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_alias_refiner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_candidate_prompt",
-      "implementation": "scripts/dev/retrieval_v2_candidate_prompt.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_candidate_prompt.py",
-        "tests/test_retrieval_v2_source_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_public_ocr",
-      "implementation": "scripts/dev/retrieval_v2_public_ocr.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_source_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_source_candidates",
-      "implementation": "scripts/dev/retrieval_v2_source_candidates.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_source_candidates.py",
-        "tests/test_retrieval_v2_candidate_prompt.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_source_document_policy",
-      "implementation": "scripts/dev/retrieval_v2_source_document_policy.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_source_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_quality_gate",
-      "implementation": "scripts/dev/retrieval_v2_quality_gate.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_quality_gate.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_prompt_governance",
-      "implementation": "scripts/dev/retrieval_v2_prompt_governance.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_prompt_governance.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_recall_term_sampler",
-      "implementation": "scripts/dev/retrieval_v2_recall_term_sampler.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_recall_term_sampler.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_recall_feedback",
-      "implementation": "scripts/dev/retrieval_v2_recall_feedback.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_recall_feedback.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_source_gap_feedback",
-      "implementation": "scripts/dev/retrieval_v2_source_gap_feedback.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_source_gap_feedback.py",
-        "tests/test_retrieval_v2_recall_feedback.py",
-        "tests/test_retrieval_v2_candidate_source_refiner.py",
-        "tests/test_retrieval_v2_source_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_calibration_package",
-      "implementation": "scripts/dev/retrieval_v2_calibration_package.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_calibration_package.py",
-        "tests/test_retrieval_v2_object_source_cache.py",
-        "tests/test_retrieval_v2_source_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_calibration_report",
-      "implementation": "scripts/dev/retrieval_v2_calibration_report.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_calibration_report.py",
-        "tests/test_retrieval_v2_quality_gate.py",
-        "tests/test_retrieval_v2_claim_cache.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_cache",
-      "implementation": "scripts/dev/retrieval_v2_claim_cache.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_cache.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_cache_pg",
-      "implementation": "scripts/dev/retrieval_v2_claim_cache_pg.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_cache_pg.py",
-        "tests/test_retrieval_v2_claim_cache.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_event_groups",
-      "implementation": "scripts/dev/retrieval_v2_claim_event_groups.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_event_groups.py",
-        "tests/test_retrieval_v2_claim_quality.py",
-        "tests/test_retrieval_v2_claim_cache_pg.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_chain_candidates",
-      "implementation": "scripts/dev/retrieval_v2_claim_chain_candidates.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_chain_candidates.py",
-        "tests/test_retrieval_v2_claim_event_groups.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_rule_route_plan",
-      "implementation": "scripts/dev/retrieval_v2_claim_rule_route_plan.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_rule_route_plan.py",
-        "tests/test_retrieval_v2_claim_chain_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_rule_intake_shadow",
-      "implementation": "scripts/dev/retrieval_v2_claim_rule_intake_shadow.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_rule_intake_shadow.py",
-        "tests/test_retrieval_v2_claim_chain_candidates.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_cache_intake_bridge",
-      "implementation": "scripts/dev/retrieval_v2_claim_cache_intake_bridge.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_cache_intake_bridge.py",
-        "tests/test_retrieval_v2_import_plan.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v2_claim_patch",
-      "implementation": "scripts/dev/retrieval_v2_claim_patch.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_patch.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_claim_cache_review_patch",
-      "implementation": "scripts/dev/retrieval_v2_claim_cache_review_patch.py",
+      "id": "retrieval_v3_alias_pretag",
+      "implementation": "scripts/dev/retrieval_v3_alias_pretag.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_claim_cache_review_patch.py",
-        "tests/test_retrieval_v2_claim_cache.py",
-        "tests/test_retrieval_v2_claim_cache_pg.py"
+        "tests/test_retrieval_v3_alias_pretag.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_claim_owner_audit",
-      "implementation": "scripts/dev/retrieval_v2_claim_owner_audit.py",
+      "id": "retrieval_v3_alias_refiner",
+      "implementation": "scripts/dev/retrieval_v3_alias_refiner.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_claim_owner_audit.py"
+        "tests/test_retrieval_v3_alias_refiner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_claim_extraction_worker",
-      "implementation": "scripts/dev/retrieval_v2_claim_extraction_worker.py",
+      "id": "retrieval_v3_background_status",
+      "implementation": "scripts/dev/retrieval_v3_background_status.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_claim_extraction_worker.py",
-        "tests/test_retrieval_v2_claim_extraction_jobs_schema.py",
-        "tests/test_retrieval_v2_claim_cache.py"
+        "tests/test_retrieval_v3_background_status.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_summary_lead_discovery",
-      "implementation": "scripts/dev/retrieval_v2_summary_lead_discovery.py",
+      "id": "retrieval_v3_batch_taskgen",
+      "implementation": "scripts/dev/retrieval_v3_batch_taskgen.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_summary_lead_discovery.py",
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_clean_runner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_summary_lead_pilot",
-      "implementation": "scripts/dev/retrieval_v2_summary_lead_pilot.py",
+      "id": "retrieval_v3_bootstrap",
+      "implementation": "scripts/dev/retrieval_v3_bootstrap.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_summary_lead_pilot.py",
-        "tests/test_retrieval_v2_summary_lead_discovery.py",
-        "tests/test_retrieval_v2_object_source_cache.py",
-        "tests/test_retrieval_v2_object_source_cache_worker.py"
+        "tests/test_retrieval_v3_bootstrap.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache.py",
+      "id": "retrieval_v3_candidate_binding_consumer",
+      "implementation": "scripts/dev/retrieval_v3_candidate_binding_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache.py",
-        "tests/test_retrieval_v2_taskgen_preseed.py",
-        "tests/test_retrieval_v2_source_candidates.py"
+        "tests/test_retrieval_v3_candidate_binding_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_worker",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_worker.py",
+      "id": "retrieval_v3_candidate_promoter",
+      "implementation": "scripts/dev/retrieval_v3_candidate_promoter.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache_worker.py",
-        "tests/test_retrieval_v2_object_source_cache_jobs_schema.py",
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_candidate_promoter.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_seed",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_seed.py",
+      "id": "retrieval_v3_candidate_prompt",
+      "implementation": "scripts/dev/retrieval_v3_candidate_prompt.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_candidate_prompt.py",
+        "tests/test_retrieval_v3_source_candidates.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_shards",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_shards.py",
+      "id": "retrieval_v3_candidate_review_consumer",
+      "implementation": "scripts/dev/retrieval_v3_candidate_review_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_candidate_review_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_audit",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_audit.py",
+      "id": "retrieval_v3_candidate_review_worklist",
+      "implementation": "scripts/dev/retrieval_v3_candidate_review_worklist.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_candidate_review_worklist.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_hint_worklist",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_hint_worklist.py",
+      "id": "retrieval_v3_candidate_source_refiner",
+      "implementation": "scripts/dev/retrieval_v3_candidate_source_refiner.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_candidate_source_refiner.py",
+        "tests/test_retrieval_v3_clean_runner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_patch",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_patch.py",
+      "id": "retrieval_v3_claim_audit",
+      "implementation": "scripts/dev/retrieval_v3_claim_audit.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache.py"
+        "tests/test_retrieval_v3_claim_audit.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_source_cache_pg_backfill",
-      "implementation": "scripts/dev/retrieval_v2_object_source_cache_pg_backfill.py",
+      "id": "retrieval_v3_claim_cache",
+      "implementation": "scripts/dev/retrieval_v3_claim_cache.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_source_cache_pg_backfill.py"
+        "tests/test_retrieval_v3_claim_cache.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_retrieval_target_backfill",
-      "implementation": "scripts/dev/retrieval_v2_retrieval_target_backfill.py",
+      "id": "retrieval_v3_claim_cache_intake_bridge",
+      "implementation": "scripts/dev/retrieval_v3_claim_cache_intake_bridge.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_retrieval_target_backfill.py"
+        "tests/test_retrieval_v3_claim_cache_intake_bridge.py",
+        "tests/test_retrieval_v3_import_plan.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_i5b_shadow_report",
-      "implementation": "scripts/dev/retrieval_v2_i5b_shadow_report.py",
+      "id": "retrieval_v3_claim_cache_pg",
+      "implementation": "scripts/dev/retrieval_v3_claim_cache_pg.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_i5b_shadow_report.py"
+        "tests/test_retrieval_v3_claim_cache_pg.py",
+        "tests/test_retrieval_v3_claim_cache.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_intake_manifest",
-      "implementation": "scripts/dev/retrieval_v2_intake_manifest.py",
+      "id": "retrieval_v3_claim_cache_review_patch",
+      "implementation": "scripts/dev/retrieval_v3_claim_cache_review_patch.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_intake_manifest.py"
+        "tests/test_retrieval_v3_claim_cache_review_patch.py",
+        "tests/test_retrieval_v3_claim_cache.py",
+        "tests/test_retrieval_v3_claim_cache_pg.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_intake_rows",
-      "implementation": "scripts/dev/retrieval_v2_intake_rows.py",
+      "id": "retrieval_v3_claim_chain_candidates",
+      "implementation": "scripts/dev/retrieval_v3_claim_chain_candidates.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_intake_rows.py",
-        "tests/test_retrieval_v2_runtime_paths.py"
+        "tests/test_retrieval_v3_claim_chain_candidates.py",
+        "tests/test_retrieval_v3_claim_event_groups.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_gap_handoff",
-      "implementation": "scripts/dev/retrieval_v2_gap_handoff.py",
+      "id": "retrieval_v3_claim_event_groups",
+      "implementation": "scripts/dev/retrieval_v3_claim_event_groups.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_gap_handoff.py"
+        "tests/test_retrieval_v3_claim_event_groups.py",
+        "tests/test_retrieval_v3_claim_quality.py",
+        "tests/test_retrieval_v3_claim_cache_pg.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_gap_worker",
-      "implementation": "scripts/dev/retrieval_v2_gap_worker.py",
+      "id": "retrieval_v3_claim_extraction_worker",
+      "implementation": "scripts/dev/retrieval_v3_claim_extraction_worker.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_gap_worker.py"
+        "tests/test_retrieval_v3_claim_extraction_worker.py",
+        "tests/test_retrieval_v3_claim_extraction_jobs_schema.py",
+        "tests/test_retrieval_v3_claim_cache.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_cross_rule_router",
-      "implementation": "scripts/dev/retrieval_v2_cross_rule_router.py",
+      "id": "retrieval_v3_claim_owner_audit",
+      "implementation": "scripts/dev/retrieval_v3_claim_owner_audit.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_cross_rule_router.py"
+        "tests/test_retrieval_v3_claim_owner_audit.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_claim_quality_rollup",
-      "implementation": "scripts/dev/retrieval_v2_claim_quality_rollup.py",
+      "id": "retrieval_v3_claim_passage_audit",
+      "implementation": "scripts/dev/retrieval_v3_claim_passage_audit.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_claim_quality_rollup.py"
+        "tests/test_retrieval_v3_claim_passage_audit.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_claim_passage_audit",
-      "implementation": "scripts/dev/retrieval_v2_claim_passage_audit.py",
+      "id": "retrieval_v3_claim_passage_repair",
+      "implementation": "scripts/dev/retrieval_v3_claim_passage_repair.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_claim_passage_audit.py"
+        "tests/test_retrieval_v3_claim_passage_repair.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_claim_passage_repair",
-      "implementation": "scripts/dev/retrieval_v2_claim_passage_repair.py",
+      "id": "retrieval_v3_claim_plan_quality",
+      "implementation": "scripts/dev/retrieval_v3_claim_plan_quality.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v2_claim_passage_repair.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_passage_fulltext_backfill",
-      "implementation": "scripts/dev/retrieval_v2_passage_fulltext_backfill.py",
+      "id": "retrieval_v3_claim_quality",
+      "implementation": "scripts/dev/retrieval_v3_claim_quality.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_passage_fulltext_backfill.py"
+        "tests/test_retrieval_v3_claim_quality.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_candidate_promoter",
-      "implementation": "scripts/dev/retrieval_v2_candidate_promoter.py",
+      "id": "retrieval_v3_claim_quality_rollup",
+      "implementation": "scripts/dev/retrieval_v3_claim_quality_rollup.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_candidate_promoter.py"
+        "tests/test_retrieval_v3_claim_quality_rollup.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_target_alias_backfill",
-      "implementation": "scripts/dev/retrieval_v2_target_alias_backfill.py",
+      "id": "retrieval_v3_claim_route_consumer",
+      "implementation": "scripts/dev/retrieval_v3_claim_route_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_target_alias_backfill.py"
+        "tests/test_retrieval_v3_claim_route_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_review_worklists",
-      "implementation": "scripts/dev/retrieval_v2_review_worklists.py",
+      "id": "retrieval_v3_claim_rule_route_plan",
+      "implementation": "scripts/dev/retrieval_v3_claim_rule_route_plan.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_review_worklists.py"
+        "tests/test_retrieval_v3_claim_rule_route_plan.py",
+        "tests/test_retrieval_v3_claim_chain_candidates.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_idempotency_report",
-      "implementation": "scripts/dev/retrieval_v2_idempotency_report.py",
+      "id": "retrieval_v3_clean_cli",
+      "implementation": "scripts/dev/retrieval_v3_clean_cli.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_idempotency_report.py"
+        "tests/test_retrieval_v3_clean_runner.py",
+        "tests/test_retrieval_v3_runtime_paths.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics.py",
+      "id": "retrieval_v3_clean_runner",
+      "implementation": "scripts/dev/retrieval_v3_clean_runner.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_clean_runner.py",
+        "tests/test_retrieval_v3_judge_shards.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_package",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/__init__.py",
+      "id": "retrieval_v3_clean_summary",
+      "implementation": "scripts/dev/retrieval_v3_clean_summary.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_clean_summary.py",
+        "tests/test_retrieval_v3_clean_runner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_common",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/common.py",
+      "id": "retrieval_v3_consumer",
+      "implementation": "scripts/dev/retrieval_v3_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_reports",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/reports.py",
+      "id": "retrieval_v3_context_review_tasks",
+      "implementation": "scripts/dev/retrieval_v3_context_review_tasks.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_context_review_tasks.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_selectors",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/selectors.py",
+      "id": "retrieval_v3_contracts",
+      "implementation": "scripts/dev/retrieval_v3_contracts.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_bootstrap.py",
+        "tests/test_retrieval_v3_source_candidates.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_score_chain",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/score_chain.py",
+      "id": "retrieval_v3_coverage_controller",
+      "implementation": "scripts/dev/retrieval_v3_coverage_controller.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_coverage_controller.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_actions",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/actions.py",
+      "id": "retrieval_v3_coverage_convergence",
+      "implementation": "scripts/dev/retrieval_v3_coverage_convergence.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_coverage_controller.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_orchestrator",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/orchestrator.py",
+      "id": "retrieval_v3_coverage_runner",
+      "implementation": "scripts/dev/retrieval_v3_coverage_runner.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_coverage_runner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_renderers",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/renderers.py",
+      "id": "retrieval_v3_cross_rule_router",
+      "implementation": "scripts/dev/retrieval_v3_cross_rule_router.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_cross_rule_router.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_diagnostics_cli",
-      "implementation": "scripts/dev/retrieval_v2_diagnostics_lib/cli.py",
+      "id": "retrieval_v3_diagnostics",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_diagnostics.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_import_plan",
-      "implementation": "scripts/dev/retrieval_v2_import_plan.py",
+      "id": "retrieval_v3_diagnostics_package",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/__init__.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_import_plan.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_import_executor",
-      "implementation": "scripts/dev/retrieval_v2_import_executor.py",
+      "id": "retrieval_v3_diagnostics_actions",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/actions.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_import_executor.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_object_consumer",
-      "implementation": "scripts/dev/retrieval_v2_object_consumer.py",
+      "id": "retrieval_v3_diagnostics_cli",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/cli.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_object_consumer.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_person_profile_consumer",
-      "implementation": "scripts/dev/retrieval_v2_person_profile_consumer.py",
+      "id": "retrieval_v3_diagnostics_common",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/common.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_person_profile_consumer.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_person_context_consumer",
-      "implementation": "scripts/dev/retrieval_v2_person_context_consumer.py",
+      "id": "retrieval_v3_diagnostics_orchestrator",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/orchestrator.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_person_context_consumer.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_target_person_consumer",
-      "implementation": "scripts/dev/retrieval_v2_target_person_consumer.py",
+      "id": "retrieval_v3_diagnostics_renderers",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/renderers.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_target_person_consumer.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_consumer",
-      "implementation": "scripts/dev/retrieval_v2_consumer.py",
+      "id": "retrieval_v3_diagnostics_reports",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/reports.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_consumer.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_material_review_tasks",
-      "implementation": "scripts/dev/retrieval_v2_material_review_tasks.py",
+      "id": "retrieval_v3_diagnostics_score_chain",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/score_chain.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_material_review_tasks.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_material_review_consumer",
-      "implementation": "scripts/dev/retrieval_v2_material_review_consumer.py",
+      "id": "retrieval_v3_diagnostics_selectors",
+      "implementation": "scripts/dev/retrieval_v3_diagnostics_lib/selectors.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_material_review_consumer.py"
+        "tests/test_retrieval_v3_diagnostics.py"
       ],
       "status": "active"
     },
@@ -1369,88 +614,12 @@
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_material_candidate_plan",
-      "implementation": "scripts/dev/retrieval_v3_material_candidate_plan.py",
+      "id": "retrieval_v3_discovery_profiles",
+      "implementation": "scripts/dev/retrieval_v3_discovery_profiles.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_material_candidate_plan.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_material_candidate_consumer",
-      "implementation": "scripts/dev/retrieval_v3_material_candidate_consumer.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_material_candidate_consumer.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_candidate_review_worklist",
-      "implementation": "scripts/dev/retrieval_v3_candidate_review_worklist.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_candidate_review_worklist.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_candidate_review_consumer",
-      "implementation": "scripts/dev/retrieval_v3_candidate_review_consumer.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_candidate_review_consumer.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_claim_route_consumer",
-      "implementation": "scripts/dev/retrieval_v3_claim_route_consumer.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_claim_route_consumer.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_coverage_controller",
-      "implementation": "scripts/dev/retrieval_v3_coverage_controller.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_coverage_controller.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_coverage_runner",
-      "implementation": "scripts/dev/retrieval_v3_coverage_runner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_coverage_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_coverage_convergence",
-      "implementation": "scripts/dev/retrieval_v3_coverage_convergence.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_coverage_controller.py"
+        "tests/test_retrieval_v3_discovery_profiles.py",
+        "tests/test_retrieval_v3_clean_runner.py"
       ],
       "status": "active"
     },
@@ -1501,66 +670,42 @@
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_unseeded_actor_discovery",
-      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_discovery.py",
+      "id": "retrieval_v3_factorization_consumer",
+      "implementation": "scripts/dev/retrieval_v3_factorization_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_unseeded_actor_discovery.py"
+        "tests/test_retrieval_v3_factorization_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_unseeded_actor_review_tasks",
-      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_review_tasks.py",
+      "id": "retrieval_v3_factorization_task_runner",
+      "implementation": "scripts/dev/retrieval_v3_factorization_task_runner.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_unseeded_actor_review.py"
+        "tests/test_retrieval_v3_factorization_worklists.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_unseeded_actor_review_consumer",
-      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_review_consumer.py",
+      "id": "retrieval_v3_factorization_tasks",
+      "implementation": "scripts/dev/retrieval_v3_factorization_tasks.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_unseeded_actor_review.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_unseeded_actor_negative_chain_tasks",
-      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_negative_chain_tasks.py",
+      "id": "retrieval_v3_factorization_worklists",
+      "implementation": "scripts/dev/retrieval_v3_factorization_worklists.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_unseeded_actor_negative_chain.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_unseeded_actor_negative_chain_consumer",
-      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_negative_chain_consumer.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_unseeded_actor_negative_chain.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "retrieval_v3_identity_gate_consumer",
-      "implementation": "scripts/dev/retrieval_v3_identity_gate_consumer.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_retrieval_v3_identity_gate_consumer.py"
+        "tests/test_retrieval_v3_factorization_worklists.py"
       ],
       "status": "active"
     },
@@ -1578,6 +723,129 @@
     {
       "audit_docs": [],
       "category": "dev",
+      "id": "retrieval_v3_identity_gate_consumer",
+      "implementation": "scripts/dev/retrieval_v3_identity_gate_consumer.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_identity_gate_consumer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_import_executor",
+      "implementation": "scripts/dev/retrieval_v3_import_executor.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_import_executor.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_import_plan",
+      "implementation": "scripts/dev/retrieval_v3_import_plan.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_import_plan.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_intake_manifest",
+      "implementation": "scripts/dev/retrieval_v3_intake_manifest.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_intake_manifest.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_intake_rows",
+      "implementation": "scripts/dev/retrieval_v3_intake_rows.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_intake_rows.py",
+        "tests/test_retrieval_v3_runtime_paths.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_judge_shards",
+      "implementation": "scripts/dev/retrieval_v3_judge_shards.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_judge_shards.py",
+        "tests/test_retrieval_v3_clean_runner.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_judgment_worklists",
+      "implementation": "scripts/dev/retrieval_v3_judgment_worklists.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_judgment_worklists.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_material_candidate_consumer",
+      "implementation": "scripts/dev/retrieval_v3_material_candidate_consumer.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_material_candidate_consumer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_material_candidate_plan",
+      "implementation": "scripts/dev/retrieval_v3_material_candidate_plan.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_material_candidate_plan.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_material_review_consumer",
+      "implementation": "scripts/dev/retrieval_v3_material_review_consumer.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_material_review_consumer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_material_review_tasks",
+      "implementation": "scripts/dev/retrieval_v3_material_review_tasks.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_material_review_tasks.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
       "id": "retrieval_v3_needs_context_worklist",
       "implementation": "scripts/dev/retrieval_v3_needs_context_worklist.py",
       "legacy_wrapper": null,
@@ -1589,55 +857,198 @@
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_context_review_tasks",
-      "implementation": "scripts/dev/retrieval_v3_context_review_tasks.py",
+      "id": "retrieval_v3_object_consumer",
+      "implementation": "scripts/dev/retrieval_v3_object_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_context_review_tasks.py"
+        "tests/test_retrieval_v3_object_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_contract_reanchor_plan",
-      "implementation": "scripts/dev/retrieval_v3_contract_reanchor_plan.py",
+      "id": "retrieval_v3_object_source_cache",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_contract_reanchor_consumer.py"
+        "tests/test_retrieval_v3_object_source_cache.py",
+        "tests/test_retrieval_v3_taskgen_preseed.py",
+        "tests/test_retrieval_v3_source_candidates.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_contract_reanchor_targets",
-      "implementation": "scripts/dev/retrieval_v3_contract_reanchor_targets.py",
+      "id": "retrieval_v3_object_source_cache_audit",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_audit.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_contract_reanchor_consumer.py"
+        "tests/test_retrieval_v3_object_source_cache.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_contract_reanchor_consumer",
-      "implementation": "scripts/dev/retrieval_v3_contract_reanchor_consumer.py",
+      "id": "retrieval_v3_object_source_cache_hint_worklist",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_hint_worklist.py",
+      "legacy_wrapper": null,
+      "required_tests": [],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_object_source_cache_patch",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_patch.py",
+      "legacy_wrapper": null,
+      "required_tests": [],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_object_source_cache_pg_backfill",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_pg_backfill.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_contract_reanchor_consumer.py"
+        "tests/test_retrieval_v3_object_source_cache_pg_backfill.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v3_candidate_binding_consumer",
-      "implementation": "scripts/dev/retrieval_v3_candidate_binding_consumer.py",
+      "id": "retrieval_v3_object_source_cache_seed",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_seed.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v3_candidate_binding_consumer.py"
+        "tests/test_retrieval_v3_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_object_source_cache_shards",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_shards.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_object_source_cache_worker",
+      "implementation": "scripts/dev/retrieval_v3_object_source_cache_worker.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_object_source_cache_worker.py",
+        "tests/test_retrieval_v3_object_source_cache_jobs_schema.py",
+        "tests/test_retrieval_v3_object_source_cache.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_person_context_consumer",
+      "implementation": "scripts/dev/retrieval_v3_person_context_consumer.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_person_context_consumer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_person_profile_consumer",
+      "implementation": "scripts/dev/retrieval_v3_person_profile_consumer.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_person_profile_consumer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_pg_schema",
+      "implementation": "scripts/dev/retrieval_v3_pg_schema.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_pg_schema.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_public_ocr",
+      "implementation": "scripts/dev/retrieval_v3_public_ocr.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_source_candidates.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_retrieval_target_backfill",
+      "implementation": "scripts/dev/retrieval_v3_retrieval_target_backfill.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_retrieval_target_backfill.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_review_worklists",
+      "implementation": "scripts/dev/retrieval_v3_review_worklists.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_review_worklists.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_rule_scorer",
+      "implementation": "scripts/dev/retrieval_v3_rule_scorer.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_rule_scorer.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_run_events",
+      "implementation": "scripts/dev/retrieval_v3_run_events.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_clean_runner.py"
+      ],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "dev",
+      "id": "retrieval_v3_runtime_paths",
+      "implementation": "scripts/dev/retrieval_v3_runtime_paths.py",
+      "legacy_wrapper": null,
+      "required_tests": [
+        "tests/test_retrieval_v3_runtime_paths.py"
       ],
       "status": "active"
     },
@@ -1660,668 +1071,215 @@
       "legacy_wrapper": null,
       "required_tests": [
         "tests/test_retrieval_v3_score_lane.py",
-        "tests/test_retrieval_v2_factorization_consumer.py",
-        "tests/test_retrieval_v2_rule_scorer.py"
+        "tests/test_retrieval_v3_factorization_consumer.py",
+        "tests/test_retrieval_v3_rule_scorer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_factorization_task_runner",
-      "implementation": "scripts/dev/retrieval_v2_factorization_task_runner.py",
+      "id": "retrieval_v3_source_candidates",
+      "implementation": "scripts/dev/retrieval_v3_source_candidates.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_factorization_worklists.py"
+        "tests/test_retrieval_v3_source_candidates.py",
+        "tests/test_retrieval_v3_candidate_prompt.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_factorization_worklists",
-      "implementation": "scripts/dev/retrieval_v2_factorization_worklists.py",
+      "id": "retrieval_v3_source_document_policy",
+      "implementation": "scripts/dev/retrieval_v3_source_document_policy.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_factorization_worklists.py"
+        "tests/test_retrieval_v3_source_candidates.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_factorization_consumer",
-      "implementation": "scripts/dev/retrieval_v2_factorization_consumer.py",
+      "id": "retrieval_v3_target_alias_backfill",
+      "implementation": "scripts/dev/retrieval_v3_target_alias_backfill.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_factorization_consumer.py"
+        "tests/test_retrieval_v3_target_alias_backfill.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_rule_scorer",
-      "implementation": "scripts/dev/retrieval_v2_rule_scorer.py",
+      "id": "retrieval_v3_target_person_consumer",
+      "implementation": "scripts/dev/retrieval_v3_target_person_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_rule_scorer.py"
+        "tests/test_retrieval_v3_target_person_consumer.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "retrieval_v2_judgment_worklists",
-      "implementation": "scripts/dev/retrieval_v2_judgment_worklists.py",
+      "id": "retrieval_v3_task_skeleton",
+      "implementation": "scripts/dev/retrieval_v3_task_skeleton.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_retrieval_v2_judgment_worklists.py"
+        "tests/test_retrieval_v3_task_skeleton.py",
+        "tests/test_retrieval_v3_clean_runner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "i5b_health_check",
-      "implementation": "scripts/dev/i5b_health_check.py",
+      "id": "retrieval_v3_taskgen_preseed",
+      "implementation": "scripts/dev/retrieval_v3_taskgen_preseed.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_i5b_health_check.py"
+        "tests/test_retrieval_v3_taskgen_preseed.py",
+        "tests/test_retrieval_v3_clean_runner.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "i5b_pending_material_worklist",
-      "implementation": "scripts/dev/i5b_pending_material_worklist.py",
+      "id": "retrieval_v3_unseeded_actor_discovery",
+      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_discovery.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_i5b_pending_material_worklist.py"
+        "tests/test_retrieval_v3_unseeded_actor_discovery.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "i5b_initial_factor_profile",
-      "implementation": "scripts/dev/i5b_initial_factor_profile.py",
+      "id": "retrieval_v3_unseeded_actor_negative_chain_consumer",
+      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_negative_chain_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_i5b_initial_factor_profile.py"
+        "tests/test_retrieval_v3_unseeded_actor_negative_chain.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "i5b_pending_factor_patch",
-      "implementation": "scripts/dev/i5b_pending_factor_patch.py",
+      "id": "retrieval_v3_unseeded_actor_negative_chain_tasks",
+      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_negative_chain_tasks.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_i5b_pending_factor_patch.py"
+        "tests/test_retrieval_v3_unseeded_actor_negative_chain.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "i5b_pending_factor_patch_apply",
-      "implementation": "scripts/dev/i5b_pending_factor_patch_apply.py",
+      "id": "retrieval_v3_unseeded_actor_review_consumer",
+      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_review_consumer.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_i5b_pending_factor_patch_apply.py"
+        "tests/test_retrieval_v3_unseeded_actor_review.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
       "category": "dev",
-      "id": "i5b_finite_value_audit",
-      "implementation": "scripts/dev/i5b_finite_value_audit.py",
+      "id": "retrieval_v3_unseeded_actor_review_tasks",
+      "implementation": "scripts/dev/retrieval_v3_unseeded_actor_review_tasks.py",
       "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_i5b_finite_value_audit.py",
-        "tests/test_i5b_finite_values.py"
+        "tests/test_retrieval_v3_unseeded_actor_review.py"
       ],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_fact_relation_candidate_sync",
-      "implementation": "scripts/dev/i5b_fact_relation_candidate_sync.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_builder",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/builder.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_fact_relation_candidate_sync.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_fact_relation_gap_summary",
-      "implementation": "scripts/dev/i5b_fact_relation_gap_summary.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_cache",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/cache.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_fact_relation_gap_summary.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_hard_merit_handoff",
-      "implementation": "scripts/dev/i5b_hard_merit_handoff.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_cli",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/cli.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_hard_merit_handoff.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_authority_eval_handoff",
-      "implementation": "scripts/dev/i5b_authority_eval_handoff.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_common",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/common.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_authority_eval_handoff.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_authority_eval_distribution_audit",
-      "implementation": "scripts/dev/i5b_authority_eval_distribution_audit.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_profile",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/profile.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_authority_eval_distribution_audit.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_authority_eval_attr_sync",
-      "implementation": "scripts/dev/i5b_authority_eval_attr_sync.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_reporting",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/reporting.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_authority_eval_attr_sync.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_rule_evidence_unit_preview",
-      "implementation": "scripts/dev/i5b_rule_evidence_unit_preview.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_source_pack",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/source_pack.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_rule_evidence_unit_preview.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_rule_evidence_unit_issue_summary",
-      "implementation": "scripts/dev/i5b_rule_evidence_unit_issue_summary.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_source_pack_fetcher",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/source_pack_fetcher.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_rule_evidence_unit_issue_summary.py"
-      ],
+      "required_tests": [],
       "status": "active"
     },
     {
       "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_rule_evidence_unit_candidate_builder",
-      "implementation": "scripts/dev/i5b_rule_evidence_unit_candidate_builder.py",
+      "category": "source_excerpt_pool_lib",
+      "id": "scripts_dev_source_excerpt_pool_lib_wikisource",
+      "implementation": "scripts/dev/source_excerpt_pool_lib/wikisource.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_rule_evidence_unit_candidate_builder.py"
-      ],
+      "required_tests": [],
       "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_rule_evidence_unit_db_sync",
-      "implementation": "scripts/dev/i5b_rule_evidence_unit_db_sync.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_rule_evidence_unit_db_sync.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_factor_recalculator",
-      "implementation": "scripts/dev/i5b_factor_recalculator.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_factor_recalculator.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_rule_object_coverage_audit",
-      "implementation": "scripts/dev/i5b_rule_object_coverage_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_rule_object_coverage_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_talent_discovery_audit",
-      "implementation": "scripts/dev/i5b_talent_discovery_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_talent_discovery_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_payload_skeleton",
-      "implementation": "scripts/dev/i5b_payload_skeleton.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_payload_skeleton.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_payload_audit",
-      "implementation": "scripts/dev/i5b_object_payload_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_payload_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_object_payload_import_batch",
-      "implementation": "scripts/dev/i5b_object_payload_import_batch.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_object_payload_import_batch.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_next_stage_control_board",
-      "implementation": "scripts/dev/i5b_next_stage_control_board.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_next_stage_control_board.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_next_stage_queue_runner",
-      "implementation": "scripts/dev/i5b_next_stage_queue_runner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_next_stage_queue_runner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_key_audit",
-      "implementation": "scripts/dev/i5b_source_key_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_key_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_audit",
-      "implementation": "scripts/dev/i5b_source_pack_audit.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_audit.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_handoff",
-      "implementation": "scripts/dev/i5b_source_pack_handoff.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_handoff.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_fetcher",
-      "implementation": "scripts/dev/i5b_source_pack_fetcher.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_fetcher.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_worker",
-      "implementation": "scripts/dev/i5b_source_pack_worker.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_worker.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_status",
-      "implementation": "scripts/dev/i5b_source_pack_status.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_status.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_control_board",
-      "implementation": "scripts/dev/i5b_source_pack_control_board.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_control_board.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_query_profile_refiner",
-      "implementation": "scripts/dev/i5b_query_profile_refiner.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_query_profile_refiner.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_query_profile_refiner_daemon",
-      "implementation": "scripts/dev/i5b_query_profile_refiner_daemon.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_query_profile_refiner_daemon.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_runtime_supervisor",
-      "implementation": "scripts/dev/i5b_source_pack_runtime_supervisor.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_runtime_supervisor.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_source_pack_pipeline_daemon",
-      "implementation": "scripts/dev/i5b_source_pack_pipeline_daemon.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_source_pack_pipeline_daemon.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "dev",
-      "id": "i5b_query_profile_seed_builder",
-      "implementation": "scripts/dev/i5b_query_profile_seed_builder.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_query_profile_seed_builder.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_package",
-      "implementation": "scripts/validate/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_all",
-      "implementation": "scripts/validate/validate_all.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_validate_all.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_chinese_view_configs",
-      "implementation": "scripts/validate/validate_chinese_view_configs.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_project_config.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_config_readability",
-      "implementation": "scripts/validate/validate_config_readability.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_validate_config_readability.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_i5b_workflow_configs",
-      "implementation": "scripts/validate/validate_i5b_workflow_configs.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_project_config.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_review_configs",
-      "implementation": "scripts/validate/validate_review_configs.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_validate_review_configs.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "id": "validate_project_config",
-      "category": "validate",
-      "implementation": "scripts/validate/validate_project_config.py",
-      "legacy_wrapper": null,
-      "status": "migrated",
-      "audit_docs": [],
-      "required_tests": [
-        "tests/test_project_config.py",
-        "tests/test_scripts_directory_layout.py"
-      ]
-    },
-    {
-      "audit_docs": [],
-      "category": "validate",
-      "id": "validate_view_configs",
-      "implementation": "scripts/validate/validate_view_configs.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_validate_view_configs.py",
-        "tests/test_scripts_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_package",
-      "implementation": "scripts/export/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_export_package",
-      "implementation": "scripts/export/dimension_export/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_data_loading",
-      "implementation": "scripts/export/dimension_export/data_loading.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_evidence_index",
-      "implementation": "scripts/export/dimension_export/evidence_index.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_markdown_rendering",
-      "implementation": "scripts/export/dimension_export/markdown_rendering.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_output_layout",
-      "implementation": "scripts/export/dimension_export/output_layout.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_pipeline",
-      "implementation": "scripts/export/dimension_export/pipeline.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_validation",
-      "implementation": "scripts/export/dimension_export/validation.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_dimension_adapters_package",
-      "implementation": "scripts/export/dimension_adapters/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "export",
-      "id": "export_md",
-      "implementation": "scripts/export/export_md.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_export_md_trial_targets.py",
-        "tests/test_scripts_export_directory_layout.py"
-      ],
-      "status": "migrated"
     },
     {
       "audit_docs": [],
@@ -2329,8 +1287,17 @@
       "id": "shared_package",
       "implementation": "scripts/shared/__init__.py",
       "legacy_wrapper": null,
+      "required_tests": [],
+      "status": "active"
+    },
+    {
+      "audit_docs": [],
+      "category": "shared",
+      "id": "scripts_shared_agent_runtime_config",
+      "implementation": "scripts/shared/agent_runtime_config.py",
+      "legacy_wrapper": null,
       "required_tests": [
-        "tests/test_scripts_shared_directory_plan.py"
+        "tests/test_agent_runtime_config.py"
       ],
       "status": "active"
     },
@@ -2342,133 +1309,69 @@
       "id": "config_loaders",
       "implementation": "scripts/shared/config_loaders.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_config_loaders.py",
-        "tests/test_config_loaders_migration_audit.py",
-        "tests/test_scripts_shared_directory_plan.py"
-      ],
+      "required_tests": [],
       "status": "migrated"
     },
     {
       "audit_docs": [],
-      "category": "shared",
-      "id": "export_md_scaffold",
-      "implementation": "scripts/shared/export_md_scaffold.py",
+      "category": "validate",
+      "id": "scripts_validate_validate_project_config",
+      "implementation": "scripts/validate/validate_project_config.py",
       "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_export_md_scaffold.py",
-        "tests/test_scripts_shared_directory_plan.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [
-        "archive/docs/audits/i5b_markdown_display迁移前依赖审计.md"
-      ],
-      "category": "shared",
-      "id": "i5b_markdown_display",
-      "implementation": "scripts/shared/i5b_markdown_display.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_markdown_display.py",
-        "tests/test_i5b_markdown_display_migration_audit.py",
-        "tests/test_scripts_shared_directory_plan.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "shared",
-      "id": "scoring_engine_contracts",
-      "implementation": "scripts/shared/scoring_engine_contracts.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scoring_engine_contracts.py",
-        "tests/test_scripts_shared_directory_plan.py"
-      ],
+      "required_tests": [],
       "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "build",
-      "id": "build_package",
-      "implementation": "scripts/build/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_build_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "build",
-      "id": "build_db",
-      "implementation": "scripts/build/build_db.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_build_db.py",
-        "tests/test_scripts_build_directory_layout.py"
-      ],
-      "status": "migrated"
-    },
-    {
-      "audit_docs": [],
-      "category": "build",
-      "id": "i5b_item_result_calculator",
-      "implementation": "scripts/build/i5b_item_result_calculator.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_i5b_item_result_calculator.py",
-        "tests/test_scripts_build_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "matrix",
-      "id": "matrix_package",
-      "implementation": "scripts/matrix/__init__.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_scripts_matrix_directory_layout.py"
-      ],
-      "status": "active"
-    },
-    {
-      "audit_docs": [],
-      "category": "matrix",
-      "id": "run_matrix",
-      "implementation": "scripts/matrix/run_matrix.py",
-      "legacy_wrapper": null,
-      "required_tests": [
-        "tests/test_run_matrix.py",
-        "tests/test_scripts_matrix_directory_layout.py"
-      ],
-      "status": "migrated"
     }
   ],
-  "root_exceptions": [
-    {
-      "path": "scripts/publish_pr.ps1",
-      "planned_category": "dev",
-      "reason": "PowerShell 发布入口暂作为根目录稳定入口保留",
-      "status": "stable_entrypoint"
-    }
-  ],
+  "retired_legacy_wrappers": [],
+  "root_exceptions": [],
   "schema_version": 1,
-  "legacy_wrapper_policy": "retired",
-  "retired_legacy_wrappers": {
-    "scripts/build_db.py": "build_db",
-    "scripts/config_loaders.py": "config_loaders",
-    "scripts/export_md.py": "export_md",
-    "scripts/export_md_scaffold.py": "export_md_scaffold",
-    "scripts/i5b_markdown_display.py": "i5b_markdown_display",
-    "scripts/run_matrix.py": "run_matrix",
-    "scripts/validate_all.py": "validate_all",
-    "scripts/validate_chinese_view_configs.py": "validate_chinese_view_configs",
-    "scripts/validate_config_readability.py": "validate_config_readability",
-    "scripts/validate_i5b_cluster_adjudication_configs.py": "validate_i5b_workflow_configs",
-    "scripts/validate_review_configs.py": "validate_review_configs",
-    "scripts/validate_view_configs.py": "validate_view_configs"
+  "script_bloat_budgets": {
+    "default_max_lines": 1000,
+    "path_budgets": {
+      "scripts/dev/retrieval_v3_candidate_promoter.py": {
+        "max_lines": 1064,
+        "reason": "retrieval_v3 candidate promoter 暂含 personnel_political_wide 候选晋升、v3 identity gate、旧口径清理和异常审计，宽包试点稳定后拆分 promotion policy 与 audit 子模块"
+      },
+      "scripts/dev/retrieval_v3_claim_cache_pg.py": {
+        "max_lines": 1124,
+        "reason": "retrieval_v3 claim cache PG 工具暂含 v3 extractor 版本闸门、导入、质量热字段回填和误导入清理，v3 claim-cache 稳定后拆分 import policy 与 cleanup 子模块"
+      },
+      "scripts/dev/retrieval_v3_claim_owner_audit.py": {
+        "max_lines": 1124,
+        "reason": "retrieval_v3 claim owner audit 暂含跨代 owner 诊断、候选生成、patch 校验与修复报告，owner 治理稳定后拆分 audit 与 patch 子模块"
+      },
+      "scripts/dev/retrieval_v3_clean_cli.py": {
+        "max_lines": 1295,
+        "reason": "retrieval_v3 clean CLI 暂承载 taskgen 调度、streaming/batch/presearch 路由和 I5B-wide shadow pilot 标记，稳定后拆分 CLI 参数层与调度策略层"
+      },
+      "scripts/dev/retrieval_v3_clean_runner.py": {
+        "max_lines": 1364,
+        "reason": "retrieval_v3 clean runner 暂承载 taskgen、候选切片、补源、判读分片、共享智能体运行配置和运行交接编排，质量/耗时优化稳定后拆分 orchestration 与阶段执行模块"
+      },
+      "scripts/dev/retrieval_v3_contracts.py": {
+        "max_lines": 1150,
+        "reason": "retrieval_v3 contracts 暂集中承载 profile、candidate lane、shadow report、personnel_political_wide 契约常量和繁简别名扩展，跨项路由稳定后拆分 profile contracts 与 alias helpers 子模块"
+      },
+      "scripts/dev/retrieval_v3_factorization_worklists.py": {
+        "max_lines": 1900,
+        "reason": "retrieval_v3 因子化派工、patch 验收、side/raw-score 入库闸门、表驱动因子模板、AD factor hint 预填建议、factorization prompt budget 快照、Codex 调度和日志恢复仍在联调期共用上下文，稳定后拆分 task runner、hint adapter、prompt budget 与 patch recovery 子模块"
+      },
+      "scripts/dev/retrieval_v3_object_source_cache.py": {
+        "max_lines": 2177,
+        "reason": "retrieval_v3 对象级离线源缓存主入口暂含 Wikisource managed cache/discovery、来源形态判别、artifact 输出、agent review queue、task overlay 和 build-shards CLI 接线；缓存接入稳定后继续拆 discovery、review queue 与 overlay 子模块"
+      },
+      "scripts/dev/retrieval_v3_object_source_cache_worker.py": {
+        "max_lines": 1867,
+        "reason": "retrieval_v3 对象源缓存队列 worker 暂含 PG job 生命周期、claim-plan 桥接、负向覆盖 pilot、profile signal 排序和 v3 schema 路由；服务联动稳定后拆出 claim_plan_selection、negative coverage 与 schema adapter 子模块"
+      },
+      "scripts/dev/retrieval_v3_rule_scorer.py": {
+        "max_lines": 1350,
+        "reason": "retrieval_v3 scorer 暂同时承载通用材料聚合、表驱动 material policy 分派、team_building 团队质量公式、scoring gate 过滤和空 cluster 清理；shadow 宽包闭环稳定后拆分 team scorer 与 cleanup 子模块"
+      },
+      "scripts/dev/retrieval_v3_source_candidates.py": {
+        "max_lines": 1406,
+        "reason": "retrieval_v3 source candidates 暂含候选切片、delegation/appointment_delegation 信号、guarded recall overlay matcher、预算分配和宽包源候选策略，抓包 profile 稳定后拆分 slicing、overlay matcher 与 signal scoring 子模块"
+      }
+    }
   }
 }

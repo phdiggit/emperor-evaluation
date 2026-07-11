@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_claim_cache import claim_key  # noqa: E402
+from scripts.dev.retrieval_v3_claim_cache import claim_key  # noqa: E402
 from scripts.dev.retrieval_v3_candidate_review_worklist import stable_code as candidate_review_code  # noqa: E402
 from scripts.dev.retrieval_v3_unseeded_actor_discovery import stable_code, text, write_jsonl, write_text  # noqa: E402
 from scripts.dev.retrieval_v3_unseeded_actor_review_tasks import read_jsonl  # noqa: E402

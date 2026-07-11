@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_contracts import alias_script_variants, unique_strings  # noqa: E402
-from scripts.dev.retrieval_v2_object_source_cache_seed import normalize_seed  # noqa: E402
+from scripts.dev.retrieval_v3_contracts import alias_script_variants, unique_strings  # noqa: E402
+from scripts.dev.retrieval_v3_object_source_cache_seed import normalize_seed  # noqa: E402
 
 
 FETCH_DECISION = "fetch_missing_source"
@@ -267,7 +267,7 @@ def build_refinement_packages(
             "write_db": False,
             "enqueue_allowed": False,
             "scoring_allowed": False,
-            "next_stage": "retrieval_v2_object_source_cache",
+            "next_stage": "retrieval_v3_object_source_cache",
         }
         packages.append(package)
         seeds.append(

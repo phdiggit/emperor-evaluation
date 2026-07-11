@@ -19,8 +19,8 @@ from scripts.dev.retrieval_v3_coverage_convergence import (  # noqa: E402
     build_gap_routes, build_reconciliation_index,
     build_repair_ledger, score_lineage_gaps,
 )
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 DEFAULT_ITEM_CODE = "I5B"; DEFAULT_RULE_CODE = "appointment_delegation"
 ACTIVE_STATUSES = ("active", "needs_review")

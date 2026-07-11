@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-LOG_ROOT="${RETRIEVAL_V3_CLAIM_WORKER_LOG_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v2_claim_worker_logs}"
+LOG_ROOT="${RETRIEVAL_V3_CLAIM_WORKER_LOG_ROOT:-/data1/emperor-evaluation/runtime/active/retrieval_v3_claim_worker_logs}"
 mkdir -p "${LOG_ROOT}"
 cd "${ROOT}"
 
@@ -13,7 +13,7 @@ echo "codex=$(${CODEX_BIN:-codex} --version 2>&1 || true)"
 while true; do
   stamp="$(date -u +%Y%m%dT%H%M%SZ)"
   out="${LOG_ROOT}/claim_worker_once_${stamp}.json"
-  if python3 scripts/dev/retrieval_v2_claim_extraction_worker.py once \
+  if python3 scripts/dev/retrieval_v3_claim_extraction_worker.py once \
       --execute \
       --worker-id retrieval_v3_claim_worker_service \
       --output-json "${out}"; then

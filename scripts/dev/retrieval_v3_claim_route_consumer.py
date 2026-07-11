@@ -11,14 +11,15 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev import retrieval_v2_claim_chain_candidates as chain_candidates  # noqa: E402
-from scripts.dev import retrieval_v2_claim_rule_route_plan as route_plan  # noqa: E402
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_import_plan import json_param, stable_hash  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
-from scripts.dev.retrieval_v3_contract_reanchor_plan import NATIVE_CONTRACT_CODE, RULE_CODE  # noqa: E402
+from scripts.dev import retrieval_v3_claim_chain_candidates as chain_candidates  # noqa: E402
+from scripts.dev import retrieval_v3_claim_rule_route_plan as route_plan  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_import_plan import json_param, stable_hash  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_contracts import APPOINTMENT_DELEGATION_RULE_CODE, NATIVE_CONTRACT_CODE  # noqa: E402
 
 PROFILE = "retrieval_v3_claim_route_consumer"
+RULE_CODE = APPOINTMENT_DELEGATION_RULE_CODE
 ROUTABLE_STATUSES = {"mechanical_current_rule_candidate", "ready_for_rule_route_review", "needs_light_rule_review"}
 
 
@@ -100,7 +101,7 @@ def upsert_route_cache(cur: Any, route: Mapping[str, Any], claim_key: str) -> No
         insert into retrieval_v3.claim_route_cache (
             route_key, claim_key, candidate_item_code, candidate_rule_code, candidate_lane,
             candidate_direction, route_status, route_reason, routed_by_profile, candidate_payload, confidence
-        ) values (%s, %s, 'I5B', %s, %s, null, %s::retrieval_v3.rv2_claim_route_status,
+        ) values (%s, %s, 'I5B', %s, %s, null, %s::retrieval_v3.rv3_claim_route_status,
                   %s, %s, %s::jsonb, null)
         on conflict (route_key) do update set
             route_status = excluded.route_status,
@@ -165,7 +166,7 @@ def upsert_candidate(
             review_status = case
                 when retrieval_v3.claim_rule_binding_candidates.resolved_binding_id is not null
                     then retrieval_v3.claim_rule_binding_candidates.review_status
-                else 'pending'::retrieval_v3.rv2_review_status
+                else 'pending'::retrieval_v3.rv3_review_status
             end,
             updated_at = now()
         """,

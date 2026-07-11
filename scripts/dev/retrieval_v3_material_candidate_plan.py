@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_cross_rule_router import route_claim  # noqa: E402
+from scripts.dev.retrieval_v3_cross_rule_router import route_claim  # noqa: E402
 
 
 RULE_CODE = "appointment_delegation"

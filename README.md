@@ -34,23 +34,20 @@
 
 当前继续采用 `data/*.jsonl` 事实源和 Markdown 审阅视图；SQLite 生成库是本地兼容缓存，当前基线记录为 `sqlite_build_operational=true`。`python scripts/build/build_db.py` 由 `db/sqlite/001_cache.sql` 生成 SQLite cache schema，不再把 PostgreSQL 取向的 `db/schema.sql` 交给 SQLite 执行；`db/schema.sql` / `db/postgres/001_init.sql` 继续作为 PostgreSQL schema 基线。`docs/` 当前层只保留规则、方法论、运行说明和治理入口，`exports/governance/文档治理盘点报告.md` 作为按需生成的 docs 治理报告入口，历史治理诊断材料仅保留在 `archive/docs/` 追溯，不作为当前事实源。
 
-当前不引入新的缓存或中间件。PostgreSQL schema 已作为平台基线存在，但业务写源仍是 `data/*.jsonl`；后续 P1 优先处理 `scripts/export/export_md.py` 拆分和指定导出机制，这类拆分应另开专门 Issue。
+当前不引入新的缓存或中间件；检索与评分消费统一收敛到 retrieval v3 PostgreSQL 工作流。
 
 多余文件、归档候选和删除候选必须另开专门 Issue 处理，不能在普通业务 PR 中顺手删除或移动。
 
 ## 当前 I5B 数据链
 
-第五项B当前 PostgreSQL 数据链为：
+第五项B当前只保留 retrieval v3 native workflow：
 
 ```text
-检索包 -> 回源摘录 -> src_docs/raw_objs/emp_objs/obj_srcs/obj_attrs
--> evd_clusters/evd_cluster_calc_details
--> emp_item_results/emp_item_result_calc_details
+source candidate -> claim cache -> event group -> material -> candidate
+-> identity -> binding -> factor judgment -> rule score -> coverage controller
 ```
 
-执行步骤见 [`docs/数据结构与生成库/I5B数据链运行流程.md`](docs/数据结构与生成库/I5B数据链运行流程.md)。检索包、摘录池、旧 JSONL 证据卡和 Markdown 视图都不是当前 I5B 分值来源；只有已回源并进入对象链的材料才能进入证据簇和结果公式。
-
-本仓库禁止迁移旧评分、旧排名、旧加总表、旧正式评分记录和旧证据卡到当前 I5B 结果链；未回源材料只能作为待回源线索或缺口报告。
+执行步骤见 [`docs/数据结构与生成库/I5B数据链运行流程.md`](docs/数据结构与生成库/I5B数据链运行流程.md)。所有检索数据库入口默认连接 `EMPEROR_EVAL_RETRIEVAL_V3_DSN` 的 `retrieval_v3` schema；不得按裸数字 ID 跨数据库拼接 lineage。
 
 ## 运行命令
 
@@ -60,10 +57,10 @@
 python -m pip install -r requirements.txt
 ```
 
-运行当前保留的全项目验证：
+运行当前保留的全部测试：
 
 ```bash
-python scripts/validate/validate_all.py
+python -m pytest -q
 ```
 
 校验全项目人工配置入口：
@@ -72,53 +69,31 @@ python scripts/validate/validate_all.py
 python scripts/validate/validate_project_config.py
 ```
 
-生成 SQLite 运行库：
+编译检查当前脚本和测试：
 
 ```bash
-python scripts/build/build_db.py
+python -m compileall -q scripts tests
 ```
 
-导出 Markdown 审阅视图：
+查看 retrieval v3 coverage controller：
 
 ```bash
-python scripts/export/export_md.py
+python scripts/dev/retrieval_v3_coverage_controller.py --help
 ```
 
-该命令默认只运行 `main` profile，生成当前保留的 JSONL/SQLite 兼容 Markdown 索引；这些索引不是当前 I5B PostgreSQL 计算链入口。显式全量兼容导出使用 `python scripts/export/export_md.py --profile all`。
-
-查看可用导出 profile：
+查看 retrieval v3 scorer：
 
 ```bash
-python scripts/export/export_md.py --list-profiles
+python scripts/dev/retrieval_v3_rule_scorer.py --help
 ```
 
-导出第五项B三人试点矩阵骨架：
+生成只读 item raw signal：
 
 ```bash
-python scripts/matrix/run_matrix.py
+python scripts/dev/retrieval_v3_i5b_item_raw_score.py --help
 ```
 
-运行当前 PR 基线验证：
-
-```bash
-python scripts/validate/validate_all.py
-```
-
-按变更面追加聚焦 pytest，例如：
-
-```bash
-pytest -q tests/test_platform_chain_checkpoint.py tests/test_platform_script_lifecycle_registry.py tests/test_production_schema_live_apply_execution.py tests/test_production_seed_data_apply_execution.py
-```
-
-全量 `pytest -q` 当前记录为 `full_pytest_operational=true`，可作为 Epic 0 修复后的绿色基线命令。
-
-测试目录仍进入 Git 管理，缓存、覆盖率、SQLite 和临时导出副产物不进入版本控制。默认不排除 pytest marker；需要显式查看导出全量、集成、慢测、snapshot 或数据库相关测试时运行：
-
-```bash
-pytest -q -m "export_full or integration or slow or snapshot or db"
-```
-
-新增测试归类规则见 [`tests/README.md`](tests/README.md)。
+`tests/current_workflow_tests.txt` 列出当前全部测试；仓库不再保留其他工作流测试。
 
 ## GitHub 发布
 
@@ -126,6 +101,6 @@ pytest -q -m "export_full or integration or slow or snapshot or db"
 
 1. 将 `origin` 切到 SSH。
 2. 用 `gh auth login` 保存长期登录态。
-3. 通过 `scripts/publish_pr.ps1` 创建 PR，并在需要时切到 ready for review。
+3. 通过已认证的 `gh` CLI 发布；当前分支任务若明确禁止 PR，则只推送分支。
 
 详细步骤见 [`docs/展示与协作/GitHub发布与认证规范.md`](docs/展示与协作/GitHub发布与认证规范.md)。

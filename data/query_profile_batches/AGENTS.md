@@ -23,10 +23,10 @@
 
 ## 工具路由
 
-- 召回和摘录定位使用 `scripts/dev/source_excerpt_pool.py`；它不写数据库。
-- 已回源、已人工判断的对象 payload 才能交给 `scripts/dev/object_pool_importer.py`。
+- 召回和摘录定位使用 `scripts/dev/retrieval_v3_clean_runner.py` 与对象级 source cache；默认不写数据库。
+- 已回源 claim 通过 retrieval v3 material intake、candidate review、identity 与 binding consumer 进入正式链。
 - 对象别名归一和重复对象拦截使用 `scripts/dev/object_pool_aliases.py`；检索不到可用史料时，应先尝试对象别名补检，再记录缺口或跳过。
-- 从对象链到证据簇、结果和日志的流程按 I5B 数据链运行流程文档执行。
+- 从 claim 到评分与覆盖报告的流程按 I5B 数据链运行流程文档执行。
 
 ## 验证
 

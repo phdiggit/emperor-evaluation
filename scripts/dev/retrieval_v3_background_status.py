@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
 DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
@@ -48,8 +48,8 @@ def latest_run_code_by_job(cur: Any, *, job_codes: Sequence[str]) -> dict[str, s
         """
         select distinct on (j.job_code)
                j.job_code, r.run_code
-          from retrieval_v2.claim_extraction_jobs j
-          join retrieval_v2.claim_extraction_job_runs r on r.job_id = j.id
+          from retrieval_v3.claim_extraction_jobs j
+          join retrieval_v3.claim_extraction_job_runs r on r.job_id = j.id
          where j.job_code = any(%s)
          order by j.job_code, r.started_at desc, r.id desc
         """,
@@ -77,7 +77,7 @@ def build_status_report(
                 cur,
                 """
                 select status::text as status, count(*)::int as count
-                  from retrieval_v2.object_source_cache_jobs
+                  from retrieval_v3.object_source_cache_jobs
                  group by status
                  order by status
                 """,
@@ -86,7 +86,7 @@ def build_status_report(
                 cur,
                 """
                 select status::text as status, count(*)::int as count
-                  from retrieval_v2.claim_extraction_jobs
+                  from retrieval_v3.claim_extraction_jobs
                  group by status
                  order by status
                 """,
@@ -104,10 +104,10 @@ def build_status_report(
                        r.run_payload->'claim_bridge_result'->>'status' as claim_bridge_status,
                        r.run_payload->'claim_bridge_result'->>'uncovered_slice_count' as claim_bridge_uncovered_slices,
                        r.run_payload->'claim_bridge_result'->'claim_job'->>'job_code' as claim_job_code
-                  from retrieval_v2.object_source_cache_jobs j
+                  from retrieval_v3.object_source_cache_jobs j
                   left join lateral (
                         select *
-                          from retrieval_v2.object_source_cache_job_runs
+                          from retrieval_v3.object_source_cache_job_runs
                          where job_id = j.id
                          order by started_at desc, id desc
                          limit 1
@@ -130,10 +130,10 @@ def build_status_report(
                        r.usage_payload as latest_usage_payload,
                        r.error_type as latest_error_type,
                        r.error_msg as latest_error_msg
-                  from retrieval_v2.claim_extraction_jobs j
+                  from retrieval_v3.claim_extraction_jobs j
                   left join lateral (
                         select *
-                          from retrieval_v2.claim_extraction_job_runs
+                          from retrieval_v3.claim_extraction_job_runs
                          where job_id = j.id
                          order by started_at desc, id desc
                          limit 1
@@ -151,7 +151,7 @@ def build_status_report(
                     """
                     select emperor_name, status::text as status, count(*)::int as claim_count,
                            max(updated_at) as latest_updated_at
-                      from retrieval_v2.claim_cache
+                      from retrieval_v3.claim_cache
                      where emperor_name = any(%s)
                      group by emperor_name, status
                      order by emperor_name, status
@@ -164,7 +164,7 @@ def build_status_report(
                     """
                     select emperor_name, object_name, status::text as status, count(*)::int as claim_count,
                            max(updated_at) as latest_updated_at
-                      from retrieval_v2.claim_cache
+                      from retrieval_v3.claim_cache
                      where (%s::text[] = '{}'::text[] or emperor_name = any(%s))
                         or (%s::text[] = '{}'::text[] or object_name = any(%s))
                      group by emperor_name, object_name, status

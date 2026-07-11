@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping
 
-from scripts.dev.retrieval_v2_candidate_promoter import appointment_delegation_protocol_allows_scoring
-from scripts.dev.retrieval_v2_intake_manifest import text
+from scripts.dev.retrieval_v3_candidate_promoter import appointment_delegation_protocol_allows_scoring
+from scripts.dev.retrieval_v3_intake_manifest import text
 
 
 @dataclass(frozen=True)
@@ -21,7 +21,7 @@ def as_mapping(value: Any) -> Mapping[str, Any]:
 def is_candidate_exception(row: Mapping[str, Any]) -> bool:
     binding_payload = as_mapping(row.get("binding_payload"))
     return text(binding_payload.get("source")) in {
-        "retrieval_v2_candidate_promoter",
+        "retrieval_v3_candidate_promoter",
         "retrieval_v3_candidate_binding_consumer",
     } or row.get("candidate_id") is not None
 

@@ -1,4 +1,4 @@
-﻿import os
+import os
 import shutil
 import tempfile
 from functools import lru_cache

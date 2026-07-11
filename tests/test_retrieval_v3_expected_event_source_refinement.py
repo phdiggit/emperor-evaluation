@@ -6,8 +6,8 @@ from pathlib import Path
 import pytest
 
 from scripts.dev import retrieval_v3_expected_event_source_refinement as tool
-from scripts.dev import retrieval_v2_object_source_cache as object_cache
-from scripts.dev.retrieval_v2_taskgen_preseed import source_roots_for_hint
+from scripts.dev import retrieval_v3_object_source_cache as object_cache
+from scripts.dev.retrieval_v3_taskgen_preseed import source_roots_for_hint
 
 
 def inventory(event_code: str, *, object_name: str = "李绩", importance: str = "major") -> dict:

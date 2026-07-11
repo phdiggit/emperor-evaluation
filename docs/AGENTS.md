@@ -68,13 +68,13 @@
 
 ## 验证要求
 
-- 修改 docs registry、docs 规则或 docs 工具后，用 `codex-win run -- python scripts/dev/docs_tool.py check --registry docs/文档与脚本登记/docs_registry.json`；涉及未提交工作区、新增/改名文档或治理报告字段时，加 `--worktree` 并同步运行 `python scripts/dev/docs_tool.py report --registry docs/文档与脚本登记/docs_registry.json`。
-- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再用 `codex-win run -- python scripts/validate/validate_all.py` 和适用 pytest。
+- 修改 docs registry 或脚本登记后，运行当前 registry 完整性测试并核对所有登记路径真实存在。
+- 涉及 `scripts/**`、`tests/**` 或 validation 入口时，先用 `codex-win test plan --base origin/GPT --head HEAD` 规划，再运行当前工作流 pytest。
 - 验证命令若生成范围外副产物，记录通过结果后用根 AGENTS 指定的 `codex-win cleanup generated` profile 清理，再只做范围核对。
 
 ## registry 与治理报告
 
-- `docs/文档与脚本登记/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源；不应作为大文件全文阅读入口，优先使用 `python scripts/dev/docs_tool.py check/report` 做校验和摘要。
+- `docs/文档与脚本登记/docs_registry.json` 是文档生命周期、引用和候选动作的机器可读事实源；不应作为大文件全文阅读入口。
 - `exports/governance/文档治理盘点报告.md` 是人工审阅入口，保存本轮统计、候选清单和后续批次建议。
 - 目录迁移、registry 字段调整和治理分类变化必须同步 registry、治理报告和相关测试；只改 Markdown 导航或只改 registry 而不同步机器事实源 / 生成报告，均属于未完成变更。
 - AGENTS 只保存稳定规则，不逐文件枚举当前状态。

@@ -12,11 +12,11 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn
-from scripts.dev.retrieval_v2_import_plan import json_param
-from scripts.dev.retrieval_v2_intake_manifest import text
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn
+from scripts.dev.retrieval_v3_import_plan import json_param
+from scripts.dev.retrieval_v3_intake_manifest import text
 from scripts.dev.retrieval_v3_direct_binding_plan import validate_direct_assessment
-from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor
+from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor
 from scripts.dev.retrieval_v3_direct_binding_plan import read_jsonl
 
 
@@ -40,9 +40,9 @@ def verify_identity_anchor(cur: Any, row: Mapping[str, Any]) -> None:
     cur.execute(
         """
         select 1
-          from retrieval_v2.material_claims mc
-          join retrieval_v2.source_packs sp on sp.id = mc.source_pack_id
-          join retrieval_v2.target_objects tob on tob.id = %s and tob.target_id = sp.target_id
+          from retrieval_v3.material_claims mc
+          join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
+          join retrieval_v3.target_objects tob on tob.id = %s and tob.target_id = sp.target_id
          where mc.id = %s and tob.object_id = %s and tob.review_status = 'accepted'
         """,
         (row["target_object_id"], row["claim_id"], row["object_id"]),
@@ -59,7 +59,7 @@ def apply_direct_assessments(cur: Any, rows: Sequence[Mapping[str, Any]]) -> dic
         cur.execute(
             """
             select binding_payload->>'source' as source
-              from retrieval_v2.claim_rule_bindings
+              from retrieval_v3.claim_rule_bindings
              where claim_id = %s and contract_rule_id = %s and predicate = %s
                and direction = %s and object_role = %s
             """,
@@ -80,14 +80,14 @@ def apply_direct_assessments(cur: Any, rows: Sequence[Mapping[str, Any]]) -> dic
         }
         cur.execute(
             """
-            insert into retrieval_v2.claim_rule_bindings (
+            insert into retrieval_v3.claim_rule_bindings (
                 claim_id, contract_rule_id, rule_code, predicate, direction, object_role,
                 usable_for_object_payload, usable_for_scoring_cluster, confidence, review_status,
                 binding_payload, binding_code, raw_binding_code
             ) values (%s, %s, %s, %s, %s, %s, false, true, %s, 'pending', %s::jsonb, %s, '')
-            on conflict on constraint rv2_claim_rule_bindings_uk do update set
+            on conflict on constraint rv3_claim_rule_bindings_uk do update set
                 usable_for_scoring_cluster = true,
-                binding_payload = retrieval_v2.claim_rule_bindings.binding_payload || excluded.binding_payload,
+                binding_payload = retrieval_v3.claim_rule_bindings.binding_payload || excluded.binding_payload,
                 updated_at = now()
             returning id
             """,
@@ -96,19 +96,19 @@ def apply_direct_assessments(cur: Any, rows: Sequence[Mapping[str, Any]]) -> dic
         binding_id = cur.fetchone()["id"]
         cur.execute(
             """
-            insert into retrieval_v2.material_object_links (
+            insert into retrieval_v3.material_object_links (
                 link_code, claim_id, object_id, target_object_id, role, confidence, review_status, link_payload
             ) values (%s, %s, %s, %s, %s, %s, 'accepted', %s::jsonb)
-            on conflict on constraint rv2_material_object_links_uk do update set
+            on conflict on constraint rv3_material_object_links_uk do update set
                 target_object_id = excluded.target_object_id, review_status = 'accepted',
-                link_payload = retrieval_v2.material_object_links.link_payload || excluded.link_payload, updated_at = now()
+                link_payload = retrieval_v3.material_object_links.link_payload || excluded.link_payload, updated_at = now()
             returning id
             """,
             (link_code(row), row["claim_id"], row["object_id"], row["target_object_id"], row["object_role"], row.get("confidence"), json_param(payload)),
         )
         link_id = cur.fetchone()["id"]
         cur.execute(
-            """update retrieval_v2.claim_rule_bindings
+            """update retrieval_v3.claim_rule_bindings
                   set binding_payload = binding_payload || %s::jsonb, updated_at = now()
                 where id = %s""",
             (json_param({"direct_material_object_link_id": link_id}), binding_id),
