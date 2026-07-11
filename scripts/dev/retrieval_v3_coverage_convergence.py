@@ -100,6 +100,91 @@ def build_repair_ledger(
     return ledger
 
 
+def build_consumer_handoffs(ledger: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    stage_aliases = {
+        "claim_extraction_coverage_review": "claim_extraction",
+        "promote_claim_cache_to_material": "material_promotion",
+        "route_material_candidates": "candidate_routing",
+        "candidate_review_and_binding": "candidate_binding",
+        "rebuild_event_groups": "event_group_rebuild",
+    }
+    rows: list[dict[str, Any]] = []
+    for raw in ledger:
+        row = dict(raw)
+        state = text(row.get("convergence_state"))
+        if row.get("terminal"):
+            dispatch_state = "terminal_manual_review"
+        elif state == "no_progress":
+            dispatch_state = "held_no_progress"
+        elif row.get("retryable"):
+            dispatch_state = "ready_report_only"
+        else:
+            dispatch_state = "blocked"
+        action = text(row.get("next_action"))
+        row.update({
+            "consumer_stage": stage_aliases.get(action, action),
+            "dispatch_state": dispatch_state,
+            "dispatch_allowed": dispatch_state == "ready_report_only",
+            "write_job": False,
+            "write_db": False,
+        })
+        rows.append(row)
+    counts = Counter(text(row.get("dispatch_state")) for row in rows)
+    stage_counts = Counter(text(row.get("consumer_stage")) for row in rows)
+    return {
+        "ok": True,
+        "mode": "report_only_consumer_handoff",
+        "write_job": False,
+        "write_db": False,
+        "counts": dict(sorted(counts.items())),
+        "stage_counts": dict(sorted(stage_counts.items())),
+        "handoffs": rows,
+    }
+
+
+def build_convergence_delta(
+    current_rows: Sequence[Mapping[str, Any]], previous_rows: Sequence[Mapping[str, Any]]
+) -> dict[str, Any]:
+    current = {text(row.get("idempotency_key")): row for row in current_rows}
+    previous = {text(row.get("idempotency_key")): row for row in previous_rows}
+    changes: list[dict[str, Any]] = []
+    for key in sorted(set(current) | set(previous)):
+        now, old = current.get(key), previous.get(key)
+        if now is None:
+            kind = "resolved_gap"
+        elif old is None:
+            kind = "new_gap"
+        elif bool(now.get("terminal")) and not bool(old.get("terminal")):
+            kind = "regressed_to_terminal"
+        elif text(now.get("current_decision")) != text(old.get("current_decision")) or text(now.get("next_action")) != text(old.get("next_action")):
+            kind = "decision_changed"
+        elif text(now.get("convergence_state")) == "no_progress":
+            kind = "stalled"
+        else:
+            kind = "unchanged"
+        source = now or old or {}
+        changes.append({
+            "idempotency_key": key,
+            "change_type": kind,
+            "emperor_name": text(source.get("emperor_name")),
+            "object_id": source.get("object_id"),
+            "object_name": text(source.get("object_name")),
+            "previous_decision": text(old.get("current_decision")) if old else "",
+            "current_decision": text(now.get("current_decision")) if now else "",
+            "previous_action": text(old.get("next_action")) if old else "",
+            "current_action": text(now.get("next_action")) if now else "",
+        })
+    counts = Counter(text(row.get("change_type")) for row in changes)
+    return {
+        "ok": True,
+        "mode": "read_only_convergence_delta",
+        "write_job": False,
+        "write_db": False,
+        "counts": dict(sorted(counts.items())),
+        "changes": changes,
+    }
+
+
 def apply_convergence(report: dict[str, Any], ledger: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     routes_by_object: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
     for route in ledger:

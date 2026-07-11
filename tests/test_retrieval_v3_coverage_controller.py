@@ -398,3 +398,56 @@ def test_identity_review_is_terminal_in_repair_ledger() -> None:
     assert all(row["convergence_state"] == "terminal_review" for row in identity_routes)
     convergence.apply_convergence(result, ledger)
     assert all(row["convergence_state"] == "terminal_review" for row in result["objects"])
+
+
+def test_consumer_handoff_holds_stalled_and_terminal_routes() -> None:
+    result = report([claim(object_id=8)], [], [target(object_id=7)])
+    first = convergence.build_repair_ledger(result)
+    second = convergence.build_repair_ledger(result, first)
+    handoff = convergence.build_consumer_handoffs(second)
+
+    assert handoff["write_job"] is False
+    assert handoff["write_db"] is False
+    assert handoff["counts"]["terminal_manual_review"] >= 1
+    assert handoff["counts"]["held_no_progress"] >= 1
+    assert not any(row["dispatch_allowed"] for row in handoff["handoffs"])
+
+
+def test_event_group_rebuild_is_ready_only_for_report_handoff() -> None:
+    reports = [{
+        "gate_mode": "repair_verification",
+        "results": [{"event_inventory_code": "EEI-EAST-TURK", "decision": "rebuild_event_group"}],
+    }]
+    result = tool.build_report(
+        claim_rows=[claim()], downstream_rows=[downstream()], target_rows=[target()],
+        schema_name="retrieval_v3", item_code="I5B", rule_code="appointment_delegation",
+        emperors=["测试帝"], expected_events=[expected_event()], reconciliation_reports=reports,
+    )
+    handoff = convergence.build_consumer_handoffs(convergence.build_repair_ledger(result))
+    rebuild = [row for row in handoff["handoffs"] if row["consumer_stage"] == "event_group_rebuild"]
+
+    assert rebuild and rebuild[0]["dispatch_state"] == "ready_report_only"
+    assert rebuild[0]["dispatch_allowed"] is True
+    assert rebuild[0]["write_job"] is False and rebuild[0]["write_db"] is False
+
+
+def test_convergence_delta_reports_new_resolved_stalled_and_regressed() -> None:
+    previous = [
+        {"idempotency_key": "A", "current_decision": "old", "next_action": "claim_extraction", "terminal": False},
+        {"idempotency_key": "B", "current_decision": "open", "next_action": "binding", "terminal": False},
+        {"idempotency_key": "C", "current_decision": "done", "next_action": "factorization", "terminal": False},
+    ]
+    current = [
+        {"idempotency_key": "A", "current_decision": "old", "next_action": "claim_extraction", "convergence_state": "no_progress", "terminal": False},
+        {"idempotency_key": "B", "current_decision": "review", "next_action": "identity_review", "terminal": True},
+        {"idempotency_key": "D", "current_decision": "new", "next_action": "source_refinement", "terminal": False},
+    ]
+    delta = convergence.build_convergence_delta(current, previous)
+
+    assert delta["counts"] == {
+        "new_gap": 1,
+        "regressed_to_terminal": 1,
+        "resolved_gap": 1,
+        "stalled": 1,
+    }
+    assert delta["write_job"] is False and delta["write_db"] is False

@@ -8,7 +8,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -16,6 +15,7 @@ if str(ROOT) not in sys.path:
 from scripts.dev.object_pool_aliases import normalize_object_alias  # noqa: E402
 from scripts.dev.retrieval_v3_coverage_convergence import (  # noqa: E402
     apply_convergence,
+    build_consumer_handoffs, build_convergence_delta,
     build_gap_routes,
     build_repair_ledger,
 )
@@ -23,21 +23,19 @@ from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
 
-DEFAULT_ITEM_CODE = "I5B"
-DEFAULT_RULE_CODE = "appointment_delegation"
+DEFAULT_ITEM_CODE = "I5B"; DEFAULT_RULE_CODE = "appointment_delegation"
 ACTIVE_STATUSES = ("active", "needs_review")
 APPOINTMENT_TERMS = ("任命", "任用", "委任", "授", "拜", "擢", "命", "令", "使", "统", "領", "领", "留守", "托付")
 RESPONSIBILITY_TERMS = ("负责", "主持", "掌", "典", "总", "统", "领", "修订", "征", "讨", "守", "治", "辅政")
 RESULT_TERMS = ("成功", "平定", "攻克", "灭", "破", "败", "失守", "治理", "完成", "奏效", "有功", "获罪", "伏诛", "害民")
-EMPTY_OUTCOME_SUPPORT = {"", "none", "unknown", "unclear", "not_applicable", "context_only"}
-build_gap_router = build_gap_routes
+EMPTY_OUTCOME_SUPPORT = {"", "none", "unknown", "unclear", "not_applicable", "context_only"}; build_gap_router = build_gap_routes
 VERIFIED_RECONCILIATION_DECISIONS = {"already_covered", "rebuild_event_group"}
 RECONCILIATION_ROUTES = dict(
-    already_covered=("none", True, False), rebuild_event_group=("rebuild_event_groups", False, False),
+    already_covered=("none", True, False), rebuild_event_group=("rebuild_event_groups", False, True),
     reextract_cached_source=("claim_extraction", False, True), fetch_missing_source=("source_refinement", False, True),
-    identity_mismatch=("identity_review", False, False),
-    inventory_needs_review=("expected_event_inventory_review", False, False),
-    insufficient_for_scoring=("expected_event_inventory_review", False, False),
+    identity_mismatch=("identity_review", True, False),
+    inventory_needs_review=("expected_event_inventory_review", True, False),
+    insufficient_for_scoring=("expected_event_inventory_review", True, False),
 )
 
 
@@ -899,8 +897,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--reconciliation-report", type=Path, action="append", default=[])
     parser.add_argument("--output-repair-worklist", type=Path)
     parser.add_argument("--output-gap-router", type=Path)
-    parser.add_argument("--previous-repair-ledger", type=Path)
-    parser.add_argument("--output-repair-ledger", type=Path)
+    parser.add_argument("--previous-repair-ledger", type=Path); parser.add_argument("--output-repair-ledger", type=Path)
+    parser.add_argument("--output-consumer-handoff-root", type=Path); parser.add_argument("--output-convergence-delta", type=Path)
     parser.add_argument("--repair-limit", type=int, default=0)
     return parser
 def main(argv: Sequence[str] | None = None) -> int:
@@ -980,8 +978,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.output_repair_ledger.parent.mkdir(parents=True, exist_ok=True)
         payload = "".join(json.dumps(row, ensure_ascii=False, sort_keys=True, default=str) + "\n" for row in repair_ledger)
         args.output_repair_ledger.write_text(payload, encoding="utf-8", newline="\n")
+    if args.output_consumer_handoff_root is not None:
+        handoff = build_consumer_handoffs(repair_ledger)
+        args.output_consumer_handoff_root.mkdir(parents=True, exist_ok=True)
+        manifest = dict(handoff); manifest.pop("handoffs", None)
+        (args.output_consumer_handoff_root / "manifest.json").write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+        by_stage: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for row in handoff["handoffs"]:
+            by_stage[text(row.get("consumer_stage")) or "manual_review"].append(row)
+        for stage, rows in sorted(by_stage.items()):
+            payload = "".join(json.dumps(row, ensure_ascii=False, sort_keys=True, default=str) + "\n" for row in rows)
+            (args.output_consumer_handoff_root / f"{stage}.jsonl").write_text(payload, encoding="utf-8", newline="\n")
+    if args.output_convergence_delta is not None:
+        delta = build_convergence_delta(repair_ledger, previous_ledger)
+        args.output_convergence_delta.parent.mkdir(parents=True, exist_ok=True)
+        args.output_convergence_delta.write_text(
+            json.dumps(delta, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return 0
-
-
 if __name__ == "__main__":
     raise SystemExit(main())
