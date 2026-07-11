@@ -178,7 +178,7 @@ def fetch_missing_roles(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
     return [dict(row) for row in cur.fetchall()]
 
 
-def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
+def fetch_missing_talent(cur: Any, *, item_code: str, include_existing: bool = False) -> list[dict[str, Any]]:
     cur.execute(
         """
         select
@@ -212,17 +212,40 @@ def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
                          'source_document_codes', q.source_document_codes
                      ) order by q.claim_code) as evidence_claims
                 from (
-                    select mc.claim_code, mc.direction::text as direction, mc.claim_summary,
-                           coalesce(array_agg(distinct sd.document_code) filter (where sd.id is not null), array[]::text[]) as source_document_codes
-                      from retrieval_v3.material_object_links mol
-                      join retrieval_v3.material_claims mc on mc.id = mol.claim_id
-                      left join retrieval_v3.claim_source_passages csp on csp.claim_id = mc.id
-                      left join retrieval_v3.source_passages spg on spg.id = csp.source_passage_id
-                      left join retrieval_v3.source_documents sd on sd.id = spg.source_document_id
-                     where mol.object_id = o.id
-                       and mol.review_status = 'accepted'
-                     group by mc.id, mc.claim_code, mc.direction, mc.claim_summary
-                     order by mc.id
+                    select distinct on (raw.claim_summary)
+                           raw.claim_code, raw.direction, raw.claim_summary, raw.source_document_codes
+                      from (
+                          select cc.claim_key as claim_code, ''::text as direction, cc.claim_summary,
+                                 coalesce(array_agg(distinct ce.document_code) filter (where btrim(ce.document_code) <> ''), array[]::text[]) as source_document_codes,
+                                 0 as source_priority,
+                                 cc.updated_at as source_order
+                            from retrieval_v3.claim_cache cc
+                            left join retrieval_v3.claim_evidence ce on ce.claim_key = cc.claim_key
+                           where cc.status = 'active'
+                             and cc.claim_key like 'CLMK-%%'
+                             and (
+                                  cc.object_id = o.id
+                                  or (
+                                      cc.object_id is null
+                                      and cc.object_name in (o.canonical_name, o.normalized_name)
+                                  )
+                             )
+                           group by cc.claim_key, cc.claim_summary, cc.updated_at
+                          union all
+                          select mc.claim_code, mc.direction::text, mc.claim_summary,
+                                 coalesce(array_agg(distinct sd.document_code) filter (where sd.id is not null), array[]::text[]),
+                                 1 as source_priority,
+                                 mc.updated_at as source_order
+                            from retrieval_v3.material_object_links mol
+                            join retrieval_v3.material_claims mc on mc.id = mol.claim_id
+                            left join retrieval_v3.claim_source_passages csp on csp.claim_id = mc.id
+                            left join retrieval_v3.source_passages spg on spg.id = csp.source_passage_id
+                            left join retrieval_v3.source_documents sd on sd.id = spg.source_document_id
+                           where mol.object_id = o.id
+                             and mol.review_status = 'accepted'
+                           group by mc.id, mc.claim_code, mc.direction, mc.claim_summary, mc.updated_at
+                      ) raw
+                     order by raw.claim_summary, raw.source_priority, raw.source_order desc
                      limit 40
                 ) q
           ) ev on true
@@ -251,12 +274,12 @@ def fetch_missing_talent(cur: Any, *, item_code: str) -> list[dict[str, Any]]:
          where o.object_type = 'person'
            and tob.object_role <> 'target_emperor'
            and (%s = '' or rt.item_code = %s)
-           and (pp.talent_grade is null or pp.talent_grade_version <> %s)
+           and (%s or pp.talent_grade is null or pp.talent_grade_version <> %s)
          group by o.id, o.object_code, o.canonical_name, o.normalized_name, pp.id, pp.talent_grade_basis, pp.review_status,
                   ev.evidence_claims, av.authority_evaluations
          order by o.canonical_name
         """,
-        (item_code, item_code, TALENT_GRADE_VERSION),
+        (item_code, item_code, include_existing, TALENT_GRADE_VERSION),
     )
     return [dict(row) for row in cur.fetchall()]
 
@@ -348,7 +371,15 @@ def fetch_pending_negative_talent(cur: Any, *, item_code: str) -> list[dict[str,
                 from (
                     select cc.claim_key, cc.claim_summary, cc.outcome
                       from retrieval_v3.claim_cache cc
-                     where cc.object_id = o.id and cc.status = 'active'
+                     where cc.status = 'active'
+                       and cc.claim_key like 'CLMK-%%'
+                       and (
+                            cc.object_id = o.id
+                            or (
+                                cc.object_id is null
+                                and cc.object_name in (o.canonical_name, o.normalized_name)
+                            )
+                       )
                      order by cc.updated_at desc, cc.claim_key
                      limit 40
                 ) q
@@ -560,7 +591,14 @@ def profile_basis_item(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_workitems(*, dsn: str, item_code: str, kinds: Sequence[str], object_ids: Sequence[int] = ()) -> list[dict[str, Any]]:
+def build_workitems(
+    *,
+    dsn: str,
+    item_code: str,
+    kinds: Sequence[str],
+    object_ids: Sequence[int] = (),
+    refresh_talent: bool = False,
+) -> list[dict[str, Any]]:
     selected = set(kinds or TASK_KINDS)
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
@@ -571,7 +609,10 @@ def build_workitems(*, dsn: str, item_code: str, kinds: Sequence[str], object_id
             if PERSON_ROLE_KIND in selected:
                 rows.extend(role_item(row) for row in fetch_missing_roles(cur, item_code=item_code))
             if PERSON_TALENT_KIND in selected:
-                rows.extend(talent_item(row) for row in fetch_missing_talent(cur, item_code=item_code))
+                rows.extend(
+                    talent_item(row)
+                    for row in fetch_missing_talent(cur, item_code=item_code, include_existing=refresh_talent)
+                )
             if PERSON_NEGATIVE_TALENT_KIND in selected:
                 rows.extend(negative_talent_item(row) for row in fetch_pending_negative_talent(cur, item_code=item_code))
             if PERSON_PROFILE_BASIS_KIND in selected:
@@ -841,8 +882,17 @@ def require_authority_sources(value: Any) -> list[dict[str, str]]:
         raise JudgmentWorklistError("authority_sources must be a non-empty list")
     rows: list[dict[str, str]] = []
     for index, raw in enumerate(value, start=1):
+        if isinstance(raw, str) and raw.startswith("PCA-"):
+            rows.append({"claim_key": raw})
+            continue
         if not isinstance(raw, Mapping):
             raise JudgmentWorklistError(f"authority_sources[{index}] must be an object")
+        claim_key = text(raw.get("claim_key"))
+        if claim_key:
+            if not claim_key.startswith("PCA-"):
+                raise JudgmentWorklistError(f"authority_sources[{index}].claim_key must start with PCA-")
+            rows.append({"claim_key": claim_key})
+            continue
         source = {
             "source_title": text(raw.get("source_title")),
             "source_locator": text(raw.get("source_locator")),
@@ -856,6 +906,22 @@ def require_authority_sources(value: Any) -> list[dict[str, str]]:
             )
         rows.append(source)
     return rows
+
+
+def existing_authority_source_refs(cur: Any, *, object_id: int, lane: str) -> list[dict[str, str]]:
+    cur.execute(
+        """
+        select distinct ppl.claim_key
+          from retrieval_v3.person_profile_claim_links ppl
+         where ppl.object_id = %s
+           and ppl.profile_field = 'authority_evaluation'
+           and ppl.proposal_status = 'accepted'
+           and ppl.link_payload->>'lane' = %s
+         order by ppl.claim_key
+        """,
+        (object_id, lane),
+    )
+    return [{"claim_key": text(row["claim_key"])} for row in cur.fetchall()]
 
 
 def upsert_authority_sources(
@@ -881,6 +947,44 @@ def upsert_authority_sources(
     profile_id = int(profile.get("person_profile_id") or 0)
     run_code = f"authority-profile-{lane}-v1"
     for source in sources:
+        referenced_claim_key = text(source.get("claim_key"))
+        if referenced_claim_key:
+            cur.execute(
+                """
+                select claim_key, claim_summary, confidence
+                  from retrieval_v3.claim_cache
+                 where claim_key = %s
+                   and status = 'active'
+                   and object_id = %s
+                """,
+                (referenced_claim_key, object_id),
+            )
+            referenced = fetch_one(cur)
+            summary = text(referenced.get("claim_summary"))
+            link_key = "PPL-" + stable_hash([referenced_claim_key, object_id, lane, proposal_value], length=24)
+            cur.execute(
+                """
+                insert into retrieval_v3.person_profile_claim_links (
+                    link_key, claim_key, object_id, object_name, profile_field, proposal_value,
+                    proposal_status, basis, confidence, link_payload, resolved_profile_id
+                )
+                values (%s, %s, %s, %s, 'authority_evaluation', %s,
+                        'accepted', %s, %s, %s::jsonb, %s)
+                on conflict (link_key) do update set
+                    proposal_status = 'accepted',
+                    basis = excluded.basis,
+                    confidence = excluded.confidence,
+                    link_payload = excluded.link_payload,
+                    resolved_profile_id = excluded.resolved_profile_id,
+                    updated_at = now()
+                """,
+                (
+                    link_key, referenced_claim_key, object_id, object_name, proposal_value, summary,
+                    referenced.get("confidence") or confidence,
+                    json_param({"lane": lane, "source": {"claim_key": referenced_claim_key}}), profile_id,
+                ),
+            )
+            continue
         title = text(source.get("source_title"))
         locator = text(source.get("source_locator"))
         url = text(source.get("source_url"))
@@ -1119,7 +1223,10 @@ def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
     grade = require_grade(row.get("talent_grade"))
     confidence = require_confidence(row.get("talent_grade_confidence"), "talent_grade_confidence")
     authority_consensus = require_choice(row.get("talent_authority_consensus"), AUTHORITY_CONSENSUS_VALUES, "talent_authority_consensus")
-    authority_sources = require_authority_sources(row.get("authority_sources"))
+    authority_source_value = row.get("authority_sources")
+    if not authority_source_value:
+        authority_source_value = existing_authority_source_refs(cur, object_id=object_id, lane="talent_grade")
+    authority_sources = require_authority_sources(authority_source_value)
     if authority_consensus == "none":
         raise JudgmentWorklistError(f"{row.get('_line_no')}: talent-grade-v2 requires authority consensus and authority_sources")
     performance_support = require_choice(row.get("talent_performance_support"), EVIDENCE_STRENGTH_VALUES, "talent_performance_support")
@@ -1175,7 +1282,10 @@ def update_negative_talent(cur: Any, row: Mapping[str, Any]) -> None:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: negative class and severity must be blank when has_negative_talent_class is false")
     confidence = require_confidence(row.get("negative_talent_confidence"), "negative_talent_confidence")
     authority_consensus = require_choice(row.get("negative_authority_consensus"), AUTHORITY_CONSENSUS_VALUES, "negative_authority_consensus")
-    authority_sources = require_authority_sources(row.get("authority_sources")) if has_negative else []
+    authority_source_value = row.get("authority_sources")
+    if has_negative and not authority_source_value:
+        authority_source_value = existing_authority_source_refs(cur, object_id=object_id, lane="negative_talent")
+    authority_sources = require_authority_sources(authority_source_value) if has_negative else []
     if has_negative and authority_consensus == "none":
         raise JudgmentWorklistError(f"{row.get('_line_no')}: negative classification requires authority consensus and authority_sources")
     fact_support = require_choice(row.get("negative_fact_support"), EVIDENCE_STRENGTH_VALUES, "negative_fact_support")
@@ -1295,6 +1405,7 @@ def build_parser() -> argparse.ArgumentParser:
     worklist.add_argument("--item-code", default="I5B")
     worklist.add_argument("--kind", choices=TASK_KINDS, action="append", default=[])
     worklist.add_argument("--object-id", type=int, action="append", default=[], help="Limit person workitems to explicit retrieval_v3 object IDs; repeatable.")
+    worklist.add_argument("--refresh-talent", action="store_true", help="Rebuild talent-grade workitems even when the current profile already uses talent-grade-v2.")
     worklist.add_argument("--batch-size", type=int)
     worklist.add_argument("--output-root", type=Path, required=True)
 
@@ -1331,6 +1442,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             item_code=args.item_code,
             kinds=args.kind or TASK_KINDS,
             object_ids=args.object_id,
+            refresh_talent=args.refresh_talent,
         )
         runtime = agent_runtime_config.resolve_agent_stage("identity_judgment")
         summary = write_worklist_outputs(

@@ -140,6 +140,36 @@ def test_authority_sources_require_durable_source_identity() -> None:
         tool.require_authority_sources([{"source_title": "旧唐书", "evaluation_summary": "缺定位。"}])
 
 
+def test_authority_sources_accept_persisted_claim_reference() -> None:
+    assert tool.require_authority_sources(["PCA-EXISTING"]) == [{"claim_key": "PCA-EXISTING"}]
+    assert tool.require_authority_sources([{"claim_key": "PCA-EXISTING"}]) == [{"claim_key": "PCA-EXISTING"}]
+    with pytest.raises(tool.JudgmentWorklistError, match="must start with PCA-"):
+        tool.require_authority_sources([{"claim_key": "CLMK-WRONG-LANE"}])
+
+
+class _RecordingCursor:
+    def __init__(self) -> None:
+        self.sql = ""
+        self.params: tuple[object, ...] = ()
+
+    def execute(self, sql: str, params: tuple[object, ...]) -> None:
+        self.sql = sql
+        self.params = params
+
+    def fetchall(self) -> list[dict[str, object]]:
+        return []
+
+
+def test_fetch_missing_talent_includes_name_matched_claim_cache_and_refresh_flag() -> None:
+    cursor = _RecordingCursor()
+
+    assert tool.fetch_missing_talent(cursor, item_code="I5B", include_existing=True) == []
+
+    assert "cc.object_name in (o.canonical_name, o.normalized_name)" in cursor.sql
+    assert "cc.claim_key like 'CLMK-%%'" in cursor.sql
+    assert cursor.params == ("I5B", "I5B", True, tool.TALENT_GRADE_VERSION)
+
+
 def test_write_worklist_outputs_builds_codex_prompts(tmp_path: Path) -> None:
     workitems = [
         tool.target_period_item(
