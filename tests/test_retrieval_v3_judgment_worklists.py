@@ -87,7 +87,23 @@ def test_talent_item_uses_authority_consensus_v2_contract() -> None:
 
     assert item["context"]["rubric_version"] == "talent-grade-v2"
     assert item["context"]["authority_evaluations"]
+    assert any("不能据此排除 top_talent" in rule for rule in item["context"]["grade_boundary_rules"])
     assert item["required_patch"]["talent_grade_confidence"] is None
+
+
+def test_blind_talent_refresh_omits_previous_profile_basis() -> None:
+    item = tool.talent_item(
+        {
+            "object_id": 32,
+            "canonical_name": "长孙无忌",
+            "talent_grade_basis": "长孙无忌，上一轮评价结论。",
+            "authority_evaluations": [],
+            "evidence_claims": [],
+        },
+        include_current_profile_basis=False,
+    )
+
+    assert "current_profile_basis" not in item["context"]
     assert item["required_patch"]["talent_authority_consensus"] == ""
     assert item["required_patch"]["authority_sources"] == []
     assert "材料不足" in tool.prompt_for_task(

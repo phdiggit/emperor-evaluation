@@ -459,9 +459,9 @@ def role_item(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
+def talent_item(row: Mapping[str, Any], *, include_current_profile_basis: bool = True) -> dict[str, Any]:
     code = workitem_code(PERSON_TALENT_KIND, row.get("object_id"))
-    return {
+    item = {
         "workitem_code": code,
         "task_kind": PERSON_TALENT_KIND,
         "priority": 60,
@@ -475,7 +475,6 @@ def talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
             "target_emperors": [text(value) for value in row.get("target_emperors") or [] if text(value)],
             "known_dynasties": [text(value) for value in row.get("known_dynasties") or [] if text(value)],
             "role_kinds": [text(value) for value in row.get("role_kinds") or [] if text(value)],
-            "current_profile_basis": text(row.get("talent_grade_basis")),
             "allowed_talent_grades": sorted(TALENT_GRADES),
             "rubric_version": TALENT_GRADE_VERSION,
             "rubric": {
@@ -485,6 +484,12 @@ def talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
                 "top_talent": "同时代同领域第一梯队，对重大历史进程、制度或文化建设具有关键作用。",
                 "historic_talent": "跨时代公认的标杆人物，其方法、制度、思想或成就具有持续历史影响。",
             },
+            "grade_boundary_rules": [
+                "缺少跨时代影响只能排除 historic_talent，不能据此排除 top_talent。",
+                "top_talent 以同时代第一梯队和关键历史作用为门槛，不要求成为跨时代标杆。",
+                "政治品格、党争结局或受诛受贬不得降低能力档，除非事实直接证明其履职能力受限。",
+                "若人物在定策、辅政、制度建设、军事或文化等多个领域均有第一梯队表现，应明确比较 top_talent，而非停留在 important_talent 基础档。",
+            ],
             "evidence_claims": row.get("evidence_claims") if isinstance(row.get("evidence_claims"), list) else [],
             "authority_evaluations": row.get("authority_evaluations") if isinstance(row.get("authority_evaluations"), list) else [],
             "allowed_authority_consensus": sorted(AUTHORITY_CONSENSUS_VALUES),
@@ -504,6 +509,9 @@ def talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
             "talent_grade_basis": f"{text(row.get('canonical_name'))}，",
         },
     }
+    if include_current_profile_basis:
+        item["context"]["current_profile_basis"] = text(row.get("talent_grade_basis"))
+    return item
 
 
 def negative_talent_item(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -610,7 +618,7 @@ def build_workitems(
                 rows.extend(role_item(row) for row in fetch_missing_roles(cur, item_code=item_code))
             if PERSON_TALENT_KIND in selected:
                 rows.extend(
-                    talent_item(row)
+                    talent_item(row, include_current_profile_basis=not refresh_talent)
                     for row in fetch_missing_talent(cur, item_code=item_code, include_existing=refresh_talent)
                 )
             if PERSON_NEGATIVE_TALENT_KIND in selected:
@@ -628,7 +636,7 @@ def prompt_for_task(*, task: Mapping[str, Any], workitems: Sequence[Mapping[str,
     schema_notes = {
         TARGET_PERIOD_KIND: "为每个目标皇帝填写 dynasty_label；必须是 allowed_dynasty_labels 之一。basis 只写具体判断，例如“司马炎为西晋开国皇帝”。",
         PERSON_ROLE_KIND: "为每个人物填写 role_kind；只能用 allowed_role_kinds。只有无法判定时才用 other，并在 basis 写明原因。",
-        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识基础档，再用 evidence_claims 校准；只能用 allowed_talent_grades。若输入没有权威评价，必须只读检索正史论赞、后世史论或现代专业研究，并把来源标题、定位和评价摘要写入 authority_sources；找不到有效权威来源则不要输出该人物。材料不足降低 evidence_coverage 和 confidence，不得直接降为普通。不得用官职、名气、忠诚、政治结局或品格替代能力判断。talent_grade_basis 必须以“姓名，”开头，分别说明史论共识、事实校准、主要限制或争议。",
+        PERSON_TALENT_KIND: "按 rubric_version 先用 authority_evaluations 确定史论共识基础档，再用 evidence_claims 校准；必须逐条遵守 grade_boundary_rules，只能用 allowed_talent_grades。缺少跨时代影响只能排除 historic_talent，不能排除 top_talent；政治品格、党争结局或受诛受贬不得降低能力档。若输入没有权威评价，必须只读检索正史论赞、后世史论或现代专业研究，并把来源标题、定位和评价摘要写入 authority_sources；找不到有效权威来源则不要输出该人物。材料不足降低 evidence_coverage 和 confidence，不得直接降为普通。不得用官职、名气、忠诚、政治结局或品格替代能力判断。talent_grade_basis 必须以“姓名，”开头，分别说明史论共识、事实校准、主要限制或争议。",
         PERSON_NEGATIVE_TALENT_KIND: "先用 authority_evaluations 判断负面政治风险共识，再用 evidence_claims 校准。若没有稳定负面分类，has_negative_talent_class=false，其余类型和严重度留空，但仍填写共识、事实支持、覆盖度、置信度和依据。不得仅凭被诛、被贬、败亡、投降、党争结局或单一敌对来源定性；能力、品格和政治风险必须分开。",
         PERSON_PROFILE_BASIS_KIND: "只补人物评价简介 talent_grade_basis，不修改 talent_grade。talent_grade_basis 必须以“姓名，”开头，写高信息量中文评价，不写模板句。",
     }
