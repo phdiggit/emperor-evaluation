@@ -189,34 +189,7 @@ raw_material_score =
 
 撤权、诛废、猜忌、清洗、功臣不保等处置性材料，本身不作为本规则的结果反馈；只有材料证明其是某次任用授权安排的直接履职后果时，才计入 `appointment_effect`。
 
-### 入分材料密度聚合
-
-`appointment_delegation` 使用通用 claim 入分材料密度聚合器的首个正式策略实例，`policy_version=v3-native-density-decay-20260711`。聚合器本身由规则表驱动，不是本 rule 专属；这里仅定义 appointment 实例的参数。每条正式入分材料都参与计算，且聚合权重严格大于零；同事件、同对象或同方向对象越密集，新增材料的边际贡献越小，但不会被删除或归零。
-
-对正负两侧分别执行：
-
-```text
-material_weight(rank) = 1 / rank
-event_weight(rank) = 1 / rank
-object_weight(rank) = 1 / sqrt(rank)
-
-event_value = sum(material_score_i * material_weight(rank_i))
-object_value = sum(event_value_j * event_weight(rank_j))
-side_signal_unscaled = sum(object_value_k * object_weight(rank_k))
-
-positive_signal = 1.5 * positive_signal_unscaled
-negative_signal = 1.0 * negative_signal_unscaled
-```
-
-排序均在本层按绝对材料贡献从强到弱进行，并用稳定 claim、event group、object 标识打破并列。材料先按 `canonical_event_group` 聚合；缺少 event group 的正式入分材料以自身 claim key 作为独立事件键，不得丢弃。
-
-边界：
-
-- 每条正式入分材料都在 `rank_decay_detail` 中记录 `claim_key`、`binding_code`、`factor_judgment_id`、rank、weight 和 weighted value。
-- 不使用 Top-K，不设置事件数、对象数或材料数硬上限，不在聚合层截断总信号。
-- 单条材料仍遵守本文件既有 `[-4.0, +4.0]` 材料尺度；这是材料因子结果边界，不是材料数量上限。
-- 正向 `1.5`、负向 `1.0` 是刘邦、李世民、朱元璋三人试点的临时尺度参数。扩展其他皇帝前必须对全体样本重新做敏感性分析，不得把三人缩放当作永久全局标尺。
-- raw claim 数量只进入覆盖和诊断报告，不作为额外加分因子。
+本 rule 当前采用的 claim-material 聚合策略版本为 `v3-native-density-decay-20260711`。通用聚合机制和本 rule 的实例参数统一见“八、规则原始信号聚合”；本章只规定任用授权材料语义和因子档位。
 
 ### `appointment_importance`
 
@@ -447,25 +420,35 @@ raw_material_score =
 
 ## 八、规则原始信号聚合
 
-各 rule 的材料按正负两侧分别聚合，再直接相减，得到规则原始净信号。规则层不做区间映射、响应函数、二次封顶或人物档位重映射。
+各 rule 的材料按正负两侧分别聚合，再直接相减，得到规则原始净信号。规则层不做人物档位重映射。claim-material 聚合器是跨 rule 的通用能力，完整通用约束见 [`证据簇计算公式.md#claim-入分材料密度聚合`](../../证据规则/证据簇计算公式.md#claim-入分材料密度聚合)；是否启用及具体参数只由各 rule 的 `eval_rule_material_policies.policy_payload.side_aggregation` 决定。
 
-除 `team_building` 为对象池单元、每个对象只贡献一次外，普通 claim-driven rule 先在同一对象内做重复材料衰减：
+声明 `mode=hierarchical_rank_decay` 的 claim-driven rule 对正负两侧分别执行：
 
 ```text
-object_side_signal =
-  strongest_material_score
-  + 0.35 * sum(other_material_scores)
+material_weight(rank) = 1 / rank ^ material_decay
+event_weight(rank) = 1 / rank ^ event_decay
+object_weight(rank) = 1 / rank ^ object_decay
+
+event_value = sum(material_score_i * material_weight(rank_i))
+object_value = sum(event_value_j * event_weight(rank_j))
+side_signal = lane_scale * sum(object_value_k * object_weight(rank_k))
 ```
 
-同一对象内的聚合值不超过单材料最强值的 `1.5` 倍，也不超过单对象上限。随后 rule 侧不再做压缩，只做对象间线性求和：
+每条正式入分材料的聚合权重必须严格大于零；不使用 Top-K，不设置事件数、对象数或材料数硬上限，不在聚合层截断侧向总信号。材料先按 `canonical_event_group` 聚合；缺少 event group 的正式入分材料以自身 claim key 作为独立事件键，不得丢弃。单条材料仍遵守本文件既有 `[-4.0, +4.0]` 因子结果边界，这不是材料数量上限。
+
+当前已启用实例：
+
+| rule | policy version | material decay | event decay | object decay | positive scale | negative scale |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| `appointment_delegation` | `v3-native-density-decay-20260711` | `1.0` | `1.0` | `0.5` | `1.5` | `1.0` |
+
+该实例参数是刘邦、李世民、朱元璋三人试点的临时尺度。扩展其他皇帝前必须对全体样本重新做敏感性分析，不得自动复制到其他 rule。其他 claim-driven rule 若未在自己的规则表声明该 mode，继续使用其当前聚合公式；`team_building` 以对象池为计分单元，不进入 claim-material 聚合器。
+
+所有启用实例都必须在 `rank_decay_detail` 中为每条正式入分材料记录 `claim_key`、`binding_code`、`factor_judgment_id`、rank、weight 和 weighted value。raw claim 数量只进入覆盖和诊断报告，不作为额外加分因子。
+
+聚合后统一输出：
 
 ```text
-positive_signal(rule) =
-  sum(object_side_signal_j for positive objects)
-
-negative_signal(rule) =
-  sum(object_side_signal_j for negative objects)
-
 rule_raw_net(rule) =
   positive_signal(rule) - negative_signal(rule)
 ```
