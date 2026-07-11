@@ -83,6 +83,29 @@ def test_appointment_policy_uses_all_material_rank_decay_without_aggregation_cap
     assert cluster["calc_detail"]["rank_decay_detail"]["positive"]["material_count"] == 2
 
 
+def test_rank_decay_activation_is_policy_driven_not_rule_code_driven() -> None:
+    cluster = tool.compute_target_cluster(
+        [judgment(1, value="2.0", rule_code="talent_discovery")],
+        material_policy={
+            "policy_code": "POL-I5B-TALENT",
+            "policy_version": "test-density-decay",
+            "carrier_mode": "claim_materials",
+            "policy_payload": {"side_aggregation": {
+                "mode": "hierarchical_rank_decay",
+                "material_decay": "1",
+                "event_decay": "1",
+                "object_decay": "0.5",
+                "positive_lane_scale": "1.5",
+                "negative_lane_scale": "1",
+            }},
+        },
+    )
+
+    assert cluster["rule_code"] == "talent_discovery"
+    assert cluster["positive_signal"] == Decimal("3.000")
+    assert cluster["calc_detail"]["aggregation_policy"]["mode"] == "hierarchical_rank_decay"
+
+
 def test_compute_target_cluster_sums_across_objects_without_rule_level_compression() -> None:
     cluster = tool.compute_target_cluster(
         [

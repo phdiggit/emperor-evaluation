@@ -11,6 +11,7 @@ def policy() -> dict:
     return {
         "item_code": "I5B", "rule_code": "appointment_delegation",
         "policy_code": "POL-I5B-APPOINTMENT-DELEGATION", "policy_version": "v3-native-density-decay-20260711",
+        "policy_source": "data/configs/test_policy.json",
         "side_aggregation": {
             "mode": "hierarchical_rank_decay", "all_scored_materials_contribute": True,
             "hard_aggregation_cap": False, "top_k": False,
@@ -44,5 +45,6 @@ def test_build_plan_updates_source_and_runtime_policy_versions() -> None:
     assert plan["unchanged"] is False
     assert plan["desired_policy_payload"]["existing"] is True
     assert plan["desired_policy_payload"]["side_aggregation"]["mode"] == "hierarchical_rank_decay"
+    assert plan["desired_policy_payload"]["aggregation_policy_source"] == "data/configs/test_policy.json"
     assert plan["desired_source_row"]["policy_version"] == "v3-native-density-decay-20260711"
     assert plan["write_db"] is False

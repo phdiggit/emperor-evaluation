@@ -803,10 +803,7 @@ def compute_target_cluster(
         return compute_team_building_cluster(judgments)
     policy_payload = (material_policy or {}).get("policy_payload") or {}
     aggregation = policy_payload.get("side_aggregation") or {}
-    if (
-        judgments[0].rule_code == "appointment_delegation"
-        and text(aggregation.get("mode")) == HIERARCHICAL_RANK_DECAY_MODE
-    ):
+    if text(aggregation.get("mode")) == HIERARCHICAL_RANK_DECAY_MODE:
         return compute_rank_decay_cluster(judgments, material_policy=material_policy)
     raw_material_scores = [score_material(judgment) for judgment in judgments if judgment.target_action == "score"]
     material_scores, deduped_material_scores = dedupe_material_scores(raw_material_scores)

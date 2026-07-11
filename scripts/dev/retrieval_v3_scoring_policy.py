@@ -50,7 +50,7 @@ def merged_policy_payload(current: Mapping[str, Any] | None, policy: Mapping[str
     payload = dict(current or {})
     payload["side_aggregation"] = dict(policy["side_aggregation"])
     payload["aggregation_trial_scope"] = list(policy.get("trial_scope") or [])
-    payload["aggregation_policy_source"] = "data/configs/retrieval_v3_appointment_delegation_scoring_policy.json"
+    payload["aggregation_policy_source"] = text(policy.get("policy_source"))
     return payload
 
 

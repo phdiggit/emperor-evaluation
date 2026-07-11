@@ -191,7 +191,7 @@ raw_material_score =
 
 ### 入分材料密度聚合
 
-`appointment_delegation` 使用 `policy_version=v3-native-density-decay-20260711` 的三层连续递减聚合。每条正式入分材料都参与计算，且聚合权重严格大于零；同事件、同对象或同方向对象越密集，新增材料的边际贡献越小，但不会被删除或归零。
+`appointment_delegation` 使用通用 claim 入分材料密度聚合器的首个正式策略实例，`policy_version=v3-native-density-decay-20260711`。聚合器本身由规则表驱动，不是本 rule 专属；这里仅定义 appointment 实例的参数。每条正式入分材料都参与计算，且聚合权重严格大于零；同事件、同对象或同方向对象越密集，新增材料的边际贡献越小，但不会被删除或归零。
 
 对正负两侧分别执行：
 
