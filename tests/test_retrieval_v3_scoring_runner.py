@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from scripts.dev import retrieval_v3_scoring_runner as tool
 
 
@@ -126,6 +128,12 @@ def test_build_promotion_worklists_splits_preview_statuses() -> None:
     assert report["deterministic_count"] == 1
     assert report["rule_review_count"] == 1
     assert report["deterministic_by_rule"] == {"team_building": 1}
+
+
+def test_audit_query_counts_scoring_binding_claims_as_material() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "coalesce(bs.material_claims, 0)" in source
 
 
 def test_parser_is_read_only_by_default() -> None:

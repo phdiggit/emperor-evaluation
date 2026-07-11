@@ -186,6 +186,9 @@ def fetch_audit_matrix(
                      group by ac.target_id, c.candidate_rule_code
                 ), binding_stats as (
                     select ac.target_id, b.rule_code,
+                           count(distinct ac.id) filter (
+                               where b.review_status in ('pending', 'accepted') and b.usable_for_scoring_cluster
+                           )::int as material_claims,
                            count(*) filter (where b.review_status = 'accepted' and b.usable_for_scoring_cluster)::int as accepted_bindings,
                            count(*) filter (where b.review_status in ('pending', 'accepted') and b.usable_for_scoring_cluster)::int as scoring_bindings,
                            count(*) filter (
@@ -259,7 +262,7 @@ def fetch_audit_matrix(
                      group by ac.target_id, c.candidate_rule_code
                 )
                 select cells.*,
-                       greatest(coalesce(cs.material_claims, 0), coalesce(js.claim_lineage_count, 0)) as material_claims,
+                       greatest(coalesce(cs.material_claims, 0), coalesce(bs.material_claims, 0), coalesce(js.claim_lineage_count, 0)) as material_claims,
                        coalesce(cs.scoring_candidates, 0) as scoring_candidates,
                        coalesce(cs.accepted_candidates, 0) as accepted_candidates,
                        coalesce(cs.unresolved_candidates, 0) as unresolved_candidates,
