@@ -275,6 +275,7 @@ def build_object_rows(
             continue
         identity_key = raw_object_identity(seed)
         obj_code = object_code(identity_key)
+        identity_names = sorted({normalized_name(row["name_text"]) for row in alias_rows(seed) if normalized_name(row["name_text"])})
         coverage = coverage_index.get(name) or {}
         documents = docs_index.get(name) or []
         mention_slices = slices_index.get(name) or []
@@ -297,6 +298,8 @@ def build_object_rows(
                     "identity_status": "active",
                     "curator_note": "",
                     "identity_payload": payload,
+                    "identity_aliases": identity_names,
+                    "identity_period": text(seed.get("period")),
                 }
             )
             profiles.append(
@@ -436,6 +439,33 @@ def fetch_one_id(cur: Any) -> int:
 
 
 def upsert_object(cur: Any, row: Mapping[str, Any]) -> int:
+    aliases = [text(value) for value in row.get("identity_aliases") or [] if text(value)]
+    period = text(row.get("identity_period"))
+    if aliases and period:
+        cur.execute(
+            """
+            select distinct o.id
+              from retrieval_v3.objects o
+              join retrieval_v3.object_names n on n.object_id=o.id
+              join retrieval_v3.person_affiliations pa on pa.object_id=o.id
+             where o.identity_status='active'
+               and o.object_type='person'
+               and n.normalized_name=any(%s)
+               and pa.dynasty_label=%s
+               and pa.review_status in ('pending','accepted')
+             order by o.id
+            """,
+            (aliases, period),
+        )
+        matches = [int(match["id"] if isinstance(match, Mapping) else match[0]) for match in cur.fetchall()]
+        if len(matches) > 1:
+            raise ObjectSourceCacheBackfillError(f"ambiguous active object aliases for {row.get('canonical_name')}: {matches}")
+        if matches:
+            cur.execute(
+                """update retrieval_v3.objects set identity_payload=identity_payload||%s::jsonb,updated_at=now() where id=%s returning id""",
+                (json_param(row.get("identity_payload") or {}), matches[0]),
+            )
+            return fetch_one_id(cur)
     cur.execute(
         """
         insert into retrieval_v3.objects (

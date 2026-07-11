@@ -157,6 +157,8 @@ def test_build_object_rows_from_cache_artifacts(tmp_path: Path) -> None:
     assert payload["operation_counts"]["retrieval_v3.target_objects"] == 1
     assert {row["name_kind"] for row in payload["object_name_rows"]} == {"canonical", "alias", "script_variant"}
     assert payload["profile_rows"][0]["profile_payload"]["coverage"]["mention_slice_count"] == 2
+    assert payload["object_rows"][0]["identity_aliases"] == ["子房", "张良", "張良"]
+    assert payload["object_rows"][0]["identity_period"] == "西汉"
 
 
 def test_apply_defaults_to_dry_run_without_inserts(tmp_path: Path, monkeypatch) -> None:
