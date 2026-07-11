@@ -444,20 +444,29 @@ def upsert_object(cur: Any, row: Mapping[str, Any]) -> int:
     if aliases and period:
         cur.execute(
             """
-            select distinct o.id
+            select o.id, bool_or(pa.dynasty_label=%s) as period_match
               from retrieval_v3.objects o
               join retrieval_v3.object_names n on n.object_id=o.id
-              join retrieval_v3.person_affiliations pa on pa.object_id=o.id
+              left join retrieval_v3.person_affiliations pa
+                on pa.object_id=o.id and pa.review_status in ('pending','accepted')
              where o.identity_status='active'
                and o.object_type='person'
                and n.normalized_name=any(%s)
-               and pa.dynasty_label=%s
-               and pa.review_status in ('pending','accepted')
+             group by o.id
              order by o.id
             """,
-            (aliases, period),
+            (period, aliases),
         )
-        matches = [int(match["id"] if isinstance(match, Mapping) else match[0]) for match in cur.fetchall()]
+        match_rows = cur.fetchall()
+        matches = [int(match["id"] if isinstance(match, Mapping) else match[0]) for match in match_rows]
+        if len(matches) > 1:
+            period_matches = [
+                int(match["id"] if isinstance(match, Mapping) else match[0])
+                for match in match_rows
+                if bool(match.get("period_match") if isinstance(match, Mapping) else match[1])
+            ]
+            if len(period_matches) == 1:
+                matches = period_matches
         if len(matches) > 1:
             raise ObjectSourceCacheBackfillError(f"ambiguous active object aliases for {row.get('canonical_name')}: {matches}")
         if matches:

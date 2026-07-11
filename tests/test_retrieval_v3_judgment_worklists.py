@@ -89,6 +89,8 @@ def test_talent_item_uses_authority_consensus_v2_contract() -> None:
     assert item["context"]["authority_evaluations"]
     assert any("不能据此排除 top_talent" in rule for rule in item["context"]["grade_boundary_rules"])
     assert any("不得按朝代分配档位人数" in rule for rule in item["context"]["grade_boundary_rules"])
+    assert any("三个独立重要战役" in rule for rule in item["context"]["grade_boundary_rules"])
+    assert any("公认治世" in rule for rule in item["context"]["grade_boundary_rules"])
     assert "时代塑造级" in item["context"]["rubric"]["historic_talent"]
     assert item["required_patch"]["talent_grade_confidence"] is None
 
