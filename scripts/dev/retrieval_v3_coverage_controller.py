@@ -16,12 +16,11 @@ from scripts.dev.object_pool_aliases import normalize_object_alias  # noqa: E402
 from scripts.dev.retrieval_v3_coverage_convergence import (  # noqa: E402
     apply_convergence,
     build_consumer_handoffs, build_convergence_delta,
-    build_gap_routes,
-    build_repair_ledger,
+    build_gap_routes, build_reconciliation_index,
+    build_repair_ledger, score_lineage_gaps,
 )
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
-
 
 DEFAULT_ITEM_CODE = "I5B"; DEFAULT_RULE_CODE = "appointment_delegation"
 ACTIVE_STATUSES = ("active", "needs_review")
@@ -84,27 +83,6 @@ def list_texts(value: Any) -> list[str]:
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return []
     return [text(item) for item in value if text(item)]
-
-
-def reconciliation_index(reports: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
-    history: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for report_index, report in enumerate(reports, start=1):
-        gate_mode = text(report.get("gate_mode")) or "initial_actionability"
-        for result in report.get("results") or []:
-            if not isinstance(result, Mapping):
-                continue
-            code = text(result.get("event_inventory_code"))
-            if not code:
-                continue
-            history[code].append({
-                "attempt": len(history[code]) + 1, "report_index": report_index, "gate_mode": gate_mode,
-                "decision": text(result.get("decision")), "confidence": text(result.get("confidence")),
-                "review_note": text(result.get("review_note")),
-                "group_keys": list_texts(result.get("group_keys")), "claim_keys": list_texts(result.get("claim_keys")),
-                "source_slice_refs": list_texts(result.get("source_slice_refs")),
-            })
-    return {code: {"current": rows[-1], "history": rows} for code, rows in history.items()}
-
 
 def identity_key(row: Mapping[str, Any]) -> str:
     object_id = as_int(row.get("object_id"))
@@ -206,13 +184,15 @@ def merge_rows(
                     "unresolved_candidate_count": 0,
                     "binding_count": 0,
                     "scoring_binding_count": 0,
-                    "factor_judgment_count": 0,
+                    "factor_judgment_count": 0, "scoring_factor_judgment_count": 0,
+                    "material_score_count": 0, "rule_score_cluster_count": 0,
                     "has_appointment": False,
                     "has_responsibility": False,
                     "has_result": False,
                     "_chain_by_group": {},
                     "latest_claim_at": None,
                     "latest_consumed_at": None,
+                    "latest_factor_at": None, "latest_material_score_at": None, "latest_rule_cluster_at": None,
                 },
             )
             if not merged_row["object_id"] and as_int(row.get("object_id")):
@@ -259,11 +239,15 @@ def merge_rows(
                     "unresolved_candidate_count",
                     "binding_count",
                     "scoring_binding_count",
-                    "factor_judgment_count",
+                    "factor_judgment_count", "scoring_factor_judgment_count",
+                    "material_score_count", "rule_score_cluster_count",
                 ):
                     merged_row[field] += as_int(row.get(field))
                 if later_than(row.get("latest_consumed_at"), merged_row["latest_consumed_at"]):
                     merged_row["latest_consumed_at"] = row.get("latest_consumed_at")
+                for field in ("latest_factor_at", "latest_material_score_at", "latest_rule_cluster_at"):
+                    if later_than(row.get(field), merged_row[field]):
+                        merged_row[field] = row.get(field)
     result = []
     for row in merged.values():
         row["event_group_count"] = len(row.pop("_event_group_keys"))
@@ -286,7 +270,7 @@ def gap(gap_type: str, action: str, reason: str, *, blocking: bool = False) -> d
     return {"gap_type": gap_type, "next_action": action, "reason": reason, "blocking": blocking}
 
 
-def assess_object(row: Mapping[str, Any]) -> dict[str, Any]:
+def assess_object(row: Mapping[str, Any], *, rule_code: str = DEFAULT_RULE_CODE) -> dict[str, Any]:
     result = dict(row)
     claim_count = as_int(row.get("active_claim_count"))
     downstream_started = any(
@@ -294,7 +278,8 @@ def assess_object(row: Mapping[str, Any]) -> dict[str, Any]:
         for field in ("candidate_count", "binding_count", "factor_judgment_count")
     )
     chain_ready = bool(row.get("chain_ready"))
-    scoring_relevant = bool(chain_ready or downstream_started)
+    native_claim_chain_relevant = rule_code == DEFAULT_RULE_CODE and chain_ready
+    scoring_relevant = bool(native_claim_chain_relevant or downstream_started)
     gaps: list[dict[str, Any]] = []
     if row.get("identity_conflict_ids"):
         gaps.append(
@@ -333,14 +318,16 @@ def assess_object(row: Mapping[str, Any]) -> dict[str, Any]:
         gaps.append(gap("responsibility_missing", "claim_source_refinement", "appointment signal lacks a concrete duty or task"))
     if claim_count and row.get("has_appointment") and not row.get("has_result"):
         gaps.append(gap("result_feedback_missing", "claim_source_refinement", "appointment chain lacks result or continuity feedback"))
-    if chain_ready and claim_count and as_int(row.get("material_claim_count")) == 0:
+    if native_claim_chain_relevant and claim_count and as_int(row.get("material_claim_count")) == 0:
         gaps.append(gap("material_claim_missing", "promote_claim_cache_to_material", "ready claim chain has not entered native material claims", blocking=True))
-    if chain_ready and as_int(row.get("material_claim_count")) and as_int(row.get("candidate_count")) == 0:
-        gaps.append(gap("candidate_missing", "route_material_candidates", "material claims have no appointment_delegation candidate", blocking=True))
+    if scoring_relevant and as_int(row.get("material_claim_count")) and as_int(row.get("candidate_count")) == 0:
+        gaps.append(gap("candidate_missing", "route_material_candidates", f"material claims have no {rule_code} candidate", blocking=True))
     if scoring_relevant and as_int(row.get("candidate_count")) and as_int(row.get("binding_count")) == 0:
         gaps.append(gap("binding_missing", "candidate_review_and_binding", "rule candidates have no formal binding", blocking=True))
     if as_int(row.get("scoring_binding_count")) and as_int(row.get("factor_judgment_count")) < as_int(row.get("scoring_binding_count")):
         gaps.append(gap("factorization_missing", "build_factorization_worklist", "scoring bindings are not fully factorized", blocking=True))
+    for gap_type, reason in score_lineage_gaps(row):
+        gaps.append(gap(gap_type, "run_rule_scorer_dry_run", reason, blocking=True))
     if downstream_started and later_than(row.get("latest_claim_at"), row.get("latest_consumed_at")):
         gaps.append(gap("consumption_stale", "rerun_native_consumers", "claim cache changed after the latest downstream consumption"))
     result["chain_ready"] = chain_ready
@@ -565,9 +552,9 @@ def build_report(
     expected_events: Sequence[Mapping[str, Any]] = (),
     reconciliation_reports: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
-    reconciliations = reconciliation_index(reconciliation_reports)
+    reconciliations = build_reconciliation_index(reconciliation_reports)
     objects = apply_expected_event_inventory(
-        [assess_object(row) for row in merge_rows(claim_rows, downstream_rows, target_rows, source_rows)],
+        [assess_object(row, rule_code=rule_code) for row in merge_rows(claim_rows, downstream_rows, target_rows, source_rows)],
         claim_rows,
         expected_events,
         reconciliations,
@@ -727,11 +714,17 @@ def fetch_rows(
                      where rule_code = %s and review_status::text not in ('rejected', 'retired')
                      group by claim_id
                 ), factors as (
-                    select claim_id, count(distinct binding_id) as factor_judgment_count,
+                    select claim_id, count(distinct binding_id) as factor_judgment_count, count(distinct binding_id) filter (where target_action::text = 'score') as scoring_factor_judgment_count,
                            max(updated_at) as latest_factor_at
                       from retrieval_v3.claim_rule_binding_factor_judgments
                      where item_code = %s and rule_code = %s and review_status::text not in ('rejected', 'retired')
                      group by claim_id
+                ), scores as (
+                    select claim_id, count(*) as material_score_count, max(updated_at) as latest_material_score_at
+                      from retrieval_v3.claim_rule_binding_material_scores where item_code = %s and rule_code = %s group by claim_id
+                ), clusters as (
+                    select target_id, count(*) as rule_score_cluster_count, max(updated_at) as latest_rule_cluster_at from retrieval_v3.target_rule_score_clusters where item_code = %s and rule_code = %s
+                       and review_status::text not in ('rejected', 'retired') group by target_id
                 )
                 select mc.emperor_name, mc.object_name, mc.object_type,
                        count(*) as material_claim_count,
@@ -739,7 +732,11 @@ def fetch_rows(
                        sum(coalesce(c.unresolved_candidate_count, 0)) as unresolved_candidate_count,
                        sum(coalesce(b.binding_count, 0)) as binding_count,
                        sum(coalesce(b.scoring_binding_count, 0)) as scoring_binding_count,
-                       sum(coalesce(f.factor_judgment_count, 0)) as factor_judgment_count,
+                       sum(coalesce(f.factor_judgment_count, 0)) as factor_judgment_count, sum(coalesce(f.scoring_factor_judgment_count, 0)) as scoring_factor_judgment_count,
+                       sum(coalesce(s.material_score_count, 0)) as material_score_count,
+                       max(coalesce(cl.rule_score_cluster_count, 0)) as rule_score_cluster_count,
+                       max(f.latest_factor_at) as latest_factor_at, max(s.latest_material_score_at) as latest_material_score_at,
+                       max(cl.latest_rule_cluster_at) as latest_rule_cluster_at,
                        greatest(max(mc.updated_at), max(b.latest_binding_at), max(f.latest_factor_at)) as latest_consumed_at
                   from retrieval_v3.material_claims mc
                   join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
@@ -747,13 +744,16 @@ def fetch_rows(
                   left join candidates c on c.claim_id = mc.id
                   left join bindings b on b.claim_id = mc.id
                   left join factors f on f.claim_id = mc.id
+                  left join scores s on s.claim_id = mc.id
+                  left join clusters cl on cl.target_id = rt.id
                  where rt.item_code = %s
                    and mc.review_status::text not in ('rejected', 'retired')
                    and (coalesce(array_length(%s::text[], 1), 0) = 0 or mc.emperor_name = any(%s::text[]))
                  group by mc.emperor_name, mc.object_name, mc.object_type
                  order by mc.emperor_name, mc.object_name
                 """,
-                (item_code, rule_code, rule_code, item_code, rule_code, item_code, emperor_names, emperor_names),
+                (item_code, rule_code, rule_code, item_code, rule_code, item_code, rule_code,
+                 item_code, rule_code, item_code, emperor_names, emperor_names),
             )
             downstream_rows = [dict(row) for row in cur.fetchall()]
             cur.execute(
@@ -815,13 +815,13 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             "",
             "## 对象覆盖",
             "",
-            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factors | 预期事件覆盖 | 链完整 | 机械覆盖 | 历史收敛 | 当前状态 | 缺口 |",
+            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factor/score/cluster | 预期事件覆盖 | 链完整 | 机械覆盖 | 历史收敛 | 当前状态 | 缺口 |",
             "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in report.get("objects") or []:
         lines.append(
-            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {factors} | {events} | {ready} | {mechanical} | {convergence} | {status} | {gaps} |".format(
+            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {lineage} | {events} | {ready} | {mechanical} | {convergence} | {status} | {gaps} |".format(
                 emperor=markdown_cell(row.get("emperor_name")),
                 object_name=markdown_cell(row.get("object_name")),
                 slices=f"{as_int(row.get('claimed_source_slice_count'))}/{as_int(row.get('source_slice_count'))}",
@@ -830,7 +830,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 materials=as_int(row.get("material_claim_count")),
                 candidates=as_int(row.get("candidate_count")),
                 bindings=as_int(row.get("binding_count")),
-                factors=as_int(row.get("factor_judgment_count")),
+                lineage=f"{as_int(row.get('factor_judgment_count'))}/{as_int(row.get('material_score_count'))}/{as_int(row.get('rule_score_cluster_count'))}",
                 events=(
                     f"{as_int(row.get('covered_expected_event_count'))}/{as_int(row.get('expected_event_count'))}"
                     if as_int(row.get("expected_event_count"))

@@ -58,7 +58,10 @@ def downstream(
     bindings: int = 1,
     scoring_bindings: int = 1,
     factors: int = 1,
+    scoring_factors: int | None = None,
     updated_at: str = "2026-07-11T11:00:00+08:00",
+    material_scores: int = 1,
+    rule_clusters: int = 1,
 ) -> dict:
     return {
         "emperor_name": "测试帝",
@@ -70,6 +73,12 @@ def downstream(
         "binding_count": bindings,
         "scoring_binding_count": scoring_bindings,
         "factor_judgment_count": factors,
+        "scoring_factor_judgment_count": factors if scoring_factors is None else scoring_factors,
+        "material_score_count": material_scores,
+        "rule_score_cluster_count": rule_clusters,
+        "latest_factor_at": updated_at,
+        "latest_material_score_at": updated_at,
+        "latest_rule_cluster_at": updated_at,
         "latest_consumed_at": updated_at,
     }
 
@@ -138,6 +147,36 @@ def test_new_claim_after_consumption_is_marked_stale() -> None:
     )
 
     assert "consumption_stale" in [item["gap_type"] for item in result["objects"][0]["gaps"]]
+
+
+def test_score_lineage_reports_missing_and_stale_material_scores_and_clusters() -> None:
+    missing_material = report([claim()], [downstream(material_scores=0, rule_clusters=0)], [target()])
+    missing_cluster = report([claim()], [downstream(material_scores=1, rule_clusters=0)], [target()])
+    stale_material_row = downstream()
+    stale_material_row["latest_factor_at"] = "2026-07-11T12:00:00+08:00"
+    stale_cluster_row = downstream()
+    stale_cluster_row["latest_material_score_at"] = "2026-07-11T12:00:00+08:00"
+
+    assert "material_score_missing" in [item["gap_type"] for item in missing_material["objects"][0]["gaps"]]
+    assert "rule_score_cluster_missing" in [item["gap_type"] for item in missing_cluster["objects"][0]["gaps"]]
+    assert "material_score_stale" in [item["gap_type"] for item in report([claim()], [stale_material_row], [target()])["objects"][0]["gaps"]]
+    assert "rule_score_cluster_stale" in [item["gap_type"] for item in report([claim()], [stale_cluster_row], [target()])["objects"][0]["gaps"]]
+
+    supporting_only = report([claim()], [downstream(factors=2, scoring_factors=1, material_scores=1)], [target()])
+    assert "material_score_missing" not in [item["gap_type"] for item in supporting_only["objects"][0]["gaps"]]
+
+
+def test_non_appointment_rule_does_not_treat_appointment_claim_chain_as_scoring_ready() -> None:
+    result = tool.build_report(
+        claim_rows=[claim()], downstream_rows=[], target_rows=[target()],
+        schema_name="retrieval_v3", item_code="I5B", rule_code="anti_nepotism", emperors=["测试帝"],
+    )
+
+    object_row = result["objects"][0]
+    assert object_row["chain_ready"] is True
+    assert object_row["scoring_relevant"] is False
+    assert "material_claim_missing" not in [item["gap_type"] for item in object_row["gaps"]]
+    assert "candidate_missing" not in [item["gap_type"] for item in object_row["gaps"]]
 
 
 def test_signals_from_different_event_groups_do_not_form_a_ready_chain() -> None:

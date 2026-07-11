@@ -31,6 +31,37 @@ def identity_key(row: Mapping[str, Any]) -> str:
     return f"id:{as_int(row.get('object_id'))}" if as_int(row.get("object_id")) else f"name:{text(row.get('object_name'))}"
 
 
+def build_reconciliation_index(reports: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
+    history: dict[str, list[dict[str, Any]]] = {}
+    for report_index, report in enumerate(reports, start=1):
+        gate_mode = text(report.get("gate_mode")) or "initial_actionability"
+        for result in report.get("results") or []:
+            if not isinstance(result, Mapping) or not text(result.get("event_inventory_code")):
+                continue
+            code = text(result.get("event_inventory_code")); rows = history.setdefault(code, [])
+            rows.append({
+                "attempt": len(rows) + 1, "report_index": report_index, "gate_mode": gate_mode,
+                "decision": text(result.get("decision")), "confidence": text(result.get("confidence")),
+                "review_note": text(result.get("review_note")), "group_keys": list_texts(result.get("group_keys")),
+                "claim_keys": list_texts(result.get("claim_keys")), "source_slice_refs": list_texts(result.get("source_slice_refs")),
+            })
+    return {code: {"current": rows[-1], "history": rows} for code, rows in history.items()}
+
+
+def score_lineage_gaps(row: Mapping[str, Any]) -> list[tuple[str, str]]:
+    factor_count = as_int(row.get("scoring_factor_judgment_count"))
+    score_count = as_int(row.get("material_score_count"))
+    if factor_count > score_count:
+        return [("material_score_missing", "factor judgments are not fully represented by material scores")]
+    if score_count and text(row.get("latest_factor_at")) > text(row.get("latest_material_score_at")):
+        return [("material_score_stale", "factor judgments changed after material score calculation")]
+    if score_count and not as_int(row.get("rule_score_cluster_count")):
+        return [("rule_score_cluster_missing", "material scores have no target/rule score cluster")]
+    if as_int(row.get("rule_score_cluster_count")) and text(row.get("latest_material_score_at")) > text(row.get("latest_rule_cluster_at")):
+        return [("rule_score_cluster_stale", "material scores changed after rule cluster calculation")]
+    return []
+
+
 def build_gap_routes(report: Mapping[str, Any]) -> list[dict[str, Any]]:
     routes: list[dict[str, Any]] = []
     terminal_actions = {"identity_review", "expected_event_inventory_review"}
