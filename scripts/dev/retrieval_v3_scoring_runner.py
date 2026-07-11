@@ -268,12 +268,16 @@ def run(
     (output_root / "evidence_sufficiency.md").write_text(
         render_evidence_markdown(evidence_sufficiency), encoding="utf-8", newline="\n")
     evidence_seconds = round(time.perf_counter() - evidence_started, 3)
+    operational_score_ready = all(
+        bool(row.get("operational_score_ready")) for row in evidence_sufficiency.get("emperors") or []
+    )
     elapsed = round(time.perf_counter() - started, 3)
     report = {
         "ok": True,
         "generated_by": "scripts/dev/retrieval_v3_scoring_runner.py",
         "mode": "execute_scorer" if execute_scorer else "read_only_incremental",
         "write_db": execute_scorer,
+        "operational_score_ready": operational_score_ready,
         "schema_name": schema_name,
         "scope_code": text(manifest.get("scope_code")),
         "manifest_fingerprint": manifest_fingerprint,

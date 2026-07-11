@@ -42,6 +42,16 @@ def build_evidence_sufficiency(
         source_documents = {
             text(code) for row in materials for code in row.get("source_document_codes") or [] if text(code)
         }
+        claims_with_event_groups = {
+            text(row.get("claim_key"))
+            for row in materials
+            if text(row.get("claim_key")) and (row.get("event_group_keys") or [])
+        }
+        claims_with_source_documents = {
+            text(row.get("claim_key"))
+            for row in materials
+            if text(row.get("claim_key")) and (row.get("source_document_codes") or [])
+        }
         ungrouped_claims = {
             text(row.get("claim_key"))
             for row in materials
@@ -53,18 +63,29 @@ def build_evidence_sufficiency(
         expected_count = sum(int(row.get("expected_event_count") or 0) for row in objects)
         covered_expected = sum(int(row.get("covered_expected_event_count") or 0) for row in objects)
         if expected_count == 0:
-            status = "unassessed_missing_expected_event_inventory"
-            blockers = ["expected_event_inventory_missing"]
-        elif ungrouped_claims:
-            status = "provisional_event_group_incomplete"
-            blockers = ["scored_claims_missing_event_group"]
+            historical_status = "unassessed"
+        elif covered_expected >= expected_count:
+            historical_status = "assessed_complete"
         else:
-            status = "ready_for_calibration"
-            blockers = []
+            historical_status = "assessed_partial"
+        lineage_gaps: list[str] = []
+        if not materials:
+            operational_status = "no_scored_evidence"
+            lineage_gaps.append("scored_evidence_missing")
+        else:
+            if len(claim_keys) != len(claims_with_event_groups):
+                lineage_gaps.append("scored_claims_missing_event_group")
+            if len(claim_keys) != len(claims_with_source_documents):
+                lineage_gaps.append("scored_claims_missing_source_document")
+            if not (positive_objects | negative_objects):
+                lineage_gaps.append("scored_objects_missing")
+            operational_status = "lineage_incomplete" if lineage_gaps else "observed_evidence_lineage_complete"
         rows.append({
             "emperor_name": text(emperor),
-            "confidence_status": status,
-            "calibration_blockers": blockers,
+            "operational_evidence_status": operational_status,
+            "operational_score_ready": operational_status == "observed_evidence_lineage_complete",
+            "operational_lineage_gaps": lineage_gaps,
+            "historical_coverage_status": historical_status,
             "score_adjustment_applied": False,
             "raw_claim_count": sum(int(row.get("active_claim_count") or 0) for row in objects),
             "claim_event_group_membership_count": sum(int(row.get("event_group_count") or 0) for row in objects),
@@ -72,6 +93,13 @@ def build_evidence_sufficiency(
             "scored_claim_count": len(claim_keys),
             "scored_event_group_count": len(event_groups),
             "ungrouped_scored_claim_count": len(ungrouped_claims),
+            "scored_claims_with_source_document_count": len(claims_with_source_documents),
+            "scored_event_group_lineage_coverage": (
+                round(len(claims_with_event_groups) / len(claim_keys), 4) if claim_keys else None
+            ),
+            "scored_source_document_lineage_coverage": (
+                round(len(claims_with_source_documents) / len(claim_keys), 4) if claim_keys else None
+            ),
             "independent_scored_source_document_count": len(source_documents),
             "scored_object_count": len(positive_objects | negative_objects),
             "positive_scored_object_count": len(positive_objects),
@@ -87,13 +115,14 @@ def build_evidence_sufficiency(
         "mode": "diagnostic_only_no_score_adjustment",
         "score_adjustment_applied": False,
         "claim_quantity_is_score_factor": False,
+        "confidence_scalar_generated": False,
+        "expected_event_inventory_required_for_operational_scoring": False,
+        "expected_event_inventory_role": "optional historical completeness audit",
         "effective_evidence_definition": (
             "unique scored event groups with independent source-document and object diversity; "
             "raw claim count is diagnostic only"
         ),
-        "confidence_formula_status": (
-            "blocked_until_expected-event inventory and scored event-group lineage are complete"
-        ),
+        "confidence_formula_status": "not_calibrated; no scalar is generated",
         "emperors": rows,
     }
 
@@ -102,17 +131,22 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     lines = [
         "# retrieval_v3 证据充分度诊断", "",
         "> 本报告不修改正式分数；raw claim 数量不作为加分因子。", "",
-        "| 皇帝 | 状态 | raw claims | scored materials | scored claims | event groups | ungrouped | source docs | objects | expected coverage |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| 皇帝 | operational | historical | raw claims | scored materials | scored claims | event groups | source docs | objects | expected coverage |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in report.get("emperors") or []:
         coverage = row.get("expected_event_coverage")
         lines.append(
-            f"| {row.get('emperor_name')} | {row.get('confidence_status')} | {row.get('raw_claim_count')} | "
+            f"| {row.get('emperor_name')} | {row.get('operational_evidence_status')} | "
+            f"{row.get('historical_coverage_status')} | {row.get('raw_claim_count')} | "
             f"{row.get('scored_material_count')} | {row.get('scored_claim_count')} | "
-            f"{row.get('scored_event_group_count')} | {row.get('ungrouped_scored_claim_count')} | "
+            f"{row.get('scored_event_group_count')} | "
             f"{row.get('independent_scored_source_document_count')} | {row.get('scored_object_count')} | "
             f"{coverage if coverage is not None else 'unassessed'} |"
         )
-    lines.extend(["", "## 约束", "", "- score_adjustment_applied: `false`", "- claim_quantity_is_score_factor: `false`"])
+    lines.extend([
+        "", "## 约束", "", "- score_adjustment_applied: `false`",
+        "- claim_quantity_is_score_factor: `false`", "- confidence_scalar_generated: `false`",
+        "- expected_event_inventory_required_for_operational_scoring: `false`",
+    ])
     return "\n".join(lines) + "\n"

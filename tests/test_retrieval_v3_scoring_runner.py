@@ -64,6 +64,18 @@ def test_read_only_unchanged_contract_uses_input_fingerprint(monkeypatch, tmp_pa
     previous_root.mkdir()
     previous_report = previous_root / "report.json"
     previous_report.write_text(tool.json.dumps(previous), encoding="utf-8")
+    (previous_root / "score_details.json").write_text(tool.json.dumps({
+        "TGT-A": {
+            "emperor_name": "甲",
+            "calc_detail": {
+                "materials": [{
+                    "claim_key": "CLM-A", "event_group_keys": ["EG-A"],
+                    "source_document_codes": ["DOC-A"],
+                }],
+                "object_side_scores": {"positive": {"1": {}}, "negative": {}},
+            },
+        },
+    }), encoding="utf-8")
     monkeypatch.setattr(tool, "input_snapshot", lambda **kwargs: {
         "input_fingerprint": fingerprint,
         "judgment_count": 1,
@@ -92,3 +104,4 @@ def test_read_only_unchanged_contract_uses_input_fingerprint(monkeypatch, tmp_pa
     assert report["dirty_target_count"] == 0
     assert report["skipped_target_count"] == 1
     assert report["targets"][0]["status"] == "skipped_unchanged"
+    assert report["operational_score_ready"] is True
