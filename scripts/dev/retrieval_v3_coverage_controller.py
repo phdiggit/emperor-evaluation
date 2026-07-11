@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from collections import Counter, defaultdict
@@ -15,6 +14,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.dev.object_pool_aliases import normalize_object_alias  # noqa: E402
+from scripts.dev.retrieval_v3_coverage_convergence import (  # noqa: E402
+    apply_convergence,
+    build_gap_routes,
+    build_repair_ledger,
+)
 from scripts.dev.retrieval_v2_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v2_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 
@@ -26,6 +30,7 @@ APPOINTMENT_TERMS = ("任命", "任用", "委任", "授", "拜", "擢", "命", "
 RESPONSIBILITY_TERMS = ("负责", "主持", "掌", "典", "总", "统", "领", "修订", "征", "讨", "守", "治", "辅政")
 RESULT_TERMS = ("成功", "平定", "攻克", "灭", "破", "败", "失守", "治理", "完成", "奏效", "有功", "获罪", "伏诛", "害民")
 EMPTY_OUTCOME_SUPPORT = {"", "none", "unknown", "unclear", "not_applicable", "context_only"}
+build_gap_router = build_gap_routes
 VERIFIED_RECONCILIATION_DECISIONS = {"already_covered", "rebuild_event_group"}
 RECONCILIATION_ROUTES = dict(
     already_covered=("none", True, False), rebuild_event_group=("rebuild_event_groups", False, False),
@@ -83,9 +88,6 @@ def list_texts(value: Any) -> list[str]:
     return [text(item) for item in value if text(item)]
 
 
-def stable_key(prefix: str, *parts: Any) -> str:
-    payload = "\x1f".join(text(part) for part in parts)
-    return f"{prefix}-{hashlib.sha256(payload.encode('utf-8')).hexdigest()[:20].upper()}"
 def reconciliation_index(reports: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
     history: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for report_index, report in enumerate(reports, start=1):
@@ -546,6 +548,7 @@ def apply_expected_event_inventory(
                 )
             )
         row["gaps"] = gaps
+        row["mechanical_coverage_status"] = text(row.get("coverage_status"))
         row["coverage_status"] = "blocked" if any(item["blocking"] for item in gaps) else ("gap" if gaps else "complete")
         results.append(row)
     return results
@@ -799,6 +802,8 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "",
         f"- expected events: `{report.get('expected_event_count', 0)}`; historical coverage: `{report.get('historical_event_coverage_status')}`",
         f"- reconciled events: `{report.get('reconciled_expected_event_count', 0)}`; verified events: `{report.get('verified_expected_event_count', 0)}`",
+        f"- mechanical coverage: `{json.dumps(report.get('mechanical_coverage_counts') or {}, ensure_ascii=False, sort_keys=True)}`",
+        f"- convergence: `{json.dumps(report.get('convergence_counts') or {}, ensure_ascii=False, sort_keys=True)}`",
         "",
         "## 修复队列",
         "",
@@ -812,13 +817,13 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             "",
             "## 对象覆盖",
             "",
-            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factors | 预期事件覆盖 | 链完整 | 管线状态 | 缺口 |",
-            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
+            "| 皇帝 | 对象 | claimed/source slices | claims | groups | materials | candidates | bindings | factors | 预期事件覆盖 | 链完整 | 机械覆盖 | 历史收敛 | 当前状态 | 缺口 |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in report.get("objects") or []:
         lines.append(
-            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {factors} | {events} | {ready} | {status} | {gaps} |".format(
+            "| {emperor} | {object_name} | {slices} | {claims} | {groups} | {materials} | {candidates} | {bindings} | {factors} | {events} | {ready} | {mechanical} | {convergence} | {status} | {gaps} |".format(
                 emperor=markdown_cell(row.get("emperor_name")),
                 object_name=markdown_cell(row.get("object_name")),
                 slices=f"{as_int(row.get('claimed_source_slice_count'))}/{as_int(row.get('source_slice_count'))}",
@@ -834,6 +839,8 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                     else "未评估"
                 ),
                 ready="是" if row.get("chain_ready") else "否",
+                mechanical=markdown_cell(row.get("mechanical_coverage_status")),
+                convergence=markdown_cell(row.get("convergence_state")),
                 status=markdown_cell(row.get("coverage_status")),
                 gaps=markdown_cell(", ".join(item["gap_type"] for item in row.get("gaps") or [])),
             )
@@ -878,40 +885,6 @@ def build_source_refinement_worklist(report: Mapping[str, Any]) -> list[dict[str
             text(row.get("event_inventory_code")),
         ),
     )
-def build_gap_router(report: Mapping[str, Any]) -> list[dict[str, Any]]:
-    routes: list[dict[str, Any]] = []
-    for row in report.get("objects") or []:
-        for item in row.get("gaps") or []:
-            action = text(item.get("next_action")) or "manual_review"
-            routes.append({
-                "idempotency_key": stable_key("CGR", report.get("item_code"), report.get("rule_code"),
-                                              row.get("emperor_name"), identity_key(row), item.get("gap_type"), action),
-                "emperor_name": text(row.get("emperor_name")), "object_id": row.get("object_id"),
-                "object_name": text(row.get("object_name")), "gap_type": text(item.get("gap_type")),
-                "attempt_count": 0, "previous_decision": "", "terminal": False, "retryable": True,
-                "next_action": action, "write_job": False, "write_db": False,
-            })
-        for event in row.get("expected_event_assessments") or []:
-            if not text(event.get("reconciliation_decision")):
-                continue
-            action = text(event.get("repair_next_action"))
-            if action == "none":
-                continue
-            routes.append({
-                "idempotency_key": stable_key("CGR", report.get("item_code"), report.get("rule_code"),
-                                              event.get("event_inventory_code"), action),
-                "emperor_name": text(row.get("emperor_name")), "object_id": row.get("object_id"),
-                "object_name": text(row.get("object_name")),
-                "event_inventory_code": text(event.get("event_inventory_code")),
-                "gap_type": "historical_event_reconciliation",
-                "attempt_count": as_int(event.get("reconciliation_attempt_count")),
-                "previous_decision": (list_texts(event.get("reconciliation_previous_decisions")) or [""])[-1],
-                "current_decision": text(event.get("reconciliation_decision")),
-                "terminal": bool(event.get("repair_terminal")), "retryable": bool(event.get("repair_retryable")),
-                "next_action": action, "write_job": False, "write_db": False,
-            })
-    return sorted(routes, key=lambda row: (text(row.get("emperor_name")), text(row.get("object_name")),
-                                           text(row.get("idempotency_key"))))
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Read-only retrieval_v3 source-to-score coverage controller.")
     parser.add_argument("--env-file", type=Path)
@@ -926,6 +899,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--reconciliation-report", type=Path, action="append", default=[])
     parser.add_argument("--output-repair-worklist", type=Path)
     parser.add_argument("--output-gap-router", type=Path)
+    parser.add_argument("--previous-repair-ledger", type=Path)
+    parser.add_argument("--output-repair-ledger", type=Path)
     parser.add_argument("--repair-limit", type=int, default=0)
     return parser
 def main(argv: Sequence[str] | None = None) -> int:
@@ -966,6 +941,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         expected_events=expected_events,
         reconciliation_reports=reconciliation_reports,
     )
+    previous_ledger: list[dict[str, Any]] = []
+    if args.previous_repair_ledger is not None:
+        for line in args.previous_repair_ledger.read_text(encoding="utf-8").splitlines():
+            value = json.loads(line)
+            if isinstance(value, Mapping):
+                previous_ledger.append(dict(value))
+    repair_ledger = build_repair_ledger(report, previous_ledger)
+    apply_convergence(report, repair_ledger)
     payload = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n"
     if args.output_json is not None:
         args.output_json.parent.mkdir(parents=True, exist_ok=True)
@@ -990,9 +973,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     if args.output_gap_router is not None:
         args.output_gap_router.parent.mkdir(parents=True, exist_ok=True)
-        rows = build_gap_router(report)
+        rows = build_gap_routes(report)
         payload = "".join(json.dumps(row, ensure_ascii=False, sort_keys=True, default=str) + "\n" for row in rows)
         args.output_gap_router.write_text(payload, encoding="utf-8", newline="\n")
+    if args.output_repair_ledger is not None:
+        args.output_repair_ledger.parent.mkdir(parents=True, exist_ok=True)
+        payload = "".join(json.dumps(row, ensure_ascii=False, sort_keys=True, default=str) + "\n" for row in repair_ledger)
+        args.output_repair_ledger.write_text(payload, encoding="utf-8", newline="\n")
     return 0
 
 

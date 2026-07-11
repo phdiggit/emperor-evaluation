@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from scripts.dev import retrieval_v3_coverage_controller as tool
+from scripts.dev import retrieval_v3_coverage_convergence as convergence
 
 
 def claim(
@@ -345,3 +346,55 @@ def test_gap_router_is_report_only_and_stable() -> None:
     assert first == second
     assert first[0]["idempotency_key"].startswith("CGR-")
     assert all(row["write_job"] is False and row["write_db"] is False for row in first)
+
+
+def test_repair_ledger_detects_unchanged_retry_without_writing_jobs() -> None:
+    result = report([claim()], [], [target()])
+    first = convergence.build_repair_ledger(result)
+    second = convergence.build_repair_ledger(result, first)
+
+    assert second[0]["attempt_count"] == 2
+    assert second[0]["previous_decision"] == second[0]["current_decision"]
+    assert second[0]["progress_observed"] is False
+    assert second[0]["convergence_state"] == "no_progress"
+    assert second[0]["write_job"] is False
+
+
+def test_convergence_separates_mechanical_complete_from_unassessed_history() -> None:
+    result = report([claim()], [downstream()], [target()])
+    ledger = convergence.build_repair_ledger(result)
+    convergence.apply_convergence(result, ledger)
+
+    object_row = result["objects"][0]
+    assert object_row["mechanical_coverage_status"] == "complete"
+    assert object_row["convergence_state"] == "unassessed"
+    assert result["mechanical_coverage_counts"] == {"complete": 1}
+    assert result["convergence_counts"] == {"unassessed": 1}
+
+
+def test_verified_expected_events_reach_verified_convergence() -> None:
+    reports = [{
+        "gate_mode": "repair_verification",
+        "results": [{"event_inventory_code": "EEI-EAST-TURK", "decision": "already_covered"}],
+    }]
+    result = tool.build_report(
+        claim_rows=[claim()], downstream_rows=[downstream()], target_rows=[target()],
+        schema_name="retrieval_v3", item_code="I5B", rule_code="appointment_delegation",
+        emperors=["测试帝"], expected_events=[expected_event()], reconciliation_reports=reports,
+    )
+    ledger = convergence.build_repair_ledger(result)
+    convergence.apply_convergence(result, ledger)
+
+    assert result["objects"][0]["convergence_state"] == "verified"
+
+
+def test_identity_review_is_terminal_in_repair_ledger() -> None:
+    result = report([claim(object_id=8)], [], [target(object_id=7)])
+    ledger = convergence.build_repair_ledger(result)
+
+    identity_routes = [row for row in ledger if row["next_action"] == "identity_review"]
+    assert identity_routes
+    assert all(row["terminal"] is True and row["retryable"] is False for row in identity_routes)
+    assert all(row["convergence_state"] == "terminal_review" for row in identity_routes)
+    convergence.apply_convergence(result, ledger)
+    assert all(row["convergence_state"] == "terminal_review" for row in result["objects"])
