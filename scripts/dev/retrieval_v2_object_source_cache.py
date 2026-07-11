@@ -855,7 +855,7 @@ def build_mention_slices(
     context_chars: int,
     max_slices_per_document: int,
 ) -> list[dict[str, Any]]:
-    aliases = seed_aliases(seed)
+    aliases = unique_strings([*seed_aliases(seed), *((document.get("source_document_hint") if isinstance(document.get("source_document_hint"), Mapping) else {}).get("ocr_aliases") or [])])
     lead_anchor_aliases = seed_summary_lead_anchor_aliases(seed)
     lead_terms = seed_summary_lead_terms(seed)
     anchors: list[dict[str, Any]] = []

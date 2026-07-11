@@ -133,6 +133,7 @@ def test_consumer_routes_royal_clan_to_shared_source_chain_and_jifeilu() -> None
             "source_kind": "public_ocr_page",
             "fetch_mode": "url",
             "ocr_requires_image_review": True,
+            "ocr_aliases": ["魚王", "鱼王"],
         }
     ]
     assert seed["source_target_refs"] == ["明史 宗室 藩王 朱檀", "明實錄 宗室 藩王 朱檀"]
