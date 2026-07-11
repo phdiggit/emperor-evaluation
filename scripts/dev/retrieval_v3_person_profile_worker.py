@@ -169,7 +169,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         timeout_seconds=max(1,args.timeout_seconds),
     )
     payload["finished_at"] = datetime.now(timezone.utc).isoformat()
-    write_json(args.output_json,payload)
+    if args.output_json is not None:
+        write_json(args.output_json,payload)
     print(json.dumps(payload,ensure_ascii=False,sort_keys=True))
     return 0 if payload["status"] in {"idle","succeeded"} else 1
 
