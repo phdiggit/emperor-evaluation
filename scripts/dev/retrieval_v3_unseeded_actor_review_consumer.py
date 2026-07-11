@@ -31,6 +31,7 @@ BOOLEAN_FIELDS = (
 )
 JIFEILU_URL = "https://www.shidianguji.com/book/NGJ89241199901269069717/chapter/1lmyda88zy80y"
 JIFEILU_OCR_ALIASES = {"朱檀": ["魚王", "鱼王"], "朱守谦": ["守謙", "守谦"]}
+JIFEILU_SECTION_START_ALIASES = {"朱檀": ["魚王", "鱼王"], "朱守谦": ["靖江王"]}
 
 
 class ActorReviewConsumerError(ValueError):
@@ -134,6 +135,7 @@ def source_profile_fields(row: Mapping[str, Any], canonical_name: str, aliases: 
                 "fetch_mode": "url",
                 "ocr_requires_image_review": True,
                 "ocr_aliases": JIFEILU_OCR_ALIASES.get(canonical_name, []),
+                "section_start_aliases": JIFEILU_SECTION_START_ALIASES.get(canonical_name, []),
             }
         ]
     return fields

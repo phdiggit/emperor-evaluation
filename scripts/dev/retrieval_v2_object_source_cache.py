@@ -855,7 +855,8 @@ def build_mention_slices(
     context_chars: int,
     max_slices_per_document: int,
 ) -> list[dict[str, Any]]:
-    aliases = unique_strings((document.get("source_document_hint") if isinstance(document.get("source_document_hint"), Mapping) else {}).get("ocr_aliases") or seed_aliases(seed))
+    hint = document.get("source_document_hint") if isinstance(document.get("source_document_hint"), Mapping) else {}
+    aliases, section_start_aliases = unique_strings(hint.get("ocr_aliases") or seed_aliases(seed)), unique_strings(hint.get("section_start_aliases") or [])
     lead_anchor_aliases = seed_summary_lead_anchor_aliases(seed)
     lead_terms = seed_summary_lead_terms(seed)
     anchors: list[dict[str, Any]] = []
@@ -902,12 +903,12 @@ def build_mention_slices(
                     "slice_kind": "person_alias_anchor",
                 }
             )
-    if not anchors:
-        return []
+    if not anchors: return []
     windows: list[dict[str, Any]] = []
     for anchor in sorted(anchors, key=lambda item: (int(item["priority"]), int(item["index"]))):
         index = int(anchor["index"])
         start, end = context_bounds(full_text, index, context_chars=context_chars)
+        start = max(start, max((position for heading in section_start_aliases for position in alias_positions(full_text, heading) if position <= index), default=0))
         merged = False
         for window in windows:
             if start <= int(window["end"]) + 20 and end >= int(window["start"]) - 20:
@@ -936,7 +937,6 @@ def build_mention_slices(
                 "slice_kind": anchor["slice_kind"],
             }
         )
-
     rows: list[dict[str, Any]] = []
     for window in windows:
         start = int(window["start"])
