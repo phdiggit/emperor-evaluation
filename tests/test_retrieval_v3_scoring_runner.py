@@ -23,6 +23,36 @@ def test_validate_manifest_deduplicates_pack_codes() -> None:
     assert result["targets"][0]["source_pack_codes"] == ["SPK-BASE", "SPK-CACHE"]
 
 
+def test_validate_manifest_accepts_multi_rule_matrix() -> None:
+    value = manifest()
+    value.pop("rule_code")
+    value["rules"] = [
+        {"rule_code": "talent_discovery", "aggregation_family": "claim_material"},
+        {"rule_code": "team_building", "aggregation_family": "object_pool"},
+    ]
+
+    result = tool.validate_manifest(value)
+
+    assert result["rule_code"] == ""
+    assert result["scope_code"] == "I5B__2_rules"
+    assert result["rules"] == [
+        {"rule_code": "talent_discovery", "aggregation_family": "claim_material"},
+        {"rule_code": "team_building", "aggregation_family": "object_pool"},
+    ]
+
+
+def test_validate_manifest_rejects_duplicate_rule() -> None:
+    value = manifest()
+    value["rules"] = ["talent_discovery", "talent_discovery"]
+
+    try:
+        tool.validate_manifest(value)
+    except tool.ScoringRunnerError as exc:
+        assert "duplicate rule_code" in str(exc)
+    else:  # pragma: no cover
+        raise AssertionError("expected duplicate rule rejection")
+
+
 def test_validate_manifest_rejects_duplicate_emperor() -> None:
     value = manifest()
     value["targets"].append({

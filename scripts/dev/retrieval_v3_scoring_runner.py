@@ -45,10 +45,22 @@ def read_json(path: Path) -> dict[str, Any]:
 
 def validate_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
     item_code = text(value.get("item_code"))
-    rule_code = text(value.get("rule_code"))
+    raw_rules = value.get("rules") or ([value.get("rule_code")] if value.get("rule_code") else [])
+    rules: list[dict[str, str]] = []
+    seen_rules: set[str] = set()
+    for index, raw_rule in enumerate(raw_rules):
+        rule = raw_rule if isinstance(raw_rule, Mapping) else {"rule_code": raw_rule}
+        rule_code = text(rule.get("rule_code"))
+        if not rule_code:
+            raise ScoringRunnerError(f"rules[{index}]: rule_code is required")
+        if rule_code in seen_rules:
+            raise ScoringRunnerError(f"rules[{index}]: duplicate rule_code")
+        seen_rules.add(rule_code)
+        rules.append({"rule_code": rule_code, "aggregation_family": text(rule.get("aggregation_family"))})
+    rule_code = rules[0]["rule_code"] if len(rules) == 1 else ""
     formula_code = text(value.get("formula_code")) or DEFAULT_FORMULA_CODE
-    if not item_code or not rule_code:
-        raise ScoringRunnerError("manifest requires item_code and rule_code")
+    if not item_code or not rules:
+        raise ScoringRunnerError("manifest requires item_code and at least one rule")
     targets: list[dict[str, Any]] = []
     seen_emperors: set[str] = set()
     seen_targets: set[str] = set()
@@ -73,9 +85,11 @@ def validate_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         raise ScoringRunnerError("manifest requires at least one target")
     return {
         "manifest_version": text(value.get("manifest_version")) or "1.0",
-        "scope_code": text(value.get("scope_code")) or f"{item_code}__{rule_code}",
+        "scope_code": text(value.get("scope_code")) or (
+            f"{item_code}__{rule_code}" if rule_code else f"{item_code}__{len(rules)}_rules"),
         "item_code": item_code,
         "rule_code": rule_code,
+        "rules": rules,
         "formula_code": formula_code,
         "targets": targets,
     }
@@ -121,6 +135,215 @@ def input_snapshot(
         "supporting_judgment_count": sum(row.target_action == "supporting_only" for row in judgments),
         "exclude_judgment_count": sum(row.target_action == "exclude" for row in judgments),
     }
+
+
+def fetch_audit_matrix(
+    *, dsn: str, schema_name: str, manifest: Mapping[str, Any]
+) -> list[dict[str, Any]]:
+    """Return one read-only consumption-chain audit row per emperor/rule cell."""
+    target_codes = [text(row.get("target_code")) for row in manifest.get("targets") or []]
+    rule_codes = [text(row.get("rule_code")) for row in manifest.get("rules") or []]
+    pack_codes = [
+        text(code)
+        for target in manifest.get("targets") or []
+        for code in target.get("source_pack_codes") or []
+        if text(code)
+    ]
+    psycopg, dict_row = import_psycopg()
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw_cur:
+            cur = schema_cursor(raw_cur, schema_name=schema_name)
+            cur.execute(
+                """
+                with cells as (
+                    select rt.id as target_id, rt.target_code, rt.emperor_name, rt.item_code, r.rule_code
+                      from retrieval_v3.retrieval_targets rt
+                      cross join unnest(%s::text[]) as r(rule_code)
+                     where rt.target_code = any(%s::text[])
+                       and rt.item_code = %s
+                ), allowed_claims as (
+                    select mc.*, sp.target_id
+                      from retrieval_v3.material_claims mc
+                      join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
+                     where sp.pack_code = any(%s::text[])
+                       and sp.coverage_status = 'passed'
+                       and mc.review_status::text not in ('rejected', 'retired')
+                ), candidate_stats as (
+                    select ac.target_id, c.candidate_rule_code as rule_code,
+                           count(distinct ac.id)::int as material_claims,
+                           count(*)::int as scoring_candidates,
+                           count(*) filter (where c.review_status::text in ('accepted', 'resolved'))::int as accepted_candidates,
+                           count(*) filter (where c.resolved_binding_id is null)::int as unresolved_candidates
+                      from allowed_claims ac
+                      join retrieval_v3.claim_rule_binding_candidates c on c.claim_id = ac.id
+                     where c.review_status::text not in ('rejected', 'retired')
+                       and coalesce(c.candidate_payload->>'scoring_candidate', 'false') = 'true'
+                     group by ac.target_id, c.candidate_rule_code
+                ), binding_stats as (
+                    select ac.target_id, b.rule_code,
+                           count(*) filter (where b.review_status = 'accepted' and b.usable_for_scoring_cluster)::int as accepted_bindings,
+                           count(*) filter (where b.review_status in ('pending', 'accepted') and b.usable_for_scoring_cluster)::int as scoring_bindings,
+                           count(*) filter (
+                               where b.review_status in ('pending', 'accepted') and b.usable_for_scoring_cluster
+                                 and not exists (
+                                     select 1 from retrieval_v3.claim_rule_binding_factor_judgments j
+                                      where j.binding_id = b.id and j.formula_code = %s
+                                 )
+                           )::int as factorization_gaps,
+                           max(b.updated_at) as latest_binding_at
+                      from allowed_claims ac
+                      join retrieval_v3.claim_rule_bindings b on b.claim_id = ac.id
+                     group by ac.target_id, b.rule_code
+                ), judgment_stats as (
+                    select j.target_id, j.rule_code,
+                           count(distinct j.id) filter (where j.review_status::text = 'accepted')::int as factor_judgments,
+                           count(distinct j.id) filter (where j.review_status::text = 'accepted' and j.target_action::text = 'score')::int as score_judgments,
+                           count(distinct j.id) filter (
+                               where j.review_status::text = 'accepted' and j.target_action::text = 'score'
+                                 and not exists (
+                                     select 1 from retrieval_v3.claim_rule_binding_material_scores ms
+                                      where ms.factor_judgment_id = j.id
+                                 )
+                                and not coalesce(
+                                    cluster.calc_detail->'deduped_factor_judgment_ids' @> to_jsonb(array[j.id]), false)
+                           )::int as material_score_gaps,
+                           count(distinct j.id) filter (
+                               where j.review_status::text = 'accepted' and j.target_action::text = 'score'
+                                 and not exists (
+                                     select 1
+                                       from retrieval_v3.claim_rule_bindings b
+                                       join retrieval_v3.material_object_links mol
+                                         on mol.claim_id = j.claim_id and mol.role = b.object_role
+                                        and mol.review_status::text = 'accepted'
+                                      where b.id = j.binding_id
+                                 )
+                           )::int as object_lineage_gaps,
+                           count(distinct coalesce(mc.claim_payload->>'cached_claim_key', mc.raw_claim_code, mc.claim_code))::int as claim_lineage_count,
+                           count(distinct gm.group_key)::int as event_group_lineage_count,
+                           count(distinct css.document_code)::int as source_document_lineage_count,
+                           count(distinct mol.object_id)::int as object_lineage_count,
+                           max(j.updated_at) as latest_factor_at
+                      from retrieval_v3.claim_rule_binding_factor_judgments j
+                      join allowed_claims mc on mc.id = j.claim_id and mc.target_id = j.target_id
+                      join retrieval_v3.claim_rule_bindings b on b.id = j.binding_id
+                      left join retrieval_v3.target_rule_score_clusters cluster
+                        on cluster.target_id = j.target_id and cluster.rule_code = j.rule_code
+                       and cluster.formula_code = j.formula_code
+                      left join retrieval_v3.claim_event_group_members gm
+                        on gm.claim_key = coalesce(mc.claim_payload->>'cached_claim_key', mc.raw_claim_code, mc.claim_code)
+                      left join retrieval_v3.claim_evidence ce
+                        on ce.claim_key = coalesce(mc.claim_payload->>'cached_claim_key', mc.raw_claim_code, mc.claim_code)
+                      left join retrieval_v3.claim_source_slices css on css.slice_hash = ce.slice_hash
+                      left join retrieval_v3.material_object_links mol
+                        on mol.claim_id = j.claim_id and mol.role = b.object_role and mol.review_status::text = 'accepted'
+                     where j.item_code = %s and j.formula_code = %s
+                     group by j.target_id, j.rule_code
+                ), score_stats as (
+                    select ms.target_id, ms.rule_code, count(*)::int as material_scores,
+                           max(ms.updated_at) as latest_material_score_at
+                      from retrieval_v3.claim_rule_binding_material_scores ms
+                      join allowed_claims ac on ac.id = ms.claim_id and ac.target_id = ms.target_id
+                     where ms.item_code = %s and ms.formula_code = %s
+                     group by ms.target_id, ms.rule_code
+                ), blocked_stats as (
+                    select ac.target_id, c.candidate_rule_code as rule_code, count(distinct q.id)::int as blocked_reviews
+                      from allowed_claims ac
+                      join retrieval_v3.claim_rule_binding_candidates c on c.claim_id = ac.id
+                      join retrieval_v3.material_review_queue q on q.claim_id = ac.id
+                     where q.queue_status::text in ('ready', 'needs_review', 'running', 'blocked')
+                     group by ac.target_id, c.candidate_rule_code
+                )
+                select cells.*,
+                       greatest(coalesce(cs.material_claims, 0), coalesce(js.claim_lineage_count, 0)) as material_claims,
+                       coalesce(cs.scoring_candidates, 0) as scoring_candidates,
+                       coalesce(cs.accepted_candidates, 0) as accepted_candidates,
+                       coalesce(cs.unresolved_candidates, 0) as unresolved_candidates,
+                       coalesce(bs.accepted_bindings, 0) as accepted_bindings,
+                       coalesce(bs.scoring_bindings, 0) as scoring_bindings,
+                       coalesce(bs.factorization_gaps, 0) as factorization_gaps,
+                       coalesce(js.factor_judgments, 0) as factor_judgments,
+                       coalesce(js.score_judgments, 0) as score_judgments,
+                       coalesce(ss.material_scores, 0) as material_scores,
+                       coalesce(js.material_score_gaps, 0) as material_score_gaps,
+                       coalesce(js.object_lineage_gaps, 0) as object_lineage_gaps,
+                       coalesce(js.claim_lineage_count, 0) as claim_lineage_count,
+                       coalesce(js.event_group_lineage_count, 0) as event_group_lineage_count,
+                       coalesce(js.source_document_lineage_count, 0) as source_document_lineage_count,
+                       coalesce(js.object_lineage_count, 0) as object_lineage_count,
+                       coalesce(bl.blocked_reviews, 0) as blocked_reviews,
+                       p.id as material_policy_id, p.policy_code, p.policy_version, p.carrier_mode,
+                       coalesce(p.policy_payload->'side_aggregation'->>'mode', '') as aggregation_mode,
+                       c.id as cluster_id, c.positive_signal::text, c.negative_signal::text,
+                       (c.positive_signal - c.negative_signal)::text as net_signal,
+                       c.scored_judgment_count, c.supporting_judgment_count, c.excluded_judgment_count,
+                       coalesce(c.calc_detail->>'policy_code', '') as cluster_policy_code,
+                       coalesce(c.calc_detail->>'policy_version', '') as cluster_policy_version,
+                       c.updated_at as cluster_updated_at,
+                       greatest(bs.latest_binding_at, js.latest_factor_at, ss.latest_material_score_at) as latest_input_at
+                  from cells
+                  left join candidate_stats cs using (target_id, rule_code)
+                  left join binding_stats bs using (target_id, rule_code)
+                  left join judgment_stats js using (target_id, rule_code)
+                  left join score_stats ss using (target_id, rule_code)
+                  left join blocked_stats bl using (target_id, rule_code)
+                  left join retrieval_v3.eval_rule_material_policies p
+                    on p.item_code = cells.item_code and p.rule_code = cells.rule_code and p.policy_status::text = 'active'
+                  left join retrieval_v3.target_rule_score_clusters c
+                    on c.target_id = cells.target_id and c.item_code = cells.item_code
+                   and c.rule_code = cells.rule_code and c.formula_code = %s
+                 order by array_position(%s::text[], cells.rule_code), array_position(%s::text[], cells.target_code)
+                """,
+                (
+                    rule_codes, target_codes, text(manifest.get("item_code")), pack_codes,
+                    text(manifest.get("formula_code")),
+                    text(manifest.get("item_code")), text(manifest.get("formula_code")),
+                    text(manifest.get("item_code")), text(manifest.get("formula_code")),
+                    text(manifest.get("formula_code")), rule_codes, target_codes,
+                ),
+            )
+            rows = [dict(row) for row in cur.fetchall()]
+        conn.rollback()
+    aggregation_families = {
+        text(rule.get("rule_code")): text(rule.get("aggregation_family"))
+        for rule in manifest.get("rules") or []
+    }
+    for row in rows:
+        cluster_missing = row.get("cluster_id") is None
+        cluster_stale = bool(
+            not cluster_missing
+            and (
+                (row.get("latest_input_at") and row.get("cluster_updated_at") < row.get("latest_input_at"))
+                or text(row.get("cluster_policy_code")) != text(row.get("policy_code"))
+                or text(row.get("cluster_policy_version")) != text(row.get("policy_version"))
+            )
+        )
+        gaps = {
+            "unresolved_candidates": int(row.get("unresolved_candidates") or 0),
+            "factorization": int(row.get("factorization_gaps") or 0),
+            "material_scores": int(row.get("material_score_gaps") or 0),
+            "object_lineage": int(row.get("object_lineage_gaps") or 0),
+            "blocked_reviews": int(row.get("blocked_reviews") or 0),
+        }
+        missing_stage = ""
+        if not int(row.get("material_claims") or 0):
+            missing_stage = "material_claims"
+        elif not int(row.get("scoring_bindings") or 0) and not int(row.get("factor_judgments") or 0):
+            missing_stage = "scoring_bindings"
+        elif not int(row.get("factor_judgments") or 0):
+            missing_stage = "factor_judgments"
+        row["aggregation_family"] = aggregation_families.get(text(row.get("rule_code")), "")
+        row["missing_stage"] = missing_stage
+        row["gaps"] = gaps
+        row["cluster_state"] = "missing" if cluster_missing else ("stale" if cluster_stale else "current")
+        row["dirty_state"] = "dirty" if cluster_missing or cluster_stale or missing_stage or any(gaps.values()) else "clean"
+        row["scorer_ready"] = bool(
+            row.get("material_policy_id")
+            and int(row.get("factor_judgments") or 0) > 0
+            and not gaps["factorization"]
+            and not gaps["object_lineage"]
+            and not gaps["blocked_reviews"]
+        )
+    return rows
 
 
 def score_summary(payload: Mapping[str, Any], target_code: str) -> dict[str, Any]:
@@ -331,6 +554,97 @@ def run(
     return report
 
 
+def render_matrix_markdown(report: Mapping[str, Any]) -> str:
+    lines = [
+        "# retrieval_v3 三人完整 I5B 只读审计", "",
+        f"- scope: `{report.get('scope_code')}`",
+        f"- mode: `{report.get('mode')}`",
+        f"- write_db/write_job: `false/false`",
+        f"- cells: `{report.get('cell_count')}`", "",
+        "| 皇帝 | rule | claims | candidates | accepted/scoring bindings | factors | material scores | cluster | readiness | gaps |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
+    ]
+    for row in report.get("cells") or []:
+        gap_parts = [f"{key}={value}" for key, value in (row.get("gaps") or {}).items() if value]
+        if row.get("missing_stage"):
+            gap_parts.insert(0, f"missing_stage={row.get('missing_stage')}")
+        gaps = ", ".join(gap_parts) or "none"
+        lines.append(
+            f"| {row.get('emperor_name')} | {row.get('rule_code')} | {row.get('material_claims', 0)} | "
+            f"{row.get('scoring_candidates', 0)} | {row.get('accepted_bindings', 0)}/{row.get('scoring_bindings', 0)} | "
+            f"{row.get('factor_judgments', 0)} | {row.get('material_scores', 0)} | "
+            f"{row.get('cluster_state')} | {str(row.get('scorer_ready', False)).lower()} | {gaps} |"
+        )
+    lines.extend(["", "## Lineage", "", "| 皇帝 | rule | claims | event groups | source docs | objects |", "| --- | --- | ---: | ---: | ---: | ---: |"])
+    for row in report.get("cells") or []:
+        lines.append(
+            f"| {row.get('emperor_name')} | {row.get('rule_code')} | {row.get('claim_lineage_count', 0)} | "
+            f"{row.get('event_group_lineage_count', 0)} | {row.get('source_document_lineage_count', 0)} | "
+            f"{row.get('object_lineage_count', 0)} |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def run_matrix(
+    *, dsn: str, schema_name: str, manifest: Mapping[str, Any], output_root: Path
+) -> dict[str, Any]:
+    started = time.perf_counter()
+    output_root.mkdir(parents=True, exist_ok=True)
+    audit_started = time.perf_counter()
+    cells = fetch_audit_matrix(dsn=dsn, schema_name=schema_name, manifest=manifest)
+    audit_seconds = round(time.perf_counter() - audit_started, 3)
+
+    coverage_started = time.perf_counter()
+    rules = [text(row.get("rule_code")) for row in manifest.get("rules") or []]
+    emperors = [text(row.get("emperor_name")) for row in manifest.get("targets") or []]
+    contract = fetch_coverage_contract(
+        dsn=dsn, schema_name=schema_name, emperors=emperors,
+        items=[text(manifest.get("item_code"))], rules=rules,
+    )
+    scope_inputs = {
+        f"{manifest.get('item_code')}__{rule_code}": {
+            "source_pack_codes": [
+                code for target in manifest.get("targets") or [] for code in target.get("source_pack_codes") or []
+            ]
+        }
+        for rule_code in rules
+    }
+    coverage = run_contract(
+        dsn=dsn, schema_name=schema_name, contract_rows=contract,
+        output_root=output_root / "coverage", scope_inputs=scope_inputs,
+    )
+    coverage_seconds = round(time.perf_counter() - coverage_started, 3)
+    report = {
+        "ok": len(cells) == len(rules) * len(emperors),
+        "generated_by": "scripts/dev/retrieval_v3_scoring_runner.py",
+        "mode": "read_only_i5b_matrix_audit",
+        "write_db": False,
+        "write_job": False,
+        "schema_name": schema_name,
+        "scope_code": text(manifest.get("scope_code")),
+        "manifest_fingerprint": stable_hash(manifest, length=64),
+        "cell_count": len(cells),
+        "ready_cell_count": sum(bool(row.get("scorer_ready")) for row in cells),
+        "dirty_cell_count": sum(text(row.get("dirty_state")) == "dirty" for row in cells),
+        "complete_rule_coverage": all(text(row.get("cluster_state")) == "current" for row in cells),
+        "cells": cells,
+        "coverage_summary": coverage,
+        "stage_timings": {"audit": audit_seconds, "coverage": coverage_seconds},
+        "elapsed_seconds": round(time.perf_counter() - started, 3),
+        "artifacts": {
+            "report_json": str(output_root / "report.json"),
+            "report_md": str(output_root / "report.md"),
+            "coverage_root": str(output_root / "coverage"),
+        },
+    }
+    (output_root / "report.json").write_text(
+        json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True, default=str) + "\n",
+        encoding="utf-8", newline="\n",
+    )
+    (output_root / "report.md").write_text(render_matrix_markdown(report), encoding="utf-8", newline="\n")
+    return report
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run manifest-pinned incremental retrieval_v3 scoring and coverage.")
     parser.add_argument("--env-file", type=Path)
@@ -348,19 +662,22 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.env_file:
         load_env_file(args.env_file)
     manifest = validate_manifest(read_json(args.manifest))
-    report = run(
-        dsn=resolve_dsn(args.dsn_env),
-        schema_name=args.pg_schema,
-        manifest=manifest,
-        output_root=args.output_root,
-        previous_report_path=args.previous_report,
-        execute_scorer=args.execute_scorer,
-    )
+    dsn = resolve_dsn(args.dsn_env)
+    if len(manifest.get("rules") or []) > 1:
+        if args.execute_scorer:
+            raise ScoringRunnerError("multi-rule matrix mode is read-only; scorer execution requires explicit per-rule authorization")
+        report = run_matrix(dsn=dsn, schema_name=args.pg_schema, manifest=manifest, output_root=args.output_root)
+    else:
+        report = run(
+            dsn=dsn, schema_name=args.pg_schema, manifest=manifest,
+            output_root=args.output_root, previous_report_path=args.previous_report,
+            execute_scorer=args.execute_scorer,
+        )
     print(json.dumps({
         "ok": report["ok"],
         "write_db": report["write_db"],
-        "dirty_target_count": report["dirty_target_count"],
-        "skipped_target_count": report["skipped_target_count"],
+        "dirty_target_count": report.get("dirty_target_count", report.get("dirty_cell_count", 0)),
+        "skipped_target_count": report.get("skipped_target_count", 0),
         "elapsed_seconds": report["elapsed_seconds"],
     }, ensure_ascii=False, sort_keys=True))
     return 0
