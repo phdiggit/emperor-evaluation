@@ -836,6 +836,143 @@ def require_confidence(value: Any, field: str) -> float:
     return confidence
 
 
+def require_authority_sources(value: Any) -> list[dict[str, str]]:
+    if not isinstance(value, list) or not value:
+        raise JudgmentWorklistError("authority_sources must be a non-empty list")
+    rows: list[dict[str, str]] = []
+    for index, raw in enumerate(value, start=1):
+        if not isinstance(raw, Mapping):
+            raise JudgmentWorklistError(f"authority_sources[{index}] must be an object")
+        source = {
+            "source_title": text(raw.get("source_title")),
+            "source_locator": text(raw.get("source_locator")),
+            "source_url": text(raw.get("source_url")),
+            "evaluation_summary": text(raw.get("evaluation_summary")),
+            "quote_preview": text(raw.get("quote_preview")),
+        }
+        if not source["source_title"] or not source["source_locator"] or not source["evaluation_summary"]:
+            raise JudgmentWorklistError(
+                f"authority_sources[{index}] requires source_title, source_locator and evaluation_summary"
+            )
+        rows.append(source)
+    return rows
+
+
+def upsert_authority_sources(
+    cur: Any,
+    *,
+    object_id: int,
+    sources: Sequence[Mapping[str, str]],
+    proposal_value: str,
+    confidence: float,
+    lane: str,
+) -> None:
+    cur.execute(
+        """
+        select o.canonical_name, pp.id as person_profile_id
+          from retrieval_v3.objects o
+          join retrieval_v3.person_profiles pp on pp.object_id = o.id
+         where o.id = %s and o.object_type = 'person'
+        """,
+        (object_id,),
+    )
+    profile = fetch_one(cur)
+    object_name = text(profile.get("canonical_name"))
+    profile_id = int(profile.get("person_profile_id") or 0)
+    run_code = f"authority-profile-{lane}-v1"
+    for source in sources:
+        title = text(source.get("source_title"))
+        locator = text(source.get("source_locator"))
+        url = text(source.get("source_url"))
+        summary = text(source.get("evaluation_summary"))
+        quote = text(source.get("quote_preview"))
+        source_key = [object_id, title, locator, summary]
+        claim_key = "PCA-" + stable_hash(source_key, length=24)
+        slice_hash = stable_hash([title, locator, url, quote or summary], length=64).lower()
+        evidence_key = "PCE-" + stable_hash([claim_key, slice_hash], length=24)
+        link_key = "PPL-" + stable_hash([claim_key, object_id, lane, proposal_value], length=24)
+        document_code = "AUTH-" + stable_hash([title, locator], length=16)
+        fact_payload = {
+            "schema": "authority_evaluation_v1",
+            "lane": lane,
+            "source_title": title,
+            "source_locator": locator,
+            "source_url": url,
+            "evaluation_summary": summary,
+        }
+        cur.execute(
+            """
+            insert into retrieval_v3.claim_cache (
+                claim_key, claim_type, fact_schema, object_name, object_id, object_type,
+                office_or_domain, claim_summary, confidence, fact_payload, claim_grain,
+                first_run_code, last_run_code, extractor_version, status
+            )
+            values (%s, 'evaluation', 'evaluation_v1', %s, %s, 'person',
+                    'historical_authority_evaluation', %s, %s, %s::jsonb, 'source_evaluation',
+                    %s, %s, 'authority-profile-v1', 'active')
+            on conflict (claim_key) do update set
+                claim_summary = excluded.claim_summary,
+                confidence = excluded.confidence,
+                fact_payload = excluded.fact_payload,
+                last_run_code = excluded.last_run_code,
+                status = 'active',
+                updated_at = now()
+            """,
+            (claim_key, object_name, object_id, summary, confidence, json_param(fact_payload), run_code, run_code),
+        )
+        cur.execute(
+            """
+            insert into retrieval_v3.claim_source_slices (
+                slice_hash, object_name, object_id, document_code, source_title, source_url,
+                source_slice_ref, text_hash, slice_text_preview, first_run_code
+            )
+            values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            on conflict (slice_hash) do update set
+                object_id = excluded.object_id,
+                source_title = excluded.source_title,
+                source_url = excluded.source_url,
+                source_slice_ref = excluded.source_slice_ref,
+                slice_text_preview = excluded.slice_text_preview,
+                updated_at = now()
+            """,
+            (slice_hash, object_name, object_id, document_code, title, url, locator, slice_hash, quote or summary, run_code),
+        )
+        cur.execute(
+            """
+            insert into retrieval_v3.claim_evidence (
+                evidence_key, claim_key, slice_hash, source_slice_ref, document_code,
+                object_name, object_id, support_level, quote_preview, slice_text_preview, first_run_code
+            )
+            values (%s, %s, %s, %s, %s, %s, %s, 'direct', %s, %s, %s)
+            on conflict (evidence_key) do update set
+                quote_preview = excluded.quote_preview,
+                slice_text_preview = excluded.slice_text_preview
+            """,
+            (evidence_key, claim_key, slice_hash, locator, document_code, object_name, object_id, quote, quote or summary, run_code),
+        )
+        cur.execute(
+            """
+            insert into retrieval_v3.person_profile_claim_links (
+                link_key, claim_key, object_id, object_name, profile_field, proposal_value,
+                proposal_status, basis, confidence, link_payload, resolved_profile_id
+            )
+            values (%s, %s, %s, %s, 'authority_evaluation', %s,
+                    'accepted', %s, %s, %s::jsonb, %s)
+            on conflict (link_key) do update set
+                proposal_status = 'accepted',
+                basis = excluded.basis,
+                confidence = excluded.confidence,
+                link_payload = excluded.link_payload,
+                resolved_profile_id = excluded.resolved_profile_id,
+                updated_at = now()
+            """,
+            (
+                link_key, claim_key, object_id, object_name, proposal_value, summary, confidence,
+                json_param({"lane": lane, "source": dict(source)}), profile_id,
+            ),
+        )
+
+
 def fetch_one(cur: Any) -> dict[str, Any]:
     row = cur.fetchone()
     if not row:
@@ -982,8 +1119,8 @@ def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
     grade = require_grade(row.get("talent_grade"))
     confidence = require_confidence(row.get("talent_grade_confidence"), "talent_grade_confidence")
     authority_consensus = require_choice(row.get("talent_authority_consensus"), AUTHORITY_CONSENSUS_VALUES, "talent_authority_consensus")
-    authority_sources = row.get("authority_sources")
-    if authority_consensus == "none" or not isinstance(authority_sources, list) or not authority_sources:
+    authority_sources = require_authority_sources(row.get("authority_sources"))
+    if authority_consensus == "none":
         raise JudgmentWorklistError(f"{row.get('_line_no')}: talent-grade-v2 requires authority consensus and authority_sources")
     performance_support = require_choice(row.get("talent_performance_support"), EVIDENCE_STRENGTH_VALUES, "talent_performance_support")
     evidence_coverage = require_choice(row.get("talent_evidence_coverage"), EVIDENCE_COVERAGE_VALUES, "talent_evidence_coverage")
@@ -1014,6 +1151,14 @@ def update_talent_grade(cur: Any, row: Mapping[str, Any]) -> None:
     )
     if cur.rowcount != 1:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: person profile not found for object_id {object_id}")
+    upsert_authority_sources(
+        cur,
+        object_id=object_id,
+        sources=authority_sources,
+        proposal_value=grade,
+        confidence=confidence,
+        lane="talent_grade",
+    )
 
 
 def update_negative_talent(cur: Any, row: Mapping[str, Any]) -> None:
@@ -1030,8 +1175,8 @@ def update_negative_talent(cur: Any, row: Mapping[str, Any]) -> None:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: negative class and severity must be blank when has_negative_talent_class is false")
     confidence = require_confidence(row.get("negative_talent_confidence"), "negative_talent_confidence")
     authority_consensus = require_choice(row.get("negative_authority_consensus"), AUTHORITY_CONSENSUS_VALUES, "negative_authority_consensus")
-    authority_sources = row.get("authority_sources")
-    if has_negative and (authority_consensus == "none" or not isinstance(authority_sources, list) or not authority_sources):
+    authority_sources = require_authority_sources(row.get("authority_sources")) if has_negative else []
+    if has_negative and authority_consensus == "none":
         raise JudgmentWorklistError(f"{row.get('_line_no')}: negative classification requires authority consensus and authority_sources")
     fact_support = require_choice(row.get("negative_fact_support"), EVIDENCE_STRENGTH_VALUES, "negative_fact_support")
     evidence_coverage = require_choice(row.get("negative_evidence_coverage"), EVIDENCE_COVERAGE_VALUES, "negative_evidence_coverage")
@@ -1062,6 +1207,15 @@ def update_negative_talent(cur: Any, row: Mapping[str, Any]) -> None:
     )
     if cur.rowcount != 1:
         raise JudgmentWorklistError(f"{row.get('_line_no')}: person profile not found for object_id {object_id}")
+    if has_negative:
+        upsert_authority_sources(
+            cur,
+            object_id=object_id,
+            sources=authority_sources,
+            proposal_value=f"{negative_class}:{severity}",
+            confidence=confidence,
+            lane="negative_talent",
+        )
 
 
 def update_profile_basis(cur: Any, row: Mapping[str, Any]) -> None:

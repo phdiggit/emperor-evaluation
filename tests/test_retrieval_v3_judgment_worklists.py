@@ -122,6 +122,24 @@ def test_v2_profile_value_validators_reject_invalid_values() -> None:
         tool.require_choice("unanimous", tool.AUTHORITY_CONSENSUS_VALUES, "consensus")
 
 
+def test_authority_sources_require_durable_source_identity() -> None:
+    rows = tool.require_authority_sources(
+        [
+            {
+                "source_title": "旧唐书",
+                "source_locator": "卷七十四 马周传 史臣曰",
+                "source_url": "https://example.test/old-tang-74",
+                "evaluation_summary": "史臣肯定马周识度与辅政能力。",
+            }
+        ]
+    )
+
+    assert rows[0]["source_title"] == "旧唐书"
+    assert rows[0]["source_locator"].startswith("卷七十四")
+    with pytest.raises(tool.JudgmentWorklistError, match="requires source_title"):
+        tool.require_authority_sources([{"source_title": "旧唐书", "evaluation_summary": "缺定位。"}])
+
+
 def test_write_worklist_outputs_builds_codex_prompts(tmp_path: Path) -> None:
     workitems = [
         tool.target_period_item(
