@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -42,25 +44,28 @@ def check_source_gap_request(
                 )
 
     request_rows: set[tuple[str, str, str, str]] = set()
+    related_window_rows: set[tuple[str, str, str, str]] = set()
     for item in request.get("requests", []):
         identity = _source_identity(item.get("edition_identity") or "")
         if identity.startswith("Wikisource/"):
             identity = identity.removeprefix("Wikisource/")
         for locator in item.get("locator_requests", []):
-            request_rows.add(
-                (
-                    locator.get("episode_code") or "",
-                    item.get("ruler") or "",
-                    identity,
-                    locator.get("locator") or "",
-                )
+            row = (
+                locator.get("episode_code") or "",
+                item.get("ruler") or "",
+                identity,
+                locator.get("locator") or "",
             )
+            if locator.get("related_window") is True:
+                related_window_rows.add(row)
+            else:
+                request_rows.add(row)
 
     missing_from_request = sorted(missing_rows - request_rows)
     extra_in_request = sorted(request_rows - missing_rows)
     errors: list[str] = []
-    if request.get("execution_authorized") is not False:
-        errors.append("execution_authorized 必须为 false")
+    if request.get("execution_authorized") not in {False, True}:
+        errors.append("execution_authorized 必须是显式布尔值")
     if request.get("production_write_authorized") is not False:
         errors.append("production_write_authorized 必须为 false")
     if missing_from_request:
@@ -74,10 +79,138 @@ def check_source_gap_request(
         "status": "passed" if not errors else "failed",
         "missing_required_passage_count": len(missing_rows),
         "requested_locator_count": len(request_rows),
+        "related_window_count": len(related_window_rows),
         "requested_document_count": len(request.get("requests", [])),
         "missing_from_request": missing_from_request,
         "extra_in_request": extra_in_request,
         "execution_authorized": request.get("execution_authorized"),
         "production_write_authorized": request.get("production_write_authorized"),
+        "errors": errors,
+    }
+
+
+def _all_strings(value: Any):
+    if isinstance(value, dict):
+        for item in value.values():
+            yield from _all_strings(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _all_strings(item)
+    elif isinstance(value, str):
+        yield value
+
+
+def check_source_supplement_response(
+    request_path: Path,
+    response_path: Path,
+    execution_path: Path | None = None,
+) -> dict[str, Any]:
+    request = _load_yaml(request_path)
+    response_bytes = response_path.read_bytes()
+    response = json.loads(response_bytes.decode("utf-8"))
+    errors: list[str] = []
+
+    expected_documents = {
+        item.get("edition_identity") for item in request.get("requests", [])
+    }
+    actual_documents = {
+        item.get("edition_identity") for item in response.get("documents", [])
+    }
+    if expected_documents != actual_documents:
+        errors.append("response document set 与 request 不一致")
+
+    expected_passages = {
+        (
+            locator.get("episode_code"),
+            locator.get("locator"),
+            locator.get("related_window") is True,
+        )
+        for item in request.get("requests", [])
+        for locator in item.get("locator_requests", [])
+    }
+    actual_passages = {
+        (
+            item.get("episode_code"),
+            str(item.get("locator") or "").split(" | chars:", 1)[0],
+            item.get("related_window") is True,
+        )
+        for item in response.get("passages", [])
+    }
+    if expected_passages != actual_passages:
+        errors.append("response passage set 与 request 不一致")
+
+    document_ids = [item.get("document_cache_id") for item in response.get("documents", [])]
+    passage_ids = [item.get("passage_cache_id") for item in response.get("passages", [])]
+    if len(document_ids) != len(set(document_ids)):
+        errors.append("response 包含重复 document_cache_id")
+    if len(passage_ids) != len(set(passage_ids)):
+        errors.append("response 包含重复 passage_cache_id")
+    if any(
+        item.get("document_cache_id") not in set(document_ids)
+        for item in response.get("passages", [])
+    ):
+        errors.append("response passage 引用了未知 document")
+
+    for item in response.get("documents", []):
+        if len(str(item.get("content_hash") or "")) != 64:
+            errors.append(f"document content_hash 非 SHA-256: {item.get('document_cache_id')}")
+    for item in response.get("passages", []):
+        expected_hash = hashlib.sha256(item.get("raw_text", "").encode("utf-8")).hexdigest()
+        if item.get("content_hash") != expected_hash:
+            errors.append(f"passage content_hash 不一致: {item.get('passage_cache_id')}")
+        reason = item.get("selection_reason") or {}
+        if set(reason.get("requested_anchor_terms") or ()) != set(
+            reason.get("matched_anchor_terms") or ()
+        ):
+            errors.append(f"passage anchor 未完全命中: {item.get('passage_cache_id')}")
+
+    if response.get("status") != "succeeded" or response.get("errors"):
+        errors.append("response 未无错误完成")
+    if response.get("production_write_performed") is not False:
+        errors.append("response 发生了生产写入")
+    if response.get("model_call_count") != 0:
+        errors.append("response 发生了模型调用")
+    if response.get("network_fetch_count") != 0:
+        errors.append("最终 fixture 不是零网络幂等重跑")
+    if response.get("cache_hit_count") != len(expected_documents):
+        errors.append("最终 fixture 未全部命中缓存")
+
+    request_hash = hashlib.sha256(request_path.read_bytes()).hexdigest()
+    if response.get("provenance", {}).get("request_sha256") != request_hash:
+        errors.append("response request_sha256 与当前 request 不一致")
+    response_hash = hashlib.sha256(response_bytes).hexdigest()
+
+    if execution_path is not None:
+        execution = _load_yaml(execution_path)
+        final_run = (execution.get("runs") or [])[-1]
+        if final_run.get("request_sha256") != request_hash:
+            errors.append("execution final request_sha256 不一致")
+        if final_run.get("response_sha256") != response_hash:
+            errors.append("execution final response_sha256 不一致")
+
+    forbidden_values = [
+        value
+        for value in _all_strings(response)
+        if value.startswith(("/data1/", "/home/")) or "192.168." in value
+    ]
+    if forbidden_values:
+        errors.append("response 包含运行环境绝对路径或内网地址")
+
+    return {
+        "report_schema_version": 1,
+        "check": "source_supplement_response",
+        "status": "passed" if not errors else "failed",
+        "request_sha256": request_hash,
+        "response_sha256": response_hash,
+        "document_count": len(document_ids),
+        "passage_count": len(passage_ids),
+        "related_window_count": sum(
+            item.get("related_window") is True for item in response.get("passages", [])
+        ),
+        "all_anchor_terms_matched": not any("anchor" in error for error in errors),
+        "cache_hit_count": response.get("cache_hit_count"),
+        "network_fetch_count": response.get("network_fetch_count"),
+        "model_call_count": response.get("model_call_count"),
+        "production_write_performed": response.get("production_write_performed"),
         "errors": errors,
     }

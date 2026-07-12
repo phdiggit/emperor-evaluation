@@ -5,7 +5,10 @@ import json
 from pathlib import Path
 
 from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
-from emperor_v4.evaluation.source_gap import check_source_gap_request
+from emperor_v4.evaluation.source_gap import (
+    check_source_gap_request,
+    check_source_supplement_response,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -23,6 +26,13 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("eval/episode_pilot_v1_linkage.yml"),
     )
+    pilot.add_argument(
+        "--source-supplement",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json"
+        ),
+    )
     pilot.add_argument("--output", type=Path)
     source_gap = subparsers.add_parser("source-gap-check")
     source_gap.add_argument("--manifest", type=Path, required=True)
@@ -37,18 +47,48 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("eval/episode_pilot_v1_source_supplement.yml"),
     )
     source_gap.add_argument("--output", type=Path)
+    supplement = subparsers.add_parser("source-supplement-check")
+    supplement.add_argument(
+        "--request",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_source_supplement.yml"),
+    )
+    supplement.add_argument(
+        "--response",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json"
+        ),
+    )
+    supplement.add_argument(
+        "--execution",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_source_supplement_execution.yml"),
+    )
+    supplement.add_argument("--output", type=Path)
     return parser
 
 
 def main() -> int:
     args = _parser().parse_args()
     if args.command == "episode-pilot":
-        report = evaluate_episode_pilot(args.manifest, args.fixture_dir, args.linkage)
+        report = evaluate_episode_pilot(
+            args.manifest,
+            args.fixture_dir,
+            args.linkage,
+            args.source_supplement,
+        )
     elif args.command == "source-gap-check":
         report = check_source_gap_request(
             args.manifest,
             args.source_fixture,
             args.request,
+        )
+    elif args.command == "source-supplement-check":
+        report = check_source_supplement_response(
+            args.request,
+            args.response,
+            args.execution,
         )
     else:
         raise AssertionError("unreachable")

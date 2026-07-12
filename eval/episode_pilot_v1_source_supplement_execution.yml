@@ -1,0 +1,69 @@
+schema_version: 1
+execution_code: episode_pilot_v1_source_supplement_execution
+status: succeeded_idempotent
+request: eval/episode_pilot_v1_source_supplement.yml
+final_fixture: tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json
+runtime_scope: isolated_emperor_v4_shadow_file_cache
+captured_from_release: 7e7db79f651d732adb59c62f0790756f8e2733ce
+production_service_restarted: false
+production_database_write_performed: false
+claim_job_enqueued: false
+
+runs:
+  - run_code: v4-source-supplement-20260712T115019Z
+    purpose: initial_required_source_fetch
+    request_sha256: c2a348d2b725b95d41d9eee7cd9acb8caeafaeec8da8fda7e6a75b622f748975
+    response_sha256: b7d4241ea5363ff4d1f932691fcc91074491872691751b0fd0c581cfed4f8d73
+    documents: 10
+    passages: 15
+    errors: 0
+    network_fetch_count: 10
+    cache_hit_count: 0
+    model_call_count: 0
+    production_write_performed: false
+
+  - run_code: v4-source-supplement-20260712T115246Z
+    purpose: add_zizhi_tongjian_volume_198_related_window
+    request_sha256: 5398a4e2eb51500ab16873e19d4c741d6acdd31ddbc54812a9a8714014a3a149
+    response_sha256: 8ddc5371602575c294cd2b8216c2e315829c31b3f154813c89ccdc3f0661bfd5
+    documents: 11
+    passages: 16
+    errors: 0
+    network_fetch_count: 1
+    cache_hit_count: 10
+    model_call_count: 0
+    production_write_performed: false
+
+  - run_code: v4-source-supplement-20260712T115415Z
+    purpose: idempotent_anchor_verified_rerun
+    request_sha256: 708d76fdc76f41a3c93613dd33b4471618fc065a4be109304402a74ff8a43433
+    response_sha256: 57b5c5c3b32cbed9cf52445e57f76ca9554f1142f830f3f06f4b97cad2ed5980
+    documents: 11
+    passages: 16
+    errors: 0
+    network_fetch_count: 0
+    cache_hit_count: 11
+    model_call_count: 0
+    production_write_performed: false
+
+  - run_code: v4-source-supplement-20260712T115705Z
+    purpose: final_provenance_enriched_idempotent_rerun
+    request_sha256: 708d76fdc76f41a3c93613dd33b4471618fc065a4be109304402a74ff8a43433
+    response_sha256: 3a93c8c07801687e394a36c705e7497f147a05afb2a653b0e64921de2e21a3e1
+    documents: 11
+    passages: 16
+    errors: 0
+    network_fetch_count: 0
+    cache_hit_count: 11
+    model_call_count: 0
+    production_write_performed: false
+
+final_acceptance:
+  all_requested_documents_returned: true
+  all_required_passages_returned: true
+  related_window_returned: true
+  all_anchor_terms_matched: true
+  document_and_passage_hashes_present: true
+  no_change_rerun_zero_network_fetch: true
+  no_model_calls: true
+  no_production_writes: true

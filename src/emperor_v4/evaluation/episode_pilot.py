@@ -58,6 +58,7 @@ def evaluate_episode_pilot(
     manifest_path: Path,
     fixture_dir: Path,
     linkage_path: Path | None = None,
+    source_supplement_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
     manifest = _load_yaml(manifest_path)
@@ -75,13 +76,25 @@ def evaluate_episode_pilot(
         for episode in manifest.get("episodes", [])
         if episode.get("episode_code") in frozen_codes
     ]
-    actual_by_ruler = {
+    baseline_actual_by_ruler = {
         person.get("ruler"): {
             _source_identity(document.get("title") or "")
             for document in person.get("payload", {}).get("source_documents", [])
         }
         for person in source_snapshot.get("people", [])
     }
+    actual_by_ruler = {
+        ruler: set(identities) for ruler, identities in baseline_actual_by_ruler.items()
+    }
+    source_supplement: Mapping[str, Any] | None = None
+    if source_supplement_path is not None:
+        source_supplement = _load_json(source_supplement_path)
+        for document in source_supplement.get("documents", []):
+            ruler = document.get("ruler")
+            if ruler:
+                actual_by_ruler.setdefault(ruler, set()).add(
+                    _source_identity(document.get("title") or "")
+                )
     required_rows: list[dict[str, Any]] = []
     for episode in frozen_episodes:
         for passage in episode.get("required_source_passages", []):
@@ -91,11 +104,14 @@ def evaluate_episode_pilot(
                     "episode_code": episode.get("episode_code"),
                     "ruler": episode.get("ruler"),
                     "required_source_identity": identity,
+                    "matched_in_baseline": identity
+                    in baseline_actual_by_ruler.get(episode.get("ruler"), set()),
                     "matched": identity in actual_by_ruler.get(episode.get("ruler"), set()),
                 }
             )
 
     matched_rows = [row for row in required_rows if row["matched"]]
+    baseline_matched_rows = [row for row in required_rows if row["matched_in_baseline"]]
     assertion_codes = {assertion.assertion_code for assertion in assertions}
     linked_codes = {
         link.assertion_ref for packet in packets for link in packet.assertion_links
@@ -247,11 +263,16 @@ def evaluate_episode_pilot(
         "source_coverage": {
             "status": "document_identity_proxy_only",
             "required_passage_count": len(required_rows),
+            "baseline_matched_required_document_count": len(baseline_matched_rows),
+            "baseline_rate": (
+                len(baseline_matched_rows) / len(required_rows) if required_rows else None
+            ),
             "matched_required_document_count": len(matched_rows),
             "rate": len(matched_rows) / len(required_rows) if required_rows else None,
             "matched": matched_rows,
             "missing": [row for row in required_rows if not row["matched"]],
             "caveat": "文献身份命中不等于 passage 已覆盖 gold boundary。",
+            "supplement_fixture_applied": source_supplement is not None,
         },
         "episode_recall": episode_recall,
         "accepted_episode_precision": accepted_precision,
@@ -269,6 +290,12 @@ def evaluate_episode_pilot(
             "source_document_contract_gap_count": len(source.contract_gaps),
             "assertion_draft_count": len(assertions),
             "episode_candidate_packet_count": len(packets),
+            "supplement_source_document_count": (
+                len(source_supplement.get("documents", [])) if source_supplement else 0
+            ),
+            "supplement_source_passage_count": (
+                len(source_supplement.get("passages", [])) if source_supplement else 0
+            ),
         },
         "cost": {
             "network_request_count": 0,
@@ -280,6 +307,9 @@ def evaluate_episode_pilot(
         "failure_attribution": {
             "source_cache_missing_required_document": len(required_rows) - len(matched_rows),
             "source_metadata_contract_gap": len(source.contract_gaps),
+            "assertion_extraction_pending_supplement_passage": (
+                len(source_supplement.get("passages", [])) if source_supplement else 0
+            ),
             "episode_gold_linkage_missing": linkage_failure_count,
             "gold_boundary_without_full_match": (
                 episode_recall.get("frozen_episode_count", len(frozen_episodes))
