@@ -25,6 +25,7 @@ _SOURCE_TRANSLATION = str.maketrans(
         "實": "实",
         "錄": "录",
         "語": "语",
+        "資": "资",
     }
 )
 
