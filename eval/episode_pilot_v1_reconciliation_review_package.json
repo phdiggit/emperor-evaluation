@@ -9,6 +9,10 @@
           "actual": "complete",
           "expected": "not_applicable"
         },
+        "consequence": {
+          "actual": "complete",
+          "expected": "not_applicable"
+        },
         "outcome": {
           "actual": "complete",
           "expected": "partial"
@@ -52,7 +56,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -60,7 +64,9 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "黄金四万斤"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-LB-CHENPING-CONTINUED-AUTHORIZATION",
       "episode_type": "political_action",
@@ -80,8 +86,8 @@
         "EP-LB-FANKUAI-REPLACEMENT"
       ],
       "outcome": [
-        "陈平获得专款施行反间",
-        "继续随军并多次益封"
+        "继续随军并多次益封",
+        "陈平获得专款施行反间"
       ],
       "participants": [
         {
@@ -102,8 +108,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-C7122FBA9322E2F2FFBE",
-      "proposed_semantic_fingerprint": "c7122fba9322e2f2ffbe694bdd9a2cfc69c8cd18d9dde6d56f381c47c62959f7",
+      "proposed_episode_id": "EP-D1218C3B1081BA506CE1",
+      "proposed_semantic_fingerprint": "d1218c3b1081ba506ce192995ea0e0bf742e7586de9432b74d564969d7ac0da8",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "反间谋略|护军中尉",
       "semantic_version": 1,
@@ -111,7 +117,8 @@
       "time_precision": "source_expression",
       "time_start": "楚汉相持荥阳期间|汉六年以后",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -120,10 +127,10 @@
       ]
     },
     {
-      "action": "任命",
+      "action": "任命 | 构陷",
       "advisory_completeness_mismatches": {
         "consequence": {
-          "actual": "not_applicable",
+          "actual": "complete",
           "expected": "partial"
         },
         "outcome": {
@@ -152,7 +159,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-SLANDER",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT",
           "relation": "supports",
           "source_passage_ref": "PAS-5ACCDE1FA44F",
           "supported_fields": [
@@ -162,7 +169,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-SLANDER",
           "relation": "supports",
           "source_passage_ref": "PAS-5ACCDE1FA44F",
           "supported_fields": [
@@ -180,7 +187,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -188,7 +195,9 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "引发刘邦对陈平的疑虑"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-LB-CHENPING-INTEGRATION",
       "episode_type": "political_action",
@@ -208,8 +217,8 @@
         "EP-LB-CHENPING-CONTINUED-AUTHORIZATION"
       ],
       "outcome": [
-        "陈平典护军",
-        "继续任用陈平"
+        "继续任用陈平",
+        "陈平典护军"
       ],
       "participants": [
         {
@@ -244,8 +253,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-42FF1A4D3648AF0B2CF0",
-      "proposed_semantic_fingerprint": "42ff1a4d3648af0b2cf0365bce7ada31ae08bce1856d2ae156152001ffbc17e4",
+      "proposed_episode_id": "EP-33AA4F862F4ACCE9EA98",
+      "proposed_semantic_fingerprint": "33aa4f862f4acce9ea98bdc7d42be007c33de7db1b034da58fda37edea43ade8",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "军中任用|护军中尉|都尉、护军",
       "semantic_version": 1,
@@ -253,7 +262,8 @@
       "time_precision": "source_expression",
       "time_start": "陈平任护军中尉后|陈平归汉后|陈平归汉并遭诸将诋毁后",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "灌婴等诸将",
@@ -267,14 +277,14 @@
       ]
     },
     {
-      "action": "授权",
+      "action": "处置 | 授权",
       "advisory_completeness_mismatches": {
         "conflict_resolution": {
           "actual": "complete",
           "expected": "partial"
         },
         "consequence": {
-          "actual": "not_applicable",
+          "actual": "complete",
           "expected": "partial"
         },
         "source_diversity": {
@@ -295,7 +305,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-FANKUAI-ORDER",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-FANKUAI-BUFFER",
           "relation": "supports",
           "source_passage_ref": "PAS-E96139EA2084",
           "supported_fields": [
@@ -305,7 +315,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-FANKUAI-BUFFER",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-FANKUAI-ORDER",
           "relation": "supports",
           "source_passage_ref": "PAS-E96139EA2084",
           "supported_fields": [
@@ -322,7 +332,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -330,7 +340,9 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "下令斩樊哙"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-LB-FANKUAI-REPLACEMENT",
       "episode_type": "political_action",
@@ -386,8 +398,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-DCEF105CD134466EC186",
-      "proposed_semantic_fingerprint": "dcef105cd134466ec186cd830bdde6936862f3fc65309fd2cd8c21999a7427e3",
+      "proposed_episode_id": "EP-1EB600561663D69A46CB",
+      "proposed_semantic_fingerprint": "1eb600561663d69a46cbe9e739594b7278cec3b8cff8cb6f18c94f1b8e9384c2",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "燕地平叛军务|燕地平叛统军",
       "semantic_version": 1,
@@ -395,7 +407,8 @@
       "time_precision": "source_expression",
       "time_start": "刘邦病中、樊哙出兵攻燕时|奉刘邦诏令赴军途中|高帝病中、燕王卢绾反叛时",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -406,7 +419,7 @@
       ]
     },
     {
-      "action": "授权",
+      "action": "任命 | 其他 | 战役 | 授权",
       "advisory_completeness_mismatches": {
         "consequence": {
           "actual": "not_applicable",
@@ -454,7 +467,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-OPPOSE",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT",
           "relation": "supports",
           "source_passage_ref": "PAS-8F456F1A5D59",
           "supported_fields": [
@@ -464,7 +477,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-OPPOSE",
           "relation": "supports",
           "source_passage_ref": "PAS-8F456F1A5D59",
           "supported_fields": [
@@ -554,8 +567,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-D1677C234A44EE4D8848",
-      "proposed_semantic_fingerprint": "d1677c234a44ee4d88483568365460e71af5f010ffbc1b0992eed5214e4fe04b",
+      "proposed_episode_id": "EP-E08E7A59851365BCB3EA",
+      "proposed_semantic_fingerprint": "e08e7a59851365bcb3eaf808c8d52ba0593bbcc1e431aaf89ec5b6dc963aaaab",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "齐地战事|齐地王号|齐王|齐王封授",
       "semantic_version": 1,
@@ -563,7 +576,8 @@
       "time_precision": "source_expression",
       "time_start": "汉三年至四年间|汉四年|汉四年,韩信破齐后|韩信破齐后",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "楚军",
@@ -610,7 +624,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-LB-SANJIE-ZHANG-LIANG",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-LB-SANJIE-HAN-XIN",
           "relation": "supports",
           "source_passage_ref": "PAS-1D115A17E04D",
           "supported_fields": [
@@ -630,7 +644,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-LB-SANJIE-HAN-XIN",
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-LB-SANJIE-ZHANG-LIANG",
           "relation": "supports",
           "source_passage_ref": "PAS-1D115A17E04D",
           "supported_fields": [
@@ -675,10 +689,10 @@
         "EP-LB-CHENPING-INTEGRATION"
       ],
       "outcome": [
-        "刘邦认为因此取得天下",
         "刘邦能用张良，取天下",
         "刘邦能用萧何，取天下",
-        "刘邦能用韩信，取天下"
+        "刘邦能用韩信，取天下",
+        "刘邦认为因此取得天下"
       ],
       "participants": [
         {
@@ -713,8 +727,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-1791C17835FEAE06C05D",
-      "proposed_semantic_fingerprint": "1791c17835feae06c05de03dabef45cdf19c425cbf528a0cc904483c732684c4",
+      "proposed_episode_id": "EP-E362BB32007A016F5841",
+      "proposed_semantic_fingerprint": "e362bb32007a016f5841f8a83428ed8a795357bd62f2f306769bf277dc3bd098",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "军事谋略|军队统率|国家治理与后勤|用人",
       "semantic_version": 1,
@@ -722,7 +736,8 @@
       "time_precision": "source_expression",
       "time_start": "雒阳南宫论得天下时|高祖置酒雒阳南宫时",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -733,14 +748,14 @@
       ]
     },
     {
-      "action": "制度高压",
+      "action": "其他 | 制度高压 | 处置",
       "advisory_completeness_mismatches": {
         "conflict_resolution": {
           "actual": "complete",
           "expected": "partial"
         },
         "consequence": {
-          "actual": "not_applicable",
+          "actual": "complete",
           "expected": "partial"
         },
         "source_diversity": {
@@ -789,7 +804,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -797,7 +812,11 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "低价购置民田宅损害声望",
+        "拘系",
+        "疑忌压力"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-LB-XIAOHE-SAFETY-PRESSURE",
       "episode_type": "political_action",
@@ -816,8 +835,8 @@
         "EP-LB-SANJIE-RETROSPECTIVE"
       ],
       "outcome": [
-        "萧何受增封并置卫",
         "刘邦转而大悦",
+        "萧何受增封并置卫",
         "萧何被拘系后获赦出"
       ],
       "participants": [
@@ -847,8 +866,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-577849F3D5F100E783B6",
-      "proposed_semantic_fingerprint": "577849f3d5f100e783b62c10dda43116de5ac0d50976d96d0be1178050045fb1",
+      "proposed_episode_id": "EP-7DF28A73D8BEAE572845",
+      "proposed_semantic_fingerprint": "7df28a73d8beae572845900e988741d425ba83b2a7bf4bc35718cc61fbf157f6",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "廷尉审理|政治自污|相国卫护",
       "semantic_version": 1,
@@ -856,7 +875,8 @@
       "time_precision": "source_expression",
       "time_start": "汉十一年|汉十二年|汉十二年黥布反叛时",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "自身政治声望"
@@ -868,7 +888,7 @@
       ]
     },
     {
-      "action": "任命",
+      "action": "任命 | 荐举",
       "advisory_completeness_mismatches": {
         "conflict_resolution": {
           "actual": "complete",
@@ -890,7 +910,7 @@
       "assertion_boundary_decision": "full_boundary_support",
       "assertion_links": [
         {
-          "assertion_ref": "CLMEXT-AB1B9AA45A8C7600@CLM-房玄龄-RECRUITMENT-001",
+          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-FANGDU-RECRUITMENT-001",
           "relation": "supports",
           "source_passage_ref": "PAS-1F7641ABCC66",
           "supported_fields": [
@@ -900,7 +920,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-FANGDU-RECRUITMENT-001",
+          "assertion_ref": "CLMEXT-AB1B9AA45A8C7600@CLM-房玄龄-RECRUITMENT-001",
           "relation": "supports",
           "source_passage_ref": "PAS-1F7641ABCC66",
           "supported_fields": [
@@ -945,8 +965,8 @@
         "EP-LSM-LIJING-DAIZHOU-COMMAND"
       ],
       "outcome": [
-        "房玄龄进入太宗军府任职",
-        "人才被引入幕府"
+        "人才被引入幕府",
+        "房玄龄进入太宗军府任职"
       ],
       "participants": [
         {
@@ -975,8 +995,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-2F124B1C3E2D73A08042",
-      "proposed_semantic_fingerprint": "2f124b1c3e2d73a080427a63eeb97ddfdea5845bb141e217c00e67da4115e3ad",
+      "proposed_episode_id": "EP-6DAEF3BF2E8E760A6969",
+      "proposed_semantic_fingerprint": "6daef3bf2e8e760a69699f4a8dd9b9fa31b81bf3e338b756c137aba874bd2890",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "渭北道行军记室参军|秦王府幕府",
       "semantic_version": 1,
@@ -984,7 +1004,8 @@
       "time_precision": "source_expression",
       "time_start": "义旗入关后,太宗徇地渭北时|太宗徇地渭北后",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "人才"
@@ -1083,8 +1104,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-6F207B449B8F0F882CCD",
-      "proposed_semantic_fingerprint": "6f207b449b8f0f882ccdc1df3a211ad8f9f94173e30c87311c71a2366b07fce6",
+      "proposed_episode_id": "EP-609B28E95EDE1077BD56",
+      "proposed_semantic_fingerprint": "609b28e95ede1077bd5650a5da3895d785b2199aad13640321ce625584da5db3",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "代州道行军总管",
       "semantic_version": 1,
@@ -1092,7 +1113,8 @@
       "time_precision": "source_expression",
       "time_start": "贞观三年至四年",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -1101,14 +1123,14 @@
       ]
     },
     {
-      "action": "纳谏",
+      "action": "任命 | 其他 | 授权 | 纳谏",
       "advisory_completeness_mismatches": {
         "conflict_resolution": {
           "actual": "complete",
           "expected": "not_applicable"
         },
         "consequence": {
-          "actual": "not_applicable",
+          "actual": "complete",
           "expected": "partial"
         },
         "source_diversity": {
@@ -1123,9 +1145,19 @@
       "assertion_boundary_decision": "full_boundary_support",
       "assertion_links": [
         {
-          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-003",
+          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
           "relation": "supports",
-          "source_passage_ref": "PAS-B85AE7A32185",
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "supported_fields": [
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001",
+          "relation": "supports",
+          "source_passage_ref": "PAS-1CD613D0DD2B",
           "supported_fields": [
             "action",
             "responsibility",
@@ -1153,29 +1185,19 @@
           ]
         },
         {
+          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-003",
+          "relation": "supports",
+          "source_passage_ref": "PAS-B85AE7A32185",
+          "supported_fields": [
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
           "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-004",
           "relation": "supports",
           "source_passage_ref": "PAS-3E6F453E56C5",
-          "supported_fields": [
-            "action",
-            "responsibility",
-            "outcome"
-          ]
-        },
-        {
-          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
-          "relation": "supports",
-          "source_passage_ref": "PAS-1CD613D0DD2B",
-          "supported_fields": [
-            "action",
-            "responsibility",
-            "outcome"
-          ]
-        },
-        {
-          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001",
-          "relation": "supports",
-          "source_passage_ref": "PAS-1CD613D0DD2B",
           "supported_fields": [
             "action",
             "responsibility",
@@ -1190,7 +1212,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -1198,7 +1220,9 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "可能竭财并加重百姓负担"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-LSM-WEIZHENG-APPOINTMENT",
       "episode_type": "political_action",
@@ -1217,12 +1241,12 @@
         "EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL"
       ],
       "outcome": [
-        "太宗认可其意见，皇后另赐财帛",
         "天下大宁，绝域君长来朝贡",
-        "太宗认为其言正确并慰劳遣送",
         "太宗不能夺",
-        "魏徵获授谏议大夫",
-        "魏徵获便宜从事权限"
+        "太宗认为其言正确并慰劳遣送",
+        "太宗认可其意见，皇后另赐财帛",
+        "魏徵获便宜从事权限",
+        "魏徵获授谏议大夫"
       ],
       "participants": [
         {
@@ -1243,8 +1267,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-BC87916956324C98EFE6",
-      "proposed_semantic_fingerprint": "bc87916956324c98efe6054f9592e7052fa2ed2f6fcaddb463c720301acf37a2",
+      "proposed_episode_id": "EP-22242F33F648F5BB3729",
+      "proposed_semantic_fingerprint": "22242f33f648f5bb372932c007679ce0c7be8907d943cd4c00bd2eeba2ae44a6",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "东封与对外赏赐|公主礼制与资送|封事与谏诤|河北安辑|治国方针|谏议大夫",
       "semantic_version": 1,
@@ -1252,7 +1276,8 @@
       "time_precision": "source_expression",
       "time_start": "李世民践祚后|贞观七年前后|贞观初年|贞观年间",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -1261,14 +1286,14 @@
       ]
     },
     {
-      "action": "处置",
+      "action": "处置 | 荐举",
       "advisory_completeness_mismatches": {
         "conflict_resolution": {
           "actual": "complete",
           "expected": "partial"
         },
         "consequence": {
-          "actual": "not_applicable",
+          "actual": "complete",
           "expected": "partial"
         },
         "source_diversity": {
@@ -1279,47 +1304,7 @@
       "assertion_boundary_decision": "full_boundary_support",
       "assertion_links": [
         {
-          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-008@PAS-3E6F453E56C5",
-          "relation": "supports",
-          "source_passage_ref": "PAS-3E6F453E56C5",
-          "supported_fields": [
-            "action",
-            "responsibility",
-            "outcome"
-          ]
-        },
-        {
-          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-008@PAS-14731BC1BFEE",
-          "relation": "supports",
-          "source_passage_ref": "PAS-14731BC1BFEE",
-          "supported_fields": [
-            "action",
-            "responsibility",
-            "outcome"
-          ]
-        },
-        {
-          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-005",
-          "relation": "supports",
-          "source_passage_ref": "PAS-14731BC1BFEE",
-          "supported_fields": [
-            "action",
-            "responsibility",
-            "outcome"
-          ]
-        },
-        {
           "assertion_ref": "CLMEXT-AB1B9AA45A8C7600@CLM-魏徵-POSTHUMOUS-REVERSAL-001",
-          "relation": "supports",
-          "source_passage_ref": "PAS-86D06AF4FB9A",
-          "supported_fields": [
-            "action",
-            "responsibility",
-            "outcome"
-          ]
-        },
-        {
-          "assertion_ref": "CLMEXT-AB1B9AA45A8C7600@CLM-魏徵-POSTHUMOUS-REVERSAL-002@PAS-86D06AF4FB9A",
           "relation": "supports",
           "source_passage_ref": "PAS-86D06AF4FB9A",
           "supported_fields": [
@@ -1337,6 +1322,46 @@
             "responsibility",
             "outcome"
           ]
+        },
+        {
+          "assertion_ref": "CLMEXT-AB1B9AA45A8C7600@CLM-魏徵-POSTHUMOUS-REVERSAL-002@PAS-86D06AF4FB9A",
+          "relation": "supports",
+          "source_passage_ref": "PAS-86D06AF4FB9A",
+          "supported_fields": [
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-005",
+          "relation": "supports",
+          "source_passage_ref": "PAS-14731BC1BFEE",
+          "supported_fields": [
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-008@PAS-14731BC1BFEE",
+          "relation": "supports",
+          "source_passage_ref": "PAS-14731BC1BFEE",
+          "supported_fields": [
+            "action",
+            "responsibility",
+            "outcome"
+          ]
+        },
+        {
+          "assertion_ref": "CLMEXT-BCD6F769199D57B3@JSH-R00-01-CLM-JSH-R00-01-008@PAS-3E6F453E56C5",
+          "relation": "supports",
+          "source_passage_ref": "PAS-3E6F453E56C5",
+          "supported_fields": [
+            "action",
+            "responsibility",
+            "outcome"
+          ]
         }
       ],
       "blocking_completeness_mismatches": {},
@@ -1346,7 +1371,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -1354,7 +1379,9 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "贬损魏徵身后名誉"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL",
       "episode_type": "political_action",
@@ -1373,8 +1400,8 @@
         "EP-LSM-WEIZHENG-APPOINTMENT"
       ],
       "outcome": [
-        "营造居所，废朝五日，赠司空、相州都督，谥文贞",
         "杜正伦以罪被黜，侯君集因谋逆伏诛，太宗始疑魏徵阿党",
+        "营造居所，废朝五日，赠司空、相州都督，谥文贞",
         "魏徵墓碑被推倒",
         "魏徵碑被重新树立并获祭祀"
       ],
@@ -1397,8 +1424,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-A7882DF5CA0A2135072E",
-      "proposed_semantic_fingerprint": "a7882df5ca0a2135072e19640f3eabce9a87b1186444c77f21b6a2abf1dd33ee",
+      "proposed_episode_id": "EP-2CA22C0CFF34A2F8C579",
+      "proposed_semantic_fingerprint": "2ca22c0cff34a2f8c579269b14c3d1763213d6144c72c241f6bfaad04420c32d",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "宰相人才荐举|臣下病逝抚恤|身后碑文|身后祭祀与碑文",
       "semantic_version": 1,
@@ -1406,8 +1433,9 @@
       "time_precision": "source_expression",
       "time_start": "征辽不如意后|贞观十六年至魏徵卒后|魏徵卒后追议|魏徵去世后,征辽前",
       "uncertainties": [
+        "legacy_multi_passage_claim_fanned_out",
         "missing_candidate_episode_key",
-        "legacy_multi_passage_claim_fanned_out"
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -1510,8 +1538,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-AE01E9B7DB01818A6B83",
-      "proposed_semantic_fingerprint": "ae01e9b7db01818a6b8317ec05f02ef0429e0c8cd4f32b69e2396bc3bdabc0d3",
+      "proposed_episode_id": "EP-E3704AF6CEFAC8EA4B68",
+      "proposed_semantic_fingerprint": "e3704af6cefac8ea4b6842dde0870805ef6bb6fba15811b092beb2ff74ab51ff",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "总兵官、大将军|爵位封赏",
       "semantic_version": 1,
@@ -1519,7 +1547,8 @@
       "time_precision": "source_expression",
       "time_start": "洪武二十一年捕鱼儿海战后|洪武二十年",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -1528,7 +1557,7 @@
       ]
     },
     {
-      "action": "滥权",
+      "action": "处置 | 滥权",
       "advisory_completeness_mismatches": {
         "source_diversity": {
           "actual": "partial",
@@ -1593,10 +1622,6 @@
           "actual": "complete",
           "expected": "conflicted"
         },
-        "consequence": {
-          "actual": "not_applicable",
-          "expected": "complete"
-        },
         "responsibility": {
           "actual": "complete",
           "expected": "conflicted"
@@ -1610,7 +1635,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -1618,7 +1643,12 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "关隘遭破坏",
+        "军令权受其专擅",
+        "列侯以下党羽大量夷灭",
+        "民田被侵占，监察受阻"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-ZYZ-LANYU-PURGE",
       "episode_type": "political_action",
@@ -1638,9 +1668,9 @@
         "EP-ZYZ-LISHANCHANG-ROLE-AND-DOWNFALL"
       ],
       "outcome": [
+        "军中任免和进止由其擅自决定",
         "御史被逐",
         "纵兵毁关入关",
-        "军中任免和进止由其擅自决定",
         "蓝玉族诛，蓝党族诛者一万五千人"
       ],
       "participants": [
@@ -1690,8 +1720,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-AEF0474CA13289BC3CE3",
-      "proposed_semantic_fingerprint": "aef0474ca13289bc3ce3b2138fc5b78e531a86942ff44cf707ecbfdd1c18815a",
+      "proposed_episode_id": "EP-71D6450E9DCD213847D8",
+      "proposed_semantic_fingerprint": "71d6450e9dcd213847d8b844bb4740201aedd8a22cd3a7cdff9fff2c8999761b",
       "recommended_next_status": "needs_evidence_review",
       "responsibility": "军事指挥|军队与关隘|地方土地与御史监察|谋反案件与政治清洗",
       "semantic_version": 1,
@@ -1699,8 +1729,9 @@
       "time_precision": "source_expression",
       "time_start": "北征还师后|征战期间|洪武二十六年二月及九月|洪武年间",
       "uncertainties": [
+        "legacy_multi_passage_claim_fanned_out",
         "missing_candidate_episode_key",
-        "legacy_multi_passage_claim_fanned_out"
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "东昌民田及御史",
@@ -1718,9 +1749,13 @@
       ]
     },
     {
-      "action": "其他",
+      "action": "其他 | 荐举",
       "advisory_completeness_mismatches": {
         "conflict_resolution": {
+          "actual": "complete",
+          "expected": "not_applicable"
+        },
+        "consequence": {
           "actual": "complete",
           "expected": "not_applicable"
         },
@@ -1772,7 +1807,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -1780,7 +1815,9 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "刘基未能参与兵事"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-ZYZ-LIUJI-RECRUITMENT",
       "episode_type": "political_action",
@@ -1799,8 +1836,8 @@
         "EP-ZYZ-LIUJI-RETREAT-PRESSURE"
       ],
       "outcome": [
-        "刘基弃官还青田",
-        "刘基出仕并陈时务十八策"
+        "刘基出仕并陈时务十八策",
+        "刘基弃官还青田"
       ],
       "participants": [
         {
@@ -1828,8 +1865,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-74EB457DB506677A8473",
-      "proposed_semantic_fingerprint": "74eb457db506677a8473738d74c12d3a266bed83cba4817476b7a3fda16d22d9",
+      "proposed_episode_id": "EP-A132906CFDA6C6355B3E",
+      "proposed_semantic_fingerprint": "a132906cfda6c6355b3ee93cb3db35fb807bbeb6d297667b1dc16b956c0c09a3",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "仕途与兵事任用|延聘贤才",
       "semantic_version": 1,
@@ -1837,7 +1874,8 @@
       "time_precision": "source_expression",
       "time_start": "元末|太祖下金华、定括苍后",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "元执政"
@@ -1849,14 +1887,14 @@
       ]
     },
     {
-      "action": "处置",
+      "action": "处置 | 构陷",
       "advisory_completeness_mismatches": {
         "action": {
           "actual": "complete",
           "expected": "partial"
         },
         "consequence": {
-          "actual": "not_applicable",
+          "actual": "complete",
           "expected": "partial"
         },
         "source_diversity": {
@@ -1908,7 +1946,7 @@
       "completeness": {
         "action": "complete",
         "conflict_resolution": "complete",
-        "consequence": "not_applicable",
+        "consequence": "complete",
         "identity": "complete",
         "outcome": "complete",
         "responsibility": "complete",
@@ -1916,7 +1954,10 @@
         "time": "complete"
       },
       "conflicts": [],
-      "consequence": [],
+      "consequence": [
+        "刘基失禄并留京",
+        "刘基被夺俸禄"
+      ],
       "current_status": "proposed",
       "episode_code": "EP-ZYZ-LIUJI-RETREAT-PRESSURE",
       "episode_type": "political_action",
@@ -1965,8 +2006,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-15C9F017EBB70875CA0B",
-      "proposed_semantic_fingerprint": "15c9f017ebb70875ca0be4ffaf00e5dfaa0cb5b9ddd5377f096b5ed96db4cae7",
+      "proposed_episode_id": "EP-42F02DE8E414912C41CB",
+      "proposed_semantic_fingerprint": "42f02de8e414912c41cba4eb84a5df0dce198b9ed733497e925d92394482ca9f",
       "recommended_next_status": "needs_evidence_review",
       "responsibility": "中书省|爵禄与人事",
       "semantic_version": 1,
@@ -1974,7 +2015,8 @@
       "time_precision": "source_expression",
       "time_start": "洪武初年|洪武年间",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [],
       "unresolved_participants": [
@@ -1984,7 +2026,7 @@
       ]
     },
     {
-      "action": "授权",
+      "action": "授权 | 荐举",
       "advisory_completeness_mismatches": {
         "action": {
           "actual": "complete",
@@ -2016,7 +2058,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-A19D39BC9712E330@CLM-EP-ZYZ-XUDA-DELEGATION-001",
+          "assertion_ref": "CLMEXT-9B098C5B03403075@CLM-常遇春-EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION",
           "relation": "supports",
           "source_passage_ref": "PAS-782C67CBA55C",
           "supported_fields": [
@@ -2026,7 +2068,7 @@
           ]
         },
         {
-          "assertion_ref": "CLMEXT-9B098C5B03403075@CLM-常遇春-EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION",
+          "assertion_ref": "CLMEXT-A19D39BC9712E330@CLM-EP-ZYZ-XUDA-DELEGATION-001",
           "relation": "supports",
           "source_passage_ref": "PAS-782C67CBA55C",
           "supported_fields": [
@@ -2107,8 +2149,8 @@
         }
       ],
       "passage_lineage_complete": true,
-      "proposed_episode_id": "EP-167A9CAC5707FD3A7CC2",
-      "proposed_semantic_fingerprint": "167a9cac5707fd3a7cc2e036c74e05c2d2efd8b4ca649eabf24363114eb5fb38",
+      "proposed_episode_id": "EP-99DE9A5EE6CB80FBE161",
+      "proposed_semantic_fingerprint": "99de9a5ee6cb80fbe161c25ddd46ffc8381cfb8ec5d3107065839f227094e669",
       "recommended_next_status": "needs_identity_review",
       "responsibility": "平定中原|统兵平定中原",
       "semantic_version": 1,
@@ -2116,7 +2158,8 @@
       "time_precision": "source_expression",
       "time_start": "吴元年冬十月",
       "uncertainties": [
-        "missing_candidate_episode_key"
+        "missing_candidate_episode_key",
+        "missing_location_expression"
       ],
       "unexpected_participant_candidates": [
         "平定中原的军事职责"

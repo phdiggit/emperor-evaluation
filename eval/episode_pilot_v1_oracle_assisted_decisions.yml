@@ -1,20 +1,35 @@
 schema_version: 1
-acceptance_code: episode_pilot_v1_episode_acceptance
-status: accepted
+decision_code: episode_pilot_v1_oracle_assisted_decisions
+status: oracle_assisted_review_record
 reviewed_by: codex_agent_under_explicit_user_completion_instruction
+qualification: not_independent_human_g2_acceptance
 manifest: eval/episode_pilot_v1.yml
 boundary_review: eval/episode_pilot_v1_review.yml
 reconciliation_review_package: eval/episode_pilot_v1_reconciliation_review_package.json
 identity_manifest: eval/episode_pilot_v1_identity_resolution.yml
 
-default_decision:
-  episode_status: accepted
-  assertion_evidence_status: accepted
+decision_policy:
+  assertion_evidence_status: draft
+  participant_role_status: candidate_resolved
   participant_policy: gold_core_only
+  automatic_acceptance_disabled: true
 
-overrides:
+decisions:
+  EP-LSM-FANGDU-RECRUITMENT: {decision: oracle_accept_candidate}
+  EP-LSM-WEIZHENG-APPOINTMENT: {decision: oracle_accept_candidate}
+  EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL: {decision: oracle_accept_candidate}
+  EP-LSM-LIJING-DAIZHOU-COMMAND: {decision: oracle_accept_candidate}
+  EP-LB-SANJIE-RETROSPECTIVE: {decision: oracle_accept_candidate}
+  EP-LB-CHENPING-INTEGRATION: {decision: oracle_accept_candidate}
+  EP-LB-CHENPING-CONTINUED-AUTHORIZATION: {decision: oracle_accept_candidate}
+  EP-LB-HANXIN-QI-KING: {decision: oracle_accept_candidate}
+  EP-LB-XIAOHE-SAFETY-PRESSURE: {decision: oracle_accept_candidate}
+  EP-LB-FANKUAI-REPLACEMENT: {decision: oracle_accept_candidate}
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION: {decision: oracle_accept_candidate}
+  EP-ZYZ-LIUJI-RECRUITMENT: {decision: oracle_accept_candidate}
+  EP-ZYZ-LANYU-PROMOTION: {decision: oracle_accept_candidate}
   EP-ZYZ-LIUJI-RETREAT-PRESSURE:
-    episode_status: accepted_with_uncertainty
+    decision: oracle_accept_candidate_with_uncertainty
     completeness:
       responsibility: conflicted
       conflict_resolution: conflicted
@@ -23,7 +38,7 @@ overrides:
     uncertainties:
       - 责任归因不得在规则投影中合并
   EP-ZYZ-LANYU-PURGE:
-    episode_status: accepted_with_uncertainty
+    decision: oracle_accept_candidate_with_uncertainty
     completeness:
       responsibility: conflicted
       consequence: complete
@@ -36,11 +51,7 @@ overrides:
     uncertainties:
       - 不将谋反指控未经区分地写成客观行动事实
 
-acceptance_gate:
-  accepted_packet_count: 15
-  accepted_with_uncertainty_count: 2
-  unresolved_participant_count: 0
-  draft_assertion_link_count: 0
-  missing_passage_lineage_count: 0
+safety:
   production_write_authorized: false
   rule_projection_authorized: false
+  accuracy_claim_authorized: false

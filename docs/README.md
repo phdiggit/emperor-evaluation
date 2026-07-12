@@ -1,6 +1,8 @@
 # V4 文档导航
 
-`docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前没有实现层；任何脚本、数据库 Schema、worker 或 scorer 都必须在文档 Gate 通过后单独引入。
+`docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
+
+当前实现状态为 `M1 conditional_pass / G2 reopen_required`。Gold-assisted constructability 已验证，但 blind reconciliation 尚未验证，不能报告正式 recall/precision，也不能进入 PostgreSQL G3。
 
 ## 文档状态
 
@@ -39,16 +41,17 @@ D0 文档 Gate 所需的领域、证据、输入类型、状态机、覆盖度�
 10. `07-智能体边界与成本预算.md`
 11. `08-V3并行运行与迁移方案.md`
 12. `09-V4测试与验证策略.md`
+13. `10-G2.5盲测与去Oracle化.md`
 
 ### 契约与试点规则
 
-13. `contracts/史源缓存服务契约.md`
-14. `contracts/事实抽取服务契约.md`
-15. `contracts/历史事件包契约.md`
-16. `contracts/规则判断结果契约.md`
-17. `证据规则/证据裁量总则.md`
-18. `证据规则/史料检索与回源工作流.md`
-19. `分项规则/第五项统治者政治素质/B用人与授权.md`
+14. `contracts/史源缓存服务契约.md`
+15. `contracts/事实抽取服务契约.md`
+16. `contracts/历史事件包契约.md`
+17. `contracts/规则判断结果契约.md`
+18. `证据规则/证据裁量总则.md`
+19. `证据规则/史料检索与回源工作流.md`
+20. `分项规则/第五项统治者政治素质/B用人与授权.md`
 
 ## 目录职责
 

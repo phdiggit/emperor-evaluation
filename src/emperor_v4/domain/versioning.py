@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+import hashlib
+import json
 
 from emperor_v4.contracts.episode import HistoricalEpisodePacket
 
@@ -15,22 +17,83 @@ class VersionDecision:
     judgment_invalidation_required: bool
 
 
+def _payload_hash(payload: object) -> str:
+    canonical = json.dumps(
+        payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def semantic_payload_hash(packet: HistoricalEpisodePacket) -> str:
+    return _payload_hash(
+        {
+            "semantic_fingerprint": packet.semantic_fingerprint,
+            "episode_type": packet.episode_type,
+            "evaluation_context": packet.evaluation_context,
+            "time_start": packet.time_start,
+            "time_end": packet.time_end,
+            "time_precision": packet.time_precision,
+            "locations": packet.locations,
+            "participants": [
+                {
+                    "person_ref": item.person_ref,
+                    "role_codes": item.role_codes,
+                    "role_status": item.role_status,
+                }
+                for item in packet.participants
+            ],
+            "action": packet.action,
+            "responsibility": packet.responsibility,
+            "outcome": packet.outcome,
+            "consequence": packet.consequence,
+            "completeness": {
+                slot: packet.completeness.get(slot)
+                for slot in (
+                    "identity",
+                    "time",
+                    "action",
+                    "responsibility",
+                    "outcome",
+                    "consequence",
+                )
+            },
+        }
+    )
+
+
+def evidence_payload_hash(packet: HistoricalEpisodePacket) -> str:
+    return _payload_hash(
+        {
+            "assertion_links": [
+                {
+                    "assertion_ref": item.assertion_ref,
+                    "source_passage_ref": item.source_passage_ref,
+                    "relation": item.relation,
+                    "supported_fields": item.supported_fields,
+                    "evidence_status": item.evidence_status,
+                    "representative": item.representative,
+                }
+                for item in packet.assertion_links
+            ],
+            "conflicts": packet.conflicts,
+            "uncertainties": packet.uncertainties,
+            "evidence_completeness": {
+                slot: packet.completeness.get(slot)
+                for slot in ("source_diversity", "conflict_resolution")
+            },
+            "provenance": dict(packet.provenance),
+        }
+    )
+
+
 def apply_episode_revision(
     current: HistoricalEpisodePacket,
     observed: HistoricalEpisodePacket,
 ) -> VersionDecision:
     """比较确定性 packet，生成语义/证据分离的版本决策。"""
 
-    current_refs = {
-        (link.assertion_ref, link.source_passage_ref, link.relation)
-        for link in current.assertion_links
-    }
-    observed_refs = {
-        (link.assertion_ref, link.source_passage_ref, link.relation)
-        for link in observed.assertion_links
-    }
-    semantic_changed = current.semantic_fingerprint != observed.semantic_fingerprint
-    evidence_changed = current_refs != observed_refs or current.conflicts != observed.conflicts
+    semantic_changed = semantic_payload_hash(current) != semantic_payload_hash(observed)
+    evidence_changed = evidence_payload_hash(current) != evidence_payload_hash(observed)
 
     if not semantic_changed and not evidence_changed:
         return VersionDecision(

@@ -5,6 +5,7 @@ from dataclasses import replace
 import pytest
 
 from emperor_v4.contracts.assertion import AssertionDraft
+from emperor_v4.contracts.episode import EpisodeParticipant
 from emperor_v4.domain.episode import (
     build_episode_packet,
     group_episode_candidates,
@@ -110,9 +111,21 @@ def test_conflicting_evidence_is_preserved_in_packet():
 
 
 def test_accepted_episode_has_passage_lineage_and_slot_completeness():
-    packet = build_episode_packet(
-        group_episode_candidates([_assertion("A-1", passage="P-1")])[0],
+    proposed = build_episode_packet(
+        group_episode_candidates([_assertion("A-1", passage="P-1")])[0]
+    )
+    packet = replace(
+        proposed,
         episode_status="accepted",
+        evaluation_context="PER-LI-SHIMIN",
+        participants=(
+            EpisodeParticipant("PER-LI-SHIMIN", ("ruler",), "resolved"),
+            EpisodeParticipant("PER-LI-JING", ("commander",), "resolved"),
+        ),
+        assertion_links=tuple(
+            replace(link, evidence_status="accepted")
+            for link in proposed.assertion_links
+        ),
     )
 
     assert packet.assertion_links[0].source_passage_ref == "P-1"
@@ -126,6 +139,99 @@ def test_accepted_episode_has_passage_lineage_and_slot_completeness():
         "source_diversity": "partial",
         "conflict_resolution": "complete",
     }
+
+
+@pytest.mark.parametrize(
+    "change, message",
+    [
+        ({"evaluation_context": "李世民"}, "canonical person"),
+        (
+            {
+                "participants": (
+                    EpisodeParticipant("PER-LI-SHIMIN", ("ruler",), "unresolved"),
+                )
+            },
+            "participant 必须全部 resolved",
+        ),
+    ],
+)
+def test_accepted_episode_rejects_unresolved_identity(change: dict, message: str):
+    proposed = build_episode_packet(
+        group_episode_candidates([_assertion("A-1", passage="P-1")])[0]
+    )
+    valid = replace(
+        proposed,
+        evaluation_context="PER-LI-SHIMIN",
+        participants=(
+            EpisodeParticipant("PER-LI-SHIMIN", ("ruler",), "resolved"),
+        ),
+        assertion_links=tuple(
+            replace(link, evidence_status="accepted")
+            for link in proposed.assertion_links
+        ),
+    )
+
+    with pytest.raises(ValueError, match=message):
+        replace(valid, episode_status="accepted", **change)
+
+
+def test_accepted_episode_rejects_draft_evidence():
+    proposed = build_episode_packet(
+        group_episode_candidates([_assertion("A-1", passage="P-1")])[0]
+    )
+
+    with pytest.raises(ValueError, match="evidence 必须全部 accepted"):
+        replace(
+            proposed,
+            episode_status="accepted",
+            evaluation_context="PER-LI-SHIMIN",
+            participants=(
+                EpisodeParticipant("PER-LI-SHIMIN", ("ruler",), "resolved"),
+            ),
+        )
+
+
+def test_accepted_episode_rejects_missing_completeness_slot():
+    proposed = build_episode_packet(
+        group_episode_candidates([_assertion("A-1", passage="P-1")])[0]
+    )
+    incomplete = dict(proposed.completeness)
+    incomplete.pop("outcome")
+
+    with pytest.raises(ValueError, match="completeness 缺少槽位"):
+        replace(
+            proposed,
+            episode_status="accepted",
+            evaluation_context="PER-LI-SHIMIN",
+            participants=(
+                EpisodeParticipant("PER-LI-SHIMIN", ("ruler",), "resolved"),
+            ),
+            assertion_links=tuple(
+                replace(link, evidence_status="accepted")
+                for link in proposed.assertion_links
+            ),
+            completeness=incomplete,
+        )
+
+
+def test_accepted_with_uncertainty_rejects_empty_uncertainty():
+    proposed = build_episode_packet(
+        group_episode_candidates([_assertion("A-1", passage="P-1")])[0]
+    )
+
+    with pytest.raises(ValueError, match="必须保留不确定性"):
+        replace(
+            proposed,
+            episode_status="accepted_with_uncertainty",
+            evaluation_context="PER-LI-SHIMIN",
+            participants=(
+                EpisodeParticipant("PER-LI-SHIMIN", ("ruler",), "resolved"),
+            ),
+            assertion_links=tuple(
+                replace(link, evidence_status="accepted")
+                for link in proposed.assertion_links
+            ),
+        )
 
 
 def test_explicit_boundary_hint_merges_related_actions_without_using_summary_identity():
@@ -142,7 +248,7 @@ def test_explicit_boundary_hint_merges_related_actions_without_using_summary_ide
     assert {item.assertion_code for item in groups[0].assertions} == {"A-1", "A-2"}
 
 
-def test_distinct_boundary_hints_split_otherwise_identical_actions():
+def test_gold_boundary_hint_does_not_change_semantic_fingerprint():
     first = _assertion("A-1", passage="P-1")
     second = _assertion("A-2", passage="P-2")
 
@@ -152,7 +258,25 @@ def test_distinct_boundary_hints_split_otherwise_identical_actions():
     )
 
     assert len(groups) == 2
-    assert len({group.key.fingerprint for group in groups}) == 2
+    assert len({group.key.fingerprint for group in groups}) == 1
+
+
+def test_hinted_packet_is_stable_under_assertion_input_order():
+    appointment = _assertion("A-2", passage="P-2")
+    outcome = replace(_assertion("A-1", passage="P-1"), predicate="奏捷反馈")
+    hints = {"A-1": "LIJING-DAIZHOU", "A-2": "LIJING-DAIZHOU"}
+
+    first = build_episode_packet(
+        group_episode_candidates_with_hints([appointment, outcome], hints)[0]
+    )
+    second = build_episode_packet(
+        group_episode_candidates_with_hints([outcome, appointment], hints)[0]
+    )
+
+    assert first.episode_id == second.episode_id
+    assert first.semantic_fingerprint == second.semantic_fingerprint
+    assert first.action == second.action == "任命统兵 | 奏捷反馈"
+    assert first.assertion_links == second.assertion_links
 
 
 def test_boundary_hint_cannot_merge_across_rulers():

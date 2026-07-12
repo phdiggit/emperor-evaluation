@@ -63,6 +63,11 @@ def adapt_claim_extractor_snapshot(
                 raise ValueError(f"claim 无 passage lineage: {claim.get('claim_code', '')}")
 
             fact = claim.get("fact_payload") or {}
+            location_expression = (
+                fact.get("location_expression")
+                or fact.get("location")
+                or fact.get("structured_place")
+            )
             if snapshot.get("adapter_target_contract") == "assertion-extraction-contract-v1":
                 participant_roles = {
                     (person.get("ruler"), "ruler"),
@@ -104,7 +109,7 @@ def adapt_claim_extractor_snapshot(
                     flags.append("legacy_multi_passage_claim_fanned_out")
                 if not fact.get("time_context"):
                     flags.append("missing_time_expression")
-                if not fact.get("event_scope"):
+                if not location_expression:
                     flags.append("missing_location_expression")
 
                 assertions.append(
@@ -116,7 +121,7 @@ def adapt_claim_extractor_snapshot(
                         predicate=fact.get("action_type") or claim_kind,
                         object=fact.get("object") or claim.get("object_name", ""),
                         time_expression=fact.get("time_context") or None,
-                        location_expression=None,
+                        location_expression=location_expression or None,
                         qualifiers={
                             "evaluation_context": person.get("ruler"),
                             "candidate_participant_roles": tuple(

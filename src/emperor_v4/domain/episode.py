@@ -43,8 +43,6 @@ class EpisodeCandidateKey:
             "normalized_time": self.normalized_time,
             "location": self.location,
         }
-        if self.candidate_boundary_key:
-            payload["candidate_boundary_key"] = self.candidate_boundary_key
         canonical = json.dumps(
             payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
         )
@@ -103,7 +101,10 @@ def group_episode_candidates(
         groups.setdefault(candidate_key(assertion), []).append(assertion)
 
     return tuple(
-        EpisodeCandidateGroup(key=key, assertions=tuple(items))
+        EpisodeCandidateGroup(
+            key=key,
+            assertions=tuple(sorted(items, key=lambda assertion: assertion.assertion_code)),
+        )
         for key, items in sorted(groups.items(), key=lambda item: item[0].fingerprint)
     )
 
@@ -169,11 +170,12 @@ def group_episode_candidates_with_hints(
                 if item.location_expression
             }
         )
+        action_kinds = sorted({_normalized(item.predicate) for item in items})
         key = EpisodeCandidateKey(
             evaluation_context=next(iter(contexts)),
             participant_roles=participant_roles,
             episode_type=next(iter(episode_types)),
-            action_kind=next(iter(episode_types)),
+            action_kind="|".join(action_kinds),
             responsibility_domain="|".join(domains),
             normalized_time="|".join(times),
             location="|".join(locations),
@@ -182,7 +184,9 @@ def group_episode_candidates_with_hints(
         results.append(
             EpisodeCandidateGroup(
                 key=key,
-                assertions=tuple(items),
+                assertions=tuple(
+                    sorted(items, key=lambda assertion: assertion.assertion_code)
+                ),
                 boundary_hint=hint,
             )
         )
@@ -206,21 +210,29 @@ def build_episode_packet(
         raise ValueError("不能从空候选组构造 episode")
 
     outcomes = tuple(
-        dict.fromkeys(
+        sorted(
+            {
             str(item.qualifiers.get("outcome"))
             for item in assertions
             if item.qualifiers.get("outcome")
+            }
         )
     )
     consequences = tuple(
-        dict.fromkeys(
-            str(item.qualifiers.get("consequence"))
+        sorted(
+            {
+            str(
+                item.qualifiers.get("consequence")
+                or item.qualifiers.get("cost_or_damage")
+            )
             for item in assertions
             if item.qualifiers.get("consequence")
+            or item.qualifiers.get("cost_or_damage")
+            }
         )
     )
     conflicts = tuple(
-        item.assertion_code for item in assertions if item.polarity == "disputed"
+        sorted(item.assertion_code for item in assertions if item.polarity == "disputed")
     )
     source_documents = {
         item.source_attribution.get("document_code")
@@ -253,11 +265,12 @@ def build_episode_packet(
             relation="contradicts" if item.polarity == "disputed" else "supports",
             supported_fields=("action", "responsibility", "outcome"),
         )
-        for item in assertions
+        for item in sorted(assertions, key=lambda assertion: assertion.assertion_code)
     )
     uncertainties = tuple(
-        dict.fromkeys(flag for item in assertions for flag in item.ambiguity_flags)
+        sorted({flag for item in assertions for flag in item.ambiguity_flags})
     )
+    actions = sorted({item.predicate for item in assertions})
 
     provenance = {"builder": "deterministic_episode_kernel_v1"}
     if group.boundary_hint:
@@ -276,7 +289,7 @@ def build_episode_packet(
         time_precision="source_expression" if group.key.normalized_time else "unknown",
         locations=(group.key.location,) if group.key.location else (),
         participants=participants,
-        action=assertions[0].predicate,
+        action=" | ".join(actions),
         responsibility=group.key.responsibility_domain or None,
         outcome=outcomes,
         consequence=consequences,

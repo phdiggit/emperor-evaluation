@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -12,6 +13,7 @@ from emperor_v4.adapters import (
 from emperor_v4.contracts.assertion import AssertionDraft
 from emperor_v4.contracts.source import SourcePassage, text_content_hash
 from emperor_v4.domain.identity import canonical_person
+from emperor_v4.evaluation.blind_holdout import validate_blind_kernel_input
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
@@ -143,5 +145,50 @@ def test_canonical_person_identity_fingerprint_is_deterministic():
     second = canonical_person("PER-LIU-BANG", "刘邦", "西汉")
 
     assert first == second
-    assert first.identity_status == "accepted"
+    assert first.identity_status == "candidate"
     assert len(first.identity_fingerprint) == 64
+
+
+def test_canonical_person_identity_fingerprint_does_not_depend_on_person_id():
+    first = canonical_person("PER-A", "年羹尧", "清")
+    duplicate_candidate = canonical_person("PER-B", "年羹尧", "清")
+
+    assert first.identity_fingerprint == duplicate_candidate.identity_fingerprint
+
+
+def test_claim_adapter_maps_structured_location_not_event_scope():
+    snapshot = deepcopy(_fixture("claim-extractor-gap-repair-response.json"))
+    claim = snapshot["people"][0]["payload"]["claims"][0]
+    claim["fact_payload"]["event_scope"] = "军事"
+    claim["fact_payload"]["location"] = "渭北"
+
+    assertion = next(
+        item
+        for item in adapt_claim_extractor_snapshot(snapshot)
+        if claim["claim_code"] in item.assertion_code
+    )
+
+    assert assertion.location_expression == "渭北"
+    assert "missing_location_expression" not in assertion.ambiguity_flags
+
+
+def test_claim_adapter_does_not_treat_event_scope_as_location():
+    assertion = adapt_claim_extractor_snapshot(
+        _fixture("claim-extractor-gap-repair-response.json")
+    )[0]
+
+    assert assertion.qualifiers["event_scope"]
+    assert assertion.location_expression is None
+    assert "missing_location_expression" in assertion.ambiguity_flags
+
+
+def test_blind_kernel_input_rejects_oracle_fields_at_any_depth():
+    payload = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    payload["assertions"][0]["qualifiers"]["episode_code"] = "FORBIDDEN"
+
+    with pytest.raises(ValueError, match="Gold/oracle"):
+        validate_blind_kernel_input(payload)

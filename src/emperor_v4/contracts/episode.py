@@ -20,6 +20,18 @@ EPISODE_STATUSES = frozenset(
         "merged",
     }
 )
+REQUIRED_COMPLETENESS_SLOTS = frozenset(
+    {
+        "identity",
+        "time",
+        "action",
+        "responsibility",
+        "outcome",
+        "consequence",
+        "source_diversity",
+        "conflict_resolution",
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -81,3 +93,43 @@ class HistoricalEpisodePacket:
                 not link.source_passage_ref for link in self.assertion_links
             ):
                 raise ValueError("accepted episode 必须有 passage lineage")
+            if not self.evaluation_context.startswith("PER-"):
+                raise ValueError("accepted episode evaluation_context 必须是 canonical person")
+            if any(
+                participant.role_status != "resolved"
+                or not participant.person_ref.startswith("PER-")
+                for participant in self.participants
+            ):
+                raise ValueError("accepted episode participant 必须全部 resolved")
+            if any(
+                link.evidence_status != "accepted" for link in self.assertion_links
+            ):
+                raise ValueError("accepted episode 核心 evidence 必须全部 accepted")
+            if not any(
+                {"identity", "action"} & set(link.supported_fields)
+                for link in self.assertion_links
+            ):
+                raise ValueError("accepted episode 必须有支持 identity/action 的 evidence")
+            missing_slots = REQUIRED_COMPLETENESS_SLOTS - set(self.completeness)
+            if missing_slots:
+                raise ValueError(
+                    f"accepted episode completeness 缺少槽位: {sorted(missing_slots)}"
+                )
+            if self.completeness.get("identity") != "complete":
+                raise ValueError("accepted episode identity 必须 complete")
+            if self.completeness.get("action") != "complete":
+                raise ValueError("accepted episode action 必须 complete")
+            if self.completeness.get("responsibility") == "missing":
+                raise ValueError("accepted episode responsibility 不得 missing")
+            if self.completeness.get("outcome") == "missing":
+                raise ValueError("accepted episode outcome 不得 missing")
+            if self.conflicts and self.completeness.get(
+                "conflict_resolution"
+            ) != "conflicted":
+                raise ValueError("accepted episode 冲突不得被标记为已解决")
+            if (
+                self.episode_status == "accepted_with_uncertainty"
+                and not self.conflicts
+                and not self.uncertainties
+            ):
+                raise ValueError("accepted_with_uncertainty 必须保留不确定性")

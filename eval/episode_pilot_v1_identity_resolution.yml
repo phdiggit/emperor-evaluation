@@ -1,6 +1,6 @@
 schema_version: 1
 identity_manifest_code: episode_pilot_v1_identity_resolution
-status: accepted_for_frozen_pilot
+status: oracle_assisted_candidate_resolution
 scope: episode_pilot_v1_gold_core_participants_only
 reviewed_by: codex_agent_under_explicit_user_completion_instruction
 review_basis:
@@ -42,6 +42,7 @@ candidate_dispositions:
   平定中原的军事职责: {decision: responsibility_context}
 
 acceptance_gate:
-  all_gold_core_participants_resolved: true
+  all_gold_core_participants_have_candidates: true
   unexpected_candidates_create_no_canonical_person: true
   aliases_create_no_duplicate_person: true
+  independent_identity_acceptance_completed: false

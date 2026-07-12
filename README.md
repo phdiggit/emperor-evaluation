@@ -9,14 +9,18 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：文档、领域模型、服务契约与三人试点门禁定义
+- 阶段：HistoricalEpisode Kernel 的 Oracle-assisted 试点；G2 已重开
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
 - 正式评分、排名和生产切换：全部关闭
 - V3：继续运行既有生产 release，仅作只读对照
 
-当前阶段**没有** V4 数据库、worker、migration、scorer 或正式业务数据。文档 Gate 未通过前不得提前搭建实现骨架。
+当前已有离线 `src/emperor_v4`、轻量确定性测试和三人试点 `eval` 产物；仍然**没有** V4 数据库、worker、migration、scorer 或正式业务数据。
+
+已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
+
+尚未证明：无 Gold 提示的自主事件发现与 merge/split。当前 oracle-assisted 包不得解释为正式 recall、precision 或 G2 通过；进入 PostgreSQL G3 前必须先完成 G2.5 blind holdout。
 
 ## 文件树
 
@@ -33,6 +37,14 @@ V4 的核心改变是：
 │  ├─ version-policy.yml
 │  ├─ 君主别名.yml
 │  └─ 所有君主.yml
+├─ src/emperor_v4/
+│  ├─ contracts/
+│  ├─ domain/
+│  ├─ application/
+│  ├─ adapters/
+│  └─ evaluation/
+├─ tests/
+├─ eval/
 └─ docs/
    ├─ README.md
    ├─ 00-V4项目章程.md
@@ -86,14 +98,20 @@ V4 的核心改变是：
 - 无变化重跑必须零模型调用、零业务写入。
 - V3 与 V4 生产权限、数据库和队列严格隔离。
 
-## 当前退出条件
+## 当前 Gate
 
-第一阶段仅在以下条件全部满足后结束：
+- `M1 HistoricalEpisode Kernel`：`conditional_pass`
+- qualification：`oracle_assisted_constructability_passed`
+- `G2 Assertion & Episode`：`reopen_required`
+- blind reconciliation：`not_validated`
+- G3 PostgreSQL：未授权
 
-- 文件树、文档层级和配置边界确定；
-- 四份核心契约通过人工审查；
-- 三人试点的 gold manifest 设计和门禁确定；
-- 首条纵向切片的输入、状态机、失效规则和验收条件确定；
-- 没有真实凭据、V3 运行配置或旧业务数据进入 V4 基线。
+进入 G3 前必须满足：
+
+- Gold/Oracle 字段不进入 blind Kernel 输入；
+- semantic fingerprint 不依赖 episode code；
+- blind holdout 达到文档阈值且无灾难性 wrong merge；
+- accepted episode 通过独立人工 Gate；
+- 没有真实凭据、V3 运行配置或旧业务数据进入 V4。
 
 第一阶段结束不代表可以正式评分，也不代表可以切换生产。

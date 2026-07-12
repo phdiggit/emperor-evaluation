@@ -1,0 +1,39 @@
+schema_version: 1
+status_code: episode_pilot_v1_status
+as_of_commit_basis: 7b1be47de30303c9d25b91822a539e8a4b20abd4
+
+milestones:
+  M1_HistoricalEpisode_Kernel: conditional_pass
+  G2_Assertion_and_Episode: reopen_required
+  G2_5_blind_holdout: data_collection_required
+  G3_PostgreSQL: blocked_by_g2_5
+
+qualification:
+  passed:
+    - oracle_assisted_constructability
+    - passage_lineage_preservation
+    - deterministic_lightweight_pytest
+    - semantic_evidence_version_separation_prototype
+  not_validated:
+    - blind_reconciliation
+    - autonomous_boundary_recall
+    - candidate_precision
+    - wrong_merge_rate
+    - wrong_split_rate
+    - independent_canonical_identity_acceptance
+
+metric_policy:
+  oracle_assisted_packet_count_is_accuracy_metric: false
+  formal_episode_recall_available: false
+  formal_accepted_precision_available: false
+  merge_split_accuracy_available: false
+
+safety:
+  v3_production_write_performed: false
+  v4_database_write_performed: false
+  rule_projection_performed: false
+  postgresql_g3_authorized: false
+
+next_gate:
+  plan: eval/blind_holdout_v1_plan.yml
+  required_outcome: blind holdout 达标并完成独立人工接受

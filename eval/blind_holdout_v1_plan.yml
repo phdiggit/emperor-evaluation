@@ -1,0 +1,61 @@
+schema_version: 1
+plan_code: blind_holdout_v1
+status: data_collection_required
+kernel_input_contract: blind_assertion_input_v1
+target_case_count: 16
+new_rulers: [李治, 朱棣]
+existing_ruler_unseen_cases: [李世民, 刘邦, 朱元璋]
+
+case_allocations:
+  - {ruler: 李治, count: 4, focus: 多次独立任命与跨来源同事件}
+  - {ruler: 朱棣, count: 4, focus: 同一人物多任务与跨时期授权}
+  - {ruler: 李世民, count: 2, focus: 未使用任用事件与 partial episode}
+  - {ruler: 刘邦, count: 3, focus: 韩信云梦拘捕、降封、陈豨案后诛杀复合链}
+  - {ruler: 朱元璋, count: 3, focus: 李善长早期角色与晚期党案复合链}
+
+required_case_types:
+  - 多来源同事件
+  - 同一人物多次独立任用
+  - 跨皇帝
+  - 冲突结果
+  - partial episode
+  - 应合并
+  - 应拆分
+  - 非人物 object
+  - 同名或别名人物
+
+kernel_input_forbidden_keys:
+  - episode_code
+  - gold_boundary
+  - must_merge
+  - must_not_merge
+  - expected_participants
+  - acceptance_decision
+  - gold_linkage
+  - expected_event_repair
+  - candidate_boundary_key
+  - candidate_episode_key
+
+execution_order:
+  - 冻结并 hash blind input
+  - 关闭 Gold 文件访问后运行 blind-holdout-run
+  - 冻结 candidate artifact
+  - 单独打开 sealed Gold linkage
+  - 运行 blind-holdout-score
+  - 独立人工接受后再计算 accepted metrics
+
+release_thresholds:
+  passage_lineage: 1.0
+  cross_ruler_contamination_count: 0
+  catastrophic_wrong_merge_count: 0
+  autonomous_boundary_recall_minimum: 0.85
+  candidate_precision_minimum: 0.90
+  unchanged_rerun_model_calls: 0
+  unchanged_rerun_writes: 0
+  ordinary_boundary_error_maximum: 1
+
+current_blocker:
+  dataset_frozen: false
+  sealed_gold_frozen: false
+  blind_metrics_available: false
+  next_action: 收集并独立冻结 16 个真实历史事件的 passage/assertion 输入

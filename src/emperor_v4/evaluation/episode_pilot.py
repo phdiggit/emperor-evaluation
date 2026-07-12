@@ -70,7 +70,6 @@ def evaluate_episode_pilot(
     claim_gap_repair_path: Path | None = None,
     claim_gap_repair2_path: Path | None = None,
     assertion_gold_coverage_path: Path | None = None,
-    g2_acceptance_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
     manifest = _load_yaml(manifest_path)
@@ -592,49 +591,21 @@ def evaluate_episode_pilot(
             ],
         }
 
-    baseline_episode_recall = episode_recall
-    g2_acceptance: Mapping[str, Any] | None = None
-    if g2_acceptance_path is not None:
-        g2_acceptance = _load_json(g2_acceptance_path)
-        accepted_packets = g2_acceptance.get("packets") or []
-        accepted_codes = {item.get("episode_code") for item in accepted_packets}
-        if accepted_codes != frozen_codes:
-            raise ValueError("G2 acceptance 未一一覆盖 frozen episode")
-        if any(
-            item.get("episode_status")
-            not in {"accepted", "accepted_with_uncertainty"}
-            for item in accepted_packets
-        ):
-            raise ValueError("G2 acceptance 包含非接受状态")
-        accepted_summary = g2_acceptance.get("summary") or {}
-        episode_recall = {
-            "status": "accepted_g2",
-            "full_match_episode_count": accepted_summary.get(
-                "accepted_episode_count"
-            ),
-            "frozen_episode_count": len(frozen_codes),
-            "value": accepted_summary.get("episode_recall"),
-            "accepted_with_uncertainty_count": accepted_summary.get(
-                "accepted_with_uncertainty_count"
-            ),
-        }
-        accepted_precision = {
-            "status": "accepted_g2",
-            "value": accepted_summary.get("accepted_episode_precision"),
-            "accepted_episode_count": accepted_summary.get(
-                "accepted_episode_count"
-            ),
-        }
-        merge_split = {
-            "status": "accepted_g2",
-            "confirmed_wrong_merge_count": accepted_summary.get(
-                "wrong_merge_count"
-            ),
-            "confirmed_wrong_split_count": accepted_summary.get(
-                "wrong_split_count"
-            ),
-        }
-        human_review_pending = []
+    oracle_contaminated_linkage_diagnostic = episode_recall
+    episode_recall = {
+        "status": "not_computable_oracle_contaminated",
+        "value": None,
+        "reason": "当前 candidate grouping 与 acceptance 使用 Gold boundary/linkage。",
+    }
+    accepted_precision = {
+        "status": "not_computable_no_independent_acceptance_sample",
+        "value": None,
+    }
+    merge_split = {
+        "status": "not_measured_requires_blind_holdout",
+        "confirmed_wrong_merge_count": None,
+        "confirmed_wrong_split_count": None,
+    }
 
     return {
         "report_schema_version": 1,
@@ -657,7 +628,9 @@ def evaluate_episode_pilot(
             "supplement_fixture_applied": source_supplement is not None,
         },
         "episode_recall": episode_recall,
-        "baseline_episode_recall": baseline_episode_recall,
+        "oracle_contaminated_linkage_diagnostic": (
+            oracle_contaminated_linkage_diagnostic
+        ),
         "accepted_episode_precision": accepted_precision,
         "assertion_boundary_coverage": assertion_boundary_coverage,
         "lineage_assisted_reconciliation": lineage_assisted_reconciliation,

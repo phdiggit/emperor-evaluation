@@ -4,7 +4,7 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: documentation_gate
+  phase: episode_kernel_oracle_assisted_pilot
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
@@ -22,3 +22,11 @@ release:
   v3_remains_active: true
   v4_replaces_v3: false
   replacement_gate: explicit_shadow_acceptance_and_cutover_approval
+
+milestones:
+  m1_historical_episode_kernel: conditional_pass
+  qualification: oracle_assisted_constructability_passed
+  g2_assertion_episode: reopen_required
+  blind_reconciliation: not_validated
+  g2_5_holdout: data_collection_required
+  postgresql_g3_authorized: false
