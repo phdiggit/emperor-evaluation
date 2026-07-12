@@ -26,7 +26,8 @@ ROOT = Path(__file__).resolve().parents[2]
 INTAKE_MODES = ("ensure", "supplement", "refresh")
 DEFAULT_QUERY_PROFILE_JSONL = ROOT / "data" / "query_profile_batches" / "i5b_layered_retrieval_profiles_20260630.jsonl"
 WIKIPEDIA_SUMMARY_ENDPOINT = (
-    "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1"
+    "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts%7Ciwlinks&explaintext=1&redirects=1"
+    "&iwprefix=s&iwlimit=max"
     "&format=json&formatversion=2&titles={title}"
 )
 
@@ -75,11 +76,17 @@ def fetch_wikipedia_summary(name: str, *, timeout_seconds: int = 15) -> dict[str
     page = pages[0] if pages and isinstance(pages[0], Mapping) else {}
     extract = text(page.get("extract"))
     canonical_title = text(page.get("title")) or text(name)
+    wikisource_titles = sorted({
+        text(link.get("title"))
+        for link in page.get("iwlinks") or []
+        if isinstance(link, Mapping) and text(link.get("title"))
+    })
     return {
         "status": "found" if extract else "empty",
         "url": "https://zh.wikipedia.org/wiki/" + quote(canonical_title.replace(" ", "_"), safe="_"),
         "title": canonical_title,
         "extract": extract,
+        "wikisource_titles": wikisource_titles,
     }
 
 
@@ -99,6 +106,12 @@ def enrich_wikipedia_summary_leads(
             row["aliases"] = seed_tool.unique_strings([*(row.get("aliases") or []), discovery_title])
             row["expanded_aliases"] = seed_tool.unique_strings([*(row.get("expanded_aliases") or []), discovery_title])
         terms = source_cache.terminal_outcome_terms_from_text(result.get("extract"))
+        wikisource_titles = [text(value) for value in result.get("wikisource_titles") or [] if text(value)]
+        if wikisource_titles:
+            row["source_target_refs"] = seed_tool.unique_strings([
+                *(row.get("source_target_refs") or []),
+                *wikisource_titles,
+            ])
         if terms:
             row["summary_leads"] = [{
                 "lead_terms": terms,
@@ -112,6 +125,7 @@ def enrich_wikipedia_summary_leads(
             "title": discovery_title,
             "url": text(result.get("url")),
             "terminal_lead_count": len(terms),
+            "wikisource_link_count": len(wikisource_titles),
             "evidence_allowed": False,
         }
         enriched.append(row)

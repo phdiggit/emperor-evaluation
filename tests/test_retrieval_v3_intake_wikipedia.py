@@ -9,6 +9,7 @@ def test_wikipedia_summary_enrichment_only_emits_discovery_leads() -> None:
             "title": "馮勝",
             "url": "https://zh.wikipedia.org/wiki/example",
             "extract": "馮勝后来被赐死。",
+            "wikisource_titles": ["明史/卷129"],
         },
     )
     assert report["objects_with_terminal_leads"] == ["冯胜"]
@@ -16,6 +17,8 @@ def test_wikipedia_summary_enrichment_only_emits_discovery_leads() -> None:
     assert rows[0]["summary_leads"][0]["evidence_allowed"] is False
     assert "extract" not in rows[0]["wikipedia_discovery"]
     assert "馮勝" in rows[0]["aliases"]
+    assert rows[0]["source_target_refs"] == ["明史/卷129"]
+    assert rows[0]["wikipedia_discovery"]["wikisource_link_count"] == 1
 
 
 def test_wikipedia_summary_retains_nonfatal_terminal_outcome() -> None:
