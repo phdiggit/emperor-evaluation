@@ -10,12 +10,15 @@ version_policy:
       - historical_episode
       - episode_participant
       - episode_relation
+      - rule_evidence_unit
     changes_when:
       - core_actor_changes
       - event_type_changes
       - time_scope_changes_materially
       - responsibility_or_outcome_changes_materially
       - relation_type_or_endpoint_changes
+      - rule_evidence_membership_or_member_role_changes
+      - aggregation_policy_version_changes
 
   evidence_version:
     changes_when:
@@ -23,6 +26,7 @@ version_policy:
       - assertion_retired
       - passage_link_changed
       - source_conflict_status_changed
+      - relation_evidence_link_changed
     does_not_invalidate_semantics_by_default: true
 
   rule_version:
@@ -39,6 +43,10 @@ version_policy:
   boundary_review_cache:
     cache_key_requires:
       - proposition_semantic_hashes
+      - evaluation_context
+      - focal_person_ref
+      - focal_role
+      - responsibility_family
       - boundary_policy_version
       - output_schema_version
       - model_family

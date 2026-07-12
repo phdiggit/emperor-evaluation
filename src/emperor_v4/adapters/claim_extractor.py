@@ -63,6 +63,14 @@ def adapt_claim_extractor_snapshot(
                 raise ValueError(f"claim 无 passage lineage: {claim.get('claim_code', '')}")
 
             fact = claim.get("fact_payload") or {}
+            focal_names = (
+                _participant_names(claim.get("object_name"))
+                or (
+                    _participant_names(fact.get("object"))
+                    if claim.get("object_type") == "person"
+                    else ()
+                )
+            )
             location_expression = (
                 fact.get("location_expression")
                 or fact.get("location")
@@ -111,6 +119,28 @@ def adapt_claim_extractor_snapshot(
                     flags.append("missing_time_expression")
                 if not location_expression:
                     flags.append("missing_location_expression")
+                if len(focal_names) != 1:
+                    flags.append("missing_focal_person_ref")
+
+                qualifiers = {
+                    "evaluation_context": person.get("ruler"),
+                    "candidate_participant_roles": tuple(sorted(participant_roles)),
+                    "episode_type": "political_action",
+                    "responsibility_family": fact.get("responsibility_family")
+                    or "political_action",
+                    "legacy_claim_kind": claim_kind,
+                    "legacy_claim_summary": claim.get("claim_summary", ""),
+                    "event_scope": fact.get("event_scope") or None,
+                    "office_or_domain": fact.get("office_or_domain") or None,
+                    "outcome": fact.get("outcome") or None,
+                    "cost_or_damage": fact.get("cost_or_damage") or None,
+                    "evidence_spans": tuple(claim.get("evidence_spans") or ()),
+                }
+                if len(focal_names) == 1:
+                    qualifiers["focal_person_ref"] = focal_names[0]
+                    qualifiers["focal_role"] = "focus_person"
+                if isinstance(fact.get("normalized_time"), Mapping):
+                    qualifiers["normalized_time"] = dict(fact["normalized_time"])
 
                 assertions.append(
                     AssertionDraft(
@@ -122,20 +152,7 @@ def adapt_claim_extractor_snapshot(
                         object=fact.get("object") or claim.get("object_name", ""),
                         time_expression=fact.get("time_context") or None,
                         location_expression=location_expression or None,
-                        qualifiers={
-                            "evaluation_context": person.get("ruler"),
-                            "candidate_participant_roles": tuple(
-                                sorted(participant_roles)
-                            ),
-                            "episode_type": "political_action",
-                            "legacy_claim_kind": claim_kind,
-                            "legacy_claim_summary": claim.get("claim_summary", ""),
-                            "event_scope": fact.get("event_scope") or None,
-                            "office_or_domain": fact.get("office_or_domain") or None,
-                            "outcome": fact.get("outcome") or None,
-                            "cost_or_damage": fact.get("cost_or_damage") or None,
-                            "evidence_spans": tuple(claim.get("evidence_spans") or ()),
-                        },
+                        qualifiers=qualifiers,
                         polarity="disputed" if claim_kind == "counter_claim" else "asserted",
                         source_attribution={
                             "document_title": document.get("title"),
@@ -148,6 +165,7 @@ def adapt_claim_extractor_snapshot(
                         ambiguity_flags=tuple(flags),
                         extraction_provenance={
                             "legacy_claim_code": legacy_code,
+                            "claim_key": legacy_code,
                             "legacy_claim_run": claim_run,
                             "captured_from_release": snapshot.get("captured_from_release"),
                         },

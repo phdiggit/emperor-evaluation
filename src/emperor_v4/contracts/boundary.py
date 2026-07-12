@@ -1,9 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Mapping
+
+from emperor_v4.contracts.episode import HistoricalEpisodePacket
 
 
 AMBIGUITY_SEVERITIES = frozenset({"informational", "warning", "blocking"})
+ASSERTION_DISPOSITIONS = frozenset(
+    {"core_of_episode", "context_for_episode", "unresolved", "excluded"}
+)
 EPISODE_RELATION_TYPES = frozenset(
     {
         "continues",
@@ -16,6 +22,28 @@ EPISODE_RELATION_TYPES = frozenset(
         "context_for",
     }
 )
+RELATION_STATUSES = frozenset(
+    {"proposed", "accepted", "accepted_with_uncertainty", "rejected", "superseded"}
+)
+
+
+@dataclass(frozen=True, slots=True)
+class NormalizedTime:
+    start_sort_key: int | None
+    end_sort_key: int | None
+    precision: str
+    dynasty_or_era: str | None
+    source_expression: str | None
+
+    def __post_init__(self) -> None:
+        if (
+            self.start_sort_key is not None
+            and self.end_sort_key is not None
+            and self.start_sort_key > self.end_sort_key
+        ):
+            raise ValueError("NormalizedTime start_sort_key 不得晚于 end_sort_key")
+        if not self.precision:
+            raise ValueError("NormalizedTime 必须声明 precision")
 
 
 @dataclass(frozen=True, slots=True)
@@ -45,11 +73,14 @@ class PropositionCluster:
     assertion_refs: tuple[str, ...]
     evidence_refs: tuple[str, ...]
     evaluation_context: str
-    focal_person: str
+    focal_person_ref: str
+    focal_role: str
+    secondary_participant_refs: tuple[str, ...]
     episode_type: str
     action: str
+    responsibility_family: str
     responsibility_domain: str | None
-    time_expression: str | None
+    normalized_time: NormalizedTime
     location_expression: str | None
     outcomes: tuple[str, ...]
 
@@ -62,6 +93,10 @@ class PropositionCluster:
             raise ValueError("PropositionCluster assertion_refs 必须非空且唯一")
         if not self.evidence_refs:
             raise ValueError("PropositionCluster 必须保留 evidence refs")
+        if not self.focal_person_ref or not self.focal_role:
+            raise ValueError("PropositionCluster 必须有显式 focal person/role")
+        if not self.responsibility_family:
+            raise ValueError("PropositionCluster 必须有 responsibility_family")
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,11 +104,16 @@ class EpisodeReviewUnit:
     review_unit_code: str
     cache_key: str
     evaluation_context: str
-    focal_person: str
-    time_window: str
-    responsibility_domain: str
+    focal_person_ref: str
+    focal_role: str
+    time_start_sort_key: int | None
+    time_end_sort_key: int | None
+    responsibility_family: str
     proposition_cluster_refs: tuple[str, ...]
     proposition_semantic_hashes: tuple[str, ...]
+    boundary_policy_version: str
+    output_schema_version: str
+    model_family: str
 
     def __post_init__(self) -> None:
         if not self.review_unit_code or not self.cache_key:
@@ -82,6 +122,21 @@ class EpisodeReviewUnit:
             raise ValueError("EpisodeReviewUnit 不能为空")
         if len(self.proposition_cluster_refs) != len(self.proposition_semantic_hashes):
             raise ValueError("ReviewUnit cluster refs 与 semantic hashes 数量不一致")
+
+
+@dataclass(frozen=True, slots=True)
+class BoundaryReviewRequest:
+    review_unit: EpisodeReviewUnit
+    proposition_clusters: tuple[PropositionCluster, ...]
+    assertion_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if {item.proposition_code for item in self.proposition_clusters} != set(
+            self.review_unit.proposition_cluster_refs
+        ):
+            raise ValueError("BoundaryReviewRequest clusters 与 ReviewUnit 不一致")
+        if not self.assertion_refs:
+            raise ValueError("BoundaryReviewRequest assertions 不能为空")
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,7 +156,28 @@ class EpisodeBoundaryGroup:
 
 
 @dataclass(frozen=True, slots=True)
-class EpisodeRelation:
+class AssertionDisposition:
+    assertion_ref: str
+    disposition: str
+    episode_refs: tuple[str, ...]
+    reason: str
+    follow_up: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.disposition not in ASSERTION_DISPOSITIONS:
+            raise ValueError(f"未知 Assertion disposition: {self.disposition}")
+        if not self.assertion_ref or not self.reason:
+            raise ValueError("AssertionDisposition 必须声明 assertion 和 reason")
+        if self.disposition == "core_of_episode" and len(self.episode_refs) != 1:
+            raise ValueError("core_of_episode 必须且只能指向一个 episode")
+        if self.disposition == "context_for_episode" and not self.episode_refs:
+            raise ValueError("context_for_episode 必须指向至少一个 episode")
+        if self.disposition in {"unresolved", "excluded"} and self.episode_refs:
+            raise ValueError("unresolved/excluded 不得指向 episode")
+
+
+@dataclass(frozen=True, slots=True)
+class EpisodeRelationDraft:
     from_episode_ref: str
     to_episode_ref: str
     relation_type: str
@@ -110,11 +186,51 @@ class EpisodeRelation:
 
     def __post_init__(self) -> None:
         if self.from_episode_ref == self.to_episode_ref:
-            raise ValueError("EpisodeRelation 不得自环")
+            raise ValueError("EpisodeRelationDraft 不得自环")
         if self.relation_type not in EPISODE_RELATION_TYPES:
             raise ValueError(f"未知 episode relation type: {self.relation_type}")
         if not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("EpisodeRelationDraft confidence 必须在 0 到 1 之间")
+
+
+@dataclass(frozen=True, slots=True)
+class RelationEvidenceLink:
+    assertion_ref: str
+    source_passage_ref: str
+    evidence_status: str = "draft"
+
+
+@dataclass(frozen=True, slots=True)
+class EpisodeRelation:
+    relation_id: str
+    from_episode_version_ref: str
+    to_episode_version_ref: str
+    relation_type: str
+    semantic_fingerprint: str
+    semantic_version: int
+    evidence_version: int
+    relation_status: str
+    evidence_links: tuple[RelationEvidenceLink, ...]
+    confidence: float
+    lineage: Mapping[str, str]
+    provenance: Mapping[str, str]
+
+    def __post_init__(self) -> None:
+        if self.from_episode_version_ref == self.to_episode_version_ref:
+            raise ValueError("EpisodeRelation 不得自环")
+        if self.relation_type not in EPISODE_RELATION_TYPES:
+            raise ValueError(f"未知 episode relation type: {self.relation_type}")
+        if self.relation_status not in RELATION_STATUSES:
+            raise ValueError(f"未知 relation status: {self.relation_status}")
+        if self.semantic_version < 1 or self.evidence_version < 1:
+            raise ValueError("EpisodeRelation version 必须从 1 开始")
+        if not 0.0 <= self.confidence <= 1.0:
             raise ValueError("EpisodeRelation confidence 必须在 0 到 1 之间")
+        if self.relation_status.startswith("accepted") and any(
+            not link.source_passage_ref or link.evidence_status != "accepted"
+            for link in self.evidence_links
+        ):
+            raise ValueError("accepted relation 必须有 accepted passage lineage")
 
 
 @dataclass(frozen=True, slots=True)
@@ -123,23 +239,26 @@ class ContextAssertionLink:
     applies_to_episode_refs: tuple[str, ...]
     reason: str
 
-    def __post_init__(self) -> None:
-        if not self.assertion_ref or not self.applies_to_episode_refs:
-            raise ValueError("ContextAssertionLink 必须声明 assertion 和目标 episode")
-
 
 @dataclass(frozen=True, slots=True)
 class EpisodeBoundaryReviewResult:
     review_unit_ref: str
+    review_unit_cache_key: str
+    proposition_semantic_hashes: tuple[str, ...]
+    boundary_policy_version: str
+    output_schema_version: str
+    model_family: str
     episode_groups: tuple[EpisodeBoundaryGroup, ...]
-    relations: tuple[EpisodeRelation, ...]
-    context_assertions: tuple[ContextAssertionLink, ...]
-    unresolved_assertion_refs: tuple[str, ...]
+    relations: tuple[EpisodeRelationDraft, ...]
+    assertion_dispositions: tuple[AssertionDisposition, ...]
+    review_provenance: Mapping[str, str]
 
     def __post_init__(self) -> None:
         codes = [item.local_episode_code for item in self.episode_groups]
         if not self.review_unit_ref or not codes or len(codes) != len(set(codes)):
             raise ValueError("BoundaryReview 必须有唯一 local episode codes")
+        if not self.review_unit_cache_key or not self.proposition_semantic_hashes:
+            raise ValueError("BoundaryReview 未绑定 ReviewUnit cache/proposition hashes")
         code_set = set(codes)
         core_refs = [
             ref for group in self.episode_groups for ref in group.core_assertion_refs
@@ -151,42 +270,116 @@ class EpisodeBoundaryReviewResult:
                 relation.from_episode_ref not in code_set
                 or relation.to_episode_ref not in code_set
             ):
-                raise ValueError("EpisodeRelation 引用了未知 local episode")
-        for link in self.context_assertions:
-            if not set(link.applies_to_episode_refs) <= code_set:
-                raise ValueError("ContextAssertionLink 引用了未知 local episode")
+                raise ValueError("EpisodeRelationDraft 引用了未知 local episode")
+        disposition_refs = [item.assertion_ref for item in self.assertion_dispositions]
+        if len(disposition_refs) != len(set(disposition_refs)):
+            raise ValueError("每条 Assertion 必须且只能有一个主处置状态")
+        for item in self.assertion_dispositions:
+            if not set(item.episode_refs) <= code_set:
+                raise ValueError("AssertionDisposition 引用了未知 local episode")
 
-    def validate_assertion_coverage(self, available_assertion_refs: set[str]) -> None:
-        core = {
-            ref for group in self.episode_groups for ref in group.core_assertion_refs
+    def validate_for_unit(
+        self,
+        unit: EpisodeReviewUnit,
+        assertions_by_cluster: Mapping[str, tuple[str, ...]],
+    ) -> None:
+        if (
+            self.review_unit_ref != unit.review_unit_code
+            or self.review_unit_cache_key != unit.cache_key
+            or tuple(self.proposition_semantic_hashes)
+            != tuple(unit.proposition_semantic_hashes)
+            or self.boundary_policy_version != unit.boundary_policy_version
+            or self.output_schema_version != unit.output_schema_version
+            or self.model_family != unit.model_family
+        ):
+            raise ValueError("BoundaryReview 与 ReviewUnit 身份或版本不一致")
+        available = {
+            ref
+            for cluster_ref in unit.proposition_cluster_refs
+            for ref in assertions_by_cluster[cluster_ref]
         }
-        context = {item.assertion_ref for item in self.context_assertions}
-        unresolved = set(self.unresolved_assertion_refs)
+        disposition_by_ref = {
+            item.assertion_ref: item for item in self.assertion_dispositions
+        }
+        if set(disposition_by_ref) != available:
+            raise ValueError("BoundaryReview 主处置未完整覆盖当前 ReviewUnit assertions")
+        core_by_ref = {
+            ref: group.local_episode_code
+            for group in self.episode_groups
+            for ref in group.core_assertion_refs
+        }
+        if set(core_by_ref) != {
+            ref
+            for ref, item in disposition_by_ref.items()
+            if item.disposition == "core_of_episode"
+        }:
+            raise ValueError("Episode core 与 AssertionDisposition 不一致")
+        for ref, local_code in core_by_ref.items():
+            if disposition_by_ref[ref].episode_refs != (local_code,):
+                raise ValueError("core disposition 指向了错误 episode")
         relation_evidence = {
             ref for relation in self.relations for ref in relation.evidence_assertion_refs
         }
-        used = core | context | unresolved | relation_evidence
-        unknown = used - available_assertion_refs
-        missing = available_assertion_refs - used
-        if unknown or missing:
-            raise ValueError(
-                f"BoundaryReview assertion coverage 非法: unknown={sorted(unknown)}, "
-                f"missing={sorted(missing)}"
-            )
+        if not relation_evidence <= available:
+            raise ValueError("Relation evidence 引用了当前 ReviewUnit 之外的 assertion")
+
+
+@dataclass(frozen=True, slots=True)
+class BoundaryMaterializationResult:
+    episode_packets: tuple[HistoricalEpisodePacket, ...]
+    episode_relations: tuple[EpisodeRelation, ...]
+    context_assertion_links: tuple[ContextAssertionLink, ...]
+    unresolved_assertions: tuple[AssertionDisposition, ...]
+    excluded_assertions: tuple[AssertionDisposition, ...]
+    assertion_dispositions: tuple[AssertionDisposition, ...]
+    review_provenance: Mapping[str, str]
+
+
+@dataclass(frozen=True, slots=True)
+class RuleEvidenceMember:
+    member_ref: str
+    member_type: str
+    member_role: str
+
+    def __post_init__(self) -> None:
+        if self.member_type not in {"episode", "relation"}:
+            raise ValueError("RuleEvidenceMember type 必须是 episode/relation")
 
 
 @dataclass(frozen=True, slots=True)
 class RuleEvidenceUnitDraft:
     unit_code: str
     rule_code: str
+    rule_version: str
+    aggregation_policy_version: str
     evaluation_context: str
-    episode_refs: tuple[str, ...]
-    relation_refs: tuple[str, ...]
+    semantic_fingerprint: str
+    semantic_version: int
+    evidence_version: int
+    members: tuple[RuleEvidenceMember, ...]
     aggregation_reason: str
-    status: str = "draft"
+    status: str
+    lineage: Mapping[str, str]
+    provenance: Mapping[str, str]
 
     def __post_init__(self) -> None:
-        if not self.unit_code or not self.rule_code or not self.episode_refs:
+        if not self.unit_code or not self.rule_code or not self.members:
             raise ValueError("RuleEvidenceUnitDraft 缺少核心字段")
+        if not self.rule_version or not self.aggregation_policy_version:
+            raise ValueError("RuleEvidenceUnitDraft 必须绑定 rule/aggregation 版本")
         if self.status != "draft":
             raise ValueError("RuleEvidenceUnitDraft 不能直接成为正式 Judgment")
+        if self.semantic_version < 1 or self.evidence_version < 1:
+            raise ValueError("RuleEvidenceUnitDraft version 必须从 1 开始")
+
+    @property
+    def episode_refs(self) -> tuple[str, ...]:
+        return tuple(
+            item.member_ref for item in self.members if item.member_type == "episode"
+        )
+
+    @property
+    def relation_refs(self) -> tuple[str, ...]:
+        return tuple(
+            item.member_ref for item in self.members if item.member_type == "relation"
+        )

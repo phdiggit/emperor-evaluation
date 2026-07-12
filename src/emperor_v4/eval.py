@@ -20,6 +20,7 @@ from emperor_v4.evaluation.blind_holdout import (
 )
 from emperor_v4.evaluation.boundary_review import (
     build_boundary_review_plan,
+    execute_boundary_review_payload,
     materialize_boundary_review_payload,
 )
 from emperor_v4.evaluation.boundary_score import score_boundary_graph
@@ -161,6 +162,10 @@ def _parser() -> argparse.ArgumentParser:
     boundary_materialize.add_argument("--input", type=Path, required=True)
     boundary_materialize.add_argument("--review", type=Path, required=True)
     boundary_materialize.add_argument("--output", type=Path)
+    boundary_execute = subparsers.add_parser("boundary-review-execute")
+    boundary_execute.add_argument("--input", type=Path, required=True)
+    boundary_execute.add_argument("--cache-results", type=Path)
+    boundary_execute.add_argument("--output", type=Path)
     boundary_score = subparsers.add_parser("boundary-graph-score")
     boundary_score.add_argument("--candidates", type=Path, required=True)
     boundary_score.add_argument("--gold", type=Path, required=True)
@@ -451,6 +456,21 @@ def main() -> int:
         report = materialize_boundary_review_payload(
             json.loads(args.input.read_text(encoding="utf-8")),
             yaml.safe_load(args.review.read_text(encoding="utf-8")),
+        )
+    elif args.command == "boundary-review-execute":
+        cache_results = ()
+        if args.cache_results:
+            cache_payload = yaml.safe_load(
+                args.cache_results.read_text(encoding="utf-8")
+            )
+            cache_results = (
+                cache_payload.get("review_results")
+                if isinstance(cache_payload, dict)
+                else cache_payload
+            )
+        report = execute_boundary_review_payload(
+            json.loads(args.input.read_text(encoding="utf-8")),
+            cached_review_payloads=cache_results or (),
         )
     elif args.command == "boundary-graph-score":
         report = score_boundary_graph(

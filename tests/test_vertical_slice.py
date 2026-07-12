@@ -515,9 +515,99 @@ def test_boundary_scorer_measures_relation_graph_separately():
 
     score = score_boundary_graph(candidate, gold)
 
-    assert score["relation_metrics"]["relation_precision"] == 1.0
-    assert score["relation_metrics"]["relation_recall"] == 1.0
+    assert score["relation_metrics"]["strict_relation_precision"] == 1.0
+    assert score["relation_metrics"]["strict_relation_recall"] == 1.0
     assert score["relation_metrics"]["causal_responsibility_preservation"] == 1.0
+
+
+def test_boundary_scorer_reports_gate_lineage_disposition_and_cross_ruler_metrics():
+    candidate = {
+        "episode_groups": [
+            {
+                "local_episode_code": "C1",
+                "evaluation_context": "李世民",
+                "core_assertion_refs": ["A1"],
+                "assertion_links": [
+                    {"assertion_ref": "A1", "source_passage_ref": "P1"}
+                ],
+            },
+            {
+                "local_episode_code": "C2",
+                "evaluation_context": "李世民",
+                "core_assertion_refs": ["A2"],
+                "assertion_links": [],
+            },
+        ],
+        "input_assertion_refs": ["A1", "A2", "A3"],
+        "assertion_dispositions": [
+            {"assertion_ref": "A1", "disposition": "core_of_episode"},
+            {"assertion_ref": "A2", "disposition": "core_of_episode"},
+            {"assertion_ref": "A3", "disposition": "unresolved"},
+        ],
+        "relations": [],
+    }
+    gold = {
+        "gold_episodes": [
+            {
+                "gold_episode_code": "G1",
+                "evaluation_context": "李世民",
+                "expected_assertion_refs": ["A1"],
+            },
+            {
+                "gold_episode_code": "G2",
+                "evaluation_context": "李治",
+                "expected_assertion_refs": ["A2"],
+            },
+        ],
+        "gold_relations": [],
+    }
+
+    score = score_boundary_graph(candidate, gold)
+
+    assert score["episode_metrics"]["cross_ruler_contamination_count"] == 1
+    assert score["episode_metrics"]["passage_lineage_completeness"] == 0.5
+    assert score["episode_metrics"][
+        "primary_assertion_disposition_coverage"
+    ] == 1.0
+    assert score["episode_metrics"]["unresolved_assertion_rate"] == pytest.approx(
+        1 / 3
+    )
+
+
+def test_boundary_scorer_keeps_strict_and_endpoint_aligned_relation_metrics():
+    candidate = {
+        "episode_groups": [
+            {"local_episode_code": "C1", "core_assertion_refs": ["A1"]},
+            {"local_episode_code": "C2", "core_assertion_refs": ["A3"]},
+        ],
+        "relations": [
+            {
+                "from_episode": "C1",
+                "to_episode": "C2",
+                "relation_type": "causal_followup",
+            }
+        ],
+    }
+    gold = {
+        "gold_episodes": [
+            {"gold_episode_code": "G1", "expected_assertion_refs": ["A1", "A2"]},
+            {"gold_episode_code": "G2", "expected_assertion_refs": ["A3", "A4"]},
+        ],
+        "gold_relations": [
+            {
+                "from_episode": "G1",
+                "to_episode": "G2",
+                "relation_type": "causal_followup",
+            }
+        ],
+    }
+
+    score = score_boundary_graph(candidate, gold)
+
+    assert score["relation_metrics"]["strict_relation_precision"] == 0.0
+    assert score["relation_metrics"]["strict_relation_recall"] == 0.0
+    assert score["relation_metrics"]["endpoint_aligned_relation_precision"] == 1.0
+    assert score["relation_metrics"]["endpoint_aligned_relation_recall"] == 1.0
 
 
 def test_missing_location_is_non_blocking_for_appointment_episode():

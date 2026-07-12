@@ -27,15 +27,31 @@ def _fixture(name: str) -> dict:
 def test_rule_evidence_unit_is_draft_only_and_does_not_score():
     unit = draft_rule_evidence_unit(
         rule_code="appointment_delegation",
+        rule_version="1.0.0",
+        aggregation_policy_version="delegation-chain-v1",
         evaluation_context="PER-LISHIMIN",
-        episode_refs=["EP-1", "EP-2"],
-        relation_refs=["REL-1"],
+        episode_members={"EP-1": "appointment", "EP-2": "feedback"},
+        relation_members={"REL-1": "revocation_link"},
         aggregation_reason="授职、结果与撤任共同消费",
     )
 
     assert unit.status == "draft"
     assert unit.episode_refs == ("EP-1", "EP-2")
+    assert unit.rule_version == "1.0.0"
+    assert unit.aggregation_policy_version == "delegation-chain-v1"
+    assert unit.semantic_fingerprint
     assert not hasattr(unit, "score")
+
+    changed_policy = draft_rule_evidence_unit(
+        rule_code="appointment_delegation",
+        rule_version="1.0.0",
+        aggregation_policy_version="delegation-chain-v2",
+        evaluation_context="PER-LISHIMIN",
+        episode_members={"EP-1": "appointment", "EP-2": "feedback"},
+        relation_members={"REL-1": "revocation_link"},
+        aggregation_reason="同一成员按新策略聚合",
+    )
+    assert changed_policy.unit_code != unit.unit_code
 
 
 def test_source_cache_adapter_preserves_passage_lineage_and_reports_legacy_gaps():
@@ -185,6 +201,29 @@ def test_claim_adapter_maps_structured_location_not_event_scope():
 
     assert assertion.location_expression == "渭北"
     assert "missing_location_expression" not in assertion.ambiguity_flags
+
+
+def test_claim_adapter_carries_boundary_partition_fields():
+    snapshot = deepcopy(_fixture("claim-extractor-gap-repair-response.json"))
+    claim = snapshot["people"][0]["payload"]["claims"][0]
+    claim["fact_payload"]["normalized_time"] = {
+        "start_sort_key": 629,
+        "end_sort_key": 629,
+        "precision": "year",
+        "dynasty_or_era": "唐",
+    }
+    claim["fact_payload"]["responsibility_family"] = "military_command"
+
+    assertion = next(
+        item
+        for item in adapt_claim_extractor_snapshot(snapshot)
+        if claim["claim_code"] in item.assertion_code
+    )
+
+    assert assertion.qualifiers["normalized_time"]["start_sort_key"] == 629
+    assert assertion.qualifiers["responsibility_family"] == "military_command"
+    assert assertion.qualifiers["focal_person_ref"]
+    assert assertion.extraction_provenance["claim_key"] == claim["claim_code"]
 
 
 def test_claim_adapter_does_not_treat_event_scope_as_location():
