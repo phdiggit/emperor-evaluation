@@ -56,10 +56,13 @@ PROTOCOLS = {
             "has_concrete_protection_or_harm", "has_fault_boundary",
         ),
         roles=("", "protected_talent", "remonstrance_actor", "expression_safety_unit", "harmed_talent"),
-        optional_fact_keys=("has_fault_boundary",),
+        optional_fact_keys=("has_fault_boundary", "has_concrete_protection_or_harm"),
         prompt=(
-            "必须是皇帝对具名人才的容谏、保全、保护、处置或伤害，并具体影响人才安全、表达安全或授权信用。"
-            "战役中的杀伤、一般刑罚词或人物政治结局不能仅凭关键词入分；负向必须辨明对象过错边界。"
+            "正向可以是皇帝对具名人才的单次采纳、多次容谏、保全、保护或授权信用修复；采纳和安全表达本身即可成立，"
+            "不要求另有免罪或保护性处置。负向必须同时有皇帝造成的具体伤害和对象过错边界。"
+            "皇帝正式下达处死、拘捕、撤权或清洗命令，即使被臣下截留或最终未执行，也已构成具体人才安全或授权信用威胁；"
+            "应按实际完成程度选择较低 handling_severity，不得因未遂直接判为无伤害。"
+            "战役中的杀伤、一般刑罚词或人物政治结局不能仅凭关键词入分。"
         ),
     ),
     "anti_nepotism": ReviewProtocol(

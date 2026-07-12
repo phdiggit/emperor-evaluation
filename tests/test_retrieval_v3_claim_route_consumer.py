@@ -1,4 +1,16 @@
+from pathlib import Path
+
 from scripts.dev import retrieval_v3_claim_route_consumer as tool
+
+
+def test_route_replay_detaches_stale_resolved_binding_but_preserves_review() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "existing_binding.claim_id = excluded.claim_id" in source
+    assert "then null" in source
+    assert "candidate_review,review_verdict" in source
+    assert "when 'accepted_candidate' then 'accepted'" in source
+    assert "when 'rejected' then 'rejected'" in source
 
 
 def test_route_claim_keys_expands_event_chain_members() -> None:

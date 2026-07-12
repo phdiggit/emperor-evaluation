@@ -183,9 +183,8 @@ def upsert_material_claim(cur: Any, row: Mapping[str, Any], pack_ids: Mapping[st
             claim_summary_hash, object_group_key, direction, confidence, review_status, claim_payload
         )
         values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb)
-        on conflict (claim_code) do update set
+        on conflict (source_pack_id, raw_claim_code) where btrim(raw_claim_code) <> '' do update set
             source_passage_id = excluded.source_passage_id,
-            raw_claim_code = excluded.raw_claim_code,
             emperor_name = excluded.emperor_name,
             object_name = excluded.object_name,
             object_type = excluded.object_type,

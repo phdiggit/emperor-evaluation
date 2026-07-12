@@ -63,3 +63,5 @@ def test_candidate_binding_consumer_merges_material_candidates_into_native_bindi
     assert "c.routed_by_profile = any(%s)" in source
     assert "matched_object.canonical_name" in source
     assert "rc.contract_code = %s" in source
+    assert "native_rt.emperor_name = source_rt.emperor_name" in source
+    assert "tob.target_id = native_rt.id" in source

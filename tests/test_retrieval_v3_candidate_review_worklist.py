@@ -3,6 +3,12 @@ from pathlib import Path
 from scripts.dev import retrieval_v3_candidate_review_worklist as tool
 
 
+def test_review_worklist_ignores_merged_identity_shells() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "o.identity_status::text = 'active'" in source
+
+
 def test_classify_identity_gate() -> None:
     assert tool.classify_identity_gate({"matching_objects": [], "target_objects": []}) == "identity_missing"
     assert tool.classify_identity_gate({"matching_objects": [{"object_id": 1}], "target_objects": []}) == "identity_pending"

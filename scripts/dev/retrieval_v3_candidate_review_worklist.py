@@ -148,8 +148,10 @@ def fetch_rows(cur: Any, *, profile: str, review_status: str, rule_code: str, li
           join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
           left join passage_agg pa on pa.claim_id = mc.id
           left join retrieval_v3.objects o
-            on lower(o.canonical_name) = lower(mc.object_name)
-            or exists (
+            on o.identity_status::text = 'active'
+           and (
+                lower(o.canonical_name) = lower(mc.object_name)
+                or exists (
                 select 1
                   from retrieval_v3.object_names onm
                  where onm.object_id = o.id
@@ -158,7 +160,8 @@ def fetch_rows(cur: Any, *, profile: str, review_status: str, rule_code: str, li
                        lower(onm.name_text) = lower(mc.object_name)
                        or lower(onm.normalized_name) = lower(mc.object_name)
                    )
-            )
+                )
+           )
           left join retrieval_v3.target_objects tob on tob.target_id = rt.id and tob.object_id = o.id
          where c.routed_by_profile = %s
            and c.review_status::text = %s

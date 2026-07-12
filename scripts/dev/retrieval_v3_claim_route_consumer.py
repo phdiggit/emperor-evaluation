@@ -172,16 +172,60 @@ def upsert_candidate(
         ) values (%s, %s, %s, %s, 'I5B', %s, 'I5B', %s, %s,
                   'current_rule_candidate', '{}'::jsonb, %s, '', '', 'neutral', %s, %s, %s,
                   'pending', %s::jsonb)
-        on conflict on constraint rv3_claim_rule_binding_candidates_uk do update set
+        on conflict (candidate_code) do update set
             claim_id = excluded.claim_id,
             candidate_contract_rule_id = excluded.candidate_contract_rule_id,
             routed_by_profile = excluded.routed_by_profile,
+            reason_hash = excluded.reason_hash,
             candidate_reason = excluded.candidate_reason,
             confidence = excluded.confidence,
-            candidate_payload = retrieval_v3.claim_rule_binding_candidates.candidate_payload || excluded.candidate_payload,
+            candidate_payload = retrieval_v3.claim_rule_binding_candidates.candidate_payload
+                || excluded.candidate_payload
+                || jsonb_build_object(
+                    'candidate_review',
+                    case
+                        when coalesce(retrieval_v3.claim_rule_binding_candidates.candidate_payload #>> '{candidate_review,review_verdict}', '') <> ''
+                            then retrieval_v3.claim_rule_binding_candidates.candidate_payload -> 'candidate_review'
+                        else excluded.candidate_payload -> 'candidate_review'
+                    end
+                ),
+            resolved_binding_id = case
+                when retrieval_v3.claim_rule_binding_candidates.resolved_binding_id is not null
+                 and not exists (
+                        select 1
+                          from retrieval_v3.claim_rule_bindings existing_binding
+                         where existing_binding.id = retrieval_v3.claim_rule_binding_candidates.resolved_binding_id
+                           and existing_binding.claim_id = excluded.claim_id
+                    )
+                    then null
+                else retrieval_v3.claim_rule_binding_candidates.resolved_binding_id
+            end,
             review_status = case
                 when retrieval_v3.claim_rule_binding_candidates.resolved_binding_id is not null
+                 and not exists (
+                        select 1
+                          from retrieval_v3.claim_rule_bindings existing_binding
+                         where existing_binding.id = retrieval_v3.claim_rule_binding_candidates.resolved_binding_id
+                           and existing_binding.claim_id = excluded.claim_id
+                    )
+                 and retrieval_v3.claim_rule_binding_candidates.candidate_payload #>> '{candidate_review,review_verdict}' = 'accepted_candidate'
+                    then 'accepted'::retrieval_v3.rv3_review_status
+                when retrieval_v3.claim_rule_binding_candidates.resolved_binding_id is not null
+                 and not exists (
+                        select 1
+                          from retrieval_v3.claim_rule_bindings existing_binding
+                         where existing_binding.id = retrieval_v3.claim_rule_binding_candidates.resolved_binding_id
+                           and existing_binding.claim_id = excluded.claim_id
+                    )
+                    then 'pending'::retrieval_v3.rv3_review_status
+                when retrieval_v3.claim_rule_binding_candidates.resolved_binding_id is not null
                     then retrieval_v3.claim_rule_binding_candidates.review_status
+                when coalesce(retrieval_v3.claim_rule_binding_candidates.candidate_payload #>> '{candidate_review,review_verdict}', '') <> ''
+                    then case retrieval_v3.claim_rule_binding_candidates.candidate_payload #>> '{candidate_review,review_verdict}'
+                        when 'accepted_candidate' then 'accepted'::retrieval_v3.rv3_review_status
+                        when 'rejected' then 'rejected'::retrieval_v3.rv3_review_status
+                        else 'needs_review'::retrieval_v3.rv3_review_status
+                    end
                 else 'pending'::retrieval_v3.rv3_review_status
             end,
             updated_at = now()

@@ -6,6 +6,10 @@ from pathlib import Path
 from scripts.dev import retrieval_v3_import_plan as tool
 
 
+def test_alignment_normalizes_common_non_name_script_variants() -> None:
+    assert tool.normalize_alignment_text("馮勝逾二年賜死") == "冯胜逾二年赐死"
+
+
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")

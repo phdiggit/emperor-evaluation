@@ -44,6 +44,7 @@ def fetch_claim_rows(
     target_names: Sequence[str],
     target_codes: Sequence[str],
 ) -> list[dict[str, Any]]:
+    scope_sql = "true" if scope == "all" else scope_predicate(scope)
     rule_filter = """
            and (
                 %s = ''
@@ -155,7 +156,7 @@ def fetch_claim_rows(
           left join passage_agg pa on pa.claim_id = mc.id
          where rt.item_code = %s
            {rule_filter}
-           and {scope_predicate(scope)}
+           and {scope_sql}
            and (coalesce(array_length(%s::text[], 1), 0) = 0 or rt.emperor_name = any(%s::text[]))
            and (coalesce(array_length(%s::text[], 1), 0) = 0 or rt.target_code = any(%s::text[]))
          order by rt.emperor_name, source_rule_code, mc.id
@@ -177,6 +178,12 @@ def audit_claim_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "source_passage_refs": list(passages),
     }
     issue = claim_passage_alignment_issue(claim, passages)
+    if not passages and (int(row.get("candidate_count") or 0) > 0 or int(row.get("binding_count") or 0) > 0):
+        issue = {
+            "severity": "error",
+            "code": "missing_source_passages",
+            "message": "claim has candidate/binding lineage but no source passage quote",
+        }
     status = "ok" if not issue else text(issue.get("severity")) or "warning"
     return {
         "claim_id": int(row.get("claim_id") or 0),

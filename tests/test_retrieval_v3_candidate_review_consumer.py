@@ -93,3 +93,34 @@ def test_validate_talent_discovery_uses_rule_specific_protocol() -> None:
     )
     assert validated["rule_code"] == "talent_discovery"
     assert validated["review_status"] == "accepted"
+
+
+def tolerate_patch(*, direction: str, concrete: bool, fault: bool) -> dict:
+    return {
+        "review_code": "CRW-TOL",
+        "rule_code": "tolerate_talent",
+        "review_verdict": "accepted_candidate",
+        "review_note": "材料明确显示皇帝采纳具名人才进谏并维持表达安全。",
+        "required_facts": {
+            "has_named_talent": True,
+            "has_emperor_handling_action": True,
+            "has_talent_or_expression_safety_relevance": True,
+            "has_concrete_protection_or_harm": concrete,
+            "has_fault_boundary": fault,
+        },
+        "candidate_role": "remonstrance_actor" if direction == "positive" else "harmed_talent",
+        "direction": direction,
+        "scoring_candidate": True,
+        "usable_for_scoring_cluster": True,
+        "identity_gate": "identity_ready",
+        "evidence_passage_codes": ["PAS-X"],
+    }
+
+
+def test_tolerate_positive_accepts_advice_without_separate_protection_event() -> None:
+    assert tool.validate_patch(tolerate_patch(direction="positive", concrete=False, fault=False))["review_status"] == "accepted"
+
+
+def test_tolerate_negative_still_requires_concrete_harm_and_fault_boundary() -> None:
+    with pytest.raises(tool.CandidateReviewConsumerError, match="protocol"):
+        tool.validate_patch(tolerate_patch(direction="negative", concrete=False, fault=True))

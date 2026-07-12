@@ -59,6 +59,14 @@ def test_build_audit_flags_mismatched_claim_passage_and_downstream() -> None:
     assert payload["sample_downstream_impacted"][0]["claim_code"] == "CLM-002"
 
 
+def test_build_audit_flags_downstream_claim_without_any_source_passage() -> None:
+    payload = tool.build_audit([claim_row(source_passages=[])])
+
+    assert payload["totals"]["flagged_claims"] == 1
+    assert payload["issue_counts"] == {"missing_source_passages": 1}
+    assert payload["flagged_claims"][0]["status"] == "error"
+
+
 class FakeCursor:
     def __init__(self) -> None:
         self.statements: list[str] = []

@@ -3,6 +3,12 @@ from pathlib import Path
 from scripts.dev import retrieval_v3_identity_gate_consumer as tool
 
 
+def test_identity_gate_query_ignores_merged_audit_shells() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "o.identity_status::text = 'active'" in source
+
+
 def row(**overrides):
     value = {
         "object_id": 10,

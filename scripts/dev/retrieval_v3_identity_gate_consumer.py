@@ -140,8 +140,10 @@ def fetch_groups(
           join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
           left join retrieval_v3.objects o
-            on lower(o.canonical_name) = lower(mc.object_name)
-            or exists (
+            on o.identity_status::text = 'active'
+           and (
+                lower(o.canonical_name) = lower(mc.object_name)
+                or exists (
                 select 1
                   from retrieval_v3.object_names onm
                  where onm.object_id = o.id
@@ -150,7 +152,8 @@ def fetch_groups(
                        lower(onm.name_text) = lower(mc.object_name)
                        or lower(onm.normalized_name) = lower(mc.object_name)
                    )
-            )
+                )
+           )
           left join retrieval_v3.target_objects tob on tob.target_id = rt.id and tob.object_id = o.id
          where c.routed_by_profile = %s
            and c.review_status::text = %s

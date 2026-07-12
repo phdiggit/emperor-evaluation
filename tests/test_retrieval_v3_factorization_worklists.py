@@ -1357,3 +1357,51 @@ def test_run_plan_keeps_worklist_error_type_for_invalid_runner_output(tmp_path: 
 
     with pytest.raises(tool.FactorizationWorklistError, match="non-JSON stdout"):
         tool.run_codex_tasks(tasks_path=tasks_path, execute=False, background=False, limit=0, output=None)
+
+
+def test_tolerate_talent_prompt_and_gate_reject_single_person_catastrophic_severity(tmp_path: Path) -> None:
+    row = material_row(
+        rule_code="tolerate_talent",
+        direction="negative",
+        claim_object_name="张亮",
+        canonical_name="张亮",
+        source_passages=[{"source_title": "旧唐书", "quote": "百官议其当死，遂斩张亮于市，籍没其家。"}],
+    )
+    assert tool.tolerate_talent_factor_issue(
+        material=row, factor_name="handling_severity", value=tool.Decimal("3.2")
+    ) == "catastrophic_severity_without_group_or_ecology_harm"
+    batch = {"batch_id": "B-TOL", "groups": [{"materials": [tool.material_item(row, {}, {})]}]}
+    prompt = task_tool.prompt_for_batch(batch=batch, output_jsonl=tmp_path / "patch.jsonl")
+    assert "单一人物被处死、下狱或籍没不得选 3.2" in prompt
+
+
+def test_tolerate_talent_gate_requires_quote_support_for_disputed_fault_factor() -> None:
+    unsupported = material_row(
+        rule_code="tolerate_talent",
+        direction="negative",
+        source_passages=[{"source_title": "史书", "quote": "其人谋反伏诛。"}],
+    )
+    supported = material_row(
+        rule_code="tolerate_talent",
+        direction="negative",
+        source_passages=[{"source_title": "史书", "quote": "反形未具，帝后悔之。"}],
+    )
+    assert tool.tolerate_talent_factor_issue(
+        material=unsupported, factor_name="target_fault_factor", value=tool.Decimal("0.9")
+    ) == "disputed_fault_factor_without_quote_support"
+    assert not tool.tolerate_talent_factor_issue(
+        material=supported, factor_name="target_fault_factor", value=tool.Decimal("0.9")
+    )
+
+
+def test_factorization_prompt_centers_long_quote_on_claim_relevant_event() -> None:
+    quote = "无关前文" * 400 + "叔孙通谏上不可易太子，高帝曰吾听公言。" + "无关后文" * 400
+    excerpt = task_tool.relevant_quote_excerpt(
+        quote,
+        summary="高祖欲易太子时，叔孙通进谏，高帝听从。",
+        object_name="叔孙通",
+    )
+
+    assert len(excerpt) <= task_tool.PROMPT_QUOTE_LIMIT + 6
+    assert "叔孙通谏上不可易太子" in excerpt
+    assert "吾听公言" in excerpt

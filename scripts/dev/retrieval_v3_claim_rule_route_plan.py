@@ -22,9 +22,15 @@ DEFAULT_DSN_ENV = DEFAULT_V3_DSN_ENV
 DEFAULT_STATUSES = ("active",)
 I5B_RULES = ("talent_discovery", "appointment_delegation", "team_building", "tolerate_talent", "anti_nepotism")
 APPOINTMENT_ACTIONS = {"任命", "授权"}
-DISCOVERY_TERMS = ("荐", "举荐", "推荐", "拔擢", "提拔", "擢用", "擢任", "延揽", "访求", "征辟", "识才", "知其才")
+DISCOVERY_TERMS = (
+    "荐", "举荐", "推荐", "拔", "擢", "提拔", "延揽", "访求", "征辟", "识才", "知其才",
+    "召见", "召至", "试用", "赏识", "异之", "器重",
+)
 TOLERANCE_TERMS = ("容", "赦", "保全", "复用", "召还", "谏", "諫", "诤", "諍", "直言", "上疏", "纳谏", "納諫")
-DISPOSITION_TERMS = ("诛", "杀", "废", "罢", "免", "贬", "夺", "禁锢", "圈禁")
+DISPOSITION_TERMS = (
+    "诛", "杀", "斩", "处死", "赐死", "下狱", "械系", "籍没", "流放", "安置",
+    "废", "罢", "免", "贬", "夺", "禁锢", "圈禁",
+)
 NEPOTISM_TERMS = ("外戚", "近臣", "宠臣", "親", "亲", "宗室", "家族", "私门", "朋党", "党", "纳贿", "贿")
 TEAM_OFFICE_TERMS = ("丞相", "宰相", "大将军", "太尉", "中书", "枢密", "内阁", "大学士", "总督", "巡抚")
 

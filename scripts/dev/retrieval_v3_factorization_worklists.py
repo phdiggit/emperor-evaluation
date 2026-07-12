@@ -504,6 +504,14 @@ def fetch_material_rows(
     source_pack_codes: Sequence[str] = (),
     include_judged: bool = False,
 ) -> list[dict[str, Any]]:
+    binding_scoring_predicate = "true" if include_judged else """
+                crb.usable_for_scoring_cluster
+                or (
+                    crb.rule_code <> 'appointment_delegation'
+                    and crb.binding_payload->>'source' = 'retrieval_v3_candidate_promoter'
+                    and nullif(crb.binding_payload->>'candidate_id', '') is not null
+                )
+    """
     codes = [text(code) for code in source_pack_codes if text(code)]
     source_pack_params: list[Any] = [codes] if codes else []
     judgment_delta_predicate = "" if include_judged else """
@@ -669,15 +677,7 @@ def fetch_material_rows(
           left join affiliation_agg aa on aa.object_id = o.id
           left join passage_agg pa on pa.claim_id = mc.id
          where crb.rule_code = %s
-           and (
-                crb.usable_for_scoring_cluster
-                or (
-                    crb.rule_code <> 'appointment_delegation'
-                    and
-                    crb.binding_payload->>'source' = 'retrieval_v3_candidate_promoter'
-                    and nullif(crb.binding_payload->>'candidate_id', '') is not null
-                )
-           )
+           and ({binding_scoring_predicate})
            and crb.review_status in ('pending', 'accepted')
            and not exists (
                 select 1
@@ -1063,6 +1063,41 @@ def high_information_chinese(value: Any) -> bool:
     return len(note) >= 12 and any("\u4e00" <= char <= "\u9fff" for char in note)
 
 
+def source_quote_text(material: Mapping[str, Any]) -> str:
+    claim = material.get("claim") if isinstance(material.get("claim"), Mapping) else {}
+    raw_passages = material.get("source_passages") or claim.get("source_passages")
+    passages = raw_passages if isinstance(raw_passages, list) else []
+    return " ".join(text(row.get("quote")) for row in passages if isinstance(row, Mapping))
+
+
+def tolerate_talent_factor_issue(
+    *, material: Mapping[str, Any], factor_name: str, value: Decimal | None
+) -> str:
+    if text(material.get("rule_code")) != "tolerate_talent" or text(material.get("direction")) != "negative" or value is None:
+        return ""
+    quote = source_quote_text(material)
+    if factor_name == "handling_severity":
+        mass_harm = any(term in quote for term in (
+            "株连", "株連", "连坐", "連坐", "族诛", "族誅", "夷族", "尽诛", "盡誅",
+            "七十余人", "七十餘人", "万人", "萬人", "千人", "百人", "三万余人", "三萬餘人", "一万五千人", "一萬五千人",
+            "夷灭", "夷滅", "不可胜数", "不可勝數", "相继尽", "相繼盡", "元功宿将", "元功宿將",
+            "群臣", "功臣集团", "功臣集團",
+            "储备人才", "儲備人才", "表达对象", "表達對象", "人才生态", "人才生態", "系统清洗", "系統清洗",
+        ))
+        if value >= Decimal("3.2") and not mass_harm:
+            return "catastrophic_severity_without_group_or_ecology_harm"
+        if value >= Decimal("2.6") and not mass_harm:
+            return "systemic_severity_without_mass_or_systemic_harm"
+    if factor_name == "target_fault_factor" and value == Decimal("0.9"):
+        disputed = any(term in quote for term in (
+            "未具", "未坐实", "未坐實", "无验", "無驗", "无实", "無實", "不实", "不實",
+            "争议", "爭議", "申辩", "申辯", "追悔", "悔之", "非其罪", "不罪", "冤", "疑",
+        ))
+        if not disputed:
+            return "disputed_fault_factor_without_quote_support"
+    return ""
+
+
 def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> list[dict[str, Any]]:
     binding_code = text(row.get("binding_code"))
     base = {
@@ -1089,6 +1124,8 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
     side = text(row.get("side"))
     if side not in {"positive", "negative"}:
         issues.append({**base, "severity": "error", "status": "invalid_side", "value": side})
+    if not source_quote_text(material):
+        issues.append({**base, "severity": "error", "status": "score_without_source_quote"})
     expected_keys = expected_factor_keys(material)
     if not expected_keys:
         issues.append({**base, "severity": "error", "status": "score_without_factor_template"})
@@ -1152,6 +1189,16 @@ def validate_patch_row(row: Mapping[str, Any], material: Mapping[str, Any]) -> l
                         "hint_value_num": text(hint_ref.get("value_num")),
                     }
                 )
+        tolerate_issue = tolerate_talent_factor_issue(material=material, factor_name=factor_name, value=value)
+        if tolerate_issue:
+            issues.append({
+                **base,
+                "severity": "error",
+                "status": tolerate_issue,
+                "factor": factor_name,
+                "label": label,
+                "value_num": str(value),
+            })
     if side in {"positive", "negative"} and len(selected_values) == len(expected_keys):
         raw_score = Decimal("1")
         for value in selected_values:

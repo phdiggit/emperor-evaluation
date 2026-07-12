@@ -95,6 +95,8 @@ def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
         raise CandidateReviewConsumerError(f"{code}: required_facts must use booleans")
     scoring = row.get("scoring_candidate") is True
     protocol_ok = review_protocol.allows_scoring(facts)
+    if rule_code == "tolerate_talent" and scoring and direction == "negative":
+        protocol_ok = protocol_ok and facts.get("has_concrete_protection_or_harm") is True and facts.get("has_fault_boundary") is True
     if scoring and (not protocol_ok or row.get("usable_for_scoring_cluster") is not True):
         raise CandidateReviewConsumerError(f"{code}: scoring candidate violates {rule_code} protocol")
     return {

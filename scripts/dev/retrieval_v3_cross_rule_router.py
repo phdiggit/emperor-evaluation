@@ -41,7 +41,10 @@ FUTURE_HINT_RULES = {
     "military_frontier_result",
     "historical_debt",
 }
-DISPOSITION_TERMS = ("疑", "夺", "降封", "诛", "诛族", "杀", "废", "罢", "免", "禁锢", "圈禁", "伏诛", "反")
+DISPOSITION_TERMS = (
+    "疑", "夺", "降封", "诛", "诛族", "杀", "斩", "处死", "赐死", "下狱", "械系", "籍没",
+    "流放", "安置", "废", "罢", "免", "禁锢", "圈禁", "伏诛", "反",
+)
 
 
 class CrossRuleRouterError(RuntimeError):
@@ -154,7 +157,10 @@ def route_claim(row: Mapping[str, Any]) -> list[RouteSpec]:
             ),
         )
 
-    discovery_terms = contains_any(haystack, ("荐", "举", "拔", "识", "知其才", "推荐", "延揽", "访求", "举为"))
+    discovery_terms = contains_any(
+        haystack,
+        ("荐", "举", "拔", "擢", "识", "知其才", "推荐", "延揽", "访求", "举为", "召见", "召至", "试用", "赏识", "异之", "器重"),
+    )
     if discovery_terms:
         add_route(
             routes,

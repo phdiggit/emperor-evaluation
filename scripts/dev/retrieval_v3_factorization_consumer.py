@@ -331,7 +331,7 @@ def fetch_binding_context(cur: Any, binding_code: str) -> dict[str, Any]:
             crb.usable_for_scoring_cluster as binding_usable_for_scoring_cluster,
             crb.binding_payload,
             mc.source_pack_id,
-            sp.target_id,
+            coalesce(binding_target.target_id, sp.target_id) as target_id,
             rt.item_code,
             exists (
                 select 1
@@ -347,7 +347,10 @@ def fetch_binding_context(cur: Any, binding_code: str) -> dict[str, Any]:
           from retrieval_v3.claim_rule_bindings crb
           join retrieval_v3.material_claims mc on mc.id = crb.claim_id
           join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
-          join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
+          left join retrieval_v3.target_objects binding_target
+            on coalesce(crb.binding_payload->>'target_object_id', '') ~ '^[0-9]+$'
+           and binding_target.id = (crb.binding_payload->>'target_object_id')::bigint
+          join retrieval_v3.retrieval_targets rt on rt.id = coalesce(binding_target.target_id, sp.target_id)
           left join lateral (
               select c.*
                 from retrieval_v3.claim_rule_binding_candidates c
@@ -446,6 +449,13 @@ def upsert_factor_judgment(
             %s, %s::retrieval_v3.rv3_review_status, %s::jsonb
         )
         on conflict on constraint rv3_claim_rule_binding_factor_judgments_idem_uk do update set
+            binding_id = excluded.binding_id,
+            claim_id = excluded.claim_id,
+            target_id = excluded.target_id,
+            source_pack_id = excluded.source_pack_id,
+            item_code = excluded.item_code,
+            rule_code = excluded.rule_code,
+            formula_code = excluded.formula_code,
             target_action = excluded.target_action,
             side = excluded.side,
             factor_summary = excluded.factor_summary,

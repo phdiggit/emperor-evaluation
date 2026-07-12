@@ -110,9 +110,9 @@ def fetch_candidates(
             mc.claim_summary,
             sp.id as source_pack_id,
             sp.pack_code as source_pack_code,
-            rt.id as target_id,
-            rt.target_code,
-            rt.emperor_name,
+            native_rt.id as target_id,
+            native_rt.target_code,
+            source_rt.emperor_name,
             o.id as object_id,
             o.object_identity_key,
             o.canonical_name,
@@ -121,14 +121,22 @@ def fetch_candidates(
           from retrieval_v3.claim_rule_binding_candidates c
           join retrieval_v3.material_claims mc on mc.id = c.claim_id
           join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
-          join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
-          join retrieval_v3.rule_contracts rc on rc.id = rt.contract_id and rc.contract_code = %s
+          join retrieval_v3.retrieval_targets source_rt on source_rt.id = sp.target_id
+          join retrieval_v3.rule_contract_rules candidate_rule on candidate_rule.id = c.candidate_contract_rule_id
+          join retrieval_v3.rule_contracts rc
+            on rc.id = candidate_rule.contract_id
+           and rc.contract_code = %s
+          join retrieval_v3.retrieval_targets native_rt
+            on native_rt.contract_id = rc.id
+           and native_rt.emperor_name = source_rt.emperor_name
+           and native_rt.item_code = source_rt.item_code
           join retrieval_v3.target_objects tob
-            on tob.target_id = rt.id
+            on tob.target_id = native_rt.id
            and exists (
                 select 1
                   from retrieval_v3.objects matched_object
                  where matched_object.id = tob.object_id
+                   and matched_object.identity_status::text = 'active'
                    and (
                        lower(matched_object.canonical_name) = lower(mc.object_name)
                        or exists (
@@ -145,7 +153,7 @@ def fetch_candidates(
             )
           join retrieval_v3.objects o on o.id = tob.object_id
          where c.routed_by_profile = any(%s)
-           and (coalesce(array_length(%s::text[], 1), 0) = 0 or rt.emperor_name = any(%s::text[]))
+           and (coalesce(array_length(%s::text[], 1), 0) = 0 or source_rt.emperor_name = any(%s::text[]))
            and c.candidate_rule_code = %s
            and c.review_status = 'accepted'
            and c.resolved_binding_id is null
@@ -155,7 +163,7 @@ def fetch_candidates(
            and c.candidate_payload #>> '{candidate_review,scoring_candidate}' = 'true'
            and c.candidate_payload #>> '{candidate_review,usable_for_scoring_cluster}' = 'true'
            and tob.review_status = 'accepted'
-         order by rt.emperor_name, c.id
+         order by source_rt.emperor_name, c.id
         """,
         (NATIVE_CONTRACT_CODE, selected_profiles, selected_emperors, selected_emperors, rule_code),
     )

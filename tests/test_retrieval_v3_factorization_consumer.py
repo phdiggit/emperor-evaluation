@@ -8,6 +8,21 @@ import pytest
 from scripts.dev import retrieval_v3_factorization_consumer as tool
 
 
+def test_factor_judgment_upsert_refreshes_rebuilt_lineage() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "target_id = excluded.target_id" in source
+    assert "source_pack_id = excluded.source_pack_id" in source
+    assert "claim_id = excluded.claim_id" in source
+
+
+def test_factorization_uses_binding_native_target_over_source_pack_target() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "coalesce(binding_target.target_id, sp.target_id) as target_id" in source
+    assert "binding_payload->>'target_object_id'" in source
+
+
 def patch_row(**overrides: object) -> dict[str, object]:
     row: dict[str, object] = {
         "binding_code": "BND-001",

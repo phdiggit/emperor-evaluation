@@ -6,6 +6,12 @@ from pathlib import Path
 from scripts.dev import retrieval_v3_import_executor as tool
 
 
+def test_material_claim_upsert_uses_stable_raw_claim_identity() -> None:
+    source = Path(tool.__file__).read_text(encoding="utf-8")
+
+    assert "on conflict (source_pack_id, raw_claim_code) where btrim(raw_claim_code) <> '' do update set" in source
+
+
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")

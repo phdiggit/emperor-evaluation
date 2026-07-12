@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -48,10 +49,30 @@ def task_code(batch: Mapping[str, Any]) -> str:
     return "RV3F-" + stable_hash([batch.get("batch_id"), [row.get("binding_code") for row in flatten_batch_materials(batch).values()]], length=16)
 
 
-def prompt_passage(row: Mapping[str, Any]) -> dict[str, Any]:
+def relevant_quote_excerpt(quote: str, *, summary: str, object_name: str, limit: int = PROMPT_QUOTE_LIMIT) -> str:
+    if len(quote) <= limit:
+        return quote
+    chinese = "".join(re.findall(r"[\u4e00-\u9fff]", summary))
+    grams = {chinese[index : index + 2] for index in range(max(0, len(chinese) - 1))}
+    step = max(1, limit // 3)
+    starts = set(range(0, max(1, len(quote) - limit + 1), step))
+    starts.add(max(0, len(quote) - limit))
+    for match in re.finditer(re.escape(object_name), quote) if object_name else ():
+        starts.add(max(0, min(len(quote) - limit, match.start() - limit // 3)))
+    def score(start: int) -> tuple[int, int]:
+        window = quote[start : start + limit]
+        overlap = sum(1 for gram in grams if gram in window)
+        object_bonus = 8 if object_name and object_name in window else 0
+        return overlap + object_bonus, -start
+    best = max(starts, key=score)
+    prefix = "..." if best else ""
+    suffix = "..." if best + limit < len(quote) else ""
+    return prefix + quote[best : best + limit] + suffix
+
+
+def prompt_passage(row: Mapping[str, Any], *, summary: str = "", object_name: str = "") -> dict[str, Any]:
     quote = text(row.get("quote"))
-    if len(quote) > PROMPT_QUOTE_LIMIT:
-        quote = quote[:PROMPT_QUOTE_LIMIT] + "..."
+    quote = relevant_quote_excerpt(quote, summary=summary, object_name=object_name)
     return {
         "source_title": text(row.get("source_title")),
         "title": text(row.get("title")),
@@ -138,7 +159,10 @@ def prompt_material(row: Mapping[str, Any]) -> dict[str, Any]:
         "object": prompt_object(row, obj),
         "claim": {
             "summary": text(claim.get("summary")),
-            "source_passages": [prompt_passage(item) for item in (claim.get("source_passages") or [])[:PROMPT_PASSAGE_LIMIT] if isinstance(item, Mapping)],
+            "source_passages": [
+                prompt_passage(item, summary=text(claim.get("summary")), object_name=text(obj.get("canonical_name")))
+                for item in (claim.get("source_passages") or [])[:PROMPT_PASSAGE_LIMIT] if isinstance(item, Mapping)
+            ],
         },
         "patch_requirements": {
             "side": template.get("side") or text(row.get("direction")),
@@ -234,6 +258,15 @@ def prompt_for_batch(*, batch: Mapping[str, Any], output_jsonl: Path) -> str:
             "talent_discovery 校准：提拔、拔擢、擢用只有在 quote 显示对象此前低位、被埋没、未充分显名、"
             "异质来源、旧阵营，或存在破格识别、试用、荐举链条时，才可作为发现人才信号；"
             "普通升迁、已知重臣任命、单纯授权办事不得纳入发现人才，若只有任官而无发现性信号则 `exclude`。\n"
+        )
+    if "tolerate_talent" in rule_codes:
+        skill_instruction += (
+            "tolerate_talent 校准：负向 `handling_severity=3.2` 只用于 quote 直接证明核心人才群体、功臣集团、"
+            "储备/继承人才或表达对象遭到群体性、灾难级破坏；单一人物被处死、下狱或籍没不得选 3.2，通常最高为 1.8。"
+            "`handling_severity=2.6` 必须有多人牵连、系统清洗或长期人才生态破坏的 quote 依据；"
+            "`target_fault_factor=0.9` 必须由 quote 明示罪证未具、嫌疑未坐实、反形未成、争议、申辩或后来追悔，"
+            "不得仅凭历史常识补足。谋反、叛乱或严重危害基本坐实者应选 0.2；重大过错成立但处置过重者选 0.5。"
+            "处置事实若没有人才安全、表达安全或授权信用意义，应 `exclude`，不得只因对象有才或结局严重而入分。\n"
         )
     return (
         "# retrieval_v3 factorization task\n\n"

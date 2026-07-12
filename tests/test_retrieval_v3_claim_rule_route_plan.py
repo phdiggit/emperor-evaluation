@@ -24,6 +24,13 @@ def claim(**overrides):
     return row
 
 
+def test_tolerate_talent_routes_execution_and_imprisonment_terms() -> None:
+    for term in ("处斩", "赐死", "下狱", "械系", "籍没"):
+        routes = tool.route_claim(claim(claim_summary=f"某功臣被{term}。"))
+        tolerate = next(row for row in routes if row["candidate_rule_code"] == "tolerate_talent")
+        assert any(token in term or term in token for token in tolerate["reason_codes"])
+
+
 def test_route_claim_uses_mechanical_appointment_and_team_signals() -> None:
     routes = tool.route_claim(claim())
 
@@ -75,3 +82,14 @@ def test_build_plan_keeps_claim_routes_and_chain_routes_separate() -> None:
     assert plan["formal_binding_allowed"] is False
     assert plan["candidate_rule_counts"]["appointment_delegation"] == 1
     assert plan["candidate_rule_counts"]["team_building"] == 1
+
+
+def test_route_claim_recognizes_summoned_tested_and_personally_noticed_talent() -> None:
+    routes = tool.route_claim(claim(
+        object_name="夏原吉",
+        action_type="任命",
+        office_or_domain="户部主事",
+        claim_summary="朱元璋见夏原吉危坐俨然而异之，遂擢为户部主事。",
+        atomic_fact_payload={"actor": "朱元璋", "fact_object": "夏原吉", "action_type": "任命"},
+    ))
+    assert "talent_discovery" in {row["candidate_rule_code"] for row in routes}

@@ -216,6 +216,7 @@ SCRIPT_VARIANT_TRANSLATION = str.maketrans(
         if len(group[0]) == 1 and len(variant) == 1
     }
 )
+SCRIPT_VARIANT_TRANSLATION.update(str.maketrans({"賜": "赐", "勝": "胜", "還": "还", "兩": "两"}))
 
 
 def normalize_alignment_text(value: str) -> str:

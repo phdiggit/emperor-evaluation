@@ -29,7 +29,7 @@ def fetch_v3_appointment_signal(
     cur.execute(
         """
         select c.id, c.rule_score_code, c.positive_signal, c.negative_signal,
-               c.scored_judgment_count, c.updated_at, rt.target_code
+               c.scored_judgment_count, c.updated_at, rt.target_code, c.calc_detail
           from retrieval_v3.target_rule_score_clusters c
           join retrieval_v3.retrieval_targets rt on rt.id = c.target_id
          where rt.emperor_name = %s and c.item_code = %s
@@ -43,7 +43,7 @@ def fetch_v3_appointment_signal(
     raw = cur.fetchone()
     if raw is None:
         raise ValueError(f"missing v3 appointment_delegation score cluster: {emperor}")
-    keys = ("id", "rule_score_code", "positive_signal", "negative_signal", "scored_judgment_count", "updated_at", "target_code")
+    keys = ("id", "rule_score_code", "positive_signal", "negative_signal", "scored_judgment_count", "updated_at", "target_code", "calc_detail")
     payload = dict(zip(keys, raw))
     signal = RuleSignals(
         Decimal(str(payload["positive_signal"])), Decimal(str(payload["negative_signal"])), int(payload["id"]))
@@ -197,7 +197,6 @@ def render_markdown(report: dict[str, Any]) -> str:
             if not materials:
                 lines.append("| — | — | — | — | 0.000 | 无可用入分材料 |")
                 lines.append("")
-                continue
             for material in materials:
                 factor_values = material.get("factor_values") or {}
                 factors = "; ".join(f"{key}={value}" for key, value in sorted(factor_values.items()))
@@ -208,6 +207,30 @@ def render_markdown(report: dict[str, Any]) -> str:
                     f"{material.get('raw_score') or material.get('abs_score') or '0.000'} | {factors or '—'} |"
                 )
             lines.append("")
+            if rule_code == "team_building":
+                detail = cluster.get("calc_detail") or {}
+                components = detail.get("team_object_components") or []
+                lines.extend([
+                    "团队对象池明细：", "",
+                    "| object | talent grade | talent factor | side | contribution | roles |",
+                    "| --- | --- | ---: | --- | ---: | --- |",
+                ])
+                if not components:
+                    lines.append("| — | — | 0.000 | — | 0.000 | 无团队对象 |")
+                for component in components:
+                    roles = ", ".join(component.get("person_roles") or component.get("roles") or []) or "—"
+                    lines.append(
+                        f"| {component.get('object_name') or component.get('canonical_name') or '—'} | "
+                        f"{component.get('talent_grade') or '—'} | "
+                        f"{component.get('talent_quality_factor') or component.get('talent_factor') or '—'} | "
+                        f"{component.get('side') or 'positive'} | "
+                        f"{component.get('contribution') or component.get('score') or component.get('talent_quality_factor') or '—'} | {roles} |"
+                    )
+                lines.extend([
+                    "", f"对象池合计：`{detail.get('team_pool_value', '—')}`；"
+                    f"角色互补因子：`{(detail.get('team_factor_values') or {}).get('role_complementarity_factor', '—')}`；"
+                    f"长期稳定因子：`{(detail.get('team_factor_values') or {}).get('long_term_stability_factor', '—')}`。", "",
+                ])
     missing_rows = [row for row in report.get("results") or [] if row.get("missing_rule_codes")]
     if missing_rows:
         lines.extend(["", "## 尚未生成的 v3 rule cluster", ""])
