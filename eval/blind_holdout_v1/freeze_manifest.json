@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "dataset_code": "blind_holdout_v1",
+  "status": "input_and_candidates_frozen_gold_pending",
+  "frozen_at": "2026-07-12T14:36:34Z",
+  "input": {
+    "path": "eval/blind_holdout_v1/input.json",
+    "file_sha256": "5d7a5469a06f92659b41fc50c5397912e2acd390641f02aa710597b999f9179a",
+    "canonical_payload_sha256": "f65f4e384d2ae25f678fd305b34e692510c4c9f67af20af6892180a38de394e6",
+    "selected_v3_claim_count": 29,
+    "assertion_count": 59,
+    "source_passage_count": 60,
+    "canonical_person_candidate_count": 18
+  },
+  "candidates": {
+    "path": "eval/blind_holdout_v1/candidates.json",
+    "file_sha256": "88b80d471773fb606068c8b60b69b5aadeb40ba88f64d82a152345bbdf0aa01b",
+    "canonical_payload_sha256": "95bc76a36acda65987234461bfee174b81b83f397ada25f4368a73447e4955b9",
+    "candidate_packet_count": 29,
+    "deterministic_rerun_canonical_payload_sha256": "95bc76a36acda65987234461bfee174b81b83f397ada25f4368a73447e4955b9"
+  },
+  "execution_safety": {
+    "gold_fields_detected": 0,
+    "model_call_count": 0,
+    "network_request_count": 0,
+    "database_write_count": 0,
+    "v3_worker_services_stopped": true
+  },
+  "sealed_gold": {
+    "status": "pending_independent_human_freeze",
+    "template": "eval/blind_holdout_v1/sealed_gold.pending.yml",
+    "candidate_artifact_must_remain_unread_during_boundary_freeze": true
+  },
+  "metrics": {
+    "status": "not_computable_before_independent_sealed_gold",
+    "autonomous_boundary_recall": null,
+    "candidate_precision": null,
+    "wrong_merge_count": null,
+    "wrong_split_count": null
+  }
+}

@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from emperor_v4.adapters import (
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
@@ -206,6 +208,7 @@ def test_blind_holdout_run_is_gold_isolated_and_scored_only_afterward():
 
     assert run["status"] == "blind_candidates_proposed"
     assert run["candidate_packet_count"] == 3
+    assert run["input_source_passage_count"] == 4
     assert run["accuracy_metrics"]["autonomous_boundary_recall"] is None
     assert run["safety"] == {
         "gold_fields_detected": 0,
@@ -214,25 +217,138 @@ def test_blind_holdout_run_is_gold_isolated_and_scored_only_afterward():
         "database_write_count": 0,
     }
 
-    decisions = {
-        packet["semantic_fingerprint"]: {
-            "decision": "full_match",
-            "gold_episode_codes": [f"SMOKE-{index}"],
+    gold_episodes = [
+        {
+            "gold_episode_code": f"SMOKE-{index}",
+            "evaluation_context": packet["evaluation_context"],
+            "expected_assertion_refs": [
+                link["assertion_ref"] for link in packet["assertion_links"]
+            ],
+            "required_source_passage_refs": [
+                link["source_passage_ref"] for link in packet["assertion_links"]
+            ],
         }
         for index, packet in enumerate(run["packets"], start=1)
-    }
+    ]
     score = score_blind_holdout(
         run,
         {
+            "status": "frozen",
+            "frozen_without_candidate_access": True,
             "candidate_input_sha256": run["input_sha256"],
-            "gold_episode_codes": ["SMOKE-1", "SMOKE-2", "SMOKE-3"],
-            "candidate_decisions": decisions,
-            "wrong_merge_fingerprints": [],
-            "wrong_split_gold_episode_codes": [],
-            "cross_ruler_contamination_count": 0,
+            "gold_episodes": gold_episodes,
+            "catastrophic_must_not_merge_pairs": [],
         },
     )
 
     assert score["metrics"]["autonomous_boundary_recall"] == 1.0
     assert score["metrics"]["candidate_precision"] == 1.0
+    assert score["metrics"]["catastrophic_wrong_merge_count"] == 0
     assert score["accepted_metrics"]["accepted_recall"] is None
+
+
+def test_blind_scorer_rejects_candidate_decision_based_gold():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    run = run_blind_holdout(blind_input)
+
+    with pytest.raises(ValueError, match="candidate_decisions"):
+        score_blind_holdout(
+            run,
+            {
+                "status": "frozen",
+                "frozen_without_candidate_access": True,
+                "candidate_input_sha256": run["input_sha256"],
+                "candidate_decisions": {},
+                "gold_episodes": [{"gold_episode_code": "GOLD-1"}],
+            },
+        )
+
+def test_blind_scorer_measures_wrong_merge_and_catastrophic_pair_from_frozen_gold():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    run = run_blind_holdout(blind_input)
+    merged_packet = next(
+        packet for packet in run["packets"] if len(packet["assertion_links"]) == 2
+    )
+    refs = [link["assertion_ref"] for link in merged_packet["assertion_links"]]
+    gold = {
+        "status": "frozen",
+        "frozen_without_candidate_access": True,
+        "candidate_input_sha256": run["input_sha256"],
+        "gold_episodes": [
+            {
+                "gold_episode_code": "GOLD-A",
+                "evaluation_context": merged_packet["evaluation_context"],
+                "expected_assertion_refs": [refs[0]],
+            },
+            {
+                "gold_episode_code": "GOLD-B",
+                "evaluation_context": merged_packet["evaluation_context"],
+                "expected_assertion_refs": [refs[1]],
+            },
+        ],
+        "catastrophic_must_not_merge_pairs": [["GOLD-A", "GOLD-B"]],
+    }
+
+    score = score_blind_holdout(run, gold)
+
+    assert score["metrics"]["wrong_merge_count"] == 1
+    assert score["metrics"]["catastrophic_wrong_merge_count"] == 1
+    assert score["metrics"]["autonomous_boundary_recall"] == 0.0
+
+
+def test_blind_scorer_attributes_source_only_gold_miss_to_assertion_layer():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    run = run_blind_holdout(blind_input)
+    first_packet = run["packets"][0]
+    gold = {
+        "status": "frozen",
+        "frozen_without_candidate_access": True,
+        "candidate_input_sha256": run["input_sha256"],
+        "gold_episodes": [
+            {
+                "gold_episode_code": "GOLD-MATCH",
+                "evaluation_context": first_packet["evaluation_context"],
+                "expected_assertion_refs": [
+                    link["assertion_ref"] for link in first_packet["assertion_links"]
+                ],
+            },
+            {
+                "gold_episode_code": "GOLD-SOURCE-ONLY",
+                "evaluation_context": "李治",
+                "expected_assertion_refs": [],
+                "required_source_passage_refs": ["BLIND-P1"],
+            },
+        ],
+        "catastrophic_must_not_merge_pairs": [],
+    }
+
+    score = score_blind_holdout(run, gold)
+
+    assert score["metrics"]["autonomous_boundary_recall"] == 0.5
+    assert score["diagnostics"]["assertion_layer_miss_gold_episode_codes"] == [
+        "GOLD-SOURCE-ONLY"
+    ]
+
+
+def test_blind_holdout_rejects_missing_source_passage_lineage():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    blind_input["source_passages"] = blind_input["source_passages"][:-1]
+
+    with pytest.raises(ValueError, match="passage lineage 不存在"):
+        run_blind_holdout(blind_input)

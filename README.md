@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-尚未证明：无 Gold 提示的自主事件发现与 merge/split。当前 oracle-assisted 包不得解释为正式 recall、precision 或 G2 通过；进入 PostgreSQL G3 前必须先完成 G2.5 blind holdout。
+尚未证明：无 Gold 提示的自主事件发现与 merge/split。当前 oracle-assisted 包不得解释为正式 recall、precision 或 G2 通过。G2.5 的真实 input 与 autonomous candidates 已冻结，但独立 sealed Gold 尚未完成，因此仍不得报告 blind recall/precision，也不得进入 PostgreSQL G3。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ V4 的核心改变是：
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`not_validated`
+- blind reconciliation：`candidates_frozen_metrics_pending`
 - G3 PostgreSQL：未授权
 
 进入 G3 前必须满足：

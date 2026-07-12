@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: blind_holdout_v1
-status: data_collection_required
+status: input_and_candidates_frozen_gold_pending
 kernel_input_contract: blind_assertion_input_v1
 target_case_count: 16
 new_rulers: [李治, 朱棣]
@@ -55,7 +55,11 @@ release_thresholds:
   ordinary_boundary_error_maximum: 1
 
 current_blocker:
-  dataset_frozen: false
+  dataset_frozen: true
+  candidate_artifact_frozen: true
   sealed_gold_frozen: false
   blind_metrics_available: false
-  next_action: 收集并独立冻结 16 个真实历史事件的 passage/assertion 输入
+  input_assertion_count: 59
+  input_source_passage_count: 60
+  autonomous_candidate_count: 29
+  next_action: 独立 reviewer 在不读取 candidates.json 的条件下冻结 sealed Gold
