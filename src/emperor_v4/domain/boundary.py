@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.2"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.2"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.3"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.3"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -763,7 +763,10 @@ def validate_atomic_episode_groups(
 ) -> None:
     """Reject merges that need assertion atomization or an EpisodeRelation."""
 
-    if not review.output_schema_version.endswith("v2.2"):
+    if review.output_schema_version not in {
+        "episode-boundary-review-v2.2",
+        "episode-boundary-review-v2.3",
+    }:
         return
     for group in review.episode_groups:
         assertions = tuple(assertions_by_ref[ref] for ref in group.core_assertion_refs)
@@ -790,9 +793,11 @@ def validate_atomic_episode_groups(
                 _normalized(item.qualifiers.get("atomic_event_key"))
                 for item in claim_items
             }
-            if "" in atomic_keys or len(atomic_keys) != 1:
+            reviewer_key = _normalized(group.atomic_event_key)
+            assertions_share_key = "" not in atomic_keys and len(atomic_keys) == 1
+            if not reviewer_key and not assertions_share_key:
                 raise ValueError(
-                    "同一旧 claim 的多 passage 扇出缺少共同 atomic_event_key；"
+                    "同一旧 claim 的多 passage 扇出缺少共同或审查冻结的 atomic_event_key；"
                     "不得合并为正式 Episode，应拆分或进入 assertion atomization worklist"
                 )
 
@@ -817,7 +822,10 @@ def materialize_boundary_review(
     if not available <= set(by_ref):
         raise ValueError("Materialization 缺少 ReviewUnit assertion 输入")
     validate_atomic_episode_groups(review, by_ref)
-    if review.output_schema_version.endswith("v2.2") and any(
+    if review.output_schema_version in {
+        "episode-boundary-review-v2.2",
+        "episode-boundary-review-v2.3",
+    } and any(
         item.decision == "unresolved" for item in review.pair_dispositions
     ):
         raise ValueError("存在 unresolved Episode pair，禁止物化正式候选图")

@@ -305,28 +305,16 @@ def test_v22_materialization_rejects_unanchored_legacy_claim_fanout_merge():
         review_provenance={},
     )
 
-    with pytest.raises(ValueError, match="缺少共同 atomic_event_key"):
+    with pytest.raises(ValueError, match="缺少共同或审查冻结的 atomic_event_key"):
         materialize_boundary_review(
             assertions, review, review_unit=unit, proposition_clusters=clusters
         )
 
 
-def test_v22_materialization_allows_shared_atomic_event_key_across_passages():
+def test_v22_materialization_allows_reviewer_frozen_atomic_key_across_passages():
     assertions = [
-        replace(
-            _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
-            qualifiers={
-                **_assertion("X-1", passage="PX-1").qualifiers,
-                "atomic_event_key": "ATOMIC-1",
-            },
-        ),
-        replace(
-            _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
-            qualifiers={
-                **_assertion("X-2", passage="PX-2").qualifiers,
-                "atomic_event_key": "ATOMIC-1",
-            },
-        ),
+        _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+        _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
     ]
     clusters = cluster_propositions(assertions)
     unit = build_review_units(clusters)[0]
@@ -338,7 +326,9 @@ def test_v22_materialization_allows_shared_atomic_event_key_across_passages():
         output_schema_version=unit.output_schema_version,
         model_family=unit.model_family,
         episode_groups=(
-            EpisodeBoundaryGroup("E1", ("A-1", "A-2"), "shared atomic key", 0.9),
+            EpisodeBoundaryGroup(
+                "E1", ("A-1", "A-2"), "shared atomic key", 0.9, "ATOMIC-1"
+            ),
         ),
         relations=(),
         assertion_dispositions=(

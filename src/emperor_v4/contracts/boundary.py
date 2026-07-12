@@ -151,6 +151,7 @@ class EpisodeBoundaryGroup:
     core_assertion_refs: tuple[str, ...]
     boundary_reason: str
     confidence: float
+    atomic_event_key: str | None = None
 
     def __post_init__(self) -> None:
         if not self.local_episode_code or not self.core_assertion_refs:
@@ -159,6 +160,8 @@ class EpisodeBoundaryGroup:
             raise ValueError("EpisodeBoundaryGroup core assertion 重复")
         if not 0.0 <= self.confidence <= 1.0:
             raise ValueError("EpisodeBoundaryGroup confidence 必须在 0 到 1 之间")
+        if self.atomic_event_key is not None and not self.atomic_event_key.strip():
+            raise ValueError("atomic_event_key 不得是空字符串")
 
 
 @dataclass(frozen=True, slots=True)
@@ -313,7 +316,10 @@ class EpisodeBoundaryReviewResult:
             raise ValueError("每对 Episode 最多只能有一个 pair disposition")
         if any(not item.pair_key <= code_set for item in self.pair_dispositions):
             raise ValueError("EpisodePairDisposition 引用了未知 local episode")
-        if self.output_schema_version.endswith("v2.2"):
+        if self.output_schema_version in {
+            "episode-boundary-review-v2.2",
+            "episode-boundary-review-v2.3",
+        }:
             expected_pairs = {
                 frozenset(pair) for pair in combinations(sorted(code_set), 2)
             }

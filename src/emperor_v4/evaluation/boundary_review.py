@@ -58,6 +58,11 @@ def review_result_from_payload(payload: Mapping[str, Any]) -> EpisodeBoundaryRev
                 core_assertion_refs=tuple(item.get("core_assertion_refs") or ()),
                 boundary_reason=str(item.get("boundary_reason") or ""),
                 confidence=float(item.get("confidence")),
+                atomic_event_key=(
+                    str(item["atomic_event_key"])
+                    if item.get("atomic_event_key")
+                    else None
+                ),
             )
             for item in payload.get("episode_groups") or ()
         ),

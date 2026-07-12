@@ -85,6 +85,10 @@ def materialize_boundary_graph_payload(
             group.local_episode_code: packet_by_core[frozenset(group.core_assertion_refs)]
             for group in review.episode_groups
         }
+        atomic_key_by_episode = {
+            local_to_packet[group.local_episode_code].episode_id: group.atomic_event_key
+            for group in review.episode_groups
+        }
         for packet in result.episode_packets:
             episode_rows.append(
                 {
@@ -106,6 +110,9 @@ def materialize_boundary_graph_payload(
                     "action": packet.action,
                     "responsibility": packet.responsibility,
                     "semantic_fingerprint": packet.semantic_fingerprint,
+                    "review_atomic_event_key": atomic_key_by_episode[
+                        packet.episode_id
+                    ],
                 }
             )
         formal_relations.extend(asdict(item) for item in result.episode_relations)
