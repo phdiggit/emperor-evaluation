@@ -1,0 +1,15 @@
+[Unit]
+Description=Emperor evaluation retrieval_v3 person profile worker
+After=network-online.target emperor-retrieval-v3-claim-worker.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/penghao/emperor-evaluation-runtime/current
+EnvironmentFile=/home/penghao/emperor-evaluation-runtime/shared/retrieval_v3_server_codex.env
+EnvironmentFile=/home/penghao/emperor-evaluation-runtime/shared/retrieval_v3.env
+ExecStart=/usr/bin/bash /home/penghao/emperor-evaluation-runtime/current/scripts/dev/server_runtime/retrieval_v3_person_profile_worker_loop.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
