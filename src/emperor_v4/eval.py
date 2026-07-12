@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 
 from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
+from emperor_v4.evaluation.reconciliation_review import (
+    build_reconciliation_review_package,
+)
 from emperor_v4.evaluation.assertion_handoff import (
     build_assertion_repair_payloads,
     build_assertion_candidate_payloads,
@@ -91,6 +94,18 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("eval/episode_pilot_v1_assertion_gold_coverage.yml"),
     )
     pilot.add_argument("--output", type=Path)
+    reconciliation_review = subparsers.add_parser("episode-reconciliation-review")
+    reconciliation_review.add_argument(
+        "--manifest",
+        type=Path,
+        default=Path("eval/episode_pilot_v1.yml"),
+    )
+    reconciliation_review.add_argument(
+        "--boundary-review",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_review.yml"),
+    )
+    reconciliation_review.add_argument("--output", type=Path)
     source_gap = subparsers.add_parser("source-gap-check")
     source_gap.add_argument("--manifest", type=Path, required=True)
     source_gap.add_argument(
@@ -296,6 +311,47 @@ def main() -> int:
                     "claim-extractor-gap-repair2-response.json"
                 ),
             ),
+        )
+    elif args.command == "episode-reconciliation-review":
+        pilot_report = evaluate_episode_pilot(
+            manifest_path=args.manifest,
+            fixture_dir=Path("tests/fixtures/episode_pilot_v1"),
+            linkage_path=Path("eval/episode_pilot_v1_linkage.yml"),
+            source_supplement_path=Path(
+                "tests/fixtures/episode_pilot_v1/"
+                "source-cache-supplement-response.json"
+            ),
+            claim_supplement_path=Path(
+                "tests/fixtures/episode_pilot_v1/"
+                "claim-extractor-supplement-response.json"
+            ),
+            source_segmentation_repair_path=Path(
+                "tests/fixtures/episode_pilot_v1/"
+                "source-cache-segmentation-repair-response.json"
+            ),
+            claim_repair_path=Path(
+                "tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json"
+            ),
+            source_segmentation_gap_repair_path=Path(
+                "tests/fixtures/episode_pilot_v1/"
+                "source-cache-segmentation-gap-repair-response.json"
+            ),
+            claim_gap_repair_path=Path(
+                "tests/fixtures/episode_pilot_v1/"
+                "claim-extractor-gap-repair-response.json"
+            ),
+            claim_gap_repair2_path=Path(
+                "tests/fixtures/episode_pilot_v1/"
+                "claim-extractor-gap-repair2-response.json"
+            ),
+            assertion_gold_coverage_path=Path(
+                "eval/episode_pilot_v1_assertion_gold_coverage.yml"
+            ),
+        )
+        report = build_reconciliation_review_package(
+            args.manifest,
+            args.boundary_review,
+            pilot_report,
         )
     else:
         raise AssertionError("unreachable")

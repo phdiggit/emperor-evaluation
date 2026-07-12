@@ -13,6 +13,9 @@ from emperor_v4.evaluation.assertion_handoff import (
     check_assertion_repair_response,
 )
 from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
+from emperor_v4.evaluation.reconciliation_review import (
+    build_reconciliation_review_package,
+)
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
 
@@ -84,6 +87,11 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
         FIXTURES / "claim-extractor-gap-repair2-response.json",
         root / "eval" / "episode_pilot_v1_assertion_gold_coverage.yml",
     )
+    review_package = build_reconciliation_review_package(
+        root / "eval" / "episode_pilot_v1.yml",
+        root / "eval" / "episode_pilot_v1_review.yml",
+        report,
+    )
 
     assert source_repair["status"] == "passed"
     assert source_repair["network_fetch_count"] == 0
@@ -124,3 +132,17 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
         ],
     }
     assert report["episode_recall"]["full_match_episode_count"] == 0
+    assert review_package["status"] == "pending_human_review"
+    assert review_package["summary"] == {
+        "frozen_episode_count": 15,
+        "packet_count": 15,
+        "full_assertion_support_count": 15,
+        "passage_lineage_complete_count": 15,
+        "identity_review_required_count": 15,
+        "unexpected_participant_candidate_packet_count": 7,
+        "evidence_review_required_count": 2,
+        "acceptance_ready_count": 0,
+        "human_decision_pending_count": 15,
+    }
+    assert all(item["current_status"] == "proposed" for item in review_package["items"])
+    assert all(item["human_decision"] == "pending" for item in review_package["items"])

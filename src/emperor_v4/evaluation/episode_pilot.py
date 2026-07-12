@@ -482,6 +482,33 @@ def evaluate_episode_pilot(
                         if expected_participants
                         else None
                     ),
+                    "participants": [
+                        {
+                            "person_ref": participant.person_ref,
+                            "role_codes": list(participant.role_codes),
+                            "role_status": participant.role_status,
+                        }
+                        for participant in packet.participants
+                    ],
+                    "semantic_fingerprint": packet.semantic_fingerprint,
+                    "evaluation_context": packet.evaluation_context,
+                    "episode_type": packet.episode_type,
+                    "action": packet.action,
+                    "responsibility": packet.responsibility,
+                    "outcome": list(packet.outcome),
+                    "consequence": list(packet.consequence),
+                    "assertion_links": [
+                        {
+                            "assertion_ref": link.assertion_ref,
+                            "source_passage_ref": link.source_passage_ref,
+                            "relation": link.relation,
+                            "supported_fields": list(link.supported_fields),
+                        }
+                        for link in packet.assertion_links
+                    ],
+                    "conflicts": list(packet.conflicts),
+                    "uncertainties": list(packet.uncertainties),
+                    "lineage": dict(packet.lineage),
                     "completeness": dict(packet.completeness),
                     "gold_completeness_mismatches": completeness_mismatches,
                     "appointment_delegation_minimum_fields_present": (
