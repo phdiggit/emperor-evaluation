@@ -17,6 +17,11 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("tests/fixtures/episode_pilot_v1"),
     )
+    pilot.add_argument(
+        "--linkage",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_linkage.yml"),
+    )
     pilot.add_argument("--output", type=Path)
     return parser
 
@@ -25,7 +30,7 @@ def main() -> int:
     args = _parser().parse_args()
     if args.command != "episode-pilot":
         raise AssertionError("unreachable")
-    report = evaluate_episode_pilot(args.manifest, args.fixture_dir)
+    report = evaluate_episode_pilot(args.manifest, args.fixture_dir, args.linkage)
     rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.write_text(rendered, encoding="utf-8")

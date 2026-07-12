@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -32,6 +33,10 @@ def _load_json(path: Path) -> Mapping[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _load_yaml(path: Path) -> Mapping[str, Any]:
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
 def _source_identity(value: str) -> str:
     normalized = value.translate(_SOURCE_TRANSLATION).strip().strip("/")
     if normalized.startswith("zh-hant/"):
@@ -51,15 +56,17 @@ def _required_identity(passage: Mapping[str, Any]) -> str:
 def evaluate_episode_pilot(
     manifest_path: Path,
     fixture_dir: Path,
+    linkage_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
-    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest = _load_yaml(manifest_path)
     source_snapshot = _load_json(fixture_dir / "source-cache-response.json")
     claim_snapshot = _load_json(fixture_dir / "claim-extractor-response.json")
 
     source = adapt_source_cache_snapshot(source_snapshot)
     assertions = adapt_claim_extractor_snapshot(claim_snapshot)
     packets = reconcile_episode_candidates(assertions)
+    packet_fingerprints = {packet.semantic_fingerprint for packet in packets}
 
     frozen_codes = set(manifest.get("frozen_episode_codes") or ())
     frozen_episodes = [
@@ -92,7 +99,143 @@ def evaluate_episode_pilot(
     linked_codes = {
         link.assertion_ref for packet in packets for link in packet.assertion_links
     }
+    linkage: Mapping[str, Any] | None = None
+    if linkage_path is not None:
+        linkage = _load_yaml(linkage_path)
+        decisions = linkage.get("candidate_decisions") or {}
+        decision_fingerprints = set(decisions)
+        if decision_fingerprints != packet_fingerprints:
+            missing = sorted(packet_fingerprints - decision_fingerprints)
+            unknown = sorted(decision_fingerprints - packet_fingerprints)
+            raise ValueError(
+                "linkage candidate set 与 kernel 输出不一致: "
+                f"missing={missing}, unknown={unknown}"
+            )
+        fingerprint_text = "\n".join(sorted(packet_fingerprints)) + "\n"
+        fingerprint_hash = hashlib.sha256(fingerprint_text.encode("utf-8")).hexdigest()
+        if fingerprint_hash != linkage.get("candidate_fingerprint_set_sha256"):
+            raise ValueError("linkage candidate fingerprint set hash 不一致")
+
+        allowed_decisions = set(linkage.get("decision_vocabulary") or {})
+        unknown_decisions = sorted(
+            {
+                item.get("decision")
+                for item in decisions.values()
+                if item.get("decision") not in allowed_decisions
+            }
+        )
+        if unknown_decisions:
+            raise ValueError(f"linkage 包含未知 decision: {unknown_decisions}")
+
     elapsed = time.perf_counter() - started
+
+    if linkage is None:
+        episode_recall: dict[str, Any] = {
+            "status": "not_computable_missing_gold_linkage",
+            "value": None,
+            "reason": "冻结 fixture 尚无 assertion/packet 到 gold episode_code 的人工映射。",
+        }
+        accepted_precision: dict[str, Any] = {
+            "status": "not_computable_missing_gold_linkage",
+            "value": None,
+        }
+        merge_split: dict[str, Any] = {
+            "status": "not_computable_missing_gold_linkage",
+            "wrong_merge_count": None,
+            "wrong_split_count": None,
+        }
+        linkage_integrity: dict[str, Any] = {
+            "status": "missing",
+            "mapped_candidate_count": 0,
+            "mapping_coverage": 0.0,
+        }
+        human_review_pending: list[Any] = [
+            {
+                "episode_code": episode.get("episode_code"),
+                "task": "map assertion drafts and candidate packets to gold boundary",
+            }
+            for episode in frozen_episodes
+        ]
+        linkage_failure_count = len(frozen_episodes)
+    else:
+        decisions = linkage["candidate_decisions"]
+        full_codes = {
+            code
+            for item in decisions.values()
+            if item["decision"] == "full_match"
+            for code in item.get("gold_episode_codes", [])
+            if code in frozen_codes
+        }
+        partial_codes = {
+            code
+            for item in decisions.values()
+            if item["decision"] == "partial_support"
+            for code in item.get("gold_episode_codes", [])
+            if code in frozen_codes
+        }
+        relevant_candidate_count = sum(
+            item["decision"] in {"full_match", "partial_support"}
+            for item in decisions.values()
+        )
+        episode_recall = {
+            "status": f"preliminary_{linkage.get('status')}",
+            "full_match_episode_count": len(full_codes),
+            "frozen_episode_count": len(frozen_codes),
+            "value": len(full_codes) / len(frozen_codes) if frozen_codes else None,
+            "partial_boundary_episode_count": len(partial_codes),
+            "partial_boundary_coverage": (
+                len(partial_codes) / len(frozen_codes) if frozen_codes else None
+            ),
+            "any_candidate_support_episode_count": len(full_codes | partial_codes),
+            "any_candidate_support_coverage": (
+                len(full_codes | partial_codes) / len(frozen_codes)
+                if frozen_codes
+                else None
+            ),
+            "warning": "partial_support 不计入 full recall；linkage 通过人工 Gate 前指标不是 accepted 结果。",
+        }
+        accepted_precision = {
+            "status": "not_applicable_no_accepted_packets",
+            "value": None,
+            "candidate_relevance_rate": (
+                relevant_candidate_count / len(packets) if packets else None
+            ),
+            "relevant_candidate_count": relevant_candidate_count,
+            "candidate_packet_count": len(packets),
+        }
+        merge_split = {
+            "status": "review_required",
+            "confirmed_wrong_merge_count": len(
+                linkage.get("confirmed_wrong_merge_fingerprints") or ()
+            ),
+            "confirmed_wrong_split_count": len(
+                linkage.get("confirmed_wrong_split_gold_episode_codes") or ()
+            ),
+            "assessments": linkage.get("merge_split_assessments") or [],
+            "warning": "零个 confirmed error 不表示 merge/split Gate 已通过。",
+        }
+        linkage_integrity = {
+            "status": linkage.get("status"),
+            "mapped_candidate_count": len(decisions),
+            "candidate_packet_count": len(packets),
+            "mapping_coverage": len(decisions) / len(packets) if packets else None,
+            "candidate_fingerprint_set_sha256": linkage.get(
+                "candidate_fingerprint_set_sha256"
+            ),
+            "acceptance_gate": linkage.get("acceptance_gate"),
+        }
+        human_review_pending = [
+            {
+                "episode_code": code,
+                "task": "no full or partial packet support in frozen fixture",
+            }
+            for code in sorted(frozen_codes - full_codes - partial_codes)
+        ]
+        human_review_pending.extend(
+            {"task": requirement}
+            for requirement in linkage.get("acceptance_gate", {}).get("requirements", [])
+        )
+        linkage_failure_count = 0
 
     return {
         "report_schema_version": 1,
@@ -109,20 +252,10 @@ def evaluate_episode_pilot(
             "missing": [row for row in required_rows if not row["matched"]],
             "caveat": "文献身份命中不等于 passage 已覆盖 gold boundary。",
         },
-        "episode_recall": {
-            "status": "not_computable_missing_gold_linkage",
-            "value": None,
-            "reason": "冻结 fixture 尚无 assertion/packet 到 gold episode_code 的人工映射。",
-        },
-        "accepted_episode_precision": {
-            "status": "not_computable_missing_gold_linkage",
-            "value": None,
-        },
-        "merge_split": {
-            "status": "not_computable_missing_gold_linkage",
-            "wrong_merge_count": None,
-            "wrong_split_count": None,
-        },
+        "episode_recall": episode_recall,
+        "accepted_episode_precision": accepted_precision,
+        "merge_split": merge_split,
+        "linkage_integrity": linkage_integrity,
         "consumption_integrity": {
             "assertion_count": len(assertion_codes),
             "linked_assertion_count": len(linked_codes),
@@ -146,13 +279,15 @@ def evaluate_episode_pilot(
         "failure_attribution": {
             "source_cache_missing_required_document": len(required_rows) - len(matched_rows),
             "source_metadata_contract_gap": len(source.contract_gaps),
-            "episode_gold_linkage_missing": len(frozen_episodes),
+            "episode_gold_linkage_missing": linkage_failure_count,
+            "gold_boundary_without_full_match": (
+                episode_recall.get("frozen_episode_count", len(frozen_episodes))
+                - episode_recall.get("full_match_episode_count", 0)
+            ),
+            "gold_boundary_without_partial_support": (
+                episode_recall.get("frozen_episode_count", len(frozen_episodes))
+                - episode_recall.get("any_candidate_support_episode_count", 0)
+            ),
         },
-        "human_review_pending": [
-            {
-                "episode_code": episode.get("episode_code"),
-                "task": "map assertion drafts and candidate packets to gold boundary",
-            }
-            for episode in frozen_episodes
-        ],
+        "human_review_pending": human_review_pending,
     }
