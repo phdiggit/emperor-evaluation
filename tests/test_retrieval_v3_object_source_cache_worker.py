@@ -1463,3 +1463,14 @@ def test_selected_object_cache_slices_always_retains_terminal_summary_anchor() -
     ]
     selected = tool.selected_object_cache_slices(rows, docs, max_slices_per_person=1, max_total_slices=0)
     assert [row["slice_code"] for row in selected] == ["B"]
+
+
+def test_selected_object_cache_slices_retains_career_and_terminal_anchors() -> None:
+    docs = {"D": {"document_cache_code": "D", "source_shape": "object_biography_candidate", "source_role": "object_biography"}}
+    rows = [
+        {"slice_cache_code": "A", "document_cache_code": "D", "person_name": "甲", "raw_text": "甲长期任职。" * 20, "locator": "chars:0-200"},
+        {"slice_cache_code": "B", "document_cache_code": "D", "person_name": "甲", "raw_text": "甲早年孤贫，受到赏识。", "locator": "chars:200-230", "slice_kind": "summary_lead_term_anchor", "lead_terms": ["孤贫", "赏识"]},
+        {"slice_cache_code": "C", "document_cache_code": "D", "person_name": "甲", "raw_text": "甲后来赐死。", "locator": "chars:900-920", "slice_kind": "summary_lead_term_anchor", "lead_terms": ["赐死"]},
+    ]
+    selected = tool.selected_object_cache_slices(rows, docs, max_slices_per_person=2, max_total_slices=0)
+    assert {row["slice_code"] for row in selected} == {"B", "C"}

@@ -483,8 +483,32 @@ def normalized_time_context(value: Any) -> str:
     return re.sub(r"[（(]\d{3,4}年[）)]", "", normalized)
 
 
+def terminal_disposition_family(claim: Mapping[str, Any]) -> str:
+    combined = normalized_text(" ".join((
+        claim_text(claim, "claim_summary", "summary"),
+        claim_text(claim, "outcome"),
+        claim_text(claim, "cost_or_damage"),
+    )))
+    if any(term in combined for term in ("族诛", "族誅", "夷族", "宗族", "妻女弟侄", "七十余人", "七十馀人")):
+        return "clan_execution"
+    if any(term in combined for term in ("赐死", "賜死", "处死", "處死", "伏诛", "伏誅", "诛杀", "誅殺", "被诛", "被誅")):
+        return "execution"
+    return ""
+
+
 def canonical_event_identity_payload(claim: Mapping[str, Any]) -> dict[str, str]:
     payload = canonical_event_payload(claim)
+    disposition_family = terminal_disposition_family(claim)
+    if disposition_family:
+        return {
+            "emperor_name": payload["emperor_name"],
+            "object_name": payload["object_name"],
+            "action_type": payload["action_type"],
+            "event_scope": "",
+            "office_or_domain": "",
+            "time_context": "",
+            "terminal_disposition_family": disposition_family,
+        }
     identity = {
         "emperor_name": payload["emperor_name"],
         "object_name": payload["object_name"],

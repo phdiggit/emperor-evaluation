@@ -136,6 +136,20 @@ def test_canonical_event_identity_normalizes_parenthetical_gregorian_year() -> N
     assert tool.canonical_event_key(first) == tool.canonical_event_key(second)
 
 
+def test_canonical_event_identity_merges_duplicate_clan_execution_descriptions() -> None:
+    first = {
+        "emperor_name": "朱元璋", "object_name": "李善长", "action_type": "处置",
+        "event_scope": "中枢", "office_or_domain": "胡惟庸党案", "time_context": "胡惟庸谋反伏诛后又五年",
+        "outcome": "七十馀人诛之", "cost_or_damage": "妻女弟侄家口七十馀人被诛",
+    }
+    second = {
+        "emperor_name": "朱元璋", "object_name": "李善长", "action_type": "处置",
+        "event_scope": "中枢", "office_or_domain": "党案惩处", "time_context": "洪武二十三年",
+        "outcome": "李善长及家属七十余人被诛", "cost_or_damage": "家属大规模死亡",
+    }
+    assert tool.canonical_event_key(first) == tool.canonical_event_key(second)
+
+
 def test_claim_negative_support_distinguishes_context_from_damage() -> None:
     context_only = {
         "claim_summary": "魏徵劝李世民斥退阎立本，李世民因其强济而未斥。",

@@ -106,6 +106,7 @@ def enrich_wikipedia_summary_leads(
             row["aliases"] = seed_tool.unique_strings([*(row.get("aliases") or []), discovery_title])
             row["expanded_aliases"] = seed_tool.unique_strings([*(row.get("expanded_aliases") or []), discovery_title])
         terms = source_cache.terminal_outcome_terms_from_text(result.get("extract"))
+        career_terms = source_cache.career_discovery_terms_from_text(result.get("extract"))
         wikisource_titles = [text(value) for value in result.get("wikisource_titles") or [] if text(value)]
         if wikisource_titles:
             row["source_target_refs"] = seed_tool.unique_strings([
@@ -120,11 +121,19 @@ def enrich_wikipedia_summary_leads(
                 "evidence_allowed": False,
             }]
             with_terminal_leads.append(text(row.get("name")))
+        if career_terms:
+            row["summary_leads"] = [*(row.get("summary_leads") or []), {
+                "lead_terms": career_terms,
+                "source_kind": "wikipedia_career_discovery",
+                "source_url": text(result.get("url")),
+                "evidence_allowed": False,
+            }]
         row["wikipedia_discovery"] = {
             "status": status,
             "title": discovery_title,
             "url": text(result.get("url")),
             "terminal_lead_count": len(terms),
+            "career_lead_count": len(career_terms),
             "wikisource_link_count": len(wikisource_titles),
             "evidence_allowed": False,
         }

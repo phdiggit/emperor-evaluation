@@ -451,7 +451,7 @@ def test_fetch_material_rows_includes_promoter_review_candidates() -> None:
     )
 
     assert "crb.usable_for_scoring_cluster" in cur.sql
-    assert "crb.rule_code <> 'appointment_delegation'" in cur.sql
+    assert "coalesce(nullif(crb.rule_code, ''), bcr.rule_code) <> 'appointment_delegation'" in cur.sql
     assert "crb.binding_payload->>'source' = 'retrieval_v3_candidate_promoter'" in cur.sql
     assert "nullif(crb.binding_payload->>'candidate_id', '') is not null" in cur.sql
 
@@ -477,7 +477,7 @@ def test_fetch_material_rows_blocks_appointment_delegation_promoter_review_wide_
     )
 
     promoter_gate = cur.sql.split("crb.binding_payload->>'source' = 'retrieval_v3_candidate_promoter'")[0]
-    assert "crb.rule_code <> 'appointment_delegation'" in promoter_gate
+    assert "coalesce(nullif(crb.rule_code, ''), bcr.rule_code) <> 'appointment_delegation'" in promoter_gate
 
 
 

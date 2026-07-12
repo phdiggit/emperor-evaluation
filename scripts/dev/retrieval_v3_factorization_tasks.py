@@ -244,6 +244,9 @@ def prompt_for_batch(*, batch: Mapping[str, Any], output_jsonl: Path) -> str:
             "不得因 `appointment_effect` 较弱而同步降档；只使用本对象、本次任用授权链及其 source_passages 明示的结果，"
             "若事实满足当前 rule，必须按本次明示结果入分，不得因同一事实也符合其他 rule 或 item 而降权、`supporting_only` 或 `exclude`；多段 source_passages 可共同支撑同一对象的长期复用；"
             "临终后事指定、继任安排或国家安危托付可按国家级/托付级任用理解；随征、从征、群体封赏对象不得仅凭头衔上拔 `appointment_importance`。\n"
+            "`appointment_importance=1.4` 是稀有档：任用动作本身必须明确包含托孤、危局全权处置、旧敌转用、重大机密或国家级长期总责；"
+            "重大战果、人物历史地位、后来长期成功都不能反向把普通任命抬到 1.4。"
+            "`1.25` 必须由中枢/方面军/核心职掌或重大事务的明确岗位与权限支撑；一般将领出征、普通官职、单次任务、泛称重用默认不高于 1.0。\n"
         )
     if "team_building" in rule_codes:
         skill_instruction += (

@@ -507,12 +507,12 @@ def fetch_material_rows(
     binding_scoring_predicate = "true" if include_judged else """
                 crb.usable_for_scoring_cluster
                 or (
-                    crb.rule_code <> 'appointment_delegation'
+                    coalesce(nullif(crb.rule_code, ''), bcr.rule_code) <> 'appointment_delegation'
                     and crb.binding_payload->>'source' = 'retrieval_v3_candidate_promoter'
                     and nullif(crb.binding_payload->>'candidate_id', '') is not null
                 )
     """
-    codes = [text(code) for code in source_pack_codes if text(code)]
+    codes = [] if include_judged else [text(code) for code in source_pack_codes if text(code)]
     source_pack_params: list[Any] = [codes] if codes else []
     judgment_delta_predicate = "" if include_judged else """
            and not exists (
@@ -520,7 +520,7 @@ def fetch_material_rows(
                   from retrieval_v3.claim_rule_binding_factor_judgments existing_judgment
                  where existing_judgment.binding_id = crb.id
                    and existing_judgment.item_code = rt.item_code
-                   and existing_judgment.rule_code = crb.rule_code
+                   and existing_judgment.rule_code = coalesce(nullif(crb.rule_code, ''), bcr.rule_code)
                    and existing_judgment.formula_code = %s
                    and existing_judgment.review_status::text not in ('rejected', 'retired')
            )
@@ -592,7 +592,7 @@ def fetch_material_rows(
             crb.id as binding_id,
             crb.binding_code,
             crb.raw_binding_code,
-            crb.rule_code,
+            coalesce(nullif(crb.rule_code, ''), bcr.rule_code) as rule_code,
             crb.predicate,
             crb.direction::text as direction,
             crb.object_role,
@@ -618,14 +618,15 @@ def fetch_material_rows(
             coalesce(aa.person_affiliations, '[]'::jsonb) as person_affiliations,
             coalesce(pa.source_passages, '[]'::jsonb) as source_passages
           from retrieval_v3.claim_rule_bindings crb
+          join retrieval_v3.rule_contract_rules bcr on bcr.id = crb.contract_rule_id
           join retrieval_v3.material_claims mc on mc.id = crb.claim_id
           join retrieval_v3.source_packs sp on sp.id = mc.source_pack_id
           join retrieval_v3.retrieval_targets rt on rt.id = sp.target_id
-          join lateral (
+          left join lateral (
               select mol1.*
                 from retrieval_v3.material_object_links mol1
                where mol1.claim_id = mc.id
-                 and mol1.review_status = 'accepted'
+                 and ({"true" if include_judged else "mol1.review_status = 'accepted'"})
                  and (
                       (
                           coalesce(crb.binding_payload->>'promoted_material_object_link_id', '') ~ '^[0-9]+$'
@@ -645,16 +646,19 @@ def fetch_material_rows(
                mol1.id
                limit 1
           ) mol on true
-          join retrieval_v3.objects o on o.id = mol.object_id
+          join retrieval_v3.objects o on (
+              o.id = mol.object_id
+              or ({"true" if include_judged else "false"} and o.canonical_name = mc.object_name and o.identity_status = 'active')
+          )
           left join retrieval_v3.target_objects tob on tob.id = mol.target_object_id
           left join retrieval_v3.person_profiles pp on pp.object_id = o.id
           left join retrieval_v3.v_team_building_talent_candidates tbtc
             on tbtc.target_id = rt.id
            and tbtc.object_id = o.id
-           and tbtc.rule_code = crb.rule_code
+           and tbtc.rule_code = coalesce(nullif(crb.rule_code, ''), bcr.rule_code)
           left join retrieval_v3.eval_rule_factors tqf
             on tqf.item_code = rt.item_code
-           and tqf.rule_code = crb.rule_code
+           and tqf.rule_code = coalesce(nullif(crb.rule_code, ''), bcr.rule_code)
            and tqf.formula_code = %s
            and tqf.factor_name = 'talent_quality_factor'
            and tqf.factor_status = 'active'
@@ -676,7 +680,7 @@ def fetch_material_rows(
           left join role_agg ra on ra.object_id = o.id
           left join affiliation_agg aa on aa.object_id = o.id
           left join passage_agg pa on pa.claim_id = mc.id
-         where crb.rule_code = %s
+         where coalesce(nullif(crb.rule_code, ''), bcr.rule_code) = %s
            and ({binding_scoring_predicate})
            and crb.review_status in ('pending', 'accepted')
            and not exists (
@@ -685,7 +689,7 @@ def fetch_material_rows(
                  where mrq.claim_id = mc.id
                    and mrq.queue_status in ('ready', 'needs_review', 'running', 'blocked')
            )
-           and {source_pack_predicate(scope, codes)}
+           and {"true" if include_judged else source_pack_predicate(scope, codes)}
            and (%s = '' or rt.item_code = %s)
            {judgment_delta_predicate}
          order by rt.emperor_name, crb.direction::text desc, o.canonical_name, crb.id
@@ -1573,9 +1577,9 @@ def write_task_outputs(*, batch_paths: Sequence[Path], output_root: Path) -> dic
         f"- materials: `{summary['totals']['materials']}`",
         f"- prompt_chars_total: `{summary['prompt_budget_summary']['prompt_chars_total']}`",
         f"- estimated_prompt_tokens_total: `{summary['prompt_budget_summary']['estimated_prompt_tokens_total']}`",
-        f"- fixed_instruction_chars: `{summary['prompt_budget_summary']['cost_attribution']['fixed_instruction_chars']}`",
-        f"- batch_json_chars: `{summary['prompt_budget_summary']['cost_attribution']['batch_json_chars']}`",
-        f"- source_quote_text_chars: `{summary['prompt_budget_summary']['cost_attribution']['source_quote_text_chars']}`",
+        f"- fixed_instruction_chars: `{summary['prompt_budget_summary'].get('cost_attribution', {}).get('fixed_instruction_chars', 0)}`",
+        f"- batch_json_chars: `{summary['prompt_budget_summary'].get('cost_attribution', {}).get('batch_json_chars', 0)}`",
+        f"- source_quote_text_chars: `{summary['prompt_budget_summary'].get('cost_attribution', {}).get('source_quote_text_chars', 0)}`",
         "",
         "| task | batch | materials | prompt chars | est. tokens | factor options | hints | patch |",
         "| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |",

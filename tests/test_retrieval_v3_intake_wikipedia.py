@@ -33,3 +33,16 @@ def test_wikipedia_summary_retains_nonfatal_terminal_outcome() -> None:
     )
     assert rows[0]["summary_leads"][0]["lead_terms"] == ["被俘"]
     assert report["objects_with_terminal_leads"] == ["臧荼"]
+
+
+def test_wikipedia_summary_emits_career_discovery_leads() -> None:
+    rows, _ = tool.enrich_wikipedia_summary_leads(
+        [{"name": "马周", "aliases": []}],
+        fetcher=lambda _name: {
+            "status": "found", "title": "马周", "url": "https://zh.wikipedia.org/wiki/example",
+            "extract": "马周早年孤贫，后为常何门客，因奏策得到唐太宗赏识。",
+        },
+    )
+    career = next(lead for lead in rows[0]["summary_leads"] if lead["source_kind"] == "wikipedia_career_discovery")
+    assert {"孤贫", "门客", "赏识"}.issubset(set(career["lead_terms"]))
+    assert career["evidence_allowed"] is False

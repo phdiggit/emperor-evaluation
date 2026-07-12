@@ -167,6 +167,12 @@ SUMMARY_LEAD_TERM_EXPANSIONS = {
     "下獄": ("下狱", "囚", "系", "繫", "械系", "械繫"),
     "赦免": ("赦", "赦出", "赦以为庶人", "赦以為庶人"),
 }
+CAREER_DISCOVERY_TERMS = (
+    "寒门", "寒門", "孤贫", "孤貧", "贫寒", "貧寒", "布衣", "门客", "門客",
+    "赏识", "賞識", "破格", "拔擢", "擢用", "荐举", "薦舉", "推荐", "推薦",
+    "归顺", "歸順", "归降", "歸降", "投降", "劝降", "勸降", "旧敌", "舊敵",
+    "不杀", "不殺", "引为", "引為", "任为将", "任為將", "非同寻常", "非同尋常",
+)
 
 
 def terminal_outcome_terms_from_text(value: Any) -> list[str]:
@@ -180,6 +186,12 @@ def terminal_outcome_terms_from_text(value: Any) -> list[str]:
         if normalize_title(term) in normalized
     ]
     return unique_strings(sorted(terms, key=lambda item: (summary_lead_term_priority(item), -len(item), item)))
+
+
+def career_discovery_terms_from_text(value: Any) -> list[str]:
+    """Convert Wikipedia career summaries into discovery-only source anchors."""
+    normalized = normalize_title(str(value or ""))
+    return unique_strings(term for term in CAREER_DISCOVERY_TERMS if normalize_title(term) in normalized)
 
 PGSQL_SCHEMA_DRAFT = """
 -- retrieval_v3 object source cache draft schema.
