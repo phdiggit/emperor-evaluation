@@ -4,6 +4,8 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -153,6 +155,13 @@ def resolve_path(value: str) -> Path:
     if path.is_absolute():
         return path
     return ROOT / path
+
+
+def portable_runtime_path(value: str, *, fallback: Path) -> Path:
+    raw = text(value)
+    if os.name != "nt" and re.match(r"^[A-Za-z]:[\\/]", raw):
+        return fallback
+    return resolve_path(raw) if raw else fallback
 
 
 def seed_identity(rows: Sequence[Mapping[str, Any]]) -> dict[str, str]:
@@ -801,11 +810,19 @@ def summary_counts(output_root: Path) -> dict[str, int]:
 
 
 def execute_job(*, job: Mapping[str, Any], max_docs_per_person: int = 6) -> dict[str, Any]:
+    runtime_job = dict(job)
+    job_code = text(job.get("job_code")) or "object-source-job"
+    runtime_job["output_root"] = str(
+        portable_runtime_path(text(job.get("output_root")), fallback=DEFAULT_OUTPUT_ROOT / job_code.lower())
+    )
+    runtime_job["page_cache_root"] = str(
+        portable_runtime_path(text(job.get("page_cache_root")), fallback=DEFAULT_PAGE_CACHE_ROOT)
+    )
     payload = job.get("job_payload") if isinstance(job.get("job_payload"), Mapping) else {}
     options = payload.get("build_options") if isinstance(payload.get("build_options"), Mapping) else {}
-    output_root = resolve_path(text(job.get("output_root")))
-    seed_path = materialize_job_seed(job, output_root)
-    build_argv = build_shards_argv(job, options, seed_path=seed_path)
+    output_root = Path(runtime_job["output_root"])
+    seed_path = materialize_job_seed(runtime_job, output_root)
+    build_argv = build_shards_argv(runtime_job, options, seed_path=seed_path)
     rc = object_cache.main(build_argv)
     if rc != 0:
         raise ObjectSourceCacheWorkerError(f"object source cache build-shards failed with exit code {rc}")

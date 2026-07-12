@@ -7,7 +7,8 @@ import uuid
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from scripts.dev.retrieval_v3_bootstrap import load_env_file, resolve_dsn
+from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn
+from scripts.dev.retrieval_v3_pg_schema import schema_cursor
 from scripts.dev import retrieval_v3_object_source_cache_seed as seed_tool
 from scripts.dev import retrieval_v3_object_source_cache_worker as worker
 
@@ -150,6 +151,80 @@ def write_json(path: Path | None, payload: Mapping[str, Any]) -> None:
     path.write_text(json.dumps(dict(payload), ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def ensure_canonical_people(*, dsn: str, seeds: Sequence[Mapping[str, Any]], schema_name: str) -> dict[str, int]:
+    psycopg, dict_row = import_psycopg()
+    counts = {"objects": 0, "object_names": 0, "target_objects": 0}
+    with psycopg.connect(dsn, row_factory=dict_row) as conn:
+        with conn.cursor() as raw:
+            cur = schema_cursor(raw, schema_name=schema_name)
+            cur.execute("set local retrieval_v3.rebuild_bypass='on'")
+            for seed in seeds:
+                if text(seed.get("intake_source")) != "retrieval_v3_intake_orchestrator":
+                    continue
+                name = text(seed.get("name"))
+                normalized = seed_tool.normalized_name(name)
+                identity_key = f"intake|type|person|name|{normalized}"
+                cur.execute(
+                    "select id from retrieval_v3.objects where object_type='person' and identity_status='active' and normalized_name=%s order by id limit 1",
+                    (normalized,),
+                )
+                existing = cur.fetchone()
+                if existing:
+                    object_id = int(existing["id"])
+                else:
+                    cur.execute(
+                        """
+                        insert into retrieval_v3.objects (
+                            object_code, object_identity_key, canonical_name, normalized_name,
+                            object_type, identity_status, identity_payload
+                        ) values (%s,%s,%s,%s,'person','active',%s::jsonb)
+                        on conflict (object_identity_key) do update set identity_status='active', updated_at=now()
+                        returning id
+                        """,
+                        (
+                            "OBJ-INTAKE-" + seed_tool.stable_hash(identity_key, length=16), identity_key,
+                            name, normalized, json.dumps({"source": "retrieval_v3_intake_orchestrator"}, ensure_ascii=False),
+                        ),
+                    )
+                    object_id = int(cur.fetchone()["id"])
+                    counts["objects"] += 1
+                cur.execute(
+                    """
+                    insert into retrieval_v3.object_names (
+                        object_name_code, object_id, name_text, normalized_name, name_kind,
+                        source, review_status, name_payload
+                    ) values (%s,%s,%s,%s,'canonical','retrieval_v3_intake_orchestrator','accepted','{}'::jsonb)
+                    on conflict on constraint rv3_object_names_name_uk do update set review_status='accepted'
+                    """,
+                    ("ONM-INTAKE-" + seed_tool.stable_hash([identity_key, normalized], length=16), object_id, name, normalized),
+                )
+                counts["object_names"] += 1
+                for emperor in seed.get("target_emperors") or []:
+                    cur.execute(
+                        "select id,target_code from retrieval_v3.retrieval_targets where item_code='I5B' and target_status='active' and emperor_name=%s order by id desc limit 1",
+                        (text(emperor),),
+                    )
+                    target = cur.fetchone()
+                    if not target:
+                        continue
+                    cur.execute(
+                        """
+                        insert into retrieval_v3.target_objects (
+                            target_object_code,target_id,object_id,scope_code,object_role,review_status,target_object_payload
+                        ) values (%s,%s,%s,'item','','accepted',%s::jsonb)
+                        on conflict on constraint rv3_target_objects_scope_uk do update set review_status='accepted',updated_at=now()
+                        """,
+                        (
+                            "TOB-INTAKE-" + seed_tool.stable_hash([target["target_code"], identity_key], length=16),
+                            int(target["id"]), object_id,
+                            json.dumps({"source": "retrieval_v3_intake_orchestrator"}, ensure_ascii=False),
+                        ),
+                    )
+                    counts["target_objects"] += 1
+        conn.commit()
+    return counts
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Create one idempotent retrieval_v3 intake job for objects or emperors.")
     parser.add_argument("--object", action="append", default=[])
@@ -208,6 +283,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             load_env_file(args.env_file)
         report["enqueue"] = worker.enqueue_job(
             dsn=resolve_dsn(args.dsn_env), job=job, schema_name=args.pg_schema
+        )
+        report["canonical_people"] = ensure_canonical_people(
+            dsn=resolve_dsn(args.dsn_env), seeds=selected, schema_name=args.pg_schema
         )
     write_json(args.output_json, report)
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))

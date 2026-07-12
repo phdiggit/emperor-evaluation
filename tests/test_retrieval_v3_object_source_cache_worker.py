@@ -44,6 +44,12 @@ def test_job_embeds_seed_rows_for_cross_machine_workers(tmp_path: Path) -> None:
     assert tool.read_jsonl(materialized) == rows
 
 
+def test_portable_runtime_path_replaces_foreign_windows_path_on_posix(tmp_path: Path, monkeypatch) -> None:
+    fallback = tmp_path / "runtime"
+    monkeypatch.setattr(tool.os, "name", "posix")
+    assert tool.portable_runtime_path(r"E:\\repo\\tmp\\run", fallback=fallback) == fallback
+
+
 def write_object_cache(cache_root: Path) -> None:
     write_jsonl(
         cache_root / "source_documents.jsonl",
