@@ -1,0 +1,89 @@
+schema_version: 1
+repair_batch_code: episode_pilot_v1_assertion_gap_repair
+status: ready_for_shadow_execution
+source_fixture: tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json
+segmentation_repair_fixture: tests/fixtures/episode_pilot_v1/source-cache-segmentation-repair-response.json
+additional_source_fixtures:
+  - tests/fixtures/episode_pilot_v1/source-cache-segmentation-gap-repair-response.json
+output_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair-response.json
+extractor_version: claim_extraction_only:v8_source_alias
+execution_authorized: true
+execution_authorized_by: user_message_continue_m5_targeted_repair
+production_write_authorized: false
+database_import_authorized: false
+model_call_budget: 3
+
+ruler_aliases:
+  李世民: [唐太宗, 太宗, 秦王]
+  刘邦: [汉高祖, 高祖, 汉王, 沛公]
+  朱元璋: [明太祖, 太祖, 洪武]
+
+episode_focus_person:
+  EP-LSM-FANGDU-RECRUITMENT: 房玄龄
+  EP-LSM-WEIZHENG-APPOINTMENT: 魏徵
+  EP-LB-SANJIE-RETROSPECTIVE: 刘邦
+  EP-LB-CHENPING-INTEGRATION: 陈平
+  EP-LB-HANXIN-QI-KING: 韩信
+  EP-LB-FANKUAI-REPLACEMENT: 陈平
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION: 徐达
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE: 刘基
+
+episode_participants:
+  EP-LSM-FANGDU-RECRUITMENT: [李世民, 房玄龄]
+  EP-LSM-WEIZHENG-APPOINTMENT: [李世民, 魏徵]
+  EP-LB-SANJIE-RETROSPECTIVE: [刘邦, 萧何, 张良, 韩信]
+  EP-LB-CHENPING-INTEGRATION: [刘邦, 陈平]
+  EP-LB-HANXIN-QI-KING: [刘邦, 韩信, 张良]
+  EP-LB-FANKUAI-REPLACEMENT: [刘邦, 樊哙, 陈平, 周勃]
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION: [朱元璋, 徐达, 常遇春]
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE: [朱元璋, 刘基, 胡惟庸]
+
+episode_expected_assertions:
+  EP-LSM-FANGDU-RECRUITMENT:
+    - 房玄龄独先收人物并将其引入李世民幕府
+  EP-LSM-WEIZHENG-APPOINTMENT:
+    - 李世民践祚后擢拜魏徵为谏议大夫
+    - 魏徵奉命安辑河北并获便宜从事授权
+  EP-LB-SANJIE-RETROSPECTIVE:
+    - 刘邦分别说明张良、萧何、韩信的职责能力并归因于能用三人
+  EP-LB-CHENPING-INTEGRATION:
+    - 陈平归汉后遭诸将讥毁，刘邦复核并继续厚赐任用
+  EP-LB-HANXIN-QI-KING:
+    - 韩信请假王，刘邦最初反对，经张良劝说后立韩信为齐王
+  EP-LB-FANKUAI-REPLACEMENT:
+    - 刘邦命陈平、周勃替代并处置樊哙，二人采取缓冲执行
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION:
+    - 朱元璋区分徐达和常遇春的能力并安排相应军事职责
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE:
+    - 胡惟庸施压与朱元璋夺禄构成不同责任链，刘基惧而留京
+
+tasks:
+  - task_code: V4-CLAIM-LSM-GAP-REPAIR
+    ruler: 李世民
+    target_code: TGT-V4-EPISODE-PILOT-LSM-GAP-REPAIR
+    candidates_path: tests/fixtures/episode_pilot_v1/assertion-gap-repair-candidates-lishimin.json
+    passage_refs:
+      - PAS-AA55FCDDA5DF5DED8C7D83C9
+      - PAS-0D70B949768C4C0E8D0A737A
+  - task_code: V4-CLAIM-LB-GAP-REPAIR
+    ruler: 刘邦
+    target_code: TGT-V4-EPISODE-PILOT-LB-GAP-REPAIR
+    candidates_path: tests/fixtures/episode_pilot_v1/assertion-gap-repair-candidates-liubang.json
+    passage_refs:
+      - PAS-B06C119B6C306D3D18CD649A
+      - PAS-EF7D186B65749B1DE15391EC
+      - PAS-3C0B9637314573437038DB3F
+      - PAS-FC28AB034CCE2808392ADDAA
+  - task_code: V4-CLAIM-ZYZ-GAP-REPAIR
+    ruler: 朱元璋
+    target_code: TGT-V4-EPISODE-PILOT-ZYZ-GAP-REPAIR
+    candidates_path: tests/fixtures/episode_pilot_v1/assertion-gap-repair-candidates-zhuyuanzhang.json
+    passage_refs:
+      - PAS-52B6EFFC106844686715F1FC
+      - PAS-255B21166BBF731328D27924
+
+acceptance_gate:
+  - 8 个缺口 episode 各有一个冻结 passage 输入
+  - object seeds 覆盖 Gold 所需参与者，不只保留旧 object_name
+  - 模型调用不超过 3
+  - 不入队、不导入 PostgreSQL、不写 V3 正式 claim cache

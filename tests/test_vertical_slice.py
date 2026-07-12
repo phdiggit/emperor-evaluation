@@ -8,7 +8,10 @@ from emperor_v4.adapters import (
     adapt_source_cache_snapshot,
 )
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
-from emperor_v4.evaluation.assertion_handoff import check_assertion_repair_response
+from emperor_v4.evaluation.assertion_handoff import (
+    check_assertion_gap_repair_chain,
+    check_assertion_repair_response,
+)
 from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
@@ -54,6 +57,20 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
         root / "eval" / "episode_pilot_v1_assertion_repair_execution.yml",
         FIXTURES / "claim-extractor-repair-response.json",
     )
+    gap_repair = check_assertion_gap_repair_chain(
+        (
+            root / "eval" / "episode_pilot_v1_assertion_gap_repair.yml",
+            root / "eval" / "episode_pilot_v1_assertion_gap_repair2.yml",
+        ),
+        (
+            root / "eval" / "episode_pilot_v1_assertion_gap_repair_execution.yml",
+            root / "eval" / "episode_pilot_v1_assertion_gap_repair2_execution.yml",
+        ),
+        (
+            FIXTURES / "claim-extractor-gap-repair-response.json",
+            FIXTURES / "claim-extractor-gap-repair2-response.json",
+        ),
+    )
     report = evaluate_episode_pilot(
         root / "eval" / "episode_pilot_v1.yml",
         FIXTURES,
@@ -62,6 +79,9 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
         FIXTURES / "claim-extractor-supplement-response.json",
         FIXTURES / "source-cache-segmentation-repair-response.json",
         FIXTURES / "claim-extractor-repair-response.json",
+        FIXTURES / "source-cache-segmentation-gap-repair-response.json",
+        FIXTURES / "claim-extractor-gap-repair-response.json",
+        FIXTURES / "claim-extractor-gap-repair2-response.json",
         root / "eval" / "episode_pilot_v1_assertion_gold_coverage.yml",
     )
 
@@ -69,31 +89,36 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
     assert source_repair["network_fetch_count"] == 0
     assert assertion_repair["status"] == "passed"
     assert assertion_repair["used_passage_count"] == assertion_repair["input_passage_count"]
-    assert report["assertion_boundary_coverage"]["full_boundary_support_count"] == 8
-    assert report["assertion_boundary_coverage"]["partial_boundary_support_count"] == 6
-    assert report["assertion_boundary_coverage"]["no_boundary_support_count"] == 1
+    assert gap_repair["status"] == "passed_with_recorded_refinement"
+    assert gap_repair["used_passage_count"] == gap_repair["input_passage_count"] == 8
+    assert gap_repair["model_call_count"] == 4
+    assert report["assertion_boundary_coverage"]["full_boundary_support_count"] == 15
+    assert report["assertion_boundary_coverage"]["partial_boundary_support_count"] == 0
+    assert report["assertion_boundary_coverage"]["no_boundary_support_count"] == 0
     assert report["lineage_assisted_reconciliation"]["candidate_packet_count"] == 15
-    assert report["lineage_assisted_reconciliation"]["supported_boundary_packet_count"] == 14
+    assert report["lineage_assisted_reconciliation"]["supported_boundary_packet_count"] == 15
     assert report["lineage_assisted_reconciliation"]["unassigned_new_assertion_count"] == 0
     assert report["lineage_assisted_reconciliation"]["all_packets_proposed"] is True
     assert len(report["lineage_assisted_reconciliation"]["packet_assessments"]) == 15
-    assert (
-        report["lineage_assisted_reconciliation"]["human_review_gate_ready_packet_count"]
-        < report["lineage_assisted_reconciliation"][
-            "appointment_delegation_minimum_field_packet_count"
-        ]
-    )
+    assert report["lineage_assisted_reconciliation"][
+        "human_review_gate_ready_packet_count"
+    ] == 15
+    assert report["lineage_assisted_reconciliation"][
+        "complete_expected_participant_packet_count"
+    ] == 15
     assert report["stage_failure_attribution"] == {
         "status": "review_ready",
         "source_discovery_missing_document_count": 0,
         "source_segmentation_confirmed_miss_count": 0,
-        "assertion_extractor_wrong_event_selection_count": 1,
-        "identity_participant_underextraction_count": 4,
-        "assertion_chain_incomplete_count": 6,
+        "source_segmentation_gap_repaired_count": 1,
+        "assertion_extractor_wrong_event_selection_count": 0,
+        "identity_participant_underextraction_count": 0,
+        "assertion_chain_incomplete_count": 0,
         "reconciler_unassigned_new_assertion_count": 0,
-        "projection_gate_pending_packet_count": 8,
+        "projection_gate_pending_packet_count": 0,
         "diagnostic_notes": [
-            "房玄龄 source passage 已含“独先收人物，致之幕府”，当前错误属于断言选择而非史源缺失。",
+            "房玄龄错误选择已由定向补抽修复；原 passage 无需重新切片。",
+            "魏徵初授窗口已从 V3 retained page cache 补切，网络请求为零。",
             "参与者缺口与断言链缺口允许重叠，不能相加作为失败总数。",
             "所有 packet 仍为 proposed，规则投影尚未执行。",
         ],

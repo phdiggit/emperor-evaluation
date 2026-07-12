@@ -70,7 +70,8 @@ def build_assertion_candidate_payloads(
                 {
                     "document_code": document_id,
                     "source_kind": "wikisource_page",
-                    "source_role": documents[document_id]["source_role"],
+                    "source_role": documents[document_id].get("source_role")
+                    or "primary_source",
                     "title": documents[document_id]["title"],
                     "url": documents[document_id]["url"],
                 }
@@ -287,18 +288,28 @@ def build_assertion_repair_payloads(
     if handoff.get("database_import_authorized") is not False:
         raise ValueError("assertion repair database import 必须禁用")
 
-    source = json.loads(Path(handoff["source_fixture"]).read_text(encoding="utf-8"))
-    repair_source = json.loads(
-        Path(handoff["segmentation_repair_fixture"]).read_text(encoding="utf-8")
-    )
+    source_fixtures = [
+        handoff["source_fixture"],
+        handoff["segmentation_repair_fixture"],
+        *(handoff.get("additional_source_fixtures") or []),
+    ]
+    source_payloads = [
+        json.loads(Path(path).read_text(encoding="utf-8"))
+        for path in source_fixtures
+    ]
     documents = {
-        item["document_cache_id"]: item for item in source.get("documents", [])
+        item["document_cache_id"]: item
+        for payload in reversed(source_payloads)
+        for item in payload.get("documents", [])
     }
     passages = {
         item["passage_cache_id"]: item
-        for item in [*source.get("passages", []), *repair_source.get("passages", [])]
+        for payload in source_payloads
+        for item in payload.get("passages", [])
     }
     focus_by_episode = handoff.get("episode_focus_person") or {}
+    participants_by_episode = handoff.get("episode_participants") or {}
+    expected_assertions_by_episode = handoff.get("episode_expected_assertions") or {}
     aliases_by_ruler = handoff.get("ruler_aliases") or {}
     output_root.mkdir(parents=True, exist_ok=True)
     seen_passages: set[str] = set()
@@ -308,7 +319,17 @@ def build_assertion_repair_payloads(
         ruler = task["ruler"]
         selected = [passages[ref] for ref in task.get("passage_refs", [])]
         referenced_document_ids = {item["document_cache_id"] for item in selected}
-        object_names = sorted({focus_by_episode[item["episode_code"]] for item in selected})
+        object_names = sorted(
+            {
+                name
+                for item in selected
+                for name in (
+                    participants_by_episode.get(item["episode_code"])
+                    or [focus_by_episode[item["episode_code"]]]
+                )
+                if name != ruler
+            }
+        )
         payload = {
             "schema_version": 1,
             "generated_by": "emperor_v4.evaluation.assertion_handoff.repair",
@@ -330,7 +351,8 @@ def build_assertion_repair_payloads(
                 {
                     "document_code": document_id,
                     "source_kind": "wikisource_page",
-                    "source_role": documents[document_id]["source_role"],
+                    "source_role": documents[document_id].get("source_role")
+                    or "primary_source",
                     "title": documents[document_id]["title"],
                     "url": documents[document_id]["url"],
                 }
@@ -365,6 +387,12 @@ def build_assertion_repair_payloads(
                     "expected_event_repair": {
                         "event_inventory_codes": [passage["episode_code"]],
                         "related_window": passage.get("related_window") is True,
+                        "required_participants": participants_by_episode.get(
+                            passage["episode_code"], []
+                        ),
+                        "expected_assertions": expected_assertions_by_episode.get(
+                            passage["episode_code"], []
+                        ),
                     },
                 }
             )
@@ -473,5 +501,90 @@ def check_assertion_repair_response(
             "idempotency_check", {}
         ).get("model_call_count"),
         "gate_rejected_claim_count": gate_rejections,
+        "errors": errors,
+    }
+
+
+def check_assertion_gap_repair_chain(
+    handoff_paths: tuple[Path, ...],
+    execution_paths: tuple[Path, ...],
+    response_paths: tuple[Path, ...],
+) -> dict[str, Any]:
+    if not (
+        len(handoff_paths) == len(execution_paths) == len(response_paths) == 2
+    ):
+        raise ValueError("gap repair chain 必须包含初次修复和一次 refinement")
+
+    errors: list[str] = []
+    expected_slices: set[str] = set()
+    used_slices: set[str] = set()
+    model_call_count = 0
+    assertion_count = 0
+    refinement_statuses: list[str] = []
+    response_hashes: list[str] = []
+
+    for handoff_path, execution_path, response_path in zip(
+        handoff_paths, execution_paths, response_paths, strict=True
+    ):
+        handoff = yaml.safe_load(handoff_path.read_text(encoding="utf-8"))
+        execution = yaml.safe_load(execution_path.read_text(encoding="utf-8"))
+        response_bytes = response_path.read_bytes()
+        response = json.loads(response_bytes.decode("utf-8"))
+        response_hash = hashlib.sha256(response_bytes).hexdigest()
+        response_hashes.append(response_hash)
+        if execution.get("response_sha256") != response_hash:
+            errors.append(f"gap repair response hash 不一致: {response_path.name}")
+        if execution.get("idempotency_check", {}).get("model_call_count") != 0:
+            errors.append(f"gap repair 幂等重跑非零调用: {response_path.name}")
+        if response.get("database_import_performed") is not False:
+            errors.append(f"gap repair 发生数据库导入: {response_path.name}")
+        if response.get("production_write_performed") is not False:
+            errors.append(f"gap repair 发生生产写入: {response_path.name}")
+
+        current_calls = int(response.get("model_call_count") or 0)
+        model_call_count += current_calls
+        if current_calls > int(handoff.get("model_call_budget") or 0):
+            errors.append(f"gap repair 超出单批预算: {response_path.name}")
+
+        for task in handoff.get("tasks", []):
+            candidates = json.loads(
+                Path(task["candidates_path"]).read_text(encoding="utf-8")
+            )
+            expected_slices.update(
+                item["slice_code"] for item in candidates.get("candidate_slices", [])
+            )
+        for person in response.get("people", []):
+            payload = person.get("payload") or {}
+            refinement_statuses.append(str(payload.get("status")))
+            for gate_name in ("_target_emperor_gate", "_candidate_object_gate"):
+                if int(payload.get(gate_name, {}).get("rejected_claim_count") or 0):
+                    errors.append(
+                        f"gap repair gate 拒绝 claim: {response_path.name}:{gate_name}"
+                    )
+            for claim in payload.get("claims", []):
+                used_slices.update(claim.get("source_slice_refs") or ())
+        try:
+            assertion_count += len(adapt_claim_extractor_snapshot(response))
+        except ValueError as exc:
+            errors.append(f"gap repair AssertionDraft adapter 拒绝: {exc}")
+
+    if used_slices != expected_slices:
+        errors.append("gap repair chain 未合并消费全部输入 passage")
+    if "needs_refinement" not in refinement_statuses:
+        errors.append("gap repair chain 未保留首轮 refinement 状态")
+    if refinement_statuses[-1] != "succeeded":
+        errors.append("gap repair refinement 未成功")
+
+    return {
+        "report_schema_version": 1,
+        "check": "assertion_gap_repair_chain",
+        "status": "passed_with_recorded_refinement" if not errors else "failed",
+        "input_passage_count": len(expected_slices),
+        "used_passage_count": len(used_slices),
+        "assertion_draft_count": assertion_count,
+        "model_call_count": model_call_count,
+        "idempotent_rerun_model_call_count": 0,
+        "refinement_statuses": refinement_statuses,
+        "response_sha256": response_hashes,
         "errors": errors,
     }

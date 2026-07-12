@@ -243,8 +243,12 @@ def check_source_segmentation_repair_response(
         )
         if matched != requested:
             errors.append(f"repair passage anchor 不完整: {item.get('repair_code')}")
-        if not item.get("supersedes_passage_ref"):
-            errors.append(f"repair passage 缺少 supersedes lineage: {item.get('repair_code')}")
+        if not item.get("supersedes_passage_ref") and not item.get(
+            "fills_missing_boundary"
+        ):
+            errors.append(
+                f"repair passage 缺少 supersedes 或 gap lineage: {item.get('repair_code')}"
+            )
 
     if response.get("status") != "succeeded" or response.get("errors"):
         errors.append("segmentation repair 未无错误完成")
@@ -275,7 +279,12 @@ def check_source_segmentation_repair_response(
             {
                 item.get("supersedes_passage_ref")
                 for item in response.get("passages", [])
+                if item.get("supersedes_passage_ref")
             }
+        ),
+        "filled_missing_boundary_count": sum(
+            item.get("fills_missing_boundary") is True
+            for item in response.get("passages", [])
         ),
         "network_fetch_count": response.get("network_fetch_count"),
         "model_call_count": response.get("model_call_count"),

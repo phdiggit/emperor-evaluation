@@ -73,6 +73,36 @@ def test_multi_passage_legacy_claim_is_fanned_out_without_losing_origin():
     assert all("@PAS-" in item.assertion_code for item in fanned_out)
 
 
+def test_v4_shadow_claim_adapter_preserves_structured_actor_and_object_roles():
+    adapted = adapt_claim_extractor_snapshot(
+        _fixture("claim-extractor-gap-repair-response.json")
+    )
+    sanjie = [
+        assertion
+        for assertion in adapted
+        if "CLM-LB-SANJIE" in assertion.assertion_code
+    ]
+    fankuai = [
+        assertion
+        for assertion in adapted
+        if "CLM-CP-FANKUAI" in assertion.assertion_code
+    ]
+
+    sanjie_people = {
+        person
+        for assertion in sanjie
+        for person, _ in assertion.qualifiers["candidate_participant_roles"]
+    }
+    fankuai_people = {
+        person
+        for assertion in fankuai
+        for person, _ in assertion.qualifiers["candidate_participant_roles"]
+    }
+
+    assert sanjie_people == {"刘邦", "张良", "萧何", "韩信"}
+    assert fankuai_people == {"刘邦", "陈平", "周勃", "樊哙"}
+
+
 @pytest.mark.parametrize("confidence", [-0.01, 1.01])
 def test_assertion_contract_rejects_out_of_range_confidence(confidence: float):
     with pytest.raises(ValueError, match="confidence"):

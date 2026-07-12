@@ -239,9 +239,12 @@ def build_episode_packet(
         "source_diversity": "complete" if len(source_documents) > 1 else "partial",
         "conflict_resolution": "conflicted" if conflicts else "complete",
     }
+    roles_by_person: dict[str, set[str]] = {}
+    for person, role in group.key.participant_roles:
+        roles_by_person.setdefault(person, set()).add(role)
     participants = tuple(
-        EpisodeParticipant(person_ref=person, role_codes=(role,))
-        for person, role in group.key.participant_roles
+        EpisodeParticipant(person_ref=person, role_codes=tuple(sorted(roles)))
+        for person, roles in sorted(roles_by_person.items())
     )
     links = tuple(
         AssertionLink(

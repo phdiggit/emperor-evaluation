@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any, Mapping
 
 from emperor_v4.contracts.assertion import AssertionDraft
@@ -10,6 +11,16 @@ _TYPE_MAP = {
     "context_claim": "context_fact",
     "counter_claim": "causal_claim",
 }
+
+
+def _participant_names(value: object) -> tuple[str, ...]:
+    if not value:
+        return ()
+    return tuple(
+        name.strip()
+        for name in re.split(r"[、,，/]", str(value))
+        if name.strip()
+    )
 
 
 def _index_passages(payload: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
@@ -52,6 +63,29 @@ def adapt_claim_extractor_snapshot(
                 raise ValueError(f"claim 无 passage lineage: {claim.get('claim_code', '')}")
 
             fact = claim.get("fact_payload") or {}
+            if snapshot.get("adapter_target_contract") == "assertion-extraction-contract-v1":
+                participant_roles = {
+                    (person.get("ruler"), "ruler"),
+                    *(
+                        (name, "actor")
+                        for name in _participant_names(fact.get("actor"))
+                    ),
+                    *(
+                        (name, "subject_person")
+                        for name in _participant_names(fact.get("object"))
+                        if claim.get("object_type") == "person"
+                    ),
+                    *(
+                        (name, "focus_person")
+                        for name in _participant_names(claim.get("object_name"))
+                    ),
+                }
+                participant_roles.discard((None, "ruler"))
+            else:
+                participant_roles = {
+                    (person.get("ruler"), "ruler"),
+                    (claim.get("object_name"), "subject_person"),
+                }
             for passage_ref in passage_refs:
                 passage = passages.get(passage_ref)
                 if passage is None:
@@ -85,9 +119,8 @@ def adapt_claim_extractor_snapshot(
                         location_expression=None,
                         qualifiers={
                             "evaluation_context": person.get("ruler"),
-                            "candidate_participant_roles": (
-                                (person.get("ruler"), "ruler"),
-                                (claim.get("object_name"), "subject_person"),
+                            "candidate_participant_roles": tuple(
+                                sorted(participant_roles)
                             ),
                             "episode_type": "political_action",
                             "legacy_claim_kind": claim_kind,

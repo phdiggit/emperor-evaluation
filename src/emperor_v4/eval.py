@@ -9,6 +9,7 @@ from emperor_v4.evaluation.assertion_handoff import (
     build_assertion_repair_payloads,
     build_assertion_candidate_payloads,
     check_assertion_extraction_response,
+    check_assertion_gap_repair_chain,
     check_assertion_repair_response,
 )
 from emperor_v4.evaluation.source_gap import (
@@ -60,6 +61,28 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path(
             "tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json"
+        ),
+    )
+    pilot.add_argument(
+        "--source-segmentation-gap-repair",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/"
+            "source-cache-segmentation-gap-repair-response.json"
+        ),
+    )
+    pilot.add_argument(
+        "--claim-gap-repair",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair-response.json"
+        ),
+    )
+    pilot.add_argument(
+        "--claim-gap-repair2",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair2-response.json"
         ),
     )
     pilot.add_argument(
@@ -191,6 +214,8 @@ def _parser() -> argparse.ArgumentParser:
         ),
     )
     assertion_repair_check.add_argument("--output", type=Path)
+    gap_repair_check = subparsers.add_parser("assertion-gap-repair-check")
+    gap_repair_check.add_argument("--output", type=Path)
     return parser
 
 
@@ -205,6 +230,9 @@ def main() -> int:
             args.claim_supplement,
             args.source_segmentation_repair,
             args.claim_repair,
+            args.source_segmentation_gap_repair,
+            args.claim_gap_repair,
+            args.claim_gap_repair2,
             args.assertion_gold_coverage,
         )
     elif args.command == "source-gap-check":
@@ -247,6 +275,27 @@ def main() -> int:
             args.handoff,
             args.execution,
             args.response,
+        )
+    elif args.command == "assertion-gap-repair-check":
+        report = check_assertion_gap_repair_chain(
+            (
+                Path("eval/episode_pilot_v1_assertion_gap_repair.yml"),
+                Path("eval/episode_pilot_v1_assertion_gap_repair2.yml"),
+            ),
+            (
+                Path("eval/episode_pilot_v1_assertion_gap_repair_execution.yml"),
+                Path("eval/episode_pilot_v1_assertion_gap_repair2_execution.yml"),
+            ),
+            (
+                Path(
+                    "tests/fixtures/episode_pilot_v1/"
+                    "claim-extractor-gap-repair-response.json"
+                ),
+                Path(
+                    "tests/fixtures/episode_pilot_v1/"
+                    "claim-extractor-gap-repair2-response.json"
+                ),
+            ),
         )
     else:
         raise AssertionError("unreachable")

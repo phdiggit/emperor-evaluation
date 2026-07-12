@@ -66,6 +66,9 @@ def evaluate_episode_pilot(
     claim_supplement_path: Path | None = None,
     source_segmentation_repair_path: Path | None = None,
     claim_repair_path: Path | None = None,
+    source_segmentation_gap_repair_path: Path | None = None,
+    claim_gap_repair_path: Path | None = None,
+    claim_gap_repair2_path: Path | None = None,
     assertion_gold_coverage_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
@@ -141,6 +144,29 @@ def evaluate_episode_pilot(
             for claim in person.get("payload", {}).get("claims", [])
             for ref in claim.get("source_slice_refs", [])
         }
+    source_segmentation_gap_repair: Mapping[str, Any] | None = None
+    if source_segmentation_gap_repair_path is not None:
+        source_segmentation_gap_repair = _load_json(
+            source_segmentation_gap_repair_path
+        )
+    gap_repair_snapshots: list[Mapping[str, Any]] = []
+    gap_repair_assertions = ()
+    gap_repair_used_slices: set[str] = set()
+    for gap_path in (claim_gap_repair_path, claim_gap_repair2_path):
+        if gap_path is None:
+            continue
+        snapshot = _load_json(gap_path)
+        gap_repair_snapshots.append(snapshot)
+        gap_repair_assertions = (
+            *gap_repair_assertions,
+            *adapt_claim_extractor_snapshot(snapshot),
+        )
+        gap_repair_used_slices.update(
+            ref
+            for person in snapshot.get("people", [])
+            for claim in person.get("payload", {}).get("claims", [])
+            for ref in claim.get("source_slice_refs", [])
+        )
     assertion_gold_coverage: Mapping[str, Any] | None = None
     assertion_boundary_coverage: dict[str, Any] = {
         "status": "not_computable_missing_assessment",
@@ -375,13 +401,18 @@ def evaluate_episode_pilot(
             for source_fixture in (
                 source_supplement,
                 source_segmentation_repair or {},
+                source_segmentation_gap_repair or {},
             )
             for item in source_fixture.get("passages", [])
             if item.get("episode_code") in frozen_codes
             and item.get("passage_cache_id") not in superseded_source_slices
         }
         unassigned_new_assertions: list[str] = []
-        for assertion in (*supplement_assertions, *repair_assertions):
+        for assertion in (
+            *supplement_assertions,
+            *repair_assertions,
+            *gap_repair_assertions,
+        ):
             source_slice_ref = assertion.source_attribution.get("source_slice_ref")
             hint = source_slice_hints.get(source_slice_ref)
             if hint is None:
@@ -497,6 +528,11 @@ def evaluate_episode_pilot(
                 [row for row in required_rows if not row["matched"]]
             ),
             "source_segmentation_confirmed_miss_count": 0,
+            "source_segmentation_gap_repaired_count": (
+                len(source_segmentation_gap_repair.get("passages", []))
+                if source_segmentation_gap_repair
+                else 0
+            ),
             "assertion_extractor_wrong_event_selection_count": sum(
                 item.get("decision") == "no_boundary_support"
                 for item in (assertion_gold_coverage or {}).get("assessments", [])
@@ -515,7 +551,8 @@ def evaluate_episode_pilot(
                 not item["human_review_gate_ready"] for item in packet_assessments
             ),
             "diagnostic_notes": [
-                "房玄龄 source passage 已含“独先收人物，致之幕府”，当前错误属于断言选择而非史源缺失。",
+                "房玄龄错误选择已由定向补抽修复；原 passage 无需重新切片。",
+                "魏徵初授窗口已从 V3 retained page cache 补切，网络请求为零。",
                 "参与者缺口与断言链缺口允许重叠，不能相加作为失败总数。",
                 "所有 packet 仍为 proposed，规则投影尚未执行。",
             ],
@@ -575,8 +612,16 @@ def evaluate_episode_pilot(
             ),
             "repair_assertion_draft_count": len(repair_assertions),
             "repair_episode_candidate_packet_count": len(repair_packets),
+            "gap_repair_source_passage_count": (
+                len(source_segmentation_gap_repair.get("passages", []))
+                if source_segmentation_gap_repair
+                else 0
+            ),
+            "gap_repair_assertion_draft_count": len(gap_repair_assertions),
             "combined_new_assertion_draft_count": (
-                len(supplement_assertions) + len(repair_assertions)
+                len(supplement_assertions)
+                + len(repair_assertions)
+                + len(gap_repair_assertions)
             ),
         },
         "cost": {
@@ -600,6 +645,10 @@ def evaluate_episode_pilot(
             "claim_model_call_count_repair_run": (
                 claim_repair.get("model_call_count") if claim_repair else None
             ),
+            "claim_model_call_count_gap_repair_runs": sum(
+                int(snapshot.get("model_call_count") or 0)
+                for snapshot in gap_repair_snapshots
+            ),
             "claim_database_import_performed": (
                 claim_supplement.get("database_import_performed")
                 if claim_supplement
@@ -618,6 +667,7 @@ def evaluate_episode_pilot(
                     - superseded_source_slices
                     - supplement_used_slices
                     - repair_used_slices
+                    - gap_repair_used_slices
                 )
                 + len(
                     {
@@ -625,12 +675,24 @@ def evaluate_episode_pilot(
                         for item in source_segmentation_repair.get("passages", [])
                     }
                     - repair_used_slices
+                    - gap_repair_used_slices
+                )
+                + len(
+                    {
+                        item.get("passage_cache_id")
+                        for item in (
+                            source_segmentation_gap_repair or {}
+                        ).get("passages", [])
+                    }
+                    - gap_repair_used_slices
                 )
                 if source_supplement
                 else 0
             ),
             "supplement_assertion_gold_linkage_pending": (
-                len(supplement_assertions) + len(repair_assertions)
+                len(supplement_assertions)
+                + len(repair_assertions)
+                + len(gap_repair_assertions)
             ),
             "superseded_miscentered_passage_count": len(superseded_source_slices),
             "assertion_boundary_without_full_support": (

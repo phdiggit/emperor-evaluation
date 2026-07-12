@@ -1,0 +1,19 @@
+schema_version: 1
+execution_code: episode_pilot_v1_source_segmentation_gap_repair_execution
+status: succeeded
+request: eval/episode_pilot_v1_source_segmentation_gap_repair.yml
+response: tests/fixtures/episode_pilot_v1/source-cache-segmentation-gap-repair-response.json
+request_sha256: 5c7ba2d7a3e03e8dd1152c813afb6c7f10dc33b088269771cab940bb8e833c08
+response_sha256: f40fbdd998f9d05d2e27dceb657e5e95c583d269653fa147785e15ff5a274353
+input_document_count: 1
+output_passage_count: 1
+network_fetch_count: 0
+model_call_count: 0
+production_write_performed: false
+cache_source_role: v3_readonly_regression_cache
+
+gate_results:
+  required_anchors_present: true
+  fills_missing_boundary: true
+  old_passages_overwritten: false
+  wiki_accessed: false

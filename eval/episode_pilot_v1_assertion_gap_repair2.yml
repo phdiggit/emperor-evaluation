@@ -1,0 +1,45 @@
+schema_version: 1
+repair_batch_code: episode_pilot_v1_assertion_gap_repair2
+status: ready_for_shadow_execution
+source_fixture: tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json
+segmentation_repair_fixture: tests/fixtures/episode_pilot_v1/source-cache-segmentation-repair-response.json
+additional_source_fixtures:
+  - tests/fixtures/episode_pilot_v1/source-cache-segmentation-gap-repair-response.json
+output_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair2-response.json
+extractor_version: claim_extraction_only:v8_source_alias
+execution_authorized: true
+execution_authorized_by: user_message_continue_m5_targeted_refinement
+production_write_authorized: false
+database_import_authorized: false
+model_call_budget: 1
+
+ruler_aliases:
+  朱元璋: [明太祖, 太祖, 洪武]
+
+episode_focus_person:
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION: 常遇春
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE: 胡惟庸
+
+episode_participants:
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION: [朱元璋, 徐达, 常遇春]
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE: [朱元璋, 刘基, 胡惟庸]
+
+episode_expected_assertions:
+  EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION:
+    - 朱元璋认为常遇春勇锐，可以辅佐徐达承担平定中原任务
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE:
+    - 胡惟庸因刘基旧怨构成压力责任链，朱元璋夺禄后刘基惧而留京
+
+tasks:
+  - task_code: V4-CLAIM-ZYZ-GAP-REPAIR2
+    ruler: 朱元璋
+    target_code: TGT-V4-EPISODE-PILOT-ZYZ-GAP-REPAIR2
+    candidates_path: tests/fixtures/episode_pilot_v1/assertion-gap-repair2-candidates-zhuyuanzhang.json
+    passage_refs:
+      - PAS-52B6EFFC106844686715F1FC
+      - PAS-255B21166BBF731328D27924
+
+acceptance_gate:
+  - 只补首轮遗漏的常遇春和胡惟庸责任链
+  - 模型调用不超过 1
+  - 不入队、不导入 PostgreSQL、不写 V3 正式 claim cache

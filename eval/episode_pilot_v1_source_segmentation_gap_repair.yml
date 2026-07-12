@@ -1,0 +1,34 @@
+schema_version: 1
+repair_batch_code: episode_pilot_v1_source_segmentation_gap_repair
+status: ready_for_shadow_execution
+cache_only: true
+network_fetch_authorized: false
+model_call_authorized: false
+production_write_authorized: false
+cache_source_role: v3_readonly_regression_cache
+
+documents:
+  - document_cache_id: OSD-89D4299FB4B38CC307
+    title: 舊唐書/卷71
+    source_role: primary_source
+    url: https://zh.wikisource.org/zh-hans/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771
+    content_hash: c5cf61e2af9e5e6767610f347b7e58bc0d98be47782f0fcf449b5f60ec0e12cd
+
+windows:
+  - repair_code: SEG-LSM-WEIZHENG-INITIAL-APPOINTMENT
+    ruler: 李世民
+    episode_code: EP-LSM-WEIZHENG-APPOINTMENT
+    document_cache_id: OSD-89D4299FB4B38CC307
+    center_anchor: 擢拜谏议大夫
+    required_anchor_terms: [及践祚, 擢拜谏议大夫, 使安辑河北]
+    context_before_chars: 500
+    context_after_chars: 1000
+    locator: 卷七十一，魏徵传，太宗践祚后擢拜谏议大夫段
+    fills_missing_boundary: true
+    supersedes_passage_ref: null
+    related_window: false
+
+acceptance_gate:
+  - 只读取 V3 retained page cache，不访问 Wiki
+  - passage 必须同时包含践祚、擢拜谏议大夫和安辑河北
+  - 不覆盖旧切片，只补充缺失的初授窗口
