@@ -26,10 +26,11 @@ def test_object_pool_collapses_duplicate_target_rows_and_scores_each_person_once
         formula_code="F",
     )
     cluster = clusters[0]
-    assert cluster["positive_signal"] == Decimal("3.120")
+    assert cluster["positive_signal"] == Decimal("2.815")
     assert cluster["action_counts"]["score"] == 2
     assert cluster["calc_detail"]["duplicate_target_rows_collapsed"] == 1
     assert len(cluster["calc_detail"]["team_object_components"]) == 2
+    assert cluster["calc_detail"]["person_density_decay"] == "0.5"
 
 
 def test_object_pool_rejects_incomplete_profile() -> None:
@@ -54,3 +55,19 @@ def test_object_pool_accepts_punctuation_normalized_labels_and_label_choices() -
         formula_code="F",
     )
     assert clusters[0]["positive_signal"] == Decimal("2.080")
+
+
+def test_object_pool_scores_negative_profile_independently_from_talent() -> None:
+    people = [{
+        "emperor_name": "甲", "object_id": 1, "canonical_name": "风险臣", "talent_grade": "important_talent",
+        "talent_grade_version": "v", "readiness_status": "profile_complete", "source_target_ids": [1],
+        "target_object_ids": [1], "negative_talent_class": "power_abuser", "negative_talent_severity": "major",
+    }]
+    clusters = tool.build_clusters(
+        people=people, targets={"甲": {"target_id": 1}}, options=options(),
+        choices={"甲": {"role_complementarity_factor": "高度互补", "long_term_stability_factor": "稳定"}},
+        formula_code="F",
+    )
+    assert clusters[0]["positive_signal"] == Decimal("1.040")
+    assert clusters[0]["negative_signal"] == Decimal("0.832")
+    assert clusters[0]["calc_detail"]["team_object_components"][0]["negative_team_contribution"] == "0.800"

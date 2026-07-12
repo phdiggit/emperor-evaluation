@@ -227,10 +227,14 @@ raw_material_score =
 
 ```text
 positive_pool =
-  sum(talent_quality_factor_i for each unique positive team person)
+  sum(talent_quality_factor_rank / rank ^ 0.5)
 
 negative_pool =
-  sum(abs(talent_quality_factor_i) for each unique negative team person)
+  sum(negative_team_contribution_rank / rank ^ 0.5)
+
+negative_team_contribution =
+  negative_talent_severity_value
+  * negative_talent_class_relevance
 
 positive_signal =
   positive_pool
@@ -250,11 +254,15 @@ team_raw_net =
 
 `team_building` 以对象池中的人才对象为计分单元。每个对象在同一目标皇帝下只贡献一次团队信号；多条史料只用于支撑该对象画像、身份和人才层级，不因多条 claim 形成重复入分。若数据链意外产生同一对象多条 `score`，只保留最能代表该对象团队贡献的一条，其余不得叠分。
 
+正负两侧均按人物贡献绝对值降序执行人物级密度聚合，固定 `person_decay=0.5`。这是对象池密度控制，不是 claim-material 聚合；它保留团队广度价值，同时避免关联对象发现数量近似线性决定得分。
+
 `talent_quality_factor` 是人物级属性，只能由已接受且版本匹配的人物画像预填；材料 factorization 不得临场赋值或改档。`role_complementarity_factor` 与 `long_term_stability_factor` 是目标皇帝团队级属性，在对象池求和后各乘一次，不属于单条材料属性。
 
 人物画像采用两条正交轴。`talent_grade` 只表示全局能力和历史地位，按“史论共识基础档 + 具体事迹校准”确定；材料覆盖不足只降低 `talent_evidence_coverage` 与 `talent_grade_confidence`，不得直接把人物降为普通。`negative_talent_class` 只表示稳定的负面政治风险类型，并另记 `negative_talent_severity`、史论共识、事实支持、覆盖度和置信度；不得把忠奸、被诛被贬或政治结局混入能力档位。
 
 负面人物画像不直接复用 `talent_quality_factor` 的正面人才档位，也不因存在负面风险而抹去其能力等级。具体 rule 是否以及如何消费负面类型，必须另有规则级相关性和因子映射；同一负面画像不得在多个 rule 中无条件重复扣分。
+
+`team_building` 对负面轴使用版本化映射 `negative-profile-team-v1`。严重度基础值为：`minor=0.20`、`material=0.45`、`major=0.80`、`historic=1.20`。类型相关系数为：`sycophant=0.80`、`favorite=0.70`、`power_abuser=1.00`、`framer=1.00`、`extractive_official=0.90`、`cruel_official=0.90`、`incompetent_harmful=1.00`、`traitorous_actor=0.80`、`mixed_or_disputed=0.50`。同一人物可以同时产生能力正贡献和政治风险负贡献。
 
 ### `talent_quality_factor`
 
@@ -341,9 +349,9 @@ raw_material_score =
 | ---: | --- |
 | `0.6` | 象征性信用撤销或轻处分。 |
 | `1.2` | 贬黜、压制、表达入口受损。 |
-| `1.8` | 下狱、重罚、处死或严重人才安全事件。 |
-| `2.6` | 大规模牵连、系统清洗或长期人才生态破坏。 |
-| `3.2` | 针对核心能臣、储备或继承人才、功臣集团、表达对象造成灾难级安全破坏。 |
+| `1.8` | 下狱、械系、拷讯、重罚等严重但非永久性的人身处置。 |
+| `2.6` | 处死、赐死、逼令自尽，永久消灭单个具体人才。 |
+| `3.2` | 夷族、大规模牵连、功臣集团清洗、系统清洗或长期人才生态破坏。 |
 
 ### `target_fault_factor`
 

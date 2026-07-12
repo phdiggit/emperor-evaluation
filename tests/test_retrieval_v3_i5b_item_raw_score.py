@@ -28,10 +28,11 @@ def test_markdown_labels_raw_signal_and_dynamic_mapping_boundary() -> None:
                 }]} }, "team_building": {
                     "id": 8, "rule_score_code": "RSC-8", "scored_judgment_count": 1,
                     "target_code": "TGT-7", "updated_at": "2026-07-12", "calc_detail": {
-                        "team_pool_value": "1.200", "team_factor_values": {
+                        "team_pool_values": {"positive": "1.200", "negative": "0.300"}, "person_density_decay": "0.5", "team_factor_values": {
                             "role_complementarity_factor": "1.100", "long_term_stability_factor": "1.000"},
                         "team_object_components": [{"object_name": "测试将", "talent_grade": "top_talent",
-                            "talent_quality_factor": "1.200"}]}}},
+                            "talent_quality_factor": "1.200", "negative_talent_class": "power_abuser",
+                            "negative_talent_severity": "major", "negative_team_contribution": "0.800"}]}}},
         }]
     }
     rendered = tool.render_markdown(report)
@@ -43,8 +44,8 @@ def test_markdown_labels_raw_signal_and_dynamic_mapping_boundary() -> None:
     assert "`RSC-7`" in rendered
     assert "0.000 + 0.540 + 0.000 + 0.000 + 0.000 = 1.234" in rendered
     assert "| 测试臣 | `CLMK-7` | CEG-7 | positive | 2.000 | source_factor=1.100000 |" in rendered
-    assert "| 测试将 | top_talent | 1.200 | positive | 1.200 | — |" in rendered
-    assert "对象池合计：`1.200`" in rendered
+    assert "| 测试将 | top_talent | 1.200 | power_abuser | major | 0.800 | — |" in rendered
+    assert "对象池密度聚合：正向 `1.200`，负向 `0.300`，人物衰减 `0.5`" in rendered
 
 
 def test_tool_is_read_only_and_does_not_write_final_results() -> None:

@@ -175,14 +175,23 @@ def upsert_material_claim(cur: Any, row: Mapping[str, Any], pack_ids: Mapping[st
     passage_refs = [text(value) for value in row.get("source_passage_refs") or [] if text(value)]
     first_passage_id = passage_ids.get(passage_refs[0]) if passage_refs else None
     summary = text(row.get("claim_summary"))
+    payload = row.get("claim_payload") if isinstance(row.get("claim_payload"), Mapping) else {}
+    canonical_event_key = text(row.get("canonical_event_key") or payload.get("canonical_event_key"))
+    event_group_key = text(row.get("event_group_key") or payload.get("event_group_key"))
+    if canonical_event_key:
+        cur.execute("select id from retrieval_v3.material_claims where canonical_event_key=%s order by id limit 1", (canonical_event_key,))
+        existing = cur.fetchone()
+        if existing:
+            return int(existing["id"])
     cur.execute(
         """
         insert into retrieval_v3.material_claims (
             source_pack_id, source_passage_id, claim_code, raw_claim_code,
             emperor_name, object_name, object_type, claim_kind, claim_summary,
-            claim_summary_hash, object_group_key, direction, confidence, review_status, claim_payload
+            claim_summary_hash, object_group_key, direction, confidence, review_status, claim_payload,
+            canonical_event_key,event_group_key,material_rebuild_version
         )
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb)
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s, %s, %s)
         on conflict (source_pack_id, raw_claim_code) where btrim(raw_claim_code) <> '' do update set
             source_passage_id = excluded.source_passage_id,
             emperor_name = excluded.emperor_name,
@@ -199,6 +208,9 @@ def upsert_material_claim(cur: Any, row: Mapping[str, Any], pack_ids: Mapping[st
                 else retrieval_v3.material_claims.review_status
             end,
             claim_payload = excluded.claim_payload,
+            canonical_event_key = excluded.canonical_event_key,
+            event_group_key = excluded.event_group_key,
+            material_rebuild_version = excluded.material_rebuild_version,
             updated_at = now()
         returning id
         """,
@@ -217,10 +229,26 @@ def upsert_material_claim(cur: Any, row: Mapping[str, Any], pack_ids: Mapping[st
             text(row.get("direction")),
             row.get("confidence"),
             text(row.get("review_status") or "pending"),
-            json_param(row.get("claim_payload") or row),
+            json_param(payload or row),
+            canonical_event_key,
+            event_group_key,
+            "canonical-material-incremental-v2",
         ),
     )
     return fetch_one_id(cur)
+
+
+def upsert_material_claim_member(cur: Any, *, material_id: int, claim_key: str, canonical_event_key: str) -> None:
+    if not claim_key:
+        return
+    cur.execute(
+        """
+        insert into retrieval_v3.material_claim_members(material_id,claim_key,member_role,member_payload)
+        values (%s,%s,'representative',%s::jsonb)
+        on conflict(claim_key) do update set material_id=excluded.material_id,member_payload=excluded.member_payload
+        """,
+        (material_id, claim_key, json_param({"canonical_event_key": canonical_event_key, "intake": "incremental-v2"})),
+    )
 
 
 def upsert_claim_source_passage(cur: Any, *, claim_id: int, passage_id: int, pack_id: int, relation_payload: Mapping[str, Any]) -> int:
@@ -591,6 +619,16 @@ def execute_upserts(
         code = text(row.get("claim_code"))
         ids["material_claims"][code] = upsert_material_claim(cur, row, ids["source_packs"], ids["source_passages"])
         counts["retrieval_v3.material_claims"] += 1
+        claim_payload = row.get("claim_payload") if isinstance(row.get("claim_payload"), Mapping) else {}
+        claim_key = text(row.get("raw_claim_code") or claim_payload.get("cached_claim_key") or claim_payload.get("claim_key"))
+        upsert_material_claim_member(
+            cur,
+            material_id=ids["material_claims"][code],
+            claim_key=claim_key,
+            canonical_event_key=text(row.get("canonical_event_key") or claim_payload.get("canonical_event_key")),
+        )
+        if claim_key:
+            counts["retrieval_v3.material_claim_members"] += 1
         for passage_ref in row.get("source_passage_refs") or []:
             passage_code = text(passage_ref)
             if passage_code in ids["source_passages"]:

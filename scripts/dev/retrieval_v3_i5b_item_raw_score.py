@@ -212,22 +212,25 @@ def render_markdown(report: dict[str, Any]) -> str:
                 components = detail.get("team_object_components") or []
                 lines.extend([
                     "团队对象池明细：", "",
-                    "| object | talent grade | talent factor | side | contribution | roles |",
-                    "| --- | --- | ---: | --- | ---: | --- |",
+                    "| object | talent grade | talent factor | negative class | negative severity | negative contribution | roles |",
+                    "| --- | --- | ---: | --- | --- | ---: | --- |",
                 ])
                 if not components:
-                    lines.append("| — | — | 0.000 | — | 0.000 | 无团队对象 |")
+                    lines.append("| — | — | 0.000 | — | — | 0.000 | 无团队对象 |")
                 for component in components:
                     roles = ", ".join(component.get("person_roles") or component.get("roles") or []) or "—"
                     lines.append(
                         f"| {component.get('object_name') or component.get('canonical_name') or '—'} | "
                         f"{component.get('talent_grade') or '—'} | "
                         f"{component.get('talent_quality_factor') or component.get('talent_factor') or '—'} | "
-                        f"{component.get('side') or 'positive'} | "
-                        f"{component.get('contribution') or component.get('score') or component.get('talent_quality_factor') or '—'} | {roles} |"
+                        f"{component.get('negative_talent_class') or '—'} | "
+                        f"{component.get('negative_talent_severity') or '—'} | "
+                        f"{component.get('negative_team_contribution') or '0.000'} | {roles} |"
                     )
+                pools = detail.get("team_pool_values") or {}
                 lines.extend([
-                    "", f"对象池合计：`{detail.get('team_pool_value', '—')}`；"
+                    "", f"对象池密度聚合：正向 `{pools.get('positive', detail.get('team_pool_value', '—'))}`，"
+                    f"负向 `{pools.get('negative', '0.000')}`，人物衰减 `{detail.get('person_density_decay', '—')}`；"
                     f"角色互补因子：`{(detail.get('team_factor_values') or {}).get('role_complementarity_factor', '—')}`；"
                     f"长期稳定因子：`{(detail.get('team_factor_values') or {}).get('long_term_stability_factor', '—')}`。", "",
                 ])

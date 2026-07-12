@@ -87,7 +87,7 @@ OBJECT_BIOGRAPHY_QUERY_SUFFIXES = ("列传", "列傳", "本传", "本傳", "功�
 SECTION_HEADING_RE = re.compile(r"([A-Za-z0-9_\-\u3400-\u9fff·]+)\s*\[\s*编辑\s*\]")
 CHAR_LOCATOR_RE = re.compile(r"chars:(\d+)-(\d+)")
 SOURCE_TARGET_REF_SPLIT_RE = re.compile(r"[\s，,。；;：:、/／()（）\[\]【】《》<>〈〉]+")
-SUMMARY_LEAD_ALLOWED_SINGLE_CHAR_TERMS = {"诛", "誅"}
+SUMMARY_LEAD_ALLOWED_SINGLE_CHAR_TERMS = {"诛", "誅", "禽", "擒", "捕", "囚"}
 SUMMARY_LEAD_LOW_PRIORITY_TERMS = {"诛", "誅", "连坐", "連坐", "大逆", "不轨", "不軌"}
 SUMMARY_LEAD_HIGH_PRIORITY_TERMS = {
     "赐死",
@@ -131,11 +131,18 @@ SUMMARY_LEAD_HIGH_PRIORITY_TERMS = {
     "籍沒",
     "流放",
     "流徙",
+    "被俘",
+    "被捕",
+    "俘虏",
+    "俘虜",
+    "下狱",
+    "下獄",
+    "赦免",
 }
 SUMMARY_LEAD_TERM_EXPANSIONS = {
     "赐死": ("自尽", "自盡", "赐自尽", "賜自盡", "坐死", "党死", "黨死", "伏诛", "伏誅"),
     "被杀": ("被殺", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
-    "被殺": ("被杀", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
+    "被殺": ("被杀", "赐死", "賜死", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
     "诛杀": ("誅殺", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
     "誅殺": ("诛杀", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死", "籍其家", "籍没", "籍沒"),
     "处死": ("處死", "坐死", "党死", "黨死", "伏诛", "伏誅", "诛死", "誅死"),
@@ -149,10 +156,30 @@ SUMMARY_LEAD_TERM_EXPANSIONS = {
     "大逆": ("不轨", "不軌", "逆谋", "逆謀", "反状", "反狀", "坐党", "坐黨"),
     "诛": ("伏诛", "伏誅", "诛死", "誅死", "族诛", "族誅", "大诛", "大誅"),
     "誅": ("伏诛", "伏誅", "诛死", "誅死", "族诛", "族誅", "大诛", "大誅"),
-    "自尽": ("自盡", "自刎", "赐自尽", "賜自盡", "流放", "流徙"),
-    "自盡": ("自尽", "自刎", "赐自尽", "賜自盡", "流放", "流徙"),
+    "自尽": ("自盡", "自刎", "赐自尽", "賜自盡", "赐死", "賜死", "流放", "流徙"),
+    "自盡": ("自尽", "自刎", "赐自尽", "賜自盡", "赐死", "賜死", "流放", "流徙"),
     "籍其家": ("籍没", "籍沒", "诛", "誅", "诛死", "誅死", "坐死", "党死", "黨死"),
+    "被俘": ("禽", "擒", "执", "執", "捕", "囚", "系", "繫"),
+    "被捕": ("捕", "囚", "系", "繫", "下狱", "下獄"),
+    "俘虏": ("俘虜", "禽", "擒", "执", "執"),
+    "俘虜": ("俘虏", "禽", "擒", "执", "執"),
+    "下狱": ("下獄", "囚", "系", "繫", "械系", "械繫"),
+    "下獄": ("下狱", "囚", "系", "繫", "械系", "械繫"),
+    "赦免": ("赦", "赦出", "赦以为庶人", "赦以為庶人"),
 }
+
+
+def terminal_outcome_terms_from_text(value: Any) -> list[str]:
+    """Convert a discovery-only summary into Wikisource search anchors."""
+    normalized = normalize_title(str(value or ""))
+    if not normalized:
+        return []
+    terms = [
+        term
+        for term in [*SUMMARY_LEAD_HIGH_PRIORITY_TERMS, *SUMMARY_LEAD_LOW_PRIORITY_TERMS]
+        if normalize_title(term) in normalized
+    ]
+    return unique_strings(sorted(terms, key=lambda item: (summary_lead_term_priority(item), -len(item), item)))
 
 PGSQL_SCHEMA_DRAFT = """
 -- retrieval_v3 object source cache draft schema.

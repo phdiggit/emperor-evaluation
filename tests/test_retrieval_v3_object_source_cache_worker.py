@@ -1453,3 +1453,13 @@ def test_finish_job_run_failure_casts_status_case_to_enum() -> None:
     assert "case when attempt_count >= max_attempts then 'failed' else 'retry_wait' end" in job_update_sql
     assert "::retrieval_v3.rv3_object_source_cache_job_status" in job_update_sql
     assert "::retrieval_v3.rv3_object_source_cache_job_status" in tool.render_sql(job_update_sql)
+
+
+def test_selected_object_cache_slices_always_retains_terminal_summary_anchor() -> None:
+    docs = {"D": {"document_cache_code": "D", "source_shape": "object_biography_candidate", "source_role": "object_biography"}}
+    rows = [
+        {"slice_cache_code": "A", "document_cache_code": "D", "person_name": "甲", "raw_text": "甲长期任职并建立功业。" * 20, "locator": "chars:0-200"},
+        {"slice_cache_code": "B", "document_cache_code": "D", "person_name": "甲", "raw_text": "甲后来赐死。", "locator": "chars:900-920", "slice_kind": "summary_lead_term_anchor", "lead_terms": ["赐死"]},
+    ]
+    selected = tool.selected_object_cache_slices(rows, docs, max_slices_per_person=1, max_total_slices=0)
+    assert [row["slice_code"] for row in selected] == ["B"]

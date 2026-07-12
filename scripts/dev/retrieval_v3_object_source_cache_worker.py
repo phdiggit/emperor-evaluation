@@ -990,7 +990,18 @@ def selected_object_cache_slices(
             by_person[person_name],
             key=lambda row: (-int(row.get("score") or 0), str(row.get("document_code")), str(row.get("locator"))),
         )
-        selected.extend(rows_for_person[:per_person_limit])
+        retained = rows_for_person[:per_person_limit]
+        terminal = next(
+            (
+                row
+                for row in rows_for_person
+                if text((row.get("object_source_cache") or {}).get("slice_kind")) == "summary_lead_term_anchor"
+            ),
+            None,
+        )
+        if terminal is not None and terminal not in retained:
+            retained[-1] = terminal
+        selected.extend(retained)
     selected.sort(key=lambda row: (str(row.get("object_name")), -int(row.get("score") or 0), str(row.get("document_code"))))
     if max_total_slices > 0:
         selected = selected[:max_total_slices]

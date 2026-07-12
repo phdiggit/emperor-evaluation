@@ -10,6 +10,8 @@ def test_material_claim_upsert_uses_stable_raw_claim_identity() -> None:
     source = Path(tool.__file__).read_text(encoding="utf-8")
 
     assert "on conflict (source_pack_id, raw_claim_code) where btrim(raw_claim_code) <> '' do update set" in source
+    assert "insert into retrieval_v3.material_claim_members" in source
+    assert "canonical_event_key = excluded.canonical_event_key" in source
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:

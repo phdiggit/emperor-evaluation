@@ -1375,6 +1375,32 @@ def test_tolerate_talent_prompt_and_gate_reject_single_person_catastrophic_sever
     assert "单一人物被处死、下狱或籍没不得选 3.2" in prompt
 
 
+def test_tolerate_talent_gate_allows_single_person_execution_severity() -> None:
+    row = material_row(
+        rule_code="tolerate_talent",
+        direction="negative",
+        claim_object_name="冯胜",
+        canonical_name="冯胜",
+        source_passages=[{"source_title": "明史", "quote": "逾二年，赐死，诸子皆不得嗣。"}],
+    )
+    assert not tool.tolerate_talent_factor_issue(
+        material=row, factor_name="handling_severity", value=tool.Decimal("2.6")
+    )
+
+
+def test_tolerate_talent_gate_accepts_clan_execution_as_catastrophic() -> None:
+    row = material_row(
+        rule_code="tolerate_talent",
+        direction="negative",
+        claim_object_name="彭越",
+        canonical_name="彭越",
+        source_passages=[{"source_title": "史记", "quote": "廷尉奏请族之，上乃可，遂夷越宗族，国除。"}],
+    )
+    assert not tool.tolerate_talent_factor_issue(
+        material=row, factor_name="handling_severity", value=tool.Decimal("3.2")
+    )
+
+
 def test_tolerate_talent_gate_requires_quote_support_for_disputed_fault_factor() -> None:
     unsupported = material_row(
         rule_code="tolerate_talent",

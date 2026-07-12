@@ -83,3 +83,28 @@ def test_supplement_request_key_changes_worker_job_identity(tmp_path) -> None:
     repeated_job = tool.worker.job_from_seed(seed_jsonl=seed_path, build_options=supplement_options)
     assert ensure_job["idem_key"] != supplement_job["idem_key"]
     assert repeated_job["idem_key"] == supplement_job["idem_key"]
+
+
+def test_apply_worker_runtime_root_persists_linux_native_paths() -> None:
+    job = tool.apply_worker_runtime_root(
+        {"job_code": "OSCACHE-ABC", "output_root": "E:/tmp/run", "page_cache_root": "E:/tmp/pages", "seed_jsonl_path": "E:/tmp/seed.jsonl"},
+        runtime_root="/data1/emperor-evaluation/runtime/active",
+    )
+    assert job["output_root"] == "/data1/emperor-evaluation/runtime/active/object_source_runs/oscache-abc"
+    assert job["page_cache_root"] == "/data1/emperor-evaluation/runtime/active/source_pages"
+    assert job["seed_jsonl_path"] == "/data1/emperor-evaluation/runtime/active/embedded_seeds/oscache-abc.jsonl"
+
+
+def test_merge_query_profile_source_hints_connects_object_to_biography(tmp_path) -> None:
+    profile = tmp_path / "profiles.jsonl"
+    profile.write_text(json.dumps({
+        "query_profile_id": "Q-1", "person": "朱元璋",
+        "source_targets": ["明史 冯胜传、傅友德传"],
+        "object_layers": {"negative_or_reversal_objects": ["冯胜"]},
+    }, ensure_ascii=False) + "\n", encoding="utf-8")
+    rows, report = tool.merge_query_profile_source_hints(
+        [{"name": "冯胜", "target_emperors": ["朱元璋"], "source_hints": []}], profile_path=profile
+    )
+    assert report["matched_objects"] == ["冯胜"]
+    assert rows[0]["source_hints"]
+    assert rows[0]["query_profile_id"] == "Q-1"

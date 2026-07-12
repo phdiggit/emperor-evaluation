@@ -26,6 +26,26 @@ class TeamBuildingObjectPoolError(ValueError):
     pass
 
 
+TEAM_PERSON_DECAY = Decimal("0.5")
+NEGATIVE_SEVERITY_VALUES = {
+    "minor": Decimal("0.20"),
+    "material": Decimal("0.45"),
+    "major": Decimal("0.80"),
+    "historic": Decimal("1.20"),
+}
+NEGATIVE_CLASS_RELEVANCE = {
+    "sycophant": Decimal("0.80"),
+    "favorite": Decimal("0.70"),
+    "power_abuser": Decimal("1.00"),
+    "framer": Decimal("1.00"),
+    "extractive_official": Decimal("0.90"),
+    "cruel_official": Decimal("0.90"),
+    "incompetent_harmful": Decimal("1.00"),
+    "traitorous_actor": Decimal("0.80"),
+    "mixed_or_disputed": Decimal("0.50"),
+}
+
+
 def text(value: Any) -> str:
     return str(value or "").strip()
 
@@ -72,6 +92,7 @@ def fetch_people(cur: Any, *, emperors: Sequence[str]) -> list[dict[str, Any]]:
         """
         select rt.emperor_name,o.id as object_id,o.canonical_name,pp.talent_grade::text,
                pp.talent_grade_version,pp.readiness_status::text,
+               pp.negative_talent_class::text,pp.negative_talent_severity::text,
                array_agg(distinct rt.id order by rt.id) as source_target_ids,
                array_agg(distinct tob.id order by tob.id) as target_object_ids
           from retrieval_v3.retrieval_targets rt
@@ -82,7 +103,8 @@ def fetch_people(cur: Any, *, emperors: Sequence[str]) -> list[dict[str, Any]]:
            and rt.emperor_name=any(%s::text[])
            and tob.object_role<>'target_emperor'
            and o.object_type='person' and o.identity_status='active'
-         group by rt.emperor_name,o.id,o.canonical_name,pp.talent_grade,pp.talent_grade_version,pp.readiness_status
+         group by rt.emperor_name,o.id,o.canonical_name,pp.talent_grade,pp.talent_grade_version,pp.readiness_status,
+                  pp.negative_talent_class,pp.negative_talent_severity
          order by rt.emperor_name,o.canonical_name,o.id
         """,
         (list(emperors),),
@@ -115,6 +137,18 @@ def option(options: Mapping[str, Mapping[str, Mapping[str, Any]]], factor: str, 
     raise TeamBuildingObjectPoolError(f"unsupported {factor} option: {code}")
 
 
+def density_signal(values: Sequence[Decimal], *, decay: Decimal = TEAM_PERSON_DECAY) -> tuple[Decimal, list[dict[str, str]]]:
+    ordered = sorted((quant(abs(value)) for value in values if value), reverse=True)
+    detail: list[dict[str, str]] = []
+    total = Decimal("0")
+    for rank, value in enumerate(ordered, start=1):
+        weight = Decimal(str(rank)) ** -decay
+        weighted = value * weight
+        total += weighted
+        detail.append({"rank": str(rank), "value": str(value), "weight": str(quant(weight, "0.000001")), "weighted_value": str(quant(weighted))})
+    return quant(total), detail
+
+
 def build_clusters(
     *, people: Sequence[Mapping[str, Any]], targets: Mapping[str, Mapping[str, Any]],
     options: Mapping[str, Mapping[str, Mapping[str, Any]]], choices: Mapping[str, Mapping[str, str]],
@@ -132,7 +166,8 @@ def build_clusters(
             raise TeamBuildingObjectPoolError(f"{emperor}: missing team factor choices")
         seen_ids: set[int] = set()
         components: list[dict[str, Any]] = []
-        side_scores: dict[str, Decimal] = {}
+        positive_scores: dict[str, Decimal] = {}
+        negative_scores: dict[str, Decimal] = {}
         grade_counts: Counter[str] = Counter()
         duplicate_target_rows = 0
         for raw in members:
@@ -157,7 +192,15 @@ def build_clusters(
             if talent is None:
                 raise TeamBuildingObjectPoolError(f"missing talent option for {talent_label}")
             value = quant(Decimal(str(talent["value_num"])))
-            side_scores[str(object_id)] = value
+            positive_scores[str(object_id)] = value
+            negative_class = text(raw.get("negative_talent_class"))
+            negative_severity = text(raw.get("negative_talent_severity"))
+            negative_value = quant(
+                NEGATIVE_SEVERITY_VALUES.get(negative_severity, Decimal("0"))
+                * NEGATIVE_CLASS_RELEVANCE.get(negative_class, Decimal("0"))
+            )
+            if negative_value:
+                negative_scores[str(object_id)] = negative_value
             grade_counts[grade] += 1
             source_target_ids = list(raw.get("source_target_ids") or [])
             target_object_ids = list(raw.get("target_object_ids") or [])
@@ -166,21 +209,28 @@ def build_clusters(
                 "object_id": object_id,"object_name": text(raw.get("canonical_name")),
                 "talent_grade": grade,"talent_grade_version": text(raw.get("talent_grade_version")),
                 "talent_quality_factor": str(value),"talent_quality_option_code": text(talent.get("option_code")),
+                "negative_talent_class": negative_class,"negative_talent_severity": negative_severity,
+                "negative_team_contribution": str(negative_value),
                 "source_target_ids": source_target_ids,"target_object_ids": target_object_ids,
             })
         choice = choices[emperor]
         role = option(options,"role_complementarity_factor",text(choice.get("role_complementarity_factor")))
         stability = option(options,"long_term_stability_factor",text(choice.get("long_term_stability_factor")))
-        pool = side_signal(list(side_scores.values()))
-        positive = quant(pool * Decimal(str(role["value_num"])) * Decimal(str(stability["value_num"])))
+        positive_pool, positive_density = density_signal(list(positive_scores.values()))
+        negative_pool, negative_density = density_signal(list(negative_scores.values()))
+        positive = quant(positive_pool * Decimal(str(role["value_num"])) * Decimal(str(stability["value_num"])))
+        negative = quant(negative_pool * Decimal(str(role["value_num"])) * Decimal(str(stability["value_num"])))
         target = targets[emperor]
         calc_detail = {
             "source": "retrieval_v3_team_building_object_pool",
             "aggregation_family": "object_pool",
             "item_code": "I5B","rule_code": "team_building","formula_code": formula_code,
-            "team_formula": "sum(unique canonical person talent_quality_factor) * role_complementarity_factor * long_term_stability_factor",
+            "team_formula": "rank_decay(unique canonical person contributions, decay=0.5) * role_complementarity_factor * long_term_stability_factor, aggregated separately by side",
             "canonical_person_count": len(components),"duplicate_target_rows_collapsed": duplicate_target_rows,
-            "talent_grade_counts": dict(sorted(grade_counts.items())),"team_pool_value": str(pool),
+            "talent_grade_counts": dict(sorted(grade_counts.items())),
+            "team_pool_values": {"positive": str(positive_pool), "negative": str(negative_pool)},
+            "person_density_decay": str(TEAM_PERSON_DECAY),
+            "person_density_detail": {"positive": positive_density, "negative": negative_density},
             "team_factor_values": {
                 "role_complementarity_factor": str(role["value_num"]),
                 "long_term_stability_factor": str(stability["value_num"]),
@@ -191,14 +241,18 @@ def build_clusters(
                 "basis": text(choice.get("basis")),
             },
             "team_object_components": components,
-            "object_side_scores": {"positive": {key: str(value) for key,value in side_scores.items()},"negative": {}},
-            "positive_signal": str(positive),"negative_signal": "0.000",
+            "object_side_scores": {
+                "positive": {key: str(value) for key,value in positive_scores.items()},
+                "negative": {key: str(value) for key,value in negative_scores.items()},
+            },
+            "negative_signal_mapping_version": "negative-profile-team-v1",
+            "positive_signal": str(positive),"negative_signal": str(negative),
         }
         clusters.append({
             **dict(target),"rule_code": "team_building","formula_code": formula_code,
-            "positive_signal": positive,"negative_signal": Decimal("0"),
+            "positive_signal": positive,"negative_signal": negative,
             "action_counts": {"score": len(components),"supporting_only": 0,"exclude": 0},
-            "object_side_scores": {"positive": side_scores,"negative": {}},"calc_detail": calc_detail,
+            "object_side_scores": {"positive": positive_scores,"negative": negative_scores},"calc_detail": calc_detail,
         })
     return clusters
 

@@ -1638,3 +1638,9 @@ def test_cli_reports_missing_dsn_without_traceback(tmp_path: Path) -> None:
     assert completed.returncode == 2
     assert "missing PostgreSQL DSN env var: OBJECT_SOURCE_CACHE_TEST_MISSING_DSN" in completed.stderr
     assert "Traceback" not in completed.stderr
+
+
+def test_terminal_outcome_terms_from_discovery_summary_are_search_anchors_only() -> None:
+    terms = tool.terminal_outcome_terms_from_text("晚年被下狱，随后赐死并牵连亲族。")
+    assert "赐死" in terms
+    assert "下狱" in terms

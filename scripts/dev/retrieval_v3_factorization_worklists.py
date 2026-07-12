@@ -1078,7 +1078,7 @@ def tolerate_talent_factor_issue(
     quote = source_quote_text(material)
     if factor_name == "handling_severity":
         mass_harm = any(term in quote for term in (
-            "株连", "株連", "连坐", "連坐", "族诛", "族誅", "夷族", "尽诛", "盡誅",
+            "株连", "株連", "连坐", "連坐", "族诛", "族誅", "族之", "宗族", "夷族", "尽诛", "盡誅",
             "七十余人", "七十餘人", "万人", "萬人", "千人", "百人", "三万余人", "三萬餘人", "一万五千人", "一萬五千人",
             "夷灭", "夷滅", "不可胜数", "不可勝數", "相继尽", "相繼盡", "元功宿将", "元功宿將",
             "群臣", "功臣集团", "功臣集團",
@@ -1086,8 +1086,6 @@ def tolerate_talent_factor_issue(
         ))
         if value >= Decimal("3.2") and not mass_harm:
             return "catastrophic_severity_without_group_or_ecology_harm"
-        if value >= Decimal("2.6") and not mass_harm:
-            return "systemic_severity_without_mass_or_systemic_harm"
     if factor_name == "target_fault_factor" and value == Decimal("0.9"):
         disputed = any(term in quote for term in (
             "未具", "未坐实", "未坐實", "无验", "無驗", "无实", "無實", "不实", "不實",

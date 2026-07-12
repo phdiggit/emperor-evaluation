@@ -3,13 +3,18 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import uuid
 from pathlib import Path
 from typing import Any, Mapping, Sequence
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn
 from scripts.dev.retrieval_v3_pg_schema import schema_cursor
 from scripts.dev import retrieval_v3_object_source_cache_seed as seed_tool
+from scripts.dev import retrieval_v3_object_source_cache as source_cache
 from scripts.dev import retrieval_v3_object_source_cache_worker as worker
 
 
@@ -17,7 +22,13 @@ class IntakeOrchestratorError(RuntimeError):
     pass
 
 
+ROOT = Path(__file__).resolve().parents[2]
 INTAKE_MODES = ("ensure", "supplement", "refresh")
+DEFAULT_QUERY_PROFILE_JSONL = ROOT / "data" / "query_profile_batches" / "i5b_layered_retrieval_profiles_20260630.jsonl"
+WIKIPEDIA_SUMMARY_ENDPOINT = (
+    "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1"
+    "&format=json&formatversion=2&titles={title}"
+)
 
 
 def text(value: Any) -> str:
@@ -52,6 +63,65 @@ def new_person_seed(name: str, *, target_emperors: Sequence[str], is_emperor: bo
     }
 
 
+def fetch_wikipedia_summary(name: str, *, timeout_seconds: int = 15) -> dict[str, Any]:
+    url = WIKIPEDIA_SUMMARY_ENDPOINT.format(title=quote(text(name), safe=""))
+    request = Request(url, headers={"User-Agent": "emperor-evaluation-retrieval-v3/1.0"})
+    try:
+        with urlopen(request, timeout=timeout_seconds) as response:  # noqa: S310 - fixed HTTPS endpoint
+            payload = json.loads(response.read().decode("utf-8"))
+    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as exc:
+        return {"status": "unavailable", "url": url, "error": type(exc).__name__}
+    pages = ((payload.get("query") or {}).get("pages") or []) if isinstance(payload, Mapping) else []
+    page = pages[0] if pages and isinstance(pages[0], Mapping) else {}
+    extract = text(page.get("extract"))
+    canonical_title = text(page.get("title")) or text(name)
+    return {
+        "status": "found" if extract else "empty",
+        "url": "https://zh.wikipedia.org/wiki/" + quote(canonical_title.replace(" ", "_"), safe="_"),
+        "title": canonical_title,
+        "extract": extract,
+    }
+
+
+def enrich_wikipedia_summary_leads(
+    seeds: Sequence[Mapping[str, Any]], *, fetcher: Any = fetch_wikipedia_summary
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    enriched: list[dict[str, Any]] = []
+    by_status: dict[str, int] = {}
+    with_terminal_leads: list[str] = []
+    for raw in seeds:
+        row = dict(raw)
+        result = dict(fetcher(text(row.get("name"))))
+        status = text(result.get("status")) or "unknown"
+        by_status[status] = by_status.get(status, 0) + 1
+        discovery_title = text(result.get("title"))
+        if discovery_title and seed_tool.normalized_name(discovery_title) != seed_tool.normalized_name(row.get("name")):
+            row["aliases"] = seed_tool.unique_strings([*(row.get("aliases") or []), discovery_title])
+            row["expanded_aliases"] = seed_tool.unique_strings([*(row.get("expanded_aliases") or []), discovery_title])
+        terms = source_cache.terminal_outcome_terms_from_text(result.get("extract"))
+        if terms:
+            row["summary_leads"] = [{
+                "lead_terms": terms,
+                "source_kind": "wikipedia_discovery_summary",
+                "source_url": text(result.get("url")),
+                "evidence_allowed": False,
+            }]
+            with_terminal_leads.append(text(row.get("name")))
+        row["wikipedia_discovery"] = {
+            "status": status,
+            "title": discovery_title,
+            "url": text(result.get("url")),
+            "terminal_lead_count": len(terms),
+            "evidence_allowed": False,
+        }
+        enriched.append(row)
+    return enriched, {
+        "enabled": True,
+        "by_status": dict(sorted(by_status.items())),
+        "objects_with_terminal_leads": sorted(with_terminal_leads),
+    }
+
+
 def intake_build_options(*, mode: str, request_key: str = "") -> tuple[dict[str, Any], str]:
     if mode not in INTAKE_MODES:
         raise IntakeOrchestratorError(f"unsupported intake mode: {mode}")
@@ -63,6 +133,42 @@ def intake_build_options(*, mode: str, request_key: str = "") -> tuple[dict[str,
         "intake_request_key": effective_request_key,
         "cache_refresh": mode == "refresh",
     }, effective_request_key
+
+
+def apply_worker_runtime_root(job: Mapping[str, Any], *, runtime_root: str) -> dict[str, Any]:
+    root = text(runtime_root).rstrip("/\\")
+    if not root:
+        return dict(job)
+    normalized = dict(job)
+    job_code = text(normalized.get("job_code")).lower()
+    normalized["output_root"] = f"{root}/object_source_runs/{job_code}"
+    normalized["page_cache_root"] = f"{root}/source_pages"
+    normalized["seed_jsonl_path"] = f"{root}/embedded_seeds/{job_code}.jsonl"
+    return normalized
+
+
+def merge_query_profile_source_hints(
+    seeds: Sequence[Mapping[str, Any]], *, profile_path: Path | None
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    if profile_path is None or not profile_path.exists():
+        return [dict(row) for row in seeds], {"enabled": False, "matched_objects": []}
+    by_name: dict[str, dict[str, Any]] = {}
+    emperors = sorted({text(owner) for row in seeds for owner in row.get("target_emperors") or [] if text(owner)})
+    for emperor in emperors:
+        for profile_seed in worker.profile_seed_rows(profile_path=profile_path, emperor_name=emperor):
+            by_name[seed_tool.normalized_name(profile_seed.get("name") or profile_seed.get("person_name"))] = profile_seed
+    merged: list[dict[str, Any]] = []
+    matched: list[str] = []
+    for raw in seeds:
+        row = dict(raw)
+        profile_seed = by_name.get(seed_tool.normalized_name(row.get("name")))
+        if profile_seed:
+            row["source_hints"] = seed_tool.unique_strings([*(row.get("source_hints") or []), *(profile_seed.get("source_hints") or [])])
+            row["source_target_refs"] = seed_tool.unique_strings([*(row.get("source_target_refs") or []), *(profile_seed.get("source_target_refs") or [])])
+            row["query_profile_id"] = text(profile_seed.get("query_profile_id"))
+            matched.append(text(row.get("name")))
+        merged.append(row)
+    return merged, {"enabled": True, "matched_objects": sorted(matched), "profile_path": str(profile_path)}
 
 
 def select_intake_seeds(
@@ -245,11 +351,21 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dsn-env", default="EMPEROR_EVAL_RETRIEVAL_V3_DSN")
     parser.add_argument("--pg-schema", default="retrieval_v3")
     parser.add_argument("--execute", action="store_true", help="Enqueue the object-source job; otherwise only write the plan.")
+    parser.add_argument("--no-wikipedia-summary-leads", action="store_true")
+    parser.add_argument("--query-profile-jsonl", type=Path, default=DEFAULT_QUERY_PROFILE_JSONL)
+    parser.add_argument(
+        "--worker-runtime-root",
+        default="",
+        help="Persist worker-native paths while retaining embedded seed rows.",
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.env_file is not None:
+        load_env_file(args.env_file)
+    worker_runtime_root = args.worker_runtime_root or os.environ.get("EMPEROR_EVAL_RETRIEVAL_V3_WORKER_RUNTIME_ROOT", "")
     seeds = seed_tool.rows_from_db(
         env_file=args.env_file,
         dsn_env=args.dsn_env,
@@ -260,6 +376,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         seeds, object_names=args.object, emperor_names=args.emperor,
         allow_new=True, target_emperors=args.target_emperor,
     )
+    selected, report["query_profile_sources"] = merge_query_profile_source_hints(
+        selected, profile_path=args.query_profile_jsonl
+    )
+    if not args.no_wikipedia_summary_leads:
+        selected, report["wikipedia_discovery"] = enrich_wikipedia_summary_leads(selected)
+    else:
+        report["wikipedia_discovery"] = {"enabled": False}
     write_jsonl(args.seed_jsonl, selected)
     build_options, request_key = intake_build_options(mode=args.mode, request_key=args.request_key)
     job = worker.job_from_seed(
@@ -269,6 +392,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         priority=args.priority,
         build_options=build_options,
     )
+    job = apply_worker_runtime_root(job, runtime_root=worker_runtime_root)
     report["intake_mode"] = args.mode
     report["request_key"] = request_key
     report["mode_effect"] = {
@@ -279,8 +403,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     report["job"] = job
     report["execute"] = bool(args.execute)
     if args.execute:
-        if args.env_file is not None:
-            load_env_file(args.env_file)
         report["enqueue"] = worker.enqueue_job(
             dsn=resolve_dsn(args.dsn_env), job=job, schema_name=args.pg_schema
         )
