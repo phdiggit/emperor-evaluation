@@ -6,6 +6,10 @@ from typing import Any, Mapping
 
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
 from emperor_v4.contracts.assertion import AssertionDraft
+from emperor_v4.domain.episode import (
+    build_episode_packet,
+    group_episode_candidates_with_hints,
+)
 
 
 FORBIDDEN_KERNEL_KEYS = frozenset(
@@ -83,18 +87,52 @@ def _assertion_from_row(row: Mapping[str, Any]) -> AssertionDraft:
     )
 
 
-def run_blind_holdout(payload: Mapping[str, Any]) -> dict[str, Any]:
-    """Kernel-only entrypoint. It has no parameter through which Gold can enter."""
+def _canonical_input_hash(payload: Mapping[str, Any]) -> str:
+    canonical = json.dumps(
+        payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
-    validate_blind_kernel_input(payload)
-    assertions = tuple(_assertion_from_row(row) for row in payload["assertions"])
-    packets = reconcile_episode_candidates(assertions)
+
+def _render_run_report(
+    payload: Mapping[str, Any],
+    assertions: tuple[AssertionDraft, ...],
+    packets: tuple,
+    *,
+    execution_mode: str,
+    model_call_count: int,
+    merge_method: str,
+    semantic_review: Mapping[str, Any] | None = None,
+    review_by_assertion: Mapping[str, Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
     canonical_names = {
         item["canonical_name"]: item["person_id"]
         for item in payload.get("canonical_people", [])
     }
     packet_rows = []
     for packet in packets:
+        packet_review_rows = []
+        seen_review_codes = set()
+        for link in packet.assertion_links:
+            review_row = (review_by_assertion or {}).get(link.assertion_ref)
+            review_code = (review_row or {}).get("review_group_code")
+            if review_row and review_code not in seen_review_codes:
+                seen_review_codes.add(review_code)
+                packet_review_rows.append(review_row)
+        review_identity_blockers = sorted(
+            {
+                str(item)
+                for row in packet_review_rows
+                for item in row.get("identity_blockers") or ()
+            }
+        )
+        review_evidence_conflicts = sorted(
+            {
+                str(item)
+                for row in packet_review_rows
+                for item in row.get("evidence_conflicts") or ()
+            }
+        )
         unresolved = sorted(
             {
                 participant.person_ref
@@ -131,30 +169,42 @@ def run_blind_holdout(payload: Mapping[str, Any]) -> dict[str, Any]:
                     }
                     for link in packet.assertion_links
                 ],
-                "conflicts": list(packet.conflicts),
+                "conflicts": sorted(
+                    {*packet.conflicts, *review_evidence_conflicts}
+                ),
                 "uncertainties": list(packet.uncertainties),
-                "identity_blockers": unresolved,
+                "identity_blockers": sorted(
+                    {*unresolved, *review_identity_blockers}
+                ),
                 "human_review_required": bool(
-                    unresolved or packet.conflicts or packet.uncertainties
+                    unresolved
+                    or packet.conflicts
+                    or packet.uncertainties
+                    or review_identity_blockers
+                    or review_evidence_conflicts
                 ),
                 "merge_split_rationale": {
-                    "method": "deterministic_structured_candidate_key_v1",
+                    "method": merge_method,
                     "gold_hint_used": False,
+                    "review_decisions": [
+                        {
+                            "review_group_code": row.get("review_group_code"),
+                            "recommendation": row.get("recommendation"),
+                            "confidence": row.get("confidence"),
+                            "rationale": row.get("merge_split_rationale"),
+                        }
+                        for row in packet_review_rows
+                    ],
                 },
             }
         )
 
-    canonical_input = json.dumps(
-        payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    )
-    return {
+    report = {
         "schema_version": 1,
         "run_code": payload.get("dataset_code"),
         "status": "blind_candidates_proposed",
-        "execution_mode": "blind_no_gold_no_model_no_network_no_write",
-        "input_sha256": hashlib.sha256(
-            canonical_input.encode("utf-8")
-        ).hexdigest(),
+        "execution_mode": execution_mode,
+        "input_sha256": _canonical_input_hash(payload),
         "input_assertion_count": len(assertions),
         "input_source_passage_count": len(payload["source_passages"]),
         "candidate_packet_count": len(packet_rows),
@@ -170,11 +220,126 @@ def run_blind_holdout(payload: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "safety": {
             "gold_fields_detected": 0,
-            "model_call_count": 0,
+            "model_call_count": model_call_count,
             "network_request_count": 0,
             "database_write_count": 0,
         },
     }
+    if semantic_review is not None:
+        report["semantic_review"] = dict(semantic_review)
+    report["human_review_worklist"] = [
+        {
+            "candidate_id": row["candidate_id"],
+            "identity_blockers": row["identity_blockers"],
+            "evidence_conflicts": row["conflicts"],
+            "uncertainties": row["uncertainties"],
+        }
+        for row in report["packets"]
+        if row["human_review_required"]
+    ]
+    return report
+
+
+def run_blind_holdout(payload: Mapping[str, Any]) -> dict[str, Any]:
+    """Kernel-only entrypoint. It has no parameter through which Gold can enter."""
+
+    validate_blind_kernel_input(payload)
+    assertions = tuple(_assertion_from_row(row) for row in payload["assertions"])
+    packets = reconcile_episode_candidates(assertions)
+    return _render_run_report(
+        payload,
+        assertions,
+        packets,
+        execution_mode="blind_no_gold_no_model_no_network_no_write",
+        model_call_count=0,
+        merge_method="deterministic_structured_candidate_key_v1",
+    )
+
+
+def run_blind_holdout_with_semantic_review(
+    payload: Mapping[str, Any],
+    review: Mapping[str, Any],
+    *,
+    review_cache_hit: bool = False,
+) -> dict[str, Any]:
+    """Apply a model review frozen without Gold access; review IDs never enter identity."""
+
+    validate_blind_kernel_input(payload)
+    violations = [
+        f"{path}.{key}"
+        for path, key in _walk_keys(review)
+        if key.casefold() in FORBIDDEN_KERNEL_KEYS
+    ]
+    if violations:
+        raise ValueError(f"semantic review 包含 Gold/oracle 字段: {violations}")
+    if review.get("status") != "completed_before_gold_opened":
+        raise ValueError("semantic review 未在 Gold 打开前完成")
+    if review.get("reviewed_without_gold_access") is not True:
+        raise ValueError("semantic review 未声明 Gold 隔离")
+    input_hash = _canonical_input_hash(payload)
+    if review.get("blind_input_sha256") != input_hash:
+        raise ValueError("semantic review 与 blind input hash 不一致")
+    if review.get("model_call_count") != 1:
+        raise ValueError("semantic review 首次调用预算必须恰好为 1")
+    if not review.get("cache_key"):
+        raise ValueError("semantic review 缺少稳定 cache key")
+
+    assertions = tuple(_assertion_from_row(row) for row in payload["assertions"])
+    assertion_codes = {item.assertion_code for item in assertions}
+    hints = {}
+    review_by_assertion = {}
+    group_codes = set()
+    for group in review.get("review_groups") or ():
+        group_code = str(group.get("review_group_code") or "")
+        if not group_code or group_code in group_codes:
+            raise ValueError("semantic review group code 缺失或重复")
+        group_codes.add(group_code)
+        recommendation = group.get("recommendation")
+        refs = tuple(group.get("assertion_refs") or ())
+        if recommendation not in {"merge", "keep_separate"} or not refs:
+            raise ValueError(f"semantic review group 非法: {group_code}")
+        if recommendation == "merge" and len(refs) < 2:
+            raise ValueError(f"merge review group 至少需要两条 assertion: {group_code}")
+        for assertion_ref in refs:
+            if assertion_ref in hints:
+                raise ValueError(f"semantic review assertion 重复归组: {assertion_ref}")
+            if assertion_ref not in assertion_codes:
+                raise ValueError(f"semantic review 引用未知 assertion: {assertion_ref}")
+            if recommendation == "merge":
+                hints[assertion_ref] = group_code
+            else:
+                suffix = hashlib.sha256(assertion_ref.encode("utf-8")).hexdigest()[:12]
+                hints[assertion_ref] = f"{group_code}:{suffix}"
+            review_by_assertion[assertion_ref] = group
+    for assertion_ref in review.get("unassigned_assertion_refs") or ():
+        if assertion_ref in hints or assertion_ref not in assertion_codes:
+            raise ValueError(f"semantic review unassigned assertion 非法: {assertion_ref}")
+        suffix = hashlib.sha256(assertion_ref.encode("utf-8")).hexdigest()[:12]
+        hints[assertion_ref] = f"UNASSIGNED:{suffix}"
+    if set(hints) != assertion_codes:
+        raise ValueError(
+            "semantic review 未完整覆盖 blind assertions: "
+            f"missing={sorted(assertion_codes - set(hints))}"
+        )
+
+    groups = group_episode_candidates_with_hints(assertions, hints)
+    packets = tuple(build_episode_packet(group) for group in groups)
+    return _render_run_report(
+        payload,
+        assertions,
+        packets,
+        execution_mode="blind_semantic_review_no_gold_no_network_no_write",
+        model_call_count=0 if review_cache_hit else int(review.get("model_call_count") or 0),
+        merge_method="structured_episode_merge_review_v1",
+        semantic_review={
+            "review_code": review.get("review_code"),
+            "reviewed_by": review.get("reviewed_by"),
+            "cache_key": review.get("cache_key"),
+            "review_group_count": len(review.get("review_groups") or ()),
+            "cache_hit": review_cache_hit,
+        },
+        review_by_assertion=review_by_assertion,
+    )
 
 
 def score_blind_holdout(
@@ -187,8 +352,11 @@ def score_blind_holdout(
         raise ValueError("sealed Gold 与 blind input hash 不一致")
     if sealed_gold.get("status") != "frozen":
         raise ValueError("sealed Gold 尚未冻结")
-    if sealed_gold.get("frozen_without_candidate_access") is not True:
-        raise ValueError("sealed Gold 未声明在隔离 candidate 的条件下冻结")
+    if not (
+        sealed_gold.get("frozen_without_candidate_access") is True
+        or sealed_gold.get("frozen_without_semantic_review_access") is True
+    ):
+        raise ValueError("sealed Gold 未声明在隔离 candidate/review 的条件下冻结")
     if sealed_gold.get("candidate_decisions") is not None:
         raise ValueError("sealed Gold 不得包含 candidate_decisions 循环裁定")
 

@@ -15,6 +15,7 @@ from emperor_v4.evaluation.oracle_acceptance import (
 )
 from emperor_v4.evaluation.blind_holdout import (
     run_blind_holdout,
+    run_blind_holdout_with_semantic_review,
     score_blind_holdout,
 )
 from emperor_v4.evaluation.assertion_handoff import (
@@ -138,6 +139,11 @@ def _parser() -> argparse.ArgumentParser:
     blind_run = subparsers.add_parser("blind-holdout-run")
     blind_run.add_argument("--input", type=Path, required=True)
     blind_run.add_argument("--output", type=Path)
+    reviewed_run = subparsers.add_parser("blind-holdout-run-reviewed")
+    reviewed_run.add_argument("--input", type=Path, required=True)
+    reviewed_run.add_argument("--semantic-review", type=Path, required=True)
+    reviewed_run.add_argument("--semantic-review-cache-hit", action="store_true")
+    reviewed_run.add_argument("--output", type=Path)
     blind_score = subparsers.add_parser("blind-holdout-score")
     blind_score.add_argument("--candidates", type=Path, required=True)
     blind_score.add_argument("--sealed-gold", type=Path, required=True)
@@ -399,6 +405,12 @@ def main() -> int:
     elif args.command == "blind-holdout-run":
         report = run_blind_holdout(
             json.loads(args.input.read_text(encoding="utf-8"))
+        )
+    elif args.command == "blind-holdout-run-reviewed":
+        report = run_blind_holdout_with_semantic_review(
+            json.loads(args.input.read_text(encoding="utf-8")),
+            yaml.safe_load(args.semantic_review.read_text(encoding="utf-8")),
+            review_cache_hit=args.semantic_review_cache_hit,
         )
     elif args.command == "blind-holdout-score":
         report = score_blind_holdout(

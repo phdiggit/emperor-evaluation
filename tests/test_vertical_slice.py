@@ -23,6 +23,7 @@ from emperor_v4.evaluation.oracle_acceptance import (
 )
 from emperor_v4.evaluation.blind_holdout import (
     run_blind_holdout,
+    run_blind_holdout_with_semantic_review,
     score_blind_holdout,
 )
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
@@ -352,3 +353,91 @@ def test_blind_holdout_rejects_missing_source_passage_lineage():
 
     with pytest.raises(ValueError, match="passage lineage 不存在"):
         run_blind_holdout(blind_input)
+
+
+def test_semantic_review_is_gold_isolated_cached_and_review_id_neutral():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    input_hash = run_blind_holdout(blind_input)["input_sha256"]
+
+    def review(prefix: str) -> dict:
+        return {
+            "schema_version": 1,
+            "review_code": "SMOKE-REVIEW",
+            "status": "completed_before_gold_opened",
+            "blind_input_sha256": input_hash,
+            "reviewed_without_gold_access": True,
+            "reviewed_by": "test-reviewer",
+            "model_call_count": 1,
+            "cache_key": "smoke-cache-v1",
+            "review_groups": [
+                {
+                    "review_group_code": f"{prefix}-MERGE",
+                    "recommendation": "merge",
+                    "assertion_refs": ["BLIND-A1", "BLIND-A2"],
+                    "confidence": 0.8,
+                    "merge_split_rationale": "同一授权与结果链",
+                    "identity_blockers": ["待核同名人物"],
+                    "evidence_conflicts": ["结果措辞冲突"],
+                },
+                {
+                    "review_group_code": f"{prefix}-A3",
+                    "recommendation": "keep_separate",
+                    "assertion_refs": ["BLIND-A3"],
+                },
+                {
+                    "review_group_code": f"{prefix}-A4",
+                    "recommendation": "keep_separate",
+                    "assertion_refs": ["BLIND-A4"],
+                },
+            ],
+            "unassigned_assertion_refs": [],
+        }
+
+    first = run_blind_holdout_with_semantic_review(blind_input, review("FIRST"))
+    renamed = run_blind_holdout_with_semantic_review(blind_input, review("RENAMED"))
+    cached = run_blind_holdout_with_semantic_review(
+        blind_input, review("FIRST"), review_cache_hit=True
+    )
+
+    assert first["candidate_packet_count"] == 3
+    assert first["safety"]["model_call_count"] == 1
+    assert cached["safety"]["model_call_count"] == 0
+    assert first["semantic_review"]["cache_hit"] is False
+    assert cached["semantic_review"]["cache_hit"] is True
+    reviewed_packet = next(
+        packet
+        for packet in first["packets"]
+        if len(packet["assertion_links"]) == 2
+    )
+    assert reviewed_packet["merge_split_rationale"]["review_decisions"][0][
+        "rationale"
+    ] == "同一授权与结果链"
+    assert reviewed_packet["identity_blockers"] == ["待核同名人物"]
+    assert reviewed_packet["conflicts"] == ["结果措辞冲突"]
+    assert len(first["human_review_worklist"]) == 1
+    assert {
+        packet["semantic_fingerprint"] for packet in first["packets"]
+    } == {
+        packet["semantic_fingerprint"] for packet in renamed["packets"]
+    }
+
+
+def test_semantic_review_rejects_gold_fields():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    review = {
+        "status": "completed_before_gold_opened",
+        "reviewed_without_gold_access": True,
+        "blind_input_sha256": run_blind_holdout(blind_input)["input_sha256"],
+        "gold_boundary": "forbidden",
+    }
+
+    with pytest.raises(ValueError, match="Gold/oracle"):
+        run_blind_holdout_with_semantic_review(blind_input, review)
