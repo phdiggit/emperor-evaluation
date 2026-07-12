@@ -83,4 +83,19 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
             "appointment_delegation_minimum_field_packet_count"
         ]
     )
+    assert report["stage_failure_attribution"] == {
+        "status": "review_ready",
+        "source_discovery_missing_document_count": 0,
+        "source_segmentation_confirmed_miss_count": 0,
+        "assertion_extractor_wrong_event_selection_count": 1,
+        "identity_participant_underextraction_count": 4,
+        "assertion_chain_incomplete_count": 6,
+        "reconciler_unassigned_new_assertion_count": 0,
+        "projection_gate_pending_packet_count": 8,
+        "diagnostic_notes": [
+            "房玄龄 source passage 已含“独先收人物，致之幕府”，当前错误属于断言选择而非史源缺失。",
+            "参与者缺口与断言链缺口允许重叠，不能相加作为失败总数。",
+            "所有 packet 仍为 proposed，规则投影尚未执行。",
+        ],
+    }
     assert report["episode_recall"]["full_match_episode_count"] == 0

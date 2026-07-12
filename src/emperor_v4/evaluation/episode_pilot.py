@@ -347,6 +347,9 @@ def evaluate_episode_pilot(
         "status": "not_computable_missing_lineage_or_linkage",
         "candidate_packet_count": None,
     }
+    stage_failure_attribution: dict[str, Any] = {
+        "status": "not_computable_missing_reconciled_packets",
+    }
     if linkage is not None and source_supplement is not None:
         boundary_hints: dict[str, str] = {}
         reconciled_assertions = []
@@ -488,6 +491,35 @@ def evaluate_episode_pilot(
                 "只证明 AssertionDraft 可组成可审计 packet，不计入正式 episode recall。"
             ),
         }
+        stage_failure_attribution = {
+            "status": "review_ready",
+            "source_discovery_missing_document_count": len(
+                [row for row in required_rows if not row["matched"]]
+            ),
+            "source_segmentation_confirmed_miss_count": 0,
+            "assertion_extractor_wrong_event_selection_count": sum(
+                item.get("decision") == "no_boundary_support"
+                for item in (assertion_gold_coverage or {}).get("assessments", [])
+            ),
+            "identity_participant_underextraction_count": sum(
+                item["participant_coverage"] != 1.0 for item in packet_assessments
+            ),
+            "assertion_chain_incomplete_count": sum(
+                item.get("decision") == "partial_boundary_support"
+                for item in (assertion_gold_coverage or {}).get("assessments", [])
+            ),
+            "reconciler_unassigned_new_assertion_count": len(
+                unassigned_new_assertions
+            ),
+            "projection_gate_pending_packet_count": sum(
+                not item["human_review_gate_ready"] for item in packet_assessments
+            ),
+            "diagnostic_notes": [
+                "房玄龄 source passage 已含“独先收人物，致之幕府”，当前错误属于断言选择而非史源缺失。",
+                "参与者缺口与断言链缺口允许重叠，不能相加作为失败总数。",
+                "所有 packet 仍为 proposed，规则投影尚未执行。",
+            ],
+        }
 
     return {
         "report_schema_version": 1,
@@ -513,6 +545,7 @@ def evaluate_episode_pilot(
         "accepted_episode_precision": accepted_precision,
         "assertion_boundary_coverage": assertion_boundary_coverage,
         "lineage_assisted_reconciliation": lineage_assisted_reconciliation,
+        "stage_failure_attribution": stage_failure_attribution,
         "merge_split": merge_split,
         "linkage_integrity": linkage_integrity,
         "consumption_integrity": {
