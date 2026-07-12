@@ -1,0 +1,438 @@
+schema_version: 1
+dataset_code: blind_holdout_v2
+status: frozen
+frozen_without_candidate_access: true
+candidate_input_sha256: 855be71e875a796828d9411282d9f9605eefd1d75f5d2cd8262c56dcdfe3216c
+
+review_protocol:
+  reviewer_must_read:
+    - eval/blind_holdout_v2/input.json
+    - eval/blind_holdout_v2_plan.yml
+  reviewer_must_not_read_before_gold_freeze:
+    - 任何 blind_holdout_v2 candidate、score 或 fingerprint 产物
+    - v1 Gold、v1 candidates 与 v1 scorer 输出
+  freeze_steps:
+    - 独立划定 12 至 20 个 gold episode
+    - 每条 assertion 最多归属一个 episode
+    - 填写 required_source_passage_refs、completeness 与 ambiguity
+    - 冻结灾难性 must-not-merge 对
+    - 完成校验后设置 status=frozen
+
+reviewed_by: independent_codex_agent_g25_v2_gold_freeze
+frozen_at: 2026-07-12
+
+gold_episodes:
+  - gold_episode_code: G25-EP-YJ-LF-ASSIST-REGENCY
+    evaluation_context: 杨坚
+    participants: [刘昉, 郑译, 杨坚]
+    expected_assertion_refs:
+      - G25-A-CLMK-4A5B69F61C10F42F871B-EVD-1905D613FACDAFEB99BC4CA6
+      - G25-A-CLMK-4A5B69F61C10F42F871B-EVD-4F9E557DF927D18A06C0FEF4
+      - G25-A-CLMK-CCB4A3C1D182D1203A44-EVD-0E61FE1FB2193F7AFAA3A355
+      - G25-A-CLMK-CCB4A3C1D182D1203A44-EVD-9F10143649B7DDDBB11EE85B
+    required_source_passage_refs:
+      - G25-P-EVD-1905D613FACDAFEB99BC4CA6
+      - G25-P-EVD-4F9E557DF927D18A06C0FEF4
+      - G25-P-EVD-0E61FE1FB2193F7AFAA3A355
+      - G25-P-EVD-9F10143649B7DDDBB11EE85B
+    expected_completeness: complete
+    known_ambiguities:
+      - 两组 assertion 为多来源同事件；高祖指杨坚。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-YJ-LF-REWARD-AFTER-DECISION
+    evaluation_context: 杨坚
+    participants: [杨坚, 刘昉, 郑译]
+    expected_assertion_refs:
+      - G25-A-CLMK-246EEFFB8153336E3AB8-EVD-53DC89C017E2A5BFD92A2E19
+      - G25-A-CLMK-246EEFFB8153336E3AB8-EVD-E9D348FDD7490F6D8F90B7B2
+      - G25-A-CLMK-4C1640D9410FC1FD8CDE-EVD-706C75FD9F636145300BFE24
+      - G25-A-CLMK-4C1640D9410FC1FD8CDE-EVD-8D5A0639AE89054C0A3294B6
+    required_source_passage_refs:
+      - G25-P-EVD-53DC89C017E2A5BFD92A2E19
+      - G25-P-EVD-E9D348FDD7490F6D8F90B7B2
+      - G25-P-EVD-706C75FD9F636145300BFE24
+      - G25-P-EVD-8D5A0639AE89054C0A3294B6
+    expected_completeness: complete
+    known_ambiguities:
+      - 任命、封爵与赏赐是同一酬功链；两组 assertion 语义重叠。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-YJ-LF-REFUSE-MONITOR-LOSE-OFFICE
+    evaluation_context: 杨坚
+    participants: [杨坚, 刘昉, 郑译, 高颎]
+    expected_assertion_refs:
+      - G25-A-CLMK-61B9611542B643B11BC5-EVD-7F330AF75E7B6FAB3CDB618D
+      - G25-A-CLMK-61B9611542B643B11BC5-EVD-DE80F73FF2ECEAB77FA5DC91
+      - G25-A-CLMK-04CACF98AB49E69CAC92-EVD-0EE7B89C784245559A4DB193
+      - G25-A-CLMK-04CACF98AB49E69CAC92-EVD-1241AD610B769F0A20E4D2AF
+      - G25-A-CLMK-18C5B5E7017609BE9AE9-EVD-02F9DF2977C38728BE2A02E7
+      - G25-A-CLMK-18C5B5E7017609BE9AE9-EVD-289C0471B65B1AE223CF561A
+    required_source_passage_refs:
+      - G25-P-EVD-7F330AF75E7B6FAB3CDB618D
+      - G25-P-EVD-DE80F73FF2ECEAB77FA5DC91
+      - G25-P-EVD-0EE7B89C784245559A4DB193
+      - G25-P-EVD-1241AD610B769F0A20E4D2AF
+      - G25-P-EVD-02F9DF2977C38728BE2A02E7
+      - G25-P-EVD-289C0471B65B1AE223CF561A
+    expected_completeness: partial
+    known_ambiguities:
+      - 监军推辞、恩礼渐薄、事务遗落及被高颎替代构成连续失势链，但材料对各节点精确间隔不足。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-YJ-LF-CONSPIRACY-EXECUTION
+    evaluation_context: 杨坚
+    participants: [刘昉, 梁士彦, 宇文忻, 杨坚]
+    expected_assertion_refs:
+      - G25-A-CLMK-73539E6BA8FFFBCD90B1-EVD-119B37759ADF666D7E72EEBA
+      - G25-A-CLMK-73539E6BA8FFFBCD90B1-EVD-521FBA12DC58FB2F974D9C66
+      - G25-A-CLMK-D243A525D27A126D0A0D-EVD-43DB0EBD86C0258A98C1EEFB
+      - G25-A-CLMK-D243A525D27A126D0A0D-EVD-D830CA1D6B5F476ACCABC9C8
+    required_source_passage_refs:
+      - G25-P-EVD-119B37759ADF666D7E72EEBA
+      - G25-P-EVD-521FBA12DC58FB2F974D9C66
+      - G25-P-EVD-43DB0EBD86C0258A98C1EEFB
+      - G25-P-EVD-D830CA1D6B5F476ACCABC9C8
+    expected_completeness: complete
+    known_ambiguities:
+      - 谋反与诛杀为同一责任链；受命初期效力的事后概括不纳入本事件。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-YJ-WY-SIMA-XIAONAN-CAMPAIGN
+    evaluation_context: 杨坚
+    participants: [杨坚, 王谊, 司马消难, 李威, 冯晖, 李远]
+    expected_assertion_refs:
+      - G25-A-CLMK-52006B1215F3E0225836-EVD-8CA4B81AA0E7A569DA63512C
+      - G25-A-CLMK-52006B1215F3E0225836-EVD-A32BB93497E7E5E2C80EA55C
+      - G25-A-CLMK-CDAFBE47FFE541571C35-EVD-E1F37CF1D7CFBDEAAF30D791
+      - G25-A-CLMK-CDAFBE47FFE541571C35-EVD-E722AE3AA64AA49817D1EA1B
+    required_source_passage_refs:
+      - G25-P-EVD-8CA4B81AA0E7A569DA63512C
+      - G25-P-EVD-A32BB93497E7E5E2C80EA55C
+      - G25-P-EVD-E1F37CF1D7CFBDEAAF30D791
+      - G25-P-EVD-E722AE3AA64AA49817D1EA1B
+    expected_completeness: partial
+    known_ambiguities:
+      - 授权讨司马消难、消难奔陈及关联州郡平定属于同一战役责任链；具体分兵顺序不完整。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-YJ-YQJ-TURK-MISSION-SUBMISSION
+    evaluation_context: 杨坚
+    participants: [杨坚, 高祖, 虞庆则, 长孙晟, 摄图, 叶护]
+    expected_assertion_refs:
+      - G25-A-CLMK-C68F8D14F63699D52AD1-EVD-0A69C92C06986178A8A03B03
+      - G25-A-CLMK-C68F8D14F63699D52AD1-EVD-6990FDE901F6D373AF6DCFDA
+      - G25-A-CLMK-9D9F720BB8E36060FA78-EVD-15CDA8C2F698F95D09DAB93C
+      - G25-A-CLMK-9D9F720BB8E36060FA78-EVD-83A5CD0EC90C9E7A14D8D903
+      - G25-A-CLMK-AA4C05E652F342A7C12E-EVD-0EC9CD36496D654A8E0784BE
+      - G25-A-CLMK-AA4C05E652F342A7C12E-EVD-B8ADCBDEBD8838301ACCDE94
+    required_source_passage_refs:
+      - G25-P-EVD-0A69C92C06986178A8A03B03
+      - G25-P-EVD-6990FDE901F6D373AF6DCFDA
+      - G25-P-EVD-15CDA8C2F698F95D09DAB93C
+      - G25-P-EVD-83A5CD0EC90C9E7A14D8D903
+      - G25-P-EVD-0EC9CD36496D654A8E0784BE
+      - G25-P-EVD-B8ADCBDEBD8838301ACCDE94
+    expected_completeness: complete
+    known_ambiguities:
+      - 高祖为杨坚别名；授权、出使交涉及称臣朝贡是同一任务结果链。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-EP-YJ-QTT-LONGXI-HORSE-AUDIT-CLEMENCY
+    evaluation_context: 杨坚
+    participants: [杨坚, 隋文帝, 屈突通, 慕容悉达, 监牧官]
+    expected_assertion_refs:
+      - G25-A-CLMK-DB998CE99C26466C2993-EVD-2E5323D1643013A91B44FF4C
+      - G25-A-CLMK-DB998CE99C26466C2993-EVD-5C87784B9F4704B3193147B2
+      - G25-A-CLMK-DB998CE99C26466C2993-EVD-5E3DE89DC784C689FD8F68FC
+      - G25-A-CLMK-5D2DDFB2AB6EB830BF8D-EVD-9E53C9123811D6AD86C38607
+      - G25-A-CLMK-5D2DDFB2AB6EB830BF8D-EVD-A6BBCD30759408C3391261C6
+      - G25-A-CLMK-5D2DDFB2AB6EB830BF8D-EVD-F017692F1229618BE945E42F
+    required_source_passage_refs:
+      - G25-P-EVD-2E5323D1643013A91B44FF4C
+      - G25-P-EVD-5C87784B9F4704B3193147B2
+      - G25-P-EVD-5E3DE89DC784C689FD8F68FC
+      - G25-P-EVD-9E53C9123811D6AD86C38607
+      - G25-P-EVD-A6BBCD30759408C3391261C6
+      - G25-P-EVD-F017692F1229618BE945E42F
+    expected_completeness: partial
+    known_ambiguities:
+      - 隋文帝为杨坚别名；非人物 object 为陇西群牧审计及监牧官处罚。来源片段含页面导航噪声。
+    error_attribution_if_missed: source
+
+  - gold_episode_code: G25-EP-YJ-SWS-DAJINSHAN-VICTORY
+    evaluation_context: 杨坚
+    participants: [杨坚, 史万岁, 汉王谅, 达头可汗, 突厥]
+    expected_assertion_refs:
+      - G25-A-CLMK-CD05FD19C90ED65FA11F-EVD-40E9F549A3E8F65C2DDCAE6F
+      - G25-A-CLMK-CD05FD19C90ED65FA11F-EVD-B1A0E5B946AED7543AD8FC4B
+      - G25-A-CLMK-7EF49DA131304EA075B9-EVD-73A2FA1E236087B236F2CB2B
+      - G25-A-CLMK-7EF49DA131304EA075B9-EVD-E32BDCC40B9B7BD0B696CACE
+    required_source_passage_refs:
+      - G25-P-EVD-40E9F549A3E8F65C2DDCAE6F
+      - G25-P-EVD-B1A0E5B946AED7543AD8FC4B
+      - G25-P-EVD-73A2FA1E236087B236F2CB2B
+      - G25-P-EVD-E32BDCC40B9B7BD0B696CACE
+    expected_completeness: complete
+    known_ambiguities:
+      - 马邑道出兵授权与大斤山追击获胜按同一军事任务结果链汇聚。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-YJ-SWS-MERIT-SUPPRESSED-APPEAL
+    evaluation_context: 杨坚
+    participants: [杨坚, 史万岁, 杨素]
+    expected_assertion_refs:
+      - G25-A-CLMK-D17D54444D7AA0D9CE33-EVD-683746C285263E027E6C14B3
+      - G25-A-CLMK-D17D54444D7AA0D9CE33-EVD-F13CF7E8959802FAD068764C
+      - G25-A-CLMK-47312C492A0EC90D10BF-EVD-2C6DE53B886DEB22D276FF04
+      - G25-A-CLMK-47312C492A0EC90D10BF-EVD-E90C7A6E4CE1D4E6FD812CD3
+    required_source_passage_refs:
+      - G25-P-EVD-683746C285263E027E6C14B3
+      - G25-P-EVD-F13CF7E8959802FAD068764C
+      - G25-P-EVD-2C6DE53B886DEB22D276FF04
+      - G25-P-EVD-E90C7A6E4CE1D4E6FD812CD3
+    expected_completeness: partial
+    known_ambiguities:
+      - 杨素谮毁导致军功被寝，史万岁随后抗表申诉；材料未给出最终复核结果。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-FY-RED-EYEBROWS-COMMISSION
+    evaluation_context: 刘秀
+    participants: [刘秀, 冯异, 邓禹]
+    expected_assertion_refs:
+      - G25-A-CLMK-B3AA7D56EA5EC88C2025-EVD-536790760BD142865BD47E4E
+      - G25-A-CLMK-ED2C36890A6C05F319E6-EVD-050589913F4A254D2D4221F7
+      - G25-A-CLMK-ED2C36890A6C05F319E6-EVD-C330435E990F78504DD84C19
+      - G25-A-CLMK-1D6E43B137812A9D8A1E-EVD-4DDB22FC8EB58F499E038D8E
+      - G25-A-CLMK-1D6E43B137812A9D8A1E-EVD-BA2A435E7973416FFEE1E4A5
+      - G25-A-CLMK-8D7DA930B82B725F9A71-EVD-6B72C71C7472F087A2E7DBEF
+    required_source_passage_refs:
+      - G25-P-EVD-536790760BD142865BD47E4E
+      - G25-P-EVD-050589913F4A254D2D4221F7
+      - G25-P-EVD-C330435E990F78504DD84C19
+      - G25-P-EVD-4DDB22FC8EB58F499E038D8E
+      - G25-P-EVD-BA2A435E7973416FFEE1E4A5
+      - G25-P-EVD-6B72C71C7472F087A2E7DBEF
+    expected_completeness: partial
+    known_ambiguities:
+      - 代邓禹伐赤眉的授权与征西大将军任命时间相近并构成任务准备链，但精确先后不充分。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-FY-HUIXI-DEFEAT
+    evaluation_context: 刘秀
+    participants: [刘秀, 冯异, 邓禹, 赤眉]
+    expected_assertion_refs:
+      - G25-A-CLMK-883BCCBE01B6CC5F8C40-EVD-04BF30446A5E07AC60301438
+      - G25-A-CLMK-883BCCBE01B6CC5F8C40-EVD-31D0E4E24A56541CDE438F67
+      - G25-A-CLMK-EB02974448CB557CF03C-EVD-377EAE1FE89F46F2C0B26909
+      - G25-A-CLMK-EB02974448CB557CF03C-EVD-81FBA51D7F7FCCBE5CA624B8
+    required_source_passage_refs:
+      - G25-P-EVD-04BF30446A5E07AC60301438
+      - G25-P-EVD-31D0E4E24A56541CDE438F67
+      - G25-P-EVD-377EAE1FE89F46F2C0B26909
+      - G25-P-EVD-81FBA51D7F7FCCBE5CA624B8
+    expected_completeness: complete
+    known_ambiguities:
+      - 主语有“邓禹、冯异”与“冯异”两种粒度，但均指回溪同一败绩。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-EP-LX-FY-XIAODI-VICTORY
+    evaluation_context: 刘秀
+    participants: [刘秀, 冯异, 赤眉]
+    expected_assertion_refs:
+      - G25-A-CLMK-127FA986DA112C07681E-EVD-238A0C12F7448949000C1AA7
+      - G25-A-CLMK-127FA986DA112C07681E-EVD-815AD3825DB47B7AC4C12DF4
+      - G25-A-CLMK-E81E4D414FBCCBC536EE-EVD-30F4812FAF4748D3B61BD522
+      - G25-A-CLMK-E81E4D414FBCCBC536EE-EVD-A12A0EBB217C22189655BC0E
+    required_source_passage_refs:
+      - G25-P-EVD-238A0C12F7448949000C1AA7
+      - G25-P-EVD-815AD3825DB47B7AC4C12DF4
+      - G25-P-EVD-30F4812FAF4748D3B61BD522
+      - G25-P-EVD-A12A0EBB217C22189655BC0E
+    expected_completeness: complete
+    known_ambiguities:
+      - 时间表达为建武三年春与闰月乙巳后两种粒度；战场与结果一致。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-FY-CHENCANG-VICTORY
+    evaluation_context: 刘秀
+    participants: [刘秀, 冯异, 程焉, 公孙述]
+    expected_assertion_refs:
+      - G25-A-CLMK-6F6E8D61E4DF386CB850-EVD-098DEC2C9CCE5376FB3060BB
+      - G25-A-CLMK-6F6E8D61E4DF386CB850-EVD-4C1DBAFB3BF27382C2FE0F5E
+      - G25-A-CLMK-F5E187FE6FEF1EFEC6A3-EVD-A261115BEB98A80404D7B198
+      - G25-A-CLMK-F5E187FE6FEF1EFEC6A3-EVD-B5B8EC37E718641AD137425F
+    required_source_passage_refs:
+      - G25-P-EVD-098DEC2C9CCE5376FB3060BB
+      - G25-P-EVD-4C1DBAFB3BF27382C2FE0F5E
+      - G25-P-EVD-A261115BEB98A80404D7B198
+      - G25-P-EVD-B5B8EC37E718641AD137425F
+    expected_completeness: complete
+    known_ambiguities:
+      - “是岁”与建武四年需对齐；程焉为公孙述部将。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-GY-JIANWEI-APPOINTMENT
+    evaluation_context: 刘秀
+    participants: [刘秀, 耿弇]
+    expected_assertion_refs:
+      - G25-A-CLMK-94EE2F3EB668FA8E10CD-EVD-23C7788386AFE8DF0CEBBD45
+      - G25-A-CLMK-B272C0D147BF57262D89-EVD-BFC6601F18D33C7EF26C2F9F
+      - G25-A-CLMK-B272C0D147BF57262D89-EVD-EDEE5CF232D20D1A06704349
+    required_source_passage_refs:
+      - G25-P-EVD-23C7788386AFE8DF0CEBBD45
+      - G25-P-EVD-BFC6601F18D33C7EF26C2F9F
+      - G25-P-EVD-EDEE5CF232D20D1A06704349
+    expected_completeness: complete
+    known_ambiguities:
+      - “拜大将军耿弇为建威大将军”与“以大将军耿弇”为同一任命表述。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-GY-ZHANGBU-CAMPAIGN
+    evaluation_context: 刘秀
+    participants: [刘秀, 耿弇, 耿弇等, 张步, 苏茂]
+    expected_assertion_refs:
+      - G25-A-CLMK-2E460313937D4AF94F5F-EVD-C8E5B107E38E9860E2A1E61A
+      - G25-A-CLMK-7ADA360DCCC1B90645C8-EVD-6CCF476C3EC8967CF3CB3026
+      - G25-A-CLMK-7ADA360DCCC1B90645C8-EVD-A2E3B7ADE5D8FA96885B4E07
+      - G25-A-CLMK-30731C62DA515DD2CDBF-EVD-07EC1BAF3D1148757757A890
+      - G25-A-CLMK-30731C62DA515DD2CDBF-EVD-1388276D0301FF8856683553
+      - G25-A-CLMK-E7EE90D89922B2653695-EVD-8CDB87D95C93FE5514822AB2
+      - G25-A-CLMK-E7EE90D89922B2653695-EVD-B697AB7DEDBFA703537174D1
+    required_source_passage_refs:
+      - G25-P-EVD-C8E5B107E38E9860E2A1E61A
+      - G25-P-EVD-6CCF476C3EC8967CF3CB3026
+      - G25-P-EVD-A2E3B7ADE5D8FA96885B4E07
+      - G25-P-EVD-07EC1BAF3D1148757757A890
+      - G25-P-EVD-1388276D0301FF8856683553
+      - G25-P-EVD-8CDB87D95C93FE5514822AB2
+      - G25-P-EVD-B697AB7DEDBFA703537174D1
+    expected_completeness: complete
+    known_ambiguities:
+      - 一条授权 assertion 的 object 误以张步呈现，但摘要表明受命者为耿弇；“耿弇”与“耿弇等”为同一主将责任链。
+    error_attribution_if_missed: assertion
+
+  - gold_episode_code: G25-EP-LX-OYX-YUANWU-HENAN-DUWEI
+    evaluation_context: 刘秀
+    participants: [刘秀, 世祖, 欧阳歙]
+    expected_assertion_refs:
+      - G25-A-CLMK-53FF61804701F6F67616-EVD-7ABFFACFDBFF0A9B159B636E
+      - G25-A-CLMK-53FF61804701F6F67616-EVD-EDEFF4685783588622618397
+      - G25-A-CLMK-BC85A970E04CB37168C8-EVD-32EA78F578AD15D4AEDBBC7C
+      - G25-A-CLMK-BC85A970E04CB37168C8-EVD-F5623FDC4DC4728DD49B27B8
+    required_source_passage_refs:
+      - G25-P-EVD-7ABFFACFDBFF0A9B159B636E
+      - G25-P-EVD-EDEFF4685783588622618397
+      - G25-P-EVD-32EA78F578AD15D4AEDBBC7C
+      - G25-P-EVD-F5623FDC4DC4728DD49B27B8
+    expected_completeness: complete
+    known_ambiguities:
+      - 世祖为刘秀别名；在原武修政是迁河南都尉并行太守事的原因链。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-EP-LX-OYX-ACCESSION-HENAN-YIN-HOU
+    evaluation_context: 刘秀
+    participants: [刘秀, 世祖, 欧阳歙]
+    expected_assertion_refs:
+      - G25-A-CLMK-3B99D48F7DCDD17A9E41-EVD-AFBCA379AC74D0D2A379BFE6
+      - G25-A-CLMK-3B99D48F7DCDD17A9E41-EVD-F982B8C157D0B2A07756840E
+      - G25-A-CLMK-B6AC4372A5126A18E2BA-EVD-A7A2952FB1F371C93BE34383
+      - G25-A-CLMK-B6AC4372A5126A18E2BA-EVD-F85D032816E80412009B67F7
+    required_source_passage_refs:
+      - G25-P-EVD-AFBCA379AC74D0D2A379BFE6
+      - G25-P-EVD-F982B8C157D0B2A07756840E
+      - G25-P-EVD-A7A2952FB1F371C93BE34383
+      - G25-P-EVD-F85D032816E80412009B67F7
+    expected_completeness: complete
+    known_ambiguities:
+      - 世祖为刘秀别名；河南尹任命与封被阳侯是即位后的同批处置。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-EP-LX-OYX-DISMISSAL-REAPPOINTMENT
+    evaluation_context: 刘秀
+    participants: [刘秀, 朝廷, 欧阳歙]
+    expected_assertion_refs:
+      - G25-A-CLMK-840E5B34F4743DAFBC8C-EVD-8442EA5B8C5F7CB1C9A1EC19
+      - G25-A-CLMK-840E5B34F4743DAFBC8C-EVD-ED62199D049E449AA33AF44C
+      - G25-A-CLMK-C48F55D69C12E39C3C60-EVD-167FA7B20B0ACA1A119DC299
+      - G25-A-CLMK-C48F55D69C12E39C3C60-EVD-8A4B77AE102AA74380F822B1
+      - G25-A-CLMK-DC8FBB193A23CF49D7E7-EVD-338CE282054431D7FC198FEE
+      - G25-A-CLMK-DC8FBB193A23CF49D7E7-EVD-BE6E8CBD938E0127C975A9D4
+      - G25-A-CLMK-A5D1788B6DE431C73EB2-EVD-B0C7CB741AA0FD39C6F951F0
+      - G25-A-CLMK-A5D1788B6DE431C73EB2-EVD-FA1889B5D3FD4B24F704AAA8
+      - G25-A-CLMK-0F013F1E4EFEB90129BA-EVD-8C8F04617CF46ED62FEE4987
+    required_source_passage_refs:
+      - G25-P-EVD-8442EA5B8C5F7CB1C9A1EC19
+      - G25-P-EVD-ED62199D049E449AA33AF44C
+      - G25-P-EVD-167FA7B20B0ACA1A119DC299
+      - G25-P-EVD-8A4B77AE102AA74380F822B1
+      - G25-P-EVD-338CE282054431D7FC198FEE
+      - G25-P-EVD-BE6E8CBD938E0127C975A9D4
+      - G25-P-EVD-B0C7CB741AA0FD39C6F951F0
+      - G25-P-EVD-FA1889B5D3FD4B24F704AAA8
+      - G25-P-EVD-8C8F04617CF46ED62FEE4987
+    expected_completeness: partial
+    known_ambiguities:
+      - 建武五年免官，次年拜扬州牧并迁汝南太守；“朝廷”为刘秀政权的非人物主语。扬州、杨州存在原 assertion 异体。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-OYX-RUNAN-CORRUPTION-PRISON-DEATH
+    evaluation_context: 刘秀
+    participants: [刘秀, 朝廷, 欧阳歙]
+    expected_assertion_refs:
+      - G25-A-CLMK-7579560928B75D78F9A9-EVD-16924D1B08B4ACBDCF3AC556
+      - G25-A-CLMK-7579560928B75D78F9A9-EVD-92A3C012ED4B416312C44C8B
+      - G25-A-CLMK-94425D4F532E75FBBB34-EVD-0CF57167883751D9652F576A
+      - G25-A-CLMK-94425D4F532E75FBBB34-EVD-D36C57CFC83B980373B23EF0
+      - G25-A-CLMK-EC24484400660D188878-EVD-2FD9D9913BB3E530322732DC
+      - G25-A-CLMK-EC24484400660D188878-EVD-E5914B26E148F0220B6487CC
+    required_source_passage_refs:
+      - G25-P-EVD-16924D1B08B4ACBDCF3AC556
+      - G25-P-EVD-92A3C012ED4B416312C44C8B
+      - G25-P-EVD-0CF57167883751D9652F576A
+      - G25-P-EVD-D36C57CFC83B980373B23EF0
+      - G25-P-EVD-2FD9D9913BB3E530322732DC
+      - G25-P-EVD-E5914B26E148F0220B6487CC
+    expected_completeness: complete
+    known_ambiguities:
+      - 滥权涉赃、发觉下狱与死狱中为同一刑狱因果链；朝廷是非人物主语。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-EP-LX-OYX-POSTHUMOUS-GIFTS
+    evaluation_context: 刘秀
+    participants: [刘秀, 帝, 欧阳歙, 陈元]
+    expected_assertion_refs:
+      - G25-A-CLMK-A67EE64BA780E194A3FB-EVD-C23AD979BCFFEA281F4DB1C5
+      - G25-A-CLMK-A67EE64BA780E194A3FB-EVD-E9B2B2ACE0D4B8ECBB04560E
+      - G25-A-CLMK-E6DD991CFFA997FBF8C7-EVD-434F12398085D94ECCBD5163
+      - G25-A-CLMK-E6DD991CFFA997FBF8C7-EVD-EC25263EBB8DAC8ABB1250FE
+    required_source_passage_refs:
+      - G25-P-EVD-C23AD979BCFFEA281F4DB1C5
+      - G25-P-EVD-E9B2B2ACE0D4B8ECBB04560E
+      - G25-P-EVD-434F12398085D94ECCBD5163
+      - G25-P-EVD-EC25263EBB8DAC8ABB1250FE
+    expected_completeness: complete
+    known_ambiguities:
+      - 帝为刘秀别名；陈元追讼是身后赐棺木、印绶和赙缣的触发因素。
+    error_attribution_if_missed: identity
+
+unassigned_assertions:
+  - assertion_ref: G25-A-CLMK-DFE598E71359CD845B52-EVD-4ED8093B01EC1B0D7F825D5F
+    reason: 事后诏书对刘昉等人从早期效力到后来谋逆的概括性评价，跨越多个已拆分 episode，不强行归并。
+  - assertion_ref: G25-A-CLMK-DFE598E71359CD845B52-EVD-D0F7AC40851A2F958D1F1486
+    reason: 与上一条同属跨阶段概括性评价，仅作未分配旁支事实保留。
+
+catastrophic_must_not_merge_pairs:
+  - [G25-EP-YJ-LF-ASSIST-REGENCY, G25-EP-YJ-LF-CONSPIRACY-EXECUTION]
+  - [G25-EP-YJ-LF-REWARD-AFTER-DECISION, G25-EP-YJ-LF-REFUSE-MONITOR-LOSE-OFFICE]
+  - [G25-EP-YJ-SWS-DAJINSHAN-VICTORY, G25-EP-YJ-SWS-MERIT-SUPPRESSED-APPEAL]
+  - [G25-EP-LX-FY-RED-EYEBROWS-COMMISSION, G25-EP-LX-FY-HUIXI-DEFEAT]
+  - [G25-EP-LX-FY-HUIXI-DEFEAT, G25-EP-LX-FY-XIAODI-VICTORY]
+  - [G25-EP-LX-FY-XIAODI-VICTORY, G25-EP-LX-FY-CHENCANG-VICTORY]
+  - [G25-EP-LX-GY-JIANWEI-APPOINTMENT, G25-EP-LX-GY-ZHANGBU-CAMPAIGN]
+  - [G25-EP-LX-OYX-YUANWU-HENAN-DUWEI, G25-EP-LX-OYX-ACCESSION-HENAN-YIN-HOU]
+  - [G25-EP-LX-OYX-ACCESSION-HENAN-YIN-HOU, G25-EP-LX-OYX-DISMISSAL-REAPPOINTMENT]
+  - [G25-EP-LX-OYX-DISMISSAL-REAPPOINTMENT, G25-EP-LX-OYX-RUNAN-CORRUPTION-PRISON-DEATH]
+  - [G25-EP-LX-OYX-RUNAN-CORRUPTION-PRISON-DEATH, G25-EP-LX-OYX-POSTHUMOUS-GIFTS]
+  - [G25-EP-YJ-WY-SIMA-XIAONAN-CAMPAIGN, G25-EP-YJ-YQJ-TURK-MISSION-SUBMISSION]
+  - [G25-EP-YJ-QTT-LONGXI-HORSE-AUDIT-CLEMENCY, G25-EP-YJ-SWS-DAJINSHAN-VICTORY]

@@ -81,7 +81,7 @@ def test_new_authorization_action_splits_even_with_same_context_and_time():
     assert len(group_episode_candidates([first, second])) == 2
 
 
-def test_appointment_and_outcome_merge_with_equivalent_regnal_time():
+def test_cross_phase_chain_stays_split_when_responsibility_domains_do_not_overlap():
     appointment = _assertion(
         "A-1",
         passage="P-1",
@@ -115,11 +115,7 @@ def test_appointment_and_outcome_merge_with_equivalent_regnal_time():
 
     groups = group_episode_candidates([appointment, outcome])
 
-    assert len(groups) == 1
-    packet = build_episode_packet(groups[0])
-    assert packet.action == "任命 | 战役"
-    participant = next(item for item in packet.participants if item.person_ref == "苏定方")
-    assert participant.role_codes == ("commander",)
+    assert len(groups) == 2
 
 
 def test_same_source_topic_does_not_merge_distinct_regnal_year_tasks():

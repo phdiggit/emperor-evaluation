@@ -1,0 +1,56 @@
+schema_version: 1
+plan_code: blind_holdout_v2
+status: blind_v2_failed
+kernel_input_contract: blind_assertion_input_v1
+target_episode_count_range: [12, 20]
+new_rulers: [杨坚, 刘秀]
+
+input:
+  path: eval/blind_holdout_v2/input.json
+  file_sha256: 243c18829b8fdad9a08366868adb42a97835b443382ff3a99c068b36de74057b
+  canonical_payload_sha256: 855be71e875a796828d9411282d9f9605eefd1d75f5d2cd8262c56dcdfe3216c
+  selected_v3_claim_count: 51
+  assertion_count: 99
+  source_passage_count: 99
+  network_request_count: 0
+  database_write_count: 0
+
+required_case_types:
+  - 同一人物多次独立任务
+  - 任命与结果跨 assertion 汇聚
+  - 同年不同战役必须拆分
+  - 失败、免职、复任和身后处置
+  - 多来源同一事件
+  - 非人物 object
+  - partial 或 conflicted episode
+  - 主语别名与 evaluation context 规范化
+
+gold_isolation:
+  candidates_must_not_exist_before_gold_freeze: true
+  kernel_run_completed: true
+  sealed_gold_frozen: true
+  reviewer_may_read:
+    - eval/blind_holdout_v2/input.json
+    - eval/blind_holdout_v2_plan.yml
+    - eval/blind_holdout_v2/sealed_gold.pending.yml
+
+release_thresholds:
+  passage_lineage: 1.0
+  cross_ruler_contamination_count: 0
+  catastrophic_wrong_merge_count: 0
+  autonomous_boundary_recall_minimum: 0.85
+  candidate_precision_minimum: 0.90
+  unchanged_rerun_model_calls: 0
+  unchanged_rerun_writes: 0
+  ordinary_boundary_error_maximum: 1
+
+blind_result:
+  autonomous_boundary_recall: 0.3
+  candidate_precision: 0.46153846153846156
+  wrong_merge_count: 3
+  wrong_split_count: 2
+  catastrophic_wrong_merge_count: 3
+  cross_ruler_contamination_count: 0
+  passage_lineage: 1.0
+  release_gate_passed: false
+  next_action: 停止扩大字符启发式，实现带缓存的 EpisodeMergeReview 语义建议层

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "dataset_code": "blind_holdout_v2",
+  "status": "blind_v2_failed",
+  "input": {
+    "path": "eval/blind_holdout_v2/input.json",
+    "canonical_payload_sha256": "855be71e875a796828d9411282d9f9605eefd1d75f5d2cd8262c56dcdfe3216c",
+    "selected_v3_claim_count": 51,
+    "assertion_count": 99,
+    "source_passage_count": 99
+  },
+  "gold": {
+    "path": "eval/blind_holdout_v2/sealed_gold.yml",
+    "status": "frozen_before_first_kernel_run",
+    "reviewed_by": "independent_codex_agent_g25_v2_gold_freeze",
+    "episode_count": 20,
+    "assigned_assertion_count": 97,
+    "unassigned_assertion_count": 2
+  },
+  "first_blind_run": {
+    "kernel_head": "8507ce7c88f02a7ce48bae9c8ba360f089248858",
+    "candidates_path": "eval/blind_holdout_v2/candidates.json",
+    "candidates_canonical_payload_sha256": "e4d68ce011bcc4d46a948f81cb024417dcb7b4479aefe6ee55e6742dda24b885",
+    "score_path": "eval/blind_holdout_v2/score.json",
+    "score_canonical_payload_sha256": "9cd9e2933e0139d95185825ba46d0551be96b7a93729f8a7b6f92190099fe50f",
+    "candidate_packet_count": 13,
+    "model_call_count": 0,
+    "network_request_count": 0,
+    "database_write_count": 0
+  },
+  "metrics": {
+    "autonomous_boundary_recall": 0.3,
+    "candidate_precision": 0.46153846153846156,
+    "wrong_merge_count": 3,
+    "wrong_split_count": 2,
+    "catastrophic_wrong_merge_count": 3,
+    "cross_ruler_contamination_count": 0,
+    "lineage_completeness": 1.0,
+    "release_gate_passed": false
+  },
+  "decision": {
+    "g2_5": "failed",
+    "g3": "blocked",
+    "v2_reuse_as_blind_evidence": false,
+    "next_architecture_step": "cached EpisodeMergeReview for ambiguous boundaries"
+  }
+}

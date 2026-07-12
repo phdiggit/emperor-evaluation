@@ -286,49 +286,24 @@ def _should_merge_assertions(left: AssertionDraft, right: AssertionDraft) -> boo
         and min(len(left_time), len(right_time)) >= 3
         and (left_time in right_time or right_time in left_time)
     )
-    same_source_slice = bool(
-        left.source_attribution.get("source_slice_ref")
-        and left.source_attribution.get("source_slice_ref")
-        == right.source_attribution.get("source_slice_ref")
-    )
-    same_scope = bool(
-        left.qualifiers.get("event_scope")
-        and left.qualifiers.get("event_scope") == right.qualifiers.get("event_scope")
-    )
     domain_overlap = _semantic_bigrams(
         left.qualifiers.get("office_or_domain"), excluded_names
     ) & _semantic_bigrams(right.qualifiers.get("office_or_domain"), excluded_names)
 
     if (
-        time_equivalent
-        and left.predicate == right.predicate
+        left.predicate == right.predicate
         and left.qualifiers.get("office_or_domain")
         and right.qualifiers.get("office_or_domain")
         and _normalized(left.qualifiers.get("office_or_domain"))
         != _normalized(right.qualifiers.get("office_or_domain"))
     ):
         return False
-    if time_equivalent and (topic_overlap or domain_overlap or same_scope):
+    if time_equivalent and domain_overlap:
         return True
-    if time_contains and (topic_overlap or domain_overlap):
+    if time_contains and domain_overlap:
         return True
-    if _has_explicit_same_era_conflict(
-        left.time_expression, right.time_expression
-    ) and not (
-        same_source_slice
-        and len(topic_overlap) >= 2
-        and left.predicate != right.predicate
-    ):
+    if _has_explicit_same_era_conflict(left.time_expression, right.time_expression):
         return False
-    if same_source_slice and (topic_overlap or domain_overlap):
-        return True
-    if topic_overlap and (
-        len(topic_overlap) >= 2
-        or same_scope
-        or left.predicate == right.predicate
-        or {left.predicate, right.predicate} <= {"任命", "授权", "战役", "处置", "其他", "失职"}
-    ):
-        return True
     return False
 
 

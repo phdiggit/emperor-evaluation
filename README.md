@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-尚未证明：无 Gold 提示的自主事件发现与 merge/split 已稳定达标。G2.5 v1 的独立 blind baseline 为 recall 31.25%、precision 17.24%、wrong split 10，未通过。随后通用 reconciler 修复在 v1 开发集上达到 recall/precision 93.75%、wrong merge/split 0，但该结果属于看过 Gold 后的开发诊断，不能作为 blind 放行证据；必须通过新的 v2 holdout 后才能进入 PostgreSQL G3。
+尚未证明：无 Gold 提示的自主事件发现与 merge/split 已稳定达标。G2.5 v1 的独立 baseline 为 recall 31.25%、precision 17.24%，主要是过度拆分；v2 在全新杨坚、刘秀数据上为 recall 30%、precision 46.15%，并出现 3 个灾难性 wrong merge。两次 blind 均未通过。确定性层现收紧为 fail-closed，下一步必须实现可缓存的 `EpisodeMergeReview` 语义建议层，再建立新 holdout；PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ V4 的核心改变是：
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`v1_failed_v2_required`
+- blind reconciliation：`v1_and_v2_failed_merge_review_required`
 - G3 PostgreSQL：未授权
 
 进入 G3 前必须满足：
