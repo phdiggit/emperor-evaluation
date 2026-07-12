@@ -13,6 +13,7 @@ from emperor_v4.domain.boundary import (
     execute_boundary_reviews,
     materialize_boundary_review,
     plan_boundary_reviews,
+    validate_atomic_episode_groups,
 )
 
 __all__ = [
@@ -26,4 +27,5 @@ __all__ = [
     "InMemoryBoundaryReviewCache",
     "materialize_boundary_review",
     "plan_boundary_reviews",
+    "validate_atomic_episode_groups",
 ]

@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.1"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.1"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.2"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.2"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -232,6 +232,9 @@ def _proposition_tokens(assertion: AssertionDraft) -> tuple[tuple[str, str], ...
         "focal_person_ref": focal_person,
         "focal_role": focal_role,
         "polarity": _normalized(assertion.polarity),
+        "atomic_event_key": _normalized(
+            assertion.qualifiers.get("atomic_event_key")
+        ),
     }
     tokens = [(context, f"semantic:{_hash(semantic)}")]
     if claim_key:
@@ -303,6 +306,9 @@ def cluster_propositions(
                 "responsibility": _normalized(item.qualifiers.get("office_or_domain")),
                 "outcome": _normalized(item.qualifiers.get("outcome")),
                 "polarity": _normalized(item.polarity),
+                "atomic_event_key": _normalized(
+                    item.qualifiers.get("atomic_event_key")
+                ),
             }
             for item in group_items
         ]
@@ -614,6 +620,7 @@ def _fast_path_result(
             for ref in cluster.assertion_refs
         ),
         review_provenance={"route": "deterministic_fast_path_v1"},
+        pair_dispositions=(),
     )
 
 
@@ -735,6 +742,61 @@ def validate_episode_relation_graph(
         visit(node)
 
 
+def _atomic_structure_signature(assertion: AssertionDraft) -> tuple[object, ...]:
+    time = _normalized_time(assertion)
+    _, focal_role, _ = _focal_identity(assertion)
+    return (
+        _normalized(assertion.predicate),
+        _responsibility_family(assertion),
+        _normalized(assertion.qualifiers.get("office_or_domain")),
+        focal_role,
+        time.start_sort_key,
+        time.end_sort_key,
+        _normalized(time.dynasty_or_era),
+        _normalized(time.source_expression) if time.start_sort_key is None else "",
+    )
+
+
+def validate_atomic_episode_groups(
+    review: EpisodeBoundaryReviewResult,
+    assertions_by_ref: Mapping[str, AssertionDraft],
+) -> None:
+    """Reject merges that need assertion atomization or an EpisodeRelation."""
+
+    if not review.output_schema_version.endswith("v2.2"):
+        return
+    for group in review.episode_groups:
+        assertions = tuple(assertions_by_ref[ref] for ref in group.core_assertion_refs)
+        if len(assertions) < 2:
+            continue
+        signatures = {_atomic_structure_signature(item) for item in assertions}
+        if len(signatures) != 1:
+            raise ValueError(
+                "v2.2 Episode core 跨 action/time/responsibility/focal-role；"
+                "必须拆成原子 Episode 并用 Relation 连接"
+            )
+        by_claim: dict[str, list[AssertionDraft]] = defaultdict(list)
+        for assertion in assertions:
+            claim_key = _normalized(
+                assertion.extraction_provenance.get("claim_key")
+            )
+            if claim_key:
+                by_claim[claim_key].append(assertion)
+        for claim_items in by_claim.values():
+            passages = {item.source_passage_ref for item in claim_items}
+            if len(passages) < 2:
+                continue
+            atomic_keys = {
+                _normalized(item.qualifiers.get("atomic_event_key"))
+                for item in claim_items
+            }
+            if "" in atomic_keys or len(atomic_keys) != 1:
+                raise ValueError(
+                    "同一旧 claim 的多 passage 扇出缺少共同 atomic_event_key；"
+                    "不得合并为正式 Episode，应拆分或进入 assertion atomization worklist"
+                )
+
+
 def materialize_boundary_review(
     assertions: Iterable[AssertionDraft],
     review: EpisodeBoundaryReviewResult,
@@ -754,6 +816,11 @@ def materialize_boundary_review(
     }
     if not available <= set(by_ref):
         raise ValueError("Materialization 缺少 ReviewUnit assertion 输入")
+    validate_atomic_episode_groups(review, by_ref)
+    if review.output_schema_version.endswith("v2.2") and any(
+        item.decision == "unresolved" for item in review.pair_dispositions
+    ):
+        raise ValueError("存在 unresolved Episode pair，禁止物化正式候选图")
     core_refs = {
         item.assertion_ref
         for item in review.assertion_dispositions

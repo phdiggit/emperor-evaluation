@@ -13,6 +13,7 @@ model_policy:
     - assertion_extraction_draft
     - episode_merge_split_suggestion
     - episode_boundary_relation_suggestion
+    - episode_pair_disposition_suggestion
     - person_identity_ambiguity_review
     - contradiction_detection_draft
     - rule_projection_draft_when_ambiguous
@@ -34,6 +35,8 @@ model_policy:
     - establish_historical_fact_without_gate
     - overwrite_source_text
     - silently_merge_conflicting_events
+    - merge_cross_structure_episode_core
+    - merge_unanchored_legacy_claim_fanout
     - directly_publish_formal_judgment
     - directly_publish_formal_score
     - create_or_merge_canonical_person_without_identity_gate

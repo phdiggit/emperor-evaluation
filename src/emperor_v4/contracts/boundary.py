@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from itertools import combinations
 from typing import Mapping
 
 from emperor_v4.contracts.episode import HistoricalEpisodePacket
@@ -24,6 +25,9 @@ EPISODE_RELATION_TYPES = frozenset(
 )
 RELATION_STATUSES = frozenset(
     {"proposed", "accepted", "accepted_with_uncertainty", "rejected", "superseded"}
+)
+EPISODE_PAIR_DECISIONS = frozenset(
+    {"related", "distinct_unrelated", "unresolved"}
 )
 
 
@@ -196,6 +200,36 @@ class EpisodeRelationDraft:
 
 
 @dataclass(frozen=True, slots=True)
+class EpisodePairDisposition:
+    left_episode_ref: str
+    right_episode_ref: str
+    decision: str
+    reason: str
+    relation_type: str | None = None
+
+    def __post_init__(self) -> None:
+        if (
+            not self.left_episode_ref
+            or not self.right_episode_ref
+            or self.left_episode_ref == self.right_episode_ref
+        ):
+            raise ValueError("EpisodePairDisposition 必须引用两个不同 episode")
+        if self.decision not in EPISODE_PAIR_DECISIONS:
+            raise ValueError(f"未知 episode pair decision: {self.decision}")
+        if not self.reason:
+            raise ValueError("EpisodePairDisposition 必须给出理由")
+        if self.decision == "related":
+            if self.relation_type not in EPISODE_RELATION_TYPES:
+                raise ValueError("related pair 必须声明合法 relation_type")
+        elif self.relation_type is not None:
+            raise ValueError("非 related pair 不得声明 relation_type")
+
+    @property
+    def pair_key(self) -> frozenset[str]:
+        return frozenset((self.left_episode_ref, self.right_episode_ref))
+
+
+@dataclass(frozen=True, slots=True)
 class RelationEvidenceLink:
     assertion_ref: str
     source_passage_ref: str
@@ -254,6 +288,7 @@ class EpisodeBoundaryReviewResult:
     relations: tuple[EpisodeRelationDraft, ...]
     assertion_dispositions: tuple[AssertionDisposition, ...]
     review_provenance: Mapping[str, str]
+    pair_dispositions: tuple[EpisodePairDisposition, ...] = ()
 
     def __post_init__(self) -> None:
         codes = [item.local_episode_code for item in self.episode_groups]
@@ -273,6 +308,35 @@ class EpisodeBoundaryReviewResult:
                 or relation.to_episode_ref not in code_set
             ):
                 raise ValueError("EpisodeRelationDraft 引用了未知 local episode")
+        pair_keys = [item.pair_key for item in self.pair_dispositions]
+        if len(pair_keys) != len(set(pair_keys)):
+            raise ValueError("每对 Episode 最多只能有一个 pair disposition")
+        if any(not item.pair_key <= code_set for item in self.pair_dispositions):
+            raise ValueError("EpisodePairDisposition 引用了未知 local episode")
+        if self.output_schema_version.endswith("v2.2"):
+            expected_pairs = {
+                frozenset(pair) for pair in combinations(sorted(code_set), 2)
+            }
+            if set(pair_keys) != expected_pairs:
+                raise ValueError("v2.2 BoundaryReview 必须完整处置所有 Episode pairs")
+            relations_by_pair = {
+                frozenset((item.from_episode_ref, item.to_episode_ref)): item
+                for item in self.relations
+            }
+            for item in self.pair_dispositions:
+                relation = relations_by_pair.get(item.pair_key)
+                if item.decision == "related" and (
+                    relation is None or relation.relation_type != item.relation_type
+                ):
+                    raise ValueError("related pair 与 EpisodeRelationDraft 不一致")
+                if item.decision != "related" and relation is not None:
+                    raise ValueError("非 related pair 不得生成 EpisodeRelationDraft")
+            if set(relations_by_pair) != {
+                item.pair_key
+                for item in self.pair_dispositions
+                if item.decision == "related"
+            }:
+                raise ValueError("每条 EpisodeRelationDraft 必须有 related pair disposition")
         disposition_refs = [item.assertion_ref for item in self.assertion_dispositions]
         if len(disposition_refs) != len(set(disposition_refs)):
             raise ValueError("每条 Assertion 必须且只能有一个主处置状态")

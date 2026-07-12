@@ -43,6 +43,7 @@ version_policy:
   boundary_review_cache:
     cache_key_requires:
       - proposition_semantic_hashes
+      - atomic_event_keys_when_present
       - evaluation_context
       - focal_person_ref
       - focal_roles
@@ -52,6 +53,8 @@ version_policy:
       - model_family
     physical_ids_and_evidence_fanout_excluded: true
     local_unit_invalidation_only: true
+    unanchored_legacy_claim_fanout_merge_forbidden: true
+    episode_pair_disposition_required_by_schema_v2_2: true
 
   scoring_version:
     explicit_on_every_score: true

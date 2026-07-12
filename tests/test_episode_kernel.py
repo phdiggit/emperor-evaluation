@@ -9,6 +9,7 @@ from emperor_v4.contracts.boundary import (
     AssertionDisposition,
     EpisodeBoundaryGroup,
     EpisodeBoundaryReviewResult,
+    EpisodePairDisposition,
     EpisodeRelation,
     EpisodeRelationDraft,
 )
@@ -201,6 +202,11 @@ def test_boundary_review_keeps_atomic_episodes_and_materializes_relation():
             AssertionDisposition("A-2", "core_of_episode", ("E2",), "重新授权"),
         ),
         review_provenance={"reviewer": "test"},
+        pair_dispositions=(
+            EpisodePairDisposition(
+                "E1", "E2", "related", "重新授权延续首次授权", "renews_authority"
+            ),
+        ),
     )
 
     result = materialize_boundary_review(
@@ -215,6 +221,94 @@ def test_boundary_review_keeps_atomic_episodes_and_materializes_relation():
     assert result.episode_relations[0].relation_type == "renews_authority"
     assert result.episode_relations[0].semantic_version == 1
     assert result.episode_relations[0].evidence_links[0].source_passage_ref == "P-2"
+
+
+def test_v22_boundary_review_requires_every_episode_pair_disposition():
+    with pytest.raises(ValueError, match="完整处置所有 Episode pairs"):
+        EpisodeBoundaryReviewResult(
+            review_unit_ref="RU-1",
+            review_unit_cache_key="CACHE-1",
+            proposition_semantic_hashes=("HASH-1", "HASH-2"),
+            boundary_policy_version="episode-boundary-policy-v2.2",
+            output_schema_version="episode-boundary-review-v2.2",
+            model_family="M1",
+            episode_groups=(
+                EpisodeBoundaryGroup("E1", ("A-1",), "first", 0.9),
+                EpisodeBoundaryGroup("E2", ("A-2",), "second", 0.9),
+            ),
+            relations=(),
+            assertion_dispositions=(
+                AssertionDisposition("A-1", "core_of_episode", ("E1",), "first"),
+                AssertionDisposition("A-2", "core_of_episode", ("E2",), "second"),
+            ),
+            review_provenance={},
+        )
+
+
+def test_v22_materialization_rejects_cross_structure_episode_merge():
+    assertions = [
+        _with_claim(
+            _assertion("A-1", passage="P-1", normalized_start=629), "CLAIM-1"
+        ),
+        _with_claim(
+            _assertion("A-2", passage="P-2", normalized_start=630), "CLAIM-2"
+        ),
+    ]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup("E1", ("A-1", "A-2"), "same mandate", 0.9),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    with pytest.raises(ValueError, match="必须拆成原子 Episode"):
+        materialize_boundary_review(
+            assertions, review, review_unit=unit, proposition_clusters=clusters
+        )
+
+
+def test_v22_materialization_rejects_unanchored_legacy_claim_fanout_merge():
+    assertions = [
+        _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+        _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
+    ]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup("E1", ("A-1", "A-2"), "same legacy claim", 0.9),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    with pytest.raises(ValueError, match="缺少共同 atomic_event_key"):
+        materialize_boundary_review(
+            assertions, review, review_unit=unit, proposition_clusters=clusters
+        )
 
 
 def test_boundary_review_rejects_assertion_in_two_episode_cores():
@@ -263,6 +357,11 @@ def test_relation_evidence_cannot_replace_primary_assertion_disposition():
             AssertionDisposition("A-1", "core_of_episode", ("E1",), "first"),
         ),
         review_provenance={},
+        pair_dispositions=(
+            EpisodePairDisposition(
+                "E1", "E2", "related", "结果对应首次行动", "outcome_of"
+            ),
+        ),
     )
 
     with pytest.raises(ValueError, match="主处置未完整覆盖"):
@@ -308,6 +407,11 @@ def test_materialization_preserves_context_unresolved_and_review_provenance():
             ),
         ),
         review_provenance={"reviewer": "test-reviewer"},
+        pair_dispositions=(
+            EpisodePairDisposition(
+                "E1", "E2", "related", "结果对应任命链", "outcome_of"
+            ),
+        ),
     )
 
     result = materialize_boundary_review(

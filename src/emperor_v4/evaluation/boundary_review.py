@@ -8,6 +8,7 @@ from emperor_v4.contracts.boundary import (
     BoundaryReviewRequest,
     EpisodeBoundaryGroup,
     EpisodeBoundaryReviewResult,
+    EpisodePairDisposition,
     EpisodeRelationDraft,
 )
 from emperor_v4.domain.boundary import (
@@ -81,6 +82,20 @@ def review_result_from_payload(payload: Mapping[str, Any]) -> EpisodeBoundaryRev
                 follow_up=(str(item["follow_up"]) if item.get("follow_up") else None),
             )
             for item in payload.get("assertion_dispositions") or ()
+        ),
+        pair_dispositions=tuple(
+            EpisodePairDisposition(
+                left_episode_ref=str(item.get("left_episode_ref") or ""),
+                right_episode_ref=str(item.get("right_episode_ref") or ""),
+                decision=str(item.get("decision") or ""),
+                reason=str(item.get("reason") or ""),
+                relation_type=(
+                    str(item["relation_type"])
+                    if item.get("relation_type")
+                    else None
+                ),
+            )
+            for item in payload.get("pair_dispositions") or ()
         ),
         review_provenance={
             str(key): str(value)

@@ -11,6 +11,7 @@ milestones:
   G2_6C_review_cache: d1_hardening_complete
   G2_6D_scorer: gate_metrics_complete
   G2_6E_final_graph_holdout: failed_closed
+  G2_6F_atomic_boundary_relation: contract_hardening_complete_new_holdout_pending
   G3_PostgreSQL: blocked_by_g2_6E
 
 qualification:
@@ -41,6 +42,9 @@ qualification:
     - g2_6e_zero_duplicate_rule_consumption
     - g2_6e_zero_call_unchanged_rerun
     - g2_6e_review_unit_local_invalidation
+    - g2_6f_cross_structure_merge_fail_closed
+    - g2_6f_unanchored_claim_fanout_merge_fail_closed
+    - g2_6f_episode_pair_disposition_completeness
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -66,6 +70,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6F_boundary_relation_rework
-  status: required
-  required_outcome: 基于失败归因重构边界与关系建议层，并在另一批全新双层 Gold holdout 上重新验收
+  code: G2_6G_new_graph_blind_holdout
+  status: pending_input_freeze
+  required_outcome: 在另一批全新输入和独立双层 Gold 上验证 v2.2 原子边界、关系与规则证据单元
