@@ -1,0 +1,47 @@
+schema_version: 1
+identity_manifest_code: episode_pilot_v1_identity_resolution
+status: accepted_for_frozen_pilot
+scope: episode_pilot_v1_gold_core_participants_only
+reviewed_by: codex_agent_under_explicit_user_completion_instruction
+review_basis:
+  - eval/episode_pilot_v1.yml 的人工冻结核心 participants
+  - eval/episode_pilot_v1_review.yml 的史源身份与边界复核
+  - 同名、爵号和集合称谓不自动生成 CanonicalPerson
+
+persons:
+  - {person_id: PER-LIU-BANG, canonical_name: 刘邦, historical_context: 西汉}
+  - {person_id: PER-ZHOU-BO, canonical_name: 周勃, historical_context: 西汉}
+  - {person_id: PER-ZHANG-LIANG, canonical_name: 张良, historical_context: 西汉}
+  - {person_id: PER-FAN-KUAI, canonical_name: 樊哙, historical_context: 西汉}
+  - {person_id: PER-XIAO-HE, canonical_name: 萧何, historical_context: 西汉}
+  - {person_id: PER-CHEN-PING, canonical_name: 陈平, historical_context: 西汉}
+  - {person_id: PER-HAN-XIN, canonical_name: 韩信, historical_context: 西汉}
+  - {person_id: PER-LI-SHIMIN, canonical_name: 李世民, historical_context: 唐}
+  - {person_id: PER-FANG-XUANLING, canonical_name: 房玄龄, historical_context: 唐}
+  - {person_id: PER-LI-JING, canonical_name: 李靖, historical_context: 唐}
+  - {person_id: PER-WEI-ZHENG, canonical_name: 魏徵, historical_context: 唐}
+  - {person_id: PER-ZHU-YUANZHANG, canonical_name: 朱元璋, historical_context: 明}
+  - {person_id: PER-CHANG-YUCHUN, canonical_name: 常遇春, historical_context: 明}
+  - {person_id: PER-XU-DA, canonical_name: 徐达, historical_context: 明}
+  - {person_id: PER-LIU-JI, canonical_name: 刘基, historical_context: 明}
+  - {person_id: PER-HU-WEIYONG, canonical_name: 胡惟庸, historical_context: 明}
+  - {person_id: PER-LAN-YU, canonical_name: 蓝玉, historical_context: 明}
+
+candidate_dispositions:
+  绛侯: {decision: alias_of, person_id: PER-ZHOU-BO}
+  灌婴等诸将: {decision: collective_context_only}
+  楚军: {decision: non_person_context}
+  齐地: {decision: location_context}
+  自身政治声望: {decision: abstract_context}
+  人才: {decision: collective_context_only}
+  东昌民田及御史: {decision: mixed_context_requires_assertion_only}
+  军中将校与军队行动: {decision: mixed_context_requires_assertion_only}
+  喜峰关: {decision: location_context}
+  蓝玉及其党羽: {decision: collective_context_only}
+  元执政: {decision: collective_context_only}
+  平定中原的军事职责: {decision: responsibility_context}
+
+acceptance_gate:
+  all_gold_core_participants_resolved: true
+  unexpected_candidates_create_no_canonical_person: true
+  aliases_create_no_duplicate_person: true

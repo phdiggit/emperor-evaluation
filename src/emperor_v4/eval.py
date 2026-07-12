@@ -8,6 +8,7 @@ from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
 from emperor_v4.evaluation.reconciliation_review import (
     build_reconciliation_review_package,
 )
+from emperor_v4.evaluation.g2_acceptance import build_g2_acceptance_package
 from emperor_v4.evaluation.assertion_handoff import (
     build_assertion_repair_payloads,
     build_assertion_candidate_payloads,
@@ -93,6 +94,11 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("eval/episode_pilot_v1_assertion_gold_coverage.yml"),
     )
+    pilot.add_argument(
+        "--g2-acceptance",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_g2_acceptance.json"),
+    )
     pilot.add_argument("--output", type=Path)
     reconciliation_review = subparsers.add_parser("episode-reconciliation-review")
     reconciliation_review.add_argument(
@@ -106,6 +112,26 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("eval/episode_pilot_v1_review.yml"),
     )
     reconciliation_review.add_argument("--output", type=Path)
+    g2_accept = subparsers.add_parser("episode-g2-accept")
+    g2_accept.add_argument(
+        "--manifest", type=Path, default=Path("eval/episode_pilot_v1.yml")
+    )
+    g2_accept.add_argument(
+        "--review-package",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_reconciliation_review_package.json"),
+    )
+    g2_accept.add_argument(
+        "--identity-manifest",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_identity_resolution.yml"),
+    )
+    g2_accept.add_argument(
+        "--acceptance",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_episode_acceptance.yml"),
+    )
+    g2_accept.add_argument("--output", type=Path)
     source_gap = subparsers.add_parser("source-gap-check")
     source_gap.add_argument("--manifest", type=Path, required=True)
     source_gap.add_argument(
@@ -249,6 +275,7 @@ def main() -> int:
             args.claim_gap_repair,
             args.claim_gap_repair2,
             args.assertion_gold_coverage,
+            args.g2_acceptance,
         )
     elif args.command == "source-gap-check":
         report = check_source_gap_request(
@@ -352,6 +379,13 @@ def main() -> int:
             args.manifest,
             args.boundary_review,
             pilot_report,
+        )
+    elif args.command == "episode-g2-accept":
+        report = build_g2_acceptance_package(
+            args.manifest,
+            args.review_package,
+            args.identity_manifest,
+            args.acceptance,
         )
     else:
         raise AssertionError("unreachable")

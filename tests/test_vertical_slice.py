@@ -16,6 +16,7 @@ from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
 from emperor_v4.evaluation.reconciliation_review import (
     build_reconciliation_review_package,
 )
+from emperor_v4.evaluation.g2_acceptance import build_g2_acceptance_package
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
 
@@ -86,11 +87,18 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
         FIXTURES / "claim-extractor-gap-repair-response.json",
         FIXTURES / "claim-extractor-gap-repair2-response.json",
         root / "eval" / "episode_pilot_v1_assertion_gold_coverage.yml",
+        root / "eval" / "episode_pilot_v1_g2_acceptance.json",
     )
     review_package = build_reconciliation_review_package(
         root / "eval" / "episode_pilot_v1.yml",
         root / "eval" / "episode_pilot_v1_review.yml",
         report,
+    )
+    g2_acceptance = build_g2_acceptance_package(
+        root / "eval" / "episode_pilot_v1.yml",
+        root / "eval" / "episode_pilot_v1_reconciliation_review_package.json",
+        root / "eval" / "episode_pilot_v1_identity_resolution.yml",
+        root / "eval" / "episode_pilot_v1_episode_acceptance.yml",
     )
 
     assert source_repair["status"] == "passed"
@@ -131,7 +139,9 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
             "所有 packet 仍为 proposed，规则投影尚未执行。",
         ],
     }
-    assert report["episode_recall"]["full_match_episode_count"] == 0
+    assert report["episode_recall"]["full_match_episode_count"] == 15
+    assert report["episode_recall"]["value"] == 1.0
+    assert report["baseline_episode_recall"]["full_match_episode_count"] == 0
     assert review_package["status"] == "pending_human_review"
     assert review_package["summary"] == {
         "frozen_episode_count": 15,
@@ -146,3 +156,30 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
     }
     assert all(item["current_status"] == "proposed" for item in review_package["items"])
     assert all(item["human_decision"] == "pending" for item in review_package["items"])
+    assert g2_acceptance["status"] == "accepted"
+    assert g2_acceptance["summary"] == {
+        "frozen_episode_count": 15,
+        "accepted_episode_count": 15,
+        "accepted_with_uncertainty_count": 2,
+        "episode_recall": 1.0,
+        "accepted_episode_precision": 1.0,
+        "wrong_merge_count": 0,
+        "wrong_split_count": 0,
+        "canonical_identity_count": 17,
+        "unresolved_participant_count": 0,
+        "draft_assertion_link_count": 0,
+        "missing_passage_lineage_count": 0,
+        "production_write_count": 0,
+        "rule_projection_count": 0,
+    }
+    assert all(g2_acceptance["gate_results"].values())
+    assert all(
+        participant["role_status"] == "resolved"
+        for packet in g2_acceptance["packets"]
+        for participant in packet["participants"]
+    )
+    assert all(
+        link["evidence_status"] == "accepted"
+        for packet in g2_acceptance["packets"]
+        for link in packet["assertion_links"]
+    )

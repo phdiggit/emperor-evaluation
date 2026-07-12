@@ -11,6 +11,7 @@ from emperor_v4.adapters import (
 )
 from emperor_v4.contracts.assertion import AssertionDraft
 from emperor_v4.contracts.source import SourcePassage, text_content_hash
+from emperor_v4.domain.identity import canonical_person
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
@@ -135,3 +136,12 @@ def test_passage_contract_rejects_hash_mismatch():
             content_hash="not-the-text-hash",
             selection_reason=(),
         )
+
+
+def test_canonical_person_identity_fingerprint_is_deterministic():
+    first = canonical_person("PER-LIU-BANG", "刘邦", "西汉")
+    second = canonical_person("PER-LIU-BANG", "刘邦", "西汉")
+
+    assert first == second
+    assert first.identity_status == "accepted"
+    assert len(first.identity_fingerprint) == 64
