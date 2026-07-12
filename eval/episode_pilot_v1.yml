@@ -1,7 +1,29 @@
 schema_version: 1
 manifest_code: episode_pilot_v1
-manifest_status: candidate_review
-gold_status: not_frozen
+manifest_status: frozen_subset
+gold_status: frozen_v1
+frozen_episode_count: 15
+candidate_episode_count: 17
+review_record: eval/episode_pilot_v1_review.yml
+frozen_episode_codes:
+  - EP-LSM-FANGDU-RECRUITMENT
+  - EP-LSM-WEIZHENG-APPOINTMENT
+  - EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL
+  - EP-LSM-LIJING-DAIZHOU-COMMAND
+  - EP-LB-SANJIE-RETROSPECTIVE
+  - EP-LB-CHENPING-INTEGRATION
+  - EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+  - EP-LB-HANXIN-QI-KING
+  - EP-LB-XIAOHE-SAFETY-PRESSURE
+  - EP-LB-FANKUAI-REPLACEMENT
+  - EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION
+  - EP-ZYZ-LIUJI-RECRUITMENT
+  - EP-ZYZ-LIUJI-RETREAT-PRESSURE
+  - EP-ZYZ-LANYU-PROMOTION
+  - EP-ZYZ-LANYU-PURGE
+deferred_episode_codes:
+  - EP-LB-HANXIN-DOWNFALL
+  - EP-ZYZ-LISHANCHANG-ROLE-AND-DOWNFALL
 evaluation_scope:
   persons:
     - 李世民
@@ -26,11 +48,11 @@ provenance_policy:
 episodes:
   - episode_code: EP-LSM-FANGDU-RECRUITMENT
     ruler: 李世民
-    participants: [李世民, 房玄龄, 杜如晦]
-    expected_episode_boundary: 秦王幕府聚才与房杜协助搜罗人物的同一组织建设事件
+    participants: [李世民, 房玄龄]
+    expected_episode_boundary: 秦王幕府中房玄龄搜罗人物并引入幕府的组织建设事件
     expected_assertions:
       - 房玄龄优先搜罗人物并引入幕府
-      - 房玄龄与杜如晦参与幕府人才组织
+      - 房玄龄将搜罗的人物引入李世民幕府
     must_merge: []
     must_not_merge:
       - EP-LSM-LIJING-DAIZHOU-COMMAND
@@ -96,10 +118,10 @@ episodes:
         locator: 卷一百九十七、卷一百九十八，魏徵身后疑阿党、仆碑与复碑段
         url: https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7197
         v3_source_ref: SRC-ZZTJ-J197-198-WEIZHENG-001
-      - source_title: 资治通鉴
-        locator: 卷一百九十八，征辽后复立魏徵碑段
-        url: https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7198
-        v3_source_ref: SRC-ZZTJ-J197-198-WEIZHENG-001
+      - source_title: 大唐新语
+        locator: 卷一，匡赞第一，魏徵身后踣碑、征辽后复立碑段
+        url: https://zh.wikisource.org/zh-hant/%E5%A4%A7%E5%94%90%E6%96%B0%E8%AA%9E/%E5%8D%B7%E4%B8%80
+        v3_source_ref: null
     expected_completeness:
       identity: complete
       time: complete
@@ -178,10 +200,10 @@ episodes:
       - 陈平从楚归汉
       - 诸将对陈平提出负面指控
       - 刘邦复核后厚赐并任命陈平
-    must_merge:
-      - EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+    must_merge: []
     must_not_merge:
       - EP-LB-SANJIE-RETROSPECTIVE
+      - EP-LB-CHENPING-CONTINUED-AUTHORIZATION
     required_source_passages:
       - source_title: 史记
         locator: 卷五十六，陈丞相世家，陈平归汉、被谗、拜护军中尉段
@@ -207,9 +229,9 @@ episodes:
     expected_assertions:
       - 陈平在初次任用后继续承担护军职责
       - 刘邦通过封赏和随征延续授权
-    must_merge:
-      - EP-LB-CHENPING-INTEGRATION
+    must_merge: []
     must_not_merge:
+      - EP-LB-CHENPING-INTEGRATION
       - EP-LB-FANKUAI-REPLACEMENT
     required_source_passages:
       - source_title: 史记
