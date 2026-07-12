@@ -51,10 +51,27 @@ def fetch_v3_appointment_signal(
 
 
 def fetch_v3_rule_signals(cur: Any, *, emperor: str, item_code: str, cluster_formula: str) -> dict[str, RuleSignals]:
+    rows = fetch_v3_rule_cluster_rows(
+        cur, emperor=emperor, item_code=item_code, cluster_formula=cluster_formula
+    )
+    return {
+        rule: RuleSignals(
+            Decimal(str(payload["positive_signal"] or 0)),
+            Decimal(str(payload["negative_signal"] or 0)),
+            int(payload["id"]) if payload["id"] else None,
+        )
+        for rule, payload in rows.items()
+    }
+
+
+def fetch_v3_rule_cluster_rows(
+    cur: Any, *, emperor: str, item_code: str, cluster_formula: str
+) -> dict[str, dict[str, Any]]:
     cur.execute(
         """
         select distinct on (c.rule_code)
-               c.rule_code, c.id, c.positive_signal, c.negative_signal
+               c.rule_code, c.id, c.rule_score_code, c.positive_signal, c.negative_signal,
+               c.scored_judgment_count, c.updated_at, rt.target_code, c.calc_detail
           from retrieval_v3.target_rule_score_clusters c
           join retrieval_v3.retrieval_targets rt on rt.id = c.target_id
          where rt.emperor_name = %s
@@ -66,8 +83,18 @@ def fetch_v3_rule_signals(cur: Any, *, emperor: str, item_code: str, cluster_for
         (emperor, cluster_formula, item_code),
     )
     return {
-        str(rule): RuleSignals(Decimal(str(positive or 0)), Decimal(str(negative or 0)), int(cluster_id) if cluster_id else None)
-        for rule, cluster_id, positive, negative in cur.fetchall()
+        str(rule): {
+            "id": cluster_id,
+            "rule_score_code": rule_score_code,
+            "positive_signal": positive,
+            "negative_signal": negative,
+            "scored_judgment_count": scored_judgment_count,
+            "updated_at": updated_at,
+            "target_code": target_code,
+            "calc_detail": calc_detail or {},
+        }
+        for rule, cluster_id, rule_score_code, positive, negative, scored_judgment_count, updated_at, target_code, calc_detail
+        in cur.fetchall()
     }
 
 
@@ -82,11 +109,20 @@ def calculate_v3_raw_scores(
         with conn.cursor() as raw_cur:
             v3_cur = schema_cursor(raw_cur, schema_name=schema_name)
             for emperor in emperors:
-                signals = fetch_v3_rule_signals(
+                cluster_rows = fetch_v3_rule_cluster_rows(
                     v3_cur, emperor=emperor, item_code=item_code, cluster_formula=cluster_formula)
+                signals = {
+                    rule: RuleSignals(
+                        Decimal(str(payload["positive_signal"] or 0)),
+                        Decimal(str(payload["negative_signal"] or 0)),
+                        int(payload["id"]) if payload["id"] else None,
+                    )
+                    for rule, payload in cluster_rows.items()
+                }
                 appointment, lineage = fetch_v3_appointment_signal(
                     v3_cur, emperor=emperor, item_code=item_code, formula_code=cluster_formula)
                 signals["appointment_delegation"] = appointment
+                cluster_rows["appointment_delegation"] = lineage
                 formula = calculate_formula(signals=signals)
                 missing_rule_codes = [rule for rule in RULE_ORDER if rule not in signals]
                 rows.append({
@@ -94,6 +130,7 @@ def calculate_v3_raw_scores(
                     "cluster_formula": cluster_formula, **formula,
                     "appointment_delegation_source": "retrieval_v3.target_rule_score_clusters",
                     "appointment_delegation_lineage": lineage,
+                    "rule_cluster_lineage": cluster_rows,
                     "complete_rule_coverage": not missing_rule_codes,
                     "missing_rule_codes": missing_rule_codes,
                 })
@@ -110,13 +147,67 @@ def render_markdown(report: dict[str, Any]) -> str:
         "# I5B 三人最新原始分值报告", "",
         "> 所有 rule 只读取 retrieval_v3 正式 cluster；缺失 rule 会显式列出，不再回读 public 旧表。",
         "> 本报告只产出 weighted_raw_signal；最终 0–45 分和档位仍需批量动态映射。", "",
-        "| 皇帝 | weighted raw signal | appointment + | appointment - | appointment net |", "| --- | ---: | ---: | ---: | ---: |",
+        "| 皇帝 | weighted raw signal | 规则覆盖 |", "| --- | ---: | --- |",
     ]
     for row in report.get("results") or []:
-        rule = row["rules"]["appointment_delegation"]
-        lines.append(
-            f"| {row['emperor']} | {row['weighted_raw_signal']} | {rule['positive_signal']} | "
-            f"{rule['negative_signal']} | {rule['rule_raw_net']} |")
+        coverage = "完整" if row.get("complete_rule_coverage", not row.get("missing_rule_codes")) else "缺失"
+        lines.append(f"| {row['emperor']} | {row['weighted_raw_signal']} | {coverage} |")
+    for row in report.get("results") or []:
+        lines.extend([
+            "", f"## {row['emperor']}", "",
+            "| rule | cluster | judgments | positive | negative | net | weight | weighted contribution |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ])
+        lineage = row.get("rule_cluster_lineage") or {}
+        contributions: list[str] = []
+        for rule_code in RULE_ORDER:
+            rule = row["rules"][rule_code]
+            cluster = lineage.get(rule_code) or {}
+            lines.append(
+                f"| {rule_code} | {rule.get('cluster_id') or '—'} | "
+                f"{cluster.get('scored_judgment_count') if cluster.get('scored_judgment_count') is not None else '—'} | "
+                f"{rule['positive_signal']} | {rule['negative_signal']} | {rule['rule_raw_net']} | "
+                f"{rule['rule_weight']} | {rule['weighted_raw_signal']} |"
+            )
+            contributions.append(rule["weighted_raw_signal"])
+        lines.extend([
+            "", "计算式：",
+            "",
+            f"`{' + '.join(contributions)} = {row['weighted_raw_signal']}`",
+            "", "规则簇来源：", "",
+        ])
+        for rule_code in RULE_ORDER:
+            cluster = lineage.get(rule_code)
+            if not cluster:
+                lines.append(f"- `{rule_code}`：无正式 cluster")
+                continue
+            lines.append(
+                f"- `{rule_code}`：`{cluster.get('rule_score_code')}`，cluster_id={cluster.get('id')}，"
+                f"target=`{cluster.get('target_code')}`，updated_at={cluster.get('updated_at')}"
+            )
+        lines.extend(["", "### 入分材料明细", ""])
+        for rule_code in RULE_ORDER:
+            cluster = lineage.get(rule_code) or {}
+            materials = (cluster.get("calc_detail") or {}).get("materials") or []
+            lines.extend([
+                f"#### {rule_code}", "",
+                "| object | claim | event groups | side | raw score | factors |",
+                "| --- | --- | --- | --- | ---: | --- |",
+            ])
+            if not materials:
+                lines.append("| — | — | — | — | 0.000 | 无可用入分材料 |")
+                lines.append("")
+                continue
+            for material in materials:
+                factor_values = material.get("factor_values") or {}
+                factors = "; ".join(f"{key}={value}" for key, value in sorted(factor_values.items()))
+                event_groups = ", ".join(material.get("event_group_keys") or []) or "—"
+                lines.append(
+                    f"| {material.get('object_name') or '—'} | `{material.get('claim_key') or '—'}` | "
+                    f"{event_groups} | {material.get('side') or material.get('judgment_side') or '—'} | "
+                    f"{material.get('raw_score') or material.get('abs_score') or '0.000'} | {factors or '—'} |"
+                )
+            lines.append("")
     missing_rows = [row for row in report.get("results") or [] if row.get("missing_rule_codes")]
     if missing_rows:
         lines.extend(["", "## 尚未生成的 v3 rule cluster", ""])
