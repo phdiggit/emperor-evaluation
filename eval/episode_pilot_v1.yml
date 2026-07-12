@@ -1,0 +1,516 @@
+schema_version: 1
+manifest_code: episode_pilot_v1
+manifest_status: candidate_review
+gold_status: not_frozen
+evaluation_scope:
+  persons:
+    - 李世民
+    - 刘邦
+    - 朱元璋
+  item: 第五项统治者政治素质
+  subitem: B用人与授权
+  phase_1_rule_code: appointment_delegation
+
+provenance_policy:
+  v3_reference_tag: v3-freeze-20260712
+  v3_role: readonly_regression_candidate
+  v3_is_gold_truth: false
+  requires_independent_source_review: true
+  freeze_requires:
+    - source_document_identity_verified
+    - locator_and_passage_verified
+    - episode_boundary_human_reviewed
+    - expected_assertions_human_reviewed
+    - merge_split_relations_human_reviewed
+
+episodes:
+  - episode_code: EP-LSM-FANGDU-RECRUITMENT
+    ruler: 李世民
+    participants: [李世民, 房玄龄, 杜如晦]
+    expected_episode_boundary: 秦王幕府聚才与房杜协助搜罗人物的同一组织建设事件
+    expected_assertions:
+      - 房玄龄优先搜罗人物并引入幕府
+      - 房玄龄与杜如晦参与幕府人才组织
+    must_merge: []
+    must_not_merge:
+      - EP-LSM-LIJING-DAIZHOU-COMMAND
+    required_source_passages:
+      - source_title: 旧唐书
+        locator: 卷六十六，房玄龄杜如晦传，房玄龄独先收人物段
+        url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B766
+        v3_source_ref: SRC-JTS-J66-FANGDU-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: complete
+      responsibility: complete
+      outcome: partial
+      consequence: not_applicable
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: partial_requires_outcome
+    known_ambiguities:
+      - 房玄龄个人搜罗行为与李世民授权之间的归因强度
+
+  - episode_code: EP-LSM-WEIZHENG-APPOINTMENT
+    ruler: 李世民
+    participants: [李世民, 魏徵]
+    expected_episode_boundary: 李世民将原东宫阵营魏徵擢为谏议大夫并持续纳受其议
+    expected_assertions:
+      - 李世民擢拜魏徵为谏议大夫
+      - 李世民持续纳受魏徵进言
+    must_merge: []
+    must_not_merge:
+      - EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL
+    required_source_passages:
+      - source_title: 旧唐书
+        locator: 卷七十一，魏徵传，太宗拔擢与纳受段
+        url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771
+        v3_source_ref: SRC-JTS-J71-WEIZHENG-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: complete
+      responsibility: complete
+      outcome: complete
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: eligible_after_source_review
+    known_ambiguities:
+      - 拔擢与长期纳谏是一条持续 episode 还是关联 episode
+
+  - episode_code: EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL
+    ruler: 李世民
+    participants: [李世民, 魏徵]
+    expected_episode_boundary: 魏徵身后被疑阿党、仆碑以及征辽后复碑的信用反转链
+    expected_assertions:
+      - 李世民因魏徵身后材料产生阿党怀疑
+      - 李世民撤婚并仆碑
+      - 征辽后李世民复立碑
+    must_merge: []
+    must_not_merge:
+      - EP-LSM-WEIZHENG-APPOINTMENT
+    required_source_passages:
+      - source_title: 资治通鉴
+        locator: 卷一百九十七、卷一百九十八，魏徵身后疑阿党、仆碑与复碑段
+        url: https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7197
+        v3_source_ref: SRC-ZZTJ-J197-198-WEIZHENG-001
+      - source_title: 资治通鉴
+        locator: 卷一百九十八，征辽后复立魏徵碑段
+        url: https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7198
+        v3_source_ref: SRC-ZZTJ-J197-198-WEIZHENG-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: complete
+      outcome: complete
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: partial
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 仆碑与复碑是否属于一个反转 episode 或两个有 lineage 的 episode
+
+  - episode_code: EP-LSM-LIJING-DAIZHOU-COMMAND
+    ruler: 李世民
+    participants: [李世民, 李靖]
+    expected_episode_boundary: 李世民任命李靖为代州道行军总管并授予出击任务
+    expected_assertions:
+      - 李世民任命李靖为代州道行军总管
+      - 李靖承担对突厥出击任务
+    must_merge: []
+    must_not_merge:
+      - EP-LSM-FANGDU-RECRUITMENT
+    required_source_passages:
+      - source_title: 旧唐书
+        locator: 卷六十七，李靖传，代州道行军总管段
+        url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767
+        v3_source_ref: SRC-JTS-J67-LIJING-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: complete
+      responsibility: complete
+      outcome: missing
+      consequence: not_applicable
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: partial_requires_outcome
+    known_ambiguities:
+      - 任命段与战果段相距较远时是否能正确链接而不把战果重复计入
+
+  - episode_code: EP-LB-SANJIE-RETROSPECTIVE
+    ruler: 刘邦
+    participants: [刘邦, 萧何, 张良, 韩信]
+    expected_episode_boundary: 刘邦在雒阳南宫对三杰分工和用人能力的回顾性陈述
+    expected_assertions:
+      - 刘邦分别描述张良、萧何、韩信的职责能力
+      - 刘邦将胜利归因于能够使用三人
+    must_merge: []
+    must_not_merge:
+      - EP-LB-HANXIN-QI-KING
+      - EP-LB-CHENPING-INTEGRATION
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷八，高祖本纪，雒阳南宫论得天下段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7008
+        v3_source_ref: SRC-SJ-J8-GAOZU-SANJIE-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: partial
+      responsibility: partial
+      outcome: complete
+      consequence: not_applicable
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: context_only
+    known_ambiguities:
+      - 回顾性自述不能替代三个独立任用授权事件
+
+  - episode_code: EP-LB-CHENPING-INTEGRATION
+    ruler: 刘邦
+    participants: [刘邦, 陈平]
+    expected_episode_boundary: 陈平归汉、遭诸将讥毁后仍获厚赐并拜护军中尉
+    expected_assertions:
+      - 陈平从楚归汉
+      - 诸将对陈平提出负面指控
+      - 刘邦复核后厚赐并任命陈平
+    must_merge:
+      - EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+    must_not_merge:
+      - EP-LB-SANJIE-RETROSPECTIVE
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷五十六，陈丞相世家，陈平归汉、被谗、拜护军中尉段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056
+        v3_source_ref: SRC-SJ-J56-CHENPING-LIUBANG-POS-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: complete
+      responsibility: complete
+      outcome: partial
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: complete
+    rule_eligibility: eligible_after_source_review
+    known_ambiguities:
+      - 初次任命与后续持续授权是否属于同一长期 episode
+
+  - episode_code: EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+    ruler: 刘邦
+    participants: [刘邦, 陈平]
+    expected_episode_boundary: 陈平获封、继续任护军中尉并随征的持续授权链
+    expected_assertions:
+      - 陈平在初次任用后继续承担护军职责
+      - 刘邦通过封赏和随征延续授权
+    must_merge:
+      - EP-LB-CHENPING-INTEGRATION
+    must_not_merge:
+      - EP-LB-FANKUAI-REPLACEMENT
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷五十六，陈丞相世家，封户牖侯、改封曲逆侯、继续护军中尉随征段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056
+        v3_source_ref: SRC-SJ-J56-CHENPING-CONTINUITY-LIUBANG-SUPP-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: complete
+      responsibility: complete
+      outcome: partial
+      consequence: not_applicable
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: eligible_after_source_review
+    known_ambiguities:
+      - 多次封赏与多次任务应否拆成版本化子 episode
+
+  - episode_code: EP-LB-HANXIN-QI-KING
+    ruler: 刘邦
+    participants: [刘邦, 韩信, 张良]
+    expected_episode_boundary: 韩信破齐后请假王、刘邦在压力下立其为齐王的授权决策
+    expected_assertions:
+      - 韩信请求代理齐王
+      - 刘邦最初反对
+      - 张良劝说后刘邦正式立韩信为齐王
+    must_merge: []
+    must_not_merge:
+      - EP-LB-HANXIN-DOWNFALL
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷八，高祖本纪，韩信破齐后请假王、张良劝立齐王段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7008
+        v3_source_ref: SRC-SJ-J8-HANXIN-QIWANG-LIUBANG-POS-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: complete
+      outcome: partial
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: complete
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 压力下授权与主动识人授权必须区分
+
+  - episode_code: EP-LB-HANXIN-DOWNFALL
+    ruler: 刘邦
+    participants: [刘邦, 韩信, 吕雉, 萧何, 陈豨]
+    expected_episode_boundary: 韩信从云梦被擒、降封到陈豨案后被诛的多阶段安全链
+    expected_assertions:
+      - 刘邦在云梦行动中拘捕韩信并降封
+      - 陈豨案形成新的指控链
+      - 韩信最终在长乐钟室被诛
+    must_merge: []
+    must_not_merge:
+      - EP-LB-HANXIN-QI-KING
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷九十二，淮阴侯列传，云梦被缚、降封与长乐钟室被诛段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7092
+        v3_source_ref: SRC-SJ-J92-HANXIN-LIUBANG-NEG-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: conflicted
+      outcome: complete
+      consequence: complete
+      source_diversity: missing
+      conflict_resolution: conflicted
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 多阶段事件是否拆分
+      - 刘邦、吕雉、萧何的责任主体必须分别表达
+
+  - episode_code: EP-LB-XIAOHE-SAFETY-PRESSURE
+    ruler: 刘邦
+    participants: [刘邦, 萧何]
+    expected_episode_boundary: 汉十一年至十二年刘邦对萧何的疑忌、自污压力与廷尉处置
+    expected_assertions:
+      - 萧何因功高受到疑忌压力
+      - 萧何通过自污降低风险
+      - 刘邦将萧何交廷尉后又赦出
+    must_merge: []
+    must_not_merge:
+      - EP-LB-SANJIE-RETROSPECTIVE
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷五十三，萧相国世家，汉十一年至十二年疑忌、自污、廷尉处置与赦出段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7053
+        v3_source_ref: SRC-SJ-J53-XIAOHE-SAFETY-LIUBANG-SUPP-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: complete
+      outcome: complete
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: partial
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 疑忌与司法处置跨第五项 B、C、D 的投影边界
+
+  - episode_code: EP-LB-FANKUAI-REPLACEMENT
+    ruler: 刘邦
+    participants: [刘邦, 樊哙, 陈平, 周勃]
+    expected_episode_boundary: 刘邦病中命陈平、周勃替代并处置樊哙的授权变更
+    expected_assertions:
+      - 刘邦撤换樊哙并命陈平、周勃执行
+      - 陈平、周勃对命令采取缓冲处置
+    must_merge: []
+    must_not_merge:
+      - EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+    required_source_passages:
+      - source_title: 史记
+        locator: 卷五十六，陈丞相世家，病中命陈平周勃替代樊哙及缓冲处置段
+        url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056
+        v3_source_ref: SRC-SJ-J56-FANKUAI-SAFETY-LIUBANG-SUPP-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: complete
+      outcome: complete
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: partial
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 皇帝命令与执行者缓冲形成不同责任链
+
+  - episode_code: EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION
+    ruler: 朱元璋
+    participants: [朱元璋, 徐达, 常遇春]
+    expected_episode_boundary: 朱元璋明确徐达、常遇春的能力差异并委以相应军事职责
+    expected_assertions:
+      - 朱元璋对徐达与常遇春进行角色区分
+      - 朱元璋认为二人可以承担重大军事委任
+    must_merge: []
+    must_not_merge:
+      - EP-ZYZ-LANYU-PROMOTION
+    required_source_passages:
+      - source_title: 大明太祖高皇帝实录
+        locator: 卷二十六，御戟门论政务、徐达常遇春可任其寄段
+        url: https://zh.wikisource.org/wiki/%E5%A4%A7%E6%98%8E%E5%A4%AA%E7%A5%96%E9%AB%98%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84/%E5%8D%B7026
+        v3_source_ref: SRC-MTZL-J026-XUDA-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: partial
+      responsibility: complete
+      outcome: partial
+      consequence: not_applicable
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: context_requires_task_link
+    known_ambiguities:
+      - 能力评价段必须链接具体任务才可进入 appointment_delegation
+
+  - episode_code: EP-ZYZ-LIUJI-RECRUITMENT
+    ruler: 朱元璋
+    participants: [朱元璋, 刘基]
+    expected_episode_boundary: 朱元璋延聘刘基并使其进入核心谋议
+    expected_assertions:
+      - 朱元璋延聘刘基
+      - 刘基陈述时务并进入核心谋议
+    must_merge: []
+    must_not_merge:
+      - EP-ZYZ-LIUJI-RETREAT-PRESSURE
+    required_source_passages:
+      - source_title: 明史
+        locator: 卷一百二十八，刘基受聘陈时务段
+        url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7128
+        v3_source_ref: SRC-MS-J128-LIUJI-SONGLIAN-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: complete
+      responsibility: partial
+      outcome: partial
+      consequence: not_applicable
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: partial_requires_responsibility_and_outcome
+    known_ambiguities:
+      - 延聘与后续具体职责需要跨 passage 汇聚
+
+  - episode_code: EP-ZYZ-LIUJI-RETREAT-PRESSURE
+    ruler: 朱元璋
+    participants: [朱元璋, 刘基, 胡惟庸]
+    expected_episode_boundary: 刘基退居后因疑惧入京并滞留的安全压力事件
+    expected_assertions:
+      - 刘基退居后受到政治压力
+      - 刘基因疑惧入京并未能自由返回
+    must_merge: []
+    must_not_merge:
+      - EP-ZYZ-LIUJI-RECRUITMENT
+    required_source_passages:
+      - source_title: 明史
+        locator: 卷一百二十八，刘基退居、疑惧入京相关段
+        url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7128
+        v3_source_ref: SRC-MS-J128-LIUJI-SONGLIAN-001
+    expected_completeness:
+      identity: complete
+      time: partial
+      action: partial
+      responsibility: conflicted
+      outcome: complete
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: conflicted
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 朱元璋与胡惟庸责任链必须分离
+
+  - episode_code: EP-ZYZ-LISHANCHANG-ROLE-AND-DOWNFALL
+    ruler: 朱元璋
+    participants: [朱元璋, 李善长, 胡惟庸]
+    expected_episode_boundary: 李善长早期识材调护与晚期党案牵连必须拆为有 lineage 的独立阶段
+    expected_assertions:
+      - 李善长在早期承担识材和调护职责
+      - 李善长晚期因胡惟庸党案被牵连处置
+    must_merge: []
+    must_not_merge:
+      - EP-ZYZ-LANYU-PURGE
+    required_source_passages:
+      - source_title: 明史
+        locator: 卷一百二十七，李善长识材调护与胡惟庸党案诛连段
+        url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7127
+        v3_source_ref: SRC-MS-J127-LISHANG-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: conflicted
+      outcome: complete
+      consequence: complete
+      source_diversity: missing
+      conflict_resolution: conflicted
+    rule_eligibility: must_split_before_projection
+    known_ambiguities:
+      - 单一传记中的正向任用与晚期处置不能合成一个 episode
+
+  - episode_code: EP-ZYZ-LANYU-PROMOTION
+    ruler: 朱元璋
+    participants: [朱元璋, 蓝玉]
+    expected_episode_boundary: 蓝玉北征奏捷后晋封凉国公的任用与反馈事件
+    expected_assertions:
+      - 蓝玉受命北征并奏捷
+      - 朱元璋依据任务结果晋封蓝玉
+    must_merge: []
+    must_not_merge:
+      - EP-ZYZ-LANYU-PURGE
+    required_source_passages:
+      - source_title: 明史
+        locator: 卷一百三十二，蓝玉北征奏捷进凉国公段
+        url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132
+        v3_source_ref: SRC-MS-J132-LANYU-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: complete
+      outcome: complete
+      consequence: partial
+      source_diversity: missing
+      conflict_resolution: not_applicable
+    rule_eligibility: eligible_after_source_review
+    known_ambiguities:
+      - 战果只能作为授权反馈，不得在本规则重复结算军事收益
+
+  - episode_code: EP-ZYZ-LANYU-PURGE
+    ruler: 朱元璋
+    participants: [朱元璋, 蓝玉]
+    expected_episode_boundary: 蓝玉骄蹇、自恣、案发与蓝党族诛的处置事件
+    expected_assertions:
+      - 蓝玉在封爵后出现骄蹇自恣行为
+      - 朱元璋对蓝玉及相关人员实施处置
+      - 案件扩大形成族诛后果
+    must_merge: []
+    must_not_merge:
+      - EP-ZYZ-LANYU-PROMOTION
+      - EP-ZYZ-LISHANCHANG-ROLE-AND-DOWNFALL
+    required_source_passages:
+      - source_title: 明史
+        locator: 卷一百三十二，蓝玉骄蹇自恣与蓝党族诛段
+        url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132
+        v3_source_ref: SRC-MS-J132-LANYU-001
+    expected_completeness:
+      identity: complete
+      time: complete
+      action: complete
+      responsibility: conflicted
+      outcome: complete
+      consequence: complete
+      source_diversity: missing
+      conflict_resolution: conflicted
+    rule_eligibility: boundary_review
+    known_ambiguities:
+      - 谋反事实、政治安全、司法严酷与人才安全必须分别投影
