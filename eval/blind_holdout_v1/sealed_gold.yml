@@ -1,0 +1,333 @@
+schema_version: 1
+dataset_code: blind_holdout_v1
+status: frozen
+frozen_without_candidate_access: true
+candidate_input_sha256: f65f4e384d2ae25f678fd305b34e692510c4c9f67af20af6892180a38de394e6
+
+review_protocol:
+  reviewer_must_read:
+    - eval/blind_holdout_v1/input.json
+    - eval/blind_holdout_v1_plan.yml
+  reviewer_must_not_read_before_gold_freeze:
+    - eval/blind_holdout_v1/candidates.json
+    - 任何由 candidate fingerprint 派生的报告
+  freeze_steps:
+    - 独立划定 12 至 20 个 gold episode
+    - 为每个 episode 填写 expected_assertion_refs 与 required_source_passage_refs
+    - source 有而 assertion 缺失时保留空 expected_assertion_refs
+    - 冻结 catastrophic_must_not_merge_pairs
+    - 填写 reviewed_by 与 frozen_at
+    - 将 status 改为 frozen
+    - 将 frozen_without_candidate_access 改为 true
+
+reviewed_by: independent_codex_agent_g25_gold_freeze
+frozen_at: 2026-07-12
+
+gold_episodes:
+  - gold_episode_code: G25-GOLD-LIZHI-657-WESTERN-TURKS
+    evaluation_context: 李治
+    participants: [李治, 苏定方, 沙钵罗可汗]
+    expected_assertion_refs:
+      - G25-A-CLMK-A02837CB6BC1D5BA00CE-EVD-B51430E7D163E6AF0D93C47C
+      - G25-A-CLMK-A02837CB6BC1D5BA00CE-EVD-B79773E5580B681CEA3CCE74
+      - G25-A-CLMK-8B70CDDC4835AA349AFE-EVD-5EFDE86BBB4D6E722D94903D
+      - G25-A-CLMK-8B70CDDC4835AA349AFE-EVD-DF6DB92BB3A666C4189029F6
+    required_source_passage_refs:
+      - G25-P-EVD-B51430E7D163E6AF0D93C47C
+      - G25-P-EVD-B79773E5580B681CEA3CCE74
+      - G25-P-EVD-5EFDE86BBB4D6E722D94903D
+      - G25-P-EVD-DF6DB92BB3A666C4189029F6
+    expected_completeness: complete
+    known_ambiguities:
+      - 任命与曳咥河战果属于同一显庆二年讨伐链，不能仅因谓词不同拆开。
+      - 沙钵罗可汗及其军队是征讨对象，不应被识别为任官人物。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LIZHI-659-DUMAN-CAMPAIGN
+    evaluation_context: 李治
+    participants: [李治, 苏定方, 都曼]
+    expected_assertion_refs:
+      - G25-A-CLMK-4514F4F63A6253B683BB-EVD-8294A6448AB0921765ED4E5C
+      - G25-A-CLMK-4514F4F63A6253B683BB-EVD-F4394D257EBD543F4F9B28C6
+      - G25-A-CLMK-5C4A86EEED2EB96C2F98-EVD-206E03C7AD1C858F0AB3C714
+      - G25-A-CLMK-5C4A86EEED2EB96C2F98-EVD-BF6261E3FD64D30B10A848CE
+    required_source_passage_refs:
+      - G25-P-EVD-8294A6448AB0921765ED4E5C
+      - G25-P-EVD-F4394D257EBD543F4F9B28C6
+      - G25-P-EVD-206E03C7AD1C858F0AB3C714
+      - G25-P-EVD-BF6261E3FD64D30B10A848CE
+    expected_completeness: complete
+    known_ambiguities:
+      - 安抚大使任命与长途奔袭、都曼出降构成同一任务链。
+      - 不得与显庆二年西突厥战役或显庆五年百济战役合并。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LIZHI-660-BAEKJE-CAMPAIGN
+    evaluation_context: 李治
+    participants: [李治, 苏定方, 百济王义慈, 太子隆]
+    expected_assertion_refs:
+      - G25-A-CLMK-0973347E316B9807A55B-EVD-336E32533D6A5007B652AEE1
+      - G25-A-CLMK-0973347E316B9807A55B-EVD-45EAF23F6B30E442E63969EB
+      - G25-A-CLMK-C220E635B1616E4657AC-EVD-9E66666F927108ADF6C7E3A7
+      - G25-A-CLMK-C220E635B1616E4657AC-EVD-B239E484E59E2F88A7DA0954
+    required_source_passage_refs:
+      - G25-P-EVD-336E32533D6A5007B652AEE1
+      - G25-P-EVD-45EAF23F6B30E442E63969EB
+      - G25-P-EVD-9E66666F927108ADF6C7E3A7
+      - G25-P-EVD-B239E484E59E2F88A7DA0954
+    expected_completeness: complete
+    known_ambiguities:
+      - 神丘道行军大总管任命、渡海作战与百济降服是同一显庆五年任务的阶段。
+      - 百济军与都城是非人物 object，不应据此另建人物任用事件。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LIZHI-666-668-GOGURYEO
+    evaluation_context: 李治
+    participants: [李治, 李绩, 高丽王藏, 泉男建]
+    expected_assertion_refs:
+      - G25-A-CLMK-D69A1DA8A5033767650B-EVD-223AB8980C59700B8F2308D1
+      - G25-A-CLMK-D69A1DA8A5033767650B-EVD-4C9071E6680E0B3B9B9AE956
+      - G25-A-CLMK-934FD969C59180F34003-EVD-149B8E5D1E944CE2A45C4960
+      - G25-A-CLMK-934FD969C59180F34003-EVD-6176D871A8550C279A6D0819
+    required_source_passage_refs:
+      - G25-P-EVD-223AB8980C59700B8F2308D1
+      - G25-P-EVD-4C9071E6680E0B3B9B9AE956
+      - G25-P-EVD-149B8E5D1E944CE2A45C4960
+      - G25-P-EVD-6176D871A8550C279A6D0819
+    expected_completeness: complete
+    known_ambiguities:
+      - 乾封元年任命与总章元年平壤战果相隔两年，但属于同一高丽征讨任务链。
+      - 李绩又见于李世民贞观十九年高丽战役，跨皇帝任务必须分开。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-ZHUDI-1402-YAOGUANGXIAO-PLEA
+    evaluation_context: 朱棣
+    participants: [朱棣, 姚广孝, 方孝孺]
+    expected_assertion_refs:
+      - G25-A-CLMK-EBEE557EA96474848548-EVD-47EC852BCF6A98E713C2C7CE
+      - G25-A-CLMK-EBEE557EA96474848548-EVD-8C22FED21AE9733111F71451
+    required_source_passage_refs:
+      - G25-P-EVD-47EC852BCF6A98E713C2C7CE
+      - G25-P-EVD-8C22FED21AE9733111F71451
+    expected_completeness: partial
+    known_ambiguities:
+      - 来源只呈现姚广孝请求与朱棣颔首，未呈现方孝孺后来实际结局。
+      - 姚广孝在输入中带非人物式标识，但历史语义上应规范为人物。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-GOLD-ZHUDI-1402-YANGSHIQI-CABINET
+    evaluation_context: 朱棣
+    participants: [朱棣, 杨士奇]
+    expected_assertion_refs:
+      - G25-A-CLMK-54293028AAC5B49ED907-EVD-11B74BDAB8C2886225DE5B3B
+      - G25-A-CLMK-54293028AAC5B49ED907-EVD-5E0E3DF6FC8E7CAC2F9E476E
+    required_source_passage_refs:
+      - G25-P-EVD-11B74BDAB8C2886225DE5B3B
+      - G25-P-EVD-5E0E3DF6FC8E7CAC2F9E476E
+    expected_completeness: complete
+    known_ambiguities:
+      - 主语“成祖”应规范为朱棣。
+      - 入阁典机务与数月后进侍讲是连续任用，不应与二十二年后的银章授权合并。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-GOLD-ZHUDI-1424-YANGSHIQI-SEAL
+    evaluation_context: 朱棣
+    participants: [朱棣, 杨士奇, 蹇义, 杨荣]
+    expected_assertion_refs:
+      - G25-A-CLMK-0BCBB19ADC7B06CFB64B-EVD-3D9479D4DCC8BC3E1D395A5A
+      - G25-A-CLMK-0BCBB19ADC7B06CFB64B-EVD-C2CBF310DB041D95D0D404F7
+    required_source_passage_refs:
+      - G25-P-EVD-3D9479D4DCC8BC3E1D395A5A
+      - G25-P-EVD-C2CBF310DB041D95D0D404F7
+    expected_completeness: complete
+    known_ambiguities:
+      - 主语“帝”应按 evaluation_context 规范为朱棣。
+      - 银章密封言事是永乐二十二年的独立授权，不是即位初入阁事件的延伸字段。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-GOLD-ZHUDI-1421-1424-XIAYUANJI-CHAIN
+    evaluation_context: 朱棣
+    participants: [朱棣, 夏原吉, 吕震, 方宾, 吴中]
+    expected_assertion_refs:
+      - G25-A-CLMK-4633948BA1BA173FF677-EVD-2962CC8F7283F6DBA97A948C
+      - G25-A-CLMK-4633948BA1BA173FF677-EVD-BC77AAA6123F6D84C26AE01F
+      - G25-A-CLMK-4633948BA1BA173FF677-EVD-C73DA2C86B728F883FE5EAA3
+      - G25-A-CLMK-70CF04E76C69FDFF5414-EVD-403B3575A92346CC36A331EE
+      - G25-A-CLMK-70CF04E76C69FDFF5414-EVD-BFF2F61B32CD9DA3A20E45BE
+      - G25-A-CLMK-70CF04E76C69FDFF5414-EVD-E846066040EF338F7C339EEE
+      - G25-A-CLMK-AEFED17B65498DE0BD1A-EVD-4CC362FC18F40AD6D2FEBEC3
+      - G25-A-CLMK-AEFED17B65498DE0BD1A-EVD-7528DD2C6E76A980B74D527E
+    required_source_passage_refs:
+      - G25-P-EVD-2962CC8F7283F6DBA97A948C
+      - G25-P-EVD-BC77AAA6123F6D84C26AE01F
+      - G25-P-EVD-C73DA2C86B728F883FE5EAA3
+      - G25-P-EVD-403B3575A92346CC36A331EE
+      - G25-P-EVD-BFF2F61B32CD9DA3A20E45BE
+      - G25-P-EVD-E846066040EF338F7C339EEE
+      - G25-P-EVD-4CC362FC18F40AD6D2FEBEC3
+      - G25-P-EVD-7528DD2C6E76A980B74D527E
+    expected_completeness: conflicted
+    known_ambiguities:
+      - 亲征议、下狱籍家、次年粮尽引还及临终称“夏原吉爱我”是同一谏阻后果链的不同阶段。
+      - 朱棣先惩处夏原吉、后认可其判断，结果评价存在明确张力，不能丢弃任一方向。
+      - 亲征议是非人物政策 object。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LISHIMIN-629-645-BINGZHOU
+    evaluation_context: 李世民
+    participants: [李世民, 李绩]
+    expected_assertion_refs:
+      - G25-A-CLMK-B26CF821EF3135D4B1C2-EVD-81349EBA57BE8AA98DCADA0C
+      - G25-A-CLMK-B26CF821EF3135D4B1C2-EVD-926826A5A2B01E119806FFB1
+    required_source_passage_refs:
+      - G25-P-EVD-81349EBA57BE8AA98DCADA0C
+      - G25-P-EVD-926826A5A2B01E119806FFB1
+    expected_completeness: partial
+    known_ambiguities:
+      - 输入只覆盖任并州长史与十六年治理结果，缺少期间具体施政过程。
+      - “并州军政与北方边境”是职责与地域 object，不是人物。
+    error_attribution_if_missed: source
+
+  - gold_episode_code: G25-GOLD-LISHIMIN-645-ANSHI-CAMPAIGN
+    evaluation_context: 李世民
+    participants: [李世民, 李绩]
+    expected_assertion_refs:
+      - G25-A-CLMK-484565C8428DF020525B-EVD-87B6D44A8BFE32CC0F8181B8
+      - G25-A-CLMK-484565C8428DF020525B-EVD-CBE5068032810544D952E356
+    required_source_passage_refs:
+      - G25-P-EVD-87B6D44A8BFE32CC0F8181B8
+      - G25-P-EVD-CBE5068032810544D952E356
+    expected_completeness: conflicted
+    known_ambiguities:
+      - 同一战役先攻取盖牟等城、后安市城不克并班师，含成功与失败两类结果。
+      - 不得与李治时期李绩的乾封至总章高丽任务合并。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LIUBANG-NANZHENG-HANXIN-APPOINTMENT
+    evaluation_context: 刘邦
+    participants: [刘邦, 萧何, 韩信]
+    expected_assertion_refs:
+      - G25-A-CLMK-9B83A00852F33A78C3E4-EVD-08B76432430EC596138D8FB4
+      - G25-A-CLMK-9B83A00852F33A78C3E4-EVD-57D6CEAC59C355F1289C62BD
+      - G25-A-CLMK-BA9BA19D41DB31E27A98-EVD-79A9C9CCE4A9F479ABE6A631
+      - G25-A-CLMK-DD1CA4113EAE75C22F23-EVD-27BEB6539B212A78F9F2624A
+      - G25-A-CLMK-DD1CA4113EAE75C22F23-EVD-AE91A7A2FDB135DB160325C9
+    required_source_passage_refs:
+      - G25-P-EVD-08B76432430EC596138D8FB4
+      - G25-P-EVD-57D6CEAC59C355F1289C62BD
+      - G25-P-EVD-79A9C9CCE4A9F479ABE6A631
+      - G25-P-EVD-27BEB6539B212A78F9F2624A
+      - G25-P-EVD-AE91A7A2FDB135DB160325C9
+    expected_completeness: complete
+    known_ambiguities:
+      - 萧何荐举追回与刘邦设坛拜将是同一南郑任用事件，不应拆为互不相干的 episode。
+      - 多组断言以不同主体和来源表达同一历史边界。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LIUBANG-196BC-YUNMENG-ARREST
+    evaluation_context: 刘邦
+    participants: [刘邦, 陈平, 韩信]
+    expected_assertion_refs:
+      - G25-A-CLMK-5A7240518798EB58723A-EVD-15273E608A7A9883875F1531
+      - G25-A-CLMK-5A7240518798EB58723A-EVD-C3373E11213B19C1D72C29EB
+      - G25-A-CLMK-9EECF2A376E452E81641-EVD-8219F5E264CB26D1853D750E
+      - G25-A-CLMK-9EECF2A376E452E81641-EVD-8AE62ECFC06BA87B99DBA55A
+    required_source_passage_refs:
+      - G25-P-EVD-15273E608A7A9883875F1531
+      - G25-P-EVD-C3373E11213B19C1D72C29EB
+      - G25-P-EVD-8219F5E264CB26D1853D750E
+      - G25-P-EVD-8AE62ECFC06BA87B99DBA55A
+    expected_completeness: complete
+    known_ambiguities:
+      - 陈平献策、伪游云梦、拘捕械送及降为淮阴侯属于同一处置链。
+      - 该事件早于陈豨案后韩信被诛，不能因参与者相同而合并。
+    error_attribution_if_missed: reconciliation
+
+  - gold_episode_code: G25-GOLD-LIUBANG-196BC-CHENXI-HANXIN-DEATH
+    evaluation_context: 刘邦
+    participants: [刘邦, 韩信, 陈豨, 吕雉, 萧何]
+    expected_assertion_refs: []
+    required_source_passage_refs:
+      - G25-P-HANXIN-CHENXI-DEATH
+    expected_completeness: complete
+    known_ambiguities:
+      - 输入有完整史源 lineage，但没有对应 AssertionDraft，必须保留 source-only Gold 边界。
+      - 陈豨谋反、韩信谋内应、吕雉与萧何诱捕及长乐钟室诛杀构成复合因果链。
+      - evaluation_context 仍为刘邦，但直接处置执行者包含吕雉与萧何。
+    error_attribution_if_missed: assertion
+
+  - gold_episode_code: G25-GOLD-ZHUYUANZHANG-CHUYANG-LISHANCHANG-SECRETARY
+    evaluation_context: 朱元璋
+    participants: [朱元璋, 李善长]
+    expected_assertion_refs:
+      - G25-A-CLMK-493D0FBA68A828F90322-EVD-1C494A275CC3C80417EC65CF
+      - G25-A-CLMK-493D0FBA68A828F90322-EVD-8E4BB2F87227EACD6F743620
+      - G25-A-CLMK-632CC32CB09D20B2C227-EVD-9697CB5E60067FF6EF64C01D
+      - G25-A-CLMK-632CC32CB09D20B2C227-EVD-C268F6AC3A42186D557CD530
+    required_source_passage_refs:
+      - G25-P-EVD-1C494A275CC3C80417EC65CF
+      - G25-P-EVD-8E4BB2F87227EACD6F743620
+      - G25-P-EVD-9697CB5E60067FF6EF64C01D
+      - G25-P-EVD-C268F6AC3A42186D557CD530
+    expected_completeness: complete
+    known_ambiguities:
+      - 略地滁阳后的礼遇留掌书记，与下滁州后参谋馈饷是同一早期任用逐步扩展链。
+      - 李善长在输入中带非人物式标识，但历史语义上应规范为人物。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-GOLD-ZHUYUANZHANG-WU-KING-LISHANCHANG-CHANCELLOR
+    evaluation_context: 朱元璋
+    participants: [朱元璋, 李善长]
+    expected_assertion_refs:
+      - G25-A-CLMK-FAEE4DFB12282A9B294D-EVD-962384AAAFAF4BE58A32EFAC
+      - G25-A-CLMK-FAEE4DFB12282A9B294D-EVD-C3038EB206F1DA952DCFEBE6
+      - G25-A-CLMK-FCBA8ED02D2F08761D07-EVD-78D4255C1A4375CC3E2CDC0B
+      - G25-A-CLMK-FCBA8ED02D2F08761D07-EVD-AE7A942BEE3FDA9CB9B7A99E
+    required_source_passage_refs:
+      - G25-P-EVD-962384AAAFAF4BE58A32EFAC
+      - G25-P-EVD-C3038EB206F1DA952DCFEBE6
+      - G25-P-EVD-78D4255C1A4375CC3E2CDC0B
+      - G25-P-EVD-AE7A942BEE3FDA9CB9B7A99E
+    expected_completeness: complete
+    known_ambiguities:
+      - “太祖”与朱元璋是同一人物别名，四条断言表达同一右相国及居守馈饷边界。
+      - 此事件晚于掌书记任用且职责显著不同，应与早期任用拆分。
+    error_attribution_if_missed: identity
+
+  - gold_episode_code: G25-GOLD-ZHUYUANZHANG-1385-1391-LISHANCHANG-CASE
+    evaluation_context: 朱元璋
+    participants: [朱元璋, 李善长, 胡惟庸, 封绩, 王国用]
+    expected_assertion_refs:
+      - G25-A-CLMK-C44D4284177D46211413-EVD-7CBD591CA40394F8385C3660
+      - G25-A-CLMK-C44D4284177D46211413-EVD-8A5177F9002A44A7721BD0DD
+      - G25-A-CLMK-2FE71E9A02CBA2BF86DF-EVD-24FBB249FFA4BB8C1A89A38B
+      - G25-A-CLMK-2FE71E9A02CBA2BF86DF-EVD-60957C172E7290B783A63951
+      - G25-A-CLMK-0E76F13E49DB4060D38B-EVD-0C3AEDB6BFE2CE26C9517985
+      - G25-A-CLMK-0E76F13E49DB4060D38B-EVD-9D570FEA91B50B286370C126
+    required_source_passage_refs:
+      - G25-P-EVD-7CBD591CA40394F8385C3660
+      - G25-P-EVD-8A5177F9002A44A7721BD0DD
+      - G25-P-EVD-24FBB249FFA4BB8C1A89A38B
+      - G25-P-EVD-60957C172E7290B783A63951
+      - G25-P-EVD-0C3AEDB6BFE2CE26C9517985
+      - G25-P-EVD-9D570FEA91B50B286370C126
+    expected_completeness: conflicted
+    known_ambiguities:
+      - 失于发举、洪武二十三年诛杀及次年王国用反驳指控构成晚期党案与事后争议链。
+      - 王国用主张“欲佐胡惟庸”大谬不然，与据案诛杀的归罪结果存在冲突。
+      - 胡惟庸逆谋及通使情报是非人物事实 object，不能据 object 类型拆散因果链。
+    error_attribution_if_missed: reconciliation
+
+catastrophic_must_not_merge_pairs:
+  - [G25-GOLD-LIZHI-657-WESTERN-TURKS, G25-GOLD-LIZHI-659-DUMAN-CAMPAIGN]
+  - [G25-GOLD-LIZHI-657-WESTERN-TURKS, G25-GOLD-LIZHI-660-BAEKJE-CAMPAIGN]
+  - [G25-GOLD-LIZHI-659-DUMAN-CAMPAIGN, G25-GOLD-LIZHI-660-BAEKJE-CAMPAIGN]
+  - [G25-GOLD-ZHUDI-1402-YANGSHIQI-CABINET, G25-GOLD-ZHUDI-1424-YANGSHIQI-SEAL]
+  - [G25-GOLD-LISHIMIN-629-645-BINGZHOU, G25-GOLD-LISHIMIN-645-ANSHI-CAMPAIGN]
+  - [G25-GOLD-LISHIMIN-645-ANSHI-CAMPAIGN, G25-GOLD-LIZHI-666-668-GOGURYEO]
+  - [G25-GOLD-LIUBANG-NANZHENG-HANXIN-APPOINTMENT, G25-GOLD-LIUBANG-196BC-YUNMENG-ARREST]
+  - [G25-GOLD-LIUBANG-NANZHENG-HANXIN-APPOINTMENT, G25-GOLD-LIUBANG-196BC-CHENXI-HANXIN-DEATH]
+  - [G25-GOLD-LIUBANG-196BC-YUNMENG-ARREST, G25-GOLD-LIUBANG-196BC-CHENXI-HANXIN-DEATH]
+  - [G25-GOLD-ZHUYUANZHANG-CHUYANG-LISHANCHANG-SECRETARY, G25-GOLD-ZHUYUANZHANG-WU-KING-LISHANCHANG-CHANCELLOR]
+  - [G25-GOLD-ZHUYUANZHANG-CHUYANG-LISHANCHANG-SECRETARY, G25-GOLD-ZHUYUANZHANG-1385-1391-LISHANCHANG-CASE]
+  - [G25-GOLD-ZHUYUANZHANG-WU-KING-LISHANCHANG-CHANCELLOR, G25-GOLD-ZHUYUANZHANG-1385-1391-LISHANCHANG-CASE]

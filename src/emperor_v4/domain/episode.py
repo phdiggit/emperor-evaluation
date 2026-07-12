@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import unicodedata
 from dataclasses import dataclass
 from hashlib import sha256
@@ -89,21 +90,323 @@ def candidate_key(assertion: AssertionDraft) -> EpisodeCandidateKey:
     )
 
 
+_ACTION_ANCHOR_PRIORITY = {
+    "任命": 0,
+    "任命统兵": 0,
+    "授权": 1,
+    "荐举": 2,
+    "处置": 3,
+    "保全": 4,
+    "战役": 5,
+}
+_BOUNDARY_BREAK_MARKERS = ("撤销", "罢免", "解除", "再次", "重新")
+_GENERIC_BIGRAMS = frozenset(
+    {
+        "太祖",
+        "皇帝",
+        "任命",
+        "授权",
+        "处置",
+        "战役",
+        "军事",
+        "中枢",
+        "边疆",
+        "任务",
+        "结果",
+        "行军",
+        "总管",
+        "大使",
+        "大将",
+        "人物",
+        "事件",
+    }
+)
+
+
+def _raw_roles(assertion: AssertionDraft) -> tuple[tuple[str, str], ...]:
+    context = assertion.qualifiers.get("evaluation_context")
+    return tuple(
+        (str(person), str(role))
+        for person, role in (
+            assertion.qualifiers.get("candidate_participant_roles")
+            or ((context, "ruler"), (assertion.subject, "actor"))
+        )
+        if person and role
+    )
+
+
+def _entity_names(assertion: AssertionDraft) -> set[str]:
+    context = _normalized(assertion.qualifiers.get("evaluation_context"))
+    return {
+        _normalized(person)
+        for person, role in _raw_roles(assertion)
+        if _normalized(person) and _normalized(person) != context and role != "ruler"
+    }
+
+
+def _object_mentions_entity(assertion: AssertionDraft, entities: set[str]) -> bool:
+    object_text = _normalized(assertion.object)
+    return any(len(entity) >= 2 and entity in object_text for entity in entities)
+
+
+def _semantic_bigrams(text: object, excluded_names: set[str] | None = None) -> set[str]:
+    normalized = _normalized(text)
+    for name in excluded_names or ():
+        normalized = normalized.replace(name, "")
+    normalized = re.sub(r"[^\u3400-\u9fff0-9a-z]+", "", normalized)
+    return {
+        normalized[index : index + 2]
+        for index in range(max(0, len(normalized) - 1))
+        if normalized[index : index + 2] not in _GENERIC_BIGRAMS
+    }
+
+
+def _time_core(value: str | None) -> str:
+    normalized = _normalized(value)
+    return re.sub(r"[（(][^）)]*[）)]", "", normalized)
+
+
+def _regnal_year(value: str | None) -> tuple[str, str] | None:
+    match = re.match(
+        r"^([\u3400-\u9fff]{2,4}?)(元|[一二三四五六七八九十百]+)年",
+        value or "",
+    )
+    return (match.group(1), match.group(2)) if match else None
+
+
+def _has_explicit_same_era_conflict(left: str | None, right: str | None) -> bool:
+    left_year = _regnal_year(left)
+    right_year = _regnal_year(right)
+    return bool(
+        left_year
+        and right_year
+        and left_year[0] == right_year[0]
+        and left_year[1] != right_year[1]
+    )
+
+
+def _incompatible_action_boundary(left: str, right: str) -> bool:
+    if left == right:
+        return False
+    return any(marker in left or marker in right for marker in _BOUNDARY_BREAK_MARKERS)
+
+
+def _terminal_followup_mismatch(left: AssertionDraft, right: AssertionDraft) -> bool:
+    markers = ("死后", "卒后", "被诛后", "死之明年", "诛杀后")
+    left_terminal = any(marker in (left.time_expression or "") for marker in markers)
+    right_terminal = any(marker in (right.time_expression or "") for marker in markers)
+    if left_terminal == right_terminal:
+        return False
+    non_terminal = right if left_terminal else left
+    non_terminal_payload = "".join(
+        (
+            non_terminal.object,
+            str(non_terminal.qualifiers.get("outcome") or ""),
+            str(
+                non_terminal.qualifiers.get("claim_summary")
+                or non_terminal.qualifiers.get("legacy_claim_summary")
+                or ""
+            ),
+        )
+    )
+    return not any(marker in non_terminal_payload for marker in ("死", "诛", "杀"))
+
+
+def _should_merge_assertions(left: AssertionDraft, right: AssertionDraft) -> bool:
+    if left.assertion_code == right.assertion_code:
+        return True
+    if _normalized(left.qualifiers.get("evaluation_context")) != _normalized(
+        right.qualifiers.get("evaluation_context")
+    ):
+        return False
+    if _normalized(left.qualifiers.get("episode_type") or left.predicate) != _normalized(
+        right.qualifiers.get("episode_type") or right.predicate
+    ):
+        return False
+    if _incompatible_action_boundary(left.predicate, right.predicate):
+        return False
+    if _terminal_followup_mismatch(left, right):
+        return False
+
+    left_claim = left.extraction_provenance.get("claim_key")
+    right_claim = right.extraction_provenance.get("claim_key")
+    if left_claim and left_claim == right_claim:
+        return True
+
+    left_entities = _entity_names(left)
+    right_entities = _entity_names(right)
+    entities_connected = bool(left_entities & right_entities)
+    entities_connected = entities_connected or _object_mentions_entity(
+        left, right_entities
+    )
+    entities_connected = entities_connected or _object_mentions_entity(
+        right, left_entities
+    )
+    if not entities_connected:
+        return False
+
+    excluded_names = left_entities | right_entities | {
+        _normalized(left.qualifiers.get("evaluation_context")),
+    }
+    left_topic = _semantic_bigrams(
+        "".join(
+            (
+                left.object,
+                str(left.qualifiers.get("office_or_domain") or ""),
+                str(
+                    left.qualifiers.get("claim_summary")
+                    or left.qualifiers.get("legacy_claim_summary")
+                    or ""
+                ),
+            )
+        ),
+        excluded_names,
+    )
+    right_topic = _semantic_bigrams(
+        "".join(
+            (
+                right.object,
+                str(right.qualifiers.get("office_or_domain") or ""),
+                str(
+                    right.qualifiers.get("claim_summary")
+                    or right.qualifiers.get("legacy_claim_summary")
+                    or ""
+                ),
+            )
+        ),
+        excluded_names,
+    )
+    topic_overlap = left_topic & right_topic
+    left_time = _time_core(left.time_expression)
+    right_time = _time_core(right.time_expression)
+    time_equivalent = bool(left_time and left_time == right_time)
+    time_contains = bool(
+        left_time
+        and right_time
+        and min(len(left_time), len(right_time)) >= 3
+        and (left_time in right_time or right_time in left_time)
+    )
+    same_source_slice = bool(
+        left.source_attribution.get("source_slice_ref")
+        and left.source_attribution.get("source_slice_ref")
+        == right.source_attribution.get("source_slice_ref")
+    )
+    same_scope = bool(
+        left.qualifiers.get("event_scope")
+        and left.qualifiers.get("event_scope") == right.qualifiers.get("event_scope")
+    )
+    domain_overlap = _semantic_bigrams(
+        left.qualifiers.get("office_or_domain"), excluded_names
+    ) & _semantic_bigrams(right.qualifiers.get("office_or_domain"), excluded_names)
+
+    if (
+        time_equivalent
+        and left.predicate == right.predicate
+        and left.qualifiers.get("office_or_domain")
+        and right.qualifiers.get("office_or_domain")
+        and _normalized(left.qualifiers.get("office_or_domain"))
+        != _normalized(right.qualifiers.get("office_or_domain"))
+    ):
+        return False
+    if time_equivalent and (topic_overlap or domain_overlap or same_scope):
+        return True
+    if time_contains and (topic_overlap or domain_overlap):
+        return True
+    if _has_explicit_same_era_conflict(
+        left.time_expression, right.time_expression
+    ) and not (
+        same_source_slice
+        and len(topic_overlap) >= 2
+        and left.predicate != right.predicate
+    ):
+        return False
+    if same_source_slice and (topic_overlap or domain_overlap):
+        return True
+    if topic_overlap and (
+        len(topic_overlap) >= 2
+        or same_scope
+        or left.predicate == right.predicate
+        or {left.predicate, right.predicate} <= {"任命", "授权", "战役", "处置", "其他", "失职"}
+    ):
+        return True
+    return False
+
+
+def _anchor_assertion(assertions: Iterable[AssertionDraft]) -> AssertionDraft:
+    return min(
+        assertions,
+        key=lambda item: (
+            _ACTION_ANCHOR_PRIORITY.get(item.predicate, 50),
+            _normalized(item.time_expression),
+            _normalized(item.qualifiers.get("office_or_domain")),
+            item.assertion_code,
+        ),
+    )
+
+
 def group_episode_candidates(
     assertions: Iterable[AssertionDraft],
 ) -> tuple[EpisodeCandidateGroup, ...]:
-    groups: dict[EpisodeCandidateKey, list[AssertionDraft]] = {}
+    items = tuple(assertions)
     assertion_membership: set[str] = set()
-    for assertion in assertions:
+    for assertion in items:
         if assertion.assertion_code in assertion_membership:
             raise ValueError(f"重复 assertion 输入: {assertion.assertion_code}")
         assertion_membership.add(assertion.assertion_code)
-        groups.setdefault(candidate_key(assertion), []).append(assertion)
 
+    parents = list(range(len(items)))
+
+    def find(index: int) -> int:
+        while parents[index] != index:
+            parents[index] = parents[parents[index]]
+            index = parents[index]
+        return index
+
+    def union(left_index: int, right_index: int) -> None:
+        left_root = find(left_index)
+        right_root = find(right_index)
+        if left_root != right_root:
+            parents[right_root] = left_root
+
+    for left_index, left in enumerate(items):
+        for right_index in range(left_index + 1, len(items)):
+            if _should_merge_assertions(left, items[right_index]):
+                union(left_index, right_index)
+
+    components: dict[int, list[AssertionDraft]] = {}
+    for index, assertion in enumerate(items):
+        components.setdefault(find(index), []).append(assertion)
+
+    groups = []
+    for component in components.values():
+        anchor = _anchor_assertion(component)
+        groups.append(
+            EpisodeCandidateGroup(
+                key=candidate_key(anchor),
+                assertions=tuple(
+                    sorted(component, key=lambda assertion: assertion.assertion_code)
+                ),
+            )
+        )
+    return tuple(sorted(groups, key=lambda group: group.key.fingerprint))
+
+
+def group_episode_candidates_exact(
+    assertions: Iterable[AssertionDraft],
+) -> tuple[EpisodeCandidateGroup, ...]:
+    """V1 exact-key grouping retained only for Oracle artifact reproducibility."""
+
+    groups: dict[EpisodeCandidateKey, list[AssertionDraft]] = {}
+    seen: set[str] = set()
+    for assertion in assertions:
+        if assertion.assertion_code in seen:
+            raise ValueError(f"重复 assertion 输入: {assertion.assertion_code}")
+        seen.add(assertion.assertion_code)
+        groups.setdefault(candidate_key(assertion), []).append(assertion)
     return tuple(
         EpisodeCandidateGroup(
             key=key,
-            assertions=tuple(sorted(items, key=lambda assertion: assertion.assertion_code)),
+            assertions=tuple(sorted(items, key=lambda item: item.assertion_code)),
         )
         for key, items in sorted(groups.items(), key=lambda item: item[0].fingerprint)
     )
@@ -252,8 +555,12 @@ def build_episode_packet(
         "conflict_resolution": "conflicted" if conflicts else "complete",
     }
     roles_by_person: dict[str, set[str]] = {}
-    for person, role in group.key.participant_roles:
-        roles_by_person.setdefault(person, set()).add(role)
+    for item in assertions:
+        for person, role in _raw_roles(item):
+            normalized_person = _normalized(person)
+            normalized_role = _normalized(role)
+            if normalized_person and normalized_role:
+                roles_by_person.setdefault(normalized_person, set()).add(normalized_role)
     participants = tuple(
         EpisodeParticipant(person_ref=person, role_codes=tuple(sorted(roles)))
         for person, roles in sorted(roles_by_person.items())

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "dataset_code": "blind_holdout_v1",
-  "status": "input_and_candidates_frozen_gold_pending",
+  "status": "blind_v1_failed_promoted_to_development_diagnostic",
   "frozen_at": "2026-07-12T14:36:34Z",
   "input": {
     "path": "eval/blind_holdout_v1/input.json",
@@ -27,15 +27,28 @@
     "v3_worker_services_stopped": true
   },
   "sealed_gold": {
-    "status": "pending_independent_human_freeze",
-    "template": "eval/blind_holdout_v1/sealed_gold.pending.yml",
+    "status": "frozen_by_independent_reviewer",
+    "path": "eval/blind_holdout_v1/sealed_gold.yml",
     "candidate_artifact_must_remain_unread_during_boundary_freeze": true
   },
   "metrics": {
-    "status": "not_computable_before_independent_sealed_gold",
-    "autonomous_boundary_recall": null,
-    "candidate_precision": null,
-    "wrong_merge_count": null,
-    "wrong_split_count": null
+    "status": "blind_v1_failed",
+    "score_path": "eval/blind_holdout_v1/score.json",
+    "autonomous_boundary_recall": 0.3125,
+    "candidate_precision": 0.1724137931034483,
+    "wrong_merge_count": 0,
+    "wrong_split_count": 10,
+    "catastrophic_wrong_merge_count": 0,
+    "cross_ruler_contamination_count": 0,
+    "lineage_completeness": 1.0
+  },
+  "post_blind_development_diagnostic": {
+    "status": "thresholds_met_on_development_set_not_blind_evidence",
+    "autonomous_boundary_recall": 0.9375,
+    "candidate_precision": 0.9375,
+    "wrong_merge_count": 0,
+    "wrong_split_count": 0,
+    "remaining_miss": "G25-GOLD-LIUBANG-196BC-CHENXI-HANXIN-DEATH",
+    "next_required_gate": "new_unseen_blind_holdout_v2"
   }
 }

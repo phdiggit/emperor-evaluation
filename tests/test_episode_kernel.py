@@ -81,6 +81,101 @@ def test_new_authorization_action_splits_even_with_same_context_and_time():
     assert len(group_episode_candidates([first, second])) == 2
 
 
+def test_appointment_and_outcome_merge_with_equivalent_regnal_time():
+    appointment = _assertion(
+        "A-1",
+        passage="P-1",
+        ruler="李治",
+        person="苏定方",
+        time="显庆二年",
+        domain="伊丽道行军总管",
+        summary="命苏定方讨沙钵罗可汗",
+    )
+    appointment = replace(
+        appointment,
+        predicate="任命",
+        qualifiers={**appointment.qualifiers, "event_scope": "边疆"},
+    )
+    outcome = _assertion(
+        "A-2",
+        passage="P-2",
+        ruler="李治",
+        person="苏定方",
+        time="显庆二年（657年）",
+        domain="西突厥战事",
+        summary="苏定方击败沙钵罗可汗",
+    )
+    outcome = replace(
+        outcome,
+        subject="苏定方",
+        predicate="战役",
+        object="沙钵罗可汗",
+        qualifiers={**outcome.qualifiers, "event_scope": "边疆"},
+    )
+
+    groups = group_episode_candidates([appointment, outcome])
+
+    assert len(groups) == 1
+    packet = build_episode_packet(groups[0])
+    assert packet.action == "任命 | 战役"
+    participant = next(item for item in packet.participants if item.person_ref == "苏定方")
+    assert participant.role_codes == ("commander",)
+
+
+def test_same_source_topic_does_not_merge_distinct_regnal_year_tasks():
+    first = replace(
+        _assertion(
+            "A-1",
+            passage="P-1",
+            ruler="李治",
+            person="苏定方",
+            time="显庆二年",
+            domain="西域战事",
+            summary="苏定方在西域作战",
+        ),
+        predicate="战役",
+        source_attribution={"document_code": "D-1", "source_slice_ref": "S-SAME"},
+    )
+    second = replace(
+        _assertion(
+            "A-2",
+            passage="P-2",
+            ruler="李治",
+            person="苏定方",
+            time="显庆四年",
+            domain="西域战事",
+            summary="苏定方再次在西域作战",
+        ),
+        predicate="战役",
+        source_attribution={"document_code": "D-1", "source_slice_ref": "S-SAME"},
+    )
+
+    assert len(group_episode_candidates([first, second])) == 2
+
+
+def test_terminal_followup_does_not_merge_unrelated_earlier_appointment():
+    appointment = _assertion(
+        "A-1",
+        passage="P-1",
+        ruler="刘邦",
+        person="萧何",
+        time="至南郑时",
+        domain="大将军任用",
+        summary="萧何举荐韩信为大将",
+    )
+    followup = _assertion(
+        "A-2",
+        passage="P-2",
+        ruler="刘邦",
+        person="萧何",
+        time="韩信被诛后",
+        domain="相国封卫处置",
+        summary="韩信被诛后萧何辞让封赏",
+    )
+
+    assert len(group_episode_candidates([appointment, followup])) == 2
+
+
 def test_new_synonymous_evidence_does_not_change_episode_identity():
     first = _assertion("A-1", passage="P-1")
     second = _assertion("A-2", passage="P-2", summary="异源同义措辞")

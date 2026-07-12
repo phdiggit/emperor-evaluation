@@ -17,7 +17,7 @@ from emperor_v4.application.reconcile_episode import (
     reconcile_episode_candidates,
     reconcile_episode_candidates_with_hints,
 )
-from emperor_v4.domain.episode import group_episode_candidates
+from emperor_v4.domain.episode import build_episode_packet, group_episode_candidates_exact
 
 
 _SOURCE_TRANSLATION = str.maketrans(
@@ -78,8 +78,8 @@ def evaluate_episode_pilot(
 
     source = adapt_source_cache_snapshot(source_snapshot)
     assertions = adapt_claim_extractor_snapshot(claim_snapshot)
-    baseline_groups = group_episode_candidates(assertions)
-    packets = reconcile_episode_candidates(assertions)
+    baseline_groups = group_episode_candidates_exact(assertions)
+    packets = tuple(build_episode_packet(group) for group in baseline_groups)
     packet_fingerprints = {packet.semantic_fingerprint for packet in packets}
 
     frozen_codes = set(manifest.get("frozen_episode_codes") or ())
