@@ -1,11 +1,11 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 7b1be47de30303c9d25b91822a539e8a4b20abd4
+as_of_commit_basis: 0156be61960a47d6bd5cda2d253968c625370f1a
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
   G2_Assertion_and_Episode: reopen_required
-  G2_5_blind_holdout: v1_and_v2_failed_merge_review_required
+  G2_5_blind_holdout: v1_v2_v3_failed_semantic_review_needs_rework
   G3_PostgreSQL: blocked_by_g2_5
 
 qualification:
@@ -14,6 +14,10 @@ qualification:
     - passage_lineage_preservation
     - deterministic_lightweight_pytest
     - semantic_evidence_version_separation_prototype
+    - semantic_review_gold_isolation
+    - semantic_review_cache_zero_call_rerun
+    - blind_v3_zero_catastrophic_merge
+    - blind_v3_zero_cross_ruler_contamination
   not_validated:
     - blind_reconciliation
     - autonomous_boundary_recall

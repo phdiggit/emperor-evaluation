@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "dataset_code": "blind_holdout_v3",
+  "status": "semantic_review_blind_v3_failed",
+  "input": {
+    "path": "eval/blind_holdout_v3/input.json",
+    "canonical_payload_sha256": "b9032987eb4fdddb338c445875f6a8acc386663a064ff73ced2a212e8b772ebe",
+    "selected_v3_claim_count": 38,
+    "assertion_count": 76,
+    "source_passage_count": 76
+  },
+  "dual_blind_freeze": {
+    "semantic_review_path": "eval/blind_holdout_v3/semantic_review.yml",
+    "semantic_review_file_sha256": "fa8f69a404830a7ba1b69c0c21c0703e1e60ea3e777387899421d8aa356c5b48",
+    "semantic_review_group_count": 28,
+    "semantic_reviewer": "episode_merge_review_codex_agent_v1",
+    "gold_path": "eval/blind_holdout_v3/sealed_gold.yml",
+    "gold_file_sha256": "efd4dc6b630b0bca50743b54a500877bb928a7eed95fbd9a98b827a186851ac5",
+    "gold_reviewer": "independent_codex_agent_g25_v3_gold_freeze",
+    "gold_episode_count": 20,
+    "assigned_assertion_count": 76,
+    "cross_read_forbidden": true
+  },
+  "first_blind_run": {
+    "kernel_head": "0156be61960a47d6bd5cda2d253968c625370f1a",
+    "candidates_path": "eval/blind_holdout_v3/candidates.json",
+    "candidates_canonical_payload_sha256": "3ca37f58f0aed720b907a034b66f6988259187c43fd67b20199e1b4f2399cb21",
+    "score_path": "eval/blind_holdout_v3/score.json",
+    "score_canonical_payload_sha256": "81108d7f4be415726f28269d470fd52e1eb9525ba2f066810ff1b35d853a6d58",
+    "candidate_packet_count": 28,
+    "first_run_model_call_count": 1,
+    "cached_rerun_model_call_count": 0,
+    "cached_rerun_fingerprints_equal": true,
+    "network_request_count": 0,
+    "database_write_count": 0
+  },
+  "metrics": {
+    "autonomous_boundary_recall": 0.7,
+    "candidate_precision": 0.5,
+    "wrong_merge_count": 0,
+    "wrong_split_count": 6,
+    "catastrophic_wrong_merge_count": 0,
+    "cross_ruler_contamination_count": 0,
+    "lineage_completeness": 1.0,
+    "human_review_rate": 1.0,
+    "release_gate_passed": false
+  },
+  "decision": {
+    "g2_5": "failed",
+    "g3": "blocked",
+    "v3_reuse_as_blind_evidence": false,
+    "next_architecture_step": "improve general semantic chain reasoning on a future unseen holdout"
+  }
+}

@@ -9,18 +9,18 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：HistoricalEpisode Kernel 的 Oracle-assisted 试点；G2 已重开
+- 阶段：HistoricalEpisode Kernel 的 G2.5 盲测修复；G2 已重开
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
 - 正式评分、排名和生产切换：全部关闭
-- V3：继续运行既有生产 release，仅作只读对照
+- V3：release 与审计产物保留作只读对照；为避免争抢 wiki 流量，相关 worker 已按明确授权停止
 
 当前已有离线 `src/emperor_v4`、轻量确定性测试和三人试点 `eval` 产物；仍然**没有** V4 数据库、worker、migration、scorer 或正式业务数据。
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-尚未证明：无 Gold 提示的自主事件发现与 merge/split 已稳定达标。G2.5 v1 的独立 baseline 为 recall 31.25%、precision 17.24%，主要是过度拆分；v2 在全新杨坚、刘秀数据上为 recall 30%、precision 46.15%，并出现 3 个灾难性 wrong merge。两次 blind 均未通过。确定性层现收紧为 fail-closed，下一步必须实现可缓存的 `EpisodeMergeReview` 语义建议层，再建立新 holdout；PostgreSQL G3 继续阻断。
+尚未证明：无 Gold 提示的自主事件发现与 merge/split 已稳定达标。G2.5 v1 的独立 baseline 为 recall 31.25%、precision 17.24%；v2 为 recall 30%、precision 46.15%，且出现 3 个灾难性 wrong merge。v3 首次以双盲方式并行冻结 `EpisodeMergeReview` 与独立 Gold，在玄烨、李隆基新数据上达到 recall 70%、precision 50%、wrong merge 0、wrong split 6、lineage 100%；缓存重跑为零模型调用且 fingerprint 不变。语义层消除了本批灾难性误合并，但仍显著过度拆分，因此三次 blind 均未通过，PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ V4 的核心改变是：
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`v1_and_v2_failed_merge_review_required`
+- blind reconciliation：`v1_v2_v3_failed_semantic_review_needs_rework`
 - G3 PostgreSQL：未授权
 
 进入 G3 前必须满足：
