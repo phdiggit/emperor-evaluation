@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import uuid
 from pathlib import Path
@@ -27,6 +28,29 @@ def name_keys(seed: Mapping[str, Any]) -> set[str]:
     return {seed_tool.normalized_name(value) for value in values if text(value)}
 
 
+def new_person_seed(name: str, *, target_emperors: Sequence[str], is_emperor: bool = False) -> dict[str, Any]:
+    canonical_name = text(name)
+    normalized = seed_tool.normalized_name(canonical_name)
+    if not normalized:
+        raise IntakeOrchestratorError("new person name must not be blank")
+    digest = hashlib.sha256(normalized.encode("utf-8")).hexdigest()[:16].upper()
+    owners = [text(value) for value in target_emperors if text(value)]
+    if is_emperor and canonical_name not in owners:
+        owners.append(canonical_name)
+    return {
+        "object_code": f"OBJ-INTAKE-{digest}",
+        "name": canonical_name,
+        "normalized_name": normalized,
+        "object_type": "person",
+        "aliases": [],
+        "is_emperor": is_emperor,
+        "target_emperors": sorted(set(owners)),
+        "source_hints": [],
+        "source_document_hints": [],
+        "intake_source": "retrieval_v3_intake_orchestrator",
+    }
+
+
 def intake_build_options(*, mode: str, request_key: str = "") -> tuple[dict[str, Any], str]:
     if mode not in INTAKE_MODES:
         raise IntakeOrchestratorError(f"unsupported intake mode: {mode}")
@@ -41,7 +65,8 @@ def intake_build_options(*, mode: str, request_key: str = "") -> tuple[dict[str,
 
 
 def select_intake_seeds(
-    seeds: Sequence[Mapping[str, Any]], *, object_names: Sequence[str], emperor_names: Sequence[str]
+    seeds: Sequence[Mapping[str, Any]], *, object_names: Sequence[str], emperor_names: Sequence[str],
+    allow_new: bool = False, target_emperors: Sequence[str] = (),
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     requested_objects = {seed_tool.normalized_name(value): text(value) for value in object_names if text(value)}
     requested_emperors = {seed_tool.normalized_name(value): text(value) for value in emperor_names if text(value)}
@@ -69,12 +94,21 @@ def select_intake_seeds(
             emperor_matches |= keys & requested_emperors.keys()
         if emperor_matches:
             matched_emperors.update(keys & requested_emperors.keys())
-            if target_keys & emperor_owner_keys:
-                matched_emperors.update(requested_emperors.keys())
             selected[text(seed.get("object_code")) or text(seed.get("name"))] = seed
 
     missing_objects = sorted(requested_objects[key] for key in requested_objects.keys() - matched_objects)
     missing_emperors = sorted(requested_emperors[key] for key in requested_emperors.keys() - matched_emperors)
+    if allow_new:
+        for name in missing_objects:
+            seed = new_person_seed(name, target_emperors=target_emperors)
+            selected[seed["object_code"]] = seed
+        for name in missing_emperors:
+            seed = new_person_seed(name, target_emperors=[name], is_emperor=True)
+            selected[seed["object_code"]] = seed
+        matched_objects.update(requested_objects.keys())
+        matched_emperors.update(requested_emperors.keys())
+        missing_objects = []
+        missing_emperors = []
     if missing_objects or missing_emperors:
         raise IntakeOrchestratorError(
             "unresolved intake names: "
@@ -120,6 +154,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Create one idempotent retrieval_v3 intake job for objects or emperors.")
     parser.add_argument("--object", action="append", default=[])
     parser.add_argument("--emperor", action="append", default=[])
+    parser.add_argument("--target-emperor", action="append", default=[], help="Associate newly introduced people with these emperor targets.")
     parser.add_argument("--seed-jsonl", type=Path, required=True)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--page-cache-root", type=Path, default=worker.DEFAULT_PAGE_CACHE_ROOT)
@@ -146,7 +181,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         include_object_pool_aliases=True,
         source="retrieval-v3",
     )
-    selected, report = select_intake_seeds(seeds, object_names=args.object, emperor_names=args.emperor)
+    selected, report = select_intake_seeds(
+        seeds, object_names=args.object, emperor_names=args.emperor,
+        allow_new=True, target_emperors=args.target_emperor,
+    )
     write_jsonl(args.seed_jsonl, selected)
     build_options, request_key = intake_build_options(mode=args.mode, request_key=args.request_key)
     job = worker.job_from_seed(

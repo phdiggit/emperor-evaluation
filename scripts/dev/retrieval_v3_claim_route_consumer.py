@@ -20,6 +20,12 @@ from scripts.dev.retrieval_v3_contracts import APPOINTMENT_DELEGATION_RULE_CODE,
 
 PROFILE = "retrieval_v3_claim_route_consumer"
 RULE_CODE = APPOINTMENT_DELEGATION_RULE_CODE
+ROUTABLE_RULE_CODES = (
+    "talent_discovery",
+    APPOINTMENT_DELEGATION_RULE_CODE,
+    "tolerate_talent",
+    "anti_nepotism",
+)
 ROUTABLE_STATUSES = {"mechanical_current_rule_candidate", "ready_for_rule_route_review", "needs_light_rule_review"}
 
 
@@ -56,20 +62,21 @@ def route_status_for_cache(status: str) -> str:
     return "candidate" if status == "mechanical_current_rule_candidate" else "needs_review"
 
 
-def fetch_contract_rule(cur: Any) -> tuple[int, int]:
+def fetch_contract_rules(cur: Any, rule_codes: Sequence[str]) -> tuple[int, dict[str, int]]:
     cur.execute("select id from retrieval_v3.rule_contracts where contract_code = %s", (NATIVE_CONTRACT_CODE,))
     contract = cur.fetchone()
     if not contract:
         raise RuntimeError(f"native contract missing: {NATIVE_CONTRACT_CODE}")
     contract_id = int(contract["id"])
     cur.execute(
-        "select id from retrieval_v3.rule_contract_rules where contract_id = %s and rule_code = %s",
-        (contract_id, RULE_CODE),
+        "select id, rule_code from retrieval_v3.rule_contract_rules where contract_id = %s and rule_code = any(%s)",
+        (contract_id, list(rule_codes)),
     )
-    rule = cur.fetchone()
-    if not rule:
-        raise RuntimeError(f"native contract rule missing: {RULE_CODE}")
-    return contract_id, int(rule["id"])
+    rules = {text(row["rule_code"]): int(row["id"]) for row in cur.fetchall()}
+    missing = sorted(set(rule_codes) - rules.keys())
+    if missing:
+        raise RuntimeError(f"native contract rules missing: {missing}")
+    return contract_id, rules
 
 
 def fetch_materials(cur: Any, claim_keys: Sequence[str], emperor_names: Sequence[str]) -> dict[str, dict[str, Any]]:
@@ -138,10 +145,11 @@ def upsert_candidate(
     material: Mapping[str, Any],
     *,
     contract_rule_id: int,
+    rule_code: str,
 ) -> None:
     source_kind = text(route.get("route_source_kind"))
     source_key = text(route.get("route_source_key"))
-    candidate_code = stable_code("CRBC-R3R", source_kind, source_key, claim_key, RULE_CODE)
+    candidate_code = stable_code("CRBC-R3R", source_kind, source_key, claim_key, rule_code)
     route_status = text(route.get("route_status"))
     payload = dict(route)
     payload.update(
@@ -183,9 +191,9 @@ def upsert_candidate(
             int(material["claim_id"]),
             contract_rule_id,
             contract_rule_id,
-            RULE_CODE,
-            RULE_CODE,
-            f"I5B.{RULE_CODE}",
+            rule_code,
+            rule_code,
+            f"I5B.{rule_code}",
             PROFILE,
             stable_hash(route.get("reason_codes") or []),
             ",".join(text(value) for value in route.get("reason_codes") or [] if text(value)),
@@ -195,24 +203,28 @@ def upsert_candidate(
     )
 
 
-def run(cur: Any, *, emperor_names: Sequence[str], execute: bool) -> dict[str, Any]:
+def run(cur: Any, *, emperor_names: Sequence[str], rule_codes: Sequence[str] = (RULE_CODE,), execute: bool) -> dict[str, Any]:
     names = sorted({text(value) for value in emperor_names if text(value)})
     if not names:
         raise RuntimeError("at least one --emperor-name is required")
-    contract_id, contract_rule_id = fetch_contract_rule(cur)
+    selected_rules = tuple(dict.fromkeys(text(value) for value in rule_codes if text(value)))
+    unsupported = sorted(set(selected_rules) - set(ROUTABLE_RULE_CODES))
+    if unsupported:
+        raise RuntimeError(f"unsupported routable rule codes: {unsupported}")
+    contract_id, contract_rule_ids = fetch_contract_rules(cur, selected_rules)
     claims = chain_candidates.fetch_claim_rows(cur, emperor_names=names, statuses=["active"], owner_scopes=[])
     plan = route_plan.build_plan(claims)
     routes = [
         route
         for route in plan["routes"]
-        if text(route.get("candidate_rule_code")) == RULE_CODE
+        if text(route.get("candidate_rule_code")) in selected_rules
         and text(route.get("route_status")) in ROUTABLE_STATUSES
     ]
     claim_keys = sorted({key for route in routes for key in route_claim_keys(route)})
     materials = fetch_materials(cur, claim_keys, names)
     counts: Counter[str] = Counter()
     missing_material_keys: set[str] = set()
-    event_routes: dict[str, tuple[Mapping[str, Any], Mapping[str, Any]]] = {}
+    event_routes: dict[tuple[str, str], tuple[Mapping[str, Any], Mapping[str, Any]]] = {}
     for route in routes:
         for claim_key in route_claim_keys(route):
             material = materials.get(claim_key)
@@ -220,14 +232,19 @@ def run(cur: Any, *, emperor_names: Sequence[str], execute: bool) -> dict[str, A
                 missing_material_keys.add(claim_key)
                 continue
             event_key = text(material.get("canonical_event_key"))
-            event_routes.setdefault(event_key, (route, material))
+            rule_code = text(route.get("candidate_rule_code"))
+            event_routes.setdefault((rule_code, event_key), (route, material))
     if execute:
         cur.execute("set local retrieval_v3.rebuild_bypass='on'")
-        for event_key, (route, material) in sorted(event_routes.items()):
+        for (_rule_code, _event_key), (route, material) in sorted(event_routes.items()):
             claim_key = text(material.get("representative_claim_key"))
+            rule_code = text(route.get("candidate_rule_code"))
             upsert_route_cache(cur, route, claim_key)
             counts["retrieval_v3.claim_route_cache"] += 1
-            upsert_candidate(cur, route, claim_key, material, contract_rule_id=contract_rule_id)
+            upsert_candidate(
+                cur, route, claim_key, material,
+                contract_rule_id=contract_rule_ids[rule_code], rule_code=rule_code,
+            )
             counts["retrieval_v3.claim_rule_binding_candidates"] += 1
     else:
         counts["retrieval_v3.claim_route_cache"] = len(event_routes)
@@ -240,7 +257,9 @@ def run(cur: Any, *, emperor_names: Sequence[str], execute: bool) -> dict[str, A
         "emperors": names,
         "native_contract_id": contract_id,
         "input_claim_count": len(claims),
-        "appointment_route_count": len(routes),
+        "rule_codes": list(selected_rules),
+        "route_count": len(routes),
+        "route_counts_by_rule": dict(sorted(Counter(text(route.get("candidate_rule_code")) for route in routes).items())),
         "route_claim_key_count": len(claim_keys),
         "material_match_count": len(materials),
         "canonical_event_route_count": len(event_routes),
@@ -258,6 +277,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
     parser.add_argument("--pg-schema", default="retrieval_v3")
     parser.add_argument("--emperor-name", action="append", required=True)
+    parser.add_argument("--rule-code", action="append", choices=ROUTABLE_RULE_CODES, default=[])
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
@@ -266,7 +286,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(resolve_dsn(args.dsn_env), row_factory=dict_row) as conn:
         with conn.cursor() as raw:
-            payload = run(schema_cursor(raw, schema_name=args.pg_schema), emperor_names=args.emperor_name, execute=args.execute)
+            payload = run(
+                schema_cursor(raw, schema_name=args.pg_schema), emperor_names=args.emperor_name,
+                rule_codes=args.rule_code or (RULE_CODE,), execute=args.execute,
+            )
         if args.execute:
             conn.commit()
         else:

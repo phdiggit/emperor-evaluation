@@ -20,3 +20,9 @@ def test_route_claim_keys_keeps_atomic_claim() -> None:
 def test_route_status_maps_mechanical_only_to_candidate() -> None:
     assert tool.route_status_for_cache("mechanical_current_rule_candidate") == "candidate"
     assert tool.route_status_for_cache("ready_for_rule_route_review") == "needs_review"
+
+
+def test_routable_rules_cover_all_claim_driven_current_rules() -> None:
+    assert set(tool.ROUTABLE_RULE_CODES) == {
+        "talent_discovery", "appointment_delegation", "tolerate_talent", "anti_nepotism"
+    }

@@ -33,6 +33,22 @@ def test_intake_rejects_unresolved_names() -> None:
         tool.select_intake_seeds(SEEDS, object_names=["不存在"], emperor_names=[])
 
 
+def test_intake_can_create_stable_seed_for_new_person() -> None:
+    rows, report = tool.select_intake_seeds(
+        SEEDS, object_names=["朱橚"], emperor_names=[], allow_new=True, target_emperors=["朱元璋"]
+    )
+    assert rows == [tool.new_person_seed("朱橚", target_emperors=["朱元璋"])]
+    assert report["selected_objects"] == ["朱橚"]
+
+
+def test_intake_can_create_new_emperor_seed() -> None:
+    rows, report = tool.select_intake_seeds(SEEDS, object_names=[], emperor_names=["李治"], allow_new=True)
+    emperor = next(row for row in rows if row["name"] == "李治")
+    assert emperor["is_emperor"] is True
+    assert emperor["target_emperors"] == ["李治"]
+    assert report["requires_related_object_discovery"] is True
+
+
 def test_ensure_mode_is_stable_and_does_not_refresh_cache() -> None:
     first, first_key = tool.intake_build_options(mode="ensure")
     second, second_key = tool.intake_build_options(mode="ensure")
