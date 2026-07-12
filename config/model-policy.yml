@@ -1,15 +1,38 @@
 schema_version: 1
 model_policy:
   default: denied
+  operating_principle: ambiguity_slow_lane_only
+
+  deterministic_first:
+    required: true
+    cache_lookup_before_call: true
+    finite_value_validation_after_call: true
+
   allowed_uses:
-    - candidate_event_discovery
-    - passage_classification_draft
+    - source_candidate_discovery
+    - assertion_extraction_draft
+    - episode_merge_split_suggestion
+    - person_identity_ambiguity_review
     - contradiction_detection_draft
+    - rule_projection_draft_when_ambiguous
     - reviewer_worklist_generation
-  requires_human_or_rule_gate: true
+    - shadow_difference_explanation_draft
+
+  requires_gate:
+    - accepted_source_passage
+    - canonical_person_creation
+    - canonical_episode_acceptance
+    - rule_judgment_acceptance
+    - scoring_release
+    - production_cutover
+
   prohibited_uses:
     - invent_source
-    - establish_historical_fact
-    - publish_formal_judgment
-    - publish_formal_score
+    - establish_historical_fact_without_gate
+    - overwrite_source_text
+    - silently_merge_conflicting_events
+    - directly_publish_formal_judgment
+    - directly_publish_formal_score
+    - create_or_merge_canonical_person_without_identity_gate
+    - production_database_write
     - production_cutover_decision

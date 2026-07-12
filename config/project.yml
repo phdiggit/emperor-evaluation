@@ -4,10 +4,21 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: architecture_and_pilot_definition
+  phase: documentation_gate
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
-production:
+
+architecture:
+  primary_semantic_unit: historical_episode
+  evidence_assertion_unit: assertion
+  business_state_target: postgresql
+  generated_views_are_fact_source: false
+  normal_full_rebuild_forbidden: true
+
+release:
+  formal_scoring_enabled: false
+  formal_ranking_enabled: false
+  production_runtime_enabled: false
   v3_remains_active: true
   v4_replaces_v3: false
-  replacement_gate: shadow_acceptance_passed
+  replacement_gate: explicit_shadow_acceptance_and_cutover_approval

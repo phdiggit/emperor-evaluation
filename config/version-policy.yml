@@ -1,17 +1,44 @@
 schema_version: 1
 version_policy:
-  semantic_version:
-    required_for:
-      - domain_model
-      - event_schema
-  evidence_version:
+  source_content:
     immutable_after_acceptance: true
     correction_creates_new_version: true
+
+  semantic_version:
+    required_for:
+      - canonical_person
+      - historical_episode
+      - episode_participant
+    changes_when:
+      - core_actor_changes
+      - event_type_changes
+      - time_scope_changes_materially
+      - responsibility_or_outcome_changes_materially
+
+  evidence_version:
+    changes_when:
+      - assertion_added
+      - assertion_retired
+      - passage_link_changed
+      - source_conflict_status_changed
+    does_not_invalidate_semantics_by_default: true
+
   rule_version:
-    explicit_on_every_judgment: true
+    explicit_on_every_projection_and_judgment: true
     retroactive_rewrite_forbidden: true
+
+  judgment_version:
+    cache_key_requires:
+      - semantic_fingerprint
+      - rule_version
+      - judgment_policy_version
+      - output_schema_version
+
   scoring_version:
     explicit_on_every_score: true
+    deterministic_only: true
     publish_only_after_acceptance_gate: true
+
   lineage:
     required_between_versions: true
+    destructive_overwrite_forbidden: true

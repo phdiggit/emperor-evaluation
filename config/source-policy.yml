@@ -1,20 +1,43 @@
 schema_version: 1
 source_policy:
   formal_evidence:
-    allowed_levels:
+    allowed_roles:
       - primary_source
       - authoritative_edition
-    requires_locatable_passage: true
-    requires_source_identity: true
+    requirements:
+      locatable_passage: true
+      source_identity: true
+      content_hash: true
+      retrieval_provenance: true
+      enough_context_for_attribution: true
+
+  interpretation_support:
+    allowed_roles:
+      - scholarly_secondary_source
+    may_establish_raw_event: false
+    may_support_identity_or_context: true
+
   discovery_only:
-    - encyclopedia
-    - index
-    - secondary_article
+    allowed_roles:
+      - encyclopedia
+      - index
+      - general_secondary_article
+      - search_result_snippet
+    may_enter_formal_evidence: false
+
   priority:
     - primary_source
     - authoritative_edition
     - scholarly_secondary_source
+
+  conflict_policy:
+    preserve_all_material_positions: true
+    unresolved_conflict_blocks_acceptance: true
+    model_summary_cannot_erase_conflict: true
+
   prohibitions:
     - discovery_source_as_formal_evidence
     - untraceable_excerpt
+    - contextless_quote
     - model_generated_source
+    - source_identity_inferred_only_from_url

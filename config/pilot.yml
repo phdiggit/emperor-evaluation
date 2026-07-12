@@ -1,13 +1,33 @@
 schema_version: 1
 pilot:
   code: event_first_three_rulers
+  version: 1
+  mode: shadow
   persons:
     - 李世民
     - 刘邦
     - 朱元璋
-  rule_scope:
+
+  item_scope:
     item: 第五项统治者政治素质
     subitem: B用人与授权
-  mode: shadow
+    phase_1_rule_codes:
+      - appointment_delegation
+    contract_only_rule_codes:
+      - talent_discovery
+      - team_building
+      - tolerate_talent
+      - anti_nepotism
+
+  required_artifacts:
+    - frozen_gold_manifest
+    - source_coverage_report
+    - episode_recall_report
+    - consumption_integrity_report
+    - shadow_difference_report
+    - model_cost_report
+    - lineage_audit
+
+  acceptance_document: docs/06-覆盖度与验收标准.md
   formal_scoring_allowed: false
   production_cutover_allowed: false
