@@ -1,6 +1,6 @@
 schema_version: 1
 export_code: episode_pilot_v1_service_fixture_export
-status: awaiting_external_export
+status: frozen_existing_v3_outputs
 mode: read_only_snapshot
 gold_manifest: eval/episode_pilot_v1.yml
 gold_review: eval/episode_pilot_v1_review.yml
@@ -8,72 +8,48 @@ episode_selection: frozen_episode_codes
 
 required_outputs:
   source_cache:
-    contract: source-cache-contract-v1
+    legacy_contract: retrieval-v3-object-source-claim-plan
+    adapter_target_contract: source-cache-contract-v1
     path: tests/fixtures/episode_pilot_v1/source-cache-response.json
     encoding: utf-8
     format: json
     content_sha256_required: true
     required_top_level_fields:
-      - request_id
-      - status
-      - input_fingerprint
-      - output_fingerprint
-      - documents
-      - passages
+      - fixture_schema_version
+      - legacy_contract
+      - captured_from_release
+      - captured_at
+      - capture_mode
+      - environment_redactions
+      - people
+    required_legacy_payload_fields:
+      - task_identity
+      - source_documents
+      - candidate_slices
       - coverage
-      - errors
-      - provenance
-    required_document_fields:
-      - document_cache_id
-      - work_identity
-      - edition_identity
-      - title
-      - url
-      - source_role
-      - retrieved_at
-      - content_hash
-      - http_metadata
-      - license_or_access_note
-    required_passage_fields:
-      - passage_cache_id
-      - document_cache_id
-      - locator
-      - raw_text
-      - context_before
-      - context_after
-      - content_hash
-      - selection_reason
+      - stats
 
   claim_extractor:
-    contract: assertion-extraction-contract-v1
+    legacy_contract: retrieval-v3-claim-judge-final
+    adapter_target_contract: assertion-extraction-contract-v1
     path: tests/fixtures/episode_pilot_v1/claim-extractor-response.json
     encoding: utf-8
     format: json
     content_sha256_required: true
     required_top_level_fields:
-      - request_id
+      - fixture_schema_version
+      - legacy_contract
+      - captured_from_release
+      - captured_at
+      - capture_mode
+      - environment_redactions
+      - people
+    required_legacy_payload_fields:
       - status
-      - input_fingerprint
-      - output_fingerprint
-      - assertions
-      - errors
-      - provenance
-    required_assertion_fields:
-      - assertion_code
-      - source_passage_ref
-      - assertion_type
-      - subject
-      - predicate
-      - object
-      - time_expression
-      - location_expression
-      - qualifiers
-      - polarity
-      - source_attribution
-      - candidate_episode_key
-      - confidence
-      - ambiguity_flags
-      - extraction_provenance
+      - documents
+      - passages
+      - claims
+      - coverage
 
   metadata:
     path: tests/fixtures/episode_pilot_v1/export-metadata.yml
@@ -122,4 +98,14 @@ freeze_acceptance:
   - 同一输入重复导出不得再次调用模型或重复网络抓取
   - fixture 提交前删除凭据、私有地址和运行环境噪声
 
-next_action: 提供两个当前服务的只读导出命令或按 required_outputs 放置真实响应文件
+freeze_result:
+  captured_from_release: 7e7db79f651d732adb59c62f0790756f8e2733ce
+  captured_without_service_execution: true
+  source_document_count: 11
+  source_candidate_slice_count: 28
+  claim_passage_count: 16
+  claim_count: 43
+  environment_paths_redacted: true
+  semantic_payload_preserved: true
+
+next_action: 实现两个薄 adapter，把 legacy fixture 转为 accepted V4 contract；不得修改 fixture 原始语义内容
