@@ -671,6 +671,37 @@ def test_rule_evidence_draft_uses_connected_delegation_graph_only_once():
     assert result["duplicate_consumption_episode_refs"] == []
 
 
+def test_rule_evidence_draft_does_not_join_career_only_promotion_relation():
+    graph = {
+        "input_sha256": "HASH",
+        "episode_groups": [
+            {
+                "local_episode_code": "E1",
+                "evaluation_context": "PER-RULER",
+                "action": "任命",
+            },
+            {
+                "local_episode_code": "E2",
+                "evaluation_context": "PER-RULER",
+                "action": "任命",
+            },
+        ],
+        "relations": [
+            {
+                "relation_id": "R1",
+                "from_episode": "E1",
+                "to_episode": "E2",
+                "relation_type": "promotion_after",
+            }
+        ],
+    }
+
+    result = draft_rule_evidence_units_payload(graph)
+
+    assert len(result["rule_evidence_units"]) == 2
+    assert all(len(item["episode_refs"]) == 1 for item in result["rule_evidence_units"])
+
+
 def test_graph_blind_score_gates_episode_relation_rule_and_runtime_together():
     episode_groups = [
         {
@@ -764,3 +795,14 @@ def test_graph_blind_score_gates_episode_relation_rule_and_runtime_together():
 
     assert score["release_gate_passed"] is True
     assert score["rule_evidence_metrics"]["exact_rule_unit_recall"] == 1.0
+
+    missing_rule_units = score_graph_blind_holdout(
+        graph,
+        historical_gold,
+        {"rule_evidence_units": [], "duplicate_consumption_episode_refs": []},
+        rule_gold,
+        {"unchanged_rerun_model_calls": 0, "changed_unit_affects_other_unit_count": 0},
+    )
+
+    assert missing_rule_units["release_gate_passed"] is False
+    assert missing_rule_units["g3_authorized"] is False

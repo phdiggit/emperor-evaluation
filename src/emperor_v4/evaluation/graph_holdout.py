@@ -16,6 +16,18 @@ from emperor_v4.evaluation.boundary_review import review_result_from_payload
 from emperor_v4.evaluation.boundary_score import score_boundary_graph
 
 
+RULE_AGGREGATING_RELATION_TYPES = frozenset(
+    {
+        "continues",
+        "same_mandate_phase",
+        "renews_authority",
+        "revokes",
+        "outcome_of",
+        "causal_followup",
+    }
+)
+
+
 def _canonical_hash(payload: Mapping[str, Any]) -> str:
     rendered = json.dumps(
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
@@ -49,6 +61,7 @@ def materialize_boundary_graph_payload(
     relation_rows = []
     formal_relations = []
     disposition_rows = []
+    pair_disposition_rows = []
     context_links = []
     unresolved = []
     excluded = []
@@ -123,6 +136,21 @@ def materialize_boundary_graph_payload(
                     "follow_up": item.follow_up,
                 }
             )
+        for item in review.pair_dispositions:
+            pair_disposition_rows.append(
+                {
+                    "left_episode_ref": local_to_packet[
+                        item.left_episode_ref
+                    ].episode_id,
+                    "right_episode_ref": local_to_packet[
+                        item.right_episode_ref
+                    ].episode_id,
+                    "decision": item.decision,
+                    "relation_type": item.relation_type,
+                    "reason": item.reason,
+                    "review_unit_ref": review.review_unit_ref,
+                }
+            )
         context_links.extend(asdict(item) for item in result.context_assertion_links)
         unresolved.extend(asdict(item) for item in result.unresolved_assertions)
         excluded.extend(asdict(item) for item in result.excluded_assertions)
@@ -146,6 +174,14 @@ def materialize_boundary_graph_payload(
         ),
         "assertion_dispositions": sorted(
             disposition_rows, key=lambda item: item["assertion_ref"]
+        ),
+        "pair_dispositions": sorted(
+            pair_disposition_rows,
+            key=lambda item: (
+                item["review_unit_ref"],
+                item["left_episode_ref"],
+                item["right_episode_ref"],
+            ),
         ),
         "context_assertion_links": context_links,
         "unresolved_assertions": unresolved,
@@ -189,6 +225,8 @@ def draft_rule_evidence_units_payload(
     relations = tuple(graph.get("relations") or ())
     adjacency: dict[str, set[str]] = defaultdict(set)
     for relation in relations:
+        if str(relation["relation_type"]) not in RULE_AGGREGATING_RELATION_TYPES:
+            continue
         source = str(relation["from_episode"])
         target = str(relation["to_episode"])
         adjacency[source].add(target)
@@ -375,6 +413,8 @@ def score_graph_blind_holdout(
             (relation_metrics["strict_relation_precision"] or 0) >= 0.90,
             (relation_metrics["strict_relation_recall"] or 0) >= 0.85,
             duplicate_count == 0,
+            (rule_recall or 0) >= 0.85,
+            (rule_precision or 0) >= 0.90,
             runtime_audit.get("unchanged_rerun_model_calls") == 0,
             runtime_audit.get("changed_unit_affects_other_unit_count") == 0,
         )

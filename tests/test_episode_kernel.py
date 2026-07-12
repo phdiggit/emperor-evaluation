@@ -311,6 +311,80 @@ def test_v22_materialization_rejects_unanchored_legacy_claim_fanout_merge():
         )
 
 
+def test_v22_materialization_allows_shared_atomic_event_key_across_passages():
+    assertions = [
+        replace(
+            _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+            qualifiers={
+                **_assertion("X-1", passage="PX-1").qualifiers,
+                "atomic_event_key": "ATOMIC-1",
+            },
+        ),
+        replace(
+            _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
+            qualifiers={
+                **_assertion("X-2", passage="PX-2").qualifiers,
+                "atomic_event_key": "ATOMIC-1",
+            },
+        ),
+    ]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup("E1", ("A-1", "A-2"), "shared atomic key", 0.9),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    result = materialize_boundary_review(
+        assertions, review, review_unit=unit, proposition_clusters=clusters
+    )
+
+    assert len(result.episode_packets) == 1
+    assert len(result.episode_packets[0].assertion_links) == 2
+
+
+def test_v22_related_pair_must_match_relation_type():
+    with pytest.raises(ValueError, match="related pair 与 EpisodeRelationDraft 不一致"):
+        EpisodeBoundaryReviewResult(
+            review_unit_ref="RU-1",
+            review_unit_cache_key="CACHE-1",
+            proposition_semantic_hashes=("HASH-1", "HASH-2"),
+            boundary_policy_version="episode-boundary-policy-v2.2",
+            output_schema_version="episode-boundary-review-v2.2",
+            model_family="M1",
+            episode_groups=(
+                EpisodeBoundaryGroup("E1", ("A-1",), "first", 0.9),
+                EpisodeBoundaryGroup("E2", ("A-2",), "second", 0.9),
+            ),
+            relations=(
+                EpisodeRelationDraft("E1", "E2", "outcome_of", ("A-2",), 0.9),
+            ),
+            assertion_dispositions=(
+                AssertionDisposition("A-1", "core_of_episode", ("E1",), "first"),
+                AssertionDisposition("A-2", "core_of_episode", ("E2",), "second"),
+            ),
+            pair_dispositions=(
+                EpisodePairDisposition(
+                    "E1", "E2", "related", "mismatch", "renews_authority"
+                ),
+            ),
+            review_provenance={},
+        )
+
+
 def test_boundary_review_rejects_assertion_in_two_episode_cores():
     with pytest.raises(ValueError, match="最多只能属于一个"):
         EpisodeBoundaryReviewResult(
