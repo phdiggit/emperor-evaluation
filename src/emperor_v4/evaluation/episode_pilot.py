@@ -403,6 +403,60 @@ def evaluate_episode_pilot(
             for code, decision in assessment_by_code.items()
             if decision in {"full_boundary_support", "partial_boundary_support"}
         }
+        episode_by_code = {
+            episode["episode_code"]: episode for episode in frozen_episodes
+        }
+        packet_assessments: list[dict[str, Any]] = []
+        for packet in hinted_packets:
+            episode_code = packet.provenance["candidate_boundary_key"]
+            gold_episode = episode_by_code[episode_code]
+            expected_participants = set(gold_episode.get("participants") or ())
+            actual_participants = {
+                participant.person_ref for participant in packet.participants
+            }
+            matched_participants = expected_participants & actual_participants
+            expected_completeness = gold_episode.get("expected_completeness") or {}
+            completeness_mismatches = {
+                slot: {
+                    "expected": expected,
+                    "actual": packet.completeness.get(slot),
+                }
+                for slot, expected in expected_completeness.items()
+                if packet.completeness.get(slot) != expected
+            }
+            minimum_fields_present = (
+                packet.completeness.get("action") == "complete"
+                and packet.completeness.get("responsibility")
+                in {"complete", "partial"}
+                and packet.completeness.get("outcome") == "complete"
+            )
+            human_gate_ready = (
+                minimum_fields_present
+                and assessment_by_code.get(episode_code) == "full_boundary_support"
+                and len(matched_participants) == len(expected_participants)
+            )
+            packet_assessments.append(
+                {
+                    "episode_code": episode_code,
+                    "episode_id": packet.episode_id,
+                    "assertion_count": len(packet.assertion_links),
+                    "assertion_boundary_decision": assessment_by_code.get(episode_code),
+                    "expected_participant_count": len(expected_participants),
+                    "matched_expected_participant_count": len(matched_participants),
+                    "participant_coverage": (
+                        len(matched_participants) / len(expected_participants)
+                        if expected_participants
+                        else None
+                    ),
+                    "completeness": dict(packet.completeness),
+                    "gold_completeness_mismatches": completeness_mismatches,
+                    "appointment_delegation_minimum_fields_present": (
+                        minimum_fields_present
+                    ),
+                    "human_review_gate_ready": human_gate_ready,
+                    "episode_status": packet.episode_status,
+                }
+            )
         lineage_assisted_reconciliation = {
             "status": "oracle_assisted_review_ready",
             "candidate_packet_count": len(hinted_packets),
@@ -413,8 +467,21 @@ def evaluate_episode_pilot(
             "unassigned_new_assertion_codes": sorted(unassigned_new_assertions),
             "supported_boundary_packet_count": len(packet_gold_codes & supported_codes),
             "unsupported_boundary_packet_count": len(packet_gold_codes - supported_codes),
+            "appointment_delegation_minimum_field_packet_count": sum(
+                item["appointment_delegation_minimum_fields_present"]
+                for item in packet_assessments
+            ),
+            "complete_expected_participant_packet_count": sum(
+                item["participant_coverage"] == 1.0 for item in packet_assessments
+            ),
+            "human_review_gate_ready_packet_count": sum(
+                item["human_review_gate_ready"] for item in packet_assessments
+            ),
             "all_packets_proposed": all(
                 packet.episode_status == "proposed" for packet in hinted_packets
+            ),
+            "packet_assessments": sorted(
+                packet_assessments, key=lambda item: item["episode_code"]
             ),
             "warning": (
                 "边界提示来自冻结 Gold/source lineage 与人工 linkage；"

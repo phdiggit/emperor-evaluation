@@ -76,4 +76,11 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
     assert report["lineage_assisted_reconciliation"]["supported_boundary_packet_count"] == 14
     assert report["lineage_assisted_reconciliation"]["unassigned_new_assertion_count"] == 0
     assert report["lineage_assisted_reconciliation"]["all_packets_proposed"] is True
+    assert len(report["lineage_assisted_reconciliation"]["packet_assessments"]) == 15
+    assert (
+        report["lineage_assisted_reconciliation"]["human_review_gate_ready_packet_count"]
+        < report["lineage_assisted_reconciliation"][
+            "appointment_delegation_minimum_field_packet_count"
+        ]
+    )
     assert report["episode_recall"]["full_match_episode_count"] == 0
