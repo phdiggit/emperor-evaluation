@@ -1,0 +1,83 @@
+schema_version: 1
+coverage_code: episode_pilot_v1_assertion_gold_coverage
+status: review_ready
+manifest: eval/episode_pilot_v1.yml
+initial_claim_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-supplement-response.json
+repair_claim_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json
+
+decision_vocabulary:
+  full_boundary_support: 当前断言集合覆盖 gold boundary 的必要人物、行动与责任链
+  partial_boundary_support: 至少支持一个核心字段，但缺少必要链条或责任主体
+  no_boundary_support: 当前断言未支持 gold boundary，或抽取了同人物的另一事件
+
+assessments:
+  - episode_code: EP-LSM-FANGDU-RECRUITMENT
+    decision: no_boundary_support
+    claim_refs: [initial:李世民:CLM-房玄龄-RECRUITMENT-001]
+    reason: 当前 claim 是任命房玄龄为记室参军，不是搜罗人物并引入幕府
+  - episode_code: EP-LSM-WEIZHENG-APPOINTMENT
+    decision: partial_boundary_support
+    claim_refs: [legacy:李世民:b70195045403, legacy:李世民:c6dc4d37fab5]
+    reason: 旧断言覆盖持续纳谏，但仍缺初授谏议大夫的明确断言
+  - episode_code: EP-LSM-WEIZHENG-POSTHUMOUS-REVERSAL
+    decision: full_boundary_support
+    claim_refs:
+      - initial:李世民:CLM-魏徵-POSTHUMOUS-REVERSAL-001
+      - initial:李世民:CLM-魏徵-POSTHUMOUS-REVERSAL-002
+    reason: 已覆盖被谗仆碑、征辽后悔恨祭祀与复碑
+  - episode_code: EP-LSM-LIJING-DAIZHOU-COMMAND
+    decision: full_boundary_support
+    claim_refs: [initial:李世民:CLM-李靖-DAIZHOU-COMMAND-001]
+    reason: 已覆盖代州道行军总管任命与出击任务
+  - episode_code: EP-LB-SANJIE-RETROSPECTIVE
+    decision: full_boundary_support
+    claim_refs: [repair:刘邦:CLM-EP-LB-SANJIE-001]
+    reason: 已覆盖三杰分工与刘邦归因于能用三人
+  - episode_code: EP-LB-CHENPING-INTEGRATION
+    decision: partial_boundary_support
+    claim_refs: [initial:刘邦:CLM-CP-001]
+    reason: 已覆盖拜都尉典护军，缺诸将讥毁、复核与厚赐链
+  - episode_code: EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+    decision: full_boundary_support
+    claim_refs: [initial:刘邦:CLM-CP-002, initial:刘邦:CLM-CP-003]
+    reason: 已覆盖持续护军职责、任务授权与增封反馈
+  - episode_code: EP-LB-HANXIN-QI-KING
+    decision: partial_boundary_support
+    claim_refs: [initial:刘邦:CLM-HX-001, initial:刘邦:CLM-HX-002]
+    reason: 已覆盖请假王、破齐与授齐王，缺刘邦最初反对和态度转折
+  - episode_code: EP-LB-XIAOHE-SAFETY-PRESSURE
+    decision: full_boundary_support
+    claim_refs: [initial:刘邦:CLM-XH-001, initial:刘邦:CLM-XH-002, initial:刘邦:CLM-XH-003]
+    reason: 已覆盖疑忌压力、自污、廷尉拘系与赦出
+  - episode_code: EP-LB-FANKUAI-REPLACEMENT
+    decision: partial_boundary_support
+    claim_refs: [initial:刘邦:CLM-CP-004]
+    reason: 已覆盖替代授权，缺陈平周勃缓冲处置链
+  - episode_code: EP-ZYZ-XUDA-CHANGYUCHUN-DELEGATION
+    decision: partial_boundary_support
+    claim_refs: [initial:朱元璋:CLM-徐达-001]
+    reason: 已覆盖徐达可任平定中原，缺常遇春角色差异和佐之关系断言
+  - episode_code: EP-ZYZ-LIUJI-RECRUITMENT
+    decision: full_boundary_support
+    claim_refs: [initial:朱元璋:CLM-刘基-002]
+    reason: 已覆盖币聘、再次力邀、出仕与陈时务十八策
+  - episode_code: EP-ZYZ-LIUJI-RETREAT-PRESSURE
+    decision: partial_boundary_support
+    claim_refs: [repair:朱元璋:CLM-LIUJI-001]
+    reason: 已覆盖夺禄、惧入谢与留京不敢归，胡惟庸责任链仍需独立表达
+  - episode_code: EP-ZYZ-LANYU-PROMOTION
+    decision: full_boundary_support
+    claim_refs: [initial:朱元璋:CLM-蓝玉-001, initial:朱元璋:CLM-蓝玉-002]
+    reason: 已覆盖大将军授权、捕鱼儿海奏捷与晋封凉国公
+  - episode_code: EP-ZYZ-LANYU-PURGE
+    decision: full_boundary_support
+    claim_refs:
+      - repair:朱元璋:CLM-LANYU-001
+      - repair:朱元璋:CLM-LANYU-002
+      - repair:朱元璋:CLM-LANYU-003
+      - repair:朱元璋:CLM-LANYU-004
+    reason: 已覆盖骄蹇滥权、案发、审讯成狱与族诛后果
+
+acceptance_gate:
+  status: pending_human_review
+  note: 本文件只评价断言层是否支持 gold boundary，不评价 Kernel 是否已正确合成 HistoricalEpisode

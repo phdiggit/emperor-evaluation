@@ -8,6 +8,9 @@ from emperor_v4.adapters import (
     adapt_source_cache_snapshot,
 )
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
+from emperor_v4.evaluation.assertion_handoff import check_assertion_repair_response
+from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
+from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
@@ -37,3 +40,36 @@ def test_frozen_v3_outputs_form_auditable_episode_candidate_slice_offline():
         assertion.source_attribution["source_slice_ref"] in source_slice_ids
         for assertion in assertions
     )
+
+
+def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recall():
+    root = Path(__file__).parents[1]
+    source_repair = check_source_segmentation_repair_response(
+        root / "eval" / "episode_pilot_v1_source_segmentation_repair.yml",
+        root / "eval" / "episode_pilot_v1_source_segmentation_repair_execution.yml",
+        FIXTURES / "source-cache-segmentation-repair-response.json",
+    )
+    assertion_repair = check_assertion_repair_response(
+        root / "eval" / "episode_pilot_v1_assertion_repair.yml",
+        root / "eval" / "episode_pilot_v1_assertion_repair_execution.yml",
+        FIXTURES / "claim-extractor-repair-response.json",
+    )
+    report = evaluate_episode_pilot(
+        root / "eval" / "episode_pilot_v1.yml",
+        FIXTURES,
+        root / "eval" / "episode_pilot_v1_linkage.yml",
+        FIXTURES / "source-cache-supplement-response.json",
+        FIXTURES / "claim-extractor-supplement-response.json",
+        FIXTURES / "source-cache-segmentation-repair-response.json",
+        FIXTURES / "claim-extractor-repair-response.json",
+        root / "eval" / "episode_pilot_v1_assertion_gold_coverage.yml",
+    )
+
+    assert source_repair["status"] == "passed"
+    assert source_repair["network_fetch_count"] == 0
+    assert assertion_repair["status"] == "passed"
+    assert assertion_repair["used_passage_count"] == assertion_repair["input_passage_count"]
+    assert report["assertion_boundary_coverage"]["full_boundary_support_count"] == 8
+    assert report["assertion_boundary_coverage"]["partial_boundary_support_count"] == 6
+    assert report["assertion_boundary_coverage"]["no_boundary_support_count"] == 1
+    assert report["episode_recall"]["full_match_episode_count"] == 0

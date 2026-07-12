@@ -60,6 +60,9 @@ def evaluate_episode_pilot(
     linkage_path: Path | None = None,
     source_supplement_path: Path | None = None,
     claim_supplement_path: Path | None = None,
+    source_segmentation_repair_path: Path | None = None,
+    claim_repair_path: Path | None = None,
+    assertion_gold_coverage_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
     manifest = _load_yaml(manifest_path)
@@ -109,6 +112,72 @@ def evaluate_episode_pilot(
             for person in claim_supplement.get("people", [])
             for claim in person.get("payload", {}).get("claims", [])
             for ref in claim.get("source_slice_refs", [])
+        }
+    source_segmentation_repair: Mapping[str, Any] | None = None
+    superseded_source_slices: set[str] = set()
+    if source_segmentation_repair_path is not None:
+        source_segmentation_repair = _load_json(source_segmentation_repair_path)
+        superseded_source_slices = {
+            item.get("supersedes_passage_ref")
+            for item in source_segmentation_repair.get("passages", [])
+            if item.get("supersedes_passage_ref")
+        }
+    claim_repair: Mapping[str, Any] | None = None
+    repair_assertions = ()
+    repair_packets = ()
+    repair_used_slices: set[str] = set()
+    if claim_repair_path is not None:
+        claim_repair = _load_json(claim_repair_path)
+        repair_assertions = adapt_claim_extractor_snapshot(claim_repair)
+        repair_packets = reconcile_episode_candidates(repair_assertions)
+        repair_used_slices = {
+            ref
+            for person in claim_repair.get("people", [])
+            for claim in person.get("payload", {}).get("claims", [])
+            for ref in claim.get("source_slice_refs", [])
+        }
+    assertion_gold_coverage: Mapping[str, Any] | None = None
+    assertion_boundary_coverage: dict[str, Any] = {
+        "status": "not_computable_missing_assessment",
+        "full_boundary_support_count": None,
+        "partial_boundary_support_count": None,
+        "no_boundary_support_count": None,
+    }
+    if assertion_gold_coverage_path is not None:
+        assertion_gold_coverage = _load_yaml(assertion_gold_coverage_path)
+        assessments = assertion_gold_coverage.get("assessments") or []
+        assessed_codes = {item.get("episode_code") for item in assessments}
+        if assessed_codes != frozen_codes:
+            raise ValueError("assertion gold coverage 未一一覆盖 frozen episode")
+        counts = {
+            decision: sum(item.get("decision") == decision for item in assessments)
+            for decision in (
+                "full_boundary_support",
+                "partial_boundary_support",
+                "no_boundary_support",
+            )
+        }
+        assertion_boundary_coverage = {
+            "status": assertion_gold_coverage.get("status"),
+            "full_boundary_support_count": counts["full_boundary_support"],
+            "partial_boundary_support_count": counts["partial_boundary_support"],
+            "no_boundary_support_count": counts["no_boundary_support"],
+            "frozen_episode_count": len(frozen_codes),
+            "full_boundary_support_rate": (
+                counts["full_boundary_support"] / len(frozen_codes)
+                if frozen_codes
+                else None
+            ),
+            "any_boundary_support_rate": (
+                (
+                    counts["full_boundary_support"]
+                    + counts["partial_boundary_support"]
+                )
+                / len(frozen_codes)
+                if frozen_codes
+                else None
+            ),
+            "warning": "断言层覆盖不等于 HistoricalEpisode recall。",
         }
     required_rows: list[dict[str, Any]] = []
     for episode in frozen_episodes:
@@ -291,6 +360,7 @@ def evaluate_episode_pilot(
         },
         "episode_recall": episode_recall,
         "accepted_episode_precision": accepted_precision,
+        "assertion_boundary_coverage": assertion_boundary_coverage,
         "merge_split": merge_split,
         "linkage_integrity": linkage_integrity,
         "consumption_integrity": {
@@ -313,6 +383,16 @@ def evaluate_episode_pilot(
             ),
             "supplement_assertion_draft_count": len(supplement_assertions),
             "supplement_episode_candidate_packet_count": len(supplement_packets),
+            "repair_source_passage_count": (
+                len(source_segmentation_repair.get("passages", []))
+                if source_segmentation_repair
+                else 0
+            ),
+            "repair_assertion_draft_count": len(repair_assertions),
+            "repair_episode_candidate_packet_count": len(repair_packets),
+            "combined_new_assertion_draft_count": (
+                len(supplement_assertions) + len(repair_assertions)
+            ),
         },
         "cost": {
             "network_request_count": 0,
@@ -332,6 +412,9 @@ def evaluate_episode_pilot(
                 if claim_supplement
                 else None
             ),
+            "claim_model_call_count_repair_run": (
+                claim_repair.get("model_call_count") if claim_repair else None
+            ),
             "claim_database_import_performed": (
                 claim_supplement.get("database_import_performed")
                 if claim_supplement
@@ -347,12 +430,36 @@ def evaluate_episode_pilot(
                         item.get("passage_cache_id")
                         for item in source_supplement.get("passages", [])
                     }
+                    - superseded_source_slices
                     - supplement_used_slices
+                    - repair_used_slices
+                )
+                + len(
+                    {
+                        item.get("passage_cache_id")
+                        for item in source_segmentation_repair.get("passages", [])
+                    }
+                    - repair_used_slices
                 )
                 if source_supplement
                 else 0
             ),
-            "supplement_assertion_gold_linkage_pending": len(supplement_assertions),
+            "supplement_assertion_gold_linkage_pending": (
+                len(supplement_assertions) + len(repair_assertions)
+            ),
+            "superseded_miscentered_passage_count": len(superseded_source_slices),
+            "assertion_boundary_without_full_support": (
+                assertion_boundary_coverage.get("frozen_episode_count", 0)
+                - assertion_boundary_coverage.get("full_boundary_support_count", 0)
+                if assertion_gold_coverage
+                else None
+            ),
+            "episode_reconciliation_pending_supported_boundary": (
+                assertion_boundary_coverage.get("full_boundary_support_count", 0)
+                + assertion_boundary_coverage.get("partial_boundary_support_count", 0)
+                if assertion_gold_coverage
+                else None
+            ),
             "episode_gold_linkage_missing": linkage_failure_count,
             "gold_boundary_without_full_match": (
                 episode_recall.get("frozen_episode_count", len(frozen_episodes))

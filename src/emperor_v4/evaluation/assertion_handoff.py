@@ -273,3 +273,205 @@ def check_assertion_extraction_response(
         "warnings": warnings,
         "errors": errors,
     }
+
+
+def build_assertion_repair_payloads(
+    handoff_path: Path,
+    output_root: Path,
+) -> dict[str, Any]:
+    handoff = yaml.safe_load(handoff_path.read_text(encoding="utf-8"))
+    if handoff.get("execution_authorized") is not True:
+        raise ValueError("assertion repair execution 未授权")
+    if handoff.get("production_write_authorized") is not False:
+        raise ValueError("assertion repair production write 必须禁用")
+    if handoff.get("database_import_authorized") is not False:
+        raise ValueError("assertion repair database import 必须禁用")
+
+    source = json.loads(Path(handoff["source_fixture"]).read_text(encoding="utf-8"))
+    repair_source = json.loads(
+        Path(handoff["segmentation_repair_fixture"]).read_text(encoding="utf-8")
+    )
+    documents = {
+        item["document_cache_id"]: item for item in source.get("documents", [])
+    }
+    passages = {
+        item["passage_cache_id"]: item
+        for item in [*source.get("passages", []), *repair_source.get("passages", [])]
+    }
+    focus_by_episode = handoff.get("episode_focus_person") or {}
+    aliases_by_ruler = handoff.get("ruler_aliases") or {}
+    output_root.mkdir(parents=True, exist_ok=True)
+    seen_passages: set[str] = set()
+    outputs: list[dict[str, Any]] = []
+
+    for task in handoff.get("tasks", []):
+        ruler = task["ruler"]
+        selected = [passages[ref] for ref in task.get("passage_refs", [])]
+        referenced_document_ids = {item["document_cache_id"] for item in selected}
+        object_names = sorted({focus_by_episode[item["episode_code"]] for item in selected})
+        payload = {
+            "schema_version": 1,
+            "generated_by": "emperor_v4.evaluation.assertion_handoff.repair",
+            "task_identity": {
+                "capture_profile": "i5b_item_wide",
+                "capture_mode": "v4_episode_pilot_shadow_repair",
+                "emperor_name": ruler,
+                "judge_mode": "claim_extraction_only",
+                "rule_code": "i5b_item_wide",
+                "target_code": task["target_code"],
+            },
+            "target_profile": {
+                "primary_name": ruler,
+                "aliases": aliases_by_ruler.get(ruler, []),
+            },
+            "rule": {"rule_code": "i5b_item_wide"},
+            "object_seeds": [{"name": name} for name in object_names],
+            "source_documents": [
+                {
+                    "document_code": document_id,
+                    "source_kind": "wikisource_page",
+                    "source_role": documents[document_id]["source_role"],
+                    "title": documents[document_id]["title"],
+                    "url": documents[document_id]["url"],
+                }
+                for document_id in sorted(referenced_document_ids)
+            ],
+            "candidate_slices": [],
+            "coverage": {
+                "checked_objects": object_names,
+                "claim_count": 0,
+                "alias_coverage_note": "v4_episode_pilot_shadow_repair",
+            },
+            "coverage_gaps": [],
+        }
+        for passage in selected:
+            passage_id = passage["passage_cache_id"]
+            if passage_id in seen_passages:
+                raise ValueError(f"repair passage 重复进入 task: {passage_id}")
+            seen_passages.add(passage_id)
+            focus = focus_by_episode[passage["episode_code"]]
+            matched_aliases = [focus]
+            if focus == ruler:
+                matched_aliases.extend(aliases_by_ruler.get(ruler, []))
+            payload["candidate_slices"].append(
+                {
+                    "slice_code": passage_id,
+                    "document_code": passage["document_cache_id"],
+                    "source_title": documents[passage["document_cache_id"]]["title"],
+                    "locator": passage["locator"],
+                    "text": passage["raw_text"],
+                    "object_name": focus,
+                    "matched_aliases": matched_aliases,
+                    "expected_event_repair": {
+                        "event_inventory_codes": [passage["episode_code"]],
+                        "related_window": passage.get("related_window") is True,
+                    },
+                }
+            )
+
+        output_path = output_root / Path(task["candidates_path"]).name
+        rendered = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        output_path.write_bytes(rendered.encode("utf-8"))
+        outputs.append(
+            {
+                "task_code": task["task_code"],
+                "ruler": ruler,
+                "path": str(output_path),
+                "sha256": hashlib.sha256(rendered.encode("utf-8")).hexdigest(),
+                "candidate_slice_count": len(selected),
+            }
+        )
+
+    expected = {ref for task in handoff.get("tasks", []) for ref in task.get("passage_refs", [])}
+    if seen_passages != expected:
+        raise ValueError("assertion repair 未一一覆盖 repair passages")
+    return {
+        "status": "passed",
+        "input_passage_count": len(seen_passages),
+        "task_count": len(outputs),
+        "outputs": outputs,
+    }
+
+
+def check_assertion_repair_response(
+    handoff_path: Path,
+    execution_path: Path,
+    response_path: Path,
+) -> dict[str, Any]:
+    handoff = yaml.safe_load(handoff_path.read_text(encoding="utf-8"))
+    execution = yaml.safe_load(execution_path.read_text(encoding="utf-8"))
+    response_bytes = response_path.read_bytes()
+    response = json.loads(response_bytes.decode("utf-8"))
+    errors: list[str] = []
+
+    execution_tasks = {item["ruler"]: item for item in execution.get("tasks", [])}
+    input_slices: set[str] = set()
+    for task in handoff.get("tasks", []):
+        candidates = json.loads(Path(task["candidates_path"]).read_text(encoding="utf-8"))
+        canonical_hash = _canonical_json_hash(candidates)
+        if canonical_hash != execution_tasks[task["ruler"]]["candidate_sha256"]:
+            errors.append(f"repair candidate hash 不一致: {task['ruler']}")
+        input_slices.update(
+            item["slice_code"] for item in candidates.get("candidate_slices", [])
+        )
+
+    used_slices: set[str] = set()
+    claim_count = 0
+    gate_rejections = 0
+    for person in response.get("people", []):
+        ruler = person.get("ruler")
+        payload = person.get("payload") or {}
+        if payload.get("status") != "succeeded":
+            errors.append(f"repair task 未成功: {ruler}")
+        gate_rejections += int(
+            payload.get("_target_emperor_gate", {}).get("rejected_claim_count") or 0
+        )
+        gate_rejections += int(
+            payload.get("_candidate_object_gate", {}).get("rejected_claim_count") or 0
+        )
+        for claim in payload.get("claims", []):
+            claim_count += 1
+            if claim.get("emperor_name") != ruler:
+                errors.append(f"repair claim 跨皇帝污染: {claim.get('claim_code')}")
+            refs = set(claim.get("source_slice_refs") or ())
+            if not refs or refs - input_slices:
+                errors.append(f"repair claim source refs 非闭合: {claim.get('claim_code')}")
+            used_slices.update(refs)
+    if gate_rejections:
+        errors.append("repair gate 拒绝了 claim")
+    if used_slices != input_slices:
+        errors.append("repair 未消费全部输入 passage")
+    if response.get("model_call_count", 0) > handoff.get("model_call_budget", 0):
+        errors.append("repair 模型调用超过预算")
+    if response.get("database_import_performed") is not False:
+        errors.append("repair 发生数据库导入")
+    if response.get("production_write_performed") is not False:
+        errors.append("repair 发生生产写入")
+
+    response_hash = hashlib.sha256(response_bytes).hexdigest()
+    if execution.get("response_sha256") != response_hash:
+        errors.append("repair execution response hash 不一致")
+    if execution.get("idempotency_check", {}).get("model_call_count") != 0:
+        errors.append("repair 幂等重跑不是零模型调用")
+    try:
+        assertion_count = len(adapt_claim_extractor_snapshot(response))
+    except ValueError as exc:
+        assertion_count = 0
+        errors.append(f"repair AssertionDraft adapter 拒绝: {exc}")
+
+    return {
+        "report_schema_version": 1,
+        "check": "assertion_repair_response",
+        "status": "passed" if not errors else "failed",
+        "response_sha256": response_hash,
+        "input_passage_count": len(input_slices),
+        "used_passage_count": len(used_slices),
+        "claim_count": claim_count,
+        "assertion_draft_count": assertion_count,
+        "model_call_count": response.get("model_call_count"),
+        "idempotent_rerun_model_call_count": execution.get(
+            "idempotency_check", {}
+        ).get("model_call_count"),
+        "gate_rejected_claim_count": gate_rejections,
+        "errors": errors,
+    }

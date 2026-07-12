@@ -214,3 +214,70 @@ def check_source_supplement_response(
         "production_write_performed": response.get("production_write_performed"),
         "errors": errors,
     }
+
+
+def check_source_segmentation_repair_response(
+    request_path: Path,
+    execution_path: Path,
+    response_path: Path,
+) -> dict[str, Any]:
+    request = _load_yaml(request_path)
+    execution = _load_yaml(execution_path)
+    response_bytes = response_path.read_bytes()
+    response = json.loads(response_bytes.decode("utf-8"))
+    errors: list[str] = []
+
+    expected_codes = {item["repair_code"] for item in request.get("windows", [])}
+    actual_codes = {item.get("repair_code") for item in response.get("passages", [])}
+    if expected_codes != actual_codes:
+        errors.append("segmentation repair passage set 与 request 不一致")
+    for item in response.get("passages", []):
+        expected_hash = hashlib.sha256(item.get("raw_text", "").encode("utf-8")).hexdigest()
+        if item.get("content_hash") != expected_hash:
+            errors.append(f"repair passage content_hash 不一致: {item.get('repair_code')}")
+        matched = set(item.get("selection_reason", {}).get("matched_anchor_terms") or ())
+        requested = next(
+            set(row.get("required_anchor_terms") or ())
+            for row in request["windows"]
+            if row["repair_code"] == item.get("repair_code")
+        )
+        if matched != requested:
+            errors.append(f"repair passage anchor 不完整: {item.get('repair_code')}")
+        if not item.get("supersedes_passage_ref"):
+            errors.append(f"repair passage 缺少 supersedes lineage: {item.get('repair_code')}")
+
+    if response.get("status") != "succeeded" or response.get("errors"):
+        errors.append("segmentation repair 未无错误完成")
+    if response.get("network_fetch_count") != 0:
+        errors.append("segmentation repair 访问了网络")
+    if response.get("model_call_count") != 0:
+        errors.append("segmentation repair 调用了模型")
+    if response.get("production_write_performed") is not False:
+        errors.append("segmentation repair 发生生产写入")
+
+    request_hash = hashlib.sha256(request_path.read_bytes()).hexdigest()
+    response_hash = hashlib.sha256(response_bytes).hexdigest()
+    if response.get("provenance", {}).get("request_sha256") != request_hash:
+        errors.append("segmentation repair request hash 不一致")
+    if execution.get("request_sha256") != request_hash:
+        errors.append("segmentation execution request hash 不一致")
+    if execution.get("response_sha256") != response_hash:
+        errors.append("segmentation execution response hash 不一致")
+
+    return {
+        "report_schema_version": 1,
+        "check": "source_segmentation_repair_response",
+        "status": "passed" if not errors else "failed",
+        "request_sha256": request_hash,
+        "response_sha256": response_hash,
+        "passage_count": len(actual_codes),
+        "superseded_passage_count": len(
+            {
+                item.get("supersedes_passage_ref")
+                for item in response.get("passages", [])
+            }
+        ),
+        "network_fetch_count": response.get("network_fetch_count"),
+        "model_call_count": response.get("model_call_count"),
+        "errors": errors,
+    }

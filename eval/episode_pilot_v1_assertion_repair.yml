@@ -1,0 +1,42 @@
+schema_version: 1
+repair_batch_code: episode_pilot_v1_assertion_repair
+status: ready_for_shadow_execution
+source_fixture: tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json
+segmentation_repair_fixture: tests/fixtures/episode_pilot_v1/source-cache-segmentation-repair-response.json
+output_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json
+extractor_version: claim_extraction_only:v8_source_alias
+execution_authorized: true
+execution_authorized_by: user_message_continue_m5
+production_write_authorized: false
+database_import_authorized: false
+model_call_budget: 2
+
+ruler_aliases:
+  刘邦: [汉高祖, 高祖, 汉王, 沛公]
+  朱元璋: [明太祖, 太祖, 洪武]
+
+episode_focus_person:
+  EP-LB-SANJIE-RETROSPECTIVE: 刘邦
+  EP-ZYZ-LIUJI-RETREAT-PRESSURE: 刘基
+  EP-ZYZ-LANYU-PURGE: 蓝玉
+
+tasks:
+  - task_code: V4-CLAIM-LB-REPAIR
+    ruler: 刘邦
+    target_code: TGT-V4-EPISODE-PILOT-LB-REPAIR
+    candidates_path: tests/fixtures/episode_pilot_v1/assertion-repair-candidates-liubang.json
+    passage_refs: [PAS-B06C119B6C306D3D18CD649A]
+  - task_code: V4-CLAIM-ZYZ-REPAIR
+    ruler: 朱元璋
+    target_code: TGT-V4-EPISODE-PILOT-ZYZ-REPAIR
+    candidates_path: tests/fixtures/episode_pilot_v1/assertion-repair-candidates-zhuyuanzhang.json
+    passage_refs:
+      - PAS-255B21166BBF731328D27924
+      - PAS-996D5E2E2860E5ED5606B71C
+      - PAS-561C10B0521EE5795C39430E
+
+acceptance_gate:
+  - 4 个 repair passage 每个恰好进入一个 task
+  - 三杰段显式携带高祖、汉王、沛公别名
+  - 模型调用不超过 2
+  - 不入队、不导入 PostgreSQL、不写 V3 正式 claim cache
