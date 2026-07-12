@@ -5,7 +5,11 @@ from dataclasses import replace
 import pytest
 
 from emperor_v4.contracts.assertion import AssertionDraft
-from emperor_v4.domain.episode import build_episode_packet, group_episode_candidates
+from emperor_v4.domain.episode import (
+    build_episode_packet,
+    group_episode_candidates,
+    group_episode_candidates_with_hints,
+)
 
 
 def _assertion(
@@ -122,3 +126,41 @@ def test_accepted_episode_has_passage_lineage_and_slot_completeness():
         "source_diversity": "partial",
         "conflict_resolution": "complete",
     }
+
+
+def test_explicit_boundary_hint_merges_related_actions_without_using_summary_identity():
+    appointment = _assertion("A-1", passage="P-1")
+    outcome = replace(_assertion("A-2", passage="P-2"), predicate="奏捷反馈")
+
+    groups = group_episode_candidates_with_hints(
+        [appointment, outcome],
+        {"A-1": "LIJING-DAIZHOU", "A-2": "LIJING-DAIZHOU"},
+    )
+
+    assert len(groups) == 1
+    assert groups[0].boundary_hint == "LIJING-DAIZHOU"
+    assert {item.assertion_code for item in groups[0].assertions} == {"A-1", "A-2"}
+
+
+def test_distinct_boundary_hints_split_otherwise_identical_actions():
+    first = _assertion("A-1", passage="P-1")
+    second = _assertion("A-2", passage="P-2")
+
+    groups = group_episode_candidates_with_hints(
+        [first, second],
+        {"A-1": "FIRST-AUTHORIZATION", "A-2": "SECOND-AUTHORIZATION"},
+    )
+
+    assert len(groups) == 2
+    assert len({group.key.fingerprint for group in groups}) == 2
+
+
+def test_boundary_hint_cannot_merge_across_rulers():
+    first = _assertion("A-1", passage="P-1")
+    second = _assertion("A-2", passage="P-2", ruler="李治")
+
+    with pytest.raises(ValueError, match="跨 evaluation context"):
+        group_episode_candidates_with_hints(
+            [first, second],
+            {"A-1": "SAME-HINT", "A-2": "SAME-HINT"},
+        )

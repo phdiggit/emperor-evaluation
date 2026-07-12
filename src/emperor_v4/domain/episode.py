@@ -30,6 +30,7 @@ class EpisodeCandidateKey:
     responsibility_domain: str
     normalized_time: str
     location: str
+    candidate_boundary_key: str = ""
 
     @property
     def fingerprint(self) -> str:
@@ -42,6 +43,8 @@ class EpisodeCandidateKey:
             "normalized_time": self.normalized_time,
             "location": self.location,
         }
+        if self.candidate_boundary_key:
+            payload["candidate_boundary_key"] = self.candidate_boundary_key
         canonical = json.dumps(
             payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
         )
@@ -52,6 +55,7 @@ class EpisodeCandidateKey:
 class EpisodeCandidateGroup:
     key: EpisodeCandidateKey
     assertions: tuple[AssertionDraft, ...]
+    boundary_hint: str | None = None
 
 
 def candidate_key(assertion: AssertionDraft) -> EpisodeCandidateKey:
@@ -102,6 +106,87 @@ def group_episode_candidates(
         EpisodeCandidateGroup(key=key, assertions=tuple(items))
         for key, items in sorted(groups.items(), key=lambda item: item[0].fingerprint)
     )
+
+
+def group_episode_candidates_with_hints(
+    assertions: Iterable[AssertionDraft],
+    boundary_hints: dict[str, str],
+) -> tuple[EpisodeCandidateGroup, ...]:
+    """按显式语义边界提示聚合，再从组内结构化字段生成身份候选。"""
+
+    groups: dict[str, list[AssertionDraft]] = {}
+    seen: set[str] = set()
+    for assertion in assertions:
+        if assertion.assertion_code in seen:
+            raise ValueError(f"重复 assertion 输入: {assertion.assertion_code}")
+        seen.add(assertion.assertion_code)
+        hint = boundary_hints.get(assertion.assertion_code)
+        if not hint:
+            raise ValueError(f"assertion 缺少显式边界提示: {assertion.assertion_code}")
+        groups.setdefault(hint, []).append(assertion)
+
+    results: list[EpisodeCandidateGroup] = []
+    for hint, items in groups.items():
+        contexts = {_normalized(item.qualifiers.get("evaluation_context")) for item in items}
+        if "" in contexts or len(contexts) != 1:
+            raise ValueError(f"边界提示跨 evaluation context: {hint}")
+        episode_types = {
+            _normalized(item.qualifiers.get("episode_type") or item.predicate)
+            for item in items
+        }
+        if "" in episode_types or len(episode_types) != 1:
+            raise ValueError(f"边界提示跨 episode type: {hint}")
+        participant_roles = tuple(
+            sorted(
+                {
+                    (_normalized(person), _normalized(role))
+                    for item in items
+                    for person, role in (
+                        item.qualifiers.get("candidate_participant_roles")
+                        or (
+                            (item.qualifiers.get("evaluation_context"), "ruler"),
+                            (item.subject, "actor"),
+                        )
+                    )
+                    if person and role
+                }
+            )
+        )
+        domains = sorted(
+            {
+                _normalized(item.qualifiers.get("office_or_domain"))
+                for item in items
+                if item.qualifiers.get("office_or_domain")
+            }
+        )
+        times = sorted(
+            {_normalized(item.time_expression) for item in items if item.time_expression}
+        )
+        locations = sorted(
+            {
+                _normalized(item.location_expression)
+                for item in items
+                if item.location_expression
+            }
+        )
+        key = EpisodeCandidateKey(
+            evaluation_context=next(iter(contexts)),
+            participant_roles=participant_roles,
+            episode_type=next(iter(episode_types)),
+            action_kind=next(iter(episode_types)),
+            responsibility_domain="|".join(domains),
+            normalized_time="|".join(times),
+            location="|".join(locations),
+            candidate_boundary_key=_normalized(hint),
+        )
+        results.append(
+            EpisodeCandidateGroup(
+                key=key,
+                assertions=tuple(items),
+                boundary_hint=hint,
+            )
+        )
+    return tuple(sorted(results, key=lambda group: group.key.fingerprint))
 
 
 def _slot_state(values: list[str], *, allow_not_applicable: bool = False) -> str:
@@ -171,6 +256,10 @@ def build_episode_packet(
         dict.fromkeys(flag for item in assertions for flag in item.ambiguity_flags)
     )
 
+    provenance = {"builder": "deterministic_episode_kernel_v1"}
+    if group.boundary_hint:
+        provenance["candidate_boundary_key"] = group.boundary_hint
+
     return HistoricalEpisodePacket(
         episode_id=f"EP-{group.key.fingerprint[:20].upper()}",
         episode_type=group.key.episode_type,
@@ -193,5 +282,5 @@ def build_episode_packet(
         uncertainties=uncertainties,
         completeness=completeness,
         lineage={"origin": "created"},
-        provenance={"builder": "deterministic_episode_kernel_v1"},
+        provenance=provenance,
     )

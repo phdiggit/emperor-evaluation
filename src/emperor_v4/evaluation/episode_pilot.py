@@ -13,7 +13,11 @@ from emperor_v4.adapters import (
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
 )
-from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
+from emperor_v4.application.reconcile_episode import (
+    reconcile_episode_candidates,
+    reconcile_episode_candidates_with_hints,
+)
+from emperor_v4.domain.episode import group_episode_candidates
 
 
 _SOURCE_TRANSLATION = str.maketrans(
@@ -71,6 +75,7 @@ def evaluate_episode_pilot(
 
     source = adapt_source_cache_snapshot(source_snapshot)
     assertions = adapt_claim_extractor_snapshot(claim_snapshot)
+    baseline_groups = group_episode_candidates(assertions)
     packets = reconcile_episode_candidates(assertions)
     packet_fingerprints = {packet.semantic_fingerprint for packet in packets}
 
@@ -338,6 +343,85 @@ def evaluate_episode_pilot(
         )
         linkage_failure_count = 0
 
+    lineage_assisted_reconciliation: dict[str, Any] = {
+        "status": "not_computable_missing_lineage_or_linkage",
+        "candidate_packet_count": None,
+    }
+    if linkage is not None and source_supplement is not None:
+        boundary_hints: dict[str, str] = {}
+        reconciled_assertions = []
+        for group in baseline_groups:
+            decision = linkage["candidate_decisions"][group.key.fingerprint]
+            gold_codes = [
+                code
+                for code in decision.get("gold_episode_codes", [])
+                if code in frozen_codes
+            ]
+            if decision["decision"] not in {
+                "full_match",
+                "partial_support",
+                "context_only",
+            } or len(gold_codes) != 1:
+                continue
+            for assertion in group.assertions:
+                boundary_hints[assertion.assertion_code] = gold_codes[0]
+                reconciled_assertions.append(assertion)
+
+        source_slice_hints = {
+            item["passage_cache_id"]: item["episode_code"]
+            for source_fixture in (
+                source_supplement,
+                source_segmentation_repair or {},
+            )
+            for item in source_fixture.get("passages", [])
+            if item.get("episode_code") in frozen_codes
+            and item.get("passage_cache_id") not in superseded_source_slices
+        }
+        unassigned_new_assertions: list[str] = []
+        for assertion in (*supplement_assertions, *repair_assertions):
+            source_slice_ref = assertion.source_attribution.get("source_slice_ref")
+            hint = source_slice_hints.get(source_slice_ref)
+            if hint is None:
+                unassigned_new_assertions.append(assertion.assertion_code)
+                continue
+            boundary_hints[assertion.assertion_code] = hint
+            reconciled_assertions.append(assertion)
+
+        hinted_packets = reconcile_episode_candidates_with_hints(
+            reconciled_assertions,
+            boundary_hints,
+        )
+        packet_gold_codes = {
+            packet.provenance["candidate_boundary_key"] for packet in hinted_packets
+        }
+        assessment_by_code = {
+            item["episode_code"]: item["decision"]
+            for item in (assertion_gold_coverage or {}).get("assessments", [])
+        }
+        supported_codes = {
+            code
+            for code, decision in assessment_by_code.items()
+            if decision in {"full_boundary_support", "partial_boundary_support"}
+        }
+        lineage_assisted_reconciliation = {
+            "status": "oracle_assisted_review_ready",
+            "candidate_packet_count": len(hinted_packets),
+            "candidate_gold_episode_count": len(packet_gold_codes),
+            "candidate_gold_episode_codes": sorted(packet_gold_codes),
+            "input_assertion_count": len(reconciled_assertions),
+            "unassigned_new_assertion_count": len(unassigned_new_assertions),
+            "unassigned_new_assertion_codes": sorted(unassigned_new_assertions),
+            "supported_boundary_packet_count": len(packet_gold_codes & supported_codes),
+            "unsupported_boundary_packet_count": len(packet_gold_codes - supported_codes),
+            "all_packets_proposed": all(
+                packet.episode_status == "proposed" for packet in hinted_packets
+            ),
+            "warning": (
+                "边界提示来自冻结 Gold/source lineage 与人工 linkage；"
+                "只证明 AssertionDraft 可组成可审计 packet，不计入正式 episode recall。"
+            ),
+        }
+
     return {
         "report_schema_version": 1,
         "evaluation": "episode_pilot",
@@ -361,6 +445,7 @@ def evaluate_episode_pilot(
         "episode_recall": episode_recall,
         "accepted_episode_precision": accepted_precision,
         "assertion_boundary_coverage": assertion_boundary_coverage,
+        "lineage_assisted_reconciliation": lineage_assisted_reconciliation,
         "merge_split": merge_split,
         "linkage_integrity": linkage_integrity,
         "consumption_integrity": {

@@ -72,4 +72,8 @@ def test_shadow_repairs_improve_assertion_support_without_claiming_episode_recal
     assert report["assertion_boundary_coverage"]["full_boundary_support_count"] == 8
     assert report["assertion_boundary_coverage"]["partial_boundary_support_count"] == 6
     assert report["assertion_boundary_coverage"]["no_boundary_support_count"] == 1
+    assert report["lineage_assisted_reconciliation"]["candidate_packet_count"] == 15
+    assert report["lineage_assisted_reconciliation"]["supported_boundary_packet_count"] == 14
+    assert report["lineage_assisted_reconciliation"]["unassigned_new_assertion_count"] == 0
+    assert report["lineage_assisted_reconciliation"]["all_packets_proposed"] is True
     assert report["episode_recall"]["full_match_episode_count"] == 0
