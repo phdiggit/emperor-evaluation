@@ -84,6 +84,12 @@ def adapt_claim_extractor_snapshot(
                         time_expression=fact.get("time_context") or None,
                         location_expression=None,
                         qualifiers={
+                            "evaluation_context": person.get("ruler"),
+                            "candidate_participant_roles": (
+                                (person.get("ruler"), "ruler"),
+                                (claim.get("object_name"), "subject_person"),
+                            ),
+                            "episode_type": "political_action",
                             "legacy_claim_kind": claim_kind,
                             "legacy_claim_summary": claim.get("claim_summary", ""),
                             "event_scope": fact.get("event_scope") or None,
