@@ -5,11 +5,22 @@ from dataclasses import replace
 import pytest
 
 from emperor_v4.contracts.assertion import AssertionDraft
+from emperor_v4.contracts.boundary import (
+    ContextAssertionLink,
+    EpisodeBoundaryGroup,
+    EpisodeBoundaryReviewResult,
+    EpisodeRelation,
+)
 from emperor_v4.contracts.episode import EpisodeParticipant
 from emperor_v4.domain.episode import (
     build_episode_packet,
     group_episode_candidates,
     group_episode_candidates_with_hints,
+)
+from emperor_v4.domain.boundary import (
+    cluster_propositions,
+    materialize_boundary_review,
+    plan_boundary_reviews,
 )
 
 
@@ -46,6 +57,100 @@ def _assertion(
         candidate_episode_key=None,
         confidence=0.9,
     )
+
+
+def _with_claim(assertion: AssertionDraft, claim_key: str) -> AssertionDraft:
+    return replace(assertion, extraction_provenance={"claim_key": claim_key})
+
+
+def test_proposition_cluster_collapses_passage_fanout_without_losing_lineage():
+    first = _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1")
+    second = _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1")
+
+    clusters = cluster_propositions([first, second])
+
+    assert len(clusters) == 1
+    assert clusters[0].assertion_refs == ("A-1", "A-2")
+    assert clusters[0].evidence_refs == ("P-1", "P-2")
+
+
+def test_review_unit_cache_invalidates_only_changed_focal_person():
+    lijing = [
+        _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+        _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
+    ]
+    hou = [
+        _with_claim(
+            _assertion("A-3", passage="P-3", person="侯君集"), "CLAIM-2"
+        )
+    ]
+    first_plan = plan_boundary_reviews([*lijing, *hou])
+    cached_keys = {item.cache_key for item in first_plan.review_units}
+    changed_lijing = _with_claim(
+        _assertion("A-4", passage="P-4", time="贞观四年"), "CLAIM-3"
+    )
+
+    second_plan = plan_boundary_reviews(
+        [*lijing, *hou, changed_lijing], cached_review_keys=cached_keys
+    )
+
+    assert len(first_plan.proposition_clusters) == 2
+    assert len(first_plan.review_units) == 2
+    assert second_plan.model_call_count == 1
+    assert len(second_plan.cache_hit_unit_codes) == 1
+    assert len(second_plan.cache_miss_unit_codes) == 1
+
+    synonymous_evidence = _with_claim(
+        _assertion("A-5", passage="P-5"), "CLAIM-1"
+    )
+    evidence_only_plan = plan_boundary_reviews(
+        [*lijing, *hou, synonymous_evidence], cached_review_keys=cached_keys
+    )
+    assert evidence_only_plan.model_call_count == 0
+
+
+def test_boundary_review_keeps_atomic_episodes_and_materializes_relation():
+    appointment = _with_claim(
+        _assertion("A-1", passage="P-1", time="贞观三年"), "CLAIM-1"
+    )
+    renewal = _with_claim(
+        _assertion("A-2", passage="P-2", time="贞观四年"), "CLAIM-2"
+    )
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref="RU-1",
+        episode_groups=(
+            EpisodeBoundaryGroup("E1", ("A-1",), "首次授权", 0.95),
+            EpisodeBoundaryGroup("E2", ("A-2",), "重新授权", 0.95),
+        ),
+        relations=(
+            EpisodeRelation("E1", "E2", "renews_authority", ("A-2",), 0.9),
+        ),
+        context_assertions=(
+            ContextAssertionLink("A-1", ("E2",), "前次授权为后续背景"),
+        ),
+        unresolved_assertion_refs=(),
+    )
+
+    packets, relations = materialize_boundary_review([appointment, renewal], review)
+
+    assert len(packets) == 2
+    assert len(relations) == 1
+    assert relations[0].relation_type == "renews_authority"
+    assert relations[0].from_episode_ref != relations[0].to_episode_ref
+
+
+def test_boundary_review_rejects_assertion_in_two_episode_cores():
+    with pytest.raises(ValueError, match="最多只能属于一个"):
+        EpisodeBoundaryReviewResult(
+            review_unit_ref="RU-1",
+            episode_groups=(
+                EpisodeBoundaryGroup("E1", ("A-1",), "first", 0.9),
+                EpisodeBoundaryGroup("E2", ("A-1",), "second", 0.9),
+            ),
+            relations=(),
+            context_assertions=(),
+            unresolved_assertion_refs=(),
+        )
 
 
 def test_same_structured_event_merges_across_source_wording():

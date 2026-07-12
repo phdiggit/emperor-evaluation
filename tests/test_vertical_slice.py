@@ -26,6 +26,7 @@ from emperor_v4.evaluation.blind_holdout import (
     run_blind_holdout_with_semantic_review,
     score_blind_holdout,
 )
+from emperor_v4.evaluation.boundary_score import score_boundary_graph
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
 
@@ -244,6 +245,9 @@ def test_blind_holdout_run_is_gold_isolated_and_scored_only_afterward():
 
     assert score["metrics"]["autonomous_boundary_recall"] == 1.0
     assert score["metrics"]["candidate_precision"] == 1.0
+    assert score["metrics"]["pairwise_same_episode_precision"] == 1.0
+    assert score["metrics"]["pairwise_same_episode_recall"] == 1.0
+    assert score["metrics"]["safe_fragment_count"] == 0
     assert score["metrics"]["catastrophic_wrong_merge_count"] == 0
     assert score["accepted_metrics"]["accepted_recall"] is None
 
@@ -441,3 +445,96 @@ def test_semantic_review_rejects_gold_fields():
 
     with pytest.raises(ValueError, match="Gold/oracle"):
         run_blind_holdout_with_semantic_review(blind_input, review)
+
+
+def test_boundary_scorer_distinguishes_safe_fragments_from_wrong_merge():
+    candidate = {
+        "episode_groups": [
+            {"local_episode_code": "C1", "core_assertion_refs": ["A1", "A2"]},
+            {"local_episode_code": "C2", "core_assertion_refs": ["A3"]},
+            {"local_episode_code": "C3", "core_assertion_refs": ["A4"]},
+        ],
+        "relations": [
+            {
+                "from_episode": "C2",
+                "to_episode": "C3",
+                "relation_type": "revokes",
+            }
+        ],
+    }
+    gold = {
+        "gold_episodes": [
+            {"gold_episode_code": "G1", "expected_assertion_refs": ["A1", "A2"]},
+            {"gold_episode_code": "G2", "expected_assertion_refs": ["A3", "A4"]},
+        ],
+        "gold_relations": [],
+        "catastrophic_must_not_merge_pairs": [["G1", "G2"]],
+    }
+
+    score = score_boundary_graph(candidate, gold)
+
+    assert score["episode_metrics"]["exact_episode_recall"] == 0.5
+    assert score["episode_metrics"]["exact_candidate_precision"] == pytest.approx(
+        1 / 3
+    )
+    assert score["episode_metrics"]["pairwise_same_episode_precision"] == 1.0
+    assert score["episode_metrics"]["pairwise_same_episode_recall"] == 0.5
+    assert score["episode_metrics"]["safe_fragment_count"] == 2
+    assert score["episode_metrics"]["wrong_merge_count"] == 0
+
+
+def test_boundary_scorer_measures_relation_graph_separately():
+    episodes = [
+        {"local_episode_code": "E1", "core_assertion_refs": ["A1"]},
+        {"local_episode_code": "E2", "core_assertion_refs": ["A2"]},
+    ]
+    gold_episodes = [
+        {"gold_episode_code": "G1", "expected_assertion_refs": ["A1"]},
+        {"gold_episode_code": "G2", "expected_assertion_refs": ["A2"]},
+    ]
+    candidate = {
+        "episode_groups": episodes,
+        "relations": [
+            {
+                "from_episode": "E1",
+                "to_episode": "E2",
+                "relation_type": "causal_followup",
+            }
+        ],
+    }
+    gold = {
+        "gold_episodes": gold_episodes,
+        "gold_relations": [
+            {
+                "from_episode": "G1",
+                "to_episode": "G2",
+                "relation_type": "causal_followup",
+            }
+        ],
+    }
+
+    score = score_boundary_graph(candidate, gold)
+
+    assert score["relation_metrics"]["relation_precision"] == 1.0
+    assert score["relation_metrics"]["relation_recall"] == 1.0
+    assert score["relation_metrics"]["causal_responsibility_preservation"] == 1.0
+
+
+def test_missing_location_is_non_blocking_for_appointment_episode():
+    blind_input = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for assertion in blind_input["assertions"]:
+        assertion["ambiguity_flags"] = ["missing_location_expression"]
+        assertion["location_expression"] = None
+
+    run = run_blind_holdout(blind_input)
+
+    assert all(
+        issue["severity"] == "informational"
+        for packet in run["packets"]
+        for issue in packet["ambiguity_issues"]
+    )
+    assert all(not packet["human_review_required"] for packet in run["packets"])

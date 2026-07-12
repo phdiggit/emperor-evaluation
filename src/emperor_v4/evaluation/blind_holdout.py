@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from itertools import combinations
 from typing import Any, Mapping
 
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
@@ -10,6 +11,7 @@ from emperor_v4.domain.episode import (
     build_episode_packet,
     group_episode_candidates_with_hints,
 )
+from emperor_v4.domain.boundary import ambiguity_issues_for_packet
 
 
 FORBIDDEN_KERNEL_KEYS = frozenset(
@@ -87,6 +89,13 @@ def _assertion_from_row(row: Mapping[str, Any]) -> AssertionDraft:
     )
 
 
+def assertions_from_blind_input(
+    payload: Mapping[str, Any],
+) -> tuple[AssertionDraft, ...]:
+    validate_blind_kernel_input(payload)
+    return tuple(_assertion_from_row(row) for row in payload["assertions"])
+
+
 def _canonical_input_hash(payload: Mapping[str, Any]) -> str:
     canonical = json.dumps(
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
@@ -111,6 +120,12 @@ def _render_run_report(
     }
     packet_rows = []
     for packet in packets:
+        ambiguity_issues = ambiguity_issues_for_packet(packet)
+        blocking_ambiguities = tuple(
+            issue
+            for issue in ambiguity_issues
+            if issue.is_blocking_for(packet.episode_type)
+        )
         packet_review_rows = []
         seen_review_codes = set()
         for link in packet.assertion_links:
@@ -173,13 +188,27 @@ def _render_run_report(
                     {*packet.conflicts, *review_evidence_conflicts}
                 ),
                 "uncertainties": list(packet.uncertainties),
+                "ambiguity_issues": [
+                    {
+                        "code": issue.code,
+                        "slot": issue.slot,
+                        "severity": issue.severity,
+                        "blocking_for_episode_types": list(
+                            issue.blocking_for_episode_types
+                        ),
+                        "blocking_for_current_episode": issue.is_blocking_for(
+                            packet.episode_type
+                        ),
+                    }
+                    for issue in ambiguity_issues
+                ],
                 "identity_blockers": sorted(
                     {*unresolved, *review_identity_blockers}
                 ),
                 "human_review_required": bool(
                     unresolved
                     or packet.conflicts
-                    or packet.uncertainties
+                    or blocking_ambiguities
                     or review_identity_blockers
                     or review_evidence_conflicts
                 ),
@@ -233,6 +262,11 @@ def _render_run_report(
             "identity_blockers": row["identity_blockers"],
             "evidence_conflicts": row["conflicts"],
             "uncertainties": row["uncertainties"],
+            "blocking_ambiguities": [
+                issue
+                for issue in row["ambiguity_issues"]
+                if issue["blocking_for_current_episode"]
+            ],
         }
         for row in report["packets"]
         if row["human_review_required"]
@@ -243,8 +277,7 @@ def _render_run_report(
 def run_blind_holdout(payload: Mapping[str, Any]) -> dict[str, Any]:
     """Kernel-only entrypoint. It has no parameter through which Gold can enter."""
 
-    validate_blind_kernel_input(payload)
-    assertions = tuple(_assertion_from_row(row) for row in payload["assertions"])
+    assertions = assertions_from_blind_input(payload)
     packets = reconcile_episode_candidates(assertions)
     return _render_run_report(
         payload,
@@ -284,7 +317,7 @@ def run_blind_holdout_with_semantic_review(
     if not review.get("cache_key"):
         raise ValueError("semantic review 缺少稳定 cache key")
 
-    assertions = tuple(_assertion_from_row(row) for row in payload["assertions"])
+    assertions = assertions_from_blind_input(payload)
     assertion_codes = {item.assertion_code for item in assertions}
     hints = {}
     review_by_assertion = {}
@@ -427,6 +460,26 @@ def score_blind_holdout(
         for code, overlaps in gold_candidate_overlaps.items()
         if len(overlaps) > 1
     )
+    candidate_pairs = {
+        frozenset(pair)
+        for refs in candidate_sets.values()
+        for pair in combinations(sorted(refs), 2)
+    }
+    gold_pairs = {
+        frozenset(pair)
+        for gold in gold_by_code.values()
+        for pair in combinations(sorted(gold["assertion_refs"]), 2)
+    }
+    correct_pairs = candidate_pairs & gold_pairs
+    safe_fragment_fingerprints = sorted(
+        fingerprint
+        for fingerprint, refs in candidate_sets.items()
+        if len(candidate_overlaps[fingerprint]) == 1
+        and any(
+            refs < gold_by_code[code]["assertion_refs"]
+            for code in candidate_overlaps[fingerprint]
+        )
+    )
     cross_ruler_fingerprints = []
     packet_by_fingerprint = {
         packet["semantic_fingerprint"]: packet for packet in packets
@@ -478,6 +531,13 @@ def score_blind_holdout(
             ),
             "wrong_merge_count": len(wrong_merge_fingerprints),
             "wrong_split_count": len(wrong_split_gold_codes),
+            "pairwise_same_episode_precision": (
+                len(correct_pairs) / len(candidate_pairs) if candidate_pairs else None
+            ),
+            "pairwise_same_episode_recall": (
+                len(correct_pairs) / len(gold_pairs) if gold_pairs else None
+            ),
+            "safe_fragment_count": len(safe_fragment_fingerprints),
             "catastrophic_wrong_merge_count": len(
                 catastrophic_wrong_merge_fingerprints
             ),
@@ -497,6 +557,7 @@ def score_blind_holdout(
             "exact_candidate_matches": exact_candidate_matches,
             "wrong_merge_fingerprints": wrong_merge_fingerprints,
             "wrong_split_gold_episode_codes": wrong_split_gold_codes,
+            "safe_fragment_fingerprints": safe_fragment_fingerprints,
             "catastrophic_wrong_merge_fingerprints": catastrophic_wrong_merge_fingerprints,
             "cross_ruler_contamination_fingerprints": cross_ruler_fingerprints,
             "unmatched_gold_episode_codes": unmatched_gold,

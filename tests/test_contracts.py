@@ -13,6 +13,7 @@ from emperor_v4.adapters import (
 from emperor_v4.contracts.assertion import AssertionDraft
 from emperor_v4.contracts.source import SourcePassage, text_content_hash
 from emperor_v4.domain.identity import canonical_person
+from emperor_v4.domain.boundary import draft_rule_evidence_unit
 from emperor_v4.evaluation.blind_holdout import validate_blind_kernel_input
 
 
@@ -21,6 +22,20 @@ FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
 
 def _fixture(name: str) -> dict:
     return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+
+
+def test_rule_evidence_unit_is_draft_only_and_does_not_score():
+    unit = draft_rule_evidence_unit(
+        rule_code="appointment_delegation",
+        evaluation_context="PER-LISHIMIN",
+        episode_refs=["EP-1", "EP-2"],
+        relation_refs=["REL-1"],
+        aggregation_reason="授职、结果与撤任共同消费",
+    )
+
+    assert unit.status == "draft"
+    assert unit.episode_refs == ("EP-1", "EP-2")
+    assert not hasattr(unit, "score")
 
 
 def test_source_cache_adapter_preserves_passage_lineage_and_reports_legacy_gaps():

@@ -18,6 +18,11 @@ from emperor_v4.evaluation.blind_holdout import (
     run_blind_holdout_with_semantic_review,
     score_blind_holdout,
 )
+from emperor_v4.evaluation.boundary_review import (
+    build_boundary_review_plan,
+    materialize_boundary_review_payload,
+)
+from emperor_v4.evaluation.boundary_score import score_boundary_graph
 from emperor_v4.evaluation.assertion_handoff import (
     build_assertion_repair_payloads,
     build_assertion_candidate_payloads,
@@ -148,6 +153,18 @@ def _parser() -> argparse.ArgumentParser:
     blind_score.add_argument("--candidates", type=Path, required=True)
     blind_score.add_argument("--sealed-gold", type=Path, required=True)
     blind_score.add_argument("--output", type=Path)
+    boundary_plan = subparsers.add_parser("boundary-review-plan")
+    boundary_plan.add_argument("--input", type=Path, required=True)
+    boundary_plan.add_argument("--cache-index", type=Path)
+    boundary_plan.add_argument("--output", type=Path)
+    boundary_materialize = subparsers.add_parser("boundary-review-materialize")
+    boundary_materialize.add_argument("--input", type=Path, required=True)
+    boundary_materialize.add_argument("--review", type=Path, required=True)
+    boundary_materialize.add_argument("--output", type=Path)
+    boundary_score = subparsers.add_parser("boundary-graph-score")
+    boundary_score.add_argument("--candidates", type=Path, required=True)
+    boundary_score.add_argument("--gold", type=Path, required=True)
+    boundary_score.add_argument("--output", type=Path)
     source_gap = subparsers.add_parser("source-gap-check")
     source_gap.add_argument("--manifest", type=Path, required=True)
     source_gap.add_argument(
@@ -416,6 +433,29 @@ def main() -> int:
         report = score_blind_holdout(
             json.loads(args.candidates.read_text(encoding="utf-8")),
             yaml.safe_load(args.sealed_gold.read_text(encoding="utf-8")),
+        )
+    elif args.command == "boundary-review-plan":
+        cached_review_keys = ()
+        if args.cache_index:
+            cache_payload = json.loads(args.cache_index.read_text(encoding="utf-8"))
+            cached_review_keys = (
+                cache_payload.get("cache_keys")
+                if isinstance(cache_payload, dict)
+                else cache_payload
+            )
+        report = build_boundary_review_plan(
+            json.loads(args.input.read_text(encoding="utf-8")),
+            cached_review_keys=cached_review_keys or (),
+        )
+    elif args.command == "boundary-review-materialize":
+        report = materialize_boundary_review_payload(
+            json.loads(args.input.read_text(encoding="utf-8")),
+            yaml.safe_load(args.review.read_text(encoding="utf-8")),
+        )
+    elif args.command == "boundary-graph-score":
+        report = score_boundary_graph(
+            yaml.safe_load(args.candidates.read_text(encoding="utf-8")),
+            yaml.safe_load(args.gold.read_text(encoding="utf-8")),
         )
     else:
         raise AssertionError("unreachable")

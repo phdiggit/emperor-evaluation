@@ -9,11 +9,13 @@ version_policy:
       - canonical_person
       - historical_episode
       - episode_participant
+      - episode_relation
     changes_when:
       - core_actor_changes
       - event_type_changes
       - time_scope_changes_materially
       - responsibility_or_outcome_changes_materially
+      - relation_type_or_endpoint_changes
 
   evidence_version:
     changes_when:
@@ -33,6 +35,15 @@ version_policy:
       - rule_version
       - judgment_policy_version
       - output_schema_version
+
+  boundary_review_cache:
+    cache_key_requires:
+      - proposition_semantic_hashes
+      - boundary_policy_version
+      - output_schema_version
+      - model_family
+    physical_ids_and_evidence_fanout_excluded: true
+    local_unit_invalidation_only: true
 
   scoring_version:
     explicit_on_every_score: true
