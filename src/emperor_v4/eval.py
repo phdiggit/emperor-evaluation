@@ -5,6 +5,10 @@ import json
 from pathlib import Path
 
 from emperor_v4.evaluation.episode_pilot import evaluate_episode_pilot
+from emperor_v4.evaluation.assertion_handoff import (
+    build_assertion_candidate_payloads,
+    check_assertion_extraction_response,
+)
 from emperor_v4.evaluation.source_gap import (
     check_source_gap_request,
     check_source_supplement_response,
@@ -31,6 +35,13 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path(
             "tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json"
+        ),
+    )
+    pilot.add_argument(
+        "--claim-supplement",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/claim-extractor-supplement-response.json"
         ),
     )
     pilot.add_argument("--output", type=Path)
@@ -66,6 +77,44 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("eval/episode_pilot_v1_source_supplement_execution.yml"),
     )
     supplement.add_argument("--output", type=Path)
+    assertion_handoff = subparsers.add_parser("assertion-handoff-build")
+    assertion_handoff.add_argument(
+        "--source-fixture",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/source-cache-supplement-response.json"
+        ),
+    )
+    assertion_handoff.add_argument(
+        "--handoff",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_assertion_extraction.yml"),
+    )
+    assertion_handoff.add_argument(
+        "--output-root",
+        type=Path,
+        default=Path("tests/fixtures/episode_pilot_v1"),
+    )
+    assertion_handoff.add_argument("--output", type=Path)
+    assertion_check = subparsers.add_parser("assertion-extraction-check")
+    assertion_check.add_argument(
+        "--handoff",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_assertion_extraction.yml"),
+    )
+    assertion_check.add_argument(
+        "--execution",
+        type=Path,
+        default=Path("eval/episode_pilot_v1_assertion_extraction_execution.yml"),
+    )
+    assertion_check.add_argument(
+        "--response",
+        type=Path,
+        default=Path(
+            "tests/fixtures/episode_pilot_v1/claim-extractor-supplement-response.json"
+        ),
+    )
+    assertion_check.add_argument("--output", type=Path)
     return parser
 
 
@@ -77,6 +126,7 @@ def main() -> int:
             args.fixture_dir,
             args.linkage,
             args.source_supplement,
+            args.claim_supplement,
         )
     elif args.command == "source-gap-check":
         report = check_source_gap_request(
@@ -89,6 +139,18 @@ def main() -> int:
             args.request,
             args.response,
             args.execution,
+        )
+    elif args.command == "assertion-handoff-build":
+        report = build_assertion_candidate_payloads(
+            args.source_fixture,
+            args.handoff,
+            args.output_root,
+        )
+    elif args.command == "assertion-extraction-check":
+        report = check_assertion_extraction_response(
+            args.handoff,
+            args.execution,
+            args.response,
         )
     else:
         raise AssertionError("unreachable")

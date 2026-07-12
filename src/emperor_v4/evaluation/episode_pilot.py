@@ -59,6 +59,7 @@ def evaluate_episode_pilot(
     fixture_dir: Path,
     linkage_path: Path | None = None,
     source_supplement_path: Path | None = None,
+    claim_supplement_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
     manifest = _load_yaml(manifest_path)
@@ -95,6 +96,20 @@ def evaluate_episode_pilot(
                 actual_by_ruler.setdefault(ruler, set()).add(
                     _source_identity(document.get("title") or "")
                 )
+    claim_supplement: Mapping[str, Any] | None = None
+    supplement_assertions = ()
+    supplement_packets = ()
+    supplement_used_slices: set[str] = set()
+    if claim_supplement_path is not None:
+        claim_supplement = _load_json(claim_supplement_path)
+        supplement_assertions = adapt_claim_extractor_snapshot(claim_supplement)
+        supplement_packets = reconcile_episode_candidates(supplement_assertions)
+        supplement_used_slices = {
+            ref
+            for person in claim_supplement.get("people", [])
+            for claim in person.get("payload", {}).get("claims", [])
+            for ref in claim.get("source_slice_refs", [])
+        }
     required_rows: list[dict[str, Any]] = []
     for episode in frozen_episodes:
         for passage in episode.get("required_source_passages", []):
@@ -296,6 +311,8 @@ def evaluate_episode_pilot(
             "supplement_source_passage_count": (
                 len(source_supplement.get("passages", [])) if source_supplement else 0
             ),
+            "supplement_assertion_draft_count": len(supplement_assertions),
+            "supplement_episode_candidate_packet_count": len(supplement_packets),
         },
         "cost": {
             "network_request_count": 0,
@@ -304,12 +321,38 @@ def evaluate_episode_pilot(
             "cache_hit_rate": None,
             "wall_clock_seconds": round(elapsed, 6),
         },
+        "fixture_generation_cost": {
+            "source_network_fetch_count_final_rerun": (
+                source_supplement.get("network_fetch_count")
+                if source_supplement
+                else None
+            ),
+            "claim_model_call_count_initial_run": (
+                claim_supplement.get("model_call_count")
+                if claim_supplement
+                else None
+            ),
+            "claim_database_import_performed": (
+                claim_supplement.get("database_import_performed")
+                if claim_supplement
+                else None
+            ),
+        },
         "failure_attribution": {
             "source_cache_missing_required_document": len(required_rows) - len(matched_rows),
             "source_metadata_contract_gap": len(source.contract_gaps),
             "assertion_extraction_pending_supplement_passage": (
-                len(source_supplement.get("passages", [])) if source_supplement else 0
+                len(
+                    {
+                        item.get("passage_cache_id")
+                        for item in source_supplement.get("passages", [])
+                    }
+                    - supplement_used_slices
+                )
+                if source_supplement
+                else 0
             ),
+            "supplement_assertion_gold_linkage_pending": len(supplement_assertions),
             "episode_gold_linkage_missing": linkage_failure_count,
             "gold_boundary_without_full_match": (
                 episode_recall.get("frozen_episode_count", len(frozen_episodes))
