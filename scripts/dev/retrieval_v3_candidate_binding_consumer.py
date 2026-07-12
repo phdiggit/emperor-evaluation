@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
 from scripts.dev.retrieval_v3_contracts import APPOINTMENT_DELEGATION_RULE_CODE, NATIVE_CONTRACT_CODE  # noqa: E402
+from scripts.dev.retrieval_v3_candidate_review_protocols import PROTOCOLS  # noqa: E402
 
 
 MATERIAL_CANDIDATE_PROFILE = "retrieval_v3_material_candidate_plan"
@@ -53,6 +54,14 @@ def review_payload(row: Mapping[str, Any]) -> Mapping[str, Any]:
     return review if isinstance(review, Mapping) else {}
 
 
+PREDICATES = {
+    "appointment_delegation": {"positive": "appointed_or_delegated_authority", "negative": "misappointed_or_misdelegated_authority"},
+    "talent_discovery": {"positive": "discovered_or_recognized_talent", "negative": "missed_or_suppressed_talent"},
+    "tolerate_talent": {"positive": "protected_or_tolerated_talent", "negative": "harmed_or_suppressed_talent"},
+    "anti_nepotism": {"positive": "open_merit_selection", "negative": "nepotistic_or_favoritist_interference"},
+}
+
+
 def binding_fields(row: Mapping[str, Any]) -> dict[str, Any]:
     review = review_payload(row)
     direction = text(review.get("direction") or row.get("candidate_direction") or row.get("claim_direction"))
@@ -61,12 +70,13 @@ def binding_fields(row: Mapping[str, Any]) -> dict[str, Any]:
     role = text(review.get("candidate_role") or row.get("candidate_object_role"))
     if not role:
         raise CandidateBindingConsumerError(f"missing candidate role for {row.get('candidate_code')}")
-    predicate = "appointed_or_delegated_authority" if direction == "positive" else "misappointed_or_misdelegated_authority"
+    rule_code = text(row.get("candidate_rule_code")) or RULE_CODE
+    predicate = PREDICATES[rule_code][direction]
     return {"direction": direction, "object_role": role, "predicate": predicate}
 
 
-def binding_code_for(candidate_code: str) -> str:
-    return "BND-R3R-" + stable_hash([candidate_code, RULE_CODE], length=20)
+def binding_code_for(candidate_code: str, rule_code: str = RULE_CODE) -> str:
+    return "BND-R3R-" + stable_hash([candidate_code, rule_code], length=20)
 
 
 def link_code_for(claim_code: str, object_identity_key: str, role: str) -> str:
@@ -78,6 +88,7 @@ def fetch_candidates(
     *,
     profiles: Sequence[str] = BINDING_PROFILES,
     emperor_names: Sequence[str] = (),
+    rule_code: str = RULE_CODE,
 ) -> list[dict[str, Any]]:
     selected_profiles = [text(value) for value in profiles if text(value)]
     selected_emperors = [text(value) for value in emperor_names if text(value)]
@@ -146,13 +157,14 @@ def fetch_candidates(
            and tob.review_status = 'accepted'
          order by rt.emperor_name, c.id
         """,
-        (NATIVE_CONTRACT_CODE, selected_profiles, selected_emperors, selected_emperors, RULE_CODE),
+        (NATIVE_CONTRACT_CODE, selected_profiles, selected_emperors, selected_emperors, rule_code),
     )
     return [dict(row) for row in cur.fetchall()]
 
 
 def upsert_binding(cur: Any, row: Mapping[str, Any], fields: Mapping[str, Any]) -> int:
-    binding_code = binding_code_for(text(row.get("candidate_code")))
+    rule_code = text(row.get("candidate_rule_code")) or RULE_CODE
+    binding_code = binding_code_for(text(row.get("candidate_code")), rule_code)
     payload = {
         "source": "retrieval_v3_candidate_binding_consumer",
         "candidate_required": True,
@@ -191,7 +203,7 @@ def upsert_binding(cur: Any, row: Mapping[str, Any], fields: Mapping[str, Any]) 
         (
             int(row["claim_id"]),
             int(row["candidate_contract_rule_id"]),
-            RULE_CODE,
+            rule_code,
             text(fields.get("predicate")),
             text(fields.get("direction")),
             text(fields.get("object_role")),
@@ -280,7 +292,7 @@ def mark_candidate_resolved(cur: Any, row: Mapping[str, Any], fields: Mapping[st
         "formal_binding": {
             "source": "retrieval_v3_candidate_binding_consumer",
             "binding_id": binding_id,
-            "binding_code": binding_code_for(text(row.get("candidate_code"))),
+            "binding_code": binding_code_for(text(row.get("candidate_code")), text(row.get("candidate_rule_code")) or RULE_CODE),
             "material_object_link_id": link_id,
             "predicate": text(fields.get("predicate")),
             "object_role": text(fields.get("object_role")),
@@ -309,8 +321,9 @@ def run(
     execute: bool,
     profiles: Sequence[str] = BINDING_PROFILES,
     emperor_names: Sequence[str] = (),
+    rule_code: str = RULE_CODE,
 ) -> dict[str, Any]:
-    rows = fetch_candidates(cur, profiles=profiles, emperor_names=emperor_names)
+    rows = fetch_candidates(cur, profiles=profiles, emperor_names=emperor_names, rule_code=rule_code)
     counts: Counter[str] = Counter()
     skipped: Counter[str] = Counter()
     for row in rows:
@@ -339,6 +352,7 @@ def run(
         "intents_written": 0,
         "profiles": [text(value) for value in profiles if text(value)],
         "emperors": [text(value) for value in emperor_names if text(value)],
+        "rule_code": rule_code,
     }
 
 
@@ -350,6 +364,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--profile", action="append", default=[])
     parser.add_argument("--emperor-name", action="append", default=[])
+    parser.add_argument("--rule-code", choices=tuple(PROTOCOLS), default=RULE_CODE)
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.env_file:
@@ -365,6 +380,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 execute=args.execute,
                 profiles=args.profile or BINDING_PROFILES,
                 emperor_names=args.emperor_name,
+                rule_code=args.rule_code,
             )
         if args.execute:
             conn.commit()

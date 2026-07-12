@@ -67,3 +67,29 @@ def test_validate_patch_rejects_protocol_violation() -> None:
 def test_validate_patch_rejects_free_text_role() -> None:
     with pytest.raises(tool.CandidateReviewConsumerError, match="candidate_role"):
         tool.validate_patch(patch_row(candidate_role="任用并授权") )
+
+
+def test_validate_talent_discovery_uses_rule_specific_protocol() -> None:
+    validated = tool.validate_patch(
+        {
+            "review_code": "CRW-DISC",
+            "rule_code": "talent_discovery",
+            "review_verdict": "accepted_candidate",
+            "review_note": "材料明确显示皇帝接受荐举并召见任用具名人才。",
+            "required_facts": {
+                "has_named_talent": True,
+                "has_discovery_or_recommendation": True,
+                "has_entry_into_view_or_appointment": True,
+                "has_emperor_attribution": True,
+                "has_high_difficulty_background": False,
+            },
+            "candidate_role": "recommended_talent",
+            "direction": "positive",
+            "scoring_candidate": True,
+            "usable_for_scoring_cluster": True,
+            "identity_gate": "identity_ready",
+            "evidence_passage_codes": ["PAS-X"],
+        }
+    )
+    assert validated["rule_code"] == "talent_discovery"
+    assert validated["review_status"] == "accepted"

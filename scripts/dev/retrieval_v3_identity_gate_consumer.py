@@ -15,6 +15,7 @@ from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, re
 from scripts.dev.retrieval_v3_import_plan import json_param  # noqa: E402
 from scripts.dev import retrieval_v3_object_consumer as object_consumer  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_candidate_review_protocols import PROTOCOLS, protocol  # noqa: E402
 
 
 PROFILE = "retrieval_v3_material_candidate_plan"
@@ -123,6 +124,7 @@ def fetch_groups(
     *,
     source_pack_codes: Sequence[str] = (),
     profile: str = PROFILE,
+    rule_code: str = "appointment_delegation",
 ) -> dict[int, list[dict[str, Any]]]:
     pack_codes = [text(code) for code in source_pack_codes if text(code)]
     cur.execute(
@@ -155,7 +157,7 @@ def fetch_groups(
            and c.candidate_rule_code = %s
            and (coalesce(array_length(%s::text[], 1), 0) = 0 or sp.pack_code = any(%s::text[]))
         """,
-        (profile, "accepted", "appointment_delegation", pack_codes, pack_codes),
+        (profile, "accepted", rule_code, pack_codes, pack_codes),
     )
     grouped: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for row in cur.fetchall():
@@ -172,12 +174,13 @@ def run_consumer(
     profile: str = PROFILE,
     create_missing_person_objects: bool = False,
     attach_missing_target_objects: bool = False,
+    rule_code: str = "appointment_delegation",
 ) -> dict[str, Any]:
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
-            groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
+            groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile, rule_code=rule_code)
             attachment_rows = target_object_attachment_candidates(groups)
             created_objects = 0
             created_names = 0
@@ -216,14 +219,14 @@ def run_consumer(
                     created_names += 1
                     created_target_objects += 1
                 if missing_rows:
-                    groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
+                    groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile, rule_code=rule_code)
                     attachment_rows = target_object_attachment_candidates(groups)
             if execute and attach_missing_target_objects:
                 for row in attachment_rows:
                     attach_existing_target_object(cur, row)
                     created_target_objects += 1
                 if attachment_rows:
-                    groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile)
+                    groups = fetch_groups(cur, source_pack_codes=source_pack_codes, profile=profile, rule_code=rule_code)
             decisions: Counter[str] = Counter()
             eligible: list[dict[str, Any]] = []
             ready_candidates: list[dict[str, Any]] = []
@@ -238,10 +241,7 @@ def run_consumer(
                     facts = review.get("required_facts") if isinstance(review.get("required_facts"), Mapping) else {}
                     scoring_ready = bool(
                         text(review.get("review_verdict")) == "accepted_candidate"
-                        and facts.get("has_appointment_or_authorization") is True
-                        and facts.get("has_named_actor") is True
-                        and facts.get("has_task_or_responsibility") is True
-                        and (facts.get("has_result_or_feedback") is True or facts.get("has_continuity_or_reuse") is True)
+                        and protocol(rule_code).allows_scoring(facts)
                     )
                     ready_candidates.append({"candidate_id": candidate_id, "scoring_ready": scoring_ready, **ids})
             changed_target_objects = 0
@@ -307,6 +307,7 @@ def run_consumer(
         "legacy_data_reads": False,
         "source_pack_codes": [text(code) for code in source_pack_codes if text(code)],
         "profile": profile,
+        "rule_code": rule_code,
         "create_missing_person_objects": create_missing_person_objects,
         "attach_missing_target_objects": attach_missing_target_objects,
         "attachable_target_object_count": len(attachment_rows),
@@ -333,6 +334,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--source-pack-code", action="append", default=[])
     parser.add_argument("--profile", default=PROFILE)
+    parser.add_argument("--rule-code", choices=tuple(PROTOCOLS), default="appointment_delegation")
     parser.add_argument("--create-missing-person-objects", action="store_true")
     parser.add_argument(
         "--attach-missing-target-objects",
@@ -351,6 +353,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         profile=args.profile,
         create_missing_person_objects=args.create_missing_person_objects,
         attach_missing_target_objects=args.attach_missing_target_objects,
+        rule_code=args.rule_code,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

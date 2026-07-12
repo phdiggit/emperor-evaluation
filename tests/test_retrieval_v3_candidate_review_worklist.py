@@ -50,6 +50,12 @@ def test_worklist_resolves_claim_object_through_accepted_object_names() -> None:
 def test_review_prompt_does_not_route_qualifying_results_away() -> None:
     prompt = tool.prompt_for_task("CRW-TEST", [])
 
-    assert "采纳计策、制度成果或军事成果只要满足上述链条" in prompt
-    assert "不得因同一事实也符合其他 rule 或 item" in prompt
-    assert "封爵、追封、画像、总评、单纯采纳计策" not in prompt
+    assert "具体任务或职责" in prompt
+    assert "has_result_or_feedback" in prompt
+
+
+def test_tolerate_talent_prompt_uses_its_own_protocol() -> None:
+    prompt = tool.prompt_for_task("CRW-TEST", [], rule_code="tolerate_talent")
+    assert "战役中的杀伤" in prompt
+    assert "has_fault_boundary" in prompt
+    assert "harmed_talent" in prompt

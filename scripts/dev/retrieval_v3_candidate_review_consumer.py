@@ -14,23 +14,11 @@ if str(ROOT) not in sys.path:
 
 from scripts.dev.retrieval_v3_bootstrap import import_psycopg, load_env_file, resolve_dsn  # noqa: E402
 from scripts.dev.retrieval_v3_pg_schema import DEFAULT_PG_SCHEMA, DEFAULT_V3_DSN_ENV, schema_cursor  # noqa: E402
+from scripts.dev.retrieval_v3_candidate_review_protocols import PROTOCOLS, protocol  # noqa: E402
 
 
 PROFILE = "retrieval_v3_material_candidate_plan"
 ALLOWED_VERDICTS = {"accepted_candidate", "supporting_only", "rejected", "needs_context"}
-ALLOWED_ROLES = {
-    "",
-    "appointed_actor",
-    "entrusted_actor",
-    "delegated_actor",
-    "strategic_advisor",
-    "military_commander",
-    "civil_official",
-    "misappointed_actor",
-    "misdelegated_actor",
-    "misentrusted_actor",
-    "authority_revoked_target",
-}
 
 
 def text(value: Any) -> str:
@@ -91,8 +79,10 @@ def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
         raise CandidateReviewConsumerError("review_code is required")
     if verdict not in ALLOWED_VERDICTS:
         raise CandidateReviewConsumerError(f"{code}: unsupported review_verdict={verdict!r}")
+    rule_code = text(row.get("rule_code")) or "appointment_delegation"
+    review_protocol = protocol(rule_code)
     role = text(row.get("candidate_role"))
-    if role not in ALLOWED_ROLES:
+    if role not in review_protocol.roles:
         raise CandidateReviewConsumerError(f"{code}: unsupported candidate_role={role!r}")
     direction = text(row.get("direction"))
     if direction not in {"positive", "negative"}:
@@ -100,26 +90,16 @@ def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
     facts = row.get("required_facts")
     if not isinstance(facts, Mapping):
         raise CandidateReviewConsumerError(f"{code}: required_facts must be an object")
-    fact_keys = (
-        "has_appointment_or_authorization",
-        "has_named_actor",
-        "has_task_or_responsibility",
-        "has_result_or_feedback",
-        "has_continuity_or_reuse",
-    )
+    fact_keys = review_protocol.fact_keys
     if any(not isinstance(facts.get(key), bool) for key in fact_keys):
         raise CandidateReviewConsumerError(f"{code}: required_facts must use booleans")
     scoring = row.get("scoring_candidate") is True
-    protocol_ok = bool(
-        facts["has_appointment_or_authorization"]
-        and facts["has_named_actor"]
-        and facts["has_task_or_responsibility"]
-        and (facts["has_result_or_feedback"] or facts["has_continuity_or_reuse"])
-    )
+    protocol_ok = review_protocol.allows_scoring(facts)
     if scoring and (not protocol_ok or row.get("usable_for_scoring_cluster") is not True):
-        raise CandidateReviewConsumerError(f"{code}: scoring candidate violates appointment_delegation protocol")
+        raise CandidateReviewConsumerError(f"{code}: scoring candidate violates {rule_code} protocol")
     return {
         "review_code": code,
+        "rule_code": rule_code,
         "review_verdict": verdict,
         "review_status": review_status_for_verdict(verdict),
         "review_route": review_route_for_verdict(verdict),
@@ -135,7 +115,7 @@ def validate_patch(row: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def candidate_lookup(cur: Any, *, profile: str = PROFILE) -> dict[str, dict[str, Any]]:
+def candidate_lookup(cur: Any, *, profile: str = PROFILE, rule_code: str = "appointment_delegation") -> dict[str, dict[str, Any]]:
     cur.execute(
         """
         select id, candidate_code, candidate_payload, candidate_direction::text as candidate_direction,
@@ -143,7 +123,7 @@ def candidate_lookup(cur: Any, *, profile: str = PROFILE) -> dict[str, dict[str,
           from retrieval_v3.claim_rule_binding_candidates
          where routed_by_profile = %s and candidate_rule_code = %s
         """,
-        (profile, "appointment_delegation"),
+        (profile, rule_code),
     )
     rows = {}
     for row in cur.fetchall():
@@ -160,15 +140,19 @@ def run_consumer(
     schema_name: str,
     execute: bool,
     profile: str = PROFILE,
+    rule_code: str = "appointment_delegation",
 ) -> dict[str, Any]:
-    patches = [validate_patch(row) for row in patch_rows]
+    patches = [validate_patch({**dict(row), "rule_code": text(row.get("rule_code")) or rule_code}) for row in patch_rows]
+    mismatched = sorted({patch["rule_code"] for patch in patches} - {rule_code})
+    if mismatched:
+        raise CandidateReviewConsumerError(f"patch rule_code mismatch: {mismatched}")
     psycopg, dict_row = import_psycopg()
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
         with conn.cursor() as raw_cur:
             cur = schema_cursor(raw_cur, schema_name=schema_name)
             if execute:
                 cur.execute("set local retrieval_v3.rebuild_bypass='on'")
-            lookup = candidate_lookup(cur, profile=profile)
+            lookup = candidate_lookup(cur, profile=profile, rule_code=rule_code)
             missing = sorted(set(row["review_code"] for row in patches) - set(lookup))
             if missing:
                 raise CandidateReviewConsumerError(f"review candidates not found: {missing[:5]}")
@@ -226,6 +210,7 @@ def run_consumer(
         "executed": execute,
         "input_rows": len(patches),
         "profile": profile,
+        "rule_code": rule_code,
         "counts_by_review_status": dict(sorted(counts.items())),
         "counts_by_review_route": dict(sorted(route_counts.items())),
         "formal_binding_created": 0,
@@ -241,6 +226,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--dsn-env", default=DEFAULT_V3_DSN_ENV)
     parser.add_argument("--pg-schema", default=DEFAULT_PG_SCHEMA)
     parser.add_argument("--profile", default=PROFILE)
+    parser.add_argument("--rule-code", choices=tuple(PROTOCOLS), default="appointment_delegation")
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--output-json", type=Path, required=True)
     args = parser.parse_args(argv)
@@ -252,6 +238,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         schema_name=args.pg_schema,
         execute=args.execute,
         profile=args.profile,
+        rule_code=args.rule_code,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")

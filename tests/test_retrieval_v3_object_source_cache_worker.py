@@ -34,6 +34,16 @@ def write_seed(path: Path) -> list[dict]:
     return rows
 
 
+def test_job_embeds_seed_rows_for_cross_machine_workers(tmp_path: Path) -> None:
+    seed = tmp_path / "seed.jsonl"
+    rows = write_seed(seed)
+    job = tool.job_from_seed(seed_jsonl=seed, output_root=tmp_path / "run")
+    assert job["job_payload"]["seed_rows"] == rows
+    seed.unlink()
+    materialized = tool.materialize_job_seed(job, tmp_path / "run")
+    assert tool.read_jsonl(materialized) == rows
+
+
 def write_object_cache(cache_root: Path) -> None:
     write_jsonl(
         cache_root / "source_documents.jsonl",

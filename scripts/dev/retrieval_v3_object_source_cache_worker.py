@@ -406,7 +406,6 @@ def job_from_seed(
     page_cache = page_cache_root or DEFAULT_PAGE_CACHE_ROOT
     identity = seed_identity(rows)
     idem_payload = {
-        "seed_jsonl_path": str(seed_jsonl),
         "seed_hashes": [stable_hash(row, length=16) for row in rows],
         "page_cache_root": str(page_cache),
         "build_options": options,
@@ -430,6 +429,7 @@ def job_from_seed(
             "seed_jsonl_path": str(seed_jsonl),
             "seed_count": len(rows),
             "seed_hashes": idem_payload["seed_hashes"],
+            "seed_rows": rows,
             "build_options": options,
         },
     }
@@ -716,11 +716,28 @@ def job_plan(job: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_shards_argv(job: Mapping[str, Any], options: Mapping[str, Any]) -> list[str]:
+def materialize_job_seed(job: Mapping[str, Any], output_root: Path) -> Path:
+    payload = job.get("job_payload") if isinstance(job.get("job_payload"), Mapping) else {}
+    rows = payload.get("seed_rows") if isinstance(payload.get("seed_rows"), list) else []
+    source_path = resolve_path(text(job.get("seed_jsonl_path")))
+    if source_path.exists():
+        return source_path
+    if not rows:
+        raise FileNotFoundError(source_path)
+    embedded_path = output_root / "job_seed.jsonl"
+    embedded_path.parent.mkdir(parents=True, exist_ok=True)
+    embedded_path.write_text(
+        "".join(stable_json(row) + "\n" for row in rows if isinstance(row, Mapping)),
+        encoding="utf-8",
+    )
+    return embedded_path
+
+
+def build_shards_argv(job: Mapping[str, Any], options: Mapping[str, Any], *, seed_path: Path | None = None) -> list[str]:
     argv = [
         "build-shards",
         "--seed-jsonl",
-        str(resolve_path(text(job.get("seed_jsonl_path")))),
+        str(seed_path or resolve_path(text(job.get("seed_jsonl_path")))),
         "--output-root",
         str(resolve_path(text(job.get("output_root")))),
         "--cache-dir",
@@ -787,7 +804,8 @@ def execute_job(*, job: Mapping[str, Any], max_docs_per_person: int = 6) -> dict
     payload = job.get("job_payload") if isinstance(job.get("job_payload"), Mapping) else {}
     options = payload.get("build_options") if isinstance(payload.get("build_options"), Mapping) else {}
     output_root = resolve_path(text(job.get("output_root")))
-    build_argv = build_shards_argv(job, options)
+    seed_path = materialize_job_seed(job, output_root)
+    build_argv = build_shards_argv(job, options, seed_path=seed_path)
     rc = object_cache.main(build_argv)
     if rc != 0:
         raise ObjectSourceCacheWorkerError(f"object source cache build-shards failed with exit code {rc}")
