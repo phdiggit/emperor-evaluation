@@ -1,0 +1,15 @@
+schema_version: 1
+model_policy:
+  default: denied
+  allowed_uses:
+    - candidate_event_discovery
+    - passage_classification_draft
+    - contradiction_detection_draft
+    - reviewer_worklist_generation
+  requires_human_or_rule_gate: true
+  prohibited_uses:
+    - invent_source
+    - establish_historical_fact
+    - publish_formal_judgment
+    - publish_formal_score
+    - production_cutover_decision

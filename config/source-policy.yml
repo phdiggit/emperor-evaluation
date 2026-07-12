@@ -1,0 +1,20 @@
+schema_version: 1
+source_policy:
+  formal_evidence:
+    allowed_levels:
+      - primary_source
+      - authoritative_edition
+    requires_locatable_passage: true
+    requires_source_identity: true
+  discovery_only:
+    - encyclopedia
+    - index
+    - secondary_article
+  priority:
+    - primary_source
+    - authoritative_edition
+    - scholarly_secondary_source
+  prohibitions:
+    - discovery_source_as_formal_evidence
+    - untraceable_excerpt
+    - model_generated_source

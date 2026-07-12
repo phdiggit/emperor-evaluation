@@ -1,0 +1,17 @@
+schema_version: 1
+version_policy:
+  semantic_version:
+    required_for:
+      - domain_model
+      - event_schema
+  evidence_version:
+    immutable_after_acceptance: true
+    correction_creates_new_version: true
+  rule_version:
+    explicit_on_every_judgment: true
+    retroactive_rewrite_forbidden: true
+  scoring_version:
+    explicit_on_every_score: true
+    publish_only_after_acceptance_gate: true
+  lineage:
+    required_between_versions: true

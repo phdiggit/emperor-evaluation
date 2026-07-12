@@ -1,0 +1,13 @@
+schema_version: 1
+project:
+  code: emperor-evaluation-v4
+  name: 皇帝综合评价体系
+  generation: v4
+  timezone: Asia/Shanghai
+  phase: architecture_and_pilot_definition
+  evaluation_scope: 中国古代实际统治者
+  active_pilot_ref: config/pilot.yml
+production:
+  v3_remains_active: true
+  v4_replaces_v3: false
+  replacement_gate: shadow_acceptance_passed
