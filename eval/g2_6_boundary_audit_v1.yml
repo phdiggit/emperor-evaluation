@@ -1,6 +1,6 @@
 schema_version: 1
 audit_code: g2_6_boundary_audit_v1
-status: accepted_with_one_open_adjudication
+status: accepted_all_six_adjudicated
 audit_nature: public_architecture_audit_not_blind_score
 source_dataset: blind_holdout_v3
 blind_score_unchanged: true
@@ -19,13 +19,13 @@ decisions:
 
   - gold_episode_code: G25-GE-004
     subject: 施琅
-    decision: adjudication_required
-    alternatives:
-      - single_episode_with_mandate_phases
-      - separate_episodes_with_same_mandate_phase
-    relation_types: [same_mandate_phase]
-    rule_evidence_unit: 两种裁定均可投影为同一授权任务链
-    rationale: 康熙元年授水师提督与二年后攻台受阻是否共享同一责任链仍需人工裁定。
+    decision: separate_episodes_with_relation
+    atomic_boundaries:
+      - 康熙元年授水师提督
+      - 康熙二年后授靖海将军、授权攻台及首次行动受阻
+    relation_types: [renews_authority]
+    rule_evidence_unit: 两个事件组成同一攻台用人授权链
+    rationale: 两次独立皇帝决策，职位任命与具体军事授权不得混成一个 action。
 
   - gold_episode_code: G25-GE-006
     subject: 张英
@@ -71,9 +71,9 @@ decisions:
 
 diagnostic_only_reinterpretation:
   description: 仅用于验证 ontology/Gold alignment，不替换 blind_holdout_v3 正式成绩。
-  exact_episode_recall: 0.962962962962963
-  exact_candidate_precision: 0.9285714285714286
-  ordinary_boundary_error_count: 1
+  exact_episode_recall: 1.0
+  exact_candidate_precision: 1.0
+  ordinary_boundary_error_count: 0
   catastrophic_wrong_merge_count: 0
 
 next_gate:

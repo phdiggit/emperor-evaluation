@@ -1,13 +1,17 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: d252ce6021bea078de0d6571b8675ee55a55ffe4
+as_of_commit_basis: 97706497c78411bdb6fd9ffd511037dc75911938
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
   G2_Assertion_and_Episode: reopen_required
   G2_5_blind_holdout: v1_v2_v3_failed_semantic_review_needs_rework
-  G2_6_boundary_relation: contract_and_public_audit_implemented
-  G3_PostgreSQL: blocked_by_g2_5
+  G2_6A_ontology_audit: conditional_pass
+  G2_6B_contracts: conditional_pass
+  G2_6C_review_cache: d1_hardening_complete
+  G2_6D_scorer: gate_metrics_complete
+  G2_6E_final_graph_holdout: not_started
+  G3_PostgreSQL: blocked_by_g2_6E
 
 qualification:
   passed:
@@ -23,6 +27,14 @@ qualification:
     - review_unit_local_cache_contract
     - episode_relation_and_rule_evidence_unit_contract
     - pairwise_and_safe_fragment_metrics
+    - structured_review_unit_partition_contract
+    - assertion_disposition_exclusivity
+    - lossless_boundary_materialization
+    - versioned_episode_relation_contract
+    - versioned_rule_evidence_unit_contract
+    - per_unit_cache_executor
+    - deterministic_zero_call_boundary_fast_path
+    - graph_gate_metrics
   not_validated:
     - blind_reconciliation
     - autonomous_boundary_recall
@@ -44,5 +56,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  plan: eval/blind_holdout_v1_plan.yml
-  required_outcome: blind holdout 达标并完成独立人工接受
+  code: G2_6E_final_graph_holdout
+  status: not_started
+  required_outcome: 全新双层 Gold Graph Blind Holdout 达标并完成独立人工接受

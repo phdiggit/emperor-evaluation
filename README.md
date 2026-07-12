@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6 事件边界、关系图与规则证据单元重构；G2 已重开
+- 阶段：G2.6D.1 契约硬化完成，等待 G2.6E 全新 Graph Blind Holdout
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-尚未证明：无 Gold 提示的自主事件发现与 merge/split 已稳定达标。G2.5 v1 的独立 baseline 为 recall 31.25%、precision 17.24%；v2 为 recall 30%、precision 46.15%，且出现 3 个灾难性 wrong merge。v3 双盲结果为 recall 70%、precision 50%、wrong merge 0、wrong split 6、lineage 100%。公开 G2.6 审计确认其中五案应为多个原子 episode 加关系，施琅一案待裁定；v3 正式成绩不变。当前开始把 HistoricalEpisode、EpisodeRelation 与 RuleEvidenceUnitDraft 分层，PostgreSQL G3 继续阻断。
+尚未证明：全新数据上的 Episode Graph 与 RuleEvidenceUnit 能稳定达到放行门槛。v1、v2、v3 已永久冻结为开发集，v3 正式成绩保持 recall 70%、precision 50%。G2.6D.1 已补齐结构化 Review Unit、唯一 AssertionDisposition、无损 materialization、versioned Relation、规则聚合版本、per-unit cache executor、确定性零调用快通道和 Graph scorer Gate 指标。施琅已裁定为两个原子 episode 加 `renews_authority`。下一步只能执行独立双层 Gold 的 G2.6E；PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,8 +103,8 @@ V4 的核心改变是：
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`v1_v2_v3_frozen_g2_6_ontology_repair`
-- G3 PostgreSQL：未授权
+- blind reconciliation：`g2_6e_graph_holdout_not_started`
+- G3 Episode Graph PostgreSQL：`blocked_by_g2_6e`
 
 进入 G3 前必须满足：
 
