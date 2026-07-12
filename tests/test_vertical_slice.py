@@ -27,6 +27,10 @@ from emperor_v4.evaluation.blind_holdout import (
     score_blind_holdout,
 )
 from emperor_v4.evaluation.boundary_score import score_boundary_graph
+from emperor_v4.evaluation.graph_holdout import (
+    draft_rule_evidence_units_payload,
+    score_graph_blind_holdout,
+)
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
 
@@ -525,7 +529,7 @@ def test_boundary_scorer_reports_gate_lineage_disposition_and_cross_ruler_metric
         "episode_groups": [
             {
                 "local_episode_code": "C1",
-                "evaluation_context": "李世民",
+                "evaluation_context": "per-ruler",
                 "core_assertion_refs": ["A1"],
                 "assertion_links": [
                     {"assertion_ref": "A1", "source_passage_ref": "P1"}
@@ -533,7 +537,7 @@ def test_boundary_scorer_reports_gate_lineage_disposition_and_cross_ruler_metric
             },
             {
                 "local_episode_code": "C2",
-                "evaluation_context": "李世民",
+                "evaluation_context": "per-ruler",
                 "core_assertion_refs": ["A2"],
                 "assertion_links": [],
             },
@@ -550,12 +554,12 @@ def test_boundary_scorer_reports_gate_lineage_disposition_and_cross_ruler_metric
         "gold_episodes": [
             {
                 "gold_episode_code": "G1",
-                "evaluation_context": "李世民",
+                "evaluation_context": "PER-RULER",
                 "expected_assertion_refs": ["A1"],
             },
             {
                 "gold_episode_code": "G2",
-                "evaluation_context": "李治",
+                "evaluation_context": "PER-OTHER-RULER",
                 "expected_assertion_refs": ["A2"],
             },
         ],
@@ -628,3 +632,135 @@ def test_missing_location_is_non_blocking_for_appointment_episode():
         for issue in packet["ambiguity_issues"]
     )
     assert all(not packet["human_review_required"] for packet in run["packets"])
+
+
+def test_rule_evidence_draft_uses_connected_delegation_graph_only_once():
+    graph = {
+        "input_sha256": "HASH",
+        "episode_groups": [
+            {
+                "local_episode_code": "E1",
+                "evaluation_context": "PER-RULER",
+                "action": "任命",
+            },
+            {
+                "local_episode_code": "E2",
+                "evaluation_context": "PER-RULER",
+                "action": "战役",
+            },
+            {
+                "local_episode_code": "E3",
+                "evaluation_context": "PER-RULER",
+                "action": "其他",
+            },
+        ],
+        "relations": [
+            {
+                "relation_id": "R1",
+                "from_episode": "E1",
+                "to_episode": "E2",
+                "relation_type": "outcome_of",
+            }
+        ],
+    }
+
+    result = draft_rule_evidence_units_payload(graph)
+
+    assert len(result["rule_evidence_units"]) == 1
+    assert set(result["rule_evidence_units"][0]["episode_refs"]) == {"E1", "E2"}
+    assert result["duplicate_consumption_episode_refs"] == []
+
+
+def test_graph_blind_score_gates_episode_relation_rule_and_runtime_together():
+    episode_groups = [
+        {
+            "local_episode_code": "E1",
+            "evaluation_context": "PER-RULER",
+            "core_assertion_refs": ["A1", "A2"],
+            "assertion_links": [
+                {"assertion_ref": "A1", "source_passage_ref": "P1"},
+                {"assertion_ref": "A2", "source_passage_ref": "P2"},
+            ],
+        },
+        {
+            "local_episode_code": "E2",
+            "evaluation_context": "PER-RULER",
+            "core_assertion_refs": ["A3", "A4"],
+            "assertion_links": [
+                {"assertion_ref": "A3", "source_passage_ref": "P3"},
+                {"assertion_ref": "A4", "source_passage_ref": "P4"},
+            ],
+        },
+    ]
+    graph = {
+        "input_sha256": "HASH",
+        "episode_groups": episode_groups,
+        "input_assertion_refs": ["A1", "A2", "A3", "A4"],
+        "assertion_dispositions": [
+            {"assertion_ref": ref, "disposition": "core_of_episode"}
+            for ref in ("A1", "A2", "A3", "A4")
+        ],
+        "relations": [
+            {
+                "relation_id": "R1",
+                "from_episode": "E1",
+                "to_episode": "E2",
+                "relation_type": "outcome_of",
+            }
+        ],
+    }
+    historical_gold = {
+        "status": "frozen",
+        "candidate_input_sha256": "HASH",
+        "frozen_without_candidate_or_review_access": True,
+        "gold_episodes": [
+            {
+                "gold_episode_code": "G1",
+                "evaluation_context": "PER-RULER",
+                "expected_assertion_refs": ["A1", "A2"],
+            },
+            {
+                "gold_episode_code": "G2",
+                "evaluation_context": "PER-RULER",
+                "expected_assertion_refs": ["A3", "A4"],
+            },
+        ],
+        "gold_relations": [
+            {
+                "gold_relation_code": "GR1",
+                "from_episode": "G1",
+                "to_episode": "G2",
+                "relation_type": "outcome_of",
+            }
+        ],
+        "gold_assertion_dispositions": [
+            {"assertion_ref": ref, "disposition": "core_of_episode"}
+            for ref in ("A1", "A2", "A3", "A4")
+        ],
+        "catastrophic_must_not_merge_pairs": [],
+    }
+    rule_candidates = {
+        "rule_evidence_units": [
+            {"unit_code": "U1", "episode_refs": ["E1", "E2"], "relation_refs": ["R1"]}
+        ],
+        "duplicate_consumption_episode_refs": [],
+    }
+    rule_gold = {
+        "status": "frozen",
+        "candidate_input_sha256": "HASH",
+        "frozen_without_candidate_or_review_access": True,
+        "gold_rule_evidence_units": [
+            {"gold_rule_unit_code": "GU1", "episode_refs": ["G1", "G2"], "relation_refs": ["GR1"]}
+        ],
+    }
+
+    score = score_graph_blind_holdout(
+        graph,
+        historical_gold,
+        rule_candidates,
+        rule_gold,
+        {"unchanged_rerun_model_calls": 0, "changed_unit_affects_other_unit_count": 0},
+    )
+
+    assert score["release_gate_passed"] is True
+    assert score["rule_evidence_metrics"]["exact_rule_unit_recall"] == 1.0

@@ -9,18 +9,18 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6D.1 契约硬化完成，等待 G2.6E 全新 Graph Blind Holdout
+- 阶段：G2.6E Graph Blind Holdout 已完成并失败关闭，G3 继续阻断
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
 - 正式评分、排名和生产切换：全部关闭
 - V3：release 与审计产物保留作只读对照；为避免争抢 wiki 流量，相关 worker 已按明确授权停止
 
-当前已有离线 `src/emperor_v4`、轻量确定性测试和三人试点 `eval` 产物；仍然**没有** V4 数据库、worker、migration、scorer 或正式业务数据。
+当前已有离线 `src/emperor_v4`、轻量确定性测试、Graph evaluator 和试点 `eval` 产物；仍然**没有** V4 数据库、worker、migration、正式业务 scorer 或正式业务数据。
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-尚未证明：全新数据上的 Episode Graph 与 RuleEvidenceUnit 能稳定达到放行门槛。v1、v2、v3 已永久冻结为开发集，v3 正式成绩保持 recall 70%、precision 50%。G2.6D.1 已补齐结构化 Review Unit、唯一 AssertionDisposition、无损 materialization、versioned Relation、规则聚合版本、per-unit cache executor、确定性零调用快通道和 Graph scorer Gate 指标。施琅已裁定为两个原子 episode 加 `renews_authority`。下一步只能执行独立双层 Gold 的 G2.6E；PostgreSQL G3 继续阻断。
+G2.6E 已在李渊、刘彻的全新离线数据上完成独立 Boundary Review、Historical Gold 与 Rule Gold 冻结，并在全部冻结后首次生成候选。正式结果为 exact episode recall 61.1%、candidate precision 78.6%、5 个 catastrophic wrong merge、strict relation recall 8%、RuleEvidenceUnit recall 15.4%；lineage、disposition、跨皇帝隔离和运行时局部失效门禁通过。该 holdout 从评分完成起永久作为失败基线，不得通过事后调参重新命名为 blind 证据。下一步是 G2.6F 边界与关系建议层返工，并使用另一批全新双层 Gold holdout 重新验收；PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ V4 的核心改变是：
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`g2_6e_graph_holdout_not_started`
+- blind reconciliation：`g2_6e_graph_holdout_failed_closed`
 - G3 Episode Graph PostgreSQL：`blocked_by_g2_6e`
 
 进入 G3 前必须满足：

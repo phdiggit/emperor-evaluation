@@ -1,0 +1,32 @@
+schema_version: 1
+holdout_code: g2_6e_graph_blind_v1
+status: failed_closed
+frozen_at: 2026-07-13
+
+artifacts:
+  input.json: 3793d6320b0e21df70d312a247b1ee390430e6515d89b6d7c39ef1ca030a5f68
+  review_requests.json: ad1467b184987c4e875c6788a884d37fe1c1661027cea9dc95ce9699789617ef
+  boundary_review.yml: 52ab73688387e87f7b2478271c3e9530b92bf31b3f351596f732b3c53fe58e0b
+  historical_gold.yml: 2e1da73f9bfde0355b5f121417d2bdbc2e27a47bceaeb353df8842883eff5f26
+  rule_gold.yml: 70c236d7ca859e2a552a06579ac600fff692352a5b48984981d3c822bdc80d03
+  candidate_graph.json: e78c4eac790d29eb9194ecd3fff7c020e9a920fe7732ae0f3bac44f13fffb4b0
+  rule_candidates.json: 2f7a08280aa3de945c3d0f543372621dd530467d91747d122926a12a21451f4b
+  runtime_audit.json: f81f8273beb3cb2ba65ccfd68b8ef77c0844a1f3f82b5a80037e494b0979399d
+  score.json: 51ba7e9aff71a24e092dcb41e2e254f19ee370e55c93433234e6461c31351b7a
+
+counts:
+  assertion: 71
+  source_passage: 71
+  review_unit: 6
+  candidate_episode: 28
+  gold_episode: 36
+  candidate_relation: 7
+  gold_relation: 25
+  candidate_rule_evidence_unit: 9
+  gold_rule_evidence_unit: 13
+
+decision:
+  release_gate_passed: false
+  g3_authorized: false
+  holdout_may_be_reclassified_after_tuning: false
+  next_gate: g2_6f_boundary_relation_rework_then_new_holdout

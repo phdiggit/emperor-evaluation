@@ -105,7 +105,7 @@ class EpisodeReviewUnit:
     cache_key: str
     evaluation_context: str
     focal_person_ref: str
-    focal_role: str
+    focal_roles: tuple[str, ...]
     time_start_sort_key: int | None
     time_end_sort_key: int | None
     responsibility_family: str
@@ -118,6 +118,8 @@ class EpisodeReviewUnit:
     def __post_init__(self) -> None:
         if not self.review_unit_code or not self.cache_key:
             raise ValueError("EpisodeReviewUnit 缺少 code/cache key")
+        if not self.focal_roles:
+            raise ValueError("EpisodeReviewUnit 必须声明 focal roles")
         if not self.proposition_cluster_refs:
             raise ValueError("EpisodeReviewUnit 不能为空")
         if len(self.proposition_cluster_refs) != len(self.proposition_semantic_hashes):

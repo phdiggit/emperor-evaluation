@@ -38,6 +38,10 @@ def _ratio(numerator: int, denominator: int) -> float | None:
     return numerator / denominator if denominator else None
 
 
+def _normalized_context(value: object) -> str:
+    return str(value or "").strip().casefold()
+
+
 def _relation_signatures(
     rows: Iterable[Mapping[str, Any]],
     groups: Mapping[str, frozenset[str]],
@@ -154,11 +158,15 @@ def score_boundary_graph(
     )
 
     gold_contexts = {
-        str(row.get("gold_episode_code")): str(row.get("evaluation_context") or "")
+        str(row.get("gold_episode_code")): _normalized_context(
+            row.get("evaluation_context")
+        )
         for row in gold_rows
     }
     candidate_contexts = {
-        str(row.get("local_episode_code")): str(row.get("evaluation_context") or "")
+        str(row.get("local_episode_code")): _normalized_context(
+            row.get("evaluation_context")
+        )
         for row in candidate_rows
     }
     cross_ruler = []

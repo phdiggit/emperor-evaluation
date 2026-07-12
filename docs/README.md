@@ -2,7 +2,7 @@
 
 `docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
 
-当前实现状态为 `M1 conditional_pass / G2 reopen_required`。Gold-assisted constructability 已验证，但 blind reconciliation 尚未验证，不能报告正式 recall/precision，也不能进入 PostgreSQL G3。
+当前实现状态为 `M1 conditional_pass / G2.6E failed_closed`。G2.6E 已形成正式 blind 指标，但未达到 Episode、Relation 与 RuleEvidenceUnit 放行阈值，不能进入 PostgreSQL G3。
 
 ## 文档状态
 
@@ -44,16 +44,17 @@ D0 文档 Gate 所需的领域、证据、输入类型、状态机、覆盖度�
 13. `10-G2.5盲测与去Oracle化.md`
 14. `11-G2.6事件边界与关系模型.md`
 15. `12-G2.6D.1契约硬化与Graph-G3前置条件.md`
+16. `13-G2.6E-Graph-Blind-Holdout结果.md`
 
 ### 契约与试点规则
 
-14. `contracts/史源缓存服务契约.md`
-15. `contracts/事实抽取服务契约.md`
-16. `contracts/历史事件包契约.md`
-17. `contracts/规则判断结果契约.md`
-18. `证据规则/证据裁量总则.md`
-19. `证据规则/史料检索与回源工作流.md`
-20. `分项规则/第五项统治者政治素质/B用人与授权.md`
+17. `contracts/史源缓存服务契约.md`
+18. `contracts/事实抽取服务契约.md`
+19. `contracts/历史事件包契约.md`
+20. `contracts/规则判断结果契约.md`
+21. `证据规则/证据裁量总则.md`
+22. `证据规则/史料检索与回源工作流.md`
+23. `分项规则/第五项统治者政治素质/B用人与授权.md`
 
 ## 目录职责
 

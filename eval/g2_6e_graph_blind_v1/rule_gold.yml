@@ -1,0 +1,236 @@
+schema_version: 1
+dataset_code: g2_6e_graph_blind_v1
+status: frozen
+candidate_input_sha256: 5891315e4b18a394cb5eaafe19267c399da52d04b1999e08fe20f9d39fc76e2f
+historical_gold_file_sha256: 2e1da73f9bfde0355b5f121417d2bdbc2e27a47bceaeb353df8842883eff5f26
+frozen_without_candidate_or_review_access: true
+reviewed_by: g26e_rule_gold_independent_agent
+frozen_at: 2026-07-13
+rule_code: appointment_delegation
+rule_version: v1
+aggregation_policy_version: delegation-chain-v1
+gold_rule_evidence_units:
+  - gold_rule_unit_code: G26E-RU-LC-GONGSUN-DAI
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-GONGSUN-DAI]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-GONGSUN-DAI: delegation_with_failure_feedback
+    relation_member_roles: {}
+    aggregation_reason: 出代任命、将军责任与亡卒失败反馈已在同一原子事件中闭合，作为独立任用证据单元。
+    known_ambiguities: []
+
+  - gold_rule_unit_code: G26E-RU-LC-GONGSUN-MERIT
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-GONGSUN-MERIT]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-GONGSUN-MERIT: subordinate_reuse_and_positive_feedback
+    relation_member_roles: {}
+    aggregation_reason: 校尉从军、立功与封侯构成一次独立复用—反馈链，不与前后军事任务重复结算。
+    known_ambiguities: []
+
+  - gold_rule_unit_code: G26E-RU-LC-GONGSUN-DINGXIANG
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-GONGSUN-DINGXIANG]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-GONGSUN-DINGXIANG: repeated_assignment_with_feedback
+    relation_member_roles: {}
+    aggregation_reason: 定襄连续任务及其反馈属于同一授权责任链，与其他年份任务分开。
+    known_ambiguities:
+      - 两次出定襄被来源概括为同一连续任务链。
+
+  - gold_rule_unit_code: G26E-RU-LC-GONGSUN-XIAOWEI
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-GONGSUN-XIAOWEI]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-GONGSUN-XIAOWEI: subordinate_assignment_with_failure_feedback
+    relation_member_roles: {}
+    aggregation_reason: 校尉从军与无功反馈形成独立任务链，不能和同年北地将军任务合并。
+    known_ambiguities:
+      - 与同年北地将军任务必须分开。
+
+  - gold_rule_unit_code: G26E-RU-LC-GONGSUN-BEIDI
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-GONGSUN-BEIDI]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-GONGSUN-BEIDI: command_assignment_with_failure_feedback
+    relation_member_roles: {}
+    aggregation_reason: 出北地将军任务及失期后果构成独立任用—反馈单元。
+    known_ambiguities:
+      - 后骠骑期的具体失期细节仅为短句。
+
+  - gold_rule_unit_code: G26E-RU-LC-GONGSUN-YUWU
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-GONGSUN-YUWU]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-GONGSUN-YUWU: renewed_command_with_failure_feedback
+    relation_member_roles: {}
+    aggregation_reason: 余吾复用任务及重大失败反馈在同一原子事件内闭合，独立于七年前任务。
+    known_ambiguities:
+      - 诈死逃亡与后因巫蛊族灭是任务失败后的后续后果。
+
+  - gold_rule_unit_code: G26E-RU-LC-JIAN-DONGYUE
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs: [G26E-HE-LC-JIAN-DONGYUE]
+    relation_refs: []
+    episode_member_roles:
+      G26E-HE-LC-JIAN-DONGYUE: inspection_delegation_with_completion
+    relation_member_roles: {}
+    aggregation_reason: 奉命视察东越与返还构成一次可解释的独立托付—反馈链。
+    known_ambiguities: []
+
+  - gold_rule_unit_code: G26E-RU-LC-JIAN-HENAN
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs:
+      - G26E-HE-LC-JIAN-HENAN-RELIEF
+      - G26E-HE-LC-JIAN-HENAN-PARDON
+    relation_refs: [G26E-HR-JIAN-01]
+    episode_member_roles:
+      G26E-HE-LC-JIAN-HENAN-RELIEF: delegated_scope_deviation_and_relief
+      G26E-HE-LC-JIAN-HENAN-PARDON: ruler_feedback_and_followup_appointment
+    relation_member_roles:
+      G26E-HR-JIAN-01: links_action_to_ruler_feedback
+    aggregation_reason: 持节任务中的矫制发粟与皇帝后续赦免迁官必须共同消费，才能观察授权边界与反馈且避免重复结算。
+    known_ambiguities:
+      - 原任务为视河内火灾，发仓赈济属于持节矫制。
+      - 迁荥阳令与释放紧随发生，但短句未完整呈现后续任用范围。
+
+  - gold_rule_unit_code: G26E-RU-LC-JIAN-HUAIYANG
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs:
+      - G26E-HE-LC-JIAN-HUAIYANG-APPOINTMENT
+      - G26E-HE-LC-JIAN-HUAIYANG-GOVERNANCE
+      - G26E-HE-LC-JIAN-HUAIYANG-STATUS
+    relation_refs:
+      - G26E-HR-JIAN-02
+      - G26E-HR-JIAN-03
+    episode_member_roles:
+      G26E-HE-LC-JIAN-HUAIYANG-APPOINTMENT: appointment_and_responsibility
+      G26E-HE-LC-JIAN-HUAIYANG-GOVERNANCE: governance_outcome
+      G26E-HE-LC-JIAN-HUAIYANG-STATUS: continued_authority_feedback
+    relation_member_roles:
+      G26E-HR-JIAN-02: links_appointment_to_outcome
+      G26E-HR-JIAN-03: links_outcome_to_continued_authority
+    aggregation_reason: 淮阳任命、政清结果与后续继续授权构成同一任用—履职—反馈链，必须去重为一个规则证据单元。
+    known_ambiguities:
+      - 张汤败后以诸侯相秩继续居淮阳的精确处置性质需保留不确定性。
+
+  - gold_rule_unit_code: G26E-RU-LC-SANG-FISCAL-DELEGATION
+    evaluation_context: PER-0E5E3F1D42102782
+    episode_refs:
+      - G26E-HE-LC-SANG-SHIZHONG
+      - G26E-HE-LC-SANG-DANONGCHENG
+      - G26E-HE-LC-SANG-ZHISU
+      - G26E-HE-LC-SANG-PINGZHUN-PROPOSAL
+      - G26E-HE-LC-SANG-PINGZHUN-OPERATION
+      - G26E-HE-LC-SANG-FISCAL-SUPPLY
+    relation_refs:
+      - G26E-HR-SANG-01
+      - G26E-HR-SANG-02
+      - G26E-HR-SANG-03
+      - G26E-HR-SANG-04
+      - G26E-HR-SANG-05
+    episode_member_roles:
+      G26E-HE-LC-SANG-SHIZHONG: initial_fiscal_role
+      G26E-HE-LC-SANG-DANONGCHENG: promoted_accounting_responsibility
+      G26E-HE-LC-SANG-ZHISU: expanded_fiscal_authority
+      G26E-HE-LC-SANG-PINGZHUN-PROPOSAL: policy_proposal_and_approval
+      G26E-HE-LC-SANG-PINGZHUN-OPERATION: delegated_implementation
+      G26E-HE-LC-SANG-FISCAL-SUPPLY: institutional_outcome_feedback
+    relation_member_roles:
+      G26E-HR-SANG-01: promotion_link
+      G26E-HR-SANG-02: authority_expansion_link
+      G26E-HR-SANG-03: role_enables_policy_link
+      G26E-HR-SANG-04: approval_to_implementation_link
+      G26E-HR-SANG-05: implementation_to_outcome_link
+    aggregation_reason: 从早期财政任用、连续升任和扩权，到方案获准、执行及供给反馈，构成一条长期但连续的财政授权链；分开投影会重复计算同一职责扩展。
+    known_ambiguities:
+      - 侍中与治粟都尉两处任命主体以朝廷表述，尚未完全解析为具体决策人。
+      - 许之指向皇帝批准，但主体依赖上下文。
+      - 大农诸官为机构集合而非单一人物。
+      - 最终供给结果对桑弘羊和大农的责任归属并非由短句直接点名。
+
+  - gold_rule_unit_code: G26E-RU-LY-LIU-CAMPAIGN-DELEGATION
+    evaluation_context: PER-8BB51AD907BAC939
+    episode_refs:
+      - G26E-HE-LY-LIU-TONGJUN
+      - G26E-HE-LY-LIU-HUOYI
+      - G26E-HE-LY-LIU-HEXI
+      - G26E-HE-LY-LIU-WEIBEI
+      - G26E-HE-LY-LIU-FUFENG
+    relation_refs:
+      - G26E-HR-LIU-01
+      - G26E-HR-LIU-02
+      - G26E-HR-LIU-03
+      - G26E-HR-LIU-04
+    episode_member_roles:
+      G26E-HE-LY-LIU-TONGJUN: initial_command_authorization
+      G26E-HE-LY-LIU-HUOYI: first_mandate_execution_feedback
+      G26E-HE-LY-LIU-HEXI: continued_mandate_phase
+      G26E-HE-LY-LIU-WEIBEI: distinct_regional_assignment_in_mandate
+      G26E-HE-LY-LIU-FUFENG: distinct_regional_assignment_in_mandate
+    relation_member_roles:
+      G26E-HR-LIU-01: command_to_execution_link
+      G26E-HR-LIU-02: campaign_continuation_link
+      G26E-HR-LIU-03: mandate_phase_link
+      G26E-HR-LIU-04: mandate_phase_link
+    aggregation_reason: 统军任命与霍邑、河西、渭北、扶风各原子任务属于同一进军授权大阶段；共同消费才能保留独立事件边界并避免将连续反馈重复计分。
+    known_ambiguities:
+      - 左右统军的具体左右分属未由短句确定。
+      - 李世民为渭北直接统帅但未列入输入 canonical person 候选。
+      - 殷开山为扶风共同受命者但未列入输入 canonical person 候选。
+
+  - gold_rule_unit_code: G26E-RU-LY-XIAO-APPOINTMENT-PROGRESSION
+    evaluation_context: PER-8BB51AD907BAC939
+    episode_refs:
+      - G26E-HE-LY-XIAO-RETURN-APPOINTMENT
+      - G26E-HE-LY-XIAO-NEISHILING
+    relation_refs: [G26E-HR-XIAO-03]
+    episode_member_roles:
+      G26E-HE-LY-XIAO-RETURN-APPOINTMENT: initial_return_appointment
+      G26E-HE-LY-XIAO-NEISHILING: promotion_and_expanded_authority
+    relation_member_roles:
+      G26E-HR-XIAO-03: appointment_progression_link
+    aggregation_reason: 归唐后的同时官封与迁内史令扩权是一条连续任用进阶链；刘文静案谏救与处死属于其他规则边界，不纳入本单元。
+    known_ambiguities:
+      - 初次归唐任用包含多项同时官封，视为同一任用决策。
+
+  - gold_rule_unit_code: G26E-RU-LY-LIXIAOGONG-DELEGATION
+    evaluation_context: PER-8BB51AD907BAC939
+    episode_refs:
+      - G26E-HE-LY-LIXIAOGONG-INITIAL-APPOINTMENT
+      - G26E-HE-LY-LIXIAOGONG-SHANNAN
+      - G26E-HE-LY-LIXIAOGONG-XINZHOU
+      - G26E-HE-LY-LIXIAOGONG-ZHUCAN
+      - G26E-HE-LY-LIXIAOGONG-KUIZHOU
+      - G26E-HE-LY-LIXIAOGONG-PLAN-XIAOXIAN
+    relation_refs:
+      - G26E-HR-LXG-01
+      - G26E-HR-LXG-02
+      - G26E-HR-LXG-03
+      - G26E-HR-LXG-04
+      - G26E-HR-LXG-05
+    episode_member_roles:
+      G26E-HE-LY-LIXIAOGONG-INITIAL-APPOINTMENT: initial_appointment
+      G26E-HE-LY-LIXIAOGONG-SHANNAN: mandate_execution_and_outcome
+      G26E-HE-LY-LIXIAOGONG-XINZHOU: promotion_and_local_authority
+      G26E-HE-LY-LIXIAOGONG-ZHUCAN: delegated_postwar_disposition
+      G26E-HE-LY-LIXIAOGONG-KUIZHOU: renewed_campaign_preparation
+      G26E-HE-LY-LIXIAOGONG-PLAN-XIAOXIAN: strategic_feedback_for_mandate
+    relation_member_roles:
+      G26E-HR-LXG-01: appointment_to_mandate_link
+      G26E-HR-LXG-02: outcome_to_promotion_link
+      G26E-HR-LXG-03: authority_to_disposition_link
+      G26E-HR-LXG-04: continued_delegation_link
+      G26E-HR-LXG-05: preparation_to_strategic_feedback_link
+    aggregation_reason: 初授、山南执行与成果、信州升任、战后处置及夔州图萧铣任务共同形成连续授权—履职—反馈图；作为一个证据单元避免按战果和任命重复贡献。
+    known_ambiguities:
+      - 初授短句仅直接证明左光禄大夫，山南道招慰大使为随后任命。
+      - 信州承制拜假的具体授权范围未由短句展开。
+      - 朱粲案中李孝恭主要是处置者，而非受益者。
+      - 夔州备战与图萧铣献策紧密相关但仍是两个独立事件。

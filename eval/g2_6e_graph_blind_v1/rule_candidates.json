@@ -1,0 +1,362 @@
+{
+  "aggregation_policy_version": "delegation-chain-v1",
+  "database_write_count": 0,
+  "direct_episode_projection_refs": [],
+  "duplicate_consumption_episode_refs": [],
+  "input_sha256": "5891315e4b18a394cb5eaafe19267c399da52d04b1999e08fe20f9d39fc76e2f",
+  "rule_code": "appointment_delegation",
+  "rule_evidence_units": [
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-C2516601FAF67B03A9F6"
+      ],
+      "evaluation_context": "per-8bb51ad907bac939",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-C2516601FAF67B03A9F6",
+          "member_role": "appointment",
+          "member_type": "episode"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "05cc553706f3e81906b42848a3d2887470c57eceeef5f294a3ae90322d45a404",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-05CC553706F3E81906B4"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-8402CA4EA70A95E60540",
+        "EP-B09E26EA0838125A5E7C",
+        "EP-C096C3D83E93C143310A"
+      ],
+      "evaluation_context": "per-8bb51ad907bac939",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-8402CA4EA70A95E60540",
+          "member_role": "appointment",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-B09E26EA0838125A5E7C",
+          "member_role": "advice",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-C096C3D83E93C143310A",
+          "member_role": "delegation",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "ER-0BE798BE879F3A3A4429",
+          "member_role": "renews_authority",
+          "member_type": "relation"
+        },
+        {
+          "member_ref": "ER-82E0F0E906FA67E8A130",
+          "member_role": "causal_followup",
+          "member_type": "relation"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [
+        "ER-0BE798BE879F3A3A4429",
+        "ER-82E0F0E906FA67E8A130"
+      ],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "460872ea4bef915422ed0605dbf3f12b05bc8a1a2c1ff417005d5d5e53a19bce",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-460872EA4BEF915422ED"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-38D3A0AEE9B1836FD54F",
+        "EP-8D33222B38F34108C1B5"
+      ],
+      "evaluation_context": "per-8bb51ad907bac939",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-38D3A0AEE9B1836FD54F",
+          "member_role": "appointment",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-8D33222B38F34108C1B5",
+          "member_role": "delegation",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "ER-89B2CB4FE0DABE88D87D",
+          "member_role": "promotion_after",
+          "member_type": "relation"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [
+        "ER-89B2CB4FE0DABE88D87D"
+      ],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "4c24caa50628ddf44dfbd3c98b8267b4e6254a581d48d9abfbc3945a9dc99962",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-4C24CAA50628DDF44DFB"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-BB0E00E80EB4AFADC18A"
+      ],
+      "evaluation_context": "per-0e5e3f1d42102782",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-BB0E00E80EB4AFADC18A",
+          "member_role": "delegation",
+          "member_type": "episode"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "7072b43e150f7f781d4c9f6c0937bc2185296982f4bb14c23c6e3270c671fb8a",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-7072B43E150F7F781D4C"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-5B5E4CBF01456A437C2A"
+      ],
+      "evaluation_context": "per-8bb51ad907bac939",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-5B5E4CBF01456A437C2A",
+          "member_role": "delegation",
+          "member_type": "episode"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "796855af95a886b01938c74f01fca00d2f01428deef0ac9a121756056a9c5d82",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-796855AF95A886B01938"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-802022FD4BC4DEAB512A"
+      ],
+      "evaluation_context": "per-8bb51ad907bac939",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-802022FD4BC4DEAB512A",
+          "member_role": "delegation",
+          "member_type": "episode"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "7c3d3b4f0c48c8740943fefb2bbdbdc2d9b9a663ca927beaa1a2bcb16a108c01",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-7C3D3B4F0C48C8740943"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-21AABCB747A895FC4F50",
+        "EP-680EA9192FC5FE401C57"
+      ],
+      "evaluation_context": "per-8bb51ad907bac939",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-21AABCB747A895FC4F50",
+          "member_role": "appointment",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-680EA9192FC5FE401C57",
+          "member_role": "delegation",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "ER-C8E1B51CC914066412DA",
+          "member_role": "context_for",
+          "member_type": "relation"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [
+        "ER-C8E1B51CC914066412DA"
+      ],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "8af0dacde0fa8dfaf194dcebbdc8077fc42029f79c633a1342339e28380c2580",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-8AF0DACDE0FA8DFAF194"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-670B73C541C99AACE879"
+      ],
+      "evaluation_context": "per-0e5e3f1d42102782",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-670B73C541C99AACE879",
+          "member_role": "appointment",
+          "member_type": "episode"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "8c203a93f583b3dfb366c2301ca836be324fcd55d53e674ba8fe44f096d7f19f",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-8C203A93F583B3DFB366"
+    },
+    {
+      "aggregation_policy_version": "delegation-chain-v1",
+      "aggregation_reason": "connected appointment/delegation episode graph component",
+      "episode_refs": [
+        "EP-317C84CC0E08DA0212E0",
+        "EP-55ECFB64B28CD2AF6527",
+        "EP-744039E5D6CB1BEF0DA0",
+        "EP-FEE7CA2E6FC5794AA409"
+      ],
+      "evaluation_context": "per-0e5e3f1d42102782",
+      "evidence_version": 1,
+      "lineage": {
+        "origin": "created"
+      },
+      "members": [
+        {
+          "member_ref": "EP-317C84CC0E08DA0212E0",
+          "member_role": "delegation",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-55ECFB64B28CD2AF6527",
+          "member_role": "appointment",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-744039E5D6CB1BEF0DA0",
+          "member_role": "appointment",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "EP-FEE7CA2E6FC5794AA409",
+          "member_role": "advice",
+          "member_type": "episode"
+        },
+        {
+          "member_ref": "ER-70417E615D095166CDF3",
+          "member_role": "causal_followup",
+          "member_type": "relation"
+        },
+        {
+          "member_ref": "ER-789731248AF120806EBB",
+          "member_role": "renews_authority",
+          "member_type": "relation"
+        },
+        {
+          "member_ref": "ER-FFDE2ACBAF877191A57B",
+          "member_role": "promotion_after",
+          "member_type": "relation"
+        }
+      ],
+      "provenance": {
+        "builder": "rule_evidence_unit_draft_v2"
+      },
+      "relation_refs": [
+        "ER-70417E615D095166CDF3",
+        "ER-789731248AF120806EBB",
+        "ER-FFDE2ACBAF877191A57B"
+      ],
+      "rule_code": "appointment_delegation",
+      "rule_version": "v1",
+      "semantic_fingerprint": "ecec69a24b1a27f064690b7a0873170d428e78b50003fd0dc1f1333eab3f5171",
+      "semantic_version": 1,
+      "status": "draft",
+      "unit_code": "REU-ECEC69A24B1A27F06469"
+    }
+  ],
+  "rule_version": "v1",
+  "schema_version": 1,
+  "status": "rule_evidence_unit_candidates_proposed"
+}

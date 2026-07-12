@@ -24,6 +24,11 @@ from emperor_v4.evaluation.boundary_review import (
     materialize_boundary_review_payload,
 )
 from emperor_v4.evaluation.boundary_score import score_boundary_graph
+from emperor_v4.evaluation.graph_holdout import (
+    draft_rule_evidence_units_payload,
+    materialize_boundary_graph_payload,
+    score_graph_blind_holdout,
+)
 from emperor_v4.evaluation.assertion_handoff import (
     build_assertion_repair_payloads,
     build_assertion_candidate_payloads,
@@ -170,6 +175,20 @@ def _parser() -> argparse.ArgumentParser:
     boundary_score.add_argument("--candidates", type=Path, required=True)
     boundary_score.add_argument("--gold", type=Path, required=True)
     boundary_score.add_argument("--output", type=Path)
+    graph_materialize = subparsers.add_parser("boundary-graph-materialize")
+    graph_materialize.add_argument("--input", type=Path, required=True)
+    graph_materialize.add_argument("--boundary-review", type=Path, required=True)
+    graph_materialize.add_argument("--output", type=Path)
+    rule_units = subparsers.add_parser("rule-evidence-draft")
+    rule_units.add_argument("--graph", type=Path, required=True)
+    rule_units.add_argument("--output", type=Path)
+    graph_score = subparsers.add_parser("graph-blind-score")
+    graph_score.add_argument("--graph", type=Path, required=True)
+    graph_score.add_argument("--historical-gold", type=Path, required=True)
+    graph_score.add_argument("--rule-candidates", type=Path, required=True)
+    graph_score.add_argument("--rule-gold", type=Path, required=True)
+    graph_score.add_argument("--runtime-audit", type=Path, required=True)
+    graph_score.add_argument("--output", type=Path)
     source_gap = subparsers.add_parser("source-gap-check")
     source_gap.add_argument("--manifest", type=Path, required=True)
     source_gap.add_argument(
@@ -476,6 +495,23 @@ def main() -> int:
         report = score_boundary_graph(
             yaml.safe_load(args.candidates.read_text(encoding="utf-8")),
             yaml.safe_load(args.gold.read_text(encoding="utf-8")),
+        )
+    elif args.command == "boundary-graph-materialize":
+        report = materialize_boundary_graph_payload(
+            json.loads(args.input.read_text(encoding="utf-8")),
+            yaml.safe_load(args.boundary_review.read_text(encoding="utf-8")),
+        )
+    elif args.command == "rule-evidence-draft":
+        report = draft_rule_evidence_units_payload(
+            json.loads(args.graph.read_text(encoding="utf-8"))
+        )
+    elif args.command == "graph-blind-score":
+        report = score_graph_blind_holdout(
+            json.loads(args.graph.read_text(encoding="utf-8")),
+            yaml.safe_load(args.historical_gold.read_text(encoding="utf-8")),
+            json.loads(args.rule_candidates.read_text(encoding="utf-8")),
+            yaml.safe_load(args.rule_gold.read_text(encoding="utf-8")),
+            json.loads(args.runtime_audit.read_text(encoding="utf-8")),
         )
     else:
         raise AssertionError("unreachable")

@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 97706497c78411bdb6fd9ffd511037dc75911938
+as_of_commit_basis: 592667486b7eaf51fe38d12bfb5cef2a8663e5e4
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -10,7 +10,7 @@ milestones:
   G2_6B_contracts: conditional_pass
   G2_6C_review_cache: d1_hardening_complete
   G2_6D_scorer: gate_metrics_complete
-  G2_6E_final_graph_holdout: not_started
+  G2_6E_final_graph_holdout: failed_closed
   G3_PostgreSQL: blocked_by_g2_6E
 
 qualification:
@@ -35,19 +35,29 @@ qualification:
     - per_unit_cache_executor
     - deterministic_zero_call_boundary_fast_path
     - graph_gate_metrics
+    - g2_6e_passage_lineage_100_percent
+    - g2_6e_assertion_disposition_100_percent
+    - g2_6e_zero_cross_ruler_contamination
+    - g2_6e_zero_duplicate_rule_consumption
+    - g2_6e_zero_call_unchanged_rerun
+    - g2_6e_review_unit_local_invalidation
   not_validated:
     - blind_reconciliation
-    - autonomous_boundary_recall
-    - candidate_precision
-    - wrong_merge_rate
-    - wrong_split_rate
     - independent_canonical_identity_acceptance
+  failed:
+    - g2_6e_exact_episode_recall_0_6111_below_0_85
+    - g2_6e_exact_candidate_precision_0_7857_below_0_90
+    - g2_6e_catastrophic_wrong_merge_count_5
+    - g2_6e_strict_relation_recall_0_08_below_0_85
+    - g2_6e_strict_relation_precision_0_2857_below_0_90
+    - g2_6e_rule_unit_recall_0_1538
+    - g2_6e_rule_unit_precision_0_2222
 
 metric_policy:
   oracle_assisted_packet_count_is_accuracy_metric: false
-  formal_episode_recall_available: false
+  formal_episode_recall_available: true
   formal_accepted_precision_available: false
-  merge_split_accuracy_available: false
+  merge_split_accuracy_available: true
 
 safety:
   v3_production_write_performed: false
@@ -56,6 +66,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6E_final_graph_holdout
-  status: not_started
-  required_outcome: 全新双层 Gold Graph Blind Holdout 达标并完成独立人工接受
+  code: G2_6F_boundary_relation_rework
+  status: required
+  required_outcome: 基于失败归因重构边界与关系建议层，并在另一批全新双层 Gold holdout 上重新验收

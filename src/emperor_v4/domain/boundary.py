@@ -384,7 +384,7 @@ def _review_unit_cache_key(
     *,
     evaluation_context: str,
     focal_person_ref: str,
-    focal_role: str,
+    focal_roles: tuple[str, ...],
     responsibility_family: str,
     boundary_policy_version: str,
     output_schema_version: str,
@@ -394,7 +394,7 @@ def _review_unit_cache_key(
         {
             "evaluation_context": evaluation_context,
             "focal_person_ref": focal_person_ref,
-            "focal_role": focal_role,
+            "focal_roles": focal_roles,
             "responsibility_family": responsibility_family,
             "proposition_semantic_hashes": sorted(item.semantic_hash for item in clusters),
             "boundary_policy_version": boundary_policy_version,
@@ -412,13 +412,12 @@ def build_review_units(
     output_schema_version: str = BOUNDARY_OUTPUT_SCHEMA_VERSION,
     model_family: str = DEFAULT_MODEL_FAMILY,
 ) -> tuple[EpisodeReviewUnit, ...]:
-    coarse: dict[tuple[str, str, str, str], list[PropositionCluster]] = defaultdict(list)
+    coarse: dict[tuple[str, str, str], list[PropositionCluster]] = defaultdict(list)
     for cluster in clusters:
         coarse[
             (
                 cluster.evaluation_context,
                 cluster.focal_person_ref,
-                cluster.focal_role,
                 cluster.responsibility_family,
             )
         ].append(cluster)
@@ -454,7 +453,7 @@ def build_review_units(
     for items in partitions:
         context = items[0].evaluation_context
         focal_person = items[0].focal_person_ref
-        focal_role = items[0].focal_role
+        focal_roles = tuple(sorted({item.focal_role for item in items}))
         family = items[0].responsibility_family
         starts = [
             item.normalized_time.start_sort_key
@@ -470,7 +469,7 @@ def build_review_units(
             items,
             evaluation_context=context,
             focal_person_ref=focal_person,
-            focal_role=focal_role,
+            focal_roles=focal_roles,
             responsibility_family=family,
             boundary_policy_version=boundary_policy_version,
             output_schema_version=output_schema_version,
@@ -482,7 +481,7 @@ def build_review_units(
                 cache_key=cache_key,
                 evaluation_context=context,
                 focal_person_ref=focal_person,
-                focal_role=focal_role,
+                focal_roles=focal_roles,
                 time_start_sort_key=min(starts) if starts else None,
                 time_end_sort_key=max(ends) if ends else None,
                 responsibility_family=family,
