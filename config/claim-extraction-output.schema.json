@@ -20,9 +20,9 @@
           "object": {"type": "string", "minLength": 1},
           "time_expression": {"type": ["string", "null"]},
           "location_expression": {"type": ["string", "null"]},
-          "qualifiers": {"type": "object"},
+          "qualifiers": {"type": "object", "additionalProperties": false, "properties": {}},
           "polarity": {"enum": ["asserted", "disputed", "negated"]},
-          "source_attribution": {"type": "object"},
+          "source_attribution": {"type": "object", "additionalProperties": false, "properties": {}},
           "confidence": {"type": "number", "minimum": 0, "maximum": 1},
           "ambiguity_flags": {"type": "array", "items": {"type": "string"}},
           "passage_support": {
