@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: g2_6j_graph_blind_v1
-status: source_snapshot_frozen_passage_support_review_pending
+status: passage_support_frozen_strict_input_pending
 source_snapshot_frozen_at: 2026-07-13
 contract_basis_commit: adab783470c836d916c00696eb25390e285e4e27
 
@@ -19,11 +19,22 @@ source_snapshot:
   adapter_target_contract: assertion-extraction-contract-v2
 
 passage_support_freeze:
-  status: pending_independent_review
+  status: frozen_before_episode_review
   output_path: eval/g2_6j_graph_blind_v1/passage_support_review.yml
+  file_sha256: f4bd50f3900808ca9edb98a0e8f38ace7ff1e3edf53e5a3b7ebdd9bf99f99421
+  canonical_payload_sha256: 25671639a0e477e01d1ac1b2f680272f08c93d94f9ee5cf55b0525ea10744872
   required_status: frozen_before_episode_review
   required_claim_coverage: 18
   required_passage_coverage: 38
+  atomic_component_count: 7
+  context_only_count: 31
+  equivalent_evidence_count: 0
+  single_passage_count: 0
+  source_segmentation_warning:
+    missing_explicit_identity_or_action_count: 31
+    navigation_noise_count: 2
+    handling: fail_closed_as_context_only
+  reviewed_without_episode_gold_or_candidates: true
   reviewer_may_read:
     - eval/g2_6j_graph_blind_v1/source_claim_snapshot.json
     - docs/contracts/事实抽取服务契约.md
@@ -35,7 +46,7 @@ passage_support_freeze:
     - 逐事件修改领域代码或输入以贴合预期边界
 
 strict_input:
-  status: blocked_by_passage_support_freeze
+  status: ready_to_materialize_from_frozen_support
   path: eval/g2_6j_graph_blind_v1/input.json
   required_contract: passage-scoped-assertion-v2
   forbidden_fields:

@@ -1,0 +1,249 @@
+schema_version: passage-support-review-v1
+task_code: g2_6j_passage_support_review
+status: frozen_before_episode_review
+reviewed_without_episode_gold_or_candidates: true
+source_snapshot_sha256: cbac6bdad9797ad0c44b71486872c5c0b7bd5ff148a74e6dce904b0db285137c
+claim_support_reviews:
+  - claim_code: CLMK-4E761D80EBEA48F476DB
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-427A44F22B2E947689F3C6B4
+        support_mode: context_only
+        assertion_semantic_key: CLMK-4E761D80EBEA48F476DB:context:local-order-restored
+        supported_fields: [outcome, context]
+        fact_overrides: {actor: 来源上下文, action_type: 上下文片段, object: 河池郡恢复安定, outcome: 郡中复安, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: false, has_object: true, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-CEE95AFC9A7DB9F2635F1689
+        support_mode: context_only
+        assertion_semantic_key: CLMK-4E761D80EBEA48F476DB:context:ambush-attack
+        supported_fields: [action, context]
+        fact_overrides: {actor: 未载明行动者, action_type: 设奇攻击, object: 未载明对象, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-4F75751CD9611A0DCBF9
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-686B9EB1D45CB9329893D946
+        support_mode: context_only
+        assertion_semantic_key: CLMK-4F75751CD9611A0DCBF9:context:imperial-summons
+        supported_fields: [action, responsibility, context]
+        fact_overrides: {actor: 未载明发令者, action_type: 遣人持诏召见, object: 汉王谅, outcome: "", time_context: "", event_scope: "", office_or_domain: 召汉王谅, responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-8E2E765546FFE80790871A2D
+        support_mode: context_only
+        assertion_semantic_key: CLMK-4F75751CD9611A0DCBF9:context:navigation-noise
+        supported_fields: [context]
+        fact_overrides: {actor: 来源页面, action_type: 页面导航, object: 屈突通列传目录, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: false, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-FC28C9D3EDB929FA262268BA
+        support_mode: context_only
+        assertion_semantic_key: CLMK-4F75751CD9611A0DCBF9:context:return-changan
+        supported_fields: [action, outcome, location, context]
+        fact_overrides: {actor: 未载明行动者, action_type: 返回, object: 长安, outcome: 竟得归长安, time_context: "", event_scope: 长安, office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-60AD56D1E89743F59CED
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-01D368237919D2FDB31E06A8
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-60AD56D1E89743F59CED:atom:turks-withdraw
+        supported_fields: [identity, action, outcome]
+        fact_overrides: {actor: 突厥, action_type: 解围撤离, object: 所围之地, outcome: 突厥解围去, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-596DE602FF507C59C6B659B1
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-60AD56D1E89743F59CED:atom:xiao-yu-advises
+        supported_fields: [identity, action]
+        fact_overrides: {actor: 萧瑀, action_type: 进谋, object: 未载明谋议内容, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-B0022EC5A6D8E05A7E99
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-05FBD61F4A1E612A4317756C
+        support_mode: context_only
+        assertion_semantic_key: CLMK-B0022EC5A6D8E05A7E99:context:hechi-governor
+        supported_fields: [action, responsibility, location, context]
+        fact_overrides: {actor: 未载明任官对象, action_type: 出任, object: 河池郡守, outcome: "", time_context: "", event_scope: 河池郡, office_or_domain: 河池郡守, responsibility_family: civil_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-C1CBB6AAF14F0712C6AEC98B
+        support_mode: context_only
+        assertion_semantic_key: CLMK-B0022EC5A6D8E05A7E99:context:unforgivable-evaluation
+        supported_fields: [attribution, context]
+        fact_overrides: {actor: 未载明评价者, action_type: 评价, object: 情不可恕, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: false, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-B3165927D41140E61B4C
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-7F0F50721829715C5A1BB1D7
+        support_mode: context_only
+        assertion_semantic_key: CLMK-B3165927D41140E61B4C:context:executed
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明受刑者, action_type: 坐罪被诛, object: 未载明受刑者, outcome: 竟坐诛, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: judicial_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-83FBE67A076A3F43C71D32E3
+        support_mode: context_only
+        assertion_semantic_key: CLMK-B3165927D41140E61B4C:context:private-deliberation
+        supported_fields: [action, context]
+        fact_overrides: {actor: 未载明议论者, action_type: 私议, object: 政事得失, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-D064294EFB99FF6C5C78
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-4E1EDEB71CFD3F3150AC088F
+        support_mode: context_only
+        assertion_semantic_key: CLMK-D064294EFB99FF6C5C78:context:confined-at-home
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明受处置者, action_type: 被废居家, object: 未载明受处置者, outcome: 遂废于家, time_context: "", event_scope: 家, office_or_domain: "", responsibility_family: judicial_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-8B468E84EAD7FF4AA076EE3D
+        support_mode: context_only
+        assertion_semantic_key: CLMK-D064294EFB99FF6C5C78:context:he-ruobi-friendship
+        supported_fields: [identity, action, context]
+        fact_overrides: {actor: 未载明交往者, action_type: 友善交往, object: 贺若弼, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-DC22FE2B5A6D223CA310
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-3C50A97282C1D5270C2DB56B
+        support_mode: context_only
+        assertion_semantic_key: CLMK-DC22FE2B5A6D223CA310:context:guannei-commissioner-title
+        supported_fields: [responsibility, location, context]
+        fact_overrides: {actor: 未载明任职者, action_type: 官职称谓, object: 关内讨捕大使, outcome: "", time_context: "", event_scope: 关内, office_or_domain: 关内讨捕, responsibility_family: military_command, normalized_time: {}, completeness: {has_actor: false, has_action: false, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-3EA07E06D5E163F9FE2D27BA
+        support_mode: context_only
+        assertion_semantic_key: CLMK-DC22FE2B5A6D223CA310:context:liu-jialun-killed
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明行动者, action_type: 斩杀, object: 刘迦论, outcome: 斩迦论并首级万馀, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: military_command, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-A538FDBF1E76F30945BB995C
+        support_mode: context_only
+        assertion_semantic_key: CLMK-DC22FE2B5A6D223CA310:context:navigation-noise
+        supported_fields: [context]
+        fact_overrides: {actor: 来源页面, action_type: 页面导航, object: 屈突通列传目录, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: false, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-0121E2ABA7446A10B58C
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-42D573EC6036F97A662F12BE
+        support_mode: context_only
+        assertion_semantic_key: CLMK-0121E2ABA7446A10B58C:context:false-confession
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明服罪者, action_type: 自诬服罪, object: 未载明指控, outcome: 自诬服, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: judicial_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-6560FC5E7F18D9D7EA7631B9
+        support_mode: context_only
+        assertion_semantic_key: CLMK-0121E2ABA7446A10B58C:context:chancellor-prison-case
+        supported_fields: [action, responsibility, context]
+        fact_overrides: {actor: 未载明案治者, action_type: 案治, object: 丞相狱, outcome: "", time_context: "", event_scope: "", office_or_domain: 丞相狱, responsibility_family: judicial_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-0FD48C7A0924E65EF3B8
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-53629268F5C573F56DC9F74D
+        support_mode: context_only
+        assertion_semantic_key: CLMK-0FD48C7A0924E65EF3B8:context:doctor-appointment
+        supported_fields: [action, responsibility, outcome, context]
+        fact_overrides: {actor: 未载明受任者, action_type: 拜授, object: 博士, outcome: 拜为博士, time_context: "", event_scope: "", office_or_domain: 博士, responsibility_family: civil_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-CC1CF64533E2A5FE49E7C263
+        support_mode: context_only
+        assertion_semantic_key: CLMK-0FD48C7A0924E65EF3B8:context:bandit-characterization
+        supported_fields: [attribution, context]
+        fact_overrides: {actor: 未载明发言者, action_type: 评价, object: 此特群盗, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: false, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-144D3696FB99BAAFF29B
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-9AE2BA0086661BEBA716C71D
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-144D3696FB99BAAFF29B:atom:meng-tian-requests-review
+        supported_fields: [identity, action]
+        fact_overrides: {actor: 蒙恬, action_type: 复请, object: 前述事项, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-FC5022CE3AFB57A126CB7258
+        support_mode: context_only
+        assertion_semantic_key: CLMK-144D3696FB99BAAFF29B:context:fusu-mengtian-death-order
+        supported_fields: [identity, action, consequence, context]
+        fact_overrides: {actor: 未载明发令者, action_type: 赐死, object: 扶苏、蒙恬, outcome: 赐公子扶苏、蒙恬死, time_context: "", event_scope: "", office_or_domain: 继位处置, responsibility_family: succession_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-255582327C35CE5D5CAF
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-1DA5DE2C825046FBD4F496D7
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-255582327C35CE5D5CAF:atom:zhao-gao-investigates-li-si
+        supported_fields: [identity, action, responsibility]
+        fact_overrides: {actor: 赵高, action_type: 案治, object: 李斯, outcome: "", time_context: "", event_scope: "", office_or_domain: 李斯案件, responsibility_family: judicial_governance, normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-D9913FE04BFDA6296D81BE1C
+        support_mode: context_only
+        assertion_semantic_key: CLMK-255582327C35CE5D5CAF:context:memorial-against-zhao-gao
+        supported_fields: [action, attribution, context]
+        fact_overrides: {actor: 未载明上书者, action_type: 上书陈奏, object: 赵高之短, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-27A7BBD2ED0E5ABB96C8
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-2F263AD085DF60A516AD75E2
+        support_mode: context_only
+        assertion_semantic_key: CLMK-27A7BBD2ED0E5ABB96C8:context:envoy-enforces-order
+        supported_fields: [action, responsibility, context]
+        fact_overrides: {actor: 未载明执行者, action_type: 受诏行法, object: 未载明对象, outcome: "", time_context: "", event_scope: "", office_or_domain: 将军处置, responsibility_family: succession_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-E064A7351C6EE49B2000B627
+        support_mode: context_only
+        assertion_semantic_key: CLMK-27A7BBD2ED0E5ABB96C8:context:suicide
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明自杀者, action_type: 吞药自杀, object: 未载明自杀者, outcome: 死亡, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-49DE200FD2F366DDEE24
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-12258834934327980ADDCCAC
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-49DE200FD2F366DDEE24:atom:second-emperor-refuses
+        supported_fields: [identity, action, outcome]
+        fact_overrides: {actor: 二世, action_type: 不许, object: 前述请求, outcome: 二世不许, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-6D8B0070AD6BB1F4A9B6281F
+        support_mode: context_only
+        assertion_semantic_key: CLMK-49DE200FD2F366DDEE24:context:seeks-remonstrance
+        supported_fields: [action, context]
+        fact_overrides: {actor: 未载明进谏者, action_type: 请间进谏, object: 未载明对象, outcome: "", time_context: "", event_scope: "", office_or_domain: 朝政谏议, responsibility_family: civil_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-6FD7BCBD233E76A3A3CA
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-4B1D2CDB70F75EAA1DF33EEA
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-6FD7BCBD233E76A3A3CA:atom:huhai-listens
+        supported_fields: [identity, action]
+        fact_overrides: {actor: 胡亥, action_type: 听从, object: 未载明进言, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-B14FD1D403032DE5F2968910
+        support_mode: context_only
+        assertion_semantic_key: CLMK-6FD7BCBD233E76A3A3CA:context:meng-tian-imprisoned-yangzhou
+        supported_fields: [identity, action, location, outcome, context]
+        fact_overrides: {actor: 未载明囚禁者, action_type: 囚禁, object: 蒙恬, outcome: 蒙恬被囚, time_context: "", event_scope: 阳周, office_or_domain: "", responsibility_family: succession_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-7CE141A20E31B5506102
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-715CF6EB1BC5E6DFE0674411
+        support_mode: atomic_component
+        assertion_semantic_key: CLMK-7CE141A20E31B5506102:atom:li-si-fears
+        supported_fields: [identity, action]
+        fact_overrides: {actor: 李斯, action_type: 恐惧, object: 未载明缘由, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-AB4B00DBF256683DC72F5209
+        support_mode: context_only
+        assertion_semantic_key: CLMK-7CE141A20E31B5506102:context:supervision-doctrine
+        supported_fields: [action, attribution, context]
+        fact_overrides: {actor: 未载明主张者, action_type: 主张施行, object: 督责之术, outcome: "", time_context: "", event_scope: "", office_or_domain: 督责之术, responsibility_family: institutional_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-A8AA0FC70AFDBC8CF32E
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-196F99538E6C2982F82695C2
+        support_mode: context_only
+        assertion_semantic_key: CLMK-A8AA0FC70AFDBC8CF32E:context:another-envoy-sent
+        supported_fields: [action, context]
+        fact_overrides: {actor: 未载明发令者, action_type: 遣使, object: 未载明目的, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-BEDFE1EAEECB708BD69B695F
+        support_mode: context_only
+        assertion_semantic_key: CLMK-A8AA0FC70AFDBC8CF32E:context:order-addressed-to-mengtian
+        supported_fields: [identity, action, attribution, context]
+        fact_overrides: {actor: 未载明发令者, action_type: 向蒙恬宣令, object: 蒙恬, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: succession_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-E98A9D0388EC3A8C142D
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-593D7BF4DC74C37FA7BA1162
+        support_mode: context_only
+        assertion_semantic_key: CLMK-E98A9D0388EC3A8C142D:context:envoy-sent-to-yangzhou
+        supported_fields: [action, location, context]
+        fact_overrides: {actor: 未载明发令者, action_type: 遣使, object: 阳周, outcome: "", time_context: "", event_scope: 阳周, office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: true, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-97CB39CEEB09CE7ACFE52247
+        support_mode: context_only
+        assertion_semantic_key: CLMK-E98A9D0388EC3A8C142D:context:suicide
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明自杀者, action_type: 吞药自杀, object: 未载明自杀者, outcome: 死亡, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+
+  - claim_code: CLMK-FA588C7DE67BDE4D8F4C
+    passage_support_bindings:
+      - source_passage_ref: G26J-P-EVD-5782332F10557B3075DCAC2C
+        support_mode: context_only
+        assertion_semantic_key: CLMK-FA588C7DE67BDE4D8F4C:context:person-killed
+        supported_fields: [action, outcome, consequence, context]
+        fact_overrides: {actor: 未载明杀人者, action_type: 杀害, object: 未载明被杀者, outcome: 遂杀之, time_context: "", event_scope: "", office_or_domain: "", responsibility_family: succession_governance, normalized_time: {}, completeness: {has_actor: false, has_action: true, has_object: false, has_outcome: true, same_event_chain: false, needs_source_extension: true}}
+      - source_passage_ref: G26J-P-EVD-7A032C991FFF062A49821411
+        support_mode: context_only
+        assertion_semantic_key: CLMK-FA588C7DE67BDE4D8F4C:context:huhai-intent
+        supported_fields: [identity, attribution, context]
+        fact_overrides: {actor: 胡亥, action_type: 意图背景, object: 未载明处置意图, outcome: "", time_context: "", event_scope: "", office_or_domain: "", responsibility_family: "", normalized_time: {}, completeness: {has_actor: true, has_action: false, has_object: false, has_outcome: false, same_event_chain: false, needs_source_extension: true}}
