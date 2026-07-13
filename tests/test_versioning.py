@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from copy import deepcopy
+import json
 from pathlib import Path
 
 import yaml
@@ -13,9 +14,13 @@ from emperor_v4.domain.episode import build_episode_packet, group_episode_candid
 from emperor_v4.domain.versioning import apply_episode_revision
 from emperor_v4.application.appointment_delegation_shadow_runner import (
     run_appointment_delegation_shadow,
+    run_appointment_delegation_shadow_manifest,
 )
 from emperor_v4.application.appointment_delegation_shadow_diff import (
     run_appointment_delegation_shadow_diff,
+)
+from emperor_v4.application.appointment_delegation_roster_runner import (
+    run_appointment_delegation_roster_shadow,
 )
 from emperor_v4.evaluation.appointment_delegation_scoring import (
     evaluate_judgment,
@@ -42,6 +47,9 @@ SCORED_DEMO = (
     / "manifest.yml"
 )
 SHADOW_DIFF_REQUEST = SCORED_DEMO.parent / "shadow_diff_request.yml"
+ROSTER_DEMO = SCORED_DEMO.parents[1] / "appointment_delegation_roster_demo"
+ROSTER_MANIFEST = ROSTER_DEMO / "manifest.yml"
+ROSTER_REPORT = ROSTER_DEMO / "report.json"
 
 
 def _assertion(code: str, passage: str, *, domain: str = "军务") -> AssertionDraft:
@@ -120,6 +128,49 @@ def test_shadow_diff_fails_closed_when_expected_invalidation_drifts(tmp_path: Pa
 
     with pytest.raises(ValueError, match="实际失效单元"):
         run_appointment_delegation_shadow_diff(request_path)
+
+
+def test_roster_no_change_rerun_exactly_reuses_persistent_record():
+    prior = json.loads(ROSTER_REPORT.read_text(encoding="utf-8"))
+    rerun = run_appointment_delegation_roster_shadow(
+        ROSTER_MANIFEST, prior_record_path=ROSTER_REPORT
+    )
+
+    assert rerun == prior
+    assert rerun["run_record_sha256"] == prior["run_record_sha256"]
+    assert rerun["side_effect_audit"]["service_call_count"] == 0
+    assert rerun["side_effect_audit"]["model_call_count"] == 0
+    assert rerun["side_effect_audit"]["database_write_count"] == 0
+
+
+def test_scored_runner_rebuilds_one_unit_and_exactly_reuses_three():
+    baseline = run_appointment_delegation_shadow(SCORED_DEMO)
+    manifest = yaml.safe_load(SCORED_DEMO.read_text(encoding="utf-8"))
+    unit = next(
+        row
+        for row in manifest["rule_evidence_units"]
+        if row["unit_ref"] == "REU-LB-HANXIN-QI-AUTHORITY-v1"
+    )
+    unit["factor_observations"]["authority_clarity"]["value"] = "mixed_signal"
+    candidate = run_appointment_delegation_shadow_manifest(
+        manifest,
+        SCORED_DEMO,
+        prior_report=baseline,
+        rebuild_unit_refs={unit["unit_ref"]},
+    )
+
+    assert candidate["summary"]["judgment_cache_hit_count"] == 3
+    baseline_by_unit = {
+        row["rule_evidence_unit_ref"]: row for row in baseline["judgments"]
+    }
+    candidate_by_unit = {
+        row["rule_evidence_unit_ref"]: row for row in candidate["judgments"]
+    }
+    assert candidate_by_unit[unit["unit_ref"]] != baseline_by_unit[unit["unit_ref"]]
+    assert all(
+        candidate_by_unit[ref] == baseline_by_unit[ref]
+        for ref in set(baseline_by_unit) - {unit["unit_ref"]}
+    )
 
 
 def _g3_versioned_unit(code: str, fingerprint: str, *, gap: bool) -> dict:

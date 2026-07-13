@@ -1,6 +1,6 @@
 # `appointment_delegation` 评分最小充分 Shadow 实施摘要
 
-> 状态：`scored_shadow_ready_difference_review_active`
+> 状态：`roster_scored_shadow_ready_persistent_orchestration_next`
 >
 > 日期：2026-07-13
 >
@@ -117,7 +117,9 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 4. 建立统一 `appointment_delegation` shadow runner；
 5. 输出李世民、刘邦、朱元璋可追溯的 scored demo 报告。
 
-差异评审入口会从同一冻结基线生成候选 scored shadow，报告局部 Judgment/ScoreContribution 失效、未变化单元精确复用和皇帝级汇总差异。当前韩信 `authority_clarity` 候选只改变 1 个评分单元，其余 3 个精确复用；该结果仅用于展示口径敏感度，仍要求人工决定因子与公式是否接受。
+差异评审已经形成首个人工口径结论：`authority_clarity` 只评价最终授权结果，韩信齐王授权记为 `positive`；请求、劝说和压力调整不降低该因子，也不另生成纳谏贡献。
+
+名单式离线入口现可从三皇帝、四臣子 manifest 依次验证 Source Cache 与 Claim Extractor 冻结快照、运行确定性 Episode Kernel，并生成 scored shadow。首次运行处理 87 条 Assertion、78 个 Episode candidate、4 个评分单元；提供 prior record 时，无变化输入直接精确复用同一运行记录。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 

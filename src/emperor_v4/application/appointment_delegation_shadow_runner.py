@@ -31,6 +31,9 @@ def run_appointment_delegation_shadow(
 def run_appointment_delegation_shadow_manifest(
     manifest: Mapping[str, Any],
     manifest_path: Path | str,
+    *,
+    prior_report: Mapping[str, Any] | None = None,
+    rebuild_unit_refs: set[str] | None = None,
 ) -> dict[str, Any]:
     path = Path(manifest_path)
     validate_scored_demo_manifest(manifest)
@@ -84,15 +87,57 @@ def run_appointment_delegation_shadow_manifest(
     passages = {row["passage_ref"]: row for row in manifest["source_passages"]}
     assertions = {row["assertion_ref"]: row for row in manifest["assertions"]}
     episodes = {row["episode_ref"]: row for row in manifest["historical_episodes"]}
-    judgments = [
-        evaluate_judgment(unit, episodes, assertions)
-        for unit in sorted(manifest["rule_evidence_units"], key=lambda row: row["unit_ref"])
-    ]
-    contributions = [
-        contribution
-        for judgment in judgments
-        if (contribution := score_judgment(judgment)) is not None
-    ]
+    sorted_units = sorted(
+        manifest["rule_evidence_units"], key=lambda row: row["unit_ref"]
+    )
+    rebuild_refs = (
+        {str(unit["unit_ref"]) for unit in sorted_units}
+        if rebuild_unit_refs is None
+        else set(rebuild_unit_refs)
+    )
+    unit_refs = {str(unit["unit_ref"]) for unit in sorted_units}
+    if not rebuild_refs <= unit_refs:
+        raise ValueError("scored shadow rebuild_unit_refs 包含未知评分单元")
+    prior_judgments = {
+        str(row["rule_evidence_unit_ref"]): row
+        for row in (prior_report or {}).get("judgments") or ()
+    }
+    prior_contributions = {
+        str(row["rule_evidence_unit_ref"]): row
+        for row in (prior_report or {}).get("score_contributions") or ()
+    }
+    reused_refs = unit_refs - rebuild_refs
+    if reused_refs and (
+        prior_report is None
+        or prior_report.get("status") != "appointment_delegation_scored_shadow_ready"
+        or prior_report.get("versions")
+        != {
+            "factor_schema_version": FACTOR_SCHEMA_VERSION,
+            "judgment_policy_version": JUDGMENT_POLICY_VERSION,
+            "score_contribution_schema_version": SCORE_CONTRIBUTION_SCHEMA_VERSION,
+            "scoring_formula_version": SCORING_FORMULA_VERSION,
+        }
+        or not reused_refs <= set(prior_judgments)
+    ):
+        raise ValueError("scored shadow 缓存缺失、版本不一致或不可精确复用")
+
+    judgments = []
+    contributions = []
+    for unit in sorted_units:
+        unit_ref = str(unit["unit_ref"])
+        judgment = (
+            evaluate_judgment(unit, episodes, assertions)
+            if unit_ref in rebuild_refs
+            else dict(prior_judgments[unit_ref])
+        )
+        judgments.append(judgment)
+        contribution = (
+            score_judgment(judgment)
+            if unit_ref in rebuild_refs
+            else prior_contributions.get(unit_ref)
+        )
+        if contribution is not None:
+            contributions.append(dict(contribution))
 
     rulers = sorted({judgment["ruler"] for judgment in judgments})
     aggregates = []
@@ -189,7 +234,7 @@ def run_appointment_delegation_shadow_manifest(
             "database_write_count": 0,
             "formal_score_write_count": 0,
             "source_cache_hit_count": len(used_passages),
-            "judgment_cache_hit_count": 0,
+            "judgment_cache_hit_count": len(reused_refs),
         },
         "judgments": judgments,
         "score_contributions": contributions,

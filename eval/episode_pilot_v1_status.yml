@@ -15,7 +15,8 @@ current:
   deterministic_judgment_evaluator: passed_shadow_demo_only
   score_contribution: passed_shadow_demo_only
   integrated_scored_runner: passed_shadow_demo_only
-  shadow_difference_review: ready_for_human_review
+  shadow_difference_review: first_factor_decision_recorded
+  offline_roster_scored_runner: passed_cache_ensure_shadow
   formal_scoring: blocked
 
 shadow_evidence:
@@ -58,14 +59,14 @@ historical_qualification:
   interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
 
 next_delivery:
-  code: appointment_delegation_shadow_difference_review
-  gate: human_factor_and_formula_difference_review
+  code: appointment_delegation_persistent_incremental_orchestration
+  gate: opt_in_service_and_resume_contract
   required:
-    - compare_candidate_factor_changes_against_frozen_baseline
-    - prove_exact_reuse_for_unchanged_units
-    - report_judgment_contribution_and_ruler_deltas
-    - require_human_factor_and_formula_decision
-  stop_condition: do_not_enable_formal_scoring_or_ranking_without_explicit_acceptance
+    - persist_per_person_stage_and_service_response_hash
+    - resume_from_failed_stage
+    - execute_downstream_only_for_changed_people
+    - keep_service_calls_opt_in
+  stop_condition: do_not_enable_live_service_calls_without_explicit_runtime_authorization
 
 safety:
   v3_production_write_performed: false

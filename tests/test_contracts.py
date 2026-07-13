@@ -68,6 +68,9 @@ from emperor_v4.evaluation.source_gap_input_gate import (
     build_source_gap_input_gate_worklist,
     materialize_source_gap_input_gate,
 )
+from emperor_v4.application.appointment_delegation_roster_runner import (
+    run_appointment_delegation_roster_shadow,
+)
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
@@ -75,6 +78,12 @@ SCORED_DEMO = (
     Path(__file__).parents[1]
     / "eval"
     / "appointment_delegation_scored_demo"
+    / "manifest.yml"
+)
+ROSTER_MANIFEST = (
+    Path(__file__).parents[1]
+    / "eval"
+    / "appointment_delegation_roster_demo"
     / "manifest.yml"
 )
 
@@ -142,6 +151,19 @@ def test_scored_shadow_contract_rejects_open_factor_value_domain():
 
     with pytest.raises(ValueError, match="observation value"):
         validate_scored_demo_manifest(manifest)
+
+
+def test_roster_contract_keeps_supplement_and_refresh_opt_in(tmp_path: Path):
+    manifest = yaml.safe_load(ROSTER_MANIFEST.read_text(encoding="utf-8"))
+    manifest["cache_mode"] = "supplement"
+    path = tmp_path / "roster.yml"
+    path.write_text(
+        yaml.safe_dump(manifest, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="只执行 cache_mode=ensure"):
+        run_appointment_delegation_roster_shadow(path)
 
 
 def _g3_relation_side(code: str, version: int) -> dict:

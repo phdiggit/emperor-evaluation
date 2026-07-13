@@ -14,6 +14,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - G3B Core Shadow Runner：已通过局部 semantic/evidence 失效与零写入重跑
 - `appointment_delegation` scored shadow：有限 factor schema、确定性 Judgment、4 个 shadow ScoreContribution 与统一 runner 已完成
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
+- 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -34,16 +35,17 @@ SourcePassage / Assertion
 ```bash
 python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
+python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
 ```
 
 ## 下一份可见成果
 
-scored shadow demo 已完成。当前下一交付物是对有限因子与公式开展人工 shadow 差异评审：
+scored shadow demo、首轮因子差异裁定和离线名单入口已完成。当前下一交付物是把离线 `ensure` 扩展为可恢复的持久化增量编排：
 
-1. 对候选因子变更逐项显示 Judgment、ScoreContribution 和皇帝级 shadow 汇总差异；
-2. 证明未变化评分单元精确复用且没有意外级联失效；
-3. 由人工决定因子口径和公式是否接受，工具不得自动放行正式 Gate；
-4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产写入。
+1. 在明确授权后接通 `supplement / refresh` 服务调用，默认仍为 `ensure`；
+2. 持久化每人物 stage、service response hash 和失败恢复点；
+3. 只把变化人物的 Assertion/Episode/评分单元送入下游，其余精确复用；
+4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
 
 在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
 
@@ -111,4 +113,5 @@ scored shadow demo 已完成。当前下一交付物是对有限因子与公式�
 - ScoreContribution：`passed_shadow_demo_only`
 - Integrated scored shadow runner：`passed_shadow_demo_only`
 - Shadow difference review runner：`ready_for_human_review`
+- Offline roster scored runner：`passed_cache_ensure_shadow`
 - 正式评分和生产切换：`blocked`

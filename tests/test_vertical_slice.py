@@ -63,6 +63,9 @@ from emperor_v4.application.appointment_delegation_shadow_runner import (
 from emperor_v4.application.appointment_delegation_shadow_diff import (
     run_appointment_delegation_shadow_diff,
 )
+from emperor_v4.application.appointment_delegation_roster_runner import (
+    run_appointment_delegation_roster_shadow,
+)
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.rule_evidence_shadow import (
@@ -100,6 +103,9 @@ SCORED_DEMO = (
     / "manifest.yml"
 )
 SHADOW_DIFF_REQUEST = SCORED_DEMO.parent / "shadow_diff_request.yml"
+ROSTER_DEMO = SCORED_DEMO.parents[1] / "appointment_delegation_roster_demo"
+ROSTER_MANIFEST = ROSTER_DEMO / "manifest.yml"
+ROSTER_REPORT = ROSTER_DEMO / "report.json"
 
 
 def _fixture(name: str) -> dict:
@@ -170,7 +176,7 @@ def test_appointment_delegation_shadow_diff_is_local_and_review_only(
         "REU-LB-HANXIN-QI-AUTHORITY-v1"
     )
     assert report["changed_units"][0]["factor_value_changes"] == {
-        "authority_clarity": {"before": "mixed", "after": "positive"}
+        "authority_clarity": {"before": "positive", "after": "mixed"}
     }
     assert report["review_gate"] == {
         "comparison_integrity_passed": True,
@@ -190,6 +196,53 @@ def test_appointment_delegation_shadow_diff_is_local_and_review_only(
             "appointment-delegation-shadow-diff",
             "--request",
             str(SHADOW_DIFF_REQUEST),
+            "--output",
+            str(output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(output.read_text(encoding="utf-8")) == report
+
+
+def test_appointment_delegation_roster_shadow_runs_service_adapters_to_score(
+    tmp_path: Path, monkeypatch
+):
+    report = run_appointment_delegation_roster_shadow(ROSTER_MANIFEST)
+
+    assert report["status"] == "appointment_delegation_roster_shadow_complete"
+    assert report["cache_mode"] == "ensure"
+    assert report["stages"]["source_cache_adapter"]["status"] == "cache_hit"
+    assert report["stages"]["claim_extractor_adapter"]["assertion_count"] == 87
+    assert report["stages"]["episode_kernel"]["candidate_packet_count"] == 78
+    assert report["stages"]["scored_shadow"] == {
+        "status": "appointment_delegation_scored_shadow_ready",
+        "rebuilt_count": 4,
+        "reused_count": 0,
+    }
+    assert report["scored_report"]["summary"]["ruler_count"] == 3
+    assert report["scored_report"]["summary"]["score_contribution_count"] == 4
+    hanxin = next(
+        row for row in report["scored_report"]["judgments"] if row["person"] == "韩信"
+    )
+    assert hanxin["factor_values"]["authority_clarity"] == "positive"
+    assert hanxin["direction"] == "positive"
+    assert report["side_effect_audit"] == {
+        "offline": True,
+        "service_call_count": 0,
+        "model_call_count": 0,
+        "database_write_count": 0,
+        "formal_acceptance_performed": False,
+    }
+
+    output = tmp_path / "roster-report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "appointment-delegation-roster-shadow",
+            "--manifest",
+            str(ROSTER_MANIFEST),
             "--output",
             str(output),
         ],

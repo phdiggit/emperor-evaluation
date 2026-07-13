@@ -4,7 +4,7 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: appointment_delegation_scored_shadow_diff_review
+  phase: appointment_delegation_roster_shadow_ready
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
@@ -38,7 +38,8 @@ milestones:
   deterministic_judgment_evaluator: passed_shadow_demo_only
   score_contribution: passed_shadow_demo_only
   integrated_scored_shadow_runner: passed_shadow_demo_only
-  shadow_difference_review: ready_for_human_review
+  shadow_difference_review: first_factor_decision_recorded
+  offline_roster_scored_runner: passed_cache_ensure_shadow
   formal_scoring: blocked
 
 current_shadow_result:
@@ -54,12 +55,12 @@ current_shadow_result:
   formal_business_writes: 0
 
 next_delivery:
-  code: appointment_delegation_shadow_difference_review
+  code: appointment_delegation_persistent_incremental_orchestration
   required_outcomes:
-    - compare_candidate_factor_changes_against_frozen_baseline
-    - exact_reuse_for_unchanged_judgments_and_contributions
-    - report_ruler_aggregate_deltas
-    - require_human_factor_and_formula_review
+    - opt_in_supplement_and_refresh_service_calls
+    - persistent_per_person_stage_and_response_hash
+    - failed_stage_resume
+    - changed_person_only_downstream_execution
   forbidden_substitutes:
     - new_micro_stage_letters
     - stage_only_markdown

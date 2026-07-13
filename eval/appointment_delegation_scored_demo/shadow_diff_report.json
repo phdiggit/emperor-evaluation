@@ -1,23 +1,23 @@
 {
-  "baseline_manifest_sha256": "96f435a1fadae4c50ea9a880bcc5fb09a9ebd907701c7c95ccffd00348cc423b",
-  "candidate_manifest_sha256": "beab637f7640b94e9e26ee8a5b0f3f413cccffb125ed3a4c5733d3b7ad01001c",
+  "baseline_manifest_sha256": "cca9b0ee2bb4fdca296916ebf113eaf7ae15beb8697b4218c3dc33b7a9cb2f9a",
+  "candidate_manifest_sha256": "4416e1c28fb2288fc0bab5a6b9399b87247fade3fbdcfc1fde497b7e03028b8b",
   "changed_units": [
     {
-      "after_judgment_ref": "JDG-7DAC9593F18B47DC1B09",
-      "before_judgment_ref": "JDG-2A9C537DADC38AA9931B",
+      "after_judgment_ref": "JDG-2A9C537DADC38AA9931B",
+      "before_judgment_ref": "JDG-7DAC9593F18B47DC1B09",
       "direction": {
-        "after": "positive",
-        "before": "mixed"
+        "after": "mixed",
+        "before": "positive"
       },
       "factor_value_changes": {
         "authority_clarity": {
-          "after": "positive",
-          "before": "mixed"
+          "after": "mixed",
+          "before": "positive"
         }
       },
       "normalized_contribution": {
-        "after": 1.0,
-        "before": 0.75
+        "after": 0.75,
+        "before": 1.0
       },
       "person": "韩信",
       "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
@@ -30,8 +30,8 @@
     "REU-ZYZ-LANYU-AUTHORITY-v1"
   ],
   "policy_version": "appointment-delegation-shadow-diff-v1",
-  "report_sha256": "026506dcb3e27b77b67e46d7e2b0edf3e82e6cfa6a8c21396e8a06bd565098d2",
-  "request_code": "appointment_delegation_hanxin_authority_clarity_review_v1",
+  "report_sha256": "d6d4d90842631f43726a9395d0a3e078f13087a99f6e79b065e56042dec1cc94",
+  "request_code": "appointment_delegation_hanxin_authority_clarity_mixed_sensitivity_v2",
   "result_scope": "shadow_demo_only",
   "review_gate": {
     "comparison_integrity_passed": true,
@@ -42,10 +42,10 @@
   },
   "ruler_aggregate_deltas": [
     {
-      "delta": 0.25,
+      "delta": -0.25,
       "ruler": "刘邦",
-      "shadow_contribution_sum_after": 2.0,
-      "shadow_contribution_sum_before": 1.75
+      "shadow_contribution_sum_after": 1.75,
+      "shadow_contribution_sum_before": 2.0
     },
     {
       "delta": 0.0,

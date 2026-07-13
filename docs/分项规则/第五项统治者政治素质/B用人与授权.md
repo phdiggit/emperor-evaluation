@@ -192,6 +192,8 @@ positive | mixed | negative | unknown | not_applicable
 - shadow contribution 为适用因子点数均值，范围 `[-1, 1]`，只比较评分单元信号，不是第五项 B 的 45 分正式得分；
 - 任一 `mixed`，或正负因子同时存在，Judgment direction 为 `mixed`；否则按全正或全负确定方向。
 
+`authority_clarity` 只评价最终授权载体、责任域和权责方向是否明确，不因请求、劝说或压力下调整自动降档。决策调整过程可作为同一任用链的 `feedback_handling` 证据，但不得仅因出现进言者而另生成“纳谏”贡献。韩信齐王授权据此记为 `authority_clarity=positive`。
+
 该 evaluator 只消费冻结的 RuleEvidenceUnit、有限因子证据和版本；不调用模型。战役、治理等实际收益只作为用人反馈，不在本规则重复结算。
 
 仍未批准：材料权重、衰减、各 rule 权重、正负上限、45 分档位映射、总榜和生产 scorer。
@@ -217,4 +219,5 @@ Relation v2 使用实际 Episode semantic version 作为端点版本身份，并
 ```bash
 python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
+python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
 ```

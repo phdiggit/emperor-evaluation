@@ -1,0 +1,835 @@
+{
+  "cache_mode": "ensure",
+  "delta": {
+    "changed_person_refs": [
+      "刘邦/陈平",
+      "刘邦/韩信",
+      "朱元璋/蓝玉",
+      "李世民/魏徵"
+    ],
+    "rebuilt_rule_evidence_unit_refs": [
+      "REU-LB-CHENPING-AUTHORIZATION-v1",
+      "REU-LB-HANXIN-QI-AUTHORITY-v1",
+      "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+      "REU-ZYZ-LANYU-AUTHORITY-v1"
+    ],
+    "reused_rule_evidence_unit_refs": []
+  },
+  "file_hashes": {
+    "eval/appointment_delegation_scored_demo/manifest.yml": "f419ac478c529f1299e2c35b8983e40f07bfd417e0e928af5d8e33146811d33a",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair-response.json": "eab894372f8fd70aa93c9d5a8cd7c0e16a13f2144b60c00987c4f0dca83abaaa",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair2-response.json": "b63834acfa4c684e8269e0602479f007f96a66975d332aad58f754d7a0365152",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json": "5b2a7631be7809808033a83632d07c3a38b46a360b18dcf9158ea4307e551052",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-response.json": "35e8bad73f2b4fa672ee987a45b023d2eb49bf2299332f0120d70c1235717170",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-supplement-response.json": "6a5fbf0034fd47926e5a168e0995f145cb2a16771994ba00243aa73e561cfc36",
+    "tests/fixtures/episode_pilot_v1/source-cache-response.json": "22f9febe4792fbc05c1b2566b088bcb9064aae87035ad843aaed76830d9b733a"
+  },
+  "input_fingerprint": "bc17333cb0c0a7d71597fc0daac2cb723ea5ad80e97e546eeaa0f97e7940c34f",
+  "policy_version": "appointment-delegation-roster-offline-v1",
+  "resume": {
+    "exact_record_reuse_supported": true,
+    "failed_stage_resume_supported": false,
+    "prior_record_supplied": false,
+    "resumed_after_input_change": false
+  },
+  "roster_entry_hashes": {
+    "刘邦/陈平": "f96047f27a0abb9d2e3ea8d0bd9cee762945e9e70b3c849cd2a54017b473c077",
+    "刘邦/韩信": "ecdb3dde93e3b2c3dd8aeef461d4ad58fc6bec4167f3113e806322a7090bd88a",
+    "朱元璋/蓝玉": "4d04f3b0eb51a5eef6fdfe7080408dc4c8395b1cbec0abcbe99a8508e4407789",
+    "李世民/魏徵": "4bc648d7a473572d3dbb9d92782209d86a4f605b3b58e0b0235ad694f7fa4b41"
+  },
+  "run_code": "appointment_delegation_roster_demo_v1",
+  "run_record_sha256": "14ca22fe50d5e86bc0a2e4ebddea6017a2b2cc2917e2e987d8a3d0b4b9a9ea1d",
+  "schema_version": 1,
+  "scored_report": {
+    "frozen_input_audit": [
+      {
+        "path": "eval/episode_pilot_v1.yml",
+        "role": "source_manifest",
+        "sha256": "7a060de487c5506a6577ecb68d9d8ffc7d0e2fb4959f919a307ed12a272eacda",
+        "verified": true
+      },
+      {
+        "path": "eval/episode_pilot_v1_review.yml",
+        "role": "source_review",
+        "sha256": "691c7f1521b162e6b3ffa997aa08137ea9ea260ad11e7d1f151aafb5e0819ded",
+        "verified": true
+      },
+      {
+        "path": "eval/episode_pilot_v1_oracle_assisted_acceptance.json",
+        "role": "episode_snapshot",
+        "sha256": "a1c88148bc1d1bd502a112638fef827a8f006b95e651da8c51629af50ae87220",
+        "verified": true
+      }
+    ],
+    "input_manifest_ref": "appointment_delegation_scored_demo_v1",
+    "input_manifest_sha256": "cca9b0ee2bb4fdca296916ebf113eaf7ae15beb8697b4218c3dc33b7a9cb2f9a",
+    "judgments": [
+      {
+        "applicability": "applicable",
+        "blockers": [],
+        "confidence": 0.9225,
+        "direction": "positive",
+        "episode_refs": [
+          "EP-LB-CHENPING-INTEGRATION@v1",
+          "EP-LB-CHENPING-CONTINUED-AUTHORIZATION@v1"
+        ],
+        "factor_reasons": {
+          "attributable_outcome": "持续护军和反间结果可回溯到刘邦的任命与授权。",
+          "authority_clarity": "护军职责和反间专款均有明确授权载体。",
+          "feedback_handling": "刘邦复核负面指控后未机械弃用，并按履职反馈延续授权。",
+          "person_task_fit": "陈平被置于护军和谋略职责后持续履职。"
+        },
+        "factor_schema_version": "appointment-delegation-factors-v1",
+        "factor_values": {
+          "attributable_outcome": "positive",
+          "authority_clarity": "positive",
+          "feedback_handling": "positive",
+          "person_task_fit": "positive"
+        },
+        "input_semantic_fingerprint": "f0cf54a8e56e80541f2027975aa0f4f5af73aad011292ae8e223751e56b05404",
+        "judgment_id": "JDG-F0CF54A8E56E80541F20",
+        "judgment_policy_version": "appointment-delegation-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "陈平",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "appointment_delegation",
+        "rule_evidence_unit_ref": "REU-LB-CHENPING-AUTHORIZATION-v1",
+        "rule_version": "appointment-delegation-v1-shadow",
+        "ruler": "刘邦",
+        "supporting_assertion_refs": [
+          "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+          "CLMEXT-9AA66020C316DC71@CLM-CP-002",
+          "CLMEXT-9AA66020C316DC71@CLM-CP-003",
+          "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+        ],
+        "supporting_source_passage_refs": [
+          "PAS-230CB5A24DBD",
+          "PAS-5ACCDE1FA44F"
+        ]
+      },
+      {
+        "applicability": "applicable",
+        "blockers": [],
+        "confidence": 0.945,
+        "direction": "positive",
+        "episode_refs": [
+          "EP-LB-HANXIN-QI-KING@v1"
+        ],
+        "factor_reasons": {
+          "attributable_outcome": "授权后韩信承担守齐和后续对楚责任，归责链可定位。",
+          "authority_clarity": "正式遣使立韩信为齐王，最终授权载体与齐地责任域明确；请求和压力下调整不降低本因子。",
+          "feedback_handling": "刘邦修正最初反应并完成正式授权；该过程只作为本任用链反馈，不另生成纳谏贡献。",
+          "person_task_fit": "韩信已完成齐地军事任务，岗位与任务能力有直接支持。"
+        },
+        "factor_schema_version": "appointment-delegation-factors-v1",
+        "factor_values": {
+          "attributable_outcome": "positive",
+          "authority_clarity": "positive",
+          "feedback_handling": "positive",
+          "person_task_fit": "positive"
+        },
+        "input_semantic_fingerprint": "7dac9593f18b47dc1b099499781eafb2a25e953a79f754ea7317463695729913",
+        "judgment_id": "JDG-7DAC9593F18B47DC1B09",
+        "judgment_policy_version": "appointment-delegation-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "韩信",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "appointment_delegation",
+        "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
+        "rule_version": "appointment-delegation-v1-shadow",
+        "ruler": "刘邦",
+        "supporting_assertion_refs": [
+          "CLMEXT-9AA66020C316DC71@CLM-HX-001",
+          "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT"
+        ],
+        "supporting_source_passage_refs": [
+          "PAS-8F456F1A5D59"
+        ]
+      },
+      {
+        "applicability": "applicable",
+        "blockers": [],
+        "confidence": 0.935,
+        "direction": "positive",
+        "episode_refs": [
+          "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+        ],
+        "factor_reasons": {
+          "attributable_outcome": "任用链产生持续的专业反馈，且皇帝采纳责任明确。",
+          "authority_clarity": "谏议职位和安辑、谏诤职责可定位。",
+          "feedback_handling": "李世民持续纳受进言而非只完成一次任命。",
+          "person_task_fit": "魏徵进入谏议职责后持续提供可采纳意见。"
+        },
+        "factor_schema_version": "appointment-delegation-factors-v1",
+        "factor_values": {
+          "attributable_outcome": "positive",
+          "authority_clarity": "positive",
+          "feedback_handling": "positive",
+          "person_task_fit": "positive"
+        },
+        "input_semantic_fingerprint": "2e9031b4fbc93436be7f91c2e86e590832a87f671e9e1d349dc771275fd901cf",
+        "judgment_id": "JDG-2E9031B4FBC93436BE7F",
+        "judgment_policy_version": "appointment-delegation-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "魏徵",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "appointment_delegation",
+        "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+        "rule_version": "appointment-delegation-v1-shadow",
+        "ruler": "李世民",
+        "supporting_assertion_refs": [
+          "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
+          "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001"
+        ],
+        "supporting_source_passage_refs": [
+          "PAS-1CD613D0DD2B"
+        ]
+      },
+      {
+        "applicability": "applicable",
+        "blockers": [],
+        "confidence": 0.892,
+        "direction": "mixed",
+        "episode_refs": [
+          "EP-ZYZ-LANYU-PROMOTION@v1",
+          "EP-ZYZ-LANYU-PURGE@v1"
+        ],
+        "factor_reasons": {
+          "attributable_outcome": "前期任务成功与后期权责失控、扩大处置并存，且案件责任需保持分离。",
+          "authority_clarity": "总兵和大将军职责明确，但后续出现擅专，权责控制效果混合。",
+          "feedback_handling": "从任用反馈到纠正之间已经出现持续擅专与监督迟滞。",
+          "person_task_fit": "蓝玉受任后完成捕鱼儿海任务并获进封反馈。"
+        },
+        "factor_schema_version": "appointment-delegation-factors-v1",
+        "factor_values": {
+          "attributable_outcome": "mixed",
+          "authority_clarity": "mixed",
+          "feedback_handling": "negative",
+          "person_task_fit": "positive"
+        },
+        "input_semantic_fingerprint": "8e25a14b14bcc47c284face1a9a855334e2d47cedbcf18cd4703dd7cdcf11a4b",
+        "judgment_id": "JDG-8E25A14B14BCC47C284F",
+        "judgment_policy_version": "appointment-delegation-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "蓝玉",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "appointment_delegation",
+        "rule_evidence_unit_ref": "REU-ZYZ-LANYU-AUTHORITY-v1",
+        "rule_version": "appointment-delegation-v1-shadow",
+        "ruler": "朱元璋",
+        "supporting_assertion_refs": [
+          "CLMEXT-6AF765223CB98D3F@CLM-LANYU-001",
+          "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B",
+          "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0",
+          "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001",
+          "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002"
+        ],
+        "supporting_source_passage_refs": [
+          "PAS-5DBD85CE95B9",
+          "PAS-C251F2DC4A3B",
+          "PAS-DC486E922EB0"
+        ]
+      }
+    ],
+    "lineage": {
+      "assertions": [
+        {
+          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
+          "confidence": 0.95,
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "summary": "李世民擢拜魏徵为谏议大夫。"
+        },
+        {
+          "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001",
+          "confidence": 0.92,
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "summary": "李世民持续纳受魏徵进言并授以职责。"
+        },
+        {
+          "assertion_ref": "CLMEXT-6AF765223CB98D3F@CLM-LANYU-001",
+          "confidence": 0.9,
+          "source_passage_ref": "PAS-C251F2DC4A3B",
+          "summary": "蓝玉在后续任职中出现骄蹇自恣和擅专行为。"
+        },
+        {
+          "assertion_ref": "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B",
+          "confidence": 0.86,
+          "source_passage_ref": "PAS-C251F2DC4A3B",
+          "summary": "蓝玉案导致本人及相关人员被大规模处置。"
+        },
+        {
+          "assertion_ref": "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0",
+          "confidence": 0.82,
+          "source_passage_ref": "PAS-DC486E922EB0",
+          "summary": "谋反认定与案件扩大存在需要分离的责任和后果链。"
+        },
+        {
+          "assertion_ref": "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001",
+          "confidence": 0.93,
+          "source_passage_ref": "PAS-5DBD85CE95B9",
+          "summary": "冯胜获罪后，朱元璋命蓝玉代理总兵并拜为大将军。"
+        },
+        {
+          "assertion_ref": "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002",
+          "confidence": 0.95,
+          "source_passage_ref": "PAS-5DBD85CE95B9",
+          "summary": "蓝玉捕鱼儿海奏捷后进封凉国公。"
+        },
+        {
+          "assertion_ref": "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+          "confidence": 0.92,
+          "source_passage_ref": "PAS-5ACCDE1FA44F",
+          "summary": "陈平归汉后遭诸将诋毁，刘邦复核后仍予任用。"
+        },
+        {
+          "assertion_ref": "CLMEXT-9AA66020C316DC71@CLM-CP-002",
+          "confidence": 0.9,
+          "source_passage_ref": "PAS-230CB5A24DBD",
+          "summary": "陈平继续承担护军职责并随军执行任务。"
+        },
+        {
+          "assertion_ref": "CLMEXT-9AA66020C316DC71@CLM-CP-003",
+          "confidence": 0.92,
+          "source_passage_ref": "PAS-230CB5A24DBD",
+          "summary": "刘邦给予陈平专款实施反间并依据结果延续授权。"
+        },
+        {
+          "assertion_ref": "CLMEXT-9AA66020C316DC71@CLM-HX-001",
+          "confidence": 0.94,
+          "source_passage_ref": "PAS-8F456F1A5D59",
+          "summary": "韩信破齐后请求代理齐王，刘邦起初反对。"
+        },
+        {
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT",
+          "confidence": 0.95,
+          "source_passage_ref": "PAS-5ACCDE1FA44F",
+          "summary": "刘邦厚赐陈平并拜为护军中尉，使其尽护诸将。"
+        },
+        {
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT",
+          "confidence": 0.95,
+          "source_passage_ref": "PAS-8F456F1A5D59",
+          "summary": "刘邦采纳张良意见，正式遣使立韩信为齐王。"
+        }
+      ],
+      "historical_episodes": [
+        {
+          "action": "持续授权与任务复用",
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-002",
+            "CLMEXT-9AA66020C316DC71@CLM-CP-003"
+          ],
+          "episode_code": "EP-LB-CHENPING-CONTINUED-AUTHORIZATION",
+          "episode_ref": "EP-LB-CHENPING-CONTINUED-AUTHORIZATION@v1",
+          "outcome": "持续随军、实施反间并多次延续授权",
+          "person": "陈平",
+          "responsibility": "护军与反间谋略",
+          "ruler": "刘邦",
+          "semantic_fingerprint": "ebd36a8f6d5ed79bbd1b3df8615c2bd31b8752913746beddb08a7c21dc82161d"
+        },
+        {
+          "action": "复核诋毁后任命",
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+          ],
+          "episode_code": "EP-LB-CHENPING-INTEGRATION",
+          "episode_ref": "EP-LB-CHENPING-INTEGRATION@v1",
+          "outcome": "继续任用陈平并使其典护军",
+          "person": "陈平",
+          "responsibility": "护军中尉",
+          "ruler": "刘邦",
+          "semantic_fingerprint": "079f442ca8fcd1bee248aa98d03d495a1c581c12f704b9e015c451fde4e36beb"
+        },
+        {
+          "action": "压力下调整授权并正式立为齐王",
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-HX-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT"
+          ],
+          "episode_code": "EP-LB-HANXIN-QI-KING",
+          "episode_ref": "EP-LB-HANXIN-QI-KING@v1",
+          "outcome": "韩信守齐并参与后续对楚作战",
+          "person": "韩信",
+          "responsibility": "齐地王号与军事责任域",
+          "ruler": "刘邦",
+          "semantic_fingerprint": "5fa24bc2167a00a803758df5ec31fa4b2e040b169a8de2bfa91911c2899e470c"
+        },
+        {
+          "action": "擢拜、授权与持续纳谏",
+          "assertion_refs": [
+            "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
+            "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001"
+          ],
+          "episode_code": "EP-LSM-WEIZHENG-APPOINTMENT",
+          "episode_ref": "EP-LSM-WEIZHENG-APPOINTMENT@v1",
+          "outcome": "持续采用其专业意见并形成可见反馈",
+          "person": "魏徵",
+          "responsibility": "谏议大夫、河北安辑与谏诤",
+          "ruler": "李世民",
+          "semantic_fingerprint": "25f7fdf274ed2124a0734dd49bca438327b294b66b490c682df420dcb07e8c63"
+        },
+        {
+          "action": "代理总兵、拜大将军与进封",
+          "assertion_refs": [
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001",
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002"
+          ],
+          "episode_code": "EP-ZYZ-LANYU-PROMOTION",
+          "episode_ref": "EP-ZYZ-LANYU-PROMOTION@v1",
+          "outcome": "捕鱼儿海奏捷并进封凉国公",
+          "person": "蓝玉",
+          "responsibility": "总兵官、大将军",
+          "ruler": "朱元璋",
+          "semantic_fingerprint": "ca4816d74ae9ea5d291f7fbdb05a4944ba765b21dbf51db40b6dffeaaa960bf6"
+        },
+        {
+          "action": "对后续擅专和案件的纠正与扩大处置",
+          "assertion_refs": [
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-001",
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B",
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0"
+          ],
+          "episode_code": "EP-ZYZ-LANYU-PURGE",
+          "episode_ref": "EP-ZYZ-LANYU-PURGE@v1",
+          "outcome": "蓝玉及相关人员被大规模处置",
+          "person": "蓝玉",
+          "responsibility": "军事权责监督与案件处置",
+          "ruler": "朱元璋",
+          "semantic_fingerprint": "a7324e34ccb23028e2fcd740e5d1a3e11eb91230253de0a6d4c86e36cceda896"
+        }
+      ],
+      "source_passages": [
+        {
+          "locator": "卷七十一，魏徵传，太宗拔擢与纳受段",
+          "passage_ref": "PAS-1CD613D0DD2B",
+          "source_title": "旧唐书",
+          "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771"
+        },
+        {
+          "locator": "卷五十六，陈丞相世家，持续护军、随征与反间授权段",
+          "passage_ref": "PAS-230CB5A24DBD",
+          "source_title": "史记",
+          "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056"
+        },
+        {
+          "locator": "卷五十六，陈丞相世家，陈平归汉、被谗、拜护军中尉段",
+          "passage_ref": "PAS-5ACCDE1FA44F",
+          "source_title": "史记",
+          "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056"
+        },
+        {
+          "locator": "卷一百三十二，蓝玉代理总兵、拜大将军、捕鱼儿海奏捷进凉国公段",
+          "passage_ref": "PAS-5DBD85CE95B9",
+          "source_title": "明史",
+          "url": "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132"
+        },
+        {
+          "locator": "卷八，高祖本纪，韩信破齐后请假王、张良劝立齐王段",
+          "passage_ref": "PAS-8F456F1A5D59",
+          "source_title": "史记",
+          "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7008"
+        },
+        {
+          "locator": "卷一百三十二，蓝玉骄蹇自恣与蓝党族诛段",
+          "passage_ref": "PAS-C251F2DC4A3B",
+          "source_title": "明史",
+          "url": "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132"
+        },
+        {
+          "locator": "卷一百三十二，蓝玉谋反案扩大处置段",
+          "passage_ref": "PAS-DC486E922EB0",
+          "source_title": "明史",
+          "url": "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132"
+        }
+      ]
+    },
+    "report_sha256": "8bee747cf2ab95a732c471a9a2795a97420ec3fa9827305dcbc068b545f7a9b0",
+    "result_scope": "shadow_demo_only",
+    "ruler_aggregates": [
+      {
+        "blocked_unit_count": 0,
+        "direction_counts": {
+          "positive": 2
+        },
+        "not_a_formal_45_point_score": true,
+        "ruler": "刘邦",
+        "scored_unit_count": 2,
+        "shadow_contribution_mean": 1.0,
+        "shadow_contribution_sum": 2.0,
+        "unit_count": 2
+      },
+      {
+        "blocked_unit_count": 0,
+        "direction_counts": {
+          "mixed": 1
+        },
+        "not_a_formal_45_point_score": true,
+        "ruler": "朱元璋",
+        "scored_unit_count": 1,
+        "shadow_contribution_mean": 0.0,
+        "shadow_contribution_sum": 0.0,
+        "unit_count": 1
+      },
+      {
+        "blocked_unit_count": 0,
+        "direction_counts": {
+          "positive": 1
+        },
+        "not_a_formal_45_point_score": true,
+        "ruler": "李世民",
+        "scored_unit_count": 1,
+        "shadow_contribution_mean": 1.0,
+        "shadow_contribution_sum": 1.0,
+        "unit_count": 1
+      }
+    ],
+    "schema_version": 1,
+    "score_contributions": [
+      {
+        "applicable_factor_count": 4,
+        "contribution_status": "shadow",
+        "duplicate_settlement_check": "passed",
+        "excluded_from_other_rules_reason": "本 demo 只结算 appointment_delegation 用人素质，不结算战果本身。",
+        "factor_points": {
+          "attributable_outcome": 1,
+          "authority_clarity": 1,
+          "feedback_handling": 1,
+          "person_task_fit": 1
+        },
+        "judgment_ref": "JDG-F0CF54A8E56E80541F20",
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+            "CLMEXT-9AA66020C316DC71@CLM-CP-002",
+            "CLMEXT-9AA66020C316DC71@CLM-CP-003",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+          ],
+          "episode_refs": [
+            "EP-LB-CHENPING-INTEGRATION@v1",
+            "EP-LB-CHENPING-CONTINUED-AUTHORIZATION@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-230CB5A24DBD",
+            "PAS-5ACCDE1FA44F"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "陈平",
+        "primary_settlement_rule": "appointment_delegation",
+        "raw_factor_sum": 4,
+        "rule_evidence_unit_ref": "REU-LB-CHENPING-AUTHORIZATION-v1",
+        "ruler": "刘邦",
+        "score_contribution_id": "SC-42DBA1EE6437AA225300",
+        "score_contribution_schema_version": "score-contribution-v1",
+        "scoring_formula_version": "appointment-delegation-shadow-mean-v1",
+        "semantic_fingerprint": "42dba1ee6437aa2253007f3416daac11427cb7ee3549159db6c16a60f9919db4",
+        "supporting_only_rules": []
+      },
+      {
+        "applicable_factor_count": 4,
+        "contribution_status": "shadow",
+        "duplicate_settlement_check": "passed",
+        "excluded_from_other_rules_reason": "本 demo 只结算 appointment_delegation 用人素质，不结算战果本身。",
+        "factor_points": {
+          "attributable_outcome": 1,
+          "authority_clarity": 1,
+          "feedback_handling": 1,
+          "person_task_fit": 1
+        },
+        "judgment_ref": "JDG-7DAC9593F18B47DC1B09",
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-HX-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT"
+          ],
+          "episode_refs": [
+            "EP-LB-HANXIN-QI-KING@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-8F456F1A5D59"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "韩信",
+        "primary_settlement_rule": "appointment_delegation",
+        "raw_factor_sum": 4,
+        "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
+        "ruler": "刘邦",
+        "score_contribution_id": "SC-70A0A8BE4CC23845EA29",
+        "score_contribution_schema_version": "score-contribution-v1",
+        "scoring_formula_version": "appointment-delegation-shadow-mean-v1",
+        "semantic_fingerprint": "70a0a8be4cc23845ea29290c346ec6f385c39e0b00c148324170ef614f7ca960",
+        "supporting_only_rules": []
+      },
+      {
+        "applicable_factor_count": 4,
+        "contribution_status": "shadow",
+        "duplicate_settlement_check": "passed",
+        "excluded_from_other_rules_reason": "本 demo 只结算 appointment_delegation 用人素质，不结算战果本身。",
+        "factor_points": {
+          "attributable_outcome": 1,
+          "authority_clarity": 1,
+          "feedback_handling": 1,
+          "person_task_fit": 1
+        },
+        "judgment_ref": "JDG-2E9031B4FBC93436BE7F",
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
+            "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001"
+          ],
+          "episode_refs": [
+            "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-1CD613D0DD2B"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "魏徵",
+        "primary_settlement_rule": "appointment_delegation",
+        "raw_factor_sum": 4,
+        "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+        "ruler": "李世民",
+        "score_contribution_id": "SC-CCC457F3BA6477070423",
+        "score_contribution_schema_version": "score-contribution-v1",
+        "scoring_formula_version": "appointment-delegation-shadow-mean-v1",
+        "semantic_fingerprint": "ccc457f3ba64770704234794d055fe7e8c64660d1b9197ac4707baa0973fdf69",
+        "supporting_only_rules": []
+      },
+      {
+        "applicable_factor_count": 4,
+        "contribution_status": "shadow",
+        "duplicate_settlement_check": "passed",
+        "excluded_from_other_rules_reason": "本 demo 只结算 appointment_delegation 用人素质，不结算战果本身。",
+        "factor_points": {
+          "attributable_outcome": 0,
+          "authority_clarity": 0,
+          "feedback_handling": -1,
+          "person_task_fit": 1
+        },
+        "judgment_ref": "JDG-8E25A14B14BCC47C284F",
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-001",
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B",
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0",
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001",
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002"
+          ],
+          "episode_refs": [
+            "EP-ZYZ-LANYU-PROMOTION@v1",
+            "EP-ZYZ-LANYU-PURGE@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-5DBD85CE95B9",
+            "PAS-C251F2DC4A3B",
+            "PAS-DC486E922EB0"
+          ]
+        },
+        "normalized_contribution": 0.0,
+        "person": "蓝玉",
+        "primary_settlement_rule": "appointment_delegation",
+        "raw_factor_sum": 0,
+        "rule_evidence_unit_ref": "REU-ZYZ-LANYU-AUTHORITY-v1",
+        "ruler": "朱元璋",
+        "score_contribution_id": "SC-D324BCA3EC2A0749CE60",
+        "score_contribution_schema_version": "score-contribution-v1",
+        "scoring_formula_version": "appointment-delegation-shadow-mean-v1",
+        "semantic_fingerprint": "d324bca3ec2a0749ce603cd2f718e560e3079523b9df6081510b7056032f9b89",
+        "supporting_only_rules": []
+      }
+    ],
+    "scored_units": [
+      {
+        "blockers": [],
+        "confidence": 0.9225,
+        "direction": "positive",
+        "factor_values": {
+          "attributable_outcome": "positive",
+          "authority_clarity": "positive",
+          "feedback_handling": "positive",
+          "person_task_fit": "positive"
+        },
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+            "CLMEXT-9AA66020C316DC71@CLM-CP-002",
+            "CLMEXT-9AA66020C316DC71@CLM-CP-003",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+          ],
+          "episode_refs": [
+            "EP-LB-CHENPING-INTEGRATION@v1",
+            "EP-LB-CHENPING-CONTINUED-AUTHORIZATION@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-230CB5A24DBD",
+            "PAS-5ACCDE1FA44F"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "陈平",
+        "rule_evidence_unit_ref": "REU-LB-CHENPING-AUTHORIZATION-v1",
+        "ruler": "刘邦"
+      },
+      {
+        "blockers": [],
+        "confidence": 0.945,
+        "direction": "positive",
+        "factor_values": {
+          "attributable_outcome": "positive",
+          "authority_clarity": "positive",
+          "feedback_handling": "positive",
+          "person_task_fit": "positive"
+        },
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-HX-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT"
+          ],
+          "episode_refs": [
+            "EP-LB-HANXIN-QI-KING@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-8F456F1A5D59"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "韩信",
+        "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
+        "ruler": "刘邦"
+      },
+      {
+        "blockers": [],
+        "confidence": 0.935,
+        "direction": "positive",
+        "factor_values": {
+          "attributable_outcome": "positive",
+          "authority_clarity": "positive",
+          "feedback_handling": "positive",
+          "person_task_fit": "positive"
+        },
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
+            "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001"
+          ],
+          "episode_refs": [
+            "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-1CD613D0DD2B"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "魏徵",
+        "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+        "ruler": "李世民"
+      },
+      {
+        "blockers": [],
+        "confidence": 0.892,
+        "direction": "mixed",
+        "factor_values": {
+          "attributable_outcome": "mixed",
+          "authority_clarity": "mixed",
+          "feedback_handling": "negative",
+          "person_task_fit": "positive"
+        },
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-001",
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B",
+            "CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0",
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001",
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002"
+          ],
+          "episode_refs": [
+            "EP-ZYZ-LANYU-PROMOTION@v1",
+            "EP-ZYZ-LANYU-PURGE@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-5DBD85CE95B9",
+            "PAS-C251F2DC4A3B",
+            "PAS-DC486E922EB0"
+          ]
+        },
+        "normalized_contribution": 0.0,
+        "person": "蓝玉",
+        "rule_evidence_unit_ref": "REU-ZYZ-LANYU-AUTHORITY-v1",
+        "ruler": "朱元璋"
+      }
+    ],
+    "side_effect_audit": {
+      "database_write_count": 0,
+      "formal_acceptance_performed": false,
+      "model_call_count": 0,
+      "offline": true,
+      "report_only": true
+    },
+    "status": "appointment_delegation_scored_shadow_ready",
+    "summary": {
+      "blocked_unit_count": 0,
+      "database_write_count": 0,
+      "duplicate_consumption_episode_refs": [],
+      "formal_score_write_count": 0,
+      "judgment_cache_hit_count": 0,
+      "judgment_count": 4,
+      "model_call_count": 0,
+      "rule_evidence_unit_count": 4,
+      "ruler_count": 3,
+      "score_contribution_count": 4,
+      "source_cache_hit_count": 7
+    },
+    "task_code": "V4-AD-SCORED-DEMO",
+    "versions": {
+      "factor_schema_version": "appointment-delegation-factors-v1",
+      "judgment_policy_version": "appointment-delegation-deterministic-judgment-v1",
+      "score_contribution_schema_version": "score-contribution-v1",
+      "scoring_formula_version": "appointment-delegation-shadow-mean-v1"
+    }
+  },
+  "side_effect_audit": {
+    "database_write_count": 0,
+    "formal_acceptance_performed": false,
+    "model_call_count": 0,
+    "offline": true,
+    "service_call_count": 0
+  },
+  "stages": {
+    "claim_extractor_adapter": {
+      "assertion_count": 87,
+      "snapshot_count": 5,
+      "status": "cache_hit"
+    },
+    "episode_kernel": {
+      "candidate_packet_count": 78,
+      "status": "completed_offline"
+    },
+    "scored_shadow": {
+      "rebuilt_count": 4,
+      "reused_count": 0,
+      "status": "appointment_delegation_scored_shadow_ready"
+    },
+    "source_cache_adapter": {
+      "direct_roster_coverage_count": 1,
+      "document_count": 11,
+      "passage_count": 28,
+      "snapshot_count": 1,
+      "status": "cache_hit",
+      "supplemented_person_refs": [
+        "刘邦/陈平",
+        "刘邦/韩信",
+        "朱元璋/蓝玉"
+      ],
+      "supplemented_via_claim_snapshot_count": 3
+    }
+  },
+  "status": "appointment_delegation_roster_shadow_complete"
+}

@@ -20,7 +20,7 @@
     }
   ],
   "input_manifest_ref": "appointment_delegation_scored_demo_v1",
-  "input_manifest_sha256": "96f435a1fadae4c50ea9a880bcc5fb09a9ebd907701c7c95ccffd00348cc423b",
+  "input_manifest_sha256": "cca9b0ee2bb4fdca296916ebf113eaf7ae15beb8697b4218c3dc33b7a9cb2f9a",
   "judgments": [
     {
       "applicability": "applicable",
@@ -70,25 +70,25 @@
       "applicability": "applicable",
       "blockers": [],
       "confidence": 0.945,
-      "direction": "mixed",
+      "direction": "positive",
       "episode_refs": [
         "EP-LB-HANXIN-QI-KING@v1"
       ],
       "factor_reasons": {
         "attributable_outcome": "授权后韩信承担守齐和后续对楚责任，归责链可定位。",
-        "authority_clarity": "最终齐王授权明确，但形成于请求和压力后的调整。",
-        "feedback_handling": "刘邦在张良劝说后修正最初反应并完成正式授权。",
+        "authority_clarity": "正式遣使立韩信为齐王，最终授权载体与齐地责任域明确；请求和压力下调整不降低本因子。",
+        "feedback_handling": "刘邦修正最初反应并完成正式授权；该过程只作为本任用链反馈，不另生成纳谏贡献。",
         "person_task_fit": "韩信已完成齐地军事任务，岗位与任务能力有直接支持。"
       },
       "factor_schema_version": "appointment-delegation-factors-v1",
       "factor_values": {
         "attributable_outcome": "positive",
-        "authority_clarity": "mixed",
+        "authority_clarity": "positive",
         "feedback_handling": "positive",
         "person_task_fit": "positive"
       },
-      "input_semantic_fingerprint": "2a9c537dadc38aa9931baa828076b33871ad8235aa6a8ba199e433ec0382d6c2",
-      "judgment_id": "JDG-2A9C537DADC38AA9931B",
+      "input_semantic_fingerprint": "7dac9593f18b47dc1b099499781eafb2a25e953a79f754ea7317463695729913",
+      "judgment_id": "JDG-7DAC9593F18B47DC1B09",
       "judgment_policy_version": "appointment-delegation-deterministic-judgment-v1",
       "model_call_count": 0,
       "person": "韩信",
@@ -406,20 +406,19 @@
       }
     ]
   },
-  "report_sha256": "82583cf76f84434bdd7abd7ef3fdef2258dd519bbe5a677d99bb8be81335002a",
+  "report_sha256": "8bee747cf2ab95a732c471a9a2795a97420ec3fa9827305dcbc068b545f7a9b0",
   "result_scope": "shadow_demo_only",
   "ruler_aggregates": [
     {
       "blocked_unit_count": 0,
       "direction_counts": {
-        "mixed": 1,
-        "positive": 1
+        "positive": 2
       },
       "not_a_formal_45_point_score": true,
       "ruler": "刘邦",
       "scored_unit_count": 2,
-      "shadow_contribution_mean": 0.875,
-      "shadow_contribution_sum": 1.75,
+      "shadow_contribution_mean": 1.0,
+      "shadow_contribution_sum": 2.0,
       "unit_count": 2
     },
     {
@@ -496,11 +495,11 @@
       "excluded_from_other_rules_reason": "本 demo 只结算 appointment_delegation 用人素质，不结算战果本身。",
       "factor_points": {
         "attributable_outcome": 1,
-        "authority_clarity": 0,
+        "authority_clarity": 1,
         "feedback_handling": 1,
         "person_task_fit": 1
       },
-      "judgment_ref": "JDG-2A9C537DADC38AA9931B",
+      "judgment_ref": "JDG-7DAC9593F18B47DC1B09",
       "lineage": {
         "assertion_refs": [
           "CLMEXT-9AA66020C316DC71@CLM-HX-001",
@@ -513,16 +512,16 @@
           "PAS-8F456F1A5D59"
         ]
       },
-      "normalized_contribution": 0.75,
+      "normalized_contribution": 1.0,
       "person": "韩信",
       "primary_settlement_rule": "appointment_delegation",
-      "raw_factor_sum": 3,
+      "raw_factor_sum": 4,
       "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
       "ruler": "刘邦",
-      "score_contribution_id": "SC-32B5705070906D960FB6",
+      "score_contribution_id": "SC-70A0A8BE4CC23845EA29",
       "score_contribution_schema_version": "score-contribution-v1",
       "scoring_formula_version": "appointment-delegation-shadow-mean-v1",
-      "semantic_fingerprint": "32b5705070906d960fb63335c9f8a1fbdcc9b9dfadb3793b7e623d8370bc2f9e",
+      "semantic_fingerprint": "70a0a8be4cc23845ea29290c346ec6f385c39e0b00c148324170ef614f7ca960",
       "supporting_only_rules": []
     },
     {
@@ -639,10 +638,10 @@
     {
       "blockers": [],
       "confidence": 0.945,
-      "direction": "mixed",
+      "direction": "positive",
       "factor_values": {
         "attributable_outcome": "positive",
-        "authority_clarity": "mixed",
+        "authority_clarity": "positive",
         "feedback_handling": "positive",
         "person_task_fit": "positive"
       },
@@ -658,7 +657,7 @@
           "PAS-8F456F1A5D59"
         ]
       },
-      "normalized_contribution": 0.75,
+      "normalized_contribution": 1.0,
       "person": "韩信",
       "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
       "ruler": "刘邦"
