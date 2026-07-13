@@ -801,6 +801,15 @@ def validate_atomic_episode_groups(
         return
     for group in review.episode_groups:
         assertions = tuple(assertions_by_ref[ref] for ref in group.core_assertion_refs)
+        if review.output_schema_version == "episode-boundary-review-v2.7":
+            if any(
+                item.passage_support is not None
+                and item.passage_support.support_mode == "context_only"
+                for item in assertions
+            ):
+                raise ValueError(
+                    "v2.7 context_only Assertion 不得进入 Episode core"
+                )
         if len(assertions) < 2:
             continue
         signatures = {_atomic_structure_signature(item) for item in assertions}

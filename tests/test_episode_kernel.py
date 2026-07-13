@@ -143,6 +143,42 @@ def test_v27_proposition_cluster_uses_equivalent_support_key_within_claim():
     assert clusters[0].assertion_refs == ("A-1", "A-2")
 
 
+def test_v27_rejects_context_only_assertion_as_episode_core():
+    support = PassageSupport(
+        support_mode="context_only",
+        assertion_semantic_key="context-result",
+        supported_fields=("outcome", "context"),
+    )
+    assertion = _with_claim(
+        _assertion("A-1", passage="P-1", passage_support=support), "CLAIM-1"
+    )
+    clusters = cluster_propositions([assertion])
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup(
+                "E1", ("A-1",), "wrongly promoted context", 0.9, "CONTEXT-1"
+            ),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "wrong"),
+        ),
+        review_provenance={},
+    )
+
+    with pytest.raises(ValueError, match="context_only Assertion"):
+        materialize_boundary_review(
+            [assertion], review, review_unit=unit, proposition_clusters=clusters
+        )
+
+
 def test_structured_time_equivalence_ignores_display_expression_difference():
     first = _with_claim(
         _assertion(
