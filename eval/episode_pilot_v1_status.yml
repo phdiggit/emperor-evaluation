@@ -13,7 +13,7 @@ milestones:
   G2_6E_final_graph_holdout: failed_closed
   G2_6F_atomic_boundary_relation: contract_hardening_complete_new_holdout_pending
   G2_6G_graph_holdout: materialization_contract_blocked_failed_closed
-  G2_6H_atomic_identity_holdout: pending_new_input
+  G2_6H_atomic_identity_holdout: materialization_contract_blocked_failed_closed
   G2_6H_contract_basis: boundary_review_v2_5
   G3_PostgreSQL: blocked_by_g2_6E
 
@@ -53,6 +53,9 @@ qualification:
     - g2_6g_no_post_gold_boundary_patch
     - g2_6h_v2_4_atomic_key_required_for_every_group
     - g2_6h_v2_5_structured_time_equivalence
+    - g2_6h_all_groups_have_atomic_event_key
+    - g2_6h_independent_three_layer_gold_freeze
+    - g2_6h_no_post_gold_boundary_patch
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -65,6 +68,7 @@ qualification:
     - g2_6e_rule_unit_recall_0_1538
     - g2_6e_rule_unit_precision_0_2222
     - g2_6g_candidate_materialization_blocked_by_6_atomic_identity_collisions
+    - g2_6h_candidate_materialization_blocked_by_9_responsibility_domain_surface_conflicts
 
 metric_policy:
   oracle_assisted_packet_count_is_accuracy_metric: false
@@ -79,6 +83,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6H_atomic_identity_graph_blind_holdout
-  status: pending_input_freeze
-  required_outcome: 在另一批全新输入和独立双层 Gold 上验证 v2.4 全量原子身份、关系与规则证据单元
+  code: G2_6I_responsibility_domain_normalized_holdout
+  status: contract_fix_required
+  required_outcome: v2.6 将责任域展示措辞移出原子硬相等字段后，在全新输入上重新验证

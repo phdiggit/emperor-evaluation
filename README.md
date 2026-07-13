@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6G 已失败关闭；v2.5 原子身份与结构化时间契约已硬化，正在准备 G2.6H
+- 阶段：G2.6H 因责任域展示措辞误判在候选物化前失败关闭，v2.6 待落地
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E 已正式失败并冻结。G2.6G 随后使用杨坚、赵匡胤的全新输入，首次物化发现 6 对不同原子事件生成重复 Episode ID，候选图未创建。Gold 冻结后未回填 reviewer key。v2.4 要求每个 EpisodeBoundaryGroup 都有 `atomic_event_key`；G2.6H 输入预检又发现相同结构化年份的展示措辞会污染微聚类，v2.5 已改为按 start/end/precision/era 判断时间等价。下一步使用全新刘秀、嬴政输入执行 G2.6H；PostgreSQL G3 继续阻断。
+G2.6E 与 G2.6G 均已失败冻结。G2.6H 使用刘秀、嬴政的全新输入，成功验证每个 group 都有原子键，但首次物化又发现 v2.5 将 `温之战/温地战事`、`汝南太守/扬州牧、汝南太守` 等责任域展示差异误判为跨结构 merge。26 个 Boundary group、40 个 Gold episode 和 6 个 Rule Gold unit 均已冻结，但候选图未创建，不能报告指标。v2.6 将保留 action/time/family/focal 硬门，把责任域措辞交给原子键和 Gold scorer。PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ G2.6E 已正式失败并冻结。G2.6G 随后使用杨坚、赵匡胤的全新�
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`g2_6g_failed_closed_g2_6h_pending`
+- blind reconciliation：`g2_6h_failed_closed_g2_6i_pending`
 - G3 Episode Graph PostgreSQL：`blocked_by_g2_6e`
 
 进入 G3 前必须满足：

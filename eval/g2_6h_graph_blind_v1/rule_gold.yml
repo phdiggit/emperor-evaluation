@@ -1,0 +1,129 @@
+schema_version: 1
+status: frozen
+candidate_input_sha256: 94121f08101ed9211ab60e75ef0ec98ba31e024a41d6264cbc9852cf3a0027b2
+historical_gold_sha256: 76495483c2069006a438749a900e151531f8c2015d7518b3ab52398c6aec2fc8
+frozen_without_candidate_or_review_access: true
+gold_rule_evidence_units:
+  - gold_rule_unit_code: G26H-GRU-QIN-WJ-CHU-MANDATE
+    evaluation_context: PER-1DA3758B42045385
+    episode_refs:
+      - G26H-GE-QIN-WJ-CHU-ADVICE
+      - G26H-GE-QIN-WJ-CHU-ADVICE-REJECTED
+      - G26H-GE-QIN-WJ-CHU-ADVICE-ACCEPTED
+      - G26H-GE-QIN-WJ-CHU-AUTHORIZATION
+      - G26H-GE-QIN-WJ-CHU-PURSUIT
+      - G26H-GE-QIN-WJ-CHU-VICTORY
+    relation_refs:
+      - G26H-GR-QIN-CHU-REJECTION
+      - G26H-GR-QIN-CHU-REVERSAL
+      - G26H-GR-QIN-CHU-AUTHORIZATION
+      - G26H-GR-QIN-CHU-PURSUIT
+      - G26H-GR-QIN-CHU-VICTORY
+    episode_member_roles:
+      G26H-GE-QIN-WJ-CHU-ADVICE: mandate_advice
+      G26H-GE-QIN-WJ-CHU-ADVICE-REJECTED: initial_ruler_feedback
+      G26H-GE-QIN-WJ-CHU-ADVICE-ACCEPTED: corrected_ruler_feedback
+      G26H-GE-QIN-WJ-CHU-AUTHORIZATION: delegation_authorization
+      G26H-GE-QIN-WJ-CHU-PURSUIT: mandate_execution
+      G26H-GE-QIN-WJ-CHU-VICTORY: mandate_result
+    relation_member_roles:
+      G26H-GR-QIN-CHU-REJECTION: initial_feedback_link
+      G26H-GR-QIN-CHU-REVERSAL: correction_link
+      G26H-GR-QIN-CHU-AUTHORIZATION: authorization_link
+      G26H-GR-QIN-CHU-PURSUIT: execution_link
+      G26H-GR-QIN-CHU-VICTORY: result_link
+    aggregation_reason: A single Chu command decision in which specialist advice was rejected, reconsidered, authorized, executed, and followed by the immediate military result.
+
+  - gold_rule_unit_code: G26H-GRU-QIN-MT-NORTH-MANDATE
+    evaluation_context: PER-1DA3758B42045385
+    episode_refs:
+      - G26H-GE-QIN-MT-NORTH-AUTHORIZATION
+      - G26H-GE-QIN-MT-NORTH-CAMPAIGN
+      - G26H-GE-QIN-MT-GREAT-WALL
+      - G26H-GE-QIN-MT-XIONGNU-DETERRENCE
+    relation_refs:
+      - G26H-GR-QIN-MT-NORTH-EXECUTION
+      - G26H-GR-QIN-MT-WALL
+      - G26H-GR-QIN-MT-DETERRENCE
+    episode_member_roles:
+      G26H-GE-QIN-MT-NORTH-AUTHORIZATION: delegation_authorization
+      G26H-GE-QIN-MT-NORTH-CAMPAIGN: mandate_execution
+      G26H-GE-QIN-MT-GREAT-WALL: mandate_continuation
+      G26H-GE-QIN-MT-XIONGNU-DETERRENCE: mandate_result
+    relation_member_roles:
+      G26H-GR-QIN-MT-NORTH-EXECUTION: execution_link
+      G26H-GR-QIN-MT-WALL: continuation_link
+      G26H-GR-QIN-MT-DETERRENCE: result_link
+    aggregation_reason: A single northern delegation links the troop authorization to its campaign execution, defensive continuation, and directly recorded deterrence result.
+
+  - gold_rule_unit_code: G26H-GRU-QIN-MT-STRAIGHT-ROAD-MANDATE
+    evaluation_context: PER-1DA3758B42045385
+    episode_refs:
+      - G26H-GE-QIN-MT-STRAIGHT-ROAD-AUTHORIZATION
+      - G26H-GE-QIN-MT-STRAIGHT-ROAD-UNFINISHED
+    relation_refs:
+      - G26H-GR-QIN-MT-ROAD-RESULT
+    episode_member_roles:
+      G26H-GE-QIN-MT-STRAIGHT-ROAD-AUTHORIZATION: delegation_authorization
+      G26H-GE-QIN-MT-STRAIGHT-ROAD-UNFINISHED: mandate_result
+    relation_member_roles:
+      G26H-GR-QIN-MT-ROAD-RESULT: result_link
+    aggregation_reason: A single road-building authorization and its explicitly linked unfinished result form the smallest accountable delegation unit.
+
+  - gold_rule_unit_code: G26H-GRU-HAN-OY-HENAN-REVOCATION
+    evaluation_context: PER-F4F370585058FAC8
+    episode_refs:
+      - G26H-GE-HAN-OY-HENAN-YIN
+      - G26H-GE-HAN-OY-DISMISSAL
+    relation_refs:
+      - G26H-GR-HAN-OY-DISMISSAL
+    episode_member_roles:
+      G26H-GE-HAN-OY-HENAN-YIN: appointment
+      G26H-GE-HAN-OY-DISMISSAL: appointment_revocation
+    relation_member_roles:
+      G26H-GR-HAN-OY-DISMISSAL: revocation_link
+    aggregation_reason: The Henan appointment and its explicit later revocation are one bounded appointment-feedback unit; the separate honor and later offices are excluded.
+
+  - gold_rule_unit_code: G26H-GRU-HAN-OY-DASITU-REVOCATION
+    evaluation_context: PER-F4F370585058FAC8
+    episode_refs:
+      - G26H-GE-HAN-OY-DASITU
+      - G26H-GE-HAN-OY-IMPRISONMENT
+    relation_refs:
+      - G26H-GR-HAN-OY-IMPRISONMENT
+    episode_member_roles:
+      G26H-GE-HAN-OY-DASITU: appointment
+      G26H-GE-HAN-OY-IMPRISONMENT: authority_revocation
+    relation_member_roles:
+      G26H-GR-HAN-OY-IMPRISONMENT: revocation_link
+    aggregation_reason: The Dasitu appointment and its direct revocation by imprisonment form a bounded appointment-revocation chain without consuming prior promotions or the later personal outcome.
+
+  - gold_rule_unit_code: G26H-GRU-HAN-FY-RED-EYEBROWS-MANDATE
+    evaluation_context: PER-F4F370585058FAC8
+    episode_refs:
+      - G26H-GE-HAN-FY-RED-EYEBROWS-AUTHORIZATION
+      - G26H-GE-HAN-FY-ZHENGXI
+      - G26H-GE-HAN-FY-HUIXI-BATTLE
+      - G26H-GE-HAN-FY-HUIXI-DEFEAT
+      - G26H-GE-HAN-FY-XIAODI-BATTLE
+      - G26H-GE-HAN-FY-XIAODI-VICTORY
+    relation_refs:
+      - G26H-GR-HAN-FY-ZHENGXI
+      - G26H-GR-HAN-FY-HUIXI
+      - G26H-GR-HAN-FY-HUIXI-DEFEAT
+      - G26H-GR-HAN-FY-XIAODI
+      - G26H-GR-HAN-FY-XIAODI-VICTORY
+    episode_member_roles:
+      G26H-GE-HAN-FY-RED-EYEBROWS-AUTHORIZATION: delegation_authorization
+      G26H-GE-HAN-FY-ZHENGXI: mandate_appointment
+      G26H-GE-HAN-FY-HUIXI-BATTLE: initial_execution
+      G26H-GE-HAN-FY-HUIXI-DEFEAT: negative_feedback
+      G26H-GE-HAN-FY-XIAODI-BATTLE: corrective_execution
+      G26H-GE-HAN-FY-XIAODI-VICTORY: corrected_result
+    relation_member_roles:
+      G26H-GR-HAN-FY-ZHENGXI: mandate_formalization_link
+      G26H-GR-HAN-FY-HUIXI: execution_link
+      G26H-GR-HAN-FY-HUIXI-DEFEAT: negative_result_link
+      G26H-GR-HAN-FY-XIAODI: corrective_followup_link
+      G26H-GR-HAN-FY-XIAODI-VICTORY: corrected_result_link
+    aggregation_reason: One Red Eyebrows mandate links replacement authorization and its formalized command to the initial defeat and immediate corrective victory; unrelated earlier and later campaigns are excluded.

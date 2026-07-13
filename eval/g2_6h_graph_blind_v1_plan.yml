@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: g2_6h_graph_blind_v1
-status: input_frozen_independent_reviews_pending
+status: materialization_contract_blocked_failed_closed
 input_frozen_at: 2026-07-13
 contract_basis_commit: 16efe1f22dab195e7275063f815f688d83c6376b
 
@@ -60,3 +60,16 @@ release_thresholds:
 g3:
   authorized: false
   blocked_by: g2_6h_graph_blind_v1
+
+result:
+  boundary_review_episode_group_count: 26
+  boundary_review_relation_count: 15
+  historical_gold_episode_count: 40
+  historical_gold_relation_count: 30
+  rule_gold_unit_count: 6
+  candidate_graph_created: false
+  score_created: false
+  materialization_blocker: responsibility_domain_surface_form_false_conflict
+  affected_group_count: 9
+  release_gate_passed: false
+  current_holdout_reclassification_forbidden: true

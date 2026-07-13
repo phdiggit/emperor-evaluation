@@ -1,0 +1,1698 @@
+{
+  "schema_version": 2,
+  "status": "completed_before_gold_opened",
+  "blind_input_sha256": "94121f08101ed9211ab60e75ef0ec98ba31e024a41d6264cbc9852cf3a0027b2",
+  "reviewed_without_gold_access": true,
+  "external_reviewer_call_count": 6,
+  "review_results": [
+    {
+      "review_unit_ref": "RU-491A4A86F97672C53AA0",
+      "review_unit_cache_key": "491a4a86f97672c53aa08b614749b83619cd9711c4a710e744c0a2b3be466f7f",
+      "proposition_semantic_hashes": [
+        "6eef5928c73b69ad0b5d777030dc5f8b4328962436222224471ae19ef931b929",
+        "97a5aaebe671fc8f3d76661544a7730fcca642f856b50fa0b9fb064fed3e370b",
+        "a7c34b4c65b957de460ffc8cb9ad684867f605eae1577c53c12d2344ecab8882",
+        "bb0dfec4791257222cc753e524367535b7889a269f58b7540e9ce0a4a88049b5",
+        "1c461745d7dc007b8aacba90f82430ff01b6673d621d0bf06bc66357f39341f8",
+        "2c2d2d38e587590e79f0f845a8d45b74f8ab4aba40a8e451bbe1389e21739eb0",
+        "7158c7aa63cc9e7a8f81478fb3f97743eeacd18730d5e16f71368804402c0069",
+        "8a3594dd32152a23bb3d86894f83f5c382be19814e31b0978a391d8cdcc035d7",
+        "e7dfefd8981f77c257c39a82a868774e8701c85bcefaab893972c62777cb4c2f",
+        "4989cd748ab23432c2a4ae2667b122602516040644d019bc74fdebb4ab33811b",
+        "545373528d6699bc92930d152bf9a1a9a230c4f46f3f4a2f3d2fe110b27f0a91"
+      ],
+      "boundary_policy_version": "episode-boundary-policy-v2.5",
+      "output_schema_version": "episode-boundary-review-v2.5",
+      "model_family": "semantic-boundary-reviewer",
+      "episode_groups": [
+        {
+          "local_episode_code": "FY-WEN-BATTLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-2670D3C4346AD5E5FDB4-EVD-2F066E8B9F93B389E4AEEBEE",
+            "G26H-A-CLMK-2670D3C4346AD5E5FDB4-EVD-EF7B7C429A0610BE8ACB2469",
+            "G26H-A-CLMK-7054DFF1FF7EAFDE04A9-EVD-47FF8B52AF5EEB7DA0C694F0",
+            "G26H-A-CLMK-7054DFF1FF7EAFDE04A9-EVD-EC33FEBBA8DC852486AB9B35"
+          ],
+          "boundary_reason": "Same battle action, equivalent year, focal commander, opponent, outcome, and semantically identical Wen responsibility domain.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:feng-yi:battle-wen-su-mao:25"
+        },
+        {
+          "local_episode_code": "FY-RED-BROWS-AUTH",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-B3AA7D56EA5EC88C2025-EVD-536790760BD142865BD47E4E",
+            "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-050589913F4A254D2D4221F7",
+            "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-C330435E990F78504DD84C19"
+          ],
+          "boundary_reason": "Same delegation to replace Deng Yu in the Red Eyebrows campaign; wording fragments preserve separate lineage.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:feng-yi:authorize-red-brows:26"
+        },
+        {
+          "local_episode_code": "FY-ZHENGXI-APPOINT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-1D6E43B137812A9D8A1E-EVD-4DDB22FC8EB58F499E038D8E",
+            "G26H-A-CLMK-1D6E43B137812A9D8A1E-EVD-BA2A435E7973416FFEE1E4A5",
+            "G26H-A-CLMK-8D7DA930B82B725F9A71-EVD-6B72C71C7472F087A2E7DBEF"
+          ],
+          "boundary_reason": "Single appointment to General Who Conquers the West; appointment remains separate from campaign actions.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:feng-yi:appoint-zhengxi-general:27"
+        },
+        {
+          "local_episode_code": "FY-HUIXI-BATTLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-EB02974448CB557CF03C-EVD-377EAE1FE89F46F2C0B26909",
+            "G26H-A-CLMK-EB02974448CB557CF03C-EVD-81FBA51D7F7FCCBE5CA624B8",
+            "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-04BF30446A5E07AC60301438",
+            "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-31D0E4E24A56541CDE438F67"
+          ],
+          "boundary_reason": "Same Huixi battle and defeat with equivalent structured time and focal commander.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:feng-yi:battle-huixi-red-brows:27"
+        },
+        {
+          "local_episode_code": "FY-XIAODI-BATTLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-127FA986DA112C07681E-EVD-238A0C12F7448949000C1AA7",
+            "G26H-A-CLMK-127FA986DA112C07681E-EVD-815AD3825DB47B7AC4C12DF4",
+            "G26H-A-CLMK-E81E4D414FBCCBC536EE-EVD-30F4812FAF4748D3B61BD522",
+            "G26H-A-CLMK-E81E4D414FBCCBC536EE-EVD-A12A0EBB217C22189655BC0E"
+          ],
+          "boundary_reason": "Same Xiaodi battle and victory with equivalent structured time and focal commander.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:feng-yi:battle-xiaodi-red-brows:27"
+        },
+        {
+          "local_episode_code": "FY-CHENCANG-BATTLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-F5E187FE6FEF1EFEC6A3-EVD-A261115BEB98A80404D7B198",
+            "G26H-A-CLMK-F5E187FE6FEF1EFEC6A3-EVD-B5B8EC37E718641AD137425F",
+            "G26H-A-CLMK-6F6E8D61E4DF386CB850-EVD-098DEC2C9CCE5376FB3060BB",
+            "G26H-A-CLMK-6F6E8D61E4DF386CB850-EVD-4C1DBAFB3BF27382C2FE0F5E"
+          ],
+          "boundary_reason": "Same Chencang battle against Cheng Yan with equivalent structured time and outcome.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:feng-yi:battle-chencang-cheng-yan:28"
+        }
+      ],
+      "relations": [
+        {
+          "from_episode_ref": "FY-RED-BROWS-AUTH",
+          "to_episode_ref": "FY-ZHENGXI-APPOINT",
+          "relation_type": "renews_authority",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-B3AA7D56EA5EC88C2025-EVD-536790760BD142865BD47E4E",
+            "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-050589913F4A254D2D4221F7",
+            "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-C330435E990F78504DD84C19",
+            "G26H-A-CLMK-1D6E43B137812A9D8A1E-EVD-4DDB22FC8EB58F499E038D8E",
+            "G26H-A-CLMK-1D6E43B137812A9D8A1E-EVD-BA2A435E7973416FFEE1E4A5",
+            "G26H-A-CLMK-8D7DA930B82B725F9A71-EVD-6B72C71C7472F087A2E7DBEF"
+          ],
+          "confidence": 0.88
+        },
+        {
+          "from_episode_ref": "FY-RED-BROWS-AUTH",
+          "to_episode_ref": "FY-HUIXI-BATTLE",
+          "relation_type": "same_mandate_phase",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-B3AA7D56EA5EC88C2025-EVD-536790760BD142865BD47E4E",
+            "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-050589913F4A254D2D4221F7",
+            "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-C330435E990F78504DD84C19",
+            "G26H-A-CLMK-EB02974448CB557CF03C-EVD-377EAE1FE89F46F2C0B26909",
+            "G26H-A-CLMK-EB02974448CB557CF03C-EVD-81FBA51D7F7FCCBE5CA624B8",
+            "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-04BF30446A5E07AC60301438",
+            "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-31D0E4E24A56541CDE438F67"
+          ],
+          "confidence": 0.88
+        },
+        {
+          "from_episode_ref": "FY-HUIXI-BATTLE",
+          "to_episode_ref": "FY-XIAODI-BATTLE",
+          "relation_type": "causal_followup",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-EB02974448CB557CF03C-EVD-377EAE1FE89F46F2C0B26909",
+            "G26H-A-CLMK-EB02974448CB557CF03C-EVD-81FBA51D7F7FCCBE5CA624B8",
+            "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-04BF30446A5E07AC60301438",
+            "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-31D0E4E24A56541CDE438F67",
+            "G26H-A-CLMK-127FA986DA112C07681E-EVD-238A0C12F7448949000C1AA7",
+            "G26H-A-CLMK-127FA986DA112C07681E-EVD-815AD3825DB47B7AC4C12DF4",
+            "G26H-A-CLMK-E81E4D414FBCCBC536EE-EVD-30F4812FAF4748D3B61BD522",
+            "G26H-A-CLMK-E81E4D414FBCCBC536EE-EVD-A12A0EBB217C22189655BC0E"
+          ],
+          "confidence": 0.92
+        }
+      ],
+      "assertion_dispositions": [
+        {
+          "assertion_ref": "G26H-A-CLMK-2670D3C4346AD5E5FDB4-EVD-2F066E8B9F93B389E4AEEBEE",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-WEN-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-2670D3C4346AD5E5FDB4-EVD-EF7B7C429A0610BE8ACB2469",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-WEN-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-7054DFF1FF7EAFDE04A9-EVD-47FF8B52AF5EEB7DA0C694F0",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-WEN-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-7054DFF1FF7EAFDE04A9-EVD-EC33FEBBA8DC852486AB9B35",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-WEN-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-B3AA7D56EA5EC88C2025-EVD-536790760BD142865BD47E4E",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-RED-BROWS-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-050589913F4A254D2D4221F7",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-RED-BROWS-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-ED2C36890A6C05F319E6-EVD-C330435E990F78504DD84C19",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-RED-BROWS-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-1D6E43B137812A9D8A1E-EVD-4DDB22FC8EB58F499E038D8E",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-ZHENGXI-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-1D6E43B137812A9D8A1E-EVD-BA2A435E7973416FFEE1E4A5",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-ZHENGXI-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-8D7DA930B82B725F9A71-EVD-6B72C71C7472F087A2E7DBEF",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-ZHENGXI-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-EB02974448CB557CF03C-EVD-377EAE1FE89F46F2C0B26909",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-HUIXI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-EB02974448CB557CF03C-EVD-81FBA51D7F7FCCBE5CA624B8",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-HUIXI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-04BF30446A5E07AC60301438",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-HUIXI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-883BCCBE01B6CC5F8C40-EVD-31D0E4E24A56541CDE438F67",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-HUIXI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-127FA986DA112C07681E-EVD-238A0C12F7448949000C1AA7",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-XIAODI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-127FA986DA112C07681E-EVD-815AD3825DB47B7AC4C12DF4",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-XIAODI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-E81E4D414FBCCBC536EE-EVD-30F4812FAF4748D3B61BD522",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-XIAODI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-E81E4D414FBCCBC536EE-EVD-A12A0EBB217C22189655BC0E",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-XIAODI-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-F5E187FE6FEF1EFEC6A3-EVD-A261115BEB98A80404D7B198",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-CHENCANG-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-F5E187FE6FEF1EFEC6A3-EVD-B5B8EC37E718641AD137425F",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-CHENCANG-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-6F6E8D61E4DF386CB850-EVD-098DEC2C9CCE5376FB3060BB",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-CHENCANG-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-6F6E8D61E4DF386CB850-EVD-4C1DBAFB3BF27382C2FE0F5E",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "FY-CHENCANG-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        }
+      ],
+      "review_provenance": {
+        "reviewer_role": "independent_boundary_reviewer",
+        "review_mode": "blind_without_gold_access",
+        "external_call_index": "1",
+        "input_scope": "frozen_review_request_and_source_passages_only"
+      },
+      "pair_dispositions": [
+        {
+          "left_episode_ref": "FY-WEN-BATTLE",
+          "right_episode_ref": "FY-RED-BROWS-AUTH",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-WEN-BATTLE",
+          "right_episode_ref": "FY-ZHENGXI-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-WEN-BATTLE",
+          "right_episode_ref": "FY-HUIXI-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-WEN-BATTLE",
+          "right_episode_ref": "FY-XIAODI-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-WEN-BATTLE",
+          "right_episode_ref": "FY-CHENCANG-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-RED-BROWS-AUTH",
+          "right_episode_ref": "FY-ZHENGXI-APPOINT",
+          "decision": "related",
+          "relation_type": "renews_authority",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "FY-RED-BROWS-AUTH",
+          "right_episode_ref": "FY-HUIXI-BATTLE",
+          "decision": "related",
+          "relation_type": "same_mandate_phase",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "FY-RED-BROWS-AUTH",
+          "right_episode_ref": "FY-XIAODI-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-RED-BROWS-AUTH",
+          "right_episode_ref": "FY-CHENCANG-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-ZHENGXI-APPOINT",
+          "right_episode_ref": "FY-HUIXI-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-ZHENGXI-APPOINT",
+          "right_episode_ref": "FY-XIAODI-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-ZHENGXI-APPOINT",
+          "right_episode_ref": "FY-CHENCANG-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-HUIXI-BATTLE",
+          "right_episode_ref": "FY-XIAODI-BATTLE",
+          "decision": "related",
+          "relation_type": "causal_followup",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "FY-HUIXI-BATTLE",
+          "right_episode_ref": "FY-CHENCANG-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "FY-XIAODI-BATTLE",
+          "right_episode_ref": "FY-CHENCANG-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        }
+      ]
+    },
+    {
+      "review_unit_ref": "RU-4A00D4EC9089D8997ABC",
+      "review_unit_cache_key": "4a00d4ec9089d8997abc4766169f3b13d87424faedee77d57fa1faf5e089282d",
+      "proposition_semantic_hashes": [
+        "544c1fe02d0caab3b22e3613695d2bf9f2f2d346a6a3b4949a0b34afafad2025"
+      ],
+      "boundary_policy_version": "episode-boundary-policy-v2.5",
+      "output_schema_version": "episode-boundary-review-v2.5",
+      "model_family": "semantic-boundary-reviewer",
+      "episode_groups": [
+        {
+          "local_episode_code": "MT-ZHIDAO-AUTH",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-66A515026E3888CFBD27-EVD-3505F9AD0821D2DCAC931050",
+            "G26H-A-CLMK-66A515026E3888CFBD27-EVD-E356AA31169D2E1C575B53CC"
+          ],
+          "boundary_reason": "Single delegation to open the imperial road; the unfinished outcome is part of the same proposition evidence.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:meng-tian:authorize-zhidao:-212"
+        }
+      ],
+      "relations": [],
+      "assertion_dispositions": [
+        {
+          "assertion_ref": "G26H-A-CLMK-66A515026E3888CFBD27-EVD-3505F9AD0821D2DCAC931050",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-ZHIDAO-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-66A515026E3888CFBD27-EVD-E356AA31169D2E1C575B53CC",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-ZHIDAO-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        }
+      ],
+      "review_provenance": {
+        "reviewer_role": "independent_boundary_reviewer",
+        "review_mode": "blind_without_gold_access",
+        "external_call_index": "2",
+        "input_scope": "frozen_review_request_and_source_passages_only"
+      },
+      "pair_dispositions": []
+    },
+    {
+      "review_unit_ref": "RU-697CB7696A942857D209",
+      "review_unit_cache_key": "697cb7696a942857d209ff178affce06c24a1150f74e82511e1f33d6a6943c45",
+      "proposition_semantic_hashes": [
+        "1edd6b58eb1e97ff57107fe5a592f187bd7fea2c042b88921dbc974d1805bcc8",
+        "c2e30d3b90b5b64d6ca6b66dea0bf06b52cfddb4230fcc4d7da80547196c52c2",
+        "e2b8b295d233bee60f62339e7944573835fa937f798e523d579ce9d77949edc2",
+        "55c982d8cf9699fa7e5d9c3ac33e936c64b236bb21a32a1f72eba761d6295fe9",
+        "66a2761226579e1642743e27f73bdad604a41b70944b68fe91215528467bfed0",
+        "3718b2e480f20bb94afab29efa61d8ca396ce7ea711b5917f090baa35f36ff4a",
+        "a90ababc46559d2a816918a8862760801b6f85082f8fce1f1476403e25e55158"
+      ],
+      "boundary_policy_version": "episode-boundary-policy-v2.5",
+      "output_schema_version": "episode-boundary-review-v2.5",
+      "model_family": "semantic-boundary-reviewer",
+      "episode_groups": [
+        {
+          "local_episode_code": "WJ-ZHAO-YUYU-BATTLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-19E431E39D25D876B06C-EVD-048660DC64F55347034018F9",
+            "G26H-A-CLMK-19E431E39D25D876B06C-EVD-903F715CD49D56BD98F613F5"
+          ],
+          "boundary_reason": "Single campaign action against Zhao at Yuyu in year -236.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:battle-zhao-yuyu:-236"
+        },
+        {
+          "local_episode_code": "WJ-ZHAO-CONQUEST",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-EC02437373FE16D8F60B-EVD-27CAC471C4183A28CF446B22",
+            "G26H-A-CLMK-EC02437373FE16D8F60B-EVD-71F229231E604FC03B568206"
+          ],
+          "boundary_reason": "Single later Zhao conquest and settlement episode in year -229.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:conquer-zhao:-229"
+        },
+        {
+          "local_episode_code": "WJ-CHU-ADVICE-REJECTED",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-E7A3D5C7309915EB73D2-EVD-1C8206A116242FCB022FD915",
+            "G26H-A-CLMK-E7A3D5C7309915EB73D2-EVD-6FDCD740D54F0AEFB153CBA6"
+          ],
+          "boundary_reason": "Single rejected military advice episode; distinct from the later renewed command.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:reject-chu-force-advice:-225"
+        },
+        {
+          "local_episode_code": "WJ-CHU-SELF-PROTECTION",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-5331B411E3F851DCEF89-EVD-61462361D2852A43DC42D20D",
+            "G26H-A-CLMK-5331B411E3F851DCEF89-EVD-C1B00BE678926F35F96FB701"
+          ],
+          "boundary_reason": "Single self-protection action while holding the Chu command.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:self-protection-land-requests:-224"
+        },
+        {
+          "local_episode_code": "WJ-CHU-AUTH",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-B5452DF9A2EE1F5BFF852995",
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-EB7CBCEA3FDB7C0BC775D6CB"
+          ],
+          "boundary_reason": "Single renewed delegation of the Chu campaign with six hundred thousand troops.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:authorize-chu-campaign:-224"
+        },
+        {
+          "local_episode_code": "WJ-CHU-BATTLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-1808F41BF28BC5402344C9B0",
+            "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-EED0FA388CD6EA29FA35DC7A"
+          ],
+          "boundary_reason": "Single battle episode that defeated the Chu army and killed Xiang Yan.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:defeat-chu-army:-223"
+        },
+        {
+          "local_episode_code": "WJ-CHU-CONQUEST",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-385C8608B141C96679DE-EVD-0C983E702991F081533EBE43",
+            "G26H-A-CLMK-385C8608B141C96679DE-EVD-A159F417B9D81FC325B44388"
+          ],
+          "boundary_reason": "Single later conquest and commandery settlement episode; responsibility remains with the focal commander context.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:wang-jian:conquer-chu-set-commandery:-222"
+        }
+      ],
+      "relations": [
+        {
+          "from_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "to_episode_ref": "WJ-CHU-AUTH",
+          "relation_type": "causal_followup",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-E7A3D5C7309915EB73D2-EVD-1C8206A116242FCB022FD915",
+            "G26H-A-CLMK-E7A3D5C7309915EB73D2-EVD-6FDCD740D54F0AEFB153CBA6",
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-B5452DF9A2EE1F5BFF852995",
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-EB7CBCEA3FDB7C0BC775D6CB"
+          ],
+          "confidence": 0.93
+        },
+        {
+          "from_episode_ref": "WJ-CHU-AUTH",
+          "to_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "relation_type": "same_mandate_phase",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-B5452DF9A2EE1F5BFF852995",
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-EB7CBCEA3FDB7C0BC775D6CB",
+            "G26H-A-CLMK-5331B411E3F851DCEF89-EVD-61462361D2852A43DC42D20D",
+            "G26H-A-CLMK-5331B411E3F851DCEF89-EVD-C1B00BE678926F35F96FB701"
+          ],
+          "confidence": 0.91
+        },
+        {
+          "from_episode_ref": "WJ-CHU-BATTLE",
+          "to_episode_ref": "WJ-CHU-AUTH",
+          "relation_type": "outcome_of",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-B5452DF9A2EE1F5BFF852995",
+            "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-EB7CBCEA3FDB7C0BC775D6CB",
+            "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-1808F41BF28BC5402344C9B0",
+            "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-EED0FA388CD6EA29FA35DC7A"
+          ],
+          "confidence": 0.94
+        },
+        {
+          "from_episode_ref": "WJ-CHU-BATTLE",
+          "to_episode_ref": "WJ-CHU-CONQUEST",
+          "relation_type": "causal_followup",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-1808F41BF28BC5402344C9B0",
+            "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-EED0FA388CD6EA29FA35DC7A",
+            "G26H-A-CLMK-385C8608B141C96679DE-EVD-0C983E702991F081533EBE43",
+            "G26H-A-CLMK-385C8608B141C96679DE-EVD-A159F417B9D81FC325B44388"
+          ],
+          "confidence": 0.95
+        }
+      ],
+      "assertion_dispositions": [
+        {
+          "assertion_ref": "G26H-A-CLMK-19E431E39D25D876B06C-EVD-048660DC64F55347034018F9",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-ZHAO-YUYU-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-19E431E39D25D876B06C-EVD-903F715CD49D56BD98F613F5",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-ZHAO-YUYU-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-EC02437373FE16D8F60B-EVD-27CAC471C4183A28CF446B22",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-ZHAO-CONQUEST"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-EC02437373FE16D8F60B-EVD-71F229231E604FC03B568206",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-ZHAO-CONQUEST"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-E7A3D5C7309915EB73D2-EVD-1C8206A116242FCB022FD915",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-ADVICE-REJECTED"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-E7A3D5C7309915EB73D2-EVD-6FDCD740D54F0AEFB153CBA6",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-ADVICE-REJECTED"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-5331B411E3F851DCEF89-EVD-61462361D2852A43DC42D20D",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-SELF-PROTECTION"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-5331B411E3F851DCEF89-EVD-C1B00BE678926F35F96FB701",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-SELF-PROTECTION"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-B5452DF9A2EE1F5BFF852995",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-21D14ABBFCDAC577464A-EVD-EB7CBCEA3FDB7C0BC775D6CB",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-1808F41BF28BC5402344C9B0",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-37A30F42DCE7EEB2483A-EVD-EED0FA388CD6EA29FA35DC7A",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-BATTLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-385C8608B141C96679DE-EVD-0C983E702991F081533EBE43",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-CONQUEST"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-385C8608B141C96679DE-EVD-A159F417B9D81FC325B44388",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "WJ-CHU-CONQUEST"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        }
+      ],
+      "review_provenance": {
+        "reviewer_role": "independent_boundary_reviewer",
+        "review_mode": "blind_without_gold_access",
+        "external_call_index": "3",
+        "input_scope": "frozen_review_request_and_source_passages_only"
+      },
+      "pair_dispositions": [
+        {
+          "left_episode_ref": "WJ-ZHAO-YUYU-BATTLE",
+          "right_episode_ref": "WJ-ZHAO-CONQUEST",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-YUYU-BATTLE",
+          "right_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-YUYU-BATTLE",
+          "right_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-YUYU-BATTLE",
+          "right_episode_ref": "WJ-CHU-AUTH",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-YUYU-BATTLE",
+          "right_episode_ref": "WJ-CHU-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-YUYU-BATTLE",
+          "right_episode_ref": "WJ-CHU-CONQUEST",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-CONQUEST",
+          "right_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-CONQUEST",
+          "right_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-CONQUEST",
+          "right_episode_ref": "WJ-CHU-AUTH",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-CONQUEST",
+          "right_episode_ref": "WJ-CHU-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-ZHAO-CONQUEST",
+          "right_episode_ref": "WJ-CHU-CONQUEST",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "right_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "right_episode_ref": "WJ-CHU-AUTH",
+          "decision": "related",
+          "relation_type": "causal_followup",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "right_episode_ref": "WJ-CHU-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-ADVICE-REJECTED",
+          "right_episode_ref": "WJ-CHU-CONQUEST",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "right_episode_ref": "WJ-CHU-AUTH",
+          "decision": "related",
+          "relation_type": "same_mandate_phase",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "right_episode_ref": "WJ-CHU-BATTLE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-SELF-PROTECTION",
+          "right_episode_ref": "WJ-CHU-CONQUEST",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-AUTH",
+          "right_episode_ref": "WJ-CHU-BATTLE",
+          "decision": "related",
+          "relation_type": "outcome_of",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-AUTH",
+          "right_episode_ref": "WJ-CHU-CONQUEST",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "WJ-CHU-BATTLE",
+          "right_episode_ref": "WJ-CHU-CONQUEST",
+          "decision": "related",
+          "relation_type": "causal_followup",
+          "reason": "The input explicitly supports the declared typed relation."
+        }
+      ]
+    },
+    {
+      "review_unit_ref": "RU-6A0B86659404ABCD65E5",
+      "review_unit_cache_key": "6a0b86659404abcd65e583fe68840acc75df606c97726d4c0f4b88e5b43e8c4f",
+      "proposition_semantic_hashes": [
+        "a8168e2d0d0e6fba834093c1a23bf2ccd3e04cb327c8e361ee1964525f4eb936",
+        "7cdb641f200f3b8030a5dacb4d98749273619a95cbe415885175ad0e2272b795",
+        "f2d421cc03d978c11f25b42041dc3d11e1364a9e40315e9dedfaf360d0940c84"
+      ],
+      "boundary_policy_version": "episode-boundary-policy-v2.5",
+      "output_schema_version": "episode-boundary-review-v2.5",
+      "model_family": "semantic-boundary-reviewer",
+      "episode_groups": [
+        {
+          "local_episode_code": "MT-NEISHI-APPOINT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-5050F8525FFC6729FD9A-EVD-A38FD1AD881E0860139367C2",
+            "G26H-A-CLMK-5050F8525FFC6729FD9A-EVD-E767DE91DEF4BFE97AC79A12"
+          ],
+          "boundary_reason": "Single appointment as Neishi after the Qi campaign.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:meng-tian:appoint-neishi:-221"
+        },
+        {
+          "local_episode_code": "MT-NORTH-AUTH",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-821EEB8B48683B96A643-EVD-695A6141F625BF3B6FCD1F66",
+            "G26H-A-CLMK-821EEB8B48683B96A643-EVD-9650796C5762D6D3C6CED55D"
+          ],
+          "boundary_reason": "Single northern military delegation with thirty thousand troops.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:meng-tian:authorize-northern-command:-215"
+        },
+        {
+          "local_episode_code": "MT-NORTH-DEFENSE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-25791DEA5105C937A312-EVD-81201278712504F480D5878E",
+            "G26H-A-CLMK-25791DEA5105C937A312-EVD-AF2A77CE5A9FF0575C59A3E9"
+          ],
+          "boundary_reason": "Single later border-defense and wall-building action episode; kept separate from authorization.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:meng-tian:northern-defense-wall:-214"
+        }
+      ],
+      "relations": [
+        {
+          "from_episode_ref": "MT-NORTH-DEFENSE",
+          "to_episode_ref": "MT-NORTH-AUTH",
+          "relation_type": "outcome_of",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-821EEB8B48683B96A643-EVD-695A6141F625BF3B6FCD1F66",
+            "G26H-A-CLMK-821EEB8B48683B96A643-EVD-9650796C5762D6D3C6CED55D",
+            "G26H-A-CLMK-25791DEA5105C937A312-EVD-81201278712504F480D5878E",
+            "G26H-A-CLMK-25791DEA5105C937A312-EVD-AF2A77CE5A9FF0575C59A3E9"
+          ],
+          "confidence": 0.93
+        }
+      ],
+      "assertion_dispositions": [
+        {
+          "assertion_ref": "G26H-A-CLMK-5050F8525FFC6729FD9A-EVD-A38FD1AD881E0860139367C2",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-NEISHI-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-5050F8525FFC6729FD9A-EVD-E767DE91DEF4BFE97AC79A12",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-NEISHI-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-821EEB8B48683B96A643-EVD-695A6141F625BF3B6FCD1F66",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-NORTH-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-821EEB8B48683B96A643-EVD-9650796C5762D6D3C6CED55D",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-NORTH-AUTH"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-25791DEA5105C937A312-EVD-81201278712504F480D5878E",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-NORTH-DEFENSE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-25791DEA5105C937A312-EVD-AF2A77CE5A9FF0575C59A3E9",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-NORTH-DEFENSE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        }
+      ],
+      "review_provenance": {
+        "reviewer_role": "independent_boundary_reviewer",
+        "review_mode": "blind_without_gold_access",
+        "external_call_index": "4",
+        "input_scope": "frozen_review_request_and_source_passages_only"
+      },
+      "pair_dispositions": [
+        {
+          "left_episode_ref": "MT-NEISHI-APPOINT",
+          "right_episode_ref": "MT-NORTH-AUTH",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "MT-NEISHI-APPOINT",
+          "right_episode_ref": "MT-NORTH-DEFENSE",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "MT-NORTH-AUTH",
+          "right_episode_ref": "MT-NORTH-DEFENSE",
+          "decision": "related",
+          "relation_type": "outcome_of",
+          "reason": "The input explicitly supports the declared typed relation."
+        }
+      ]
+    },
+    {
+      "review_unit_ref": "RU-9D2AEB7DC930C6803F98",
+      "review_unit_cache_key": "9d2aeb7dc930c6803f981d553f46caab3c9fcb64b96613c88f19e4ead2573677",
+      "proposition_semantic_hashes": [
+        "210cfc5a7edadadec47469c9537774cb8db67cc94b19da555ace979fa287387b"
+      ],
+      "boundary_policy_version": "episode-boundary-policy-v2.5",
+      "output_schema_version": "episode-boundary-review-v2.5",
+      "model_family": "semantic-boundary-reviewer",
+      "episode_groups": [
+        {
+          "local_episode_code": "MT-MENG-TRUST-ARRANGEMENT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-0A23A3BE74D4C5F35A3D-EVD-457789021FFA20322F11F11B",
+            "G26H-A-CLMK-0A23A3BE74D4C5F35A3D-EVD-7DFC4048A82536DE3BE1EF64"
+          ],
+          "boundary_reason": "Single court trust and role-preservation arrangement for the Meng family.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:ying-zheng:meng-tian:trusted-external-affairs:-220"
+        }
+      ],
+      "relations": [],
+      "assertion_dispositions": [
+        {
+          "assertion_ref": "G26H-A-CLMK-0A23A3BE74D4C5F35A3D-EVD-457789021FFA20322F11F11B",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-MENG-TRUST-ARRANGEMENT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-0A23A3BE74D4C5F35A3D-EVD-7DFC4048A82536DE3BE1EF64",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "MT-MENG-TRUST-ARRANGEMENT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        }
+      ],
+      "review_provenance": {
+        "reviewer_role": "independent_boundary_reviewer",
+        "review_mode": "blind_without_gold_access",
+        "external_call_index": "5",
+        "input_scope": "frozen_review_request_and_source_passages_only"
+      },
+      "pair_dispositions": []
+    },
+    {
+      "review_unit_ref": "RU-A9BC3973A1F4AAFDB1B6",
+      "review_unit_cache_key": "a9bc3973a1f4aafdb1b6616895278e248b9c211090fe29d053d6c5625c6f7845",
+      "proposition_semantic_hashes": [
+        "3d6e0f39d645a5b285fb68081c3f04e8f439b08a708fad4bbfe11e9e9152ba43",
+        "5acaa77d0b25f6eb098e1dcde300a856c0085d6f722f79a6472b4a3232754bec",
+        "a1372274dc7b7c9c2c1f9b39298b68e9073929d7dc44decc8f94a614f3b1e24f",
+        "fdf608c0ebb43d39fb4dc305453e70e2edaa1c10f88f344eeb07148d483b32fb",
+        "afb0cfe3bc61f58b253dc111ca028dc621c537509863393f820fc02c58e9c0ec",
+        "da7e3aa19ce2748610fbb0f662da7416ec56fe29bbb84845fe6196dcf2cae641",
+        "e558905816cc1340c848184e6568d78d9456c356993914959a8ed312214223c0",
+        "4dd216f9502699681200aa70d569dc3b19053261ef0edd17100df79203691fbf",
+        "b83656af5421ecabb6c0e6131ca8569b2ff4137088feb387f580af1d05675794",
+        "c1ec4a54e8be2bd0f887f398d02fc38786b92a4ad05be7cb14fc5b4bbbb7de13"
+      ],
+      "boundary_policy_version": "episode-boundary-policy-v2.5",
+      "output_schema_version": "episode-boundary-review-v2.5",
+      "model_family": "semantic-boundary-reviewer",
+      "episode_groups": [
+        {
+          "local_episode_code": "OY-HENAN-APPOINT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-AFBCA379AC74D0D2A379BFE6",
+            "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-F982B8C157D0B2A07756840E",
+            "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-F85D032816E80412009B67F7"
+          ],
+          "boundary_reason": "The compound proposition is atomized: only assertions supporting the Henan governor appointment are core here.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:appoint-henan-yin:25"
+        },
+        {
+          "local_episode_code": "OY-BEIYANG-TITLE",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-A7A2952FB1F371C93BE34383"
+          ],
+          "boundary_reason": "The enfeoffment is a separate atomic honor action from the Henan office appointment.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:enfeoff-beiyang-hou:25"
+        },
+        {
+          "local_episode_code": "OY-DISMISSAL",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-167FA7B20B0ACA1A119DC299",
+            "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-8A4B77AE102AA74380F822B1",
+            "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-8442EA5B8C5F7CB1C9A1EC19",
+            "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-ED62199D049E449AA33AF44C"
+          ],
+          "boundary_reason": "Same dismissal in year 29; actor labels differ but the focal event and disposition are identical.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:dismiss-office:29"
+        },
+        {
+          "local_episode_code": "OY-YANGZHOU-APPOINT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-338CE282054431D7FC198FEE",
+            "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-BE6E8CBD938E0127C975A9D4",
+            "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-FA1889B5D3FD4B24F704AAA8"
+          ],
+          "boundary_reason": "The compound career proposition is atomized to the Yangzhou governor appointment only.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:appoint-yangzhou-mu:30"
+        },
+        {
+          "local_episode_code": "OY-RUNAN-APPOINT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-0F013F1E4EFEB90129BA-EVD-8C8F04617CF46ED62FEE4987",
+            "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-B0C7CB741AA0FD39C6F951F0"
+          ],
+          "boundary_reason": "The later transfer to Runan is a separate appointment from the Yangzhou office.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:appoint-runan-taishou:30"
+        },
+        {
+          "local_episode_code": "OY-DASITU-APPOINT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-B788017143ABE3B7C7298D03",
+            "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-FEB289B64F4070104FCFCDDF",
+            "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-312B6779D656EE27C308DD72",
+            "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-7E1299ECEC86A2852ED5B4E2"
+          ],
+          "boundary_reason": "Same appointment as Dasitu after nine years in the commandery.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:appoint-dasitu:39"
+        },
+        {
+          "local_episode_code": "OY-IMPRISONMENT",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-0CF57167883751D9652F576A"
+          ],
+          "boundary_reason": "The imprisonment action is atomized from the later death outcome.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:imprison-for-concealed-crime:39"
+        },
+        {
+          "local_episode_code": "OY-DEATH-IN-PRISON",
+          "core_assertion_refs": [
+            "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-D36C57CFC83B980373B23EF0"
+          ],
+          "boundary_reason": "The later death in prison is a distinct outcome episode.",
+          "confidence": 0.97,
+          "atomic_event_key": "atomic:liu-xiu:ouyang-xi:death-in-prison:39"
+        }
+      ],
+      "relations": [
+        {
+          "from_episode_ref": "OY-HENAN-APPOINT",
+          "to_episode_ref": "OY-BEIYANG-TITLE",
+          "relation_type": "same_mandate_phase",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-AFBCA379AC74D0D2A379BFE6",
+            "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-F982B8C157D0B2A07756840E",
+            "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-F85D032816E80412009B67F7",
+            "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-A7A2952FB1F371C93BE34383"
+          ],
+          "confidence": 0.93
+        },
+        {
+          "from_episode_ref": "OY-DISMISSAL",
+          "to_episode_ref": "OY-HENAN-APPOINT",
+          "relation_type": "revokes",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-167FA7B20B0ACA1A119DC299",
+            "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-8A4B77AE102AA74380F822B1",
+            "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-8442EA5B8C5F7CB1C9A1EC19",
+            "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-ED62199D049E449AA33AF44C",
+            "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-AFBCA379AC74D0D2A379BFE6",
+            "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-F982B8C157D0B2A07756840E",
+            "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-F85D032816E80412009B67F7"
+          ],
+          "confidence": 0.88
+        },
+        {
+          "from_episode_ref": "OY-YANGZHOU-APPOINT",
+          "to_episode_ref": "OY-DISMISSAL",
+          "relation_type": "renews_authority",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-338CE282054431D7FC198FEE",
+            "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-BE6E8CBD938E0127C975A9D4",
+            "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-FA1889B5D3FD4B24F704AAA8",
+            "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-167FA7B20B0ACA1A119DC299",
+            "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-8A4B77AE102AA74380F822B1",
+            "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-8442EA5B8C5F7CB1C9A1EC19",
+            "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-ED62199D049E449AA33AF44C"
+          ],
+          "confidence": 0.92
+        },
+        {
+          "from_episode_ref": "OY-RUNAN-APPOINT",
+          "to_episode_ref": "OY-YANGZHOU-APPOINT",
+          "relation_type": "promotion_after",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-0F013F1E4EFEB90129BA-EVD-8C8F04617CF46ED62FEE4987",
+            "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-B0C7CB741AA0FD39C6F951F0",
+            "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-338CE282054431D7FC198FEE",
+            "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-BE6E8CBD938E0127C975A9D4",
+            "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-FA1889B5D3FD4B24F704AAA8"
+          ],
+          "confidence": 0.94
+        },
+        {
+          "from_episode_ref": "OY-DASITU-APPOINT",
+          "to_episode_ref": "OY-RUNAN-APPOINT",
+          "relation_type": "promotion_after",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-B788017143ABE3B7C7298D03",
+            "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-FEB289B64F4070104FCFCDDF",
+            "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-312B6779D656EE27C308DD72",
+            "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-7E1299ECEC86A2852ED5B4E2",
+            "G26H-A-CLMK-0F013F1E4EFEB90129BA-EVD-8C8F04617CF46ED62FEE4987",
+            "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-B0C7CB741AA0FD39C6F951F0"
+          ],
+          "confidence": 0.95
+        },
+        {
+          "from_episode_ref": "OY-IMPRISONMENT",
+          "to_episode_ref": "OY-DASITU-APPOINT",
+          "relation_type": "revokes",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-0CF57167883751D9652F576A",
+            "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-B788017143ABE3B7C7298D03",
+            "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-312B6779D656EE27C308DD72"
+          ],
+          "confidence": 0.89
+        },
+        {
+          "from_episode_ref": "OY-DEATH-IN-PRISON",
+          "to_episode_ref": "OY-IMPRISONMENT",
+          "relation_type": "outcome_of",
+          "evidence_assertion_refs": [
+            "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-D36C57CFC83B980373B23EF0",
+            "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-0CF57167883751D9652F576A"
+          ],
+          "confidence": 0.98
+        }
+      ],
+      "assertion_dispositions": [
+        {
+          "assertion_ref": "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-AFBCA379AC74D0D2A379BFE6",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-HENAN-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-3B99D48F7DCDD17A9E41-EVD-F982B8C157D0B2A07756840E",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-HENAN-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-F85D032816E80412009B67F7",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-HENAN-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-B6AC4372A5126A18E2BA-EVD-A7A2952FB1F371C93BE34383",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-BEIYANG-TITLE"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-167FA7B20B0ACA1A119DC299",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DISMISSAL"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-C48F55D69C12E39C3C60-EVD-8A4B77AE102AA74380F822B1",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DISMISSAL"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-8442EA5B8C5F7CB1C9A1EC19",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DISMISSAL"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-840E5B34F4743DAFBC8C-EVD-ED62199D049E449AA33AF44C",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DISMISSAL"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-338CE282054431D7FC198FEE",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-YANGZHOU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-DC8FBB193A23CF49D7E7-EVD-BE6E8CBD938E0127C975A9D4",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-YANGZHOU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-FA1889B5D3FD4B24F704AAA8",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-YANGZHOU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-0F013F1E4EFEB90129BA-EVD-8C8F04617CF46ED62FEE4987",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-RUNAN-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-A5D1788B6DE431C73EB2-EVD-B0C7CB741AA0FD39C6F951F0",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-RUNAN-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-B788017143ABE3B7C7298D03",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DASITU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-20AEA87B9EF94E91B713-EVD-FEB289B64F4070104FCFCDDF",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DASITU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-312B6779D656EE27C308DD72",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DASITU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-0A47A9FB94FBA2D707F3-EVD-7E1299ECEC86A2852ED5B4E2",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DASITU-APPOINT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-0CF57167883751D9652F576A",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-IMPRISONMENT"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        },
+        {
+          "assertion_ref": "G26H-A-CLMK-94425D4F532E75FBBB34-EVD-D36C57CFC83B980373B23EF0",
+          "disposition": "core_of_episode",
+          "episode_refs": [
+            "OY-DEATH-IN-PRISON"
+          ],
+          "reason": "The assertion directly supports this atomic episode.",
+          "follow_up": null
+        }
+      ],
+      "review_provenance": {
+        "reviewer_role": "independent_boundary_reviewer",
+        "review_mode": "blind_without_gold_access",
+        "external_call_index": "6",
+        "input_scope": "frozen_review_request_and_source_passages_only"
+      },
+      "pair_dispositions": [
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-BEIYANG-TITLE",
+          "decision": "related",
+          "relation_type": "same_mandate_phase",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-DISMISSAL",
+          "decision": "related",
+          "relation_type": "revokes",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-YANGZHOU-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-RUNAN-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-DASITU-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-IMPRISONMENT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-HENAN-APPOINT",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-BEIYANG-TITLE",
+          "right_episode_ref": "OY-DISMISSAL",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-BEIYANG-TITLE",
+          "right_episode_ref": "OY-YANGZHOU-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-BEIYANG-TITLE",
+          "right_episode_ref": "OY-RUNAN-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-BEIYANG-TITLE",
+          "right_episode_ref": "OY-DASITU-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-BEIYANG-TITLE",
+          "right_episode_ref": "OY-IMPRISONMENT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-BEIYANG-TITLE",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-DISMISSAL",
+          "right_episode_ref": "OY-YANGZHOU-APPOINT",
+          "decision": "related",
+          "relation_type": "renews_authority",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "OY-DISMISSAL",
+          "right_episode_ref": "OY-RUNAN-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-DISMISSAL",
+          "right_episode_ref": "OY-DASITU-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-DISMISSAL",
+          "right_episode_ref": "OY-IMPRISONMENT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-DISMISSAL",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-YANGZHOU-APPOINT",
+          "right_episode_ref": "OY-RUNAN-APPOINT",
+          "decision": "related",
+          "relation_type": "promotion_after",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "OY-YANGZHOU-APPOINT",
+          "right_episode_ref": "OY-DASITU-APPOINT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-YANGZHOU-APPOINT",
+          "right_episode_ref": "OY-IMPRISONMENT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-YANGZHOU-APPOINT",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-RUNAN-APPOINT",
+          "right_episode_ref": "OY-DASITU-APPOINT",
+          "decision": "related",
+          "relation_type": "promotion_after",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "OY-RUNAN-APPOINT",
+          "right_episode_ref": "OY-IMPRISONMENT",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-RUNAN-APPOINT",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-DASITU-APPOINT",
+          "right_episode_ref": "OY-IMPRISONMENT",
+          "decision": "related",
+          "relation_type": "revokes",
+          "reason": "The input explicitly supports the declared typed relation."
+        },
+        {
+          "left_episode_ref": "OY-DASITU-APPOINT",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "distinct_unrelated",
+          "relation_type": null,
+          "reason": "No direct relation is supported by the blind input beyond shared person or broad responsibility family."
+        },
+        {
+          "left_episode_ref": "OY-IMPRISONMENT",
+          "right_episode_ref": "OY-DEATH-IN-PRISON",
+          "decision": "related",
+          "relation_type": "outcome_of",
+          "reason": "The input explicitly supports the declared typed relation."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+schema_version: 1
+holdout_code: g2_6h_graph_blind_v1
+status: materialization_contract_blocked_failed_closed
+frozen_at: 2026-07-13
+
+artifacts:
+  input.json: f4ad3d24cde2d729f6639199c48635deb8312b9e805482973689c3604c377a59
+  review_requests.json: f38bdd2e35f694e8c2a78265fb5dbfc59565dc9dc1c897cd0715e7f4591f3bd1
+  boundary_review.yml: c1b04cd1cdbd39ac1cc7f1c639e6e7f32ad8241666fe057810f8efce9ec32b0f
+  historical_gold.yml: 76495483c2069006a438749a900e151531f8c2015d7518b3ab52398c6aec2fc8
+  rule_gold.yml: 42165b60a672732b74647f6f5495ef06f6aa0d845dda78b4756f64fe76d65181
+  materialization_blocker.json: 1f0d8c9f3be489c6d005f891bfc02d4cd0b546da403e49a1a42cee45af2a951e
+
+counts:
+  assertion: 65
+  source_passage: 65
+  review_unit: 6
+  boundary_episode_group: 26
+  boundary_relation: 15
+  pair_disposition: 67
+  gold_episode: 40
+  gold_relation: 30
+  gold_rule_evidence_unit: 6
+  responsibility_domain_false_conflict_group: 9
+
+decision:
+  candidate_graph_created: false
+  score_created: false
+  release_gate_passed: false
+  g3_authorized: false
+  holdout_may_be_reclassified_after_fix: false
+  next_gate: g2_6i_responsibility_domain_normalized_holdout

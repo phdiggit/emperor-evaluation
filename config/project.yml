@@ -4,7 +4,7 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: g2_6h_input_preflight_v2_5_time_identity_hardened
+  phase: g2_6h_materialization_blocked_v2_6_pending
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
@@ -35,5 +35,7 @@ milestones:
   g2_6g_graph_holdout: failed_closed_before_candidate_score
   g2_6h_atomic_identity_holdout: pending_new_input
   g2_6h_contract_basis: boundary_review_v2_5
+  g2_6h_graph_holdout: failed_closed_before_candidate_score
+  g2_6i_contract_target: boundary_review_v2_6
   g3_episode_graph_registry: blocked_by_g2_6e
   postgresql_g3_authorized: false
