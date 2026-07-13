@@ -1,0 +1,86 @@
+status: relation_gold_ontology_audit_complete
+relation_policy_version: episode-relation-policy-v2
+reviewed_without_candidate_or_score: true
+dataset_code: g2_6k0_g2_6j_source_v2_development
+relation_count: 8
+decision_counts:
+  supported_as_declared: 5
+  supported_with_different_type: 3
+  unsupported_direct_relation: 0
+  insufficient_endpoint_evidence: 0
+audit_results:
+  - gold_relation_code: K0J-R-LISI-TRANSFER-TO-INTERROGATION
+    from_episode: K0J-HH-LISI-TRANSFERRED-TO-ZHAOGAO
+    to_episode: K0J-HH-LISI-INTERROGATED
+    declared_relation_type: causal_followup
+    audit_decision: supported_as_declared
+    evidence_assertion_refs:
+      - K0-A-CLMK-255582327C35CE5D5CAF@SP-2DE11D85885A0E9FC1F6
+      - K0-A-CLMK-0121E2ABA7446A10B58C@SP-3642DF9CB0F2607DE5A8
+    reason: 前件明确把李斯交给郎中令赵高案治，后件即为赵高案治、榜掠与迫使诬服，移交直接触发独立审讯阶段。
+  - gold_relation_code: K0J-R-MENGTIAN-INITIAL-TO-FINAL
+    from_episode: K0J-HH-MENGTIAN-INITIAL-DEATH-ORDER
+    to_episode: K0J-HH-MENGTIAN-FINAL-DEATH
+    declared_relation_type: continues
+    audit_decision: supported_with_different_type
+    recommended_relation_type: causal_followup
+    evidence_assertion_refs:
+      - K0-A-CLMK-144D3696FB99BAAFF29B@SP-9D72D2B07581645F020A
+      - K0-A-CLMK-A8AA0FC70AFDBC8CF32E@SP-3BF160840AD337444F6D
+    reason: 初次赐死后发生复请、改置属吏和一度欲释，最终端点又明确“二世又遣使者”下达新命令；存在新的决定阶段，不能判同一命令的 continues。
+  - gold_relation_code: K0J-R-MENGTIAN-INITIAL-TO-FAMILY-CUSTODY
+    from_episode: K0J-HH-MENGTIAN-INITIAL-DEATH-ORDER
+    to_episode: K0J-HH-MENG-FAMILY-CUSTODY
+    declared_relation_type: causal_followup
+    audit_decision: supported_as_declared
+    evidence_assertion_refs:
+      - K0-A-CLMK-144D3696FB99BAAFF29B@SP-9D72D2B07581645F020A
+      - K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+    reason: 初次赐死端点记蒙恬复请后被交属吏，羁押端点明确回指“前已囚蒙恬”并扩展到蒙毅，前件构成后件独立灭蒙氏决策的阶段基础。
+  - gold_relation_code: K0J-R-MENG-FAMILY-TO-MENGTIAN-DEATH
+    from_episode: K0J-HH-MENG-FAMILY-CUSTODY
+    to_episode: K0J-HH-MENGTIAN-FINAL-DEATH
+    declared_relation_type: causal_followup
+    audit_decision: supported_as_declared
+    evidence_assertion_refs:
+      - K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+      - K0-A-CLMK-E98A9D0388EC3A8C142D@SP-0BAE005F4ACC6553731F
+    reason: 前件明确记录赵高推动灭蒙氏并将蒙恬囚于阳周，后件在阳周重新下达死令并执行，羁押与灭族决策直接构成最终处置的阶段基础。
+  - gold_relation_code: K0J-R-MENG-FAMILY-TO-MENGYI-DEATH
+    from_episode: K0J-HH-MENG-FAMILY-CUSTODY
+    to_episode: K0J-HH-MENGYI-KILLED
+    declared_relation_type: causal_followup
+    audit_decision: supported_with_different_type
+    recommended_relation_type: outcome_of
+    evidence_assertion_refs:
+      - K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+      - K0-A-CLMK-FA588C7DE67BDE4D8F4C@SP-E01CFE8DBD96CFA2A212
+    reason: 前件记胡亥听赵高而系蒙毅，后件只记使者知胡亥之意遂杀之，没有新的独立授权；后件是该处置直接报告的执行结果，优先判 outcome_of。
+  - gold_relation_code: K0J-R-YANMEN-TO-XIAOYU-DEMOTION
+    from_episode: K0J-YG-XIAOYU-YANMEN-ADVICE
+    to_episode: K0J-YG-XIAOYU-DEMOTED-HECHI
+    declared_relation_type: causal_followup
+    audit_decision: supported_as_declared
+    evidence_assertion_refs:
+      - K0-A-CLMK-60AD56D1E89743F59CED@SP-09DCE087FCF59BABCD20
+      - K0-A-CLMK-B0022EC5A6D8E05A7E99@SP-5215CAC03679EA364630
+    reason: 后件明确回指突厥事件，指责萧瑀“遂相恐动”并因而外放河池，前件建议直接触发后件独立处分。
+  - gold_relation_code: K0J-R-XIAOYU-DEMOTION-TO-HECHI-DEFENSE
+    from_episode: K0J-YG-XIAOYU-DEMOTED-HECHI
+    to_episode: K0J-YG-XIAOYU-HECHI-DEFENSE
+    declared_relation_type: causal_followup
+    audit_decision: supported_with_different_type
+    recommended_relation_type: same_mandate_phase
+    evidence_assertion_refs:
+      - K0-A-CLMK-B0022EC5A6D8E05A7E99@SP-5215CAC03679EA364630
+      - K0-A-CLMK-4E761D80EBEA48F476DB@SP-190769C28614822C1784
+    reason: 前件任萧瑀为河池郡守，后件以“既至郡”记其在该持续职务内独立防务履职；它不是任命的直接结果报告，也没有新的授权，宜判 same_mandate_phase。
+  - gold_relation_code: K0J-R-HERUOBI-TO-XIAOCONG
+    from_episode: K0J-YG-HERUOBI-EXECUTED
+    to_episode: K0J-YG-XIAOCONG-DEPOSED
+    declared_relation_type: causal_followup
+    audit_decision: supported_as_declared
+    evidence_assertion_refs:
+      - K0-A-CLMK-B3165927D41140E61B4C@SP-A17361F6C14FEAA2AD3D
+      - K0-A-CLMK-D064294EFB99FF6C5C78@SP-BA885165BF11552BFC8B
+    reason: 后件明确称萧琮与贺若弼友善、弼被诛后又有童谣，皇帝“由是忌之”而废，直接建立前件到后件的因果触发关系。

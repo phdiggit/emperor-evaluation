@@ -45,6 +45,11 @@ from emperor_v4.evaluation.qualification import (
     evaluate_source_assertion_qualification,
     evaluate_source_development_sets,
 )
+from emperor_v4.evaluation.relation_review import (
+    build_relation_review_plan,
+    materialize_relation_review,
+    revise_relation_gold_from_audit,
+)
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 from emperor_v4.evaluation.source_development import (
     materialize_source_development_from_blind_input,
@@ -390,6 +395,281 @@ def test_downstream_development_qualification_preserves_sequential_gates():
         "RELATION_QUALITY_BELOW_MINIMUM"
     )
     assert failed_relation["stages"]["S5_rule_evidence_unit_coverage"] is None
+
+
+def test_relation_review_reconciles_cross_boundary_units_without_gold_fields():
+    blind_input = {
+        "dataset_code": "relation-development",
+        "assertions": [
+            {
+                "assertion_code": f"A{index}",
+                "subject": f"P{index}",
+                "predicate": predicate,
+                "object": responsibility,
+                "time_expression": f"T{index}",
+                "source_passage_ref": f"SP{index}",
+                "qualifiers": {
+                    "claim_summary": f"P{index}{predicate}{responsibility}",
+                    "responsibility_family": family,
+                },
+            }
+            for index, (predicate, responsibility, family) in enumerate(
+                (
+                    ("任命", "丞相", "civil_governance"),
+                    ("辞任", "丞相", "civil_governance"),
+                    ("任命", "统兵", "military_command"),
+                ),
+                start=1,
+            )
+        ],
+        "source_passages": [
+            {
+                "passage_code": f"SP{index}",
+                "document_code": "D1",
+                "section_heading": "本纪",
+                "locator": f"L{index}",
+                "raw_text": f"原文{index}",
+            }
+            for index in range(1, 4)
+        ],
+        "collection_provenance": {"gold_accessed": False},
+    }
+    graph = {
+        "dataset_code": "relation-development",
+        "input_sha256": hashlib.sha256(
+            json.dumps(
+                blind_input,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest(),
+        "status": "blind_episode_graph_proposed",
+        "episode_groups": [
+            {
+                "local_episode_code": "E1",
+                "evaluation_context": "R1",
+                "focal_person_ref": "P1",
+                "focal_roles": ["office_holder"],
+                "responsibility_family": "civil_governance",
+                "core_assertion_refs": ["A1"],
+                "assertion_links": [
+                    {"assertion_ref": "A1", "source_passage_ref": "SP1"}
+                ],
+                "action": "任命",
+                "responsibility": "丞相",
+                "semantic_fingerprint": "F1",
+            },
+            {
+                "local_episode_code": "E2",
+                "evaluation_context": "R1",
+                "focal_person_ref": "P1",
+                "focal_roles": ["office_holder"],
+                "responsibility_family": "civil_governance",
+                "core_assertion_refs": ["A2"],
+                "assertion_links": [
+                    {"assertion_ref": "A2", "source_passage_ref": "SP2"}
+                ],
+                "action": "辞任",
+                "responsibility": "丞相",
+                "semantic_fingerprint": "F2",
+            },
+            {
+                "local_episode_code": "E3",
+                "evaluation_context": "R2",
+                "focal_person_ref": "P2",
+                "focal_roles": ["commander"],
+                "responsibility_family": "military_command",
+                "core_assertion_refs": ["A3"],
+                "assertion_links": [
+                    {"assertion_ref": "A3", "source_passage_ref": "SP3"}
+                ],
+                "action": "任命",
+                "responsibility": "统兵",
+                "semantic_fingerprint": "F3",
+            },
+        ],
+        "assertion_dispositions": [
+            {"assertion_ref": "A1", "disposition": "core_of_episode"},
+            {"assertion_ref": "A2", "disposition": "core_of_episode"},
+            {"assertion_ref": "A3", "disposition": "core_of_episode"},
+        ],
+        "relations": [],
+        "safety": {"database_write_count": 0},
+    }
+    plan = build_relation_review_plan(graph, blind_input)
+    assert plan["review_evidence_sha256"]
+    assert plan["relation_semantic_policy"]["type_precedence"][0][
+        "relation_type"
+    ] == "revokes"
+    assert any(
+        summary["evidence"]["source_passages"][0]["raw_text"] == "原文1"
+        for unit in plan["review_units"]
+        for summary in unit["episode_summaries"]
+        if summary["episode_ref"] == "E1"
+    )
+    first = next(unit for unit in plan["review_units"] if unit["pair_count"] == 1)
+    second = next(unit for unit in plan["review_units"] if unit["pair_count"] == 0)
+    review = {
+        "status": "relation_reviews_complete",
+        "candidate_episode_basis_sha256": plan["candidate_episode_basis_sha256"],
+        "review_evidence_sha256": plan["review_evidence_sha256"],
+        "relation_policy_version": plan["relation_policy_version"],
+        "output_schema_version": plan["output_schema_version"],
+        "reviewed_without_historical_gold_or_score": True,
+        "dataset_code": "relation-development",
+        "review_unit_count": 2,
+        "pair_count": 1,
+        "related_pair_count": 1,
+        "unresolved_pair_count": 0,
+        "review_results": [
+            {
+                "review_unit_ref": first["review_unit_code"],
+                "cache_key": first["cache_key"],
+                "relation_policy_version": plan["relation_policy_version"],
+                "output_schema_version": plan["output_schema_version"],
+                "relations": [
+                    {
+                        "from_episode_ref": "E1",
+                        "to_episode_ref": "E2",
+                        "relation_type": "revokes",
+                        "evidence_assertion_refs": ["A1", "A2"],
+                        "confidence": 0.9,
+                    }
+                ],
+                "pair_dispositions": [
+                    {
+                        "left_episode_ref": "E1",
+                        "right_episode_ref": "E2",
+                        "decision": "related",
+                        "relation_type": "revokes",
+                        "reason": "任命后辞任",
+                    }
+                ],
+            },
+            {
+                "review_unit_ref": second["review_unit_code"],
+                "cache_key": second["cache_key"],
+                "relation_policy_version": plan["relation_policy_version"],
+                "output_schema_version": plan["output_schema_version"],
+                "relations": [],
+                "pair_dispositions": [],
+            },
+        ],
+    }
+
+    result = materialize_relation_review(graph, review, blind_input)
+
+    assert result["status"] == "relation_graph_review_materialized"
+    assert result["relations"][0]["relation_type"] == "revokes"
+    assert result["formal_episode_relations"][0]["evidence_links"] == [
+        {
+            "assertion_ref": "A1",
+            "source_passage_ref": "SP1",
+            "evidence_status": "draft",
+        },
+        {
+            "assertion_ref": "A2",
+            "source_passage_ref": "SP2",
+            "evidence_status": "draft",
+        },
+    ]
+    assert result["safety"]["gold_fields_detected"] == 0
+
+    pair_dispositions = review["review_results"][0]["pair_dispositions"]
+    review["review_results"][0]["pair_dispositions"] = []
+    with pytest.raises(ValueError, match="完整且唯一处置"):
+        materialize_relation_review(graph, review, blind_input)
+
+    review["review_results"][0]["relations"] = []
+    review["related_pair_count"] = 0
+    review["unresolved_pair_count"] = 1
+    review["review_results"][0]["pair_dispositions"] = [
+        {
+            **pair_dispositions[0],
+            "decision": "unresolved",
+            "relation_type": None,
+        }
+    ]
+    with pytest.raises(ValueError, match="unresolved pair"):
+        materialize_relation_review(graph, review, blind_input)
+
+    blind_input["collection_provenance"]["gold_accessed"] = True
+    with pytest.raises(ValueError, match="禁止字段"):
+        build_relation_review_plan(graph, blind_input)
+
+
+def test_relation_gold_revision_requires_complete_isolated_audit():
+    historical_gold = {
+        "dataset_code": "relation-development",
+        "status": "frozen",
+        "gold_relation_count": 2,
+        "gold_episodes": [
+            {"gold_episode_code": "G1", "core_assertion_refs": ["A1"]},
+            {"gold_episode_code": "G2", "core_assertion_refs": ["A2"]},
+            {"gold_episode_code": "G3", "core_assertion_refs": ["A3"]},
+        ],
+        "gold_relations": [
+            {
+                "gold_relation_code": "R1",
+                "from_episode": "G1",
+                "to_episode": "G2",
+                "relation_type": "continues",
+            },
+            {
+                "gold_relation_code": "R2",
+                "from_episode": "G2",
+                "to_episode": "G3",
+                "relation_type": "causal_followup",
+            },
+        ],
+    }
+    audit = {
+        "status": "relation_gold_ontology_audit_complete",
+        "relation_policy_version": "episode-relation-policy-v2",
+        "reviewed_without_candidate_or_score": True,
+        "dataset_code": "relation-development",
+        "relation_count": 2,
+        "decision_counts": {
+            "supported_as_declared": 0,
+            "supported_with_different_type": 1,
+            "unsupported_direct_relation": 1,
+            "insufficient_endpoint_evidence": 0,
+        },
+        "audit_results": [
+            {
+                "gold_relation_code": "R1",
+                "from_episode": "G1",
+                "to_episode": "G2",
+                "declared_relation_type": "continues",
+                "audit_decision": "supported_with_different_type",
+                "recommended_relation_type": "renews_authority",
+                "evidence_assertion_refs": ["A1", "A2"],
+                "reason": "同一责任主体获得后续实质续权。",
+            },
+            {
+                "gold_relation_code": "R2",
+                "from_episode": "G2",
+                "to_episode": "G3",
+                "declared_relation_type": "causal_followup",
+                "audit_decision": "unsupported_direct_relation",
+                "recommended_relation_type": None,
+                "evidence_assertion_refs": ["A2", "A3"],
+                "reason": "只有时间相邻，没有直接关系证据。",
+            },
+        ],
+    }
+
+    revised = revise_relation_gold_from_audit(historical_gold, audit)
+
+    assert revised["status"] == "frozen_relation_gold_v2_open_development"
+    assert revised["gold_relation_count"] == 1
+    assert revised["gold_relations"][0]["relation_type"] == "renews_authority"
+    assert revised["relation_gold_revision"]["formal_blind_qualification"] is False
+
+    audit["candidate_relation_code"] = "LEAK"
+    with pytest.raises(ValueError, match="candidate/score 泄漏"):
+        revise_relation_gold_from_audit(historical_gold, audit)
 
 
 def test_frozen_v3_outputs_form_auditable_episode_candidate_slice_offline():

@@ -46,6 +46,11 @@ from emperor_v4.evaluation.qualification import (
     evaluate_downstream_development_qualification,
     evaluate_source_development_sets,
 )
+from emperor_v4.evaluation.relation_review import (
+    build_relation_review_plan,
+    materialize_relation_review,
+    revise_relation_gold_from_audit,
+)
 from emperor_v4.evaluation.source_development import (
     fetch_source_development_snapshots,
     materialize_source_development_from_blind_input,
@@ -362,6 +367,19 @@ def _parser() -> argparse.ArgumentParser:
     )
     downstream_qualification.add_argument("--rule-gold", type=Path)
     downstream_qualification.add_argument("--output", type=Path)
+    relation_plan = subparsers.add_parser("relation-review-plan")
+    relation_plan.add_argument("--candidate-graph", type=Path, required=True)
+    relation_plan.add_argument("--blind-input", type=Path, required=True)
+    relation_plan.add_argument("--output", type=Path)
+    relation_materialize = subparsers.add_parser("relation-review-materialize")
+    relation_materialize.add_argument("--candidate-graph", type=Path, required=True)
+    relation_materialize.add_argument("--blind-input", type=Path, required=True)
+    relation_materialize.add_argument("--relation-review", type=Path, required=True)
+    relation_materialize.add_argument("--output", type=Path)
+    relation_gold_revise = subparsers.add_parser("relation-gold-revise")
+    relation_gold_revise.add_argument("--historical-gold", type=Path, required=True)
+    relation_gold_revise.add_argument("--audit", type=Path, required=True)
+    relation_gold_revise.add_argument("--output", type=Path)
     return parser
 
 
@@ -479,6 +497,22 @@ def main() -> int:
                 if args.rule_gold
                 else None
             ),
+        )
+    elif args.command == "relation-review-plan":
+        report = build_relation_review_plan(
+            json.loads(args.candidate_graph.read_text(encoding="utf-8")),
+            json.loads(args.blind_input.read_text(encoding="utf-8")),
+        )
+    elif args.command == "relation-review-materialize":
+        report = materialize_relation_review(
+            json.loads(args.candidate_graph.read_text(encoding="utf-8")),
+            yaml.safe_load(args.relation_review.read_text(encoding="utf-8")),
+            json.loads(args.blind_input.read_text(encoding="utf-8")),
+        )
+    elif args.command == "relation-gold-revise":
+        report = revise_relation_gold_from_audit(
+            yaml.safe_load(args.historical_gold.read_text(encoding="utf-8")),
+            yaml.safe_load(args.audit.read_text(encoding="utf-8")),
         )
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(
