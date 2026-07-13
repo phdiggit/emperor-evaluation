@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: g2_6j_graph_blind_v1
-status: strict_input_frozen_independent_episode_reviews_pending
+status: all_independent_freezes_complete_candidate_generation_ready
 source_snapshot_frozen_at: 2026-07-13
 contract_basis_commit: 8c928ed9db0c491086a8956903229b6a41bfe7fb
 
@@ -90,8 +90,21 @@ preflight_contract_corrections:
 
 independent_freezes:
   boundary_review:
-    status: ready_for_isolated_review
+    status: frozen_without_gold_or_candidate_access
     output_path: eval/g2_6j_graph_blind_v1/boundary_review.yml
+    file_sha256: ed8d9f363087f09097e1bd7d39b946e9da9ee0b5313aa55cc842e3861bd051c0
+    canonical_payload_sha256: ed20a43e3b4f0e0fe14a4e05d14a0fe53fcd434292b0ab60b60aed1829f302e0
+    review_unit_count: 16
+    episode_group_count: 7
+    relation_count: 2
+    pair_disposition_count: 3
+    assertion_disposition_count: 38
+    core_of_episode_count: 7
+    context_for_episode_count: 4
+    unresolved_count: 25
+    excluded_count: 2
+    context_only_core_count: 0
+    reviewed_without_historical_gold_or_candidates: true
   historical_gold:
     status: frozen_without_candidate_or_review_access
     output_path: eval/g2_6j_graph_blind_v1/historical_gold.yml
@@ -117,8 +130,8 @@ independent_freezes:
     gold_rule_evidence_unit_count: 0
     duplicate_consumption_count: 0
     frozen_without_candidate_or_review_access: true
-  candidate_generation: forbidden_before_all_freezes
-  scoring: forbidden_before_all_freezes
+  candidate_generation: ready_after_all_freezes
+  scoring: blocked_until_single_candidate_materialization
 
 release_thresholds:
   exact_episode_recall_minimum: 0.85

@@ -1,0 +1,590 @@
+schema_version: 2
+status: boundary_reviews_complete
+input_dataset_code: g2_6j_graph_blind_v1
+input_canonical_sha256: 8372a670036e142c001e420bfbcb13c9c942c00f905d58a29b9403c2220fe5c9
+review_requests_canonical_sha256: 08f881c57cf40dbb8c2fc6dab705e2c3fe1b2df02c894079d97c8578b4793edd
+boundary_policy_version: episode-boundary-policy-v2.8
+output_schema_version: episode-boundary-review-v2.8
+review_unit_count: 16
+input_assertion_count: 38
+reviewed_without_historical_gold_or_candidates: true
+automatic_acceptance_disabled: true
+deterministic_unit_codes: []
+cache_hit_unit_codes: []
+model_called_unit_codes:
+  - RU-0C1F9C575E72A8D7B49B
+  - RU-108836AAE5E8AF58D5FA
+  - RU-18A82B0D8F8ED9541026
+  - RU-2897BB68FCBC78F24D03
+  - RU-61A4453F442E07B7C41B
+  - RU-8393ACBFC43BABE93508
+  - RU-86226671AA6B8188DA8D
+  - RU-960A3F4E5A25A939F27E
+  - RU-A61A81BD98B14873EE84
+  - RU-B60DC4D817CA0FA51F23
+  - RU-BB5ECF19E3C04B785151
+  - RU-C5B38502A57771E3C765
+  - RU-CA221996F19C31FDB6FD
+  - RU-D6A6FB3A5486B6E76FA2
+  - RU-F5D43391CB7E95137292
+  - RU-FBC42637E426E431A0CB
+pending_unit_codes: []
+model_call_count: 16
+database_write_count: 0
+review_results:
+  - review_unit_ref: RU-0C1F9C575E72A8D7B49B
+    review_unit_cache_key: 0c1f9c575e72a8d7b49b5f1143fab7c87b7cdd2389689c2957109d1801739e1b
+    proposition_semantic_hashes:
+      - 2ad2048739eae24eab4e9c37710fe420900fee1ff00d3bdb6f60509567e7a79f
+      - 79c3c90fa541471a18f88478190fa5fecd4673bd5dc3f73421d3164bd4150218
+      - c473c175b5b636250c201c691e4c505fd1fb033cdaab83ed33388deb23b55d4a
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups:
+      - local_episode_code: E1
+        core_assertion_refs:
+          - G26J-胡亥@CLMK-255582327C35CE5D5CAF@G26J-P-EVD-1DA5DE2C825046FBD4F496D7
+        boundary_reason: 赵高案治李斯是本单元唯一同时具备明确行动者、对象和司法责任域的 passage-scoped 原子事件。
+        confidence: 0.96
+        atomic_event_key: "CLMK-255582327C35CE5D5CAF:atom:zhao-gao-investigates-li-si"
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-255582327C35CE5D5CAF@G26J-P-EVD-1DA5DE2C825046FBD4F496D7
+        disposition: core_of_episode
+        episode_refs: [E1]
+        reason: passage 明示赵高案治李斯，可独立构成司法处置 Episode core。
+      - assertion_ref: G26J-胡亥@CLMK-0121E2ABA7446A10B58C@G26J-P-EVD-42D573EC6036F97A662F12BE
+        disposition: context_for_episode
+        episode_refs: [E1]
+        reason: 自诬服罪是李斯受案治后的结果语境，但片段未明示服罪者，不能成为 core。
+      - assertion_ref: G26J-胡亥@CLMK-0121E2ABA7446A10B58C@G26J-P-EVD-6560FC5E7F18D9D7EA7631B9
+        disposition: context_for_episode
+        episode_refs: [E1]
+        reason: 案丞相狱补充同一司法链的责任范围，但片段未明示案治者，不能成为 core。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: context passages omit the accused or investigator; kept outside core
+      merge_split_rationale: one atomic judicial action with two non-core consequence and scope contexts
+
+  - review_unit_ref: RU-108836AAE5E8AF58D5FA
+    review_unit_cache_key: 108836aae5e8af58d5fa59eb0735ec861356a3cb540868fa3c734b14100d475e
+    proposition_semantic_hashes:
+      - aae5092a1656fb3b2195070daefa015fcc3be2925cbff157420459c4a0ea723b
+      - f1a981cefb023a96e7032e09304de1ae8f5ff63c4818b40d1dadefa6b7ea7f33
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-杨广@CLMK-D064294EFB99FF6C5C78@G26J-P-EVD-8B468E84EAD7FF4AA076EE3D
+        disposition: unresolved
+        episode_refs: []
+        reason: 友善交往片段未明示交往主体，且本单元没有 passage-scoped 原子 core 可供挂接。
+        follow_up: 补取包含交往双方和处置链的完整 passage 后重审。
+      - assertion_ref: G26J-杨广@CLMK-B3165927D41140E61B4C@G26J-P-EVD-83FBE67A076A3F43C71D32E3
+        disposition: unresolved
+        episode_refs: []
+        reason: 私议片段未明示议论者，本单元没有可核验的原子事件边界。
+        follow_up: 补取包含议论者、时间和后续处置的完整 passage 后重审。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: both context passages omit their acting subjects
+      merge_split_rationale: no passage-scoped atomic core; unit closed without an episode
+
+  - review_unit_ref: RU-18A82B0D8F8ED9541026
+    review_unit_cache_key: 18a82b0d8f8ed9541026dfc1547cc055df86a726ff7682dae6b6bd346cec3688
+    proposition_semantic_hashes:
+      - ee168d311f11b0e28db0d4283361cfb2a3e787ea14a730e89847c357caa45922
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-49DE200FD2F366DDEE24@G26J-P-EVD-6D8B0070AD6BB1F4A9B6281F
+        disposition: unresolved
+        episode_refs: []
+        reason: 请间进谏片段未明示进谏者和对象，且本单元没有可依附的原子 core。
+        follow_up: 补取完整主谓宾 passage，或在跨单元关系审查时重新关联。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: remonstrator and addressee are absent from the passage
+      merge_split_rationale: context-only unit closed without an episode
+
+  - review_unit_ref: RU-2897BB68FCBC78F24D03
+    review_unit_cache_key: 2897bb68fcbc78f24d039131dfbb76e09c95cbf057ccdf25526f294a137a6295
+    proposition_semantic_hashes:
+      - 5a103e175ac24a409a08b803af51305146fd3e6aa99d12b6a7903a7bc8f19cc6
+      - ef2b329deb1a8353797eb91f37d92166a70e4c3f630bf3a2940b362050f14e08
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-杨广@CLMK-DC22FE2B5A6D223CA310@G26J-P-EVD-3C50A97282C1D5270C2DB56B
+        disposition: unresolved
+        episode_refs: []
+        reason: 官职称谓仅给出责任域，未明示任职者或授任动作，不能独立形成 core。
+        follow_up: 补取任命主体、任职者和时间完整 passage。
+      - assertion_ref: G26J-杨广@CLMK-DC22FE2B5A6D223CA310@G26J-P-EVD-3EA07E06D5E163F9FE2D27BA
+        disposition: unresolved
+        episode_refs: []
+        reason: 斩杀结果未明示行动者，无法仅凭同旧 claim 反推为屈突通行动。
+        follow_up: 补取包含行动者的 passage，再判断是否与任职责任链关联。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: office holder and military actor are not stated
+      merge_split_rationale: no legacy claim fanout inference; no episode emitted
+
+  - review_unit_ref: RU-61A4453F442E07B7C41B
+    review_unit_cache_key: 61a4453f442e07b7c41b0035cfc884b9de2642d3ba04d9464556722f0fbbf440
+    proposition_semantic_hashes:
+      - d4738d83091f2437d92767210470471dcfffee68811895e109590f26d9194e02
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-0FD48C7A0924E65EF3B8@G26J-P-EVD-53629268F5C573F56DC9F74D
+        disposition: unresolved
+        episode_refs: []
+        reason: 拜为博士片段未明示受任者，不能以 focal person 注入替代 passage 身份证据。
+        follow_up: 补取包含受任者和授任主体的完整 passage。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: appointee is absent from the passage
+      merge_split_rationale: context-only appointment fragment emits no episode
+
+  - review_unit_ref: RU-8393ACBFC43BABE93508
+    review_unit_cache_key: 8393acbfc43babe93508fd9534179f3a128e54175792e7739512e8ca669ae0d9
+    proposition_semantic_hashes:
+      - 08d46f45e640a70d34eb01959bc0152b272fcfcf65e75bc0a9cbdd3cd16e89d7
+      - 70e37a80f6a01b581a3787b354393473fe839c59ce4b9bbfee4d519a4ce7b243
+      - 99becd37d9fcfd8ee9d3629b4eb08bc9218942c2f9b56dc2d16e294b642dde11
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-27A7BBD2ED0E5ABB96C8@G26J-P-EVD-E064A7351C6EE49B2000B627
+        disposition: unresolved
+        episode_refs: []
+        reason: 自杀片段未明示自杀者，不能从复合链标签反推为扶苏或蒙恬。
+        follow_up: 补取包含姓名的直接 passage。
+      - assertion_ref: G26J-胡亥@CLMK-A8AA0FC70AFDBC8CF32E@G26J-P-EVD-196F99538E6C2982F82695C2
+        disposition: unresolved
+        episode_refs: []
+        reason: 遣使片段既未明示发令者也未说明目的，边界不可核验。
+        follow_up: 补取完整诏令上下文。
+      - assertion_ref: G26J-胡亥@CLMK-FA588C7DE67BDE4D8F4C@G26J-P-EVD-7A032C991FFF062A49821411
+        disposition: unresolved
+        episode_refs: []
+        reason: 意图背景虽明示胡亥，但缺少具体处置意图和行动，不能形成 Episode core。
+        follow_up: 与明确的命令或处置 passage 重新关联。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: composite-chain passages omit victim, issuer, or concrete action
+      merge_split_rationale: three context fragments remain unresolved; no episode emitted
+
+  - review_unit_ref: RU-86226671AA6B8188DA8D
+    review_unit_cache_key: 86226671aa6b8188da8dd2a3d874c04a5218535b4d4d60b51e919429cb31bbb8
+    proposition_semantic_hashes:
+      - 586adbe381dd7a4f4101361683f45bccf01bcd403d11e37e2041b07789884cde
+      - ca3e03c5fafe8178e056c6219e67c87ff83bba1f1092bc2b555cbd3e762d6d5e
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-杨广@CLMK-D064294EFB99FF6C5C78@G26J-P-EVD-4E1EDEB71CFD3F3150AC088F
+        disposition: unresolved
+        episode_refs: []
+        reason: 被废居家片段未明示受处置者，不能从旧 claim 恢复身份。
+        follow_up: 补取含受处置者姓名和处置主体的 passage。
+      - assertion_ref: G26J-杨广@CLMK-B3165927D41140E61B4C@G26J-P-EVD-7F0F50721829715C5A1BB1D7
+        disposition: unresolved
+        episode_refs: []
+        reason: 坐罪被诛片段未明示受刑者，本单元没有 passage-scoped core。
+        follow_up: 补取含受刑者姓名和罪责来源的 passage。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: both punished persons are unstated
+      merge_split_rationale: punishment outcomes cannot be joined by focal-person injection
+
+  - review_unit_ref: RU-960A3F4E5A25A939F27E
+    review_unit_cache_key: 960a3f4e5a25a939f27e21afa690bd2c6d9c7d8c5c4d53a181c49a1e5db544d4
+    proposition_semantic_hashes:
+      - 3ddc5e5ebeedddc500fdd01c79c6aed999c31fd0adb46436328197d6201938d5
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-0FD48C7A0924E65EF3B8@G26J-P-EVD-CC1CF64533E2A5FE49E7C263
+        disposition: unresolved
+        episode_refs: []
+        reason: 群盗评价未明示发言者，也不包含可独立核验的行动边界。
+        follow_up: 作为更完整议政 passage 的 attribution context 重新抽取。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: speaker is absent
+      merge_split_rationale: attribution-only context emits no episode
+
+  - review_unit_ref: RU-A61A81BD98B14873EE84
+    review_unit_cache_key: a61a81bd98b14873ee8436455f1c5009eb47ac6206372364e8c1948ac1e9aeaf
+    proposition_semantic_hashes:
+      - 2825c4f81a0eefbe16bdafc2e73a79c70a86aa3b302f5142d502a9c37352428f
+      - 2b6463c100c41f3ae81b97a9642b714683381b9c647111b88c1f072f9e301e86
+      - 4e11cabc967ed18b15d4e0fea2be5b0a10f9b820ee0fd71a6f0088f430888762
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups:
+      - local_episode_code: E1
+        core_assertion_refs:
+          - G26J-胡亥@CLMK-7CE141A20E31B5506102@G26J-P-EVD-715CF6EB1BC5E6DFE0674411
+        boundary_reason: 李斯恐惧是主语和心理行动均明确的独立原子事件，不能与其他 claim 的拒谏事件合并。
+        confidence: 0.82
+        atomic_event_key: "CLMK-7CE141A20E31B5506102:atom:li-si-fears"
+      - local_episode_code: E2
+        core_assertion_refs:
+          - G26J-胡亥@CLMK-49DE200FD2F366DDEE24@G26J-P-EVD-12258834934327980ADDCCAC
+        boundary_reason: 二世不许前述请求是主体、否决行动和结果明确的独立原子事件。
+        confidence: 0.94
+        atomic_event_key: "CLMK-49DE200FD2F366DDEE24:atom:second-emperor-refuses"
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-7CE141A20E31B5506102@G26J-P-EVD-715CF6EB1BC5E6DFE0674411
+        disposition: core_of_episode
+        episode_refs: [E1]
+        reason: passage 明示李斯恐惧，保留为独立 partial Episode core。
+      - assertion_ref: G26J-胡亥@CLMK-255582327C35CE5D5CAF@G26J-P-EVD-D9913FE04BFDA6296D81BE1C
+        disposition: unresolved
+        episode_refs: []
+        reason: 上书陈奏片段未明示上书者，且其赵高案件链与本单元两个 core 无直接 passage 关系。
+        follow_up: 在李斯司法处置链的跨单元关系审查中重新挂接。
+      - assertion_ref: G26J-胡亥@CLMK-49DE200FD2F366DDEE24@G26J-P-EVD-12258834934327980ADDCCAC
+        disposition: core_of_episode
+        episode_refs: [E2]
+        reason: passage 明示二世不许，作为拒绝请求的独立 partial Episode core。
+    pair_dispositions:
+      - left_episode_ref: E1
+        right_episode_ref: E2
+        decision: distinct_unrelated
+        reason: 两个原子事件来自不同 claim，分别是李斯恐惧与二世拒绝请求；当前 passage 未提供同一任务链或直接因果连接。
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: E2 uses candidate alias 二世 while evaluation context is 胡亥; formal identity resolution remains required
+      merge_split_rationale: two distinct atomic keys remain split; unrelated context stays unresolved
+
+  - review_unit_ref: RU-B60DC4D817CA0FA51F23
+    review_unit_cache_key: b60dc4d817ca0fa51f230dabea397c3b79226326ff49a80a7ea7bc93abfd0df4
+    proposition_semantic_hashes:
+      - f69c2a7bc7bdb1d80951e4ff1e5456785dfaf318e74d3eab2411c6b31453e4d3
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-7CE141A20E31B5506102@G26J-P-EVD-AB4B00DBF256683DC72F5209
+        disposition: unresolved
+        episode_refs: []
+        reason: 督责之术主张未明示主张者，不能把李斯身份从旧 claim 摘要回填为 core。
+        follow_up: 补取包含李斯上书与主张的连续 passage。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: policy advocate is absent
+      merge_split_rationale: context-only policy fragment emits no episode
+
+  - review_unit_ref: RU-BB5ECF19E3C04B785151
+    review_unit_cache_key: bb5ecf19e3c04b78515199155e9ef8240cd25e64dae17b9e1f426afcaa350ebd
+    proposition_semantic_hashes:
+      - 251eb759c41b1c01f63295684a3b0a4100edeadd0bda13aa90edb5e72ef640fb
+      - 275068c0224b380fb325335b07bfd13c3de3276cc02b0f5e6664ac8492d6692b
+      - 7e6e41054ffaa1e98c9506a1bb8b620f626f36670528c505b867dd40e020e8ab
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-27A7BBD2ED0E5ABB96C8@G26J-P-EVD-2F263AD085DF60A516AD75E2
+        disposition: unresolved
+        episode_refs: []
+        reason: 受诏行法未明示执行者和对象，不能确定是扶苏链还是蒙恬链的哪一原子处置。
+        follow_up: 补取诏令全文和执行对象。
+      - assertion_ref: G26J-胡亥@CLMK-FA588C7DE67BDE4D8F4C@G26J-P-EVD-5782332F10557B3075DCAC2C
+        disposition: unresolved
+        episode_refs: []
+        reason: 杀害片段未明示杀人者和被杀者，不能由复合链 focal person 注入边界。
+        follow_up: 补取含双方姓名的 passage。
+      - assertion_ref: G26J-胡亥@CLMK-A8AA0FC70AFDBC8CF32E@G26J-P-EVD-BEDFE1EAEECB708BD69B695F
+        disposition: unresolved
+        episode_refs: []
+        reason: 向蒙恬宣令明示对象但未明示发令者和命令内容，不足以冻结处置边界。
+        follow_up: 补取完整命令内容及发令主体。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: composite focal identity and omitted actors or victims
+      merge_split_rationale: three context-only fragments remain unresolved rather than being fused
+
+  - review_unit_ref: RU-C5B38502A57771E3C765
+    review_unit_cache_key: c5b38502a57771e3c76510bbc8d296dc43ecb98c695bd9333201996b41667aa6
+    proposition_semantic_hashes:
+      - 8d70bad49c4a4c218700fba526d9a1c5de2ea35ff0af2b5b3429906ad12cc3d8
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-杨广@CLMK-B0022EC5A6D8E05A7E99@G26J-P-EVD-05FBD61F4A1E612A4317756C
+        disposition: unresolved
+        episode_refs: []
+        reason: 出任河池郡守片段未明示任官对象，不能仅凭 focal person 生成任命 Episode。
+        follow_up: 补取包含萧瑀姓名和发令主体的完整任命 passage。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: appointee and appointing authority are absent
+      merge_split_rationale: context-only appointment fragment emits no episode
+
+  - review_unit_ref: RU-CA221996F19C31FDB6FD
+    review_unit_cache_key: ca221996f19c31fdb6fdee834341db9235581e2ec5df8f6d593e673548de065b
+    proposition_semantic_hashes:
+      - bfcb1c91095938154f8f64967b109f1c7b38159a56249b54d1c7b3ed05df54ff
+      - d9e5663c443ac5a7fd94207d1f7bc72e30750efea79218045bae484534a0316c
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-6FD7BCBD233E76A3A3CA@G26J-P-EVD-B14FD1D403032DE5F2968910
+        disposition: unresolved
+        episode_refs: []
+        reason: 囚禁蒙恬片段明示对象但未明示囚禁主体，不能独立确定责任边界。
+        follow_up: 补取发令或执行主体和时间。
+      - assertion_ref: G26J-胡亥@CLMK-144D3696FB99BAAFF29B@G26J-P-EVD-FC5022CE3AFB57A126CB7258
+        disposition: unresolved
+        episode_refs: []
+        reason: 赐死扶苏、蒙恬片段未明示发令者，且涉及两名对象，需先恢复完整命令结构。
+        follow_up: 补取命令主体并拆分或明确复合对象关系。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: issuing authority is absent and one fragment has multiple victims
+      merge_split_rationale: no core emitted from actor-less succession contexts
+
+  - review_unit_ref: RU-D6A6FB3A5486B6E76FA2
+    review_unit_cache_key: d6a6fb3a5486b6e76fa2df1fdf9cdc50013740e81ac512c4c4681f6d4defea1e
+    proposition_semantic_hashes:
+      - 0c5cbe61005e3ddb490c55ae02a273b9e8bad6703619b1b7657315dfee8d5b1a
+      - 1c8cf5b9bef5cb247f1066e2ab23c576e72e092221fbca0d727beab2460ff3c4
+      - 1df4c6a805d0e573bf5a91a749ecac25ae679c190b230be60232cbb3e00bec97
+      - 936ae01bb39f6c55c41e8abf3a0c4ee779f5c57c4aaa5bf48e7468b193518d0b
+      - b9d32ef638b4199711ebb0d54cc578d14bc8716984bbdc14a5524bc963505743
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups:
+      - local_episode_code: E1
+        core_assertion_refs:
+          - G26J-杨广@CLMK-60AD56D1E89743F59CED@G26J-P-EVD-596DE602FF507C59C6B659B1
+        boundary_reason: 萧瑀进谋明示行动者与行动，是独立原子建议事件；不得与结果 passage 合并为同一 core。
+        confidence: 0.91
+        atomic_event_key: "CLMK-60AD56D1E89743F59CED:atom:xiao-yu-advises"
+      - local_episode_code: E2
+        core_assertion_refs:
+          - G26J-杨广@CLMK-60AD56D1E89743F59CED@G26J-P-EVD-01D368237919D2FDB31E06A8
+        boundary_reason: 突厥解围撤离是动作和结果均明确的后续原子事件，与萧瑀进谋通过 Relation 连接。
+        confidence: 0.88
+        atomic_event_key: "CLMK-60AD56D1E89743F59CED:atom:turks-withdraw"
+    relations:
+      - from_episode_ref: E2
+        to_episode_ref: E1
+        relation_type: outcome_of
+        evidence_assertion_refs:
+          - G26J-杨广@CLMK-60AD56D1E89743F59CED@G26J-P-EVD-01D368237919D2FDB31E06A8
+          - G26J-杨广@CLMK-60AD56D1E89743F59CED@G26J-P-EVD-596DE602FF507C59C6B659B1
+        confidence: 0.87
+    assertion_dispositions:
+      - assertion_ref: G26J-杨广@CLMK-B0022EC5A6D8E05A7E99@G26J-P-EVD-C1CBB6AAF14F0712C6AEC98B
+        disposition: unresolved
+        episode_refs: []
+        reason: 情不可恕评价属于另一处置链，未明示评价者，也不能挂接本单元的进谋—解围链。
+        follow_up: 在萧瑀外任处置链中重审。
+      - assertion_ref: G26J-杨广@CLMK-4E761D80EBEA48F476DB@G26J-P-EVD-CEE95AFC9A7DB9F2635F1689
+        disposition: unresolved
+        episode_refs: []
+        reason: 设奇攻击未明示行动者和对象，属于另一河池军事链，不能与进谋—解围链合并。
+        follow_up: 补取完整河池作战 passage 后独立审查。
+      - assertion_ref: G26J-杨广@CLMK-60AD56D1E89743F59CED@G26J-P-EVD-596DE602FF507C59C6B659B1
+        disposition: core_of_episode
+        episode_refs: [E1]
+        reason: passage 明示萧瑀进谋，作为建议行动的独立 partial Episode core。
+      - assertion_ref: G26J-杨广@CLMK-4E761D80EBEA48F476DB@G26J-P-EVD-427A44F22B2E947689F3C6B4
+        disposition: unresolved
+        episode_refs: []
+        reason: 郡中复安是另一河池军事链的结果语境，不能跨 atomic semantic key 并入当前 core。
+        follow_up: 与补全后的河池作战原子事件关联。
+      - assertion_ref: G26J-杨广@CLMK-60AD56D1E89743F59CED@G26J-P-EVD-01D368237919D2FDB31E06A8
+        disposition: core_of_episode
+        episode_refs: [E2]
+        reason: passage 明示突厥解围撤离，保留为结果事件的独立 core。
+    pair_dispositions:
+      - left_episode_ref: E1
+        right_episode_ref: E2
+        decision: related
+        reason: 两条原子 assertion 来自同一雁门进谋—解围链，但动作主体和事件角色不同，必须拆为两个 Episode 并以结果关系连接。
+        relation_type: outcome_of
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: E2 does not state Xiao Yu; the outcome link remains proposed rather than accepted
+      merge_split_rationale: different atomic keys stay split and are connected by outcome_of
+
+  - review_unit_ref: RU-F5D43391CB7E95137292
+    review_unit_cache_key: f5d43391cb7e951372926a584fa1752e287cb7c4cac07bff76d5dbbae15c0878
+    proposition_semantic_hashes:
+      - 2796895c7b89814d4d480de2362c18335d9e70faa8b60629e51e1ef3ad348585
+      - 6046c777866e26cd88cb739c058756002678ac014daaaa8d55eb2be0714d6a8c
+      - 7137f0927810f23034b795662e1059cbd3519e6a891531d6471ce8bab6618701
+      - ad6cec9124f4fec3975adfc6ee007548650048284bd146182999d40b89f94aca
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups: []
+    relations: []
+    assertion_dispositions:
+      - assertion_ref: G26J-杨广@CLMK-DC22FE2B5A6D223CA310@G26J-P-EVD-A538FDBF1E76F30945BB995C
+        disposition: excluded
+        episode_refs: []
+        reason: 页面导航和目录文本不是历史事件证据。
+      - assertion_ref: G26J-杨广@CLMK-4F75751CD9611A0DCBF9@G26J-P-EVD-8E2E765546FFE80790871A2D
+        disposition: excluded
+        episode_refs: []
+        reason: 页面导航和目录文本不是历史事件证据。
+      - assertion_ref: G26J-杨广@CLMK-4F75751CD9611A0DCBF9@G26J-P-EVD-686B9EB1D45CB9329893D946
+        disposition: unresolved
+        episode_refs: []
+        reason: 召汉王谅片段未明示发令者，无法确定责任主体或屈突通在链中的角色。
+        follow_up: 补取诏令上下文和屈突通行动 passage。
+      - assertion_ref: G26J-杨广@CLMK-4F75751CD9611A0DCBF9@G26J-P-EVD-FC28C9D3EDB929FA262268BA
+        disposition: unresolved
+        episode_refs: []
+        reason: 返回长安片段未明示返回者，不能与召见片段自动合并。
+        follow_up: 补取包含返回者和先行任务的完整 passage。
+    pair_dispositions: []
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: summons issuer and returning actor are absent
+      merge_split_rationale: two navigation artifacts excluded; two actor-less contexts unresolved
+
+  - review_unit_ref: RU-FBC42637E426E431A0CB
+    review_unit_cache_key: fbc42637e426e431a0cbb8608a80fb78042f22c5aa79cb63715ce1a409534d38
+    proposition_semantic_hashes:
+      - 2f10d2c622ef521c4ae930fee4f71ea971b7fa00bee310e2cce95b390e9a8a5d
+      - 38ad96cfe3a8e29c30cd0d568e688c919b534f88af6183e1bcad2cd09ee00209
+      - 62bbabfaa30a59674c17b8a14ab847be94843fa0a379fd3a881b123f3d260ee4
+      - d767b29bf3a6d71f6829c4585c0bf8699671cc3d2cebfd73806ce26934b98559
+    boundary_policy_version: episode-boundary-policy-v2.8
+    output_schema_version: episode-boundary-review-v2.8
+    model_family: semantic-boundary-reviewer
+    episode_groups:
+      - local_episode_code: E1
+        core_assertion_refs:
+          - G26J-胡亥@CLMK-144D3696FB99BAAFF29B@G26J-P-EVD-9AE2BA0086661BEBA716C71D
+        boundary_reason: 蒙恬复请明示行动者与复请行动，是针对既有处置的独立原子事件。
+        confidence: 0.90
+        atomic_event_key: "CLMK-144D3696FB99BAAFF29B:atom:meng-tian-requests-review"
+      - local_episode_code: E2
+        core_assertion_refs:
+          - G26J-胡亥@CLMK-6FD7BCBD233E76A3A3CA@G26J-P-EVD-4B1D2CDB70F75EAA1DF33EEA
+        boundary_reason: 胡亥听从未载明进言是主体和行动明确、但对象欠缺的另一独立原子事件。
+        confidence: 0.82
+        atomic_event_key: "CLMK-6FD7BCBD233E76A3A3CA:atom:huhai-listens"
+    relations:
+      - from_episode_ref: E2
+        to_episode_ref: E1
+        relation_type: causal_followup
+        evidence_assertion_refs:
+          - G26J-胡亥@CLMK-6FD7BCBD233E76A3A3CA@G26J-P-EVD-4B1D2CDB70F75EAA1DF33EEA
+          - G26J-胡亥@CLMK-144D3696FB99BAAFF29B@G26J-P-EVD-9AE2BA0086661BEBA716C71D
+        confidence: 0.68
+    assertion_dispositions:
+      - assertion_ref: G26J-胡亥@CLMK-E98A9D0388EC3A8C142D@G26J-P-EVD-593D7BF4DC74C37FA7BA1162
+        disposition: context_for_episode
+        episode_refs: [E1]
+        reason: 遣使至阳周是蒙恬复请后续处置的地点与命令语境，但发令者未在片段中明示。
+      - assertion_ref: G26J-胡亥@CLMK-E98A9D0388EC3A8C142D@G26J-P-EVD-97CB39CEEB09CE7ACFE52247
+        disposition: context_for_episode
+        episode_refs: [E1]
+        reason: 吞药自杀是复请未获采纳后的结果语境，但片段未明示自杀者，不能成为 core。
+      - assertion_ref: G26J-胡亥@CLMK-144D3696FB99BAAFF29B@G26J-P-EVD-9AE2BA0086661BEBA716C71D
+        disposition: core_of_episode
+        episode_refs: [E1]
+        reason: passage 明示蒙恬复请，作为复核请求的独立 partial Episode core。
+      - assertion_ref: G26J-胡亥@CLMK-6FD7BCBD233E76A3A3CA@G26J-P-EVD-4B1D2CDB70F75EAA1DF33EEA
+        disposition: core_of_episode
+        episode_refs: [E2]
+        reason: passage 明示胡亥听从，作为决策动作的独立 partial Episode core。
+    pair_dispositions:
+      - left_episode_ref: E1
+        right_episode_ref: E2
+        decision: related
+        reason: 两个事件同属蒙氏处置链，但来自不同 atomic semantic key；胡亥听从处置进言在逻辑上先于蒙恬复请，保留低置信因果后续关系。
+        relation_type: causal_followup
+    review_provenance:
+      route: independent_episode_boundary_review
+      reviewer: g26j_boundary_review_subagent
+      isolation: historical_gold_candidates_scores_not_read
+      identity_blockers: E2 omits the advice content; context passages omit issuer or victim; relation remains low confidence
+      merge_split_rationale: two atomic events stay split and are linked by a proposed causal_followup
