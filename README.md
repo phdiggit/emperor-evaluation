@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6H 已失败关闭；v2.6 责任域措辞边界已硬化，等待 G2.6I 全新输入
+- 阶段：G2.6I v2.6 预检通过；刘恒、胤禛全新输入已冻结，等待三层独立审查
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E、G2.6G 与 G2.6H 均已失败冻结。G2.6H 使用刘秀、嬴政输入，成功验证每个 group 都有原子键，但 v2.5 将 `温之战/温地战事`、`汝南太守/扬州牧、汝南太守` 等责任域展示差异误判为跨结构 merge，候选图未创建。v2.6 现保留 action/time/family/focal 硬门，允许 responsibility-domain 表面措辞变化；domain 仍进入 semantic payload，边界仍由原子键和 blind Gold 约束。下一步只能使用全新输入执行 G2.6I；PostgreSQL G3 继续阻断。
+G2.6E、G2.6G 与 G2.6H 均已失败冻结。G2.6I 已使用刘恒、胤禛的 29 条只读 V3 claim 冻结 59 条 Assertion/Passage，v2.6 对 8 个 ReviewUnit 的输入冻结前预检通过。Boundary、Historical Gold 与 Rule Gold 必须独立冻结；三层全部冻结前不得生成 candidate，首轮物化与评分后不得回改本批输入或契约。PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,8 +103,8 @@ G2.6E、G2.6G 与 G2.6H 均已失败冻结。G2.6H 使用刘秀、嬴政输入�
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`g2_6h_failed_closed_g2_6i_pending`
-- G3 Episode Graph PostgreSQL：`blocked_by_g2_6e`
+- blind reconciliation：`g2_6i_input_frozen_independent_reviews_pending`
+- G3 Episode Graph PostgreSQL：`blocked_by_g2_6i`
 
 进入 G3 前必须满足：
 

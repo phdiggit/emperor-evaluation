@@ -1,0 +1,73 @@
+schema_version: 1
+plan_code: g2_6i_graph_blind_v1
+status: input_frozen_independent_reviews_pending
+input_frozen_at: 2026-07-13
+contract_basis_commit: 0261534f71b6cf61865fe24df719345400cfc52f
+
+input:
+  path: eval/g2_6i_graph_blind_v1/input.json
+  file_sha256: 3787d6156625085d1d807e7247eeca49aefa4db546a0c8455d6203c25403f66d
+  canonical_payload_sha256: c121ec6b738d1357ae2dd4439ad4d2d8af820c5b94ba0d87c793c8bfafe2db1b
+  selected_v3_claim_count: 29
+  assertion_count: 59
+  source_passage_count: 59
+  canonical_person_count: 7
+  rulers: [刘恒, 胤禛]
+  focal_chains: [周勃, 陈平, 鄂尔泰, 隆科多]
+  source_network_request_count: 0
+  read_only_database_query_performed: true
+  database_write_count: 0
+  provenance_private_address_committed: false
+
+review_requests:
+  path: eval/g2_6i_graph_blind_v1/review_requests.json
+  file_sha256: 2990a4ea05ffa315dcd4a743d64fc7d264ed4be879e4e842ba42eb593fb48c51
+  proposition_cluster_count: 29
+  review_unit_count: 8
+  boundary_policy_version: episode-boundary-policy-v2.6
+  output_schema_version: episode-boundary-review-v2.6
+  candidate_episode_generated: false
+
+preflight:
+  contract_version: boundary_review_v2_6
+  focused_test_count: 56
+  focused_tests_passed: true
+  structural_coalescing_episode_count: 28
+  assertion_disposition_count: 59
+  duplicate_episode_id_count: 0
+  candidate_or_score_created: false
+
+isolation:
+  boundary_reviewer_forbidden:
+    - historical_gold 或 rule_gold
+    - candidates、score、acceptance
+    - 所有旧 holdout Gold/candidates/score
+  historical_gold_reviewer_forbidden:
+    - review_requests 或 boundary review
+    - rule Gold
+    - candidates、score、acceptance
+    - 所有旧 holdout Gold/candidates/score
+  rule_gold_reviewer_starts_after_historical_freeze: true
+  kernel_must_wait_for_all_freezes: true
+  post_freeze_contract_or_input_tuning_forbidden: true
+
+release_thresholds:
+  exact_episode_recall_minimum: 0.85
+  exact_candidate_precision_minimum: 0.90
+  pairwise_precision_minimum: 0.95
+  pairwise_recall_minimum: 0.90
+  catastrophic_wrong_merge_count: 0
+  cross_ruler_contamination_count: 0
+  assertion_disposition_coverage: 1.0
+  passage_lineage: 1.0
+  strict_relation_precision_minimum: 0.90
+  strict_relation_recall_minimum: 0.85
+  exact_rule_evidence_unit_precision_minimum: 0.90
+  exact_rule_evidence_unit_recall_minimum: 0.85
+  rule_evidence_unit_duplicate_consumption_count: 0
+  unchanged_rerun_model_calls: 0
+  changed_unit_affects_other_unit_count: 0
+
+g3:
+  authorized: false
+  blocked_by: g2_6i_graph_blind_v1
