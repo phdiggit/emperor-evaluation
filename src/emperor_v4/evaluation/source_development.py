@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from copy import deepcopy
 from dataclasses import asdict
 from hashlib import sha256
 from pathlib import Path
@@ -156,6 +157,47 @@ def _claim_index(snapshot: Mapping[str, Any]) -> tuple[dict[str, dict[str, Any]]
 def _document_id(snapshot: WikisourcePageSnapshot) -> str:
     identity = f"{snapshot.canonical_title}\x1f{snapshot.revision_id}"
     return "WSD-" + sha256(identity.encode("utf-8")).hexdigest()[:20].upper()
+
+
+def _deduplicate_source_passages(
+    passages: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    by_code: dict[str, dict[str, Any]] = {}
+    for passage in passages:
+        code = str(passage["passage_code"])
+        if code not in by_code:
+            by_code[code] = passage
+            continue
+        current = by_code[code]
+        identity_fields = (
+            "document_code",
+            "locator",
+            "raw_text",
+            "content_hash",
+            "content_version",
+            "section_id",
+            "span_start",
+            "span_end",
+            "passage_kind",
+            "window_policy_version",
+        )
+        if any(current[field] != passage[field] for field in identity_fields):
+            raise ValueError(f"相同 passage_code 对应不同 SourcePassage payload: {code}")
+        current["selection_reason"] = list(
+            dict.fromkeys(
+                [*current["selection_reason"], *passage["selection_reason"]]
+            )
+        )
+        link_keys = {
+            (item["target_passage_ref"], item["relation"])
+            for item in current["linked_passages"]
+        }
+        current["linked_passages"].extend(
+            item
+            for item in passage["linked_passages"]
+            if (item["target_passage_ref"], item["relation"]) not in link_keys
+        )
+    return sorted(by_code.values(), key=lambda row: row["passage_code"])
 
 
 def materialize_source_development_input(
@@ -354,7 +396,7 @@ def materialize_source_development_input(
         "assertion_input_contract": "passage-scoped-assertion-v2",
         "source_cache_contract": SOURCE_CACHE_CONTRACT_V2,
         "source_documents": source_documents,
-        "source_passages": sorted(source_passages, key=lambda row: row["passage_code"]),
+        "source_passages": _deduplicate_source_passages(source_passages),
         "assertions": assertions,
         "canonical_people": claim_snapshot.get("canonical_people") or [],
         "collection_provenance": {
@@ -363,5 +405,128 @@ def materialize_source_development_input(
             "database_write_count": 0,
             "gold_accessed": False,
             "boundary_review_started": False,
+        },
+    }
+
+
+def materialize_source_development_from_blind_input(
+    *,
+    manifest_path: Path,
+    blind_input: Mapping[str, Any],
+    snapshot_dir: Path,
+) -> dict[str, Any]:
+    _reject_oracle_fields(blind_input, label="source development blind input")
+    assertions_by_claim: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    for assertion in blind_input.get("assertions") or ():
+        claim_code = str(
+            (assertion.get("extraction_provenance") or {}).get("claim_key") or ""
+        )
+        if not claim_code:
+            raise ValueError("blind input assertion 缺少 extraction_provenance.claim_key")
+        assertions_by_claim[claim_code].append(assertion)
+
+    manifest = _load_yaml(manifest_path)
+    _validate_manifest(manifest)
+    manifest_claims = {str(row["claim_code"]) for row in manifest["passages"]}
+    if manifest_claims != set(assertions_by_claim):
+        missing = sorted(set(assertions_by_claim) - manifest_claims)
+        extra = sorted(manifest_claims - set(assertions_by_claim))
+        raise ValueError(
+            f"source development manifest 与 blind claim 集不一致: "
+            f"missing={missing} extra={extra}"
+        )
+
+    people: dict[str, dict[str, Any]] = {}
+    for claim_code, claim_assertions in assertions_by_claim.items():
+        representative = claim_assertions[0]
+        qualifiers = representative.get("qualifiers") or {}
+        ruler = str(qualifiers.get("evaluation_context") or "")
+        if not ruler:
+            raise ValueError(f"blind claim 缺少 evaluation_context: {claim_code}")
+        people.setdefault(ruler, {"ruler": ruler, "payload": {"claims": []}})
+        people[ruler]["payload"]["claims"].append(
+            {
+                "claim_code": claim_code,
+                "emperor_name": qualifiers.get("evaluation_context_name") or ruler,
+                "object_name": representative.get("object"),
+                "claim_summary": qualifiers.get("claim_summary"),
+                "confidence": max(
+                    float(item.get("confidence") or 0.0) for item in claim_assertions
+                ),
+                "source_passage_refs": [
+                    str(item.get("source_passage_ref") or "")
+                    for item in claim_assertions
+                ],
+                "fact_payload": {
+                    "actor": representative.get("subject"),
+                    "action_type": representative.get("predicate"),
+                    "object": representative.get("object"),
+                    "time_context": representative.get("time_expression"),
+                    "fact_schema": qualifiers.get("episode_type"),
+                    "responsibility_family": qualifiers.get("responsibility_family"),
+                    "office_or_domain": qualifiers.get("office_or_domain"),
+                    "normalized_time": qualifiers.get("normalized_time") or {},
+                    "outcome": qualifiers.get("outcome"),
+                },
+            }
+        )
+
+    base = materialize_source_development_input(
+        manifest_path=manifest_path,
+        claim_snapshot={"people": list(people.values()), "canonical_people": []},
+        snapshot_dir=snapshot_dir,
+    )
+    passage_ref_by_claim = {
+        str(item["extraction_provenance"]["legacy_claim_code"]): str(
+            item["source_passage_ref"]
+        )
+        for item in base["assertions"]
+    }
+    passages = {str(item["passage_code"]): item for item in base["source_passages"]}
+    passage_specs = {str(row["claim_code"]): row for row in manifest["passages"]}
+
+    rebound_assertions = []
+    for original in blind_input.get("assertions") or ():
+        claim_code = str(original["extraction_provenance"]["claim_key"])
+        passage_ref = passage_ref_by_claim[claim_code]
+        passage = passages[passage_ref]
+        spec = passage_specs[claim_code]
+        rebound = deepcopy(original)
+        legacy_assertion_code = str(rebound["assertion_code"])
+        legacy_passage_ref = str(rebound["source_passage_ref"])
+        rebound["assertion_code"] = (
+            f"K0-A-{legacy_assertion_code}@{passage_ref}"
+        )
+        rebound["source_passage_ref"] = passage_ref
+        rebound["source_attribution"] = {
+            "document_code": passage["document_code"],
+            "source_slice_ref": passage_ref,
+        }
+        rebound["passage_support"] = {
+            "support_mode": "single_passage",
+            "assertion_semantic_key": claim_code,
+            "supported_fields": list(spec.get("supported_fields") or ()),
+            "binding_provenance": {
+                "contract": "assertion-extraction-contract-v2",
+                "review_status": "open_development_source_review",
+            },
+        }
+        rebound["extraction_provenance"] = {
+            **dict(rebound.get("extraction_provenance") or {}),
+            "origin": "retrieval_v3_assertion_rebound_to_v4_source_v2",
+            "legacy_assertion_code": legacy_assertion_code,
+            "legacy_source_passage_ref": legacy_passage_ref,
+        }
+        rebound_assertions.append(rebound)
+
+    return {
+        **base,
+        "dataset_code": manifest["dataset_code"],
+        "assertions": rebound_assertions,
+        "canonical_people": deepcopy(blind_input.get("canonical_people") or []),
+        "collection_provenance": {
+            **base["collection_provenance"],
+            "source_mode": "wikisource_revision_snapshot_assertion_rebind",
+            "legacy_dataset_code": blind_input.get("dataset_code"),
         },
     }

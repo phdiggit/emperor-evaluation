@@ -45,6 +45,7 @@ from emperor_v4.evaluation.source_gap import (
 from emperor_v4.evaluation.qualification import evaluate_source_development_sets
 from emperor_v4.evaluation.source_development import (
     fetch_source_development_snapshots,
+    materialize_source_development_from_blind_input,
     materialize_source_development_input,
 )
 
@@ -342,6 +343,11 @@ def _parser() -> argparse.ArgumentParser:
     source_materialize.add_argument("--claim-snapshot", type=Path, required=True)
     source_materialize.add_argument("--snapshot-dir", type=Path, required=True)
     source_materialize.add_argument("--output", type=Path)
+    source_rebind = subparsers.add_parser("source-development-rebind")
+    source_rebind.add_argument("--manifest", type=Path, required=True)
+    source_rebind.add_argument("--blind-input", type=Path, required=True)
+    source_rebind.add_argument("--snapshot-dir", type=Path, required=True)
+    source_rebind.add_argument("--output", type=Path)
     return parser
 
 
@@ -442,6 +448,12 @@ def main() -> int:
             claim_snapshot=json.loads(
                 args.claim_snapshot.read_text(encoding="utf-8")
             ),
+            snapshot_dir=args.snapshot_dir,
+        )
+    elif args.command == "source-development-rebind":
+        report = materialize_source_development_from_blind_input(
+            manifest_path=args.manifest,
+            blind_input=json.loads(args.blind_input.read_text(encoding="utf-8")),
             snapshot_dir=args.snapshot_dir,
         )
     elif args.command == "episode-reconciliation-review":

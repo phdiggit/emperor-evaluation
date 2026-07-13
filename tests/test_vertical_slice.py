@@ -45,6 +45,7 @@ from emperor_v4.evaluation.qualification import (
 )
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 from emperor_v4.evaluation.source_development import (
+    materialize_source_development_from_blind_input,
     materialize_source_development_input,
 )
 from emperor_v4.contracts.source import text_content_hash
@@ -1183,3 +1184,74 @@ def test_source_development_materializer_rejects_nested_oracle_fields(tmp_path: 
             claim_snapshot=claim_snapshot,
             snapshot_dir=snapshot_dir,
         )
+
+
+def test_source_development_rebind_reuses_identical_passage_span(tmp_path: Path):
+    manifest_path, snapshot_dir, _ = _source_development_fixture(tmp_path)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    second = dict(manifest["passages"][0])
+    second["claim_code"] = "CLAIM-2"
+    second["selection_reason"] = ["duplicate_semantic_source_span"]
+    manifest["passages"].append(second)
+    manifest_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    def assertion(code: str, claim: str, passage: str) -> dict:
+        return {
+            "assertion_code": code,
+            "source_passage_ref": passage,
+            "assertion_type": "event_fact",
+            "subject": "秦二世",
+            "predicate": "delegation",
+            "object": "蒙恬",
+            "time_expression": None,
+            "location_expression": None,
+            "qualifiers": {
+                "evaluation_context": "PER-QIN-ERSHI",
+                "evaluation_context_name": "秦二世",
+                "episode_type": "appointment_delegation",
+                "responsibility_family": "military_command",
+                "office_or_domain": "边防",
+                "normalized_time": {},
+                "outcome": "形成战果",
+                "claim_summary": "二世命蒙恬守边。",
+            },
+            "polarity": "asserted",
+            "source_attribution": {
+                "document_code": "LEGACY-DOC",
+                "source_slice_ref": passage,
+            },
+            "confidence": 0.9,
+            "ambiguity_flags": [],
+            "extraction_provenance": {
+                "origin": "legacy",
+                "claim_key": claim,
+            },
+        }
+
+    payload = materialize_source_development_from_blind_input(
+        manifest_path=manifest_path,
+        blind_input={
+            "dataset_code": "legacy-fixture",
+            "canonical_people": [],
+            "assertions": [
+                assertion("A-1", "CLAIM-1", "OLD-P-1"),
+                assertion("A-2", "CLAIM-1", "OLD-P-2"),
+                assertion("A-3", "CLAIM-2", "OLD-P-3"),
+            ],
+        },
+        snapshot_dir=snapshot_dir,
+    )
+    report = evaluate_source_development_sets({"fixture": payload})
+
+    assert len(payload["source_passages"]) == 1
+    assert len(payload["assertions"]) == 3
+    assert len({item["assertion_code"] for item in payload["assertions"]}) == 3
+    assert len({item["source_passage_ref"] for item in payload["assertions"]}) == 1
+    assert {
+        "claim:CLAIM-1",
+        "claim:CLAIM-2",
+    }.issubset(payload["source_passages"][0]["selection_reason"])
+    assert report["reports"]["fixture"]["stages"]["S1_source_passage"]["passed"]
+    assert report["reports"]["fixture"]["stages"]["S2_assertion"]["passed"]
