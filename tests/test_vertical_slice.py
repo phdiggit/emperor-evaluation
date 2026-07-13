@@ -39,6 +39,7 @@ from emperor_v4.evaluation.graph_holdout import (
 from emperor_v4.evaluation.qualification import (
     QualificationThresholds,
     evaluate_candidate_recall_upper_bound,
+    evaluate_downstream_development_qualification,
     evaluate_historical_coverage,
     evaluate_rule_coverage,
     evaluate_source_assertion_qualification,
@@ -294,6 +295,47 @@ def test_qualification_early_stops_sparse_relation_rule_and_recall_inputs():
     assert relation["decision"]["stop_code"] == "COVERAGE_INELIGIBLE_FOR_RELATION"
     assert rule["decision"]["stop_code"] == "COVERAGE_INELIGIBLE_FOR_RULE"
     assert recall["decision"]["stop_code"] == "STOP_BEFORE_RULE_GOLD"
+
+
+def test_downstream_development_qualification_preserves_sequential_gates():
+    thresholds = QualificationThresholds(
+        gold_episode_minimum=2,
+        gold_relation_minimum=1,
+        gold_rule_evidence_unit_minimum=1,
+    )
+    graph = {
+        "dataset_code": "development-fixture",
+        "episode_groups": [{"episode": "E1"}, {"episode": "E2"}],
+    }
+    historical_gold = {
+        "gold_episodes": [{"episode": "G1"}, {"episode": "G2"}],
+        "gold_relations": [{"relation": "R1"}],
+    }
+    rule_gold = {"gold_rule_evidence_units": [{"unit": "U1"}]}
+
+    qualified = evaluate_downstream_development_qualification(
+        graph,
+        historical_gold,
+        rule_gold,
+        thresholds=thresholds,
+    )
+    pending = evaluate_downstream_development_qualification(
+        graph,
+        historical_gold,
+        thresholds=thresholds,
+    )
+    stopped = evaluate_downstream_development_qualification(
+        {"dataset_code": "development-fixture", "episode_groups": []},
+        historical_gold,
+        rule_gold,
+        thresholds=thresholds,
+    )
+
+    assert qualified["status"] == "development_downstream_qualified"
+    assert qualified["decision"]["postgresql_g3_authorized"] is False
+    assert pending["status"] == "rule_gold_pending"
+    assert stopped["status"] == "stopped_before_rule_gold"
+    assert stopped["stages"]["S5_rule_evidence_unit_coverage"] is None
 
 
 def test_frozen_v3_outputs_form_auditable_episode_candidate_slice_offline():

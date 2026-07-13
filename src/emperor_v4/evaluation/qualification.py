@@ -341,3 +341,55 @@ def evaluate_candidate_recall_upper_bound(
             "stop_code": None if passed else "STOP_BEFORE_RULE_GOLD",
         },
     }
+
+
+def evaluate_downstream_development_qualification(
+    candidate_graph: Mapping[str, Any],
+    historical_gold: Mapping[str, Any],
+    rule_gold: Mapping[str, Any] | None = None,
+    *,
+    thresholds: QualificationThresholds = QualificationThresholds(),
+) -> dict[str, Any]:
+    s3 = evaluate_candidate_recall_upper_bound(
+        candidate_episode_count=len(candidate_graph.get("episode_groups") or ()),
+        gold_episode_count=len(historical_gold.get("gold_episodes") or ()),
+        thresholds=thresholds,
+    )
+    s4 = evaluate_historical_coverage(historical_gold, thresholds=thresholds)
+    s5 = (
+        evaluate_rule_coverage(rule_gold, thresholds=thresholds)
+        if rule_gold is not None and s3["passed"] and s4["passed"]
+        else None
+    )
+    if not s3["passed"]:
+        status = "stopped_before_rule_gold"
+        stop_code = s3["decision"]["stop_code"]
+    elif not s4["passed"]:
+        status = "coverage_ineligible_for_relation"
+        stop_code = s4["decision"]["stop_code"]
+    elif s5 is None:
+        status = "rule_gold_pending"
+        stop_code = "RULE_GOLD_PENDING"
+    elif not s5["passed"]:
+        status = "coverage_ineligible_for_rule"
+        stop_code = s5["decision"]["stop_code"]
+    else:
+        status = "development_downstream_qualified"
+        stop_code = None
+    return {
+        "schema_version": 1,
+        "status": status,
+        "evaluation_mode": "open_development_regression",
+        "dataset_code": candidate_graph.get("dataset_code"),
+        "stages": {
+            "S3_episode_boundary_upper_bound": s3,
+            "S4_relation_coverage": s4,
+            "S5_rule_evidence_unit_coverage": s5,
+        },
+        "decision": {
+            "development_downstream_qualified": stop_code is None,
+            "stop_code": stop_code,
+            "new_blind_holdout_authorized": False,
+            "postgresql_g3_authorized": False,
+        },
+    }

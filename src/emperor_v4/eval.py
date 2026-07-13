@@ -42,7 +42,10 @@ from emperor_v4.evaluation.source_gap import (
     check_source_segmentation_repair_response,
     check_source_supplement_response,
 )
-from emperor_v4.evaluation.qualification import evaluate_source_development_sets
+from emperor_v4.evaluation.qualification import (
+    evaluate_downstream_development_qualification,
+    evaluate_source_development_sets,
+)
 from emperor_v4.evaluation.source_development import (
     fetch_source_development_snapshots,
     materialize_source_development_from_blind_input,
@@ -348,6 +351,17 @@ def _parser() -> argparse.ArgumentParser:
     source_rebind.add_argument("--blind-input", type=Path, required=True)
     source_rebind.add_argument("--snapshot-dir", type=Path, required=True)
     source_rebind.add_argument("--output", type=Path)
+    downstream_qualification = subparsers.add_parser(
+        "development-downstream-qualification"
+    )
+    downstream_qualification.add_argument(
+        "--candidate-graph", type=Path, required=True
+    )
+    downstream_qualification.add_argument(
+        "--historical-gold", type=Path, required=True
+    )
+    downstream_qualification.add_argument("--rule-gold", type=Path)
+    downstream_qualification.add_argument("--output", type=Path)
     return parser
 
 
@@ -455,6 +469,16 @@ def main() -> int:
             manifest_path=args.manifest,
             blind_input=json.loads(args.blind_input.read_text(encoding="utf-8")),
             snapshot_dir=args.snapshot_dir,
+        )
+    elif args.command == "development-downstream-qualification":
+        report = evaluate_downstream_development_qualification(
+            json.loads(args.candidate_graph.read_text(encoding="utf-8")),
+            yaml.safe_load(args.historical_gold.read_text(encoding="utf-8")),
+            (
+                yaml.safe_load(args.rule_gold.read_text(encoding="utf-8"))
+                if args.rule_gold
+                else None
+            ),
         )
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(
