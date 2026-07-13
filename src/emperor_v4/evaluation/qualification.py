@@ -9,6 +9,7 @@ from emperor_v4.contracts.source import (
     SOURCE_CACHE_CONTRACT_V2,
     text_content_hash,
 )
+from emperor_v4.evaluation.boundary_score import score_boundary_graph
 
 
 _NAVIGATION_MARKERS = (
@@ -49,6 +50,14 @@ class QualificationThresholds:
     gold_relation_minimum: int = 4
     gold_rule_evidence_unit_minimum: int = 4
     episode_recall_minimum: float = 0.85
+    episode_precision_minimum: float = 0.90
+    passage_lineage_minimum: float = 1.0
+    assertion_disposition_coverage_minimum: float = 1.0
+    catastrophic_wrong_merge_count_maximum: int = 0
+    cross_ruler_contamination_count_maximum: int = 0
+    unresolved_assertion_rate_maximum: float = 0.0
+    strict_relation_precision_minimum: float = 0.90
+    strict_relation_recall_minimum: float = 0.85
 
 
 def _ratio(numerator: int, denominator: int) -> float | None:
@@ -343,30 +352,159 @@ def evaluate_candidate_recall_upper_bound(
     }
 
 
+def evaluate_boundary_quality(
+    boundary_score: Mapping[str, Any],
+    *,
+    thresholds: QualificationThresholds = QualificationThresholds(),
+) -> dict[str, Any]:
+    metrics = boundary_score.get("episode_metrics") or {}
+    failures = []
+    checks = (
+        (
+            "episode_recall_below_minimum",
+            metrics.get("exact_episode_recall"),
+            thresholds.episode_recall_minimum,
+            "minimum",
+        ),
+        (
+            "episode_precision_below_minimum",
+            metrics.get("exact_candidate_precision"),
+            thresholds.episode_precision_minimum,
+            "minimum",
+        ),
+        (
+            "passage_lineage_below_minimum",
+            metrics.get("passage_lineage_completeness"),
+            thresholds.passage_lineage_minimum,
+            "minimum",
+        ),
+        (
+            "assertion_disposition_coverage_below_minimum",
+            metrics.get("primary_assertion_disposition_coverage"),
+            thresholds.assertion_disposition_coverage_minimum,
+            "minimum",
+        ),
+        (
+            "catastrophic_wrong_merge_above_maximum",
+            metrics.get("catastrophic_wrong_merge_count"),
+            thresholds.catastrophic_wrong_merge_count_maximum,
+            "maximum",
+        ),
+        (
+            "cross_ruler_contamination_above_maximum",
+            metrics.get("cross_ruler_contamination_count"),
+            thresholds.cross_ruler_contamination_count_maximum,
+            "maximum",
+        ),
+        (
+            "unresolved_assertion_rate_above_maximum",
+            metrics.get("unresolved_assertion_rate"),
+            thresholds.unresolved_assertion_rate_maximum,
+            "maximum",
+        ),
+    )
+    for code, value, threshold, direction in checks:
+        if value is None:
+            failures.append(f"{code}_missing")
+        elif direction == "minimum" and value < threshold:
+            failures.append(code)
+        elif direction == "maximum" and value > threshold:
+            failures.append(code)
+    passed = not failures
+    return {
+        "stage": "S3_episode_boundary_quality",
+        "passed": passed,
+        "failures": failures,
+        "metrics": dict(metrics),
+        "decision": {
+            "can_start_rule_gold": passed,
+            "stop_code": None if passed else "BOUNDARY_QUALITY_BELOW_MINIMUM",
+        },
+    }
+
+
+def evaluate_relation_quality(
+    boundary_score: Mapping[str, Any],
+    *,
+    thresholds: QualificationThresholds = QualificationThresholds(),
+) -> dict[str, Any]:
+    metrics = boundary_score.get("relation_metrics") or {}
+    failures = []
+    precision = metrics.get("strict_relation_precision")
+    recall = metrics.get("strict_relation_recall")
+    if precision is None:
+        failures.append("strict_relation_precision_missing")
+    elif precision < thresholds.strict_relation_precision_minimum:
+        failures.append("strict_relation_precision_below_minimum")
+    if recall is None:
+        failures.append("strict_relation_recall_missing")
+    elif recall < thresholds.strict_relation_recall_minimum:
+        failures.append("strict_relation_recall_below_minimum")
+    passed = not failures
+    return {
+        "stage": "S4_relation_graph_quality",
+        "passed": passed,
+        "failures": failures,
+        "metrics": dict(metrics),
+        "decision": {
+            "can_start_rule_gold": passed,
+            "stop_code": None if passed else "RELATION_QUALITY_BELOW_MINIMUM",
+        },
+    }
+
+
 def evaluate_downstream_development_qualification(
     candidate_graph: Mapping[str, Any],
     historical_gold: Mapping[str, Any],
     rule_gold: Mapping[str, Any] | None = None,
     *,
     thresholds: QualificationThresholds = QualificationThresholds(),
+    boundary_score: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    s3 = evaluate_candidate_recall_upper_bound(
+    s3_upper_bound = evaluate_candidate_recall_upper_bound(
         candidate_episode_count=len(candidate_graph.get("episode_groups") or ()),
         gold_episode_count=len(historical_gold.get("gold_episodes") or ()),
         thresholds=thresholds,
     )
-    s4 = evaluate_historical_coverage(historical_gold, thresholds=thresholds)
-    s5 = (
-        evaluate_rule_coverage(rule_gold, thresholds=thresholds)
-        if rule_gold is not None and s3["passed"] and s4["passed"]
+    measured_score = None
+    s3_quality = None
+    if s3_upper_bound["passed"]:
+        measured_score = boundary_score or score_boundary_graph(
+            candidate_graph, historical_gold
+        )
+        s3_quality = evaluate_boundary_quality(measured_score, thresholds=thresholds)
+    s4_coverage = evaluate_historical_coverage(historical_gold, thresholds=thresholds)
+    s4_quality = (
+        evaluate_relation_quality(measured_score, thresholds=thresholds)
+        if measured_score is not None
+        and s3_quality is not None
+        and s3_quality["passed"]
+        and s4_coverage["passed"]
         else None
     )
-    if not s3["passed"]:
+    s5 = (
+        evaluate_rule_coverage(rule_gold, thresholds=thresholds)
+        if rule_gold is not None
+        and s3_upper_bound["passed"]
+        and s3_quality is not None
+        and s3_quality["passed"]
+        and s4_coverage["passed"]
+        and s4_quality is not None
+        and s4_quality["passed"]
+        else None
+    )
+    if not s3_upper_bound["passed"]:
         status = "stopped_before_rule_gold"
-        stop_code = s3["decision"]["stop_code"]
-    elif not s4["passed"]:
+        stop_code = s3_upper_bound["decision"]["stop_code"]
+    elif s3_quality is not None and not s3_quality["passed"]:
+        status = "boundary_quality_failed_before_rule_gold"
+        stop_code = s3_quality["decision"]["stop_code"]
+    elif not s4_coverage["passed"]:
         status = "coverage_ineligible_for_relation"
-        stop_code = s4["decision"]["stop_code"]
+        stop_code = s4_coverage["decision"]["stop_code"]
+    elif s4_quality is not None and not s4_quality["passed"]:
+        status = "relation_quality_failed_before_rule_gold"
+        stop_code = s4_quality["decision"]["stop_code"]
     elif s5 is None:
         status = "rule_gold_pending"
         stop_code = "RULE_GOLD_PENDING"
@@ -382,8 +520,10 @@ def evaluate_downstream_development_qualification(
         "evaluation_mode": "open_development_regression",
         "dataset_code": candidate_graph.get("dataset_code"),
         "stages": {
-            "S3_episode_boundary_upper_bound": s3,
-            "S4_relation_coverage": s4,
+            "S3_episode_boundary_upper_bound": s3_upper_bound,
+            "S3_episode_boundary_quality": s3_quality,
+            "S4_relation_coverage": s4_coverage,
+            "S4_relation_graph_quality": s4_quality,
             "S5_rule_evidence_unit_coverage": s5,
         },
         "decision": {

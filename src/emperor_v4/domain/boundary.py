@@ -32,7 +32,7 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.8"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.10"
 BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.8"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
@@ -419,6 +419,15 @@ def cluster_propositions(
                         }
                     )
                 ),
+                object_surface_refs=tuple(
+                    sorted(
+                        {
+                            _normalized(item.object)
+                            for item in group_items
+                            if _normalized(item.object)
+                        }
+                    )
+                ),
             )
         )
     return tuple(sorted(clusters, key=lambda item: item.proposition_code))
@@ -457,47 +466,92 @@ def build_review_units(
     output_schema_version: str = BOUNDARY_OUTPUT_SCHEMA_VERSION,
     model_family: str = DEFAULT_MODEL_FAMILY,
 ) -> tuple[EpisodeReviewUnit, ...]:
-    coarse: dict[tuple[str, str, str], list[PropositionCluster]] = defaultdict(list)
+    coarse: dict[tuple[str, str], list[PropositionCluster]] = defaultdict(list)
     for cluster in clusters:
         coarse[
             (
                 cluster.evaluation_context,
-                cluster.focal_person_ref,
                 cluster.responsibility_family,
             )
         ].append(cluster)
 
     partitions: list[list[PropositionCluster]] = []
-    for items in coarse.values():
-        known = sorted(
-            [item for item in items if item.normalized_time.start_sort_key is not None],
-            key=lambda item: (
-                item.normalized_time.start_sort_key,
-                item.proposition_code,
-            ),
-        )
-        unknown = sorted(
-            [item for item in items if item.normalized_time.start_sort_key is None],
-            key=lambda item: item.proposition_code,
-        )
-        current: list[PropositionCluster] = []
-        previous_end: int | None = None
-        for item in known:
-            start = item.normalized_time.start_sort_key
-            if current and previous_end is not None and start is not None and start - previous_end > max_adjacent_sort_gap:
+    for coarse_items in coarse.values():
+        parents = list(range(len(coarse_items)))
+
+        def find(index: int) -> int:
+            while parents[index] != index:
+                parents[index] = parents[parents[index]]
+                index = parents[index]
+            return index
+
+        def union(left: int, right: int) -> None:
+            left_root = find(left)
+            right_root = find(right)
+            if left_root != right_root:
+                parents[right_root] = left_root
+
+        anchors = [
+            {
+                item.focal_person_ref,
+                *item.secondary_participant_refs,
+                *item.object_surface_refs,
+            }
+            - {""}
+            for item in coarse_items
+        ]
+        for left_index, left_anchors in enumerate(anchors):
+            for right_index in range(left_index + 1, len(anchors)):
+                if left_anchors & anchors[right_index]:
+                    union(left_index, right_index)
+
+        connected: dict[int, list[PropositionCluster]] = defaultdict(list)
+        for index, item in enumerate(coarse_items):
+            connected[find(index)].append(item)
+
+        for items in connected.values():
+            known = sorted(
+                [
+                    item
+                    for item in items
+                    if item.normalized_time.start_sort_key is not None
+                ],
+                key=lambda item: (
+                    item.normalized_time.start_sort_key,
+                    item.proposition_code,
+                ),
+            )
+            unknown = sorted(
+                [
+                    item
+                    for item in items
+                    if item.normalized_time.start_sort_key is None
+                ],
+                key=lambda item: item.proposition_code,
+            )
+            current: list[PropositionCluster] = []
+            previous_end: int | None = None
+            for item in known:
+                start = item.normalized_time.start_sort_key
+                if (
+                    current
+                    and previous_end is not None
+                    and start is not None
+                    and start - previous_end > max_adjacent_sort_gap
+                ):
+                    partitions.append(current)
+                    current = []
+                current.append(item)
+                previous_end = item.normalized_time.end_sort_key or start
+            if current:
                 partitions.append(current)
-                current = []
-            current.append(item)
-            previous_end = item.normalized_time.end_sort_key or start
-        if current:
-            partitions.append(current)
-        if unknown:
-            partitions.append(unknown)
+            if unknown:
+                partitions.append(unknown)
 
     units = []
     for items in partitions:
         context = items[0].evaluation_context
-        focal_person = items[0].focal_person_ref
+        focal_person = "|".join(sorted({item.focal_person_ref for item in items}))
         focal_roles = tuple(sorted({item.focal_role for item in items}))
         family = items[0].responsibility_family
         starts = [
@@ -796,6 +850,34 @@ def _atomic_structure_signature(assertion: AssertionDraft) -> tuple[object, ...]
     )
 
 
+def _v210_connected_atomic_group_allowed(
+    assertions: tuple[AssertionDraft, ...],
+) -> bool:
+    if len(assertions) < 2:
+        return True
+    families = {_responsibility_family(item) for item in assertions}
+    times = {
+        (
+            time.start_sort_key,
+            time.end_sort_key,
+            _normalized(time.dynasty_or_era),
+            _normalized(time.source_expression)
+            if time.start_sort_key is None
+            else "",
+        )
+        for item in assertions
+        for time in (_normalized_time(item),)
+    }
+    if len(families) != 1 or len(times) != 1:
+        return False
+    object_surfaces = {
+        _normalized(item.object) for item in assertions if _normalized(item.object)
+    }
+    same_object = len(object_surfaces) == 1
+    same_passage = len({item.source_passage_ref for item in assertions}) == 1
+    return same_object or same_passage
+
+
 def validate_atomic_episode_groups(
     review: EpisodeBoundaryReviewResult,
     assertions_by_ref: Mapping[str, AssertionDraft],
@@ -829,7 +911,10 @@ def validate_atomic_episode_groups(
         if len(assertions) < 2:
             continue
         signatures = {_atomic_structure_signature(item) for item in assertions}
-        if len(signatures) != 1:
+        if len(signatures) != 1 and not (
+            review.boundary_policy_version == "episode-boundary-policy-v2.10"
+            and _v210_connected_atomic_group_allowed(assertions)
+        ):
             raise ValueError(
                 "v2.7 Episode core 跨 action/time/responsibility-family/focal-role；"
                 "必须拆成原子 Episode 并用 Relation 连接"

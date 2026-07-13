@@ -57,6 +57,32 @@ def _relation_signatures(
     return signatures
 
 
+def _relation_signature_map(
+    rows: Iterable[Mapping[str, Any]],
+    groups: Mapping[str, frozenset[str]],
+) -> dict[str, tuple[frozenset[str], frozenset[str], str]]:
+    result = {}
+    for index, row in enumerate(rows):
+        code = str(
+            row.get("relation_id")
+            or row.get("gold_relation_code")
+            or f"REL-{index + 1}"
+        )
+        source = str(row.get("from_episode") or row.get("from_episode_ref") or "")
+        target = str(row.get("to_episode") or row.get("to_episode_ref") or "")
+        relation_type = str(row.get("relation_type") or "")
+        if (
+            not code
+            or code in result
+            or source not in groups
+            or target not in groups
+            or not relation_type
+        ):
+            raise ValueError("Relation code/endpoint/type 缺失或重复")
+        result[code] = (groups[source], groups[target], relation_type)
+    return result
+
+
 def _endpoint_aligned(
     candidate: tuple[frozenset[str], frozenset[str], str],
     gold: tuple[frozenset[str], frozenset[str], str],
@@ -192,12 +218,14 @@ def score_boundary_graph(
     )
     unresolved_count = sum(value == "unresolved" for value in dispositions.values())
 
-    candidate_relations = _relation_signatures(
+    candidate_relation_map = _relation_signature_map(
         candidate.get("relations") or (), candidates
     )
-    gold_relations = _relation_signatures(
+    gold_relation_map = _relation_signature_map(
         gold.get("gold_relations") or (), gold_groups
     )
+    candidate_relations = set(candidate_relation_map.values())
+    gold_relations = set(gold_relation_map.values())
     strict_correct_relations = candidate_relations & gold_relations
     endpoint_aligned_candidates = {
         item
@@ -235,6 +263,34 @@ def score_boundary_graph(
             )
         }
         return _ratio(len(aligned), len(expected))
+
+    exact_candidate_relation_codes = sorted(
+        code
+        for code, signature in candidate_relation_map.items()
+        if signature in gold_relations
+    )
+    missing_gold_relation_codes = sorted(
+        code
+        for code, signature in gold_relation_map.items()
+        if signature not in candidate_relations
+    )
+    extra_candidate_relation_codes = sorted(
+        code
+        for code, signature in candidate_relation_map.items()
+        if signature not in gold_relations
+    )
+    relation_type_mismatches = []
+    for candidate_code, candidate_signature in candidate_relation_map.items():
+        for gold_code, gold_signature in gold_relation_map.items():
+            if candidate_signature[:2] == gold_signature[:2] and candidate_signature[2] != gold_signature[2]:
+                relation_type_mismatches.append(
+                    {
+                        "candidate_relation_code": candidate_code,
+                        "gold_relation_code": gold_code,
+                        "candidate_relation_type": candidate_signature[2],
+                        "gold_relation_type": gold_signature[2],
+                    }
+                )
 
     return {
         "schema_version": 2,
@@ -291,6 +347,16 @@ def score_boundary_graph(
             ),
             "assertions_without_primary_disposition": sorted(
                 disposition_universe - set(dispositions)
+            ),
+            "exact_candidate_relation_codes": exact_candidate_relation_codes,
+            "missing_gold_relation_codes": missing_gold_relation_codes,
+            "extra_candidate_relation_codes": extra_candidate_relation_codes,
+            "relation_type_mismatches": sorted(
+                relation_type_mismatches,
+                key=lambda item: (
+                    item["candidate_relation_code"],
+                    item["gold_relation_code"],
+                ),
             ),
         },
     }

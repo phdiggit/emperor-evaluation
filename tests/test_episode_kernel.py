@@ -20,6 +20,7 @@ from emperor_v4.domain.episode import (
     group_episode_candidates_with_hints,
 )
 from emperor_v4.domain.boundary import (
+    BOUNDARY_POLICY_VERSION,
     InMemoryBoundaryReviewCache,
     build_review_units,
     cluster_propositions,
@@ -373,6 +374,74 @@ def test_review_unit_cache_invalidates_only_changed_focal_person():
     assert evidence_only_plan.model_call_count == 0
 
 
+def test_v210_boundary_policy_invalidates_v28_review_cache_without_schema_bump():
+    assertions = [
+        _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+        _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
+    ]
+    clusters = cluster_propositions(assertions)
+    legacy_unit = build_review_units(
+        clusters, boundary_policy_version="episode-boundary-policy-v2.8"
+    )[0]
+    current_unit = build_review_units(clusters)[0]
+
+    assert BOUNDARY_POLICY_VERSION == "episode-boundary-policy-v2.10"
+    assert current_unit.output_schema_version == "episode-boundary-review-v2.8"
+    assert current_unit.cache_key != legacy_unit.cache_key
+    assert current_unit.review_unit_code != legacy_unit.review_unit_code
+
+
+def test_review_unit_connects_cross_focal_assertions_through_shared_object_surface():
+    predecessor = _with_claim(
+        _assertion(
+            "A-1",
+            passage="P-1",
+            person="陈平",
+            summary="陈平让位于周勃",
+            participant_roles=(("李世民", "ruler"), ("陈平", "office_holder")),
+            focal_person_ref="陈平",
+        ),
+        "CLAIM-1",
+    )
+    successor = _with_claim(
+        replace(
+            _assertion(
+                "A-2",
+                passage="P-2",
+                person="周勃",
+                summary="任周勃为右丞相",
+                participant_roles=(("李世民", "ruler"), ("周勃", "office_holder")),
+                focal_person_ref="周勃",
+            ),
+            object="周勃",
+        ),
+        "CLAIM-2",
+    )
+    predecessor = replace(predecessor, object="周勃")
+    unrelated = _with_claim(
+        replace(
+            _assertion(
+                "A-3",
+                passage="P-3",
+                person="房玄龄",
+                summary="任房玄龄为尚书",
+                participant_roles=(("李世民", "ruler"), ("房玄龄", "office_holder")),
+                focal_person_ref="房玄龄",
+            ),
+            object="房玄龄",
+        ),
+        "CLAIM-3",
+    )
+
+    units = build_review_units(
+        cluster_propositions([predecessor, successor, unrelated])
+    )
+
+    assert len(units) == 2
+    connected = next(unit for unit in units if len(unit.proposition_cluster_refs) == 2)
+    assert connected.focal_person_ref == "周勃|陈平"
+
+
 def test_review_unit_uses_structured_time_and_responsibility_family():
     first = _with_claim(
         _assertion("A-1", passage="P-1", normalized_start=600), "CLAIM-1"
@@ -522,6 +591,66 @@ def test_v22_materialization_rejects_cross_structure_episode_merge():
         materialize_boundary_review(
             assertions, review, review_unit=unit, proposition_clusters=clusters
         )
+
+
+def test_v210_materializes_complementary_roles_in_one_atomic_state_transition():
+    predecessor = _with_claim(
+        replace(
+            _assertion(
+                "A-1",
+                passage="P-1",
+                person="陈平",
+                participant_roles=(("李世民", "ruler"), ("陈平", "office_holder")),
+                focal_person_ref="陈平",
+            ),
+            predicate="让位",
+            object="周勃",
+        ),
+        "CLAIM-1",
+    )
+    successor = _with_claim(
+        replace(
+            _assertion(
+                "A-2",
+                passage="P-2",
+                person="周勃",
+                participant_roles=(("李世民", "ruler"), ("周勃", "office_holder")),
+                focal_person_ref="周勃",
+            ),
+            predicate="任命",
+            object="周勃",
+        ),
+        "CLAIM-2",
+    )
+    assertions = [predecessor, successor]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup(
+                "E1", ("A-1", "A-2"), "同一职位状态转换", 0.9, "OFFICE-1"
+            ),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    result = materialize_boundary_review(
+        assertions, review, review_unit=unit, proposition_clusters=clusters
+    )
+
+    assert len(result.episode_packets) == 1
+    assert result.episode_packets[0].action == "任命 | 让位"
 
 
 def test_v22_materialization_rejects_unanchored_legacy_claim_fanout_merge():

@@ -1,0 +1,464 @@
+schema_version: 2
+status: boundary_reviews_complete
+input_dataset_code: g2_6k0_g2_6j_source_v2_development
+input_canonical_sha256: 1fb5e5f26bc0f79ef1cfb643b2a9c462b4ab946fe77f961b36766f1344f34ecd
+blind_input_sha256: 1fb5e5f26bc0f79ef1cfb643b2a9c462b4ab946fe77f961b36766f1344f34ecd
+boundary_policy_version: episode-boundary-policy-v2.10
+output_schema_version: episode-boundary-review-v2.8
+reviewed_without_historical_gold_or_candidates: true
+external_reviewer_call_count: 10
+review_unit_count: 10
+input_assertion_count: 18
+episode_group_count: 15
+pair_disposition_count: 6
+relation_count: 5
+review_results:
+- review_unit_ref: RU-0144F02F32F57A35B1BA
+  review_unit_cache_key: 0144f02f32f57a35b1bae34f6721b98e8a8d9edfac01253f5aaaced587e10846
+  proposition_semantic_hashes:
+  - 194c8b2435f295653b40a35ddec16d8ba1d41d32641eb24b552cd3f23fbf5718
+  - d4daf02c9cad7300daf7c3eee16558c384702a6cdcee34d8b2e544b4cfe76c8f
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-B3165927D41140E61B4C@SP-A17361F6C14FEAA2AD3D
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-0144F02F-01
+  - local_episode_code: EP-02
+    core_assertion_refs:
+    - K0-A-CLMK-D064294EFB99FF6C5C78@SP-BA885165BF11552BFC8B
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-0144F02F-02
+  relations:
+  - from_episode_ref: EP-01
+    to_episode_ref: EP-02
+    relation_type: causal_followup
+    evidence_assertion_refs:
+    - K0-A-CLMK-B3165927D41140E61B4C@SP-A17361F6C14FEAA2AD3D
+    - K0-A-CLMK-D064294EFB99FF6C5C78@SP-BA885165BF11552BFC8B
+    confidence: 0.93
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-B3165927D41140E61B4C@SP-A17361F6C14FEAA2AD3D
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-D064294EFB99FF6C5C78@SP-BA885165BF11552BFC8B
+    disposition: core_of_episode
+    episode_refs:
+    - EP-02
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions:
+  - left_episode_ref: EP-01
+    right_episode_ref: EP-02
+    decision: related
+    reason: The atomic episodes are distinct but linked by the reviewed historical sequence.
+    relation_type: causal_followup
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title aliases Yangdi or Sui Yangdi and personal name Yang Guang remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-659B085BEC7D6FBB52DD
+  review_unit_cache_key: 659b085bec7d6fbb52ddd0f1ca7f6fcaf92f7e37e95e04fa40840c31c78ef624
+  proposition_semantic_hashes:
+  - 0901b95bbed865db53ac5c8f188888520248e7c5babd22d0e95b0da2409cb191
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-7CE141A20E31B5506102@SP-93F1DE20E068869243A2
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-659B085B-01
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-7CE141A20E31B5506102@SP-93F1DE20E068869243A2
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions: []
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title alias Er Shi and personal name Hu Hai remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-6C52BF08DD991C7E8CF4
+  review_unit_cache_key: 6c52bf08dd991c7e8cf4f10650c077fe1b9f7f9ebee91d46c1cf68acb11012f2
+  proposition_semantic_hashes:
+  - beaa5c59d76c7d55a0ba5179b74b208fda70bb5d0d5ea58ea3e8aa0bdfa5441f
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-0FD48C7A0924E65EF3B8@SP-3CBE1F494CC2C55DD396
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-6C52BF08-01
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-0FD48C7A0924E65EF3B8@SP-3CBE1F494CC2C55DD396
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions: []
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title alias Er Shi and personal name Hu Hai remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-87C17E755E70B7482D86
+  review_unit_cache_key: 87c17e755e70b7482d86a82fed8874272e132859319571768844d202d8a85d2c
+  proposition_semantic_hashes:
+  - d1221345b196fde60b76978dfe5bbf1f361075e4f0502bda362e1be152eee8a6
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-DC22FE2B5A6D223CA310@SP-367AAACDAF7B7F7487C0
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-87C17E75-01
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-DC22FE2B5A6D223CA310@SP-367AAACDAF7B7F7487C0
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions: []
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title aliases Yangdi or Sui Yangdi and personal name Yang Guang remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-988E58E6E68A3463E810
+  review_unit_cache_key: 988e58e6e68a3463e810ae9ef8a16e3cc7b1f305aabdecdb89dfd7b41300d971
+  proposition_semantic_hashes:
+  - 7a15b8115adee96ae6f564b15f8367a26be1a5d918576efc0a215a7489cea7a3
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-49DE200FD2F366DDEE24@SP-EBC26E1125322A3E2496
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-988E58E6-01
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-49DE200FD2F366DDEE24@SP-EBC26E1125322A3E2496
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions: []
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title alias Er Shi and personal name Hu Hai remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-ABA49565642BCF78DD2A
+  review_unit_cache_key: aba49565642bcf78dd2a81e6f79de88a49c2ed55ee0b54e7facf00dbcaa44fe6
+  proposition_semantic_hashes:
+  - bb1f4ce48141b485f4bc1f7b88bb2a7f4995fbb8494b90aac812d91a668bb23b
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-B0022EC5A6D8E05A7E99@SP-5215CAC03679EA364630
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-ABA49565-01
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-B0022EC5A6D8E05A7E99@SP-5215CAC03679EA364630
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions: []
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title aliases Yangdi or Sui Yangdi and personal name Yang Guang remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-B64C55C3EB7C8A80E6DE
+  review_unit_cache_key: b64c55c3eb7c8a80e6deeac7b70d5b3d7b1ca51daeab7fd29ddee60627a46036
+  proposition_semantic_hashes:
+  - 43382ebb2136e251a7a18333a2cb827d97b28cbc151c70dc4c3503fb7a3a97bb
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-4F75751CD9611A0DCBF9@SP-D5F9E6B319198D6CD4DC
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-B64C55C3-01
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-4F75751CD9611A0DCBF9@SP-D5F9E6B319198D6CD4DC
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions: []
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title aliases Yangdi or Sui Yangdi and personal name Yang Guang remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-CB4419C16FD61AF5F098
+  review_unit_cache_key: cb4419c16fd61af5f098650d72b8bbd3371f2656fcefa0af7691a573a338b0ee
+  proposition_semantic_hashes:
+  - 875b03793e07eb18297d0a55448bb37328545379f9987b7c0a2e69fa73bdabed
+  - c9c1c6d7456a0b14f1b9d42583394a1a760d0218746dd4e62574f83487c76e63
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-0121E2ABA7446A10B58C@SP-3642DF9CB0F2607DE5A8
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-CB4419C1-01
+  - local_episode_code: EP-02
+    core_assertion_refs:
+    - K0-A-CLMK-255582327C35CE5D5CAF@SP-2DE11D85885A0E9FC1F6
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-CB4419C1-02
+  relations:
+  - from_episode_ref: EP-02
+    to_episode_ref: EP-01
+    relation_type: causal_followup
+    evidence_assertion_refs:
+    - K0-A-CLMK-255582327C35CE5D5CAF@SP-2DE11D85885A0E9FC1F6
+    - K0-A-CLMK-0121E2ABA7446A10B58C@SP-3642DF9CB0F2607DE5A8
+    confidence: 0.94
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-0121E2ABA7446A10B58C@SP-3642DF9CB0F2607DE5A8
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-255582327C35CE5D5CAF@SP-2DE11D85885A0E9FC1F6
+    disposition: core_of_episode
+    episode_refs:
+    - EP-02
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions:
+  - left_episode_ref: EP-01
+    right_episode_ref: EP-02
+    decision: related
+    reason: The atomic episodes are distinct but linked by the reviewed historical sequence.
+    relation_type: causal_followup
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title alias Er Shi and personal name Hu Hai remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-D261C0E064DDFAC7FCC8
+  review_unit_cache_key: d261c0e064ddfac7fcc89d24ed3af3244f8aa89645d8005da00dc33e81b0fee7
+  proposition_semantic_hashes:
+  - c4e8e086fbefcb5bb9d783399aa70f426a5cdf5c71f841da984a94afd942be82
+  - 32226c9589b617e866ebef8b6955c4b3d3c4476bc7a8aee395298dd270773442
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-60AD56D1E89743F59CED@SP-09DCE087FCF59BABCD20
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-D261C0E0-01
+  - local_episode_code: EP-02
+    core_assertion_refs:
+    - K0-A-CLMK-4E761D80EBEA48F476DB@SP-190769C28614822C1784
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-D261C0E0-02
+  relations: []
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-60AD56D1E89743F59CED@SP-09DCE087FCF59BABCD20
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-4E761D80EBEA48F476DB@SP-190769C28614822C1784
+    disposition: core_of_episode
+    episode_refs:
+    - EP-02
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions:
+  - left_episode_ref: EP-01
+    right_episode_ref: EP-02
+    decision: distinct_unrelated
+    reason: No direct episode relation is established; shared context or object surface alone does not merge them.
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title aliases Yangdi or Sui Yangdi and personal name Yang Guang remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+- review_unit_ref: RU-F16E8308C5B5683FD9E8
+  review_unit_cache_key: f16e8308c5b5683fd9e8433ffdf016ab84fc8bea89de54491db71289850719c7
+  proposition_semantic_hashes:
+  - 46a6db6a24dd4f1481fab2a64d7d54840210a10cd7285648e878022126355f9e
+  - 508dc258b266c14e19ad4287dee525e95387c41da1dd3ecbae1638e54c83adf4
+  - 55031907d5c53963f0778d578de0d947a0f27bc6765f936625afc84f54723e29
+  - aa8695ee63a1ddad218d25e63cd3362ada69fcf5802ec7f967e3b2cf1483399a
+  - fc8c571e0c2bbd2f1590215c869bebad0294cfa7c2fb5c72d888ac785bdc9196
+  - fd0c74723b97b0a4372769b076fe71e87ae9fe13cde21277d3e5ba9b466fbbf9
+  boundary_policy_version: episode-boundary-policy-v2.10
+  output_schema_version: episode-boundary-review-v2.8
+  model_family: semantic-boundary-reviewer
+  episode_groups:
+  - local_episode_code: EP-01
+    core_assertion_refs:
+    - K0-A-CLMK-144D3696FB99BAAFF29B@SP-9D72D2B07581645F020A
+    - K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+    boundary_reason: Direct assertions describe complementary roles of one atomic state transition under policy v2.10.
+    confidence: 0.96
+    atomic_event_key: AEK-F16E8308-01
+  - local_episode_code: EP-02
+    core_assertion_refs:
+    - K0-A-CLMK-E98A9D0388EC3A8C142D@SP-0BAE005F4ACC6553731F
+    - K0-A-CLMK-27A7BBD2ED0E5ABB96C8@SP-83823BFDF4F83A39A3FE
+    - K0-A-CLMK-A8AA0FC70AFDBC8CF32E@SP-3BF160840AD337444F6D
+    boundary_reason: Direct assertions describe complementary roles of one atomic state transition under policy v2.10.
+    confidence: 0.96
+    atomic_event_key: AEK-F16E8308-02
+  - local_episode_code: EP-03
+    core_assertion_refs:
+    - K0-A-CLMK-FA588C7DE67BDE4D8F4C@SP-E01CFE8DBD96CFA2A212
+    boundary_reason: The proposition is one atomic state transition and remains an independent episode core.
+    confidence: 0.98
+    atomic_event_key: AEK-F16E8308-03
+  relations:
+  - from_episode_ref: EP-01
+    to_episode_ref: EP-02
+    relation_type: causal_followup
+    evidence_assertion_refs:
+    - K0-A-CLMK-144D3696FB99BAAFF29B@SP-9D72D2B07581645F020A
+    - K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+    - K0-A-CLMK-E98A9D0388EC3A8C142D@SP-0BAE005F4ACC6553731F
+    - K0-A-CLMK-27A7BBD2ED0E5ABB96C8@SP-83823BFDF4F83A39A3FE
+    - K0-A-CLMK-A8AA0FC70AFDBC8CF32E@SP-3BF160840AD337444F6D
+    confidence: 0.91
+  - from_episode_ref: EP-01
+    to_episode_ref: EP-03
+    relation_type: same_mandate_phase
+    evidence_assertion_refs:
+    - K0-A-CLMK-144D3696FB99BAAFF29B@SP-9D72D2B07581645F020A
+    - K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+    - K0-A-CLMK-FA588C7DE67BDE4D8F4C@SP-E01CFE8DBD96CFA2A212
+    confidence: 0.74
+  - from_episode_ref: EP-02
+    to_episode_ref: EP-03
+    relation_type: same_mandate_phase
+    evidence_assertion_refs:
+    - K0-A-CLMK-E98A9D0388EC3A8C142D@SP-0BAE005F4ACC6553731F
+    - K0-A-CLMK-27A7BBD2ED0E5ABB96C8@SP-83823BFDF4F83A39A3FE
+    - K0-A-CLMK-A8AA0FC70AFDBC8CF32E@SP-3BF160840AD337444F6D
+    - K0-A-CLMK-FA588C7DE67BDE4D8F4C@SP-E01CFE8DBD96CFA2A212
+    confidence: 0.78
+  assertion_dispositions:
+  - assertion_ref: K0-A-CLMK-144D3696FB99BAAFF29B@SP-9D72D2B07581645F020A
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-6FD7BCBD233E76A3A3CA@SP-DDE12E1A1C857FE009D8
+    disposition: core_of_episode
+    episode_refs:
+    - EP-01
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-E98A9D0388EC3A8C142D@SP-0BAE005F4ACC6553731F
+    disposition: core_of_episode
+    episode_refs:
+    - EP-02
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-27A7BBD2ED0E5ABB96C8@SP-83823BFDF4F83A39A3FE
+    disposition: core_of_episode
+    episode_refs:
+    - EP-02
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-A8AA0FC70AFDBC8CF32E@SP-3BF160840AD337444F6D
+    disposition: core_of_episode
+    episode_refs:
+    - EP-02
+    reason: Direct support for the atomic episode core under policy v2.10.
+  - assertion_ref: K0-A-CLMK-FA588C7DE67BDE4D8F4C@SP-E01CFE8DBD96CFA2A212
+    disposition: core_of_episode
+    episode_refs:
+    - EP-03
+    reason: Direct support for the atomic episode core under policy v2.10.
+  pair_dispositions:
+  - left_episode_ref: EP-01
+    right_episode_ref: EP-02
+    decision: related
+    reason: The atomic episodes are distinct but linked by the reviewed historical sequence.
+    relation_type: causal_followup
+  - left_episode_ref: EP-01
+    right_episode_ref: EP-03
+    decision: related
+    reason: The atomic episodes are distinct but linked by the reviewed historical sequence.
+    relation_type: same_mandate_phase
+  - left_episode_ref: EP-02
+    right_episode_ref: EP-03
+    decision: related
+    reason: The atomic episodes are distinct but linked by the reviewed historical sequence.
+    relation_type: same_mandate_phase
+  review_provenance:
+    route: open_development_external_boundary_review
+    reviewer: g2_6k0_boundary_review_subagent
+    isolation: historical_gold_candidates_scores_not_read
+    development_iteration: post_gold_policy_v2_10
+    identity_blockers: Title alias Er Shi and personal name Hu Hai remain an identity blocker; time, object, and responsibility hold the boundary.
+    formal_acceptance: not_performed
+provenance:
+  route: open_development_external_boundary_review
+  reviewer: g2_6k0_boundary_review_subagent
+  isolation: historical_gold_candidates_scores_not_read
+  development_iteration: post_gold_policy_v2_10
+  formal_acceptance: not_performed
+database_write_count: 0
+formal_acceptance_performed: false

@@ -87,6 +87,7 @@ class PropositionCluster:
     normalized_time: NormalizedTime
     location_expression: str | None
     outcomes: tuple[str, ...]
+    object_surface_refs: tuple[str, ...]
 
     def __post_init__(self) -> None:
         if not self.proposition_code or not self.semantic_hash:

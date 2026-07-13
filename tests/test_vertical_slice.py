@@ -312,17 +312,34 @@ def test_downstream_development_qualification_preserves_sequential_gates():
         "gold_relations": [{"relation": "R1"}],
     }
     rule_gold = {"gold_rule_evidence_units": [{"unit": "U1"}]}
+    passing_boundary_score = {
+        "episode_metrics": {
+            "exact_episode_recall": 1.0,
+            "exact_candidate_precision": 1.0,
+            "passage_lineage_completeness": 1.0,
+            "primary_assertion_disposition_coverage": 1.0,
+            "catastrophic_wrong_merge_count": 0,
+            "cross_ruler_contamination_count": 0,
+            "unresolved_assertion_rate": 0.0,
+        },
+        "relation_metrics": {
+            "strict_relation_precision": 1.0,
+            "strict_relation_recall": 1.0,
+        },
+    }
 
     qualified = evaluate_downstream_development_qualification(
         graph,
         historical_gold,
         rule_gold,
         thresholds=thresholds,
+        boundary_score=passing_boundary_score,
     )
     pending = evaluate_downstream_development_qualification(
         graph,
         historical_gold,
         thresholds=thresholds,
+        boundary_score=passing_boundary_score,
     )
     stopped = evaluate_downstream_development_qualification(
         {"dataset_code": "development-fixture", "episode_groups": []},
@@ -336,6 +353,43 @@ def test_downstream_development_qualification_preserves_sequential_gates():
     assert pending["status"] == "rule_gold_pending"
     assert stopped["status"] == "stopped_before_rule_gold"
     assert stopped["stages"]["S5_rule_evidence_unit_coverage"] is None
+
+    failed_quality = evaluate_downstream_development_qualification(
+        graph,
+        historical_gold,
+        rule_gold,
+        thresholds=thresholds,
+        boundary_score={
+            "episode_metrics": {
+                **passing_boundary_score["episode_metrics"],
+                "exact_candidate_precision": 0.5,
+            }
+        },
+    )
+    assert failed_quality["status"] == "boundary_quality_failed_before_rule_gold"
+    assert failed_quality["decision"]["stop_code"] == (
+        "BOUNDARY_QUALITY_BELOW_MINIMUM"
+    )
+    assert failed_quality["stages"]["S5_rule_evidence_unit_coverage"] is None
+
+    failed_relation = evaluate_downstream_development_qualification(
+        graph,
+        historical_gold,
+        rule_gold,
+        thresholds=thresholds,
+        boundary_score={
+            **passing_boundary_score,
+            "relation_metrics": {
+                "strict_relation_precision": 0.5,
+                "strict_relation_recall": 0.5,
+            },
+        },
+    )
+    assert failed_relation["status"] == "relation_quality_failed_before_rule_gold"
+    assert failed_relation["decision"]["stop_code"] == (
+        "RELATION_QUALITY_BELOW_MINIMUM"
+    )
+    assert failed_relation["stages"]["S5_rule_evidence_unit_coverage"] is None
 
 
 def test_frozen_v3_outputs_form_auditable_episode_candidate_slice_offline():

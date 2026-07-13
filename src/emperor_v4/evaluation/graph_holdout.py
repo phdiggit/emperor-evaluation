@@ -188,6 +188,7 @@ def materialize_boundary_graph_payload(
     return {
         "schema_version": 2,
         "status": "blind_episode_graph_proposed",
+        "dataset_code": blind_input.get("dataset_code"),
         "input_sha256": input_hash,
         "input_assertion_refs": sorted(input_assertion_refs),
         "episode_groups": sorted(

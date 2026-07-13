@@ -1,0 +1,206 @@
+schema_version: 1
+dataset_code: g2_6k0_g2_6i_source_v2_development
+status: frozen
+candidate_input_sha256: 84d90a5c593ec2c2ce10f806676b93c062c400573f74f182fb381c10e29cb79d
+frozen_without_candidate_or_review_access: true
+freeze_scope:
+  rule_code: appointment_delegation
+  rule_version: v1
+  aggregation_policy_version: delegation-chain-v1
+  historical_gold_episode_count: 26
+  historical_gold_relation_count: 23
+  eligibility_standard: RuleEvidenceUnit 必须由 Historical Gold 明示的任用或授权起点、被任用者、职责域及履职反馈、续任或撤权关系组成；非任用事件只能作为同一职责链的先验表现、反馈或纠错节点，不能单独重复投影。
+  no_unfrozen_responsibility_inference: true
+
+gold_rule_evidence_units:
+  - gold_rule_unit_code: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE
+    rule_code: appointment_delegation
+    rule_version: v1
+    aggregation_policy_version: delegation-chain-v1
+    evaluation_context: PER-E15C1B65F12F0AE6
+    episode_refs:
+      - K0I-HAN-PURGE-LV
+      - K0I-HAN-ENTHRONE-LIUHENG
+      - K0I-HAN-ZHOUBO-RIGHT-CHANCELLOR
+      - K0I-HAN-ZHOUBO-RESIGNS
+      - K0I-HAN-CHANCELLOR-DIALOGUE
+      - K0I-HAN-ZHOUBO-REAPPOINTED
+    relation_refs:
+      - K0I-R-HAN-PURGE-TO-ENTHRONE
+      - K0I-R-HAN-ENTHRONE-TO-CHANCELLOR
+      - K0I-R-HAN-CHANCELLOR-TO-RESIGN
+      - K0I-R-HAN-CHANCELLOR-TO-DIALOGUE
+      - K0I-R-HAN-RESIGN-TO-REAPPOINT
+    episode_roles:
+      K0I-HAN-PURGE-LV: prior_performance_context
+      K0I-HAN-ENTHRONE-LIUHENG: appointment_context
+      K0I-HAN-ZHOUBO-RIGHT-CHANCELLOR: appointment
+      K0I-HAN-ZHOUBO-RESIGNS: mandate_termination
+      K0I-HAN-CHANCELLOR-DIALOGUE: performance_feedback
+      K0I-HAN-ZHOUBO-REAPPOINTED: renewed_authority
+    aggregation_rationale: 周勃参与诛诸吕并促成文帝继位构成任用背景；文帝随后任其为右丞相，廷问暴露岗位适配反馈，辞相终止首任，陈平死后又获续任，形成一条不可拆分重复结算的任用—反馈—终止—复用链。
+  - gold_rule_unit_code: K0I-RU-QING-OETAI-GOVERNANCE-CAREER
+    rule_code: appointment_delegation
+    rule_version: v1
+    aggregation_policy_version: delegation-chain-v1
+    evaluation_context: PER-4EB7AC987FECC59F
+    episode_refs:
+      - K0I-QING-OETAI-JIANGSU-APPOINTMENT
+      - K0I-QING-OETAI-YUNNAN-GOVERNOR
+      - K0I-QING-OETAI-REFORM-PROPOSAL
+      - K0I-QING-OETAI-WUMENG-FIRST
+      - K0I-QING-OETAI-ANNAN-BORDER
+      - K0I-QING-OETAI-SICHENG-REFORM
+      - K0I-QING-OETAI-ZHONGJIA-CAMPAIGN
+      - K0I-QING-OETAI-LONGZHAI-GOVERNANCE
+      - K0I-QING-OETAI-WUMENG-REPRESSION
+      - K0I-QING-OETAI-GRAND-SECRETARY
+      - K0I-QING-OETAI-MIAO-OFFICE-FAILURE
+      - K0I-QING-OETAI-SUCCESSION-TRUSTEESHIP
+    relation_refs:
+      - K0I-R-OETAI-JIANGSU-TO-YUNNAN
+      - K0I-R-OETAI-YUNNAN-TO-REFORM
+      - K0I-R-OETAI-REFORM-TO-WUMENG-FIRST
+      - K0I-R-OETAI-REFORM-TO-SICHENG
+      - K0I-R-OETAI-REFORM-TO-ZHONGJIA
+      - K0I-R-OETAI-REFORM-TO-LONGZHAI
+      - K0I-R-OETAI-WUMENG-FIRST-TO-REPRESSION
+      - K0I-R-OETAI-REPRESSION-TO-MIAO-FAILURE
+      - K0I-R-OETAI-YUNNAN-TO-GRAND-SECRETARY
+      - K0I-R-OETAI-ZHONGJIA-TO-GRAND-SECRETARY
+      - K0I-R-OETAI-GRAND-TO-SUCCESSION
+      - K0I-R-OETAI-YUNNAN-TO-ANNAN
+    episode_roles:
+      K0I-QING-OETAI-JIANGSU-APPOINTMENT: initial_appointment
+      K0I-QING-OETAI-YUNNAN-GOVERNOR: renewed_authority
+      K0I-QING-OETAI-REFORM-PROPOSAL: mandate_design
+      K0I-QING-OETAI-WUMENG-FIRST: performance_feedback
+      K0I-QING-OETAI-ANNAN-BORDER: delegated_task_with_feedback
+      K0I-QING-OETAI-SICHENG-REFORM: performance_feedback
+      K0I-QING-OETAI-ZHONGJIA-CAMPAIGN: performance_feedback
+      K0I-QING-OETAI-LONGZHAI-GOVERNANCE: performance_feedback
+      K0I-QING-OETAI-WUMENG-REPRESSION: adverse_feedback
+      K0I-QING-OETAI-GRAND-SECRETARY: renewed_authority
+      K0I-QING-OETAI-MIAO-OFFICE-FAILURE: failure_feedback
+      K0I-QING-OETAI-SUCCESSION-TRUSTEESHIP: renewed_authority
+    aggregation_rationale: 鄂尔泰由江苏任职续权至云南总督职责，改土归流方案及多项地方、边界任务构成履职反馈；其后获中央晋任和顾命授权，同时乌蒙复乱、苗疆事务失败保留负面反馈，属于同一长期任用与反馈图而非多次重复贡献。
+  - gold_rule_unit_code: K0I-RU-QING-OETAI-JUNGAER-MANDATE
+    rule_code: appointment_delegation
+    rule_version: v1
+    aggregation_policy_version: delegation-chain-v1
+    evaluation_context: PER-4EB7AC987FECC59F
+    episode_refs:
+      - K0I-QING-OETAI-JUNGAER-COMMAND
+      - K0I-QING-OETAI-JUNGAER-ADVICE
+    relation_refs:
+      - K0I-R-OETAI-JUNGAER-COMMAND-TO-ADVICE
+    episode_roles:
+      K0I-QING-OETAI-JUNGAER-COMMAND: delegation
+      K0I-QING-OETAI-JUNGAER-ADVICE: mandate_feedback
+    aggregation_rationale: 雍正明确授权鄂尔泰经略准噶尔军务，鄂尔泰后续提出不可骤灭准部并获认可，是与云贵治理职责分开的军事授权—专业反馈链。
+  - gold_rule_unit_code: K0I-RU-QING-LONGKODO-TRUST-REVOCATION
+    rule_code: appointment_delegation
+    rule_version: v1
+    aggregation_policy_version: delegation-chain-v1
+    evaluation_context: PER-4EB7AC987FECC59F
+    episode_refs:
+      - K0I-QING-LONGKODO-INITIAL-TRUST
+      - K0I-QING-LONGKODO-ADDITIONAL-OFFICES
+      - K0I-QING-LONGKODO-DEMOTION
+      - K0I-QING-LONGKODO-PRIVILEGES-WITHDRAWN
+      - K0I-QING-LONGKODO-BORDER-REASSIGNMENT
+      - K0I-QING-LONGKODO-TRIAL
+    relation_refs:
+      - K0I-R-LONGKODO-INITIAL-TO-ADDITIONAL
+      - K0I-R-LONGKODO-ADDITIONAL-TO-DEMOTION
+      - K0I-R-LONGKODO-DEMOTION-TO-PRIVILEGES
+      - K0I-R-LONGKODO-PRIVILEGES-TO-BORDER
+      - K0I-R-LONGKODO-BORDER-TO-TRIAL
+    episode_roles:
+      K0I-QING-LONGKODO-INITIAL-TRUST: initial_delegation
+      K0I-QING-LONGKODO-ADDITIONAL-OFFICES: renewed_authority
+      K0I-QING-LONGKODO-DEMOTION: revocation
+      K0I-QING-LONGKODO-PRIVILEGES-WITHDRAWN: revocation_feedback
+      K0I-QING-LONGKODO-BORDER-REASSIGNMENT: task_reassignment
+      K0I-QING-LONGKODO-TRIAL: mandate_termination
+    aggregation_rationale: 隆科多从总理事务、吏部尚书到追加理藩院和修纂职责，随后因专擅受贿被连续削职、收回特典、改派边疆并最终禁锢，构成完整授权—续权—纠错—撤权链。
+
+gold_episode_dispositions:
+  - {gold_episode_ref: K0I-HAN-PURGE-LV, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, unit_role: prior_performance_context, reason: 周勃参与诛诸吕是文帝任其右丞相时明示采用的功绩背景，只作任用链先验表现。}
+  - {gold_episode_ref: K0I-HAN-ENTHRONE-LIUHENG, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, unit_role: appointment_context, reason: 文帝继位连接诛诸吕功绩与随后任命周勃，只作任用上下文。}
+  - {gold_episode_ref: K0I-HAN-ZHOUBO-RIGHT-CHANCELLOR, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, unit_role: appointment, reason: 文帝明确任周勃为右丞相，岗位和统治者责任清楚。}
+  - {gold_episode_ref: K0I-HAN-ZHOUBO-RESIGNS, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, unit_role: mandate_termination, reason: 周勃归还相印并获准终止首任，是任用链的撤权节点。}
+  - {gold_episode_ref: K0I-HAN-CHANCELLOR-DIALOGUE, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, unit_role: performance_feedback, reason: 廷问暴露周勃与陈平对宰相职责的不同理解，是岗位适配反馈。}
+  - {gold_episode_ref: K0I-HAN-ZHOUBO-REAPPOINTED, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, unit_role: renewed_authority, reason: 陈平死后文帝再次任周勃为丞相，是同一人物的新一轮授权。}
+  - {gold_episode_ref: K0I-QING-OETAI-JIANGSU-APPOINTMENT, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: initial_appointment, reason: 雍正特擢鄂尔泰为江苏布政使，是长期任用链起点。}
+  - {gold_episode_ref: K0I-QING-OETAI-YUNNAN-GOVERNOR, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: renewed_authority, reason: 调云南并以巡抚治总督事明确扩大了鄂尔泰职责。}
+  - {gold_episode_ref: K0I-QING-OETAI-REFORM-PROPOSAL, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: mandate_design, reason: 改土归流方案获皇帝认可，界定云南任期内的治理方向。}
+  - {gold_episode_ref: K0I-QING-OETAI-WUMENG-FIRST, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: performance_feedback, reason: 乌蒙处置和叙功世职是云贵治理授权的履职反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-ANNAN-BORDER, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: delegated_task_with_feedback, reason: 皇帝明确命鄂尔泰清察安南国界，定议获准形成任务反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-SICHENG-REFORM, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: performance_feedback, reason: 泗城改土归流是既定治理职责下的结果。}
+  - {gold_episode_ref: K0I-QING-OETAI-ZHONGJIA-CAMPAIGN, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: performance_feedback, reason: 平定仲家苗和真除总督是任务结果及皇帝续权反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-LONGZHAI-GOVERNANCE, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: performance_feedback, reason: 长寨编户定赋及嘉奖是云贵治理职责的独立反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-WUMENG-REPRESSION, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: adverse_feedback, reason: 乌蒙复乱后的镇压和再定是早期治理链的后续负面或混合反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-JUNGAER-COMMAND, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-JUNGAER-MANDATE, unit_role: delegation, reason: 雍正明确授权鄂尔泰经略准噶尔军务。}
+  - {gold_episode_ref: K0I-QING-OETAI-GRAND-SECRETARY, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: renewed_authority, reason: 召拜大学士并办理军机是地方治理反馈后的中央续权。}
+  - {gold_episode_ref: K0I-QING-OETAI-JUNGAER-ADVICE, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-JUNGAER-MANDATE, unit_role: mandate_feedback, reason: 军务授权后的专业方略获皇帝认可，是同一军务链反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-MIAO-OFFICE-FAILURE, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: failure_feedback, reason: 苗疆事务处失败及引咎削爵保留了长期治理授权的负面反馈。}
+  - {gold_episode_ref: K0I-QING-OETAI-SUCCESSION-TRUSTEESHIP, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, unit_role: renewed_authority, reason: 顾命并奉密诏立太子是对鄂尔泰的后续重大托付。}
+  - {gold_episode_ref: K0I-QING-LONGKODO-INITIAL-TRUST, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, unit_role: initial_delegation, reason: 雍正命隆科多总理事务并授吏部尚书，是明确授权起点。}
+  - {gold_episode_ref: K0I-QING-LONGKODO-ADDITIONAL-OFFICES, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, unit_role: renewed_authority, reason: 兼理藩院及史书会典修纂是新增职责授权。}
+  - {gold_episode_ref: K0I-QING-LONGKODO-DEMOTION, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, unit_role: revocation, reason: 削职并改派修城垦地是初始授权后的纠错和收权。}
+  - {gold_episode_ref: K0I-QING-LONGKODO-PRIVILEGES-WITHDRAWN, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, unit_role: revocation_feedback, reason: 追缴特典是同一授权纠错链的进一步收权。}
+  - {gold_episode_ref: K0I-QING-LONGKODO-BORDER-REASSIGNMENT, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, unit_role: task_reassignment, reason: 罢尚书后改派边疆和俄界事务是处分中的任务调整。}
+  - {gold_episode_ref: K0I-QING-LONGKODO-TRIAL, eligibility: eligible, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, unit_role: mandate_termination, reason: 夺爵、会鞫和永远禁锢是授权链的最终终止。}
+
+gold_relation_dispositions:
+  - {gold_relation_ref: K0I-R-HAN-PURGE-TO-ENTHRONE, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, reason: 连接任用前功绩与新政权建立。}
+  - {gold_relation_ref: K0I-R-HAN-ENTHRONE-TO-CHANCELLOR, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, reason: 连接继位上下文与右丞相任命。}
+  - {gold_relation_ref: K0I-R-HAN-CHANCELLOR-TO-RESIGN, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, reason: 连接任命与首任终止。}
+  - {gold_relation_ref: K0I-R-HAN-CHANCELLOR-TO-DIALOGUE, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, reason: 连接任命与岗位反馈。}
+  - {gold_relation_ref: K0I-R-HAN-RESIGN-TO-REAPPOINT, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-HAN-ZHOUBO-CHANCELLOR-MANDATE, reason: 连接首任终止与后续续权。}
+  - {gold_relation_ref: K0I-R-OETAI-JIANGSU-TO-YUNNAN, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接初始任用与云南职责扩大。}
+  - {gold_relation_ref: K0I-R-OETAI-YUNNAN-TO-REFORM, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接云南授权与治理方案。}
+  - {gold_relation_ref: K0I-R-OETAI-REFORM-TO-WUMENG-FIRST, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接治理方案与乌蒙处置反馈。}
+  - {gold_relation_ref: K0I-R-OETAI-REFORM-TO-SICHENG, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接治理方案与泗城改流反馈。}
+  - {gold_relation_ref: K0I-R-OETAI-REFORM-TO-ZHONGJIA, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接治理方案与仲家任务反馈。}
+  - {gold_relation_ref: K0I-R-OETAI-REFORM-TO-LONGZHAI, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接治理方案与长寨治理反馈。}
+  - {gold_relation_ref: K0I-R-OETAI-WUMENG-FIRST-TO-REPRESSION, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接早期乌蒙处置与后续复乱镇压。}
+  - {gold_relation_ref: K0I-R-OETAI-REPRESSION-TO-MIAO-FAILURE, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接后续镇压与苗疆事务失败反馈。}
+  - {gold_relation_ref: K0I-R-OETAI-YUNNAN-TO-GRAND-SECRETARY, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接地方授权与中央续任。}
+  - {gold_relation_ref: K0I-R-OETAI-ZHONGJIA-TO-GRAND-SECRETARY, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接任务反馈与中央晋任。}
+  - {gold_relation_ref: K0I-R-OETAI-GRAND-TO-SUCCESSION, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接中央任命与顾命续权。}
+  - {gold_relation_ref: K0I-R-OETAI-JUNGAER-COMMAND-TO-ADVICE, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-JUNGAER-MANDATE, reason: 连接军事授权与专业方略反馈。}
+  - {gold_relation_ref: K0I-R-OETAI-YUNNAN-TO-ANNAN, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-OETAI-GOVERNANCE-CAREER, reason: 连接云南职责与安南边界任务。}
+  - {gold_relation_ref: K0I-R-LONGKODO-INITIAL-TO-ADDITIONAL, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, reason: 连接初始授权与新增职责。}
+  - {gold_relation_ref: K0I-R-LONGKODO-ADDITIONAL-TO-DEMOTION, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, reason: 连接续权与首次降黜。}
+  - {gold_relation_ref: K0I-R-LONGKODO-DEMOTION-TO-PRIVILEGES, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, reason: 连接削职与进一步收回特典。}
+  - {gold_relation_ref: K0I-R-LONGKODO-PRIVILEGES-TO-BORDER, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, reason: 连接收权与边疆任务调整。}
+  - {gold_relation_ref: K0I-R-LONGKODO-BORDER-TO-TRIAL, disposition: consumed, consumed_by_gold_rule_unit: K0I-RU-QING-LONGKODO-TRUST-REVOCATION, reason: 连接任务调整与最终司法终止。}
+
+coverage_blockers:
+  - blocker_code: canonical_identity_aliases_not_frozen
+    blocks: accepted_projection_and_judgment
+    does_not_block: rule_evidence_unit_freeze
+    reason: Historical Gold 保留刘恒与文帝、胤禛及相关人物的 candidate identity 状态，Rule Gold 不静默归一。
+  - blocker_code: person_profile_snapshot_not_frozen
+    blocks: judgment_factor_completion_and_scoring
+    does_not_block: rule_evidence_unit_freeze
+    reason: 当前允许输入没有有版本的 PersonProfileSnapshot，不能据此裁定能力等级或完整岗位适配因子。
+  - blocker_code: factor_values_and_scoring_formula_not_approved
+    blocks: accepted_judgment_and_score_contribution
+    does_not_block: rule_evidence_unit_freeze
+    reason: I5B 文档尚未批准数值因子、倍率、权重、上下限和正式 scorer。
+
+freeze_summary:
+  eligible_episode_count: 26
+  ineligible_episode_count: 0
+  gold_rule_evidence_unit_count: 4
+  consumed_episode_count: 26
+  consumed_relation_count: 23
+  ineligible_relation_count: 0
+  duplicate_episode_consumption_count: 0
+  duplicate_relation_consumption_count: 0
+  all_historical_gold_episodes_disposed: true
+  all_historical_gold_relations_disposed: true
+  all_episode_and_relation_refs_valid: true
