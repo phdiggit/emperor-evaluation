@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6I 首轮盲测失败关闭；G2.6J AssertionEvidence 扇出硬化待开始
+- 阶段：G2.6J AssertionEvidence v2.7 契约已硬化，等待全新严格输入
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E、G2.6G、G2.6H 与 G2.6I 均已失败冻结。G2.6I 使用刘恒、胤禛的 29 条只读 V3 claim 和 59 条 Assertion/Passage；三层独立 Gold 冻结后，首轮盲测得到 episode recall 67.74%、precision 77.78%、4 个 catastrophic wrong merge，关系与 RuleEvidenceUnit 亦未达线。首要归因为完整 claim payload 被复制到多个 evidence passage，混淆了 passage 实际支持的原子子事件。当前批次不得调优后重标为 blind pass；PostgreSQL G3 继续阻断。
+G2.6E、G2.6G、G2.6H 与 G2.6I 均已失败冻结。G2.6I 的首要归因为完整 claim payload 被复制到多个 evidence passage。G2.6J 已引入 `PassageSupport`、`assertion-extraction-contract-v2` 和 BoundaryReview v2.7：新输入必须逐 passage 声明同义证据、原子分量或上下文，Reviewer atomic key 不再能覆盖 Assertion atomization 缺口。下一步只能在全新人物链上冻结严格输入；PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ G2.6E、G2.6G、G2.6H 与 G2.6I 均已失败冻结。G2.6I 使用刘恒、胤禛
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`g2_6i_failed_closed`
+- blind reconciliation：`g2_6j_contract_hardened_new_input_pending`
 - G3 Episode Graph PostgreSQL：`blocked_by_g2_6j`
 
 进入 G3 前必须满足：

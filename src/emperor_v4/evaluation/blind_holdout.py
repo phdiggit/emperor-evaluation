@@ -6,7 +6,7 @@ from itertools import combinations
 from typing import Any, Mapping
 
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
-from emperor_v4.contracts.assertion import AssertionDraft
+from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 from emperor_v4.domain.episode import (
     build_episode_packet,
     group_episode_candidates_with_hints,
@@ -40,6 +40,78 @@ def _walk_keys(value: Any, path: str = "$"):
             yield from _walk_keys(item, f"{path}[{index}]")
 
 
+def _row_semantic_payload(row: Mapping[str, Any]) -> str:
+    qualifiers = row.get("qualifiers") or {}
+    payload = {
+        "subject": row.get("subject"),
+        "predicate": row.get("predicate"),
+        "object": row.get("object"),
+        "time_expression": row.get("time_expression"),
+        "location_expression": row.get("location_expression"),
+        "responsibility_family": qualifiers.get("responsibility_family"),
+        "office_or_domain": qualifiers.get("office_or_domain"),
+        "outcome": qualifiers.get("outcome"),
+        "cost_or_damage": qualifiers.get("cost_or_damage"),
+        "normalized_time": qualifiers.get("normalized_time"),
+        "polarity": row.get("polarity"),
+    }
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _validate_passage_scoped_v2(payload: Mapping[str, Any]) -> None:
+    assertions = tuple(payload.get("assertions") or ())
+    by_origin: dict[str, list[Mapping[str, Any]]] = {}
+    for row in assertions:
+        if "legacy_multi_passage_claim_fanned_out" in set(row.get("ambiguity_flags") or ()):
+            raise ValueError("passage-scoped v2 禁止 legacy multi-passage fan-out")
+        support_row = row.get("passage_support")
+        if not isinstance(support_row, Mapping):
+            raise ValueError("passage-scoped v2 每条 Assertion 必须声明 passage_support")
+        PassageSupport(
+            support_mode=str(support_row.get("support_mode") or ""),
+            assertion_semantic_key=str(support_row.get("assertion_semantic_key") or ""),
+            supported_fields=tuple(support_row.get("supported_fields") or ()),
+            binding_provenance=support_row.get("binding_provenance") or {},
+        )
+        provenance = row.get("extraction_provenance") or {}
+        origin_key = str(
+            provenance.get("claim_key")
+            or provenance.get("assertion_source_key")
+            or ""
+        )
+        if not origin_key:
+            raise ValueError("passage-scoped v2 Assertion 缺少 claim_key/assertion_source_key")
+        by_origin.setdefault(origin_key, []).append(row)
+
+    for origin_key, rows in by_origin.items():
+        passage_refs = {str(row.get("source_passage_ref") or "") for row in rows}
+        if len(passage_refs) < 2:
+            continue
+        by_semantic_key: dict[str, list[Mapping[str, Any]]] = {}
+        for row in rows:
+            support_row = row["passage_support"]
+            by_semantic_key.setdefault(
+                str(support_row["assertion_semantic_key"]), []
+            ).append(row)
+        for semantic_key, items in by_semantic_key.items():
+            modes = {str(item["passage_support"]["support_mode"]) for item in items}
+            if len(items) > 1:
+                if modes != {"equivalent_evidence"}:
+                    raise ValueError(
+                        f"同一 semantic key 的多 passage 必须是 equivalent_evidence: "
+                        f"{origin_key}/{semantic_key}"
+                    )
+                if len({_row_semantic_payload(item) for item in items}) != 1:
+                    raise ValueError(
+                        f"equivalent_evidence 的逐 passage 语义不一致: {origin_key}/{semantic_key}"
+                    )
+            elif next(iter(modes)) not in {"atomic_component", "context_only"}:
+                raise ValueError(
+                    f"多 passage origin 的单独分量必须是 atomic_component/context_only: "
+                    f"{origin_key}/{semantic_key}"
+                )
+
+
 def validate_blind_kernel_input(payload: Mapping[str, Any]) -> None:
     violations = [
         f"{path}.{key}"
@@ -67,9 +139,20 @@ def validate_blind_kernel_input(payload: Mapping[str, Any]) -> None:
     )
     if missing_lineage:
         raise ValueError(f"blind kernel assertion passage lineage 不存在: {missing_lineage}")
+    if payload.get("assertion_input_contract") == "passage-scoped-assertion-v2":
+        _validate_passage_scoped_v2(payload)
 
 
 def _assertion_from_row(row: Mapping[str, Any]) -> AssertionDraft:
+    support_row = row.get("passage_support")
+    passage_support = None
+    if isinstance(support_row, Mapping):
+        passage_support = PassageSupport(
+            support_mode=str(support_row.get("support_mode") or ""),
+            assertion_semantic_key=str(support_row.get("assertion_semantic_key") or ""),
+            supported_fields=tuple(support_row.get("supported_fields") or ()),
+            binding_provenance=support_row.get("binding_provenance") or {},
+        )
     return AssertionDraft(
         assertion_code=row["assertion_code"],
         source_passage_ref=row["source_passage_ref"],
@@ -86,6 +169,7 @@ def _assertion_from_row(row: Mapping[str, Any]) -> AssertionDraft:
         confidence=float(row["confidence"]),
         ambiguity_flags=tuple(row.get("ambiguity_flags") or ()),
         extraction_provenance=row.get("extraction_provenance") or {},
+        passage_support=passage_support,
     )
 
 

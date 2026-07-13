@@ -10,7 +10,7 @@ from emperor_v4.adapters import (
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
 )
-from emperor_v4.contracts.assertion import AssertionDraft
+from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 from emperor_v4.contracts.source import SourcePassage, text_content_hash
 from emperor_v4.domain.identity import canonical_person
 from emperor_v4.domain.boundary import draft_rule_evidence_unit
@@ -79,7 +79,7 @@ def test_source_passage_hash_is_derived_only_from_raw_text():
     )
 
 
-def test_claim_adapter_produces_one_assertion_per_passage_lineage():
+def test_legacy_claim_adapter_produces_one_assertion_per_passage_lineage():
     snapshot = _fixture("claim-extractor-response.json")
     expected_count = sum(
         len(claim["source_passage_refs"])
@@ -105,6 +105,104 @@ def test_multi_passage_legacy_claim_is_fanned_out_without_losing_origin():
     assert len(fanned_out) == 6
     assert len({item.extraction_provenance["legacy_claim_code"] for item in fanned_out}) == 3
     assert all("@PAS-" in item.assertion_code for item in fanned_out)
+
+
+def _single_multi_passage_claim_snapshot() -> tuple[dict, dict]:
+    snapshot = deepcopy(_fixture("claim-extractor-response.json"))
+    person = next(
+        item
+        for item in snapshot["people"]
+        if any(
+            len(claim.get("source_passage_refs") or ()) > 1
+            for claim in item["payload"]["claims"]
+        )
+    )
+    claim = next(
+        claim
+        for claim in person["payload"]["claims"]
+        if len(claim.get("source_passage_refs") or ()) > 1
+    )
+    person["payload"]["claims"] = [claim]
+    snapshot["people"] = [person]
+    snapshot["adapter_target_contract"] = "assertion-extraction-contract-v2"
+    return snapshot, claim
+
+
+def test_v2_claim_adapter_rejects_unbound_multi_passage_fanout():
+    snapshot, claim = _single_multi_passage_claim_snapshot()
+
+    with pytest.raises(ValueError, match="未完整且唯一覆盖"):
+        adapt_claim_extractor_snapshot(snapshot)
+
+
+def test_v2_claim_adapter_splits_atomic_components_with_passage_scoped_payloads():
+    snapshot, claim = _single_multi_passage_claim_snapshot()
+    first_ref, second_ref = claim["source_passage_refs"]
+    claim["passage_support_bindings"] = [
+        {
+            "source_passage_ref": first_ref,
+            "support_mode": "atomic_component",
+            "assertion_semantic_key": "wei-zheng-house",
+            "supported_fields": ["identity", "action", "outcome"],
+            "fact_overrides": {
+                "action_type": "营造居所",
+                "outcome": "为魏徵营造居所",
+            },
+        },
+        {
+            "source_passage_ref": second_ref,
+            "support_mode": "atomic_component",
+            "assertion_semantic_key": "wei-zheng-funeral",
+            "supported_fields": ["identity", "action", "outcome"],
+            "fact_overrides": {
+                "action_type": "赠谥",
+                "outcome": "废朝并赠官谥文贞",
+            },
+        },
+    ]
+
+    adapted = adapt_claim_extractor_snapshot(snapshot)
+
+    assert [item.predicate for item in adapted] == ["营造居所", "赠谥"]
+    assert {item.passage_support.support_mode for item in adapted} == {
+        "atomic_component"
+    }
+    assert len({item.passage_support.assertion_semantic_key for item in adapted}) == 2
+    assert all(
+        "legacy_multi_passage_claim_fanned_out" not in item.ambiguity_flags
+        for item in adapted
+    )
+
+
+def test_v2_claim_adapter_accepts_explicit_equivalent_evidence_only_when_semantics_match():
+    snapshot, claim = _single_multi_passage_claim_snapshot()
+    claim["passage_support_bindings"] = [
+        {
+            "source_passage_ref": passage_ref,
+            "support_mode": "equivalent_evidence",
+            "assertion_semantic_key": "same-wei-zheng-event",
+            "supported_fields": ["identity", "action", "responsibility", "outcome"],
+        }
+        for passage_ref in claim["source_passage_refs"]
+    ]
+    adapted = adapt_claim_extractor_snapshot(snapshot)
+    assert len(adapted) == 2
+    assert len({item.passage_support.assertion_semantic_key for item in adapted}) == 1
+
+    claim["passage_support_bindings"][1]["fact_overrides"] = {
+        "action_type": "另一原子行动"
+    }
+    with pytest.raises(ValueError, match="逐 passage 语义不一致"):
+        adapt_claim_extractor_snapshot(snapshot)
+
+
+def test_passage_support_contract_rejects_core_binding_without_identity_and_action():
+    with pytest.raises(ValueError, match="identity 和 action"):
+        PassageSupport(
+            support_mode="atomic_component",
+            assertion_semantic_key="component-1",
+            supported_fields=("outcome",),
+        )
 
 
 def test_v4_shadow_claim_adapter_preserves_structured_actor_and_object_roles():
@@ -245,4 +343,19 @@ def test_blind_kernel_input_rejects_oracle_fields_at_any_depth():
     payload["assertions"][0]["qualifiers"]["episode_code"] = "FORBIDDEN"
 
     with pytest.raises(ValueError, match="Gold/oracle"):
+        validate_blind_kernel_input(payload)
+
+
+def test_passage_scoped_blind_input_rejects_legacy_unscoped_fanout():
+    payload = json.loads(
+        (Path(__file__).parent / "fixtures" / "blind_contract_smoke.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    payload["assertion_input_contract"] = "passage-scoped-assertion-v2"
+    payload["assertions"][0]["ambiguity_flags"] = [
+        "legacy_multi_passage_claim_fanned_out"
+    ]
+
+    with pytest.raises(ValueError, match="legacy multi-passage fan-out"):
         validate_blind_kernel_input(payload)

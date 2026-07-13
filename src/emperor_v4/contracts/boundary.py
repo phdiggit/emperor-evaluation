@@ -322,6 +322,7 @@ class EpisodeBoundaryReviewResult:
             "episode-boundary-review-v2.4",
             "episode-boundary-review-v2.5",
             "episode-boundary-review-v2.6",
+            "episode-boundary-review-v2.7",
         }:
             expected_pairs = {
                 frozenset(pair) for pair in combinations(sorted(code_set), 2)
@@ -372,6 +373,7 @@ class EpisodeBoundaryReviewResult:
             "episode-boundary-review-v2.4",
             "episode-boundary-review-v2.5",
             "episode-boundary-review-v2.6",
+            "episode-boundary-review-v2.7",
         } and any(
             not item.atomic_event_key for item in self.episode_groups
         ):

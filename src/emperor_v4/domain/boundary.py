@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.6"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.6"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.7"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.7"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -782,6 +782,7 @@ def validate_atomic_episode_groups(
         "episode-boundary-review-v2.4",
         "episode-boundary-review-v2.5",
         "episode-boundary-review-v2.6",
+        "episode-boundary-review-v2.7",
     }:
         return
     for group in review.episode_groups:
@@ -791,7 +792,7 @@ def validate_atomic_episode_groups(
         signatures = {_atomic_structure_signature(item) for item in assertions}
         if len(signatures) != 1:
             raise ValueError(
-                "v2.6 Episode core 跨 action/time/responsibility-family/focal-role；"
+                "v2.7 Episode core 跨 action/time/responsibility-family/focal-role；"
                 "必须拆成原子 Episode 并用 Relation 连接"
             )
         by_claim: dict[str, list[AssertionDraft]] = defaultdict(list)
@@ -804,6 +805,47 @@ def validate_atomic_episode_groups(
         for claim_items in by_claim.values():
             passages = {item.source_passage_ref for item in claim_items}
             if len(passages) < 2:
+                continue
+            if review.output_schema_version == "episode-boundary-review-v2.7":
+                supports = tuple(item.passage_support for item in claim_items)
+                if any(item is None for item in supports):
+                    raise ValueError(
+                        "v2.7 同一 claim 的多 passage core 缺少 PassageSupport；"
+                        "Reviewer atomic_event_key 不得覆盖 assertion atomization"
+                    )
+                semantic_keys = {
+                    item.assertion_semantic_key for item in supports if item is not None
+                }
+                support_modes = {
+                    item.support_mode for item in supports if item is not None
+                }
+                semantic_payloads = {
+                    _hash(
+                        {
+                            "subject": _normalized(item.subject),
+                            "predicate": _normalized(item.predicate),
+                            "object": _normalized(item.object),
+                            "time": _normalized(item.time_expression),
+                            "location": _normalized(item.location_expression),
+                            "responsibility_family": _responsibility_family(item),
+                            "responsibility_domain": _normalized(
+                                item.qualifiers.get("office_or_domain")
+                            ),
+                            "outcome": _normalized(item.qualifiers.get("outcome")),
+                            "polarity": _normalized(item.polarity),
+                        }
+                    )
+                    for item in claim_items
+                }
+                if (
+                    len(semantic_keys) != 1
+                    or support_modes != {"equivalent_evidence"}
+                    or len(semantic_payloads) != 1
+                ):
+                    raise ValueError(
+                        "v2.7 同一 claim 的多 passage 只有显式 equivalent_evidence "
+                        "且语义一致时才能合并；atomic components 必须拆分"
+                    )
                 continue
             atomic_keys = {
                 _normalized(item.qualifiers.get("atomic_event_key"))
@@ -844,6 +886,7 @@ def materialize_boundary_review(
         "episode-boundary-review-v2.4",
         "episode-boundary-review-v2.5",
         "episode-boundary-review-v2.6",
+        "episode-boundary-review-v2.7",
     } and any(
         item.decision == "unresolved" for item in review.pair_dispositions
     ):

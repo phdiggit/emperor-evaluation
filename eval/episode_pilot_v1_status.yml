@@ -18,6 +18,8 @@ milestones:
   G2_6I_contract_basis: boundary_review_v2_6_hardened
   G2_6I_graph_holdout: failed_closed_after_first_blind_score
   G2_6J_next_gate: assertion_evidence_fanout_hardening_then_new_holdout
+  G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_7
+  G2_6J_contract_status: hardened_new_input_pending
   G3_PostgreSQL: blocked_by_g2_6J
 
 qualification:
@@ -67,6 +69,10 @@ qualification:
     - g2_6i_zero_duplicate_rule_consumption
     - g2_6i_zero_call_unchanged_rerun
     - g2_6i_review_unit_local_invalidation
+    - g2_6j_passage_support_contract
+    - g2_6j_unbound_fanout_fail_closed
+    - g2_6j_reviewer_atomic_key_cannot_override_atomization
+    - g2_6j_v2_6_read_compatibility
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -102,5 +108,5 @@ safety:
 
 next_gate:
   code: G2_6J_assertion_evidence_fanout_hardening
-  status: pending_contract_design_then_new_input
+  status: contract_hardened_new_input_pending
   required_outcome: 消除 claim payload 向多个 evidence passage 的无条件扇出后，在全新输入上重新验证 Episode、relation 与 RuleEvidenceUnit

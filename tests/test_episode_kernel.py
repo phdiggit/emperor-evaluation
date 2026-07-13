@@ -4,7 +4,7 @@ from dataclasses import replace
 
 import pytest
 
-from emperor_v4.contracts.assertion import AssertionDraft
+from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 from emperor_v4.contracts.boundary import (
     AssertionDisposition,
     EpisodeBoundaryGroup,
@@ -44,6 +44,7 @@ def _assertion(
     responsibility_family: str = "military_command",
     participant_roles: tuple[tuple[str, str], ...] | None = None,
     focal_person_ref: str | None = None,
+    passage_support: PassageSupport | None = None,
 ) -> AssertionDraft:
     qualifiers = {
         "evaluation_context": ruler,
@@ -78,6 +79,7 @@ def _assertion(
         source_attribution={"document_code": f"D-{passage}"},
         candidate_episode_key=None,
         confidence=0.9,
+        passage_support=passage_support,
     )
 
 
@@ -383,7 +385,13 @@ def test_v22_materialization_allows_reviewer_frozen_atomic_key_across_passages()
         _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
     ]
     clusters = cluster_propositions(assertions)
-    unit = build_review_units(clusters)[0]
+    current_unit = build_review_units(clusters)[0]
+    unit = replace(
+        current_unit,
+        cache_key="V26-LEGACY-CACHE",
+        boundary_policy_version="episode-boundary-policy-v2.6",
+        output_schema_version="episode-boundary-review-v2.6",
+    )
     review = EpisodeBoundaryReviewResult(
         review_unit_ref=unit.review_unit_code,
         review_unit_cache_key=unit.cache_key,
@@ -394,6 +402,83 @@ def test_v22_materialization_allows_reviewer_frozen_atomic_key_across_passages()
         episode_groups=(
             EpisodeBoundaryGroup(
                 "E1", ("A-1", "A-2"), "shared atomic key", 0.9, "ATOMIC-1"
+            ),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    result = materialize_boundary_review(
+        assertions, review, review_unit=unit, proposition_clusters=clusters
+    )
+
+    assert len(result.episode_packets) == 1
+    assert len(result.episode_packets[0].assertion_links) == 2
+
+
+def test_v27_reviewer_atomic_key_cannot_override_unscoped_claim_fanout():
+    assertions = [
+        _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+        _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-1"),
+    ]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup(
+                "E1", ("A-1", "A-2"), "reviewer guessed same event", 0.9, "ATOMIC-1"
+            ),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    with pytest.raises(ValueError, match="Reviewer atomic_event_key 不得覆盖"):
+        materialize_boundary_review(
+            assertions, review, review_unit=unit, proposition_clusters=clusters
+        )
+
+
+def test_v27_allows_explicit_equivalent_passage_evidence_merge():
+    support = PassageSupport(
+        support_mode="equivalent_evidence",
+        assertion_semantic_key="same-event",
+        supported_fields=("identity", "action", "responsibility", "outcome"),
+    )
+    assertions = [
+        _with_claim(
+            _assertion("A-1", passage="P-1", passage_support=support), "CLAIM-1"
+        ),
+        _with_claim(
+            _assertion("A-2", passage="P-2", passage_support=support), "CLAIM-1"
+        ),
+    ]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup(
+                "E1", ("A-1", "A-2"), "explicit equivalent evidence", 0.9, "ATOMIC-1"
             ),
         ),
         relations=(),
