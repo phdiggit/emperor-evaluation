@@ -29,6 +29,7 @@ from emperor_v4.evaluation.graph_holdout import (
     materialize_boundary_graph_payload,
     score_graph_blind_holdout,
 )
+from emperor_v4.evaluation.passage_support import materialize_passage_scoped_blind_input
 from emperor_v4.evaluation.assertion_handoff import (
     build_assertion_repair_payloads,
     build_assertion_candidate_payloads,
@@ -189,6 +190,10 @@ def _parser() -> argparse.ArgumentParser:
     graph_score.add_argument("--rule-gold", type=Path, required=True)
     graph_score.add_argument("--runtime-audit", type=Path, required=True)
     graph_score.add_argument("--output", type=Path)
+    passage_support = subparsers.add_parser("passage-support-materialize")
+    passage_support.add_argument("--snapshot", type=Path, required=True)
+    passage_support.add_argument("--review", type=Path, required=True)
+    passage_support.add_argument("--output", type=Path)
     source_gap = subparsers.add_parser("source-gap-check")
     source_gap.add_argument("--manifest", type=Path, required=True)
     source_gap.add_argument(
@@ -512,6 +517,11 @@ def main() -> int:
             json.loads(args.rule_candidates.read_text(encoding="utf-8")),
             yaml.safe_load(args.rule_gold.read_text(encoding="utf-8")),
             json.loads(args.runtime_audit.read_text(encoding="utf-8")),
+        )
+    elif args.command == "passage-support-materialize":
+        report = materialize_passage_scoped_blind_input(
+            json.loads(args.snapshot.read_text(encoding="utf-8")),
+            yaml.safe_load(args.review.read_text(encoding="utf-8")),
         )
     else:
         raise AssertionError("unreachable")

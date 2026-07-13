@@ -7,6 +7,7 @@ from emperor_v4.evaluation.graph_holdout import (
     materialize_boundary_graph_payload,
     score_graph_blind_holdout,
 )
+from emperor_v4.evaluation.passage_support import materialize_passage_scoped_blind_input
 
 __all__ = [
     "build_boundary_review_plan",
@@ -14,4 +15,5 @@ __all__ = [
     "materialize_boundary_graph_payload",
     "score_boundary_graph",
     "score_graph_blind_holdout",
+    "materialize_passage_scoped_blind_input",
 ]

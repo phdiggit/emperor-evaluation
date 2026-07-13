@@ -15,6 +15,10 @@ from emperor_v4.contracts.source import SourcePassage, text_content_hash
 from emperor_v4.domain.identity import canonical_person
 from emperor_v4.domain.boundary import draft_rule_evidence_unit
 from emperor_v4.evaluation.blind_holdout import validate_blind_kernel_input
+from emperor_v4.evaluation.passage_support import (
+    canonical_payload_hash,
+    materialize_passage_scoped_blind_input,
+)
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
@@ -203,6 +207,54 @@ def test_passage_support_contract_rejects_core_binding_without_identity_and_acti
             assertion_semantic_key="component-1",
             supported_fields=("outcome",),
         )
+
+
+def test_passage_support_review_materializes_strict_blind_input_before_episode_review():
+    snapshot, claim = _single_multi_passage_claim_snapshot()
+    snapshot.pop("adapter_target_contract")
+    snapshot["dataset_code"] = "passage-support-smoke"
+    snapshot["canonical_people"] = []
+    snapshot["collection_provenance"] = {
+        "network_request_count": 0,
+        "database_write_count": 0,
+    }
+    bindings = [
+        {
+            "source_passage_ref": passage_ref,
+            "support_mode": "atomic_component",
+            "assertion_semantic_key": f"component-{index}",
+            "supported_fields": ["identity", "action", "outcome"],
+            "fact_overrides": {
+                "action_type": f"原子行动{index}",
+                "outcome": f"原子结果{index}",
+            },
+        }
+        for index, passage_ref in enumerate(claim["source_passage_refs"], start=1)
+    ]
+    review = {
+        "status": "frozen_before_episode_review",
+        "reviewed_without_episode_gold_or_candidates": True,
+        "source_snapshot_sha256": canonical_payload_hash(snapshot),
+        "claim_support_reviews": [
+            {
+                "claim_code": claim["claim_code"],
+                "passage_support_bindings": bindings,
+            }
+        ],
+    }
+
+    result = materialize_passage_scoped_blind_input(snapshot, review)
+
+    assert result["assertion_input_contract"] == "passage-scoped-assertion-v2"
+    assert [row["predicate"] for row in result["assertions"]] == [
+        "原子行动1",
+        "原子行动2",
+    ]
+    assert all(row["passage_support"] for row in result["assertions"])
+
+    review["source_snapshot_sha256"] = "wrong"
+    with pytest.raises(ValueError, match="snapshot hash"):
+        materialize_passage_scoped_blind_input(snapshot, review)
 
 
 def test_v4_shadow_claim_adapter_preserves_structured_actor_and_object_roles():
