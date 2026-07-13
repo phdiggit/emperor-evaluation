@@ -27,7 +27,11 @@ def _unit(code: str, fingerprint: str) -> dict[str, object]:
         "semantic_version": 1,
         "evidence_version": 1,
         "members": [
-            {"member_ref": f"EP-{code}@v1", "member_type": "episode", "member_role": "delegation"}
+            {
+                "member_ref": f"EP-{code}@v1",
+                "member_type": "episode",
+                "member_role": "delegation",
+            }
         ],
         "aggregation_reason": "fixture",
         "status": "draft",
@@ -113,7 +117,9 @@ def _result(projection: dict[str, object]) -> dict[str, object]:
     }
 
 
-def _response(worklist: dict[str, object], results: list[dict[str, object]]) -> dict[str, object]:
+def _response(
+    worklist: dict[str, object], results: list[dict[str, object]]
+) -> dict[str, object]:
     return {
         "status": "judgment_shadow_reviews_complete",
         "task_code": worklist["task_code"],
@@ -140,8 +146,16 @@ def test_incremental_projection_worklist_rebuilds_changed_and_reuses_unchanged()
     assert rerun["projection_count"] == 2
     assert rerun["rebuilt_projection_count"] == 1
     assert rerun["reused_projection_count"] == 1
-    change = next(row for row in rerun["projection_change_map"] if row["input_ref"] == "RUE-CHANGED")
-    reuse = next(row for row in rerun["projection_change_map"] if row["input_ref"] == "RUE-REUSED")
+    change = next(
+        row
+        for row in rerun["projection_change_map"]
+        if row["input_ref"] == "RUE-CHANGED"
+    )
+    reuse = next(
+        row
+        for row in rerun["projection_change_map"]
+        if row["input_ref"] == "RUE-REUSED"
+    )
     assert change["prior_projection_code"] != change["current_projection_code"]
     assert reuse["prior_projection_code"] == reuse["current_projection_code"]
     assert reuse["cache_disposition"] == "cache_reused"
@@ -168,7 +182,9 @@ def test_incremental_judgment_rerun_reuses_one_row_and_passes_all_readiness() ->
             current_results.append(_result(projection))
     response = _response(rerun, current_results)
 
-    result = materialize_incremental_judgment_rerun(rerun, response, prior_response)
+    result = materialize_incremental_judgment_rerun(
+        rerun, response, prior_response
+    )
 
     assert result["status"] == "incremental_judgment_shadow_rerun_passed"
     assert result["judgment_shadow_candidate_count"] == 2
@@ -180,13 +196,47 @@ def test_incremental_judgment_rerun_reuses_one_row_and_passes_all_readiness() ->
     assert result["score_count"] == 0
 
 
+def test_incremental_judgment_rerun_allows_all_projections_to_rebuild() -> None:
+    prior, delta = _prior_and_delta()
+    second = next(
+        row
+        for row in delta["rule_evidence_unit_drafts"]
+        if row["unit_code"] == "RUE-REUSED"
+    )
+    second["semantic_fingerprint"] = "d" * 64
+    second["semantic_version"] = 2
+    second["evidence_version"] = 2
+    delta["updated_unit_count"] = 2
+    delta["unchanged_unit_count"] = 0
+    delta["projection_rebuild_unit_refs"] = ["RUE-CHANGED", "RUE-REUSED"]
+    delta["unchanged_unit_refs"] = []
+
+    rerun = build_incremental_projection_rerun_worklist(prior, delta)
+    prior_response = _response(prior, [_result(row) for row in prior["projections"]])
+    response = _response(rerun, [_result(row) for row in rerun["projections"]])
+
+    result = materialize_incremental_judgment_rerun(
+        rerun, response, prior_response
+    )
+
+    assert result["rebuilt_projection_count"] == 2
+    assert result["reused_projection_count"] == 0
+    assert result["reused_judgment_count"] == 0
+    assert result["rejudged_projection_count"] == 2
+    assert result["all_projection_readiness_passed"] is True
+
+
 def test_incremental_judgment_rerun_rejects_mutated_cached_row() -> None:
     prior, delta = _prior_and_delta()
     rerun = build_incremental_projection_rerun_worklist(prior, delta)
     prior_results = [_result(row) for row in prior["projections"]]
     prior_response = _response(prior, prior_results)
     current_results = [_result(row) for row in rerun["projections"]]
-    cached = next(row for row in current_results if row["projection_code"] in rerun["reused_projection_codes"])
+    cached = next(
+        row
+        for row in current_results
+        if row["projection_code"] in rerun["reused_projection_codes"]
+    )
     cached["review_reason"] = "mutated"
 
     with pytest.raises(ValueError, match="逐字段复用"):
@@ -197,7 +247,11 @@ def test_incremental_judgment_rerun_rejects_mutated_cached_row() -> None:
 
 def test_incremental_projection_worklist_rejects_reuse_when_fingerprint_changed() -> None:
     prior, delta = _prior_and_delta()
-    reused = next(row for row in delta["rule_evidence_unit_drafts"] if row["unit_code"] == "RUE-REUSED")
+    reused = next(
+        row
+        for row in delta["rule_evidence_unit_drafts"]
+        if row["unit_code"] == "RUE-REUSED"
+    )
     reused["semantic_fingerprint"] = "d" * 64
 
     with pytest.raises(ValueError, match="reuse 输入 fingerprint"):

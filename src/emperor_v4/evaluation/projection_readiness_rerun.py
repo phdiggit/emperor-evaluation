@@ -183,7 +183,7 @@ def materialize_incremental_judgment_rerun(
         for row in prior_response.get("results") or ()
     }
     reused_codes = set(worklist.get("reused_projection_codes") or ())
-    if not reused_codes or any(
+    if any(
         code not in prior_rows or current_rows.get(code) != prior_rows[code]
         for code in reused_codes
     ):
