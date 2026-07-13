@@ -2,7 +2,7 @@
 
 `docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
 
-当前实现状态为 `M1 conditional_pass / G2.6I failed_closed / G2.6J contract_hardened`。G2.6J 已引入 passage-scoped Assertion v2 与 BoundaryReview v2.7；全新严格输入和四层独立冻结未完成前不能进入 PostgreSQL G3。
+当前实现状态为 `M1 conditional_pass / G2.6I failed_closed / G2.6J strict_input_frozen`。G2.6J 已引入 passage-scoped Assertion v2 与 BoundaryReview v2.8；四层独立冻结与首次评分未完成前不能进入 PostgreSQL G3。
 
 ## 文档状态
 

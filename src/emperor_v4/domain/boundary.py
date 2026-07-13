@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.7"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.7"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.8"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.8"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -809,18 +809,22 @@ def validate_atomic_episode_groups(
         "episode-boundary-review-v2.5",
         "episode-boundary-review-v2.6",
         "episode-boundary-review-v2.7",
+        "episode-boundary-review-v2.8",
     }:
         return
     for group in review.episode_groups:
         assertions = tuple(assertions_by_ref[ref] for ref in group.core_assertion_refs)
-        if review.output_schema_version == "episode-boundary-review-v2.7":
+        if review.output_schema_version in {
+            "episode-boundary-review-v2.7",
+            "episode-boundary-review-v2.8",
+        }:
             if any(
                 item.passage_support is not None
                 and item.passage_support.support_mode == "context_only"
                 for item in assertions
             ):
                 raise ValueError(
-                    "v2.7 context_only Assertion 不得进入 Episode core"
+                    "v2.7+ context_only Assertion 不得进入 Episode core"
                 )
         if len(assertions) < 2:
             continue
@@ -841,7 +845,10 @@ def validate_atomic_episode_groups(
             passages = {item.source_passage_ref for item in claim_items}
             if len(passages) < 2:
                 continue
-            if review.output_schema_version == "episode-boundary-review-v2.7":
+            if review.output_schema_version in {
+                "episode-boundary-review-v2.7",
+                "episode-boundary-review-v2.8",
+            }:
                 supports = tuple(item.passage_support for item in claim_items)
                 if any(item is None for item in supports):
                     raise ValueError(
@@ -922,6 +929,7 @@ def materialize_boundary_review(
         "episode-boundary-review-v2.5",
         "episode-boundary-review-v2.6",
         "episode-boundary-review-v2.7",
+        "episode-boundary-review-v2.8",
     } and any(
         item.decision == "unresolved" for item in review.pair_dispositions
     ):

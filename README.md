@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6J AssertionEvidence v2.7 契约已硬化，等待全新严格输入
+- 阶段：G2.6J AssertionEvidence v2.8 严格输入已冻结，独立审核中
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E、G2.6G、G2.6H 与 G2.6I 均已失败冻结。G2.6I 的首要归因为完整 claim payload 被复制到多个 evidence passage。G2.6J 已引入 `PassageSupport`、`assertion-extraction-contract-v2` 和 BoundaryReview v2.7：新输入必须逐 passage 声明同义证据、原子分量或上下文，Reviewer atomic key 不再能覆盖 Assertion atomization 缺口。下一步只能在全新人物链上冻结严格输入；PostgreSQL G3 继续阻断。
+G2.6E、G2.6G、G2.6H 与 G2.6I 均已失败冻结。G2.6J 已冻结杨广、胡亥的新严格输入；独立 PassageSupport 审核判定 38 段中仅 7 段可作为 atomic core，31 段因缺主体/动作而 fail closed 为 context-only。BoundaryReview v2.8 允许全上下文 review unit 以零 Episode 关闭，并禁止旧 claim key 重新拼接原子分量。独立 Boundary/Historical/Rule 全部冻结并完成首次评分前，PostgreSQL G3 继续阻断。
 
 ## 文件树
 
