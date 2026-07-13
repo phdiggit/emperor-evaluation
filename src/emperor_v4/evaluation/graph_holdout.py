@@ -35,16 +35,36 @@ def _canonical_hash(payload: Mapping[str, Any]) -> str:
     return hashlib.sha256(rendered.encode("utf-8")).hexdigest()
 
 
+def validate_boundary_review_freeze(
+    blind_input: Mapping[str, Any], boundary_review: Mapping[str, Any]
+) -> None:
+    input_hash = _canonical_hash(blind_input)
+    status = boundary_review.get("status")
+    if status not in {"completed_before_gold_opened", "boundary_reviews_complete"}:
+        raise ValueError("Boundary review 未在 Gold 打开前完成")
+    isolated = (
+        boundary_review.get("reviewed_without_gold_access") is True
+        or boundary_review.get("reviewed_without_historical_gold_or_candidates") is True
+    )
+    if not isolated:
+        raise ValueError("Boundary review 未声明 Gold/candidate 隔离")
+    declared_hashes = {
+        str(value)
+        for value in (
+            boundary_review.get("blind_input_sha256"),
+            boundary_review.get("input_canonical_sha256"),
+        )
+        if value
+    }
+    if declared_hashes != {input_hash}:
+        raise ValueError("Boundary review 与 blind input hash 不一致")
+
+
 def materialize_boundary_graph_payload(
     blind_input: Mapping[str, Any], boundary_review: Mapping[str, Any]
 ) -> dict[str, Any]:
     input_hash = _canonical_hash(blind_input)
-    if boundary_review.get("status") != "completed_before_gold_opened":
-        raise ValueError("Boundary review 未在 Gold 打开前完成")
-    if boundary_review.get("reviewed_without_gold_access") is not True:
-        raise ValueError("Boundary review 未声明 Gold 隔离")
-    if boundary_review.get("blind_input_sha256") != input_hash:
-        raise ValueError("Boundary review 与 blind input hash 不一致")
+    validate_boundary_review_freeze(blind_input, boundary_review)
 
     assertions = assertions_from_blind_input(blind_input)
     plan = plan_boundary_reviews(assertions)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -30,6 +31,7 @@ from emperor_v4.evaluation.boundary_score import score_boundary_graph
 from emperor_v4.evaluation.graph_holdout import (
     draft_rule_evidence_units_payload,
     score_graph_blind_holdout,
+    validate_boundary_review_freeze,
 )
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
 
@@ -39,6 +41,25 @@ FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
 
 def _fixture(name: str) -> dict:
     return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+
+
+def test_graph_materializer_accepts_v28_isolated_review_freeze_metadata():
+    blind_input = {"dataset_code": "STRICT", "assertions": []}
+    rendered = json.dumps(
+        blind_input, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    input_hash = hashlib.sha256(rendered.encode("utf-8")).hexdigest()
+    review = {
+        "status": "boundary_reviews_complete",
+        "input_canonical_sha256": input_hash,
+        "reviewed_without_historical_gold_or_candidates": True,
+    }
+
+    validate_boundary_review_freeze(blind_input, review)
+
+    review["input_canonical_sha256"] = "wrong"
+    with pytest.raises(ValueError, match="input hash"):
+        validate_boundary_review_freeze(blind_input, review)
 
 
 def test_frozen_v3_outputs_form_auditable_episode_candidate_slice_offline():
