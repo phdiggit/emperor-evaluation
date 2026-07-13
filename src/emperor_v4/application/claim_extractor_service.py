@@ -23,6 +23,16 @@ def _fingerprint(value: Any) -> str:
     return sha256(_stable(value).encode("utf-8")).hexdigest()
 
 
+def _assertion_semantic_payload(assertion: AssertionDraft) -> tuple[Any, ...]:
+    qualifiers = assertion.qualifiers
+    return (
+        assertion.subject, assertion.predicate, assertion.object,
+        assertion.time_expression, assertion.location_expression,
+        qualifiers.get("responsibility_family"), qualifiers.get("office_or_domain"),
+        qualifiers.get("outcome"), qualifiers.get("cost_or_damage"), assertion.polarity,
+    )
+
+
 def claim_extraction_input_fingerprint(request: ClaimExtractionRequest, profile: ClaimExtractionProfile) -> str:
     rendered = render_claim_extraction_request(
         profile=profile, subject=request.subject, passages=request.passages,
@@ -87,7 +97,7 @@ def ensure_claim_extraction(
         raise ValueError("Claim Extractor 不得以空 Assertion 集合伪装成功")
     passage_refs = {str(row.get("passage_id") or row.get("passage_code")) for row in request.passages}
     assertion_codes: set[str] = set()
-    semantic_rows: dict[tuple[str, str, str], list[AssertionDraft]] = {}
+    semantic_rows: dict[tuple[Any, ...], list[AssertionDraft]] = {}
     for assertion in batch.assertions:
         if assertion.assertion_code in assertion_codes:
             raise ValueError("Claim Extractor assertion_code 重复")
@@ -96,9 +106,7 @@ def ensure_claim_extraction(
             raise ValueError("Claim Extractor Assertion 越出请求 passages")
         if assertion.passage_support is None:
             raise ValueError("v2 Claim Extractor Assertion 缺少 PassageSupport")
-        semantic_rows.setdefault(
-            (assertion.subject, assertion.predicate, assertion.object), []
-        ).append(assertion)
+        semantic_rows.setdefault(_assertion_semantic_payload(assertion), []).append(assertion)
     for semantic, items in semantic_rows.items():
         if len(items) <= 1:
             continue
