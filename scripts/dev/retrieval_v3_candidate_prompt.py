@@ -58,7 +58,7 @@ AD_FACTOR_HINT_SCHEMA_TEXT = (
 
 
 CLAIM_EXTRACTION_ONLY_MODE = "claim_extraction_only"
-CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v8_source_alias"
+CLAIM_EXTRACTOR_VERSION = "claim_extraction_only:v9_talent_discovery"
 
 
 def prompt_candidate_slices(candidates: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -118,6 +118,7 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
     payload = prompt_payload(candidates)
     task_identity = payload.get("task_identity") if isinstance(payload.get("task_identity"), Mapping) else {}
     capture_profile = str(task_identity.get("capture_profile") or "").strip()
+    rule_code = str(task_identity.get("rule_code") or "").strip()
     profile_note = (
         "本轮仍属于 personnel_political_wide 的第一阶段，只抽取可复用政治行动 claim；不做 rule 路由、AD scoring、factor hints 或 future hints。\n"
         if capture_profile == contracts.PERSONNEL_POLITICAL_WIDE_PROFILE
@@ -134,11 +135,23 @@ def build_claim_extraction_prompt(candidates: Mapping[str, Any]) -> str:
         if expected_event_repair
         else ""
     )
+    rule_specific_note = (
+        "本轮目标 rule 是 talent_discovery。对每个焦点人物，若原文直接具备事实，必须分别抽取："
+        "其进入统治者有效人才池前的阵营、身份或任用关系；统治者在任用前识别其才能的当时依据；"
+        "统治者明知阵营、身份、派系或偏见障碍仍完成召见、试用、引入或拔擢；以及识别转化为实际任用。"
+        "这里的进入有效人才池不要求统治者此前从未听说该人物；已知的敌对阵营人才被纳入核心用人体系也属于候选发现链。"
+        "原阵营、识才依据、跨障碍决定和转化任用若是可独立复核的事实，应拆成原子 claim；"
+        "不得只抽最终官职，也不得用任职后的成就、纳谏或历史名声倒推任用前识才。"
+        "缺少任一环节时只抽原文直接支持的部分，并写 coverage_gaps，不得补写。\n"
+        if rule_code == "talent_discovery"
+        else ""
+    )
     return (
         "你是 emperor-evaluation 项目的 retrieval_v3 claim 抽取 worker。本轮脚本已经完成源页抓取、缓存、别名命中和候选片段切片；"
         "你不要联网，不要使用记忆，不要读取旧结果文件，不要修改文件，不要写数据库，只根据本轮输入里的 candidate_slices 抽取事实。\n\n"
         f"{profile_note}"
         f"{repair_note}"
+        f"{rule_specific_note}"
         "目标：只生成 material_claims/context_claims/counter_claims，要求事实原子化、对象明确、动作明确、source_slice_refs 可复核。"
         "不要输出 primary_bindings，不要输出 secondary_binding_candidates，不要判断 appointment_delegation scoring，不要写 candidate_payload。"
         "如果同一对象有多条独立任务链，优先拆成多条 claim；如果预算不足但源片段已召回，写 object_claim_undercoverage，"

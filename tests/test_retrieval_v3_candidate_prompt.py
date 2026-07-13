@@ -241,9 +241,33 @@ def test_build_prompt_can_extract_claims_only() -> None:
     assert "不得拿后续获罪、贬谪、赐死冒充损害" in prompt
     assert "如果原文只有罪名或处置、没有具体任内行为" in prompt
     assert "失职 | 构陷 | 滥权" in prompt
-    assert tool.CLAIM_EXTRACTOR_VERSION == "claim_extraction_only:v8_source_alias"
+    assert tool.CLAIM_EXTRACTOR_VERSION == "claim_extraction_only:v9_talent_discovery"
     assert "来源级 OCR 别名" in prompt
     assert "选择能支撑后续规则复核的代表性原子事实" not in prompt
+
+
+def test_claim_extraction_prompt_covers_talent_discovery_chain_without_hindsight() -> None:
+    candidates = sample_candidates()
+    candidates["task_identity"]["judge_mode"] = tool.CLAIM_EXTRACTION_ONLY_MODE
+    candidates["task_identity"]["rule_code"] = "talent_discovery"
+
+    prompt = tool.build_prompt(candidates)
+
+    assert "进入统治者有效人才池前的阵营、身份或任用关系" in prompt
+    assert "统治者在任用前识别其才能的当时依据" in prompt
+    assert "明知阵营、身份、派系或偏见障碍" in prompt
+    assert "识别转化为实际任用" in prompt
+    assert "不要求统治者此前从未听说该人物" in prompt
+    assert "不得用任职后的成就、纳谏或历史名声倒推任用前识才" in prompt
+
+
+def test_claim_extraction_prompt_does_not_inject_talent_policy_into_other_rules() -> None:
+    candidates = sample_candidates()
+    candidates["task_identity"]["judge_mode"] = tool.CLAIM_EXTRACTION_ONLY_MODE
+
+    prompt = tool.build_prompt(candidates)
+
+    assert "进入统治者有效人才池前的阵营、身份或任用关系" not in prompt
 
 
 def test_claim_extraction_prompt_limits_expected_event_repair_to_selected_events() -> None:
