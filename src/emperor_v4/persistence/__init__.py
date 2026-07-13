@@ -1,0 +1,37 @@
+"""V4 隔离 shadow persistence 边界。"""
+
+from emperor_v4.persistence.core_registry import (
+    BoundaryReviewCacheEntry,
+    CoreRegistryBatch,
+    CoreRegistryWriteResult,
+    EpisodeDispositionRecord,
+    InMemoryCoreRegistry,
+    ReviewArtifactRecord,
+    SourceDocumentRecord,
+)
+from emperor_v4.persistence.postgres import (
+    G3ASchemaBootstrapResult,
+    G3ASchemaStateError,
+    bootstrap_g3a_schema,
+    decide_schema_action,
+)
+from emperor_v4.persistence.postgres_registry import (
+    PostgresCoreRegistry,
+    historical_episode_packet_from_payload,
+)
+
+__all__ = [
+    "BoundaryReviewCacheEntry",
+    "CoreRegistryBatch",
+    "CoreRegistryWriteResult",
+    "EpisodeDispositionRecord",
+    "InMemoryCoreRegistry",
+    "ReviewArtifactRecord",
+    "SourceDocumentRecord",
+    "G3ASchemaBootstrapResult",
+    "G3ASchemaStateError",
+    "bootstrap_g3a_schema",
+    "decide_schema_action",
+    "PostgresCoreRegistry",
+    "historical_episode_packet_from_payload",
+]

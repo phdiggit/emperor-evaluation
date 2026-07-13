@@ -8,6 +8,9 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = ["PyYAML>=6.0"]
 
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.2"]
+
 [tool.pytest.ini_options]
 addopts = "--strict-markers"
 pythonpath = ["src"]

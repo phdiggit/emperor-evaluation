@@ -103,7 +103,6 @@
 - YAML 可解析且无 runtime/凭据字段；
 - 文件树与 `docs/README.md` 一致；
 - `git diff --check` 通过；
-- 工作树无真实 `.env`。
 
 未来涉及代码、Schema 或 CI 时，再增加 focused tests、compileall、迁移 dry-run 和完整性审计；同一 head 的全量测试原则上只运行一次。
 

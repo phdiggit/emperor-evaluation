@@ -1,8 +1,8 @@
 # V4 文档导航
 
-`docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
+`docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel、通过真实数据库验证的 G3A PostgreSQL Core Registry，以及通过局部失效与真实库零写入重跑验证的 G3B 同步 Core Shadow Runner；仍没有 worker 或 scorer。
 
-当前实现状态为 `M1 conditional_pass / G2.6J failed_closed / G2.6K0 S4 blocked`。G2.6K0 已建立 Source Cache v2、确定性 section-aware slicer、S1—S5 机械早停和 8 场景 protocol smoke；I/J 的开放开发输入已通过 S1/S2，Boundary policy v2.10 后也达到 S3 episode 门槛。独立 Relation review 与 Relation Gold ontology audit v2 已完成；修订后的开发 Gold 下，I/J strict precision/recall 分别为 50%/73.33% 和 40%/25%，仍未通过 S4。旧 Rule Gold 不再用于当前 Relation ontology 放行。新 blind holdout 与 PostgreSQL G3 仍未授权。
+当前实现状态为 `M1 conditional_pass / G2-Core passed_for_shadow_implementation / G2-Relation deferred_not_qualified / G3A passed_shadow_registry / G3B passed_sync_local_invalidation / G3R endpoint_agreement_gate_passed_after_adjudication + fine_relation_graph_gate_failed_closed_after_gap_review / G3C blocked`。G3A/G3B 已在独立 V4 PostgreSQL 数据库完成九表 migration、同步事务 adapter、I/J proposed shadow 写入、稳定事件身份、局部版本决策、无变化重跑和回滚验证。G3R 已完成 30 项受控 endpoint 双审和 4 项隔离裁决；15 项 direct proposal 的细类型审查与定向补证复核形成 12 项 versioned proposal、3 项 unresolved，图约束本身通过，但细类型 Gate 继续失败关闭。S4 strict precision/recall 尚未重评，Relation 仍未取得正式资格。G3C、正式评分、新 blind、V3/生产数据库和生产切换继续关闭。
 
 ## 文档状态
 
@@ -52,16 +52,26 @@ D0 文档 Gate 所需的领域、证据、输入类型、状态机、覆盖度�
 21. `18-G2.6J-AssertionEvidence扇出硬化.md`
 22. `19-G2.6J盲测结果与史源切片阻断.md`
 23. `20-G2.6K0史源切片开发资格.md`
+24. `21-G2终止与G3A核心Shadow决策.md`
+25. `22-G3A核心Registry首个实现切片.md`
+26. `23-G3B同步CoreShadowRunner.md`
+27. `24-G3R候选Blocking首个切片.md`
+28. `25-G3REndpoint双审合同.md`
+29. `26-G3REndpoint受控双审结果.md`
+30. `27-G3REndpoint裁决结果.md`
+31. `28-G3R细类型Relation与图约束首个切片.md`
+32. `29-G3R细类型Relation定向补证复核.md`
+33. `30-G3REndpoint样本与裁决明细.md`
 
 ### 契约与试点规则
 
-24. `contracts/史源缓存服务契约.md`
-25. `contracts/事实抽取服务契约.md`
-26. `contracts/历史事件包契约.md`
-27. `contracts/规则判断结果契约.md`
-28. `证据规则/证据裁量总则.md`
-29. `证据规则/史料检索与回源工作流.md`
-30. `分项规则/第五项统治者政治素质/B用人与授权.md`
+34. `contracts/史源缓存服务契约.md`
+35. `contracts/事实抽取服务契约.md`
+36. `contracts/历史事件包契约.md`
+37. `contracts/规则判断结果契约.md`
+38. `证据规则/证据裁量总则.md`
+39. `证据规则/史料检索与回源工作流.md`
+40. `分项规则/第五项统治者政治素质/B用人与授权.md`
 
 ## 目录职责
 

@@ -62,6 +62,11 @@ def semantic_payload_hash(packet: HistoricalEpisodePacket) -> str:
 
 
 def evidence_payload_hash(packet: HistoricalEpisodePacket) -> str:
+    stable_provenance = {
+        key: value
+        for key, value in packet.provenance.items()
+        if key not in {"input_hash", "input_version"}
+    }
     return _payload_hash(
         {
             "assertion_links": [
@@ -81,7 +86,7 @@ def evidence_payload_hash(packet: HistoricalEpisodePacket) -> str:
                 slot: packet.completeness.get(slot)
                 for slot in ("source_diversity", "conflict_resolution")
             },
-            "provenance": dict(packet.provenance),
+            "provenance": stable_provenance,
         }
     )
 

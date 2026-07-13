@@ -9,22 +9,22 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6K0 开放开发资格；Relation Gold v2 已冻结，Relation/S4 仍阻断
+- 阶段：G2-Core 已结束，G3A Registry 与 G3B 同步局部失效已通过；G2-Relation/S4 独立阻断
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
 - 正式评分、排名和生产切换：全部关闭
 - V3：release 与审计产物保留作只读对照；为避免争抢 wiki 流量，相关 worker 已按明确授权停止
 
-当前已有离线 `src/emperor_v4`、轻量确定性测试、Graph evaluator 和试点 `eval` 产物；仍然**没有** V4 数据库、worker、migration、正式业务 scorer 或正式业务数据。
+当前已有离线 `src/emperor_v4`、轻量确定性测试、Graph evaluator、试点 `eval` 产物，以及隔离的 V4 PostgreSQL shadow 数据库与 migration；仍然**没有** worker、正式业务 scorer 或正式业务数据。
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
 G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 singleton Gold Episode 达到 exact recall/precision 100%，但 31/38 passage 因缺主体/动作而只能作为 context，pairwise merge/split 无样本，2 条 candidate relation 均无 Gold 对应，且没有合格 `appointment_delegation` rule unit。该结果不能解释为 G2.6 通过。
 
-当前已进入 G2.6K0，而不是继续制造新 blind holdout。Source Cache v2、section-aware deterministic slicer、S1—S5 机械早停和 8 场景离线 protocol smoke 已落地。I/J 的 source-v2 开发输入均通过 S1/S2。Boundary policy v2.10 后，I 的开放开发 episode recall/precision 为 100%/100%，J 为 87.5%/93.33%；两组均无灾难性合并、跨皇帝污染或 lineage 丢失，达到 S3 门槛。
+G2.6K0 已结束，不再继续制造新 blind holdout。Source Cache v2、section-aware deterministic slicer、S1—S5 机械早停和 8 场景离线 protocol smoke 已落地。I/J 的 source-v2 开发输入均通过 S1/S2。Boundary policy v2.10 后，I 的开放开发 episode recall/precision 为 100%/100%，J 为 87.5%/93.33%；两组均无灾难性合并、跨皇帝污染或 lineage 丢失，达到 S3 shadow implementation 门槛。
 
-S4 已新增独立的跨 Boundary ReviewUnit Relation review，254 个 Episode pair 全部处置且 0 未决。Relation semantic policy v2 固化了类型优先级、方向和最小图原则。随后独立 Gold ontology audit 在不读取 candidate/review/score 的条件下发现：I 原 23 条 Gold Relation 中仅 13 条原样成立、2 条应改类型、8 条不是直接关系；J 的 8 条中 5 条原样成立、3 条应改类型。机械生成的 Relation Gold v2 分别含 15 条和 8 条关系。对该 v2 Gold 的唯一重评分为 I 50%/73.33%、J 40%/25%（strict precision/recall），仍未达到 90%/85%。S4 因而继续失败，旧 Rule Gold 不再具备当前 Relation ontology 下的资格效力；PostgreSQL G3 和新 blind holdout 继续阻断。
+S4 的 254 个 Episode pair 审计和 Relation Gold ontology audit v2 已冻结。对 v2 Gold 的唯一重评分为 I 50%/73.33%、J 40%/25%（strict precision/recall），仍未达到 90%/85%，旧 Rule Gold 也不再具备资格效力。27 对小型双审实验达到 direct 100%、coarse type 88.89% 的一致率，只证明独立 Relation track 值得继续，不是 S4 pass。G3A 已在独立 V4 PostgreSQL 数据库完成 Core Registry 与 I/J proposed shadow 写入；G3B 已完成稳定事件身份、同步局部版本决策、真实库零写入重跑和回滚验证。G3R blocking 把 I/J 送审 pair 分别减少 41.95%/61.22%，并保留全部当前可映射 Gold endpoint pair；新分布的 30 项 endpoint 双审达到 direct 93.33%、coarse 86.67%，4 项分歧经隔离裁决后形成 15 项 direct、15 项 unrelated proposal，endpoint agreement Gate 已通过。15 项 direct 的细类型审查与定向补证复核形成 12 项 versioned proposal、3 项 unresolved；12 项图约束通过，但细类型 Gate 继续失败关闭。S4 strict precision/recall 尚未重评，Relation 仍未取得正式资格。G3C、正式评分、新 blind、V3/生产数据库和生产切换继续阻断。
 
 ## 文件树
 
@@ -41,12 +41,15 @@ S4 已新增独立的跨 Boundary ReviewUnit Relation review，254 个 Episode p
 │  ├─ version-policy.yml
 │  ├─ 君主别名.yml
 │  └─ 所有君主.yml
+├─ db/postgres/
+│  └─ 001_g3a_episode_core.sql
 ├─ src/emperor_v4/
 │  ├─ contracts/
 │  ├─ domain/
 │  ├─ application/
 │  ├─ adapters/
-│  └─ evaluation/
+│  ├─ evaluation/
+│  └─ persistence/
 ├─ tests/
 ├─ eval/
 └─ docs/
@@ -105,18 +108,25 @@ S4 已新增独立的跨 Boundary ReviewUnit Relation review，254 个 Episode p
 ## 当前 Gate
 
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
-- qualification：`oracle_assisted_constructability_passed`
-- `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`open_development_regression_no_new_blind_authorized`
-- G2.6K0 开放开发资格：`relation_gold_v2_frozen_relation_s4_blocked`
-- G3 Episode Graph PostgreSQL：`blocked_by_g2_6k0`
+- G2.6I/J blind 历史结果：`failed_closed`
+- blind reconciliation：`closed_no_new_blind_authorized`
+- G2-Core / S1—S3：`passed_for_shadow_implementation`
+- G2-Relation / S4：`deferred_not_qualified`
+- G2-Rule / S5：`blocked_by_relation_track`
+- G3A Episode Core Registry：`passed_shadow_registry`
+- G3B Core Shadow Runner：`passed_sync_local_invalidation`
+- G3R Endpoint workflow：`endpoint_agreement_gate_passed_after_adjudication`
+- G3R Fine Relation graph：`fine_relation_graph_gate_failed_closed_after_gap_review`，12 项 proposal、3 项 unresolved，仍为 `deferred_not_qualified`
+- G3R Relation：`experimental_independent_track`
+- G3C Formal Projection：`blocked`
 
-进入 G3 前必须满足：
+进入 G3A/G3B 前必须满足：
 
 - Gold/Oracle 字段不进入 blind Kernel 输入；
 - semantic fingerprint 不依赖 episode code；
-- blind holdout 达到文档阈值且无灾难性 wrong merge；
 - accepted episode 通过独立人工 Gate；
 - 没有真实凭据、V3 运行配置或旧业务数据进入 V4。
+
+进入 G3C 前仍必须由 G3R/S4 与新冻结的 S5 达到原文档阈值；G3A/G3B 不得生成正式 Relation、RuleEvidenceUnit、Projection、Judgment 或 Score。
 
 第一阶段结束不代表可以正式评分，也不代表可以切换生产。
