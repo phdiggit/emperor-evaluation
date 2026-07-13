@@ -649,6 +649,9 @@ def test_source_cache_release_is_deterministic_and_allowlisted(tmp_path) -> None
         or item["path"].startswith(("src/emperor_v4/", "db/postgres/", "deploy/v4/"))
         for item in first["files"]
     )
+    assert not any("appointment_delegation" in item["path"] for item in first["files"])
+    assert not any("claim_extractor" in item["path"] for item in first["files"])
+    assert len(first["files"]) == 20
     verified = verify_source_cache_release(
         archive_path=tmp_path / "first" / first["archive"],
         manifest_path=tmp_path / "first" / f"v4-source-cache-{head}.manifest.json",
