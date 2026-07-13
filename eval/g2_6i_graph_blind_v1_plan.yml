@@ -40,12 +40,17 @@ independent_freezes:
     reviewed_without_gold_access: true
   historical_gold:
     path: eval/g2_6i_graph_blind_v1/historical_gold.yml
-    file_sha256: 80bc9b7c225a16efd09ade8bb9c026d3a21dd7fdd190f42d9a2c3bd8c38c892d
+    file_sha256: aa6060e316aa9445ace27b898995be12b8eae30776a57da181b401543b98ac8e
     gold_episode_count: 31
     gold_relation_count: 27
     catastrophic_pair_count: 25
     assertion_disposition_count: 59
     frozen_without_candidate_or_review_access: true
+    freeze_schema_correction:
+      performed_before_candidate_generation: true
+      change: 为既有 27 条 relation 补唯一 gold_relation_code
+      historical_relation_judgment_changed: false
+      episode_or_disposition_changed: false
   rule_gold:
     status: pending_after_historical_freeze
   candidate_episode_generated: false
