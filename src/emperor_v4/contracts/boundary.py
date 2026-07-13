@@ -321,6 +321,7 @@ class EpisodeBoundaryReviewResult:
             "episode-boundary-review-v2.3",
             "episode-boundary-review-v2.4",
             "episode-boundary-review-v2.5",
+            "episode-boundary-review-v2.6",
         }:
             expected_pairs = {
                 frozenset(pair) for pair in combinations(sorted(code_set), 2)
@@ -370,6 +371,7 @@ class EpisodeBoundaryReviewResult:
         if self.output_schema_version in {
             "episode-boundary-review-v2.4",
             "episode-boundary-review-v2.5",
+            "episode-boundary-review-v2.6",
         } and any(
             not item.atomic_event_key for item in self.episode_groups
         ):

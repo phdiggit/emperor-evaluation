@@ -116,6 +116,50 @@ def test_structured_time_equivalence_ignores_display_expression_difference():
     assert set(clusters[0].assertion_refs) == {"A-1", "A-2"}
 
 
+def test_v26_atomic_group_allows_responsibility_domain_surface_variants():
+    first = _with_claim(
+        _assertion(
+            "A-1", passage="P-1", domain="温之战", normalized_start=25
+        ),
+        "CLAIM-1",
+    )
+    second = _with_claim(
+        _assertion(
+            "A-2", passage="P-2", domain="温地战事", normalized_start=25
+        ),
+        "CLAIM-2",
+    )
+    assertions = [first, second]
+    clusters = cluster_propositions(assertions)
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup(
+                "E1", ("A-1", "A-2"), "same battle", 0.9, "BATTLE-WEN-25"
+            ),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E1",), "core"),
+        ),
+        review_provenance={},
+    )
+
+    result = materialize_boundary_review(
+        assertions, review, review_unit=unit, proposition_clusters=clusters
+    )
+
+    assert len(result.episode_packets) == 1
+    assert result.episode_packets[0].responsibility == "温之战|温地战事"
+
+
 def test_review_unit_cache_invalidates_only_changed_focal_person():
     lijing = [
         _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),

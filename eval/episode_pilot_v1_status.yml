@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 481aca0a730a1fd6572b293642e7e7d7fb42c68d
+as_of_commit_basis: 049dcadaf99b7b92bd59f83b15e8fbe2d1bedf5d
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -15,6 +15,7 @@ milestones:
   G2_6G_graph_holdout: materialization_contract_blocked_failed_closed
   G2_6H_atomic_identity_holdout: materialization_contract_blocked_failed_closed
   G2_6H_contract_basis: boundary_review_v2_5
+  G2_6I_contract_basis: boundary_review_v2_6_hardened
   G3_PostgreSQL: blocked_by_g2_6E
 
 qualification:
@@ -56,6 +57,7 @@ qualification:
     - g2_6h_all_groups_have_atomic_event_key
     - g2_6h_independent_three_layer_gold_freeze
     - g2_6h_no_post_gold_boundary_patch
+    - g2_6i_v2_6_responsibility_domain_surface_variants_allowed
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -84,5 +86,5 @@ safety:
 
 next_gate:
   code: G2_6I_responsibility_domain_normalized_holdout
-  status: contract_fix_required
-  required_outcome: v2.6 将责任域展示措辞移出原子硬相等字段后，在全新输入上重新验证
+  status: pending_new_input
+  required_outcome: 在全新输入上验证 v2.6 原子边界、关系与 RuleEvidenceUnit

@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.5"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.5"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.6"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.6"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -762,7 +762,6 @@ def _atomic_structure_signature(assertion: AssertionDraft) -> tuple[object, ...]
     return (
         _normalized(assertion.predicate),
         _responsibility_family(assertion),
-        _normalized(assertion.qualifiers.get("office_or_domain")),
         focal_role,
         time.start_sort_key,
         time.end_sort_key,
@@ -782,6 +781,7 @@ def validate_atomic_episode_groups(
         "episode-boundary-review-v2.3",
         "episode-boundary-review-v2.4",
         "episode-boundary-review-v2.5",
+        "episode-boundary-review-v2.6",
     }:
         return
     for group in review.episode_groups:
@@ -791,7 +791,7 @@ def validate_atomic_episode_groups(
         signatures = {_atomic_structure_signature(item) for item in assertions}
         if len(signatures) != 1:
             raise ValueError(
-                "v2.2 Episode core 跨 action/time/responsibility/focal-role；"
+                "v2.6 Episode core 跨 action/time/responsibility-family/focal-role；"
                 "必须拆成原子 Episode 并用 Relation 连接"
             )
         by_claim: dict[str, list[AssertionDraft]] = defaultdict(list)
@@ -843,6 +843,7 @@ def materialize_boundary_review(
         "episode-boundary-review-v2.3",
         "episode-boundary-review-v2.4",
         "episode-boundary-review-v2.5",
+        "episode-boundary-review-v2.6",
     } and any(
         item.decision == "unresolved" for item in review.pair_dispositions
     ):
