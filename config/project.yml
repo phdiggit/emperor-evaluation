@@ -96,12 +96,12 @@ talent_discovery_roster_result:
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
-  source_cache_release: f7022cb39a887325e3719f46188602ab52775905
+  source_cache_release: 6149569233cbae73b97a4c3032c20fadf638ab1c
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
 v4_service_source_governance:
-  status: source_cache_real_adapter_shadow_passed
+  status: source_cache_runtime_gate_passed
   canonical_history: v4_current_git_history
   transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   migration_mode: contract_tested_selective_port
@@ -121,12 +121,15 @@ v4_service_source_governance:
     - retrieval_v3_runtime_names_must_be_removed_at_cutover
   source_cache_first_slice:
     contract: source-cache-contract-v2
-    release: f7022cb39a887325e3719f46188602ab52775905
+    release: 6149569233cbae73b97a4c3032c20fadf638ab1c
     fixture_revision: wikisource:2020238
     no_change_exact_response_reuse: true
     real_adapter_shadow_match: true
     refresh_creates_new_content_version: true
     postgres_repository_contract_ready: true
+    isolated_postgres_runtime_gate_passed: true
+    job_lease_recovery_passed: true
+    immutable_release_archive_sha256: d362e5bc3909d1b4a1174b4ea70188a718e41bed6318fdb50d951384ba28aab6
     postgres_migration_applied: false
     server_cutover_performed: false
   forbidden_imports:

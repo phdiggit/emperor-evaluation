@@ -19,7 +19,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 包 D 发现链补抽：V4 Claim Extractor 已按 `talent_discovery` 抽出魏徵旧阵营、识才依据、跨障碍与转化任用 4 条 Claim；陈平、魏徵各形成 1 个正向贡献，韩信与蓝玉按规则排除
 - 包 D 名单增量复用：`talent_discovery` 已接入包 C 的持久化 roster 入口；无变化精确复用，新增魏徵 Assertion 只重建 1 个单元并复用其余 3 个 Judgment
 - V4 配套服务源码治理：已接受“同一 Git 历史、按现有包边界选择性迁入”的章程；当前服务 release 仍在旧冻结点分出的过渡分支，禁止整体 merge，待按合同测试逐步迁入
-- V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、shadow/PostgreSQL repository 合同和薄 CLI 已进入当前 Git 历史；真实 revision shadow 匹配，无变化 ensure 精确复用
+- V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、PostgreSQL repository、job/lease worker 和 20 文件不可变 release 已进入当前 Git 历史；隔离服务器 Gate 已验证幂等、过期 lease 恢复与回滚
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -83,7 +83,7 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
 
-配套服务源码迁移与评分规则扩展并行推进。Source Cache 的真实 adapter shadow、refresh/content-version 行为和 PostgreSQL repository 合同已经完成；下一 Gate 是隔离 PostgreSQL 集成、job/lease worker 和不可变发布演练。在该 Gate 通过前，不应用 migration、不切换服务器历史 unit。Claim 抽取仍使用过渡 release，待 Source Cache runtime 边界稳定后迁入。
+配套服务源码迁移与评分规则扩展并行推进。Source Cache 已在服务器独立临时数据库完成 migration、无变化复用、过期 lease 回收和不可变 release 前进/回滚演练，临时库已删除，历史 unit 与生产指针均未切换。下一 Gate 是 Claim Extractor 的选择性迁入与冻结响应 shadow；正式 cutover 仍须等待两项服务共同通过。
 
 ## 核心阅读顺序
 

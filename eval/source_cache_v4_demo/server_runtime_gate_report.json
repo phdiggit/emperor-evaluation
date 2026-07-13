@@ -1,0 +1,54 @@
+{
+  "archive_sha256": "d362e5bc3909d1b4a1174b4ea70188a718e41bed6318fdb50d951384ba28aab6",
+  "bootstrap": {
+    "first_action": "applied",
+    "second_action": "reused",
+    "second_write_count": 0
+  },
+  "cache": {
+    "document_revision_count": 1,
+    "passage_count": 3,
+    "raw_content_chars": 9436
+  },
+  "commit_sha": "6149569233cbae73b97a4c3032c20fadf638ab1c",
+  "completed_at": "2026-07-13T19:32:47.890023+00:00",
+  "database": {
+    "cleaned_up": true,
+    "kind": "temporary_isolated_database"
+  },
+  "gate": "source_cache_isolated_postgres_job_lease_release",
+  "idempotency": {
+    "duplicate_enqueue_write_count": 0,
+    "first_enqueue_write_count": 1,
+    "terminal_rerun_status": "idle"
+  },
+  "lease_recovery": {
+    "job_rows": [
+      [
+        "succeeded",
+        1
+      ],
+      [
+        "succeeded",
+        2
+      ]
+    ],
+    "recovered_count": 1,
+    "run_statuses": [
+      "succeeded",
+      "lease_expired",
+      "succeeded"
+    ]
+  },
+  "model_call_count": 0,
+  "network_request_count": 0,
+  "release_drill": {
+    "forward_target_commit": "6149569233cbae73b97a4c3032c20fadf638ab1c",
+    "production_current_changed": false,
+    "rollback_target": "rollback-baseline"
+  },
+  "release_file_count": 20,
+  "schema_version": 1,
+  "service_unit_cutover_count": 0,
+  "status": "passed"
+}

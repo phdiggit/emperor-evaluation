@@ -133,6 +133,8 @@ Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用�
 
 `f7022cb` 进一步修正 repository 写入合同：缓存响应之外必须持久化并可读回完整 `SourceRevisionContent.raw_text`，相同 document revision 或 passage identity 出现不同内容时 fail-closed。Shadow JSON 状态升级到 schema v2；PostgreSQL `document_revisions` 同步保存 source host、revision、retrieved time、raw content 和 content hash。
 
+Source Cache runtime Gate 已由 `6149569` 通过：新增持久化 job/job_run、数据库幂等键、`ready/retry_wait` 领取、过期 `running` lease 显式回收和 ACK 前业务提交职责链。服务器使用独立临时 PostgreSQL 数据库完成 migration 首次应用/二次零写复用、1 个 document revision、3 个 passage、9436 字原文、终态不重跑与 lease 第二次 attempt；临时库随后删除。由同一干净 commit 构建的 20 文件 allowlist archive 通过 SHA-256 校验，并在隔离 `current-drill` 指针完成前进与回滚；生产指针、历史 unit、正式评分表均未改动。下一 Gate 转入 Claim Extractor 选择性迁入和冻结响应 shadow。
+
 `talent_discovery` 已进一步接入包 C 的持久化 roster 入口：三皇帝四人物名单复用 6 个 Claim snapshot、91 条 Assertion 和 82 个 Episode candidate；首次构建 4 个评分单元，无变化重跑精确复用同一记录。新增魏徵 Assertion 的局部 delta 只重建 `REU-LSM-WEIZHENG-DISCOVERY-v1`，其余 3 个 Judgment 精确复用；服务调用、模型调用和数据库写入均为 0。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
