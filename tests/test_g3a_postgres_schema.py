@@ -3,8 +3,22 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pytest
+
+from emperor_v4.persistence.postgres_source_cache import (
+    SOURCE_CACHE_TABLES,
+    SourceCacheSchemaStateError,
+    decide_source_cache_schema_action,
+)
+
 
 SCHEMA = Path(__file__).parents[1] / "db" / "postgres" / "001_g3a_episode_core.sql"
+SOURCE_CACHE_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "002_v4_source_cache_service.sql"
+)
 EXPECTED_TABLES = {
     "source_documents",
     "source_passages",
@@ -72,3 +86,38 @@ def test_relation_outputs_are_artifacts_not_core_fact_tables() -> None:
     assert "'relation_review_artifact'" in sql
     assert "'relation_proposal'" in sql
     assert "'accepted'" not in sql
+
+
+def test_source_cache_service_uses_separate_pre_acceptance_schema() -> None:
+    sql = SOURCE_CACHE_SCHEMA.read_text(encoding="utf-8")
+    tables = set(
+        re.findall(
+            r"CREATE TABLE\s+v4_source_cache\.([a-z_]+)",
+            sql,
+            flags=re.I,
+        )
+    )
+
+    assert tables == SOURCE_CACHE_TABLES
+    assert "CREATE SCHEMA IF NOT EXISTS v4_source_cache" in sql
+    assert "REFERENCES source_documents" not in sql
+    assert "assertions" not in tables
+
+
+def test_source_cache_service_migration_is_transactional_and_non_destructive() -> None:
+    sql = SOURCE_CACHE_SCHEMA.read_text(encoding="utf-8").upper()
+
+    assert sql.lstrip().startswith("BEGIN;")
+    assert sql.rstrip().endswith("COMMIT;")
+    assert "DROP " not in sql
+    assert "TRUNCATE" not in sql
+    assert "DELETE FROM" not in sql
+    assert "PRIMARY KEY (DOCUMENT_CACHE_ID, CONTENT_VERSION)" in sql
+    assert "IDEMPOTENCY_KEY TEXT PRIMARY KEY" in sql
+
+
+def test_source_cache_schema_bootstrap_reuses_only_complete_shape() -> None:
+    assert decide_source_cache_schema_action(()) == "apply"
+    assert decide_source_cache_schema_action(SOURCE_CACHE_TABLES) == "reuse"
+    with pytest.raises(SourceCacheSchemaStateError, match="不完整"):
+        decide_source_cache_schema_action({"requests"})

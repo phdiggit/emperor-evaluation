@@ -23,6 +23,13 @@ from emperor_v4.persistence.source_cache import (
     InMemorySourceCacheRepository,
     ShadowJsonSourceCacheRepository,
 )
+from emperor_v4.persistence.postgres_source_cache import (
+    PostgresSourceCacheRepository,
+    SourceCacheSchemaBootstrapResult,
+    SourceCacheSchemaStateError,
+    bootstrap_source_cache_schema,
+    decide_source_cache_schema_action,
+)
 
 __all__ = [
     "BoundaryReviewCacheEntry",
@@ -40,4 +47,9 @@ __all__ = [
     "historical_episode_packet_from_payload",
     "InMemorySourceCacheRepository",
     "ShadowJsonSourceCacheRepository",
+    "PostgresSourceCacheRepository",
+    "SourceCacheSchemaBootstrapResult",
+    "SourceCacheSchemaStateError",
+    "bootstrap_source_cache_schema",
+    "decide_source_cache_schema_action",
 ]

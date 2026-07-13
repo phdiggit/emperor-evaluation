@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,7 @@ from emperor_v4.adapters import (
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
     adapt_source_cache_v2_response,
+    read_wikisource_snapshot,
     write_wikisource_snapshot,
 )
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
@@ -76,8 +78,14 @@ from emperor_v4.application.talent_discovery_roster_runner import (
 )
 from emperor_v4.application.source_cache_service import (
     SourceCacheIdempotencyConflict,
+    ensure_source_cache,
 )
-from emperor_v4.runtime.source_cache import run_fixture_ensure
+from emperor_v4.adapters.source_cache_wikisource import (
+    WikisourceSourceMaterialProvider,
+)
+from emperor_v4.persistence.source_cache import InMemorySourceCacheRepository
+from emperor_v4.runtime.source_cache import load_source_cache_request, run_fixture_ensure
+from emperor_v4.runtime.source_cache_shadow import run_wikisource_shadow
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.rule_evidence_shadow import (
@@ -2206,6 +2214,110 @@ def test_v4_source_cache_rejects_same_idempotency_key_with_changed_input(
             service_release_sha="b" * 40,
             repo_root=repo_root,
         )
+
+
+def test_v4_source_cache_refresh_retains_old_revision_and_creates_new_identity(
+    tmp_path: Path,
+):
+    repo_root = Path(__file__).parents[1]
+    request = load_source_cache_request(
+        repo_root / "eval/source_cache_v4_demo/request.yml"
+    )
+    plan = yaml.safe_load(
+        (repo_root / "eval/source_cache_v4_demo/fixture_plan.yml").read_text(
+            encoding="utf-8"
+        )
+    )
+    plan["sections"][0]["expected_revision_id"] = None
+    plan_path = tmp_path / "refresh-plan.yml"
+    plan_path.write_text(
+        yaml.safe_dump(plan, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    snapshot = read_wikisource_snapshot(
+        repo_root
+        / "tests/fixtures/source_cache_v4/weizheng_jiutangshu_snapshot.json"
+    )
+    refreshed_text = snapshot.raw_text + "\n测试刷新版本追加原文。"
+    refreshed_snapshot = replace(
+        snapshot,
+        revision_id=snapshot.revision_id + 1,
+        revision_timestamp="2026-07-14T00:00:00Z",
+        retrieved_at="2026-07-14T00:01:00+00:00",
+        raw_text=refreshed_text,
+        content_hash=hashlib.sha256(refreshed_text.encode("utf-8")).hexdigest(),
+    )
+    repository = InMemorySourceCacheRepository()
+    first = ensure_source_cache(
+        request,
+        provider=WikisourceSourceMaterialProvider(
+            plan_path=plan_path,
+            fetch=lambda **_: snapshot,
+        ),
+        repository=repository,
+        service_release_sha="c" * 40,
+    )
+    refresh_request = replace(
+        request,
+        request_id="SRC-V4-WEIZHENG-REFRESH-002",
+        idempotency_key="source-cache:v4:weizheng:jiutangshu:refresh:v2",
+        mode="refresh",
+    )
+    refreshed = ensure_source_cache(
+        refresh_request,
+        provider=WikisourceSourceMaterialProvider(
+            plan_path=plan_path,
+            fetch=lambda **_: refreshed_snapshot,
+        ),
+        repository=repository,
+        service_release_sha="c" * 40,
+    )
+
+    first_document = first.response["documents"][0]
+    refreshed_document = refreshed.response["documents"][0]
+    assert first_document["document_cache_id"] != refreshed_document["document_cache_id"]
+    assert first_document["content_hash"] != refreshed_document["content_hash"]
+    assert repository.get(request.idempotency_key).response == first.response
+    assert repository.get(refresh_request.idempotency_key).response == refreshed.response
+    assert refreshed.response["provenance"]["request_mode"] == "refresh"
+
+
+def test_v4_wikisource_adapter_shadow_matches_frozen_revision_without_db(
+    tmp_path: Path,
+):
+    repo_root = Path(__file__).parents[1]
+    request_path = repo_root / "eval/source_cache_v4_demo/request.yml"
+    plan_path = repo_root / "eval/source_cache_v4_demo/fixture_plan.yml"
+    release_sha = "d" * 40
+    baseline = run_fixture_ensure(
+        request_path=request_path,
+        fixture_plan_path=plan_path,
+        state_path=tmp_path / "state.json",
+        service_release_sha=release_sha,
+        repo_root=repo_root,
+    )
+    baseline_path = tmp_path / "baseline.json"
+    baseline_path.write_text(
+        json.dumps(baseline, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    snapshot = read_wikisource_snapshot(
+        repo_root
+        / "tests/fixtures/source_cache_v4/weizheng_jiutangshu_snapshot.json"
+    )
+
+    report = run_wikisource_shadow(
+        request_path=request_path,
+        plan_path=plan_path,
+        baseline_report_path=baseline_path,
+        service_release_sha=release_sha,
+        fetch=lambda **_: snapshot,
+    )
+
+    assert report["status"] == "source_cache_wikisource_shadow_match"
+    assert report["comparison"]["matched"] is True
+    assert report["runtime_audit"]["network_request_count"] == 1
+    assert report["runtime_audit"]["database_write_count"] == 0
 
 
 def test_source_development_rebind_reuses_identical_passage_span(tmp_path: Path):

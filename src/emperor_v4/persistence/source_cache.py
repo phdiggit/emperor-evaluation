@@ -20,13 +20,14 @@ class InMemorySourceCacheRepository:
         idempotency_key: str,
         input_fingerprint: str,
         response: Mapping[str, Any],
-    ) -> None:
+    ) -> int:
         if idempotency_key in self._entries:
             raise ValueError("Source Cache repository 不得覆盖已有幂等结果")
         self._entries[idempotency_key] = CachedSourceCacheResult(
             input_fingerprint=input_fingerprint,
             response=deepcopy(dict(response)),
         )
+        return 1
 
 
 class ShadowJsonSourceCacheRepository:
@@ -59,7 +60,7 @@ class ShadowJsonSourceCacheRepository:
         idempotency_key: str,
         input_fingerprint: str,
         response: Mapping[str, Any],
-    ) -> None:
+    ) -> int:
         payload = self._read()
         if idempotency_key in payload["entries"]:
             raise ValueError("Source Cache shadow state 不得覆盖已有幂等结果")
@@ -74,3 +75,4 @@ class ShadowJsonSourceCacheRepository:
         temporary = self.path.with_suffix(self.path.suffix + ".tmp")
         temporary.write_text(rendered, encoding="utf-8", newline="\n")
         temporary.replace(self.path)
+        return 1

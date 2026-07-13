@@ -85,7 +85,7 @@ class SourceCacheRepository(Protocol):
         idempotency_key: str,
         input_fingerprint: str,
         response: Mapping[str, Any],
-    ) -> None: ...
+    ) -> int: ...
 
 
 @dataclass(frozen=True, slots=True)
@@ -246,6 +246,7 @@ def ensure_source_cache(
     provenance = {
         "provider": batch.provider_code,
         "source_policy_version": request.source_policy_version,
+        "request_mode": request.mode,
         "service_version": SERVICE_VERSION,
         "service_release_sha": service_release_sha,
         "network_request_count": batch.network_request_count,
@@ -267,11 +268,15 @@ def ensure_source_cache(
         **output_payload,
         "output_fingerprint": _fingerprint(output_payload),
     }
-    repository.put(request.idempotency_key, input_fingerprint, response)
+    repository_write_count = repository.put(
+        request.idempotency_key,
+        input_fingerprint,
+        response,
+    )
     return SourceCacheServiceRun(
         response=response,
         cache_hit=False,
         provider_call_count=1,
-        repository_write_count=1,
+        repository_write_count=repository_write_count,
         network_request_count=batch.network_request_count,
     )

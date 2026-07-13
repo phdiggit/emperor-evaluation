@@ -1,10 +1,13 @@
 schema_version: 1
-provider: frozen_wikisource_snapshot
+provider: wikisource_revision_plan
 subject_ref: PER-WEIZHENG
 sections:
   - snapshot: tests/fixtures/source_cache_v4/weizheng_jiutangshu_snapshot.json
+    page_code: jiutangshu-071-weizheng
+    page_title: 舊唐書/卷71
+    expected_revision_id: 2020238
     work_identity: 舊唐書
-    edition_identity: Wikisource revision 2020238
+    edition_identity: Wikisource plain-text carrier
     source_role: primary_text
     license_or_access_note: public-domain text; carrier terms recorded by adapter
     section_id: juan-071-weizheng
