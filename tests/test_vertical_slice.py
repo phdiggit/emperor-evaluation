@@ -2402,7 +2402,7 @@ def test_source_cache_worker_is_idempotent_and_terminal_jobs_are_not_reclaimed()
     from emperor_v4.persistence.source_cache_jobs import InMemorySourceCacheJobRepository
 
     repository = InMemorySourceCacheJobRepository()
-    payload = {"request_id": "REQ-1"}
+    payload = {"request_id": "REQ-1", "source_hints": ("舊唐書/卷71",)}
     assert repository.enqueue(
         job_id="SCJ-1", idempotency_key="source-cache:job:1",
         input_fingerprint="input-1", policy_version="policy-v1",

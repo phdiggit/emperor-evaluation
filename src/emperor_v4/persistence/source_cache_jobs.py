@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
+import json
 from typing import Any, Callable, Mapping
 from uuid import uuid4
 
@@ -10,6 +11,10 @@ from emperor_v4.application.source_cache_worker import ClaimedSourceCacheJob
 
 RUNNABLE_SOURCE_CACHE_JOB_STATUSES = frozenset({"ready", "retry_wait"})
 TERMINAL_SOURCE_CACHE_JOB_STATUSES = frozenset({"succeeded", "failed", "cancelled"})
+
+
+def _json_value(value: Mapping[str, Any]) -> Mapping[str, Any]:
+    return json.loads(json.dumps(value, ensure_ascii=False, sort_keys=True, default=str))
 
 
 @dataclass(slots=True)
@@ -181,7 +186,7 @@ class PostgresSourceCacheJobRepository:
                 if existing is None or (
                     str(existing[0]) != input_fingerprint
                     or str(existing[1]) != policy_version
-                    or existing[2] != request_payload
+                    or existing[2] != _json_value(request_payload)
                 ):
                     raise ValueError("Source Cache job 幂等键已绑定不同输入")
                 return 0
