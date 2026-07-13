@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 0261534f71b6cf61865fe24df719345400cfc52f
+as_of_commit_basis: 2b85dc8f927c8abdfb9d26269329cb9e423cbb5c
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -16,8 +16,9 @@ milestones:
   G2_6H_atomic_identity_holdout: materialization_contract_blocked_failed_closed
   G2_6H_contract_basis: boundary_review_v2_5
   G2_6I_contract_basis: boundary_review_v2_6_hardened
-  G2_6I_graph_holdout: all_gold_frozen_first_materialization_pending
-  G3_PostgreSQL: blocked_by_g2_6E
+  G2_6I_graph_holdout: failed_closed_after_first_blind_score
+  G2_6J_next_gate: assertion_evidence_fanout_hardening_then_new_holdout
+  G3_PostgreSQL: blocked_by_g2_6J
 
 qualification:
   passed:
@@ -60,6 +61,12 @@ qualification:
     - g2_6h_no_post_gold_boundary_patch
     - g2_6i_v2_6_responsibility_domain_surface_variants_allowed
     - g2_6i_v2_6_preflight_59_assertions_zero_identity_collision
+    - g2_6i_passage_lineage_100_percent
+    - g2_6i_assertion_disposition_100_percent
+    - g2_6i_zero_cross_ruler_contamination
+    - g2_6i_zero_duplicate_rule_consumption
+    - g2_6i_zero_call_unchanged_rerun
+    - g2_6i_review_unit_local_invalidation
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -73,6 +80,13 @@ qualification:
     - g2_6e_rule_unit_precision_0_2222
     - g2_6g_candidate_materialization_blocked_by_6_atomic_identity_collisions
     - g2_6h_candidate_materialization_blocked_by_9_responsibility_domain_surface_conflicts
+    - g2_6i_exact_episode_recall_0_6774_below_0_85
+    - g2_6i_exact_candidate_precision_0_7778_below_0_90
+    - g2_6i_catastrophic_wrong_merge_count_4
+    - g2_6i_strict_relation_precision_0_1923_below_0_90
+    - g2_6i_strict_relation_recall_0_1852_below_0_85
+    - g2_6i_rule_unit_precision_0
+    - g2_6i_rule_unit_recall_0
 
 metric_policy:
   oracle_assisted_packet_count_is_accuracy_metric: false
@@ -87,6 +101,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6I_responsibility_domain_normalized_holdout
-  status: all_gold_frozen_first_materialization_pending
-  required_outcome: 在全新输入上验证 v2.6 原子边界、关系与 RuleEvidenceUnit
+  code: G2_6J_assertion_evidence_fanout_hardening
+  status: pending_contract_design_then_new_input
+  required_outcome: 消除 claim payload 向多个 evidence passage 的无条件扇出后，在全新输入上重新验证 Episode、relation 与 RuleEvidenceUnit

@@ -1,0 +1,129 @@
+{
+  "episode_graph_score": {
+    "diagnostics": {
+      "assertions_without_passage_lineage": [],
+      "assertions_without_primary_disposition": [],
+      "catastrophic_wrong_merge_candidate_codes": [
+        "EP-1C8AC5B1619CD798518D",
+        "EP-499235468B89BA8D74B3",
+        "EP-C5487565E1DFE355EE40",
+        "EP-FAC3A5AD5995CB074E50"
+      ],
+      "cross_ruler_contamination_candidate_codes": [],
+      "exact_candidate_matches": {
+        "EP-0E24F44E9174F2E89796": "G26I-HG-YZ-OE-03",
+        "EP-425CBAAB140D4CD48734": "G26I-HG-YZ-LK-01",
+        "EP-444D30F8F96E70F2B6CF": "G26I-HG-YZ-OE-11",
+        "EP-46D165052572A497F85C": "G26I-HG-YZ-LK-06",
+        "EP-4DCFCCC15259F2D27DFB": "G26I-HG-LH-03",
+        "EP-56DD1406068A253655F3": "G26I-HG-YZ-LK-02",
+        "EP-5763772ED07C6C785537": "G26I-HG-LH-04",
+        "EP-6332AA209C92A16EECBA": "G26I-HG-YZ-OE-08",
+        "EP-6467807859AC5F4E99DE": "G26I-HG-YZ-LK-05",
+        "EP-6EB9BB6E13F4A7CEDFBE": "G26I-HG-YZ-OE-02",
+        "EP-73F5A96689F392C71978": "G26I-HG-YZ-OE-15",
+        "EP-78F4C1B51F55C0719A37": "G26I-HG-LH-01",
+        "EP-97BE14B38794AE8B7911": "G26I-HG-LH-07",
+        "EP-A055F545907E2878D81C": "G26I-HG-YZ-OE-12",
+        "EP-BA47E3B87775DE3A9435": "G26I-HG-YZ-OE-06",
+        "EP-C2FDB0F4B1B7BF6C5A7E": "G26I-HG-YZ-OE-05",
+        "EP-D763DE18652F5CF4E7ED": "G26I-HG-YZ-OE-01",
+        "EP-D7A6AE75B7DC723625D0": "G26I-HG-YZ-LK-07",
+        "EP-D8E1D83BDD3DAC349789": "G26I-HG-LH-02",
+        "EP-E884AD133CF2474A9A8E": "G26I-HG-YZ-OE-04",
+        "EP-F0883B4C6EA6F61C6251": "G26I-HG-YZ-OE-07"
+      },
+      "safe_fragment_candidate_codes": [
+        "EP-21E6426CD80B01A02B12"
+      ],
+      "wrong_merge_candidate_codes": [
+        "EP-1C8AC5B1619CD798518D",
+        "EP-499235468B89BA8D74B3",
+        "EP-C5487565E1DFE355EE40",
+        "EP-FAC3A5AD5995CB074E50"
+      ],
+      "wrong_split_gold_episode_codes": []
+    },
+    "episode_metrics": {
+      "catastrophic_wrong_merge_count": 4,
+      "cross_ruler_contamination_count": 0,
+      "exact_candidate_precision": 0.7777777777777778,
+      "exact_episode_recall": 0.6774193548387096,
+      "pairwise_same_episode_precision": 0.7857142857142857,
+      "pairwise_same_episode_recall": 0.6875,
+      "passage_lineage_completeness": 1.0,
+      "primary_assertion_disposition_coverage": 1.0,
+      "safe_fragment_count": 1,
+      "unresolved_assertion_rate": 0.0,
+      "wrong_merge_count": 4,
+      "wrong_split_count": 0
+    },
+    "relation_metrics": {
+      "causal_responsibility_preservation": 0.4444444444444444,
+      "endpoint_aligned_relation_precision": 0.23076923076923078,
+      "endpoint_aligned_relation_recall": 0.2222222222222222,
+      "mandate_chain_coverage": 0.15384615384615385,
+      "relation_type_metrics": {
+        "causal_followup": {
+          "strict_precision": 0.5,
+          "strict_recall": 0.3333333333333333
+        },
+        "context_for": {
+          "strict_precision": 0.0,
+          "strict_recall": null
+        },
+        "continues": {
+          "strict_precision": 0.16666666666666666,
+          "strict_recall": 0.125
+        },
+        "outcome_of": {
+          "strict_precision": null,
+          "strict_recall": 0.0
+        },
+        "promotion_after": {
+          "strict_precision": 0.0,
+          "strict_recall": null
+        },
+        "renews_authority": {
+          "strict_precision": 0.5,
+          "strict_recall": 0.5
+        },
+        "revokes": {
+          "strict_precision": 0.0,
+          "strict_recall": 0.0
+        },
+        "same_mandate_phase": {
+          "strict_precision": 0.0,
+          "strict_recall": 0.0
+        }
+      },
+      "revocation_outcome_linkage_coverage": 0.0,
+      "strict_relation_precision": 0.19230769230769232,
+      "strict_relation_recall": 0.18518518518518517
+    },
+    "schema_version": 2,
+    "status": "episode_disposition_lineage_and_relation_scored"
+  },
+  "g3_authorized": false,
+  "release_gate_passed": false,
+  "rule_evidence_metrics": {
+    "duplicate_consumption_count": 0,
+    "exact_candidate_matches": {},
+    "exact_rule_unit_precision": 0.0,
+    "exact_rule_unit_recall": 0.0
+  },
+  "runtime_metrics": {
+    "baseline_review_unit_count": 8,
+    "changed_assertion_ref": "G26I-A-CLMK-1E886009B6E3D393943F-EVD-594684FA743EB62C3C6ED5B1",
+    "changed_review_unit_count": 1,
+    "changed_review_unit_count_total": 8,
+    "changed_unit_affects_other_unit_count": 0,
+    "database_write_count": 0,
+    "network_request_count": 0,
+    "unchanged_graph_fingerprint_equal": true,
+    "unchanged_rerun_model_calls": 0,
+    "unchanged_rule_candidate_fingerprint_equal": true
+  },
+  "schema_version": 1,
+  "status": "g2_6e_graph_blind_scored_after_all_gold_opened"
+}
