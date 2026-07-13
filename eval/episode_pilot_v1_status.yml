@@ -20,6 +20,7 @@ current:
   persistent_incremental_orchestration: passed_shadow_runtime
   talent_discovery_shared_scored_shadow: first_vertical_slice_passed
   talent_discovery_roster_incremental: passed_shadow_runtime
+  v4_source_cache_service: passed_offline_contract_slice
   formal_scoring: blocked
 
 shadow_evidence:
@@ -86,11 +87,19 @@ v4_service_evidence:
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
   weizheng_claim_count: 4
   database_import_performed: false
+  source_cache_release: 32dbf817fdb388bb352766f34ddac8b61cc0a678
+  source_cache_contract: source-cache-contract-v2
+  source_cache_fixture_revision: wikisource:2020238
+  source_cache_document_count: 1
+  source_cache_passage_count: 3
+  source_cache_no_change_exact_response_reuse: true
+  source_cache_rerun_provider_call_count: 0
 
 v4_service_source_governance:
-  status: accepted_selective_migration_pending
+  status: source_cache_offline_slice_tracked
   current_release_is_git_commit: true
-  current_v4_history_contains_active_service_source: false
+  current_v4_history_contains_source_cache_slice: true
+  deployed_runtime_still_uses_transitional_source: true
   whole_service_branch_merge_forbidden: true
   source_cache_contract: source-cache-contract-v2
   claim_extraction_contract: assertion-extraction-contract-v2
@@ -99,7 +108,7 @@ v4_service_source_governance:
     - source_cache
     - claim_extraction
     - immutable_deployment_cutover
-  next_gate: source_cache_contract_fixture_and_module_boundary
+  next_gate: source_cache_real_adapter_refresh_and_repository_shadow
 
 talent_discovery_roster_evidence:
   roster_people: 4

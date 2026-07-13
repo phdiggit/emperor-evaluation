@@ -19,6 +19,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 包 D 发现链补抽：V4 Claim Extractor 已按 `talent_discovery` 抽出魏徵旧阵营、识才依据、跨障碍与转化任用 4 条 Claim；陈平、魏徵各形成 1 个正向贡献，韩信与蓝玉按规则排除
 - 包 D 名单增量复用：`talent_discovery` 已接入包 C 的持久化 roster 入口；无变化精确复用，新增魏徵 Assertion 只重建 1 个单元并复用其余 3 个 Judgment
 - V4 配套服务源码治理：已接受“同一 Git 历史、按现有包边界选择性迁入”的章程；当前服务 release 仍在旧冻结点分出的过渡分支，禁止整体 merge，待按合同测试逐步迁入
+- V4 Source Cache 首段迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture provider、shadow repository 和薄 CLI 已进入当前 Git 历史；同一 ensure 请求无变化重跑精确复用且不再调用 provider
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -44,6 +45,7 @@ python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/a
 python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discovery_scored_demo/manifest.yml --output eval/talent_discovery_scored_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --output eval/talent_discovery_roster_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --prior-record eval/talent_discovery_roster_demo/report.json --state eval/talent_discovery_roster_demo/state.json --output eval/talent_discovery_roster_demo/report.json
+python -m emperor_v4.runtime.source_cache --request eval/source_cache_v4_demo/request.yml --fixture-plan eval/source_cache_v4_demo/fixture_plan.yml --state eval/source_cache_v4_demo/state.json --service-release-sha 32dbf817fdb388bb352766f34ddac8b61cc0a678 --output eval/source_cache_v4_demo/rerun_report.json
 ```
 
 ## 下一份可见成果
@@ -79,6 +81,8 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 - `anti_nepotism`
 
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
+
+配套服务源码迁移与评分规则扩展并行推进。Source Cache 下一 Gate 是真实 adapter 的 shadow 接入、refresh/content-version 行为和持久化 repository 合同；在该 Gate 通过前，不切换服务器历史 unit。Claim 抽取仍使用过渡 release，待 Source Cache 边界稳定后迁入。
 
 ## 核心阅读顺序
 
