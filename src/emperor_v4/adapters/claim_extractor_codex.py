@@ -17,6 +17,7 @@ def build_codex_claim_prompt(request_payload: Mapping[str, Any]) -> str:
         "required_chains 是检查清单，不是补写许可；原文不支持的环节写入 coverage_gaps。prohibitions 必须逐项遵守。\n"
         "只在 purpose 和 required_chains 范围内逐段检查全部直接支持的独立事实，不得为压缩数量只选代表项；范围外背景不得输出。\n"
         "subject/predicate/object 使用原文可复核的简洁表述。核心事实 supported_fields 至少包含 identity 和 action。\n"
+        "只有输入 subject 或 aliases 显式授权的名称才可规范化；其他人物称谓必须保留 passage 原文表面形式，并在 ambiguity_flags 标记待身份解析。\n"
         "不要评价 positive/negative，不要生成 factor、Judgment、ScoreContribution 或正式事实。只输出符合 schema 的 JSON。\n\n"
         + json.dumps(request_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     )
