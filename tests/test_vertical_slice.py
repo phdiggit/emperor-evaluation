@@ -69,6 +69,9 @@ from emperor_v4.application.appointment_delegation_roster_runner import (
 from emperor_v4.application.talent_discovery_shadow_runner import (
     run_talent_discovery_shadow,
 )
+from emperor_v4.application.talent_discovery_roster_runner import (
+    run_talent_discovery_roster_shadow,
+)
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.rule_evidence_shadow import (
@@ -110,6 +113,8 @@ ROSTER_DEMO = SCORED_DEMO.parents[1] / "appointment_delegation_roster_demo"
 ROSTER_MANIFEST = ROSTER_DEMO / "manifest.yml"
 ROSTER_REPORT = ROSTER_DEMO / "report.json"
 TALENT_DEMO = SCORED_DEMO.parents[1] / "talent_discovery_scored_demo" / "manifest.yml"
+TALENT_ROSTER_DEMO = SCORED_DEMO.parents[1] / "talent_discovery_roster_demo"
+TALENT_ROSTER_MANIFEST = TALENT_ROSTER_DEMO / "manifest.yml"
 
 
 def _fixture(name: str) -> dict:
@@ -200,6 +205,43 @@ def test_talent_discovery_reuses_scored_shadow_vertical_slice(
             "talent-discovery-shadow",
             "--manifest",
             str(TALENT_DEMO),
+            "--output",
+            str(output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(output.read_text(encoding="utf-8")) == report
+
+
+def test_talent_discovery_reuses_roster_incremental_entry(
+    tmp_path: Path, monkeypatch
+):
+    report = run_talent_discovery_roster_shadow(TALENT_ROSTER_MANIFEST)
+
+    assert report["status"] == "talent_discovery_roster_shadow_complete"
+    assert report["stages"]["claim_extractor_adapter"] == {
+        "status": "cache_hit",
+        "snapshot_count": 6,
+        "assertion_count": 91,
+    }
+    assert report["scored_report"]["summary"]["score_contribution_count"] == 2
+    assert report["side_effect_audit"] == {
+        "offline": True,
+        "service_call_count": 0,
+        "model_call_count": 0,
+        "database_write_count": 0,
+        "formal_acceptance_performed": False,
+    }
+
+    output = tmp_path / "talent-roster.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "talent-discovery-roster-shadow",
+            "--manifest",
+            str(TALENT_ROSTER_MANIFEST),
             "--output",
             str(output),
         ],

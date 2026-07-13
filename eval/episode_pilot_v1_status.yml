@@ -19,6 +19,7 @@ current:
   offline_roster_scored_runner: passed_cache_ensure_shadow
   persistent_incremental_orchestration: passed_shadow_runtime
   talent_discovery_shared_scored_shadow: first_vertical_slice_passed
+  talent_discovery_roster_incremental: passed_shadow_runtime
   formal_scoring: blocked
 
 shadow_evidence:
@@ -71,20 +72,32 @@ historical_qualification:
   interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
 
 next_delivery:
-  code: talent_discovery_roster_incremental_reuse
-  gate: second_rule_shared_roster_reuse
+  code: team_building_scored_shadow_reuse
+  gate: third_rule_shared_runner_reuse
   required:
+    - freeze_team_snapshot_and_member_set_boundary
     - reuse_persistent_roster_incremental_runner
-    - prove_local_invalidation_for_new_discovery_claims
     - preserve_cross_rule_duplicate_settlement
-    - prepare_next_rule_profile_without_pipeline_copy
+    - reuse_limited_factor_pipeline_without_copy
+  stop_condition: do_not_copy_a_second_pipeline_or_enable_formal_ranking
 
 v4_service_evidence:
   claim_extractor_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
   weizheng_claim_count: 4
   database_import_performed: false
-  stop_condition: do_not_copy_a_second_pipeline_or_enable_formal_ranking
+
+talent_discovery_roster_evidence:
+  roster_people: 4
+  assertion_count: 91
+  episode_candidate_count: 82
+  scored_rule_evidence_units: 4
+  no_change_exact_record_reuse: true
+  local_delta_rebuilt_units: 1
+  local_delta_reused_judgments: 3
+  service_call_count: 0
+  model_call_count: 0
+  database_write_count: 0
 
 safety:
   v3_production_write_performed: false

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 import hashlib
 import json
 from pathlib import Path
@@ -22,6 +22,22 @@ from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 ROSTER_RUN_POLICY_VERSION = "appointment-delegation-roster-offline-v1"
 
 
+@dataclass(frozen=True)
+class RosterRunProfile:
+    rule_code: str
+    policy_version: str
+    report_status: str
+    review_job_prefix: str
+
+
+APPOINTMENT_ROSTER_PROFILE = RosterRunProfile(
+    rule_code="appointment_delegation",
+    policy_version=ROSTER_RUN_POLICY_VERSION,
+    report_status="appointment_delegation_roster_shadow_complete",
+    review_job_prefix="AD-REVIEW",
+)
+
+
 def _file_hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -37,12 +53,14 @@ def _resolve(repo_root: Path, configured: object) -> Path:
     return path
 
 
-def _validate_manifest(manifest: Mapping[str, Any]) -> None:
+def _validate_manifest(
+    manifest: Mapping[str, Any], profile: RosterRunProfile = APPOINTMENT_ROSTER_PROFILE
+) -> None:
     if (
         manifest.get("schema_version") != 1
         or manifest.get("status") != "frozen_roster_shadow_input"
-        or manifest.get("rule_code") != "appointment_delegation"
-        or manifest.get("policy_version") != ROSTER_RUN_POLICY_VERSION
+        or manifest.get("rule_code") != profile.rule_code
+        or manifest.get("policy_version") != profile.policy_version
         or manifest.get("cache_mode") not in {"ensure", "supplement", "refresh"}
     ):
         raise ValueError("roster manifest 身份、规则、策略或 cache_mode 非法")
@@ -73,9 +91,26 @@ def run_appointment_delegation_roster_shadow(
     prior_record_path: Path | str | None = None,
     checkpoint: Callable[[str, Mapping[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
+    return run_limited_factor_roster_shadow(
+        manifest_path,
+        profile=APPOINTMENT_ROSTER_PROFILE,
+        scored_runner=run_appointment_delegation_shadow_manifest,
+        prior_record_path=prior_record_path,
+        checkpoint=checkpoint,
+    )
+
+
+def run_limited_factor_roster_shadow(
+    manifest_path: Path | str,
+    *,
+    profile: RosterRunProfile,
+    scored_runner,
+    prior_record_path: Path | str | None = None,
+    checkpoint: Callable[[str, Mapping[str, Any]], None] | None = None,
+) -> dict[str, Any]:
     path = Path(manifest_path)
     manifest = yaml.safe_load(path.read_text(encoding="utf-8"))
-    _validate_manifest(manifest)
+    _validate_manifest(manifest, profile)
     repo_root = path.resolve().parents[2]
     inputs = manifest.get("service_inputs") or {}
     source_paths = [
@@ -95,7 +130,7 @@ def run_appointment_delegation_roster_shadow(
         {
             "manifest": manifest,
             "file_hashes": file_hashes,
-            "policy_version": ROSTER_RUN_POLICY_VERSION,
+            "policy_version": profile.policy_version,
         }
     )
 
@@ -234,7 +269,7 @@ def run_appointment_delegation_roster_shadow(
         rebuild_unit_refs = {
             str(unit["unit_ref"]) for unit in scored_manifest["rule_evidence_units"]
         }
-    scored_report = run_appointment_delegation_shadow_manifest(
+    scored_report = scored_runner(
         scored_manifest,
         scored_manifest_path,
         prior_report=prior_scored_report,
@@ -268,7 +303,7 @@ def run_appointment_delegation_roster_shadow(
     )
     slow_review_jobs = [
         {
-            "review_job_code": f"AD-REVIEW-{canonical_hash({'unit_ref': row['rule_evidence_unit_ref'], 'blockers': row['blockers']})[:20].upper()}",
+            "review_job_code": f"{profile.review_job_prefix}-{canonical_hash({'unit_ref': row['rule_evidence_unit_ref'], 'blockers': row['blockers']})[:20].upper()}",
             "rule_evidence_unit_ref": row["rule_evidence_unit_ref"],
             "ruler": row["ruler"],
             "person": row["person"],
@@ -281,9 +316,9 @@ def run_appointment_delegation_roster_shadow(
     ]
     report: dict[str, Any] = {
         "schema_version": 1,
-        "status": "appointment_delegation_roster_shadow_complete",
+        "status": profile.report_status,
         "run_code": manifest["run_code"],
-        "policy_version": ROSTER_RUN_POLICY_VERSION,
+        "policy_version": profile.policy_version,
         "input_fingerprint": input_fingerprint,
         "cache_mode": manifest["cache_mode"],
         "roster_entry_hashes": entry_hashes,
@@ -362,9 +397,28 @@ def run_persistent_appointment_delegation_roster_shadow(
     prior_record_path: Path | str | None = None,
     fail_after_stage: str | None = None,
 ) -> dict[str, Any]:
+    return run_persistent_limited_factor_roster_shadow(
+        manifest_path,
+        state_path,
+        profile=APPOINTMENT_ROSTER_PROFILE,
+        roster_runner=run_appointment_delegation_roster_shadow,
+        prior_record_path=prior_record_path,
+        fail_after_stage=fail_after_stage,
+    )
+
+
+def run_persistent_limited_factor_roster_shadow(
+    manifest_path: Path | str,
+    state_path: Path | str,
+    *,
+    profile: RosterRunProfile,
+    roster_runner,
+    prior_record_path: Path | str | None = None,
+    fail_after_stage: str | None = None,
+) -> dict[str, Any]:
     manifest_file = Path(manifest_path)
     manifest = yaml.safe_load(manifest_file.read_text(encoding="utf-8"))
-    _validate_manifest(manifest)
+    _validate_manifest(manifest, profile)
     state_file = Path(state_path)
     manifest_fingerprint = canonical_hash(manifest)
     roster_refs = sorted(
@@ -432,7 +486,7 @@ def run_persistent_appointment_delegation_roster_shadow(
             raise RuntimeError(f"injected failure after {stage}")
 
     try:
-        report = run_appointment_delegation_roster_shadow(
+        report = roster_runner(
             manifest_file,
             prior_record_path=prior_record_path,
             checkpoint=persist,

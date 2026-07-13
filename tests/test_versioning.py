@@ -23,6 +23,11 @@ from emperor_v4.application.appointment_delegation_roster_runner import (
     run_appointment_delegation_roster_shadow,
     run_persistent_appointment_delegation_roster_shadow,
 )
+import emperor_v4.application.appointment_delegation_roster_runner as roster_module
+from emperor_v4.application.talent_discovery_roster_runner import (
+    run_persistent_talent_discovery_roster_shadow,
+    run_talent_discovery_roster_shadow,
+)
 from emperor_v4.evaluation.appointment_delegation_scoring import (
     evaluate_judgment,
 )
@@ -51,6 +56,9 @@ SHADOW_DIFF_REQUEST = SCORED_DEMO.parent / "shadow_diff_request.yml"
 ROSTER_DEMO = SCORED_DEMO.parents[1] / "appointment_delegation_roster_demo"
 ROSTER_MANIFEST = ROSTER_DEMO / "manifest.yml"
 ROSTER_REPORT = ROSTER_DEMO / "report.json"
+TALENT_ROSTER_DEMO = SCORED_DEMO.parents[1] / "talent_discovery_roster_demo"
+TALENT_ROSTER_MANIFEST = TALENT_ROSTER_DEMO / "manifest.yml"
+TALENT_ROSTER_REPORT = TALENT_ROSTER_DEMO / "report.json"
 
 
 def _assertion(code: str, passage: str, *, domain: str = "军务") -> AssertionDraft:
@@ -196,6 +204,66 @@ def test_roster_persistent_no_change_marks_every_person_reused(tmp_path: Path):
     assert state["final_run_record_sha256"] == prior["run_record_sha256"]
     assert all(row["status"] == "reused" for row in state["people"].values())
     assert state["side_effect_audit"]["service_call_count"] == 0
+
+
+def test_talent_roster_persistent_no_change_reuses_exact_record(tmp_path: Path):
+    state_path = tmp_path / "talent-roster-state.json"
+
+    report = run_persistent_talent_discovery_roster_shadow(
+        TALENT_ROSTER_MANIFEST,
+        state_path,
+        prior_record_path=TALENT_ROSTER_REPORT,
+    )
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+
+    assert report == json.loads(TALENT_ROSTER_REPORT.read_text(encoding="utf-8"))
+    assert state["exact_run_record_reused"] is True
+    assert all(row["status"] == "reused" for row in state["people"].values())
+    assert report["side_effect_audit"]["service_call_count"] == 0
+
+
+def test_talent_roster_new_weizheng_assertion_only_rebuilds_weizheng(
+    tmp_path: Path, monkeypatch
+):
+    baseline = run_talent_discovery_roster_shadow(TALENT_ROSTER_MANIFEST)
+    prior = deepcopy(baseline)
+    prior["input_fingerprint"] = "older-service-input"
+    prior_path = tmp_path / "prior.json"
+    prior_path.write_text(
+        json.dumps(prior, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    original_adapter = roster_module.adapt_claim_extractor_snapshot
+
+    def adapter_with_one_new_weizheng_assertion(snapshot):
+        assertions = original_adapter(snapshot)
+        if snapshot.get("extractor_version") != "claim_extraction_only:v9_talent_discovery":
+            return assertions
+        source = assertions[0]
+        return (
+            *assertions,
+            replace(
+                source,
+                assertion_code="CLMEXT-LOCAL-DELTA@CLM-WEIZHENG-NEW-EVIDENCE",
+                confidence=0.93,
+            ),
+        )
+
+    monkeypatch.setattr(
+        roster_module,
+        "adapt_claim_extractor_snapshot",
+        adapter_with_one_new_weizheng_assertion,
+    )
+
+    candidate = run_talent_discovery_roster_shadow(
+        TALENT_ROSTER_MANIFEST, prior_record_path=prior_path
+    )
+
+    assert candidate["delta"]["changed_person_refs"] == ["李世民/魏徵"]
+    assert candidate["delta"]["rebuilt_rule_evidence_unit_refs"] == [
+        "REU-LSM-WEIZHENG-DISCOVERY-v1"
+    ]
+    assert len(candidate["delta"]["reused_rule_evidence_unit_refs"]) == 3
+    assert candidate["scored_report"]["summary"]["judgment_cache_hit_count"] == 3
 
 
 def test_scored_runner_rebuilds_one_unit_and_exactly_reuses_three():

@@ -69,6 +69,10 @@ from emperor_v4.application.appointment_delegation_roster_runner import (
 from emperor_v4.application.talent_discovery_shadow_runner import (
     run_talent_discovery_shadow,
 )
+from emperor_v4.application.talent_discovery_roster_runner import (
+    run_persistent_talent_discovery_roster_shadow,
+    run_talent_discovery_roster_shadow,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -399,6 +403,11 @@ def _parser() -> argparse.ArgumentParser:
     talent_shadow = subparsers.add_parser("talent-discovery-shadow")
     talent_shadow.add_argument("--manifest", type=Path, required=True)
     talent_shadow.add_argument("--output", type=Path)
+    talent_roster = subparsers.add_parser("talent-discovery-roster-shadow")
+    talent_roster.add_argument("--manifest", type=Path, required=True)
+    talent_roster.add_argument("--prior-record", type=Path)
+    talent_roster.add_argument("--state", type=Path)
+    talent_roster.add_argument("--output", type=Path)
     shadow_diff = subparsers.add_parser("appointment-delegation-shadow-diff")
     shadow_diff.add_argument("--request", type=Path, required=True)
     shadow_diff.add_argument("--output", type=Path)
@@ -545,6 +554,18 @@ def main() -> int:
         report = run_appointment_delegation_shadow(args.manifest)
     elif args.command == "talent-discovery-shadow":
         report = run_talent_discovery_shadow(args.manifest)
+    elif args.command == "talent-discovery-roster-shadow":
+        report = (
+            run_persistent_talent_discovery_roster_shadow(
+                args.manifest,
+                args.state,
+                prior_record_path=args.prior_record,
+            )
+            if args.state
+            else run_talent_discovery_roster_shadow(
+                args.manifest, prior_record_path=args.prior_record
+            )
+        )
     elif args.command == "appointment-delegation-shadow-diff":
         report = run_appointment_delegation_shadow_diff(args.request)
     elif args.command == "appointment-delegation-roster-shadow":

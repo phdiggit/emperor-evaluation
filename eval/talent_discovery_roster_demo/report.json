@@ -1,0 +1,640 @@
+{
+  "cache_mode": "ensure",
+  "delta": {
+    "changed_person_refs": [
+      "刘邦/陈平",
+      "刘邦/韩信",
+      "朱元璋/蓝玉",
+      "李世民/魏徵"
+    ],
+    "delta_episode_refs": [
+      "EP-LB-CHENPING-INTEGRATION@v1",
+      "EP-LB-HANXIN-QI-KING@v1",
+      "EP-LSM-WEIZHENG-APPOINTMENT@v1",
+      "EP-ZYZ-LANYU-PROMOTION@v1"
+    ],
+    "rebuilt_rule_evidence_unit_refs": [
+      "REU-LB-CHENPING-DISCOVERY-v1",
+      "REU-LB-HANXIN-QI-DISCOVERY-EXCLUDED-v1",
+      "REU-LSM-WEIZHENG-DISCOVERY-v1",
+      "REU-ZYZ-LANYU-DISCOVERY-EXCLUDED-v1"
+    ],
+    "reused_rule_evidence_unit_refs": []
+  },
+  "file_hashes": {
+    "eval/talent_discovery_scored_demo/manifest.yml": "f37c7cc1011790fb72d90a27d9dd0b714e83e7233a4369586b6f869b8cd773bd",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair-response.json": "eab894372f8fd70aa93c9d5a8cd7c0e16a13f2144b60c00987c4f0dca83abaaa",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair2-response.json": "b63834acfa4c684e8269e0602479f007f96a66975d332aad58f754d7a0365152",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json": "5b2a7631be7809808033a83632d07c3a38b46a360b18dcf9158ea4307e551052",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-response.json": "35e8bad73f2b4fa672ee987a45b023d2eb49bf2299332f0120d70c1235717170",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-supplement-response.json": "6a5fbf0034fd47926e5a168e0995f145cb2a16771994ba00243aa73e561cfc36",
+    "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json": "045780b7fdfdb85d570fb05d465702ee76bd657c4f7f7307df367fdc96250bea",
+    "tests/fixtures/episode_pilot_v1/source-cache-response.json": "22f9febe4792fbc05c1b2566b088bcb9064aae87035ad843aaed76830d9b733a"
+  },
+  "input_fingerprint": "6b3853b8212cbf70702b3292d864b5cc5bf507b4fca9cf5d47c521f3869753e1",
+  "policy_version": "talent-discovery-roster-offline-v1",
+  "resume": {
+    "exact_record_reuse_supported": true,
+    "failed_stage_resume_supported": false,
+    "prior_record_supplied": false,
+    "resumed_after_input_change": false
+  },
+  "roster_entry_hashes": {
+    "刘邦/陈平": "b3c2197d1c56a234bc0469f89a6d52086d7db713d0ec779fcac1c410339d42c9",
+    "刘邦/韩信": "f53b9ccc773249e16165d56aa1311a07aca0d0eff9f91c5727c46a58282d60a4",
+    "朱元璋/蓝玉": "75ca03a560249407c32363c75ff091ea5d193c638279f74e34e7af03d0e194c3",
+    "李世民/魏徵": "a9aa41f73fa77a60f569d230b56b8e991a64db04001f68c9598cfd7ed542d1cf"
+  },
+  "run_code": "talent_discovery_roster_demo_v1",
+  "run_record_sha256": "d9e98ad53d080752576bba5f0a622ece324b0c904b7cc23a9e5834b5194f35b7",
+  "schema_version": 1,
+  "scored_report": {
+    "frozen_input_audit": [
+      {
+        "path": "eval/episode_pilot_v1.yml",
+        "role": "source_manifest",
+        "sha256": "7a060de487c5506a6577ecb68d9d8ffc7d0e2fb4959f919a307ed12a272eacda",
+        "verified": true
+      },
+      {
+        "path": "eval/episode_pilot_v1_review.yml",
+        "role": "source_review",
+        "sha256": "691c7f1521b162e6b3ffa997aa08137ea9ea260ad11e7d1f151aafb5e0819ded",
+        "verified": true
+      },
+      {
+        "path": "eval/episode_pilot_v1_oracle_assisted_acceptance.json",
+        "role": "episode_snapshot",
+        "sha256": "a1c88148bc1d1bd502a112638fef827a8f006b95e651da8c51629af50ae87220",
+        "verified": true
+      },
+      {
+        "path": "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json",
+        "role": "supplemental_claim_snapshot",
+        "sha256": "045780b7fdfdb85d570fb05d465702ee76bd657c4f7f7307df367fdc96250bea",
+        "verified": true
+      }
+    ],
+    "input_manifest_ref": "talent_discovery_scored_demo_v1",
+    "input_manifest_sha256": "3d346b76b80effe46b0dcedc9cee7c6e068365763d50176810963c21a6735fa8",
+    "judgments": [
+      {
+        "applicability": "applicable",
+        "blockers": [],
+        "confidence": 0.935,
+        "direction": "positive",
+        "episode_refs": [
+          "EP-LB-CHENPING-INTEGRATION@v1"
+        ],
+        "factor_reasons": {
+          "barrier_crossing": "归附来源和诸将负面意见形成可见障碍，刘邦复核后仍完成任用。",
+          "conversion_to_use": "识别链落实为厚赐并拜护军中尉，不停留于口头赞许。",
+          "recognition_basis": "刘邦在诸将诋毁后复核陈平经历与能力，而非以后续成名倒推。",
+          "recognition_novelty": "陈平从楚阵营归汉，构成进入刘邦有效视野的新人才来源。"
+        },
+        "factor_schema_version": "talent-discovery-factors-v1",
+        "factor_values": {
+          "barrier_crossing": "positive",
+          "conversion_to_use": "positive",
+          "recognition_basis": "positive",
+          "recognition_novelty": "positive"
+        },
+        "input_semantic_fingerprint": "c67fa345293576e3c1dbd8b9efc9eb7becda8d5e0ad8f3ab9f4288b00f2de044",
+        "judgment_id": "JDG-C67FA345293576E3C1DB",
+        "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "陈平",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "talent_discovery",
+        "rule_evidence_unit_ref": "REU-LB-CHENPING-DISCOVERY-v1",
+        "rule_version": "talent-discovery-v1-shadow",
+        "ruler": "刘邦",
+        "supporting_assertion_refs": [
+          "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+          "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+        ],
+        "supporting_source_passage_refs": [
+          "PAS-5ACCDE1FA44F"
+        ]
+      },
+      {
+        "applicability": "supporting_only",
+        "blockers": [],
+        "confidence": 0.0,
+        "direction": "neutral_context",
+        "episode_refs": [
+          "EP-LB-HANXIN-QI-KING@v1"
+        ],
+        "factor_reasons": {
+          "barrier_crossing": "请求及张良压力下调整属于授权过程，不是发现障碍。",
+          "conversion_to_use": "立齐王是既有人才的授权调整，应由 appointment_delegation 消费。",
+          "recognition_basis": "本事件只判断最终授权结果，不另构造发现链。",
+          "recognition_novelty": "韩信已是完成齐地军事任务的既有核心将领，本事件不是人才进入视野。"
+        },
+        "factor_schema_version": "talent-discovery-factors-v1",
+        "factor_values": {
+          "barrier_crossing": "not_applicable",
+          "conversion_to_use": "not_applicable",
+          "recognition_basis": "not_applicable",
+          "recognition_novelty": "not_applicable"
+        },
+        "input_semantic_fingerprint": "c6c55511b1eb865c866481ffaa834bbffdc72b058f4d494ca6a118032442b625",
+        "judgment_id": "JDG-C6C55511B1EB865C8664",
+        "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "韩信",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "talent_discovery",
+        "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-DISCOVERY-EXCLUDED-v1",
+        "rule_version": "talent-discovery-v1-shadow",
+        "ruler": "刘邦",
+        "supporting_assertion_refs": [],
+        "supporting_source_passage_refs": []
+      },
+      {
+        "applicability": "applicable",
+        "blockers": [],
+        "confidence": 0.97,
+        "direction": "positive",
+        "episode_refs": [
+          "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+        ],
+        "factor_reasons": {
+          "barrier_crossing": "李世民明知魏徵是曾参与兄弟冲突的东宫旧属，仍召见并纳入用人体系。",
+          "conversion_to_use": "引为詹事主簿并擢拜谏议大夫，证明识别已转化为实际任用。",
+          "recognition_basis": "李世民在召见和听取魏徵当面直陈后素器其才，依据发生在正式擢拜前，不使用后续名声倒推。",
+          "recognition_novelty": "魏徵原属窦建德和李建成任用体系，随后正式进入李世民核心用人体系；进入有效人才池不要求此前完全不认识。"
+        },
+        "factor_schema_version": "talent-discovery-factors-v1",
+        "factor_values": {
+          "barrier_crossing": "positive",
+          "conversion_to_use": "positive",
+          "recognition_basis": "positive",
+          "recognition_novelty": "positive"
+        },
+        "input_semantic_fingerprint": "a9675c9a4f14283d1a80e5f3b8a44db57f61865a24d85e5d1a89675c39d89900",
+        "judgment_id": "JDG-A9675C9A4F14283D1A80",
+        "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "魏徵",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "talent_discovery",
+        "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
+        "rule_version": "talent-discovery-v1-shadow",
+        "ruler": "李世民",
+        "supporting_assertion_refs": [
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
+        ],
+        "supporting_source_passage_refs": [
+          "PAS-1CD613D0DD2B"
+        ]
+      },
+      {
+        "applicability": "supporting_only",
+        "blockers": [],
+        "confidence": 0.0,
+        "direction": "neutral_context",
+        "episode_refs": [
+          "EP-ZYZ-LANYU-PROMOTION@v1"
+        ],
+        "factor_reasons": {
+          "barrier_crossing": "当前事件未显示身份、派系或偏见障碍被突破。",
+          "conversion_to_use": "既有将领升任属于普通晋升，按规则明确排除。",
+          "recognition_basis": "当前材料是任命及战果反馈，不是发现前识别依据。",
+          "recognition_novelty": "蓝玉已是既有将领，代理总兵和拜大将军不构成新人才发现。"
+        },
+        "factor_schema_version": "talent-discovery-factors-v1",
+        "factor_values": {
+          "barrier_crossing": "not_applicable",
+          "conversion_to_use": "not_applicable",
+          "recognition_basis": "not_applicable",
+          "recognition_novelty": "not_applicable"
+        },
+        "input_semantic_fingerprint": "9482936f40a8cba6a088debf8ac4c8c443024d915f70a8dc481e6b7d40cdd17d",
+        "judgment_id": "JDG-9482936F40A8CBA6A088",
+        "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
+        "model_call_count": 0,
+        "person": "蓝玉",
+        "result_scope": "shadow_demo_only",
+        "review_status": "shadow_accepted",
+        "rule_code": "talent_discovery",
+        "rule_evidence_unit_ref": "REU-ZYZ-LANYU-DISCOVERY-EXCLUDED-v1",
+        "rule_version": "talent-discovery-v1-shadow",
+        "ruler": "朱元璋",
+        "supporting_assertion_refs": [],
+        "supporting_source_passage_refs": []
+      }
+    ],
+    "lineage": {
+      "assertions": [
+        {
+          "assertion_ref": "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+          "confidence": 0.92,
+          "source_passage_ref": "PAS-5ACCDE1FA44F",
+          "summary": "陈平归汉后遭诸将诋毁，刘邦复核后仍予任用。"
+        },
+        {
+          "assertion_ref": "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT",
+          "confidence": 0.95,
+          "source_passage_ref": "PAS-5ACCDE1FA44F",
+          "summary": "刘邦厚赐陈平并拜为护军中尉，使其尽护诸将。"
+        },
+        {
+          "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+          "confidence": 0.98,
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "summary": "魏徵先后隶属窦建德和隐太子李建成，并分别被署为起居舍人、引为直洗马。"
+        },
+        {
+          "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+          "confidence": 0.94,
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "summary": "魏徵在太宗召见时直陈太子若听从其言便不会有今日之祸，太宗因此素器其才。"
+        },
+        {
+          "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+          "confidence": 0.97,
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "summary": "太宗明知魏徵曾离间兄弟、属于东宫旧属，仍召见并决定纳入自己的用人体系。"
+        },
+        {
+          "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004",
+          "confidence": 0.99,
+          "source_passage_ref": "PAS-1CD613D0DD2B",
+          "summary": "太宗将魏徵引为詹事主簿，继而擢拜谏议大夫。"
+        }
+      ],
+      "historical_episodes": [
+        {
+          "action": "复核诋毁后任命",
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+          ],
+          "episode_code": "EP-LB-CHENPING-INTEGRATION",
+          "episode_ref": "EP-LB-CHENPING-INTEGRATION@v1",
+          "outcome": "继续任用陈平并使其典护军",
+          "person": "陈平",
+          "responsibility": "护军中尉",
+          "ruler": "刘邦",
+          "semantic_fingerprint": "079f442ca8fcd1bee248aa98d03d495a1c581c12f704b9e015c451fde4e36beb"
+        },
+        {
+          "action": "压力下调整授权并正式立为齐王",
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-HX-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT"
+          ],
+          "episode_code": "EP-LB-HANXIN-QI-KING",
+          "episode_ref": "EP-LB-HANXIN-QI-KING@v1",
+          "outcome": "韩信守齐并参与后续对楚作战",
+          "person": "韩信",
+          "responsibility": "齐地王号与军事责任域",
+          "ruler": "刘邦",
+          "semantic_fingerprint": "5fa24bc2167a00a803758df5ec31fa4b2e040b169a8de2bfa91911c2899e470c"
+        },
+        {
+          "action": "擢拜、授权与持续纳谏",
+          "assertion_refs": [
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
+          ],
+          "episode_code": "EP-LSM-WEIZHENG-APPOINTMENT",
+          "episode_ref": "EP-LSM-WEIZHENG-APPOINTMENT@v1",
+          "outcome": "持续采用其专业意见并形成可见反馈",
+          "person": "魏徵",
+          "responsibility": "谏议大夫、河北安辑与谏诤",
+          "ruler": "李世民",
+          "semantic_fingerprint": "25f7fdf274ed2124a0734dd49bca438327b294b66b490c682df420dcb07e8c63"
+        },
+        {
+          "action": "代理总兵、拜大将军与进封",
+          "assertion_refs": [
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001",
+            "CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002"
+          ],
+          "episode_code": "EP-ZYZ-LANYU-PROMOTION",
+          "episode_ref": "EP-ZYZ-LANYU-PROMOTION@v1",
+          "outcome": "捕鱼儿海奏捷并进封凉国公",
+          "person": "蓝玉",
+          "responsibility": "总兵官、大将军",
+          "ruler": "朱元璋",
+          "semantic_fingerprint": "ca4816d74ae9ea5d291f7fbdb05a4944ba765b21dbf51db40b6dffeaaa960bf6"
+        }
+      ],
+      "source_passages": [
+        {
+          "locator": "卷七十一，魏徵传，太宗拔擢与纳受段",
+          "passage_ref": "PAS-1CD613D0DD2B",
+          "source_title": "旧唐书",
+          "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771"
+        },
+        {
+          "locator": "卷五十六，陈丞相世家，陈平归汉、被谗、拜护军中尉段",
+          "passage_ref": "PAS-5ACCDE1FA44F",
+          "source_title": "史记",
+          "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056"
+        }
+      ]
+    },
+    "report_sha256": "9b10f76f019158057d586f7b96974df5ec750bbb3643bf2b6a8ce8129d1d9037",
+    "result_scope": "shadow_demo_only",
+    "ruler_aggregates": [
+      {
+        "blocked_unit_count": 0,
+        "direction_counts": {
+          "neutral_context": 1,
+          "positive": 1
+        },
+        "not_a_formal_45_point_score": true,
+        "ruler": "刘邦",
+        "scored_unit_count": 1,
+        "shadow_contribution_mean": 1.0,
+        "shadow_contribution_sum": 1.0,
+        "unit_count": 2
+      },
+      {
+        "blocked_unit_count": 0,
+        "direction_counts": {
+          "neutral_context": 1
+        },
+        "not_a_formal_45_point_score": true,
+        "ruler": "朱元璋",
+        "scored_unit_count": 0,
+        "shadow_contribution_mean": null,
+        "shadow_contribution_sum": 0,
+        "unit_count": 1
+      },
+      {
+        "blocked_unit_count": 0,
+        "direction_counts": {
+          "positive": 1
+        },
+        "not_a_formal_45_point_score": true,
+        "ruler": "李世民",
+        "scored_unit_count": 1,
+        "shadow_contribution_mean": 1.0,
+        "shadow_contribution_sum": 1.0,
+        "unit_count": 1
+      }
+    ],
+    "schema_version": 1,
+    "score_contributions": [
+      {
+        "applicable_factor_count": 4,
+        "contribution_status": "shadow",
+        "duplicate_settlement_check": "passed",
+        "excluded_from_other_rules_reason": "本贡献只结算人才进入统治者有效视野的发现链；职位匹配、授权质量与后续战果归 appointment_delegation 或相应结果规则，不重复结算。",
+        "factor_points": {
+          "barrier_crossing": 1,
+          "conversion_to_use": 1,
+          "recognition_basis": 1,
+          "recognition_novelty": 1
+        },
+        "judgment_ref": "JDG-C67FA345293576E3C1DB",
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+          ],
+          "episode_refs": [
+            "EP-LB-CHENPING-INTEGRATION@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-5ACCDE1FA44F"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "陈平",
+        "primary_settlement_rule": "talent_discovery",
+        "raw_factor_sum": 4,
+        "rule_evidence_unit_ref": "REU-LB-CHENPING-DISCOVERY-v1",
+        "ruler": "刘邦",
+        "score_contribution_id": "SC-534DB4ADAC63F5143129",
+        "score_contribution_schema_version": "score-contribution-v1",
+        "scoring_formula_version": "talent-discovery-shadow-mean-v1",
+        "semantic_fingerprint": "534db4adac63f5143129682702e273f7a565ce28c75cf7426ce00dece7c201a4",
+        "supporting_only_rules": [
+          "appointment_delegation"
+        ]
+      },
+      {
+        "applicable_factor_count": 4,
+        "contribution_status": "shadow",
+        "duplicate_settlement_check": "passed",
+        "excluded_from_other_rules_reason": "本贡献只结算人才进入统治者有效视野的发现链；职位匹配、授权质量与后续战果归 appointment_delegation 或相应结果规则，不重复结算。",
+        "factor_points": {
+          "barrier_crossing": 1,
+          "conversion_to_use": 1,
+          "recognition_basis": 1,
+          "recognition_novelty": 1
+        },
+        "judgment_ref": "JDG-A9675C9A4F14283D1A80",
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
+          ],
+          "episode_refs": [
+            "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-1CD613D0DD2B"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "魏徵",
+        "primary_settlement_rule": "talent_discovery",
+        "raw_factor_sum": 4,
+        "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
+        "ruler": "李世民",
+        "score_contribution_id": "SC-C717EF38B08208E937E3",
+        "score_contribution_schema_version": "score-contribution-v1",
+        "scoring_formula_version": "talent-discovery-shadow-mean-v1",
+        "semantic_fingerprint": "c717ef38b08208e937e3d1e434469a9d0cdb054a8dfaf863498214b9ef55973b",
+        "supporting_only_rules": [
+          "appointment_delegation"
+        ]
+      }
+    ],
+    "scored_units": [
+      {
+        "blockers": [],
+        "confidence": 0.935,
+        "direction": "positive",
+        "factor_values": {
+          "barrier_crossing": "positive",
+          "conversion_to_use": "positive",
+          "recognition_basis": "positive",
+          "recognition_novelty": "positive"
+        },
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-9AA66020C316DC71@CLM-CP-001",
+            "CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT"
+          ],
+          "episode_refs": [
+            "EP-LB-CHENPING-INTEGRATION@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-5ACCDE1FA44F"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "陈平",
+        "rule_evidence_unit_ref": "REU-LB-CHENPING-DISCOVERY-v1",
+        "ruler": "刘邦"
+      },
+      {
+        "blockers": [],
+        "confidence": 0.0,
+        "direction": "neutral_context",
+        "factor_values": {
+          "barrier_crossing": "not_applicable",
+          "conversion_to_use": "not_applicable",
+          "recognition_basis": "not_applicable",
+          "recognition_novelty": "not_applicable"
+        },
+        "lineage": {
+          "assertion_refs": [],
+          "episode_refs": [
+            "EP-LB-HANXIN-QI-KING@v1"
+          ],
+          "source_passage_refs": []
+        },
+        "normalized_contribution": null,
+        "person": "韩信",
+        "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-DISCOVERY-EXCLUDED-v1",
+        "ruler": "刘邦"
+      },
+      {
+        "blockers": [],
+        "confidence": 0.97,
+        "direction": "positive",
+        "factor_values": {
+          "barrier_crossing": "positive",
+          "conversion_to_use": "positive",
+          "recognition_basis": "positive",
+          "recognition_novelty": "positive"
+        },
+        "lineage": {
+          "assertion_refs": [
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+            "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
+          ],
+          "episode_refs": [
+            "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+          ],
+          "source_passage_refs": [
+            "PAS-1CD613D0DD2B"
+          ]
+        },
+        "normalized_contribution": 1.0,
+        "person": "魏徵",
+        "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
+        "ruler": "李世民"
+      },
+      {
+        "blockers": [],
+        "confidence": 0.0,
+        "direction": "neutral_context",
+        "factor_values": {
+          "barrier_crossing": "not_applicable",
+          "conversion_to_use": "not_applicable",
+          "recognition_basis": "not_applicable",
+          "recognition_novelty": "not_applicable"
+        },
+        "lineage": {
+          "assertion_refs": [],
+          "episode_refs": [
+            "EP-ZYZ-LANYU-PROMOTION@v1"
+          ],
+          "source_passage_refs": []
+        },
+        "normalized_contribution": null,
+        "person": "蓝玉",
+        "rule_evidence_unit_ref": "REU-ZYZ-LANYU-DISCOVERY-EXCLUDED-v1",
+        "ruler": "朱元璋"
+      }
+    ],
+    "side_effect_audit": {
+      "database_write_count": 0,
+      "formal_acceptance_performed": false,
+      "model_call_count": 0,
+      "offline": true,
+      "report_only": true
+    },
+    "status": "talent_discovery_scored_shadow_ready",
+    "summary": {
+      "blocked_unit_count": 0,
+      "database_write_count": 0,
+      "duplicate_consumption_episode_refs": [],
+      "formal_score_write_count": 0,
+      "judgment_cache_hit_count": 0,
+      "judgment_count": 4,
+      "model_call_count": 0,
+      "rule_evidence_unit_count": 4,
+      "ruler_count": 3,
+      "score_contribution_count": 2,
+      "source_cache_hit_count": 2
+    },
+    "task_code": "V4-TD-SCORED-DEMO",
+    "versions": {
+      "factor_schema_version": "talent-discovery-factors-v1",
+      "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
+      "score_contribution_schema_version": "score-contribution-v1",
+      "scoring_formula_version": "talent-discovery-shadow-mean-v1"
+    }
+  },
+  "side_effect_audit": {
+    "database_write_count": 0,
+    "formal_acceptance_performed": false,
+    "model_call_count": 0,
+    "offline": true,
+    "service_call_count": 0
+  },
+  "slow_review_job_count": 0,
+  "slow_review_jobs": [],
+  "stages": {
+    "claim_extractor_adapter": {
+      "assertion_count": 91,
+      "snapshot_count": 6,
+      "status": "cache_hit"
+    },
+    "episode_kernel": {
+      "candidate_packet_count": 82,
+      "status": "completed_offline"
+    },
+    "scored_shadow": {
+      "rebuilt_count": 4,
+      "reused_count": 0,
+      "status": "talent_discovery_scored_shadow_ready"
+    },
+    "source_cache_adapter": {
+      "direct_roster_coverage_count": 1,
+      "document_count": 11,
+      "passage_count": 28,
+      "snapshot_count": 1,
+      "status": "cache_hit",
+      "supplemented_person_refs": [
+        "刘邦/陈平",
+        "刘邦/韩信",
+        "朱元璋/蓝玉"
+      ],
+      "supplemented_via_claim_snapshot_count": 3
+    }
+  },
+  "status": "talent_discovery_roster_shadow_complete"
+}

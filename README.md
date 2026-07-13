@@ -17,6 +17,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
 - 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录
 - 包 D 发现链补抽：V4 Claim Extractor 已按 `talent_discovery` 抽出魏徵旧阵营、识才依据、跨障碍与转化任用 4 条 Claim；陈平、魏徵各形成 1 个正向贡献，韩信与蓝玉按规则排除
+- 包 D 名单增量复用：`talent_discovery` 已接入包 C 的持久化 roster 入口；无变化精确复用，新增魏徵 Assertion 只重建 1 个单元并复用其余 3 个 Judgment
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -40,15 +41,17 @@ python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appo
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --prior-record eval/appointment_delegation_roster_demo/report.json --state eval/appointment_delegation_roster_demo/state.json --output eval/appointment_delegation_roster_demo/report.json
 python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discovery_scored_demo/manifest.yml --output eval/talent_discovery_scored_demo/report.json
+python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --output eval/talent_discovery_roster_demo/report.json
+python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --prior-record eval/talent_discovery_roster_demo/report.json --state eval/talent_discovery_roster_demo/state.json --output eval/talent_discovery_roster_demo/report.json
 ```
 
 ## 下一份可见成果
 
-scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化增量编排和包 D 首个 `talent_discovery` 复用切片已完成。包 D 下一步是：
+scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化增量编排，以及包 D 的 `talent_discovery` Claim 补抽、评分和 roster 增量复用均已完成。包 D 下一步是：
 
-1. 将已批准的 `talent_discovery` 规则配置接入包 C 的名单增量入口；
-2. 验证新增发现链 Claim 只局部失效魏徵的 Judgment/Contribution；
-3. 继续以同一通用内核扩展下一个规则，不复制独立流水线；
+1. 以同一通用内核扩展 `team_building`，不复制独立流水线；
+2. 先冻结团队快照、团队成员集合和单人事件的去重边界；
+3. 保持 roster 增量、Claim/Assertion lineage 和跨规则重复结算审计；
 4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
 
 在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
