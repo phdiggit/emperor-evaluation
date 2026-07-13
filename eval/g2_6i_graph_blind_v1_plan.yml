@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: g2_6i_graph_blind_v1
-status: input_frozen_independent_reviews_pending
+status: boundary_and_historical_gold_frozen_rule_gold_pending
 input_frozen_at: 2026-07-13
 contract_basis_commit: 0261534f71b6cf61865fe24df719345400cfc52f
 
@@ -27,6 +27,29 @@ review_requests:
   boundary_policy_version: episode-boundary-policy-v2.6
   output_schema_version: episode-boundary-review-v2.6
   candidate_episode_generated: false
+
+independent_freezes:
+  boundary_review:
+    path: eval/g2_6i_graph_blind_v1/boundary_review.yml
+    file_sha256: c510337f21ca4f27c1d2000d2e2f6f8061dde1609c1f0d6d1d54128374045930
+    review_unit_count: 8
+    episode_group_count: 27
+    relation_count: 26
+    pair_disposition_count: 49
+    assertion_disposition_count: 59
+    reviewed_without_gold_access: true
+  historical_gold:
+    path: eval/g2_6i_graph_blind_v1/historical_gold.yml
+    file_sha256: 80bc9b7c225a16efd09ade8bb9c026d3a21dd7fdd190f42d9a2c3bd8c38c892d
+    gold_episode_count: 31
+    gold_relation_count: 27
+    catastrophic_pair_count: 25
+    assertion_disposition_count: 59
+    frozen_without_candidate_or_review_access: true
+  rule_gold:
+    status: pending_after_historical_freeze
+  candidate_episode_generated: false
+  score_generated: false
 
 preflight:
   contract_version: boundary_review_v2_6
