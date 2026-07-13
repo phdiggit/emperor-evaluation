@@ -8,9 +8,9 @@ from typing import Any, Mapping
 from emperor_v4.contracts.boundary import EPISODE_RELATION_TYPES
 
 
-FINE_RELATION_POLICY_VERSION = "relation-fine-type-v1"
-FINE_RELATION_REVIEW_SCHEMA_VERSION = "relation-fine-type-review-output-v1"
-FINE_RELATION_GAP_SCHEMA_VERSION = "relation-fine-type-gap-review-output-v1"
+FINE_RELATION_POLICY_VERSION = "relation-fine-type-v2"
+FINE_RELATION_REVIEW_SCHEMA_VERSION = "relation-fine-type-review-output-v2"
+FINE_RELATION_GAP_SCHEMA_VERSION = "relation-fine-type-gap-review-output-v2"
 
 COARSE_FINE_TYPES = {
     "authority_change": frozenset(
@@ -254,6 +254,22 @@ def _has_path(
     return False
 
 
+def _episode_version_ref(endpoint: Mapping[str, Any]) -> str:
+    episode_ref = str(endpoint.get("episode_ref") or "")
+    version_ref = str(endpoint.get("episode_version_ref") or "")
+    semantic_version = endpoint.get("semantic_version")
+    if (
+        not episode_ref
+        or not isinstance(semantic_version, int)
+        or semantic_version < 1
+        or version_ref != f"{episode_ref}@v{semantic_version}"
+    ):
+        raise ValueError("Fine Relation endpoint 缺少一致的 Episode 版本身份")
+    if not str(endpoint.get("episode_semantic_fingerprint") or ""):
+        raise ValueError("Fine Relation endpoint 缺少 semantic fingerprint")
+    return version_ref
+
+
 def materialize_fine_relation_proposals(
     worklist: Mapping[str, Any], response: Mapping[str, Any]
 ) -> dict[str, Any]:
@@ -276,9 +292,13 @@ def materialize_fine_relation_proposals(
         source = str(row["from_episode_ref"])
         target = str(row["to_episode_ref"])
         relation_type = str(row["relation_type"])
+        endpoint_by_ref = {
+            str(task["left"]["episode_ref"]): task["left"],
+            str(task["right"]["episode_ref"]): task["right"],
+        }
         identity = {
-            "from_episode_version_ref": f"{source}@v1",
-            "to_episode_version_ref": f"{target}@v1",
+            "from_episode_version_ref": _episode_version_ref(endpoint_by_ref[source]),
+            "to_episode_version_ref": _episode_version_ref(endpoint_by_ref[target]),
             "relation_type": relation_type,
         }
         semantic_fingerprint = _hash(identity)

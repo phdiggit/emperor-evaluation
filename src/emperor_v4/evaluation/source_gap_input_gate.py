@@ -8,8 +8,8 @@ from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 from emperor_v4.contracts.source import LinkedPassageRef, SourcePassage
 
 
-INPUT_GATE_POLICY_VERSION = "appointment-delegation-source-gap-input-gate-v1"
-INPUT_GATE_SCHEMA_VERSION = "source-gap-input-gate-output-v1"
+INPUT_GATE_POLICY_VERSION = "appointment-delegation-source-gap-input-gate-v2"
+INPUT_GATE_SCHEMA_VERSION = "source-gap-input-gate-output-v2"
 
 DISPOSITIONS = frozenset(
     {"accepted_for_shadow_delta", "rejected", "unresolved"}
@@ -90,11 +90,21 @@ def build_source_gap_input_gate_worklist(
         raise ValueError("Source-gap input Gate 未完整覆盖库存候选")
 
     tasks = []
+    stopped_requests = []
     for code in sorted(request_by_code):
         request = request_by_code[code]
         inventory = inventory_by_code[code]
         if inventory["resolution_kind"] == "not_found_stop":
-            raise ValueError("not_found_stop 不应进入 input Gate")
+            stopped_requests.append(
+                {
+                    "gap_code": code,
+                    "input_ref": request["input_ref"],
+                    "resolution_kind": "not_found_stop",
+                    "reason": inventory["reason"],
+                    "stop_condition": inventory.get("stop_condition"),
+                }
+            )
+            continue
         tasks.append(
             {
                 "gap_code": code,
@@ -123,6 +133,7 @@ def build_source_gap_input_gate_worklist(
         "source_gap_task_code": source_gap_worklist.get("task_code"),
         "source_gap_final_sha256": _hash(source_gap_final),
         "gap_codes": [row["gap_code"] for row in tasks],
+        "stopped_gap_codes": [row["gap_code"] for row in stopped_requests],
         "input_gate_policy_version": INPUT_GATE_POLICY_VERSION,
     }
     worklist_hash = _hash(basis)
@@ -133,8 +144,11 @@ def build_source_gap_input_gate_worklist(
         "worklist_sha256": worklist_hash,
         **basis,
         "output_schema_version": INPUT_GATE_SCHEMA_VERSION,
+        "source_gap_request_count": len(request_by_code),
         "task_count": len(tasks),
         "tasks": tasks,
+        "stopped_request_count": len(stopped_requests),
+        "stopped_requests": stopped_requests,
         "gate_policy": {
             "episode_rule": "现有 Episode 只审查是否进入同一 scoring arc，不改写其事实。",
             "assertion_rule": "新 Assertion 必须通过 AssertionDraft、PassageSupport 与边界校验。",
@@ -330,15 +344,22 @@ def materialize_source_gap_input_gate(
     unresolved = [rows[code] for code in sorted(rows) if rows[code]["disposition"] == "unresolved"]
     rejected = [rows[code] for code in sorted(rows) if rows[code]["disposition"] == "rejected"]
     gate_passed = len(accepted) == len(rows) and not unresolved and not rejected
+    stopped_requests = list(worklist.get("stopped_requests") or ())
+    has_delta = bool(accepted)
     return {
         "schema_version": 1,
         "status": (
             "source_gap_input_gate_passed_for_shadow_delta"
+            if gate_passed and has_delta
+            else "source_gap_input_gate_no_candidates_stopped"
             if gate_passed
             else "source_gap_input_gate_failed_closed"
         ),
         "task_code": worklist.get("task_code"),
+        "source_gap_request_count": worklist.get("source_gap_request_count"),
         "task_count": len(rows),
+        "stopped_request_count": len(stopped_requests),
+        "stopped_requests": stopped_requests,
         "accepted_shadow_delta_count": len(accepted),
         "episode_arc_member_count": sum(
             row.get("boundary_disposition") == "episode_arc_member" for row in accepted
@@ -359,7 +380,7 @@ def materialize_source_gap_input_gate(
         ),
         "unresolved_count": len(unresolved),
         "rejected_count": len(rejected),
-        "shadow_delta_authorized": gate_passed,
+        "shadow_delta_authorized": gate_passed and has_delta,
         "readiness_rerun_authorized": False,
         "accepted_shadow_deltas": accepted,
         "unresolved": unresolved,

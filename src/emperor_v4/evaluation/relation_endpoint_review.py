@@ -11,9 +11,9 @@ from emperor_v4.evaluation.relation_blocking import (
 )
 
 
-ENDPOINT_REVIEW_POLICY_VERSION = "relation-endpoint-review-v1"
-ENDPOINT_REVIEW_SCHEMA_VERSION = "relation-endpoint-review-output-v1"
-ENDPOINT_ADJUDICATION_SCHEMA_VERSION = "relation-endpoint-adjudication-output-v1"
+ENDPOINT_REVIEW_POLICY_VERSION = "relation-endpoint-review-v2"
+ENDPOINT_REVIEW_SCHEMA_VERSION = "relation-endpoint-review-output-v2"
+ENDPOINT_ADJUDICATION_SCHEMA_VERSION = "relation-endpoint-adjudication-output-v2"
 DIRECT_RELATION_VALUES = frozenset({"yes", "no", "insufficient"})
 COARSE_TYPE_VALUES = frozenset(
     {"authority_change", "mandate_or_outcome", "explicit_causal"}
@@ -411,6 +411,10 @@ def _endpoint_evidence(
     assertion_by_ref: Mapping[str, Mapping[str, Any]],
     passage_by_ref: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
+    semantic_version = episode.get("semantic_version", 1)
+    if not isinstance(semantic_version, int) or semantic_version < 1:
+        raise ValueError("Endpoint review Episode semantic_version 非法")
+    episode_ref = str(episode["local_episode_code"])
     assertions = []
     passages = {}
     for assertion_ref in episode.get("core_assertion_refs") or ():
@@ -448,7 +452,11 @@ def _endpoint_evidence(
             "context_after": passage.get("context_after"),
         }
     return {
-        "episode_ref": episode["local_episode_code"],
+        "episode_ref": episode_ref,
+        "episode_version_ref": f"{episode_ref}@v{semantic_version}",
+        "episode_semantic_fingerprint": episode.get("semantic_fingerprint"),
+        "semantic_version": semantic_version,
+        "evidence_version": episode.get("evidence_version", 1),
         "focal_person_ref": episode.get("focal_person_ref"),
         "focal_roles": episode.get("focal_roles") or (),
         "action": episode.get("action"),

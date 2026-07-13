@@ -1,0 +1,299 @@
+schema_version: 1
+status: frozen_shadow_demo_input
+task_code: V4-AD-SCORED-DEMO
+manifest_code: appointment_delegation_scored_demo_v1
+rule_code: appointment_delegation
+rule_version: appointment-delegation-v1-shadow
+factor_schema_version: appointment-delegation-factors-v1
+judgment_policy_version: appointment-delegation-deterministic-judgment-v1
+scoring_formula_version: appointment-delegation-shadow-mean-v1
+frozen_basis:
+  frozen_on: '2026-07-13'
+  inputs:
+    - path: eval/episode_pilot_v1.yml
+      role: source_manifest
+      sha256: 7a060de487c5506a6577ecb68d9d8ffc7d0e2fb4959f919a307ed12a272eacda
+    - path: eval/episode_pilot_v1_review.yml
+      role: source_review
+      sha256: 691c7f1521b162e6b3ffa997aa08137ea9ea260ad11e7d1f151aafb5e0819ded
+    - path: eval/episode_pilot_v1_oracle_assisted_acceptance.json
+      role: episode_snapshot
+      sha256: a1c88148bc1d1bd502a112638fef827a8f006b95e651da8c51629af50ae87220
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: false
+  database_writes_allowed: false
+  formal_acceptance_allowed: false
+
+source_passages:
+  - passage_ref: PAS-1CD613D0DD2B
+    source_title: 旧唐书
+    locator: 卷七十一，魏徵传，太宗拔擢与纳受段
+    url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771
+  - passage_ref: PAS-5ACCDE1FA44F
+    source_title: 史记
+    locator: 卷五十六，陈丞相世家，陈平归汉、被谗、拜护军中尉段
+    url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056
+  - passage_ref: PAS-230CB5A24DBD
+    source_title: 史记
+    locator: 卷五十六，陈丞相世家，持续护军、随征与反间授权段
+    url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7056
+  - passage_ref: PAS-8F456F1A5D59
+    source_title: 史记
+    locator: 卷八，高祖本纪，韩信破齐后请假王、张良劝立齐王段
+    url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7008
+  - passage_ref: PAS-5DBD85CE95B9
+    source_title: 明史
+    locator: 卷一百三十二，蓝玉代理总兵、拜大将军、捕鱼儿海奏捷进凉国公段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132
+  - passage_ref: PAS-C251F2DC4A3B
+    source_title: 明史
+    locator: 卷一百三十二，蓝玉骄蹇自恣与蓝党族诛段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132
+  - passage_ref: PAS-DC486E922EB0
+    source_title: 明史
+    locator: 卷一百三十二，蓝玉谋反案扩大处置段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132
+
+assertions:
+  - assertion_ref: CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001
+    source_passage_ref: PAS-1CD613D0DD2B
+    summary: 李世民擢拜魏徵为谏议大夫。
+    confidence: 0.95
+  - assertion_ref: CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001
+    source_passage_ref: PAS-1CD613D0DD2B
+    summary: 李世民持续纳受魏徵进言并授以职责。
+    confidence: 0.92
+  - assertion_ref: CLMEXT-9AA66020C316DC71@CLM-CP-001
+    source_passage_ref: PAS-5ACCDE1FA44F
+    summary: 陈平归汉后遭诸将诋毁，刘邦复核后仍予任用。
+    confidence: 0.92
+  - assertion_ref: CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT
+    source_passage_ref: PAS-5ACCDE1FA44F
+    summary: 刘邦厚赐陈平并拜为护军中尉，使其尽护诸将。
+    confidence: 0.95
+  - assertion_ref: CLMEXT-9AA66020C316DC71@CLM-CP-002
+    source_passage_ref: PAS-230CB5A24DBD
+    summary: 陈平继续承担护军职责并随军执行任务。
+    confidence: 0.9
+  - assertion_ref: CLMEXT-9AA66020C316DC71@CLM-CP-003
+    source_passage_ref: PAS-230CB5A24DBD
+    summary: 刘邦给予陈平专款实施反间并依据结果延续授权。
+    confidence: 0.92
+  - assertion_ref: CLMEXT-9AA66020C316DC71@CLM-HX-001
+    source_passage_ref: PAS-8F456F1A5D59
+    summary: 韩信破齐后请求代理齐王，刘邦起初反对。
+    confidence: 0.94
+  - assertion_ref: CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT
+    source_passage_ref: PAS-8F456F1A5D59
+    summary: 刘邦采纳张良意见，正式遣使立韩信为齐王。
+    confidence: 0.95
+  - assertion_ref: CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001
+    source_passage_ref: PAS-5DBD85CE95B9
+    summary: 冯胜获罪后，朱元璋命蓝玉代理总兵并拜为大将军。
+    confidence: 0.93
+  - assertion_ref: CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002
+    source_passage_ref: PAS-5DBD85CE95B9
+    summary: 蓝玉捕鱼儿海奏捷后进封凉国公。
+    confidence: 0.95
+  - assertion_ref: CLMEXT-6AF765223CB98D3F@CLM-LANYU-001
+    source_passage_ref: PAS-C251F2DC4A3B
+    summary: 蓝玉在后续任职中出现骄蹇自恣和擅专行为。
+    confidence: 0.9
+  - assertion_ref: CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B
+    source_passage_ref: PAS-C251F2DC4A3B
+    summary: 蓝玉案导致本人及相关人员被大规模处置。
+    confidence: 0.86
+  - assertion_ref: CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0
+    source_passage_ref: PAS-DC486E922EB0
+    summary: 谋反认定与案件扩大存在需要分离的责任和后果链。
+    confidence: 0.82
+
+historical_episodes:
+  - episode_ref: EP-LSM-WEIZHENG-APPOINTMENT@v1
+    episode_code: EP-LSM-WEIZHENG-APPOINTMENT
+    ruler: 李世民
+    person: 魏徵
+    action: 擢拜、授权与持续纳谏
+    responsibility: 谏议大夫、河北安辑与谏诤
+    outcome: 持续采用其专业意见并形成可见反馈
+    semantic_fingerprint: 25f7fdf274ed2124a0734dd49bca438327b294b66b490c682df420dcb07e8c63
+    assertion_refs:
+      - CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001
+      - CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001
+  - episode_ref: EP-LB-CHENPING-INTEGRATION@v1
+    episode_code: EP-LB-CHENPING-INTEGRATION
+    ruler: 刘邦
+    person: 陈平
+    action: 复核诋毁后任命
+    responsibility: 护军中尉
+    outcome: 继续任用陈平并使其典护军
+    semantic_fingerprint: 079f442ca8fcd1bee248aa98d03d495a1c581c12f704b9e015c451fde4e36beb
+    assertion_refs:
+      - CLMEXT-9AA66020C316DC71@CLM-CP-001
+      - CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT
+  - episode_ref: EP-LB-CHENPING-CONTINUED-AUTHORIZATION@v1
+    episode_code: EP-LB-CHENPING-CONTINUED-AUTHORIZATION
+    ruler: 刘邦
+    person: 陈平
+    action: 持续授权与任务复用
+    responsibility: 护军与反间谋略
+    outcome: 持续随军、实施反间并多次延续授权
+    semantic_fingerprint: ebd36a8f6d5ed79bbd1b3df8615c2bd31b8752913746beddb08a7c21dc82161d
+    assertion_refs:
+      - CLMEXT-9AA66020C316DC71@CLM-CP-002
+      - CLMEXT-9AA66020C316DC71@CLM-CP-003
+  - episode_ref: EP-LB-HANXIN-QI-KING@v1
+    episode_code: EP-LB-HANXIN-QI-KING
+    ruler: 刘邦
+    person: 韩信
+    action: 压力下调整授权并正式立为齐王
+    responsibility: 齐地王号与军事责任域
+    outcome: 韩信守齐并参与后续对楚作战
+    semantic_fingerprint: 5fa24bc2167a00a803758df5ec31fa4b2e040b169a8de2bfa91911c2899e470c
+    assertion_refs:
+      - CLMEXT-9AA66020C316DC71@CLM-HX-001
+      - CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT
+  - episode_ref: EP-ZYZ-LANYU-PROMOTION@v1
+    episode_code: EP-ZYZ-LANYU-PROMOTION
+    ruler: 朱元璋
+    person: 蓝玉
+    action: 代理总兵、拜大将军与进封
+    responsibility: 总兵官、大将军
+    outcome: 捕鱼儿海奏捷并进封凉国公
+    semantic_fingerprint: ca4816d74ae9ea5d291f7fbdb05a4944ba765b21dbf51db40b6dffeaaa960bf6
+    assertion_refs:
+      - CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001
+      - CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002
+  - episode_ref: EP-ZYZ-LANYU-PURGE@v1
+    episode_code: EP-ZYZ-LANYU-PURGE
+    ruler: 朱元璋
+    person: 蓝玉
+    action: 对后续擅专和案件的纠正与扩大处置
+    responsibility: 军事权责监督与案件处置
+    outcome: 蓝玉及相关人员被大规模处置
+    semantic_fingerprint: a7324e34ccb23028e2fcd740e5d1a3e11eb91230253de0a6d4c86e36cceda896
+    assertion_refs:
+      - CLMEXT-6AF765223CB98D3F@CLM-LANYU-001
+      - CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B
+      - CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0
+
+rule_evidence_units:
+  - unit_ref: REU-LSM-WEIZHENG-APPOINTMENT-v1
+    rule_code: appointment_delegation
+    ruler: 李世民
+    person: 魏徵
+    decision_arc_family: appointment_feedback
+    episode_refs: [EP-LSM-WEIZHENG-APPOINTMENT@v1]
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 魏徵进入谏议职责后持续提供可采纳意见。
+        assertion_refs: [CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001]
+      authority_clarity:
+        value: positive_signal
+        reason: 谏议职位和安辑、谏诤职责可定位。
+        assertion_refs: [CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001]
+      feedback_handling:
+        value: positive_signal
+        reason: 李世民持续纳受进言而非只完成一次任命。
+        assertion_refs: [CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001]
+      attributable_outcome:
+        value: positive_signal
+        reason: 任用链产生持续的专业反馈，且皇帝采纳责任明确。
+        assertion_refs:
+          - CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001
+          - CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-AUTHORIZATION-001
+  - unit_ref: REU-LB-CHENPING-AUTHORIZATION-v1
+    rule_code: appointment_delegation
+    ruler: 刘邦
+    person: 陈平
+    decision_arc_family: appointment_continued_authorization
+    episode_refs:
+      - EP-LB-CHENPING-INTEGRATION@v1
+      - EP-LB-CHENPING-CONTINUED-AUTHORIZATION@v1
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 陈平被置于护军和谋略职责后持续履职。
+        assertion_refs:
+          - CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT
+          - CLMEXT-9AA66020C316DC71@CLM-CP-003
+      authority_clarity:
+        value: positive_signal
+        reason: 护军职责和反间专款均有明确授权载体。
+        assertion_refs:
+          - CLMEXT-D63C5BDADE6A7EA5@CLM-CP-INTEGRATION-APPOINT
+          - CLMEXT-9AA66020C316DC71@CLM-CP-003
+      feedback_handling:
+        value: positive_signal
+        reason: 刘邦复核负面指控后未机械弃用，并按履职反馈延续授权。
+        assertion_refs:
+          - CLMEXT-9AA66020C316DC71@CLM-CP-001
+          - CLMEXT-9AA66020C316DC71@CLM-CP-002
+      attributable_outcome:
+        value: positive_signal
+        reason: 持续护军和反间结果可回溯到刘邦的任命与授权。
+        assertion_refs:
+          - CLMEXT-9AA66020C316DC71@CLM-CP-002
+          - CLMEXT-9AA66020C316DC71@CLM-CP-003
+  - unit_ref: REU-LB-HANXIN-QI-AUTHORITY-v1
+    rule_code: appointment_delegation
+    ruler: 刘邦
+    person: 韩信
+    decision_arc_family: pressure_adjusted_authorization
+    episode_refs: [EP-LB-HANXIN-QI-KING@v1]
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 韩信已完成齐地军事任务，岗位与任务能力有直接支持。
+        assertion_refs: [CLMEXT-9AA66020C316DC71@CLM-HX-001]
+      authority_clarity:
+        value: mixed_signal
+        reason: 最终齐王授权明确，但形成于请求和压力后的调整。
+        assertion_refs:
+          - CLMEXT-9AA66020C316DC71@CLM-HX-001
+          - CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT
+      feedback_handling:
+        value: positive_signal
+        reason: 刘邦在张良劝说后修正最初反应并完成正式授权。
+        assertion_refs:
+          - CLMEXT-9AA66020C316DC71@CLM-HX-001
+          - CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT
+      attributable_outcome:
+        value: positive_signal
+        reason: 授权后韩信承担守齐和后续对楚责任，归责链可定位。
+        assertion_refs: [CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT]
+  - unit_ref: REU-ZYZ-LANYU-AUTHORITY-v1
+    rule_code: appointment_delegation
+    ruler: 朱元璋
+    person: 蓝玉
+    decision_arc_family: appointment_feedback_correction
+    episode_refs:
+      - EP-ZYZ-LANYU-PROMOTION@v1
+      - EP-ZYZ-LANYU-PURGE@v1
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 蓝玉受任后完成捕鱼儿海任务并获进封反馈。
+        assertion_refs:
+          - CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001
+          - CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002
+      authority_clarity:
+        value: mixed_signal
+        reason: 总兵和大将军职责明确，但后续出现擅专，权责控制效果混合。
+        assertion_refs:
+          - CLMEXT-718F2718EFC7DF58@CLM-蓝玉-001
+          - CLMEXT-6AF765223CB98D3F@CLM-LANYU-001
+      feedback_handling:
+        value: negative_signal
+        reason: 从任用反馈到纠正之间已经出现持续擅专与监督迟滞。
+        assertion_refs:
+          - CLMEXT-6AF765223CB98D3F@CLM-LANYU-001
+          - CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-C251F2DC4A3B
+      attributable_outcome:
+        value: mixed_signal
+        reason: 前期任务成功与后期权责失控、扩大处置并存，且案件责任需保持分离。
+        assertion_refs:
+          - CLMEXT-718F2718EFC7DF58@CLM-蓝玉-002
+          - CLMEXT-6AF765223CB98D3F@CLM-LANYU-004@PAS-DC486E922EB0

@@ -11,8 +11,8 @@ from emperor_v4.evaluation.relation_fine_review import (
 )
 
 
-SCORING_RELATION_POLICY_VERSION = "relation-minimum-sufficient-scoring-v1"
-SCORING_RELATION_SCHEMA_VERSION = "relation-scoring-arc-review-output-v1"
+SCORING_RELATION_POLICY_VERSION = "relation-minimum-sufficient-scoring-v2"
+SCORING_RELATION_SCHEMA_VERSION = "relation-scoring-arc-review-output-v2"
 
 RELATION_DIRECTIONS = {
     "authority_change": frozenset(
@@ -276,6 +276,22 @@ def _has_path(adjacency: Mapping[str, set[str]], source: str, target: str) -> bo
     return False
 
 
+def _episode_version_ref(endpoint: Mapping[str, Any]) -> str:
+    episode_ref = str(endpoint.get("episode_ref") or "")
+    version_ref = str(endpoint.get("episode_version_ref") or "")
+    semantic_version = endpoint.get("semantic_version")
+    if (
+        not episode_ref
+        or not isinstance(semantic_version, int)
+        or semantic_version < 1
+        or version_ref != f"{episode_ref}@v{semantic_version}"
+    ):
+        raise ValueError("Scoring Relation endpoint 缺少一致的 Episode 版本身份")
+    if not str(endpoint.get("episode_semantic_fingerprint") or ""):
+        raise ValueError("Scoring Relation endpoint 缺少 semantic fingerprint")
+    return version_ref
+
+
 def materialize_scoring_relation_slice(
     worklist: Mapping[str, Any], response: Mapping[str, Any]
 ) -> dict[str, Any]:
@@ -312,11 +328,21 @@ def materialize_scoring_relation_slice(
             "relation_direction": row["relation_direction"],
             "scope_match": row["scope_match"],
             "fine_type": row["fine_type"],
+            "ruler_responsibility": row["ruler_responsibility"],
+            "evidence_directness": row["evidence_directness"],
         }
         if row["decision"] == "proposed_relation":
+            endpoint_by_ref = {
+                str(task["left"]["episode_ref"]): task["left"],
+                str(task["right"]["episode_ref"]): task["right"],
+            }
             identity = {
-                "from_episode_version_ref": f"{row['from_episode_ref']}@v1",
-                "to_episode_version_ref": f"{row['to_episode_ref']}@v1",
+                "from_episode_version_ref": _episode_version_ref(
+                    endpoint_by_ref[str(row["from_episode_ref"])]
+                ),
+                "to_episode_version_ref": _episode_version_ref(
+                    endpoint_by_ref[str(row["to_episode_ref"])]
+                ),
                 **semantic,
             }
             fingerprint = _hash(identity)
@@ -330,8 +356,6 @@ def materialize_scoring_relation_slice(
                     "proposal_status": "proposed",
                     "fine_type_status": row["fine_type_status"],
                     "same_scoring_arc": row["same_scoring_arc"],
-                    "ruler_responsibility": row["ruler_responsibility"],
-                    "evidence_directness": row["evidence_directness"],
                     "evidence_links": evidence_links,
                     "confidence": float(row["confidence"]),
                     "lineage": {"candidate_code": code},
@@ -339,8 +363,8 @@ def materialize_scoring_relation_slice(
             )
         else:
             endpoints = [
-                f"{task['left']['episode_ref']}@v1",
-                f"{task['right']['episode_ref']}@v1",
+                _episode_version_ref(task["left"]),
+                _episode_version_ref(task["right"]),
             ]
             identity = {
                 "rule_code": "appointment_delegation",
@@ -357,8 +381,6 @@ def materialize_scoring_relation_slice(
                     "proposal_status": "proposal_only",
                     "fine_type_status": row["fine_type_status"],
                     "same_scoring_arc": row["same_scoring_arc"],
-                    "ruler_responsibility": row["ruler_responsibility"],
-                    "evidence_directness": row["evidence_directness"],
                     "evidence_links": evidence_links,
                     "confidence": float(row["confidence"]),
                     "lineage": {"candidate_code": code},

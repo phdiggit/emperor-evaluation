@@ -130,6 +130,8 @@ def materialize_boundary_graph_payload(
                     "action": packet.action,
                     "responsibility": packet.responsibility,
                     "semantic_fingerprint": packet.semantic_fingerprint,
+                    "semantic_version": packet.semantic_version,
+                    "evidence_version": packet.evidence_version,
                     "review_atomic_event_key": atomic_key_by_episode[
                         packet.episode_id
                     ],

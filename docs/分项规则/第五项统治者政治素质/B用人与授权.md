@@ -1,7 +1,7 @@
 # 第五项 B：用人与授权（V4 业务规则）
 
-> 状态：`review_ready`
-> 当前阶段：首条纵向切片 `appointment_delegation` 已完成 RuleEvidenceUnit、Projection 与 Judgment readiness shadow；有限因子和计分待专门 Gate。
+> 状态：`scored_shadow_demo_ready`
+> 当前阶段：首条纵向切片 `appointment_delegation` 已批准有限因子、确定性 Judgment 与 shadow ScoreContribution；正式 45 分汇总和生产计分仍关闭。
 
 ## 1. 核心问题
 
@@ -166,20 +166,35 @@ coverage unit / scoring unit：一次独立任用—职责—反馈 episode，�
 - 每个贡献可追溯到 passage；
 - V3 对照差异有分类和人工裁定。
 
-## 12. 尚未批准
+## 12. `appointment_delegation` 有限因子与 shadow contribution
 
-当前未批准：
+已批准四个有限因子：
 
-- 正式有限因子值；
-- 材料分值；
-- 因子倍率；
-- 衰减公式；
-- 各 rule 权重；
-- 正负上限；
-- 正式档位映射；
-- 生产 scorer。
+```text
+person_task_fit
+authority_clarity
+feedback_handling
+attributable_outcome
+```
 
-这些必须在事件模型、RuleEvidenceUnit 和独立验收样本验证后单独审查。
+每个因子只允许：
+
+```text
+positive | mixed | negative | unknown | not_applicable
+```
+
+处理规则：
+
+- `unknown` 表示关键证据缺口，Judgment 必须 `needs_review`，不得生成 ScoreContribution；
+- `not_applicable` 不是零分，从公式分母排除；四项均不适用时只作 supporting context；
+- `mixed` 表示同一因子正负证据并存，在 shadow 公式中计 0，但必须保留混合方向和证据理由；
+- `positive / mixed / negative` 分别映射为 `+1 / 0 / -1`；
+- shadow contribution 为适用因子点数均值，范围 `[-1, 1]`，只比较评分单元信号，不是第五项 B 的 45 分正式得分；
+- 任一 `mixed`，或正负因子同时存在，Judgment direction 为 `mixed`；否则按全正或全负确定方向。
+
+该 evaluator 只消费冻结的 RuleEvidenceUnit、有限因子证据和版本；不调用模型。战役、治理等实际收益只作为用人反馈，不在本规则重复结算。
+
+仍未批准：材料权重、衰减、各 rule 权重、正负上限、45 分档位映射、总榜和生产 scorer。
 
 ## 13. 当前实现摘要
 
@@ -193,6 +208,12 @@ coverage unit / scoring unit：一次独立任用—职责—反馈 episode，�
 - evidence blocker 与 Episode 重复消费均为 0；
 - 3 个变化 Projection 局部重建，1 个未变化结果精确复用。
 
-这些结果只证明评分单元、lineage、readiness 和增量缓存合同可行，不是正式 Judgment 或分数。完整实施摘要见 [《评分最小充分 Shadow 实施摘要》](../../31-G3R评分最小充分Relation重解释.md)。
+G3R—G3H 的结果证明评分单元、lineage、readiness 和增量缓存合同可行。当前 scored demo 已用统一命令将冻结 Source/Assertion 输入串到 factor、Judgment、ScoreContribution 和皇帝级 shadow 汇总；结果仍不得解释为正式 45 分评分。完整实施摘要见 [《评分最小充分 Shadow 实施摘要》](../../31-G3R评分最小充分Relation重解释.md)。
 
-下一交付物必须把四个观察维度升级为有限 factor schema，完成确定性 Judgment evaluator、ScoreContribution 合同和统一 scored shadow runner。在此之前不新增微阶段文档，也不解释为正式评分。
+Relation v2 使用实际 Episode semantic version 作为端点版本身份，并将 `ruler_responsibility` 与 `evidence_directness` 纳入语义指纹；source-gap input gate v2 会跳过并审计 `not_found_stop` 项，同时继续处理同批可补证候选。相关回归按合同、版本和纵向不变量集中维护，不再按 G3R—G3H 微阶段镜像拆分。
+
+统一入口：
+
+```bash
+python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
+```

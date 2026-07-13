@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import pytest
@@ -56,13 +57,358 @@ from emperor_v4.evaluation.source_development import (
     materialize_source_development_input,
 )
 from emperor_v4.contracts.source import text_content_hash
+from emperor_v4.application.appointment_delegation_shadow_runner import (
+    run_appointment_delegation_shadow,
+)
+from emperor_v4.eval import main as eval_main
+from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
+from emperor_v4.evaluation.rule_evidence_shadow import (
+    RULE_EVIDENCE_SHADOW_POLICY_VERSION,
+    RULE_EVIDENCE_SHADOW_SCHEMA_VERSION,
+    build_rule_evidence_shadow_worklist,
+    materialize_rule_evidence_shadow,
+)
+from emperor_v4.evaluation.projection_judgment_shadow import (
+    JUDGMENT_SHADOW_POLICY_VERSION,
+    JUDGMENT_SHADOW_SCHEMA_VERSION,
+    PROJECTION_SHADOW_POLICY_VERSION,
+    build_projection_shadow_worklist,
+    materialize_judgment_shadow_review,
+)
+from emperor_v4.evaluation.judgment_source_gap import (
+    SOURCE_GAP_POLICY_VERSION,
+    SOURCE_GAP_SCHEMA_VERSION,
+    build_judgment_source_gap_worklist,
+    materialize_source_gap_inventory,
+)
+from emperor_v4.evaluation.source_gap_input_gate import (
+    INPUT_GATE_POLICY_VERSION,
+    INPUT_GATE_SCHEMA_VERSION,
+    build_source_gap_input_gate_worklist,
+    materialize_source_gap_input_gate,
+)
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
+SCORED_DEMO = (
+    Path(__file__).parents[1]
+    / "eval"
+    / "appointment_delegation_scored_demo"
+    / "manifest.yml"
+)
 
 
 def _fixture(name: str) -> dict:
     return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+
+
+def test_appointment_delegation_scored_shadow_vertical_slice(tmp_path: Path, monkeypatch):
+    report = run_appointment_delegation_shadow(SCORED_DEMO)
+
+    assert report["status"] == "appointment_delegation_scored_shadow_ready"
+    assert report["summary"]["ruler_count"] == 3
+    assert report["summary"]["rule_evidence_unit_count"] == 4
+    assert report["summary"]["score_contribution_count"] == 4
+    assert report["summary"]["duplicate_consumption_episode_refs"] == []
+    assert {row["ruler"] for row in report["ruler_aggregates"]} == {
+        "李世民",
+        "刘邦",
+        "朱元璋",
+    }
+    assert all(len(row["factor_values"]) == 4 for row in report["judgments"])
+    assert all(
+        row["duplicate_settlement_check"] == "passed"
+        for row in report["score_contributions"]
+    )
+    assert report["side_effect_audit"] == {
+        "offline": True,
+        "report_only": True,
+        "model_call_count": 0,
+        "database_write_count": 0,
+        "formal_acceptance_performed": False,
+    }
+    assert report["lineage"]["source_passages"]
+    assert report["lineage"]["assertions"]
+    assert report["lineage"]["historical_episodes"]
+    unsigned_report = dict(report)
+    stored_hash = unsigned_report.pop("report_sha256")
+    assert stored_hash == canonical_hash(unsigned_report)
+
+    output = tmp_path / "report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "appointment-delegation-shadow",
+            "--manifest",
+            str(SCORED_DEMO),
+            "--output",
+            str(output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(output.read_text(encoding="utf-8")) == report
+
+
+def test_g3_shadow_evidence_to_input_gate_vertical_invariants():
+    def episode(ref: str, action: str) -> dict:
+        return {
+            "episode_ref": ref,
+            "focal_person_ref": "PER-1",
+            "action": action,
+            "assertions": [
+                {
+                    "assertion_ref": f"AST-{ref}",
+                    "subject": "皇帝甲",
+                    "source_passage_ref": f"SP-{ref}",
+                }
+            ],
+        }
+
+    left = episode("EP-1", "任命")
+    right = episode("EP-2", "授权")
+    scoring_worklist = {
+        "task_code": "G3R-CONSOLIDATED",
+        "worklist_sha256": "fixture",
+        "tasks": [
+            {
+                "candidate_code": "C-1",
+                "dataset_code": "vertical-fixture",
+                "left": left,
+                "right": right,
+            }
+        ],
+    }
+    scoring_final = {
+        "status": "minimum_sufficient_relation_slice_passed",
+        "task_code": scoring_worklist["task_code"],
+        "minimum_sufficient_gate_passed": True,
+        "unresolved_count": 0,
+        "formal_relation_count": 0,
+        "formal_rule_evidence_unit_count": 0,
+        "database_write_count": 0,
+        "scoring_relation_proposals": [
+            {
+                "scoring_relation_proposal_id": "SRP-1",
+                "from_episode_version_ref": "EP-1@v1",
+                "to_episode_version_ref": "EP-2@v1",
+                "relation_family": "authority_change",
+                "relation_direction": "expand",
+                "scope_match": "same_authority_domain",
+                "fine_type": "appointment_to_delegation",
+                "fine_type_status": "resolved",
+                "lineage": {"candidate_code": "C-1"},
+            }
+        ],
+        "scoring_arc_memberships": [],
+    }
+    evidence_worklist = build_rule_evidence_shadow_worklist(
+        scoring_worklist, scoring_final
+    )
+    component = evidence_worklist["components"][0]
+    evidence_response = {
+        "status": "rule_evidence_shadow_reviews_complete",
+        "task_code": evidence_worklist["task_code"],
+        "worklist_sha256": evidence_worklist["worklist_sha256"],
+        "rule_evidence_shadow_policy_version": RULE_EVIDENCE_SHADOW_POLICY_VERSION,
+        "output_schema_version": RULE_EVIDENCE_SHADOW_SCHEMA_VERSION,
+        "reviewer": "vertical-reviewer",
+        "reviewed_without_forbidden_inputs": True,
+        "gold_accessed": False,
+        "old_rule_evidence_accessed": False,
+        "formal_acceptance_performed": False,
+        "judgment_performed": False,
+        "scoring_performed": False,
+        "database_write_count": 0,
+        "results": [
+            {
+                "component_code": component["component_code"],
+                "applicability": "applicable",
+                "reason": "任命与授权形成最小评分弧。",
+                "ruler_ref": "皇帝甲",
+                "person_ref": "PER-1",
+                "decision_arc_family": "appointment_to_mandate",
+                "episode_member_roles": {
+                    "EP-1@v1": "initial_appointment",
+                    "EP-2@v1": "delegation",
+                },
+                "included_link_refs": ["SRP-1"],
+                "evidence_assertion_refs": ["AST-EP-1", "AST-EP-2"],
+                "question_readiness": {
+                    "delegation_quality": "ready",
+                    "supervision_quality": "ready",
+                    "correction_timeliness": "not_applicable",
+                    "net_effect": "evidence_gap",
+                },
+            }
+        ],
+    }
+    evidence_final = materialize_rule_evidence_shadow(
+        evidence_worklist, evidence_response
+    )
+    assert evidence_final["draft_unit_count"] == 1
+    assert evidence_final["duplicate_consumption_episode_refs"] == []
+
+    missing_evidence = json.loads(json.dumps(evidence_response, ensure_ascii=False))
+    missing_evidence["results"][0]["evidence_assertion_refs"].pop()
+    with pytest.raises(ValueError, match="覆盖每个 Episode"):
+        materialize_rule_evidence_shadow(evidence_worklist, missing_evidence)
+
+    projection_worklist = build_projection_shadow_worklist(evidence_final)
+    projection = projection_worklist["projections"][0]
+    blocked_response = {
+        "status": "judgment_shadow_reviews_complete",
+        "task_code": projection_worklist["task_code"],
+        "worklist_sha256": projection_worklist["worklist_sha256"],
+        "projection_shadow_policy_version": PROJECTION_SHADOW_POLICY_VERSION,
+        "judgment_shadow_policy_version": JUDGMENT_SHADOW_POLICY_VERSION,
+        "output_schema_version": JUDGMENT_SHADOW_SCHEMA_VERSION,
+        "reviewer": "vertical-reviewer",
+        "reviewed_without_forbidden_inputs": True,
+        "gold_accessed": False,
+        "old_judgment_accessed": False,
+        "formal_acceptance_performed": False,
+        "scoring_performed": False,
+        "database_write_count": 0,
+        "results": [
+            {
+                "projection_code": projection["projection_code"],
+                "review_disposition": "blocked_evidence",
+                "shadow_direction": None,
+                "review_reason": "净效果证据不足。",
+                "observations": {
+                    "person_task_fit": {
+                        "value": "positive_signal",
+                        "reason": "任命适配。",
+                        "evidence_assertion_refs": ["AST-EP-1"],
+                    },
+                    "authority_clarity": {
+                        "value": "positive_signal",
+                        "reason": "授权明确。",
+                        "evidence_assertion_refs": ["AST-EP-2"],
+                    },
+                    "feedback_handling": {
+                        "value": "not_applicable",
+                        "reason": "当前弧无纠错动作。",
+                        "evidence_assertion_refs": [],
+                    },
+                    "attributable_outcome": {
+                        "value": "evidence_gap",
+                        "reason": "缺少结果证据。",
+                        "evidence_assertion_refs": [],
+                    },
+                },
+            }
+        ],
+    }
+    readiness_final = materialize_judgment_shadow_review(
+        projection_worklist, blocked_response
+    )
+    assert readiness_final["blocked_evidence_count"] == 1
+    assert readiness_final["judgment_shadow_candidate_count"] == 0
+
+    illegal_direction = json.loads(json.dumps(blocked_response, ensure_ascii=False))
+    illegal_direction["results"][0]["review_disposition"] = "judgment_shadow_ready"
+    illegal_direction["results"][0]["shadow_direction"] = "positive"
+    with pytest.raises(ValueError, match="evidence_gap"):
+        materialize_judgment_shadow_review(
+            projection_worklist, illegal_direction
+        )
+
+    readiness_handoff = dict(readiness_final)
+    readiness_handoff["status"] = "judgment_shadow_readiness_passed"
+    readiness_handoff["shadow_gate_passed"] = True
+    gap_worklist = build_judgment_source_gap_worklist(
+        projection_worklist, blocked_response, readiness_handoff
+    )
+    gap = gap_worklist["gap_requests"][0]
+    assert gap["open_observation_dimensions"] == ["attributable_outcome"]
+    inventory_response = {
+        "status": "judgment_source_gap_inventory_complete",
+        "task_code": gap_worklist["task_code"],
+        "worklist_sha256": gap_worklist["worklist_sha256"],
+        "source_gap_policy_version": SOURCE_GAP_POLICY_VERSION,
+        "output_schema_version": SOURCE_GAP_SCHEMA_VERSION,
+        "reviewer": "vertical-reviewer",
+        "inventory_only": True,
+        "inventory_sources": ["eval/source-v2/input.json"],
+        "gold_accessed": False,
+        "old_relation_accessed": False,
+        "old_judgment_accessed": False,
+        "external_fetch_performed": False,
+        "formal_acceptance_performed": False,
+        "database_write_count": 0,
+        "results": [
+            {
+                "gap_code": gap["gap_code"],
+                "resolution_kind": "existing_episode_candidate",
+                "addressed_observation_dimensions": ["attributable_outcome"],
+                "addressed_readiness_questions": ["net_effect"],
+                "candidate_episode_refs": ["EP-RESULT@v1"],
+                "existing_assertion_refs": ["AST-RESULT"],
+                "source_passage_refs": ["SP-RESULT"],
+                "proposed_assertion_summary": None,
+                "follow_up_gate": "episode_arc_review",
+                "reason": "现有结果 Episode 可进入评分弧审查。",
+                "stop_condition": "找到直接结果后停止。",
+            }
+        ],
+    }
+    inventory_final = materialize_source_gap_inventory(
+        gap_worklist, inventory_response
+    )
+    assert inventory_final["readiness_rerun_authorized"] is False
+
+    forbidden_inventory = json.loads(
+        json.dumps(inventory_response, ensure_ascii=False)
+    )
+    forbidden_inventory["inventory_sources"] = ["eval/historical_gold.json"]
+    with pytest.raises(ValueError, match="禁止范围"):
+        materialize_source_gap_inventory(gap_worklist, forbidden_inventory)
+
+    gate_worklist = build_source_gap_input_gate_worklist(
+        gap_worklist, inventory_response, inventory_final
+    )
+    gate_response = {
+        "status": "source_gap_input_gate_reviews_complete",
+        "task_code": gate_worklist["task_code"],
+        "worklist_sha256": gate_worklist["worklist_sha256"],
+        "input_gate_policy_version": INPUT_GATE_POLICY_VERSION,
+        "output_schema_version": INPUT_GATE_SCHEMA_VERSION,
+        "reviewer": "vertical-reviewer",
+        "proposal_only": True,
+        "gold_accessed": False,
+        "formal_acceptance_performed": False,
+        "judgment_performed": False,
+        "scoring_performed": False,
+        "database_write_count": 0,
+        "results": [
+            {
+                "gap_code": gap["gap_code"],
+                "disposition": "accepted_for_shadow_delta",
+                "reason": "结果 Episode 与当前任用弧一致。",
+                "boundary_disposition": "episode_arc_member",
+                "episode_arc_review": {
+                    "decision": "same_scoring_arc",
+                    "candidate_episode_ref": "EP-RESULT@v1",
+                    "evidence_assertion_refs": ["AST-RESULT"],
+                    "source_passage_refs": ["SP-RESULT"],
+                },
+                "source_passage_snapshot": None,
+                "candidate_source_passage": None,
+                "candidate_assertion": None,
+                "proposed_episode_ref": None,
+                "member_role": "outcome",
+            }
+        ],
+    }
+    gate_final = materialize_source_gap_input_gate(
+        gate_worklist, gate_response
+    )
+    assert gate_final["status"] == "source_gap_input_gate_passed_for_shadow_delta"
+    assert gate_final["shadow_delta_authorized"] is True
+    assert gate_final["database_write_count"] == gate_final["score_count"] == 0
 
 
 def test_graph_materializer_accepts_v28_isolated_review_freeze_metadata():

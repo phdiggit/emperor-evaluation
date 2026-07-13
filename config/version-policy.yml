@@ -17,6 +17,8 @@ version_policy:
       - time_scope_changes_materially
       - responsibility_or_outcome_changes_materially
       - relation_type_or_endpoint_changes
+      - relation_ruler_responsibility_or_evidence_directness_changes
+      - relation_endpoint_semantic_version_changes
       - rule_evidence_membership_or_member_role_changes
       - aggregation_policy_version_changes
 
@@ -38,7 +40,15 @@ version_policy:
       - semantic_fingerprint
       - rule_version
       - judgment_policy_version
+      - factor_schema_version
       - output_schema_version
+
+  factor_schema_version:
+    explicit_on_every_judgment: true
+    changes_when:
+      - factor_dimension_changes
+      - factor_value_domain_changes
+      - missing_or_not_applicable_semantics_change
 
   boundary_review_cache:
     cache_key_requires:
@@ -65,6 +75,11 @@ version_policy:
     explicit_on_every_score: true
     deterministic_only: true
     publish_only_after_acceptance_gate: true
+    cache_key_requires:
+      - judgment_semantic_fingerprint
+      - scoring_formula_version
+      - evaluation_scope
+    shadow_contribution_cannot_publish_formal_score: true
 
   lineage:
     required_between_versions: true

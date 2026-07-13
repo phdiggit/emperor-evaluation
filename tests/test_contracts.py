@@ -7,6 +7,7 @@ from hashlib import sha256
 from pathlib import Path
 
 import pytest
+import yaml
 
 from emperor_v4.adapters import (
     WikisourcePageSnapshot,
@@ -36,9 +37,46 @@ from emperor_v4.evaluation.passage_support import (
     canonical_payload_hash,
     materialize_passage_scoped_blind_input,
 )
+from emperor_v4.evaluation.appointment_delegation_scoring import (
+    evaluate_judgment,
+    score_judgment,
+    validate_scored_demo_manifest,
+)
+from emperor_v4.evaluation.relation_endpoint_review import (
+    ENDPOINT_REVIEW_POLICY_VERSION,
+    ENDPOINT_REVIEW_SCHEMA_VERSION,
+    _endpoint_evidence,
+    build_endpoint_review_worklist,
+    compare_endpoint_reviewers,
+)
+from emperor_v4.evaluation.relation_blocking import build_relation_candidate_blocks
+from emperor_v4.evaluation.relation_fine_review import (
+    FINE_RELATION_POLICY_VERSION,
+    FINE_RELATION_REVIEW_SCHEMA_VERSION,
+    build_fine_relation_worklist,
+    materialize_fine_relation_proposals,
+)
+from emperor_v4.evaluation.relation_scoring_arc import (
+    SCORING_RELATION_POLICY_VERSION,
+    SCORING_RELATION_SCHEMA_VERSION,
+    build_scoring_relation_worklist,
+    materialize_scoring_relation_slice,
+)
+from emperor_v4.evaluation.source_gap_input_gate import (
+    INPUT_GATE_POLICY_VERSION,
+    INPUT_GATE_SCHEMA_VERSION,
+    build_source_gap_input_gate_worklist,
+    materialize_source_gap_input_gate,
+)
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
+SCORED_DEMO = (
+    Path(__file__).parents[1]
+    / "eval"
+    / "appointment_delegation_scored_demo"
+    / "manifest.yml"
+)
 
 
 def _fixture(name: str) -> dict:
@@ -73,6 +111,468 @@ def test_rule_evidence_unit_is_draft_only_and_does_not_score():
         aggregation_reason="同一成员按新策略聚合",
     )
     assert changed_policy.unit_code != unit.unit_code
+
+
+def test_scored_shadow_contract_blocks_unknown_factor_without_zero_scoring():
+    manifest = yaml.safe_load(SCORED_DEMO.read_text(encoding="utf-8"))
+    unit = deepcopy(manifest["rule_evidence_units"][0])
+    unit["factor_observations"]["attributable_outcome"] = {
+        "value": "evidence_gap",
+        "reason": "fixture gap",
+        "assertion_refs": [],
+    }
+    manifest["rule_evidence_units"][0] = unit
+    validate_scored_demo_manifest(manifest)
+    episodes = {row["episode_ref"]: row for row in manifest["historical_episodes"]}
+    assertions = {row["assertion_ref"]: row for row in manifest["assertions"]}
+
+    judgment = evaluate_judgment(unit, episodes, assertions)
+
+    assert judgment["factor_values"]["attributable_outcome"] == "unknown"
+    assert judgment["applicability"] == "blocked_evidence"
+    assert judgment["review_status"] == "needs_review"
+    assert score_judgment(judgment) is None
+
+
+def test_scored_shadow_contract_rejects_open_factor_value_domain():
+    manifest = yaml.safe_load(SCORED_DEMO.read_text(encoding="utf-8"))
+    manifest["rule_evidence_units"][0]["factor_observations"]["person_task_fit"][
+        "value"
+    ] = "very_good"
+
+    with pytest.raises(ValueError, match="observation value"):
+        validate_scored_demo_manifest(manifest)
+
+
+def _g3_relation_side(code: str, version: int) -> dict:
+    suffix = code[-1]
+    return {
+        "episode_ref": code,
+        "episode_version_ref": f"{code}@v{version}",
+        "episode_semantic_fingerprint": suffix * 64,
+        "semantic_version": version,
+        "evidence_version": 1,
+        "assertions": [
+            {
+                "assertion_ref": f"AST-{suffix}",
+                "source_passage_ref": f"SP-{suffix}",
+            }
+        ],
+        "source_passages": [
+            {"source_passage_ref": f"SP-{suffix}", "raw_text": "fixture"}
+        ],
+    }
+
+
+def _g3_relation_inputs() -> tuple[dict, dict]:
+    endpoint = {
+        "task_code": "G3R-ENDPOINT-CONSOLIDATED",
+        "worklist_sha256": "a" * 64,
+        "tasks": [
+            {
+                "candidate_code": "RBC-VERSIONED",
+                "dataset_code": "fixture",
+                "left": _g3_relation_side("EP-A", 2),
+                "right": _g3_relation_side("EP-B", 3),
+            }
+        ],
+    }
+    final = {
+        "status": "endpoint_agreement_gate_passed_after_adjudication",
+        "agreement_gate_passed": True,
+        "source_task_code": endpoint["task_code"],
+        "final_proposals": [
+            {
+                "candidate_code": "RBC-VERSIONED",
+                "proposed_disposition": "proposed_direct_relation",
+                "coarse_type": "authority_change",
+            }
+        ],
+        "proposal_counts": {"proposed_direct_relation": 1},
+        "gold_accessed": False,
+        "formal_acceptance_performed": False,
+        "formal_relation_count": 0,
+        "database_write_count": 0,
+    }
+    return endpoint, final
+
+
+def _g3_scoring_response(worklist: dict) -> dict:
+    task = worklist["tasks"][0]
+    return {
+        "status": "scoring_relation_reviews_complete",
+        "task_code": worklist["task_code"],
+        "worklist_sha256": worklist["worklist_sha256"],
+        "scoring_relation_policy_version": SCORING_RELATION_POLICY_VERSION,
+        "output_schema_version": SCORING_RELATION_SCHEMA_VERSION,
+        "reviewer": "consolidated-reviewer",
+        "reviewed_without_forbidden_inputs": True,
+        "gold_accessed": False,
+        "old_relation_review_accessed": False,
+        "formal_acceptance_performed": False,
+        "database_write_count": 0,
+        "results": [
+            {
+                "candidate_code": task["candidate_code"],
+                "decision": "proposed_relation",
+                "same_scoring_arc": "yes",
+                "relation_family": "authority_change",
+                "relation_direction": "reduce",
+                "scope_match": "whole_person_status",
+                "fine_type": None,
+                "fine_type_status": "not_required_for_scoring",
+                "from_episode_ref": "EP-A",
+                "to_episode_ref": "EP-B",
+                "unit_member_roles": None,
+                "ruler_responsibility": "direct",
+                "evidence_directness": "strongly_implied",
+                "evidence_assertion_refs": ["AST-A", "AST-B"],
+                "confidence": 0.9,
+                "reason": "版本化端点和皇帝责任足以支持评分。",
+            }
+        ],
+    }
+
+
+def test_relation_identity_uses_actual_episode_versions_and_scoring_semantics():
+    endpoint, final = _g3_relation_inputs()
+    worklist = build_scoring_relation_worklist(endpoint, final)
+    response = _g3_scoring_response(worklist)
+
+    direct = materialize_scoring_relation_slice(worklist, response)
+    proposal = direct["scoring_relation_proposals"][0]
+    assert proposal["from_episode_version_ref"] == "EP-A@v2"
+    assert proposal["to_episode_version_ref"] == "EP-B@v3"
+    assert proposal["ruler_responsibility"] == "direct"
+    assert proposal["evidence_directness"] == "strongly_implied"
+
+    responsibility_changed = deepcopy(response)
+    responsibility_changed["results"][0]["ruler_responsibility"] = "partial"
+    responsibility_report = materialize_scoring_relation_slice(
+        worklist, responsibility_changed
+    )
+    directness_changed = deepcopy(response)
+    directness_changed["results"][0]["evidence_directness"] = "explicit"
+    directness_report = materialize_scoring_relation_slice(
+        worklist, directness_changed
+    )
+    identities = {
+        proposal["semantic_fingerprint"],
+        responsibility_report["scoring_relation_proposals"][0][
+            "semantic_fingerprint"
+        ],
+        directness_report["scoring_relation_proposals"][0][
+            "semantic_fingerprint"
+        ],
+    }
+    assert len(identities) == 3
+
+
+def test_relation_materialization_fails_closed_without_version_identity():
+    endpoint, final = _g3_relation_inputs()
+    del endpoint["tasks"][0]["left"]["episode_version_ref"]
+    worklist = build_scoring_relation_worklist(endpoint, final)
+
+    with pytest.raises(ValueError, match="Episode 版本身份"):
+        materialize_scoring_relation_slice(
+            worklist, _g3_scoring_response(worklist)
+        )
+
+
+def test_endpoint_projection_carries_episode_version_and_fingerprint():
+    endpoint = _endpoint_evidence(
+        {
+            "local_episode_code": "EP-V2",
+            "semantic_version": 2,
+            "evidence_version": 3,
+            "semantic_fingerprint": "f" * 64,
+            "core_assertion_refs": ["AST-1"],
+        },
+        {
+            "AST-1": {
+                "assertion_ref": "AST-1",
+                "source_passage_ref": "SP-1",
+                "qualifiers": {},
+            }
+        },
+        {
+            "SP-1": {
+                "source_passage_ref": "SP-1",
+                "raw_text": "fixture",
+            }
+        },
+    )
+
+    assert endpoint["episode_version_ref"] == "EP-V2@v2"
+    assert endpoint["episode_semantic_fingerprint"] == "f" * 64
+    assert endpoint["evidence_version"] == 3
+
+
+def test_fine_relation_uses_versioned_endpoints_and_remains_proposal_only():
+    endpoint, final = _g3_relation_inputs()
+    worklist = build_fine_relation_worklist(endpoint, final)
+    task = worklist["tasks"][0]
+    response = {
+        "status": "fine_relation_reviews_complete",
+        "task_code": worklist["task_code"],
+        "worklist_sha256": worklist["worklist_sha256"],
+        "fine_relation_policy_version": FINE_RELATION_POLICY_VERSION,
+        "output_schema_version": FINE_RELATION_REVIEW_SCHEMA_VERSION,
+        "reviewer": "fine-reviewer",
+        "reviewed_without_forbidden_inputs": True,
+        "gold_accessed": False,
+        "old_relation_review_accessed": False,
+        "formal_acceptance_performed": False,
+        "database_write_count": 0,
+        "results": [
+            {
+                "candidate_code": task["candidate_code"],
+                "decision": "proposed_relation",
+                "from_episode_ref": "EP-A",
+                "to_episode_ref": "EP-B",
+                "relation_type": "revokes",
+                "evidence_assertion_refs": ["AST-A", "AST-B"],
+                "confidence": 0.9,
+                "reason": "证据支持权责收缩。",
+            }
+        ],
+    }
+
+    report = materialize_fine_relation_proposals(worklist, response)
+
+    relation = report["relation_proposals"][0]
+    assert relation["from_episode_version_ref"] == "EP-A@v2"
+    assert relation["to_episode_version_ref"] == "EP-B@v3"
+    assert relation["relation_status"] == "proposed"
+    assert report["formal_relation_count"] == report["database_write_count"] == 0
+
+
+def _g3_blocking_payload(rows: list[tuple[str, str, int, str]]) -> tuple[dict, dict]:
+    assertions = [
+        {
+            "assertion_code": f"A-{index}",
+            "source_passage_ref": passage,
+            "subject": "皇帝",
+            "object": person,
+            "qualifiers": {"normalized_time": {"start_sort_key": year}},
+        }
+        for index, (_, person, year, passage) in enumerate(rows)
+    ]
+    blind = {
+        "dataset_code": "blocking-consolidated",
+        "assertions": assertions,
+        "source_passages": [
+            {
+                "passage_code": passage,
+                "document_code": "DOC-1",
+                "locator": f"section:{index}",
+                "raw_text": f"fixture-{index}",
+            }
+            for index, (_, _, _, passage) in enumerate(rows)
+        ],
+    }
+    rendered = json.dumps(
+        blind, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    graph = {
+        "dataset_code": blind["dataset_code"],
+        "input_sha256": sha256(rendered.encode("utf-8")).hexdigest(),
+        "episode_groups": [
+            {
+                "local_episode_code": episode_ref,
+                "evaluation_context": "PER-RULER",
+                "focal_person_ref": person,
+                "semantic_version": index + 2,
+                "evidence_version": 1,
+                "semantic_fingerprint": f"{index + 1}" * 64,
+                "core_assertion_refs": [f"A-{index}"],
+            }
+            for index, (episode_ref, person, _, _) in enumerate(rows)
+        ],
+    }
+    return graph, blind
+
+
+def test_endpoint_dual_review_preserves_version_identity_and_fails_closed():
+    graph, blind = _g3_blocking_payload(
+        [("EP-1", "官员甲", 100, "SP-1"), ("EP-2", "官员甲", 108, "SP-2")]
+    )
+    blocking = build_relation_candidate_blocks(graph, blind)
+    worklist = build_endpoint_review_worklist(blocking, graph, blind)
+    task = worklist["tasks"][0]
+
+    def response(reviewer: str, direct: str = "yes") -> dict:
+        return {
+            "status": "endpoint_reviews_complete",
+            "task_code": worklist["task_code"],
+            "worklist_sha256": worklist["worklist_sha256"],
+            "endpoint_review_policy_version": ENDPOINT_REVIEW_POLICY_VERSION,
+            "output_schema_version": ENDPOINT_REVIEW_SCHEMA_VERSION,
+            "reviewer": reviewer,
+            "reviewed_without_forbidden_inputs": True,
+            "gold_accessed": False,
+            "other_reviewer_output_accessed": False,
+            "formal_acceptance_performed": False,
+            "results": [
+                {
+                    "candidate_code": task["candidate_code"],
+                    "direct_relation": direct,
+                    "coarse_type": "authority_change" if direct == "yes" else None,
+                    "evidence_assertion_refs": ["A-0", "A-1"],
+                    "reason": "两端证据支持直接的权责变化。",
+                }
+            ],
+        }
+
+    assert task["left"]["episode_version_ref"] == "EP-1@v2"
+    assert task["right"]["episode_version_ref"] == "EP-2@v3"
+    agreed = compare_endpoint_reviewers(
+        worklist, response("reviewer-a"), response("reviewer-b")
+    )
+    assert agreed["agreement_gate_passed"] is True
+    disagreed = compare_endpoint_reviewers(
+        worklist, response("reviewer-a"), response("reviewer-b", "insufficient")
+    )
+    assert disagreed["agreement_gate_passed"] is False
+    assert disagreed["needs_adjudication_count"] == 1
+
+
+def test_relation_blocking_is_selective_deterministic_and_identity_stable():
+    graph, blind = _g3_blocking_payload(
+        [("EP-1", "官员甲", 100, "SP-1"), ("EP-2", "官员甲", 108, "SP-2")]
+    )
+    first = build_relation_candidate_blocks(graph, blind)
+    assert first["candidate_pair_count"] == 1
+    assert first["formal_relation_count"] == first["model_call_count"] == 0
+    assert first == build_relation_candidate_blocks(deepcopy(graph), deepcopy(blind))
+
+    expanded_graph, expanded_blind = _g3_blocking_payload(
+        [
+            ("EP-1", "官员甲", 100, "SP-1"),
+            ("EP-2", "官员甲", 108, "SP-2"),
+            ("EP-3", "官员乙", 300, "SP-3"),
+        ]
+    )
+    expanded = build_relation_candidate_blocks(expanded_graph, expanded_blind)
+    assert expanded["candidates"][0]["candidate_code"] == first["candidates"][0][
+        "candidate_code"
+    ]
+
+    far_graph, far_blind = _g3_blocking_payload(
+        [("EP-1", "官员甲", 100, "SP-1"), ("EP-2", "官员甲", 120, "SP-2")]
+    )
+    far = build_relation_candidate_blocks(far_graph, far_blind)
+    assert far["candidate_pair_count"] == 0
+    assert far["excluded_pair_semantics"] == "not_review_eligible_not_distinct_unrelated"
+
+    leaked = deepcopy(graph)
+    leaked["gold_relations"] = []
+    with pytest.raises(ValueError, match="禁止字段"):
+        build_relation_candidate_blocks(leaked, blind)
+
+
+def _g3_source_gap_upstream(kinds: list[str]) -> tuple[dict, dict, dict]:
+    requests = []
+    results = []
+    for index, kind in enumerate(kinds, start=1):
+        code = f"JSG-{index}"
+        requests.append(
+            {
+                "gap_code": code,
+                "input_ref": f"RUE-{index}",
+                "ruler_ref": "皇帝甲",
+                "person_ref": f"PER-{index}",
+                "decision_arc_family": "authority_trajectory",
+                "current_episode_refs": [f"EP-{index}@v1"],
+                "open_observation_dimensions": ["attributable_outcome"],
+                "open_readiness_questions": ["net_effect"],
+            }
+        )
+        results.append(
+            {
+                "gap_code": code,
+                "resolution_kind": kind,
+                "candidate_episode_refs": (
+                    [f"EP-CANDIDATE-{index}@v1"]
+                    if kind == "existing_episode_candidate"
+                    else []
+                ),
+                "existing_assertion_refs": (
+                    [f"AST-{index}"]
+                    if kind == "existing_episode_candidate"
+                    else []
+                ),
+                "source_passage_refs": (
+                    [f"SP-{index}"] if kind != "not_found_stop" else []
+                ),
+                "proposed_assertion_summary": None,
+                "follow_up_gate": (
+                    "episode_arc_review"
+                    if kind == "existing_episode_candidate"
+                    else "stop"
+                ),
+                "reason": "fixture inventory result",
+                "stop_condition": "库存检索完成后停止。",
+            }
+        )
+    worklist = {"task_code": "G3E-CONSOLIDATED", "gap_requests": requests}
+    response = {"task_code": worklist["task_code"], "results": results}
+    final = {
+        "status": "source_gap_inventory_complete_pending_input_gates",
+        "task_code": worklist["task_code"],
+        "all_gap_requests_covered": True,
+        "readiness_rerun_authorized": False,
+        "formal_acceptance_performed": False,
+        "formal_assertion_count": 0,
+        "formal_episode_count": 0,
+        "formal_projection_count": 0,
+        "formal_judgment_count": 0,
+        "score_count": 0,
+        "database_write_count": 0,
+    }
+    return worklist, response, final
+
+
+def test_source_gap_mixed_inventory_skips_stopped_and_keeps_candidate_task():
+    worklist = build_source_gap_input_gate_worklist(
+        *_g3_source_gap_upstream(
+            ["existing_episode_candidate", "not_found_stop"]
+        )
+    )
+
+    assert worklist["source_gap_request_count"] == 2
+    assert worklist["task_count"] == 1
+    assert worklist["tasks"][0]["gap_code"] == "JSG-1"
+    assert worklist["stopped_gap_codes"] == ["JSG-2"]
+    assert worklist["stopped_requests"][0]["resolution_kind"] == "not_found_stop"
+
+
+def test_source_gap_all_stopped_is_audited_without_authorizing_delta():
+    worklist = build_source_gap_input_gate_worklist(
+        *_g3_source_gap_upstream(["not_found_stop", "not_found_stop"])
+    )
+    response = {
+        "status": "source_gap_input_gate_reviews_complete",
+        "task_code": worklist["task_code"],
+        "worklist_sha256": worklist["worklist_sha256"],
+        "input_gate_policy_version": INPUT_GATE_POLICY_VERSION,
+        "output_schema_version": INPUT_GATE_SCHEMA_VERSION,
+        "reviewer": "no-candidate-reviewer",
+        "proposal_only": True,
+        "gold_accessed": False,
+        "formal_acceptance_performed": False,
+        "judgment_performed": False,
+        "scoring_performed": False,
+        "database_write_count": 0,
+        "results": [],
+    }
+
+    result = materialize_source_gap_input_gate(worklist, response)
+
+    assert result["status"] == "source_gap_input_gate_no_candidates_stopped"
+    assert result["task_count"] == 0
+    assert result["stopped_request_count"] == 2
+    assert result["shadow_delta_authorized"] is False
 
 
 def test_source_cache_adapter_preserves_passage_lineage_and_reports_legacy_gaps():

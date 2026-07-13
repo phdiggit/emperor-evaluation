@@ -56,6 +56,9 @@ from emperor_v4.evaluation.source_development import (
     materialize_source_development_from_blind_input,
     materialize_source_development_input,
 )
+from emperor_v4.application.appointment_delegation_shadow_runner import (
+    run_appointment_delegation_shadow,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -380,6 +383,9 @@ def _parser() -> argparse.ArgumentParser:
     relation_gold_revise.add_argument("--historical-gold", type=Path, required=True)
     relation_gold_revise.add_argument("--audit", type=Path, required=True)
     relation_gold_revise.add_argument("--output", type=Path)
+    scored_shadow = subparsers.add_parser("appointment-delegation-shadow")
+    scored_shadow.add_argument("--manifest", type=Path, required=True)
+    scored_shadow.add_argument("--output", type=Path)
     return parser
 
 
@@ -514,6 +520,8 @@ def main() -> int:
             yaml.safe_load(args.historical_gold.read_text(encoding="utf-8")),
             yaml.safe_load(args.audit.read_text(encoding="utf-8")),
         )
+    elif args.command == "appointment-delegation-shadow":
+        report = run_appointment_delegation_shadow(args.manifest)
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(
             manifest_path=args.manifest,

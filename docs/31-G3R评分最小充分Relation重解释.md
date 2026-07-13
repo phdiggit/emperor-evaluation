@@ -103,11 +103,13 @@ not_applicable
 - `projection_judgment_shadow.py`
 - `projection_readiness_rerun.py`
 
-这些模块尚未接入统一用户入口。`src/emperor_v4/eval.py` 不能用一个命令重放 G3R—G3H 整条链。
+这些模块已经由 `src/emperor_v4/eval.py` 的 `appointment-delegation-shadow` 命令串成统一、离线、零模型的 scored shadow 重放链。Relation v2 合同使用实际 Episode semantic version 形成端点版本引用，并把皇帝责任与证据直接性纳入 Relation 语义身份；缺失或不一致的版本身份一律 fail closed。source-gap input gate v2 对 `not_found_stop` 项逐项跳过并保留审计记录，不再阻断同一清单中的可继续候选。
+
+G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test_versioning.py` 和 `test_vertical_slice.py`，不再保留按微阶段镜像的测试模块。
 
 ## 6. 下一交付物
 
-下一步必须在一个纵向职责链中完成：
+以下纵向职责链已经完成：
 
 1. 将四个观察维度升级为人工批准的有限 factor schema；
 2. 实现确定性 Judgment evaluator；
@@ -115,7 +117,7 @@ not_applicable
 4. 建立统一 `appointment_delegation` shadow runner；
 5. 输出李世民、刘邦、朱元璋可追溯的 scored demo 报告。
 
-在以上结果完成前，不新增微阶段顶层文档，不为每个模块建立镜像测试文件，不开放正式 Judgment、总榜或生产切换。
+当前下一边界不是继续新增微阶段，而是用人工批准的因子与公式版本开展 shadow 差异评审。在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 
 ## 7. 历史审计
 
