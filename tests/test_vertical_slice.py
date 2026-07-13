@@ -30,6 +30,7 @@ from emperor_v4.evaluation.blind_holdout import (
     score_blind_holdout,
 )
 from emperor_v4.evaluation.boundary_score import score_boundary_graph
+from emperor_v4.evaluation.boundary_review import build_boundary_review_plan
 from emperor_v4.evaluation.graph_holdout import (
     draft_rule_evidence_units_payload,
     score_graph_blind_holdout,
@@ -1169,8 +1170,10 @@ def test_source_development_materializer_builds_qualified_v2_input(tmp_path: Pat
     assert payload["assertions"][0]["source_passage_ref"] == payload[
         "source_passages"
     ][0]["passage_code"]
+    assert payload["assertions"][0]["extraction_provenance"]["claim_key"] == "CLAIM-1"
     assert report["reports"]["fixture"]["stages"]["S1_source_passage"]["passed"]
     assert report["reports"]["fixture"]["stages"]["S2_assertion"]["passed"]
+    assert build_boundary_review_plan(payload)["review_unit_count"] == 1
     assert "episode_code" not in json.dumps(payload, ensure_ascii=False)
 
 

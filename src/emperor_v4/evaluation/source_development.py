@@ -364,6 +364,7 @@ def materialize_source_development_input(
                 },
                 "extraction_provenance": {
                     "origin": "retrieval_v3_claim_rebound_to_v4_source_v2",
+                    "claim_key": claim_code,
                     "legacy_claim_code": claim_code,
                     "legacy_passage_refs": list(claim.get("source_passage_refs") or ()),
                 },

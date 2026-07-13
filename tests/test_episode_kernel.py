@@ -124,6 +124,31 @@ def test_v27_proposition_cluster_respects_passage_scoped_atomic_components():
     assert {cluster.assertion_refs for cluster in clusters} == {("A-1",), ("A-2",)}
 
 
+def test_v2_proposition_semantic_hash_ignores_evidence_only_rebinding():
+    support = PassageSupport(
+        support_mode="single_passage",
+        assertion_semantic_key="CLAIM-1",
+        supported_fields=("identity", "action", "responsibility", "outcome"),
+    )
+    first = _with_claim(
+        _assertion("A-1", passage="P-1", passage_support=support),
+        "CLAIM-1",
+    )
+    rebound = replace(
+        first,
+        assertion_code="A-2",
+        source_passage_ref="P-2",
+        source_attribution={"document_code": "D-P-2"},
+    )
+
+    first_cluster = cluster_propositions([first])[0]
+    rebound_cluster = cluster_propositions([rebound])[0]
+
+    assert first_cluster.semantic_hash == rebound_cluster.semantic_hash
+    assert first_cluster.proposition_code == rebound_cluster.proposition_code
+    assert first_cluster.evidence_refs != rebound_cluster.evidence_refs
+
+
 def test_v27_proposition_cluster_uses_equivalent_support_key_within_claim():
     support = PassageSupport(
         support_mode="equivalent_evidence",
