@@ -98,6 +98,51 @@ def test_proposition_cluster_collapses_passage_fanout_without_losing_lineage():
     assert clusters[0].evidence_refs == ("P-1", "P-2")
 
 
+def test_v27_proposition_cluster_respects_passage_scoped_atomic_components():
+    first_support = PassageSupport(
+        support_mode="atomic_component",
+        assertion_semantic_key="component-appointment",
+        supported_fields=("identity", "action", "responsibility"),
+    )
+    second_support = PassageSupport(
+        support_mode="context_only",
+        assertion_semantic_key="context-outcome",
+        supported_fields=("outcome", "context"),
+    )
+    first = _with_claim(
+        _assertion("A-1", passage="P-1", passage_support=first_support),
+        "CLAIM-1",
+    )
+    second = _with_claim(
+        _assertion("A-2", passage="P-2", passage_support=second_support),
+        "CLAIM-1",
+    )
+
+    clusters = cluster_propositions([first, second])
+
+    assert len(clusters) == 2
+    assert {cluster.assertion_refs for cluster in clusters} == {("A-1",), ("A-2",)}
+
+
+def test_v27_proposition_cluster_uses_equivalent_support_key_within_claim():
+    support = PassageSupport(
+        support_mode="equivalent_evidence",
+        assertion_semantic_key="same-appointment",
+        supported_fields=("identity", "action", "responsibility"),
+    )
+    first = _with_claim(
+        _assertion("A-1", passage="P-1", passage_support=support), "CLAIM-1"
+    )
+    second = _with_claim(
+        _assertion("A-2", passage="P-2", passage_support=support), "CLAIM-1"
+    )
+
+    clusters = cluster_propositions([first, second])
+
+    assert len(clusters) == 1
+    assert clusters[0].assertion_refs == ("A-1", "A-2")
+
+
 def test_structured_time_equivalence_ignores_display_expression_difference():
     first = _with_claim(
         _assertion(

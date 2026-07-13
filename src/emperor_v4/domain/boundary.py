@@ -218,6 +218,20 @@ def _responsibility_family(assertion: AssertionDraft) -> str:
 def _proposition_tokens(assertion: AssertionDraft) -> tuple[tuple[str, str], ...]:
     context = _normalized(assertion.qualifiers.get("evaluation_context"))
     claim_key = _normalized(assertion.extraction_provenance.get("claim_key"))
+    if assertion.passage_support is not None:
+        # Passage-scoped v2 has already made an explicit, independently
+        # reviewed atomization decision.  The legacy claim key must not join
+        # distinct atomic components back together.  Scope the support key to
+        # its source claim because semantic keys are only required to be
+        # unique within one claim response.
+        support_scope = claim_key or _normalized(assertion.assertion_code)
+        return (
+            (
+                context,
+                "passage-support:"
+                f"{support_scope}:{assertion.passage_support.assertion_semantic_key}",
+            ),
+        )
     focal_person, focal_role, _ = _focal_identity(assertion)
     time = _normalized_time(assertion)
     semantic = {
