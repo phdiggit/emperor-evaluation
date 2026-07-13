@@ -107,8 +107,16 @@ independent_freezes:
     excluded_count: 2
     passage_lineage_complete: true
   rule_gold:
-    status: blocked_by_historical_gold_freeze
+    status: frozen_after_historical_gold
     output_path: eval/g2_6j_graph_blind_v1/rule_gold.yml
+    file_sha256: 40351ed11ef8ad0f06968ec2f28f904a6de1e351baad2d8af707af37192eb4c3
+    canonical_payload_sha256: 27aac1087ad6579e2d4f050c1276983c532c844e0c29a4769731ec9c45e3df95
+    historical_gold_episode_disposition_count: 7
+    eligible_episode_count: 0
+    ineligible_episode_count: 7
+    gold_rule_evidence_unit_count: 0
+    duplicate_consumption_count: 0
+    frozen_without_candidate_or_review_access: true
   candidate_generation: forbidden_before_all_freezes
   scoring: forbidden_before_all_freezes
 
