@@ -137,6 +137,8 @@ Source Cache runtime Gate 已由 `6149569` 通过：新增持久化 job/job_run�
 
 Claim Extractor 选择性迁入的首个切片没有搬运旧 worker：旧 `e27bbff` 改动被还原为一个 `talent_discovery` 提示分支，V4 将其改写为配置中的 `talent_discovery_chain_v1` extraction profile，显式声明四项发现链和禁止事后倒推。冻结响应通过既有 adapter 在零模型、零数据库、零服务器 unit 改动下复现 4 Claim / 4 Assertion；下一 Gate 才实现 v2 application、持久化 job 和独立 release。
 
+Claim Extractor runtime Gate 已由 `5b19e47` 通过：v2 application 强制唯一 passage lineage 与 `PassageSupport`，旧 v1 冻结响应只能经过确定性兼容层进入；缺失 support、越界 passage、重复 Assertion 或幂等冲突均 fail-closed。独立 `v4_claim_extractor` schema 保存 request、Assertion draft、request linkage、job 和 job_run；服务器临时数据库验证首次 migration、二次零写复用、终态不重跑和过期 lease attempt 2 恢复。18 文件 allowlist release 完成隔离前进/回滚，临时库已删除，生产 unit 未切换。该 Gate 只证明冻结 provider 的运行合同，真实模型 provider 仍须用同请求 shadow 后才可 cutover。
+
 `talent_discovery` 已进一步接入包 C 的持久化 roster 入口：三皇帝四人物名单复用 6 个 Claim snapshot、91 条 Assertion 和 82 个 Episode candidate；首次构建 4 个评分单元，无变化重跑精确复用同一记录。新增魏徵 Assertion 的局部 delta 只重建 `REU-LSM-WEIZHENG-DISCOVERY-v1`，其余 3 个 Judgment 精确复用；服务调用、模型调用和数据库写入均为 0。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。

@@ -96,12 +96,14 @@ talent_discovery_roster_result:
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
+  claim_extractor_v4_release: 5b19e47c8be77f6db8c79acae4742b26ca2dd518
+  claim_extractor_v4_version: v4-claim-extractor-service:v1
   source_cache_release: 6149569233cbae73b97a4c3032c20fadf638ab1c
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
 v4_service_source_governance:
-  status: source_cache_runtime_gate_passed
+  status: claim_extractor_application_runtime_gate_passed
   canonical_history: v4_current_git_history
   transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   migration_mode: contract_tested_selective_port
@@ -124,9 +126,16 @@ v4_service_source_governance:
     frozen_assertion_count: 4
     model_call_count: 0
     database_write_count: 0
+    v4_application_release: 5b19e47c8be77f6db8c79acae4742b26ca2dd518
+    v2_passage_support_required: true
+    isolated_postgres_runtime_gate_passed: true
+    job_lease_recovery_passed: true
+    immutable_release_archive_sha256: c74a626a5586445fffe11aebcb4cfd2fb8b982868b708f97367887ef877b9f55
+    postgres_migration_applied: false
+    server_cutover_performed: false
   transitional_nonconformance:
-    - rule_code_driven_claim_prompt_must_become_versioned_extraction_profile
     - retrieval_v3_runtime_names_must_be_removed_at_cutover
+    - real_model_provider_shadow_required_before_cutover
   source_cache_first_slice:
     contract: source-cache-contract-v2
     release: 6149569233cbae73b97a4c3032c20fadf638ab1c

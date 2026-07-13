@@ -1,0 +1,392 @@
+{
+  "request": {
+    "idempotency_key": "claim-extraction:v4:weizheng:talent:v1",
+    "passages": [
+      {
+        "document_code": "OSD-89D4299FB4B38CC307",
+        "locator": "卷七十一，魏徵传，太宗践祚后擢拜谏议大夫段 | chars:429-1935",
+        "passage_code": "PAS-1CD613D0DD2B",
+        "quote": "隐太子闻其名，引直洗马。及败，太宗使召之。太宗素器之，引为詹事主簿。及践祚，擢拜谏议大夫。",
+        "slice_code": "PAS-0D70B949768C4C0E8D0A737A"
+      }
+    ],
+    "profile_code": "talent_discovery_chain_v1",
+    "request_id": "CLX-V4-WEIZHENG-001",
+    "requested_at": "2026-07-14T20:00:00+08:00",
+    "subject": {
+      "claim_run": "CLMEXT-EFA22C924E1C01F2",
+      "ruler": "李世民"
+    }
+  },
+  "response": {
+    "assertions": [
+      {
+        "ambiguity_flags": [
+          "missing_candidate_episode_key",
+          "missing_location_expression"
+        ],
+        "assertion_code": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+        "assertion_type": "context_fact",
+        "candidate_episode_key": null,
+        "confidence": 0.98,
+        "extraction_provenance": {
+          "captured_from_release": "e27bbff94b9c9acabba716191afd7bdc8bac4550",
+          "claim_key": "CLM-EFA22C92-WZ-001",
+          "legacy_claim_code": "CLM-EFA22C92-WZ-001",
+          "legacy_claim_run": "CLMEXT-EFA22C924E1C01F2"
+        },
+        "location_expression": null,
+        "object": "魏徵",
+        "passage_support": {
+          "assertion_semantic_key": "CLM-EFA22C92-WZ-001",
+          "binding_provenance": {
+            "claim_code": "CLM-EFA22C92-WZ-001",
+            "contract": "assertion-extraction-contract-v2"
+          },
+          "support_mode": "single_passage",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        "polarity": "asserted",
+        "predicate": "任命",
+        "qualifiers": {
+          "candidate_participant_roles": [
+            [
+              "李世民",
+              "ruler"
+            ],
+            [
+              "窦建德",
+              "actor"
+            ],
+            [
+              "隐太子李建成",
+              "actor"
+            ],
+            [
+              "魏徵",
+              "focus_person"
+            ],
+            [
+              "魏徵",
+              "subject_person"
+            ]
+          ],
+          "cost_or_damage": null,
+          "episode_type": "political_action",
+          "evaluation_context": "李世民",
+          "event_scope": "中枢",
+          "evidence_spans": [
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "action",
+              "text": "建德获徵，署为起居舍人"
+            },
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "action",
+              "text": "隐太子闻其名，引直洗马"
+            }
+          ],
+          "focal_person_ref": "魏徵",
+          "focal_role": "focus_person",
+          "legacy_claim_kind": "context_claim",
+          "legacy_claim_summary": "魏徵先后隶属窦建德和隐太子李建成，并分别被署为起居舍人、引为直洗马。",
+          "office_or_domain": "起居舍人、直洗马",
+          "outcome": "进入窦建德及东宫任用体系",
+          "responsibility_family": "political_action"
+        },
+        "source_attribution": {
+          "document_code": "OSD-89D4299FB4B38CC307",
+          "document_title": "旧唐书/卷七十一",
+          "locator": "卷七十一，魏徵传，太宗践祚后擢拜谏议大夫段 | chars:429-1935",
+          "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A"
+        },
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "subject": "窦建德、隐太子李建成",
+        "time_expression": "太宗即位前"
+      },
+      {
+        "ambiguity_flags": [
+          "missing_candidate_episode_key",
+          "missing_location_expression"
+        ],
+        "assertion_code": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+        "assertion_type": "event_fact",
+        "candidate_episode_key": null,
+        "confidence": 0.94,
+        "extraction_provenance": {
+          "captured_from_release": "e27bbff94b9c9acabba716191afd7bdc8bac4550",
+          "claim_key": "CLM-EFA22C92-WZ-002",
+          "legacy_claim_code": "CLM-EFA22C92-WZ-002",
+          "legacy_claim_run": "CLMEXT-EFA22C924E1C01F2"
+        },
+        "location_expression": null,
+        "object": "魏徵",
+        "passage_support": {
+          "assertion_semantic_key": "CLM-EFA22C92-WZ-002",
+          "binding_provenance": {
+            "claim_code": "CLM-EFA22C92-WZ-002",
+            "contract": "assertion-extraction-contract-v2"
+          },
+          "support_mode": "single_passage",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        "polarity": "asserted",
+        "predicate": "其他",
+        "qualifiers": {
+          "candidate_participant_roles": [
+            [
+              "李世民",
+              "actor"
+            ],
+            [
+              "李世民",
+              "ruler"
+            ],
+            [
+              "魏徵",
+              "actor"
+            ],
+            [
+              "魏徵",
+              "focus_person"
+            ],
+            [
+              "魏徵",
+              "subject_person"
+            ]
+          ],
+          "cost_or_damage": null,
+          "episode_type": "political_action",
+          "evaluation_context": "李世民",
+          "event_scope": "中枢",
+          "evidence_spans": [
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "reason",
+              "text": "必无今日之祸"
+            },
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "outcome",
+              "text": "太宗素器之"
+            }
+          ],
+          "focal_person_ref": "魏徵",
+          "focal_role": "focus_person",
+          "legacy_claim_kind": "material_claim",
+          "legacy_claim_summary": "魏徵在太宗召见时直陈太子若听从其言便不会有今日之祸，太宗因此素器其才。",
+          "office_or_domain": "政治判断与谋议",
+          "outcome": "太宗素器魏徵",
+          "responsibility_family": "political_action"
+        },
+        "source_attribution": {
+          "document_code": "OSD-89D4299FB4B38CC307",
+          "document_title": "旧唐书/卷七十一",
+          "locator": "卷七十一，魏徵传，太宗践祚后擢拜谏议大夫段 | chars:429-1935",
+          "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A"
+        },
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "subject": "魏徵、李世民",
+        "time_expression": "玄武门之变后、太宗即位前后"
+      },
+      {
+        "ambiguity_flags": [
+          "missing_candidate_episode_key",
+          "missing_location_expression"
+        ],
+        "assertion_code": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+        "assertion_type": "event_fact",
+        "candidate_episode_key": null,
+        "confidence": 0.97,
+        "extraction_provenance": {
+          "captured_from_release": "e27bbff94b9c9acabba716191afd7bdc8bac4550",
+          "claim_key": "CLM-EFA22C92-WZ-003",
+          "legacy_claim_code": "CLM-EFA22C92-WZ-003",
+          "legacy_claim_run": "CLMEXT-EFA22C924E1C01F2"
+        },
+        "location_expression": null,
+        "object": "魏徵",
+        "passage_support": {
+          "assertion_semantic_key": "CLM-EFA22C92-WZ-003",
+          "binding_provenance": {
+            "claim_code": "CLM-EFA22C92-WZ-003",
+            "contract": "assertion-extraction-contract-v2"
+          },
+          "support_mode": "single_passage",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        "polarity": "asserted",
+        "predicate": "任命",
+        "qualifiers": {
+          "candidate_participant_roles": [
+            [
+              "李世民",
+              "actor"
+            ],
+            [
+              "李世民",
+              "ruler"
+            ],
+            [
+              "魏徵",
+              "focus_person"
+            ],
+            [
+              "魏徵",
+              "subject_person"
+            ]
+          ],
+          "cost_or_damage": null,
+          "episode_type": "political_action",
+          "evaluation_context": "李世民",
+          "event_scope": "中枢",
+          "evidence_spans": [
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "context",
+              "text": "汝离间我兄弟"
+            },
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "action",
+              "text": "太宗使召之"
+            }
+          ],
+          "focal_person_ref": "魏徵",
+          "focal_role": "focus_person",
+          "legacy_claim_kind": "material_claim",
+          "legacy_claim_summary": "太宗明知魏徵曾离间兄弟、属于东宫旧属，仍召见并决定纳入自己的用人体系。",
+          "office_or_domain": "东宫旧属转入太宗朝",
+          "outcome": "跨越兄弟离间及东宫身份障碍",
+          "responsibility_family": "political_action"
+        },
+        "source_attribution": {
+          "document_code": "OSD-89D4299FB4B38CC307",
+          "document_title": "旧唐书/卷七十一",
+          "locator": "卷七十一，魏徵传，太宗践祚后擢拜谏议大夫段 | chars:429-1935",
+          "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A"
+        },
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "subject": "李世民",
+        "time_expression": "太宗即位前后"
+      },
+      {
+        "ambiguity_flags": [
+          "missing_candidate_episode_key",
+          "missing_location_expression"
+        ],
+        "assertion_code": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004",
+        "assertion_type": "event_fact",
+        "candidate_episode_key": null,
+        "confidence": 0.99,
+        "extraction_provenance": {
+          "captured_from_release": "e27bbff94b9c9acabba716191afd7bdc8bac4550",
+          "claim_key": "CLM-EFA22C92-WZ-004",
+          "legacy_claim_code": "CLM-EFA22C92-WZ-004",
+          "legacy_claim_run": "CLMEXT-EFA22C924E1C01F2"
+        },
+        "location_expression": null,
+        "object": "魏徵",
+        "passage_support": {
+          "assertion_semantic_key": "CLM-EFA22C92-WZ-004",
+          "binding_provenance": {
+            "claim_code": "CLM-EFA22C92-WZ-004",
+            "contract": "assertion-extraction-contract-v2"
+          },
+          "support_mode": "single_passage",
+          "supported_fields": [
+            "identity",
+            "action",
+            "outcome"
+          ]
+        },
+        "polarity": "asserted",
+        "predicate": "任命",
+        "qualifiers": {
+          "candidate_participant_roles": [
+            [
+              "李世民",
+              "actor"
+            ],
+            [
+              "李世民",
+              "ruler"
+            ],
+            [
+              "魏徵",
+              "focus_person"
+            ],
+            [
+              "魏徵",
+              "subject_person"
+            ]
+          ],
+          "cost_or_damage": null,
+          "episode_type": "political_action",
+          "evaluation_context": "李世民",
+          "event_scope": "中枢",
+          "evidence_spans": [
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "action",
+              "text": "引为詹事主簿"
+            },
+            {
+              "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A",
+              "span_type": "outcome",
+              "text": "擢拜谏议大夫"
+            }
+          ],
+          "focal_person_ref": "魏徵",
+          "focal_role": "focus_person",
+          "legacy_claim_kind": "material_claim",
+          "legacy_claim_summary": "太宗将魏徵引为詹事主簿，继而擢拜谏议大夫。",
+          "office_or_domain": "詹事主簿、谏议大夫",
+          "outcome": "魏徵正式进入太宗核心用人体系",
+          "responsibility_family": "political_action"
+        },
+        "source_attribution": {
+          "document_code": "OSD-89D4299FB4B38CC307",
+          "document_title": "旧唐书/卷七十一",
+          "locator": "卷七十一，魏徵传，太宗践祚后擢拜谏议大夫段 | chars:429-1935",
+          "source_slice_ref": "PAS-0D70B949768C4C0E8D0A737A"
+        },
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "subject": "李世民",
+        "time_expression": "太宗即位前后"
+      }
+    ],
+    "contract": "assertion-extraction-contract-v2",
+    "output_fingerprint": "42b9440120255ec9830874cc27a6d653342029e699399b1ef627ec1f396b2984",
+    "profile_code": "talent_discovery_chain_v1",
+    "provenance": {
+      "input_fingerprint": "4b9038a51d045387b205a1a43dc867df927192d2b40d17903466a5a5c38c43bc",
+      "provider": "frozen_claim_snapshot_v2_compat:v1",
+      "service_release_sha": "5b19e47c8be77f6db8c79acae4742b26ca2dd518",
+      "service_version": "v4-claim-extractor-service:v1"
+    },
+    "request_id": "CLX-V4-WEIZHENG-001",
+    "status": "succeeded"
+  },
+  "runtime_audit": {
+    "cache_hit": false,
+    "database_write_count": 0,
+    "model_call_count": 0,
+    "provider_call_count": 1,
+    "repository_write_count": 1
+  },
+  "status": "claim_extraction_fixture_complete"
+}

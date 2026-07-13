@@ -1,0 +1,53 @@
+{
+  "archive_sha256": "c74a626a5586445fffe11aebcb4cfd2fb8b982868b708f97367887ef877b9f55",
+  "bootstrap": {
+    "first_action": "applied",
+    "second_action": "reused",
+    "second_write_count": 0
+  },
+  "commit_sha": "5b19e47c8be77f6db8c79acae4742b26ca2dd518",
+  "completed_at": "2026-07-13T19:44:29.411616+00:00",
+  "database": {
+    "cleaned_up": true,
+    "kind": "temporary_isolated_database"
+  },
+  "extraction": {
+    "assertion_count": 4,
+    "output_contract": "assertion-extraction-contract-v2",
+    "request_count": 1
+  },
+  "gate": "claim_extractor_v2_application_job_release",
+  "idempotency": {
+    "duplicate_enqueue_write_count": 0,
+    "first_enqueue_write_count": 1,
+    "terminal_rerun_status": "idle"
+  },
+  "lease_recovery": {
+    "job_rows": [
+      [
+        "succeeded",
+        1
+      ],
+      [
+        "succeeded",
+        2
+      ]
+    ],
+    "recovered_count": 1,
+    "run_statuses": [
+      "succeeded",
+      "lease_expired",
+      "succeeded"
+    ]
+  },
+  "model_call_count": 0,
+  "release_drill": {
+    "forward_target_commit": "5b19e47c8be77f6db8c79acae4742b26ca2dd518",
+    "production_current_changed": false,
+    "rollback_target": "rollback-baseline"
+  },
+  "release_file_count": 18,
+  "schema_version": 1,
+  "service_unit_cutover_count": 0,
+  "status": "passed"
+}

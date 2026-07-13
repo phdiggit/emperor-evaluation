@@ -85,6 +85,8 @@ next_delivery:
 v4_service_evidence:
   claim_extractor_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
+  claim_extractor_v4_application_release: 5b19e47c8be77f6db8c79acae4742b26ca2dd518
+  claim_extractor_v4_application_version: v4-claim-extractor-service:v1
   weizheng_claim_count: 4
   database_import_performed: false
   source_cache_release: 6149569233cbae73b97a4c3032c20fadf638ab1c
@@ -104,7 +106,7 @@ v4_service_evidence:
   source_cache_postgres_migration_applied: false
 
 v4_service_source_governance:
-  status: claim_extractor_profile_frozen_shadow_passed
+  status: claim_extractor_application_runtime_gate_passed
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
   deployed_runtime_still_uses_transitional_source: true
@@ -114,12 +116,18 @@ v4_service_source_governance:
   claim_extraction_profile: talent_discovery_chain_v1
   claim_extractor_frozen_shadow_claim_count: 4
   claim_extractor_frozen_shadow_assertion_count: 4
+  claim_extractor_v2_passage_support_required: true
+  claim_extractor_isolated_postgres_runtime_gate_passed: true
+  claim_extractor_job_lease_recovery_passed: true
+  claim_extractor_release_archive_sha256: c74a626a5586445fffe11aebcb4cfd2fb8b982868b708f97367887ef877b9f55
+  claim_extractor_postgres_migration_applied: false
+  claim_extractor_server_cutover_performed: false
   migration_order:
     - shared_runtime_and_release_skeleton
     - source_cache
     - claim_extraction
     - immutable_deployment_cutover
-  next_gate: claim_extractor_v2_application_job_release
+  next_gate: claim_extractor_model_provider_shadow
 
 talent_discovery_roster_evidence:
   roster_people: 4
