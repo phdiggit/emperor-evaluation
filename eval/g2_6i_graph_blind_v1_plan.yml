@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: g2_6i_graph_blind_v1
-status: boundary_and_historical_gold_frozen_rule_gold_pending
+status: all_three_layers_frozen_first_materialization_pending
 input_frozen_at: 2026-07-13
 contract_basis_commit: 0261534f71b6cf61865fe24df719345400cfc52f
 
@@ -52,7 +52,14 @@ independent_freezes:
       historical_relation_judgment_changed: false
       episode_or_disposition_changed: false
   rule_gold:
-    status: pending_after_historical_freeze
+    path: eval/g2_6i_graph_blind_v1/rule_gold.yml
+    file_sha256: a0426e3a5c953f4a1c82fa8589ebb73915c2b98e694298a5024a904ea4cd4b93
+    status: frozen_after_historical_freeze
+    gold_rule_unit_count: 4
+    consumed_episode_count: 27
+    consumed_relation_count: 23
+    duplicate_consumption_count: 0
+    frozen_without_candidate_or_review_access: true
   candidate_episode_generated: false
   score_generated: false
 
