@@ -1,0 +1,82 @@
+{
+  "baseline_manifest_sha256": "96f435a1fadae4c50ea9a880bcc5fb09a9ebd907701c7c95ccffd00348cc423b",
+  "candidate_manifest_sha256": "beab637f7640b94e9e26ee8a5b0f3f413cccffb125ed3a4c5733d3b7ad01001c",
+  "changed_units": [
+    {
+      "after_judgment_ref": "JDG-7DAC9593F18B47DC1B09",
+      "before_judgment_ref": "JDG-2A9C537DADC38AA9931B",
+      "direction": {
+        "after": "positive",
+        "before": "mixed"
+      },
+      "factor_value_changes": {
+        "authority_clarity": {
+          "after": "positive",
+          "before": "mixed"
+        }
+      },
+      "normalized_contribution": {
+        "after": 1.0,
+        "before": 0.75
+      },
+      "person": "韩信",
+      "rule_evidence_unit_ref": "REU-LB-HANXIN-QI-AUTHORITY-v1",
+      "ruler": "刘邦"
+    }
+  ],
+  "exactly_reused_unit_refs": [
+    "REU-LB-CHENPING-AUTHORIZATION-v1",
+    "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+    "REU-ZYZ-LANYU-AUTHORITY-v1"
+  ],
+  "policy_version": "appointment-delegation-shadow-diff-v1",
+  "report_sha256": "026506dcb3e27b77b67e46d7e2b0edf3e82e6cfa6a8c21396e8a06bd565098d2",
+  "request_code": "appointment_delegation_hanxin_authority_clarity_review_v1",
+  "result_scope": "shadow_demo_only",
+  "review_gate": {
+    "comparison_integrity_passed": true,
+    "formal_acceptance_performed": false,
+    "formal_scoring_enabled": false,
+    "human_factor_review_required": true,
+    "human_formula_review_required": true
+  },
+  "ruler_aggregate_deltas": [
+    {
+      "delta": 0.25,
+      "ruler": "刘邦",
+      "shadow_contribution_sum_after": 2.0,
+      "shadow_contribution_sum_before": 1.75
+    },
+    {
+      "delta": 0.0,
+      "ruler": "朱元璋",
+      "shadow_contribution_sum_after": 0.0,
+      "shadow_contribution_sum_before": 0.0
+    },
+    {
+      "delta": 0.0,
+      "ruler": "李世民",
+      "shadow_contribution_sum_after": 1.0,
+      "shadow_contribution_sum_before": 1.0
+    }
+  ],
+  "schema_version": 1,
+  "side_effect_audit": {
+    "database_write_count": 0,
+    "model_call_count": 0,
+    "offline": true,
+    "report_only": true
+  },
+  "status": "appointment_delegation_shadow_diff_ready_for_human_review",
+  "summary": {
+    "changed_judgment_count": 1,
+    "changed_score_contribution_count": 1,
+    "database_write_count": 0,
+    "exactly_reused_judgment_count": 3,
+    "exactly_reused_score_contribution_count": 3,
+    "formal_score_write_count": 0,
+    "model_call_count": 0,
+    "unexpected_invalidation_count": 0,
+    "unit_count": 4
+  }
+}

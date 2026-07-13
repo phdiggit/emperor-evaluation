@@ -4,7 +4,7 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: appointment_delegation_shadow_ready_factor_score_pending
+  phase: appointment_delegation_scored_shadow_diff_review
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
@@ -34,10 +34,11 @@ milestones:
   g3r_minimum_sufficient_relation: passed_shadow_only
   g3c_rule_evidence_unit: passed_shadow_only
   g3d_g3h_projection_judgment_readiness: passed_shadow_only
-  factor_schema: pending
-  deterministic_judgment_evaluator: pending
-  score_contribution: pending
-  integrated_scored_shadow_runner: pending
+  factor_schema: passed_shadow_demo_only
+  deterministic_judgment_evaluator: passed_shadow_demo_only
+  score_contribution: passed_shadow_demo_only
+  integrated_scored_shadow_runner: passed_shadow_demo_only
+  shadow_difference_review: ready_for_human_review
   formal_scoring: blocked
 
 current_shadow_result:
@@ -49,16 +50,16 @@ current_shadow_result:
   mixed_candidates: 3
   negative_candidates: 0
   evidence_blockers: 0
+  score_contribution_count: 4
   formal_business_writes: 0
 
 next_delivery:
-  code: appointment_delegation_scored_shadow_demo
+  code: appointment_delegation_shadow_difference_review
   required_outcomes:
-    - accepted_limited_factor_schema
-    - deterministic_judgment_evaluator
-    - versioned_score_contribution_contract
-    - integrated_shadow_runner
-    - three_emperor_traceable_report
+    - compare_candidate_factor_changes_against_frozen_baseline
+    - exact_reuse_for_unchanged_judgments_and_contributions
+    - report_ruler_aggregate_deltas
+    - require_human_factor_and_formula_review
   forbidden_substitutes:
     - new_micro_stage_letters
     - stage_only_markdown

@@ -1,6 +1,6 @@
 # `appointment_delegation` 评分最小充分 Shadow 实施摘要
 
-> 状态：`g3r_g3h_shadow_chain_passed_factor_score_pending`
+> 状态：`scored_shadow_ready_difference_review_active`
 >
 > 日期：2026-07-13
 >
@@ -33,7 +33,7 @@ Episode endpoint proposals
 - 方向为 1 个 `positive`、3 个 `mixed`；
 - `blocked_evidence=0`；
 - Episode 重复消费为 0；
-- 正式 Relation、RuleEvidenceUnit、Projection、Judgment、factor values、ScoreContribution 和数据库业务写入均为 0。
+- 正式 Relation、RuleEvidenceUnit、Projection、Judgment、45 分得分和数据库业务写入均为 0；4 个 ScoreContribution 仅限 `shadow_demo_only`。
 
 这说明评分单元与增量 readiness 已具备原型，但还没有形成可交付的评分结果。
 
@@ -107,7 +107,7 @@ not_applicable
 
 G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test_versioning.py` 和 `test_vertical_slice.py`，不再保留按微阶段镜像的测试模块。
 
-## 6. 下一交付物
+## 6. 当前差异评审边界
 
 以下纵向职责链已经完成：
 
@@ -117,7 +117,9 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 4. 建立统一 `appointment_delegation` shadow runner；
 5. 输出李世民、刘邦、朱元璋可追溯的 scored demo 报告。
 
-当前下一边界不是继续新增微阶段，而是用人工批准的因子与公式版本开展 shadow 差异评审。在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
+差异评审入口会从同一冻结基线生成候选 scored shadow，报告局部 Judgment/ScoreContribution 失效、未变化单元精确复用和皇帝级汇总差异。当前韩信 `authority_clarity` 候选只改变 1 个评分单元，其余 3 个精确复用；该结果仅用于展示口径敏感度，仍要求人工决定因子与公式是否接受。
+
+在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 
 ## 7. 历史审计
 

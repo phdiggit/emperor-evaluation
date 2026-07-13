@@ -60,6 +60,9 @@ from emperor_v4.contracts.source import text_content_hash
 from emperor_v4.application.appointment_delegation_shadow_runner import (
     run_appointment_delegation_shadow,
 )
+from emperor_v4.application.appointment_delegation_shadow_diff import (
+    run_appointment_delegation_shadow_diff,
+)
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.rule_evidence_shadow import (
@@ -96,6 +99,7 @@ SCORED_DEMO = (
     / "appointment_delegation_scored_demo"
     / "manifest.yml"
 )
+SHADOW_DIFF_REQUEST = SCORED_DEMO.parent / "shadow_diff_request.yml"
 
 
 def _fixture(name: str) -> dict:
@@ -143,6 +147,49 @@ def test_appointment_delegation_scored_shadow_vertical_slice(tmp_path: Path, mon
             "appointment-delegation-shadow",
             "--manifest",
             str(SCORED_DEMO),
+            "--output",
+            str(output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(output.read_text(encoding="utf-8")) == report
+
+
+def test_appointment_delegation_shadow_diff_is_local_and_review_only(
+    tmp_path: Path, monkeypatch
+):
+    report = run_appointment_delegation_shadow_diff(SHADOW_DIFF_REQUEST)
+
+    assert report["status"] == "appointment_delegation_shadow_diff_ready_for_human_review"
+    assert report["summary"]["changed_judgment_count"] == 1
+    assert report["summary"]["exactly_reused_judgment_count"] == 3
+    assert report["summary"]["changed_score_contribution_count"] == 1
+    assert report["summary"]["exactly_reused_score_contribution_count"] == 3
+    assert report["summary"]["unexpected_invalidation_count"] == 0
+    assert report["changed_units"][0]["rule_evidence_unit_ref"] == (
+        "REU-LB-HANXIN-QI-AUTHORITY-v1"
+    )
+    assert report["changed_units"][0]["factor_value_changes"] == {
+        "authority_clarity": {"before": "mixed", "after": "positive"}
+    }
+    assert report["review_gate"] == {
+        "comparison_integrity_passed": True,
+        "human_factor_review_required": True,
+        "human_formula_review_required": True,
+        "formal_acceptance_performed": False,
+        "formal_scoring_enabled": False,
+    }
+    assert report["side_effect_audit"]["database_write_count"] == 0
+
+    output = tmp_path / "shadow-diff-report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "appointment-delegation-shadow-diff",
+            "--request",
+            str(SHADOW_DIFF_REQUEST),
             "--output",
             str(output),
         ],

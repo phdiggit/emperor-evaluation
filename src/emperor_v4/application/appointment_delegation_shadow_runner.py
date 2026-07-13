@@ -25,6 +25,14 @@ def run_appointment_delegation_shadow(
 ) -> dict[str, Any]:
     path = Path(manifest_path)
     manifest = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return run_appointment_delegation_shadow_manifest(manifest, path)
+
+
+def run_appointment_delegation_shadow_manifest(
+    manifest: Mapping[str, Any],
+    manifest_path: Path | str,
+) -> dict[str, Any]:
+    path = Path(manifest_path)
     validate_scored_demo_manifest(manifest)
     repo_root = path.resolve().parents[2]
     frozen_input_audit = []

@@ -59,6 +59,9 @@ from emperor_v4.evaluation.source_development import (
 from emperor_v4.application.appointment_delegation_shadow_runner import (
     run_appointment_delegation_shadow,
 )
+from emperor_v4.application.appointment_delegation_shadow_diff import (
+    run_appointment_delegation_shadow_diff,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -386,6 +389,9 @@ def _parser() -> argparse.ArgumentParser:
     scored_shadow = subparsers.add_parser("appointment-delegation-shadow")
     scored_shadow.add_argument("--manifest", type=Path, required=True)
     scored_shadow.add_argument("--output", type=Path)
+    shadow_diff = subparsers.add_parser("appointment-delegation-shadow-diff")
+    shadow_diff.add_argument("--request", type=Path, required=True)
+    shadow_diff.add_argument("--output", type=Path)
     return parser
 
 
@@ -522,6 +528,8 @@ def main() -> int:
         )
     elif args.command == "appointment-delegation-shadow":
         report = run_appointment_delegation_shadow(args.manifest)
+    elif args.command == "appointment-delegation-shadow-diff":
+        report = run_appointment_delegation_shadow_diff(args.request)
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(
             manifest_path=args.manifest,

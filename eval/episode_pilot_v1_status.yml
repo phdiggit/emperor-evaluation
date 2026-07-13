@@ -1,7 +1,7 @@
 schema_version: 2
 status_code: episode_pilot_v1_status
-implementation_basis: 13ea96e5b0d42c9a6d86c8ba516ad6cfc1b08f16
-status_date: 2026-07-13
+implementation_basis: aba7a89d0d7a8973ad7f92a3a5af2e2a76b242a1
+status_date: 2026-07-14
 
 current:
   primary_rule: appointment_delegation
@@ -11,9 +11,11 @@ current:
   minimum_sufficient_relation: passed_shadow_only
   rule_evidence_unit: passed_shadow_only
   projection_judgment_readiness: passed_shadow_only
-  factor_schema: pending
-  score_contribution: pending
-  integrated_scored_runner: missing
+  factor_schema: passed_shadow_demo_only
+  deterministic_judgment_evaluator: passed_shadow_demo_only
+  score_contribution: passed_shadow_demo_only
+  integrated_scored_runner: passed_shadow_demo_only
+  shadow_difference_review: ready_for_human_review
   formal_scoring: blocked
 
 shadow_evidence:
@@ -35,7 +37,7 @@ shadow_evidence:
   formal_rule_evidence_unit_count: 0
   formal_projection_count: 0
   formal_judgment_count: 0
-  score_count: 0
+  score_count: 4
   database_write_count_for_g3r_g3h: 0
 
 validated_invariants:
@@ -56,18 +58,14 @@ historical_qualification:
   interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
 
 next_delivery:
-  code: appointment_delegation_scored_shadow_demo
-  gate: factor_and_score_vertical_slice
+  code: appointment_delegation_shadow_difference_review
+  gate: human_factor_and_formula_difference_review
   required:
-    - approve_person_task_fit_factor
-    - approve_authority_clarity_factor
-    - approve_feedback_handling_factor
-    - approve_attributable_outcome_factor
-    - implement_deterministic_judgment_evaluator
-    - approve_score_contribution_formula_version
-    - expose_one_integrated_shadow_runner
-    - emit_three_emperor_traceable_report
-  stop_condition: do_not_add_new_stage_docs_or_stage_letters_before_demo
+    - compare_candidate_factor_changes_against_frozen_baseline
+    - prove_exact_reuse_for_unchanged_units
+    - report_judgment_contribution_and_ruler_deltas
+    - require_human_factor_and_formula_decision
+  stop_condition: do_not_enable_formal_scoring_or_ranking_without_explicit_acceptance
 
 safety:
   v3_production_write_performed: false

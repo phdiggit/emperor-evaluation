@@ -12,8 +12,9 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 模式：`offline-first + shadow-only`
 - G3A Episode Core Registry：已通过隔离 PostgreSQL shadow 验证
 - G3B Core Shadow Runner：已通过局部 semantic/evidence 失效与零写入重跑
-- G3R—G3H：已形成评分最小充分 Relation、4 个 RuleEvidenceUnit draft、4 个 Projection/Judgment shadow candidate；其中 1 个 `positive`、3 个 `mixed`、0 个 evidence blocker
-- 正式 factor values、ScoreContribution、排名、worker 和生产切换：尚未开放
+- `appointment_delegation` scored shadow：有限 factor schema、确定性 Judgment、4 个 shadow ScoreContribution 与统一 runner 已完成
+- shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
+- 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
 
@@ -23,22 +24,28 @@ SourcePassage / Assertion
 → 评分必要 Relation 或 scoring-arc-only
 → RuleEvidenceUnit draft
 → Projection draft
-→ Judgment readiness / shadow direction
+→ 有限 factor values
+→ deterministic Judgment
+→ shadow ScoreContribution / 皇帝级只读汇总
 ```
 
-但仓库还没有一条统一命令，把“名单与服务输出”直接跑成可阅读的评分报告。`src/emperor_v4/eval.py` 仍主要是早期分段命令，新 G3R—G3H 模块尚未接成一个纵向 runner。
+统一命令已经能从冻结 manifest 生成三位皇帝的可追溯 scored shadow 报告，并能比较基线与候选因子观察的局部失效范围。两条命令均为离线、零模型、零数据库写入和非正式接受。
+
+```bash
+python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
+python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
+```
 
 ## 下一份可见成果
 
-下一交付物不是 G3I、G3J、G3K 三份新阶段文档，而是一个可运行的 `appointment_delegation` scored shadow demo。它必须在同一职责链中完成：
+scored shadow demo 已完成。当前下一交付物是对有限因子与公式开展人工 shadow 差异评审：
 
-1. 批准四个有限因子：`person_task_fit`、`authority_clarity`、`feedback_handling`、`attributable_outcome`；
-2. 实现确定性 Judgment evaluator，歧义项才进入智能体慢通道；
-3. 批准最小 ScoreContribution 合同与公式版本，不引入完整总榜公式；
-4. 建立一个统一 runner，从冻结服务输出或名单 manifest 生成 Episode、RuleEvidenceUnit、因子、贡献值和完整 lineage 报告；
-5. 用李世民、刘邦、朱元璋各至少一条正向、负向或 mixed 案例展示结果。
+1. 对候选因子变更逐项显示 Judgment、ScoreContribution 和皇帝级 shadow 汇总差异；
+2. 证明未变化评分单元精确复用且没有意外级联失效；
+3. 由人工决定因子口径和公式是否接受，工具不得自动放行正式 Gate；
+4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产写入。
 
-这五项完成前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
+在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
 
 ## 用户目标链路
 
@@ -99,8 +106,9 @@ SourcePassage / Assertion
 - G3R 评分最小充分 Relation：`passed`
 - G3C RuleEvidenceUnit shadow：`passed`
 - G3D—G3H Judgment readiness 与 delta：`passed_shadow_only`
-- Factor schema：`pending`
-- Deterministic Judgment evaluator：`pending`
-- ScoreContribution：`pending`
-- Integrated scored shadow runner：`pending`
+- Factor schema：`passed_shadow_demo_only`
+- Deterministic Judgment evaluator：`passed_shadow_demo_only`
+- ScoreContribution：`passed_shadow_demo_only`
+- Integrated scored shadow runner：`passed_shadow_demo_only`
+- Shadow difference review runner：`ready_for_human_review`
 - 正式评分和生产切换：`blocked`

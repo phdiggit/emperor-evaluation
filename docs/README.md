@@ -8,7 +8,7 @@
 - G3A PostgreSQL Core Registry：通过
 - G3B 同步局部失效：通过
 - G3R—G3H `appointment_delegation` shadow：4 个 RuleEvidenceUnit / Projection / Judgment candidate 已通过 readiness
-- Factor schema、ScoreContribution、统一 scored runner：待实现
+- Factor schema、ScoreContribution、统一 scored runner：已完成 shadow demo；差异评审待人工结论
 - 正式评分、排名和生产切换：关闭
 
 当前实现摘要统一见 [《G3R 评分最小充分 Relation 重解释》](31-G3R评分最小充分Relation重解释.md)。

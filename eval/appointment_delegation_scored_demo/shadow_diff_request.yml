@@ -1,0 +1,27 @@
+schema_version: 1
+status: frozen_shadow_diff_request
+request_code: appointment_delegation_hanxin_authority_clarity_review_v1
+policy_version: appointment-delegation-shadow-diff-v1
+baseline_manifest_path: eval/appointment_delegation_scored_demo/manifest.yml
+candidate_manifest_code: appointment_delegation_scored_demo_hanxin_review_candidate_v1
+candidate_task_code: APPOINTMENT-DELEGATION-SCORED-SHADOW-DIFF-CANDIDATE-V1
+
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: false
+  database_writes_allowed: false
+  formal_acceptance_allowed: false
+
+factor_observation_changes:
+  - unit_ref: REU-LB-HANXIN-QI-AUTHORITY-v1
+    factor_name: authority_clarity
+    expected_previous_value: mixed_signal
+    replacement:
+      value: positive_signal
+      reason: 评审候选假设：若只按最终正式齐王授权判断，权责载体可视为清晰；压力形成过程仍须人工决定是否降档。
+      assertion_refs:
+        - CLMEXT-9AA66020C316DC71@CLM-HX-001
+        - CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT
+
+expected_changed_unit_refs:
+  - REU-LB-HANXIN-QI-AUTHORITY-v1

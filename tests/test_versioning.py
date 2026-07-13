@@ -14,6 +14,9 @@ from emperor_v4.domain.versioning import apply_episode_revision
 from emperor_v4.application.appointment_delegation_shadow_runner import (
     run_appointment_delegation_shadow,
 )
+from emperor_v4.application.appointment_delegation_shadow_diff import (
+    run_appointment_delegation_shadow_diff,
+)
 from emperor_v4.evaluation.appointment_delegation_scoring import (
     evaluate_judgment,
 )
@@ -38,6 +41,7 @@ SCORED_DEMO = (
     / "appointment_delegation_scored_demo"
     / "manifest.yml"
 )
+SHADOW_DIFF_REQUEST = SCORED_DEMO.parent / "shadow_diff_request.yml"
 
 
 def _assertion(code: str, passage: str, *, domain: str = "军务") -> AssertionDraft:
@@ -102,6 +106,20 @@ def test_scored_shadow_rerun_is_hash_stable_and_factor_change_invalidates_judgme
         if row["rule_evidence_unit_ref"] == unit["unit_ref"]
     )
     assert changed["judgment_id"] != original["judgment_id"]
+
+
+def test_shadow_diff_fails_closed_when_expected_invalidation_drifts(tmp_path: Path):
+    request = yaml.safe_load(SHADOW_DIFF_REQUEST.read_text(encoding="utf-8"))
+    request["baseline_manifest_path"] = str(SCORED_DEMO.resolve())
+    request["expected_changed_unit_refs"] = ["REU-LSM-WEIZHENG-APPOINTMENT-v1"]
+    request_path = tmp_path / "shadow-diff.yml"
+    request_path.write_text(
+        yaml.safe_dump(request, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="实际失效单元"):
+        run_appointment_delegation_shadow_diff(request_path)
 
 
 def _g3_versioned_unit(code: str, fingerprint: str, *, gap: bool) -> dict:
