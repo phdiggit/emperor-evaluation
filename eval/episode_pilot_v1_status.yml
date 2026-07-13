@@ -1,161 +1,77 @@
-schema_version: 1
+schema_version: 2
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 14ff64f14bd2ec21dcb4ffe7ffc38b50091578ff
+implementation_basis: 13ea96e5b0d42c9a6d86c8ba516ad6cfc1b08f16
+status_date: 2026-07-13
 
-milestones:
-  M1_HistoricalEpisode_Kernel: conditional_pass
-  G2_Assertion_and_Episode: reopen_required
-  G2_5_blind_holdout: v1_v2_v3_failed_semantic_review_needs_rework
-  G2_6A_ontology_audit: conditional_pass
-  G2_6B_contracts: conditional_pass
-  G2_6C_review_cache: d1_hardening_complete
-  G2_6D_scorer: gate_metrics_complete
-  G2_6E_final_graph_holdout: failed_closed
-  G2_6F_atomic_boundary_relation: contract_hardening_complete_new_holdout_pending
-  G2_6G_graph_holdout: materialization_contract_blocked_failed_closed
-  G2_6H_atomic_identity_holdout: materialization_contract_blocked_failed_closed
-  G2_6H_contract_basis: boundary_review_v2_5
-  G2_6I_contract_basis: boundary_review_v2_6_hardened
-  G2_6I_graph_holdout: failed_closed_after_first_blind_score
-  G2_6J_graph_holdout: failed_closed_after_first_blind_score
-  G2_6J_next_gate: g2_6k0_source_segmentation_development_qualification
-  G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_8
-  G2_6J_contract_status: evaluated_holdout_failed_qualification
-  G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10_relation_policy_v2_relation_gold_v2
-  G2_6K0_source_development: relation_gold_v2_frozen_relation_s4_blocked
-  G2_6K0_relation_review: independent_cross_review_unit_v2_complete
-  G2_6K0_relation_gold_audit: original_gold_invalidated_relation_gold_v2_frozen
-  G2_6K0_rule_gold: stale_after_relation_gold_v2_refreeze_blocked_until_s4_passes
-  G2_6K0_new_blind_holdout_authorized: false
-  G3_PostgreSQL: blocked_by_g2_6K0
+current:
+  primary_rule: appointment_delegation
+  episode_core: passed_for_shadow_implementation
+  postgres_core_registry: passed_shadow_registry
+  synchronous_core_runner: passed_sync_local_invalidation
+  minimum_sufficient_relation: passed_shadow_only
+  rule_evidence_unit: passed_shadow_only
+  projection_judgment_readiness: passed_shadow_only
+  factor_schema: pending
+  score_contribution: pending
+  integrated_scored_runner: missing
+  formal_scoring: blocked
 
-qualification:
-  passed:
-    - oracle_assisted_constructability
-    - passage_lineage_preservation
-    - deterministic_lightweight_pytest
-    - semantic_evidence_version_separation_prototype
-    - semantic_review_gold_isolation
-    - semantic_review_cache_zero_call_rerun
-    - blind_v3_zero_catastrophic_merge
-    - blind_v3_zero_cross_ruler_contamination
-    - proposition_cluster_lineage_preservation
-    - review_unit_local_cache_contract
-    - episode_relation_and_rule_evidence_unit_contract
-    - pairwise_and_safe_fragment_metrics
-    - structured_review_unit_partition_contract
-    - assertion_disposition_exclusivity
-    - lossless_boundary_materialization
-    - versioned_episode_relation_contract
-    - versioned_rule_evidence_unit_contract
-    - per_unit_cache_executor
-    - deterministic_zero_call_boundary_fast_path
-    - graph_gate_metrics
-    - g2_6e_passage_lineage_100_percent
-    - g2_6e_assertion_disposition_100_percent
-    - g2_6e_zero_cross_ruler_contamination
-    - g2_6e_zero_duplicate_rule_consumption
-    - g2_6e_zero_call_unchanged_rerun
-    - g2_6e_review_unit_local_invalidation
-    - g2_6f_cross_structure_merge_fail_closed
-    - g2_6f_unanchored_claim_fanout_merge_fail_closed
-    - g2_6f_episode_pair_disposition_completeness
-    - g2_6g_independent_three_layer_gold_freeze
-    - g2_6g_identity_collision_detected_before_candidate
-    - g2_6g_no_post_gold_boundary_patch
-    - g2_6h_v2_4_atomic_key_required_for_every_group
-    - g2_6h_v2_5_structured_time_equivalence
-    - g2_6h_all_groups_have_atomic_event_key
-    - g2_6h_independent_three_layer_gold_freeze
-    - g2_6h_no_post_gold_boundary_patch
-    - g2_6i_v2_6_responsibility_domain_surface_variants_allowed
-    - g2_6i_v2_6_preflight_59_assertions_zero_identity_collision
-    - g2_6i_passage_lineage_100_percent
-    - g2_6i_assertion_disposition_100_percent
-    - g2_6i_zero_cross_ruler_contamination
-    - g2_6i_zero_duplicate_rule_consumption
-    - g2_6i_zero_call_unchanged_rerun
-    - g2_6i_review_unit_local_invalidation
-    - g2_6j_passage_support_contract
-    - g2_6j_unbound_fanout_fail_closed
-    - g2_6j_reviewer_atomic_key_cannot_override_atomization
-    - g2_6j_v2_6_read_compatibility
-    - g2_6j_exact_singleton_episode_recall_1
-    - g2_6j_exact_singleton_candidate_precision_1
-    - g2_6j_zero_catastrophic_merge
-    - g2_6j_zero_cross_ruler_contamination
-    - g2_6j_passage_lineage_100_percent
-    - g2_6j_assertion_disposition_100_percent
-    - g2_6j_zero_call_unchanged_rerun
-    - g2_6j_review_unit_local_invalidation
-    - g2_6k0_source_cache_v2_contract
-    - g2_6k0_section_span_linked_passage_slicer
-    - g2_6k0_mechanical_early_stop
-    - g2_6k0_eight_scenario_protocol_smoke
-    - g2_6k0_g2_6j_source_v2_coverage_18_of_18
-    - g2_6k0_g2_6j_atomic_support_18_of_18
-    - g2_6k0_g2_6j_context_only_0_of_18
-    - g2_6k0_g2_6j_navigation_noise_0
-    - g2_6k0_g2_6j_linked_lineage_100_percent
-    - g2_6k0_g2_6i_source_v2_coverage_27_of_27
-    - g2_6k0_g2_6i_assertion_support_classified_59_of_59
-    - g2_6k0_g2_6i_atomic_support_27_of_27
-    - g2_6k0_g2_6i_context_only_0_of_27
-    - g2_6k0_g2_6i_navigation_noise_0
-    - g2_6k0_g2_6i_linked_lineage_100_percent
-    - g2_6k0_i_j_source_assertion_qualification_complete
-    - g2_6k0_g2_6i_episode_recall_precision_1_0
-    - g2_6k0_g2_6j_episode_recall_0_875_precision_0_9333
-    - g2_6k0_i_j_zero_catastrophic_cross_ruler_lineage_loss
-    - g2_6k0_independent_cross_review_unit_relation_review
-    - g2_6k0_relation_pair_disposition_254_of_254_zero_unresolved
-    - g2_6k0_relation_semantic_policy_v2
-    - g2_6k0_relation_gold_ontology_audit_without_candidate_or_score
-    - g2_6k0_relation_gold_v2_mechanical_revision
-  not_validated:
-    - blind_reconciliation
-    - independent_canonical_identity_acceptance
-  failed:
-    - g2_6k0_original_relation_gold_i_precision_0_2083_recall_0_2174
-    - g2_6k0_original_relation_gold_j_precision_0_4_recall_0_25
-    - g2_6k0_relation_gold_v2_i_precision_0_5_recall_0_7333
-    - g2_6k0_relation_gold_v2_j_precision_0_4_recall_0_25
-    - g2_6e_exact_episode_recall_0_6111_below_0_85
-    - g2_6e_exact_candidate_precision_0_7857_below_0_90
-    - g2_6e_catastrophic_wrong_merge_count_5
-    - g2_6e_strict_relation_recall_0_08_below_0_85
-    - g2_6e_strict_relation_precision_0_2857_below_0_90
-    - g2_6e_rule_unit_recall_0_1538
-    - g2_6e_rule_unit_precision_0_2222
-    - g2_6g_candidate_materialization_blocked_by_6_atomic_identity_collisions
-    - g2_6h_candidate_materialization_blocked_by_9_responsibility_domain_surface_conflicts
-    - g2_6i_exact_episode_recall_0_6774_below_0_85
-    - g2_6i_exact_candidate_precision_0_7778_below_0_90
-    - g2_6i_catastrophic_wrong_merge_count_4
-    - g2_6i_strict_relation_precision_0_1923_below_0_90
-    - g2_6i_strict_relation_recall_0_1852_below_0_85
-    - g2_6i_rule_unit_precision_0
-    - g2_6i_rule_unit_recall_0
-    - g2_6j_source_atomic_support_7_of_38
-    - g2_6j_pairwise_merge_split_not_measurable
-    - g2_6j_strict_relation_precision_0
-    - g2_6j_rule_unit_metrics_not_measurable
+shadow_evidence:
+  scoring_relation_proposals: 13
+  scoring_arc_only_memberships: 2
+  unresolved_scoring_relations: 0
+  rule_evidence_unit_drafts: 4
+  not_applicable_components: 3
+  duplicate_episode_consumption: 0
+  projection_drafts: 4
+  rebuilt_projections: 3
+  reused_projections: 1
+  judgment_shadow_candidates: 4
+  positive_candidates: 1
+  mixed_candidates: 3
+  negative_candidates: 0
+  blocked_evidence: 0
+  formal_relation_count: 0
+  formal_rule_evidence_unit_count: 0
+  formal_projection_count: 0
+  formal_judgment_count: 0
+  score_count: 0
+  database_write_count_for_g3r_g3h: 0
 
-metric_policy:
-  oracle_assisted_packet_count_is_accuracy_metric: false
-  formal_episode_recall_available: true
-  formal_accepted_precision_available: false
-  merge_split_accuracy_available: true
+validated_invariants:
+  - source_passage_lineage_preserved
+  - assertion_primary_disposition_complete
+  - semantic_and_evidence_versions_separated
+  - unchanged_core_rerun_zero_write
+  - unchanged_core_rerun_zero_model_call
+  - local_episode_invalidation
+  - local_projection_rebuild_and_exact_reuse
+  - no_cross_ruler_contamination_in_active_development_sets
+  - no_duplicate_rule_consumption
+  - minimum_sufficient_relation_does_not_require_fine_type
+
+historical_qualification:
+  episode_blind_holdouts: failed_and_frozen
+  fine_relation_s4: deferred_not_qualified
+  interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
+
+next_delivery:
+  code: appointment_delegation_scored_shadow_demo
+  gate: factor_and_score_vertical_slice
+  required:
+    - approve_person_task_fit_factor
+    - approve_authority_clarity_factor
+    - approve_feedback_handling_factor
+    - approve_attributable_outcome_factor
+    - implement_deterministic_judgment_evaluator
+    - approve_score_contribution_formula_version
+    - expose_one_integrated_shadow_runner
+    - emit_three_emperor_traceable_report
+  stop_condition: do_not_add_new_stage_docs_or_stage_letters_before_demo
 
 safety:
   v3_production_write_performed: false
-  v4_database_write_performed: false
-  source_recovery_network_request_count: 12
-  source_recovery_v3_runtime_started: false
-  rule_projection_performed: false
-  postgresql_g3_authorized: false
-
-next_gate:
-  code: G2_6K0_relation_evidence_protocol
-  status: relation_gold_v2_frozen_relation_s4_blocked
-  required_outcome: 建立小型 relation-specific evidence 与双审一致性协议，在 Relation Gold v2 上稳定区分直接边、负例和最小图；不得按 pair 启动 policy v3 追分。S4 达到 strict precision 0.90、recall 0.85 前不重冻 Rule Gold、不新建 blind holdout、不进入 PostgreSQL G3
+  formal_v4_scoring_performed: false
+  formal_v4_ranking_performed: false
+  production_runtime_enabled: false
+  credentials_committed: false

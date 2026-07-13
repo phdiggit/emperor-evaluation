@@ -1,19 +1,21 @@
-schema_version: 1
+schema_version: 2
 project:
   code: emperor-evaluation-v4
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: g2_6k0_relation_gold_v2_frozen_relation_s4_blocked
+  phase: appointment_delegation_shadow_ready_factor_score_pending
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
 architecture:
   primary_semantic_unit: historical_episode
   evidence_assertion_unit: assertion
+  scoring_input_unit: rule_evidence_unit
   business_state_target: postgresql
   generated_views_are_fact_source: false
   normal_full_rebuild_forbidden: true
+  minimum_sufficient_scoring: true
 
 release:
   formal_scoring_enabled: false
@@ -25,31 +27,51 @@ release:
 
 milestones:
   m1_historical_episode_kernel: conditional_pass
-  qualification: oracle_assisted_constructability_passed
-  g2_assertion_episode: reopen_required
-  blind_reconciliation: open_development_regression_no_new_blind_authorized
-  g2_5_holdout: failed_closed
-  g2_6_boundary_relation: d1_contract_hardening_complete
-  g2_6e_graph_holdout: failed_closed
-  g2_6f_atomic_boundary_relation: contract_hardening_complete
-  g2_6g_graph_holdout: failed_closed_before_candidate_score
-  g2_6h_atomic_identity_holdout: failed_closed_before_candidate_score
-  g2_6h_contract_basis: boundary_review_v2_5
-  g2_6h_graph_holdout: failed_closed_before_candidate_score
-  g2_6i_contract_target: boundary_review_v2_6
-  g2_6i_contract_status: v2_6_evaluated_holdout_failed
-  g2_6i_graph_holdout: failed_closed_after_first_blind_score
-  g2_6j_graph_holdout: failed_closed_after_first_blind_score
-  g2_6j_next_gate: g2_6k0_source_segmentation_development_qualification
-  g2_6j_contract_basis: assertion_extraction_v2_boundary_review_v2_8
-  g2_6j_contract_status: evaluated_holdout_failed_qualification
-  g2_6k0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10_relation_policy_v2_relation_gold_v2
-  g2_6k0_status: relation_gold_v2_frozen_relation_s4_blocked
-  g2_6k0_development_sets: g2_6i_and_g2_6j
-  g2_6k0_relation_review: independent_cross_review_unit_v2_complete
-  g2_6k0_relation_gold_audit: original_gold_invalidated_relation_gold_v2_frozen
-  g2_6k0_rule_gold: stale_after_relation_gold_v2_refreeze_blocked_until_s4_passes
-  g2_6k0_next_gate: relation_evidence_and_dual_review_agreement_protocol
-  g2_6k0_new_blind_holdout_authorized: false
-  g3_episode_graph_registry: blocked_by_g2_6k0
-  postgresql_g3_authorized: false
+  g2_core_source_assertion_episode: passed_for_shadow_implementation
+  g2_relation_fine_graph: deferred_not_qualified
+  g3a_episode_core_registry: passed_shadow_registry
+  g3b_core_shadow_runner: passed_sync_local_invalidation
+  g3r_minimum_sufficient_relation: passed_shadow_only
+  g3c_rule_evidence_unit: passed_shadow_only
+  g3d_g3h_projection_judgment_readiness: passed_shadow_only
+  factor_schema: pending
+  deterministic_judgment_evaluator: pending
+  score_contribution: pending
+  integrated_scored_shadow_runner: pending
+  formal_scoring: blocked
+
+current_shadow_result:
+  rule_code: appointment_delegation
+  rule_evidence_unit_drafts: 4
+  projection_drafts: 4
+  judgment_shadow_candidates: 4
+  positive_candidates: 1
+  mixed_candidates: 3
+  negative_candidates: 0
+  evidence_blockers: 0
+  formal_business_writes: 0
+
+next_delivery:
+  code: appointment_delegation_scored_shadow_demo
+  required_outcomes:
+    - accepted_limited_factor_schema
+    - deterministic_judgment_evaluator
+    - versioned_score_contribution_contract
+    - integrated_shadow_runner
+    - three_emperor_traceable_report
+  forbidden_substitutes:
+    - new_micro_stage_letters
+    - stage_only_markdown
+    - module_mirrored_test_files
+    - formal_ranking
+
+governance:
+  highest_driver: docs/项目总纲/皇帝综合评价体系评分标准.md
+  active_status_sources:
+    - README.md
+    - config/project.yml
+    - eval/episode_pilot_v1_status.yml
+    - docs/31-G3R评分最小充分Relation重解释.md
+  stage_artifacts_belong_in_eval: true
+  superseded_stage_docs_must_be_consolidated: true
+  new_long_lived_doc_requires_user_visible_contract_change: true
