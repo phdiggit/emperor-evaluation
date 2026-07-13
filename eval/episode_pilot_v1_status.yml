@@ -87,6 +87,20 @@ v4_service_evidence:
   weizheng_claim_count: 4
   database_import_performed: false
 
+v4_service_source_governance:
+  status: accepted_selective_migration_pending
+  current_release_is_git_commit: true
+  current_v4_history_contains_active_service_source: false
+  whole_service_branch_merge_forbidden: true
+  source_cache_contract: source-cache-contract-v2
+  claim_extraction_contract: assertion-extraction-contract-v2
+  migration_order:
+    - shared_runtime_and_release_skeleton
+    - source_cache
+    - claim_extraction
+    - immutable_deployment_cutover
+  next_gate: source_cache_contract_fixture_and_module_boundary
+
 talent_discovery_roster_evidence:
   roster_people: 4
   assertion_count: 91

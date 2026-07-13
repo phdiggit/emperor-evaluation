@@ -97,6 +97,31 @@ v4_service_releases:
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
   source_cache_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
+v4_service_source_governance:
+  status: accepted_selective_migration_pending
+  canonical_history: v4_current_git_history
+  transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
+  migration_mode: contract_tested_selective_port
+  whole_service_branch_merge_forbidden: true
+  target_roots:
+    contracts: src/emperor_v4/contracts
+    adapters: src/emperor_v4/adapters
+    application: src/emperor_v4/application
+    persistence: src/emperor_v4/persistence
+    runtime: src/emperor_v4/runtime
+    deployment: deploy/v4
+  accepted_contracts:
+    source_cache: source-cache-contract-v2
+    claim_extraction: assertion-extraction-contract-v2
+  transitional_nonconformance:
+    - rule_code_driven_claim_prompt_must_become_versioned_extraction_profile
+    - retrieval_v3_runtime_names_must_be_removed_at_cutover
+  forbidden_imports:
+    - v3_scorer
+    - v3_person_profile
+    - v3_consumer_chain
+    - v3_orchestrator
+
 governance:
   highest_driver: docs/项目总纲/皇帝综合评价体系评分标准.md
   active_status_sources:

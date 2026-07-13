@@ -18,6 +18,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录
 - 包 D 发现链补抽：V4 Claim Extractor 已按 `talent_discovery` 抽出魏徵旧阵营、识才依据、跨障碍与转化任用 4 条 Claim；陈平、魏徵各形成 1 个正向贡献，韩信与蓝玉按规则排除
 - 包 D 名单增量复用：`talent_discovery` 已接入包 C 的持久化 roster 入口；无变化精确复用，新增魏徵 Assertion 只重建 1 个单元并复用其余 3 个 Judgment
+- V4 配套服务源码治理：已接受“同一 Git 历史、按现有包边界选择性迁入”的章程；当前服务 release 仍在旧冻结点分出的过渡分支，禁止整体 merge，待按合同测试逐步迁入
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
