@@ -79,7 +79,10 @@ class CodexCliClaimExtractionProvider:
                 timeout=self.timeout_seconds, cwd=self.cwd, check=False,
             )
             if completed.returncode != 0:
-                raise RuntimeError(f"Codex Claim provider 失败: exit={completed.returncode}")
+                diagnostic = completed.stderr.strip()[-1200:]
+                raise RuntimeError(
+                    f"Codex Claim provider 失败: exit={completed.returncode}; stderr={diagnostic}"
+                )
             payload = json.loads(output_path.read_text(encoding="utf-8"))
         if not isinstance(payload, Mapping):
             raise ValueError("Codex Claim provider 输出必须是 JSON object")
