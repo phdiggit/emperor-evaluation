@@ -7,6 +7,7 @@ from typing import Any, Mapping
 
 SOURCE_CACHE_CONTRACT_V1 = "source-cache-contract-v1"
 SOURCE_CACHE_CONTRACT_V2 = "source-cache-contract-v2"
+SOURCE_CACHE_REQUEST_MODES = frozenset({"ensure", "supplement", "refresh"})
 PASSAGE_KINDS = frozenset({"atomic", "context", "navigation_noise"})
 PASSAGE_LINK_RELATIONS = frozenset(
     {"antecedent", "continuation", "responsibility", "outcome"}
@@ -17,6 +18,80 @@ def text_content_hash(text: str) -> str:
     """返回 passage 原文的稳定 SHA-256，不包含可变摘要或数据库 ID。"""
 
     return sha256(text.encode("utf-8")).hexdigest()
+
+
+@dataclass(frozen=True, slots=True)
+class SourceCacheSubject:
+    person_or_ruler_ref: str
+    canonical_name: str
+    aliases: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if not self.person_or_ruler_ref or not self.canonical_name:
+            raise ValueError("SourceCacheSubject 必须声明稳定引用和规范名")
+        if any(not item for item in self.aliases):
+            raise ValueError("SourceCacheSubject aliases 不得包含空值")
+
+
+@dataclass(frozen=True, slots=True)
+class SourceCacheRequest:
+    request_id: str
+    idempotency_key: str
+    subject: SourceCacheSubject
+    evaluation_context: Mapping[str, Any]
+    source_hints: tuple[str, ...]
+    required_source_families: tuple[str, ...]
+    mode: str
+    source_policy_version: str
+    requested_at: str
+
+    def __post_init__(self) -> None:
+        required = {
+            "request_id": self.request_id,
+            "idempotency_key": self.idempotency_key,
+            "source_policy_version": self.source_policy_version,
+            "requested_at": self.requested_at,
+        }
+        missing = [name for name, value in required.items() if not value]
+        if missing:
+            raise ValueError("SourceCacheRequest 缺少字段: " + ", ".join(missing))
+        if self.mode not in SOURCE_CACHE_REQUEST_MODES:
+            raise ValueError(f"未知 Source Cache mode: {self.mode}")
+        if any(not item for item in self.source_hints):
+            raise ValueError("SourceCacheRequest source_hints 不得包含空值")
+        if any(not item for item in self.required_source_families):
+            raise ValueError("SourceCacheRequest required_source_families 不得包含空值")
+
+
+@dataclass(frozen=True, slots=True)
+class SourceRevisionContent:
+    source_host: str
+    source_document_ref: str
+    title: str
+    url: str
+    revision_ref: str
+    revision_timestamp: str
+    retrieved_at: str
+    raw_text: str
+    content_hash: str
+
+    def __post_init__(self) -> None:
+        if not all(
+            (
+                self.source_host,
+                self.source_document_ref,
+                self.title,
+                self.url,
+                self.revision_ref,
+                self.revision_timestamp,
+                self.retrieved_at,
+                self.raw_text,
+                self.content_hash,
+            )
+        ):
+            raise ValueError("SourceRevisionContent 缺少来源、版本或原文")
+        if self.content_hash != text_content_hash(self.raw_text):
+            raise ValueError("SourceRevisionContent content_hash 与 raw_text 不一致")
 
 
 @dataclass(frozen=True, slots=True)

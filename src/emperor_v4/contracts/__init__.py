@@ -19,8 +19,11 @@ from emperor_v4.contracts.episode import HistoricalEpisodePacket
 from emperor_v4.contracts.source import (
     ContractGap,
     LinkedPassageRef,
+    SourceCacheRequest,
+    SourceCacheSubject,
     SourceDocumentDraft,
     SourcePassage,
+    SourceRevisionContent,
 )
 
 __all__ = [
@@ -31,6 +34,8 @@ __all__ = [
     "BoundaryReviewRequest",
     "ContractGap",
     "LinkedPassageRef",
+    "SourceCacheRequest",
+    "SourceCacheSubject",
     "HistoricalEpisodePacket",
     "EpisodeBoundaryReviewResult",
     "EpisodePairDisposition",
@@ -42,4 +47,5 @@ __all__ = [
     "RuleEvidenceUnitDraft",
     "SourceDocumentDraft",
     "SourcePassage",
+    "SourceRevisionContent",
 ]

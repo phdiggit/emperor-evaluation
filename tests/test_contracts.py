@@ -20,6 +20,8 @@ from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 from emperor_v4.contracts.source import (
     SOURCE_CACHE_CONTRACT_V2,
     LinkedPassageRef,
+    SourceCacheRequest,
+    SourceCacheSubject,
     SourcePassage,
     text_content_hash,
 )
@@ -1031,6 +1033,25 @@ def test_source_passage_v2_rejects_invalid_span_and_self_link():
             **common,
             linked_passages=(LinkedPassageRef("P-V2", "continuation"),),
         )
+
+
+def test_source_cache_request_freezes_subject_mode_and_policy_boundary():
+    request = SourceCacheRequest(
+        request_id="SRC-1",
+        idempotency_key="source-cache:test:ensure:v1",
+        subject=SourceCacheSubject("PER-1", "测试人物", ("别名",)),
+        evaluation_context={"purpose": "historical_evidence_discovery"},
+        source_hints=("测试史书/卷一",),
+        required_source_families=("primary_text",),
+        mode="ensure",
+        source_policy_version="source-policy-v1",
+        requested_at="2026-07-14T00:00:00+08:00",
+    )
+
+    assert request.subject.person_or_ruler_ref == "PER-1"
+    assert request.mode == "ensure"
+    with pytest.raises(ValueError, match="未知 Source Cache mode"):
+        replace(request, mode="score")
 
 
 def test_canonical_person_identity_fingerprint_is_deterministic():

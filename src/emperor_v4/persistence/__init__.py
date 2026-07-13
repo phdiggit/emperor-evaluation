@@ -19,6 +19,10 @@ from emperor_v4.persistence.postgres_registry import (
     PostgresCoreRegistry,
     historical_episode_packet_from_payload,
 )
+from emperor_v4.persistence.source_cache import (
+    InMemorySourceCacheRepository,
+    ShadowJsonSourceCacheRepository,
+)
 
 __all__ = [
     "BoundaryReviewCacheEntry",
@@ -34,4 +38,6 @@ __all__ = [
     "decide_schema_action",
     "PostgresCoreRegistry",
     "historical_episode_packet_from_payload",
+    "InMemorySourceCacheRepository",
+    "ShadowJsonSourceCacheRepository",
 ]

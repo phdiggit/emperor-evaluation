@@ -6,11 +6,13 @@ import sys
 from pathlib import Path
 
 import pytest
+import yaml
 
 from emperor_v4.adapters import (
     WikisourcePageSnapshot,
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
+    adapt_source_cache_v2_response,
     write_wikisource_snapshot,
 )
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
@@ -72,6 +74,10 @@ from emperor_v4.application.talent_discovery_shadow_runner import (
 from emperor_v4.application.talent_discovery_roster_runner import (
     run_talent_discovery_roster_shadow,
 )
+from emperor_v4.application.source_cache_service import (
+    SourceCacheIdempotencyConflict,
+)
+from emperor_v4.runtime.source_cache import run_fixture_ensure
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.rule_evidence_shadow import (
@@ -2109,6 +2115,96 @@ def test_source_development_materializer_rejects_nested_oracle_fields(tmp_path: 
             manifest_path=manifest_path,
             claim_snapshot=claim_snapshot,
             snapshot_dir=snapshot_dir,
+        )
+
+
+def test_v4_source_cache_fixture_runner_ensures_and_exactly_reuses_response(
+    tmp_path: Path,
+):
+    repo_root = Path(__file__).parents[1]
+    request_path = repo_root / "eval/source_cache_v4_demo/request.yml"
+    plan_path = repo_root / "eval/source_cache_v4_demo/fixture_plan.yml"
+    state_path = tmp_path / "source-cache-state.json"
+    release_sha = "a" * 40
+
+    first = run_fixture_ensure(
+        request_path=request_path,
+        fixture_plan_path=plan_path,
+        state_path=state_path,
+        service_release_sha=release_sha,
+        repo_root=repo_root,
+    )
+    second = run_fixture_ensure(
+        request_path=request_path,
+        fixture_plan_path=plan_path,
+        state_path=state_path,
+        service_release_sha=release_sha,
+        repo_root=repo_root,
+    )
+
+    assert first["response"]["contract"] == "source-cache-contract-v2"
+    assert first["response"]["status"] == "succeeded"
+    assert len(first["response"]["documents"]) == 1
+    assert len(first["response"]["passages"]) == 3
+    assert len(adapt_source_cache_v2_response(first["response"]).passages) == 3
+    assert first["runtime_audit"] == {
+        "cache_hit": False,
+        "exact_response_reused": False,
+        "provider_call_count": 1,
+        "shadow_state_write_count": 1,
+        "network_request_count": 0,
+        "database_write_count": 0,
+        "model_call_count": 0,
+    }
+    assert second["response"] == first["response"]
+    assert second["runtime_audit"]["cache_hit"] is True
+    assert second["runtime_audit"]["exact_response_reused"] is True
+    assert second["runtime_audit"]["provider_call_count"] == 0
+    assert second["runtime_audit"]["shadow_state_write_count"] == 0
+    serialized = json.dumps(first["response"], ensure_ascii=False).lower()
+    assert "assertion" not in serialized
+    assert "episode" not in serialized
+    assert "judgment" not in serialized
+    assert "score" not in serialized
+
+
+def test_v4_source_cache_rejects_same_idempotency_key_with_changed_input(
+    tmp_path: Path,
+):
+    repo_root = Path(__file__).parents[1]
+    original = yaml.safe_load(
+        (repo_root / "eval/source_cache_v4_demo/request.yml").read_text(
+            encoding="utf-8"
+        )
+    )
+    first_path = tmp_path / "first.yml"
+    changed_path = tmp_path / "changed.yml"
+    first_path.write_text(
+        yaml.safe_dump(original, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    original["source_policy_version"] = "changed-policy"
+    changed_path.write_text(
+        yaml.safe_dump(original, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    state_path = tmp_path / "state.json"
+    plan_path = repo_root / "eval/source_cache_v4_demo/fixture_plan.yml"
+    run_fixture_ensure(
+        request_path=first_path,
+        fixture_plan_path=plan_path,
+        state_path=state_path,
+        service_release_sha="b" * 40,
+        repo_root=repo_root,
+    )
+
+    with pytest.raises(SourceCacheIdempotencyConflict, match="不同有效输入"):
+        run_fixture_ensure(
+            request_path=changed_path,
+            fixture_plan_path=plan_path,
+            state_path=state_path,
+            service_release_sha="b" * 40,
+            repo_root=repo_root,
         )
 
 
