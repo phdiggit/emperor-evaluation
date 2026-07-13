@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 2b85dc8f927c8abdfb9d26269329cb9e423cbb5c
+as_of_commit_basis: 8a02907c679cfe88de58cfcf209822f4778bc77b
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -18,10 +18,13 @@ milestones:
   G2_6I_contract_basis: boundary_review_v2_6_hardened
   G2_6I_graph_holdout: failed_closed_after_first_blind_score
   G2_6J_graph_holdout: failed_closed_after_first_blind_score
-  G2_6J_next_gate: source_segmentation_repair_then_g2_6k_new_holdout
+  G2_6J_next_gate: g2_6k0_source_segmentation_development_qualification
   G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_8
   G2_6J_contract_status: evaluated_holdout_failed_qualification
-  G3_PostgreSQL: blocked_by_g2_6K
+  G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2
+  G2_6K0_source_development: blocked_before_boundary
+  G2_6K0_new_blind_holdout_authorized: false
+  G3_PostgreSQL: blocked_by_g2_6K0
 
 qualification:
   passed:
@@ -82,6 +85,10 @@ qualification:
     - g2_6j_assertion_disposition_100_percent
     - g2_6j_zero_call_unchanged_rerun
     - g2_6j_review_unit_local_invalidation
+    - g2_6k0_source_cache_v2_contract
+    - g2_6k0_section_span_linked_passage_slicer
+    - g2_6k0_mechanical_early_stop
+    - g2_6k0_eight_scenario_protocol_smoke
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -106,6 +113,12 @@ qualification:
     - g2_6j_pairwise_merge_split_not_measurable
     - g2_6j_strict_relation_precision_0
     - g2_6j_rule_unit_metrics_not_measurable
+    - g2_6k0_g2_6i_source_v2_coverage_0
+    - g2_6k0_g2_6i_assertion_support_unclassified_59
+    - g2_6k0_g2_6j_source_v2_coverage_0
+    - g2_6k0_g2_6j_atomic_support_7_of_38
+    - g2_6k0_g2_6j_context_only_31_of_38
+    - g2_6k0_g2_6j_navigation_noise_2
 
 metric_policy:
   oracle_assisted_packet_count_is_accuracy_metric: false
@@ -120,6 +133,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6K_source_segmentation_repair_and_new_holdout
-  status: source_segmentation_repair_pending
-  required_outcome: 以 section-aware linked passages 消除缺主体动作与导航噪声，在未见人物链上重新验证 merge/split、EpisodeRelation 与 appointment_delegation RuleEvidenceUnit
+  code: G2_6K0_source_segmentation_development_qualification
+  status: development_blocked_before_boundary
+  required_outcome: 先使开放开发集满足 Source v2 100%、atomic support 至少 75%、context-only 不高于 25%、导航噪声 0、linked lineage 100%，再逐层验证 Episode、Relation 和 Rule 覆盖；此前不新建 blind holdout

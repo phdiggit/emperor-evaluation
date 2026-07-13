@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6J 已首次评分并失败冻结；G2.6K 史源切片修复待开始
+- 阶段：G2.6K0 史源切片开发资格；G2.6I/J 开放回归集在 Boundary 前机械阻断
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,9 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 singleton Gold Episode 达到 exact recall/precision 100%，但 31/38 passage 因缺主体/动作而只能作为 context，pairwise merge/split 无样本，2 条 candidate relation 均无 Gold 对应，且没有合格 `appointment_delegation` rule unit。该结果不能解释为 G2.6 通过。下一步先修 section-aware source segmentation，再使用未见人物链建立 G2.6K；PostgreSQL G3 继续阻断。
+G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 singleton Gold Episode 达到 exact recall/precision 100%，但 31/38 passage 因缺主体/动作而只能作为 context，pairwise merge/split 无样本，2 条 candidate relation 均无 Gold 对应，且没有合格 `appointment_delegation` rule unit。该结果不能解释为 G2.6 通过。
+
+当前已进入 G2.6K0，而不是继续制造新 blind holdout。Source Cache v2、section-aware deterministic slicer、S1—S5 机械早停和 8 场景离线 protocol smoke 已落地。G2.6I/J 作为开放开发回归集仍在 S1/S2 阻断：J 的 atomic support 为 7/38、context-only 为 31/38、导航噪声为 2，Boundary reviewer 启动数为 0。必须先让开发集通过 Source/Assertion 资格，再进行唯一一次最终 qualified holdout；PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,8 +105,9 @@ G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 sin
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`g2_6j_contract_hardened_new_input_pending`
-- G3 Episode Graph PostgreSQL：`blocked_by_g2_6j`
+- blind reconciliation：`open_development_regression_no_new_blind_authorized`
+- G2.6K0 Source Segmentation：`development_blocked_before_boundary`
+- G3 Episode Graph PostgreSQL：`blocked_by_g2_6k0`
 
 进入 G3 前必须满足：
 
