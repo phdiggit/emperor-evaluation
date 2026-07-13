@@ -21,6 +21,7 @@ from emperor_v4.application.appointment_delegation_shadow_diff import (
 )
 from emperor_v4.application.appointment_delegation_roster_runner import (
     run_appointment_delegation_roster_shadow,
+    run_persistent_appointment_delegation_roster_shadow,
 )
 from emperor_v4.evaluation.appointment_delegation_scoring import (
     evaluate_judgment,
@@ -141,6 +142,60 @@ def test_roster_no_change_rerun_exactly_reuses_persistent_record():
     assert rerun["side_effect_audit"]["service_call_count"] == 0
     assert rerun["side_effect_audit"]["model_call_count"] == 0
     assert rerun["side_effect_audit"]["database_write_count"] == 0
+
+
+def test_roster_persistent_state_recovers_after_episode_kernel_failure(tmp_path: Path):
+    state_path = tmp_path / "roster-state.json"
+    failed = run_persistent_appointment_delegation_roster_shadow(
+        ROSTER_MANIFEST,
+        state_path,
+        fail_after_stage="episode_kernel",
+    )
+
+    assert failed["status"] == "failed"
+    assert failed["failed_after_stage"] == "episode_kernel"
+    failed_state = json.loads(state_path.read_text(encoding="utf-8"))
+    assert failed_state["status"] == "failed"
+    assert failed_state["last_completed_stage"] == "episode_kernel"
+    assert all(
+        row["service_response_hashes"]
+        for row in failed_state["people"].values()
+    )
+    assert failed_state["side_effect_audit"] == {
+        "service_call_count": 0,
+        "model_call_count": 0,
+        "database_write_count": 0,
+    }
+
+    recovered = run_persistent_appointment_delegation_roster_shadow(
+        ROSTER_MANIFEST,
+        state_path,
+    )
+    recovered_state = json.loads(state_path.read_text(encoding="utf-8"))
+    assert recovered["status"] == "appointment_delegation_roster_shadow_complete"
+    assert recovered_state["status"] == "completed"
+    assert recovered_state["resume_count"] == 1
+    assert recovered_state["last_completed_stage"] == "scored_shadow"
+    assert all(
+        row["status"] == "rebuilt" for row in recovered_state["people"].values()
+    )
+    assert all(row["episode_refs"] for row in recovered_state["people"].values())
+
+
+def test_roster_persistent_no_change_marks_every_person_reused(tmp_path: Path):
+    state_path = tmp_path / "roster-state.json"
+    prior = json.loads(ROSTER_REPORT.read_text(encoding="utf-8"))
+    report = run_persistent_appointment_delegation_roster_shadow(
+        ROSTER_MANIFEST,
+        state_path,
+        prior_record_path=ROSTER_REPORT,
+    )
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+
+    assert report == prior
+    assert state["final_run_record_sha256"] == prior["run_record_sha256"]
+    assert all(row["status"] == "reused" for row in state["people"].values())
+    assert state["side_effect_audit"]["service_call_count"] == 0
 
 
 def test_scored_runner_rebuilds_one_unit_and_exactly_reuses_three():

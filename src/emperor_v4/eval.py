@@ -64,6 +64,7 @@ from emperor_v4.application.appointment_delegation_shadow_diff import (
 )
 from emperor_v4.application.appointment_delegation_roster_runner import (
     run_appointment_delegation_roster_shadow,
+    run_persistent_appointment_delegation_roster_shadow,
 )
 
 
@@ -398,6 +399,7 @@ def _parser() -> argparse.ArgumentParser:
     roster_shadow = subparsers.add_parser("appointment-delegation-roster-shadow")
     roster_shadow.add_argument("--manifest", type=Path, required=True)
     roster_shadow.add_argument("--prior-record", type=Path)
+    roster_shadow.add_argument("--state", type=Path)
     roster_shadow.add_argument("--output", type=Path)
     return parser
 
@@ -538,8 +540,16 @@ def main() -> int:
     elif args.command == "appointment-delegation-shadow-diff":
         report = run_appointment_delegation_shadow_diff(args.request)
     elif args.command == "appointment-delegation-roster-shadow":
-        report = run_appointment_delegation_roster_shadow(
-            args.manifest, prior_record_path=args.prior_record
+        report = (
+            run_persistent_appointment_delegation_roster_shadow(
+                args.manifest,
+                args.state,
+                prior_record_path=args.prior_record,
+            )
+            if args.state
+            else run_appointment_delegation_roster_shadow(
+                args.manifest, prior_record_path=args.prior_record
+            )
         )
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(

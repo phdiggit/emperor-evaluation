@@ -1,6 +1,6 @@
 # `appointment_delegation` 评分最小充分 Shadow 实施摘要
 
-> 状态：`roster_scored_shadow_ready_persistent_orchestration_next`
+> 状态：`persistent_roster_shadow_ready_second_rule_reuse_next`
 >
 > 日期：2026-07-13
 >
@@ -120,6 +120,8 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 差异评审已经形成首个人工口径结论：`authority_clarity` 只评价最终授权结果，韩信齐王授权记为 `positive`；请求、劝说和压力调整不降低该因子，也不另生成纳谏贡献。
 
 名单式离线入口现可从三皇帝、四臣子 manifest 依次验证 Source Cache 与 Claim Extractor 冻结快照、运行确定性 Episode Kernel，并生成 scored shadow。首次运行处理 87 条 Assertion、78 个 Episode candidate、4 个评分单元；提供 prior record 时，无变化输入直接精确复用同一运行记录。
+
+包 C 已增加持久化逐人物状态、服务响应 hash、变化 Episode 与 RuleEvidenceUnit 清单、慢通道 review job、原子 state 写入和故障后恢复。当前缓存无变化，因此服务调用、模型调用和数据库业务写入均为 0；下一纵向边界是让 `talent_discovery` 复用同一 runner，而不是复制第二条流水线。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 

@@ -17,6 +17,7 @@ current:
   integrated_scored_runner: passed_shadow_demo_only
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
+  persistent_incremental_orchestration: passed_shadow_runtime
   formal_scoring: blocked
 
 shadow_evidence:
@@ -59,14 +60,14 @@ historical_qualification:
   interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
 
 next_delivery:
-  code: appointment_delegation_persistent_incremental_orchestration
-  gate: opt_in_service_and_resume_contract
+  code: talent_discovery_scored_shadow_reuse
+  gate: second_rule_shared_runner_reuse
   required:
-    - persist_per_person_stage_and_service_response_hash
-    - resume_from_failed_stage
-    - execute_downstream_only_for_changed_people
-    - keep_service_calls_opt_in
-  stop_condition: do_not_enable_live_service_calls_without_explicit_runtime_authorization
+    - approve_talent_discovery_rule_boundary
+    - freeze_minimum_rule_evidence_and_gold_cases
+    - reuse_roster_incremental_runner
+    - prevent_cross_rule_duplicate_settlement
+  stop_condition: do_not_copy_a_second_pipeline_or_enable_formal_ranking
 
 safety:
   v3_production_write_performed: false

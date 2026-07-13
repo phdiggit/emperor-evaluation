@@ -221,6 +221,9 @@ def test_appointment_delegation_roster_shadow_runs_service_adapters_to_score(
     }
     assert report["scored_report"]["summary"]["ruler_count"] == 3
     assert report["scored_report"]["summary"]["score_contribution_count"] == 4
+    assert len(report["delta"]["delta_episode_refs"]) == 6
+    assert report["slow_review_job_count"] == 0
+    assert report["slow_review_jobs"] == []
     hanxin = next(
         row for row in report["scored_report"]["judgments"] if row["person"] == "韩信"
     )
@@ -235,6 +238,7 @@ def test_appointment_delegation_roster_shadow_runs_service_adapters_to_score(
     }
 
     output = tmp_path / "roster-report.json"
+    state = tmp_path / "roster-state.json"
     monkeypatch.setattr(
         sys,
         "argv",
@@ -243,12 +247,20 @@ def test_appointment_delegation_roster_shadow_runs_service_adapters_to_score(
             "appointment-delegation-roster-shadow",
             "--manifest",
             str(ROSTER_MANIFEST),
+            "--prior-record",
+            str(ROSTER_REPORT),
+            "--state",
+            str(state),
             "--output",
             str(output),
         ],
     )
     assert eval_main() == 0
     assert json.loads(output.read_text(encoding="utf-8")) == report
+    persisted = json.loads(state.read_text(encoding="utf-8"))
+    assert persisted["status"] == "completed"
+    assert all(row["status"] == "reused" for row in persisted["people"].values())
+    assert all(row["episode_refs"] for row in persisted["people"].values())
 
 
 def test_g3_shadow_evidence_to_input_gate_vertical_invariants():

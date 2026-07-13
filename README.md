@@ -15,6 +15,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - `appointment_delegation` scored shadow：有限 factor schema、确定性 Judgment、4 个 shadow ScoreContribution 与统一 runner 已完成
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
+- 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -36,15 +37,16 @@ SourcePassage / Assertion
 python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
+python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --prior-record eval/appointment_delegation_roster_demo/report.json --state eval/appointment_delegation_roster_demo/state.json --output eval/appointment_delegation_roster_demo/report.json
 ```
 
 ## 下一份可见成果
 
-scored shadow demo、首轮因子差异裁定和离线名单入口已完成。当前下一交付物是把离线 `ensure` 扩展为可恢复的持久化增量编排：
+scored shadow demo、首轮因子差异裁定、名单入口和包 C 持久化增量编排已完成。当前下一交付物是包 D 的首个规则复用切片：
 
-1. 在明确授权后接通 `supplement / refresh` 服务调用，默认仍为 `ensure`；
-2. 持久化每人物 stage、service response hash 和失败恢复点；
-3. 只把变化人物的 Assertion/Episode/评分单元送入下游，其余精确复用；
+1. 从 `talent_discovery` 开始复用同一名单、证据、版本和 ScoreContribution runner；
+2. 先批准规则边界、最小 RuleEvidenceUnit 和 gold cases，不复制独立流水线；
+3. 与 `appointment_delegation` 做重复结算检查；
 4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
 
 在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
@@ -114,4 +116,5 @@ scored shadow demo、首轮因子差异裁定和离线名单入口已完成。�
 - Integrated scored shadow runner：`passed_shadow_demo_only`
 - Shadow difference review runner：`ready_for_human_review`
 - Offline roster scored runner：`passed_cache_ensure_shadow`
+- Persistent incremental orchestration：`passed_shadow_runtime`
 - 正式评分和生产切换：`blocked`
