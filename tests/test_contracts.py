@@ -1212,6 +1212,7 @@ def test_claim_extraction_profiles_replace_rule_code_prompt_branching() -> None:
 
     assert talent.output_contract == "assertion-extraction-contract-v2"
     assert len(talent.required_chains) == 4
+    assert any("当场言论" in item and "必须单独抽取" in item for item in talent.required_chains)
     assert any("纳谏" in item and "倒推" in item for item in talent.prohibitions)
     assert any("多个独立前序" in item for item in talent.prohibitions)
     assert any("器重、知名" in item for item in talent.prohibitions)
