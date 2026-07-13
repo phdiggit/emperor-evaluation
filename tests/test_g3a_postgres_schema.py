@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from emperor_v4.persistence.postgres_source_cache import (
+    SOURCE_CACHE_CONTENT_TABLES,
     SOURCE_CACHE_TABLES,
     SourceCacheSchemaStateError,
     decide_source_cache_schema_action,
@@ -18,6 +19,12 @@ SOURCE_CACHE_SCHEMA = (
     / "db"
     / "postgres"
     / "002_v4_source_cache_service.sql"
+)
+SOURCE_CACHE_JOBS_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "003_v4_source_cache_jobs.sql"
 )
 EXPECTED_TABLES = {
     "source_documents",
@@ -98,7 +105,7 @@ def test_source_cache_service_uses_separate_pre_acceptance_schema() -> None:
         )
     )
 
-    assert tables == SOURCE_CACHE_TABLES
+    assert tables == SOURCE_CACHE_CONTENT_TABLES
     assert "CREATE SCHEMA IF NOT EXISTS v4_source_cache" in sql
     assert "REFERENCES source_documents" not in sql
     assert "assertions" not in tables
@@ -119,6 +126,22 @@ def test_source_cache_service_migration_is_transactional_and_non_destructive() -
 
 def test_source_cache_schema_bootstrap_reuses_only_complete_shape() -> None:
     assert decide_source_cache_schema_action(()) == "apply"
+    assert decide_source_cache_schema_action(SOURCE_CACHE_CONTENT_TABLES) == "upgrade"
     assert decide_source_cache_schema_action(SOURCE_CACHE_TABLES) == "reuse"
     with pytest.raises(SourceCacheSchemaStateError, match="不完整"):
         decide_source_cache_schema_action({"requests"})
+
+
+def test_source_cache_jobs_migration_has_lease_and_idempotency_contract() -> None:
+    sql = SOURCE_CACHE_JOBS_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+    tables = set(re.findall(r"CREATE TABLE\s+v4_source_cache\.([a-z_]+)", sql, flags=re.I))
+
+    assert tables == {"jobs", "job_runs"}
+    assert "IDEMPOTENCY_KEY TEXT NOT NULL UNIQUE" in upper
+    assert "FOR UPDATE" not in upper
+    assert "LEASE_EXPIRES_AT TIMESTAMPTZ" in upper
+    assert "UNIQUE (JOB_ID, ATTEMPT_NUMBER)" in upper
+    assert "DROP " not in upper
+    assert "TRUNCATE" not in upper
+    assert "DELETE FROM" not in upper

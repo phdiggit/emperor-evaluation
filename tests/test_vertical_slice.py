@@ -2397,3 +2397,108 @@ def test_source_development_rebind_reuses_identical_passage_span(tmp_path: Path)
     }.issubset(payload["source_passages"][0]["selection_reason"])
     assert report["reports"]["fixture"]["stages"]["S1_source_passage"]["passed"]
     assert report["reports"]["fixture"]["stages"]["S2_assertion"]["passed"]
+def test_source_cache_worker_is_idempotent_and_terminal_jobs_are_not_reclaimed() -> None:
+    from emperor_v4.application.source_cache_worker import run_source_cache_worker_once
+    from emperor_v4.persistence.source_cache_jobs import InMemorySourceCacheJobRepository
+
+    repository = InMemorySourceCacheJobRepository()
+    payload = {"request_id": "REQ-1"}
+    assert repository.enqueue(
+        job_id="SCJ-1", idempotency_key="source-cache:job:1",
+        input_fingerprint="input-1", policy_version="policy-v1",
+        request_payload=payload,
+    ) == 1
+    assert repository.enqueue(
+        job_id="SCJ-DUPLICATE", idempotency_key="source-cache:job:1",
+        input_fingerprint="input-1", policy_version="policy-v1",
+        request_payload=payload,
+    ) == 0
+    calls = []
+
+    def handler(request):
+        calls.append(request)
+        return {"output_fingerprint": "output-1", "status": "succeeded"}
+
+    first = run_source_cache_worker_once(
+        repository, worker_id="worker-a", handler=handler,
+    )
+    second = run_source_cache_worker_once(
+        repository, worker_id="worker-a", handler=handler,
+    )
+    assert first.status == "succeeded"
+    assert second.status == "idle"
+    assert calls == [payload]
+    assert repository.jobs["source-cache:job:1"].status == "succeeded"
+
+
+def test_source_cache_worker_recovers_expired_lease_before_retry() -> None:
+    from datetime import datetime, timedelta, timezone
+
+    from emperor_v4.application.source_cache_worker import run_source_cache_worker_once
+    from emperor_v4.persistence.source_cache_jobs import InMemorySourceCacheJobRepository
+
+    now = datetime(2026, 7, 14, tzinfo=timezone.utc)
+    repository = InMemorySourceCacheJobRepository(clock=lambda: now)
+    repository.enqueue(
+        job_id="SCJ-LEASE", idempotency_key="source-cache:lease",
+        input_fingerprint="input-lease", policy_version="policy-v1",
+        request_payload={"request_id": "REQ-LEASE"},
+    )
+    claimed = repository.claim(worker_id="dead-worker", lease_seconds=10)
+    assert claimed is not None
+    now += timedelta(seconds=11)
+    calls = []
+    tick = run_source_cache_worker_once(
+        repository, worker_id="recovery-worker",
+        handler=lambda request: calls.append(request) or {"output_fingerprint": "recovered"},
+    )
+    assert tick.status == "succeeded"
+    assert tick.recovered_lease_count == 1
+    assert claimed.attempt_number == 1
+    assert repository.jobs["source-cache:lease"].attempt_count == 2
+    assert len(calls) == 1
+
+
+def test_source_cache_worker_retries_then_fails_at_max_attempts() -> None:
+    from emperor_v4.application.source_cache_worker import run_source_cache_worker_once
+    from emperor_v4.persistence.source_cache_jobs import InMemorySourceCacheJobRepository
+
+    repository = InMemorySourceCacheJobRepository()
+    repository.enqueue(
+        job_id="SCJ-FAIL", idempotency_key="source-cache:fail",
+        input_fingerprint="input-fail", policy_version="policy-v1",
+        request_payload={"request_id": "REQ-FAIL"}, max_attempts=2,
+    )
+
+    def fail(_request):
+        raise RuntimeError("provider unavailable")
+
+    first = run_source_cache_worker_once(
+        repository, worker_id="worker-a", handler=fail, retry_delay_seconds=0,
+    )
+    second = run_source_cache_worker_once(
+        repository, worker_id="worker-a", handler=fail, retry_delay_seconds=0,
+    )
+    third = run_source_cache_worker_once(
+        repository, worker_id="worker-a", handler=fail, retry_delay_seconds=0,
+    )
+    assert (first.status, second.status, third.status) == ("retry_wait", "failed", "idle")
+
+
+def test_source_cache_job_idempotency_conflict_fails_closed() -> None:
+    import pytest
+
+    from emperor_v4.persistence.source_cache_jobs import InMemorySourceCacheJobRepository
+
+    repository = InMemorySourceCacheJobRepository()
+    repository.enqueue(
+        job_id="SCJ-1", idempotency_key="source-cache:same",
+        input_fingerprint="input-1", policy_version="policy-v1",
+        request_payload={"request_id": "REQ-1"},
+    )
+    with pytest.raises(ValueError, match="不同输入"):
+        repository.enqueue(
+            job_id="SCJ-2", idempotency_key="source-cache:same",
+            input_fingerprint="input-2", policy_version="policy-v1",
+            request_payload={"request_id": "REQ-2"},
+        )

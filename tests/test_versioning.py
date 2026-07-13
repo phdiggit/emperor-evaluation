@@ -623,3 +623,34 @@ def test_uncertainty_change_is_evidence_revision():
 
     assert decision.evidence_changed
     assert decision.write_required
+def test_source_cache_release_is_deterministic_and_allowlisted(tmp_path) -> None:
+    import subprocess
+
+    from emperor_v4.runtime.release import (
+        build_source_cache_release,
+        verify_source_cache_release,
+    )
+
+    repo_root = __import__("pathlib").Path(__file__).parents[1]
+    head = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=repo_root, text=True, encoding="utf-8"
+    ).strip()
+    first = build_source_cache_release(
+        repo_root=repo_root, output_dir=tmp_path / "first",
+        commit_sha=head, require_clean=False,
+    )
+    second = build_source_cache_release(
+        repo_root=repo_root, output_dir=tmp_path / "second",
+        commit_sha=head, require_clean=False,
+    )
+    assert first["archive_sha256"] == second["archive_sha256"]
+    assert all(
+        item["path"] == "pyproject.toml"
+        or item["path"].startswith(("src/emperor_v4/", "db/postgres/", "deploy/v4/"))
+        for item in first["files"]
+    )
+    verified = verify_source_cache_release(
+        archive_path=tmp_path / "first" / first["archive"],
+        manifest_path=tmp_path / "first" / f"v4-source-cache-{head}.manifest.json",
+    )
+    assert verified["commit_sha"] == head

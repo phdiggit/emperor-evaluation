@@ -13,7 +13,7 @@ from emperor_v4.contracts.source import SourceRevisionContent
 
 
 SOURCE_CACHE_SCHEMA = "v4_source_cache"
-SOURCE_CACHE_TABLES = frozenset(
+SOURCE_CACHE_CONTENT_TABLES = frozenset(
     {
         "requests",
         "document_revisions",
@@ -22,6 +22,8 @@ SOURCE_CACHE_TABLES = frozenset(
         "request_passages",
     }
 )
+SOURCE_CACHE_JOB_TABLES = frozenset({"jobs", "job_runs"})
+SOURCE_CACHE_TABLES = SOURCE_CACHE_CONTENT_TABLES | SOURCE_CACHE_JOB_TABLES
 
 
 class SourceCacheSchemaStateError(RuntimeError):
@@ -35,6 +37,14 @@ class SourceCacheSchemaBootstrapResult:
     database_write_count: int
 
 
+def migration_paths() -> tuple[Path, ...]:
+    root = Path(__file__).resolve().parents[3] / "db" / "postgres"
+    return (
+        root / "002_v4_source_cache_service.sql",
+        root / "003_v4_source_cache_jobs.sql",
+    )
+
+
 def migration_path() -> Path:
     return (
         Path(__file__).resolve().parents[3]
@@ -46,10 +56,12 @@ def migration_path() -> Path:
 
 def decide_source_cache_schema_action(
     existing_tables: Iterable[str],
-) -> Literal["apply", "reuse"]:
+) -> Literal["apply", "upgrade", "reuse"]:
     existing = frozenset(existing_tables)
     if not existing:
         return "apply"
+    if existing == SOURCE_CACHE_CONTENT_TABLES:
+        return "upgrade"
     if existing == SOURCE_CACHE_TABLES:
         return "reuse"
     raise SourceCacheSchemaStateError(
@@ -87,7 +99,10 @@ def bootstrap_source_cache_schema(dsn: str) -> SourceCacheSchemaBootstrapResult:
                 str(row[0]) for row in cursor.fetchall()
             )
             if action == "apply":
-                cursor.execute(migration_path().read_text(encoding="utf-8"))
+                for path in migration_paths():
+                    cursor.execute(path.read_text(encoding="utf-8"))
+            elif action == "upgrade":
+                cursor.execute(migration_paths()[1].read_text(encoding="utf-8"))
             cursor.execute(
                 """
                 SELECT tablename
@@ -103,9 +118,9 @@ def bootstrap_source_cache_schema(dsn: str) -> SourceCacheSchemaBootstrapResult:
                     "Source Cache migration 后表集合与合同不一致"
                 )
     return SourceCacheSchemaBootstrapResult(
-        action="applied" if action == "apply" else "reused",
+        action="applied" if action in {"apply", "upgrade"} else "reused",
         table_count=len(SOURCE_CACHE_TABLES),
-        database_write_count=1 if action == "apply" else 0,
+        database_write_count=1 if action in {"apply", "upgrade"} else 0,
     )
 
 

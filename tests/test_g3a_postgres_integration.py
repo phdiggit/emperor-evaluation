@@ -28,6 +28,123 @@ def _integration_dsn() -> str:
     return dsn
 
 
+def _source_cache_isolated_dsn() -> str:
+    dsn = os.environ.get("EMPEROR_EVAL_V4_SOURCE_CACHE_ISOLATED_DSN")
+    if not dsn:
+        pytest.skip("未显式注入 Source Cache 独立临时数据库 DSN")
+    return dsn
+
+
+def test_real_postgres_source_cache_job_lease_contract() -> None:
+    from dataclasses import asdict
+    from pathlib import Path
+
+    import psycopg
+
+    from emperor_v4.adapters.source_cache_fixture import FrozenSourceMaterialProvider
+    from emperor_v4.application.source_cache_service import (
+        ensure_source_cache,
+        source_cache_input_fingerprint,
+    )
+    from emperor_v4.application.source_cache_worker import run_source_cache_worker_once
+    from emperor_v4.persistence.postgres_source_cache import (
+        PostgresSourceCacheRepository,
+        bootstrap_source_cache_schema,
+    )
+    from emperor_v4.persistence.source_cache_jobs import PostgresSourceCacheJobRepository
+    from emperor_v4.runtime.source_cache import (
+        load_source_cache_request,
+        source_cache_request_from_mapping,
+    )
+
+    dsn = _source_cache_isolated_dsn()
+    repo_root = Path(__file__).parents[1]
+    with psycopg.connect(dsn, autocommit=True) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("DROP SCHEMA IF EXISTS v4_source_cache CASCADE")
+    try:
+        first_bootstrap = bootstrap_source_cache_schema(dsn)
+        second_bootstrap = bootstrap_source_cache_schema(dsn)
+        assert first_bootstrap.action == "applied"
+        assert second_bootstrap.action == "reused"
+        assert second_bootstrap.database_write_count == 0
+
+        request = load_source_cache_request(repo_root / "eval/source_cache_v4_demo/request.yml")
+        payload = asdict(request)
+        jobs = PostgresSourceCacheJobRepository(dsn)
+        assert jobs.enqueue(
+            job_id="SCJ-PG-1", idempotency_key="source-cache-job:pg:1",
+            input_fingerprint=source_cache_input_fingerprint(request),
+            policy_version=request.source_policy_version,
+            request_payload=payload,
+        ) == 1
+        assert jobs.enqueue(
+            job_id="SCJ-PG-DUP", idempotency_key="source-cache-job:pg:1",
+            input_fingerprint=source_cache_input_fingerprint(request),
+            policy_version=request.source_policy_version,
+            request_payload=payload,
+        ) == 0
+        cache = PostgresSourceCacheRepository(dsn)
+        provider = FrozenSourceMaterialProvider(
+            plan_path=repo_root / "eval/source_cache_v4_demo/fixture_plan.yml",
+            repo_root=repo_root,
+        )
+
+        def handler(value):
+            return ensure_source_cache(
+                source_cache_request_from_mapping(value), provider=provider,
+                repository=cache, service_release_sha="a" * 40,
+            ).response
+
+        first = run_source_cache_worker_once(jobs, worker_id="pg-worker", handler=handler)
+        idle = run_source_cache_worker_once(jobs, worker_id="pg-worker", handler=handler)
+        assert first.status == "succeeded"
+        assert idle.status == "idle"
+
+        payload2 = dict(payload)
+        payload2["request_id"] = "SRC-V4-PG-LEASE-2"
+        payload2["idempotency_key"] = "source-cache:v4:pg:lease:2"
+        request2 = source_cache_request_from_mapping(payload2)
+        jobs.enqueue(
+            job_id="SCJ-PG-LEASE", idempotency_key="source-cache-job:pg:lease",
+            input_fingerprint=source_cache_input_fingerprint(request2),
+            policy_version=request2.source_policy_version,
+            request_payload=payload2,
+        )
+        claimed = jobs.claim(worker_id="expired-worker", lease_seconds=300)
+        assert claimed is not None
+        with psycopg.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE v4_source_cache.jobs
+                    SET lease_expires_at = CURRENT_TIMESTAMP - INTERVAL '1 second'
+                    WHERE job_id = 'SCJ-PG-LEASE'
+                    """
+                )
+        recovered = run_source_cache_worker_once(
+            jobs, worker_id="recovery-worker", handler=handler,
+        )
+        assert recovered.status == "succeeded"
+        assert recovered.recovered_lease_count == 1
+        with psycopg.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT status, attempt_count FROM v4_source_cache.jobs ORDER BY job_id"
+                )
+                assert cursor.fetchall() == [("succeeded", 1), ("succeeded", 2)]
+                cursor.execute(
+                    "SELECT status FROM v4_source_cache.job_runs ORDER BY job_id, attempt_number"
+                )
+                assert [row[0] for row in cursor.fetchall()] == [
+                    "succeeded", "lease_expired", "succeeded"
+                ]
+    finally:
+        with psycopg.connect(dsn, autocommit=True) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("DROP SCHEMA IF EXISTS v4_source_cache CASCADE")
+
+
 def _table_counts(dsn: str) -> dict[str, int]:
     import psycopg
 

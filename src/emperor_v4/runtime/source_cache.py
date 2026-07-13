@@ -22,7 +22,10 @@ def _mapping(path: Path) -> Mapping[str, Any]:
 
 
 def load_source_cache_request(path: Path) -> SourceCacheRequest:
-    payload = _mapping(path)
+    return source_cache_request_from_mapping(_mapping(path))
+
+
+def source_cache_request_from_mapping(payload: Mapping[str, Any]) -> SourceCacheRequest:
     subject = payload.get("subject") or {}
     return SourceCacheRequest(
         request_id=str(payload.get("request_id") or ""),

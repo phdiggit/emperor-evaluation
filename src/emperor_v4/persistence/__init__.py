@@ -30,6 +30,10 @@ from emperor_v4.persistence.postgres_source_cache import (
     bootstrap_source_cache_schema,
     decide_source_cache_schema_action,
 )
+from emperor_v4.persistence.source_cache_jobs import (
+    InMemorySourceCacheJobRepository,
+    PostgresSourceCacheJobRepository,
+)
 
 __all__ = [
     "BoundaryReviewCacheEntry",
@@ -52,4 +56,6 @@ __all__ = [
     "SourceCacheSchemaStateError",
     "bootstrap_source_cache_schema",
     "decide_source_cache_schema_action",
+    "InMemorySourceCacheJobRepository",
+    "PostgresSourceCacheJobRepository",
 ]

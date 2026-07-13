@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Emperor Evaluation V4 Source Cache worker
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=10s
+Unit=emperor-v4-source-cache-worker.service
+
+[Install]
+WantedBy=timers.target
