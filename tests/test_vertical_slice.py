@@ -7,8 +7,10 @@ from pathlib import Path
 import pytest
 
 from emperor_v4.adapters import (
+    WikisourcePageSnapshot,
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
+    write_wikisource_snapshot,
 )
 from emperor_v4.application.reconcile_episode import reconcile_episode_candidates
 from emperor_v4.evaluation.assertion_handoff import (
@@ -42,6 +44,9 @@ from emperor_v4.evaluation.qualification import (
     evaluate_source_development_sets,
 )
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
+from emperor_v4.evaluation.source_development import (
+    materialize_source_development_input,
+)
 from emperor_v4.contracts.source import text_content_hash
 
 
@@ -1054,3 +1059,127 @@ def test_graph_blind_score_gates_episode_relation_rule_and_runtime_together():
 
     assert missing_rule_units["release_gate_passed"] is False
     assert missing_rule_units["g3_authorized"] is False
+
+
+def _source_development_fixture(tmp_path: Path) -> tuple[Path, Path, dict]:
+    raw_text = "== 蒙恬 ==\n二世又遣使者之陽周，令蒙恬曰守邊。蒙恬受詔，後有戰果。"
+    snapshot_dir = tmp_path / "snapshots"
+    write_wikisource_snapshot(
+        WikisourcePageSnapshot(
+            page_code="shiji-088",
+            requested_title="史記/卷088",
+            canonical_title="史記/卷088",
+            canonical_url="https://zh.wikisource.org/wiki/example",
+            revision_id=1965690,
+            revision_timestamp="2020-09-26T14:20:00Z",
+            retrieved_at="2026-07-13T00:00:00+00:00",
+            raw_text=raw_text,
+            content_hash=text_content_hash(raw_text),
+        ),
+        snapshot_dir / "shiji-088.json",
+    )
+    manifest = {
+        "status": "open_development_source_recovery",
+        "dataset_code": "source-development-fixture",
+        "window_policy_version": "fixture-v1",
+        "sentence_radius_before": 0,
+        "sentence_radius_after": 0,
+        "context_chars_before": 20,
+        "context_chars_after": 20,
+        "source_pages": [
+            {
+                "page_code": "shiji-088",
+                "page_title": "史記/卷088",
+                "expected_revision_id": 1965690,
+                "section_id": "meng-tian",
+                "section_heading": "蒙恬",
+                "work_identity": "史記",
+                "edition_identity": "Wikisource revision 1965690",
+                "source_role": "primary_text",
+            }
+        ],
+        "passages": [
+            {
+                "claim_code": "CLAIM-1",
+                "page_code": "shiji-088",
+                "anchor_start": "二世又遣使者之陽周",
+                "anchor_end": "後有戰果",
+                "passage_kind": "atomic",
+                "selection_reason": ["open_development_claim_recovery"],
+                "supported_fields": [
+                    "identity",
+                    "action",
+                    "responsibility",
+                    "outcome",
+                ],
+            }
+        ],
+    }
+    manifest_path = tmp_path / "manifest.yml"
+    manifest_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    claim_snapshot = {
+        "people": [
+            {
+                "ruler": "秦二世",
+                "payload": {
+                    "claims": [
+                        {
+                            "claim_code": "CLAIM-1",
+                            "emperor_name": "秦二世",
+                            "object_name": "蒙恬",
+                            "claim_summary": "二世命蒙恬守边并形成结果链。",
+                            "confidence": 0.9,
+                            "source_passage_refs": ["LEGACY-PASSAGE"],
+                            "fact_payload": {
+                                "actor": "秦二世",
+                                "action_type": "delegation",
+                                "object": "蒙恬",
+                                "fact_schema": "appointment_delegation",
+                                "responsibility_family": "military_command",
+                                "outcome": "形成战果",
+                            },
+                        }
+                    ]
+                },
+            }
+        ],
+        "canonical_people": [],
+    }
+    return manifest_path, snapshot_dir, claim_snapshot
+
+
+def test_source_development_materializer_builds_qualified_v2_input(tmp_path: Path):
+    manifest_path, snapshot_dir, claim_snapshot = _source_development_fixture(tmp_path)
+
+    payload = materialize_source_development_input(
+        manifest_path=manifest_path,
+        claim_snapshot=claim_snapshot,
+        snapshot_dir=snapshot_dir,
+    )
+    report = evaluate_source_development_sets({"fixture": payload})
+
+    assert payload["source_cache_contract"] == "source-cache-contract-v2"
+    assert payload["assertion_input_contract"] == "passage-scoped-assertion-v2"
+    assert len(payload["source_documents"]) == 1
+    assert len(payload["source_passages"]) == 1
+    assert len(payload["assertions"]) == 1
+    assert payload["assertions"][0]["source_passage_ref"] == payload[
+        "source_passages"
+    ][0]["passage_code"]
+    assert report["reports"]["fixture"]["stages"]["S1_source_passage"]["passed"]
+    assert report["reports"]["fixture"]["stages"]["S2_assertion"]["passed"]
+    assert "episode_code" not in json.dumps(payload, ensure_ascii=False)
+
+
+def test_source_development_materializer_rejects_nested_oracle_fields(tmp_path: Path):
+    manifest_path, snapshot_dir, claim_snapshot = _source_development_fixture(tmp_path)
+    claim_snapshot["people"][0]["payload"]["claims"][0]["gold_linkage"] = "GOLD-1"
+
+    with pytest.raises(ValueError, match="Gold/boundary"):
+        materialize_source_development_input(
+            manifest_path=manifest_path,
+            claim_snapshot=claim_snapshot,
+            snapshot_dir=snapshot_dir,
+        )

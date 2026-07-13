@@ -43,6 +43,10 @@ from emperor_v4.evaluation.source_gap import (
     check_source_supplement_response,
 )
 from emperor_v4.evaluation.qualification import evaluate_source_development_sets
+from emperor_v4.evaluation.source_development import (
+    fetch_source_development_snapshots,
+    materialize_source_development_input,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -329,6 +333,15 @@ def _parser() -> argparse.ArgumentParser:
         help="可重复指定既有开放开发集；不会读取 Gold 或启动 Boundary reviewer。",
     )
     source_qualification.add_argument("--output", type=Path)
+    source_fetch = subparsers.add_parser("source-development-fetch")
+    source_fetch.add_argument("--manifest", type=Path, required=True)
+    source_fetch.add_argument("--snapshot-dir", type=Path, required=True)
+    source_fetch.add_argument("--output", type=Path)
+    source_materialize = subparsers.add_parser("source-development-materialize")
+    source_materialize.add_argument("--manifest", type=Path, required=True)
+    source_materialize.add_argument("--claim-snapshot", type=Path, required=True)
+    source_materialize.add_argument("--snapshot-dir", type=Path, required=True)
+    source_materialize.add_argument("--output", type=Path)
     return parser
 
 
@@ -418,6 +431,19 @@ def main() -> int:
         if len(payloads) != len(args.input):
             raise ValueError("source qualification 输入目录名必须唯一")
         report = evaluate_source_development_sets(payloads)
+    elif args.command == "source-development-fetch":
+        report = fetch_source_development_snapshots(
+            args.manifest,
+            args.snapshot_dir,
+        )
+    elif args.command == "source-development-materialize":
+        report = materialize_source_development_input(
+            manifest_path=args.manifest,
+            claim_snapshot=json.loads(
+                args.claim_snapshot.read_text(encoding="utf-8")
+            ),
+            snapshot_dir=args.snapshot_dir,
+        )
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(
             manifest_path=args.manifest,
@@ -545,7 +571,7 @@ def main() -> int:
         raise AssertionError("unreachable")
     rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if args.output:
-        args.output.write_text(rendered, encoding="utf-8")
+        args.output.write_text(rendered, encoding="utf-8", newline="\n")
     else:
         print(rendered, end="")
     return 1 if report.get("status") == "failed" else 0

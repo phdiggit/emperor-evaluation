@@ -2,14 +2,18 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
+from dataclasses import replace
+from hashlib import sha256
 from pathlib import Path
 
 import pytest
 
 from emperor_v4.adapters import (
+    WikisourcePageSnapshot,
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
     adapt_source_cache_v2_response,
+    snapshot_from_api_payload,
 )
 from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
 from emperor_v4.contracts.source import (
@@ -551,3 +555,50 @@ def test_passage_scoped_blind_input_rejects_legacy_unscoped_fanout():
 
     with pytest.raises(ValueError, match="legacy multi-passage fan-out"):
         validate_blind_kernel_input(payload)
+
+
+def test_wikisource_snapshot_preserves_revision_identity_and_content_hash():
+    raw_text = "== 蒙恬 ==\n二世又遣使者之陽周，令蒙恬受詔。"
+    snapshot = snapshot_from_api_payload(
+        page_code="shiji-088",
+        requested_title="史記/卷088",
+        retrieved_at="2026-07-13T00:00:00+00:00",
+        payload={
+            "query": {
+                "pages": [
+                    {
+                        "title": "史記/卷088",
+                        "extract": raw_text,
+                        "revisions": [
+                            {
+                                "revid": 1965690,
+                                "timestamp": "2020-09-26T14:20:00Z",
+                            }
+                        ],
+                    }
+                ]
+            }
+        },
+    )
+
+    assert snapshot.revision_id == 1965690
+    assert snapshot.raw_text == raw_text
+    assert snapshot.content_hash == sha256(raw_text.encode("utf-8")).hexdigest()
+    assert snapshot.canonical_url.endswith("%E5%8F%B2%E8%A8%98/%E5%8D%B7088")
+
+
+def test_wikisource_snapshot_rejects_tampered_content_hash():
+    snapshot = WikisourcePageSnapshot(
+        page_code="shiji-088",
+        requested_title="史記/卷088",
+        canonical_title="史記/卷088",
+        canonical_url="https://zh.wikisource.org/wiki/example",
+        revision_id=1965690,
+        revision_timestamp="2020-09-26T14:20:00Z",
+        retrieved_at="2026-07-13T00:00:00+00:00",
+        raw_text="蒙恬受詔。",
+        content_hash=sha256("蒙恬受詔。".encode("utf-8")).hexdigest(),
+    )
+
+    with pytest.raises(ValueError, match="content_hash"):
+        replace(snapshot, content_hash="0" * 64)
