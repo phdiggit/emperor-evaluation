@@ -1,0 +1,80 @@
+schema_version: 1
+plan_code: g2_6j_graph_blind_v1
+status: source_snapshot_frozen_passage_support_review_pending
+source_snapshot_frozen_at: 2026-07-13
+contract_basis_commit: adab783470c836d916c00696eb25390e285e4e27
+
+source_snapshot:
+  path: eval/g2_6j_graph_blind_v1/source_claim_snapshot.json
+  file_sha256: b2df393092f1b16d562c6b8317dda064e8fe57c0b5f269bd4ff9e9ceb552054d
+  canonical_payload_sha256: cbac6bdad9797ad0c44b71486872c5c0b7bd5ff148a74e6dce904b0db285137c
+  selected_v3_claim_count: 18
+  source_passage_count: 38
+  canonical_person_count: 14
+  rulers: [杨广, 胡亥]
+  source_network_request_count: 0
+  read_only_database_query_performed: true
+  database_write_count: 0
+  provenance_private_address_committed: false
+  adapter_target_contract: assertion-extraction-contract-v2
+
+passage_support_freeze:
+  status: pending_independent_review
+  output_path: eval/g2_6j_graph_blind_v1/passage_support_review.yml
+  required_status: frozen_before_episode_review
+  required_claim_coverage: 18
+  required_passage_coverage: 38
+  reviewer_may_read:
+    - eval/g2_6j_graph_blind_v1/source_claim_snapshot.json
+    - docs/contracts/事实抽取服务契约.md
+    - docs/18-G2.6J-AssertionEvidence扇出硬化.md
+  reviewer_forbidden:
+    - 所有 Historical Gold、Rule Gold 与 Boundary Gold
+    - 所有 candidates、candidate_graph、score 与 acceptance
+    - 所有旧 holdout Gold、review 和 candidates
+    - 逐事件修改领域代码或输入以贴合预期边界
+
+strict_input:
+  status: blocked_by_passage_support_freeze
+  path: eval/g2_6j_graph_blind_v1/input.json
+  required_contract: passage-scoped-assertion-v2
+  forbidden_fields:
+    - episode_code
+    - gold boundary
+    - must_merge
+    - must_not_merge
+    - expected participants
+    - acceptance decision
+    - gold linkage
+
+independent_freezes:
+  boundary_review:
+    status: blocked_by_strict_input_freeze
+    output_path: eval/g2_6j_graph_blind_v1/boundary_review.yml
+  historical_gold:
+    status: blocked_by_strict_input_freeze
+    output_path: eval/g2_6j_graph_blind_v1/historical_gold.yml
+  rule_gold:
+    status: blocked_by_historical_gold_freeze
+    output_path: eval/g2_6j_graph_blind_v1/rule_gold.yml
+  candidate_generation: forbidden_before_all_freezes
+  scoring: forbidden_before_all_freezes
+
+release_thresholds:
+  exact_episode_recall_minimum: 0.85
+  exact_candidate_precision_minimum: 0.90
+  catastrophic_wrong_merge_count: 0
+  cross_ruler_contamination_count: 0
+  passage_lineage: 1.0
+  assertion_disposition_coverage: 1.0
+  strict_relation_precision_minimum: 0.90
+  strict_relation_recall_minimum: 0.85
+  exact_rule_evidence_unit_precision_minimum: 0.90
+  exact_rule_evidence_unit_recall_minimum: 0.85
+  rule_evidence_unit_duplicate_consumption_count: 0
+  unchanged_rerun_model_calls: 0
+  changed_unit_affects_other_unit_count: 0
+
+g3:
+  authorized: false
+  blocked_by: g2_6j_blind_holdout_not_scored
