@@ -1,7 +1,7 @@
 # 第五项 B：用人与授权（V4 业务规则）
 
 > 状态：`scored_shadow_demo_ready`
-> 当前阶段：首条纵向切片 `appointment_delegation` 已批准有限因子、确定性 Judgment 与 shadow ScoreContribution；正式 45 分汇总和生产计分仍关闭。
+> 当前阶段：`appointment_delegation` 已完成纵向 scored shadow，`talent_discovery` 已复用同一有限因子与 ScoreContribution runner 完成首个切片；正式 45 分汇总和生产计分仍关闭。
 
 ## 1. 核心问题
 
@@ -29,7 +29,7 @@ anti_nepotism
 | `tolerate_talent` | episode |
 | `anti_nepotism` | episode + aggregate_context |
 
-首轮只实现 `appointment_delegation`。其余规则完成契约和 gold cases 后再进入实现。
+首轮 `appointment_delegation` 已完成。第二条 `talent_discovery` 已冻结规则边界和首批 gold cases，并复用同一 scored-shadow 内核；其余规则完成契约和 gold cases 后再进入实现。
 
 ## 4. `talent_discovery`
 
@@ -168,6 +168,17 @@ coverage unit / scoring unit：一次独立任用—职责—反馈 episode，�
 
 ## 12. `appointment_delegation` 有限因子与 shadow contribution
 
+`talent_discovery` 使用同一有限值域和均值公式，但因子语义独立：
+
+```text
+recognition_novelty
+recognition_basis
+barrier_crossing
+conversion_to_use
+```
+
+首批 gold cases 的结论是：陈平“归汉—复核经历与能力—跨越诋毁—拜护军中尉”构成正向发现链；魏徵当前 Assertion 只证明擢拜，缺少进入视野、识才依据和跨阵营障碍的直接证据，必须 `blocked_evidence`；韩信齐王授权是既有核心将领的授权调整，蓝玉拜大将军是既有将领晋升，均不适用于人才发现。`talent_discovery` 只结算进入有效视野，`appointment_delegation` 只作为 supporting-only rule 承接岗位、授权和反馈，禁止重复结算。
+
 已批准四个有限因子：
 
 ```text
@@ -221,4 +232,5 @@ python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointm
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --prior-record eval/appointment_delegation_roster_demo/report.json --state eval/appointment_delegation_roster_demo/state.json --output eval/appointment_delegation_roster_demo/report.json
+python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discovery_scored_demo/manifest.yml --output eval/talent_discovery_scored_demo/report.json
 ```

@@ -4,7 +4,7 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: appointment_delegation_persistent_incremental_shadow_ready
+  phase: talent_discovery_first_shared_shadow_ready
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
@@ -41,6 +41,7 @@ milestones:
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
   persistent_incremental_orchestration: passed_shadow_runtime
+  talent_discovery_shared_scored_shadow: first_vertical_slice_passed
   formal_scoring: blocked
 
 current_shadow_result:
@@ -55,13 +56,23 @@ current_shadow_result:
   score_contribution_count: 4
   formal_business_writes: 0
 
+talent_discovery_shadow_result:
+  rule_evidence_units: 4
+  positive_judgments: 1
+  evidence_blockers: 1
+  excluded_context_units: 2
+  score_contribution_count: 1
+  duplicate_episode_consumption: 0
+  model_calls: 0
+  formal_business_writes: 0
+
 next_delivery:
-  code: talent_discovery_scored_shadow_reuse
+  code: talent_discovery_roster_incremental_reuse
   required_outcomes:
-    - approve_rule_boundary_and_gold_cases
-    - reuse_shared_roster_evidence_and_version_contracts
-    - deterministic_rule_evidence_and_score_contribution
-    - cross_rule_duplicate_settlement_check
+    - repair_weizheng_discovery_assertion_gap
+    - reuse_persistent_roster_incremental_entry
+    - preserve_cross_rule_duplicate_settlement_check
+    - prepare_next_rule_profile_without_pipeline_copy
   forbidden_substitutes:
     - new_micro_stage_letters
     - stage_only_markdown

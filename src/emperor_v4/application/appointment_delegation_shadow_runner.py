@@ -9,15 +9,14 @@ from typing import Any, Mapping
 import yaml
 
 from emperor_v4.evaluation.appointment_delegation_scoring import (
-    FACTOR_SCHEMA_VERSION,
-    JUDGMENT_POLICY_VERSION,
     SCORE_CONTRIBUTION_SCHEMA_VERSION,
-    SCORING_FORMULA_VERSION,
+    PROFILE,
     canonical_hash,
     evaluate_judgment,
     score_judgment,
     validate_scored_demo_manifest,
 )
+from emperor_v4.evaluation.limited_factor_scoring import LimitedFactorProfile
 
 
 def run_appointment_delegation_shadow(
@@ -35,8 +34,31 @@ def run_appointment_delegation_shadow_manifest(
     prior_report: Mapping[str, Any] | None = None,
     rebuild_unit_refs: set[str] | None = None,
 ) -> dict[str, Any]:
+    return run_limited_factor_shadow_manifest(
+        manifest,
+        manifest_path,
+        profile=PROFILE,
+        manifest_validator=validate_scored_demo_manifest,
+        judgment_evaluator=evaluate_judgment,
+        judgment_scorer=score_judgment,
+        prior_report=prior_report,
+        rebuild_unit_refs=rebuild_unit_refs,
+    )
+
+
+def run_limited_factor_shadow_manifest(
+    manifest: Mapping[str, Any],
+    manifest_path: Path | str,
+    *,
+    profile: LimitedFactorProfile,
+    manifest_validator,
+    judgment_evaluator,
+    judgment_scorer,
+    prior_report: Mapping[str, Any] | None = None,
+    rebuild_unit_refs: set[str] | None = None,
+) -> dict[str, Any]:
     path = Path(manifest_path)
-    validate_scored_demo_manifest(manifest)
+    manifest_validator(manifest)
     repo_root = path.resolve().parents[2]
     frozen_input_audit = []
     frozen_paths: dict[str, Path] = {}
@@ -109,13 +131,13 @@ def run_appointment_delegation_shadow_manifest(
     reused_refs = unit_refs - rebuild_refs
     if reused_refs and (
         prior_report is None
-        or prior_report.get("status") != "appointment_delegation_scored_shadow_ready"
+        or prior_report.get("status") != profile.report_status
         or prior_report.get("versions")
         != {
-            "factor_schema_version": FACTOR_SCHEMA_VERSION,
-            "judgment_policy_version": JUDGMENT_POLICY_VERSION,
+            "factor_schema_version": profile.factor_schema_version,
+            "judgment_policy_version": profile.judgment_policy_version,
             "score_contribution_schema_version": SCORE_CONTRIBUTION_SCHEMA_VERSION,
-            "scoring_formula_version": SCORING_FORMULA_VERSION,
+            "scoring_formula_version": profile.scoring_formula_version,
         }
         or not reused_refs <= set(prior_judgments)
     ):
@@ -126,13 +148,13 @@ def run_appointment_delegation_shadow_manifest(
     for unit in sorted_units:
         unit_ref = str(unit["unit_ref"])
         judgment = (
-            evaluate_judgment(unit, episodes, assertions)
+            judgment_evaluator(unit, episodes, assertions)
             if unit_ref in rebuild_refs
             else dict(prior_judgments[unit_ref])
         )
         judgments.append(judgment)
         contribution = (
-            score_judgment(judgment)
+            judgment_scorer(judgment)
             if unit_ref in rebuild_refs
             else prior_contributions.get(unit_ref)
         )
@@ -154,7 +176,12 @@ def run_appointment_delegation_shadow_manifest(
                 "scored_unit_count": len(ruler_contributions),
                 "blocked_unit_count": sum(bool(row["blockers"]) for row in ruler_judgments),
                 "direction_counts": dict(
-                    sorted(Counter(row["direction"] for row in ruler_judgments).items())
+                    sorted(
+                        Counter(
+                            row["direction"] or row["applicability"]
+                            for row in ruler_judgments
+                        ).items()
+                    )
                 ),
                 "shadow_contribution_sum": total,
                 "shadow_contribution_mean": (
@@ -211,17 +238,17 @@ def run_appointment_delegation_shadow_manifest(
         )
     report: dict[str, Any] = {
         "schema_version": 1,
-        "status": "appointment_delegation_scored_shadow_ready",
+        "status": profile.report_status,
         "task_code": manifest["task_code"],
         "result_scope": "shadow_demo_only",
         "input_manifest_ref": manifest["manifest_code"],
         "input_manifest_sha256": canonical_hash(manifest),
         "frozen_input_audit": frozen_input_audit,
         "versions": {
-            "factor_schema_version": FACTOR_SCHEMA_VERSION,
-            "judgment_policy_version": JUDGMENT_POLICY_VERSION,
+            "factor_schema_version": profile.factor_schema_version,
+            "judgment_policy_version": profile.judgment_policy_version,
             "score_contribution_schema_version": SCORE_CONTRIBUTION_SCHEMA_VERSION,
-            "scoring_formula_version": SCORING_FORMULA_VERSION,
+            "scoring_formula_version": profile.scoring_formula_version,
         },
         "summary": {
             "ruler_count": len(rulers),

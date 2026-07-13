@@ -42,6 +42,9 @@ from emperor_v4.evaluation.appointment_delegation_scoring import (
     score_judgment,
     validate_scored_demo_manifest,
 )
+from emperor_v4.evaluation.talent_discovery_scoring import (
+    validate_scored_demo_manifest as validate_talent_discovery_manifest,
+)
 from emperor_v4.evaluation.relation_endpoint_review import (
     ENDPOINT_REVIEW_POLICY_VERSION,
     ENDPOINT_REVIEW_SCHEMA_VERSION,
@@ -86,6 +89,7 @@ ROSTER_MANIFEST = (
     / "appointment_delegation_roster_demo"
     / "manifest.yml"
 )
+TALENT_DEMO = SCORED_DEMO.parents[1] / "talent_discovery_scored_demo" / "manifest.yml"
 
 
 def _fixture(name: str) -> dict:
@@ -151,6 +155,27 @@ def test_scored_shadow_contract_rejects_open_factor_value_domain():
 
     with pytest.raises(ValueError, match="observation value"):
         validate_scored_demo_manifest(manifest)
+
+
+def test_talent_discovery_contract_freezes_rule_boundary_and_exclusions():
+    manifest = yaml.safe_load(TALENT_DEMO.read_text(encoding="utf-8"))
+    validate_talent_discovery_manifest(manifest)
+
+    units = {row["person"]: row for row in manifest["rule_evidence_units"]}
+    assert set(units["陈平"]["factor_observations"]) == {
+        "recognition_novelty",
+        "recognition_basis",
+        "barrier_crossing",
+        "conversion_to_use",
+    }
+    assert all(
+        row["value"] == "not_applicable"
+        for row in units["韩信"]["factor_observations"].values()
+    )
+    assert all(
+        row["value"] == "not_applicable"
+        for row in units["蓝玉"]["factor_observations"].values()
+    )
 
 
 def test_roster_contract_keeps_supplement_and_refresh_opt_in(tmp_path: Path):

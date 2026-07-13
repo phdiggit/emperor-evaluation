@@ -66,6 +66,9 @@ from emperor_v4.application.appointment_delegation_shadow_diff import (
 from emperor_v4.application.appointment_delegation_roster_runner import (
     run_appointment_delegation_roster_shadow,
 )
+from emperor_v4.application.talent_discovery_shadow_runner import (
+    run_talent_discovery_shadow,
+)
 from emperor_v4.eval import main as eval_main
 from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.rule_evidence_shadow import (
@@ -106,6 +109,7 @@ SHADOW_DIFF_REQUEST = SCORED_DEMO.parent / "shadow_diff_request.yml"
 ROSTER_DEMO = SCORED_DEMO.parents[1] / "appointment_delegation_roster_demo"
 ROSTER_MANIFEST = ROSTER_DEMO / "manifest.yml"
 ROSTER_REPORT = ROSTER_DEMO / "report.json"
+TALENT_DEMO = SCORED_DEMO.parents[1] / "talent_discovery_scored_demo" / "manifest.yml"
 
 
 def _fixture(name: str) -> dict:
@@ -153,6 +157,44 @@ def test_appointment_delegation_scored_shadow_vertical_slice(tmp_path: Path, mon
             "appointment-delegation-shadow",
             "--manifest",
             str(SCORED_DEMO),
+            "--output",
+            str(output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(output.read_text(encoding="utf-8")) == report
+
+
+def test_talent_discovery_reuses_scored_shadow_vertical_slice(
+    tmp_path: Path, monkeypatch
+):
+    report = run_talent_discovery_shadow(TALENT_DEMO)
+
+    assert report["status"] == "talent_discovery_scored_shadow_ready"
+    assert report["summary"]["rule_evidence_unit_count"] == 4
+    assert report["summary"]["score_contribution_count"] == 1
+    assert report["summary"]["blocked_unit_count"] == 1
+    assert report["summary"]["duplicate_consumption_episode_refs"] == []
+    by_person = {row["person"]: row for row in report["judgments"]}
+    assert by_person["陈平"]["direction"] == "positive"
+    assert by_person["魏徵"]["applicability"] == "blocked_evidence"
+    assert by_person["韩信"]["direction"] == "neutral_context"
+    assert by_person["蓝玉"]["direction"] == "neutral_context"
+    contribution = report["score_contributions"][0]
+    assert contribution["person"] == "陈平"
+    assert contribution["primary_settlement_rule"] == "talent_discovery"
+    assert contribution["supporting_only_rules"] == ["appointment_delegation"]
+    assert contribution["duplicate_settlement_check"] == "passed"
+
+    output = tmp_path / "talent-report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "talent-discovery-shadow",
+            "--manifest",
+            str(TALENT_DEMO),
             "--output",
             str(output),
         ],

@@ -18,6 +18,7 @@ current:
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
   persistent_incremental_orchestration: passed_shadow_runtime
+  talent_discovery_shared_scored_shadow: first_vertical_slice_passed
   formal_scoring: blocked
 
 shadow_evidence:
@@ -42,6 +43,16 @@ shadow_evidence:
   score_count: 4
   database_write_count_for_g3r_g3h: 0
 
+talent_discovery_shadow_evidence:
+  rule_evidence_units: 4
+  positive_judgments: 1
+  blocked_evidence: 1
+  excluded_context_units: 2
+  score_count: 1
+  duplicate_episode_consumption: 0
+  model_call_count: 0
+  database_write_count: 0
+
 validated_invariants:
   - source_passage_lineage_preserved
   - assertion_primary_disposition_complete
@@ -60,13 +71,13 @@ historical_qualification:
   interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
 
 next_delivery:
-  code: talent_discovery_scored_shadow_reuse
-  gate: second_rule_shared_runner_reuse
+  code: talent_discovery_roster_incremental_reuse
+  gate: second_rule_shared_roster_reuse
   required:
-    - approve_talent_discovery_rule_boundary
-    - freeze_minimum_rule_evidence_and_gold_cases
-    - reuse_roster_incremental_runner
-    - prevent_cross_rule_duplicate_settlement
+    - repair_weizheng_discovery_assertion_gap
+    - reuse_persistent_roster_incremental_runner
+    - preserve_cross_rule_duplicate_settlement
+    - prepare_next_rule_profile_without_pipeline_copy
   stop_condition: do_not_copy_a_second_pipeline_or_enable_formal_ranking
 
 safety:

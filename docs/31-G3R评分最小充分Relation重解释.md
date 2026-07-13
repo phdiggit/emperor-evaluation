@@ -121,7 +121,9 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 
 名单式离线入口现可从三皇帝、四臣子 manifest 依次验证 Source Cache 与 Claim Extractor 冻结快照、运行确定性 Episode Kernel，并生成 scored shadow。首次运行处理 87 条 Assertion、78 个 Episode candidate、4 个评分单元；提供 prior record 时，无变化输入直接精确复用同一运行记录。
 
-包 C 已增加持久化逐人物状态、服务响应 hash、变化 Episode 与 RuleEvidenceUnit 清单、慢通道 review job、原子 state 写入和故障后恢复。当前缓存无变化，因此服务调用、模型调用和数据库业务写入均为 0；下一纵向边界是让 `talent_discovery` 复用同一 runner，而不是复制第二条流水线。
+包 C 已增加持久化逐人物状态、服务响应 hash、变化 Episode 与 RuleEvidenceUnit 清单、慢通道 review job、原子 state 写入和故障后恢复。当前缓存无变化，因此服务调用、模型调用和数据库业务写入均为 0。
+
+包 D 的首个复用切片已抽出通用有限因子 scored-shadow 内核，`appointment_delegation` 与 `talent_discovery` 均通过薄规则配置使用同一校验、Judgment、ScoreContribution、lineage 和汇总职责链。`talent_discovery` 首批 4 个 gold case 中，陈平生成 1 个 positive shadow contribution；魏徵因发现链三项直接证据缺失而阻断；韩信齐王授权与蓝玉晋升只作规则排除上下文。跨规则审计明确将 `appointment_delegation` 标为 supporting-only，不重复结算职位适配、授权质量或后续战果。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 
