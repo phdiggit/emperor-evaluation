@@ -2,7 +2,7 @@
 
 `docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
 
-当前实现状态为 `M1 conditional_pass / G2.6J failed_closed / G2.6K0 active`。G2.6K0 已建立 Source Cache v2、确定性 section-aware slicer、S1—S5 机械早停和 8 场景 protocol smoke；J 的开放开发输入已通过 S1/S2，I 仍在 Source/Assertion 资格层阻断，不能启动下游 reviewer 或进入 PostgreSQL G3。
+当前实现状态为 `M1 conditional_pass / G2.6J failed_closed / G2.6K0 active`。G2.6K0 已建立 Source Cache v2、确定性 section-aware slicer、S1—S5 机械早停和 8 场景 protocol smoke；I/J 的开放开发输入均已通过 S1/S2，下一步是 Boundary 与 S3 candidate recall 上限。新 blind holdout 与 PostgreSQL G3 仍未授权。
 
 ## 文档状态
 
