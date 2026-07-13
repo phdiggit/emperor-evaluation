@@ -295,8 +295,8 @@ class EpisodeBoundaryReviewResult:
 
     def __post_init__(self) -> None:
         codes = [item.local_episode_code for item in self.episode_groups]
-        if not self.review_unit_ref or not codes or len(codes) != len(set(codes)):
-            raise ValueError("BoundaryReview 必须有唯一 local episode codes")
+        if not self.review_unit_ref or len(codes) != len(set(codes)):
+            raise ValueError("BoundaryReview local episode codes 必须唯一")
         if not self.review_unit_cache_key or not self.proposition_semantic_hashes:
             raise ValueError("BoundaryReview 未绑定 ReviewUnit cache/proposition hashes")
         code_set = set(codes)

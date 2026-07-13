@@ -340,28 +340,40 @@ def cluster_propositions(
             for item in group_items
         ]
         unique_rows = {_hash(row): row for row in semantic_rows}
-        semantic_hash = _hash(
+        semantic_identity = {
+            "evaluation_context": context,
+            "focal_person_ref": focal_person,
+            "focal_role": focal_role,
+            "secondary_participant_refs": secondary,
+            "episode_type": next(iter(episode_types)),
+            "responsibility_family": next(iter(responsibility_families)),
+            "normalized_time": {
+                "start": normalized_time.start_sort_key,
+                "end": normalized_time.end_sort_key,
+                "precision": normalized_time.precision,
+                "era": _normalized(normalized_time.dynasty_or_era),
+                "legacy_source_expression": (
+                    _normalized(normalized_time.source_expression)
+                    if normalized_time.start_sort_key is None
+                    else ""
+                ),
+            },
+            "semantic_rows": [unique_rows[key] for key in sorted(unique_rows)],
+        }
+        passage_support_identities = sorted(
             {
-                "evaluation_context": context,
-                "focal_person_ref": focal_person,
-                "focal_role": focal_role,
-                "secondary_participant_refs": secondary,
-                "episode_type": next(iter(episode_types)),
-                "responsibility_family": next(iter(responsibility_families)),
-                "normalized_time": {
-                    "start": normalized_time.start_sort_key,
-                    "end": normalized_time.end_sort_key,
-                    "precision": normalized_time.precision,
-                    "era": _normalized(normalized_time.dynasty_or_era),
-                    "legacy_source_expression": (
-                        _normalized(normalized_time.source_expression)
-                        if normalized_time.start_sort_key is None
-                        else ""
-                    ),
-                },
-                "semantic_rows": [unique_rows[key] for key in sorted(unique_rows)],
+                (
+                    _normalized(item.extraction_provenance.get("claim_key")),
+                    item.passage_support.support_mode,
+                    item.passage_support.assertion_semantic_key,
+                )
+                for item in group_items
+                if item.passage_support is not None
             }
         )
+        if passage_support_identities:
+            semantic_identity["passage_support_identities"] = passage_support_identities
+        semantic_hash = _hash(semantic_identity)
         clusters.append(
             PropositionCluster(
                 proposition_code=f"PROP-{semantic_hash[:20].upper()}",

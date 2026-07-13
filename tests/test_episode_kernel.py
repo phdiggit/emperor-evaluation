@@ -179,6 +179,76 @@ def test_v27_rejects_context_only_assertion_as_episode_core():
         )
 
 
+def test_v27_allows_context_only_review_unit_to_close_without_episode():
+    support = PassageSupport(
+        support_mode="context_only",
+        assertion_semantic_key="context-result",
+        supported_fields=("outcome", "context"),
+    )
+    assertion = _with_claim(
+        _assertion("A-1", passage="P-1", passage_support=support), "CLAIM-1"
+    )
+    clusters = cluster_propositions([assertion])
+    unit = build_review_units(clusters)[0]
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition(
+                "A-1", "unresolved", (), "context-only passage has no episode core"
+            ),
+        ),
+        review_provenance={},
+    )
+
+    result = materialize_boundary_review(
+        [assertion], review, review_unit=unit, proposition_clusters=clusters
+    )
+
+    assert result.episode_packets == ()
+    assert tuple(item.assertion_ref for item in result.unresolved_assertions) == (
+        "A-1",
+    )
+
+
+def test_v27_proposition_identity_includes_claim_local_support_key():
+    first = _with_claim(
+        _assertion(
+            "A-1",
+            passage="P-1",
+            passage_support=PassageSupport(
+                "atomic_component",
+                "component-one",
+                ("identity", "action"),
+            ),
+        ),
+        "CLAIM-1",
+    )
+    second = _with_claim(
+        _assertion(
+            "A-2",
+            passage="P-2",
+            passage_support=PassageSupport(
+                "atomic_component",
+                "component-two",
+                ("identity", "action"),
+            ),
+        ),
+        "CLAIM-1",
+    )
+
+    clusters = cluster_propositions([first, second])
+
+    assert len(clusters) == 2
+    assert len({item.proposition_code for item in clusters}) == 2
+
+
 def test_structured_time_equivalence_ignores_display_expression_difference():
     first = _with_claim(
         _assertion(
