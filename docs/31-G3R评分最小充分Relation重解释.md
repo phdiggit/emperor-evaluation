@@ -139,6 +139,8 @@ Claim Extractor 选择性迁入的首个切片没有搬运旧 worker：旧 `e27b
 
 Claim Extractor runtime Gate 已由 `5b19e47` 通过：v2 application 强制唯一 passage lineage 与 `PassageSupport`，旧 v1 冻结响应只能经过确定性兼容层进入；缺失 support、越界 passage、重复 Assertion 或幂等冲突均 fail-closed。独立 `v4_claim_extractor` schema 保存 request、Assertion draft、request linkage、job 和 job_run；服务器临时数据库验证首次 migration、二次零写复用、终态不重跑和过期 lease attempt 2 恢复。18 文件 allowlist release 完成隔离前进/回滚，临时库已删除，生产 unit 未切换。该 Gate 只证明冻结 provider 的运行合同，真实模型 provider 仍须用同请求 shadow 后才可 cutover。
 
+真实模型 provider shadow 在 `c8e3fb7` 收口为 draft-only 通过。审计先发现旧冻结响应的 4 条 Assertion 中有 3 条 evidence span 越出其自带窄 quote，因此不再以追平旧 Claim 为目标；改用 V4 Source Cache 的 3 条 passage 后，最终生成 7 条 Assertion，覆盖两项前序任用、当场识才判断、跨障碍召见/质问和转化任用。重叠的詹事主簿证据共享 semantic key，并以完全一致 payload 的两条 `equivalent_evidence` 表达；战役、地理移动、封爵和后续一般任务均被排除。建德、隐太子、皇太子、太宗保持来源表面形式并留给身份 slow lane。该轮模型调用、数据库写入、正式 Assertion 写入和 unit 切换分别为 1、0、0、0；只批准服务 draft 能力，不批准正式事实。
+
 `talent_discovery` 已进一步接入包 C 的持久化 roster 入口：三皇帝四人物名单复用 6 个 Claim snapshot、91 条 Assertion 和 82 个 Episode candidate；首次构建 4 个评分单元，无变化重跑精确复用同一记录。新增魏徵 Assertion 的局部 delta 只重建 `REU-LSM-WEIZHENG-DISCOVERY-v1`，其余 3 个 Judgment 精确复用；服务调用、模型调用和数据库写入均为 0。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。

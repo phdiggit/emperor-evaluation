@@ -20,7 +20,8 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 包 D 名单增量复用：`talent_discovery` 已接入包 C 的持久化 roster 入口；无变化精确复用，新增魏徵 Assertion 只重建 1 个单元并复用其余 3 个 Judgment
 - V4 配套服务源码治理：已接受“同一 Git 历史、按现有包边界选择性迁入”的章程；当前服务 release 仍在旧冻结点分出的过渡分支，禁止整体 merge，待按合同测试逐步迁入
 - V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、PostgreSQL repository、job/lease worker 和 20 文件不可变 release 已进入当前 Git 历史；隔离服务器 Gate 已验证幂等、过期 lease 恢复与回滚
-- V4 Claim Extractor 选择性迁入：旧 `rule_code` 提示分支已改为版本化 `talent_discovery_chain_v1` profile；v2 application、独立 PostgreSQL repository、job/lease 和 18 文件 release 已通过服务器隔离 Gate，冻结响应形成 4 条带 PassageSupport 的 Assertion
+- V4 Claim Extractor 选择性迁入：旧 `rule_code` 提示分支已改为版本化 `talent_discovery_chain_v1` profile；v2 application、独立 PostgreSQL repository、job/lease 和当前 21 文件 release 已通过服务器隔离 Gate，冻结响应形成 4 条带 PassageSupport 的 Assertion
+- V4 Claim Extractor 真实 provider shadow：改用 V4 Source Cache 三 passage 后生成 7 条 draft Assertion，四项发现链齐备，主簿重叠证据按 equivalent evidence 合并语义；未授权人物称谓保留原文并进入身份 slow lane
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -84,7 +85,7 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
 
-配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 的 application、隔离 PostgreSQL、job/lease 和不可变 release Gate 均已通过，临时库已删除，历史 unit 与生产指针均未切换。Claim Extractor 当前仍使用冻结 provider 证明合同；下一 Gate 是真实模型 provider 的同请求 shadow 和差异审查，未通过前不做正式 cutover。
+配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 的 application、隔离 PostgreSQL、job/lease 和不可变 release Gate 均已通过；Claim Extractor 真实模型 provider 又以 V4 passages 通过 draft-only shadow。全过程未写正式 Assertion、未切换历史 unit 或生产指针。下一 Gate 是两项 V4 服务的不可变 cutover preflight，仍不等于开放正式评分。
 
 ## 核心阅读顺序
 
