@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 687144b3a217206888ec48261773dbf9d4d74479
+as_of_commit_basis: fb68ad65a94fe5823968606db80a4cbd86cb254b
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -21,8 +21,8 @@ milestones:
   G2_6J_next_gate: g2_6k0_source_segmentation_development_qualification
   G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_8
   G2_6J_contract_status: evaluated_holdout_failed_qualification
-  G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2
-  G2_6K0_source_development: source_assertion_qualified_boundary_s3_pending
+  G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10
+  G2_6K0_source_development: episode_boundary_qualified_relation_s4_blocked
   G2_6K0_new_blind_holdout_authorized: false
   G3_PostgreSQL: blocked_by_g2_6K0
 
@@ -101,10 +101,15 @@ qualification:
     - g2_6k0_g2_6i_navigation_noise_0
     - g2_6k0_g2_6i_linked_lineage_100_percent
     - g2_6k0_i_j_source_assertion_qualification_complete
+    - g2_6k0_g2_6i_episode_recall_precision_1_0
+    - g2_6k0_g2_6j_episode_recall_0_875_precision_0_9333
+    - g2_6k0_i_j_zero_catastrophic_cross_ruler_lineage_loss
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
   failed:
+    - g2_6k0_g2_6i_strict_relation_precision_0_2083_recall_0_2174
+    - g2_6k0_g2_6j_strict_relation_precision_0_4_recall_0_25
     - g2_6e_exact_episode_recall_0_6111_below_0_85
     - g2_6e_exact_candidate_precision_0_7857_below_0_90
     - g2_6e_catastrophic_wrong_merge_count_5
@@ -141,6 +146,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6K0_boundary_candidate_qualification
-  status: source_assertion_qualified_boundary_s3_pending
-  required_outcome: 仅在 I/J 开放开发输入上执行 Boundary review 与 S3 candidate recall 上限，并依次检查 HistoricalEpisodeRelation 和 RuleEvidenceUnit 覆盖；仍不新建 blind holdout、不进入 PostgreSQL G3
+  code: G2_6K0_relation_graph_qualification
+  status: episode_boundary_qualified_relation_s4_blocked
+  required_outcome: 建立独立的跨 ReviewUnit EpisodeRelation reconciliation/review，达到 strict precision 0.90、recall 0.85；S4 通过前不消费 Rule Gold、不新建 blind holdout、不进入 PostgreSQL G3
