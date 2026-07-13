@@ -10,13 +10,13 @@ from emperor_v4.adapters.claim_extraction_profile import load_claim_extraction_p
 from emperor_v4.adapters.claim_extractor_codex import CodexCliClaimExtractionProvider
 from emperor_v4.adapters.claim_extractor_frozen import FrozenClaimExtractionProvider
 from emperor_v4.application.claim_extractor_service import ensure_claim_extraction
+from emperor_v4.contracts.extraction import ClaimExtractionRequest
 from emperor_v4.persistence.claim_extractor import InMemoryClaimExtractionRepository
-from emperor_v4.runtime.claim_extractor import request_from_frozen_snapshot
 
 
 def _keys(assertions):
     return {
-        (row.source_passage_ref, row.subject, row.predicate, row.object)
+        (row.subject, row.predicate, row.object)
         for row in assertions
     }
 
@@ -26,6 +26,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--profiles", type=Path, required=True)
     parser.add_argument("--profile", required=True)
     parser.add_argument("--snapshot", type=Path, required=True)
+    parser.add_argument("--source-cache-report", type=Path, required=True)
     parser.add_argument("--output-schema", type=Path, required=True)
     parser.add_argument("--codex-bin", required=True)
     parser.add_argument("--model", required=True)
@@ -35,13 +36,20 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     snapshot = json.loads(args.snapshot.read_text(encoding="utf-8"))
-    request = request_from_frozen_snapshot(
-        snapshot, profile_code=args.profile, request_id="CLX-V4-MODEL-SHADOW-001",
-        idempotency_key="claim-extraction:v4:model-shadow:weizheng:talent:v1",
-        requested_at="2026-07-14T21:00:00+08:00",
+    source_cache = json.loads(args.source_cache_report.read_text(encoding="utf-8"))
+    request = ClaimExtractionRequest(
+        request_id="CLX-V4-MODEL-SHADOW-002",
+        idempotency_key="claim-extraction:v4:model-shadow:weizheng:talent:source-v2",
+        profile_code=args.profile,
+        subject={"person_ref": "PER-WEIZHENG", "ruler": "李世民"},
+        passages=tuple(source_cache["response"]["passages"]),
+        requested_at="2026-07-14T21:30:00+08:00",
     )
     profile = load_claim_extraction_profile(args.profiles, args.profile)
-    frozen = FrozenClaimExtractionProvider(args.snapshot).extract({"passages": list(request.passages)})
+    frozen_person = snapshot["people"][0]
+    frozen = FrozenClaimExtractionProvider(args.snapshot).extract(
+        {"passages": frozen_person["payload"]["passages"]}
+    )
     run = ensure_claim_extraction(
         request, profile=profile,
         provider=CodexCliClaimExtractionProvider(
@@ -55,10 +63,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     model_assertions = run.response["assertions"]
     frozen_keys = _keys(frozen.assertions)
-    model_keys = {
-        (row["source_passage_ref"], row["subject"], row["predicate"], row["object"])
-        for row in model_assertions
-    }
+    model_keys = {(row["subject"], row["predicate"], row["object"]) for row in model_assertions}
+    frozen_quote = "\n".join(str(row.get("quote") or "") for row in frozen_person["payload"]["passages"])
+    unsupported_frozen = []
+    for assertion in frozen.assertions:
+        spans = assertion.qualifiers.get("evidence_spans") or ()
+        if spans and any(str(span.get("text") or "") not in frozen_quote for span in spans):
+            unsupported_frozen.append(assertion.assertion_code)
     report = {
         "schema_version": 1,
         "status": "claim_extractor_model_shadow_complete",
@@ -73,6 +84,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         "frozen_only_keys": [list(item) for item in sorted(frozen_keys - model_keys)],
         "model_only_keys": [list(item) for item in sorted(model_keys - frozen_keys)],
         "model_assertions": model_assertions,
+        "input_audit": {
+            "source_cache_contract": source_cache["response"]["contract"],
+            "source_cache_passage_count": len(request.passages),
+            "frozen_assertions_with_span_outside_frozen_quote": unsupported_frozen,
+        },
         "runtime_audit": {
             "model_call_count": run.model_call_count,
             "database_write_count": 0,
