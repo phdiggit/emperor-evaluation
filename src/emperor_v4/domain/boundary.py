@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.4"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.4"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.5"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.5"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -197,6 +197,16 @@ def _normalized_time(assertion: AssertionDraft) -> NormalizedTime:
     )
 
 
+def _normalized_time_identity(time: NormalizedTime) -> tuple[object, ...]:
+    return (
+        time.start_sort_key,
+        time.end_sort_key,
+        time.precision,
+        _normalized(time.dynasty_or_era),
+        _normalized(time.source_expression) if time.start_sort_key is None else "",
+    )
+
+
 def _responsibility_family(assertion: AssertionDraft) -> str:
     return _normalized(
         assertion.qualifiers.get("responsibility_family")
@@ -287,16 +297,19 @@ def cluster_propositions(
         responsibility_families = {
             _responsibility_family(item) for item in group_items
         }
-        times = {_normalized_time(item) for item in group_items}
+        time_items = tuple(_normalized_time(item) for item in group_items)
+        time_identities = {_normalized_time_identity(item) for item in time_items}
         if (
             len(episode_types) != 1
             or len(focal_identities) != 1
             or len(responsibility_families) != 1
-            or len(times) != 1
+            or len(time_identities) != 1
         ):
             raise ValueError(f"Proposition cluster 语义污染: {group_key}")
         focal_person, focal_role, secondary = next(iter(focal_identities))
-        normalized_time = next(iter(times))
+        normalized_time = min(
+            time_items, key=lambda item: _normalized(item.source_expression)
+        )
         semantic_rows = [
             {
                 "subject": _normalized(item.subject),
@@ -768,6 +781,7 @@ def validate_atomic_episode_groups(
         "episode-boundary-review-v2.2",
         "episode-boundary-review-v2.3",
         "episode-boundary-review-v2.4",
+        "episode-boundary-review-v2.5",
     }:
         return
     for group in review.episode_groups:
@@ -828,6 +842,7 @@ def materialize_boundary_review(
         "episode-boundary-review-v2.2",
         "episode-boundary-review-v2.3",
         "episode-boundary-review-v2.4",
+        "episode-boundary-review-v2.5",
     } and any(
         item.decision == "unresolved" for item in review.pair_dispositions
     ):

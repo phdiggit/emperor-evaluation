@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6G 因原子身份碰撞在候选物化前失败关闭，v2.4 契约已硬化
+- 阶段：G2.6G 已失败关闭；v2.5 原子身份与结构化时间契约已硬化，正在准备 G2.6H
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E 已正式失败并冻结。G2.6G 随后使用杨坚、赵匡胤的全新输入，独立冻结 Boundary Review、Historical Gold 与 Rule Gold；首次物化发现 6 对不同原子事件因结构字段相同而生成重复 Episode ID，候选图未创建，因此没有 recall/precision。Gold 冻结后未回填 reviewer key。v2.4 现要求每个 EpisodeBoundaryGroup 都有 `atomic_event_key`，并在 Relation 构造前拒绝重复 Episode ID。下一步只能使用另一批全新输入执行 G2.6H；PostgreSQL G3 继续阻断。
+G2.6E 已正式失败并冻结。G2.6G 随后使用杨坚、赵匡胤的全新输入，首次物化发现 6 对不同原子事件生成重复 Episode ID，候选图未创建。Gold 冻结后未回填 reviewer key。v2.4 要求每个 EpisodeBoundaryGroup 都有 `atomic_event_key`；G2.6H 输入预检又发现相同结构化年份的展示措辞会污染微聚类，v2.5 已改为按 start/end/precision/era 判断时间等价。下一步使用全新刘秀、嬴政输入执行 G2.6H；PostgreSQL G3 继续阻断。
 
 ## 文件树
 

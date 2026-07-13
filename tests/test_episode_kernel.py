@@ -96,6 +96,26 @@ def test_proposition_cluster_collapses_passage_fanout_without_losing_lineage():
     assert clusters[0].evidence_refs == ("P-1", "P-2")
 
 
+def test_structured_time_equivalence_ignores_display_expression_difference():
+    first = _with_claim(
+        _assertion(
+            "A-1", passage="P-1", time="三年春正月甲子", normalized_start=27
+        ),
+        "CLAIM-1",
+    )
+    second = _with_claim(
+        _assertion(
+            "A-2", passage="P-2", time="建武三年春正月", normalized_start=27
+        ),
+        "CLAIM-2",
+    )
+
+    clusters = cluster_propositions([first, second])
+
+    assert len(clusters) == 1
+    assert set(clusters[0].assertion_refs) == {"A-1", "A-2"}
+
+
 def test_review_unit_cache_invalidates_only_changed_focal_person():
     lijing = [
         _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
