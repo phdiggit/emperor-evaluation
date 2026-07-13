@@ -2279,6 +2279,14 @@ def test_v4_source_cache_refresh_retains_old_revision_and_creates_new_identity(
     assert first_document["content_hash"] != refreshed_document["content_hash"]
     assert repository.get(request.idempotency_key).response == first.response
     assert repository.get(refresh_request.idempotency_key).response == refreshed.response
+    first_passage = first.response["passages"][0]
+    refreshed_passage = refreshed.response["passages"][0]
+    assert repository.get_revision(
+        first_passage["document_id"], first_passage["content_version"]
+    ).raw_text == snapshot.raw_text
+    assert repository.get_revision(
+        refreshed_passage["document_id"], refreshed_passage["content_version"]
+    ).raw_text == refreshed_text
     assert refreshed.response["provenance"]["request_mode"] == "refresh"
 
 

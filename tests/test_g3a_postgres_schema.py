@@ -114,6 +114,7 @@ def test_source_cache_service_migration_is_transactional_and_non_destructive() -
     assert "DELETE FROM" not in sql
     assert "PRIMARY KEY (DOCUMENT_CACHE_ID, CONTENT_VERSION)" in sql
     assert "IDEMPOTENCY_KEY TEXT PRIMARY KEY" in sql
+    assert "RAW_CONTENT TEXT NOT NULL" in sql
 
 
 def test_source_cache_schema_bootstrap_reuses_only_complete_shape() -> None:

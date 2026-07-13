@@ -7,7 +7,9 @@ from typing import Any, Iterable, Literal, Mapping
 from emperor_v4.application.source_cache_service import (
     CachedSourceCacheResult,
     SourceCacheIdempotencyConflict,
+    source_content_version,
 )
+from emperor_v4.contracts.source import SourceRevisionContent
 
 
 SOURCE_CACHE_SCHEMA = "v4_source_cache"
@@ -164,6 +166,7 @@ class PostgresSourceCacheRepository:
         idempotency_key: str,
         input_fingerprint: str,
         response: Mapping[str, Any],
+        source_revisions: Mapping[str, SourceRevisionContent],
     ) -> int:
         psycopg, Jsonb = _psycopg()
         versions = _content_versions(response)
@@ -216,13 +219,27 @@ class PostgresSourceCacheRepository:
 
                 for document in response.get("documents") or ():
                     document_id = str(document["document_cache_id"])
+                    revision = source_revisions.get(document_id)
+                    if revision is None:
+                        raise ValueError(
+                            f"PostgreSQL Source Cache 缺少原文 revision: {document_id}"
+                        )
+                    if source_content_version(revision) != versions[document_id]:
+                        raise ValueError(
+                            f"PostgreSQL Source Cache revision/version 不一致: {document_id}"
+                        )
                     cursor.execute(
                         """
                         INSERT INTO v4_source_cache.document_revisions (
                             document_cache_id, content_version, work_identity,
                             edition_identity, title, canonical_url, source_role,
+                            source_host, source_document_ref, revision_ref,
+                            revision_timestamp, retrieved_at, raw_content,
                             content_hash, payload
-                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        ) VALUES (
+                            %s, %s, %s, %s, %s, %s, %s,
+                            %s, %s, %s, %s, %s, %s, %s, %s
+                        )
                         ON CONFLICT (document_cache_id, content_version) DO NOTHING
                         RETURNING 1
                         """,
@@ -234,6 +251,12 @@ class PostgresSourceCacheRepository:
                             document["title"],
                             document["url"],
                             document["source_role"],
+                            revision.source_host,
+                            revision.source_document_ref,
+                            revision.revision_ref,
+                            revision.revision_timestamp,
+                            revision.retrieved_at,
+                            revision.raw_text,
                             document["content_hash"],
                             Jsonb(document),
                         ),
@@ -244,7 +267,7 @@ class PostgresSourceCacheRepository:
                     else:
                         cursor.execute(
                             """
-                            SELECT content_hash, payload
+                            SELECT content_hash, raw_content, payload
                             FROM v4_source_cache.document_revisions
                             WHERE document_cache_id = %s AND content_version = %s
                             """,
@@ -253,7 +276,8 @@ class PostgresSourceCacheRepository:
                         existing_document = cursor.fetchone()
                         if existing_document is None or (
                             str(existing_document[0]) != document["content_hash"]
-                            or existing_document[1] != document
+                            or str(existing_document[1]) != revision.raw_text
+                            or existing_document[2] != document
                         ):
                             raise SourceCacheIdempotencyConflict(
                                 "PostgreSQL document revision identity 出现冲突"
@@ -330,3 +354,36 @@ class PostgresSourceCacheRepository:
                     )
                     writes += 1 if cursor.fetchone() is not None else 0
         return writes
+
+    def get_revision(
+        self,
+        document_cache_id: str,
+        content_version: str,
+    ) -> SourceRevisionContent | None:
+        psycopg, _ = _psycopg()
+        with psycopg.connect(self.dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT source_host, source_document_ref, title, canonical_url,
+                           revision_ref, revision_timestamp, retrieved_at,
+                           raw_content, content_hash
+                    FROM v4_source_cache.document_revisions
+                    WHERE document_cache_id = %s AND content_version = %s
+                    """,
+                    (document_cache_id, content_version),
+                )
+                row = cursor.fetchone()
+        if row is None:
+            return None
+        return SourceRevisionContent(
+            source_host=str(row[0]),
+            source_document_ref=str(row[1]),
+            title=str(row[2]),
+            url=str(row[3]),
+            revision_ref=str(row[4]),
+            revision_timestamp=row[5].isoformat(),
+            retrieved_at=row[6].isoformat(),
+            raw_text=str(row[7]),
+            content_hash=str(row[8]),
+        )

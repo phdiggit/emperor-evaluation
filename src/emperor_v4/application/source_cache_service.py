@@ -85,7 +85,14 @@ class SourceCacheRepository(Protocol):
         idempotency_key: str,
         input_fingerprint: str,
         response: Mapping[str, Any],
+        source_revisions: Mapping[str, SourceRevisionContent],
     ) -> int: ...
+
+    def get_revision(
+        self,
+        document_cache_id: str,
+        content_version: str,
+    ) -> SourceRevisionContent | None: ...
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,6 +140,10 @@ def _document_id(item: PreparedSourceSection) -> str:
         item.revision.revision_ref,
     )
     return "SCD-" + _fingerprint(identity)[:20].upper()
+
+
+def source_content_version(revision: SourceRevisionContent) -> str:
+    return f"revision:{revision.revision_ref}:{revision.content_hash}"
 
 
 def _document_payload(item: PreparedSourceSection, document_id: str) -> dict[str, Any]:
@@ -203,6 +214,7 @@ def ensure_source_cache(
 
     batch = provider.load(request)
     documents: dict[str, dict[str, Any]] = {}
+    source_revisions: dict[str, SourceRevisionContent] = {}
     passages: dict[str, dict[str, Any]] = {}
     observed_families: set[str] = set()
     for item in batch.sections:
@@ -211,12 +223,13 @@ def ensure_source_cache(
         previous_document = documents.setdefault(document_id, document)
         if previous_document != document:
             raise ValueError(f"同一 V4 document identity 出现冲突: {document_id}")
+        previous_revision = source_revisions.setdefault(document_id, item.revision)
+        if previous_revision != item.revision:
+            raise ValueError(f"同一 V4 document identity 出现原文冲突: {document_id}")
         observed_families.add(item.source_role)
         section = SourceSection(
             document_cache_id=document_id,
-            content_version=(
-                f"revision:{item.revision.revision_ref}:{item.revision.content_hash}"
-            ),
+            content_version=source_content_version(item.revision),
             section_id=item.section_id,
             section_heading=item.section_heading,
             raw_text=item.revision.raw_text,
@@ -272,6 +285,7 @@ def ensure_source_cache(
         request.idempotency_key,
         input_fingerprint,
         response,
+        source_revisions,
     )
     return SourceCacheServiceRun(
         response=response,
