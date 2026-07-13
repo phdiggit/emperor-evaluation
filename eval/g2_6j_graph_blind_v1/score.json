@@ -1,0 +1,79 @@
+{
+  "episode_graph_score": {
+    "diagnostics": {
+      "assertions_without_passage_lineage": [],
+      "assertions_without_primary_disposition": [],
+      "catastrophic_wrong_merge_candidate_codes": [],
+      "cross_ruler_contamination_candidate_codes": [],
+      "exact_candidate_matches": {
+        "EP-1D7A1B1DC26226ED27C3": "G26J-GOLD-HH-HUHAI-LISTENS",
+        "EP-488B2244266B7FA7514A": "G26J-GOLD-HH-SECOND-REFUSES",
+        "EP-6350A36BA7144721E841": "G26J-GOLD-HH-LISI-FEARS",
+        "EP-80E567C36F0F46F9C9D0": "G26J-GOLD-HH-MENGTIAN-REQUESTS",
+        "EP-90805CCF454F9A0A4DA3": "G26J-GOLD-YG-TURKS-WITHDRAW",
+        "EP-AA0CF71F6F16D7D57041": "G26J-GOLD-YG-XIAOYU-ADVISES",
+        "EP-D903A87821C04638803E": "G26J-GOLD-HH-ZHAOGAO-INVESTIGATES-LISI"
+      },
+      "safe_fragment_candidate_codes": [],
+      "wrong_merge_candidate_codes": [],
+      "wrong_split_gold_episode_codes": []
+    },
+    "episode_metrics": {
+      "catastrophic_wrong_merge_count": 0,
+      "cross_ruler_contamination_count": 0,
+      "exact_candidate_precision": 1.0,
+      "exact_episode_recall": 1.0,
+      "pairwise_same_episode_precision": null,
+      "pairwise_same_episode_recall": null,
+      "passage_lineage_completeness": 1.0,
+      "primary_assertion_disposition_coverage": 1.0,
+      "safe_fragment_count": 0,
+      "unresolved_assertion_rate": 0.6578947368421053,
+      "wrong_merge_count": 0,
+      "wrong_split_count": 0
+    },
+    "relation_metrics": {
+      "causal_responsibility_preservation": null,
+      "endpoint_aligned_relation_precision": 0.0,
+      "endpoint_aligned_relation_recall": null,
+      "mandate_chain_coverage": null,
+      "relation_type_metrics": {
+        "causal_followup": {
+          "strict_precision": 0.0,
+          "strict_recall": null
+        },
+        "outcome_of": {
+          "strict_precision": 0.0,
+          "strict_recall": null
+        }
+      },
+      "revocation_outcome_linkage_coverage": null,
+      "strict_relation_precision": 0.0,
+      "strict_relation_recall": null
+    },
+    "schema_version": 2,
+    "status": "episode_disposition_lineage_and_relation_scored"
+  },
+  "g3_authorized": false,
+  "release_gate_passed": false,
+  "rule_evidence_metrics": {
+    "duplicate_consumption_count": 0,
+    "exact_candidate_matches": {},
+    "exact_rule_unit_precision": null,
+    "exact_rule_unit_recall": null
+  },
+  "runtime_metrics": {
+    "baseline_review_unit_count": 16,
+    "changed_assertion_ref": "G26J-杨广@CLMK-4E761D80EBEA48F476DB@G26J-P-EVD-427A44F22B2E947689F3C6B4",
+    "changed_review_unit_count": 1,
+    "changed_review_unit_count_total": 16,
+    "changed_unit_affects_other_unit_count": 0,
+    "database_write_count": 0,
+    "network_request_count": 0,
+    "unchanged_graph_fingerprint_equal": true,
+    "unchanged_rerun_model_calls": 0,
+    "unchanged_rule_candidate_fingerprint_equal": true
+  },
+  "schema_version": 1,
+  "status": "g2_6e_graph_blind_scored_after_all_gold_opened"
+}

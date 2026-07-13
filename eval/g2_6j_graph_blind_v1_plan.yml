@@ -1,6 +1,6 @@
 schema_version: 1
 plan_code: g2_6j_graph_blind_v1
-status: all_independent_freezes_complete_candidate_generation_ready
+status: failed_closed_after_first_blind_score
 source_snapshot_frozen_at: 2026-07-13
 contract_basis_commit: 8c928ed9db0c491086a8956903229b6a41bfe7fb
 
@@ -130,8 +130,47 @@ independent_freezes:
     gold_rule_evidence_unit_count: 0
     duplicate_consumption_count: 0
     frozen_without_candidate_or_review_access: true
-  candidate_generation: ready_after_all_freezes
-  scoring: blocked_until_single_candidate_materialization
+  candidate_generation: completed_once_after_all_freezes
+  scoring: completed_once_release_gate_failed
+
+first_blind_result:
+  candidate_graph_path: eval/g2_6j_graph_blind_v1/candidate_graph.json
+  candidate_graph_file_sha256: 148ce9db637bbe9a6efa0e3a93c0ba596169f86968ddb689f2c7185903aa30fd
+  candidate_graph_canonical_sha256: dcd125a230e9380a71841649f55ad1c6b14611e42b6188582152cebe0bc644fa
+  rule_candidates_path: eval/g2_6j_graph_blind_v1/rule_candidates.json
+  rule_candidates_file_sha256: fed4669d921ffd17694e3108734e741930b26af64d903478a603d41201a5fc78
+  rule_candidates_canonical_sha256: 71b999a4fe3ce7c19fe03d443af51f32ac3c745deb6a71384996908b0d96face
+  runtime_audit_path: eval/g2_6j_graph_blind_v1/runtime_audit.json
+  runtime_audit_file_sha256: fe5399a79c4d8d75a51bb2b44d2be84a0896d9f61fff7516b4f260e7e21fe68f
+  runtime_audit_canonical_sha256: 842fc2dd3084c4eed01e57503e80c5b7360630ce1cc0bbf635bbee0266c50999
+  score_path: eval/g2_6j_graph_blind_v1/score.json
+  score_file_sha256: 45582bcf465c5b4a2c5b645afc705a70ef8cb47aa312cb00215055ee59c95f76
+  score_canonical_sha256: 37a37aebb01c33640ddf93a149993a8b69f60132c7a5767fc223a015f97c4d99
+  candidate_episode_count: 7
+  gold_episode_count: 7
+  candidate_relation_count: 2
+  gold_relation_count: 0
+  candidate_rule_unit_count: 0
+  gold_rule_unit_count: 0
+  exact_episode_recall: 1.0
+  exact_candidate_precision: 1.0
+  pairwise_same_episode_precision: null
+  pairwise_same_episode_recall: null
+  catastrophic_wrong_merge_count: 0
+  cross_ruler_contamination_count: 0
+  passage_lineage_completeness: 1.0
+  assertion_disposition_coverage: 1.0
+  strict_relation_precision: 0.0
+  strict_relation_recall: null
+  exact_rule_unit_precision: null
+  exact_rule_unit_recall: null
+  release_gate_passed: false
+  g3_authorized: false
+  pre_materialization_status_adapter_failure_wrote_candidate: false
+  current_holdout_reclassification_forbidden: true
+  primary_failure_layer: source_passage_segmentation
+  secondary_failure_layer: episode_relation_overreach
+  next_gate: g2_6k_source_segmentation_repair_then_new_holdout
 
 release_thresholds:
   exact_episode_recall_minimum: 0.85
@@ -150,4 +189,4 @@ release_thresholds:
 
 g3:
   authorized: false
-  blocked_by: g2_6j_blind_holdout_not_scored
+  blocked_by: g2_6j_release_gate_failed_g2_6k_required

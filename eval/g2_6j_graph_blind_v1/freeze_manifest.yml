@@ -1,0 +1,61 @@
+schema_version: 1
+holdout_code: g2_6j_graph_blind_v1
+status: failed_closed_after_first_blind_score
+frozen_at: 2026-07-13
+contract_basis_commit: 8c928ed9db0c491086a8956903229b6a41bfe7fb
+all_independent_freezes_commit: fe33654
+materializer_compatibility_commit: c36e8c6
+
+artifacts:
+  source_claim_snapshot.json: b2df393092f1b16d562c6b8317dda064e8fe57c0b5f269bd4ff9e9ceb552054d
+  passage_support_review.yml: f4bd50f3900808ca9edb98a0e8f38ace7ff1e3edf53e5a3b7ebdd9bf99f99421
+  input.json: 426a39faeab58964abf25bf8db12e83407d4b5d84871ab35998b9ce625007c93
+  review_requests.json: 2e9ab39eb5b11b1715a435b24a1a0f77124766c288d882176729f347554f9009
+  boundary_review.yml: ed8d9f363087f09097e1bd7d39b946e9da9ee0b5313aa55cc842e3861bd051c0
+  historical_gold.yml: e172dfd3f496926066bdcdfa4d7e23063706830a56179bb452a2e553a0b021ee
+  rule_gold.yml: 40351ed11ef8ad0f06968ec2f28f904a6de1e351baad2d8af707af37192eb4c3
+  candidate_graph.json: 148ce9db637bbe9a6efa0e3a93c0ba596169f86968ddb689f2c7185903aa30fd
+  rule_candidates.json: fed4669d921ffd17694e3108734e741930b26af64d903478a603d41201a5fc78
+  runtime_audit.json: fe5399a79c4d8d75a51bb2b44d2be84a0896d9f61fff7516b4f260e7e21fe68f
+  score.json: 45582bcf465c5b4a2c5b645afc705a70ef8cb47aa312cb00215055ee59c95f76
+
+counts:
+  selected_v3_claim: 18
+  source_passage: 38
+  atomic_component: 7
+  context_only: 31
+  review_unit: 16
+  candidate_episode: 7
+  gold_episode: 7
+  candidate_relation: 2
+  gold_relation: 0
+  candidate_rule_evidence_unit: 0
+  gold_rule_evidence_unit: 0
+
+metrics:
+  exact_episode_recall: 1.0
+  exact_candidate_precision: 1.0
+  pairwise_same_episode_precision: null
+  pairwise_same_episode_recall: null
+  catastrophic_wrong_merge_count: 0
+  cross_ruler_contamination_count: 0
+  passage_lineage_completeness: 1.0
+  primary_assertion_disposition_coverage: 1.0
+  strict_relation_precision: 0.0
+  strict_relation_recall: null
+  exact_rule_unit_precision: null
+  exact_rule_unit_recall: null
+  unchanged_rerun_model_calls: 0
+  changed_unit_affects_other_unit_count: 0
+  network_request_count: 0
+  database_write_count: 0
+
+decision:
+  release_gate_passed: false
+  g3_authorized: false
+  holdout_may_be_reclassified_after_tuning: false
+  singleton_episode_preservation_passed: true
+  merge_split_pairwise_validated: false
+  primary_failure_layer: source_passage_segmentation
+  secondary_failure_layer: episode_relation_overreach
+  next_gate: g2_6k_source_segmentation_repair_then_new_holdout

@@ -2,7 +2,7 @@
 
 `docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
 
-当前实现状态为 `M1 conditional_pass / G2.6I failed_closed / G2.6J strict_input_frozen`。G2.6J 已引入 passage-scoped Assertion v2 与 BoundaryReview v2.8；四层独立冻结与首次评分未完成前不能进入 PostgreSQL G3。
+当前实现状态为 `M1 conditional_pass / G2.6I failed_closed / G2.6J failed_closed`。G2.6J 已完成 passage-scoped Assertion v2、BoundaryReview v2.8、四层独立冻结和首次评分；史源切片、关系与规则覆盖未达门禁，G2.6K 前不能进入 PostgreSQL G3。
 
 ## 文档状态
 
@@ -50,16 +50,17 @@ D0 文档 Gate 所需的领域、证据、输入类型、状态机、覆盖度�
 19. `16-G2.6H责任域措辞阻断与v2.6边界.md`
 20. `17-G2.6I盲测结果与Assertion证据扇出阻断.md`
 21. `18-G2.6J-AssertionEvidence扇出硬化.md`
+22. `19-G2.6J盲测结果与史源切片阻断.md`
 
 ### 契约与试点规则
 
-22. `contracts/史源缓存服务契约.md`
-23. `contracts/事实抽取服务契约.md`
-24. `contracts/历史事件包契约.md`
-25. `contracts/规则判断结果契约.md`
-26. `证据规则/证据裁量总则.md`
-27. `证据规则/史料检索与回源工作流.md`
-28. `分项规则/第五项统治者政治素质/B用人与授权.md`
+23. `contracts/史源缓存服务契约.md`
+24. `contracts/事实抽取服务契约.md`
+25. `contracts/历史事件包契约.md`
+26. `contracts/规则判断结果契约.md`
+27. `证据规则/证据裁量总则.md`
+28. `证据规则/史料检索与回源工作流.md`
+29. `分项规则/第五项统治者政治素质/B用人与授权.md`
 
 ## 目录职责
 

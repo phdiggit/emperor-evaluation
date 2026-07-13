@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6J AssertionEvidence v2.8 严格输入已冻结，独立审核中
+- 阶段：G2.6J 已首次评分并失败冻结；G2.6K 史源切片修复待开始
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E、G2.6G、G2.6H 与 G2.6I 均已失败冻结。G2.6J 已冻结杨广、胡亥的新严格输入；独立 PassageSupport 审核判定 38 段中仅 7 段可作为 atomic core，31 段因缺主体/动作而 fail closed 为 context-only。BoundaryReview v2.8 允许全上下文 review unit 以零 Episode 关闭，并禁止旧 claim key 重新拼接原子分量。独立 Boundary/Historical/Rule 全部冻结并完成首次评分前，PostgreSQL G3 继续阻断。
+G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 singleton Gold Episode 达到 exact recall/precision 100%，但 31/38 passage 因缺主体/动作而只能作为 context，pairwise merge/split 无样本，2 条 candidate relation 均无 Gold 对应，且没有合格 `appointment_delegation` rule unit。该结果不能解释为 G2.6 通过。下一步先修 section-aware source segmentation，再使用未见人物链建立 G2.6K；PostgreSQL G3 继续阻断。
 
 ## 文件树
 

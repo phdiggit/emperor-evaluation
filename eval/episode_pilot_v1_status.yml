@@ -17,10 +17,11 @@ milestones:
   G2_6H_contract_basis: boundary_review_v2_5
   G2_6I_contract_basis: boundary_review_v2_6_hardened
   G2_6I_graph_holdout: failed_closed_after_first_blind_score
-  G2_6J_next_gate: assertion_evidence_fanout_hardening_then_new_holdout
+  G2_6J_graph_holdout: failed_closed_after_first_blind_score
+  G2_6J_next_gate: source_segmentation_repair_then_g2_6k_new_holdout
   G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_8
-  G2_6J_contract_status: strict_input_frozen_independent_reviews_in_progress
-  G3_PostgreSQL: blocked_by_g2_6J
+  G2_6J_contract_status: evaluated_holdout_failed_qualification
+  G3_PostgreSQL: blocked_by_g2_6K
 
 qualification:
   passed:
@@ -73,6 +74,14 @@ qualification:
     - g2_6j_unbound_fanout_fail_closed
     - g2_6j_reviewer_atomic_key_cannot_override_atomization
     - g2_6j_v2_6_read_compatibility
+    - g2_6j_exact_singleton_episode_recall_1
+    - g2_6j_exact_singleton_candidate_precision_1
+    - g2_6j_zero_catastrophic_merge
+    - g2_6j_zero_cross_ruler_contamination
+    - g2_6j_passage_lineage_100_percent
+    - g2_6j_assertion_disposition_100_percent
+    - g2_6j_zero_call_unchanged_rerun
+    - g2_6j_review_unit_local_invalidation
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -93,6 +102,10 @@ qualification:
     - g2_6i_strict_relation_recall_0_1852_below_0_85
     - g2_6i_rule_unit_precision_0
     - g2_6i_rule_unit_recall_0
+    - g2_6j_source_atomic_support_7_of_38
+    - g2_6j_pairwise_merge_split_not_measurable
+    - g2_6j_strict_relation_precision_0
+    - g2_6j_rule_unit_metrics_not_measurable
 
 metric_policy:
   oracle_assisted_packet_count_is_accuracy_metric: false
@@ -107,6 +120,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6J_assertion_evidence_fanout_hardening
-  status: contract_hardened_new_input_pending
-  required_outcome: 消除 claim payload 向多个 evidence passage 的无条件扇出后，在全新输入上重新验证 Episode、relation 与 RuleEvidenceUnit
+  code: G2_6K_source_segmentation_repair_and_new_holdout
+  status: source_segmentation_repair_pending
+  required_outcome: 以 section-aware linked passages 消除缺主体动作与导航噪声，在未见人物链上重新验证 merge/split、EpisodeRelation 与 appointment_delegation RuleEvidenceUnit
