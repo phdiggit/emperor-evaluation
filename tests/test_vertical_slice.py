@@ -2502,3 +2502,62 @@ def test_source_cache_job_idempotency_conflict_fails_closed() -> None:
             input_fingerprint="input-2", policy_version="policy-v1",
             request_payload={"request_id": "REQ-2"},
         )
+def test_claim_extractor_v2_fixture_application_is_exactly_reusable() -> None:
+    import json
+    from pathlib import Path
+
+    from emperor_v4.adapters.claim_extraction_profile import load_claim_extraction_profile
+    from emperor_v4.adapters.claim_extractor_frozen import FrozenClaimExtractionProvider
+    from emperor_v4.application.claim_extractor_service import ensure_claim_extraction
+    from emperor_v4.persistence.claim_extractor import InMemoryClaimExtractionRepository
+    from emperor_v4.runtime.claim_extractor import request_from_frozen_snapshot
+
+    root = Path(__file__).parents[1]
+    snapshot_path = root / "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json"
+    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    request = request_from_frozen_snapshot(
+        snapshot, profile_code="talent_discovery_chain_v1",
+        request_id="CLX-V4-WEIZHENG-001", idempotency_key="claim-extraction:v4:weizheng:talent:v1",
+        requested_at="2026-07-14T20:00:00+08:00",
+    )
+    profile = load_claim_extraction_profile(root / "config/claim-extraction-profiles.yml", request.profile_code)
+    repository = InMemoryClaimExtractionRepository()
+    provider = FrozenClaimExtractionProvider(snapshot_path)
+    first = ensure_claim_extraction(
+        request, profile=profile, provider=provider, repository=repository,
+        service_release_sha="a" * 40,
+    )
+    second = ensure_claim_extraction(
+        request, profile=profile, provider=provider, repository=repository,
+        service_release_sha="a" * 40,
+    )
+    assert len(first.response["assertions"]) == 4
+    assert all(row["passage_support"]["support_mode"] == "single_passage" for row in first.response["assertions"])
+    assert (first.cache_hit, first.provider_call_count, first.model_call_count) == (False, 1, 0)
+    assert (second.cache_hit, second.provider_call_count, second.repository_write_count) == (True, 0, 0)
+    assert second.response == first.response
+
+
+def test_claim_extractor_v2_rejects_missing_passage_support() -> None:
+    import json
+    from pathlib import Path
+
+    import pytest
+
+    from emperor_v4.adapters.claim_extraction_profile import load_claim_extraction_profile
+    from emperor_v4.application.claim_extractor_service import ClaimExtractionBatch, ensure_claim_extraction
+    from emperor_v4.persistence.claim_extractor import InMemoryClaimExtractionRepository
+    from emperor_v4.runtime.claim_extractor import request_from_frozen_snapshot
+    from emperor_v4.adapters.claim_extractor import adapt_claim_extractor_snapshot
+
+    root = Path(__file__).parents[1]
+    snapshot = json.loads((root / "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json").read_text(encoding="utf-8"))
+    request = request_from_frozen_snapshot(snapshot, profile_code="talent_discovery_chain_v1", request_id="REQ", idempotency_key="KEY", requested_at="NOW")
+    profile = load_claim_extraction_profile(root / "config/claim-extraction-profiles.yml", request.profile_code)
+
+    class LegacyProvider:
+        def extract(self, _payload):
+            return ClaimExtractionBatch(adapt_claim_extractor_snapshot(snapshot), "legacy", 0)
+
+    with pytest.raises(ValueError, match="缺少 PassageSupport"):
+        ensure_claim_extraction(request, profile=profile, provider=LegacyProvider(), repository=InMemoryClaimExtractionRepository(), service_release_sha="b" * 40)

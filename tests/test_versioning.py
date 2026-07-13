@@ -657,3 +657,23 @@ def test_source_cache_release_is_deterministic_and_allowlisted(tmp_path) -> None
         manifest_path=tmp_path / "first" / f"v4-source-cache-{head}.manifest.json",
     )
     assert verified["commit_sha"] == head
+
+
+def test_claim_extractor_release_is_deterministic_and_excludes_scoring(tmp_path) -> None:
+    import subprocess
+
+    from emperor_v4.runtime.release import build_claim_extractor_release, verify_service_release
+
+    repo_root = __import__("pathlib").Path(__file__).parents[1]
+    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo_root, text=True, encoding="utf-8").strip()
+    first = build_claim_extractor_release(repo_root=repo_root, output_dir=tmp_path / "a", commit_sha=head, require_clean=False)
+    second = build_claim_extractor_release(repo_root=repo_root, output_dir=tmp_path / "b", commit_sha=head, require_clean=False)
+    assert first["archive_sha256"] == second["archive_sha256"]
+    assert first["service"] == "v4-claim-extractor"
+    assert len(first["files"]) == 18
+    assert not any("scoring" in row["path"] or "appointment_delegation" in row["path"] for row in first["files"])
+    verified = verify_service_release(
+        archive_path=tmp_path / "a" / first["archive"],
+        manifest_path=tmp_path / "a" / f"v4-claim-extractor-{head}.manifest.json",
+    )
+    assert verified["archive_sha256"] == first["archive_sha256"]

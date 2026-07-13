@@ -11,6 +11,11 @@ from emperor_v4.persistence.postgres_source_cache import (
     SourceCacheSchemaStateError,
     decide_source_cache_schema_action,
 )
+from emperor_v4.persistence.postgres_claim_extractor import (
+    CLAIM_EXTRACTOR_TABLES,
+    ClaimExtractorSchemaStateError,
+    decide_claim_extractor_schema_action,
+)
 
 
 SCHEMA = Path(__file__).parents[1] / "db" / "postgres" / "001_g3a_episode_core.sql"
@@ -26,6 +31,7 @@ SOURCE_CACHE_JOBS_SCHEMA = (
     / "postgres"
     / "003_v4_source_cache_jobs.sql"
 )
+CLAIM_EXTRACTOR_SCHEMA = Path(__file__).parents[1] / "db/postgres/004_v4_claim_extractor_service.sql"
 EXPECTED_TABLES = {
     "source_documents",
     "source_passages",
@@ -145,3 +151,18 @@ def test_source_cache_jobs_migration_has_lease_and_idempotency_contract() -> Non
     assert "DROP " not in upper
     assert "TRUNCATE" not in upper
     assert "DELETE FROM" not in upper
+
+
+def test_claim_extractor_migration_is_isolated_idempotent_and_lease_aware() -> None:
+    sql = CLAIM_EXTRACTOR_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+    tables = set(re.findall(r"CREATE TABLE\s+v4_claim_extractor\.([a-z_]+)", sql, flags=re.I))
+    assert tables == CLAIM_EXTRACTOR_TABLES
+    assert "IDEMPOTENCY_KEY TEXT PRIMARY KEY" in upper
+    assert "UNIQUE (SOURCE_PASSAGE_REF, ASSERTION_SEMANTIC_KEY, INPUT_FINGERPRINT)" in upper
+    assert "LEASE_EXPIRES_AT TIMESTAMPTZ" in upper
+    assert "DROP " not in upper and "TRUNCATE" not in upper and "DELETE FROM" not in upper
+    assert decide_claim_extractor_schema_action(()) == "apply"
+    assert decide_claim_extractor_schema_action(CLAIM_EXTRACTOR_TABLES) == "reuse"
+    with pytest.raises(ClaimExtractorSchemaStateError, match="不完整"):
+        decide_claim_extractor_schema_action({"requests"})

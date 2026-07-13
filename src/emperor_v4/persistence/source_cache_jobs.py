@@ -142,10 +142,13 @@ def _psycopg() -> tuple[Any, Any]:
 
 
 class PostgresSourceCacheJobRepository:
-    def __init__(self, dsn: str) -> None:
+    def __init__(self, dsn: str, *, schema: str = "v4_source_cache") -> None:
         if not dsn.strip():
             raise ValueError("PostgresSourceCacheJobRepository 需要显式 V4 DSN")
+        if schema not in {"v4_source_cache", "v4_claim_extractor"}:
+            raise ValueError("lease job repository schema 未获授权")
         self.dsn = dsn
+        self.schema = schema
 
     def enqueue(
         self,
@@ -162,8 +165,8 @@ class PostgresSourceCacheJobRepository:
         with psycopg.connect(self.dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """
-                    INSERT INTO v4_source_cache.jobs (
+                    f"""
+                    INSERT INTO {self.schema}.jobs (
                         job_id, idempotency_key, input_fingerprint, policy_version,
                         request_payload, status, max_attempts, priority
                     ) VALUES (%s, %s, %s, %s, %s, 'ready', %s, %s)
@@ -176,9 +179,9 @@ class PostgresSourceCacheJobRepository:
                 if cursor.fetchone() is not None:
                     return 1
                 cursor.execute(
-                    """
+                    f"""
                     SELECT input_fingerprint, policy_version, request_payload
-                    FROM v4_source_cache.jobs WHERE idempotency_key = %s
+                    FROM {self.schema}.jobs WHERE idempotency_key = %s
                     """,
                     (idempotency_key,),
                 )
@@ -196,16 +199,16 @@ class PostgresSourceCacheJobRepository:
         with psycopg.connect(self.dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """
+                    f"""
                     WITH recovered AS (
-                        UPDATE v4_source_cache.jobs
+                        UPDATE {self.schema}.jobs
                         SET status = 'retry_wait', next_attempt_at = CURRENT_TIMESTAMP,
                             lease_owner = NULL, lease_expires_at = NULL,
                             updated_at = CURRENT_TIMESTAMP
                         WHERE status = 'running' AND lease_expires_at <= CURRENT_TIMESTAMP
                         RETURNING job_id, attempt_count
                     )
-                    UPDATE v4_source_cache.job_runs AS run
+                    UPDATE {self.schema}.job_runs AS run
                     SET status = 'lease_expired', finished_at = CURRENT_TIMESTAMP,
                         error_type = 'LeaseExpired', error_message = 'worker lease expired'
                     FROM recovered
@@ -223,17 +226,17 @@ class PostgresSourceCacheJobRepository:
         with psycopg.connect(self.dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """
+                    f"""
                     WITH candidate AS (
                         SELECT job_id
-                        FROM v4_source_cache.jobs
+                        FROM {self.schema}.jobs
                         WHERE status IN ('ready', 'retry_wait')
                           AND next_attempt_at <= CURRENT_TIMESTAMP
                         ORDER BY priority DESC, next_attempt_at, created_at
                         FOR UPDATE SKIP LOCKED
                         LIMIT 1
                     )
-                    UPDATE v4_source_cache.jobs AS job
+                    UPDATE {self.schema}.jobs AS job
                     SET status = 'running', attempt_count = attempt_count + 1,
                         lease_owner = %s,
                         lease_expires_at = CURRENT_TIMESTAMP + (%s * INTERVAL '1 second'),
@@ -249,8 +252,8 @@ class PostgresSourceCacheJobRepository:
                 if row is None:
                     return None
                 cursor.execute(
-                    """
-                    INSERT INTO v4_source_cache.job_runs (
+                    f"""
+                    INSERT INTO {self.schema}.job_runs (
                         run_id, job_id, attempt_number, worker_id,
                         input_fingerprint, status
                     ) VALUES (%s, %s, %s, %s, %s, 'running')
@@ -281,8 +284,8 @@ class PostgresSourceCacheJobRepository:
         with psycopg.connect(self.dsn) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """
-                    UPDATE v4_source_cache.jobs
+                    f"""
+                    UPDATE {self.schema}.jobs
                     SET status = %s, lease_owner = NULL, lease_expires_at = NULL,
                         next_attempt_at = CASE WHEN %s = 'retry_wait'
                             THEN CURRENT_TIMESTAMP + (%s * INTERVAL '1 second')
@@ -302,8 +305,8 @@ class PostgresSourceCacheJobRepository:
                 if cursor.fetchone() is None:
                     raise RuntimeError("Source Cache job lease 已失效或不属于当前 worker")
                 cursor.execute(
-                    """
-                    UPDATE v4_source_cache.job_runs
+                    f"""
+                    UPDATE {self.schema}.job_runs
                     SET status = %s, finished_at = CURRENT_TIMESTAMP,
                         output_fingerprint = %s, result_payload = %s,
                         error_type = %s, error_message = %s

@@ -30,7 +30,28 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "src/emperor_v4/runtime/source_cache_worker.py",
     "db/postgres/002_v4_source_cache_service.sql",
     "db/postgres/003_v4_source_cache_jobs.sql",
-    "deploy/v4",
+    "deploy/v4/emperor-v4-source-cache-worker.service",
+    "deploy/v4/emperor-v4-source-cache-worker.timer",
+)
+CLAIM_EXTRACTOR_RELEASE_PATHS = (
+    "pyproject.toml",
+    "config/claim-extraction-profiles.yml",
+    "src/emperor_v4/__init__.py",
+    "src/emperor_v4/adapters/claim_extraction_profile.py",
+    "src/emperor_v4/adapters/claim_extractor.py",
+    "src/emperor_v4/adapters/claim_extractor_frozen.py",
+    "src/emperor_v4/application/claim_extractor_service.py",
+    "src/emperor_v4/application/source_cache_worker.py",
+    "src/emperor_v4/contracts/assertion.py",
+    "src/emperor_v4/contracts/extraction.py",
+    "src/emperor_v4/persistence/claim_extractor.py",
+    "src/emperor_v4/persistence/postgres_claim_extractor.py",
+    "src/emperor_v4/persistence/source_cache_jobs.py",
+    "src/emperor_v4/runtime/claim_extractor.py",
+    "src/emperor_v4/runtime/release.py",
+    "db/postgres/004_v4_claim_extractor_service.sql",
+    "deploy/v4/emperor-v4-claim-extractor-worker.service",
+    "deploy/v4/emperor-v4-claim-extractor-worker.timer",
 )
 
 
@@ -61,12 +82,35 @@ def build_source_cache_release(
     *, repo_root: Path, output_dir: Path, commit_sha: str,
     require_clean: bool = True,
 ) -> dict[str, Any]:
+    return _build_release(
+        repo_root=repo_root, output_dir=output_dir, commit_sha=commit_sha,
+        require_clean=require_clean, service="v4-source-cache",
+        archive_prefix="v4-source-cache", paths=SOURCE_CACHE_RELEASE_PATHS,
+    )
+
+
+def build_claim_extractor_release(
+    *, repo_root: Path, output_dir: Path, commit_sha: str,
+    require_clean: bool = True,
+) -> dict[str, Any]:
+    return _build_release(
+        repo_root=repo_root, output_dir=output_dir, commit_sha=commit_sha,
+        require_clean=require_clean, service="v4-claim-extractor",
+        archive_prefix="v4-claim-extractor", paths=CLAIM_EXTRACTOR_RELEASE_PATHS,
+    )
+
+
+def _build_release(
+    *, repo_root: Path, output_dir: Path, commit_sha: str,
+    require_clean: bool, service: str, archive_prefix: str,
+    paths: Iterable[str],
+) -> dict[str, Any]:
     actual_sha = _git(repo_root, "rev-parse", "HEAD")
     if commit_sha != actual_sha or len(commit_sha) != 40:
         raise ValueError("release commit_sha 必须等于当前 HEAD")
     if require_clean and _git(repo_root, "status", "--short"):
         raise RuntimeError("不可变 release 只能从干净工作树构建")
-    files = _files(repo_root, SOURCE_CACHE_RELEASE_PATHS)
+    files = _files(repo_root, paths)
     entries = []
     for path in files:
         data = path.read_bytes()
@@ -76,13 +120,13 @@ def build_source_cache_release(
         })
     embedded = {
         "contract": RELEASE_CONTRACT,
-        "service": "v4-source-cache",
+        "service": service,
         "commit_sha": commit_sha,
         "files": entries,
     }
     release_json = (json.dumps(embedded, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
     output_dir.mkdir(parents=True, exist_ok=True)
-    archive_path = output_dir / f"v4-source-cache-{commit_sha}.tar"
+    archive_path = output_dir / f"{archive_prefix}-{commit_sha}.tar"
     with tarfile.open(archive_path, "w", format=tarfile.PAX_FORMAT) as archive:
         for path in files:
             data = path.read_bytes()
@@ -103,7 +147,7 @@ def build_source_cache_release(
     manifest = dict(embedded)
     manifest["archive"] = archive_path.name
     manifest["archive_sha256"] = _sha256(archive_path.read_bytes())
-    manifest_path = output_dir / f"v4-source-cache-{commit_sha}.manifest.json"
+    manifest_path = output_dir / f"{archive_prefix}-{commit_sha}.manifest.json"
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8", newline="\n",
@@ -111,7 +155,7 @@ def build_source_cache_release(
     return manifest
 
 
-def verify_source_cache_release(*, archive_path: Path, manifest_path: Path) -> dict[str, Any]:
+def verify_service_release(*, archive_path: Path, manifest_path: Path) -> dict[str, Any]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if _sha256(archive_path.read_bytes()) != manifest["archive_sha256"]:
         raise ValueError("release archive SHA-256 不匹配")
@@ -127,13 +171,17 @@ def verify_source_cache_release(*, archive_path: Path, manifest_path: Path) -> d
     return manifest
 
 
+verify_source_cache_release = verify_service_release
+
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="构建或验证 V4 Source Cache 不可变发布包")
+    parser = argparse.ArgumentParser(description="构建或验证 V4 服务不可变发布包")
     sub = parser.add_subparsers(dest="command", required=True)
     build = sub.add_parser("build")
     build.add_argument("--repo-root", type=Path, default=Path.cwd())
     build.add_argument("--output-dir", type=Path, required=True)
     build.add_argument("--commit-sha", required=True)
+    build.add_argument("--service", choices=("source-cache", "claim-extractor"), default="source-cache")
     verify = sub.add_parser("verify")
     verify.add_argument("--archive", type=Path, required=True)
     verify.add_argument("--manifest", type=Path, required=True)
@@ -143,12 +191,12 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     result = (
-        build_source_cache_release(
+        (build_source_cache_release if args.service == "source-cache" else build_claim_extractor_release)(
             repo_root=args.repo_root, output_dir=args.output_dir,
             commit_sha=args.commit_sha,
         )
         if args.command == "build"
-        else verify_source_cache_release(archive_path=args.archive, manifest_path=args.manifest)
+        else verify_service_release(archive_path=args.archive, manifest_path=args.manifest)
     )
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 0

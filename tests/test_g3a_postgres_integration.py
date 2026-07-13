@@ -35,6 +35,71 @@ def _source_cache_isolated_dsn() -> str:
     return dsn
 
 
+def _claim_extractor_isolated_dsn() -> str:
+    dsn = os.environ.get("EMPEROR_EVAL_V4_CLAIM_EXTRACTOR_ISOLATED_DSN")
+    if not dsn:
+        pytest.skip("未显式注入 Claim Extractor 独立临时数据库 DSN")
+    return dsn
+
+
+def test_real_postgres_claim_extractor_job_lease_contract() -> None:
+    from dataclasses import asdict
+    import json
+    from pathlib import Path
+
+    import psycopg
+
+    from emperor_v4.adapters.claim_extraction_profile import load_claim_extraction_profile
+    from emperor_v4.adapters.claim_extractor_frozen import FrozenClaimExtractionProvider
+    from emperor_v4.application.claim_extractor_service import (
+        claim_extraction_input_fingerprint,
+        ensure_claim_extraction,
+    )
+    from emperor_v4.application.source_cache_worker import run_source_cache_worker_once
+    from emperor_v4.persistence.postgres_claim_extractor import (
+        PostgresClaimExtractionRepository,
+        bootstrap_claim_extractor_schema,
+    )
+    from emperor_v4.persistence.source_cache_jobs import PostgresSourceCacheJobRepository
+    from emperor_v4.runtime.claim_extractor import request_from_frozen_snapshot, request_from_mapping
+
+    dsn = _claim_extractor_isolated_dsn()
+    root = Path(__file__).parents[1]
+    snapshot_path = root / "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json"
+    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    profile = load_claim_extraction_profile(root / "config/claim-extraction-profiles.yml", "talent_discovery_chain_v1")
+    request = request_from_frozen_snapshot(snapshot, profile_code=profile.code, request_id="CLX-PG-1", idempotency_key="claim:v4:pg:1", requested_at="2026-07-14T20:00:00+08:00")
+    with psycopg.connect(dsn, autocommit=True) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("DROP SCHEMA IF EXISTS v4_claim_extractor CASCADE")
+    try:
+        assert bootstrap_claim_extractor_schema(dsn).action == "applied"
+        assert bootstrap_claim_extractor_schema(dsn).database_write_count == 0
+        jobs = PostgresSourceCacheJobRepository(dsn, schema="v4_claim_extractor")
+        payload = asdict(request)
+        fingerprint = claim_extraction_input_fingerprint(request, profile)
+        assert jobs.enqueue(job_id="CLXJ-PG-1", idempotency_key="claim-job:pg:1", input_fingerprint=fingerprint, policy_version=profile.code, request_payload=payload) == 1
+        assert jobs.enqueue(job_id="CLXJ-PG-DUP", idempotency_key="claim-job:pg:1", input_fingerprint=fingerprint, policy_version=profile.code, request_payload=payload) == 0
+        provider = FrozenClaimExtractionProvider(snapshot_path)
+        repository = PostgresClaimExtractionRepository(dsn)
+
+        def handler(value):
+            return ensure_claim_extraction(request_from_mapping(value), profile=profile, provider=provider, repository=repository, service_release_sha="c" * 40).response
+
+        assert run_source_cache_worker_once(jobs, worker_id="claim-worker", handler=handler).status == "succeeded"
+        assert run_source_cache_worker_once(jobs, worker_id="claim-worker", handler=handler).status == "idle"
+        with psycopg.connect(dsn) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT count(*) FROM v4_claim_extractor.assertion_drafts")
+                assert cursor.fetchone()[0] == 4
+                cursor.execute("SELECT status, attempt_count FROM v4_claim_extractor.jobs")
+                assert cursor.fetchone() == ("succeeded", 1)
+    finally:
+        with psycopg.connect(dsn, autocommit=True) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("DROP SCHEMA IF EXISTS v4_claim_extractor CASCADE")
+
+
 def test_real_postgres_source_cache_job_lease_contract() -> None:
     from dataclasses import asdict
     from pathlib import Path
