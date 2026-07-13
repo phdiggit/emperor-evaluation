@@ -93,8 +93,19 @@ independent_freezes:
     status: ready_for_isolated_review
     output_path: eval/g2_6j_graph_blind_v1/boundary_review.yml
   historical_gold:
-    status: ready_for_isolated_freeze
+    status: frozen_without_candidate_or_review_access
     output_path: eval/g2_6j_graph_blind_v1/historical_gold.yml
+    file_sha256: e172dfd3f496926066bdcdfa4d7e23063706830a56179bb452a2e553a0b021ee
+    canonical_payload_sha256: ddf69b0fd491dd8a05060ab8215151d1b8027525cca54ccac7f377e4e795a777
+    gold_episode_count: 7
+    gold_relation_count: 0
+    catastrophic_pair_count: 10
+    assertion_disposition_count: 38
+    episode_core_count: 7
+    context_count: 2
+    unresolved_count: 27
+    excluded_count: 2
+    passage_lineage_complete: true
   rule_gold:
     status: blocked_by_historical_gold_freeze
     output_path: eval/g2_6j_graph_blind_v1/rule_gold.yml
