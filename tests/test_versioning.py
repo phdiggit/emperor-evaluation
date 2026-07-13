@@ -670,7 +670,7 @@ def test_claim_extractor_release_is_deterministic_and_excludes_scoring(tmp_path)
     second = build_claim_extractor_release(repo_root=repo_root, output_dir=tmp_path / "b", commit_sha=head, require_clean=False)
     assert first["archive_sha256"] == second["archive_sha256"]
     assert first["service"] == "v4-claim-extractor"
-    assert len(first["files"]) == 18
+    assert len(first["files"]) == 21
     assert not any("scoring" in row["path"] or "appointment_delegation" in row["path"] for row in first["files"])
     verified = verify_service_release(
         archive_path=tmp_path / "a" / first["archive"],
