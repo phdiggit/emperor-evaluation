@@ -1238,6 +1238,7 @@ def test_codex_claim_provider_prompt_and_parser_stay_inside_v2_contract() -> Non
     assert "保留关系双方" in prompt
     assert "相同 assertion_semantic_key 和 equivalent_evidence" in prompt
     assert "time_expression" in prompt and "必须完全一致" in prompt
+    assert "若只保留一条 passage，必须使用 single_passage" in prompt
     assert "Judgment" in prompt and "ScoreContribution" in prompt
     batch = parse_codex_claim_output({
         "assertions": [{
