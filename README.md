@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6F 原子边界与关系处置契约已硬化，等待全新 G2.6G holdout
+- 阶段：G2.6G 因原子身份碰撞在候选物化前失败关闭，v2.4 契约已硬化
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -20,7 +20,7 @@ V4 的核心改变是：
 
 已证明：给定人工冻结 boundary、Gold linkage 与修复后的 evidence，Kernel 可以构造带 passage lineage 的 EpisodePacket。
 
-G2.6E 已在李渊、刘彻的全新离线数据上完成独立 Boundary Review、Historical Gold 与 Rule Gold 冻结，正式结果为 exact episode recall 61.1%、candidate precision 78.6%、5 个 catastrophic wrong merge、strict relation recall 8%、RuleEvidenceUnit recall 15.4%。该 holdout 已永久冻结为失败开发集。G2.6F 随后升级到 BoundaryReview v2.2：跨结构签名 merge 与无 `atomic_event_key` 的旧 claim 多 passage merge 均 fail-closed，每对 Episode 必须显式 relation/no-relation/unresolved。下一步只允许用另一批全新输入执行 G2.6G；PostgreSQL G3 继续阻断。
+G2.6E 已正式失败并冻结。G2.6G 随后使用杨坚、赵匡胤的全新输入，独立冻结 Boundary Review、Historical Gold 与 Rule Gold；首次物化发现 6 对不同原子事件因结构字段相同而生成重复 Episode ID，候选图未创建，因此没有 recall/precision。Gold 冻结后未回填 reviewer key。v2.4 现要求每个 EpisodeBoundaryGroup 都有 `atomic_event_key`，并在 Relation 构造前拒绝重复 Episode ID。下一步只能使用另一批全新输入执行 G2.6H；PostgreSQL G3 继续阻断。
 
 ## 文件树
 
@@ -103,7 +103,7 @@ G2.6E 已在李渊、刘彻的全新离线数据上完成独立 Boundary Review�
 - `M1 HistoricalEpisode Kernel`：`conditional_pass`
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
-- blind reconciliation：`g2_6f_hardened_g2_6g_holdout_pending`
+- blind reconciliation：`g2_6g_failed_closed_g2_6h_pending`
 - G3 Episode Graph PostgreSQL：`blocked_by_g2_6e`
 
 进入 G3 前必须满足：

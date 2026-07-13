@@ -1,0 +1,76 @@
+schema_version: 1
+plan_code: g2_6g_graph_blind_v1
+status: materialization_contract_blocked_failed_closed
+input_frozen_at: 2026-07-13
+contract_basis_commit: 481aca0
+
+input:
+  path: eval/g2_6g_graph_blind_v1/input.json
+  file_sha256: ce1fce8a815d28c5702dd61ba76390ff06db2abcc29bc1944a5455e07d9cf11a
+  canonical_payload_sha256: c9bf6d60d6ac7e8a566588eaed5067e765fdb96a5cfd43f8ffa9cc5325ae5f97
+  selected_v3_claim_count: 32
+  assertion_count: 66
+  source_passage_count: 66
+  canonical_person_count: 11
+  rulers: [杨坚, 赵匡胤]
+  network_request_count: 0
+  database_write_count: 0
+  post_freeze_security_redaction:
+    field: collection_provenance.captured_from
+    semantic_payload_changed: false
+    assertion_or_passage_changed: false
+
+review_requests:
+  path: eval/g2_6g_graph_blind_v1/review_requests.json
+  file_sha256: 424eba3458589956102cf5f7cb74d26aa279e1fc323901d84d09e93beabd9fe3
+  proposition_cluster_count: 32
+  review_unit_count: 5
+  boundary_policy_version: episode-boundary-policy-v2.3
+  output_schema_version: episode-boundary-review-v2.3
+  candidate_episode_generated: false
+
+isolation:
+  boundary_reviewer_forbidden:
+    - historical_gold 或 rule_gold
+    - candidates、score、acceptance
+    - v1、v2、v3、g2_6e Gold/candidates/score
+  historical_gold_reviewer_forbidden:
+    - review_requests 或 boundary review
+    - rule Gold
+    - candidates、score、acceptance
+    - v1、v2、v3、g2_6e Gold/candidates/score
+  rule_gold_reviewer_starts_after_historical_freeze: true
+  kernel_must_wait_for_all_freezes: true
+
+release_thresholds:
+  exact_episode_recall_minimum: 0.85
+  exact_candidate_precision_minimum: 0.90
+  pairwise_precision_minimum: 0.95
+  pairwise_recall_minimum: 0.90
+  catastrophic_wrong_merge_count: 0
+  cross_ruler_contamination_count: 0
+  assertion_disposition_coverage: 1.0
+  passage_lineage: 1.0
+  strict_relation_precision_minimum: 0.90
+  strict_relation_recall_minimum: 0.85
+  rule_evidence_unit_duplicate_consumption_count: 0
+  exact_rule_evidence_unit_precision_minimum: 0.90
+  exact_rule_evidence_unit_recall_minimum: 0.85
+  unchanged_rerun_model_calls: 0
+  changed_unit_affects_other_unit_count: 0
+
+g3:
+  authorized: false
+  blocked_by: g2_6g_graph_blind_v1
+
+result:
+  boundary_review_episode_group_count: 32
+  historical_gold_episode_count: 38
+  historical_gold_relation_count: 27
+  rule_gold_unit_count: 15
+  candidate_graph_created: false
+  score_created: false
+  materialization_blocker: distinct_atomic_groups_collapsed_to_same_episode_id
+  colliding_relation_pair_count: 6
+  release_gate_passed: false
+  current_holdout_reclassification_forbidden: true

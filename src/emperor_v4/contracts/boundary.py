@@ -319,6 +319,7 @@ class EpisodeBoundaryReviewResult:
         if self.output_schema_version in {
             "episode-boundary-review-v2.2",
             "episode-boundary-review-v2.3",
+            "episode-boundary-review-v2.4",
         }:
             expected_pairs = {
                 frozenset(pair) for pair in combinations(sorted(code_set), 2)
@@ -365,6 +366,10 @@ class EpisodeBoundaryReviewResult:
             or self.model_family != unit.model_family
         ):
             raise ValueError("BoundaryReview 与 ReviewUnit 身份或版本不一致")
+        if self.output_schema_version == "episode-boundary-review-v2.4" and any(
+            not item.atomic_event_key for item in self.episode_groups
+        ):
+            raise ValueError("v2.4 每个 EpisodeBoundaryGroup 必须声明 atomic_event_key")
         available = {
             ref
             for cluster_ref in unit.proposition_cluster_refs

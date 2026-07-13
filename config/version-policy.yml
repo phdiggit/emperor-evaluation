@@ -54,7 +54,10 @@ version_policy:
     physical_ids_and_evidence_fanout_excluded: true
     local_unit_invalidation_only: true
     unanchored_legacy_claim_fanout_merge_forbidden: true
-    episode_pair_disposition_required_by_schema_v2_2: true
+    atomic_event_key_required_for_every_group_by_schema_v2_4: true
+    atomic_event_key_participates_in_semantic_fingerprint: true
+    local_episode_code_and_gold_code_excluded_from_semantic_fingerprint: true
+    episode_pair_disposition_required_since_schema_v2_2: true
 
   scoring_version:
     explicit_on_every_score: true

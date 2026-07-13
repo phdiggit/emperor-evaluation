@@ -31,6 +31,7 @@ class EpisodeCandidateKey:
     responsibility_domain: str
     normalized_time: str
     location: str
+    atomic_event_key: str = ""
     candidate_boundary_key: str = ""
 
     @property
@@ -44,6 +45,8 @@ class EpisodeCandidateKey:
             "normalized_time": self.normalized_time,
             "location": self.location,
         }
+        if self.atomic_event_key:
+            payload["atomic_event_key"] = self.atomic_event_key
         canonical = json.dumps(
             payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
         )
@@ -87,6 +90,7 @@ def candidate_key(assertion: AssertionDraft) -> EpisodeCandidateKey:
         responsibility_domain=_normalized(qualifiers.get("office_or_domain")),
         normalized_time=_normalized(assertion.time_expression),
         location=_normalized(assertion.location_expression),
+        atomic_event_key=_normalized(qualifiers.get("atomic_event_key")),
     )
 
 
@@ -390,6 +394,7 @@ def group_episode_candidates_exact(
 def group_episode_candidates_with_hints(
     assertions: Iterable[AssertionDraft],
     boundary_hints: dict[str, str],
+    atomic_event_keys: dict[str, str] | None = None,
 ) -> tuple[EpisodeCandidateGroup, ...]:
     """按显式语义边界提示聚合，再从组内结构化字段生成身份候选。"""
 
@@ -405,6 +410,7 @@ def group_episode_candidates_with_hints(
         groups.setdefault(hint, []).append(assertion)
 
     results: list[EpisodeCandidateGroup] = []
+    atomic_keys = atomic_event_keys or {}
     for hint, items in groups.items():
         contexts = {_normalized(item.qualifiers.get("evaluation_context")) for item in items}
         if "" in contexts or len(contexts) != 1:
@@ -457,6 +463,7 @@ def group_episode_candidates_with_hints(
             responsibility_domain="|".join(domains),
             normalized_time="|".join(times),
             location="|".join(locations),
+            atomic_event_key=_normalized(atomic_keys.get(hint)),
             candidate_boundary_key=_normalized(hint),
         )
         results.append(

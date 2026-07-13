@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "holdout_code": "g2_6g_graph_blind_v1",
+  "status": "materialization_contract_blocked",
+  "candidate_graph_created": false,
+  "score_created": false,
+  "g3_authorized": false,
+  "first_attempt_contract": {
+    "boundary_policy_version": "episode-boundary-policy-v2.3",
+    "output_schema_version": "episode-boundary-review-v2.3",
+    "contract_basis_commit": "481aca0"
+  },
+  "blocker": {
+    "code": "distinct_atomic_groups_collapsed_to_same_episode_id",
+    "message": "不同原子 Episode 具有相同结构字段且缺少各自 atomic_event_key，Relation 物化为自环。",
+    "colliding_relation_pair_count": 6,
+    "affected_review_unit_count": 3
+  },
+  "collisions": [
+    {"review_unit": "RU-4F14F2B1B48D89D30519", "from": "SW-E02", "to": "SW-E03", "relation_type": "causal_followup"},
+    {"review_unit": "RU-4F14F2B1B48D89D30519", "from": "SW-E09", "to": "SW-E08", "relation_type": "outcome_of"},
+    {"review_unit": "RU-97DA491CE5AC13CB916D", "from": "SS-E02", "to": "SS-E01", "relation_type": "outcome_of"},
+    {"review_unit": "RU-97DA491CE5AC13CB916D", "from": "SS-E07", "to": "SS-E08", "relation_type": "causal_followup"},
+    {"review_unit": "RU-BED85162EC0297F0E1F1", "from": "GJ-C05", "to": "GJ-C06", "relation_type": "causal_followup"},
+    {"review_unit": "RU-BED85162EC0297F0E1F1", "from": "GJ-C07", "to": "GJ-C08", "relation_type": "causal_followup"}
+  ],
+  "discipline": {
+    "frozen_boundary_review_modified_after_gold": false,
+    "current_holdout_reclassified_after_fix": false,
+    "recall_precision_reported": false
+  },
+  "next_contract": "episode-boundary-review-v2.4"
+}

@@ -1,0 +1,206 @@
+schema_version: 1
+status: frozen
+candidate_input_sha256: c9bf6d60d6ac7e8a566588eaed5067e765fdb96a5cfd43f8ffa9cc5325ae5f97
+frozen_without_candidate_or_review_access: true
+historical_gold_sha256: 0445bdd6e5fceb17ed280d69176321200cda8de07fcbb16c359b7fc518aec7a7
+
+gold_rule_evidence_units:
+  - gold_rule_unit_code: G26G-GRU-YJ-01
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-01
+      - G26G-GE-YJ-02
+    relation_refs:
+      - G26G-GR-YJ-01
+    episode_member_roles:
+      G26G-GE-YJ-01: delegation
+      G26G-GE-YJ-02: revocation
+    relation_member_roles:
+      G26G-GR-YJ-01: revokes
+    aggregation_reason: 杨坚授高颎节度伐陈诸军与随后班师命令构成一次授权及撤权反馈链。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-02
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-04
+      - G26G-GE-YJ-05
+    relation_refs:
+      - G26G-GR-YJ-02
+    episode_member_roles:
+      G26G-GE-YJ-04: delegation
+      G26G-GE-YJ-05: outcome
+    relation_member_roles:
+      G26G-GR-YJ-02: outcome_of
+    aggregation_reason: 营建新都的授权与大兴城建成命名是同一职责链的授权和结果。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-03
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-08
+      - G26G-GE-YJ-09
+    relation_refs:
+      - G26G-GR-YJ-03
+    episode_member_roles:
+      G26G-GE-YJ-08: appointment
+      G26G-GE-YJ-09: execution
+    relation_member_roles:
+      G26G-GR-YJ-03: same_mandate_phase
+    aggregation_reason: 宁州道行军元帅任命与由宁州道实际出兵属于同一次军事任用的任命和执行阶段。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-04
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-11
+      - G26G-GE-YJ-12
+      - G26G-GE-YJ-14
+    relation_refs:
+      - G26G-GR-YJ-06
+      - G26G-GR-YJ-07
+      - G26G-GR-YJ-08
+    episode_member_roles:
+      G26G-GE-YJ-11: execution
+      G26G-GE-YJ-12: outcome
+      G26G-GE-YJ-14: delegation
+    relation_member_roles:
+      G26G-GR-YJ-06: same_mandate_phase
+      G26G-GR-YJ-07: outcome_of
+      G26G-GR-YJ-08: causal_followup
+    aggregation_reason: 马邑道出兵授权、出塞追击和破突厥战果共同构成一次完整的授权、执行与结果链。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-05
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-03
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-YJ-03: appointment
+    relation_member_roles: {}
+    aggregation_reason: 恢复史万岁官爵是一次独立复用决定；其后任河州刺史属于另一任命，不通过 promotion_after 合并。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-06
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-06
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-YJ-06: appointment
+    relation_member_roles: {}
+    aggregation_reason: 河州刺史兼行军总管是一次新的岗位与边防责任任命，现有 Gold 未提供对应履职结果。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-07
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-07
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-YJ-07: appointment
+    relation_member_roles: {}
+    aggregation_reason: 左领军大将军任命是独立任命事件，不能与高颎其他年份的职责链合并。
+
+  - gold_rule_unit_code: G26G-GRU-YJ-08
+    evaluation_context: PER-714C468A4E0BC677
+    episode_refs:
+      - G26G-GE-YJ-13
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-YJ-13: appointment
+    relation_member_roles: {}
+    aggregation_reason: 尚书左仆射兼纳言任命是独立的中枢任用事件，现有关系没有给出其直接履职结果。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-01
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-01
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-ZS-01: appointment
+    relation_member_roles: {}
+    aggregation_reason: 建隆元年枢密副使任命是一次独立任命，不因后续 promotion_after 并入完整仕途。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-02
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-02
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-ZS-02: appointment
+    relation_member_roles: {}
+    aggregation_reason: 建隆三年枢密使任命具有独立时间和岗位边界，不与前后升迁合并。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-03
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-03
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-ZS-03: appointment
+    relation_member_roles: {}
+    aggregation_reason: 乾德二年加门下侍郎并同平章事是一次独立的宰执任命。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-04
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-04
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-ZS-04: appointment
+    relation_member_roles: {}
+    aggregation_reason: 乾德五年尚书右仆射等职任命是独立任命，不因仕途连续性跨年聚合。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-05
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-05
+    relation_refs: []
+    episode_member_roles:
+      G26G-GE-ZS-05: appointment
+    relation_member_roles: {}
+    aggregation_reason: 开宝六年出镇河阳是新的岗位和责任域，不能与此前中枢任命组成一个仕途单元。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-06
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-06
+      - G26G-GE-ZS-07
+      - G26G-GE-ZS-08
+      - G26G-GE-ZS-09
+      - G26G-GE-ZS-10
+    relation_refs:
+      - G26G-GR-ZS-05
+      - G26G-GR-ZS-06
+      - G26G-GR-ZS-07
+      - G26G-GR-ZS-08
+      - G26G-GR-ZS-09
+    episode_member_roles:
+      G26G-GE-ZS-06: appointment
+      G26G-GE-ZS-07: delegation
+      G26G-GE-ZS-08: outcome
+      G26G-GE-ZS-09: execution
+      G26G-GE-ZS-10: outcome
+    relation_member_roles:
+      G26G-GR-ZS-05: same_mandate_phase
+      G26G-GR-ZS-06: outcome_of
+      G26G-GR-ZS-07: same_mandate_phase
+      G26G-GR-ZS-08: causal_followup
+      G26G-GR-ZS-09: outcome_of
+    aggregation_reason: 石守信受任军职后奉命讨李筠，并经历长平战果、会师和泽南战果，Gold 关系明确将其闭合为同一军事任用反馈链。
+
+  - gold_rule_unit_code: G26G-GRU-ZS-07
+    evaluation_context: PER-21F30C9AD2C6298E
+    episode_refs:
+      - G26G-GE-ZS-11
+      - G26G-GE-ZS-12
+      - G26G-GE-ZS-13
+    relation_refs:
+      - G26G-GR-ZS-10
+      - G26G-GR-ZS-11
+      - G26G-GR-ZS-12
+    episode_member_roles:
+      G26G-GE-ZS-11: delegation
+      G26G-GE-ZS-12: feedback
+      G26G-GE-ZS-13: outcome
+    relation_member_roles:
+      G26G-GR-ZS-10: same_mandate_phase
+      G26G-GR-ZS-11: outcome_of
+      G26G-GR-ZS-12: causal_followup
+    aggregation_reason: 讨李重进的出兵授权、扬州将破的军情反馈与最终攻克扬州构成一次最小授权反馈链。

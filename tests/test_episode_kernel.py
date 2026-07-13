@@ -191,8 +191,8 @@ def test_boundary_review_keeps_atomic_episodes_and_materializes_relation():
         output_schema_version=unit.output_schema_version,
         model_family=unit.model_family,
         episode_groups=(
-            EpisodeBoundaryGroup("E1", ("A-1",), "首次授权", 0.95),
-            EpisodeBoundaryGroup("E2", ("A-2",), "重新授权", 0.95),
+            EpisodeBoundaryGroup("E1", ("A-1",), "首次授权", 0.95, "AUTH-1"),
+            EpisodeBoundaryGroup("E2", ("A-2",), "重新授权", 0.95, "AUTH-2"),
         ),
         relations=(
             EpisodeRelationDraft("E1", "E2", "renews_authority", ("A-2",), 0.9),
@@ -264,7 +264,9 @@ def test_v22_materialization_rejects_cross_structure_episode_merge():
         output_schema_version=unit.output_schema_version,
         model_family=unit.model_family,
         episode_groups=(
-            EpisodeBoundaryGroup("E1", ("A-1", "A-2"), "same mandate", 0.9),
+            EpisodeBoundaryGroup(
+                "E1", ("A-1", "A-2"), "same mandate", 0.9, "MANDATE-1"
+            ),
         ),
         relations=(),
         assertion_dispositions=(
@@ -305,7 +307,7 @@ def test_v22_materialization_rejects_unanchored_legacy_claim_fanout_merge():
         review_provenance={},
     )
 
-    with pytest.raises(ValueError, match="缺少共同或审查冻结的 atomic_event_key"):
+    with pytest.raises(ValueError, match="必须声明 atomic_event_key"):
         materialize_boundary_review(
             assertions, review, review_unit=unit, proposition_clusters=clusters
         )
@@ -375,6 +377,49 @@ def test_v22_related_pair_must_match_relation_type():
         )
 
 
+def test_v23_duplicate_structural_groups_fail_before_relation_materialization():
+    assertions = [
+        _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1"),
+        _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-2"),
+    ]
+    clusters = cluster_propositions(assertions)
+    current_unit = build_review_units(clusters)[0]
+    unit = replace(
+        current_unit,
+        cache_key="V23-CACHE",
+        boundary_policy_version="episode-boundary-policy-v2.3",
+        output_schema_version="episode-boundary-review-v2.3",
+    )
+    review = EpisodeBoundaryReviewResult(
+        review_unit_ref=unit.review_unit_code,
+        review_unit_cache_key=unit.cache_key,
+        proposition_semantic_hashes=unit.proposition_semantic_hashes,
+        boundary_policy_version=unit.boundary_policy_version,
+        output_schema_version=unit.output_schema_version,
+        model_family=unit.model_family,
+        episode_groups=(
+            EpisodeBoundaryGroup("E1", ("A-1",), "first atomic event", 0.9),
+            EpisodeBoundaryGroup("E2", ("A-2",), "second atomic event", 0.9),
+        ),
+        relations=(),
+        assertion_dispositions=(
+            AssertionDisposition("A-1", "core_of_episode", ("E1",), "core"),
+            AssertionDisposition("A-2", "core_of_episode", ("E2",), "core"),
+        ),
+        pair_dispositions=(
+            EpisodePairDisposition(
+                "E1", "E2", "distinct_unrelated", "two separate events"
+            ),
+        ),
+        review_provenance={},
+    )
+
+    with pytest.raises(ValueError, match="生成重复 Episode ID"):
+        materialize_boundary_review(
+            assertions, review, review_unit=unit, proposition_clusters=clusters
+        )
+
+
 def test_boundary_review_rejects_assertion_in_two_episode_cores():
     with pytest.raises(ValueError, match="最多只能属于一个"):
         EpisodeBoundaryReviewResult(
@@ -411,8 +456,8 @@ def test_relation_evidence_cannot_replace_primary_assertion_disposition():
         output_schema_version=unit.output_schema_version,
         model_family=unit.model_family,
         episode_groups=(
-            EpisodeBoundaryGroup("E1", ("A-1",), "first", 0.9),
-            EpisodeBoundaryGroup("E2", ("A-2",), "second", 0.9),
+            EpisodeBoundaryGroup("E1", ("A-1",), "first", 0.9, "FIRST"),
+            EpisodeBoundaryGroup("E2", ("A-2",), "second", 0.9, "SECOND"),
         ),
         relations=(
             EpisodeRelationDraft("E1", "E2", "outcome_of", ("A-2",), 0.9),
@@ -454,8 +499,8 @@ def test_materialization_preserves_context_unresolved_and_review_provenance():
         output_schema_version=unit.output_schema_version,
         model_family=unit.model_family,
         episode_groups=(
-            EpisodeBoundaryGroup("E1", ("A-1",), "appointment", 0.9),
-            EpisodeBoundaryGroup("E2", ("A-2",), "outcome", 0.9),
+            EpisodeBoundaryGroup("E1", ("A-1",), "appointment", 0.9, "APPOINT"),
+            EpisodeBoundaryGroup("E2", ("A-2",), "outcome", 0.9, "OUTCOME"),
         ),
         relations=(
             EpisodeRelationDraft("E1", "E2", "outcome_of", ("A-3",), 0.9),
@@ -533,7 +578,9 @@ def test_per_unit_executor_caches_only_ambiguous_unit():
             boundary_policy_version=unit.boundary_policy_version,
             output_schema_version=unit.output_schema_version,
             model_family=unit.model_family,
-            episode_groups=(EpisodeBoundaryGroup("E1", refs, "same event", 0.9),),
+            episode_groups=(
+                EpisodeBoundaryGroup("E1", refs, "same event", 0.9, "SAME-EVENT"),
+            ),
             relations=(),
             assertion_dispositions=tuple(
                 AssertionDisposition(ref, "core_of_episode", ("E1",), "same event")
@@ -917,6 +964,19 @@ def test_hinted_packet_is_stable_under_assertion_input_order():
     assert first.semantic_fingerprint == second.semantic_fingerprint
     assert first.action == second.action == "任命统兵 | 奏捷反馈"
     assert first.assertion_links == second.assertion_links
+
+
+def test_review_atomic_event_key_distinguishes_structurally_equal_episodes():
+    first = _with_claim(_assertion("A-1", passage="P-1"), "CLAIM-1")
+    second = _with_claim(_assertion("A-2", passage="P-2"), "CLAIM-2")
+    hints = {"A-1": "E1", "A-2": "E2"}
+
+    groups = group_episode_candidates_with_hints(
+        [first, second], hints, {"E1": "ATOMIC-1", "E2": "ATOMIC-2"}
+    )
+
+    assert len(groups) == 2
+    assert groups[0].key.fingerprint != groups[1].key.fingerprint
 
 
 def test_boundary_hint_cannot_merge_across_rulers():

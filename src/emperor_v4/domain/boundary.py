@@ -32,8 +32,8 @@ from emperor_v4.domain.episode import (
 )
 
 
-BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.3"
-BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.3"
+BOUNDARY_POLICY_VERSION = "episode-boundary-policy-v2.4"
+BOUNDARY_OUTPUT_SCHEMA_VERSION = "episode-boundary-review-v2.4"
 DEFAULT_MODEL_FAMILY = "semantic-boundary-reviewer"
 
 _FOCAL_ROLE_PRIORITY = {
@@ -607,6 +607,7 @@ def _fast_path_result(
                 core_assertion_refs=cluster.assertion_refs,
                 boundary_reason="single clear proposition cluster deterministic fast path",
                 confidence=1.0,
+                atomic_event_key=f"prop:{cluster.semantic_hash}",
             ),
         ),
         relations=(),
@@ -766,6 +767,7 @@ def validate_atomic_episode_groups(
     if review.output_schema_version not in {
         "episode-boundary-review-v2.2",
         "episode-boundary-review-v2.3",
+        "episode-boundary-review-v2.4",
     }:
         return
     for group in review.episode_groups:
@@ -825,6 +827,7 @@ def materialize_boundary_review(
     if review.output_schema_version in {
         "episode-boundary-review-v2.2",
         "episode-boundary-review-v2.3",
+        "episode-boundary-review-v2.4",
     } and any(
         item.decision == "unresolved" for item in review.pair_dispositions
     ):
@@ -840,8 +843,20 @@ def materialize_boundary_review(
         for group in review.episode_groups
         for ref in group.core_assertion_refs
     }
-    groups = group_episode_candidates_with_hints(core_assertions, hints)
+    atomic_event_keys = {
+        group.local_episode_code: group.atomic_event_key or ""
+        for group in review.episode_groups
+    }
+    groups = group_episode_candidates_with_hints(
+        core_assertions, hints, atomic_event_keys
+    )
     packets = tuple(build_episode_packet(group) for group in groups)
+    packet_ids = [packet.episode_id for packet in packets]
+    if len(packet_ids) != len(set(packet_ids)):
+        raise ValueError(
+            "不同 EpisodeBoundaryGroup 生成重复 Episode ID；"
+            "必须为每个原子事件冻结不同 atomic_event_key"
+        )
     local_to_packet = {
         group.boundary_hint: packet
         for group, packet in zip(groups, packets, strict=True)
