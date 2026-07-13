@@ -1213,6 +1213,8 @@ def test_claim_extraction_profiles_replace_rule_code_prompt_branching() -> None:
     assert talent.output_contract == "assertion-extraction-contract-v2"
     assert len(talent.required_chains) == 4
     assert any("纳谏" in item and "倒推" in item for item in talent.prohibitions)
+    assert any("多个独立前序" in item for item in talent.prohibitions)
+    assert any("器重、知名" in item for item in talent.prohibitions)
     assert base.required_chains == ()
     assert talent_request["input_fingerprint"] != base_request["input_fingerprint"]
     assert "rule_code" not in talent_request
@@ -1229,6 +1231,7 @@ def test_codex_claim_provider_prompt_and_parser_stay_inside_v2_contract() -> Non
     }
     prompt = build_codex_claim_prompt(request)
     assert "不可信史料文本" in prompt
+    assert "不得为压缩数量只选代表项" in prompt
     assert "Judgment" in prompt and "ScoreContribution" in prompt
     batch = parse_codex_claim_output({
         "assertions": [{
