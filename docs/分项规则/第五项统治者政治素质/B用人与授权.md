@@ -179,3 +179,41 @@ coverage unit / scoring unit：一次独立任用—职责—反馈 episode。
 - 生产 scorer。
 
 这些必须在事件模型和 gold set 验证后单独审查。
+
+## 13. G3C 最小 RuleEvidenceUnit shadow 结果
+
+首轮 `appointment_delegation` shadow 已按评分最小充分原则完成：13 条评分 Relation proposal 与 2 条 `scoring_arc_only` 建议组成 7 个候选分量，经本规则边界审查形成 4 个 RuleEvidenceUnit draft、排除 3 个缺少任命/授权链的分量、0 unresolved；Episode 重复消费为 0。
+
+每个 draft 只声明成员角色、皇帝归责、权责决策弧、证据 lineage 和四个问题的 readiness。问题级 `evidence_gap` 不得解释为负向判断或零分。具体审计见 [G3C 最小 RuleEvidenceUnit Shadow](../../32-G3C最小RuleEvidenceUnitShadow.md)。
+
+该结果不改变本文件第 12 节：正式 RuleEvidenceUnit 接受、Projection、Judgment、材料分值、公式和生产 scorer 仍未批准。
+
+## 14. G3D Projection/Judgment shadow readiness
+
+4 个 RuleEvidenceUnit draft 已生成 4 个中立 Projection draft。人工正负案例审查形成 1 个 `mixed` Judgment shadow candidate、3 个 `blocked_evidence`；正向、负向和混合信号均由当前 Assertion 支持，但关键 readiness 缺口会机械阻断方向。具体结果见 [G3D Projection 与 Judgment Shadow Readiness](../../33-G3DProjection与JudgmentShadowReadiness.md)。
+
+本阶段的四维 observation 只用于验证问题边界，不是已批准 factor values。正式方向、档位、材料分值、权重和 ScoreContribution 仍受第 12 节约束。
+
+## 15. G3E Judgment 缺口库存检索
+
+3 个 `blocked_evidence` 已各自冻结最小问题并完成本地库存检索：鄂尔泰地方治理命中 1 个现有结果 Episode；隆科多和周勃各命中 1 个现有 SourcePassage 候选。具体来源、停止条件和后续 Gate 见 [G3E Judgment 缺口定向库存检索](../../34-G3EJudgment缺口定向库存检索.md)。
+
+库存命中不是正式事实接受。1 个 Episode arc review 与 2 个 Assertion/boundary review 完成前，不得更新 RuleEvidenceUnit 或重跑 Judgment readiness。
+
+## 16. G3F 缺口输入 Gate
+
+G3E 的 3 个候选已完成 proposal-only 输入 Gate：鄂尔泰结果 Episode 通过同一评分弧审查；隆科多 Passage 形成 context Assertion 候选但不新造 Episode；周勃连续原文形成新的 Passage、outcome Assertion 和 outcome Episode 候选。具体见 [G3F 缺口输入 Gate](../../35-G3F缺口输入Gate.md)。
+
+上述候选只获准进入 RuleEvidenceUnit shadow delta。delta 物化与版本审计前，仍不得更新 Projection 或重跑 Judgment readiness。
+
+## 17. G3G RuleEvidenceUnit shadow delta
+
+3 个候选已应用到 RuleEvidenceUnit shadow 副本：3 个单元保持稳定 `unit_code` 并递增 semantic/evidence version，新增 2 个 Episode member、1 个 context Assertion 与 2 个 scoring-arc-only 引用；未受影响单元逐字段不变，剩余 readiness gap 和 Episode 重复消费均为 0。具体见 [G3G RuleEvidenceUnit Shadow Delta](../../36-G3GRuleEvidenceUnitShadowDelta.md)。
+
+当前只授权重建受影响的 Projection draft 并重跑 Judgment readiness。正式 Judgment、factor values 和 ScoreContribution 仍受第 12 节约束。
+
+## 18. G3H Projection 增量重建与 readiness 重跑
+
+G3G 变化的 3 个单元已局部重建 Projection，未变化的鄂尔泰军务 Projection 与 Judgment review 逐字段复用。4 个 Projection 均通过 readiness，形成 1 个 `positive`、3 个 `mixed` shadow candidate，`blocked_evidence=0`。具体见 [G3H Projection 增量重建与 Readiness 重跑](../../37-G3HProjection增量重建与Readiness重跑.md)。
+
+周勃项虽有三项负向观察，但授权清晰度为正向；在因子权重和聚合公式未批准前，正负信号并存只能机械输出 `mixed`，不得解释为正式负向评分。正式 Judgment、factor values、ScoreContribution 和排名仍受第 12 节约束。

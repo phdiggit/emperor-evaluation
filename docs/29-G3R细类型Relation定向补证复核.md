@@ -6,6 +6,8 @@
 >
 > 任务代码：`G3R-FINE-GAP-3CE30F2D53282D36C261`
 
+> 后续解释：本文件保留细类型 policy v1 的历史失败关闭结果。该结果对评分链的阻断解释已由[《G3R 评分最小充分 Relation 重解释》](31-G3R评分最小充分Relation重解释.md)取代，不得把“fine type 不唯一”等同于“评分必要语义 unresolved”。
+
 ## 1. 结论
 
 首轮细类型审查的 4 项 unresolved 已全部进行 SourcePassage 定向核对：

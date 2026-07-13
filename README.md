@@ -24,7 +24,7 @@ G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 sin
 
 G2.6K0 已结束，不再继续制造新 blind holdout。Source Cache v2、section-aware deterministic slicer、S1—S5 机械早停和 8 场景离线 protocol smoke 已落地。I/J 的 source-v2 开发输入均通过 S1/S2。Boundary policy v2.10 后，I 的开放开发 episode recall/precision 为 100%/100%，J 为 87.5%/93.33%；两组均无灾难性合并、跨皇帝污染或 lineage 丢失，达到 S3 shadow implementation 门槛。
 
-S4 的 254 个 Episode pair 审计和 Relation Gold ontology audit v2 已冻结。对 v2 Gold 的唯一重评分为 I 50%/73.33%、J 40%/25%（strict precision/recall），仍未达到 90%/85%，旧 Rule Gold 也不再具备资格效力。27 对小型双审实验达到 direct 100%、coarse type 88.89% 的一致率，只证明独立 Relation track 值得继续，不是 S4 pass。G3A 已在独立 V4 PostgreSQL 数据库完成 Core Registry 与 I/J proposed shadow 写入；G3B 已完成稳定事件身份、同步局部版本决策、真实库零写入重跑和回滚验证。G3R blocking 把 I/J 送审 pair 分别减少 41.95%/61.22%，并保留全部当前可映射 Gold endpoint pair；新分布的 30 项 endpoint 双审达到 direct 93.33%、coarse 86.67%，4 项分歧经隔离裁决后形成 15 项 direct、15 项 unrelated proposal，endpoint agreement Gate 已通过。15 项 direct 的细类型审查与定向补证复核形成 12 项 versioned proposal、3 项 unresolved；12 项图约束通过，但细类型 Gate 继续失败关闭。S4 strict precision/recall 尚未重评，Relation 仍未取得正式资格。G3C、正式评分、新 blind、V3/生产数据库和生产切换继续阻断。
+S4 的 254 个 Episode pair 审计和 Relation Gold ontology audit v2 已冻结。历史 fine-type strict precision/recall 仍未达原阈值，只约束相应精细 Relation 发布。G3A/G3B 已完成隔离 PostgreSQL shadow 验证；G3R 形成 13 项宽口径 Relation proposal、2 项 scoring-arc-only、0 unresolved；G3C 形成 4 个 `appointment_delegation` RuleEvidenceUnit draft；G3D 形成 4 个中立 Projection draft、1 个 `mixed` Judgment shadow candidate、3 个 `blocked_evidence`。G3E/G3F 完成缺口定位和 proposal-only 输入 Gate；G3G 已把 3 个候选应用到 RuleEvidenceUnit shadow 副本。G3H 只重建 3 个变化 Projection，逐字段复用 1 个 Projection/Judgment review，4 项 readiness 全部通过，形成 1 个 `positive`、3 个 `mixed` shadow candidate。正式 Relation、正式事实输入、RuleEvidenceUnit、Projection、Judgment、factor values、Score、新 blind、V3/生产数据库和生产切换继续阻断。
 
 ## 文件树
 
@@ -116,9 +116,15 @@ S4 的 254 个 Episode pair 审计和 Relation Gold ontology audit v2 已冻结�
 - G3A Episode Core Registry：`passed_shadow_registry`
 - G3B Core Shadow Runner：`passed_sync_local_invalidation`
 - G3R Endpoint workflow：`endpoint_agreement_gate_passed_after_adjudication`
-- G3R Fine Relation graph：`fine_relation_graph_gate_failed_closed_after_gap_review`，12 项 proposal、3 项 unresolved，仍为 `deferred_not_qualified`
-- G3R Relation：`experimental_independent_track`
-- G3C Formal Projection：`blocked`
+- G3R historical fine-type v1：`fine_relation_graph_gate_failed_closed_after_gap_review`，保留为历史诊断
+- G3R scoring minimum-sufficient slice：`minimum_sufficient_relation_slice_passed`，13 项 Relation proposal、2 项 scoring-arc-only、0 unresolved
+- G3C RuleEvidenceUnit shadow：`rule_evidence_unit_shadow_ready`，4 draft、3 not_applicable、0 unresolved
+- G3D Projection/Judgment shadow readiness：`judgment_shadow_readiness_passed`，4 Projection draft、1 mixed candidate、3 blocked_evidence
+- G3E Judgment source-gap inventory：`source_gap_inventory_complete_pending_input_gates`，1 Episode candidate、2 SourcePassage candidates
+- G3F Source-gap input Gate：`source_gap_input_gate_passed_for_shadow_delta`，3 accepted、0 unresolved/rejected
+- G3G RuleEvidenceUnit shadow delta：`rule_evidence_shadow_delta_ready_for_projection_rebuild`，3 updated、0 readiness gap
+- G3H Projection/Judgment incremental rerun：`incremental_judgment_shadow_rerun_passed`，3 rebuilt、1 reused、4 candidates、0 blocked
+- G3D Formal Projection / Judgment / Score：`blocked`
 
 进入 G3A/G3B 前必须满足：
 
@@ -127,6 +133,6 @@ S4 的 254 个 Episode pair 审计和 Relation Gold ontology audit v2 已冻结�
 - accepted episode 通过独立人工 Gate；
 - 没有真实凭据、V3 运行配置或旧业务数据进入 V4。
 
-进入 G3C 前仍必须由 G3R/S4 与新冻结的 S5 达到原文档阈值；G3A/G3B 不得生成正式 Relation、RuleEvidenceUnit、Projection、Judgment 或 Score。
+G3C—G3H 当前只通过评分最小充分的 RuleEvidenceUnit、Projection、Judgment readiness、delta shadow 与增量重跑。历史 S4 fine-type 阈值继续约束精细 Relation 发布，S5、正式 factor schema 与 Score 专门 Gate 继续阻断正式 RuleEvidenceUnit、Projection、Judgment 和 Score。
 
 第一阶段结束不代表可以正式评分，也不代表可以切换生产。
