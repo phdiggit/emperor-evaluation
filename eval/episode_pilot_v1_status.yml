@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: 8a02907c679cfe88de58cfcf209822f4778bc77b
+as_of_commit_basis: 6afa955aae59c2ba2c1ee775afd2ff622559d756
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -22,7 +22,7 @@ milestones:
   G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_8
   G2_6J_contract_status: evaluated_holdout_failed_qualification
   G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2
-  G2_6K0_source_development: blocked_before_boundary
+  G2_6K0_source_development: g2_6j_source_assertion_qualified_g2_6i_pending
   G2_6K0_new_blind_holdout_authorized: false
   G3_PostgreSQL: blocked_by_g2_6K0
 
@@ -89,6 +89,11 @@ qualification:
     - g2_6k0_section_span_linked_passage_slicer
     - g2_6k0_mechanical_early_stop
     - g2_6k0_eight_scenario_protocol_smoke
+    - g2_6k0_g2_6j_source_v2_coverage_18_of_18
+    - g2_6k0_g2_6j_atomic_support_18_of_18
+    - g2_6k0_g2_6j_context_only_0_of_18
+    - g2_6k0_g2_6j_navigation_noise_0
+    - g2_6k0_g2_6j_linked_lineage_100_percent
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
@@ -115,10 +120,6 @@ qualification:
     - g2_6j_rule_unit_metrics_not_measurable
     - g2_6k0_g2_6i_source_v2_coverage_0
     - g2_6k0_g2_6i_assertion_support_unclassified_59
-    - g2_6k0_g2_6j_source_v2_coverage_0
-    - g2_6k0_g2_6j_atomic_support_7_of_38
-    - g2_6k0_g2_6j_context_only_31_of_38
-    - g2_6k0_g2_6j_navigation_noise_2
 
 metric_policy:
   oracle_assisted_packet_count_is_accuracy_metric: false
@@ -129,10 +130,12 @@ metric_policy:
 safety:
   v3_production_write_performed: false
   v4_database_write_performed: false
+  source_recovery_network_request_count: 7
+  source_recovery_v3_runtime_started: false
   rule_projection_performed: false
   postgresql_g3_authorized: false
 
 next_gate:
   code: G2_6K0_source_segmentation_development_qualification
-  status: development_blocked_before_boundary
-  required_outcome: 先使开放开发集满足 Source v2 100%、atomic support 至少 75%、context-only 不高于 25%、导航噪声 0、linked lineage 100%，再逐层验证 Episode、Relation 和 Rule 覆盖；此前不新建 blind holdout
+  status: g2_6j_source_assertion_qualified_g2_6i_pending
+  required_outcome: 恢复 G2.6I 的完整史源身份、Source v2 与 PassageSupport，使 I 也满足 Source v2 100%、atomic support 至少 75%、context-only 不高于 25%、导航噪声 0、linked lineage 100%；此前不启动下游 reviewer、不新建 blind holdout
