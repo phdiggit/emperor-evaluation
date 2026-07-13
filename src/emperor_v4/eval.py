@@ -42,6 +42,7 @@ from emperor_v4.evaluation.source_gap import (
     check_source_segmentation_repair_response,
     check_source_supplement_response,
 )
+from emperor_v4.evaluation.qualification import evaluate_source_development_sets
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -319,6 +320,15 @@ def _parser() -> argparse.ArgumentParser:
     assertion_repair_check.add_argument("--output", type=Path)
     gap_repair_check = subparsers.add_parser("assertion-gap-repair-check")
     gap_repair_check.add_argument("--output", type=Path)
+    source_qualification = subparsers.add_parser("source-development-qualification")
+    source_qualification.add_argument(
+        "--input",
+        action="append",
+        type=Path,
+        required=True,
+        help="可重复指定既有开放开发集；不会读取 Gold 或启动 Boundary reviewer。",
+    )
+    source_qualification.add_argument("--output", type=Path)
     return parser
 
 
@@ -400,6 +410,14 @@ def main() -> int:
                 ),
             ),
         )
+    elif args.command == "source-development-qualification":
+        payloads = {
+            path.parent.name: json.loads(path.read_text(encoding="utf-8"))
+            for path in args.input
+        }
+        if len(payloads) != len(args.input):
+            raise ValueError("source qualification 输入目录名必须唯一")
+        report = evaluate_source_development_sets(payloads)
     elif args.command == "episode-reconciliation-review":
         pilot_report = evaluate_episode_pilot(
             manifest_path=args.manifest,

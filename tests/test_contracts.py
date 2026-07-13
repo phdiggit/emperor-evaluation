@@ -9,9 +9,22 @@ import pytest
 from emperor_v4.adapters import (
     adapt_claim_extractor_snapshot,
     adapt_source_cache_snapshot,
+    adapt_source_cache_v2_response,
 )
 from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
-from emperor_v4.contracts.source import SourcePassage, text_content_hash
+from emperor_v4.contracts.source import (
+    SOURCE_CACHE_CONTRACT_V2,
+    LinkedPassageRef,
+    SourcePassage,
+    text_content_hash,
+)
+from emperor_v4.domain.source_segmentation import (
+    PassageLinkSeed,
+    PassageSeed,
+    SourceSection,
+    WindowPolicy,
+    slice_source_section,
+)
 from emperor_v4.domain.identity import canonical_person
 from emperor_v4.domain.boundary import draft_rule_evidence_unit
 from emperor_v4.evaluation.blind_holdout import validate_blind_kernel_input
@@ -318,6 +331,133 @@ def test_passage_contract_rejects_hash_mismatch():
             context_after="",
             content_hash="not-the-text-hash",
             selection_reason=(),
+        )
+
+
+def test_source_cache_v2_slicer_preserves_section_span_links_and_stable_identity():
+    text = "太宗命甲总军。甲受军务。甲班师奏捷。"
+    section = SourceSection(
+        document_cache_id="D-V2",
+        content_version="sha256:document-v1",
+        section_id="卷一/任将",
+        section_heading="任将",
+        raw_text=text,
+        document_span_start=100,
+    )
+    seeds = (
+        PassageSeed(
+            seed_code="appointment",
+            anchor_start=text.index("太宗"),
+            anchor_end=text.index("。") + 1,
+            passage_kind="atomic",
+            selection_reason=("appointment",),
+            links=(PassageLinkSeed("outcome", "outcome"),),
+        ),
+        PassageSeed(
+            seed_code="responsibility",
+            anchor_start=text.index("甲受"),
+            anchor_end=text.index("。", text.index("甲受")) + 1,
+            passage_kind="context",
+            selection_reason=("responsibility",),
+        ),
+        PassageSeed(
+            seed_code="outcome",
+            anchor_start=text.index("甲班"),
+            anchor_end=len(text),
+            passage_kind="atomic",
+            selection_reason=("outcome",),
+        ),
+    )
+    policy = WindowPolicy(version="section-sentence-v2")
+
+    first = slice_source_section(section, seeds, policy)
+    second = slice_source_section(section, seeds, policy)
+
+    assert first == second
+    assert all(item.is_contract_v2 for item in first)
+    assert all(item.section_heading == "任将" for item in first)
+    assert all(item.span_start >= 100 for item in first)
+    appointment = next(item for item in first if item.selection_reason == ("appointment",))
+    outcome = next(item for item in first if item.selection_reason == ("outcome",))
+    assert appointment.linked_passages == (
+        LinkedPassageRef(outcome.passage_cache_id, "outcome"),
+    )
+
+    response = {
+        "contract": SOURCE_CACHE_CONTRACT_V2,
+        "documents": [
+            {
+                "document_cache_id": "D-V2",
+                "work_identity": "测试史书",
+                "edition_identity": "测试本",
+                "title": "测试史书/卷一",
+                "url": "https://example.invalid/work/1",
+                "source_role": "primary",
+                "retrieved_at": "2026-07-13T00:00:00+08:00",
+                "content_hash": "sha256:document-v1",
+                "http_metadata": {},
+                "license_or_access_note": "test fixture",
+            }
+        ],
+        "passages": [
+            {
+                "passage_id": item.passage_cache_id,
+                "document_id": item.document_cache_id,
+                "locator": item.locator,
+                "raw_text": item.raw_text,
+                "context_before": item.context_before,
+                "context_after": item.context_after,
+                "content_hash": item.content_hash,
+                "selection_reason": list(item.selection_reason),
+                "content_version": item.content_version,
+                "section_id": item.section_id,
+                "section_heading": item.section_heading,
+                "span_start": item.span_start,
+                "span_end": item.span_end,
+                "passage_kind": item.passage_kind,
+                "linked_passages": [
+                    {
+                        "passage_ref": link.passage_ref,
+                        "relation": link.relation,
+                    }
+                    for link in item.linked_passages
+                ],
+                "overlap_group": item.overlap_group,
+                "window_policy_version": item.window_policy_version,
+            }
+            for item in first
+        ],
+    }
+    adapted = adapt_source_cache_v2_response(response)
+    assert adapted.passages == first
+    assert adapted.contract_gaps == ()
+
+
+def test_source_passage_v2_rejects_invalid_span_and_self_link():
+    common = {
+        "passage_cache_id": "P-V2",
+        "document_cache_id": "D-V2",
+        "locator": "卷一:0-2",
+        "raw_text": "原文",
+        "context_before": "",
+        "context_after": "",
+        "content_hash": text_content_hash("原文"),
+        "selection_reason": ("test",),
+        "contract_version": SOURCE_CACHE_CONTRACT_V2,
+        "content_version": "v1",
+        "section_id": "卷一",
+        "section_heading": "卷一",
+        "span_start": 0,
+        "span_end": 2,
+        "passage_kind": "atomic",
+        "window_policy_version": "policy-v2",
+    }
+    with pytest.raises(ValueError, match="span 长度"):
+        SourcePassage(**{**common, "span_end": 3})
+    with pytest.raises(ValueError, match="不得链接自身"):
+        SourcePassage(
+            **common,
+            linked_passages=(LinkedPassageRef("P-V2", "continuation"),),
         )
 
 

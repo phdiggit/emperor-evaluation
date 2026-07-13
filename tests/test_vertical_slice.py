@@ -33,7 +33,16 @@ from emperor_v4.evaluation.graph_holdout import (
     score_graph_blind_holdout,
     validate_boundary_review_freeze,
 )
+from emperor_v4.evaluation.qualification import (
+    QualificationThresholds,
+    evaluate_candidate_recall_upper_bound,
+    evaluate_historical_coverage,
+    evaluate_rule_coverage,
+    evaluate_source_assertion_qualification,
+    evaluate_source_development_sets,
+)
 from emperor_v4.evaluation.source_gap import check_source_segmentation_repair_response
+from emperor_v4.contracts.source import text_content_hash
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "episode_pilot_v1"
@@ -60,6 +69,224 @@ def test_graph_materializer_accepts_v28_isolated_review_freeze_metadata():
     review["input_canonical_sha256"] = "wrong"
     with pytest.raises(ValueError, match="input hash"):
         validate_boundary_review_freeze(blind_input, review)
+
+
+def _source_protocol_smoke_payload() -> dict:
+    passages = []
+    assertions = []
+    for index in range(1, 17):
+        passage_ref = f"SMOKE-P{index:02d}"
+        mode = "atomic_component" if index <= 12 else "context_only"
+        raw_text = f"协议场景原文{index}。"
+        passages.append(
+            {
+                "passage_code": passage_ref,
+                "document_code": "SMOKE-D1",
+                "locator": f"卷一:{(index - 1) * 20}",
+                "raw_text": raw_text,
+                "context_before": "",
+                "context_after": "",
+                "content_hash": text_content_hash(raw_text),
+                "selection_reason": ["protocol_smoke"],
+                "contract_version": "source-cache-contract-v2",
+                "content_version": "document-v1",
+                "section_id": "卷一",
+                "section_heading": "协议冒烟",
+                "span_start": (index - 1) * 20,
+                "span_end": (index - 1) * 20 + len(raw_text),
+                "passage_kind": "atomic" if index <= 12 else "context",
+                "linked_passages": [],
+                "window_policy_version": "smoke-v2",
+            }
+        )
+        assertions.append(
+            {
+                "assertion_code": f"SMOKE-A{index:02d}",
+                "source_passage_ref": passage_ref,
+                "passage_support": {
+                    "support_mode": mode,
+                    "assertion_semantic_key": f"smoke-{index}",
+                    "supported_fields": (
+                        ["identity", "action"] if index <= 12 else ["context"]
+                    ),
+                },
+            }
+        )
+    return {
+        "dataset_code": "source_protocol_smoke_v2",
+        "scenario_codes": [
+            "section_span",
+            "linked_lineage",
+            "equivalent_evidence",
+            "atomic_component",
+            "context_only",
+            "episode_boundary",
+            "historical_relation",
+            "rule_score_schema",
+        ],
+        "source_passages": passages,
+        "assertions": assertions,
+    }
+
+
+def test_eight_scenario_source_to_rule_score_protocol_smoke_is_offline_and_typed():
+    payload = _source_protocol_smoke_payload()
+    source_report = evaluate_source_assertion_qualification(payload)
+    assert len(payload["scenario_codes"]) == 8
+    assert source_report["status"] == "qualified_for_boundary"
+
+    assertion_refs = [f"SMOKE-A{index:02d}" for index in range(1, 13)]
+    episode_groups = []
+    assertion_cursor = 0
+    for index in range(1, 9):
+        width = 2 if index <= 4 else 1
+        refs = assertion_refs[assertion_cursor:assertion_cursor + width]
+        assertion_cursor += width
+        episode_groups.append(
+            {
+                "local_episode_code": f"EP-{index}",
+                "evaluation_context": f"RULER-{(index + 1) // 2}",
+                "core_assertion_refs": refs,
+                "assertion_links": [
+                    {
+                        "assertion_ref": ref,
+                        "source_passage_ref": ref.replace("A", "P"),
+                    }
+                    for ref in refs
+                ],
+                "action": "任命" if index % 2 else "战役结果",
+            }
+        )
+    relations = [
+        {
+            "relation_id": f"REL-{index}",
+            "from_episode": f"EP-{index * 2 - 1}",
+            "to_episode": f"EP-{index * 2}",
+            "relation_type": "outcome_of",
+        }
+        for index in range(1, 5)
+    ]
+    graph = {
+        "input_sha256": "protocol-smoke-input",
+        "input_assertion_refs": [f"SMOKE-A{index:02d}" for index in range(1, 17)],
+        "episode_groups": episode_groups,
+        "relations": relations,
+        "assertion_dispositions": [
+            {
+                "assertion_ref": f"SMOKE-A{index:02d}",
+                "disposition": "primary" if index <= 12 else "context_only",
+            }
+            for index in range(1, 17)
+        ],
+    }
+    rule_candidates = draft_rule_evidence_units_payload(graph)
+    assert len(rule_candidates["rule_evidence_units"]) == 4
+
+    historical_gold = {
+        "status": "frozen",
+        "frozen_without_candidate_or_review_access": True,
+        "candidate_input_sha256": graph["input_sha256"],
+        "gold_episodes": [
+            {
+                "gold_episode_code": row["local_episode_code"].replace("EP", "GOLD-EP"),
+                "evaluation_context": row["evaluation_context"],
+                "expected_assertion_refs": row["core_assertion_refs"],
+            }
+            for row in episode_groups
+        ],
+        "gold_relations": [
+            {
+                "gold_relation_code": row["relation_id"].replace("REL", "GOLD-REL"),
+                "from_episode": row["from_episode"].replace("EP", "GOLD-EP"),
+                "to_episode": row["to_episode"].replace("EP", "GOLD-EP"),
+                "relation_type": row["relation_type"],
+            }
+            for row in relations
+        ],
+        "gold_assertion_dispositions": graph["assertion_dispositions"],
+        "catastrophic_must_not_merge_pairs": [],
+    }
+    candidate_units = rule_candidates["rule_evidence_units"]
+    rule_gold = {
+        "status": "frozen",
+        "frozen_without_candidate_or_review_access": True,
+        "candidate_input_sha256": graph["input_sha256"],
+        "gold_rule_evidence_units": [
+            {
+                "gold_rule_unit_code": f"GOLD-UNIT-{index}",
+                "episode_refs": [
+                    ref.replace("EP", "GOLD-EP")
+                    for ref in unit["episode_refs"]
+                ],
+                "relation_refs": [
+                    ref.replace("REL", "GOLD-REL")
+                    for ref in unit["relation_refs"]
+                ],
+            }
+            for index, unit in enumerate(candidate_units, start=1)
+        ],
+    }
+    score = score_graph_blind_holdout(
+        graph,
+        historical_gold,
+        rule_candidates,
+        rule_gold,
+        {
+            "unchanged_rerun_model_calls": 0,
+            "changed_unit_affects_other_unit_count": 0,
+        },
+    )
+    assert score["schema_version"] == 1
+    assert score["release_gate_passed"] is True
+    assert score["g3_authorized"] is True
+
+
+def test_g26i_and_g26j_open_development_sets_stop_before_boundary():
+    root = Path(__file__).parents[1]
+    payloads = {
+        code: json.loads(
+            (root / "eval" / code / "input.json").read_text(encoding="utf-8")
+        )
+        for code in ("g2_6i_graph_blind_v1", "g2_6j_graph_blind_v1")
+    }
+    report = evaluate_source_development_sets(payloads)
+
+    assert report["status"] == "development_blocked_before_boundary"
+    assert report["decision"] == {
+        "can_start_boundary": False,
+        "stop_code": "STOP_BEFORE_BOUNDARY",
+        "new_blind_holdout_authorized": False,
+        "downstream_reviewers_started": False,
+    }
+    assert set(report["summary"]["blocked_dataset_codes"]) == set(payloads)
+    assert all(
+        item["stages"]["S1_source_passage"]["source_contract_v2_coverage"] == 0
+        for item in report["reports"].values()
+    )
+
+
+def test_qualification_early_stops_sparse_relation_rule_and_recall_inputs():
+    thresholds = QualificationThresholds(
+        gold_episode_minimum=2,
+        gold_relation_minimum=1,
+        gold_rule_evidence_unit_minimum=1,
+    )
+    relation = evaluate_historical_coverage(
+        {"gold_episodes": [{}, {}], "gold_relations": []},
+        thresholds=thresholds,
+    )
+    rule = evaluate_rule_coverage(
+        {"gold_rule_evidence_units": []},
+        thresholds=thresholds,
+    )
+    recall = evaluate_candidate_recall_upper_bound(
+        candidate_episode_count=8,
+        gold_episode_count=10,
+    )
+
+    assert relation["decision"]["stop_code"] == "COVERAGE_INELIGIBLE_FOR_RELATION"
+    assert rule["decision"]["stop_code"] == "COVERAGE_INELIGIBLE_FOR_RULE"
+    assert recall["decision"]["stop_code"] == "STOP_BEFORE_RULE_GOLD"
 
 
 def test_frozen_v3_outputs_form_auditable_episode_candidate_slice_offline():

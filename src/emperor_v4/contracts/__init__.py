@@ -16,7 +16,12 @@ from emperor_v4.contracts.boundary import (
     RuleEvidenceUnitDraft,
 )
 from emperor_v4.contracts.episode import HistoricalEpisodePacket
-from emperor_v4.contracts.source import ContractGap, SourceDocumentDraft, SourcePassage
+from emperor_v4.contracts.source import (
+    ContractGap,
+    LinkedPassageRef,
+    SourceDocumentDraft,
+    SourcePassage,
+)
 
 __all__ = [
     "AssertionDraft",
@@ -25,6 +30,7 @@ __all__ = [
     "BoundaryMaterializationResult",
     "BoundaryReviewRequest",
     "ContractGap",
+    "LinkedPassageRef",
     "HistoricalEpisodePacket",
     "EpisodeBoundaryReviewResult",
     "EpisodePairDisposition",
