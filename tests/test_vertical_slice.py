@@ -2590,3 +2590,21 @@ def test_claim_extractor_v2_rejects_unmarked_duplicate_semantics() -> None:
 
     with pytest.raises(ValueError, match="共享 equivalent_evidence"):
         ensure_claim_extraction(request, profile=profile, provider=DuplicateProvider(), repository=InMemoryClaimExtractionRepository(), service_release_sha="d" * 40)
+
+    from emperor_v4.contracts.assertion import PassageSupport
+    equivalent_support = PassageSupport(
+        support_mode="equivalent_evidence", assertion_semantic_key="shared-key",
+        supported_fields=("identity", "action"),
+    )
+    equivalent_first = replace(first, passage_support=equivalent_support)
+    equivalent_drift = replace(
+        first, assertion_code="A-EQUIV-DRIFT", time_expression="不同时间",
+        passage_support=equivalent_support,
+    )
+
+    class DriftProvider:
+        def extract(self, _payload):
+            return ClaimExtractionBatch((equivalent_first, equivalent_drift), "drift", 0)
+
+    with pytest.raises(ValueError, match="语义 payload 必须完全一致"):
+        ensure_claim_extraction(request, profile=profile, provider=DriftProvider(), repository=InMemoryClaimExtractionRepository(), service_release_sha="e" * 40)

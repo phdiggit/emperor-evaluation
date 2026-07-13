@@ -98,6 +98,7 @@ def ensure_claim_extraction(
     passage_refs = {str(row.get("passage_id") or row.get("passage_code")) for row in request.passages}
     assertion_codes: set[str] = set()
     semantic_rows: dict[tuple[Any, ...], list[AssertionDraft]] = {}
+    support_key_rows: dict[str, list[AssertionDraft]] = {}
     for assertion in batch.assertions:
         if assertion.assertion_code in assertion_codes:
             raise ValueError("Claim Extractor assertion_code 重复")
@@ -107,6 +108,9 @@ def ensure_claim_extraction(
         if assertion.passage_support is None:
             raise ValueError("v2 Claim Extractor Assertion 缺少 PassageSupport")
         semantic_rows.setdefault(_assertion_semantic_payload(assertion), []).append(assertion)
+        support_key_rows.setdefault(
+            assertion.passage_support.assertion_semantic_key, []
+        ).append(assertion)
     for semantic, items in semantic_rows.items():
         if len(items) <= 1:
             continue
@@ -114,6 +118,15 @@ def ensure_claim_extraction(
         support_modes = {item.passage_support.support_mode for item in items}
         if len(support_keys) != 1 or support_modes != {"equivalent_evidence"}:
             raise ValueError(f"重复语义必须声明共享 equivalent_evidence: {semantic}")
+    for support_key, items in support_key_rows.items():
+        modes = {item.passage_support.support_mode for item in items}
+        if len(items) == 1 and modes == {"equivalent_evidence"}:
+            raise ValueError(f"单条证据不得声明 equivalent_evidence: {support_key}")
+        if len(items) > 1 and (
+            modes != {"equivalent_evidence"}
+            or len({_assertion_semantic_payload(item) for item in items}) != 1
+        ):
+            raise ValueError(f"equivalent_evidence 语义 payload 必须完全一致: {support_key}")
     assertion_payloads = [asdict(item) for item in batch.assertions]
     response = {
         "contract": ASSERTION_EXTRACTION_CONTRACT_V2,

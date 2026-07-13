@@ -20,6 +20,7 @@ def build_codex_claim_prompt(request_payload: Mapping[str, Any]) -> str:
         "只有输入 subject 或 aliases 显式授权的名称才可规范化；其他人物称谓必须保留 passage 原文表面形式，并在 ambiguity_flags 标记待身份解析。\n"
         "阵营、身份或任用关系必须在 subject/predicate/object 中保留关系双方；不得把任用方省略成无主体的被动任职。\n"
         "重叠 passages 支持同一语义时，应为每个 passage 输出一条 Assertion，使用相同 assertion_semantic_key 和 equivalent_evidence；不得当作两个独立事实。\n"
+        "同一 assertion_semantic_key 的 equivalent_evidence 除 source_passage_ref 和来源字段外，subject、predicate、object、time_expression、location_expression、qualifiers、polarity 必须完全一致。\n"
         "不要评价 positive/negative，不要生成 factor、Judgment、ScoreContribution 或正式事实。只输出符合 schema 的 JSON。\n\n"
         + json.dumps(request_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     )
