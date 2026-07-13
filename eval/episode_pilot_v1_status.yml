@@ -20,7 +20,7 @@ current:
   persistent_incremental_orchestration: passed_shadow_runtime
   talent_discovery_shared_scored_shadow: first_vertical_slice_passed
   talent_discovery_roster_incremental: passed_shadow_runtime
-  v4_source_cache_service: passed_offline_contract_slice
+  v4_source_cache_service: passed_real_adapter_shadow_repository_contract
   formal_scoring: blocked
 
 shadow_evidence:
@@ -87,16 +87,21 @@ v4_service_evidence:
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
   weizheng_claim_count: 4
   database_import_performed: false
-  source_cache_release: 32dbf817fdb388bb352766f34ddac8b61cc0a678
+  source_cache_release: f7022cb39a887325e3719f46188602ab52775905
   source_cache_contract: source-cache-contract-v2
   source_cache_fixture_revision: wikisource:2020238
   source_cache_document_count: 1
   source_cache_passage_count: 3
   source_cache_no_change_exact_response_reuse: true
   source_cache_rerun_provider_call_count: 0
+  source_cache_real_adapter_shadow_match: true
+  source_cache_shadow_network_request_count: 1
+  source_cache_refresh_creates_new_content_version: true
+  source_cache_postgres_repository_contract_ready: true
+  source_cache_postgres_migration_applied: false
 
 v4_service_source_governance:
-  status: source_cache_offline_slice_tracked
+  status: source_cache_real_adapter_shadow_passed
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
   deployed_runtime_still_uses_transitional_source: true
@@ -108,7 +113,7 @@ v4_service_source_governance:
     - source_cache
     - claim_extraction
     - immutable_deployment_cutover
-  next_gate: source_cache_real_adapter_refresh_and_repository_shadow
+  next_gate: source_cache_isolated_postgres_job_lease_release
 
 talent_discovery_roster_evidence:
   roster_people: 4

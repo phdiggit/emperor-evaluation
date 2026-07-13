@@ -43,7 +43,7 @@ milestones:
   persistent_incremental_orchestration: passed_shadow_runtime
   talent_discovery_shared_scored_shadow: first_vertical_slice_passed
   talent_discovery_roster_incremental: passed_shadow_runtime
-  v4_source_cache_service: passed_offline_contract_slice
+  v4_source_cache_service: passed_real_adapter_shadow_repository_contract
   formal_scoring: blocked
 
 current_shadow_result:
@@ -96,12 +96,12 @@ talent_discovery_roster_result:
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
-  source_cache_release: 32dbf817fdb388bb352766f34ddac8b61cc0a678
+  source_cache_release: f7022cb39a887325e3719f46188602ab52775905
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
 v4_service_source_governance:
-  status: source_cache_offline_slice_tracked
+  status: source_cache_real_adapter_shadow_passed
   canonical_history: v4_current_git_history
   transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   migration_mode: contract_tested_selective_port
@@ -121,9 +121,13 @@ v4_service_source_governance:
     - retrieval_v3_runtime_names_must_be_removed_at_cutover
   source_cache_first_slice:
     contract: source-cache-contract-v2
-    release: 32dbf817fdb388bb352766f34ddac8b61cc0a678
+    release: f7022cb39a887325e3719f46188602ab52775905
     fixture_revision: wikisource:2020238
     no_change_exact_response_reuse: true
+    real_adapter_shadow_match: true
+    refresh_creates_new_content_version: true
+    postgres_repository_contract_ready: true
+    postgres_migration_applied: false
     server_cutover_performed: false
   forbidden_imports:
     - v3_scorer

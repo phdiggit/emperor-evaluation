@@ -129,6 +129,10 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 
 Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用既有 SourcePassage v2 与确定性切片器，新建通用 SourceRevision 合同、fixture provider、幂等 ensure 用例、shadow repository 和薄 runtime。固定 Wikisource revision `2020238` 首次生成 1 个不可变 document 与 3 个 passage；无变化重跑精确复用同一响应，provider、网络、模型和数据库调用均为 0。该结果只证明离线合同纵切，不等于真实 adapter 或服务器切换完成。
 
+第二段由 `d439f63` 接入真实 Wikisource adapter、共享 source plan、refresh/content-version 测试和独立 `v4_source_cache` PostgreSQL repository/migration 合同。真实 API shadow 与固定 revision 的 document/passage identity、content hash、原文及 span 全部一致；refresh 的新 revision 产生新 document identity，旧结果仍可读取。PostgreSQL migration 尚未执行，job/lease、不可变发布和服务器 unit 切换仍属下一 Gate。
+
+`f7022cb` 进一步修正 repository 写入合同：缓存响应之外必须持久化并可读回完整 `SourceRevisionContent.raw_text`，相同 document revision 或 passage identity 出现不同内容时 fail-closed。Shadow JSON 状态升级到 schema v2；PostgreSQL `document_revisions` 同步保存 source host、revision、retrieved time、raw content 和 content hash。
+
 `talent_discovery` 已进一步接入包 C 的持久化 roster 入口：三皇帝四人物名单复用 6 个 Claim snapshot、91 条 Assertion 和 82 个 Episode candidate；首次构建 4 个评分单元，无变化重跑精确复用同一记录。新增魏徵 Assertion 的局部 delta 只重建 `REU-LSM-WEIZHENG-DISCOVERY-v1`，其余 3 个 Judgment 精确复用；服务调用、模型调用和数据库写入均为 0。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。

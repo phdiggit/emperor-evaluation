@@ -1,29 +1,5 @@
 {
-  "request": {
-    "evaluation_context": {
-      "pilot_ruler_ref": "RULER-LI-SHIMIN",
-      "purpose": "historical_evidence_discovery"
-    },
-    "idempotency_key": "source-cache:v4:weizheng:jiutangshu:ensure:v1",
-    "mode": "ensure",
-    "request_id": "SRC-V4-WEIZHENG-ENSURE-001",
-    "requested_at": "2026-07-14 04:00:00+08:00",
-    "required_source_families": [
-      "primary_text"
-    ],
-    "source_hints": [
-      "舊唐書/卷71"
-    ],
-    "source_policy_version": "v4-primary-wikisource-fixture-v1",
-    "subject": {
-      "aliases": [
-        "魏征"
-      ],
-      "canonical_name": "魏徵",
-      "person_or_ruler_ref": "PER-WEIZHENG"
-    }
-  },
-  "response": {
+  "candidate_response": {
     "contract": "source-cache-contract-v2",
     "coverage": {
       "document_count": 1,
@@ -49,7 +25,7 @@
           "source_host": "wikisource"
         },
         "license_or_access_note": "public-domain text; carrier terms recorded by adapter",
-        "retrieved_at": "2026-07-13T19:03:52.907395+00:00",
+        "retrieved_at": "2026-07-13T19:20:46.678685+00:00",
         "source_role": "primary_text",
         "title": "舊唐書/卷71",
         "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771",
@@ -58,7 +34,7 @@
     ],
     "errors": [],
     "input_fingerprint": "e40e801178ee78d9ab10dfbb172404250c5bdf7cf96437ae83ad2b0a394e71bb",
-    "output_fingerprint": "b3d79fe6aff32974f47d155a967c8d42e76b4b131c0c65bc59c0198a5418efff",
+    "output_fingerprint": "04d34a574e7f04af804991b7b7c644fd497f182866288940e7282dcb5e561981",
     "passages": [
       {
         "content_hash": "37960c8220b8d651d4ef10380d2bbf182fa38e556b1fe4c52df3213d2758c8b5",
@@ -137,8 +113,8 @@
     "provenance": {
       "database_write_count": 0,
       "model_call_count": 0,
-      "network_request_count": 0,
-      "provider": "frozen_wikisource_snapshot:v1",
+      "network_request_count": 1,
+      "provider": "wikisource_api_plaintext:v1",
       "request_mode": "ensure",
       "service_release_sha": "f7022cb39a887325e3719f46188602ab52775905",
       "service_version": "v4-source-cache-service:v1",
@@ -147,15 +123,21 @@
     "request_id": "SRC-V4-WEIZHENG-ENSURE-001",
     "status": "succeeded"
   },
+  "comparison": {
+    "document_content_hashes_match": true,
+    "document_refs_match": true,
+    "matched": true,
+    "passage_content_and_spans_match": true,
+    "passage_refs_match": true
+  },
   "runtime_audit": {
-    "cache_hit": true,
     "database_write_count": 0,
-    "exact_response_reused": true,
+    "formal_acceptance_performed": false,
     "model_call_count": 0,
-    "network_request_count": 0,
-    "provider_call_count": 0,
-    "shadow_state_write_count": 0
+    "network_request_count": 1,
+    "provider_call_count": 1,
+    "repository_write_count": 1
   },
   "schema_version": 1,
-  "status": "source_cache_fixture_ensure_complete"
+  "status": "source_cache_wikisource_shadow_match"
 }
