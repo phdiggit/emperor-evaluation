@@ -2,7 +2,7 @@ schema_version: 1
 plan_code: g2_6j_graph_blind_v1
 status: strict_input_frozen_independent_episode_reviews_pending
 source_snapshot_frozen_at: 2026-07-13
-contract_basis_commit: 3323b407d23853af2d5770eb4edeb4701e646d75
+contract_basis_commit: 8c928ed9db0c491086a8956903229b6a41bfe7fb
 
 source_snapshot:
   path: eval/g2_6j_graph_blind_v1/source_claim_snapshot.json
@@ -68,14 +68,14 @@ strict_input:
 review_requests:
   status: frozen_before_independent_episode_reviews
   path: eval/g2_6j_graph_blind_v1/review_requests.json
-  file_sha256: d1737f91fb81dd76929b4809ee2164308267487a62898ac7852a485a8bfda98a
+  file_sha256: 2e9ab39eb5b11b1715a435b24a1a0f77124766c288d882176729f347554f9009
   file_sha256_basis: committed_lf_blob
-  canonical_payload_sha256: 08caa5cbdd80edfc2648c845b9f249a4bb2c555557a66212203d48b73ce1df70
+  canonical_payload_sha256: 08f881c57cf40dbb8c2fc6dab705e2c3fe1b2df02c894079d97c8578b4793edd
   proposition_cluster_count: 38
   review_unit_count: 16
   model_call_budget_before_fast_path: 16
-  boundary_policy_version: episode-boundary-policy-v2.7
-  output_schema_version: episode-boundary-review-v2.7
+  boundary_policy_version: episode-boundary-policy-v2.8
+  output_schema_version: episode-boundary-review-v2.8
   candidate_episode_generated: false
 
 preflight_contract_corrections:
@@ -83,6 +83,9 @@ preflight_contract_corrections:
   corrections:
     - passage_scoped_proposition_clusters_use_claim_local_semantic_key
     - context_only_assertions_rejected_from_episode_core
+    - context_only_review_units_allow_zero_episode_fail_closed
+    - proposition_identity_includes_claim_local_support_key
+  review_requests_refrozen_after_schema_correction: true
   gold_or_candidate_observed: false
 
 independent_freezes:
