@@ -8,6 +8,7 @@ from typing import Any, Mapping
 
 import yaml
 
+from emperor_v4.adapters import adapt_claim_extractor_snapshot
 from emperor_v4.evaluation.appointment_delegation_scoring import (
     SCORE_CONTRIBUTION_SCHEMA_VERSION,
     PROFILE,
@@ -84,6 +85,21 @@ def run_limited_factor_shadow_manifest(
         raise ValueError("冻结输入缺少 episode_snapshot")
     snapshot = json.loads(episode_snapshot_path.read_text(encoding="utf-8"))
     frozen_packets = {row["episode_code"]: row for row in snapshot["packets"]}
+    supplemental_assertion_links: dict[str, str] = {}
+    for role, supplemental_path in frozen_paths.items():
+        if not role.endswith("claim_snapshot"):
+            continue
+        supplemental_snapshot = json.loads(
+            supplemental_path.read_text(encoding="utf-8")
+        )
+        for assertion in adapt_claim_extractor_snapshot(supplemental_snapshot):
+            if assertion.assertion_code in supplemental_assertion_links:
+                raise ValueError(
+                    f"补充 Assertion identity 重复: {assertion.assertion_code}"
+                )
+            supplemental_assertion_links[assertion.assertion_code] = (
+                assertion.source_passage_ref
+            )
     assertions_by_ref = {
         row["assertion_ref"]: row for row in manifest["assertions"]
     }
@@ -99,9 +115,14 @@ def run_limited_factor_shadow_manifest(
             for row in frozen["assertion_links"]
         }
         for assertion_ref in episode["assertion_refs"]:
-            if frozen_links.get(assertion_ref) != assertions_by_ref[assertion_ref][
+            expected_passage_ref = assertions_by_ref[assertion_ref][
                 "source_passage_ref"
-            ]:
+            ]
+            if (
+                frozen_links.get(assertion_ref) != expected_passage_ref
+                and supplemental_assertion_links.get(assertion_ref)
+                != expected_passage_ref
+            ):
                 raise ValueError(
                     f"Assertion/SourcePassage 未与冻结 snapshot 对齐: {assertion_ref}"
                 )

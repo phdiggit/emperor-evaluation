@@ -177,7 +177,7 @@ barrier_crossing
 conversion_to_use
 ```
 
-首批 gold cases 的结论是：陈平“归汉—复核经历与能力—跨越诋毁—拜护军中尉”构成正向发现链；魏徵当前 Assertion 只证明擢拜，缺少进入视野、识才依据和跨阵营障碍的直接证据，必须 `blocked_evidence`；韩信齐王授权是既有核心将领的授权调整，蓝玉拜大将军是既有将领晋升，均不适用于人才发现。`talent_discovery` 只结算进入有效视野，`appointment_delegation` 只作为 supporting-only rule 承接岗位、授权和反馈，禁止重复结算。
+首批 gold cases 的结论是：陈平“归汉—复核经历与能力—跨越诋毁—拜护军中尉”构成正向发现链；魏徵经 V4 Claim Extractor 从缓存史料补抽旧阵营、当时识才依据、跨越东宫障碍和转化任用 4 条 Claim，适配为 Assertion 后四因子均为 `positive`；韩信齐王授权是既有核心将领的授权调整，蓝玉拜大将军是既有将领晋升，均不适用于人才发现。`talent_discovery` 只结算进入有效视野，`appointment_delegation` 只作为 supporting-only rule 承接岗位、授权和反馈，禁止重复结算。
 
 已批准四个有限因子：
 

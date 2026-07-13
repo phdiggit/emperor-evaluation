@@ -16,7 +16,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
 - 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录
-- 包 D 首个规则复用切片：`talent_discovery` 已复用有限因子与 scored-shadow runner；陈平形成 1 个正向贡献，魏徵因发现链证据不足阻断，韩信与蓝玉按规则排除
+- 包 D 发现链补抽：V4 Claim Extractor 已按 `talent_discovery` 抽出魏徵旧阵营、识才依据、跨障碍与转化任用 4 条 Claim；陈平、魏徵各形成 1 个正向贡献，韩信与蓝玉按规则排除
 - 正式 45 分映射、排名、worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -46,8 +46,8 @@ python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discove
 
 scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化增量编排和包 D 首个 `talent_discovery` 复用切片已完成。包 D 下一步是：
 
-1. 为魏徵补充“进入视野、识才依据与跨阵营障碍”的直接 Assertion，证据不足前保持阻断；
-2. 将已批准的 `talent_discovery` 规则配置接入包 C 的名单增量入口；
+1. 将已批准的 `talent_discovery` 规则配置接入包 C 的名单增量入口；
+2. 验证新增发现链 Claim 只局部失效魏徵的 Judgment/Contribution；
 3. 继续以同一通用内核扩展下一个规则，不复制独立流水线；
 4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
 

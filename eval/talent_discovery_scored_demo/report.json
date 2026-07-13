@@ -17,10 +17,16 @@
       "role": "episode_snapshot",
       "sha256": "a1c88148bc1d1bd502a112638fef827a8f006b95e651da8c51629af50ae87220",
       "verified": true
+    },
+    {
+      "path": "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json",
+      "role": "supplemental_claim_snapshot",
+      "sha256": "045780b7fdfdb85d570fb05d465702ee76bd657c4f7f7307df367fdc96250bea",
+      "verified": true
     }
   ],
   "input_manifest_ref": "talent_discovery_scored_demo_v1",
-  "input_manifest_sha256": "44d344594e25baca762cdb6b751367417199c56b46d78d084ffd5f752f8538a0",
+  "input_manifest_sha256": "3d346b76b80effe46b0dcedc9cee7c6e068365763d50176810963c21a6735fa8",
   "judgments": [
     {
       "applicability": "applicable",
@@ -98,43 +104,42 @@
       "supporting_source_passage_refs": []
     },
     {
-      "applicability": "blocked_evidence",
-      "blockers": [
-        "recognition_novelty",
-        "recognition_basis",
-        "barrier_crossing"
-      ],
-      "confidence": 0.95,
-      "direction": null,
+      "applicability": "applicable",
+      "blockers": [],
+      "confidence": 0.97,
+      "direction": "positive",
       "episode_refs": [
         "EP-LSM-WEIZHENG-APPOINTMENT@v1"
       ],
       "factor_reasons": {
-        "barrier_crossing": "现有 Assertion 未直接承载旧阵营身份及李世民跨越该障碍的判断链。",
-        "conversion_to_use": "擢拜谏议大夫直接证明识别若成立则已转化为任用。",
-        "recognition_basis": "当前 Assertion 未直接给出擢拜前的识才依据，不能用后续纳谏表现倒推。",
-        "recognition_novelty": "当前 Assertion 只直接证明擢拜，未证明魏徵此前不在李世民核心视野。"
+        "barrier_crossing": "李世民明知魏徵是曾参与兄弟冲突的东宫旧属，仍召见并纳入用人体系。",
+        "conversion_to_use": "引为詹事主簿并擢拜谏议大夫，证明识别已转化为实际任用。",
+        "recognition_basis": "李世民在召见和听取魏徵当面直陈后素器其才，依据发生在正式擢拜前，不使用后续名声倒推。",
+        "recognition_novelty": "魏徵原属窦建德和李建成任用体系，随后正式进入李世民核心用人体系；进入有效人才池不要求此前完全不认识。"
       },
       "factor_schema_version": "talent-discovery-factors-v1",
       "factor_values": {
-        "barrier_crossing": "unknown",
+        "barrier_crossing": "positive",
         "conversion_to_use": "positive",
-        "recognition_basis": "unknown",
-        "recognition_novelty": "unknown"
+        "recognition_basis": "positive",
+        "recognition_novelty": "positive"
       },
-      "input_semantic_fingerprint": "d4b7dd0bf7d5cec010a7692cbe72a55b20041c9257b4e554d959f82fee43ec9a",
-      "judgment_id": "JDG-D4B7DD0BF7D5CEC010A7",
+      "input_semantic_fingerprint": "a9675c9a4f14283d1a80e5f3b8a44db57f61865a24d85e5d1a89675c39d89900",
+      "judgment_id": "JDG-A9675C9A4F14283D1A80",
       "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
       "model_call_count": 0,
       "person": "魏徵",
       "result_scope": "shadow_demo_only",
-      "review_status": "needs_review",
+      "review_status": "shadow_accepted",
       "rule_code": "talent_discovery",
       "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
       "rule_version": "talent-discovery-v1-shadow",
       "ruler": "李世民",
       "supporting_assertion_refs": [
-        "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001"
+        "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+        "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+        "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+        "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
       ],
       "supporting_source_passage_refs": [
         "PAS-1CD613D0DD2B"
@@ -179,12 +184,6 @@
   "lineage": {
     "assertions": [
       {
-        "assertion_ref": "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001",
-        "confidence": 0.95,
-        "source_passage_ref": "PAS-1CD613D0DD2B",
-        "summary": "李世民擢拜魏徵为谏议大夫。"
-      },
-      {
         "assertion_ref": "CLMEXT-9AA66020C316DC71@CLM-CP-001",
         "confidence": 0.92,
         "source_passage_ref": "PAS-5ACCDE1FA44F",
@@ -195,6 +194,30 @@
         "confidence": 0.95,
         "source_passage_ref": "PAS-5ACCDE1FA44F",
         "summary": "刘邦厚赐陈平并拜为护军中尉，使其尽护诸将。"
+      },
+      {
+        "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+        "confidence": 0.98,
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "summary": "魏徵先后隶属窦建德和隐太子李建成，并分别被署为起居舍人、引为直洗马。"
+      },
+      {
+        "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+        "confidence": 0.94,
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "summary": "魏徵在太宗召见时直陈太子若听从其言便不会有今日之祸，太宗因此素器其才。"
+      },
+      {
+        "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+        "confidence": 0.97,
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "summary": "太宗明知魏徵曾离间兄弟、属于东宫旧属，仍召见并决定纳入自己的用人体系。"
+      },
+      {
+        "assertion_ref": "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004",
+        "confidence": 0.99,
+        "source_passage_ref": "PAS-1CD613D0DD2B",
+        "summary": "太宗将魏徵引为詹事主簿，继而擢拜谏议大夫。"
       }
     ],
     "historical_episodes": [
@@ -229,7 +252,10 @@
       {
         "action": "擢拜、授权与持续纳谏",
         "assertion_refs": [
-          "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001"
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
         ],
         "episode_code": "EP-LSM-WEIZHENG-APPOINTMENT",
         "episode_ref": "EP-LSM-WEIZHENG-APPOINTMENT@v1",
@@ -269,7 +295,7 @@
       }
     ]
   },
-  "report_sha256": "4fdcb3fcf4027c094408363d410bad471a0f9a7be0ac6371246d169113ae6c00",
+  "report_sha256": "9b10f76f019158057d586f7b96974df5ec750bbb3643bf2b6a8ce8129d1d9037",
   "result_scope": "shadow_demo_only",
   "ruler_aggregates": [
     {
@@ -298,15 +324,15 @@
       "unit_count": 1
     },
     {
-      "blocked_unit_count": 1,
+      "blocked_unit_count": 0,
       "direction_counts": {
-        "blocked_evidence": 1
+        "positive": 1
       },
       "not_a_formal_45_point_score": true,
       "ruler": "李世民",
-      "scored_unit_count": 0,
-      "shadow_contribution_mean": null,
-      "shadow_contribution_sum": 0,
+      "scored_unit_count": 1,
+      "shadow_contribution_mean": 1.0,
+      "shadow_contribution_sum": 1.0,
       "unit_count": 1
     }
   ],
@@ -346,6 +372,46 @@
       "score_contribution_schema_version": "score-contribution-v1",
       "scoring_formula_version": "talent-discovery-shadow-mean-v1",
       "semantic_fingerprint": "534db4adac63f5143129682702e273f7a565ce28c75cf7426ce00dece7c201a4",
+      "supporting_only_rules": [
+        "appointment_delegation"
+      ]
+    },
+    {
+      "applicable_factor_count": 4,
+      "contribution_status": "shadow",
+      "duplicate_settlement_check": "passed",
+      "excluded_from_other_rules_reason": "本贡献只结算人才进入统治者有效视野的发现链；职位匹配、授权质量与后续战果归 appointment_delegation 或相应结果规则，不重复结算。",
+      "factor_points": {
+        "barrier_crossing": 1,
+        "conversion_to_use": 1,
+        "recognition_basis": 1,
+        "recognition_novelty": 1
+      },
+      "judgment_ref": "JDG-A9675C9A4F14283D1A80",
+      "lineage": {
+        "assertion_refs": [
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
+        ],
+        "episode_refs": [
+          "EP-LSM-WEIZHENG-APPOINTMENT@v1"
+        ],
+        "source_passage_refs": [
+          "PAS-1CD613D0DD2B"
+        ]
+      },
+      "normalized_contribution": 1.0,
+      "person": "魏徵",
+      "primary_settlement_rule": "talent_discovery",
+      "raw_factor_sum": 4,
+      "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
+      "ruler": "李世民",
+      "score_contribution_id": "SC-C717EF38B08208E937E3",
+      "score_contribution_schema_version": "score-contribution-v1",
+      "scoring_formula_version": "talent-discovery-shadow-mean-v1",
+      "semantic_fingerprint": "c717ef38b08208e937e3d1e434469a9d0cdb054a8dfaf863498214b9ef55973b",
       "supporting_only_rules": [
         "appointment_delegation"
       ]
@@ -402,22 +468,21 @@
       "ruler": "刘邦"
     },
     {
-      "blockers": [
-        "recognition_novelty",
-        "recognition_basis",
-        "barrier_crossing"
-      ],
-      "confidence": 0.95,
-      "direction": null,
+      "blockers": [],
+      "confidence": 0.97,
+      "direction": "positive",
       "factor_values": {
-        "barrier_crossing": "unknown",
+        "barrier_crossing": "positive",
         "conversion_to_use": "positive",
-        "recognition_basis": "unknown",
-        "recognition_novelty": "unknown"
+        "recognition_basis": "positive",
+        "recognition_novelty": "positive"
       },
       "lineage": {
         "assertion_refs": [
-          "CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001"
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003",
+          "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004"
         ],
         "episode_refs": [
           "EP-LSM-WEIZHENG-APPOINTMENT@v1"
@@ -426,7 +491,7 @@
           "PAS-1CD613D0DD2B"
         ]
       },
-      "normalized_contribution": null,
+      "normalized_contribution": 1.0,
       "person": "魏徵",
       "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
       "ruler": "李世民"
@@ -463,7 +528,7 @@
   },
   "status": "talent_discovery_scored_shadow_ready",
   "summary": {
-    "blocked_unit_count": 1,
+    "blocked_unit_count": 0,
     "database_write_count": 0,
     "duplicate_consumption_episode_refs": [],
     "formal_score_write_count": 0,
@@ -472,7 +537,7 @@
     "model_call_count": 0,
     "rule_evidence_unit_count": 4,
     "ruler_count": 3,
-    "score_contribution_count": 1,
+    "score_contribution_count": 2,
     "source_cache_hit_count": 2
   },
   "task_code": "V4-TD-SCORED-DEMO",

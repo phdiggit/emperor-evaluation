@@ -45,10 +45,10 @@ shadow_evidence:
 
 talent_discovery_shadow_evidence:
   rule_evidence_units: 4
-  positive_judgments: 1
-  blocked_evidence: 1
+  positive_judgments: 2
+  blocked_evidence: 0
   excluded_context_units: 2
-  score_count: 1
+  score_count: 2
   duplicate_episode_consumption: 0
   model_call_count: 0
   database_write_count: 0
@@ -74,10 +74,16 @@ next_delivery:
   code: talent_discovery_roster_incremental_reuse
   gate: second_rule_shared_roster_reuse
   required:
-    - repair_weizheng_discovery_assertion_gap
     - reuse_persistent_roster_incremental_runner
+    - prove_local_invalidation_for_new_discovery_claims
     - preserve_cross_rule_duplicate_settlement
     - prepare_next_rule_profile_without_pipeline_copy
+
+v4_service_evidence:
+  claim_extractor_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
+  claim_extractor_version: claim_extraction_only:v9_talent_discovery
+  weizheng_claim_count: 4
+  database_import_performed: false
   stop_condition: do_not_copy_a_second_pipeline_or_enable_formal_ranking
 
 safety:

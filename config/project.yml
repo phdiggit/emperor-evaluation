@@ -58,10 +58,10 @@ current_shadow_result:
 
 talent_discovery_shadow_result:
   rule_evidence_units: 4
-  positive_judgments: 1
-  evidence_blockers: 1
+  positive_judgments: 2
+  evidence_blockers: 0
   excluded_context_units: 2
-  score_contribution_count: 1
+  score_contribution_count: 2
   duplicate_episode_consumption: 0
   model_calls: 0
   formal_business_writes: 0
@@ -69,10 +69,15 @@ talent_discovery_shadow_result:
 next_delivery:
   code: talent_discovery_roster_incremental_reuse
   required_outcomes:
-    - repair_weizheng_discovery_assertion_gap
     - reuse_persistent_roster_incremental_entry
+    - prove_local_invalidation_for_new_discovery_claims
     - preserve_cross_rule_duplicate_settlement_check
     - prepare_next_rule_profile_without_pipeline_copy
+
+v4_service_releases:
+  claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
+  claim_extractor_version: claim_extraction_only:v9_talent_discovery
+  source_cache_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   forbidden_substitutes:
     - new_micro_stage_letters
     - stage_only_markdown

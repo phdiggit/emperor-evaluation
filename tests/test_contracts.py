@@ -90,6 +90,9 @@ ROSTER_MANIFEST = (
     / "manifest.yml"
 )
 TALENT_DEMO = SCORED_DEMO.parents[1] / "talent_discovery_scored_demo" / "manifest.yml"
+TALENT_CLAIM_FIXTURE = (
+    FIXTURES / "claim-extractor-talent-discovery-response.json"
+)
 
 
 def _fixture(name: str) -> dict:
@@ -176,6 +179,24 @@ def test_talent_discovery_contract_freezes_rule_boundary_and_exclusions():
         row["value"] == "not_applicable"
         for row in units["蓝玉"]["factor_observations"].values()
     )
+
+
+def test_talent_discovery_service_claims_adapt_to_four_lineaged_assertions():
+    fixture = json.loads(TALENT_CLAIM_FIXTURE.read_text(encoding="utf-8"))
+
+    assertions = adapt_claim_extractor_snapshot(fixture)
+
+    assert fixture["extractor_version"] == "claim_extraction_only:v9_talent_discovery"
+    assert fixture["database_import_performed"] is False
+    assert len(assertions) == 4
+    assert {row.qualifiers["focal_person_ref"] for row in assertions} == {"魏徵"}
+    assert {row.source_passage_ref for row in assertions} == {"PAS-1CD613D0DD2B"}
+    assert {row.extraction_provenance["legacy_claim_code"] for row in assertions} == {
+        "CLM-EFA22C92-WZ-001",
+        "CLM-EFA22C92-WZ-002",
+        "CLM-EFA22C92-WZ-003",
+        "CLM-EFA22C92-WZ-004",
+    }
 
 
 def test_roster_contract_keeps_supplement_and_refresh_opt_in(tmp_path: Path):

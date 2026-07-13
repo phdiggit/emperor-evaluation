@@ -123,7 +123,7 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 
 包 C 已增加持久化逐人物状态、服务响应 hash、变化 Episode 与 RuleEvidenceUnit 清单、慢通道 review job、原子 state 写入和故障后恢复。当前缓存无变化，因此服务调用、模型调用和数据库业务写入均为 0。
 
-包 D 的首个复用切片已抽出通用有限因子 scored-shadow 内核，`appointment_delegation` 与 `talent_discovery` 均通过薄规则配置使用同一校验、Judgment、ScoreContribution、lineage 和汇总职责链。`talent_discovery` 首批 4 个 gold case 中，陈平生成 1 个 positive shadow contribution；魏徵因发现链三项直接证据缺失而阻断；韩信齐王授权与蓝玉晋升只作规则排除上下文。跨规则审计明确将 `appointment_delegation` 标为 supporting-only，不重复结算职位适配、授权质量或后续战果。
+包 D 的首个复用切片已抽出通用有限因子 scored-shadow 内核，`appointment_delegation` 与 `talent_discovery` 均通过薄规则配置使用同一校验、Judgment、ScoreContribution、lineage 和汇总职责链。V4 Claim Extractor `claim_extraction_only:v9_talent_discovery` 已从缓存史料为魏徵补抽旧阵营、识才依据、跨障碍和转化任用 4 条 Claim，并通过既有 adapter 形成 Assertion；陈平和魏徵各生成 1 个 positive shadow contribution，韩信齐王授权与蓝玉晋升只作规则排除上下文。跨规则审计明确将 `appointment_delegation` 标为 supporting-only，不重复结算职位适配、授权质量或后续战果。
 
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 

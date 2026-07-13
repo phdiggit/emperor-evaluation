@@ -172,19 +172,24 @@ def test_talent_discovery_reuses_scored_shadow_vertical_slice(
 
     assert report["status"] == "talent_discovery_scored_shadow_ready"
     assert report["summary"]["rule_evidence_unit_count"] == 4
-    assert report["summary"]["score_contribution_count"] == 1
-    assert report["summary"]["blocked_unit_count"] == 1
+    assert report["summary"]["score_contribution_count"] == 2
+    assert report["summary"]["blocked_unit_count"] == 0
     assert report["summary"]["duplicate_consumption_episode_refs"] == []
     by_person = {row["person"]: row for row in report["judgments"]}
     assert by_person["陈平"]["direction"] == "positive"
-    assert by_person["魏徵"]["applicability"] == "blocked_evidence"
+    assert by_person["魏徵"]["direction"] == "positive"
     assert by_person["韩信"]["direction"] == "neutral_context"
     assert by_person["蓝玉"]["direction"] == "neutral_context"
-    contribution = report["score_contributions"][0]
-    assert contribution["person"] == "陈平"
-    assert contribution["primary_settlement_rule"] == "talent_discovery"
-    assert contribution["supporting_only_rules"] == ["appointment_delegation"]
-    assert contribution["duplicate_settlement_check"] == "passed"
+    assert {row["person"] for row in report["score_contributions"]} == {
+        "陈平",
+        "魏徵",
+    }
+    assert all(
+        row["primary_settlement_rule"] == "talent_discovery"
+        and row["supporting_only_rules"] == ["appointment_delegation"]
+        and row["duplicate_settlement_check"] == "passed"
+        for row in report["score_contributions"]
+    )
 
     output = tmp_path / "talent-report.json"
     monkeypatch.setattr(

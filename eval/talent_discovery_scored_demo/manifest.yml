@@ -19,6 +19,9 @@ frozen_basis:
     - path: eval/episode_pilot_v1_oracle_assisted_acceptance.json
       role: episode_snapshot
       sha256: a1c88148bc1d1bd502a112638fef827a8f006b95e651da8c51629af50ae87220
+    - path: tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json
+      role: supplemental_claim_snapshot
+      sha256: 045780b7fdfdb85d570fb05d465702ee76bd657c4f7f7307df367fdc96250bea
 runtime_policy:
   mode: offline_report_only_shadow
   model_calls_allowed: false
@@ -44,10 +47,22 @@ source_passages:
     url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7132
 
 assertions:
-  - assertion_ref: CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001
+  - assertion_ref: CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001
     source_passage_ref: PAS-1CD613D0DD2B
-    summary: 李世民擢拜魏徵为谏议大夫。
-    confidence: 0.95
+    summary: 魏徵先后隶属窦建德和隐太子李建成，并分别被署为起居舍人、引为直洗马。
+    confidence: 0.98
+  - assertion_ref: CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002
+    source_passage_ref: PAS-1CD613D0DD2B
+    summary: 魏徵在太宗召见时直陈太子若听从其言便不会有今日之祸，太宗因此素器其才。
+    confidence: 0.94
+  - assertion_ref: CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003
+    source_passage_ref: PAS-1CD613D0DD2B
+    summary: 太宗明知魏徵曾离间兄弟、属于东宫旧属，仍召见并决定纳入自己的用人体系。
+    confidence: 0.97
+  - assertion_ref: CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004
+    source_passage_ref: PAS-1CD613D0DD2B
+    summary: 太宗将魏徵引为詹事主簿，继而擢拜谏议大夫。
+    confidence: 0.99
   - assertion_ref: CLMEXT-9AA66020C316DC71@CLM-CP-001
     source_passage_ref: PAS-5ACCDE1FA44F
     summary: 陈平归汉后遭诸将诋毁，刘邦复核后仍予任用。
@@ -82,7 +97,11 @@ historical_episodes:
     responsibility: 谏议大夫、河北安辑与谏诤
     outcome: 持续采用其专业意见并形成可见反馈
     semantic_fingerprint: 25f7fdf274ed2124a0734dd49bca438327b294b66b490c682df420dcb07e8c63
-    assertion_refs: [CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001]
+    assertion_refs:
+      - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001
+      - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002
+      - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003
+      - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004
   - episode_ref: EP-LB-CHENPING-INTEGRATION@v1
     episode_code: EP-LB-CHENPING-INTEGRATION
     ruler: 刘邦
@@ -149,21 +168,25 @@ rule_evidence_units:
     episode_refs: [EP-LSM-WEIZHENG-APPOINTMENT@v1]
     factor_observations:
       recognition_novelty:
-        value: evidence_gap
-        reason: 当前 Assertion 只直接证明擢拜，未证明魏徵此前不在李世民核心视野。
-        assertion_refs: []
+        value: positive_signal
+        reason: 魏徵原属窦建德和李建成任用体系，随后正式进入李世民核心用人体系；进入有效人才池不要求此前完全不认识。
+        assertion_refs:
+          - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001
+          - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004
       recognition_basis:
-        value: evidence_gap
-        reason: 当前 Assertion 未直接给出擢拜前的识才依据，不能用后续纳谏表现倒推。
-        assertion_refs: []
+        value: positive_signal
+        reason: 李世民在召见和听取魏徵当面直陈后素器其才，依据发生在正式擢拜前，不使用后续名声倒推。
+        assertion_refs: [CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-002]
       barrier_crossing:
-        value: evidence_gap
-        reason: 现有 Assertion 未直接承载旧阵营身份及李世民跨越该障碍的判断链。
-        assertion_refs: []
+        value: positive_signal
+        reason: 李世民明知魏徵是曾参与兄弟冲突的东宫旧属，仍召见并纳入用人体系。
+        assertion_refs:
+          - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001
+          - CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-003
       conversion_to_use:
         value: positive_signal
-        reason: 擢拜谏议大夫直接证明识别若成立则已转化为任用。
-        assertion_refs: [CLMEXT-5211C24C162AB106@CLM-EP-LSM-WEIZHENG-APPOINTMENT-001]
+        reason: 引为詹事主簿并擢拜谏议大夫，证明识别已转化为实际任用。
+        assertion_refs: [CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-004]
   - unit_ref: REU-LB-HANXIN-QI-DISCOVERY-EXCLUDED-v1
     rule_code: talent_discovery
     ruler: 刘邦
