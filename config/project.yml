@@ -4,7 +4,7 @@ project:
   name: 皇帝综合评价体系
   generation: v4
   timezone: Asia/Shanghai
-  phase: g2_6k0_episode_boundary_qualified_relation_s4_blocked
+  phase: g2_6k0_relation_gold_v2_frozen_relation_s4_blocked
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
 
@@ -43,9 +43,13 @@ milestones:
   g2_6j_next_gate: g2_6k0_source_segmentation_development_qualification
   g2_6j_contract_basis: assertion_extraction_v2_boundary_review_v2_8
   g2_6j_contract_status: evaluated_holdout_failed_qualification
-  g2_6k0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10
-  g2_6k0_status: episode_boundary_qualified_relation_s4_blocked
+  g2_6k0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10_relation_policy_v2_relation_gold_v2
+  g2_6k0_status: relation_gold_v2_frozen_relation_s4_blocked
   g2_6k0_development_sets: g2_6i_and_g2_6j
+  g2_6k0_relation_review: independent_cross_review_unit_v2_complete
+  g2_6k0_relation_gold_audit: original_gold_invalidated_relation_gold_v2_frozen
+  g2_6k0_rule_gold: stale_after_relation_gold_v2_refreeze_blocked_until_s4_passes
+  g2_6k0_next_gate: relation_evidence_and_dual_review_agreement_protocol
   g2_6k0_new_blind_holdout_authorized: false
   g3_episode_graph_registry: blocked_by_g2_6k0
   postgresql_g3_authorized: false

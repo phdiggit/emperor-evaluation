@@ -1,6 +1,6 @@
 schema_version: 1
 status_code: episode_pilot_v1_status
-as_of_commit_basis: fb68ad65a94fe5823968606db80a4cbd86cb254b
+as_of_commit_basis: 14ff64f14bd2ec21dcb4ffe7ffc38b50091578ff
 
 milestones:
   M1_HistoricalEpisode_Kernel: conditional_pass
@@ -21,8 +21,11 @@ milestones:
   G2_6J_next_gate: g2_6k0_source_segmentation_development_qualification
   G2_6J_contract_basis: assertion_extraction_v2_boundary_review_v2_8
   G2_6J_contract_status: evaluated_holdout_failed_qualification
-  G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10
-  G2_6K0_source_development: episode_boundary_qualified_relation_s4_blocked
+  G2_6K0_contract_basis: source_cache_v2_assertion_extraction_v2_boundary_policy_v2_10_relation_policy_v2_relation_gold_v2
+  G2_6K0_source_development: relation_gold_v2_frozen_relation_s4_blocked
+  G2_6K0_relation_review: independent_cross_review_unit_v2_complete
+  G2_6K0_relation_gold_audit: original_gold_invalidated_relation_gold_v2_frozen
+  G2_6K0_rule_gold: stale_after_relation_gold_v2_refreeze_blocked_until_s4_passes
   G2_6K0_new_blind_holdout_authorized: false
   G3_PostgreSQL: blocked_by_g2_6K0
 
@@ -104,12 +107,19 @@ qualification:
     - g2_6k0_g2_6i_episode_recall_precision_1_0
     - g2_6k0_g2_6j_episode_recall_0_875_precision_0_9333
     - g2_6k0_i_j_zero_catastrophic_cross_ruler_lineage_loss
+    - g2_6k0_independent_cross_review_unit_relation_review
+    - g2_6k0_relation_pair_disposition_254_of_254_zero_unresolved
+    - g2_6k0_relation_semantic_policy_v2
+    - g2_6k0_relation_gold_ontology_audit_without_candidate_or_score
+    - g2_6k0_relation_gold_v2_mechanical_revision
   not_validated:
     - blind_reconciliation
     - independent_canonical_identity_acceptance
   failed:
-    - g2_6k0_g2_6i_strict_relation_precision_0_2083_recall_0_2174
-    - g2_6k0_g2_6j_strict_relation_precision_0_4_recall_0_25
+    - g2_6k0_original_relation_gold_i_precision_0_2083_recall_0_2174
+    - g2_6k0_original_relation_gold_j_precision_0_4_recall_0_25
+    - g2_6k0_relation_gold_v2_i_precision_0_5_recall_0_7333
+    - g2_6k0_relation_gold_v2_j_precision_0_4_recall_0_25
     - g2_6e_exact_episode_recall_0_6111_below_0_85
     - g2_6e_exact_candidate_precision_0_7857_below_0_90
     - g2_6e_catastrophic_wrong_merge_count_5
@@ -146,6 +156,6 @@ safety:
   postgresql_g3_authorized: false
 
 next_gate:
-  code: G2_6K0_relation_graph_qualification
-  status: episode_boundary_qualified_relation_s4_blocked
-  required_outcome: 建立独立的跨 ReviewUnit EpisodeRelation reconciliation/review，达到 strict precision 0.90、recall 0.85；S4 通过前不消费 Rule Gold、不新建 blind holdout、不进入 PostgreSQL G3
+  code: G2_6K0_relation_evidence_protocol
+  status: relation_gold_v2_frozen_relation_s4_blocked
+  required_outcome: 建立小型 relation-specific evidence 与双审一致性协议，在 Relation Gold v2 上稳定区分直接边、负例和最小图；不得按 pair 启动 policy v3 追分。S4 达到 strict precision 0.90、recall 0.85 前不重冻 Rule Gold、不新建 blind holdout、不进入 PostgreSQL G3

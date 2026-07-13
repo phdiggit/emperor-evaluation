@@ -9,7 +9,7 @@ V4 的核心改变是：
 ## 当前状态
 
 - 分支：`retrieval-v4-event-first`
-- 阶段：G2.6K0 开放开发资格；I/J 已通过 S1—S3，Relation/S4 阻断
+- 阶段：G2.6K0 开放开发资格；Relation Gold v2 已冻结，Relation/S4 仍阻断
 - 试点：李世民、刘邦、朱元璋
 - 首条纵向切片：第五项 B“用人与授权”中的 `appointment_delegation`
 - 模式：`offline-first + report-only + shadow`
@@ -22,7 +22,9 @@ V4 的核心改变是：
 
 G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 singleton Gold Episode 达到 exact recall/precision 100%，但 31/38 passage 因缺主体/动作而只能作为 context，pairwise merge/split 无样本，2 条 candidate relation 均无 Gold 对应，且没有合格 `appointment_delegation` rule unit。该结果不能解释为 G2.6 通过。
 
-当前已进入 G2.6K0，而不是继续制造新 blind holdout。Source Cache v2、section-aware deterministic slicer、S1—S5 机械早停和 8 场景离线 protocol smoke 已落地。I/J 的 source-v2 开发输入均通过 S1/S2。Boundary policy v2.10 修复跨 focal 硬分区后，I 的开放开发 episode recall/precision 为 100%/100%，J 为 87.5%/93.33%；两组均无灾难性合并、跨皇帝污染或 lineage 丢失，达到 S3 门槛。S4 严格关系 precision/recall 仅为 I 20.83%/21.74%、J 40%/25%，因此机械早停在 Relation graph；已冻结 Rule Gold 不被用于放行。PostgreSQL G3 和新 blind holdout 继续阻断。
+当前已进入 G2.6K0，而不是继续制造新 blind holdout。Source Cache v2、section-aware deterministic slicer、S1—S5 机械早停和 8 场景离线 protocol smoke 已落地。I/J 的 source-v2 开发输入均通过 S1/S2。Boundary policy v2.10 后，I 的开放开发 episode recall/precision 为 100%/100%，J 为 87.5%/93.33%；两组均无灾难性合并、跨皇帝污染或 lineage 丢失，达到 S3 门槛。
+
+S4 已新增独立的跨 Boundary ReviewUnit Relation review，254 个 Episode pair 全部处置且 0 未决。Relation semantic policy v2 固化了类型优先级、方向和最小图原则。随后独立 Gold ontology audit 在不读取 candidate/review/score 的条件下发现：I 原 23 条 Gold Relation 中仅 13 条原样成立、2 条应改类型、8 条不是直接关系；J 的 8 条中 5 条原样成立、3 条应改类型。机械生成的 Relation Gold v2 分别含 15 条和 8 条关系。对该 v2 Gold 的唯一重评分为 I 50%/73.33%、J 40%/25%（strict precision/recall），仍未达到 90%/85%。S4 因而继续失败，旧 Rule Gold 不再具备当前 Relation ontology 下的资格效力；PostgreSQL G3 和新 blind holdout 继续阻断。
 
 ## 文件树
 
@@ -106,7 +108,7 @@ G2.6E、G2.6G、G2.6H、G2.6I 与 G2.6J 均已失败冻结。G2.6J 对 7 个 sin
 - qualification：`oracle_assisted_constructability_passed`
 - `G2 Assertion & Episode`：`reopen_required`
 - blind reconciliation：`open_development_regression_no_new_blind_authorized`
-- G2.6K0 开放开发资格：`episode_boundary_qualified_relation_s4_blocked`
+- G2.6K0 开放开发资格：`relation_gold_v2_frozen_relation_s4_blocked`
 - G3 Episode Graph PostgreSQL：`blocked_by_g2_6k0`
 
 进入 G3 前必须满足：

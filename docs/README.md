@@ -2,7 +2,7 @@
 
 `docs/` 是 V4 当前规则、架构、契约和验收门禁的事实层。当前已有离线 HistoricalEpisode Kernel 原型、轻量测试和 Oracle-assisted 试点评估；仍没有数据库 Schema、worker 或 scorer。
 
-当前实现状态为 `M1 conditional_pass / G2.6J failed_closed / G2.6K0 S4 blocked`。G2.6K0 已建立 Source Cache v2、确定性 section-aware slicer、S1—S5 机械早停和 8 场景 protocol smoke；I/J 的开放开发输入已通过 S1/S2，Boundary policy v2.10 后也达到 S3 episode 门槛。当前阻断是 S4 Relation graph 的严格 precision/recall，而不是 SourcePassage 或 Episode 边界。新 blind holdout 与 PostgreSQL G3 仍未授权。
+当前实现状态为 `M1 conditional_pass / G2.6J failed_closed / G2.6K0 S4 blocked`。G2.6K0 已建立 Source Cache v2、确定性 section-aware slicer、S1—S5 机械早停和 8 场景 protocol smoke；I/J 的开放开发输入已通过 S1/S2，Boundary policy v2.10 后也达到 S3 episode 门槛。独立 Relation review 与 Relation Gold ontology audit v2 已完成；修订后的开发 Gold 下，I/J strict precision/recall 分别为 50%/73.33% 和 40%/25%，仍未通过 S4。旧 Rule Gold 不再用于当前 Relation ontology 放行。新 blind holdout 与 PostgreSQL G3 仍未授权。
 
 ## 文档状态
 
