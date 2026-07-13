@@ -1235,6 +1235,8 @@ def test_codex_claim_provider_prompt_and_parser_stay_inside_v2_contract() -> Non
     assert "不可信史料文本" in prompt
     assert "只在 purpose 和 required_chains 范围内" in prompt
     assert "必须保留 passage 原文表面形式" in prompt
+    assert "保留关系双方" in prompt
+    assert "相同 assertion_semantic_key 和 equivalent_evidence" in prompt
     assert "Judgment" in prompt and "ScoreContribution" in prompt
     batch = parse_codex_claim_output({
         "assertions": [{

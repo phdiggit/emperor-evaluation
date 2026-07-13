@@ -87,6 +87,7 @@ def ensure_claim_extraction(
         raise ValueError("Claim Extractor 不得以空 Assertion 集合伪装成功")
     passage_refs = {str(row.get("passage_id") or row.get("passage_code")) for row in request.passages}
     assertion_codes: set[str] = set()
+    semantic_rows: dict[tuple[str, str, str], list[AssertionDraft]] = {}
     for assertion in batch.assertions:
         if assertion.assertion_code in assertion_codes:
             raise ValueError("Claim Extractor assertion_code 重复")
@@ -95,6 +96,16 @@ def ensure_claim_extraction(
             raise ValueError("Claim Extractor Assertion 越出请求 passages")
         if assertion.passage_support is None:
             raise ValueError("v2 Claim Extractor Assertion 缺少 PassageSupport")
+        semantic_rows.setdefault(
+            (assertion.subject, assertion.predicate, assertion.object), []
+        ).append(assertion)
+    for semantic, items in semantic_rows.items():
+        if len(items) <= 1:
+            continue
+        support_keys = {item.passage_support.assertion_semantic_key for item in items}
+        support_modes = {item.passage_support.support_mode for item in items}
+        if len(support_keys) != 1 or support_modes != {"equivalent_evidence"}:
+            raise ValueError(f"重复语义必须声明共享 equivalent_evidence: {semantic}")
     assertion_payloads = [asdict(item) for item in batch.assertions]
     response = {
         "contract": ASSERTION_EXTRACTION_CONTRACT_V2,

@@ -2561,3 +2561,32 @@ def test_claim_extractor_v2_rejects_missing_passage_support() -> None:
 
     with pytest.raises(ValueError, match="缺少 PassageSupport"):
         ensure_claim_extraction(request, profile=profile, provider=LegacyProvider(), repository=InMemoryClaimExtractionRepository(), service_release_sha="b" * 40)
+
+
+def test_claim_extractor_v2_rejects_unmarked_duplicate_semantics() -> None:
+    import json
+    from dataclasses import replace
+    from pathlib import Path
+
+    import pytest
+
+    from emperor_v4.adapters.claim_extraction_profile import load_claim_extraction_profile
+    from emperor_v4.adapters.claim_extractor_frozen import FrozenClaimExtractionProvider
+    from emperor_v4.application.claim_extractor_service import ClaimExtractionBatch, ensure_claim_extraction
+    from emperor_v4.persistence.claim_extractor import InMemoryClaimExtractionRepository
+    from emperor_v4.runtime.claim_extractor import request_from_frozen_snapshot
+
+    root = Path(__file__).parents[1]
+    snapshot_path = root / "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json"
+    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    request = request_from_frozen_snapshot(snapshot, profile_code="talent_discovery_chain_v1", request_id="REQ-DUP", idempotency_key="KEY-DUP", requested_at="NOW")
+    profile = load_claim_extraction_profile(root / "config/claim-extraction-profiles.yml", request.profile_code)
+    first = FrozenClaimExtractionProvider(snapshot_path).extract({"passages": list(request.passages)}).assertions[0]
+    duplicate = replace(first, assertion_code="A-DUPLICATE")
+
+    class DuplicateProvider:
+        def extract(self, _payload):
+            return ClaimExtractionBatch((first, duplicate), "duplicate", 0)
+
+    with pytest.raises(ValueError, match="共享 equivalent_evidence"):
+        ensure_claim_extraction(request, profile=profile, provider=DuplicateProvider(), repository=InMemoryClaimExtractionRepository(), service_release_sha="d" * 40)
