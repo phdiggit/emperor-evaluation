@@ -104,19 +104,22 @@ v4_service_evidence:
   source_cache_postgres_migration_applied: false
 
 v4_service_source_governance:
-  status: source_cache_runtime_gate_passed
+  status: claim_extractor_profile_frozen_shadow_passed
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
   deployed_runtime_still_uses_transitional_source: true
   whole_service_branch_merge_forbidden: true
   source_cache_contract: source-cache-contract-v2
   claim_extraction_contract: assertion-extraction-contract-v2
+  claim_extraction_profile: talent_discovery_chain_v1
+  claim_extractor_frozen_shadow_claim_count: 4
+  claim_extractor_frozen_shadow_assertion_count: 4
   migration_order:
     - shared_runtime_and_release_skeleton
     - source_cache
     - claim_extraction
     - immutable_deployment_cutover
-  next_gate: claim_extractor_selective_migration_shadow
+  next_gate: claim_extractor_v2_application_job_release
 
 talent_discovery_roster_evidence:
   roster_people: 4

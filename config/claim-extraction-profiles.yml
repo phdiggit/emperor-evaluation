@@ -1,0 +1,24 @@
+schema_version: 1
+contract: assertion-extraction-profile-v1
+profiles:
+  political_action_atomic_v1:
+    output_contract: assertion-extraction-contract-v2
+    purpose: 从已接受 passage 抽取可复核的原子政治行动事实
+    required_chains: []
+    prohibitions:
+      - 不做规则路由、factor 判断或评分
+      - 不使用模型记忆补写原文未支持的事实
+      - 每条事实必须绑定唯一 passage support
+  talent_discovery_chain_v1:
+    output_contract: assertion-extraction-contract-v2
+    purpose: 抽取人才发现链中可独立复核的事实环节
+    required_chains:
+      - 进入统治者有效人才池前的阵营、身份或任用关系
+      - 统治者在任用前识别其才能的当时依据
+      - 统治者明知阵营、身份、派系或偏见障碍仍完成引入或拔擢
+      - 识别转化为实际任用
+    prohibitions:
+      - 不要求统治者此前从未听说该人物
+      - 不用任职后的成就、纳谏或历史名声倒推任用前识才
+      - 缺少环节时只抽原文直接支持的部分并声明 coverage gap
+      - 不做规则路由、factor 判断或评分

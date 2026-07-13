@@ -116,6 +116,14 @@ v4_service_source_governance:
   accepted_contracts:
     source_cache: source-cache-contract-v2
     claim_extraction: assertion-extraction-contract-v2
+    claim_extraction_profile: assertion-extraction-profile-v1
+  claim_extractor_first_slice:
+    profile: talent_discovery_chain_v1
+    frozen_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
+    frozen_claim_count: 4
+    frozen_assertion_count: 4
+    model_call_count: 0
+    database_write_count: 0
   transitional_nonconformance:
     - rule_code_driven_claim_prompt_must_become_versioned_extraction_profile
     - retrieval_v3_runtime_names_must_be_removed_at_cutover

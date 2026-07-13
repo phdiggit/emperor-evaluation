@@ -1191,3 +1191,28 @@ def test_wikisource_snapshot_rejects_tampered_content_hash():
 
     with pytest.raises(ValueError, match="content_hash"):
         replace(snapshot, content_hash="0" * 64)
+def test_claim_extraction_profiles_replace_rule_code_prompt_branching() -> None:
+    from pathlib import Path
+
+    from emperor_v4.adapters.claim_extraction_profile import (
+        load_claim_extraction_profile,
+        render_claim_extraction_request,
+    )
+
+    profiles = Path(__file__).parents[1] / "config/claim-extraction-profiles.yml"
+    talent = load_claim_extraction_profile(profiles, "talent_discovery_chain_v1")
+    base = load_claim_extraction_profile(profiles, "political_action_atomic_v1")
+    passage = ({"passage_id": "SP-1", "raw_text": "太宗召徵，未幾，擢授諫議大夫。"},)
+    talent_request = render_claim_extraction_request(
+        profile=talent, subject={"person_ref": "PER-WEIZHENG"}, passages=passage,
+    )
+    base_request = render_claim_extraction_request(
+        profile=base, subject={"person_ref": "PER-WEIZHENG"}, passages=passage,
+    )
+
+    assert talent.output_contract == "assertion-extraction-contract-v2"
+    assert len(talent.required_chains) == 4
+    assert any("纳谏" in item and "倒推" in item for item in talent.prohibitions)
+    assert base.required_chains == ()
+    assert talent_request["input_fingerprint"] != base_request["input_fingerprint"]
+    assert "rule_code" not in talent_request
