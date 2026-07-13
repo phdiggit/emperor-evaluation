@@ -1,8 +1,8 @@
 schema_version: 1
 plan_code: g2_6j_graph_blind_v1
-status: passage_support_frozen_strict_input_pending
+status: strict_input_frozen_independent_episode_reviews_pending
 source_snapshot_frozen_at: 2026-07-13
-contract_basis_commit: adab783470c836d916c00696eb25390e285e4e27
+contract_basis_commit: 3323b407d23853af2d5770eb4edeb4701e646d75
 
 source_snapshot:
   path: eval/g2_6j_graph_blind_v1/source_claim_snapshot.json
@@ -46,9 +46,15 @@ passage_support_freeze:
     - 逐事件修改领域代码或输入以贴合预期边界
 
 strict_input:
-  status: ready_to_materialize_from_frozen_support
+  status: frozen_before_episode_review
   path: eval/g2_6j_graph_blind_v1/input.json
+  file_sha256: f9d62849082480af705dcfa2643e800063ce272d5d7ca3f757925a189ca509d9
+  canonical_payload_sha256: 8372a670036e142c001e420bfbcb13c9c942c00f905d58a29b9403c2220fe5c9
   required_contract: passage-scoped-assertion-v2
+  assertion_count: 38
+  source_passage_count: 38
+  atomic_component_count: 7
+  context_only_count: 31
   forbidden_fields:
     - episode_code
     - gold boundary
@@ -58,12 +64,31 @@ strict_input:
     - acceptance decision
     - gold linkage
 
+review_requests:
+  status: frozen_before_independent_episode_reviews
+  path: eval/g2_6j_graph_blind_v1/review_requests.json
+  file_sha256: 99ff83d6e0d8997e7cb11944dad804d0e868162ba071cceb8613f88efd858838
+  canonical_payload_sha256: 08caa5cbdd80edfc2648c845b9f249a4bb2c555557a66212203d48b73ce1df70
+  proposition_cluster_count: 38
+  review_unit_count: 16
+  model_call_budget_before_fast_path: 16
+  boundary_policy_version: episode-boundary-policy-v2.7
+  output_schema_version: episode-boundary-review-v2.7
+  candidate_episode_generated: false
+
+preflight_contract_corrections:
+  performed_before_episode_review_or_candidate_generation: true
+  corrections:
+    - passage_scoped_proposition_clusters_use_claim_local_semantic_key
+    - context_only_assertions_rejected_from_episode_core
+  gold_or_candidate_observed: false
+
 independent_freezes:
   boundary_review:
-    status: blocked_by_strict_input_freeze
+    status: ready_for_isolated_review
     output_path: eval/g2_6j_graph_blind_v1/boundary_review.yml
   historical_gold:
-    status: blocked_by_strict_input_freeze
+    status: ready_for_isolated_freeze
     output_path: eval/g2_6j_graph_blind_v1/historical_gold.yml
   rule_gold:
     status: blocked_by_historical_gold_freeze
