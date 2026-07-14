@@ -19,7 +19,8 @@ def build_codex_claim_prompt(request_payload: Mapping[str, Any]) -> str:
         "required_chains 是检查清单，不是补写许可；原文不支持的环节写入 coverage_gaps。若全部 passage 都没有范围内事实，assertions 可为空，但 coverage_gaps 必须解释原因。prohibitions 必须逐项遵守。\n"
         "只在 purpose 和 required_chains 范围内逐段检查全部直接支持的独立事实，不得为压缩数量只选代表项；范围外背景不得输出。\n"
         "subject/predicate/object 使用原文可复核的简洁表述。核心事实 supported_fields 至少包含 identity 和 action。\n"
-        "qualifiers 只填写 schema 允许且原文直接支持的结构字段；不得把推断结论塞入 qualifiers。\n"
+        "qualifiers 只填写 schema 允许且原文直接支持的历史字段；皇帝上下文、焦点人物、候选角色和持久化 ID 由服务端根据可信请求补入，不得自行猜测。\n"
+        "assertion_code 只是可选的本次输出行标签，不是稳定身份；可以省略，服务端会生成持久化 ID。\n"
         "只有输入 subject 或 aliases 显式授权的名称才可规范化；其他人物称谓必须保留 passage 原文表面形式，并在 ambiguity_flags 标记待身份解析。\n"
         "阵营、身份或任用关系必须在 subject/predicate/object 中保留关系双方；不得把任用方省略成无主体的被动任职。\n"
         "重叠 passages 支持同一语义时，应为每个 passage 输出一条 Assertion，使用相同 assertion_semantic_key 和 equivalent_evidence；不得当作两个独立事实。\n"
@@ -42,10 +43,13 @@ def parse_codex_claim_output(
     provider_metadata: Mapping[str, Any] | None = None,
 ) -> ClaimExtractionBatch:
     assertions = []
-    for row in payload.get("assertions") or ():
+    for index, row in enumerate(payload.get("assertions") or (), start=1):
         support = row.get("passage_support") or {}
+        provider_row_code = str(
+            row.get("assertion_code") or f"provider-row-{index:04d}"
+        )
         assertion = AssertionDraft(
-            assertion_code=str(row.get("assertion_code") or ""),
+            assertion_code=provider_row_code,
             source_passage_ref=str(row.get("source_passage_ref") or ""),
             assertion_type=str(row.get("assertion_type") or ""),
             subject=str(row.get("subject") or ""),
