@@ -258,10 +258,10 @@ def test_claim_service_replaces_provider_ids_and_adds_trusted_routing() -> None:
     )
     assert third["qualifiers"]["evaluation_context"] == "李世民"
     assert third["qualifiers"]["focal_person_ref"] == "PER-WEIZHENG"
-    assert third["qualifiers"]["candidate_participant_roles"] == [
-        ["李世民", "ruler"],
-        ["PER-WEIZHENG", "focal_person"],
-    ]
+    assert third["qualifiers"]["candidate_participant_roles"] == (
+        ("李世民", "ruler"),
+        ("PER-WEIZHENG", "focal_person"),
+    )
 
 
 def test_codex_provider_rejects_oversized_prompt_before_process_start() -> None:
