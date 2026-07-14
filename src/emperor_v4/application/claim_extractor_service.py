@@ -94,7 +94,7 @@ def canonicalize_assertion_draft(assertion: AssertionDraft) -> AssertionDraft:
 def assertion_identity_payload(
     assertion: Mapping[str, Any],
 ) -> Mapping[str, Any]:
-    """数据库冲突比较忽略 provider/run provenance，只比较可核验事实。"""
+    """数据库冲突比较忽略模型置信度和运行 provenance，只比较事实。"""
 
     support = assertion.get("passage_support") or {}
     return {
@@ -108,9 +108,6 @@ def assertion_identity_payload(
         "location_expression": assertion.get("location_expression"),
         "qualifiers": assertion.get("qualifiers") or {},
         "polarity": assertion.get("polarity"),
-        "source_attribution": assertion.get("source_attribution") or {},
-        "confidence": assertion.get("confidence"),
-        "ambiguity_flags": assertion.get("ambiguity_flags") or [],
         "passage_support": {
             "support_mode": support.get("support_mode"),
             "assertion_semantic_key": support.get(
