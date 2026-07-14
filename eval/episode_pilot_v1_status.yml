@@ -106,7 +106,7 @@ v4_service_evidence:
   source_cache_postgres_migration_applied: true
 
 v4_service_source_governance:
-  status: v4_services_cutover_active_idle
+  status: first_real_service_job_passed_draft_only
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
   deployed_runtime_still_uses_transitional_source: false
@@ -149,13 +149,23 @@ v4_service_source_governance:
   v4_service_database_role: emperor_v4_service
   v4_service_schema_business_row_count_at_cutover: 0
   source_cache_server_cutover_performed: true
-  v4_service_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
-  v4_service_source_cache_archive_sha256: e2c06ccdcfdab9edb5f487c2f0de4676eb8570377aaf3330f1e6c2e0e6deef68
-  v4_service_claim_extractor_archive_sha256: 75f78d0d69e712708d2f3af9b2e6885df3de48007ede171592db6ad90e60e1fd
+  v4_service_release: 47de356cfcf0299c6c601e358190a0bc31460a68
+  v4_service_source_cache_archive_sha256: ab8d73005f6460946e5c83c7f608319d70f4767e4d38fdff196c28f2d0c994d0
+  v4_service_claim_extractor_archive_sha256: 9d0cb7c6adc7041f79ad4841fc769b6fe51b6792ba8158e8fd2f3aab0ed1091c
   v4_service_timers_enabled: true
   v4_service_last_tick_status: idle
+  source_cache_first_real_job_status: succeeded
+  source_cache_first_real_job_network_request_count: 1
+  source_cache_first_real_job_passage_count: 3
+  claim_extractor_first_real_job_status: succeeded
+  claim_extractor_first_real_job_assertion_draft_count: 7
+  claim_extractor_first_real_job_attempt_count: 2
+  claim_extractor_first_real_job_recovered_after_state_path_fix: true
+  claim_extractor_first_real_job_duplicate_enqueue_write_count: 0
+  claim_extractor_live_exact_shadow_tuple_overlap_count: 0
+  claim_extractor_live_formal_acceptance: false
   cutover_prerequisites_remaining: 0
-  next_gate: v4_service_first_real_job_observation
+  next_gate: team_building_scored_shadow_reuse
 
 talent_discovery_roster_evidence:
   roster_people: 4

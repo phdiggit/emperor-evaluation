@@ -85,7 +85,7 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
 
-配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 已完成服务器不可变 cutover。数据库复用早期 G3A 已创建的 `emperor_eval_v4`，保留既有 `public` 核心表，并新增隔离的 `v4_source_cache`、`v4_claim_extractor` schemas 与最小权限服务角色；不是另建第二个 V4 数据库。两个 systemd timer 已启用并连续返回结构化 `idle`，当前服务 schema 业务行数为 0，切换过程没有模型调用或正式 Assertion 写入。V3、正式评分和排名仍未改变；下一 Gate 是首条真实服务 job 的受控观察。
+配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 已完成服务器不可变 cutover，并通过首条真实服务 job 观察。数据库复用早期 G3A 已创建的 `emperor_eval_v4`；Source Cache 经 1 次 Wikisource 请求写入 1 个 document revision 和 3 个 passages，Claim 经状态目录权限修复后在第 2 次 attempt 生成 7 条 draft assertions。两项重复投递均为零写，最小权限服务角色无权写 `public` 正式表。Live drafts 与先前 shadow 覆盖相同七个事实概念，但措辞和 semantic key 不做字面复现，因此仍是 `passed_for_draft_only`，不自动成为正式 Assertion。两个 timer 保持启用，V3、正式评分和排名未改变；服务收口后回到 `team_building` scored shadow 复用。
 
 ## 核心阅读顺序
 

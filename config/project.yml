@@ -96,14 +96,14 @@ talent_discovery_roster_result:
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
-  claim_extractor_v4_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
+  claim_extractor_v4_release: 47de356cfcf0299c6c601e358190a0bc31460a68
   claim_extractor_v4_version: v4-claim-extractor-service:v1
-  source_cache_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
+  source_cache_release: 47de356cfcf0299c6c601e358190a0bc31460a68
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
 v4_service_source_governance:
-  status: v4_services_cutover_active_idle
+  status: first_real_service_job_passed_draft_only
   canonical_history: v4_current_git_history
   transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   migration_mode: contract_tested_selective_port
@@ -178,6 +178,21 @@ v4_service_source_governance:
     last_tick_status: idle
     formal_scoring_enabled: false
     next_gate: v4_service_first_real_job_observation
+  first_real_job_observation:
+    current_release: 47de356cfcf0299c6c601e358190a0bc31460a68
+    source_cache_status: succeeded
+    source_cache_network_request_count: 1
+    source_cache_passage_count: 3
+    source_cache_duplicate_enqueue_write_count: 0
+    claim_extractor_status: succeeded
+    claim_extractor_attempt_count: 2
+    claim_extractor_recovered_after_state_path_fix: true
+    claim_extractor_assertion_draft_count: 7
+    claim_extractor_duplicate_enqueue_write_count: 0
+    exact_prior_shadow_tuple_overlap_count: 0
+    formal_acceptance: false
+    public_write_privilege: false
+    next_gate: team_building_scored_shadow_reuse
   source_cache_first_slice:
     contract: source-cache-contract-v2
     release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
