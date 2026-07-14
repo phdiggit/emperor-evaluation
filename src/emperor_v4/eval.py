@@ -76,6 +76,9 @@ from emperor_v4.application.factor_observation_qualification_runner import (
     run_factor_observation_qualification_gold,
     run_factor_observation_worklist,
 )
+from emperor_v4.evaluation.factor_representativeness import (
+    evaluate_factor_representativeness_plan,
+)
 from emperor_v4.application.talent_discovery_shadow_runner import (
     run_talent_discovery_shadow,
 )
@@ -455,6 +458,11 @@ def _parser() -> argparse.ArgumentParser:
         default="open_development",
     )
     factor_gold.add_argument("--output", type=Path)
+    factor_representativeness = subparsers.add_parser(
+        "appointment-delegation-factor-representativeness"
+    )
+    factor_representativeness.add_argument("--manifest", type=Path, required=True)
+    factor_representativeness.add_argument("--output", type=Path)
     talent_shadow = subparsers.add_parser("talent-discovery-shadow")
     talent_shadow.add_argument("--manifest", type=Path, required=True)
     talent_shadow.add_argument("--output", type=Path)
@@ -638,6 +646,10 @@ def main() -> int:
             args.parity_gold_manifest,
             args.source_manifest,
             sample_role=args.sample_role,
+        )
+    elif args.command == "appointment-delegation-factor-representativeness":
+        report = evaluate_factor_representativeness_plan(
+            yaml.safe_load(args.manifest.read_text(encoding="utf-8"))
         )
     elif args.command == "talent-discovery-shadow":
         report = run_talent_discovery_shadow(args.manifest)

@@ -141,6 +141,8 @@ Factor Observation 资格 harness 已形成同一纵向链：从现有 V4 judge 
 
 房玄龄、李靖、萧何、徐达 sealed holdout 的 SourcePassage—Assertion—Episode—RuleEvidenceUnit、人工 Gold、盲评 worklist 和资格对照在模型运行前由 `3bfc9b6` 冻结。`codex-win` 随后只执行一次显式 `gpt-5.6-sol` 四单元盲评，权限继续禁止网络、数据库和 Git 读写；运行耗时 100.102 秒，消耗 input 22,685、cached input 0、output 3,467、reasoning output 553，总 token 26,152。结果为 25/30 精确，即 83.33%，低于 85% 门槛；5 个错误均为相邻档，归责 2 个、连续性 2 个、史源 1 个，决策状态 30/30、材料结构 4/4，且零危险强判、错误拒判、非相邻和方向错误。因此 `real_agent_qualified=false`。该 sealed holdout 已开封，禁止重跑、修改其 Gold 或据此降低门槛；后续只能在新开放样本上校准上述三类档位边界，再冻结策略并另建全新 sealed holdout。
 
+生产代表性不再以同一材料内的 6 个相关因子判断充当独立样本。`appointment_delegation_factor_representativeness_v1` 以 RuleEvidenceUnit 为统计单位，将现有 12 个已开封单元明确限定为回归证据，并规划 12 个新开放开发槽位和 8 个匿名 sealed 槽位。组合配额覆盖 7 个时代族、5 类角色、纯正向/纯负向/正负混合结构，以及普通直接归责、压力取舍、多主体归责、短期/稳定/跨阶段/缺失敏感连续性、完整/标准/压缩/多源/冲突史源和 coverage 难点。确定性报告显示结构配额无缺口，但 20 个新槽位尚未绑定人物、回源或建立 Gold，因此 `qualification_claim_allowed=false`。按当前四单元批次基线预计需 5 次模型调用、2 个并发波次、纯模型墙钟约 200.204 秒和约 130,760 token；人工史源与 Gold 审查不在估算内。
+
 离线史源缓存与 Claim 抽取现已纳入 V4 配套服务源码治理：活动实现最终必须与 V4 位于同一 Git 历史，并按 `contracts/adapters/application/persistence/runtime` 现有边界选择性迁入。当前 `e27bbff` release 仍是过渡分支上的可追溯构建，禁止整体 merge；迁入时把按 rule code 分支的提示策略改为版本化 extraction profile，并在冻结请求 shadow 对比后完成不可变部署切换。
 
 Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用既有 SourcePassage v2 与确定性切片器，新建通用 SourceRevision 合同、fixture provider、幂等 ensure 用例、shadow repository 和薄 runtime。固定 Wikisource revision `2020238` 首次生成 1 个不可变 document 与 3 个 passage；无变化重跑精确复用同一响应，provider、网络、模型和数据库调用均为 0。该结果只证明离线合同纵切，不等于真实 adapter 或服务器切换完成。

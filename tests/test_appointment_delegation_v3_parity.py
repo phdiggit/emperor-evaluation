@@ -29,6 +29,9 @@ from emperor_v4.evaluation.factor_observation_agent import (
     validate_factor_observation_response,
     validate_factor_observation_qualification_gold,
 )
+from emperor_v4.evaluation.factor_representativeness import (
+    evaluate_factor_representativeness_plan,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +46,9 @@ OPEN_DEVELOPMENT_DIR = (
 )
 SEALED_HOLDOUT_DIR = (
     ROOT / "eval" / "appointment_delegation_factor_sealed_holdout_v2"
+)
+REPRESENTATIVENESS_DIR = (
+    ROOT / "eval" / "appointment_delegation_factor_representativeness"
 )
 
 
@@ -719,6 +725,75 @@ def test_sealed_holdout_v2_freezes_gold_and_preserves_failed_qualification() -> 
             (SEALED_HOLDOUT_DIR / name).read_bytes()
         ).hexdigest()
         assert actual_hash == expected_hash
+
+
+def test_factor_representativeness_plan_counts_units_not_correlated_labels(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manifest = _yaml(REPRESENTATIVENESS_DIR / "manifest.yml")
+    report = evaluate_factor_representativeness_plan(manifest)
+    tracked_report = json.loads(
+        (REPRESENTATIVENESS_DIR / "report.json").read_text(encoding="utf-8")
+    )
+
+    assert report == tracked_report
+    assert report["status"] == "factor_representativeness_sampling_plan_ready"
+    assert report["summary"] == {
+        "portfolio_unit_count": 32,
+        "historical_opened_regression_unit_count": 12,
+        "new_independent_unit_count": 20,
+        "new_open_development_unit_count": 12,
+        "future_sealed_unit_count": 8,
+        "bound_candidate_count": 12,
+        "unbound_candidate_count": 20,
+        "sealed_identity_exposure_count": 0,
+        "missing_stratum_count": 0,
+    }
+    assert report["performance_estimate"] == {
+        "basis": "sealed_holdout_v2_observed_single_batch",
+        "units_per_call": 4,
+        "max_workers": 4,
+        "estimated_model_call_count": 5,
+        "estimated_parallel_wave_count": 2,
+        "estimated_model_wall_clock_sec": 200.204,
+        "estimated_total_tokens": 130760,
+        "human_source_and_gold_review_excluded": True,
+    }
+    assert report["missing_strata"] == []
+    assert report["candidate_sourcing_ready"] is False
+    assert report["qualification_claim_allowed"] is False
+
+    leaked = deepcopy(manifest)
+    sealed = next(
+        row for row in leaked["sample_entries"] if row["group"] == "future_sealed"
+    )
+    sealed["expected_factor_options"] = {"continuity_factor": "stable"}
+    with pytest.raises(ValueError, match="不得包含 Gold"):
+        evaluate_factor_representativeness_plan(leaked)
+
+    rebound = deepcopy(manifest)
+    planned = next(
+        row for row in rebound["sample_entries"] if row["slot_type"] == "planned_slot"
+    )
+    planned["candidate_identity"] = {"ruler_code": "X", "person_code": "Y"}
+    with pytest.raises(ValueError, match="不得预填候选身份"):
+        evaluate_factor_representativeness_plan(rebound)
+
+    cli_output = tmp_path / "representativeness.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "emperor-v4-eval",
+            "appointment-delegation-factor-representativeness",
+            "--manifest",
+            str(REPRESENTATIVENESS_DIR / "manifest.yml"),
+            "--output",
+            str(cli_output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(cli_output.read_text(encoding="utf-8")) == tracked_report
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(

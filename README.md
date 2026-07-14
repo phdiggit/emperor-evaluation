@@ -18,6 +18,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 模型固定复现：通过 `--respect-task-argv` 显式执行 `--model gpt-5.6-sol`，开发集为 20/30 精确，仍未达门槛；该复现不计为新资格盲评
 - 新开放开发集：马周、张良、刘基、李善长已形成 4 个 V4 RuleEvidenceUnit 和 5 条正负材料；coverage-aware 对照为 28/29 已决档位精确、1 次正确拒判、零危险强判/错误拒判/非相邻/方向错误，`codex-win` 单批耗时 67.729 秒、总 token 24,863；该结果只用于调校，`real_agent_qualified=false`
 - 封存资格集：房玄龄、李靖、萧何、徐达的 4 个评分单位已在 `3bfc9b6` 冻结后完成唯一一次盲评；25/30 档精确（83.33%）低于 85% 门槛，5 个偏差均为相邻档，决策状态、正负结构、方向与覆盖安全 Gate 全部通过；耗时 100.102 秒、总 token 26,152，未重跑且未回调 Gold/策略，`real_agent_qualified=false`
+- 生产代表性抽样：现有 12 个已开封单元仅作回归证据；新的确定性抽样合同按 RuleEvidenceUnit 而非相关因子标签计数，规划 12 个开放开发槽位和 8 个匿名 sealed 槽位，覆盖 7 个时代族及角色、正负结构、归责、连续性、史源和 coverage 难点；20 个槽位尚未绑定候选或回源，当前不得声称具有生产代表性
 - 通用证据覆盖 Gate：`appointment_delegation` 与 `talent_discovery` 共用 `rule-factor-evidence-coverage-v1`；开放快照允许直接正证据确认，但禁止以“未找到”强推一次性、从未发生等缺失敏感档位，覆盖不足必须退出为 `insufficient_coverage`
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
@@ -70,13 +71,14 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 ## 下一份可见成果
 
-V3 语义等价 scored shadow 和两轮开发集仍保留为回归证据。房玄龄、李靖、萧何、徐达 sealed holdout 已在人工 Gold 与 worklist 提交冻结后，由 `codex-win` 显式固定 `gpt-5.6-sol` 完成唯一一次四单元盲评。结果为 25/30 精确，距 85% 门槛差 1 个精确命中；5 个偏差全部相邻，集中在归责、连续性和史源档位。该密封集已经开封且未通过，禁止重跑或据此修改 Gold、当前 policy 和资格门槛。下一步是：
+V3 语义等价 scored shadow 和两轮开发集仍只作回归证据。生产代表性合同已把统计单位固定为 RuleEvidenceUnit，并形成 32 单元组合：12 个已开封回归单元、12 个新开放开发槽位和 8 个未来 sealed 槽位。新槽位覆盖既有集合完全缺失的朝代范围、纯负向材料、监督或非正式角色、压缩/多源/冲突史源、缺结果与覆盖不足场景；sealed 槽位只暴露结构配额，不暴露人物和预期档位。下一步是：
 
 1. 保持每批最多 4 个评分单元、批间最多 4 路并发，以墙钟耗时为主要性能目标并完整记录 token；
-2. 将本次 5 个相邻偏差作为已开封失败样本，重点校准 `direct`/`direct_under_pressure`、`stable`/`long_term_multi_stage` 和 `standard`/`complete_direct_chain` 的正证据边界；
-3. 只在新的开放开发样本上修改 guidance 或 policy，并以离线回归确认没有破坏覆盖门禁和既有精确项；不得用本 sealed Gold 做迭代训练集；
-4. 策略再次冻结后，另行预分人物并建立全新的 sealed holdout；仍按 `>= 85%` 已决档位精确率、`100%` 决策状态与材料侧结构、零错误强行落档、零错误拒绝、零方向错误和零非相邻错误资格测试；
-5. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；Claim 侧分片、结构化 gap 与 worker tier 不与本轮评分质量 Gate 混线。
+2. 先为 12 个开放开发槽位绑定候选人物和史料定位，经 V4 回源、最小充分 Episode 构单与人工结构审查后，再生成 Gold；V3 只能提供只读定位线索；
+3. 开放开发集重点校准 `direct`/`direct_under_pressure`、`stable`/`long_term_multi_stage` 和 `standard`/`complete_direct_chain`，同时验证新史源和负向结构没有引入新的系统误差；
+4. 开放候选与策略冻结后才为 8 个 sealed 槽位绑定不同人物；仍按 `>= 85%` 已决档位精确率、`100%` 决策状态与材料侧结构、零错误强行落档、零错误拒绝、零方向错误和零非相邻错误资格测试；
+5. 20 个新单元按每批 4 单元预计 5 次模型调用、最多 4 路并发和 2 个波次；当前观测基线估算纯模型墙钟约 200.204 秒、总 token 约 130,760，不包含人工回源和 Gold 审查；
+6. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
 
 在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
 
