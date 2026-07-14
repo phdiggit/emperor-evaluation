@@ -55,7 +55,6 @@ CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "src/emperor_v4/runtime/claim_extractor_model_shadow.py",
     "src/emperor_v4/runtime/release.py",
     "db/postgres/004_v4_claim_extractor_service.sql",
-    "db/postgres/005_v4_claim_extractor_result_status.sql",
     "deploy/v4/emperor-v4-claim-extractor-worker.service",
     "deploy/v4/emperor-v4-claim-extractor-worker.timer",
     "deploy/v4/claim-extractor.env.example",
