@@ -20,6 +20,7 @@ from emperor_v4.evaluation.appointment_delegation_v3_parity import (
 from emperor_v4.evaluation.factor_observation_agent import (
     AGENT_POLICY_VERSION,
     AGENT_POLICY_VERSION_V1,
+    AGENT_POLICY_VERSION_V2,
     build_factor_observation_batch_plan,
     build_factor_observation_qualification_gold,
     build_contract_fixture_response,
@@ -289,7 +290,7 @@ def test_factor_observation_worklist_reuses_v4_judge_without_exposing_gold() -> 
     )
 
 
-def test_factor_observation_policy_v2_freezes_calibrated_tier_boundaries() -> None:
+def test_factor_observation_policy_v3_freezes_calibrated_tier_boundaries() -> None:
     source = _yaml(SOURCE_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     catalog = worklist["factor_option_catalog"]
@@ -305,8 +306,16 @@ def test_factor_observation_policy_v2_freezes_calibrated_tier_boundaries() -> No
     assert "领域成果只作适配反馈，不在本规则重复结算" in catalog[
         "appointment_effect"
     ]["normal_success"]
-    assert "至少两个可区分阶段" in catalog["continuity_factor"][
+    assert "至少有两次可区分的皇帝授权" in catalog["continuity_factor"][
         "long_term_multi_stage"
+    ]
+    assert "至少有两个可区分" in catalog["continuity_factor"]["stable"]
+    assert "同一战役" in catalog["continuity_factor"]["long_term_multi_stage"]
+    assert worklist["factor_inference_policy"]["schema_version"] == (
+        "rule-factor-inference-policy-v3"
+    )
+    assert "stable" in worklist["factor_inference_policy"][
+        "continuity_positive_evidence_tests"
     ]
     assert "按声明边界判断" in catalog["source_factor"][
         "complete_direct_chain"
@@ -590,7 +599,9 @@ def test_open_development_v2_is_reproducible_and_keeps_one_safe_abstention() -> 
         )
     )
 
-    worklist = build_factor_observation_worklist(source)
+    worklist = build_factor_observation_worklist(
+        source, agent_policy_version=AGENT_POLICY_VERSION_V2
+    )
     assert worklist == tracked_worklist
     qualification_gold = build_factor_observation_qualification_gold(
         worklist, factor_gold, source, sample_role="open_development"
@@ -670,7 +681,9 @@ def test_sealed_holdout_v2_freezes_gold_and_preserves_failed_qualification() -> 
         )
     )
 
-    worklist = build_factor_observation_worklist(source)
+    worklist = build_factor_observation_worklist(
+        source, agent_policy_version=AGENT_POLICY_VERSION_V2
+    )
     assert worklist == tracked_worklist
     qualification_gold = build_factor_observation_qualification_gold(
         worklist, factor_gold, source, sample_role="sealed_holdout"
@@ -821,12 +834,12 @@ def test_stratified_open_development_v3_is_reproducible_before_factor_run() -> N
     assert sum(
         len(row["factor_materials"])
         for row in factor_gold["factor_judgment_proposals"]
-    ) == 17
+    ) == 16
     assert sum(
         len(material["factors"])
         for row in factor_gold["factor_judgment_proposals"]
         for material in row["factor_materials"]
-    ) == 102
+    ) == 96
 
     fixture = build_contract_fixture_response(worklist, factor_gold)
     report = evaluate_factor_observation_qualification(
@@ -834,7 +847,7 @@ def test_stratified_open_development_v3_is_reproducible_before_factor_run() -> N
     )
     assert report["threshold_passed"] is True
     assert report["real_agent_qualified"] is False
-    assert report["metrics"]["factor_comparison_count"] == 102
+    assert report["metrics"]["factor_comparison_count"] == 96
 
     source_review_hash = hashlib.sha256(
         (OPEN_DEVELOPMENT_V3_DIR / "source_review.json").read_bytes()

@@ -8,6 +8,12 @@ judgment_policy_version: appointment-delegation-v3-parity-judgment-v1
 scoring_formula_version: appointment-delegation-v3-density-decay-v1
 source_scored_manifest_path: source_manifest.yml
 calibration_scope: stratified_open_development_v4_units
+calibration_revision:
+  revision: 2
+  basis: post_replay_human_adjudication_on_open_development_only
+  changed_factor_count: 11
+  material_structure_changes:
+  - REU-QING-XUANYE-SHILANG-AUTHORITY-v1.merge_positive_authorization_arc
 gold_access_policy:
   visible_to_agent: false
   editable_after_agent_run: true
@@ -29,8 +35,8 @@ factor_judgment_proposals:
     side: negative
     factors:
       appointment_effect:
-        option_code: structural_continuing_damage
-        reason: 反馈显示损害跨出单次失误并持续影响制度、军政或社会
+        option_code: poor_result
+        reason: 授权形成明确负向反馈但未充分证明持续结构性损害
         assertion_refs: &id001
         - V4PROD32-SUI-YG-YSJ-001
         - V4PROD32-SUI-YG-YSJ-002
@@ -41,16 +47,16 @@ factor_judgment_proposals:
         reason: 职责直接关联国家级战略、中枢或长期结构
         assertion_refs: *id001
       attribution_factor:
-        option_code: direct
-        reason: 任命、授权或反馈处置可直接归责于皇帝
+        option_code: indirect
+        reason: 皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响
         assertion_refs: *id001
       context_factor:
         option_code: core_mechanism_direct
         reason: 材料直接展示任命、授权、反馈或纠错的核心机制
         assertion_refs: *id001
       continuity_factor:
-        option_code: stable
-        reason: 同一授权下存在持续履职、反馈或监督
+        option_code: short_or_one_off
+        reason: 本材料只有一次任务或一个授权阶段
         assertion_refs: *id001
       source_factor:
         option_code: complete_direct_chain
@@ -189,16 +195,16 @@ factor_judgment_proposals:
         reason: 任命、授权或反馈处置可直接归责于皇帝
         assertion_refs: *id005
       context_factor:
-        option_code: clear
-        reason: 任用、职责和结果与规则直接相关且边界基本清楚
+        option_code: core_mechanism_direct
+        reason: 材料直接展示任命、授权、反馈或纠错的核心机制
         assertion_refs: *id005
       continuity_factor:
         option_code: short_or_one_off
         reason: 本材料只有一次任务或一个授权阶段
         assertion_refs: *id005
       source_factor:
-        option_code: weak_or_compressed
-        reason: 关键任用、职责、反馈或因果环节存在压缩或间接表达
+        option_code: complete_direct_chain
+        reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
         assertion_refs: *id005
 - unit_ref: REU-YUAN-HUBILIE-BAYAN-AUTHORITY-v1
   proposal_status: human_reviewed_shadow
@@ -231,8 +237,8 @@ factor_judgment_proposals:
         reason: 材料直接展示任命、授权、反馈或纠错的核心机制
         assertion_refs: *id006
       continuity_factor:
-        option_code: short_or_one_off
-        reason: 本材料只有一次任务或一个授权阶段
+        option_code: long_term_multi_stage
+        reason: 材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段
         assertion_refs: *id006
       source_factor:
         option_code: complete_direct_chain
@@ -336,8 +342,8 @@ factor_judgment_proposals:
         reason: 材料直接展示任命、授权、反馈或纠错的核心机制
         assertion_refs: *id009
       continuity_factor:
-        option_code: short_or_one_off
-        reason: 本材料只有一次任务或一个授权阶段
+        option_code: stable
+        reason: 同一授权下存在持续履职、反馈或监督
         assertion_refs: *id009
       source_factor:
         option_code: complete_direct_chain
@@ -353,63 +359,35 @@ factor_judgment_proposals:
     event_group: EP-QING-XY-SL-01
     side: positive
     factors:
-      appointment_effect:
-        option_code: major_success
-        reason: 授权形成国家级、关键战役或显著结构性成果
+      appointment_importance:
+        option_code: critical_national_or_long_term
+        reason: 职责直接关联国家级战略、中枢或长期结构
         assertion_refs: &id010
         - V4PROD32-QING-XY-SL-001
         - V4PROD32-QING-XY-SL-002
         - V4PROD32-QING-XY-SL-003
-      appointment_importance:
-        option_code: critical_national_or_long_term
-        reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id010
-      attribution_factor:
-        option_code: direct_under_pressure
-        reason: 皇帝在明确反对、负面指控或现实约束下仍作关键取舍
-        assertion_refs: *id010
-      context_factor:
-        option_code: core_mechanism_direct
-        reason: 材料直接展示任命、授权、反馈或纠错的核心机制
-        assertion_refs: *id010
-      continuity_factor:
-        option_code: stable
-        reason: 同一授权下存在持续履职、反馈或监督
-        assertion_refs: *id010
-      source_factor:
-        option_code: complete_direct_chain
-        reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
-        assertion_refs: *id010
-  - material_code: MAT-QING-XY-SL-02
-    event_group: EP-QING-XY-SL-02
-    side: positive
-    factors:
-      appointment_effect:
-        option_code: normal_success
-        reason: 授权形成明确正向反馈但未达到重大结构性成果
-        assertion_refs: &id011
         - V4PROD32-QING-XY-SL-004
         - V4PROD32-QING-XY-SL-005
-      appointment_importance:
-        option_code: critical_national_or_long_term
-        reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id011
+      appointment_effect:
+        option_code: major_success
+        reason: 授权形成国家级、关键战役或显著结构性成果
+        assertion_refs: *id010
+      continuity_factor:
+        option_code: long_term_multi_stage
+        reason: 材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段
+        assertion_refs: *id010
       attribution_factor:
         option_code: direct
         reason: 任命、授权或反馈处置可直接归责于皇帝
-        assertion_refs: *id011
-      context_factor:
-        option_code: core_mechanism_direct
-        reason: 材料直接展示任命、授权、反馈或纠错的核心机制
-        assertion_refs: *id011
-      continuity_factor:
-        option_code: short_or_one_off
-        reason: 本材料只有一次任务或一个授权阶段
-        assertion_refs: *id011
+        assertion_refs: *id010
       source_factor:
         option_code: complete_direct_chain
         reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
-        assertion_refs: *id011
+        assertion_refs: *id010
+      context_factor:
+        option_code: core_mechanism_direct
+        reason: 材料直接展示任命、授权、反馈或纠错的核心机制
+        assertion_refs: *id010
 - unit_ref: REU-HAN-LIUCHE-JIANGCHONG-AUTHORITY-v1
   proposal_status: human_reviewed_shadow
   reviewer: v4_stratified_open_factor_review
@@ -421,9 +399,9 @@ factor_judgment_proposals:
     side: negative
     factors:
       appointment_effect:
-        option_code: structural_continuing_damage
-        reason: 反馈显示损害跨出单次失误并持续影响制度、军政或社会
-        assertion_refs: &id012
+        option_code: major_direct_damage
+        reason: 授权链直接形成重大损害但未充分证明持续结构化
+        assertion_refs: &id011
         - V4PROD32-HAN-LC-JC-001
         - V4PROD32-HAN-LC-JC-002
         - V4PROD32-HAN-LC-JC-003
@@ -431,23 +409,23 @@ factor_judgment_proposals:
       appointment_importance:
         option_code: critical_national_or_long_term
         reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id012
+        assertion_refs: *id011
       attribution_factor:
-        option_code: direct
-        reason: 任命、授权或反馈处置可直接归责于皇帝
-        assertion_refs: *id012
+        option_code: indirect
+        reason: 皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响
+        assertion_refs: *id011
       context_factor:
         option_code: core_mechanism_direct
         reason: 材料直接展示任命、授权、反馈或纠错的核心机制
-        assertion_refs: *id012
+        assertion_refs: *id011
       continuity_factor:
-        option_code: short_or_one_off
-        reason: 本材料只有一次任务或一个授权阶段
-        assertion_refs: *id012
+        option_code: stable
+        reason: 同一授权下存在持续履职、反馈或监督
+        assertion_refs: *id011
       source_factor:
         option_code: complete_direct_chain
         reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
-        assertion_refs: *id012
+        assertion_refs: *id011
 - unit_ref: REU-TANG-LILONGJI-YAOCHONG-AUTHORITY-v1
   proposal_status: human_reviewed_shadow
   reviewer: v4_stratified_open_factor_review
@@ -461,30 +439,30 @@ factor_judgment_proposals:
       appointment_effect:
         option_code: normal_success
         reason: 授权形成明确正向反馈但未达到重大结构性成果
-        assertion_refs: &id013
+        assertion_refs: &id012
         - V4PROD32-TANG-LLJ-YC-002
         - V4PROD32-TANG-LLJ-YC-003
         - V4PROD32-TANG-LLJ-YC-004
       appointment_importance:
         option_code: major_affairs
         reason: 职责影响重要军政领域但不等于国家整体长期结构
-        assertion_refs: *id013
+        assertion_refs: *id012
       attribution_factor:
         option_code: direct_under_pressure
         reason: 皇帝在明确反对、负面指控或现实约束下仍作关键取舍
-        assertion_refs: *id013
+        assertion_refs: *id012
       context_factor:
         option_code: core_mechanism_direct
         reason: 材料直接展示任命、授权、反馈或纠错的核心机制
-        assertion_refs: *id013
+        assertion_refs: *id012
       continuity_factor:
         option_code: short_or_one_off
         reason: 本材料只有一次任务或一个授权阶段
-        assertion_refs: *id013
+        assertion_refs: *id012
       source_factor:
         option_code: complete_direct_chain
         reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
-        assertion_refs: *id013
+        assertion_refs: *id012
 - unit_ref: REU-MING-ZHUYOUJIAN-YUANCHONGHUAN-AUTHORITY-v1
   proposal_status: human_reviewed_shadow
   reviewer: v4_stratified_open_factor_review
@@ -498,7 +476,7 @@ factor_judgment_proposals:
       appointment_effect:
         option_code: normal_success
         reason: 授权形成明确正向反馈但未达到重大结构性成果
-        assertion_refs: &id014
+        assertion_refs: &id013
         - V4PROD32-MING-ZYJ-YCH-001
         - V4PROD32-MING-ZYJ-YCH-002
         - V4PROD32-MING-ZYJ-YCH-003
@@ -506,10 +484,40 @@ factor_judgment_proposals:
       appointment_importance:
         option_code: critical_national_or_long_term
         reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id014
+        assertion_refs: *id013
       attribution_factor:
         option_code: direct_under_pressure
         reason: 皇帝在明确反对、负面指控或现实约束下仍作关键取舍
+        assertion_refs: *id013
+      context_factor:
+        option_code: core_mechanism_direct
+        reason: 材料直接展示任命、授权、反馈或纠错的核心机制
+        assertion_refs: *id013
+      continuity_factor:
+        option_code: long_term_multi_stage
+        reason: 材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段
+        assertion_refs: *id013
+      source_factor:
+        option_code: complete_direct_chain
+        reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
+        assertion_refs: *id013
+  - material_code: MAT-MING-ZYJ-YCH-02
+    event_group: EP-MING-ZYJ-YCH-02
+    side: negative
+    factors:
+      appointment_effect:
+        option_code: structural_continuing_damage
+        reason: 反馈显示损害跨出单次失误并持续影响制度、军政或社会
+        assertion_refs: &id014
+        - V4PROD32-MING-ZYJ-YCH-005
+        - V4PROD32-MING-ZYJ-YCH-006
+      appointment_importance:
+        option_code: critical_national_or_long_term
+        reason: 职责直接关联国家级战略、中枢或长期结构
+        assertion_refs: *id014
+      attribution_factor:
+        option_code: indirect
+        reason: 皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响
         assertion_refs: *id014
       context_factor:
         option_code: core_mechanism_direct
@@ -523,36 +531,6 @@ factor_judgment_proposals:
         option_code: complete_direct_chain
         reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
         assertion_refs: *id014
-  - material_code: MAT-MING-ZYJ-YCH-02
-    event_group: EP-MING-ZYJ-YCH-02
-    side: negative
-    factors:
-      appointment_effect:
-        option_code: structural_continuing_damage
-        reason: 反馈显示损害跨出单次失误并持续影响制度、军政或社会
-        assertion_refs: &id015
-        - V4PROD32-MING-ZYJ-YCH-005
-        - V4PROD32-MING-ZYJ-YCH-006
-      appointment_importance:
-        option_code: critical_national_or_long_term
-        reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id015
-      attribution_factor:
-        option_code: indirect
-        reason: 皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响
-        assertion_refs: *id015
-      context_factor:
-        option_code: core_mechanism_direct
-        reason: 材料直接展示任命、授权、反馈或纠错的核心机制
-        assertion_refs: *id015
-      continuity_factor:
-        option_code: short_or_one_off
-        reason: 本材料只有一次任务或一个授权阶段
-        assertion_refs: *id015
-      source_factor:
-        option_code: complete_direct_chain
-        reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
-        assertion_refs: *id015
 - unit_ref: REU-MING-ZHUDI-ZHENGHE-AUTHORITY-v1
   proposal_status: human_reviewed_shadow
   reviewer: v4_stratified_open_factor_review
@@ -566,7 +544,7 @@ factor_judgment_proposals:
       appointment_effect:
         option_code: major_success
         reason: 授权形成国家级、关键战役或显著结构性成果
-        assertion_refs: &id016
+        assertion_refs: &id015
         - V4PROD32-MING-ZD-ZH-001
         - V4PROD32-MING-ZD-ZH-002
         - V4PROD32-MING-ZD-ZH-003
@@ -575,23 +553,23 @@ factor_judgment_proposals:
       appointment_importance:
         option_code: critical_national_or_long_term
         reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id016
+        assertion_refs: *id015
       attribution_factor:
         option_code: direct
         reason: 任命、授权或反馈处置可直接归责于皇帝
-        assertion_refs: *id016
+        assertion_refs: *id015
       context_factor:
         option_code: core_mechanism_direct
         reason: 材料直接展示任命、授权、反馈或纠错的核心机制
-        assertion_refs: *id016
+        assertion_refs: *id015
       continuity_factor:
         option_code: long_term_multi_stage
         reason: 材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段
-        assertion_refs: *id016
+        assertion_refs: *id015
       source_factor:
         option_code: complete_direct_chain
         reason: 史源直接覆盖本材料声明的任用、职责和反馈或损害链
-        assertion_refs: *id016
+        assertion_refs: *id015
   - material_code: MAT-MING-ZD-ZH-02
     event_group: EP-MING-ZD-ZH-01
     side: negative
@@ -599,24 +577,24 @@ factor_judgment_proposals:
       appointment_effect:
         option_code: poor_result
         reason: 授权形成明确负向反馈但未充分证明持续结构性损害
-        assertion_refs: *id016
+        assertion_refs: *id015
       appointment_importance:
         option_code: critical_national_or_long_term
         reason: 职责直接关联国家级战略、中枢或长期结构
-        assertion_refs: *id016
+        assertion_refs: *id015
       attribution_factor:
         option_code: direct
         reason: 任命、授权或反馈处置可直接归责于皇帝
-        assertion_refs: *id016
+        assertion_refs: *id015
       context_factor:
         option_code: clear
         reason: 任用、职责和结果与规则直接相关且边界基本清楚
-        assertion_refs: *id016
+        assertion_refs: *id015
       continuity_factor:
         option_code: long_term_multi_stage
         reason: 材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段
-        assertion_refs: *id016
+        assertion_refs: *id015
       source_factor:
         option_code: standard
         reason: 史源足以支持主要判断，但至少一个已声明环节并非直接完整覆盖
-        assertion_refs: *id016
+        assertion_refs: *id015

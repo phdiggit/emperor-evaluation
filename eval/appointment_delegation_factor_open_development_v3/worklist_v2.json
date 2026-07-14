@@ -1,5 +1,5 @@
 {
-  "agent_policy_version": "appointment-delegation-factor-observation-agent-v2",
+  "agent_policy_version": "appointment-delegation-factor-observation-agent-v4",
   "factor_inference_policy": {
     "absence_sensitive_options": {
       "appointment_effect": [],
@@ -11,26 +11,35 @@
       ],
       "source_factor": []
     },
+    "continuity_positive_evidence_tests": {
+      "long_term_multi_stage": "至少两次可区分的皇帝授权决定；对不同任务再次询问并许可、战后再次授职可计入，单一战役内的推进和战果不可计入",
+      "open_snapshot_fallback": "达不到 stable 或 long_term_multi_stage 的正证据测试时，不得为了避开 short_or_one_off 而猜测中高档；必须 insufficient_coverage",
+      "stable": "同一授权下至少两个可区分的履职、反馈、监督或损害延续事实；任命加单一最终结果不够，但军心离散加后来叛离等两个事实足够"
+    },
     "coverage_schema_version": "rule-factor-evidence-coverage-v1",
     "decision_statuses": [
       "resolved",
       "insufficient_coverage"
     ],
+    "effect_boundary_tests": {
+      "major_direct_damage": "重大但一次性的直接损害停留在此档",
+      "structural_continuing_damage": "须直接证明损害跨期延续并破坏制度、组织能力或后续治理；后续军心离散、组织不可用或持续叛离可作为正证据"
+    },
     "inference_bases": [
       "direct_evidence",
       "bounded_absence",
       "coverage_insufficient"
     ],
     "rule": "正证据可在开放覆盖下确认；只有 reviewed_bounded_complete 且明确允许时，才可根据未发现材料选择缺失敏感选项。覆盖不足必须拒绝落档。",
-    "schema_version": "rule-factor-inference-policy-v1"
+    "schema_version": "rule-factor-inference-policy-v3"
   },
   "factor_option_catalog": {
     "appointment_effect": {
-      "major_direct_damage": "任用或授权安排与重大损害之间有直接、可归责的因果链",
+      "major_direct_damage": "任用或授权链直接形成重大损害，但当前材料没有证明该损害持续破坏制度、组织能力或后续治理",
       "major_success": "任用—权责—反馈链直接证明异常显著的用人成功；重大任务、战役胜利或多次复用本身不自动抬档",
       "normal_success": "人岗适配和履职反馈明确；领域成果只作适配反馈，不在本规则重复结算",
       "poor_result": "授权控制、监督或履职结果较差，但尚未证明任用直接造成重大损害",
-      "structural_continuing_damage": "任用或授权安排直接造成跨期结构损害；后续清洗、案件扩大或领域灾难不得在因果链不完整时并入",
+      "structural_continuing_damage": "任用或授权链造成跨期结构损害；须有持续制度失灵、组织能力受损、后续叛离或同类损害延续的直接证据，严重的一次性伤亡本身不够",
       "weak_feedback": "存在正向履职信号，但反馈较弱、不完整或尚不足以确认稳定适配"
     },
     "appointment_importance": {
@@ -50,9 +59,9 @@
       "weak_but_applicable": "与规则相关，但任用机制或结算边界仍有明显缺口"
     },
     "continuity_factor": {
-      "long_term_multi_stage": "证据直接覆盖至少两个可区分阶段的持续授权、续任或新任务复用；结果演变、失控、纠正或案件扩大不算复用阶段",
-      "short_or_one_off": "仅有一次授权决定或短期任务；同一授权的直接履职后续不算跨阶段复用",
-      "stable": "同一授权下存在稳定履职、持续反馈或延续监督，但没有至少两次可区分的授权或复用决定"
+      "long_term_multi_stage": "至少有两次可区分的皇帝授权决定；初次任命后对不同任务再次询问并许可、战后再次授职、续任或另一次职责调整均可计入；同一战役的行军推进和战果本身不计入",
+      "short_or_one_off": "只有一次皇帝授权决定或一个短期任务；同一任务中的多次战斗、调查扩大、结果恶化、纠正与善后均不构成新授权阶段",
+      "stable": "同一授权下至少有两个可区分的持续履职、反馈、监督或损害延续观察；必须能分别指向不同事实，例如持续排斥异议加长期据位，或军心离散加后续叛离；只有任命加一个最终结果仍不足"
     },
     "source_factor": {
       "complete_direct_chain": "史源直接覆盖本材料实际声明的任用、职责和反馈或损害链；按声明边界判断，不按史源数量、名气或材料外争议降档",
@@ -1637,5 +1646,5 @@
       "unit_ref": "REU-MING-ZHUDI-ZHENGHE-AUTHORITY-v1"
     }
   ],
-  "worklist_sha256": "f1196a8c231ea774dd37ac833c8d992396ba704409943c98481d5c08957d99d8"
+  "worklist_sha256": "af021ffd40316a9e40408b22d51560b2639159d2ff096ce180f7ac3a1ffb54bf"
 }

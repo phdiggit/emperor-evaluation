@@ -31,7 +31,9 @@ QUALIFICATION_SCHEMA_VERSION = "factor-observation-qualification-v2"
 QUALIFICATION_GOLD_SCHEMA_VERSION = "factor-observation-qualification-gold-v2"
 BATCH_PLAN_SCHEMA_VERSION = "factor-observation-batch-plan-v1"
 AGENT_POLICY_VERSION_V1 = "appointment-delegation-factor-observation-agent-v1"
-AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v2"
+AGENT_POLICY_VERSION_V2 = "appointment-delegation-factor-observation-agent-v2"
+AGENT_POLICY_VERSION_V3 = "appointment-delegation-factor-observation-agent-v3"
+AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v4"
 QUALIFICATION_HUMAN_REVIEW_BASES = frozenset(
     {
         "existing_v4_observations_plus_v3_calibration",
@@ -114,8 +116,60 @@ OPTION_GUIDANCE: dict[str, dict[str, str]] = {
     },
 }
 
+OPTION_GUIDANCE_V2 = deepcopy(OPTION_GUIDANCE)
+OPTION_GUIDANCE = deepcopy(OPTION_GUIDANCE_V2)
+OPTION_GUIDANCE["continuity_factor"].update(
+    {
+        "short_or_one_off": (
+            "只有一次皇帝授权决定或一个短期任务；同一任务中的多次战斗、调查扩大、"
+            "结果恶化、纠正与善后均不构成新授权阶段"
+        ),
+        "stable": (
+            "同一授权下至少有两个可区分的持续履职、反馈或延续监督观察；必须由正证据"
+            "直接确认，不能因为没有看到续任而猜测"
+        ),
+        "long_term_multi_stage": (
+            "至少有两次可区分的皇帝授权、续任或新任务复用决定；任命加战果、同一战役"
+            "的推进、案件扩大或事后损害不算两个阶段"
+        ),
+    }
+)
+OPTION_GUIDANCE_V3 = deepcopy(OPTION_GUIDANCE)
+OPTION_GUIDANCE = deepcopy(OPTION_GUIDANCE_V3)
+OPTION_GUIDANCE["continuity_factor"].update(
+    {
+        "stable": (
+            "同一授权下至少有两个可区分的持续履职、反馈、监督或损害延续观察；"
+            "必须能分别指向不同事实，例如持续排斥异议加长期据位，或军心离散加后续叛离；"
+            "只有任命加一个最终结果仍不足"
+        ),
+        "long_term_multi_stage": (
+            "至少有两次可区分的皇帝授权决定；初次任命后对不同任务再次询问并许可、"
+            "战后再次授职、续任或另一次职责调整均可计入；同一战役的行军推进和战果"
+            "本身不计入"
+        ),
+    }
+)
+OPTION_GUIDANCE["appointment_effect"].update(
+    {
+        "major_direct_damage": (
+            "任用或授权链直接形成重大损害，但当前材料没有证明该损害持续破坏制度、"
+            "组织能力或后续治理"
+        ),
+        "structural_continuing_damage": (
+            "任用或授权链造成跨期结构损害；须有持续制度失灵、组织能力受损、后续叛离"
+            "或同类损害延续的直接证据，严重的一次性伤亡本身不够"
+        ),
+    }
+)
+OPTION_GUIDANCE_V3["appointment_effect"].update(
+    deepcopy(OPTION_GUIDANCE["appointment_effect"])
+)
+
 POLICY_OPTION_GUIDANCE = {
     AGENT_POLICY_VERSION_V1: OPTION_GUIDANCE_V1,
+    AGENT_POLICY_VERSION_V2: OPTION_GUIDANCE_V2,
+    AGENT_POLICY_VERSION_V3: OPTION_GUIDANCE_V3,
     AGENT_POLICY_VERSION: OPTION_GUIDANCE,
 }
 
@@ -140,6 +194,49 @@ FACTOR_INFERENCE_POLICY = {
         "正证据可在开放覆盖下确认；只有 reviewed_bounded_complete 且明确允许时，"
         "才可根据未发现材料选择缺失敏感选项。覆盖不足必须拒绝落档。"
     ),
+}
+FACTOR_INFERENCE_POLICY_V2 = deepcopy(FACTOR_INFERENCE_POLICY)
+FACTOR_INFERENCE_POLICY = deepcopy(FACTOR_INFERENCE_POLICY_V2)
+FACTOR_INFERENCE_POLICY["schema_version"] = "rule-factor-inference-policy-v2"
+FACTOR_INFERENCE_POLICY["continuity_positive_evidence_tests"] = {
+    "stable": (
+        "同一授权下至少两个可区分的履职、反馈或监督观察；仅有任命和最终结果不够"
+    ),
+    "long_term_multi_stage": (
+        "至少两次可区分的皇帝授权、续任或新任务决定；战役推进、调查扩大、结果演变、"
+        "纠正和善后不自动算新授权"
+    ),
+    "open_snapshot_fallback": (
+        "达不到 stable 或 long_term_multi_stage 的正证据测试时，不得为了避开"
+        " short_or_one_off 而猜测中高档；必须 insufficient_coverage"
+    ),
+}
+FACTOR_INFERENCE_POLICY["effect_boundary_tests"] = {
+    "structural_continuing_damage": (
+        "须直接证明损害跨期延续并破坏制度、组织能力或后续治理；后续军心离散、"
+        "组织不可用或持续叛离可作为正证据"
+    ),
+    "major_direct_damage": "重大但一次性的直接损害停留在此档",
+}
+FACTOR_INFERENCE_POLICY_V3 = deepcopy(FACTOR_INFERENCE_POLICY)
+FACTOR_INFERENCE_POLICY = deepcopy(FACTOR_INFERENCE_POLICY_V3)
+FACTOR_INFERENCE_POLICY["schema_version"] = "rule-factor-inference-policy-v3"
+FACTOR_INFERENCE_POLICY["continuity_positive_evidence_tests"].update(
+    {
+        "stable": (
+            "同一授权下至少两个可区分的履职、反馈、监督或损害延续事实；"
+            "任命加单一最终结果不够，但军心离散加后来叛离等两个事实足够"
+        ),
+        "long_term_multi_stage": (
+            "至少两次可区分的皇帝授权决定；对不同任务再次询问并许可、战后再次授职"
+            "可计入，单一战役内的推进和战果不可计入"
+        ),
+    }
+)
+POLICY_INFERENCE_POLICIES = {
+    AGENT_POLICY_VERSION_V2: FACTOR_INFERENCE_POLICY_V2,
+    AGENT_POLICY_VERSION_V3: FACTOR_INFERENCE_POLICY_V3,
+    AGENT_POLICY_VERSION: FACTOR_INFERENCE_POLICY,
 }
 
 OPTION_ORDER: dict[str, tuple[str, ...]] = {
@@ -287,7 +384,10 @@ def build_factor_observation_worklist(
         "factor_option_catalog": option_guidance,
     }
     if agent_policy_version != AGENT_POLICY_VERSION_V1:
-        semantic["factor_inference_policy"] = deepcopy(FACTOR_INFERENCE_POLICY)
+        inference_policy = POLICY_INFERENCE_POLICIES.get(agent_policy_version)
+        if inference_policy is None:
+            raise ValueError("Factor Observation inference policy 非法")
+        semantic["factor_inference_policy"] = deepcopy(inference_policy)
     worklist_hash = canonical_hash(semantic)
     return {
         **semantic,
@@ -527,7 +627,8 @@ def validate_factor_observation_response(
         != POLICY_OPTION_GUIDANCE.get(str(worklist.get("agent_policy_version") or ""))
         or (
             is_v2
-            and worklist.get("factor_inference_policy") != FACTOR_INFERENCE_POLICY
+            and worklist.get("factor_inference_policy")
+            != POLICY_INFERENCE_POLICIES.get(policy_version)
         )
     ):
         raise ValueError("Factor Observation response 版本、状态或 worklist 绑定非法")
@@ -713,9 +814,10 @@ def build_factor_observation_qualification_gold(
 
     if (
         worklist.get("schema_version") != WORKLIST_SCHEMA_VERSION
-        or worklist.get("agent_policy_version") != AGENT_POLICY_VERSION
+        or worklist.get("agent_policy_version")
+        not in {AGENT_POLICY_VERSION_V2, AGENT_POLICY_VERSION}
     ):
-        raise ValueError("qualification Gold v2 只接受当前 v2 worklist")
+        raise ValueError("qualification Gold v2 只接受 coverage-aware worklist")
     if sample_role not in {"open_development", "sealed_holdout"}:
         raise ValueError("qualification Gold sample_role 非法")
     validate_parity_manifest(
