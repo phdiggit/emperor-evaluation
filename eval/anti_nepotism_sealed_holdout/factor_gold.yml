@@ -1,0 +1,64 @@
+schema_version: i5b-factor-gold-v1
+status: human_gold_frozen
+rule_code: anti_nepotism
+dataset_role: sealed_holdout
+factor_policy_version: anti-nepotism-factor-agent-v1
+worklist_sha256: 382e77fa7b8692f64e24c70c00b8228d1e33c7de563f1b0ec68f163783ccd306
+human_gold_completed_before_model_run: true
+units:
+- unit_ref: AN-S01
+  applicability: applicable
+  factors:
+    capability_basis: private_substitutes_merit
+    process_integrity: channel_captured
+    office_exposure: appointment_channel_control
+    network_effect: durable_capture
+- unit_ref: AN-S02
+  applicability: applicable
+  factors:
+    capability_basis: capability_disproved
+    process_integrity: channel_captured
+    office_exposure: appointment_channel_control
+    network_effect: durable_capture
+- unit_ref: AN-S03
+  applicability: applicable
+  factors:
+    capability_basis: mixed_merit_private
+    process_integrity: private_interference
+    office_exposure: key_appointment_or_succession
+    network_effect: dismantled_by_ruler
+- unit_ref: AN-S04
+  applicability: applicable
+  factors:
+    capability_basis: private_substitutes_merit
+    process_integrity: channel_captured
+    office_exposure: appointment_channel_control
+    network_effect: cross_channel_capture
+- unit_ref: AN-S05
+  applicability: applicable
+  factors:
+    capability_basis: private_substitutes_merit
+    process_integrity: channel_captured
+    office_exposure: appointment_channel_control
+    network_effect: cross_channel_capture
+- unit_ref: AN-S06
+  applicability: applicable
+  factors:
+    capability_basis: private_substitutes_merit
+    process_integrity: channel_captured
+    office_exposure: appointment_channel_control
+    network_effect: durable_capture
+- unit_ref: AN-S07
+  applicability: applicable
+  factors:
+    capability_basis: mixed_merit_private
+    process_integrity: bypass_but_correctable
+    office_exposure: major_affairs
+    network_effect: dismantled_by_ruler
+- unit_ref: AN-S08
+  applicability: applicable
+  factors:
+    capability_basis: verified_merit
+    process_integrity: bounded_exception_reviewable
+    office_exposure: key_appointment_or_succession
+    network_effect: isolated_no_network

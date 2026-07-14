@@ -1,0 +1,223 @@
+{
+  "blind_run_declarations": {
+    "database_write_count": 0,
+    "factor_gold_accessed": false,
+    "formal_acceptance_performed": false,
+    "numeric_factor_values_supplied": false,
+    "scoring_performed": false
+  },
+  "dataset_role": "open_development",
+  "factor_policy_version": "appointment-delegation-factor-observation-agent-v4",
+  "model": "gpt-5.6-sol",
+  "provider": "codex_chatgpt_login",
+  "response_origin": "open_development_agent_run",
+  "results": [
+    {
+      "applicability": "applicable",
+      "factors": {
+        "appointment_effect": {
+          "assertion_refs": [
+            "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1"
+          ],
+          "option_code": "normal_success",
+          "reason": "明确称其能够代劳并使君主安眠，形成直接正向履职反馈。"
+        },
+        "appointment_importance": {
+          "assertion_refs": [
+            "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1"
+          ],
+          "option_code": "major_affairs",
+          "reason": "受任分担君主政务，属于重要政务职责。"
+        },
+        "attribution_factor": {
+          "assertion_refs": [
+            "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1"
+          ],
+          "option_code": "direct",
+          "reason": "君主亲自表明任用及其正向反馈，可直接归责。"
+        },
+        "context_factor": {
+          "assertion_refs": [
+            "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1"
+          ],
+          "option_code": "core_mechanism_direct",
+          "reason": "材料直接展示任人分劳及君主反馈。"
+        },
+        "continuity_factor": {
+          "assertion_refs": [
+            "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1"
+          ],
+          "option_code": "insufficient_evidence",
+          "reason": "开放材料仅见一次反馈，且不得由后续缺失推断为短期。"
+        },
+        "source_factor": {
+          "assertion_refs": [
+            "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1"
+          ],
+          "option_code": "complete_direct_chain",
+          "reason": "引文直接覆盖任用、代劳职责与正向反馈。"
+        }
+      },
+      "unit_ref": "AD-G01"
+    },
+    {
+      "applicability": "applicable",
+      "factors": {
+        "appointment_effect": {
+          "assertion_refs": [
+            "EVD-I5B-LICHUN-POS-PEIDU-001@A1"
+          ],
+          "option_code": "weak_feedback",
+          "reason": "君主采纳受任者的战区判断，但材料未给出后续战果。"
+        },
+        "appointment_importance": {
+          "assertion_refs": [
+            "EVD-I5B-LICHUN-POS-PEIDU-001@A1"
+          ],
+          "option_code": "major_affairs",
+          "reason": "委以用兵并听取战区判断，属于重要军事事务。"
+        },
+        "attribution_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LICHUN-POS-PEIDU-001@A1"
+          ],
+          "option_code": "direct",
+          "reason": "委任和采纳均由君主直接作出。"
+        },
+        "context_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LICHUN-POS-PEIDU-001@A1"
+          ],
+          "option_code": "core_mechanism_direct",
+          "reason": "材料直接展示军事授权与专业意见反馈。"
+        },
+        "continuity_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LICHUN-POS-PEIDU-001@A1"
+          ],
+          "option_code": "short_or_one_off",
+          "reason": "现有材料呈现同一用兵任务中的一次授权与意见采纳。"
+        },
+        "source_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LICHUN-POS-PEIDU-001@A1"
+          ],
+          "option_code": "standard",
+          "reason": "足以确认授权和采纳，但未覆盖最终履职结果。"
+        }
+      },
+      "unit_ref": "AD-G02"
+    },
+    {
+      "applicability": "applicable",
+      "factors": {
+        "appointment_effect": {
+          "assertion_refs": [
+            "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1",
+            "EVD-I5B-LIYUAN-NEG-LIUWENJING-001@A2"
+          ],
+          "option_code": "poor_result",
+          "reason": "早期奉命求援取得成果，后又杀害同一关键受任者，整体用人结果出现明显反转。"
+        },
+        "appointment_importance": {
+          "assertion_refs": [
+            "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1"
+          ],
+          "option_code": "major_affairs",
+          "reason": "受命执行创业期外援沟通和请兵，属于重要军政事务。"
+        },
+        "attribution_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1",
+            "EVD-I5B-LIYUAN-NEG-LIUWENJING-001@A2"
+          ],
+          "option_code": "direct",
+          "reason": "采纳谋议、委派执行及后来杀害均直接归于君主决策。"
+        },
+        "context_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1",
+            "EVD-I5B-LIYUAN-NEG-LIUWENJING-001@A2"
+          ],
+          "option_code": "weak_but_applicable",
+          "reason": "多源材料支持同一对象的正负反转，但杀害事实与早期授权之间的结算边界仍有缺口。"
+        },
+        "continuity_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1",
+            "EVD-I5B-LIYUAN-NEG-LIUWENJING-001@A2"
+          ],
+          "option_code": "insufficient_evidence",
+          "reason": "后来杀害不构成第二次授权，现有覆盖也不足以判定持续授权或短期任务。"
+        },
+        "source_factor": {
+          "assertion_refs": [
+            "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1",
+            "EVD-I5B-LIYUAN-NEG-LIUWENJING-001@A2"
+          ],
+          "option_code": "standard",
+          "reason": "两处史源分别支持早期授权成果与后来杀害，足以支持主要判断但未完整衔接中间过程。"
+        }
+      },
+      "unit_ref": "AD-G03"
+    },
+    {
+      "applicability": "applicable",
+      "factors": {
+        "appointment_effect": {
+          "assertion_refs": [
+            "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+            "AD-G04@A2"
+          ],
+          "option_code": "poor_result",
+          "reason": "高位任用后又撤销授权、罢免受任者并尽废其规划，授权弧发生负向反转。"
+        },
+        "appointment_importance": {
+          "assertion_refs": [
+            "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+            "AD-G04@A2"
+          ],
+          "option_code": "critical_national_or_long_term",
+          "reason": "宰相级任用并涉及国家经制规划，属于国家全局性授权。"
+        },
+        "attribution_factor": {
+          "assertion_refs": [
+            "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+            "AD-G04@A2"
+          ],
+          "option_code": "direct_under_pressure",
+          "reason": "任用与罢免均为君主直接决定，撤权发生在张浚弹劾压力之下。"
+        },
+        "context_factor": {
+          "assertion_refs": [
+            "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+            "AD-G04@A2"
+          ],
+          "option_code": "core_mechanism_direct",
+          "reason": "材料直接呈现高位任用、外部弹劾、撤权罢免及规划废止。"
+        },
+        "continuity_factor": {
+          "assertion_refs": [
+            "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+            "AD-G04@A2"
+          ],
+          "option_code": "stable",
+          "reason": "同一授权弧中有任命授责和随后撤权废划两个持续反馈事实。"
+        },
+        "source_factor": {
+          "assertion_refs": [
+            "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+            "AD-G04@A2"
+          ],
+          "option_code": "complete_direct_chain",
+          "reason": "同传材料直接覆盖任命、撤权、罢免及规划废止链条。"
+        }
+      },
+      "unit_ref": "AD-G04"
+    }
+  ],
+  "rule_code": "appointment_delegation",
+  "schema_version": "i5b-factor-response-v1",
+  "status": "i5b_factor_response_complete",
+  "worklist_sha256": "60f66825e83f656d5b3b14b125043edda60a0ed5dffdf0b46de585ff310cf5f3"
+}

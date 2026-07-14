@@ -1,0 +1,74 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "open_development",
+  "factor_breakdown": {
+    "conflict_repair_continuity": {
+      "correct": 11,
+      "exact_rate": 0.9166666666666666,
+      "incorrect": 1
+    },
+    "feedback_reception": {
+      "correct": 10,
+      "exact_rate": 0.8333333333333334,
+      "incorrect": 2
+    },
+    "professional_autonomy": {
+      "correct": 11,
+      "exact_rate": 0.9166666666666666,
+      "incorrect": 1
+    },
+    "talent_safety": {
+      "correct": 11,
+      "exact_rate": 0.9166666666666666,
+      "incorrect": 1
+    }
+  },
+  "factor_policy_version": "tolerate-talent-factor-agent-v1",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "single_event_only",
+      "expected": "stable_without_conflict",
+      "field": "conflict_repair_continuity",
+      "unit_ref": "TT-O01"
+    },
+    {
+      "actual": "accepted_after_conflict",
+      "expected": "no_feedback_event",
+      "field": "feedback_reception",
+      "unit_ref": "TT-O05"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "no_autonomy_issue",
+      "field": "professional_autonomy",
+      "unit_ref": "TT-O05"
+    },
+    {
+      "actual": "localized_penalty",
+      "expected": "personal_or_associative_harm",
+      "field": "talent_safety",
+      "unit_ref": "TT-O05"
+    },
+    {
+      "actual": "suppressed_or_punished",
+      "expected": "accepted_after_conflict",
+      "field": "feedback_reception",
+      "unit_ref": "TT-O06"
+    }
+  ],
+  "rule_code": "tolerate_talent",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 12,
+    "applicability_exact_rate": 1.0,
+    "factor_comparison_count": 48,
+    "factor_exact_count": 43,
+    "factor_exact_rate": 0.8958333333333334,
+    "qualification_gate_passed": true,
+    "unit_count": 12,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "dc994bc18cba915d0d2c79bf1c3b235fa25fe61c752d7aa7b01ced39ac58c06f"
+}

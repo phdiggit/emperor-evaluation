@@ -1,0 +1,62 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "sealed_holdout",
+  "factor_breakdown": {
+    "barrier_crossing": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "conversion_to_use": {
+      "correct": 4,
+      "exact_rate": 1.0,
+      "incorrect": 0
+    },
+    "recognition_basis": {
+      "correct": 2,
+      "exact_rate": 0.5,
+      "incorrect": 2
+    },
+    "recognition_novelty": {
+      "correct": 4,
+      "exact_rate": 1.0,
+      "incorrect": 0
+    }
+  },
+  "factor_policy_version": "talent-discovery-factor-agent-v1",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "missing_or_posthoc",
+      "expected": "reputation_only_unverified",
+      "field": "recognition_basis",
+      "unit_ref": "TD-S01"
+    },
+    {
+      "actual": "no_material_barrier",
+      "expected": "status_or_access_barrier_crossed",
+      "field": "barrier_crossing",
+      "unit_ref": "TD-S02"
+    },
+    {
+      "actual": "reputation_only_unverified",
+      "expected": "reputation_then_direct_demonstration",
+      "field": "recognition_basis",
+      "unit_ref": "TD-S02"
+    }
+  ],
+  "rule_code": "talent_discovery",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 4,
+    "applicability_exact_rate": 1.0,
+    "factor_comparison_count": 16,
+    "factor_exact_count": 13,
+    "factor_exact_rate": 0.8125,
+    "qualification_gate_passed": false,
+    "unit_count": 4,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "abf24f7601ed1c17199dacdbef30b90585b93acc9cd3ede94a66b1c70c82275c"
+}

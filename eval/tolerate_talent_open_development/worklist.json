@@ -83,6 +83,14 @@
   "rule_boundary": {
     "coverage_and_scoring_unit": "须有能臣或专业角色、反馈触发、皇帝反应和实际表达/安全影响",
     "cross_rule_double_counting_forbidden": true,
+    "rule_specific_gates": [
+      "适用必须有可定位的专业反馈冲突，或能臣安全事件与皇帝反应；纯发现、任用和普通升迁不适用",
+      "谋反、重大过错、军纪或一般刑罚不得仅凭人才结局判负；必须证明伤害因表达或专业独立而发生",
+      "持续获准表达或继续信任可证明安全；仅未记载报复不能推断安全",
+      "单次容忍或压制不能外推长期稳定或系统性持续；修复须有独立后续事实",
+      "证据只证明求言或采纳时，不得据此推断人才安全或专业自治；没有相关事件使用 no_*，缺少结果证据使用 insufficient_evidence",
+      "材料若明确属于谗构、一般权斗或臣下自我噤声而未连接皇帝对专业表达的反应，则 not_applicable，不以缺材料替代边界判断"
+    ],
     "v3_assets_are_readonly_regression_candidates": true
   },
   "rule_code": "tolerate_talent",
@@ -391,5 +399,5 @@
       "unit_ref": "TT-O12"
     }
   ],
-  "worklist_sha256": "ade31489563af2a59fdd1ac13ffb4e72ee49bfc7b321661f68f67b62d706e64e"
+  "worklist_sha256": "dc994bc18cba915d0d2c79bf1c3b235fa25fe61c752d7aa7b01ced39ac58c06f"
 }

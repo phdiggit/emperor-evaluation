@@ -52,6 +52,11 @@ factor_option_catalog:
     insufficient_evidence: 上下文不足
 rule_boundary:
   coverage_and_scoring_unit: 新增开放材料只补四个代表性缺口，不修改或重跑既有 sealed
+  rule_specific_gates:
+  - 缺失敏感连续性在开放覆盖下不得从未发现后续推断 short_or_one_off
+  - 同一任务的推进、结果、纠正和善后不构成第二次授权
+  - 多源不同阶段只在 RuleEvidenceUnit 层 join，不拼成单一 Episode
+  - 方向反转可证明结果转坏与受压撤权，但不得由任命和罢免两点推断稳定连续；连续性仍须独立跨阶段证据
   cross_rule_double_counting_forbidden: true
   v3_assets_are_readonly_regression_candidates: true
 evidence_coverage:

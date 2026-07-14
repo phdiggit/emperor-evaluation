@@ -1,0 +1,223 @@
+schema_version: i5b-factor-test-set-v1
+status: frozen_test_input
+task_code: V4-I5B-TOLERATE_TALENT-SEALED_HOLDOUT
+rule_code: tolerate_talent
+dataset_role: sealed_holdout
+factor_policy_version: tolerate-talent-factor-agent-v1
+expected_unit_count: 8
+applicability_options:
+- applicable
+- not_applicable
+- insufficient_evidence
+factor_option_catalog:
+  feedback_reception:
+    actively_solicited: 主动求言并形成反馈入口
+    accepted_after_conflict: 冲突后仍采纳或承认专业意见
+    tolerated_not_adopted: 允许表达但未采纳
+    suppressed_or_punished: 因表达遭压制或处分
+    no_feedback_event: 没有可定位的反馈事件
+    not_applicable: 不属于容才事件
+    insufficient_evidence: 反馈反应证据不足
+  talent_safety:
+    actively_protected: 统治者主动保护表达者或能臣安全
+    safe_without_retaliation: 表达后未受报复且安全边界清楚
+    localized_penalty: 受到局部处分但未形成严重伤害
+    career_exclusion: 因表达遭职业排除
+    personal_or_associative_harm: 造成生命、人身或连带伤害
+    mixed_responsibility: 伤害成立但多人责任需拆分
+    not_applicable: 不属于人才安全事件
+    insufficient_evidence: 安全影响证据不足
+  professional_autonomy:
+    professional_judgment_respected: 专业判断获得尊重或授权
+    reasoned_override: 经审议后合理覆盖专业意见
+    political_override: 以政治偏好压过专业判断
+    sustained_blockage: 专业反馈渠道持续堵塞
+    no_autonomy_issue: 事件没有专业自治议题
+    not_applicable: 不属于容才事件
+    insufficient_evidence: 专业自治证据不足
+  conflict_repair_continuity:
+    stable_without_conflict: 多次独立事实证明稳定容纳
+    timely_repair: 冲突后及时修复表达或授权信用
+    delayed_partial_repair: 延迟或部分修复
+    formal_reversal_without_trust_repair: 形式反转但未恢复信用
+    persistent_unrepaired: 压制持续且未修复
+    single_event_only: 只有单次事件，不能外推长期稳定
+    not_applicable: 不属于容才事件
+    insufficient_evidence: 连续性或修复证据不足
+rule_boundary:
+  coverage_and_scoring_unit: 须证明反馈触发到实际伤害或保护的皇帝责任链
+  rule_specific_gates:
+  - 适用必须有可定位的专业反馈冲突，或能臣安全事件与皇帝反应；纯发现、任用和普通升迁不适用
+  - 谋反、重大过错、军纪或一般刑罚不得仅凭人才结局判负；必须证明伤害因表达或专业独立而发生
+  - 持续获准表达或继续信任可证明安全；仅未记载报复不能推断安全
+  - 单次容忍或压制不能外推长期稳定或系统性持续；修复须有独立后续事实
+  - 证据只证明求言或采纳时，不得据此推断人才安全或专业自治；没有相关事件使用 no_*，缺少结果证据使用 insufficient_evidence
+  - 材料若明确属于谗构、一般权斗或臣下自我噤声而未连接皇帝对专业表达的反应，则 not_applicable，不以缺材料替代边界判断
+  cross_rule_double_counting_forbidden: true
+  v3_assets_are_readonly_regression_candidates: true
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  coverage_status: reviewed_test_fixture
+  absence_inference_allowed: false
+  formal_v4_fact: false
+runtime_policy:
+  mode: offline_report_only_shadow
+  database_writes_allowed: false
+  formal_scoring_allowed: false
+units:
+- unit_ref: TT-S01
+  ruler: 刘恒
+  subject: 张释之
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIUHENG-POS-ZHANGSHIZHI-RONGJIAN-001@A1
+    summary: 张释之能在皇帝不满时坚持专业法理并被采纳，显示刘恒保留专业官僚反馈入口和容谏空间。
+    quote: 廷尉，天下之平也……今法如是，更重之，是法不信於民也。
+    source:
+      source_ref: SRC-SJ-J102-ZHANGSHIZHI-LIUHENG-001
+      source_title: 史记
+      locator: 张释之冯唐列传，张释之执法进谏段
+      url: https://zh.wikisource.org/zh-hans/史記/卷102
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S02
+  ruler: 杨坚
+  subject: 苏威
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-YANGJIAN-POS-SUWEI-RONGJIAN-001@A1
+    summary: 苏威强谏阻杀并获杨坚事后致谢，能够支撑开皇前期臣下反馈入口和容谏空间。
+    quote: 威入閤進諫，不納。上怒甚……良久，乃召威謝曰：「公能若是，吾無憂矣。」
+    source:
+      source_ref: SRC-SS-J41-GAOJIONG-SUWEI-YANGJIAN-001
+      source_title: 隋书
+      locator: 列传第六，高颎、苏威传，高颎委以心膂及苏威进谏段
+      url: https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B741
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S03
+  ruler: 李治
+  subject: 来济
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIZHI-POS-LAIJI-001@A1
+    summary: 李治采纳来济减役谏议，构成第五项B容谏反馈和专业建议采纳强正候选。
+    quote: 来济谏曰：山东役丁岁别数万……臣愿初成役者留之，馀悉免遣。上从之。
+    source:
+      source_ref: SRC-ZZTJ-J200-LAIJI-LIZHI-001
+      source_title: 资治通鉴
+      locator: 唐纪十六，来济请省山东役丁，高宗从之段
+      url: https://zh.wikisource.org/zh-hans/資治通鑑/卷200
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S04
+  ruler: 赵祯
+  subject: 包拯
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-ZHAOZHEN-POS-BAOZHENG-001@A1
+    summary: 该段为第五项B容谏纳言强正候选。
+    quote: 又上言天子当明听纳，辨朋党，惜人才……朝廷多施行之。
+    source:
+      source_ref: SRC-SS-J316-BAOZHENG-ZHAOZHEN-001
+      source_title: 宋史
+      locator: 包拯上言听纳辨朋党惜人才段
+      url: https://zh.wikisource.org/wiki/宋史/卷316
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S05
+  ruler: 刘秀
+  subject: 韩歆
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIUXIU-NEG-HANXIN-001@A1
+    summary: 韩歆以直言见称而刘秀每不能容，免官后仍遣使责之，父子自杀；
+    quote: 歆好直言，無隱諱，帝每不能容。歆及子嬰皆自殺。
+    source:
+      source_ref: SRC-ZZTJ-J43-HANXIN-001
+      source_title: 资治通鉴
+      locator: 汉纪三十五，建武十五年
+      url: https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7043
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S06
+  ruler: 刘秀
+  subject: 桓谭
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIUXIU-NEG-HUANTAN-001@A1
+    summary: 桓谭反对以谶决事并极言谶非经，刘秀震怒至称将下斩之；
+    quote: 譚復極言讖之非經。帝大怒曰：桓譚非聖無法，將下斬之。
+    source:
+      source_ref: SRC-HHS-HUANTAN-001
+      source_title: 后汉书
+      locator: 桓谭冯衍列传第十八上，桓谭传
+      url: https://zh.wikisource.org/wiki/%E5%BE%8C%E6%BC%A2%E6%9B%B8/%E5%8D%B728%E4%B8%8A
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S07
+  ruler: 李纯
+  subject: 韩愈
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-LICHUN-NEG-HANYU-001@A1
+    summary: 李纯对韩愈强谏的贬黜构成表达安全和容谏纳言强负候选。
+    quote: 愈虽狂，发于忠恳，宜宽容以开言路。癸巳，贬愈为潮州刺史。
+    source:
+      source_ref: SRC-ZZTJ-J240-HANYU-LICHUN-001
+      source_title: 资治通鉴
+      locator: 唐纪五十，韩愈谏迎佛骨贬潮州段
+      url: https://zh.wikisource.org/zh-hans/資治通鑑/卷240
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-S08
+  ruler: 朱棣
+  subject: 解缙
+  context_kind: episode
+  context_summary: sealed 表达安全与因果边界
+  evidence:
+  - assertion_ref: EVD-I5B-ZHUDI-NEG-XIEJIN-001@A1
+    summary: 该段可作为第五项B 文臣安全 强负 候选。
+    quote: 逮縉下詔獄，拷掠備至……綱遂醉縉酒，埋積雪中，立死。
+    source:
+      source_ref: SRC-MS-J147-XIEJIN-ZHUDI-001
+      source_title: 明史
+      locator: 解缙传，私觐太子后下狱及积雪中死段
+      url: https://zh.wikisource.org/wiki/明史/卷147
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+sealed_freeze:
+  identity_and_gold_frozen_before_model: true
+  allowed_model_runs: 1
+  freeze_commit_recorded_in_separate_audit: true

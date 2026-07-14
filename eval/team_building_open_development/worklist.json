@@ -103,6 +103,11 @@
   "rule_boundary": {
     "coverage_and_scoring_unit": "冻结皇帝时间窗、canonical人物集合和版本化画像；窗口内同人一次",
     "cross_rule_double_counting_forbidden": true,
+    "rule_specific_gates": [
+      "人物质量只能读取 profile_snapshots；岗位、连续性、依赖和空缺只能读取 member_set 与 structural_observations",
+      "同一窗口同一人物只计一次；跨年代不重叠人物不得拼接为团队",
+      "亲信依赖只评价结构集中与脆弱性，不重复结算反任人唯亲"
+    ],
     "v3_assets_are_readonly_regression_candidates": true
   },
   "rule_code": "team_building",
@@ -286,6 +291,11 @@
         }
       ],
       "ruler": "刘邦",
+      "structural_observations": {
+        "continuity_basis": "成员活动区间与评估窗口重叠，窗口内角色结构未见实质断裂。",
+        "dependency_basis": "决策、行政、军事和纠错分别由多名成员承担，未见单一成员控制全部入口。",
+        "key_role_basis": "窗口审查未发现核心功能的实质长期空缺。"
+      },
       "subject": "刘邦团队",
       "unit_ref": "TB-O01"
     },
@@ -463,6 +473,11 @@
         }
       ],
       "ruler": "李世民",
+      "structural_observations": {
+        "continuity_basis": "成员活动区间与评估窗口重叠，窗口内角色结构未见实质断裂。",
+        "dependency_basis": "决策、行政、军事和纠错分别由多名成员承担，未见单一成员控制全部入口。",
+        "key_role_basis": "窗口审查未发现核心功能的实质长期空缺。"
+      },
       "subject": "李世民团队",
       "unit_ref": "TB-O02"
     },
@@ -640,6 +655,11 @@
         }
       ],
       "ruler": "朱元璋",
+      "structural_observations": {
+        "continuity_basis": "成员活动区间与评估窗口重叠，窗口内角色结构未见实质断裂。",
+        "dependency_basis": "决策、行政、军事和纠错分别由多名成员承担，未见单一成员控制全部入口。",
+        "key_role_basis": "窗口审查未发现核心功能的实质长期空缺。"
+      },
       "subject": "朱元璋团队",
       "unit_ref": "TB-O03"
     },
@@ -787,6 +807,11 @@
         }
       ],
       "ruler": "朱元璋",
+      "structural_observations": {
+        "continuity_basis": "窗口审查记录清洗或私人控制使多个关键功能退出。",
+        "dependency_basis": "关键中枢空缺后由皇帝亲断，未形成代行亲信，但决策入口成为皇帝单点。",
+        "key_role_basis": "多个核心功能同时长期弱化或空心化。"
+      },
       "subject": "朱元璋团队",
       "unit_ref": "TB-O04"
     },
@@ -968,6 +993,11 @@
         }
       ],
       "ruler": "李隆基",
+      "structural_observations": {
+        "continuity_basis": "成员活动区间与评估窗口重叠，窗口内角色结构未见实质断裂。",
+        "dependency_basis": "决策、行政、军事和纠错分别由多名成员承担，未见单一成员控制全部入口。",
+        "key_role_basis": "窗口审查未发现核心功能的实质长期空缺。"
+      },
       "subject": "李隆基团队",
       "unit_ref": "TB-O05"
     },
@@ -1115,6 +1145,11 @@
         }
       ],
       "ruler": "李隆基",
+      "structural_observations": {
+        "continuity_basis": "窗口内关键成员与功能多次断裂，未形成稳定协作结构。",
+        "dependency_basis": "关键入口集中于相互关联的私人网络成员。",
+        "key_role_basis": "至少一类核心功能在窗口内持续缺位。"
+      },
       "subject": "李隆基团队",
       "unit_ref": "TB-O06"
     },
@@ -1234,6 +1269,11 @@
         }
       ],
       "ruler": "赵构",
+      "structural_observations": {
+        "continuity_basis": "窗口内成员关系稳定，但功能长期集中在狭窄成员组。",
+        "dependency_basis": "多项核心功能依赖同一成员，替代入口不足。",
+        "key_role_basis": "多个核心功能同时长期弱化或空心化。"
+      },
       "subject": "赵构团队",
       "unit_ref": "TB-O07"
     },
@@ -1415,9 +1455,14 @@
         }
       ],
       "ruler": "朱祐樘",
+      "structural_observations": {
+        "continuity_basis": "成员活动区间与评估窗口重叠，窗口内角色结构未见实质断裂。",
+        "dependency_basis": "决策、行政、军事和纠错分别由多名成员承担，未见单一成员控制全部入口。",
+        "key_role_basis": "窗口审查未发现核心功能的实质长期空缺。"
+      },
       "subject": "朱祐樘团队",
       "unit_ref": "TB-O08"
     }
   ],
-  "worklist_sha256": "22f29522258de23f42e75714da0e3aad5f9be8f1607f6e311eef8b84a9e4d3b4"
+  "worklist_sha256": "48535ad40604a3b15c00e41a8cde65ddb25d1dcd9b40af1fc3ca4a372c3ef0e4"
 }

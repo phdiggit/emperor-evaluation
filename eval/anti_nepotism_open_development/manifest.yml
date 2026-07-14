@@ -44,6 +44,13 @@ factor_option_catalog:
     insufficient_evidence: 网络影响证据不足
 rule_boundary:
   coverage_and_scoring_unit: 单一亲属或近幸不自动负向；episode 与 aggregate 分维度去重
+  rule_specific_gates:
+  - 必须有亲属、近幸、私人门庭或任免网络对公共岗位的可定位影响；坏任用、酷吏、党案和一般权臣问题不自动适用
+  - 单一亲属或近幸任职不自动负向；能力、程序、岗位和网络必须分层
+  - episode 只拥有能力、程序和岗位风险；aggregate 只拥有网络广度、持续性与渠道控制，禁止重复结算
+  - 教育、内廷接触或身份本身若未证明影响公共任免，只能证据不足或不适用
+  - 材料没有呈现亲属、近幸、私人门庭或任免网络时直接 not_applicable；只有已经定位相关私人关系但影响强度缺证时才 insufficient_evidence
+  - 权臣门庭聚集可证明跨人单一渠道，但没有皇帝放任或公共任免被控制的证据时不得上推 channel_captured 或 durable_capture
   cross_rule_double_counting_forbidden: true
   v3_assets_are_readonly_regression_candidates: true
 evidence_coverage:

@@ -93,6 +93,12 @@
   "rule_boundary": {
     "coverage_and_scoring_unit": "新增开放材料只补四个代表性缺口，不修改或重跑既有 sealed",
     "cross_rule_double_counting_forbidden": true,
+    "rule_specific_gates": [
+      "缺失敏感连续性在开放覆盖下不得从未发现后续推断 short_or_one_off",
+      "同一任务的推进、结果、纠正和善后不构成第二次授权",
+      "多源不同阶段只在 RuleEvidenceUnit 层 join，不拼成单一 Episode",
+      "方向反转可证明结果转坏与受压撤权，但不得由任命和罢免两点推断稳定连续；连续性仍须独立跨阶段证据"
+    ],
     "v3_assets_are_readonly_regression_candidates": true
   },
   "rule_code": "appointment_delegation",
@@ -242,5 +248,5 @@
       "unit_ref": "AD-G04"
     }
   ],
-  "worklist_sha256": "b33b857fccc5f588a30a772455791eb99e6f61798fcf130666ea177f21a09e01"
+  "worklist_sha256": "9c39c340130a4f674a6306adf754007d145659e6352d313405dcef31b887f884"
 }

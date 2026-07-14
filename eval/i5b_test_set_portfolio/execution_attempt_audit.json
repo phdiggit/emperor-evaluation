@@ -1,0 +1,51 @@
+{
+  "attempts": [
+    {
+      "business_response_accepted": false,
+      "cause": "残留响应文件触发 deny-rewrite，机械输出契约拒绝覆盖；结果未进入业务评估。",
+      "failure_classes": [
+        "policy_denied",
+        "returncode"
+      ],
+      "output_root": "codex_win_open_v2",
+      "reported_input_tokens": 145593,
+      "reported_output_tokens": 12967,
+      "result_count": 9,
+      "runner_run_id": "4590c3d1de994fbf8581d995f1ab346e",
+      "status": "killed",
+      "wall_clock_duration_sec": 239.17
+    },
+    {
+      "business_response_accepted": false,
+      "cause": "残留响应文件触发 deny-rewrite，机械输出契约拒绝覆盖；结果未进入业务评估。",
+      "failure_classes": [
+        "returncode"
+      ],
+      "output_root": "codex_win_open_v2_recovery",
+      "reported_input_tokens": 0,
+      "reported_output_tokens": 0,
+      "result_count": 2,
+      "runner_run_id": "62208b61eb0840468cffd813920e463b",
+      "status": "killed",
+      "wall_clock_duration_sec": 145.312
+    },
+    {
+      "business_response_accepted": false,
+      "cause": "残留响应文件触发 deny-rewrite，机械输出契约拒绝覆盖；结果未进入业务评估。",
+      "failure_classes": [
+        "policy_denied"
+      ],
+      "output_root": "codex_win_open_v2_probe",
+      "reported_input_tokens": 18155,
+      "reported_output_tokens": 1992,
+      "result_count": 1,
+      "runner_run_id": "d18d338106d8483894c757ec0c5650a6",
+      "status": "failed",
+      "wall_clock_duration_sec": 40.426
+    }
+  ],
+  "formal_scoring_allowed": false,
+  "recovery_rule": "只有未形成可接受业务响应的机械失败允许以完全相同输入恢复；成功业务响应禁止重跑。",
+  "schema_version": "i5b-execution-attempt-audit-v1",
+  "status": "mechanical_failures_retained"
+}

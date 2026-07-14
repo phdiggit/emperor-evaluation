@@ -1,0 +1,50 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "open_development",
+  "factor_breakdown": {
+    "capability_basis": {
+      "correct": 12,
+      "exact_rate": 1.0,
+      "incorrect": 0
+    },
+    "network_effect": {
+      "correct": 12,
+      "exact_rate": 1.0,
+      "incorrect": 0
+    },
+    "office_exposure": {
+      "correct": 11,
+      "exact_rate": 0.9166666666666666,
+      "incorrect": 1
+    },
+    "process_integrity": {
+      "correct": 12,
+      "exact_rate": 1.0,
+      "incorrect": 0
+    }
+  },
+  "factor_policy_version": "anti-nepotism-factor-agent-v1",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "key_appointment_or_succession",
+      "expected": "major_affairs",
+      "field": "office_exposure",
+      "unit_ref": "AN-O06"
+    }
+  ],
+  "rule_code": "anti_nepotism",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 12,
+    "applicability_exact_rate": 1.0,
+    "factor_comparison_count": 48,
+    "factor_exact_count": 47,
+    "factor_exact_rate": 0.9791666666666666,
+    "qualification_gate_passed": true,
+    "unit_count": 12,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "97b88939e8e48954c8585d57ca10b898772ebbafebe6056f1368a76aec97b6a5"
+}

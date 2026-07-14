@@ -3,51 +3,51 @@ status: human_gold_frozen
 rule_code: anti_nepotism
 dataset_role: open_development
 factor_policy_version: anti-nepotism-factor-agent-v1
-worklist_sha256: 553548683b29a1765ae814425be4f3ee1af5dd2df4c1657142739d2312179b0a
+worklist_sha256: 97b88939e8e48954c8585d57ca10b898772ebbafebe6056f1368a76aec97b6a5
 human_gold_completed_before_model_run: true
 units:
 - unit_ref: AN-O01
   applicability: applicable
   factors:
-    capability_basis: mixed_merit_private
+    capability_basis: insufficient_evidence
     process_integrity: private_interference
     office_exposure: major_affairs
-    network_effect: repeated_bounded
+    network_effect: insufficient_evidence
 - unit_ref: AN-O02
   applicability: applicable
-  factors:
-    capability_basis: private_substitutes_merit
-    process_integrity: channel_captured
-    office_exposure: appointment_channel_control
-    network_effect: cross_person_single_channel
-- unit_ref: AN-O03
-  applicability: applicable
-  factors:
-    capability_basis: mixed_merit_private
-    process_integrity: private_interference
-    office_exposure: key_appointment_or_succession
-    network_effect: repeated_bounded
-- unit_ref: AN-O04
-  applicability: applicable
-  factors:
-    capability_basis: verified_merit
-    process_integrity: bypass_but_correctable
-    office_exposure: key_appointment_or_succession
-    network_effect: dismantled_by_ruler
-- unit_ref: AN-O05
-  applicability: insufficient_evidence
   factors:
     capability_basis: insufficient_evidence
     process_integrity: insufficient_evidence
     office_exposure: insufficient_evidence
-    network_effect: insufficient_evidence
-- unit_ref: AN-O06
+    network_effect: cross_person_single_channel
+- unit_ref: AN-O03
   applicability: not_applicable
   factors:
     capability_basis: not_applicable
     process_integrity: not_applicable
     office_exposure: not_applicable
     network_effect: not_applicable
+- unit_ref: AN-O04
+  applicability: not_applicable
+  factors:
+    capability_basis: not_applicable
+    process_integrity: not_applicable
+    office_exposure: not_applicable
+    network_effect: not_applicable
+- unit_ref: AN-O05
+  applicability: not_applicable
+  factors:
+    capability_basis: not_applicable
+    process_integrity: not_applicable
+    office_exposure: not_applicable
+    network_effect: not_applicable
+- unit_ref: AN-O06
+  applicability: applicable
+  factors:
+    capability_basis: verified_merit
+    process_integrity: open_or_formal
+    office_exposure: major_affairs
+    network_effect: insufficient_evidence
 - unit_ref: AN-O07
   applicability: not_applicable
   factors:
@@ -77,12 +77,12 @@ units:
     office_exposure: insufficient_evidence
     network_effect: insufficient_evidence
 - unit_ref: AN-O11
-  applicability: insufficient_evidence
+  applicability: not_applicable
   factors:
-    capability_basis: insufficient_evidence
-    process_integrity: insufficient_evidence
-    office_exposure: insufficient_evidence
-    network_effect: insufficient_evidence
+    capability_basis: not_applicable
+    process_integrity: not_applicable
+    office_exposure: not_applicable
+    network_effect: not_applicable
 - unit_ref: AN-O12
   applicability: not_applicable
   factors:

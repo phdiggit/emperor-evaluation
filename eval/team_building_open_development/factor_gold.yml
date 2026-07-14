@@ -3,7 +3,7 @@ status: human_gold_frozen
 rule_code: team_building
 dataset_role: open_development
 factor_policy_version: team-building-factor-agent-v1
-worklist_sha256: 22f29522258de23f42e75714da0e3aad5f9be8f1607f6e311eef8b84a9e4d3b4
+worklist_sha256: 48535ad40604a3b15c00e41a8cde65ddb25d1dcd9b40af1fc3ca4a372c3ef0e4
 human_gold_completed_before_model_run: true
 units:
 - unit_ref: TB-O01
@@ -12,7 +12,7 @@ units:
     talent_depth: multi_historic
     core_role_coverage: four_core
     functional_complementarity: balanced_four
-    continuity_structure: durable_multi_stage
+    continuity_structure: stable_window
     confidant_dependency: distributed
     key_role_integrity: no_material_vacancy
 - unit_ref: TB-O02
@@ -21,7 +21,7 @@ units:
     talent_depth: multi_historic
     core_role_coverage: four_core
     functional_complementarity: balanced_four
-    continuity_structure: managed_turnover
+    continuity_structure: stable_window
     confidant_dependency: distributed
     key_role_integrity: no_material_vacancy
 - unit_ref: TB-O03
@@ -38,7 +38,7 @@ units:
   factors:
     talent_depth: adequate_mixed
     core_role_coverage: two_core
-    functional_complementarity: homogeneous
+    functional_complementarity: ordinary_two
     continuity_structure: purge_or_capture_collapse
     confidant_dependency: centralized_ruler_bottleneck_without_confidant
     key_role_integrity: systemic_hollowing
@@ -47,8 +47,8 @@ units:
   factors:
     talent_depth: multi_top
     core_role_coverage: four_core
-    functional_complementarity: strong_three
-    continuity_structure: managed_turnover
+    functional_complementarity: balanced_four
+    continuity_structure: stable_window
     confidant_dependency: distributed
     key_role_integrity: no_material_vacancy
 - unit_ref: TB-O06
@@ -56,25 +56,25 @@ units:
   factors:
     talent_depth: capability_risk_dominated
     core_role_coverage: three_core
-    functional_complementarity: qualified_roles_crowded_out
+    functional_complementarity: strong_three
     continuity_structure: fragmented
     confidant_dependency: personal_network_capture
-    key_role_integrity: qualified_person_crowded_out
+    key_role_integrity: persistent_vacancy
 - unit_ref: TB-O07
   applicability: applicable
   factors:
-    talent_depth: adequate_mixed
+    talent_depth: capability_risk_dominated
     core_role_coverage: two_core
     functional_complementarity: homogeneous
     continuity_structure: stable_but_narrow
     confidant_dependency: single_point
-    key_role_integrity: qualified_person_crowded_out
+    key_role_integrity: systemic_hollowing
 - unit_ref: TB-O08
   applicability: applicable
   factors:
     talent_depth: multi_top
     core_role_coverage: four_core
-    functional_complementarity: strong_three
-    continuity_structure: durable_multi_stage
+    functional_complementarity: balanced_four
+    continuity_structure: stable_window
     confidant_dependency: distributed
     key_role_integrity: no_material_vacancy

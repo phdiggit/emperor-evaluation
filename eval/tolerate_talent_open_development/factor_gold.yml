@@ -3,65 +3,65 @@ status: human_gold_frozen
 rule_code: tolerate_talent
 dataset_role: open_development
 factor_policy_version: tolerate-talent-factor-agent-v1
-worklist_sha256: ade31489563af2a59fdd1ac13ffb4e72ee49bfc7b321661f68f67b62d706e64e
+worklist_sha256: dc994bc18cba915d0d2c79bf1c3b235fa25fe61c752d7aa7b01ced39ac58c06f
 human_gold_completed_before_model_run: true
 units:
 - unit_ref: TT-O01
   applicability: applicable
   factors:
     feedback_reception: accepted_after_conflict
-    talent_safety: safe_without_retaliation
+    talent_safety: insufficient_evidence
     professional_autonomy: professional_judgment_respected
     conflict_repair_continuity: stable_without_conflict
 - unit_ref: TT-O02
   applicability: applicable
   factors:
     feedback_reception: accepted_after_conflict
-    talent_safety: safe_without_retaliation
+    talent_safety: insufficient_evidence
     professional_autonomy: professional_judgment_respected
     conflict_repair_continuity: stable_without_conflict
 - unit_ref: TT-O03
   applicability: applicable
   factors:
     feedback_reception: accepted_after_conflict
-    talent_safety: safe_without_retaliation
+    talent_safety: insufficient_evidence
     professional_autonomy: professional_judgment_respected
     conflict_repair_continuity: single_event_only
 - unit_ref: TT-O04
   applicability: applicable
   factors:
     feedback_reception: actively_solicited
-    talent_safety: safe_without_retaliation
-    professional_autonomy: professional_judgment_respected
+    talent_safety: insufficient_evidence
+    professional_autonomy: no_autonomy_issue
     conflict_repair_continuity: single_event_only
 - unit_ref: TT-O05
   applicability: applicable
   factors:
-    feedback_reception: suppressed_or_punished
-    talent_safety: localized_penalty
-    professional_autonomy: political_override
+    feedback_reception: no_feedback_event
+    talent_safety: personal_or_associative_harm
+    professional_autonomy: no_autonomy_issue
     conflict_repair_continuity: delayed_partial_repair
 - unit_ref: TT-O06
   applicability: applicable
   factors:
-    feedback_reception: suppressed_or_punished
-    talent_safety: career_exclusion
+    feedback_reception: accepted_after_conflict
+    talent_safety: localized_penalty
     professional_autonomy: political_override
-    conflict_repair_continuity: delayed_partial_repair
+    conflict_repair_continuity: timely_repair
 - unit_ref: TT-O07
-  applicability: applicable
+  applicability: not_applicable
   factors:
-    feedback_reception: suppressed_or_punished
-    talent_safety: career_exclusion
-    professional_autonomy: political_override
-    conflict_repair_continuity: persistent_unrepaired
+    feedback_reception: not_applicable
+    talent_safety: not_applicable
+    professional_autonomy: not_applicable
+    conflict_repair_continuity: not_applicable
 - unit_ref: TT-O08
-  applicability: applicable
+  applicability: not_applicable
   factors:
-    feedback_reception: suppressed_or_punished
-    talent_safety: mixed_responsibility
-    professional_autonomy: sustained_blockage
-    conflict_repair_continuity: persistent_unrepaired
+    feedback_reception: not_applicable
+    talent_safety: not_applicable
+    professional_autonomy: not_applicable
+    conflict_repair_continuity: not_applicable
 - unit_ref: TT-O09
   applicability: not_applicable
   factors:

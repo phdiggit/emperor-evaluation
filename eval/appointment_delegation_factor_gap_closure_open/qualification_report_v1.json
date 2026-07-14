@@ -1,0 +1,108 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "open_development",
+  "factor_breakdown": {
+    "appointment_effect": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "appointment_importance": {
+      "correct": 2,
+      "exact_rate": 0.5,
+      "incorrect": 2
+    },
+    "attribution_factor": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "context_factor": {
+      "correct": 2,
+      "exact_rate": 0.5,
+      "incorrect": 2
+    },
+    "continuity_factor": {
+      "correct": 2,
+      "exact_rate": 0.5,
+      "incorrect": 2
+    },
+    "source_factor": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    }
+  },
+  "factor_policy_version": "appointment-delegation-factor-observation-agent-v4",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "weak_feedback",
+      "expected": "normal_success",
+      "field": "appointment_effect",
+      "unit_ref": "AD-G01"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "major_affairs",
+      "field": "appointment_importance",
+      "unit_ref": "AD-G01"
+    },
+    {
+      "actual": "weak_but_applicable",
+      "expected": "clear",
+      "field": "context_factor",
+      "unit_ref": "AD-G03"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "long_term_multi_stage",
+      "field": "continuity_factor",
+      "unit_ref": "AD-G03"
+    },
+    {
+      "actual": "standard",
+      "expected": "complete_direct_chain",
+      "field": "source_factor",
+      "unit_ref": "AD-G03"
+    },
+    {
+      "actual": "major_affairs",
+      "expected": "critical_national_or_long_term",
+      "field": "appointment_importance",
+      "unit_ref": "AD-G04"
+    },
+    {
+      "actual": "direct",
+      "expected": "direct_under_pressure",
+      "field": "attribution_factor",
+      "unit_ref": "AD-G04"
+    },
+    {
+      "actual": "clear",
+      "expected": "core_mechanism_direct",
+      "field": "context_factor",
+      "unit_ref": "AD-G04"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "stable",
+      "field": "continuity_factor",
+      "unit_ref": "AD-G04"
+    }
+  ],
+  "rule_code": "appointment_delegation",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 4,
+    "applicability_exact_rate": 1.0,
+    "factor_comparison_count": 24,
+    "factor_exact_count": 15,
+    "factor_exact_rate": 0.625,
+    "qualification_gate_passed": false,
+    "unit_count": 4,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "b33b857fccc5f588a30a772455791eb99e6f61798fcf130666ea177f21a09e01"
+}

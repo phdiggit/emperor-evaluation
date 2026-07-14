@@ -1,0 +1,96 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "open_development",
+  "factor_breakdown": {
+    "appointment_effect": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "appointment_importance": {
+      "correct": 2,
+      "exact_rate": 0.5,
+      "incorrect": 2
+    },
+    "attribution_factor": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "context_factor": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "continuity_factor": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    },
+    "source_factor": {
+      "correct": 3,
+      "exact_rate": 0.75,
+      "incorrect": 1
+    }
+  },
+  "factor_policy_version": "appointment-delegation-factor-observation-agent-v4",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "normal_success",
+      "expected": "weak_feedback",
+      "field": "appointment_effect",
+      "unit_ref": "AD-G01"
+    },
+    {
+      "actual": "major_affairs",
+      "expected": "insufficient_evidence",
+      "field": "appointment_importance",
+      "unit_ref": "AD-G01"
+    },
+    {
+      "actual": "complete_direct_chain",
+      "expected": "weak_or_compressed",
+      "field": "source_factor",
+      "unit_ref": "AD-G01"
+    },
+    {
+      "actual": "critical_national_or_long_term",
+      "expected": "major_affairs",
+      "field": "appointment_importance",
+      "unit_ref": "AD-G04"
+    },
+    {
+      "actual": "direct_under_pressure",
+      "expected": "direct",
+      "field": "attribution_factor",
+      "unit_ref": "AD-G04"
+    },
+    {
+      "actual": "core_mechanism_direct",
+      "expected": "clear",
+      "field": "context_factor",
+      "unit_ref": "AD-G04"
+    },
+    {
+      "actual": "stable",
+      "expected": "insufficient_evidence",
+      "field": "continuity_factor",
+      "unit_ref": "AD-G04"
+    }
+  ],
+  "rule_code": "appointment_delegation",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 4,
+    "applicability_exact_rate": 1.0,
+    "factor_comparison_count": 24,
+    "factor_exact_count": 17,
+    "factor_exact_rate": 0.7083333333333334,
+    "qualification_gate_passed": false,
+    "unit_count": 4,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "60f66825e83f656d5b3b14b125043edda60a0ed5dffdf0b46de585ff310cf5f3"
+}

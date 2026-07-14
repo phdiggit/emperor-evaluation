@@ -118,6 +118,7 @@ def build_i5b_factor_worklist(manifest: Mapping[str, Any]) -> dict[str, Any]:
                     "profile_snapshots",
                     "member_set",
                     "coverage_tags",
+                    "structural_observations",
                 )
                 if key in unit
             }

@@ -1,0 +1,64 @@
+schema_version: i5b-factor-gold-v1
+status: human_gold_frozen
+rule_code: tolerate_talent
+dataset_role: sealed_holdout
+factor_policy_version: tolerate-talent-factor-agent-v1
+worklist_sha256: 190f811b9821f1cf0873b18281ad581a38cec067bcad6c0e5e77fbafe31dcd48
+human_gold_completed_before_model_run: true
+units:
+- unit_ref: TT-S01
+  applicability: applicable
+  factors:
+    feedback_reception: accepted_after_conflict
+    talent_safety: safe_without_retaliation
+    professional_autonomy: professional_judgment_respected
+    conflict_repair_continuity: timely_repair
+- unit_ref: TT-S02
+  applicability: applicable
+  factors:
+    feedback_reception: accepted_after_conflict
+    talent_safety: safe_without_retaliation
+    professional_autonomy: professional_judgment_respected
+    conflict_repair_continuity: timely_repair
+- unit_ref: TT-S03
+  applicability: applicable
+  factors:
+    feedback_reception: accepted_after_conflict
+    talent_safety: safe_without_retaliation
+    professional_autonomy: professional_judgment_respected
+    conflict_repair_continuity: single_event_only
+- unit_ref: TT-S04
+  applicability: applicable
+  factors:
+    feedback_reception: actively_solicited
+    talent_safety: safe_without_retaliation
+    professional_autonomy: professional_judgment_respected
+    conflict_repair_continuity: stable_without_conflict
+- unit_ref: TT-S05
+  applicability: applicable
+  factors:
+    feedback_reception: suppressed_or_punished
+    talent_safety: personal_or_associative_harm
+    professional_autonomy: political_override
+    conflict_repair_continuity: persistent_unrepaired
+- unit_ref: TT-S06
+  applicability: applicable
+  factors:
+    feedback_reception: suppressed_or_punished
+    talent_safety: career_exclusion
+    professional_autonomy: political_override
+    conflict_repair_continuity: persistent_unrepaired
+- unit_ref: TT-S07
+  applicability: applicable
+  factors:
+    feedback_reception: suppressed_or_punished
+    talent_safety: career_exclusion
+    professional_autonomy: political_override
+    conflict_repair_continuity: persistent_unrepaired
+- unit_ref: TT-S08
+  applicability: applicable
+  factors:
+    feedback_reception: suppressed_or_punished
+    talent_safety: mixed_responsibility
+    professional_autonomy: political_override
+    conflict_repair_continuity: persistent_unrepaired

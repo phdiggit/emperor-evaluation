@@ -1,0 +1,116 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "open_development",
+  "factor_breakdown": {
+    "capability_basis": {
+      "correct": 10,
+      "exact_rate": 0.8333333333333334,
+      "incorrect": 2
+    },
+    "network_effect": {
+      "correct": 9,
+      "exact_rate": 0.75,
+      "incorrect": 3
+    },
+    "office_exposure": {
+      "correct": 10,
+      "exact_rate": 0.8333333333333334,
+      "incorrect": 2
+    },
+    "process_integrity": {
+      "correct": 9,
+      "exact_rate": 0.75,
+      "incorrect": 3
+    }
+  },
+  "factor_policy_version": "anti-nepotism-factor-agent-v1",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "cross_person_single_channel",
+      "expected": "durable_capture",
+      "field": "network_effect",
+      "unit_ref": "AN-O02"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "channel_captured",
+      "field": "process_integrity",
+      "unit_ref": "AN-O02"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "applicable",
+      "field": "applicability",
+      "unit_ref": "AN-O04"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "insufficient_evidence",
+      "field": "capability_basis",
+      "unit_ref": "AN-O04"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "dismantled_by_ruler",
+      "field": "network_effect",
+      "unit_ref": "AN-O04"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "appointment_channel_control",
+      "field": "office_exposure",
+      "unit_ref": "AN-O04"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "bypass_but_correctable",
+      "field": "process_integrity",
+      "unit_ref": "AN-O04"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "insufficient_evidence",
+      "field": "applicability",
+      "unit_ref": "AN-O07"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "insufficient_evidence",
+      "field": "capability_basis",
+      "unit_ref": "AN-O07"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "insufficient_evidence",
+      "field": "network_effect",
+      "unit_ref": "AN-O07"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "insufficient_evidence",
+      "field": "office_exposure",
+      "unit_ref": "AN-O07"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "insufficient_evidence",
+      "field": "process_integrity",
+      "unit_ref": "AN-O07"
+    }
+  ],
+  "rule_code": "anti_nepotism",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 10,
+    "applicability_exact_rate": 0.8333333333333334,
+    "factor_comparison_count": 48,
+    "factor_exact_count": 38,
+    "factor_exact_rate": 0.7916666666666666,
+    "qualification_gate_passed": false,
+    "unit_count": 12,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "0f6d598bd946186e58ca6a5b76b9550428980ddd82d427ea25a77682b1388624"
+}
