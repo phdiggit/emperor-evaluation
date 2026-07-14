@@ -1,0 +1,810 @@
+schema_version: 1
+status: frozen_sealed_holdout_shadow_input
+task_code: V4-AD-PROD32-SEALED-HOLDOUT-001
+manifest_code: appointment_delegation_factor_sealed_holdout_v3
+rule_code: appointment_delegation
+rule_version: appointment-delegation-v1-shadow
+factor_schema_version: appointment-delegation-factors-v1
+judgment_policy_version: appointment-delegation-deterministic-judgment-v1
+scoring_formula_version: appointment-delegation-shadow-mean-v1
+frozen_basis:
+  representativeness_policy_commit: 61ddaf3
+  source_review_sha256: 37c9af7fc70969965710dbf0d66fd46c72ba53f39f48ca0f58cef65fcf928038
+  source_snapshot_content_sha256:
+    jin-yanghu.json: 9b3135dd693151a7ac2458de30345ba69345cebc34119ef4f697f72fc4ad2655
+    qin-wangmeng.json: 281e96ac2d74916508848a8f7acaba051d6176cba5009750a6d12a4f59b6c278
+    qing-chentingjing.json: f439142452321f8fd73bc3b8c1a5e58f333d288d7974995fc063af7d0198cb53
+    qing-heshen.json: c549a02b0b2e53a3cccd48151a2fa41e8f2beea3dca8fafa0dcba5df810fb965
+    song-caijing.json: 4cc69348244b6d66a08347e0b9e0b6593749501b2316a1bbac83e2fb7e3d8083
+    song-fanzhongyan.json: 5e177ba8cbd69b8abd9411d2073c36ef5050edb8cc0fd3c4832252e0a781c761
+    yuan-aju.json: cd2d740b2c69390432e9371d4d16de049281bb27f1afb3071b117434ac39081a
+    yuan-liubingzhong.json: 7af48df08c4c152dfc65744df4e0467e1b28e632d1f3d0c7e99c428510e8960c
+  model_drafts_are_not_formal_facts: true
+  human_factor_review_completed: true
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  scope_as_of: '2026-07-14'
+  coverage_status: open_snapshot
+  absence_inference_allowed: false
+  covered_time_window: null
+  source_families:
+  - 元史
+  - 宋史
+  - 晉書
+  - 清史稿
+  stop_reason: stratified_sealed_holdout_fixed_revision_boundary
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: false
+  database_writes_allowed: false
+  formal_acceptance_allowed: false
+source_passages:
+- passage_ref: PAS-CD69219221A0
+  source_title: 晉書
+  locator: 晉書/卷034，武帝授荆州都督及扩充军权
+  url: https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7034
+  revision_id: 2567662
+  source_content_sha256: 9b3135dd693151a7ac2458de30345ba69345cebc34119ef4f697f72fc4ad2655
+  passage_quote_sha256: cd69219221a05e0c2970bb68d49b9a7e7d0c6728c4677cb195f8a60db3f9c88d
+- passage_ref: PAS-E53F6E378250
+  source_title: 晉書
+  locator: 晉書/卷034，迎步阐失败及降职纠错
+  url: https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7034
+  revision_id: 2567662
+  source_content_sha256: 9b3135dd693151a7ac2458de30345ba69345cebc34119ef4f697f72fc4ad2655
+  passage_quote_sha256: e53f6e378250135f383fc17d7a79701540a9ca9c0f7b9d934a54b601759a9e74
+- passage_ref: PAS-BFA25E0F6AC4
+  source_title: 晉書
+  locator: 晉書/卷114，始平县任用、问责与认可
+  url: https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7114
+  revision_id: 2191291
+  source_content_sha256: 281e96ac2d74916508848a8f7acaba051d6176cba5009750a6d12a4f59b6c278
+  passage_quote_sha256: bfa25e0f6ac4cb34a8fd7584cf0f8c729b6e8bffab24c3d8b60b917852e581aa
+- passage_ref: PAS-403F0B8B0DF5
+  source_title: 晉書
+  locator: 晉書/卷114，谮毁压力下连续擢用
+  url: https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7114
+  revision_id: 2191291
+  source_content_sha256: 281e96ac2d74916508848a8f7acaba051d6176cba5009750a6d12a4f59b6c278
+  passage_quote_sha256: 403f0b8b0df58af171d284cb4d962a13df312d0be67d6d7c0b5119ad42693dee
+- passage_ref: PAS-444B76D3FDF6
+  source_title: 晉書
+  locator: 晉書/卷114，关东授权与中枢总责及成效
+  url: https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7114
+  revision_id: 2191291
+  source_content_sha256: 281e96ac2d74916508848a8f7acaba051d6176cba5009750a6d12a4f59b6c278
+  passage_quote_sha256: 444b76d3fdf6e8fcf27af1ceb3eb18951536f66288563513a771bb2cc04162dd
+- passage_ref: PAS-94701710BDE4
+  source_title: 宋史
+  locator: 宋史/卷472，徽宗决意用京并授宰辅任务
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7472
+  revision_id: 2004306
+  source_content_sha256: 4cc69348244b6d66a08347e0b9e0b6593749501b2316a1bbac83e2fb7e3d8083
+  passage_quote_sha256: 94701710bde45ae7d03ee203164c95b79c8237ba0f8ea15286dd89466de833b2
+- passage_ref: PAS-11853DF1463D
+  source_title: 宋史
+  locator: 宋史/卷472，蔡京掌权措施及直接损害
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7472
+  revision_id: 2004306
+  source_content_sha256: 4cc69348244b6d66a08347e0b9e0b6593749501b2316a1bbac83e2fb7e3d8083
+  passage_quote_sha256: 11853df1463dcecb06ca1bf8a2aed62463b4224342a1709bfeb3ee3ee61fb662
+- passage_ref: PAS-4F41EBB1511E
+  source_title: 宋史
+  locator: 宋史/卷472，四度当国、失能与去职纠错
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7472
+  revision_id: 2004306
+  source_content_sha256: 4cc69348244b6d66a08347e0b9e0b6593749501b2316a1bbac83e2fb7e3d8083
+  passage_quote_sha256: 4f41ebb1511ea720660ce184b209af15cb89bb5232f4732ab791f8d4af46a02c
+- passage_ref: PAS-B38B9751D0BA
+  source_title: 宋史
+  locator: 宋史/卷314，灾荒压力下授予安抚职责
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7314
+  revision_id: 2546846
+  source_content_sha256: 5e177ba8cbd69b8abd9411d2073c36ef5050edb8cc0fd3c4832252e0a781c761
+  passage_quote_sha256: b38b9751d0ba5a18daf5a9669a3bf35f7e28deb200bb749fbfb2a4aabbbdd263
+- passage_ref: PAS-796B6C9284F3
+  source_title: 宋史
+  locator: 宋史/卷314，边务复用并转入中枢任用
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7314
+  revision_id: 2546846
+  source_content_sha256: 5e177ba8cbd69b8abd9411d2073c36ef5050edb8cc0fd3c4832252e0a781c761
+  passage_quote_sha256: 796b6c9284f31b9f7a34dcd0bf4b688d606a82c2b1c5f08a09ff6b58550a78a5
+- passage_ref: PAS-054C8356EDCA
+  source_title: 宋史
+  locator: 宋史/卷314，改革授权、实施反馈及回撤
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7314
+  revision_id: 2546846
+  source_content_sha256: 5e177ba8cbd69b8abd9411d2073c36ef5050edb8cc0fd3c4832252e0a781c761
+  passage_quote_sha256: 054c8356edcae03e2417678a5d5720148f714d4fbc869b47b6b6aa576a7c2217
+- passage_ref: PAS-71934C9DD534
+  source_title: 元史
+  locator: 元史/卷128，阿朮传至元十二年扬州任务
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7128
+  revision_id: 2606649
+  source_content_sha256: cd2d740b2c69390432e9371d4d16de049281bb27f1afb3071b117434ac39081a
+  passage_quote_sha256: 71934c9dd5345be7e50363560c9959084a23b11e53218af52e2504d41227b2ba
+- passage_ref: PAS-908563EF747E
+  source_title: 元史
+  locator: 元史/卷128，阿朮传至元十二年十月守淮诏命
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7128
+  revision_id: 2606649
+  source_content_sha256: cd2d740b2c69390432e9371d4d16de049281bb27f1afb3071b117434ac39081a
+  passage_quote_sha256: 908563ef747e20abb19867c691dd8663c6952817f2dbb485e7e27fde647cce53
+- passage_ref: PAS-35BF33DE416F
+  source_title: 元史
+  locator: 元史/卷157，劉秉忠传潜邸留用及邢州建议
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7157
+  revision_id: 2291224
+  source_content_sha256: 7af48df08c4c152dfc65744df4e0467e1b28e632d1f3d0c7e99c428510e8960c
+  passage_quote_sha256: 35bf33de416ff390b7d676a84eaad30cb20c932b9968db89732ee767e33480c2
+- passage_ref: PAS-AD9DE3F22A8B
+  source_title: 元史
+  locator: 元史/卷157，劉秉忠传即位后制度建议获实施
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7157
+  revision_id: 2291224
+  source_content_sha256: 7af48df08c4c152dfc65744df4e0467e1b28e632d1f3d0c7e99c428510e8960c
+  passage_quote_sha256: ad9de3f22a8bc7772ded75c80b61a8b55a51c0a25ea22a75aa44f83a59201a90
+- passage_ref: PAS-E8548AC5DC08
+  source_title: 元史
+  locator: 元史/卷157，劉秉忠传正式任职及后续建制
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7157
+  revision_id: 2291224
+  source_content_sha256: 7af48df08c4c152dfc65744df4e0467e1b28e632d1f3d0c7e99c428510e8960c
+  passage_quote_sha256: e8548ac5dc084c753d351d490e521e66a90da33bb86add7728d7830c2816863e
+- passage_ref: PAS-C30B089130A9
+  source_title: 清史稿
+  locator: 清史稿/卷319，和珅传云南查案授权及结果
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7319
+  revision_id: 1761183
+  source_content_sha256: c549a02b0b2e53a3cccd48151a2fa41e8f2beea3dca8fafa0dcba5df810fb965
+  passage_quote_sha256: c30b089130a9054bb3fa3687aa1bb97c700be85c488e96376c390da6128a7e85
+- passage_ref: PAS-F7B0C7B5DB7F
+  source_title: 清史稿
+  locator: 清史稿/卷319，和珅传甘肃督师失当与召回
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7319
+  revision_id: 1761183
+  source_content_sha256: c549a02b0b2e53a3cccd48151a2fa41e8f2beea3dca8fafa0dcba5df810fb965
+  passage_quote_sha256: f7b0c7b5db7f980c8f555634c9204f9a95fd9f9d93fd3781fe9dea634b0eea53
+- passage_ref: PAS-3C73A02E3D58
+  source_title: 清史稿
+  locator: 清史稿/卷319，和珅传长期柄政损害
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7319
+  revision_id: 1761183
+  source_content_sha256: c549a02b0b2e53a3cccd48151a2fa41e8f2beea3dca8fafa0dcba5df810fb965
+  passage_quote_sha256: 3c73a02e3d58ba7430f1566a5c9b27472f44b0bda7daa8619d8821292f091aeb
+- passage_ref: PAS-1E14A6236F11
+  source_title: 清史稿
+  locator: 清史稿/卷267，陳廷敬传钱法职责与建议施行
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7267
+  revision_id: 4469357
+  source_content_sha256: f439142452321f8fd73bc3b8c1a5e58f333d288d7974995fc063af7d0198cb53
+  passage_quote_sha256: 1e14a6236f113c90d2754b6c0d24490bcfce0840742edce0509c2c5b46175c86
+- passage_ref: PAS-2168EFE90DC1
+  source_title: 清史稿
+  locator: 清史稿/卷267，陳廷敬传督抚与灾害制度建议
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7267
+  revision_id: 4469357
+  source_content_sha256: f439142452321f8fd73bc3b8c1a5e58f333d288d7974995fc063af7d0198cb53
+  passage_quote_sha256: 2168efe90dc10e9c16870c216c928d088e3b417b29e38cd0e86684b71582b8b1
+- passage_ref: PAS-23EF3B894A78
+  source_title: 清史稿
+  locator: 清史稿/卷267，陳廷敬传入阁、退休及缺员召回
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7267
+  revision_id: 4469357
+  source_content_sha256: f439142452321f8fd73bc3b8c1a5e58f333d288d7974995fc063af7d0198cb53
+  passage_quote_sha256: 23ef3b894a789209c03e82e6e095e0114d0fc99207444af93f799e910f89afb8
+assertions:
+- assertion_ref: V4PROD32-JIN-SMY-YH-001
+  source_passage_ref: PAS-CD69219221A0
+  summary: 司马炎因有灭吴之志，任羊祜为都督荆州诸军事并假节，令其出镇南方。
+  confidence: 0.95
+- assertion_ref: V4PROD32-JIN-SMY-YH-002
+  source_passage_ref: PAS-CD69219221A0
+  summary: 羊祜任内使吴罢石城之守，减少戍逻、开垦八百余顷，并使军粮由不足百日增至十年之积。
+  confidence: 0.95
+- assertion_ref: V4PROD32-JIN-SMY-YH-003
+  source_passage_ref: PAS-CD69219221A0
+  summary: 朝廷撤销江北都督后，将汉东、江夏诸军增隶羊祜。
+  confidence: 0.95
+- assertion_ref: V4PROD32-JIN-SMY-YH-004
+  source_passage_ref: PAS-E53F6E378250
+  summary: 司马炎诏令羊祜迎接步阐，羊祜遣杨肇进攻陆抗而失败，步阐被擒。
+  confidence: 0.95
+- assertion_ref: V4PROD32-JIN-SMY-YH-005
+  source_passage_ref: PAS-E53F6E378250
+  summary: 有司指控羊祜处置失当、违背诏命，朝廷最终将羊祜贬为平南将军并免杨肇为庶人。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QIN-FJ-WM-001
+  source_passage_ref: PAS-BFA25E0F6AC4
+  summary: 苻坚先任王猛为中书侍郎，后转任始平令，职责指向治理豪强横行、盗贼充斥的剧邑。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QIN-FJ-WM-002
+  source_passage_ref: PAS-BFA25E0F6AC4
+  summary: 王猛因严刑处置被奏劾下狱后，苻坚亲自问责并最终赦免，公开认可其治理能力。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QIN-FJ-WM-003
+  source_passage_ref: PAS-403F0B8B0DF5
+  summary: 宗戚旧臣多次谮毁王猛时，苻坚黜退谮毁者，继续将王猛擢至尚书令、太子太傅等职。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QIN-FJ-WM-004
+  source_passage_ref: PAS-444B76D3FDF6
+  summary: 苻坚留王猛镇冀州，授权其在六州便宜从事并选任关东守宰；王猛请求停止后，苻坚不许并令其继续视事。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QIN-FJ-WM-005
+  source_passage_ref: PAS-444B76D3FDF6
+  summary: 苻坚随后任王猛为丞相等职并逐步加都督中外诸军事，将军国内外事务交由其处理。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QIN-FJ-WM-006
+  source_passage_ref: PAS-444B76D3FDF6
+  summary: 原文将兵强国富、庶绩咸熙和百揆时叙直接归于王猛施政。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZJ-CJ-001
+  source_passage_ref: PAS-94701710BDE4
+  summary: 赵佶为继承熙丰政事而决意起用蔡京，先拜尚书左丞、右仆射，后进左仆射，并当面要求其提出施政方案。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZJ-CJ-002
+  source_passage_ref: PAS-11853DF1463D
+  summary: 蔡京掌权后设置讲议司并自任提举，使重大政事由该机构及其党羽办理。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZJ-CJ-003
+  source_passage_ref: PAS-11853DF1463D
+  summary: 蔡京更改盐钞法、废弃旧钞，原文直接记载部分富商由此沦为流丐乃至自杀；章縡奏称改法误民后反被蔡京夺官。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZJ-CJ-004
+  source_passage_ref: PAS-4F41EBB1511E
+  summary: 赵佶在蔡京已经三度任政后仍于宣和六年再起其领三省，使其达到四度当国。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZJ-CJ-005
+  source_passage_ref: PAS-4F41EBB1511E
+  summary: 蔡京目昏不能处理政务后，事务由其子蔡絛决定并代为入奏，继而发生弄权、任亲和拘括财物。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZJ-CJ-006
+  source_passage_ref: PAS-4F41EBB1511E
+  summary: 相关问题被揭发后，赵佶先处分蔡絛及韩梠，后令蔡京上章谢事并批准其去职。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-001
+  source_passage_ref: PAS-B38B9751D0BA
+  summary: 江淮等地发生蝗旱后，赵禎因范仲淹进言而命其安抚江淮，职责包括开仓赈济及提出救弊措施。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-002
+  source_passage_ref: PAS-796B6C9284F3
+  summary: 元昊请和后，赵禎召范仲淹任枢密副使；经谏官推荐又改任参知政事，范辞任后仍先获陕西宣抚使之命、继而再任参知政事。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-003
+  source_passage_ref: PAS-796B6C9284F3
+  summary: 范仲淹反对专责失守州县官，赵禎采纳后使相关守令免于诛处。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-004
+  source_passage_ref: PAS-054C8356EDCA
+  summary: 赵禎多次询问政事、赐手诏并召二府条对，范仲淹提出十项改革；皇帝采纳多数并以诏书颁行，府兵法因众议反对而停止。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-005
+  source_passage_ref: PAS-054C8356EDCA
+  summary: 赵禎后来命范仲淹领刑法，但其提出的辅臣分领制度最终未能实行。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-006
+  source_passage_ref: PAS-054C8356EDCA
+  summary: 改革实施后出现人心不悦、谤毁和朋党议论；边警发生后赵禎改授范仲淹河东陕西宣抚使，随后其自请罢政，中书措施亦逐渐受阻废止。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZZ-FZY-007
+  source_passage_ref: PAS-054C8356EDCA
+  summary: 范仲淹任宣抚使期间修复旧寨、招还流亡三千余户并减免税负，原文记载河外遂安。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AS-001
+  source_passage_ref: PAS-71934C9DD534
+  summary: 忽必烈命阿朮分兵围守扬州。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AS-002
+  source_passage_ref: PAS-71934C9DD534
+  summary: 阿朮在瓜洲营造战具、转运军粮并设栅切断扬州粮道，击败姜才来援部队。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AS-003
+  source_passage_ref: PAS-908563EF747E
+  summary: 忽必烈任阿朮为中书左丞相，并明确令其守卫淮南重地。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AS-004
+  source_passage_ref: PAS-908563EF747E
+  summary: 阿朮驻兵瓜洲断绝扬州援路，原文将平宋之功部分归于其控制之力。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-LBZ-001
+  source_passage_ref: PAS-35BF33DE416F
+  summary: 忽必烈在潜邸屡次咨询劉秉忠并将其长期留在藩邸。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-LBZ-002
+  source_passage_ref: PAS-AD9DE3F22A8B
+  summary: 忽必烈即位后询问治国养民之法，并据劉秉忠条陈下诏建元、设中书省和宣抚司。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-LBZ-003
+  source_passage_ref: PAS-E8548AC5DC08
+  summary: 忽必烈正式授劉秉忠太保、参领中书省事，使其承担国家大政职责。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-LBZ-004
+  source_passage_ref: PAS-E8548AC5DC08
+  summary: 忽必烈先后命劉秉忠营建开平和中都；劉秉忠又提出国号、大都及官制礼仪等制度，原文称其成为一代成宪。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-HL-HS-001
+  source_passage_ref: PAS-C30B089130A9
+  summary: 弘曆命和珅赴云南查办总督李侍尧贪私案。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-HL-HS-002
+  source_passage_ref: PAS-C30B089130A9
+  summary: 和珅查得李侍尧婪索及云南吏治、亏帑问题，复命所陈多获允行。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-HL-HS-003
+  source_passage_ref: PAS-F7B0C7B5DB7F
+  summary: 弘曆任和珅为钦差大臣，与阿桂共同督师甘肃。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-HL-HS-004
+  source_passage_ref: PAS-F7B0C7B5DB7F
+  summary: 弘曆查明和珅迟延、隐匿死事、颠倒是非及妨碍军令统一后，斥责并命其回京。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-HL-HS-005
+  source_passage_ref: PAS-3C73A02E3D58
+  summary: 和珅长期柄政期间弄权纳贿，使下级剥削、盐政河工日敝，并使部分军务糜饷久无功。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-CTJ-001
+  source_passage_ref: PAS-1E14A6236F11
+  summary: 玄燁调陳廷敬任吏部并兼管户部钱法。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-CTJ-002
+  source_passage_ref: PAS-1E14A6236F11
+  summary: 陳廷敬提出调整钱重、开放产铜地民间开采等钱法建议，奏疏交部议行。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-CTJ-003
+  source_passage_ref: PAS-2168EFE90DC1
+  summary: 陳廷敬提出以廉洁养民标准考察督抚、简化灾害蠲免程序，两项奏议均获议行。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-CTJ-004
+  source_passage_ref: PAS-23EF3B894A78
+  summary: 玄燁任陳廷敬为文渊阁大学士兼吏部；其因病获准退休后，又在张玉书去世、李光地病休的现实缺员下召其入阁视事。
+  confidence: 0.95
+historical_episodes:
+- episode_ref: EP-JIN-SMY-YH-01@v1
+  episode_code: EP-JIN-SMY-YH-01
+  ruler: 司马炎
+  person: 羊祜
+  action: 司马炎授羊祜都督荆州诸军事、假节，并在撤销江北都督后扩充其所统军队。
+  responsibility: 统筹荆州方向诸军、镇抚南方并为灭吴经营军事条件。
+  outcome: 石城守备威胁被解除，戍逻减少，屯田获利，军粮积累至十年之储。
+  assertion_refs:
+  - V4PROD32-JIN-SMY-YH-001
+  - V4PROD32-JIN-SMY-YH-002
+  - V4PROD32-JIN-SMY-YH-003
+  semantic_fingerprint: fced1de2f21613ae3c79a26552a4ea5b1b3fff9265fdcdc55608d596b3ac4e9e
+- episode_ref: EP-JIN-SMY-YH-02@v1
+  episode_code: EP-JIN-SMY-YH-02
+  ruler: 司马炎
+  person: 羊祜
+  action: 司马炎诏羊祜迎接降晋的步阐，羊祜率军并遣杨肇攻陆抗。
+  responsibility: 解除陆抗对西陵的进攻并接应步阐。
+  outcome: 进攻失败、步阐被擒；有司奏劾后，羊祜被贬、杨肇被免。
+  assertion_refs:
+  - V4PROD32-JIN-SMY-YH-004
+  - V4PROD32-JIN-SMY-YH-005
+  semantic_fingerprint: ef150f84eed5e18f3f769336bce46faeb7bbd8a6347b5dfb5787feacd6cb0ed7
+- episode_ref: EP-QIN-FJ-WM-01@v1
+  episode_code: EP-QIN-FJ-WM-01
+  ruler: 苻坚
+  person: 王猛
+  action: 苻坚将王猛由中书侍郎转任始平令，并在其遭奏劾后亲自审问、赦免。
+  responsibility: 整治始平豪强与盗贼，恢复地方秩序。
+  outcome: 王猛的严厉治理获苻坚认可，未因奏劾而终止任用。
+  assertion_refs:
+  - V4PROD32-QIN-FJ-WM-001
+  - V4PROD32-QIN-FJ-WM-002
+  semantic_fingerprint: 3190bedee56c734c1a954483954359938e086a813e9ffdf52afb9538ea1cc443
+- episode_ref: EP-QIN-FJ-WM-02@v1
+  episode_code: EP-QIN-FJ-WM-02
+  ruler: 苻坚
+  person: 王猛
+  action: 面对宗戚旧臣谮毁，苻坚黜谮者并连续擢用王猛。
+  responsibility: 承担中枢政务、宿卫与太子辅导等职责。
+  outcome: 谮毁未使任用中断，王猛升任尚书令、太子太傅等职。
+  assertion_refs:
+  - V4PROD32-QIN-FJ-WM-003
+  semantic_fingerprint: 3055bd22049a2d69dd3a41a4a86643f4e66607a5ba452c2fba10002daa136fd1
+- episode_ref: EP-QIN-FJ-WM-03@v1
+  episode_code: EP-QIN-FJ-WM-03
+  ruler: 苻坚
+  person: 王猛
+  action: 苻坚先授王猛六州便宜处置及选任守宰之权，后再任丞相并加都督中外诸军事。
+  responsibility: 治理关东并总理军国内外万机。
+  outcome: 原文记载庶绩咸熙、百揆时叙，国家兵强国富。
+  assertion_refs:
+  - V4PROD32-QIN-FJ-WM-004
+  - V4PROD32-QIN-FJ-WM-005
+  - V4PROD32-QIN-FJ-WM-006
+  semantic_fingerprint: 051e4e2965a8b263223afd9e59dba2889a2821df3e7c9060ab45413f118040f3
+- episode_ref: EP-SONG-ZJ-CJ-01@v1
+  episode_code: EP-SONG-ZJ-CJ-01
+  ruler: 赵佶
+  person: 蔡京
+  action: 赵佶决意起用蔡京，连续授予尚书左丞、右仆射和左仆射职位。
+  responsibility: 围绕继承熙丰政事确定国是并主持中枢政务。
+  outcome: 蔡京建立由本人及党羽控制的讲议司并主导重大政策。
+  assertion_refs:
+  - V4PROD32-SONG-ZJ-CJ-001
+  - V4PROD32-SONG-ZJ-CJ-002
+  semantic_fingerprint: a04bb7fcf45f8c87165b438e64417fa07896d8b3bcfb4f05ac1eb522d143bf25
+- episode_ref: EP-SONG-ZJ-CJ-02@v1
+  episode_code: EP-SONG-ZJ-CJ-02
+  ruler: 赵佶
+  person: 蔡京
+  action: 在赵佶授予的宰辅权责下，蔡京推行盐钞等制度变更，并压制纠错意见。
+  responsibility: 处理国用、商旅、盐泽、赋调等重大政务。
+  outcome: 旧钞失效导致部分商人破产乃至自杀，奏报误民的官员反遭夺职。
+  assertion_refs:
+  - V4PROD32-SONG-ZJ-CJ-002
+  - V4PROD32-SONG-ZJ-CJ-003
+  semantic_fingerprint: 1c3377adb5f7da4367fb7d9055438ac2eff190116665ff50ead70ad5e325bdb6
+- episode_ref: EP-SONG-ZJ-CJ-03@v1
+  episode_code: EP-SONG-ZJ-CJ-03
+  ruler: 赵佶
+  person: 蔡京
+  action: 赵佶在此前多次起罢后第四次起用蔡京领三省，失能和弄权问题暴露后再行处分并令其去职。
+  responsibility: 总领三省、处理国家中枢政务。
+  outcome: 蔡京不能视事，蔡絛代决代奏并攫取权柄；赵佶最终处分相关人员并批准蔡京致仕。
+  assertion_refs:
+  - V4PROD32-SONG-ZJ-CJ-004
+  - V4PROD32-SONG-ZJ-CJ-005
+  - V4PROD32-SONG-ZJ-CJ-006
+  semantic_fingerprint: 521e9c0366aa590a7e4b043a8cd6e053c65c011353785fe98cad1ada77174736
+- episode_ref: EP-SONG-ZZ-FZY-01@v1
+  episode_code: EP-SONG-ZZ-FZY-01
+  ruler: 赵祯
+  person: 范仲淹
+  action: 赵禎在灾荒和范仲淹进言后，命其安抚江淮。
+  responsibility: 巡行灾区、开仓赈济并提出救弊措施。
+  outcome: 原文记载范仲淹实施开仓赈济、禁淫祀及奏请减免多项负担。
+  assertion_refs:
+  - V4PROD32-SONG-ZZ-FZY-001
+  semantic_fingerprint: 8b461ece3335b22c88a28687a88e82391e90a20d856a69def051aa16ffa06d63
+- episode_ref: EP-SONG-ZZ-FZY-02@v1
+  episode_code: EP-SONG-ZZ-FZY-02
+  ruler: 赵祯
+  person: 范仲淹
+  action: 赵禎在边务任用后将范仲淹召入枢密和政府，并以手诏、天章阁条对推动其提出改革。
+  responsibility: 参与中枢决策、整顿官僚制度并承担刑法等监督职责。
+  outcome: 十项改革多数获诏令颁行，守令免遭专责诛杀；府兵法和辅臣分领方案未能实行。
+  assertion_refs:
+  - V4PROD32-SONG-ZZ-FZY-002
+  - V4PROD32-SONG-ZZ-FZY-003
+  - V4PROD32-SONG-ZZ-FZY-004
+  - V4PROD32-SONG-ZZ-FZY-005
+  semantic_fingerprint: 643a2b2ae6a53f3bd352732e4b3c28540009f8be1f234ebbf8a54a437e713fe4
+- episode_ref: EP-SONG-ZZ-FZY-03@v1
+  episode_code: EP-SONG-ZZ-FZY-03
+  ruler: 赵祯
+  person: 范仲淹
+  action: 改革遭遇官僚与既得利益群体反对后，赵禎将范仲淹转授河东陕西宣抚等边务职责，其后准其退出政事。
+  responsibility: 继续负责边区安抚、恢复寨防和安置流民。
+  outcome: 边区措施使河外一度安定，但其在中书实施的政策逐渐受阻废止。
+  assertion_refs:
+  - V4PROD32-SONG-ZZ-FZY-006
+  - V4PROD32-SONG-ZZ-FZY-007
+  semantic_fingerprint: 5d8f9a8970f92338dc2b372a7730ff4704eda8cdfd2af736e4fb82dec6941b90
+- episode_ref: EP-YUAN-HBL-AS-01@v1
+  episode_code: EP-YUAN-HBL-AS-01
+  ruler: 忽必烈
+  person: 阿术
+  action: 忽必烈命阿朮分兵围守扬州，后又令其守淮南。
+  responsibility: 围守扬州、控制淮南重地并切断扬州粮援。
+  outcome: 阿朮断粮道、败援军并控制扬州援路，形成有利于平宋的正向结果。
+  assertion_refs:
+  - V4PROD32-YUAN-HBL-AS-001
+  - V4PROD32-YUAN-HBL-AS-002
+  - V4PROD32-YUAN-HBL-AS-003
+  - V4PROD32-YUAN-HBL-AS-004
+  semantic_fingerprint: 072d4ea26b0f072c96a040f2f2a2ad15459b54d796775964ef2c08d5e987bfef
+- episode_ref: EP-YUAN-HBL-LBZ-01@v1
+  episode_code: EP-YUAN-HBL-LBZ-01
+  ruler: 忽必烈
+  person: 刘秉忠
+  action: 忽必烈从潜邸顾问阶段持续复用劉秉忠，并在即位后令其条陈治国制度、正式参领中书省事。
+  responsibility: 提供治国制度设计、参与中枢政务，并承担都城与国家典制建设。
+  outcome: 建元、设中书省和宣抚司，完成开平及中都建设，并形成国号、都城、官制和礼仪等成宪。
+  assertion_refs:
+  - V4PROD32-YUAN-HBL-LBZ-001
+  - V4PROD32-YUAN-HBL-LBZ-002
+  - V4PROD32-YUAN-HBL-LBZ-003
+  - V4PROD32-YUAN-HBL-LBZ-004
+  semantic_fingerprint: 83506f076dc09563b309279b281cd85fb9e2f7c11d059bdf4efb0c0567e81661
+- episode_ref: EP-QING-HL-HS-01@v1
+  episode_code: EP-QING-HL-HS-01
+  ruler: 弘历
+  person: 和珅
+  action: 弘曆命和珅赴云南查办李侍尧贪私案。
+  responsibility: 审查贪私及云南吏治、财政问题并回奏处置建议。
+  outcome: 查得婪索、吏治废弛和亏帑情形，复命所陈多获允行。
+  assertion_refs:
+  - V4PROD32-QING-HL-HS-001
+  - V4PROD32-QING-HL-HS-002
+  semantic_fingerprint: eebc6698fef6b67310a6c2c233fe6d95d4dd3a8d2c5918fd414fb2f2bac91eec
+- episode_ref: EP-QING-HL-HS-02@v1
+  episode_code: EP-QING-HL-HS-02
+  ruler: 弘历
+  person: 和珅
+  action: 弘曆任和珅为钦差大臣赴甘肃督师。
+  responsibility: 统筹诸将作战、及时报告军情并维持军令统一。
+  outcome: 和珅迟延、隐匿死事并错误归咎诸将，妨碍军务统一，弘曆随后将其斥责召回。
+  assertion_refs:
+  - V4PROD32-QING-HL-HS-003
+  - V4PROD32-QING-HL-HS-004
+  semantic_fingerprint: f1e96c8bdf6401fa2a278060a8d83389ed05a7617ea648087d97f27469821996
+- episode_ref: EP-QING-HL-HS-03@v1
+  episode_code: EP-QING-HL-HS-03
+  ruler: 弘历
+  person: 和珅
+  action: 弘曆长期任用和珅参与中枢政务。
+  responsibility: 处理军机及财政、盐政、河工和军务相关事务。
+  outcome: 和珅利用职权纳贿弄权，导致下级剥削、盐政河工日敝及部分军务糜饷久无功。
+  assertion_refs:
+  - V4PROD32-QING-HL-HS-005
+  semantic_fingerprint: ac6c9ec7753b7764affb891dec26214a903e86cfad3f039c6ad4ae240beabf3c
+- episode_ref: EP-QING-XY-CTJ-01@v1
+  episode_code: EP-QING-XY-CTJ-01
+  ruler: 玄烨
+  person: 陈廷敬
+  action: 玄燁使陳廷敬历任中枢和部院职务，兼管钱法并受其制度奏议。
+  responsibility: 处理钱法，提出督抚考察及灾害蠲免制度建议。
+  outcome: 钱法、督抚考察和灾害蠲免建议均获交议施行，但原文未直接交代长期实际效果。
+  assertion_refs:
+  - V4PROD32-QING-XY-CTJ-001
+  - V4PROD32-QING-XY-CTJ-002
+  - V4PROD32-QING-XY-CTJ-003
+  semantic_fingerprint: de62cdaa5d04230229202c948ed28d93c532af5f32adcbb27b09e4460a0ab19b
+- episode_ref: EP-QING-XY-CTJ-02@v1
+  episode_code: EP-QING-XY-CTJ-02
+  ruler: 玄烨
+  person: 陈廷敬
+  action: 玄燁先任陳廷敬为大学士，准其因病退休后又在阁臣死亡、病休造成缺员时召回复职。
+  responsibility: 在内阁缺员压力下恢复承担中枢政务。
+  outcome: 陳廷敬重新入阁视事，原文未进一步说明此次召回的具体政务成果。
+  assertion_refs:
+  - V4PROD32-QING-XY-CTJ-004
+  semantic_fingerprint: 2dc3d3e9ed9af60a64336a01cdac2d8ecf743e135e6892c9b00889f12072ac11
+rule_evidence_units:
+- unit_ref: REU-JIN-SIMAYAN-YANGHU-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 司马炎
+  person: 羊祜
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-JIN-SMY-YH-01@v1
+  - EP-JIN-SMY-YH-02@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载司马炎授羊祜荆州军事统辖权、扩充所统军队，以及屯田积粮等正向结果；又记迎接步阐任务失败、官署奏劾和降职纠错，可拆分正负材料。后续加官或结果演变不作为复用阶段，故连续性不提议
+        long_term_multi_stage。
+      assertion_refs: &id001
+      - V4PROD32-JIN-SMY-YH-001
+      - V4PROD32-JIN-SMY-YH-002
+      - V4PROD32-JIN-SMY-YH-003
+      - V4PROD32-JIN-SMY-YH-004
+      - V4PROD32-JIN-SMY-YH-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id001
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id001
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id001
+- unit_ref: REU-QIN-FUJIAN-WANGMENG-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 苻坚
+  person: 王猛
+  decision_arc_family: appointment_continued_authorization
+  episode_refs:
+  - EP-QIN-FJ-WM-01@v1
+  - EP-QIN-FJ-WM-02@v1
+  - EP-QIN-FJ-WM-03@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接覆盖苻坚对王猛由地方治理、中枢重任至关东军政便宜处置的多阶段任用，并记载豪强治理、关东安定和军国治理结果；宗戚旧臣谮毁构成明确负面指控，苻坚仍黜谮者并继续擢用，可支持压力下直接归责。
+      assertion_refs: &id002
+      - V4PROD32-QIN-FJ-WM-001
+      - V4PROD32-QIN-FJ-WM-002
+      - V4PROD32-QIN-FJ-WM-003
+      - V4PROD32-QIN-FJ-WM-004
+      - V4PROD32-QIN-FJ-WM-005
+      - V4PROD32-QIN-FJ-WM-006
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id002
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id002
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id002
+- unit_ref: REU-SONG-ZHAOJI-CAIJING-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 赵佶
+  person: 蔡京
+  decision_arc_family: appointment_continued_authorization
+  episode_refs:
+  - EP-SONG-ZJ-CJ-01@v1
+  - EP-SONG-ZJ-CJ-02@v1
+  - EP-SONG-ZJ-CJ-03@v1
+  factor_observations:
+    person_task_fit:
+      value: negative_signal
+      reason: 原文直接记载赵佶决意起用蔡京、授宰辅职责、屡次罢免与复起，并详载其制度与财政措施造成的持续损害；后期四度当国而失去履职能力、权柄落入其子，形成长期负向任用及有限纠错链。
+      assertion_refs: &id003
+      - V4PROD32-SONG-ZJ-CJ-001
+      - V4PROD32-SONG-ZJ-CJ-002
+      - V4PROD32-SONG-ZJ-CJ-003
+      - V4PROD32-SONG-ZJ-CJ-004
+      - V4PROD32-SONG-ZJ-CJ-005
+      - V4PROD32-SONG-ZJ-CJ-006
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id003
+    feedback_handling:
+      value: negative_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id003
+    attributable_outcome:
+      value: negative_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id003
+- unit_ref: REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 赵祯
+  person: 范仲淹
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-SONG-ZZ-FZY-01@v1
+  - EP-SONG-ZZ-FZY-02@v1
+  - EP-SONG-ZZ-FZY-03@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载赵禎在灾荒中采纳范仲淹请求并授安抚职责，以及在庆历时期反复授予边务、中枢和改革职责；改革获皇帝采纳，但部分方案未行并因舆论反弹而逐步受阻，适合拆分正向实施与争议、回撤材料。
+      assertion_refs: &id004
+      - V4PROD32-SONG-ZZ-FZY-001
+      - V4PROD32-SONG-ZZ-FZY-002
+      - V4PROD32-SONG-ZZ-FZY-003
+      - V4PROD32-SONG-ZZ-FZY-004
+      - V4PROD32-SONG-ZZ-FZY-005
+      - V4PROD32-SONG-ZZ-FZY-006
+      - V4PROD32-SONG-ZZ-FZY-007
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id004
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id004
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id004
+- unit_ref: REU-YUAN-HUBILIE-ASHU-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 忽必烈
+  person: 阿术
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-YUAN-HBL-AS-01@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接记载忽必烈命阿朮分兵围守扬州并说明淮南守备职责，继述断粮、击败援军及控制扬州援路的正向结果，足以形成单一军事授权事件。
+      assertion_refs: &id005
+      - V4PROD32-YUAN-HBL-AS-001
+      - V4PROD32-YUAN-HBL-AS-002
+      - V4PROD32-YUAN-HBL-AS-003
+      - V4PROD32-YUAN-HBL-AS-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id005
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id005
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id005
+- unit_ref: REU-YUAN-HUBILIE-LIUBINGZHONG-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 忽必烈
+  person: 刘秉忠
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-YUAN-HBL-LBZ-01@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接覆盖忽必烈长期留用、即位后采纳制度设计、正式授予中书职责以及随后多项建制成果；潜邸顾问、即位建制和正式参领中书构成可区分的复用阶段。
+      assertion_refs: &id006
+      - V4PROD32-YUAN-HBL-LBZ-001
+      - V4PROD32-YUAN-HBL-LBZ-002
+      - V4PROD32-YUAN-HBL-LBZ-003
+      - V4PROD32-YUAN-HBL-LBZ-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id006
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id006
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id006
+- unit_ref: REU-QING-HONGLI-HESHEN-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 弘历
+  person: 和珅
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-QING-HL-HS-01@v1
+  - EP-QING-HL-HS-02@v1
+  - EP-QING-HL-HS-03@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载弘曆对和珅的中枢、监督与督师授权，也分别记载云南查案的正向结果、甘肃督师中的失当及召回纠错，以及长期柄政造成的持续损害；正负结果可拆分，不作抵消。
+      assertion_refs: &id007
+      - V4PROD32-QING-HL-HS-001
+      - V4PROD32-QING-HL-HS-002
+      - V4PROD32-QING-HL-HS-003
+      - V4PROD32-QING-HL-HS-004
+      - V4PROD32-QING-HL-HS-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id007
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id007
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id007
+- unit_ref: REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 玄烨
+  person: 陈廷敬
+  decision_arc_family: appointment_continued_authorization
+  episode_refs:
+  - EP-QING-XY-CTJ-01@v1
+  - EP-QING-XY-CTJ-02@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接记载玄燁长期将陳廷敬用于翰林、南书房、部院及内阁，所奏钱法、督抚考察和灾害蠲免建议获议行；退休后因内阁缺员又被召回复用，构成多个可区分阶段，但材料对这些政策的后续实际成效覆盖有限。
+      assertion_refs: &id008
+      - V4PROD32-QING-XY-CTJ-001
+      - V4PROD32-QING-XY-CTJ-002
+      - V4PROD32-QING-XY-CTJ-003
+      - V4PROD32-QING-XY-CTJ-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id008
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id008
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id008

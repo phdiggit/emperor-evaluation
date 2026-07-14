@@ -87,8 +87,11 @@ def evaluate_factor_representativeness_plan(
                 raise ValueError("已构成单元或候选必须绑定身份")
             if slot_type == "existing_unit" and group != "historical_opened":
                 raise ValueError("existing_unit 只允许登记历史已开封回归单元")
-            if slot_type == "bound_candidate" and group != "new_open_development":
-                raise ValueError("bound_candidate 只允许登记新开放开发候选")
+            if slot_type == "bound_candidate" and group not in {
+                "new_open_development",
+                "future_sealed",
+            }:
+                raise ValueError("bound_candidate 只允许登记新开发或 sealed 候选")
             identity_key = (
                 str(identity.get("ruler_code") or ""),
                 str(identity.get("person_code") or ""),
@@ -167,11 +170,15 @@ def evaluate_factor_representativeness_plan(
     plan_ready = (
         all(group_checks.values())
         and not missing_strata
-        and sealed_identity_exposure_count == 0
+        and sealed_identity_exposure_count
+        in {0, group_counts["future_sealed"]}
     )
     open_candidate_sourcing_ready = (
         bound_group_counts["new_open_development"]
         == group_counts["new_open_development"]
+    )
+    sealed_candidate_sourcing_ready = (
+        bound_group_counts["future_sealed"] == group_counts["future_sealed"]
     )
     report_basis = {
         "manifest_code": manifest.get("manifest_code"),
@@ -235,6 +242,7 @@ def evaluate_factor_representativeness_plan(
         },
         "sampling_plan_ready": plan_ready,
         "candidate_sourcing_ready": open_candidate_sourcing_ready,
+        "sealed_candidate_sourcing_ready": sealed_candidate_sourcing_ready,
         "candidate_sourcing_blocker": (
             None
             if open_candidate_sourcing_ready

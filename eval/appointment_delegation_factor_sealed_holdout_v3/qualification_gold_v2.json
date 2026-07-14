@@ -1,0 +1,1221 @@
+{
+  "agent_policy_version": "appointment-delegation-factor-observation-agent-v4",
+  "gold_origin": "human_reviewed_parity_gold_plus_coverage_adjudication",
+  "gold_sha256": "bf542bcd9ea7f991897bdae54deadba4ffcd15550f68b4805013e54792bb6c31",
+  "rule_code": "appointment_delegation",
+  "sample_role": "sealed_holdout",
+  "schema_version": "factor-observation-qualification-gold-v2",
+  "side_effect_audit": {
+    "database_write_count": 0,
+    "formal_acceptance_performed": false,
+    "model_call_count": 0
+  },
+  "source_manifest_ref": "appointment_delegation_factor_sealed_holdout_v3",
+  "source_manifest_sha256": "4c7a461644e8aa683baf4a2955f8b373cff5ab7b696681a1748f149bcb329c9c",
+  "status": "frozen_factor_observation_qualification_gold",
+  "task_code": "V4-AD-FACTOR-OBSERVATION-QUALIFICATION-GOLD-V2",
+  "units": [
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-JIN-SMY-YH-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-001",
+                "V4PROD32-JIN-SMY-YH-002",
+                "V4PROD32-JIN-SMY-YH-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "normal_success",
+              "reason": "授权形成明确正向反馈但未达到重大结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-001",
+                "V4PROD32-JIN-SMY-YH-002",
+                "V4PROD32-JIN-SMY-YH-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-001",
+                "V4PROD32-JIN-SMY-YH-002",
+                "V4PROD32-JIN-SMY-YH-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-001",
+                "V4PROD32-JIN-SMY-YH-002",
+                "V4PROD32-JIN-SMY-YH-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-001",
+                "V4PROD32-JIN-SMY-YH-002",
+                "V4PROD32-JIN-SMY-YH-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-001",
+                "V4PROD32-JIN-SMY-YH-002",
+                "V4PROD32-JIN-SMY-YH-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-JIN-SMY-YH-01",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-JIN-SMY-YH-02",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-004",
+                "V4PROD32-JIN-SMY-YH-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "poor_result",
+              "reason": "授权形成明确负向反馈但未充分证明持续结构性损害"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-004",
+                "V4PROD32-JIN-SMY-YH-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_affairs",
+              "reason": "职责影响重要军政领域但不等于国家整体长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-004",
+                "V4PROD32-JIN-SMY-YH-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-004",
+                "V4PROD32-JIN-SMY-YH-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "clear",
+              "reason": "任用、职责和结果与规则直接相关且边界基本清楚"
+            },
+            "continuity_factor": {
+              "assertion_refs": [],
+              "decision_status": "insufficient_coverage",
+              "inference_basis": "coverage_insufficient",
+              "option_code": null,
+              "reason": "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-JIN-SMY-YH-004",
+                "V4PROD32-JIN-SMY-YH-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-JIN-SMY-YH-02",
+          "side": "negative"
+        }
+      ],
+      "unit_ref": "REU-JIN-SIMAYAN-YANGHU-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-QIN-FJ-WM-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-001",
+                "V4PROD32-QIN-FJ-WM-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "normal_success",
+              "reason": "授权形成明确正向反馈但未达到重大结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-001",
+                "V4PROD32-QIN-FJ-WM-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "real_bounded",
+              "reason": "真实职责成立但责任域明确且有限"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-001",
+                "V4PROD32-QIN-FJ-WM-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct_under_pressure",
+              "reason": "皇帝在明确反对、负面指控或现实约束下仍作关键取舍"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-001",
+                "V4PROD32-QIN-FJ-WM-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [],
+              "decision_status": "insufficient_coverage",
+              "inference_basis": "coverage_insufficient",
+              "option_code": null,
+              "reason": "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-001",
+                "V4PROD32-QIN-FJ-WM-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-QIN-FJ-WM-01",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-QIN-FJ-WM-02",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "weak_feedback",
+              "reason": "存在正向履职信号但反馈较弱或尚不完整"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct_under_pressure",
+              "reason": "皇帝在明确反对、负面指控或现实约束下仍作关键取舍"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "standard",
+              "reason": "史源足以支持主要判断，但至少一个已声明环节并非直接完整覆盖"
+            }
+          },
+          "material_code": "MAT-QIN-FJ-WM-02",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-QIN-FJ-WM-03",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-004",
+                "V4PROD32-QIN-FJ-WM-005",
+                "V4PROD32-QIN-FJ-WM-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_success",
+              "reason": "授权形成国家级、关键战役或显著结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-004",
+                "V4PROD32-QIN-FJ-WM-005",
+                "V4PROD32-QIN-FJ-WM-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-004",
+                "V4PROD32-QIN-FJ-WM-005",
+                "V4PROD32-QIN-FJ-WM-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-004",
+                "V4PROD32-QIN-FJ-WM-005",
+                "V4PROD32-QIN-FJ-WM-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-004",
+                "V4PROD32-QIN-FJ-WM-005",
+                "V4PROD32-QIN-FJ-WM-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QIN-FJ-WM-004",
+                "V4PROD32-QIN-FJ-WM-005",
+                "V4PROD32-QIN-FJ-WM-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-QIN-FJ-WM-03",
+          "side": "positive"
+        }
+      ],
+      "unit_ref": "REU-QIN-FUJIAN-WANGMENG-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-SONG-ZJ-CJ-02",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-002",
+                "V4PROD32-SONG-ZJ-CJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "structural_continuing_damage",
+              "reason": "反馈显示损害跨出单次失误并持续影响制度、军政或社会"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-002",
+                "V4PROD32-SONG-ZJ-CJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-002",
+                "V4PROD32-SONG-ZJ-CJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "indirect",
+              "reason": "皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-002",
+                "V4PROD32-SONG-ZJ-CJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-002",
+                "V4PROD32-SONG-ZJ-CJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "stable",
+              "reason": "同一授权下存在持续履职、反馈或监督"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-002",
+                "V4PROD32-SONG-ZJ-CJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-SONG-ZJ-CJ-01",
+          "side": "negative"
+        },
+        {
+          "event_group": "EP-SONG-ZJ-CJ-03",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-004",
+                "V4PROD32-SONG-ZJ-CJ-005",
+                "V4PROD32-SONG-ZJ-CJ-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "structural_continuing_damage",
+              "reason": "反馈显示损害跨出单次失误并持续影响制度、军政或社会"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-004",
+                "V4PROD32-SONG-ZJ-CJ-005",
+                "V4PROD32-SONG-ZJ-CJ-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-004",
+                "V4PROD32-SONG-ZJ-CJ-005",
+                "V4PROD32-SONG-ZJ-CJ-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-004",
+                "V4PROD32-SONG-ZJ-CJ-005",
+                "V4PROD32-SONG-ZJ-CJ-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-004",
+                "V4PROD32-SONG-ZJ-CJ-005",
+                "V4PROD32-SONG-ZJ-CJ-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZJ-CJ-004",
+                "V4PROD32-SONG-ZJ-CJ-005",
+                "V4PROD32-SONG-ZJ-CJ-006"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-SONG-ZJ-CJ-02",
+          "side": "negative"
+        }
+      ],
+      "unit_ref": "REU-SONG-ZHAOJI-CAIJING-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-SONG-ZZ-FZY-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-001"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "normal_success",
+              "reason": "授权形成明确正向反馈但未达到重大结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-001"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_affairs",
+              "reason": "职责影响重要军政领域但不等于国家整体长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-001"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct_under_pressure",
+              "reason": "皇帝在明确反对、负面指控或现实约束下仍作关键取舍"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-001"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "clear",
+              "reason": "任用、职责和结果与规则直接相关且边界基本清楚"
+            },
+            "continuity_factor": {
+              "assertion_refs": [],
+              "decision_status": "insufficient_coverage",
+              "inference_basis": "coverage_insufficient",
+              "option_code": null,
+              "reason": "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-001"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "standard",
+              "reason": "史源足以支持主要判断，但至少一个已声明环节并非直接完整覆盖"
+            }
+          },
+          "material_code": "MAT-SONG-ZZ-FZY-01",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-SONG-ZZ-FZY-02",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-002",
+                "V4PROD32-SONG-ZZ-FZY-003",
+                "V4PROD32-SONG-ZZ-FZY-004",
+                "V4PROD32-SONG-ZZ-FZY-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "normal_success",
+              "reason": "授权形成明确正向反馈但未达到重大结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-002",
+                "V4PROD32-SONG-ZZ-FZY-003",
+                "V4PROD32-SONG-ZZ-FZY-004",
+                "V4PROD32-SONG-ZZ-FZY-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-002",
+                "V4PROD32-SONG-ZZ-FZY-003",
+                "V4PROD32-SONG-ZZ-FZY-004",
+                "V4PROD32-SONG-ZZ-FZY-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-002",
+                "V4PROD32-SONG-ZZ-FZY-003",
+                "V4PROD32-SONG-ZZ-FZY-004",
+                "V4PROD32-SONG-ZZ-FZY-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-002",
+                "V4PROD32-SONG-ZZ-FZY-003",
+                "V4PROD32-SONG-ZZ-FZY-004",
+                "V4PROD32-SONG-ZZ-FZY-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-002",
+                "V4PROD32-SONG-ZZ-FZY-003",
+                "V4PROD32-SONG-ZZ-FZY-004",
+                "V4PROD32-SONG-ZZ-FZY-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-SONG-ZZ-FZY-02",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-SONG-ZZ-FZY-03",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-006",
+                "V4PROD32-SONG-ZZ-FZY-007"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "poor_result",
+              "reason": "授权形成明确负向反馈但未充分证明持续结构性损害"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-006",
+                "V4PROD32-SONG-ZZ-FZY-007"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-006",
+                "V4PROD32-SONG-ZZ-FZY-007"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "indirect",
+              "reason": "皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-006",
+                "V4PROD32-SONG-ZZ-FZY-007"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "clear",
+              "reason": "任用、职责和结果与规则直接相关且边界基本清楚"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-006",
+                "V4PROD32-SONG-ZZ-FZY-007"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "stable",
+              "reason": "同一授权下存在持续履职、反馈或监督"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-SONG-ZZ-FZY-006",
+                "V4PROD32-SONG-ZZ-FZY-007"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-SONG-ZZ-FZY-03",
+          "side": "negative"
+        }
+      ],
+      "unit_ref": "REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-YUAN-HBL-AS-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-AS-001",
+                "V4PROD32-YUAN-HBL-AS-002",
+                "V4PROD32-YUAN-HBL-AS-003",
+                "V4PROD32-YUAN-HBL-AS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_success",
+              "reason": "授权形成国家级、关键战役或显著结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-AS-001",
+                "V4PROD32-YUAN-HBL-AS-002",
+                "V4PROD32-YUAN-HBL-AS-003",
+                "V4PROD32-YUAN-HBL-AS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-AS-001",
+                "V4PROD32-YUAN-HBL-AS-002",
+                "V4PROD32-YUAN-HBL-AS-003",
+                "V4PROD32-YUAN-HBL-AS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-AS-001",
+                "V4PROD32-YUAN-HBL-AS-002",
+                "V4PROD32-YUAN-HBL-AS-003",
+                "V4PROD32-YUAN-HBL-AS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-AS-001",
+                "V4PROD32-YUAN-HBL-AS-002",
+                "V4PROD32-YUAN-HBL-AS-003",
+                "V4PROD32-YUAN-HBL-AS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-AS-001",
+                "V4PROD32-YUAN-HBL-AS-002",
+                "V4PROD32-YUAN-HBL-AS-003",
+                "V4PROD32-YUAN-HBL-AS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-YUAN-HBL-AS-01",
+          "side": "positive"
+        }
+      ],
+      "unit_ref": "REU-YUAN-HUBILIE-ASHU-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-YUAN-HBL-LBZ-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-LBZ-001",
+                "V4PROD32-YUAN-HBL-LBZ-002",
+                "V4PROD32-YUAN-HBL-LBZ-003",
+                "V4PROD32-YUAN-HBL-LBZ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_success",
+              "reason": "授权形成国家级、关键战役或显著结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-LBZ-001",
+                "V4PROD32-YUAN-HBL-LBZ-002",
+                "V4PROD32-YUAN-HBL-LBZ-003",
+                "V4PROD32-YUAN-HBL-LBZ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-LBZ-001",
+                "V4PROD32-YUAN-HBL-LBZ-002",
+                "V4PROD32-YUAN-HBL-LBZ-003",
+                "V4PROD32-YUAN-HBL-LBZ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-LBZ-001",
+                "V4PROD32-YUAN-HBL-LBZ-002",
+                "V4PROD32-YUAN-HBL-LBZ-003",
+                "V4PROD32-YUAN-HBL-LBZ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-LBZ-001",
+                "V4PROD32-YUAN-HBL-LBZ-002",
+                "V4PROD32-YUAN-HBL-LBZ-003",
+                "V4PROD32-YUAN-HBL-LBZ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-YUAN-HBL-LBZ-001",
+                "V4PROD32-YUAN-HBL-LBZ-002",
+                "V4PROD32-YUAN-HBL-LBZ-003",
+                "V4PROD32-YUAN-HBL-LBZ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-YUAN-HBL-LBZ-01",
+          "side": "positive"
+        }
+      ],
+      "unit_ref": "REU-YUAN-HUBILIE-LIUBINGZHONG-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-QING-HL-HS-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-001",
+                "V4PROD32-QING-HL-HS-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "normal_success",
+              "reason": "授权形成明确正向反馈但未达到重大结构性成果"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-001",
+                "V4PROD32-QING-HL-HS-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_affairs",
+              "reason": "职责影响重要军政领域但不等于国家整体长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-001",
+                "V4PROD32-QING-HL-HS-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-001",
+                "V4PROD32-QING-HL-HS-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [],
+              "decision_status": "insufficient_coverage",
+              "inference_basis": "coverage_insufficient",
+              "option_code": null,
+              "reason": "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-001",
+                "V4PROD32-QING-HL-HS-002"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-QING-HL-HS-01",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-QING-HL-HS-02",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-003",
+                "V4PROD32-QING-HL-HS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "poor_result",
+              "reason": "授权形成明确负向反馈但未充分证明持续结构性损害"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-003",
+                "V4PROD32-QING-HL-HS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "major_affairs",
+              "reason": "职责影响重要军政领域但不等于国家整体长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-003",
+                "V4PROD32-QING-HL-HS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-003",
+                "V4PROD32-QING-HL-HS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "core_mechanism_direct",
+              "reason": "材料直接展示任命、授权、反馈或纠错的核心机制"
+            },
+            "continuity_factor": {
+              "assertion_refs": [],
+              "decision_status": "insufficient_coverage",
+              "inference_basis": "coverage_insufficient",
+              "option_code": null,
+              "reason": "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-003",
+                "V4PROD32-QING-HL-HS-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "complete_direct_chain",
+              "reason": "史源直接覆盖本材料声明的任用、职责和反馈或损害链"
+            }
+          },
+          "material_code": "MAT-QING-HL-HS-02",
+          "side": "negative"
+        },
+        {
+          "event_group": "EP-QING-HL-HS-03",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "structural_continuing_damage",
+              "reason": "反馈显示损害跨出单次失误并持续影响制度、军政或社会"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "indirect",
+              "reason": "皇帝责任成立，但关键结果受受任者独立行为或多主体链条显著影响"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "clear",
+              "reason": "任用、职责和结果与规则直接相关且边界基本清楚"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "stable",
+              "reason": "同一授权下存在持续履职、反馈或监督"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-HL-HS-005"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "standard",
+              "reason": "史源足以支持主要判断，但至少一个已声明环节并非直接完整覆盖"
+            }
+          },
+          "material_code": "MAT-QING-HL-HS-03",
+          "side": "negative"
+        }
+      ],
+      "unit_ref": "REU-QING-HONGLI-HESHEN-AUTHORITY-v1"
+    },
+    {
+      "factor_materials": [
+        {
+          "event_group": "EP-QING-XY-CTJ-01",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-001",
+                "V4PROD32-QING-XY-CTJ-002",
+                "V4PROD32-QING-XY-CTJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "weak_feedback",
+              "reason": "存在正向履职信号但反馈较弱或尚不完整"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-001",
+                "V4PROD32-QING-XY-CTJ-002",
+                "V4PROD32-QING-XY-CTJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-001",
+                "V4PROD32-QING-XY-CTJ-002",
+                "V4PROD32-QING-XY-CTJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct",
+              "reason": "任命、授权或反馈处置可直接归责于皇帝"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-001",
+                "V4PROD32-QING-XY-CTJ-002",
+                "V4PROD32-QING-XY-CTJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "clear",
+              "reason": "任用、职责和结果与规则直接相关且边界基本清楚"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-001",
+                "V4PROD32-QING-XY-CTJ-002",
+                "V4PROD32-QING-XY-CTJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-001",
+                "V4PROD32-QING-XY-CTJ-002",
+                "V4PROD32-QING-XY-CTJ-003"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "standard",
+              "reason": "史源足以支持主要判断，但至少一个已声明环节并非直接完整覆盖"
+            }
+          },
+          "material_code": "MAT-QING-XY-CTJ-01",
+          "side": "positive"
+        },
+        {
+          "event_group": "EP-QING-XY-CTJ-02",
+          "factors": {
+            "appointment_effect": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "weak_feedback",
+              "reason": "存在正向履职信号但反馈较弱或尚不完整"
+            },
+            "appointment_importance": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "critical_national_or_long_term",
+              "reason": "职责直接关联国家级战略、中枢或长期结构"
+            },
+            "attribution_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "direct_under_pressure",
+              "reason": "皇帝在明确反对、负面指控或现实约束下仍作关键取舍"
+            },
+            "context_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "clear",
+              "reason": "任用、职责和结果与规则直接相关且边界基本清楚"
+            },
+            "continuity_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "long_term_multi_stage",
+              "reason": "材料直接覆盖至少两个可区分的授权、续任或新任务复用阶段"
+            },
+            "source_factor": {
+              "assertion_refs": [
+                "V4PROD32-QING-XY-CTJ-004"
+              ],
+              "decision_status": "resolved",
+              "inference_basis": "direct_evidence",
+              "option_code": "weak_or_compressed",
+              "reason": "关键任用、职责、反馈或因果环节存在压缩或间接表达"
+            }
+          },
+          "material_code": "MAT-QING-XY-CTJ-02",
+          "side": "positive"
+        }
+      ],
+      "unit_ref": "REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1"
+    }
+  ],
+  "worklist_sha256": "da8f04e95395728d467b06677999bd49972fe5fdd428371a4b0036bf7b3b56d4"
+}

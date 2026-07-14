@@ -415,9 +415,9 @@ sample_entries:
 
   - entry_id: SEALED-SLOT-01
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: SIMAYAN, person_code: YANGHU}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: wei_jin_southern_northern_sui
       role_family: military_command
@@ -429,9 +429,9 @@ sample_entries:
       authorization_arcs: [scope_expansion, corrective_control]
   - entry_id: SEALED-SLOT-02
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: FUJIAN, person_code: WANGMENG}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: wei_jin_southern_northern_sui
       role_family: civil_administration
@@ -443,9 +443,9 @@ sample_entries:
       authorization_arcs: [crisis_recall, cross_stage_reuse]
   - entry_id: SEALED-SLOT-03
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: ZHAOJI, person_code: CAIJING}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: song_liao_jin
       role_family: civil_administration
@@ -457,9 +457,9 @@ sample_entries:
       authorization_arcs: [same_mandate_continuation, corrective_control]
   - entry_id: SEALED-SLOT-04
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: ZHAOZHEN, person_code: FANZHONGYAN}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: song_liao_jin
       role_family: supervisory_control
@@ -471,37 +471,37 @@ sample_entries:
       authorization_arcs: [group_influenced_decision, corrective_control]
   - entry_id: SEALED-SLOT-05
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: HUBILIE, person_code: ASHU}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: yuan
       role_family: military_command
       outcome_structure: positive_only
       attribution_challenge: ordinary_direct
-      continuity_challenge: short_or_one_off
+      continuity_challenge: long_term_multi_stage
       source_challenge: standard_partial_chain
       coverage_challenge: incomplete_outcome
-      authorization_arcs: [delegated_command]
+      authorization_arcs: [delegated_command, scope_expansion]
   - entry_id: SEALED-SLOT-06
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: HUBILIE, person_code: LIUBINGZHONG}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: yuan
       role_family: strategic_advice
       outcome_structure: positive_only
-      attribution_challenge: explicit_pressure
-      continuity_challenge: absence_sensitive
-      source_challenge: multi_source_join
-      coverage_challenge: conflicting_evidence
-      authorization_arcs: [crisis_recall, group_influenced_decision]
+      attribution_challenge: ordinary_direct
+      continuity_challenge: long_term_multi_stage
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
+      authorization_arcs: [initial_appointment, cross_stage_reuse]
   - entry_id: SEALED-SLOT-07
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: HONGLI, person_code: HESHEN}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: qing
       role_family: supervisory_control
@@ -513,9 +513,9 @@ sample_entries:
       authorization_arcs: [same_mandate_continuation, corrective_control]
   - entry_id: SEALED-SLOT-08
     group: future_sealed
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: XUANYE, person_code: CHENTINGJING}
+    source_artifact: eval/appointment_delegation_factor_sealed_holdout_v3/source_manifest.yml
     strata:
       era_family: qing
       role_family: civil_administration

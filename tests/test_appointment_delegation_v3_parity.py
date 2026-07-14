@@ -54,6 +54,9 @@ REPRESENTATIVENESS_DIR = (
 OPEN_DEVELOPMENT_V3_DIR = (
     ROOT / "eval" / "appointment_delegation_factor_open_development_v3"
 )
+SEALED_HOLDOUT_V3_DIR = (
+    ROOT / "eval" / "appointment_delegation_factor_sealed_holdout_v3"
+)
 
 
 def _yaml(path: Path) -> dict:
@@ -753,17 +756,17 @@ def test_factor_representativeness_plan_counts_units_not_correlated_labels(
     )
 
     assert report == tracked_report
-    assert report["status"] == "factor_representativeness_sampling_plan_ready"
+    assert report["status"] == "factor_representativeness_sampling_plan_incomplete"
     assert report["summary"] == {
         "portfolio_unit_count": 32,
         "historical_opened_regression_unit_count": 12,
         "new_independent_unit_count": 20,
         "new_open_development_unit_count": 12,
         "future_sealed_unit_count": 8,
-        "bound_candidate_count": 24,
-        "unbound_candidate_count": 8,
-        "sealed_identity_exposure_count": 0,
-        "missing_stratum_count": 0,
+        "bound_candidate_count": 32,
+        "unbound_candidate_count": 0,
+        "sealed_identity_exposure_count": 8,
+        "missing_stratum_count": 4,
     }
     assert report["performance_estimate"] == {
         "basis": "sealed_holdout_v2_observed_single_batch",
@@ -775,8 +778,9 @@ def test_factor_representativeness_plan_counts_units_not_correlated_labels(
         "estimated_total_tokens": 130760,
         "human_source_and_gold_review_excluded": True,
     }
-    assert report["missing_strata"] == []
+    assert len(report["missing_strata"]) == 4
     assert report["candidate_sourcing_ready"] is True
+    assert report["sealed_candidate_sourcing_ready"] is True
     assert report["qualification_claim_allowed"] is False
 
     leaked = deepcopy(manifest)
@@ -789,9 +793,9 @@ def test_factor_representativeness_plan_counts_units_not_correlated_labels(
 
     rebound = deepcopy(manifest)
     planned = next(
-        row for row in rebound["sample_entries"] if row["slot_type"] == "planned_slot"
+        row for row in rebound["sample_entries"] if row["group"] == "future_sealed"
     )
-    planned["candidate_identity"] = {"ruler_code": "X", "person_code": "Y"}
+    planned["slot_type"] = "planned_slot"
     with pytest.raises(ValueError, match="不得预填候选身份"):
         evaluate_factor_representativeness_plan(rebound)
 
@@ -863,6 +867,41 @@ def test_stratified_open_development_v3_is_reproducible_before_factor_run() -> N
     assert audit["quote_recovery_count"] == 3
     assert audit["wall_clock_duration_sec"] == 113.412
     assert audit["total_tokens"] == 211828
+
+
+def test_stratified_sealed_holdout_v3_is_frozen_before_factor_run() -> None:
+    source = _yaml(SEALED_HOLDOUT_V3_DIR / "source_manifest.yml")
+    factor_gold = _yaml(SEALED_HOLDOUT_V3_DIR / "factor_gold.yml")
+    tracked_worklist = json.loads(
+        (SEALED_HOLDOUT_V3_DIR / "worklist_v2.json").read_text(encoding="utf-8")
+    )
+    tracked_gold = json.loads(
+        (SEALED_HOLDOUT_V3_DIR / "qualification_gold_v2.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    worklist = build_factor_observation_worklist(source)
+    assert worklist == tracked_worklist
+    qualification_gold = build_factor_observation_qualification_gold(
+        worklist, factor_gold, source, sample_role="sealed_holdout"
+    )
+    assert qualification_gold == tracked_gold
+    assert len(worklist["tasks"]) == 8
+    assert sum(
+        len(row["factor_materials"])
+        for row in factor_gold["factor_judgment_proposals"]
+    ) == 17
+    assert sum(
+        len(material["factors"])
+        for row in factor_gold["factor_judgment_proposals"]
+        for material in row["factor_materials"]
+    ) == 102
+    assert factor_gold["gold_access_policy"] == {
+        "visible_to_agent": False,
+        "editable_after_agent_run": False,
+        "post_run_policy_or_gold_tuning_allowed": False,
+    }
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(

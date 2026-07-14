@@ -60,7 +60,36 @@
     }
   },
   "manifest_code": "appointment_delegation_factor_representativeness_v1",
-  "missing_strata": [],
+  "missing_strata": [
+    {
+      "actual": 3,
+      "axis": "continuity_challenge",
+      "gap": 1,
+      "minimum": 4,
+      "value": "absence_sensitive"
+    },
+    {
+      "actual": 5,
+      "axis": "continuity_challenge",
+      "gap": 1,
+      "minimum": 6,
+      "value": "short_or_one_off"
+    },
+    {
+      "actual": 1,
+      "axis": "source_challenge",
+      "gap": 1,
+      "minimum": 2,
+      "value": "multi_source_join"
+    },
+    {
+      "actual": 1,
+      "axis": "coverage_challenge",
+      "gap": 1,
+      "minimum": 2,
+      "value": "conflicting_evidence"
+    }
+  ],
   "performance_estimate": {
     "basis": "sealed_holdout_v2_observed_single_batch",
     "estimated_model_call_count": 5,
@@ -71,33 +100,33 @@
     "max_workers": 4,
     "units_per_call": 4
   },
-  "plan_sha256": "ca8f7f1d2045e24a5f193a339cc7a42843bf46e5f1ae7690eba56c0b463cc83b",
+  "plan_sha256": "9a3804122931e2ac44c91efa141aa71433aad0d4d311402962d4a96452fd8b7a",
   "planned_portfolio_stratum_counts": {
     "attribution_challenge": {
-      "explicit_pressure": 13,
+      "explicit_pressure": 12,
       "multi_actor_or_indirect": 6,
-      "ordinary_direct": 13
+      "ordinary_direct": 14
     },
     "authorization_arcs": {
       "corrective_control": 13,
-      "crisis_recall": 5,
-      "cross_stage_reuse": 8,
+      "crisis_recall": 4,
+      "cross_stage_reuse": 9,
       "delegated_command": 7,
-      "group_influenced_decision": 8,
-      "initial_appointment": 6,
+      "group_influenced_decision": 7,
+      "initial_appointment": 7,
       "same_mandate_continuation": 4,
-      "scope_expansion": 8
+      "scope_expansion": 9
     },
     "continuity_challenge": {
-      "absence_sensitive": 4,
-      "long_term_multi_stage": 16,
-      "short_or_one_off": 6,
+      "absence_sensitive": 3,
+      "long_term_multi_stage": 18,
+      "short_or_one_off": 5,
       "stable_same_mandate": 6
     },
     "coverage_challenge": {
       "absence_sensitive": 3,
-      "conflicting_evidence": 2,
-      "direct_resolution": 24,
+      "conflicting_evidence": 1,
+      "direct_resolution": 25,
       "incomplete_outcome": 3
     },
     "era_family": {
@@ -122,19 +151,20 @@
       "supervisory_control": 4
     },
     "source_challenge": {
-      "complete_direct_chain": 19,
+      "complete_direct_chain": 20,
       "compressed_or_indirect": 2,
       "conflict_or_ambiguity": 2,
-      "multi_source_join": 2,
+      "multi_source_join": 1,
       "standard_partial_chain": 7
     }
   },
   "policy_version": "appointment-delegation-factor-representativeness-policy-v1",
   "qualification_claim_allowed": false,
   "rule_code": "appointment_delegation",
-  "sampling_plan_ready": true,
+  "sampling_plan_ready": false,
   "schema_version": "appointment-delegation-factor-representativeness-v1",
-  "status": "factor_representativeness_sampling_plan_ready",
+  "sealed_candidate_sourcing_ready": true,
+  "status": "factor_representativeness_sampling_plan_incomplete",
   "stratum_minimum_checks": {
     "attribution_challenge": {
       "explicit_pressure": true,
@@ -152,14 +182,14 @@
       "scope_expansion": true
     },
     "continuity_challenge": {
-      "absence_sensitive": true,
+      "absence_sensitive": false,
       "long_term_multi_stage": true,
-      "short_or_one_off": true,
+      "short_or_one_off": false,
       "stable_same_mandate": true
     },
     "coverage_challenge": {
       "absence_sensitive": true,
-      "conflicting_evidence": true,
+      "conflicting_evidence": false,
       "direct_resolution": true,
       "incomplete_outcome": true
     },
@@ -188,19 +218,19 @@
       "complete_direct_chain": true,
       "compressed_or_indirect": true,
       "conflict_or_ambiguity": true,
-      "multi_source_join": true,
+      "multi_source_join": false,
       "standard_partial_chain": true
     }
   },
   "summary": {
-    "bound_candidate_count": 24,
+    "bound_candidate_count": 32,
     "future_sealed_unit_count": 8,
     "historical_opened_regression_unit_count": 12,
-    "missing_stratum_count": 0,
+    "missing_stratum_count": 4,
     "new_independent_unit_count": 20,
     "new_open_development_unit_count": 12,
     "portfolio_unit_count": 32,
-    "sealed_identity_exposure_count": 0,
-    "unbound_candidate_count": 8
+    "sealed_identity_exposure_count": 8,
+    "unbound_candidate_count": 0
   }
 }
