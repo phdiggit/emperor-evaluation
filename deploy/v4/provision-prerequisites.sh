@@ -52,7 +52,8 @@ for service in source-cache claim-extractor; do
   chmod -R a-w "$release_root"
   ln -sfn "releases/$release_sha" "$service_root/current.next"
   mv -Tf "$service_root/current.next" "$service_root/current"
-  if [[ ! -x $service_root/venv/bin/python ]]; then
+  if [[ ! -x $service_root/venv/bin/python ]] || ! "$service_root/venv/bin/python" -m pip --version >/dev/null 2>&1; then
+    rm -rf "$service_root/venv"
     python3 -m venv "$service_root/venv"
   fi
   "$service_root/venv/bin/python" -m pip install --disable-pip-version-check --quiet "PyYAML>=6.0" "psycopg[binary]>=3.2"
