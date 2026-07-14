@@ -18,6 +18,9 @@ from emperor_v4.evaluation.appointment_delegation_scoring import (
     validate_scored_demo_manifest,
 )
 from emperor_v4.evaluation.limited_factor_scoring import LimitedFactorProfile
+from emperor_v4.evaluation.factor_evidence_coverage import (
+    scope_coverage_to_sources,
+)
 
 
 def run_appointment_delegation_shadow(
@@ -160,6 +163,7 @@ def run_limited_factor_shadow_manifest(
             "score_contribution_schema_version": SCORE_CONTRIBUTION_SCHEMA_VERSION,
             "scoring_formula_version": profile.scoring_formula_version,
         }
+        or prior_report.get("evidence_coverage") != manifest["evidence_coverage"]
         or not reused_refs <= set(prior_judgments)
     ):
         raise ValueError("scored shadow 缓存缺失、版本不一致或不可精确复用")
@@ -168,8 +172,23 @@ def run_limited_factor_shadow_manifest(
     contributions = []
     for unit in sorted_units:
         unit_ref = str(unit["unit_ref"])
+        unit_assertion_refs = {
+            assertion_ref
+            for episode_ref in unit["episode_refs"]
+            for assertion_ref in episodes[episode_ref]["assertion_refs"]
+        }
+        unit_source_families = [
+            passages[assertions[ref]["source_passage_ref"]]["source_title"]
+            for ref in unit_assertion_refs
+        ]
+        covered_unit = {
+            **unit,
+            "evidence_coverage": scope_coverage_to_sources(
+                manifest["evidence_coverage"], unit_source_families
+            ),
+        }
         judgment = (
-            judgment_evaluator(unit, episodes, assertions)
+            judgment_evaluator(covered_unit, episodes, assertions)
             if unit_ref in rebuild_refs
             else dict(prior_judgments[unit_ref])
         )
@@ -264,6 +283,7 @@ def run_limited_factor_shadow_manifest(
         "result_scope": "shadow_demo_only",
         "input_manifest_ref": manifest["manifest_code"],
         "input_manifest_sha256": canonical_hash(manifest),
+        "evidence_coverage": dict(manifest["evidence_coverage"]),
         "frozen_input_audit": frozen_input_audit,
         "versions": {
             "factor_schema_version": profile.factor_schema_version,

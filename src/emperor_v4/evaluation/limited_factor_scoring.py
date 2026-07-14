@@ -5,6 +5,11 @@ import hashlib
 import json
 from typing import Any, Mapping, Sequence
 
+from emperor_v4.evaluation.factor_evidence_coverage import (
+    validate_coverage_declaration,
+    validate_factor_resolution,
+)
+
 
 SCORE_CONTRIBUTION_SCHEMA_VERSION = "score-contribution-v1"
 FACTOR_VALUES = frozenset(
@@ -31,6 +36,7 @@ class LimitedFactorProfile:
     report_status: str
     excluded_from_other_rules_reason: str
     supporting_only_rules: tuple[str, ...] = ()
+    absence_sensitive_observations: Mapping[str, tuple[str, ...]] | None = None
 
 
 def canonical_hash(payload: object) -> str:
@@ -69,6 +75,8 @@ def validate_manifest(
         or runtime.get("formal_acceptance_allowed") is not False
     ):
         raise ValueError("scored demo 只允许离线、零模型、零数据库写入的 shadow 运行")
+    coverage = manifest.get("evidence_coverage") or {}
+    validate_coverage_declaration(coverage)
 
     passages = tuple(manifest.get("source_passages") or ())
     assertions = tuple(manifest.get("assertions") or ())
@@ -128,6 +136,25 @@ def validate_manifest(
                 raise ValueError(f"{factor_name} Assertion lineage 重复或越界")
             if value not in {"evidence_gap", "not_applicable"} and not refs:
                 raise ValueError(f"{factor_name} 信号必须有 Assertion 支持")
+            inference_basis = observation.get("inference_basis") or (
+                "coverage_insufficient"
+                if value == "evidence_gap"
+                else "direct_evidence"
+            )
+            validate_factor_resolution(
+                coverage=coverage,
+                decision_status=(
+                    "insufficient_coverage" if value == "evidence_gap" else "resolved"
+                ),
+                option_code=None if value == "evidence_gap" else str(value),
+                inference_basis=str(inference_basis),
+                allowed_options=tuple(OBSERVATION_TO_FACTOR),
+                absence_sensitive_options=(
+                    (profile.absence_sensitive_observations or {}).get(
+                        factor_name, ()
+                    )
+                ),
+            )
     duplicates = sorted(
         ref for ref in set(consumed_episodes) if consumed_episodes.count(ref) > 1
     )
@@ -153,6 +180,10 @@ def evaluate(
     profile: LimitedFactorProfile,
 ) -> dict[str, Any]:
     observations = unit["factor_observations"]
+    coverage = unit.get("evidence_coverage")
+    if coverage is None:
+        raise ValueError("RuleEvidenceUnit 缺少 evidence_coverage")
+    validate_coverage_declaration(coverage)
     factor_values = {
         name: OBSERVATION_TO_FACTOR[observations[name]["value"]]
         for name in profile.factor_names
@@ -180,6 +211,7 @@ def evaluate(
         "rule_version": profile.rule_version,
         "factor_schema_version": profile.factor_schema_version,
         "judgment_policy_version": profile.judgment_policy_version,
+        "evidence_coverage": coverage,
     })
     return {
         "judgment_id": f"JDG-{fingerprint[:20].upper()}",
@@ -199,6 +231,7 @@ def evaluate(
         "supporting_assertion_refs": supporting_assertions,
         "supporting_source_passage_refs": passage_refs,
         "review_status": "needs_review" if blockers else "shadow_accepted",
+        "evidence_coverage": dict(coverage),
         "result_scope": "shadow_demo_only", "model_call_count": 0,
     }
 

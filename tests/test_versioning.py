@@ -112,6 +112,7 @@ def test_scored_shadow_rerun_is_hash_stable_and_factor_change_invalidates_judgme
 
     manifest = yaml.safe_load(SCORED_DEMO.read_text(encoding="utf-8"))
     unit = deepcopy(manifest["rule_evidence_units"][0])
+    unit["evidence_coverage"] = manifest["evidence_coverage"]
     unit["factor_observations"]["feedback_handling"]["value"] = "mixed_signal"
     episodes = {row["episode_ref"]: row for row in manifest["historical_episodes"]}
     assertions = {row["assertion_ref"]: row for row in manifest["assertions"]}

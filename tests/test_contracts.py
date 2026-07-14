@@ -35,6 +35,10 @@ from emperor_v4.domain.source_segmentation import (
 from emperor_v4.domain.identity import canonical_person
 from emperor_v4.domain.boundary import draft_rule_evidence_unit
 from emperor_v4.evaluation.blind_holdout import validate_blind_kernel_input
+from emperor_v4.evaluation.factor_evidence_coverage import (
+    validate_coverage_declaration,
+    validate_factor_resolution,
+)
 from emperor_v4.evaluation.passage_support import (
     canonical_payload_hash,
     materialize_passage_scoped_blind_input,
@@ -143,6 +147,7 @@ def test_scored_shadow_contract_blocks_unknown_factor_without_zero_scoring():
     validate_scored_demo_manifest(manifest)
     episodes = {row["episode_ref"]: row for row in manifest["historical_episodes"]}
     assertions = {row["assertion_ref"]: row for row in manifest["assertions"]}
+    unit["evidence_coverage"] = manifest["evidence_coverage"]
 
     judgment = evaluate_judgment(unit, episodes, assertions)
 
@@ -180,6 +185,56 @@ def test_talent_discovery_contract_freezes_rule_boundary_and_exclusions():
     assert all(
         row["value"] == "not_applicable"
         for row in units["蓝玉"]["factor_observations"].values()
+    )
+    validate_coverage_declaration(manifest["evidence_coverage"])
+
+
+def test_rule_agnostic_coverage_gate_is_asymmetric_for_any_factor_domain():
+    manifest = yaml.safe_load(TALENT_DEMO.read_text(encoding="utf-8"))
+    coverage = manifest["evidence_coverage"]
+
+    validate_factor_resolution(
+        coverage=coverage,
+        decision_status="resolved",
+        option_code="repeated_confirmed",
+        inference_basis="direct_evidence",
+        allowed_options=("one_off", "repeated_confirmed"),
+        absence_sensitive_options=("one_off",),
+    )
+    validate_factor_resolution(
+        coverage=coverage,
+        decision_status="insufficient_coverage",
+        option_code=None,
+        inference_basis="coverage_insufficient",
+        allowed_options=("one_off", "repeated_confirmed"),
+        absence_sensitive_options=("one_off",),
+    )
+    with pytest.raises(ValueError, match="开放覆盖不得根据未发现材料"):
+        validate_factor_resolution(
+            coverage=coverage,
+            decision_status="resolved",
+            option_code="one_off",
+            inference_basis="bounded_absence",
+            allowed_options=("one_off", "repeated_confirmed"),
+            absence_sensitive_options=("one_off",),
+        )
+
+    reviewed = deepcopy(coverage)
+    reviewed.update(
+        {
+            "coverage_status": "reviewed_bounded_complete",
+            "absence_inference_allowed": True,
+            "covered_time_window": {"start": "0001", "end": "0010"},
+            "stop_reason": "bounded_review_completed",
+        }
+    )
+    validate_factor_resolution(
+        coverage=reviewed,
+        decision_status="resolved",
+        option_code="one_off",
+        inference_basis="bounded_absence",
+        allowed_options=("one_off", "repeated_confirmed"),
+        absence_sensitive_options=("one_off",),
     )
 
 

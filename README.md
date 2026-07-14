@@ -16,6 +16,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - V3 parity 增量复用：单个档位候选变化只重建对应 1 个 Judgment/Contribution，其余 3 个逐字段复用
 - Factor Observation 资格门：`codex-win factorization-jsonl` 已完成首轮独立盲评；合同、lineage、正负材料结构和方向均通过，但档位仅 19/30 精确、存在 1 个非相邻错误，`real_agent_qualified=false`；延迟基准确定默认保持每批最多 4 单元，并在批间最多 4 路并发
 - 模型固定复现：通过 `--respect-task-argv` 显式执行 `--model gpt-5.6-sol`，开发集为 20/30 精确，仍未达门槛；该复现不计为新资格盲评
+- 通用证据覆盖 Gate：`appointment_delegation` 与 `talent_discovery` 共用 `rule-factor-evidence-coverage-v1`；开放快照允许直接正证据确认，但禁止以“未找到”强推一次性、从未发生等缺失敏感档位，覆盖不足必须退出为 `insufficient_coverage`
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
 - 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录

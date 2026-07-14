@@ -19,6 +19,14 @@ frozen_basis:
     - path: eval/episode_pilot_v1_oracle_assisted_acceptance.json
       role: episode_snapshot
       sha256: a1c88148bc1d1bd502a112638fef827a8f006b95e651da8c51629af50ae87220
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  scope_as_of: '2026-07-13'
+  coverage_status: open_snapshot
+  absence_inference_allowed: false
+  covered_time_window: null
+  source_families: [旧唐书, 史记, 明史]
+  stop_reason: development_fixture_boundary
 runtime_policy:
   mode: offline_report_only_shadow
   model_calls_allowed: false

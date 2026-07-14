@@ -15,11 +15,19 @@ from emperor_v4.evaluation.appointment_delegation_v3_parity import (
     observation_fingerprint,
     validate_parity_manifest,
 )
+from emperor_v4.evaluation.factor_evidence_coverage import (
+    COVERAGE_SCHEMA_VERSION,
+    scope_coverage_to_sources,
+    validate_coverage_declaration,
+    validate_factor_resolution,
+)
 
 
-WORKLIST_SCHEMA_VERSION = "factor-observation-worklist-v1"
-RESPONSE_SCHEMA_VERSION = "factor-observation-agent-response-v1"
-QUALIFICATION_SCHEMA_VERSION = "factor-observation-qualification-v1"
+WORKLIST_SCHEMA_VERSION_V1 = "factor-observation-worklist-v1"
+WORKLIST_SCHEMA_VERSION = "factor-observation-worklist-v2"
+RESPONSE_SCHEMA_VERSION_V1 = "factor-observation-agent-response-v1"
+RESPONSE_SCHEMA_VERSION = "factor-observation-agent-response-v2"
+QUALIFICATION_SCHEMA_VERSION = "factor-observation-qualification-v2"
 BATCH_PLAN_SCHEMA_VERSION = "factor-observation-batch-plan-v1"
 AGENT_POLICY_VERSION_V1 = "appointment-delegation-factor-observation-agent-v1"
 AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v2"
@@ -101,6 +109,29 @@ OPTION_GUIDANCE: dict[str, dict[str, str]] = {
 POLICY_OPTION_GUIDANCE = {
     AGENT_POLICY_VERSION_V1: OPTION_GUIDANCE_V1,
     AGENT_POLICY_VERSION: OPTION_GUIDANCE,
+}
+
+FACTOR_INFERENCE_POLICY = {
+    "schema_version": "rule-factor-inference-policy-v1",
+    "coverage_schema_version": COVERAGE_SCHEMA_VERSION,
+    "decision_statuses": ["resolved", "insufficient_coverage"],
+    "inference_bases": [
+        "direct_evidence",
+        "bounded_absence",
+        "coverage_insufficient",
+    ],
+    "absence_sensitive_options": {
+        "appointment_importance": [],
+        "appointment_effect": [],
+        "continuity_factor": ["short_or_one_off"],
+        "attribution_factor": [],
+        "source_factor": [],
+        "context_factor": [],
+    },
+    "rule": (
+        "正证据可在开放覆盖下确认；只有 reviewed_bounded_complete 且明确允许时，"
+        "才可根据未发现材料选择缺失敏感选项。覆盖不足必须拒绝落档。"
+    ),
 }
 
 OPTION_ORDER: dict[str, tuple[str, ...]] = {
@@ -214,30 +245,41 @@ def build_factor_observation_worklist(
             for episode_ref in unit["episode_refs"]
             for episode in (episodes[str(episode_ref)],)
         ]
-        tasks.append(
-            {
-                "unit_ref": unit_ref,
-                "source_observation_fingerprint": observation_fingerprint(unit),
-                "ruler": unit["ruler"],
-                "person": unit["person"],
-                "decision_arc_family": unit["decision_arc_family"],
-                "episodes": task_episodes,
-                "assertions": task_assertions,
-                "prior_v4_judge_observations": deepcopy(unit["factor_observations"]),
-            }
-        )
+        task = {
+            "unit_ref": unit_ref,
+            "source_observation_fingerprint": observation_fingerprint(unit),
+            "ruler": unit["ruler"],
+            "person": unit["person"],
+            "decision_arc_family": unit["decision_arc_family"],
+            "episodes": task_episodes,
+            "assertions": task_assertions,
+            "prior_v4_judge_observations": deepcopy(unit["factor_observations"]),
+        }
+        if agent_policy_version != AGENT_POLICY_VERSION_V1:
+            coverage = source_manifest.get("evidence_coverage") or {}
+            task["evidence_coverage"] = scope_coverage_to_sources(
+                coverage,
+                [str(row["source"]["source_title"]) for row in task_assertions],
+            )
+        tasks.append(task)
 
     option_guidance = POLICY_OPTION_GUIDANCE.get(agent_policy_version)
     if option_guidance is None:
         raise ValueError("Factor Observation agent_policy_version 非法")
     semantic = {
-        "schema_version": WORKLIST_SCHEMA_VERSION,
+        "schema_version": (
+            WORKLIST_SCHEMA_VERSION_V1
+            if agent_policy_version == AGENT_POLICY_VERSION_V1
+            else WORKLIST_SCHEMA_VERSION
+        ),
         "rule_code": RULE_CODE,
         "factor_schema_version": FACTOR_SCHEMA_VERSION,
         "agent_policy_version": agent_policy_version,
         "tasks": tasks,
         "factor_option_catalog": option_guidance,
     }
+    if agent_policy_version != AGENT_POLICY_VERSION_V1:
+        semantic["factor_inference_policy"] = deepcopy(FACTOR_INFERENCE_POLICY)
     worklist_hash = canonical_hash(semantic)
     return {
         **semantic,
@@ -252,17 +294,31 @@ def build_factor_observation_worklist(
             "scores_or_rankings_exposed": False,
         },
         "output_contract": {
-            "response_schema_version": RESPONSE_SCHEMA_VERSION,
+            "response_schema_version": (
+                RESPONSE_SCHEMA_VERSION_V1
+                if agent_policy_version == AGENT_POLICY_VERSION_V1
+                else RESPONSE_SCHEMA_VERSION
+            ),
             "required_result_fields": ["unit_ref", "factor_materials"],
             "factor_material_fields": ["material_code", "event_group", "side", "factors"],
-            "factor_fields": ["option_code", "reason", "assertion_refs"],
+            "factor_fields": (
+                ["option_code", "reason", "assertion_refs"]
+                if agent_policy_version == AGENT_POLICY_VERSION_V1
+                else [
+                    "decision_status",
+                    "option_code",
+                    "inference_basis",
+                    "reason",
+                    "assertion_refs",
+                ]
+            ),
             "forbidden_keys": sorted(FORBIDDEN_RESPONSE_KEYS),
         },
     }
 
 
 def _worklist_semantic_payload(worklist: Mapping[str, Any]) -> dict[str, Any]:
-    return {
+    payload = {
         key: deepcopy(worklist[key])
         for key in (
             "schema_version",
@@ -273,6 +329,11 @@ def _worklist_semantic_payload(worklist: Mapping[str, Any]) -> dict[str, Any]:
             "factor_option_catalog",
         )
     }
+    if "factor_inference_policy" in worklist:
+        payload["factor_inference_policy"] = deepcopy(
+            worklist["factor_inference_policy"]
+        )
+    return payload
 
 
 def build_factor_observation_batch_plan(
@@ -422,6 +483,16 @@ def validate_factor_observation_response(
     response: Mapping[str, Any],
     source_manifest: Mapping[str, Any],
 ) -> None:
+    policy_version = str(worklist.get("agent_policy_version") or "")
+    response_schema_version = (
+        RESPONSE_SCHEMA_VERSION_V1
+        if policy_version == AGENT_POLICY_VERSION_V1
+        else RESPONSE_SCHEMA_VERSION
+    )
+    is_v2 = policy_version != AGENT_POLICY_VERSION_V1
+    worklist_schema_version = (
+        WORKLIST_SCHEMA_VERSION_V1 if not is_v2 else WORKLIST_SCHEMA_VERSION
+    )
     _require_exact_keys(
         response,
         {
@@ -438,14 +509,18 @@ def validate_factor_observation_response(
         "Factor Observation response",
     )
     if (
-        worklist.get("schema_version") != WORKLIST_SCHEMA_VERSION
+        worklist.get("schema_version") != worklist_schema_version
         or worklist.get("status") != "factor_observation_blind_worklist_ready"
-        or response.get("schema_version") != RESPONSE_SCHEMA_VERSION
+        or response.get("schema_version") != response_schema_version
         or response.get("status") != "factor_observation_agent_response_complete"
         or response.get("worklist_sha256") != worklist.get("worklist_sha256")
         or response.get("agent_policy_version") != worklist.get("agent_policy_version")
         or worklist.get("factor_option_catalog")
         != POLICY_OPTION_GUIDANCE.get(str(worklist.get("agent_policy_version") or ""))
+        or (
+            is_v2
+            and worklist.get("factor_inference_policy") != FACTOR_INFERENCE_POLICY
+        )
     ):
         raise ValueError("Factor Observation response 版本、状态或 worklist 绑定非法")
     origin = response.get("response_origin")
@@ -484,24 +559,94 @@ def validate_factor_observation_response(
         or set(result_by_ref) != set(task_by_ref)
     ):
         raise ValueError("Factor Observation response 必须完整且唯一覆盖 worklist")
+    unresolved_count = 0
+    parity_results = []
     for result in results:
         _require_exact_keys(
             result,
             {"unit_ref", "factor_materials"},
             f"{result.get('unit_ref')} result",
         )
-        for material in result.get("factor_materials") or ():
+        materials = tuple(result.get("factor_materials") or ())
+        if not materials:
+            raise ValueError(f"{result.get('unit_ref')} 缺少 factor_material")
+        material_codes = [str(row.get("material_code") or "") for row in materials]
+        if "" in material_codes or len(material_codes) != len(set(material_codes)):
+            raise ValueError("factor_material code 缺失或重复")
+        task = task_by_ref[str(result["unit_ref"])]
+        allowed_assertions = {
+            str(row["assertion_ref"]) for row in task.get("assertions") or ()
+        }
+        parity_materials = []
+        for material in materials:
             _require_exact_keys(
                 material,
                 {"material_code", "event_group", "side", "factors"},
                 f"{material.get('material_code')} factor_material",
             )
-            for factor_name, factor in (material.get("factors") or {}).items():
+            if material.get("side") not in {"positive", "negative"} or not str(
+                material.get("event_group") or ""
+            ).strip():
+                raise ValueError("factor_material side 或 event_group 非法")
+            factors = material.get("factors") or {}
+            if set(factors) != set(FACTOR_NAMES):
+                raise ValueError("factor_material 必须完整覆盖有限因子")
+            parity_factors = {}
+            for factor_name, factor in factors.items():
                 _require_exact_keys(
                     factor,
-                    {"option_code", "reason", "assertion_refs"},
+                    (
+                        {
+                            "decision_status",
+                            "option_code",
+                            "inference_basis",
+                            "reason",
+                            "assertion_refs",
+                        }
+                        if is_v2
+                        else {"option_code", "reason", "assertion_refs"}
+                    ),
                     f"{material.get('material_code')}.{factor_name}",
                 )
+                if not str(factor.get("reason") or "").strip():
+                    raise ValueError("factor resolution 缺少 reason")
+                refs = tuple(str(ref) for ref in factor.get("assertion_refs") or ())
+                if len(refs) != len(set(refs)) or not set(refs) <= allowed_assertions:
+                    raise ValueError("factor resolution Assertion lineage 重复或越界")
+                if is_v2:
+                    validate_factor_resolution(
+                        coverage=task.get("evidence_coverage") or {},
+                        decision_status=str(factor.get("decision_status") or ""),
+                        option_code=factor.get("option_code"),
+                        inference_basis=str(factor.get("inference_basis") or ""),
+                        allowed_options=OPTION_ORDER[factor_name],
+                        absence_sensitive_options=FACTOR_INFERENCE_POLICY[
+                            "absence_sensitive_options"
+                        ][factor_name],
+                    )
+                    if factor["decision_status"] == "insufficient_coverage":
+                        unresolved_count += 1
+                        continue
+                    if factor["inference_basis"] == "direct_evidence" and not refs:
+                        raise ValueError("直接证据因子必须携带 Assertion lineage")
+                parity_factors[factor_name] = {
+                    "option_code": factor["option_code"],
+                    "reason": factor["reason"],
+                    "assertion_refs": list(refs),
+                }
+            if len(parity_factors) == len(FACTOR_NAMES):
+                parity_materials.append(
+                    {
+                        "material_code": material["material_code"],
+                        "event_group": material["event_group"],
+                        "side": material["side"],
+                        "factors": parity_factors,
+                    }
+                )
+        if len(parity_materials) == len(materials):
+            parity_results.append(
+                {"unit_ref": result["unit_ref"], "factor_materials": parity_materials}
+            )
 
     synthetic_manifest = {
         "schema_version": 1,
@@ -526,18 +671,23 @@ def validate_factor_observation_response(
                     "source_observation_fingerprint"
                 ],
             }
-            for unit_ref, result in result_by_ref.items()
+            for result in parity_results
+            for unit_ref in (str(result["unit_ref"]),)
         ],
     }
-    validate_parity_manifest(
-        synthetic_manifest,
-        source_manifest,
-        allowed_proposal_statuses=frozenset({"agent_proposed_shadow"}),
-        allowed_review_bases=frozenset({"blind_factor_observation_worklist"}),
-    )
+    if unresolved_count == 0:
+        validate_parity_manifest(
+            synthetic_manifest,
+            source_manifest,
+            allowed_proposal_statuses=frozenset({"agent_proposed_shadow"}),
+            allowed_review_bases=frozenset({"blind_factor_observation_worklist"}),
+        )
     for result in results:
         for material in result["factor_materials"]:
-            effect = material["factors"]["appointment_effect"]["option_code"]
+            effect_factor = material["factors"]["appointment_effect"]
+            if is_v2 and effect_factor["decision_status"] == "insufficient_coverage":
+                continue
+            effect = effect_factor["option_code"]
             if material["side"] == "positive" and effect not in POSITIVE_EFFECT_OPTIONS:
                 raise ValueError(f"{material['material_code']} side 与 effect 方向冲突")
             if material["side"] == "negative" and effect not in NEGATIVE_EFFECT_OPTIONS:
@@ -557,7 +707,7 @@ def evaluate_factor_observation_qualification(
         row["unit_ref"]: row for row in gold_manifest["factor_judgment_proposals"]
     }
     response_by_unit = {row["unit_ref"]: row for row in response["results"]}
-    exact = adjacent = nonadjacent = direction_errors = 0
+    exact = adjacent = nonadjacent = direction_errors = coverage_abstentions = 0
     factor_total = 0
     structure_exact_units = 0
     factor_classifications = {name: Counter() for name in FACTOR_NAMES}
@@ -587,8 +737,28 @@ def evaluate_factor_observation_qualification(
             for candidate, gold in material_pairs:
                 for factor_name in FACTOR_NAMES:
                     factor_total += 1
-                    candidate_code = candidate["factors"][factor_name]["option_code"]
+                    candidate_factor = candidate["factors"][factor_name]
+                    candidate_code = candidate_factor["option_code"]
                     gold_code = gold["factors"][factor_name]["option_code"]
+                    if (
+                        candidate_factor.get("decision_status")
+                        == "insufficient_coverage"
+                    ):
+                        classification = "coverage_abstention"
+                        coverage_abstentions += 1
+                        factor_classifications[factor_name][classification] += 1
+                        comparisons.append(
+                            {
+                                "candidate_event_group": candidate["event_group"],
+                                "gold_event_group": gold["event_group"],
+                                "side": candidate["side"],
+                                "factor_name": factor_name,
+                                "candidate_option": None,
+                                "gold_option": gold_code,
+                                "classification": classification,
+                            }
+                        )
+                        continue
                     distance = abs(
                         OPTION_ORDER[factor_name].index(candidate_code)
                         - OPTION_ORDER[factor_name].index(gold_code)
@@ -636,6 +806,7 @@ def evaluate_factor_observation_qualification(
         "material_side_structure_exact_rate_min": 1.0,
         "direction_error_max": 0,
         "nonadjacent_error_max": 0,
+        "coverage_abstention_max": 0,
         "contract_validation_required": True,
     }
     threshold_checks = {
@@ -644,6 +815,8 @@ def evaluate_factor_observation_qualification(
         >= thresholds["material_side_structure_exact_rate_min"],
         "direction_error": direction_errors <= thresholds["direction_error_max"],
         "nonadjacent_error": nonadjacent <= thresholds["nonadjacent_error_max"],
+        "coverage_abstention": coverage_abstentions
+        <= thresholds["coverage_abstention_max"],
         "contract_validation": True,
     }
     threshold_passed = all(threshold_checks.values())
@@ -666,13 +839,16 @@ def evaluate_factor_observation_qualification(
             "adjacent_error_count": counts["adjacent"],
             "nonadjacent_error_count": counts["nonadjacent"],
             "direction_error_count": counts["direction_error"],
+            "coverage_abstention_count": counts["coverage_abstention"],
         }
         for factor_name, counts in factor_classifications.items()
     }
     report = {
         "schema_version": QUALIFICATION_SCHEMA_VERSION,
         "status": (
-            "factor_observation_agent_qualified"
+            "factor_observation_coverage_review_required"
+            if coverage_abstentions
+            else "factor_observation_agent_qualified"
             if real_agent_qualified
             else "factor_observation_development_replay_completed"
             if development_replay
@@ -693,6 +869,7 @@ def evaluate_factor_observation_qualification(
             "adjacent_error_count": adjacent,
             "nonadjacent_error_count": nonadjacent,
             "direction_error_count": direction_errors,
+            "coverage_abstention_count": coverage_abstentions,
             "material_side_structure_exact_unit_count": structure_exact_units,
             "material_side_structure_exact_rate": round(structure_rate, 4),
             "factor_breakdown": factor_breakdown,
@@ -703,7 +880,9 @@ def evaluate_factor_observation_qualification(
         "contract_fixture_passed": contract_fixture and threshold_passed,
         "real_agent_qualified": real_agent_qualified,
         "next_gate": (
-            "qualified_response_may_enter_separate_shadow_scoring_review"
+            "complete_coverage_or_add_direct_evidence_then_rerun"
+            if coverage_abstentions
+            else "qualified_response_may_enter_separate_shadow_scoring_review"
             if real_agent_qualified
             else "freeze_policy_then_use_new_sealed_holdout"
             if development_replay
@@ -727,8 +906,38 @@ def build_contract_fixture_response(
     worklist: Mapping[str, Any], gold_manifest: Mapping[str, Any]
 ) -> dict[str, Any]:
     """构造合同测试样例；该输出不得作为独立盲评证据。"""
+    is_v2 = worklist.get("agent_policy_version") != AGENT_POLICY_VERSION_V1
+    task_by_ref = {row["unit_ref"]: row for row in worklist["tasks"]}
+    results = []
+    for row in gold_manifest["factor_judgment_proposals"]:
+        materials = deepcopy(row["factor_materials"])
+        if is_v2:
+            coverage = task_by_ref[row["unit_ref"]]["evidence_coverage"]
+            for material in materials:
+                for factor_name, factor in material["factors"].items():
+                    absence_sensitive = factor["option_code"] in FACTOR_INFERENCE_POLICY[
+                        "absence_sensitive_options"
+                    ][factor_name]
+                    if absence_sensitive and not coverage["absence_inference_allowed"]:
+                        factor["decision_status"] = "insufficient_coverage"
+                        factor["option_code"] = None
+                        factor["inference_basis"] = "coverage_insufficient"
+                        factor["assertion_refs"] = []
+                        factor["reason"] = (
+                            "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。"
+                        )
+                    else:
+                        factor["decision_status"] = "resolved"
+                        factor["inference_basis"] = (
+                            "bounded_absence"
+                            if absence_sensitive
+                            else "direct_evidence"
+                        )
+        results.append({"unit_ref": row["unit_ref"], "factor_materials": materials})
     return {
-        "schema_version": RESPONSE_SCHEMA_VERSION,
+        "schema_version": (
+            RESPONSE_SCHEMA_VERSION if is_v2 else RESPONSE_SCHEMA_VERSION_V1
+        ),
         "status": "factor_observation_agent_response_complete",
         "worklist_sha256": worklist["worklist_sha256"],
         "agent_policy_version": worklist["agent_policy_version"],
@@ -743,11 +952,5 @@ def build_contract_fixture_response(
             "database_write_count": 0,
             "formal_acceptance_performed": False,
         },
-        "results": [
-            {
-                "unit_ref": row["unit_ref"],
-                "factor_materials": deepcopy(row["factor_materials"]),
-            }
-            for row in gold_manifest["factor_judgment_proposals"]
-        ],
+        "results": results,
     }

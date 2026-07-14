@@ -41,6 +41,19 @@ def _yaml(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
+def _reviewed_coverage_source() -> dict:
+    source = _yaml(SOURCE_MANIFEST)
+    source["evidence_coverage"].update(
+        {
+            "coverage_status": "reviewed_bounded_complete",
+            "absence_inference_allowed": True,
+            "covered_time_window": {"start": "前206", "end": "前195"},
+            "stop_reason": "bounded_review_completed",
+        }
+    )
+    return source
+
+
 def test_v3_parity_shadow_restores_factor_resolution_and_reuses_v4_units(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -245,6 +258,11 @@ def test_factor_observation_worklist_reuses_v4_judge_without_exposing_gold() -> 
         and task["episodes"]
         for task in worklist["tasks"]
     )
+    assert all(
+        task["evidence_coverage"]["source_families"]
+        == sorted({row["source"]["source_title"] for row in task["assertions"]})
+        for task in worklist["tasks"]
+    )
 
 
 def test_factor_observation_policy_v2_freezes_calibrated_tier_boundaries() -> None:
@@ -253,6 +271,10 @@ def test_factor_observation_policy_v2_freezes_calibrated_tier_boundaries() -> No
     catalog = worklist["factor_option_catalog"]
 
     assert worklist["agent_policy_version"] == AGENT_POLICY_VERSION
+    assert worklist["schema_version"] == "factor-observation-worklist-v2"
+    assert worklist["output_contract"]["response_schema_version"] == (
+        "factor-observation-agent-response-v2"
+    )
     assert "不得以后续成果、案件规模或政治影响反向抬档" in catalog[
         "appointment_importance"
     ]["critical_national_or_long_term"]
@@ -270,7 +292,10 @@ def test_factor_observation_policy_v2_freezes_calibrated_tier_boundaries() -> No
     proposals = {row["unit_ref"]: row for row in gold["factor_judgment_proposals"]}
     weizheng = proposals["REU-LSM-WEIZHENG-APPOINTMENT-v1"]["factor_materials"][0]
     chenping = proposals["REU-LB-CHENPING-AUTHORIZATION-v1"]["factor_materials"][0]
-    assert weizheng["factors"]["continuity_factor"]["option_code"] == "stable"
+    assert (
+        weizheng["factors"]["continuity_factor"]["option_code"]
+        == "long_term_multi_stage"
+    )
     assert chenping["factors"]["appointment_importance"]["option_code"] == "major_affairs"
 
 
@@ -283,6 +308,7 @@ def test_factor_observation_v1_policy_artifacts_remain_validatable() -> None:
     response = build_contract_fixture_response(worklist, gold)
 
     assert worklist["agent_policy_version"] == AGENT_POLICY_VERSION_V1
+    assert worklist["schema_version"] == "factor-observation-worklist-v1"
     assert response["agent_policy_version"] == AGENT_POLICY_VERSION_V1
     validate_factor_observation_response(worklist, response, source)
 
@@ -343,7 +369,7 @@ def test_factor_observation_batch_responses_merge_into_original_worklist() -> No
     ]
 
 
-def test_factor_observation_contract_fixture_only_qualifies_harness() -> None:
+def test_factor_observation_open_snapshot_fixture_requires_coverage_review() -> None:
     source = _yaml(SOURCE_MANIFEST)
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
@@ -353,23 +379,22 @@ def test_factor_observation_contract_fixture_only_qualifies_harness() -> None:
         worklist, fixture, gold, source
     )
 
-    assert report["status"] == "factor_observation_qualification_harness_ready"
+    assert report["status"] == "factor_observation_coverage_review_required"
     assert report["metrics"]["factor_comparison_count"] == 30
-    assert report["metrics"]["factor_exact_match_rate"] == 1.0
-    assert all(
-        row["comparison_count"] == 5 and row["exact_rate"] == 1.0
-        for row in report["metrics"]["factor_breakdown"].values()
+    assert report["metrics"]["coverage_abstention_count"] == 1
+    assert report["metrics"]["factor_exact_match_rate"] == pytest.approx(
+        29 / 30, abs=0.0001
     )
     assert report["metrics"]["material_side_structure_exact_rate"] == 1.0
-    assert report["threshold_passed"] is True
-    assert report["contract_fixture_passed"] is True
+    assert report["threshold_passed"] is False
+    assert report["contract_fixture_passed"] is False
     assert report["real_agent_qualified"] is False
-    assert report["next_gate"] == "independent_blind_agent_run"
+    assert report["next_gate"] == "complete_coverage_or_add_direct_evidence_then_rerun"
     assert report["side_effect_audit"]["score_computation_performed"] is False
 
 
 def test_factor_observation_independent_exact_response_can_pass_gate() -> None:
-    source = _yaml(SOURCE_MANIFEST)
+    source = _reviewed_coverage_source()
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     response = build_contract_fixture_response(worklist, gold)
@@ -389,7 +414,7 @@ def test_factor_observation_independent_exact_response_can_pass_gate() -> None:
 
 
 def test_factor_observation_development_replay_never_qualifies() -> None:
-    source = _yaml(SOURCE_MANIFEST)
+    source = _reviewed_coverage_source()
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     response = build_contract_fixture_response(worklist, gold)
@@ -506,4 +531,4 @@ def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
     assert eval_main() == 0
     assert json.loads(report_path.read_text(encoding="utf-8"))[
         "status"
-    ] == "factor_observation_qualification_harness_ready"
+    ] == "factor_observation_coverage_review_required"

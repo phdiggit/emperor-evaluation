@@ -22,7 +22,7 @@
     "reused_rule_evidence_unit_refs": []
   },
   "file_hashes": {
-    "eval/talent_discovery_scored_demo/manifest.yml": "f37c7cc1011790fb72d90a27d9dd0b714e83e7233a4369586b6f869b8cd773bd",
+    "eval/talent_discovery_scored_demo/manifest.yml": "f72552a1f225cd1597eee3c4044c6b79e0a168c15e7f8a9adc14ba3a466f8ac2",
     "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair-response.json": "eab894372f8fd70aa93c9d5a8cd7c0e16a13f2144b60c00987c4f0dca83abaaa",
     "tests/fixtures/episode_pilot_v1/claim-extractor-gap-repair2-response.json": "b63834acfa4c684e8269e0602479f007f96a66975d332aad58f754d7a0365152",
     "tests/fixtures/episode_pilot_v1/claim-extractor-repair-response.json": "5b2a7631be7809808033a83632d07c3a38b46a360b18dcf9158ea4307e551052",
@@ -31,7 +31,7 @@
     "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json": "045780b7fdfdb85d570fb05d465702ee76bd657c4f7f7307df367fdc96250bea",
     "tests/fixtures/episode_pilot_v1/source-cache-response.json": "22f9febe4792fbc05c1b2566b088bcb9064aae87035ad843aaed76830d9b733a"
   },
-  "input_fingerprint": "6b3853b8212cbf70702b3292d864b5cc5bf507b4fca9cf5d47c521f3869753e1",
+  "input_fingerprint": "f38b6bae9419c5d4d5aa60963a56b5fc5d960b402e2107b4f913dfbd4c54025c",
   "policy_version": "talent-discovery-roster-offline-v1",
   "resume": {
     "exact_record_reuse_supported": true,
@@ -46,9 +46,22 @@
     "李世民/魏徵": "a9aa41f73fa77a60f569d230b56b8e991a64db04001f68c9598cfd7ed542d1cf"
   },
   "run_code": "talent_discovery_roster_demo_v1",
-  "run_record_sha256": "d9e98ad53d080752576bba5f0a622ece324b0c904b7cc23a9e5834b5194f35b7",
+  "run_record_sha256": "80a2b68dc5f480bf9fb9fc4b38775c98ad6efe3ec15b12e864560e503bd1318c",
   "schema_version": 1,
   "scored_report": {
+    "evidence_coverage": {
+      "absence_inference_allowed": false,
+      "coverage_status": "open_snapshot",
+      "covered_time_window": null,
+      "schema_version": "rule-factor-evidence-coverage-v1",
+      "scope_as_of": "2026-07-14",
+      "source_families": [
+        "旧唐书",
+        "史记",
+        "明史"
+      ],
+      "stop_reason": "development_fixture_boundary"
+    },
     "frozen_input_audit": [
       {
         "path": "eval/episode_pilot_v1.yml",
@@ -76,7 +89,7 @@
       }
     ],
     "input_manifest_ref": "talent_discovery_scored_demo_v1",
-    "input_manifest_sha256": "3d346b76b80effe46b0dcedc9cee7c6e068365763d50176810963c21a6735fa8",
+    "input_manifest_sha256": "ccba179a10c53d1630c51731e68a9f44e884614a61c109116c661ea9240cafd3",
     "judgments": [
       {
         "applicability": "applicable",
@@ -86,6 +99,17 @@
         "episode_refs": [
           "EP-LB-CHENPING-INTEGRATION@v1"
         ],
+        "evidence_coverage": {
+          "absence_inference_allowed": false,
+          "coverage_status": "open_snapshot",
+          "covered_time_window": null,
+          "schema_version": "rule-factor-evidence-coverage-v1",
+          "scope_as_of": "2026-07-14",
+          "source_families": [
+            "史记"
+          ],
+          "stop_reason": "development_fixture_boundary"
+        },
         "factor_reasons": {
           "barrier_crossing": "归附来源和诸将负面意见形成可见障碍，刘邦复核后仍完成任用。",
           "conversion_to_use": "识别链落实为厚赐并拜护军中尉，不停留于口头赞许。",
@@ -99,8 +123,8 @@
           "recognition_basis": "positive",
           "recognition_novelty": "positive"
         },
-        "input_semantic_fingerprint": "c67fa345293576e3c1dbd8b9efc9eb7becda8d5e0ad8f3ab9f4288b00f2de044",
-        "judgment_id": "JDG-C67FA345293576E3C1DB",
+        "input_semantic_fingerprint": "1f144f52f666cbd1a69fd27e5cd4c201f1e899a47535897123ab9c36fcb46509",
+        "judgment_id": "JDG-1F144F52F666CBD1A69F",
         "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
         "model_call_count": 0,
         "person": "陈平",
@@ -126,6 +150,17 @@
         "episode_refs": [
           "EP-LB-HANXIN-QI-KING@v1"
         ],
+        "evidence_coverage": {
+          "absence_inference_allowed": false,
+          "coverage_status": "open_snapshot",
+          "covered_time_window": null,
+          "schema_version": "rule-factor-evidence-coverage-v1",
+          "scope_as_of": "2026-07-14",
+          "source_families": [
+            "史记"
+          ],
+          "stop_reason": "development_fixture_boundary"
+        },
         "factor_reasons": {
           "barrier_crossing": "请求及张良压力下调整属于授权过程，不是发现障碍。",
           "conversion_to_use": "立齐王是既有人才的授权调整，应由 appointment_delegation 消费。",
@@ -139,8 +174,8 @@
           "recognition_basis": "not_applicable",
           "recognition_novelty": "not_applicable"
         },
-        "input_semantic_fingerprint": "c6c55511b1eb865c866481ffaa834bbffdc72b058f4d494ca6a118032442b625",
-        "judgment_id": "JDG-C6C55511B1EB865C8664",
+        "input_semantic_fingerprint": "7068c5036a0f10431d717aa302f244767aa35006d5dd3a69a9df0ce928d6c295",
+        "judgment_id": "JDG-7068C5036A0F10431D71",
         "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
         "model_call_count": 0,
         "person": "韩信",
@@ -161,6 +196,17 @@
         "episode_refs": [
           "EP-LSM-WEIZHENG-APPOINTMENT@v1"
         ],
+        "evidence_coverage": {
+          "absence_inference_allowed": false,
+          "coverage_status": "open_snapshot",
+          "covered_time_window": null,
+          "schema_version": "rule-factor-evidence-coverage-v1",
+          "scope_as_of": "2026-07-14",
+          "source_families": [
+            "旧唐书"
+          ],
+          "stop_reason": "development_fixture_boundary"
+        },
         "factor_reasons": {
           "barrier_crossing": "李世民明知魏徵是曾参与兄弟冲突的东宫旧属，仍召见并纳入用人体系。",
           "conversion_to_use": "引为詹事主簿并擢拜谏议大夫，证明识别已转化为实际任用。",
@@ -174,8 +220,8 @@
           "recognition_basis": "positive",
           "recognition_novelty": "positive"
         },
-        "input_semantic_fingerprint": "a9675c9a4f14283d1a80e5f3b8a44db57f61865a24d85e5d1a89675c39d89900",
-        "judgment_id": "JDG-A9675C9A4F14283D1A80",
+        "input_semantic_fingerprint": "54713d1b1d109ba84045a4881df4e8fb8a5a3dc21180426256cda739471973d3",
+        "judgment_id": "JDG-54713D1B1D109BA84045",
         "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
         "model_call_count": 0,
         "person": "魏徵",
@@ -203,6 +249,17 @@
         "episode_refs": [
           "EP-ZYZ-LANYU-PROMOTION@v1"
         ],
+        "evidence_coverage": {
+          "absence_inference_allowed": false,
+          "coverage_status": "open_snapshot",
+          "covered_time_window": null,
+          "schema_version": "rule-factor-evidence-coverage-v1",
+          "scope_as_of": "2026-07-14",
+          "source_families": [
+            "明史"
+          ],
+          "stop_reason": "development_fixture_boundary"
+        },
         "factor_reasons": {
           "barrier_crossing": "当前事件未显示身份、派系或偏见障碍被突破。",
           "conversion_to_use": "既有将领升任属于普通晋升，按规则明确排除。",
@@ -216,8 +273,8 @@
           "recognition_basis": "not_applicable",
           "recognition_novelty": "not_applicable"
         },
-        "input_semantic_fingerprint": "9482936f40a8cba6a088debf8ac4c8c443024d915f70a8dc481e6b7d40cdd17d",
-        "judgment_id": "JDG-9482936F40A8CBA6A088",
+        "input_semantic_fingerprint": "bd80748e0090c96c294e86c2c6137cdb0bf76ae68a27d3d5c1a9d6398c67c8e4",
+        "judgment_id": "JDG-BD80748E0090C96C294E",
         "judgment_policy_version": "talent-discovery-deterministic-judgment-v1",
         "model_call_count": 0,
         "person": "蓝玉",
@@ -345,7 +402,7 @@
         }
       ]
     },
-    "report_sha256": "9b10f76f019158057d586f7b96974df5ec750bbb3643bf2b6a8ce8129d1d9037",
+    "report_sha256": "8b2e2a1408011d6f6535413f47e980a1fb21700e1fd820b1e4a55eff33fdaabd",
     "result_scope": "shadow_demo_only",
     "ruler_aggregates": [
       {
@@ -399,7 +456,7 @@
           "recognition_basis": 1,
           "recognition_novelty": 1
         },
-        "judgment_ref": "JDG-C67FA345293576E3C1DB",
+        "judgment_ref": "JDG-1F144F52F666CBD1A69F",
         "lineage": {
           "assertion_refs": [
             "CLMEXT-9AA66020C316DC71@CLM-CP-001",
@@ -418,10 +475,10 @@
         "raw_factor_sum": 4,
         "rule_evidence_unit_ref": "REU-LB-CHENPING-DISCOVERY-v1",
         "ruler": "刘邦",
-        "score_contribution_id": "SC-534DB4ADAC63F5143129",
+        "score_contribution_id": "SC-13A9C8D9F3D4DD71B203",
         "score_contribution_schema_version": "score-contribution-v1",
         "scoring_formula_version": "talent-discovery-shadow-mean-v1",
-        "semantic_fingerprint": "534db4adac63f5143129682702e273f7a565ce28c75cf7426ce00dece7c201a4",
+        "semantic_fingerprint": "13a9c8d9f3d4dd71b203d5d618cfda23bf00af396c069640eed96beba0af34e4",
         "supporting_only_rules": [
           "appointment_delegation"
         ]
@@ -437,7 +494,7 @@
           "recognition_basis": 1,
           "recognition_novelty": 1
         },
-        "judgment_ref": "JDG-A9675C9A4F14283D1A80",
+        "judgment_ref": "JDG-54713D1B1D109BA84045",
         "lineage": {
           "assertion_refs": [
             "CLMEXT-EFA22C924E1C01F2@CLM-EFA22C92-WZ-001",
@@ -458,10 +515,10 @@
         "raw_factor_sum": 4,
         "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-DISCOVERY-v1",
         "ruler": "李世民",
-        "score_contribution_id": "SC-C717EF38B08208E937E3",
+        "score_contribution_id": "SC-E03ADB33D9851CE19AA5",
         "score_contribution_schema_version": "score-contribution-v1",
         "scoring_formula_version": "talent-discovery-shadow-mean-v1",
-        "semantic_fingerprint": "c717ef38b08208e937e3d1e434469a9d0cdb054a8dfaf863498214b9ef55973b",
+        "semantic_fingerprint": "e03adb33d9851ce19aa5845f32dba754a0a8e297b7222b4e6f7b25b6fd3d36da",
         "supporting_only_rules": [
           "appointment_delegation"
         ]

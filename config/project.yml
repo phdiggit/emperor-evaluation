@@ -41,6 +41,7 @@ milestones:
   appointment_delegation_v3_semantic_parity: passed_shadow_demo_only
   factor_judgment_proposal_contract: passed_shadow_demo_only
   factor_observation_agent_qualification: independent_blind_run_completed_not_qualified
+  rule_factor_evidence_coverage_gate: passed_shadow_contract_only
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
   persistent_incremental_orchestration: passed_shadow_runtime
@@ -75,19 +76,26 @@ appointment_delegation_v3_parity_result:
   formal_score_writes: 0
 
 factor_observation_qualification_result:
+  current_agent_policy: appointment-delegation-factor-observation-agent-v2
+  evidence_coverage_schema: rule-factor-evidence-coverage-v1
+  current_coverage_status: open_snapshot
+  absence_inference_allowed: false
+  open_snapshot_coverage_abstentions: 1
   blind_worklist_units: 4
   factor_comparisons: 30
-  contract_fixture_exact_match_rate: 1.0
-  contract_fixture_material_side_structure_rate: 1.0
-  contract_fixture_passed: true
+  v1_contract_fixture_exact_match_rate: 1.0
+  v1_contract_fixture_material_side_structure_rate: 1.0
+  v1_contract_fixture_passed: true
   independent_agent_run_completed: true
   independent_agent_contract_valid: true
   independent_agent_exact_match_rate: 0.6333
+  independent_agent_current_gold_replay_exact_match_rate: 0.6667
   independent_agent_adjacent_errors: 10
   independent_agent_nonadjacent_errors: 1
   independent_agent_direction_errors: 0
   independent_agent_material_side_structure_rate: 1.0
   pinned_development_model: gpt-5.6-sol
+  pinned_development_current_gold_replay_exact_match_rate: 0.7
   pinned_development_model_verified: true
   pinned_development_exact_match_rate: 0.6667
   pinned_development_threshold_passed: false

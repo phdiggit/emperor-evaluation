@@ -215,7 +215,9 @@ V3 对照有限因子的智能体观察采用 `appointment-delegation-factor-obs
 - `source_factor` 按本材料实际声明的语义链是否被直接覆盖判断，不按史源数量、史源名气或材料边界之外的争议升降档。
 - `attribution_factor` 的“压力”必须是明确反对、负面指控或现实约束；普通请求和进言不自动构成压力。`context_factor` 只看任用机制与结算边界，不随领域成果规模抬档。
 
-现有开发集据此校正两处旧 Gold：魏徵的单一任用链由 `long_term_multi_stage` 降为 `stable`；陈平的重要军事职责由 `critical_national_or_long_term` 降为 `major_affairs`。这两处校正不改变选项值域和确定性计算公式；v1 worklist 与响应仍可按其原策略版本校验，不能作为 v2 新盲测证据。
+缺失推断使用全项目通用 EvidenceCoverage 合同，不属于本 rule 的专用例外。开放快照可以根据直接证据确认长期、多阶段或其他正向存在性判断；`short_or_one_off` 等依赖“未发现后续”的选项必须有明确一次性证据，或在有界覆盖复核完成后使用 `bounded_absence`。否则返回 `insufficient_coverage`，不得强行落入较低档。其他 rule 必须以同一方式声明自己的缺失敏感选项。
+
+现有开发集只校正陈平的重要军事职责：由 `critical_national_or_long_term` 降为 `major_affairs`。魏徵仍保留 `long_term_multi_stage` Gold；当前单 Episode 是开发快照的聚合表达，不能据此推断不存在其他授权阶段。该校正不改变选项值域和确定性计算公式；v1 worklist 与响应仍可按其原策略版本校验，不能作为 v2 新盲测证据。
 
 仍未批准：材料权重、衰减、各 rule 权重、正负上限、45 分档位映射、总榜和生产 scorer。
 
