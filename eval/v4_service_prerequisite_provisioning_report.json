@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "gate": "v4_service_cutover_prerequisite_provisioning",
+  "status": "passed_without_credentials_or_database",
+  "checked_at": "2026-07-14T13:06:00+08:00",
+  "host": "ph-ubuntu",
+  "release": {
+    "commit_sha": "1d2d6bba7eba16025fd7d524654f6e8a5c215c98",
+    "source_cache_archive_sha256": "f418b94526cddbf317dedcf73fad7702b3a5fb3d4f0024349d2dbafa1fd2d86e",
+    "source_cache_file_count": 22,
+    "claim_extractor_archive_sha256": "443b6a633050f097a70303cc506ceb094d37650d8659c695ad78768902601c60",
+    "claim_extractor_file_count": 23,
+    "source_cache_release_verify": "passed",
+    "claim_extractor_release_verify": "passed"
+  },
+  "provisioned": {
+    "service_user": "emperor-v4",
+    "service_user_login_shell": "/usr/sbin/nologin",
+    "source_cache_current": "/opt/emperor-evaluation-v4/source-cache/releases/1d2d6bba7eba16025fd7d524654f6e8a5c215c98",
+    "claim_extractor_current": "/opt/emperor-evaluation-v4/claim-extractor/releases/1d2d6bba7eba16025fd7d524654f6e8a5c215c98",
+    "release_roots_read_only": true,
+    "independent_virtualenvs": true,
+    "dependency_imports": "passed",
+    "codex_binary": "/opt/emperor-evaluation-v4/bin/codex",
+    "codex_version": "0.144.1",
+    "codex_state_root": "/var/lib/emperor-v4/claim-extractor/codex",
+    "source_cache_plan_installed": true,
+    "non_secret_environment_examples_installed": true,
+    "python_venv_package_installed": "python3.14-venv"
+  },
+  "verification": {
+    "codex_executable_as_service_user": true,
+    "codex_authenticated_as_service_user": false,
+    "codex_auth_status": "Not logged in",
+    "systemd_analyze_verify": "passed",
+    "actual_environment_files_present": false,
+    "installed_v4_unit_count": 0,
+    "active_v4_unit_count": 0
+  },
+  "remaining_prerequisites": [
+    "authorize_and_provision_v4_only_database_role_and_dsns",
+    "authenticate_dedicated_codex_home_without_copying_personal_runtime_config"
+  ],
+  "safety": {
+    "v3_environment_reused": false,
+    "v3_database_changed": false,
+    "v4_production_database_created": false,
+    "real_dsn_written": false,
+    "personal_codex_auth_copied": false,
+    "systemd_unit_installed": false,
+    "timer_enabled": false,
+    "historical_unit_changed": false,
+    "formal_scoring_enabled": false
+  },
+  "next_gate": "v4_service_database_and_codex_auth_authorization"
+}

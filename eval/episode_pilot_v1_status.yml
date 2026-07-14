@@ -106,7 +106,7 @@ v4_service_evidence:
   source_cache_postgres_migration_applied: false
 
 v4_service_source_governance:
-  status: immutable_cutover_preflight_passed_with_prerequisites
+  status: cutover_prerequisites_provisioned_without_credentials_or_database
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
   deployed_runtime_still_uses_transitional_source: true
@@ -138,8 +138,15 @@ v4_service_source_governance:
   cutover_preflight_systemd_verify_passed: true
   cutover_preflight_isolated_runtime_gates_passed: true
   cutover_preflight_production_change_count: 0
-  cutover_prerequisites_remaining: 5
-  next_gate: v4_service_cutover_prerequisite_provisioning
+  prerequisite_provisioning_release: 1d2d6bba7eba16025fd7d524654f6e8a5c215c98
+  prerequisite_source_cache_archive_sha256: f418b94526cddbf317dedcf73fad7702b3a5fb3d4f0024349d2dbafa1fd2d86e
+  prerequisite_claim_extractor_archive_sha256: 443b6a633050f097a70303cc506ceb094d37650d8659c695ad78768902601c60
+  prerequisite_service_user_ready: true
+  prerequisite_release_and_venv_ready: true
+  prerequisite_codex_executable_ready: true
+  prerequisite_codex_authenticated: false
+  cutover_prerequisites_remaining: 2
+  next_gate: v4_service_database_and_codex_auth_authorization
 
 talent_discovery_roster_evidence:
   roster_people: 4
