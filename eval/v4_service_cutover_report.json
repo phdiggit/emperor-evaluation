@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "gate": "v4_service_immutable_cutover",
+  "status": "passed_active_idle",
+  "checked_at": "2026-07-14T12:53:10+08:00",
+  "host": "ph-ubuntu",
+  "release": {
+    "commit_sha": "a24f45b05263e85d3e9bf76a4c3ebc724dd15164",
+    "source_cache_archive_sha256": "e2c06ccdcfdab9edb5f487c2f0de4676eb8570377aaf3330f1e6c2e0e6deef68",
+    "claim_extractor_archive_sha256": "75f78d0d69e712708d2f3af9b2e6885df3de48007ede171592db6ad90e60e1fd"
+  },
+  "database": {
+    "name": "emperor_eval_v4",
+    "preexisting_database_reused": true,
+    "preexisting_public_core_table_count": 9,
+    "public_core_row_counts_unchanged_during_service_migration": true,
+    "service_role": "emperor_v4_service",
+    "service_role_superuser": false,
+    "service_role_createdb": false,
+    "service_role_public_create": false,
+    "source_cache_schema": "v4_source_cache",
+    "source_cache_table_count": 7,
+    "claim_extractor_schema": "v4_claim_extractor",
+    "claim_extractor_table_count": 5,
+    "service_schema_business_row_count": 0,
+    "scram_credential_written_to_restricted_env": true,
+    "credential_exposed_in_report": false
+  },
+  "codex": {
+    "binary": "/opt/emperor-evaluation-v4/bin/codex",
+    "dedicated_home": "/var/lib/emperor-v4/claim-extractor/codex",
+    "login_status": "Logged in using ChatGPT"
+  },
+  "runtime": {
+    "source_cache_timer_enabled": true,
+    "source_cache_timer_active": true,
+    "source_cache_last_tick": "idle",
+    "source_cache_last_exit_status": 0,
+    "claim_extractor_timer_enabled": true,
+    "claim_extractor_timer_active": true,
+    "claim_extractor_last_tick": "idle",
+    "claim_extractor_last_exit_status": 0,
+    "claim_tick_journal_output": true,
+    "historical_unit_enabled": false
+  },
+  "safety": {
+    "v3_database_changed": false,
+    "formal_assertion_written": false,
+    "formal_scoring_enabled": false,
+    "formal_ranking_enabled": false,
+    "model_call_count_during_cutover": 0
+  },
+  "next_gate": "v4_service_first_real_job_observation"
+}

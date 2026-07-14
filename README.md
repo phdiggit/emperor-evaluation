@@ -85,7 +85,7 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
 
-配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 的 application、隔离 PostgreSQL、job/lease 和不可变 release Gate 均已通过；Claim Extractor 真实模型 provider 又以 V4 passages 通过 draft-only shadow。两项服务已在服务器完成无凭据前置资源部署：专用无登录用户、只读 release/current、独立 venv、Source Cache 计划、非敏感配置样例、独立 Codex executable 和状态目录均已通过服务用户审计。当前仅剩 V4 专用数据库/角色/DSN 的创建授权，以及专用 `CODEX_HOME` 的认证；真实 env、systemd unit 和 timer 尚未安装或启用，V3 与正式评分均未改变。
+配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 已完成服务器不可变 cutover。数据库复用早期 G3A 已创建的 `emperor_eval_v4`，保留既有 `public` 核心表，并新增隔离的 `v4_source_cache`、`v4_claim_extractor` schemas 与最小权限服务角色；不是另建第二个 V4 数据库。两个 systemd timer 已启用并连续返回结构化 `idle`，当前服务 schema 业务行数为 0，切换过程没有模型调用或正式 Assertion 写入。V3、正式评分和排名仍未改变；下一 Gate 是首条真实服务 job 的受控观察。
 
 ## 核心阅读顺序
 

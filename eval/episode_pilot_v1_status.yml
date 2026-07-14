@@ -89,7 +89,7 @@ v4_service_evidence:
   claim_extractor_v4_application_version: v4-claim-extractor-service:v1
   weizheng_claim_count: 4
   database_import_performed: false
-  source_cache_release: 6149569233cbae73b97a4c3032c20fadf638ab1c
+  source_cache_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
   source_cache_contract: source-cache-contract-v2
   source_cache_fixture_revision: wikisource:2020238
   source_cache_document_count: 1
@@ -102,14 +102,14 @@ v4_service_evidence:
   source_cache_postgres_repository_contract_ready: true
   source_cache_isolated_postgres_runtime_gate_passed: true
   source_cache_job_lease_recovery_passed: true
-  source_cache_release_archive_sha256: d362e5bc3909d1b4a1174b4ea70188a718e41bed6318fdb50d951384ba28aab6
-  source_cache_postgres_migration_applied: false
+  source_cache_release_archive_sha256: e2c06ccdcfdab9edb5f487c2f0de4676eb8570377aaf3330f1e6c2e0e6deef68
+  source_cache_postgres_migration_applied: true
 
 v4_service_source_governance:
-  status: cutover_prerequisites_provisioned_without_credentials_or_database
+  status: v4_services_cutover_active_idle
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
-  deployed_runtime_still_uses_transitional_source: true
+  deployed_runtime_still_uses_transitional_source: false
   whole_service_branch_merge_forbidden: true
   source_cache_contract: source-cache-contract-v2
   claim_extraction_contract: assertion-extraction-contract-v2
@@ -119,9 +119,9 @@ v4_service_source_governance:
   claim_extractor_v2_passage_support_required: true
   claim_extractor_isolated_postgres_runtime_gate_passed: true
   claim_extractor_job_lease_recovery_passed: true
-  claim_extractor_release_archive_sha256: c74a626a5586445fffe11aebcb4cfd2fb8b982868b708f97367887ef877b9f55
-  claim_extractor_postgres_migration_applied: false
-  claim_extractor_server_cutover_performed: false
+  claim_extractor_release_archive_sha256: 75f78d0d69e712708d2f3af9b2e6885df3de48007ede171592db6ad90e60e1fd
+  claim_extractor_postgres_migration_applied: true
+  claim_extractor_server_cutover_performed: true
   claim_extractor_model_provider_shadow_assertion_count: 7
   claim_extractor_model_provider_release_archive_sha256: 3d23129f652b5a672ea7cafced2811ac62a0a7ab4d2ae01618994625def192ae
   claim_extractor_model_provider_shadow_required_chains_complete: true
@@ -144,9 +144,18 @@ v4_service_source_governance:
   prerequisite_service_user_ready: true
   prerequisite_release_and_venv_ready: true
   prerequisite_codex_executable_ready: true
-  prerequisite_codex_authenticated: false
-  cutover_prerequisites_remaining: 2
-  next_gate: v4_service_database_and_codex_auth_authorization
+  prerequisite_codex_authenticated: true
+  existing_v4_database_reused: true
+  v4_service_database_role: emperor_v4_service
+  v4_service_schema_business_row_count_at_cutover: 0
+  source_cache_server_cutover_performed: true
+  v4_service_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
+  v4_service_source_cache_archive_sha256: e2c06ccdcfdab9edb5f487c2f0de4676eb8570377aaf3330f1e6c2e0e6deef68
+  v4_service_claim_extractor_archive_sha256: 75f78d0d69e712708d2f3af9b2e6885df3de48007ede171592db6ad90e60e1fd
+  v4_service_timers_enabled: true
+  v4_service_last_tick_status: idle
+  cutover_prerequisites_remaining: 0
+  next_gate: v4_service_first_real_job_observation
 
 talent_discovery_roster_evidence:
   roster_people: 4
@@ -164,5 +173,5 @@ safety:
   v3_production_write_performed: false
   formal_v4_scoring_performed: false
   formal_v4_ranking_performed: false
-  production_runtime_enabled: false
+  production_runtime_enabled: true
   credentials_committed: false

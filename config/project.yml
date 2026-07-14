@@ -96,14 +96,14 @@ talent_discovery_roster_result:
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
-  claim_extractor_v4_release: 1d2d6bba7eba16025fd7d524654f6e8a5c215c98
+  claim_extractor_v4_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
   claim_extractor_v4_version: v4-claim-extractor-service:v1
-  source_cache_release: 1d2d6bba7eba16025fd7d524654f6e8a5c215c98
+  source_cache_release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
 v4_service_source_governance:
-  status: cutover_prerequisites_provisioned_without_credentials_or_database
+  status: v4_services_cutover_active_idle
   canonical_history: v4_current_git_history
   transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   migration_mode: contract_tested_selective_port
@@ -132,8 +132,8 @@ v4_service_source_governance:
     job_lease_recovery_passed: true
     application_runtime_gate_archive_sha256: c74a626a5586445fffe11aebcb4cfd2fb8b982868b708f97367887ef877b9f55
     immutable_release_archive_sha256: 3d23129f652b5a672ea7cafced2811ac62a0a7ab4d2ae01618994625def192ae
-    postgres_migration_applied: false
-    server_cutover_performed: false
+    postgres_migration_applied: true
+    server_cutover_performed: true
     model_provider_release: c8e3fb7628e37408e983f9de26f555a1d5117b35
     model_provider_archive_sha256: 3d23129f652b5a672ea7cafced2811ac62a0a7ab4d2ae01618994625def192ae
     model_provider_shadow_assertion_count: 7
@@ -164,9 +164,23 @@ v4_service_source_governance:
     active_unit_count: 0
     remaining_prerequisites: 2
     next_gate: v4_service_database_and_codex_auth_authorization
+  immutable_cutover:
+    release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
+    source_cache_archive_sha256: e2c06ccdcfdab9edb5f487c2f0de4676eb8570377aaf3330f1e6c2e0e6deef68
+    claim_extractor_archive_sha256: 75f78d0d69e712708d2f3af9b2e6885df3de48007ede171592db6ad90e60e1fd
+    existing_database_reused: emperor_eval_v4
+    service_role: emperor_v4_service
+    source_cache_schema: v4_source_cache
+    claim_extractor_schema: v4_claim_extractor
+    service_schema_business_row_count_at_cutover: 0
+    source_cache_timer_active: true
+    claim_extractor_timer_active: true
+    last_tick_status: idle
+    formal_scoring_enabled: false
+    next_gate: v4_service_first_real_job_observation
   source_cache_first_slice:
     contract: source-cache-contract-v2
-    release: 6149569233cbae73b97a4c3032c20fadf638ab1c
+    release: a24f45b05263e85d3e9bf76a4c3ebc724dd15164
     fixture_revision: wikisource:2020238
     no_change_exact_response_reuse: true
     real_adapter_shadow_match: true
@@ -174,9 +188,9 @@ v4_service_source_governance:
     postgres_repository_contract_ready: true
     isolated_postgres_runtime_gate_passed: true
     job_lease_recovery_passed: true
-    immutable_release_archive_sha256: d362e5bc3909d1b4a1174b4ea70188a718e41bed6318fdb50d951384ba28aab6
-    postgres_migration_applied: false
-    server_cutover_performed: false
+    immutable_release_archive_sha256: e2c06ccdcfdab9edb5f487c2f0de4676eb8570377aaf3330f1e6c2e0e6deef68
+    postgres_migration_applied: true
+    server_cutover_performed: true
   forbidden_imports:
     - v3_scorer
     - v3_person_profile
