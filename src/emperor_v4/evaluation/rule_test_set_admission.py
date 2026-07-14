@@ -18,6 +18,7 @@ REQUIRED_RULES = {
 }
 ADMISSION_DECISIONS = {
     "completed_not_qualified",
+    "completed_qualified",
     "open_development_completed",
     "ready_to_build_open_set",
     "contract_required",
@@ -116,7 +117,7 @@ def evaluate_rule_test_set_admission(policy: Mapping[str, Any]) -> dict[str, Any
         calls = 0
         waves = 0
         tokens = 0
-        if decision != "completed_not_qualified":
+        if decision not in {"completed_not_qualified", "completed_qualified"}:
             if profile_code not in profiles:
                 raise ValueError(f"{rule_code} 未绑定有效规模档位")
             profile = profiles[profile_code]
@@ -210,6 +211,7 @@ def evaluate_rule_test_set_admission(policy: Mapping[str, Any]) -> dict[str, Any
             "completed_not_qualified_count": decision_counts[
                 "completed_not_qualified"
             ],
+            "completed_qualified_count": decision_counts["completed_qualified"],
             "ready_to_build_open_set_count": decision_counts[
                 "ready_to_build_open_set"
             ],

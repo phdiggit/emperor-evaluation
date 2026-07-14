@@ -1,0 +1,230 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "sealed_holdout",
+  "factor_breakdown": {
+    "capability_basis": {
+      "correct": 1,
+      "exact_rate": 0.125,
+      "incorrect": 7
+    },
+    "network_effect": {
+      "correct": 2,
+      "exact_rate": 0.25,
+      "incorrect": 6
+    },
+    "office_exposure": {
+      "correct": 0,
+      "exact_rate": 0.0,
+      "incorrect": 8
+    },
+    "process_integrity": {
+      "correct": 0,
+      "exact_rate": 0.0,
+      "incorrect": 8
+    }
+  },
+  "factor_policy_version": "anti-nepotism-factor-agent-v1",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "insufficient_evidence",
+      "expected": "private_substitutes_merit",
+      "field": "capability_basis",
+      "unit_ref": "AN-S01"
+    },
+    {
+      "actual": "cross_channel_capture",
+      "expected": "durable_capture",
+      "field": "network_effect",
+      "unit_ref": "AN-S01"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "appointment_channel_control",
+      "field": "office_exposure",
+      "unit_ref": "AN-S01"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "channel_captured",
+      "field": "process_integrity",
+      "unit_ref": "AN-S01"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "applicable",
+      "field": "applicability",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "capability_disproved",
+      "field": "capability_basis",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "durable_capture",
+      "field": "network_effect",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "appointment_channel_control",
+      "field": "office_exposure",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "channel_captured",
+      "field": "process_integrity",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "mixed_merit_private",
+      "field": "capability_basis",
+      "unit_ref": "AN-S03"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "key_appointment_or_succession",
+      "field": "office_exposure",
+      "unit_ref": "AN-S03"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "private_interference",
+      "field": "process_integrity",
+      "unit_ref": "AN-S03"
+    },
+    {
+      "actual": "cross_person_single_channel",
+      "expected": "cross_channel_capture",
+      "field": "network_effect",
+      "unit_ref": "AN-S04"
+    },
+    {
+      "actual": "nominal_or_nonpublic",
+      "expected": "appointment_channel_control",
+      "field": "office_exposure",
+      "unit_ref": "AN-S04"
+    },
+    {
+      "actual": "private_interference",
+      "expected": "channel_captured",
+      "field": "process_integrity",
+      "unit_ref": "AN-S04"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "private_substitutes_merit",
+      "field": "capability_basis",
+      "unit_ref": "AN-S05"
+    },
+    {
+      "actual": "cross_person_single_channel",
+      "expected": "cross_channel_capture",
+      "field": "network_effect",
+      "unit_ref": "AN-S05"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "appointment_channel_control",
+      "field": "office_exposure",
+      "unit_ref": "AN-S05"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "channel_captured",
+      "field": "process_integrity",
+      "unit_ref": "AN-S05"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "private_substitutes_merit",
+      "field": "capability_basis",
+      "unit_ref": "AN-S06"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "appointment_channel_control",
+      "field": "office_exposure",
+      "unit_ref": "AN-S06"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "channel_captured",
+      "field": "process_integrity",
+      "unit_ref": "AN-S06"
+    },
+    {
+      "actual": "private_substitutes_merit",
+      "expected": "mixed_merit_private",
+      "field": "capability_basis",
+      "unit_ref": "AN-S07"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "dismantled_by_ruler",
+      "field": "network_effect",
+      "unit_ref": "AN-S07"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "major_affairs",
+      "field": "office_exposure",
+      "unit_ref": "AN-S07"
+    },
+    {
+      "actual": "private_interference",
+      "expected": "bypass_but_correctable",
+      "field": "process_integrity",
+      "unit_ref": "AN-S07"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "applicable",
+      "field": "applicability",
+      "unit_ref": "AN-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "verified_merit",
+      "field": "capability_basis",
+      "unit_ref": "AN-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "isolated_no_network",
+      "field": "network_effect",
+      "unit_ref": "AN-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "key_appointment_or_succession",
+      "field": "office_exposure",
+      "unit_ref": "AN-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "bounded_exception_reviewable",
+      "field": "process_integrity",
+      "unit_ref": "AN-S08"
+    }
+  ],
+  "rule_code": "anti_nepotism",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 6,
+    "applicability_exact_rate": 0.75,
+    "factor_comparison_count": 32,
+    "factor_exact_count": 3,
+    "factor_exact_rate": 0.09375,
+    "qualification_gate_passed": false,
+    "unit_count": 8,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "382e77fa7b8692f64e24c70c00b8228d1e33c7de563f1b0ec68f163783ccd306"
+}

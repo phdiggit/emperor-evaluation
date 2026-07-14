@@ -1350,16 +1350,17 @@ def test_rule_test_set_admission_report_is_reproducible_and_fail_closed() -> Non
     assert report == tracked
     assert report["summary"] == {
         "rule_count": 5,
-        "completed_not_qualified_count": 1,
+        "completed_not_qualified_count": 4,
+        "completed_qualified_count": 1,
         "ready_to_build_open_set_count": 0,
-        "open_development_completed_count": 1,
-        "contract_required_count": 2,
-        "blocked_on_prerequisite_count": 1,
+        "open_development_completed_count": 0,
+        "contract_required_count": 0,
+        "blocked_on_prerequisite_count": 0,
         "next_rule_for_open_test_set": None,
         "currently_ready_open_development_units": 0,
         "currently_authorized_sealed_holdout_units": 0,
-        "planned_future_open_development_units": 32,
-        "planned_future_sealed_holdout_units": 24,
+        "planned_future_open_development_units": 0,
+        "planned_future_sealed_holdout_units": 0,
     }
     assert report["currently_ready_open_model_performance_estimate"] == {
         "model_call_count": 0,
@@ -1370,7 +1371,7 @@ def test_rule_test_set_admission_report_is_reproducible_and_fail_closed() -> Non
     }
     assert report["full_pipeline_model_performance_upper_bound"][
         "model_call_count"
-    ] == 14
+    ] == 0
     assert report["shared_policy"]["thirty_two_units_not_required_by_default"]
     assert report["formal_scoring_allowed"] is False
     assert report["database_write_count"] == 0
@@ -1389,6 +1390,8 @@ def test_rule_test_set_admission_report_is_reproducible_and_fail_closed() -> Non
         if row["rule_code"] == "team_building"
     )
     team_building["admission_decision"] = "ready_to_build_open_set"
+    team_building["sizing_profile"] = "aggregate_window"
+    team_building["prerequisites"][0]["status"] = "missing"
     with pytest.raises(ValueError, match="尚有前置项"):
         evaluate_rule_test_set_admission(prematurely_ready)
 
@@ -1529,6 +1532,59 @@ def test_i5b_complete_test_sets_are_reproducible_and_gold_blind(
     plan = build_i5b_factor_batch_plan(worklist)
     assert plan["batch_count"] == (expected_units + 3) // 4
     assert all(len(row["unit_refs"]) <= 4 for row in plan["batches"])
+
+
+@pytest.mark.parametrize(
+    "directory",
+    (
+        "talent_discovery_sealed_holdout",
+        "tolerate_talent_sealed_holdout",
+        "anti_nepotism_sealed_holdout",
+        "team_building_sealed_holdout",
+    ),
+)
+def test_i5b_sealed_results_are_reproducible_and_single_run(
+    directory: str,
+) -> None:
+    root = Path(__file__).parents[1] / "eval" / directory
+    worklist = json.loads((root / "worklist.json").read_text(encoding="utf-8"))
+    response = json.loads((root / "agent_response.json").read_text(encoding="utf-8"))
+    gold = yaml.safe_load((root / "factor_gold.yml").read_text(encoding="utf-8"))
+    tracked = json.loads((root / "qualification_report.json").read_text(encoding="utf-8"))
+    audit = json.loads((root / "execution_audit.json").read_text(encoding="utf-8"))
+
+    assert evaluate_i5b_factor_qualification(worklist, response, gold) == tracked
+    assert audit["task_count"] == (len(worklist["tasks"]) + 3) // 4
+    assert audit["runner_status"] == "succeeded"
+    assert audit["formal_acceptance_performed"] is False
+    assert audit["database_write_count"] == 0
+
+
+def test_i5b_portfolio_is_closed_at_one_hundred_units() -> None:
+    root = Path(__file__).parents[1]
+    report = json.loads(
+        (root / "eval/i5b_test_set_portfolio/report.json").read_text(encoding="utf-8")
+    )
+    assert report["summary"] == {
+        "rule_count": 5,
+        "total_test_units": 100,
+        "open_or_opened_units": 68,
+        "sealed_units": 32,
+        "completed_qualified_rules": 1,
+        "completed_not_qualified_rules": 4,
+        "planned_future_test_units": 0,
+        "currently_authorized_model_calls": 0,
+    }
+    decisions = {row["rule_code"]: row["final_decision"] for row in report["rules"]}
+    assert decisions["team_building"] == "completed_qualified"
+    assert all(
+        decision == "completed_not_qualified"
+        for rule, decision in decisions.items()
+        if rule != "team_building"
+    )
+    assert sum(row["total_units"] for row in report["rules"]) == 100
+    assert report["sealed_protocol"]["future_rerun_authorized"] is False
+    assert report["formal_scoring_allowed"] is False
 
 
 def test_i5b_generic_factor_gate_rejects_numeric_leakage() -> None:

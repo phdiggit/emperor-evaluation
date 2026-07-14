@@ -18,8 +18,8 @@ current:
   appointment_delegation_v3_semantic_parity: passed_shadow_demo_only
   factor_judgment_proposal_contract: passed_shadow_demo_only
   factor_observation_agent_qualification: independent_blind_run_completed_not_qualified
-  factor_representativeness_sampling: portfolio_32_opened_not_qualified
-  rule_test_set_admission: ready_shadow_policy
+  factor_representativeness_sampling: portfolio_36_completed_not_qualified
+  rule_test_set_admission: five_rules_completed_one_qualified
   rule_factor_evidence_coverage_gate: passed_shadow_contract_only
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
@@ -165,20 +165,21 @@ rule_test_set_admission_evidence:
   policy: config/rule-test-set-policy.yml
   report: rule_test_set_admission/report.json
   next_rule: null
-  talent_discovery_open_development_status: passed_v2
-  talent_discovery_open_development_units: 8
+  portfolio_report: i5b_test_set_portfolio/report.json
+  status: fifth_item_b_test_set_portfolio_completed
+  total_test_units: 100
+  open_or_opened_units: 68
+  sealed_units: 32
+  completed_qualified_rules: 1
+  completed_not_qualified_rules: 4
   currently_ready_open_development_units: 0
   currently_authorized_sealed_holdout_units: 0
-  planned_talent_discovery_sealed_holdout_units_after_freeze: 4
-  talent_discovery_open_model_call_count: 2
-  talent_discovery_open_wall_clock_sec: 34.478
-  talent_discovery_open_reported_total_tokens: 39622
-  talent_discovery_open_applicability_exact_rate: 1.0
-  talent_discovery_open_factor_exact_rate: 1.0
-  talent_discovery_open_unsafe_false_applicable_count: 0
-  full_remaining_pipeline_model_wall_clock_upper_bound_sec: 751.583
-  full_remaining_pipeline_model_token_upper_bound: 425572
-  remaining_pipeline_estimate_excludes_source_and_human_gold_review: true
+  planned_future_test_units: 0
+  successful_runner_wall_clock_sec: 523.457
+  successful_reported_input_plus_output_tokens: 763840
+  mechanical_failed_attempt_wall_clock_sec: 424.908
+  mechanical_failed_attempt_reported_input_plus_output_tokens: 178707
+  cost_excludes_source_human_gold_and_appointment_legacy_runs: true
   formal_scoring_allowed: false
 
 validated_invariants:

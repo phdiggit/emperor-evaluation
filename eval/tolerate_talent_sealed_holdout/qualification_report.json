@@ -1,0 +1,140 @@
+{
+  "database_write_count": 0,
+  "dataset_role": "sealed_holdout",
+  "factor_breakdown": {
+    "conflict_repair_continuity": {
+      "correct": 3,
+      "exact_rate": 0.375,
+      "incorrect": 5
+    },
+    "feedback_reception": {
+      "correct": 5,
+      "exact_rate": 0.625,
+      "incorrect": 3
+    },
+    "professional_autonomy": {
+      "correct": 7,
+      "exact_rate": 0.875,
+      "incorrect": 1
+    },
+    "talent_safety": {
+      "correct": 2,
+      "exact_rate": 0.25,
+      "incorrect": 6
+    }
+  },
+  "factor_policy_version": "tolerate-talent-factor-agent-v1",
+  "formal_scoring_allowed": false,
+  "mismatches": [
+    {
+      "actual": "single_event_only",
+      "expected": "timely_repair",
+      "field": "conflict_repair_continuity",
+      "unit_ref": "TT-S01"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "safe_without_retaliation",
+      "field": "talent_safety",
+      "unit_ref": "TT-S01"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "accepted_after_conflict",
+      "field": "feedback_reception",
+      "unit_ref": "TT-S03"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "safe_without_retaliation",
+      "field": "talent_safety",
+      "unit_ref": "TT-S03"
+    },
+    {
+      "actual": "single_event_only",
+      "expected": "stable_without_conflict",
+      "field": "conflict_repair_continuity",
+      "unit_ref": "TT-S04"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "actively_solicited",
+      "field": "feedback_reception",
+      "unit_ref": "TT-S04"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "safe_without_retaliation",
+      "field": "talent_safety",
+      "unit_ref": "TT-S04"
+    },
+    {
+      "actual": "single_event_only",
+      "expected": "persistent_unrepaired",
+      "field": "conflict_repair_continuity",
+      "unit_ref": "TT-S06"
+    },
+    {
+      "actual": "insufficient_evidence",
+      "expected": "career_exclusion",
+      "field": "talent_safety",
+      "unit_ref": "TT-S06"
+    },
+    {
+      "actual": "single_event_only",
+      "expected": "persistent_unrepaired",
+      "field": "conflict_repair_continuity",
+      "unit_ref": "TT-S07"
+    },
+    {
+      "actual": "localized_penalty",
+      "expected": "career_exclusion",
+      "field": "talent_safety",
+      "unit_ref": "TT-S07"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "applicable",
+      "field": "applicability",
+      "unit_ref": "TT-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "persistent_unrepaired",
+      "field": "conflict_repair_continuity",
+      "unit_ref": "TT-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "suppressed_or_punished",
+      "field": "feedback_reception",
+      "unit_ref": "TT-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "political_override",
+      "field": "professional_autonomy",
+      "unit_ref": "TT-S08"
+    },
+    {
+      "actual": "not_applicable",
+      "expected": "mixed_responsibility",
+      "field": "talent_safety",
+      "unit_ref": "TT-S08"
+    }
+  ],
+  "rule_code": "tolerate_talent",
+  "schema_version": "i5b-factor-qualification-report-v1",
+  "status": "i5b_factor_test_set_evaluated",
+  "summary": {
+    "applicability_exact_count": 7,
+    "applicability_exact_rate": 0.875,
+    "factor_comparison_count": 32,
+    "factor_exact_count": 17,
+    "factor_exact_rate": 0.53125,
+    "qualification_gate_passed": false,
+    "unit_count": 8,
+    "unsafe_false_applicable_count": 0
+  },
+  "worklist_sha256": "190f811b9821f1cf0873b18281ad581a38cec067bcad6c0e5e77fbafe31dcd48"
+}

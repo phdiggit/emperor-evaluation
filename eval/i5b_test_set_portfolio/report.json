@@ -1,0 +1,201 @@
+{
+  "database_write_count": 0,
+  "execution_cost": {
+    "all_observed_reported_input_plus_output_tokens": 942547,
+    "all_observed_wall_clock_duration_sec": 948.365,
+    "mechanical_failed_attempt_reported_input_plus_output_tokens": 178707,
+    "mechanical_failed_attempt_wall_clock_duration_sec": 424.908,
+    "scope_note": "覆盖本轮通用测试集开发、talent_discovery 开放/ sealed 与其余三条 rule；不重复计入 appointment_delegation 既有 32 单元的历史运行。",
+    "source_collection_and_human_gold_review_excluded": true,
+    "successful_reported_input_plus_output_tokens": 763840,
+    "successful_runs": [
+      {
+        "reported_input_plus_output_tokens": 39255,
+        "run": "talent_discovery_open_v1",
+        "wall_clock_duration_sec": 73.48
+      },
+      {
+        "reported_input_plus_output_tokens": 39622,
+        "run": "talent_discovery_open_v2",
+        "wall_clock_duration_sec": 34.478
+      },
+      {
+        "reported_input_plus_output_tokens": 206136,
+        "run": "open_v1_and_talent_sealed",
+        "runner_run_id": "e59e2c863ec54577aea2ca4626f4a897",
+        "wall_clock_duration_sec": 125.758
+      },
+      {
+        "reported_input_plus_output_tokens": 189500,
+        "run": "open_v2_clean",
+        "runner_run_id": "57574cb131b64460bf6bae67df8da152",
+        "wall_clock_duration_sec": 98.672
+      },
+      {
+        "reported_input_plus_output_tokens": 189845,
+        "run": "open_v3_final",
+        "runner_run_id": "eb04e1fafdb049678f3424c0dcf1e477",
+        "wall_clock_duration_sec": 94.642
+      },
+      {
+        "reported_input_plus_output_tokens": 99482,
+        "run": "remaining_sealed_once",
+        "runner_run_id": "6c377005496a4d28b962cfb7568ecfd3",
+        "wall_clock_duration_sec": 96.427
+      }
+    ],
+    "successful_wall_clock_duration_sec": 523.457,
+    "wall_clock_is_sum_of_independent_runner_runs": true
+  },
+  "formal_scoring_allowed": false,
+  "rules": [
+    {
+      "artifacts": [
+        "eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json",
+        "eval/appointment_delegation_factor_gap_closure_open/qualification_report_v3.json",
+        "eval/appointment_delegation_factor_sealed_holdout_v3/qualification_report.json"
+      ],
+      "final_decision": "completed_not_qualified",
+      "open_gap_closure_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 0.7916666666666666,
+        "qualification_gate_passed": false,
+        "unit_count": 4,
+        "unsafe_false_applicable_count": 0
+      },
+      "open_or_opened_units": 28,
+      "rule_code": "appointment_delegation",
+      "sealed_metrics": {
+        "decision_status_accuracy": 0.963,
+        "factor_exact_rate": 0.7143,
+        "qualification_gate_passed": false,
+        "unit_count": 8,
+        "unsafe_false_resolution_count": 0
+      },
+      "sealed_units": 8,
+      "total_units": 36
+    },
+    {
+      "artifacts": [
+        "eval/talent_discovery_open_development/qualification_report_v2.json",
+        "eval/talent_discovery_sealed_holdout/qualification_report.json"
+      ],
+      "final_decision": "completed_not_qualified",
+      "open_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 1.0,
+        "qualification_gate_passed": true,
+        "unit_count": 8,
+        "unsafe_false_applicable_count": 0
+      },
+      "open_or_opened_units": 8,
+      "rule_code": "talent_discovery",
+      "sealed_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 0.8125,
+        "qualification_gate_passed": false,
+        "unit_count": 4,
+        "unsafe_false_applicable_count": 0
+      },
+      "sealed_units": 4,
+      "total_units": 12
+    },
+    {
+      "artifacts": [
+        "eval/tolerate_talent_open_development/calibration_audit.json",
+        "eval/tolerate_talent_sealed_holdout/qualification_report.json",
+        "eval/tolerate_talent_sealed_holdout/execution_audit.json"
+      ],
+      "final_decision": "completed_not_qualified",
+      "open_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 0.8958333333333334,
+        "qualification_gate_passed": true,
+        "unit_count": 12,
+        "unsafe_false_applicable_count": 0
+      },
+      "open_or_opened_units": 12,
+      "rule_code": "tolerate_talent",
+      "sealed_metrics": {
+        "applicability_exact_rate": 0.875,
+        "factor_exact_rate": 0.53125,
+        "qualification_gate_passed": false,
+        "unit_count": 8,
+        "unsafe_false_applicable_count": 0
+      },
+      "sealed_units": 8,
+      "total_units": 20
+    },
+    {
+      "artifacts": [
+        "eval/anti_nepotism_open_development/calibration_audit.json",
+        "eval/anti_nepotism_sealed_holdout/qualification_report.json",
+        "eval/anti_nepotism_sealed_holdout/execution_audit.json"
+      ],
+      "final_decision": "completed_not_qualified",
+      "open_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 0.9791666666666666,
+        "qualification_gate_passed": true,
+        "unit_count": 12,
+        "unsafe_false_applicable_count": 0
+      },
+      "open_or_opened_units": 12,
+      "rule_code": "anti_nepotism",
+      "sealed_metrics": {
+        "applicability_exact_rate": 0.75,
+        "factor_exact_rate": 0.09375,
+        "qualification_gate_passed": false,
+        "unit_count": 8,
+        "unsafe_false_applicable_count": 0
+      },
+      "sealed_units": 8,
+      "total_units": 20
+    },
+    {
+      "artifacts": [
+        "eval/team_building_open_development/calibration_audit.json",
+        "eval/team_building_sealed_holdout/qualification_report.json",
+        "eval/team_building_sealed_holdout/execution_audit.json"
+      ],
+      "final_decision": "completed_qualified",
+      "open_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 0.9583333333333334,
+        "qualification_gate_passed": true,
+        "unit_count": 8,
+        "unsafe_false_applicable_count": 0
+      },
+      "open_or_opened_units": 8,
+      "rule_code": "team_building",
+      "sealed_metrics": {
+        "applicability_exact_rate": 1.0,
+        "factor_exact_rate": 0.875,
+        "qualification_gate_passed": true,
+        "unit_count": 4,
+        "unsafe_false_applicable_count": 0
+      },
+      "sealed_units": 4,
+      "total_units": 12
+    }
+  ],
+  "schema_version": "i5b-rule-test-set-portfolio-v1",
+  "sealed_protocol": {
+    "future_rerun_authorized": false,
+    "post_sealed_tuning_performed": false,
+    "remaining_sealed_freeze_commit": "13a1994",
+    "remaining_sealed_runner_run_id": "6c377005496a4d28b962cfb7568ecfd3",
+    "successful_business_run_count_per_sealed_set": 1
+  },
+  "status": "fifth_item_b_test_set_portfolio_completed",
+  "summary": {
+    "completed_not_qualified_rules": 4,
+    "completed_qualified_rules": 1,
+    "currently_authorized_model_calls": 0,
+    "open_or_opened_units": 68,
+    "planned_future_test_units": 0,
+    "rule_count": 5,
+    "sealed_units": 32,
+    "total_test_units": 100
+  }
+}

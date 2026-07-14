@@ -1,7 +1,7 @@
 # 第五项 B：用人与授权（V4 业务规则）
 
 > 状态：`scored_shadow_demo_ready`
-> 当前阶段：`appointment_delegation` 已完成纵向 scored shadow，`talent_discovery` 已复用同一 runner 并完成 8 单元开放集的有限档位 v2 调校；正式 45 分汇总和生产计分仍关闭。
+> 当前阶段：第五项 B 五条 rule 的 100 单元测试集已全部完成 open/sealed 协议；仅 `team_building` 通过资格门，正式 45 分汇总和生产计分仍关闭。
 
 ## 1. 核心问题
 
@@ -29,9 +29,9 @@ anti_nepotism
 | `tolerate_talent` | episode |
 | `anti_nepotism` | episode + aggregate_context |
 
-首轮 `appointment_delegation` 已完成。第二条 `talent_discovery` 已冻结规则边界和首批 gold cases，并复用同一 scored-shadow 内核；其余规则完成契约和 gold cases 后再进入实现。
+五条 rule 均已建立有限因子、输入合同和 open/sealed 测试集；测试完成不等于准许正式计分，只有 `team_building` 通过当前资格门。
 
-测试集不按 rule 机械复制 32 单元，而按统计单位和语义风险准入：`talent_discovery` 的 8 个开放开发单元已完成，v2 结果为适用性 8/8、四因子档位 32/32，零危险误适用；4 个 sealed 仍须另选身份、先做人工 Gold 并提交冻结点。`tolerate_talent` 与 `anti_nepotism` 各按高因果风险预留 12+8，但必须先完成规则合同；`team_building` 按皇帝时间窗预留 8+4，当前受人物集合与画像快照阻断。规模、前置项和耗时/token 上界由 `config/rule-test-set-policy.yml` 驱动，确定性报告为 `eval/rule_test_set_admission/report.json`。
+测试集按统计单位和语义风险定容，共 100 单元：任用授权 36、识才 12、容才 20、反任人唯亲 20、团队建设 12。所有 sealed 均先冻结身份与人工 Gold，再唯一运行一次；最终 `team_building` 以适用性 100%、因子 87.5% 通过，其他四条未通过。组合、耗时/token 与失败尝试见 `eval/i5b_test_set_portfolio/report.json`，确定性准入报告为 `eval/rule_test_set_admission/report.json`。
 
 ## 4. `talent_discovery`
 

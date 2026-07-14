@@ -18,8 +18,8 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 模型固定复现：通过 `--respect-task-argv` 显式执行 `--model gpt-5.6-sol`，开发集为 20/30 精确，仍未达门槛；该复现不计为新资格盲评
 - 新开放开发集：马周、张良、刘基、李善长已形成 4 个 V4 RuleEvidenceUnit 和 5 条正负材料；coverage-aware 对照为 28/29 已决档位精确、1 次正确拒判、零危险强判/错误拒判/非相邻/方向错误，`codex-win` 单批耗时 67.729 秒、总 token 24,863；该结果只用于调校，`real_agent_qualified=false`
 - 封存资格集：房玄龄、李靖、萧何、徐达的 4 个评分单位已在 `3bfc9b6` 冻结后完成唯一一次盲评；25/30 档精确（83.33%）低于 85% 门槛，5 个偏差均为相邻档，决策状态、正负结构、方向与覆盖安全 Gate 全部通过；耗时 100.102 秒、总 token 26,152，未重跑且未回调 Gold/策略，`real_agent_qualified=false`
-- 32 单元组合已全部开封：12 个历史回归单元、12 个新开放开发单元和 8 个 sealed 单元均已绑定固定史源与身份。开放集 v4 门通过；sealed 唯一盲评仅 5/8 单元材料结构一致、已对齐档位精确率 71.43%，未通过资格门；组合另缺 4 个预定代表性分层最低配额，因此仍不得声称具有生产代表性
-- 第五项 B 测试集准入：五条 rule 已按输入类型与风险分级，32 单元不作为通用默认规模；`talent_discovery` 的 8 个开放开发单元已完成 v2 调校，8/8 适用性和 32/32 因子档位命中，4 个 sealed 单元的模型运行授权仍为 0
+- 第五项 B 测试集组合已收束：五条 rule 共 100 个单元（68 个 open/opened、32 个 sealed）；`appointment_delegation` 36、`talent_discovery` 12、`tolerate_talent` 20、`anti_nepotism` 20、`team_building` 12，未来预排与模型授权均为 0
+- sealed 资格结果：只有 `team_building` 通过（适用性 100%、因子 87.5%）；其余四条均未通过，尤其 `anti_nepotism` 为适用性 75%、因子 9.375%，不得由开放集通过推断生产泛化
 - 通用证据覆盖 Gate：`appointment_delegation` 与 `talent_discovery` 共用 `rule-factor-evidence-coverage-v1`；开放快照允许直接正证据确认，但禁止以“未找到”强推一次性、从未发生等缺失敏感档位，覆盖不足必须退出为 `insufficient_coverage`
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
@@ -73,14 +73,13 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 ## 下一份可见成果
 
-32 单元已经全部开封，完整组合与运行成本见 `eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json`。开放开发策略已冻结为 v4；8 个 sealed 单元在 `80f0de8` 冻结后只运行一次，未达资格门，禁止据此修改 Gold、降低阈值或重跑。跨 rule 准入报告见 `eval/rule_test_set_admission/report.json`。下一步是：
+测试集完整组合、资格结果和成本见 `eval/i5b_test_set_portfolio/report.json`，准入状态见 `eval/rule_test_set_admission/report.json`。本轮成功运行累计墙钟 523.457 秒、input+output token 763,840；另有因残留响应触发 `deny-rewrite` 的机械失败 424.908 秒、178,707 token，均已单列保留。该成本不含史源搜集、人工 Gold 和 `appointment_delegation` 既有 32 单元的历史运行。
 
-1. `talent_discovery` 的 8 个开放开发单元已覆盖新识别、荐举、跨旧政权、身份/接触障碍和 4 条强不适用反例；v2 两批并行墙钟 34.478 秒，可确认 input+output token 39,622，8/8 适用性和 32/32 档位命中；
-2. 下一步冻结 v2 策略，另选 4 个全新 sealed 身份并在模型不可见条件下完成人工 Gold；提交冻结点前模型运行授权保持为 0；
-3. `tolerate_talent` 与 `anti_nepotism` 先冻结负向因果、聚合边界和去重合同，不能直接批量造样本；`team_building` 等待 canonical 人物集合、PersonProfileSnapshot 和时间窗合同；
-4. `appointment_delegation` 只在新开放材料上修复同侧多个授权弧结构并补代表性缺口；已开封 sealed 禁止重跑和后调；
-5. 扣除已完成的 8 个开放单元后，剩余完整流水线模型侧上界约 14 次调用、7 个顺序波次、751.583 秒和 425,572 token；这不是当前授权任务，也不包含人工史源与 Gold 成本；
-6. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
+下一步不再扩样或重跑 sealed，而是：
+
+1. 以 `team_building` 已通过的集合级合同为参照，审计 `anti_nepotism` 为何在 sealed 上发生严重泛化失败；
+2. 为未通过的四条 rule 另立新版本语义合同，旧 sealed 只作只读失败证据，禁止后调 Gold 或再次调用模型；
+3. 在独立 factor 数值、Rule Gold、ScoreContribution 与 shadow 差异 Gate 全部通过前，保持 `shadow-only`，不引入 45 分映射、排名或生产评分写入。
 
 在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
 

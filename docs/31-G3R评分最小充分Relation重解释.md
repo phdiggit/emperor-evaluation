@@ -1,8 +1,8 @@
 # `appointment_delegation` 评分最小充分 Shadow 实施摘要
 
-> 状态：`persistent_roster_shadow_ready_second_rule_reuse_next`
+> 状态：`i5b_test_set_portfolio_completed_scoring_still_closed`
 >
-> 日期：2026-07-13
+> 日期：2026-07-14
 >
 > 实现基准：`13ea96e5b0d42c9a6d86c8ba516ad6cfc1b08f16`
 
@@ -36,6 +36,8 @@ Episode endpoint proposals
 - 正式 Relation、RuleEvidenceUnit、Projection、Judgment、45 分得分和数据库业务写入均为 0；4 个 ScoreContribution 仅限 `shadow_demo_only`。
 
 这说明评分单元与增量 readiness 已具备原型，但还没有形成可交付的评分结果。
+
+第五项 B 的测试集已进一步收束为 100 个单元：`appointment_delegation` 36、`talent_discovery` 12、`tolerate_talent` 20、`anti_nepotism` 20、`team_building` 12。所有 sealed 均在身份与 Gold 提交冻结后只运行一次；只有 `team_building` 通过资格门，其他四条保留失败结果且禁止后调或重跑。完整结果统一维护在 `eval/i5b_test_set_portfolio/report.json`，不再新增阶段总结文档。
 
 ## 2. 评分最小充分 Relation
 
