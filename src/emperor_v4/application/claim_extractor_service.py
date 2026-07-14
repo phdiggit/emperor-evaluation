@@ -44,6 +44,14 @@ def _stable(value: Any) -> str:
     )
 
 
+def json_equivalent(left: Any, right: Any) -> bool:
+    return _stable(left) == _stable(right)
+
+
+def _json_normalized(value: Any) -> Any:
+    return json.loads(_stable(value))
+
+
 def _fingerprint(value: Any) -> str:
     return sha256(_stable(value).encode("utf-8")).hexdigest()
 
@@ -161,7 +169,7 @@ def canonical_assertion_storage_payload(
     payload["qualifiers"] = historical_qualifiers(
         assertion.get("qualifiers") or {}
     )
-    return payload
+    return _json_normalized(payload)
 
 
 def assertion_identity_payload(
@@ -170,27 +178,29 @@ def assertion_identity_payload(
     """数据库冲突比较忽略模型置信度和运行 provenance，只比较事实。"""
 
     support = assertion.get("passage_support") or {}
-    return {
-        "assertion_code": assertion.get("assertion_code"),
-        "source_passage_ref": assertion.get("source_passage_ref"),
-        "assertion_type": assertion.get("assertion_type"),
-        "subject": assertion.get("subject"),
-        "predicate": assertion.get("predicate"),
-        "object": assertion.get("object"),
-        "time_expression": assertion.get("time_expression"),
-        "location_expression": assertion.get("location_expression"),
-        "qualifiers": historical_qualifiers(
-            assertion.get("qualifiers") or {}
-        ),
-        "polarity": assertion.get("polarity"),
-        "passage_support": {
-            "support_mode": support.get("support_mode"),
-            "assertion_semantic_key": support.get(
-                "assertion_semantic_key"
+    return _json_normalized(
+        {
+            "assertion_code": assertion.get("assertion_code"),
+            "source_passage_ref": assertion.get("source_passage_ref"),
+            "assertion_type": assertion.get("assertion_type"),
+            "subject": assertion.get("subject"),
+            "predicate": assertion.get("predicate"),
+            "object": assertion.get("object"),
+            "time_expression": assertion.get("time_expression"),
+            "location_expression": assertion.get("location_expression"),
+            "qualifiers": historical_qualifiers(
+                assertion.get("qualifiers") or {}
             ),
-            "supported_fields": support.get("supported_fields") or [],
-        },
-    }
+            "polarity": assertion.get("polarity"),
+            "passage_support": {
+                "support_mode": support.get("support_mode"),
+                "assertion_semantic_key": support.get(
+                    "assertion_semantic_key"
+                ),
+                "supported_fields": support.get("supported_fields") or [],
+            },
+        }
+    )
 
 
 def claim_extraction_input_fingerprint(
