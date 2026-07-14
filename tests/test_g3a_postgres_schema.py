@@ -13,7 +13,9 @@ from emperor_v4.persistence.postgres_source_cache import (
 )
 from emperor_v4.persistence.postgres_claim_extractor import (
     CLAIM_EXTRACTOR_TABLES,
+    CLAIM_RESULT_STATUSES,
     ClaimExtractorSchemaStateError,
+    claim_result_status_constraint_is_current,
     decide_claim_extractor_schema_action,
 )
 
@@ -31,7 +33,18 @@ SOURCE_CACHE_JOBS_SCHEMA = (
     / "postgres"
     / "003_v4_source_cache_jobs.sql"
 )
-CLAIM_EXTRACTOR_SCHEMA = Path(__file__).parents[1] / "db/postgres/004_v4_claim_extractor_service.sql"
+CLAIM_EXTRACTOR_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "004_v4_claim_extractor_service.sql"
+)
+CLAIM_EXTRACTOR_STATUS_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "005_v4_claim_extractor_result_status.sql"
+)
 EXPECTED_TABLES = {
     "source_documents",
     "source_passages",
@@ -60,7 +73,9 @@ def _sql() -> str:
 
 def test_g3a_migration_has_only_authorized_tables() -> None:
     sql = _sql()
-    tables = set(re.findall(r"CREATE TABLE\s+([a-z_]+)", sql, flags=re.I))
+    tables = set(
+        re.findall(r"CREATE TABLE\s+([a-z_]+)", sql, flags=re.I)
+    )
 
     assert tables == EXPECTED_TABLES
     assert not tables & FORBIDDEN_TABLES
@@ -86,7 +101,10 @@ def test_g3a_schema_encodes_idempotency_and_version_lineage() -> None:
     assert "UNIQUE (source_passage_id, assertion_semantic_key)" not in sql
     assert "idempotency_key TEXT NOT NULL UNIQUE" in sql
     assert "cache_key TEXT PRIMARY KEY" in sql
-    assert "UNIQUE (input_hash, policy_version, schema_version, model_family)" not in sql
+    assert (
+        "UNIQUE (input_hash, policy_version, schema_version, model_family)"
+        not in sql
+    )
     assert "semantic_payload_hash TEXT NOT NULL" in sql
     assert "evidence_payload_hash TEXT NOT NULL" in sql
     assert "historical_episodes_active_version_fk" in sql
@@ -141,7 +159,13 @@ def test_source_cache_schema_bootstrap_reuses_only_complete_shape() -> None:
 def test_source_cache_jobs_migration_has_lease_and_idempotency_contract() -> None:
     sql = SOURCE_CACHE_JOBS_SCHEMA.read_text(encoding="utf-8")
     upper = sql.upper()
-    tables = set(re.findall(r"CREATE TABLE\s+v4_source_cache\.([a-z_]+)", sql, flags=re.I))
+    tables = set(
+        re.findall(
+            r"CREATE TABLE\s+v4_source_cache\.([a-z_]+)",
+            sql,
+            flags=re.I,
+        )
+    )
 
     assert tables == {"jobs", "job_runs"}
     assert "IDEMPOTENCY_KEY TEXT NOT NULL UNIQUE" in upper
@@ -156,13 +180,44 @@ def test_source_cache_jobs_migration_has_lease_and_idempotency_contract() -> Non
 def test_claim_extractor_migration_is_isolated_idempotent_and_lease_aware() -> None:
     sql = CLAIM_EXTRACTOR_SCHEMA.read_text(encoding="utf-8")
     upper = sql.upper()
-    tables = set(re.findall(r"CREATE TABLE\s+v4_claim_extractor\.([a-z_]+)", sql, flags=re.I))
+    tables = set(
+        re.findall(
+            r"CREATE TABLE\s+v4_claim_extractor\.([a-z_]+)",
+            sql,
+            flags=re.I,
+        )
+    )
     assert tables == CLAIM_EXTRACTOR_TABLES
     assert "IDEMPOTENCY_KEY TEXT PRIMARY KEY" in upper
-    assert "UNIQUE (SOURCE_PASSAGE_REF, ASSERTION_SEMANTIC_KEY, INPUT_FINGERPRINT)" in upper
+    assert (
+        "UNIQUE (SOURCE_PASSAGE_REF, ASSERTION_SEMANTIC_KEY, INPUT_FINGERPRINT)"
+        in upper
+    )
     assert "LEASE_EXPIRES_AT TIMESTAMPTZ" in upper
-    assert "DROP " not in upper and "TRUNCATE" not in upper and "DELETE FROM" not in upper
+    assert (
+        "DROP " not in upper
+        and "TRUNCATE" not in upper
+        and "DELETE FROM" not in upper
+    )
     assert decide_claim_extractor_schema_action(()) == "apply"
     assert decide_claim_extractor_schema_action(CLAIM_EXTRACTOR_TABLES) == "reuse"
     with pytest.raises(ClaimExtractorSchemaStateError, match="不完整"):
         decide_claim_extractor_schema_action({"requests"})
+
+
+def test_claim_extractor_result_status_upgrade_is_versioned_and_complete() -> None:
+    initial = CLAIM_EXTRACTOR_SCHEMA.read_text(encoding="utf-8")
+    upgrade = CLAIM_EXTRACTOR_STATUS_SCHEMA.read_text(encoding="utf-8")
+
+    assert all(f"'{status}'" in initial for status in CLAIM_RESULT_STATUSES)
+    assert all(f"'{status}'" in upgrade for status in CLAIM_RESULT_STATUSES)
+    assert upgrade.lstrip().startswith("BEGIN;")
+    assert upgrade.rstrip().endswith("COMMIT;")
+    assert "DROP CONSTRAINT IF EXISTS requests_result_status_check" in upgrade
+    assert claim_result_status_constraint_is_current(
+        "CHECK (result_status IN ('succeeded', 'succeeded_with_gaps', "
+        "'succeeded_no_relevant_facts'))"
+    )
+    assert not claim_result_status_constraint_is_current(
+        "CHECK (result_status = 'succeeded')"
+    )
