@@ -41,6 +41,9 @@ SOURCE_MANIFEST = (
 OPEN_DEVELOPMENT_DIR = (
     ROOT / "eval" / "appointment_delegation_factor_open_development_v2"
 )
+SEALED_HOLDOUT_DIR = (
+    ROOT / "eval" / "appointment_delegation_factor_sealed_holdout_v2"
+)
 
 
 def _yaml(path: Path) -> dict:
@@ -644,6 +647,43 @@ def test_open_development_v2_is_reproducible_and_keeps_one_safe_abstention() -> 
             (OPEN_DEVELOPMENT_DIR / name).read_bytes()
         ).hexdigest()
         assert actual_hash == expected_hash
+
+
+def test_sealed_holdout_v2_freezes_gold_before_any_agent_response() -> None:
+    source = _yaml(SEALED_HOLDOUT_DIR / "source_manifest.yml")
+    factor_gold = _yaml(SEALED_HOLDOUT_DIR / "factor_gold.yml")
+    tracked_worklist = json.loads(
+        (SEALED_HOLDOUT_DIR / "worklist_v2.json").read_text(encoding="utf-8")
+    )
+    tracked_gold = json.loads(
+        (SEALED_HOLDOUT_DIR / "qualification_gold_v2.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    worklist = build_factor_observation_worklist(source)
+    assert worklist == tracked_worklist
+    qualification_gold = build_factor_observation_qualification_gold(
+        worklist, factor_gold, source, sample_role="sealed_holdout"
+    )
+    assert qualification_gold == tracked_gold
+    assert qualification_gold["sample_role"] == "sealed_holdout"
+    assert factor_gold["gold_access_policy"] == {
+        "visible_to_agent": False,
+        "editable_after_agent_run": False,
+        "post_run_policy_or_gold_tuning_allowed": False,
+    }
+
+    fixture = build_contract_fixture_response(worklist, factor_gold)
+    report = evaluate_factor_observation_qualification(
+        worklist, fixture, qualification_gold, source
+    )
+    assert report["threshold_passed"] is True
+    assert report["real_agent_qualified"] is False
+    assert report["metrics"]["unit_count"] == 4
+    assert report["metrics"]["factor_comparison_count"] == 30
+    assert report["metrics"]["resolved_option_comparison_count"] == 30
+    assert report["metrics"]["correct_abstention_count"] == 0
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(

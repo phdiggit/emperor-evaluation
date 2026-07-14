@@ -1,0 +1,600 @@
+{
+  "agent_policy_version": "appointment-delegation-factor-observation-agent-v2",
+  "factor_inference_policy": {
+    "absence_sensitive_options": {
+      "appointment_effect": [],
+      "appointment_importance": [],
+      "attribution_factor": [],
+      "context_factor": [],
+      "continuity_factor": [
+        "short_or_one_off"
+      ],
+      "source_factor": []
+    },
+    "coverage_schema_version": "rule-factor-evidence-coverage-v1",
+    "decision_statuses": [
+      "resolved",
+      "insufficient_coverage"
+    ],
+    "inference_bases": [
+      "direct_evidence",
+      "bounded_absence",
+      "coverage_insufficient"
+    ],
+    "rule": "正证据可在开放覆盖下确认；只有 reviewed_bounded_complete 且明确允许时，才可根据未发现材料选择缺失敏感选项。覆盖不足必须拒绝落档。",
+    "schema_version": "rule-factor-inference-policy-v1"
+  },
+  "factor_option_catalog": {
+    "appointment_effect": {
+      "major_direct_damage": "任用或授权安排与重大损害之间有直接、可归责的因果链",
+      "major_success": "任用—权责—反馈链直接证明异常显著的用人成功；重大任务、战役胜利或多次复用本身不自动抬档",
+      "normal_success": "人岗适配和履职反馈明确；领域成果只作适配反馈，不在本规则重复结算",
+      "poor_result": "授权控制、监督或履职结果较差，但尚未证明任用直接造成重大损害",
+      "structural_continuing_damage": "任用或授权安排直接造成跨期结构损害；后续清洗、案件扩大或领域灾难不得在因果链不完整时并入",
+      "weak_feedback": "存在正向履职信号，但反馈较弱、不完整或尚不足以确认稳定适配"
+    },
+    "appointment_importance": {
+      "critical_national_or_long_term": "直接承担国家全局、战略性地域或长期结构性关键授权；不得以后续成果、案件规模或政治影响反向抬档",
+      "major_affairs": "直接承担重要军政事务、关键岗位或方面职责，但未达到国家全局关键授权",
+      "nominal_or_light": "名义任用、轻量职责或影响范围很小；只按授权当时的责任域判断",
+      "real_bounded": "真实职责成立但限于常规、局部或明确有限的责任域"
+    },
+    "attribution_factor": {
+      "direct": "任命、授权或反馈处置可直接归责于皇帝",
+      "direct_under_pressure": "皇帝在明确反对、负面指控或现实约束下仍直接作出关键取舍；普通请求或进言不自动构成压力",
+      "indirect": "皇帝责任成立，但关键判断受他人独立行为、争议因果或复杂链条显著影响"
+    },
+    "context_factor": {
+      "clear": "规则上下文、主责和不重复结算边界清楚",
+      "core_mechanism_direct": "材料直接展示任用、授权与反馈的核心机制；不因领域成果重大而自动抬档",
+      "weak_but_applicable": "与规则相关，但任用机制或结算边界仍有明显缺口"
+    },
+    "continuity_factor": {
+      "long_term_multi_stage": "证据直接覆盖至少两个可区分阶段的持续授权、续任或新任务复用；结果演变、失控、纠正或案件扩大不算复用阶段",
+      "short_or_one_off": "仅有一次授权决定或短期任务；同一授权的直接履职后续不算跨阶段复用",
+      "stable": "同一授权下存在稳定履职、持续反馈或延续监督，但没有至少两次可区分的授权或复用决定"
+    },
+    "source_factor": {
+      "complete_direct_chain": "史源直接覆盖本材料实际声明的任用、职责和反馈或损害链；按声明边界判断，不按史源数量、名气或材料外争议降档",
+      "standard": "史源足以支持本材料的主要判断，但至少一个已声明语义环节不是直接完整覆盖",
+      "weak_or_compressed": "支撑本材料所声明判断的任用、职责、反馈或因果关键环节间接、压缩或缺失"
+    }
+  },
+  "factor_schema_version": "appointment-delegation-v3-parity-factors-v1",
+  "input_boundary": {
+    "numeric_factor_values_exposed": false,
+    "scores_or_rankings_exposed": false,
+    "uses_assertion_lineage": true,
+    "uses_v4_judge_observations": true,
+    "v3_factor_gold_exposed": false
+  },
+  "output_contract": {
+    "factor_fields": [
+      "decision_status",
+      "option_code",
+      "inference_basis",
+      "reason",
+      "assertion_refs"
+    ],
+    "factor_material_fields": [
+      "material_code",
+      "event_group",
+      "side",
+      "factors"
+    ],
+    "forbidden_keys": [
+      "deterministic_value",
+      "factor_value",
+      "numeric_value",
+      "ranking",
+      "raw_score",
+      "score",
+      "value_num"
+    ],
+    "required_result_fields": [
+      "unit_ref",
+      "factor_materials"
+    ],
+    "response_schema_version": "factor-observation-agent-response-v2"
+  },
+  "rule_code": "appointment_delegation",
+  "schema_version": "factor-observation-worklist-v2",
+  "status": "factor_observation_blind_worklist_ready",
+  "task_code": "V4-AD-FACTOR-OBSERVATION-QUALIFICATION",
+  "tasks": [
+    {
+      "assertions": [
+        {
+          "assertion_ref": "V4SEALED-FXL-001",
+          "source": {
+            "locator": "卷六十六，房玄龄受任秦府、筹谋社稷与历任中枢段",
+            "passage_ref": "PAS-AA55FCDDA5DF5DED8C7D83C9",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B766"
+          },
+          "summary": "李世民经温彦博推荐后任房玄龄为渭北道行军记室参军。"
+        },
+        {
+          "assertion_ref": "V4SEALED-FXL-002",
+          "source": {
+            "locator": "卷六十六，房玄龄受任秦府、筹谋社稷与历任中枢段",
+            "passage_ref": "PAS-AA55FCDDA5DF5DED8C7D83C9",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B766"
+          },
+          "summary": "房玄龄在秦府十余年持续掌管文书、收揽人才和参与关键谋划，李世民认为其深识机宜、足堪委任。"
+        },
+        {
+          "assertion_ref": "V4SEALED-FXL-003",
+          "source": {
+            "locator": "卷六十六，房玄龄受任秦府、筹谋社稷与历任中枢段",
+            "passage_ref": "PAS-AA55FCDDA5DF5DED8C7D83C9",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B766"
+          },
+          "summary": "玄武门事变前房玄龄被排斥后，李世民仍秘密召回其参与关键决策。"
+        },
+        {
+          "assertion_ref": "V4SEALED-FXL-004",
+          "source": {
+            "locator": "卷六十六，房玄龄受任秦府、筹谋社稷与历任中枢段",
+            "passage_ref": "PAS-AA55FCDDA5DF5DED8C7D83C9",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B766"
+          },
+          "summary": "李世民即位后先后任房玄龄为太子右庶子、中书令、尚书左仆射等中枢职务，并肯定其筹谋定社稷之功。"
+        },
+        {
+          "assertion_ref": "V4SEALED-FXL-005",
+          "source": {
+            "locator": "卷六十六，房玄龄受任秦府、筹谋社稷与历任中枢段",
+            "passage_ref": "PAS-AA55FCDDA5DF5DED8C7D83C9",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B766"
+          },
+          "summary": "房玄龄总领百司、审定法令和选任人才，获得良相评价。"
+        }
+      ],
+      "decision_arc_family": "appointment_continued_authorization",
+      "episodes": [
+        {
+          "action": "征入秦府并长期委以幕府谋划和人才收揽",
+          "assertion_refs": [
+            "V4SEALED-FXL-001",
+            "V4SEALED-FXL-002",
+            "V4SEALED-FXL-003"
+          ],
+          "episode_code": "EP-LSM-FANGXUANLING-QIN-STAFF",
+          "episode_ref": "EP-LSM-FANGXUANLING-QIN-STAFF@v1",
+          "outcome": "十余年持续履职并在危机中再次被召回",
+          "responsibility": "行军记室、秦府管记与关键决策幕僚"
+        },
+        {
+          "action": "即位后持续擢任中书令和尚书左仆射",
+          "assertion_refs": [
+            "V4SEALED-FXL-004",
+            "V4SEALED-FXL-005"
+          ],
+          "episode_code": "EP-LSM-FANGXUANLING-CENTRAL",
+          "episode_ref": "EP-LSM-FANGXUANLING-CENTRAL@v1",
+          "outcome": "获筹谋定社稷与良相评价",
+          "responsibility": "中枢决策、总领百司、法令与人才选任"
+        }
+      ],
+      "evidence_coverage": {
+        "absence_inference_allowed": false,
+        "coverage_status": "open_snapshot",
+        "covered_time_window": null,
+        "schema_version": "rule-factor-evidence-coverage-v1",
+        "scope_as_of": "2026-07-14",
+        "source_families": [
+          "旧唐书"
+        ],
+        "stop_reason": "sealed_holdout_candidate_fixture_boundary"
+      },
+      "person": "房玄龄",
+      "prior_v4_judge_observations": {
+        "attributable_outcome": {
+          "assertion_refs": [
+            "V4SEALED-FXL-004",
+            "V4SEALED-FXL-005"
+          ],
+          "reason": "持续任命、复用和良相反馈可直接回溯到李世民的用人决定。",
+          "value": "positive_signal"
+        },
+        "authority_clarity": {
+          "assertion_refs": [
+            "V4SEALED-FXL-001",
+            "V4SEALED-FXL-004"
+          ],
+          "reason": "秦府管记、中书令和尚书左仆射均有明确权责载体。",
+          "value": "positive_signal"
+        },
+        "feedback_handling": {
+          "assertion_refs": [
+            "V4SEALED-FXL-003",
+            "V4SEALED-FXL-004"
+          ],
+          "reason": "李世民在危机中召回复用，并在即位后继续授予中枢职责。",
+          "value": "positive_signal"
+        },
+        "person_task_fit": {
+          "assertion_refs": [
+            "V4SEALED-FXL-002",
+            "V4SEALED-FXL-004",
+            "V4SEALED-FXL-005"
+          ],
+          "reason": "房玄龄长期完成幕府谋划、中枢治理和人才选任职责。",
+          "value": "positive_signal"
+        }
+      },
+      "ruler": "李世民",
+      "source_observation_fingerprint": "c238b9cc6a543672bf852605e78ea1601279b9979a0561458f4bcc5c1d7e585c",
+      "unit_ref": "REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1"
+    },
+    {
+      "assertions": [
+        {
+          "assertion_ref": "V4SEALED-LJ-001",
+          "source": {
+            "locator": "卷六十七，李靖历次统兵、破突厥、受谗复任与再征段",
+            "passage_ref": "PAS-7656FB61D6229728FBAC0937",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767"
+          },
+          "summary": "李世民即位后任李靖为刑部尚书、检校中书令和兵部尚书。"
+        },
+        {
+          "assertion_ref": "V4SEALED-LJ-002",
+          "source": {
+            "locator": "卷六十七，李靖历次统兵、破突厥、受谗复任与再征段",
+            "passage_ref": "PAS-7656FB61D6229728FBAC0937",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767"
+          },
+          "summary": "李世民任李靖为代州道、定襄道行军总管，使其统兵击破突厥并俘颉利可汗。"
+        },
+        {
+          "assertion_ref": "V4SEALED-LJ-003",
+          "source": {
+            "locator": "卷六十七，李靖历次统兵、破突厥、受谗复任与再征段",
+            "passage_ref": "PAS-7656FB61D6229728FBAC0937",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767"
+          },
+          "summary": "李靖以三千轻骑深入并克复定襄，李世民公开评价其功绩古今罕见。"
+        },
+        {
+          "assertion_ref": "V4SEALED-LJ-004",
+          "source": {
+            "locator": "卷六十七，李靖历次统兵、破突厥、受谗复任与再征段",
+            "passage_ref": "PAS-7656FB61D6229728FBAC0937",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767"
+          },
+          "summary": "李靖遭谗后，李世民复核并承认其功，赐予补偿并拜尚书右仆射。"
+        },
+        {
+          "assertion_ref": "V4SEALED-LJ-005",
+          "source": {
+            "locator": "卷六十七，李靖历次统兵、破突厥、受谗复任与再征段",
+            "passage_ref": "PAS-7656FB61D6229728FBAC0937",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767"
+          },
+          "summary": "李靖退居养病后仍参与平章政事，并在吐谷浑寇边时再次被任为西海道行军大总管。"
+        }
+      ],
+      "decision_arc_family": "appointment_feedback_correction",
+      "episodes": [
+        {
+          "action": "历任中枢军职并统军进击突厥",
+          "assertion_refs": [
+            "V4SEALED-LJ-001",
+            "V4SEALED-LJ-002",
+            "V4SEALED-LJ-003"
+          ],
+          "episode_code": "EP-LSM-LIJING-TURK-COMMAND",
+          "episode_ref": "EP-LSM-LIJING-TURK-COMMAND@v1",
+          "outcome": "克复定襄并俘颉利，获得高度功绩反馈",
+          "responsibility": "兵部、代州道与定襄道行军总管"
+        },
+        {
+          "action": "复核谗言后继续晋用并在退养后再次起用",
+          "assertion_refs": [
+            "V4SEALED-LJ-004",
+            "V4SEALED-LJ-005"
+          ],
+          "episode_code": "EP-LSM-LIJING-REVIEW-REUSE",
+          "episode_ref": "EP-LSM-LIJING-REVIEW-REUSE@v1",
+          "outcome": "负面指控被纠正，关键军事能力继续复用",
+          "responsibility": "尚书右仆射、平章政事与西海道行军大总管"
+        }
+      ],
+      "evidence_coverage": {
+        "absence_inference_allowed": false,
+        "coverage_status": "open_snapshot",
+        "covered_time_window": null,
+        "schema_version": "rule-factor-evidence-coverage-v1",
+        "scope_as_of": "2026-07-14",
+        "source_families": [
+          "旧唐书"
+        ],
+        "stop_reason": "sealed_holdout_candidate_fixture_boundary"
+      },
+      "person": "李靖",
+      "prior_v4_judge_observations": {
+        "attributable_outcome": {
+          "assertion_refs": [
+            "V4SEALED-LJ-002",
+            "V4SEALED-LJ-004",
+            "V4SEALED-LJ-005"
+          ],
+          "reason": "任命、功绩反馈、纠错和再次复用均可直接归责于李世民。",
+          "value": "positive_signal"
+        },
+        "authority_clarity": {
+          "assertion_refs": [
+            "V4SEALED-LJ-001",
+            "V4SEALED-LJ-002",
+            "V4SEALED-LJ-005"
+          ],
+          "reason": "多次行军总管、中枢军职和西海道大总管职责明确。",
+          "value": "positive_signal"
+        },
+        "feedback_handling": {
+          "assertion_refs": [
+            "V4SEALED-LJ-004"
+          ],
+          "reason": "李世民复核谗言后承认功绩、补偿并继续晋用。",
+          "value": "positive_signal"
+        },
+        "person_task_fit": {
+          "assertion_refs": [
+            "V4SEALED-LJ-002",
+            "V4SEALED-LJ-003",
+            "V4SEALED-LJ-005"
+          ],
+          "reason": "李靖在国家级军事任务中取得重大成果并在晚年继续受任。",
+          "value": "positive_signal"
+        }
+      },
+      "ruler": "李世民",
+      "source_observation_fingerprint": "8d7806615a7e74e636e595fe014cb2df860181f51200ab7630fe5e35d70b3068",
+      "unit_ref": "REU-LSM-LIJING-MILITARY-AUTHORITY-v1"
+    },
+    {
+      "assertions": [
+        {
+          "assertion_ref": "V4SEALED-XH-001",
+          "source": {
+            "locator": "卷八，高祖本纪，刘邦论萧何镇国家、抚百姓与给馈饷段",
+            "passage_ref": "PAS-B06C119B6C306D3D18CD649A",
+            "source_title": "史记",
+            "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7008"
+          },
+          "summary": "刘邦评价萧何能够镇国家、抚百姓、给馈饷并维持粮道，是其取得天下的关键用人之一。"
+        },
+        {
+          "assertion_ref": "V4SEALED-XH-002",
+          "source": {
+            "locator": "卷五十三，萧相国世家，论功、长期守关中、疑忌与系狱赦出段",
+            "passage_ref": "PAS-AFB790607919DBFB281E690C",
+            "source_title": "史记",
+            "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7053"
+          },
+          "summary": "萧何长期守关中、补充兵员和转运粮饷，使前线即使屡败仍获得持续支撑。"
+        },
+        {
+          "assertion_ref": "V4SEALED-XH-003",
+          "source": {
+            "locator": "卷五十三，萧相国世家，论功、长期守关中、疑忌与系狱赦出段",
+            "passage_ref": "PAS-AFB790607919DBFB281E690C",
+            "source_title": "史记",
+            "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7053"
+          },
+          "summary": "刘邦论功时确认萧何功最盛并使其位列第一，后又拜为相国。"
+        },
+        {
+          "assertion_ref": "V4SEALED-XH-004",
+          "source": {
+            "locator": "卷五十三，萧相国世家，论功、长期守关中、疑忌与系狱赦出段",
+            "passage_ref": "PAS-AFB790607919DBFB281E690C",
+            "source_title": "史记",
+            "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7053"
+          },
+          "summary": "陈豨、黥布反叛期间，刘邦多次猜疑留守关中的萧何，萧何被迫让封、散财和自污以安其心。"
+        },
+        {
+          "assertion_ref": "V4SEALED-XH-005",
+          "source": {
+            "locator": "卷五十三，萧相国世家，论功、长期守关中、疑忌与系狱赦出段",
+            "passage_ref": "PAS-AFB790607919DBFB281E690C",
+            "source_title": "史记",
+            "url": "https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7053"
+          },
+          "summary": "刘邦因萧何为民请苑而将其系于廷尉，经进谏后赦出并承认萧何是贤相。"
+        }
+      ],
+      "decision_arc_family": "appointment_feedback_correction",
+      "episodes": [
+        {
+          "action": "长期委以关中留守、后勤和相国职责",
+          "assertion_refs": [
+            "V4SEALED-XH-001",
+            "V4SEALED-XH-002",
+            "V4SEALED-XH-003"
+          ],
+          "episode_code": "EP-LB-XIAOHE-CHANCELLOR-SUPPORT",
+          "episode_ref": "EP-LB-XIAOHE-CHANCELLOR-SUPPORT@v1",
+          "outcome": "持续支撑前线并被确认为功居第一",
+          "responsibility": "镇国家、抚百姓、给馈饷与相国中枢"
+        },
+        {
+          "action": "反叛压力下反复猜疑、系狱并经进谏释放",
+          "assertion_refs": [
+            "V4SEALED-XH-004",
+            "V4SEALED-XH-005"
+          ],
+          "episode_code": "EP-LB-XIAOHE-DISTRUST-CORRECTION",
+          "episode_ref": "EP-LB-XIAOHE-DISTRUST-CORRECTION@v1",
+          "outcome": "萧何被迫自污且一度系狱，最终获释并恢复贤相评价",
+          "responsibility": "相国监督、反馈判断与纠正"
+        }
+      ],
+      "evidence_coverage": {
+        "absence_inference_allowed": false,
+        "coverage_status": "open_snapshot",
+        "covered_time_window": null,
+        "schema_version": "rule-factor-evidence-coverage-v1",
+        "scope_as_of": "2026-07-14",
+        "source_families": [
+          "史记"
+        ],
+        "stop_reason": "sealed_holdout_candidate_fixture_boundary"
+      },
+      "person": "萧何",
+      "prior_v4_judge_observations": {
+        "attributable_outcome": {
+          "assertion_refs": [
+            "V4SEALED-XH-001",
+            "V4SEALED-XH-004",
+            "V4SEALED-XH-005"
+          ],
+          "reason": "正向长期授权和负向猜疑处置都可归责于刘邦，且最终存在纠正。",
+          "value": "mixed_signal"
+        },
+        "authority_clarity": {
+          "assertion_refs": [
+            "V4SEALED-XH-001",
+            "V4SEALED-XH-002",
+            "V4SEALED-XH-003"
+          ],
+          "reason": "关中留守、粮饷支撑和相国中枢责任域明确。",
+          "value": "positive_signal"
+        },
+        "feedback_handling": {
+          "assertion_refs": [
+            "V4SEALED-XH-003",
+            "V4SEALED-XH-004",
+            "V4SEALED-XH-005"
+          ],
+          "reason": "功居第一和拜相反馈明确，但反叛压力下又出现反复猜疑与系狱。",
+          "value": "mixed_signal"
+        },
+        "person_task_fit": {
+          "assertion_refs": [
+            "V4SEALED-XH-001",
+            "V4SEALED-XH-002",
+            "V4SEALED-XH-003"
+          ],
+          "reason": "萧何长期完成关中治理、后勤和相国职责，功绩获刘邦直接确认。",
+          "value": "positive_signal"
+        }
+      },
+      "ruler": "刘邦",
+      "source_observation_fingerprint": "6f122015140ded046e78113d5a7f8a0a9f3161d504bca50572f142df8d84ee63",
+      "unit_ref": "REU-LB-XIAOHE-CHANCELLOR-AUTHORITY-v1"
+    },
+    {
+      "assertions": [
+        {
+          "assertion_ref": "V4SEALED-XD-001",
+          "source": {
+            "locator": "卷二十六，朱元璋论徐达听受命令、可任平定中原主将段",
+            "passage_ref": "PAS-52B6EFFC106844686715F1FC",
+            "source_title": "大明太祖高皇帝实录",
+            "url": "https://zh.wikisource.org/wiki/%E5%A4%A7%E6%98%8E%E5%A4%AA%E7%A5%96%E9%AB%98%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84/%E5%8D%B7026"
+          },
+          "summary": "朱元璋回顾与徐达等乡里君臣相遇并扫除群雄、抚有江南，认为已成大功。"
+        },
+        {
+          "assertion_ref": "V4SEALED-XD-002",
+          "source": {
+            "locator": "卷二十六，朱元璋论徐达听受命令、可任平定中原主将段",
+            "passage_ref": "PAS-52B6EFFC106844686715F1FC",
+            "source_title": "大明太祖高皇帝实录",
+            "url": "https://zh.wikisource.org/wiki/%E5%A4%A7%E6%98%8E%E5%A4%AA%E7%A5%96%E9%AB%98%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84/%E5%8D%B7026"
+          },
+          "summary": "中原未平时，朱元璋明确判断徐达谨慎听令，可委以练兵选将和平定中原的主要责任。"
+        },
+        {
+          "assertion_ref": "V4SEALED-XD-003",
+          "source": {
+            "locator": "卷二十六，朱元璋论徐达听受命令、可任平定中原主将段",
+            "passage_ref": "PAS-52B6EFFC106844686715F1FC",
+            "source_title": "大明太祖高皇帝实录",
+            "url": "https://zh.wikisource.org/wiki/%E5%A4%A7%E6%98%8E%E5%A4%AA%E7%A5%96%E9%AB%98%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84/%E5%8D%B7026"
+          },
+          "summary": "徐达攻取苏州后制定将士赏格，朱元璋命依其方案兑现奖励。"
+        }
+      ],
+      "decision_arc_family": "appointment_feedback",
+      "episodes": [
+        {
+          "action": "在既有功绩基础上明确委以平定中原主责",
+          "assertion_refs": [
+            "V4SEALED-XD-001",
+            "V4SEALED-XD-002",
+            "V4SEALED-XD-003"
+          ],
+          "episode_code": "EP-ZYZ-XUDA-CENTRAL-PLAIN-COMMAND",
+          "episode_ref": "EP-ZYZ-XUDA-CENTRAL-PLAIN-COMMAND@v1",
+          "outcome": "既有军事履职和苏州赏格获得反馈，新阶段授权明确",
+          "responsibility": "练兵选将与北进中原主要军事统帅"
+        }
+      ],
+      "evidence_coverage": {
+        "absence_inference_allowed": false,
+        "coverage_status": "open_snapshot",
+        "covered_time_window": null,
+        "schema_version": "rule-factor-evidence-coverage-v1",
+        "scope_as_of": "2026-07-14",
+        "source_families": [
+          "大明太祖高皇帝实录"
+        ],
+        "stop_reason": "sealed_holdout_candidate_fixture_boundary"
+      },
+      "person": "徐达",
+      "prior_v4_judge_observations": {
+        "attributable_outcome": {
+          "assertion_refs": [
+            "V4SEALED-XD-001",
+            "V4SEALED-XD-002",
+            "V4SEALED-XD-003"
+          ],
+          "reason": "既有功绩确认、赏格兑现和新任务授权均可直接归责于朱元璋。",
+          "value": "positive_signal"
+        },
+        "authority_clarity": {
+          "assertion_refs": [
+            "V4SEALED-XD-002"
+          ],
+          "reason": "平定中原、练兵选将的主将责任域明确。",
+          "value": "positive_signal"
+        },
+        "feedback_handling": {
+          "assertion_refs": [
+            "V4SEALED-XD-001",
+            "V4SEALED-XD-002"
+          ],
+          "reason": "朱元璋依据既有履职和命令接受度继续授予更高阶段任务。",
+          "value": "positive_signal"
+        },
+        "person_task_fit": {
+          "assertion_refs": [
+            "V4SEALED-XD-001",
+            "V4SEALED-XD-002",
+            "V4SEALED-XD-003"
+          ],
+          "reason": "徐达既有军事成果和听令表现直接支持其承担新的主要统帅职责。",
+          "value": "positive_signal"
+        }
+      },
+      "ruler": "朱元璋",
+      "source_observation_fingerprint": "7109b1cf9cda7c534f80ce3e0f2292833d8d52f302c1360efa127e5bbe8732c9",
+      "unit_ref": "REU-ZYZ-XUDA-MILITARY-AUTHORITY-v1"
+    }
+  ],
+  "worklist_sha256": "2dc0aac02eb179b642dfd80d138bef9324a17a601ab6fc4a8d15a64879486b39"
+}
