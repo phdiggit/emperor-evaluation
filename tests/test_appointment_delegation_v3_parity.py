@@ -50,6 +50,9 @@ SEALED_HOLDOUT_DIR = (
 REPRESENTATIVENESS_DIR = (
     ROOT / "eval" / "appointment_delegation_factor_representativeness"
 )
+OPEN_DEVELOPMENT_V3_DIR = (
+    ROOT / "eval" / "appointment_delegation_factor_open_development_v3"
+)
 
 
 def _yaml(path: Path) -> dict:
@@ -744,8 +747,8 @@ def test_factor_representativeness_plan_counts_units_not_correlated_labels(
         "new_independent_unit_count": 20,
         "new_open_development_unit_count": 12,
         "future_sealed_unit_count": 8,
-        "bound_candidate_count": 12,
-        "unbound_candidate_count": 20,
+        "bound_candidate_count": 24,
+        "unbound_candidate_count": 8,
         "sealed_identity_exposure_count": 0,
         "missing_stratum_count": 0,
     }
@@ -760,7 +763,7 @@ def test_factor_representativeness_plan_counts_units_not_correlated_labels(
         "human_source_and_gold_review_excluded": True,
     }
     assert report["missing_strata"] == []
-    assert report["candidate_sourcing_ready"] is False
+    assert report["candidate_sourcing_ready"] is True
     assert report["qualification_claim_allowed"] is False
 
     leaked = deepcopy(manifest)
@@ -794,6 +797,59 @@ def test_factor_representativeness_plan_counts_units_not_correlated_labels(
     )
     assert eval_main() == 0
     assert json.loads(cli_output.read_text(encoding="utf-8")) == tracked_report
+
+
+def test_stratified_open_development_v3_is_reproducible_before_factor_run() -> None:
+    source = _yaml(OPEN_DEVELOPMENT_V3_DIR / "source_manifest.yml")
+    factor_gold = _yaml(OPEN_DEVELOPMENT_V3_DIR / "factor_gold.yml")
+    tracked_worklist = json.loads(
+        (OPEN_DEVELOPMENT_V3_DIR / "worklist_v2.json").read_text(encoding="utf-8")
+    )
+    tracked_gold = json.loads(
+        (OPEN_DEVELOPMENT_V3_DIR / "qualification_gold_v2.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    worklist = build_factor_observation_worklist(source)
+    assert worklist == tracked_worklist
+    qualification_gold = build_factor_observation_qualification_gold(
+        worklist, factor_gold, source, sample_role="open_development"
+    )
+    assert qualification_gold == tracked_gold
+    assert len(worklist["tasks"]) == 12
+    assert sum(
+        len(row["factor_materials"])
+        for row in factor_gold["factor_judgment_proposals"]
+    ) == 17
+    assert sum(
+        len(material["factors"])
+        for row in factor_gold["factor_judgment_proposals"]
+        for material in row["factor_materials"]
+    ) == 102
+
+    fixture = build_contract_fixture_response(worklist, factor_gold)
+    report = evaluate_factor_observation_qualification(
+        worklist, fixture, qualification_gold, source
+    )
+    assert report["threshold_passed"] is True
+    assert report["real_agent_qualified"] is False
+    assert report["metrics"]["factor_comparison_count"] == 102
+
+    source_review_hash = hashlib.sha256(
+        (OPEN_DEVELOPMENT_V3_DIR / "source_review.json").read_bytes()
+    ).hexdigest()
+    assert source["frozen_basis"]["source_review_sha256"] == source_review_hash
+    audit = json.loads(
+        (OPEN_DEVELOPMENT_V3_DIR / "source_draft_execution_audit.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert audit["task_count"] == 3
+    assert audit["contract_valid_candidate_count"] == 12
+    assert audit["quote_recovery_count"] == 3
+    assert audit["wall_clock_duration_sec"] == 113.412
+    assert audit["total_tokens"] == 211828
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(

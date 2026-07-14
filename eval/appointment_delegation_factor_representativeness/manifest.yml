@@ -42,14 +42,14 @@ policy:
       absence_sensitive: 4
     source_challenge:
       complete_direct_chain: 8
-      standard_partial_chain: 8
-      compressed_or_indirect: 4
-      multi_source_join: 4
+      standard_partial_chain: 7
+      compressed_or_indirect: 2
+      multi_source_join: 2
       conflict_or_ambiguity: 2
     coverage_challenge:
       direct_resolution: 16
-      incomplete_outcome: 4
-      absence_sensitive: 4
+      incomplete_outcome: 3
+      absence_sensitive: 3
       conflicting_evidence: 2
     authorization_arcs:
       initial_appointment: 3
@@ -246,51 +246,51 @@ sample_entries:
 
   - entry_id: OPEN-SLOT-01
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: YANGGUANG, person_code: YUSHIJI}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: wei_jin_southern_northern_sui
       role_family: civil_administration
       outcome_structure: negative_only
       attribution_challenge: ordinary_direct
-      continuity_challenge: short_or_one_off
-      source_challenge: standard_partial_chain
-      coverage_challenge: incomplete_outcome
+      continuity_challenge: stable_same_mandate
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [initial_appointment, corrective_control]
   - entry_id: OPEN-SLOT-02
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: YANGJIAN, person_code: HERUOBI}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: wei_jin_southern_northern_sui
       role_family: military_command
       outcome_structure: positive_only
-      attribution_challenge: multi_actor_or_indirect
-      continuity_challenge: stable_same_mandate
-      source_challenge: multi_source_join
+      attribution_challenge: ordinary_direct
+      continuity_challenge: long_term_multi_stage
+      source_challenge: complete_direct_chain
       coverage_challenge: direct_resolution
       authorization_arcs: [delegated_command, group_influenced_decision]
   - entry_id: OPEN-SLOT-03
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: ZHAOGOU, person_code: QINHUI}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: song_liao_jin
       role_family: supervisory_control
       outcome_structure: negative_only
       attribution_challenge: explicit_pressure
       continuity_challenge: stable_same_mandate
-      source_challenge: compressed_or_indirect
-      coverage_challenge: absence_sensitive
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [corrective_control, group_influenced_decision]
   - entry_id: OPEN-SLOT-04
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: ZHAOXU, person_code: WANGANSHI}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: song_liao_jin
       role_family: civil_administration
@@ -298,69 +298,69 @@ sample_entries:
       attribution_challenge: multi_actor_or_indirect
       continuity_challenge: long_term_multi_stage
       source_challenge: conflict_or_ambiguity
-      coverage_challenge: conflicting_evidence
+      coverage_challenge: direct_resolution
       authorization_arcs: [scope_expansion, corrective_control]
   - entry_id: OPEN-SLOT-05
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: HUBILIE, person_code: BAYAN}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: yuan
       role_family: military_command
       outcome_structure: positive_only
       attribution_challenge: ordinary_direct
       continuity_challenge: short_or_one_off
-      source_challenge: standard_partial_chain
-      coverage_challenge: incomplete_outcome
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [delegated_command]
   - entry_id: OPEN-SLOT-06
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: HUBILIE, person_code: AHEMA}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: yuan
       role_family: informal_or_nonstandard
       outcome_structure: negative_only
       attribution_challenge: multi_actor_or_indirect
-      continuity_challenge: absence_sensitive
-      source_challenge: compressed_or_indirect
-      coverage_challenge: absence_sensitive
+      continuity_challenge: long_term_multi_stage
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [initial_appointment, group_influenced_decision]
   - entry_id: OPEN-SLOT-07
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: YINZHEN, person_code: NIANGENGYAO}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: qing
-      role_family: civil_administration
+      role_family: military_command
       outcome_structure: mixed
       attribution_challenge: explicit_pressure
-      continuity_challenge: stable_same_mandate
-      source_challenge: multi_source_join
+      continuity_challenge: short_or_one_off
+      source_challenge: complete_direct_chain
       coverage_challenge: direct_resolution
       authorization_arcs: [same_mandate_continuation, corrective_control]
   - entry_id: OPEN-SLOT-08
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: XUANYE, person_code: SHILANG}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: qing
       role_family: military_command
       outcome_structure: positive_only
-      attribution_challenge: ordinary_direct
+      attribution_challenge: explicit_pressure
       continuity_challenge: long_term_multi_stage
-      source_challenge: standard_partial_chain
+      source_challenge: complete_direct_chain
       coverage_challenge: direct_resolution
       authorization_arcs: [scope_expansion, cross_stage_reuse]
   - entry_id: OPEN-SLOT-09
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: LIUCHE, person_code: JIANGCHONG}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: qin_han
       role_family: supervisory_control
@@ -372,45 +372,45 @@ sample_entries:
       authorization_arcs: [corrective_control]
   - entry_id: OPEN-SLOT-10
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: LILONGJI, person_code: YAOCHONG}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: tang_five_dynasties
       role_family: strategic_advice
       outcome_structure: positive_only
-      attribution_challenge: multi_actor_or_indirect
-      continuity_challenge: absence_sensitive
-      source_challenge: compressed_or_indirect
-      coverage_challenge: absence_sensitive
+      attribution_challenge: explicit_pressure
+      continuity_challenge: short_or_one_off
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [group_influenced_decision]
   - entry_id: OPEN-SLOT-11
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: ZHUYOUJIAN, person_code: YUANCHONGHUAN}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: ming
       role_family: military_command
       outcome_structure: mixed
       attribution_challenge: explicit_pressure
       continuity_challenge: stable_same_mandate
-      source_challenge: conflict_or_ambiguity
-      coverage_challenge: conflicting_evidence
+      source_challenge: complete_direct_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [crisis_recall, corrective_control]
   - entry_id: OPEN-SLOT-12
     group: new_open_development
-    slot_type: planned_slot
-    candidate_identity: null
-    source_artifact: null
+    slot_type: bound_candidate
+    candidate_identity: {ruler_code: ZHUDI, person_code: ZHENGHE}
+    source_artifact: eval/appointment_delegation_factor_open_development_v3/source_manifest.yml
     strata:
       era_family: ming
       role_family: informal_or_nonstandard
-      outcome_structure: positive_only
+      outcome_structure: mixed
       attribution_challenge: ordinary_direct
-      continuity_challenge: short_or_one_off
-      source_challenge: multi_source_join
-      coverage_challenge: incomplete_outcome
+      continuity_challenge: long_term_multi_stage
+      source_challenge: standard_partial_chain
+      coverage_challenge: direct_resolution
       authorization_arcs: [initial_appointment, delegated_command]
 
   - entry_id: SEALED-SLOT-01
@@ -438,8 +438,8 @@ sample_entries:
       outcome_structure: positive_only
       attribution_challenge: explicit_pressure
       continuity_challenge: long_term_multi_stage
-      source_challenge: complete_direct_chain
-      coverage_challenge: direct_resolution
+      source_challenge: compressed_or_indirect
+      coverage_challenge: absence_sensitive
       authorization_arcs: [crisis_recall, cross_stage_reuse]
   - entry_id: SEALED-SLOT-03
     group: future_sealed
@@ -481,7 +481,7 @@ sample_entries:
       attribution_challenge: ordinary_direct
       continuity_challenge: short_or_one_off
       source_challenge: standard_partial_chain
-      coverage_challenge: direct_resolution
+      coverage_challenge: incomplete_outcome
       authorization_arcs: [delegated_command]
   - entry_id: SEALED-SLOT-06
     group: future_sealed
@@ -493,9 +493,9 @@ sample_entries:
       role_family: strategic_advice
       outcome_structure: positive_only
       attribution_challenge: explicit_pressure
-      continuity_challenge: stable_same_mandate
+      continuity_challenge: absence_sensitive
       source_challenge: multi_source_join
-      coverage_challenge: direct_resolution
+      coverage_challenge: conflicting_evidence
       authorization_arcs: [crisis_recall, group_influenced_decision]
   - entry_id: SEALED-SLOT-07
     group: future_sealed

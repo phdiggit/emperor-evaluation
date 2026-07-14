@@ -1,0 +1,1054 @@
+schema_version: 1
+status: frozen_open_development_shadow_input
+task_code: V4-AD-PROD32-OPEN-DEVELOPMENT-001
+manifest_code: appointment_delegation_factor_open_development_v3
+rule_code: appointment_delegation
+rule_version: appointment-delegation-v1-shadow
+factor_schema_version: appointment-delegation-factors-v1
+judgment_policy_version: appointment-delegation-deterministic-judgment-v1
+scoring_formula_version: appointment-delegation-shadow-mean-v1
+frozen_basis:
+  representativeness_policy_commit: ee5d56b
+  source_review_sha256: 87790fd0b27a332c5454f195a5cc785b64c46ad4ffe7d7811cbca766a61aec52
+  source_snapshot_content_sha256:
+    han-jiangchong.json: 3888ecb3cc447b1d41af47f6660171224b1b80cf15f827265b6b04a5e8413de1
+    ming-yuanchonghuan.json: 8b04f6db5472e6f71031f7dc905f9362ee398279492d34b8f9a307c253f5bb23
+    ming-zhenghe.json: fde47469d757dc49ab817b7a7fefee2175cda88757bac95be592dbb53bf1e478
+    qing-niangengyao.json: d223ef7dbf1617f0fd685c5dd2696fcd99c8e1f4be830c496486eea4bcc3287f
+    qing-shilang.json: 81c32649e758ae92d58a468b69c5d1598a3389c1f5bbc31013618c26405b93df
+    song-qinhui.json: 7aeefa67f7d8c65ca3eb0f99ec78ca016ad9c3272d29e870b015b22ddba47804
+    song-wanganshi.json: 6893f7e68241c8ca43cfe1300b2dd87cc5ff27d362cfbd075374842ea8253a5b
+    sui-heruobi.json: 3e6885f24e403e75df0496c9f353c384e8a386aab0265f6357b572084077d149
+    sui-yushiji.json: 613939ecfcf72691393cf85cc8df8ff30c13057f2ca3e81490a12ec88b3bfbe4
+    tang-yaochong.json: 3ad5c90380080ef292d811496fc4d034cc5546afe4a8cf7872fc60550214731d
+    yuan-ahmad.json: 49731bb8d835553bc38d5dfbfe3f96a205727927f7d369872f67572d62cf6448
+    yuan-bayan.json: d14fcb29ab81a15c7191b193dc140c511b53928aaae0284752c34fc7ab9ea1cf
+  model_drafts_are_not_formal_facts: true
+  human_factor_review_completed: true
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  scope_as_of: '2026-07-14'
+  coverage_status: open_snapshot
+  absence_inference_allowed: false
+  covered_time_window: null
+  source_families:
+  - 元史
+  - 宋史
+  - 明史
+  - 清史稿
+  - 漢書
+  - 舊唐書
+  - 隋書
+  stop_reason: stratified_open_development_fixed_revision_boundary
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: false
+  database_writes_allowed: false
+  formal_acceptance_allowed: false
+source_passages:
+- passage_ref: PAS-35052821A7E4
+  source_title: 隋書
+  locator: 隋書/卷67，虞世基受煬帝委任参掌朝政
+  url: https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B767
+  revision_id: 2360010
+  source_content_sha256: 613939ecfcf72691393cf85cc8df8ff30c13057f2ca3e81490a12ec88b3bfbe4
+  passage_quote_sha256: 35052821a7e48dfd8c26973052fc8be7de07c68e10ada25d9d0741695fb8cdac
+- passage_ref: PAS-B9EEC3DC47FE
+  source_title: 隋書
+  locator: 隋書/卷67，虞世基压低败报致皇帝不知外情
+  url: https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B767
+  revision_id: 2360010
+  source_content_sha256: 613939ecfcf72691393cf85cc8df8ff30c13057f2ca3e81490a12ec88b3bfbe4
+  passage_quote_sha256: b9eec3dc47fea1a8ee00ada71e2a6f85688a221c1745526d27331819496f1ea1
+- passage_ref: PAS-17B7D786916E
+  source_title: 隋書
+  locator: 隋書/卷52，楊堅任賀若弼筹备平陈
+  url: https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B752
+  revision_id: 1517597
+  source_content_sha256: 3e6885f24e403e75df0496c9f353c384e8a386aab0265f6357b572084077d149
+  passage_quote_sha256: 17b7d786916e9f8c92099cd0eecc3ee7b8782ce7ee20e2f0b1788d33391618f3
+- passage_ref: PAS-6E836AF5FE9F
+  source_title: 隋書
+  locator: 隋書/卷52，正式伐陈再授行军总管并取得战果
+  url: https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B752
+  revision_id: 1517597
+  source_content_sha256: 3e6885f24e403e75df0496c9f353c384e8a386aab0265f6357b572084077d149
+  passage_quote_sha256: 6e836af5fe9f487f991c2c22d5569f86bfd5594bf730254e354daa445b5b9d16
+- passage_ref: PAS-4C0300379876
+  source_title: 隋書
+  locator: 隋書/卷52，争功后皇帝确认賀若弼之功
+  url: https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B752
+  revision_id: 1517597
+  source_content_sha256: 3e6885f24e403e75df0496c9f353c384e8a386aab0265f6357b572084077d149
+  passage_quote_sha256: 4c0300379876da632b61b8b8457e39777b4a0e082a8f2c646656ac3a6b0c0803
+- passage_ref: PAS-C21DB305B6FB
+  source_title: 宋史
+  locator: 宋史/卷473，趙構在和议争议中独委秦檜
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7473
+  revision_id: 1614824
+  source_content_sha256: 7aeefa67f7d8c65ca3eb0f99ec78ca016ad9c3272d29e870b015b22ddba47804
+  passage_quote_sha256: c21db305b6fbd1763d9e5bf34e1df9c9278b2c51b2ce0b35106b393d4314b448
+- passage_ref: PAS-7ED5C597222C
+  source_title: 宋史
+  locator: 宋史/卷473，和议遭中朝及军政人员持续反对
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7473
+  revision_id: 1614824
+  source_content_sha256: 7aeefa67f7d8c65ca3eb0f99ec78ca016ad9c3272d29e870b015b22ddba47804
+  passage_quote_sha256: 7ed5c597222c3376132f8dff119d3bf54644e1b946f5138f9bf2b10cdfb7ff68
+- passage_ref: PAS-4A805FD06282
+  source_title: 宋史
+  locator: 宋史/卷473，金人败盟及授权链的负向结果
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7473
+  revision_id: 1614824
+  source_content_sha256: 7aeefa67f7d8c65ca3eb0f99ec78ca016ad9c3272d29e870b015b22ddba47804
+  passage_quote_sha256: 4a805fd06282054222e72fdd0fe3379ac6689de4efb283e5c9c83cfe99a48f61
+- passage_ref: PAS-D05354BA5CE0
+  source_title: 宋史
+  locator: 宋史/卷327，王安石任参知政事并获授权推行新法
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7327
+  revision_id: 1439330
+  source_content_sha256: 6893f7e68241c8ca43cfe1300b2dd87cc5ff27d362cfbd075374842ea8253a5b
+  passage_quote_sha256: d05354ba5ce0210c174655bf12c3d4ecd87a0018d3d50065bd9bdeae44c7faf9
+- passage_ref: PAS-10C49941D523
+  source_title: 宋史
+  locator: 宋史/卷327，新法实施及负向反馈
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7327
+  revision_id: 1439330
+  source_content_sha256: 6893f7e68241c8ca43cfe1300b2dd87cc5ff27d362cfbd075374842ea8253a5b
+  passage_quote_sha256: 10c49941d523ef6548ee7cfe37af195933f1cca90fce3f26ed363820f4bb72fa
+- passage_ref: PAS-6032C9C1CB68
+  source_title: 宋史
+  locator: 宋史/卷327，拜相复相及熙河奏功反馈
+  url: https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2/%E5%8D%B7327
+  revision_id: 1439330
+  source_content_sha256: 6893f7e68241c8ca43cfe1300b2dd87cc5ff27d362cfbd075374842ea8253a5b
+  passage_quote_sha256: 6032c9c1cb6810d05d924cc8ee02db0fd250dc5a02a462f569a934627acf4943
+- passage_ref: PAS-A342A08D9D40
+  source_title: 元史
+  locator: 元史/卷127，至元十一年伐宋专任与临行谕旨
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7127
+  revision_id: 2280034
+  source_content_sha256: d14fcb29ab81a15c7191b193dc140c511b53928aaae0284752c34fc7ab9ea1cf
+  passage_quote_sha256: a342a08d9d407c2114505cff6d02e6a8b8ea53dd24ce5a71409e74145d8f51cb
+- passage_ref: PAS-4DD7DD737183
+  source_title: 元史
+  locator: 元史/卷127，渡江成功及沿江诸城归降
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7127
+  revision_id: 2280034
+  source_content_sha256: d14fcb29ab81a15c7191b193dc140c511b53928aaae0284752c34fc7ab9ea1cf
+  passage_quote_sha256: 4dd7dd737183f1fb02d162e0821f5ae82bb761099690a6669ba5cb4e5bf1865e
+- passage_ref: PAS-FCD34DCA9F89
+  source_title: 元史
+  locator: 元史/卷127，宋平与皇帝确认功劳
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7127
+  revision_id: 2280034
+  source_content_sha256: d14fcb29ab81a15c7191b193dc140c511b53928aaae0284752c34fc7ab9ea1cf
+  passage_quote_sha256: fcd34dca9f894a52dc9391154286839e86e20c6dfccb2a58e6fccedd270870f9
+- passage_ref: PAS-D8616F77AD87
+  source_title: 元史
+  locator: 元史/卷205，尚书省任用及皇帝授予政柄
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7205
+  revision_id: 2195423
+  source_content_sha256: 49731bb8d835553bc38d5dfbfe3f96a205727927f7d369872f67572d62cf6448
+  passage_quote_sha256: d8616f77ad87bc8695e5b9dc580196f12c56f0675d42e425d7e390eac9ea4e65
+- passage_ref: PAS-63799CB9BFBC
+  source_title: 元史
+  locator: 元史/卷205，越过常制用人与皇帝进一步划权
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7205
+  revision_id: 2195423
+  source_content_sha256: 49731bb8d835553bc38d5dfbfe3f96a205727927f7d369872f67572d62cf6448
+  passage_quote_sha256: 63799cb9bfbc7cb15b4339bc4ff32cc1abde919e91354e7aaa70b5a511aca65e
+- passage_ref: PAS-C9C947E91397
+  source_title: 元史
+  locator: 元史/卷205，长期专权后的直接损害记载
+  url: https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7205
+  revision_id: 2195423
+  source_content_sha256: 49731bb8d835553bc38d5dfbfe3f96a205727927f7d369872f67572d62cf6448
+  passage_quote_sha256: c9c947e91397619f5e04b391b7faacae2cdd3459f9124492f55d6b1893ac35bc
+- passage_ref: PAS-CB32C52393B1
+  source_title: 清史稿
+  locator: 清史稿/卷295，雍正元年青海叛乱与统军授权
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7295
+  revision_id: 4468582
+  source_content_sha256: d223ef7dbf1617f0fd685c5dd2696fcd99c8e1f4be830c496486eea4bcc3287f
+  passage_quote_sha256: cb32c52393b17ee3188b1d7b4d54375ef9752a62d4eab81c92df99d3bee9204c
+- passage_ref: PAS-65F70D11321B
+  source_title: 清史稿
+  locator: 清史稿/卷295，青海平定及论功
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7295
+  revision_id: 4468582
+  source_content_sha256: d223ef7dbf1617f0fd685c5dd2696fcd99c8e1f4be830c496486eea4bcc3287f
+  passage_quote_sha256: 65f70d11321bf5eedf29fc75e8371c310af48d0ff782e84d28166b2b51258a61
+- passage_ref: PAS-31D90E638A64
+  source_title: 清史稿
+  locator: 清史稿/卷295，雍正三年纠错撤权
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7295
+  revision_id: 4468582
+  source_content_sha256: d223ef7dbf1617f0fd685c5dd2696fcd99c8e1f4be830c496486eea4bcc3287f
+  passage_quote_sha256: 31d90e638a64e09ebb165d5a6fe6adf2c5268409ea7ecdb1663f1f48f26ba07d
+- passage_ref: PAS-2089D306EABD
+  source_title: 清史稿
+  locator: 清史稿/卷260，康熙二十年至二十一年复任及进取授权
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7260
+  revision_id: 2433573
+  source_content_sha256: 81c32649e758ae92d58a468b69c5d1598a3389c1f5bbc31013618c26405b93df
+  passage_quote_sha256: 2089d306eabd940934206358a0be9a1f1f1199aae2decd97881bb276f3e3ba58
+- passage_ref: PAS-22061B49019D
+  source_title: 清史稿
+  locator: 清史稿/卷260，康熙二十二年澎湖与台湾结果
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7260
+  revision_id: 2433573
+  source_content_sha256: 81c32649e758ae92d58a468b69c5d1598a3389c1f5bbc31013618c26405b93df
+  passage_quote_sha256: 22061b49019dd18d79ca41fb530eecd877ca3d8b80a87b38028dc11a43697c55
+- passage_ref: PAS-3D3709738C9A
+  source_title: 清史稿
+  locator: 清史稿/卷260，台湾善后方案获准
+  url: https://zh.wikisource.org/wiki/%E6%B8%85%E5%8F%B2%E7%A8%BF/%E5%8D%B7260
+  revision_id: 2433573
+  source_content_sha256: 81c32649e758ae92d58a468b69c5d1598a3389c1f5bbc31013618c26405b93df
+  passage_quote_sha256: 3d3709738c9a920330a701845489d51afd8dc1c8a9b963bb5b3d8e4d5aad52cf
+- passage_ref: PAS-0C4C9C5160CD
+  source_title: 漢書
+  locator: 漢書/卷045，江充受命治巫蛊及扩大捕治
+  url: https://zh.wikisource.org/wiki/%E6%BC%A2%E6%9B%B8/%E5%8D%B7045
+  revision_id: 2606009
+  source_content_sha256: 3888ecb3cc447b1d41af47f6660171224b1b80cf15f827265b6b04a5e8413de1
+  passage_quote_sha256: 0c4c9c5160cd5f3e8c2aef6c335764bd19405363a9404fe7a58dd0028cc1c29a
+- passage_ref: PAS-31A706DEAED5
+  source_title: 漢書
+  locator: 漢書/卷045，宫中治蛊、太子败亡及武帝追究
+  url: https://zh.wikisource.org/wiki/%E6%BC%A2%E6%9B%B8/%E5%8D%B7045
+  revision_id: 2606009
+  source_content_sha256: 3888ecb3cc447b1d41af47f6660171224b1b80cf15f827265b6b04a5e8413de1
+  passage_quote_sha256: 31a706deaed5a81f77e52b479a1c028ea39b4a975faf2c54b262831529da4b64
+- passage_ref: PAS-D8C497F48495
+  source_title: 舊唐書
+  locator: 舊唐書/卷96，玄宗召姚崇入中枢
+  url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B796
+  revision_id: 2598602
+  source_content_sha256: 3ad5c90380080ef292d811496fc4d034cc5546afe4a8cf7872fc60550214731d
+  passage_quote_sha256: d8c497f484957bd94a661d2d8eb7c46a38c3361e46c3c676a86dffeb904c7fa5
+- passage_ref: PAS-97A9406F1B70
+  source_title: 舊唐書
+  locator: 舊唐書/卷96，朝议反对下的灭蝗授权
+  url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B796
+  revision_id: 2598602
+  source_content_sha256: 3ad5c90380080ef292d811496fc4d034cc5546afe4a8cf7872fc60550214731d
+  passage_quote_sha256: 97a9406f1b70cf30b5f310494eb94a5ffd544a691bbe51ea74619497613a0a7b
+- passage_ref: PAS-EDFAE1C74179
+  source_title: 舊唐書
+  locator: 舊唐書/卷96，继续反对与灭蝗结果
+  url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B796
+  revision_id: 2598602
+  source_content_sha256: 3ad5c90380080ef292d811496fc4d034cc5546afe4a8cf7872fc60550214731d
+  passage_quote_sha256: edfae1c74179505e4814a9bdc9e2012186d8253fa12dbf20ab4d1f005ecbdd48
+- passage_ref: PAS-0C20D5465404
+  source_title: 明史
+  locator: 明史/卷259，平台召对及督师授权
+  url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7259
+  revision_id: 2626298
+  source_content_sha256: 8b04f6db5472e6f71031f7dc905f9362ee398279492d34b8f9a307c253f5bb23
+  passage_quote_sha256: 0c20d5465404e8ccc72aa921ddfca14b053d0dc2863c752b76195338f91a9cca
+- passage_ref: PAS-0F97C51537FC
+  source_title: 明史
+  locator: 明史/卷259，宁远兵变处置及将镇调整
+  url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7259
+  revision_id: 2626298
+  source_content_sha256: 8b04f6db5472e6f71031f7dc905f9362ee398279492d34b8f9a307c253f5bb23
+  passage_quote_sha256: 0f97c51537fcfdad7888c0b41c023b6f38378babd198a3c9f6156b06880b2120
+- passage_ref: PAS-29B5F4BCD9AC
+  source_title: 明史
+  locator: 明史/卷259，诛毛文龙后的追认与东江后果
+  url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7259
+  revision_id: 2626298
+  source_content_sha256: 8b04f6db5472e6f71031f7dc905f9362ee398279492d34b8f9a307c253f5bb23
+  passage_quote_sha256: 29b5f4bcd9ac788818de6610f1f02af0cd03e8148504b5a892a43daa0a6cc97f
+- passage_ref: PAS-6E210A32557B
+  source_title: 明史
+  locator: 明史/卷304，永乐三年首次下西洋授权及结果
+  url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7304
+  revision_id: 7902201
+  source_content_sha256: fde47469d757dc49ab817b7a7fefee2175cda88757bac95be592dbb53bf1e478
+  passage_quote_sha256: 6e210a32557bf4ef7ae5c421404e800526c18affad515285e06ab7859fc26398
+- passage_ref: PAS-E48763D148B0
+  source_title: 明史
+  locator: 明史/卷304，成祖朝多阶段续命出使
+  url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7304
+  revision_id: 7902201
+  source_content_sha256: fde47469d757dc49ab817b7a7fefee2175cda88757bac95be592dbb53bf1e478
+  passage_quote_sha256: e48763d148b070b02cbd9ebda20d555a9f0db0ae551682702481dcf7e91b649a
+- passage_ref: PAS-709005E91E6B
+  source_title: 明史
+  locator: 明史/卷304，总体范围与耗费边界
+  url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7304
+  revision_id: 7902201
+  source_content_sha256: fde47469d757dc49ab817b7a7fefee2175cda88757bac95be592dbb53bf1e478
+  passage_quote_sha256: 709005e91e6b3463843296cd9616bc8fe82bb0a58f159d201aaa27ce45f3e8c7
+assertions:
+- assertion_ref: V4PROD32-SUI-YG-YSJ-001
+  source_passage_ref: PAS-35052821A7E4
+  summary: 煬帝重用虞世基，令其专掌机密并与多名大臣参掌朝政。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YG-YSJ-002
+  source_passage_ref: PAS-35052821A7E4
+  summary: 虞世基承担接收皇帝口授节度并制作敕书的中枢职责。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YG-YSJ-003
+  source_passage_ref: PAS-B9EEC3DC47FE
+  summary: 天下大乱后，虞世基压低败报而不据实上闻。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YG-YSJ-004
+  source_passage_ref: PAS-B9EEC3DC47FE
+  summary: 压低败报后，皇帝不能得知外间变化。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YJ-HRB-001
+  source_passage_ref: PAS-17B7D786916E
+  summary: 楊堅采纳高熲推荐，任賀若弼为吴州总管并委以平陈之事。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YJ-HRB-002
+  source_passage_ref: PAS-6E836AF5FE9F
+  summary: 正式大举伐陈时，楊堅再任賀若弼为行军总管。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YJ-HRB-003
+  source_passage_ref: PAS-6E836AF5FE9F
+  summary: 賀若弼率军隐蔽渡江，攻拔南徐州并在白土冈大破陈军。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SUI-YJ-HRB-004
+  source_passage_ref: PAS-4C0300379876
+  summary: 虽然存在与韩擒虎争功及先期决战争议，楊堅仍明确称克定三吴为賀若弼之功并予重赏。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZG-QH-001
+  source_passage_ref: PAS-C21DB305B6FB
+  summary: 秦檜请求将和议排除群臣参与而专由自己与皇帝商议，趙構明确答复独自委任秦檜。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZG-QH-002
+  source_passage_ref: PAS-C21DB305B6FB
+  summary: 趙構和议意向坚定，秦檜确认其意不移后提交文字请求决定和议并禁止群臣参与。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZG-QH-003
+  source_passage_ref: PAS-7ED5C597222C
+  summary: 秦檜独专国政并推进和议时，中朝官员持续提出反对，反对者相继离去或被排斥。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZG-QH-004
+  source_passage_ref: PAS-4A805FD06282
+  summary: 金人后来败盟、四道入侵，河南诸郡相继陷没。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZG-QH-005
+  source_passage_ref: PAS-4A805FD06282
+  summary: 败盟后秦檜仍安于相位，并长期据位。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZX-WAS-001
+  source_passage_ref: PAS-D05354BA5CE0
+  summary: 趙頊任王安石为参知政事，并认可其变风俗、立法度的施政优先次序。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZX-WAS-002
+  source_passage_ref: PAS-D05354BA5CE0
+  summary: 朝廷设制置三司条例司并相继推行多项新法，王安石安排吕惠卿参与其事。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZX-WAS-003
+  source_passage_ref: PAS-10C49941D523
+  summary: 多项新法实施后，原文记载赋敛愈重、天下骚然。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZX-WAS-004
+  source_passage_ref: PAS-6032C9C1CB68
+  summary: 趙頊后来再拜王安石为同中书门下平章事，面对保甲和助役钱反馈仍继续由其处理新政。
+  confidence: 0.95
+- assertion_ref: V4PROD32-SONG-ZX-WAS-005
+  source_passage_ref: PAS-6032C9C1CB68
+  summary: 王韶开熙河奏功，趙頊认定王安石主议并赐予所服玉带。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-BY-001
+  source_passage_ref: PAS-A342A08D9D40
+  summary: 忽必烈在史天泽因病请专任后，命伯顏领河南等路行中书省，所属均听其节制。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-BY-002
+  source_passage_ref: PAS-A342A08D9D40
+  summary: 忽必烈要求伯顏体察其意，以不嗜杀的方式平定江南。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-BY-003
+  source_passage_ref: PAS-4DD7DD737183
+  summary: 伯顏所统军队突破阳罗堡并渡江，随后鄂州、汉阳军、德安府及程鹏飞所部归降。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-BY-004
+  source_passage_ref: PAS-FCD34DCA9F89
+  summary: 宋平后，忽必烈慰劳伯顏并再次授职、赐予赏赉。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AHM-001
+  source_passage_ref: PAS-D8616F77AD87
+  summary: 忽必烈因阿合馬表现出的功利成效和辩论能力而授其政柄，并一度言无不从。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AHM-002
+  source_passage_ref: PAS-D8616F77AD87
+  summary: 安童指出尚书省越过既定议奏程序，忽必烈承认其意见有理。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AHM-003
+  source_passage_ref: PAS-63799CB9BFBC
+  summary: 在阿合馬主张大小事务皆受委任、用人应自择后，忽必烈同意除重刑和迁上路总管外其余事务均付阿合馬。
+  confidence: 0.95
+- assertion_ref: V4PROD32-YUAN-HBL-AHM-004
+  source_passage_ref: PAS-C9C947E91397
+  summary: 阿合馬久居其位后援引党羽、蒙蔽政务、加重课赋，导致民众流移，并迫害揭发者秦长卿致死。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-YZ-NGY-001
+  source_passage_ref: PAS-CB32C52393B1
+  summary: 青海叛乱后，胤禛命年羹堯进讨，并要求相关将领及川、陕、滇督抚提镇的军事事务均告年羹堯。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-YZ-NGY-002
+  source_passage_ref: PAS-CB32C52393B1
+  summary: 胤禛解除延信的抚远大将军印并授予年羹堯，令其统护诸军。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-YZ-NGY-003
+  source_passage_ref: PAS-65F70D11321B
+  summary: 年羹堯统军期间青海部落悉平，皇帝随后进其爵并奖赏有关将领。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-YZ-NGY-004
+  source_passage_ref: PAS-31D90E638A64
+  summary: 胤禛因年羹堯举劾失当、筑城扰民、隐匿青海饥馑等问题认定其不可再任总督，并命岳钟琪接任及缴回大将军印。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-YZ-NGY-005
+  source_passage_ref: PAS-31D90E638A64
+  summary: 在多名官员奏报罪状后，胤禛命分案议罪，最终罢年羹堯将军并尽削其职。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-SL-001
+  source_passage_ref: PAS-2089D306EABD
+  summary: 玄烨重新授施琅福建水师提督、加太子少保，并谕令其相机进取台湾。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-SL-002
+  source_passage_ref: PAS-2089D306EABD
+  summary: 在一度暂缓进剿后，玄烨批准施琅整备粮饷、候风进兵并调陆军协剿的请求。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-SL-003
+  source_passage_ref: PAS-22061B49019D
+  summary: 施琅攻取澎湖并接受郑克塽归降，台湾平定，玄烨随后授其靖海将军、封靖海侯。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-SL-004
+  source_passage_ref: PAS-3D3709738C9A
+  summary: 台湾平定后，玄烨批准采用施琅提出的设官驻防等善后方案。
+  confidence: 0.95
+- assertion_ref: V4PROD32-QING-XY-SL-005
+  source_passage_ref: PAS-3D3709738C9A
+  summary: 玄烨又批准施琅关于安置郑氏人员、申严海禁及稽核商船的后续请求。
+  confidence: 0.95
+- assertion_ref: V4PROD32-HAN-LC-JC-001
+  source_passage_ref: PAS-0C4C9C5160CD
+  summary: 江充奏称武帝疾病由巫蛊所致，武帝任命江充为使者治理巫蛊。
+  confidence: 0.95
+- assertion_ref: V4PROD32-HAN-LC-JC-002
+  source_passage_ref: PAS-0C4C9C5160CD
+  summary: 江充在授权下以酷刑强迫服罪，民众转相诬告，前后因案死亡数万人。
+  confidence: 0.95
+- assertion_ref: V4PROD32-HAN-LC-JC-003
+  source_passage_ref: PAS-31A706DEAED5
+  summary: 江充把巫蛊调查推进后宫并涉及皇后、太子，太子因此败亡。
+  confidence: 0.95
+- assertion_ref: V4PROD32-HAN-LC-JC-004
+  source_passage_ref: PAS-31A706DEAED5
+  summary: 武帝后来认定江充有诈，夷其三族。
+  confidence: 0.95
+- assertion_ref: V4PROD32-TANG-LLJ-YC-001
+  source_passage_ref: PAS-D8C497F48495
+  summary: 玄宗召姚崇接替郭元振任兵部尚书、同中书门下三品，后又迁紫微令。
+  confidence: 0.95
+- assertion_ref: V4PROD32-TANG-LLJ-YC-002
+  source_passage_ref: PAS-97A9406F1B70
+  summary: 朝廷普遍反对驱蝗时，玄宗再次询问姚崇。
+  confidence: 0.95
+- assertion_ref: V4PROD32-TANG-LLJ-YC-003
+  source_passage_ref: PAS-97A9406F1B70
+  summary: 姚崇请求不另出敕，由自己发牒处置并以官爵担责，玄宗许可。
+  confidence: 0.95
+- assertion_ref: V4PROD32-TANG-LLJ-YC-004
+  source_passage_ref: PAS-EDFAE1C74179
+  summary: 卢怀慎继续以天灾、伤和气等理由反对，姚崇坚持既定处置，蝗灾因此渐止。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZYJ-YCH-001
+  source_passage_ref: PAS-0C20D5465404
+  summary: 崇祯帝任袁崇焕为兵部尚书兼右副都御史，督师蓟辽并兼督登莱、天津军务。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZYJ-YCH-002
+  source_passage_ref: PAS-0C20D5465404
+  summary: 袁崇焕请求便宜及四部配合，崇祯帝按其请求整饬四部。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZYJ-YCH-003
+  source_passage_ref: PAS-0F97C51537FC
+  summary: 袁崇焕处置宁远兵变，分别惩办、留用和奖励相关人员，原文称一方乃靖。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZYJ-YCH-004
+  source_passage_ref: PAS-0F97C51537FC
+  summary: 袁崇焕请求合并宁锦将镇并确定三名主要将领，崇祯帝许可。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZYJ-YCH-005
+  source_passage_ref: PAS-29B5F4BCD9AC
+  summary: 袁崇焕承认毛文龙为大将、非其所得擅杀；崇祯帝震骇后因倚重袁崇焕而褒答，并追认后续处置。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZYJ-YCH-006
+  source_passage_ref: PAS-29B5F4BCD9AC
+  summary: 毛文龙死后东江将弁失去主帅，军心渐离、更加不可用，后来有人叛去。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZD-ZH-001
+  source_passage_ref: PAS-6E210A32557B
+  summary: 成祖命郑和、王景弘等率大规模舟师通使西洋，职责包括宣诏、赐予诸国君长及以武力威慑不服者。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZD-ZH-002
+  source_passage_ref: PAS-6E210A32557B
+  summary: 首次出使后诸国使者随郑和入朝，郑和献俘陈祖义，成祖大悦并分别奖赏。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZD-ZH-003
+  source_passage_ref: PAS-E48763D148B0
+  summary: 成祖在永乐六年、十年、十四年、十九年及二十二年多次重新命郑和出使或赍敕印执行任务。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZD-ZH-004
+  source_passage_ref: PAS-E48763D148B0
+  summary: 郑和在锡兰山和苏门答剌遭到攻击后作战擒获对方首领，并向朝廷献俘。
+  confidence: 0.95
+- assertion_ref: V4PROD32-MING-ZD-ZH-005
+  source_passage_ref: PAS-709005E91E6B
+  summary: 郑和多次出使覆盖三十余国，取得无数宝物，但原文同时明确记载中国耗费不赀。
+  confidence: 0.95
+historical_episodes:
+- episode_ref: EP-SUI-YG-YSJ-01@v1
+  episode_code: EP-SUI-YG-YSJ-01
+  ruler: 杨广
+  person: 虞世基
+  action: 煬帝亲厚委任虞世基专典机密、参掌朝政。
+  responsibility: 虞世基负责承接节度、制作敕书并处于四方表奏进入决策的中枢链条。
+  outcome: 虞世基后来抑损败报、不以实闻，导致皇帝不知外间变化，结果方向为负。
+  assertion_refs:
+  - V4PROD32-SUI-YG-YSJ-001
+  - V4PROD32-SUI-YG-YSJ-002
+  - V4PROD32-SUI-YG-YSJ-003
+  - V4PROD32-SUI-YG-YSJ-004
+  semantic_fingerprint: b0b6ba7a052db69c97f84a39cc8b3e0ae8d5bd0d5c62a8ce89d43371aba06cea
+- episode_ref: EP-SUI-YJ-HRB-01@v1
+  episode_code: EP-SUI-YJ-HRB-01
+  ruler: 杨坚
+  person: 贺若弼
+  action: 楊堅先授賀若弼吴州总管、委以平陈筹备，后在大举伐陈时再次授予行军总管的作战指挥权。
+  responsibility: 賀若弼负责平陈谋划、渡江进攻和战场指挥。
+  outcome: 其军攻拔南徐州并大破陈军；争功和违令争议后，皇帝仍明确确认其克定三吴之功，结果方向为正。
+  assertion_refs:
+  - V4PROD32-SUI-YJ-HRB-001
+  - V4PROD32-SUI-YJ-HRB-002
+  - V4PROD32-SUI-YJ-HRB-003
+  - V4PROD32-SUI-YJ-HRB-004
+  semantic_fingerprint: bede103e976dced166244a4ee88d6270ff93399cbbab2358846a3b891e64b2f9
+- episode_ref: EP-SONG-ZG-QH-01@v1
+  episode_code: EP-SONG-ZG-QH-01
+  ruler: 赵构
+  person: 秦桧
+  action: 在和议遭多方反对的情况下，趙構仍明确独委秦檜处理关键和议决策。
+  responsibility: 秦檜负责主导和议并排除群臣参与，随后独专国政、持续排斥反对和议的意见。
+  outcome: 金人最终败盟并四道入侵，河南诸郡相继陷没；秦檜却仍长期据位，结果方向为负。
+  assertion_refs:
+  - V4PROD32-SONG-ZG-QH-001
+  - V4PROD32-SONG-ZG-QH-002
+  - V4PROD32-SONG-ZG-QH-003
+  - V4PROD32-SONG-ZG-QH-004
+  - V4PROD32-SONG-ZG-QH-005
+  semantic_fingerprint: bd39e9334babb987b75162dfc5779a8fc378a527b2eb16b227faa03e855f0f00
+- episode_ref: EP-SONG-ZX-WAS-01@v1
+  episode_code: EP-SONG-ZX-WAS-01
+  ruler: 赵顼
+  person: 王安石
+  action: 趙頊任王安石参知政事，认可其变法主张并设专门机构推行新法，后又拜其为宰相继续处理新政。
+  responsibility: 王安石负责新法的制度设计、用人和全国推行，并在民间反映保甲、助役问题后继续主张维持施行。
+  outcome: 原文直接记载新法推行后赋敛愈重、天下骚然，且出现民众逃避保甲、申诉助役钱等反馈，结果方向为负。
+  assertion_refs:
+  - V4PROD32-SONG-ZX-WAS-001
+  - V4PROD32-SONG-ZX-WAS-002
+  - V4PROD32-SONG-ZX-WAS-003
+  - V4PROD32-SONG-ZX-WAS-004
+  semantic_fingerprint: 1a0dfcc34c2f7e6967d615b7765fd891dc5bab892813e6d6368c247c87071d3e
+- episode_ref: EP-SONG-ZX-WAS-02@v1
+  episode_code: EP-SONG-ZX-WAS-02
+  ruler: 赵顼
+  person: 王安石
+  action: 趙頊采用王安石所主张的熙河方略。
+  responsibility: 王安石承担熙河行动的主议责任。
+  outcome: 王韶开熙河奏功，皇帝明确因王安石主议而赐玉带，结果方向为正。
+  assertion_refs:
+  - V4PROD32-SONG-ZX-WAS-005
+  semantic_fingerprint: 47c35b2bcdcd80b01959bf71ee33f7608fab87cfccb83a5e0be693e20f990566
+- episode_ref: EP-YUAN-HBL-BY-01@v1
+  episode_code: EP-YUAN-HBL-BY-01
+  ruler: 忽必烈
+  person: 伯颜
+  action: 忽必烈在伐宋期间专任伯顏统领行省军政，并令所属听其节制。
+  responsibility: 统一号令、统率伐宋军事行动，并依皇帝所示控制杀戮。
+  outcome: 所部渡江并促成鄂、汉等地归降，最终宋平，结果方向明确为正向。
+  assertion_refs:
+  - V4PROD32-YUAN-HBL-BY-001
+  - V4PROD32-YUAN-HBL-BY-002
+  - V4PROD32-YUAN-HBL-BY-003
+  - V4PROD32-YUAN-HBL-BY-004
+  semantic_fingerprint: 7a47b42fb84f81d7f7959a44832cb99955881498a990c7afe59338c8b9dfd699
+- episode_ref: EP-YUAN-HBL-AHM-01@v1
+  episode_code: EP-YUAN-HBL-AHM-01
+  ruler: 忽必烈
+  person: 阿合马
+  action: 忽必烈因求富国而授阿合馬政柄，并在安童揭示其越制用人后仍进一步划给其广泛事务权限。
+  responsibility: 主持尚书省及财赋政务，并处理除重刑和迁上路总管以外的广泛事务。
+  outcome: 授权扩张后出现专权蒙蔽、苛征致民流移及迫害揭发者等明确负向结果。
+  assertion_refs:
+  - V4PROD32-YUAN-HBL-AHM-001
+  - V4PROD32-YUAN-HBL-AHM-002
+  - V4PROD32-YUAN-HBL-AHM-003
+  - V4PROD32-YUAN-HBL-AHM-004
+  semantic_fingerprint: 625ba5ab31f560ad230cf860ae40458db8d3ddc8e3a26a15fb331275b8f7c6ff
+- episode_ref: EP-QING-YZ-NGY-01@v1
+  episode_code: EP-QING-YZ-NGY-01
+  ruler: 胤禛
+  person: 年羹尧
+  action: 胤禛在青海叛乱时授年羹堯抚远大将军印，令相关军政人员向其报告并由其统护诸军。
+  responsibility: 统筹青海进讨、协调多省及各路军队并任用参赞。
+  outcome: 青海部落悉平，年羹堯及参战将领获奖，结果方向明确为正向。
+  assertion_refs:
+  - V4PROD32-QING-YZ-NGY-001
+  - V4PROD32-QING-YZ-NGY-002
+  - V4PROD32-QING-YZ-NGY-003
+  semantic_fingerprint: 6618a5dd46220366238649434b507f24fd0bcdaa92283ec25966272f4f671ebe
+- episode_ref: EP-QING-YZ-NGY-02@v1
+  episode_code: EP-QING-YZ-NGY-02
+  ruler: 胤禛
+  person: 年羹尧
+  action: 胤禛根据年羹堯举劾、扰民、隐匿饥馑等问题解除其总督和大将军职权，并继续分案追究。
+  responsibility: 纠正此前军事与地方重权委任造成的失当履职及相关损害。
+  outcome: 年羹堯被替换、缴印，继而罢将军并尽削其职，属于对负向结果的明确纠错。
+  assertion_refs:
+  - V4PROD32-QING-YZ-NGY-004
+  - V4PROD32-QING-YZ-NGY-005
+  semantic_fingerprint: bf2ed551917dd95d21cf541c369277f47780fe4eddc5f76eac62e707eef481cc
+- episode_ref: EP-QING-XY-SL-01@v1
+  episode_code: EP-QING-XY-SL-01
+  ruler: 玄烨
+  person: 施琅
+  action: 玄烨重新任命施琅为福建水师提督，授权相机进取，并在暂缓后批准其具体进兵条件。
+  responsibility: 整练水师、筹措粮饷、选择风候进攻澎湖和台湾。
+  outcome: 施琅攻取澎湖，郑克塽归降，台湾平定，结果方向明确为正向。
+  assertion_refs:
+  - V4PROD32-QING-XY-SL-001
+  - V4PROD32-QING-XY-SL-002
+  - V4PROD32-QING-XY-SL-003
+  semantic_fingerprint: d735f9c3506ec8b171189bb6f1f9463a95f49e2e31842336d0ea6fcfd12f2f64
+- episode_ref: EP-QING-XY-SL-02@v1
+  episode_code: EP-QING-XY-SL-02
+  ruler: 玄烨
+  person: 施琅
+  action: 玄烨在台湾平定后继续采用施琅提出的设官驻防及人员、海禁安排。
+  responsibility: 规划台湾防务、行政设置、归降人员安置与海上贸易管控。
+  outcome: 设县三、府一、巡道一等方案获准，后续安置和海禁建议亦获执行授权。
+  assertion_refs:
+  - V4PROD32-QING-XY-SL-004
+  - V4PROD32-QING-XY-SL-005
+  semantic_fingerprint: e3ef7e00fa353df2bffca9d7deb41cdb9e688cc5e271360e9146b16491f7c63f
+- episode_ref: EP-HAN-LC-JC-01@v1
+  episode_code: EP-HAN-LC-JC-01
+  ruler: 刘彻
+  person: 江充
+  action: 武帝采纳江充关于巫蛊致病的奏言，授其使者身份治理巫蛊。
+  responsibility: 江充负责搜求巫蛊、捕验涉案者，并将调查推进宫中。
+  outcome: 调查以酷刑和强迫服罪扩大，造成数万人死亡并牵连太子败亡；武帝后来认定江充有诈并夷其三族。
+  assertion_refs:
+  - V4PROD32-HAN-LC-JC-001
+  - V4PROD32-HAN-LC-JC-002
+  - V4PROD32-HAN-LC-JC-003
+  - V4PROD32-HAN-LC-JC-004
+  semantic_fingerprint: c30fdfc4f22eb31a36579a82e4a5d7aaed5b08dd1256b831d6bdd033fdcc913a
+- episode_ref: EP-TANG-LLJ-YC-01@v1
+  episode_code: EP-TANG-LLJ-YC-01
+  ruler: 李隆基
+  person: 姚崇
+  action: 玄宗在朝廷反对驱蝗的情况下询问姚崇，并许可其不另烦敕、直接发牒处置。
+  responsibility: 姚崇承担跨地区组织灭蝗及处置失败的政治责任。
+  outcome: 姚崇在持续反对下坚持执行，原文记载蝗灾因此渐止。
+  assertion_refs:
+  - V4PROD32-TANG-LLJ-YC-002
+  - V4PROD32-TANG-LLJ-YC-003
+  - V4PROD32-TANG-LLJ-YC-004
+  semantic_fingerprint: 9d9f15ce0a7640085bc618b0690c53aeceb3dac94e7ad5172bdd582c956cefd0
+- episode_ref: EP-MING-ZYJ-YCH-01@v1
+  episode_code: EP-MING-ZYJ-YCH-01
+  ruler: 朱由检
+  person: 袁崇焕
+  action: 崇祯帝任袁崇焕督师蓟辽并兼督登莱、天津，给予便宜并令四部配合。
+  responsibility: 袁崇焕负责东北军务、军饷器械协调、将领配置和军纪整顿。
+  outcome: 袁崇焕处置宁远兵变后使一方安定，并获准重组宁锦将镇。
+  assertion_refs:
+  - V4PROD32-MING-ZYJ-YCH-001
+  - V4PROD32-MING-ZYJ-YCH-002
+  - V4PROD32-MING-ZYJ-YCH-003
+  - V4PROD32-MING-ZYJ-YCH-004
+  semantic_fingerprint: 3c182c1354d77ae97bed2c0dedb4598672cf91fec889611f39e797e61eda1033
+- episode_ref: EP-MING-ZYJ-YCH-02@v1
+  episode_code: EP-MING-ZYJ-YCH-02
+  ruler: 朱由检
+  person: 袁崇焕
+  action: 袁崇焕在督师任内擅杀毛文龙，事后上报待罪；崇祯帝因仍倚重袁崇焕而褒答并批准其善后方案。
+  responsibility: 袁崇焕承担东江主帅处置及后续兵制、军饷和部众安定责任，皇帝承担事后追认与继续委任责任。
+  outcome: 东江将弁因失去主帅而军心渐离、更加不可用，后来出现叛去者。
+  assertion_refs:
+  - V4PROD32-MING-ZYJ-YCH-005
+  - V4PROD32-MING-ZYJ-YCH-006
+  semantic_fingerprint: f3dc757d86aa9d23893a05c3de4c32137585575228cdbbcc9294ac07f2ea7dec
+- episode_ref: EP-MING-ZD-ZH-01@v1
+  episode_code: EP-MING-ZD-ZH-01
+  ruler: 朱棣
+  person: 郑和
+  action: 成祖任命太监郑和率大规模舟师通使西洋，并在多个年份续命其出使、赐予或处置海外事务。
+  responsibility: 郑和负责宣示皇帝诏命、赐予诸国君长、组织舟师，并在遭受攻击时指挥作战和献俘。
+  outcome: 诸国使者来朝，多次敌对首领被擒献，通使范围扩至多国；同时中国承担了原文所称不赀的耗费。
+  assertion_refs:
+  - V4PROD32-MING-ZD-ZH-001
+  - V4PROD32-MING-ZD-ZH-002
+  - V4PROD32-MING-ZD-ZH-003
+  - V4PROD32-MING-ZD-ZH-004
+  - V4PROD32-MING-ZD-ZH-005
+  semantic_fingerprint: fbc3f923300be4c817bfee14b12c4e99b288833abc1cf753bcb76a85e0d77d57
+rule_evidence_units:
+- unit_ref: REU-SUI-YANGGUANG-YUSHIJI-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 杨广
+  person: 虞世基
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-SUI-YG-YSJ-01@v1
+  factor_observations:
+    person_task_fit:
+      value: negative_signal
+      reason: 原文直接记载煬帝亲厚委任虞世基参掌朝政，虞世基随后压低败报、阻断实情上闻，皇帝因而不知外间变化，形成可追溯的负向任用链。
+      assertion_refs: &id001
+      - V4PROD32-SUI-YG-YSJ-001
+      - V4PROD32-SUI-YG-YSJ-002
+      - V4PROD32-SUI-YG-YSJ-003
+      - V4PROD32-SUI-YG-YSJ-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id001
+    feedback_handling:
+      value: negative_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id001
+    attributable_outcome:
+      value: negative_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id001
+- unit_ref: REU-SUI-YANGJIAN-HERUOBI-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 杨坚
+  person: 贺若弼
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-SUI-YJ-HRB-01@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接记载楊堅采纳高熲推荐，先授賀若弼吴州总管并委以平陈，后又在正式伐陈时授行军总管；战役取得破军、入城等结果，皇帝明确褒认为其功，构成两个可区分授权阶段及正向结果。
+      assertion_refs: &id002
+      - V4PROD32-SUI-YJ-HRB-001
+      - V4PROD32-SUI-YJ-HRB-002
+      - V4PROD32-SUI-YJ-HRB-003
+      - V4PROD32-SUI-YJ-HRB-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id002
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id002
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id002
+- unit_ref: REU-SONG-ZHAOGOU-QINHUI-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 赵构
+  person: 秦桧
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-SONG-ZG-QH-01@v1
+  factor_observations:
+    person_task_fit:
+      value: negative_signal
+      reason: 原文直接记载群臣广泛反对和议的压力背景下，趙構仍独委秦檜决定和议；随后秦檜独专国政、排斥异议，金人败盟并使河南诸郡陷没，形成压力取舍、授权、持续反馈和负向结果链。
+      assertion_refs: &id003
+      - V4PROD32-SONG-ZG-QH-001
+      - V4PROD32-SONG-ZG-QH-002
+      - V4PROD32-SONG-ZG-QH-003
+      - V4PROD32-SONG-ZG-QH-004
+      - V4PROD32-SONG-ZG-QH-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id003
+    feedback_handling:
+      value: negative_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id003
+    attributable_outcome:
+      value: negative_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id003
+- unit_ref: REU-SONG-ZHAOXU-WANGANSHI-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 赵顼
+  person: 王安石
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-SONG-ZX-WAS-01@v1
+  - EP-SONG-ZX-WAS-02@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载趙頊任王安石参知政事并授权设立机构、推行新法，后又拜相及复相，构成多阶段长期复用；材料同时直接记载新法引发赋敛加重、天下骚然的负向结果，也记载王安石主议的熙河行动奏功并获皇帝肯定的正向结果，可拆分处理。
+      assertion_refs: &id004
+      - V4PROD32-SONG-ZX-WAS-001
+      - V4PROD32-SONG-ZX-WAS-002
+      - V4PROD32-SONG-ZX-WAS-003
+      - V4PROD32-SONG-ZX-WAS-004
+      - V4PROD32-SONG-ZX-WAS-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id004
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id004
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id004
+- unit_ref: REU-YUAN-HUBILIE-BAYAN-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 忽必烈
+  person: 伯颜
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-YUAN-HBL-BY-01@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接记载忽必烈在伐宋任务中专任伯顏、明确其节制范围与少杀职责，并记载渡江、受降及宋平等正向结果，可形成最小充分军事授权事件。
+      assertion_refs: &id005
+      - V4PROD32-YUAN-HBL-BY-001
+      - V4PROD32-YUAN-HBL-BY-002
+      - V4PROD32-YUAN-HBL-BY-003
+      - V4PROD32-YUAN-HBL-BY-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id005
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id005
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id005
+- unit_ref: REU-YUAN-HUBILIE-AHEMA-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 忽必烈
+  person: 阿合马
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-YUAN-HBL-AHM-01@v1
+  factor_observations:
+    person_task_fit:
+      value: negative_signal
+      reason: 原文直接记载忽必烈因求富国而授阿合馬政柄、扩大其财赋与用人权限，并记载安童的反对以及阿合馬专权毒民等损害，能够形成负向授权材料；不采用传首总评替代事件事实。
+      assertion_refs: &id006
+      - V4PROD32-YUAN-HBL-AHM-001
+      - V4PROD32-YUAN-HBL-AHM-002
+      - V4PROD32-YUAN-HBL-AHM-003
+      - V4PROD32-YUAN-HBL-AHM-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id006
+    feedback_handling:
+      value: negative_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id006
+    attributable_outcome:
+      value: negative_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id006
+- unit_ref: REU-QING-YINZHEN-NIANGENGYAO-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 胤禛
+  person: 年羹尧
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-QING-YZ-NGY-01@v1
+  - EP-QING-YZ-NGY-02@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载胤禛在青海叛乱压力下授年羹堯大将军印、令其统护诸军，继而取得青海平定的正向结果；又直接记载皇帝因其举劾失当、隐匿灾情等解除总督与大将军职权，适合拆分为正向授权与负向纠错两组材料。
+      assertion_refs: &id007
+      - V4PROD32-QING-YZ-NGY-001
+      - V4PROD32-QING-YZ-NGY-002
+      - V4PROD32-QING-YZ-NGY-003
+      - V4PROD32-QING-YZ-NGY-004
+      - V4PROD32-QING-YZ-NGY-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id007
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id007
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id007
+- unit_ref: REU-QING-XUANYE-SHILANG-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 玄烨
+  person: 施琅
+  decision_arc_family: appointment_continued_authorization
+  episode_refs:
+  - EP-QING-XY-SL-01@v1
+  - EP-QING-XY-SL-02@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接记载玄烨重新任命施琅为福建水师提督并授权相机进取，随后接受其整军进兵请求，取得澎湖、台湾；战后又采纳其台湾善后方案，构成可区分的军事授权与新任务复用阶段。
+      assertion_refs: &id008
+      - V4PROD32-QING-XY-SL-001
+      - V4PROD32-QING-XY-SL-002
+      - V4PROD32-QING-XY-SL-003
+      - V4PROD32-QING-XY-SL-004
+      - V4PROD32-QING-XY-SL-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id008
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id008
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id008
+- unit_ref: REU-HAN-LIUCHE-JIANGCHONG-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 刘彻
+  person: 江充
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-HAN-LC-JC-01@v1
+  factor_observations:
+    person_task_fit:
+      value: negative_signal
+      reason: 原文直接记载武帝授江充使者身份治理巫蛊，并记载其扩大捕治造成数万人死亡、太子败亡，皇帝最终认定有诈并夷三族；可形成一次监督执法授权的直接负向归责链。
+      assertion_refs: &id009
+      - V4PROD32-HAN-LC-JC-001
+      - V4PROD32-HAN-LC-JC-002
+      - V4PROD32-HAN-LC-JC-003
+      - V4PROD32-HAN-LC-JC-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id009
+    feedback_handling:
+      value: negative_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id009
+    attributable_outcome:
+      value: negative_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id009
+- unit_ref: REU-TANG-LILONGJI-YAOCHONG-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 李隆基
+  person: 姚崇
+  decision_arc_family: bounded_task_delegation
+  episode_refs:
+  - EP-TANG-LLJ-YC-01@v1
+  factor_observations:
+    person_task_fit:
+      value: positive_signal
+      reason: 原文直接记载玄宗重新任姚崇为兵部尚书、宰相，并在群议反对灭蝗时询问、许可其自行发牒处置；职责、现实压力和蝗灾渐止的结果均可追溯，但材料不足以把一般中枢倚任扩写为多人推荐形成的任命因果。
+      assertion_refs: &id010
+      - V4PROD32-TANG-LLJ-YC-001
+      - V4PROD32-TANG-LLJ-YC-002
+      - V4PROD32-TANG-LLJ-YC-003
+      - V4PROD32-TANG-LLJ-YC-004
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id010
+    feedback_handling:
+      value: positive_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id010
+    attributable_outcome:
+      value: positive_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id010
+- unit_ref: REU-MING-ZHUYOUJIAN-YUANCHONGHUAN-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 朱由检
+  person: 袁崇焕
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-MING-ZYJ-YCH-01@v1
+  - EP-MING-ZYJ-YCH-02@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载崇祯帝任袁崇焕督师蓟辽并授便宜、整饬四部，又记载其稳定宁远兵变、调整将镇的正向履职；同时记载其擅杀毛文龙后帝追认、东江军心离散及叛去的负向链。正负材料可拆分，稳定履职与争议链均有直接文本，但不能把毛文龙之死表述为皇帝事前授权。
+      assertion_refs: &id011
+      - V4PROD32-MING-ZYJ-YCH-001
+      - V4PROD32-MING-ZYJ-YCH-002
+      - V4PROD32-MING-ZYJ-YCH-003
+      - V4PROD32-MING-ZYJ-YCH-004
+      - V4PROD32-MING-ZYJ-YCH-005
+      - V4PROD32-MING-ZYJ-YCH-006
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id011
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id011
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id011
+- unit_ref: REU-MING-ZHUDI-ZHENGHE-AUTHORITY-v1
+  rule_code: appointment_delegation
+  ruler: 朱棣
+  person: 郑和
+  decision_arc_family: appointment_feedback_correction
+  episode_refs:
+  - EP-MING-ZD-ZH-01@v1
+  factor_observations:
+    person_task_fit:
+      value: mixed_signal
+      reason: 原文直接记载成祖以太监郑和承担大规模通使西洋任务，并有反复续命出使、宣诏赐予、武力处置和诸国来朝献俘等结果；同时明确记载中国耗费不赀。可评价非标准身份承担重大任务，但正负结果必须分别保留，且不能把宣德朝任务归责于朱棣。
+      assertion_refs: &id012
+      - V4PROD32-MING-ZD-ZH-001
+      - V4PROD32-MING-ZD-ZH-002
+      - V4PROD32-MING-ZD-ZH-003
+      - V4PROD32-MING-ZD-ZH-004
+      - V4PROD32-MING-ZD-ZH-005
+    authority_clarity:
+      value: positive_signal
+      reason: 固定 revision 直接给出任命、授权或职责载体。
+      assertion_refs: *id012
+    feedback_handling:
+      value: mixed_signal
+      reason: 正负方向按不同 factor material 保留，不作抵消。
+      assertion_refs: *id012
+    attributable_outcome:
+      value: mixed_signal
+      reason: 皇帝归责与受任者独立行为在材料层分别判断。
+      assertion_refs: *id012

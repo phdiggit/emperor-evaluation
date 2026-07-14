@@ -9,7 +9,7 @@ from typing import Any, Mapping
 
 SCHEMA_VERSION = "appointment-delegation-factor-representativeness-v1"
 GROUPS = {"historical_opened", "new_open_development", "future_sealed"}
-SLOT_TYPES = {"existing_unit", "planned_slot"}
+SLOT_TYPES = {"existing_unit", "bound_candidate", "planned_slot"}
 AXES = (
     "era_family",
     "role_family",
@@ -82,9 +82,13 @@ def evaluate_factor_representativeness_plan(
         group_counts[group] += 1
 
         identity = entry.get("candidate_identity")
-        if slot_type == "existing_unit":
+        if slot_type in {"existing_unit", "bound_candidate"}:
             if not isinstance(identity, Mapping):
-                raise ValueError("existing_unit 必须绑定候选身份")
+                raise ValueError("已构成单元或候选必须绑定身份")
+            if slot_type == "existing_unit" and group != "historical_opened":
+                raise ValueError("existing_unit 只允许登记历史已开封回归单元")
+            if slot_type == "bound_candidate" and group != "new_open_development":
+                raise ValueError("bound_candidate 只允许登记新开放开发候选")
             identity_key = (
                 str(identity.get("ruler_code") or ""),
                 str(identity.get("person_code") or ""),
@@ -165,6 +169,10 @@ def evaluate_factor_representativeness_plan(
         and not missing_strata
         and sealed_identity_exposure_count == 0
     )
+    open_candidate_sourcing_ready = (
+        bound_group_counts["new_open_development"]
+        == group_counts["new_open_development"]
+    )
     report_basis = {
         "manifest_code": manifest.get("manifest_code"),
         "entry_ids": sorted(entry_ids),
@@ -226,9 +234,11 @@ def evaluate_factor_representativeness_plan(
             "human_source_and_gold_review_excluded": True,
         },
         "sampling_plan_ready": plan_ready,
-        "candidate_sourcing_ready": False,
+        "candidate_sourcing_ready": open_candidate_sourcing_ready,
         "candidate_sourcing_blocker": (
-            "20 个匿名槽位仍须分别完成候选绑定、V4 回源和人工结构审查"
+            None
+            if open_candidate_sourcing_ready
+            else "开放开发槽位仍须完成候选绑定、V4 回源和人工结构审查"
         ),
         "qualification_claim_allowed": False,
         "database_write_count": 0,
