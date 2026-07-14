@@ -96,14 +96,14 @@ talent_discovery_roster_result:
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
-  claim_extractor_v4_release: c8e3fb7628e37408e983f9de26f555a1d5117b35
+  claim_extractor_v4_release: 9e55acaba9cf87a76f91f1b6841146252b8900eb
   claim_extractor_v4_version: v4-claim-extractor-service:v1
-  source_cache_release: 6149569233cbae73b97a4c3032c20fadf638ab1c
+  source_cache_release: 9e55acaba9cf87a76f91f1b6841146252b8900eb
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
 
 v4_service_source_governance:
-  status: claim_extractor_model_provider_shadow_passed_draft_only
+  status: immutable_cutover_preflight_passed_with_prerequisites
   canonical_history: v4_current_git_history
   transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
   migration_mode: contract_tested_selective_port
@@ -142,6 +142,15 @@ v4_service_source_governance:
   transitional_nonconformance:
     - retrieval_v3_runtime_names_must_be_removed_at_cutover
     - identity_slow_lane_must_remain_before_assertion_acceptance
+  cutover_preflight:
+    release: 9e55acaba9cf87a76f91f1b6841146252b8900eb
+    source_cache_archive_sha256: 7a75750efa80036ec0eb8795b1ea6ac7d4d000a916dcbfc319b119a9e92636b0
+    claim_extractor_archive_sha256: 0975c977a938b51eff943687c100e5d7998132243b00185b461b808c2bf1302f
+    systemd_verify_passed: true
+    isolated_runtime_gates_passed: true
+    production_change_count: 0
+    prerequisites_remaining: 5
+    next_gate: v4_service_cutover_prerequisite_provisioning
   source_cache_first_slice:
     contract: source-cache-contract-v2
     release: 6149569233cbae73b97a4c3032c20fadf638ab1c

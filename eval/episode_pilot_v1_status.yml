@@ -106,7 +106,7 @@ v4_service_evidence:
   source_cache_postgres_migration_applied: false
 
 v4_service_source_governance:
-  status: claim_extractor_model_provider_shadow_passed_draft_only
+  status: immutable_cutover_preflight_passed_with_prerequisites
   current_release_is_git_commit: true
   current_v4_history_contains_source_cache_slice: true
   deployed_runtime_still_uses_transitional_source: true
@@ -132,7 +132,14 @@ v4_service_source_governance:
     - source_cache
     - claim_extraction
     - immutable_deployment_cutover
-  next_gate: v4_service_immutable_cutover_preflight
+  cutover_preflight_release: 9e55acaba9cf87a76f91f1b6841146252b8900eb
+  cutover_preflight_source_cache_archive_sha256: 7a75750efa80036ec0eb8795b1ea6ac7d4d000a916dcbfc319b119a9e92636b0
+  cutover_preflight_claim_extractor_archive_sha256: 0975c977a938b51eff943687c100e5d7998132243b00185b461b808c2bf1302f
+  cutover_preflight_systemd_verify_passed: true
+  cutover_preflight_isolated_runtime_gates_passed: true
+  cutover_preflight_production_change_count: 0
+  cutover_prerequisites_remaining: 5
+  next_gate: v4_service_cutover_prerequisite_provisioning
 
 talent_discovery_roster_evidence:
   roster_people: 4

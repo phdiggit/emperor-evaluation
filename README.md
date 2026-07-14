@@ -85,7 +85,7 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
 
-配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 的 application、隔离 PostgreSQL、job/lease 和不可变 release Gate 均已通过；Claim Extractor 真实模型 provider 又以 V4 passages 通过 draft-only shadow。全过程未写正式 Assertion、未切换历史 unit 或生产指针。下一 Gate 是两项 V4 服务的不可变 cutover preflight，仍不等于开放正式评分。
+配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 的 application、隔离 PostgreSQL、job/lease 和不可变 release Gate 均已通过；Claim Extractor 真实模型 provider 又以 V4 passages 通过 draft-only shadow。两项服务在同一 release head 上完成不可变 cutover preflight：systemd 模板、临时数据库 tick、幂等、lease 恢复和回滚演练均通过，临时数据库已删除。生产切换仍等待专用运行用户/目录、V4 独立 DSN/env，以及不依赖个人 home 的 Codex 可执行文件与认证目录；历史 unit、生产指针和正式数据库均未改变。
 
 ## 核心阅读顺序
 
