@@ -114,7 +114,7 @@ G3B 同步 shadow runner 只验证：
 - 新 blind holdout 或把本次开发一致性实验包装成 blind pass。
 
 V4 shadow Schema、migration、同步事务 adapter、I/J proposed shadow 数据与真实数据库级验证已在
-`22-G3A核心Registry首个实现切片.md` 完成；G3A 已通过，下一阶段进入 G3B 同步 Core Shadow Runner。
+G3A Registry 与 G3B 同步 Core Shadow Runner 均已通过；首次切片文档已由当前活动摘要取代，现行状态统一见 `31-G3R评分最小充分Relation重解释.md`，具体约束由 migration、Core Registry 合同和业务测试承载。
 
 ## 7. 对既有文档的影响
 

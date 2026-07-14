@@ -5,15 +5,12 @@ rule_code: appointment_delegation
 source_manifest_path: ../appointment_delegation_scored_demo/manifest.yml
 human_calibration_gold_path: ../appointment_delegation_v3_parity_demo/manifest.yml
 worklist_path: worklist.json
-contract_fixture_response_path: contract_fixture_response.json
-contract_fixture_report_path: contract_fixture_report.json
 independent_agent_response_path: independent_agent_response.json
-independent_agent_qualification_report_path: independent_agent_qualification_report.json
 independent_agent_execution_audit_path: independent_agent_execution_audit.json
 pinned_development_response_path: pinned_development_response.json
-pinned_development_report_path: pinned_development_report.json
 pinned_development_execution_audit_path: pinned_development_execution_audit.json
 latency_benchmark_path: latency_benchmark.json
+derived_qualification_reports: regenerate_with_cli_do_not_track
 runtime_policy:
   mode: offline_report_only_shadow
   model_calls_allowed: true

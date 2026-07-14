@@ -683,11 +683,13 @@ def test_claim_worker_codex_provider_does_not_require_frozen_snapshot(tmp_path) 
     from emperor_v4.adapters.claim_extractor_codex import CodexCliClaimExtractionProvider
     from emperor_v4.runtime.claim_extractor import build_parser, build_provider
 
+    output_schema = tmp_path / "output.schema.json"
+    output_schema.write_text("{}\n", encoding="utf-8")
     args = build_parser().parse_args([
         "--profiles", str(tmp_path / "profiles.yml"),
         "--profile", "talent_discovery_chain_v1",
         "--provider", "codex",
-        "--output-schema", str(tmp_path / "output.schema.json"),
+        "--output-schema", str(output_schema),
         "--codex-bin", "/opt/emperor-evaluation-v4/bin/codex",
         "--model", "model-name",
         "--reasoning-effort", "medium",
