@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -188,6 +189,54 @@ def test_codex_parser_preserves_gaps_and_runtime_audit() -> None:
     assert batch.provider_metadata["elapsed_seconds"] == 1.25
     assert batch.assertions[0].qualifiers["responsibility_family"] == (
         "talent_discovery"
+    )
+
+
+def test_claim_service_replaces_provider_ids_with_stable_identity() -> None:
+    class PayloadProvider:
+        def __init__(self, payload: dict) -> None:
+            self.payload = payload
+
+        def extract(self, request_payload):
+            return parse_codex_claim_output(
+                self.payload,
+                provider_code="codex:test",
+            )
+
+    first_payload = _claim_payload()
+    second_payload = deepcopy(first_payload)
+    second_payload["assertions"][0]["assertion_code"] = "MODEL-RANDOM-2"
+    second_payload["assertions"][0]["passage_support"][
+        "assertion_semantic_key"
+    ] = "模型另一种措辞"
+    second_payload["assertions"][0]["confidence"] = 0.72
+
+    first = ensure_claim_extraction(
+        _request(),
+        profile=_profile(),
+        provider=PayloadProvider(first_payload),
+        repository=InMemoryClaimExtractionRepository(),
+        service_release_sha="a" * 40,
+    ).response["assertions"][0]
+    second = ensure_claim_extraction(
+        _request(),
+        profile=_profile(),
+        provider=PayloadProvider(second_payload),
+        repository=InMemoryClaimExtractionRepository(),
+        service_release_sha="a" * 40,
+    ).response["assertions"][0]
+
+    assert first["assertion_code"] == second["assertion_code"]
+    assert first["assertion_code"].startswith("ASTD-")
+    assert (
+        first["passage_support"]["assertion_semantic_key"]
+        == second["passage_support"]["assertion_semantic_key"]
+    )
+    assert first["extraction_provenance"]["provider_assertion_code"] == (
+        "A-LOCAL-1"
+    )
+    assert second["extraction_provenance"]["provider_assertion_code"] == (
+        "MODEL-RANDOM-2"
     )
 
 
