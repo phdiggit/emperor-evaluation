@@ -32,6 +32,8 @@ SOURCE_CACHE_RELEASE_PATHS = (
     "db/postgres/003_v4_source_cache_jobs.sql",
     "deploy/v4/emperor-v4-source-cache-worker.service",
     "deploy/v4/emperor-v4-source-cache-worker.timer",
+    "deploy/v4/source-cache.env.example",
+    "deploy/v4/provision-prerequisites.sh",
 )
 CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "pyproject.toml",
@@ -55,6 +57,8 @@ CLAIM_EXTRACTOR_RELEASE_PATHS = (
     "db/postgres/004_v4_claim_extractor_service.sql",
     "deploy/v4/emperor-v4-claim-extractor-worker.service",
     "deploy/v4/emperor-v4-claim-extractor-worker.timer",
+    "deploy/v4/claim-extractor.env.example",
+    "deploy/v4/provision-prerequisites.sh",
 )
 
 

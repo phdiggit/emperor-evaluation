@@ -8,6 +8,8 @@
 - `/etc/emperor-evaluation-v4/<service>.env`：`root:emperor-v4`、`0640`，不得进入 Git；
 - `emperor-v4`：无登录 shell 的专用运行用户和组。
 
+`provision-prerequisites.sh` 只创建上述账号/目录、校验并展开 release、建立 `current` 指针、准备两个独立 venv、安装独立 Codex executable 和非敏感配置样例。它不创建数据库、不写真实 DSN/认证材料、不安装或启用 systemd unit。
+
 Source Cache 环境文件必须定义 `EMPEROR_EVAL_V4_SOURCE_CACHE_DSN` 与 `EMPEROR_EVAL_V4_RELEASE_SHA`，计划文件固定为 `/etc/emperor-evaluation-v4/source-cache-plan.yml`。Claim Extractor 环境文件必须定义：
 
 - `EMPEROR_EVAL_V4_CLAIM_EXTRACTOR_DSN`
@@ -18,4 +20,4 @@ Source Cache 环境文件必须定义 `EMPEROR_EVAL_V4_SOURCE_CACHE_DSN` 与 `EM
 - `EMPEROR_EVAL_V4_CODEX_REASONING_EFFORT`
 - `EMPEROR_EVAL_V4_CODEX_TIMEOUT_SECONDS`
 
-Claim 的 Codex 可执行文件和认证目录必须由 `emperor-v4` 在 `ProtectHome=true` 下读取，不得引用 `/home/penghao/**` 或复用 V3 环境文件。正式切换前必须依次通过 release hash 校验、`systemd-analyze verify`、隔离数据库单次 tick 和回滚 symlink 演练；预检不得启用 timer、停止历史 unit 或修改生产数据库。
+Claim 的 Codex 可执行文件固定为 `/opt/emperor-evaluation-v4/bin/codex`，认证状态目录固定为 `/var/lib/emperor-v4/claim-extractor/codex`，两者必须由 `emperor-v4` 在 `ProtectHome=true` 下读取，不得引用 `/home/penghao/**` 或复用 V3 环境文件。两个 unit 显式把当前 release 的 `src` 加入 `PYTHONPATH`，venv 只承载依赖，不复制某个 release 的业务源码。正式切换前必须依次通过 release hash 校验、`systemd-analyze verify`、隔离数据库单次 tick 和回滚 symlink 演练；预检不得启用 timer、停止历史 unit 或修改生产数据库。
