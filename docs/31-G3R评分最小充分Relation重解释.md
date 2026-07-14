@@ -125,6 +125,16 @@ G3R—G3H 回归测试已按业务不变量合并到 `test_contracts.py`、`test
 
 包 D 的首个复用切片已抽出通用有限因子 scored-shadow 内核，`appointment_delegation` 与 `talent_discovery` 均通过薄规则配置使用同一校验、Judgment、ScoreContribution、lineage 和汇总职责链。V4 Claim Extractor `claim_extraction_only:v9_talent_discovery` 已从缓存史料为魏徵补抽旧阵营、识才依据、跨障碍和转化任用 4 条 Claim，并通过既有 adapter 形成 Assertion；陈平和魏徵各生成 1 个 positive shadow contribution，韩信齐王授权与蓝玉晋升只作规则排除上下文。跨规则审计明确将 `appointment_delegation` 标为 supporting-only，不重复结算职位适配、授权质量或后续战果。
 
+`appointment_delegation` 现已增加 V3 语义等价 shadow，不再把四项 readiness 观察直接按 `-1/0/+1` 等权平均。新链复用原有 4 个 RuleEvidenceUnit、Assertion lineage 和观察 fingerprint，从 Judgment 起局部失效；factor proposal 只允许提交有限 option code、理由和 Assertion refs，禁止携带数值。确定性层恢复 `appointment_importance × appointment_effect × continuity_factor × evidence_factor`、单材料封顶和正负侧事件—人物密度聚合。蓝玉决策弧在一个 Judgment 内拆为前期成功与后期授权控制负向两条 factor material，避免 mixed 被压成零分；陈平、韩信、魏徵也不再因同向观察机械同分。
+
+Factor Observation 资格 harness 已形成同一纵向链：从现有 V4 judge 观察、事件摘要和 Assertion lineage 生成不含 V3 Gold、旧 proposal、数值映射与分数的四单元 worklist；响应校验只接受完整有限档位、理由、lineage 和方向一致的正负材料。对照器在调用后才读取人工 V3 校准，并执行 85% 档位精确率、100% 材料侧结构、零方向错误和零非相邻错误门槛。
+
+首轮真实盲评由 `codex-win 0.1.0` 的 `factorization-jsonl` preset 调用 ChatGPT 登录下的 Codex CLI，权限画像禁止智能体使用网络工具、数据库、Git 读写和 Git snapshot。实际安全命令使用 `--ignore-user-config` 且未显式传入 `--model`；响应中的 `gpt-5.6-sol` 只是未外部验证的自声明，不能作为运行时模型证明。前两次输出仅因合同字段错误被拒绝且未读取 Gold；第三次监管与业务合同均通过。对照结果为 19/30 精确、10 个相邻错误、1 个非相邻错误，正负材料结构 4/4、方向错误为零。归因与规则上下文均为 5/5；主要偏差集中在任用效果、持续性和史源完整度，蓝玉负向效果被从人工 `poor_result` 高估为 `structural_continuing_damage`。因此 `real_agent_qualified=false`，四单元从此只作策略开发集，不再作为新的独立资格集；下一 Gate 是修订 guidance、冻结策略并建立新 sealed holdout，且任务命令必须显式固定模型。正式 45 分映射与排名继续阻断。
+
+随后通过 `codex-win --respect-task-argv` 显式固定 `--model gpt-5.6-sol` 完成一次开发集复现，监管命令、任务快照和执行审计均能外部证明模型参数。结果为 20/30 精确、9 个相邻错误、1 个非相邻错误，正负结构和方向仍全部通过；重要性从首轮 3/5 降为 1/5，效果、持续性和史源各为 3/5，说明单次采样波动存在，但档位边界问题仍是主因。该响应使用 `development_replay_after_gold_opened`，即使达到阈值也不会产生 qualified 状态。
+
+耗时优先基准进一步比较同一四单元 workload 的 `1×4`、`2×2` 并发和 `4×1` 并发：墙钟分别为 67.544、48.747、30.283 秒，但后两者 token 分别增加 76.64% 和 195.44%，且本次拆分没有改善档位质量。运行策略因此采用“每批最多 4 单元、批间最多 4 路并发”，不把单单元调用设为默认；完整审计只保留在 `eval/appointment_delegation_factor_agent_qualification/latency_benchmark.json`。
+
 离线史源缓存与 Claim 抽取现已纳入 V4 配套服务源码治理：活动实现最终必须与 V4 位于同一 Git 历史，并按 `contracts/adapters/application/persistence/runtime` 现有边界选择性迁入。当前 `e27bbff` release 仍是过渡分支上的可追溯构建，禁止整体 merge；迁入时把按 rule code 分支的提示策略改为版本化 extraction profile，并在冻结请求 shadow 对比后完成不可变部署切换。
 
 Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用既有 SourcePassage v2 与确定性切片器，新建通用 SourceRevision 合同、fixture provider、幂等 ensure 用例、shadow repository 和薄 runtime。固定 Wikisource revision `2020238` 首次生成 1 个不可变 document 与 3 个 passage；无变化重跑精确复用同一响应，provider、网络、模型和数据库调用均为 0。该结果只证明离线合同纵切，不等于真实 adapter 或服务器切换完成。

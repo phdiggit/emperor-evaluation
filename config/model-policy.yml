@@ -17,6 +17,7 @@ model_policy:
     - person_identity_ambiguity_review
     - contradiction_detection_draft
     - rule_projection_draft_when_ambiguous
+    - rule_factor_option_proposal_when_ambiguous
     - reviewer_worklist_generation
     - shadow_difference_explanation_draft
 
@@ -39,6 +40,7 @@ model_policy:
     - merge_unanchored_legacy_claim_fanout
     - directly_publish_formal_judgment
     - directly_publish_formal_score
+    - supply_factor_numeric_value_or_score
     - create_or_merge_canonical_person_without_identity_gate
     - production_database_write
     - production_cutover_decision

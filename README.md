@@ -12,7 +12,10 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 模式：`offline-first + shadow-only`
 - G3A Episode Core Registry：已通过隔离 PostgreSQL shadow 验证
 - G3B Core Shadow Runner：已通过局部 semantic/evidence 失效与零写入重跑
-- `appointment_delegation` scored shadow：有限 factor schema、确定性 Judgment、4 个 shadow ScoreContribution 与统一 runner 已完成
+- `appointment_delegation` scored shadow：4 个既有 RuleEvidenceUnit 已接入 V3 语义等价 shadow；6 项 V3 因子、5 条正负 factor material、确定性乘法公式与事件—人物密度聚合已完成
+- V3 parity 增量复用：单个档位候选变化只重建对应 1 个 Judgment/Contribution，其余 3 个逐字段复用
+- Factor Observation 资格门：`codex-win factorization-jsonl` 已完成首轮独立盲评；合同、lineage、正负材料结构和方向均通过，但档位仅 19/30 精确、存在 1 个非相邻错误，`real_agent_qualified=false`；延迟基准确定默认保持每批最多 4 单元，并在批间最多 4 路并发
+- 模型固定复现：通过 `--respect-task-argv` 显式执行 `--model gpt-5.6-sol`，开发集为 20/30 精确，仍未达门槛；该复现不计为新资格盲评
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
 - 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录
@@ -33,15 +36,26 @@ SourcePassage / Assertion
 → 评分必要 Relation 或 scoring-arc-only
 → RuleEvidenceUnit draft
 → Projection draft
-→ 有限 factor values
-→ deterministic Judgment
+→ 有限 factor option proposal（智能体/人工不得写数值）
+→ deterministic V3 factor mapping / Judgment
 → shadow ScoreContribution / 皇帝级只读汇总
 ```
 
 统一命令已经能从冻结 manifest 生成三位皇帝的可追溯 scored shadow 报告，并能比较基线与候选因子观察的局部失效范围。两条命令均为离线、零模型、零数据库写入和非正式接受。
 
+Windows 仓库根目录先设置源码路径：
+
+```powershell
+$env:PYTHONPATH = "src"
+```
+
 ```bash
 python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
+python -m emperor_v4.eval appointment-delegation-v3-parity-shadow --manifest eval/appointment_delegation_v3_parity_demo/manifest.yml --output eval/appointment_delegation_v3_parity_demo/report.json
+python -m emperor_v4.eval appointment-delegation-factor-worklist --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_factor_agent_qualification/worklist.json
+python -m emperor_v4.eval appointment-delegation-factor-batch-plan --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --max-units-per-batch 4 --max-workers 4 --output tmp/factor_batch_plan.json
+python -m emperor_v4.eval appointment-delegation-factor-qualification --worklist eval/appointment_delegation_factor_agent_qualification/worklist.json --response eval/appointment_delegation_factor_agent_qualification/contract_fixture_response.json --gold-manifest eval/appointment_delegation_v3_parity_demo/manifest.yml --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_factor_agent_qualification/contract_fixture_report.json
+python -m emperor_v4.eval appointment-delegation-factor-qualification --worklist eval/appointment_delegation_factor_agent_qualification/worklist.json --response eval/appointment_delegation_factor_agent_qualification/independent_agent_response.json --gold-manifest eval/appointment_delegation_v3_parity_demo/manifest.yml --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_factor_agent_qualification/independent_agent_qualification_report.json
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --prior-record eval/appointment_delegation_roster_demo/report.json --state eval/appointment_delegation_roster_demo/state.json --output eval/appointment_delegation_roster_demo/report.json
@@ -54,13 +68,13 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 ## 下一份可见成果
 
-scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化增量编排，以及包 D 的 `talent_discovery` Claim 补抽、评分和 roster 增量复用均已完成。包 D 下一步是：
+V3 语义等价 scored shadow 已复用现有 SourcePassage、Assertion、HistoricalEpisode、RuleEvidenceUnit 与四维 Judgment readiness 观察。首轮独立 Factor Observation 盲评已由 `codex-win` 在禁用智能体网络工具、数据库和 Git 上下文的权限画像下运行；材料正负结构为 4/4、归因与规则上下文档位全部命中，但总精确率只有 63.33%，未通过 85% 门槛。随后用 `--respect-task-argv` 明确固定 `gpt-5.6-sol` 做开发集复现，精确率为 66.67%，仍有 1 个非相邻错误；该复现强制 `real_agent_qualified=false`。由于四单元 Gold 已用于对照，不能继续把同一集合当作独立资格集。下一步是：
 
-1. 以同一通用内核扩展 `team_building`，不复制独立流水线；
-2. 先冻结团队快照、团队成员集合和单人事件的去重边界；
-3. 保持 roster 增量、Claim/Assertion lineage 和跨规则重复结算审计；
+1. 把当前四单元冻结为策略开发集，针对任用效果、持续性和史源完整度的系统偏差修订 option guidance；
+2. 保留已全部命中的归因和规则上下文定义，不做无证据扩写；
+3. 冻结新策略后另建未参与调校的 sealed holdout，再按 `>= 85%` 精确率、`100%` 材料侧结构、零方向错误和零非相邻错误重新资格测试；
 4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；
-5. 在扩大名单前完成 Claim/Factor Observation 智能体的质量基准、并发与恢复资格测试。
+5. 通过质量基准后再以相符输入类型扩展其他规则；`team_building` 不复用单事件 factor schema。
 
 在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
 
@@ -128,6 +142,8 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 - G3C RuleEvidenceUnit shadow：`passed`
 - G3D—G3H Judgment readiness 与 delta：`passed_shadow_only`
 - Factor schema：`passed_shadow_demo_only`
+- V3 semantic parity factor/schema/formula：`passed_shadow_demo_only`
+- Factor Judgment proposal contract：`passed_shadow_demo_only`
 - Deterministic Judgment evaluator：`passed_shadow_demo_only`
 - ScoreContribution：`passed_shadow_demo_only`
 - Integrated scored shadow runner：`passed_shadow_demo_only`
@@ -135,5 +151,5 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 - Offline roster scored runner：`passed_cache_ensure_shadow`
 - Persistent incremental orchestration：`passed_shadow_runtime`
 - Service scaling hardening：`code_ready_pending_test_and_cutover`
-- Factor Observation agent：`not_implemented_or_qualified`
+- Factor Observation agent：`independent_blind_run_completed_not_qualified`
 - 正式评分和生产切换：`blocked`

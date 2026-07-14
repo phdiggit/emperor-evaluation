@@ -1,0 +1,72 @@
+{
+  "schema_version": "factor-observation-agent-execution-audit-v1",
+  "status": "independent_blind_run_completed_not_qualified",
+  "task_family": "V4-AD-FACTOR-BLIND",
+  "provider": "codex_chatgpt_login",
+  "response_declared_model": "gpt-5.6-sol",
+  "runtime_model_argument": null,
+  "runtime_model_verified": false,
+  "runner": "codex-win 0.1.0",
+  "runner_preset": "factorization-jsonl",
+  "permission_profile": "tmp-jsonl-review",
+  "git_snapshot": "none",
+  "agent_tool_capabilities": {
+    "network": false,
+    "database": false,
+    "git_read": false,
+    "git_write": false
+  },
+  "attempts": [
+    {
+      "task_code": "V4-AD-FACTOR-BLIND-001",
+      "runner_status": "failed",
+      "runner_error_type": "policy_denied",
+      "process_returncode": 0,
+      "duration_sec": 102.212,
+      "input_tokens": 20529,
+      "cached_input_tokens": 0,
+      "output_tokens": 3372,
+      "reasoning_output_tokens": 177,
+      "total_tokens": 23901,
+      "output_recovered": true,
+      "business_contract_status": "rejected_extra_root_field",
+      "gold_comparison_performed": false
+    },
+    {
+      "task_code": "V4-AD-FACTOR-BLIND-002",
+      "runner_status": "failed",
+      "runner_error_type": "codex_event_failed",
+      "process_returncode": 0,
+      "duration_sec": 163.664,
+      "input_tokens": 22627,
+      "cached_input_tokens": 5888,
+      "output_tokens": 1686,
+      "reasoning_output_tokens": 451,
+      "total_tokens": 24313,
+      "output_recovered": true,
+      "business_contract_status": "rejected_declaration_field_names",
+      "gold_comparison_performed": false
+    },
+    {
+      "task_code": "V4-AD-FACTOR-BLIND-003",
+      "runner_status": "succeeded",
+      "runner_error_type": null,
+      "process_returncode": 0,
+      "duration_sec": 71.109,
+      "input_tokens": 21036,
+      "cached_input_tokens": 8960,
+      "output_tokens": 3206,
+      "reasoning_output_tokens": 47,
+      "total_tokens": 24242,
+      "output_recovered": true,
+      "business_contract_status": "passed",
+      "gold_comparison_performed": true,
+      "qualification_status": "factor_observation_agent_not_qualified"
+    }
+  ],
+  "accepted_response_attempt": "V4-AD-FACTOR-BLIND-003",
+  "model_call_count": 3,
+  "database_write_count": 0,
+  "formal_acceptance_performed": false,
+  "real_agent_qualified": false
+}

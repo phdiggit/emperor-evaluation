@@ -1,0 +1,467 @@
+from __future__ import annotations
+
+from copy import deepcopy
+import json
+from pathlib import Path
+import sys
+
+import pytest
+import yaml
+
+from emperor_v4.application.appointment_delegation_v3_parity_runner import (
+    run_appointment_delegation_v3_parity_shadow,
+)
+from emperor_v4.eval import main as eval_main
+from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
+from emperor_v4.evaluation.appointment_delegation_v3_parity import (
+    validate_parity_manifest,
+)
+from emperor_v4.evaluation.factor_observation_agent import (
+    build_factor_observation_batch_plan,
+    build_contract_fixture_response,
+    build_factor_observation_worklist,
+    evaluate_factor_observation_qualification,
+    merge_factor_observation_batch_responses,
+    validate_factor_observation_response,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PARITY_MANIFEST = (
+    ROOT / "eval" / "appointment_delegation_v3_parity_demo" / "manifest.yml"
+)
+SOURCE_MANIFEST = (
+    ROOT / "eval" / "appointment_delegation_scored_demo" / "manifest.yml"
+)
+
+
+def _yaml(path: Path) -> dict:
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def test_v3_parity_shadow_restores_factor_resolution_and_reuses_v4_units(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    report = run_appointment_delegation_v3_parity_shadow(PARITY_MANIFEST)
+
+    assert report["status"] == "appointment_delegation_v3_parity_shadow_ready"
+    assert report["summary"] == {
+        "ruler_count": 3,
+        "rule_evidence_unit_count": 4,
+        "judgment_proposal_count": 4,
+        "score_contribution_count": 4,
+        "factor_material_count": 5,
+        "mixed_unit_count": 1,
+        "baseline_distinct_unit_score_count": 2,
+        "v3_parity_distinct_unit_score_count": 4,
+        "model_call_count": 0,
+        "database_write_count": 0,
+        "formal_score_write_count": 0,
+        "rebuilt_judgment_count": 4,
+        "reused_judgment_count": 0,
+        "rebuilt_score_contribution_count": 4,
+        "reused_score_contribution_count": 0,
+    }
+    assert report["migration_contract"]["invalidated_from"] == "Judgment"
+    assert report["migration_contract"]["agent_output_may_supply_numeric_values"] is False
+    assert all(
+        row["source_observation_fingerprint"]
+        and row["prior_v4_observations"]
+        and row["formal_acceptance_performed"] is False
+        for row in report["judgments"]
+    )
+
+    comparison = {row["person"]: row for row in report["baseline_comparison"]}
+    assert comparison["陈平"]["limited_factor_v1_normalized_contribution"] == 1.0
+    assert comparison["韩信"]["limited_factor_v1_normalized_contribution"] == 1.0
+    assert comparison["魏徵"]["limited_factor_v1_normalized_contribution"] == 1.0
+    assert len(
+        {
+            comparison[name]["v3_parity_raw_net_before_density"]
+            for name in ("陈平", "韩信", "魏徵")
+        }
+    ) == 3
+    assert comparison["陈平"]["v3_parity_raw_net_before_density"] > comparison["魏徵"]["v3_parity_raw_net_before_density"] > comparison["韩信"]["v3_parity_raw_net_before_density"]
+
+    lanyu = next(row for row in report["judgments"] if row["person"] == "蓝玉")
+    assert {row["side"] for row in lanyu["factor_materials"]} == {
+        "positive",
+        "negative",
+    }
+    assert report["side_effect_audit"] == {
+        "offline": True,
+        "report_only": True,
+        "model_call_count": 0,
+        "database_write_count": 0,
+        "formal_acceptance_performed": False,
+        "formal_scoring_performed": False,
+    }
+    unsigned = dict(report)
+    stored_hash = unsigned.pop("report_sha256")
+    assert stored_hash == canonical_hash(unsigned)
+
+    output = tmp_path / "v3-parity-report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "appointment-delegation-v3-parity-shadow",
+            "--manifest",
+            str(PARITY_MANIFEST),
+            "--output",
+            str(output),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(output.read_text(encoding="utf-8")) == report
+
+
+def test_v3_parity_proposal_cannot_supply_numeric_values() -> None:
+    manifest = _yaml(PARITY_MANIFEST)
+    source = _yaml(SOURCE_MANIFEST)
+    invalid = deepcopy(manifest)
+    invalid["factor_judgment_proposals"][0]["factor_materials"][0]["factors"][
+        "appointment_importance"
+    ]["value_num"] = 99
+
+    with pytest.raises(ValueError, match="不得携带数值"):
+        validate_parity_manifest(invalid, source)
+
+
+def test_v3_parity_observation_change_invalidates_only_affected_judgment() -> None:
+    manifest = _yaml(PARITY_MANIFEST)
+    source = _yaml(SOURCE_MANIFEST)
+    changed = deepcopy(source)
+    changed["rule_evidence_units"][0]["factor_observations"]["authority_clarity"][
+        "reason"
+    ] += "（新证据改变观察）"
+
+    with pytest.raises(ValueError, match="fingerprint 非法"):
+        validate_parity_manifest(manifest, changed)
+
+
+def test_v3_parity_proposals_must_cover_every_rule_evidence_unit_once() -> None:
+    manifest = _yaml(PARITY_MANIFEST)
+    source = _yaml(SOURCE_MANIFEST)
+    missing = deepcopy(manifest)
+    missing["factor_judgment_proposals"].pop()
+
+    with pytest.raises(ValueError, match="完整且唯一覆盖"):
+        validate_parity_manifest(missing, source)
+
+
+def test_v3_parity_factor_change_rebuilds_only_one_judgment(
+    tmp_path: Path,
+) -> None:
+    baseline = run_appointment_delegation_v3_parity_shadow(PARITY_MANIFEST)
+    prior_path = tmp_path / "prior-report.json"
+    prior_path.write_text(
+        json.dumps(baseline, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    candidate = _yaml(PARITY_MANIFEST)
+    candidate["manifest_code"] = "appointment_delegation_v3_parity_candidate_v1"
+    candidate["source_scored_manifest_path"] = str(SOURCE_MANIFEST.resolve())
+    hanxin = next(
+        row
+        for row in candidate["factor_judgment_proposals"]
+        if row["unit_ref"] == "REU-LB-HANXIN-QI-AUTHORITY-v1"
+    )
+    continuity = hanxin["factor_materials"][0]["factors"]["continuity_factor"]
+    continuity["option_code"] = "stable"
+    continuity["reason"] = "候选差异：把当前职责反馈按稳定授权复核。"
+    candidate_path = tmp_path / "candidate.yml"
+    candidate_path.write_text(
+        yaml.safe_dump(candidate, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    report = run_appointment_delegation_v3_parity_shadow(
+        candidate_path, prior_report_path=prior_path
+    )
+
+    assert report["summary"]["rebuilt_judgment_count"] == 1
+    assert report["summary"]["reused_judgment_count"] == 3
+    assert report["summary"]["rebuilt_score_contribution_count"] == 1
+    assert report["summary"]["reused_score_contribution_count"] == 3
+    assert report["incremental_reuse"] == {
+        "rebuilt_judgment_unit_refs": ["REU-LB-HANXIN-QI-AUTHORITY-v1"],
+        "reused_judgment_unit_refs": [
+            "REU-LB-CHENPING-AUTHORIZATION-v1",
+            "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+            "REU-ZYZ-LANYU-AUTHORITY-v1",
+        ],
+        "rebuilt_score_contribution_unit_refs": [
+            "REU-LB-HANXIN-QI-AUTHORITY-v1"
+        ],
+        "reused_score_contribution_unit_refs": [
+            "REU-LB-CHENPING-AUTHORIZATION-v1",
+            "REU-LSM-WEIZHENG-APPOINTMENT-v1",
+            "REU-ZYZ-LANYU-AUTHORITY-v1",
+        ],
+        "unexpected_invalidation_count": 0,
+    }
+    prior_by_unit = {
+        row["rule_evidence_unit_ref"]: row for row in baseline["judgments"]
+    }
+    current_by_unit = {
+        row["rule_evidence_unit_ref"]: row for row in report["judgments"]
+    }
+    for unit_ref in report["incremental_reuse"]["reused_judgment_unit_refs"]:
+        assert current_by_unit[unit_ref] == prior_by_unit[unit_ref]
+
+
+def test_factor_observation_worklist_reuses_v4_judge_without_exposing_gold() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+
+    assert worklist["status"] == "factor_observation_blind_worklist_ready"
+    assert len(worklist["tasks"]) == 4
+    assert worklist["input_boundary"] == {
+        "uses_v4_judge_observations": True,
+        "uses_assertion_lineage": True,
+        "v3_factor_gold_exposed": False,
+        "numeric_factor_values_exposed": False,
+        "scores_or_rankings_exposed": False,
+    }
+    serialized = json.dumps(
+        {
+            "tasks": worklist["tasks"],
+            "factor_option_catalog": worklist["factor_option_catalog"],
+        },
+        ensure_ascii=False,
+    )
+    assert "human_reviewed_shadow" not in serialized
+    assert "existing_v4_observations_plus_v3_calibration" not in serialized
+    assert "deterministic_value" not in serialized
+    assert '"1.4"' not in serialized
+    assert all(
+        task["prior_v4_judge_observations"]
+        and task["assertions"]
+        and task["episodes"]
+        for task in worklist["tasks"]
+    )
+
+
+def test_factor_observation_batch_plan_keeps_four_unit_microbatches_parallel() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    plan = build_factor_observation_batch_plan(
+        source, max_units_per_batch=2, max_workers=4
+    )
+
+    assert plan["status"] == "factor_observation_batch_plan_ready"
+    assert plan["scheduling_policy"] == {
+        "optimization_objective": "wall_clock_latency_first",
+        "max_units_per_batch": 2,
+        "requested_max_workers": 4,
+        "effective_max_workers": 2,
+        "batch_count": 2,
+        "estimated_parallel_waves": 1,
+        "token_accounting_required": True,
+        "quality_gate_required": True,
+    }
+    unit_refs = [
+        unit_ref for batch in plan["batches"] for unit_ref in batch["unit_refs"]
+    ]
+    assert unit_refs == [
+        unit["unit_ref"] for unit in source["rule_evidence_units"]
+    ]
+    assert len(unit_refs) == len(set(unit_refs)) == 4
+    assert all(len(batch["unit_refs"]) == 2 for batch in plan["batches"])
+    assert len(
+        {batch["worklist"]["worklist_sha256"] for batch in plan["batches"]}
+    ) == 2
+    assert plan["side_effect_audit"]["model_call_count"] == 0
+
+
+def test_factor_observation_batch_responses_merge_into_original_worklist() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    plan = build_factor_observation_batch_plan(
+        source, max_units_per_batch=2, max_workers=2
+    )
+    responses = []
+    for batch in plan["batches"]:
+        batch_gold = deepcopy(gold)
+        batch_gold["factor_judgment_proposals"] = [
+            row
+            for row in gold["factor_judgment_proposals"]
+            if row["unit_ref"] in batch["unit_refs"]
+        ]
+        responses.append(build_contract_fixture_response(batch["worklist"], batch_gold))
+
+    merged = merge_factor_observation_batch_responses(plan, responses, source)
+    full_worklist = build_factor_observation_worklist(source)
+
+    assert merged == build_contract_fixture_response(full_worklist, gold)
+    assert [row["unit_ref"] for row in merged["results"]] == [
+        task["unit_ref"] for task in full_worklist["tasks"]
+    ]
+
+
+def test_factor_observation_contract_fixture_only_qualifies_harness() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    fixture = build_contract_fixture_response(worklist, gold)
+
+    report = evaluate_factor_observation_qualification(
+        worklist, fixture, gold, source
+    )
+
+    assert report["status"] == "factor_observation_qualification_harness_ready"
+    assert report["metrics"]["factor_comparison_count"] == 30
+    assert report["metrics"]["factor_exact_match_rate"] == 1.0
+    assert all(
+        row["comparison_count"] == 5 and row["exact_rate"] == 1.0
+        for row in report["metrics"]["factor_breakdown"].values()
+    )
+    assert report["metrics"]["material_side_structure_exact_rate"] == 1.0
+    assert report["threshold_passed"] is True
+    assert report["contract_fixture_passed"] is True
+    assert report["real_agent_qualified"] is False
+    assert report["next_gate"] == "independent_blind_agent_run"
+    assert report["side_effect_audit"]["score_computation_performed"] is False
+
+
+def test_factor_observation_independent_exact_response_can_pass_gate() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    response = build_contract_fixture_response(worklist, gold)
+    response["response_origin"] = "independent_blind_agent_run"
+    response["provider"] = "test_provider"
+    response["model"] = "test_model"
+    response["blind_run_declarations"]["v3_factor_gold_accessed"] = False
+    response["blind_run_declarations"]["old_factor_proposals_accessed"] = False
+
+    report = evaluate_factor_observation_qualification(
+        worklist, response, gold, source
+    )
+
+    assert report["status"] == "factor_observation_agent_qualified"
+    assert report["real_agent_qualified"] is True
+    assert report["contract_fixture_passed"] is False
+
+
+def test_factor_observation_development_replay_never_qualifies() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    response = build_contract_fixture_response(worklist, gold)
+    response["response_origin"] = "development_replay_after_gold_opened"
+    response["provider"] = "test_provider"
+    response["model"] = "explicit_test_model"
+    response["blind_run_declarations"]["v3_factor_gold_accessed"] = False
+    response["blind_run_declarations"]["old_factor_proposals_accessed"] = False
+
+    report = evaluate_factor_observation_qualification(
+        worklist, response, gold, source
+    )
+
+    assert report["threshold_passed"] is True
+    assert report["status"] == "factor_observation_development_replay_completed"
+    assert report["contract_fixture_passed"] is False
+    assert report["real_agent_qualified"] is False
+    assert report["next_gate"] == "freeze_policy_then_use_new_sealed_holdout"
+
+
+def test_factor_observation_response_rejects_numeric_injection() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    response = build_contract_fixture_response(worklist, gold)
+    response["results"][0]["factor_materials"][0]["factors"][
+        "appointment_importance"
+    ]["numeric_value"] = 99
+
+    with pytest.raises(ValueError, match="不得携带数值或排名字段"):
+        validate_factor_observation_response(worklist, response, source)
+
+    unknown_numeric = build_contract_fixture_response(worklist, gold)
+    unknown_numeric["results"][0]["factor_materials"][0]["confidence"] = 0.99
+    with pytest.raises(ValueError, match="字段必须严格匹配"):
+        validate_factor_observation_response(worklist, unknown_numeric, source)
+
+
+def test_factor_observation_response_rejects_gold_leakage_claim_in_blind_run() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    response = build_contract_fixture_response(worklist, gold)
+    response["response_origin"] = "independent_blind_agent_run"
+
+    with pytest.raises(ValueError, match="盲评与副作用声明非法"):
+        validate_factor_observation_response(worklist, response, source)
+
+
+def test_factor_observation_response_requires_complete_coverage_and_direction() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    missing = build_contract_fixture_response(worklist, gold)
+    missing["results"].pop()
+
+    with pytest.raises(ValueError, match="完整且唯一覆盖"):
+        validate_factor_observation_response(worklist, missing, source)
+
+    wrong_direction = build_contract_fixture_response(worklist, gold)
+    wrong_direction["results"][0]["factor_materials"][0]["factors"][
+        "appointment_effect"
+    ]["option_code"] = "poor_result"
+    with pytest.raises(ValueError, match="方向冲突"):
+        validate_factor_observation_response(worklist, wrong_direction, source)
+
+
+def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    fixture = build_contract_fixture_response(worklist, gold)
+    worklist_path = tmp_path / "worklist.json"
+    response_path = tmp_path / "response.json"
+    report_path = tmp_path / "report.json"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "appointment-delegation-factor-worklist",
+            "--source-manifest",
+            str(SOURCE_MANIFEST),
+            "--output",
+            str(worklist_path),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(worklist_path.read_text(encoding="utf-8")) == worklist
+    response_path.write_text(
+        json.dumps(fixture, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
+            "appointment-delegation-factor-qualification",
+            "--worklist",
+            str(worklist_path),
+            "--response",
+            str(response_path),
+            "--gold-manifest",
+            str(PARITY_MANIFEST),
+            "--source-manifest",
+            str(SOURCE_MANIFEST),
+            "--output",
+            str(report_path),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(report_path.read_text(encoding="utf-8"))[
+        "status"
+    ] == "factor_observation_qualification_harness_ready"

@@ -1,0 +1,78 @@
+schema_version: 1
+status: independent_blind_run_completed_not_qualified
+task_code: V4-AD-FACTOR-OBSERVATION-QUALIFICATION
+rule_code: appointment_delegation
+source_manifest_path: ../appointment_delegation_scored_demo/manifest.yml
+human_calibration_gold_path: ../appointment_delegation_v3_parity_demo/manifest.yml
+worklist_path: worklist.json
+contract_fixture_response_path: contract_fixture_response.json
+contract_fixture_report_path: contract_fixture_report.json
+independent_agent_response_path: independent_agent_response.json
+independent_agent_qualification_report_path: independent_agent_qualification_report.json
+independent_agent_execution_audit_path: independent_agent_execution_audit.json
+pinned_development_response_path: pinned_development_response.json
+pinned_development_report_path: pinned_development_report.json
+pinned_development_execution_audit_path: pinned_development_execution_audit.json
+latency_benchmark_path: latency_benchmark.json
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: true
+  model_call_scope: factor_observation_qualification_only
+  database_writes_allowed: false
+  formal_scoring_allowed: false
+qualification_boundary:
+  worklist_exposes_v3_factor_gold: false
+  worklist_exposes_numeric_factor_values: false
+  contract_fixture_is_independent_agent_evidence: false
+  real_agent_qualification_requires_independent_blind_run: true
+qualification_result:
+  provider: codex_chatgpt_login
+  response_declared_model: gpt-5.6-sol
+  runtime_model_argument: null
+  runtime_model_verified: false
+  contract_valid: true
+  material_side_structure_exact_rate: 1.0
+  factor_exact_match_rate: 0.6333
+  adjacent_error_count: 10
+  nonadjacent_error_count: 1
+  direction_error_count: 0
+  real_agent_qualified: false
+pinned_development_replay:
+  task_code: V4-AD-FACTOR-DEV-PINNED-004
+  model: gpt-5.6-sol
+  runtime_model_argument: gpt-5.6-sol
+  runtime_model_verified: true
+  contract_valid: true
+  material_side_structure_exact_rate: 1.0
+  factor_exact_match_rate: 0.6667
+  adjacent_error_count: 9
+  nonadjacent_error_count: 1
+  direction_error_count: 0
+  threshold_passed: false
+  real_agent_qualified: false
+next_sealed_holdout_execution_contract:
+  runner: codex-win
+  collect_required: true
+  explicit_model_argument_required: true
+  qualification_forbidden_when_metrics_missing: true
+  required_metrics:
+    - task_code
+    - runner_status
+    - duration_sec
+    - input_tokens
+    - cached_input_tokens
+    - output_tokens
+    - reasoning_output_tokens
+    - total_tokens
+    - output_recovered
+    - error_type
+latency_policy:
+  optimization_objective: wall_clock_latency_first
+  max_units_per_batch: 4
+  max_workers: 4
+  benchmark_wall_clock_sec:
+    one_batch_of_four: 67.544
+    two_batches_of_two_parallel: 48.747
+    four_single_unit_batches_parallel: 30.283
+  decision: keep_four_unit_microbatches_and_parallelize_across_batches
+next_gate: revise_factor_observation_policy_then_use_new_sealed_holdout

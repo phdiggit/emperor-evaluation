@@ -66,6 +66,15 @@ from emperor_v4.application.appointment_delegation_roster_runner import (
     run_appointment_delegation_roster_shadow,
     run_persistent_appointment_delegation_roster_shadow,
 )
+from emperor_v4.application.appointment_delegation_v3_parity_runner import (
+    run_appointment_delegation_v3_parity_shadow,
+)
+from emperor_v4.application.factor_observation_qualification_runner import (
+    run_factor_observation_batch_plan,
+    run_factor_observation_batch_merge,
+    run_factor_observation_qualification,
+    run_factor_observation_worklist,
+)
 from emperor_v4.application.talent_discovery_shadow_runner import (
     run_talent_discovery_shadow,
 )
@@ -400,6 +409,41 @@ def _parser() -> argparse.ArgumentParser:
     scored_shadow = subparsers.add_parser("appointment-delegation-shadow")
     scored_shadow.add_argument("--manifest", type=Path, required=True)
     scored_shadow.add_argument("--output", type=Path)
+    parity_shadow = subparsers.add_parser(
+        "appointment-delegation-v3-parity-shadow"
+    )
+    parity_shadow.add_argument("--manifest", type=Path, required=True)
+    parity_shadow.add_argument("--prior-report", type=Path)
+    parity_shadow.add_argument("--output", type=Path)
+    factor_worklist = subparsers.add_parser(
+        "appointment-delegation-factor-worklist"
+    )
+    factor_worklist.add_argument("--source-manifest", type=Path, required=True)
+    factor_worklist.add_argument("--output", type=Path)
+    factor_batch_plan = subparsers.add_parser(
+        "appointment-delegation-factor-batch-plan"
+    )
+    factor_batch_plan.add_argument("--source-manifest", type=Path, required=True)
+    factor_batch_plan.add_argument("--max-units-per-batch", type=int, default=4)
+    factor_batch_plan.add_argument("--max-workers", type=int, default=4)
+    factor_batch_plan.add_argument("--output", type=Path)
+    factor_batch_merge = subparsers.add_parser(
+        "appointment-delegation-factor-batch-merge"
+    )
+    factor_batch_merge.add_argument("--batch-plan", type=Path, required=True)
+    factor_batch_merge.add_argument(
+        "--response", type=Path, action="append", required=True
+    )
+    factor_batch_merge.add_argument("--source-manifest", type=Path, required=True)
+    factor_batch_merge.add_argument("--output", type=Path)
+    factor_qualification = subparsers.add_parser(
+        "appointment-delegation-factor-qualification"
+    )
+    factor_qualification.add_argument("--worklist", type=Path, required=True)
+    factor_qualification.add_argument("--response", type=Path, required=True)
+    factor_qualification.add_argument("--gold-manifest", type=Path, required=True)
+    factor_qualification.add_argument("--source-manifest", type=Path, required=True)
+    factor_qualification.add_argument("--output", type=Path)
     talent_shadow = subparsers.add_parser("talent-discovery-shadow")
     talent_shadow.add_argument("--manifest", type=Path, required=True)
     talent_shadow.add_argument("--output", type=Path)
@@ -552,6 +596,31 @@ def main() -> int:
         )
     elif args.command == "appointment-delegation-shadow":
         report = run_appointment_delegation_shadow(args.manifest)
+    elif args.command == "appointment-delegation-v3-parity-shadow":
+        report = run_appointment_delegation_v3_parity_shadow(
+            args.manifest, prior_report_path=args.prior_report
+        )
+    elif args.command == "appointment-delegation-factor-worklist":
+        report = run_factor_observation_worklist(args.source_manifest)
+    elif args.command == "appointment-delegation-factor-batch-plan":
+        report = run_factor_observation_batch_plan(
+            args.source_manifest,
+            max_units_per_batch=args.max_units_per_batch,
+            max_workers=args.max_workers,
+        )
+    elif args.command == "appointment-delegation-factor-batch-merge":
+        report = run_factor_observation_batch_merge(
+            args.batch_plan,
+            tuple(args.response),
+            args.source_manifest,
+        )
+    elif args.command == "appointment-delegation-factor-qualification":
+        report = run_factor_observation_qualification(
+            args.worklist,
+            args.response,
+            args.gold_manifest,
+            args.source_manifest,
+        )
     elif args.command == "talent-discovery-shadow":
         report = run_talent_discovery_shadow(args.manifest)
     elif args.command == "talent-discovery-roster-shadow":
