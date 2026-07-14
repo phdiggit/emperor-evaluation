@@ -12,7 +12,7 @@ Environment=PYTHONPATH=/opt/emperor-evaluation-v4/claim-extractor/current/src
 Environment=CODEX_HOME=/var/lib/emperor-v4/claim-extractor/codex
 RuntimeDirectory=emperor-v4-claim-extractor
 RuntimeDirectoryMode=0750
-ExecStart=/opt/emperor-evaluation-v4/claim-extractor/venv/bin/python -m emperor_v4.runtime.claim_extractor --profiles config/claim-extraction-profiles.yml --profile ${EMPEROR_EVAL_V4_CLAIM_PROFILE} --provider codex --output-schema config/claim-extraction-output.schema.json --codex-bin ${EMPEROR_EVAL_V4_CODEX_BIN} --model ${EMPEROR_EVAL_V4_CODEX_MODEL} --reasoning-effort ${EMPEROR_EVAL_V4_CODEX_REASONING_EFFORT} --timeout-seconds ${EMPEROR_EVAL_V4_CODEX_TIMEOUT_SECONDS} --service-release-sha ${EMPEROR_EVAL_V4_RELEASE_SHA} --worker-id %H-claim-extractor --output /run/emperor-v4-claim-extractor/last-tick.json
+ExecStart=/opt/emperor-evaluation-v4/claim-extractor/venv/bin/python -m emperor_v4.runtime.claim_extractor --profiles config/claim-extraction-profiles.yml --provider codex --output-schema config/claim-extraction-output.schema.json --codex-bin ${EMPEROR_EVAL_V4_CODEX_BIN} --model ${EMPEROR_EVAL_V4_CODEX_MODEL} --reasoning-effort ${EMPEROR_EVAL_V4_CODEX_REASONING_EFFORT} --timeout-seconds ${EMPEROR_EVAL_V4_CODEX_TIMEOUT_SECONDS} --service-release-sha ${EMPEROR_EVAL_V4_RELEASE_SHA} --worker-id %H-claim-extractor --output /run/emperor-v4-claim-extractor/last-tick.json
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
