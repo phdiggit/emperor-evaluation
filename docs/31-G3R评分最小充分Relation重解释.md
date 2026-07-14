@@ -147,6 +147,8 @@ Factor Observation 资格 harness 已形成同一纵向链：从现有 V4 judge 
 
 至此组合中的 32 个 RuleEvidenceUnit 已全部开封，但“开封完成”不等于“生产代表性完成”。按候选实际史源和语义重新核对后，组合仍缺缺失敏感连续性、单次任务、多源 join 和冲突证据四个最低配额；正式资格和 45 分写入继续关闭。完整身份表、门禁结果与 13 个模型任务的耗时/token 汇总统一保存在 `eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json`，不再新增阶段文档。
 
+第五项 B 的后续测试集现改由通用准入策略控制，而不是复制 32 单元组合。确定性报告判定当前仅 `talent_discovery` 可立即建立 8 个开放开发单元；其 4 个 sealed 单元在策略与 Gold 冻结前授权数为 0。`tolerate_talent`、`anti_nepotism` 必须先冻结各自因果与聚合去重合同，`team_building` 则等待 canonical 人物集合、PersonProfileSnapshot 和皇帝时间窗合同。当前开放集纯模型估算为 2 次调用、1 个并发波次、107.369 秒和 60,796 token；全部四条后续 rule 的 858.952 秒与 486,368 token 只是完整流水线上界，不是当前执行授权，且均不含人工回源和 Gold 审查。
+
 离线史源缓存与 Claim 抽取现已纳入 V4 配套服务源码治理：活动实现最终必须与 V4 位于同一 Git 历史，并按 `contracts/adapters/application/persistence/runtime` 现有边界选择性迁入。当前 `e27bbff` release 仍是过渡分支上的可追溯构建，禁止整体 merge；迁入时把按 rule code 分支的提示策略改为版本化 extraction profile，并在冻结请求 shadow 对比后完成不可变部署切换。
 
 Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用既有 SourcePassage v2 与确定性切片器，新建通用 SourceRevision 合同、fixture provider、幂等 ensure 用例、shadow repository 和薄 runtime。固定 Wikisource revision `2020238` 首次生成 1 个不可变 document 与 3 个 passage；无变化重跑精确复用同一响应，provider、网络、模型和数据库调用均为 0。该结果只证明离线合同纵切，不等于真实 adapter 或服务器切换完成。

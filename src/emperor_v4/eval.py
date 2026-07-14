@@ -79,6 +79,9 @@ from emperor_v4.application.factor_observation_qualification_runner import (
 from emperor_v4.evaluation.factor_representativeness import (
     evaluate_factor_representativeness_plan,
 )
+from emperor_v4.evaluation.rule_test_set_admission import (
+    evaluate_rule_test_set_admission,
+)
 from emperor_v4.application.talent_discovery_shadow_runner import (
     run_talent_discovery_shadow,
 )
@@ -463,6 +466,9 @@ def _parser() -> argparse.ArgumentParser:
     )
     factor_representativeness.add_argument("--manifest", type=Path, required=True)
     factor_representativeness.add_argument("--output", type=Path)
+    rule_test_set_admission = subparsers.add_parser("rule-test-set-admission")
+    rule_test_set_admission.add_argument("--policy", type=Path, required=True)
+    rule_test_set_admission.add_argument("--output", type=Path)
     talent_shadow = subparsers.add_parser("talent-discovery-shadow")
     talent_shadow.add_argument("--manifest", type=Path, required=True)
     talent_shadow.add_argument("--output", type=Path)
@@ -650,6 +656,10 @@ def main() -> int:
     elif args.command == "appointment-delegation-factor-representativeness":
         report = evaluate_factor_representativeness_plan(
             yaml.safe_load(args.manifest.read_text(encoding="utf-8"))
+        )
+    elif args.command == "rule-test-set-admission":
+        report = evaluate_rule_test_set_admission(
+            yaml.safe_load(args.policy.read_text(encoding="utf-8"))
         )
     elif args.command == "talent-discovery-shadow":
         report = run_talent_discovery_shadow(args.manifest)

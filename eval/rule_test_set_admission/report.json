@@ -1,0 +1,223 @@
+{
+  "currently_ready_open_model_performance_estimate": {
+    "model_call_count": 2,
+    "parallel_wave_count": 1,
+    "source_and_human_gold_review_excluded": true,
+    "total_tokens": 60796,
+    "wall_clock_duration_sec": 107.369
+  },
+  "database_write_count": 0,
+  "formal_scoring_allowed": false,
+  "full_pipeline_model_performance_upper_bound": {
+    "model_call_count": 16,
+    "parallel_wave_count_across_sequential_rules": 8,
+    "source_and_human_gold_review_excluded": true,
+    "total_tokens": 486368,
+    "wall_clock_duration_sec": 858.952
+  },
+  "item_code": "i5b_talent_and_delegation",
+  "policy_version": "i5b-rule-test-set-admission-v1",
+  "report_sha256": "5fd82297169f4ece5f6cf573e156f470374f32dbd6797ef0312fa92b256ea031",
+  "rules": [
+    {
+      "admission_decision": "completed_not_qualified",
+      "current_stage": "portfolio_32_opened_not_qualified",
+      "existing_regression_units": 32,
+      "input_type": "hybrid",
+      "known_blockers": [
+        "sealed 中 3 个单元材料侧结构与 Gold 不一致",
+        "32 单元组合仍缺 4 个代表性最低配额"
+      ],
+      "missing_prerequisites": [],
+      "model_performance_estimate": {
+        "model_call_count": 0,
+        "parallel_wave_count": 0,
+        "source_and_human_gold_review_excluded": true,
+        "total_tokens": 0,
+        "wall_clock_duration_sec": 0.0
+      },
+      "next_action": "只在新开放材料上修复材料弧结构；不得重跑已开封 sealed",
+      "planned_open_development_units": 0,
+      "planned_sealed_holdout_units": 0,
+      "priority": 1,
+      "rule_code": "appointment_delegation",
+      "rule_specific_requirements": [
+        "任用、责任域和反馈形成最小充分授权弧",
+        "同侧多个授权弧的拆分与合并必须先由确定性合同约束",
+        "正负材料分开且不重复结算战役或治理成果"
+      ],
+      "sizing_profile": null,
+      "test_unit_type": "rule_evidence_unit"
+    },
+    {
+      "admission_decision": "ready_to_build_open_set",
+      "current_stage": "first_vertical_slice_passed",
+      "existing_regression_units": 4,
+      "input_type": "episode",
+      "known_blockers": [
+        "现有四单元只有两条适用正例，尚无独立 sealed"
+      ],
+      "missing_prerequisites": [],
+      "model_performance_estimate": {
+        "model_call_count": 3,
+        "parallel_wave_count": 2,
+        "source_and_human_gold_review_excluded": true,
+        "total_tokens": 91194,
+        "wall_clock_duration_sec": 214.738
+      },
+      "next_action": "建立 8 个开放开发单元，先覆盖新识别、荐举、跨阵营和不适用反例",
+      "planned_open_development_units": 8,
+      "planned_sealed_holdout_units": 4,
+      "priority": 2,
+      "rule_code": "talent_discovery",
+      "rule_specific_requirements": [
+        "证明识别依据发生在正式任用和后世成名之前",
+        "普通升迁和既有核心人物授权必须进入不适用反例",
+        "与 appointment_delegation 只共享证据，不重复结算岗位适配和成果"
+      ],
+      "sizing_profile": "standard_event",
+      "test_unit_type": "rule_evidence_unit"
+    },
+    {
+      "admission_decision": "contract_required",
+      "current_stage": "contract_only",
+      "existing_regression_units": 0,
+      "input_type": "episode",
+      "known_blockers": [
+        "负向因果和跨 episode 连续性尚未形成正式合同"
+      ],
+      "missing_prerequisites": [
+        "rule_contract",
+        "factor_schema",
+        "negative_causality_gate"
+      ],
+      "model_performance_estimate": {
+        "model_call_count": 5,
+        "parallel_wave_count": 2,
+        "source_and_human_gold_review_excluded": true,
+        "total_tokens": 151990,
+        "wall_clock_duration_sec": 214.738
+      },
+      "next_action": "先冻结适用性和负向因果合同，再建立 12 个开放开发单元",
+      "planned_open_development_units": 12,
+      "planned_sealed_holdout_units": 8,
+      "priority": 3,
+      "rule_code": "tolerate_talent",
+      "rule_specific_requirements": [
+        "区分直言冲突、一般刑罚、臣子重大过错与皇帝压制责任",
+        "负向材料必须证明人才安全或组织纠错受到实际损害",
+        "冲突后的授权修复与持续堵塞反馈不得合并为同一方向"
+      ],
+      "sizing_profile": "high_causal",
+      "test_unit_type": "rule_evidence_unit"
+    },
+    {
+      "admission_decision": "contract_required",
+      "current_stage": "contract_only",
+      "existing_regression_units": 0,
+      "input_type": "hybrid",
+      "known_blockers": [
+        "个案与长期私人网络的聚合边界尚未冻结"
+      ],
+      "missing_prerequisites": [
+        "rule_contract",
+        "factor_schema",
+        "network_aggregation_boundary"
+      ],
+      "model_performance_estimate": {
+        "model_call_count": 5,
+        "parallel_wave_count": 2,
+        "source_and_human_gold_review_excluded": true,
+        "total_tokens": 151990,
+        "wall_clock_duration_sec": 214.738
+      },
+      "next_action": "先冻结 episode 与 aggregate_context 的去重合同，再建立 12 个开放开发单元",
+      "planned_open_development_units": 12,
+      "planned_sealed_holdout_units": 8,
+      "priority": 4,
+      "rule_code": "anti_nepotism",
+      "rule_specific_requirements": [
+        "单个亲属或近幸任职不得自动判负",
+        "个案能力、程序、岗位责任和长期网络影响必须分层",
+        "episode 贡献与 aggregate_context 的结构性污染不得重复结算"
+      ],
+      "sizing_profile": "high_causal",
+      "test_unit_type": "rule_evidence_unit"
+    },
+    {
+      "admission_decision": "blocked_on_prerequisite",
+      "current_stage": "contract_only_waiting_for_profile_snapshot",
+      "existing_regression_units": 0,
+      "input_type": "ruler_time_window",
+      "known_blockers": [
+        "当前没有可冻结的 canonical 人物集合和画像快照"
+      ],
+      "missing_prerequisites": [
+        "canonical_person_set",
+        "person_profile_snapshot",
+        "frozen_time_window_contract"
+      ],
+      "model_performance_estimate": {
+        "model_call_count": 3,
+        "parallel_wave_count": 2,
+        "source_and_human_gold_review_excluded": true,
+        "total_tokens": 91194,
+        "wall_clock_duration_sec": 214.738
+      },
+      "next_action": "暂不制作样本；先完成 PersonProfileSnapshot 和时间窗集合合同",
+      "planned_open_development_units": 8,
+      "planned_sealed_holdout_units": 4,
+      "priority": 5,
+      "rule_code": "team_building",
+      "rule_specific_requirements": [
+        "每个皇帝时间窗内同一人物只计一次",
+        "人才质量只能来自版本化 PersonProfileSnapshot",
+        "岗位覆盖、功能互补和单一亲信依赖使用集合级 Gold"
+      ],
+      "sizing_profile": "aggregate_window",
+      "test_unit_type": "ruler_time_window"
+    }
+  ],
+  "schema_version": "rule-test-set-admission-report-v1",
+  "shared_policy": {
+    "default_execution_order": [
+      "freeze_rule_contract",
+      "build_open_development_set",
+      "calibrate_only_on_open_set",
+      "freeze_policy_and_sealed_gold",
+      "run_sealed_once",
+      "open_and_report_without_post_tuning"
+    ],
+    "qualification_thresholds": {
+      "decision_status_accuracy_min": 1.0,
+      "direction_error_max": 0,
+      "factor_exact_match_rate_min": 0.85,
+      "false_abstention_max": 0,
+      "material_side_structure_exact_rate_min": 1.0,
+      "nonadjacent_error_max": 0,
+      "unsafe_false_resolution_max": 0
+    },
+    "reusable_assets": [
+      "codex_win_batch_execution",
+      "duration_and_token_audit",
+      "evidence_coverage_contract",
+      "fixed_revision_source_lineage",
+      "open_then_sealed_protocol",
+      "qualification_thresholds"
+    ],
+    "thirty_two_units_not_required_by_default": true
+  },
+  "status": "rule_test_set_admission_ready",
+  "summary": {
+    "blocked_on_prerequisite_count": 1,
+    "completed_not_qualified_count": 1,
+    "contract_required_count": 2,
+    "currently_authorized_sealed_holdout_units": 0,
+    "currently_ready_open_development_units": 8,
+    "next_rule_for_open_test_set": "talent_discovery",
+    "planned_future_open_development_units": 40,
+    "planned_future_sealed_holdout_units": 24,
+    "ready_to_build_open_set_count": 1,
+    "rule_count": 5
+  }
+}

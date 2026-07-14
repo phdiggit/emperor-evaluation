@@ -19,6 +19,7 @@ current:
   factor_judgment_proposal_contract: passed_shadow_demo_only
   factor_observation_agent_qualification: independent_blind_run_completed_not_qualified
   factor_representativeness_sampling: portfolio_32_opened_not_qualified
+  rule_test_set_admission: ready_shadow_policy
   rule_factor_evidence_coverage_gate: passed_shadow_contract_only
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
@@ -159,6 +160,22 @@ talent_discovery_shadow_evidence:
   duplicate_episode_consumption: 0
   model_call_count: 0
   database_write_count: 0
+
+rule_test_set_admission_evidence:
+  policy: config/rule-test-set-policy.yml
+  report: rule_test_set_admission/report.json
+  next_rule: talent_discovery
+  currently_ready_open_development_units: 8
+  currently_authorized_sealed_holdout_units: 0
+  planned_talent_discovery_sealed_holdout_units_after_freeze: 4
+  currently_ready_open_estimated_model_call_count: 2
+  currently_ready_open_estimated_parallel_wave_count: 1
+  currently_ready_open_estimated_model_wall_clock_sec: 107.369
+  currently_ready_open_estimated_total_tokens: 60796
+  full_pipeline_model_wall_clock_upper_bound_sec: 858.952
+  full_pipeline_model_token_upper_bound: 486368
+  source_and_human_gold_review_excluded: true
+  formal_scoring_allowed: false
 
 validated_invariants:
   - source_passage_lineage_preserved

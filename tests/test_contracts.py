@@ -39,6 +39,9 @@ from emperor_v4.evaluation.factor_evidence_coverage import (
     validate_coverage_declaration,
     validate_factor_resolution,
 )
+from emperor_v4.evaluation.rule_test_set_admission import (
+    evaluate_rule_test_set_admission,
+)
 from emperor_v4.evaluation.passage_support import (
     canonical_payload_hash,
     materialize_passage_scoped_blind_input,
@@ -1308,3 +1311,60 @@ def test_codex_claim_provider_prompt_and_parser_stay_inside_v2_contract() -> Non
     }, provider_code="codex:test")
     assert batch.model_call_count == 1
     assert batch.assertions[0].passage_support.assertion_semantic_key == "太宗-召见-魏徵"
+
+
+def test_rule_test_set_admission_report_is_reproducible_and_fail_closed() -> None:
+    root = Path(__file__).parents[1]
+    policy = yaml.safe_load(
+        (root / "config/rule-test-set-policy.yml").read_text(encoding="utf-8")
+    )
+    report = evaluate_rule_test_set_admission(policy)
+    tracked = json.loads(
+        (root / "eval/rule_test_set_admission/report.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert report == tracked
+    assert report["summary"] == {
+        "rule_count": 5,
+        "completed_not_qualified_count": 1,
+        "ready_to_build_open_set_count": 1,
+        "contract_required_count": 2,
+        "blocked_on_prerequisite_count": 1,
+        "next_rule_for_open_test_set": "talent_discovery",
+        "currently_ready_open_development_units": 8,
+        "currently_authorized_sealed_holdout_units": 0,
+        "planned_future_open_development_units": 40,
+        "planned_future_sealed_holdout_units": 24,
+    }
+    assert report["currently_ready_open_model_performance_estimate"] == {
+        "model_call_count": 2,
+        "parallel_wave_count": 1,
+        "wall_clock_duration_sec": 107.369,
+        "total_tokens": 60796,
+        "source_and_human_gold_review_excluded": True,
+    }
+    assert report["full_pipeline_model_performance_upper_bound"][
+        "model_call_count"
+    ] == 16
+    assert report["shared_policy"]["thirty_two_units_not_required_by_default"]
+    assert report["formal_scoring_allowed"] is False
+    assert report["database_write_count"] == 0
+
+    weakened = deepcopy(policy)
+    weakened["shared_policy"]["qualification_thresholds"][
+        "factor_exact_match_rate_min"
+    ] = 0.8
+    with pytest.raises(ValueError, match="门槛不得弱于"):
+        evaluate_rule_test_set_admission(weakened)
+
+    prematurely_ready = deepcopy(policy)
+    team_building = next(
+        row
+        for row in prematurely_ready["rules"]
+        if row["rule_code"] == "team_building"
+    )
+    team_building["admission_decision"] = "ready_to_build_open_set"
+    with pytest.raises(ValueError, match="尚有前置项"):
+        evaluate_rule_test_set_admission(prematurely_ready)

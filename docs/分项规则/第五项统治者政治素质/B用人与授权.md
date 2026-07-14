@@ -31,6 +31,8 @@ anti_nepotism
 
 首轮 `appointment_delegation` 已完成。第二条 `talent_discovery` 已冻结规则边界和首批 gold cases，并复用同一 scored-shadow 内核；其余规则完成契约和 gold cases 后再进入实现。
 
+测试集不按 rule 机械复制 32 单元，而按统计单位和语义风险准入：`talent_discovery` 先做 8 个开放开发单元，冻结后才允许 4 个 sealed；`tolerate_talent` 与 `anti_nepotism` 各按高因果风险预留 12+8，但必须先完成规则合同；`team_building` 按皇帝时间窗预留 8+4，当前受人物集合与画像快照阻断。规模、前置项和耗时/token 上界由 `config/rule-test-set-policy.yml` 驱动，确定性报告为 `eval/rule_test_set_admission/report.json`。
+
 ## 4. `talent_discovery`
 
 评价：
@@ -247,4 +249,5 @@ python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/a
 python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discovery_scored_demo/manifest.yml --output eval/talent_discovery_scored_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --output eval/talent_discovery_roster_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --prior-record eval/talent_discovery_roster_demo/report.json --state eval/talent_discovery_roster_demo/state.json --output eval/talent_discovery_roster_demo/report.json
+python -m emperor_v4.eval rule-test-set-admission --policy config/rule-test-set-policy.yml --output eval/rule_test_set_admission/report.json
 ```

@@ -1,0 +1,146 @@
+schema_version: rule-test-set-admission-v1
+policy_version: i5b-rule-test-set-admission-v1
+status: active_shadow_policy
+item_code: i5b_talent_and_delegation
+
+shared_policy:
+  reusable_assets:
+    - evidence_coverage_contract
+    - fixed_revision_source_lineage
+    - codex_win_batch_execution
+    - duration_and_token_audit
+    - open_then_sealed_protocol
+    - qualification_thresholds
+  qualification_thresholds:
+    decision_status_accuracy_min: 1.0
+    factor_exact_match_rate_min: 0.85
+    false_abstention_max: 0
+    material_side_structure_exact_rate_min: 1.0
+    unsafe_false_resolution_max: 0
+    nonadjacent_error_max: 0
+    direction_error_max: 0
+
+sizing_profiles:
+  standard_event:
+    open_development_units: 8
+    sealed_holdout_units: 4
+    use_when: 事件边界清楚，但仍需验证适用性、归责和有限因子档位
+  high_causal:
+    open_development_units: 12
+    sealed_holdout_units: 8
+    use_when: 负向因果、跨规则去重或结构拆分存在高风险
+  aggregate_window:
+    open_development_units: 8
+    sealed_holdout_units: 4
+    use_when: 统计单位是皇帝时间窗，且必须先冻结 canonical 人物集合和画像快照
+
+performance_baseline:
+  source_run: appointment_delegation_factor_sealed_holdout_v3
+  units_per_call: 4
+  max_workers: 4
+  duration_per_parallel_wave_sec: 107.369
+  tokens_per_call: 30398
+  optimization_objective: wall_clock_latency_first
+
+rules:
+  - priority: 1
+    rule_code: appointment_delegation
+    current_stage: portfolio_32_opened_not_qualified
+    admission_decision: completed_not_qualified
+    input_type: hybrid
+    test_unit_type: rule_evidence_unit
+    sizing_profile: null
+    existing_regression_units: 32
+    prerequisites:
+      - {code: rule_contract, status: satisfied}
+      - {code: factor_schema, status: satisfied}
+      - {code: open_and_sealed_protocol, status: satisfied}
+    rule_specific_requirements:
+      - 任用、责任域和反馈形成最小充分授权弧
+      - 同侧多个授权弧的拆分与合并必须先由确定性合同约束
+      - 正负材料分开且不重复结算战役或治理成果
+    known_blockers:
+      - sealed 中 3 个单元材料侧结构与 Gold 不一致
+      - 32 单元组合仍缺 4 个代表性最低配额
+    next_action: 只在新开放材料上修复材料弧结构；不得重跑已开封 sealed
+
+  - priority: 2
+    rule_code: talent_discovery
+    current_stage: first_vertical_slice_passed
+    admission_decision: ready_to_build_open_set
+    input_type: episode
+    test_unit_type: rule_evidence_unit
+    sizing_profile: standard_event
+    existing_regression_units: 4
+    prerequisites:
+      - {code: rule_contract, status: satisfied}
+      - {code: factor_schema, status: satisfied}
+      - {code: shared_scored_runner, status: satisfied}
+      - {code: initial_gold_cases, status: satisfied}
+    rule_specific_requirements:
+      - 证明识别依据发生在正式任用和后世成名之前
+      - 普通升迁和既有核心人物授权必须进入不适用反例
+      - 与 appointment_delegation 只共享证据，不重复结算岗位适配和成果
+    known_blockers:
+      - 现有四单元只有两条适用正例，尚无独立 sealed
+    next_action: 建立 8 个开放开发单元，先覆盖新识别、荐举、跨阵营和不适用反例
+
+  - priority: 3
+    rule_code: tolerate_talent
+    current_stage: contract_only
+    admission_decision: contract_required
+    input_type: episode
+    test_unit_type: rule_evidence_unit
+    sizing_profile: high_causal
+    existing_regression_units: 0
+    prerequisites:
+      - {code: rule_contract, status: missing}
+      - {code: factor_schema, status: missing}
+      - {code: negative_causality_gate, status: missing}
+    rule_specific_requirements:
+      - 区分直言冲突、一般刑罚、臣子重大过错与皇帝压制责任
+      - 负向材料必须证明人才安全或组织纠错受到实际损害
+      - 冲突后的授权修复与持续堵塞反馈不得合并为同一方向
+    known_blockers:
+      - 负向因果和跨 episode 连续性尚未形成正式合同
+    next_action: 先冻结适用性和负向因果合同，再建立 12 个开放开发单元
+
+  - priority: 4
+    rule_code: anti_nepotism
+    current_stage: contract_only
+    admission_decision: contract_required
+    input_type: hybrid
+    test_unit_type: rule_evidence_unit
+    sizing_profile: high_causal
+    existing_regression_units: 0
+    prerequisites:
+      - {code: rule_contract, status: missing}
+      - {code: factor_schema, status: missing}
+      - {code: network_aggregation_boundary, status: missing}
+    rule_specific_requirements:
+      - 单个亲属或近幸任职不得自动判负
+      - 个案能力、程序、岗位责任和长期网络影响必须分层
+      - episode 贡献与 aggregate_context 的结构性污染不得重复结算
+    known_blockers:
+      - 个案与长期私人网络的聚合边界尚未冻结
+    next_action: 先冻结 episode 与 aggregate_context 的去重合同，再建立 12 个开放开发单元
+
+  - priority: 5
+    rule_code: team_building
+    current_stage: contract_only_waiting_for_profile_snapshot
+    admission_decision: blocked_on_prerequisite
+    input_type: ruler_time_window
+    test_unit_type: ruler_time_window
+    sizing_profile: aggregate_window
+    existing_regression_units: 0
+    prerequisites:
+      - {code: canonical_person_set, status: missing}
+      - {code: person_profile_snapshot, status: missing}
+      - {code: frozen_time_window_contract, status: missing}
+    rule_specific_requirements:
+      - 每个皇帝时间窗内同一人物只计一次
+      - 人才质量只能来自版本化 PersonProfileSnapshot
+      - 岗位覆盖、功能互补和单一亲信依赖使用集合级 Gold
+    known_blockers:
+      - 当前没有可冻结的 canonical 人物集合和画像快照
+    next_action: 暂不制作样本；先完成 PersonProfileSnapshot 和时间窗集合合同

@@ -19,6 +19,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 新开放开发集：马周、张良、刘基、李善长已形成 4 个 V4 RuleEvidenceUnit 和 5 条正负材料；coverage-aware 对照为 28/29 已决档位精确、1 次正确拒判、零危险强判/错误拒判/非相邻/方向错误，`codex-win` 单批耗时 67.729 秒、总 token 24,863；该结果只用于调校，`real_agent_qualified=false`
 - 封存资格集：房玄龄、李靖、萧何、徐达的 4 个评分单位已在 `3bfc9b6` 冻结后完成唯一一次盲评；25/30 档精确（83.33%）低于 85% 门槛，5 个偏差均为相邻档，决策状态、正负结构、方向与覆盖安全 Gate 全部通过；耗时 100.102 秒、总 token 26,152，未重跑且未回调 Gold/策略，`real_agent_qualified=false`
 - 32 单元组合已全部开封：12 个历史回归单元、12 个新开放开发单元和 8 个 sealed 单元均已绑定固定史源与身份。开放集 v4 门通过；sealed 唯一盲评仅 5/8 单元材料结构一致、已对齐档位精确率 71.43%，未通过资格门；组合另缺 4 个预定代表性分层最低配额，因此仍不得声称具有生产代表性
+- 第五项 B 测试集准入：五条 rule 已按输入类型与风险分级，32 单元不作为通用默认规模；当前仅 `talent_discovery` 可立即建立 8 个开放开发单元，4 个 sealed 单元须等策略与 Gold 冻结后再开放
 - 通用证据覆盖 Gate：`appointment_delegation` 与 `talent_discovery` 共用 `rule-factor-evidence-coverage-v1`；开放快照允许直接正证据确认，但禁止以“未找到”强推一次性、从未发生等缺失敏感档位，覆盖不足必须退出为 `insufficient_coverage`
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
@@ -65,19 +66,20 @@ python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/a
 python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discovery_scored_demo/manifest.yml --output eval/talent_discovery_scored_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --output eval/talent_discovery_roster_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --prior-record eval/talent_discovery_roster_demo/report.json --state eval/talent_discovery_roster_demo/state.json --output eval/talent_discovery_roster_demo/report.json
+python -m emperor_v4.eval rule-test-set-admission --policy config/rule-test-set-policy.yml --output eval/rule_test_set_admission/report.json
 python -m emperor_v4.runtime.source_cache --request eval/source_cache_v4_demo/request.yml --fixture-plan eval/source_cache_v4_demo/fixture_plan.yml --state eval/source_cache_v4_demo/state.json --service-release-sha f7022cb39a887325e3719f46188602ab52775905 --output eval/source_cache_v4_demo/rerun_report.json
 python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_demo/request.yml --plan eval/source_cache_v4_demo/fixture_plan.yml --baseline-report eval/source_cache_v4_demo/report.json --service-release-sha f7022cb39a887325e3719f46188602ab52775905 --output eval/source_cache_v4_demo/wikisource_shadow_report.json
 ```
 
 ## 下一份可见成果
 
-32 单元已经全部开封，完整组合与运行成本见 `eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json`。开放开发策略已冻结为 v4；8 个 sealed 单元在 `80f0de8` 冻结后只运行一次，未达资格门，禁止据此修改 Gold、降低阈值或重跑。下一步是：
+32 单元已经全部开封，完整组合与运行成本见 `eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json`。开放开发策略已冻结为 v4；8 个 sealed 单元在 `80f0de8` 冻结后只运行一次，未达资格门，禁止据此修改 Gold、降低阈值或重跑。跨 rule 准入报告见 `eval/rule_test_set_admission/report.json`。下一步是：
 
-1. 保持每批最多 4 个评分单元、批间最多 4 路并发，以墙钟耗时为主要性能目标并完整记录 token；
-2. 优先修复“同侧多个授权弧拆分/合并”的结构合同；本轮 sealed 的主要损失来自 3/8 单元材料结构不一致，不是方向或跨档错误；
-3. 在新的开放样本上补齐多源 join、冲突证据、缺失敏感与单次任务四个代表性缺口；当前 32 单元只完成开封，不等于生产代表性达标；
-4. 后续若再做资格测试，必须使用全新 sealed 身份与 Gold；本轮 sealed 禁止重跑和后调；
-5. 本轮 13 个模型任务按阶段并行后的累计墙钟 575.335 秒、总 token 585,112；其中 sealed factor 唯一运行 107.369 秒、60,796 token；
+1. 先为 `talent_discovery` 建立 8 个开放开发单元，覆盖新识别、荐举、跨阵营和不适用反例；按当前耗时优先基线预计 2 次调用、1 个并发波次、纯模型约 107.369 秒和 60,796 token，人工回源与 Gold 审查不在此估算内；
+2. 4 个 `talent_discovery` sealed 单元仅作后续计划；开放集调校完成并冻结策略与 Gold 前，授权数量保持为 0；
+3. `tolerate_talent` 与 `anti_nepotism` 先冻结负向因果、聚合边界和去重合同，不能直接批量造样本；`team_building` 等待 canonical 人物集合、PersonProfileSnapshot 和时间窗合同；
+4. `appointment_delegation` 只在新开放材料上修复同侧多个授权弧结构并补代表性缺口；已开封 sealed 禁止重跑和后调；
+5. 四条后续 rule 全部进入各自开放与 sealed 阶段时，纯模型上界约 16 次调用、8 个顺序波次、858.952 秒和 486,368 token；这不是当前授权任务，也不包含人工史源与 Gold 成本；
 6. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
 
 在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
