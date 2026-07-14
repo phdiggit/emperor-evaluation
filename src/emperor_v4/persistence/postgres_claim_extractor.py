@@ -20,6 +20,23 @@ CLAIM_RESULT_STATUSES = frozenset(
         "succeeded_no_relevant_facts",
     }
 )
+CLAIM_RESULT_STATUS_UPGRADE_SQL = """BEGIN;
+
+ALTER TABLE v4_claim_extractor.requests
+    DROP CONSTRAINT IF EXISTS requests_result_status_check;
+
+ALTER TABLE v4_claim_extractor.requests
+    ADD CONSTRAINT requests_result_status_check
+    CHECK (
+        result_status IN (
+            'succeeded',
+            'succeeded_with_gaps',
+            'succeeded_no_relevant_facts'
+        )
+    );
+
+COMMIT;
+"""
 
 
 class ClaimExtractorSchemaStateError(RuntimeError):
@@ -33,18 +50,29 @@ class ClaimExtractorSchemaBootstrapResult:
     database_write_count: int
 
 
-def migration_paths() -> tuple[Path, ...]:
-    root = Path(__file__).resolve().parents[3] / "db" / "postgres"
+def migration_path() -> Path:
     return (
-        root / "004_v4_claim_extractor_service.sql",
-        root / "005_v4_claim_extractor_result_status.sql",
+        Path(__file__).resolve().parents[3]
+        / "db"
+        / "postgres"
+        / "004_v4_claim_extractor_service.sql"
     )
 
 
-def migration_path() -> Path:
-    """兼容旧调用：返回初始 schema migration。"""
+def result_status_upgrade_sql() -> str:
+    """开发树读取独立 migration；精简 release 使用同版本内嵌副本。"""
 
-    return migration_paths()[0]
+    path = (
+        Path(__file__).resolve().parents[3]
+        / "db"
+        / "postgres"
+        / "005_v4_claim_extractor_result_status.sql"
+    )
+    return (
+        path.read_text(encoding="utf-8")
+        if path.is_file()
+        else CLAIM_RESULT_STATUS_UPGRADE_SQL
+    )
 
 
 def decide_claim_extractor_schema_action(
@@ -116,15 +144,13 @@ def bootstrap_claim_extractor_schema(
             )
             if action == "apply":
                 cursor.execute(
-                    migration_paths()[0].read_text(encoding="utf-8")
+                    migration_path().read_text(encoding="utf-8")
                 )
                 applied = True
 
             constraint = _result_status_constraint(cursor)
             if not claim_result_status_constraint_is_current(constraint):
-                cursor.execute(
-                    migration_paths()[1].read_text(encoding="utf-8")
-                )
+                cursor.execute(result_status_upgrade_sql())
                 applied = True
 
             cursor.execute(
