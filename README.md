@@ -22,7 +22,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、PostgreSQL repository、job/lease worker 和 20 文件不可变 release 已进入当前 Git 历史；隔离服务器 Gate 已验证幂等、过期 lease 恢复与回滚
 - V4 Claim Extractor 选择性迁入：旧 `rule_code` 提示分支已改为版本化 `talent_discovery_chain_v1` profile；v2 application、独立 PostgreSQL repository、job/lease 和当前 21 文件 release 已通过服务器隔离 Gate，冻结响应形成 4 条带 PassageSupport 的 Assertion
 - V4 Claim Extractor 真实 provider shadow：改用 V4 Source Cache 三 passage 后生成 7 条 draft Assertion，四项发现链齐备，主簿重叠证据按 equivalent evidence 合并语义；未授权人物称谓保留原文并进入身份 slow lane
-- 服务规模化 hardening：当前分支已加入按 job profile 路由、lease 覆盖模型 timeout、显式空结果/coverage gap、服务端稳定 Assertion identity、可信 subject 路由、结构化输出限制、Source plan registry 与同页只抓一次；尚未构建或切换新的服务器不可变 release
+- 服务规模化 hardening：已完成按 job profile 路由、lease 覆盖模型 timeout、显式空结果、服务端稳定 draft identity、可信 subject 路由、Codex 子进程隔离、provider 模型/Prompt/Schema 策略进入缓存身份，以及 64 条输出饱和失败关闭；确定性 Claim 分片、结构化 coverage gap、多实例 worker 和 JudgmentObservationJob 仍待实现与资格测试，最新代码尚未切换服务器不可变 release
 - 正式 45 分映射、排名、评分 worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -54,15 +54,15 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 ## 下一份可见成果
 
-scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化增量编排，以及包 D 的 `talent_discovery` Claim 补抽、评分和 roster 增量复用均已完成。包 D 下一步是：
+scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化增量编排，以及包 D 的 `talent_discovery` Claim 补抽、评分和 roster 增量复用均已完成。下一周期并行但不混线：
 
-1. 以同一通用内核扩展 `team_building`，不复制独立流水线；
-2. 先冻结团队快照、团队成员集合和单人事件的去重边界；
-3. 保持 roster 增量、Claim/Assertion lineage 和跨规则重复结算审计；
-4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；
-5. 在扩大名单前完成 Claim/Factor Observation 智能体的质量基准、并发与恢复资格测试。
+1. 以同一通用内核扩展 `team_building`，限定为 person-snapshot shadow，不调用 Claim Extractor；
+2. 完成 Claim 确定性分片和 per-shard cache，使一个 shard 失败时其他 shard 不重跑；
+3. 建立 `RuleEvidenceUnit → factor observations` 的 JudgmentObservationJob，只把歧义因子送入模型；
+4. 将 free-text coverage gap 改为可路由代码，并按 extraction/judgment tier 部署受控并发 worker；
+5. 用 20—30 个评分单元验证模型调用数、缓存命中、局部恢复和第二 reviewer 比例，再扩大名单。
 
-在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
+在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
 
 ## 用户目标链路
 
@@ -134,6 +134,7 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 - Shadow difference review runner：`ready_for_human_review`
 - Offline roster scored runner：`passed_cache_ensure_shadow`
 - Persistent incremental orchestration：`passed_shadow_runtime`
-- Service scaling hardening：`code_ready_pending_test_and_cutover`
+- Claim cache policy/saturation hardening：`code_ready_pending_full_test_and_cutover`
+- Claim sharding / structured gaps / worker tiers：`not_implemented_or_qualified`
 - Factor Observation agent：`not_implemented_or_qualified`
 - 正式评分和生产切换：`blocked`
