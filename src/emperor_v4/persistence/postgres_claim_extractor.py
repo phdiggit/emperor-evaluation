@@ -6,6 +6,7 @@ from typing import Any, Iterable, Literal, Mapping
 
 from emperor_v4.application.claim_extractor_service import (
     CachedClaimExtractionResult,
+    assertion_identity_payload,
 )
 
 
@@ -262,7 +263,7 @@ class PostgresClaimExtractionRepository:
                         writes += 1
                     else:
                         cursor.execute(
-                            "SELECT input_fingerprint,payload "
+                            "SELECT payload "
                             "FROM v4_claim_extractor.assertion_drafts "
                             "WHERE assertion_code=%s",
                             (assertion["assertion_code"],),
@@ -270,8 +271,8 @@ class PostgresClaimExtractionRepository:
                         existing = cursor.fetchone()
                         if (
                             existing is None
-                            or str(existing[0]) != input_fingerprint
-                            or existing[1] != assertion
+                            or assertion_identity_payload(existing[0])
+                            != assertion_identity_payload(assertion)
                         ):
                             raise ValueError(
                                 "PostgreSQL Assertion draft identity 冲突"
