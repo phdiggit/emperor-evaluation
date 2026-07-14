@@ -135,6 +135,8 @@ Factor Observation 资格 harness 已形成同一纵向链：从现有 V4 judge 
 
 耗时优先基准进一步比较同一四单元 workload 的 `1×4`、`2×2` 并发和 `4×1` 并发：墙钟分别为 67.544、48.747、30.283 秒，但后两者 token 分别增加 76.64% 和 195.44%，且本次拆分没有改善档位质量。运行策略因此采用“每批最多 4 单元、批间最多 4 路并发”，不把单单元调用设为默认；完整审计只保留在 `eval/appointment_delegation_factor_agent_qualification/latency_benchmark.json`。
 
+2026-07-14 起资格链切换到 coverage-aware Gold v2。当前开放开发 Gold 中 30 个因子判断拆为 29 个已决档位和 1 个正确拒绝落档；Gate 另行阻断覆盖不足却强行落档和已有正证据却错误拒绝。首批 8 个新候选在任何候选模型运行前冻结为 4 个开放开发单元和 4 个 sealed holdout；计划只记录人物、史料定位与输入 hash，不记录密封组预期档位。V3 fixture 仅作只读定位线索，候选必须重新经过 V4 构单和人工 Gold 审查后才能进入资格链。
+
 离线史源缓存与 Claim 抽取现已纳入 V4 配套服务源码治理：活动实现最终必须与 V4 位于同一 Git 历史，并按 `contracts/adapters/application/persistence/runtime` 现有边界选择性迁入。当前 `e27bbff` release 仍是过渡分支上的可追溯构建，禁止整体 merge；迁入时把按 rule code 分支的提示策略改为版本化 extraction profile，并在冻结请求 shadow 对比后完成不可变部署切换。
 
 Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用既有 SourcePassage v2 与确定性切片器，新建通用 SourceRevision 合同、fixture provider、幂等 ensure 用例、shadow repository 和薄 runtime。固定 Wikisource revision `2020238` 首次生成 1 个不可变 document 与 3 个 passage；无变化重跑精确复用同一响应，provider、网络、模型和数据库调用均为 0。该结果只证明离线合同纵切，不等于真实 adapter 或服务器切换完成。

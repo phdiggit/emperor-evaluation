@@ -9,6 +9,7 @@ import yaml
 from emperor_v4.evaluation.factor_observation_agent import (
     build_factor_observation_batch_plan,
     build_factor_observation_worklist,
+    build_factor_observation_qualification_gold,
     evaluate_factor_observation_qualification,
     merge_factor_observation_batch_responses,
 )
@@ -24,6 +25,21 @@ def _load(path: Path) -> dict[str, Any]:
 
 def run_factor_observation_worklist(source_manifest_path: Path) -> dict[str, Any]:
     return build_factor_observation_worklist(_load(source_manifest_path))
+
+
+def run_factor_observation_qualification_gold(
+    worklist_path: Path,
+    parity_gold_manifest_path: Path,
+    source_manifest_path: Path,
+    *,
+    sample_role: str = "open_development",
+) -> dict[str, Any]:
+    return build_factor_observation_qualification_gold(
+        _load(worklist_path),
+        _load(parity_gold_manifest_path),
+        _load(source_manifest_path),
+        sample_role=sample_role,
+    )
 
 
 def run_factor_observation_batch_plan(

@@ -54,6 +54,7 @@ $env:PYTHONPATH = "src"
 python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
 python -m emperor_v4.eval appointment-delegation-v3-parity-shadow --manifest eval/appointment_delegation_v3_parity_demo/manifest.yml --output eval/appointment_delegation_v3_parity_demo/report.json
 python -m emperor_v4.eval appointment-delegation-factor-worklist --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --output tmp/appointment_delegation_factor_worklist_v2.json
+python -m emperor_v4.eval appointment-delegation-factor-gold --worklist eval/appointment_delegation_factor_agent_qualification/worklist_v2.json --parity-gold-manifest eval/appointment_delegation_v3_parity_demo/manifest.yml --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --sample-role open_development --output tmp/appointment_delegation_factor_gold_v2.json
 python -m emperor_v4.eval appointment-delegation-factor-batch-plan --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --max-units-per-batch 4 --max-workers 4 --output tmp/factor_batch_plan.json
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json
@@ -71,9 +72,10 @@ V3 语义等价 scored shadow 已复用现有 SourcePassage、Assertion、Histor
 
 1. 保持每批最多 4 个评分单元、批间最多 4 路并发，以墙钟耗时为主要性能目标并完整记录 token；
 2. 把当前四单元冻结为策略开发集，针对任用效果、持续性和史源完整度修订 option guidance，保留已命中的归因和规则上下文定义；
-3. 冻结新策略后另建未参与调校的 sealed holdout，再按 `>= 85%` 精确率、`100%` 材料侧结构、零方向错误和零非相邻错误重新资格测试；
-4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；
-5. Claim 侧已完成缓存身份、饱和门禁和错误分类硬化；分片、结构化 gap 与 worker tier 不与本轮评分质量 Gate 混线。
+3. Coverage-aware Gold v2 已把“正确拒绝落档”“覆盖不足却强行落档”“已有正证据却错误拒绝”分开统计；当前四单元为 29 个已决档位和 1 个正确拒绝落档；
+4. 新候选已在任何候选模型运行前冻结为 4 个开放开发单元（马周、张良、刘基、李善长）和 4 个 sealed holdout（房玄龄、李靖、萧何、徐达）；先完成人工构单与开放集调校，密封集最多执行一次且不得用于改策略；
+5. 最终 sealed holdout 仍按 `>= 85%` 已决档位精确率、`100%` 决策状态与材料侧结构、零错误强行落档、零错误拒绝、零方向错误和零非相邻错误重新资格测试；
+6. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；Claim 侧分片、结构化 gap 与 worker tier 不与本轮评分质量 Gate 混线。
 
 在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
 

@@ -20,11 +20,13 @@ from emperor_v4.evaluation.factor_observation_agent import (
     AGENT_POLICY_VERSION,
     AGENT_POLICY_VERSION_V1,
     build_factor_observation_batch_plan,
+    build_factor_observation_qualification_gold,
     build_contract_fixture_response,
     build_factor_observation_worklist,
     evaluate_factor_observation_qualification,
     merge_factor_observation_batch_responses,
     validate_factor_observation_response,
+    validate_factor_observation_qualification_gold,
 )
 
 
@@ -52,6 +54,12 @@ def _reviewed_coverage_source() -> dict:
         }
     )
     return source
+
+
+def _qualification_gold(worklist: dict, source: dict) -> dict:
+    return build_factor_observation_qualification_gold(
+        worklist, _yaml(PARITY_MANIFEST), source
+    )
 
 
 def test_v3_parity_shadow_restores_factor_resolution_and_reuses_v4_units(
@@ -374,22 +382,25 @@ def test_factor_observation_open_snapshot_fixture_requires_coverage_review() -> 
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     fixture = build_contract_fixture_response(worklist, gold)
+    qualification_gold = _qualification_gold(worklist, source)
 
     report = evaluate_factor_observation_qualification(
-        worklist, fixture, gold, source
+        worklist, fixture, qualification_gold, source
     )
 
-    assert report["status"] == "factor_observation_coverage_review_required"
+    assert report["status"] == "factor_observation_qualification_harness_ready"
     assert report["metrics"]["factor_comparison_count"] == 30
-    assert report["metrics"]["coverage_abstention_count"] == 1
-    assert report["metrics"]["factor_exact_match_rate"] == pytest.approx(
-        29 / 30, abs=0.0001
-    )
+    assert report["metrics"]["decision_status_accuracy"] == 1.0
+    assert report["metrics"]["correct_abstention_count"] == 1
+    assert report["metrics"]["unsafe_false_resolution_count"] == 0
+    assert report["metrics"]["false_abstention_count"] == 0
+    assert report["metrics"]["resolved_option_comparison_count"] == 29
+    assert report["metrics"]["factor_exact_match_rate"] == 1.0
     assert report["metrics"]["material_side_structure_exact_rate"] == 1.0
-    assert report["threshold_passed"] is False
-    assert report["contract_fixture_passed"] is False
+    assert report["threshold_passed"] is True
+    assert report["contract_fixture_passed"] is True
     assert report["real_agent_qualified"] is False
-    assert report["next_gate"] == "complete_coverage_or_add_direct_evidence_then_rerun"
+    assert report["next_gate"] == "independent_blind_agent_run"
     assert report["side_effect_audit"]["score_computation_performed"] is False
 
 
@@ -398,6 +409,7 @@ def test_factor_observation_independent_exact_response_can_pass_gate() -> None:
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     response = build_contract_fixture_response(worklist, gold)
+    qualification_gold = _qualification_gold(worklist, source)
     response["response_origin"] = "independent_blind_agent_run"
     response["provider"] = "test_provider"
     response["model"] = "test_model"
@@ -405,7 +417,7 @@ def test_factor_observation_independent_exact_response_can_pass_gate() -> None:
     response["blind_run_declarations"]["old_factor_proposals_accessed"] = False
 
     report = evaluate_factor_observation_qualification(
-        worklist, response, gold, source
+        worklist, response, qualification_gold, source
     )
 
     assert report["status"] == "factor_observation_agent_qualified"
@@ -418,6 +430,7 @@ def test_factor_observation_development_replay_never_qualifies() -> None:
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     response = build_contract_fixture_response(worklist, gold)
+    qualification_gold = _qualification_gold(worklist, source)
     response["response_origin"] = "development_replay_after_gold_opened"
     response["provider"] = "test_provider"
     response["model"] = "explicit_test_model"
@@ -425,7 +438,7 @@ def test_factor_observation_development_replay_never_qualifies() -> None:
     response["blind_run_declarations"]["old_factor_proposals_accessed"] = False
 
     report = evaluate_factor_observation_qualification(
-        worklist, response, gold, source
+        worklist, response, qualification_gold, source
     )
 
     assert report["threshold_passed"] is True
@@ -482,6 +495,73 @@ def test_factor_observation_response_requires_complete_coverage_and_direction() 
         validate_factor_observation_response(worklist, wrong_direction, source)
 
 
+def test_qualification_gold_v2_separates_unsafe_resolution_and_false_abstention():
+    source = _yaml(SOURCE_MANIFEST)
+    parity_gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    qualification_gold = _qualification_gold(worklist, source)
+    validate_factor_observation_qualification_gold(
+        worklist, qualification_gold, source
+    )
+    wrong_task = deepcopy(qualification_gold)
+    wrong_task["task_code"] = "V4-AD-WRONG-GOLD-V2"
+    unsigned = dict(wrong_task)
+    unsigned.pop("gold_sha256")
+    wrong_task["gold_sha256"] = canonical_hash(unsigned)
+    with pytest.raises(ValueError, match="绑定或版本非法"):
+        validate_factor_observation_qualification_gold(worklist, wrong_task, source)
+
+    unsafe = build_contract_fixture_response(worklist, parity_gold)
+    hanxin = next(
+        row for row in unsafe["results"] if row["unit_ref"] == "REU-LB-HANXIN-QI-AUTHORITY-v1"
+    )
+    continuity = hanxin["factor_materials"][0]["factors"]["continuity_factor"]
+    continuity.update(
+        {
+            "decision_status": "resolved",
+            "option_code": "short_or_one_off",
+            "inference_basis": "direct_evidence",
+            "reason": "测试用错误强判。",
+            "assertion_refs": ["CLMEXT-D63C5BDADE6A7EA5@CLM-HX-QIWANG-APPOINT"],
+        }
+    )
+    unsafe_report = evaluate_factor_observation_qualification(
+        worklist, unsafe, qualification_gold, source
+    )
+    assert unsafe_report["metrics"]["unsafe_false_resolution_count"] == 1
+    assert unsafe_report["metrics"]["false_abstention_count"] == 0
+    assert unsafe_report["threshold_passed"] is False
+    assert unsafe_report["next_gate"] == (
+        "eliminate_unsafe_false_resolution_before_rerun"
+    )
+
+    overcautious = build_contract_fixture_response(worklist, parity_gold)
+    weizheng = next(
+        row
+        for row in overcautious["results"]
+        if row["unit_ref"] == "REU-LSM-WEIZHENG-APPOINTMENT-v1"
+    )
+    continuity = weizheng["factor_materials"][0]["factors"]["continuity_factor"]
+    continuity.update(
+        {
+            "decision_status": "insufficient_coverage",
+            "option_code": None,
+            "inference_basis": "coverage_insufficient",
+            "reason": "测试用错误拒判。",
+            "assertion_refs": [],
+        }
+    )
+    overcautious_report = evaluate_factor_observation_qualification(
+        worklist, overcautious, qualification_gold, source
+    )
+    assert overcautious_report["metrics"]["unsafe_false_resolution_count"] == 0
+    assert overcautious_report["metrics"]["false_abstention_count"] == 1
+    assert overcautious_report["threshold_passed"] is False
+    assert overcautious_report["next_gate"] == (
+        "add_direct_evidence_or_fix_false_abstention_before_rerun"
+    )
+
+
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -489,9 +569,11 @@ def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
     gold = _yaml(PARITY_MANIFEST)
     worklist = build_factor_observation_worklist(source)
     fixture = build_contract_fixture_response(worklist, gold)
+    qualification_gold = _qualification_gold(worklist, source)
     worklist_path = tmp_path / "worklist.json"
     response_path = tmp_path / "response.json"
     report_path = tmp_path / "report.json"
+    gold_path = tmp_path / "qualification-gold.json"
 
     monkeypatch.setattr(
         sys,
@@ -515,13 +597,33 @@ def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
         "argv",
         [
             "python -m emperor_v4.eval",
+            "appointment-delegation-factor-gold",
+            "--worklist",
+            str(worklist_path),
+            "--parity-gold-manifest",
+            str(PARITY_MANIFEST),
+            "--source-manifest",
+            str(SOURCE_MANIFEST),
+            "--sample-role",
+            "open_development",
+            "--output",
+            str(gold_path),
+        ],
+    )
+    assert eval_main() == 0
+    assert json.loads(gold_path.read_text(encoding="utf-8")) == qualification_gold
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "python -m emperor_v4.eval",
             "appointment-delegation-factor-qualification",
             "--worklist",
             str(worklist_path),
             "--response",
             str(response_path),
             "--gold-manifest",
-            str(PARITY_MANIFEST),
+            str(gold_path),
             "--source-manifest",
             str(SOURCE_MANIFEST),
             "--output",
@@ -531,4 +633,4 @@ def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
     assert eval_main() == 0
     assert json.loads(report_path.read_text(encoding="utf-8"))[
         "status"
-    ] == "factor_observation_coverage_review_required"
+    ] == "factor_observation_qualification_harness_ready"

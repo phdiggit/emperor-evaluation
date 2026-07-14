@@ -28,6 +28,7 @@ WORKLIST_SCHEMA_VERSION = "factor-observation-worklist-v2"
 RESPONSE_SCHEMA_VERSION_V1 = "factor-observation-agent-response-v1"
 RESPONSE_SCHEMA_VERSION = "factor-observation-agent-response-v2"
 QUALIFICATION_SCHEMA_VERSION = "factor-observation-qualification-v2"
+QUALIFICATION_GOLD_SCHEMA_VERSION = "factor-observation-qualification-gold-v2"
 BATCH_PLAN_SCHEMA_VERSION = "factor-observation-batch-plan-v1"
 AGENT_POLICY_VERSION_V1 = "appointment-delegation-factor-observation-agent-v1"
 AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v2"
@@ -694,6 +695,115 @@ def validate_factor_observation_response(
                 raise ValueError(f"{material['material_code']} side 与 effect 方向冲突")
 
 
+def build_factor_observation_qualification_gold(
+    worklist: Mapping[str, Any],
+    parity_gold_manifest: Mapping[str, Any],
+    source_manifest: Mapping[str, Any],
+    *,
+    sample_role: str = "open_development",
+) -> dict[str, Any]:
+    """将已人工复核的档位 Gold 与 EvidenceCoverage 合成为资格 Gold v2。"""
+
+    if (
+        worklist.get("schema_version") != WORKLIST_SCHEMA_VERSION
+        or worklist.get("agent_policy_version") != AGENT_POLICY_VERSION
+    ):
+        raise ValueError("qualification Gold v2 只接受当前 v2 worklist")
+    if sample_role not in {"open_development", "sealed_holdout"}:
+        raise ValueError("qualification Gold sample_role 非法")
+    validate_parity_manifest(parity_gold_manifest, source_manifest)
+    fixture = build_contract_fixture_response(worklist, parity_gold_manifest)
+    gold = {
+        "schema_version": QUALIFICATION_GOLD_SCHEMA_VERSION,
+        "status": "frozen_factor_observation_qualification_gold",
+        "task_code": f"{worklist['task_code']}-GOLD-V2",
+        "rule_code": RULE_CODE,
+        "sample_role": sample_role,
+        "worklist_sha256": worklist["worklist_sha256"],
+        "agent_policy_version": worklist["agent_policy_version"],
+        "source_manifest_ref": source_manifest.get("manifest_code"),
+        "source_manifest_sha256": canonical_hash(source_manifest),
+        "gold_origin": "human_reviewed_parity_gold_plus_coverage_adjudication",
+        "units": deepcopy(fixture["results"]),
+        "side_effect_audit": {
+            "model_call_count": 0,
+            "database_write_count": 0,
+            "formal_acceptance_performed": False,
+        },
+    }
+    gold["gold_sha256"] = canonical_hash(gold)
+    validate_factor_observation_qualification_gold(worklist, gold, source_manifest)
+    return gold
+
+
+def validate_factor_observation_qualification_gold(
+    worklist: Mapping[str, Any],
+    gold: Mapping[str, Any],
+    source_manifest: Mapping[str, Any],
+) -> None:
+    _require_exact_keys(
+        gold,
+        {
+            "schema_version",
+            "status",
+            "task_code",
+            "rule_code",
+            "sample_role",
+            "worklist_sha256",
+            "agent_policy_version",
+            "source_manifest_ref",
+            "source_manifest_sha256",
+            "gold_origin",
+            "units",
+            "side_effect_audit",
+            "gold_sha256",
+        },
+        "Factor Observation qualification Gold",
+    )
+    unsigned = dict(gold)
+    stored_hash = unsigned.pop("gold_sha256")
+    if (
+        gold.get("schema_version") != QUALIFICATION_GOLD_SCHEMA_VERSION
+        or gold.get("status") != "frozen_factor_observation_qualification_gold"
+        or gold.get("task_code") != f"{worklist.get('task_code')}-GOLD-V2"
+        or gold.get("rule_code") != RULE_CODE
+        or gold.get("sample_role") not in {"open_development", "sealed_holdout"}
+        or gold.get("worklist_sha256") != worklist.get("worklist_sha256")
+        or gold.get("agent_policy_version") != worklist.get("agent_policy_version")
+        or gold.get("source_manifest_ref") != source_manifest.get("manifest_code")
+        or gold.get("source_manifest_sha256") != canonical_hash(source_manifest)
+        or gold.get("gold_origin")
+        != "human_reviewed_parity_gold_plus_coverage_adjudication"
+        or gold.get("side_effect_audit")
+        != {
+            "model_call_count": 0,
+            "database_write_count": 0,
+            "formal_acceptance_performed": False,
+        }
+        or stored_hash != canonical_hash(unsigned)
+    ):
+        raise ValueError("Factor Observation qualification Gold 绑定或版本非法")
+    synthetic_response = {
+        "schema_version": RESPONSE_SCHEMA_VERSION,
+        "status": "factor_observation_agent_response_complete",
+        "worklist_sha256": worklist["worklist_sha256"],
+        "agent_policy_version": worklist["agent_policy_version"],
+        "response_origin": "contract_fixture_from_human_calibration",
+        "provider": "qualification_gold_validator",
+        "model": "not_a_model_run",
+        "blind_run_declarations": {
+            "v3_factor_gold_accessed": True,
+            "old_factor_proposals_accessed": True,
+            "numeric_factor_values_supplied": False,
+            "scoring_performed": False,
+            "database_write_count": 0,
+            "formal_acceptance_performed": False,
+        },
+        "results": deepcopy(gold.get("units") or ()),
+    }
+    validate_factor_observation_response(worklist, synthetic_response, source_manifest)
+
+
 def evaluate_factor_observation_qualification(
     worklist: Mapping[str, Any],
     response: Mapping[str, Any],
@@ -701,14 +811,26 @@ def evaluate_factor_observation_qualification(
     source_manifest: Mapping[str, Any],
 ) -> dict[str, Any]:
     validate_factor_observation_response(worklist, response, source_manifest)
-    validate_parity_manifest(gold_manifest, source_manifest)
+    coverage_aware_gold = (
+        gold_manifest.get("schema_version") == QUALIFICATION_GOLD_SCHEMA_VERSION
+    )
+    if coverage_aware_gold:
+        validate_factor_observation_qualification_gold(
+            worklist, gold_manifest, source_manifest
+        )
+        gold_rows = gold_manifest["units"]
+    else:
+        if worklist.get("agent_policy_version") != AGENT_POLICY_VERSION_V1:
+            raise ValueError("v2 worklist 必须使用 coverage-aware qualification Gold v2")
+        validate_parity_manifest(gold_manifest, source_manifest)
+        gold_rows = gold_manifest["factor_judgment_proposals"]
 
-    gold_by_unit = {
-        row["unit_ref"]: row for row in gold_manifest["factor_judgment_proposals"]
-    }
+    gold_by_unit = {row["unit_ref"]: row for row in gold_rows}
     response_by_unit = {row["unit_ref"]: row for row in response["results"]}
-    exact = adjacent = nonadjacent = direction_errors = coverage_abstentions = 0
-    factor_total = 0
+    exact = adjacent = nonadjacent = direction_errors = 0
+    decision_total = decision_exact = 0
+    false_resolutions = false_abstentions = correct_abstentions = 0
+    resolved_option_total = 0
     structure_exact_units = 0
     factor_classifications = {name: Counter() for name in FACTOR_NAMES}
     unit_results = []
@@ -736,55 +858,65 @@ def evaluate_factor_observation_qualification(
                 material_pairs.extend(zip(candidate_side, gold_side))
             for candidate, gold in material_pairs:
                 for factor_name in FACTOR_NAMES:
-                    factor_total += 1
                     candidate_factor = candidate["factors"][factor_name]
-                    candidate_code = candidate_factor["option_code"]
-                    gold_code = gold["factors"][factor_name]["option_code"]
-                    if (
-                        candidate_factor.get("decision_status")
-                        == "insufficient_coverage"
-                    ):
-                        classification = "coverage_abstention"
-                        coverage_abstentions += 1
-                        factor_classifications[factor_name][classification] += 1
-                        comparisons.append(
-                            {
-                                "candidate_event_group": candidate["event_group"],
-                                "gold_event_group": gold["event_group"],
-                                "side": candidate["side"],
-                                "factor_name": factor_name,
-                                "candidate_option": None,
-                                "gold_option": gold_code,
-                                "classification": classification,
-                            }
-                        )
-                        continue
-                    distance = abs(
-                        OPTION_ORDER[factor_name].index(candidate_code)
-                        - OPTION_ORDER[factor_name].index(gold_code)
+                    gold_factor = gold["factors"][factor_name]
+                    candidate_status = candidate_factor.get(
+                        "decision_status", "resolved"
                     )
-                    if candidate_code == gold_code:
-                        classification = "exact"
-                        exact += 1
-                    elif factor_name == "appointment_effect" and (
-                        (candidate_code in POSITIVE_EFFECT_OPTIONS)
-                        != (gold_code in POSITIVE_EFFECT_OPTIONS)
+                    gold_status = gold_factor.get("decision_status", "resolved")
+                    candidate_code = candidate_factor.get("option_code")
+                    gold_code = gold_factor.get("option_code")
+                    decision_total += 1
+                    if candidate_status == gold_status:
+                        decision_exact += 1
+                    if (
+                        gold_status == "insufficient_coverage"
+                        and candidate_status == "resolved"
                     ):
-                        classification = "direction_error"
-                        direction_errors += 1
-                    elif distance == 1:
-                        classification = "adjacent"
-                        adjacent += 1
+                        classification = "unsafe_false_resolution"
+                        false_resolutions += 1
+                        factor_classifications[factor_name][classification] += 1
+                    elif (
+                        gold_status == "resolved"
+                        and candidate_status == "insufficient_coverage"
+                    ):
+                        classification = "false_abstention"
+                        false_abstentions += 1
+                        factor_classifications[factor_name][classification] += 1
+                    elif gold_status == candidate_status == "insufficient_coverage":
+                        classification = "correct_abstention"
+                        correct_abstentions += 1
+                        factor_classifications[factor_name][classification] += 1
                     else:
-                        classification = "nonadjacent"
-                        nonadjacent += 1
-                    factor_classifications[factor_name][classification] += 1
+                        resolved_option_total += 1
+                        distance = abs(
+                            OPTION_ORDER[factor_name].index(candidate_code)
+                            - OPTION_ORDER[factor_name].index(gold_code)
+                        )
+                        if candidate_code == gold_code:
+                            classification = "exact"
+                            exact += 1
+                        elif factor_name == "appointment_effect" and (
+                            (candidate_code in POSITIVE_EFFECT_OPTIONS)
+                            != (gold_code in POSITIVE_EFFECT_OPTIONS)
+                        ):
+                            classification = "direction_error"
+                            direction_errors += 1
+                        elif distance == 1:
+                            classification = "adjacent"
+                            adjacent += 1
+                        else:
+                            classification = "nonadjacent"
+                            nonadjacent += 1
+                        factor_classifications[factor_name][classification] += 1
                     comparisons.append(
                         {
                             "candidate_event_group": candidate["event_group"],
                             "gold_event_group": gold["event_group"],
                             "side": candidate["side"],
                             "factor_name": factor_name,
+                            "candidate_decision_status": candidate_status,
+                            "gold_decision_status": gold_status,
                             "candidate_option": candidate_code,
                             "gold_option": gold_code,
                             "classification": classification,
@@ -799,24 +931,31 @@ def evaluate_factor_observation_qualification(
         )
 
     unit_count = len(worklist["tasks"])
-    exact_rate = exact / factor_total if factor_total else 0.0
+    exact_rate = exact / resolved_option_total if resolved_option_total else 0.0
+    decision_accuracy = decision_exact / decision_total if decision_total else 0.0
     structure_rate = structure_exact_units / unit_count if unit_count else 0.0
     thresholds = {
+        "decision_status_accuracy_min": 1.0,
+        "unsafe_false_resolution_max": 0,
+        "false_abstention_max": 0,
         "factor_exact_match_rate_min": 0.85,
         "material_side_structure_exact_rate_min": 1.0,
         "direction_error_max": 0,
         "nonadjacent_error_max": 0,
-        "coverage_abstention_max": 0,
         "contract_validation_required": True,
     }
     threshold_checks = {
+        "decision_status_accuracy": decision_accuracy
+        >= thresholds["decision_status_accuracy_min"],
+        "unsafe_false_resolution": false_resolutions
+        <= thresholds["unsafe_false_resolution_max"],
+        "false_abstention": false_abstentions
+        <= thresholds["false_abstention_max"],
         "factor_exact_match_rate": exact_rate >= thresholds["factor_exact_match_rate_min"],
         "material_side_structure_exact_rate": structure_rate
         >= thresholds["material_side_structure_exact_rate_min"],
         "direction_error": direction_errors <= thresholds["direction_error_max"],
         "nonadjacent_error": nonadjacent <= thresholds["nonadjacent_error_max"],
-        "coverage_abstention": coverage_abstentions
-        <= thresholds["coverage_abstention_max"],
         "contract_validation": True,
     }
     threshold_passed = all(threshold_checks.values())
@@ -831,24 +970,50 @@ def evaluate_factor_observation_qualification(
     factor_breakdown = {
         factor_name: {
             "comparison_count": sum(counts.values()),
+            "decision_status_exact_count": (
+                counts["exact"]
+                + counts["adjacent"]
+                + counts["nonadjacent"]
+                + counts["direction_error"]
+                + counts["correct_abstention"]
+            ),
+            "correct_abstention_count": counts["correct_abstention"],
+            "unsafe_false_resolution_count": counts["unsafe_false_resolution"],
+            "false_abstention_count": counts["false_abstention"],
+            "resolved_option_comparison_count": (
+                counts["exact"]
+                + counts["adjacent"]
+                + counts["nonadjacent"]
+                + counts["direction_error"]
+            ),
             "exact_count": counts["exact"],
             "exact_rate": round(
-                counts["exact"] / sum(counts.values()) if counts else 0.0,
+                counts["exact"]
+                / (
+                    counts["exact"]
+                    + counts["adjacent"]
+                    + counts["nonadjacent"]
+                    + counts["direction_error"]
+                )
+                if (
+                    counts["exact"]
+                    + counts["adjacent"]
+                    + counts["nonadjacent"]
+                    + counts["direction_error"]
+                )
+                else 0.0,
                 4,
             ),
             "adjacent_error_count": counts["adjacent"],
             "nonadjacent_error_count": counts["nonadjacent"],
             "direction_error_count": counts["direction_error"],
-            "coverage_abstention_count": counts["coverage_abstention"],
         }
         for factor_name, counts in factor_classifications.items()
     }
     report = {
         "schema_version": QUALIFICATION_SCHEMA_VERSION,
         "status": (
-            "factor_observation_coverage_review_required"
-            if coverage_abstentions
-            else "factor_observation_agent_qualified"
+            "factor_observation_agent_qualified"
             if real_agent_qualified
             else "factor_observation_development_replay_completed"
             if development_replay
@@ -858,18 +1023,25 @@ def evaluate_factor_observation_qualification(
         ),
         "rule_code": RULE_CODE,
         "worklist_sha256": worklist["worklist_sha256"],
+        "qualification_gold_sha256": gold_manifest.get("gold_sha256"),
+        "sample_role": gold_manifest.get("sample_role", "legacy_v1_development"),
         "response_origin": response["response_origin"],
         "provider": response["provider"],
         "model": response["model"],
         "metrics": {
             "unit_count": unit_count,
-            "factor_comparison_count": factor_total,
+            "factor_comparison_count": decision_total,
+            "decision_status_exact_count": decision_exact,
+            "decision_status_accuracy": round(decision_accuracy, 4),
+            "correct_abstention_count": correct_abstentions,
+            "unsafe_false_resolution_count": false_resolutions,
+            "false_abstention_count": false_abstentions,
+            "resolved_option_comparison_count": resolved_option_total,
             "factor_exact_match_count": exact,
             "factor_exact_match_rate": round(exact_rate, 4),
             "adjacent_error_count": adjacent,
             "nonadjacent_error_count": nonadjacent,
             "direction_error_count": direction_errors,
-            "coverage_abstention_count": coverage_abstentions,
             "material_side_structure_exact_unit_count": structure_exact_units,
             "material_side_structure_exact_rate": round(structure_rate, 4),
             "factor_breakdown": factor_breakdown,
@@ -880,8 +1052,10 @@ def evaluate_factor_observation_qualification(
         "contract_fixture_passed": contract_fixture and threshold_passed,
         "real_agent_qualified": real_agent_qualified,
         "next_gate": (
-            "complete_coverage_or_add_direct_evidence_then_rerun"
-            if coverage_abstentions
+            "eliminate_unsafe_false_resolution_before_rerun"
+            if false_resolutions
+            else "add_direct_evidence_or_fix_false_abstention_before_rerun"
+            if false_abstentions
             else "qualified_response_may_enter_separate_shadow_scoring_review"
             if real_agent_qualified
             else "freeze_policy_then_use_new_sealed_holdout"

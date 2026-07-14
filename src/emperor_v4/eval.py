@@ -73,6 +73,7 @@ from emperor_v4.application.factor_observation_qualification_runner import (
     run_factor_observation_batch_plan,
     run_factor_observation_batch_merge,
     run_factor_observation_qualification,
+    run_factor_observation_qualification_gold,
     run_factor_observation_worklist,
 )
 from emperor_v4.application.talent_discovery_shadow_runner import (
@@ -444,6 +445,16 @@ def _parser() -> argparse.ArgumentParser:
     factor_qualification.add_argument("--gold-manifest", type=Path, required=True)
     factor_qualification.add_argument("--source-manifest", type=Path, required=True)
     factor_qualification.add_argument("--output", type=Path)
+    factor_gold = subparsers.add_parser("appointment-delegation-factor-gold")
+    factor_gold.add_argument("--worklist", type=Path, required=True)
+    factor_gold.add_argument("--parity-gold-manifest", type=Path, required=True)
+    factor_gold.add_argument("--source-manifest", type=Path, required=True)
+    factor_gold.add_argument(
+        "--sample-role",
+        choices=("open_development", "sealed_holdout"),
+        default="open_development",
+    )
+    factor_gold.add_argument("--output", type=Path)
     talent_shadow = subparsers.add_parser("talent-discovery-shadow")
     talent_shadow.add_argument("--manifest", type=Path, required=True)
     talent_shadow.add_argument("--output", type=Path)
@@ -620,6 +631,13 @@ def main() -> int:
             args.response,
             args.gold_manifest,
             args.source_manifest,
+        )
+    elif args.command == "appointment-delegation-factor-gold":
+        report = run_factor_observation_qualification_gold(
+            args.worklist,
+            args.parity_gold_manifest,
+            args.source_manifest,
+            sample_role=args.sample_role,
         )
     elif args.command == "talent-discovery-shadow":
         report = run_talent_discovery_shadow(args.manifest)

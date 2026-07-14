@@ -81,8 +81,14 @@ factor_observation_qualification_result:
   current_coverage_status: open_snapshot
   absence_inference_allowed: false
   open_snapshot_coverage_abstentions: 1
+  qualification_gold_schema_version: factor-observation-qualification-gold-v2
+  qualification_gold_sample_role: open_development
   blind_worklist_units: 4
   factor_comparisons: 30
+  resolved_option_comparisons: 29
+  correct_abstentions: 1
+  unsafe_false_resolutions: 0
+  false_abstentions: 0
   v1_contract_fixture_exact_match_rate: 1.0
   v1_contract_fixture_material_side_structure_rate: 1.0
   v1_contract_fixture_passed: true
@@ -120,13 +126,13 @@ talent_discovery_shadow_result:
   formal_business_writes: 0
 
 next_delivery:
-  code: appointment_delegation_factor_agent_policy_revision_and_new_holdout
+  code: appointment_delegation_factor_open_development_then_sealed_holdout
   required_outcomes:
-    - freeze_current_four_units_as_policy_development_set
-    - revise_effect_continuity_and_source_option_guidance
-    - pin_runtime_model_and_verify_execution_identity
-    - persist_codex_win_duration_and_token_usage
+    - build_and_review_four_open_development_units
+    - keep_coverage_aware_qualification_gold_v2
+    - preserve_frozen_candidate_split_before_model_execution
     - qualify_on_new_sealed_holdout_without_gold_leakage
+    - persist_codex_win_duration_and_token_usage
   forbidden_substitutes:
     - new_micro_stage_letters
     - stage_only_markdown

@@ -5,6 +5,8 @@ rule_code: appointment_delegation
 source_manifest_path: ../appointment_delegation_scored_demo/manifest.yml
 human_calibration_gold_path: ../appointment_delegation_v3_parity_demo/manifest.yml
 worklist_path: worklist.json
+coverage_aware_worklist_path: worklist_v2.json
+coverage_aware_qualification_gold_path: qualification_gold_v2.json
 independent_agent_response_path: independent_agent_response.json
 independent_agent_execution_audit_path: independent_agent_execution_audit.json
 pinned_development_response_path: pinned_development_response.json
@@ -22,6 +24,22 @@ qualification_boundary:
   worklist_exposes_numeric_factor_values: false
   contract_fixture_is_independent_agent_evidence: false
   real_agent_qualification_requires_independent_blind_run: true
+  coverage_aware_gold_required_for_v2_worklist: true
+  correct_abstention_is_not_factor_error: true
+  unsafe_false_resolution_max: 0
+  false_abstention_max: 0
+coverage_aware_harness:
+  status: ready_for_open_development_replay
+  gold_schema_version: factor-observation-qualification-gold-v2
+  sample_role: open_development
+  unit_count: 4
+  factor_comparison_count: 30
+  resolved_option_comparison_count: 29
+  correct_abstention_count: 1
+  unsafe_false_resolution_count: 0
+  false_abstention_count: 0
+  model_call_count: 0
+  database_write_count: 0
 qualification_result:
   provider: codex_chatgpt_login
   response_declared_model: gpt-5.6-sol
@@ -72,4 +90,71 @@ latency_policy:
     two_batches_of_two_parallel: 48.747
     four_single_unit_batches_parallel: 30.283
   decision: keep_four_unit_microbatches_and_parallelize_across_batches
-next_gate: revise_factor_observation_policy_then_use_new_sealed_holdout
+candidate_sample_split:
+  status: frozen_before_any_candidate_model_run
+  frozen_on: 2026-07-14
+  total_candidate_units: 8
+  open_development_units: 4
+  sealed_holdout_units: 4
+  source_policy: readonly_locator_only_not_v4_formal_fact
+  source_inventory:
+    - path: tests/fixtures/episode_pilot_v1/assertion-candidates-lishimin.json
+      sha256: 5bd552040e745304aa540208e743e518b6c722f2fd1a8fe80f57dbfd37645604
+    - path: tests/fixtures/episode_pilot_v1/assertion-candidates-liubang.json
+      sha256: 91c4775abc43cac84ebc44c2479439f2942359369e97f3ba1cc1fff59de470da
+    - path: tests/fixtures/episode_pilot_v1/assertion-candidates-zhuyuanzhang.json
+      sha256: 69ca04e598fb414328d9be1e441b7b46243ef7c005bf47041d4ffe0c0a8c0225
+    - path: tests/fixtures/episode_pilot_v1/claim-extractor-response.json
+      sha256: 35e8bad73f2b4fa672ee987a45b023d2eb49bf2299332f0120d70c1235717170
+  open_development:
+    - task_code: V4-AD-FQ2-DEV-LSM-MAZHOU
+      ruler: 李世民
+      person: 马周
+      source_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-response.json
+      source_locator_refs: [PAS-CC5B8CEE7833, PAS-8E7015205883]
+    - task_code: V4-AD-FQ2-DEV-LB-ZHANGLIANG
+      ruler: 刘邦
+      person: 张良
+      source_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-response.json
+      source_locator_refs: [PAS-678DCC62ECE1, PAS-DDEA3B440667, PAS-2BEE50807B04]
+    - task_code: V4-AD-FQ2-DEV-ZYZ-LIUJI
+      ruler: 朱元璋
+      person: 刘基
+      source_fixture: tests/fixtures/episode_pilot_v1/assertion-candidates-zhuyuanzhang.json
+      source_locator_refs: [PAS-86EB8DA4AF76CF40BA27F382, PAS-1B0AA83840C2A631371CFBDB]
+    - task_code: V4-AD-FQ2-DEV-ZYZ-LISHANCHANG
+      ruler: 朱元璋
+      person: 李善长
+      source_fixture: tests/fixtures/episode_pilot_v1/claim-extractor-response.json
+      source_locator_refs: [PAS-8813DB1A0662, PAS-30DBEA997AC2, PAS-BD0A510BD3AC]
+  sealed_holdout:
+    - task_code: V4-AD-FQ2-SEALED-LSM-FANGXUANLING
+      ruler: 李世民
+      person: 房玄龄
+      source_fixture: tests/fixtures/episode_pilot_v1/assertion-candidates-lishimin.json
+      source_locator_refs: [PAS-AA55FCDDA5DF5DED8C7D83C9]
+    - task_code: V4-AD-FQ2-SEALED-LSM-LIJING
+      ruler: 李世民
+      person: 李靖
+      source_fixture: tests/fixtures/episode_pilot_v1/assertion-candidates-lishimin.json
+      source_locator_refs: [PAS-7656FB61D6229728FBAC0937]
+    - task_code: V4-AD-FQ2-SEALED-LB-XIAOHE
+      ruler: 刘邦
+      person: 萧何
+      source_fixture: tests/fixtures/episode_pilot_v1/assertion-candidates-liubang.json
+      source_locator_refs: [PAS-B06C119B6C306D3D18CD649A, PAS-AFB790607919DBFB281E690C]
+    - task_code: V4-AD-FQ2-SEALED-ZYZ-XUDA
+      ruler: 朱元璋
+      person: 徐达
+      source_fixture: tests/fixtures/episode_pilot_v1/assertion-candidates-zhuyuanzhang.json
+      source_locator_refs: [PAS-52B6EFFC106844686715F1FC]
+  leakage_controls:
+    expected_factor_options_in_plan: false
+    gold_visible_to_agent: false
+    sealed_units_may_be_used_for_policy_tuning: false
+    sealed_execution_count_max: 1
+  side_effect_audit:
+    model_call_count: 0
+    database_write_count: 0
+    formal_fact_write_count: 0
+next_gate: build_and_review_four_open_development_units_before_sealed_execution
