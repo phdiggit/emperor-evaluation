@@ -1,0 +1,398 @@
+{
+    "schema_version": "factor-observation-agent-response-v2",
+    "status": "factor_observation_agent_response_complete",
+    "worklist_sha256": "6211915d9acd759f6a45b45347e3576f20e6b6effb1974135dd6d06dd83478a9",
+    "agent_policy_version": "appointment-delegation-factor-observation-agent-v2",
+    "response_origin": "development_replay_after_gold_opened",
+    "provider": "codex_chatgpt_login",
+    "model": "gpt-5.6-sol",
+    "blind_run_declarations": {
+        "v3_factor_gold_accessed": false,
+        "old_factor_proposals_accessed": false,
+        "numeric_factor_values_supplied": false,
+        "scoring_performed": false,
+        "database_write_count": 0,
+        "formal_acceptance_performed": false
+    },
+    "results": [
+        {
+            "unit_ref": "REU-LSM-MAZHOU-AUTHORIZATION-v1",
+            "factor_materials": [
+                {
+                    "material_code": "MZ-POS-01",
+                    "event_group": "mazhou_reuse",
+                    "side": "positive",
+                    "factors": {
+                        "appointment_effect": {
+                            "decision_status": "resolved",
+                            "option_code": "normal_success",
+                            "inference_basis": "direct_evidence",
+                            "reason": "奏议获得肯定后连续晋用，并承担中枢、东宫和监守职责，直接表明人岗适配与正向履职反馈。",
+                            "assertion_refs": [
+                                "V4DEV-MZ-002",
+                                "V4DEV-MZ-003",
+                                "V4DEV-MZ-004"
+                            ]
+                        },
+                        "appointment_importance": {
+                            "decision_status": "resolved",
+                            "option_code": "critical_national_or_long_term",
+                            "inference_basis": "direct_evidence",
+                            "reason": "中书令、东宫辅弼及皇帝出征期间的监守职责直接涉及国家中枢和监国辅助。",
+                            "assertion_refs": [
+                                "V4DEV-MZ-003",
+                                "V4DEV-MZ-004"
+                            ]
+                        },
+                        "attribution_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "召见、授职、晋升和留辅安排均由李世民直接作出。",
+                            "assertion_refs": [
+                                "V4DEV-MZ-001",
+                                "V4DEV-MZ-002",
+                                "V4DEV-MZ-004"
+                            ]
+                        },
+                        "context_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "core_mechanism_direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "材料直接呈现初次授职、履职反馈、连续晋用和新任务复用的完整任用机制。",
+                            "assertion_refs": [
+                                "V4DEV-MZ-001",
+                                "V4DEV-MZ-002",
+                                "V4DEV-MZ-003",
+                                "V4DEV-MZ-004"
+                            ]
+                        },
+                        "continuity_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "long_term_multi_stage",
+                            "inference_basis": "direct_evidence",
+                            "reason": "证据覆盖初次门下与监察任用、后续中枢历迁以及征辽东时留辅太子的多个可区分授权阶段。",
+                            "assertion_refs": [
+                                "V4DEV-MZ-001",
+                                "V4DEV-MZ-003",
+                                "V4DEV-MZ-004"
+                            ]
+                        },
+                        "source_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "complete_direct_chain",
+                            "inference_basis": "direct_evidence",
+                            "reason": "史源直接覆盖召见授职、奏议反馈、历次晋用和留辅监守，足以支撑本材料声明的任用链。",
+                            "assertion_refs": [
+                                "V4DEV-MZ-001",
+                                "V4DEV-MZ-002",
+                                "V4DEV-MZ-003",
+                                "V4DEV-MZ-004"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "unit_ref": "REU-LB-ZHANGLIANG-HANXIN-SEAL-v1",
+            "factor_materials": [
+                {
+                    "material_code": "ZL-POS-01",
+                    "event_group": "hanxin_seal",
+                    "side": "positive",
+                    "factors": {
+                        "appointment_effect": {
+                            "decision_status": "resolved",
+                            "option_code": "normal_success",
+                            "inference_basis": "direct_evidence",
+                            "reason": "张良参与促成授权调整并奉命持印落实，有限任务与完成结果均明确。",
+                            "assertion_refs": [
+                                "V4DEV-ZL-001",
+                                "V4DEV-ZL-002"
+                            ]
+                        },
+                        "appointment_importance": {
+                            "decision_status": "resolved",
+                            "option_code": "real_bounded",
+                            "inference_basis": "direct_evidence",
+                            "reason": "持印授予齐王是实际成立但边界明确的授权落实任务。",
+                            "assertion_refs": [
+                                "V4DEV-ZL-002"
+                            ]
+                        },
+                        "attribution_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "direct_under_pressure",
+                            "inference_basis": "direct_evidence",
+                            "reason": "刘邦在韩信请王所形成的现实战略压力下调整决定，并直接命张良持印授予。",
+                            "assertion_refs": [
+                                "V4DEV-ZL-001",
+                                "V4DEV-ZL-002"
+                            ]
+                        },
+                        "context_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "core_mechanism_direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "材料直接展示授权取舍、正式命令及张良落实授权的核心机制。",
+                            "assertion_refs": [
+                                "V4DEV-ZL-001",
+                                "V4DEV-ZL-002"
+                            ]
+                        },
+                        "continuity_factor": {
+                            "decision_status": "insufficient_coverage",
+                            "option_code": null,
+                            "inference_basis": "coverage_insufficient",
+                            "reason": "开放快照仅呈现本次授权任务，不能据未显示其他复用阶段确认一次性或短期。",
+                            "assertion_refs": []
+                        },
+                        "source_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "complete_direct_chain",
+                            "inference_basis": "direct_evidence",
+                            "reason": "史源直接覆盖张良参与调整、刘邦正式授权及命张良持印落实的全部声明环节。",
+                            "assertion_refs": [
+                                "V4DEV-ZL-001",
+                                "V4DEV-ZL-002"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "unit_ref": "REU-ZYZ-LIUJI-STRATEGY-AUTHORIZATION-v1",
+            "factor_materials": [
+                {
+                    "material_code": "LJ-POS-01",
+                    "event_group": "liuji_strategy",
+                    "side": "positive",
+                    "factors": {
+                        "appointment_effect": {
+                            "decision_status": "resolved",
+                            "option_code": "normal_success",
+                            "inference_basis": "direct_evidence",
+                            "reason": "刘基受聘后所提军国建议多被采用或经事后结果验证，直接表明顾问职责与能力适配。",
+                            "assertion_refs": [
+                                "V4DEV-LJ-001",
+                                "V4DEV-LJ-002",
+                                "V4DEV-LJ-003",
+                                "V4DEV-LJ-004"
+                            ]
+                        },
+                        "appointment_importance": {
+                            "decision_status": "resolved",
+                            "option_code": "critical_national_or_long_term",
+                            "inference_basis": "direct_evidence",
+                            "reason": "授权对象是持续参与军国战略判断的顾问职责，直接涉及全局性军政决策。",
+                            "assertion_refs": [
+                                "V4DEV-LJ-001",
+                                "V4DEV-LJ-002",
+                                "V4DEV-LJ-003"
+                            ]
+                        },
+                        "attribution_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "征聘、采纳建议、持续书面咨询及事后校正均可直接归于朱元璋的取舍。",
+                            "assertion_refs": [
+                                "V4DEV-LJ-001",
+                                "V4DEV-LJ-002",
+                                "V4DEV-LJ-003",
+                                "V4DEV-LJ-004"
+                            ]
+                        },
+                        "context_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "core_mechanism_direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "材料直接覆盖征聘授权、战略建议反馈、异地持续咨询和未采纳后的纠错反馈。",
+                            "assertion_refs": [
+                                "V4DEV-LJ-001",
+                                "V4DEV-LJ-002",
+                                "V4DEV-LJ-003",
+                                "V4DEV-LJ-004"
+                            ]
+                        },
+                        "continuity_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "long_term_multi_stage",
+                            "inference_basis": "direct_evidence",
+                            "reason": "证据明确区分受聘入仕并参与军谋、离开中枢后继续接受书面咨询两个持续授权阶段。",
+                            "assertion_refs": [
+                                "V4DEV-LJ-001",
+                                "V4DEV-LJ-002",
+                                "V4DEV-LJ-003"
+                            ]
+                        },
+                        "source_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "complete_direct_chain",
+                            "inference_basis": "direct_evidence",
+                            "reason": "史源直接覆盖征聘、战略职责、采用反馈、持续咨询及失策校正，完整支撑材料声明。",
+                            "assertion_refs": [
+                                "V4DEV-LJ-001",
+                                "V4DEV-LJ-002",
+                                "V4DEV-LJ-003",
+                                "V4DEV-LJ-004"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "unit_ref": "REU-ZYZ-LISHANCHANG-CENTRAL-AUTHORITY-v1",
+            "factor_materials": [
+                {
+                    "material_code": "LSC-POS-01",
+                    "event_group": "lishanchang_central",
+                    "side": "positive",
+                    "factors": {
+                        "appointment_effect": {
+                            "decision_status": "resolved",
+                            "option_code": "major_success",
+                            "inference_basis": "direct_evidence",
+                            "reason": "从书记、军机馈饷到相国和录军国重事的持续任用，伴随军需无乏、国用增益且民不困的显著反馈。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-001",
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-003",
+                                "V4DEV-LSC-004"
+                            ]
+                        },
+                        "appointment_importance": {
+                            "decision_status": "resolved",
+                            "option_code": "critical_national_or_long_term",
+                            "inference_basis": "direct_evidence",
+                            "reason": "相国、军机、居守、国家财政与录军国重事均是国家全局和长期结构性关键授权。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-004"
+                            ]
+                        },
+                        "attribution_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "留任、升任相国、亲征居守及即位后继续授予国家级职责均由朱元璋直接决定。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-001",
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-004"
+                            ]
+                        },
+                        "context_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "core_mechanism_direct",
+                            "inference_basis": "direct_evidence",
+                            "reason": "材料直接呈现连续授权、明确权责、履职反馈和国家级复用的核心机制。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-001",
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-003",
+                                "V4DEV-LSC-004"
+                            ]
+                        },
+                        "continuity_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "long_term_multi_stage",
+                            "inference_basis": "direct_evidence",
+                            "reason": "证据覆盖掌书记与军需、相国与居守、即位后录军国重事等多个可区分复用阶段。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-001",
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-004"
+                            ]
+                        },
+                        "source_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "complete_direct_chain",
+                            "inference_basis": "direct_evidence",
+                            "reason": "史源直接覆盖任用演进、职责范围及军需财政反馈，完整支撑正向材料声明。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-001",
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-003",
+                                "V4DEV-LSC-004"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "material_code": "LSC-NEG-01",
+                    "event_group": "lishanchang_late",
+                    "side": "negative",
+                    "factors": {
+                        "appointment_effect": {
+                            "decision_status": "resolved",
+                            "option_code": "poor_result",
+                            "inference_basis": "direct_evidence",
+                            "reason": "长期中枢授权后出现失察、私请及胡惟庸关联指控，构成授权监督和履职的负向反馈；争议材料不足以确认任用直接造成重大损害。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-005",
+                                "V4DEV-LSC-006"
+                            ]
+                        },
+                        "appointment_importance": {
+                            "decision_status": "resolved",
+                            "option_code": "critical_national_or_long_term",
+                            "inference_basis": "direct_evidence",
+                            "reason": "负向反馈所依附的是相国、军国重事等国家级长期中枢授权。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-004",
+                                "V4DEV-LSC-005"
+                            ]
+                        },
+                        "attribution_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "indirect",
+                            "inference_basis": "direct_evidence",
+                            "reason": "朱元璋对长期授权和最终处置负有责任，但负向归因受李善长个人行为、关联关系及同期谋反质疑显著影响。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-005",
+                                "V4DEV-LSC-006"
+                            ]
+                        },
+                        "context_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "weak_but_applicable",
+                            "inference_basis": "direct_evidence",
+                            "reason": "材料与长期授权的监督纠正相关，但失察、党案扩大和谋反归责之间的因果及结算边界存在明显争议。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-005",
+                                "V4DEV-LSC-006"
+                            ]
+                        },
+                        "continuity_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "long_term_multi_stage",
+                            "inference_basis": "direct_evidence",
+                            "reason": "负向反馈发生于从早期军机馈饷、相国居守到即位后军国重事的多阶段长期授权链末端。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-001",
+                                "V4DEV-LSC-002",
+                                "V4DEV-LSC-004",
+                                "V4DEV-LSC-005"
+                            ]
+                        },
+                        "source_factor": {
+                            "decision_status": "resolved",
+                            "option_code": "standard",
+                            "inference_basis": "direct_evidence",
+                            "reason": "史源足以支持晚期指控、扩大处置和同期质疑，但任用安排与最终案件损害之间的因果环节并未直接完整覆盖。",
+                            "assertion_refs": [
+                                "V4DEV-LSC-005",
+                                "V4DEV-LSC-006"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

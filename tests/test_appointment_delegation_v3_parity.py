@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -36,6 +37,9 @@ PARITY_MANIFEST = (
 )
 SOURCE_MANIFEST = (
     ROOT / "eval" / "appointment_delegation_scored_demo" / "manifest.yml"
+)
+OPEN_DEVELOPMENT_DIR = (
+    ROOT / "eval" / "appointment_delegation_factor_open_development_v2"
 )
 
 
@@ -560,6 +564,86 @@ def test_qualification_gold_v2_separates_unsafe_resolution_and_false_abstention(
     assert overcautious_report["next_gate"] == (
         "add_direct_evidence_or_fix_false_abstention_before_rerun"
     )
+
+
+def test_open_development_v2_is_reproducible_and_keeps_one_safe_abstention() -> None:
+    source = _yaml(OPEN_DEVELOPMENT_DIR / "source_manifest.yml")
+    factor_gold = _yaml(OPEN_DEVELOPMENT_DIR / "factor_gold.yml")
+    tracked_worklist = json.loads(
+        (OPEN_DEVELOPMENT_DIR / "worklist_v2.json").read_text(encoding="utf-8")
+    )
+    tracked_gold = json.loads(
+        (OPEN_DEVELOPMENT_DIR / "qualification_gold_v2.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    worklist = build_factor_observation_worklist(source)
+    assert worklist == tracked_worklist
+    qualification_gold = build_factor_observation_qualification_gold(
+        worklist, factor_gold, source, sample_role="open_development"
+    )
+    assert qualification_gold == tracked_gold
+
+    fixture = build_contract_fixture_response(worklist, factor_gold)
+    report = evaluate_factor_observation_qualification(
+        worklist, fixture, qualification_gold, source
+    )
+    assert report["threshold_passed"] is True
+    assert report["metrics"]["factor_comparison_count"] == 30
+    assert report["metrics"]["resolved_option_comparison_count"] == 29
+    assert report["metrics"]["correct_abstention_count"] == 1
+
+    zhangliang = next(
+        row
+        for row in qualification_gold["units"]
+        if row["unit_ref"] == "REU-LB-ZHANGLIANG-HANXIN-SEAL-v1"
+    )
+    assert zhangliang["factor_materials"][0]["factors"]["continuity_factor"] == {
+        "decision_status": "insufficient_coverage",
+        "option_code": None,
+        "inference_basis": "coverage_insufficient",
+        "reason": "当前为开放证据快照，不能根据未发现延续材料确认缺失敏感档位。",
+        "assertion_refs": [],
+    }
+    lishanchang = next(
+        row
+        for row in qualification_gold["units"]
+        if row["unit_ref"] == "REU-ZYZ-LISHANCHANG-CENTRAL-AUTHORITY-v1"
+    )
+    assert {material["side"] for material in lishanchang["factor_materials"]} == {
+        "positive",
+        "negative",
+    }
+
+    agent_response = json.loads(
+        (OPEN_DEVELOPMENT_DIR / "agent_response.json").read_text(encoding="utf-8")
+    )
+    tracked_report = json.loads(
+        (OPEN_DEVELOPMENT_DIR / "qualification_report.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (
+        evaluate_factor_observation_qualification(
+            worklist, agent_response, qualification_gold, source
+        )
+        == tracked_report
+    )
+    assert tracked_report["metrics"]["factor_exact_match_rate"] == 0.9655
+    assert tracked_report["metrics"]["adjacent_error_count"] == 1
+    assert tracked_report["real_agent_qualified"] is False
+
+    audit = json.loads(
+        (OPEN_DEVELOPMENT_DIR / "execution_audit.json").read_text(encoding="utf-8")
+    )
+    assert audit["duration_sec"] == 67.729
+    assert audit["total_tokens"] == 24863
+    for name, expected_hash in audit["artifact_sha256"].items():
+        actual_hash = hashlib.sha256(
+            (OPEN_DEVELOPMENT_DIR / name).read_bytes()
+        ).hexdigest()
+        assert actual_hash == expected_hash
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(

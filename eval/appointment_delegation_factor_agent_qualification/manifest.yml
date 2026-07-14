@@ -157,4 +157,32 @@ candidate_sample_split:
     model_call_count: 0
     database_write_count: 0
     formal_fact_write_count: 0
-next_gate: build_and_review_four_open_development_units_before_sealed_execution
+open_development_v2:
+  status: threshold_passed_development_only
+  artifact_root: ../appointment_delegation_factor_open_development_v2
+  source_manifest_path: ../appointment_delegation_factor_open_development_v2/source_manifest.yml
+  factor_gold_path: ../appointment_delegation_factor_open_development_v2/factor_gold.yml
+  worklist_path: ../appointment_delegation_factor_open_development_v2/worklist_v2.json
+  qualification_gold_path: ../appointment_delegation_factor_open_development_v2/qualification_gold_v2.json
+  agent_response_path: ../appointment_delegation_factor_open_development_v2/agent_response.json
+  qualification_report_path: ../appointment_delegation_factor_open_development_v2/qualification_report.json
+  execution_audit_path: ../appointment_delegation_factor_open_development_v2/execution_audit.json
+  rule_evidence_units: 4
+  factor_materials: 5
+  factor_comparisons: 30
+  resolved_option_comparisons: 29
+  decision_status_accuracy: 1.0
+  correct_abstention_count: 1
+  unsafe_false_resolution_count: 0
+  false_abstention_count: 0
+  factor_exact_match_rate: 0.9655
+  adjacent_error_count: 1
+  nonadjacent_error_count: 0
+  direction_error_count: 0
+  material_side_structure_exact_rate: 1.0
+  duration_sec: 67.729
+  total_tokens: 24863
+  model_calls: 1
+  real_agent_qualified: false
+  gold_revision_after_open_replay: true
+next_gate: freeze_current_policy_and_build_sealed_holdout_without_model_access

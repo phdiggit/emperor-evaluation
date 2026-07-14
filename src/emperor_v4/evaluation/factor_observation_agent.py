@@ -32,6 +32,13 @@ QUALIFICATION_GOLD_SCHEMA_VERSION = "factor-observation-qualification-gold-v2"
 BATCH_PLAN_SCHEMA_VERSION = "factor-observation-batch-plan-v1"
 AGENT_POLICY_VERSION_V1 = "appointment-delegation-factor-observation-agent-v1"
 AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v2"
+QUALIFICATION_HUMAN_REVIEW_BASES = frozenset(
+    {
+        "existing_v4_observations_plus_v3_calibration",
+        "open_development_human_factor_calibration",
+        "sealed_holdout_human_factor_calibration",
+    }
+)
 
 OPTION_GUIDANCE_V1: dict[str, dict[str, str]] = {
     "appointment_importance": {
@@ -711,7 +718,11 @@ def build_factor_observation_qualification_gold(
         raise ValueError("qualification Gold v2 只接受当前 v2 worklist")
     if sample_role not in {"open_development", "sealed_holdout"}:
         raise ValueError("qualification Gold sample_role 非法")
-    validate_parity_manifest(parity_gold_manifest, source_manifest)
+    validate_parity_manifest(
+        parity_gold_manifest,
+        source_manifest,
+        allowed_review_bases=QUALIFICATION_HUMAN_REVIEW_BASES,
+    )
     fixture = build_contract_fixture_response(worklist, parity_gold_manifest)
     gold = {
         "schema_version": QUALIFICATION_GOLD_SCHEMA_VERSION,

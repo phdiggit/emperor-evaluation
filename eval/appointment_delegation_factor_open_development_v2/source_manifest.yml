@@ -1,0 +1,304 @@
+schema_version: 1
+status: frozen_open_development_shadow_input
+task_code: V4-AD-FQ2-OPEN-DEVELOPMENT
+manifest_code: appointment_delegation_factor_open_development_v2
+rule_code: appointment_delegation
+rule_version: appointment-delegation-v1-shadow
+factor_schema_version: appointment-delegation-factors-v1
+judgment_policy_version: appointment-delegation-deterministic-judgment-v1
+scoring_formula_version: appointment-delegation-shadow-mean-v1
+frozen_basis:
+  frozen_on: '2026-07-14'
+  inputs:
+    - path: tests/fixtures/episode_pilot_v1/claim-extractor-response.json
+      role: readonly_claim_and_source_locator
+      sha256: 35e8bad73f2b4fa672ee987a45b023d2eb49bf2299332f0120d70c1235717170
+    - path: tests/fixtures/episode_pilot_v1/assertion-candidates-zhuyuanzhang.json
+      role: readonly_source_slice
+      sha256: 69ca04e598fb414328d9be1e441b7b46243ef7c005bf47041d4ffe0c0a8c0225
+  candidate_split_manifest: ../appointment_delegation_factor_agent_qualification/manifest.yml
+  candidate_split_status: frozen_before_any_candidate_model_run
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  scope_as_of: '2026-07-14'
+  coverage_status: open_snapshot
+  absence_inference_allowed: false
+  covered_time_window: null
+  source_families: [旧唐书, 史记, 明史]
+  stop_reason: open_development_candidate_fixture_boundary
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: false
+  database_writes_allowed: false
+  formal_acceptance_allowed: false
+
+source_passages:
+  - passage_ref: PAS-CC5B8CEE7833
+    source_title: 旧唐书
+    locator: 卷七十四，马周传，召见直门下省与授监察御史段
+    url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B774
+  - passage_ref: PAS-8E7015205883
+    source_title: 旧唐书
+    locator: 卷七十四，马周传，称善、历迁中书令与留辅太子段
+    url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B774
+  - passage_ref: PAS-678DCC62ECE1
+    source_title: 史记
+    locator: 卷五十五，留侯世家，劝立韩信为齐王并奉命授印段
+    url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7055
+  - passage_ref: PAS-DDEA3B440667
+    source_title: 史记
+    locator: 卷五十五，留侯世家，联络黥布彭越并重用韩信破楚段
+    url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7055
+  - passage_ref: PAS-2BEE50807B04
+    source_title: 史记
+    locator: 卷十八，高祖功臣侯者年表，张良请求汉中并参与谋划段
+    url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7018
+  - passage_ref: PAS-86EB8DA4AF76CF40BA27F382
+    source_title: 明史
+    locator: 卷一百二十八，刘基受聘、陈时务、参与军谋与持续咨询段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7128
+  - passage_ref: PAS-8813DB1A0662
+    source_title: 明史
+    locator: 卷一百二十七，李善长掌书记、预军机与主馈饷段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7127
+  - passage_ref: PAS-30DBEA997AC2
+    source_title: 明史
+    locator: 卷一百二十七，李善长任右相国、居守与军国重事段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7127
+  - passage_ref: PAS-BD0A510BD3AC
+    source_title: 明史
+    locator: 卷一百二十七，李善长晚期失察、胡惟庸案与争议处置段
+    url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7127
+
+assertions:
+  - assertion_ref: V4DEV-MZ-001
+    source_passage_ref: PAS-CC5B8CEE7833
+    summary: 李世民召见马周，令其直门下省，次年授监察御史。
+    confidence: 0.97
+  - assertion_ref: V4DEV-MZ-002
+    source_passage_ref: PAS-8E7015205883
+    summary: 马周奏议获李世民称善和赏劳，随后被授给事中。
+    confidence: 0.96
+  - assertion_ref: V4DEV-MZ-003
+    source_passage_ref: PAS-8E7015205883
+    summary: 马周此后历任中书舍人、治书侍御史、中书侍郎和中书令，并兼东宫职责。
+    confidence: 0.98
+  - assertion_ref: V4DEV-MZ-004
+    source_passage_ref: PAS-8E7015205883
+    summary: 李世民征辽东时令马周与高士廉、刘洎留辅皇太子监守定州。
+    confidence: 0.98
+  - assertion_ref: V4DEV-ZL-001
+    source_passage_ref: PAS-678DCC62ECE1
+    summary: 韩信请为假齐王时，张良参与劝说刘邦调整决定。
+    confidence: 0.95
+  - assertion_ref: V4DEV-ZL-002
+    source_passage_ref: PAS-678DCC62ECE1
+    summary: 刘邦正式立韩信为齐王，并命张良持印前往授予。
+    confidence: 0.98
+  - assertion_ref: V4DEV-ZL-CONTEXT-001
+    source_passage_ref: PAS-DDEA3B440667
+    summary: 张良另曾提出联络黥布、彭越并重用韩信的战略建议，最终形成破楚结果。
+    confidence: 0.95
+  - assertion_ref: V4DEV-ZL-CONTEXT-002
+    source_passage_ref: PAS-2BEE50807B04
+    summary: 张良长期参与刘邦平定天下的谋划。
+    confidence: 0.94
+  - assertion_ref: V4DEV-LJ-001
+    source_passage_ref: PAS-86EB8DA4AF76CF40BA27F382
+    summary: 朱元璋以币聘刘基，经再次邀请后刘基出仕并陈时务十八策。
+    confidence: 0.98
+  - assertion_ref: V4DEV-LJ-002
+    source_passage_ref: PAS-86EB8DA4AF76CF40BA27F382
+    summary: 朱元璋采用刘基关于先取陈友谅等战略建议，并依据其军谋行动取得反馈。
+    confidence: 0.96
+  - assertion_ref: V4DEV-LJ-003
+    source_passage_ref: PAS-86EB8DA4AF76CF40BA27F382
+    summary: 刘基离开中枢期间，朱元璋仍多次书面咨询军国事务，刘基条答多中机宜。
+    confidence: 0.97
+  - assertion_ref: V4DEV-LJ-004
+    source_passage_ref: PAS-86EB8DA4AF76CF40BA27F382
+    summary: 朱元璋未采纳刘基关于安丰的劝告后遭遇洪都危机，并承认此前未听其言几乎失策。
+    confidence: 0.96
+  - assertion_ref: V4DEV-LSC-001
+    source_passage_ref: PAS-8813DB1A0662
+    summary: 朱元璋留李善长掌书记，随后使其参预军机并主持馈饷。
+    confidence: 0.98
+  - assertion_ref: V4DEV-LSC-002
+    source_passage_ref: PAS-30DBEA997AC2
+    summary: 朱元璋拜李善长为右相国，使其处理军机、赏罚和政务，并在亲征时承担居守。
+    confidence: 0.98
+  - assertion_ref: V4DEV-LSC-003
+    source_passage_ref: PAS-30DBEA997AC2
+    summary: 李善长负责军粮转调、制度建设和国家财政，形成军需无乏、国用增益而民不困的反馈。
+    confidence: 0.96
+  - assertion_ref: V4DEV-LSC-004
+    source_passage_ref: PAS-30DBEA997AC2
+    summary: 朱元璋即位后继续授李善长太子少师、录军国重事等国家级职责。
+    confidence: 0.98
+  - assertion_ref: V4DEV-LSC-005
+    source_passage_ref: PAS-BD0A510BD3AC
+    summary: 李善长晚年在胡惟庸关联、私请与失察问题上受到指控，显示长期授权链出现负向反馈。
+    confidence: 0.86
+  - assertion_ref: V4DEV-LSC-006
+    source_passage_ref: PAS-BD0A510BD3AC
+    summary: 朱元璋最终以胡惟庸党案处置李善长及其家属，但次年王国用上书质疑其谋反归因，朱元璋未加罪。
+    confidence: 0.9
+
+historical_episodes:
+  - episode_ref: EP-LSM-MAZHOU-ENTRY@v1
+    episode_code: EP-LSM-MAZHOU-ENTRY
+    ruler: 李世民
+    person: 马周
+    action: 召见并授予门下省、监察职责
+    responsibility: 门下省值守与监察御史
+    outcome: 奏议获称善并继续晋用
+    semantic_fingerprint: 71a9906ee70fea17b866d1b00f3f23334915710e1c33c30f8a5ab84ef4186659
+    assertion_refs: [V4DEV-MZ-001, V4DEV-MZ-002]
+  - episode_ref: EP-LSM-MAZHOU-CENTRAL-REUSE@v1
+    episode_code: EP-LSM-MAZHOU-CENTRAL-REUSE
+    ruler: 李世民
+    person: 马周
+    action: 连续晋升并在征辽东时留辅太子
+    responsibility: 中书令、东宫辅弼与定州监守
+    outcome: 获得跨阶段中央与监国辅助职责
+    semantic_fingerprint: 450809c94f090859739ef1ee85049f0b4b10e028361d3cf86926af995ce5decd
+    assertion_refs: [V4DEV-MZ-003, V4DEV-MZ-004]
+  - episode_ref: EP-LB-ZHANGLIANG-HANXIN-SEAL@v1
+    episode_code: EP-LB-ZHANGLIANG-HANXIN-SEAL
+    ruler: 刘邦
+    person: 张良
+    action: 调整齐王授权并命张良持印授予韩信
+    responsibility: 传达并落实齐王正式授权
+    outcome: 韩信获得齐王正式权责
+    semantic_fingerprint: 7256f05e0ef9854cebd246b3a0f2397d18ef6d45a665b17265be0559a4132630
+    assertion_refs: [V4DEV-ZL-001, V4DEV-ZL-002]
+  - episode_ref: EP-ZYZ-LIUJI-RECRUITMENT@v1
+    episode_code: EP-ZYZ-LIUJI-RECRUITMENT
+    ruler: 朱元璋
+    person: 刘基
+    action: 征聘、听取时务与采用军谋
+    responsibility: 军国战略顾问
+    outcome: 多项战略建议被采用并形成明确反馈
+    semantic_fingerprint: 4d5afa98a483f8fd140fae205a13b2bcdf63723d5a9d1ed02ff94a077686a9c8
+    assertion_refs: [V4DEV-LJ-001, V4DEV-LJ-002]
+  - episode_ref: EP-ZYZ-LIUJI-CONTINUED-CONSULTATION@v1
+    episode_code: EP-ZYZ-LIUJI-CONTINUED-CONSULTATION
+    ruler: 朱元璋
+    person: 刘基
+    action: 持续书面咨询并根据失策结果校正判断
+    responsibility: 异地军国咨询与决策反馈
+    outcome: 条答多中机宜，未采纳时亦形成可归责纠错反馈
+    semantic_fingerprint: 8ca2610b65ed9e893eca210d1269547a5b4b8688585eee39085585a937fc42c7
+    assertion_refs: [V4DEV-LJ-003, V4DEV-LJ-004]
+  - episode_ref: EP-ZYZ-LISHANCHANG-CENTRAL-AUTHORITY@v1
+    episode_code: EP-ZYZ-LISHANCHANG-CENTRAL-AUTHORITY
+    ruler: 朱元璋
+    person: 李善长
+    action: 从掌书记、军机馈饷持续升任相国并录军国重事
+    responsibility: 中枢政务、军需、居守与国家制度
+    outcome: 军需稳定、国用增益并获得长期国家级复用
+    semantic_fingerprint: e530f090d0556b315f300f892596199fb0d2f91934ec77a51c15c0e5d2af9e1f
+    assertion_refs: [V4DEV-LSC-001, V4DEV-LSC-002, V4DEV-LSC-003, V4DEV-LSC-004]
+  - episode_ref: EP-ZYZ-LISHANCHANG-LATE-CONTROL@v1
+    episode_code: EP-ZYZ-LISHANCHANG-LATE-CONTROL
+    ruler: 朱元璋
+    person: 李善长
+    action: 对晚期失察指控与胡惟庸关联作扩大处置
+    responsibility: 长期中枢授权的监督、纠正与归责
+    outcome: 李善长及家属被处置，但谋反归因存在同期质疑
+    semantic_fingerprint: f048f50978d38acf98016011af422d92c49e4cb385b9b719171eded556031dd1
+    assertion_refs: [V4DEV-LSC-005, V4DEV-LSC-006]
+
+rule_evidence_units:
+  - unit_ref: REU-LSM-MAZHOU-AUTHORIZATION-v1
+    rule_code: appointment_delegation
+    ruler: 李世民
+    person: 马周
+    decision_arc_family: appointment_continued_authorization
+    episode_refs: [EP-LSM-MAZHOU-ENTRY@v1, EP-LSM-MAZHOU-CENTRAL-REUSE@v1]
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 马周的奏议、监察和中枢履职持续获得正向反馈。
+        assertion_refs: [V4DEV-MZ-001, V4DEV-MZ-002, V4DEV-MZ-003]
+      authority_clarity:
+        value: positive_signal
+        reason: 门下、监察、中书令和留辅太子职责均有明确授权载体。
+        assertion_refs: [V4DEV-MZ-001, V4DEV-MZ-003, V4DEV-MZ-004]
+      feedback_handling:
+        value: positive_signal
+        reason: 李世民根据多次履职反馈连续晋用并委以监国辅助职责。
+        assertion_refs: [V4DEV-MZ-002, V4DEV-MZ-003, V4DEV-MZ-004]
+      attributable_outcome:
+        value: positive_signal
+        reason: 晋升和复用均可直接回溯到李世民的授权与反馈判断。
+        assertion_refs: [V4DEV-MZ-001, V4DEV-MZ-004]
+  - unit_ref: REU-LB-ZHANGLIANG-HANXIN-SEAL-v1
+    rule_code: appointment_delegation
+    ruler: 刘邦
+    person: 张良
+    decision_arc_family: bounded_task_delegation
+    episode_refs: [EP-LB-ZHANGLIANG-HANXIN-SEAL@v1]
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 张良参与授权调整后被直接委派落实齐王授印。
+        assertion_refs: [V4DEV-ZL-001, V4DEV-ZL-002]
+      authority_clarity:
+        value: positive_signal
+        reason: 持印授予韩信齐王权责是明确而有限的独立任务。
+        assertion_refs: [V4DEV-ZL-002]
+      feedback_handling:
+        value: positive_signal
+        reason: 刘邦在现实战略压力下调整决定并形成正式授权动作。
+        assertion_refs: [V4DEV-ZL-001, V4DEV-ZL-002]
+      attributable_outcome:
+        value: positive_signal
+        reason: 授印任务及齐王授权完成可直接归于刘邦的命令。
+        assertion_refs: [V4DEV-ZL-002]
+  - unit_ref: REU-ZYZ-LIUJI-STRATEGY-AUTHORIZATION-v1
+    rule_code: appointment_delegation
+    ruler: 朱元璋
+    person: 刘基
+    decision_arc_family: recruitment_continued_consultation
+    episode_refs: [EP-ZYZ-LIUJI-RECRUITMENT@v1, EP-ZYZ-LIUJI-CONTINUED-CONSULTATION@v1]
+    factor_observations:
+      person_task_fit:
+        value: positive_signal
+        reason: 刘基受聘后持续提供被采用或被事后验证的军国建议。
+        assertion_refs: [V4DEV-LJ-001, V4DEV-LJ-002, V4DEV-LJ-003]
+      authority_clarity:
+        value: positive_signal
+        reason: 征聘、当面军谋和异地书面咨询共同界定战略顾问职责。
+        assertion_refs: [V4DEV-LJ-001, V4DEV-LJ-003]
+      feedback_handling:
+        value: positive_signal
+        reason: 朱元璋持续咨询，并在未采纳造成风险后明确承认失策。
+        assertion_refs: [V4DEV-LJ-002, V4DEV-LJ-003, V4DEV-LJ-004]
+      attributable_outcome:
+        value: positive_signal
+        reason: 采用、持续咨询和纠错反馈均可直接归责于朱元璋。
+        assertion_refs: [V4DEV-LJ-002, V4DEV-LJ-004]
+  - unit_ref: REU-ZYZ-LISHANCHANG-CENTRAL-AUTHORITY-v1
+    rule_code: appointment_delegation
+    ruler: 朱元璋
+    person: 李善长
+    decision_arc_family: appointment_feedback_correction
+    episode_refs: [EP-ZYZ-LISHANCHANG-CENTRAL-AUTHORITY@v1, EP-ZYZ-LISHANCHANG-LATE-CONTROL@v1]
+    factor_observations:
+      person_task_fit:
+        value: mixed_signal
+        reason: 长期中枢与军需履职形成显著正向反馈，但晚期出现失察和私请指控。
+        assertion_refs: [V4DEV-LSC-001, V4DEV-LSC-003, V4DEV-LSC-005]
+      authority_clarity:
+        value: positive_signal
+        reason: 相国、军机、居守和录军国重事构成明确的国家级长期授权。
+        assertion_refs: [V4DEV-LSC-002, V4DEV-LSC-004]
+      feedback_handling:
+        value: mixed_signal
+        reason: 前期长期复用与晚期扩大处置并存，且最终归责存在同期质疑。
+        assertion_refs: [V4DEV-LSC-003, V4DEV-LSC-005, V4DEV-LSC-006]
+      attributable_outcome:
+        value: mixed_signal
+        reason: 正向履职可直接归责，晚期案件则受个人行为、亲属关系和争议司法链影响。
+        assertion_refs: [V4DEV-LSC-003, V4DEV-LSC-005, V4DEV-LSC-006]

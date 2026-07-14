@@ -16,6 +16,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - V3 parity 增量复用：单个档位候选变化只重建对应 1 个 Judgment/Contribution，其余 3 个逐字段复用
 - Factor Observation 资格门：`codex-win factorization-jsonl` 已完成首轮独立盲评；合同、lineage、正负材料结构和方向均通过，但档位仅 19/30 精确、存在 1 个非相邻错误，`real_agent_qualified=false`；延迟基准确定默认保持每批最多 4 单元，并在批间最多 4 路并发
 - 模型固定复现：通过 `--respect-task-argv` 显式执行 `--model gpt-5.6-sol`，开发集为 20/30 精确，仍未达门槛；该复现不计为新资格盲评
+- 新开放开发集：马周、张良、刘基、李善长已形成 4 个 V4 RuleEvidenceUnit 和 5 条正负材料；coverage-aware 对照为 28/29 已决档位精确、1 次正确拒判、零危险强判/错误拒判/非相邻/方向错误，`codex-win` 单批耗时 67.729 秒、总 token 24,863；该结果只用于调校，`real_agent_qualified=false`
 - 通用证据覆盖 Gate：`appointment_delegation` 与 `talent_discovery` 共用 `rule-factor-evidence-coverage-v1`；开放快照允许直接正证据确认，但禁止以“未找到”强推一次性、从未发生等缺失敏感档位，覆盖不足必须退出为 `insufficient_coverage`
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
@@ -68,12 +69,12 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 ## 下一份可见成果
 
-V3 语义等价 scored shadow 已复用现有 SourcePassage、Assertion、HistoricalEpisode、RuleEvidenceUnit 与四维 Judgment readiness 观察。首轮独立 Factor Observation 盲评已由 `codex-win` 在禁用智能体网络工具、数据库和 Git 上下文的权限画像下运行；材料正负结构为 4/4、归因与规则上下文档位全部命中，但总精确率只有 63.33%，未通过 85% 门槛。随后用 `--respect-task-argv` 明确固定 `gpt-5.6-sol` 做开发集复现，精确率为 66.67%，仍有 1 个非相邻错误；该复现强制 `real_agent_qualified=false`。由于四单元 Gold 已用于对照，不能继续把同一集合当作独立资格集。下一步是：
+V3 语义等价 scored shadow 和首轮旧开发集仍保留为回归证据。新开放开发集已在模型运行前冻结马周、张良、刘基、李善长四单元，并由 `codex-win` 显式固定 `gpt-5.6-sol` 完成一次四单元批处理。人机分歧复核纠正了两处人工 Gold：张良不得继承韩信齐王权责的重要性，刘基的长期国家战略咨询也不因缺少正式行政总责而降档。修正后已决档位精确率为 96.55%，决策状态、材料结构和所有安全 Gate 通过；该集合已经开封，仍强制 `real_agent_qualified=false`。下一步是：
 
 1. 保持每批最多 4 个评分单元、批间最多 4 路并发，以墙钟耗时为主要性能目标并完整记录 token；
-2. 把当前四单元冻结为策略开发集，针对任用效果、持续性和史源完整度修订 option guidance，保留已命中的归因和规则上下文定义；
-3. Coverage-aware Gold v2 已把“正确拒绝落档”“覆盖不足却强行落档”“已有正证据却错误拒绝”分开统计；当前四单元为 29 个已决档位和 1 个正确拒绝落档；
-4. 新候选已在任何候选模型运行前冻结为 4 个开放开发单元（马周、张良、刘基、李善长）和 4 个 sealed holdout（房玄龄、李靖、萧何、徐达）；先完成人工构单与开放集调校，密封集最多执行一次且不得用于改策略；
+2. 冻结当前 agent policy、开放开发 worklist 和修订后的人工 Gold，不再根据 sealed 结果修改规则或档位语义；
+3. Coverage-aware Gold v2 继续把正确拒绝、危险强判和错误拒判分开统计；开放开发集为 29 个已决档位和 1 个正确拒绝落档；
+4. 只在人工侧构造已预分的 4 个 sealed holdout（房玄龄、李靖、萧何、徐达），模型不得读取其 Gold，且密封集最多执行一次；
 5. 最终 sealed holdout 仍按 `>= 85%` 已决档位精确率、`100%` 决策状态与材料侧结构、零错误强行落档、零错误拒绝、零方向错误和零非相邻错误重新资格测试；
 6. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；Claim 侧分片、结构化 gap 与 worker tier 不与本轮评分质量 Gate 混线。
 

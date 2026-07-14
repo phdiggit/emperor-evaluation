@@ -88,8 +88,19 @@ factor_observation_qualification_evidence:
   pinned_development_threshold_passed: false
   real_agent_qualified: false
   independent_qualification_model_call_count: 3
-  development_replay_model_call_count: 1
-  model_call_count: 4
+  open_development_v2_artifact_root: appointment_delegation_factor_open_development_v2
+  open_development_v2_exact_match_rate: 0.9655
+  open_development_v2_decision_status_accuracy: 1.0
+  open_development_v2_correct_abstentions: 1
+  open_development_v2_unsafe_false_resolutions: 0
+  open_development_v2_false_abstentions: 0
+  open_development_v2_adjacent_errors: 1
+  open_development_v2_nonadjacent_errors: 0
+  open_development_v2_direction_errors: 0
+  open_development_v2_duration_sec: 67.729
+  open_development_v2_total_tokens: 24863
+  development_replay_model_call_count: 2
+  model_call_count: 5
   database_write_count: 0
   latency_benchmark_path: appointment_delegation_factor_agent_qualification/latency_benchmark.json
   latency_optimization_objective: wall_clock_latency_first
@@ -124,12 +135,11 @@ historical_qualification:
   interpretation: historical failures remain regression evidence and do not block core shadow persistence; they still block publication of a fine-grained historical relation graph
 
 next_delivery:
-  code: appointment_delegation_factor_open_development_then_sealed_holdout
+  code: appointment_delegation_factor_sealed_holdout
   gate: v3_parity_factor_proposal_quality
   required:
-    - build_and_review_four_open_development_units
-    - keep_coverage_aware_qualification_gold_v2
-    - preserve_frozen_candidate_split_before_model_execution
+    - freeze_current_agent_policy_and_open_development_gold
+    - build_four_sealed_rule_evidence_units_without_agent_access
     - qualify_on_new_sealed_holdout_without_gold_leakage
     - persist_codex_win_duration_and_token_usage
   stop_condition: do_not_enable_formal_ranking_or_reuse_single_event_schema_for_team_building
