@@ -7,6 +7,7 @@ from typing import Any, Iterable, Literal, Mapping
 from emperor_v4.application.claim_extractor_service import (
     CachedClaimExtractionResult,
     assertion_identity_payload,
+    canonical_assertion_storage_payload,
 )
 
 
@@ -247,6 +248,9 @@ class PostgresClaimExtractionRepository:
                 writes += 1
                 for assertion in response["assertions"]:
                     support = assertion["passage_support"]
+                    storage_payload = canonical_assertion_storage_payload(
+                        assertion
+                    )
                     cursor.execute(
                         """INSERT INTO v4_claim_extractor.assertion_drafts
                         (assertion_code,source_passage_ref,assertion_semantic_key,input_fingerprint,payload)
@@ -256,7 +260,7 @@ class PostgresClaimExtractionRepository:
                             assertion["source_passage_ref"],
                             support["assertion_semantic_key"],
                             input_fingerprint,
-                            Jsonb(assertion),
+                            Jsonb(storage_payload),
                         ),
                     )
                     if cursor.fetchone() is not None:
@@ -272,7 +276,7 @@ class PostgresClaimExtractionRepository:
                         if (
                             existing is None
                             or assertion_identity_payload(existing[0])
-                            != assertion_identity_payload(assertion)
+                            != assertion_identity_payload(storage_payload)
                         ):
                             raise ValueError(
                                 "PostgreSQL Assertion draft identity 冲突"
