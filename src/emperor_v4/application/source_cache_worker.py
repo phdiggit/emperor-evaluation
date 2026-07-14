@@ -4,6 +4,19 @@ from dataclasses import dataclass
 from typing import Any, Callable, Mapping, Protocol
 
 
+_TERMINAL_WORKER_ERRORS = (ValueError, TypeError, KeyError, AssertionError)
+
+
+def is_retryable_worker_error(error: Exception) -> bool:
+    """只对可能通过重试恢复的 provider/runtime 错误重试。
+
+    Schema、输入、profile、identity 等确定性合同错误不会因原样重跑恢复；
+    网络、模型进程、超时和其他 runtime 错误仍由 max_attempts 控制。
+    """
+
+    return not isinstance(error, _TERMINAL_WORKER_ERRORS)
+
+
 @dataclass(frozen=True, slots=True)
 class ClaimedSourceCacheJob:
     job_id: str
@@ -36,6 +49,7 @@ class SourceCacheJobRepository(Protocol):
         worker_id: str,
         error: Exception,
         retry_delay_seconds: int,
+        retryable: bool = True,
     ) -> str: ...
 
 
@@ -79,6 +93,7 @@ def run_source_cache_worker_once(
             worker_id=worker_id,
             error=exc,
             retry_delay_seconds=retry_delay_seconds,
+            retryable=is_retryable_worker_error(exc),
         )
     return SourceCacheWorkerTick(
         status=status,
