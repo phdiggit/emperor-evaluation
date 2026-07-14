@@ -48,10 +48,12 @@ def _fingerprint(value: Any) -> str:
     return sha256(_stable(value).encode("utf-8")).hexdigest()
 
 
-def _historical_qualifiers(assertion: AssertionDraft) -> Mapping[str, Any]:
+def historical_qualifiers(
+    qualifiers: Mapping[str, Any],
+) -> Mapping[str, Any]:
     return {
         str(key): value
-        for key, value in assertion.qualifiers.items()
+        for key, value in qualifiers.items()
         if str(key) not in _ROUTING_QUALIFIER_KEYS
     }
 
@@ -66,7 +68,7 @@ def assertion_semantic_payload(assertion: AssertionDraft) -> tuple[Any, ...]:
         assertion.object,
         assertion.time_expression,
         assertion.location_expression,
-        _stable(_historical_qualifiers(assertion)),
+        _stable(historical_qualifiers(assertion.qualifiers)),
         assertion.polarity,
     )
 
@@ -150,13 +152,24 @@ def canonicalize_assertion_draft(assertion: AssertionDraft) -> AssertionDraft:
     )
 
 
+def canonical_assertion_storage_payload(
+    assertion: Mapping[str, Any],
+) -> Mapping[str, Any]:
+    """canonical draft 表只存历史事实；profile/皇帝路由保留在 request response。"""
+
+    payload = dict(assertion)
+    payload["qualifiers"] = historical_qualifiers(
+        assertion.get("qualifiers") or {}
+    )
+    return payload
+
+
 def assertion_identity_payload(
     assertion: Mapping[str, Any],
 ) -> Mapping[str, Any]:
     """数据库冲突比较忽略模型置信度和运行 provenance，只比较事实。"""
 
     support = assertion.get("passage_support") or {}
-    qualifiers = assertion.get("qualifiers") or {}
     return {
         "assertion_code": assertion.get("assertion_code"),
         "source_passage_ref": assertion.get("source_passage_ref"),
@@ -166,11 +179,9 @@ def assertion_identity_payload(
         "object": assertion.get("object"),
         "time_expression": assertion.get("time_expression"),
         "location_expression": assertion.get("location_expression"),
-        "qualifiers": {
-            str(key): value
-            for key, value in qualifiers.items()
-            if str(key) not in _ROUTING_QUALIFIER_KEYS
-        },
+        "qualifiers": historical_qualifiers(
+            assertion.get("qualifiers") or {}
+        ),
         "polarity": assertion.get("polarity"),
         "passage_support": {
             "support_mode": support.get("support_mode"),
