@@ -8,7 +8,13 @@ CREATE TABLE v4_claim_extractor.requests (
     input_fingerprint TEXT NOT NULL,
     profile_code TEXT NOT NULL,
     contract_version TEXT NOT NULL CHECK (contract_version = 'assertion-extraction-contract-v2'),
-    result_status TEXT NOT NULL CHECK (result_status = 'succeeded'),
+    result_status TEXT NOT NULL CHECK (
+        result_status IN (
+            'succeeded',
+            'succeeded_with_gaps',
+            'succeeded_no_relevant_facts'
+        )
+    ),
     output_fingerprint TEXT NOT NULL,
     response JSONB NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
