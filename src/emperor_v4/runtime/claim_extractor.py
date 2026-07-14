@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from emperor_v4.adapters.claim_extraction_profile import load_claim_extraction_profile
+from emperor_v4.adapters.claim_extractor_codex import CodexCliClaimExtractionProvider
 from emperor_v4.adapters.claim_extractor_frozen import FrozenClaimExtractionProvider
 from emperor_v4.application.claim_extractor_service import ensure_claim_extraction
 from emperor_v4.application.source_cache_worker import run_source_cache_worker_once
@@ -40,13 +41,19 @@ def request_from_frozen_snapshot(snapshot: Mapping[str, Any], *, profile_code: s
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="V4 Claim Extractor frozen/provider runtime")
+    parser = argparse.ArgumentParser(description="V4 Claim Extractor 单次 provider/lease worker")
     parser.add_argument("--profiles", type=Path, required=True)
     parser.add_argument("--profile", required=True)
-    parser.add_argument("--snapshot", type=Path, required=True)
-    parser.add_argument("--request-id", required=True)
-    parser.add_argument("--idempotency-key", required=True)
-    parser.add_argument("--requested-at", required=True)
+    parser.add_argument("--provider", choices=("frozen", "codex"), default="frozen")
+    parser.add_argument("--snapshot", type=Path)
+    parser.add_argument("--request-id")
+    parser.add_argument("--idempotency-key")
+    parser.add_argument("--requested-at")
+    parser.add_argument("--output-schema", type=Path)
+    parser.add_argument("--codex-bin")
+    parser.add_argument("--model")
+    parser.add_argument("--reasoning-effort")
+    parser.add_argument("--timeout-seconds", type=int, default=600)
     parser.add_argument("--service-release-sha", required=True)
     parser.add_argument("--state", type=Path)
     parser.add_argument("--dsn-env", default="EMPEROR_EVAL_V4_CLAIM_EXTRACTOR_DSN")
@@ -55,15 +62,31 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def build_provider(args: argparse.Namespace):
+    if args.provider == "frozen":
+        if args.snapshot is None:
+            raise SystemExit("frozen provider 必须提供 --snapshot")
+        return FrozenClaimExtractionProvider(args.snapshot)
+    missing = [
+        name for name, value in (
+            ("--output-schema", args.output_schema), ("--codex-bin", args.codex_bin),
+            ("--model", args.model), ("--reasoning-effort", args.reasoning_effort),
+        ) if not value
+    ]
+    if missing:
+        raise SystemExit(f"codex provider 缺少参数: {', '.join(missing)}")
+    return CodexCliClaimExtractionProvider(
+        codex_bin=args.codex_bin, model=args.model,
+        reasoning_effort=args.reasoning_effort,
+        output_schema_path=args.output_schema,
+        timeout_seconds=args.timeout_seconds,
+    )
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    snapshot = json.loads(args.snapshot.read_text(encoding="utf-8"))
-    request = request_from_frozen_snapshot(
-        snapshot, profile_code=args.profile, request_id=args.request_id,
-        idempotency_key=args.idempotency_key, requested_at=args.requested_at,
-    )
     profile = load_claim_extraction_profile(args.profiles, args.profile)
-    provider = FrozenClaimExtractionProvider(args.snapshot)
+    provider = build_provider(args)
     if args.worker_id:
         dsn = os.environ.get(args.dsn_env, "")
         if not dsn:
@@ -82,6 +105,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     else:
         if args.state is None:
             raise SystemExit("非 worker 模式必须提供 --state")
+        if args.snapshot is None or not all((args.request_id, args.idempotency_key, args.requested_at)):
+            raise SystemExit("非 worker 模式必须提供 frozen snapshot 与 request 元数据")
+        snapshot = json.loads(args.snapshot.read_text(encoding="utf-8"))
+        request = request_from_frozen_snapshot(
+            snapshot, profile_code=args.profile, request_id=args.request_id,
+            idempotency_key=args.idempotency_key, requested_at=args.requested_at,
+        )
         run = ensure_claim_extraction(
             request, profile=profile, provider=provider,
             repository=ShadowJsonClaimExtractionRepository(args.state),

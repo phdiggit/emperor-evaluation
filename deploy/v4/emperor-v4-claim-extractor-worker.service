@@ -8,9 +8,10 @@ User=emperor-v4
 Group=emperor-v4
 WorkingDirectory=/opt/emperor-evaluation-v4/claim-extractor/current
 EnvironmentFile=/etc/emperor-evaluation-v4/claim-extractor.env
-ExecStart=/opt/emperor-evaluation-v4/claim-extractor/venv/bin/python -m emperor_v4.runtime.claim_extractor --profiles config/claim-extraction-profiles.yml --profile ${EMPEROR_EVAL_V4_CLAIM_PROFILE} --snapshot ${EMPEROR_EVAL_V4_FROZEN_SNAPSHOT} --request-id worker-placeholder --idempotency-key worker-placeholder --requested-at worker-placeholder --service-release-sha ${EMPEROR_EVAL_V4_RELEASE_SHA} --worker-id %H-claim-extractor --output /run/emperor-v4/claim-extractor-last-tick.json
+RuntimeDirectory=emperor-v4-claim-extractor
+RuntimeDirectoryMode=0750
+ExecStart=/opt/emperor-evaluation-v4/claim-extractor/venv/bin/python -m emperor_v4.runtime.claim_extractor --profiles config/claim-extraction-profiles.yml --profile ${EMPEROR_EVAL_V4_CLAIM_PROFILE} --provider codex --output-schema config/claim-extraction-output.schema.json --codex-bin ${EMPEROR_EVAL_V4_CODEX_BIN} --model ${EMPEROR_EVAL_V4_CODEX_MODEL} --reasoning-effort ${EMPEROR_EVAL_V4_CODEX_REASONING_EFFORT} --timeout-seconds ${EMPEROR_EVAL_V4_CODEX_TIMEOUT_SECONDS} --service-release-sha ${EMPEROR_EVAL_V4_RELEASE_SHA} --worker-id %H-claim-extractor --output /run/emperor-v4-claim-extractor/last-tick.json
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-

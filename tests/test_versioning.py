@@ -677,3 +677,43 @@ def test_claim_extractor_release_is_deterministic_and_excludes_scoring(tmp_path)
         manifest_path=tmp_path / "a" / f"v4-claim-extractor-{head}.manifest.json",
     )
     assert verified["archive_sha256"] == first["archive_sha256"]
+
+
+def test_claim_worker_codex_provider_does_not_require_frozen_snapshot(tmp_path) -> None:
+    from emperor_v4.adapters.claim_extractor_codex import CodexCliClaimExtractionProvider
+    from emperor_v4.runtime.claim_extractor import build_parser, build_provider
+
+    args = build_parser().parse_args([
+        "--profiles", str(tmp_path / "profiles.yml"),
+        "--profile", "talent_discovery_chain_v1",
+        "--provider", "codex",
+        "--output-schema", str(tmp_path / "output.schema.json"),
+        "--codex-bin", "/opt/emperor-evaluation-v4/bin/codex",
+        "--model", "model-name",
+        "--reasoning-effort", "medium",
+        "--service-release-sha", "a" * 40,
+        "--worker-id", "worker-1",
+        "--output", str(tmp_path / "tick.json"),
+    ])
+    provider = build_provider(args)
+
+    assert isinstance(provider, CodexCliClaimExtractionProvider)
+    assert args.snapshot is None
+    assert provider.output_schema_path == tmp_path / "output.schema.json"
+
+
+def test_claim_worker_provider_arguments_fail_closed(tmp_path) -> None:
+    import pytest
+
+    from emperor_v4.runtime.claim_extractor import build_parser, build_provider
+
+    args = build_parser().parse_args([
+        "--profiles", str(tmp_path / "profiles.yml"),
+        "--profile", "talent_discovery_chain_v1",
+        "--provider", "codex",
+        "--service-release-sha", "a" * 40,
+        "--worker-id", "worker-1",
+        "--output", str(tmp_path / "tick.json"),
+    ])
+    with pytest.raises(SystemExit, match="codex provider 缺少参数"):
+        build_provider(args)
