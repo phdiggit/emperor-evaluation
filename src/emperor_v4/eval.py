@@ -82,6 +82,12 @@ from emperor_v4.evaluation.factor_representativeness import (
 from emperor_v4.evaluation.rule_test_set_admission import (
     evaluate_rule_test_set_admission,
 )
+from emperor_v4.evaluation.talent_discovery_factor_qualification import (
+    build_talent_discovery_factor_batch_plan,
+    build_talent_discovery_factor_worklist,
+    evaluate_talent_discovery_factor_qualification,
+    merge_talent_discovery_factor_responses,
+)
 from emperor_v4.application.talent_discovery_shadow_runner import (
     run_talent_discovery_shadow,
 )
@@ -469,6 +475,26 @@ def _parser() -> argparse.ArgumentParser:
     rule_test_set_admission = subparsers.add_parser("rule-test-set-admission")
     rule_test_set_admission.add_argument("--policy", type=Path, required=True)
     rule_test_set_admission.add_argument("--output", type=Path)
+    talent_factor_worklist = subparsers.add_parser(
+        "talent-discovery-factor-worklist"
+    )
+    talent_factor_worklist.add_argument("--source-manifest", type=Path, required=True)
+    talent_factor_worklist.add_argument("--output", type=Path)
+    talent_factor_batch = subparsers.add_parser("talent-discovery-factor-batch-plan")
+    talent_factor_batch.add_argument("--worklist", type=Path, required=True)
+    talent_factor_batch.add_argument("--max-units-per-batch", type=int, default=4)
+    talent_factor_batch.add_argument("--output", type=Path)
+    talent_factor_merge = subparsers.add_parser("talent-discovery-factor-merge")
+    talent_factor_merge.add_argument("--worklist", type=Path, required=True)
+    talent_factor_merge.add_argument("--response", type=Path, action="append", required=True)
+    talent_factor_merge.add_argument("--output", type=Path)
+    talent_factor_qualification = subparsers.add_parser(
+        "talent-discovery-factor-qualification"
+    )
+    talent_factor_qualification.add_argument("--worklist", type=Path, required=True)
+    talent_factor_qualification.add_argument("--response", type=Path, required=True)
+    talent_factor_qualification.add_argument("--gold", type=Path, required=True)
+    talent_factor_qualification.add_argument("--output", type=Path)
     talent_shadow = subparsers.add_parser("talent-discovery-shadow")
     talent_shadow.add_argument("--manifest", type=Path, required=True)
     talent_shadow.add_argument("--output", type=Path)
@@ -660,6 +686,26 @@ def main() -> int:
     elif args.command == "rule-test-set-admission":
         report = evaluate_rule_test_set_admission(
             yaml.safe_load(args.policy.read_text(encoding="utf-8"))
+        )
+    elif args.command == "talent-discovery-factor-worklist":
+        report = build_talent_discovery_factor_worklist(
+            yaml.safe_load(args.source_manifest.read_text(encoding="utf-8"))
+        )
+    elif args.command == "talent-discovery-factor-batch-plan":
+        report = build_talent_discovery_factor_batch_plan(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            max_units_per_batch=args.max_units_per_batch,
+        )
+    elif args.command == "talent-discovery-factor-merge":
+        report = merge_talent_discovery_factor_responses(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            [json.loads(path.read_text(encoding="utf-8")) for path in args.response],
+        )
+    elif args.command == "talent-discovery-factor-qualification":
+        report = evaluate_talent_discovery_factor_qualification(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            json.loads(args.response.read_text(encoding="utf-8")),
+            yaml.safe_load(args.gold.read_text(encoding="utf-8")),
         )
     elif args.command == "talent-discovery-shadow":
         report = run_talent_discovery_shadow(args.manifest)

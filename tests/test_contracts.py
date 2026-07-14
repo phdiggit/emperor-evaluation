@@ -42,6 +42,13 @@ from emperor_v4.evaluation.factor_evidence_coverage import (
 from emperor_v4.evaluation.rule_test_set_admission import (
     evaluate_rule_test_set_admission,
 )
+from emperor_v4.evaluation.talent_discovery_factor_qualification import (
+    FACTOR_OPTION_CATALOG,
+    build_talent_discovery_factor_batch_plan,
+    build_talent_discovery_factor_worklist,
+    evaluate_talent_discovery_factor_qualification,
+    validate_talent_discovery_factor_response,
+)
 from emperor_v4.evaluation.passage_support import (
     canonical_payload_hash,
     materialize_passage_scoped_blind_input,
@@ -1368,3 +1375,93 @@ def test_rule_test_set_admission_report_is_reproducible_and_fail_closed() -> Non
     team_building["admission_decision"] = "ready_to_build_open_set"
     with pytest.raises(ValueError, match="尚有前置项"):
         evaluate_rule_test_set_admission(prematurely_ready)
+
+
+def test_talent_discovery_open_set_freezes_tiered_factor_semantics() -> None:
+    root = Path(__file__).parents[1]
+    artifact_root = root / "eval/talent_discovery_open_development"
+    manifest = yaml.safe_load(
+        (artifact_root / "manifest.yml").read_text(encoding="utf-8")
+    )
+    worklist = json.loads(
+        (artifact_root / "worklist.json").read_text(encoding="utf-8")
+    )
+    gold = yaml.safe_load(
+        (artifact_root / "factor_gold.yml").read_text(encoding="utf-8")
+    )
+
+    assert build_talent_discovery_factor_worklist(manifest) == worklist
+    assert len(worklist["tasks"]) == 8
+    assert all("factor_observations" not in row for row in worklist["tasks"])
+    assert set(FACTOR_OPTION_CATALOG) == {
+        "recognition_novelty",
+        "recognition_basis",
+        "barrier_crossing",
+        "conversion_to_use",
+    }
+    assert all(len(options) >= 5 for options in FACTOR_OPTION_CATALOG.values())
+    assert sum(row["applicability"] == "applicable" for row in gold["units"]) == 4
+    assert sum(row["applicability"] == "not_applicable" for row in gold["units"]) == 4
+
+    plan = build_talent_discovery_factor_batch_plan(worklist)
+    assert plan["batch_count"] == 2
+    assert [len(row["unit_refs"]) for row in plan["batches"]] == [4, 4]
+
+
+def test_talent_discovery_factor_qualification_rejects_numeric_leakage() -> None:
+    root = Path(__file__).parents[1]
+    artifact_root = root / "eval/talent_discovery_open_development"
+    worklist = json.loads(
+        (artifact_root / "worklist.json").read_text(encoding="utf-8")
+    )
+    gold = yaml.safe_load(
+        (artifact_root / "factor_gold.yml").read_text(encoding="utf-8")
+    )
+    gold_by_ref = {row["unit_ref"]: row for row in gold["units"]}
+    task_by_ref = {row["unit_ref"]: row for row in worklist["tasks"]}
+    response = {
+        "schema_version": "talent-discovery-factor-response-v1",
+        "status": "talent_discovery_factor_response_complete",
+        "worklist_sha256": worklist["worklist_sha256"],
+        "agent_policy_version": "talent-discovery-factor-agent-v1",
+        "response_origin": "open_development_agent_run",
+        "provider": "contract_fixture",
+        "model": "none",
+        "blind_run_declarations": {
+            "factor_gold_accessed": False,
+            "numeric_factor_values_supplied": False,
+            "scoring_performed": False,
+            "database_write_count": 0,
+            "formal_acceptance_performed": False,
+        },
+        "results": [],
+    }
+    for unit_ref, gold_row in gold_by_ref.items():
+        refs = [row["assertion_ref"] for row in task_by_ref[unit_ref]["assertions"]]
+        response["results"].append(
+            {
+                "unit_ref": unit_ref,
+                "applicability": gold_row["applicability"],
+                "factors": {
+                    name: {
+                        "option_code": factor["option_code"],
+                        "reason": "合同夹具理由",
+                        "assertion_refs": (
+                            []
+                            if factor["option_code"] == "not_applicable"
+                            else refs[:1]
+                        ),
+                    }
+                    for name, factor in gold_row["factors"].items()
+                },
+            }
+        )
+
+    report = evaluate_talent_discovery_factor_qualification(
+        worklist, response, gold
+    )
+    assert report["summary"]["development_gate_passed"] is True
+    leaked = deepcopy(response)
+    leaked["results"][0]["factors"]["recognition_novelty"]["score"] = 1
+    with pytest.raises(ValueError, match="禁止字段"):
+        validate_talent_discovery_factor_response(worklist, leaked)

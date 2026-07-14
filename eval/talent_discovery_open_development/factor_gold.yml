@@ -1,0 +1,99 @@
+schema_version: talent-discovery-factor-gold-v1
+status: frozen_open_development_gold
+task_code: V4-TD-OPEN-DEVELOPMENT-GOLD-001
+agent_policy_version: talent-discovery-factor-agent-v1
+worklist_sha256: 37cf5f1975bf81f326dfe3d1e1ae3fa02aeb406e88b1850339f9b5cbc66acfc8
+gold_boundary:
+  human_reviewed: true
+  created_before_candidate_model_run: true
+  model_call_count: 0
+  formal_acceptance_performed: false
+units:
+- unit_ref: REU-LSM-MAZHOU-DISCOVERY-OPEN-v1
+  applicability: applicable
+  factors:
+    recognition_novelty:
+      option_code: newly_visible_outsider
+    recognition_basis:
+      option_code: recommendation_verified_by_ruler
+    barrier_crossing:
+      option_code: status_or_access_barrier_crossed
+    conversion_to_use:
+      option_code: trial_then_scaled_use
+- unit_ref: REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1
+  applicability: applicable
+  factors:
+    recognition_novelty:
+      option_code: cross_regime_or_camp_entry
+    recognition_basis:
+      option_code: recommendation_verified_by_ruler
+    barrier_crossing:
+      option_code: no_material_barrier
+    conversion_to_use:
+      option_code: direct_substantive_use
+- unit_ref: REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1
+  applicability: applicable
+  factors:
+    recognition_novelty:
+      option_code: cross_regime_or_camp_entry
+    recognition_basis:
+      option_code: reputation_then_direct_demonstration
+    barrier_crossing:
+      option_code: reluctance_or_access_barrier_crossed
+    conversion_to_use:
+      option_code: direct_substantive_use
+- unit_ref: REU-YUAN-HBL-LIUBINGZHONG-DISCOVERY-OPEN-v1
+  applicability: applicable
+  factors:
+    recognition_novelty:
+      option_code: newly_visible_outsider
+    recognition_basis:
+      option_code: recommendation_verified_by_ruler
+    barrier_crossing:
+      option_code: status_or_access_barrier_crossed
+    conversion_to_use:
+      option_code: trial_then_scaled_use
+- unit_ref: REU-LB-ZHANGLIANG-DISCOVERY-EXCLUDED-OPEN-v1
+  applicability: not_applicable
+  factors:
+    recognition_novelty:
+      option_code: not_applicable
+    recognition_basis:
+      option_code: not_applicable
+    barrier_crossing:
+      option_code: not_applicable
+    conversion_to_use:
+      option_code: not_applicable
+- unit_ref: REU-LSM-LIJING-DISCOVERY-EXCLUDED-OPEN-v1
+  applicability: not_applicable
+  factors:
+    recognition_novelty:
+      option_code: not_applicable
+    recognition_basis:
+      option_code: not_applicable
+    barrier_crossing:
+      option_code: not_applicable
+    conversion_to_use:
+      option_code: not_applicable
+- unit_ref: REU-LB-XIAOHE-DISCOVERY-EXCLUDED-OPEN-v1
+  applicability: not_applicable
+  factors:
+    recognition_novelty:
+      option_code: not_applicable
+    recognition_basis:
+      option_code: not_applicable
+    barrier_crossing:
+      option_code: not_applicable
+    conversion_to_use:
+      option_code: not_applicable
+- unit_ref: REU-ZYZ-XUDA-DISCOVERY-EXCLUDED-OPEN-v1
+  applicability: not_applicable
+  factors:
+    recognition_novelty:
+      option_code: not_applicable
+    recognition_basis:
+      option_code: not_applicable
+    barrier_crossing:
+      option_code: not_applicable
+    conversion_to_use:
+      option_code: not_applicable
