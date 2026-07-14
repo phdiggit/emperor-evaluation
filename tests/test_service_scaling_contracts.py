@@ -74,7 +74,11 @@ def _request(profile_code: str = "political_action_atomic_v1"):
         request_id="CER-SCALE-1",
         idempotency_key="claim-scale-contract:1",
         profile_code=profile_code,
-        subject={"person_ref": "PER-WEIZHENG", "aliases": ["魏徵"]},
+        subject={
+            "person_ref": "PER-WEIZHENG",
+            "ruler": "李世民",
+            "aliases": ["魏徵"],
+        },
         passages=(
             {
                 "passage_id": "SP-1",
@@ -192,7 +196,7 @@ def test_codex_parser_preserves_gaps_and_runtime_audit() -> None:
     )
 
 
-def test_claim_service_replaces_provider_ids_with_stable_identity() -> None:
+def test_claim_service_replaces_provider_ids_and_adds_trusted_routing() -> None:
     class PayloadProvider:
         def __init__(self, payload: dict) -> None:
             self.payload = payload
@@ -210,6 +214,8 @@ def test_claim_service_replaces_provider_ids_with_stable_identity() -> None:
         "assertion_semantic_key"
     ] = "模型另一种措辞"
     second_payload["assertions"][0]["confidence"] = 0.72
+    third_payload = deepcopy(first_payload)
+    third_payload["assertions"][0].pop("assertion_code")
 
     first = ensure_claim_extraction(
         _request(),
@@ -225,12 +231,21 @@ def test_claim_service_replaces_provider_ids_with_stable_identity() -> None:
         repository=InMemoryClaimExtractionRepository(),
         service_release_sha="a" * 40,
     ).response["assertions"][0]
+    third = ensure_claim_extraction(
+        _request("talent_discovery_chain_v1"),
+        profile=_profile("talent_discovery_chain_v1"),
+        provider=PayloadProvider(third_payload),
+        repository=InMemoryClaimExtractionRepository(),
+        service_release_sha="a" * 40,
+    ).response["assertions"][0]
 
     assert first["assertion_code"] == second["assertion_code"]
+    assert first["assertion_code"] == third["assertion_code"]
     assert first["assertion_code"].startswith("ASTD-")
     assert (
         first["passage_support"]["assertion_semantic_key"]
         == second["passage_support"]["assertion_semantic_key"]
+        == third["passage_support"]["assertion_semantic_key"]
     )
     assert first["extraction_provenance"]["provider_assertion_code"] == (
         "A-LOCAL-1"
@@ -238,6 +253,15 @@ def test_claim_service_replaces_provider_ids_with_stable_identity() -> None:
     assert second["extraction_provenance"]["provider_assertion_code"] == (
         "MODEL-RANDOM-2"
     )
+    assert third["extraction_provenance"]["provider_assertion_code"] == (
+        "provider-row-0001"
+    )
+    assert third["qualifiers"]["evaluation_context"] == "李世民"
+    assert third["qualifiers"]["focal_person_ref"] == "PER-WEIZHENG"
+    assert third["qualifiers"]["candidate_participant_roles"] == [
+        ["李世民", "ruler"],
+        ["PER-WEIZHENG", "focal_person"],
+    ]
 
 
 def test_codex_provider_rejects_oversized_prompt_before_process_start() -> None:
@@ -263,12 +287,12 @@ def test_codex_provider_rejects_oversized_prompt_before_process_start() -> None:
 def test_claim_output_schema_supports_structured_qualifiers_and_empty_set() -> None:
     schema = json.loads(OUTPUT_SCHEMA.read_text(encoding="utf-8"))
     assertions = schema["properties"]["assertions"]
-    qualifiers = assertions["items"]["properties"]["qualifiers"][
-        "properties"
-    ]
+    item_schema = assertions["items"]
+    qualifiers = item_schema["properties"]["qualifiers"]["properties"]
 
     assert "minItems" not in assertions
     assert assertions["maxItems"] == 64
+    assert "assertion_code" not in item_schema["required"]
     assert {
         "responsibility_family",
         "office_or_domain",
