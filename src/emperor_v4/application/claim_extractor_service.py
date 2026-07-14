@@ -17,8 +17,11 @@ from emperor_v4.contracts.extraction import (
 )
 
 
-SERVICE_VERSION = "v4-claim-extractor-service:v1"
+SERVICE_VERSION = "v4-claim-extractor-service:v2"
+MAX_ASSERTIONS_PER_PROVIDER_RESPONSE = 64
+OUTPUT_LIMIT_GAP_CODE = "output_limit_reached"
 _COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+_POLICY_FINGERPRINT_RE = re.compile(r"^[0-9a-f]{64}$")
 _ROUTING_QUALIFIER_KEYS = frozenset(
     {
         "evaluation_context",
@@ -203,10 +206,39 @@ def assertion_identity_payload(
     )
 
 
+def claim_extraction_provider_policy_fingerprint(
+    provider: object,
+) -> str:
+    """返回 provider 的稳定策略身份。
+
+    生产 provider 必须显式暴露 policy_fingerprint；测试/本地轻量 provider
+    可退化为类型身份，避免把模型或 prompt 版本遗漏在缓存身份之外。
+    """
+
+    explicit = str(getattr(provider, "policy_fingerprint", "") or "").strip()
+    if explicit:
+        if not _POLICY_FINGERPRINT_RE.fullmatch(explicit):
+            raise ValueError("Claim extraction provider policy fingerprint 无效")
+        return explicit
+    provider_type = type(provider)
+    return _fingerprint(
+        {
+            "provider_type": (
+                f"{provider_type.__module__}.{provider_type.__qualname__}"
+            ),
+            "fallback_policy": "provider-class-identity:v1",
+        }
+    )
+
+
 def claim_extraction_input_fingerprint(
     request: ClaimExtractionRequest,
     profile: ClaimExtractionProfile,
+    *,
+    provider_policy_fingerprint: str,
 ) -> str:
+    if not _POLICY_FINGERPRINT_RE.fullmatch(provider_policy_fingerprint):
+        raise ValueError("Claim extraction provider policy fingerprint 无效")
     rendered = render_claim_extraction_request(
         profile=profile,
         subject=request.subject,
@@ -216,6 +248,8 @@ def claim_extraction_input_fingerprint(
         {
             "idempotency_key": request.idempotency_key,
             "profile_input_fingerprint": rendered["input_fingerprint"],
+            "provider_policy_fingerprint": provider_policy_fingerprint,
+            "service_version": SERVICE_VERSION,
         }
     )
 
@@ -280,11 +314,20 @@ def ensure_claim_extraction(
         raise ValueError("service_release_sha 必须是 40 位小写 Git commit SHA")
     if request.profile_code != profile.code:
         raise ValueError("Claim extraction request/profile 不一致")
-    input_fingerprint = claim_extraction_input_fingerprint(request, profile)
+    provider_policy_fingerprint = claim_extraction_provider_policy_fingerprint(
+        provider
+    )
+    input_fingerprint = claim_extraction_input_fingerprint(
+        request,
+        profile,
+        provider_policy_fingerprint=provider_policy_fingerprint,
+    )
     cached = repository.get(request.idempotency_key)
     if cached is not None:
         if cached.input_fingerprint != input_fingerprint:
-            raise ValueError("Claim extraction 幂等键已绑定不同输入")
+            raise ValueError(
+                "Claim extraction 幂等键已绑定不同输入或 provider policy"
+            )
         return ClaimExtractionServiceRun(cached.response, True, 0, 0, 0)
 
     rendered = render_claim_extraction_request(
@@ -293,8 +336,21 @@ def ensure_claim_extraction(
         passages=request.passages,
     )
     batch = provider.extract(rendered)
-    if not batch.assertions and not batch.coverage_gaps:
+    coverage_gaps = list(batch.coverage_gaps)
+    if not batch.assertions and not coverage_gaps:
         raise ValueError("Claim Extractor 空结果必须声明 coverage_gaps")
+    if (
+        len(batch.assertions) >= MAX_ASSERTIONS_PER_PROVIDER_RESPONSE
+        and OUTPUT_LIMIT_GAP_CODE not in coverage_gaps
+    ):
+        raise ValueError(
+            "Claim Extractor 输出达到 Schema 上限但未声明 output_limit_reached"
+        )
+    metadata_policy = str(
+        batch.provider_metadata.get("provider_policy_fingerprint") or ""
+    ).strip()
+    if metadata_policy and metadata_policy != provider_policy_fingerprint:
+        raise ValueError("Claim Extractor provider policy audit 与运行策略不一致")
 
     passage_refs = {
         str(row.get("passage_id") or row.get("passage_code"))
@@ -353,7 +409,6 @@ def ensure_claim_extraction(
         raise ValueError("Claim Extractor canonical Assertion identity 重复")
 
     assertion_payloads = [asdict(item) for item in assertions]
-    coverage_gaps = list(batch.coverage_gaps)
     status = (
         "succeeded"
         if not coverage_gaps
@@ -369,6 +424,7 @@ def ensure_claim_extraction(
         "assertions": assertion_payloads,
         "provenance": {
             "provider": batch.provider_code,
+            "provider_policy_fingerprint": provider_policy_fingerprint,
             "service_version": SERVICE_VERSION,
             "service_release_sha": service_release_sha,
             "input_fingerprint": input_fingerprint,
