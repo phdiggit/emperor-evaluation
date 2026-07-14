@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from hashlib import sha256
 import json
 import re
@@ -48,6 +48,77 @@ def assertion_semantic_payload(assertion: AssertionDraft) -> tuple[Any, ...]:
         _stable(assertion.qualifiers),
         assertion.polarity,
     )
+
+
+def canonical_assertion_semantic_key(assertion: AssertionDraft) -> str:
+    return "ASK-" + _fingerprint(assertion_semantic_payload(assertion))[:24].upper()
+
+
+def canonical_assertion_code(
+    assertion: AssertionDraft,
+    semantic_key: str,
+) -> str:
+    return "ASTD-" + _fingerprint(
+        {
+            "source_passage_ref": assertion.source_passage_ref,
+            "assertion_semantic_key": semantic_key,
+        }
+    )[:24].upper()
+
+
+def canonicalize_assertion_draft(assertion: AssertionDraft) -> AssertionDraft:
+    if assertion.passage_support is None:
+        raise ValueError("v2 Claim Extractor Assertion 缺少 PassageSupport")
+    semantic_key = canonical_assertion_semantic_key(assertion)
+    support = replace(
+        assertion.passage_support,
+        assertion_semantic_key=semantic_key,
+        binding_provenance={
+            **dict(assertion.passage_support.binding_provenance),
+            "provider_assertion_semantic_key": (
+                assertion.passage_support.assertion_semantic_key
+            ),
+        },
+    )
+    return replace(
+        assertion,
+        assertion_code=canonical_assertion_code(assertion, semantic_key),
+        extraction_provenance={
+            **dict(assertion.extraction_provenance),
+            "provider_assertion_code": assertion.assertion_code,
+        },
+        passage_support=support,
+    )
+
+
+def assertion_identity_payload(
+    assertion: Mapping[str, Any],
+) -> Mapping[str, Any]:
+    """数据库冲突比较忽略 provider/run provenance，只比较可核验事实。"""
+
+    support = assertion.get("passage_support") or {}
+    return {
+        "assertion_code": assertion.get("assertion_code"),
+        "source_passage_ref": assertion.get("source_passage_ref"),
+        "assertion_type": assertion.get("assertion_type"),
+        "subject": assertion.get("subject"),
+        "predicate": assertion.get("predicate"),
+        "object": assertion.get("object"),
+        "time_expression": assertion.get("time_expression"),
+        "location_expression": assertion.get("location_expression"),
+        "qualifiers": assertion.get("qualifiers") or {},
+        "polarity": assertion.get("polarity"),
+        "source_attribution": assertion.get("source_attribution") or {},
+        "confidence": assertion.get("confidence"),
+        "ambiguity_flags": assertion.get("ambiguity_flags") or [],
+        "passage_support": {
+            "support_mode": support.get("support_mode"),
+            "assertion_semantic_key": support.get(
+                "assertion_semantic_key"
+            ),
+            "supported_fields": support.get("supported_fields") or [],
+        },
+    }
 
 
 def claim_extraction_input_fingerprint(
@@ -147,13 +218,13 @@ def ensure_claim_extraction(
         str(row.get("passage_id") or row.get("passage_code"))
         for row in request.passages
     }
-    assertion_codes: set[str] = set()
+    provider_codes: set[str] = set()
     semantic_rows: dict[tuple[Any, ...], list[AssertionDraft]] = {}
     support_key_rows: dict[str, list[AssertionDraft]] = {}
     for assertion in batch.assertions:
-        if assertion.assertion_code in assertion_codes:
-            raise ValueError("Claim Extractor assertion_code 重复")
-        assertion_codes.add(assertion.assertion_code)
+        if assertion.assertion_code in provider_codes:
+            raise ValueError("Claim Extractor provider assertion_code 重复")
+        provider_codes.add(assertion.assertion_code)
         if assertion.source_passage_ref not in passage_refs:
             raise ValueError("Claim Extractor Assertion 越出请求 passages")
         if assertion.passage_support is None:
@@ -193,7 +264,14 @@ def ensure_claim_extraction(
                 f"{support_key}"
             )
 
-    assertion_payloads = [asdict(item) for item in batch.assertions]
+    assertions = tuple(
+        canonicalize_assertion_draft(item) for item in batch.assertions
+    )
+    canonical_codes = [item.assertion_code for item in assertions]
+    if len(canonical_codes) != len(set(canonical_codes)):
+        raise ValueError("Claim Extractor canonical Assertion identity 重复")
+
+    assertion_payloads = [asdict(item) for item in assertions]
     coverage_gaps = list(batch.coverage_gaps)
     status = (
         "succeeded"
@@ -213,6 +291,7 @@ def ensure_claim_extraction(
             "service_version": SERVICE_VERSION,
             "service_release_sha": service_release_sha,
             "input_fingerprint": input_fingerprint,
+            "identity_policy": "server_canonical_assertion_identity:v1",
         },
     }
     if coverage_gaps:
