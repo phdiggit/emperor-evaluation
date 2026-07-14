@@ -25,7 +25,7 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、PostgreSQL repository、job/lease worker 和 20 文件不可变 release 已进入当前 Git 历史；隔离服务器 Gate 已验证幂等、过期 lease 恢复与回滚
 - V4 Claim Extractor 选择性迁入：旧 `rule_code` 提示分支已改为版本化 `talent_discovery_chain_v1` profile；v2 application、独立 PostgreSQL repository、job/lease 和当前 21 文件 release 已通过服务器隔离 Gate，冻结响应形成 4 条带 PassageSupport 的 Assertion
 - V4 Claim Extractor 真实 provider shadow：改用 V4 Source Cache 三 passage 后生成 7 条 draft Assertion，四项发现链齐备，主簿重叠证据按 equivalent evidence 合并语义；未授权人物称谓保留原文并进入身份 slow lane
-- 服务规模化 hardening：当前分支已加入按 job profile 路由、lease 覆盖模型 timeout、显式空结果/coverage gap、服务端稳定 Assertion identity、可信 subject 路由、结构化输出限制、Source plan registry 与同页只抓一次；尚未构建或切换新的服务器不可变 release
+- 服务规模化 hardening：已完成按 job profile 路由、lease 覆盖模型 timeout、显式空结果、服务端稳定 draft identity、可信 subject 路由、Codex 子进程隔离、provider 模型/Prompt/Schema 策略进入缓存身份，以及 64 条输出饱和失败关闭；确定性 Claim 分片、结构化 coverage gap、多实例 worker 和 JudgmentObservationJob 仍待实现与资格测试，最新代码尚未切换服务器不可变 release
 - 正式 45 分映射、排名、评分 worker 和生产切换：尚未开放
 
 当前实现已经证明：
@@ -70,13 +70,13 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 V3 语义等价 scored shadow 已复用现有 SourcePassage、Assertion、HistoricalEpisode、RuleEvidenceUnit 与四维 Judgment readiness 观察。首轮独立 Factor Observation 盲评已由 `codex-win` 在禁用智能体网络工具、数据库和 Git 上下文的权限画像下运行；材料正负结构为 4/4、归因与规则上下文档位全部命中，但总精确率只有 63.33%，未通过 85% 门槛。随后用 `--respect-task-argv` 明确固定 `gpt-5.6-sol` 做开发集复现，精确率为 66.67%，仍有 1 个非相邻错误；该复现强制 `real_agent_qualified=false`。由于四单元 Gold 已用于对照，不能继续把同一集合当作独立资格集。下一步是：
 
-1. 把当前四单元冻结为策略开发集，针对任用效果、持续性和史源完整度的系统偏差修订 option guidance；
-2. 保留已全部命中的归因和规则上下文定义，不做无证据扩写；
+1. 保持每批最多 4 个评分单元、批间最多 4 路并发，以墙钟耗时为主要性能目标并完整记录 token；
+2. 把当前四单元冻结为策略开发集，针对任用效果、持续性和史源完整度修订 option guidance，保留已命中的归因和规则上下文定义；
 3. 冻结新策略后另建未参与调校的 sealed holdout，再按 `>= 85%` 精确率、`100%` 材料侧结构、零方向错误和零非相邻错误重新资格测试；
 4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；
-5. 通过质量基准后再以相符输入类型扩展其他规则；`team_building` 不复用单事件 factor schema。
+5. Claim 侧已完成缓存身份、饱和门禁和错误分类硬化；分片、结构化 gap 与 worker tier 不与本轮评分质量 Gate 混线。
 
-在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
+在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
 
 ## 用户目标链路
 
@@ -150,6 +150,7 @@ V3 语义等价 scored shadow 已复用现有 SourcePassage、Assertion、Histor
 - Shadow difference review runner：`ready_for_human_review`
 - Offline roster scored runner：`passed_cache_ensure_shadow`
 - Persistent incremental orchestration：`passed_shadow_runtime`
-- Service scaling hardening：`code_ready_pending_test_and_cutover`
+- Claim cache policy/saturation hardening：`code_ready_pending_full_test_and_cutover`
+- Claim sharding / structured gaps / worker tiers：`not_implemented_or_qualified`
 - Factor Observation agent：`independent_blind_run_completed_not_qualified`
 - 正式评分和生产切换：`blocked`

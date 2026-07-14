@@ -21,6 +21,7 @@ from emperor_v4.adapters.source_cache_wikisource import (
 from emperor_v4.adapters.wikisource import WikisourcePageSnapshot
 from emperor_v4.application.claim_extractor_service import (
     ClaimExtractionBatch,
+    claim_extraction_input_fingerprint,
     ensure_claim_extraction,
 )
 from emperor_v4.contracts.extraction import ClaimExtractionRequest
@@ -97,6 +98,41 @@ def _profile(code: str = "political_action_atomic_v1"):
         required_chains=(),
         prohibitions=("不做评分",),
     )
+
+
+def _saturated_claim_payload(*, declare_limit: bool) -> dict:
+    template = _claim_payload()["assertions"][0]
+    assertions = []
+    for index in range(64):
+        row = deepcopy(template)
+        row["assertion_code"] = f"A-LIMIT-{index:02d}"
+        row["predicate"] = f"事实动作{index:02d}"
+        row["object"] = f"事实对象{index:02d}"
+        row["passage_support"]["assertion_semantic_key"] = (
+            f"limit-semantic-{index:02d}"
+        )
+        assertions.append(row)
+    return {
+        "assertions": assertions,
+        "coverage_gaps": ["output_limit_reached"] if declare_limit else [],
+    }
+
+
+class _PolicyPayloadProvider:
+    def __init__(self, payload: dict, policy_fingerprint: str) -> None:
+        self.payload = payload
+        self.policy_fingerprint = policy_fingerprint
+        self.calls = 0
+
+    def extract(self, request_payload):
+        self.calls += 1
+        return parse_codex_claim_output(
+            self.payload,
+            provider_code="codex:test",
+            provider_metadata={
+                "provider_policy_fingerprint": self.policy_fingerprint,
+            },
+        )
 
 
 def test_claim_worker_selects_profile_from_each_job_payload() -> None:
@@ -262,6 +298,81 @@ def test_claim_service_replaces_provider_ids_and_adds_trusted_routing() -> None:
         ("李世民", "ruler"),
         ("PER-WEIZHENG", "focal_person"),
     )
+
+
+def test_claim_cache_identity_includes_provider_policy() -> None:
+    first = claim_extraction_input_fingerprint(
+        _request(),
+        _profile(),
+        provider_policy_fingerprint="a" * 64,
+    )
+    second = claim_extraction_input_fingerprint(
+        _request(),
+        _profile(),
+        provider_policy_fingerprint="b" * 64,
+    )
+
+    assert first != second
+
+
+def test_claim_cache_rejects_silent_reuse_after_provider_policy_change() -> None:
+    repository = InMemoryClaimExtractionRepository()
+    first_provider = _PolicyPayloadProvider(_claim_payload(), "a" * 64)
+    second_provider = _PolicyPayloadProvider(_claim_payload(), "b" * 64)
+
+    ensure_claim_extraction(
+        _request(),
+        profile=_profile(),
+        provider=first_provider,
+        repository=repository,
+        service_release_sha="a" * 40,
+    )
+    with pytest.raises(ValueError, match="provider policy"):
+        ensure_claim_extraction(
+            _request(),
+            profile=_profile(),
+            provider=second_provider,
+            repository=repository,
+            service_release_sha="a" * 40,
+        )
+
+    assert first_provider.calls == 1
+    assert second_provider.calls == 0
+
+
+def test_claim_service_rejects_saturated_output_without_explicit_gap() -> None:
+    provider = _PolicyPayloadProvider(
+        _saturated_claim_payload(declare_limit=False),
+        "a" * 64,
+    )
+
+    with pytest.raises(ValueError, match="output_limit_reached"):
+        ensure_claim_extraction(
+            _request(),
+            profile=_profile(),
+            provider=provider,
+            repository=InMemoryClaimExtractionRepository(),
+            service_release_sha="a" * 40,
+        )
+
+
+def test_claim_service_accepts_saturated_output_with_explicit_gap() -> None:
+    provider = _PolicyPayloadProvider(
+        _saturated_claim_payload(declare_limit=True),
+        "a" * 64,
+    )
+
+    run = ensure_claim_extraction(
+        _request(),
+        profile=_profile(),
+        provider=provider,
+        repository=InMemoryClaimExtractionRepository(),
+        service_release_sha="a" * 40,
+    )
+
+    assert run.response["status"] == "succeeded_with_gaps"
+    assert len(run.response["assertions"]) == 64
+    assert run.response["coverage_gaps"] == ["output_limit_reached"]
 
 
 def test_codex_provider_rejects_oversized_prompt_before_process_start() -> None:

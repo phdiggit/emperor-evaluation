@@ -18,6 +18,7 @@ from emperor_v4.contracts.extraction import (
 
 
 SERVICE_VERSION = "v4-claim-extractor-service:v2"
+CACHE_IDENTITY_VERSION = "claim-extraction-cache-identity-v2"
 MAX_ASSERTIONS_PER_PROVIDER_RESPONSE = 64
 OUTPUT_LIMIT_GAP_CODE = "output_limit_reached"
 _COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -235,23 +236,32 @@ def claim_extraction_input_fingerprint(
     request: ClaimExtractionRequest,
     profile: ClaimExtractionProfile,
     *,
-    provider_policy_fingerprint: str,
+    provider_policy_fingerprint: str | None = None,
 ) -> str:
-    if not _POLICY_FINGERPRINT_RE.fullmatch(provider_policy_fingerprint):
-        raise ValueError("Claim extraction provider policy fingerprint 无效")
+    """计算 Claim 输入身份。
+
+    调度层在 provider 尚未装配时可省略策略指纹，得到 request/profile 的队列
+    预指纹；服务缓存层必须传入真实 provider policy fingerprint。两者职责不同，
+    避免为了缓存硬化破坏既有 job enqueue 合同。
+    """
+
     rendered = render_claim_extraction_request(
         profile=profile,
         subject=request.subject,
         passages=request.passages,
     )
-    return _fingerprint(
-        {
-            "idempotency_key": request.idempotency_key,
-            "profile_input_fingerprint": rendered["input_fingerprint"],
-            "provider_policy_fingerprint": provider_policy_fingerprint,
-            "service_version": SERVICE_VERSION,
-        }
-    )
+    payload = {
+        "idempotency_key": request.idempotency_key,
+        "profile_input_fingerprint": rendered["input_fingerprint"],
+        "cache_identity_version": CACHE_IDENTITY_VERSION,
+    }
+    if provider_policy_fingerprint is None:
+        payload["provider_policy_binding"] = "deferred_to_worker"
+    else:
+        if not _POLICY_FINGERPRINT_RE.fullmatch(provider_policy_fingerprint):
+            raise ValueError("Claim extraction provider policy fingerprint 无效")
+        payload["provider_policy_fingerprint"] = provider_policy_fingerprint
+    return _fingerprint(payload)
 
 
 @dataclass(frozen=True, slots=True)
