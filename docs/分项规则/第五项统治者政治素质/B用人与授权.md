@@ -207,6 +207,16 @@ positive | mixed | negative | unknown | not_applicable
 
 该 evaluator 只消费冻结的 RuleEvidenceUnit、有限因子证据和版本；不调用模型。战役、治理等实际收益只作为用人反馈，不在本规则重复结算。
 
+V3 对照有限因子的智能体观察采用 `appointment-delegation-factor-observation-agent-v2` 语义。档位判断遵守以下边界：
+
+- `appointment_importance` 只按授权当时的责任域判断；后续战果、案件规模和政治影响不得反向抬档。`critical_national_or_long_term` 必须有国家全局、战略性地域或长期结构性关键授权的直接证据。
+- `appointment_effect` 只结算用人判断与权责配置的反馈。战役和治理成果可以证明适配，但不得仅因领域成果重大、多次履职或后续复用而升为 `major_success`；重大、结构性负向档必须有任用安排到损害的直接因果链。
+- `continuity_factor` 的 `long_term_multi_stage` 至少需要两个可区分阶段的持续授权、续任或新任务复用。同一授权下持续履职记 `stable`；结果演变、失控、纠正和案件扩大不算复用阶段。
+- `source_factor` 按本材料实际声明的语义链是否被直接覆盖判断，不按史源数量、史源名气或材料边界之外的争议升降档。
+- `attribution_factor` 的“压力”必须是明确反对、负面指控或现实约束；普通请求和进言不自动构成压力。`context_factor` 只看任用机制与结算边界，不随领域成果规模抬档。
+
+现有开发集据此校正两处旧 Gold：魏徵的单一任用链由 `long_term_multi_stage` 降为 `stable`；陈平的重要军事职责由 `critical_national_or_long_term` 降为 `major_affairs`。这两处校正不改变选项值域和确定性计算公式；v1 worklist 与响应仍可按其原策略版本校验，不能作为 v2 新盲测证据。
+
 仍未批准：材料权重、衰减、各 rule 权重、正负上限、45 分档位映射、总榜和生产 scorer。
 
 ## 13. 当前实现摘要

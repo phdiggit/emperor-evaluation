@@ -52,7 +52,7 @@ $env:PYTHONPATH = "src"
 ```bash
 python -m emperor_v4.eval appointment-delegation-shadow --manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_scored_demo/report.json
 python -m emperor_v4.eval appointment-delegation-v3-parity-shadow --manifest eval/appointment_delegation_v3_parity_demo/manifest.yml --output eval/appointment_delegation_v3_parity_demo/report.json
-python -m emperor_v4.eval appointment-delegation-factor-worklist --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --output eval/appointment_delegation_factor_agent_qualification/worklist.json
+python -m emperor_v4.eval appointment-delegation-factor-worklist --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --output tmp/appointment_delegation_factor_worklist_v2.json
 python -m emperor_v4.eval appointment-delegation-factor-batch-plan --source-manifest eval/appointment_delegation_scored_demo/manifest.yml --max-units-per-batch 4 --max-workers 4 --output tmp/factor_batch_plan.json
 python -m emperor_v4.eval appointment-delegation-shadow-diff --request eval/appointment_delegation_scored_demo/shadow_diff_request.yml --output eval/appointment_delegation_scored_demo/shadow_diff_report.json
 python -m emperor_v4.eval appointment-delegation-roster-shadow --manifest eval/appointment_delegation_roster_demo/manifest.yml --output eval/appointment_delegation_roster_demo/report.json

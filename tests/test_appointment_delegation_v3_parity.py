@@ -17,6 +17,8 @@ from emperor_v4.evaluation.appointment_delegation_v3_parity import (
     validate_parity_manifest,
 )
 from emperor_v4.evaluation.factor_observation_agent import (
+    AGENT_POLICY_VERSION,
+    AGENT_POLICY_VERSION_V1,
     build_factor_observation_batch_plan,
     build_contract_fixture_response,
     build_factor_observation_worklist,
@@ -243,6 +245,46 @@ def test_factor_observation_worklist_reuses_v4_judge_without_exposing_gold() -> 
         and task["episodes"]
         for task in worklist["tasks"]
     )
+
+
+def test_factor_observation_policy_v2_freezes_calibrated_tier_boundaries() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    worklist = build_factor_observation_worklist(source)
+    catalog = worklist["factor_option_catalog"]
+
+    assert worklist["agent_policy_version"] == AGENT_POLICY_VERSION
+    assert "不得以后续成果、案件规模或政治影响反向抬档" in catalog[
+        "appointment_importance"
+    ]["critical_national_or_long_term"]
+    assert "领域成果只作适配反馈，不在本规则重复结算" in catalog[
+        "appointment_effect"
+    ]["normal_success"]
+    assert "至少两个可区分阶段" in catalog["continuity_factor"][
+        "long_term_multi_stage"
+    ]
+    assert "按声明边界判断" in catalog["source_factor"][
+        "complete_direct_chain"
+    ]
+
+    gold = _yaml(PARITY_MANIFEST)
+    proposals = {row["unit_ref"]: row for row in gold["factor_judgment_proposals"]}
+    weizheng = proposals["REU-LSM-WEIZHENG-APPOINTMENT-v1"]["factor_materials"][0]
+    chenping = proposals["REU-LB-CHENPING-AUTHORIZATION-v1"]["factor_materials"][0]
+    assert weizheng["factors"]["continuity_factor"]["option_code"] == "stable"
+    assert chenping["factors"]["appointment_importance"]["option_code"] == "major_affairs"
+
+
+def test_factor_observation_v1_policy_artifacts_remain_validatable() -> None:
+    source = _yaml(SOURCE_MANIFEST)
+    gold = _yaml(PARITY_MANIFEST)
+    worklist = build_factor_observation_worklist(
+        source, agent_policy_version=AGENT_POLICY_VERSION_V1
+    )
+    response = build_contract_fixture_response(worklist, gold)
+
+    assert worklist["agent_policy_version"] == AGENT_POLICY_VERSION_V1
+    assert response["agent_policy_version"] == AGENT_POLICY_VERSION_V1
+    validate_factor_observation_response(worklist, response, source)
 
 
 def test_factor_observation_batch_plan_keeps_four_unit_microbatches_parallel() -> None:

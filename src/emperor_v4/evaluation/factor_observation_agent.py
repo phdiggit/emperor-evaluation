@@ -21,9 +21,10 @@ WORKLIST_SCHEMA_VERSION = "factor-observation-worklist-v1"
 RESPONSE_SCHEMA_VERSION = "factor-observation-agent-response-v1"
 QUALIFICATION_SCHEMA_VERSION = "factor-observation-qualification-v1"
 BATCH_PLAN_SCHEMA_VERSION = "factor-observation-batch-plan-v1"
-AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v1"
+AGENT_POLICY_VERSION_V1 = "appointment-delegation-factor-observation-agent-v1"
+AGENT_POLICY_VERSION = "appointment-delegation-factor-observation-agent-v2"
 
-OPTION_GUIDANCE: dict[str, dict[str, str]] = {
+OPTION_GUIDANCE_V1: dict[str, dict[str, str]] = {
     "appointment_importance": {
         "nominal_or_light": "名义任用、轻量职责或影响范围很小",
         "real_bounded": "真实职责成立，但责任域明确且有限",
@@ -58,6 +59,48 @@ OPTION_GUIDANCE: dict[str, dict[str, str]] = {
         "clear": "规则上下文和结算边界清楚",
         "core_mechanism_direct": "直接展示任用、授权、反馈的核心机制",
     },
+}
+
+OPTION_GUIDANCE: dict[str, dict[str, str]] = {
+    "appointment_importance": {
+        "nominal_or_light": "名义任用、轻量职责或影响范围很小；只按授权当时的责任域判断",
+        "real_bounded": "真实职责成立但限于常规、局部或明确有限的责任域",
+        "major_affairs": "直接承担重要军政事务、关键岗位或方面职责，但未达到国家全局关键授权",
+        "critical_national_or_long_term": "直接承担国家全局、战略性地域或长期结构性关键授权；不得以后续成果、案件规模或政治影响反向抬档",
+    },
+    "appointment_effect": {
+        "major_success": "任用—权责—反馈链直接证明异常显著的用人成功；重大任务、战役胜利或多次复用本身不自动抬档",
+        "normal_success": "人岗适配和履职反馈明确；领域成果只作适配反馈，不在本规则重复结算",
+        "weak_feedback": "存在正向履职信号，但反馈较弱、不完整或尚不足以确认稳定适配",
+        "poor_result": "授权控制、监督或履职结果较差，但尚未证明任用直接造成重大损害",
+        "major_direct_damage": "任用或授权安排与重大损害之间有直接、可归责的因果链",
+        "structural_continuing_damage": "任用或授权安排直接造成跨期结构损害；后续清洗、案件扩大或领域灾难不得在因果链不完整时并入",
+    },
+    "continuity_factor": {
+        "short_or_one_off": "仅有一次授权决定或短期任务；同一授权的直接履职后续不算跨阶段复用",
+        "stable": "同一授权下存在稳定履职、持续反馈或延续监督，但没有至少两次可区分的授权或复用决定",
+        "long_term_multi_stage": "证据直接覆盖至少两个可区分阶段的持续授权、续任或新任务复用；结果演变、失控、纠正或案件扩大不算复用阶段",
+    },
+    "attribution_factor": {
+        "indirect": "皇帝责任成立，但关键判断受他人独立行为、争议因果或复杂链条显著影响",
+        "direct": "任命、授权或反馈处置可直接归责于皇帝",
+        "direct_under_pressure": "皇帝在明确反对、负面指控或现实约束下仍直接作出关键取舍；普通请求或进言不自动构成压力",
+    },
+    "source_factor": {
+        "weak_or_compressed": "支撑本材料所声明判断的任用、职责、反馈或因果关键环节间接、压缩或缺失",
+        "standard": "史源足以支持本材料的主要判断，但至少一个已声明语义环节不是直接完整覆盖",
+        "complete_direct_chain": "史源直接覆盖本材料实际声明的任用、职责和反馈或损害链；按声明边界判断，不按史源数量、名气或材料外争议降档",
+    },
+    "context_factor": {
+        "weak_but_applicable": "与规则相关，但任用机制或结算边界仍有明显缺口",
+        "clear": "规则上下文、主责和不重复结算边界清楚",
+        "core_mechanism_direct": "材料直接展示任用、授权与反馈的核心机制；不因领域成果重大而自动抬档",
+    },
+}
+
+POLICY_OPTION_GUIDANCE = {
+    AGENT_POLICY_VERSION_V1: OPTION_GUIDANCE_V1,
+    AGENT_POLICY_VERSION: OPTION_GUIDANCE,
 }
 
 OPTION_ORDER: dict[str, tuple[str, ...]] = {
@@ -113,6 +156,8 @@ def _assertion_lineage_for_unit(
 
 def build_factor_observation_worklist(
     source_manifest: Mapping[str, Any],
+    *,
+    agent_policy_version: str = AGENT_POLICY_VERSION,
 ) -> dict[str, Any]:
     if source_manifest.get("rule_code") != RULE_CODE:
         raise ValueError("Factor Observation worklist source rule_code 非法")
@@ -182,13 +227,16 @@ def build_factor_observation_worklist(
             }
         )
 
+    option_guidance = POLICY_OPTION_GUIDANCE.get(agent_policy_version)
+    if option_guidance is None:
+        raise ValueError("Factor Observation agent_policy_version 非法")
     semantic = {
         "schema_version": WORKLIST_SCHEMA_VERSION,
         "rule_code": RULE_CODE,
         "factor_schema_version": FACTOR_SCHEMA_VERSION,
-        "agent_policy_version": AGENT_POLICY_VERSION,
+        "agent_policy_version": agent_policy_version,
         "tasks": tasks,
-        "factor_option_catalog": OPTION_GUIDANCE,
+        "factor_option_catalog": option_guidance,
     }
     worklist_hash = canonical_hash(semantic)
     return {
@@ -232,12 +280,15 @@ def build_factor_observation_batch_plan(
     *,
     max_units_per_batch: int = 4,
     max_workers: int = 4,
+    agent_policy_version: str = AGENT_POLICY_VERSION,
 ) -> dict[str, Any]:
     """按稳定输入顺序建立可并发的受控微批计划，不执行模型调用。"""
 
     if max_units_per_batch <= 0 or max_workers <= 0:
         raise ValueError("Factor Observation 批大小和并发数必须为正整数")
-    source_worklist = build_factor_observation_worklist(source_manifest)
+    source_worklist = build_factor_observation_worklist(
+        source_manifest, agent_policy_version=agent_policy_version
+    )
     tasks = tuple(source_worklist["tasks"])
     batches = []
     for index, start in enumerate(range(0, len(tasks), max_units_per_batch), start=1):
@@ -326,7 +377,12 @@ def merge_factor_observation_batch_responses(
             raise ValueError("Factor Observation batch response 执行身份不一致")
         merged_results.extend(deepcopy(response["results"]))
 
-    source_worklist = build_factor_observation_worklist(source_manifest)
+    source_worklist = build_factor_observation_worklist(
+        source_manifest,
+        agent_policy_version=str(
+            (batches[0].get("worklist") or {}).get("agent_policy_version") or ""
+        ),
+    )
     if source_worklist["worklist_sha256"] != batch_plan.get(
         "source_worklist_sha256"
     ):
@@ -387,7 +443,9 @@ def validate_factor_observation_response(
         or response.get("schema_version") != RESPONSE_SCHEMA_VERSION
         or response.get("status") != "factor_observation_agent_response_complete"
         or response.get("worklist_sha256") != worklist.get("worklist_sha256")
-        or response.get("agent_policy_version") != AGENT_POLICY_VERSION
+        or response.get("agent_policy_version") != worklist.get("agent_policy_version")
+        or worklist.get("factor_option_catalog")
+        != POLICY_OPTION_GUIDANCE.get(str(worklist.get("agent_policy_version") or ""))
     ):
         raise ValueError("Factor Observation response 版本、状态或 worklist 绑定非法")
     origin = response.get("response_origin")
@@ -673,7 +731,7 @@ def build_contract_fixture_response(
         "schema_version": RESPONSE_SCHEMA_VERSION,
         "status": "factor_observation_agent_response_complete",
         "worklist_sha256": worklist["worklist_sha256"],
-        "agent_policy_version": AGENT_POLICY_VERSION,
+        "agent_policy_version": worklist["agent_policy_version"],
         "response_origin": "contract_fixture_from_human_calibration",
         "provider": "repository_contract_fixture",
         "model": "not_an_independent_agent_run",
