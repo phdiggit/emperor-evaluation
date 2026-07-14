@@ -1,12 +1,14 @@
 schema_version: talent-discovery-factor-gold-v1
 status: frozen_open_development_gold
-task_code: V4-TD-OPEN-DEVELOPMENT-GOLD-001
+task_code: V4-TD-OPEN-DEVELOPMENT-GOLD-002
+gold_revision: 2
 agent_policy_version: talent-discovery-factor-agent-v1
-worklist_sha256: 37cf5f1975bf81f326dfe3d1e1ae3fa02aeb406e88b1850339f9b5cbc66acfc8
+worklist_sha256: 83897f3ea0f143699c54a32d168090beb8f1d222eab990e89de7f8d7111d0581
 gold_boundary:
   human_reviewed: true
-  created_before_candidate_model_run: true
-  model_call_count: 0
+  original_gold_freeze_commit: 11d04a0
+  post_open_run_semantic_corrections: 3
+  candidate_model_output_not_treated_as_fact: true
   formal_acceptance_performed: false
 units:
 - unit_ref: REU-LSM-MAZHOU-DISCOVERY-OPEN-v1
@@ -15,7 +17,7 @@ units:
     recognition_novelty:
       option_code: newly_visible_outsider
     recognition_basis:
-      option_code: recommendation_verified_by_ruler
+      option_code: work_product_then_interview
     barrier_crossing:
       option_code: status_or_access_barrier_crossed
     conversion_to_use:
@@ -28,7 +30,7 @@ units:
     recognition_basis:
       option_code: recommendation_verified_by_ruler
     barrier_crossing:
-      option_code: no_material_barrier
+      option_code: cross_camp_barrier_crossed
     conversion_to_use:
       option_code: direct_substantive_use
 - unit_ref: REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1
@@ -52,7 +54,7 @@ units:
     barrier_crossing:
       option_code: status_or_access_barrier_crossed
     conversion_to_use:
-      option_code: trial_then_scaled_use
+      option_code: direct_substantive_use
 - unit_ref: REU-LB-ZHANGLIANG-DISCOVERY-EXCLUDED-OPEN-v1
   applicability: not_applicable
   factors:

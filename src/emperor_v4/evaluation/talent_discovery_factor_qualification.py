@@ -31,6 +31,7 @@ FACTOR_OPTION_CATALOG = {
     },
     "recognition_basis": {
         "recommendation_verified_by_ruler": "荐举后由统治者在正式使用前亲自复核能力",
+        "work_product_then_interview": "先从奏议、作品或实际方案识别能力，再追溯本人并面谈复核",
         "reputation_then_direct_demonstration": "先因声誉进入视野，再以当场陈述或作品展示能力",
         "direct_observation_or_interview": "统治者直接观察或面谈形成识才依据",
         "reputation_only_unverified": "只有声誉或名气，缺少使用前复核",
