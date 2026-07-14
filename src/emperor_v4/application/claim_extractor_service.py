@@ -19,6 +19,19 @@ from emperor_v4.contracts.extraction import (
 
 SERVICE_VERSION = "v4-claim-extractor-service:v1"
 _COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+_ROUTING_QUALIFIER_KEYS = frozenset(
+    {
+        "evaluation_context",
+        "focal_person_ref",
+        "candidate_focal_person_refs",
+        "candidate_participant_roles",
+        "episode_type",
+        "responsibility_family",
+    }
+)
+_PROFILE_RESPONSIBILITY_FAMILY = {
+    "talent_discovery_chain_v1": "talent_discovery",
+}
 
 
 def _stable(value: Any) -> str:
@@ -35,8 +48,16 @@ def _fingerprint(value: Any) -> str:
     return sha256(_stable(value).encode("utf-8")).hexdigest()
 
 
+def _historical_qualifiers(assertion: AssertionDraft) -> Mapping[str, Any]:
+    return {
+        str(key): value
+        for key, value in assertion.qualifiers.items()
+        if str(key) not in _ROUTING_QUALIFIER_KEYS
+    }
+
+
 def assertion_semantic_payload(assertion: AssertionDraft) -> tuple[Any, ...]:
-    """返回跨 evidence 比较使用的完整业务语义，不包含来源位置。"""
+    """返回跨 evidence/profile 比较使用的历史事实语义。"""
 
     return (
         assertion.assertion_type,
@@ -45,7 +66,7 @@ def assertion_semantic_payload(assertion: AssertionDraft) -> tuple[Any, ...]:
         assertion.object,
         assertion.time_expression,
         assertion.location_expression,
-        _stable(assertion.qualifiers),
+        _stable(_historical_qualifiers(assertion)),
         assertion.polarity,
     )
 
@@ -64,6 +85,44 @@ def canonical_assertion_code(
             "assertion_semantic_key": semantic_key,
         }
     )[:24].upper()
+
+
+def enrich_assertion_routing(
+    assertion: AssertionDraft,
+    *,
+    request: ClaimExtractionRequest,
+    profile: ClaimExtractionProfile,
+) -> AssertionDraft:
+    """从可信 job subject 补齐 Episode 路由字段，不让模型自造身份。"""
+
+    subject = request.subject
+    evaluation_context = str(
+        subject.get("evaluation_context")
+        or subject.get("ruler_ref")
+        or subject.get("ruler")
+        or ""
+    ).strip()
+    focal_person_ref = str(
+        subject.get("person_ref")
+        or subject.get("person_or_ruler_ref")
+        or ""
+    ).strip()
+    qualifiers = dict(assertion.qualifiers)
+    if evaluation_context:
+        qualifiers["evaluation_context"] = evaluation_context
+    if focal_person_ref:
+        qualifiers["focal_person_ref"] = focal_person_ref
+        qualifiers["candidate_focal_person_refs"] = (focal_person_ref,)
+    if evaluation_context or focal_person_ref:
+        roles = []
+        if evaluation_context:
+            roles.append((evaluation_context, "ruler"))
+        roles.append((focal_person_ref or assertion.subject, "focal_person"))
+        qualifiers["candidate_participant_roles"] = tuple(roles)
+    responsibility_family = _PROFILE_RESPONSIBILITY_FAMILY.get(profile.code)
+    if responsibility_family and not qualifiers.get("responsibility_family"):
+        qualifiers["responsibility_family"] = responsibility_family
+    return replace(assertion, qualifiers=qualifiers)
 
 
 def canonicalize_assertion_draft(assertion: AssertionDraft) -> AssertionDraft:
@@ -97,6 +156,7 @@ def assertion_identity_payload(
     """数据库冲突比较忽略模型置信度和运行 provenance，只比较事实。"""
 
     support = assertion.get("passage_support") or {}
+    qualifiers = assertion.get("qualifiers") or {}
     return {
         "assertion_code": assertion.get("assertion_code"),
         "source_passage_ref": assertion.get("source_passage_ref"),
@@ -106,7 +166,11 @@ def assertion_identity_payload(
         "object": assertion.get("object"),
         "time_expression": assertion.get("time_expression"),
         "location_expression": assertion.get("location_expression"),
-        "qualifiers": assertion.get("qualifiers") or {},
+        "qualifiers": {
+            str(key): value
+            for key, value in qualifiers.items()
+            if str(key) not in _ROUTING_QUALIFIER_KEYS
+        },
         "polarity": assertion.get("polarity"),
         "passage_support": {
             "support_mode": support.get("support_mode"),
@@ -215,13 +279,9 @@ def ensure_claim_extraction(
         str(row.get("passage_id") or row.get("passage_code"))
         for row in request.passages
     }
-    provider_codes: set[str] = set()
     semantic_rows: dict[tuple[Any, ...], list[AssertionDraft]] = {}
     support_key_rows: dict[str, list[AssertionDraft]] = {}
     for assertion in batch.assertions:
-        if assertion.assertion_code in provider_codes:
-            raise ValueError("Claim Extractor provider assertion_code 重复")
-        provider_codes.add(assertion.assertion_code)
         if assertion.source_passage_ref not in passage_refs:
             raise ValueError("Claim Extractor Assertion 越出请求 passages")
         if assertion.passage_support is None:
@@ -262,7 +322,10 @@ def ensure_claim_extraction(
             )
 
     assertions = tuple(
-        canonicalize_assertion_draft(item) for item in batch.assertions
+        canonicalize_assertion_draft(
+            enrich_assertion_routing(item, request=request, profile=profile)
+        )
+        for item in batch.assertions
     )
     canonical_codes = [item.assertion_code for item in assertions]
     if len(canonical_codes) != len(set(canonical_codes)):
@@ -289,6 +352,7 @@ def ensure_claim_extraction(
             "service_release_sha": service_release_sha,
             "input_fingerprint": input_fingerprint,
             "identity_policy": "server_canonical_assertion_identity:v1",
+            "routing_policy": "trusted_request_subject_routing:v1",
         },
     }
     if coverage_gaps:
