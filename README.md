@@ -22,7 +22,8 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、PostgreSQL repository、job/lease worker 和 20 文件不可变 release 已进入当前 Git 历史；隔离服务器 Gate 已验证幂等、过期 lease 恢复与回滚
 - V4 Claim Extractor 选择性迁入：旧 `rule_code` 提示分支已改为版本化 `talent_discovery_chain_v1` profile；v2 application、独立 PostgreSQL repository、job/lease 和当前 21 文件 release 已通过服务器隔离 Gate，冻结响应形成 4 条带 PassageSupport 的 Assertion
 - V4 Claim Extractor 真实 provider shadow：改用 V4 Source Cache 三 passage 后生成 7 条 draft Assertion，四项发现链齐备，主簿重叠证据按 equivalent evidence 合并语义；未授权人物称谓保留原文并进入身份 slow lane
-- 正式 45 分映射、排名、worker 和生产切换：尚未开放
+- 服务规模化 hardening：当前分支已加入按 job profile 路由、lease 覆盖模型 timeout、显式空结果/coverage gap、服务端稳定 Assertion identity、可信 subject 路由、结构化输出限制、Source plan registry 与同页只抓一次；尚未构建或切换新的服务器不可变 release
+- 正式 45 分映射、排名、评分 worker 和生产切换：尚未开放
 
 当前实现已经证明：
 
@@ -58,7 +59,8 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 1. 以同一通用内核扩展 `team_building`，不复制独立流水线；
 2. 先冻结团队快照、团队成员集合和单人事件的去重边界；
 3. 保持 roster 增量、Claim/Assertion lineage 和跨规则重复结算审计；
-4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入。
+4. 保持 `shadow_demo_only`，不引入 45 分映射、排名或生产评分写入；
+5. 在扩大名单前完成 Claim/Factor Observation 智能体的质量基准、并发与恢复资格测试。
 
 在人工差异评审形成明确结论前，不再新增字母阶段、镜像测试模块或独立阶段总结文档。
 
@@ -86,6 +88,8 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 规模化只允许复用稳定契约、缓存和增量任务；不得复制五套独立流水线。
 
 配套服务源码迁移与评分规则扩展并行推进。Source Cache 与 Claim Extractor 已完成服务器不可变 cutover，并通过首条真实服务 job 观察。数据库复用早期 G3A 已创建的 `emperor_eval_v4`；Source Cache 经 1 次 Wikisource 请求写入 1 个 document revision 和 3 个 passages，Claim 经状态目录权限修复后在第 2 次 attempt 生成 7 条 draft assertions。两项重复投递均为零写，最小权限服务角色无权写 `public` 正式表。Live drafts 与先前 shadow 覆盖相同七个事实概念，但措辞和 semantic key 不做字面复现，因此仍是 `passed_for_draft_only`，不自动成为正式 Assertion。两个 timer 保持启用，V3、正式评分和排名未改变；服务收口后回到 `team_building` scored shadow 复用。
+
+上述线上观察仍对应旧不可变 release。当前分支的规模化 hardening 只有在 focused/full pytest、隔离 PostgreSQL migration、不可变 release 校验和明确 cutover 后才会影响服务器运行；不得把 Git 分支更新解释为已部署。
 
 ## 核心阅读顺序
 
@@ -130,4 +134,6 @@ scored shadow demo、首轮因子差异裁定、名单入口、包 C 持久化�
 - Shadow difference review runner：`ready_for_human_review`
 - Offline roster scored runner：`passed_cache_ensure_shadow`
 - Persistent incremental orchestration：`passed_shadow_runtime`
+- Service scaling hardening：`code_ready_pending_test_and_cutover`
+- Factor Observation agent：`not_implemented_or_qualified`
 - 正式评分和生产切换：`blocked`
