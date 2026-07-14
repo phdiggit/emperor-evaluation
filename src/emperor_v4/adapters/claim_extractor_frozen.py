@@ -10,6 +10,7 @@ from emperor_v4.adapters.claim_extractor import adapt_claim_extractor_snapshot
 from emperor_v4.application.claim_extractor_service import ClaimExtractionBatch
 
 
+FROZEN_PROVIDER_CODE = "frozen_claim_snapshot_v2_compat:v1"
 FROZEN_PROVIDER_POLICY_VERSION = "frozen-claim-snapshot-v2-compat:v2"
 
 
@@ -61,7 +62,7 @@ class FrozenClaimExtractionProvider:
             raise ValueError("冻结 Claim provider passages 与请求不一致")
         return ClaimExtractionBatch(
             assertions=adapt_claim_extractor_snapshot(migrated),
-            provider_code=FROZEN_PROVIDER_POLICY_VERSION,
+            provider_code=FROZEN_PROVIDER_CODE,
             model_call_count=0,
             provider_metadata={
                 "provider_policy_fingerprint": self.policy_fingerprint,
