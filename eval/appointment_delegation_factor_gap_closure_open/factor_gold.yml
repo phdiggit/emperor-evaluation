@@ -1,0 +1,44 @@
+schema_version: i5b-factor-gold-v1
+status: human_gold_frozen
+rule_code: appointment_delegation
+dataset_role: open_development
+factor_policy_version: appointment-delegation-factor-observation-agent-v4
+worklist_sha256: b33b857fccc5f588a30a772455791eb99e6f61798fcf130666ea177f21a09e01
+human_gold_completed_before_model_run: true
+units:
+- unit_ref: AD-G01
+  applicability: applicable
+  factors:
+    appointment_importance: major_affairs
+    appointment_effect: normal_success
+    continuity_factor: insufficient_evidence
+    attribution_factor: direct
+    source_factor: weak_or_compressed
+    context_factor: core_mechanism_direct
+- unit_ref: AD-G02
+  applicability: applicable
+  factors:
+    appointment_importance: major_affairs
+    appointment_effect: weak_feedback
+    continuity_factor: short_or_one_off
+    attribution_factor: direct
+    source_factor: standard
+    context_factor: core_mechanism_direct
+- unit_ref: AD-G03
+  applicability: applicable
+  factors:
+    appointment_importance: major_affairs
+    appointment_effect: poor_result
+    continuity_factor: long_term_multi_stage
+    attribution_factor: direct
+    source_factor: complete_direct_chain
+    context_factor: clear
+- unit_ref: AD-G04
+  applicability: applicable
+  factors:
+    appointment_importance: critical_national_or_long_term
+    appointment_effect: poor_result
+    continuity_factor: stable
+    attribution_factor: direct_under_pressure
+    source_factor: complete_direct_chain
+    context_factor: core_mechanism_direct

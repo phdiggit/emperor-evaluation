@@ -1,0 +1,36 @@
+schema_version: i5b-factor-gold-v1
+status: human_gold_frozen
+rule_code: talent_discovery
+dataset_role: sealed_holdout
+factor_policy_version: talent-discovery-factor-agent-v1
+worklist_sha256: abf24f7601ed1c17199dacdbef30b90585b93acc9cd3ede94a66b1c70c82275c
+human_gold_completed_before_model_run: true
+units:
+- unit_ref: TD-S01
+  applicability: applicable
+  factors:
+    recognition_novelty: newly_visible_outsider
+    recognition_basis: reputation_only_unverified
+    barrier_crossing: no_material_barrier
+    conversion_to_use: trial_then_scaled_use
+- unit_ref: TD-S02
+  applicability: applicable
+  factors:
+    recognition_novelty: newly_visible_outsider
+    recognition_basis: reputation_then_direct_demonstration
+    barrier_crossing: status_or_access_barrier_crossed
+    conversion_to_use: direct_substantive_use
+- unit_ref: TD-S03
+  applicability: not_applicable
+  factors:
+    recognition_novelty: not_applicable
+    recognition_basis: not_applicable
+    barrier_crossing: not_applicable
+    conversion_to_use: not_applicable
+- unit_ref: TD-S04
+  applicability: not_applicable
+  factors:
+    recognition_novelty: not_applicable
+    recognition_basis: not_applicable
+    barrier_crossing: not_applicable
+    conversion_to_use: not_applicable

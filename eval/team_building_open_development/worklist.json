@@ -1,0 +1,1423 @@
+{
+  "applicability_options": [
+    "applicable",
+    "insufficient_evidence",
+    "not_applicable"
+  ],
+  "dataset_role": "open_development",
+  "evidence_coverage": {
+    "absence_inference_allowed": false,
+    "coverage_status": "reviewed_test_fixture",
+    "formal_v4_fact": false,
+    "schema_version": "rule-factor-evidence-coverage-v1"
+  },
+  "factor_option_catalog": {
+    "confidant_dependency": {
+      "bounded_anchor": "有核心锚点但依赖可控",
+      "centralized_ruler_bottleneck_without_confidant": "皇帝亲断形成瓶颈而非亲信依赖",
+      "distributed": "权责分布且无单点依赖",
+      "elevated_single_person": "单人依赖偏高",
+      "insufficient_evidence": "依赖结构证据不足",
+      "not_applicable": "不属于团队时间窗",
+      "personal_network_capture": "私人网络控制团队",
+      "single_point": "形成单点故障"
+    },
+    "continuity_structure": {
+      "durable_multi_stage": "跨多个阶段保持团队能力",
+      "fragmented": "团队结构碎片化",
+      "insufficient_evidence": "连续性证据不足",
+      "managed_turnover": "有序更替且功能不断裂",
+      "not_applicable": "不属于团队时间窗",
+      "purge_or_capture_collapse": "清洗或网络控制造成坍塌",
+      "stable_but_narrow": "稳定但结构狭窄",
+      "stable_window": "窗口内稳定"
+    },
+    "core_role_coverage": {
+      "critical_long_vacancy": "关键功能长期空缺",
+      "four_core": "决策、行政、军事、纠错四面覆盖",
+      "insufficient_evidence": "岗位覆盖证据不足",
+      "not_applicable": "不属于团队时间窗",
+      "one_or_none": "至多覆盖一类核心功能",
+      "three_core": "覆盖三类核心功能",
+      "two_core": "仅覆盖两类核心功能"
+    },
+    "functional_complementarity": {
+      "balanced_four": "四类功能均衡互补",
+      "homogeneous": "成员功能同质化",
+      "insufficient_evidence": "互补结构证据不足",
+      "not_applicable": "不属于团队时间窗",
+      "ordinary_two": "两类普通互补",
+      "qualified_roles_crowded_out": "合格功能成员被排挤",
+      "strong_three": "三类功能强互补"
+    },
+    "key_role_integrity": {
+      "insufficient_evidence": "关键岗位证据不足",
+      "no_material_vacancy": "关键岗位无实质空缺",
+      "not_applicable": "不属于团队时间窗",
+      "persistent_vacancy": "关键岗位持续空缺",
+      "qualified_person_crowded_out": "合格成员被排挤",
+      "short_transition": "只有短期过渡空缺",
+      "systemic_hollowing": "关键功能系统性空心化"
+    },
+    "talent_depth": {
+      "adequate_mixed": "层级混合但基本够用",
+      "capability_risk_dominated": "能力风险主导团队",
+      "insufficient_evidence": "画像覆盖不足",
+      "multi_historic": "多名历史级人才形成深度",
+      "multi_top": "多名顶级人才",
+      "not_applicable": "不属于团队时间窗",
+      "thin": "人才深度薄弱"
+    }
+  },
+  "factor_policy_version": "team-building-factor-agent-v1",
+  "input_boundary": {
+    "gold_options_exposed": false,
+    "numeric_values_exposed": false,
+    "scores_or_rankings_exposed": false,
+    "source_lineage_required": true
+  },
+  "output_contract": {
+    "factor_fields": [
+      "option_code",
+      "reason",
+      "assertion_refs"
+    ],
+    "factor_names": [
+      "confidant_dependency",
+      "continuity_structure",
+      "core_role_coverage",
+      "functional_complementarity",
+      "key_role_integrity",
+      "talent_depth"
+    ],
+    "forbidden_keys": [
+      "deterministic_value",
+      "factor_value",
+      "numeric_value",
+      "ranking",
+      "raw_score",
+      "score"
+    ],
+    "response_schema_version": "i5b-factor-response-v1"
+  },
+  "rule_boundary": {
+    "coverage_and_scoring_unit": "冻结皇帝时间窗、canonical人物集合和版本化画像；窗口内同人一次",
+    "cross_rule_double_counting_forbidden": true,
+    "v3_assets_are_readonly_regression_candidates": true
+  },
+  "rule_code": "team_building",
+  "schema_version": "i5b-factor-worklist-v1",
+  "status": "i5b_factor_worklist_ready",
+  "task_code": "V4-I5B-TEAM_BUILDING-OPEN_DEVELOPMENT",
+  "tasks": [
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "前206—前195",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O01@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "前206—前195",
+            "source_ref": "TB-O01@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "刘邦前206—前195团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "前206",
+          "active_to": "前195",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:张良"
+          ],
+          "person": "张良",
+          "person_ref": "P-C3496A57C039",
+          "profile_ref": "PROFILE-P-C3496A57C039@v1",
+          "role_families": [
+            "decision"
+          ]
+        },
+        {
+          "active_from": "前206",
+          "active_to": "前195",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:萧何"
+          ],
+          "person": "萧何",
+          "person_ref": "P-918E22701670",
+          "profile_ref": "PROFILE-P-918E22701670@v1",
+          "role_families": [
+            "administration"
+          ]
+        },
+        {
+          "active_from": "前206",
+          "active_to": "前195",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:韩信"
+          ],
+          "person": "韩信",
+          "person_ref": "P-32BD3BF04992",
+          "profile_ref": "PROFILE-P-32BD3BF04992@v1",
+          "role_families": [
+            "military"
+          ]
+        },
+        {
+          "active_from": "前206",
+          "active_to": "前195",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:陈平"
+          ],
+          "person": "陈平",
+          "person_ref": "P-63E4FCAFFF1E",
+          "profile_ref": "PROFILE-P-63E4FCAFFF1E@v1",
+          "role_families": [
+            "decision",
+            "correction"
+          ]
+        },
+        {
+          "active_from": "前206",
+          "active_to": "前195",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:曹参"
+          ],
+          "person": "曹参",
+          "person_ref": "P-C0611E1B6980",
+          "profile_ref": "PROFILE-P-C0611E1B6980@v1",
+          "role_families": [
+            "administration"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-C3496A57C039",
+          "capability_domains": [
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:张良"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "张良",
+          "profile_ref": "PROFILE-P-C3496A57C039@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "33e98d5f4b12d0c43b50c075e5d00e313b0baa85a3d3e7e578ccbb4aa2c39905",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-918E22701670",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:萧何"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "萧何",
+          "profile_ref": "PROFILE-P-918E22701670@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "6fb7515ff33ba8c0faf804166b23c263cbbb67f5993883e53f3cfc02c2b76bde",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-32BD3BF04992",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:韩信"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "韩信",
+          "profile_ref": "PROFILE-P-32BD3BF04992@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "92539aa90c8346b2ad685d7aec6879a4f7dc89caa720ce84dcdf7f2a672575e1",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-63E4FCAFFF1E",
+          "capability_domains": [
+            "decision",
+            "correction"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:陈平"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "陈平",
+          "profile_ref": "PROFILE-P-63E4FCAFFF1E@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "d9d6650582eeb5476f6721218d2de66bb5499dda0ef38a959dcf9268325b29bd",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-C0611E1B6980",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:曹参"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "曹参",
+          "profile_ref": "PROFILE-P-C0611E1B6980@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "ab021ceb805260cc8c3218c0e7034ced0d3c1c1295b2a276c48e71d8966a346a",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        }
+      ],
+      "ruler": "刘邦",
+      "subject": "刘邦团队",
+      "unit_ref": "TB-O01"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "626—643",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O02@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "626—643",
+            "source_ref": "TB-O02@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "李世民626—643团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "626",
+          "active_to": "643",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:房玄龄"
+          ],
+          "person": "房玄龄",
+          "person_ref": "P-D33CBCAF5ECC",
+          "profile_ref": "PROFILE-P-D33CBCAF5ECC@v1",
+          "role_families": [
+            "administration"
+          ]
+        },
+        {
+          "active_from": "626",
+          "active_to": "643",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:杜如晦"
+          ],
+          "person": "杜如晦",
+          "person_ref": "P-1EA22CE7B00F",
+          "profile_ref": "PROFILE-P-1EA22CE7B00F@v1",
+          "role_families": [
+            "decision"
+          ]
+        },
+        {
+          "active_from": "626",
+          "active_to": "643",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:魏徵"
+          ],
+          "person": "魏徵",
+          "person_ref": "P-B4B4294FE0B1",
+          "profile_ref": "PROFILE-P-B4B4294FE0B1@v1",
+          "role_families": [
+            "correction"
+          ]
+        },
+        {
+          "active_from": "626",
+          "active_to": "643",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李靖"
+          ],
+          "person": "李靖",
+          "person_ref": "P-A31A01C226D0",
+          "profile_ref": "PROFILE-P-A31A01C226D0@v1",
+          "role_families": [
+            "military"
+          ]
+        },
+        {
+          "active_from": "626",
+          "active_to": "643",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:长孙无忌"
+          ],
+          "person": "长孙无忌",
+          "person_ref": "P-5931C1A8C3DE",
+          "profile_ref": "PROFILE-P-5931C1A8C3DE@v1",
+          "role_families": [
+            "administration"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-D33CBCAF5ECC",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:房玄龄"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "房玄龄",
+          "profile_ref": "PROFILE-P-D33CBCAF5ECC@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "32d86aa10e18f19d327b8894bacba19c4b3346bf9b9631f7670bd7b2ab03f1dc",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-1EA22CE7B00F",
+          "capability_domains": [
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:杜如晦"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "杜如晦",
+          "profile_ref": "PROFILE-P-1EA22CE7B00F@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "aa63d75a8c31b4d0afe26e94be0107c2ed3e8777a3b504ac4d27f148d2143bf2",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-B4B4294FE0B1",
+          "capability_domains": [
+            "correction"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:魏徵"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "魏徵",
+          "profile_ref": "PROFILE-P-B4B4294FE0B1@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "81964ea307e9dc39023f825551cd7b321217ea6fe7d31d88799e65ae4ffba4d9",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-A31A01C226D0",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李靖"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "李靖",
+          "profile_ref": "PROFILE-P-A31A01C226D0@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "458e7257892265298efb0cb41ae131f236e3156bc008161a30c2f175d970016c",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-5931C1A8C3DE",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:长孙无忌"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "长孙无忌",
+          "profile_ref": "PROFILE-P-5931C1A8C3DE@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "3ecb95a3e63d8200a5762b02e6076414c3d0f1133bfca7e496d8e3c25d23242a",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        }
+      ],
+      "ruler": "李世民",
+      "subject": "李世民团队",
+      "unit_ref": "TB-O02"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "1368—1380",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O03@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "1368—1380",
+            "source_ref": "TB-O03@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "朱元璋1368—1380团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "1368",
+          "active_to": "1380",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:刘基"
+          ],
+          "person": "刘基",
+          "person_ref": "P-9393FDE0404B",
+          "profile_ref": "PROFILE-P-9393FDE0404B@v1",
+          "role_families": [
+            "decision"
+          ]
+        },
+        {
+          "active_from": "1368",
+          "active_to": "1380",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李善长"
+          ],
+          "person": "李善长",
+          "person_ref": "P-1EA898797679",
+          "profile_ref": "PROFILE-P-1EA898797679@v1",
+          "role_families": [
+            "administration"
+          ]
+        },
+        {
+          "active_from": "1368",
+          "active_to": "1380",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:徐达"
+          ],
+          "person": "徐达",
+          "person_ref": "P-CC89A83F38AB",
+          "profile_ref": "PROFILE-P-CC89A83F38AB@v1",
+          "role_families": [
+            "military"
+          ]
+        },
+        {
+          "active_from": "1368",
+          "active_to": "1380",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:宋濂"
+          ],
+          "person": "宋濂",
+          "person_ref": "P-DA35BAE19674",
+          "profile_ref": "PROFILE-P-DA35BAE19674@v1",
+          "role_families": [
+            "correction"
+          ]
+        },
+        {
+          "active_from": "1368",
+          "active_to": "1380",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:常遇春"
+          ],
+          "person": "常遇春",
+          "person_ref": "P-DB3117E8DA09",
+          "profile_ref": "PROFILE-P-DB3117E8DA09@v1",
+          "role_families": [
+            "military"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-9393FDE0404B",
+          "capability_domains": [
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:刘基"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "刘基",
+          "profile_ref": "PROFILE-P-9393FDE0404B@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "046e609ddde750fdb63ad96a7fb70748136c39da00806bcee62a057d32c7a8c0",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-1EA898797679",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李善长"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "李善长",
+          "profile_ref": "PROFILE-P-1EA898797679@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "ca2e58c0b65837a54562a1369325154f8fc0aec99c1b54493ab04a57c7092a3a",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-CC89A83F38AB",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:徐达"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "徐达",
+          "profile_ref": "PROFILE-P-CC89A83F38AB@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "37fc6d0e3daebf04f6aec4b49dc0f2bfbe88d70b2bea1aa67bac602321699bb6",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "historic"
+        },
+        {
+          "canonical_person_ref": "P-DA35BAE19674",
+          "capability_domains": [
+            "correction"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:宋濂"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "宋濂",
+          "profile_ref": "PROFILE-P-DA35BAE19674@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "9939dc5a5ffe095ecfcbfe188cba16a68c827b9914fd3cecd202750c78160c26",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-DB3117E8DA09",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:常遇春"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "常遇春",
+          "profile_ref": "PROFILE-P-DB3117E8DA09@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "8906fb4ceff9f8fc2ff9650d954c7c3eee9a0095c9d5ce1082756902e2c0e959",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        }
+      ],
+      "ruler": "朱元璋",
+      "subject": "朱元璋团队",
+      "unit_ref": "TB-O03"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "1381—1398",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O04@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "1381—1398",
+            "source_ref": "TB-O04@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "朱元璋1381—1398团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "1381",
+          "active_to": "1398",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:蓝玉"
+          ],
+          "person": "蓝玉",
+          "person_ref": "P-FB6097CFEAFF",
+          "profile_ref": "PROFILE-P-FB6097CFEAFF@v1",
+          "role_families": [
+            "military"
+          ]
+        },
+        {
+          "active_from": "1381",
+          "active_to": "1398",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:傅友德"
+          ],
+          "person": "傅友德",
+          "person_ref": "P-9533DAE650B2",
+          "profile_ref": "PROFILE-P-9533DAE650B2@v1",
+          "role_families": [
+            "military"
+          ]
+        },
+        {
+          "active_from": "1381",
+          "active_to": "1398",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:冯胜"
+          ],
+          "person": "冯胜",
+          "person_ref": "P-856A5F9277A0",
+          "profile_ref": "PROFILE-P-856A5F9277A0@v1",
+          "role_families": [
+            "military"
+          ]
+        },
+        {
+          "active_from": "1381",
+          "active_to": "1398",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:詹徽"
+          ],
+          "person": "詹徽",
+          "person_ref": "P-A5061ACA4C63",
+          "profile_ref": "PROFILE-P-A5061ACA4C63@v1",
+          "role_families": [
+            "administration"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-FB6097CFEAFF",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:蓝玉"
+          ],
+          "negative_risk_class": "security",
+          "negative_risk_severity": "material",
+          "person": "蓝玉",
+          "profile_ref": "PROFILE-P-FB6097CFEAFF@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "5401675d97cf6569507af3582ab914b2dc718be6c65d7b1e0d71f87e838eb608",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-9533DAE650B2",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:傅友德"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "傅友德",
+          "profile_ref": "PROFILE-P-9533DAE650B2@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "0f7a860abd1d0979feaa1865aba9cf134ff548c765a9a1842ffff48fe0f54c1b",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-856A5F9277A0",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:冯胜"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "冯胜",
+          "profile_ref": "PROFILE-P-856A5F9277A0@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "0ede90ec331b5cfe7471d962e81c68c0f5d519bb8d7fb7b349a592cb0565bc1e",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        },
+        {
+          "canonical_person_ref": "P-A5061ACA4C63",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:詹徽"
+          ],
+          "negative_risk_class": "political",
+          "negative_risk_severity": "material",
+          "person": "詹徽",
+          "profile_ref": "PROFILE-P-A5061ACA4C63@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "6736d6aa6aa5a2a39a9ec62537762f3d1e5ab4f211d81ac405c779667d3cbda0",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "usable"
+        }
+      ],
+      "ruler": "朱元璋",
+      "subject": "朱元璋团队",
+      "unit_ref": "TB-O04"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "713—736",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O05@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "713—736",
+            "source_ref": "TB-O05@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "李隆基713—736团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "713",
+          "active_to": "736",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:姚崇"
+          ],
+          "person": "姚崇",
+          "person_ref": "P-106BAA4CD081",
+          "profile_ref": "PROFILE-P-106BAA4CD081@v1",
+          "role_families": [
+            "decision",
+            "administration"
+          ]
+        },
+        {
+          "active_from": "713",
+          "active_to": "736",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:宋璟"
+          ],
+          "person": "宋璟",
+          "person_ref": "P-A29B9853CC8A",
+          "profile_ref": "PROFILE-P-A29B9853CC8A@v1",
+          "role_families": [
+            "administration",
+            "correction"
+          ]
+        },
+        {
+          "active_from": "713",
+          "active_to": "736",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:张说"
+          ],
+          "person": "张说",
+          "person_ref": "P-3D0C04A04AC8",
+          "profile_ref": "PROFILE-P-3D0C04A04AC8@v1",
+          "role_families": [
+            "decision"
+          ]
+        },
+        {
+          "active_from": "713",
+          "active_to": "736",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:张九龄"
+          ],
+          "person": "张九龄",
+          "person_ref": "P-317C63D2AF82",
+          "profile_ref": "PROFILE-P-317C63D2AF82@v1",
+          "role_families": [
+            "correction"
+          ]
+        },
+        {
+          "active_from": "713",
+          "active_to": "736",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:萧嵩"
+          ],
+          "person": "萧嵩",
+          "person_ref": "P-15A1C21A2CAA",
+          "profile_ref": "PROFILE-P-15A1C21A2CAA@v1",
+          "role_families": [
+            "military"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-106BAA4CD081",
+          "capability_domains": [
+            "decision",
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:姚崇"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "姚崇",
+          "profile_ref": "PROFILE-P-106BAA4CD081@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "431d9583f6480e180ae4f9de087af673e60eb2bcdf419e7cde7c3ea201f9b8db",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-A29B9853CC8A",
+          "capability_domains": [
+            "administration",
+            "correction"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:宋璟"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "宋璟",
+          "profile_ref": "PROFILE-P-A29B9853CC8A@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "30f0da14fe6660cf826484db65e892c371b31207ad1fa1e5390c66736e553ca9",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-3D0C04A04AC8",
+          "capability_domains": [
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:张说"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "张说",
+          "profile_ref": "PROFILE-P-3D0C04A04AC8@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "df4cc403a071f911c719dca602622a11ac7cb9a06af01bcd2583a9e6bcba8160",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-317C63D2AF82",
+          "capability_domains": [
+            "correction"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:张九龄"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "张九龄",
+          "profile_ref": "PROFILE-P-317C63D2AF82@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "a08dfb0df8fa83311d0e0bd1d4daa9bb1d8d192374de9301838fa14352232523",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-15A1C21A2CAA",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:萧嵩"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "萧嵩",
+          "profile_ref": "PROFILE-P-15A1C21A2CAA@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "3eab5c596c384fd5a3b5b4ba11bfedea462ad819213b040ad90403a9c6a664aa",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        }
+      ],
+      "ruler": "李隆基",
+      "subject": "李隆基团队",
+      "unit_ref": "TB-O05"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "742—756",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O06@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "742—756",
+            "source_ref": "TB-O06@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "李隆基742—756团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "742",
+          "active_to": "756",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李林甫"
+          ],
+          "person": "李林甫",
+          "person_ref": "P-C6BF361CC6B1",
+          "profile_ref": "PROFILE-P-C6BF361CC6B1@v1",
+          "role_families": [
+            "administration"
+          ]
+        },
+        {
+          "active_from": "742",
+          "active_to": "756",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:杨国忠"
+          ],
+          "person": "杨国忠",
+          "person_ref": "P-1BA44F209A68",
+          "profile_ref": "PROFILE-P-1BA44F209A68@v1",
+          "role_families": [
+            "administration"
+          ]
+        },
+        {
+          "active_from": "742",
+          "active_to": "756",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:高力士"
+          ],
+          "person": "高力士",
+          "person_ref": "P-9145848DA037",
+          "profile_ref": "PROFILE-P-9145848DA037@v1",
+          "role_families": [
+            "decision"
+          ]
+        },
+        {
+          "active_from": "742",
+          "active_to": "756",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:安禄山"
+          ],
+          "person": "安禄山",
+          "person_ref": "P-4CB048D15F5F",
+          "profile_ref": "PROFILE-P-4CB048D15F5F@v1",
+          "role_families": [
+            "military"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-C6BF361CC6B1",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李林甫"
+          ],
+          "negative_risk_class": "integrity",
+          "negative_risk_severity": "material",
+          "person": "李林甫",
+          "profile_ref": "PROFILE-P-C6BF361CC6B1@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "cfe0e0bed7c98044bec3f0ce8fe03300abe5a0561a6ec76f1f967b8b02c3c307",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        },
+        {
+          "canonical_person_ref": "P-1BA44F209A68",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:杨国忠"
+          ],
+          "negative_risk_class": "integrity",
+          "negative_risk_severity": "material",
+          "person": "杨国忠",
+          "profile_ref": "PROFILE-P-1BA44F209A68@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "90defd593eeb02236d5f80294f24374a73b4720e481b48477d8afb091894c096",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "usable"
+        },
+        {
+          "canonical_person_ref": "P-9145848DA037",
+          "capability_domains": [
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:高力士"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "高力士",
+          "profile_ref": "PROFILE-P-9145848DA037@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "74be3124d6cf6aa1dcfcc960e400cc18da936ef2852377c8b1e92a7fed0e5e8e",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        },
+        {
+          "canonical_person_ref": "P-4CB048D15F5F",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:安禄山"
+          ],
+          "negative_risk_class": "security",
+          "negative_risk_severity": "material",
+          "person": "安禄山",
+          "profile_ref": "PROFILE-P-4CB048D15F5F@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "c10ba5de569f600d0855f5badd2dcc96a54bb24d6464f7d36b0d5c4ee37c7c26",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        }
+      ],
+      "ruler": "李隆基",
+      "subject": "李隆基团队",
+      "unit_ref": "TB-O06"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "1142—1155",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O07@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "1142—1155",
+            "source_ref": "TB-O07@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "赵构1142—1155团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "1142",
+          "active_to": "1155",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:秦桧"
+          ],
+          "person": "秦桧",
+          "person_ref": "P-D97EC80A40F6",
+          "profile_ref": "PROFILE-P-D97EC80A40F6@v1",
+          "role_families": [
+            "administration",
+            "decision"
+          ]
+        },
+        {
+          "active_from": "1142",
+          "active_to": "1155",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:万俟卨"
+          ],
+          "person": "万俟卨",
+          "person_ref": "P-D7BE41C06F0F",
+          "profile_ref": "PROFILE-P-D7BE41C06F0F@v1",
+          "role_families": [
+            "administration"
+          ]
+        },
+        {
+          "active_from": "1142",
+          "active_to": "1155",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:汤思退"
+          ],
+          "person": "汤思退",
+          "person_ref": "P-66260D4245F6",
+          "profile_ref": "PROFILE-P-66260D4245F6@v1",
+          "role_families": [
+            "administration"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-D97EC80A40F6",
+          "capability_domains": [
+            "administration",
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:秦桧"
+          ],
+          "negative_risk_class": "integrity",
+          "negative_risk_severity": "material",
+          "person": "秦桧",
+          "profile_ref": "PROFILE-P-D97EC80A40F6@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "634f97f326b11dc75da371b8e5d35d23b9733635b976e0b69a382a6bcd8ed1f4",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-D7BE41C06F0F",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:万俟卨"
+          ],
+          "negative_risk_class": "integrity",
+          "negative_risk_severity": "material",
+          "person": "万俟卨",
+          "profile_ref": "PROFILE-P-D7BE41C06F0F@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "88f6e182cf4c66a8b765885121a178e92cfb8d7c188112cfc1d776197bf69a69",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "usable"
+        },
+        {
+          "canonical_person_ref": "P-66260D4245F6",
+          "capability_domains": [
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:汤思退"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "汤思退",
+          "profile_ref": "PROFILE-P-66260D4245F6@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "9eedee69a7719798d8aabf71a03c57e4da01734395c674dcd2de74fb95aeb3fe",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        }
+      ],
+      "ruler": "赵构",
+      "subject": "赵构团队",
+      "unit_ref": "TB-O07"
+    },
+    {
+      "context_kind": "ruler_time_window",
+      "context_summary": "集合级团队窗口；同一人物只出现一次",
+      "evaluation_window": "1488—1505",
+      "evidence": [
+        {
+          "assertion_ref": "TB-O08@A1",
+          "quote": "测试画像仅作V4回归候选，不是正式人物事实。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "1488—1505",
+            "source_ref": "TB-O08@SRC1",
+            "source_title": "V3冻结候选与人工团队审查",
+            "url": "git:v3-freeze-20260712"
+          },
+          "summary": "朱祐樘1488—1505团队成员、画像与角色集合经人工冻结。"
+        }
+      ],
+      "member_set": [
+        {
+          "active_from": "1488",
+          "active_to": "1505",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:刘健"
+          ],
+          "person": "刘健",
+          "person_ref": "P-CF5CB80A0B13",
+          "profile_ref": "PROFILE-P-CF5CB80A0B13@v1",
+          "role_families": [
+            "decision",
+            "administration"
+          ]
+        },
+        {
+          "active_from": "1488",
+          "active_to": "1505",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:谢迁"
+          ],
+          "person": "谢迁",
+          "person_ref": "P-66B104F9E328",
+          "profile_ref": "PROFILE-P-66B104F9E328@v1",
+          "role_families": [
+            "correction"
+          ]
+        },
+        {
+          "active_from": "1488",
+          "active_to": "1505",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李东阳"
+          ],
+          "person": "李东阳",
+          "person_ref": "P-32D467ED9D92",
+          "profile_ref": "PROFILE-P-32D467ED9D92@v1",
+          "role_families": [
+            "decision"
+          ]
+        },
+        {
+          "active_from": "1488",
+          "active_to": "1505",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:马文升"
+          ],
+          "person": "马文升",
+          "person_ref": "P-DDA1DEB49ABC",
+          "profile_ref": "PROFILE-P-DDA1DEB49ABC@v1",
+          "role_families": [
+            "military",
+            "administration"
+          ]
+        },
+        {
+          "active_from": "1488",
+          "active_to": "1505",
+          "evidence_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:刘大夏"
+          ],
+          "person": "刘大夏",
+          "person_ref": "P-0B85E32BE95F",
+          "profile_ref": "PROFILE-P-0B85E32BE95F@v1",
+          "role_families": [
+            "military"
+          ]
+        }
+      ],
+      "profile_snapshots": [
+        {
+          "canonical_person_ref": "P-CF5CB80A0B13",
+          "capability_domains": [
+            "decision",
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:刘健"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "刘健",
+          "profile_ref": "PROFILE-P-CF5CB80A0B13@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "9bd5c988f57a8f5b372d0d901205cfa2b11ca1b7083ea1de02f9daf6a90ffe51",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-66B104F9E328",
+          "capability_domains": [
+            "correction"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:谢迁"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "谢迁",
+          "profile_ref": "PROFILE-P-66B104F9E328@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "51bdd58825c4f04a67779df01d8843686331b2c445a49639f7f464d8053984a1",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-32D467ED9D92",
+          "capability_domains": [
+            "decision"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:李东阳"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "李东阳",
+          "profile_ref": "PROFILE-P-32D467ED9D92@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "4fd5bfa86c9f9c0314ad61c16c969008aab9734d70808710666e89b323febc2e",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "top"
+        },
+        {
+          "canonical_person_ref": "P-DDA1DEB49ABC",
+          "capability_domains": [
+            "military",
+            "administration"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:马文升"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "马文升",
+          "profile_ref": "PROFILE-P-DDA1DEB49ABC@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "552a051cfbb108c608acc066da6afa6283d65befd3c2ac92a1aa5b3cf9d0f7b6",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        },
+        {
+          "canonical_person_ref": "P-0B85E32BE95F",
+          "capability_domains": [
+            "military"
+          ],
+          "lineage_refs": [
+            "v3-freeze-20260712:readonly-team-candidate:刘大夏"
+          ],
+          "negative_risk_class": "none",
+          "negative_risk_severity": "none",
+          "person": "刘大夏",
+          "profile_ref": "PROFILE-P-0B85E32BE95F@v1",
+          "review_status": "human_frozen",
+          "semantic_fingerprint": "126df57f227be1a85156a6ee41044aa98dee28326a63dff490fef8f57481ef07",
+          "snapshot_version": "i5b-team-test-profile-v1",
+          "talent_grade": "important"
+        }
+      ],
+      "ruler": "朱祐樘",
+      "subject": "朱祐樘团队",
+      "unit_ref": "TB-O08"
+    }
+  ],
+  "worklist_sha256": "22f29522258de23f42e75714da0e3aad5f9be8f1607f6e311eef8b84a9e4d3b4"
+}

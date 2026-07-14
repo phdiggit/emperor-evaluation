@@ -424,14 +424,87 @@ class BoundaryMaterializationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class AggregateContextMember:
+    person_ref: str
+    channel_ref: str
+    episode_refs: tuple[str, ...]
+    member_role: str
+    supporting_only_for_aggregate: bool
+
+    def __post_init__(self) -> None:
+        if not self.person_ref or not self.channel_ref or not self.episode_refs:
+            raise ValueError("AggregateContextMember 缺少人物、渠道或 episode")
+        if not self.supporting_only_for_aggregate:
+            raise ValueError("AggregateContext 成员必须声明仅支持集合层结算")
+
+
+@dataclass(frozen=True, slots=True)
+class AggregateContextDraft:
+    context_code: str
+    ruler_ref: str
+    evaluation_window: str
+    network_family: str
+    member_set_version: str
+    rule_version: str
+    semantic_version: int
+    evidence_version: int
+    channel_control_mode: str
+    members: tuple[AggregateContextMember, ...]
+    lineage: Mapping[str, str]
+    status: str = "draft"
+
+    def __post_init__(self) -> None:
+        if not all(
+            (
+                self.context_code,
+                self.ruler_ref,
+                self.evaluation_window,
+                self.network_family,
+                self.member_set_version,
+                self.rule_version,
+            )
+        ):
+            raise ValueError("AggregateContextDraft 缺少稳定身份字段")
+        if self.status != "draft" or self.semantic_version < 1 or self.evidence_version < 1:
+            raise ValueError("AggregateContextDraft 状态或版本非法")
+        if self.channel_control_mode not in {
+            "multi_member_multi_channel",
+            "single_controller_appointment_channel",
+        }:
+            raise ValueError("AggregateContextDraft 渠道控制模式非法")
+        people = {item.person_ref for item in self.members}
+        channels = {item.channel_ref for item in self.members}
+        if self.channel_control_mode == "multi_member_multi_channel" and (
+            len(people) < 2 or len(channels) < 2
+        ):
+            raise ValueError("长期私人网络至少需要两人和两条任用渠道")
+        if not self.members:
+            raise ValueError("AggregateContextDraft 缺少成员")
+
+    @property
+    def stable_key(self) -> str:
+        return "|".join(
+            (
+                self.ruler_ref,
+                self.evaluation_window,
+                self.network_family,
+                self.member_set_version,
+                self.rule_version,
+            )
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class RuleEvidenceMember:
     member_ref: str
     member_type: str
     member_role: str
 
     def __post_init__(self) -> None:
-        if self.member_type not in {"episode", "relation"}:
-            raise ValueError("RuleEvidenceMember type 必须是 episode/relation")
+        if self.member_type not in {"episode", "relation", "aggregate_context"}:
+            raise ValueError(
+                "RuleEvidenceMember type 必须是 episode/relation/aggregate_context"
+            )
 
 
 @dataclass(frozen=True, slots=True)

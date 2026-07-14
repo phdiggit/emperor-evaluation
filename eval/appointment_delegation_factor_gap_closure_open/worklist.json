@@ -1,0 +1,246 @@
+{
+  "applicability_options": [
+    "applicable",
+    "insufficient_evidence",
+    "not_applicable"
+  ],
+  "dataset_role": "open_development",
+  "evidence_coverage": {
+    "absence_inference_allowed": false,
+    "coverage_status": "reviewed_test_fixture",
+    "formal_v4_fact": false,
+    "schema_version": "rule-factor-evidence-coverage-v1"
+  },
+  "factor_option_catalog": {
+    "appointment_effect": {
+      "insufficient_evidence": "效果证据不足",
+      "major_direct_damage": "授权直接造成重大损害",
+      "major_success": "用人链直接证明异常显著成功",
+      "normal_success": "适配与履职反馈明确",
+      "not_applicable": "不属于任用授权",
+      "poor_result": "授权控制或履职结果较差",
+      "structural_continuing_damage": "授权造成跨期结构损害",
+      "weak_feedback": "正向反馈较弱或不完整"
+    },
+    "appointment_importance": {
+      "critical_national_or_long_term": "国家全局或长期结构性授权",
+      "insufficient_evidence": "责任域证据不足",
+      "major_affairs": "重要军政事务",
+      "nominal_or_light": "名义或轻量职责",
+      "not_applicable": "不属于任用授权",
+      "real_bounded": "真实但有限职责"
+    },
+    "attribution_factor": {
+      "direct": "任用或反馈可直接归责",
+      "direct_under_pressure": "在明确压力下作出取舍",
+      "indirect": "皇帝责任受复杂链条影响",
+      "insufficient_evidence": "归责证据不足",
+      "not_applicable": "不属于任用授权"
+    },
+    "context_factor": {
+      "clear": "上下文和结算边界清楚",
+      "core_mechanism_direct": "直接展示任用授权反馈机制",
+      "insufficient_evidence": "上下文不足",
+      "not_applicable": "不属于任用授权",
+      "weak_but_applicable": "相关但边界有缺口"
+    },
+    "continuity_factor": {
+      "insufficient_evidence": "覆盖不足，不能用缺失推断短期",
+      "long_term_multi_stage": "至少两次可区分授权或复用",
+      "not_applicable": "不属于任用授权",
+      "short_or_one_off": "一次授权或短期任务",
+      "stable": "同一授权下至少两个持续反馈事实"
+    },
+    "source_factor": {
+      "complete_direct_chain": "直接覆盖任用职责反馈链",
+      "insufficient_evidence": "史源链不足",
+      "not_applicable": "不属于任用授权",
+      "standard": "足以支持主要判断",
+      "weak_or_compressed": "关键环节压缩或间接"
+    }
+  },
+  "factor_policy_version": "appointment-delegation-factor-observation-agent-v4",
+  "input_boundary": {
+    "gold_options_exposed": false,
+    "numeric_values_exposed": false,
+    "scores_or_rankings_exposed": false,
+    "source_lineage_required": true
+  },
+  "output_contract": {
+    "factor_fields": [
+      "option_code",
+      "reason",
+      "assertion_refs"
+    ],
+    "factor_names": [
+      "appointment_effect",
+      "appointment_importance",
+      "attribution_factor",
+      "context_factor",
+      "continuity_factor",
+      "source_factor"
+    ],
+    "forbidden_keys": [
+      "deterministic_value",
+      "factor_value",
+      "numeric_value",
+      "ranking",
+      "raw_score",
+      "score"
+    ],
+    "response_schema_version": "i5b-factor-response-v1"
+  },
+  "rule_boundary": {
+    "coverage_and_scoring_unit": "新增开放材料只补四个代表性缺口，不修改或重跑既有 sealed",
+    "cross_rule_double_counting_forbidden": true,
+    "v3_assets_are_readonly_regression_candidates": true
+  },
+  "rule_code": "appointment_delegation",
+  "schema_version": "i5b-factor-worklist-v1",
+  "status": "i5b_factor_worklist_ready",
+  "task_code": "V4-I5B-APPOINTMENT_DELEGATION-OPEN_DEVELOPMENT",
+  "tasks": [
+    {
+      "context_kind": "rule_evidence_unit",
+      "context_summary": "appointment_delegation 代表性缺口增补",
+      "coverage_tags": [
+        "absence_sensitive"
+      ],
+      "evidence": [
+        {
+          "assertion_ref": "EVD-I5B-WUZETIAN-POS-LIZHAODE-001@A1",
+          "quote": "吾任昭德，始得安眠，此代吾劳，汝勿言也。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "readonly_v3_regression_candidate",
+            "locator": "唐纪二十一，武则天任李昭德分劳并回应谏言段",
+            "source_ref": "SRC-ZZTJ-J205-LIZHAODE-WUZETIAN-001",
+            "source_title": "资治通鉴",
+            "url": "https://zh.wikisource.org/zh-hans/資治通鑑/卷205",
+            "v3_card_blob": "7f00f0bc227807b385319dea3faab2fc638dbd39",
+            "v3_freeze_tag": "v3-freeze-20260712",
+            "v3_source_blob": "aee5cc390ad9c903b3b97e0e0edba516e66e5476"
+          },
+          "summary": "武则天对李昭德的明确信任显示其有任用能臣分担政务的正向能力，可作强正候选。"
+        }
+      ],
+      "ruler": "武曌",
+      "subject": "李昭德",
+      "unit_ref": "AD-G01"
+    },
+    {
+      "context_kind": "rule_evidence_unit",
+      "context_summary": "appointment_delegation 代表性缺口增补",
+      "coverage_tags": [
+        "short_or_one_off"
+      ],
+      "evidence": [
+        {
+          "assertion_ref": "EVD-I5B-LICHUN-POS-PEIDU-001@A1",
+          "quote": "上方委裴度以用兵；裴度曰……上从之。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "readonly_v3_regression_candidate",
+            "locator": "唐纪五十，宪宗委裴度用兵及采纳魏博渡河议段",
+            "source_ref": "SRC-ZZTJ-J240-PEIDU-LICHUN-001",
+            "source_title": "资治通鉴",
+            "url": "https://zh.wikisource.org/zh-hans/資治通鑑/卷240",
+            "v3_card_blob": "7f00f0bc227807b385319dea3faab2fc638dbd39",
+            "v3_freeze_tag": "v3-freeze-20260712",
+            "v3_source_blob": "aee5cc390ad9c903b3b97e0e0edba516e66e5476"
+          },
+          "summary": "李纯委裴度用兵并采纳其战区判断，构成第五项B授权专任和专业反馈强正候选。"
+        }
+      ],
+      "ruler": "李纯",
+      "subject": "裴度",
+      "unit_ref": "AD-G02"
+    },
+    {
+      "context_kind": "rule_evidence_unit",
+      "context_summary": "appointment_delegation 代表性缺口增补",
+      "coverage_tags": [
+        "multi_source_join"
+      ],
+      "evidence": [
+        {
+          "assertion_ref": "EVD-I5B-LIYUAN-POS-LIUWENJING-001@A1",
+          "quote": "渊从之。处罗可汗命特勒康鞘利等送马千匹，又以兵五百人随文静而至。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "readonly_v3_regression_candidate",
+            "locator": "隋纪八，刘文静劝结突厥、受命请兵及李渊称将命之功段",
+            "source_ref": "SRC-ZZTJ-J184-LIUWENJING-LIYUAN-001",
+            "source_title": "资治通鉴",
+            "url": "https://zh.wikisource.org/zh-hans/資治通鑑/卷184",
+            "v3_card_blob": "7f00f0bc227807b385319dea3faab2fc638dbd39",
+            "v3_freeze_tag": "v3-freeze-20260712",
+            "v3_source_blob": "aee5cc390ad9c903b3b97e0e0edba516e66e5476"
+          },
+          "summary": "李渊采用刘文静谋议并委其执行外援沟通，构成创业期谋士使用和建议采纳强正候选。"
+        },
+        {
+          "assertion_ref": "EVD-I5B-LIYUAN-NEG-LIUWENJING-001@A2",
+          "quote": "杀民部尚书、鲁国公刘文静。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "readonly_v3_regression_candidate",
+            "locator": "高祖本纪，武德二年杀民部尚书鲁国公刘文静段",
+            "source_ref": "SRC-JTS-J1-LIUWENJING-LIYUAN-001",
+            "source_title": "旧唐书",
+            "url": "https://zh.wikisource.org/zh-hans/舊唐書/卷1",
+            "v3_card_blob": "7f00f0bc227807b385319dea3faab2fc638dbd39",
+            "v3_freeze_tag": "v3-freeze-20260712",
+            "v3_source_blob": "aee5cc390ad9c903b3b97e0e0edba516e66e5476"
+          },
+          "summary": "李渊杀早期关键谋臣刘文静，形成同一对象正负反转，可作为功臣安全强负候选。"
+        }
+      ],
+      "ruler": "李渊",
+      "subject": "刘文静",
+      "unit_ref": "AD-G03"
+    },
+    {
+      "context_kind": "rule_evidence_unit",
+      "context_summary": "appointment_delegation 代表性缺口增补",
+      "coverage_tags": [
+        "conflicting_evidence"
+      ],
+      "evidence": [
+        {
+          "assertion_ref": "EVD-I5B-ZHAOGOU-POS-LIGANG-001@A1",
+          "quote": "高宗即位，拜尚书右仆射兼中书侍郎……非相卿不可，卿其勿辞。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "readonly_v3_regression_candidate",
+            "locator": "高宗即位拜李纲尚书右仆射段",
+            "source_ref": "SRC-SS-J358-LIGANG-ZHAOGOU-001",
+            "source_title": "宋史",
+            "url": "https://zh.wikisource.org/wiki/宋史/卷358",
+            "v3_card_blob": "7f00f0bc227807b385319dea3faab2fc638dbd39",
+            "v3_freeze_tag": "v3-freeze-20260712",
+            "v3_source_blob": "aee5cc390ad9c903b3b97e0e0edba516e66e5476"
+          },
+          "summary": "该段为第五项B识人拔擢正向候选，但后续去相需另证。"
+        },
+        {
+          "assertion_ref": "AD-G04@A2",
+          "quote": "張浚劾奏……詔罷李綱，其所規畫悉廢。",
+          "source": {
+            "formal_v4_fact": false,
+            "lineage_kind": "human_frozen_primary_source_excerpt",
+            "locator": "卷三百五十八，李纲传",
+            "source_ref": "AD-G04@SRC2",
+            "source_title": "宋史",
+            "url": "https://zh.wikisource.org/wiki/宋史/卷358"
+          },
+          "summary": "赵构后撤销经制授权、罢免李纲并废其规划，形成同一授权弧的方向反转。"
+        }
+      ],
+      "ruler": "赵构",
+      "subject": "李纲",
+      "unit_ref": "AD-G04"
+    }
+  ],
+  "worklist_sha256": "b33b857fccc5f588a30a772455791eb99e6f61798fcf130666ea177f21a09e01"
+}

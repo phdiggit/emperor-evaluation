@@ -1,0 +1,289 @@
+schema_version: i5b-factor-test-set-v1
+status: frozen_test_input
+task_code: V4-I5B-TOLERATE_TALENT-OPEN_DEVELOPMENT
+rule_code: tolerate_talent
+dataset_role: open_development
+factor_policy_version: tolerate-talent-factor-agent-v1
+expected_unit_count: 12
+applicability_options:
+- applicable
+- not_applicable
+- insufficient_evidence
+factor_option_catalog:
+  feedback_reception:
+    actively_solicited: 主动求言并形成反馈入口
+    accepted_after_conflict: 冲突后仍采纳或承认专业意见
+    tolerated_not_adopted: 允许表达但未采纳
+    suppressed_or_punished: 因表达遭压制或处分
+    no_feedback_event: 没有可定位的反馈事件
+    not_applicable: 不属于容才事件
+    insufficient_evidence: 反馈反应证据不足
+  talent_safety:
+    actively_protected: 统治者主动保护表达者或能臣安全
+    safe_without_retaliation: 表达后未受报复且安全边界清楚
+    localized_penalty: 受到局部处分但未形成严重伤害
+    career_exclusion: 因表达遭职业排除
+    personal_or_associative_harm: 造成生命、人身或连带伤害
+    mixed_responsibility: 伤害成立但多人责任需拆分
+    not_applicable: 不属于人才安全事件
+    insufficient_evidence: 安全影响证据不足
+  professional_autonomy:
+    professional_judgment_respected: 专业判断获得尊重或授权
+    reasoned_override: 经审议后合理覆盖专业意见
+    political_override: 以政治偏好压过专业判断
+    sustained_blockage: 专业反馈渠道持续堵塞
+    no_autonomy_issue: 事件没有专业自治议题
+    not_applicable: 不属于容才事件
+    insufficient_evidence: 专业自治证据不足
+  conflict_repair_continuity:
+    stable_without_conflict: 多次独立事实证明稳定容纳
+    timely_repair: 冲突后及时修复表达或授权信用
+    delayed_partial_repair: 延迟或部分修复
+    formal_reversal_without_trust_repair: 形式反转但未恢复信用
+    persistent_unrepaired: 压制持续且未修复
+    single_event_only: 只有单次事件，不能外推长期稳定
+    not_applicable: 不属于容才事件
+    insufficient_evidence: 连续性或修复证据不足
+rule_boundary:
+  coverage_and_scoring_unit: 须有能臣或专业角色、反馈触发、皇帝反应和实际表达/安全影响
+  cross_rule_double_counting_forbidden: true
+  v3_assets_are_readonly_regression_candidates: true
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  coverage_status: reviewed_test_fixture
+  absence_inference_allowed: false
+  formal_v4_fact: false
+runtime_policy:
+  mode: offline_report_only_shadow
+  database_writes_allowed: false
+  formal_scoring_allowed: false
+units:
+- unit_ref: TT-O01
+  ruler: 李世民
+  subject: 魏徵
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001@A1
+    summary: 《旧唐书》明确记李世民与魏征议政时未尝不欣然纳受，并有多处当场采纳、改容受谏材料，可作为容谏纳言与开放反馈入口的核心锚点。
+    quote: 太宗與之言，未嘗不欣然納受。
+    source:
+      source_ref: SRC-JTS-J71-WEIZHENG-001
+      source_title: 旧唐书
+      locator: 列传第二十一，魏徵传
+      url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O02
+  ruler: 刘邦
+  subject: 张良
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LIUBANG-POS-ZHANGLIANG-RONGJIAN-001@A1
+    summary: 张良早期多次以兵法进说，刘邦能“善之，常用其策”；入秦后又能在张良与樊哙劝谏下放弃留居秦宫、还军霸上。该证据直接命中第五项B的反馈入口、容纳谋臣意见和实际采纳建议。
+    quote: 良數以太公兵法說沛公，沛公善之，常用其策……良曰：『忠言逆耳利於行……願沛公聽樊噲言。』沛公乃還軍霸上。
+    source:
+      source_ref: SRC-SJ-J55-ZHANGLIANG-LIUBANG-POS-001
+      source_title: 史记
+      locator: 留侯世家第二十五，张良归沛公及武关、霸上进谏段
+      url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7055
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O03
+  ruler: 刘秀
+  subject: 冯异
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LIUXIU-POS-RONGJIAN-FENGYI-001@A1
+    summary: 冯异进言理冤结、布惠泽，光武明确纳之，属于对臣下建议的接纳与反馈入口正证。
+    quote: 異復因間進說曰：宜急分遣官屬，徇行郡縣，理冤結，布惠澤。光武納之。
+    source:
+      source_ref: SRC-HHS-J17-FENGYI-KOUXUN-001
+      source_title: 后汉书
+      locator: 馮岑賈列傳第七，馮異传
+      url: https://zh.wikisource.org/wiki/%E5%BE%8C%E6%BC%A2%E6%9B%B8/%E5%8D%B717
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O04
+  ruler: 刘庄
+  subject: 求言群臣
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LIUZHUANG-POS-RONGJIAN-QIUYAN-001@A1
+    summary: 《后汉书》明确记刘庄在日食后下诏令群司极言无讳，并使在位者上封事各言得失，可直接作为反馈入口与表达渠道的正向材料。
+    quote: 永思厥咎，在予一人。羣司勉修職事，極言無諱。於是在位者皆上封事，各言得失。
+    source:
+      source_ref: SRC-HHS-J2-XIANZONG-001
+      source_title: 后汉书
+      locator: 帝纪第二，显宗孝明帝纪
+      url: https://zh.wikisource.org/wiki/%E5%BE%8C%E6%BC%A2%E6%9B%B8/%E5%8D%B72
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O05
+  ruler: 李世民
+  subject: 魏徵身后信用
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LISHIMIN-NEG-WEIZHENG-001@A1
+    summary: 魏征身后因荐杜正伦、侯君集及示史官事被疑阿党，出现停婚、仆碑等公开信用撤销，足以构成谏臣身后信用反转的中负候选；
+    quote: 上始疑征阿黨……踣所撰碑；魏徵若在，不使我有是行也！……復立所制碑。
+    source:
+      source_ref: SRC-ZZTJ-J197-198-WEIZHENG-001
+      source_title: 资治通鉴
+      locator: 唐纪十三贞观十八年；唐纪十四贞观十九年
+      url: https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7197
+        ; https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7198
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O06
+  ruler: 刘邦
+  subject: 萧何
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LIUBANG-SUPP-XIAOHE-SAFETY-001@A1
+    summary: 萧何并非异姓王，而是最高功臣和长期留守核心。史料显示刘邦晚年对其有疑心，萧何需自污以求上心安，后又因请苑事件被交廷尉。该材料说明功臣安全压力并不限于异姓王集团；但王卫尉进言后当日赦出，且刘邦随后以自责方式解释，故列中负而非强负。
+    quote: 上所为数问君者，畏君倾动关中……乃下相国廷尉，械系之。数日，王卫尉侍，前问曰：相国何大罪？
+    source:
+      source_ref: SRC-SJ-J53-XIAOHE-SAFETY-LIUBANG-SUPP-001
+      source_title: 史记
+      locator: 萧相国世家第二十三，汉十一年至汉十二年萧何疑忌、自污、廷尉处置与赦出段
+      url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7053
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O07
+  ruler: 朱元璋
+  subject: 刘基
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-ZHUYUANZHANG-MICRO-LIUJI-RETREAT-001@A1
+    summary: 刘基晚期因谗构与疑惧而失禄留京，说明高阶谋臣并非始终处在稳定安全边界内；但该链仍需与权力斗争、胡惟庸案等相邻项切开。
+    quote: 遂奪基祿。基懼入謝，乃留京，不敢歸。
+    source:
+      source_ref: SRC-MS-J128-LIUJI-SONGLIAN-001
+      source_title: 明史
+      locator: 刘基受聘陈时务、宋濂召见授经、宋濂因长孙慎坐胡惟庸党而安置茂州诸段
+      url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7128
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O08
+  ruler: 杨广
+  subject: 虞世基
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-YANGGUANG-NEG-YUSHIJI-FEEDBACK-001@A1
+    summary: 虞世基专典机密却唯诺取容、不闻奏时政得失，直接损害杨广的反馈入口和人才生态，可作强负候选。
+    quote: 世基知帝不可諫，唯諾取容……時政得失，外間細事，世基竟無一言諫諍。
+    source:
+      source_ref: SRC-SS-J67-YUSHIJI-YANGGUANG-001
+      source_title: 隋书
+      locator: 虞世基传，炀帝重其才专典机密及唯诺取容不闻奏段
+      url: https://zh.wikisource.org/zh-hans/隋書/卷67
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O09
+  ruler: 李世民
+  subject: 李靖
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LISHIMIN-POS-SHOUQUAN-LIJING-001@A1
+    summary: 李世民在突厥离叛后，以李靖为代州道行军总管，并以三千骁骑令其出其不意，体现对关键军事人才的实际授权与职责匹配。
+    quote: 以靖爲代州道行軍總管，率驍騎三千，自馬邑出其不意。
+    source:
+      source_ref: SRC-JTS-J67-LIJING-001
+      source_title: 旧唐书
+      locator: 列传第十七，李靖传
+      url: https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B767
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O10
+  ruler: 刘邦
+  subject: 韩信
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LIUBANG-NEG-HANXIN-001@A1
+    summary: 韩信案兼具真实政权安全风险与功臣安全感损害：云梦被缚、降封及长乐钟室被诛均会削弱高功臣对授权秩序的预期。但《史记》同时记载陈豨案中韩信存在从中起事部署，不能把此案机械判为无端疑忌杀功臣。
+    quote: 上令武士縛信，載後車。信曰：『狡兔死，良狗亨；高鳥盡，良弓藏；敵國破，謀臣亡。』……呂后使武士縛信，斬之長樂鐘室。
+    source:
+      source_ref: SRC-SJ-J92-HANXIN-LIUBANG-NEG-001
+      source_title: 史记
+      locator: 淮阴侯列传第三十二，韩信被擒、降封与长乐钟室被诛段
+      url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7092
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O11
+  ruler: 朱元璋
+  subject: 刘基延聘
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-ZHUYUANZHANG-MICRO-LIUJI-HIRE-001@A1
+    summary: 朱元璋对刘基并非偶然纳入，而是主动延聘并迅速纳入核心决策咨询链，可作为创业期识材任用与高阶谋臣吸纳的正向补证。
+    quote: 聞基及宋濂等名，以幣聘。基始出。既至，陳時務十八策。
+    source:
+      source_ref: SRC-MS-J128-LIUJI-SONGLIAN-001
+      source_title: 明史
+      locator: 刘基受聘陈时务、宋濂召见授经、宋濂因长孙慎坐胡惟庸党而安置茂州诸段
+      url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7128
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TT-O12
+  ruler: 刘彻
+  subject: 卫青
+  context_kind: episode
+  context_summary: 表达、安全、专业自治或冲突修复事件
+  evidence:
+  - assertion_ref: EVD-I5B-LIUCHE-POS-WEIQING-AUTH-001@A1
+    summary: 刘彻在军中拜卫青为大将军并使诸将属之，能够直接支撑军事人才识别和高强度授权。
+    quote: 即軍中拜車騎將軍青為大將軍，諸將皆以兵屬大將軍。
+    source:
+      source_ref: SRC-SJ-J111-WEIQING-LIUCHE-001
+      source_title: 史记
+      locator: 卫将军骠骑列传第五十一，卫青军中拜大将军与诸将属大将军段
+      url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7111
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false

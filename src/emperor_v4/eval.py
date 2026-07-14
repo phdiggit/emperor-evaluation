@@ -82,6 +82,12 @@ from emperor_v4.evaluation.factor_representativeness import (
 from emperor_v4.evaluation.rule_test_set_admission import (
     evaluate_rule_test_set_admission,
 )
+from emperor_v4.evaluation.i5b_factor_qualification import (
+    build_i5b_factor_batch_plan,
+    build_i5b_factor_worklist,
+    evaluate_i5b_factor_qualification,
+    merge_i5b_factor_responses,
+)
 from emperor_v4.evaluation.talent_discovery_factor_qualification import (
     build_talent_discovery_factor_batch_plan,
     build_talent_discovery_factor_worklist,
@@ -475,6 +481,22 @@ def _parser() -> argparse.ArgumentParser:
     rule_test_set_admission = subparsers.add_parser("rule-test-set-admission")
     rule_test_set_admission.add_argument("--policy", type=Path, required=True)
     rule_test_set_admission.add_argument("--output", type=Path)
+    i5b_worklist = subparsers.add_parser("i5b-factor-worklist")
+    i5b_worklist.add_argument("--manifest", type=Path, required=True)
+    i5b_worklist.add_argument("--output", type=Path)
+    i5b_batch = subparsers.add_parser("i5b-factor-batch-plan")
+    i5b_batch.add_argument("--worklist", type=Path, required=True)
+    i5b_batch.add_argument("--max-units-per-batch", type=int, default=4)
+    i5b_batch.add_argument("--output", type=Path)
+    i5b_merge = subparsers.add_parser("i5b-factor-merge")
+    i5b_merge.add_argument("--worklist", type=Path, required=True)
+    i5b_merge.add_argument("--response", type=Path, action="append", required=True)
+    i5b_merge.add_argument("--output", type=Path)
+    i5b_qualification = subparsers.add_parser("i5b-factor-qualification")
+    i5b_qualification.add_argument("--worklist", type=Path, required=True)
+    i5b_qualification.add_argument("--response", type=Path, required=True)
+    i5b_qualification.add_argument("--gold", type=Path, required=True)
+    i5b_qualification.add_argument("--output", type=Path)
     talent_factor_worklist = subparsers.add_parser(
         "talent-discovery-factor-worklist"
     )
@@ -686,6 +708,26 @@ def main() -> int:
     elif args.command == "rule-test-set-admission":
         report = evaluate_rule_test_set_admission(
             yaml.safe_load(args.policy.read_text(encoding="utf-8"))
+        )
+    elif args.command == "i5b-factor-worklist":
+        report = build_i5b_factor_worklist(
+            yaml.safe_load(args.manifest.read_text(encoding="utf-8"))
+        )
+    elif args.command == "i5b-factor-batch-plan":
+        report = build_i5b_factor_batch_plan(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            max_units_per_batch=args.max_units_per_batch,
+        )
+    elif args.command == "i5b-factor-merge":
+        report = merge_i5b_factor_responses(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            [json.loads(path.read_text(encoding="utf-8")) for path in args.response],
+        )
+    elif args.command == "i5b-factor-qualification":
+        report = evaluate_i5b_factor_qualification(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            json.loads(args.response.read_text(encoding="utf-8")),
+            yaml.safe_load(args.gold.read_text(encoding="utf-8")),
         )
     elif args.command == "talent-discovery-factor-worklist":
         report = build_talent_discovery_factor_worklist(

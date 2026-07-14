@@ -17,6 +17,15 @@ from emperor_v4.adapters import (
     snapshot_from_api_payload,
 )
 from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
+from emperor_v4.contracts.boundary import (
+    AggregateContextDraft,
+    AggregateContextMember,
+)
+from emperor_v4.contracts.person_snapshot import (
+    PersonProfileSnapshot,
+    RulerTeamWindowMember,
+    RulerTeamWindowSnapshot,
+)
 from emperor_v4.contracts.source import (
     SOURCE_CACHE_CONTRACT_V2,
     LinkedPassageRef,
@@ -41,6 +50,12 @@ from emperor_v4.evaluation.factor_evidence_coverage import (
 )
 from emperor_v4.evaluation.rule_test_set_admission import (
     evaluate_rule_test_set_admission,
+)
+from emperor_v4.evaluation.i5b_factor_qualification import (
+    build_i5b_factor_batch_plan,
+    build_i5b_factor_worklist,
+    evaluate_i5b_factor_qualification,
+    validate_i5b_factor_response,
 )
 from emperor_v4.evaluation.talent_discovery_factor_qualification import (
     FACTOR_OPTION_CATALOG,
@@ -1482,3 +1497,144 @@ def test_talent_discovery_factor_qualification_rejects_numeric_leakage() -> None
     leaked["results"][0]["factors"]["recognition_novelty"]["score"] = 1
     with pytest.raises(ValueError, match="禁止字段"):
         validate_talent_discovery_factor_response(worklist, leaked)
+
+
+@pytest.mark.parametrize(
+    ("directory", "expected_units"),
+    (
+        ("talent_discovery_sealed_holdout", 4),
+        ("tolerate_talent_open_development", 12),
+        ("tolerate_talent_sealed_holdout", 8),
+        ("anti_nepotism_open_development", 12),
+        ("anti_nepotism_sealed_holdout", 8),
+        ("team_building_open_development", 8),
+        ("team_building_sealed_holdout", 4),
+        ("appointment_delegation_factor_gap_closure_open", 4),
+    ),
+)
+def test_i5b_complete_test_sets_are_reproducible_and_gold_blind(
+    directory: str, expected_units: int
+) -> None:
+    root = Path(__file__).parents[1] / "eval" / directory
+    manifest = yaml.safe_load((root / "manifest.yml").read_text(encoding="utf-8"))
+    worklist = json.loads((root / "worklist.json").read_text(encoding="utf-8"))
+    gold = yaml.safe_load((root / "factor_gold.yml").read_text(encoding="utf-8"))
+
+    assert build_i5b_factor_worklist(manifest) == worklist
+    assert len(worklist["tasks"]) == expected_units
+    assert gold["worklist_sha256"] == worklist["worklist_sha256"]
+    assert all("applicability" not in row for row in worklist["tasks"])
+    assert all("factors" not in row for row in worklist["tasks"])
+    assert all(len(options) >= 4 for options in worklist["factor_option_catalog"].values())
+    plan = build_i5b_factor_batch_plan(worklist)
+    assert plan["batch_count"] == (expected_units + 3) // 4
+    assert all(len(row["unit_refs"]) <= 4 for row in plan["batches"])
+
+
+def test_i5b_generic_factor_gate_rejects_numeric_leakage() -> None:
+    root = Path(__file__).parents[1] / "eval/tolerate_talent_open_development"
+    worklist = json.loads((root / "worklist.json").read_text(encoding="utf-8"))
+    gold = yaml.safe_load((root / "factor_gold.yml").read_text(encoding="utf-8"))
+    tasks = {row["unit_ref"]: row for row in worklist["tasks"]}
+    response = {
+        "schema_version": "i5b-factor-response-v1",
+        "status": "i5b_factor_response_complete",
+        "worklist_sha256": worklist["worklist_sha256"],
+        "rule_code": worklist["rule_code"],
+        "dataset_role": worklist["dataset_role"],
+        "factor_policy_version": worklist["factor_policy_version"],
+        "response_origin": "contract_fixture",
+        "provider": "none",
+        "model": "none",
+        "blind_run_declarations": {
+            "factor_gold_accessed": False,
+            "numeric_factor_values_supplied": False,
+            "scoring_performed": False,
+            "database_write_count": 0,
+            "formal_acceptance_performed": False,
+        },
+        "results": [],
+    }
+    for row in gold["units"]:
+        refs = [item["assertion_ref"] for item in tasks[row["unit_ref"]]["evidence"]]
+        response["results"].append(
+            {
+                "unit_ref": row["unit_ref"],
+                "applicability": row["applicability"],
+                "factors": {
+                    name: {
+                        "option_code": option,
+                        "reason": "合同夹具理由",
+                        "assertion_refs": refs[:1],
+                    }
+                    for name, option in row["factors"].items()
+                },
+            }
+        )
+    report = evaluate_i5b_factor_qualification(worklist, response, gold)
+    assert report["summary"]["qualification_gate_passed"] is True
+    leaked = deepcopy(response)
+    leaked["results"][0]["factors"]["feedback_reception"]["score"] = 1
+    with pytest.raises(ValueError, match="禁止字段"):
+        validate_i5b_factor_response(worklist, leaked)
+
+
+def test_aggregate_context_and_team_window_contracts_fail_closed() -> None:
+    aggregate = AggregateContextDraft(
+        context_code="AGG-1",
+        ruler_ref="R-1",
+        evaluation_window="100-110",
+        network_family="private_gatekeeping",
+        member_set_version="members-v1",
+        rule_version="anti-nepotism-v1",
+        semantic_version=1,
+        evidence_version=1,
+        channel_control_mode="multi_member_multi_channel",
+        members=(
+            AggregateContextMember("P-1", "appointments", ("EP-1",), "gatekeeper", True),
+            AggregateContextMember("P-2", "finance", ("EP-2",), "beneficiary", True),
+        ),
+        lineage={"source": "fixture"},
+    )
+    assert aggregate.stable_key.endswith("anti-nepotism-v1")
+
+    profile = PersonProfileSnapshot(
+        profile_ref="PROFILE-P1@v1",
+        canonical_person_ref="P-1",
+        snapshot_version="profile-v1",
+        talent_grade="top",
+        capability_domains=("decision",),
+        negative_risk_class="none",
+        negative_risk_severity="none",
+        lineage_refs=("A-1",),
+        semantic_fingerprint="a" * 64,
+    )
+    window = RulerTeamWindowSnapshot(
+        window_ref="WINDOW-1",
+        ruler_ref="R-1",
+        start="100",
+        end="110",
+        date_precision="year",
+        window_policy_version="window-v1",
+        roster_version="roster-v1",
+        profile_snapshot_version="profile-v1",
+        members=(
+            RulerTeamWindowMember(
+                person_ref="P-1",
+                profile_ref=profile.profile_ref,
+                active_from="100",
+                active_to="110",
+                role_families=("decision",),
+                evidence_refs=("A-1",),
+            ),
+        ),
+        lineage={"source": "fixture"},
+    )
+    assert len(window.members) == 1
+    with pytest.raises(ValueError, match="人物必须完整且唯一"):
+        RulerTeamWindowSnapshot(
+            **{
+                **{field: getattr(window, field) for field in window.__dataclass_fields__ if field != "members"},
+                "members": window.members + window.members,
+            }
+        )

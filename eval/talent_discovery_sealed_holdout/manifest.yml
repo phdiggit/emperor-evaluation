@@ -1,0 +1,137 @@
+schema_version: i5b-factor-test-set-v1
+status: frozen_test_input
+task_code: V4-I5B-TALENT_DISCOVERY-SEALED_HOLDOUT
+rule_code: talent_discovery
+dataset_role: sealed_holdout
+factor_policy_version: talent-discovery-factor-agent-v1
+expected_unit_count: 4
+applicability_options:
+- applicable
+- not_applicable
+- insufficient_evidence
+factor_option_catalog:
+  recognition_novelty:
+    newly_visible_outsider: 此前不在有效人才池中的外部人物首次进入视野
+    cross_regime_or_camp_entry: 来自其他政权或阵营的人物进入人才池
+    newly_visible_internal: 组织外围人物首次被识别为可用人才
+    established_core: 已经是核心受任者，本事件没有新增发现
+    not_applicable: 整条事件不属于人才发现
+    insufficient_evidence: 材料不足以判断发现新颖性
+  recognition_basis:
+    recommendation_verified_by_ruler: 荐举后由统治者在使用前亲自复核
+    work_product_then_interview: 先由作品识别，再追溯本人面谈
+    reputation_then_direct_demonstration: 先闻名，再由当场展示复核
+    direct_observation_or_interview: 直接观察或面谈形成识才依据
+    reputation_only_unverified: 只有名声，缺少使用前复核
+    missing_or_posthoc: 缺少使用前依据或只能由后果倒推
+    not_applicable: 整条事件不属于人才发现
+    insufficient_evidence: 材料不足以判断识别依据
+  barrier_crossing:
+    cross_camp_barrier_crossed: 跨越敌对阵营或旧政权来源障碍
+    status_or_access_barrier_crossed: 跨越身份、渠道或组织准入障碍
+    reluctance_or_access_barrier_crossed: 跨越拒绝出仕或接触障碍
+    no_material_barrier: 发现成立但无实质障碍
+    barrier_not_crossed: 存在障碍且未克服
+    not_applicable: 整条事件不属于人才发现
+    insufficient_evidence: 材料不足以判断障碍
+  conversion_to_use:
+    trial_then_scaled_use: 先试用再扩大为稳定职责
+    direct_substantive_use: 识别后直接转化为实质职责
+    limited_trial_or_symbolic: 只有有限试用或象征安置
+    no_conversion: 识别未转化为实际使用
+    not_applicable: 整条事件不属于人才发现
+    insufficient_evidence: 材料不足以判断使用转化
+rule_boundary:
+  coverage_and_scoring_unit: 一次独立发现或引入事件；已有核心人物授权不适用
+  cross_rule_double_counting_forbidden: true
+  v3_assets_are_readonly_regression_candidates: true
+evidence_coverage:
+  schema_version: rule-factor-evidence-coverage-v1
+  coverage_status: reviewed_test_fixture
+  absence_inference_allowed: false
+  formal_v4_fact: false
+runtime_policy:
+  mode: offline_report_only_shadow
+  database_writes_allowed: false
+  formal_scoring_allowed: false
+units:
+- unit_ref: TD-S01
+  ruler: 刘恒
+  subject: 贾谊
+  context_kind: episode
+  context_summary: 检验使用前识才链与既有核心人物授权的边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIUHENG-POS-JIAYI-TALENT-001@A1
+    summary: 刘恒早期能识别并快速拔擢年轻人才贾谊，构成识才正证；但后续疏远同源另入负证，故本卡不拔高。
+    quote: 文帝召以為博士……歲中至太中大夫。
+    source:
+      source_ref: SRC-SJ-J84-JIAYI-LIUHENG-001
+      source_title: 史记
+      locator: 屈原贾生列传，贾谊超迁及疏远长沙王太傅段
+      url: https://zh.wikisource.org/zh-hans/史記/卷084
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TD-S02
+  ruler: 皇太极
+  subject: 宁完我
+  context_kind: episode
+  context_summary: 检验使用前识才链与既有核心人物授权的边界
+  evidence:
+  - assertion_ref: EVD-I5B-HUANGTAIJI-POS-NINGWANWO-001@A1
+    summary: 该段可作为第五项B 制度建议入口 中正 候选。
+    quote: 太宗聞完我通文史，召令直文館……完我遇事敢言，嘗議定官制。
+    source:
+      source_ref: SRC-QSG-J232-NINGWANWO-HUANGTAIJI-001
+      source_title: 清史稿
+      locator: 宁完我传，召直文馆与遇事敢言段
+      url: https://zh.wikisource.org/wiki/清史稿/卷232
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TD-S03
+  ruler: 刘启
+  subject: 周亚夫
+  context_kind: episode
+  context_summary: 检验使用前识才链与既有核心人物授权的边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIUQI-POS-ZHOUYAFU-AUTH-001@A1
+    summary: 刘启在七国乱中以周亚夫为太尉并授予军事任务，可作为中正候选的关键授权证据；
+    quote: 景帝乃拜亞夫為太尉，東擊吳楚。
+    source:
+      source_ref: SRC-SJ-J57-ZHOUYAFU-LIUQI-001
+      source_title: 史记
+      locator: 绛侯周勃世家，景帝拜周亚夫为太尉及周亚夫下廷尉绝食死段
+      url: https://zh.wikisource.org/zh-hans/史記/卷057
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+- unit_ref: TD-S04
+  ruler: 刘彻
+  subject: 卫青
+  context_kind: episode
+  context_summary: 检验使用前识才链与既有核心人物授权的边界
+  evidence:
+  - assertion_ref: EVD-I5B-LIUCHE-POS-WEIQING-AUTH-001@A1
+    summary: 刘彻在军中拜卫青为大将军并使诸将属之，能够直接支撑军事人才识别和高强度授权。
+    quote: 即軍中拜車騎將軍青為大將軍，諸將皆以兵屬大將軍。
+    source:
+      source_ref: SRC-SJ-J111-WEIQING-LIUCHE-001
+      source_title: 史记
+      locator: 卫将军骠骑列传第五十一，卫青军中拜大将军与诸将属大将军段
+      url: https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7111
+      lineage_kind: readonly_v3_regression_candidate
+      v3_freeze_tag: v3-freeze-20260712
+      v3_card_blob: 7f00f0bc227807b385319dea3faab2fc638dbd39
+      v3_source_blob: aee5cc390ad9c903b3b97e0e0edba516e66e5476
+      formal_v4_fact: false
+sealed_freeze:
+  identity_and_gold_frozen_before_model: true
+  allowed_model_runs: 1
+  freeze_commit_recorded_in_separate_audit: true
