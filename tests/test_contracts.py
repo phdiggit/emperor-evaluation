@@ -1336,25 +1336,26 @@ def test_rule_test_set_admission_report_is_reproducible_and_fail_closed() -> Non
     assert report["summary"] == {
         "rule_count": 5,
         "completed_not_qualified_count": 1,
-        "ready_to_build_open_set_count": 1,
+        "ready_to_build_open_set_count": 0,
+        "open_development_completed_count": 1,
         "contract_required_count": 2,
         "blocked_on_prerequisite_count": 1,
-        "next_rule_for_open_test_set": "talent_discovery",
-        "currently_ready_open_development_units": 8,
+        "next_rule_for_open_test_set": None,
+        "currently_ready_open_development_units": 0,
         "currently_authorized_sealed_holdout_units": 0,
-        "planned_future_open_development_units": 40,
+        "planned_future_open_development_units": 32,
         "planned_future_sealed_holdout_units": 24,
     }
     assert report["currently_ready_open_model_performance_estimate"] == {
-        "model_call_count": 2,
-        "parallel_wave_count": 1,
-        "wall_clock_duration_sec": 107.369,
-        "total_tokens": 60796,
+        "model_call_count": 0,
+        "parallel_wave_count": 0,
+        "wall_clock_duration_sec": 0.0,
+        "total_tokens": 0,
         "source_and_human_gold_review_excluded": True,
     }
     assert report["full_pipeline_model_performance_upper_bound"][
         "model_call_count"
-    ] == 16
+    ] == 14
     assert report["shared_policy"]["thirty_two_units_not_required_by_default"]
     assert report["formal_scoring_allowed"] is False
     assert report["database_write_count"] == 0
@@ -1406,6 +1407,22 @@ def test_talent_discovery_open_set_freezes_tiered_factor_semantics() -> None:
     plan = build_talent_discovery_factor_batch_plan(worklist)
     assert plan["batch_count"] == 2
     assert [len(row["unit_refs"]) for row in plan["batches"]] == [4, 4]
+
+    response = json.loads(
+        (artifact_root / "agent_response_v2.json").read_text(encoding="utf-8")
+    )
+    tracked_report = json.loads(
+        (artifact_root / "qualification_report_v2.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (
+        evaluate_talent_discovery_factor_qualification(worklist, response, gold)
+        == tracked_report
+    )
+    assert tracked_report["summary"]["applicability_exact_rate"] == 1.0
+    assert tracked_report["summary"]["factor_exact_rate"] == 1.0
+    assert tracked_report["summary"]["unsafe_false_applicable_count"] == 0
 
 
 def test_talent_discovery_factor_qualification_rejects_numeric_leakage() -> None:

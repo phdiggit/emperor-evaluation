@@ -1,23 +1,23 @@
 {
   "currently_ready_open_model_performance_estimate": {
-    "model_call_count": 2,
-    "parallel_wave_count": 1,
+    "model_call_count": 0,
+    "parallel_wave_count": 0,
     "source_and_human_gold_review_excluded": true,
-    "total_tokens": 60796,
-    "wall_clock_duration_sec": 107.369
+    "total_tokens": 0,
+    "wall_clock_duration_sec": 0.0
   },
   "database_write_count": 0,
   "formal_scoring_allowed": false,
   "full_pipeline_model_performance_upper_bound": {
-    "model_call_count": 16,
-    "parallel_wave_count_across_sequential_rules": 8,
+    "model_call_count": 14,
+    "parallel_wave_count_across_sequential_rules": 7,
     "source_and_human_gold_review_excluded": true,
-    "total_tokens": 486368,
-    "wall_clock_duration_sec": 858.952
+    "total_tokens": 425572,
+    "wall_clock_duration_sec": 751.583
   },
   "item_code": "i5b_talent_and_delegation",
   "policy_version": "i5b-rule-test-set-admission-v1",
-  "report_sha256": "5fd82297169f4ece5f6cf573e156f470374f32dbd6797ef0312fa92b256ea031",
+  "report_sha256": "2f88a2d3dc2b457f62e949765345acdd031e8d4c1b7590292a84d1407e37b2ee",
   "rules": [
     {
       "admission_decision": "completed_not_qualified",
@@ -50,23 +50,23 @@
       "test_unit_type": "rule_evidence_unit"
     },
     {
-      "admission_decision": "ready_to_build_open_set",
-      "current_stage": "first_vertical_slice_passed",
+      "admission_decision": "open_development_completed",
+      "current_stage": "open_development_v2_passed",
       "existing_regression_units": 4,
       "input_type": "episode",
       "known_blockers": [
-        "现有四单元只有两条适用正例，尚无独立 sealed"
+        "4 个 sealed 单元尚未建立身份与人工 Gold"
       ],
       "missing_prerequisites": [],
       "model_performance_estimate": {
-        "model_call_count": 3,
-        "parallel_wave_count": 2,
+        "model_call_count": 1,
+        "parallel_wave_count": 1,
         "source_and_human_gold_review_excluded": true,
-        "total_tokens": 91194,
-        "wall_clock_duration_sec": 214.738
+        "total_tokens": 30398,
+        "wall_clock_duration_sec": 107.369
       },
-      "next_action": "建立 8 个开放开发单元，先覆盖新识别、荐举、跨阵营和不适用反例",
-      "planned_open_development_units": 8,
+      "next_action": "冻结 v2 档位策略后建立 4 个 sealed 单元；模型运行授权仍为 0",
+      "planned_open_development_units": 0,
       "planned_sealed_holdout_units": 4,
       "priority": 2,
       "rule_code": "talent_discovery",
@@ -213,11 +213,12 @@
     "completed_not_qualified_count": 1,
     "contract_required_count": 2,
     "currently_authorized_sealed_holdout_units": 0,
-    "currently_ready_open_development_units": 8,
-    "next_rule_for_open_test_set": "talent_discovery",
-    "planned_future_open_development_units": 40,
+    "currently_ready_open_development_units": 0,
+    "next_rule_for_open_test_set": null,
+    "open_development_completed_count": 1,
+    "planned_future_open_development_units": 32,
     "planned_future_sealed_holdout_units": 24,
-    "ready_to_build_open_set_count": 1,
+    "ready_to_build_open_set_count": 0,
     "rule_count": 5
   }
 }

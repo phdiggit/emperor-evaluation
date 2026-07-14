@@ -147,7 +147,9 @@ Factor Observation 资格 harness 已形成同一纵向链：从现有 V4 judge 
 
 至此组合中的 32 个 RuleEvidenceUnit 已全部开封，但“开封完成”不等于“生产代表性完成”。按候选实际史源和语义重新核对后，组合仍缺缺失敏感连续性、单次任务、多源 join 和冲突证据四个最低配额；正式资格和 45 分写入继续关闭。完整身份表、门禁结果与 13 个模型任务的耗时/token 汇总统一保存在 `eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json`，不再新增阶段文档。
 
-第五项 B 的后续测试集现改由通用准入策略控制，而不是复制 32 单元组合。确定性报告判定当前仅 `talent_discovery` 可立即建立 8 个开放开发单元；其 4 个 sealed 单元在策略与 Gold 冻结前授权数为 0。`tolerate_talent`、`anti_nepotism` 必须先冻结各自因果与聚合去重合同，`team_building` 则等待 canonical 人物集合、PersonProfileSnapshot 和皇帝时间窗合同。当前开放集纯模型估算为 2 次调用、1 个并发波次、107.369 秒和 60,796 token；全部四条后续 rule 的 858.952 秒与 486,368 token 只是完整流水线上界，不是当前执行授权，且均不含人工回源和 Gold 审查。
+第五项 B 的后续测试集现改由通用准入策略控制，而不是复制 32 单元组合。确定性报告当时判定仅 `talent_discovery` 可立即建立 8 个开放开发单元；其 4 个 sealed 单元在策略与 Gold 冻结前授权数为 0。`tolerate_talent`、`anti_nepotism` 必须先冻结各自因果与聚合去重合同，`team_building` 则等待 canonical 人物集合、PersonProfileSnapshot 和皇帝时间窗合同。运行前对该开放集的纯模型估算为 2 次调用、1 个并发波次、107.369 秒和 60,796 token；这些数字是基于既有 `appointment_delegation` 样本的事前容量估计，实际结果见下段，不作为当前状态。全部后续流水线的剩余上界统一由准入报告计算，且不含人工回源和 Gold 审查。
+
+`talent_discovery` 随后完成 8 单元开放开发集：马周、房玄龄、刘基、刘秉忠覆盖作品追溯、荐举复核、跨旧政权、身份与拒绝出仕障碍，张良、李靖、萧何、徐达作为已有核心人物的强不适用反例。v1 回放以 29/32 暴露三处 Gold/档位边界，审计后新增“作品—追溯作者—面谈”路径，并校正房玄龄障碍与刘秉忠转化边界；v2 冻结后回放达到适用性 8/8、因子档位 32/32、零危险误适用。两批并行墙钟 34.478 秒，可确认 input+output token 39,622；`codex-win collect` 未提供 cached/reasoning 分项，审计显式记为未知而非 0。该结果只通过开放开发门，4 个新 sealed 身份与 Gold 尚未建立，模型运行授权仍为 0。
 
 离线史源缓存与 Claim 抽取现已纳入 V4 配套服务源码治理：活动实现最终必须与 V4 位于同一 Git 历史，并按 `contracts/adapters/application/persistence/runtime` 现有边界选择性迁入。当前 `e27bbff` release 仍是过渡分支上的可追溯构建，禁止整体 merge；迁入时把按 rule code 分支的提示策略改为版本化 extraction profile，并在冻结请求 shadow 对比后完成不可变部署切换。
 

@@ -66,8 +66,8 @@ rules:
 
   - priority: 2
     rule_code: talent_discovery
-    current_stage: first_vertical_slice_passed
-    admission_decision: ready_to_build_open_set
+    current_stage: open_development_v2_passed
+    admission_decision: open_development_completed
     input_type: episode
     test_unit_type: rule_evidence_unit
     sizing_profile: standard_event
@@ -82,8 +82,8 @@ rules:
       - 普通升迁和既有核心人物授权必须进入不适用反例
       - 与 appointment_delegation 只共享证据，不重复结算岗位适配和成果
     known_blockers:
-      - 现有四单元只有两条适用正例，尚无独立 sealed
-    next_action: 建立 8 个开放开发单元，先覆盖新识别、荐举、跨阵营和不适用反例
+      - 4 个 sealed 单元尚未建立身份与人工 Gold
+    next_action: 冻结 v2 档位策略后建立 4 个 sealed 单元；模型运行授权仍为 0
 
   - priority: 3
     rule_code: tolerate_talent

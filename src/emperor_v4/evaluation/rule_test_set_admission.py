@@ -18,6 +18,7 @@ REQUIRED_RULES = {
 }
 ADMISSION_DECISIONS = {
     "completed_not_qualified",
+    "open_development_completed",
     "ready_to_build_open_set",
     "contract_required",
     "blocked_on_prerequisite",
@@ -119,7 +120,11 @@ def evaluate_rule_test_set_admission(policy: Mapping[str, Any]) -> dict[str, Any
             if profile_code not in profiles:
                 raise ValueError(f"{rule_code} 未绑定有效规模档位")
             profile = profiles[profile_code]
-            planned_open = int(profile["open_development_units"])
+            planned_open = (
+                0
+                if decision == "open_development_completed"
+                else int(profile["open_development_units"])
+            )
             planned_sealed = int(profile["sealed_holdout_units"])
             open_calls = ceil(planned_open / units_per_call)
             sealed_calls = ceil(planned_sealed / units_per_call)
@@ -207,6 +212,9 @@ def evaluate_rule_test_set_admission(policy: Mapping[str, Any]) -> dict[str, Any
             ],
             "ready_to_build_open_set_count": decision_counts[
                 "ready_to_build_open_set"
+            ],
+            "open_development_completed_count": decision_counts[
+                "open_development_completed"
             ],
             "contract_required_count": decision_counts["contract_required"],
             "blocked_on_prerequisite_count": decision_counts[
