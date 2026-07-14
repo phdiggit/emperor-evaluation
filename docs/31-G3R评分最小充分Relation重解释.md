@@ -139,6 +139,8 @@ Factor Observation 资格 harness 已形成同一纵向链：从现有 V4 judge 
 
 开放开发四单元随后形成可运行的 V4 SourcePassage—Assertion—Episode—RuleEvidenceUnit 链。`codex-win` 以单个四单元批次、显式 `gpt-5.6-sol` 和无网络/数据库/Git 权限运行 67.729 秒，消耗 input 21,757、cached input 0、output 3,106、reasoning output 168，总 token 24,863。首次对照为 26/29 已决档位命中；人工复核后纠正两处 Gold 责任域错误，最终为 28/29、1 个相邻错误，决策状态 30/30、材料结构 4/4，且零危险强判、错误拒判、非相邻和方向错误。该数据已开封，只能证明策略开发门通过；正式资格仍只允许使用预先冻结且尚未向模型展开的房玄龄、李靖、萧何、徐达 sealed holdout。
 
+房玄龄、李靖、萧何、徐达 sealed holdout 的 SourcePassage—Assertion—Episode—RuleEvidenceUnit、人工 Gold、盲评 worklist 和资格对照在模型运行前由 `3bfc9b6` 冻结。`codex-win` 随后只执行一次显式 `gpt-5.6-sol` 四单元盲评，权限继续禁止网络、数据库和 Git 读写；运行耗时 100.102 秒，消耗 input 22,685、cached input 0、output 3,467、reasoning output 553，总 token 26,152。结果为 25/30 精确，即 83.33%，低于 85% 门槛；5 个错误均为相邻档，归责 2 个、连续性 2 个、史源 1 个，决策状态 30/30、材料结构 4/4，且零危险强判、错误拒判、非相邻和方向错误。因此 `real_agent_qualified=false`。该 sealed holdout 已开封，禁止重跑、修改其 Gold 或据此降低门槛；后续只能在新开放样本上校准上述三类档位边界，再冻结策略并另建全新 sealed holdout。
+
 离线史源缓存与 Claim 抽取现已纳入 V4 配套服务源码治理：活动实现最终必须与 V4 位于同一 Git 历史，并按 `contracts/adapters/application/persistence/runtime` 现有边界选择性迁入。当前 `e27bbff` release 仍是过渡分支上的可追溯构建，禁止整体 merge；迁入时把按 rule code 分支的提示策略改为版本化 extraction profile，并在冻结请求 shadow 对比后完成不可变部署切换。
 
 Source Cache 第一段重构性迁移已由 `32dbf81` 落入 V4 主线：复用既有 SourcePassage v2 与确定性切片器，新建通用 SourceRevision 合同、fixture provider、幂等 ensure 用例、shadow repository 和薄 runtime。固定 Wikisource revision `2020238` 首次生成 1 个不可变 document 与 3 个 passage；无变化重跑精确复用同一响应，provider、网络、模型和数据库调用均为 0。该结果只证明离线合同纵切，不等于真实 adapter 或服务器切换完成。

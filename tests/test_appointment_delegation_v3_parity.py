@@ -649,7 +649,7 @@ def test_open_development_v2_is_reproducible_and_keeps_one_safe_abstention() -> 
         assert actual_hash == expected_hash
 
 
-def test_sealed_holdout_v2_freezes_gold_before_any_agent_response() -> None:
+def test_sealed_holdout_v2_freezes_gold_and_preserves_failed_qualification() -> None:
     source = _yaml(SEALED_HOLDOUT_DIR / "source_manifest.yml")
     factor_gold = _yaml(SEALED_HOLDOUT_DIR / "factor_gold.yml")
     tracked_worklist = json.loads(
@@ -684,6 +684,41 @@ def test_sealed_holdout_v2_freezes_gold_before_any_agent_response() -> None:
     assert report["metrics"]["factor_comparison_count"] == 30
     assert report["metrics"]["resolved_option_comparison_count"] == 30
     assert report["metrics"]["correct_abstention_count"] == 0
+
+    agent_response = json.loads(
+        (SEALED_HOLDOUT_DIR / "agent_response.json").read_text(encoding="utf-8")
+    )
+    tracked_report = json.loads(
+        (SEALED_HOLDOUT_DIR / "qualification_report.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (
+        evaluate_factor_observation_qualification(
+            worklist, agent_response, qualification_gold, source
+        )
+        == tracked_report
+    )
+    assert tracked_report["status"] == "factor_observation_agent_not_qualified"
+    assert tracked_report["metrics"]["factor_exact_match_rate"] == 0.8333
+    assert tracked_report["metrics"]["adjacent_error_count"] == 5
+    assert tracked_report["metrics"]["nonadjacent_error_count"] == 0
+    assert tracked_report["metrics"]["direction_error_count"] == 0
+    assert tracked_report["real_agent_qualified"] is False
+
+    audit = json.loads(
+        (SEALED_HOLDOUT_DIR / "execution_audit.json").read_text(encoding="utf-8")
+    )
+    assert audit["pre_model_freeze_commit"] == "3bfc9b6"
+    assert audit["sealed_model_run_count"] == 1
+    assert audit["post_run_policy_or_gold_tuning_performed"] is False
+    assert audit["duration_sec"] == 100.102
+    assert audit["total_tokens"] == 26152
+    for name, expected_hash in audit["artifact_sha256"].items():
+        actual_hash = hashlib.sha256(
+            (SEALED_HOLDOUT_DIR / name).read_bytes()
+        ).hexdigest()
+        assert actual_hash == expected_hash
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
