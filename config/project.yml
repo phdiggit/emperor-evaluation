@@ -41,7 +41,7 @@ milestones:
   appointment_delegation_v3_semantic_parity: passed_shadow_demo_only
   factor_judgment_proposal_contract: passed_shadow_demo_only
   factor_observation_agent_qualification: independent_blind_run_completed_not_qualified
-  factor_representativeness_sampling: passed_plan_only
+  factor_representativeness_sampling: portfolio_32_opened_not_qualified
   rule_factor_evidence_coverage_gate: passed_shadow_contract_only
   shadow_difference_review: first_factor_decision_recorded
   offline_roster_scored_runner: passed_cache_ensure_shadow
@@ -77,7 +77,7 @@ appointment_delegation_v3_parity_result:
   formal_score_writes: 0
 
 factor_observation_qualification_result:
-  current_agent_policy: appointment-delegation-factor-observation-agent-v2
+  current_agent_policy: appointment-delegation-factor-observation-agent-v4
   evidence_coverage_schema: rule-factor-evidence-coverage-v1
   current_coverage_status: open_snapshot
   absence_inference_allowed: false
@@ -132,13 +132,30 @@ factor_observation_qualification_result:
   sealed_holdout_v2_duration_sec: 100.102
   sealed_holdout_v2_total_tokens: 26152
   sealed_holdout_v2_threshold_passed: false
+  open_development_v3_artifact_root: eval/appointment_delegation_factor_open_development_v3
+  open_development_v3_exact_match_rate: 0.8587
+  open_development_v3_threshold_passed: true
+  sealed_holdout_v3_artifact_root: eval/appointment_delegation_factor_sealed_holdout_v3
+  sealed_holdout_v3_pre_model_freeze_commit: 80f0de8
+  sealed_holdout_v3_model_run_count: 1
+  sealed_holdout_v3_exact_match_rate: 0.7143
+  sealed_holdout_v3_material_side_structure_rate: 0.625
+  sealed_holdout_v3_decision_status_accuracy: 0.963
+  sealed_holdout_v3_unsafe_false_resolutions: 0
+  sealed_holdout_v3_nonadjacent_errors: 0
+  sealed_holdout_v3_direction_errors: 0
+  sealed_holdout_v3_duration_sec: 107.369
+  sealed_holdout_v3_total_tokens: 60796
+  sealed_holdout_v3_threshold_passed: false
   representativeness_artifact_root: eval/appointment_delegation_factor_representativeness
   representativeness_portfolio_units: 32
   representativeness_historical_opened_units: 12
   representativeness_new_open_slots: 12
   representativeness_future_sealed_slots: 8
-  representativeness_unbound_candidate_slots: 20
-  representativeness_missing_strata: 0
+  representativeness_unbound_candidate_slots: 0
+  representativeness_missing_strata: 4
+  representativeness_portfolio_opened_units: 32
+  representativeness_portfolio_report: eval/appointment_delegation_factor_representativeness/portfolio_32_opened_report.json
   representativeness_estimated_model_calls: 5
   representativeness_estimated_parallel_waves: 2
   representativeness_estimated_model_wall_clock_sec: 200.204

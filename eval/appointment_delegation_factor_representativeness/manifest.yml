@@ -1,8 +1,17 @@
 schema_version: appointment-delegation-factor-representativeness-v1
-status: factor_representativeness_sampling_plan
+status: factor_representativeness_portfolio_32_opened
 task_code: V4-AD-REPRESENTATIVENESS-001
 manifest_code: appointment_delegation_factor_representativeness_v1
 rule_code: appointment_delegation
+opening_state:
+  portfolio_unit_count: 32
+  historical_opened_unit_count: 12
+  new_open_development_unit_count: 12
+  sealed_opened_unit_count: 8
+  sealed_pre_model_freeze_commit: 80f0de8
+  sealed_model_run_count: 1
+  sealed_post_run_policy_or_gold_tuning_performed: false
+  sealed_qualification_report: eval/appointment_delegation_factor_sealed_holdout_v3/qualification_report.json
 
 policy:
   policy_version: appointment-delegation-factor-representativeness-policy-v1

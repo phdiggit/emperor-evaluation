@@ -698,7 +698,6 @@ def test_sealed_holdout_v2_freezes_gold_and_preserves_failed_qualification() -> 
         "editable_after_agent_run": False,
         "post_run_policy_or_gold_tuning_allowed": False,
     }
-
     fixture = build_contract_fixture_response(worklist, factor_gold)
     report = evaluate_factor_observation_qualification(
         worklist, fixture, qualification_gold, source
@@ -902,6 +901,38 @@ def test_stratified_sealed_holdout_v3_is_frozen_before_factor_run() -> None:
         "editable_after_agent_run": False,
         "post_run_policy_or_gold_tuning_allowed": False,
     }
+    response = json.loads(
+        (SEALED_HOLDOUT_V3_DIR / "agent_response.json").read_text(encoding="utf-8")
+    )
+    tracked_report = json.loads(
+        (SEALED_HOLDOUT_V3_DIR / "qualification_report.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (
+        evaluate_factor_observation_qualification(
+            worklist, response, qualification_gold, source
+        )
+        == tracked_report
+    )
+    assert tracked_report["threshold_passed"] is False
+    assert tracked_report["metrics"]["unit_count"] == 8
+    assert tracked_report["metrics"]["factor_comparison_count"] == 54
+    assert tracked_report["metrics"]["material_side_structure_exact_unit_count"] == 5
+    assert tracked_report["metrics"]["factor_exact_match_rate"] == 0.7143
+    assert tracked_report["metrics"]["unsafe_false_resolution_count"] == 0
+    assert tracked_report["metrics"]["nonadjacent_error_count"] == 0
+    assert tracked_report["metrics"]["direction_error_count"] == 0
+    audit = json.loads(
+        (SEALED_HOLDOUT_V3_DIR / "execution_audit.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert audit["pre_model_freeze_commit"] == "80f0de8"
+    assert audit["sealed_model_run_count"] == 1
+    assert audit["post_run_policy_or_gold_tuning_performed"] is False
+    assert audit["wall_clock_duration_sec"] == 107.369
+    assert audit["total_tokens"] == 60796
 
 
 def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
