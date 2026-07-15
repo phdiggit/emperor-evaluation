@@ -1,11 +1,18 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from dataclasses import asdict
 from decimal import Decimal, ROUND_HALF_UP
 from hashlib import sha256
 import json
 from typing import Any, Mapping, Sequence
 
+from emperor_v4.contracts.episode import (
+    AssertionLink,
+    EpisodeParticipant,
+    HistoricalEpisodePacket,
+)
+from emperor_v4.domain.boundary import draft_rule_evidence_unit
 from emperor_v4.evaluation.i5b_scoring_policy import calculate_material_projection
 
 
@@ -52,11 +59,185 @@ def _object_side_score(values: Sequence[Decimal]) -> Decimal:
     )
 
 
+def _assertion_episode_trace(
+    *,
+    rule_code: str,
+    materials: list[dict[str, Any]],
+    assertion_payload: Mapping[str, Any],
+) -> dict[str, Any]:
+    if assertion_payload.get("profile_code") != f"{rule_code}_chain_v1":
+        raise ValueError("assertion review profile 与 scored shadow rule 不一致")
+    summary = assertion_payload.get("summary") or {}
+    if int(summary.get("pending_blocking_review_unit_count", -1)) != 0:
+        raise ValueError("assertion review 仍有 blocking unit，不得生成 Episode trace")
+    ruler_ref = str((assertion_payload.get("scope") or {}).get("ruler_ref") or "")
+    if not ruler_ref.startswith("PER-"):
+        raise ValueError("assertion review 必须声明 canonical ruler_ref")
+    units = {
+        str(item.get("unit_ref") or ""): item
+        for item in _rows(assertion_payload.get("units"), "assertion review units")
+    }
+    episodes: list[dict[str, Any]] = []
+    evidence_units: list[dict[str, Any]] = []
+    assertion_link_count = 0
+    for material in materials:
+        unit_ref = material["unit_ref"]
+        unit = units.get(unit_ref)
+        if unit is None:
+            continue
+        if unit.get("review_disposition") != "reviewed_ready_for_episode_shadow":
+            raise ValueError(f"assertion unit 尚未完成 review: {unit_ref}")
+        assertions = _rows(unit.get("assertion_drafts"), f"{unit_ref} assertions")
+        by_passage: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for assertion in assertions:
+            passage_ref = str(assertion.get("source_passage_ref") or "")
+            if not passage_ref:
+                raise ValueError(f"assertion 缺少 passage lineage: {unit_ref}")
+            by_passage[passage_ref].append(assertion)
+        episode_members: dict[str, str] = {}
+        assertion_refs: list[str] = []
+        for passage_ref, passage_assertions in sorted(by_passage.items()):
+            assertion_refs.extend(
+                str(item.get("assertion_code") or "") for item in passage_assertions
+            )
+            focal_refs = sorted(
+                {
+                    str(ref)
+                    for item in passage_assertions
+                    for ref in (
+                        (item.get("qualifiers") or {}).get(
+                            "candidate_focal_person_refs"
+                        )
+                        or ()
+                    )
+                    if str(ref).startswith("PER-") and str(ref) != ruler_ref
+                }
+            )
+            participants = [
+                EpisodeParticipant(ruler_ref, ("ruler",), "resolved")
+            ] + [
+                EpisodeParticipant(ref, ("focal_person",), "resolved")
+                for ref in focal_refs
+            ]
+            links = tuple(
+                AssertionLink(
+                    assertion_ref=str(item["assertion_code"]),
+                    source_passage_ref=passage_ref,
+                    relation="supports_episode_draft",
+                    supported_fields=tuple(
+                        (item.get("passage_support") or {}).get(
+                            "supported_fields"
+                        )
+                        or ()
+                    ),
+                    evidence_status="draft",
+                    representative=index == 0,
+                )
+                for index, item in enumerate(passage_assertions)
+            )
+            assertion_link_count += len(links)
+            episode_payload = {
+                "rule_code": rule_code,
+                "unit_ref": unit_ref,
+                "passage_ref": passage_ref,
+                "assertion_refs": [item.assertion_ref for item in links],
+            }
+            episode_fingerprint = _hash(episode_payload)
+            episode = HistoricalEpisodePacket(
+                episode_id=f"EP-{episode_fingerprint[:20].upper()}",
+                episode_type=f"{rule_code}_evidence_episode",
+                episode_status="proposed",
+                evaluation_context=ruler_ref,
+                semantic_version=1,
+                evidence_version=1,
+                semantic_fingerprint=episode_fingerprint,
+                time_start=None,
+                time_end=None,
+                time_precision="source_expression_only",
+                locations=tuple(
+                    sorted(
+                        {
+                            str(item["location_expression"])
+                            for item in passage_assertions
+                            if item.get("location_expression")
+                        }
+                    )
+                ),
+                participants=tuple(participants),
+                action="；".join(
+                    dict.fromkeys(str(item["predicate"]) for item in passage_assertions)
+                ),
+                responsibility="shadow routing only; formal attribution not accepted",
+                outcome=tuple(
+                    dict.fromkeys(str(item["object"]) for item in passage_assertions)
+                ),
+                consequence=(),
+                assertion_links=links,
+                conflicts=(),
+                uncertainties=("draft assertions; no formal fact acceptance",),
+                completeness={
+                    "identity": "complete",
+                    "time": "partial",
+                    "action": "complete",
+                    "responsibility": "partial",
+                    "outcome": "partial",
+                    "consequence": "partial",
+                    "source_diversity": "partial",
+                    "conflict_resolution": "not_applicable",
+                },
+                lineage={
+                    "assertion_report_sha256": str(
+                        assertion_payload.get("report_sha256") or ""
+                    ),
+                    "unit_ref": unit_ref,
+                    "source_passage_ref": passage_ref,
+                },
+                provenance={"builder": "i5b_joint_projection_episode_trace_v1"},
+            )
+            episodes.append(asdict(episode))
+            episode_members[episode.episode_id] = (
+                "negative_credit_chain_component"
+                if material["side"] == "negative"
+                else "positive_feedback_chain_component"
+            )
+        reu = draft_rule_evidence_unit(
+            rule_code=rule_code,
+            rule_version="i5b-factor-semantics-v2",
+            aggregation_policy_version="i5b-joint-projection-score-contribution-v2",
+            evaluation_context=ruler_ref,
+            episode_members=episode_members,
+            relation_members={},
+            aggregation_reason=material["projection_basis"],
+        )
+        evidence_units.append(asdict(reu))
+        material["assertion_draft_refs"] = sorted(assertion_refs)
+        material["rule_evidence_unit_ref"] = reu.unit_code
+        material["semantic_fingerprint"] = _hash(
+            {
+                key: value
+                for key, value in material.items()
+                if key != "semantic_fingerprint"
+            }
+        )
+    return {
+        "status": "reviewed_assertion_to_episode_reu_shadow_complete",
+        "source_assertion_report_sha256": assertion_payload.get("report_sha256"),
+        "episode_count": len(episodes),
+        "rule_evidence_unit_count": len(evidence_units),
+        "assertion_link_count": assertion_link_count,
+        "episodes": episodes,
+        "rule_evidence_units": evidence_units,
+        "formal_acceptance_performed": False,
+        "database_write_count": 0,
+    }
+
+
 def build_i5b_joint_projection_scored_shadow(
     *,
     rule_code: str,
     projection_payload: Mapping[str, Any],
     scoring_policy: Mapping[str, Any],
+    assertion_payload: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if rule_code not in RULES:
         raise ValueError("joint projection scorer supports exactly three rules")
@@ -147,6 +328,16 @@ def build_i5b_joint_projection_scored_shadow(
             }
         )
 
+    assertion_trace = (
+        _assertion_episode_trace(
+            rule_code=rule_code,
+            materials=material_rows,
+            assertion_payload=assertion_payload,
+        )
+        if assertion_payload is not None
+        else None
+    )
+
     score_contributions: list[dict[str, Any]] = []
     for ruler in sorted(ruler_names):
         positive = sum(
@@ -187,6 +378,14 @@ def build_i5b_joint_projection_scored_shadow(
             "score": None,
             "tier": None,
         }
+        traced_reus = sorted(
+            str(material["rule_evidence_unit_ref"])
+            for material in material_rows
+            if material["ruler"] == ruler
+            and material.get("rule_evidence_unit_ref")
+        )
+        if traced_reus:
+            contribution["rule_evidence_unit_refs"] = traced_reus
         contribution["semantic_fingerprint"] = _hash(contribution)
         score_contributions.append(contribution)
 
@@ -218,5 +417,13 @@ def build_i5b_joint_projection_scored_shadow(
             "formal_scoring_allowed": False,
         },
     }
+    if assertion_trace is not None:
+        report["assertion_episode_reu_trace"] = assertion_trace
+        report["summary"]["traced_episode_count"] = assertion_trace[
+            "episode_count"
+        ]
+        report["summary"]["traced_rule_evidence_unit_count"] = assertion_trace[
+            "rule_evidence_unit_count"
+        ]
     report["report_sha256"] = _hash(report)
     return report

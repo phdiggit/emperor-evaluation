@@ -216,25 +216,32 @@ rule_test_set_admission_result:
   cost_excludes_source_human_gold_and_appointment_legacy_runs: true
   formal_scoring_allowed: false
 
-next_delivery:
+latest_delivery:
   code: lishimin_tolerate_talent_vertical_closure
+  status: complete
+  assertion_draft_count: 99
+  proposed_episode_count: 29
+  draft_rule_evidence_unit_count: 7
+  score_contribution_count: 1
+  source_cache_database_write_count: 10
+  current_effective_source_cache_write_count: 5
+  superseded_short_snapshot_write_count: 5
+  idempotent_rerun_database_write_count: 0
+  formal_fact_acceptance: false
+  formal_scoring_allowed: false
+
+next_delivery:
+  code: lishimin_tolerate_talent_historical_coverage
   required_outcomes:
-    - reuse_existing_source_cache_claim_episode_and_scored_shadow_components
-    - build_assertion_drafts_for_seven_cached_units
-    - record_quality_and_attribution_review_dispositions
-    - build_episode_rule_evidence_unit_and_score_contribution_shadow_trace
-    - update_tolerate_talent_coverage_without_zero_fill
-    - preserve_v3_rule_weights_and_v4_factor_semantics
-    - keep_all_opened_sealed_assets_hash_pinned_and_regression_only
+    - dispose_remaining_v3_route_event_groups_as_hints_only
+    - complete_independent_positive_and_negative_retrieval
+    - close_named_person_source_gaps
+    - freeze_candidate_inventory_and_attestation
+    - run_formal_fact_acceptance_gate_before_historical_signal_eligibility
   forbidden_substitutes:
-    - rerun_opened_sealed_sets
-    - post_tune_sealed_gold
-    - claim_production_representativeness_from_open_results
-    - new_micro_stage_letters
-    - stage_only_markdown
-    - module_mirrored_test_files
-    - ruler_or_person_specific_runtime
-    - hard_coded_ingestion_backlog_source
+    - zero_fill_historical_coverage
+    - treat_v3_claims_as_v4_facts
+    - rerun_or_tune_opened_sealed_gold
     - formal_ranking
 
 talent_discovery_roster_result:

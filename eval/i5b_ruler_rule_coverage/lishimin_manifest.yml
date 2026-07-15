@@ -90,13 +90,13 @@ rules:
       - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-DZ-01
       - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O05
     existing_workset_units:
-      - {unit_ref: TT-LSM-INSTITUTIONAL-REM-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-O01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-YSN-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-CSL-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-MZ-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-DZ-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-O05, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-INSTITUTIONAL-REM-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-O01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-YSN-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-CSL-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-MZ-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-DZ-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-O05, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
       - {unit_ref: TT-O09, current_applicability: not_applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
     historical_coverage_status: in_progress
     candidate_population_policy: pending_ruler_rule_candidate_population_v1
@@ -104,11 +104,13 @@ rules:
     candidate_inventory_ref: eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json
     independent_source_refs:
       - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json
+      - eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json
     positive_search_status: in_progress
     negative_search_status: in_progress
     candidate_disposition_status: in_progress
     review_status: draft
     unresolved:
+      - 当前99条均为已复核草案、29个proposed Episode和7个draft RuleEvidenceUnit，未执行正式事实接受，不得零填历史覆盖
       - 103条V3 route线索尚未完成102个事件组逐项处置
       - 尚未完成独立于V3 route的统治期正反向检索
       - 萧瑀、王珪、刘弘基、长孙无忌、房玄龄、温彦博仍待回源

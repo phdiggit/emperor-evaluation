@@ -13,6 +13,7 @@ from emperor_v4.adapters.claim_extraction_profile import (
 )
 from emperor_v4.adapters.claim_extractor_codex import (
     CodexCliClaimExtractionProvider,
+    _codex_subprocess_environment,
     parse_codex_claim_output,
 )
 from emperor_v4.adapters.source_cache_wikisource import (
@@ -393,6 +394,24 @@ def test_codex_provider_rejects_oversized_prompt_before_process_start() -> None:
                 ],
             }
         )
+
+
+def test_codex_provider_keeps_windows_runtime_identity_without_business_secrets(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("USERPROFILE", r"C:\Users\tester")
+    monkeypatch.setenv("APPDATA", r"C:\Users\tester\AppData\Roaming")
+    monkeypatch.setenv("SYSTEMROOT", r"C:\Windows")
+    monkeypatch.setenv("COMSPEC", r"C:\Windows\System32\cmd.exe")
+    monkeypatch.setenv("EMPEROR_EVAL_V4_DSN", "postgresql://secret")
+
+    environment = _codex_subprocess_environment()
+
+    assert environment["USERPROFILE"] == r"C:\Users\tester"
+    assert environment["APPDATA"].endswith("Roaming")
+    assert environment["SYSTEMROOT"] == r"C:\Windows"
+    assert environment["COMSPEC"].endswith("cmd.exe")
+    assert "EMPEROR_EVAL_V4_DSN" not in environment
 
 
 def test_claim_output_schema_supports_structured_qualifiers_and_empty_set() -> None:

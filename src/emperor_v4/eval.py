@@ -695,6 +695,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     joint_scored_shadow.add_argument("--projection-input", type=Path, required=True)
     joint_scored_shadow.add_argument("--scoring-policy", type=Path, required=True)
+    joint_scored_shadow.add_argument("--assertion-review", type=Path)
     joint_scored_shadow.add_argument("--output", type=Path, required=True)
     unified_raw_signal = subparsers.add_parser("i5b-unified-raw-signal-readiness")
     unified_raw_signal.add_argument("--appointment-report", type=Path, required=True)
@@ -1260,6 +1261,11 @@ def main() -> int:
             ),
             scoring_policy=yaml.safe_load(
                 args.scoring_policy.read_text(encoding="utf-8")
+            ),
+            assertion_payload=(
+                json.loads(args.assertion_review.read_text(encoding="utf-8"))
+                if args.assertion_review
+                else None
             ),
         )
         args.output.parent.mkdir(parents=True, exist_ok=True)

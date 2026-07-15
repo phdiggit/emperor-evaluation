@@ -1,0 +1,27 @@
+schema_version: 1
+provider: wikisource_revision_plan
+subject_ref: PER-V4-B0E10D8903E7
+sections:
+  - snapshot: eval/i5b_source_ingestion/snapshots/datangxinyu-juan1-api.json
+    page_code: datangxinyu-juan1-api
+    page_title: 大唐新語/卷一
+    expected_revision_id: 2513846
+    work_identity: 大唐新語
+    edition_identity: Wikisource MediaWiki API plaintext; revision 2513846
+    source_role: primary_text
+    license_or_access_note: public-domain text; Wikisource transcription independently corroborated by Chinese Text Project and Siku transcription
+    section_id: datangxinyu-juan1-weizheng-posthumous-repair
+    section_heading: 匡贊第一
+    document_span_start: 0
+    window_policy:
+      version: v4-source-window-weizheng-posthumous-repair-v3
+      sentence_radius_before: 0
+      sentence_radius_after: 0
+      context_chars_before: 0
+      context_chars_after: 0
+    passages:
+      - seed_code: posthumous-repair
+        anchor_start: 徵薨，太宗御製碑文并御書
+        anchor_end: 復立碑焉。
+        passage_kind: atomic
+        selection_reason: [posthumous_credit_repair, corrected_gold_lineage]

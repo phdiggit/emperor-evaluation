@@ -2,94 +2,88 @@ schema_version: i5b-source-import-batch-v1
 batch_ref: BATCH-I5B-TT-LISHIMIN-CURRENT-SCORED-V1
 sourcepack_ref: SP-I5B-TT-LISHIMIN-CURRENT-SCORED-V1
 sourcepack_path: eval/i5b_source_ingestion/lishimin_tolerate_talent_sourcepack_v1.json
-status: source_cache_ingestion_complete_pending_review
-
+status: source_cache_ingestion_and_blocking_review_complete
 scope:
   ruler: 李世民
   rule_code: tolerate_talent
   unit_count: 7
   source_cache_ingested_unit_count: 7
-  source_cache_quality_review_required_unit_count: 3
-  source_cache_attribution_review_required_unit_count: 1
+  source_cache_quality_review_required_unit_count: 0
+  source_cache_attribution_review_required_unit_count: 0
   fetch_required_count: 0
   projection_only_count: 0
-
 execution_mode:
   default: dry_run
   offline_first: true
   database_write_enabled: true
   database_write_scope:
-    - TT-LSM-INSTITUTIONAL-REM-01
-    - TT-O01
-    - TT-O05
-    - TT-LSM-MZ-01
-    - TT-LSM-YSN-01
-    - TT-LSM-CSL-01
-    - TT-LSM-DZ-01
+  - TT-LSM-INSTITUTIONAL-REM-01
+  - TT-O01
+  - TT-O05
+  - TT-LSM-MZ-01
+  - TT-LSM-YSN-01
+  - TT-LSM-CSL-01
+  - TT-LSM-DZ-01
   formal_assertion_write_enabled: false
   score_write_enabled: false
-
 fetch_queue:
-  - priority: 1
-    unit_ref: TT-LSM-INSTITUTIONAL-REM-01
-    status: source_cache_ingested_api_plaintext_corrected
-    reason: 已用固定revision 2144513的MediaWiki API plaintext重建9个passage；旧浏览器渲染载荷保留为被取代审计记录。
-    required_documents:
-      - DOC-CAND-JGZY-V02-QJ04-WIKISOURCE
-  - priority: 2
-    unit_ref: TT-O01
-    status: source_cache_ingested_with_independent_continuity
-    reason: 已用旧唐书卷71六段闭合主链，并以贞观政要任贤第三三段补独立连续性；补充段只作support，不重复计分。
-  - priority: 3
-    unit_ref: TT-O05
-    status: source_cache_ingested_pending_source_quality_review
-    reason: 已冻结《资治通鉴》卷197@1502835、卷198@1502841并分成撤销与修复两个passage；页面未校对警告保留到Assertion接受门禁。
-  - priority: 4
-    unit_ref: TT-LSM-YSN-01
-    status: source_cache_ingested_independent_collation_required
-    reason: 已冻结《旧唐书》卷72@2588719并切出两个passage；转录含明显异常且页面未校对，独立核校前不得接受Assertion。
-  - priority: 5
-    unit_ref: TT-LSM-CSL-01
-    status: source_cache_ingested_pending_source_quality_review
-    reason: 已用《旧唐书》卷80@2588763切出封禅、高丽贡物和储位争议三个passage；页面质量分类25%，正式Assertion前须核校。
-  - priority: 6
-    unit_ref: TT-LSM-MZ-01
-    status: source_cache_ingested
-    reason: 已冻结《旧唐书》卷74@2428100，将选任奏议与街鼓奏议切为两个独立passage。
-  - priority: 7
-    unit_ref: TT-LSM-DZ-01
-    status: source_cache_ingested_pending_attribution_review
-    reason: 已冻结旧唐书卷50@1461339与卷70@2585040；早期共同归责和后期结果边界须人工裁决。
-
+- priority: 1
+  unit_ref: TT-LSM-INSTITUTIONAL-REM-01
+  status: source_cache_ingested_api_plaintext_corrected
+  reason: 已用固定revision 2144513的MediaWiki API plaintext重建9个passage；旧浏览器渲染载荷保留为被取代审计记录。
+  required_documents:
+  - DOC-CAND-JGZY-V02-QJ04-WIKISOURCE
+- priority: 2
+  unit_ref: TT-O01
+  status: source_cache_ingested_with_independent_continuity
+  reason: 已用旧唐书卷71六段闭合主链，并以贞观政要任贤第三三段补独立连续性；补充段只作support，不重复计分。
+- priority: 3
+  unit_ref: TT-O05
+  status: source_cache_ingested_lineage_repaired_review_complete
+  reason: 撤销链保留《资治通鉴》卷197@1502835；复碑修复按既有人工金标准改绑《大唐新语》卷一@2513846，并完成独立核校。
+- priority: 4
+  unit_ref: TT-LSM-YSN-01
+  status: source_cache_ingested_independent_collation_complete
+  reason: 已冻结《旧唐书》卷72@2588719并切出两个passage；异常字“懦曌”已据四库本独立转录校为“懦愞”。
+- priority: 5
+  unit_ref: TT-LSM-CSL-01
+  status: source_cache_ingested_independent_collation_complete
+  reason: 已用《旧唐书》卷80@2588763切出封禅、高丽贡物和储位争议三个passage，并以独立扫描转录核校原文与太宗回应。
+- priority: 6
+  unit_ref: TT-LSM-MZ-01
+  status: source_cache_ingested
+  reason: 已冻结《旧唐书》卷74@2428100，将选任奏议与街鼓奏议切为两个独立passage。
+- priority: 7
+  unit_ref: TT-LSM-DZ-01
+  status: source_cache_ingested_attribution_review_complete
+  reason: 已冻结旧唐书卷50@1461339与卷70@2585040；明确律令事件为戴胄、魏徵共同进言，洛阳宫条不推断停修，概括性酬诚评价不构造单次晋爵。
 source_cache_import_gate:
   required:
-    - 每个SourceDocument具有稳定source identity、edition、canonical URL或馆藏定位。
-    - 保存不可变完整原文，不接受quote_preview、slice_text_preview、摘要或投影依据替代。
-    - content_sha256基于规范化后的完整原文计算，并声明normalization profile。
-    - 每个SourcePassage具有document revision lineage、稳定locator、原文和passage hash。
-    - V3 document_code、source_slice_ref、claim_ref只作lineage，不直接成为V4事实。
-    - 同一输入重跑必须命中幂等键且零重复业务写入。
+  - 每个SourceDocument具有稳定source identity、edition、canonical URL或馆藏定位。
+  - 保存不可变完整原文，不接受quote_preview、slice_text_preview、摘要或投影依据替代。
+  - content_sha256基于规范化后的完整原文计算，并声明normalization profile。
+  - 每个SourcePassage具有document revision lineage、稳定locator、原文和passage hash。
+  - V3 document_code、source_slice_ref、claim_ref只作lineage，不直接成为V4事实。
+  - 同一输入重跑必须命中幂等键且零重复业务写入。
   reject_when:
-    - 页面抓取失败、只取得搜索摘要或转录被截断。
-    - 书名、卷次、版本或URL与V3文档代码无法可靠重绑。
-    - 原文哈希缺失，或哈希基于预览文本计算。
-    - passage跨越多个独立事件且无法保留精确定位。
-
+  - 页面抓取失败、只取得搜索摘要或转录被截断。
+  - 书名、卷次、版本或URL与V3文档代码无法可靠重绑。
+  - 原文哈希缺失，或哈希基于预览文本计算。
+  - passage跨越多个独立事件且无法保留精确定位。
 assertion_acceptance_gate:
   prerequisite: Source Cache导入通过后方可生成AssertionDraft；本批次不直接生成正式Assertion。
   required:
-    - 皇帝归责、行为主体、行为方向、结果与时间上下文均由原文直接支持。
-    - 制度级单元只结算正式反馈通道的建立与持续运行。
-    - 个人级单元只结算个人反馈、留任、表达安全或信用修复，不重复结算制度收益。
-    - 魏徵谏诤次数只增强高密度与跨领域判断，不按次数线性累分。
-    - TT-O05身后信用撤销与复碑修复按时间分别记录，不能用生前安全材料抵销。
-    - 每个AssertionDraft必须关联至少一个已入库SourcePassage和输入版本。
+  - 皇帝归责、行为主体、行为方向、结果与时间上下文均由原文直接支持。
+  - 制度级单元只结算正式反馈通道的建立与持续运行。
+  - 个人级单元只结算个人反馈、留任、表达安全或信用修复，不重复结算制度收益。
+  - 魏徵谏诤次数只增强高密度与跨领域判断，不按次数线性累分。
+  - TT-O05身后信用撤销与复碑修复按时间分别记录，不能用生前安全材料抵销。
+  - 每个AssertionDraft必须关联至少一个已入库SourcePassage和输入版本。
   manual_review_required:
-    - TT-LSM-INSTITUTIONAL-REM-01与个人材料的重叠只可作为通道运行证明，不重复计分。
-    - TT-LSM-CSL-01三个事件是否足以闭合跨阶段档位。
-    - TT-LSM-DZ-01律令修定事件中戴胄作用与李世民归责。
-    - TT-O01联合因子是否由最小充分证据闭合，避免二百余事展开成重复材料。
-
+  - TT-LSM-INSTITUTIONAL-REM-01与个人材料的重叠只可作为通道运行证明，不重复计分。
+  - TT-LSM-CSL-01三个事件是否足以闭合跨阶段档位。
+  - TT-LSM-DZ-01律令修定事件中戴胄作用与李世民归责。
+  - TT-O01联合因子是否由最小充分证据闭合，避免二百余事展开成重复材料。
 completion_contract:
   source_cache_ready_units: 7
   unresolved_source_identity_count: 0
@@ -97,13 +91,12 @@ completion_contract:
   duplicate_business_write_count_on_rerun: 0
   formal_assertion_count: 0
   formal_score_or_ranking: false
-
 declarations:
   report_only: true
   source_cache_closeout_audit: eval/i5b_source_ingestion/lishimin_tolerate_source_cache_closeout_db_audit.json
-  database_write_count: 106
-  current_effective_source_cache_write_count: 85
-  superseded_source_payload_write_count: 21
+  database_write_count: 116
+  current_effective_source_cache_write_count: 90
+  superseded_source_payload_write_count: 26
   database_write_authorized_by_user_for_source_cache_only: true
   idempotent_rerun_database_write_count: 0
   production_deployment: false

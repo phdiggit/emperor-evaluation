@@ -1887,8 +1887,18 @@ def test_i5b_joint_projection_reports_are_reproducible_and_fail_closed() -> None
         "tolerate_talent": (10, 9),
         "anti_nepotism": (8, 3),
     }
+    tolerate_assertion_payload = json.loads(
+        (
+            root / "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json"
+        ).read_text(encoding="utf-8")
+    )
     reports = {}
     for rule_code, counts in expected.items():
+        assertion_payload = (
+            tolerate_assertion_payload
+            if rule_code == "tolerate_talent"
+            else None
+        )
         report = build_i5b_joint_projection_scored_shadow(
             rule_code=rule_code,
             projection_payload=json.loads(
@@ -1897,6 +1907,7 @@ def test_i5b_joint_projection_reports_are_reproducible_and_fail_closed() -> None
                 )
             ),
             scoring_policy=policy,
+            assertion_payload=assertion_payload,
         )
         assert report["summary"]["projected_material_count"] == counts[0]
         assert report["summary"]["insufficient_projection_count"] == counts[1]
@@ -1921,6 +1932,56 @@ def test_i5b_joint_projection_reports_are_reproducible_and_fail_closed() -> None
     }
     assert tolerate["李世民"]["rule_raw_net"] == "10.353"
     assert tolerate["李世民"]["insufficient_projection_count"] == 0
+    assert len(tolerate["李世民"]["rule_evidence_unit_refs"]) == 7
+    tolerate_trace = reports["tolerate_talent"]["assertion_episode_reu_trace"]
+    assert tolerate_trace["episode_count"] == 29
+    assert tolerate_trace["rule_evidence_unit_count"] == 7
+    assert tolerate_trace["assertion_link_count"] == 99
+    assert tolerate_trace["formal_acceptance_performed"] is False
+    assert {item["episode_status"] for item in tolerate_trace["episodes"]} == {
+        "proposed"
+    }
+    assert {item["status"] for item in tolerate_trace["rule_evidence_units"]} == {
+        "draft"
+    }
+    blocked_assertions = json.loads(
+        json.dumps(tolerate_assertion_payload, ensure_ascii=False)
+    )
+    blocked_assertions["summary"]["pending_blocking_review_unit_count"] = 1
+    with pytest.raises(ValueError, match="仍有 blocking unit"):
+        build_i5b_joint_projection_scored_shadow(
+            rule_code="tolerate_talent",
+            projection_payload=json.loads(
+                (
+                    artifact_dir / "tolerate_talent_projection_inputs.json"
+                ).read_text(encoding="utf-8")
+            ),
+            scoring_policy=policy,
+            assertion_payload=blocked_assertions,
+        )
+    changed_assertions = json.loads(
+        json.dumps(tolerate_assertion_payload, ensure_ascii=False)
+    )
+    changed_assertions["units"][0]["assertion_drafts"][0][
+        "assertion_code"
+    ] += "-CHANGED"
+    changed = build_i5b_joint_projection_scored_shadow(
+        rule_code="tolerate_talent",
+        projection_payload=json.loads(
+            (
+                artifact_dir / "tolerate_talent_projection_inputs.json"
+            ).read_text(encoding="utf-8")
+        ),
+        scoring_policy=policy,
+        assertion_payload=changed_assertions,
+    )
+    changed_lishimin = next(
+        item
+        for item in changed["score_contributions"]
+        if item["ruler"] == "李世民"
+    )
+    assert changed_lishimin["rule_raw_net"] == tolerate["李世民"]["rule_raw_net"]
+    assert changed_lishimin["dedup_key"] != tolerate["李世民"]["dedup_key"]
     assert anti["李隆基"]["rule_raw_net"] == "-3.542"
     assert all(
         report["declarations"]["opened_sealed_used_as_new_qualification"] is False

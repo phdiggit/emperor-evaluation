@@ -2,10 +2,10 @@
   "checks": {
     "all_documents_present": true,
     "all_requests_present": true,
-    "document_count": 8,
+    "document_count": 10,
     "expected_passage_total": true,
-    "passage_count": 14,
-    "request_count": 6
+    "passage_count": 16,
+    "request_count": 8
   },
   "database_read_only": true,
   "documents": [
@@ -40,6 +40,19 @@
       "revision_ref": "2588763"
     },
     {
+      "content_hash": "8d73ca93acbc3aa6de68ec730eb9b92e34f3d577801e7b99115402c0d19d9695",
+      "document_cache_id": "SCD-89E41B2BAE5512234055",
+      "raw_text_length": 81,
+      "revision_ref": "2513846"
+    },
+    {
+      "content_hash": "a870ebb9bd0bdc5f7c820d61a40e6065f8d509415c49b6e63588220037d6f9a0",
+      "content_state": "current_full_revision",
+      "document_cache_id": "SCD-89E41B2BAE5512234055",
+      "raw_text_length": 5876,
+      "revision_ref": "2513846"
+    },
+    {
       "content_hash": "00b2fe2e1157a43244b6c1ce733663b6f3c369cd0ae5789245b38658226c679f",
       "document_cache_id": "SCD-A7C55384EC19346D9B06",
       "raw_text_length": 10645,
@@ -59,6 +72,8 @@
     }
   ],
   "passage_counts_by_request": {
+    "source-cache:v4:lishimin:datangxinyu:juan1:weizheng-posthumous-repair:ensure:v2": 1,
+    "source-cache:v4:lishimin:datangxinyu:juan1:weizheng-posthumous-repair:ensure:v3": 1,
     "source-cache:v4:lishimin:jiutangshu:juan50-70:daizhou:tolerate:ensure:v1": 2,
     "source-cache:v4:lishimin:jiutangshu:juan72:yushinan:tolerate:ensure:v1": 2,
     "source-cache:v4:lishimin:jiutangshu:juan74:mazhou:tolerate:ensure:v1": 2,
@@ -67,6 +82,18 @@
     "source-cache:v4:lishimin:zizhitongjian:juan197-198:weizheng-posthumous:ensure:v1": 2
   },
   "requests": [
+    {
+      "idempotency_key": "source-cache:v4:lishimin:datangxinyu:juan1:weizheng-posthumous-repair:ensure:v2",
+      "output_fingerprint": "65d6e809e01726f8cccfd819d0a984c4b998cb7951bed88c83fa3a5361f29f3d",
+      "request_id": "SRC-V4-LISHIMIN-WEIZHENG-POSTHUMOUS-REPAIR-ENSURE-002",
+      "result_status": "succeeded"
+    },
+    {
+      "idempotency_key": "source-cache:v4:lishimin:datangxinyu:juan1:weizheng-posthumous-repair:ensure:v3",
+      "output_fingerprint": "eceda17fac685d09b0d19c2da7ad64d41af00e44f7287512b455e23fa10326c4",
+      "request_id": "SRC-V4-LISHIMIN-WEIZHENG-POSTHUMOUS-REPAIR-ENSURE-003",
+      "result_status": "succeeded"
+    },
     {
       "idempotency_key": "source-cache:v4:lishimin:jiutangshu:juan50-70:daizhou:tolerate:ensure:v1",
       "output_fingerprint": "c688c78dfa7c127b341d3092d87a3d60f4cb5358131dd36f9c90c3272de2da66",

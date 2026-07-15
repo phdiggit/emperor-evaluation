@@ -84,6 +84,7 @@ python -m emperor_v4.eval i5b-opened-regression-contract --contract config/i5b-o
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output eval/i5b_test_set_portfolio/factor_semantics_report.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output eval/i5b_test_set_portfolio/scoring_policy_report.json
 python -m emperor_v4.eval i5b-joint-projection-scored-shadow --rule-code talent_discovery --projection-input eval/i5b_joint_projection_scored_shadow/talent_discovery_projection_inputs.json --scoring-policy config/i5b-scoring-policy.yml --output eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json
+python -m emperor_v4.eval i5b-joint-projection-scored-shadow --rule-code tolerate_talent --projection-input eval/i5b_joint_projection_scored_shadow/tolerate_talent_projection_inputs.json --scoring-policy config/i5b-scoring-policy.yml --assertion-review eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json --output eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json
 python -m emperor_v4.eval i5b-ruler-rule-coverage --manifest eval/i5b_ruler_rule_coverage/lishimin_manifest.yml --output eval/i5b_ruler_rule_coverage/lishimin_report.json
 python -m emperor_v4.eval v3-claim-pilot --ruler 李世民 --source-freeze-ref v3-claim-freeze-20260715-lishimin-v1 --profile-package eval/v3_person_profile_migration/authorized_profile_promotion.json --profile-package eval/v3_person_profile_migration/supplemental_profile_promotion.json --output eval/v3_claim_migration/lishimin_source_snapshot.json --report eval/v3_claim_migration/lishimin_report.json
 python -m emperor_v4.eval i5b-unified-raw-signal-readiness --appointment-report eval/appointment_delegation_v3_parity_demo/report.json --team-report eval/team_building_v8_scored_shadow/report.json --joint-report eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json --joint-report eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json --joint-report eval/i5b_joint_projection_scored_shadow/anti_nepotism_report.json --coverage-report eval/i5b_ruler_rule_coverage/lishimin_report.json --calibration-version i5b-multi-ruler-candidate-v1 --output eval/i5b_joint_projection_scored_shadow/unified_readiness_report.json
@@ -99,7 +100,9 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 ## 下一份可见成果
 
-测试集、因子语义和原始信号骨架已经收口。下一份可见成果固定为李世民 `tolerate_talent` 纵向报告：复用现有通用能力，将7个已缓存单元一次推进为 Assertion draft、review disposition、Episode/RuleEvidenceUnit shadow、ScoreContribution 与 trace export；质量或归责未通过的单元失败关闭。该交付不新增人物专项 runtime、硬编码总账源码、镜像测试模块、45分或排名。
+李世民 `tolerate_talent` 纵向报告已经收口：7个已缓存单元形成99条已复核 Assertion 草案、29个 proposed Episode、7个 draft RuleEvidenceUnit 和1条 raw-signal-only ScoreContribution；`TT-O05` 的复碑 lineage 已从《资治通鉴》卷198改绑《大唐新语》卷一。当前原始信号为 `10.353`，但未执行正式事实接受、动态分数映射或排名。
+
+下一份可见成果是李世民 `tolerate_talent` 历史覆盖收口：完成剩余候选事件处置与独立正反向检索，冻结候选清单和审计声明，再决定是否允许进入正式事实接受门禁；不得用零填充把当前工作集冒充完整历史覆盖。
 
 ## 用户目标链路
 
