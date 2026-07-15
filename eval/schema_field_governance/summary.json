@@ -1,5 +1,5 @@
 {
-  "schema_version": "v4-schema-field-governance-summary-v1",
+  "schema_version": "v4-schema-field-governance-summary-v2",
   "status": "accepted",
   "scope": {
     "schemas": [
@@ -9,8 +9,8 @@
       "v4_person_profile",
       "v4_governance"
     ],
-    "relation_count": 39,
-    "column_count": 438,
+    "relation_count": 41,
+    "column_count": 459,
     "unmanaged_business_relation_count": 0,
     "relation_comment_gap_count": 0,
     "column_comment_gap_count": 0
@@ -19,44 +19,60 @@
     "typed_identifier_contracts": true,
     "legacy_value_dispositions": 4,
     "identity_reference_alias_counts": {
-      "canonical": 277,
+      "canonical": 275,
       "alias": 0,
       "candidate": 0,
       "non_person": 0,
       "unresolved": 0
     },
     "resolved_episode_participant_row_counts": {
-      "canonical": 393,
+      "canonical": 395,
       "alias": 0,
       "candidate": 0,
       "non_person": 0,
       "unresolved": 0
     },
     "quarantined_identity_reference_count": 0,
-    "mixed_language_policy": "ratchet_baseline_no_regression",
-    "identity_resolution_policy": "physical_event_domain_backfill_with_reviewed_mapping",
+    "mixed_language_policy": "physical_chinese_normalization_with_database_gate",
+    "identity_resolution_policy": "physical_canonical_id_backfill_with_reviewed_mapping",
     "physical_identity_backfill": {
-      "canonical_identities_inserted": 9,
-      "historical_episode_rows_updated": 84,
-      "episode_participant_rows_updated": 180,
-      "duplicate_participant_rows_removed": 1,
+      "canonical_identities_inserted": 1,
+      "historical_episode_rows_updated": 184,
+      "episode_participant_rows_updated": 217,
+      "duplicate_participant_rows_removed": 0,
       "noncanonical_participant_row_count": 0,
       "unresolved_participant_row_count": 0,
       "noncanonical_evaluation_context_row_count": 0
     },
     "canonical_evaluation_context_counts": {
-      "PER-LI-SHIMIN": 183,
+      "PER-V4-737E2C4D60AC": 184,
       "PER-V4-4EB7AC987FEC": 20,
       "PER-V4-75EF40579300": 8,
       "PER-V4-C93016BB741A": 7,
       "PER-V4-E15C1B65F12F": 6
+    },
+    "full_field_normalization": {
+      "assertion_id_rows_updated": 260,
+      "section_id_rows_updated": 204,
+      "candidate_identity_rows_updated": 11,
+      "source_profile_ref_rows_updated": 508,
+      "import_batch_rows_updated": 9,
+      "source_freeze_rows_updated": 9,
+      "explanatory_text_rows_updated": 725,
+      "remaining_operational_candidate_id_count": 0,
+      "remaining_mixed_explanatory_text_count": 0,
+      "unvalidated_constraint_count": 0
     }
   },
   "regeneration_controls": {
     "new_invalid_person_ref": "blocked",
     "new_candidate_person_ref": "blocked",
     "new_invalid_evaluation_context": "blocked",
+    "new_noncanonical_assertion_id": "blocked",
+    "new_noncanonical_section_id": "blocked",
+    "new_noncanonical_person_profile_id": "blocked",
     "mixed_language_regression": "blocked",
+    "producer_boundary_canonicalization": "enabled",
     "historical_debt": "physically_backfilled_and_constraints_validated"
   },
   "postgres": {
@@ -71,14 +87,14 @@
     "transactional_gate_probes_rolled_back": true
   },
   "validation": {
-    "focused_tests": "54 passed",
+    "focused_tests": "57 passed, 1 skipped (isolated integration DSN not injected)",
     "compileall": "passed",
     "json_parse": "passed",
     "git_diff_check": "passed"
   },
   "evidence": [
-    "postgres_dry_run.json",
     "postgres_first_run.json",
+    "postgres_finalization_run.json",
     "postgres_idempotent_rerun.json",
     "postgres_verification.json"
   ]

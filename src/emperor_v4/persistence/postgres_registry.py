@@ -17,6 +17,11 @@ from emperor_v4.persistence.core_registry import (
     CoreRegistryWriteResult,
     ReviewArtifactRecord,
 )
+from emperor_v4.persistence.postgres_schema_governance import (
+    canonical_assertion_id,
+    canonical_person_ref,
+    canonical_section_id,
+)
 
 
 ADVISORY_LOCK_ID = int.from_bytes(
@@ -204,7 +209,7 @@ class PostgresCoreRegistry:
                             passage.passage_cache_id,
                             passage.document_cache_id,
                             passage.content_version,
-                            passage.section_id,
+                            canonical_section_id(passage.section_id),
                             passage.section_heading,
                             passage.span_start,
                             passage.span_end,
@@ -227,6 +232,7 @@ class PostgresCoreRegistry:
 
                 for assertion in batch.assertions:
                     payload = _payload(assertion)
+                    assertion_id = canonical_assertion_id(assertion.assertion_code)
                     cursor.execute(
                         """
                         INSERT INTO assertions (
@@ -237,7 +243,7 @@ class PostgresCoreRegistry:
                         RETURNING 1
                         """,
                         (
-                            assertion.assertion_code,
+                            assertion_id,
                             assertion.source_passage_ref,
                             assertion.assertion_type,
                             _assertion_semantic_key(assertion),
@@ -249,7 +255,7 @@ class PostgresCoreRegistry:
                         self._assert_payload(
                             cursor,
                             "SELECT payload FROM assertions WHERE assertion_id = %s",
-                            (assertion.assertion_code,),
+                            (assertion_id,),
                             payload,
                             "Assertion",
                         )
@@ -268,6 +274,7 @@ class PostgresCoreRegistry:
                     writes["episode_participants"] += episode_writes[2]
 
                 for disposition in batch.episode_dispositions:
+                    assertion_id = canonical_assertion_id(disposition.assertion_ref)
                     cursor.execute(
                         """
                         INSERT INTO episode_assertion_dispositions (
@@ -283,7 +290,7 @@ class PostgresCoreRegistry:
                             disposition.episode_id,
                             disposition.semantic_version,
                             disposition.evidence_version,
-                            disposition.assertion_ref,
+                            assertion_id,
                             disposition.disposition,
                             disposition.reason,
                             disposition.follow_up,
@@ -299,7 +306,13 @@ class PostgresCoreRegistry:
                               AND evidence_version = %s AND assertion_id = %s
                               AND disposition = %s
                             """,
-                            disposition.key,
+                            (
+                                disposition.episode_id,
+                                disposition.semantic_version,
+                                disposition.evidence_version,
+                                assertion_id,
+                                disposition.disposition,
+                            ),
                         )
                         row = cursor.fetchone()
                         if row != (disposition.reason, disposition.follow_up):
@@ -417,7 +430,7 @@ class PostgresCoreRegistry:
         for link in packet.assertion_links:
             cursor.execute(
                 "SELECT source_passage_id FROM assertions WHERE assertion_id = %s",
-                (link.assertion_ref,),
+                (canonical_assertion_id(link.assertion_ref),),
             )
             row = cursor.fetchone()
             if row != (link.source_passage_ref,):
@@ -434,6 +447,7 @@ class PostgresCoreRegistry:
             (packet.episode_id,),
         )
         current_row = cursor.fetchone()
+        evaluation_context_ref = canonical_person_ref(packet.evaluation_context)
         episode_write = 0
         if current_row is None:
             if (packet.semantic_version, packet.evidence_version) != (1, 1):
@@ -448,7 +462,7 @@ class PostgresCoreRegistry:
                 (
                     packet.episode_id,
                     identity_anchor,
-                    packet.evaluation_context,
+                    evaluation_context_ref,
                     packet.semantic_version,
                     packet.evidence_version,
                     packet.semantic_fingerprint,
@@ -457,7 +471,7 @@ class PostgresCoreRegistry:
             episode_write = 1
         else:
             current_semantic, current_evidence, evaluation_context, current_anchor = current_row
-            if evaluation_context != packet.evaluation_context:
+            if evaluation_context != evaluation_context_ref:
                 raise ValueError("HistoricalEpisode evaluation_context 不得变化")
             if current_anchor != identity_anchor:
                 raise ValueError("HistoricalEpisode identity_anchor 不得变化")
@@ -525,6 +539,7 @@ class PostgresCoreRegistry:
 
         participant_writes = 0
         for participant in packet.participants:
+            person_ref = canonical_person_ref(participant.person_ref)
             for role_code in participant.role_codes:
                 cursor.execute(
                     """
@@ -537,7 +552,7 @@ class PostgresCoreRegistry:
                     (
                         packet.episode_id,
                         packet.semantic_version,
-                        participant.person_ref,
+                        person_ref,
                         role_code,
                         participant.role_status,
                     ),
@@ -553,7 +568,7 @@ class PostgresCoreRegistry:
                         (
                             packet.episode_id,
                             packet.semantic_version,
-                            participant.person_ref,
+                            person_ref,
                             role_code,
                         ),
                     )

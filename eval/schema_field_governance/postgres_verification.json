@@ -1,15 +1,15 @@
 {
   "canonical_evaluation_context_counts": {
-    "PER-LI-SHIMIN": 183,
     "PER-V4-4EB7AC987FEC": 20,
+    "PER-V4-737E2C4D60AC": 184,
     "PER-V4-75EF40579300": 8,
     "PER-V4-C93016BB741A": 7,
     "PER-V4-E15C1B65F12F": 6
   },
   "comments": {
-    "column_count": 438,
+    "column_count": 459,
     "column_gap_count": 0,
-    "relation_count": 39,
+    "relation_count": 41,
     "relation_gap_count": 0
   },
   "constraints": [
@@ -47,11 +47,39 @@
     },
     {
       "historical_rows_validated": true,
+      "name": "person_profile_catalog_chinese_basis_check"
+    },
+    {
+      "historical_rows_validated": true,
+      "name": "person_profile_catalog_source_profile_ref_check"
+    },
+    {
+      "historical_rows_validated": true,
+      "name": "person_profile_snapshots_source_profile_ref_check"
+    },
+    {
+      "historical_rows_validated": true,
+      "name": "ruler_team_window_snapshots_canonical_ruler_ref_check"
+    },
+    {
+      "historical_rows_validated": true,
+      "name": "source_cache_passages_section_id_family_check"
+    },
+    {
+      "historical_rows_validated": true,
       "name": "source_documents_document_id_family_check"
+    },
+    {
+      "historical_rows_validated": true,
+      "name": "source_passages_section_id_family_check"
+    },
+    {
+      "historical_rows_validated": true,
+      "name": "talent_grade_calibrations_chinese_basis_check"
     }
   ],
   "identity_reference_alias_counts": {
-    "canonical": 277
+    "canonical": 275
   },
   "legacy_value_dispositions": [
     {
@@ -99,27 +127,27 @@
     "episode_participants.candidate_ref": "blocked",
     "episode_participants.person_ref": "blocked",
     "historical_episodes.evaluation_context": "blocked",
-    "mixed_text_quality_baseline": "blocked"
+    "mixed_explanatory_text": "blocked"
   },
   "physical_identity_backfill": [
     {
-      "applied_row_count": 224,
+      "applied_row_count": 184,
       "duplicate_row_count": 0,
       "mapping_count": 6,
       "reference_domain": "evaluation_context",
-      "source_row_count": 224
+      "source_row_count": 184
     },
     {
-      "applied_row_count": 180,
+      "applied_row_count": 354,
       "duplicate_row_count": 1,
-      "mapping_count": 31,
+      "mapping_count": 32,
       "reference_domain": "participant_ref",
-      "source_row_count": 181
+      "source_row_count": 355
     }
   ],
   "quarantined_identity_references": [],
   "resolved_episode_participant_row_counts": {
-    "canonical": 393
+    "canonical": 395
   },
   "transactional_gate_probes_rolled_back": true,
   "unmanaged_business_relations": []

@@ -11,6 +11,7 @@ from emperor_v4.application.source_cache_service import (
 )
 from emperor_v4.contracts.source import SourceRevisionContent
 from emperor_v4.persistence.postgres_schema_governance import (
+    canonical_section_id,
     ensure_schema_governance,
 )
 
@@ -325,7 +326,7 @@ class PostgresSourceCacheRepository:
                             passage["passage_id"],
                             passage["document_id"],
                             passage["content_version"],
-                            passage["section_id"],
+                            canonical_section_id(passage["section_id"]),
                             passage["span_start"],
                             passage["span_end"],
                             passage["passage_kind"],

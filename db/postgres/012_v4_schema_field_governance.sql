@@ -73,18 +73,48 @@ CREATE TABLE IF NOT EXISTS v4_governance.identity_reference_backfill_map (
     PRIMARY KEY (reference_domain, source_ref)
 );
 
+CREATE TABLE IF NOT EXISTS v4_governance.field_value_backfill_map (
+    schema_name TEXT NOT NULL,
+    table_name TEXT NOT NULL,
+    column_name TEXT NOT NULL,
+    source_value_sha256 TEXT NOT NULL CHECK (source_value_sha256 ~ '^[0-9a-f]{64}$'),
+    source_value TEXT NOT NULL,
+    target_value TEXT NOT NULL,
+    normalization_kind TEXT NOT NULL,
+    normalization_version TEXT NOT NULL,
+    source_row_count INTEGER NOT NULL CHECK (source_row_count >= 0),
+    applied_row_count INTEGER NOT NULL CHECK (applied_row_count >= 0),
+    applied_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (schema_name, table_name, column_name, source_value_sha256)
+);
+
+CREATE TABLE IF NOT EXISTS v4_governance.text_normalization_runs (
+    schema_name TEXT NOT NULL,
+    table_name TEXT NOT NULL,
+    column_name TEXT NOT NULL,
+    normalization_version TEXT NOT NULL,
+    source_row_count INTEGER NOT NULL CHECK (source_row_count >= 0),
+    applied_row_count INTEGER NOT NULL CHECK (applied_row_count >= 0),
+    remaining_mixed_row_count INTEGER NOT NULL CHECK (remaining_mixed_row_count >= 0),
+    before_sha256 TEXT NOT NULL CHECK (before_sha256 ~ '^[0-9a-f]{64}$'),
+    after_sha256 TEXT NOT NULL CHECK (after_sha256 ~ '^[0-9a-f]{64}$'),
+    applied_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (schema_name, table_name, column_name, normalization_version)
+);
+
 INSERT INTO v4_governance.identity_reference_backfill_map (
     reference_domain, source_ref, target_ref, canonical_name,
     participant_kind, basis_ref
 ) VALUES
-    ('evaluation_context', 'PER-LI-SHIMIN', 'PER-LI-SHIMIN', '李世民', 'person', 'core-identity:PER-LI-SHIMIN'),
-    ('evaluation_context', 'PER-V4-78F48EBC67F8', 'PER-LI-SHIMIN', '李世民', 'person', 'assertion-context-name:李世民'),
+    ('evaluation_context', 'PER-LI-SHIMIN', 'PER-V4-737E2C4D60AC', '李世民', 'person', 'core-identity:PER-LI-SHIMIN'),
+    ('evaluation_context', 'PER-V4-78F48EBC67F8', 'PER-V4-737E2C4D60AC', '李世民', 'person', 'assertion-context-name:李世民'),
     ('evaluation_context', 'per-4eb7ac987fecc59f', 'PER-V4-4EB7AC987FEC', '胤禛', 'person', 'assertion-context-name:胤禛'),
     ('evaluation_context', 'per-e15c1b65f12f0ae6', 'PER-V4-E15C1B65F12F', '刘恒', 'person', 'assertion-context-name:刘恒'),
     ('evaluation_context', '杨广', 'PER-V4-C93016BB741A', '杨广', 'person', 'assertion-context-name:杨广'),
     ('evaluation_context', '胡亥', 'PER-V4-75EF40579300', '胡亥', 'person', 'assertion-context-name:胡亥'),
     ('participant_ref', 'PER-FANG-XUANLING', 'PER-V4-C37ED24688F5', '房玄龄', 'person', 'unique-canonical-name:房玄龄'),
-    ('participant_ref', 'PER-V4-78F48EBC67F8', 'PER-LI-SHIMIN', '李世民', 'person', 'assertion-context-name:李世民'),
+    ('participant_ref', 'PER-LI-SHIMIN', 'PER-V4-737E2C4D60AC', '李世民', 'person', 'core-identity:PER-LI-SHIMIN'),
+    ('participant_ref', 'PER-V4-78F48EBC67F8', 'PER-V4-737E2C4D60AC', '李世民', 'person', 'assertion-context-name:李世民'),
     ('participant_ref', 'PER-V4-19A7D9A17D2F', 'PER-V4-B0E10D8903E7', '魏徵', 'person', 'assertion-role-name:魏徵'),
     ('participant_ref', 'PER-V4-7CF98C73F205', 'PER-V4-89C0D231C76C', '李靖', 'person', 'assertion-role-name:李靖'),
     ('participant_ref', 'PER-NAME-CANDIDATE-CHANGSUN-WUJI', 'PER-V4-839C5A8CB43C', '长孙无忌', 'person', 'candidate-name:长孙无忌'),
@@ -152,26 +182,44 @@ INSERT INTO v4_governance.field_contracts (
     contract_value, legacy_policy, description
 ) VALUES
     ('public', 'assertions', 'assertion_id', 'typed_identifier',
-     'AST|ASTA|ASTD|K0', 'accepted_typed',
-     '四类历史断言标识按来源显式接受，禁止未登记的第五种格式。'),
+     'AST-V4-20HEX', 'canonical_only',
+     '正式断言标识统一为 AST-V4 加二十位大写十六进制摘要；旧格式只保留于治理映射。'),
     ('public', 'assertions', 'assertion_semantic_key', 'typed_semantic_key',
      'ASK|CLMK', 'accepted_typed',
      'ASK 为 V4 语义键，CLMK 为带 lineage 的迁移 claim 键。'),
     ('public', 'episode_participants', 'person_ref', 'canonical_reference',
-     'uppercase-hyphen-ref', 'quarantined_debt',
-     '新增参与者必须使用大写连字符引用；中文名和小写旧引用只作为待处置历史债务。'),
+     'PER-V4|GRP-V4-12HEX', 'canonical_only',
+     '正式事件参与者统一使用 PER-V4 或 GRP-V4 加十二位大写十六进制摘要。'),
     ('public', 'historical_episodes', 'evaluation_context', 'canonical_reference',
-     'uppercase-hyphen-ref', 'quarantined_debt',
-     '新增事件必须保存统治者规范引用，不再把中文显示名写入引用字段。'),
+     'PER-V4-12HEX', 'canonical_only',
+     '正式事件评价上下文统一保存统治者 PER-V4 规范引用。'),
+    ('public', 'source_passages', 'section_id', 'typed_identifier',
+     'SEC-V4-16HEX', 'canonical_only',
+     '正式来源段落章节标识统一为 SEC-V4 加十六位大写十六进制摘要。'),
+    ('v4_source_cache', 'passages', 'section_id', 'typed_identifier',
+     'SEC-V4-16HEX', 'canonical_only',
+     '缓存段落章节标识与正式来源段落使用同一 SEC-V4 规范格式。'),
     ('public', 'source_documents', 'document_id', 'typed_identifier',
      'SCD|WSD', 'accepted_typed',
      'SCD 与 WSD 是两类显式文献载体标识。'),
     ('v4_person_profile', 'import_batches', 'import_batch_id', 'typed_identifier',
-     'V4PP|PP|IMPORT|legacy-slug', 'accepted_typed',
-     '历史批次格式被显式分类；新生产方应使用 V4PP 前缀。'),
+     'V4PP-BATCH-16HEX', 'canonical_only',
+     '人物画像导入批次统一为 V4PP-BATCH 加十六位大写十六进制摘要。'),
     ('v4_person_profile', 'import_batches', 'source_freeze_ref', 'typed_reference',
-     'sha256|semantic-freeze-tag', 'accepted_typed',
-     '内容哈希与冻结标签均允许，但必须能明确分类。'),
+     'FRZ-V4-16HEX', 'canonical_only',
+     '人物画像冻结引用统一为 FRZ-V4 加十六位大写十六进制摘要；原始标签留在 payload。'),
+    ('v4_person_profile', 'person_identity_registry', 'person_ref', 'canonical_reference',
+     'PER-V4-12HEX', 'canonical_only',
+     '人物身份注册表只保存 PER-V4 规范人物引用。'),
+    ('v4_person_profile', 'ruler_team_window_snapshots', 'ruler_ref', 'canonical_reference',
+     'PER-V4-12HEX', 'canonical_only',
+     '统治者团队窗口统一保存 PER-V4 规范统治者引用。'),
+    ('v4_person_profile', 'person_profile_snapshots', 'source_profile_ref', 'typed_reference',
+     'SPR-V4-16HEX', 'canonical_only',
+     '人物画像快照的来源画像引用统一为 SPR-V4 规范格式。'),
+    ('v4_person_profile', 'person_profile_catalog', 'source_profile_ref', 'typed_reference',
+     'SPR-V4-16HEX', 'canonical_only',
+     '人物画像目录的来源画像引用统一为 SPR-V4 规范格式。'),
     ('v4_person_profile', 'person_identity_registry', 'historical_context',
      'code_or_narrative', 'machine-code|Chinese narrative', 'accepted_typed',
      '机器上下文码与人物说明是两种显式内容类型，消费者不得把该字段当作单一枚举。'),
@@ -187,15 +235,11 @@ ON CONFLICT (schema_name, table_name, column_name) DO UPDATE SET
 DO $governance$
 BEGIN
     IF to_regclass('public.assertions') IS NOT NULL THEN
-        IF NOT EXISTS (
-            SELECT 1 FROM pg_constraint
-            WHERE conrelid = 'public.assertions'::regclass
-              AND conname = 'assertions_assertion_id_family_check'
-        ) THEN
-            ALTER TABLE public.assertions
-                ADD CONSTRAINT assertions_assertion_id_family_check
-                CHECK (assertion_id ~ '^(AST|ASTA|ASTD)-[A-Z0-9-]+$|^K0-[A-Z0-9-]+@SP-[A-Z0-9-]+$');
-        END IF;
+        ALTER TABLE public.assertions
+            DROP CONSTRAINT IF EXISTS assertions_assertion_id_family_check;
+        ALTER TABLE public.assertions
+            ADD CONSTRAINT assertions_assertion_id_family_check
+            CHECK (assertion_id ~ '^AST-V4-[0-9A-F]{20}$') NOT VALID;
         IF NOT EXISTS (
             SELECT 1 FROM pg_constraint
             WHERE conrelid = 'public.assertions'::regclass
@@ -207,12 +251,28 @@ BEGIN
         END IF;
     END IF;
 
+    IF to_regclass('public.source_passages') IS NOT NULL THEN
+        ALTER TABLE public.source_passages
+            DROP CONSTRAINT IF EXISTS source_passages_section_id_family_check;
+        ALTER TABLE public.source_passages
+            ADD CONSTRAINT source_passages_section_id_family_check
+            CHECK (section_id ~ '^SEC-V4-[0-9A-F]{16}$') NOT VALID;
+    END IF;
+
+    IF to_regclass('v4_source_cache.passages') IS NOT NULL THEN
+        ALTER TABLE v4_source_cache.passages
+            DROP CONSTRAINT IF EXISTS source_cache_passages_section_id_family_check;
+        ALTER TABLE v4_source_cache.passages
+            ADD CONSTRAINT source_cache_passages_section_id_family_check
+            CHECK (section_id ~ '^SEC-V4-[0-9A-F]{16}$') NOT VALID;
+    END IF;
+
     IF to_regclass('public.episode_participants') IS NOT NULL THEN
         ALTER TABLE public.episode_participants
             DROP CONSTRAINT IF EXISTS episode_participants_canonical_person_ref_check;
         ALTER TABLE public.episode_participants
             ADD CONSTRAINT episode_participants_canonical_person_ref_check
-            CHECK (person_ref ~ '^(PER|GRP)-[A-Z0-9]+(-[A-Z0-9]+)+$') NOT VALID;
+            CHECK (person_ref ~ '^(PER|GRP)-V4-[0-9A-F]{12}$') NOT VALID;
     END IF;
 
     IF to_regclass('public.episode_participants') IS NOT NULL
@@ -231,7 +291,7 @@ BEGIN
             DROP CONSTRAINT IF EXISTS historical_episodes_canonical_evaluation_context_check;
         ALTER TABLE public.historical_episodes
             ADD CONSTRAINT historical_episodes_canonical_evaluation_context_check
-            CHECK (evaluation_context ~ '^PER-[A-Z0-9]+(-[A-Z0-9]+)+$') NOT VALID;
+            CHECK (evaluation_context ~ '^PER-V4-[0-9A-F]{12}$') NOT VALID;
     END IF;
 
     IF to_regclass('public.source_documents') IS NOT NULL
@@ -245,42 +305,68 @@ BEGIN
             CHECK (document_id ~ '^(SCD|WSD)-[A-Z0-9-]+$');
     END IF;
 
-    IF to_regclass('v4_person_profile.person_identity_registry') IS NOT NULL
-       AND NOT EXISTS (
-           SELECT 1 FROM pg_constraint
-           WHERE conrelid = 'v4_person_profile.person_identity_registry'::regclass
-             AND conname = 'person_identity_registry_canonical_ref_check'
-       ) THEN
+    IF to_regclass('v4_person_profile.person_identity_registry') IS NOT NULL THEN
+        ALTER TABLE v4_person_profile.person_identity_registry
+            DROP CONSTRAINT IF EXISTS person_identity_registry_canonical_ref_check;
         ALTER TABLE v4_person_profile.person_identity_registry
             ADD CONSTRAINT person_identity_registry_canonical_ref_check
-            CHECK (person_ref ~ '^(PER|RULER)-[A-Z0-9-]+$');
+            CHECK (person_ref ~ '^PER-V4-[0-9A-F]{12}$') NOT VALID;
+    END IF;
+
+    IF to_regclass('v4_person_profile.ruler_team_window_snapshots') IS NOT NULL THEN
+        ALTER TABLE v4_person_profile.ruler_team_window_snapshots
+            DROP CONSTRAINT IF EXISTS ruler_team_window_snapshots_canonical_ruler_ref_check;
+        ALTER TABLE v4_person_profile.ruler_team_window_snapshots
+            ADD CONSTRAINT ruler_team_window_snapshots_canonical_ruler_ref_check
+            CHECK (ruler_ref ~ '^PER-V4-[0-9A-F]{12}$') NOT VALID;
+    END IF;
+
+    IF to_regclass('v4_person_profile.person_profile_snapshots') IS NOT NULL THEN
+        ALTER TABLE v4_person_profile.person_profile_snapshots
+            DROP CONSTRAINT IF EXISTS person_profile_snapshots_source_profile_ref_check;
+        ALTER TABLE v4_person_profile.person_profile_snapshots
+            ADD CONSTRAINT person_profile_snapshots_source_profile_ref_check
+            CHECK (source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$') NOT VALID;
+    END IF;
+
+    IF to_regclass('v4_person_profile.person_profile_catalog') IS NOT NULL THEN
+        ALTER TABLE v4_person_profile.person_profile_catalog
+            DROP CONSTRAINT IF EXISTS person_profile_catalog_source_profile_ref_check;
+        ALTER TABLE v4_person_profile.person_profile_catalog
+            ADD CONSTRAINT person_profile_catalog_source_profile_ref_check
+            CHECK (source_profile_ref ~ '^SPR-V4-[0-9A-F]{16}$') NOT VALID;
+        ALTER TABLE v4_person_profile.person_profile_catalog
+            DROP CONSTRAINT IF EXISTS person_profile_catalog_chinese_basis_check;
+        ALTER TABLE v4_person_profile.person_profile_catalog
+            ADD CONSTRAINT person_profile_catalog_chinese_basis_check
+            CHECK (
+                NOT (talent_grade_basis ~ '[一-龥]' AND talent_grade_basis ~ '[A-Za-z]')
+                AND NOT (negative_talent_basis ~ '[一-龥]' AND negative_talent_basis ~ '[A-Za-z]')
+            ) NOT VALID;
+    END IF;
+
+    IF to_regclass('v4_person_profile.talent_grade_calibrations') IS NOT NULL THEN
+        ALTER TABLE v4_person_profile.talent_grade_calibrations
+            DROP CONSTRAINT IF EXISTS talent_grade_calibrations_chinese_basis_check;
+        ALTER TABLE v4_person_profile.talent_grade_calibrations
+            ADD CONSTRAINT talent_grade_calibrations_chinese_basis_check
+            CHECK (
+                NOT (source_basis ~ '[一-龥]' AND source_basis ~ '[A-Za-z]')
+                AND NOT (review_basis ~ '[一-龥]' AND review_basis ~ '[A-Za-z]')
+            ) NOT VALID;
     END IF;
 
     IF to_regclass('v4_person_profile.import_batches') IS NOT NULL THEN
-        IF NOT EXISTS (
-            SELECT 1 FROM pg_constraint
-            WHERE conrelid = 'v4_person_profile.import_batches'::regclass
-              AND conname = 'import_batches_id_family_check'
-        ) THEN
-            ALTER TABLE v4_person_profile.import_batches
-                ADD CONSTRAINT import_batches_id_family_check
-                CHECK (
-                    import_batch_id ~ '^(V4PP|PP|IMPORT)-[A-Z0-9-]+$'
-                    OR import_batch_id ~ '^v4-[a-z0-9-]+$'
-                );
-        END IF;
-        IF NOT EXISTS (
-            SELECT 1 FROM pg_constraint
-            WHERE conrelid = 'v4_person_profile.import_batches'::regclass
-              AND conname = 'import_batches_source_freeze_ref_type_check'
-        ) THEN
-            ALTER TABLE v4_person_profile.import_batches
-                ADD CONSTRAINT import_batches_source_freeze_ref_type_check
-                CHECK (
-                    source_freeze_ref ~ '^[0-9a-f]{64}$'
-                    OR source_freeze_ref ~ '^[a-z][a-z0-9-]*$'
-                );
-        END IF;
+        ALTER TABLE v4_person_profile.import_batches
+            DROP CONSTRAINT IF EXISTS import_batches_id_family_check;
+        ALTER TABLE v4_person_profile.import_batches
+            ADD CONSTRAINT import_batches_id_family_check
+            CHECK (import_batch_id ~ '^V4PP-BATCH-[0-9A-F]{16}$') NOT VALID;
+        ALTER TABLE v4_person_profile.import_batches
+            DROP CONSTRAINT IF EXISTS import_batches_source_freeze_ref_type_check;
+        ALTER TABLE v4_person_profile.import_batches
+            ADD CONSTRAINT import_batches_source_freeze_ref_type_check
+            CHECK (source_freeze_ref ~ '^FRZ-V4-[0-9A-F]{16}$') NOT VALID;
     END IF;
 END
 $governance$;
@@ -364,6 +450,8 @@ DECLARE
         ,'legacy_value_dispositions', '历史非规范字段值的逐值处置和规范目标。'
         ,'identity_reference_aliases', '跨 Core、I5B 与人物画像命名空间的身份引用解析表。'
         ,'identity_reference_backfill_map', '公共事件域历史身份引用的物理归一化映射和执行计数。'
+        ,'field_value_backfill_map', '非身份字段物理归一化的旧值、新值、版本与执行行数。'
+        ,'text_normalization_runs', '说明文本中文化的列级前后哈希与执行统计。'
         ,'resolved_episode_participants', '保留原值并给出规范身份解析的事件参与者只读视图。'
         ,'resolved_historical_episodes', '保留原值并给出规范统治者引用的历史事件只读视图。'
     );

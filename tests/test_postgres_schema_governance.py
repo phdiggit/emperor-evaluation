@@ -5,7 +5,14 @@ from pathlib import Path
 from emperor_v4.persistence.postgres_schema_governance import (
     MIGRATION_KEY,
     _inventory_sha256,
+    canonical_assertion_id,
+    canonical_freeze_ref,
+    canonical_import_batch_id,
+    canonical_person_ref,
+    canonical_section_id,
+    canonical_source_profile_ref,
     migration_path,
+    normalize_chinese_explanatory_text,
 )
 
 
@@ -35,6 +42,9 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
         "source_freeze_ref",
         "historical_context",
         "source_ref",
+        "section_id",
+        "ruler_ref",
+        "source_profile_ref",
     ):
         assert f"'{contract_column}'" in sql
 
@@ -42,7 +52,7 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
     assert "assertions_semantic_key_family_check" in sql
     assert "episode_participants_canonical_person_ref_check" in sql
     assert "historical_episodes_canonical_evaluation_context_check" in sql
-    assert sql.count("NOT VALID") == 3
+    assert sql.count("NOT VALID") == 14
     assert "legacy_policy" in sql
     assert "quarantined_debt" in sql
     assert "field_quality_baselines" in sql
@@ -50,6 +60,8 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
     assert "legacy_value_dispositions" in sql
     assert "identity_reference_aliases" in sql
     assert "identity_reference_backfill_map" in sql
+    assert "field_value_backfill_map" in sql
+    assert "text_normalization_runs" in sql
     assert "resolved_episode_participants" in sql
     assert "resolved_historical_episodes" in sql
     assert "episode_participants_no_candidate_ref_check" in sql
@@ -59,6 +71,38 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
     assert "PER-V4-E15C1B65F12F" in sql
     assert "PER-V4-C93016BB741A" in sql
     assert "PER-V4-75EF40579300" in sql
+
+
+def test_full_field_canonicalizers_are_stable_and_typed() -> None:
+    assert canonical_assertion_id("ASTA-legacy") == canonical_assertion_id(
+        "ASTA-legacy"
+    )
+    assert canonical_assertion_id("AST-V4-0123456789ABCDEF0123") == (
+        "AST-V4-0123456789ABCDEF0123"
+    )
+    assert canonical_section_id("卷一").startswith("SEC-V4-")
+    assert canonical_import_batch_id("profile-batch").startswith("V4PP-BATCH-")
+    assert canonical_freeze_ref("freeze:v1").startswith("FRZ-V4-")
+    assert canonical_source_profile_ref("人物画像：李世民").startswith("SPR-V4-")
+    assert canonical_person_ref("RULER-NAME-CANDIDATE-737E2C4D60AC") == (
+        "PER-V4-737E2C4D60AC"
+    )
+    assert canonical_person_ref("PER-LI-SHIMIN") == "PER-V4-737E2C4D60AC"
+    assert canonical_person_ref("PER-FANG-XUANLING") == "PER-V4-C37ED24688F5"
+    assert canonical_person_ref("二世使者") == "GRP-V4-3169839A92A8"
+
+
+def test_explanatory_text_normalization_is_chinese_and_rejects_unknown_mix() -> None:
+    normalized = normalize_chinese_explanatory_text(
+        "权威评价 authority_evaluations 与 evidence_claims 完整"
+    )
+    assert normalized == "权威评价 权威评价 与 证据断言 完整"
+    try:
+        normalize_chinese_explanatory_text("中文 unknown_anchor")
+    except ValueError as exc:
+        assert "unknown_anchor" in str(exc)
+    else:  # pragma: no cover - 防止新写入口静默放过混合文本
+        raise AssertionError("unknown mixed-language anchor must be rejected")
 
 
 def test_schema_governance_comments_every_current_and_future_business_field() -> None:
@@ -115,7 +159,36 @@ def test_all_postgres_bootstraps_route_through_schema_governance() -> None:
     assert release.count("postgres_schema_governance.py") == 2
 
 
-def test_text_quality_metrics_are_ratcheted_instead_of_blanket_translated() -> None:
+def test_postgres_writers_canonicalize_governed_fields_before_insert() -> None:
+    root = Path(__file__).parents[1] / "src" / "emperor_v4"
+    registry = (root / "persistence" / "postgres_registry.py").read_text(
+        encoding="utf-8"
+    )
+    source_cache = (root / "persistence" / "postgres_source_cache.py").read_text(
+        encoding="utf-8"
+    )
+    person_profile = (
+        root / "infrastructure" / "postgres_person_profile_repository.py"
+    ).read_text(encoding="utf-8")
+
+    for helper in (
+        "canonical_assertion_id",
+        "canonical_section_id",
+        "canonical_person_ref",
+    ):
+        assert helper in registry
+    assert "canonical_section_id" in source_cache
+    for helper in (
+        "canonical_import_batch_id",
+        "canonical_freeze_ref",
+        "canonical_person_ref",
+        "canonical_source_profile_ref",
+        "normalize_chinese_explanatory_text",
+    ):
+        assert helper in person_profile
+
+
+def test_text_quality_metrics_are_ratcheted_and_physically_normalized() -> None:
     source = (
         Path(__file__).parents[1]
         / "src"
@@ -136,6 +209,8 @@ def test_text_quality_metrics_are_ratcheted_instead_of_blanket_translated() -> N
     assert "r.canonical_name = linked.object_name" in source
     assert "IDENTITY_RESOLVER_VERSION.encode()" in source
     assert "_apply_physical_identity_backfill" in source
+    assert "_apply_full_field_normalization" in source
+    assert "normalize_chinese_explanatory_text" in source
     assert "governance_participant_projection" in source
     assert "VALIDATE CONSTRAINT" in source
     for column in (

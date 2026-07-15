@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from hashlib import sha256
 import json
 import re
@@ -10,6 +10,13 @@ from emperor_v4.contracts.person_snapshot import (
     PersonProfileSnapshot,
     RulerTeamWindowMember,
     RulerTeamWindowSnapshot,
+)
+from emperor_v4.persistence.postgres_schema_governance import (
+    canonical_freeze_ref,
+    canonical_import_batch_id,
+    canonical_person_ref,
+    canonical_source_profile_ref,
+    normalize_chinese_explanatory_text,
 )
 
 
@@ -63,7 +70,17 @@ def _profile(value: Mapping[str, Any]) -> PersonProfileSnapshot:
     for name in ("capability_domains", "lineage_refs"):
         if name in payload:
             payload[name] = tuple(payload[name])
-    return PersonProfileSnapshot(**payload)
+    snapshot = replace(
+        PersonProfileSnapshot(**payload),
+        canonical_person_ref=canonical_person_ref(payload["canonical_person_ref"]),
+        source_profile_ref=canonical_source_profile_ref(payload["source_profile_ref"]),
+    )
+    fingerprint_payload = _json_value(asdict(snapshot))
+    fingerprint_payload.pop("semantic_fingerprint", None)
+    return replace(
+        snapshot,
+        semantic_fingerprint=_stable_hash(fingerprint_payload),
+    )
 
 
 def _window(value: Mapping[str, Any]) -> RulerTeamWindowSnapshot:
@@ -71,7 +88,11 @@ def _window(value: Mapping[str, Any]) -> RulerTeamWindowSnapshot:
     payload = {name: value[name] for name in fields if name in value}
     payload["members"] = tuple(
         RulerTeamWindowMember(
-            person_ref=_text(member["person_ref"]),
+            person_ref=(
+                canonical_person_ref(member["person_ref"])
+                if _text(member["person_ref"]).startswith("PER-")
+                else _text(member["person_ref"])
+            ),
             profile_ref=_text(member["profile_ref"]),
             active_from=_text(member["active_from"]),
             active_to=_text(member["active_to"]),
@@ -80,7 +101,11 @@ def _window(value: Mapping[str, Any]) -> RulerTeamWindowSnapshot:
         )
         for member in _rows(payload.get("members"), "team window members")
     )
-    return RulerTeamWindowSnapshot(**payload)
+    snapshot = RulerTeamWindowSnapshot(**payload)
+    return replace(
+        snapshot,
+        ruler_ref=canonical_person_ref(snapshot.ruler_ref),
+    )
 
 
 def _promotion_packages(
@@ -144,7 +169,7 @@ def _profile_catalog_rows(
             "talent_grade": profile.talent_grade,
             "talent_grade_version": profile.talent_grade_version,
             "talent_grade_confidence": profile.talent_grade_confidence,
-            "talent_grade_basis": _text(talent["basis"]),
+            "talent_grade_basis": normalize_chinese_explanatory_text(talent["basis"]),
             "talent_authority_consensus": profile.talent_authority_consensus,
             "talent_performance_support": profile.talent_performance_support,
             "talent_evidence_coverage": profile.talent_evidence_coverage,
@@ -155,7 +180,9 @@ def _profile_catalog_rows(
             ),
             "negative_talent_class": profile.negative_talent_class,
             "negative_talent_severity": profile.negative_talent_severity,
-            "negative_talent_basis": _text(political_risk["basis"]),
+            "negative_talent_basis": normalize_chinese_explanatory_text(
+                political_risk["basis"]
+            ),
             "negative_talent_version": profile.negative_talent_version,
             "negative_talent_confidence": political_risk.get("confidence"),
             "negative_authority_consensus": _text(
@@ -220,6 +247,8 @@ def _batch(
     missing = [name for name, value in result.items() if not value]
     if missing:
         raise ValueError("import batch metadata missing: " + ", ".join(missing))
+    result["import_batch_id"] = canonical_import_batch_id(result["import_batch_id"])
+    result["source_freeze_ref"] = canonical_freeze_ref(result["source_freeze_ref"])
     fingerprint = _text(
         metadata.get("source_package_fingerprint")
         or crosswalk.get("source_package_sha256")
@@ -261,9 +290,10 @@ def _ruler_identity_rows(
     else:
         iterator = _rows(raw or (), "ruler_identities")
     for item in iterator:
-        person_ref = _text(item.get("person_ref"))
+        source_person_ref = _text(item.get("person_ref"))
+        person_ref = canonical_person_ref(source_person_ref)
         canonical_name = _text(item.get("canonical_name"))
-        if not person_ref or not canonical_name or person_ref in rows:
+        if not source_person_ref or not canonical_name or person_ref in rows:
             raise ValueError("ruler identities require unique person_ref and canonical_name")
         rows[person_ref] = {
             "person_ref": person_ref,
@@ -295,13 +325,14 @@ def _identity_and_legacy_rows(
     for decision in _rows(crosswalk.get("decisions"), "identity crosswalk decisions"):
         if decision.get("mapping_status") != AUTHORIZED_MAPPING_STATUS:
             raise ValueError("identity crosswalk contains a non-authorized mapping")
-        person_ref = _text(
+        source_person_ref = _text(
             decision.get("v4_canonical_person_ref")
             or decision.get("candidate_v4_person_ref")
         )
+        person_ref = canonical_person_ref(source_person_ref)
         fingerprint = _text(decision.get("source_identity_fingerprint"))
         basis_refs = list(decision.get("mapping_basis_refs") or ())
-        if not person_ref or not _SHA256.fullmatch(fingerprint) or not basis_refs:
+        if not source_person_ref or not _SHA256.fullmatch(fingerprint) or not basis_refs:
             raise ValueError("authorized identity crosswalk decision is incomplete")
         identities[person_ref] = {
             "person_ref": person_ref,
@@ -832,6 +863,8 @@ class PostgresPersonProfileRepository:
         }
         if any(not value for value in batch.values()):
             raise ValueError("talent calibration import batch metadata is incomplete")
+        batch["import_batch_id"] = canonical_import_batch_id(batch["import_batch_id"])
+        batch["source_freeze_ref"] = canonical_freeze_ref(batch["source_freeze_ref"])
         batch["source_package_fingerprint"] = _text(report.get("report_sha256"))
         if not _SHA256.fullmatch(batch["source_package_fingerprint"]):
             raise ValueError("talent calibration report fingerprint is invalid")
@@ -874,8 +907,18 @@ class PostgresPersonProfileRepository:
                     FROM v4_person_profile.import_batches WHERE import_batch_id=%s""",
                     (batch["import_batch_id"],), _json_value(batch), "ImportBatch",
                 )
-                for item in items:
-                    payload = _json_value(dict(item))
+                for source_item in items:
+                    item = dict(source_item)
+                    item["review_basis"] = normalize_chinese_explanatory_text(
+                        item["review_basis"]
+                    )
+                    item["source_basis"] = normalize_chinese_explanatory_text(
+                        item["source_basis"]
+                    )
+                    fingerprint_payload = dict(item)
+                    fingerprint_payload.pop("semantic_fingerprint", None)
+                    item["semantic_fingerprint"] = _stable_hash(fingerprint_payload)
+                    payload = _json_value(item)
                     writes["talent_grade_calibrations"] += self._insert(
                         cursor, Jsonb,
                         """INSERT INTO v4_person_profile.talent_grade_calibrations
