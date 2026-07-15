@@ -1,4 +1,4 @@
-schema_version: 1
+schema_version: model-policy-v2
 model_policy:
   default: denied
   operating_principle: ambiguity_slow_lane_only
@@ -44,3 +44,86 @@ model_policy:
     - create_or_merge_canonical_person_without_identity_gate
     - production_database_write
     - production_cutover_decision
+
+workflow_agent_routing:
+  authority: draft_only
+  task_contract:
+    explicit_stage_required: true
+    explicit_model_argument_required: true
+    explicit_reasoning_effort_required: true
+    escalation_reason_required: true
+    worker_repository_write_allowed: false
+    worker_formal_fact_acceptance_allowed: false
+    worker_formal_scoring_allowed: false
+
+  profiles:
+    luna_low:
+      model: gpt-5.6-luna
+      reasoning_effort: low
+    luna_medium:
+      model: gpt-5.6-luna
+      reasoning_effort: medium
+    terra_medium:
+      model: gpt-5.6-terra
+      reasoning_effort: medium
+    terra_high:
+      model: gpt-5.6-terra
+      reasoning_effort: high
+    sol_high:
+      model: gpt-5.6-sol
+      reasoning_effort: high
+
+  stages:
+    named_subject_source_discovery:
+      allowed_use: source_candidate_discovery
+      primary_profile: luna_medium
+      escalation_profile: terra_high
+      escalation_triggers:
+        - conflicting_sources
+        - actor_or_ruler_attribution_ambiguous
+        - source_lineage_uncertain
+    independent_cross_source_retrieval:
+      allowed_use: source_candidate_discovery
+      primary_profile: terra_medium
+      escalation_profile: terra_high
+      escalation_triggers:
+        - conflicting_sources
+        - cross_person_institution_inference
+        - negative_evidence_requires_context
+    legacy_hint_disposition:
+      allowed_use: reviewer_worklist_generation
+      primary_profile: luna_low
+      escalation_profile: terra_medium
+      escalation_triggers:
+        - multiple_candidate_events
+        - cross_rule_attribution
+        - insufficient_route_context
+    assertion_extraction:
+      allowed_use: assertion_extraction_draft
+      primary_profile: luna_medium
+      escalation_profile: terra_high
+      escalation_triggers:
+        - classical_chinese_subject_ellipsis
+        - overlapping_event_boundaries
+        - contradictory_passages
+    episode_candidate_normalization:
+      allowed_use: episode_merge_split_suggestion
+      primary_profile: luna_medium
+      escalation_profile: terra_high
+      escalation_triggers:
+        - cross_source_event_identity
+        - shared_institution_and_personal_benefit
+        - duplicate_settlement_risk
+    candidate_inventory_review:
+      allowed_use: reviewer_worklist_generation
+      primary_profile: terra_high
+      escalation_profile: sol_high
+      escalation_triggers:
+        - cross_person_institution_inference
+        - unresolved_material_conflict
+        - historical_coverage_attestation
+    final_gate_review_support:
+      allowed_use: reviewer_worklist_generation
+      primary_profile: sol_high
+      escalation_profile: null
+      escalation_triggers: []

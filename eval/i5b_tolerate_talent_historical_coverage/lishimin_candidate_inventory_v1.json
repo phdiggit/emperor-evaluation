@@ -1,0 +1,2538 @@
+{
+  "attestation": {
+    "independent_negative_retrieval_completed": true,
+    "independent_positive_retrieval_completed": true,
+    "named_person_source_gap_batch_completed": true,
+    "remaining_gate": "formal_fact_acceptance_and_candidate_semantic_review",
+    "v3_claims_promoted_to_v4_facts": false,
+    "zero_fill_used": false
+  },
+  "candidate_inventory": [
+    {
+      "candidate_code": "TT-HC-CAND-WANGGUI-INSTITUTION",
+      "disposition": "existing_institution_component_no_separate_settlement",
+      "next_gate": "deduplicate_against_existing_institutional_episode",
+      "persons": [
+        "李世民",
+        "王珪"
+      ],
+      "source_cache_status": "cached",
+      "summary": "令谏官随官员入阁议事，扩大制度化求谏入口。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-WANGGUI-LUJIANG",
+      "disposition": "applicability_pending",
+      "next_gate": "minimum_semantics_and_outcome_review",
+      "persons": [
+        "李世民",
+        "王珪"
+      ],
+      "source_cache_status": "cached",
+      "summary": "王珪以庐江王瑗姬进谏，皇帝听取并认可其进言价值，但未见采纳结果。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-WANGGUI-WENYANBO-ZUXIAOSUN",
+      "disposition": "new_positive_candidate",
+      "next_gate": "formal_fact_acceptance_review",
+      "persons": [
+        "李世民",
+        "王珪",
+        "温彦博",
+        "祖孝孙"
+      ],
+      "source_cache_status": "cached",
+      "summary": "廷争触怒后，皇帝次日悔悟并要求继续直言。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-FANGXUANLING-GOGURYEO",
+      "disposition": "new_positive_candidate",
+      "next_gate": "imperial_response_and_outcome_review",
+      "persons": [
+        "李世民",
+        "房玄龄"
+      ],
+      "source_cache_status": "cached",
+      "summary": "房玄龄病中上表反复劝止高句丽之役。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-FANGXUANLING-RECALL",
+      "disposition": "repair_candidate",
+      "next_gate": "fault_context_and_repair_attribution_review",
+      "persons": [
+        "李世民",
+        "房玄龄",
+        "褚遂良"
+      ],
+      "source_cache_status": "cached",
+      "summary": "房玄龄因一事被遣归后，经褚遂良进言获召还。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-XIAOYU-DISMISSAL-RESTORATION",
+      "disposition": "split_and_fault_review_pending",
+      "next_gate": "split_episode_and_fault_attribution_review",
+      "persons": [
+        "李世民",
+        "萧瑀"
+      ],
+      "source_cache_status": "cached",
+      "summary": "萧瑀多次罢免、复位及后续褒评形成复合处置链。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-CHANGSUNWUJI-TURKIC-ADVICE",
+      "disposition": "cross_rule_or_low_applicability_pending",
+      "next_gate": "cross_rule_attribution_review",
+      "persons": [
+        "李世民",
+        "长孙无忌"
+      ],
+      "source_cache_status": "cached",
+      "summary": "长孙无忌就突厥政策进言并被采纳。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-CHANGSUNWUJI-ACCUSATION",
+      "disposition": "likely_not_applicable_context_only",
+      "next_gate": "minimum_semantics_review",
+      "persons": [
+        "李世民",
+        "长孙无忌"
+      ],
+      "source_cache_status": "cached",
+      "summary": "匿名告发长孙无忌事件提供皇帝处置信息。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-LIUHONGJI-GAOBILING",
+      "disposition": "pre_accession_applicability_and_source_rebind_pending",
+      "next_gate": "reign_scope_and_source_rebind_review",
+      "persons": [
+        "李世民",
+        "刘弘基"
+      ],
+      "source_cache_status": "not_cached",
+      "summary": "刘弘基在即位前高壁岭阶段提出建议，未见因未采纳而受罚。"
+    },
+    {
+      "candidate_code": "TT-HC-CAND-INDEPENDENT-NEGATIVE",
+      "disposition": "no_new_verified_negative_candidate",
+      "next_gate": "attestation_review",
+      "persons": [
+        "李世民"
+      ],
+      "source_cache_status": "not_applicable",
+      "summary": "独立反向检索未发现超出既有 TT-O05 的已核验新增负向事件。"
+    }
+  ],
+  "candidate_summary": {
+    "applicability_or_cross_rule_review_count": 4,
+    "candidate_group_count": 10,
+    "existing_or_no_new_candidate_count": 2,
+    "new_positive_candidate_count": 2,
+    "repair_or_split_review_candidate_count": 2
+  },
+  "formal_fact_acceptance": false,
+  "formal_scoring_allowed": false,
+  "generated_at": "2026-07-15T10:37:38.088322+00:00",
+  "historical_coverage_complete": false,
+  "retrieval_batch": {
+    "candidate_count": 28,
+    "contract_valid_result_count": 9,
+    "recovery_note": "The supervisor classified command-name mentions and two reconnect events as failures. All nine output-last-message files passed the declared JSON schema and are retained as review-only candidate evidence; no rerun was made.",
+    "recovery_status": "structured_outputs_recovered_after_overbroad_event_deny_scan",
+    "run_id": "788fbfcb5d1848b7ba96b4481faaea98",
+    "supervisor_status": "failed",
+    "task_count": 9,
+    "tasks": [
+      {
+        "coverage_statement": "候选检索发现一项可归责于李世民时期的正向异议采纳事件；另有长孙无忌获公开保护的弱相关候选。未能读取指定仓库文件，故未与既有草案去重。仅输出 candidate_only，不作正式事实或评分。",
+        "escalation_recommendations": [
+          "insufficient_route_context"
+        ],
+        "lane": "named_subject_source_discovery",
+        "result_sha256": "e493875678309ce393398a5412faf01363cd5986eded2deb740cb16449e09b02",
+        "searched_queries": [
+          "旧唐书 长孙无忌 太宗 纳谏 直言 原文",
+          "新唐书 长孙无忌 太宗 谏 原文",
+          "资治通鉴 长孙无忌 太宗 进谏 原文",
+          "长孙无忌 贞观 太宗 反对 出兵 高丽 原文",
+          "长孙无忌 射猎 固谏 太宗 原文"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《旧唐书》卷六十五《长孙无忌传》；贞观元年，突厥新与唐和盟，太宗询问是否乘乱进攻。",
+            "normalized_summary": "长孙无忌明确反对立即深入突厥境内，主张暂时按兵守信、待其犯边再讨；李世民采纳其意见，随后突厥因政衰而灭。该事件包含明确政策异议、风险理由、君主回应和结果，可作为容才正向候选。",
+            "quote": "今國家務在戢兵，待其寇邊，方可討擊。且按甲存信，臣以為宜。",
+            "rule_relevance": "直接涉及意见入口、异议表达和君主采纳；不是仅凭任用或君臣关系推断。",
+            "ruler_attribution": "《旧唐书》明确记载李世民主动询问萧瑀与长孙无忌，并明确“太宗从无忌之议”。",
+            "source_revision_or_edition": "《旧唐书》卷六十五，维基文库古籍全文页；底本版本页面未标明现代校勘本信息。",
+            "source_title": "舊唐書/卷65",
+            "source_url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B765",
+            "uncertainty": "具体日期未在传文该段标出；事件发生于贞观元年。可与本纪或《资治通鉴》进一步交叉核对。"
+          },
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《旧唐书》卷六十五《长孙无忌传》；贞观二年，出现匿名密表指称长孙无忌权宠过盛。",
+            "normalized_summary": "李世民将匿名指控直接示给长孙无忌，表示君臣之间不应因各怀所闻而不言，并召集百官公开说明信任与任用理由。此候选可视为对核心臣下的公开保护和关系修复，但与“容才”中的意见安全并非完全同义。",
+            "quote": "朕與卿君臣之間，凡事無疑。若各懷所聞而不言，則君臣之意無以獲通。",
+            "rule_relevance": "涉及君主对臣下的保护、公开澄清和鼓励沟通；不能单独证明长孙无忌曾提出异议并获采纳，建议作为保护修复部件而非独立主事件。",
+            "ruler_attribution": "李世民亲自查看密表、向长孙无忌说明并向百官公开辩护，归责清楚。",
+            "source_revision_or_edition": "《旧唐书》卷六十五，维基文库古籍全文页；底本版本页面未标明现代校勘本信息。",
+            "source_title": "舊唐書/卷65",
+            "source_url": "https://zh.wikisource.org/wiki/%E8%88%8A唐書/%E5%8D%B765",
+            "uncertainty": "事件核心是权宠与政治信任争议，不是纯粹的容纳异议；是否并入既有事件须核对 sourcepack 与 assertion drafts。"
+          },
+          {
+            "disposition": "not_applicable",
+            "locator": "《旧唐书》卷七十一《魏徵传》；关于贞观中后期李世民对直言态度变化的概括。",
+            "normalized_summary": "史料称李世民早期闻善若惊，数年后渐恶直言，部分只能勉强容纳；但该段主语和具体事例主要围绕魏徵，未指向长孙无忌，不能归入长孙无忌的个人容才事件。",
+            "quote": "自茲厥後，漸惡直言，雖或勉強，時有所容。",
+            "rule_relevance": "可作为李世民容才环境的跨规则背景，不能作为长孙无忌负向事件或其受压制的直接证据。",
+            "ruler_attribution": "归责对象是李世民的总体政治态度；长孙无忌在该段没有作为受影响主体出现。",
+            "source_revision_or_edition": "《旧唐书》卷七十一，维基文库古籍全文页；底本版本页面未标明现代校勘本信息。",
+            "source_title": "舊唐書/卷71",
+            "source_url": "https://zh.wikisource.org/zh-hant/%E8%88%8A唐書/%E5%8D%B771",
+            "uncertainty": "属于魏徵传中的概括性史论和背景材料，缺少长孙无忌、具体时间、具体反馈行为的对应关系。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "长孙无忌",
+        "task_code": "TT-HC-CHANGSUNWUJI"
+      },
+      {
+        "coverage_statement": "本地指定文件因 review-only 沙箱启动失败未能读取；检索到房玄龄劝止征高丽、表达异议及受谴后被召回的史料候选。均仅为 candidate_only 草案，未接受为 V4 正式事实。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "insufficient_route_context"
+        ],
+        "lane": "named_subject_source_discovery",
+        "result_sha256": "eedcd0b1ce1be71b79931caaa5567d8d91dc5ab84cc0ac71340aad3a0d22f8da",
+        "searched_queries": [
+          "房玄龄 谏 李世民 资治通鉴 原文",
+          "房玄龄 进谏 唐太宗 旧唐书 原文",
+          "房玄龄 被 贬 保护 唐太宗 资治通鉴",
+          "房玄龄 魏征 房玄龄 议论 唐太宗 古籍全文"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《新唐书》卷九十六·列传第二十·房玄龄传；贞观二十三年，玄龄病重临终前",
+            "normalized_summary": "房玄龄明确反对李世民继续征讨高丽，指出既无立即必要又会使中原疲敝，主张停止军事行动并允许高丽自新；同时说明群臣因李世民意志已决而不敢进谏，自己若不发言将负愧。该材料直接涉及异议表达和高风险意见入口。",
+            "quote": "群臣莫敢谏，吾而不言，抱愧没地矣。",
+            "rule_relevance": "符合 tolerate_talent 的异议表达场景；不能仅归入一般任用或贤相评价。李世民收到奏疏并评价其在病危时仍忧国，显示意见被看见，但该段未明确记载采纳或惩罚结果。",
+            "ruler_attribution": "李世民为被劝谏者及征高丽决策者；房玄龄为提出异议者，归责清晰。",
+            "source_revision_or_edition": "《新唐书》卷九十六，欧阳修等撰；识典古籍网页转录，网页未标明具体底本版次。",
+            "source_title": "新唐书·房玄龄传",
+            "source_url": "https://www.shidianguji.com/book/LS0017/chapter/LS0017_587",
+            "uncertainty": "网页为古籍全文转录页而非带版本信息的影印本；需与可靠校本核对文字、卷次及贞观二十三年时间定位。"
+          },
+          {
+            "disposition": "existing_event_component",
+            "locator": "《旧唐书》卷六十六·列传第十六·房玄龄传；太宗亲征辽东期间",
+            "normalized_summary": "房玄龄在京师留守期间多次上言不可轻敌、应当谨慎，构成同一“劝止或限制对外战争”事件的独立史源支持；可作为新唐书临终上疏候选的前置异议部件，但不能与其自动合并为同一事件。",
+            "quote": "玄龄屡上言敌不可轻，尤宜诫慎。",
+            "rule_relevance": "涉及对皇帝军事决策提出风险异议，具备意见入口；不属于单纯留守授权。结果未见李世民因此惩罚或明确改变战略，保护效果不足。",
+            "ruler_attribution": "李世民为亲征及军事决策者；房玄龄为反复提出谨慎意见者，归责清晰。",
+            "source_revision_or_edition": "《旧唐书》卷六十六，刘昫等撰；国学梦网页转录，页面注明选自《旧唐书·房玄龄传》，具体底本版次未标明。",
+            "source_title": "旧唐书·房玄龄传",
+            "source_url": "https://www.guoxuemeng.com/lishizhishi/488797.html",
+            "uncertainty": "网页来源注明为网络转载，需用正式校点本复核；与《新唐书》记载可能是同一长期政策争议的不同层次证据。"
+          },
+          {
+            "disposition": "existing_event_component",
+            "locator": "《新唐书》卷九十六·列传第二十·房玄龄传；贞观末年，房玄龄因谴责退居私第后",
+            "normalized_summary": "房玄龄因一时过失被谴责退居私第，褚遂良向李世民说明不应因一过失便斥退长期尽责的大臣；李世民醒悟后立即召回房玄龄。该材料提供“受压制/修复”链条，但异议内容来自褚遂良而非房玄龄本人。",
+            "quote": "玄龄事君自无所负，不可以一眚便示斥外。",
+            "rule_relevance": "可作为皇帝对臣下受谴后的保护与修复候选；不应当作房玄龄提出异议的事件，也不应与一般任用、留守委托混同。",
+            "ruler_attribution": "李世民实施谴责并在劝说后召回；褚遂良提出修复性异议；房玄龄为被修复对象。",
+            "source_revision_or_edition": "《新唐书》卷九十六，欧阳修等撰；识典古籍网页转录，网页未标明具体底本版次。",
+            "source_title": "新唐书·房玄龄传",
+            "source_url": "https://www.shidianguji.com/book/LS0017/chapter/LS0017_587",
+            "uncertainty": "未检出该段的具体贞观年号及谴责原因；需补充《资治通鉴》或实录类材料确认事件时间、触发行为和召回后的职位状态。"
+          },
+          {
+            "disposition": "not_applicable",
+            "locator": "《新唐书》卷九十六·列传第二十·房玄龄传；太宗亲征辽东、命玄龄留守京师",
+            "normalized_summary": "李世民称房玄龄承担萧何之任并将京师、军械、粮秣等事务交其处分，属于高度授权和信任，不包含房玄龄提出异议、异议安全或保护修复本身。",
+            "quote": "公当萧何之任，朕无西顾忧矣。",
+            "rule_relevance": "仅可作为一般授权任用的排除性对照，不满足 tolerate_talent 事件条件。",
+            "ruler_attribution": "李世民明确作出留守授权；房玄龄为被授权执行者。",
+            "source_revision_or_edition": "《新唐书》卷九十六，欧阳修等撰；识典古籍网页转录，网页未标明具体底本版次。",
+            "source_title": "新唐书·房玄龄传",
+            "source_url": "https://www.shidianguji.com/book/LS0017/chapter/LS0017_587",
+            "uncertainty": "该材料与房玄龄劝止征高丽记载相邻但语义不同，不能仅凭信任或授权推断容才。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "房玄龄",
+        "task_code": "TT-HC-FANGXUANLING"
+      },
+      {
+        "coverage_statement": "受 review-only 边界约束，未写入仓库、数据库或正式事实链；本轮只形成负向检索候选。指定本地材料的读取因受限环境无法启动只读子进程而未能复核，故以下均不得进入接受、赋分或定档。检索到的直接材料显示：魏徵墓碑事件可作“事后打击—后续修复”候选；“欲杀魏徵”仅为未实施的愤怒表态，不能当作已发生惩罚。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "multiple_candidate_events",
+          "negative_evidence_requires_context"
+        ],
+        "lane": "independent_cross_source_retrieval",
+        "result_sha256": "fdb62d56716bec027cc5de3668ec37e283acae4eb9e7a96e1f95fcc14389c00c",
+        "searched_queries": [
+          "site:zh.wikisource.org 資治通鑑 太宗 張玄素 諫 杖",
+          "site:zh.wikisource.org 貞觀政要 太宗 魏徵 殺之",
+          "site:ctext.org 唐太宗 魏徵 殺之 諫",
+          "site:zh.wikisource.org \"魏徵\" \"毁其碑\" 太宗",
+          "site:ctext.org \"仆所制碑\" 魏徵"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "existing_event_component",
+            "locator": "《新唐書》卷九十七〈魏徵傳〉；貞觀十七年魏徵卒后，毁碑；貞觀十九年辽东回师后复立碑、祭墓。",
+            "normalized_summary": "李世民在魏徵死后，因魏徵所荐侯君集、杜正伦涉事及其谏辞外示等嫌隙，停止与魏家婚约并毁其亲制墓碑；辽东战后又追悔并恢复祭祀、重立碑。该材料是“事后打击—修复”的直接候选，但惩处理由与魏徵的谏诤行为并非单一因果，需在既有魏徵/容才事件中核验。",
+            "quote": "“乃停叔玉昏，而仆所为碑。”；“魏徵若在，吾有此行邪？”",
+            "rule_relevance": "涉及对长期直谏大臣的死后贬抑及随后公开修复，符合保护/修复维度的负向—纠偏候选；不可简化为对一次具体合理反馈的即时惩罚。",
+            "ruler_attribution": "直接归责李世民：文本明确以“帝”停止婚约、仆其所制碑，后又召其家、祭墓、复立碑。",
+            "source_revision_or_edition": "《新唐書》宋祁、欧阳修等撰；以在线古籍全文页作定位，待 sourcepack 锁定版本及对读《资治通鉴》。",
+            "source_title": "新唐書·魏徵傳（卷九十七）",
+            "source_url": "https://zh.wikisource.org/wiki/%E6%96%B0%E5%94%90%E6%9B%B8/%E5%8D%B797",
+            "uncertainty": "高：须核验魏徵向褚遂良出示谏辞、侯君集/杜正伦案与毁碑之间的文本链条；现有材料不足以断言魏徵本人在该次反馈中完全无过错，也不能据此认定一般政治处分。"
+          },
+          {
+            "disposition": "source_insufficient",
+            "locator": "《貞觀政要》卷二〈任賢〉魏徵条；贞观中，魏徵廷争后。",
+            "normalized_summary": "李世民在朝罢后称魏徵“每廷辱我”，表示欲杀；长孙皇后以朝服庆贺其有直臣，李世民随即转变。材料证明直谏会触发皇帝强烈压制意图，但没有实际处罚、贬斥或事后打击的记载。",
+            "quote": "“殺卻此田舍漢！”；“魏徵每廷辱我。”",
+            "rule_relevance": "可作为意见入口安全的风险信号与反事实负向线索；因未发生处罚，不得作为负向结算事件或 ScoreContribution。",
+            "ruler_attribution": "愤怒及杀意表态直接出自李世民；未见其下达或实施惩罚。",
+            "source_revision_or_edition": "吴兢《貞觀政要》；在线古籍全文页。",
+            "source_title": "貞觀政要·卷二〈任賢〉",
+            "source_url": "https://zh.wikisource.org/zh/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702",
+            "uncertainty": "高：仅载意图与劝止，不能满足“压制、惩罚、贬斥或事后打击已发生”的候选门槛；不得以“未杀”反推为正向容才事实。"
+          },
+          {
+            "disposition": "cross_rule_primary",
+            "locator": "《貞觀政要》卷十〈論慎終〉；贞观十三年魏徵〈十渐不克终疏〉第八、第三条。",
+            "normalized_summary": "魏徵明确指称李世民近年“欲言则颜色不接”、以臣下细过诘责，并称某些营造意图“杜谏者之口”；但文本记载李世民接受疏奏、列为屏障并赐赏。它主要是对统治作风的批评与接受谏议材料，而非可独立确认的已实施负向处罚。",
+            "quote": "“此直意在杜諫者之口。”；“欲言則顏色不接。”",
+            "rule_relevance": "应先作为魏徵十渐疏/统治作风批评的跨 rule 主材料，不能重复结算为独立“惩罚反馈”事件；可为毁碑事件的背景核验提供线索。",
+            "ruler_attribution": "批评对象明确为李世民；接受、屏障展示和赏赐亦明确归于李世民。",
+            "source_revision_or_edition": "《貞觀政要》四库全书本卷十；在线古籍全文页。",
+            "source_title": "貞觀政要·卷十〈論慎終〉",
+            "source_url": "https://zh.wikisource.org/zh/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B710",
+            "uncertainty": "中高：这是魏徵的概括性进谏，需与具体诏令、处分或人物事件对读，方能拆出符合负向容才口径的独立事件。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "李世民 tolerate_talent",
+        "task_code": "TT-HC-INDEPENDENT-NEG"
+      },
+      {
+        "coverage_statement": "只读检索发现一组跨人物的正向候选：贞观六年，太宗对上封事称旨的韦挺、杜正伦、虞世南、姚思廉召宴并明确要求勿因惧祸而不尽言。因当前受限环境无法读取指定仓库材料，未能排除其与既有七单元或既有事件的重合；仅作为 candidate_only 草案。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "multiple_candidate_events",
+          "cross_rule_attribution",
+          "cross_person_institution_inference"
+        ],
+        "lane": "independent_cross_source_retrieval",
+        "result_sha256": "2c0bf9e41c95c2216e97767562dd44c791360c1f91328c930f8cf80a00449f42",
+        "searched_queries": [
+          "唐太宗 广开言路 诏 贞观 原文 旧唐书",
+          "贞观政要 李世民 纳谏 设置 谏官 原文",
+          "资治通鉴 唐太宗 罢而复用 谏官 原文",
+          "人臣欲谏 辄惧死亡之祸",
+          "贞观六年 韦挺 杜正伦 虞世南 姚思廉"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《贞观政要》卷二〈求谏第四〉；贞观六年条",
+            "normalized_summary": "李世民对韦挺、杜正伦、虞世南、姚思廉等上封事称旨者召宴，并承认进谏者会畏惧死亡之祸，宣示自己开怀纳谏、要求勿因恐惧而不尽言。该材料可作为跨人物的意见入口与异议表达安全候选；制度收益只应结算一次，不得再按四人分别重复计入。",
+            "quote": "“贞观六年，太宗以御史大夫韦挺、中书侍郎杜正伦、秘书少监虞世南、著作郎姚思廉等上封事称旨，召而宴之。……朕每思之，人臣欲谏，辄惧死亡之祸，与夫赴鼎镬、冒白刃，亦何异哉？……朕今开怀抱，纳诸谏诤，卿等无劳怖惧，遂不极言。”",
+            "rule_relevance": "直接涉及意见入口（封事）、对直言风险的承认，以及君主明示接纳、降低恐惧的保护性承诺；尚须与现有 Episode/RuleEvidenceUnit 比对，确认是否构成独立事件或既有制度收益的证据部件。",
+            "ruler_attribution": "原文明确以“太宗”作为召宴者、发言者及“开怀抱，纳诸谏诤”的行动主体；唐太宗即李世民。",
+            "source_revision_or_edition": "中国哲学书电子化计划（Chinese Text Project）《贞观政要》电子文本，页面标示底本为《四部丛刊续编》本；该书为吴兢后出编纂材料，需与更早唐代史料互校后方可进入正式链。",
+            "source_title": "《贞观政要》卷二〈求谏第四〉",
+            "source_url": "https://ctext.org/wiki.pl?chapter=90522&if=gb&remap=gb",
+            "uncertainty": "未能读取任务指定 sourcepack 与 assertion drafts，无法核验是否已被现有七单元吸收；且《贞观政要》并非同时期原始诏令，正式接受前应补核《旧唐书》《新唐书》或《资治通鉴》对应叙事，并按单一制度效益去重。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "李世民 tolerate_talent",
+        "task_code": "TT-HC-INDEPENDENT-POS"
+      },
+      {
+        "coverage_statement": "检得一条直接涉及李世民接受异议表达的候选：刘弘基在高壁岭劝止李世民继续追击；另检得两条仅属任用、功臣处置或恢复待遇的材料，不足以单独认定为容才。仓库指定文件未能因只读 sandbox helper 拒绝访问而核对。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "insufficient_route_context"
+        ],
+        "lane": "named_subject_source_discovery",
+        "result_sha256": "3c9bd559ab83f990a259ed738b43ae9233ae6e617832f41d691e4fa67d9b165f",
+        "searched_queries": [
+          "刘弘基 唐书 李世民 谏 原文",
+          "刘弘基 资治通鉴 李世民 刘弘基 原文",
+          "刘弘基 新唐书 旧唐书 列传 原文",
+          "刘弘基 李世民 容才 保护 谏诤",
+          "刘弘基 坐赃 太宗 不忍加诛"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《资治通鉴》卷六《唐纪二》相关武德二年追击宋金刚段；网页正文约第325行",
+            "normalized_summary": "李世民追击宋金刚至高壁岭，刘弘基以军队饥疲、继续深入有损自身为由劝止；李世民解释必须乘势追击并继续进军。该材料明确显示刘弘基拥有意见入口并公开表达异议，史文未载其因劝谏受惩。",
+            "quote": "总管刘弘基执辔谏曰：“深入不已，不爱身乎！”",
+            "rule_relevance": "直接候选：涉及对君主军事决策的异议表达与表达安全；但李世民未采纳意见，且史料未明确记载事后保护或修复，因此只能作为candidate_only，不能直接完成容才定性。",
+            "ruler_attribution": "李世民（秦王世民）为被劝谏者；刘弘基为明确发言者。",
+            "source_revision_or_edition": "《资治通鉴》司马光，在线全文页，网页标注为第一百八十八页；需以正式校勘本复核卷次与纪年。",
+            "source_title": "《资治通鉴》- 第一百八十八页 - 全文在线阅读",
+            "source_url": "https://www.8bei8.com/book/zizhitongjian_188.html",
+            "uncertainty": "在线页面为非官方转载，虽提供连续原文，但仓库现有 sourcepack 与 assertion drafts 未能核对，无法判断是否已有同一事件部件。"
+          },
+          {
+            "disposition": "cross_rule_primary",
+            "locator": "《旧唐书》卷五十八《唐俭·长孙顺德·刘弘基·殷嶠等传》刘弘基本传第9段",
+            "normalized_summary": "李孝常、长孙安业谋逆时，刘弘基因与二人交游被牵连除名；一年多后李世民重新起用他为易州刺史并恢复封爵，后又征拜卫尉卿。主要是功臣处置后的恢复与继续任用，不是意见入口或异议安全事件。",
+            "quote": "坐与交游除名。岁馀，起为易州刺史，复其封爵。",
+            "rule_relevance": "跨 rule 主结算候选：更接近功臣待遇、牵连处置后的恢复与任用；不能仅凭恢复职位认定为tolerate_talent。",
+            "ruler_attribution": "《旧唐书》叙述主体为唐太宗即位后的处置与重新起用；具体诏令施行者需以本纪或诏令材料进一步核对。",
+            "source_revision_or_edition": "《旧唐书》刘昫等，卷五十八列传第八，Chinese Text Project 在线整理本。",
+            "source_title": "舊唐書：卷五十八 列傳第八 唐儉 長孫順德 劉弘基 殷嶠 劉政會 柴紹 武士彠",
+            "source_url": "https://ctext.org/wiki.pl?chapter=714203&if=gb&remap=gb",
+            "uncertainty": "该材料可确认处置与恢复序列，但未显示刘弘基因表达异议而受保护，亦未形成容才专属事件。"
+          },
+          {
+            "disposition": "not_applicable",
+            "locator": "《新唐书》卷八十八《刘文静传》及卷十五《二刘殷许程柴任丘》刘弘基本传开篇",
+            "normalized_summary": "刘弘基因观察到李世民气度非凡而主动依托，获得亲礼并共同出入；这是私人信任、功臣关系与任用背景，不是对意见、异议或反馈的保护。",
+            "quote": "又察太宗資度非常，益自托。由是蒙親禮。",
+            "rule_relevance": "不适用：臣下有才能、被信任或被任用不能自动转化为容才证据。可作为人物关系和归责背景，不应作为tolerate_talent正式候选。",
+            "ruler_attribution": "李世民（太宗）是被观察并给予亲礼者；刘弘基为主动依托者。",
+            "source_revision_or_edition": "《新唐书》欧阳修、宋祁等，卷十五列传第十五；Chinese Text Project 在线整理本。",
+            "source_title": "新唐書：列傳第十五 二劉殷許程柴任丘",
+            "source_url": "https://ctext.org/wiki.pl?chapter=626520&if=gb&remap=gb",
+            "uncertainty": "仅能证明亲礼与关系，不包含意见表达或异议处理，按规则边界排除。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "刘弘基",
+        "task_code": "TT-HC-LIUHONGJI"
+      },
+      {
+        "coverage_statement": "仅完成离线 V3 线索处置。当前 7 个 tolerate_talent 单元已覆盖贞观求谏机制、魏徵、虞世南、褚遂良、马周、戴胄及魏徵身后信用；V3 快照仍含大量未完成史源回绑的 route 线索。以下仅列出优先复核的未覆盖事件组；V3 记录缺少可靠原始史籍 URL、完整篇卷定位或足够原文，因此均不得视为受支持史料候选。正式 Assertion、历史覆盖、评分和排名均为零。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "multiple_candidate_events",
+          "cross_rule_attribution",
+          "insufficient_route_context",
+          "negative_evidence_requires_context"
+        ],
+        "lane": "legacy_hint_disposition",
+        "result_sha256": "1a599818efd0ec28913598d83de163f086dda58026d657713ff3b0fb315767e8",
+        "searched_queries": [],
+        "source_candidates": [
+          {
+            "disposition": "source_insufficient",
+            "locator": "V3 source snapshot entry for CLMK-FDD4E873F6BC53D48EF8; source slice OSS-74B7A281294BF5C733; canonical event CEK-AF1B2FF8C7C30A114031",
+            "normalized_summary": "萧瑀在朝廷议政中与宰臣争论，曾弹劾魏徵等人，但李世民最终未加罪；后萧瑀被罢免御史大夫并退出朝政。该组可能涉及异议表达后的处置边界，但也可能主要属于君臣冲突、监察职权或任用调整，不能直接归入容才。",
+            "quote": "然心知其是，不用其言，瑀弥怏怏。玄龄、魏徵、温彦博尝有微过，瑀劾之，而罪竟不问，因此自失。由是罢御史大夫，以为太子少傅，不复预闻朝政。",
+            "rule_relevance": "存在意见表达、皇帝知悉及未追究他人责任的线索，但缺少完整上下文来判断是否构成李世民保护异议入口、修复反馈或压制反馈。优先作为新事件候选复核，须与反任人唯亲、任用授权交叉归责。",
+            "ruler_attribution": "V3 片段直接出现李世民朝政处置的结果，但当前材料不足以确认李世民对萧瑀具体意见的接受、拒绝或惩罚因果。",
+            "source_revision_or_edition": "V3 claim freeze v1；source title/url 未提供，不能作为 V4 史源。",
+            "source_title": "V3 source snapshot 记录的未回绑史料切片",
+            "source_url": "",
+            "uncertainty": "史源 URL、篇卷定位、完整原文及事件边界均不足。"
+          },
+          {
+            "disposition": "cross_rule_primary",
+            "locator": "V3 source snapshot entries for CLMK-0825545CC7097F510B73 and related canonical event CEK-844FB9FADC86454F45BF",
+            "normalized_summary": "马周上疏批评县令、刺史选任失当，李世民听后称善。该材料已在当前马周 tolerate_talent 单元 TT-LSM-MZ-01 中形成覆盖，但其主要事实更接近任用授权、人才识别和制度性采纳。",
+            "quote": "今朝廷獨重內官，縣令、刺史，頗輕其選……所以百姓未安，殆由於此。疏奏，太宗稱善久之。",
+            "rule_relevance": "属于已有 TT-LSM-MZ-01 的既有事件部件，不应新建容才事件；若继续处理，应作为跨 rule 主结算，重点判断意见入口与制度采纳，而非重复计入个人容才。",
+            "ruler_attribution": "原文明确记为太宗听疏称善，但不能仅凭“称善”推定完整反馈安全或长期保护。",
+            "source_revision_or_edition": "V3 source snapshot；当前 V4 sourcepack 已有马周来源，但本任务禁止联网且 V3 线索本身不承担正式 lineage。",
+            "source_title": "V3 source snapshot / 马周相关切片",
+            "source_url": "",
+            "uncertainty": "与既有 TT-LSM-MZ-01 的事件等价和跨 rule 归责仍需人工语义处置。"
+          },
+          {
+            "disposition": "cross_rule_primary",
+            "locator": "V3 source snapshot entries for CLMK-F644FDD8974B792C2A54 and related canonical event CEK-87048D0A8379772B3327",
+            "normalized_summary": "李靖请以足疾乞骸骨，李世民称许其知止，授特进并允许在第摄养。该组不是意见异议安全的充分证据，更接近任用授权、退休处置和人才保护。",
+            "quote": "朕今非直成公雅志，欲以公為一代楷模。乃下優詔，加授特進，聽在第攝養。",
+            "rule_relevance": "可作为跨 rule 主结算候选，但缺少谏诤、异议表达或反馈入口，不适合作为 tolerate_talent 新事件。",
+            "ruler_attribution": "李世民明确作出优诏、授官和允许休养的处置。",
+            "source_revision_or_edition": "V3 source snapshot；原始来源 URL 与准确篇卷未提供。",
+            "source_title": "V3 source snapshot / 李靖相关切片",
+            "source_url": "",
+            "uncertainty": "史源不足，且容才适用性不足。"
+          },
+          {
+            "disposition": "not_applicable",
+            "locator": "V3 source snapshot entry for CLMK-05BCE01D70562085861F; canonical event CEK-AA616D26FA904AE2B6EB",
+            "normalized_summary": "褚遂良夺刀、阻止侯君集自刺等片段，核心是宫廷安全或反叛处置，不是对人才异议表达的容纳。",
+            "quote": "遂良夺刀。欲自刺。",
+            "rule_relevance": "不满足意见入口、异议表达安全或反馈修复的容才最低条件；更可能属于反叛、宫廷处置或安全事件。",
+            "ruler_attribution": "V3 片段未提供足够李世民行为链，不能归责为李世民容才行为。",
+            "source_revision_or_edition": "V3 source snapshot；原始来源 URL、篇卷和完整文本未提供。",
+            "source_title": "V3 source snapshot / 褚遂良相关切片",
+            "source_url": "",
+            "uncertainty": "上下文严重不足，且 route 由关键词“保全、废、夺”触发，存在明显错误路由风险。"
+          },
+          {
+            "disposition": "not_applicable",
+            "locator": "V3 source snapshot entry for CLMK-069226198BCAAB7C045A; canonical event CEK-05FCB66D2114C60A7EB6",
+            "normalized_summary": "虞世南传记片段含其经历水灾、处境变化等词句，但没有可确认的李世民接纳异议、保护反馈或修复处置链。虞世南已有当前 TT-LSM-YSN-01 覆盖。",
+            "quote": "不足怪也。多大水。",
+            "rule_relevance": "不满足容才语义条件，且与既有虞世南单元可能发生事件部件碰撞；不得新建事件。",
+            "ruler_attribution": "V3 片段不能确认李世民对反馈或异议的具体归责。",
+            "source_revision_or_edition": "V3 source snapshot；当前 V4 已有虞世南来源缓存，但此线索本身不构成新史源。",
+            "source_title": "V3 source snapshot / 虞世南相关切片",
+            "source_url": "",
+            "uncertainty": "片段截断、语义不完整，route 主要由关键词触发。"
+          },
+          {
+            "disposition": "source_insufficient",
+            "locator": "V3 first-cohort pre-source-review report; tolerate_talent disposition summary",
+            "normalized_summary": "首批 32 条中，tolerate_talent 已明确分为 2 条跨 rule 主结算、1 条既有聚合部件、1 条史源不足和 4 条错误路由；未形成可直接接受的新容才事件。其余 tolerate_talent route 线索尚未完成事件组级人工归并和 V4 source rebind。",
+            "quote": "v3_source_rebind_for_new_and_unresolved_candidates",
+            "rule_relevance": "这是流程状态而非历史事实；只能说明剩余线索需要继续回源、去重和人工语义处置，不能把未找到或未回绑解释为零材料。",
+            "ruler_attribution": "仅能确认任务范围为李世民；具体候选的李世民归责尚未完成。",
+            "source_revision_or_edition": "v3-claim-pre-source-review-report-v1",
+            "source_title": "V3 首批回源前审查报告",
+            "source_url": "",
+            "uncertainty": "报告未提供剩余候选的完整事件组、可靠史源 URL、准确篇卷定位和可复核原文。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "李世民 tolerate_talent：V3 容才 route 线索",
+        "task_code": "TT-HC-V3-HINTS"
+      },
+      {
+        "coverage_statement": "已检索《旧唐书》卷七十《王珪传》及相关全文页，发现三组与直谏入口、表达安全和皇帝处置直接相关的候选。由于当前工作区文件读取辅助命令启动失败，无法核对本地 sourcepack 与 assertion drafts 的去重状态；以下均仅为 candidate_only 草案，不构成正式事实或评分依据。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "multiple_candidate_events"
+        ],
+        "lane": "named_subject_source_discovery",
+        "result_sha256": "7f7489516d49bccb1f2fb2da2a9c94137f4bc060032cdd5718f3287badaadc2b",
+        "searched_queries": [
+          "王珪 李世民 直谏 资治通鉴 原文",
+          "王珪 唐太宗 容才 谏 原文 新唐书",
+          "site:zh.wikisource.org 舊唐書 王珪 卷七十",
+          "\"臣处不讳之朝\" 王珪",
+          "\"是陛下负臣，臣不负陛下\" 王珪"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《旧唐书》卷七十，列传第二十《王珪传》；贞观元年",
+            "normalized_summary": "李世民讨论君臣相遇与任贤，王珪明确表示臣下处于可以无所避讳的朝廷，愿意尽言；李世民称善，并下令中书门下及三品以上入阁时必须让谏官随行。",
+            "quote": "臣处不讳之朝，实愿罄其狂瞽。太宗称善，敕自今后中书门下及三品以上入阁，必遣谏官随之。",
+            "rule_relevance": "直接涉及意见入口、异议表达安全及制度化保护修复；不是单纯任用人才。可作为李世民为直谏建立安全入口的正向候选。",
+            "ruler_attribution": "李世民（唐太宗）主动提出君臣相遇、任贤与纳谏；听取王珪意见后称善并发布谏官随入制度。",
+            "source_revision_or_edition": "《旧唐书》卷七十；维基文库《旧唐书/卷70》全文页，页面注明尚未校对和格式化，需与校勘本复核。",
+            "source_title": "《旧唐书》卷七十·列传第二十·王珪",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B770",
+            "uncertainty": "史料定位和人物归责清楚；电子全文页面自标未校对，且本轮未能读取本地草案，是否已存在同事件仍需去重核验。"
+          },
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《旧唐书》卷七十，列传第二十《王珪传》；贞观二年，祖孝孙受责事件",
+            "normalized_summary": "王珪与温彦博为祖孝孙进谏，李世民因认为二人附下罔上而发怒；王珪拒不拜谢，指出皇帝以疑罪责备直言臣下。次日李世民向房玄龄承认后悔，并要求群臣不要因此停止直言。",
+            "quote": "今臣所言，岂是为私？不意陛下忽以疑事诮臣，是陛下负臣，臣不负陛下。",
+            "rule_relevance": "直接呈现异议表达受到即时压力、臣下坚持表达、皇帝随后修复表达安全并公开鼓励继续进谏；是容才中‘表达安全—处置结果’的强候选。",
+            "ruler_attribution": "李世民直接发怒并责备王珪、温彦博；翌日明确自悔，并通过房玄龄转达不得因前次责备而停止直言。",
+            "source_revision_or_edition": "《旧唐书》卷七十；维基文库《旧唐书/卷70》全文页，页面注明尚未校对和格式化，需与校勘本复核。",
+            "source_title": "《旧唐书》卷七十·列传第二十·王珪",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B770",
+            "uncertainty": "与同年王珪其他进谏段落相邻但叙事上可区分；应核对本地 assertion drafts 是否已将‘祖孝孙受责’作为既有事件部件。"
+          },
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《旧唐书》卷七十，列传第二十《王珪传》；贞观二年，庐江王瑗姬事件",
+            "normalized_summary": "李世民在宴语时以庐江王杀夫纳妻为暴虐，却仍将该妇人留在身边；王珪避席追问皇帝对这一行为的判断，并以‘知恶而不去’劝谏。李世民未立即遣出该妇人，但重视王珪的谏言。",
+            "quote": "今此妇人尚在左右，窃以圣心为是之，陛下若以为非，此谓知恶而不去也。",
+            "rule_relevance": "涉及臣下对皇帝身边行为提出直接异议，且表达没有导致王珪受罚；但皇帝未采取完整纠正措施，属于表达安全存在、保护修复有限的混合候选。",
+            "ruler_attribution": "李世民主动展示并评论该妇人，王珪直接追问并劝谏；史文明确记载李世民‘甚重其言’，但未记载其遣出妇人。",
+            "source_revision_or_edition": "《旧唐书》卷七十；维基文库《旧唐书/卷70》全文页，页面注明尚未校对和格式化，需与校勘本复核。",
+            "source_title": "《旧唐书》卷七十·列传第二十·王珪",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%88%8A唐書/%E5%8D%B770",
+            "uncertainty": "皇帝重视言论与实际纠正之间存在张力；不宜直接判为完整正向容才，需与《新唐书》及《资治通鉴》对校，并确认是否与现有‘直谏’草案重复。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "王珪",
+        "task_code": "TT-HC-WANGGUI"
+      },
+      {
+        "coverage_statement": "检索到两条与温彦博、李世民容才相关的史料候选：一条是温彦博参与直谏并促成李世民自我纠错，另一条是温彦博奉命核查魏征后引发君臣关于异议安全的修复。因权限边界禁止读取本地文件，无法核对其是否已存在于指定 sourcepack/assertion drafts，故均仅作候选草案。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "multiple_candidate_events",
+          "insufficient_route_context"
+        ],
+        "lane": "named_subject_source_discovery",
+        "result_sha256": "ac9e0f9b2395237c6850d3ddb845a4eea705640d270c7f22002784dd7d9c95ca",
+        "searched_queries": [
+          "温彦博 唐太宗 纳谏 史记 资治通鉴 原文",
+          "温彦博 李世民 进谏 反对 原文",
+          "温彦博 贞观 太宗 保护 谏臣 原文 古籍",
+          "朕昨责温彦博 资治通鉴 贞观",
+          "旧唐书 温彦博传 孝孙 雅士 教宫人",
+          "上使御史大夫温彦博按之无状"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "existing_event_component",
+            "locator": "《旧唐书》卷七十《王珪传》；对应《资治通鉴》卷一九二，贞观元年十二月",
+            "normalized_summary": "温彦博与王珪共同为太常少卿祖孝孙进言。李世民因祖孝孙教宫人音乐不称旨而责备他，温彦博参与表达异议；李世民次日承认责备温彦博、王珪后悔，并要求群臣不要因此停止尽言。该候选直接涉及意见入口、皇帝对异议的即时压制及后续保护性修复。",
+            "quote": "孝孙雅士，今乃使之教宫人，又从而谴之，臣窃以为不可。",
+            "rule_relevance": "高度相关；不是单纯任用温彦博，而是温彦博明确提出反对意见，李世民先怒后悔并公开鼓励继续直言。可作为 tolerate_talent 的异议表达安全与修复部件；不应单独据此赋分或定档。",
+            "ruler_attribution": "李世民即唐太宗；史文明确记载其责备温彦博、王珪，次日承认后悔并要求继续尽言。",
+            "source_revision_or_edition": "《旧唐书》四库全书本，卷七十；与《资治通鉴》胡三省音注本卷一九二相关记载互证",
+            "source_title": "旧唐书（四库全书本）/卷070",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%88%8A%E5%94%90%E6%9B%B8_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%本%29/%E5%8D%B7070",
+            "uncertainty": "本地指定 assertion drafts 未能在 review-only 沙箱中读取，无法判断该事件是否已有 canonical assertion 或仅需补充温彦博主体部件；《旧唐书》与《资治通鉴》叙事细节存在差异，需进入后续 lineage 对齐。"
+          },
+          {
+            "disposition": "existing_event_component",
+            "locator": "《资治通鉴》卷一九三，贞观元年；卷内记载魏征被告私其亲戚、温彦博奉命按验无状及后续君臣对话",
+            "normalized_summary": "有人告发魏征偏私亲戚，李世民命御史大夫温彦博调查，结果查无实据。温彦博认为魏征虽无私仍有避嫌不足之处，李世民让温彦博责让魏征；魏征据理抗辩，认为君臣应尽诚，不应上下都顾忌形迹，李世民随后表示已悔。温彦博在此承担核查和传达处置角色，事件核心是皇帝对直臣的边界管理与反馈安全。",
+            "quote": "征不存形迹，远避嫌疑，心虽无私，亦有可责。",
+            "rule_relevance": "相关但更适合作为既有魏征异议事件的温彦博参与部件；温彦博本人并非主要异议表达者。可用于核对其是否执行、缓和或传达皇帝对反馈的处置，不宜把调查职责自动解释为容才。",
+            "ruler_attribution": "李世民下令温彦博调查并责让魏征；魏征抗辩后，李世民明确表示悔意。",
+            "source_revision_or_edition": "《资治通鉴》胡三省音注本，卷一九三；可与《新唐书·魏征传》相关传记材料互校",
+            "source_title": "资治通鉴（胡三省音注）/卷193",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%92_%28%E8%83%A1%E4%B8%89%E7%省音注%29/%E5%8D%B7193",
+            "uncertainty": "该材料的主事件主体是魏征，温彦博属于核查与传达角色，可能已被现有魏征 tolerate_talent 单元吸收；本地 sourcepack 与 assertion drafts 未能读取，无法完成去重和既有事件映射。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "温彦博",
+        "task_code": "TT-HC-WENYANBO"
+      },
+      {
+        "coverage_statement": "公开史籍检出萧瑀在李世民时期因当面激烈争论被以不敬免职、随后复用，以及李世民 later 对其耿介守道作正面确认的候选材料。仓库指定文件因只读 sandbox helper 拒绝访问未能核对，故不能判断是否已存在于 assertion drafts；以下均为 candidate_only。",
+        "escalation_recommendations": [
+          "source_lineage_uncertain",
+          "insufficient_route_context"
+        ],
+        "lane": "named_subject_source_discovery",
+        "result_sha256": "bf35cd712bb25cd97525cc5159b3315429c47c559b3e654e99149f5178871962",
+        "searched_queries": [
+          "萧瑀 唐太宗 争论 罢相 复相 新唐书",
+          "萧瑀 唐太宗 谏诤 保护 异议 资治通鉴",
+          "site:zh.wikisource.org 萧瑀 唐太宗",
+          "site:zh.wikisource.org/zh-hans/新唐書/卷099 萧瑀",
+          "site:zh.wikisource.org/zh-hans/資治通鑑 萧瑀 陈叔达 忿诤"
+        ],
+        "source_candidates": [
+          {
+            "disposition": "new_event_candidate",
+            "locator": "《旧唐书》卷六十三《萧瑀传》；李世民即位后，萧瑀与侍中陈叔达当面争论段",
+            "normalized_summary": "萧瑀在太宗面前与陈叔达激烈争论，被认定为不敬而免职；约一年后先授晋州都督，次年又征授中央职务。该事件直接呈现异议表达的惩罚及后续复用，适合作为 tolerate_talent 的负向压力与修复部件候选。",
+            "quote": "寻坐与侍中陈叔达于上前忿诤，声色甚厉，以不敬免。岁馀，授晋州都督。",
+            "rule_relevance": "直接涉及当面异议表达安全、君主对争论的惩罚，以及后续复用；不是一般任免。负向部分可归责于李世民对公开争论的“不敬”处置，复用部分需作为同一事件的修复/再接纳部件谨慎处理。",
+            "ruler_attribution": "《萧瑀传》明确将免职、后续授官叙述置于太宗时期，且行为主体为太宗朝廷；李世民归责可成立，但具体免职诏令措辞未单独引出。",
+            "source_revision_or_edition": "《旧唐书》卷六十三；维基文库页面，页面标注文本未经校对，需与其他底本复核。",
+            "source_title": "旧唐书/卷63",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%88%88%E5%94%90%E6%9B%B8/%E5%8D%B763",
+            "uncertainty": "页面 URL 的繁简字路径可能存在平台转写差异；原文段落可由页面标题《旧唐书/卷63》及“萧瑀”小节定位。需核对项目 sourcepack 是否已有同一事件，避免重复结算。"
+          },
+          {
+            "disposition": "existing_event_component",
+            "locator": "《旧唐书》卷六十三《萧瑀传》；贞观九年复令参预政事后，太宗评价萧瑀守道耿介并赐诗",
+            "normalized_summary": "李世民在萧瑀经历多次罢免、再起后，公开称其为“社稷臣”，肯定其守道耿介，同时指出其善恶过于分明；魏徵补充说明若非明主，萧瑀可能因坚持原则遭难，太宗对此表示认可。该段更像前述争论—罢复事件的保护性评价与修复部件。",
+            "quote": "此人不可以厚利诱之，不可以刑戮惧之，真社稷臣也。",
+            "rule_relevance": "直接评价臣下坚持原则、不可被利禄刑戮改变，且太宗在复用后给予公开正面确认；可作为异议者保护/修复的既有事件部件，不宜单独按一般褒奖计分。",
+            "ruler_attribution": "原文连续以“太宗常谓”“太宗又曰”“因赐瑀诗”叙述，李世民归责明确；魏徵评价属于辅助证言，不应误归为太宗原话。",
+            "source_revision_or_edition": "《旧唐书》卷六十三；维基文库页面，页面标注文本未经校对，需与《新唐书》及《资治通鉴》复核。",
+            "source_title": "旧唐书/卷63",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B763",
+            "uncertainty": "该材料是否已在既有 assertion drafts 中作为萧瑀相关单元存在，因本地文件未能读取而无法确认；建议挂接至前一候选而非新建独立结算事件。"
+          },
+          {
+            "disposition": "existing_event_component",
+            "locator": "《新唐书》卷六十一《表第一·宰相上》；武德九年至贞观十七年萧瑀多次罢免、复任及参预政事记录",
+            "normalized_summary": "宰相表可对萧瑀的免职、复任、再罢及重新参与政事提供时间线校验：武德九年坐事免，贞观元年复为尚书左仆射，贞观四年罢，贞观九年重新参预政事，贞观十年再罢，贞观十七年转任太子太保并同中书门下三品。它是前述争论—罢复链的交叉时间线支持，不单独证明容才动机。",
+            "quote": "十月庚辰，叔达、瑀坐事免。",
+            "rule_relevance": "仅作为罢免与复任时间线的交叉主证；不能把官职变动本身自动解释为容才。需与《旧唐书》传记中的争论和太宗评价组合后，才可支持修复/再接纳候选。",
+            "ruler_attribution": "表中记录发生于太宗在位年号和朝政编制中，但该表段未逐项记载具体施政者；李世民归责属于时代与制度上下文，不能仅凭此表独立完成强归责。",
+            "source_revision_or_edition": "《新唐书》卷六十一《表第一·宰相上》；维基文库页面，表体可用于任免时间线核对。",
+            "source_title": "新唐书/卷061",
+            "source_url": "https://zh.wikisource.org/zh-hans/%E6%96%B0%E5%94%90%E6%9B%B8/%E5%8D%B7061",
+            "uncertainty": "该表与《旧唐书》传记属于不同史书编纂层；需核对日期、职名和项目现有单元，不能将时间线重复记为独立事件。"
+          }
+        ],
+        "status": "candidate_only",
+        "subject": "萧瑀",
+        "task_code": "TT-HC-XIAOYU"
+      }
+    ]
+  },
+  "rule_code": "tolerate_talent",
+  "ruler": {
+    "name": "李世民",
+    "person_key": "P-LSM"
+  },
+  "schema_version": "i5b-tolerate-talent-historical-candidate-inventory-v1",
+  "source_cache_batch": {
+    "audit": "eval/i5b_source_ingestion/lishimin_tolerate_historical_coverage_batch1_db_audit.json",
+    "document_count": 4,
+    "first_run_repository_write_count": 28,
+    "formal_assertion_write_count": 0,
+    "formal_score_write_count": 0,
+    "idempotent_rerun_repository_write_count": 0,
+    "passage_count": 10,
+    "plan": "eval/i5b_source_ingestion/lishimin_tolerate_historical_coverage_batch1_plan.yml",
+    "request": "eval/i5b_source_ingestion/lishimin_tolerate_historical_coverage_batch1_request.yml"
+  },
+  "status": "candidate_inventory_frozen_for_acceptance_review",
+  "v3_hint_disposition_batch": {
+    "authority": "hints_only_no_v4_fact_authority",
+    "disposition_counts": {
+      "existing_workset_candidate": 33,
+      "new_source_rebind_candidate": 7,
+      "not_applicable": 60,
+      "source_insufficient": 2
+    },
+    "escalation_counts": {
+      "cross_rule_attribution": 4,
+      "insufficient_route_context": 6
+    },
+    "finished_at": "2026-07-15T10:34:07.740+00:00",
+    "input_tokens": 2147426,
+    "items": [
+      {
+        "candidate_event_summary": "张公谨在玄武门事变前劝李世民不要因占卜结果犹豫，李世民认可其意见。该事件体现采纳臣下劝止，但尚不足以证明建立意见入口、保护反馈者或对合理反馈的处置。",
+        "candidate_persons": [
+          "李世民",
+          "张公谨"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-ACF87F4B132595F4F2E8"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [
+          "cross_rule_attribution",
+          "insufficient_route_context"
+        ],
+        "event_group_key": "CEG-049EE81511DAFF8D5663",
+        "rationale": "不属于当前既有工作集中的已覆盖人物单元；现有证据片段与张公谨事件不一致且缺少来源标题和 URL，不能直接形成正式事实。语义上更接近一次具体决策中的意见采纳，是否满足 tolerate_talent 的最低语义需进一步核对全文和归责规则。",
+        "source_search_hints": [
+          "检索《旧唐书》《新唐书》张公谨传及玄武门相关记载",
+          "检索“太宗将讨建成元吉 张公谨 占卜 不可因卜辞”",
+          "核对 OSS-82A272846A0F55CFE4 是否误绑定了其他人物片段"
+        ],
+        "task_code": "TT-V3-001-049EE815"
+      },
+      {
+        "candidate_event_summary": "贞观八年灾异之后，李世民询问虞世南，虞世南以史事奏对，认为蛇见山泽不足为怪；该单元属于既有虞世南工作集，现有片段未显示反馈保护、修复或惩罚信息。",
+        "candidate_persons": [
+          "李世民",
+          "虞世南"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-069226198BCAAB7C045A"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-05FCB66D2114C60A7EB6",
+        "rationale": "人物虞世南已在当前既有工作集覆盖范围内。输入支持李世民发起询问及虞世南表达意见，但未明确证明对异议的保护、修复、压制或惩罚；应作为既有单元候选部件处理。",
+        "source_search_hints": [
+          "虞世南 贞观八年 陇右山崩 大蛇 水灾 纳谏",
+          "李世民 虞世南 灾异 史事奏对"
+        ],
+        "task_code": "TT-V3-002-05FCB66D"
+      },
+      {
+        "candidate_event_summary": "李世民在高祖欲斩李靖时请求保全，使李靖获免并被召入幕府；该事件属于保全与任用，不涉及意见入口、异议表达或反馈者保护。",
+        "candidate_persons": [
+          "李世民",
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-12180FB84811DB1BA007"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-09273942A40379879699",
+        "rationale": "事件核心是对李靖的保全及幕府任用，未体现建立意见入口、允许臣下表达异议、保护或修复反馈者，也不属于压制合理反馈。根据规则，不能仅因保全人才或任用人才归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-003-09273942"
+      },
+      {
+        "candidate_event_summary": "魏徵劝谏李世民停止追究泾川官属及李靖等，李世民接受并释放官吏、寝而不问，属于既有魏徵生前谏诤与身后信用工作单元的事件部件。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵",
+          "李靖",
+          "泾川官属"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-49F421F07877C07F3592"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-0E128FC5FDA848CEAF43",
+        "rationale": "事件核心是魏徵针对君主拟处罚行为提出异议并促成撤销或停止处罚，符合tolerate_talent的反馈保护与接受异议语义；但魏徵相关谏诤已在当前既有工作集覆盖。",
+        "source_search_hints": [
+          "可在魏徵生前谏诤相关来源中核对泾川官属案原文及李世民释放官吏、不问李靖等的结果"
+        ],
+        "task_code": "TT-V3-004-0E128FC5"
+      },
+      {
+        "candidate_event_summary": "杜如晦参与李世民夺位谋划，事成后获任官爵；该片段不涉及建立意见入口、容纳异议、保护反馈者或处置合理反馈。",
+        "candidate_persons": [
+          "杜如晦"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-BC43AE93BF7A1705FDC3"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-106BBD856E16793FB310",
+        "rationale": "事件核心是夺位谋划及事后任用封赏，属于政治行动与任用，不满足 tolerate_talent 的最低语义；现有证据片段也未提供反馈、谏诤或异议处置内容。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-005-106BBD85"
+      },
+      {
+        "candidate_event_summary": "魏徵针对李世民宠爱魏王泰、偏私忘公义进行进谏，李世民接受并承认错误，属于魏徵生前谏诤与李世民容纳反馈的既有工作集单元。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-BAED2C4DE74142A26F66"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-1961F421F8F727CC9A32",
+        "rationale": "事件明确包含臣下异议、皇帝回应及承认偏私错误，满足 tolerate_talent 的最低语义；但魏徵生前谏诤已在既有工作集覆盖，当前更适合作为既有单元的组成证据。",
+        "source_search_hints": [
+          "魏徵针对魏王泰受宠与公卿礼秩进谏",
+          "李世民承认私爱忘公义"
+        ],
+        "task_code": "TT-V3-006-1961F421"
+      },
+      {
+        "candidate_event_summary": "李世民因房玄龄称杜如晦有王佐才而将其留为府属，属于任用或保全人才，不涉及建立意见入口、容纳异议、保护反馈者或惩罚合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "杜如晦",
+          "房玄龄"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-91A409ED691E2F52F67D"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-1B518586FE83A080200E",
+        "rationale": "输入明确表现为因才能而留任府属；一般任用、人才保全和臣子有才能不能自动归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-007-1B518586"
+      },
+      {
+        "candidate_event_summary": "马周奏请设置街鼓、停止传呼，太宗称善并施加赏劳，属于京城治理与民生便利政策建议，不涉及意见入口、异议保护或反馈压制。",
+        "candidate_persons": [
+          "马周",
+          "唐太宗"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-BD1CA4C0CD38987B8BFD"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-1D24F5A15106087089AA",
+        "rationale": "该事件是普通政策建议及采纳，不满足 tolerate_talent 最低语义；虽涉及太宗认可马周建议，但不能仅凭采纳政策建议归入该规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-008-1D24F5A1"
+      },
+      {
+        "candidate_event_summary": "长孙无忌在玄武门前政治危机中建议秦王李世民先发制人诛除李建成，属于政争与军事政治行动，不涉及意见入口、异议表达保护或反馈者修复/惩罚。",
+        "candidate_persons": [
+          "长孙无忌",
+          "李世民",
+          "房玄龄",
+          "李建成"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-9CB8160A93385B7152E9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-1F507C0E58D57F976826",
+        "rationale": "虽有“保全”与“诛”措辞，但语境是玄武门前政争危机，核心为劝秦王采取先发制人行动；不满足 tolerate_talent 的反馈、异议或意见入口最低语义。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-009-1F507C0E"
+      },
+      {
+        "candidate_event_summary": "魏徵上表谏止纳郑仁基女为充华，李世民自责并停止册立使者，属于魏徵生前谏诤与李世民接受、修正反馈的既有工作集单元。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-03EB1FB8D83AD31C6CF7"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-236EB29A7758233FDEA3",
+        "rationale": "事件明确包含臣下异议、皇帝自责及停止既定册立行动，满足 tolerate_talent 的反馈接受与修复语义；魏徵生前谏诤已在既有工作集覆盖。输入中的证据切片与事件摘要不一致，后续正式处理需复核来源定位。",
+        "source_search_hints": [
+          "复核魏徵谏止纳郑仁基女为充华的原文及李世民停止册使记载",
+          "核对事件对应的《资治通鉴》或同源史料卷次与时间"
+        ],
+        "task_code": "TT-V3-010-236EB29A"
+      },
+      {
+        "candidate_event_summary": "魏徵批评李世民营缮增多、求谏不如贞观初，李世民承认属实，属于魏徵生前谏诤既有单元的组成事件。",
+        "candidate_persons": [
+          "魏徵",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-B0EFEC565CBC7ECCDC37"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-23BD206B6ABAE65044E9",
+        "rationale": "事件明确包含臣下异议与皇帝承认反馈，符合tolerate_talent最低语义；但魏徵生前谏诤已在既有工作集覆盖，无需新建来源绑定候选。",
+        "source_search_hints": [
+          "魏徵《谏太宗十思疏》或贞观六年论安危之本相关原文",
+          "《资治通鉴》贞观六年十二月魏徵论求谏与营缮记载"
+        ],
+        "task_code": "TT-V3-011-23BD206B"
+      },
+      {
+        "candidate_event_summary": "虞世南犯颜劝谏李世民停止游猎、收敛武备并广纳意见，李世民因此更加亲礼虞世南。该事件属于既有“虞世南”工作单元。",
+        "candidate_persons": [
+          "李世民",
+          "虞世南"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-AD6743AACF63E8CE3556"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-285C43567A9CAC5AF22B",
+        "rationale": "输入明确指向既有工作集覆盖的虞世南单元；内容包含臣下直谏、李世民纳谏及亲礼反馈者，满足 toler​ate_talent 最低语义，但不应新建来源绑定事件。",
+        "source_search_hints": [
+          "虞世南犯颜进谏游猎",
+          "太宗益亲礼虞世南",
+          "不拒刍荛之请 降纳涓浍之流"
+        ],
+        "task_code": "TT-V3-012-285C4356"
+      },
+      {
+        "candidate_event_summary": "褚遂良在太子废立争议中劝阻李世民立魏王泰，并促使李世民后悔相关决定，属于纳谏事件；该单元已在既有工作集覆盖。",
+        "candidate_persons": [
+          "褚遂良",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-F46816D67AFCEBCF7D1D"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-2B03BEAC6FD96C0E41CB",
+        "rationale": "输入明确包含反馈行为、对象、结果和同一事件链。褚遂良已属于既有工作集覆盖人物，当前事件更适合作为该工作单元的组成部件，不新建来源绑定候选。",
+        "source_search_hints": [
+          "褚遂良 太子废立 魏王泰",
+          "太宗 始悔立泰之言"
+        ],
+        "task_code": "TT-V3-013-2B03BEAC"
+      },
+      {
+        "candidate_event_summary": "贞观二十年，太宗因张亮谋反相关罪行将其斩于市并籍没其家。该事件属于政争/刑罚处置，不涉及建立意见入口、容纳异议或保护反馈者。",
+        "candidate_persons": [
+          "太宗",
+          "张亮"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-0F5FD34420B1403B0AF5"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-3545DDD6798012A12B7F",
+        "rationale": "现有证据只支持对张亮谋反相关行为的刑罚处置，未显示合理反馈、臣下进谏、反馈保护或压制反馈，因此不能归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-014-3545DDD6"
+      },
+      {
+        "candidate_event_summary": "李世民评价高士廉政治能力与缺少骨鲠规谏，但未体现建立意见入口、允许异议、保护反馈者或惩罚合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "高士廉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-ADA3D9623C1BE9045CE2"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-364EAF53D31ACEA14E66",
+        "rationale": "该输入仅记录臣僚评议及高士廉缺少规谏，不足以证明 tolerate_talent 的最低语义；一般政治能力评价或臣子是否骨鲠不能自动归入该规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-015-364EAF53"
+      },
+      {
+        "candidate_event_summary": "魏徵在宴近臣时就李世民出行及越级授官等事进谏，李世民以大笑并肯定其谏诤回应。该事件属于魏徵生前谏诤与李世民容纳反馈的既有工作集单元。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-38D7858659F7809CC3AA"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-372AEC4273876C68033A",
+        "rationale": "输入明确描述魏徵针对君主行为提出异议，且李世民未压制而是大笑并肯定，满足 tolerate_talent 的反馈容纳语义；魏徵生前谏诤已在既有工作集覆盖，无需新建来源绑定候选。",
+        "source_search_hints": [
+          "优先回接魏徵生前谏诤既有事件单元",
+          "核对丹霄殿宴近臣及九成宫相关记载的正式史源"
+        ],
+        "task_code": "TT-V3-016-372AEC42"
+      },
+      {
+        "candidate_event_summary": "李建成要求李元吉北讨时带走秦琼等秦府骁将，意在削弱或夺取李世民兵力；该事件属于政治与军事权力争夺，不涉及李世民建立意见入口、容纳异议或保护反馈者。",
+        "candidate_persons": [
+          "李建成",
+          "李元吉",
+          "秦琼",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-17FB59E7133232D5D9CB"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-393087D06DA862E726C4",
+        "rationale": "输入内容描述的是夺取秦府兵力的政治军事行动，未满足 tolerate_talent 的最低语义；不能因路由提示中的“夺”字自动归入该规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-017-393087D0"
+      },
+      {
+        "candidate_event_summary": "李世民为将被处死的李靖求情免死并召入幕府，属于保全与任用，不涉及意见入口、异议表达或反馈者保护修复。",
+        "candidate_persons": [
+          "李世民",
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-1AD36B20843D3EB96DE9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-3E0C3636B7468F8C36AF",
+        "rationale": "该事件核心是免死保全及后续召入幕府，未见李世民建立或维护反馈渠道，也未见对合理反馈的保护、修复、压制或惩罚；不能归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-018-3E0C3636"
+      },
+      {
+        "candidate_event_summary": "贞观十一年魏徵上疏反对营建飞山宫，劝李世民撤除峻宇、安于卑宫，属于魏徵生前谏诤既有单元的具体事件部件。",
+        "candidate_persons": [
+          "魏徵",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-AD292731FB19DE8A0CA5"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-3FE66174BF14F7289692",
+        "rationale": "事件明确体现臣下提出异议且君主纳谏的反馈关系，但魏徵生前谏诤已在既有工作集中覆盖；当前证据仅作V3线索，不形成正式事实。",
+        "source_search_hints": [
+          "检索贞观十一年飞山宫营建及魏徵相关上疏的原始史料全文",
+          "核对李世民是否采纳撤宫或修正宫室营建的后续结果"
+        ],
+        "task_code": "TT-V3-019-3FE66174"
+      },
+      {
+        "candidate_event_summary": "李世民即位后，尉迟敬德在泾州道行军总管任上击破突厥并斩获战果，属于军事战役，不涉及意见入口、异议保护或反馈压制。",
+        "candidate_persons": [
+          "尉迟敬德"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-582A1FCBDA348A948A9A"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-427F838CF9AB9E51CCA2",
+        "rationale": "输入仅描述边疆军事行动及其战果，未出现李世民建立反馈机制、允许臣下异议、保护反馈者或惩罚合理反馈的事实。路由提示与 tolerate_talent 最低语义不匹配。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-020-427F838C"
+      },
+      {
+        "candidate_event_summary": "李世民追思屈突通忠节，任其少子并赐粟帛抚恤其家，属于功臣家属保全与抚恤，不涉及意见入口、异议表达、反馈者保护或合理反馈的压制惩罚。",
+        "candidate_persons": [
+          "李世民",
+          "屈突通",
+          "屈突诠"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-5B9F6DD87E16DD5C2622"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-46D0EC411ABC7D2C2FBA",
+        "rationale": "该事件核心是功臣身后追荣及家属抚恤，不能仅因“保全”或“忠节”归入 tolerate_talent；也不像既有求谏、谏诤或臣下反馈单元的组成部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-021-46D0EC41"
+      },
+      {
+        "candidate_event_summary": "魏徵即位之初劝李世民偃革兴文、布德施惠，李世民称采纳其言后天下大宁、远人来朝贡。该事件属于魏徵生前谏诤与李世民纳谏单元，虽体现反馈采纳，但不是独立新事件。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-EB9BB3B6B2986008838F"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-47851A071BF75F7854E5",
+        "rationale": "输入明确指向魏徵生前谏诤，且当前既有工作集已覆盖该单元；不应因纳谏路由重复建立新来源或新事件。证据缺少来源标题和 URL，但不影响归入既有工作集候选。",
+        "source_search_hints": [
+          "核对魏徵即位之初劝李世民偃革兴文、布德施惠的原始史料及具体篇章定位",
+          "将该材料作为魏徵生前谏诤单元中“提出治国方略并获李世民采纳”的组成证据"
+        ],
+        "task_code": "TT-V3-022-47851A07"
+      },
+      {
+        "candidate_event_summary": "贞观元年，李世民因萧瑀与陈叔达当面忿争、被判不敬而免官。该片段仅显示政务处置，未体现意见入口、异议表达保护或对合理反馈的压制。",
+        "candidate_persons": [
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-C3CA8F45AEC84AE0C453"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-49152FD44F501869BF14",
+        "rationale": "现有证据支持的是因忿争和不敬导致免官，属于政争或礼法处置；没有足够语义证明该事件涉及李世民对合理反馈、谏诤或反馈者的保护/惩罚。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-023-49152FD4"
+      },
+      {
+        "candidate_event_summary": "李世民在寻相等叛逃后，因不信谗言而释放并赏赐尉迟敬德，属于军事场景下的保全忠良行为，但未体现意见入口、异议表达或反馈者保护。",
+        "candidate_persons": [
+          "李世民",
+          "尉迟敬德"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-90B11016F2E1E70740F9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [
+          "cross_rule_attribution"
+        ],
+        "event_group_key": "CEG-4933FF83B182DDFF18ED",
+        "rationale": "事件核心是战时对将领的信任、保全与赏赐，不满足 tolerate_talent 的最低语义；也不属于当前既有工作集中的意见制度或臣下谏诤单元。",
+        "source_search_hints": [
+          "寻相等叛去后尉迟敬德受疑并获李世民释放、引入卧内赐金的完整史料段落",
+          "核查该事件是否应归入忠信、保全功臣或反谗言类规则"
+        ],
+        "task_code": "TT-V3-024-4933FF83"
+      },
+      {
+        "candidate_event_summary": "李世民命高士廉等编定天下谱谍、核验氏族真伪并分为九等，属于氏族等级审定与褒贬，不涉及建立意见入口、容纳异议或保护反馈者。",
+        "candidate_persons": [
+          "李世民",
+          "高士廉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-32237204B6B0D8F3CAB2"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-4A340222540C8709A487",
+        "rationale": "事件核心是谱谍审定和氏族等级划分；“贬奸逆”是政治品评或处置语境，不能据此归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-025-4A340222"
+      },
+      {
+        "candidate_event_summary": "李世民在经史议政中听取虞世南的规讽，认为其意见多有补益并称许其恳诚；该事件属于既有虞世南工作单元的部件。",
+        "candidate_persons": [
+          "李世民",
+          "虞世南"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-55B75A7E66B01224365B"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-4AE5826A4797A93211D5",
+        "rationale": "输入明确记载李世民接受虞世南规讽且有所补益，满足纳谏与反馈容纳的最低语义；但虞世南已在当前既有工作集覆盖，应归为既有单元候选，不新建来源绑定。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-026-4AE5826A"
+      },
+      {
+        "candidate_event_summary": "魏徵就长乐公主资送礼制进谏，李世民认可其意见；该事件属于魏徵生前谏诤既有工作单元的组成部分。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-C00D50CB0606CE69D5EE"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-4CE62FBD13993CD05058",
+        "rationale": "核心事实是魏徵表达异议且李世民接受意见，符合纳谏最低语义；但人物、行为和事件链均落入既有“魏徵生前谏诤”覆盖范围，不宜新建独立事件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-027-4CE62FBD"
+      },
+      {
+        "candidate_event_summary": "玄武门之变后，李世民派尉迟敬德入宫宿卫并向李渊说明事变情况；该事件属于政变后的军事与中枢处置，不涉及建立意见入口、保护异议反馈或压制合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "尉迟敬德",
+          "李渊"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-1914559DF3703D96310C"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-5133A3CB2EDEDB5315D8",
+        "rationale": "现有输入仅支持宿卫授权及玄武门事变后的政治处置，未显示与臣下表达异议、反馈保护、意见入口或合理反馈惩罚相关的行为。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-028-5133A3CB"
+      },
+      {
+        "candidate_event_summary": "戴胄针对军团、九成役作及赋调负担进谏，李世民嘉许其忠直体国；该事件属于既有戴胄工作单元的部件。",
+        "candidate_persons": [
+          "戴胄",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-A81C2C2246893D065304"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-530568B52A031217833C",
+        "rationale": "输入明确属于戴胄既有覆盖单元，且核心事实是针对役赋营修政策提出民生负担谏言并获嘉许，适合作为既有单元部件，不新建事件。",
+        "source_search_hints": [
+          "OSS-F47F6D66D967B1E0AA"
+        ],
+        "task_code": "TT-V3-029-530568B5"
+      },
+      {
+        "candidate_event_summary": "褚遂良针对高丽莫离支弑君进贡白金提出不可受的谏议，李世民采纳并处置使者；属于褚遂良既有纳谏单元的组成事件。",
+        "candidate_persons": [
+          "褚遂良",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-A065D393094553EAF584"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-5E19C70900F17F1F6B8D",
+        "rationale": "输入显示行动、主体、对象和结果完整，且褚遂良已在当前既有工作集覆盖范围内。该事件体现臣下表达异议及李世民采纳，但更适合作为褚遂良既有单元的组成部件，而非新来源绑定候选。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-030-5E19C709"
+      },
+      {
+        "candidate_event_summary": "李世民于贞观元年任命萧瑀为尚书左仆射，后于同年十二月罢免；输入未显示意见入口、反馈保护或对合理异议的压制。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-EE6DE50BC33B96CD8083"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-606403636BB91BB416CA",
+        "rationale": "该事件属于任用与罢免，缺少 tolerate_talent 所需的表达异议、反馈保护/修复或惩罚合理反馈语义，也不是当前既有工作集单元的明确部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-031-60640363"
+      },
+      {
+        "candidate_event_summary": "贞观二十年十月，李世民将萧瑀贬为商州刺史；输入未显示该处置与意见入口、异议表达、反馈保护或合理反馈惩罚有关。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-B5611B023300544C13B0"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-60AB2A5B4B0515905C7B",
+        "rationale": "该事件仅体现官职贬黜，缺少反馈、谏诤或异议处置语义，不能归入 tolerate_talent；也不像既有工作集中的反馈单元部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-032-60AB2A5B"
+      },
+      {
+        "candidate_event_summary": "萧瑀弹劾房玄龄、魏徵、温彦博的小过，李世民未予追问，萧瑀随后被罢御史大夫。该片段主要表现为监察弹劾后的政治处置，未充分证明李世民建立意见入口、保护合理反馈或专门压制反馈。",
+        "candidate_persons": [
+          "萧瑀",
+          "李世民",
+          "房玄龄",
+          "魏徵",
+          "温彦博"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-49682763CF526693B5A9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-61071799841CB7E39434",
+        "rationale": "现有输入不足以将该事件归入 tolerate_talent：弹劾对象为臣僚小过，李世民未问罪及萧瑀被罢职属于政争或监察处置，未明确涉及反馈入口、异议保护、反馈修复或针对合理反馈的压制。",
+        "source_search_hints": [
+          "核查萧瑀弹劾房玄龄、魏徵、温彦博的完整史料上下文",
+          "区分萧瑀罢御史大夫的直接原因与李世民对反馈行为的态度"
+        ],
+        "task_code": "TT-V3-033-61071799"
+      },
+      {
+        "candidate_event_summary": "贞观八年，李世民免除萧瑀在监察任内致被推劾者死亡所负责任；该行为属于处分或免责，不体现意见入口、异议表达保护或反馈修复。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-2ECA5BC957A3E45DFFAF"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-6546CE522C5EEFD179CE",
+        "rationale": "输入仅显示李世民对萧瑀监察行为致死的特予免责，未显示萧瑀因提出合理反馈、异议或谏诤而获保护，也不属于建立意见入口或修复反馈者。该事件不能仅凭“保全”“免责”归入 tolerate_talent。",
+        "source_search_hints": [
+          "核查完整史料以确认免责原因是否与萧瑀的谏诤、异议表达或反馈行为直接相关"
+        ],
+        "task_code": "TT-V3-034-6546CE52"
+      },
+      {
+        "candidate_event_summary": "尉迟敬德在王世充围攻中护卫李世民突围，属于战场护卫与军事保全，不涉及意见入口、异议表达、反馈者保护或惩罚。",
+        "candidate_persons": [
+          "尉迟敬德",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-A87E22E4E5D9E03DB569"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-654FEF4C1B3D1B35F526",
+        "rationale": "事件范围明确为军事，核心行为是击退敌军并护卫李世民出围；“保全”在此处是战场救护语义，不满足 tolerate_talent 的最低语义，也不是既有工作集单元的部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-035-654FEF4C"
+      },
+      {
+        "candidate_event_summary": "李世民原欲因上封事者众而黜责，魏徵劝其广听得失，李世民认可并慰劳遣返上封者，属于魏徵生前谏诤与李世民容纳反馈的既有工作集单元。",
+        "candidate_persons": [
+          "魏徵",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-06D54F0C9EFF678CAFC9"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-65B85A27B3E6A6519453",
+        "rationale": "事件明确包含压制合理反馈的倾向、劝止以及李世民认可并慰劳反馈者，满足 tolerate_talent 的最低语义；但魏徵生前谏诤已在既有工作集覆盖。",
+        "source_search_hints": [
+          "沿用 OSS-1FD0B0DE5408CD9EA3 检索李世民欲黜责上封事者、魏徵劝广听得失及慰劳遣返上封者的完整原文"
+        ],
+        "task_code": "TT-V3-036-65B85A27"
+      },
+      {
+        "candidate_event_summary": "玄武门事变前，尉迟敬德等劝李世民先发制人诛杀李建成、李元吉，属于政变决策劝进，不是建立意见入口、保护异议或处理合理反馈。",
+        "candidate_persons": [
+          "尉迟敬德"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-775614C78E52AC4C7120"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-69CD44B21F1480C7E198",
+        "rationale": "事件核心是玄武门事变前的政治杀伐建议，未体现李世民容纳、保护、修复或压制合理反馈；不符合 tolerate_talent 最低语义，也不是当前既有工作集的部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-037-69CD44B2"
+      },
+      {
+        "candidate_event_summary": "萧瑀提出封建久长之策，李世民认可并启动相关议议；属于普通政策建议及采纳，未显示建立意见入口、保护反馈者或压制合理反馈。",
+        "candidate_persons": [
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-0BC4B6A4BB991C72D709"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-6CAA6105D413D171CB4D",
+        "rationale": "虽标记为“纳谏”，但该片段核心是制度政策建议及君主采纳，不满足 tolerate_talent 的最低语义，且无现有工作集单元归并依据。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-038-6CAA6105"
+      },
+      {
+        "candidate_event_summary": "张公谨在秦王府政争中为李世民提供自安之策，李世民因此渐加亲遇；材料未显示意见入口、异议保护或对合理反馈的压制/惩罚。",
+        "candidate_persons": [
+          "李世民",
+          "张公谨"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-E1A0A0F81F06984A351B"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [
+          "cross_rule_attribution"
+        ],
+        "event_group_key": "CEG-6D1847E0EC277230D8BB",
+        "rationale": "“纳谏”路由提示与事实摘要不一致。现有证据仅支持张公谨提出自安之策并获亲遇，属于政争中的谋议和任用倾向，不满足 tolerate_talent 的最低语义，不能作为正式规则事实。",
+        "source_search_hints": [
+          "检索张公谨在秦王府时期劝谏、直言或异议表达的完整原文",
+          "区分自安之策与李世民建立意见入口或保护反馈者的事件"
+        ],
+        "task_code": "TT-V3-039-6D1847E0"
+      },
+      {
+        "candidate_event_summary": "李世民欲惩治因言事上书而被视为谤讪的皇甫德参，经魏徵劝谏后免罪并赐绢、拜监察御史，体现对合理反馈者的保全与修复。该事件属于魏徵谏诤与李世民反馈容纳单元的组成部分。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵",
+          "皇甫德参"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-5939A13A47DAB6C3C3CE"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-6E46CB01282B13E4BD04",
+        "rationale": "事件直接满足 tolerate_talent 的最低语义：魏徵为合理反馈者辩护，李世民随后不罪并给予补偿和任用。由于当前工作集已覆盖魏徵生前谏诤与相关信用，该事件更可能是既有单元的组成部件，而非新事件。给定证据片段与声明不一致，正式事实仍需回到可核验来源。",
+        "source_search_hints": [
+          "皇甫德参 谤讪 魏徵 激切上书 择善而听",
+          "李世民 皇甫德参 赐绢 拜监察御史"
+        ],
+        "task_code": "TT-V3-040-6E46CB01"
+      },
+      {
+        "candidate_event_summary": "李靖率军击破辅公祏势力并平定江南，属于军事战役，不涉及意见入口、异议表达、反馈者保护修复或压制惩罚。",
+        "candidate_persons": [
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-2FB28E90268808726B1C"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-72033DF0CBA313C162C3",
+        "rationale": "输入事实仅描述战役行动、杀伤、俘获和军事结果；不能满足 tolerate_talent 的最低语义，且不属于既有工作集单元的部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-041-72033DF"
+      },
+      {
+        "candidate_event_summary": "魏徵就西域立可汗与重赍市马向李世民进谏，指出此举可能使诸蕃认为中国薄义重利。材料体现臣下表达异议，但未提供李世民是否保护、采纳或压制反馈的结果；更可能是魏徵生前谏诤既有单元的组成事件。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-A4ABCBCE8F063E80137E"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-7317D489F6E120D4D249",
+        "rationale": "该材料明确属于魏徵对李世民的谏诤，但未显示李世民建立意见入口、保护反馈者或处置反馈者的行为，因此不足以独立证明 tolerate_talent；应归入既有“魏徵生前谏诤与身后信用”工作单元候选。",
+        "source_search_hints": [
+          "魏徵 西域 立可汗 重赍 市马 薄义重利",
+          "李世民 魏徵 纳谏 西域 市马"
+        ],
+        "task_code": "TT-V3-042-7317D489"
+      },
+      {
+        "candidate_event_summary": "尉迟敬德拒绝李建成、李元吉私交诱招并将此事告知李世民，属于玄武门事变前的政治忠诚与情报告知，不体现李世民建立意见入口、保护反馈者或处置合理反馈。",
+        "candidate_persons": [
+          "尉迟敬德",
+          "李世民",
+          "李建成",
+          "李元吉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-D53A85A4ECEF76ED7185"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-7557DC3A7208E38CE668",
+        "rationale": "事件核心是拒绝私下招诱及向李世民告知，不是臣下表达异议、反馈保护、意见入口或压制合理反馈；不能仅因“保全”路由词归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-043-7557DC3A"
+      },
+      {
+        "candidate_event_summary": "李绩奉命进讨并歼灭薛延陀余部，属于边疆军事行动，不涉及意见入口、异议表达、反馈者保护或合理反馈惩罚。",
+        "candidate_persons": [
+          "李绩"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-AB6376762B63A8ABA1DC"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-7DDAA69A7D93F9513CB7",
+        "rationale": "事件性质为战役，核心事实是追击、斩杀和俘获敌对部落。路由提示中的“斩”属于军事处置语境，不能据此归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-044-7DDAA69A"
+      },
+      {
+        "candidate_event_summary": "魏徵借望献陵讽谏李世民思念长孙皇后过度，李世民因此毁观；属于魏徵生前谏诤与身后信用既有单元的可能组成事件。",
+        "candidate_persons": [
+          "魏徵",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-0D249A354586B8C3A247"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-810B5AB4F73938D39B23",
+        "rationale": "事件具备纳谏、反馈者和结果要素，但魏徵谏诤已在既有工作集覆盖，优先作为现有单元候选，不新建来源绑定。",
+        "source_search_hints": [
+          "核对望献陵讽谏毁观的原文及可靠来源定位",
+          "确认该事件与魏徵生前谏诤单元的事件边界"
+        ],
+        "task_code": "TT-V3-045-810B5AB4"
+      },
+      {
+        "candidate_event_summary": "贞观七年，王珪进谏后因泄漏禁中语获罪并被左迁同州刺史；现有片段不足以确认处置是否针对合理反馈本身。",
+        "candidate_persons": [
+          "李世民",
+          "王珪"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-7A46550873CA05FB7CAD"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [
+          "insufficient_route_context"
+        ],
+        "event_group_key": "CEG-820C2E5B4AE54E4AC8E8",
+        "rationale": "王珪不在当前既有工作集名单中，且材料显示其曾提出异议并遭处置，具备新候选可能；但现有事实将获罪原因归为“泄漏禁中语”，尚不能确认李世民是在压制合理反馈，需补充来源并保持草案状态。",
+        "source_search_hints": [
+          "检索《资治通鉴》或《旧唐书》《新唐书》贞观七年王珪泄漏禁中语、左迁同州刺史原文",
+          "核对王珪进谏与获罪处置是否属于同一事件链，以及处置原因是否与谏诤直接相关"
+        ],
+        "task_code": "TT-V3-046-820C2E5B"
+      },
+      {
+        "candidate_event_summary": "马周上疏批评县令、刺史选任偏轻，太宗称善久之，属于既有马周纳谏单元的部件，不应新建事件。",
+        "candidate_persons": [
+          "马周",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-0825545CC7097F510B73"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-844FB9FADC86454F45BF",
+        "rationale": "材料体现臣下上疏表达政务异议及太宗正面回应，但具体内容是地方官选任政策建议，且马周已在既有工作集覆盖范围内；应作为既有单元的组成证据，不作新的 tolerate_talent 来源绑定。",
+        "source_search_hints": [
+          "马周上疏论县令刺史选任",
+          "太宗称善久之",
+          "贞观年间马周纳谏"
+        ],
+        "task_code": "TT-V3-047-844FB9FA"
+      },
+      {
+        "candidate_event_summary": "苏定方率兵击破并追击张金称、杨公卿等，属于军事讨贼与战果，不涉及李世民建立意见入口、保护反馈者或压制合理反馈，因此不符合 tolerate_talent 最低语义。",
+        "candidate_persons": [
+          "苏定方"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-25FBA4E9D8B596328E7C"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-8509D26A66AEDB83F3F9",
+        "rationale": "输入证据仅支持军事行动及其结果；路由中的“杀、斩”等词属于战役语境，不能作为容纳或惩罚合理反馈的依据。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-048-8509D26A"
+      },
+      {
+        "candidate_event_summary": "房玄龄疾笃时上表劝止李世民东征高丽，请求允许高丽自新、焚船罢募众；该摘要符合反馈异议与保护士卒的最低语义，但随附证据片段与事件不符，需重新绑定来源并保持草案状态。",
+        "candidate_persons": [
+          "房玄龄",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-F06B74B683EE1DE705F7"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [
+          "insufficient_route_context"
+        ],
+        "event_group_key": "CEG-8540188532781070AAF0",
+        "rationale": "房玄龄不在当前既有工作集；事件摘要明确涉及劝止东征、允许自新及罢募，具备tolerate_talent相关的异议反馈语义。但现有OSS证据片段实际讲述侯君集案，与该事件不相符，且缺少来源标题和URL，不能作为正式事实或完成评分绑定。",
+        "source_search_hints": [
+          "检索《资治通鉴》或《新唐书》房玄龄疾笃、东征高丽、许高丽自新、焚船、罢募等连续语句",
+          "核对事件发生于房玄龄留守京师疾笃期间，并补充可定位的来源URL与原文片段"
+        ],
+        "task_code": "TT-V3-049-85401885"
+      },
+      {
+        "candidate_event_summary": "李世民任命李靖为西海道行军大总管，征讨吐谷浑并取得军事胜利；所附证据还涉及李靖乞骸骨后的退休优待。该事件未体现意见入口、异议表达保护/修复或压制合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-F644FDD8974B792C2A54"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-87048D0A8379772B3327",
+        "rationale": "核心内容是军事任命、征讨战果和退休优待，均不满足 tolerate_talent 的最低语义；V3 路由提示中的“容、杀”缺乏与反馈或谏诤相关的上下文，不能据此归入。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-050-87048D0A"
+      },
+      {
+        "candidate_event_summary": "李世民在李君羡归唐后任用其为左右近侍，属于一般任用或留用，不涉及建立意见入口、异议表达、反馈者保护修复或惩罚合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "李君羡"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-9530B0CB4E779B9806C0"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-87C39DA80128029170B9",
+        "rationale": "该事件仅记载归唐后的任用，未达到 tolerate_talent 的最低语义；现有工作集中的相关单元也无法改变其不属于本规则的判断。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-051-87C39DA"
+      },
+      {
+        "candidate_event_summary": "萧瑀被任命为御史大夫并参议朝政，后被罢免；输入未显示意见入口、异议表达、反馈者保护修复或压制合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-63483EAF745D858D0717"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-88FE3F976BCBBF44F5D7",
+        "rationale": "该事件核心是任命、参与朝政及后续罢免，属于一般任用或政争处分，不能仅凭御史大夫职务或“罢”字归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-052-88FE3F97"
+      },
+      {
+        "candidate_event_summary": "玄武门之变当日，尉迟敬德争辩并促成停止诛杀李建成、李元吉的属下，属于事变余党处置与停止株连，不涉及李世民建立意见入口、保护反馈者或处理合理异议。",
+        "candidate_persons": [
+          "尉迟敬德",
+          "李世民",
+          "李建成",
+          "李元吉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-127A7D4BB260004526B1"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-89EFC83E2B3A0A7C258F",
+        "rationale": "该事件的核心是玄武门之变后的宗室及相关人员处置，尉迟敬德的争辩对象是停止株连，而非反馈、谏诤、意见入口或对合理异议的保护。现有来源片段也未显示李世民对反馈者的制度性容纳行为。",
+        "source_search_hints": [
+          "核查玄武门之变后停止株连的完整史料，以确认具体处置链条"
+        ],
+        "task_code": "TT-V3-053-89EFC83E"
+      },
+      {
+        "candidate_event_summary": "李世民在晋王李治被立为皇太子后任命房玄龄为太傅；该事件属于任命，输入证据片段实际涉及侯君集处置，且未显示意见入口、异议表达保护或反馈压制，不能归入 tolerate_talent。",
+        "candidate_persons": [
+          "李世民",
+          "房玄龄"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-765032CD973C66DA5B72"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [
+          "insufficient_route_context"
+        ],
+        "event_group_key": "CEG-8C78CBA3880F32BF94E1",
+        "rationale": "一般任命不满足 tolerate_talent 最低语义；现有 route_reason 仅因“废”字触发，属于误路由。证据片段与任命房玄龄为太傅的主张不一致，不能形成正式事实。",
+        "source_search_hints": [
+          "检索晋王李治立为皇太子后己丑任命房玄龄为太傅的原文",
+          "检索房玄龄任太傅是否同时涉及谏诤、意见入口、异议保护或反馈处置"
+        ],
+        "task_code": "TT-V3-054-8C78CBA3"
+      },
+      {
+        "candidate_event_summary": "李世民在征伐中命秦琼阵前突击、刺杀敌将，因军事勇武而更加器重秦琼。该事件不涉及意见入口、异议表达、反馈者保护修复或压制惩罚。",
+        "candidate_persons": [
+          "李世民",
+          "秦琼"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-EF25A5149EAAF6585EA9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-907B7A3C668A77759CC3",
+        "rationale": "事件属于军事任用与战功赏识，不能满足 tolerate_talent 的最低语义；路由中的“杀”仅为军事行为语境，不能据此归入反馈容忍规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-055-907B7A3C"
+      },
+      {
+        "candidate_event_summary": "李世民在追击宋金刚至高壁岭时拒绝刘弘基关于驻留待粮的劝谏，并导致将士不敢再言饥，具备压制合理反馈的初步语义；但当前仅为V3线索，需补充V4可接受来源后保持草案。",
+        "candidate_persons": [
+          "李世民",
+          "刘弘基"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-AF8C09BF5B4D861EF9B6"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-90C5435764B2DB8ED6BA",
+        "rationale": "事件明确包含拒绝谏言及反馈者随后不敢再言，符合tolerate_talent关于压制合理反馈的最低语义。它不是既有求谏制度、魏徵、虞世南、褚遂良、马周或戴胄单元的明显部件，但现有证据缺少来源URL和全文，不能直接作为V4正式事实。",
+        "source_search_hints": [
+          "检索《资治通鉴》或《旧唐书》关于李世民追击宋金刚至高壁岭、刘弘基谏请驻留待粮的完整原文",
+          "核对“刘弘基等将士不敢再言饥”是否与该拒谏事件处于同一事件链"
+        ],
+        "task_code": "TT-V3-056-90C54357"
+      },
+      {
+        "candidate_event_summary": "李世民因长孙顺德有功而免除受馈绢案罪责，仅以赐绢示辱，属于违犯法度后的宽宥处置，不涉及意见入口、异议表达或反馈者保护。",
+        "candidate_persons": [
+          "李世民",
+          "长孙顺德"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-3926BCD1B5D4267D6158"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-915B4B4697B892B34882",
+        "rationale": "事件核心是对受馈绢、枉法受财行为的免罪与羞辱性惩戒，属于功臣处分或法度执行语境；不满足 tolerate_talent 的最低语义，也不像既有求谏或臣下反馈单元的部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-057-915B4B46"
+      },
+      {
+        "candidate_event_summary": "魏徵为皇甫德参激切上言辩护，李世民因担心压制言路而不治罪并赐绢，体现对合理反馈者的保护；该事件可能属于既有“魏徵生前谏诤与身后信用”工作单元的组成部分。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵",
+          "皇甫德参"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-D6A7F1143CE22F5B6AA2"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-A27326B8A5D6882740F4",
+        "rationale": "事件明确涉及反馈者上言、皇帝免罪及赏赐，并由魏徵进行辩护，满足 tolerate_talent 的保护反馈者语义；但与既有魏徵相关工作单元高度重叠，应先归入既有工作集核对，避免重复建单元。",
+        "source_search_hints": [
+          "皇甫德参上言修洛阳宫",
+          "魏徵为皇甫德参辩护",
+          "李世民不治罪赐绢二十匹"
+        ],
+        "task_code": "TT-V3-058-A27326B8"
+      },
+      {
+        "candidate_event_summary": "太宗赦免侯君集妻及一子并徙岭南，属于叛乱后的家属处置与有限保全，未体现意见入口、异议表达保护或反馈惩罚。",
+        "candidate_persons": [
+          "太宗",
+          "侯君集"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-DEE092BA0705B697A9C7"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-A4BBD04DA0F1056CB0FC",
+        "rationale": "事件对象是侯君集家属，行为发生于侯君集临刑后的刑罚及家属处置链条，核心语义为赦免、籍没和迁徙，不满足 tolerate_talent 的最低反馈容纳或保护条件，也不是既有工作集中的反馈单元部件。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-059-A4BBD04D"
+      },
+      {
+        "candidate_event_summary": "玄武门事变当日，尉迟敬德获准入宿卫并请李渊下敕令诸军听从秦王处分，李渊同意。该事件属于政变中的军事与权力处置，不涉及意见入口、异议表达保护或反馈压制。",
+        "candidate_persons": [
+          "尉迟敬德"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-8FB11C9747EF72612C1D"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-A522678C69F73DC5D3D5",
+        "rationale": "事件核心是玄武门事变后的宿卫授权和军队处分，不满足 tolerate_talent 的最低语义；“诛”等路由词不足以建立该规则归属。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-060-A522678C"
+      },
+      {
+        "candidate_event_summary": "贞观九年李靖征讨吐谷浑并取得军事胜利，内容未涉及意见入口、异议表达保护或反馈压制惩罚。",
+        "candidate_persons": [
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-1593FA7A0ED90A921C59"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-A775565ED6705A724D08",
+        "rationale": "该事件核心是边疆战役、军事决策与战果。力排出兵疑虑属于战役判断，不是李世民建立或保护反馈机制，也不属于合理反馈的压制或惩罚；退休优待片段同样不构成 tolerate_talent 语义。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-061-A775565E"
+      },
+      {
+        "candidate_event_summary": "李道裕曾议张亮谋反证据不足，太宗当时未采纳，张亮被诛后又追悔并认可其意见。该事件涉及对合理异议的未采纳及事后反思，但现有证据片段与 claim 内容不匹配。",
+        "candidate_persons": [
+          "李世民",
+          "李道裕",
+          "张亮"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-0998A26434A02F811C90"
+        ],
+        "disposition": "source_insufficient",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-A7AB4377270B8B6B72A0",
+        "rationale": "语义上可能符合 tolerate_talent 的“臣下表达异议—皇帝未从—事后追悔”链条，且不属于当前列明的既有工作集单元；但输入中的 source_slice_ref 预览内容实际讲述李大亮释放奴婢等事，与张亮谋反廷议不一致，且缺少来源标题和 URL，无法形成可靠草案绑定。",
+        "source_search_hints": [
+          "检索《旧唐书》或《新唐书》张亮传中“李道裕议反形未具”“太宗不从”“后追悔”等表述",
+          "核对李道裕相关传记及张亮被诛时间线",
+          "重新绑定与张亮谋反案廷议对应的原始来源片段"
+        ],
+        "task_code": "TT-V3-062-A7AB4377"
+      },
+      {
+        "candidate_event_summary": "褚遂良在太子废立危局中夺刀并交给晋王，属于宗室政变危局处置，不涉及李世民建立意见入口、容纳异议或保护反馈者。",
+        "candidate_persons": [
+          "褚遂良",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-05BCE01D70562085861F"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-AA616D26FA904AE2B6EB",
+        "rationale": "该事件是太子废立危局中的保全和权力处置行为，未体现 tolerate_talent 的最低语义；虽人物属于既有工作集，但本事件不是该规则的有效部件。现有证据片段也未支持该事件，不能将 V3 线索升级为正式事实。",
+        "source_search_hints": [
+          "检索承乾被废后褚遂良夺刀交晋王治的完整史源，以核对事件事实，但不应据此归入 tolerate_talent。"
+        ],
+        "task_code": "TT-V3-063-AA616D26"
+      },
+      {
+        "candidate_event_summary": "贞观十五年，李世民接受褚遂良关于彗星与封禅的谏议，并下诏罢封禅，属于纳谏及反馈采纳事件。",
+        "candidate_persons": [
+          "李世民",
+          "褚遂良"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-2BD7D2CE21B5702570D1"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-AAE8CCE97487047D0167",
+        "rationale": "事件明确包含臣下进谏、皇帝采纳和政策撤回，满足 tolerate_talent 的最低语义；但褚遂良已在既有工作集覆盖，宜作为既有单元候选而非新源绑定。",
+        "source_search_hints": [
+          "围绕《旧唐书》褚遂良传核查贞观十五年彗星犯郎位、谏止封禅及太宗下诏罢封禅的完整原文。"
+        ],
+        "task_code": "TT-V3-064-AAE8CCE9"
+      },
+      {
+        "candidate_event_summary": "玄武门事变后，尉迟敬德坚持将处置范围限于建成、元吉二人党首，其余党众免于追究。该事件属于事变后政治处置与保全，不涉及意见入口、异议表达保护或反馈修复。",
+        "candidate_persons": [
+          "尉迟敬德"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-6B2297E6AF98E7306BB9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-AB5C12F1F6D2D1CDCBD4",
+        "rationale": "事件核心是玄武门事变后的党众处置范围控制，未体现李世民建立反馈渠道、允许合理异议、保护反馈者或惩罚合理反馈；不能仅因“保全”归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-065-AB5C12F1"
+      },
+      {
+        "candidate_event_summary": "李世民请求高祖保全李靖，避免其被处斩，随后召入幕府。该事件属于政治处置与人才保全，不涉及意见入口、异议表达或反馈者保护，因此不归入 tolerate_talent。",
+        "candidate_persons": [
+          "李世民",
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-44F1C22EBBA751A8A0AF"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-AC42F84D9E06A234E32E",
+        "rationale": "输入仅显示保全李靖及召入幕府，未显示李靖提出谏诤、异议或反馈，也未显示李世民建立意见入口或保护反馈者。一般人才保全不能自动归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-066-AC42F84D"
+      },
+      {
+        "candidate_event_summary": "玄武门之变中，尉迟敬德追射并杀死齐王李元吉，属于宗室政变处置与军事行动，不体现建立意见入口、容纳异议、保护反馈者或惩罚合理反馈。",
+        "candidate_persons": [
+          "尉迟敬德",
+          "李元吉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-B874A7A5189628E8A85F"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-AD7B517159DED33EEE40",
+        "rationale": "现有证据仅支持玄武门事变中的追射杀人行为；与 tolerate_talent 的最低语义无关，也不是既有工作集单元的部件。V3 路由提示中的“杀”不足以形成规则归属。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-067-AD7B5171"
+      },
+      {
+        "candidate_event_summary": "萧瑀弹劾房玄龄、魏徵、温彦博的小过失未被追究，随后被罢免御史大夫并失去参政权；该片段未显示李世民压制合理反馈或保护反馈者，主要属于政争与职务处置。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀",
+          "房玄龄",
+          "魏徵",
+          "温彦博"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-FDD4E873F6BC53D48EF8"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-AF1B2FF8C7C30A114031",
+        "rationale": "事件核心是萧瑀弹劾未被采纳及其后的职务处分，缺少意见入口、异议表达保护或针对合理反馈的压制证据；不能仅因“罢”字归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-068-AF1B2FF8"
+      },
+      {
+        "candidate_event_summary": "侯君集向李靖提出吐谷浑军事进军建议，李靖采纳其计。该事件属于军事谋议中的普通建议采纳，未显示建立意见入口、保护反馈者或处理异议。",
+        "candidate_persons": [
+          "侯君集",
+          "李靖"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-46A599A556256817497F"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-B3ED8217A476406FB8CB",
+        "rationale": "不满足 tolerate_talent 的最低语义。现有材料仅证明侯君集提出军事建议且李靖采纳，不能据此认定李世民纳谏、保护异议表达或修复反馈者；且事件主体行为并非李世民。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-069-B3ED8217"
+      },
+      {
+        "candidate_event_summary": "贞观八年，萧瑀任河南道巡省大使时因推劾失实致人死亡，李世民特意免除其责罚；该事件属于行政过失免责，不涉及建立意见入口、容纳异议或保护反馈者。",
+        "candidate_persons": [
+          "萧瑀",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-1B0DF970A6613B924115"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-B8E32C01F9C02E41DF5A",
+        "rationale": "事件核心是巡察推劾失实导致人员死亡及皇帝免责，既非合理反馈，也非反馈者保护或压制，不满足 tolerate_talent 最低语义。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-070-B8E32C01"
+      },
+      {
+        "candidate_event_summary": "贞观二十年，李世民因张亮涉嫌图谶、私养义儿并谋反，将其斩于市并籍没其家。该事件属于谋反案处置，未显示意见入口、异议表达、反馈者保护或对合理反馈的压制。",
+        "candidate_persons": [
+          "李世民",
+          "张亮"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-5F1E5B0AE25198BCB076"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-B93856803A4136C9F33C",
+        "rationale": "输入材料只支持政治刑事处置及谋反指控，不满足 tolerate_talent 的最低语义；不得因“斩、籍没”等处置词或既有路由提示自动归入。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-071-B9385680"
+      },
+      {
+        "candidate_event_summary": "魏徵反对册立已许嫁陆爽的郑仁基女为充华，李世民停止册命并自责，属于魏徵生前谏诤与李世民纳谏回应的既有工作集单元。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵",
+          "郑仁基女",
+          "陆爽"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-43EEC60A28447AE76B6E"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-BA5ADD9FA90DAADE8F78",
+        "rationale": "事件明确包含臣下谏止、皇帝采纳并停止册命及自责，满足 tolerate_talent 的反馈与纳谏语义；魏徵生前谏诤已在当前既有工作集覆盖，因此作为既有单元候选，不新建来源绑定。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-072-BA5ADD9F"
+      },
+      {
+        "candidate_event_summary": "长孙无忌参与秦王府政争中谋划并处置太子建成，属于政争与武力处置，不涉及李世民建立意见入口、保护反馈者或压制合理反馈。",
+        "candidate_persons": [
+          "长孙无忌",
+          "李世民",
+          "李建成"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-2AD5E0327344A3D27FB0"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-BC1998C0F66F5EDA8406",
+        "rationale": "该事件的核心是玄武门前后的宗室政争、谋划诛除与平定行动，虽含“诛”等处置词，但没有反馈、谏诤、意见入口或反馈者保护/惩罚语义，不能归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-073-BC1998C0"
+      },
+      {
+        "candidate_event_summary": "戴胄参与李世民即位后的律令厘改，推动减轻死刑及免死处置；该事件涉及刑法改革与宽刑，不足以证明意见入口、异议表达保护或反馈压制。",
+        "candidate_persons": [
+          "李世民",
+          "戴胄"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-0777852E72A659A520F3"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-BFD58A6B20CAC64DD249",
+        "rationale": "输入仅显示戴胄参与律令修定及减轻刑罚，没有臣下提出异议、皇帝允许表达、保护反馈者或惩罚合理反馈的事实。虽属既有戴胄工作集覆盖范围，但不满足 tolerate_talent 的最低语义。",
+        "source_search_hints": [
+          "检索戴胄参与律令修定的完整诏令与相关史料，以确认其是否另有直接谏诤或反馈保护情节。"
+        ],
+        "task_code": "TT-V3-074-BFD58A6B"
+      },
+      {
+        "candidate_event_summary": "魏徵针对长乐公主出降资送提出谏议，李世民采纳其意见；该事件属于魏徵生前谏诤与李世民纳谏信用的既有工作集单元部件。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-67071AD38AD263D0AA86"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-C2EE7137F25CE7D1CA45",
+        "rationale": "事件明确包含魏徵提出异议、李世民采纳意见，符合tolerate_talent最低语义；但魏徵生前谏诤已在既有工作集覆盖，不宜作为新事件单元重复建立。",
+        "source_search_hints": [
+          "长乐公主出降资送",
+          "魏徵谏阻资送倍于长公主",
+          "李世民纳魏徵谏"
+        ],
+        "task_code": "TT-V3-075-C2EE7137"
+      },
+      {
+        "candidate_event_summary": "现有片段主要记载萧瑀在废立未定局势中的忠贞及太宗褒奖，未充分证明李世民建立、保护或惩罚合理反馈渠道；不应直接归入 tolerate_talent。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-9CA5A8E804E118EF6A6C"
+        ],
+        "disposition": "source_insufficient",
+        "escalation_recommendations": [
+          "insufficient_route_context"
+        ],
+        "event_group_key": "CEG-C3B7ECE7568FF9C46109",
+        "rationale": "“保全”与“废立议局”触发了宽泛路由，但核心事实是忠贞褒奖和政治处置，缺少明确的意见入口、异议表达保护或反馈压制因果。来源标题、URL及完整文本缺失，无法安全重绑定为正式候选事件。",
+        "source_search_hints": [
+          "萧瑀 武德六年 废立 社稷臣",
+          "萧瑀 忿诤 不敬 免 太宗",
+          "萧瑀 直谏 保全 反馈者"
+        ],
+        "task_code": "TT-V3-076-C3B7ECE7"
+      },
+      {
+        "candidate_event_summary": "洛阳久攻不克、军士疲弊思归时，刘弘基等请求班师，李世民拒绝并下令洛阳未破不得还师，导致军中不敢再言班师。该事件符合压制合理反馈的最低语义，但现有来源信息不足，仍应保持草案状态。",
+        "candidate_persons": [
+          "李世民",
+          "刘弘基"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-12F69B516331D9491961"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-C556763EA609678060BA",
+        "rationale": "事件明确包含臣下/将领提出班师意见、李世民拒绝并形成后续噤声结果，符合拒谏方向；不属于当前列明的既有工作集单元。因来源标题、URL及完整文本缺失，只能作为新来源重绑定候选，不能直接形成正式事实。",
+        "source_search_hints": [
+          "唐太宗 洛阳 刘弘基 请求班师 洛阳未破不得还师",
+          "资治通鉴 李世民 刘弘基 班师 洛阳",
+          "唐书 刘弘基 洛阳 围攻 班师"
+        ],
+        "task_code": "TT-V3-077-C556763E"
+      },
+      {
+        "candidate_event_summary": "魏徵因李世民营建飞山宫而上疏，以隋亡为戒反对增饰宫室；属于魏徵生前谏诤既有工作单元的候选组成事件。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-3749D0417CCF244DBD53"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-C69E51E3757FC2D11219",
+        "rationale": "事件明确包含臣下提出异议并劝谏皇帝，符合 tolerate_talent 的反馈入口语义；但魏徵生前谏诤已在既有工作集覆盖，当前更适合作为该单元的组成证据，不宜新建独立事件。输入未提供李世民是否反馈或修复结果，不能据此确认容纳效果。",
+        "source_search_hints": [
+          "飞山宫",
+          "贞观十一年",
+          "魏徵上疏",
+          "反对增饰宫室",
+          "以隋亡为戒"
+        ],
+        "task_code": "TT-V3-078-C69E51E3"
+      },
+      {
+        "candidate_event_summary": "李世民延续魏徵等人的进谏传统，并通过中枢与东宫安排使皇太子获得进谏机会；该材料更像求谏制度既有单元的组成证据，而非岑文本独立事件。",
+        "candidate_persons": [
+          "李世民",
+          "岑文本",
+          "刘洎",
+          "马周",
+          "褚遂良",
+          "魏徵",
+          "皇太子"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-22D4CC9855D5EDA7207C"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-C8C1734BDA25752234C6",
+        "rationale": "材料核心是进谏入口及其延续、传导至皇太子的制度性安排，直接贴合既有“求谏制度”工作集。岑文本虽被列为对象，但输入未显示其独立提出意见、受保护或因反馈获处置的完整事件链，因此不应新建人物专项事件。",
+        "source_search_hints": [
+          "核对原始史料中李世民关于刘洎、岑文本、马周、褚遂良继魏徵进谏的完整上下文",
+          "检索该段关于东宫师傅接见、规谏渠道与皇太子进谏的制度背景"
+        ],
+        "task_code": "TT-V3-079-C8C1734B"
+      },
+      {
+        "candidate_event_summary": "王珪因祖孝孙女乐之事向李世民进谏，面对帝怒仍坚持非为私请；李世民最终默然罢议并次日自称悔责王珪，具备容纳异议及事后修复反馈关系的候选语义。",
+        "candidate_persons": [
+          "王珪",
+          "李世民",
+          "祖孝孙",
+          "温彦博"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-6219D183300A2B648A91"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-CDC414F51D2A911FD863",
+        "rationale": "事件明确包含臣下对李世民的异议表达、面对怒责仍坚持进言，以及帝随后罢议并反思责谏行为，符合 tolerate_talent 的纳谏/反馈修复最低语义。王珪不在当前既有个人工作集名单中，且来源缺少 URL 与完整标题，因此保留为待重绑来源的草案候选。",
+        "source_search_hints": [
+          "检索《旧唐书》或《新唐书》王珪传中祖孝孙女乐进谏事件",
+          "检索关键词：王珪 温彦博 祖孝孙 女乐 太宗怒 独不拜 悔责"
+        ],
+        "task_code": "TT-V3-080-CDC414F5"
+      },
+      {
+        "candidate_event_summary": "李世民因显仁宫供顿储备不足责备官吏，魏徵担忧扰民而进谏止之；李世民承认若非魏徵便听不到这一意见并受到警醒。该事件属于魏徵生前谏诤既有工作单元的候选组成部分。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-27B7904A9DC19CE0F75B"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D10CE35B871D4901E691",
+        "rationale": "事件明确包含臣下针对可能扰民问题提出异议，以及李世民听取并承认反馈价值，满足tolerate_talent的最低语义。但魏徵生前谏诤已在既有工作集覆盖，因此应作为既有单元部件候选，不新建来源绑定。",
+        "source_search_hints": [
+          "显仁宫",
+          "行幸供顿",
+          "魏徵谏止扰民",
+          "非魏徵不能闻此言"
+        ],
+        "task_code": "TT-V3-081-D10CE35B"
+      },
+      {
+        "candidate_event_summary": "李绩奉诏援救李思摩并在诺真水击破薛延陀军，属于边疆战役及军事战果，不涉及建立意见入口、允许异议、保护反馈者或压制合理反馈。",
+        "candidate_persons": [
+          "李绩"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-F0006485249EA9A7C2B5"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D151F5DAB0F459F892B0",
+        "rationale": "该事件的核心是军事援救、作战和战果；“斩首”等处分性词语针对敌军，不构成 tolerate_talent 所要求的反馈或谏诤语义。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-082-D151F5DA"
+      },
+      {
+        "candidate_event_summary": "大业末程知节聚众保卫乡里、预防盗贼，属于地方治安行动，不涉及李世民建立意见入口、容纳异议或保护反馈者。",
+        "candidate_persons": [
+          "程知节"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-4357F5B5C905D7DDB185"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D22A4B45B3A3FBC0AB45",
+        "rationale": "事件发生于大业末，行动主体为程知节，内容是聚众保卫乡里以防盗贼；证据还涉及秦叔宝军事功绩，均不满足 tolerate_talent 的最低语义。既有路由仅因“保全”误触发，不能据此归入该规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-083-D22A4B45"
+      },
+      {
+        "candidate_event_summary": "王玄策奉使天竺遇袭后征集兵力击破并擒获阿罗那顺，属于军事行动与战果，不涉及意见入口、异议表达保护或压制合理反馈。",
+        "candidate_persons": [
+          "王玄策"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-9F9F6F58B76F064020F3"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D247C15F8D36D01AB4D0",
+        "rationale": "输入明确为战役，核心事实是受袭、出兵、破敌和擒获敌方首领；“斩”触发的路由提示不足以满足 tolerate_talent 的最低语义。该事件不是既有工作集中的反馈或谏诤单元。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-084-D247C15F"
+      },
+      {
+        "candidate_event_summary": "贞观十二年，魏徵反对三品以上官员遇亲王降乘，李世民最终批准王珪奏议，体现对臣下异议的接受；该事件与魏徵生前谏诤既有工作单元重叠。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵",
+          "王珪"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-AEBA974D5E1CC83DEC52"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D37E6459329B15078B39",
+        "rationale": "输入明确标注纳谏，且事件包含臣下提出异议与李世民最终接受相关奏议，满足 tolerate_talent 的最低语义。魏徵生前谏诤已在既有工作集覆盖，因此应作为既有单元候选部件处理。",
+        "source_search_hints": [
+          "围绕贞观十二年亲王礼仪、三品以上官员遇亲王降乘检索《资治通鉴》或《旧唐书·魏徵传》对应原文",
+          "核对魏徵反对意见、王珪奏议及李世民最终裁决是否属于同一事件链"
+        ],
+        "task_code": "TT-V3-085-D37E6459"
+      },
+      {
+        "candidate_event_summary": "李世民在文德皇后请求后召房玄龄复位，属于保全和任用处置，未显示意见入口、异议表达保护或反馈压制。",
+        "candidate_persons": [
+          "李世民",
+          "房玄龄",
+          "文德皇后"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-6C2EC6083CD7A257FE22"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D4411C29FB607E569744",
+        "rationale": "该事件核心是房玄龄复位与保全，依据输入没有李世民允许、保护、修复或惩罚合理反馈的事实，不能归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-086-D4411C29"
+      },
+      {
+        "candidate_event_summary": "太宗审讯侯君集后将其处斩并籍没其家，属于刑罚处置及政变相关惩罚，未体现意见入口、异议表达保护或反馈修复。",
+        "candidate_persons": [
+          "侯君集",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-76869BBDB509376C47E9"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D97506374EC4A1B19E06",
+        "rationale": "该事件核心是侯君集获罪后的斩刑与籍没，虽有太宗不忍置法、亲自审讯及情感表达，但输入未显示其与合理反馈、臣下异议或反馈者保护相关；政争处分不能自动归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-087-D9750637"
+      },
+      {
+        "candidate_event_summary": "魏徵因担忧阎立本受亲近而渐启奢侈之端，劝李世民斥退；李世民因阎立本强济未予斥退。该事件涉及魏徵生前谏诤及李世民对谏言的处置，宜作为既有魏徵谏诤工作单元的候选部件；现有信息不单独证明保护反馈者或压制合理反馈。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵",
+          "阎立本"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-D012C76D87EE1A701B8F"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-D9CCC8C22A80A6C89861",
+        "rationale": "输入明确属于魏徵生前谏诤既有覆盖范围。虽然路由命中 tolerate_talent，事件核心是魏徵提出劝退意见及李世民未采纳，尚不足以形成独立的意见入口、反馈保护或惩罚反馈事件。",
+        "source_search_hints": [
+          "检索魏徵传及相关通鉴条目，核对阎立本受亲近、渐启侈端与李世民不斥的完整上下文",
+          "确认该片段是否与魏徵生前谏诤既有工作单元为同一事件链"
+        ],
+        "task_code": "TT-V3-088-D9CCC8C2"
+      },
+      {
+        "candidate_event_summary": "魏徵反驳李世民责让三品以上轻视魏王，李世民承认理屈并接受其意见，属于魏徵生前谏诤与李世民容纳异议的事件单元。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-871B62FEC2AECD431185"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-DA11B563B58FBBDE2DF0",
+        "rationale": "事件明确包含臣下针对宗室与公卿礼法提出异议、皇帝承认理屈并接受反馈，满足 tolerate_talent 的纳谏与反馈保护语义。但魏徵生前谏诤已在既有工作集覆盖，因此应作为既有单元候选部件处理，不新建来源绑定。",
+        "source_search_hints": [
+          "复核魏徵生前谏诤相关原文及李世民承认“理到之语不得不服”的上下文",
+          "按事件链核对魏王泰受宠、三品以上轻视魏王与群臣礼分的时间和出处"
+        ],
+        "task_code": "TT-V3-089-DA11B563"
+      },
+      {
+        "candidate_event_summary": "李世民因萧瑀与陈叔达在面前忿争、被认定不敬而免官；该材料体现政争处分，不足以证明对合理反馈的压制或惩罚。",
+        "candidate_persons": [
+          "李世民",
+          "萧瑀",
+          "陈叔达"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-E02679C87775CCE79A35"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-DA1CFDDACCA78A2A399B",
+        "rationale": "输入仅支持因不敬免官，未显示该行为与臣下提出异议、反馈保护、意见入口或合理反馈压制有关；不能归入 tolerate_talent。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-090-DA1CFDDA"
+      },
+      {
+        "candidate_event_summary": "温彦博主张保全部落并安置降突厥于朔方，李世民采纳该安边安置建议；片段未体现意见入口、异议反馈保护或对合理反馈的处置。",
+        "candidate_persons": [
+          "温彦博"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-7D2654C44A7BF11AB246"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-DA59CA7CEF0919D32FD7",
+        "rationale": "该事件属于降突厥后的边疆安置与政策采纳，未达到 tolerate_talent 关于建立意见入口、允许异议、保护反馈者或压制合理反馈的最低语义。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-091-DA59CA7C"
+      },
+      {
+        "candidate_event_summary": "魏徵直谏李世民，说明因皇帝开许其言而敢于不附和错误决断；李世民以宽容和正面态度回应。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-3F91604D9E56E9D1793E"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-DEB16BA3120474D985A3",
+        "rationale": "事件明确涉及李世民允许臣下直言并容纳异议，且属于既有“魏徵生前谏诤与身后信用”工作单元的组成部分。",
+        "source_search_hints": [
+          "魏徵解释面从与直谏的原文",
+          "贞观年间闰月宴近臣相关记载"
+        ],
+        "task_code": "TT-V3-092-DEB16BA"
+      },
+      {
+        "candidate_event_summary": "李世民将高士廉贬任安州大都督，但输入未显示该处置与臣下表达异议、反馈保护或合理反馈压制有关。",
+        "candidate_persons": [
+          "高士廉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-50EA5832B57D27CE7DC7"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-E11BD9E8B4A3AF71D463",
+        "rationale": "仅有贬官事实和“贬”字路由提示，缺乏 tolerate_talent 所需的意见入口、异议表达、反馈者保护/修复或因合理反馈受罚的语义证据。该事件属于一般政治处置，不能自动归入本规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-093-E11BD9E8"
+      },
+      {
+        "candidate_event_summary": "魏徵向李世民上疏提出“十思”等君主自我约束与纳谏相关建议；现有片段未显示反馈结果。该事件与魏徵生前谏诤既有工作单元重合。",
+        "candidate_persons": [
+          "魏徵",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-E0C0B9DC28056BB00C79"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-E4259C993DBAB56A3AE2",
+        "rationale": "事件明确涉及魏徵上疏和李世民纳谏语境，但既有工作集已覆盖魏徵生前谏诤；当前证据不足以形成独立新事件，且不得仅凭V3路由认定正式规则绑定。",
+        "source_search_hints": [
+          "核对魏徵“十思”上疏的完整原文及李世民回应",
+          "确认该片段与魏徵生前谏诤工作单元的事件链关系"
+        ],
+        "task_code": "TT-V3-094-E4259C99"
+      },
+      {
+        "candidate_event_summary": "长孙无忌在高士廉去世后，于太宗将临丧时伏马前流涕切谏，促使太宗还宫；属于臣下直接表达异议并影响君主行为的候选事件，但现有证据片段与该叙述不匹配。",
+        "candidate_persons": [
+          "长孙无忌",
+          "李世民",
+          "高士廉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-CD5EEE8D32917C75BBA5"
+        ],
+        "disposition": "new_source_rebind_candidate",
+        "escalation_recommendations": [
+          "insufficient_route_context"
+        ],
+        "event_group_key": "CEG-E847A0BA799698F0B47B",
+        "rationale": "事件具有直接切谏和君主回应，初步符合 tolerate_talent 的异议表达语义；但不属于当前已覆盖人物单元，且提供的 source_slice_ref 预览内容是门阀姓氏讨论，无法支撑本事件，因此只能作为待重新绑定来源的草案候选。",
+        "source_search_hints": [
+          "检索《贞观政要》或《旧唐书》《新唐书》中高士廉薨后太宗临丧、长孙无忌伏马前切谏并“帝乃还宫”的原文",
+          "核对事件是否实际涉及李世民对臣下异议的容纳或反馈保护，而非单纯临丧礼制劝止"
+        ],
+        "task_code": "TT-V3-095-E847A0BA"
+      },
+      {
+        "candidate_event_summary": "玄武门事变中尉迟敬德追杀并斩杀李元吉，导致宫府兵溃散；该事件属于政变军事处置，不涉及意见入口、异议表达保护或合理反馈惩罚。",
+        "candidate_persons": [
+          "尉迟敬德",
+          "李元吉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-A1F16755FAC582E3D054"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-EC0C28585473F8B443AB",
+        "rationale": "事件核心是玄武门事变中的追杀、斩杀与军事溃散，虽被路由提示中的“杀”误触发，但不满足 tolerate_talent 的最低语义，也不是既有工作集中的意见反馈单元。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-096-EC0C2858"
+      },
+      {
+        "candidate_event_summary": "侯君集在建成、元吉被诛相关宫廷政变中的谋策居多；材料未显示李世民建立意见入口、容纳异议、保护反馈者或压制合理反馈。",
+        "candidate_persons": [
+          "侯君集",
+          "李世民",
+          "李建成",
+          "李元吉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-5C11411721FCDF8DECAA",
+          "retrieval_v3:claim_key:CLMK-974CC86FD760CA0C1784"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [
+          "cross_rule_attribution"
+        ],
+        "event_group_key": "CEG-F05989D0EAF6BA51A560",
+        "rationale": "两条输入指向同一事件组，且内容是玄武门相关谋议及诛杀结果。仅有“诛”字不足以构成对合理反馈的压制或惩罚，不能归入 tolerate_talent；也不像既有工作集中的求谏或臣下谏诤单元。可作为其他政治行动或政变相关规则的候选线索，但不能作为本规则正式事实。",
+        "source_search_hints": [
+          "检索《旧唐书·侯君集传》中“建成、元吉被诛”上下文，以确认侯君集具体谋议及李世民归责关系",
+          "检索《资治通鉴》玄武门之变相关记载，核对谋策、执行与诛杀链条"
+        ],
+        "task_code": "TT-V3-097-F05989D0"
+      },
+      {
+        "candidate_event_summary": "王世充军突围战中，尉迟敬德击败单雄信并护卫李世民出围，随后再战致王世充军大败。该事件属于军事战役与护卫，不涉及意见入口、异议表达、反馈者保护或压制惩罚。",
+        "candidate_persons": [
+          "尉迟敬德",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-BEF4F9AADFA509F11025"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-F2602F7E9B9E38779BA2",
+        "rationale": "输入事实仅支持军事行动、护卫和战果；“免”表示逃脱或免死语境，不能据此推断李世民容纳或保护合理反馈。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-098-F2602F7E"
+      },
+      {
+        "candidate_event_summary": "贞观六年魏徵反对李世民封禅计划，指出东巡供顿劳费、户口仓廪未复及示弱风险；属于魏徵生前谏诤既有工作单元的具体事件部件。",
+        "candidate_persons": [
+          "魏徵",
+          "李世民"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-B6D550735EB64F1B398C"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-F6D138705BE08A380F68",
+        "rationale": "事件明确包含魏徵针对皇帝计划提出异议，符合意见表达与纳谏语义；但人物、谏诤链条已在既有工作集覆盖，因此不应新建独立来源绑定单元。",
+        "source_search_hints": [
+          "《资治通鉴》第194卷，贞观六年封禅议"
+        ],
+        "task_code": "TT-V3-099-F6D13870"
+      },
+      {
+        "candidate_event_summary": "玄武门事变中秦琼参与诛杀李建成、李元吉，事后获授官职并赐实封；该事件属于政变处置与任赏，不涉及意见入口、异议表达或反馈者保护/惩罚。",
+        "candidate_persons": [
+          "秦琼",
+          "李世民",
+          "李建成",
+          "李元吉"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-4A6052E9418D32F0F7F6"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-F750A9719931BCC906E9",
+        "rationale": "不满足 tolerate_talent 最低语义；route_hints 中的“诛、杀”仅触发了错误候选路由，不能据此归入该规则。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-100-F750A971"
+      },
+      {
+        "candidate_event_summary": "魏徵死后，李世民追称其为可明得失的一镜，并要求公卿知而必谏，体现对谏诤传统的追认与延续。该事件属于魏徵生前谏诤与身后信用既有单元的组成部分。",
+        "candidate_persons": [
+          "李世民",
+          "魏徵"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-595BAF6CCF630D6D9E0B"
+        ],
+        "disposition": "existing_workset_candidate",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-F996A47221C3CECBDEAB",
+        "rationale": "事件核心是魏徵身后信用及李世民要求臣下继续进谏，直接落入当前已覆盖的“魏徵生前谏诤与身后信用”工作单元，不宜新建独立事件。现有片段缺少来源标题和 URL，但不影响既有工作集归类。",
+        "source_search_hints": [
+          "检索魏徵临终遗表及李世民追称魏徵为“镜”的完整史料",
+          "检索李世民要求公卿书遗表于笏并“知而必谏”的原文与出处"
+        ],
+        "task_code": "TT-V3-101-F996A472"
+      },
+      {
+        "candidate_event_summary": "萧瑀与陈叔达在皇帝面前激烈争论，因言辞态度不敬被免官；该片段体现的是不敬处分和政争处置，未明确证明李世民建立意见入口、保护反馈者或压制合理反馈。",
+        "candidate_persons": [
+          "萧瑀",
+          "陈叔达"
+        ],
+        "claim_refs": [
+          "retrieval_v3:claim_key:CLMK-21E8B065822C23FA9DD7"
+        ],
+        "disposition": "not_applicable",
+        "escalation_recommendations": [],
+        "event_group_key": "CEG-FE2A3AC4CFE3541FB5F1",
+        "rationale": "输入明确显示的是因不敬免官，且后续涉及弹劾、罢免御史大夫等政争处分；不满足 tolerate_talent 的最低语义，不能仅因发生朝议争论或出现“免”字归入。",
+        "source_search_hints": [],
+        "task_code": "TT-V3-102-FE2A3AC4"
+      }
+    ],
+    "max_workers": 8,
+    "model": "gpt-5.6-luna",
+    "output_tokens": 33214,
+    "reasoning_effort": "low",
+    "run_id": "f6b87016c078409b831dfbfea8028aab",
+    "started_at": "2026-07-15T10:28:44.299+00:00",
+    "success_count": 102,
+    "task_count": 102,
+    "wall_clock_seconds": 323.441
+  },
+  "workflow_model_policy": "config/model-policy.yml"
+}

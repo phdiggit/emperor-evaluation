@@ -55,6 +55,7 @@ milestones:
   talent_discovery_shared_scored_shadow: first_vertical_slice_passed
   talent_discovery_roster_incremental: passed_shadow_runtime
   v4_source_cache_service: passed_real_adapter_shadow_repository_contract
+  workflow_agent_model_routing: passed_draft_only_contract
   formal_scoring: blocked
 
 current_shadow_result:
@@ -217,27 +218,39 @@ rule_test_set_admission_result:
   formal_scoring_allowed: false
 
 latest_delivery:
-  code: lishimin_tolerate_talent_vertical_closure
+  code: lishimin_tolerate_talent_fact_acceptance_preflight
   status: complete
-  assertion_draft_count: 99
-  proposed_episode_count: 29
-  draft_rule_evidence_unit_count: 7
-  score_contribution_count: 1
-  source_cache_database_write_count: 10
-  current_effective_source_cache_write_count: 5
-  superseded_short_snapshot_write_count: 5
-  idempotent_rerun_database_write_count: 0
+  inventory: eval/i5b_tolerate_talent_historical_coverage/lishimin_candidate_inventory_v1.json
+  acceptance_preflight: eval/i5b_tolerate_talent_historical_coverage/lishimin_fact_acceptance_preflight_v1.json
+  v3_hint_event_group_count: 102
+  v3_hint_event_group_success_count: 102
+  v3_hint_batch_wall_clock_seconds: 323.441
+  v3_hint_batch_max_workers: 8
+  independent_and_named_retrieval_task_count: 9
+  retrieval_candidate_count: 28
+  frozen_candidate_group_count: 10
+  new_positive_candidate_count: 2
+  historical_coverage_batch1_document_count: 4
+  historical_coverage_batch1_passage_count: 10
+  historical_coverage_batch1_database_write_count: 28
+  historical_coverage_batch1_idempotent_rerun_write_count: 0
+  acceptance_preflight_passage_count: 10
+  acceptance_preflight_assertion_draft_count: 21
+  acceptance_preflight_advance_passage_count: 4
+  acceptance_preflight_hold_passage_count: 1
+  acceptance_preflight_reject_or_context_passage_count: 5
+  acceptance_preflight_wall_clock_seconds: 65.291
   formal_fact_acceptance: false
   formal_scoring_allowed: false
 
 next_delivery:
-  code: lishimin_tolerate_talent_historical_coverage
+  code: lishimin_tolerate_talent_formal_fact_acceptance_decisions
   required_outcomes:
-    - dispose_remaining_v3_route_event_groups_as_hints_only
-    - complete_independent_positive_and_negative_retrieval
-    - close_named_person_source_gaps
-    - freeze_candidate_inventory_and_attestation
-    - run_formal_fact_acceptance_gate_before_historical_signal_eligibility
+    - review_new_positive_and_repair_candidate_semantics
+    - split_or_reject_composite_dismissal_restoration_candidates
+    - settle_cross_rule_and_pre_accession_applicability
+    - accept_or_reject_cached_passages_without_worker_fact_authority
+    - rerun_historical_coverage_gate_after_acceptance_decisions
   forbidden_substitutes:
     - zero_fill_historical_coverage
     - treat_v3_claims_as_v4_facts
@@ -630,7 +643,14 @@ i5b_lishimin_source_ingestion:
   attribution_review_required_unit_count: 1
   formal_assertion_write_count: 0
   formal_score_write_count: 0
-  next_gate: build_assertion_drafts_and_review_dispositions_from_cached_passages
+  historical_coverage_batch1_request: eval/i5b_source_ingestion/lishimin_tolerate_historical_coverage_batch1_request.yml
+  historical_coverage_batch1_plan: eval/i5b_source_ingestion/lishimin_tolerate_historical_coverage_batch1_plan.yml
+  historical_coverage_batch1_audit: eval/i5b_source_ingestion/lishimin_tolerate_historical_coverage_batch1_db_audit.json
+  historical_coverage_batch1_document_count: 4
+  historical_coverage_batch1_passage_count: 10
+  historical_coverage_batch1_database_write_count: 28
+  historical_coverage_batch1_idempotent_rerun_write_count: 0
+  next_gate: formal_fact_acceptance_and_candidate_semantic_review
 
 i5b_lishimin_rule_net:
   status: declared_workset_rule_nets_available_coverage_incomplete

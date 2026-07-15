@@ -83,6 +83,8 @@ python -m emperor_v4.eval rule-test-set-admission --policy config/rule-test-set-
 python -m emperor_v4.eval i5b-opened-regression-contract --contract config/i5b-opened-regression-contract.yml --artifact-root . --output eval/i5b_test_set_portfolio/opened_regression_contract_report.json
 python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output eval/i5b_test_set_portfolio/factor_semantics_report.json
 python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output eval/i5b_test_set_portfolio/scoring_policy_report.json
+python -m emperor_v4.eval model-policy --policy config/model-policy.yml
+python -m emperor_v4.eval model-policy --policy config/model-policy.yml --stage named_subject_source_discovery
 python -m emperor_v4.eval i5b-joint-projection-scored-shadow --rule-code talent_discovery --projection-input eval/i5b_joint_projection_scored_shadow/talent_discovery_projection_inputs.json --scoring-policy config/i5b-scoring-policy.yml --output eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json
 python -m emperor_v4.eval i5b-joint-projection-scored-shadow --rule-code tolerate_talent --projection-input eval/i5b_joint_projection_scored_shadow/tolerate_talent_projection_inputs.json --scoring-policy config/i5b-scoring-policy.yml --assertion-review eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json --output eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json
 python -m emperor_v4.eval i5b-ruler-rule-coverage --manifest eval/i5b_ruler_rule_coverage/lishimin_manifest.yml --output eval/i5b_ruler_rule_coverage/lishimin_report.json
@@ -102,7 +104,11 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 
 李世民 `tolerate_talent` 纵向报告已经收口：7个已缓存单元形成99条已复核 Assertion 草案、29个 proposed Episode、7个 draft RuleEvidenceUnit 和1条 raw-signal-only ScoreContribution；`TT-O05` 的复碑 lineage 已从《资治通鉴》卷198改绑《大唐新语》卷一。当前原始信号为 `10.353`，但未执行正式事实接受、动态分数映射或排名。
 
-下一份可见成果是李世民 `tolerate_talent` 历史覆盖收口：完成剩余候选事件处置与独立正反向检索，冻结候选清单和审计声明，再决定是否允许进入正式事实接受门禁；不得用零填充把当前工作集冒充完整历史覆盖。
+李世民 `tolerate_talent` 历史候选清单已经冻结：102个 V3 事件组以 Luna-low、8并发逐组处置，5分23秒内 102/102 成功；另有9个命名人物与独立正反向检索任务产出28条候选线索。首批4份史源、10个段落已写入 Source Cache，首次28次仓储写入，幂等重跑0写入；正式 Assertion 与分数写入仍为0。
+
+接受前置审查也已完成：10个段落以 Luna-medium、8并发在约65秒内 10/10 成功，形成21条最小 Assertion 草案。主审后4个段落进入正式接受决策、1个保留补充上下文、5个作为跨 rule、明确过错、既有制度部件或背景材料退出独立容才结算。
+
+下一份可见成果是李世民 `tolerate_talent` 正式事实接受决策：拆分4个可推进段落的事件节点，逐条接受或拒绝 Assertion，再重跑历史覆盖 Gate；不得让工作智能体直接写正式事实，也不得以零填充或当前候选清单冒充完整历史覆盖。
 
 ## 用户目标链路
 

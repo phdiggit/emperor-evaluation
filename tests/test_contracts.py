@@ -78,6 +78,10 @@ from emperor_v4.evaluation.i5b_scoring_policy import (
     calculate_weighted_raw_signal,
     evaluate_i5b_scoring_policy,
 )
+from emperor_v4.evaluation.model_policy import (
+    resolve_agent_route,
+    validate_model_policy,
+)
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
 )
@@ -1770,6 +1774,119 @@ def test_i5b_all_rule_factor_semantics_are_frozen_and_machine_validated() -> Non
     ].append("capability_risk_dominated")
     with pytest.raises(ValueError, match="talent_depth 不得混入"):
         evaluate_i5b_factor_semantics(mixed_axes)
+
+
+def test_model_policy_routes_repeatable_work_to_luna_and_ambiguous_work_upward() -> None:
+    root = Path(__file__).parents[1]
+    policy = yaml.safe_load(
+        (root / "config/model-policy.yml").read_text(encoding="utf-8")
+    )
+
+    validation = validate_model_policy(policy)
+    assert validation["status"] == "passed"
+    assert validation["profile_count"] == 5
+    assert validation["stage_count"] == 7
+    assert validation["formal_fact_acceptance_allowed"] is False
+
+    ordinary = resolve_agent_route(
+        policy, stage_code="named_subject_source_discovery"
+    )
+    assert ordinary["model"] == "gpt-5.6-luna"
+    assert ordinary["reasoning_effort"] == "medium"
+    assert ordinary["escalated"] is False
+    assert ordinary["repository_write_allowed"] is False
+
+    ambiguous = resolve_agent_route(
+        policy,
+        stage_code="named_subject_source_discovery",
+        escalation_reasons=("actor_or_ruler_attribution_ambiguous",),
+    )
+    assert ambiguous["model"] == "gpt-5.6-terra"
+    assert ambiguous["reasoning_effort"] == "high"
+    assert ambiguous["escalated"] is True
+
+    final_support = resolve_agent_route(
+        policy, stage_code="final_gate_review_support"
+    )
+    assert final_support["model"] == "gpt-5.6-sol"
+    assert final_support["formal_fact_acceptance_allowed"] is False
+
+
+def test_model_policy_fails_closed_for_undeclared_escalation_or_worker_authority() -> None:
+    root = Path(__file__).parents[1]
+    policy = yaml.safe_load(
+        (root / "config/model-policy.yml").read_text(encoding="utf-8")
+    )
+
+    with pytest.raises(ValueError, match="未声明的升级原因"):
+        resolve_agent_route(
+            policy,
+            stage_code="named_subject_source_discovery",
+            escalation_reasons=("use_sol_because_available",),
+        )
+
+    unsafe = deepcopy(policy)
+    unsafe["workflow_agent_routing"]["task_contract"][
+        "worker_formal_fact_acceptance_allowed"
+    ] = True
+    with pytest.raises(ValueError, match="不得获得仓库写入"):
+        validate_model_policy(unsafe)
+
+
+def test_lishimin_tolerate_talent_historical_inventory_stays_pre_acceptance() -> None:
+    root = Path(__file__).parents[1]
+    inventory = json.loads(
+        (
+            root
+            / "eval/i5b_tolerate_talent_historical_coverage/lishimin_candidate_inventory_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert inventory["status"] == "candidate_inventory_frozen_for_acceptance_review"
+    assert inventory["historical_coverage_complete"] is False
+    assert inventory["formal_fact_acceptance"] is False
+    assert inventory["formal_scoring_allowed"] is False
+    assert inventory["v3_hint_disposition_batch"]["task_count"] == 102
+    assert inventory["v3_hint_disposition_batch"]["success_count"] == 102
+    assert inventory["v3_hint_disposition_batch"]["authority"] == (
+        "hints_only_no_v4_fact_authority"
+    )
+    assert inventory["retrieval_batch"]["contract_valid_result_count"] == 9
+    assert inventory["retrieval_batch"]["candidate_count"] == 28
+    assert inventory["source_cache_batch"]["document_count"] == 4
+    assert inventory["source_cache_batch"]["passage_count"] == 10
+    assert inventory["source_cache_batch"][
+        "idempotent_rerun_repository_write_count"
+    ] == 0
+    assert inventory["candidate_summary"] == {
+        "applicability_or_cross_rule_review_count": 4,
+        "candidate_group_count": 10,
+        "existing_or_no_new_candidate_count": 2,
+        "new_positive_candidate_count": 2,
+        "repair_or_split_review_candidate_count": 2,
+    }
+
+    preflight = json.loads(
+        (
+            root
+            / "eval/i5b_tolerate_talent_historical_coverage/lishimin_fact_acceptance_preflight_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert preflight["status"] == (
+        "preflight_complete_pending_formal_acceptance_decisions"
+    )
+    assert preflight["formal_fact_acceptance"] is False
+    assert preflight["formal_assertion_write_count"] == 0
+    assert preflight["formal_score_write_count"] == 0
+    assert preflight["run"]["task_count"] == 10
+    assert preflight["run"]["success_count"] == 10
+    assert preflight["summary"]["proposed_assertion_count"] == 21
+    assert preflight["summary"]["advance_to_formal_acceptance_passage_count"] == 4
+    assert preflight["summary"]["hold_for_additional_context_passage_count"] == 1
+    assert preflight["summary"]["reject_or_context_only_passage_count"] == 5
+    assert preflight["gate"]["status"] == (
+        "blocked_pending_explicit_accept_or_reject_decisions"
+    )
 
 
 def test_i5b_scoring_policy_preserves_v3_raw_signal_shape_without_fake_score() -> None:

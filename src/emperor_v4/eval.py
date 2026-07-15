@@ -97,6 +97,10 @@ from emperor_v4.evaluation.i5b_factor_semantics import (
 from emperor_v4.evaluation.i5b_scoring_policy import (
     evaluate_i5b_scoring_policy,
 )
+from emperor_v4.evaluation.model_policy import (
+    resolve_agent_route,
+    validate_model_policy,
+)
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
 )
@@ -587,6 +591,11 @@ def _parser() -> argparse.ArgumentParser:
     i5b_scoring_policy = subparsers.add_parser("i5b-scoring-policy")
     i5b_scoring_policy.add_argument("--policy", type=Path, required=True)
     i5b_scoring_policy.add_argument("--output", type=Path)
+    model_policy = subparsers.add_parser("model-policy")
+    model_policy.add_argument("--policy", type=Path, required=True)
+    model_policy.add_argument("--stage")
+    model_policy.add_argument("--escalation-reason", action="append", default=[])
+    model_policy.add_argument("--output", type=Path)
     v3_person_profiles = subparsers.add_parser("v3-person-profile-export")
     v3_person_profiles.add_argument(
         "--source-freeze-ref", default="v3-freeze-20260712"
@@ -997,6 +1006,18 @@ def main() -> int:
         report = evaluate_i5b_scoring_policy(
             yaml.safe_load(args.policy.read_text(encoding="utf-8"))
         )
+    elif args.command == "model-policy":
+        model_policy_payload = yaml.safe_load(args.policy.read_text(encoding="utf-8"))
+        if args.stage:
+            report = resolve_agent_route(
+                model_policy_payload,
+                stage_code=args.stage,
+                escalation_reasons=args.escalation_reason,
+            )
+        elif args.escalation_reason:
+            raise ValueError("--escalation-reason 必须与 --stage 同时使用")
+        else:
+            report = validate_model_policy(model_policy_payload)
     elif args.command == "v3-person-profile-export":
         report = export_v3_person_profile_package(
             source_freeze_ref=args.source_freeze_ref,
