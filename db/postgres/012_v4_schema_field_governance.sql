@@ -52,6 +52,75 @@ CREATE TABLE IF NOT EXISTS v4_governance.identity_reference_aliases (
     )
 );
 
+CREATE TABLE IF NOT EXISTS v4_governance.identity_reference_backfill_map (
+    reference_domain TEXT NOT NULL CHECK (
+        reference_domain IN ('evaluation_context', 'participant_ref')
+    ),
+    source_ref TEXT NOT NULL,
+    target_ref TEXT NOT NULL CHECK (
+        target_ref ~ '^(PER|GRP)-[A-Z0-9]+(-[A-Z0-9]+)+$'
+    ),
+    canonical_name TEXT NOT NULL,
+    participant_kind TEXT NOT NULL CHECK (
+        participant_kind IN ('person', 'group')
+    ),
+    basis_ref TEXT NOT NULL,
+    source_row_count INTEGER NOT NULL DEFAULT 0 CHECK (source_row_count >= 0),
+    applied_row_count INTEGER NOT NULL DEFAULT 0 CHECK (applied_row_count >= 0),
+    duplicate_row_count INTEGER NOT NULL DEFAULT 0 CHECK (duplicate_row_count >= 0),
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    applied_at TIMESTAMPTZ,
+    PRIMARY KEY (reference_domain, source_ref)
+);
+
+INSERT INTO v4_governance.identity_reference_backfill_map (
+    reference_domain, source_ref, target_ref, canonical_name,
+    participant_kind, basis_ref
+) VALUES
+    ('evaluation_context', 'PER-LI-SHIMIN', 'PER-LI-SHIMIN', '李世民', 'person', 'core-identity:PER-LI-SHIMIN'),
+    ('evaluation_context', 'PER-V4-78F48EBC67F8', 'PER-LI-SHIMIN', '李世民', 'person', 'assertion-context-name:李世民'),
+    ('evaluation_context', 'per-4eb7ac987fecc59f', 'PER-V4-4EB7AC987FEC', '胤禛', 'person', 'assertion-context-name:胤禛'),
+    ('evaluation_context', 'per-e15c1b65f12f0ae6', 'PER-V4-E15C1B65F12F', '刘恒', 'person', 'assertion-context-name:刘恒'),
+    ('evaluation_context', '杨广', 'PER-V4-C93016BB741A', '杨广', 'person', 'assertion-context-name:杨广'),
+    ('evaluation_context', '胡亥', 'PER-V4-75EF40579300', '胡亥', 'person', 'assertion-context-name:胡亥'),
+    ('participant_ref', 'PER-FANG-XUANLING', 'PER-V4-C37ED24688F5', '房玄龄', 'person', 'unique-canonical-name:房玄龄'),
+    ('participant_ref', 'PER-V4-78F48EBC67F8', 'PER-LI-SHIMIN', '李世民', 'person', 'assertion-context-name:李世民'),
+    ('participant_ref', 'PER-V4-19A7D9A17D2F', 'PER-V4-B0E10D8903E7', '魏徵', 'person', 'assertion-role-name:魏徵'),
+    ('participant_ref', 'PER-V4-7CF98C73F205', 'PER-V4-89C0D231C76C', '李靖', 'person', 'assertion-role-name:李靖'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-CHANGSUN-WUJI', 'PER-V4-839C5A8CB43C', '长孙无忌', 'person', 'candidate-name:长孙无忌'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-FANG-YIAI', 'PER-V4-B3237391DC6C', '房遗爱', 'person', 'candidate-name:房遗爱'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-HOU-JUNJI', 'PER-V4-BBB439491EC7', '侯君集', 'person', 'candidate-name:侯君集'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-LI-DAOYU', 'PER-V4-D1A161DEDA40', '李道裕', 'person', 'candidate-name:李道裕'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-LI-YOULIANG', 'PER-V4-7B0F18DD6A7E', '李幼良', 'person', 'candidate-name:李幼良'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-WANG-GUI', 'PER-V4-6CAF227D2D39', '王珪', 'person', 'candidate-name:王珪'),
+    ('participant_ref', 'PER-NAME-CANDIDATE-ZHANG-XUANSU', 'PER-V4-429CE79493C8', '张玄素', 'person', 'candidate-name:张玄素'),
+    ('participant_ref', 'PER-GROUP-CANDIDATE-LI-ROYAL-KIN', 'GRP-V4-6D9014C97B41', '李唐疏属宗室', 'group', 'reviewed-group:李唐疏属宗室'),
+    ('participant_ref', 'PER-GROUP-CANDIDATE-QINFU-OLD-FOLLOWERS', 'GRP-V4-68FC831D2408', '秦府旧人', 'group', 'reviewed-group:秦府旧人'),
+    ('participant_ref', 'obj-2b89622cefdec6e3', 'PER-V4-6B644ADA6B87', '陈平', 'person', 'episode-role-review:陈平'),
+    ('participant_ref', 'obj-485798d73c4c10dd', 'PER-V4-B248DFDEACE7', '鄂尔泰', 'person', 'episode-role-review:鄂尔泰'),
+    ('participant_ref', 'obj-a4785b7cc76ec776', 'PER-V4-D7FBC6D47CAE', '周勃', 'person', 'episode-role-review:周勃'),
+    ('participant_ref', 'per-4eb7ac987fecc59f', 'PER-V4-4EB7AC987FEC', '胤禛', 'person', 'name-hash-and-ruler-context:胤禛'),
+    ('participant_ref', 'per-90d341e561ef23dd', 'PER-V4-E15C1B65F12F', '刘恒', 'person', 'name-hash-and-ruler-context:文帝刘恒'),
+    ('participant_ref', 'per-d7a0d148728a2905', 'PER-V4-D7A0D148728A', '隆科多', 'person', 'name-hash-and-role-context:隆科多'),
+    ('participant_ref', 'per-e15c1b65f12f0ae6', 'PER-V4-E15C1B65F12F', '刘恒', 'person', 'name-hash-and-ruler-context:刘恒'),
+    ('participant_ref', '二世', 'PER-V4-75EF40579300', '胡亥', 'person', 'ruler-alias:秦二世胡亥'),
+    ('participant_ref', '二世使者', 'GRP-V4-3169839A92A8', '二世使者', 'group', 'reviewed-agent-group:二世使者'),
+    ('participant_ref', '叔孙通', 'PER-V4-6F877F064B0B', '叔孙通', 'person', 'unique-canonical-name:叔孙通'),
+    ('participant_ref', '屈突通', 'PER-V4-C1923EA6B469', '屈突通', 'person', 'unique-canonical-name:屈突通'),
+    ('participant_ref', '李斯', 'PER-V4-A18E9558AE21', '李斯', 'person', 'unique-canonical-name:李斯'),
+    ('participant_ref', '杨广', 'PER-V4-C93016BB741A', '杨广', 'person', 'ruler-alias:隋炀帝杨广'),
+    ('participant_ref', '炀帝', 'PER-V4-C93016BB741A', '杨广', 'person', 'ruler-alias:隋炀帝杨广'),
+    ('participant_ref', '胡亥', 'PER-V4-75EF40579300', '胡亥', 'person', 'ruler-alias:秦二世胡亥'),
+    ('participant_ref', '胡亥使者', 'GRP-V4-CBD654AFB735', '胡亥使者', 'group', 'reviewed-agent-group:胡亥使者'),
+    ('participant_ref', '萧瑀', 'PER-V4-B817E6DF722E', '萧瑀', 'person', 'unique-canonical-name:萧瑀'),
+    ('participant_ref', '隋炀帝', 'PER-V4-C93016BB741A', '杨广', 'person', 'ruler-alias:隋炀帝杨广')
+ON CONFLICT (reference_domain, source_ref) DO UPDATE SET
+    target_ref = EXCLUDED.target_ref,
+    canonical_name = EXCLUDED.canonical_name,
+    participant_kind = EXCLUDED.participant_kind,
+    basis_ref = EXCLUDED.basis_ref,
+    active = TRUE;
+
 CREATE TABLE IF NOT EXISTS v4_governance.legacy_value_dispositions (
     issue_code TEXT NOT NULL,
     schema_name TEXT NOT NULL,
@@ -138,15 +207,12 @@ BEGIN
         END IF;
     END IF;
 
-    IF to_regclass('public.episode_participants') IS NOT NULL
-       AND NOT EXISTS (
-           SELECT 1 FROM pg_constraint
-           WHERE conrelid = 'public.episode_participants'::regclass
-             AND conname = 'episode_participants_canonical_person_ref_check'
-       ) THEN
+    IF to_regclass('public.episode_participants') IS NOT NULL THEN
+        ALTER TABLE public.episode_participants
+            DROP CONSTRAINT IF EXISTS episode_participants_canonical_person_ref_check;
         ALTER TABLE public.episode_participants
             ADD CONSTRAINT episode_participants_canonical_person_ref_check
-            CHECK (person_ref ~ '^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$') NOT VALID;
+            CHECK (person_ref ~ '^(PER|GRP)-[A-Z0-9]+(-[A-Z0-9]+)+$') NOT VALID;
     END IF;
 
     IF to_regclass('public.episode_participants') IS NOT NULL
@@ -160,15 +226,12 @@ BEGIN
             CHECK (person_ref !~ '-(NAME|GROUP)-CANDIDATE-') NOT VALID;
     END IF;
 
-    IF to_regclass('public.historical_episodes') IS NOT NULL
-       AND NOT EXISTS (
-           SELECT 1 FROM pg_constraint
-           WHERE conrelid = 'public.historical_episodes'::regclass
-             AND conname = 'historical_episodes_canonical_evaluation_context_check'
-       ) THEN
+    IF to_regclass('public.historical_episodes') IS NOT NULL THEN
+        ALTER TABLE public.historical_episodes
+            DROP CONSTRAINT IF EXISTS historical_episodes_canonical_evaluation_context_check;
         ALTER TABLE public.historical_episodes
             ADD CONSTRAINT historical_episodes_canonical_evaluation_context_check
-            CHECK (evaluation_context ~ '^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$') NOT VALID;
+            CHECK (evaluation_context ~ '^PER-[A-Z0-9]+(-[A-Z0-9]+)+$') NOT VALID;
     END IF;
 
     IF to_regclass('public.source_documents') IS NOT NULL
@@ -300,6 +363,7 @@ DECLARE
         ,'field_quality_baselines', '字段一致性债务的不可反弹质量基线。'
         ,'legacy_value_dispositions', '历史非规范字段值的逐值处置和规范目标。'
         ,'identity_reference_aliases', '跨 Core、I5B 与人物画像命名空间的身份引用解析表。'
+        ,'identity_reference_backfill_map', '公共事件域历史身份引用的物理归一化映射和执行计数。'
         ,'resolved_episode_participants', '保留原值并给出规范身份解析的事件参与者只读视图。'
         ,'resolved_historical_episodes', '保留原值并给出规范统治者引用的历史事件只读视图。'
     );

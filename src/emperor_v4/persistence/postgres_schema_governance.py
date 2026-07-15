@@ -10,7 +10,7 @@ from typing import Any, Sequence
 
 
 MIGRATION_KEY = "v4-schema-field-governance-v1"
-IDENTITY_RESOLVER_VERSION = "role-aware-conservative-v3"
+IDENTITY_RESOLVER_VERSION = "physical-event-identity-backfill-v4"
 TARGET_SCHEMAS = (
     "public",
     "v4_source_cache",
@@ -526,6 +526,166 @@ def _refresh_identity_reference_aliases(cursor: Any) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
+def _apply_physical_identity_backfill(cursor: Any) -> dict[str, int]:
+    cursor.execute(
+        """
+        SELECT target_ref, min(canonical_name),
+               jsonb_agg(DISTINCT basis_ref ORDER BY basis_ref)
+        FROM v4_governance.identity_reference_backfill_map
+        WHERE active AND participant_kind = 'person'
+        GROUP BY target_ref
+        ORDER BY target_ref
+        """
+    )
+    inserted_identities = 0
+    for target_ref, canonical_name, basis_refs in cursor.fetchall():
+        fingerprint = sha256(
+            f"field-governance-identity-v1|{target_ref}|{canonical_name}".encode(
+                "utf-8"
+            )
+        ).hexdigest()
+        cursor.execute(
+            """
+            INSERT INTO v4_person_profile.person_identity_registry (
+                person_ref, canonical_name, historical_context,
+                identity_fingerprint, identity_status, semantic_version,
+                supersedes_person_ref, idempotency_key, import_batch_id,
+                payload, created_at, updated_at
+            ) VALUES (
+                %s, %s, %s, %s, 'active', 1, NULL, %s, NULL,
+                jsonb_build_object(
+                    'source', 'v4-schema-field-governance',
+                    'basis_refs', %s::jsonb,
+                    'physical_backfill', TRUE
+                ),
+                CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+            )
+            ON CONFLICT (person_ref) DO NOTHING
+            """,
+            (
+                target_ref,
+                canonical_name,
+                "公共事件域身份引用物理归一化",
+                fingerprint,
+                f"field-governance-identity-v1:{target_ref}",
+                json.dumps(basis_refs, ensure_ascii=False),
+            ),
+        )
+        inserted_identities += max(int(cursor.rowcount), 0)
+
+    cursor.execute(
+        """
+        UPDATE v4_governance.identity_reference_backfill_map AS m
+        SET source_row_count = source.count,
+            applied_row_count = source.count,
+            duplicate_row_count = 0,
+            applied_at = CURRENT_TIMESTAMP
+        FROM (
+            SELECT m2.source_ref, count(e.episode_id)::integer AS count
+            FROM v4_governance.identity_reference_backfill_map AS m2
+            LEFT JOIN public.historical_episodes AS e
+              ON e.evaluation_context = m2.source_ref
+            WHERE m2.active AND m2.reference_domain = 'evaluation_context'
+            GROUP BY m2.source_ref
+        ) AS source
+        WHERE m.reference_domain = 'evaluation_context'
+          AND m.source_ref = source.source_ref
+        """
+    )
+    cursor.execute(
+        """
+        UPDATE public.historical_episodes AS e
+        SET evaluation_context = m.target_ref,
+            updated_at = CURRENT_TIMESTAMP
+        FROM v4_governance.identity_reference_backfill_map AS m
+        WHERE m.active
+          AND m.reference_domain = 'evaluation_context'
+          AND e.evaluation_context = m.source_ref
+          AND e.evaluation_context IS DISTINCT FROM m.target_ref
+        """
+    )
+    episode_rows_updated = max(int(cursor.rowcount), 0)
+
+    cursor.execute(
+        """
+        CREATE TEMP TABLE governance_participant_projection
+        ON COMMIT DROP AS
+        SELECT p.ctid AS row_id, p.episode_id, p.semantic_version,
+               p.person_ref AS source_ref, p.role_code,
+               COALESCE(m.target_ref, p.person_ref) AS target_ref,
+               row_number() OVER (
+                   PARTITION BY p.episode_id, p.semantic_version,
+                                COALESCE(m.target_ref, p.person_ref), p.role_code
+                   ORDER BY (m.target_ref IS NULL), p.person_ref, p.ctid
+               ) AS duplicate_rank
+        FROM public.episode_participants AS p
+        LEFT JOIN v4_governance.identity_reference_backfill_map AS m
+          ON m.active
+         AND m.reference_domain = 'participant_ref'
+         AND m.source_ref = p.person_ref
+        """
+    )
+    cursor.execute(
+        """
+        UPDATE v4_governance.identity_reference_backfill_map AS m
+        SET source_row_count = source.source_count,
+            applied_row_count = source.source_count - source.duplicate_count,
+            duplicate_row_count = source.duplicate_count,
+            applied_at = CURRENT_TIMESTAMP
+        FROM (
+            SELECT source_ref, count(*)::integer AS source_count,
+                   count(*) FILTER (WHERE duplicate_rank > 1)::integer
+                       AS duplicate_count
+            FROM governance_participant_projection
+            WHERE source_ref IS DISTINCT FROM target_ref
+            GROUP BY source_ref
+        ) AS source
+        WHERE m.active
+          AND m.reference_domain = 'participant_ref'
+          AND m.source_ref = source.source_ref
+        """
+    )
+    cursor.execute(
+        """
+        DELETE FROM public.episode_participants AS p
+        USING governance_participant_projection AS projected
+        WHERE p.ctid = projected.row_id
+          AND projected.duplicate_rank > 1
+        """
+    )
+    duplicate_rows_removed = max(int(cursor.rowcount), 0)
+    cursor.execute(
+        """
+        UPDATE public.episode_participants AS p
+        SET person_ref = m.target_ref,
+            role_status = 'resolved'
+        FROM v4_governance.identity_reference_backfill_map AS m
+        WHERE m.active
+          AND m.reference_domain = 'participant_ref'
+          AND p.person_ref = m.source_ref
+          AND p.person_ref IS DISTINCT FROM m.target_ref
+        """
+    )
+    participant_rows_updated = max(int(cursor.rowcount), 0)
+
+    cursor.execute(
+        """
+        ALTER TABLE public.episode_participants
+            VALIDATE CONSTRAINT episode_participants_canonical_person_ref_check;
+        ALTER TABLE public.episode_participants
+            VALIDATE CONSTRAINT episode_participants_no_candidate_ref_check;
+        ALTER TABLE public.historical_episodes
+            VALIDATE CONSTRAINT historical_episodes_canonical_evaluation_context_check;
+        """
+    )
+    return {
+        "canonical_identities_inserted": inserted_identities,
+        "historical_episode_rows_updated": episode_rows_updated,
+        "episode_participant_rows_updated": participant_rows_updated,
+        "duplicate_participant_rows_removed": duplicate_rows_removed,
+    }
+
+
 def _identity_alias_counts(cursor: Any) -> dict[str, int]:
     cursor.execute("SELECT to_regclass('v4_governance.identity_reference_aliases')")
     if cursor.fetchone()[0] is None:
@@ -743,6 +903,7 @@ def ensure_schema_governance(cursor: Any) -> dict[str, Any]:
     after_inventory = _inventory(cursor)
     after_inventory_sha = _inventory_sha256(after_inventory)
     gaps_after = _comment_gaps(cursor)
+    physical_backfill_summary = _apply_physical_identity_backfill(cursor)
     identity_alias_summary = _refresh_identity_reference_aliases(cursor)
     quality_after = _quality_metrics(cursor)
     _upsert_quality_baselines(cursor, quality_after)
@@ -758,6 +919,7 @@ def ensure_schema_governance(cursor: Any) -> dict[str, Any]:
         "comment_gap_count": len(gaps_after),
         "quality_metrics": quality_after,
         "identity_reference_aliases": identity_alias_summary,
+        "physical_identity_backfill": physical_backfill_summary,
         "legacy_value_dispositions": disposition_summary,
     }
     cursor.execute(

@@ -9,39 +9,55 @@
       "v4_person_profile",
       "v4_governance"
     ],
-    "relation_count": 38,
-    "column_count": 427,
+    "relation_count": 39,
+    "column_count": 438,
     "unmanaged_business_relation_count": 0,
     "relation_comment_gap_count": 0,
     "column_comment_gap_count": 0
   },
   "governance": {
     "typed_identifier_contracts": true,
-    "legacy_value_dispositions": 54,
+    "legacy_value_dispositions": 4,
     "identity_reference_alias_counts": {
-      "canonical": 269,
-      "alias": 8,
-      "candidate": 7,
-      "non_person": 4,
-      "unresolved": 8
+      "canonical": 277,
+      "alias": 0,
+      "candidate": 0,
+      "non_person": 0,
+      "unresolved": 0
     },
     "resolved_episode_participant_row_counts": {
-      "canonical": 268,
-      "alias": 35,
-      "candidate": 18,
-      "non_person": 4,
-      "unresolved": 69
+      "canonical": 393,
+      "alias": 0,
+      "candidate": 0,
+      "non_person": 0,
+      "unresolved": 0
     },
-    "quarantined_identity_reference_count": 19,
+    "quarantined_identity_reference_count": 0,
     "mixed_language_policy": "ratchet_baseline_no_regression",
-    "identity_resolution_policy": "role_aware_conservative_no_cross_role_inference"
+    "identity_resolution_policy": "physical_event_domain_backfill_with_reviewed_mapping",
+    "physical_identity_backfill": {
+      "canonical_identities_inserted": 9,
+      "historical_episode_rows_updated": 84,
+      "episode_participant_rows_updated": 180,
+      "duplicate_participant_rows_removed": 1,
+      "noncanonical_participant_row_count": 0,
+      "unresolved_participant_row_count": 0,
+      "noncanonical_evaluation_context_row_count": 0
+    },
+    "canonical_evaluation_context_counts": {
+      "PER-LI-SHIMIN": 183,
+      "PER-V4-4EB7AC987FEC": 20,
+      "PER-V4-75EF40579300": 8,
+      "PER-V4-C93016BB741A": 7,
+      "PER-V4-E15C1B65F12F": 6
+    }
   },
   "regeneration_controls": {
     "new_invalid_person_ref": "blocked",
     "new_candidate_person_ref": "blocked",
     "new_invalid_evaluation_context": "blocked",
     "mixed_language_regression": "blocked",
-    "historical_debt": "preserved_with_explicit_disposition"
+    "historical_debt": "physically_backfilled_and_constraints_validated"
   },
   "postgres": {
     "first_run": {

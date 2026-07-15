@@ -49,11 +49,16 @@ def test_schema_governance_encodes_field_contracts_and_new_write_gates() -> None
     assert "baseline_count" in sql
     assert "legacy_value_dispositions" in sql
     assert "identity_reference_aliases" in sql
+    assert "identity_reference_backfill_map" in sql
     assert "resolved_episode_participants" in sql
     assert "resolved_historical_episodes" in sql
     assert "episode_participants_no_candidate_ref_check" in sql
     assert "canonical_target" in sql
     assert "quarantined" in sql
+    assert "PER-V4-4EB7AC987FEC" in sql
+    assert "PER-V4-E15C1B65F12F" in sql
+    assert "PER-V4-C93016BB741A" in sql
+    assert "PER-V4-75EF40579300" in sql
 
 
 def test_schema_governance_comments_every_current_and_future_business_field() -> None:
@@ -130,6 +135,9 @@ def test_text_quality_metrics_are_ratcheted_instead_of_blanket_translated() -> N
     assert "linked.role_code NOT IN ('ruler', 'actor')" in source
     assert "r.canonical_name = linked.object_name" in source
     assert "IDENTITY_RESOLVER_VERSION.encode()" in source
+    assert "_apply_physical_identity_backfill" in source
+    assert "governance_participant_projection" in source
+    assert "VALIDATE CONSTRAINT" in source
     for column in (
         "talent_grade_basis",
         "negative_talent_basis",

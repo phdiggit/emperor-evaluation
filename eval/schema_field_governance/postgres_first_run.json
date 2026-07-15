@@ -2,42 +2,44 @@
   "dry_run": false,
   "governance": {
     "action": "applied",
-    "column_count": 427,
+    "column_count": 438,
     "comment_gap_count": 0,
     "database_write_count": 1,
     "identity_reference_aliases": {
-      "alias": 8,
-      "candidate": 7,
-      "canonical": 269,
-      "non_person": 4,
-      "unresolved": 8
+      "canonical": 277
     },
-    "inventory_sha256": "ff4566eda86d6833c129388dd38990ec1bb1bfc1cc3e5bf47d6068edf7dc1aa3",
+    "inventory_sha256": "d1b4dd30ecde55de2b85b43a5b5574d4034ef073bfd2984a33cd4b00ffc4d170",
     "legacy_value_dispositions": [
       {
-        "canonical_target_count": 8,
-        "distinct_value_count": 18,
+        "canonical_target_count": 0,
+        "distinct_value_count": 0,
         "issue_code": "noncanonical_participant_ref",
-        "quarantined_count": 10
+        "quarantined_count": 0
       },
       {
-        "canonical_target_count": 13,
-        "distinct_value_count": 32,
-        "issue_code": "cross_namespace_participant_ref",
-        "quarantined_count": 19
-      },
-      {
-        "canonical_target_count": 1,
+        "canonical_target_count": 4,
         "distinct_value_count": 4,
+        "issue_code": "cross_namespace_participant_ref",
+        "quarantined_count": 0
+      },
+      {
+        "canonical_target_count": 0,
+        "distinct_value_count": 0,
         "issue_code": "noncanonical_evaluation_context",
-        "quarantined_count": 3
+        "quarantined_count": 0
       }
     ],
-    "migration_sha256": "86c84ea2e7ab6e1298695149981b93ed23506793198bac83f10c6d9d7c8a3460",
+    "migration_sha256": "3d5133de2fecc531b9bd653dd21f546f3f2d91c4604e783d8b901d7d75875ba8",
+    "physical_identity_backfill": {
+      "canonical_identities_inserted": 9,
+      "duplicate_participant_rows_removed": 1,
+      "episode_participant_rows_updated": 180,
+      "historical_episode_rows_updated": 84
+    },
     "quality_metrics": [
       {
         "column": "person_ref",
-        "count": 106,
+        "count": 0,
         "metric_key": "reference_debt:episode_participants:noncanonical_person_ref",
         "metric_kind": "noncanonical_reference",
         "schema": "public",
@@ -45,7 +47,7 @@
       },
       {
         "column": "person_ref",
-        "count": 91,
+        "count": 0,
         "metric_key": "reference_debt:episode_participants:unresolved_person_ref:v2",
         "metric_kind": "unresolved_reference",
         "schema": "public",
@@ -53,7 +55,7 @@
       },
       {
         "column": "evaluation_context",
-        "count": 41,
+        "count": 0,
         "metric_key": "reference_debt:historical_episodes:noncanonical_evaluation_context",
         "metric_kind": "noncanonical_reference",
         "schema": "public",
@@ -108,7 +110,7 @@
         "table": "episode_assertion_dispositions"
       }
     ],
-    "relation_count": 38,
+    "relation_count": 39,
     "schema_version": "v4-schema-field-governance-v1"
   },
   "historical_debt": [
@@ -116,7 +118,7 @@
       "column": "person_ref",
       "issue_code": "noncanonical_participant_ref",
       "policy": "historical_debt_new_writes_blocked",
-      "row_count": 106,
+      "row_count": 0,
       "schema": "public",
       "table": "episode_participants"
     },
@@ -124,7 +126,7 @@
       "column": "person_ref",
       "issue_code": "unresolved_participant_ref",
       "policy": "historical_debt_new_writes_blocked",
-      "row_count": 91,
+      "row_count": 0,
       "schema": "public",
       "table": "episode_participants"
     },
@@ -132,7 +134,7 @@
       "column": "evaluation_context",
       "issue_code": "noncanonical_evaluation_context",
       "policy": "historical_debt_new_writes_blocked",
-      "row_count": 41,
+      "row_count": 0,
       "schema": "public",
       "table": "historical_episodes"
     }

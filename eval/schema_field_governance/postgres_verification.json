@@ -1,8 +1,15 @@
 {
+  "canonical_evaluation_context_counts": {
+    "PER-LI-SHIMIN": 183,
+    "PER-V4-4EB7AC987FEC": 20,
+    "PER-V4-75EF40579300": 8,
+    "PER-V4-C93016BB741A": 7,
+    "PER-V4-E15C1B65F12F": 6
+  },
   "comments": {
-    "column_count": 427,
+    "column_count": 438,
     "column_gap_count": 0,
-    "relation_count": 38,
+    "relation_count": 39,
     "relation_gap_count": 0
   },
   "constraints": [
@@ -15,15 +22,15 @@
       "name": "assertions_semantic_key_family_check"
     },
     {
-      "historical_rows_validated": false,
+      "historical_rows_validated": true,
       "name": "episode_participants_canonical_person_ref_check"
     },
     {
-      "historical_rows_validated": false,
+      "historical_rows_validated": true,
       "name": "episode_participants_no_candidate_ref_check"
     },
     {
-      "historical_rows_validated": false,
+      "historical_rows_validated": true,
       "name": "historical_episodes_canonical_evaluation_context_check"
     },
     {
@@ -44,551 +51,47 @@
     }
   ],
   "identity_reference_alias_counts": {
-    "alias": 8,
-    "candidate": 7,
-    "canonical": 269,
-    "non_person": 4,
-    "unresolved": 8
+    "canonical": 277
   },
   "legacy_value_dispositions": [
     {
       "basis": "跨域身份解析：public.episode_participants:resolved-role。",
-      "canonical_value": "PER-LI-SHIMIN",
+      "canonical_value": "GRP-V4-3169839A92A8",
       "classification": "canonical",
       "disposition": "canonical_target",
       "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-LI-SHIMIN",
-      "legacy_value_sha256": "0b85bf5e9dc990069b6c81e52d67889e290f8a684f9dfe2f7c2b948ae5349e64",
-      "occurrence_count": 173
+      "legacy_value": "GRP-V4-3169839A92A8",
+      "legacy_value_sha256": "32eaa591578d46bb83e7428d4015e895c892f7ecf822788a18176eac43b5d1ba",
+      "occurrence_count": 1
     },
     {
       "basis": "跨域身份解析：public.episode_participants:resolved-role。",
-      "canonical_value": "PER-V4-78F48EBC67F8",
+      "canonical_value": "GRP-V4-68FC831D2408",
       "classification": "canonical",
       "disposition": "canonical_target",
       "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-V4-78F48EBC67F8",
-      "legacy_value_sha256": "524f13d464738082eb0cde1bde7913a0a68e4da88d68fa4c8c3ad08cc8231cde",
-      "occurrence_count": 43
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "per-4eb7ac987fecc59f",
-      "legacy_value_sha256": "354050e8d7fcb778273ab250e21e1073575816ad9516a65cf4af5ef0e8059b53",
-      "occurrence_count": 33
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-B248DFDEACE7",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "obj-485798d73c4c10dd",
-      "legacy_value_sha256": "d0e70a979eb9052a56acc4853e9a2555088bbca2ae35a1acb0566e1984c8d3cb",
-      "occurrence_count": 17
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "胡亥",
-      "legacy_value_sha256": "75ef40579300e25bb41a769999b428b045a407a2789ee891fbd57bf1d393727a",
-      "occurrence_count": 10
+      "legacy_value": "GRP-V4-68FC831D2408",
+      "legacy_value_sha256": "f0f5c54d0544c6f5d9b394d17be53969a33750d3afddeb47e966ebb3dc1f1424",
+      "occurrence_count": 1
     },
     {
       "basis": "跨域身份解析：public.episode_participants:resolved-role。",
-      "canonical_value": "PER-FANG-XUANLING",
+      "canonical_value": "GRP-V4-6D9014C97B41",
       "classification": "canonical",
       "disposition": "canonical_target",
       "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-FANG-XUANLING",
-      "legacy_value_sha256": "3c8bccab8907d25ed5b509542c6841f891b0099d5df2256f2442cd057afeeb75",
-      "occurrence_count": 8
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-WANG-GUI",
-      "legacy_value_sha256": "fed83dbdd961eb04378b7fff0479771d4f66faba9bdb848fdd8d5adaa01a1a67",
-      "occurrence_count": 8
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "obj-2b89622cefdec6e3",
-      "legacy_value_sha256": "760838318bcd4e921aa625494357edf52c075940f675df3a6aaa7fb93e046ee8",
-      "occurrence_count": 7
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "杨广",
-      "legacy_value_sha256": "c93016bb741a905322fe0761624a1cc1d9c92230db7edd3cbac0f34c96665e76",
-      "occurrence_count": 7
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "per-d7a0d148728a2905",
-      "legacy_value_sha256": "72e4b395c79b853d0e5c9d08adda3d7ab5dbe638a357c230dcd04946da3fa397",
-      "occurrence_count": 6
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_evaluation_context_name:v1。",
-      "canonical_value": "RULER-NAME-CANDIDATE-E15C1B65F12F",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "per-e15c1b65f12f0ae6",
-      "legacy_value_sha256": "fecd7a0cb8fcc6ba2076312a1686b5ea1f34a54050aaca170e896cdf873b99f1",
-      "occurrence_count": 6
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-HOU-JUNJI",
-      "legacy_value_sha256": "b761d7935b13aaf0825d8e89c1154f04bfc20d5a5688bb42355cdde3138f875e",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-D7FBC6D47CAE",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "obj-a4785b7cc76ec776",
-      "legacy_value_sha256": "82fff42210fe42f9514eefb84f95d6f2350fdcd253295143d08c12557fd15df1",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-A18E9558AE21",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "李斯",
-      "legacy_value_sha256": "fdec2a39e1811e39f75cb24f552de43903cc57f024bcccf7323f13bdbdfbd276",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "炀帝",
-      "legacy_value_sha256": "1247dcfad307e462fcf3446e05df5c1b4ed426617af39dff5f1b4a59e75f1681",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-LI-DAOYU",
-      "legacy_value_sha256": "7c139a870f4c99297bf0784d2cd837c4c73bafc751cad375974fd14f9b2e2fd0",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-ZHANG-XUANSU",
-      "legacy_value_sha256": "db8bcce39d6e3a086ff8709c4206aa243abed62d09bf0fdb622d477bf91533aa",
-      "occurrence_count": 2
+      "legacy_value": "GRP-V4-6D9014C97B41",
+      "legacy_value_sha256": "a82c4b8bb0504fe33ba9ff5d68eef1897ff4e5a3cc03cb0d9eec6a2c73796892",
+      "occurrence_count": 1
     },
     {
       "basis": "跨域身份解析：public.episode_participants:resolved-role。",
-      "canonical_value": "PER-V4-19A7D9A17D2F",
+      "canonical_value": "GRP-V4-CBD654AFB735",
       "classification": "canonical",
       "disposition": "canonical_target",
       "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-V4-19A7D9A17D2F",
-      "legacy_value_sha256": "5032cac3be2415c032f031748403a6c8558bff0c5207db1994915a5104e59db0",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：public.episode_participants:resolved-role。",
-      "canonical_value": "PER-V4-7CF98C73F205",
-      "classification": "canonical",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-V4-7CF98C73F205",
-      "legacy_value_sha256": "fde83f301aefc05e31f257ef2ca6d57062aa91a4ade6297a984f7c8c6d9fbb75",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-6B644ADA6B87",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "per-90d341e561ef23dd",
-      "legacy_value_sha256": "a6b082f77c0b390979f6c516a479e137cdbc74b4215265f29c714462aa66b3a5",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "二世",
-      "legacy_value_sha256": "757cebd2ebb7f23cb3e4727dc33901d6b75166534749609b95d6e7a3c7682a57",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-B817E6DF722E",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "萧瑀",
-      "legacy_value_sha256": "880dc755c4cd35a73495cfa429a8b6fd471c2bc51255daea06814c7236268b77",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:non-person-participant-v1。",
-      "canonical_value": null,
-      "classification": "non_person",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-GROUP-CANDIDATE-LI-ROYAL-KIN",
-      "legacy_value_sha256": "0981d16b3308dd503ae0d8fffeea1d9c833ffbbe4ff77200cd2e664712d1552f",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:non-person-participant-v1。",
-      "canonical_value": null,
-      "classification": "non_person",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-GROUP-CANDIDATE-QINFU-OLD-FOLLOWERS",
-      "legacy_value_sha256": "38b8f9a86a10fd47ef0240788f21f041740380d45dcd38c29800d1b39c0e824c",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-CHANGSUN-WUJI",
-      "legacy_value_sha256": "1b784c51f840947ab810e9a470cadc2a9b9b008827ec1cb27ebf12e6372a98d3",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-FANG-YIAI",
-      "legacy_value_sha256": "746856fd401d4d712ec56a3d3ebbaf1d359ad80048d0ee9c5ab1c82de507cadc",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:candidate-prefix-v1。",
-      "canonical_value": null,
-      "classification": "candidate",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "PER-NAME-CANDIDATE-LI-YOULIANG",
-      "legacy_value_sha256": "c7690e9c15d3fcfc621ae2841a2de84901adc66fd864a48602c309341e58b452",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:non-person-participant-v1。",
-      "canonical_value": null,
-      "classification": "non_person",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "二世使者",
-      "legacy_value_sha256": "3169839a92a8877d5d99ff8e533a5db08ea5456453af5fff2df328751d6692db",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-6F877F064B0B",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "叔孙通",
-      "legacy_value_sha256": "2321789d4f791abc89d38f4228daa15e91193d5cdf48a49e0ad0197de4076786",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-C1923EA6B469",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "屈突通",
-      "legacy_value_sha256": "8864fec000d1ea374b66f3aa1f10733de80d150d59c5fe44fd300bdf47358b28",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:non-person-participant-v1。",
-      "canonical_value": null,
-      "classification": "non_person",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "胡亥使者",
-      "legacy_value_sha256": "cbd654afb735ba4621ffd12fbb0e5455a332bbff3d8cbff7bd44f79f937ba25f",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "cross_namespace_participant_ref",
-      "legacy_value": "隋炀帝",
-      "legacy_value_sha256": "eaa85c1bdbba1eb684bca7a263af09697f90ba08f1fc89d0f5c729410a262cf6",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_evaluation_context",
-      "legacy_value": "per-4eb7ac987fecc59f",
-      "legacy_value_sha256": "354050e8d7fcb778273ab250e21e1073575816ad9516a65cf4af5ef0e8059b53",
-      "occurrence_count": 20
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_evaluation_context",
-      "legacy_value": "胡亥",
-      "legacy_value_sha256": "75ef40579300e25bb41a769999b428b045a407a2789ee891fbd57bf1d393727a",
-      "occurrence_count": 8
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_evaluation_context",
-      "legacy_value": "杨广",
-      "legacy_value_sha256": "c93016bb741a905322fe0761624a1cc1d9c92230db7edd3cbac0f34c96665e76",
-      "occurrence_count": 7
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_evaluation_context_name:v1。",
-      "canonical_value": "RULER-NAME-CANDIDATE-E15C1B65F12F",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_evaluation_context",
-      "legacy_value": "per-e15c1b65f12f0ae6",
-      "legacy_value_sha256": "fecd7a0cb8fcc6ba2076312a1686b5ea1f34a54050aaca170e896cdf873b99f1",
-      "occurrence_count": 6
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "per-4eb7ac987fecc59f",
-      "legacy_value_sha256": "354050e8d7fcb778273ab250e21e1073575816ad9516a65cf4af5ef0e8059b53",
-      "occurrence_count": 33
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-B248DFDEACE7",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "obj-485798d73c4c10dd",
-      "legacy_value_sha256": "d0e70a979eb9052a56acc4853e9a2555088bbca2ae35a1acb0566e1984c8d3cb",
-      "occurrence_count": 17
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "胡亥",
-      "legacy_value_sha256": "75ef40579300e25bb41a769999b428b045a407a2789ee891fbd57bf1d393727a",
-      "occurrence_count": 10
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "obj-2b89622cefdec6e3",
-      "legacy_value_sha256": "760838318bcd4e921aa625494357edf52c075940f675df3a6aaa7fb93e046ee8",
-      "occurrence_count": 7
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "杨广",
-      "legacy_value_sha256": "c93016bb741a905322fe0761624a1cc1d9c92230db7edd3cbac0f34c96665e76",
-      "occurrence_count": 7
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "per-d7a0d148728a2905",
-      "legacy_value_sha256": "72e4b395c79b853d0e5c9d08adda3d7ab5dbe638a357c230dcd04946da3fa397",
-      "occurrence_count": 6
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_evaluation_context_name:v1。",
-      "canonical_value": "RULER-NAME-CANDIDATE-E15C1B65F12F",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "per-e15c1b65f12f0ae6",
-      "legacy_value_sha256": "fecd7a0cb8fcc6ba2076312a1686b5ea1f34a54050aaca170e896cdf873b99f1",
-      "occurrence_count": 6
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-D7FBC6D47CAE",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "obj-a4785b7cc76ec776",
-      "legacy_value_sha256": "82fff42210fe42f9514eefb84f95d6f2350fdcd253295143d08c12557fd15df1",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-A18E9558AE21",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "李斯",
-      "legacy_value_sha256": "fdec2a39e1811e39f75cb24f552de43903cc57f024bcccf7323f13bdbdfbd276",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "炀帝",
-      "legacy_value_sha256": "1247dcfad307e462fcf3446e05df5c1b4ed426617af39dff5f1b4a59e75f1681",
-      "occurrence_count": 3
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-6B644ADA6B87",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "per-90d341e561ef23dd",
-      "legacy_value_sha256": "a6b082f77c0b390979f6c516a479e137cdbc74b4215265f29c714462aa66b3a5",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "二世",
-      "legacy_value_sha256": "757cebd2ebb7f23cb3e4727dc33901d6b75166534749609b95d6e7a3c7682a57",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-B817E6DF722E",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "萧瑀",
-      "legacy_value_sha256": "880dc755c4cd35a73495cfa429a8b6fd471c2bc51255daea06814c7236268b77",
-      "occurrence_count": 2
-    },
-    {
-      "basis": "跨域身份解析：field-governance:non-person-participant-v1。",
-      "canonical_value": null,
-      "classification": "non_person",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "二世使者",
-      "legacy_value_sha256": "3169839a92a8877d5d99ff8e533a5db08ea5456453af5fff2df328751d6692db",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-6F877F064B0B",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "叔孙通",
-      "legacy_value_sha256": "2321789d4f791abc89d38f4228daa15e91193d5cdf48a49e0ad0197de4076786",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:assertion_subject_or_object_name:v1。",
-      "canonical_value": "PER-V4-C1923EA6B469",
-      "classification": "alias",
-      "disposition": "canonical_target",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "屈突通",
-      "legacy_value_sha256": "8864fec000d1ea374b66f3aa1f10733de80d150d59c5fe44fd300bdf47358b28",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:non-person-participant-v1。",
-      "canonical_value": null,
-      "classification": "non_person",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "胡亥使者",
-      "legacy_value_sha256": "cbd654afb735ba4621ffd12fbb0e5455a332bbff3d8cbff7bd44f79f937ba25f",
-      "occurrence_count": 1
-    },
-    {
-      "basis": "跨域身份解析：field-governance:requires-identity-review-v1。",
-      "canonical_value": null,
-      "classification": "unresolved",
-      "disposition": "quarantined",
-      "issue_code": "noncanonical_participant_ref",
-      "legacy_value": "隋炀帝",
-      "legacy_value_sha256": "eaa85c1bdbba1eb684bca7a263af09697f90ba08f1fc89d0f5c729410a262cf6",
+      "legacy_value": "GRP-V4-CBD654AFB735",
+      "legacy_value_sha256": "6eef70e1e97a4371eb866214e55a260d166e7293a9104331ed1ee0dff0a9c472",
       "occurrence_count": 1
     }
   ],
@@ -598,166 +101,25 @@
     "historical_episodes.evaluation_context": "blocked",
     "mixed_text_quality_baseline": "blocked"
   },
-  "quarantined_identity_references": [
+  "physical_identity_backfill": [
     {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-CHANGSUN-WUJI"
+      "applied_row_count": 224,
+      "duplicate_row_count": 0,
+      "mapping_count": 6,
+      "reference_domain": "evaluation_context",
+      "source_row_count": 224
     },
     {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-FANG-YIAI"
-    },
-    {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-HOU-JUNJI"
-    },
-    {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-LI-DAOYU"
-    },
-    {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-LI-YOULIANG"
-    },
-    {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-WANG-GUI"
-    },
-    {
-      "basis_ref": "field-governance:candidate-prefix-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "name_candidate",
-      "resolution_status": "candidate",
-      "source_ref": "PER-NAME-CANDIDATE-ZHANG-XUANSU"
-    },
-    {
-      "basis_ref": "field-governance:non-person-participant-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "non_person_context",
-      "resolution_status": "non_person",
-      "source_ref": "PER-GROUP-CANDIDATE-LI-ROYAL-KIN"
-    },
-    {
-      "basis_ref": "field-governance:non-person-participant-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "non_person_context",
-      "resolution_status": "non_person",
-      "source_ref": "PER-GROUP-CANDIDATE-QINFU-OLD-FOLLOWERS"
-    },
-    {
-      "basis_ref": "field-governance:non-person-participant-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "non_person_context",
-      "resolution_status": "non_person",
-      "source_ref": "二世使者"
-    },
-    {
-      "basis_ref": "field-governance:non-person-participant-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "non_person_context",
-      "resolution_status": "non_person",
-      "source_ref": "胡亥使者"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "obj-2b89622cefdec6e3"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": "胤禛",
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "per-4eb7ac987fecc59f"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "per-d7a0d148728a2905"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "二世"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": "杨广",
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "杨广"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "炀帝"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": "胡亥",
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "胡亥"
-    },
-    {
-      "basis_ref": "field-governance:requires-identity-review-v1",
-      "canonical_name": null,
-      "canonical_ref": null,
-      "reference_kind": "legacy_or_display_value",
-      "resolution_status": "unresolved",
-      "source_ref": "隋炀帝"
+      "applied_row_count": 180,
+      "duplicate_row_count": 1,
+      "mapping_count": 31,
+      "reference_domain": "participant_ref",
+      "source_row_count": 181
     }
   ],
+  "quarantined_identity_references": [],
   "resolved_episode_participant_row_counts": {
-    "alias": 35,
-    "candidate": 18,
-    "canonical": 268,
-    "non_person": 4,
-    "unresolved": 69
+    "canonical": 393
   },
   "transactional_gate_probes_rolled_back": true,
   "unmanaged_business_relations": []
