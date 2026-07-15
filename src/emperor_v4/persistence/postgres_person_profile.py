@@ -4,6 +4,10 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Iterable
 
+from emperor_v4.persistence.postgres_schema_governance import (
+    ensure_schema_governance,
+)
+
 
 PERSON_PROFILE_SCHEMA = "v4_person_profile"
 PERSON_PROFILE_BASE_TABLES = {
@@ -246,6 +250,10 @@ def bootstrap_person_profile_schema(dsn: str, *, dry_run: bool) -> dict[str, Any
                     database_write_count = 1
                 else:
                     database_write_count = 0
+                if not dry_run and ensure_schema_governance(cursor)[
+                    "database_write_count"
+                ]:
+                    database_write_count = 1
     except PersonProfileSchemaStateError:
         raise
     except Exception:

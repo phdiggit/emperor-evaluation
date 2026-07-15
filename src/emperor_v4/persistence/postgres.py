@@ -4,6 +4,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Literal
 
+from emperor_v4.persistence.postgres_schema_governance import (
+    ensure_schema_governance,
+)
+
 
 G3A_TABLES = frozenset(
     {
@@ -98,9 +102,21 @@ def bootstrap_g3a_schema(dsn: str) -> G3ASchemaBootstrapResult:
             if constraint_count < 20:
                 raise G3ASchemaStateError("G3A schema 约束数量低于合同下限")
 
+            cursor.execute("SELECT current_schema()")
+            current_schema = str(cursor.fetchone()[0])
+            governance_write_count = 0
+            if current_schema == "public":
+                governance_write_count = int(
+                    ensure_schema_governance(cursor)["database_write_count"]
+                )
+
     return G3ASchemaBootstrapResult(
-        action="applied" if action == "apply" else "reused",
+        action=(
+            "applied"
+            if action == "apply" or governance_write_count
+            else "reused"
+        ),
         table_count=len(G3A_TABLES),
         constraint_count=constraint_count,
-        database_write_count=1 if action == "apply" else 0,
+        database_write_count=1 if action == "apply" or governance_write_count else 0,
     )

@@ -10,6 +10,9 @@ from emperor_v4.application.source_cache_service import (
     source_content_version,
 )
 from emperor_v4.contracts.source import SourceRevisionContent
+from emperor_v4.persistence.postgres_schema_governance import (
+    ensure_schema_governance,
+)
 
 
 SOURCE_CACHE_SCHEMA = "v4_source_cache"
@@ -117,10 +120,19 @@ def bootstrap_source_cache_schema(dsn: str) -> SourceCacheSchemaBootstrapResult:
                 raise SourceCacheSchemaStateError(
                     "Source Cache migration 后表集合与合同不一致"
                 )
+            governance_write_count = int(
+                ensure_schema_governance(cursor)["database_write_count"]
+            )
     return SourceCacheSchemaBootstrapResult(
-        action="applied" if action in {"apply", "upgrade"} else "reused",
+        action=(
+            "applied"
+            if action in {"apply", "upgrade"} or governance_write_count
+            else "reused"
+        ),
         table_count=len(SOURCE_CACHE_TABLES),
-        database_write_count=1 if action in {"apply", "upgrade"} else 0,
+        database_write_count=(
+            1 if action in {"apply", "upgrade"} or governance_write_count else 0
+        ),
     )
 
 

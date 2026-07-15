@@ -1,0 +1,69 @@
+{
+  "schema_version": "v4-schema-field-governance-summary-v1",
+  "status": "accepted",
+  "scope": {
+    "schemas": [
+      "public",
+      "v4_source_cache",
+      "v4_claim_extractor",
+      "v4_person_profile",
+      "v4_governance"
+    ],
+    "relation_count": 38,
+    "column_count": 427,
+    "unmanaged_business_relation_count": 0,
+    "relation_comment_gap_count": 0,
+    "column_comment_gap_count": 0
+  },
+  "governance": {
+    "typed_identifier_contracts": true,
+    "legacy_value_dispositions": 54,
+    "identity_reference_alias_counts": {
+      "canonical": 269,
+      "alias": 8,
+      "candidate": 7,
+      "non_person": 4,
+      "unresolved": 8
+    },
+    "resolved_episode_participant_row_counts": {
+      "canonical": 268,
+      "alias": 35,
+      "candidate": 18,
+      "non_person": 4,
+      "unresolved": 69
+    },
+    "quarantined_identity_reference_count": 19,
+    "mixed_language_policy": "ratchet_baseline_no_regression",
+    "identity_resolution_policy": "role_aware_conservative_no_cross_role_inference"
+  },
+  "regeneration_controls": {
+    "new_invalid_person_ref": "blocked",
+    "new_candidate_person_ref": "blocked",
+    "new_invalid_evaluation_context": "blocked",
+    "mixed_language_regression": "blocked",
+    "historical_debt": "preserved_with_explicit_disposition"
+  },
+  "postgres": {
+    "first_run": {
+      "action": "applied",
+      "database_write_count": 1
+    },
+    "idempotent_rerun": {
+      "action": "reused",
+      "database_write_count": 0
+    },
+    "transactional_gate_probes_rolled_back": true
+  },
+  "validation": {
+    "focused_tests": "54 passed",
+    "compileall": "passed",
+    "json_parse": "passed",
+    "git_diff_check": "passed"
+  },
+  "evidence": [
+    "postgres_dry_run.json",
+    "postgres_first_run.json",
+    "postgres_idempotent_rerun.json",
+    "postgres_verification.json"
+  ]
+}

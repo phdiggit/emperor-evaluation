@@ -1,0 +1,120 @@
+{
+  "dry_run": false,
+  "governance": {
+    "action": "reused",
+    "column_count": 427,
+    "comment_gap_count": 0,
+    "database_write_count": 0,
+    "identity_reference_aliases": {
+      "alias": 8,
+      "candidate": 7,
+      "canonical": 269,
+      "non_person": 4,
+      "unresolved": 8
+    },
+    "inventory_sha256": "ff4566eda86d6833c129388dd38990ec1bb1bfc1cc3e5bf47d6068edf7dc1aa3",
+    "migration_sha256": "86c84ea2e7ab6e1298695149981b93ed23506793198bac83f10c6d9d7c8a3460",
+    "quality_metrics": [
+      {
+        "column": "person_ref",
+        "count": 106,
+        "metric_key": "reference_debt:episode_participants:noncanonical_person_ref",
+        "metric_kind": "noncanonical_reference",
+        "schema": "public",
+        "table": "episode_participants"
+      },
+      {
+        "column": "person_ref",
+        "count": 91,
+        "metric_key": "reference_debt:episode_participants:unresolved_person_ref:v2",
+        "metric_kind": "unresolved_reference",
+        "schema": "public",
+        "table": "episode_participants"
+      },
+      {
+        "column": "evaluation_context",
+        "count": 41,
+        "metric_key": "reference_debt:historical_episodes:noncanonical_evaluation_context",
+        "metric_kind": "noncanonical_reference",
+        "schema": "public",
+        "table": "historical_episodes"
+      },
+      {
+        "column": "talent_grade_basis",
+        "count": 181,
+        "metric_key": "mixed_text:person_profile_catalog:talent_grade_basis",
+        "metric_kind": "mixed_han_latin",
+        "schema": "v4_person_profile",
+        "table": "person_profile_catalog"
+      },
+      {
+        "column": "negative_talent_basis",
+        "count": 20,
+        "metric_key": "mixed_text:person_profile_catalog:negative_talent_basis",
+        "metric_kind": "mixed_han_latin",
+        "schema": "v4_person_profile",
+        "table": "person_profile_catalog"
+      },
+      {
+        "column": "source_basis",
+        "count": 299,
+        "metric_key": "mixed_text:talent_grade_calibrations:source_basis",
+        "metric_kind": "mixed_han_latin",
+        "schema": "v4_person_profile",
+        "table": "talent_grade_calibrations"
+      },
+      {
+        "column": "review_basis",
+        "count": 225,
+        "metric_key": "mixed_text:talent_grade_calibrations:review_basis",
+        "metric_kind": "mixed_han_latin",
+        "schema": "v4_person_profile",
+        "table": "talent_grade_calibrations"
+      },
+      {
+        "column": "reason",
+        "count": 0,
+        "metric_key": "mixed_text:episode_assertion_dispositions:reason",
+        "metric_kind": "mixed_han_latin",
+        "schema": "public",
+        "table": "episode_assertion_dispositions"
+      },
+      {
+        "column": "follow_up",
+        "count": 0,
+        "metric_key": "mixed_text:episode_assertion_dispositions:follow_up",
+        "metric_kind": "mixed_han_latin",
+        "schema": "public",
+        "table": "episode_assertion_dispositions"
+      }
+    ],
+    "relation_count": 38
+  },
+  "historical_debt": [
+    {
+      "column": "person_ref",
+      "issue_code": "noncanonical_participant_ref",
+      "policy": "historical_debt_new_writes_blocked",
+      "row_count": 106,
+      "schema": "public",
+      "table": "episode_participants"
+    },
+    {
+      "column": "person_ref",
+      "issue_code": "unresolved_participant_ref",
+      "policy": "historical_debt_new_writes_blocked",
+      "row_count": 91,
+      "schema": "public",
+      "table": "episode_participants"
+    },
+    {
+      "column": "evaluation_context",
+      "issue_code": "noncanonical_evaluation_context",
+      "policy": "historical_debt_new_writes_blocked",
+      "row_count": 41,
+      "schema": "public",
+      "table": "historical_episodes"
+    }
+  ],
+  "schema_version": "v4-schema-field-governance-run-v1"
+}
