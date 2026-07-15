@@ -1,0 +1,166 @@
+{
+  "axis_coverage": {
+    "cross_person_cluster": {
+      "observation_count": 2,
+      "observation_refs": [
+        "CP-LSM-06",
+        "CP-LSM-16"
+      ]
+    },
+    "person_event": {
+      "observation_count": 2,
+      "observation_refs": [
+        "PE-LSM-WZ-01",
+        "PE-LSM-YSN-01"
+      ]
+    },
+    "ruler_institution": {
+      "observation_count": 2,
+      "observation_refs": [
+        "RI-LSM-01",
+        "RI-LSM-15"
+      ]
+    }
+  },
+  "candidate": {
+    "candidate_type": "ruler_level_cross_person_institution",
+    "disposition": "candidate_only",
+    "expression_actors": [
+      "姚思廉",
+      "房玄龄",
+      "杜正伦",
+      "虞世南",
+      "韦挺",
+      "魏徵"
+    ],
+    "formal_subjects": [
+      "上封事官员",
+      "宰相",
+      "群臣",
+      "谏官"
+    ],
+    "gate_results": {
+      "distinct_expression_actors": {
+        "evidence_refs": [
+          "CP-LSM-06",
+          "CP-LSM-16",
+          "PE-LSM-WZ-01",
+          "PE-LSM-YSN-01"
+        ],
+        "observed": 6,
+        "passed": true,
+        "required": 2
+      },
+      "expression_safety": {
+        "evidence_refs": [
+          "CP-LSM-06",
+          "PE-LSM-WZ-01",
+          "PE-LSM-YSN-01",
+          "RI-LSM-01",
+          "RI-LSM-15"
+        ],
+        "observed": 5,
+        "passed": true,
+        "required": 1
+      },
+      "formal_channel_establishment": {
+        "evidence_refs": [
+          "RI-LSM-01"
+        ],
+        "observed": 1,
+        "passed": true,
+        "required": 1
+      },
+      "formal_subjects": {
+        "evidence_refs": [
+          "CP-LSM-06",
+          "CP-LSM-16",
+          "RI-LSM-01",
+          "RI-LSM-15"
+        ],
+        "observed": 4,
+        "passed": true,
+        "required": 1
+      },
+      "independent_operation_observations": {
+        "evidence_refs": [
+          "CP-LSM-06",
+          "CP-LSM-16",
+          "PE-LSM-WZ-01",
+          "PE-LSM-YSN-01",
+          "RI-LSM-15"
+        ],
+        "observed": 5,
+        "passed": true,
+        "required": 2
+      },
+      "operation_years": {
+        "evidence_refs": [
+          "CP-LSM-06",
+          "CP-LSM-16",
+          "PE-LSM-WZ-01",
+          "PE-LSM-YSN-01",
+          "RI-LSM-15"
+        ],
+        "observed": 4,
+        "passed": true,
+        "required": 2
+      },
+      "three_axis_coverage": {
+        "evidence_refs": [
+          "CP-LSM-06",
+          "CP-LSM-16",
+          "PE-LSM-WZ-01",
+          "PE-LSM-YSN-01",
+          "RI-LSM-01",
+          "RI-LSM-15"
+        ],
+        "observed": 3,
+        "passed": true,
+        "required": 3
+      }
+    },
+    "institution_key": "LISHIMIN-FORMAL-REMONSTRANCE-CHANNEL",
+    "operation_years": [
+      4,
+      6,
+      15,
+      16
+    ],
+    "passage_refs": [
+      "ZGZY-V02-C06",
+      "ZGZY-V02-C16",
+      "ZGZY-V02-P04",
+      "ZGZY-V02-P06",
+      "ZGZY-V02-R01",
+      "ZGZY-V02-R15"
+    ],
+    "source_refs": [
+      "SRC-ZHENGUANZHENGYAO-VOL02"
+    ]
+  },
+  "case_ref": "I5B-INSTITUTION-RETRIEVAL-LISHIMIN-01",
+  "contract_sha256": "46eedbd290ee6ebc59ec44ff208e6871440d0c9ccfc96ffe19f75f8ef73c2d30",
+  "next_gate": "source_passage_assertion_and_human_or_rule_acceptance_review",
+  "query": {
+    "candidate_source_catalog_ref": "CATALOG-LISHIMIN-PRIMARY-SOURCES-V1",
+    "chapter_title_supplied": false,
+    "institution_answer_supplied": false,
+    "passage_locator_supplied": false,
+    "rule_code": "tolerate_talent",
+    "ruler_name": "李世民"
+  },
+  "schema_version": "i5b-institution-retrieval-regression-v1",
+  "status": "institution_candidate_recalled",
+  "summary": {
+    "candidate_count": 1,
+    "database_write_count": 0,
+    "factor_choices_created": 0,
+    "facts_accepted": 0,
+    "formal_scoring_allowed": false,
+    "network_requests_performed": 0,
+    "observation_count": 6,
+    "retrieval_axis_count": 3,
+    "score_contributions_created": 0
+  }
+}

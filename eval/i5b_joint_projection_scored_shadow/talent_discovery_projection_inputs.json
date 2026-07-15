@@ -1,0 +1,159 @@
+{
+  "input_version": "talent-discovery-joint-projection-v1",
+  "rule_code": "talent_discovery",
+  "schema_version": "i5b-joint-projection-input-v1",
+  "status": "human_frozen_regression_input",
+  "units": [
+    {
+      "canonical_event_group": "EP-LSM-MAZHOU-DISCOVERY@v1",
+      "choices": {
+        "attribution_factor": "direct",
+        "channel_factor": "cross_identity_or_camp",
+        "context_factor": "core_mechanism_direct",
+        "direction_sign": "positive",
+        "discovery_level": "difficult_cross_boundary_discovery",
+        "source_factor": "complete_direct_chain",
+        "talent_quality_factor": "important"
+      },
+      "object_ref": "PER-V4-1E978B22A450",
+      "projection_basis": "马周此前只是寒微家客，李世民先从代拟奏议识别其能力，再追问作者、反复催召面谈并由门下省试用扩大至监察御史；低位与非正式渠道障碍被直接突破，构成困难跨身份发现。该材料只证明一次个案，不推定可重复机制。V10有效人物档位沿V7校准为important。三条同传断言完整覆盖身份障碍、使用前作品、皇帝面谈与实际转化。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-LSM-MAZHOU-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-LSM-MAZHOU-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#马周",
+        "eval/v3_person_profile_migration/talent_grade_v7_important_calibration_report.json#马周",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "status": "projected",
+      "subject": "马周",
+      "unit_ref": "REU-LSM-MAZHOU-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "EP-LSM-FANGXUANLING-DISCOVERY@v1",
+      "choices": {
+        "attribution_factor": "direct",
+        "channel_factor": "cross_identity_or_camp",
+        "context_factor": "core_mechanism_direct",
+        "direction_sign": "positive",
+        "discovery_level": "difficult_cross_boundary_discovery",
+        "source_factor": "complete_direct_chain",
+        "talent_quality_factor": "historic"
+      },
+      "object_ref": "PER-V4-C37ED24688F5",
+      "projection_basis": "房玄龄由隋旧吏身份进入秦府人才池，温彦博推荐后李世民亲见验证并立即署为有实质职责的行军记室参军；跨旧政权阵营障碍与直接转化同时成立，故为困难跨阵营发现。单一事件仍只按跨身份或跨阵营渠道，不提升为可重复机制。V10有效人物档位沿V9为historic。两条同传断言直接覆盖原身份、推荐、面见验证和署职。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#房玄龄",
+        "eval/v3_person_profile_migration/talent_grade_v9_high_tier_calibration_report.json#房玄龄",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "status": "projected",
+      "subject": "房玄龄",
+      "unit_ref": "REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "EP-ZYZ-LIUJI-DISCOVERY@v1",
+      "choices": {
+        "attribution_factor": "direct",
+        "channel_factor": "cross_identity_or_camp",
+        "context_factor": "core_mechanism_direct",
+        "direction_sign": "positive",
+        "discovery_level": "difficult_cross_boundary_discovery",
+        "source_factor": "complete_direct_chain",
+        "talent_quality_factor": "top"
+      },
+      "object_ref": "PER-V4-BF34E92569C0",
+      "projection_basis": "刘基来自元朝旧官体系且初次拒绝征聘；朱元璋闻名后以币聘请，并经孙炎再次延揽，最终亲见其陈时务十八策并安置礼贤馆，跨旧政权及拒绝出仕障碍后完成实质顾问转化。孙炎承担执行不改变征聘与接受问策对朱元璋的直接归责。单一事件只取跨身份或跨阵营渠道。V10有效档位沿V9为top。",
+      "ruler": "朱元璋",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#刘基",
+        "eval/v3_person_profile_migration/talent_grade_v9_high_tier_calibration_report.json#刘基",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "status": "projected",
+      "subject": "刘基",
+      "unit_ref": "REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "EP-YUAN-HBL-LIUBINGZHONG-DISCOVERY@v1",
+      "missing_inputs": [
+        "canonical_person_object_ref",
+        "versioned_person_talent_grade"
+      ],
+      "object_ref": null,
+      "projection_basis": "开放集材料足以说明海云推荐、忽必烈面谈复核、僧人身份障碍和潜邸长期留用，但当前V4人物画像迁移资产及V6至V10校准层均未找到刘秉忠的版本化PersonProfileSnapshot，无法合法填写object_ref和talent_quality_factor。按政策缺任一必要投影输入即关闭，不以史实常识猜测人物档位。",
+      "ruler": "忽必烈",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-YUAN-HBL-LIUBINGZHONG-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-YUAN-HBL-LIUBINGZHONG-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json",
+        "eval/v3_person_profile_migration/supplemental_profile_promotion.json",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery.required_additional_inputs"
+      ],
+      "status": "insufficient_projection",
+      "subject": "刘秉忠",
+      "unit_ref": "REU-YUAN-HBL-LIUBINGZHONG-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "jiayi_summon_and_rapid_promotion",
+      "choices": {
+        "attribution_factor": "direct",
+        "channel_factor": "single_case",
+        "context_factor": "clear",
+        "direction_sign": "positive",
+        "discovery_level": "passive_reputation",
+        "source_factor": "weak_or_compressed",
+        "talent_quality_factor": "important"
+      },
+      "object_ref": "PER-V4-8EFE1D72D09D",
+      "projection_basis": "已开封sealed材料直接记录刘恒召贾谊为博士并在一年内升至太中大夫，足以确认正向发现和直接转化；但冻结Gold明确其使用前依据只有名望、未显示独立复核，也没有实质身份或阵营障碍，故联合投影为passive_reputation并按单次个案处理。单条压缩引文未覆盖完整使用前识别链，source取weak_or_compressed，context只取clear。V10有效人物档位沿V7为important。",
+      "ruler": "刘恒",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_sealed_holdout/worklist.json#TD-S01",
+        "eval/talent_discovery_sealed_holdout/factor_gold.yml#TD-S01",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#贾谊",
+        "eval/v3_person_profile_migration/talent_grade_v7_important_calibration_report.json#贾谊",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "status": "projected",
+      "subject": "贾谊",
+      "unit_ref": "TD-S01"
+    },
+    {
+      "canonical_event_group": "ningwanwo_reputation_summon_wenguan_entry",
+      "choices": {
+        "attribution_factor": "direct",
+        "channel_factor": "cross_identity_or_camp",
+        "context_factor": "core_mechanism_direct",
+        "direction_sign": "positive",
+        "discovery_level": "difficult_cross_boundary_discovery",
+        "source_factor": "standard",
+        "talent_quality_factor": "usable"
+      },
+      "object_ref": "PER-V4-7B301C543E9F",
+      "projection_basis": "已开封sealed材料直接呈现皇太极闻宁完我通文史后召入文馆，并由其敢言与议定官制补强使用转化；冻结Gold判定为外部新见、名望后直接展示、跨身份准入障碍及直接实质使用，四因子联合达到困难跨身份发现。仅有这一事件，渠道不推定为可重复机制。单条本传引文可完整定位核心动作但lineage覆盖仍为普通充分，source取standard。V10有效人物档位沿V8为usable。",
+      "ruler": "皇太极",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_sealed_holdout/worklist.json#TD-S02",
+        "eval/talent_discovery_sealed_holdout/factor_gold.yml#TD-S02",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#宁完我",
+        "eval/v3_person_profile_migration/talent_grade_v8_final_calibration_report.json#宁完我",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "status": "projected",
+      "subject": "宁完我",
+      "unit_ref": "TD-S02"
+    }
+  ]
+}

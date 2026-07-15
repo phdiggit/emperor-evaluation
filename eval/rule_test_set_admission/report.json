@@ -21,12 +21,14 @@
   "rules": [
     {
       "admission_decision": "completed_not_qualified",
+      "current_semantics_contract_version": null,
       "current_stage": "portfolio_36_completed_not_qualified",
       "existing_regression_units": 36,
       "input_type": "hybrid",
       "known_blockers": [
         "sealed 中 3 个单元材料侧结构与 Gold 不一致",
-        "新增 4 个边界单元虽补齐最低配额，但因子一致率 0.7917，仍未通过资格门"
+        "新增 4 个边界单元虽补齐最低配额，但因子一致率 0.7917，仍未通过资格门",
+        "旧 qualifier 的 event_group 字符串排序会交叉配对同侧材料；v6 已冻结 slot_id 与机械观察合同"
       ],
       "missing_prerequisites": [],
       "model_performance_estimate": {
@@ -36,10 +38,12 @@
         "total_tokens": 0,
         "wall_clock_duration_sec": 0.0
       },
-      "next_action": "测试组合已收束；不得重跑已开封 sealed，后续只有新版本合同才可建立全新测试集",
+      "next_action": "v6 因子语义已冻结；先为 open gap-closure 冻结合法上游 slot，再决定是否建立新 sealed",
       "planned_open_development_units": 0,
       "planned_sealed_holdout_units": 0,
       "priority": 1,
+      "qualification_carries_forward": null,
+      "qualification_contract_version": null,
       "rule_code": "appointment_delegation",
       "rule_specific_requirements": [
         "任用、责任域和反馈形成最小充分授权弧",
@@ -51,6 +55,7 @@
     },
     {
       "admission_decision": "completed_not_qualified",
+      "current_semantics_contract_version": null,
       "current_stage": "open_passed_sealed_completed_not_qualified",
       "existing_regression_units": 12,
       "input_type": "episode",
@@ -65,10 +70,12 @@
         "total_tokens": 0,
         "wall_clock_duration_sec": 0.0
       },
-      "next_action": "已完成唯一一次 sealed；禁止后调和重跑，待新版本合同处理识才依据与跨障碍边界",
+      "next_action": "v2 合同已冻结使用前时间轴与障碍双证据；旧资产只作 opened regression，不重跑或改 Gold",
       "planned_open_development_units": 0,
       "planned_sealed_holdout_units": 0,
       "priority": 2,
+      "qualification_carries_forward": null,
+      "qualification_contract_version": null,
       "rule_code": "talent_discovery",
       "rule_specific_requirements": [
         "证明识别依据发生在正式任用和后世成名之前",
@@ -80,6 +87,7 @@
     },
     {
       "admission_decision": "completed_not_qualified",
+      "current_semantics_contract_version": null,
       "current_stage": "open_passed_sealed_completed_not_qualified",
       "existing_regression_units": 20,
       "input_type": "episode",
@@ -94,10 +102,12 @@
         "total_tokens": 0,
         "wall_clock_duration_sec": 0.0
       },
-      "next_action": "已完成唯一一次 sealed；禁止后调和重跑，待新版本合同处理安全、自治与修复连续性",
+      "next_action": "v3 合同已冻结无冲突采纳、严重威胁、主体所有权以及有序独立后续观察；旧资产只作 opened regression",
       "planned_open_development_units": 0,
       "planned_sealed_holdout_units": 0,
       "priority": 3,
+      "qualification_carries_forward": null,
+      "qualification_contract_version": null,
       "rule_code": "tolerate_talent",
       "rule_specific_requirements": [
         "区分直言冲突、一般刑罚、臣子重大过错与皇帝压制责任",
@@ -109,6 +119,7 @@
     },
     {
       "admission_decision": "completed_not_qualified",
+      "current_semantics_contract_version": null,
       "current_stage": "open_passed_sealed_completed_not_qualified",
       "existing_regression_units": 20,
       "input_type": "hybrid",
@@ -123,10 +134,12 @@
         "total_tokens": 0,
         "wall_clock_duration_sec": 0.0
       },
-      "next_action": "已完成唯一一次 sealed；禁止后调和重跑，下一版本须重做私人关系前提与网络聚合语义",
+      "next_action": "v2 合同已冻结适用性枚举、context_kind 因子所有权及网络人数/渠道/跨期门槛；旧资产只作 opened regression",
       "planned_open_development_units": 0,
       "planned_sealed_holdout_units": 0,
       "priority": 4,
+      "qualification_carries_forward": null,
+      "qualification_contract_version": null,
       "rule_code": "anti_nepotism",
       "rule_specific_requirements": [
         "单个亲属或近幸任职不得自动判负",
@@ -138,10 +151,14 @@
     },
     {
       "admission_decision": "completed_qualified",
-      "current_stage": "open_and_sealed_qualified",
+      "current_semantics_contract_version": "team-building-factor-agent-v3",
+      "current_stage": "historical_v1_open_and_sealed_qualified",
       "existing_regression_units": 12,
       "input_type": "ruler_time_window",
-      "known_blockers": [],
+      "known_blockers": [
+        "旧 Gold 的 multi_historic、strong_three 与 durable_multi_stage 三个邻档不满足 v2 机械门槛，只保留为已开封回归差异",
+        "V3 实库审计发现旧 open/sealed 画像与当前 accepted 画像有 37 个严格版本或档位差异，其中陈平同 profile_ref 在两集异档"
+      ],
       "missing_prerequisites": [],
       "model_performance_estimate": {
         "model_call_count": 0,
@@ -150,10 +167,12 @@
         "total_tokens": 0,
         "wall_clock_duration_sec": 0.0
       },
-      "next_action": "测试集资格门已通过；保持 shadow-only，等待独立 factor 数值、Rule Gold 与 ScoreContribution Gate",
+      "next_action": "v3 分开 talent_grade 与 negative profile 正交轴，并冻结人物计数、独立角色匹配和阶段/交接结构；历史 v1 资格不改写且不继承，v3 保持 shadow-only",
       "planned_open_development_units": 0,
       "planned_sealed_holdout_units": 0,
       "priority": 5,
+      "qualification_carries_forward": false,
+      "qualification_contract_version": "team-building-factor-agent-v1",
       "rule_code": "team_building",
       "rule_specific_requirements": [
         "每个皇帝时间窗内同一人物只计一次",
@@ -198,7 +217,9 @@
     "blocked_on_prerequisite_count": 0,
     "completed_not_qualified_count": 4,
     "completed_qualified_count": 1,
+    "completed_qualified_scope": "historical_contract_versions_only",
     "contract_required_count": 0,
+    "current_semantics_qualified_count": 0,
     "currently_authorized_sealed_holdout_units": 0,
     "currently_ready_open_development_units": 0,
     "next_rule_for_open_test_set": null,

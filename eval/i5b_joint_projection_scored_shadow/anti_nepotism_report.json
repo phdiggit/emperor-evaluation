@@ -1,0 +1,650 @@
+{
+  "declarations": {
+    "all_projected_materials_contributed_before_object_cap": true,
+    "formal_scoring_allowed": false,
+    "old_gold_modified": false,
+    "opened_sealed_used_as_new_qualification": false,
+    "top_k_applied": false
+  },
+  "insufficient_projections": [
+    {
+      "missing_inputs": [
+        "displacement_harm_observation"
+      ],
+      "projection_basis": "材料能确认和珅因宠任快速进入军机、户部及内务府等重要权力位置，但没有说明因此被排挤的合格人物、受损岗位或团队制度后果。依合同，宠任和岗位暴露不能替代实际排挤损害，故关闭负向联合投影。",
+      "ruler": "弘历",
+      "subject": "和珅",
+      "unit_ref": "AN-O01"
+    },
+    {
+      "missing_inputs": [
+        "capability_basis_observation",
+        "displacement_harm_observation",
+        "office_weight_observation",
+        "process_integrity_observation"
+      ],
+      "projection_basis": "材料只确认躁进者、失职者争走胡惟庸门下，足以说明单一权门的人才流向，却没有给出具体任免程序、岗位权重、对象能力对照或实际排挤损害。网络广度不得直接投影为系统捕获及损害档，故关闭。",
+      "ruler": "朱元璋",
+      "subject": "胡惟庸门庭",
+      "unit_ref": "AN-O02"
+    },
+    {
+      "missing_inputs": [
+        "displacement_harm_observation"
+      ],
+      "projection_basis": "材料能够确认张氏兄弟受宠以及武承嗣、武三思等候其门庭，支持私人网络和跨通道影响，但没有给出被排挤对象、受损关键岗位或具体团队制度后果。依规则，门庭广度本身不能替代displacement_harm，故关闭。",
+      "ruler": "武曌",
+      "subject": "张易之张昌宗",
+      "unit_ref": "AN-S05"
+    }
+  ],
+  "materials": [
+    {
+      "canonical_event_group": "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
+      "dataset_role": "open_development",
+      "material_score": "1.012",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "institutionalization": 0.8,
+          "office_weight": 1.15,
+          "selection_openness": 1.0,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 1.1,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "institutionalization": "single_event",
+          "office_weight": "central_military_or_succession",
+          "selection_openness": "merit_or_formal_basis",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": 1.012,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.012,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-O06",
+      "projection_basis": "东平王刘苍虽属宗室，但材料明确以宽博有谋、可受托孤和临大节不挠为任用依据，并由刘庄直接授骠骑将军；这是以能力理由约束亲属任用的单次关键岗位个案。材料没有重复实践或制度化机制，institutionalization只取single_event。",
+      "ruler": "刘庄",
+      "semantic_fingerprint": "f61f188de30eeb3770a45f422c8be0bc230abc93246b0e4fe69d5b8f70f639e5",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_open_development/worklist.json#AN-O06",
+        "eval/anti_nepotism_open_development/factor_gold.yml#AN-O06",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "东平王苍",
+      "unit_ref": "AN-O06"
+    },
+    {
+      "canonical_event_group": "AN-S01",
+      "dataset_role": "opened_regression",
+      "material_score": "2.834",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 0.8,
+          "context_factor": 1.1,
+          "displacement_harm": 1.4,
+          "favoritism_intensity": 2.0,
+          "office_weight": 1.15,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 0.88,
+        "factor_option_codes": {
+          "attribution_factor": "indirect",
+          "context_factor": "core_mechanism_direct",
+          "displacement_harm": "team_policy_or_expression_structure_harmed",
+          "favoritism_intensity": "systemic_private_network_capture",
+          "office_weight": "central_military_or_succession",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": -2.834,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -2.834,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S01",
+      "projection_basis": "材料同时出现幼子亲属列清官、卖官鬻狱、广引腹心和广树朋党，私人关系已经越过个别任用并控制官职与司法入口，直接损害团队和政策表达结构。对李治的归责主要来自其统治期持续容纳该网络，材料未呈现逐项亲自授意，故证据归责从严取indirect。",
+      "ruler": "李治",
+      "semantic_fingerprint": "a88a41ddf49e1053c4957cf604fd362d4d517be70e10b1548b5f96222c84d122",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S01",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S01",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "李义府亲属朋党",
+      "unit_ref": "AN-S01"
+    },
+    {
+      "canonical_event_group": "AN-S02",
+      "dataset_role": "opened_regression",
+      "material_score": "3.542",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "displacement_harm": 1.4,
+          "favoritism_intensity": 2.0,
+          "office_weight": 1.15,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 1.1,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "displacement_harm": "team_policy_or_expression_structure_harmed",
+          "favoritism_intensity": "systemic_private_network_capture",
+          "office_weight": "central_military_or_succession",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": -3.542,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -3.542,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S02",
+      "projection_basis": "李隆基将政事悉委李林甫，而李林甫对才望功业高于自己者一概排去；中央任用入口与表达结构均被持续控制，损害不是网络广度推断，而由系统排斥合格人物的动作直接成立。",
+      "ruler": "李隆基",
+      "semantic_fingerprint": "d40cd326670f76b5f56f910b16f6c6b80e2c4c6b39e5e94187a31fa4a99a1749",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S02",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S02",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "李林甫门庭",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "canonical_event_group": "AN-S03",
+      "dataset_role": "opened_regression",
+      "material_score": "0.616",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "institutionalization": 0.8,
+          "office_weight": 1.0,
+          "selection_openness": 0.7,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 1.1,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "institutionalization": "single_event",
+          "office_weight": "important",
+          "selection_openness": "avoids_private_interference_case",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": 0.616,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 0.616,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S03",
+      "projection_basis": "材料明确把问题认定为植党纳贿，并记录玄烨罢免明珠大学士，属于皇帝对私人网络污染的直接纠偏。这里只证明一次重要中央职务处置，没有重复稳定实践或持久制度证据。",
+      "ruler": "玄烨",
+      "semantic_fingerprint": "73701c953724139de5c76868b0afd4f4f302725d605e351f607672381f668e75",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S03",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S03",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "明珠朋党",
+      "unit_ref": "AN-S03"
+    },
+    {
+      "canonical_event_group": "AN-S04",
+      "dataset_role": "opened_regression",
+      "material_score": "2.834",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 0.8,
+          "context_factor": 1.1,
+          "displacement_harm": 1.4,
+          "favoritism_intensity": 2.0,
+          "office_weight": 1.15,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 0.88,
+        "factor_option_codes": {
+          "attribution_factor": "indirect",
+          "context_factor": "core_mechanism_direct",
+          "displacement_harm": "team_policy_or_expression_structure_harmed",
+          "favoritism_intensity": "systemic_private_network_capture",
+          "office_weight": "central_military_or_succession",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": -2.834,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -2.834,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S04",
+      "projection_basis": "王凤凭太后关系以大将军秉政、专国权，并使兄弟七人皆封侯，已由外戚私人关系扩展为中央权力和多成员任用通道捕获；专国权直接证明团队与政策表达结构受损。材料未呈现刘骜逐项亲自推动，归责证据从严取indirect。",
+      "ruler": "刘骜",
+      "semantic_fingerprint": "db537e61fddbe67f5d082d79921d8cb22eae56b4d391ce65e7803325d5aca1d5",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S04",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S04",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "王凤外戚集团",
+      "unit_ref": "AN-S04"
+    },
+    {
+      "canonical_event_group": "AN-S06",
+      "dataset_role": "opened_regression",
+      "material_score": "2.834",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 0.8,
+          "context_factor": 1.1,
+          "displacement_harm": 1.4,
+          "favoritism_intensity": 2.0,
+          "office_weight": 1.15,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 0.88,
+        "factor_option_codes": {
+          "attribution_factor": "indirect",
+          "context_factor": "core_mechanism_direct",
+          "displacement_harm": "team_policy_or_expression_structure_harmed",
+          "favoritism_intensity": "systemic_private_network_capture",
+          "office_weight": "central_military_or_succession",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": -2.834,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -2.834,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S06",
+      "projection_basis": "武三思与韦后持续谗毁桓彦范等人，结果大权尽归武三思；私人网络既造成合格核心成员被排挤，也使中央权力结构被单一集团控制，直接达到团队与政策表达结构受损。材料显示李显受网络操纵而非逐项亲授，归责证据取indirect。",
+      "ruler": "李显",
+      "semantic_fingerprint": "a78aa0109e108d253eeb7312e8b63d5b73fdd7806cb22d07e938d11da2d27bf8",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S06",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S06",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "武三思",
+      "unit_ref": "AN-S06"
+    },
+    {
+      "canonical_event_group": "AN-S07",
+      "dataset_role": "opened_regression",
+      "material_score": "0.616",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "institutionalization": 0.8,
+          "office_weight": 1.0,
+          "selection_openness": 0.7,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 1.1,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "institutionalization": "single_event",
+          "office_weight": "important",
+          "selection_openness": "avoids_private_interference_case",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": 0.616,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 0.616,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S07",
+      "projection_basis": "张尧佐以外戚身份骤至显位，但在争议反馈后辞宣徽、景灵使并获赵祯批准，构成可归责于皇帝的有界纠偏。材料只证明一次具体职位调整，不能提升为重复实践或持久制度。",
+      "ruler": "赵祯",
+      "semantic_fingerprint": "908c92dfd96f85f33dccdbfc17fec84b8f2cd1fbe1c9bba8ed9a47cd3fa3b1e6",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S07",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S07",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "张尧佐",
+      "unit_ref": "AN-S07"
+    },
+    {
+      "canonical_event_group": "AN-S08",
+      "dataset_role": "opened_regression",
+      "material_score": "0.708",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "institutionalization": 0.8,
+          "office_weight": 1.15,
+          "selection_openness": 0.7,
+          "source_factor": 1.0
+        },
+        "evidence_factor": 1.1,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "institutionalization": "single_event",
+          "office_weight": "central_military_or_succession",
+          "selection_openness": "avoids_private_interference_case",
+          "source_factor": "standard"
+        },
+        "formal_score": false,
+        "material_score": 0.708,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 0.708,
+        "rule_code": "anti_nepotism",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S08",
+      "projection_basis": "刘奭明确担忧任冯野王为三公会被视为私用后宫亲属，并以越次避嫌阻止该任命，属于皇帝直接实施的关键中央岗位私人干预预防。材料只证明这一单次决定，不推定稳定实践或制度化机制。",
+      "ruler": "刘奭",
+      "semantic_fingerprint": "f9a5bf50d64f6eddc1d9ce9094c77110338ddf530c3d7d1e962429fd65f67a5f",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S08",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S08",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "subject": "冯野王",
+      "unit_ref": "AN-S08"
+    }
+  ],
+  "object_side_aggregates": [
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S08",
+      "object_side_score": "0.708",
+      "ruler": "刘奭",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-O06",
+      "object_side_score": "1.012",
+      "ruler": "刘庄",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S04",
+      "object_side_score": "2.834",
+      "ruler": "刘骜",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S06",
+      "object_side_score": "2.834",
+      "ruler": "李显",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S01",
+      "object_side_score": "2.834",
+      "ruler": "李治",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S02",
+      "object_side_score": "3.542",
+      "ruler": "李隆基",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S03",
+      "object_side_score": "0.616",
+      "ruler": "玄烨",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S07",
+      "object_side_score": "0.616",
+      "ruler": "赵祯",
+      "side": "positive"
+    }
+  ],
+  "policy_version": "i5b-joint-projection-score-contribution-v2",
+  "projection_input_version": "anti-nepotism-joint-projection-v1",
+  "report_sha256": "c33c8cab8e01fdb61a815bcc93a1263b2ae78f85c7624df4e55a69e315a79a21",
+  "rule_code": "anti_nepotism",
+  "schema_version": "i5b-joint-projection-scored-shadow-report-v1",
+  "score_contributions": [
+    {
+      "contribution_ref": "SC-I5B-2C67FDE944E845F60B4F7AE3",
+      "dedup_key": "0a22d69a5b15280b6d5ef67b6410a940503d103de78153f68b4a2077b9ccbb27",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "0.708",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘奭",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "0.708",
+      "ruler": "刘奭",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "27672c2145f07b33badcfb797e824a62770ff1de3828b5b1855986e0c0329b11",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-B6C98FB01BA49E44F139DEDF",
+      "dedup_key": "f0f97f9514af72f059f7d12a2b9ad7bc38cd0a3b34efbe15d394162ad881d33e",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "1.012",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘庄",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "1.012",
+      "ruler": "刘庄",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "23696492eb2cdd8e66aebaf0e8ea49fe6ae17bd0de5f833c3981f3fb8d9cf04a",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-8A80DF02B2394F44F2E8CD07",
+      "dedup_key": "5eae492632f183693dad473b0f7df5df4867def00fc350ddfd31c8abbebcaa0a",
+      "insufficient_projection_count": 0,
+      "negative_signal": "2.834",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘骜",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "-2.834",
+      "ruler": "刘骜",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "aa2ed26f540baaccda7e7986772584d35adef210db88320b9a8f8630602ae38c",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-0511D9BC3C8CF3B6A953F2D8",
+      "dedup_key": "87f622685e8d100cd90af2333d47c9d3ac3b382c472f616254f6b43e3ab58b55",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "弘历",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "0.000",
+      "ruler": "弘历",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "f24a7d4782a6785517964027b971f6c45b5a49c381258b20aa4c410864c84fa6",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-76B5AD1956D241DE54F47083",
+      "dedup_key": "a81c585811563c1c32476b0b4c9f234acb2833c1c1c649041f0137e386f12bef",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "朱元璋",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "0.000",
+      "ruler": "朱元璋",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "6b59158cecd9061e75276135c734664477328e6e2d23f4c6b3cc0cb20f9eb4ff",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-2F59C2B07DA2FA493B7909F7",
+      "dedup_key": "ae258e2faa7ae8851926ab94ac95a76412641669ceaabd33b7205d888bbab271",
+      "insufficient_projection_count": 0,
+      "negative_signal": "2.834",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李显",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "-2.834",
+      "ruler": "李显",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "0c7c158114f58a54e7476879b32de41dd400e2ba0a110c7b8ec5c4ba6951e704",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-A4C992549668F1150362B636",
+      "dedup_key": "2d8b0af7d6a306a7825fc6e6340451c5ef18174bbdfdf0dd6da367d2c94b55d7",
+      "insufficient_projection_count": 0,
+      "negative_signal": "2.834",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李治",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "-2.834",
+      "ruler": "李治",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "cd618e87c7cc8cb142e3655e298f09ab294c73a3e4923617973467755e48e66f",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-E778135DD3E55471344E9C48",
+      "dedup_key": "8f4110d29a355289663b5deecdea9fc27e072f4e109d1d485012cc71cc2b498c",
+      "insufficient_projection_count": 0,
+      "negative_signal": "3.542",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李隆基",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "-3.542",
+      "ruler": "李隆基",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "dbb159fe39b448bb39314b11b5d3bf12de1695472b8d228f5d3539ba93af3950",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-251CD618B8305389BF003B67",
+      "dedup_key": "5713e384c7bc89f04151b68afed6b3350591835a9003fe4d04ea94586e459a33",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "武曌",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "0.000",
+      "ruler": "武曌",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "edb5b24a055c1f8b3257a4857a801407a1ab1cda141640bba06062b101484061",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-268EEC2BAC08FB06E7A33D13",
+      "dedup_key": "3fdc976c222680b0ea5e330760f29b820f897e34d27b91c654888d8056f89111",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "0.616",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "玄烨",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "0.616",
+      "ruler": "玄烨",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "f85477535000cd26afb768e51ef7ae0e71ce14be1c9085d3d6b734e2b01cd906",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-4BA8B48858A7304CB6624BBF",
+      "dedup_key": "1471872658bba5d65fa290b49dccbb69a1460833f7cab63e4c14f06d0e3b372c",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "0.616",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "赵祯",
+      "rule_code": "anti_nepotism",
+      "rule_raw_net": "0.616",
+      "ruler": "赵祯",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "5fa859bba7261d102b5476f3bdf7d3cdab62c79b1d669bfc824ae52b578418ac",
+      "supporting_only_rules": [],
+      "tier": null
+    }
+  ],
+  "status": "opened_regression_scored_shadow_raw_signal_only",
+  "summary": {
+    "database_write_count": 0,
+    "formal_scoring_allowed": false,
+    "input_unit_count": 11,
+    "insufficient_projection_count": 3,
+    "model_call_count": 0,
+    "projected_material_count": 8,
+    "ruler_count": 11,
+    "score_contribution_count": 11
+  }
+}

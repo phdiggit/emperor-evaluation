@@ -1,0 +1,37 @@
+schema_version: 1
+provider: wikisource_revision_plan
+subject_ref: PER-V4-B0E10D8903E7
+sections:
+  - snapshot: eval/i5b_source_ingestion/snapshots/zhenguanzhengyao-juan02-api.json
+    page_code: zhenguanzhengyao-juan02-api
+    page_title: 貞觀政要/卷02
+    expected_revision_id: 2144513
+    work_identity: 貞觀政要
+    edition_identity: Wikisource MediaWiki API plaintext; revision 2144513
+    source_role: primary_text
+    license_or_access_note: public-domain text; Wikisource API title, revision and plaintext extract retained
+    section_id: zhenguanzhengyao-juan02-renxian-weizheng
+    section_heading: 任賢第三·魏徵
+    document_span_start: 0
+    window_policy:
+      version: v4-source-window-weizheng-continuity-v1
+      sentence_radius_before: 0
+      sentence_radius_after: 0
+      context_chars_before: 0
+      context_chars_after: 0
+    passages:
+      - seed_code: retention-after-resignation
+        anchor_start: 七年，代王珪為侍中
+        anchor_end: 授以特進，仍知門下省事。
+        passage_kind: atomic
+        selection_reason: [retention_after_resignation, continuity_support_only]
+      - seed_code: year12-person-specific-recognition
+        anchor_start: 十二年，太宗以誕皇孫
+        anchor_end: 於是親解佩刀以賜二人。
+        passage_kind: atomic
+        selection_reason: [later_person_specific_recognition, continuity_support_only]
+      - seed_code: terminal-role-continuity
+        anchor_start: 庶人承乾在春宮，不修德業
+        anchor_end: 徵乃就職。
+        passage_kind: atomic
+        selection_reason: [terminal_role_continuity, continuity_support_only]

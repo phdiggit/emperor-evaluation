@@ -167,7 +167,7 @@ def build_judgment_source_gap_worklist(
         "inventory_policy": {
             "first_scope": "只读当前 source-v2 input 与无 Gold 的 blocking episode inventory。",
             "stop_rule": "每个缺口找到一个最小高价值候选即停止；未命中则记录 not_found_stop。",
-            "forbidden_scope": "不得读取 Gold、旧 Relation、旧 Judgment、score、V3 数据库或人物传记式全量材料。",
+            "forbidden_scope": "不得读取 Gold、旧 Relation、旧 Judgment、score 或人物传记式全量材料；V3 数据库可按项目政策只读查询。",
         },
         "gold_accessed": False,
         "external_fetch_performed": False,

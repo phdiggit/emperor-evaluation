@@ -1,0 +1,249 @@
+{
+  "input_version": "anti-nepotism-joint-projection-v1",
+  "rule_code": "anti_nepotism",
+  "schema_version": "i5b-joint-projection-input-v1",
+  "status": "human_frozen_regression_input",
+  "units": [
+    {
+      "canonical_event_group": "EVD-I5B-HONGLI-NEG-HESHEN-001",
+      "missing_inputs": [
+        "displacement_harm_observation"
+      ],
+      "object_ref": null,
+      "projection_basis": "材料能确认和珅因宠任快速进入军机、户部及内务府等重要权力位置，但没有说明因此被排挤的合格人物、受损岗位或团队制度后果。依合同，宠任和岗位暴露不能替代实际排挤损害，故关闭负向联合投影。",
+      "ruler": "弘历",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_open_development/worklist.json#AN-O01",
+        "eval/anti_nepotism_open_development/factor_gold.yml#AN-O01",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism.required_additional_inputs"
+      ],
+      "status": "insufficient_projection",
+      "subject": "和珅",
+      "unit_ref": "AN-O01"
+    },
+    {
+      "canonical_event_group": "EVD-I5B-ZHUYUANZHANG-SUPP-HUWENYONG-001",
+      "missing_inputs": [
+        "capability_basis_observation",
+        "displacement_harm_observation",
+        "office_weight_observation",
+        "process_integrity_observation"
+      ],
+      "object_ref": null,
+      "projection_basis": "材料只确认躁进者、失职者争走胡惟庸门下，足以说明单一权门的人才流向，却没有给出具体任免程序、岗位权重、对象能力对照或实际排挤损害。网络广度不得直接投影为系统捕获及损害档，故关闭。",
+      "ruler": "朱元璋",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_open_development/worklist.json#AN-O02",
+        "eval/anti_nepotism_open_development/factor_gold.yml#AN-O02",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism.required_additional_inputs"
+      ],
+      "status": "insufficient_projection",
+      "subject": "胡惟庸门庭",
+      "unit_ref": "AN-O02"
+    },
+    {
+      "canonical_event_group": "EVD-I5B-LIUZHUANG-POS-SHIREN-CANGYU-001",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "institutionalization": "single_event",
+        "office_weight": "central_military_or_succession",
+        "selection_openness": "merit_or_formal_basis",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-O06",
+      "projection_basis": "东平王刘苍虽属宗室，但材料明确以宽博有谋、可受托孤和临大节不挠为任用依据，并由刘庄直接授骠骑将军；这是以能力理由约束亲属任用的单次关键岗位个案。材料没有重复实践或制度化机制，institutionalization只取single_event。",
+      "ruler": "刘庄",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_open_development/worklist.json#AN-O06",
+        "eval/anti_nepotism_open_development/factor_gold.yml#AN-O06",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "东平王苍",
+      "unit_ref": "AN-O06"
+    },
+    {
+      "canonical_event_group": "AN-S01",
+      "choices": {
+        "attribution_factor": "indirect",
+        "context_factor": "core_mechanism_direct",
+        "displacement_harm": "team_policy_or_expression_structure_harmed",
+        "favoritism_intensity": "systemic_private_network_capture",
+        "office_weight": "central_military_or_succession",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S01",
+      "projection_basis": "材料同时出现幼子亲属列清官、卖官鬻狱、广引腹心和广树朋党，私人关系已经越过个别任用并控制官职与司法入口，直接损害团队和政策表达结构。对李治的归责主要来自其统治期持续容纳该网络，材料未呈现逐项亲自授意，故证据归责从严取indirect。",
+      "ruler": "李治",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S01",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S01",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "李义府亲属朋党",
+      "unit_ref": "AN-S01"
+    },
+    {
+      "canonical_event_group": "AN-S02",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "displacement_harm": "team_policy_or_expression_structure_harmed",
+        "favoritism_intensity": "systemic_private_network_capture",
+        "office_weight": "central_military_or_succession",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S02",
+      "projection_basis": "李隆基将政事悉委李林甫，而李林甫对才望功业高于自己者一概排去；中央任用入口与表达结构均被持续控制，损害不是网络广度推断，而由系统排斥合格人物的动作直接成立。",
+      "ruler": "李隆基",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S02",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S02",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "李林甫门庭",
+      "unit_ref": "AN-S02"
+    },
+    {
+      "canonical_event_group": "AN-S03",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "institutionalization": "single_event",
+        "office_weight": "important",
+        "selection_openness": "avoids_private_interference_case",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S03",
+      "projection_basis": "材料明确把问题认定为植党纳贿，并记录玄烨罢免明珠大学士，属于皇帝对私人网络污染的直接纠偏。这里只证明一次重要中央职务处置，没有重复稳定实践或持久制度证据。",
+      "ruler": "玄烨",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S03",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S03",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "明珠朋党",
+      "unit_ref": "AN-S03"
+    },
+    {
+      "canonical_event_group": "AN-S04",
+      "choices": {
+        "attribution_factor": "indirect",
+        "context_factor": "core_mechanism_direct",
+        "displacement_harm": "team_policy_or_expression_structure_harmed",
+        "favoritism_intensity": "systemic_private_network_capture",
+        "office_weight": "central_military_or_succession",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S04",
+      "projection_basis": "王凤凭太后关系以大将军秉政、专国权，并使兄弟七人皆封侯，已由外戚私人关系扩展为中央权力和多成员任用通道捕获；专国权直接证明团队与政策表达结构受损。材料未呈现刘骜逐项亲自推动，归责证据从严取indirect。",
+      "ruler": "刘骜",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S04",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S04",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "王凤外戚集团",
+      "unit_ref": "AN-S04"
+    },
+    {
+      "canonical_event_group": "AN-S05",
+      "missing_inputs": [
+        "displacement_harm_observation"
+      ],
+      "object_ref": null,
+      "projection_basis": "材料能够确认张氏兄弟受宠以及武承嗣、武三思等候其门庭，支持私人网络和跨通道影响，但没有给出被排挤对象、受损关键岗位或具体团队制度后果。依规则，门庭广度本身不能替代displacement_harm，故关闭。",
+      "ruler": "武曌",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S05",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S05",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism.required_additional_inputs"
+      ],
+      "status": "insufficient_projection",
+      "subject": "张易之张昌宗",
+      "unit_ref": "AN-S05"
+    },
+    {
+      "canonical_event_group": "AN-S06",
+      "choices": {
+        "attribution_factor": "indirect",
+        "context_factor": "core_mechanism_direct",
+        "displacement_harm": "team_policy_or_expression_structure_harmed",
+        "favoritism_intensity": "systemic_private_network_capture",
+        "office_weight": "central_military_or_succession",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S06",
+      "projection_basis": "武三思与韦后持续谗毁桓彦范等人，结果大权尽归武三思；私人网络既造成合格核心成员被排挤，也使中央权力结构被单一集团控制，直接达到团队与政策表达结构受损。材料显示李显受网络操纵而非逐项亲授，归责证据取indirect。",
+      "ruler": "李显",
+      "side": "negative",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S06",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S06",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "武三思",
+      "unit_ref": "AN-S06"
+    },
+    {
+      "canonical_event_group": "AN-S07",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "institutionalization": "single_event",
+        "office_weight": "important",
+        "selection_openness": "avoids_private_interference_case",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S07",
+      "projection_basis": "张尧佐以外戚身份骤至显位，但在争议反馈后辞宣徽、景灵使并获赵祯批准，构成可归责于皇帝的有界纠偏。材料只证明一次具体职位调整，不能提升为重复实践或持久制度。",
+      "ruler": "赵祯",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S07",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S07",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "张尧佐",
+      "unit_ref": "AN-S07"
+    },
+    {
+      "canonical_event_group": "AN-S08",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "institutionalization": "single_event",
+        "office_weight": "central_military_or_succession",
+        "selection_openness": "avoids_private_interference_case",
+        "source_factor": "standard"
+      },
+      "object_ref": "ANTI-NEPOTISM-OBJECT-AN-S08",
+      "projection_basis": "刘奭明确担忧任冯野王为三公会被视为私用后宫亲属，并以越次避嫌阻止该任命，属于皇帝直接实施的关键中央岗位私人干预预防。材料只证明这一单次决定，不推定稳定实践或制度化机制。",
+      "ruler": "刘奭",
+      "side": "positive",
+      "source_refs": [
+        "eval/anti_nepotism_sealed_holdout/worklist.json#AN-S08",
+        "eval/anti_nepotism_sealed_holdout/factor_gold.yml#AN-S08",
+        "config/i5b-scoring-policy.yml#rules.anti_nepotism"
+      ],
+      "status": "projected",
+      "subject": "冯野王",
+      "unit_ref": "AN-S08"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "declarations": {
+    "formal_scoring_allowed": false,
+    "formal_v4_assertion_created": false,
+    "historical_coverage_status_changed": false,
+    "old_workset_or_gold_modified": false
+  },
+  "input_review_sha256": "419315fa177e9e61bb4cf502a09d78269b86edf0ccd2e05ba662313d4b9b2fad",
+  "input_worklist_sha256": "f707506150fbf4ae946b1892f256143e0cccb169d0093b52277736fa79deba39",
+  "new_event_candidate_claim_refs": [
+    "retrieval_v3:claim_key:CLMK-16700995A10383DDB30D",
+    "retrieval_v3:claim_key:CLMK-7E2D72302A9C88F2CE3C",
+    "retrieval_v3:claim_key:CLMK-83BDFCBE319619857BEB",
+    "retrieval_v3:claim_key:CLMK-CB69E1112DE8A813FC2C"
+  ],
+  "next_gate": {
+    "automatic_assertion_acceptance_allowed": false,
+    "required": "v4_source_rebind_for_new_and_unresolved_candidates"
+  },
+  "report_sha256": "839ce025c4e24a8e4cac07fb78929a7e06516b4466810e9a5e249b28ded726a3",
+  "ruler": "李世民",
+  "schema_version": "v3-claim-pre-source-review-report-v1",
+  "status": "first_cohort_pre_source_review_complete_without_fact_acceptance",
+  "summary": {
+    "database_write_count": 0,
+    "formal_v4_assertion_count": 0,
+    "historical_coverage_accepted_claim_count": 0,
+    "model_call_count": 0,
+    "new_event_candidate_pending_source_rebind_count": 4,
+    "recommended_disposition_counts": {
+      "cross_rule_primary_settlement_required": 6,
+      "existing_aggregate_component_pending_dedup": 2,
+      "insufficient_applicability": 5,
+      "insufficient_source": 1,
+      "new_event_candidate_pending_source_rebind": 4,
+      "wrong_rule_hint": 14
+    },
+    "reviewed_claim_count": 32,
+    "rule_disposition_counts": {
+      "anti_nepotism": {
+        "cross_rule_primary_settlement_required": 4,
+        "insufficient_applicability": 3,
+        "new_event_candidate_pending_source_rebind": 1
+      },
+      "appointment_delegation": {
+        "insufficient_applicability": 2,
+        "new_event_candidate_pending_source_rebind": 2,
+        "wrong_rule_hint": 4
+      },
+      "talent_discovery": {
+        "existing_aggregate_component_pending_dedup": 1,
+        "new_event_candidate_pending_source_rebind": 1,
+        "wrong_rule_hint": 6
+      },
+      "tolerate_talent": {
+        "cross_rule_primary_settlement_required": 2,
+        "existing_aggregate_component_pending_dedup": 1,
+        "insufficient_source": 1,
+        "wrong_rule_hint": 4
+      }
+    }
+  }
+}

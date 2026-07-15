@@ -17,6 +17,14 @@ from emperor_v4.evaluation.appointment_delegation_scoring import canonical_hash
 from emperor_v4.evaluation.appointment_delegation_v3_parity import (
     validate_parity_manifest,
 )
+from emperor_v4.evaluation.appointment_factor_v6 import (
+    CONTRACT_VERSION as APPOINTMENT_FACTOR_V6_CONTRACT_VERSION,
+    MODEL_FACTOR_NAMES as APPOINTMENT_FACTOR_V6_MODEL_FACTORS,
+    RESPONSE_SCHEMA_VERSION as APPOINTMENT_FACTOR_V6_RESPONSE_SCHEMA_VERSION,
+    build_appointment_factor_v6_gold,
+    build_appointment_factor_v6_worklist,
+    evaluate_appointment_factor_v6_qualification,
+)
 from emperor_v4.evaluation.factor_observation_agent import (
     AGENT_POLICY_VERSION,
     AGENT_POLICY_VERSION_V1,
@@ -1007,3 +1015,308 @@ def test_factor_observation_cli_builds_worklist_and_scores_contract_fixture(
     assert json.loads(report_path.read_text(encoding="utf-8"))[
         "status"
     ] == "factor_observation_qualification_harness_ready"
+
+
+def _v6_resolution(option_code: str, assertion_ref: str) -> dict:
+    return {
+        "decision_status": "resolved",
+        "option_code": option_code,
+        "reason": "fixture direct evidence",
+        "assertion_refs": [assertion_ref],
+    }
+
+
+def _v6_factor_slots() -> tuple[dict, list[dict]]:
+    units = [
+        {
+            "unit_ref": "REU-V6-ONE",
+            "slots": [
+                {
+                    "slot_id": "REU-V6-ONE:positive:appointment",
+                    "side": "positive",
+                    "episode_refs": ["HE-V6-ONE"],
+                    "assertion_refs": ["AS-V6-ONE"],
+                    "mechanical_observations": {
+                        "jurisdiction_scope": "major_affairs",
+                        "cross_domain": False,
+                        "institution_forming": False,
+                        "duration": "bounded",
+                        "one_off_basis": "not_established",
+                        "explicit_ruler_action": True,
+                        "scoped_responsibility": True,
+                        "linked_feedback": True,
+                        "distinct_authorization_count": 1,
+                        "distinct_observation_count": 2,
+                        "predecision_pressure_refs": [],
+                    },
+                },
+                {
+                    "slot_id": "REU-V6-ONE:negative:damage",
+                    "side": "negative",
+                    "episode_refs": ["HE-V6-TWO"],
+                    "assertion_refs": ["AS-V6-TWO"],
+                    "mechanical_observations": {
+                        "jurisdiction_scope": "major_affairs",
+                        "cross_domain": False,
+                        "institution_forming": False,
+                        "duration": "bounded",
+                        "one_off_basis": "not_established",
+                        "explicit_ruler_action": True,
+                        "scoped_responsibility": True,
+                        "linked_feedback": True,
+                        "distinct_authorization_count": 1,
+                        "distinct_observation_count": 2,
+                        "predecision_pressure_refs": [],
+                    },
+                },
+            ],
+        }
+    ]
+    source_factors = {
+        "REU-V6-ONE:positive:appointment": _v6_resolution(
+            "complete_direct_chain", "AS-V6-ONE"
+        ),
+        "REU-V6-ONE:negative:damage": _v6_resolution(
+            "standard", "AS-V6-TWO"
+        ),
+    }
+    worklist = build_appointment_factor_v6_worklist(
+        task_code="AD-V6-OFFLINE-FIXTURE",
+        units=units,
+        deterministic_source_factors=source_factors,
+    )
+    options = {
+        "appointment_importance": "major_affairs",
+        "appointment_effect": "normal_success",
+        "continuity_factor": "stable",
+        "attribution_factor": "direct",
+        "context_factor": "clear",
+    }
+    slots = []
+    for slot in worklist["units"][0]["slots"]:
+        assertion_ref = slot["assertion_refs"][0]
+        slot_options = dict(options)
+        if slot["side"] == "negative":
+            slot_options["appointment_effect"] = "poor_result"
+        slots.append(
+            {
+                "slot_id": slot["slot_id"],
+                "side": slot["side"],
+                "factors": {
+                    factor_name: _v6_resolution(option, assertion_ref)
+                    for factor_name, option in slot_options.items()
+                },
+            }
+        )
+    return worklist, slots
+
+
+def _v6_response(worklist: dict, slots: list[dict]) -> dict:
+    return {
+        "schema_version": APPOINTMENT_FACTOR_V6_RESPONSE_SCHEMA_VERSION,
+        "status": "factor_observation_response_complete",
+        "contract_version": APPOINTMENT_FACTOR_V6_CONTRACT_VERSION,
+        "worklist_sha256": worklist["worklist_sha256"],
+        "response_origin": "offline_contract_fixture",
+        "slots": slots,
+    }
+
+
+def test_appointment_factor_v6_freezes_slots_and_keeps_source_factor_deterministic():
+    worklist, slots = _v6_factor_slots()
+
+    assert worklist["qualification_join_key"] == "slot_id"
+    assert worklist["source_factor_owner"] == "deterministic_lineage"
+    assert "source_factor" not in APPOINTMENT_FACTOR_V6_MODEL_FACTORS
+    assert all(
+        set(slot) == {
+            "slot_id",
+            "side",
+            "episode_refs",
+            "assertion_refs",
+            "mechanical_observations",
+            "deterministic_factors",
+        }
+        and set(slot["deterministic_factors"]) == {"source_factor"}
+        for unit in worklist["units"]
+        for slot in unit["slots"]
+    )
+    assert all(
+        set(slot["factors"]) == set(APPOINTMENT_FACTOR_V6_MODEL_FACTORS)
+        for slot in slots
+    )
+    with pytest.raises(ValueError, match="只填写且完整覆盖允许的模型因子"):
+        invalid_slots = deepcopy(slots)
+        invalid_slots[0]["factors"]["source_factor"] = _v6_resolution(
+            "standard", "AS-V6-ONE"
+        )
+        build_appointment_factor_v6_gold(worklist, invalid_slots)
+
+
+def test_appointment_factor_v6_qualification_joins_by_slot_id_not_string_order():
+    worklist, slots = _v6_factor_slots()
+    gold = build_appointment_factor_v6_gold(worklist, slots)
+    response_slots = list(reversed(deepcopy(slots)))
+
+    report = evaluate_appointment_factor_v6_qualification(
+        worklist, _v6_response(worklist, response_slots), gold
+    )
+
+    assert report["qualification_join_key"] == "slot_id"
+    assert report["structure_diagnostics"] == {
+        "missing_slot_ids": [],
+        "extra_slot_ids": [],
+        "side_mismatches": [],
+        "structure_exact": True,
+    }
+    assert report["threshold_passed"] is True
+    assert {row["slot_id"] for row in report["factor_comparisons"]} == {
+        "REU-V6-ONE:positive:appointment",
+        "REU-V6-ONE:negative:damage",
+    }
+    assert "candidate_event_group" not in report["factor_comparisons"][0]
+    assert report["execution_audit"]["model_call_count"] == 0
+    assert report["execution_audit"]["source_factor_compared_as_model_output"] is False
+
+
+def test_appointment_factor_v6_reports_missing_extra_and_side_mismatch_separately():
+    worklist, slots = _v6_factor_slots()
+    gold = build_appointment_factor_v6_gold(worklist, slots)
+    malformed = deepcopy(slots)
+    malformed[0]["side"] = "negative"
+    malformed.pop()
+    extra = deepcopy(slots[1])
+    extra["slot_id"] = "EXTRA-SLOT"
+    malformed.append(extra)
+
+    report = evaluate_appointment_factor_v6_qualification(
+        worklist, _v6_response(worklist, malformed), gold
+    )
+
+    assert report["structure_diagnostics"] == {
+        "missing_slot_ids": ["REU-V6-ONE:negative:damage"],
+        "extra_slot_ids": ["EXTRA-SLOT"],
+        "side_mismatches": [
+            {
+                "slot_id": "REU-V6-ONE:positive:appointment",
+                "expected_side": "positive",
+                "candidate_side": "negative",
+            }
+        ],
+        "structure_exact": False,
+    }
+    assert report["factor_comparisons"] == []
+    assert report["threshold_passed"] is False
+
+
+def test_appointment_factor_v6_mechanical_observations_fail_closed():
+    worklist, slots = _v6_factor_slots()
+
+    unsupported = deepcopy(slots)
+    unsupported[0]["factors"]["appointment_importance"] = _v6_resolution(
+        "critical_national_or_long_term", "AS-V6-ONE"
+    )
+    with pytest.raises(ValueError, match="缺少 mechanical_observations 支撑"):
+        build_appointment_factor_v6_gold(worklist, unsupported)
+
+    no_feedback = deepcopy(worklist)
+    no_feedback["units"][0]["slots"][0]["mechanical_observations"][
+        "linked_feedback"
+    ] = False
+    no_feedback.pop("worklist_sha256")
+    no_feedback["worklist_sha256"] = canonical_hash(no_feedback)
+    with pytest.raises(
+        ValueError, match="appointment_effect.normal_success 缺少 mechanical_observations 支撑"
+    ):
+        build_appointment_factor_v6_gold(no_feedback, slots)
+
+    no_scoped_responsibility = deepcopy(worklist)
+    no_scoped_responsibility["units"][0]["slots"][0][
+        "mechanical_observations"
+    ]["scoped_responsibility"] = False
+    no_scoped_responsibility.pop("worklist_sha256")
+    no_scoped_responsibility["worklist_sha256"] = canonical_hash(
+        no_scoped_responsibility
+    )
+    core_context = deepcopy(slots)
+    core_context[0]["factors"]["context_factor"] = _v6_resolution(
+        "core_mechanism_direct", "AS-V6-ONE"
+    )
+    with pytest.raises(
+        ValueError,
+        match="context_factor.core_mechanism_direct 缺少 mechanical_observations 支撑",
+    ):
+        build_appointment_factor_v6_gold(no_scoped_responsibility, core_context)
+
+    unsupported = deepcopy(slots)
+    unsupported[0]["factors"]["continuity_factor"] = _v6_resolution(
+        "long_term_multi_stage", "AS-V6-ONE"
+    )
+    with pytest.raises(ValueError, match="缺少 mechanical_observations 支撑"):
+        build_appointment_factor_v6_gold(worklist, unsupported)
+
+    unsupported = deepcopy(slots)
+    unsupported[0]["factors"]["continuity_factor"] = _v6_resolution(
+        "short_or_one_off", "AS-V6-ONE"
+    )
+    with pytest.raises(ValueError, match="缺少 mechanical_observations 支撑"):
+        build_appointment_factor_v6_gold(worklist, unsupported)
+
+    explicit_one_off = deepcopy(worklist)
+    one_off_observations = explicit_one_off["units"][0]["slots"][0][
+        "mechanical_observations"
+    ]
+    one_off_observations["duration"] = "one_off"
+    one_off_observations["one_off_basis"] = "explicit_one_off"
+    one_off_observations["distinct_observation_count"] = 1
+    explicit_one_off.pop("worklist_sha256")
+    explicit_one_off["worklist_sha256"] = canonical_hash(explicit_one_off)
+    supported = deepcopy(slots)
+    supported[0]["factors"]["continuity_factor"] = _v6_resolution(
+        "short_or_one_off", "AS-V6-ONE"
+    )
+    build_appointment_factor_v6_gold(explicit_one_off, supported)
+
+    unsupported = deepcopy(slots)
+    unsupported[0]["factors"]["attribution_factor"] = _v6_resolution(
+        "direct_under_pressure", "AS-V6-ONE"
+    )
+    with pytest.raises(ValueError, match="缺少 mechanical_observations 支撑"):
+        build_appointment_factor_v6_gold(worklist, unsupported)
+
+    invalid_units = [
+        {
+            "unit_ref": "REU-V6-INVALID",
+            "slots": [
+                {
+                    "slot_id": "REU-V6-INVALID:positive",
+                    "side": "positive",
+                    "episode_refs": ["HE-V6-INVALID"],
+                    "assertion_refs": ["AS-V6-INVALID"],
+                    "mechanical_observations": {
+                        "jurisdiction_scope": "local_bounded",
+                        "cross_domain": False,
+                        "institution_forming": False,
+                        "duration": "one_off",
+                        "one_off_basis": "explicit_one_off",
+                        "explicit_ruler_action": True,
+                        "scoped_responsibility": True,
+                        "linked_feedback": False,
+                        "distinct_authorization_count": 1,
+                        "distinct_observation_count": 1,
+                        "predecision_pressure_refs": ["AS-OUT-OF-SLOT"],
+                    },
+                }
+            ],
+        }
+    ]
+    with pytest.raises(ValueError, match="predecision_pressure_refs 越出冻结 slot"):
+        build_appointment_factor_v6_worklist(
+            task_code="AD-V6-INVALID",
+            units=invalid_units,
+            deterministic_source_factors={
+                "REU-V6-INVALID:positive": _v6_resolution(
+                    "standard", "AS-V6-INVALID"
+                )
+            },
+        )

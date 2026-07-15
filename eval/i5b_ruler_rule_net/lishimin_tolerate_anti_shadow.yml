@@ -1,0 +1,29 @@
+schema_version: lishimin-tolerate-anti-shadow-v5
+status: report_only_strict_net_with_sensitivity
+ruler: 李世民
+tolerate_talent:
+  strict_current:
+    positive_signal: 11.006
+    negative_signal: 0.653
+    rule_raw_net: 10.353
+    counted_materials: [TT-LSM-INSTITUTIONAL-REM-01, TT-O01, TT-LSM-YSN-01, TT-LSM-CSL-01, TT-LSM-MZ-01, TT-LSM-DZ-01, TT-O05]
+    source_rebinds:
+      - eval/i5b_ruler_rule_net/lishimin_tt_o01_source_rebind.json
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json
+anti_nepotism:
+  strict_current:
+    positive_signal: 0
+    negative_signal: 0
+    rule_raw_net: 0
+    rejected_candidate: CLMK-7E2D72302A9C88F2CE3C
+    rejection_reason: 功臣赏次尚未通过公共任用或职务影响适用性Gate
+  sensitivity:
+    factor_choice: {selection_openness: avoids_private_interference_case, institutionalization: single_event, office_weight: ordinary}
+    positive_material_range: [0.493, 0.542]
+    included_in_current_net: false
+declarations:
+  historical_coverage_complete: false
+  formal_score: false
+  database_write_count: 0
+  model_call_count: 0

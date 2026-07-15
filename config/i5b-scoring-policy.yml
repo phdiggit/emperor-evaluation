@@ -1,0 +1,315 @@
+schema_version: i5b-scoring-policy-v1
+status: v3_scoring_skeleton_adopted_for_v4_shadow
+frozen_on: '2026-07-15'
+scope: fifth_item_b_raw_signal_and_batch_mapping_input
+
+inheritance:
+  source_tag: v3-freeze-20260712
+  source_commit: 2d7f696643115d6f5f73df3c9ec44885349422f4
+  source_rule_document: docs/分项规则/第五项统治者政治素质/B用人与授权.md
+  source_raw_calculator: scripts/build/i5b_item_result_calculator.py
+  inheritance_policy: preserve_v3_scoring_shape_replace_v4_semantic_and_data_contracts
+
+runtime_policy:
+  mode: offline_report_only_shadow
+  model_calls_allowed: false
+  database_writes_allowed: false
+  formal_scoring_allowed: false
+  ranking_allowed: false
+  old_gold_or_opened_sealed_may_calibrate_numeric_mapping: false
+
+factor_semantics_contract:
+  path: config/i5b-factor-semantics.yml
+  schema_version: i5b-factor-semantics-v1
+  numeric_values_owned_by_this_policy_only: true
+  numeric_values_must_not_be_supplied_to_factor_agent: true
+  contract_versions:
+    appointment_delegation: appointment-delegation-factor-observation-v6
+    talent_discovery: talent-discovery-factor-agent-v2
+    team_building: team-building-factor-agent-v3
+    tolerate_talent: tolerate-talent-factor-agent-v3
+    anti_nepotism: anti-nepotism-factor-agent-v2
+
+material_layer:
+  material_score_formula: material_score = clamp(raw_material_score, -4.0, 4.0)
+  material_score_min: -4.0
+  material_score_max: 4.0
+  strength_bands:
+    weak_or_boundary: [0.3, 0.8]
+    ordinary_effective: [0.8, 1.6]
+    strong: [1.6, 2.8]
+    extreme: [2.8, 4.0]
+  same_claim_object_side_deduplicated: true
+  top_k_allowed: false
+  hard_material_count_cap_allowed: false
+  every_accepted_material_must_contribute: true
+
+evidence_factor:
+  formula: evidence_factor = clamp(attribution_factor * source_factor * context_factor, 0.45, 1.25)
+  minimum: 0.45
+  maximum: 1.25
+  attribution_factor:
+    indirect: 0.8
+    direct: 1.0
+    direct_under_pressure: 1.1
+  source_factor:
+    weak_or_compressed: 0.75
+    standard: 1.0
+    complete_direct_chain: 1.1
+  context_factor:
+    weak_but_applicable: 0.7
+    clear: 1.0
+    core_mechanism_direct: 1.1
+  v4_ownership:
+    attribution_factor: judgment_or_rule_specific_deterministic_adapter
+    source_factor: deterministic_lineage
+    context_factor: judgment_or_rule_specific_deterministic_adapter
+
+rules:
+  talent_discovery:
+    formula: direction_sign * discovery_level * talent_quality_factor * channel_factor * evidence_factor
+    projection_mode: v4_joint_factor_projection
+    direction_sign: {positive: 1.0, missed_or_suppressed_discovery: -1.0}
+    discovery_level:
+      passive_reputation: 0.6
+      recommendation_entry: 0.8
+      attributable_interview_trial_or_appointment: 1.0
+      difficult_cross_boundary_discovery: 1.2
+    talent_quality_factor:
+      ordinary: 0.6
+      usable: 0.9
+      important: 1.15
+      top: 1.45
+      historic: 1.8
+    channel_factor:
+      single_case: 1.0
+      cross_identity_or_camp: 1.1
+      repeatable_discovery_mechanism: 1.2
+    v4_factor_inputs: [recognition_novelty, recognition_basis, barrier_crossing, conversion_to_use]
+    required_additional_inputs:
+      - versioned_person_talent_grade
+      - repeatable_channel_observation
+      - attribution_projection
+      - source_projection
+      - context_projection
+    fail_closed_when_missing: insufficient_projection
+    aggregation_policy: v3_legacy_object_density-v1
+
+  appointment_delegation:
+    formula: appointment_importance * appointment_effect * continuity_factor * evidence_factor
+    projection_mode: exact_v4_option_mapping
+    appointment_importance:
+      nominal_or_light: 0.6
+      real_bounded: 1.0
+      major_affairs: 1.25
+      critical_national_or_long_term: 1.4
+    appointment_effect:
+      weak_feedback: 0.4
+      normal_success: 1.0
+      major_success: 1.5
+      poor_result: -0.8
+      major_direct_damage: -1.8
+      structural_continuing_damage: -2.6
+    continuity_factor:
+      short_or_one_off: 0.85
+      stable: 1.0
+      long_term_multi_stage: 1.15
+    aggregation_policy: v3-native-density-decay-20260711
+
+  team_building:
+    projection_mode: v4_person_profile_and_team_window
+    formulas:
+      positive_pool: sum(talent_quality_factor_rank / rank ^ 0.5)
+      negative_team_contribution: negative_talent_severity_value * negative_talent_class_relevance
+      negative_pool: sum(negative_team_contribution_rank / rank ^ 0.5)
+      positive_signal: positive_pool * role_complementarity_factor * long_term_stability_factor
+      negative_signal: negative_pool * role_complementarity_factor * long_term_stability_factor
+      rule_raw_net: positive_signal - negative_signal
+    person_decay: 0.5
+    talent_quality_factor:
+      ordinary: 0.35
+      usable: 0.55
+      important: 0.9
+      top: 1.2
+      historic: 1.6
+    negative_profile_mapping_version: negative-profile-team-v1
+    negative_talent_severity_value:
+      minor: 0.2
+      material: 0.45
+      major: 0.8
+      historic: 1.2
+    negative_talent_class_relevance:
+      sycophant: 0.8
+      favorite: 0.7
+      power_abuser: 1.0
+      framer: 1.0
+      extractive_official: 0.9
+      cruel_official: 0.9
+      incompetent_harmful: 1.0
+      traitorous_actor: 0.8
+      mixed_or_disputed: 0.5
+    role_complementarity_factor:
+      homogeneous: 0.9
+      ordinary_two: 1.0
+      strong_three: 1.1
+      balanced_four: 1.2
+    long_term_stability_factor:
+      fragmented: 0.85
+      forced_turnover_collapse: 0.85
+      stable_but_narrow: 0.85
+      stable_window: 1.0
+      managed_turnover: 1.1
+      durable_multi_stage: 1.2
+    factor_roles:
+      talent_depth: audit_summary_of_positive_pool
+      core_role_coverage: validates_role_complementarity
+      functional_complementarity: maps_role_complementarity_factor
+      continuity_structure: maps_long_term_stability_factor
+      confidant_dependency: diagnostic_only_not_a_multiplier
+      negative_profile_exposure: audit_summary_of_negative_pool
+    aggregation_policy: v3-team-object-pool-v1
+
+  tolerate_talent:
+    projection_mode: v4_joint_factor_projection
+    positive_formula: feedback_entry * expression_safety * protection_repair * evidence_factor
+    negative_formula: -handling_severity * target_fault_factor * evidence_factor
+    feedback_entry:
+      single_acceptance_or_tolerance: 0.7
+      repeated_feedback_retained: 1.0
+      durable_multi_stage_feedback: 1.3
+      exceptional_dense_cross_domain_remonstrance: 1.7
+      institutionalized_feedback_entry: 2.0
+    expression_safety:
+      tense_or_case_dependent: 0.8
+      basically_safe: 1.0
+      actively_protected_or_encouraged: 1.15
+    protection_repair:
+      none: 1.0
+      restoration_or_rehabilitation: 1.1
+      active_protection_or_trust_repair: 1.15
+    handling_severity:
+      symbolic_or_light: 0.6
+      demotion_or_suppression: 1.2
+      imprisonment_or_severe_nonpermanent_harm: 1.8
+      execution_or_forced_suicide: 2.6
+      clan_or_systemic_purge: 3.2
+    target_fault_factor:
+      framed_or_harmed_for_feedback: 1.5
+      minor_fault_disproportionate_harm: 1.2
+      fault_unknown: 1.0
+      disputed_suspicion: 0.9
+      major_fault_but_excessive_harm: 0.5
+      proven_rebellion_residual_talent_harm: 0.2
+    v4_factor_inputs: [feedback_reception, talent_safety, professional_autonomy, conflict_repair_continuity]
+    required_additional_inputs:
+      - feedback_pattern
+      - concrete_handling_severity
+      - target_fault_assessment
+      - attribution_projection
+      - source_projection
+      - context_projection
+    fail_closed_when_missing: insufficient_projection
+    aggregation_policy: v3_legacy_object_density-v1
+
+  anti_nepotism:
+    projection_mode: v4_episode_and_aggregate_joint_projection
+    positive_formula: selection_openness * institutionalization * office_weight * evidence_factor
+    negative_formula: -favoritism_intensity * office_weight * displacement_harm * evidence_factor
+    selection_openness:
+      avoids_private_interference_case: 0.7
+      merit_or_formal_basis: 1.0
+      cross_identity_open_selection: 1.25
+      institutionalized_anti_nepotism: 1.4
+    institutionalization:
+      single_event: 0.8
+      repeated_stable_practice: 1.0
+      durable_institution: 1.15
+    office_weight:
+      ordinary: 0.8
+      important: 1.0
+      central_military_or_succession: 1.15
+    favoritism_intensity:
+      visible_private_relation: 0.7
+      private_relation_over_merit: 1.1
+      continuing_core_appointment_interference: 1.5
+      systemic_private_network_capture: 2.0
+    displacement_harm:
+      optics_only: 0.7
+      qualified_people_or_key_office_harmed: 1.0
+      team_policy_or_expression_structure_harmed: 1.4
+      durable_institutional_pollution: 2.0
+    v4_factor_inputs: [capability_basis, process_integrity, public_power_exposure, network_effect]
+    required_additional_inputs:
+      - applicability_case
+      - institutionalization_observation
+      - displacement_harm_observation
+      - attribution_projection
+      - source_projection
+      - context_projection
+    fail_closed_when_missing: insufficient_projection
+    aggregation_policy: v3_legacy_object_density-v1
+
+aggregation_policies:
+  v3_legacy_object_density-v1:
+    mode: strongest_plus_secondary_per_object
+    same_object_secondary_factor: 0.35
+    same_object_cap_multiplier: 1.5
+    material_score_cap: 4.0
+    side_signal: sum_object_side_scores
+    all_scored_materials_contribute_before_object_cap: true
+    top_k: false
+  v3-native-density-decay-20260711:
+    mode: hierarchical_rank_decay
+    material_decay: 1.0
+    event_decay: 1.0
+    object_decay: 0.5
+    positive_lane_scale: 1.5
+    negative_lane_scale: 1.0
+    event_key: canonical_event_group
+    all_scored_materials_contribute: true
+    top_k: false
+    hard_aggregation_cap: false
+  v3-team-object-pool-v1:
+    mode: orthogonal_person_profile_pool
+    canonical_person_unique_per_window: true
+    positive_and_negative_axes_independent: true
+    person_decay: 0.5
+    top_k: false
+
+item_raw_signal:
+  formula_version: i5b-weighted-raw-signal-v1
+  max_score: 45.0
+  rule_order: [talent_discovery, appointment_delegation, team_building, tolerate_talent, anti_nepotism]
+  rule_weights:
+    talent_discovery: 0.19
+    appointment_delegation: 0.36
+    team_building: 0.21
+    tolerate_talent: 0.18
+    anti_nepotism: 0.06
+  weight_sum: 1.0
+  formula: weighted_raw_signal = sum(rule_raw_net * rule_weight)
+  missing_rule_policy: explicit_zero_without_fake_cluster
+
+batch_dynamic_mapping:
+  required: true
+  inherited_v3_algorithm_available: false
+  single_ruler_immediate_mapping_allowed: false
+  input_contract: weighted-raw-envelope-v1
+  snapshot_contract: i5b-batch-mapping-snapshot-v1
+  required_snapshot_fields:
+    - calibration_version
+    - cohort_identity
+    - cohort_fingerprint
+    - rule_signal_input_fingerprints
+    - benchmark_anchors
+    - distribution_summary
+    - monotonic_mapping_definition
+    - spacing_diagnostics
+    - human_approval
+  before_snapshot_approval:
+    score_rate: null
+    score: null
+    tier: null
+    tier_band: null
+  remapping_creates_new_version: true
+  old_scores_must_not_be_silently_overwritten: true

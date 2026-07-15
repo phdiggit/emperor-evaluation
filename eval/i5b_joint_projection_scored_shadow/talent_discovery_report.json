@@ -1,0 +1,398 @@
+{
+  "declarations": {
+    "all_projected_materials_contributed_before_object_cap": true,
+    "formal_scoring_allowed": false,
+    "old_gold_modified": false,
+    "opened_sealed_used_as_new_qualification": false,
+    "top_k_applied": false
+  },
+  "insufficient_projections": [
+    {
+      "missing_inputs": [
+        "canonical_person_object_ref",
+        "versioned_person_talent_grade"
+      ],
+      "projection_basis": "开放集材料足以说明海云推荐、忽必烈面谈复核、僧人身份障碍和潜邸长期留用，但当前V4人物画像迁移资产及V6至V10校准层均未找到刘秉忠的版本化PersonProfileSnapshot，无法合法填写object_ref和talent_quality_factor。按政策缺任一必要投影输入即关闭，不以史实常识猜测人物档位。",
+      "ruler": "忽必烈",
+      "subject": "刘秉忠",
+      "unit_ref": "REU-YUAN-HBL-LIUBINGZHONG-DISCOVERY-OPEN-v1"
+    }
+  ],
+  "materials": [
+    {
+      "canonical_event_group": "EP-LSM-MAZHOU-DISCOVERY@v1",
+      "dataset_role": "open_development",
+      "material_score": "1.837",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "channel_factor": 1.1,
+          "context_factor": 1.1,
+          "direction_sign": 1.0,
+          "discovery_level": 1.2,
+          "source_factor": 1.1,
+          "talent_quality_factor": 1.15
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "channel_factor": "cross_identity_or_camp",
+          "context_factor": "core_mechanism_direct",
+          "direction_sign": "positive",
+          "discovery_level": "difficult_cross_boundary_discovery",
+          "source_factor": "complete_direct_chain",
+          "talent_quality_factor": "important"
+        },
+        "formal_score": false,
+        "material_score": 1.837,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.837,
+        "rule_code": "talent_discovery",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-1E978B22A450",
+      "projection_basis": "马周此前只是寒微家客，李世民先从代拟奏议识别其能力，再追问作者、反复催召面谈并由门下省试用扩大至监察御史；低位与非正式渠道障碍被直接突破，构成困难跨身份发现。该材料只证明一次个案，不推定可重复机制。V10有效人物档位沿V7校准为important。三条同传断言完整覆盖身份障碍、使用前作品、皇帝面谈与实际转化。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "9b73bbe655e2e3df54b6b3d9a7243a860df4df17f14af8bef7fa8b7d28e9d02d",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-LSM-MAZHOU-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-LSM-MAZHOU-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#马周",
+        "eval/v3_person_profile_migration/talent_grade_v7_important_calibration_report.json#马周",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "subject": "马周",
+      "unit_ref": "REU-LSM-MAZHOU-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "EP-LSM-FANGXUANLING-DISCOVERY@v1",
+      "dataset_role": "open_development",
+      "material_score": "2.875",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "channel_factor": 1.1,
+          "context_factor": 1.1,
+          "direction_sign": 1.0,
+          "discovery_level": 1.2,
+          "source_factor": 1.1,
+          "talent_quality_factor": 1.8
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "channel_factor": "cross_identity_or_camp",
+          "context_factor": "core_mechanism_direct",
+          "direction_sign": "positive",
+          "discovery_level": "difficult_cross_boundary_discovery",
+          "source_factor": "complete_direct_chain",
+          "talent_quality_factor": "historic"
+        },
+        "formal_score": false,
+        "material_score": 2.875,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 2.875,
+        "rule_code": "talent_discovery",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-C37ED24688F5",
+      "projection_basis": "房玄龄由隋旧吏身份进入秦府人才池，温彦博推荐后李世民亲见验证并立即署为有实质职责的行军记室参军；跨旧政权阵营障碍与直接转化同时成立，故为困难跨阵营发现。单一事件仍只按跨身份或跨阵营渠道，不提升为可重复机制。V10有效人物档位沿V9为historic。两条同传断言直接覆盖原身份、推荐、面见验证和署职。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "5de251c647d5c893d27749fdc772495f2aa31b19ea1bdd99d1b512a31727e4d4",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#房玄龄",
+        "eval/v3_person_profile_migration/talent_grade_v9_high_tier_calibration_report.json#房玄龄",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "subject": "房玄龄",
+      "unit_ref": "REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "EP-ZYZ-LIUJI-DISCOVERY@v1",
+      "dataset_role": "open_development",
+      "material_score": "2.316",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "channel_factor": 1.1,
+          "context_factor": 1.1,
+          "direction_sign": 1.0,
+          "discovery_level": 1.2,
+          "source_factor": 1.1,
+          "talent_quality_factor": 1.45
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "channel_factor": "cross_identity_or_camp",
+          "context_factor": "core_mechanism_direct",
+          "direction_sign": "positive",
+          "discovery_level": "difficult_cross_boundary_discovery",
+          "source_factor": "complete_direct_chain",
+          "talent_quality_factor": "top"
+        },
+        "formal_score": false,
+        "material_score": 2.316,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 2.316,
+        "rule_code": "talent_discovery",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-BF34E92569C0",
+      "projection_basis": "刘基来自元朝旧官体系且初次拒绝征聘；朱元璋闻名后以币聘请，并经孙炎再次延揽，最终亲见其陈时务十八策并安置礼贤馆，跨旧政权及拒绝出仕障碍后完成实质顾问转化。孙炎承担执行不改变征聘与接受问策对朱元璋的直接归责。单一事件只取跨身份或跨阵营渠道。V10有效档位沿V9为top。",
+      "ruler": "朱元璋",
+      "semantic_fingerprint": "2b01a9cbc7f2f9844a8372398f2033cab7f4818ba887605c2205bd52c946d152",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_open_development/worklist.json#REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1",
+        "eval/talent_discovery_open_development/factor_gold.yml#REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#刘基",
+        "eval/v3_person_profile_migration/talent_grade_v9_high_tier_calibration_report.json#刘基",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "subject": "刘基",
+      "unit_ref": "REU-ZYZ-LIUJI-DISCOVERY-OPEN-v1"
+    },
+    {
+      "canonical_event_group": "jiayi_summon_and_rapid_promotion",
+      "dataset_role": "opened_regression",
+      "material_score": "0.518",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "channel_factor": 1.0,
+          "context_factor": 1.0,
+          "direction_sign": 1.0,
+          "discovery_level": 0.6,
+          "source_factor": 0.75,
+          "talent_quality_factor": 1.15
+        },
+        "evidence_factor": 0.75,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "channel_factor": "single_case",
+          "context_factor": "clear",
+          "direction_sign": "positive",
+          "discovery_level": "passive_reputation",
+          "source_factor": "weak_or_compressed",
+          "talent_quality_factor": "important"
+        },
+        "formal_score": false,
+        "material_score": 0.518,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 0.518,
+        "rule_code": "talent_discovery",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-8EFE1D72D09D",
+      "projection_basis": "已开封sealed材料直接记录刘恒召贾谊为博士并在一年内升至太中大夫，足以确认正向发现和直接转化；但冻结Gold明确其使用前依据只有名望、未显示独立复核，也没有实质身份或阵营障碍，故联合投影为passive_reputation并按单次个案处理。单条压缩引文未覆盖完整使用前识别链，source取weak_or_compressed，context只取clear。V10有效人物档位沿V7为important。",
+      "ruler": "刘恒",
+      "semantic_fingerprint": "a12c179ff4108263ce82c97708851136e21101ddf6817e29d55442374aa4d085",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_sealed_holdout/worklist.json#TD-S01",
+        "eval/talent_discovery_sealed_holdout/factor_gold.yml#TD-S01",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#贾谊",
+        "eval/v3_person_profile_migration/talent_grade_v7_important_calibration_report.json#贾谊",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "subject": "贾谊",
+      "unit_ref": "TD-S01"
+    },
+    {
+      "canonical_event_group": "ningwanwo_reputation_summon_wenguan_entry",
+      "dataset_role": "opened_regression",
+      "material_score": "1.307",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "channel_factor": 1.1,
+          "context_factor": 1.1,
+          "direction_sign": 1.0,
+          "discovery_level": 1.2,
+          "source_factor": 1.0,
+          "talent_quality_factor": 0.9
+        },
+        "evidence_factor": 1.1,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "channel_factor": "cross_identity_or_camp",
+          "context_factor": "core_mechanism_direct",
+          "direction_sign": "positive",
+          "discovery_level": "difficult_cross_boundary_discovery",
+          "source_factor": "standard",
+          "talent_quality_factor": "usable"
+        },
+        "formal_score": false,
+        "material_score": 1.307,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.307,
+        "rule_code": "talent_discovery",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-7B301C543E9F",
+      "projection_basis": "已开封sealed材料直接呈现皇太极闻宁完我通文史后召入文馆，并由其敢言与议定官制补强使用转化；冻结Gold判定为外部新见、名望后直接展示、跨身份准入障碍及直接实质使用，四因子联合达到困难跨身份发现。仅有这一事件，渠道不推定为可重复机制。单条本传引文可完整定位核心动作但lineage覆盖仍为普通充分，source取standard。V10有效人物档位沿V8为usable。",
+      "ruler": "皇太极",
+      "semantic_fingerprint": "3c9d0b4382b9b6c1da84168c5b6e1be0fa0cf67321daea0af25d37fff8ff3f74",
+      "side": "positive",
+      "source_refs": [
+        "eval/talent_discovery_sealed_holdout/worklist.json#TD-S02",
+        "eval/talent_discovery_sealed_holdout/factor_gold.yml#TD-S02",
+        "eval/v3_person_profile_migration/authorized_profile_promotion.json#宁完我",
+        "eval/v3_person_profile_migration/talent_grade_v8_final_calibration_report.json#宁完我",
+        "config/i5b-scoring-policy.yml#rules.talent_discovery"
+      ],
+      "subject": "宁完我",
+      "unit_ref": "TD-S02"
+    }
+  ],
+  "object_side_aggregates": [
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-8EFE1D72D09D",
+      "object_side_score": "0.518",
+      "ruler": "刘恒",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-BF34E92569C0",
+      "object_side_score": "2.316",
+      "ruler": "朱元璋",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-1E978B22A450",
+      "object_side_score": "1.837",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-C37ED24688F5",
+      "object_side_score": "2.875",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-7B301C543E9F",
+      "object_side_score": "1.307",
+      "ruler": "皇太极",
+      "side": "positive"
+    }
+  ],
+  "policy_version": "i5b-joint-projection-score-contribution-v2",
+  "projection_input_version": "talent-discovery-joint-projection-v1",
+  "report_sha256": "07daf525c50252fe21c92e6948a672996631676172e980f07fba32d7094fe046",
+  "rule_code": "talent_discovery",
+  "schema_version": "i5b-joint-projection-scored-shadow-report-v1",
+  "score_contributions": [
+    {
+      "contribution_ref": "SC-I5B-90DC81BFBFA36C03C7B4BC0A",
+      "dedup_key": "2ce0a96da8c2c186a278cd83de0af59965d713b8c32181c4a22c56f7cf97cade",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "0.518",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘恒",
+      "rule_code": "talent_discovery",
+      "rule_raw_net": "0.518",
+      "ruler": "刘恒",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "796e10517e76f53504027e7e722382bbec6a27652adc41c134d35730b0a21cf4",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-07A19CF38709D4BCF5974C37",
+      "dedup_key": "8877352bfd9cd0ded6e29d89f26f0eb12bebd8180b61648bed81e3e8114f292e",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "忽必烈",
+      "rule_code": "talent_discovery",
+      "rule_raw_net": "0.000",
+      "ruler": "忽必烈",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "d406e04e5f90258ec4f3a2b34a2686ce316cd5a8c6c8782d1b8cbdb7041bcc06",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-BECF48714BBF0181C98F78CA",
+      "dedup_key": "e2f6e7ee8eec4a0e24bd5d5670b38d96c30deb485d4be0b752ca25c9b17346fe",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "2.316",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "朱元璋",
+      "rule_code": "talent_discovery",
+      "rule_raw_net": "2.316",
+      "ruler": "朱元璋",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "06c422d2473fd071807947b6003ef46acaa8e8829cc5b8b98bc615d7a63c0fe8",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-10936C45005535230BF69B21",
+      "dedup_key": "f9d5aacc3fff98fa6a99a7ca7a6a1e5ca4b1117037abf8bca6da38c2f04306c2",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "4.712",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李世民",
+      "rule_code": "talent_discovery",
+      "rule_raw_net": "4.712",
+      "ruler": "李世民",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "39078583d914ea100ee6fdbed0ed80f4cc89ea1b92e4035e0b9b9d9eacf452cf",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-D0F1FD5E79806D6E0B7A2C6F",
+      "dedup_key": "af8946c376e1438fa12b7fe48b297c39f7ad80d54b16e6b952f6e3658692b749",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.000",
+      "positive_signal": "1.307",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "皇太极",
+      "rule_code": "talent_discovery",
+      "rule_raw_net": "1.307",
+      "ruler": "皇太极",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "a6a7e795f80e220f6e2aaf9218095e231d2118184e1d924cb09c69b92ba7f259",
+      "supporting_only_rules": [],
+      "tier": null
+    }
+  ],
+  "status": "opened_regression_scored_shadow_raw_signal_only",
+  "summary": {
+    "database_write_count": 0,
+    "formal_scoring_allowed": false,
+    "input_unit_count": 6,
+    "insufficient_projection_count": 1,
+    "model_call_count": 0,
+    "projected_material_count": 5,
+    "ruler_count": 5,
+    "score_contribution_count": 5
+  }
+}

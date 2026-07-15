@@ -1,0 +1,58 @@
+schema_version: lishimin-team-roster-shadow-v1
+status: report_only_expanded_candidate_pool
+ruler: 李世民
+window: {start: 626, end: 649, precision: year}
+members:
+  - {person: 房玄龄, grade: historic, origin: self_selected, roles: [decision, administration]}
+  - {person: 李靖, grade: historic, origin: inherited_and_retained, roles: [military, decision]}
+  - {person: 李绩, grade: historic, origin: inherited_and_retained, roles: [military, decision]}
+  - {person: 苏定方, grade: historic, origin: self_selected, roles: [military], evidence_status: provisional_indirect_selection}
+  - {person: 杜如晦, grade: top, origin: self_selected, roles: [decision, administration]}
+  - {person: 魏徵, grade: top, origin: self_selected, roles: [correction, decision]}
+  - {person: 长孙无忌, grade: top, origin: self_selected, roles: [decision, administration]}
+  - {person: 马周, grade: important, origin: self_selected, roles: [administration, correction]}
+  - {person: 褚遂良, grade: important, origin: self_selected, roles: [correction, administration]}
+  - {person: 戴胄, grade: important, origin: self_selected, roles: [administration, correction]}
+  - {person: 虞世南, grade: important, origin: self_selected, roles: [correction, administration]}
+  - {person: 高士廉, grade: important, origin: self_selected, roles: [administration, decision]}
+  - {person: 温彦博, grade: important, origin: recalled, roles: [administration, decision]}
+  - {person: 萧瑀, grade: important, origin: inherited_and_retained, roles: [decision, administration], stage_origin_events: [inherited_and_retained, recalled]}
+  - {person: 侯君集, grade: important, origin: self_selected, roles: [military, decision], window_negative_class: traitorous_actor, window_negative_severity: major}
+  - {person: 尉迟敬德, grade: important, origin: self_selected, roles: [military]}
+  - {person: 秦琼, grade: important, origin: self_selected, roles: [military]}
+  - {person: 段志玄, grade: important, origin: self_selected, roles: [military]}
+  - {person: 唐俭, grade: important, origin: self_selected, roles: [administration, decision], evidence_status: provisional_window_rebind_needed}
+  - {person: 王玄策, grade: important, origin: self_selected, roles: [military, administration]}
+  - {person: 屈突通, grade: important, origin: inherited_and_retained, roles: [military, administration]}
+  - {person: 王珪, grade: usable, origin: self_selected, roles: [correction, decision]}
+  - {person: 岑文本, grade: usable, origin: self_selected, roles: [administration, correction]}
+  - {person: 张亮, grade: usable, origin: self_selected, roles: [administration, military]}
+  - {person: 李君羡, grade: usable, origin: self_selected, roles: [military]}
+blocked_or_excluded:
+  - {person: 长孙顺德, disposition: blocked_missing_v4_profile}
+  - {person: 张公谨, disposition: blocked_missing_v4_profile}
+  - {person: 程知节, disposition: blocked_missing_v4_profile_and_window_rebind}
+  - {person: 刘弘基, disposition: excluded_no_substantive_window_evidence}
+  - {person: 刘洎, disposition: blocked_indirect_only_and_missing_v4_profile}
+  - {person: 于志宁, disposition: blocked_no_direct_window_claim}
+not_yet_disposed_named_gaps:
+  [封德彝, 宇文士及, 杨师道, 刘洎, 孔颖达, 令狐德棻, 韦挺, 李道宗, 薛万彻, 李大亮, 阿史那社尔, 契苾何力, 张士贵, 薛万均, 孙伏伽, 张行成, 崔仁师, 许敬宗]
+factors:
+  talent_depth: multi_historic
+  functional_complementarity: balanced_four
+  continuity_structure: durable_multi_stage
+  role_complementarity_factor: 1.2
+  long_term_stability_factor: 1.2
+calculation:
+  grade_counts: {historic: 4, top: 3, important: 14, usable: 4, ordinary: 0}
+  positive_pool: 9.805485068533
+  positive_signal: 14.119898498688
+  negative_pool: 0.64
+  negative_signal: 0.9216
+  rule_raw_net: 13.198298498688
+  conservative_rule_raw_net: 9.552521215929
+declarations:
+  historical_roster_complete: false
+  formal_score: false
+  database_write_count: 0
+  model_call_count: 0

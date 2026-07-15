@@ -1,0 +1,52 @@
+schema_version: 1
+provider: wikisource_revision_plan
+subject_ref: PER-V4-B0E10D8903E7
+sections:
+  - snapshot: tests/fixtures/source_cache_v4/weizheng_jiutangshu_snapshot.json
+    page_code: jiutangshu-071-weizheng
+    page_title: 舊唐書/卷71
+    expected_revision_id: 2020238
+    work_identity: 舊唐書
+    edition_identity: Wikisource plain-text carrier; revision 2020238
+    source_role: primary_text
+    license_or_access_note: public-domain text; Wikisource carrier revision retained
+    section_id: jiutangshu-071-weizheng-tolerate
+    section_heading: 魏徵傳
+    document_span_start: 0
+    window_policy:
+      version: v4-source-window-weizheng-tolerate-v1
+      sentence_radius_before: 0
+      sentence_radius_after: 0
+      context_chars_before: 0
+      context_chars_after: 0
+    passages:
+      - seed_code: dense-remonstrance-and-repair
+        anchor_start: 太宗新即位，勵精政道
+        anchor_end: 帝深納其言，賜絹五百匹。
+        passage_kind: context
+        selection_reason: [dense_remonstrance_summary, ruler_acceptance_and_repair]
+      - seed_code: foreign-envoy-remonstrance
+        anchor_start: 時高昌王麹文泰將入朝
+        anchor_end: 時厭怛紇干已發，遽追止之。
+        passage_kind: atomic
+        selection_reason: [cross_domain_remonstrance]
+      - seed_code: county-official-remonstrance
+        anchor_start: 後太宗幸九成宮，因有宮人還京
+        anchor_end: 李靖等亦寢而不問。
+        passage_kind: atomic
+        selection_reason: [contrary_advice_accepted]
+      - seed_code: western-horse-remonstrance
+        anchor_start: 先是，遣使詣西域立葉護可汗
+        anchor_end: 太宗納其言而止。
+        passage_kind: atomic
+        selection_reason: [cross_domain_remonstrance]
+      - seed_code: fengshan-remonstrance
+        anchor_start: 時公卿大臣並請封禪
+        anchor_end: 太宗不能奪。
+        passage_kind: atomic
+        selection_reason: [contrary_major_policy_remonstrance]
+      - seed_code: late-continuity-and-safety
+        anchor_start: 及皇太子承乾不修德業
+        anchor_end: 其後追思不已，賜其實封九百戸。
+        passage_kind: context
+        selection_reason: [late_role_continuity, terminal_expression_safety]

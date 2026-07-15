@@ -1,0 +1,130 @@
+schema_version: i5b-ruler-rule-coverage-manifest-v1
+coverage_policy_version: i5b-historical-coverage-gate-v1
+ruler: 李世民
+ruler_ref: RULER-NAME-CANDIDATE-737E2C4D60AC
+scope:
+  scope_status: not_frozen
+  intended_scope: 李世民统治期
+  start: null
+  end: null
+  note: 当前仅登记既有工作集，不据测试样本反推统治期历史覆盖。
+rules:
+  - rule_code: talent_discovery
+    legacy_candidate_sources:
+      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 17, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
+    workset_projection_status: workset_projection_complete
+    workset_refs:
+      - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-MAZHOU-DISCOVERY-OPEN-v1
+      - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1
+    existing_workset_units:
+      - {unit_ref: REU-LSM-MAZHOU-DISCOVERY-OPEN-v1, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: REU-LSM-LIJING-DISCOVERY-EXCLUDED-OPEN-v1, current_applicability: not_applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
+    historical_coverage_status: unassessed
+    candidate_population_policy: pending_ruler_rule_candidate_population_v1
+    candidate_inventory_status: not_started
+    positive_search_status: not_started
+    negative_search_status: not_started
+    candidate_disposition_status: not_started
+    review_status: draft
+    unresolved:
+      - 冻结统治期范围与识才候选人口径
+      - 逐项区分皇帝独立识才、他人发现和继承使用
+  - rule_code: appointment_delegation
+    legacy_candidate_sources:
+      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 174, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
+    workset_projection_status: partial_workset_projection
+    workset_refs:
+      - eval/appointment_delegation_v3_parity_demo/report.json#REU-LSM-WEIZHENG-APPOINTMENT-v1
+    existing_workset_units:
+      - {unit_ref: REU-LSM-WEIZHENG-APPOINTMENT-v1, current_applicability: applicable, workset_stage: scored, counts_toward_historical_coverage: false}
+      - {unit_ref: REU-LSM-MAZHOU-AUTHORIZATION-v1, current_applicability: applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
+      - {unit_ref: REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1, current_applicability: applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
+      - {unit_ref: REU-LSM-LIJING-MILITARY-AUTHORITY-v1, current_applicability: applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
+    historical_coverage_status: unassessed
+    candidate_population_policy: pending_ruler_rule_candidate_population_v1
+    candidate_inventory_status: not_started
+    positive_search_status: not_started
+    negative_search_status: not_started
+    candidate_disposition_status: not_started
+    review_status: draft
+    unresolved:
+      - 冻结重要任用、授权和失控事件的候选人口径
+      - 对统治期重要正负任用材料完成去重处置
+  - rule_code: team_building
+    legacy_candidate_sources:
+      - {source_ref: eval/v3_claim_migration/lishimin_report.json, candidate_claim_count: 0, accepted_v4_assertion_count: 0, use: derive_membership_candidates_from_claim_facts_not_v3_routes}
+    workset_projection_status: workset_projection_complete
+    workset_refs:
+      - eval/team_building_v8_scored_shadow/report.json#TB-O02
+    existing_workset_units:
+      - unit_ref: TB-O02
+        current_applicability: applicable
+        workset_stage: scored
+        frozen_workset_member_set_complete: true
+        historical_member_population_complete: false
+        relationship_origin_review_status: not_started
+        window_risk_exposure_review_status: not_started
+        counts_toward_historical_coverage: false
+    historical_coverage_status: unassessed
+    candidate_population_policy: pending_material_team_role_population_v1
+    candidate_inventory_status: not_started
+    positive_search_status: not_started
+    negative_search_status: not_started
+    candidate_disposition_status: not_started
+    review_status: draft
+    unresolved:
+      - 当前五人仅为冻结测试工作集，不是完整团队名录
+      - 冻结实质团队角色纳入门槛并处置所有候选人物
+      - 对有全局政治风险者仅复核窗口内风险暴露
+  - rule_code: tolerate_talent
+    legacy_candidate_sources:
+      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 103, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
+    workset_projection_status: workset_projection_complete
+    workset_refs:
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-INSTITUTIONAL-REM-01
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O01
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-YSN-01
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-CSL-01
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-MZ-01
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-DZ-01
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O05
+    existing_workset_units:
+      - {unit_ref: TT-LSM-INSTITUTIONAL-REM-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-O01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-YSN-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-CSL-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-MZ-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-LSM-DZ-01, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-O05, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
+      - {unit_ref: TT-O09, current_applicability: not_applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
+    historical_coverage_status: in_progress
+    candidate_population_policy: pending_ruler_rule_candidate_population_v1
+    candidate_inventory_status: in_progress
+    candidate_inventory_ref: eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json
+    independent_source_refs:
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json
+    positive_search_status: in_progress
+    negative_search_status: in_progress
+    candidate_disposition_status: in_progress
+    review_status: draft
+    unresolved:
+      - 103条V3 route线索尚未完成102个事件组逐项处置
+      - 尚未完成独立于V3 route的统治期正反向检索
+      - 萧瑀、王珪、刘弘基、长孙无忌、房玄龄、温彦博仍待回源
+  - rule_code: anti_nepotism
+    legacy_candidate_sources:
+      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 15, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
+    workset_projection_status: absent
+    workset_refs: []
+    existing_workset_units: []
+    historical_coverage_status: unassessed
+    candidate_population_policy: pending_ruler_rule_candidate_population_v1
+    candidate_inventory_status: not_started
+    positive_search_status: not_started
+    negative_search_status: not_started
+    candidate_disposition_status: not_started
+    review_status: draft
+    unresolved:
+      - 私人关系锚点与公共任用影响候选尚未盘点
+      - AggregateContext网络范围尚未冻结

@@ -1,0 +1,120 @@
+schema_version: i5b-ruler-rule-net-manifest-v1
+input_version: lishimin-declared-workset-net-20260715-v5
+ruler: 李世民
+ruler_ref: RULER-NAME-CANDIDATE-737E2C4D60AC
+rule_results:
+  - rule_code: talent_discovery
+    calculation_status: expanded_declared_workset
+    historical_coverage_status: unassessed
+    positive_signal: 4.712
+    negative_signal: 0
+    source_refs:
+      - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json
+      - eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json
+    material_refs:
+      - REU-LSM-MAZHOU-DISCOVERY-OPEN-v1
+      - REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1
+    limitations:
+      - 当前统治期口径排除即位前的张亮荐举事件，其条件影子分不进入净值。
+      - 历史正反候选人口尚未穷尽，4.712是当前已投影工作集净值。
+    sensitivity_scenarios:
+      - scenario_code: include_pre_reign_zhangliang
+        rule_raw_net: 5.306
+        condition: 仅在未来把范围扩展为统治者生涯并完成张亮史源重绑时成立；当前不采用。
+
+  - rule_code: appointment_delegation
+    calculation_status: expanded_declared_workset
+    historical_coverage_status: unassessed
+    positive_signal: 10.7216469826728
+    negative_signal: 0
+    source_refs:
+      - eval/appointment_delegation_v3_parity_demo/report.json
+      - eval/appointment_delegation_factor_open_development_v2/factor_gold.yml
+      - eval/appointment_delegation_factor_sealed_holdout_v2/factor_gold.yml
+      - eval/i5b_ruler_rule_net/lishimin_appointment_shadow.yml
+      - eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json
+    material_refs:
+      - REU-LSM-WEIZHENG-APPOINTMENT-v1
+      - REU-LSM-MAZHOU-AUTHORIZATION-v1
+      - REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1
+      - REU-LSM-LIJING-MILITARY-AUTHORITY-v1
+    limitations:
+      - 四个既有人工作集按人物层平方根衰减和1.5正向lane计算；历史任用正负事件尚未穷尽。
+      - 高士廉留辅与马周既有授权弧碰撞，净增为0；萧瑀弧未完成回源和多Claim合并，净增为0。
+    sensitivity_scenarios:
+      - scenario_code: prior_single_weizheng_workset
+        rule_raw_net: 2.609
+        condition: 仅使用既有魏徵scored shadow单元时的旧工作集净值。
+
+  - rule_code: team_building
+    calculation_status: expanded_declared_workset
+    historical_coverage_status: unassessed
+    positive_signal: 14.1199
+    negative_signal: 0.9216
+    source_refs:
+      - eval/team_building_v8_scored_shadow/report.json
+      - eval/i5b_ruler_rule_net/lishimin_team_roster_shadow.yml
+      - eval/v3_claim_migration/lishimin_source_snapshot.json
+      - eval/v3_person_profile_migration/authorized_profile_promotion.json
+      - eval/v3_person_profile_migration/supplemental_profile_promotion.json
+    material_refs:
+      - lishimin-expanded-team-candidate-pool-25
+      - lishimin-window-negative-exposure-houjunjii
+    limitations:
+      - 25人建议计算池已按贞观窗口实质履职与有效画像过滤，但完整历史团队候选处置尚未人工冻结。
+      - 正向池使用互补性1.2、稳定性1.2；负向池仅计李世民窗口内暴露的侯君集，不回灌后朝政治风险。
+    sensitivity_scenarios:
+      - scenario_code: frozen_five_person_workset
+        rule_raw_net: 5.473
+        condition: 仅使用TB-O02原冻结五人测试窗口时的旧工作集净值。
+      - scenario_code: conservative_twenty_person_pool
+        rule_raw_net: 9.553
+        condition: 剔除5名皇帝—人物窗口直连证据较薄候选，并把稳定性降为stable_window=1.0。
+
+  - rule_code: tolerate_talent
+    calculation_status: partial_declared_workset
+    historical_coverage_status: unassessed
+    positive_signal: 11.006
+    negative_signal: 0.653
+    source_refs:
+      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json
+      - eval/v3_claim_migration/lishimin_source_snapshot.json
+      - eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_anti_shadow.yml
+      - eval/i5b_ruler_rule_net/lishimin_tt_o01_source_rebind.json
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json
+    material_refs:
+      - TT-LSM-INSTITUTIONAL-REM-01
+      - TT-O05
+      - TT-O01
+      - TT-LSM-YSN-01
+      - TT-LSM-CSL-01
+      - TT-LSM-MZ-01
+      - TT-LSM-DZ-01
+    limitations:
+      - 当前正向池包含贞观求谏机制2.783、魏徵2.057、虞世南1.392、褚遂良1.573、马周1.392、戴胄1.809；TT-O05身后信用撤销仍独立结算负向0.653。
+      - 制度单元只结算正式求谏通道的建立与持续运行；个人单元只结算个人反馈留任和表达安全，不重复结算同一收益。
+      - 103条V3 route线索已完成27人物组级盘点，但尚未完成102个事件组逐项处置，萧瑀、王珪、刘弘基、长孙无忌、房玄龄、温彦博仍待回源；历史覆盖处于in_progress而非完整。
+
+  - rule_code: anti_nepotism
+    calculation_status: provisional_pending_source_rebind
+    historical_coverage_status: unassessed
+    positive_signal: 0
+    negative_signal: 0
+    source_refs:
+      - eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-7E2D72302A9C88F2CE3C
+      - eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json
+      - eval/i5b_ruler_rule_net/lishimin_tolerate_anti_shadow.yml
+    material_refs:
+      - CLMK-7E2D72302A9C88F2CE3C-rejected-until-public-power-gate
+    limitations:
+      - 神通争功虽呈现按功压过宗亲私情，但当前未证明功臣赏次构成公共任用或职务影响，严格净值为0。
+      - 不能把党项、乡党、亲礼、无朋党或未证实朋党指控当作本rule材料。
+    sensitivity_scenarios:
+      - scenario_code: shentong_award_ordinary_standard_evidence
+        rule_raw_net: 0.493
+        condition: 功臣赏次通过公共权力适用性Gate且证据因子取1.10。
+      - scenario_code: shentong_award_ordinary_complete_evidence
+        rule_raw_net: 0.542
+        condition: 功臣赏次通过公共权力适用性Gate且证据因子取1.21。

@@ -19,14 +19,27 @@ V4 是一次受控架构重启。它保留 V3 的历史经验、失败样本和�
 - 新开放开发集：马周、张良、刘基、李善长已形成 4 个 V4 RuleEvidenceUnit 和 5 条正负材料；coverage-aware 对照为 28/29 已决档位精确、1 次正确拒判、零危险强判/错误拒判/非相邻/方向错误，`codex-win` 单批耗时 67.729 秒、总 token 24,863；该结果只用于调校，`real_agent_qualified=false`
 - 封存资格集：房玄龄、李靖、萧何、徐达的 4 个评分单位已在 `3bfc9b6` 冻结后完成唯一一次盲评；25/30 档精确（83.33%）低于 85% 门槛，5 个偏差均为相邻档，决策状态、正负结构、方向与覆盖安全 Gate 全部通过；耗时 100.102 秒、总 token 26,152，未重跑且未回调 Gold/策略，`real_agent_qualified=false`
 - 第五项 B 测试集组合已收束：五条 rule 共 100 个单元（68 个 open/opened、32 个 sealed）；`appointment_delegation` 36、`talent_discovery` 12、`tolerate_talent` 20、`anti_nepotism` 20、`team_building` 12，未来预排与模型授权均为 0
-- sealed 资格结果：只有 `team_building` 通过（适用性 100%、因子 87.5%）；其余四条均未通过，尤其 `anti_nepotism` 为适用性 75%、因子 9.375%，不得由开放集通过推断生产泛化
+- 历史 sealed 资格结果：只有 `team_building` v1 通过（适用性 100%、因子 87.5%）；其余四条均未通过，尤其 `anti_nepotism` 为适用性 75%、因子 9.375%。当前 `team_building` v3 不继承 v1 资格，也不得由开放集推断生产泛化
+- 第五项 B 因子语义已定版：五条 rule 共 24 个分类因子统一冻结在 `config/i5b-factor-semantics.yml`；任用授权 v6、识才 v2、容才 v3、反任人唯亲 v2、团队建设 v3 均有机器可校验的相邻档门槛，旧 Gold、旧报告与资格结论未改写
+- 第五项 B 计分骨架已回归 V3 格式：材料分 `[-4,4]`、正负 rule signal、对象密度聚合、团队双轴人物池和 `0.19/0.36/0.21/0.18/0.06` 五权重已移植到 `config/i5b-scoring-policy.yml`；当前只产生 `weighted_raw_signal`，动态映射快照批准前不生成 45 分或排名
+- V3 人物画像迁移已扩展到全部可用范围：242 份 `active + accepted + profile_complete` 画像保留原始人才档位、定级依据和政治风险 typed axes，另有11份补充画像，合计253份。V6—V8完成原档清洗，V9复核当时全部6名historic和66名top；V10在不覆盖V9的前提下纠正两项门槛错用：陈群由historic回到top，苏定方由top升historic。当前13名historic为司马迁、徐达、房玄龄、李绩、萧何、韩信、卫青、张良、曹参、李斯、李靖、班超、苏定方；统一有效分布为 historic13、top59、important123、usable55、ordinary3。制度寿命不等于制度净效果；军事区分战胜、决定性重创、战略征服和最终目标未完成，平壤未克不记作苏定方战场败仗。政治风险未用于人才扣档，所有既有版本均未覆盖。正式45分和排名仍关闭
+- V4 PostgreSQL 的 `v4_person_profile` schema 已导入263个身份、242条 legacy ref、253份画像、1933条画像 lineage、253行一行可读目录、94条V6校准、157条V7校准、74条V8校准、72条V9校准、2条V10纠偏、12个团队窗口和56个窗口成员。`person_profile_current` 前列依次展示姓名、最新有效人才等级、政治风险状态、两轴有效依据及政治风险类别/严重度，并在多版本校准中每人只取最新有效层；所有导入原样第二次运行均为0写
+- `team_building` scored shadow 已按V10最新有效画像链完成全部12个冻结测试窗口的工作集计算，能力正池与政治风险负池逐人正交、窗口级去重、结构观察和 ScoreContribution lineage 均已落地；这只表示冻结工作集成员齐全，不表示皇帝历史团队名录穷尽。代表性 raw net：刘邦 `5.990145114242`、朱元璋前期 `5.133605730062`/晚期 `1.503009608597`、李隆基前期 `4.124779125572`/晚期 `1.092957732299`、赵构 `-0.557999161405`。旧sealed只作已开封回归，动态映射、45分和排名仍为空
+- 三条联合投影 rule 已生成确定性 ScoreContribution：`talent_discovery` 6个适用单元中5个可投影、1个因缺版本化人物画像失败关闭；`tolerate_talent` 14个中5个可投影、9个缺反馈模式或处置联合输入；`anti_nepotism` 11个中8个可投影、3个缺制度化或排挤损害观察。所有材料使用V3对象内密度控制，证据不足不伪装成零材料，模型调用和数据库写入均为0
+- 五条 rule 的统一 raw-signal readiness runner 已把“工作集投影状态”和“皇帝历史覆盖状态”强制分离。当前24名皇帝的历史覆盖完整数均为0，候选动态映射批次为空；李世民现有工作集为识才3个候选、任用授权4个候选、团队1个五人测试窗口、容才6个计分单元、反任人唯亲0个候选。容才103条V3 route线索已启动27人物组级盘点，覆盖状态为`in_progress`；其余规则仍为`unassessed`。缺失候选、证据不足和同皇帝多团队窗口均不静默折算为0
+- 李世民 V3 Claim 首批只读迁移与分层已完成：304条active Claim、295个canonical event group、629条direct evidence和168个source slice已冻结；275条代表Claim形成待V4回源复核候选，8条保留为证据成员，21条保留为未物化候选。V3路由仅作提示，识才/任用授权/容才/反任人唯亲分别提供17/174/103/15条候选，团队建设为0。首批source-rebind队列按稀缺rule优先、每rule 8条排入32个不同Claim；其余179条容量延后、53条门禁阻断、40条无I5B路由但全部保留，丢弃为0。人工碰撞审计识别23条Claim对既有工作集形成42个aggregate-component rule-slot，但精确lineage碰撞和完整事件等价均为0。32条预审仅保留4条新事件回源候选，另有2条既有聚合部件、6条跨rule主结算、14条错误路由、5条适用性不足和1条史源不足；正式V4 Assertion、历史覆盖接受、模型调用和数据库写入仍为0
+- 李世民容才V4证据Source Cache入库已覆盖当前7个单元：求谏制度、魏徵生前与独立连续性、魏徵身后信用、虞世南、褚遂良、马周、戴胄，共9个当前有效文档、29个passage、85次有效首次写入；含被取代载荷在内历史写入106次，所有原样重跑均为0写。长期工作树只保留不可变输入、一个sourcepack、一个批次合同和一个收口审计，不保留逐单元fetch/dry-run/apply/rerun展开物。魏徵连续性三段只作联合因子support，不重复制度收益；虞世南、褚遂良和魏徵身后材料保留来源质量核校门，戴胄保留共同归责与结果边界人工裁决。剩余Source Cache抓取单元为0，但正式Assertion、Episode、RuleEvidenceUnit、分数和排名写入仍为0
+- 跨人物制度检索回归已增加三轴合同：人物事件、皇帝制度、跨人物聚合缺一不可；李世民求谏案例在不提示章节名、段落位置或制度答案时，只能产出`candidate_only`制度候选，必须同时满足正式通道、多个独立运行观察、跨年、多表达者/正式主体和表达安全门槛，不得由智能体直接接受事实或计分
+- 李世民五rule当前严格shadow净值已形成同一报告：识才`+4.712`、任用授权`+10.722`、团队建设`+13.198`、容才`+10.353`、反任人唯亲`0.000`，按V3权重合成的declared-workset raw signal为`9.390`。任用授权已合并魏徵、马周、房玄龄、李靖四个既有人审工作集；团队建设扩展为626—649窗口25人建议池，正信号14.120、侯君集窗口负信号0.922，保守20人下界净值9.553。容才正向池现含贞观求谏机制2.783、魏徵2.057、虞世南1.392、褚遂良1.573、马周1.392、戴胄1.809，TT-O05身后信用撤销负向0.653独立结算；制度单元与个人单元按收益对象去重。103条V3 route线索尚未完成102个事件组逐项处置及独立正反检索，历史覆盖仍未完成。防亲候选通过公共权力适用性Gate后的条件区间仍为`+0.493～+0.542`，未进入当前严格值。不生成45分、档位或排名
+- 计分详情导出已接入`config/i5b-scoring-detail-display.yml`，所有数值因子和档位同时展示中文名称、英文稳定代码、数值和中文门槛说明。容才正向`feedback_entry`振幅已扩展至2.0：普通多次、跨阶段持续、高密度跨领域长期犯颜和制度化入口分别映射1.0、1.3、1.7和2.0。《贞观政要·求谏第四》所见正式求谏通道达到`institutionalized_feedback_entry=2.0`；魏徵个人映射`exceptional_dense_cross_domain_remonstrance=1.7`
+- 已开封回归优化已启动：6 次离线模型调用覆盖四条失败 rule；识才关键检查 5/5、容才 39/40、反任人唯亲所有权 8/8 且关键检查 4/4，任用授权 17 个 canonical slot 结构 100% 保持、与旧 Gold 的五项模型因子一致 61/85。该结果只用于性能诊断，不是资格率
 - 通用证据覆盖 Gate：`appointment_delegation` 与 `talent_discovery` 共用 `rule-factor-evidence-coverage-v1`；开放快照允许直接正证据确认，但禁止以“未找到”强推一次性、从未发生等缺失敏感档位，覆盖不足必须退出为 `insufficient_coverage`
 - shadow 差异评审：已证明 1 个因子变化只局部失效 1 个评分单元，其余 3 个 Judgment/Contribution 精确复用
 - 名单式离线入口：三位皇帝、四位臣子的 roster manifest 已贯通 Source Cache/Claim Extractor 快照、Episode Kernel 和 scored runner
 - 包 C 持久化增量编排：已记录逐人物 stage、response hash、delta Episode、慢通道任务和失败恢复；无变化重跑复用同一记录
 - 包 D 发现链补抽：V4 Claim Extractor 已按 `talent_discovery` 抽出魏徵旧阵营、识才依据、跨障碍与转化任用 4 条 Claim；陈平、魏徵各形成 1 个正向贡献，韩信与蓝玉按规则排除
 - 包 D 名单增量复用：`talent_discovery` 已接入包 C 的持久化 roster 入口；无变化精确复用，新增魏徵 Assertion 只重建 1 个单元并复用其余 3 个 Judgment
-- V4 配套服务源码治理：已接受“同一 Git 历史、按现有包边界选择性迁入”的章程；当前服务 release 仍在旧冻结点分出的过渡分支，禁止整体 merge，待按合同测试逐步迁入
+- V4 配套服务源码治理：Source Cache 与 Claim Extractor 的活动实现已进入同一 Git 历史并完成不可变 cutover；旧服务分支只作迁移审计，当前分支后续 hardening 未经独立 Gate 不视为已部署
 - V4 Source Cache 迁移：版本化请求、通用 SourceRevision、不可变 document/passage、fixture/真实 Wikisource adapter、PostgreSQL repository、job/lease worker 和 20 文件不可变 release 已进入当前 Git 历史；隔离服务器 Gate 已验证幂等、过期 lease 恢复与回滚
 - V4 Claim Extractor 选择性迁入：旧 `rule_code` 提示分支已改为版本化 `talent_discovery_chain_v1` profile；v2 application、独立 PostgreSQL repository、job/lease 和当前 21 文件 release 已通过服务器隔离 Gate，冻结响应形成 4 条带 PassageSupport 的 Assertion
 - V4 Claim Extractor 真实 provider shadow：改用 V4 Source Cache 三 passage 后生成 7 条 draft Assertion，四项发现链齐备，主簿重叠证据按 equivalent evidence 合并语义；未授权人物称谓保留原文并进入身份 slow lane
@@ -67,21 +80,26 @@ python -m emperor_v4.eval talent-discovery-shadow --manifest eval/talent_discove
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --output eval/talent_discovery_roster_demo/report.json
 python -m emperor_v4.eval talent-discovery-roster-shadow --manifest eval/talent_discovery_roster_demo/manifest.yml --prior-record eval/talent_discovery_roster_demo/report.json --state eval/talent_discovery_roster_demo/state.json --output eval/talent_discovery_roster_demo/report.json
 python -m emperor_v4.eval rule-test-set-admission --policy config/rule-test-set-policy.yml --output eval/rule_test_set_admission/report.json
+python -m emperor_v4.eval i5b-opened-regression-contract --contract config/i5b-opened-regression-contract.yml --artifact-root . --output eval/i5b_test_set_portfolio/opened_regression_contract_report.json
+python -m emperor_v4.eval i5b-factor-semantics --contract config/i5b-factor-semantics.yml --output eval/i5b_test_set_portfolio/factor_semantics_report.json
+python -m emperor_v4.eval i5b-scoring-policy --policy config/i5b-scoring-policy.yml --output eval/i5b_test_set_portfolio/scoring_policy_report.json
+python -m emperor_v4.eval i5b-joint-projection-scored-shadow --rule-code talent_discovery --projection-input eval/i5b_joint_projection_scored_shadow/talent_discovery_projection_inputs.json --scoring-policy config/i5b-scoring-policy.yml --output eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json
+python -m emperor_v4.eval i5b-ruler-rule-coverage --manifest eval/i5b_ruler_rule_coverage/lishimin_manifest.yml --output eval/i5b_ruler_rule_coverage/lishimin_report.json
+python -m emperor_v4.eval v3-claim-pilot --ruler 李世民 --source-freeze-ref v3-claim-freeze-20260715-lishimin-v1 --profile-package eval/v3_person_profile_migration/authorized_profile_promotion.json --profile-package eval/v3_person_profile_migration/supplemental_profile_promotion.json --output eval/v3_claim_migration/lishimin_source_snapshot.json --report eval/v3_claim_migration/lishimin_report.json
+python -m emperor_v4.eval i5b-unified-raw-signal-readiness --appointment-report eval/appointment_delegation_v3_parity_demo/report.json --team-report eval/team_building_v8_scored_shadow/report.json --joint-report eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json --joint-report eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json --joint-report eval/i5b_joint_projection_scored_shadow/anti_nepotism_report.json --coverage-report eval/i5b_ruler_rule_coverage/lishimin_report.json --calibration-version i5b-multi-ruler-candidate-v1 --output eval/i5b_joint_projection_scored_shadow/unified_readiness_report.json
+python -m emperor_v4.eval i5b-ruler-rule-net --manifest eval/i5b_ruler_rule_net/lishimin_manifest.yml --output eval/i5b_ruler_rule_net/lishimin_report.json
+python -m emperor_v4.eval i5b-scoring-detail --manifest eval/i5b_scoring_detail/lishimin_manifest.yml --workspace-root . --format json --output eval/i5b_scoring_detail/lishimin_report.json
+python -m emperor_v4.eval i5b-scoring-detail --manifest eval/i5b_scoring_detail/lishimin_manifest.yml --workspace-root . --format markdown --output eval/i5b_scoring_detail/lishimin_report.md
+python -m emperor_v4.eval i5b-scoring-detail-select --catalog eval/i5b_scoring_detail/catalog.yml --selection eval/i5b_scoring_detail/selection_example.yml --workspace-root . --format markdown --output eval/i5b_scoring_detail/selection_example_report.md
+python -m emperor_v4.eval v3-person-profile-export --source-freeze-ref v3-freeze-20260712 --output eval/v3_person_profile_migration/source_snapshot.json --report eval/v3_person_profile_migration/report.json
+python -m emperor_v4.eval v3-person-profile-migration --source-freeze-ref v3-freeze-20260712 --authorization-ref user-authority:2026-07-15:v3-profile-axes-authoritative --supplemental-evaluations eval/v3_person_profile_migration/missing_team_profile_evaluations.yml --registry-profile eval/team_building_open_development/profile_snapshots.json --registry-profile eval/team_building_sealed_holdout/profile_snapshots.json --candidate-identity-manifest eval/episode_pilot_v1_identity_resolution.yml --team-worklist eval/team_building_open_development/worklist.json --team-worklist eval/team_building_sealed_holdout/worklist.json --artifact-dir eval/v3_person_profile_migration --output eval/v3_person_profile_migration/migration_report.json
 python -m emperor_v4.runtime.source_cache --request eval/source_cache_v4_demo/request.yml --fixture-plan eval/source_cache_v4_demo/fixture_plan.yml --state eval/source_cache_v4_demo/state.json --service-release-sha f7022cb39a887325e3719f46188602ab52775905 --output eval/source_cache_v4_demo/rerun_report.json
 python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_demo/request.yml --plan eval/source_cache_v4_demo/fixture_plan.yml --baseline-report eval/source_cache_v4_demo/report.json --service-release-sha f7022cb39a887325e3719f46188602ab52775905 --output eval/source_cache_v4_demo/wikisource_shadow_report.json
 ```
 
 ## 下一份可见成果
 
-测试集完整组合、资格结果和成本见 `eval/i5b_test_set_portfolio/report.json`，准入状态见 `eval/rule_test_set_admission/report.json`。本轮成功运行累计墙钟 523.457 秒、input+output token 763,840；另有因残留响应触发 `deny-rewrite` 的机械失败 424.908 秒、178,707 token，均已单列保留。该成本不含史源搜集、人工 Gold 和 `appointment_delegation` 既有 32 单元的历史运行。
-
-下一步不再扩样或重跑 sealed，而是：
-
-1. 以 `team_building` 已通过的集合级合同为参照，审计 `anti_nepotism` 为何在 sealed 上发生严重泛化失败；
-2. 为未通过的四条 rule 另立新版本语义合同，旧 sealed 只作只读失败证据，禁止后调 Gold 或再次调用模型；
-3. 在独立 factor 数值、Rule Gold、ScoreContribution 与 shadow 差异 Gate 全部通过前，保持 `shadow-only`，不引入 45 分映射、排名或生产评分写入。
-
-在上述硬化形成可运行结果前，不新增字母阶段、镜像测试模块或独立阶段总结文档。
+测试集、因子语义和原始信号骨架已经收口。下一份可见成果固定为李世民 `tolerate_talent` 纵向报告：复用现有通用能力，将7个已缓存单元一次推进为 Assertion draft、review disposition、Episode/RuleEvidenceUnit shadow、ScoreContribution 与 trace export；质量或归责未通过的单元失败关闭。该交付不新增人物专项 runtime、硬编码总账源码、镜像测试模块、45分或排名。
 
 ## 用户目标链路
 
@@ -97,7 +115,7 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 → 确定性计分与追溯报告
 ```
 
-首条规则打通后，再扩展：
+五条 rule 均已进入版本化 shadow；后续按皇帝级历史覆盖逐条收口：
 
 - `talent_discovery`
 - `team_building`
@@ -135,7 +153,7 @@ python -m emperor_v4.runtime.source_cache_shadow --request eval/source_cache_v4_
 - 正常增量不得触发全库、整皇帝或整规则重建。
 - 模型不能建立正式历史事实、正式判断或正式分数。
 - 无变化重跑必须零模型调用、零业务写入。
-- V3 与 V4 数据库、队列和发布链严格隔离。
+- V3 已废弃，不再承担运行、评分或发布；V4 可按需只读查询 V3 数据库作迁移、回归和差异诊断，但业务写入、队列和发布链不回流 V3。
 
 ## 当前 Gate
 

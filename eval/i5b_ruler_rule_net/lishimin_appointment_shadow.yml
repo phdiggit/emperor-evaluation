@@ -1,0 +1,42 @@
+schema_version: lishimin-appointment-expanded-shadow-v1
+status: report_only_expanded_declared_workset
+ruler: 李世民
+aggregation_policy: v3-native-density-decay-20260711
+positive_lane_scale: 1.5
+object_decay: 0.5
+materials:
+  - person: 房玄龄
+    unit_ref: REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1
+    material_score: 3.01875
+    object_rank: 1
+    object_weight: 1.0
+    weighted_signal: 4.528125
+  - person: 李靖
+    unit_ref: REU-LSM-LIJING-MILITARY-AUTHORITY-v1
+    material_score: 3.01875
+    object_rank: 2
+    object_weight: 0.707106781187
+    weighted_signal: 3.201867893560
+  - person: 马周
+    unit_ref: REU-LSM-MAZHOU-AUTHORIZATION-v1
+    material_score: 1.9481
+    object_rank: 3
+    object_weight: 0.577350269190
+    weighted_signal: 1.687104089112
+  - person: 魏徵
+    unit_ref: REU-LSM-WEIZHENG-APPOINTMENT-v1
+    material_score: 1.7394
+    object_rank: 4
+    object_weight: 0.5
+    weighted_signal: 1.30455
+positive_signal: 10.7216469826728
+negative_signal: 0
+rule_raw_net: 10.7216469826728
+excluded_net_additions:
+  - {claim: CLMK-16700995A10383DDB30D, person: 高士廉, conditional_material_score: 0.393, current_net_addition: 0, reason: 与马周既有集体留辅授权弧碰撞}
+  - {claim: CLMK-83BDFCBE319619857BEB, person: 萧瑀, conditional_material_score: 0.531, current_net_addition: 0, reason: 多Claim任用弧和V4史源重绑未闭合}
+declarations:
+  historical_coverage_complete: false
+  formal_score: false
+  database_write_count: 0
+  model_call_count: 0

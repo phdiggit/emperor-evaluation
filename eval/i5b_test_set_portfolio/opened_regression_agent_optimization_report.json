@@ -1,0 +1,301 @@
+{
+  "conclusion": {
+    "agent_performance_optimization_started": true,
+    "ready_for_unbiased_requalification": false,
+    "remaining_actions": [
+      "把 tolerate_talent 的安全后续写成结构化 observation，消除 TT-S02 的单一剩余判断分歧。",
+      "appointment_delegation open gap-closure 四单元须先由上游冻结 episode/slot，不能机械迁移。"
+    ]
+  },
+  "execution": {
+    "optimization_iteration_count": 2,
+    "runner_status": "succeeded",
+    "succeeded": 6,
+    "task_count": 6,
+    "usage": {
+      "cached_input_tokens": 41728,
+      "input_tokens": 141933,
+      "output_tokens": 24291,
+      "reasoning_output_tokens": 3218
+    },
+    "wall_clock_sum_seconds": 512.604
+  },
+  "rules": [
+    {
+      "contract_version": "appointment-delegation-factor-observation-v5",
+      "finding": "17 个 canonical slots 均按 slot_id 原样返回，旧 event_group 排序与模型合并槽问题已从执行合同中消失；legacy Gold agreement 仅作已开封回归指标，不是资格率。",
+      "legacy_gold_agreement": {
+        "comparison_count": 85,
+        "exact_count": 61,
+        "exact_rate": 0.7176470588235294,
+        "mismatches": [
+          {
+            "actual": "major_affairs",
+            "actual_status": "resolved",
+            "expected": "critical_national_or_long_term",
+            "expected_status": "resolved",
+            "factor_name": "appointment_importance",
+            "slot_id": "AD5::REU-JIN-SIMAYAN-YANGHU-AUTHORITY-v1::EP-JIN-SMY-YH-01@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": "long_term_multi_stage",
+            "expected_status": "resolved",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-JIN-SIMAYAN-YANGHU-AUTHORITY-v1::EP-JIN-SMY-YH-01@v1"
+          },
+          {
+            "actual": "core_mechanism_direct",
+            "actual_status": "resolved",
+            "expected": "clear",
+            "expected_status": "resolved",
+            "factor_name": "context_factor",
+            "slot_id": "AD5::REU-JIN-SIMAYAN-YANGHU-AUTHORITY-v1::EP-JIN-SMY-YH-02@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": null,
+            "expected_status": "insufficient_coverage",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-JIN-SIMAYAN-YANGHU-AUTHORITY-v1::EP-JIN-SMY-YH-02@v1"
+          },
+          {
+            "actual": "direct",
+            "actual_status": "resolved",
+            "expected": "direct_under_pressure",
+            "expected_status": "resolved",
+            "factor_name": "attribution_factor",
+            "slot_id": "AD5::REU-QIN-FUJIAN-WANGMENG-AUTHORITY-v1::EP-QIN-FJ-WM-01@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": null,
+            "expected_status": "insufficient_coverage",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-QIN-FUJIAN-WANGMENG-AUTHORITY-v1::EP-QIN-FJ-WM-01@v1"
+          },
+          {
+            "actual": "major_affairs",
+            "actual_status": "resolved",
+            "expected": "critical_national_or_long_term",
+            "expected_status": "resolved",
+            "factor_name": "appointment_importance",
+            "slot_id": "AD5::REU-QIN-FUJIAN-WANGMENG-AUTHORITY-v1::EP-QIN-FJ-WM-02@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": null,
+            "expected_status": "insufficient_coverage",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-QING-HONGLI-HESHEN-AUTHORITY-v1::EP-QING-HL-HS-01@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": null,
+            "expected_status": "insufficient_coverage",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-QING-HONGLI-HESHEN-AUTHORITY-v1::EP-QING-HL-HS-02@v1"
+          },
+          {
+            "actual": "core_mechanism_direct",
+            "actual_status": "resolved",
+            "expected": "clear",
+            "expected_status": "resolved",
+            "factor_name": "context_factor",
+            "slot_id": "AD5::REU-QING-HONGLI-HESHEN-AUTHORITY-v1::EP-QING-HL-HS-03@v1"
+          },
+          {
+            "actual": "major_affairs",
+            "actual_status": "resolved",
+            "expected": "critical_national_or_long_term",
+            "expected_status": "resolved",
+            "factor_name": "appointment_importance",
+            "slot_id": "AD5::REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1::EP-QING-XY-CTJ-01@v1"
+          },
+          {
+            "actual": "core_mechanism_direct",
+            "actual_status": "resolved",
+            "expected": "clear",
+            "expected_status": "resolved",
+            "factor_name": "context_factor",
+            "slot_id": "AD5::REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1::EP-QING-XY-CTJ-01@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": "long_term_multi_stage",
+            "expected_status": "resolved",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1::EP-QING-XY-CTJ-01@v1"
+          },
+          {
+            "actual": null,
+            "actual_status": "insufficient_coverage",
+            "expected": "weak_feedback",
+            "expected_status": "resolved",
+            "factor_name": "appointment_effect",
+            "slot_id": "AD5::REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1::EP-QING-XY-CTJ-02@v1"
+          },
+          {
+            "actual": "major_affairs",
+            "actual_status": "resolved",
+            "expected": "critical_national_or_long_term",
+            "expected_status": "resolved",
+            "factor_name": "appointment_importance",
+            "slot_id": "AD5::REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1::EP-QING-XY-CTJ-02@v1"
+          },
+          {
+            "actual": "weak_but_applicable",
+            "actual_status": "resolved",
+            "expected": "clear",
+            "expected_status": "resolved",
+            "factor_name": "context_factor",
+            "slot_id": "AD5::REU-QING-XUANYE-CHENTINGJING-AUTHORITY-v1::EP-QING-XY-CTJ-02@v1"
+          },
+          {
+            "actual": "direct",
+            "actual_status": "resolved",
+            "expected": "direct_under_pressure",
+            "expected_status": "resolved",
+            "factor_name": "attribution_factor",
+            "slot_id": "AD5::REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1::EP-SONG-ZZ-FZY-01@v1"
+          },
+          {
+            "actual": "core_mechanism_direct",
+            "actual_status": "resolved",
+            "expected": "clear",
+            "expected_status": "resolved",
+            "factor_name": "context_factor",
+            "slot_id": "AD5::REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1::EP-SONG-ZZ-FZY-01@v1"
+          },
+          {
+            "actual": "stable",
+            "actual_status": "resolved",
+            "expected": null,
+            "expected_status": "insufficient_coverage",
+            "factor_name": "continuity_factor",
+            "slot_id": "AD5::REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1::EP-SONG-ZZ-FZY-01@v1"
+          },
+          {
+            "actual": null,
+            "actual_status": "insufficient_coverage",
+            "expected": "poor_result",
+            "expected_status": "resolved",
+            "factor_name": "appointment_effect",
+            "slot_id": "AD5::REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1::EP-SONG-ZZ-FZY-03@v1"
+          },
+          {
+            "actual": "major_affairs",
+            "actual_status": "resolved",
+            "expected": "critical_national_or_long_term",
+            "expected_status": "resolved",
+            "factor_name": "appointment_importance",
+            "slot_id": "AD5::REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1::EP-SONG-ZZ-FZY-03@v1"
+          },
+          {
+            "actual": "weak_but_applicable",
+            "actual_status": "resolved",
+            "expected": "clear",
+            "expected_status": "resolved",
+            "factor_name": "context_factor",
+            "slot_id": "AD5::REU-SONG-ZHAOZHEN-FANZHONGYAN-AUTHORITY-v1::EP-SONG-ZZ-FZY-03@v1"
+          },
+          {
+            "actual": "normal_success",
+            "actual_status": "resolved",
+            "expected": "major_success",
+            "expected_status": "resolved",
+            "factor_name": "appointment_effect",
+            "slot_id": "AD5::REU-YUAN-HUBILIE-ASHU-AUTHORITY-v1::EP-YUAN-HBL-AS-01@v1"
+          },
+          {
+            "actual": "major_affairs",
+            "actual_status": "resolved",
+            "expected": "critical_national_or_long_term",
+            "expected_status": "resolved",
+            "factor_name": "appointment_importance",
+            "slot_id": "AD5::REU-YUAN-HUBILIE-ASHU-AUTHORITY-v1::EP-YUAN-HBL-AS-01@v1"
+          }
+        ]
+      },
+      "rule_code": "appointment_delegation",
+      "slot_count": 17,
+      "structure": {
+        "exact": true,
+        "extra_slot_ids": [],
+        "missing_slot_ids": [],
+        "side_mismatches": []
+      },
+      "unit_count": 8
+    },
+    {
+      "contract_version": "talent-discovery-factor-agent-v2",
+      "finding": "时间顺序、显式障碍与规则外反例均按 v2 合同收口。",
+      "rule_code": "talent_discovery",
+      "targeted_contract_checks": {
+        "check_count": 5,
+        "exact_count": 5,
+        "exact_rate": 1.0,
+        "mismatches": []
+      },
+      "unit_count": 4
+    },
+    {
+      "contract_version": "tolerate-talent-factor-agent-v2",
+      "finding": "新增无冲突采纳与严重威胁档解决主要值域缺口；剩余分歧集中在同段后续能否证明安全、以及重复不容应归 political_override 还是 sustained_blockage。",
+      "rule_code": "tolerate_talent",
+      "targeted_contract_checks": {
+        "check_count": 40,
+        "exact_count": 39,
+        "exact_rate": 0.975,
+        "mismatches": [
+          {
+            "actual": "insufficient_evidence",
+            "expected": "safe_without_retaliation",
+            "field": "talent_safety",
+            "unit_ref": "TT-S02"
+          }
+        ]
+      },
+      "unit_count": 8
+    },
+    {
+      "contract_version": "anti-nepotism-factor-agent-v2",
+      "factor_ownership": {
+        "check_count": 8,
+        "errors": [],
+        "exact_count": 8
+      },
+      "finding": "统计单元所有权与适用性边界已收口；补入原摘录直接支持的人数下界和单一渠道结构后，AN-S04/AN-S05 均落在 cross_person_single_channel，且未放宽高档门槛。",
+      "network_option_counts": {
+        "cross_channel_capture": 1,
+        "cross_person_single_channel": 2,
+        "insufficient_evidence": 1,
+        "not_applicable": 2
+      },
+      "rule_code": "anti_nepotism",
+      "targeted_contract_checks": {
+        "check_count": 4,
+        "exact_count": 4,
+        "exact_rate": 1.0,
+        "mismatches": []
+      },
+      "unit_count": 8
+    }
+  ],
+  "schema_version": "i5b-opened-regression-agent-optimization-report-v1",
+  "scope": {
+    "database_write_count": 0,
+    "dataset_role": "opened_regression_optimization",
+    "formal_scoring_allowed": false,
+    "new_sealed_identity_created": false,
+    "old_gold_modified": false,
+    "qualification_claim_allowed": false
+  },
+  "status": "opened_regression_agent_optimization_v1_complete"
+}

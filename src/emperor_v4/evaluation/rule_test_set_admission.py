@@ -154,12 +154,30 @@ def evaluate_rule_test_set_admission(policy: Mapping[str, Any]) -> dict[str, Any
         if decision == "blocked_on_prerequisite" and not missing_prerequisites:
             raise ValueError(f"{rule_code} 阻断状态缺少真实前置阻断")
 
+        qualification_contract_version = rule.get("qualification_contract_version")
+        current_semantics_contract_version = rule.get(
+            "current_semantics_contract_version"
+        )
+        qualification_carries_forward = rule.get("qualification_carries_forward")
+        if decision == "completed_qualified" and (
+            not isinstance(qualification_contract_version, str)
+            or not qualification_contract_version
+            or not isinstance(current_semantics_contract_version, str)
+            or not current_semantics_contract_version
+            or qualification_contract_version == current_semantics_contract_version
+            or qualification_carries_forward is not False
+        ):
+            raise ValueError(f"{rule_code} 历史资格版本边界未收口")
+
         rows.append(
             {
                 "priority": int(rule["priority"]),
                 "rule_code": rule_code,
                 "admission_decision": decision,
                 "current_stage": rule["current_stage"],
+                "qualification_contract_version": qualification_contract_version,
+                "current_semantics_contract_version": current_semantics_contract_version,
+                "qualification_carries_forward": qualification_carries_forward,
                 "input_type": input_type,
                 "test_unit_type": test_unit_type,
                 "existing_regression_units": int(
@@ -212,6 +230,8 @@ def evaluate_rule_test_set_admission(policy: Mapping[str, Any]) -> dict[str, Any
                 "completed_not_qualified"
             ],
             "completed_qualified_count": decision_counts["completed_qualified"],
+            "completed_qualified_scope": "historical_contract_versions_only",
+            "current_semantics_qualified_count": 0,
             "ready_to_build_open_set_count": decision_counts[
                 "ready_to_build_open_set"
             ],

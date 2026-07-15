@@ -18,6 +18,19 @@ from emperor_v4.persistence.postgres_claim_extractor import (
     claim_result_status_constraint_is_current,
     decide_claim_extractor_schema_action,
 )
+from emperor_v4.persistence.postgres_person_profile import (
+    PERSON_PROFILE_BASE_TABLES,
+    PERSON_PROFILE_PRE_CALIBRATION_TABLES,
+    PERSON_PROFILE_TABLES,
+    PersonProfileSchemaStateError,
+    decide_person_profile_schema_action,
+    catalog_migration_path as person_profile_catalog_migration_path,
+    current_profile_view_migration_path,
+    multi_policy_calibration_migration_path,
+    optional_capability_migration_path,
+    talent_calibration_migration_path,
+    migration_path as person_profile_migration_path,
+)
 
 
 SCHEMA = Path(__file__).parents[1] / "db" / "postgres" / "001_g3a_episode_core.sql"
@@ -44,6 +57,42 @@ CLAIM_EXTRACTOR_STATUS_SCHEMA = (
     / "db"
     / "postgres"
     / "005_v4_claim_extractor_result_status.sql"
+)
+PERSON_PROFILE_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "006_v4_person_profile_team_window.sql"
+)
+PERSON_PROFILE_CATALOG_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "007_v4_person_profile_catalog.sql"
+)
+PERSON_PROFILE_OPTIONAL_CAPABILITY_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "008_v4_person_profile_optional_capability.sql"
+)
+PERSON_PROFILE_TALENT_CALIBRATION_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "009_v4_talent_grade_calibration.sql"
+)
+PERSON_PROFILE_CURRENT_VIEW_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "010_v4_person_profile_current_readable.sql"
+)
+PERSON_PROFILE_MULTI_POLICY_SCHEMA = (
+    Path(__file__).parents[1]
+    / "db"
+    / "postgres"
+    / "011_v4_talent_grade_multi_policy.sql"
 )
 EXPECTED_TABLES = {
     "source_documents",
@@ -221,3 +270,125 @@ def test_claim_extractor_result_status_upgrade_is_versioned_and_complete() -> No
     assert not claim_result_status_constraint_is_current(
         "CHECK (result_status = 'succeeded')"
     )
+
+
+def test_person_profile_migration_is_isolated_versioned_and_non_destructive() -> None:
+    sql = PERSON_PROFILE_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+    tables = set(
+        re.findall(
+            r"CREATE TABLE\s+v4_person_profile\.([a-z_]+)", sql, flags=re.I
+        )
+    )
+
+    assert person_profile_migration_path() == PERSON_PROFILE_SCHEMA
+    assert tables == PERSON_PROFILE_BASE_TABLES
+    assert upper.lstrip().startswith("BEGIN;")
+    assert upper.rstrip().endswith("COMMIT;")
+    assert "DROP TABLE" not in upper
+    assert "TRUNCATE" not in upper
+    assert "DELETE FROM" not in upper
+    assert "RETRIEVAL_V3" not in upper
+    assert "REVOKE ALL ON SCHEMA V4_PERSON_PROFILE FROM PUBLIC" in upper
+    assert "REVOKE ALL ON ALL TABLES IN SCHEMA V4_PERSON_PROFILE FROM PUBLIC" in upper
+    assert upper.count("IDEMPOTENCY_KEY TEXT NOT NULL UNIQUE") == 7
+    assert "PRIMARY KEY (PROFILE_REF, SNAPSHOT_VERSION)" in upper
+    assert "PRIMARY KEY (WINDOW_REF, WINDOW_POLICY_VERSION)" in upper
+    assert "PRIMARY KEY (WINDOW_REF, WINDOW_POLICY_VERSION, PERSON_REF)" in upper
+    assert "ACCEPTED_USER_AUTHORIZED_V3_IDENTITY" in upper
+    assert "NEGATIVE_TALENT_CLASS IS NULL AND NEGATIVE_TALENT_SEVERITY IS NULL" in upper
+
+
+def test_person_profile_catalog_is_a_direct_readable_immutable_projection() -> None:
+    sql = PERSON_PROFILE_CATALOG_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+
+    assert person_profile_catalog_migration_path() == PERSON_PROFILE_CATALOG_SCHEMA
+    assert "CREATE TABLE V4_PERSON_PROFILE.PERSON_PROFILE_CATALOG" in upper
+    for column in (
+        "CANONICAL_NAME TEXT NOT NULL",
+        "TALENT_GRADE_BASIS TEXT NOT NULL",
+        "NEGATIVE_RISK_STATUS TEXT NOT NULL",
+        "NEGATIVE_TALENT_BASIS TEXT NOT NULL",
+        "NEGATIVE_TALENT_CONFIDENCE NUMERIC(6, 5) NOT NULL",
+    ):
+        assert column in upper
+    assert "PERSON_PROFILE_CATALOG_IMMUTABLE" in upper
+    assert "DROP TABLE" not in upper
+    assert "DELETE FROM" not in upper
+
+
+def test_person_profile_optional_capability_migration_preserves_array_shape() -> None:
+    sql = PERSON_PROFILE_OPTIONAL_CAPABILITY_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+
+    assert optional_capability_migration_path() == PERSON_PROFILE_OPTIONAL_CAPABILITY_SCHEMA
+    assert upper.count("CHECK (JSONB_TYPEOF(CAPABILITY_DOMAINS) = 'ARRAY')") == 2
+    assert "JSONB_ARRAY_LENGTH" not in upper
+    assert "DROP TABLE" not in upper
+    assert "DELETE FROM" not in upper
+
+
+def test_talent_grade_calibration_is_versioned_immutable_and_readable() -> None:
+    sql = PERSON_PROFILE_TALENT_CALIBRATION_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+
+    assert talent_calibration_migration_path() == PERSON_PROFILE_TALENT_CALIBRATION_SCHEMA
+    assert "CREATE TABLE V4_PERSON_PROFILE.TALENT_GRADE_CALIBRATIONS" in upper
+    assert "CREATE VIEW V4_PERSON_PROFILE.PERSON_PROFILE_CURRENT" in upper
+    assert "ORIGINAL_GRADE TEXT NOT NULL" in upper
+    assert "CALIBRATED_GRADE TEXT NOT NULL" in upper
+    assert "TALENT_GRADE_CALIBRATIONS_IMMUTABLE" in upper
+    assert "DROP TABLE" not in upper
+    assert "DELETE FROM" not in upper
+
+
+def test_person_profile_current_puts_business_fields_before_technical_fields() -> None:
+    sql = PERSON_PROFILE_CURRENT_VIEW_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+
+    assert current_profile_view_migration_path() == PERSON_PROFILE_CURRENT_VIEW_SCHEMA
+    leading_columns = (
+        "CATALOG.CANONICAL_NAME",
+        "AS EFFECTIVE_TALENT_GRADE",
+        "CATALOG.NEGATIVE_RISK_STATUS",
+        "AS EFFECTIVE_TALENT_GRADE_BASIS",
+        "CATALOG.NEGATIVE_TALENT_BASIS",
+        "CATALOG.NEGATIVE_TALENT_CLASS",
+        "CATALOG.NEGATIVE_TALENT_SEVERITY",
+        "AS INHERITED_TALENT_GRADE",
+        "AS INHERITED_TALENT_GRADE_BASIS",
+    )
+    positions = [upper.index(column) for column in leading_columns]
+    assert positions == sorted(positions)
+    assert "CATALOG.*" not in upper
+    assert "DROP TABLE" not in upper
+    assert "DELETE FROM" not in upper
+
+
+def test_talent_calibration_supports_versioned_promotions_without_duplicate_view_rows() -> None:
+    sql = PERSON_PROFILE_MULTI_POLICY_SCHEMA.read_text(encoding="utf-8")
+    upper = sql.upper()
+
+    assert multi_policy_calibration_migration_path() == PERSON_PROFILE_MULTI_POLICY_SCHEMA
+    assert "'RETAINED', 'DOWNGRADED', 'UPGRADED'" in upper
+    assert "LEFT JOIN LATERAL" in upper
+    assert "ORDER BY CANDIDATE.CREATED_AT DESC, CANDIDATE.POLICY_VERSION DESC" in upper
+    assert "LIMIT 1" in upper
+    assert "DROP TABLE" not in upper
+    assert "DELETE FROM" not in upper
+
+
+def test_person_profile_schema_bootstrap_fails_closed_on_partial_shape() -> None:
+    assert decide_person_profile_schema_action(()) == "apply"
+    assert (
+        decide_person_profile_schema_action(PERSON_PROFILE_BASE_TABLES)
+        == "extend_catalog"
+    )
+    assert (
+        decide_person_profile_schema_action(PERSON_PROFILE_PRE_CALIBRATION_TABLES)
+        == "extend_calibration"
+    )
+    assert decide_person_profile_schema_action(PERSON_PROFILE_TABLES) == "reuse"
+    with pytest.raises(PersonProfileSchemaStateError, match="shape mismatch"):
+        decide_person_profile_schema_action({"person_profile_snapshots"})

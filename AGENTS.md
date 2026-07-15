@@ -20,10 +20,11 @@
 - 正式评分单元采用“最小充分证据”：足以完成皇帝归责、权责方向、结果、净收益、重复结算和档位判断后，不得因非评分必要的官名匹配、完整仕途或细类型 Relation 缺失而阻断。
 - “足够评分”不等于放松史实。对象、行为、皇帝归责、结果方向和史源 lineage 仍须严格。
 - V4 保留从 V3 冻结点继承的 Git 历史，不得改为 orphan 或回退旧基线。
-- V3 与 V4 的运行环境、业务数据、数据库、任务队列和发布链严格隔离。
-- V3 资产只可作为只读回归样本、反例和对照，不得直接成为 V4 正式事实或评分。
+- V3 已废弃，不再承担运行、生产评分或发布职责；V4 的业务写入、任务队列和发布链仍不得回流 V3。
+- 可按需使用 `.env` 中已配置的 DSN 只读连接 V3 数据库，用于迁移、回归、差异诊断和事实线索核对；不需要逐次取得连接授权。
+- V3 资产和数据库记录不得直接成为 V4 正式事实或评分；必须经过版本化快照、lineage、V4 合同校验和相应接受门禁。
 - `HistoricalEpisode` 是事件型规则第一语义工作单元；`Assertion` 是证据断言。
-- 当前处于 `appointment_delegation` 纵向评分链收口期：G3A/G3B Core 与 G3R—G3H shadow 已完成，factor、ScoreContribution 和统一 runner 待实现。
+- 当前处于第五项 B 皇帝级历史覆盖与正式接受前收口期：`appointment_delegation` 的 factor、ScoreContribution 和统一 scored shadow runner 已完成；其余四条 rule 已进入版本化 shadow 实现，但正式评分、45 分映射和排名仍关闭。
 
 ## 事实源优先级
 
@@ -51,12 +52,12 @@
 - 当前实现摘要统一维护在 `README.md`、`config/project.yml`、`eval/episode_pilot_v1_status.yml` 和一份活动实施摘要中；运行细节放 `eval/<run>/` 或外部 artifact，不复制成数千行 Markdown。
 - 阶段文档被新结论取代时，必须在同一提交中合并或删除；不保留“纪念性”短命文档。
 - 测试按业务不变量组织，不按实现模块镜像。新增测试模块必须证明既有参数化测试无法承载；退役实现与专属测试同提交删除。
-- 下一份强制交付物是 `appointment_delegation` scored shadow demo：factor schema、确定性 evaluator、ScoreContribution 合同和统一 runner 必须形成同一职责链。
+- 下一份强制交付物是李世民 `tolerate_talent` 纵向收口：复用既有通用 Source Cache、Claim Extractor、Episode Kernel 和 scored shadow 能力，将当前 7 个已缓存单元推进为 Assertion draft、review disposition、Episode/RuleEvidenceUnit shadow、ScoreContribution 与 trace export；不得为人物或单批材料新建专项 runtime。
 
 ## 数据与副作用
 
 - 默认 `report-only`、`offline-first`、`shadow-first`。
-- 未经明确授权，不连接或修改 V3 数据库，不执行生产部署，不写正式评分或排名。
+- V3 数据库只读查询默认允许；修改 V3 数据库仍需用户显式授权。未经明确授权，不执行生产部署，不写正式评分或排名。
 - Git 保存规则、配置和契约；PostgreSQL 保存 V4 业务状态；Markdown/JSON 导出只作只读视图。
 - runtime 路径、并发、超时、凭据和部署参数不得写入核心项目配置。
 - 真实 `.env`、令牌、口令、DSN 和私有地址不得提交。未经明确授权不改写 Git 历史。

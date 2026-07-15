@@ -1,0 +1,222 @@
+from __future__ import annotations
+
+from collections import defaultdict
+from decimal import Decimal, ROUND_HALF_UP
+from hashlib import sha256
+import json
+from typing import Any, Mapping, Sequence
+
+from emperor_v4.evaluation.i5b_scoring_policy import calculate_material_projection
+
+
+SCHEMA_VERSION = "i5b-joint-projection-scored-shadow-report-v1"
+POLICY_VERSION = "i5b-joint-projection-score-contribution-v2"
+RULES = {"talent_discovery", "tolerate_talent", "anti_nepotism"}
+
+
+def _hash(value: object) -> str:
+    return sha256(
+        json.dumps(
+            value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _rows(value: object, label: str) -> list[Mapping[str, Any]]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        raise ValueError(f"{label} must be an array")
+    if any(not isinstance(item, Mapping) for item in value):
+        raise ValueError(f"{label} may contain only objects")
+    return list(value)
+
+
+def _rounded(value: Decimal) -> str:
+    return str(value.quantize(Decimal("0.001"), rounding=ROUND_HALF_UP))
+
+
+def _dataset_role(unit_ref: str) -> str:
+    if "-S" in unit_ref or unit_ref.startswith(("TD-S", "TT-S", "AN-S")):
+        return "opened_regression"
+    return "open_development"
+
+
+def _object_side_score(values: Sequence[Decimal]) -> Decimal:
+    if not values:
+        return Decimal("0")
+    ranked = sorted(values, reverse=True)
+    strongest = ranked[0]
+    return min(
+        strongest + Decimal("0.35") * sum(ranked[1:], Decimal("0")),
+        strongest * Decimal("1.5"),
+        Decimal("4.0"),
+    )
+
+
+def build_i5b_joint_projection_scored_shadow(
+    *,
+    rule_code: str,
+    projection_payload: Mapping[str, Any],
+    scoring_policy: Mapping[str, Any],
+) -> dict[str, Any]:
+    if rule_code not in RULES:
+        raise ValueError("joint projection scorer supports exactly three rules")
+    if projection_payload.get("schema_version") != "i5b-joint-projection-input-v1":
+        raise ValueError("joint projection input schema mismatch")
+    if projection_payload.get("rule_code") != rule_code:
+        raise ValueError("joint projection rule mismatch")
+    if projection_payload.get("status") != "human_frozen_regression_input":
+        raise ValueError("joint projection input is not human frozen")
+
+    units = _rows(projection_payload.get("units"), "joint projection units")
+    if len({str(item.get("unit_ref") or "") for item in units}) != len(units):
+        raise ValueError("joint projection unit refs must be unique")
+    material_rows: list[dict[str, Any]] = []
+    insufficient_rows: list[dict[str, Any]] = []
+    ruler_names: set[str] = set()
+    for item in units:
+        unit_ref = str(item.get("unit_ref") or "").strip()
+        ruler = str(item.get("ruler") or "").strip()
+        subject = str(item.get("subject") or "").strip()
+        status = str(item.get("status") or "")
+        ruler_names.add(ruler)
+        if not unit_ref or not ruler or not subject:
+            raise ValueError("joint projection identity fields are incomplete")
+        if status == "insufficient_projection":
+            missing = sorted({str(value) for value in item.get("missing_inputs") or ()})
+            if not missing or item.get("choices"):
+                raise ValueError("insufficient projection must identify missing inputs only")
+            insufficient_rows.append(
+                {
+                    "unit_ref": unit_ref,
+                    "ruler": ruler,
+                    "subject": subject,
+                    "missing_inputs": missing,
+                    "projection_basis": str(item.get("projection_basis") or ""),
+                }
+            )
+            continue
+        if status != "projected":
+            raise ValueError("joint projection status is invalid")
+        side = str(item.get("side") or "")
+        object_ref = str(item.get("object_ref") or "").strip()
+        event_group = str(item.get("canonical_event_group") or "").strip()
+        source_refs = list(item.get("source_refs") or ())
+        if side not in {"positive", "negative"} or not object_ref or not event_group:
+            raise ValueError("projected unit ownership fields are incomplete")
+        if not source_refs or not str(item.get("projection_basis") or "").strip():
+            raise ValueError("projected unit requires evidence basis and source refs")
+        projection = calculate_material_projection(
+            scoring_policy,
+            rule_code=rule_code,
+            choices=item.get("choices") or {},
+            side=side if rule_code != "talent_discovery" else None,
+        )
+        if projection["side"] != side:
+            raise ValueError("talent discovery direction and declared side disagree")
+        score = Decimal(str(projection["material_score"]))
+        material = {
+            "unit_ref": unit_ref,
+            "ruler": ruler,
+            "subject": subject,
+            "object_ref": object_ref,
+            "canonical_event_group": event_group,
+            "dataset_role": _dataset_role(unit_ref),
+            "side": side,
+            "material_score": _rounded(abs(score)),
+            "numeric_projection": projection,
+            "projection_basis": str(item["projection_basis"]),
+            "source_refs": source_refs,
+        }
+        material["semantic_fingerprint"] = _hash(material)
+        material_rows.append(material)
+
+    grouped: dict[tuple[str, str, str], list[Decimal]] = defaultdict(list)
+    for material in material_rows:
+        grouped[(material["ruler"], material["side"], material["object_ref"])].append(
+            Decimal(material["material_score"])
+        )
+    object_aggregates: list[dict[str, Any]] = []
+    for (ruler, side, object_ref), values in sorted(grouped.items()):
+        object_aggregates.append(
+            {
+                "ruler": ruler,
+                "side": side,
+                "object_ref": object_ref,
+                "material_count": len(values),
+                "object_side_score": _rounded(_object_side_score(values)),
+            }
+        )
+
+    score_contributions: list[dict[str, Any]] = []
+    for ruler in sorted(ruler_names):
+        positive = sum(
+            (
+                Decimal(item["object_side_score"])
+                for item in object_aggregates
+                if item["ruler"] == ruler and item["side"] == "positive"
+            ),
+            Decimal("0"),
+        )
+        negative = sum(
+            (
+                Decimal(item["object_side_score"])
+                for item in object_aggregates
+                if item["ruler"] == ruler and item["side"] == "negative"
+            ),
+            Decimal("0"),
+        )
+        raw_net = positive - negative
+        contribution = {
+            "contribution_ref": "SC-I5B-" + _hash([POLICY_VERSION, rule_code, ruler])[:24].upper(),
+            "rule_code": rule_code,
+            "ruler": ruler,
+            "primary_owner": "ruler",
+            "primary_owner_ref": ruler,
+            "dedup_key": _hash([rule_code, ruler, sorted(
+                material["semantic_fingerprint"]
+                for material in material_rows if material["ruler"] == ruler
+            )]),
+            "positive_signal": _rounded(positive),
+            "negative_signal": _rounded(negative),
+            "rule_raw_net": _rounded(raw_net),
+            "insufficient_projection_count": sum(
+                item["ruler"] == ruler for item in insufficient_rows
+            ),
+            "supporting_only_rules": [],
+            "score_rate": None,
+            "score": None,
+            "tier": None,
+        }
+        contribution["semantic_fingerprint"] = _hash(contribution)
+        score_contributions.append(contribution)
+
+    report: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "policy_version": POLICY_VERSION,
+        "projection_input_version": projection_payload.get("input_version"),
+        "status": "opened_regression_scored_shadow_raw_signal_only",
+        "rule_code": rule_code,
+        "summary": {
+            "input_unit_count": len(units),
+            "projected_material_count": len(material_rows),
+            "insufficient_projection_count": len(insufficient_rows),
+            "ruler_count": len(ruler_names),
+            "score_contribution_count": len(score_contributions),
+            "model_call_count": 0,
+            "database_write_count": 0,
+            "formal_scoring_allowed": False,
+        },
+        "materials": material_rows,
+        "insufficient_projections": insufficient_rows,
+        "object_side_aggregates": object_aggregates,
+        "score_contributions": score_contributions,
+        "declarations": {
+            "old_gold_modified": False,
+            "opened_sealed_used_as_new_qualification": False,
+            "all_projected_materials_contributed_before_object_cap": True,
+            "top_k_applied": False,
+            "formal_scoring_allowed": False,
+        },
+    }
+    report["report_sha256"] = _hash(report)
+    return report

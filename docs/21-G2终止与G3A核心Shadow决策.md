@@ -104,9 +104,11 @@ G3B 同步 shadow runner 只验证：
 
 ## 6. 未授权事项
 
+本决策当时的禁止边界已于 2026-07-14 部分更新：V3 已废弃，现允许按需只读查询；其余未授权事项不变。
+
 本决策不授权：
 
-- 连接或修改 V3 数据库；
+- 修改 V3 数据库；
 - 使用任何生产 PostgreSQL 实例、真实 DSN 或凭据；
 - 恢复 V3 worker 或部署生产服务；
 - accepted EpisodeRelation、RuleEvidenceUnit、RuleProjection、Judgment 或 ScoreContribution；

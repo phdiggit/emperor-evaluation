@@ -1,8 +1,8 @@
 # `appointment_delegation` 评分最小充分 Shadow 实施摘要
 
-> 状态：`i5b_test_set_portfolio_completed_scoring_still_closed`
+> 状态：`i5b_historical_coverage_and_acceptance_closure`
 >
-> 日期：2026-07-14
+> 日期：2026-07-15
 >
 > 实现基准：`13ea96e5b0d42c9a6d86c8ba516ad6cfc1b08f16`
 
@@ -38,6 +38,8 @@ Episode endpoint proposals
 这说明评分单元与增量 readiness 已具备原型，但还没有形成可交付的评分结果。
 
 第五项 B 的测试集已进一步收束为 100 个单元：`appointment_delegation` 36、`talent_discovery` 12、`tolerate_talent` 20、`anti_nepotism` 20、`team_building` 12。所有 sealed 均在身份与 Gold 提交冻结后只运行一次；只有 `team_building` 通过资格门，其他四条保留失败结果且禁止后调或重跑。完整结果统一维护在 `eval/i5b_test_set_portfolio/report.json`，不再新增阶段总结文档。
+
+第五项 B 五条 rule 的因子档位与语义已统一冻结在 `config/i5b-factor-semantics.yml`：`appointment_delegation` v6 使用 canonical slot、`slot_id` join 和机械观察锚点，`talent_discovery` v2 固定使用前识才时间轴与障碍双证据，`tolerate_talent` v3 固定主体所有权以及有序、独立的安全/修复后续观察，`anti_nepotism` v2 固定 Episode/AggregateContext 因子所有权与网络人数、渠道、跨期门槛，`team_building` v3 固定人才能力与负面政治风险正交双轴、人物计数、独立角色匹配和阶段/交接门槛。24 个分类因子的合同清单与选定结构门槛已机器校验；28 个旧回归产物仍由 SHA-256 pin 保持原样，其中 sealed 身份只可作 opened regression。确定性结果见 `eval/i5b_test_set_portfolio/factor_semantics_report.json` 和 `eval/i5b_test_set_portfolio/opened_regression_contract_report.json`。
 
 ## 2. 评分最小充分 Relation
 
@@ -171,8 +173,18 @@ Claim Extractor runtime Gate 已由 `5b19e47` 通过：v2 application 强制唯�
 
 `talent_discovery` 已进一步接入包 C 的持久化 roster 入口：三皇帝四人物名单复用 6 个 Claim snapshot、91 条 Assertion 和 82 个 Episode candidate；首次构建 4 个评分单元，无变化重跑精确复用同一记录。新增魏徵 Assertion 的局部 delta 只重建 `REU-LSM-WEIZHENG-DISCOVERY-v1`，其余 3 个 Judgment 精确复用；服务调用、模型调用和数据库写入均为 0。
 
+2026-07-15 起第五项 B 计分规则按 V3 的原结构重新收口：材料分 `[-4,4]`、正负 rule signal、对象密度聚合、团队正交人物池和五条 rule 权重进入 `config/i5b-scoring-policy.yml`。任用授权六因子可精确映射；识才、容才和反任人唯亲采用联合投影并对缺失人物等级、对象过错或实际排挤损害失败关闭。V4 已能离线生成确定性材料数值投影和 `weighted_raw_signal`；V3 从未实现的批次动态映射只继承为版本化合同，映射快照批准前 `score_rate`、`score` 和 `tier` 保持为空。
+
 在正式接受 Gate 通过前，仍不开放正式 Judgment、45 分档位、总榜或生产切换。
 
-## 7. 历史审计
+## 7. 当前里程碑与下一交付
+
+第五项 B 的因子语义、原始信号骨架和 scored shadow 已完成，当前不是继续建设 Source Cache 服务或新增人物专项入口。当前里程碑是三人试点内的皇帝级历史覆盖与正式接受前收口；24 名已观察皇帝中尚无一人达到五条 rule 的历史覆盖完成门槛，动态映射、45 分、档位和排名继续关闭。
+
+下一纵向交付固定为李世民 `tolerate_talent`：复用现有通用 Source Cache、Claim Extractor、Episode Kernel 和 scored shadow 能力，将 7 个已缓存单元一次推进为 Assertion draft、review disposition、Episode/RuleEvidenceUnit shadow、ScoreContribution 与 trace export。史源质量或共同归责未通过的单元必须失败关闭；不得为单个人物、单个批次或单条史料新增 runtime、硬编码总账源码或镜像测试模块。
+
+运行输入只保留不可变原文、版本化 request/plan、一个 sourcepack、一个批次合同和一个收口审计；逐单元 fetch、dry-run、apply、rerun 展开物不进入长期工作树。
+
+## 8. 历史审计
 
 早期 fine-type Relation 失败继续保留在 `24-*` 至 `29-*` 历史审计中，只用于说明精细历史关系图尚未达到发布阈值。逐条 endpoint 展开和 G3C—G3H 微阶段说明已从长期文档层移除，结构化运行产物应保存在 `eval/` 或外部 artifact。

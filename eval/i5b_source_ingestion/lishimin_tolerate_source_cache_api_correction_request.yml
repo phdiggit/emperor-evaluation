@@ -1,0 +1,21 @@
+request_id: SRC-V4-LISHIMIN-QIUJIAN-REFRESH-002
+idempotency_key: source-cache:v4:lishimin:zhenguanzhengyao:juan02:qiujian:refresh:api-plaintext:v2
+subject:
+  person_or_ruler_ref: RULER-NAME-CANDIDATE-737E2C4D60AC
+  canonical_name: 李世民
+  aliases:
+    - 唐太宗
+evaluation_context:
+  rule_code: tolerate_talent
+  purpose: institutional_feedback_channel_source_payload_correction
+  unit_ref: TT-LSM-INSTITUTIONAL-REM-01
+  correction_reason: 浏览器渲染文本与MediaWiki API plaintext的正文载荷、字符规范化和span不一致
+  supersedes_request_id: SRC-V4-LISHIMIN-QIUJIAN-ENSURE-001
+  superseded_document_ref: SCD-6D2F739168794F256F6F
+source_hints:
+  - MediaWiki API plaintext: 貞觀政要/卷02@2144513#求諫第四
+required_source_families:
+  - primary_text
+mode: refresh
+source_policy_version: v4-primary-wikisource-api-plaintext-correction-v2
+requested_at: 2026-07-15T00:00:00+08:00

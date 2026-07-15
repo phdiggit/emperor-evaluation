@@ -1,0 +1,269 @@
+{
+  "declarations": {
+    "formal_scoring_allowed": false,
+    "formal_v4_assertion_created": false,
+    "historical_coverage_status_changed": false,
+    "old_workset_or_gold_modified": false
+  },
+  "input_worklist_sha256": "f707506150fbf4ae946b1892f256143e0cccb169d0093b52277736fa79deba39",
+  "reviews": [
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-127A7D4BB260004526B1",
+      "missing_inputs": ["public_appointment_effect", "private_relationship_causation"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "停止株连不等于按私人关系配置公共岗位，现材料没有任免影响。",
+      "recommended_disposition": "insufficient_applicability",
+      "recommended_owner": "outside_i5b_current_scope"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-25FBA4E9D8B596328E7C",
+      "missing_inputs": ["anti_nepotism_relationship_anchor", "public_appointment_effect"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "乡党表示乡里而非朋党，材料仅叙战功。",
+      "recommended_disposition": "insufficient_applicability",
+      "recommended_owner": "person_profile_or_military_rule"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-68FDCB8DF540F784D700",
+      "missing_inputs": ["appointment_capability_basis", "authorization_outcome_chain"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "党项是族群名；事件本体是任命段志玄为行军总管。",
+      "recommended_disposition": "cross_rule_primary_settlement_required",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-75BBEAE63C42675EAFBE",
+      "missing_inputs": ["verified_private_network", "appointment_channel_effect", "displacement_harm"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "萧瑀的朋党指控未被证实，也没有任免通道或岗位损害。",
+      "recommended_disposition": "insufficient_applicability",
+      "recommended_owner": "none"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-7E2D72302A9C88F2CE3C",
+      "missing_inputs": ["v4_source_rebind", "award_or_office_effect", "merit_basis_chain"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "太宗以功次压过宗亲神通的私情诉求，可能构成单次正向防亲 Episode；对象需重构为神通与功臣群体。",
+      "recommended_disposition": "new_event_candidate_pending_source_rebind",
+      "recommended_owner": "anti_nepotism"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-871B62FEC2AECD431185",
+      "missing_inputs": ["independent_safety_followup", "continuity_observation"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "魏王折辱群臣事件没有任免影响，更适合作魏徵纳谏聚合的反馈部件。",
+      "recommended_disposition": "cross_rule_primary_settlement_required",
+      "recommended_owner": "tolerate_talent"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-AD6743AACF63E8CE3556",
+      "missing_inputs": ["independent_safety_followup", "continuity_observation"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "亲礼是进谏后的尊礼，不是既存私人关系或任免通道。",
+      "recommended_disposition": "cross_rule_primary_settlement_required",
+      "recommended_owner": "tolerate_talent"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-ADA3D9623C1BE9045CE2",
+      "missing_inputs": ["independent_profile_corroboration"],
+      "primary_rule_code": "anti_nepotism",
+      "rationale": "无朋党只是人物评价，没有具体关系网络、任用动作或岗位影响。",
+      "recommended_disposition": "cross_rule_primary_settlement_required",
+      "recommended_owner": "person_profile_political_risk"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-0769EEF56EEE2E6C35D9",
+      "missing_inputs": ["pre_existing_service_timeline"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "房玄龄建议留用已在秦府的杜如晦，不是李世民首次发现人才。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "appointment_delegation_or_retention"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-100115B7CAEF80239747",
+      "missing_inputs": ["appointment_scope", "appointment_outcome_chain"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "征讨有功后的累擢与封爵是使用后反馈，不能反推首次识才。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-17FB59E7133232D5D9CB",
+      "missing_inputs": ["ruler_attribution"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "荐举动作属于李建成且对象为李元吉，李世民和秦琼均不是识才动作所有者。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "none"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-3697C2CDBD50938C5343",
+      "missing_inputs": ["prior_visibility", "first_substantive_use_time", "duplicate_with_CLMK_CB69"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "这是张亮荐举—引入链的任用和信任部件，应与同事件主Claim合并复核。",
+      "recommended_disposition": "existing_aggregate_component_pending_dedup",
+      "recommended_owner": "talent_discovery"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-7DFA80A71E6AF8B1561A",
+      "missing_inputs": ["pre_existing_service_timeline"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "杜如晦当时已为府属，奏留是识别既有人才价值与留任，不是首次发现。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "appointment_delegation_or_retention"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-9B5B2F539E5D089D6954",
+      "missing_inputs": ["appointment_purpose", "appointment_outcome_chain"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "玄武门后的升迁封爵发生在长期使用之后，属于任用反馈。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-A3E475702945D4FA7BDF",
+      "missing_inputs": ["appointment_purpose", "appointment_outcome_chain"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "房玄龄首次发现已在更早秦府事件结算，此处只是入春宫后的升迁奖赏。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-CB69E1112DE8A813FC2C",
+      "missing_inputs": ["v4_source_rebind", "prior_visibility", "ruler_verification", "first_substantive_use_time"],
+      "primary_rule_code": "talent_discovery",
+      "rationale": "房玄龄、李勣荐张亮并由太宗引入秦府，可能形成新的荐举识才链。",
+      "recommended_disposition": "new_event_candidate_pending_source_rebind",
+      "recommended_owner": "talent_discovery"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-03EB1FB8D83AD31C6CF7",
+      "missing_inputs": ["v4_source_rebind", "independent_safety_followup", "continuity_observation"],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "魏徵谏止纳郑氏女明确属于反馈—采纳，但只可并入TT-O01，不能由采纳推出安全。",
+      "recommended_disposition": "existing_aggregate_component_pending_dedup",
+      "recommended_owner": "tolerate_talent_TT_O01"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-0F5FD34420B1403B0AF5",
+      "missing_inputs": ["feedback_trigger_causation"],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "张亮被诛的现有原因是谋反案，不是专业反馈或独立判断。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "outside_i5b_current_scope"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-4A6052E9418D32F0F7F6",
+      "missing_inputs": ["appointment_authority", "appointment_effect"],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "玄武门立功后受封没有反馈或人才安全链，若消费应由任用授权主结算。",
+      "recommended_disposition": "cross_rule_primary_settlement_required",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-50EA5832B57D27CE7DC7",
+      "missing_inputs": ["v4_source_rebind", "demotion_cause", "prior_action", "ruler_attribution"],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "只能确认高士廉被贬，切片错位且没有证明贬任因反馈或专业冲突触发。",
+      "recommended_disposition": "insufficient_source",
+      "recommended_owner": "unresolved"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-91A409ED691E2F52F67D",
+      "missing_inputs": ["pre_existing_service_timeline", "v4_source_rebind"],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "荐举并留用杜如晦不是杜如晦自己的反馈—安全链。",
+      "recommended_disposition": "cross_rule_primary_settlement_required",
+      "recommended_owner": "talent_discovery_or_appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-A1F16755FAC582E3D054",
+      "missing_inputs": [],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "射杀李元吉是政变军事行动，没有反馈链或人才安全问题。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "outside_i5b_current_scope"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-AB6376762B63A8ABA1DC",
+      "missing_inputs": [],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "讨薛延陀是战役行动，斩获词面不构成人才处置。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "military_rule"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-C3CA8F45AEC84AE0C453",
+      "missing_inputs": ["professional_feedback_content", "punishment_causation"],
+      "primary_rule_code": "tolerate_talent",
+      "rationale": "萧瑀与陈叔达忿争坐不敬，不等于专业意见遭压制。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "outside_i5b_current_scope"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-16700995A10383DDB30D",
+      "missing_inputs": ["v4_source_rebind", "appointment_effect", "post_delegation_outcome"],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "摄太子太傅并同掌机务具有明确岗位与权责，可保留为辅政授权候选，但结果链未闭合。",
+      "recommended_disposition": "new_event_candidate_pending_source_rebind",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-38331BD6E1A5804A508B",
+      "missing_inputs": ["ruler_reign_scope_freeze", "v4_source_rebind"],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "赴洛阳结客备变具有明确授权和执行结果，但发生在即位前，统治期口径未冻结前不能进入李世民皇帝单元。",
+      "recommended_disposition": "insufficient_applicability",
+      "recommended_owner": "appointment_delegation_pre_reign_backlog"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-43CBC131F2DF72C63244",
+      "missing_inputs": [],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "死后墓内立石是旌功，不是任命、授权或用人结果。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "person_profile_or_honor_event"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-7658DA8C3A3EED8981E8",
+      "missing_inputs": [],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "招降尉迟敬德是投降与吸纳事件，现Claim没有任命岗位或授权结果。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "talent_acquisition_backlog"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-83BDFCBE319619857BEB",
+      "missing_inputs": ["v4_source_rebind", "appointment_effect", "post_appointment_outcome"],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "太子太保、同中书门下三品并知政事构成明确重要任用，可保留候选但仍缺实际效果链。",
+      "recommended_disposition": "new_event_candidate_pending_source_rebind",
+      "recommended_owner": "appointment_delegation"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-93F564F12E2393656CCA",
+      "missing_inputs": [],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "采纳封建议论是政策反馈，不是任命或授权。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "tolerate_talent_or_policy_rule"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-D913876A6EC02CE3CCDC",
+      "missing_inputs": ["ruler_reign_scope_freeze", "post_appointment_outcome"],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "杜如晦入秦府是任命候选，但发生于即位前且材料未给出该任命结果。",
+      "recommended_disposition": "insufficient_applicability",
+      "recommended_owner": "appointment_delegation_pre_reign_backlog"
+    },
+    {
+      "legacy_claim_ref": "retrieval_v3:claim_key:CLMK-EB67C4A5037FE4583292",
+      "missing_inputs": ["explicit_authorization", "appointment_purpose"],
+      "primary_rule_code": "appointment_delegation",
+      "rationale": "先陷敌阵是军事战果，当前Claim没有明确岗位授权链，不能由战功反推任用。",
+      "recommended_disposition": "wrong_rule_hint",
+      "recommended_owner": "military_rule"
+    }
+  ],
+  "schema_version": "v3-claim-pre-source-review-v1",
+  "status": "human_review_recommendations_pending_source_rebind"
+}

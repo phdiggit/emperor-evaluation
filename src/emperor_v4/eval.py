@@ -88,6 +88,82 @@ from emperor_v4.evaluation.i5b_factor_qualification import (
     evaluate_i5b_factor_qualification,
     merge_i5b_factor_responses,
 )
+from emperor_v4.evaluation.i5b_opened_regression import (
+    evaluate_i5b_opened_regression_contract,
+)
+from emperor_v4.evaluation.i5b_factor_semantics import (
+    evaluate_i5b_factor_semantics,
+)
+from emperor_v4.evaluation.i5b_scoring_policy import (
+    evaluate_i5b_scoring_policy,
+)
+from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
+    build_i5b_joint_projection_scored_shadow,
+)
+from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
+    build_i5b_unified_raw_signal_readiness,
+)
+from emperor_v4.evaluation.i5b_ruler_rule_coverage import (
+    evaluate_i5b_ruler_rule_coverage,
+)
+from emperor_v4.evaluation.i5b_ruler_rule_net import build_i5b_ruler_rule_net_report
+from emperor_v4.evaluation.i5b_scoring_detail import (
+    build_i5b_scoring_detail,
+    build_i5b_scoring_detail_selection,
+    render_i5b_scoring_detail_markdown,
+    render_i5b_scoring_detail_selection_markdown,
+)
+from emperor_v4.evaluation.v3_person_profile_export import (
+    build_v3_person_profile_report,
+    export_v3_person_profile_package,
+)
+from emperor_v4.evaluation.v3_claim_migration import (
+    build_v3_claim_pilot_report,
+    export_v3_claim_pilot_package,
+)
+from emperor_v4.evaluation.v3_claim_triage import (
+    build_v3_claim_pre_source_review_report,
+    build_v3_claim_triage,
+)
+from emperor_v4.evaluation.v3_person_identity_crosswalk import (
+    add_candidate_identity_manifest,
+    build_capability_domain_reviews,
+    build_person_identity_crosswalk,
+    build_team_profile_migration_readiness,
+    build_user_authorized_identity_crosswalk,
+    build_v4_person_identity_registry,
+    load_identity_registry_profile_sets,
+)
+from emperor_v4.evaluation.v3_person_profile_import import (
+    build_v4_profile_import_review_package,
+)
+from emperor_v4.evaluation.v3_authorized_profile_promotion import (
+    promote_authorized_v3_person_profiles,
+)
+from emperor_v4.evaluation.v3_team_window_promotion import (
+    build_v3_team_window_promotion_package,
+)
+from emperor_v4.evaluation.supplemental_team_profile_evaluation import (
+    build_supplemental_team_profiles,
+)
+from emperor_v4.evaluation.talent_grade_v6_calibration import (
+    build_talent_grade_v6_calibration,
+)
+from emperor_v4.evaluation.talent_grade_v7_important_calibration import (
+    build_talent_grade_v7_important_calibration,
+)
+from emperor_v4.evaluation.talent_grade_v8_final_calibration import (
+    build_talent_grade_v8_final_calibration,
+)
+from emperor_v4.evaluation.talent_grade_v9_high_tier_calibration import (
+    build_talent_grade_v9_high_tier_calibration,
+)
+from emperor_v4.evaluation.talent_grade_v10_targeted_correction import (
+    build_talent_grade_v10_targeted_correction,
+)
+from emperor_v4.evaluation.team_building_v8_scored_shadow import (
+    build_team_building_v8_scored_shadow,
+)
 from emperor_v4.evaluation.talent_discovery_factor_qualification import (
     build_talent_discovery_factor_batch_plan,
     build_talent_discovery_factor_worklist,
@@ -497,6 +573,184 @@ def _parser() -> argparse.ArgumentParser:
     i5b_qualification.add_argument("--response", type=Path, required=True)
     i5b_qualification.add_argument("--gold", type=Path, required=True)
     i5b_qualification.add_argument("--output", type=Path)
+    i5b_opened_regression = subparsers.add_parser(
+        "i5b-opened-regression-contract"
+    )
+    i5b_opened_regression.add_argument("--contract", type=Path, required=True)
+    i5b_opened_regression.add_argument(
+        "--artifact-root", type=Path, default=Path(".")
+    )
+    i5b_opened_regression.add_argument("--output", type=Path)
+    i5b_factor_semantics = subparsers.add_parser("i5b-factor-semantics")
+    i5b_factor_semantics.add_argument("--contract", type=Path, required=True)
+    i5b_factor_semantics.add_argument("--output", type=Path)
+    i5b_scoring_policy = subparsers.add_parser("i5b-scoring-policy")
+    i5b_scoring_policy.add_argument("--policy", type=Path, required=True)
+    i5b_scoring_policy.add_argument("--output", type=Path)
+    v3_person_profiles = subparsers.add_parser("v3-person-profile-export")
+    v3_person_profiles.add_argument(
+        "--source-freeze-ref", default="v3-freeze-20260712"
+    )
+    v3_person_profiles.add_argument("--env-file", type=Path, default=Path(".env"))
+    v3_person_profiles.add_argument("--report", type=Path, required=True)
+    v3_person_profiles.add_argument("--output", type=Path, required=True)
+    v3_person_crosswalk = subparsers.add_parser("v3-person-identity-crosswalk")
+    v3_person_crosswalk.add_argument("--source-package", type=Path, required=True)
+    v3_person_crosswalk.add_argument(
+        "--registry-profile", type=Path, action="append", required=True
+    )
+    v3_person_crosswalk.add_argument(
+        "--candidate-identity-manifest", type=Path, action="append", default=[]
+    )
+    v3_person_crosswalk.add_argument(
+        "--crosswalk-version", default="v3-to-v4-person-crosswalk-v1"
+    )
+    v3_person_crosswalk.add_argument("--output", type=Path, required=True)
+    v3_profile_import = subparsers.add_parser("v3-person-profile-import-review")
+    v3_profile_import.add_argument("--source-package", type=Path, required=True)
+    v3_profile_import.add_argument("--crosswalk", type=Path, required=True)
+    v3_profile_import.add_argument("--output", type=Path, required=True)
+    v3_migration = subparsers.add_parser("v3-person-profile-migration")
+    v3_migration.add_argument(
+        "--source-freeze-ref", default="v3-freeze-20260712"
+    )
+    v3_migration.add_argument("--env-file", type=Path, default=Path(".env"))
+    v3_migration.add_argument(
+        "--registry-profile", type=Path, action="append", required=True
+    )
+    v3_migration.add_argument(
+        "--candidate-identity-manifest", type=Path, action="append", default=[]
+    )
+    v3_migration.add_argument("--team-worklist", type=Path, action="append", default=[])
+    v3_migration.add_argument("--artifact-dir", type=Path, required=True)
+    v3_migration.add_argument("--authorization-ref")
+    v3_migration.add_argument("--supplemental-evaluations", type=Path)
+    v3_migration.add_argument("--output", type=Path, required=True)
+    talent_calibration = subparsers.add_parser("talent-grade-v6-calibration")
+    talent_calibration.add_argument("--authorized-promotion", type=Path, required=True)
+    talent_calibration.add_argument("--supplemental-promotion", type=Path, required=True)
+    talent_calibration.add_argument("--decisions", type=Path, required=True)
+    talent_calibration.add_argument("--output", type=Path, required=True)
+    important_calibration = subparsers.add_parser(
+        "talent-grade-v7-important-calibration"
+    )
+    important_calibration.add_argument(
+        "--authorized-promotion", type=Path, required=True
+    )
+    important_calibration.add_argument(
+        "--supplemental-promotion", type=Path, required=True
+    )
+    important_calibration.add_argument(
+        "--prior-calibration", type=Path, required=True
+    )
+    important_calibration.add_argument("--decisions", type=Path, required=True)
+    important_calibration.add_argument("--output", type=Path, required=True)
+    final_calibration = subparsers.add_parser("talent-grade-v8-final-calibration")
+    final_calibration.add_argument("--authorized-promotion", type=Path, required=True)
+    final_calibration.add_argument("--supplemental-promotion", type=Path, required=True)
+    final_calibration.add_argument(
+        "--prior-calibration", type=Path, action="append", required=True
+    )
+    final_calibration.add_argument("--decisions", type=Path, required=True)
+    final_calibration.add_argument("--output", type=Path, required=True)
+    high_tier_calibration = subparsers.add_parser(
+        "talent-grade-v9-high-tier-calibration"
+    )
+    high_tier_calibration.add_argument(
+        "--authorized-promotion", type=Path, required=True
+    )
+    high_tier_calibration.add_argument(
+        "--supplemental-promotion", type=Path, required=True
+    )
+    high_tier_calibration.add_argument(
+        "--prior-calibration", type=Path, action="append", required=True
+    )
+    high_tier_calibration.add_argument("--decisions", type=Path, required=True)
+    high_tier_calibration.add_argument("--output", type=Path, required=True)
+    targeted_correction = subparsers.add_parser(
+        "talent-grade-v10-targeted-correction"
+    )
+    targeted_correction.add_argument("--prior-calibration", type=Path, required=True)
+    targeted_correction.add_argument("--decisions", type=Path, required=True)
+    targeted_correction.add_argument("--output", type=Path, required=True)
+    team_scored_shadow = subparsers.add_parser("team-building-v8-scored-shadow")
+    team_scored_shadow.add_argument("--team-windows", type=Path, required=True)
+    team_scored_shadow.add_argument("--authorized-promotion", type=Path, required=True)
+    team_scored_shadow.add_argument("--supplemental-promotion", type=Path, required=True)
+    team_scored_shadow.add_argument(
+        "--calibration", type=Path, action="append", required=True
+    )
+    team_scored_shadow.add_argument("--scoring-policy", type=Path, required=True)
+    team_scored_shadow.add_argument(
+        "--structural-observations", type=Path, required=True
+    )
+    team_scored_shadow.add_argument("--output", type=Path, required=True)
+    joint_scored_shadow = subparsers.add_parser(
+        "i5b-joint-projection-scored-shadow"
+    )
+    joint_scored_shadow.add_argument(
+        "--rule-code",
+        choices=("talent_discovery", "tolerate_talent", "anti_nepotism"),
+        required=True,
+    )
+    joint_scored_shadow.add_argument("--projection-input", type=Path, required=True)
+    joint_scored_shadow.add_argument("--scoring-policy", type=Path, required=True)
+    joint_scored_shadow.add_argument("--output", type=Path, required=True)
+    unified_raw_signal = subparsers.add_parser("i5b-unified-raw-signal-readiness")
+    unified_raw_signal.add_argument("--appointment-report", type=Path, required=True)
+    unified_raw_signal.add_argument("--team-report", type=Path, required=True)
+    unified_raw_signal.add_argument(
+        "--joint-report", type=Path, action="append", required=True
+    )
+    unified_raw_signal.add_argument(
+        "--coverage-report", type=Path, action="append", required=True
+    )
+    unified_raw_signal.add_argument("--calibration-version", required=True)
+    unified_raw_signal.add_argument("--output", type=Path, required=True)
+    ruler_rule_coverage = subparsers.add_parser("i5b-ruler-rule-coverage")
+    ruler_rule_coverage.add_argument("--manifest", type=Path, required=True)
+    ruler_rule_coverage.add_argument("--output", type=Path, required=True)
+    ruler_rule_net = subparsers.add_parser("i5b-ruler-rule-net")
+    ruler_rule_net.add_argument("--manifest", type=Path, required=True)
+    ruler_rule_net.add_argument("--output", type=Path, required=True)
+    scoring_detail = subparsers.add_parser("i5b-scoring-detail")
+    scoring_detail.add_argument("--manifest", type=Path, required=True)
+    scoring_detail.add_argument("--workspace-root", type=Path, default=Path("."))
+    scoring_detail.add_argument("--format", choices=("json", "markdown"), required=True)
+    scoring_detail.add_argument("--output", type=Path, required=True)
+    scoring_detail_select = subparsers.add_parser("i5b-scoring-detail-select")
+    scoring_detail_select.add_argument("--catalog", type=Path, required=True)
+    scoring_detail_select.add_argument("--selection", type=Path, required=True)
+    scoring_detail_select.add_argument("--workspace-root", type=Path, default=Path("."))
+    scoring_detail_select.add_argument(
+        "--format", choices=("json", "markdown"), required=True
+    )
+    scoring_detail_select.add_argument("--output", type=Path, required=True)
+    v3_claim_pilot = subparsers.add_parser("v3-claim-pilot")
+    v3_claim_pilot.add_argument("--ruler", required=True)
+    v3_claim_pilot.add_argument("--source-freeze-ref", required=True)
+    v3_claim_pilot.add_argument(
+        "--profile-package", type=Path, action="append", required=True
+    )
+    v3_claim_pilot.add_argument("--env-file", type=Path, default=Path(".env"))
+    v3_claim_pilot.add_argument("--output", type=Path, required=True)
+    v3_claim_pilot.add_argument("--report", type=Path, required=True)
+    v3_claim_triage = subparsers.add_parser("v3-claim-triage")
+    v3_claim_triage.add_argument("--package", type=Path, required=True)
+    v3_claim_triage.add_argument(
+        "--workset",
+        action="append",
+        required=True,
+        help="rule_code=path-to-existing-workset-json",
+    )
+    v3_claim_triage.add_argument("--per-rule-quota", type=int, default=8)
+    v3_claim_triage.add_argument("--semantic-collision-review", type=Path)
+    v3_claim_triage.add_argument("--worklist", type=Path, required=True)
+    v3_claim_triage.add_argument("--report", type=Path, required=True)
+    v3_claim_review = subparsers.add_parser("v3-claim-pre-source-review")
+    v3_claim_review.add_argument("--worklist", type=Path, required=True)
+    v3_claim_review.add_argument("--review", type=Path, required=True)
+    v3_claim_review.add_argument("--output", type=Path, required=True)
     talent_factor_worklist = subparsers.add_parser(
         "talent-discovery-factor-worklist"
     )
@@ -729,6 +983,428 @@ def main() -> int:
             json.loads(args.response.read_text(encoding="utf-8")),
             yaml.safe_load(args.gold.read_text(encoding="utf-8")),
         )
+    elif args.command == "i5b-opened-regression-contract":
+        report = evaluate_i5b_opened_regression_contract(
+            yaml.safe_load(args.contract.read_text(encoding="utf-8")),
+            artifact_root=args.artifact_root,
+        )
+    elif args.command == "i5b-factor-semantics":
+        report = evaluate_i5b_factor_semantics(
+            yaml.safe_load(args.contract.read_text(encoding="utf-8"))
+        )
+    elif args.command == "i5b-scoring-policy":
+        report = evaluate_i5b_scoring_policy(
+            yaml.safe_load(args.policy.read_text(encoding="utf-8"))
+        )
+    elif args.command == "v3-person-profile-export":
+        report = export_v3_person_profile_package(
+            source_freeze_ref=args.source_freeze_ref,
+            env_file=args.env_file,
+        )
+        migration_report = build_v3_person_profile_report(report)
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(
+                migration_report, ensure_ascii=False, indent=2, sort_keys=True
+            )
+            + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "v3-person-identity-crosswalk":
+        source_package = json.loads(
+            args.source_package.read_text(encoding="utf-8")
+        )
+        registry = build_v4_person_identity_registry(
+            load_identity_registry_profile_sets(args.registry_profile)
+        )
+        for path in args.candidate_identity_manifest:
+            add_candidate_identity_manifest(
+                registry,
+                source_ref=path.as_posix(),
+                payload=yaml.safe_load(path.read_text(encoding="utf-8")),
+            )
+        report = build_person_identity_crosswalk(
+            source_package,
+            registry=registry,
+            crosswalk_version=args.crosswalk_version,
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "v3-person-profile-import-review":
+        source_package = json.loads(
+            args.source_package.read_text(encoding="utf-8")
+        )
+        crosswalk = json.loads(args.crosswalk.read_text(encoding="utf-8"))
+        report = build_v4_profile_import_review_package(
+            source_package,
+            crosswalk_decisions=crosswalk["decisions"],
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "v3-person-profile-migration":
+        source_package = export_v3_person_profile_package(
+            source_freeze_ref=args.source_freeze_ref,
+            env_file=args.env_file,
+        )
+        profile_sets = load_identity_registry_profile_sets(args.registry_profile)
+        registry = build_v4_person_identity_registry(profile_sets)
+        for path in args.candidate_identity_manifest:
+            add_candidate_identity_manifest(
+                registry,
+                source_ref=path.as_posix(),
+                payload=yaml.safe_load(path.read_text(encoding="utf-8")),
+            )
+        crosswalk = (
+            build_user_authorized_identity_crosswalk(
+                source_package,
+                legacy_registry=registry,
+                authorization_ref=args.authorization_ref,
+                crosswalk_version="v3-to-v4-person-crosswalk-v2",
+            )
+            if args.authorization_ref
+            else build_person_identity_crosswalk(
+                source_package,
+                registry=registry,
+                crosswalk_version="v3-to-v4-person-crosswalk-v1",
+            )
+        )
+        import_review = build_v4_profile_import_review_package(
+            source_package, crosswalk["decisions"]
+        )
+        worklists = [
+            (path.as_posix(), json.loads(path.read_text(encoding="utf-8")))
+            for path in args.team_worklist
+        ]
+        readiness = build_team_profile_migration_readiness(
+            source_package,
+            profile_sets=profile_sets,
+            worklists=worklists,
+        )
+        args.artifact_dir.mkdir(parents=True, exist_ok=True)
+        artifacts = {
+            "source_snapshot.json": source_package,
+            "identity_crosswalk_candidates.json": crosswalk,
+            "profile_import_review.json": import_review,
+            "team_profile_migration_readiness.json": readiness,
+        }
+        authorized_profile_promotion = None
+        team_window_promotion = None
+        supplemental_profile_promotion = None
+        if args.authorization_ref:
+            capability_map = build_capability_domain_reviews(
+                source_package,
+                crosswalk=crosswalk,
+                profile_sets=profile_sets,
+            )
+            authorized_profile_promotion = promote_authorized_v3_person_profiles(
+                source_package,
+                crosswalk,
+                capability_map,
+                args.authorization_ref,
+            )
+            name_by_source_ref = {
+                entry["identity_source"]["source_object_ref"]: entry[
+                    "identity_source"
+                ]["canonical_name"]
+                for entry in source_package["entries"]
+            }
+            promoted_profiles = {
+                name_by_source_ref[item["source_object_ref"]]: item[
+                    "person_profile_snapshot"
+                ]
+                for item in authorized_profile_promotion["items"]
+                if item["person_profile_snapshot"] is not None
+            }
+            if args.supplemental_evaluations:
+                supplemental_profile_promotion = build_supplemental_team_profiles(
+                    yaml.safe_load(
+                        args.supplemental_evaluations.read_text(encoding="utf-8")
+                    )
+                )
+                promoted_profiles.update(
+                    {
+                        item["person"]: item["person_profile_snapshot"]
+                        for item in supplemental_profile_promotion["items"]
+                    }
+                )
+            team_window_promotion = build_v3_team_window_promotion_package(
+                [payload for _, payload in worklists], promoted_profiles
+            )
+            artifacts.update(
+                {
+                    "authorized_identity_crosswalk.json": crosswalk,
+                    "authorized_profile_promotion.json": authorized_profile_promotion,
+                    "supplemental_profile_promotion.json": supplemental_profile_promotion,
+                    "team_window_promotion.json": team_window_promotion,
+                }
+            )
+        for name, payload in artifacts.items():
+            (args.artifact_dir / name).write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
+                + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+        report = {
+            "schema_version": "v3-person-profile-migration-run-v1",
+            "status": "migration_review_packages_complete",
+            "source_package_sha256": source_package["package_sha256"],
+            "crosswalk_package_sha256": crosswalk["crosswalk_package_sha256"],
+            "profile_import_review_sha256": import_review["review_package_sha256"],
+            "source_summary": source_package["summary"],
+            "crosswalk_summary": crosswalk["summary"],
+            "profile_import_summary": import_review["summary"],
+            "team_building_readiness": readiness,
+            "authorized_profile_promotion_summary": (
+                authorized_profile_promotion["summary"]
+                if authorized_profile_promotion
+                else None
+            ),
+            "team_window_promotion_summary": (
+                team_window_promotion["summary"] if team_window_promotion else None
+            ),
+            "supplemental_profile_promotion_summary": (
+                supplemental_profile_promotion["summary"]
+                if supplemental_profile_promotion
+                else None
+            ),
+            "declarations": {
+                "v3_database_write_count": 0,
+                "v4_database_write_count": 0,
+                "model_call_count": (
+                    supplemental_profile_promotion["summary"][
+                        "research_agent_run_count"
+                    ]
+                    if supplemental_profile_promotion
+                    else 0
+                ),
+                "human_frozen_profile_generated_count": (
+                    authorized_profile_promotion["summary"][
+                        "human_frozen_profile_count"
+                    ]
+                    if authorized_profile_promotion
+                    else 0
+                )
+                + (
+                    supplemental_profile_promotion["summary"][
+                        "human_frozen_profile_count"
+                    ]
+                    if supplemental_profile_promotion
+                    else 0
+                ),
+                "formal_scoring_allowed": False,
+            },
+        }
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "talent-grade-v6-calibration":
+        report = build_talent_grade_v6_calibration(
+            json.loads(args.authorized_promotion.read_text(encoding="utf-8")),
+            json.loads(args.supplemental_promotion.read_text(encoding="utf-8")),
+            yaml.safe_load(args.decisions.read_text(encoding="utf-8")),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "talent-grade-v7-important-calibration":
+        report = build_talent_grade_v7_important_calibration(
+            json.loads(args.authorized_promotion.read_text(encoding="utf-8")),
+            json.loads(args.supplemental_promotion.read_text(encoding="utf-8")),
+            json.loads(args.prior_calibration.read_text(encoding="utf-8")),
+            yaml.safe_load(args.decisions.read_text(encoding="utf-8")),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "talent-grade-v8-final-calibration":
+        report = build_talent_grade_v8_final_calibration(
+            json.loads(args.authorized_promotion.read_text(encoding="utf-8")),
+            json.loads(args.supplemental_promotion.read_text(encoding="utf-8")),
+            [
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in args.prior_calibration
+            ],
+            yaml.safe_load(args.decisions.read_text(encoding="utf-8")),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "talent-grade-v9-high-tier-calibration":
+        report = build_talent_grade_v9_high_tier_calibration(
+            json.loads(args.authorized_promotion.read_text(encoding="utf-8")),
+            json.loads(args.supplemental_promotion.read_text(encoding="utf-8")),
+            [
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in args.prior_calibration
+            ],
+            yaml.safe_load(args.decisions.read_text(encoding="utf-8")),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "talent-grade-v10-targeted-correction":
+        report = build_talent_grade_v10_targeted_correction(
+            json.loads(args.prior_calibration.read_text(encoding="utf-8")),
+            yaml.safe_load(args.decisions.read_text(encoding="utf-8")),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "team-building-v8-scored-shadow":
+        report = build_team_building_v8_scored_shadow(
+            json.loads(args.team_windows.read_text(encoding="utf-8")),
+            json.loads(args.authorized_promotion.read_text(encoding="utf-8")),
+            json.loads(args.supplemental_promotion.read_text(encoding="utf-8")),
+            [
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in args.calibration
+            ],
+            yaml.safe_load(args.scoring_policy.read_text(encoding="utf-8")),
+            yaml.safe_load(args.structural_observations.read_text(encoding="utf-8")),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "i5b-joint-projection-scored-shadow":
+        report = build_i5b_joint_projection_scored_shadow(
+            rule_code=args.rule_code,
+            projection_payload=json.loads(
+                args.projection_input.read_text(encoding="utf-8")
+            ),
+            scoring_policy=yaml.safe_load(
+                args.scoring_policy.read_text(encoding="utf-8")
+            ),
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "i5b-unified-raw-signal-readiness":
+        report = build_i5b_unified_raw_signal_readiness(
+            appointment_report=json.loads(
+                args.appointment_report.read_text(encoding="utf-8")
+            ),
+            team_report=json.loads(args.team_report.read_text(encoding="utf-8")),
+            joint_reports=[
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in args.joint_report
+            ],
+            coverage_reports=[
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in args.coverage_report
+            ],
+            calibration_version=args.calibration_version,
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "i5b-ruler-rule-coverage":
+        report = evaluate_i5b_ruler_rule_coverage(
+            yaml.safe_load(args.manifest.read_text(encoding="utf-8"))
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "i5b-ruler-rule-net":
+        report = build_i5b_ruler_rule_net_report(
+            yaml.safe_load(args.manifest.read_text(encoding="utf-8"))
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "i5b-scoring-detail":
+        detail_manifest = yaml.safe_load(args.manifest.read_text(encoding="utf-8"))
+        workspace_root = args.workspace_root.resolve()
+
+        def load_detail(path_value: str) -> dict:
+            path = workspace_root / path_value
+            if path.suffix.lower() == ".json":
+                return json.loads(path.read_text(encoding="utf-8"))
+            return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+        report = build_i5b_scoring_detail(
+            manifest=detail_manifest,
+            rule_net=load_detail(detail_manifest["ruler_rule_net"]),
+            scoring_policy=load_detail(detail_manifest["scoring_policy"]),
+            display_catalog=load_detail(detail_manifest["display_catalog"]),
+            detail_sources=[
+                {"payload": load_detail(source["path"])}
+                for source in detail_manifest["detail_sources"]
+            ],
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "i5b-scoring-detail-select":
+        workspace_root = args.workspace_root.resolve()
+        catalog = yaml.safe_load(args.catalog.read_text(encoding="utf-8"))
+        selection = yaml.safe_load(args.selection.read_text(encoding="utf-8"))
+
+        def load_payload(path_value: str) -> dict:
+            path = workspace_root / path_value
+            if path.suffix.lower() == ".json":
+                return json.loads(path.read_text(encoding="utf-8"))
+            return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+        ruler_reports = {}
+        for entry in catalog["entries"]:
+            ruler_manifest = load_payload(entry["manifest"])
+            ruler_reports[entry["ruler"]] = build_i5b_scoring_detail(
+                manifest=ruler_manifest,
+                rule_net=load_payload(ruler_manifest["ruler_rule_net"]),
+                scoring_policy=load_payload(ruler_manifest["scoring_policy"]),
+                display_catalog=load_payload(ruler_manifest["display_catalog"]),
+                detail_sources=[
+                    {"payload": load_payload(source["path"])}
+                    for source in ruler_manifest["detail_sources"]
+                ],
+            )
+        report = build_i5b_scoring_detail_selection(
+            catalog=catalog,
+            selection=selection,
+            ruler_reports=ruler_reports,
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+    elif args.command == "v3-claim-pilot":
+        report = export_v3_claim_pilot_package(
+            ruler=args.ruler,
+            source_freeze_ref=args.source_freeze_ref,
+            profile_packages=[
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in args.profile_package
+            ],
+            env_file=args.env_file,
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        pilot_report = build_v3_claim_pilot_report(report)
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(pilot_report, ensure_ascii=False, indent=2, sort_keys=True)
+            + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        return 0
+    elif args.command == "v3-claim-triage":
+        worksets: dict[str, list[dict[str, object]]] = {}
+        for specification in args.workset:
+            rule_code, separator, raw_path = specification.partition("=")
+            if not separator or not rule_code or not raw_path:
+                raise ValueError("--workset must use rule_code=path")
+            worksets.setdefault(rule_code, []).append(
+                json.loads(Path(raw_path).read_text(encoding="utf-8"))
+            )
+        worklist, report = build_v3_claim_triage(
+            json.loads(args.package.read_text(encoding="utf-8")),
+            worksets=worksets,
+            semantic_collision_reviews=(
+                json.loads(args.semantic_collision_review.read_text(encoding="utf-8"))[
+                    "review_groups"
+                ]
+                if args.semantic_collision_review
+                else ()
+            ),
+            per_rule_quota=args.per_rule_quota,
+        )
+        args.worklist.parent.mkdir(parents=True, exist_ok=True)
+        args.worklist.write_text(
+            json.dumps(worklist, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        return 0
+    elif args.command == "v3-claim-pre-source-review":
+        report = build_v3_claim_pre_source_review_report(
+            json.loads(args.worklist.read_text(encoding="utf-8")),
+            json.loads(args.review.read_text(encoding="utf-8")),
+        )
     elif args.command == "talent-discovery-factor-worklist":
         report = build_talent_discovery_factor_worklist(
             yaml.safe_load(args.source_manifest.read_text(encoding="utf-8"))
@@ -902,7 +1578,12 @@ def main() -> int:
         )
     else:
         raise AssertionError("unreachable")
-    rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    if args.command == "i5b-scoring-detail" and args.format == "markdown":
+        rendered = render_i5b_scoring_detail_markdown(report)
+    elif args.command == "i5b-scoring-detail-select" and args.format == "markdown":
+        rendered = render_i5b_scoring_detail_selection_markdown(report)
+    else:
+        rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.write_text(rendered, encoding="utf-8", newline="\n")
     else:

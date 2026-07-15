@@ -1,0 +1,798 @@
+{
+  "declarations": {
+    "all_projected_materials_contributed_before_object_cap": true,
+    "formal_scoring_allowed": false,
+    "old_gold_modified": false,
+    "opened_sealed_used_as_new_qualification": false,
+    "top_k_applied": false
+  },
+  "insufficient_projections": [
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "independent_continuity_followup",
+        "positive_safety_followup"
+      ],
+      "projection_basis": "“数说”“常用其策”证明重复反馈与采纳，但冻结 Gold 仍将人才安全判为证据不足；现有单一 Assertion 没有独立的安全后续，不能把持续用策直接换算为 basically_safe。",
+      "ruler": "刘邦",
+      "subject": "张良",
+      "unit_ref": "TT-O02"
+    },
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "positive_safety_followup"
+      ],
+      "projection_basis": "“光武纳之”只证明一次建议被采纳；Gold 同时把安全判为证据不足并把连续性限定为 single_event_only，故缺少表达安全联合投影所需的独立后续。",
+      "ruler": "刘秀",
+      "subject": "冯异",
+      "unit_ref": "TT-O03"
+    },
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "independent_continuity_followup",
+        "positive_safety_followup"
+      ],
+      "projection_basis": "诏令“极言无讳”及群臣上封事证明正式求言入口，但没有独立材料证明表达者后续安全、反馈入口持续运行或形成保护修复；Gold 亦将 talent_safety 判为证据不足。",
+      "ruler": "刘庄",
+      "subject": "求言群臣",
+      "unit_ref": "TT-O04"
+    },
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "independent_repair_followup",
+        "positive_safety_followup"
+      ],
+      "projection_basis": "史料证明张释之在皇帝不满时坚持法理并获采纳，但同一 Assertion 不能同时充当皇帝回应、独立安全后续和修复后续；现行 v3 合同要求后两者为更晚且不同的 observation，因此不沿用旧 Gold 的 safe_without_retaliation/timely_repair直接计数。",
+      "ruler": "刘恒",
+      "subject": "张释之",
+      "unit_ref": "TT-S01"
+    },
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "independent_repair_followup",
+        "positive_safety_followup"
+      ],
+      "projection_basis": "材料在同一链中记录进谏、震怒和随后致谢，足以说明冲突后信任表达；但没有不同 observation 的更晚安全与修复跟踪，不能满足 v3 合同对 safe_without_retaliation 和 substantive trust repair 的独立性门槛。",
+      "ruler": "杨坚",
+      "subject": "苏威",
+      "unit_ref": "TT-S02"
+    },
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "feedback_pattern",
+        "positive_safety_followup"
+      ],
+      "projection_basis": "“上从之”只覆盖单次政策采纳，未呈现 Gold 所称 accepted_after_conflict 的先行冲突，也没有独立安全后续；因此反馈模式和表达安全均不能完成联合投影。",
+      "ruler": "李治",
+      "subject": "来济",
+      "unit_ref": "TT-S03"
+    },
+    {
+      "missing_inputs": [
+        "expression_safety_projection",
+        "independent_continuity_followup",
+        "positive_safety_followup",
+        "ruler_request_before_feedback"
+      ],
+      "projection_basis": "“又上言”“朝廷多施行之”证明包拯建议及多项采纳，但没有证明皇帝请求早于反馈，不能据旧 Gold 的 actively_solicited 投影制度化入口；也没有独立安全和连续性观察。",
+      "ruler": "赵祯",
+      "subject": "包拯",
+      "unit_ref": "TT-S04"
+    },
+    {
+      "missing_inputs": [
+        "concrete_handling_severity",
+        "implemented_harm_outcome"
+      ],
+      "projection_basis": "现有摘录只证明因反谶进言受到明确斩杀威胁，未证明威胁执行或最终职业、人身结果；现行 handling_severity 没有“未执行严重威胁”档，不能借旧 Gold 的 career_exclusion 猜测具体处置。",
+      "ruler": "刘秀",
+      "subject": "桓谭",
+      "unit_ref": "TT-S06"
+    },
+    {
+      "missing_inputs": [
+        "direct_ruler_handling_attribution",
+        "feedback_or_professional_independence_causal_link",
+        "target_fault_assessment"
+      ],
+      "projection_basis": "摘录证明下狱、拷掠及死亡，但当前因果指向私觐太子的政治事件，未建立因专业反馈或独立判断受害的规则内链条；Gold 的 mixed_responsibility 也不能直接推出 target_fault_factor，且实际致死行为的皇帝直接归责仍需投影证据。",
+      "ruler": "朱棣",
+      "subject": "解缙",
+      "unit_ref": "TT-S08"
+    }
+  ],
+  "materials": [
+    {
+      "canonical_event_group": "TT-LISHIMIN-INSTITUTIONAL-REMONSTRANCE-CHANNEL",
+      "dataset_role": "open_development",
+      "material_score": "2.783",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "expression_safety": 1.15,
+          "feedback_entry": 2.0,
+          "protection_repair": 1.0,
+          "source_factor": 1.1
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "expression_safety": "actively_protected_or_encouraged",
+          "feedback_entry": "institutionalized_feedback_entry",
+          "protection_repair": "none",
+          "source_factor": "complete_direct_chain"
+        },
+        "formal_score": false,
+        "material_score": 2.783,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 2.783,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "AGG-LSM-FORMAL-REMONSTRANCE-CHANNEL",
+      "projection_basis": "《贞观政要·求谏第四》记录贞观元年建立谏官随宰相议政的正式入口，并以三、五、六、八、十五、十六、十七年多个独立后续证明多主体、跨阶段运行及主动安全鼓励；本单元只结算制度级通道，不重复结算各臣子的个人反馈收益。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "ed8dd5b3261ecc841f700a7da34668a302f6782ba1a60e0aed28e74ee1717bdd",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json#TT-LSM-INSTITUTIONAL-REM-01",
+        "https://zh.wikisource.org/zh-hant/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702"
+      ],
+      "subject": "贞观求谏机制",
+      "unit_ref": "TT-LSM-INSTITUTIONAL-REM-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-WEIZHENG-REPEATED-REMONSTRANCE",
+      "dataset_role": "open_development",
+      "material_score": "2.057",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "expression_safety": 1.0,
+          "feedback_entry": 1.7,
+          "protection_repair": 1.0,
+          "source_factor": 1.1
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "expression_safety": "basically_safe",
+          "feedback_entry": "exceptional_dense_cross_domain_remonstrance",
+          "protection_repair": "none",
+          "source_factor": "complete_direct_chain"
+        },
+        "formal_score": false,
+        "material_score": 2.057,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 2.057,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-B0E10D8903E7",
+      "projection_basis": "《旧唐书》直接记载李世民称魏徵所陈谏前后二百余事，且具体谏诤覆盖用人、刑赏、礼制、边政、封禅等多个重大政务领域；V4回源另冻结贞观八年留其箴规君失、十年仍参议得失、十六年继续知门下省事及病重营宅临视等按时间可区分的独立后续。因此同时满足高密度、跨领域、长期犯颜和持续保留门槛，反馈入口映射exceptional_dense_cross_domain_remonstrance，生前表达安全映射basically_safe；这些后续不抵销TT-O05的身后信用撤销。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "159acdaf11b09631058bd47f3ea128e5a825ff46ecd8363bbff747a49162c390",
+      "side": "positive",
+      "source_refs": [
+        "eval/tolerate_talent_open_development/worklist.json#TT-O01",
+        "eval/tolerate_talent_open_development/factor_gold.yml#TT-O01",
+        "SRC-JTS-J71-WEIZHENG-001#EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001@A1",
+        "eval/i5b_ruler_rule_net/lishimin_tt_o01_source_rebind.json",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-7C9FA52F5EA362DC4127",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-4C45C185E7272D455A3A",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-3F85A11B3D39A844FBE3",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-2B8BEC1B32A2637C63DB"
+      ],
+      "subject": "魏徵",
+      "unit_ref": "TT-O01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-YUSHINAN-REPEATED-COUNSEL",
+      "dataset_role": "open_development",
+      "material_score": "1.392",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "expression_safety": 1.15,
+          "feedback_entry": 1.0,
+          "protection_repair": 1.0,
+          "source_factor": 1.1
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "expression_safety": "actively_protected_or_encouraged",
+          "feedback_entry": "repeated_feedback_retained",
+          "protection_repair": "none",
+          "source_factor": "complete_direct_chain"
+        },
+        "formal_score": false,
+        "material_score": 1.392,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.392,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-F7D026680DF6",
+      "projection_basis": "《旧唐书》虞世南传的直接切片记录多次规讽补益及犯颜谏猎后反受亲礼，闭合重复反馈、表达安全与主动鼓励；时间跨度不足以进入跨阶段档。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "11f5e89a250376a0f325a2fdeaba67032b31e19a179580857f747ec073c2d5e9",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json#TT-LSM-YSN-01",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-55B75A7E66B01224365B",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-AD6743AACF63E8CE3556"
+      ],
+      "subject": "虞世南",
+      "unit_ref": "TT-LSM-YSN-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-CHUSUILIANG-MULTI-STAGE-COUNSEL",
+      "dataset_role": "open_development",
+      "material_score": "1.573",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "expression_safety": 1.0,
+          "feedback_entry": 1.3,
+          "protection_repair": 1.0,
+          "source_factor": 1.1
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "expression_safety": "basically_safe",
+          "feedback_entry": "durable_multi_stage_feedback",
+          "protection_repair": "none",
+          "source_factor": "complete_direct_chain"
+        },
+        "formal_score": false,
+        "material_score": 1.573,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.573,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-B37DF1A98CC3",
+      "projection_basis": "封禅、贡物和储位三个重大政务反馈及按时间可区分的后续证明褚遂良持续保有中枢表达职责，闭合跨阶段持续反馈；尚不满足高密度1.7档。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "53a6165146add6219ab9f33ea4194b0013d751da81c0a99103483078a4b052e9",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json#TT-LSM-CSL-01",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-2BD7D2CE21B5702570D1",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-A065D393094553EAF584",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-F46816D67AFCEBCF7D1D"
+      ],
+      "subject": "褚遂良",
+      "unit_ref": "TT-LSM-CSL-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-MAZHOU-REPEATED-POLICY-FEEDBACK",
+      "dataset_role": "open_development",
+      "material_score": "1.392",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "expression_safety": 1.15,
+          "feedback_entry": 1.0,
+          "protection_repair": 1.0,
+          "source_factor": 1.1
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "expression_safety": "actively_protected_or_encouraged",
+          "feedback_entry": "repeated_feedback_retained",
+          "protection_repair": "none",
+          "source_factor": "complete_direct_chain"
+        },
+        "formal_score": false,
+        "material_score": 1.392,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.392,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-1E978B22A450",
+      "projection_basis": "两个不同政策反馈分别获称善和赏劳，闭合重复反馈与主动鼓励；时间均只记贞观年间，不强推跨阶段档。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "1471b1a84e2ea9ec2815b0efecbfd255a5f10df2f15be49507b103b181e9e5ab",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json#TT-LSM-MZ-01",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-0825545CC7097F510B73",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-BD1CA4C0CD38987B8BFD"
+      ],
+      "subject": "马周",
+      "unit_ref": "TT-LSM-MZ-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-DAIZHOU-MULTI-STAGE-PROFESSIONAL-FEEDBACK",
+      "dataset_role": "open_development",
+      "material_score": "1.809",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "expression_safety": 1.15,
+          "feedback_entry": 1.3,
+          "protection_repair": 1.0,
+          "source_factor": 1.1
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "expression_safety": "actively_protected_or_encouraged",
+          "feedback_entry": "durable_multi_stage_feedback",
+          "protection_repair": "none",
+          "source_factor": "complete_direct_chain"
+        },
+        "formal_score": false,
+        "material_score": 1.809,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": 1.809,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "positive"
+      },
+      "object_ref": "PER-V4-3FFA74A20BBB",
+      "projection_basis": "即位初期律令减刑与去世前役赋营修进言形成早晚两个阶段和不同专业领域，后者获明确嘉许，闭合跨阶段持续反馈与主动鼓励。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "1676d45214a2e3de328b142863d7a905c55b6d30d9b0aa5f4dd7bc0d2f6079ac",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json#TT-LSM-DZ-01",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-0777852E72A659A520F3",
+        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-A81C2C2246893D065304"
+      ],
+      "subject": "戴胄",
+      "unit_ref": "TT-LSM-DZ-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-WEIZHENG-POSTHUMOUS-CREDIT-REVERSAL",
+      "dataset_role": "open_development",
+      "material_score": "0.653",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "handling_severity": 0.6,
+          "source_factor": 1.1,
+          "target_fault_factor": 0.9
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "handling_severity": "symbolic_or_light",
+          "source_factor": "complete_direct_chain",
+          "target_fault_factor": "disputed_suspicion"
+        },
+        "formal_score": false,
+        "material_score": -0.653,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -0.653,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "PER-V4-B0E10D8903E7",
+      "projection_basis": "停婚、踣碑属于公开信用撤销而非人身或职业处分，映射 symbolic_or_light；疑阿党来自荐人和示史官等争议线索，且后续复碑，故对象过错按 disputed_suspicion。材料直接连接皇帝判断、处置及反转。",
+      "ruler": "李世民",
+      "semantic_fingerprint": "50f8e00e5d360dd48cab5815a3c6daf88ec5fb4b679e78b40167f8ac4769e3de",
+      "side": "negative",
+      "source_refs": [
+        "eval/tolerate_talent_open_development/worklist.json#TT-O05",
+        "eval/tolerate_talent_open_development/factor_gold.yml#TT-O05",
+        "SRC-ZZTJ-J197-198-WEIZHENG-001#EVD-I5B-LISHIMIN-NEG-WEIZHENG-001@A1"
+      ],
+      "subject": "魏徵身后信用",
+      "unit_ref": "TT-O05"
+    },
+    {
+      "canonical_event_group": "TT-LIUBANG-XIAOHE-PARK-PETITION-DETENTION",
+      "dataset_role": "open_development",
+      "material_score": "3.267",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "handling_severity": 1.8,
+          "source_factor": 1.1,
+          "target_fault_factor": 1.5
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "handling_severity": "imprisonment_or_severe_nonpermanent_harm",
+          "source_factor": "complete_direct_chain",
+          "target_fault_factor": "framed_or_harmed_for_feedback"
+        },
+        "formal_score": false,
+        "material_score": -3.267,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -3.267,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "PER-V4-75DF03E09409",
+      "projection_basis": "萧何因请求开放上林苑余地利民而被下廷尉、械系，数日后经王卫尉进言赦出；已实现拘禁对应 imprisonment_or_severe_nonpermanent_harm，伤害直接由反馈触发，对象没有材料所示重大过错，映射 framed_or_harmed_for_feedback。",
+      "ruler": "刘邦",
+      "semantic_fingerprint": "fbcc053320cb7aba08d21fda7b7785756f2f281a3759857a3cf5cab03dd3c36a",
+      "side": "negative",
+      "source_refs": [
+        "eval/tolerate_talent_open_development/worklist.json#TT-O06",
+        "eval/tolerate_talent_open_development/factor_gold.yml#TT-O06",
+        "SRC-SJ-J53-XIAOHE-SAFETY-LIUBANG-SUPP-001#EVD-I5B-LIUBANG-SUPP-XIAOHE-SAFETY-001@A1"
+      ],
+      "subject": "萧何",
+      "unit_ref": "TT-O06"
+    },
+    {
+      "canonical_event_group": "TT-LIUXIU-HANXIN-DIRECT-SPEECH-SUICIDE",
+      "dataset_role": "opened_regression",
+      "material_score": "4.000",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.0,
+          "context_factor": 1.1,
+          "handling_severity": 2.6,
+          "source_factor": 1.1,
+          "target_fault_factor": 1.5
+        },
+        "evidence_factor": 1.21,
+        "factor_option_codes": {
+          "attribution_factor": "direct",
+          "context_factor": "core_mechanism_direct",
+          "handling_severity": "execution_or_forced_suicide",
+          "source_factor": "complete_direct_chain",
+          "target_fault_factor": "framed_or_harmed_for_feedback"
+        },
+        "formal_score": false,
+        "material_score": -4.0,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -4.719,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "PERSON-NAME-CANDIDATE-HANXIN-EASTERN-HAN",
+      "projection_basis": "材料直接以“好直言、帝每不能容”连接反馈冲突，并记免官后追责导致韩歆及子自杀；处置结果映射 execution_or_forced_suicide，对象伤害由直言触发，映射 framed_or_harmed_for_feedback。",
+      "ruler": "刘秀",
+      "semantic_fingerprint": "86e7bc55a7c09e62a568d323a08a36acb2dec168012c318fe6cb02023747a2ae",
+      "side": "negative",
+      "source_refs": [
+        "eval/tolerate_talent_sealed_holdout/worklist.json#TT-S05",
+        "eval/tolerate_talent_sealed_holdout/factor_gold.yml#TT-S05",
+        "SRC-ZZTJ-J43-HANXIN-001#EVD-I5B-LIUXIU-NEG-HANXIN-001@A1"
+      ],
+      "subject": "韩歆",
+      "unit_ref": "TT-S05"
+    },
+    {
+      "canonical_event_group": "TT-LICHUN-HANYU-BUDDHA-BONE-REMONSTRANCE-DEMOTION",
+      "dataset_role": "opened_regression",
+      "material_score": "2.250",
+      "numeric_projection": {
+        "deterministic_dimension_values": {
+          "attribution_factor": 1.1,
+          "context_factor": 1.1,
+          "handling_severity": 1.2,
+          "source_factor": 1.1,
+          "target_fault_factor": 1.5
+        },
+        "evidence_factor": 1.25,
+        "factor_option_codes": {
+          "attribution_factor": "direct_under_pressure",
+          "context_factor": "core_mechanism_direct",
+          "handling_severity": "demotion_or_suppression",
+          "source_factor": "complete_direct_chain",
+          "target_fault_factor": "framed_or_harmed_for_feedback"
+        },
+        "formal_score": false,
+        "material_score": -2.25,
+        "numeric_values_supplied_by_model": false,
+        "raw_material_score": -2.25,
+        "rule_code": "tolerate_talent",
+        "schema_version": "i5b-material-numeric-projection-v1",
+        "side": "negative"
+      },
+      "object_ref": "PERSON-NAME-CANDIDATE-HANYU",
+      "projection_basis": "韩愈因忠恳谏迎佛骨被贬潮州，属于已实现的贬黜压制；材料将处分直接连接谏言，并记录他人以“宜宽容以开言路”施加明确反对压力，故 attribution 为 direct_under_pressure，对象过错按因反馈受害处理。",
+      "ruler": "李纯",
+      "semantic_fingerprint": "d1d0613c835ffe2401c434986b03247b1d3b5f7be9759a08565236776a097b2a",
+      "side": "negative",
+      "source_refs": [
+        "eval/tolerate_talent_sealed_holdout/worklist.json#TT-S07",
+        "eval/tolerate_talent_sealed_holdout/factor_gold.yml#TT-S07",
+        "SRC-ZZTJ-J240-HANYU-LICHUN-001#EVD-I5B-LICHUN-NEG-HANYU-001@A1"
+      ],
+      "subject": "韩愈",
+      "unit_ref": "TT-S07"
+    }
+  ],
+  "object_side_aggregates": [
+    {
+      "material_count": 1,
+      "object_ref": "PERSON-NAME-CANDIDATE-HANXIN-EASTERN-HAN",
+      "object_side_score": "4.000",
+      "ruler": "刘秀",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-75DF03E09409",
+      "object_side_score": "3.267",
+      "ruler": "刘邦",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-B0E10D8903E7",
+      "object_side_score": "0.653",
+      "ruler": "李世民",
+      "side": "negative"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "AGG-LSM-FORMAL-REMONSTRANCE-CHANNEL",
+      "object_side_score": "2.783",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-1E978B22A450",
+      "object_side_score": "1.392",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-3FFA74A20BBB",
+      "object_side_score": "1.809",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-B0E10D8903E7",
+      "object_side_score": "2.057",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-B37DF1A98CC3",
+      "object_side_score": "1.573",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PER-V4-F7D026680DF6",
+      "object_side_score": "1.392",
+      "ruler": "李世民",
+      "side": "positive"
+    },
+    {
+      "material_count": 1,
+      "object_ref": "PERSON-NAME-CANDIDATE-HANYU",
+      "object_side_score": "2.250",
+      "ruler": "李纯",
+      "side": "negative"
+    }
+  ],
+  "policy_version": "i5b-joint-projection-score-contribution-v2",
+  "projection_input_version": "tolerate-talent-opened-regression-projection-v5",
+  "report_sha256": "ad6f86ebfd1b41a47fe05ac01a4906874afc4f2c3d0b1be08bca98ffe9bf7b8e",
+  "rule_code": "tolerate_talent",
+  "schema_version": "i5b-joint-projection-scored-shadow-report-v1",
+  "score_contributions": [
+    {
+      "contribution_ref": "SC-I5B-DCA3F03F6AE89CF3DC52EDA0",
+      "dedup_key": "19d8ccf109014b0d2f9bfa1d1d8632144a7186a57d18f9db90a79692766dec96",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘庄",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "0.000",
+      "ruler": "刘庄",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "6c914bed85fc562a003999abc133ad86e49b163ab7bd237fea2d69ce6657b66a",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-2A734A55442302A0D5547F7F",
+      "dedup_key": "1e3b29d0611508657a91749c0b145e10e598863d71d95b5a1ecdf5d523d1072a",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘恒",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "0.000",
+      "ruler": "刘恒",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "069e93913b817780b3886a75bc3b2911955126757fed8fa35f1483934a44500c",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-606812755AF835E6ACDD91E9",
+      "dedup_key": "c8a312540fe8d5f8df9e135d7bf049b068c451aadee80f01e2f322653dfdcbcb",
+      "insufficient_projection_count": 2,
+      "negative_signal": "4.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘秀",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "-4.000",
+      "ruler": "刘秀",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "d6d206e335c466bcc1da5087769c1aafebe7ec5371e49f1883c2412abf405008",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-937ABB803A46B5D4BE9FE0DA",
+      "dedup_key": "c73ebdb2dfd24ffdc8e58458b6c60d929d439c60d89967da3c080e3da0f2f590",
+      "insufficient_projection_count": 1,
+      "negative_signal": "3.267",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "刘邦",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "-3.267",
+      "ruler": "刘邦",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "758a039753358672241350fe725e97b82d1f3382ffe4b1c7a2fc3d5a9d9630fc",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-DEF0C6735ECA41FBD1ED3954",
+      "dedup_key": "dcf72db97ea9e6a2c2615f9a00de748b0bf7d4da3eebf3b2539455195a06c6ab",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "朱棣",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "0.000",
+      "ruler": "朱棣",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "be27f411f3aaf31b1f9c7e957102867f7bad59a4607cb0669ba0e84eb3bd9e33",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-2FC7C03CA73BDB1A26457AEB",
+      "dedup_key": "ce536817a9c65d29db23d254031a266cb705839e93a975013f0ad792590b4511",
+      "insufficient_projection_count": 0,
+      "negative_signal": "0.653",
+      "positive_signal": "11.006",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李世民",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "10.353",
+      "ruler": "李世民",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "278a86ec705c5e45de96758a24437fbe0cf20f2b8983ae8e208205040cc4f67b",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-8AC1F06EABC3BC15E6A9A976",
+      "dedup_key": "692e715c1f262650053a5745253db1085cca47fd674b23e549cdaa200f71be60",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李治",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "0.000",
+      "ruler": "李治",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "ca1f40308734e2f9972238e75bf63e30639dcac0da03abc42d68e730f5ffe4a1",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-182A860E3BA2300E11EC76BE",
+      "dedup_key": "332f4dc6ccfe2be4b9d08a458fd4d5aefc8dfbc81079468ed7c922961b15f3d5",
+      "insufficient_projection_count": 0,
+      "negative_signal": "2.250",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "李纯",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "-2.250",
+      "ruler": "李纯",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "ed9a5d046ac7706846f4eb0385eebbf7225f22d3c190d78b03e8a8985b4d995f",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-FCDCEC8D325F35B4E1F25FE9",
+      "dedup_key": "738267dc01516845cac1f28ed2290b5e37d2040cce664f35328fced1a7026fe0",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "杨坚",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "0.000",
+      "ruler": "杨坚",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "21ab5773bae7e64b227f0d4816c60de4ce9bccfcc78b541e83480948c3ba6012",
+      "supporting_only_rules": [],
+      "tier": null
+    },
+    {
+      "contribution_ref": "SC-I5B-AE9EB68A93B53E38F74AA37C",
+      "dedup_key": "457fb0b32593a1a3cd9fa4aca4e46c2a150889be50ba13d5a81209bc7288452d",
+      "insufficient_projection_count": 1,
+      "negative_signal": "0.000",
+      "positive_signal": "0.000",
+      "primary_owner": "ruler",
+      "primary_owner_ref": "赵祯",
+      "rule_code": "tolerate_talent",
+      "rule_raw_net": "0.000",
+      "ruler": "赵祯",
+      "score": null,
+      "score_rate": null,
+      "semantic_fingerprint": "8b156e2bc4cdaa87046f22b4759ff442692d5335946faadd02a9a4590c212e7f",
+      "supporting_only_rules": [],
+      "tier": null
+    }
+  ],
+  "status": "opened_regression_scored_shadow_raw_signal_only",
+  "summary": {
+    "database_write_count": 0,
+    "formal_scoring_allowed": false,
+    "input_unit_count": 19,
+    "insufficient_projection_count": 9,
+    "model_call_count": 0,
+    "projected_material_count": 10,
+    "ruler_count": 10,
+    "score_contribution_count": 10
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "declarations": {
+    "formal_scoring_allowed": false,
+    "formal_v4_fact": false,
+    "model_call_count": 0,
+    "qualification_use_allowed": false,
+    "scores_or_rankings_included": false,
+    "v3_database_write_count": 0,
+    "v3_primary_keys_reused_as_v4_ids": false
+  },
+  "next_gate": {
+    "automatic_v4_profile_conversion_allowed": false,
+    "required": "person_identity_crosswalk_human_review"
+  },
+  "quality_flags": {
+    "missing_resolved_profile_id_link_count": 4,
+    "profile_cache_metadata_missing_or_repair_path_count": 14,
+    "stable_url_missing_evidence_count": 281
+  },
+  "schema_version": "v3-person-profile-migration-report-v1",
+  "source_freeze_ref": "v3-freeze-20260712",
+  "source_package_sha256": "9b044ff06eb553c056b8e5e1294ab901c30f13f457ff73943a2f12dc5b14ba9d",
+  "status": "source_snapshot_ready_for_identity_review",
+  "summary": {
+    "authority_lineage_counts": {
+      "accepted_links": 883,
+      "distinct_claims": 698,
+      "distinct_evidence": 698,
+      "distinct_slices": 698
+    },
+    "cross_version_comparison_allowed": false,
+    "crosswalk_pending_count": 242,
+    "eligible_profile_count": 242,
+    "excluded_counts": {
+      "profile_not_accepted": 83
+    },
+    "identity_hint_counts": {
+      "affiliation_rows": 232,
+      "alias_rows": 358,
+      "role_rows": 0
+    },
+    "input_profile_count": 325,
+    "negative_talent_version_partitions": {
+      "negative-talent-v1": 242
+    },
+    "talent_grade_version_partitions": {
+      "talent-grade-v2": 128,
+      "talent-grade-v4": 14,
+      "talent-grade-v5": 100
+    },
+    "v4_profile_snapshot_count": 0
+  }
+}

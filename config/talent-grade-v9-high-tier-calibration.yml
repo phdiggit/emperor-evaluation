@@ -1,0 +1,58 @@
+schema_version: talent-grade-v9-high-tier-calibration-policy-v1
+policy_version: talent-grade-v9-high-tier-calibration-v1
+status: human_review_required
+scope:
+  current_effective_grades: [historic, top]
+  reviewed_profile_count: 72
+  promotion_and_demotion_are_both_allowed: true
+principles:
+  achievement_result_precedes_title_and_fame: true
+  political_risk_is_orthogonal_to_talent_grade: true
+  missing_input_reduces_confidence_not_grade: true
+  distribution_is_an_alert_not_a_quota: true
+  no_further_micro_factor_expansion: true
+lanes:
+  military:
+    dimensions:
+      - achievement_materiality
+      - weighted_mission_success_rate_and_defeat_cost
+      - military_thought_or_organization_legacy
+    defeat_does_not_erase_achievement: true
+    defeat_cost_must_be_recorded: true
+    external_war_uses_opponent_strength: true
+    internal_war_uses_scale_and_importance: true
+  civil_governance:
+    dimensions:
+      - realized_governance_results_or_institution_building
+      - delivery_consistency
+      - governance_thought_transmission
+  culture:
+    dimensions:
+      - contemporary_field_position
+      - later_influence
+      - originality_and_paradigm_value
+    single_work_is_not_automatically_historic: true
+    cross_category_comparison_required: true
+  all_round:
+    dimensions:
+      - independent_domain_height
+      - independent_domain_result
+    small_cross_domain_items_cannot_be_stacked: true
+grade_paths:
+  historic:
+    requires_era_or_civilization_shaping_height: true
+    requires_one_of:
+      - repeated_high_stakes_delivery
+      - foundational_long_term_legacy
+      - multiple_independent_top_level_domains
+  top:
+    requires_national_or_field_first_tier_achievement: true
+    requires_one_of:
+      - stable_delivery
+      - second_major_achievement
+      - important_method_or_legacy
+  failure_grade: important
+release:
+  preserve_prior_grade_and_version: true
+  overwrite_prior_calibration: false
+  formal_scoring_allowed: false
