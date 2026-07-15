@@ -11,12 +11,12 @@
 
 | Rule | 正向 | 负向 | 净值 | 权重 | 加权贡献 |
 |---|---:|---:|---:|---:|---:|
-| 人才发现 (`talent_discovery`) | 4.712 | 0.000 | 4.712 | 0.190 | 0.895 |
-| 任用授权 (`appointment_delegation`) | 10.722 | 0.000 | 10.722 | 0.360 | 3.860 |
-| 团队建设 (`team_building`) | 14.120 | 0.922 | 13.198 | 0.210 | 2.772 |
-| 容才 (`tolerate_talent`) | 11.006 | 0.653 | 10.353 | 0.180 | 1.864 |
+| 人才发现 (`talent_discovery`) | 4.015 | 0.000 | 4.015 | 0.190 | 0.763 |
+| 任用授权 (`appointment_delegation`) | 10.474 | 1.084 | 9.390 | 0.360 | 3.380 |
+| 团队建设 (`team_building`) | 13.285 | 0.922 | 12.364 | 0.210 | 2.596 |
+| 容才 (`tolerate_talent`) | 12.126 | 0.653 | 11.473 | 0.180 | 2.065 |
 
-所选 Rule 加权 raw signal 小计：`9.390`
+所选 Rule 加权 raw signal 小计：`8.805`
 
 ### 人才发现明细
 
@@ -41,14 +41,15 @@
   - 单一个案 (`single_case`) = `1.0`：只有一次可定位的识才事件。
   - 跨身份或阵营 (`cross_identity_or_camp`) = `1.1`：识才突破既有身份、门第或阵营边界。
   - 可重复识才机制 (`repeatable_discovery_mechanism`) = `1.2`：多个独立案例证明同一稳定渠道持续运行。
-- 马周 / `REU-LSM-MAZHOU-DISCOVERY-OPEN-v1` / 材料分 `1.837` / 因子：直接归责[attribution_factor=direct](1.0)；跨身份或阵营[channel_factor=cross_identity_or_camp](1.1)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；跨障碍识才[discovery_level=difficult_cross_boundary_discovery](1.2)；完整直接链[source_factor=complete_direct_chain](1.1)；重要人才[talent_quality_factor=important](1.15)
-- 房玄龄 / `REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1` / 材料分 `2.875` / 因子：直接归责[attribution_factor=direct](1.0)；跨身份或阵营[channel_factor=cross_identity_or_camp](1.1)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；跨障碍识才[discovery_level=difficult_cross_boundary_discovery](1.2)；完整直接链[source_factor=complete_direct_chain](1.1)；历史级人才[talent_quality_factor=historic](1.8)
+- 岑文本 / `REU-LSM-CENWENBEN-DISCOVERY-HC-v1` / 材料分 `1.089` / 因子：直接归责[attribution_factor=direct](1.0)；单一个案[channel_factor=single_case](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；皇帝验证并试用[discovery_level=attributable_interview_trial_or_appointment](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)；可用人才[talent_quality_factor=usable](0.9)
+- 马周 / `REU-LSM-MAZHOU-DISCOVERY-HC-v1` / 材料分 `1.837` / 因子：直接归责[attribution_factor=direct](1.0)；跨身份或阵营[channel_factor=cross_identity_or_camp](1.1)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；跨障碍识才[discovery_level=difficult_cross_boundary_discovery](1.2)；完整直接链[source_factor=complete_direct_chain](1.1)；重要人才[talent_quality_factor=important](1.15)
+- 张玄素 / `REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1` / 材料分 `1.089` / 因子：直接归责[attribution_factor=direct](1.0)；单一个案[channel_factor=single_case](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；皇帝验证并试用[discovery_level=attributable_interview_trial_or_appointment](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)；可用人才[talent_quality_factor=usable](0.9)
 
 ### 任用授权明细
 
 - 公式：`appointment_importance * appointment_effect * continuity_factor * evidence_factor`
 - 对账：`reconciled`
-- Primary：`eval/i5b_ruler_rule_net/lishimin_appointment_shadow.yml`
+- Primary：`eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json`
 - **任用责任重要度** (`appointment_importance`)：只按授权当时的责任域和权力范围判断。
   - 名义或轻量职责 (`nominal_or_light`) = `0.6`：权限有限，主要是名义、顾问或轻量任务。
   - 实质但有界职责 (`real_bounded`) = `1.0`：有真实权限，但责任域明确且有限。
@@ -65,16 +66,12 @@
   - 短期或一次性 (`short_or_one_off`) = `0.85`：明确为一次任务或缺乏持续观察。
   - 稳定授权 (`stable`) = `1.0`：同一授权下有至少两个可区分的履职或反馈观察。
   - 长期多阶段授权 (`long_term_multi_stage`) = `1.15`：至少两次可区分的皇帝授权决定形成跨阶段复用。
-- 房玄龄 / `REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1` / 材料分 `3.01875` / 因子：
-- 李靖 / `REU-LSM-LIJING-MILITARY-AUTHORITY-v1` / 材料分 `3.01875` / 因子：
-- 马周 / `REU-LSM-MAZHOU-AUTHORIZATION-v1` / 材料分 `1.9481` / 因子：
-- 魏徵 / `REU-LSM-WEIZHENG-APPOINTMENT-v1` / 材料分 `1.7394` / 因子：
 
 ### 团队建设明细
 
 - 公式：`negative_pool=sum(negative_team_contribution_rank / rank ^ 0.5)；negative_signal=negative_pool * role_complementarity_factor * long_term_stability_factor；negative_team_contribution=negative_talent_severity_value * negative_talent_class_relevance；positive_pool=sum(talent_quality_factor_rank / rank ^ 0.5)；positive_signal=positive_pool * role_complementarity_factor * long_term_stability_factor；rule_raw_net=positive_signal - negative_signal`
 - 对账：`reconciled`
-- Primary：`eval/i5b_ruler_rule_net/lishimin_team_roster_shadow.yml`
+- Primary：`eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v2.json`
 - **团队成员人才档** (`talent_quality_factor`)：每名成员进入正向人才池的基础值。
   - 普通 (`ordinary`) = `0.35`：普通人才基础值。
   - 可用 (`usable`) = `0.55`：可用人才基础值。
@@ -108,7 +105,7 @@
   - 窗口内稳定 (`stable_window`) = `1.0`：在当前观察窗口内保持稳定。
   - 可管理更替 (`managed_turnover`) = `1.1`：人员更替存在但核心功能持续。
   - 跨阶段持久 (`durable_multi_stage`) = `1.2`：多阶段保持角色互补和核心功能。
-- 团队成员池：房玄龄、李靖、李绩、苏定方、杜如晦、魏徵、长孙无忌、马周、褚遂良、戴胄、虞世南、高士廉、温彦博、萧瑀、侯君集、尉迟敬德、秦琼、段志玄、唐俭、王玄策、屈突通、王珪、岑文本、张亮、李君羡
+- 团队成员池：张亮、王玄策、马周、尉迟敬德、唐俭、戴胄、李君羡、李绩、王珪、秦琼、长孙无忌、李靖、杜如晦、魏徵、褚遂良、萧瑀、侯君集、屈突通、房玄龄、段志玄、岑文本、虞世南、高士廉、温彦博
 
 ### 容才明细
 
@@ -148,13 +145,15 @@
 - 褚遂良 / `TT-LSM-CSL-01` / 材料分 `1.573` / 因子：直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；基本安全[expression_safety=basically_safe](1.0)；跨阶段持续反馈[feedback_entry=durable_multi_stage_feedback](1.3)；无特殊保护修复[protection_repair=none](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)
 - 马周 / `TT-LSM-MZ-01` / 材料分 `1.392` / 因子：直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；主动保护或鼓励[expression_safety=actively_protected_or_encouraged](1.15)；多次反馈且仍被保留[feedback_entry=repeated_feedback_retained](1.0)；无特殊保护修复[protection_repair=none](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)
 - 戴胄 / `TT-LSM-DZ-01` / 材料分 `1.809` / 因子：直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；主动保护或鼓励[expression_safety=actively_protected_or_encouraged](1.15)；跨阶段持续反馈[feedback_entry=durable_multi_stage_feedback](1.3)；无特殊保护修复[protection_repair=none](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)
+- 王珪 / `TT-LSM-WG-WYB-ZXS-01` / 材料分 `1.120` / 因子：直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；主动保护或鼓励[expression_safety=actively_protected_or_encouraged](1.15)；单次采纳或容忍[feedback_entry=single_acceptance_or_tolerance](0.7)；主动保护或完整修复[protection_repair=active_protection_or_trust_repair](1.15)；完整直接链[source_factor=complete_direct_chain](1.1)
 - 魏徵身后信用 / `TT-O05` / 材料分 `0.653` / 因子：直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；象征性或轻处分[handling_severity=symbolic_or_light](0.6)；完整直接链[source_factor=complete_direct_chain](1.1)；争议嫌疑[target_fault_factor=disputed_suspicion](0.9)
 
 ## 臣子：魏徵
 
-参与项数量：`6`；个人分数：未生成。
-- 李世民 / 任用授权 / `counted_material` / `REU-LSM-WEIZHENG-APPOINTMENT-v1` / 材料分 `1.7394`
+参与项数量：`7`；个人分数：未生成。
 - 李世民 / 任用授权 / `supporting_judgment` / `魏徵`
+- 李世民 / 任用授权 / `supporting_material` / `REU-LSM-WEIZHENG-APPOINTMENT-v1` / 材料分 `1.7394`
+- 李世民 / 团队建设 / `team_member` / `魏徵`
 - 李世民 / 团队建设 / `team_member` / `魏徵`
 - 李世民 / 容才 / `counted_material` / `TT-O01` / 材料分 `2.057`
 - 李世民 / 容才 / `counted_material` / `TT-O05` / 材料分 `0.653`
@@ -163,8 +162,8 @@
 ## 臣子：房玄龄
 
 参与项数量：`3`；个人分数：未生成。
-- 李世民 / 人才发现 / `counted_material` / `REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1` / 材料分 `2.875`
-- 李世民 / 任用授权 / `counted_material` / `REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1` / 材料分 `3.01875`
+- 李世民 / 任用授权 / `supporting_material` / `REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1` / 材料分 `3.01875`
+- 李世民 / 团队建设 / `team_member` / `房玄龄`
 - 李世民 / 团队建设 / `team_member` / `房玄龄`
 
 ## 安全声明

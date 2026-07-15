@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
-from dataclasses import replace
+from dataclasses import asdict, replace
 from decimal import Decimal
 from hashlib import sha256
 from pathlib import Path
@@ -18,6 +18,11 @@ from emperor_v4.adapters import (
     snapshot_from_api_payload,
 )
 from emperor_v4.contracts.assertion import AssertionDraft, PassageSupport
+from emperor_v4.contracts.episode import (
+    AssertionLink,
+    EpisodeParticipant,
+    HistoricalEpisodePacket,
+)
 from emperor_v4.contracts.boundary import (
     AggregateContextDraft,
     AggregateContextMember,
@@ -85,6 +90,17 @@ from emperor_v4.evaluation.model_policy import (
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
 )
+from emperor_v4.evaluation.i5b_tolerate_talent_acceptance import (
+    build_formal_fact_acceptance,
+)
+from emperor_v4.evaluation.i5b_cross_rule_settlement_audit import (
+    build_i5b_cross_rule_settlement_audit,
+)
+from emperor_v4.application.formal_acceptance_registry import (
+    build_core_registry_batch,
+    build_episode_split_supersessions,
+    reusable_prior_first_run,
+)
 from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
     build_i5b_unified_raw_signal_readiness,
 )
@@ -140,6 +156,12 @@ from emperor_v4.evaluation.talent_grade_v10_targeted_correction import (
 )
 from emperor_v4.evaluation.team_building_v8_scored_shadow import (
     build_team_building_v8_scored_shadow,
+)
+from emperor_v4.evaluation.i5b_team_building_historical_scored_shadow import (
+    build_team_building_historical_scored_shadow,
+)
+from emperor_v4.evaluation.i5b_formal_fact_acceptance import (
+    build_formal_fact_acceptance as build_generic_formal_fact_acceptance,
 )
 from emperor_v4.evaluation.talent_discovery_factor_qualification import (
     FACTOR_OPTION_CATALOG,
@@ -1888,6 +1910,319 @@ def test_lishimin_tolerate_talent_historical_inventory_stays_pre_acceptance() ->
         "blocked_pending_explicit_accept_or_reject_decisions"
     )
 
+    decisions = json.loads(
+        (
+            root
+            / "eval/i5b_tolerate_talent_historical_coverage/lishimin_fact_acceptance_decisions_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert decisions["status"] == (
+        "historical_candidate_acceptance_decisions_complete"
+    )
+    assert decisions["summary"] == {
+        "accepted_assertion_count": 8,
+        "accepted_candidate_group_count": 4,
+        "existing_assertion_decision_count": 99,
+        "explicit_event_node_count": 107,
+        "formal_business_write_count": 0,
+        "formal_score_write_count": 0,
+        "non_advance_passage_count": 6,
+        "rejected_source_assertion_count": 1,
+        "reviewed_passage_count": 10,
+    }
+    assert decisions["review_run"]["task_count"] == 4
+    assert decisions["review_run"]["success_count"] == 4
+    assert all(
+        group["factor_support"]["adoption"] == "not_supported"
+        for group in decisions["accepted_candidate_groups"]
+    )
+    assert decisions["declarations"]["formal_persistence_pending"] is True
+    assert decisions["declarations"]["historical_coverage_complete"] is False
+    assert decisions["declarations"]["formal_scoring_allowed"] is False
+
+    formal = json.loads(
+        (
+            root
+            / "eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    rebuilt = build_formal_fact_acceptance(
+        reviewed_assertions=json.loads(
+            (
+                root
+                / "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json"
+            ).read_text(encoding="utf-8")
+        ),
+        acceptance_decisions=decisions,
+        unit_specs=json.loads(
+            (
+                root
+                / "eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_unit_specs_v1.json"
+            ).read_text(encoding="utf-8")
+        ),
+    )
+    assert rebuilt["report_sha256"] == formal["report_sha256"]
+    assert formal["summary"]["assertion_count"] == 107
+    assert formal["summary"]["accepted_unit_count"] == 11
+    assert formal["summary"]["newly_accepted_assertion_count"] == 8
+    assert {unit["review_disposition"] for unit in formal["units"]} == {
+        "formally_accepted"
+    }
+
+
+def test_formal_acceptance_audit_reuse_requires_scored_report_hash_match() -> None:
+    prior_audit = {
+        "input_refs": {
+            "formal_acceptance_sha256": "acceptance-v1",
+            "scored_report_sha256": "scored-v1",
+        },
+        "first_run": {
+            "business_write_count": 361,
+            "model_call_count": 0,
+            "table_writes": {"assertions": 107},
+        },
+    }
+
+    reused = reusable_prior_first_run(
+        prior_audit=prior_audit,
+        formal_acceptance_sha256="acceptance-v1",
+        scored_report_sha256="scored-v1",
+    )
+    assert reused == prior_audit["first_run"]
+
+    with pytest.raises(ValueError, match="input hashes do not match"):
+        reusable_prior_first_run(
+            prior_audit=prior_audit,
+            formal_acceptance_sha256="acceptance-v1",
+            scored_report_sha256="scored-v2",
+        )
+
+    assert reusable_prior_first_run(
+        prior_audit=prior_audit,
+        formal_acceptance_sha256="acceptance-v2",
+        scored_report_sha256="scored-v2",
+        superseded_prior_episode_input_hash="old-episode-input",
+    ) is None
+
+    corrected_audit = {
+        **prior_audit,
+        "input_refs": {
+            **prior_audit["input_refs"],
+            "superseded_prior_episode_input_hash": "old-episode-input",
+        },
+    }
+    with pytest.raises(ValueError, match="input hashes do not match"):
+        reusable_prior_first_run(
+            prior_audit=corrected_audit,
+            formal_acceptance_sha256="acceptance-v2",
+            scored_report_sha256="scored-v2",
+            superseded_prior_episode_input_hash="another-old-input",
+        )
+
+
+def test_formal_acceptance_versions_prior_episode_splits_with_exact_successors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def packet(
+        episode_id: str,
+        assertion_refs: tuple[str, ...],
+        *,
+        input_hash: str,
+        semantic_version: int = 1,
+    ) -> HistoricalEpisodePacket:
+        return HistoricalEpisodePacket(
+            episode_id=episode_id,
+            episode_type="tolerate_talent_evidence_episode",
+            episode_status="accepted",
+            evaluation_context="PER-RULER",
+            semantic_version=semantic_version,
+            evidence_version=1,
+            semantic_fingerprint=f"fingerprint-{episode_id}",
+            time_start=None,
+            time_end=None,
+            time_precision="source_expression_only",
+            locations=(),
+            participants=(EpisodeParticipant("PER-RULER", ("ruler",), "resolved"),),
+            action="事实动作",
+            responsibility="皇帝归责",
+            outcome=("结果",),
+            consequence=(),
+            assertion_links=tuple(
+                AssertionLink(
+                    assertion_ref=ref,
+                    source_passage_ref=f"PASSAGE-{ref}",
+                    relation="supports_accepted_episode",
+                    supported_fields=("identity", "action"),
+                    evidence_status="accepted",
+                    representative=index == 0,
+                )
+                for index, ref in enumerate(assertion_refs)
+            ),
+            conflicts=(),
+            uncertainties=(),
+            completeness={
+                "identity": "complete",
+                "time": "partial",
+                "action": "complete",
+                "responsibility": "partial",
+                "outcome": "partial",
+                "consequence": "partial",
+                "source_diversity": "partial",
+                "conflict_resolution": "not_applicable",
+            },
+            lineage={"original_lineage": episode_id},
+            provenance={"input_version": "old-v1", "input_hash": input_hash},
+        )
+
+    prior = (
+        packet("EP-OLD-1", ("A1", "A2"), input_hash="old-input"),
+        packet("EP-OLD-2", ("A3",), input_hash="old-input"),
+    )
+    successors = (
+        packet("EP-NEW-1", ("A1", "A3"), input_hash="new-input"),
+        packet("EP-NEW-2", ("A2",), input_hash="new-input"),
+    )
+    split_packets = build_episode_split_supersessions(
+        prior_active_packets=prior,
+        new_trace_episodes=successors,
+        superseded_input_hash="old-input",
+        current_input_version="acceptance-v2",
+        current_input_hash="new-input",
+    )
+
+    assert [packet.episode_id for packet in split_packets] == [
+        "EP-OLD-1",
+        "EP-OLD-2",
+    ]
+    assert all(packet.episode_status == "split" for packet in split_packets)
+    assert all(packet.semantic_version == 2 for packet in split_packets)
+    assert json.loads(split_packets[0].lineage["successor_episode_ids"]) == [
+        "EP-NEW-1",
+        "EP-NEW-2",
+    ]
+    assert json.loads(split_packets[1].lineage["successor_episode_ids"]) == [
+        "EP-NEW-1"
+    ]
+    assert split_packets[0].lineage["original_lineage"] == "EP-OLD-1"
+    assert split_packets[0].provenance["input_version"] == "acceptance-v2"
+    assert split_packets[0].provenance["input_hash"] == "new-input"
+
+    monkeypatch.setattr(
+        "emperor_v4.application.formal_acceptance_registry._source_records",
+        lambda _dsn, _passage_refs: ((), ()),
+    )
+    batch = build_core_registry_batch(
+        dsn="unused",
+        acceptance_payload={
+            "schema_version": "acceptance-v2",
+            "report_sha256": "new-input",
+            "declarations": {"formal_fact_acceptance": True},
+            "summary": {"assertion_count": 0},
+            "units": [],
+        },
+        scored_report={
+            "assertion_episode_reu_trace": {
+                "formal_acceptance_performed": True,
+                "episodes": [asdict(packet) for packet in successors],
+            }
+        },
+        prior_active_packets=prior,
+        superseded_input_hash="old-input",
+    )
+    assert len(batch.episodes) == 4
+    assert [packet.episode_status for packet in batch.episodes[:2]] == [
+        "split",
+        "split",
+    ]
+    assert len(batch.episode_dispositions) == 6
+
+    rerun = build_episode_split_supersessions(
+        prior_active_packets=split_packets,
+        new_trace_episodes=successors,
+        superseded_input_hash="old-input",
+        current_input_version="acceptance-v2",
+        current_input_hash="new-input",
+    )
+    assert rerun == split_packets
+
+    with pytest.raises(ValueError, match="successor mapping does not close"):
+        build_episode_split_supersessions(
+            prior_active_packets=prior,
+            new_trace_episodes=(successors[0],),
+            superseded_input_hash="old-input",
+            current_input_version="acceptance-v2",
+            current_input_hash="new-input",
+        )
+
+
+def test_i5b_cross_rule_settlement_audit_requires_one_primary_consumer() -> None:
+    def payload(rule_code: str, primary: str = "") -> dict[str, object]:
+        return {
+            "rule_code": rule_code,
+            "units": [
+                {
+                    "unit_ref": f"UNIT-{rule_code}",
+                    "canonical_event_group": "EVENT-SHARED",
+                    "status": "projected",
+                    "side": "positive",
+                    "object_ref": "PER-SHARED",
+                    "primary_settlement_rule": primary,
+                }
+            ],
+        }
+
+    blocked = build_i5b_cross_rule_settlement_audit(
+        projection_reports=[payload("tolerate_talent"), payload("team_building")]
+    )
+    assert blocked["status"] == "cross_rule_settlement_audit_blocked"
+    assert blocked["conflicts"] == [
+        {
+            "canonical_event_group": "EVENT-SHARED",
+            "code": "cross_rule_projection_requires_unique_primary",
+            "consumer_count": 2,
+            "consumer_rules": ["team_building", "tolerate_talent"],
+            "declared_primary_settlement_rules": [],
+            "numerically_projected_rules": ["team_building", "tolerate_talent"],
+            "status": "conflict",
+        }
+    ]
+    assert blocked["declarations"]["formal_scoring_allowed"] is False
+
+    reconciled = build_i5b_cross_rule_settlement_audit(
+        projection_reports=[
+            payload("tolerate_talent", "tolerate_talent"),
+            payload("team_building", "tolerate_talent"),
+        ]
+    )
+    rebuilt = build_i5b_cross_rule_settlement_audit(
+        projection_reports=list(reversed([
+            payload("tolerate_talent", "tolerate_talent"),
+            payload("team_building", "tolerate_talent"),
+        ]))
+    )
+    assert reconciled["status"] == "cross_rule_settlement_audit_reconciled"
+    assert rebuilt["report_sha256"] == reconciled["report_sha256"]
+    assert reconciled["summary"]["model_call_count"] == 0
+    assert reconciled["summary"]["database_write_count"] == 0
+
+
+def test_i5b_cross_rule_settlement_audit_rejects_same_rule_duplicate() -> None:
+    report = {
+        "rule_code": "tolerate_talent",
+        "materials": [
+            {
+                "unit_ref": unit_ref,
+                "canonical_event_group": "EVENT-DUPLICATE",
+                "side": "positive",
+                "object_ref": "PER-SHARED",
+            }
+            for unit_ref in ("UNIT-1", "UNIT-2")
+        ],
+        "insufficient_projections": [],
+    }
+    with pytest.raises(ValueError, match="within one rule"):
+        build_i5b_cross_rule_settlement_audit(projection_reports=[report])
+
 
 def test_i5b_scoring_policy_preserves_v3_raw_signal_shape_without_fake_score() -> None:
     root = Path(__file__).parents[1]
@@ -2000,22 +2335,35 @@ def test_i5b_joint_projection_reports_are_reproducible_and_fail_closed() -> None
         (root / "config" / "i5b-scoring-policy.yml").read_text(encoding="utf-8")
     )
     expected = {
-        "talent_discovery": (5, 1),
-        "tolerate_talent": (10, 9),
-        "anti_nepotism": (8, 3),
+        "talent_discovery": (6, 1),
+        "tolerate_talent": (11, 12),
+        "anti_nepotism": (2, 0),
     }
     tolerate_assertion_payload = json.loads(
         (
-            root / "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json"
+            root
+            / "eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    talent_assertion_payload = json.loads(
+        (
+            root
+            / "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    anti_assertion_payload = json.loads(
+        (
+            root
+            / "eval/i5b_anti_nepotism_historical_coverage/lishimin_formal_acceptance_v1.json"
         ).read_text(encoding="utf-8")
     )
     reports = {}
     for rule_code, counts in expected.items():
-        assertion_payload = (
-            tolerate_assertion_payload
-            if rule_code == "tolerate_talent"
-            else None
-        )
+        assertion_payload = {
+            "talent_discovery": talent_assertion_payload,
+            "tolerate_talent": tolerate_assertion_payload,
+            "anti_nepotism": anti_assertion_payload,
+        }.get(rule_code)
         report = build_i5b_joint_projection_scored_shadow(
             rule_code=rule_code,
             projection_payload=json.loads(
@@ -2040,26 +2388,32 @@ def test_i5b_joint_projection_reports_are_reproducible_and_fail_closed() -> None
     anti = {
         item["ruler"]: item for item in reports["anti_nepotism"]["score_contributions"]
     }
-    assert talent["李世民"]["rule_raw_net"] == "4.712"
+    assert talent["李世民"]["rule_raw_net"] == "4.015"
+    assert talent["李世民"]["insufficient_projection_count"] == 0
     assert talent["忽必烈"]["rule_raw_net"] == "0.000"
     assert talent["忽必烈"]["insufficient_projection_count"] == 1
     tolerate = {
         item["ruler"]: item
         for item in reports["tolerate_talent"]["score_contributions"]
     }
-    assert tolerate["李世民"]["rule_raw_net"] == "10.353"
-    assert tolerate["李世民"]["insufficient_projection_count"] == 0
-    assert len(tolerate["李世民"]["rule_evidence_unit_refs"]) == 7
+    assert tolerate["李世民"]["rule_raw_net"] == "11.473"
+    assert tolerate["李世民"]["insufficient_projection_count"] == 3
+    assert len(tolerate["李世民"]["rule_evidence_unit_refs"]) == 11
+    assert len(
+        tolerate["李世民"]["numerically_projected_rule_evidence_unit_refs"]
+    ) == 8
+    assert len(tolerate["李世民"]["insufficient_rule_evidence_unit_refs"]) == 3
     tolerate_trace = reports["tolerate_talent"]["assertion_episode_reu_trace"]
-    assert tolerate_trace["episode_count"] == 29
-    assert tolerate_trace["rule_evidence_unit_count"] == 7
-    assert tolerate_trace["assertion_link_count"] == 99
-    assert tolerate_trace["formal_acceptance_performed"] is False
+    assert tolerate_trace["episode_count"] == 107
+    assert tolerate_trace["rule_evidence_unit_count"] == 11
+    assert tolerate_trace["assertion_link_count"] == 107
+    assert tolerate_trace["formal_acceptance_performed"] is True
     assert {item["episode_status"] for item in tolerate_trace["episodes"]} == {
-        "proposed"
+        "accepted",
+        "accepted_with_uncertainty",
     }
     assert {item["status"] for item in tolerate_trace["rule_evidence_units"]} == {
-        "draft"
+        "shadow_from_formal_facts"
     }
     blocked_assertions = json.loads(
         json.dumps(tolerate_assertion_payload, ensure_ascii=False)
@@ -2099,7 +2453,8 @@ def test_i5b_joint_projection_reports_are_reproducible_and_fail_closed() -> None
     )
     assert changed_lishimin["rule_raw_net"] == tolerate["李世民"]["rule_raw_net"]
     assert changed_lishimin["dedup_key"] != tolerate["李世民"]["dedup_key"]
-    assert anti["李隆基"]["rule_raw_net"] == "-3.542"
+    assert anti["李世民"]["rule_raw_net"] == "2.332"
+    assert anti["李世民"]["insufficient_projection_count"] == 0
     assert all(
         report["declarations"]["opened_sealed_used_as_new_qualification"] is False
         for report in reports.values()
@@ -2118,12 +2473,16 @@ def test_i5b_unified_readiness_is_reproducible_and_refuses_incomplete_cohort() -
     )
     report = build_i5b_unified_raw_signal_readiness(
         appointment_report=json.loads(
-            (root / "eval/appointment_delegation_v3_parity_demo/report.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                root
+                / "eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json"
+            ).read_text(encoding="utf-8")
         ),
         team_report=json.loads(
-            (root / "eval/team_building_v8_scored_shadow/report.json").read_text(
+            (
+                root
+                / "eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v2.json"
+            ).read_text(
                 encoding="utf-8"
             )
         ),
@@ -2148,7 +2507,7 @@ def test_i5b_unified_readiness_is_reproducible_and_refuses_incomplete_cohort() -
     assert report["report_sha256"] == frozen["report_sha256"]
     assert report["status"] == "blocked_no_coverage_complete_multi_ruler_cohort"
     assert report["summary"] == {
-        "observed_ruler_count": 24,
+        "observed_ruler_count": 13,
         "coverage_report_count": 1,
         "eligible_ruler_count": 0,
         "batch_mapping_input_generated": False,
@@ -2158,11 +2517,10 @@ def test_i5b_unified_readiness_is_reproducible_and_refuses_incomplete_cohort() -
     }
     li_shimin = next(row for row in report["rulers"] if row["ruler"] == "李世民")
     assert li_shimin["blockers"] == [
-        {"rule_code": "talent_discovery", "code": "historical_coverage_unassessed"},
-        {"rule_code": "appointment_delegation", "code": "historical_coverage_unassessed"},
-        {"rule_code": "team_building", "code": "historical_coverage_unassessed"},
-        {"rule_code": "tolerate_talent", "code": "historical_coverage_in_progress"},
-        {"rule_code": "anti_nepotism", "code": "historical_coverage_unassessed"},
+        {
+            "rule_code": "tolerate_talent",
+            "code": "insufficient_projection_is_not_zero_material",
+        },
     ]
     assert report["batch_mapping_input"] is None
     assert all(value is False for value in report["declarations"].values())
@@ -2182,23 +2540,23 @@ def test_i5b_coverage_gate_separates_workset_projection_from_historical_coverage
         )
     )
     assert report["report_sha256"] == frozen["report_sha256"]
-    assert report["summary"]["workset_projection_complete_rule_count"] == 3
-    assert report["summary"]["historical_coverage_complete_rule_count"] == 0
-    assert report["summary"]["eligible_rule_count"] == 0
+    assert report["summary"]["workset_projection_complete_rule_count"] == 5
+    assert report["summary"]["historical_coverage_complete_rule_count"] == 5
+    assert report["summary"]["eligible_rule_count"] == 5
     coverage_statuses = {
         row["rule_code"]: row["historical_coverage_status"] for row in report["rules"]
     }
     assert coverage_statuses == {
-        "talent_discovery": "unassessed",
-        "appointment_delegation": "unassessed",
-        "team_building": "unassessed",
-        "tolerate_talent": "in_progress",
-        "anti_nepotism": "unassessed",
+        "talent_discovery": "coverage_complete",
+        "appointment_delegation": "coverage_complete",
+        "team_building": "coverage_complete",
+        "tolerate_talent": "coverage_complete",
+        "anti_nepotism": "coverage_complete",
     }
     broken = deepcopy(manifest)
-    rule = broken["rules"][0]
-    rule["historical_coverage_status"] = "coverage_complete"
-    with pytest.raises(ValueError, match="frozen closed review"):
+    rule = broken["rules"][2]
+    rule["review_status"] = "pending"
+    with pytest.raises(ValueError, match="coverage review status is invalid"):
         evaluate_i5b_ruler_rule_coverage(broken)
 
 
@@ -2519,14 +2877,14 @@ def test_i5b_ruler_rule_net_reports_all_rules_without_formal_mapping() -> None:
     assert {
         row["rule_code"]: row["rule_raw_net"] for row in frozen_report["rules"]
     } == {
-        "talent_discovery": "4.712",
-        "appointment_delegation": "10.722",
-        "team_building": "13.198",
-        "tolerate_talent": "10.353",
-        "anti_nepotism": "0.000",
+        "talent_discovery": "4.015",
+        "appointment_delegation": "9.390",
+        "team_building": "12.364",
+        "tolerate_talent": "11.473",
+        "anti_nepotism": "2.332",
     }
-    assert frozen_report["summary"]["declared_workset_weighted_raw_signal"] == "9.390"
-    assert frozen_report["summary"]["historical_coverage_complete_rule_count"] == 0
+    assert frozen_report["summary"]["declared_workset_weighted_raw_signal"] == "8.945"
+    assert frozen_report["summary"]["historical_coverage_complete_rule_count"] == 5
 
     source_rebind = json.loads(
         (
@@ -2579,7 +2937,7 @@ def test_i5b_scoring_detail_export_reconciles_primary_sources() -> None:
         ],
     )
     assert report["ruler"] == "李世民"
-    assert report["summary"]["declared_workset_weighted_raw_signal"] == "9.390"
+    assert report["summary"]["declared_workset_weighted_raw_signal"] == "8.945"
     frozen = json.loads(
         (root / "eval/i5b_scoring_detail/lishimin_report.json").read_text(
             encoding="utf-8"
@@ -2594,8 +2952,8 @@ def test_i5b_scoring_detail_export_reconciles_primary_sources() -> None:
     team_primary = next(
         source for source in team["detail_sources"] if source["role"] == "primary"
     )
-    assert len(team_primary["detail"]["members"]) == 25
-    assert len(team_primary["detail"]["not_yet_disposed_named_gaps"]) == 18
+    assert len(team_primary["detail"]["members"]) == 24
+    assert team_primary["detail"]["factor_diagnostics"]["candidate_universe_count"] == 49
     tolerate = next(
         row for row in report["rules"] if row["rule_code"] == "tolerate_talent"
     )
@@ -2633,7 +2991,7 @@ def test_i5b_scoring_detail_export_reconciles_primary_sources() -> None:
         root / "eval/i5b_scoring_detail/lishimin_report.md"
     ).read_text(encoding="utf-8")
     assert "# 李世民当前计分详情" in markdown
-    assert "13.198" in markdown
+    assert "12.364" in markdown
     assert "反馈入口强度" in markdown
     assert "制度化反馈入口" in markdown
     assert "高密度跨领域长期犯颜[feedback_entry=exceptional_dense_cross_domain_remonstrance](1.7)" in markdown
@@ -2718,7 +3076,7 @@ def test_i5b_scoring_detail_selection_filters_rulers_people_and_rules() -> None:
     ]
     assert report["selected_ruler_reports"][0]["selection_summary"] == {
         "selected_rule_count": 4,
-        "selected_rule_weighted_raw_signal": "9.390",
+        "selected_rule_weighted_raw_signal": "8.805",
         "complete_five_rule_signal": False,
     }
     by_person = {row["person"]: row for row in report["people"]}
@@ -2735,7 +3093,7 @@ def test_i5b_scoring_detail_selection_filters_rulers_people_and_rules() -> None:
     assert markdown == (
         root / "eval/i5b_scoring_detail/selection_example_report.md"
     ).read_text(encoding="utf-8")
-    assert "所选 Rule 加权 raw signal 小计：`9.390`" in markdown
+    assert "所选 Rule 加权 raw signal 小计：`8.805`" in markdown
     assert "## 臣子：魏徵" in markdown
     assert "不构成臣子个人分数" in markdown
 
@@ -4239,3 +4597,90 @@ def test_team_building_v8_scored_shadow_uses_latest_profiles_and_keeps_scores_nu
     assert report["declarations"]["historical_roster_coverage_claimed"] is False
     frozen = json.loads((shadow_dir / "report.json").read_text(encoding="utf-8"))
     assert report["report_sha256"] == frozen["report_sha256"]
+
+
+def test_lishimin_team_building_historical_closeout_is_reproducible_and_idempotent() -> None:
+    root = Path(__file__).resolve().parents[1]
+    coverage = root / "eval/i5b_team_building_historical_coverage"
+
+    def load(path: Path) -> dict:
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    inventory = load(coverage / "lishimin_candidate_inventory_v1.json")
+    decisions = load(coverage / "lishimin_fact_acceptance_decisions_v1.json")
+    specs = load(coverage / "lishimin_formal_acceptance_unit_specs_v1.json")
+    reviewed = load(coverage / "lishimin_reviewed_assertions_v1.json")
+    formal = load(coverage / "lishimin_formal_acceptance_v1.json")
+    roster = load(coverage / "lishimin_frozen_roster_acceptance_v1.json")
+    scored = load(coverage / "lishimin_scored_shadow_report_v1.json")
+    audit = load(coverage / "lishimin_formal_persistence_db_audit_v1.json")
+    summary = load(coverage / "lishimin_closeout_machine_summary_v1.json")
+    source = load(
+        root
+        / "eval/i5b_source_ingestion/lishimin_team_building_historical_closeout_response.json"
+    )
+
+    assert inventory["task_code"] == "I5B-HC-TEAM-BUILDING-001"
+    assert inventory["historical_coverage_complete"] is True
+    assert inventory["summary"]["candidate_count"] == 49
+    assert inventory["summary"]["undispositioned_count"] == 0
+    assert sum(row["formal_member"] for row in inventory["candidate_universe"]) == 9
+    assert all(row["final_disposition"] for row in inventory["candidate_universe"])
+    assert inventory["attestation"]["v3_data_promoted_as_fact"] is False
+    assert inventory["attestation"]["suggestion_pool_promoted_as_fact"] is False
+
+    directions = {
+        direction
+        for passage in source["passages"]
+        for direction in passage["selection_reason"]
+        if direction in {"positive_independent_search", "negative_independent_search"}
+    }
+    assert directions == {"positive_independent_search", "negative_independent_search"}
+    assert source["coverage"]["document_count"] == 4
+    assert source["coverage"]["passage_count"] == 8
+    assert source["provenance"]["model_call_count"] == 0
+
+    rebuilt_formal = build_generic_formal_fact_acceptance(
+        reviewed_assertions=reviewed,
+        acceptance_decisions=decisions,
+        unit_specs=specs,
+    )
+    rebuilt_formal["task_code"] = "I5B-HC-TEAM-BUILDING-001"
+    rebuilt_formal.pop("report_sha256", None)
+    rebuilt_formal["report_sha256"] = canonical_payload_hash(rebuilt_formal)
+    assert rebuilt_formal == formal
+
+    scoring_policy = yaml.safe_load(
+        (root / "config/i5b-scoring-policy.yml").read_text(encoding="utf-8")
+    )
+    rebuilt_scored = build_team_building_historical_scored_shadow(
+        roster_payload=roster,
+        formal_acceptance=formal,
+        scoring_policy=scoring_policy,
+    )
+    assert json.loads(json.dumps(rebuilt_scored, ensure_ascii=False)) == scored
+    assert scored["summary"] == {
+        "database_write_count": 0,
+        "episode_count": 8,
+        "formal_assertion_count": 15,
+        "formal_score_write_count": 0,
+        "model_call_count": 0,
+        "rule_evidence_unit_count": 7,
+        "score_contribution_count": 1,
+    }
+    assert scored["score_contribution"]["score"] is None
+    assert scored["score_contribution"]["tier"] is None
+    assert scored["score_contribution"]["ranking"] is None
+    assert scored["declarations"]["score_45"] is None
+
+    assert audit["status"] == "formal_acceptance_persisted_idempotent"
+    assert audit["first_run"]["business_write_count"] > 0
+    assert audit["idempotent_rerun"]["business_write_count"] == 0
+    assert set(audit["idempotent_rerun"]["table_writes"].values()) == {0}
+    assert audit["declarations"]["v3_database_write"] is False
+    assert audit["declarations"]["score_or_ranking_write"] is False
+    assert summary["status"] == "complete"
+    assert summary["postgres"]["idempotent_rerun_business_write_count"] == 0
+    assert summary["score_outputs"]["score_45"] is None
+    assert summary["score_outputs"]["tier"] is None
+    assert summary["score_outputs"]["ranking"] is None

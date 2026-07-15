@@ -6,95 +6,100 @@
     "old_opened_or_sealed_gold_modified": false,
     "single_ruler_dynamic_mapping_performed": false
   },
-  "input_version": "lishimin-declared-workset-net-20260715-v5",
+  "input_version": "lishimin-declared-workset-net-20260715-v8",
   "policy_version": "i5b-ruler-rule-net-shadow-v1",
-  "report_sha256": "f47dc1e3c18326153d3c8983de0b03407a57c79f025be16232c1899f702385ad",
+  "report_sha256": "8a4d9e7302d447d4e8d45b4f772053955ee85050c671882e9b5570b846c16e5c",
   "ruler": "李世民",
-  "ruler_ref": "RULER-NAME-CANDIDATE-737E2C4D60AC",
+  "ruler_ref": "PER-V4-78F48EBC67F8",
   "rules": [
     {
-      "calculation_status": "expanded_declared_workset",
+      "calculation_status": "historical_coverage_complete",
       "formal_score": null,
-      "historical_coverage_status": "unassessed",
+      "historical_coverage_status": "coverage_complete",
       "limitations": [
-        "当前统治期口径排除即位前的张亮荐举事件，其条件影子分不进入净值。",
-        "历史正反候选人口尚未穷尽，4.712是当前已投影工作集净值。"
+        "张玄素版本化PersonProfile已补齐，李世民3个正式识才单元全部完成数值投影。",
+        "即位前识才链不计入626—649窗口。"
       ],
       "material_refs": [
-        "REU-LSM-MAZHOU-DISCOVERY-OPEN-v1",
-        "REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1"
+        "REU-LSM-MAZHOU-DISCOVERY-HC-v1",
+        "REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1",
+        "REU-LSM-CENWENBEN-DISCOVERY-HC-v1"
       ],
       "negative_signal": "0.000",
-      "positive_signal": "4.712",
+      "positive_signal": "4.015",
       "rule_code": "talent_discovery",
-      "rule_raw_net": "4.712",
+      "rule_raw_net": "4.015",
       "rule_weight": "0.190",
-      "sensitivity_scenarios": [
-        {
-          "condition": "仅在未来把范围扩展为统治者生涯并完成张亮史源重绑时成立；当前不采用。",
-          "included_in_current_net": false,
-          "rule_raw_net": "5.306",
-          "scenario_code": "include_pre_reign_zhangliang"
-        }
-      ],
+      "sensitivity_scenarios": [],
       "source_refs": [
         "eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json",
-        "eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json"
+        "eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json"
       ],
-      "weighted_raw_contribution": "0.895"
+      "weighted_raw_contribution": "0.763"
     },
     {
-      "calculation_status": "expanded_declared_workset",
+      "calculation_status": "historical_coverage_complete",
       "formal_score": null,
-      "historical_coverage_status": "unassessed",
+      "historical_coverage_status": "coverage_complete",
       "limitations": [
-        "四个既有人工作集按人物层平方根衰减和1.5正向lane计算；历史任用正负事件尚未穷尽。",
-        "高士廉留辅与马周既有授权弧碰撞，净增为0；萧瑀弧未完成回源和多Claim合并，净增为0。"
+        "173个V3路线提示已逐项处置；正式数值链只消费四个在位期最小充分单元。",
+        "侯君集的吐谷浑、高昌成功与高昌后控制失败合并在同一受任者单元，避免功劳和失控重复结算。"
       ],
       "material_refs": [
-        "REU-LSM-WEIZHENG-APPOINTMENT-v1",
-        "REU-LSM-MAZHOU-AUTHORIZATION-v1",
-        "REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1",
-        "REU-LSM-LIJING-MILITARY-AUTHORITY-v1"
+        "REU-LSM-WEIZHENG-APPOINTMENT-HC-v1",
+        "REU-LSM-MAZHOU-AUTHORIZATION-HC-v1",
+        "REU-LSM-LIJING-MILITARY-AUTHORITY-HC-v1",
+        "REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1"
       ],
-      "negative_signal": "0.000",
-      "positive_signal": "10.722",
+      "negative_signal": "1.084",
+      "positive_signal": "10.474",
       "rule_code": "appointment_delegation",
-      "rule_raw_net": "10.722",
+      "rule_raw_net": "9.390",
       "rule_weight": "0.360",
-      "sensitivity_scenarios": [
-        {
-          "condition": "仅使用既有魏徵scored shadow单元时的旧工作集净值。",
-          "included_in_current_net": false,
-          "rule_raw_net": "2.609",
-          "scenario_code": "prior_single_weizheng_workset"
-        }
-      ],
+      "sensitivity_scenarios": [],
       "source_refs": [
-        "eval/appointment_delegation_v3_parity_demo/report.json",
-        "eval/appointment_delegation_factor_open_development_v2/factor_gold.yml",
-        "eval/appointment_delegation_factor_sealed_holdout_v2/factor_gold.yml",
-        "eval/i5b_ruler_rule_net/lishimin_appointment_shadow.yml",
-        "eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json"
+        "eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json",
+        "eval/i5b_appointment_delegation_historical_coverage/lishimin_formal_acceptance_v1.json",
+        "eval/i5b_appointment_delegation_historical_coverage/lishimin_candidate_inventory_v1.json"
       ],
-      "weighted_raw_contribution": "3.860"
+      "weighted_raw_contribution": "3.380"
     },
     {
-      "calculation_status": "expanded_declared_workset",
+      "calculation_status": "historical_coverage_complete",
       "formal_score": null,
-      "historical_coverage_status": "unassessed",
+      "historical_coverage_status": "coverage_complete",
       "limitations": [
-        "25人建议计算池已按贞观窗口实质履职与有效画像过滤，但完整历史团队候选处置尚未人工冻结。",
-        "正向池使用互补性1.2、稳定性1.2；负向池仅计李世民窗口内暴露的侯君集，不回灌后朝政治风险。"
+        "24人核心名单均经独立V4 SourcePassage与版本化人物画像复核；其余候选保留supporting-only，不作零材料或负面成员。",
+        "本rule只结算人物池质量、角色互补与窗口风险，不重复结算成员任命、战果或规谏事件收益。"
       ],
       "material_refs": [
-        "lishimin-expanded-team-candidate-pool-25",
-        "lishimin-window-negative-exposure-houjunjii"
+        "REU-LSM-TEAM-FANGDU-HC-v1",
+        "REU-LSM-TEAM-SUCCESSION-HC-v1",
+        "REU-LSM-TEAM-LIJING-HC-v1",
+        "REU-LSM-TEAM-WEIZHENG-HC-v1",
+        "REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1",
+        "REU-LSM-TEAM-ZHANGLIANG-CONTROL-HC-v1",
+        "REU-LSM-TEAM-LATE-CONTINUITY-HC-v1",
+        "REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693",
+        "REU-LSM-TEAM-MEMBER-B39D46CE10C0E3CF97CE",
+        "REU-LSM-TEAM-MEMBER-8F11B842DBEDA1E0FF30",
+        "REU-LSM-TEAM-MEMBER-CD175DAC8EEF7703D9B1",
+        "REU-LSM-TEAM-MEMBER-4E3BCE6A7D27D4DC7D3C",
+        "REU-LSM-TEAM-MEMBER-CA15A48B375D16BA7D76",
+        "REU-LSM-TEAM-MEMBER-7C5B060267404C141D80",
+        "REU-LSM-TEAM-MEMBER-5521A4B837C34C4325D3",
+        "REU-LSM-TEAM-MEMBER-730143CC29FEC40E8BF1",
+        "REU-LSM-TEAM-MEMBER-1AD9F7582167BD4C8FB4",
+        "REU-LSM-TEAM-MEMBER-4C414DDD95047F9A7ACE",
+        "REU-LSM-TEAM-MEMBER-E7741BC984448D379525",
+        "REU-LSM-TEAM-MEMBER-8EA3B7006C805D8465CB",
+        "REU-LSM-TEAM-MEMBER-B5042AC245410A2919FD",
+        "REU-LSM-TEAM-MEMBER-8A1EFCD69C73FCBA1A05"
       ],
       "negative_signal": "0.922",
-      "positive_signal": "14.120",
+      "positive_signal": "13.285",
       "rule_code": "team_building",
-      "rule_raw_net": "13.198",
+      "rule_raw_net": "12.364",
       "rule_weight": "0.210",
       "sensitivity_scenarios": [
         {
@@ -111,22 +116,19 @@
         }
       ],
       "source_refs": [
-        "eval/team_building_v8_scored_shadow/report.json",
-        "eval/i5b_ruler_rule_net/lishimin_team_roster_shadow.yml",
-        "eval/v3_claim_migration/lishimin_source_snapshot.json",
-        "eval/v3_person_profile_migration/authorized_profile_promotion.json",
-        "eval/v3_person_profile_migration/supplemental_profile_promotion.json"
+        "eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v2.json",
+        "eval/i5b_team_building_historical_coverage/lishimin_frozen_roster_acceptance_v2.json"
       ],
-      "weighted_raw_contribution": "2.772"
+      "weighted_raw_contribution": "2.596"
     },
     {
-      "calculation_status": "partial_declared_workset",
+      "calculation_status": "historical_coverage_complete",
       "formal_score": null,
-      "historical_coverage_status": "unassessed",
+      "historical_coverage_status": "coverage_complete",
       "limitations": [
-        "当前正向池包含贞观求谏机制2.783、魏徵2.057、虞世南1.392、褚遂良1.573、马周1.392、戴胄1.809；TT-O05身后信用撤销仍独立结算负向0.653。",
+        "当前正向池在既有六个单元上新增王珪受压直言—次日修复1.120；TT-O05身后信用撤销仍独立结算负向0.653。",
         "制度单元只结算正式求谏通道的建立与持续运行；个人单元只结算个人反馈留任和表达安全，不重复结算同一收益。",
-        "103条V3 route线索已完成27人物组级盘点，但尚未完成102个事件组逐项处置，萧瑀、王珪、刘弘基、长孙无忌、房玄龄、温彦博仍待回源；历史覆盖处于in_progress而非完整。"
+        "107条正式接受Assertion已按显式事件节点形成107个Episode和11个RuleEvidenceUnit；其中3个新增单元因缺少独立安全或因果后续仅保留证据链，不进入数值投影。"
       ],
       "material_refs": [
         "TT-LSM-INSTITUTIONAL-REM-01",
@@ -135,12 +137,16 @@
         "TT-LSM-YSN-01",
         "TT-LSM-CSL-01",
         "TT-LSM-MZ-01",
-        "TT-LSM-DZ-01"
+        "TT-LSM-DZ-01",
+        "TT-LSM-WG-WYB-ZXS-01",
+        "TT-LSM-WG-LUJIANG-01",
+        "TT-LSM-FXL-RECALL-01",
+        "TT-LSM-FXL-GOGURYEO-01"
       ],
       "negative_signal": "0.653",
-      "positive_signal": "11.006",
+      "positive_signal": "12.126",
       "rule_code": "tolerate_talent",
-      "rule_raw_net": "10.353",
+      "rule_raw_net": "11.473",
       "rule_weight": "0.180",
       "sensitivity_scenarios": [],
       "source_refs": [
@@ -152,23 +158,23 @@
         "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json",
         "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json"
       ],
-      "weighted_raw_contribution": "1.864"
+      "weighted_raw_contribution": "2.065"
     },
     {
-      "calculation_status": "provisional_pending_source_rebind",
+      "calculation_status": "historical_coverage_complete",
       "formal_score": null,
-      "historical_coverage_status": "unassessed",
+      "historical_coverage_status": "coverage_complete",
       "limitations": [
-        "神通争功虽呈现按功压过宗亲私情，但当前未证明功臣赏次构成公共任用或职务影响，严格净值为0。",
-        "不能把党项、乡党、亲礼、无朋党或未证实朋党指控当作本rule材料。"
+        "4个未通过公共权力、私人因果或排挤损害Gate的事实单元已显式排除为not_applicable，不按零材料处理。"
       ],
       "material_refs": [
-        "CLMK-7E2D72302A9C88F2CE3C-rejected-until-public-power-gate"
+        "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1",
+        "REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1"
       ],
       "negative_signal": "0.000",
-      "positive_signal": "0.000",
+      "positive_signal": "2.332",
       "rule_code": "anti_nepotism",
-      "rule_raw_net": "0.000",
+      "rule_raw_net": "2.332",
       "rule_weight": "0.060",
       "sensitivity_scenarios": [
         {
@@ -185,23 +191,22 @@
         }
       ],
       "source_refs": [
-        "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-7E2D72302A9C88F2CE3C",
-        "eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json",
-        "eval/i5b_ruler_rule_net/lishimin_tolerate_anti_shadow.yml"
+        "eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json",
+        "eval/i5b_anti_nepotism_historical_coverage/lishimin_projection_inputs_v2.json"
       ],
-      "weighted_raw_contribution": "0.000"
+      "weighted_raw_contribution": "0.140"
     }
   ],
   "schema_version": "i5b-ruler-rule-net-report-v1",
-  "status": "declared_workset_rule_nets_available_coverage_incomplete",
+  "status": "historical_rule_nets_complete",
   "summary": {
     "all_rule_net_available": true,
-    "batch_dynamic_mapping_input_allowed": false,
+    "batch_dynamic_mapping_input_allowed": true,
     "database_write_count": 0,
-    "declared_workset_weighted_raw_signal": "9.390",
+    "declared_workset_weighted_raw_signal": "8.945",
     "formal_45_point_score": null,
     "formal_scoring_allowed": false,
-    "historical_coverage_complete_rule_count": 0,
+    "historical_coverage_complete_rule_count": 5,
     "model_call_count": 0,
     "rule_count": 5
   }

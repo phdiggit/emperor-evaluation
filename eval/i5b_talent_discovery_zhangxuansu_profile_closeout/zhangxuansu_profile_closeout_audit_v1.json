@@ -1,0 +1,148 @@
+{
+  "artifact_refs": {
+    "profile_promotion": "eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_promotion_v1.json",
+    "updated_projection_input": "eval/i5b_talent_discovery_zhangxuansu_profile_closeout/talent_discovery_projection_inputs_v3.json",
+    "updated_scored_shadow": "eval/i5b_talent_discovery_zhangxuansu_profile_closeout/talent_discovery_scored_shadow_v3.json"
+  },
+  "declarations": {
+    "formal_score_or_ranking_written": false,
+    "model_call_count": 0,
+    "shared_status_or_scoring_detail_file_modified": false,
+    "v3_database_read_count": 0,
+    "v3_database_write_count": 0
+  },
+  "idempotency": {
+    "non_target_projection_units_unchanged": true,
+    "profile_builder_same_input_same_output": true,
+    "scored_shadow_same_input_same_output": true,
+    "v4_database_audit_ref": "eval/i5b_talent_discovery_zhangxuansu_profile_closeout/v4_profile_import_audit_v1.json"
+  },
+  "identity_crosswalk": {
+    "crosswalk_package_sha256": "0549713e16d9fa77a0d92c7f00888a6f105b432ef1c1d4e17d02e8c570b0fd56",
+    "crosswalk_version": "zhangxuansu-name-candidate-to-v4-v1",
+    "decisions": [
+      {
+        "ambiguity_flags": [],
+        "candidate_v4_person_ref": "PER-V4-429CE79493C8",
+        "crosswalk_ref": "XW-F7AA0F48B83EC02C",
+        "crosswalk_version": "zhangxuansu-name-candidate-to-v4-v1",
+        "decision_fingerprint": "2eda15c36ad2a632abdac950cbb4718c0aae7f0d504cf4ec19a5e0e7b4c18b34",
+        "mapping_basis_refs": [
+          "profile-promotion:18675448ddaa8ab4cf175b55bc26a917880779fb2d26fd3579a89489c0eb0fe3"
+        ],
+        "mapping_status": "accepted_existing_v4_identity",
+        "profile_import_review_status": "accepted_for_v4_supplemental_profile",
+        "schema_version": "person-identity-crosswalk-v1",
+        "source_canonical_name": "张玄素",
+        "source_identity_fingerprint": "f7aa0f48b83ec02ce6bb146e20dda17ddff0ca0f2286c6c3aa96e80017f4e024",
+        "source_object_ref": "PER-NAME-CANDIDATE-ZHANG-XUANSU",
+        "source_package_sha256": "bd805e32b2664c4cf2edaa65a26e8b1e1bd07c1d6d6926730274c0620cff18a1"
+      }
+    ],
+    "declarations": {
+      "formal_scoring_allowed": false,
+      "formal_v4_profile_count": 1,
+      "model_call_count": 0,
+      "v3_database_write_count": 0,
+      "v4_database_write_count": 0
+    },
+    "registry_policy": {
+      "accepted_only_from_independently_accepted_v4_identity": true,
+      "name_only_match_forbidden": true,
+      "new_v4_identity_auto_accept_forbidden": true
+    },
+    "schema_version": "person-identity-crosswalk-package-v1",
+    "source_package_sha256": "bd805e32b2664c4cf2edaa65a26e8b1e1bd07c1d6d6926730274c0620cff18a1",
+    "status": "v4_supplemental_identity_crosswalk_human_frozen",
+    "summary": {
+      "accepted_identity_count": 1,
+      "mapping_status_counts": {
+        "accepted_existing_v4_identity": 1
+      },
+      "profile_import_review_pending_count": 0,
+      "source_identity_count": 1
+    }
+  },
+  "identity_object": {
+    "canonical_name": "张玄素",
+    "canonical_person_ref": "PER-V4-429CE79493C8",
+    "identity_scope": "唐初张玄素（蒲州虞乡人，《旧唐书》卷七十五张玄素传）",
+    "profile_ref": "PROFILE-PER-V4-429CE79493C8@v4-team-supplement-v1",
+    "snapshot_version": "v4-team-profile-supplement-v1"
+  },
+  "missing_reason_confirmation": {
+    "authorized_v3_crosswalk_contains_person": false,
+    "existing_supplemental_profile_contains_person": false,
+    "historical_fact_chain_was_already_formally_accepted": true,
+    "prior_candidate_person_ref": "PER-NAME-CANDIDATE-ZHANG-XUANSU",
+    "prior_missing_inputs": [
+      "canonical_person_object_ref",
+      "versioned_person_talent_grade"
+    ]
+  },
+  "projection_delta": {
+    "duplicate_object_aggregate_count": 0,
+    "duplicate_ruler_event_group_count": 0,
+    "duplicate_unit_ref_count": 0,
+    "lishimin_distinct_object_count": 3,
+    "material_score": "1.089",
+    "policy_benefit_double_settled": false,
+    "prior_disposition": "insufficient_projection",
+    "prior_lishimin_insufficient_projection_count": 1,
+    "prior_lishimin_raw_net": "2.926",
+    "raw_net_delta": "1.089",
+    "updated_disposition": "projected",
+    "updated_lishimin_insufficient_projection_count": 0,
+    "updated_lishimin_raw_net": "4.015"
+  },
+  "report_sha256": "301c3d002be22bedfde2e5e7e7749daf8546c48a46d15fd958f80efec1f849ab",
+  "ruler_window_applicability": {
+    "applicability": "applicable_to_talent_discovery_event_within_ruler_window",
+    "date_precision": "year",
+    "declarations": {
+      "full_window_employment_asserted": false,
+      "profile_grade_is_career_grade_not_office_rank": true,
+      "relationship_used_only_for_window_applicability": true
+    },
+    "event_time_expression": "即位初至贞观四年",
+    "evidence_refs": [
+      "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json#TD-HC-ZHANGXUANSU",
+      "eval/i5b_source_ingestion/lishimin_talent_discovery_historical_closeout_response.json#SP-10ED09C124EE165F3D14",
+      "eval/i5b_source_ingestion/lishimin_talent_discovery_historical_closeout_response.json#SP-1A7A958F0D6DBEB12167"
+    ],
+    "person_ref": "PER-V4-429CE79493C8",
+    "profile_ref": "PROFILE-PER-V4-429CE79493C8@v4-team-supplement-v1",
+    "profile_snapshot_version": "v4-team-profile-supplement-v1",
+    "ruler": "李世民",
+    "ruler_ref": "PER-V4-78F48EBC67F8",
+    "schema_version": "person-profile-ruler-window-applicability-v1",
+    "semantic_fingerprint": "27a89ee85096c205bc4006d447dc89e8c05a9a42b150da1f6556cb7150fbc9e6",
+    "status": "human_frozen",
+    "unit_ref": "REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1",
+    "window_end": "649",
+    "window_ref": "RULER-WINDOW-LISHIMIN-0626-0649",
+    "window_start": "626"
+  },
+  "schema_version": "zhangxuansu-person-profile-closeout-audit-v1",
+  "scope": {
+    "changed_profile_count": 1,
+    "other_profile_changed_count": 0,
+    "person": "张玄素",
+    "rule_code": "talent_discovery",
+    "ruler": "李世民"
+  },
+  "status": "profile_gap_closed_projection_ready",
+  "talent_grade": {
+    "basis": "《旧唐书》直接记载张玄素在召见问政时提出防止君主自专、广任贤良的成体系判断；贞观四年又以财政、民力、制度前后一致性等多重理由谏止洛阳宫工程，李世民明确承认失于思量并下令停工。该项具体、已实施且可归责的政策纠正结果足证稳定承担有限纠正职责，定为usable。当前闭合材料未形成第二独立中型成果簇或重要尺度持续结果，不越级为important。识才得分、擢拜侍御史和迁给事中均不作为定级依据。",
+    "grade": "usable",
+    "grade_version": "talent-grade-v5-gatekeeper-supplement-v1",
+    "lineage_refs": [
+      "user-authority:2026-07-15:zhangxuansu-person-profile-closeout-v1",
+      "eval/i5b_source_ingestion/lishimin_talent_discovery_historical_closeout_response.json#SP-10ED09C124EE165F3D14",
+      "eval/i5b_source_ingestion/lishimin_talent_discovery_historical_closeout_response.json#SP-1A7A958F0D6DBEB12167",
+      "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json#TD-HC-ZHANGXUANSU"
+    ],
+    "office_rank_used_as_grade": false,
+    "score_reverse_inference_used": false
+  }
+}

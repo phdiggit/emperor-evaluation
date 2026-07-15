@@ -43,9 +43,17 @@ def build_i5b_unified_raw_signal_readiness(
     coverage_reports: Sequence[Mapping[str, Any]],
     calibration_version: str,
 ) -> dict[str, Any]:
-    if appointment_report.get("status") != "appointment_delegation_v3_parity_shadow_ready":
+    appointment_status = appointment_report.get("status")
+    if appointment_status not in {
+        "appointment_delegation_v3_parity_shadow_ready",
+        "appointment_delegation_historical_scored_shadow_complete",
+    }:
         raise ValueError("appointment parity report is not ready")
-    if team_report.get("status") != "full_cohort_scored_shadow_raw_signal_only":
+    team_status = team_report.get("status")
+    if team_status not in {
+        "full_cohort_scored_shadow_raw_signal_only",
+        "team_building_historical_scored_shadow_complete",
+    }:
         raise ValueError("full team scored shadow report is not ready")
     joint = {str(report.get("rule_code")): report for report in joint_reports}
     if set(joint) != {"talent_discovery", "tolerate_talent", "anti_nepotism"}:
@@ -71,32 +79,50 @@ def build_i5b_unified_raw_signal_readiness(
         }
 
     by_ruler: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
+    appointment_source_ref = (
+        "eval/i5b_appointment_delegation_historical_coverage/"
+        "lishimin_scored_shadow_report_v1.json"
+        if appointment_status == "appointment_delegation_historical_scored_shadow_complete"
+        else "eval/appointment_delegation_v3_parity_demo/report.json"
+    )
     for row in _rows(appointment_report.get("ruler_aggregates"), "appointment rulers"):
         by_ruler[str(row["ruler"])]["appointment_delegation"] = {
             "workset_projection_status": "workset_projection_complete",
             "positive_signal": str(row["positive_signal"]),
             "negative_signal": str(row["negative_signal"]),
-            "source_ref": "eval/appointment_delegation_v3_parity_demo/report.json",
+            "source_ref": appointment_source_ref,
         }
 
-    team_by_ruler: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
-    for row in _rows(team_report.get("windows"), "team windows"):
-        team_by_ruler[str(row["ruler"])].append(row)
-    for ruler, windows in team_by_ruler.items():
-        if len(windows) == 1:
-            raw = windows[0]["raw_signal"]
-            by_ruler[ruler]["team_building"] = {
-                "workset_projection_status": "workset_projection_complete",
-                "positive_signal": raw["positive_signal"],
-                "negative_signal": raw["negative_signal"],
-                "source_ref": windows[0]["unit_ref"],
-            }
-        else:
-            by_ruler[ruler]["team_building"] = {
-                "workset_projection_status": "workset_aggregation_blocked",
-                "blocker": "multiple_windows_require_temporal_aggregation_contract",
-                "window_refs": [row["unit_ref"] for row in windows],
-            }
+    if team_status == "team_building_historical_scored_shadow_complete":
+        raw = team_report["raw_signal"]
+        by_ruler[str(team_report["ruler"])]["team_building"] = {
+            "workset_projection_status": "workset_projection_complete",
+            "positive_signal": raw["positive_signal"],
+            "negative_signal": raw["negative_signal"],
+            "source_ref": (
+                "eval/i5b_team_building_historical_coverage/"
+                "lishimin_scored_shadow_report_v2.json"
+            ),
+        }
+    else:
+        team_by_ruler: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+        for row in _rows(team_report.get("windows"), "team windows"):
+            team_by_ruler[str(row["ruler"])].append(row)
+        for ruler, windows in team_by_ruler.items():
+            if len(windows) == 1:
+                raw = windows[0]["raw_signal"]
+                by_ruler[ruler]["team_building"] = {
+                    "workset_projection_status": "workset_projection_complete",
+                    "positive_signal": raw["positive_signal"],
+                    "negative_signal": raw["negative_signal"],
+                    "source_ref": windows[0]["unit_ref"],
+                }
+            else:
+                by_ruler[ruler]["team_building"] = {
+                    "workset_projection_status": "workset_aggregation_blocked",
+                    "blocker": "multiple_windows_require_temporal_aggregation_contract",
+                    "window_refs": [row["unit_ref"] for row in windows],
+                }
 
     for rule_code, report in joint.items():
         for row in _rows(report.get("score_contributions"), f"{rule_code} contributions"):

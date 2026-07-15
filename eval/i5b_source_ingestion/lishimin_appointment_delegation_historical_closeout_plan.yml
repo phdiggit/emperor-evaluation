@@ -1,0 +1,95 @@
+schema_version: 1
+provider: wikisource_revision_plan
+subject_ref: RULER-V4-LISHIMIN-HISTORICAL-CLOSEOUT
+sections:
+- page_code: jiutangshu-71-weizheng-appointment
+  page_title: 舊唐書/卷71
+  expected_revision_id: 2020238
+  work_identity: 舊唐書
+  edition_identity: Wikisource MediaWiki API plaintext; revision 2020238
+  source_role: primary_text
+  license_or_access_note: public-domain text; Wikisource carrier revision retained
+  section_id: jiutangshu-71-weizheng-appointment
+  section_heading: 魏徵傳
+  document_span_start: 0
+  window_policy:
+    version: v4-jiutangshu-71-weizheng-appointment-atomic-v1
+    sentence_radius_before: 0
+    sentence_radius_after: 0
+    context_chars_before: 0
+    context_chars_after: 0
+  passages:
+  - seed_code: weizheng-appointment-feedback
+    anchor_start: 及敗，太宗使召之
+    anchor_end: 太宗與之言，未嘗不欣然納受。
+    passage_kind: atomic
+    selection_reason:
+    - appointment
+    - substantive_authority
+    - performance_feedback
+- page_code: jiutangshu-67-lijing-authorization
+  page_title: 舊唐書/卷67
+  expected_revision_id: 2296327
+  work_identity: 舊唐書
+  edition_identity: Wikisource MediaWiki API plaintext; revision 2296327
+  source_role: primary_text
+  license_or_access_note: public-domain text; Wikisource carrier revision retained
+  section_id: jiutangshu-67-lijing-authorization
+  section_heading: 李靖傳
+  document_span_start: 0
+  window_policy:
+    version: v4-jiutangshu-67-lijing-authorization-atomic-v1
+    sentence_radius_before: 0
+    sentence_radius_after: 0
+    context_chars_before: 0
+    context_chars_after: 0
+  passages:
+  - seed_code: lijing-turkic-command-success
+    anchor_start: 太宗嗣位，拜刑部尚書
+    anchor_end: 拜尚書右僕射。
+    passage_kind: atomic
+    selection_reason:
+    - military_command
+    - major_success
+    - feedback_correction
+  - seed_code: lijing-tuyuhun-reuse
+    anchor_start: 九年正月，賜靖靈壽杖
+    anchor_end: 靖乃闔門自守，杜絕賓客，雖親戚不得妄進。
+    passage_kind: atomic
+    selection_reason:
+    - military_reuse
+    - major_success
+    - false_accusation_review
+- page_code: jiutangshu-69-houjunji-authorization
+  page_title: 舊唐書/卷69
+  expected_revision_id: 2610556
+  work_identity: 舊唐書
+  edition_identity: Wikisource MediaWiki API plaintext; revision 2610556
+  source_role: primary_text
+  license_or_access_note: public-domain text; Wikisource carrier revision retained
+  section_id: jiutangshu-69-houjunji-authorization
+  section_heading: 侯君集傳
+  document_span_start: 0
+  window_policy:
+    version: v4-jiutangshu-69-houjunji-authorization-atomic-v1
+    sentence_radius_before: 0
+    sentence_radius_after: 0
+    context_chars_before: 0
+    context_chars_after: 0
+  passages:
+  - seed_code: houjunji-tuyuhun-reuse
+    anchor_start: 侯君集，豳州三水人也。
+    anchor_end: 並有時譽。
+    passage_kind: atomic
+    selection_reason:
+    - appointment
+    - military_success
+    - central_reuse
+  - seed_code: houjunji-gaochang-control-failure
+    anchor_start: 高昌王麹文泰時遏絕西域商賈
+    anchor_end: 詔下獄。
+    passage_kind: atomic
+    selection_reason:
+    - military_command
+    - major_success
+    - control_failure

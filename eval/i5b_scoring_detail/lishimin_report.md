@@ -6,14 +6,14 @@
 
 | Rule | 正向 | 负向 | 净值 | 权重 | 加权贡献 | 历史覆盖 |
 |---|---:|---:|---:|---:|---:|---|
-| 人才发现 (`talent_discovery`) | 4.712 | 0.000 | 4.712 | 0.190 | 0.895 | `unassessed` |
-| 任用授权 (`appointment_delegation`) | 10.722 | 0.000 | 10.722 | 0.360 | 3.860 | `unassessed` |
-| 团队建设 (`team_building`) | 14.120 | 0.922 | 13.198 | 0.210 | 2.772 | `unassessed` |
-| 容才 (`tolerate_talent`) | 11.006 | 0.653 | 10.353 | 0.180 | 1.864 | `unassessed` |
-| 反任人唯亲 (`anti_nepotism`) | 0.000 | 0.000 | 0.000 | 0.060 | 0.000 | `unassessed` |
+| 人才发现 (`talent_discovery`) | 4.015 | 0.000 | 4.015 | 0.190 | 0.763 | `coverage_complete` |
+| 任用授权 (`appointment_delegation`) | 10.474 | 1.084 | 9.390 | 0.360 | 3.380 | `coverage_complete` |
+| 团队建设 (`team_building`) | 13.285 | 0.922 | 12.364 | 0.210 | 2.596 | `coverage_complete` |
+| 容才 (`tolerate_talent`) | 12.126 | 0.653 | 11.473 | 0.180 | 2.065 | `coverage_complete` |
+| 反任人唯亲 (`anti_nepotism`) | 2.332 | 0.000 | 2.332 | 0.060 | 0.140 | `coverage_complete` |
 
-- 当前 declared-workset weighted raw signal：`9.390`
-- 历史覆盖完成：`0/5`
+- 当前 declared-workset weighted raw signal：`8.945`
+- 历史覆盖完成：`5/5`
 - 正式45分、tier、排名：均未生成
 
 ### 通用证据因子
@@ -23,8 +23,8 @@
 
 ## 人才发现 (`talent_discovery`)
 
-- 当前净值：`4.712 - 0.000 = 4.712`
-- 加权贡献：`4.712 × 0.190 = 0.895`
+- 当前净值：`4.015 - 0.000 = 4.015`
+- 加权贡献：`4.015 × 0.190 = 0.763`
 - 投影模式：`v4_joint_factor_projection`
 - 聚合策略：`v3_legacy_object_density-v1`
 - 公式：`direction_sign * discovery_level * talent_quality_factor * channel_factor * evidence_factor`
@@ -55,27 +55,28 @@
 
 | 对象 | 单元/材料 | 方向 | 材料分 | 排名权重/加权值 | 因子选择 |
 |---|---|---|---:|---|---|
-| 马周 | `REU-LSM-MAZHOU-DISCOVERY-OPEN-v1` | positive | 1.837 | — / — | 直接归责[attribution_factor=direct](1.0)；跨身份或阵营[channel_factor=cross_identity_or_camp](1.1)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；跨障碍识才[discovery_level=difficult_cross_boundary_discovery](1.2)；完整直接链[source_factor=complete_direct_chain](1.1)；重要人才[talent_quality_factor=important](1.15) |
-| 房玄龄 | `REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1` | positive | 2.875 | — / — | 直接归责[attribution_factor=direct](1.0)；跨身份或阵营[channel_factor=cross_identity_or_camp](1.1)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；跨障碍识才[discovery_level=difficult_cross_boundary_discovery](1.2)；完整直接链[source_factor=complete_direct_chain](1.1)；历史级人才[talent_quality_factor=historic](1.8) |
+| 岑文本 | `REU-LSM-CENWENBEN-DISCOVERY-HC-v1` | positive | 1.089 | — / — | 直接归责[attribution_factor=direct](1.0)；单一个案[channel_factor=single_case](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；皇帝验证并试用[discovery_level=attributable_interview_trial_or_appointment](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)；可用人才[talent_quality_factor=usable](0.9) |
+| 马周 | `REU-LSM-MAZHOU-DISCOVERY-HC-v1` | positive | 1.837 | — / — | 直接归责[attribution_factor=direct](1.0)；跨身份或阵营[channel_factor=cross_identity_or_camp](1.1)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；跨障碍识才[discovery_level=difficult_cross_boundary_discovery](1.2)；完整直接链[source_factor=complete_direct_chain](1.1)；重要人才[talent_quality_factor=important](1.15) |
+| 张玄素 | `REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1` | positive | 1.089 | — / — | 直接归责[attribution_factor=direct](1.0)；单一个案[channel_factor=single_case](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；正向识才[direction_sign=positive](1.0)；皇帝验证并试用[discovery_level=attributable_interview_trial_or_appointment](1.0)；完整直接链[source_factor=complete_direct_chain](1.1)；可用人才[talent_quality_factor=usable](0.9) |
 
 ### 限制
 
-- 当前统治期口径排除即位前的张亮荐举事件，其条件影子分不进入净值。
-- 历史正反候选人口尚未穷尽，4.712是当前已投影工作集净值。
+- 张玄素版本化PersonProfile已补齐，李世民3个正式识才单元全部完成数值投影。
+- 即位前识才链不计入626—649窗口。
 
 ### Lineage
 
 - `eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json`
-- `eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json`
+- `eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json`
 
 ## 任用授权 (`appointment_delegation`)
 
-- 当前净值：`10.722 - 0.000 = 10.722`
-- 加权贡献：`10.722 × 0.360 = 3.860`
+- 当前净值：`10.474 - 1.084 = 9.390`
+- 加权贡献：`9.390 × 0.360 = 3.380`
 - 投影模式：`exact_v4_option_mapping`
 - 聚合策略：`v3-native-density-decay-20260711`
 - 公式：`appointment_importance * appointment_effect * continuity_factor * evidence_factor`
-- 明细对账：`reconciled`（`appointment_expanded_shadow`）
+- 明细对账：`reconciled`（`appointment_parity_report`）
 
 ### 因子档位
 
@@ -96,44 +97,28 @@
   - **稳定授权** (`stable`) = `1.0`：同一授权下有至少两个可区分的履职或反馈观察。
   - **长期多阶段授权** (`long_term_multi_stage`) = `1.15`：至少两次可区分的皇帝授权决定形成跨阶段复用。
 
-### 计入材料
-
-| 对象 | 单元/材料 | 方向 | 材料分 | 排名权重/加权值 | 因子选择 |
-|---|---|---|---:|---|---|
-| 房玄龄 | `REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1` | — | 3.01875 | 1.0 / 4.528125 |  |
-| 李靖 | `REU-LSM-LIJING-MILITARY-AUTHORITY-v1` | — | 3.01875 | 0.707106781187 / 3.20186789356 |  |
-| 马周 | `REU-LSM-MAZHOU-AUTHORIZATION-v1` | — | 1.9481 | 0.57735026919 / 1.687104089112 |  |
-| 魏徵 | `REU-LSM-WEIZHENG-APPOINTMENT-v1` | — | 1.7394 | 0.5 / 1.30455 |  |
-
-### 排除或净增为零
-
-- claim=CLMK-16700995A10383DDB30D；conditional_material_score=0.393；current_net_addition=0；person=高士廉；reason=与马周既有集体留辅授权弧碰撞
-- claim=CLMK-83BDFCBE319619857BEB；conditional_material_score=0.531；current_net_addition=0；person=萧瑀；reason=多Claim任用弧和V4史源重绑未闭合
-
 ### 限制
 
-- 四个既有人工作集按人物层平方根衰减和1.5正向lane计算；历史任用正负事件尚未穷尽。
-- 高士廉留辅与马周既有授权弧碰撞，净增为0；萧瑀弧未完成回源和多Claim合并，净增为0。
+- 173个V3路线提示已逐项处置；正式数值链只消费四个在位期最小充分单元。
+- 侯君集的吐谷浑、高昌成功与高昌后控制失败合并在同一受任者单元，避免功劳和失控重复结算。
 
 ### Lineage
 
-- `eval/appointment_delegation_v3_parity_demo/report.json`
-- `eval/appointment_delegation_factor_open_development_v2/factor_gold.yml`
-- `eval/appointment_delegation_factor_sealed_holdout_v2/factor_gold.yml`
-- `eval/i5b_ruler_rule_net/lishimin_appointment_shadow.yml`
-- `eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json`
+- `eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json`
+- `eval/i5b_appointment_delegation_historical_coverage/lishimin_formal_acceptance_v1.json`
+- `eval/i5b_appointment_delegation_historical_coverage/lishimin_candidate_inventory_v1.json`
 
 补充明细源：
-- `appointment_parity_report`：`eval/appointment_delegation_v3_parity_demo/report.json`
+- `appointment_expanded_shadow`：`eval/i5b_ruler_rule_net/lishimin_appointment_shadow.yml`
 
 ## 团队建设 (`team_building`)
 
-- 当前净值：`14.120 - 0.922 = 13.198`
-- 加权贡献：`13.198 × 0.210 = 2.772`
+- 当前净值：`13.285 - 0.922 = 12.364`
+- 加权贡献：`12.364 × 0.210 = 2.596`
 - 投影模式：`v4_person_profile_and_team_window`
 - 聚合策略：`v3-team-object-pool-v1`
 - 公式：`negative_pool=sum(negative_team_contribution_rank / rank ^ 0.5)；negative_signal=negative_pool * role_complementarity_factor * long_term_stability_factor；negative_team_contribution=negative_talent_severity_value * negative_talent_class_relevance；positive_pool=sum(talent_quality_factor_rank / rank ^ 0.5)；positive_signal=positive_pool * role_complementarity_factor * long_term_stability_factor；rule_raw_net=positive_signal - negative_signal`
-- 明细对账：`reconciled`（`team_roster_shadow`）
+- 明细对账：`reconciled`（`team_historical_scored_shadow`）
 
 ### 因子档位
 
@@ -175,100 +160,57 @@
 
 | 人物 | 人才档 | 来源 | 角色 | 窗口负向 |
 |---|---|---|---|---|
-| 房玄龄 | `historic` | `self_selected` | decision、administration | — |
-| 李靖 | `historic` | `inherited_and_retained` | military、decision | — |
-| 李绩 | `historic` | `inherited_and_retained` | military、decision | — |
-| 苏定方 | `historic` | `self_selected` | military | — |
-| 杜如晦 | `top` | `self_selected` | decision、administration | — |
-| 魏徵 | `top` | `self_selected` | correction、decision | — |
-| 长孙无忌 | `top` | `self_selected` | decision、administration | — |
-| 马周 | `important` | `self_selected` | administration、correction | — |
-| 褚遂良 | `important` | `self_selected` | correction、administration | — |
-| 戴胄 | `important` | `self_selected` | administration、correction | — |
-| 虞世南 | `important` | `self_selected` | correction、administration | — |
-| 高士廉 | `important` | `self_selected` | administration、decision | — |
-| 温彦博 | `important` | `recalled` | administration、decision | — |
-| 萧瑀 | `important` | `inherited_and_retained` | decision、administration | — |
-| 侯君集 | `important` | `self_selected` | military、decision | traitorous_actor/major |
-| 尉迟敬德 | `important` | `self_selected` | military | — |
-| 秦琼 | `important` | `self_selected` | military | — |
-| 段志玄 | `important` | `self_selected` | military | — |
-| 唐俭 | `important` | `self_selected` | administration、decision | — |
-| 王玄策 | `important` | `self_selected` | military、administration | — |
-| 屈突通 | `important` | `inherited_and_retained` | military、administration | — |
-| 王珪 | `usable` | `self_selected` | correction、decision | — |
-| 岑文本 | `usable` | `self_selected` | administration、correction | — |
-| 张亮 | `usable` | `self_selected` | administration、military | — |
-| 李君羡 | `usable` | `self_selected` | military | — |
-
-### 阻断或排除候选
-
-- disposition=blocked_missing_v4_profile；person=长孙顺德
-- disposition=blocked_missing_v4_profile；person=张公谨
-- disposition=blocked_missing_v4_profile_and_window_rebind；person=程知节
-- disposition=excluded_no_substantive_window_evidence；person=刘弘基
-- disposition=blocked_indirect_only_and_missing_v4_profile；person=刘洎
-- disposition=blocked_no_direct_window_claim；person=于志宁
-
-### 尚未逐项处置人物
-
-- 封德彝
-- 宇文士及
-- 杨师道
-- 刘洎
-- 孔颖达
-- 令狐德棻
-- 韦挺
-- 李道宗
-- 薛万彻
-- 李大亮
-- 阿史那社尔
-- 契苾何力
-- 张士贵
-- 薛万均
-- 孙伏伽
-- 张行成
-- 崔仁师
-- 许敬宗
+| 张亮 | `usable` | `formally_accepted_historical` | administration、military | — |
+| 王玄策 | `important` | `formally_accepted_historical` | military、administration | — |
+| 马周 | `important` | `formally_accepted_historical` | administration、correction | — |
+| 尉迟敬德 | `important` | `formally_accepted_historical` | military | — |
+| 唐俭 | `important` | `formally_accepted_historical` | administration、decision | — |
+| 戴胄 | `important` | `formally_accepted_historical` | administration、correction | — |
+| 李君羡 | `usable` | `formally_accepted_historical` | military | — |
+| 李绩 | `important` | `formally_accepted_historical` | military、decision | — |
+| 王珪 | `important` | `formally_accepted_historical` | correction、decision | — |
+| 秦琼 | `important` | `formally_accepted_historical` | military | — |
+| 长孙无忌 | `top` | `formally_accepted_historical` | decision、administration | — |
+| 李靖 | `historic` | `formally_accepted_historical` | military、decision | — |
+| 杜如晦 | `top` | `formally_accepted_historical` | decision、administration | — |
+| 魏徵 | `top` | `formally_accepted_historical` | correction、decision | — |
+| 褚遂良 | `important` | `formally_accepted_historical` | correction、administration | — |
+| 萧瑀 | `important` | `formally_accepted_historical` | decision、administration | — |
+| 侯君集 | `important` | `formally_accepted_historical` | military、decision | traitorous_actor/major |
+| 屈突通 | `important` | `formally_accepted_historical` | military、administration | — |
+| 房玄龄 | `historic` | `formally_accepted_historical` | administration、decision | — |
+| 段志玄 | `important` | `formally_accepted_historical` | military | — |
+| 岑文本 | `important` | `formally_accepted_historical` | administration、correction | — |
+| 虞世南 | `top` | `formally_accepted_historical` | correction、administration | — |
+| 高士廉 | `important` | `formally_accepted_historical` | administration、decision | — |
+| 温彦博 | `important` | `formally_accepted_historical` | administration、decision | — |
 
 ### 当前结构因子
 
-- `talent_depth`：`multi_historic`
-- `functional_complementarity`：`balanced_four`
+- `confidant_dependency`：`distributed`
 - `continuity_structure`：`durable_multi_stage`
-- `role_complementarity_factor`：`1.2`
-- `long_term_stability_factor`：`1.2`
-
-### 计算展开
-
-- `grade_counts`：`historic=4；important=14；ordinary=0；top=3；usable=4`
-- `positive_pool`：`9.805485068533`
-- `positive_signal`：`14.119898498688`
-- `negative_pool`：`0.64`
-- `negative_signal`：`0.9216`
-- `rule_raw_net`：`13.198298498688`
-- `conservative_rule_raw_net`：`9.552521215929`
+- `core_role_coverage`：`four_core`
+- `functional_complementarity`：`balanced_four`
+- `negative_profile_exposure`：`material_exposure`
+- `talent_depth`：`multi_historic`
 
 ### 限制
 
-- 25人建议计算池已按贞观窗口实质履职与有效画像过滤，但完整历史团队候选处置尚未人工冻结。
-- 正向池使用互补性1.2、稳定性1.2；负向池仅计李世民窗口内暴露的侯君集，不回灌后朝政治风险。
+- 24人核心名单均经独立V4 SourcePassage与版本化人物画像复核；其余候选保留supporting-only，不作零材料或负面成员。
+- 本rule只结算人物池质量、角色互补与窗口风险，不重复结算成员任命、战果或规谏事件收益。
 
 ### Lineage
 
-- `eval/team_building_v8_scored_shadow/report.json`
-- `eval/i5b_ruler_rule_net/lishimin_team_roster_shadow.yml`
-- `eval/v3_claim_migration/lishimin_source_snapshot.json`
-- `eval/v3_person_profile_migration/authorized_profile_promotion.json`
-- `eval/v3_person_profile_migration/supplemental_profile_promotion.json`
+- `eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v2.json`
+- `eval/i5b_team_building_historical_coverage/lishimin_frozen_roster_acceptance_v2.json`
 
 补充明细源：
-- `team_scored_shadow_report`：`eval/team_building_v8_scored_shadow/report.json`
+- `team_roster_shadow`：`eval/i5b_ruler_rule_net/lishimin_team_roster_shadow.yml`
 
 ## 容才 (`tolerate_talent`)
 
-- 当前净值：`11.006 - 0.653 = 10.353`
-- 加权贡献：`10.353 × 0.180 = 1.864`
+- 当前净值：`12.126 - 0.653 = 11.473`
+- 加权贡献：`11.473 × 0.180 = 2.065`
 - 投影模式：`v4_joint_factor_projection`
 - 聚合策略：`v3_legacy_object_density-v1`
 - 公式：`negative=-handling_severity * target_fault_factor * evidence_factor；positive=feedback_entry * expression_safety * protection_repair * evidence_factor`
@@ -314,13 +256,20 @@
 | 褚遂良 | `TT-LSM-CSL-01` | positive | 1.573 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；基本安全[expression_safety=basically_safe](1.0)；跨阶段持续反馈[feedback_entry=durable_multi_stage_feedback](1.3)；无特殊保护修复[protection_repair=none](1.0)；完整直接链[source_factor=complete_direct_chain](1.1) |
 | 马周 | `TT-LSM-MZ-01` | positive | 1.392 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；主动保护或鼓励[expression_safety=actively_protected_or_encouraged](1.15)；多次反馈且仍被保留[feedback_entry=repeated_feedback_retained](1.0)；无特殊保护修复[protection_repair=none](1.0)；完整直接链[source_factor=complete_direct_chain](1.1) |
 | 戴胄 | `TT-LSM-DZ-01` | positive | 1.809 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；主动保护或鼓励[expression_safety=actively_protected_or_encouraged](1.15)；跨阶段持续反馈[feedback_entry=durable_multi_stage_feedback](1.3)；无特殊保护修复[protection_repair=none](1.0)；完整直接链[source_factor=complete_direct_chain](1.1) |
+| 王珪 | `TT-LSM-WG-WYB-ZXS-01` | positive | 1.120 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；主动保护或鼓励[expression_safety=actively_protected_or_encouraged](1.15)；单次采纳或容忍[feedback_entry=single_acceptance_or_tolerance](0.7)；主动保护或完整修复[protection_repair=active_protection_or_trust_repair](1.15)；完整直接链[source_factor=complete_direct_chain](1.1) |
 | 魏徵身后信用 | `TT-O05` | negative | 0.653 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；象征性或轻处分[handling_severity=symbolic_or_light](0.6)；完整直接链[source_factor=complete_direct_chain](1.1)；争议嫌疑[target_fault_factor=disputed_suspicion](0.9) |
+
+### 证据不足投影
+
+- assertion_draft_refs=ASTA-636ED5C01C6EEC9FDB26、ASTA-DD8C06887DD43AEF1A3B；canonical_event_group=TT-LISHIMIN-WANGGUI-LUJIANG-REMONSTRANCE；missing_inputs=independent_repair_followup、positive_safety_followup；object_ref=PER-NAME-CANDIDATE-WANG-GUI；projection_basis=原文直接支持王珪提出异议，以及太宗虽未执行建议却重其言；同段态度不能同时替代独立的后续安全或修复观察，因此保留正式证据链但不作数值投影。；rule_evidence_unit_ref=REU-5CED06C9C02D66E8E2E0；ruler=李世民；semantic_fingerprint=63459497fcdff16c51fc1e356e1ab2ee2d02c2a6402b82d344aaa4f08d422f82；side=positive；source_refs=eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-WG-LUJIANG-01、SP-A1003A0417042BEBC5E5；subject=王珪；unit_ref=TT-LSM-WG-LUJIANG-01
+- assertion_draft_refs=ASTA-46C5F1C35C01C32EBF11、ASTA-AE3B1916D0A29AF567EF；canonical_event_group=TT-LISHIMIN-FANGXUANLING-RECALL-REPAIR；missing_inputs=feedback_causal_link、positive_safety_followup；object_ref=PER-FANG-XUANLING；projection_basis=材料直接支持遣还后皇帝醒悟并召回，足以冻结修复事实；但最初遣还未被证明由房玄龄进谏触发，也没有独立后续安全观察，不能完成容才联合数值投影。；rule_evidence_unit_ref=REU-46B1976D29648908E796；ruler=李世民；semantic_fingerprint=e3421efc23cb77076b1010383bdb50cafea1fe39a0019a28655593348ef98436；side=positive；source_refs=eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-FXL-RECALL-01、SP-A7C6622A9E5F51AFAA26；subject=房玄齡；unit_ref=TT-LSM-FXL-RECALL-01
+- assertion_draft_refs=ASTA-34462F7D3D1E17258C7A、ASTA-CEB454A9C6C28D88A126；canonical_event_group=TT-LISHIMIN-FANGXUANLING-GOGURYEO-FEEDBACK；missing_inputs=independent_repair_followup、positive_safety_followup；object_ref=PER-FANG-XUANLING；projection_basis=材料直接支持房玄龄在群臣莫敢谏的压力语境下反复劝止讨高丽，以及皇帝肯认其病中忧国；未直接支持政策采纳、制度性保护或不同观察的后续安全，故正式留链但不数值投影。；rule_evidence_unit_ref=REU-0AFEF154A53A9112765F；ruler=李世民；semantic_fingerprint=0403d0c0ed2268389664e6adfd9529391a8340a9ce5476a9d182950bea8cfffd；side=positive；source_refs=eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-FXL-GOGURYEO-01、SP-E0CFB170CC2196868092；subject=房玄齡；unit_ref=TT-LSM-FXL-GOGURYEO-01
 
 ### 限制
 
-- 当前正向池包含贞观求谏机制2.783、魏徵2.057、虞世南1.392、褚遂良1.573、马周1.392、戴胄1.809；TT-O05身后信用撤销仍独立结算负向0.653。
+- 当前正向池在既有六个单元上新增王珪受压直言—次日修复1.120；TT-O05身后信用撤销仍独立结算负向0.653。
 - 制度单元只结算正式求谏通道的建立与持续运行；个人单元只结算个人反馈留任和表达安全，不重复结算同一收益。
-- 103条V3 route线索已完成27人物组级盘点，但尚未完成102个事件组逐项处置，萧瑀、王珪、刘弘基、长孙无忌、房玄龄、温彦博仍待回源；历史覆盖处于in_progress而非完整。
+- 107条正式接受Assertion已按显式事件节点形成107个Episode和11个RuleEvidenceUnit；其中3个新增单元因缺少独立安全或因果后续仅保留证据链，不进入数值投影。
 
 ### Lineage
 
@@ -350,12 +299,12 @@
 
 ## 反任人唯亲 (`anti_nepotism`)
 
-- 当前净值：`0.000 - 0.000 = 0.000`
-- 加权贡献：`0.000 × 0.060 = 0.000`
+- 当前净值：`2.332 - 0.000 = 2.332`
+- 加权贡献：`2.332 × 0.060 = 0.140`
 - 投影模式：`v4_episode_and_aggregate_joint_projection`
 - 聚合策略：`v3_legacy_object_density-v1`
 - 公式：`negative=-favoritism_intensity * office_weight * displacement_harm * evidence_factor；positive=selection_openness * institutionalization * office_weight * evidence_factor`
-- 明细对账：`reconciled`（`rule_lane_shadow`）
+- 明细对账：`reconciled`（`joint_projection_report`）
 
 ### 因子档位
 
@@ -383,20 +332,21 @@
   - **团队政策或表达结构受损** (`team_policy_or_expression_structure_harmed`) = `1.4`：破坏团队互补、政策质量或反馈结构。
   - **持久制度污染** (`durable_institutional_pollution`) = `2.0`：私人网络造成跨期制度性污染。
 
-- 当前拒绝原因：功臣赏次尚未通过公共任用或职务影响适用性Gate
+### 计入材料
 
-- 条件敏感性（不计入当前净值）：`factor_choice=institutionalization=single_event；office_weight=ordinary；selection_openness=avoids_private_interference_case；included_in_current_net=False；positive_material_range=0.493、0.542`
+| 对象 | 单元/材料 | 方向 | 材料分 | 排名权重/加权值 | 因子选择 |
+|---|---|---|---:|---|---|
+| 唐宗室封爵制度 | `REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1` | positive | 1.232 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；单次事件[institutionalization=single_event](0.8)；重要职位[office_weight=important](1.0)；制度化防亲[selection_openness=institutionalized_anti_nepotism](1.4)；标准直接材料[source_factor=standard](1.0) |
+| 秦府旧人任官优先诉求 | `REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1` | positive | 1.100 | — / — | 直接归责[attribution_factor=direct](1.0)；直击核心机制[context_factor=core_mechanism_direct](1.1)；单次事件[institutionalization=single_event](0.8)；重要职位[office_weight=important](1.0)；跨身份开放选任[selection_openness=cross_identity_open_selection](1.25)；标准直接材料[source_factor=standard](1.0) |
 
 ### 限制
 
-- 神通争功虽呈现按功压过宗亲私情，但当前未证明功臣赏次构成公共任用或职务影响，严格净值为0。
-- 不能把党项、乡党、亲礼、无朋党或未证实朋党指控当作本rule材料。
+- 4个未通过公共权力、私人因果或排挤损害Gate的事实单元已显式排除为not_applicable，不按零材料处理。
 
 ### Lineage
 
-- `eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-7E2D72302A9C88F2CE3C`
-- `eval/v3_claim_migration/lishimin_first_cohort_pre_source_review_report.json`
-- `eval/i5b_ruler_rule_net/lishimin_tolerate_anti_shadow.yml`
+- `eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json`
+- `eval/i5b_anti_nepotism_historical_coverage/lishimin_projection_inputs_v2.json`
 
 补充明细源：
 - `joint_projection_report`：`eval/i5b_joint_projection_scored_shadow/anti_nepotism_report.json`

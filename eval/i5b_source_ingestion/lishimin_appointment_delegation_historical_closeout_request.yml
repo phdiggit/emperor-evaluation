@@ -1,0 +1,22 @@
+request_id: SRC-V4-LISHIMIN-APPOINTMENT-HC-ENSURE-001
+idempotency_key: source-cache:v4:lishimin:appointment-delegation:historical-closeout:v1
+subject:
+  person_or_ruler_ref: RULER-V4-LISHIMIN-HISTORICAL-CLOSEOUT
+  canonical_name: 李世民
+  aliases:
+  - 唐太宗
+  - 太宗
+evaluation_context:
+  ruler: 李世民
+  rule_code: appointment_delegation
+  purpose: appointment_delegation_historical_closeout
+source_hints:
+- 舊唐書/卷71
+- 舊唐書/卷67
+- 舊唐書/卷69
+required_source_families:
+- primary_text
+mode: ensure
+source_policy_version: v4-appointment_delegation-historical-closeout-v1
+requested_at: '2026-07-15T00:00:00+08:00'
+schema_version: 1

@@ -32,6 +32,7 @@ ADAPTERS = {
     "appointment_expanded_shadow",
     "team_scored_shadow_report",
     "team_roster_shadow",
+    "team_historical_scored_shadow",
     "rule_lane_shadow",
     "source_rebind_record",
     "source_rebind_batch",
@@ -155,6 +156,36 @@ def _source_detail(
             "positive_signal": str(calculation["positive_signal"]),
             "negative_signal": str(calculation["negative_signal"]),
             "rule_raw_net": str(calculation["rule_raw_net"]),
+        }
+
+    if adapter == "team_historical_scored_shadow":
+        if payload.get("rule_code") != rule_code or payload.get("ruler") != ruler:
+            raise ValueError("team historical shadow source identity mismatch")
+        raw = payload.get("raw_signal") or {}
+        detail = {
+            "window": payload.get("window"),
+            "members": [
+                {
+                    **dict(row),
+                    "grade": row.get("accepted_talent_grade"),
+                    "origin": "formally_accepted_historical",
+                    "roles": list(row.get("role_families") or ()),
+                    "window_negative_class": row.get("negative_talent_class"),
+                    "window_negative_severity": row.get("negative_talent_severity"),
+                }
+                for row in payload.get("members") or ()
+            ],
+            "factors": dict(payload.get("factors") or {}),
+            "factor_diagnostics": dict(payload.get("factor_diagnostics") or {}),
+            "score_contribution": dict(payload.get("score_contribution") or {}),
+            "assertion_episode_reu_trace": dict(
+                payload.get("assertion_episode_reu_trace") or {}
+            ),
+        }
+        return detail, {
+            "positive_signal": str(raw["positive_signal"]),
+            "negative_signal": str(raw["negative_signal"]),
+            "rule_raw_net": str(raw["rule_raw_net"]),
         }
 
     if adapter == "rule_lane_shadow":

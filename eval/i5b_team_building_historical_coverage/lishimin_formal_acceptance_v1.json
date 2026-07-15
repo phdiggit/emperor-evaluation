@@ -1,0 +1,1176 @@
+{
+  "declarations": {
+    "draft_only": false,
+    "explicit_assertion_decisions_complete": true,
+    "explicit_event_node_mapping": true,
+    "formal_fact_acceptance": true,
+    "ready_for_episode_shadow": true,
+    "score_or_ranking_write": false
+  },
+  "input_refs": {
+    "acceptance_decision_report_sha256": "e53dd0ac380ec7f7cc7593f5289fe97be96480778799a73ac1b5d0a4fd1047de",
+    "reviewed_assertion_report_sha256": "83759f7ca28db26253576a5181caab5538514d6d001fed863393415e3cea0d05"
+  },
+  "profile_code": "team_building_chain_v1",
+  "report_sha256": "7ce6192fb74a2ea0b0ab08241bc07e7468cc14c86b51500cf4d1240de54aea31",
+  "rule_code": "team_building",
+  "ruler": "李世民",
+  "schema_version": "i5b-formal-fact-acceptance-v2",
+  "scope": {
+    "end": "649",
+    "pre_reign_events": "excluded",
+    "rule_code": "team_building",
+    "ruler": {
+      "canonical_ref": "PER-V4-78F48EBC67F8",
+      "name": "李世民"
+    },
+    "ruler_ref": "PER-V4-78F48EBC67F8",
+    "start": "626"
+  },
+  "status": "formally_accepted_for_core_registry",
+  "summary": {
+    "accepted_assertion_count": 12,
+    "accepted_unit_count": 7,
+    "accepted_with_uncertainty_assertion_count": 3,
+    "assertion_count": 15,
+    "database_write_count": 0,
+    "existing_accepted_assertion_count": 0,
+    "existing_reviewed_assertion_count": 0,
+    "formal_scoring_allowed": false,
+    "newly_accepted_assertion_count": 15,
+    "pending_blocking_review_unit_count": 0,
+    "rejected_existing_assertion_count": 0
+  },
+  "task_code": "I5B-HC-TEAM-BUILDING-001",
+  "units": [
+    {
+      "assertion_draft_count": 3,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-A89136AB91B1CEEFB18A",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-FANGDU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-FANGDU-CORE",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-A89136AB91B1CEEFB18A"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "杜如晦",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-BD50944EC4F3146889762AAC",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-BD50944EC4F3146889762AAC"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "推荐核心团队成员",
+          "qualifiers": {
+            "accepted_outcome": "太宗留用王佐之才",
+            "candidate_focal_person_refs": [
+              "PER-V4-C37ED24688F5",
+              "PER-V4-8DE3F5E45B1D"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "杜如晦",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "房玄齡聞於太宗曰：「餘人不足惜，杜如晦聰明識達，王佐之才",
+            "speaker": "房玄龄",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-CBAD41F295E16B415C5C",
+          "subject": "房玄龄",
+          "time_expression": "貞觀初"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-69A546222D28D75434DC",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-FANGDU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-FANGDU-CORE",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-69A546222D28D75434DC"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "台阁规模与大事决断",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-038D6AED403C007B2133AD88",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-038D6AED403C007B2133AD88"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "共同建立制度并互补决策",
+          "qualifiers": {
+            "accepted_outcome": "形成房杜互补团队",
+            "candidate_focal_person_refs": [
+              "PER-V4-C37ED24688F5",
+              "PER-V4-8DE3F5E45B1D"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "杜如晦",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "自是，臺閣規模，皆二人所定",
+            "speaker": "房玄龄、杜如晦",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-CBAD41F295E16B415C5C",
+          "subject": "房玄龄、杜如晦",
+          "time_expression": "貞觀初"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-1C217F423D39788F36D5",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-FANGDU",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-FANGDU-CORE",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-1C217F423D39788F36D5"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "大事",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-501749E09B7F1440E3C55E10",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-501749E09B7F1440E3C55E10"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "相须决策",
+          "qualifiers": {
+            "accepted_outcome": "形成可复用的互补决策结构",
+            "candidate_focal_person_refs": [
+              "PER-V4-C37ED24688F5",
+              "PER-V4-8DE3F5E45B1D"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "杜如晦",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "二人相須，以斷大事",
+            "speaker": "房玄龄、杜如晦",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-CBAD41F295E16B415C5C",
+          "subject": "房玄龄、杜如晦",
+          "time_expression": "貞觀初"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-FANGDU",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "房玄龄、杜如晦",
+      "unit_ref": "REU-LSM-TEAM-FANGDU-HC-v1"
+    },
+    {
+      "assertion_draft_count": 3,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [
+            "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+          ],
+          "assertion_code": "AST-TB-6E2FA259B31368216FC1",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-SUCCESSION",
+          "confidence": 0.9,
+          "event_node_ref": "EVN-TB-SUCCESSION-COORDINATION",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-6E2FA259B31368216FC1"
+          },
+          "formal_acceptance_disposition": "accept_with_uncertainty",
+          "location_expression": null,
+          "object": "长孙无忌、房玄龄、李绩、褚遂良",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-D27DFA1B0636396D6513C744",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-D27DFA1B0636396D6513C744"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "留核心臣僚共同议储",
+          "qualifiers": {
+            "accepted_outcome": "形成多角色储位处置小组",
+            "candidate_focal_person_refs": [
+              "PER-V4-839C5A8CB43C",
+              "PER-V4-C37ED24688F5",
+              "PER-V4-620AF1EC07C0",
+              "PER-V4-B37DF1A98CC3"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "长孙无忌",
+                "focal_person"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "李绩",
+                "focal_person"
+              ],
+              [
+                "褚遂良",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [
+            "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+          ],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "詔留長孫無忌、房玄齡、李勣、褚遂良",
+            "speaker": "李世民",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-CB2F4B0A13214A09488C",
+          "subject": "李世民",
+          "time_expression": "貞觀十七年"
+        },
+        {
+          "ambiguity_flags": [
+            "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+          ],
+          "assertion_code": "AST-TB-3CDE7792B0EB946F54D3",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-SUCCESSION",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-SUCCESSION-COORDINATION",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-3CDE7792B0EB946F54D3"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "储位方案",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-D3E23D021E59E6AA56C6874C",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-D3E23D021E59E6AA56C6874C"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "指出魏王方案风险",
+          "qualifiers": {
+            "accepted_outcome": "李世民转向晋王",
+            "candidate_focal_person_refs": [
+              "PER-V4-839C5A8CB43C",
+              "PER-V4-C37ED24688F5",
+              "PER-V4-620AF1EC07C0",
+              "PER-V4-B37DF1A98CC3"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "长孙无忌",
+                "focal_person"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "李绩",
+                "focal_person"
+              ],
+              [
+                "褚遂良",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [
+            "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+          ],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "今若立魏王，須先措置晉王，始得安全耳",
+            "speaker": "褚遂良",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-CB2F4B0A13214A09488C",
+          "subject": "褚遂良",
+          "time_expression": "貞觀十七年"
+        },
+        {
+          "ambiguity_flags": [
+            "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+          ],
+          "assertion_code": "AST-TB-0F6A632514D23090F866",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-SUCCESSION",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-SUCCESSION-COORDINATION",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-0F6A632514D23090F866"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "晋王",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-BF08B0FCDEAFFF230A3AD462",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-BF08B0FCDEAFFF230A3AD462"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "共同确认储位",
+          "qualifiers": {
+            "accepted_outcome": "完成储位决策",
+            "candidate_focal_person_refs": [
+              "PER-V4-839C5A8CB43C",
+              "PER-V4-C37ED24688F5",
+              "PER-V4-620AF1EC07C0",
+              "PER-V4-B37DF1A98CC3"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "长孙无忌",
+                "focal_person"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "李绩",
+                "focal_person"
+              ],
+              [
+                "褚遂良",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [
+            "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+          ],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "無忌等曰：「謹奉詔。異議者請斬之。」",
+            "speaker": "长孙无忌等",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-CB2F4B0A13214A09488C",
+          "subject": "长孙无忌等",
+          "time_expression": "貞觀十七年"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-SUCCESSION",
+      "formal_acceptance_disposition": "accepted_with_uncertainty",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [
+        "该段支持李绩参与交接决策，不单独证明其完整能力档；本包保守接受为important。"
+      ],
+      "review_disposition": "formally_accepted",
+      "subject": "长孙无忌、房玄龄、李绩、褚遂良",
+      "unit_ref": "REU-LSM-TEAM-SUCCESSION-HC-v1"
+    },
+    {
+      "assertion_draft_count": 2,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-D988B686894834B5E365",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-LIJING",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-LIJING-MILITARY-DEPTH",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-D988B686894834B5E365"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "李靖",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-F0F358B32FDEF3E0E5D36399",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-F0F358B32FDEF3E0E5D36399"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "任命军事统帅",
+          "qualifiers": {
+            "accepted_outcome": "率军进入突厥战区",
+            "candidate_focal_person_refs": [
+              "PER-V4-89C0D231C76C"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "李靖",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "以靖為代州道行軍總管，率驍騎三千",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-04B71E8103B2C985F8E8",
+          "subject": "李世民",
+          "time_expression": "貞觀三年至九年"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-5DE4D49F4AF656851EEA",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-LIJING",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-LIJING-MILITARY-DEPTH",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-5DE4D49F4AF656851EEA"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "吐谷浑",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-D13DCF371E5DF5A9A2F28955",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-D13DCF371E5DF5A9A2F28955"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "完成跨战区军事任务",
+          "qualifiers": {
+            "accepted_outcome": "大破其国",
+            "candidate_focal_person_refs": [
+              "PER-V4-89C0D231C76C"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "李靖",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "大破其國",
+            "speaker": "李靖",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-04B71E8103B2C985F8E8",
+          "subject": "李靖",
+          "time_expression": "貞觀三年至九年"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-LIJING",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "李靖",
+      "unit_ref": "REU-LSM-TEAM-LIJING-HC-v1"
+    },
+    {
+      "assertion_draft_count": 1,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-55D03EB546E50596E99C",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-WEIZHENG",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-WEIZHENG-CORRECTION",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-55D03EB546E50596E99C"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "太平可致",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-C0AD4C4B64AB9A0A289A4131",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-C0AD4C4B64AB9A0A289A4131"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "陈述治道并参与争论",
+          "qualifiers": {
+            "accepted_outcome": "太宗纳其言",
+            "candidate_focal_person_refs": [
+              "PER-V4-B0E10D8903E7"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "魏徵",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "魏徵常陳古今理體，言太平可致。太宗納其言",
+            "speaker": "魏徵",
+            "work": "大唐新語"
+          },
+          "source_passage_ref": "SP-AAF9707324C6851CC511",
+          "subject": "魏徵",
+          "time_expression": "貞觀初"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-WEIZHENG",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "魏徵",
+      "unit_ref": "REU-LSM-TEAM-WEIZHENG-HC-v1"
+    },
+    {
+      "assertion_draft_count": 2,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-4C6ADE6DCDCBE74F3680",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-HOUJUNJI-RISK",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-HOUJUNJI-BETRAYAL",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-4C6ADE6DCDCBE74F3680"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "承乾谋划",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-3199860B23CD364ACC04EE21",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-3199860B23CD364ACC04EE21"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "参与太子谋逆",
+          "qualifiers": {
+            "accepted_outcome": "被收审验",
+            "candidate_focal_person_refs": [
+              "PER-V4-BBB439491EC7"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "侯君集",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "negative",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "遂與通謀",
+            "speaker": "侯君集",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-E0EDE61D6A4619C7E16A",
+          "subject": "侯君集",
+          "time_expression": "貞觀十七年"
+        },
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-B52783E48A9B97FA8AF3",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-HOUJUNJI-RISK",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-HOUJUNJI-BETRAYAL",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-B52783E48A9B97FA8AF3"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "侯君集",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-90FB2125B5B33522AB20F5F0",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-90FB2125B5B33522AB20F5F0"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "依法处置核心成员",
+          "qualifiers": {
+            "accepted_outcome": "斩并籍没其家",
+            "candidate_focal_person_refs": [
+              "PER-V4-BBB439491EC7"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "侯君集",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "negative",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "遂斬於四達之衢，籍沒其家",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-E0EDE61D6A4619C7E16A",
+          "subject": "李世民",
+          "time_expression": "貞觀十七年"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-HOUJUNJI-RISK",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "侯君集",
+      "unit_ref": "REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1"
+    },
+    {
+      "assertion_draft_count": 3,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [
+            "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+          ],
+          "assertion_code": "AST-TB-FD843CE2B07C372C9ADF",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-ZHANGLIANG-CONTROL",
+          "confidence": 0.9,
+          "event_node_ref": "EVN-TB-ZHANGLIANG-SERVICE",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-FD843CE2B07C372C9ADF"
+          },
+          "formal_acceptance_disposition": "accept_with_uncertainty",
+          "location_expression": null,
+          "object": "豪强与贫弱",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-6E25005D1855484A7B09C1A1",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-6E25005D1855484A7B09C1A1"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "治理州务",
+          "qualifiers": {
+            "accepted_outcome": "所在见称",
+            "candidate_focal_person_refs": [
+              "PER-V4-02580A68A30D",
+              "PER-NAME-CANDIDATE-LI-DAOYU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "张亮",
+                "focal_person"
+              ],
+              [
+                "李道裕",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [
+            "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+          ],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "抑豪強而恤貧弱，故所在見稱",
+            "speaker": "张亮",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-522BE68555791467F3D2",
+          "subject": "张亮",
+          "time_expression": "貞觀二十年至二十一年"
+        },
+        {
+          "ambiguity_flags": [
+            "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+          ],
+          "assertion_code": "AST-TB-8186E9EB0406D8593F17",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-ZHANGLIANG-CONTROL",
+          "confidence": 0.9,
+          "event_node_ref": "EVN-TB-ZHANGLIANG-SERVICE",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-8186E9EB0406D8593F17"
+          },
+          "formal_acceptance_disposition": "accept_with_uncertainty",
+          "location_expression": null,
+          "object": "张亮",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-5B3E4A299BF30A7E7D12562E",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-5B3E4A299BF30A7E7D12562E"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "复核军事能力",
+          "qualifiers": {
+            "accepted_outcome": "知其无将帅材而不责",
+            "candidate_focal_person_refs": [
+              "PER-V4-02580A68A30D",
+              "PER-NAME-CANDIDATE-LI-DAOYU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "张亮",
+                "focal_person"
+              ],
+              [
+                "李道裕",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [
+            "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+          ],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "太宗知其無將帥材而不之責",
+            "speaker": "李世民",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-522BE68555791467F3D2",
+          "subject": "李世民",
+          "time_expression": "貞觀二十年至二十一年"
+        },
+        {
+          "ambiguity_flags": [
+            "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+          ],
+          "assertion_code": "AST-TB-1FAB7413AAC2D5DADE84",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-ZHANGLIANG-CONTROL",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-ZHANGLIANG-COUNTEREVIDENCE",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-1FAB7413AAC2D5DADE84"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "张亮反案",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-A8B70954C2B48E11C68C0EC3",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-A8B70954C2B48E11C68C0EC3"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "提出反向司法意见",
+          "qualifiers": {
+            "accepted_outcome": "太宗后确认反形未具之言",
+            "candidate_focal_person_refs": [
+              "PER-V4-02580A68A30D",
+              "PER-NAME-CANDIDATE-LI-DAOYU"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "张亮",
+                "focal_person"
+              ],
+              [
+                "李道裕",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [
+            "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+          ],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "往者李道裕議張亮雲『反形未具』，此言當矣",
+            "speaker": "李道裕",
+            "work": "舊唐書"
+          },
+          "source_passage_ref": "SP-522BE68555791467F3D2",
+          "subject": "李道裕",
+          "time_expression": "貞觀二十年至二十一年"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-ZHANGLIANG-CONTROL",
+      "formal_acceptance_disposition": "accepted_with_uncertainty",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [
+        "张亮案存在争议，接受其窗口履职为usable，但不建立traitorous_actor负面分类。"
+      ],
+      "review_disposition": "formally_accepted",
+      "subject": "张亮、李道裕",
+      "unit_ref": "REU-LSM-TEAM-ZHANGLIANG-CONTROL-HC-v1"
+    },
+    {
+      "assertion_draft_count": 1,
+      "assertion_drafts": [
+        {
+          "ambiguity_flags": [],
+          "assertion_code": "AST-TB-3CD201600BBC0E7CAAAC",
+          "assertion_type": "event_fact",
+          "candidate_episode_key": "TB-HC-LATE-CONTINUITY",
+          "confidence": 0.97,
+          "event_node_ref": "EVN-TB-LATE-CONTINUITY",
+          "extraction_provenance": {
+            "provider": "human_fact_acceptance_decision_v1",
+            "provider_assertion_code": "AST-TB-3CD201600BBC0E7CAAAC"
+          },
+          "formal_acceptance_disposition": "accept",
+          "location_expression": null,
+          "object": "房玄龄",
+          "passage_support": {
+            "assertion_semantic_key": "ASK-5354D11B3D67B48A68E123C5",
+            "binding_provenance": {
+              "provider": "human_fact_acceptance_decision_v1",
+              "provider_assertion_semantic_key": "ASK-5354D11B3D67B48A68E123C5"
+            },
+            "support_mode": "single_passage",
+            "supported_fields": [
+              "identity",
+              "action",
+              "outcome",
+              "attribution"
+            ]
+          },
+          "polarity": "asserted",
+          "predicate": "请求保留资深核心",
+          "qualifiers": {
+            "accepted_outcome": "李世民召还",
+            "candidate_focal_person_refs": [
+              "PER-V4-C37ED24688F5",
+              "PER-V4-B37DF1A98CC3"
+            ],
+            "candidate_participant_roles": [
+              [
+                "李世民",
+                "ruler"
+              ],
+              [
+                "房玄龄",
+                "focal_person"
+              ],
+              [
+                "褚遂良",
+                "focal_person"
+              ]
+            ],
+            "evaluation_context": "李世民",
+            "factor_support": {
+              "direction": "positive",
+              "importance": "critical"
+            }
+          },
+          "remaining_uncertainties": [],
+          "source_attribution": {
+            "attribution_type": "原文直接引述",
+            "quoted_text": "上遽召出之",
+            "speaker": "褚遂良",
+            "work": "資治通鑑"
+          },
+          "source_passage_ref": "SP-AEBE21E304075D30C67F",
+          "subject": "褚遂良",
+          "time_expression": "貞觀二十年"
+        }
+      ],
+      "duplicate_settlement_boundary": "本规则只结算626—649人物集合结构、交接与风险暴露；不重复结算个人识才、任用或容才事件分。",
+      "formal_acceptance_basis": "TB-HC-LATE-CONTINUITY",
+      "formal_acceptance_disposition": "accepted",
+      "projection_disposition": "projected",
+      "remaining_uncertainties": [],
+      "review_disposition": "formally_accepted",
+      "subject": "房玄龄、褚遂良",
+      "unit_ref": "REU-LSM-TEAM-LATE-CONTINUITY-HC-v1"
+    }
+  ]
+}

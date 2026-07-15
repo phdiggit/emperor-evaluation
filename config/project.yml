@@ -7,7 +7,6 @@ project:
   phase: i5b_historical_coverage_and_acceptance_closure
   evaluation_scope: 中国古代实际统治者
   active_pilot_ref: config/pilot.yml
-
 architecture:
   primary_semantic_unit: historical_episode
   evidence_assertion_unit: assertion
@@ -16,7 +15,6 @@ architecture:
   generated_views_are_fact_source: false
   normal_full_rebuild_forbidden: true
   minimum_sufficient_scoring: true
-
 release:
   formal_scoring_enabled: false
   formal_ranking_enabled: false
@@ -24,7 +22,6 @@ release:
   v3_remains_active: false
   v4_replaces_v3: false
   replacement_gate: explicit_shadow_acceptance_and_cutover_approval
-
 milestones:
   m1_historical_episode_kernel: conditional_pass
   g2_core_source_assertion_episode: passed_for_shadow_implementation
@@ -57,7 +54,6 @@ milestones:
   v4_source_cache_service: passed_real_adapter_shadow_repository_contract
   workflow_agent_model_routing: passed_draft_only_contract
   formal_scoring: blocked
-
 current_shadow_result:
   rule_code: appointment_delegation
   rule_evidence_unit_drafts: 4
@@ -69,7 +65,6 @@ current_shadow_result:
   evidence_blockers: 0
   score_contribution_count: 4
   formal_business_writes: 0
-
 appointment_delegation_v3_parity_result:
   reused_rule_evidence_units: 4
   judgment_proposals: 4
@@ -82,7 +77,6 @@ appointment_delegation_v3_parity_result:
   model_calls: 0
   database_writes: 0
   formal_score_writes: 0
-
 factor_observation_qualification_result:
   historical_qualification_agent_policy: appointment-delegation-factor-observation-agent-v4
   current_factor_semantics_contract: appointment-delegation-factor-observation-v6
@@ -176,7 +170,6 @@ factor_observation_qualification_result:
   latency_optimization_objective: wall_clock_latency_first
   default_max_units_per_batch: 4
   default_max_workers: 4
-
 talent_discovery_shadow_result:
   rule_evidence_units: 4
   positive_judgments: 2
@@ -186,7 +179,6 @@ talent_discovery_shadow_result:
   duplicate_episode_consumption: 0
   model_calls: 0
   formal_business_writes: 0
-
 rule_test_set_admission_result:
   policy: config/rule-test-set-policy.yml
   report: eval/rule_test_set_admission/report.json
@@ -216,47 +208,37 @@ rule_test_set_admission_result:
   mechanical_failed_attempt_reported_input_plus_output_tokens: 178707
   cost_excludes_source_human_gold_and_appointment_legacy_runs: true
   formal_scoring_allowed: false
-
 latest_delivery:
-  code: lishimin_tolerate_talent_fact_acceptance_preflight
+  code: lishimin_five_rule_historical_coverage_global_closeout
   status: complete
-  inventory: eval/i5b_tolerate_talent_historical_coverage/lishimin_candidate_inventory_v1.json
-  acceptance_preflight: eval/i5b_tolerate_talent_historical_coverage/lishimin_fact_acceptance_preflight_v1.json
-  v3_hint_event_group_count: 102
-  v3_hint_event_group_success_count: 102
-  v3_hint_batch_wall_clock_seconds: 323.441
-  v3_hint_batch_max_workers: 8
-  independent_and_named_retrieval_task_count: 9
-  retrieval_candidate_count: 28
-  frozen_candidate_group_count: 10
-  new_positive_candidate_count: 2
-  historical_coverage_batch1_document_count: 4
-  historical_coverage_batch1_passage_count: 10
-  historical_coverage_batch1_database_write_count: 28
-  historical_coverage_batch1_idempotent_rerun_write_count: 0
-  acceptance_preflight_passage_count: 10
-  acceptance_preflight_assertion_draft_count: 21
-  acceptance_preflight_advance_passage_count: 4
-  acceptance_preflight_hold_passage_count: 1
-  acceptance_preflight_reject_or_context_passage_count: 5
-  acceptance_preflight_wall_clock_seconds: 65.291
-  formal_fact_acceptance: false
+  coverage_report: eval/i5b_ruler_rule_coverage/lishimin_report.json
+  rule_net_report: eval/i5b_ruler_rule_net/lishimin_report.json
+  unified_readiness_report: eval/i5b_joint_projection_scored_shadow/unified_readiness_report.json
+  cross_rule_settlement_audit: eval/i5b_joint_projection_scored_shadow/lishimin_cross_rule_settlement_audit.json
+  historical_coverage_complete_rule_count: 5
+  team_building_core_member_count: 24
+  team_building_candidate_count: 49
+  team_building_undispositioned_count: 0
+  talent_discovery_raw_net: 4.015
+  appointment_delegation_raw_net: 9.3902
+  team_building_raw_net: 12.363517252338
+  tolerate_talent_raw_net: 11.473
+  anti_nepotism_raw_net: 2.332
+  declared_workset_weighted_raw_signal: 8.945
+  cross_rule_conflict_count: 0
   formal_scoring_allowed: false
-
+  mapping_blocker: tolerate_talent_insufficient_projection_count_3
 next_delivery:
-  code: lishimin_tolerate_talent_formal_fact_acceptance_decisions
+  code: multi_ruler_historical_coverage_campaign_pilot
   required_outcomes:
-    - review_new_positive_and_repair_candidate_semantics
-    - split_or_reject_composite_dismissal_restoration_candidates
-    - settle_cross_rule_and_pre_accession_applicability
-    - accept_or_reject_cached_passages_without_worker_fact_authority
-    - rerun_historical_coverage_gate_after_acceptance_decisions
+  - wire_real_phase_handlers
+  - add_checkpoint_run_and_resume_cli
+  - run_small_multi_ruler_fixture_first_cohort
+  - retain_report_only_shadow_first_gates
   forbidden_substitutes:
-    - zero_fill_historical_coverage
-    - treat_v3_claims_as_v4_facts
-    - rerun_or_tune_opened_sealed_gold
-    - formal_ranking
-
+  - manual_session_per_ruler
+  - formal_scoring_before_multi_ruler_calibration
+  - zero_fill_insufficient_projection
 talent_discovery_roster_result:
   roster_people: 4
   assertion_count: 91
@@ -268,7 +250,6 @@ talent_discovery_roster_result:
   service_calls: 0
   model_calls: 0
   database_writes: 0
-
 v4_service_releases:
   claim_extractor: e27bbff94b9c9acabba716191afd7bdc8bac4550
   claim_extractor_version: claim_extraction_only:v9_talent_discovery
@@ -277,7 +258,6 @@ v4_service_releases:
   source_cache_release: 47de356cfcf0299c6c601e358190a0bc31460a68
   source_cache_version: v4-source-cache-service:v1
   deployed_transitional_release: e27bbff94b9c9acabba716191afd7bdc8bac4550
-
 v4_service_source_governance:
   status: first_real_service_job_passed_draft_only
   canonical_history: v4_current_git_history
@@ -316,8 +296,8 @@ v4_service_source_governance:
     model_provider_shadow_passed_for_draft_only: true
     identity_slow_lane_required: true
   transitional_nonconformance:
-    - retrieval_v3_runtime_names_must_be_removed_at_cutover
-    - identity_slow_lane_must_remain_before_assertion_acceptance
+  - retrieval_v3_runtime_names_must_be_removed_at_cutover
+  - identity_slow_lane_must_remain_before_assertion_acceptance
   cutover_preflight:
     release: 9e55acaba9cf87a76f91f1b6841146252b8900eb
     source_cache_archive_sha256: 7a75750efa80036ec0eb8795b1ea6ac7d4d000a916dcbfc319b119a9e92636b0
@@ -383,11 +363,10 @@ v4_service_source_governance:
     postgres_migration_applied: true
     server_cutover_performed: true
   forbidden_imports:
-    - v3_scorer
-    - v3_person_profile
-    - v3_consumer_chain
-    - v3_orchestrator
-
+  - v3_scorer
+  - v3_person_profile
+  - v3_consumer_chain
+  - v3_orchestrator
 v3_person_profile_migration:
   status: all_eligible_v3_profiles_imported_to_v4_postgres
   source_freeze_ref: v3-freeze-20260712
@@ -430,7 +409,6 @@ v3_person_profile_migration:
   model_research_profile_count: 11
   formal_scoring_allowed: false
   next_gate: freeze_lishimin_candidate_inventories
-
 talent_grade_v6_calibration:
   status: human_frozen_report_only_imported
   policy: config/talent-grade-v6-calibration.yml
@@ -440,13 +418,13 @@ talent_grade_v6_calibration:
   current_view_readability_report: eval/v3_person_profile_migration/postgres_current_view_readability_report.json
   current_view: v4_person_profile.person_profile_current
   current_view_leading_columns:
-    - canonical_name
-    - effective_talent_grade
-    - negative_risk_status
-    - effective_talent_grade_basis
-    - negative_talent_basis
-    - negative_talent_class
-    - negative_talent_severity
+  - canonical_name
+  - effective_talent_grade
+  - negative_risk_status
+  - effective_talent_grade_basis
+  - negative_talent_basis
+  - negative_talent_class
+  - negative_talent_severity
   reviewed_profile_count: 94
   original_top_count: 88
   effective_top_count: 58
@@ -455,7 +433,6 @@ talent_grade_v6_calibration:
   downgraded_decision_count: 33
   original_v3_grade_overwritten: false
   formal_scoring_allowed: false
-
 talent_grade_v7_important_calibration:
   status: human_frozen_report_only_imported
   policy: config/talent-grade-v7-important-calibration.yml
@@ -467,10 +444,14 @@ talent_grade_v7_important_calibration:
   upgraded_top_count: 2
   retained_important_count: 119
   downgraded_usable_count: 36
-  effective_grade_counts: {historic: 13, top: 60, important: 119, usable: 56, ordinary: 5}
+  effective_grade_counts:
+    historic: 13
+    top: 60
+    important: 119
+    usable: 56
+    ordinary: 5
   political_risk_used_as_talent_penalty: false
   formal_scoring_allowed: false
-
 talent_grade_v8_final_calibration:
   status: human_frozen_report_only_imported
   policy: config/talent-grade-v8-final-calibration.yml
@@ -480,11 +461,15 @@ talent_grade_v8_final_calibration:
   postgres_report: eval/v3_person_profile_migration/postgres_talent_grade_v8_import_report.json
   reviewed_profile_count: 74
   top_to_historic_candidate_count: 0
-  effective_grade_counts: {historic: 6, top: 66, important: 123, usable: 55, ordinary: 3}
+  effective_grade_counts:
+    historic: 6
+    top: 66
+    important: 123
+    usable: 55
+    ordinary: 3
   military_materiality_gate: external_opponent_strength_and_internal_war_scale
   political_risk_used_as_talent_penalty: false
   formal_scoring_allowed: false
-
 talent_grade_v9_high_tier_calibration:
   status: human_frozen_report_only_imported
   policy: config/talent-grade-v9-high-tier-calibration.yml
@@ -493,12 +478,19 @@ talent_grade_v9_high_tier_calibration:
   report: eval/v3_person_profile_migration/talent_grade_v9_high_tier_calibration_report.json
   postgres_report: eval/v3_person_profile_migration/postgres_talent_grade_v9_import_report.json
   reviewed_profile_count: 72
-  transition_counts: {historic_to_historic: 6, top_to_historic: 7, top_to_top: 59}
-  effective_grade_counts: {historic: 13, top: 59, important: 123, usable: 55, ordinary: 3}
+  transition_counts:
+    historic_to_historic: 6
+    top_to_historic: 7
+    top_to_top: 59
+  effective_grade_counts:
+    historic: 13
+    top: 59
+    important: 123
+    usable: 55
+    ordinary: 3
   single_work_automatically_treated_as_historic: false
   political_risk_used_as_talent_penalty: false
   formal_scoring_allowed: false
-
 talent_grade_v10_targeted_correction:
   status: human_frozen_report_only_imported
   policy: config/talent-grade-v10-targeted-correction.yml
@@ -506,12 +498,20 @@ talent_grade_v10_targeted_correction:
   report: eval/v3_person_profile_migration/talent_grade_v10_targeted_correction_report.json
   postgres_report: eval/v3_person_profile_migration/postgres_talent_grade_v10_import_report.json
   reviewed_profile_count: 2
-  transition_counts: {historic_to_top: 1, top_to_historic: 1}
-  effective_grade_counts: {historic: 13, top: 59, important: 123, usable: 55, ordinary: 3}
-  corrected_profiles: {陈群: top, 苏定方: historic}
+  transition_counts:
+    historic_to_top: 1
+    top_to_historic: 1
+  effective_grade_counts:
+    historic: 13
+    top: 59
+    important: 123
+    usable: 55
+    ordinary: 3
+  corrected_profiles:
+    陈群: top
+    苏定方: historic
   prior_calibration_overwritten: false
   formal_scoring_allowed: false
-
 team_building_v8_scored_shadow:
   status: twelve_window_raw_signal_shadow_completed
   policy_version: team-building-v8-person-profile-raw-signal-v3
@@ -521,69 +521,87 @@ team_building_v8_scored_shadow:
   frozen_workset_window_count: 12
   historical_roster_coverage_claimed: false
   cross_dynasty_career_grade_split: false
-  window_units: [TB-O01, TB-O02, TB-O03, TB-O04, TB-O05, TB-O06, TB-O07, TB-O08, TB-S01, TB-S02, TB-S03, TB-S04]
+  window_units:
+  - TB-O01
+  - TB-O02
+  - TB-O03
+  - TB-O04
+  - TB-O05
+  - TB-O06
+  - TB-O07
+  - TB-O08
+  - TB-S01
+  - TB-S02
+  - TB-S03
+  - TB-S04
   raw_net_by_unit:
     TB-O01: 5.990145114242
     TB-O02: 5.473016985031
     TB-O03: 5.133605730062
     TB-O04: 1.503009608597
     TB-O05: 4.124779125572
-    TB-S03: 4.187369094930
+    TB-S03: 4.18736909493
     TB-O06: 1.092957732299
     TB-O07: -0.557999161405
     TB-O08: 3.436933028663
-    TB-S01: 4.743869719250
-    TB-S02: 4.743869719250
+    TB-S01: 4.74386971925
+    TB-S02: 4.74386971925
     TB-S04: 3.066771173841
   opened_sealed_used_as_new_qualification: false
   symmetric_structure_multiplier_revalidation_required: true
   dynamic_mapping_applied: false
   formal_scoring_allowed: false
   next_gate: freeze_historical_team_candidate_population_and_member_assessments
-
 i5b_joint_projection_scored_shadow:
   status: opened_regression_raw_signal_partial_coverage
   policy_version: i5b-joint-projection-score-contribution-v1
   artifact_root: eval/i5b_joint_projection_scored_shadow
   rules:
-    talent_discovery: {input_units: 6, projected: 5, insufficient_projection: 1}
-    tolerate_talent: {input_units: 18, projected: 9, insufficient_projection: 9}
-    anti_nepotism: {input_units: 11, projected: 8, insufficient_projection: 3}
+    talent_discovery:
+      input_units: 7
+      projected: 6
+      insufficient_projection: 1
+    tolerate_talent:
+      input_units: 23
+      projected: 11
+      insufficient_projection: 12
+    anti_nepotism:
+      input_units: 2
+      projected: 2
+      insufficient_projection: 0
+      excluded_not_applicable: 4
   old_gold_modified: false
   opened_sealed_used_as_new_qualification: false
   model_call_count: 0
   database_write_count: 0
   formal_scoring_allowed: false
   next_gate: close_projection_gaps_for_two_rulers_without_new_samples
-
 i5b_unified_raw_signal_readiness:
-  status: blocked_no_coverage_complete_multi_ruler_cohort
+  status: blocked_single_ruler_and_tolerate_projection_gap
   policy_version: i5b-unified-raw-signal-runner-v2
   report: eval/i5b_joint_projection_scored_shadow/unified_readiness_report.json
-  observed_ruler_count: 24
+  observed_ruler_count: 13
   coverage_report_count: 1
   eligible_ruler_count: 0
   batch_mapping_input_generated: false
-  historical_coverage_complete_ruler_count: 0
+  historical_coverage_complete_ruler_count: 1
   workset_projection_implies_historical_coverage: false
   missing_rule_treated_as_zero: false
   insufficient_projection_treated_as_zero: false
   multiple_team_windows_silently_aggregated: false
   formal_scoring_allowed: false
-  next_gate: close_lishimin_candidate_inventory_before_dynamic_mapping
-
+  next_gate: close_tolerate_projection_gaps_and_add_second_complete_ruler
 i5b_ruler_rule_coverage:
-  status: lishimin_historical_coverage_unassessed
+  status: lishimin_five_rule_historical_coverage_complete
   policy_version: i5b-historical-coverage-gate-v1
   manifest: eval/i5b_ruler_rule_coverage/lishimin_manifest.yml
   report: eval/i5b_ruler_rule_coverage/lishimin_report.json
-  workset_projection_complete_rule_count: 3
-  historical_coverage_complete_rule_count: 0
-  eligible_rule_count: 0
+  workset_projection_complete_rule_count: 5
+  historical_coverage_complete_rule_count: 5
+  eligible_rule_count: 5
   career_talent_grade_split_by_dynasty: false
   cross_dynasty_assessment_owner: ruler_time_window_person_relationship
   formal_scoring_allowed: false
-
 v3_claim_lishimin_pilot:
   status: candidate_inventory_expanded_without_fact_acceptance
   policy_version: v3-claim-to-v4-candidate-pilot-v1
@@ -621,7 +639,6 @@ v3_claim_lishimin_pilot:
   v4_database_write_count: 0
   model_call_count: 0
   next_gate: rebind_four_new_event_candidates_and_settle_components
-
 i5b_lishimin_source_ingestion:
   status: source_cache_ingestion_complete_pending_review
   sourcepack: eval/i5b_source_ingestion/lishimin_tolerate_talent_sourcepack_v1.json
@@ -651,29 +668,27 @@ i5b_lishimin_source_ingestion:
   historical_coverage_batch1_database_write_count: 28
   historical_coverage_batch1_idempotent_rerun_write_count: 0
   next_gate: formal_fact_acceptance_and_candidate_semantic_review
-
 i5b_lishimin_rule_net:
-  status: declared_workset_rule_nets_available_coverage_incomplete
+  status: historical_rule_nets_complete_mapping_not_applied
   policy_version: i5b-ruler-rule-net-shadow-v1
   manifest: eval/i5b_ruler_rule_net/lishimin_manifest.yml
   report: eval/i5b_ruler_rule_net/lishimin_report.json
   rule_raw_nets:
-    talent_discovery: 4.712
-    appointment_delegation: 10.722
-    team_building: 13.198
-    tolerate_talent: 10.353
-    anti_nepotism: 0.000
-  declared_workset_weighted_raw_signal: 9.390
-  historical_coverage_complete_rule_count: 0
+    talent_discovery: 4.015
+    appointment_delegation: 9.3902
+    team_building: 12.363517252338
+    tolerate_talent: 11.473
+    anti_nepotism: 2.332
+  declared_workset_weighted_raw_signal: 8.945
+  historical_coverage_complete_rule_count: 5
   formal_scoring_allowed: false
-
 governance:
   highest_driver: docs/项目总纲/皇帝综合评价体系评分标准.md
   active_status_sources:
-    - README.md
-    - config/project.yml
-    - eval/episode_pilot_v1_status.yml
-    - docs/31-G3R评分最小充分Relation重解释.md
+  - README.md
+  - config/project.yml
+  - eval/episode_pilot_v1_status.yml
+  - docs/31-G3R评分最小充分Relation重解释.md
   stage_artifacts_belong_in_eval: true
   superseded_stage_docs_must_be_consolidated: true
   new_long_lived_doc_requires_user_visible_contract_change: true

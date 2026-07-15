@@ -1,5 +1,5 @@
 {
-  "input_version": "tolerate-talent-opened-regression-projection-v6-assertion-traced",
+  "input_version": "tolerate-talent-opened-regression-projection-v7-formal-acceptance",
   "rule_code": "tolerate_talent",
   "schema_version": "i5b-joint-projection-input-v1",
   "status": "human_frozen_regression_input",
@@ -152,6 +152,64 @@
       "status": "projected",
       "subject": "戴胄",
       "unit_ref": "TT-LSM-DZ-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-WANGGUI-CONFLICT-NEXT-DAY-REPAIR",
+      "choices": {
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "expression_safety": "actively_protected_or_encouraged",
+        "feedback_entry": "single_acceptance_or_tolerance",
+        "protection_repair": "active_protection_or_trust_repair",
+        "source_factor": "complete_direct_chain"
+      },
+      "object_ref": "PER-NAME-CANDIDATE-WANG-GUI",
+      "projection_basis": "同一史段先记王珪在太宗震怒责斥后仍当场抗辩，后记太宗翌日主动悔称责斥王珪、温彦博并明确要求群臣勿因此停止直言；压力节点与次日修复节点可区分，闭合一次反馈入口、主动恢复表达安全和信用修复，但不推定具体意见获采纳。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": [
+        "eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-WG-WYB-ZXS-01",
+        "SP-19438E316CEA02C901B8"
+      ],
+      "status": "projected",
+      "subject": "王珪",
+      "unit_ref": "TT-LSM-WG-WYB-ZXS-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-WANGGUI-LUJIANG-REMONSTRANCE",
+      "missing_inputs": ["independent_repair_followup", "positive_safety_followup"],
+      "object_ref": "PER-NAME-CANDIDATE-WANG-GUI",
+      "projection_basis": "原文直接支持王珪提出异议，以及太宗虽未执行建议却重其言；同段态度不能同时替代独立的后续安全或修复观察，因此保留正式证据链但不作数值投影。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": ["eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-WG-LUJIANG-01", "SP-A1003A0417042BEBC5E5"],
+      "status": "insufficient_projection",
+      "subject": "王珪",
+      "unit_ref": "TT-LSM-WG-LUJIANG-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-FANGXUANLING-RECALL-REPAIR",
+      "missing_inputs": ["feedback_causal_link", "positive_safety_followup"],
+      "object_ref": "PER-FANG-XUANLING",
+      "projection_basis": "材料直接支持遣还后皇帝醒悟并召回，足以冻结修复事实；但最初遣还未被证明由房玄龄进谏触发，也没有独立后续安全观察，不能完成容才联合数值投影。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": ["eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-FXL-RECALL-01", "SP-A7C6622A9E5F51AFAA26"],
+      "status": "insufficient_projection",
+      "subject": "房玄齡",
+      "unit_ref": "TT-LSM-FXL-RECALL-01"
+    },
+    {
+      "canonical_event_group": "TT-LISHIMIN-FANGXUANLING-GOGURYEO-FEEDBACK",
+      "missing_inputs": ["independent_repair_followup", "positive_safety_followup"],
+      "object_ref": "PER-FANG-XUANLING",
+      "projection_basis": "材料直接支持房玄龄在群臣莫敢谏的压力语境下反复劝止讨高丽，以及皇帝肯认其病中忧国；未直接支持政策采纳、制度性保护或不同观察的后续安全，故正式留链但不数值投影。",
+      "ruler": "李世民",
+      "side": "positive",
+      "source_refs": ["eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json#TT-LSM-FXL-GOGURYEO-01", "SP-E0CFB170CC2196868092"],
+      "status": "insufficient_projection",
+      "subject": "房玄齡",
+      "unit_ref": "TT-LSM-FXL-GOGURYEO-01"
     },
     {
       "canonical_event_group": "TT-LIUBANG-ZHANGLIANG-REPEATED-COUNSEL",

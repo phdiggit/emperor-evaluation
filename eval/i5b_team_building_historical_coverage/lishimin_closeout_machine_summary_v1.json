@@ -1,0 +1,72 @@
+{
+  "artifacts": {
+    "acceptance_decisions": "eval/i5b_team_building_historical_coverage/lishimin_fact_acceptance_decisions_v1.json",
+    "candidate_inventory": "eval/i5b_team_building_historical_coverage/lishimin_candidate_inventory_v1.json",
+    "formal_acceptance": "eval/i5b_team_building_historical_coverage/lishimin_formal_acceptance_v1.json",
+    "frozen_roster": "eval/i5b_team_building_historical_coverage/lishimin_frozen_roster_acceptance_v1.json",
+    "postgres_audit": "eval/i5b_team_building_historical_coverage/lishimin_formal_persistence_db_audit_v1.json",
+    "scored_shadow": "eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v1.json",
+    "source_cache_response": "eval/i5b_source_ingestion/lishimin_team_building_historical_closeout_response.json"
+  },
+  "counts": {
+    "accepted_members": 9,
+    "candidate_universe": 49,
+    "formal_assertions": 15,
+    "historical_episodes": 8,
+    "rule_evidence_units": 7,
+    "score_contributions": 1
+  },
+  "declarations": {
+    "focused_tests_required": true,
+    "historical_coverage_complete": true,
+    "independent_positive_and_negative_search_complete": true,
+    "manual_freeze_acceptance_complete": true,
+    "v3_data_or_25_person_pool_used_as_fact": false
+  },
+  "input_hashes": {
+    "candidate_inventory_sha256": "ee3a9f7bc3984c7f1e71a98553536007e6d7d60f8a9d9b71f5ddcdb796706ec7",
+    "formal_acceptance_sha256": "7ce6192fb74a2ea0b0ab08241bc07e7468cc14c86b51500cf4d1240de54aea31",
+    "scored_shadow_sha256": "edd43e343d222c571f18c772186350ae406fc5f697d18d8d2a3739dc7a08a242",
+    "source_cache_output_fingerprint": "8efedb594e77d07a9bda3580899124f680694988a540d825d74925ddb0f7b0da"
+  },
+  "postgres": {
+    "first_run_business_write_count": 77,
+    "idempotent_rerun_business_write_count": 0,
+    "idempotent_rerun_table_writes": {
+      "assertions": 0,
+      "boundary_review_cache": 0,
+      "episode_assertion_dispositions": 0,
+      "episode_participants": 0,
+      "historical_episode_versions": 0,
+      "historical_episodes": 0,
+      "review_artifacts": 0,
+      "source_documents": 0,
+      "source_passages": 0
+    },
+    "migration_executed": false,
+    "v3_database_write": false
+  },
+  "report_sha256": "0765eb3fd031ecf8190da39506f58f91a3b5caf0cb791b5acabaf60b7d2f375b",
+  "rule_code": "team_building",
+  "ruler": "李世民",
+  "schema_version": "i5b-team-building-closeout-machine-summary-v1",
+  "score_outputs": {
+    "ranking": null,
+    "rule_raw_net": "7.387157317707",
+    "score_45": null,
+    "tier": null
+  },
+  "status": "complete",
+  "task_code": "I5B-HC-TEAM-BUILDING-001",
+  "validation": {
+    "compileall": "passed",
+    "focused_test_command": "python -m pytest tests/test_contracts.py -q -k 'lishimin_team_building_historical_closeout or formal_acceptance_audit_reuse or team_building_v8_scored_shadow_uses_latest_profiles'",
+    "focused_test_result": "3 passed, 106 deselected",
+    "git_diff_check": "passed"
+  },
+  "window": {
+    "date_precision": "year",
+    "end": 649,
+    "start": 626
+  }
+}

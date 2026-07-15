@@ -1,132 +1,452 @@
 schema_version: i5b-ruler-rule-coverage-manifest-v1
 coverage_policy_version: i5b-historical-coverage-gate-v1
 ruler: 李世民
-ruler_ref: RULER-NAME-CANDIDATE-737E2C4D60AC
+ruler_ref: PER-V4-78F48EBC67F8
 scope:
-  scope_status: not_frozen
-  intended_scope: 李世民统治期
-  start: null
-  end: null
-  note: 当前仅登记既有工作集，不据测试样本反推统治期历史覆盖。
+  scope_status: frozen
+  intended_scope: 李世民在位期
+  start: 626
+  end: 649
+  pre_reign_events: excluded_from_historical_coverage
+  note: 本轮正式覆盖只接受626—649年内可归责于李世民的事件。
 rules:
-  - rule_code: talent_discovery
-    legacy_candidate_sources:
-      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 17, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
-    workset_projection_status: workset_projection_complete
-    workset_refs:
-      - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-MAZHOU-DISCOVERY-OPEN-v1
-      - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1
-    existing_workset_units:
-      - {unit_ref: REU-LSM-MAZHOU-DISCOVERY-OPEN-v1, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: REU-LSM-FANGXUANLING-DISCOVERY-OPEN-v1, current_applicability: applicable, workset_stage: projected, counts_toward_historical_coverage: false}
-      - {unit_ref: REU-LSM-LIJING-DISCOVERY-EXCLUDED-OPEN-v1, current_applicability: not_applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
-    historical_coverage_status: unassessed
-    candidate_population_policy: pending_ruler_rule_candidate_population_v1
-    candidate_inventory_status: not_started
-    positive_search_status: not_started
-    negative_search_status: not_started
-    candidate_disposition_status: not_started
-    review_status: draft
-    unresolved:
-      - 冻结统治期范围与识才候选人口径
-      - 逐项区分皇帝独立识才、他人发现和继承使用
-  - rule_code: appointment_delegation
-    legacy_candidate_sources:
-      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 174, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
-    workset_projection_status: partial_workset_projection
-    workset_refs:
-      - eval/appointment_delegation_v3_parity_demo/report.json#REU-LSM-WEIZHENG-APPOINTMENT-v1
-    existing_workset_units:
-      - {unit_ref: REU-LSM-WEIZHENG-APPOINTMENT-v1, current_applicability: applicable, workset_stage: scored, counts_toward_historical_coverage: false}
-      - {unit_ref: REU-LSM-MAZHOU-AUTHORIZATION-v1, current_applicability: applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
-      - {unit_ref: REU-LSM-FANGXUANLING-CENTRAL-AUTHORITY-v1, current_applicability: applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
-      - {unit_ref: REU-LSM-LIJING-MILITARY-AUTHORITY-v1, current_applicability: applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
-    historical_coverage_status: unassessed
-    candidate_population_policy: pending_ruler_rule_candidate_population_v1
-    candidate_inventory_status: not_started
-    positive_search_status: not_started
-    negative_search_status: not_started
-    candidate_disposition_status: not_started
-    review_status: draft
-    unresolved:
-      - 冻结重要任用、授权和失控事件的候选人口径
-      - 对统治期重要正负任用材料完成去重处置
-  - rule_code: team_building
-    legacy_candidate_sources:
-      - {source_ref: eval/v3_claim_migration/lishimin_report.json, candidate_claim_count: 0, accepted_v4_assertion_count: 0, use: derive_membership_candidates_from_claim_facts_not_v3_routes}
-    workset_projection_status: workset_projection_complete
-    workset_refs:
-      - eval/team_building_v8_scored_shadow/report.json#TB-O02
-    existing_workset_units:
-      - unit_ref: TB-O02
-        current_applicability: applicable
-        workset_stage: scored
-        frozen_workset_member_set_complete: true
-        historical_member_population_complete: false
-        relationship_origin_review_status: not_started
-        window_risk_exposure_review_status: not_started
-        counts_toward_historical_coverage: false
-    historical_coverage_status: unassessed
-    candidate_population_policy: pending_material_team_role_population_v1
-    candidate_inventory_status: not_started
-    positive_search_status: not_started
-    negative_search_status: not_started
-    candidate_disposition_status: not_started
-    review_status: draft
-    unresolved:
-      - 当前五人仅为冻结测试工作集，不是完整团队名录
-      - 冻结实质团队角色纳入门槛并处置所有候选人物
-      - 对有全局政治风险者仅复核窗口内风险暴露
-  - rule_code: tolerate_talent
-    legacy_candidate_sources:
-      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 103, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
-    workset_projection_status: workset_projection_complete
-    workset_refs:
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-INSTITUTIONAL-REM-01
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O01
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-YSN-01
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-CSL-01
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-MZ-01
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-DZ-01
-      - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O05
-    existing_workset_units:
-      - {unit_ref: TT-LSM-INSTITUTIONAL-REM-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-O01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-YSN-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-CSL-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-MZ-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-LSM-DZ-01, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-O05, current_applicability: applicable, workset_stage: assertion_episode_reu_scored_shadow, counts_toward_historical_coverage: false}
-      - {unit_ref: TT-O09, current_applicability: not_applicable, workset_stage: factor_gold, counts_toward_historical_coverage: false}
-    historical_coverage_status: in_progress
-    candidate_population_policy: pending_ruler_rule_candidate_population_v1
-    candidate_inventory_status: in_progress
-    candidate_inventory_ref: eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json
-    independent_source_refs:
-      - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json
-      - eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json
-    positive_search_status: in_progress
-    negative_search_status: in_progress
-    candidate_disposition_status: in_progress
-    review_status: draft
-    unresolved:
-      - 当前99条均为已复核草案、29个proposed Episode和7个draft RuleEvidenceUnit，未执行正式事实接受，不得零填历史覆盖
-      - 103条V3 route线索尚未完成102个事件组逐项处置
-      - 尚未完成独立于V3 route的统治期正反向检索
-      - 萧瑀、王珪、刘弘基、长孙无忌、房玄龄、温彦博仍待回源
-  - rule_code: anti_nepotism
-    legacy_candidate_sources:
-      - {source_ref: eval/v3_claim_migration/lishimin_report.json, triage_ref: eval/v3_claim_migration/lishimin_triage_report.json, candidate_claim_count: 15, scheduled_primary_count: 8, accepted_v4_assertion_count: 0, use: route_hint_only}
-    workset_projection_status: absent
-    workset_refs: []
-    existing_workset_units: []
-    historical_coverage_status: unassessed
-    candidate_population_policy: pending_ruler_rule_candidate_population_v1
-    candidate_inventory_status: not_started
-    positive_search_status: not_started
-    negative_search_status: not_started
-    candidate_disposition_status: not_started
-    review_status: draft
-    unresolved:
-      - 私人关系锚点与公共任用影响候选尚未盘点
-      - AggregateContext网络范围尚未冻结
+- rule_code: talent_discovery
+  legacy_candidate_sources:
+  - source_ref: eval/v3_claim_migration/lishimin_report.json
+    triage_ref: eval/v3_claim_migration/lishimin_triage_report.json
+    candidate_claim_count: 17
+    scheduled_primary_count: 8
+    accepted_v4_assertion_count: 10
+    use: route_hint_only
+  workset_projection_status: workset_projection_complete
+  workset_refs:
+  - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-MAZHOU-DISCOVERY-HC-v1
+  - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1
+  - eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json#REU-LSM-CENWENBEN-DISCOVERY-HC-v1
+  existing_workset_units:
+  - unit_ref: REU-LSM-MAZHOU-DISCOVERY-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-CENWENBEN-DISCOVERY-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  historical_coverage_status: coverage_complete
+  candidate_population_policy: i5b-talent-discovery-historical-candidate-inventory-v1
+  candidate_inventory_status: complete
+  positive_search_status: complete
+  negative_search_status: complete
+  candidate_disposition_status: complete
+  review_status: human_frozen
+  unresolved: []
+  coverage_outcome: materials_found
+  candidate_inventory_ref: eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v1.json
+  candidate_inventory_sha256: 2026001dc9b02cb22a63009c8f0529ec18111549f6f3c6cbb7d08f84c53053c2
+  accepted_unit_refs:
+  - REU-CD756E76DC01E5858274
+  - REU-4665233EE268C4E7DAC8
+  - REU-93C07EC6FC8BB55B52F0
+  consumed_unit_refs:
+  - REU-CD756E76DC01E5858274
+  - REU-4665233EE268C4E7DAC8
+  - REU-93C07EC6FC8BB55B52F0
+  attestation_refs:
+  - eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v1.json
+  - eval/i5b_talent_discovery_historical_coverage/lishimin_fact_acceptance_decisions_v1.json
+  - eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json
+  - eval/i5b_talent_discovery_historical_coverage/lishimin_formal_persistence_db_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/v4_profile_import_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/v4_profile_import_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/v4_profile_import_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/v4_profile_import_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/zhangxuansu_profile_closeout_audit_v1.json
+  - eval/i5b_talent_discovery_zhangxuansu_profile_closeout/v4_profile_import_audit_v1.json
+  independent_source_refs:
+  - eval/i5b_source_ingestion/lishimin_talent_discovery_historical_closeout_response.json
+  - eval/i5b_talent_discovery_historical_coverage/lishimin_candidate_inventory_v1.json
+- rule_code: appointment_delegation
+  legacy_candidate_sources:
+  - source_ref: eval/v3_claim_migration/lishimin_report.json
+    triage_ref: eval/v3_claim_migration/lishimin_triage_report.json
+    candidate_claim_count: 174
+    scheduled_primary_count: 8
+    accepted_v4_assertion_count: 19
+    use: route_hint_only
+  workset_projection_status: workset_projection_complete
+  workset_refs:
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json#REU-LSM-WEIZHENG-APPOINTMENT-HC-v1
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json#REU-LSM-MAZHOU-AUTHORIZATION-HC-v1
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json#REU-LSM-LIJING-MILITARY-AUTHORITY-HC-v1
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json#REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1
+  existing_workset_units:
+  - unit_ref: REU-LSM-WEIZHENG-APPOINTMENT-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-MAZHOU-AUTHORIZATION-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-LIJING-MILITARY-AUTHORITY-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  historical_coverage_status: coverage_complete
+  candidate_population_policy: i5b-appointment-delegation-historical-candidate-inventory-v1
+  candidate_inventory_status: complete
+  positive_search_status: complete
+  negative_search_status: complete
+  candidate_disposition_status: complete
+  review_status: human_frozen
+  unresolved: []
+  coverage_outcome: materials_found
+  candidate_inventory_ref: eval/i5b_appointment_delegation_historical_coverage/lishimin_candidate_inventory_v1.json
+  candidate_inventory_sha256: f466a13de0a8274e8b211b8c027ceb85e65bd76224a82c238f6a074b5305e18c
+  accepted_unit_refs:
+  - REU-3638B8CA804E0BC58455
+  - REU-AB9EE4F7CC020AE8F7EE
+  - REU-C98438CF4514ADF8ABD5
+  - REU-14FDC79E68C76F84E391
+  consumed_unit_refs:
+  - REU-3638B8CA804E0BC58455
+  - REU-AB9EE4F7CC020AE8F7EE
+  - REU-C98438CF4514ADF8ABD5
+  - REU-14FDC79E68C76F84E391
+  attestation_refs:
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_candidate_inventory_v1.json
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_fact_acceptance_decisions_v1.json
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_formal_acceptance_v1.json
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_formal_persistence_db_audit_v1.json
+  independent_source_refs:
+  - eval/i5b_source_ingestion/lishimin_appointment_delegation_historical_closeout_response.json
+  - eval/i5b_appointment_delegation_historical_coverage/lishimin_candidate_inventory_v1.json
+- rule_code: team_building
+  legacy_candidate_sources:
+  - source_ref: eval/v3_claim_migration/lishimin_report.json
+    candidate_claim_count: 0
+    accepted_v4_assertion_count: 0
+    use: derive_membership_candidates_from_claim_facts_not_v3_routes
+  workset_projection_status: workset_projection_complete
+  workset_refs:
+  - eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v2.json
+  existing_workset_units:
+  - unit_ref: REU-LSM-TEAM-FANGDU-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-SUCCESSION-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-LIJING-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-WEIZHENG-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-ZHANGLIANG-CONTROL-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-LATE-CONTINUITY-HC-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-B39D46CE10C0E3CF97CE
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-8F11B842DBEDA1E0FF30
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-CD175DAC8EEF7703D9B1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-4E3BCE6A7D27D4DC7D3C
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-CA15A48B375D16BA7D76
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-7C5B060267404C141D80
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-5521A4B837C34C4325D3
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-730143CC29FEC40E8BF1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-1AD9F7582167BD4C8FB4
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-4C414DDD95047F9A7ACE
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-E7741BC984448D379525
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-8EA3B7006C805D8465CB
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-B5042AC245410A2919FD
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-TEAM-MEMBER-8A1EFCD69C73FCBA1A05
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  historical_coverage_status: coverage_complete
+  candidate_population_policy: lishimin-team-core-roster-v2
+  candidate_inventory_status: complete
+  positive_search_status: complete
+  negative_search_status: complete
+  candidate_disposition_status: complete
+  review_status: human_frozen
+  unresolved: []
+  coverage_outcome: materials_found
+  candidate_inventory_ref: eval/i5b_team_building_historical_coverage/lishimin_candidate_inventory_v2.json
+  candidate_inventory_sha256: 1afe2be87f869379ce64e64b5bfd16fef79f0e8014538cb92056836d299e203d
+  accepted_unit_refs:
+  - REU-LSM-TEAM-FANGDU-HC-v1
+  - REU-LSM-TEAM-SUCCESSION-HC-v1
+  - REU-LSM-TEAM-LIJING-HC-v1
+  - REU-LSM-TEAM-WEIZHENG-HC-v1
+  - REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1
+  - REU-LSM-TEAM-ZHANGLIANG-CONTROL-HC-v1
+  - REU-LSM-TEAM-LATE-CONTINUITY-HC-v1
+  - REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693
+  - REU-LSM-TEAM-MEMBER-B39D46CE10C0E3CF97CE
+  - REU-LSM-TEAM-MEMBER-8F11B842DBEDA1E0FF30
+  - REU-LSM-TEAM-MEMBER-CD175DAC8EEF7703D9B1
+  - REU-LSM-TEAM-MEMBER-4E3BCE6A7D27D4DC7D3C
+  - REU-LSM-TEAM-MEMBER-CA15A48B375D16BA7D76
+  - REU-LSM-TEAM-MEMBER-7C5B060267404C141D80
+  - REU-LSM-TEAM-MEMBER-5521A4B837C34C4325D3
+  - REU-LSM-TEAM-MEMBER-730143CC29FEC40E8BF1
+  - REU-LSM-TEAM-MEMBER-1AD9F7582167BD4C8FB4
+  - REU-LSM-TEAM-MEMBER-4C414DDD95047F9A7ACE
+  - REU-LSM-TEAM-MEMBER-E7741BC984448D379525
+  - REU-LSM-TEAM-MEMBER-8EA3B7006C805D8465CB
+  - REU-LSM-TEAM-MEMBER-B5042AC245410A2919FD
+  - REU-LSM-TEAM-MEMBER-8A1EFCD69C73FCBA1A05
+  consumed_unit_refs:
+  - REU-LSM-TEAM-FANGDU-HC-v1
+  - REU-LSM-TEAM-SUCCESSION-HC-v1
+  - REU-LSM-TEAM-LIJING-HC-v1
+  - REU-LSM-TEAM-WEIZHENG-HC-v1
+  - REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1
+  - REU-LSM-TEAM-ZHANGLIANG-CONTROL-HC-v1
+  - REU-LSM-TEAM-LATE-CONTINUITY-HC-v1
+  - REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693
+  - REU-LSM-TEAM-MEMBER-B39D46CE10C0E3CF97CE
+  - REU-LSM-TEAM-MEMBER-8F11B842DBEDA1E0FF30
+  - REU-LSM-TEAM-MEMBER-CD175DAC8EEF7703D9B1
+  - REU-LSM-TEAM-MEMBER-4E3BCE6A7D27D4DC7D3C
+  - REU-LSM-TEAM-MEMBER-CA15A48B375D16BA7D76
+  - REU-LSM-TEAM-MEMBER-7C5B060267404C141D80
+  - REU-LSM-TEAM-MEMBER-5521A4B837C34C4325D3
+  - REU-LSM-TEAM-MEMBER-730143CC29FEC40E8BF1
+  - REU-LSM-TEAM-MEMBER-1AD9F7582167BD4C8FB4
+  - REU-LSM-TEAM-MEMBER-4C414DDD95047F9A7ACE
+  - REU-LSM-TEAM-MEMBER-E7741BC984448D379525
+  - REU-LSM-TEAM-MEMBER-8EA3B7006C805D8465CB
+  - REU-LSM-TEAM-MEMBER-B5042AC245410A2919FD
+  - REU-LSM-TEAM-MEMBER-8A1EFCD69C73FCBA1A05
+  attestation_refs:
+  - eval/i5b_team_building_historical_coverage/lishimin_frozen_roster_acceptance_v2.json
+  - eval/i5b_team_building_historical_coverage/lishimin_formal_acceptance_v2.json
+  - eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v2.json
+  independent_source_refs:
+  - eval/i5b_source_ingestion/lishimin_team_building_historical_closeout_response.json
+  - eval/i5b_source_ingestion/lishimin_team_building_gap_closeout_response.json
+- rule_code: tolerate_talent
+  legacy_candidate_sources:
+  - source_ref: eval/v3_claim_migration/lishimin_report.json
+    triage_ref: eval/v3_claim_migration/lishimin_triage_report.json
+    candidate_claim_count: 103
+    scheduled_primary_count: 8
+    accepted_v4_assertion_count: 107
+    use: route_hint_only
+  workset_projection_status: workset_projection_complete
+  workset_refs:
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-INSTITUTIONAL-REM-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-YSN-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-CSL-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-MZ-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-DZ-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-O05
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-WG-WYB-ZXS-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-WG-LUJIANG-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-FXL-RECALL-01
+  - eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json#TT-LSM-FXL-GOGURYEO-01
+  existing_workset_units:
+  - unit_ref: TT-LSM-INSTITUTIONAL-REM-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-O01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-YSN-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-CSL-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-MZ-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-DZ-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-O05
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-WG-WYB-ZXS-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-WG-LUJIANG-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_insufficient_projection
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-FXL-RECALL-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_insufficient_projection
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-LSM-FXL-GOGURYEO-01
+    current_applicability: applicable
+    workset_stage: formally_accepted_insufficient_projection
+    counts_toward_historical_coverage: true
+  - unit_ref: TT-O09
+    current_applicability: not_applicable
+    workset_stage: factor_gold
+    counts_toward_historical_coverage: false
+  historical_coverage_status: coverage_complete
+  coverage_outcome: materials_found
+  candidate_population_policy: i5b-tolerate-talent-historical-candidate-inventory-v1
+  candidate_inventory_status: complete
+  candidate_inventory_ref: eval/i5b_tolerate_talent_historical_coverage/lishimin_candidate_inventory_v1.json
+  candidate_inventory_sha256: 52b4736f19fc7f2b3d1668bfca015a7c43394cc5aff2be0f3478eb911bdb4c9f
+  accepted_unit_refs:
+  - REU-47899F32FA0D91FF10CF
+  - REU-5A594BCCF69A1F138F34
+  - REU-9ECD34AA293622B3FB90
+  - REU-AD57552C3757AD0E34FF
+  - REU-B906840E42834355AE6E
+  - REU-C6DA2878469EE2AE9F19
+  - REU-DAD2E99B3638D1969812
+  - REU-DBAD678646E3A3078C6C
+  - REU-DCC5F94D94F632A97AE9
+  - REU-E083448C390B81F76262
+  - REU-ECA58572C3222DE15C67
+  consumed_unit_refs:
+  - REU-47899F32FA0D91FF10CF
+  - REU-5A594BCCF69A1F138F34
+  - REU-9ECD34AA293622B3FB90
+  - REU-AD57552C3757AD0E34FF
+  - REU-B906840E42834355AE6E
+  - REU-C6DA2878469EE2AE9F19
+  - REU-DAD2E99B3638D1969812
+  - REU-DBAD678646E3A3078C6C
+  - REU-DCC5F94D94F632A97AE9
+  - REU-E083448C390B81F76262
+  - REU-ECA58572C3222DE15C67
+  attestation_refs:
+  - eval/i5b_tolerate_talent_historical_coverage/lishimin_candidate_inventory_v1.json
+  - eval/i5b_tolerate_talent_historical_coverage/lishimin_fact_acceptance_decisions_v1.json
+  - eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_acceptance_v1.json
+  - eval/i5b_tolerate_talent_historical_coverage/lishimin_formal_persistence_db_audit_v1.json
+  independent_source_refs:
+  - eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json
+  - eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json
+  - eval/i5b_tolerate_talent_historical_coverage/lishimin_fact_acceptance_decisions_v1.json
+  positive_search_status: complete
+  negative_search_status: complete
+  candidate_disposition_status: complete
+  review_status: human_frozen
+  unresolved: []
+- rule_code: anti_nepotism
+  legacy_candidate_sources:
+  - source_ref: eval/v3_claim_migration/lishimin_report.json
+    triage_ref: eval/v3_claim_migration/lishimin_triage_report.json
+    candidate_claim_count: 15
+    scheduled_primary_count: 8
+    accepted_v4_assertion_count: 0
+    use: route_hint_only
+  workset_projection_status: workset_projection_complete
+  workset_refs:
+  - eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json
+  existing_workset_units:
+  - unit_ref: REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  - unit_ref: REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1
+    current_applicability: applicable
+    workset_stage: formally_accepted_scored_shadow
+    counts_toward_historical_coverage: true
+  historical_coverage_status: coverage_complete
+  candidate_population_policy: i5b-anti-nepotism-historical-candidate-inventory-v1
+  candidate_inventory_status: complete
+  positive_search_status: complete
+  negative_search_status: complete
+  candidate_disposition_status: complete
+  review_status: human_frozen
+  unresolved: []
+  coverage_outcome: materials_found
+  candidate_inventory_ref: eval/i5b_anti_nepotism_historical_coverage/lishimin_candidate_inventory_v1.json
+  accepted_unit_refs: &id001
+  - REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1
+  - REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1
+  consumed_unit_refs: *id001
+  attestation_refs:
+  - eval/i5b_anti_nepotism_historical_coverage/lishimin_formal_acceptance_v1.json
+  - eval/i5b_anti_nepotism_historical_coverage/lishimin_projection_inputs_v2.json
+  - eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json
+  independent_source_refs:
+  - eval/i5b_source_ingestion/anti_nepotism_lishimin_historical_closeout_response.json
+  candidate_inventory_sha256: fe9aae0f73732ae98c935d5692e744ef1af6ca3e566146e54772831cfc08b613

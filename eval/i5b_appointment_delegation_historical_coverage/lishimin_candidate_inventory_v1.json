@@ -1,0 +1,4163 @@
+{
+  "attestation": {
+    "high_reasoning_candidate_review_complete": true,
+    "legacy_hint_routing_complete": true,
+    "model_recommendations_promoted_as_facts": false,
+    "positive_and_control_failure_source_search_complete": true,
+    "zero_fill_used": false
+  },
+  "candidate_inventory": [
+    {
+      "candidate_event_summary": "太宗伐辽东时任萧瑀为洛阳宫守。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-FAAFA861AA03E1C02746"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-01EBFD37BFBE3F79736A",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "在位期内的宫守任命具实质授权可能，但现有切片仅能指向任命，未足以确认守宫职责边界及履职结果；不得仅凭官名或任命语句进入正式覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确涉及李世民对重要人物的任用，但现有史源切片截断，需回源核验任用语境、权限及结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源 OSS-74B7A281294BF5C733，检索‘太宗之伐辽东’与‘为洛阳宫守’完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-001",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民以吏部尚书高士廉为尚书右仆射。",
+      "candidate_persons": [
+        "高士廉"
+      ],
+      "claim_refs": [
+        "CLMK-C3FE0013CEA94E88E958"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-02D78A442E403B20EEF7",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "贞观十二年在位期与任命主体可初步定位，但现有证据主要为职名片段和升迁事实，尚无该授权的实质职责、履职结果或失控结果链；单纯中枢官名不适用。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "属于皇帝对重要人物的中枢高级任命候选，但证据片段不完整，需回源确认职权范围与结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源 OSS-05EEB01E4D949939D1 与 OSS-56EB997F0B6086DAFA，核验完整任命记录"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-001",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "房玄龄、魏徵所定《新礼》由李世民下诏施行。",
+      "candidate_persons": [
+        "魏徵",
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-0176A76431C87EDEFE21"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-0444DF5A9665A1F1A2D9",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是礼制编纂、政策采纳与制度实施，不是任用、实质授权或撤权事件。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是礼制编纂、政策采纳与制度实施，不是任用、实质授权或撤权事件。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核验《新礼》编纂、奏上及诏行完整史源链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-001",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民询问虞世南，虞世南就灾异奏对。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-069226198BCAAB7C045A"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-05FCB66D2114C60A7EB6",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "属于纳谏与意见回应，没有任用、实质授权或撤权失控链，主语义应归入 tolerate_talent。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "属于纳谏与意见回应，没有任用、实质授权或撤权失控链，主语义应归入 tolerate_talent。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源 OSS-633855237DC66F8092，核验问答及李世民回应完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-001",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民在介休投降后任用尉迟敬德为右一府统军，并令其统率旧部八千与诸营相参。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-F93D79F6A16CBC19942F"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-08CFC019A9908B843F17",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "介休投降后任右一府统军发生于李世民即位前的秦王时期，不在626—649正式历史覆盖窗口；可保留为scope exclusion线索，但不得进入正式覆盖或另建评分单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接指向皇帝对重要军事人物的任用及兵力统率安排，符合当前规则的任用与结果链候选；但现有材料仍仅为V3检索线索，须回到完整史源核验任命、授权范围、归责及后续结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-F896A4F7BE89160733",
+        "OSD-F02A7CA82CAE1D0ACD",
+        "SLH-4FB17B92234F3F32DF0B4A42"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-002",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民在高祖将斩李靖时固请保全，李靖获免并被召入幕府。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-12180FB84811DB1BA007"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-09273942A40379879699",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "事件涉及李世民对李靖的保全及纳入幕府，可能是既有“李靖军事授权链”的组成部件；不应按V3双重路由直接新增事实，需与既有工作集回源核对是否同一事件链及其后续授权结果。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "事件涉及李世民对李靖的保全及纳入幕府，可能是既有“李靖军事授权链”的组成部件；不应按V3双重路由直接新增事实，需与既有工作集回源核对是否同一事件链及其后续授权结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-03D3A10EDBC294F99B",
+        "OSD-05AFAC7B67961959FD4A",
+        "SLH-516B0C9801CB7BC9D3B883E4"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-002",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "虞世南请求致仕，李世民准许并保留其名位、禄赐及弘文馆学士等待遇。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-CB52A38A67105B096FE0"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-096BEF3463E3444CAC09",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索主要是准许致仕及待遇保留，未显示对重要事务的实质授权、撤权或失控及其结果链；单纯官名和礼遇不自动适用本规则。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索主要是准许致仕及待遇保留，未显示对重要事务的实质授权、撤权或失控及其结果链；单纯官名和礼遇不自动适用本规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-AB7B7C24F15DEBB792",
+        "OSD-2DBB7ABB912B244333",
+        "SLH-22CC8070D8D12B4C3A4E6A09"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-002",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民评价萧瑀为社稷臣并赐诗。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-B904286A49B68C039C9A"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-0B8D0DA5AEA4AE88D7CC",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "线索内容是臣节评价与赐诗，未见任用、实质授权、撤权或失控及结果链，不能仅凭评价或赏赐纳入appointment_delegation。",
+      "initial_disposition": "not_applicable",
+      "rationale": "线索内容是臣节评价与赐诗，未见任用、实质授权、撤权或失控及结果链，不能仅凭评价或赏赐纳入appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C2AFD28CF6E7B75920",
+        "OSD-DC0BDA0A34021C84D4",
+        "SLH-3FAF16B74C14D0D35172AF0D"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-002",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观三年李世民任杜如晦为尚书右仆射并知选事，与房玄龄共掌朝政。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-D53C1B089018476AF426"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-0C896F3FE72A3E9B2F9E",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "贞观三年任杜如晦知选事及与房玄龄共掌朝政，属于既有房玄龄中枢授权工作集的组成性共同材料；不得据此另建重复单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含皇帝任命、重要中枢职权和后续共掌朝政的结果链，符合任用与实质授权的检索方向；但现有 source slice 片段不足以独立完成 V4 事实确认，且与既有房玄龄中枢授权工作集存在关联，需回到完整史源核验是否为独立事件及权责边界。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整回源检索贞观三年杜如晦代长孙无忌为尚书右仆射、知选事的原文及上下文",
+        "核验杜如晦与房玄龄共掌朝政、制定台阁典章人物的连续叙述",
+        "核对任命主体、时间、职权范围及与既有房玄龄中枢授权链的事件边界"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-003",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门之变中尉迟敬德持建成、元吉首级示众，导致宫府兵溃散。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-B1FA00B8C0B69AF2857F"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-0D58D29AB164C23F2079",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是玄武门军事行动及即时战果，不是李世民对重要人物的任用、实质授权或撤权/失控结果链；现有路由不能改变事件主语义。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是玄武门军事行动及即时战果，不是李世民对重要人物的任用、实质授权或撤权/失控结果链；现有路由不能改变事件主语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "如需处理，回源核验玄武门军事行动、参与者行为与宫府兵溃散的完整叙事"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-003",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "泾川官属案中魏徵进谏，李世民接受后释放官吏并不问李靖等。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-49F421F07877C07F3592"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-0E128FC5FDA848CEAF43",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件核心是皇帝接受进谏并改变处置、体现容纳人才或纳谏后的政策/司法处置，不是对魏徵的任用授权链；同一线索已有 tolerate_talent 候选路由。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件核心是皇帝接受进谏并改变处置、体现容纳人才或纳谏后的政策/司法处置，不是对魏徵的任用授权链；同一线索已有 tolerate_talent 候选路由。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整回源核验魏徵进谏内容、李世民回应及释放官吏和不问李靖等的因果链",
+        "区分纳谏后的处置结果与魏徵本人任用、授权或撤权事实"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-003",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观中李世民召褚遂良侍书，褚遂良辨别御府王羲之书迹真伪无误。",
+      "candidate_persons": [
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-4E35D42C70D5C8E64703"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-11C7F15301E1A294CBBB",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "虽有召令侍书这一任用线索，但事件结果是褚遂良完成书迹鉴定，核心更接近皇帝识别、验证并使用其专长的识才链；现有材料不能证明重要职权授权或授权结果链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "虽有召令侍书这一任用线索，但事件结果是褚遂良完成书迹鉴定，核心更接近皇帝识别、验证并使用其专长的识才链；现有材料不能证明重要职权授权或授权结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整回源核验李世民召褚遂良侍书、辨识书迹及后续任用关系",
+        "区分一次性专业召用与 appointment_delegation 所需的持续实质授权"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-003",
+      "transport_contract_correction": "event_group_key_recovered_from_rule_code_field",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "张亮密告侯君集谋反，李世民因无旁证秘不发并仍待侯君集如初。",
+      "candidate_persons": [
+        "李世民",
+        "张亮",
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-B4C67B72C28B1989B58F"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-11E3C0F60974E3941655",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是密告后的政治处置，不是任用、实质授权或撤权失控结果链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是密告后的政治处置，不是任用、实质授权或撤权失控结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查密告、处置及后续关系的完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-004",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民先后任马周为给事中、中书舍人、中书令并兼太子右庶子。",
+      "candidate_persons": [
+        "李世民",
+        "马周"
+      ],
+      "claim_refs": [
+        "CLMK-80D8E26BA78DF04A7ADB"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-12BEE662CF7F4CB1956E",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "既有工作集已包含“马周任用授权链”，本组可能是其组成部件或同义线索。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "既有工作集已包含“马周任用授权链”，本组可能是其组成部件或同义线索。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查马周各次任用并与既有工作集去重"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-004",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观四年侯君集迁兵部尚书并参议朝政。",
+      "candidate_persons": [
+        "李世民",
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-6D169593D2F495EE3678"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-14BB9C479CE8F3EA6114",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观四年任兵部尚书并参议朝政属于对重要人物的中枢任用与职权扩展；须回源证实具体授权职责及其履职结果或失控结果，方可形成评分链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "具备皇帝归责、重要人物任用和中枢职权扩展线索，但现有片段不足以确认实质授权及结果链，须回源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查贞观四年侯君集任职前后完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-004",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民疾笃崩前将后事托付长孙无忌、褚遂良，要求辅导太子。",
+      "candidate_persons": [
+        "李世民",
+        "长孙无忌",
+        "褚遂良",
+        "李治"
+      ],
+      "claim_refs": [
+        "CLMK-E1742393F6C04FA82851"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-157C5345EDDD524EB11D",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观二十三年临终托付辅导太子是李世民在位期内对辅政者的实质授权；须核实顾命原文、权限边界及可归因的承接结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确指向皇帝临终对重要人物的实质授权与辅政职责，但授权边界和后续结果仍须完整史源复核。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查托孤、太子听政及辅导安排的完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-004",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观七年李世民任魏徵代王珪为侍中，并命其评理尚书省滞讼。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-1F5965B2EFCD97565043"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-1839ED6ACF7A6072A5AA",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "魏徵代王珪为侍中并评理滞讼可构成任用—职责—结果链，但属于既有魏徵工作集的同义或组成材料，不得另建重复单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝任用重要中枢人物且包含具体职责授权，可能形成任用—职责结果链；现有片段不足以确认完整史源与结果边界。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-CCB0F1DECD7A6D2295",
+        "OSD-F8311E9A634FFBFFB1",
+        "贞观七年 魏徵 代王珪 侍中 评理滞讼"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-005",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观九年十一月李世民拜萧瑀为特进，复令其参预政事。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-D9BA15D87C58740625D8"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-1861B6E2402DBE91D533",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观九年复令萧瑀参预政事是恢复重要人物中枢参与权的授权线索；须证实实际职责、履职表现及结果，不能止于特进官名。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "属于皇帝对重要人物恢复中枢政务参与的任用/授权线索，但现有切片未完整呈现时间、任用背景和后续结果，必须回到完整史源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C2AFD28CF6E7B75920",
+        "OSD-DC0BDA0A34021C84D4",
+        "贞观九年 萧瑀 拜特进 复令参预政事"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-005",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵针对李世民宠爱魏王泰、失于公义进谏，李世民承认并接受劝谏。",
+      "candidate_persons": [
+        "魏徵",
+        "李世民"
+      ],
+      "claim_refs": [
+        "CLMK-BAED2C4DE74142A26F66"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-1961F421F8F727CC9A32",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主事件是纳谏及皇帝接受劝谏，不是对重要人物的任用、实质授权或撤权失控；更接近 tolerate_talent，不能据此结算 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主事件是纳谏及皇帝接受劝谏，不是对重要人物的任用、实质授权或撤权失控；更接近 tolerate_talent，不能据此结算 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-216AEB18B51FF71DCC",
+        "OSD-5326515716CB8D19A7",
+        "魏徵 魏王泰 私爱忘公义 纳谏"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-005",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观二年杜如晦检校侍中、摄吏部尚书，并总监东宫兵马事，结果称职。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-2C1089B65193618C8B3F"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-198AE71EA990AADE3457",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观二年处于626—649覆盖窗口，摘要同时包含李世民任命、杜如晦的中枢及东宫兵马职责与称职结果；在核实任命主体、职责实质和结果原文后，可形成所需链条。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确包含皇帝授权重要人物承担中枢与东宫兵马职责，并有称职结果，直接符合当前规则方向；仍须回源核验完整史料、归责及结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-3B3AAE0EEA0D2A650D",
+        "OSS-CE1AA9D5BA3EE7D260",
+        "贞观二年 杜如晦 检校侍中 摄吏部尚书 总监东宫兵马事"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-005",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "王世充平定后李世民以屈突通论功第一，任陕东道大行台右仆射并镇东都，后任洛州都督。",
+      "candidate_persons": [
+        "屈突通"
+      ],
+      "claim_refs": [
+        "CLMK-DBDF4C77EC2A9D2B3FF0"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-19C7E990B4C57FD4E4EB",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "摘要将任用链锚定于王世充平定之后；该事件及所述陕东道大行台、镇东都任命均属李世民即位前的秦王时期线索，不能进入626—649正式历史覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索显示皇帝对重要人物作出连续任用并赋予镇守东都、洛州治理职责，符合任用与实质授权的候选范围；但当前仅为V3线索，仍需回到完整史源核验任命主体、时间链、授权实质及治理结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-0CAB2C99E57DD9694D",
+        "OSD-EDBD9BD0302AF5CFF3",
+        "围绕屈突通、王世充平定、镇东都、洛州都督核对完整传记与编年记载"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-006",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民在藩时将侯君集引入幕府，后累受左虞侯、车骑将军等军职。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-4DE529EC9C09DB93DA6B"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-1A08979868F89B23AAC3",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "候选摘要明确为“李世民在藩时”将侯君集引入幕府，属于即位前事件；后续军职未提供可独立落在626—649窗口内的皇帝授权与结果链，不能作为正式覆盖单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索呈现李世民主动纳入幕府并持续授予军职，可能构成重要人物任用链；但“引入幕府”也可能与识才链重叠，且现有摘要未充分呈现实质授权及结果链，需完整史源复核后归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-94DDB4312A7C61CBE0",
+        "OSD-1320A13E24C50785CC",
+        "核对侯君集入秦王府、累除军职及后续受任职责的完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-006",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "隐太子将有变时，李世民令长孙无忌召房玄龄入阁计事，房玄龄随后进入太子与中书政务体系。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-5B18C961BC9A8ACABEFD"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-1C1F98BBB08E209DACC7",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "该线索与输入中明确列出的“房玄龄中枢授权链”高度重合，宜作为既有工作集组成部件去重并回接原链，不应新增独立事件；仍需以完整史源确认具体授权边界。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "该线索与输入中明确列出的“房玄龄中枢授权链”高度重合，宜作为既有工作集组成部件去重并回接原链，不应新增独立事件；仍需以完整史源确认具体授权边界。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-33DAB5CC6D4AED4859",
+        "OSD-0E89C43AEB1A1D006F",
+        "回接既有房玄龄中枢授权链并核对入阁计事与后续任用是否同一事件链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-006",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十七年立晋王为皇太子后，李世民拜萧瑀为太子太保，并使其同中书门下三品、知政事。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-83BDFCBE319619857BEB"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-21EE739B548841A5DF21",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "贞观十七年任命在覆盖窗口内，但现有摘要仅能显示官职与知政事，尚未证明萧瑀获得何种实质授权，以及其履职结果或失控结果；单纯官名不能成立本规则单元。",
+      "initial_disposition": "source_insufficient",
+      "rationale": "线索足以显示任命和知政事，但未提供足以判断实质授权、皇帝归责下的结果链或净影响的完整上下文；单纯官名与继续知政事不应自动计入本规则，当前不足以可靠形成正式事件判断。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C2AFD28CF6E7B75920",
+        "OSS-5A2EA35D6681217450",
+        "核对贞观十七年任命诏令、实际政务权限、后续执行结果及是否属于一般政策或职官沿袭"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-006",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵进谏后李世民停止册使。",
+      "candidate_persons": [
+        "李世民",
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-03EB1FB8D83AD31C6CF7"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-236EB29A7758233FDEA3",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是纳谏及采纳意见，未见任用、实质授权或撤权链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是纳谏及采纳意见，未见任用、实质授权或撤权链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对完整进谏与停止册使事件链",
+        "核对tolerate_talent工作集"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-007",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵批评政务，李世民承认属实。",
+      "candidate_persons": [
+        "李世民",
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-B0EFEC565CBC7ECCDC37"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-23BD206B6ABAE65044E9",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "仅有批评与皇帝承认，未见任用、授权或撤权结果链，属于纳谏语义。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "仅有批评与皇帝承认，未见任用、授权或撤权结果链，属于纳谏语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对贞观六年论安危之本全文",
+        "核对tolerate_talent归属"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-007",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "虞世南进谏游猎，李世民因此更加亲礼。",
+      "candidate_persons": [
+        "李世民",
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-AD6743AACF63E8CE3556"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-285C43567A9CAC5AF22B",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是进谏与亲礼回应，没有任用、实质授权或撤权链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是进谏与亲礼回应，没有任用、实质授权或撤权链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源确认虞世南进谏前后文",
+        "核对anti_nepotism与tolerate_talent归属"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-007",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民遣张亮赴洛阳，统兵并暗中联络山东豪杰以备变。",
+      "candidate_persons": [
+        "李世民",
+        "张亮"
+      ],
+      "claim_refs": [
+        "CLMK-38331BD6E1A5804A508B"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-2DC10C1E8363EC97CC7D",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "遣张亮赴洛阳、统兵并联络山东豪杰属于李世民即位前的秦王府时期线索，严格排除在626—649正式历史覆盖之外。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确具备皇帝派遣、兵力统辖与实质授权候选性；但现有source slice与摘要不一致，必须回完整史源重建事件链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "以CEK-2DC10C1E8363EC97CC7D与CLMK-38331BD6E1A5804A508B回源",
+        "核对OSS-9F614CD650D847D786及OSS-923FEDD37AC7B989B2完整上下文",
+        "确认授权范围及结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-007",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀屡次上奏指称中书门下内臣结党，李世民认为言过甚并劝其舍短用长。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-75BBEAE63C42675EAFBE"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-332E980BEBABA311669C",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是朋党指控及皇帝对指控的判断，不是李世民对萧瑀的任用、实质授权、撤权或授权结果链；更接近反朋党相关规则。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是朋党指控及皇帝对指控的判断，不是李世民对萧瑀的任用、实质授权、撤权或授权结果链；更接近反朋党相关规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-C2AFD28CF6E7B75920 对应完整传记或纪事上下文",
+        "核对朋党指控对象、李世民回应及后续任用变化"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-008",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民即位后征温彦博还朝，授雍州治中，后检校吏部侍郎。",
+      "candidate_persons": [
+        "温彦博"
+      ],
+      "claim_refs": [
+        "CLMK-D303FD8D5218C8C4051B"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-36506700FF2410FA32D9",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "征还及授雍州治中、检校吏部侍郎均在位期内，但现有摘要仅见官名迁转，未显示温彦博获得的实质职责、权力范围及履职结果；不能据此成立任用授权单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "存在皇帝主动征还并授官的任用动作，但现有片段主要证明任命及官职结果，尚不足以确认重要职责、实质授权与后续结果链；应回到完整史源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-7816DC120C2FC046F7 对应完整传记上下文",
+        "检索征还后的职责、授权范围、履职结果及后续迁转"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-008",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵在宴间进谏，李世民大笑并肯定其言行。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-38D7858659F7809CC3AA"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-372AEC4273876C68033A",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是进谏与皇帝容纳、肯定谏言，未见任用、实质授权、撤权或失控及其结果链；主事件明显属于 tolerate_talent 的容纳直言语义。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是进谏与皇帝容纳、肯定谏言，未见任用、实质授权、撤权或失控及其结果链；主事件明显属于 tolerate_talent 的容纳直言语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-96E4A1293963D6743E 对应完整宴议文本",
+        "核对进谏内容、皇帝回应及是否另有独立任用或授权事件"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-008",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民命高士廉等编撰《氏族志》，成书后上呈。",
+      "candidate_persons": [
+        "高士廉",
+        "韦挺",
+        "令狐德棻",
+        "岑文本"
+      ],
+      "claim_refs": [
+        "CLMK-CE6534BDB7D4C865E696"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-38EA86FD9785DE390816",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观十二年命高士廉等编撰《氏族志》具备皇帝授权、具体职责与成书上呈的履职结果链，可作为实质授权候选；须回源核实参与者分工、皇帝审定及结果归责。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含皇帝向重要人物授予具体编撰任务及任务完成、上呈的结果链，符合实质授权候选；但仍须以完整史源确认授权主体、分工、皇帝介入程度与结果归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-BBFCFA65D2DB68AC6A 对应贞观十二年完整纪事",
+        "检索命撰《氏族志》的原文、参与者分工、皇帝审定或采纳及后续影响"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-008",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观八年，李靖因足疾乞骸骨，李世民加授特进，允许在第摄养，病愈后参预门下、中书政事。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-1C27A6CD50AD8C6B3F79"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-3B369D3A103CB1EFBEDF",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "李靖病后参预门下、中书政事可构成在位期内的授权线索，但属于既有李靖工作集应吸收的任用授权组成材料，不得另建重复单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "涉及皇帝对重要人物的正式任用及后续参与中枢政务，符合当前规则语义；现有线索不能直接转为V4事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-55032C41630DDA0FDA",
+        "OSD-0CADE75C842807D88F"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-009",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观三年，杜如晦代长孙无忌为尚书右仆射，仍知选事，与房玄龄共掌朝政。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-2DFCDC0C0E8683537B34"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-3C0D4E9FEDDD5EE3F6D7",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观三年在位期内的中枢任用，候选表述已包含选事权限与共掌朝政的职责线索；须回源确认任命主体、实质授权及可归责履职结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝任用重要中枢人物并形成共掌朝政的权责结果链，可能满足当前规则；现有片段上下文混杂，必须回源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-CB56252E7BC451894A",
+        "OSD-CD8D41078D639E2D3B"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-009",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民与魏徵讨论为官择人，提出丧乱既平须才行兼备。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-981584DEAAAE2472CEC6"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-3DDFF98A8783B12163C8",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索是用人标准讨论，未显示对具体重要人物的任用、实质授权、撤权或失控及结果链，不自动适用当前规则。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索是用人标准讨论，未显示对具体重要人物的任用、实质授权、撤权或失控及结果链，不自动适用当前规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C6F5E05F676C78FA56",
+        "OSD-0E71090F4456DE0DAD"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-009",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李靖将被李渊处死时，李世民固请免死，随后召李靖入幕府。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-1AD36B20843D3EB96DE9"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-3E0C3636B7468F8C36AF",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "召入幕府属于重要人物任用线索，但可能是既有李靖军事授权链的组成部件，应先去重并核验完整史源。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "召入幕府属于重要人物任用线索，但可能是既有李靖军事授权链的组成部件，应先去重并核验完整史源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-40D9F8EB6167EC23CF",
+        "OSD-05AFAC7B67961959FD"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-009",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十一年魏徵上疏反对增广飞山宫，劝李世民撤峻宇、安卑宫。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-AD292731FB19DE8A0CA5"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-3FE66174BF14F7289692",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是进谏与意见采纳，不是皇帝对重要人物的任用、实质授权、撤权或失控及结果链；route 同时指向 tolerate_talent，appointment_delegation 不应主结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是进谏与意见采纳，不是皇帝对重要人物的任用、实质授权、撤权或失控及结果链；route 同时指向 tolerate_talent，appointment_delegation 不应主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-7E7374354AD85942FE 核对完整条文及李世民实际处置。",
+        "如形成有效事件，优先检验 tolerate_talent 或政策采纳语义。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-010",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民寝疾时召长孙无忌、褚遂良，托付太子并命其尽诚辅佐。",
+      "candidate_persons": [
+        "长孙无忌",
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-0D6366841134130DEE00"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-40CD3452BFCB32B68F5F",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "649年在位期末的托付太子与命辅佐，属于对重要人物的明确授权；须核实二人各自受托范围、即位交接中的实际履职及可归责结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确表现为皇帝对重要人物的正式托付和中枢授权，符合规则语义；但当前仅有 V3 线索和截断切片，须回完整史源确认对象范围、授权内容及后续结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-92DA649D8F140FE127 检索‘朕今委卿矣’及‘尽诚辅之’完整上下文。",
+        "确认二人是否共同受托、托付对象是否为太子及后续归责结果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-010",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "房玄龄、李𪟝推荐张亮后，李世民引为秦府车骑将军并委以心膂。",
+      "candidate_persons": [
+        "张亮",
+        "房玄龄",
+        "李𪟝"
+      ],
+      "claim_refs": [
+        "CLMK-EBD9910F91FD91063B4F"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-413D3E6293DBCA794FF5",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "虽有任命和委任，主语义是他人推荐后皇帝识别并转化使用张亮，符合 talent_discovery 识才链；appointment_delegation 不应主结算，且切片截断不能据 V3 route 认定。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "虽有任命和委任，主语义是他人推荐后皇帝识别并转化使用张亮，符合 talent_discovery 识才链；appointment_delegation 不应主结算，且切片截断不能据 V3 route 认定。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-3832A1A20D40A51DF0 核对完整推荐、任命及委任上下文。",
+        "由 talent_discovery 复核是否有李世民独立识别或亲自验证。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-010",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民为渭北道行军元帅时，以唐俭为司马。",
+      "candidate_persons": [
+        "唐俭"
+      ],
+      "claim_refs": [
+        "CLMK-76D8AAA718EB2307D3C3"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-415119D2337927C97B50",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "渭北道行军元帅及唐俭为司马属李世民即位前的秦王时期事件，严格排除在626—649正式历史覆盖窗口外。",
+      "initial_disposition": "source_insufficient",
+      "rationale": "仅证明一次军事职务任命，未提供重要性、实质授权、履职结果或失控/撤权链；不能凭官名和 V3 route 判定规则归属。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-7C2CEBEF7E701F801D 补查具体职责、实际权限及结果。",
+        "若完整史源仍只有任职事实且无结果链，则不纳入本规则。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-010",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "尉迟敬德任泾州道行军总管并在泾阳破突厥。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-582A1FCBDA348A948A9A"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-427F838CF9AB9E51CCA2",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主事件是军事战果；仅有官职线索，未形成李世民任用或实质授权导致结果的完整链条。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主事件是军事战果；仅有官职线索，未形成李世民任用或实质授权导致结果的完整链条。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核查任命主体、时间、授权内容及其与战果的因果链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-011",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "杜如晦在秦王幕府及天策府阶段获任职、入文学馆并任从事中郎。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-4FE8526157CF4C3FBBCF"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-43FA18DDF6B2F1662D33",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "杜如晦在秦王幕府、天策府获任职的候选全部属于即位前事件，严格排除在626—649正式历史覆盖窗口外。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "直接涉及李世民对重要人物的连续任用，可能形成任用到职责结果的规则链；但片段不足以确认主体、授权实质、时间边界和结果贡献。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "核查各次任职的任用主体、职责权限、实际承担事务及结果，并区分秦王时期与即位后任用。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-011",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵劝李世民偃革兴文，李世民称采纳后天下大宁。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-EB9BB3B6B2986008838F"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-47851A071BF75F7854E5",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主事件是纳谏及政策采纳，未显示任用、实质授权或撤权失控，不应归入 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主事件是纳谏及政策采纳，未显示任用、实质授权或撤权失控，不应归入 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核查政策实施及结果，并另行判断纳谏或政策采纳规则。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-011",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "疑谤后李世民释放并召见尉迟敬德、赐金以示不信谗言。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-90B11016F2E1E70740F9"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-4933FF83B182DDFF18ED",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主语义是保全和信任处置，更接近容纳人才；未显示新任命、职责授权或撤权失控。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主语义是保全和信任处置，更接近容纳人才；未显示新任命、职责授权或撤权失控。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核查此前任用或军事实质授权及此次保全是否改变职责。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-011",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观三年李世民任房玄龄为左仆射，并赋予其中枢职掌与求贤授任职责。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-C390D6FD4F729F542ECD"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-4A0932D6CDA127DA2BAA",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "涉及任命与中枢授权，但房玄龄中枢授权链已在既有工作集；仍须完整史源核对，不能直接转为V4事实。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "涉及任命与中枢授权，但房玄龄中枢授权链已在既有工作集；仍须完整史源核对，不能直接转为V4事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对贞观三年任左仆射及求贤授任的完整语境。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-012",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民因戴胄清直且大理寺关乎人命，任命其为大理少卿。",
+      "candidate_persons": [
+        "戴胄"
+      ],
+      "claim_refs": [
+        "CLMK-670A4BEC922F9075E5FF"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-4A31129814D389E173B6",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "太宗在位期间基于大理寺人命所系而任戴胄为大理少卿，具有人物遴选、实质授任和明确司法职责；应回源补足戴胄实际履职及裁断结果后再建最小充分证据链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "可能符合皇帝基于人物品行的重要任用链，但现有片段缺少完整时间、职权履行及结果链，须回源重建。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对秦王攻拔武牢后的语境、任命主体与戴胄任职结果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-012",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民命高士廉等搜取天下谱牒、考定真伪昭穆并分为九等。",
+      "candidate_persons": [
+        "高士廉"
+      ],
+      "claim_refs": [
+        "CLMK-32237204B6B0D8F3CAB2"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-4A340222540C8709A487",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "太宗命高士廉等考定天下谱牒、厘定昭穆并成九等，属于对重要事务的实质授权，且可追溯任务成果；须以原始传记或编年补足命令、执行职责和成书结果的连续链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "可能存在皇帝对重要人物的实质授权及可核验结果，但现有V3片段不足以确认职责、授权边界和归责链，不能据路由提示直接接受。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对命令对象、任务执行过程、九等结果与李世民直接归责。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-012",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民因虞世南博识而引其谈论经史，虞世南规讽并多有补益。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-55B75A7E66B01224365B"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-4AE5826A4797A93211D5",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是皇帝听取规讽并获得补益的纳谏链，不是任用、实质授权或撤权/失控；不应自动归入本规则。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是皇帝听取规讽并获得补益的纳谏链，不是任用、实质授权或撤权/失控；不应自动归入本规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源确认纳谏语境及是否另有明确任用或授权事件。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-012",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "长乐公主出嫁资送礼制争议中，魏徵进谏，李世民认可其言。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-C00D50CB0606CE69D5EE"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-4CE62FBD13993CD05058",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索核心是礼制争议与皇帝纳谏，未显示任用、实质授权、撤权或失控结果链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索核心是礼制争议与皇帝纳谏，未显示任用、实质授权、撤权或失控结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对魏徵进谏及李世民采纳上下文",
+        "转由tolerate_talent复核"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-013",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民令召房玄龄、杜如晦潜入阁中计事。",
+      "candidate_persons": [
+        "房玄龄",
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-EF895D1ECE7C0E805006"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-4EB8DB8D1BAD87760881",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "涉及中枢授权，但已有房玄龄中枢授权链，可能是既有工作集组成部件。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "涉及中枢授权，但已有房玄龄中枢授权链，可能是既有工作集组成部件。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "核对既有房玄龄授权链及杜如晦成员关系",
+        "回源核对授权时点、任务与结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-013",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民命房玄龄等撰次实录并直书其事。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-E3C836F6EE77C5B71B87"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-50756AAACD7731ADFC75",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "属于房玄龄中枢授权链，输入已有对应工作集；书名别名修复仍须由完整史源确认。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "属于房玄龄中枢授权链，输入已有对应工作集；书名别名修复仍须由完整史源确认。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "查重监修国史/实录编纂事件",
+        "回源核对命撰、成书及结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-013",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门之变后，李世民使尉迟敬德入宿卫。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-1914559DF3703D96310C"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-5133A3CB2EDEDB5315D8",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "玄武门事变当日命尉迟敬德入宿卫发生在李世民即位前，属秦王府夺权过程中的临时军事处置；严格历史覆盖窗口下只能作 scope exclusion，且并非可纳入在位期评分的任用授权链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "直接呈现派遣入宿卫的任用/授权结构，但现有证据片段不足以确认职责与结果链，需回源复核。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对派遣宿卫完整叙事",
+        "确认持续任用还是一次性军事处置并追踪结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-013",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "线索称玄武门事后李世民擢拜杜如晦为太子左庶子，后迁兵部尚书并进封蔡国公。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-9B5B2F539E5D089D6954"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-543D4220F489E9D9B3D1",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "杜如晦与房玄龄因玄武门事变获擢拜太子左庶子的叙事发生在李世民即位前，不能纳入626—649在位期正式覆盖；后续迁官亦不能将该即位前奖叙拆为新授权单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "任用对象、皇帝归责和任职结果链表面符合本规则；但现有 source slice 的预览与杜如晦事件不一致，且任用链仍需回到完整史源核实，不能直接形成 V4 事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "按李世民、杜如晦、玄武门事后、太子左庶子、兵部尚书、蔡国公回源核对完整传记或编年上下文",
+        "核对任职时间、任用主体及职务递进是否属于同一事件链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-014",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "线索称贞观三年李世民拜房玄龄为太子少师，因固让不受，转摄太子詹事并兼礼部尚书。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-15C3BBF81196BA331BFE"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-56A97E8D5C0775FE4CD5",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "这是房玄龄既有中枢授权链的可能组成部件或同义任用线索；现有证据片段不足以确认其相对既有工作集是新增事件，需在完整史源和既有工作集内去重核对。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "这是房玄龄既有中枢授权链的可能组成部件或同义任用线索；现有证据片段不足以确认其相对既有工作集是新增事件，需在完整史源和既有工作集内去重核对。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "与既有‘房玄龄中枢授权链’按时间、职务和结果链对齐",
+        "回源核对拜太子少师、固让、摄太子詹事及兼礼部尚书的连续上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-014",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "线索称秦琼死后李世民下令在墓内立石人马，以旌其战阵之功。",
+      "candidate_persons": [
+        "秦琼"
+      ],
+      "claim_refs": [
+        "CLMK-43CBC131F2DF72C63244"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-577688EC9EAE540D47E4",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "该线索的主事件是死后功臣旌表及战功表彰，不是重要人物任用、实质授权或撤权/失控结果链；不应按 appointment_delegation 主结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "该线索的主事件是死后功臣旌表及战功表彰，不是重要人物任用、实质授权或撤权/失控结果链；不应按 appointment_delegation 主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对秦琼战功与死后旌表的完整叙事，仅作为其他规则或非本规则事实线索处理"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-014",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "线索称李世民伐辽东时以洛邑冲要任萧瑀为洛阳宫守，回师后萧瑀请解太保，仍同中书门下。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-6F37B8D7AA8B96EE736A"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-5839F7A2ACB7B4308E98",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观伐辽东属626—649窗口；若完整史源确认太宗授萧瑀守洛阳宫的具体守备权责，并能连接其履职结果，即构成可评分的实质授权链。现有仅为线索，不能直接形成事实。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝对重要人物的军事时期任用及职务结果链与本规则相关，具有新候选价值；现有 source slice 仅为检索线索，尚需完整史源确认任命语境、实际授权范围及结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "按李世民伐辽东、萧瑀、洛阳宫守、洛邑冲要、仍同中书门下回源",
+        "核对任命是否包含实质守备授权及回师后的职权变化"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-014",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "讨吐谷浑战役中，李靖分兵并派侯君集等走南路，侯君集转战获胜并平吐谷浑。",
+      "candidate_persons": [
+        "侯君集",
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-67B30F2CA7F63DCC23ED"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-58EE04D8450E53B8BDAE",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "线索显示实际派遣者为李靖，内容是军事作战及战果，较可能属于既有李靖军事授权链的组成部件；当前片段不足以证明李世民对侯君集的直接任用或实质授权。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "线索显示实际派遣者为李靖，内容是军事作战及战果，较可能属于既有李靖军事授权链的组成部件；当前片段不足以证明李世民对侯君集的直接任用或实质授权。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回溯包含李靖分兵、李世民决策与侯君集受命关系的完整战役史源",
+        "核对侯君集南路作战是否已纳入李靖军事授权链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-015",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民疾笃临终，将后事托付长孙无忌、褚遂良，命其辅导太子。",
+      "candidate_persons": [
+        "长孙无忌",
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-689743C0294FFB0520D4"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-593488ABD0F8BE3AE45F",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "太宗临终顾命发生于649年窗口内，所称辅导太子的共同授权具有实质职责；须回源确认诏命对象、授权内容及后续实际履行，且不得将继位后结果倒置为太宗任内新动作。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接指向皇帝对重要人物的临终顾命与辅政授权，符合 appointment_delegation 的实质授权语义；但现有 V3 片段不是 V4 正式事实，需回到完整史源确认对象范围、命令内容与结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对临终托付、辅导太子及相关诏命的完整上下文",
+        "确认长孙无忌与褚遂良是否共同承担该授权及后续履行结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-015",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民询问是否攻打颉利，萧瑀主张出击，李世民采纳长孙无忌意见而停止。",
+      "candidate_persons": [
+        "萧瑀",
+        "长孙无忌"
+      ],
+      "claim_refs": [
+        "CLMK-F0EFEB075127B41F9751"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-59D09034C151A3687D6B",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "该线索核心是皇帝对军事政策建议的采纳与否，未显示对萧瑀的任用、实质授权、撤权或失控结果链；应归入政策/决策采纳类规则，而非 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "该线索核心是皇帝对军事政策建议的采纳与否，未显示对萧瑀的任用、实质授权、撤权或失控结果链；应归入政策/决策采纳类规则，而非 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源确认萧瑀与长孙无忌建议及李世民决策的完整对话上下文",
+        "检索是否另有独立任用或授权事件，避免将建议采纳与任用授权合并"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-015",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "太宗灭窦建德后引虞世南为秦府参军，转记室并授弘文馆学士，与房玄龄对掌文翰。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-361776E0F5BB83812738"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-5A5A6BC27B2E4CDB6CCB",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "核心“引虞世南为秦府参军、转记室”发生在即位前，属于明确的scope exclusion；不得以其后续官职连续性追溯改写为626年后皇帝的任用动作。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含李世民直接引进、连续任用及文翰职责结果，具备任用事件的回源方向；但现有证据仍是 V3 检索片段，尚不足以确认任用意图、授权实质与结果链，也不能据此自动归入 talent_discovery。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回源核对太宗引虞世南的完整传记与任用时序",
+        "确认是皇帝独立识别并验证人才，还是继承既有声望后的任命；分别评估 appointment_delegation 与 talent_discovery"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-015",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十二年，李世民以佐命功使长孙无忌并代袭刺史。",
+      "candidate_persons": [
+        {
+          "name": "长孙无忌",
+          "v4_person_ref": "PER-V4-839C5A8CB43C"
+        }
+      ],
+      "claim_refs": [
+        "CLMK-4804B349A9A1CDF821AD"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-5A8A2D52FAF15DD14126",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "“以佐命功”而授代袭刺史的线索表明赏功或世袭待遇，未显示对具体公共职责的实质任用、授权及履职结果；单纯封赏不适用本规则。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝归责、任命对象和结果线索明确，但代袭刺史是否构成重要任用或实质授权仍需回到完整史源确认。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-43C0C87B4041ECCDEE",
+        "OSD-B815BE7635DF1B09A6",
+        "检索“以佐命功”“并代袭刺史”及贞观十二年完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-016",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观元年六月，李世民任萧瑀为尚书左仆射，同年十二月罢免。",
+      "candidate_persons": [
+        {
+          "name": "萧瑀",
+          "v4_person_ref": "PER-V4-B817E6DF722E"
+        }
+      ],
+      "claim_refs": [
+        "CLMK-EE6DE50BC33B96CD8083"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-606403636BB91BB416CA",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "在位期内的中枢任用与撤权具有候选资格；回源必须补足萧瑀获授的实质职责、撤免所对应的履职或失控结果，不能仅以官名与罢免日期结算。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "中枢任用与同年罢免形成明确的任用—撤权结果链，可能直接满足规则，但任用权限、撤免原因及实际影响仍须完整史源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-4F9AF5BEE0E62D1D91",
+        "OSD-470AD9503C79712073",
+        "检索“为尚书左仆射”“十二月罢”及贞观元年完整纪事"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-016",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀弹劾房玄龄、魏徵、温彦博的小过，李世民未问其罪，萧瑀随后罢御史大夫并不复预闻朝政。",
+      "candidate_persons": [
+        {
+          "name": "萧瑀",
+          "v4_person_ref": "PER-V4-B817E6DF722E"
+        }
+      ],
+      "claim_refs": [
+        "CLMK-49682763CF526693B5A9"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-61071799841CB7E39434",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是对弹劾行为的处置及其后失去朝政参与，主结算更接近容忍、处分或监察处置语义；现有材料不足以证明这是任用或实质授权链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是对弹劾行为的处置及其后失去朝政参与，主结算更接近容忍、处分或监察处置语义；现有材料不足以证明这是任用或实质授权链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C2AFD28CF6E7B75920",
+        "OSD-DC0BDA0A34021C84D4",
+        "检索“瑀劾之”“罪竟不问”“罢御史大夫”完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-016",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观八年，萧瑀任河南道巡省大使时致被推劾者死亡，李世民特予免责。",
+      "candidate_persons": [
+        {
+          "name": "萧瑀",
+          "v4_person_ref": "PER-V4-B817E6DF722E"
+        }
+      ],
+      "claim_refs": [
+        "CLMK-2ECA5BC957A3E45DFFAF"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-6546CE522C5EEFD179CE",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索表现为对监察过失或致死后果的免责，不是任命、实质授权或撤权事件；任职背景不能单独构成 appointment_delegation 结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索表现为对监察过失或致死后果的免责，不是任命、实质授权或撤权事件；任职背景不能单独构成 appointment_delegation 结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C2AFD28CF6E7B75920",
+        "OSD-DC0BDA0A34021C84D4",
+        "检索“以至于死”“特免责之”及贞观八年完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-016",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵劝李世民广听封事，李世民认可并慰劳遣返。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-06D54F0C9EFF678CAFC9"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-65B85A27B3E6A6519453",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主链是纳谏与言路处置，不是任用、授权或撤权；更接近tolerate_talent，且现有线索不足以证明任用结果链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主链是纳谏与言路处置，不是任用、授权或撤权；更接近tolerate_talent，且现有线索不足以证明任用结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回溯完整纳谏及言路处置史源，确认是否另有任用或授权后续。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-017",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门事变前，尉迟敬德等劝李世民诛建成、元吉。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-775614C78E52AC4C7120"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-69CD44B21F1480C7E198",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主链是玄武门政变前的政治与军事决断，非皇帝对重要人物的任用授权结果链；纳谏路由不能替代事件主规则判断。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主链是玄武门政变前的政治与军事决断，非皇帝对重要人物的任用授权结果链；纳谏路由不能替代事件主规则判断。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回溯完整玄武门事变前后史源，区分劝进、军事行动与后续任用。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-017",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任李靖为代州道行军总管，李靖进击定襄并获胜。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-D4038433A1D5800FD3C5"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-6A694B79400237FAFA47",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "李靖的军事授权及定襄战果已落入既有李靖军事授权工作集；可作为该单元的回源或证据组成材料，不得另建重复评分单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "具备皇帝任命、重要人物、边疆军事职责及同链结果，可能满足appointment_delegation；须以完整史源重建任命归责、授权范围和结果链，并核对既有李靖军事授权工作集。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回溯贞观三年至四年李靖任代州道行军总管及定襄战役的完整史源。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-017",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民为皇太子后任尉迟敬德为左卫率，并赏赐齐王国司金帛什器。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-C1D1F8EFF82E6262A720"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-6AA822C8626110E9AB98",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索仅显示官职任命与赏赐，未显示实质授权、职责执行结果或撤权失控链；单纯官名和赏赐不足以适用本规则。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索仅显示官职任命与赏赐，未显示实质授权、职责执行结果或撤权失控链；单纯官名和赏赐不足以适用本规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "如需复核，检索任左卫率后的具体职责、授权行为及结果链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-017",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民听取萧瑀关于封建久长之策的意见并认可，形成制度议论后的政策议向。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-0BC4B6A4BB991C72D709"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-6CAA6105D413D171CB4D",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是纳谏、一般制度政策采纳及封建议，不是对重要人物的任用、实质授权或撤权/失控结果链；appointment_delegation不宜主结算。V3 source slice仅支持回源定位，未形成V4事实。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是纳谏、一般制度政策采纳及封建议，不是对重要人物的任用、实质授权或撤权/失控结果链；appointment_delegation不宜主结算。V3 source slice仅支持回源定位，未形成V4事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查贞观年间李世民问公卿享国久长之策的完整上下文",
+        "核对萧瑀发言、李世民认可与封建之议之间的因果及政策落地程度",
+        "source_slice_ref:OSS-9417358E34216C6AE3"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-018",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵劝李世民勿因皇甫德参上书治罪，线索称李世民随后不罪、赐绢并拜监察御史。",
+      "candidate_persons": [
+        "魏徵",
+        "皇甫德参"
+      ],
+      "claim_refs": [
+        "CLMK-5939A13A47DAB6C3C3CE"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-6E46CB01282B13E4BD04",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "已见链条是纳谏、保全直言者及对上书的处置，主要属于容纳/处置谏言语义；现有线索没有魏徵被任用或获得实质授权作为主轴。任命结果的对象与因果也需完整史源核实。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "已见链条是纳谏、保全直言者及对上书的处置，主要属于容纳/处置谏言语义；现有线索没有魏徵被任用或获得实质授权作为主轴。任命结果的对象与因果也需完整史源核实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查皇甫德参上书、李世民欲治罪、魏徵进谏及最终处置的完整段落",
+        "分别核对不罪、赐绢、拜监察御史的对象和时间顺序",
+        "source_slice_ref:OSS-E3D855C7AC78EB1AFC"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-018",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李靖率军击破辅公祏军势并导致江南平定，线索还出现战后授官赏赐。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-2FB28E90268808726B1C"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-72033DF0CBA313C162C3",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主轴是军事作战及战果，属于战功/军事规则；战后授官赏赐不足以将主结算改为appointment_delegation，且没有单独的任用授权链证据。V3 route不得作为V4归责依据。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主轴是军事作战及战果，属于战功/军事规则；战后授官赏赐不足以将主结算改为appointment_delegation，且没有单独的任用授权链证据。V3 route不得作为V4归责依据。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查李靖受命及江南战役的完整史源，拆分任用、军事行动与战后奖赏事件",
+        "核对李世民的具体任命或授权、李靖执行范围及战果之间是否构成独立授权链",
+        "source_slice_ref:OSS-50464E7F4B33CA4A6A"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-018",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民选择王珪兼任魏王师，并要求李泰以事己之礼相待，线索显示存在明确任命及职责定位。",
+      "candidate_persons": [
+        "王珪",
+        "李泰"
+      ],
+      "claim_refs": [
+        "CLMK-D2EA8586F87E1293DE44"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-72AD2C868E3B35686AC1",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "现有线索可证明王珪兼魏王师的角色定位及李泰应有的礼敬关系，但未证明该授权后的履职结果或失控结果，且片段混入劝谏材料，尚不足形成可归责闭环。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接指向皇帝对重要人物的任用及对其角色权威的安排，可能构成appointment_delegation候选；但当前source slice混入其他劝谏段落，任命背景、实质职责与后续结果链仍须回到完整史源确认。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查贞观十一年后王珪兼魏王师的完整传记与诏任上下文",
+        "核对李世民选择王珪的理由、授任性质、对李泰的具体要求及任职结果",
+        "source_slice_ref:OSS-50146255CDC98920B2"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-018",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵谏阻李世民在西域立可汗未定时重赍市马。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-A4ABCBCE8F063E80137E"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-7317D489F6E120D4D249",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索核心是纳谏及边疆政策判断，未见对魏徵的任用、实质授权或撤权失控链；主结算更接近 tolerate_talent。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索核心是纳谏及边疆政策判断，未见对魏徵的任用、实质授权或撤权失控链；主结算更接近 tolerate_talent。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源核查谏议原文、李世民是否采纳及政策结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-019",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李靖在东南道行台废后检校扬州大都督府长史，并镇抚丹阳使吴楚安定。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-6D8AE8E9A66BF4F2C1AD"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-7370C4EAC278F7A0D032",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "线索具有地方任用及军事治理结果，但输入显示李靖军事授权链已在既有工作集，可能是该链的组成部件；需回源确认是否为同一事件链，避免重复结算。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "线索具有地方任用及军事治理结果，但输入显示李靖军事授权链已在既有工作集，可能是该链的组成部件；需回源确认是否为同一事件链，避免重复结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "核对完整史源中的任职时间、授权范围、丹阳镇抚与吴楚安定的连续关系"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-019",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民定功臣封户时将屈突通列入功臣并封户六百。",
+      "candidate_persons": [
+        "屈突通"
+      ],
+      "claim_refs": [
+        "CLMK-51FA1E7C2B836254E980"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-73AC7904F3AAD2B1CFF1",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索主要是功臣封户与赏赐结果，不足以构成重要人物任用、实质授权或撤权/失控及其结果链。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索主要是功臣封户与赏赐结果，不足以构成重要人物任用、实质授权或撤权/失控及其结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "如需复核，仅核查完整功臣封户诏令及其是否伴随职权授予"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-019",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门事变前尉迟敬德拒绝李建成、李元吉招诱并将其事告知李世民。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-D53A85A4ECEF76ED7185"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-7557DC3A7208E38CE668",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "线索核心是拒绝私交招诱及告知冲突，不见李世民对尉迟敬德的任用、实质授权或撤权/失控结果链；仅凭保全和路线提示不能绑定本规则。",
+      "initial_disposition": "not_applicable",
+      "rationale": "线索核心是拒绝私交招诱及告知冲突，不见李世民对尉迟敬德的任用、实质授权或撤权/失控结果链；仅凭保全和路线提示不能绑定本规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源核查李世民此前或随后是否对尉迟敬德实施明确任用或授权"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-019",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民使王珪与其他重臣同知国政，并参与中枢政务议论。",
+      "candidate_persons": [
+        "王珪"
+      ],
+      "claim_refs": [
+        "CLMK-C4743D36FE428B1D9F76"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-79A017DBDE6A4C7CC287",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "“同知国政”如能回源确认，可构成对重要中枢人物的实质授权；当前摘要与片段错位，须重建任命归责、权限边界及至少一项可归因的履职结果后方可进入后续链路。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索显示皇帝对重要中枢人物的实质任用或授权，可能形成 appointment_delegation 事件链；现有 source slice 片段与摘要存在错位，须回到完整史源核验任用时点、授权范围及结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-50146255CDC98920B2",
+        "OSD-BC87B4F3148AB6112C",
+        "围绕“与珪同知国政”“谓之确论”回查完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-020",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十一年侯君集受世封并改封陈国公，兼见陈州刺史相关任命线索。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-E5789E15BCDA046D0F64"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-7DBE0B389A1BFAF0AB0B",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "贞观十一年线索处于在位期，但现有材料仅见世封、改封与官名变化，未能证明陈州刺史或其他授任的实质职责，以及由该授权产生的履职或失控结果；不得以封爵或单纯官名建立单元。",
+      "initial_disposition": "source_insufficient",
+      "rationale": "现有线索主要证明封爵和官名变化，尚不足以证明重要任用后的实质授权、撤权/失控及结果链；不能仅凭单纯任命或封爵纳入本规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-94DDB4312A7C61CBE0",
+        "OSD-1320A13E24C50785CC",
+        "回查侯君集任用后的具体职责、授权范围与后续结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-020",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵讽谏李世民，李世民因之毁观。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-0D249A354586B8C3A247"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-810B5AB4F73938D39B23",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主轴是纳谏与皇帝采纳意见后的宫苑处置，属于 tolerate_talent 或相关纳谏行为链；没有任用、实质授权或撤权/失控事实。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主轴是纳谏与皇帝采纳意见后的宫苑处置，属于 tolerate_talent 或相关纳谏行为链；没有任用、实质授权或撤权/失控事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-BD2CB45FB4295D70AB",
+        "OSD-0E71090F4456DE0DAD",
+        "围绕“为之毁观”回查完整纳谏上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-020",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民派张亮赴洛阳统领千余人，并暗中招引山东豪杰以待局势变化。",
+      "candidate_persons": [
+        "张亮"
+      ],
+      "claim_refs": [
+        "CLMK-6EC0C812402435FAFC58"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-81DD7D4A27252AA99D70",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "遣张亮赴洛阳统领人众、暗招山东豪杰以待局势的核心动作发生在李世民即位前的秦王时期；严格窗口下只能标为scope exclusion，不得以其军事政治授权性质纳入626—649正式覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索明确指向皇帝对重要人物的实质军事与政治授权，并有可追踪的行动结果，符合本规则候选方向；但现有 source slice 与摘要明显错位，必须回源核验完整事件链、时序和归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-3832A1A20D40A51DF0",
+        "OSD-559DD57BA7D9E2100E",
+        "围绕“遣亮之洛阳”“阴引山东豪杰”回查完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-020",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观七年，王珪因泄漏禁中语获罪，被左迁同州刺史。",
+      "candidate_persons": [
+        "王珪"
+      ],
+      "claim_refs": [
+        "CLMK-7A46550873CA05FB7CAD"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-820C2E5B4AE54E4AC8E8",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "线索核心是泄漏禁中语后的处分与贬谪，未显示皇帝对重要人物的任用、实质授权或授权结果链，不符合 appointment_delegation 主语义。",
+      "initial_disposition": "not_applicable",
+      "rationale": "线索核心是泄漏禁中语后的处分与贬谪，未显示皇帝对重要人物的任用、实质授权或授权结果链，不符合 appointment_delegation 主语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-BC87B4F3148AB6112C",
+        "OSS-50146255CDC98920B2"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-021",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "房玄龄、李𪟝推荐张亮后，李世民引其为秦府车骑将军并委以心膂。",
+      "candidate_persons": [
+        "张亮"
+      ],
+      "claim_refs": [
+        "CLMK-3697C2CDBD50938C5343"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-842066BEC451E90EF91A",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "引张亮为秦府车骑将军并委以心膂，候选摘要已明确锚定于即位前秦王府；即使荐举与授权链可回源，也不得进入626—649正式历史覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含皇帝任命张亮并委以心膂的实质信任与授权结果链，可能满足当前规则；但推荐来源与任用事实均须回到完整史源核验，并与 talent_discovery 区分主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-B361077E07DA36F640",
+        "OSD-025CF9C68B4FE4360C",
+        "OSS-9F614CD650D847D786",
+        "OSS-923FEDD37AC7B989B2"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-021",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观九年，李世民任李靖为西海道行军大总管征讨吐谷浑，李靖大破其国并立慕容顺而还。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-F644FDD8974B792C2A54"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-87048D0A8379772B3327",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "线索明确涉及皇帝对李靖的军事任用、授权及战果，但输入既有工作集已包含李靖军事授权链，当前更像既有工作集组成部件；需核对是否为同一事件链，避免重复结算。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "线索明确涉及皇帝对李靖的军事任用、授权及战果，但输入既有工作集已包含李靖军事授权链，当前更像既有工作集组成部件；需核对是否为同一事件链，避免重复结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-05AFAC7B67961959FD",
+        "OSS-A2A6D9FDB2555EAAFF"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-021",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观四年，李世民任萧瑀为御史大夫并令其参议朝政，同年七月萧瑀被罢。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-63483EAF745D858D0717"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-88FE3F976BCBBF44F5D7",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观四年任萧瑀为御史大夫并令参议朝政，随后同年罢免，已具李世民任用—中枢参议授权—撤权结果的候选结构；应回源核定任命主体、参议权限实质、罢免归责及其结果后再建立最小充分证据链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含皇帝任命、授予中枢参议权限及随后罢免，具备任用与撤权链候选特征；现有切片不足以确认完整归责、授权实质和罢免原因，必须回到完整史源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-470AD9503C79712073",
+        "OSS-23AC804A9FF846EFF1"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-021",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门之变当日，尉迟敬德争辩，促成停止株连建成、元吉左右。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-127A7D4BB260004526B1"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-89EFC83E2B3A0A7C258F",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是事变余党处置中的保全与停止株连，未显示李世民对尉迟敬德的任用、实质授权或撤权链；更接近容忍/处置类语义。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是事变余党处置中的保全与停止株连，未显示李世民对尉迟敬德的任用、实质授权或撤权链；更接近容忍/处置类语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源核对“尉迟敬德固争”与“乃止”的主语、决策者及完整结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-022",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李靖推荐魏徵任诸道黜陟大使，李世民因需其规谏而未遣，改命他人分行天下。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-7C9FA52F5EA362DC4127"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events",
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-8B202FE4FA3852423FB8",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "不遣魏徵出任黜陟大使而留其箴规君失，属于既有魏徵工作集已冻结的持续中枢职责组成材料；不得以同义保留授权另建评分单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索显示皇帝基于对魏徵职能价值的判断保留其在侧，具有任用安排与实质配置结果链；但现有片段不足以确认完整任命决策和权责效果，需回源重建。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "检索贞观八年分遣大臣、李靖荐魏徵、不可一日离左右的完整段落及前后任命结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-022",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "虞世南去世后获陪葬昭陵、赠官、谥号及凌烟阁画像。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-4E2AAEF19C940BF6BB1F"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-8BF1E7FC0664873B8709",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "线索核心是身后荣典与纪念性安排，不是皇帝对在世重要人物的任用、实质授权或撤权/失控结果链。",
+      "initial_disposition": "not_applicable",
+      "rationale": "线索核心是身后荣典与纪念性安排，不是皇帝对在世重要人物的任用、实质授权或撤权/失控结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "仅需回源核对各项身后荣典是否属于同一事件链及其时间先后"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-022",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民践祚后赐长孙顺德真食千二百户并特赐宫女。",
+      "candidate_persons": [
+        "长孙顺德"
+      ],
+      "claim_refs": [
+        "CLMK-F899CD1EB405EAFE0195"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-8C1FD15F428D46B19F01",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索仅呈现食邑与宫女赏赐，未呈现具体职任、实质授权或治理结果；单纯赏赐不自动适用 appointment_delegation，且暂无 V4 人物画像候选。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索仅呈现食邑与宫女赏赐，未呈现具体职任、实质授权或治理结果；单纯赏赐不自动适用 appointment_delegation，且暂无 V4 人物画像候选。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源确认是否同时存在具体任官、职责配置或后续治理结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-022",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任房玄龄为太傅。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-765032CD973C66DA5B72"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-8C78CBA3880F32BF94E1",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "房玄龄已在既有中枢授权链工作集中；当前线索仅证明任命，可能是既有链的组成部件，不能据此形成新事实。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "房玄龄已在既有中枢授权链工作集中；当前线索仅证明任命，可能是既有链的组成部件，不能据此形成新事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整核查 OSS-BD21F93BF6C2788ABE 中关于晋王治立为太子及房玄龄任太傅的连续原文。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-023",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李靖与李勣谋划并实施突袭，导致突厥军溃败投降。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-3E22024042FB0D30C890"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-8DC44DD2FEE179A0CEE7",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索的主事件是军事战役及战果，未直接呈现李世民对李靖的任用、实质授权或授权结果链，主结算明显属于战役/战功语义。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索的主事件是军事战役及战果，未直接呈现李世民对李靖的任用、实质授权或授权结果链，主结算明显属于战役/战功语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整核查 OSS-F7D7D6B469036A3B09，区分李世民授权背景与李靖具体战役行为及战果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-023",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民征伐时屡命秦琼冲击敌阵并擒杀骁将，秦琼多次完成，李世民因此更加器重。",
+      "candidate_persons": [
+        "秦琼"
+      ],
+      "claim_refs": [
+        "CLMK-EF25A5149EAAF6585EA9"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-907B7A3C668A77759CC3",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "秦琼随秦王征伐、受命阵前突击的叙事属于李世民即位前秦王府军事经历；后称太宗不能改变其发生时序，故不进入626—649正式覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索同时包含皇帝反复下令、重要人物执行及结果反馈，具备实质授权结果链的候选形态；但当前仅为V3切片，必须回到完整史源确认主体、时序和归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整核查 OSS-759C5F3C326FB943C6 中“辄命叔宝往取”“必刺之万众”及其前后文，确认命令对象和结果链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-023",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "太宗任褚遂良为黄门侍郎，使其参预朝政。",
+      "candidate_persons": [
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-CF53BAF328320F235B03"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-9088E676615FA571F7D2",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "如完整史源确认在位期由李世民任褚遂良为黄门侍郎并使其参预朝政，可形成重要中枢任用与实质授权候选；须补足具体职责及可归责的履职结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索明确指向李世民任用重要人物并授予中枢政务参与权限，可能满足任用与实质授权语义；仍须以完整史源确认任命语境、权责范围及后续结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "完整核查 OSS-4BC5DA12320764BED9 中“黄门侍郎”“参预朝政”所在任命段落及前后文。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-023",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "武德三年，李世民遣使招谕尉迟敬德，尉迟敬德与寻相举介休及永安降。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-7658DA8C3A3EED8981E8"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-9131E10CF75F74CAA1F0",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索核心是军事招降及归降结果，不是对重要人物的任用、实质授权或撤权；不足以作为 appointment_delegation 主结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索核心是军事招降及归降结果，不是对重要人物的任用、实质授权或撤权；不足以作为 appointment_delegation 主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-F896A4F7BE89160733",
+        "OSS-DAF7BDBA7D75F30483"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-024",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "隐太子将有变时，李世民令长孙无忌召房玄龄与杜如晦，潜入阁中参与计事。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-960F2D3993187257C0D3"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-95345E5BEBEE089EF548",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "事件具备皇帝召用和中枢实质参与要素，但房玄龄中枢授权链已在既有工作集列明，更可能是既有链组成部件或同义线索。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "事件具备皇帝召用和中枢实质参与要素，但房玄龄中枢授权链已在既有工作集列明，更可能是既有链组成部件或同义线索。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-A56ED0D2CD41A6083C"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-024",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观八年六月，李世民遣段志玄为西海道行军总管，率边兵及契苾、党项之众击吐谷浑。",
+      "candidate_persons": [
+        "段志玄"
+      ],
+      "claim_refs": [
+        "CLMK-68FDCB8DF540F784D700"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-957EDCDA85DFD6FDBDA7",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观八年遣段志玄为西海道行军总管、统率边兵及诸部击吐谷浑，具在位期重要军事授权候选性；须补足其独立统帅权限与战役履职结果，不能以出征命令本身成立。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索明确包含皇帝对重要人物的任命及军事授权任务，可能形成任用—执行结果链；需回到完整史源确认授权范围、执行结果及归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-F42E0C532EF270A212"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-024",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "平京城后，李世民引杜如晦入秦王府任兵曹参军，后迁陕州总管府长史。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-D913876A6EC02CE3CCDC"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-9B160E584E8FB1AE2620",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "任命发生于秦王府阶段，属李世民即位前事件，不进入626—649正式历史覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接指向皇帝对重要人物的连续任用，具有中枢任用链候选性；现有切片存在空白，必须回到完整史源重建事件与归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-CB56252E7BC451894A",
+        "OSS-8EA20DD70DE078660D"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-024",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民命褚遂良轮流到东宫辅导太子。",
+      "candidate_persons": [
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-27EE74D90FCF8ABA5061"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-A0FE16975B2D984A5D59",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "在位期内对褚遂良授予东宫辅导职责，具备重要人物授权候选性；须核实皇帝直接命令、职责范围及太子教育履职结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含皇帝任用重要人物并形成东宫辅导结果链，可能符合任用授权；现有切片混杂且尚非V4正式事实，需回到完整史源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-11B8A32F1DD55AFF36"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-025",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵为皇甫德参激切上言辩护，李世民未治罪并赐绢。",
+      "candidate_persons": [
+        "魏徵",
+        "皇甫德参"
+      ],
+      "claim_refs": [
+        "CLMK-D6A7F1143CE22F5B6AA2"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-A27326B8A5D6882740F4",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是对言事与进谏的容纳和处置，属于tolerate_talent语义；不是重要人物任用、实质授权或撤权结果链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是对言事与进谏的容纳和处置，属于tolerate_talent语义；不是重要人物任用、实质授权或撤权结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-ADF1F368AAD7533303"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-025",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "讨吐谷浑时，李世民任命侯君集为西海道行军副帅。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-E28A11185D9EF9F6CD83"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-A477C6B766307586A0A0",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "讨吐谷浑中任侯君集为西海道行军副帅属于在位期重要军事授权候选；须补足具体统帅权限及战役履职结果，不能仅以官名或战功成立。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索明确指向皇帝对重要军事人物的任命，符合当前规则候选范围；但缺少结果链，且V3切片不能直接作为V4事实，需完整史源回溯。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-6A03592D2DB52FD9E5"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-025",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "尉迟敬德请求李渊降手敕，使诸军受秦王处分并恢复秩序。",
+      "candidate_persons": [
+        "尉迟敬德",
+        "李世民",
+        "李渊"
+      ],
+      "claim_refs": [
+        "CLMK-26A13DF94B017BC5543C"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-A514931181D4D8E16AD0",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索显示正式授权者是李渊，李世民是被授权处分的秦王；皇帝归责与事件主体不满足当前appointment_delegation的李世民任用授权条件。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索显示正式授权者是李渊，李世民是被授权处分的秦王；皇帝归责与事件主体不满足当前appointment_delegation的李世民任用授权条件。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-2316210FA94ABDE228"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-025",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门事变当日，李世民使尉迟敬德入宿卫，并请求李渊降手敕令诸军受其处分。",
+      "candidate_persons": [
+        "李世民",
+        "尉迟敬德",
+        "李渊"
+      ],
+      "claim_refs": [
+        "CLMK-8FB11C9747EF72612C1D"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-A522678C69F73DC5D3D5",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "玄武门事变发生于李世民即位前，且诸军处分的正式手敕出自李渊；不得纳入626—649李世民在位期正式覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "具有重要人物任用与实质授权链，但正式授权由李渊作出，且李世民当时身份及归责边界需回到完整史源核定。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-94D23A30FF5C2DE903",
+        "OSS-5CE2893CD88FA1C193",
+        "EVD-1C1CCAEC7ABF9E424D082AA2",
+        "EVD-24C371EE8473D3E2D4DDD658"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-026",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观九年李靖征吐谷浑时力排不宜进兵之议，深入敌境并取得军事胜果。",
+      "candidate_persons": [
+        "李世民",
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-1593FA7A0ED90A921C59"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-A775565ED6705A724D08",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索核心是将领军事决策与战役结果，未显示李世民对李靖的任用、实质授权或撤权失控链，主结算明显属于战功或军事规则。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索核心是将领军事决策与战役结果，未显示李世民对李靖的任用、实质授权或撤权失控链，主结算明显属于战功或军事规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-0CADE75C842807D88F",
+        "OSS-55032C41630DDA0FDA",
+        "EVD-0577A681ABA79AC1C6CC9BFF",
+        "EVD-8ED5DD8C830F50B9E22FEED9"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-026",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门事变后，尉迟敬德争止扩大诛连，处置范围限于建成、元吉党羽首要。",
+      "candidate_persons": [
+        "李世民",
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-6B2297E6AF98E7306BB9"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-AB5C12F1F6D2D1CDCBD4",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "线索主要表现为事变后处置范围与保全争辩，未形成李世民对重要人物任用或授权及其结果链；更接近事变处置或宽宥主题。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "线索主要表现为事变后处置范围与保全争辩，未形成李世民对重要人物任用或授权及其结果链；更接近事变处置或宽宥主题。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-94D23A30FF5C2DE903",
+        "OSS-5CE2893CD88FA1C193",
+        "EVD-662FBC164912E59A6C99176A",
+        "EVD-A5DC1CE6326B05D1D9091680"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-026",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "高祖将斩李靖时，李世民坚持请求保全，随后召李靖入幕府。",
+      "candidate_persons": [
+        "李世民",
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-44F1C22EBBA751A8A0AF"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-AC42F84D9E06A234E32E",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "所述保全李靖及召入秦王幕府属于李世民即位前事件；历史覆盖窗口严格限于626—649年在位期，不能作为正式覆盖单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接包含皇帝候选主体对重要人物的保全、召入幕府及后续任用链，符合规则方向；仍须以完整史源核定时序、主体和结果归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-0CADE75C842807D88F",
+        "OSS-B1633C8216366AFBF0",
+        "EVD-5512EF81C9C06F36E807723E",
+        "EVD-8499182C63151C0329495C66"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-026",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门之变中尉迟敬德追射并杀死李元吉。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-B874A7A5189628E8A85F"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-AD7B517159DED33EEE40",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索描述的是玄武门之变中的直接军事处置与杀伐结果，未显示李世民对尉迟敬德的任用、实质授权或撤权链，主结算不属于 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索描述的是玄武门之变中的直接军事处置与杀伐结果，未显示李世民对尉迟敬德的任用、实质授权或撤权链，主结算不属于 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到玄武门之变完整史源，核对李世民与尉迟敬德之间是否存在独立任用或授权结果链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-027",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "介休投降后，李世民任尉迟敬德为右一府统军，使其统领旧众八千并入诸营。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-369D03C578F6F406B632"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-AE6D3939B73A5076128A",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "介休受降及任尉迟敬德统领旧众发生于武德三年，为李世民即位前秦王时期；虽具任用授权语义，仍在正式历史覆盖范围之外。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接指向李世民对重要军事人物的任命及兵众统属安排，具备 appointment_delegation 的授权入口和可追踪结果链；但仍须回到完整史源确认任命背景、授权实质及后续结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "检索武德三年介休及永安降后尉迟敬德任右一府统军的完整上下文，核对任命、旧众八千归属和后续军事效果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-027",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀弹劾房玄龄、魏徵、温彦博未获采纳，随后被罢御史大夫、改任太子少傅且不再预闻朝政。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-FDD4E873F6BC53D48EF8"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-AF1B2FF8C7C30A114031",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "如完整纪事证实李世民因该事罢萧瑀御史大夫、转任太子少傅并停止其预闻朝政，即构成对重要官员的实质撤权；须补足处置因果、权力变化及后续履职或失控结果链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索呈现皇帝对重要官员的撤权、降转及政治参与权收回，符合 appointment_delegation 的撤权/失控方向；需完整史源核对因果归责、处置主体及权责变化。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "检索萧瑀任御史大夫、弹劾未问及罢御史大夫的完整纪事，核对李世民的处置决定与不复预闻朝政的实际权力变化。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-027",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "侯君集在讨吐谷浑军事谋议中建议精选精锐长驱疾进，李靖采纳其计。",
+      "candidate_persons": [
+        "侯君集",
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-46A599A556256817497F"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-B3ED8217A476406FB8CB",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索的采纳者是李靖而非李世民，内容是军事谋议和策略采纳，未显示皇帝对侯君集的任用或实质授权结果链，不应作为 appointment_delegation 主事件。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索的采纳者是李靖而非李世民，内容是军事谋议和策略采纳，未显示皇帝对侯君集的任用或实质授权结果链，不应作为 appointment_delegation 主事件。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到讨吐谷浑完整军事史源，核对李靖的决策权限及李世民是否另有对侯君集的任用授权链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-027",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任命侯君集为讨吐谷浑副帅，属于李靖军事授权链中的副职任用线索。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-F3524E894557541510E3"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-B40F3C1AAD6070029D1D",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "皇帝任用重要人物且涉及军事授权，但现有线索明显可能是既有李靖军事授权链的组成部件；不得据此重复建立独立结算事件，需回到完整史源核对其独立职责与结果。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "皇帝任用重要人物且涉及军事授权，但现有线索明显可能是既有李靖军事授权链的组成部件；不得据此重复建立独立结算事件，需回到完整史源核对其独立职责与结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-94DDB4312A7C61CBE0",
+        "OSD-1320A13E24C50785CC",
+        "检索讨吐谷浑战役中李靖、侯君集、任城王道宗的完整任命及职责段落"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-028",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观七年李世民转虞世南为秘书监并赐爵永兴县子。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-6BA875CBDC124BD1E98F"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-B691B4E18F376C264FC9",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索仅显示官职转授和赐爵，未显示实质授权、权责范围或可归责结果链；单纯官名与爵位变更不自动适用 appointment_delegation。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索仅显示官职转授和赐爵，未显示实质授权、权责范围或可归责结果链；单纯官名与爵位变更不自动适用 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-633855237DC66F8092",
+        "OSD-2DBB7ABB912B244333",
+        "仅在完整史源显示秘书监职责授权及后续结果时复核"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-028",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任魏徵为特进并令其知门下事、参议得失及奏闻徒流以上罪事。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-4C45C185E7272D455A3A"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-B8D048E0CFC60CFE566E",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "魏徵知门下事、参议得失及奏闻罪事属于魏徵既有工作集中的中枢授权组成材料；不得以同义任命另建重复单元，应并入既有工作集补全其统一结果链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索显示皇帝对重要人物作出持续性的中枢职责授权，具备 appointment_delegation 的候选语义；但当前 source slice 不完整，必须回到完整史源确认授权范围、持续履行和结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-2EA31601C6D9488268",
+        "OSD-0E71090F4456DE0DAD",
+        "检索贞观十年六月壬申前后魏徵知门下事及参议得失的完整纪事"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-028",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀任河南道巡省大使时推劾失实致人死亡，李世民特意免除其责罚。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-1B0DF970A6613B924115"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-B8E32C01F9C02E41DF5A",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索的主结算是皇帝对过失行为的免责或宽宥，核心不是任用、实质授权或撤权结果；更接近 tolerate_talent，appointment_delegation 不应承接主结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索的主结算是皇帝对过失行为的免责或宽宥，核心不是任用、实质授权或撤权结果；更接近 tolerate_talent，appointment_delegation 不应承接主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-74B7A281294BF5C733",
+        "OSD-D5915893C3D8D9A599",
+        "回源核对萧瑀巡省失误、致死与太宗免责的完整段落及责任归属"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-028",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民因谋反指控处置张亮，斩于市并籍没其家。",
+      "candidate_persons": [
+        "张亮"
+      ],
+      "claim_refs": [
+        "CLMK-5F1E5B0AE25198BCB076"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-B93856803A4136C9F33C",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "主事件是谋反案件审判与刑罚处置，未显示任用、实质授权或撤权失控链。",
+      "initial_disposition": "not_applicable",
+      "rationale": "主事件是谋反案件审判与刑罚处置，未显示任用、实质授权或撤权失控链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查 OSS-7112D826BD0A5E7F5F 完整史源确认审理与处置链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-029",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵进谏停止册立，李世民命停册使并自责。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-43EEC60A28447AE76B6E"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-BA5ADD9FA90DAADE8F78",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主事件是纳谏及后宫册命调整，未显示对魏徵的任用、实质授权或撤权失控链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主事件是纳谏及后宫册命调整，未显示对魏徵的任用、实质授权或撤权失控链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查 OSS-ADF1F368AAD7533303 完整史源核对进谏与决定链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-029",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任虞世南为著作郎兼弘文馆学士，后调整其职务。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-057CB04BE794945A43D5"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-BAF3C96ADA95D7C68535",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "现有线索仅见即位后任职调整及固辞，尚未形成职责—履职结果链；秦王府、东宫经历须严格作即位前 scope exclusion。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确包含皇帝任用重要人物及职务调整，可能形成任用链；必须回到完整史源核实权限、时间与结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查 OSS-633855237DC66F8092 完整史源覆盖各任用节点及固辞改任关系"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-029",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "秦琼随李世民征战并任前锋，武牢先陷敌阵，战后受封。",
+      "candidate_persons": [
+        "秦琼"
+      ],
+      "claim_refs": [
+        "CLMK-EB67C4A5037FE4583292"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-BF6E2C01EEA7387E9FCC",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主事件是战役作战与战功结果，未提供李世民对秦琼的实质授权或授权失控链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主事件是战役作战与战功结果，未提供李世民对秦琼的实质授权或授权失控链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查 OSS-759C5F3C326FB943C6 完整史源区分战功、指挥与封赏"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-029",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵称褚遂良书法后，李世民即日召令其侍书。",
+      "candidate_persons": [
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-EC32602171CC8AFB727A"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-C01727D14545C8C3D8B7",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索显示主链是他人称许后皇帝识别并转化使用，明显更接近 talent_discovery；任侍书的官职结果不足以单独证明重要任用或实质授权。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索显示主链是他人称许后皇帝识别并转化使用，明显更接近 talent_discovery；任侍书的官职结果不足以单独证明重要任用或实质授权。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-4E465A52EEABEC5EFD 核对完整原文及上下文",
+        "核对推荐、皇帝亲自验证与后续使用是否构成完整识才链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-030",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "太宗嗣位后，萧瑀迁尚书左仆射。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-58C592930FAED9CD12FC"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-C0856142716B64075D1F",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "即位后迁尚书左仆射属重要中枢任用，值得核验；现有切片只证明任官，须补实其受授职责及任后具体政务结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "中枢高位任用且皇帝归责方向明确，可能满足 appointment_delegation；现有切片不足以确认任用背景、权责范围及结果链，必须回到完整史源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "核对 OSS-E3DF5430F1F0122131 的完整任官段落",
+        "补查 OSS-74A994D051CEC6186D 相关上下文及任用后的职责结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-030",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十年六月，李世民以温彦博为尚书右仆射。",
+      "candidate_persons": [
+        "温彦博"
+      ],
+      "claim_refs": [
+        "CLMK-060E2CDE793EF75B7386"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-C115758102FEF0877B14",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观十年任尚书右仆射为重要中枢授权候选；当前只见任官，不得将官名本身当作履职结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "尚书右仆射属于中枢重要任用，具备规则候选性；当前线索仅确认任官及时间，未确认授权内容、权责方向和结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-F7C66A104C57FD03AE 核对完整诏令、任官背景及后续结果"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-030",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十年，褚遂良自秘书郎迁起居郎。",
+      "candidate_persons": [
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-1BC79969D34734643242"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-C1CD670F79712F217E55",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有材料仅证明自秘书郎迁起居郎，未证明皇帝实质授权、职责范围或履职结果；单纯官名升迁不适用本规则。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝归责方向和中枢任用线索明确，但现有材料未说明具体任命主体、授权内容或任用结果，不能直接形成 V4 事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-4E465A52EEABEC5EFD 核对完整升迁叙述及李世民任命语境",
+        "与褚遂良侍书事件核对是否为同一任用链或重复线索"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-030",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十六年李世民任魏徵为太子太师并仍知门下省事。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-F168AB4B5AE0AB2C5E9A"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-C28B03CBD45E3183B2A6",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "任命发生于在位窗口内且具授权语义，但魏徵已属既有工作集；该材料只能作为既有魏徵任用授权链的补充组成，不得另建重复单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝直接任用重要人物并形成中枢职责授权，符合本规则候选语义；现有 V3 source slice 与事件上下文疑似不完整，不能直接转为 V4 事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "围绕贞观十六年魏徵拜太子太师、知门下省事如故检索完整史源",
+        "核验任命原因、职责范围及后续实际作用"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-031",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵谏阻长乐公主资送倍于长公主，李世民采纳其言。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-67071AD38AD263D0AA86"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-C2EE7137F25CE7D1CA45",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主链是纳谏及政策采纳，不是任用、实质授权或撤权失控；更接近 tolerate_talent，不能因 route hint 直接归入本规则。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主链是纳谏及政策采纳，不是任用、实质授权或撤权失控；更接近 tolerate_talent，不能因 route hint 直接归入本规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "核验魏徵进谏与李世民采纳的完整史源及具体政策结果",
+        "由 tolerate_talent 规则复核皇帝采纳直言的处置链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-031",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "太宗平京城后引杜如晦为秦王府兵曹参军，随后迁陕州总管府长史。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-667CAE54F8D3923DA1CC"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-C38792DA3849D19E99B0",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "秦王府兵曹参军及陕州总管府长史任用属于即位前事件，不在李世民626—649正式历史覆盖窗口；不得以其后续仕途补正为本规则正式单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝对重要人物的连续任用及职责配置明显可能形成任用授权链；现有证据片段与候选事件存在来源上下文错配，必须回到完整史源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "检索太宗平京城后引杜如晦入秦王府任职的完整传记或编年史源",
+        "核验秦王府兵曹参军至陕州总管府长史的任用主体、时间与结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-031",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民称萧瑀为真社稷臣并赐诗，褒奖其在废立未定时不受利诱、不惧刑戮。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-9CA5A8E804E118EF6A6C"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-C3B7ECE7568FF9C46109",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索主要是对人物操守与直臣价值的追认褒奖，未显示本规则所需的任用、实质授权或撤权失控结果链；更可能属于 tolerate_talent 或其他人才评价语义。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索主要是对人物操守与直臣价值的追认褒奖，未显示本规则所需的任用、实质授权或撤权失控结果链；更可能属于 tolerate_talent 或其他人才评价语义。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "核验武德六年后废立议局中萧瑀行为及太宗褒奖的完整史源",
+        "复核是否存在独立任用、授权或保全行为，避免将评价性记载直接计入本规则"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-031",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任命侯君集为吏部尚书并进位光禄大夫，主管选举考课并参与朝政。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-5D7AD6FFFD51AA82C92E"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-C4360CE51EF1C47CC873",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "如任命主体、在位期时序、吏部实权范围及侯君集实际履职或失控后果可由完整史源连续证明，可构成实质任用授权链；现有片段不足以直接形成V4事实。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "具备皇帝任命重要人物、授予中枢实职及职责结果链，可能符合任用授权语义；现有 V3 片段仍不足以形成 V4 正式事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-94DDB4312A7C61CBE0 对应完整史源，核验任命主体、时序、职责范围及后续实际结果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-032",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民入春宫后任命房玄龄为太子右庶子并赐绢。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-334D293E68EDB82FF552"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-C5070652486EFE1CF9CD",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "房玄龄已有中枢授权链工作集，该任命可能是既有工作集的组成部件；当前线索不应重复结算。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "房玄龄已有中枢授权链工作集，该任命可能是既有工作集的组成部件；当前线索不应重复结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "与既有“房玄龄中枢授权链”回源核对时序、事件边界及是否已有同一任用授权事实。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-032",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵就飞山宫营建上疏劝谏，现有线索未给出李世民采纳及后续结果。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-3749D0417CCF244DBD53"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-C69E51E3757FC2D11219",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主行为是进谏与皇帝对谏言的态度，不是任命、实质授权或撤权失控；应归入 tolerate_talent 方向，不能作为 appointment_delegation 主结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主行为是进谏与皇帝对谏言的态度，不是任命、实质授权或撤权失控；应归入 tolerate_talent 方向，不能作为 appointment_delegation 主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-10EF49DF64DE55C7CD 对应完整史源，核验纳谏及后续结果链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-032",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民征辽期间命高士廉摄太子太傅，与刘洎、马周等辅佐皇太子并同掌机务。",
+      "candidate_persons": [
+        "高士廉"
+      ],
+      "claim_refs": [
+        "CLMK-16700995A10383DDB30D"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-C6EF62F23931F200BB8B",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "征辽时授高士廉东宫辅政并同掌机务，表面具明确的临时实质授权；须核实任命对象、共同授权边界及高士廉个人履职结果，避免把群体辅政或马周既有材料误作高士廉独立成果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确包含皇帝授予东宫辅政与掌机务职责，属于实质授权及结果链候选；需完整史源核验共同授权边界和高士廉个人实际作用。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到 OSS-B7044949E683FB6A01 对应完整史源，核验摄太子太傅、辅政监国、同掌机务及职责结果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-032",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "秦王时期长孙无忌从征有功，后累擢比部郎中并封上党县公。",
+      "candidate_persons": [
+        "长孙无忌"
+      ],
+      "claim_refs": [
+        "CLMK-100115B7CAEF80239747"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events",
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-C76ACDED01F1EFA11CA3",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "所述核心经历限定为秦王时期，属于626年即位前事件，按历史覆盖窗口必须作scope exclusion，不得进入正式覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索包含对重要人物的任用及结果链，但现有片段不足以确认完整任用主体、时序和权责方向，需回到完整史源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-79DF4BD020597D0E4C",
+        "核查长孙无忌秦王时期任用及累擢封爵的完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-033",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观二年李世民使杜如晦检校侍中、摄吏部尚书，并总监东宫兵马事，结果记为称职。",
+      "candidate_persons": [
+        "杜如晦"
+      ],
+      "claim_refs": [
+        "CLMK-3ACA013ED0D4257A2C58"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-CA06E384072C44A0241A",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观在位期内的检校侍中、摄吏部尚书及总监东宫兵马，表面构成皇帝授予中枢职责与兵马监管权；须以完整史源确认任命主体、时序、职责实质及称职结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索直接呈现重要人物的中枢任用、实质授权及结果链，符合本规则候选条件；但source slice错位，仍须完整史源复核。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-CB56252E7BC451894A",
+        "核查杜如晦检校侍中、摄吏部尚书及总监东宫兵马事的完整段落"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-033",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "温彦博被突厥逼问国家虚实和兵马，拒绝泄露后被迁于阴山苦塞；线索另记太宗即位后征还并授官。",
+      "candidate_persons": [
+        "温彦博"
+      ],
+      "claim_refs": [
+        "CLMK-19EAB1DB7EDA8E594B37"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-CCFBF6937DDC14BF3419",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "核心片段是突厥拘押、逼问与迁徙，不是李世民对重要人物的任用、授权或撤权结果链；且现有归责存在source title误修风险。",
+      "initial_disposition": "not_applicable",
+      "rationale": "核心片段是突厥拘押、逼问与迁徙，不是李世民对重要人物的任用、授权或撤权结果链；且现有归责存在source title误修风险。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-7816DC120C2FC046F7",
+        "如需另行研究，核查太宗即位后征还授官的完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-033",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "王珪因祖孝孙女乐事进谏，李世民先怒后称悔并停止相关处置。",
+      "candidate_persons": [
+        "王珪"
+      ],
+      "claim_refs": [
+        "CLMK-6219D183300A2B648A91"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-CDC414F51D2A911FD863",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主轴是进谏与皇帝纳谏、态度转变，并非对王珪的任用、授权、撤权或失控结果链，更适合纳谏或tolerate_talent方向。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主轴是进谏与皇帝纳谏、态度转变，并非对王珪的任用、授权、撤权或失控结果链，更适合纳谏或tolerate_talent方向。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-50146255CDC98920B2",
+        "核查祖孝孙女乐议及王珪进谏的完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-033",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民因显仁宫供顿问题受到魏徵劝谏并表示获益。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-27B7904A9DC19CE0F75B"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-D10CE35B871D4901E691",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是皇帝接受劝谏及纳谏结果，不是对重要人物的任用、实质授权或撤权失控链；更适合 tolerate_talent。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是皇帝接受劝谏及纳谏结果，不是对重要人物的任用、实质授权或撤权失控链；更适合 tolerate_talent。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-2CBF7E914D04C4B987",
+        "OSD-5326515716CB8D19A7"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-034",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民将李绩改任蕲州刺史并改封英国公。",
+      "candidate_persons": [
+        "李绩"
+      ],
+      "claim_refs": [
+        "CLMK-A9673ADEBF1D0B14ABF7"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-D1DBB18753300138FE73",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "现有材料仅见改任蕲州刺史与改封英国公，尚未显示该任用的实质授权、履职内容或结果；不能以官名和封爵本身成立本规则单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "表面具备皇帝任命和身份调整，但现有片段主要证明官职封爵结果，尚不足以判断是否存在重要任用、实质授权及结果链，需回到完整史源核验。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-6C1056C985B6FBD765",
+        "OSD-FCA919BBC47C228AF7"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-034",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "围绕亲王礼仪，魏徵提出反对意见，李世民最终批准王珪奏议。",
+      "candidate_persons": [
+        "魏徵",
+        "王珪"
+      ],
+      "claim_refs": [
+        "CLMK-AEBA974D5E1CC83DEC52"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-D37E6459329B15078B39",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主轴是礼制政策奏议的采纳及亲王礼仪安排，非对重要人物的任用、授权或撤权；现有线索也显示可能属于 anti_nepotism 或一般政策采纳。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主轴是礼制政策奏议的采纳及亲王礼仪安排，非对重要人物的任用、授权或撤权；现有线索也显示可能属于 anti_nepotism 或一般政策采纳。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-1FD0B0DE5408CD9EA3",
+        "OSD-F8311E9A634FFBFFB1"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-034",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民即位后迁侯君集为左卫将军，进封潞国公并拜右卫大将军。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-FD3E3DEBA916B972B5B6"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-D65E94047B610E268D28",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "即位后的左卫将军、右卫大将军任用可能构成对重要军事人物的实质授权，但当前片段未建立其统辖范围、履职结果及与后续事件的可归因链，需完整史源复核。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "明确涉及皇帝对重要人物的连续任用和升迁，但现有片段未充分说明授权范围、实际职责及后续结果链，需回源核验后再判断是否形成正式规则候选。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-94DDB4312A7C61CBE0",
+        "OSD-1320A13E24C50785CC"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-034",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民任侯君集为交河道行军大总管，出兵讨伐高昌。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-9F2846C099972E1BB84E"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-D9B19099812D4B848FF9",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "在位期内的直接军事任命，具重要职责；须以完整史源补足侯君集受命后的履职与高昌战事结果，方可形成可评分链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝对重要军事人物的明确任用与授权符合规则语义；现有线索仅证明任命及出兵原因，尚缺完整史源中的授权范围、执行结果与归责链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到OSD-1320A13E24C50785CC对应完整史源",
+        "核验任命诏令、军事授权范围、高昌战事结果及侯君集执行链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-035",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵反驳李世民关于魏王及群臣礼法的责让，李世民承认其意见有理。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-871B62FEC2AECD431185"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-DA11B563B58FBBDE2DF0",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是纳谏及皇帝接受批评，不是任用、实质授权或撤权结果链；appointment_delegation 路由属于误报候选。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是纳谏及皇帝接受批评，不是任用、实质授权或撤权结果链；appointment_delegation 路由属于误报候选。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到OSD-0E71090F4456DE0DAD完整史源核验对话上下文",
+        "检查是否存在独立的任用或授权事件，勿将纳谏结果直接转为任用证据"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-035",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀与陈叔达在李世民面前争执，因不敬被免官。",
+      "candidate_persons": [
+        "萧瑀",
+        "陈叔达"
+      ],
+      "claim_refs": [
+        "CLMK-E02679C87775CCE79A35"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-DA1CFDDACCA78A2A399B",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索仅显示朝前争执及免官处分，未显示皇帝对重要人物的任用、实质授权或既有授权后的撤权失控链，不能按单纯免官结算。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索仅显示朝前争执及免官处分，未显示皇帝对重要人物的任用、实质授权或既有授权后的撤权失控链，不能按单纯免官结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到OSD-F29A24A1F09771275C完整史源确认是否另有任用或授权背景",
+        "若存在独立授权链，应拆分为不同事件重新评估"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-035",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "温彦博提出安置降突厥的方案，李世民采纳并将降人安置于朔方。",
+      "candidate_persons": [
+        "温彦博"
+      ],
+      "claim_refs": [
+        "CLMK-7D2654C44A7BF11AB246"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-DA59CA7CEF0919D32FD7",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "这是臣下建议与皇帝采纳政策的事件，属于一般政策采纳，不是对重要人物的任用或实质授权；不得仅凭“从之”纳入 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "这是臣下建议与皇帝采纳政策的事件，属于一般政策采纳，不是对重要人物的任用或实质授权；不得仅凭“从之”纳入 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到OSD-2FE8680D0C17580C54完整史源核验建议、决策与执行主体",
+        "检查温彦博是否另有独立任用或授权事件，避免与政策采纳混结"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-035",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民临终委托褚遂良辅佐太子并命其草诏，属于重要人物的实质授权链候选。",
+      "candidate_persons": [
+        "褚遂良"
+      ],
+      "claim_refs": [
+        "CLMK-A0069BCFE90ED8803842"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-DB5253A12F1176D5DEF3",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "649年临终顾命与草诏是皇帝对褚遂良的实质授权；需核验辅太子的具体职责、顾命执行及结果均可在在位期内闭合。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索显示皇帝直接授权及明确职责结果，可能满足 appointment_delegation；但现有内容仍是 V3 检索线索，须回到完整史源核验授权对象、时点和后续结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-69189F43DEC5EC631A",
+        "OSD-6DDA9D4B096C6DFB16"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-036",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀提出封建建议，李世民表示认可并开始议封建。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-93F564F12E2393656CCA"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-DC7A83A79D235111713F",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件主结算是制度政策建议及采纳，不是对重要人物的任用、实质授权或撤权失控；不应因皇帝认可建议而归入 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件主结算是制度政策建议及采纳，不是对重要人物的任用、实质授权或撤权失控；不应因皇帝认可建议而归入 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-C2AFD28CF6E7B75920",
+        "OSS-403533D2E92ECE792C"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-036",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "秦琼随李世民镇守长春宫并被拜为马军总管。",
+      "candidate_persons": [
+        "秦琼"
+      ],
+      "claim_refs": [
+        "CLMK-5D1D9650377D465E500F"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-DE5F1262F29E87A20D1F",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "“入秦府后、镇长春宫、拜马军总管”属即位前秦王府时期，不进入626—649正式历史覆盖。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "存在皇帝对重要军事人物的明确任命线索，可能属于任用链；但当前片段主要证明任命本身，仍需完整史源核验皇帝归责、授权实质和结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-759C5F3C326FB943C6",
+        "OSD-882C0C49C8134AD860"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-036",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵直谏，李世民以笑回应并认可其敢于直言。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-3F91604D9E56E9D1793E"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-DEB16BA3120474D985A3",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件核心是皇帝容纳直谏和对言论的态度，属于 tolerate_talent 语义；没有任用、实质授权或撤权失控主链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件核心是皇帝容纳直谏和对言论的态度，属于 tolerate_talent 语义；没有任用、实质授权或撤权失控主链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-1219EAC1C30B979BFE",
+        "OSD-5326515716CB8D19A7"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-036",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观元年八月，线索称李世民将高士廉贬任安州大都督。",
+      "candidate_persons": [
+        "高士廉"
+      ],
+      "claim_refs": [
+        "CLMK-50EA5832B57D27CE7DC7"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-E11BD9E8B4A3AF71D463",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索仅见贬任安州大都督，属于一般人事处置，未见可归因的职责/权力撤变与履职或失控结果链，不能作为本规则单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索明确指向皇帝对重要人物的处置及任职结果，可能属于撤权或任用结果链；但现有切片仅见“贬高士廉”和官名，缺少完整前因、权责变化与结果链，不能作为V4事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到包含贞观元年八月戊戌完整上下文的史源切片",
+        "核对高士廉原职、贬任是否由李世民直接决定及后续影响",
+        "区分该处置与tolerate_talent中的单纯贬黜语义"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-037",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观元年，线索称李世民任房玄龄代萧瑀为中书令，并进爵邢国公、赐实封。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-F7EE054A46208D417721"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-E156A2F727D0CD4FED29",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "房玄龄中枢授权链已在既有工作集中；本组可能是该链的任命或封赏组成部件。现有线索仍不是V4正式事实，需与既有事件去重并回核完整史源。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "房玄龄中枢授权链已在既有工作集中；本组可能是该链的任命或封赏组成部件。现有线索仍不是V4正式事实，需与既有事件去重并回核完整史源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "对照既有房玄龄中枢授权链的事件键、时间和证据lineage",
+        "回核任中书令与论功封赏是否同一事件链或应拆分"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-037",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观三年，线索称任李靖为代州道行军总管并取得突厥战事上的军事效果。",
+      "candidate_persons": [
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-23652C1EA2877520D3F3"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events",
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-E192781BC659B25F5CA0",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "李靖军事授权链已在既有工作集中，本组很可能是该链的重复或组成部件。现有切片预览与摘要的战事上下文不完全对应，需合并去重并回核完整史源后再判断归责。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "李靖军事授权链已在既有工作集中，本组很可能是该链的重复或组成部件。现有切片预览与摘要的战事上下文不完全对应，需合并去重并回核完整史源后再判断归责。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "对照既有李靖军事授权链的任命、授权和战果事件",
+        "回核皇帝直接任命与朝廷集体任命的归责证据",
+        "确认“于是大惧”是否属于同一任命结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-037",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "线索称承乾获罪后，李世民留房玄龄、李绩等商议立晋王并遂定。",
+      "candidate_persons": [
+        "李绩"
+      ],
+      "claim_refs": [
+        "CLMK-83ED5CC8677C8D9BAFB5"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context",
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-E1C769049F578310BEDE",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "立晋王的核心是储位决定；现有切片未证明李世民对李绩作出可独立计分的实质任用或授权，也未形成其履职结果链。",
+      "initial_disposition": "source_insufficient",
+      "rationale": "摘要声称存在中枢商议，但现有证据切片仅显示李绩官名和“太子承乾得罪”背景，未直接支持李世民授权李绩或形成可归责的结果链；不能据此形成可靠回源方向或V4事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "寻找承乾获罪后商议立晋王的完整史源段落",
+        "核对李绩在该议事中的具体角色是受授权、参与议决还是仅被列名",
+        "确认“建立遂定”的结果归责及与储位规则的边界"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-037",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀上奏指称房玄龄等中书门下大臣结党专权，未显示李世民对相关人物实施任用、授权或撤权及结果链。",
+      "candidate_persons": [
+        "萧瑀",
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-72DAED15CB78DF73A3EB"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-E27C1B3DE4C89786FEE1",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是朋党指控与政治处置，主结算更接近反朋党规则；缺少任用或实质授权结果链。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是朋党指控与政治处置，主结算更接近反朋党规则；缺少任用或实质授权结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查萧瑀弹劾房玄龄等的完整上下文及后续处置",
+        "确认是否存在独立任用、授权或撤权事件"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-038",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "吐谷浑战役中侯君集提出长驱疾进，李靖采纳并最终平吐谷浑而还。",
+      "candidate_persons": [
+        "侯君集",
+        "李靖"
+      ],
+      "claim_refs": [
+        "CLMK-C834B445F2B9E1D57027"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-E2D7F733C89A41B1093C",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是军事建议采纳与战役结果，主结算属于军事行动或战功链；不足以证明皇帝授权是结果主因。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是军事建议采纳与战役结果，主结算属于军事行动或战功链；不足以证明皇帝授权是结果主因。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查完整战役史源并区分李世民战略授权、李靖执行和侯君集建议",
+        "如有独立关键指挥授权再另建候选"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-038",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民在藩时引侯君集入秦王幕府，使其多次从征并逐渐参与谋议。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-87FF2ECC586E22C3E4D3"
+      ],
+      "escalation_recommendations": [
+        "multiple_candidate_events",
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-E3A32BB73558D8E0110B",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "“引侯君集入秦王幕府”发生于626年即位前，严格历史覆盖窗口外；不得作为正式覆盖候选。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "可能形成皇帝任用到实质参与的事件链，但当前仅为V3线索片段，须核验权限范围、连续结果及与其他侯君集事件的去重关系。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查侯君集传记完整段落，核验引入幕府、从征和参预谋议的连续性",
+        "与后续任将、吐谷浑及其他授权材料对齐"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-038",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观七年三月，李世民任命秘书监魏徵为侍中；现有线索仅呈现官职变更。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-5BB884CEFE8A77E23140"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-E3E70F142E1E75C4785C",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "魏徵已属既有工作集；该线索仅示官名变更，不能另建重复单元，应仅在既有工作集内按需核对其组成材料。",
+      "initial_disposition": "source_insufficient",
+      "rationale": "虽有皇帝任命和重要人物，但缺少实际职权授予、履职结果、授权边界或后续结果链，不能仅凭官名任命形成候选。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查任命诏令及魏徵任侍中后的具体议政、执行或结果材料",
+        "寻找可证明实际依赖、授权、纠偏或撤权的连续史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-038",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵上疏提出君主治道建议，现有线索未显示任用、授权或结果链。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-E0C0B9DC28056BB00C79"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-E4259C993DBAB56A3AE2",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "事件核心是进谏与君主纳谏，符合tolerate_talent方向；不构成appointment_delegation的任用或实质授权事件。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "事件核心是进谏与君主纳谏，符合tolerate_talent方向；不构成appointment_delegation的任用或实质授权事件。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查魏徵上疏及李世民采纳、处置或后续任用的完整史源链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-039",
+      "transport_claim_ref_deduplicated": true,
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民复任萧瑀为左仆射，随后参与侍臣政论。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-BDECB3D2513A178506CB"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-E5CFF23DF31C945D8259",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观在位期复任左仆射具重要中枢授权可能，但须以完整原文证明复任动作、实际职责及可归责的履职或失控结果，不能以一般政论代替结果链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "存在皇帝任用重要人物并进入中枢政务的候选授权链，但当前仅为V3线索，需回到完整史源核验任用语境、权责和结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查六月壬辰复任萧瑀为左仆射的完整纪事及后续政务参与记录"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-039",
+      "transport_claim_ref_deduplicated": true,
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观四年侯君集迁任兵部尚书并参议朝政。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-303E772E5DC9517DFD8D"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-E7222BC15DA42BD02C3F",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观四年在位窗口内的迁兵部尚书并参议朝政，具备皇帝对重要人物授予军政职责的候选形态；须完整回源证明任命主体、实际职责及其后续履职或失控结果，方可形成可结算链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝任用重要人物进入兵部并参与朝政，具备appointment_delegation候选形态；仍须由完整史源确认具体任命主体、授权实质及结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查贞观四年侯君集迁兵部尚书、参议朝政的本纪与列传完整上下文"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-039",
+      "transport_claim_ref_deduplicated": true,
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观元年李世民以房玄龄代萧瑀为中书令，并论功列为第一、进爵邢国公。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-545901885A30FA9E4CD2"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-E8EAB611E96443AD9496",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "该线索与既有“房玄龄中枢授权链”明显重合，可能是既有工作集组成部件；应回源核对是否为同一事件及是否存在新增结果。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "该线索与既有“房玄龄中枢授权链”明显重合，可能是既有工作集组成部件；应回源核对是否为同一事件及是否存在新增结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "对照既有房玄龄中枢授权链，回查代萧瑀为中书令及论功授爵的完整史源"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-039",
+      "transport_claim_ref_deduplicated": true,
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "杜如晦去世后，李世民手诏虞世南撰制碑文。",
+      "candidate_persons": [
+        "虞世南"
+      ],
+      "claim_refs": [
+        "CLMK-34D971A6468199D842B3"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-E905A3EB7868C7036388",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有线索显示为追悼性碑文撰制，属于礼仪及纪念事务，未见重要人物任用、实质授权或可归责的治理结果链。",
+      "initial_disposition": "not_applicable",
+      "rationale": "现有线索显示为追悼性碑文撰制，属于礼仪及纪念事务，未见重要人物任用、实质授权或可归责的治理结果链。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查完整史源 OSS-E8ED50461E2EB858B3，确认手诏语境及是否存在独立任用或授权后果。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-040",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "玄武门事变中，尉迟敬德追射杀李元吉并导致宫府兵溃散。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-A1F16755FAC582E3D054"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-EC0C28585473F8B443AB",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索核心是玄武门军事冲突及杀伐结果，并非李世民对尉迟敬德的任用、实质授权或撤权失控链；主结算应归入其他事件规则。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索核心是玄武门军事冲突及杀伐结果，并非李世民对尉迟敬德的任用、实质授权或撤权失控链；主结算应归入其他事件规则。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查完整史源 OSS-5CE2893CD88FA1C193，区分李世民部署、尉迟敬德行动及事后任用关系。",
+        "核验 OSS-D45011EF3F7BD5CCE0 线索是否误并入本事件。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-040",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观十七年，萧瑀获图形凌烟阁，并拜太子太保、仍知政事。",
+      "candidate_persons": [
+        "萧瑀"
+      ],
+      "claim_refs": [
+        "CLMK-1FD4AD1DB34FFA2E0F6C"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-EE846BBCDACA27E60DE4",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观十七年萧瑀拜太子太保、仍知政事可构成对重要人物持续授职授权的候选；凌烟阁图形属于褒奖，不能作为任用效果或重复结算依据，须分离后补齐履职结果链。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "现有线索包含皇帝任命重要中枢人物并继续参与政事的明确链条，可能满足任用与授权语义；但当前仅为V3片段，需回到完整史源确认任命主体、职责范围和实际结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查完整史源 OSS-74B7A281294BF5C733，补齐贞观十七年任命上下文、知政事职责及后续结果。",
+        "核验凌烟阁褒奖与太子太保任命是否属于同一可结算事件链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-040",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观四年，温彦博迁中书令并进爵虞国公。",
+      "candidate_persons": [
+        "温彦博"
+      ],
+      "claim_refs": [
+        "CLMK-123B062CA79123C9C5BC"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-F016A0A11CC31892D249",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "现有材料仅载温彦博迁中书令并进爵，属于官名变动和爵赏，未呈现可核定的皇帝实质授权、职责边界及履职结果或失控结果；按规则不得以单纯官名建立正式覆盖单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "迁任中书令涉及重要中枢职权，可能属于李世民对重要人物的任用或授权；现有线索仅证明官职变化，尚不足以确认授权实质、皇帝归责及结果链，必须完整回源。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回查完整史源 OSS-7816DC120C2FC046F7，确认迁中书令的任命主体、职权范围和后续治理结果。",
+        "补查 OSS-6944B3A8542CB8C419，核对编年记载与人物传记是否对应同一事件。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-040",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "建成、元吉被诛相关谋议中，侯君集被描述为所献策谋居多。",
+      "candidate_persons": [
+        "侯君集"
+      ],
+      "claim_refs": [
+        "CLMK-5C11411721FCDF8DECAA",
+        "CLMK-974CC86FD760CA0C1784"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-F05989D0EAF6BA51A560",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索核心是玄武门相关政变谋议及其结果，并非李世民对侯君集的任用、实质授权或撤权结果链；不能因 V3 route 提示直接绑定 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索核心是玄武门相关政变谋议及其结果，并非李世民对侯君集的任用、实质授权或撤权结果链；不能因 V3 route 提示直接绑定 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源核对侯君集在玄武门事件中的实际角色、李世民归责及后续处置；如需评分，应另按政变/政治行为语义判断规则归属。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-041",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "太宗敕令刘洎、岑文本、马周轮日往东宫与皇太子谈论，属于东宫辅导授权线索。",
+      "candidate_persons": [
+        "岑文本"
+      ],
+      "claim_refs": [
+        "CLMK-559992F909EF3527B58A"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-F112234018E407898CEF",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "太宗敕令刘洎、岑文本、马周轮日入东宫与太子谈论，显示直接、持续性的辅导授权；其是否形成可评分的履职结果尚未证明，需回源确认命令范围、执行事实及结果。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索显示皇帝直接作出对重要人物的持续性东宫辅导授权，可能满足 appointment_delegation 的授权入口；但现有材料未给出授权后的结果、影响或失控链，且 V3 claim/evidence 不是 V4 正式事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源核对敕令原文、授权对象与持续期限，并补查东宫辅导的实际结果、皇帝归责和是否形成可评分结果链。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-041",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "王世充战事中，尉迟敬德击坠单雄信、护卫李世民出围并与其还战，导致王世充军大败。",
+      "candidate_persons": [
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-BEF4F9AADFA509F11025"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-F2602F7E9B9E38779BA2",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索是军事行动、护卫和战果，主结算明显属于战功/战役语义；未显示李世民此前任用或授权如何导致该结果，不能按 appointment_delegation 结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索是军事行动、护卫和战果，主结算明显属于战功/战役语义；未显示李世民此前任用或授权如何导致该结果，不能按 appointment_delegation 结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到完整史源核对战役行动与战功归责；如进入评分，应转由军事战功相关规则判断。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-041",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观元年，房玄龄代萧瑀为中书令。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-512D9C5AF025A2D399F9"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-F3C507A2BAF6317B9E6F",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "该线索明确属于房玄龄中枢任用/授权工作集的组成部件；当前只能作为既有工作集候选去重或补证，不能因单条 V3 claim 自动形成新的 V4 事实。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "该线索明确属于房玄龄中枢任用/授权工作集的组成部件；当前只能作为既有工作集候选去重或补证，不能因单条 V3 claim 自动形成新的 V4 事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "与既有房玄龄中枢授权链按完整史源、事件边界和结果链去重合并，核对是否已有更充分任用证据。"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-041",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "贞观六年魏徵反对李世民封禅并提出劳费、仓廪和示弱风险。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-B6D550735EB64F1B398C"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-F6D138705BE08A380F68",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索核心是纳谏与政策反对，不是任用、实质授权或撤权失控；更接近tolerate_talent。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索核心是纳谏与政策反对，不是任用、实质授权或撤权失控；更接近tolerate_talent。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到贞观六年封禅议论的完整史源核对李世民采纳或拒绝意见及后续结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-042",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "秦琼参与玄武门事变后获拜左武卫大将军并赐实封。",
+      "candidate_persons": [
+        "秦琼"
+      ],
+      "claim_refs": [
+        "CLMK-4A6052E9418D32F0F7F6"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-F750A9719931BCC906E9",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主要事件链是玄武门事变中的军事行动及其功赏，现有任官结果不足以证明任用或授权本身是主结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主要事件链是玄武门事变中的军事行动及其功赏，现有任官结果不足以证明任用或授权本身是主结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到秦琼本传及玄武门事变完整史源，区分事变功赏与后续任用授权链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-042",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民入春宫后擢拜房玄龄为太子右庶子并赐绢。",
+      "candidate_persons": [
+        "房玄龄"
+      ],
+      "claim_refs": [
+        "CLMK-A3E475702945D4FA7BDF"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-F89CE0FCD8B9911A9DEC",
+      "final_disposition": "reject_not_applicable",
+      "final_rationale": "“入春宫后”指李世民正式即位前的太子时期，不在626—649在位期正式覆盖内；既有房玄龄工作集亦不能将该即位前任命倒灌为在位期单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "线索明确包含皇帝对重要人物的任命及待遇结果，可能形成appointment_delegation事件，但V3 Claim和切片不能直接作为V4事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到房玄龄本传及入春宫前后完整史源，核对任命主体、职责权限、持续任用及结果链"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-042",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "魏徵死后李世民称其为镜，并要求公卿知而必谏。",
+      "candidate_persons": [
+        "魏徵"
+      ],
+      "claim_refs": [
+        "CLMK-595BAF6CCF630D6D9E0B"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution",
+        "multiple_candidate_events"
+      ],
+      "event_group_key": "CEG-F996A47221C3CECBDEAB",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "核心是死后评价及鼓励进谏，不是对魏徵的任用、授权或撤权结果；更接近tolerate_talent或谏议语境。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "核心是死后评价及鼓励进谏，不是对魏徵的任用、授权或撤权结果；更接近tolerate_talent或谏议语境。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "回到魏徵临终遗表及死后诏令完整史源，核对评价、纳谏制度与人物任用是否属于不同事件"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-042",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "太宗伐辽东时令马周留辅皇太子定州监守。",
+      "candidate_persons": [
+        "马周"
+      ],
+      "claim_refs": [
+        "CLMK-BF2E4939E0FA098C3D21"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-FB65AD526B0D781400B5",
+      "final_disposition": "existing_workset_component",
+      "final_rationale": "与既有“马周任用授权链”工作集明显重合，当前仅应作为既有链组成部件回源核对，不能形成新事实。",
+      "initial_disposition": "existing_workset_candidate",
+      "rationale": "与既有“马周任用授权链”工作集明显重合，当前仅应作为既有链组成部件回源核对，不能形成新事实。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-B0A2372C4860341F9C",
+        "OSD-53FE7B741AFBA8C9B6"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-043",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "李世民于贞观十七年任高士廉同中书门下三品、平章政事，参与中枢政事。",
+      "candidate_persons": [
+        "高士廉"
+      ],
+      "claim_refs": [
+        "CLMK-8AAF75B08D84855A4924"
+      ],
+      "escalation_recommendations": [
+        "insufficient_route_context"
+      ],
+      "event_group_key": "CEG-FC8565C5FB8E6E7B5973",
+      "final_disposition": "advance_to_source_rebind",
+      "final_rationale": "贞观十七年任高士廉同中书门下三品、平章政事，具备在位期中枢实质授权的候选形态；须补证皇帝任命、实际权责与持续履职结果，不能仅以官名和参与政事结算。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "皇帝对重要人物的中枢任用及职责结果符合规则候选语义，但现有线索只有片段，须回到完整史源确认任命主体、时间、权限范围和后续结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-968B6C8CEA9F5F214A",
+        "OSD-CB01E029C745BCE097"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-043",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "萧瑀与陈叔达在皇帝面前争论，因不敬被免官。",
+      "candidate_persons": [
+        "萧瑀",
+        "陈叔达"
+      ],
+      "claim_refs": [
+        "CLMK-21E8B065822C23FA9DD7"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-FE2A3AC4CFE3541FB5F1",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "现有线索的主事件是朝廷争论及因不敬免官，未显示皇帝对重要人物的任用、实质授权或授权失控链；应避免将免官结果误归为任用授权结算。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "现有线索的主事件是朝廷争论及因不敬免官，未显示皇帝对重要人物的任用、实质授权或授权失控链；应避免将免官结果误归为任用授权结算。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-74B7A281294BF5C733",
+        "OSD-D5915893C3D8D9A599"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-043",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "秦琼随李世民在美良川作战，击破尉迟敬德且功劳最多。",
+      "candidate_persons": [
+        "秦琼",
+        "尉迟敬德"
+      ],
+      "claim_refs": [
+        "CLMK-ECE6A737A1B8CC38DDB1"
+      ],
+      "escalation_recommendations": [
+        "cross_rule_attribution"
+      ],
+      "event_group_key": "CEG-FF3519A0F4762CB65F62",
+      "final_disposition": "cross_rule_primary",
+      "final_rationale": "主事件是军事行动及战功结果，未提供皇帝任用、授权或撤权失控的因果链；不能因检索路由提示而归入 appointment_delegation。",
+      "initial_disposition": "cross_rule_primary",
+      "rationale": "主事件是军事行动及战功结果，未提供皇帝任用、授权或撤权失控的因果链；不能因检索路由提示而归入 appointment_delegation。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSS-759C5F3C326FB943C6",
+        "OSD-882C0C49C8134AD860"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-043",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    },
+    {
+      "candidate_event_summary": "线索称李世民即位后累迁李君羡为华州刺史，并封武连郡公。",
+      "candidate_persons": [
+        "李君羡"
+      ],
+      "claim_refs": [
+        "CLMK-3BF504C9494EB80D9682"
+      ],
+      "escalation_recommendations": [],
+      "event_group_key": "CEG-FFD3B68D6FFBC7C02276",
+      "final_disposition": "hold_source_insufficient",
+      "final_rationale": "现有切片正文与李君羡及其华州刺史任命不相符，且“累迁、封爵”尚未证明单次实质授权的职责边界及履职或失控结果；不得据此建立任用授权单元。",
+      "initial_disposition": "new_source_rebind_candidate",
+      "rationale": "任命及结果链表面符合 appointment_delegation，但现有 source slice 的正文指向其他人物和职事，不能作为李君羡事实依据；应回到完整史源核验人物、任命主体、时间及结果。",
+      "rule_code": "appointment_delegation",
+      "source_search_hints": [
+        "OSD-22F91BAD9B0ABF7295",
+        "OSS-B904B71245365182B1",
+        "检索：李君羡 华州刺史 武连郡公 李世民"
+      ],
+      "task_code": "I5B-HC-APPOINTMENT-DELEGATION-044",
+      "worker_authority": "recommendation_only_no_formal_fact_authority"
+    }
+  ],
+  "candidate_summary": {
+    "final_disposition_counts": {
+      "advance_to_source_rebind": 32,
+      "cross_rule_primary": 64,
+      "existing_workset_component": 28,
+      "hold_source_insufficient": 9,
+      "reject_not_applicable": 40
+    },
+    "high_reasoning_review_count": 75,
+    "legacy_hint_group_count": 173
+  },
+  "formal_candidate_codes": [
+    "AD-HC-WEIZHENG",
+    "AD-HC-MAZHOU",
+    "AD-HC-LIJING",
+    "AD-HC-HOUJUNJI"
+  ],
+  "formal_fact_acceptance_ready": true,
+  "formal_scoring_allowed": false,
+  "historical_coverage_complete": true,
+  "report_sha256": "f466a13de0a8274e8b211b8c027ceb85e65bd76224a82c238f6a074b5305e18c",
+  "rule_code": "appointment_delegation",
+  "ruler": "李世民",
+  "schema_version": "i5b-historical-coverage-candidate-inventory-v1",
+  "scope": {
+    "end": "649",
+    "pre_reign": "excluded",
+    "start": "626"
+  },
+  "selection_boundary": "Only in-reign, directly attributed appointment-authority-outcome chains were selected; title-only, pre-reign, duplicate and cross-rule hints remain dispositions.",
+  "status": "all_legacy_hints_dispositioned_and_source_finalists_selected"
+}

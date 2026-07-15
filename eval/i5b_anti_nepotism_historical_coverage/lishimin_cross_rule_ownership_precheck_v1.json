@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "appointment_delegation": "no_individual_authorization_outcome_settlement",
+      "numeric_settlement": "anti_nepotism_only",
+      "primary_owner": "anti_nepotism",
+      "team_building": "no_team_capacity_or_composition_settlement",
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1"
+    },
+    {
+      "appointment_delegation": "individual_appointments_not_consumed",
+      "numeric_settlement": "anti_nepotism_only",
+      "primary_owner": "anti_nepotism",
+      "team_building": "group_breadth_not_consumed_as_team_depth",
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1"
+    },
+    {
+      "appointment_delegation": "award_order_is_not_authorization",
+      "numeric_settlement": "closed_insufficient",
+      "primary_owner": "none_numeric",
+      "team_building": "award_order_is_not_team_structure",
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-SHENTONG-AWARD-GATE-v1"
+    },
+    {
+      "appointment_delegation": "anti_nepotism_numeric_projection_closed",
+      "numeric_settlement": "closed_insufficient",
+      "primary_owner": "appointment_delegation_if_outcome_chain_closes",
+      "team_building": "single_person_not_team_structure",
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-CHANGSUN-APPOINTMENT-GATE-v1"
+    },
+    {
+      "appointment_delegation": "initial_authorization_not_consumed",
+      "numeric_settlement": "closed_insufficient",
+      "primary_owner": "none_numeric",
+      "team_building": "no_team_structure_claim",
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-CHANGLE-CORRECTION-GATE-v1"
+    },
+    {
+      "appointment_delegation": "anti_nepotism_numeric_projection_closed",
+      "numeric_settlement": "closed_insufficient",
+      "primary_owner": "appointment_delegation_if_office_causation_closes",
+      "team_building": "private_ceremony_not_team_structure",
+      "unit_ref": "REU-LSM-ANTI-NEPOTISM-FANG-YIAI-FAVOR-GATE-v1"
+    }
+  ],
+  "declarations": {
+    "formal_scoring_allowed": false,
+    "score_or_ranking_write": false,
+    "zero_fill_used": false
+  },
+  "input_refs": {
+    "appointment_delegation_reference": "eval/i5b_appointment_delegation_historical_coverage/lishimin_projection_inputs_v1.json",
+    "projection_input_sha256": "ac476b535d1f6bb97bedd4220201ecc7657ae4fc5b77651429c794cbf10313b9",
+    "scored_shadow_sha256": "96c2be58af5dfab179e8f011439363f8b360cf44d9f1c935fa7acea2d3bcd49b",
+    "team_building_reference": "eval/team_building_v8_scored_shadow/report.json"
+  },
+  "report_sha256": "a4e7578bd3a6970e4c039ce864957cbfeddc1154534b1872ebe1086a382a218d",
+  "rule_code": "anti_nepotism",
+  "ruler": "李世民",
+  "schema_version": "i5b-anti-nepotism-cross-rule-ownership-precheck-v1",
+  "status": "cross_rule_ownership_precheck_reconciled",
+  "summary": {
+    "anti_nepotism_projected_unit_count": 2,
+    "appointment_delegation_overlap_blocked_count": 2,
+    "conflict_count": 0,
+    "database_write_count": 0,
+    "duplicate_numeric_settlement_count": 0,
+    "insufficient_unit_count": 4,
+    "team_building_overlap_blocked_count": 6,
+    "unit_count": 6
+  }
+}
