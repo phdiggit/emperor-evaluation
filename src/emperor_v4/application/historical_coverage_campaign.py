@@ -181,6 +181,7 @@ class CampaignState:
     phases: tuple[PhaseSpec, ...]
     tasks: dict[str, CampaignTaskState]
     max_concurrency: int
+    max_network_requests_per_ruler: int
     safety: Mapping[str, bool]
     artifacts: dict[str, Mapping[str, Any]] = field(default_factory=dict)
     model_call_count: int = 0
@@ -188,6 +189,7 @@ class CampaignState:
     ruler_started_at: dict[str, datetime] = field(default_factory=dict)
     ruler_deadlines: dict[str, datetime] = field(default_factory=dict)
     exhausted_ruler_codes: set[str] = field(default_factory=set)
+    ruler_network_request_count: dict[str, int] = field(default_factory=dict)
     _lock: RLock = field(default_factory=RLock, repr=False)
 
     def checkpoint(self) -> Mapping[str, Any]:
@@ -200,7 +202,11 @@ class CampaignState:
                 "campaign_code": self.campaign_code,
                 "manifest_fingerprint": self.manifest_fingerprint,
                 "max_concurrency": self.max_concurrency,
+                "max_network_requests_per_ruler": self.max_network_requests_per_ruler,
                 "safety": dict(self.safety),
+                "ruler_network_request_count": dict(
+                    sorted(self.ruler_network_request_count.items())
+                ),
                 "phases": [
                     {
                         "code": phase.code,
@@ -297,6 +303,9 @@ class CampaignState:
             phases=phases,
             tasks=tasks,
             max_concurrency=int(payload.get("max_concurrency") or 0),
+            max_network_requests_per_ruler=int(
+                payload.get("max_network_requests_per_ruler") or 10
+            ),
             safety=dict(payload.get("safety") or {}),
             artifacts=_json_copy(payload.get("artifacts") or {}),
             model_call_count=int(metrics.get("model_call_count") or 0),
@@ -313,6 +322,12 @@ class CampaignState:
                 str(code)
                 for code in wall_clock_budget.get("exhausted_ruler_codes") or ()
             },
+            ruler_network_request_count={
+                str(code): int(value)
+                for code, value in (
+                    payload.get("ruler_network_request_count") or {}
+                ).items()
+            },
         )
 
 
@@ -325,7 +340,6 @@ def build_campaign_state(manifest: Mapping[str, Any]) -> CampaignState:
     )
     safety = dict(manifest.get("safety") or {})
     required_safety = {
-        "offline": True,
         "report_only": True,
         "shadow_first": True,
         "formal_scoring": False,
@@ -333,7 +347,7 @@ def build_campaign_state(manifest: Mapping[str, Any]) -> CampaignState:
         "production_deployment": False,
     }
     if safety != required_safety:
-        raise CampaignContractError("campaign safety 必须保持 offline/report-only/shadow-first")
+        raise CampaignContractError("campaign safety 必须保持 report-only/shadow-first")
 
     runtime = dict(manifest.get("runtime") or {})
     max_concurrency = int(runtime.get("max_concurrency") or 0)
@@ -341,10 +355,18 @@ def build_campaign_state(manifest: Mapping[str, Any]) -> CampaignState:
     lease_seconds = int(runtime.get("lease_seconds") or 0)
     retry_delay_seconds = int(runtime.get("retry_delay_seconds") or 0)
     max_wall_clock_minutes = int(runtime.get("max_wall_clock_minutes") or 0)
+    max_network_requests_per_ruler = int(
+        runtime.get("max_network_requests") or 0
+    )
     completion_reserve_seconds = int(
         runtime.get("completion_reserve_seconds", 90)
     )
-    if max_concurrency <= 0 or max_attempts <= 0 or lease_seconds <= 0:
+    if (
+        max_concurrency <= 0
+        or max_attempts <= 0
+        or lease_seconds <= 0
+        or max_network_requests_per_ruler <= 0
+    ):
         raise CampaignContractError("runtime 并发、重试和 lease 参数必须为正数")
     if max_wall_clock_minutes <= 0:
         raise CampaignContractError("runtime.max_wall_clock_minutes 必须为正数")
@@ -434,6 +456,7 @@ def build_campaign_state(manifest: Mapping[str, Any]) -> CampaignState:
         phases=phases,
         tasks=tasks,
         max_concurrency=max_concurrency,
+        max_network_requests_per_ruler=max_network_requests_per_ruler,
         safety=safety,
     )
 
@@ -874,9 +897,10 @@ class WorkspaceCampaignHandlers:
                 )
             except ValueError as error:
                 raise CampaignContractError(str(error)) from error
-        if claim.phase_code == "source_recovery" and payload.get("adapter") == (
-            "source_cache_fixture_ensure_v1"
-        ):
+        if claim.phase_code == "source_recovery" and payload.get("adapter") in {
+            "source_cache_fixture_ensure_v1",
+            "source_cache_ensure_v2",
+        }:
             self._run_source_cache(claim, payload)
         if claim.phase_code == "shadow_projection" and payload.get("adapter") == (
             "deterministic_scored_shadow_v1"
@@ -1006,9 +1030,6 @@ class WorkspaceCampaignHandlers:
         payload["candidate_preprocessor_audits"] = audits
 
     def _run_source_cache(self, claim: ClaimedPhase, payload: dict[str, Any]) -> None:
-        from emperor_v4.runtime.source_cache import run_fixture_ensure
-        import yaml
-
         jobs = payload.get("source_cache_jobs")
         if jobs is None:
             jobs = [{
@@ -1056,8 +1077,36 @@ class WorkspaceCampaignHandlers:
                 },
             }
         )
-        if payload["source_cache_audit"]["network_request_count"] != 0 or payload["source_cache_audit"]["model_call_count"] != 0:
-            raise CampaignContractError("campaign Source Cache 必须保持离线零模型")
+        if payload["source_cache_audit"]["model_call_count"] != 0:
+            raise CampaignContractError("campaign Source Cache 必须保持零模型")
+
+    def _reserve_network_requests(
+        self, *, ruler_code: str, requested_count: int
+    ) -> None:
+        if requested_count <= 0:
+            raise CampaignContractError("联网 Source Cache 请求预算必须为正数")
+        with self.state._lock:
+            observed = self.state.ruler_network_request_count.get(ruler_code, 0)
+            if observed + requested_count > self.state.max_network_requests_per_ruler:
+                raise CampaignContractError(
+                    "皇帝级联网请求预算已耗尽: "
+                    f"used={observed} requested={requested_count} "
+                    f"limit={self.state.max_network_requests_per_ruler}"
+                )
+            self.state.ruler_network_request_count[ruler_code] = (
+                observed + requested_count
+            )
+
+    def _reconcile_network_reservation(
+        self, *, ruler_code: str, reserved_count: int, actual_count: int
+    ) -> None:
+        if actual_count < 0 or actual_count > reserved_count:
+            raise CampaignContractError("联网 Source Cache 实际请求数超出预留")
+        with self.state._lock:
+            observed = self.state.ruler_network_request_count.get(ruler_code, 0)
+            self.state.ruler_network_request_count[ruler_code] = (
+                observed - reserved_count + actual_count
+            )
 
     def _run_source_cache_job(
         self,
@@ -1066,7 +1115,10 @@ class WorkspaceCampaignHandlers:
         *,
         job_index: int,
     ) -> tuple[Mapping[str, Any], Mapping[str, Any]]:
-        from emperor_v4.runtime.source_cache import run_fixture_ensure
+        from emperor_v4.runtime.source_cache import (
+            run_fixture_ensure,
+            run_wikisource_ensure,
+        )
         import yaml
 
         request_path = self._reference_path(job.get("source_request_ref"))
@@ -1087,12 +1139,8 @@ class WorkspaceCampaignHandlers:
             )
             response = report["response"]
             audit = report["runtime_audit"]
-        else:
-            response_ref = job.get("response_ref")
-            if not response_ref:
-                raise CampaignContractError(
-                    "无本地 snapshot 的 Source plan 必须绑定一个冻结 response"
-                )
+        elif job.get("response_ref"):
+            response_ref = job["response_ref"]
             frozen = json.loads(
                 self._reference_path(response_ref).read_text(encoding="utf-8")
             )
@@ -1111,8 +1159,40 @@ class WorkspaceCampaignHandlers:
                     "network_request_count", 0
                 ),
             }
-        if audit.get("network_request_count") != 0 or audit.get("model_call_count") != 0:
-            raise CampaignContractError("campaign Source Cache 必须保持离线零模型")
+        elif job.get("allow_network") is True:
+            planned_requests = len(
+                {
+                    str(section.get("page_code") or "")
+                    for section in sections
+                    if section.get("page_code")
+                }
+            )
+            self._reserve_network_requests(
+                ruler_code=claim.ruler_code,
+                requested_count=planned_requests,
+            )
+            report = run_wikisource_ensure(
+                request_path=request_path,
+                source_plan_path=plan_path,
+                state_path=_workspace_path(
+                    self.workspace_root,
+                    f"{claim.allowed_write_prefix}source_cache_state_{job_index + 1}.json",
+                ),
+                service_release_sha=claim.input_fingerprint[:40],
+            )
+            response = report["response"]
+            audit = report["runtime_audit"]
+            self._reconcile_network_reservation(
+                ruler_code=claim.ruler_code,
+                reserved_count=planned_requests,
+                actual_count=int(audit.get("network_request_count") or 0),
+            )
+        else:
+            raise CampaignContractError(
+                "无本地 snapshot 或冻结 response 的 Source plan 必须显式允许联网"
+            )
+        if audit.get("model_call_count") != 0:
+            raise CampaignContractError("campaign Source Cache 必须保持零模型")
         return response, audit
 
     def _run_scored_shadow(self, claim: ClaimedPhase, payload: dict[str, Any]) -> None:
@@ -1442,6 +1522,11 @@ def run_workspace_campaign(
         "task_count": len(state.tasks),
         "model_call_count": state.model_call_count,
         "business_write_count": state.business_write_count,
+        "network_request_count": sum(state.ruler_network_request_count.values()),
+        "network_request_count_by_ruler": dict(
+            sorted(state.ruler_network_request_count.items())
+        ),
+        "max_network_requests_per_ruler": state.max_network_requests_per_ruler,
         "max_wall_clock_minutes": max_wall_clock_minutes,
         "completion_reserve_seconds": completion_reserve_seconds,
         "wall_clock_budget_exhausted": runner.budget_exhausted,

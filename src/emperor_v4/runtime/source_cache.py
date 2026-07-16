@@ -9,6 +9,7 @@ from typing import Any, Mapping, Sequence
 import yaml
 
 from emperor_v4.adapters.source_cache_fixture import FrozenSourceMaterialProvider
+from emperor_v4.adapters.source_cache_wikisource import WikisourceSourceMaterialProvider
 from emperor_v4.application.source_cache_service import ensure_source_cache
 from emperor_v4.contracts.source import SourceCacheRequest, SourceCacheSubject
 from emperor_v4.persistence.source_cache import ShadowJsonSourceCacheRepository
@@ -81,10 +82,48 @@ def run_fixture_ensure(
     }
 
 
+def run_wikisource_ensure(
+    *,
+    request_path: Path,
+    source_plan_path: Path,
+    state_path: Path,
+    service_release_sha: str,
+    fetch: Any | None = None,
+) -> dict[str, Any]:
+    request = load_source_cache_request(request_path)
+    provider_options = {"fetch": fetch} if fetch is not None else {}
+    run = ensure_source_cache(
+        request,
+        provider=WikisourceSourceMaterialProvider(
+            plan_path=source_plan_path,
+            **provider_options,
+        ),
+        repository=ShadowJsonSourceCacheRepository(state_path),
+        service_release_sha=service_release_sha,
+    )
+    return {
+        "schema_version": 1,
+        "status": "source_cache_wikisource_ensure_complete",
+        "request": asdict(request),
+        "response": run.response,
+        "runtime_audit": {
+            "cache_hit": run.cache_hit,
+            "exact_response_reused": run.cache_hit,
+            "provider_call_count": run.provider_call_count,
+            "shadow_state_write_count": run.repository_write_count,
+            "network_request_count": run.network_request_count,
+            "database_write_count": 0,
+            "model_call_count": 0,
+        },
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="V4 Source Cache 离线 fixture runner")
+    parser = argparse.ArgumentParser(description="V4 Source Cache runner")
     parser.add_argument("--request", type=Path, required=True)
-    parser.add_argument("--fixture-plan", type=Path, required=True)
+    plans = parser.add_mutually_exclusive_group(required=True)
+    plans.add_argument("--fixture-plan", type=Path)
+    plans.add_argument("--wikisource-plan", type=Path)
     parser.add_argument("--state", type=Path, required=True)
     parser.add_argument("--service-release-sha", required=True)
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
@@ -94,13 +133,21 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    report = run_fixture_ensure(
-        request_path=args.request,
-        fixture_plan_path=args.fixture_plan,
-        state_path=args.state,
-        service_release_sha=args.service_release_sha,
-        repo_root=args.repo_root,
-    )
+    if args.wikisource_plan:
+        report = run_wikisource_ensure(
+            request_path=args.request,
+            source_plan_path=args.wikisource_plan,
+            state_path=args.state,
+            service_release_sha=args.service_release_sha,
+        )
+    else:
+        report = run_fixture_ensure(
+            request_path=args.request,
+            fixture_plan_path=args.fixture_plan,
+            state_path=args.state,
+            service_release_sha=args.service_release_sha,
+            repo_root=args.repo_root,
+        )
     rendered = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

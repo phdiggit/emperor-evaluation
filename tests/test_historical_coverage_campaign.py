@@ -15,9 +15,11 @@ from emperor_v4.application.historical_coverage_campaign import (
     CampaignContractError,
     CampaignRunner,
     CampaignState,
+    ClaimedPhase,
     PHASE_CODES,
     PhaseExecutionResult,
     WORK_PACKAGE_SCHEMA_VERSION,
+    WorkspaceCampaignHandlers,
     build_campaign_state,
     build_campaign_summary,
     main,
@@ -25,6 +27,7 @@ from emperor_v4.application.historical_coverage_campaign import (
 )
 from emperor_v4.evaluation.i5b_candidate_retrieval_gate import (
     build_cross_rule_orphan_audit,
+    validate_candidate_retrieval_gate,
 )
 from emperor_v4.evaluation.i5b_candidate_refreeze import build_candidate_refreeze
 from emperor_v4.evaluation.i5b_appointment_projection_increment import (
@@ -69,6 +72,7 @@ def manifest(ruler_count: int = 2) -> dict:
             "failure_policy": "fail_closed",
             "max_wall_clock_minutes": 15,
             "completion_reserve_seconds": 90,
+            "max_network_requests": 10,
         },
         "phases": [
             {
@@ -79,7 +83,6 @@ def manifest(ruler_count: int = 2) -> dict:
             for code in PHASE_CODES
         ],
         "safety": {
-            "offline": True,
             "report_only": True,
             "shadow_first": True,
             "formal_scoring": False,
@@ -263,6 +266,139 @@ def test_185_by_five_manifest_expands_to_independent_stable_tasks() -> None:
     assert all(len(task.spec.output_schemas) == 5 for task in first.tasks.values())
     assert all(task.phases["candidate_freeze"].status == "ready" for task in first.tasks.values())
     assert all(task.phases["source_recovery"].status == "blocked" for task in first.tasks.values())
+
+
+def test_candidate_retrieval_gate_allows_observed_network_requests(
+    tmp_path: Path,
+) -> None:
+    campaign_manifest = manifest(1)
+    input_root = write_workspace_packages(tmp_path, campaign_manifest)
+    package_path = next(
+        path for path in input_root.rglob("*.json") if path.name != "reference.json"
+    )
+    package = json.loads(package_path.read_text(encoding="utf-8"))
+    gate = package["phases"]["candidate_freeze"]["retrieval_gate"]
+    gate["execution_audit"]["network_request_count"] = 3
+
+    audit = validate_candidate_retrieval_gate(
+        gate,
+        rule_code=package["rule_code"],
+    )
+
+    assert audit["network_request_count"] == 3
+
+
+def test_campaign_enforces_shared_per_ruler_network_budget(tmp_path: Path) -> None:
+    state = build_campaign_state(manifest(1))
+    handler = WorkspaceCampaignHandlers(
+        state,
+        workspace_root=tmp_path,
+        input_root=tmp_path,
+    )
+
+    handler._reserve_network_requests(ruler_code="RULER_001", requested_count=6)
+    handler._reconcile_network_reservation(
+        ruler_code="RULER_001",
+        reserved_count=6,
+        actual_count=4,
+    )
+    handler._reserve_network_requests(ruler_code="RULER_001", requested_count=6)
+
+    with pytest.raises(CampaignContractError, match="联网请求预算已耗尽"):
+        handler._reserve_network_requests(
+            ruler_code="RULER_001",
+            requested_count=1,
+        )
+    restored = CampaignState.from_checkpoint(state.checkpoint())
+    assert restored.ruler_network_request_count == {"RULER_001": 10}
+
+
+def test_campaign_online_source_cache_observes_actual_network_usage(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    state = build_campaign_state(manifest(1))
+    task = next(iter(state.tasks.values()))
+    claim = ClaimedPhase(
+        task_code=task.spec.task_code,
+        ruler_code=task.spec.ruler_code,
+        rule_code=task.spec.rule_code,
+        phase_code="source_recovery",
+        run_id="RUN-ONLINE-1",
+        attempt_number=1,
+        input_version=task.spec.input_version,
+        input_fingerprint=task.spec.input_fingerprint,
+        allowed_write_prefix=task.spec.allowed_write_prefix,
+        output_schema_version=task.spec.output_schemas["source_recovery"],
+    )
+    request_path = tmp_path / "inputs" / "request.yml"
+    plan_path = tmp_path / "inputs" / "plan.yml"
+    request_path.parent.mkdir(parents=True)
+    request_path.write_text("request_id: test\n", encoding="utf-8")
+    plan_path.write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": 1,
+                "provider": "wikisource_revision_plan",
+                "subject_ref": "PER-1",
+                "sections": [
+                    {"page_code": "page-1"},
+                    {"page_code": "page-2"},
+                ],
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+    observed = []
+
+    def fake_online_ensure(**kwargs):
+        observed.append(kwargs)
+        return {
+            "response": {
+                "status": "succeeded",
+                "documents": [{"document_cache_id": "DOC-1"}],
+                "passages": [{"passage_id": "PASSAGE-1"}],
+                "output_fingerprint": "f" * 64,
+            },
+            "runtime_audit": {
+                "cache_hit": len(observed) > 1,
+                "network_request_count": 1 if len(observed) == 1 else 0,
+                "model_call_count": 0,
+            },
+        }
+
+    monkeypatch.setattr(
+        "emperor_v4.runtime.source_cache.run_wikisource_ensure",
+        fake_online_ensure,
+    )
+    handler = WorkspaceCampaignHandlers(
+        state,
+        workspace_root=tmp_path,
+        input_root=tmp_path / "inputs",
+    )
+    job = {
+        "source_request_ref": "inputs/request.yml",
+        "source_plan_ref": "inputs/plan.yml",
+        "allow_network": True,
+    }
+
+    first_response, first_audit = handler._run_source_cache_job(
+        claim,
+        job,
+        job_index=0,
+    )
+    second_response, second_audit = handler._run_source_cache_job(
+        claim,
+        job,
+        job_index=0,
+    )
+
+    assert first_response["status"] == second_response["status"] == "succeeded"
+    assert first_audit["network_request_count"] == 1
+    assert second_audit["network_request_count"] == 0
+    assert state.ruler_network_request_count == {"RULER_001": 1}
+    assert len(observed) == 2
 
 
 def test_cross_ruler_and_cross_rule_artifacts_are_isolated() -> None:
@@ -550,7 +686,7 @@ def test_report_only_contract_rejects_business_writes_and_unsafe_manifest() -> N
 
     unsafe = manifest(1)
     unsafe["safety"]["formal_scoring"] = True
-    with pytest.raises(CampaignContractError, match="offline/report-only/shadow-first"):
+    with pytest.raises(CampaignContractError, match="report-only/shadow-first"):
         build_campaign_state(unsafe)
 
 

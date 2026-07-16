@@ -30,8 +30,11 @@ def _contract() -> dict:
 
 
 def test_lishimin_institution_is_recalled_without_chapter_answer_hint() -> None:
-    report = evaluate_i5b_institution_retrieval(_contract())
+    contract = _contract()
+    report = evaluate_i5b_institution_retrieval(contract)
 
+    assert contract["status"] == "candidate_retrieval_regression"
+    assert "network_access_allowed" not in contract["safety_boundary"]
     assert report["status"] == "institution_candidate_recalled"
     assert report["query"]["chapter_title_supplied"] is False
     assert report["query"]["passage_locator_supplied"] is False

@@ -34,6 +34,7 @@ from emperor_v4.runtime.claim_extractor import (
     claim_worker_lease_seconds,
     request_profile_from_mapping,
 )
+from emperor_v4.runtime.source_cache import run_wikisource_ensure
 
 
 ROOT = Path(__file__).parents[1]
@@ -520,4 +521,106 @@ def test_wikisource_provider_selects_subject_plan_and_fetches_page_once(
 
     assert len(batch.sections) == 2
     assert batch.network_request_count == 1
+    assert len(calls) == 1
+
+
+def test_wikisource_ensure_uses_network_once_then_replays_cache(
+    tmp_path: Path,
+) -> None:
+    request = {
+        "request_id": "SRC-ONLINE-1",
+        "idempotency_key": "source-online:1",
+        "subject": {
+            "person_or_ruler_ref": "PER-A",
+            "canonical_name": "甲",
+            "aliases": [],
+        },
+        "evaluation_context": {"purpose": "test"},
+        "source_hints": ["测试史书/卷一"],
+        "required_source_families": ["primary"],
+        "mode": "ensure",
+        "source_policy_version": "test-source-policy-v1",
+        "requested_at": "2026-07-14T00:00:00+08:00",
+    }
+    plan = {
+        "schema_version": 1,
+        "provider": "wikisource_revision_plan",
+        "subject_ref": "PER-A",
+        "sections": [
+            {
+                "page_code": "history-001",
+                "page_title": "测试史书/卷一",
+                "expected_revision_id": 7,
+                "work_identity": "测试史书",
+                "edition_identity": "测试版本",
+                "source_role": "primary",
+                "license_or_access_note": "test",
+                "section_id": "任命",
+                "section_heading": "任命",
+                "passages": [
+                    {
+                        "seed_code": "任命",
+                        "anchor_start": "甲",
+                        "anchor_end": "。",
+                        "passage_kind": "atomic",
+                        "selection_reason": ["任命"],
+                    }
+                ],
+                "window_policy": {
+                    "version": "test-window-v1",
+                    "sentence_radius_before": 0,
+                    "sentence_radius_after": 0,
+                    "context_chars_before": 0,
+                    "context_chars_after": 0,
+                },
+            }
+        ],
+    }
+    request_path = tmp_path / "request.yml"
+    plan_path = tmp_path / "plan.yml"
+    state_path = tmp_path / "state.json"
+    request_path.write_text(
+        yaml.safe_dump(request, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    plan_path.write_text(
+        yaml.safe_dump(plan, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    calls = []
+    raw_text = "甲。"
+
+    def fetch(**kwargs):
+        calls.append(kwargs)
+        return WikisourcePageSnapshot(
+            page_code="history-001",
+            requested_title="测试史书/卷一",
+            canonical_title="测试史书/卷一",
+            canonical_url="https://example.invalid/history-001",
+            revision_id=7,
+            revision_timestamp="2026-07-14T00:00:00Z",
+            retrieved_at="2026-07-14T00:00:01Z",
+            raw_text=raw_text,
+            content_hash=sha256(raw_text.encode("utf-8")).hexdigest(),
+        )
+
+    first = run_wikisource_ensure(
+        request_path=request_path,
+        source_plan_path=plan_path,
+        state_path=state_path,
+        service_release_sha="a" * 40,
+        fetch=fetch,
+    )
+    second = run_wikisource_ensure(
+        request_path=request_path,
+        source_plan_path=plan_path,
+        state_path=state_path,
+        service_release_sha="a" * 40,
+        fetch=fetch,
+    )
+
+    assert first["runtime_audit"]["network_request_count"] == 1
+    assert first["runtime_audit"]["cache_hit"] is False
+    assert second["runtime_audit"]["network_request_count"] == 0
+    assert second["runtime_audit"]["cache_hit"] is True
     assert len(calls) == 1

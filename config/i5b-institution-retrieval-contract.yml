@@ -1,5 +1,5 @@
 schema_version: i5b-institution-retrieval-contract-v1
-status: offline_candidate_retrieval_regression
+status: candidate_retrieval_regression
 case_ref: I5B-INSTITUTION-RETRIEVAL-LISHIMIN-01
 query:
   ruler_name: 李世民
@@ -19,7 +19,6 @@ safety_boundary:
   factor_choice_allowed: false
   score_contribution_allowed: false
   database_write_allowed: false
-  network_access_allowed: false
 candidate_thresholds:
   formal_channel_establishment_min: 1
   independent_operation_observation_min: 2

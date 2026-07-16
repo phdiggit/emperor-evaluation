@@ -39,8 +39,8 @@ def _nonempty_strings(value: object) -> tuple[str, ...]:
 def _validate_contract(contract: Mapping[str, Any]) -> None:
     if contract.get("schema_version") != CONTRACT_SCHEMA_VERSION:
         raise ValueError("制度检索合同版本非法")
-    if contract.get("status") != "offline_candidate_retrieval_regression":
-        raise ValueError("制度检索合同必须保持离线候选回归状态")
+    if contract.get("status") != "candidate_retrieval_regression":
+        raise ValueError("制度检索合同必须保持候选回归状态")
 
     policy = contract.get("safety_boundary") or {}
     expected_boundary = {
@@ -49,10 +49,9 @@ def _validate_contract(contract: Mapping[str, Any]) -> None:
         "factor_choice_allowed": False,
         "score_contribution_allowed": False,
         "database_write_allowed": False,
-        "network_access_allowed": False,
     }
-    if any(policy.get(key) != value for key, value in expected_boundary.items()):
-        raise ValueError("制度检索回归不得接受事实、选择因子、计分、联网或写库")
+    if policy != expected_boundary:
+        raise ValueError("制度检索回归不得接受事实、选择因子、计分或写库")
 
     query = contract.get("query") or {}
     supplied = set(_nonempty_strings(query.get("supplied_hint_types")))
@@ -124,7 +123,7 @@ def _gate_result(
 def evaluate_i5b_institution_retrieval(
     contract: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Evaluate the frozen offline retrieval case without accepting any fact."""
+    """Evaluate the frozen retrieval case without accepting any fact."""
 
     _validate_contract(contract)
     thresholds = contract["candidate_thresholds"]

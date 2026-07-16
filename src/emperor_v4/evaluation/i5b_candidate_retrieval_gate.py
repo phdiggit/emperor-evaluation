@@ -232,9 +232,12 @@ def validate_candidate_retrieval_gate(
         raise ValueError("跨规则孤儿审计仍有未绑定候选")
 
     execution = gate.get("execution_audit") or {}
-    for field in ("network_request_count", "model_call_count", "business_write_count"):
+    network_request_count = execution.get("network_request_count")
+    if not isinstance(network_request_count, int) or network_request_count < 0:
+        raise ValueError("候选检索门禁 network_request_count 非法")
+    for field in ("model_call_count", "business_write_count"):
         if execution.get(field) != 0:
-            raise ValueError("候选检索门禁必须离线、零模型、零业务写入")
+            raise ValueError("候选检索门禁必须保持零模型、零业务写入")
     if gate.get("human_freeze_accepted") is not True or not str(
         gate.get("human_freeze_decision_ref") or ""
     ).strip():
@@ -250,5 +253,6 @@ def validate_candidate_retrieval_gate(
         "scholar_guided_retrieval_status": (
             gate.get("scholar_guided_retrieval") or {}
         ).get("status"),
+        "network_request_count": network_request_count,
         "trigger_reasons": sorted(reasons),
     }
