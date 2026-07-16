@@ -221,6 +221,21 @@ def run_civil_candidate_retrieval(
                 )
             else:
                 excluded.append(decision)
+    for episode in source_pack.get("additional_episodes") or ():
+        lineage = episode.get("lineage") or {}
+        if (
+            not str(episode.get("episode_id") or "").startswith("EP-")
+            or not str(episode.get("action") or "").strip()
+            or not list(episode.get("outcome") or ())
+            or not list(episode.get("participants") or ())
+            or not str(lineage.get("unit_ref") or "").strip()
+            or not str(lineage.get("source_url") or "").strip()
+        ):
+            raise ValueError("浏览器文官候选包 additional_episodes 不完整")
+        episodes.append(dict(episode))
+    episode_ids = [str(row["episode_id"]) for row in episodes]
+    if len(episode_ids) != len(set(episode_ids)):
+        raise ValueError("浏览器文官候选包 episode_id 重复")
     return {
         "ruler": ruler,
         "candidate_count": len(candidates),

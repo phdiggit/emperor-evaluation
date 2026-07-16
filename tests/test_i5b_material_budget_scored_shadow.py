@@ -534,6 +534,7 @@ def test_closeout_persists_civil_sources_and_merges_appointment_objects_before_t
     assert "《贞观律》" in markdown
     assert "《晋书》" in markdown
     assert "### 历史事件" in markdown
+    assert "## 数据问题" not in markdown
 
     detail_payload = json.loads(
         (tmp_path / "李世民/scoring-detail.json").read_text(encoding="utf-8")
