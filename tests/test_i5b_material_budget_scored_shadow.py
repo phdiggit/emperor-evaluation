@@ -123,7 +123,6 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "### 政策 / 文治成果" in markdown
     assert "五经定本与五经正义" in markdown
     assert "弘文馆精选文儒轮值宿直" in markdown
-    assert "量才授职和精简员额边界" in markdown
     assert "发现强度 1.200" in markdown
     assert "[discovery_level=" not in markdown
     assert "SP-8A9C97DF836016533342" not in markdown
@@ -131,6 +130,12 @@ def test_one_command_exports_full_ruler_scoring_detail(
     assert "明细对账：" not in markdown
     assert "**反馈入口强度**" not in markdown
     assert "制度化反馈入口 (`institutionalized_feedback_entry`) =" not in markdown
+    assert "### 未计入材料" in markdown
+    assert "| 材料 | 因子赋值 | 材料分 |" in markdown
+    assert "未计分材料与 judge 理由" not in markdown
+    assert "已确认事实或争议点" not in markdown
+    assert "材料分低于当前正向预算边界" not in markdown
+    assert "judge_reviews" not in json.dumps(ruler, ensure_ascii=False)
     stdout = capsys.readouterr().out
     assert "结果状态：report_only_scoring_detail_export" in stdout
     assert "历史覆盖：5/5" in stdout

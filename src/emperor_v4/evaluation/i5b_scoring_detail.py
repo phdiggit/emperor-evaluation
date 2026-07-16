@@ -135,23 +135,18 @@ def _source_detail(
             "negative_signal": str(budget_rule["negative_signal"]),
             "rule_raw_net": str(budget_rule["rule_raw_net"]),
         }
-        judge_reviews = [
+        unscored_materials = [
             {
                 "material": row.get("subject") or row.get("person"),
-                "observation": (
-                    row.get("fact")
-                    or (
-                        "责任链已保留，但证据合同尚未闭合"
-                        if row.get("selection_status") == "insufficient_contract_evidence"
-                        else "已通过计分 Gate，未进入本版结算预算"
-                    )
+                "material_score": row.get("material_magnitude"),
+                "factor_values": dict(row.get("factor_values") or {}),
+                "factor_option_codes": dict(
+                    row.get("factor_option_codes") or {}
                 ),
-                "reason": row.get("judge_reason"),
             }
-            for row in (
-                list(budget_rule.get("supporting_only_materials") or ())
-                + list(budget_rule.get("supporting_only_members") or ())
-            )
+            for row in budget_rule.get("supporting_only_materials") or ()
+            if row.get("material_magnitude") is not None
+            and row.get("factor_values")
         ]
         if rule_code == "team_building":
             negative_by_person = {
@@ -224,7 +219,7 @@ def _source_detail(
                     "negative_signal": budget_rule.get("negative_signal"),
                     "rule_raw_net": budget_rule.get("rule_raw_net"),
                 },
-                "judge_reviews": judge_reviews,
+                "unscored_materials": unscored_materials,
             }, signals
 
         selected = [dict(row) for row in budget_rule.get("settled_materials") or ()]
@@ -308,7 +303,7 @@ def _source_detail(
         ]
         detail = {
             "materials": materials,
-            "judge_reviews": judge_reviews,
+            "unscored_materials": unscored_materials,
             "positive_budget": budget_rule.get("positive_budget"),
             "negative_budget": budget_rule.get("negative_budget"),
             "governance_results": list(
@@ -507,15 +502,6 @@ def _source_detail(
     if adapter == "institution_policy_judge":
         if payload.get("ruler") != ruler:
             raise ValueError("institution policy judge source ruler mismatch")
-        labels = {
-            "IPR-LSM-JUAN02-NONPERFECTION-OPEN-ORIGIN": "不求全责备与不隔疏贱",
-            "IPR-LSM-JUAN02-FORMAL-REMONSTRANCE-CHANNEL": "正式奏事与求谏通道",
-            "IPR-LSM-JUAN03-MERIT-LEAN-STAFFING": "量才授职与精简员额",
-            "IPR-LSM-JUAN03-LOCAL-SELECTION-REVIEW": "地方官亲择、举荐与考绩",
-            "IPR-LSM-JUAN03-PUBLIC-OFFICE-SKILL-BOUNDARY": "技艺赏赐与公共官爵边界",
-            "IPR-LSM-JUAN03-HEREDITARY-PREFECTURE-REVERSAL": "世袭刺史设立与撤销",
-            "IPR-LSM-JUAN07-HONGWEN-SCHOLAR-POOL": "弘文馆文儒人才池",
-        }
         decisions = list(payload.get("decisions") or ())
         summary = dict(payload.get("summary") or {})
         if summary.get("judged_candidate_count") != len(decisions):
@@ -523,17 +509,6 @@ def _source_detail(
         if summary.get("unresolved_candidate_count") != 0:
             raise ValueError("institution policy judge contains unresolved candidates")
         return {
-            "judge_reviews": [
-                {
-                    "material": labels.get(
-                        str(decision.get("candidate_code")),
-                        str(decision.get("candidate_code") or "制度或政策候选"),
-                    ),
-                    "observation": "完成独立回源与人工裁决；未进入数值结算",
-                    "reason": decision.get("judge_rationale"),
-                }
-                for decision in decisions
-            ],
             "judged_candidate_count": summary.get("judged_candidate_count"),
             "unresolved_candidate_count": summary.get("unresolved_candidate_count"),
         }, None
@@ -603,17 +578,6 @@ def _source_detail(
                 }
                 for candidate in candidates
             ],
-            "candidate_judge_reviews": [
-                {
-                    "material": "长孙无忌、褚遂良顾命",
-                    "observation": "窗口内顾命授权事实已回源；未进入数值结算",
-                    "reason": candidate.get("final_rationale"),
-                }
-                for candidate in candidates
-                if candidate.get("final_disposition")
-                == "formal_context_only_no_numeric_projection"
-                and "长孙无忌" in person_names(candidate)
-            ][:1],
         }, None
 
     if adapter == "appointment_episode_assertion_support":
@@ -1316,128 +1280,40 @@ def _team_member_fact_text(
     return "；".join(part for part in parts if part)
 
 
-def _unscored_review_rows(row: Mapping[str, Any]) -> list[dict[str, str]]:
-    reviews: list[dict[str, str]] = []
-    seen: set[tuple[str, str]] = set()
-
-    def add(material: object, observation: object, reason: object) -> None:
-        key = (_text(material), _text(reason))
-        if key in seen:
-            return
-        seen.add(key)
-        reviews.append(
-            {
-                "material": _display_name(material),
-                "observation": _text(observation),
-                "reason": _text(reason),
-            }
-        )
-
+def _unscored_material_rows(row: Mapping[str, Any]) -> list[dict[str, str]]:
+    materials: list[dict[str, str]] = []
+    seen: set[str] = set()
     for source in row["detail_sources"]:
-        detail = source["detail"]
-        for item in detail.get("judge_reviews") or ():
-            add(item.get("material"), item.get("observation"), item.get("reason"))
-        for item in detail.get("candidate_judge_reviews") or ():
-            add(item.get("material"), item.get("observation"), item.get("reason"))
-        observations = list(detail.get("observations") or ())
-        if not observations:
-            for item in detail.get("insufficient_projections") or ():
-                add(
-                    item.get("subject") or item.get("unit_ref") or "证据不足单元",
-                    "正式事实链已保留，但未进入数值结算",
-                    item.get("projection_basis")
-                    or "缺少完成数值投影所需的具体对象、归责或结果证据。",
-                )
-        for item in detail.get("excluded_net_additions") or ():
-            add(
-                item.get("person") or item.get("claim") or "排除材料",
-                f"条件材料分 {_text(item.get('conditional_material_score'))}，当前净增为零",
-                item.get("reason") or "与既有计分单元重复或正式事实链尚未闭合。",
-            )
-        for item in detail.get("blocked_or_excluded") or ():
-            disposition = str(item.get("disposition") or "")
-            reason = {
-                "blocked_missing_v4_profile": "缺少已接受的 V4 人物画像。",
-                "blocked_missing_v4_profile_and_window_rebind": "缺少已接受的 V4 人物画像和当前窗口回绑。",
-                "excluded_no_substantive_window_evidence": "当前窗口没有实质团队参与证据。",
-                "blocked_indirect_only_and_missing_v4_profile": "只有间接材料，且缺少已接受的 V4 人物画像。",
-                "blocked_no_direct_window_claim": "当前窗口没有直接 Claim。",
-            }.get(disposition, "未通过当前正式接受门禁。")
-            add(item.get("person") or "阻断候选", "未进入计分成员池", reason)
-
-        if not observations:
+        if source.get("adapter") != "material_budget_report":
             continue
-        trace = detail.get("assertion_episode_reu_trace") or {}
-        episodes = {
-            episode.get("episode_id"): episode for episode in trace.get("episodes") or ()
-        }
-        insufficient = list(detail.get("insufficient_projections") or ())
-        grouped: dict[str, dict[str, list[str]]] = {}
-        for observation in observations:
-            episode = episodes.get(observation.get("episode_id")) or {}
-            unit_ref = (episode.get("lineage") or {}).get("unit_ref") or (
-                (detail.get("projection_decision") or {}).get("unit_ref")
-                or (
-                    "制度化反馈入口补充观察"
-                    if observation.get("observation")
-                    else source.get("adapter")
-                )
+        for item in source["detail"].get("unscored_materials") or ():
+            material = _display_name(item.get("material"))
+            if material in seen:
+                continue
+            seen.add(material)
+            materials.append(
+                {
+                    "material": material,
+                    "factor_assignment": _choice_text(
+                        {
+                            "numeric_projection": {
+                                "factor_option_codes": item.get(
+                                    "factor_option_codes"
+                                )
+                                or {},
+                                "deterministic_dimension_values": item.get(
+                                    "factor_values"
+                                )
+                                or {},
+                            }
+                        },
+                        row.get("factor_catalog_zh") or (),
+                        row.get("evidence_factor_catalog_zh") or (),
+                    ),
+                    "material_score": _rounded(item.get("material_score")),
+                }
             )
-            text = observation.get("v4_frozen_observation") or observation.get(
-                "observation"
-            )
-            period = observation.get("time_context") or observation.get("period")
-            group = grouped.setdefault(str(unit_ref), {"observations": [], "actions": []})
-            group["observations"].append(
-                f"{period}：{text}" if period else str(text)
-            )
-            action = episode.get("action")
-            if action and action not in group["actions"]:
-                group["actions"].append(str(action))
-        for unit_ref, group in grouped.items():
-            matching = next(
-                (
-                    item
-                    for item in insufficient
-                    if unit_ref
-                    in {
-                        str(item.get("unit_ref") or ""),
-                        str(item.get("rule_evidence_unit_ref") or ""),
-                    }
-                ),
-                None,
-            )
-            decision = detail.get("projection_decision") or {}
-            reason = (
-                (matching or {}).get("projection_basis")
-                or decision.get("dedup_decision")
-                or decision.get("basis")
-            )
-            if reason is None and matching:
-                reason = (
-                    "当前任用授权公式结算具体人物任用，不把制度颁行与运行事实强行折算为个人任用分；"
-                    "该材料应由制度或政策落实合同按颁行、运行和可观察结果判断。"
-                    if row.get("rule_code") == "appointment_delegation"
-                    else "现有事实不足以完成本规则的数值结算。"
-                )
-            if reason is None and source.get("adapter") == "institution_policy_formal_shadow":
-                reason = (
-                    "正式制度事实已接受，但当前规则没有适用的制度或政策落实结算合同，"
-                    "不得借用个人任用公式硬算。"
-                )
-            if reason is None:
-                reason = "只用于闭合既有计分单元的因子证据，不作为新增材料重复计分。"
-            material_label = detail.get("subject")
-            if not material_label and group["actions"]:
-                material_label = "／".join(group["actions"])
-            if not material_label:
-                material_label = (
-                    "制度化反馈入口补充观察"
-                    if unit_ref == "制度化反馈入口补充观察"
-                    else "补充观察"
-                )
-            add(material_label, "；".join(group["observations"]), reason)
-    return reviews
+    return materials
 
 
 def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
@@ -1673,7 +1549,7 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
                 _display_name(review.get("material"))
                 for source in row.get("detail_sources") or ()
                 if source.get("adapter") == "material_budget_report"
-                for review in source["detail"].get("judge_reviews") or ()
+                for review in source["detail"].get("unscored_materials") or ()
                 if review.get("material")
             )
             audit_lines = _appointment_inventory_audit(row, counted_people)
@@ -1683,18 +1559,19 @@ def render_i5b_scoring_detail_markdown(report: Mapping[str, Any]) -> str:
         if row["limitations"]:
             lines += ["", "### 限制", ""]
             lines.extend(f"- {value}" for value in row["limitations"])
-        unscored = _unscored_review_rows(row)
+        unscored = _unscored_material_rows(row)
         if unscored:
             lines += [
                 "",
-                "### 未计分材料与 judge 理由",
+                "### 未计入材料",
                 "",
-                "| 材料 | 已确认事实或争议点 | judge 理由 |",
-                "|---|---|---|",
+                "| 材料 | 因子赋值 | 材料分 |",
+                "|---|---|---:|",
             ]
             lines.extend(
-                f"| {_md_cell(item['material'])} | {_md_cell(item['observation'])} | "
-                f"{_md_cell(item['reason'])} |"
+                f"| {_md_cell(item['material'])} | "
+                f"{_md_cell(item['factor_assignment'])} | "
+                f"{item['material_score']} |"
                 for item in unscored
             )
 
