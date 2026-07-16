@@ -361,6 +361,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         ruler_report = report["selected_ruler_reports"][0]
         selection_summary = ruler_report["selection_summary"]
         print(f"皇帝：{args.ruler}")
+        if args.person:
+            print(f"臣子：{'、'.join(args.person)}")
+            print(f"详情：{markdown_path}")
+            return 0
         print(f"结果状态：{ruler_report['status']}")
         print(
             "历史覆盖："

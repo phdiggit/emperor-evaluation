@@ -1984,8 +1984,12 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
             binding_warnings[(row["ruler"], row["rule_code"], material_id)] = {
                 "ruler": row["ruler"],
                 "rule_label": row["rule_label"],
-                "material_id": material_id,
-                "reu": reu,
+                "material": str(
+                    detail.get("subject")
+                    or detail.get("material")
+                    or detail.get("person")
+                    or "未命名材料"
+                ),
             }
 
     lines = [
@@ -1997,10 +2001,10 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
         "> 臣子条目只表示材料参与，不构成臣子个人分数。",
     ]
     if binding_warnings:
-        lines += ["", "## 自审告警", ""]
+        lines += ["", "## 数据问题", ""]
         lines.extend(
-            f"- 计入材料未绑定同 Rule Episode：{item['ruler']} / "
-            f"{item['rule_label']} / `{item['material_id']}`；当前 REU：`{item['reu']}`。"
+            f"- {item['ruler']}的“{item['material']}”已经计入{item['rule_label']}，"
+            "但没有对应的同规则历史事件，当前不应视为证据链闭合。"
             for item in binding_warnings.values()
         )
     for person in report["people"]:
@@ -2014,14 +2018,6 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
             for row in person["participations"]
             if row["participation_kind"] == "historical_episode"
         ]
-        episode_reus = {
-            (
-                row["rule_code"],
-                str((row["detail"].get("lineage") or {}).get("unit_ref") or ""),
-            )
-            for row in episode_rows
-        }
-        episode_rules = {row["rule_code"] for row in episode_rows}
         lines += [
             "",
             f"## 臣子：{person['person']}",
@@ -2033,50 +2029,22 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                 "",
                 "### 材料",
                 "",
-                "| Rule | 状态 | 材料 | Material ID | REU | 因子赋值 | 材料分 | Episode绑定 |",
-                "|---|---|---|---|---|---|---:|---|",
+                "| 规则 | 状态 | 材料 | 因子赋值 | 材料分 |",
+                "|---|---|---|---|---:|",
             ]
         for participation in material_rows:
             detail = participation["detail"]
-            material_id = (
-                detail.get("material_id")
-                or detail.get("material_code")
-                or detail.get("unit_ref")
-                or "—"
-            )
             material = (
                 detail.get("subject")
                 or detail.get("material")
                 or detail.get("person")
-                or material_id
+                or "未命名材料"
             )
-            reu_values = [
-                str(value)
-                for value in (
-                    [detail.get("rule_evidence_unit_ref")]
-                    if detail.get("rule_evidence_unit_ref")
-                    else detail.get("supporting_unit_refs") or ()
-                )
-                if value
-            ]
             score = (
                 detail.get("material_score")
                 or detail.get("absolute_material_score")
                 or "—"
             )
-            matched_reus = [
-                reu
-                for reu in reu_values
-                if (participation["rule_code"], reu) in episode_reus
-            ]
-            if matched_reus:
-                episode_binding = "已绑定"
-            elif participation["rule_code"] in episode_rules and reu_values:
-                episode_binding = "未绑定同Rule Episode"
-            elif reu_values:
-                episode_binding = "本导出未载入该Rule Episode"
-            else:
-                episode_binding = "—"
             status = {
                 "counted_material": "计入",
                 "supporting_material": "支持材料",
@@ -2090,27 +2058,20 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
             }.get(participation["participation_kind"], "其他")
             lines.append(
                 f"| {_md_cell(participation['rule_label'])} | {status} | "
-                f"{_md_cell(material)} | {_md_cell(material_id)} | "
-                f"{_md_cell(reu_values)} | "
+                f"{_md_cell(material)} | "
                 f"{_md_cell(participation['factor_assignment'])} | "
-                f"{_text(score)} | {episode_binding} |"
+                f"{_text(score)} |"
             )
         if episode_rows:
             lines += [
                 "",
-                "### Episode",
+                "### 历史事件",
                 "",
-                "| Rule | Episode | REU | 动作 | 结果 | 史源摘录 | Source Passage |",
-                "|---|---|---|---|---|---|---|",
+                "| 规则 | 动作 | 结果 | 史源摘录 |",
+                "|---|---|---|---|",
             ]
         for participation in episode_rows:
             episode = participation["detail"]
-            lineage = episode.get("lineage") or {}
-            source_passages = lineage.get("source_passage_refs") or "、".join(
-                str(link.get("source_passage_ref"))
-                for link in episode.get("assertion_links") or ()
-                if link.get("source_passage_ref")
-            )
             evidence_quotes = []
             for assertion in episode.get("accepted_assertions") or ():
                 attribution = assertion.get("source_attribution") or {}
@@ -2123,21 +2084,9 @@ def render_i5b_scoring_detail_selection_markdown(report: Mapping[str, Any]) -> s
                     evidence_quotes.append(excerpt)
             lines.append(
                 f"| {_md_cell(participation['rule_label'])} | "
-                f"{_md_cell(episode.get('episode_id'))} | "
-                f"{_md_cell(lineage.get('unit_ref'))} | "
                 f"{_md_cell(episode.get('action'))} | "
                 f"{_md_cell(episode.get('outcome'))} | "
-                f"{_md_cell('；'.join(evidence_quotes) if evidence_quotes else '当前Episode包未携带原文摘要')} | "
-                f"{_md_cell(source_passages)} |"
+                f"{_md_cell('；'.join(evidence_quotes) if evidence_quotes else '当前材料未附原文摘录')} |"
             )
-    lines += [
-        "",
-        "## 安全声明",
-        "",
-        "- 未把 Rule 子集声明为完整第五项分数",
-        "- 未把臣子参与项合成为臣子个人分数",
-        "- 模型调用和数据库写入均为0",
-        "",
-    ]
     sections = ruler_sections + ["\n".join(lines)]
     return "\n\n".join(sections)

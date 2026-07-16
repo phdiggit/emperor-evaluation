@@ -178,29 +178,17 @@ def test_person_filter_exports_group_material_individual_material_and_episodes(
     markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
     assert markdown.startswith("# 臣子计分材料参与详情")
     assert "# 李世民当前计分详情" not in markdown
-    assert "## 自审告警" in markdown
+    assert "## 数据问题" in markdown
     assert (
-        "计入材料未绑定同 Rule Episode：李世民 / 任用授权 / "
-        "`MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS`"
+        "李世民的“房玄龄、杜如晦跨阶段中枢治理责任群体”已经计入任用授权，"
+        "但没有对应的同规则历史事件"
     ) in markdown
-    assert "### Episode" in markdown
-    assert "EP-03FBD422483C6A310D81" in markdown
-    assert "REU-LSM-TEAM-FANGDU-HC-v1" in markdown
+    assert "### 历史事件" in markdown
     assert "推荐核心团队成员；共同建立制度并互补决策；相须决策" in markdown
-    assert "MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS" in markdown
-    assert "SP-CBAD41F295E16B415C5C" in markdown
     assert "《大唐新語》自是，臺閣規模，皆二人所定" in markdown
     assert "房玄龄、杜如晦跨阶段中枢治理责任群体" in markdown
-    assert (
-        "MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS | "
-        "MAT-LSM-FANGDU-CENTRAL-GOVERNANCE-POS |"
-    ) in markdown
-    assert "3.506580 | 未绑定同Rule Episode |" in markdown
-    assert (
-        "MAT-LSM-FANGXUANLING-POS-V2 | "
-        "REU-LSM-FANGXUANLING-AUTHORITY-HC-v2 |"
-    ) in markdown
-    assert "1.948100 | 已绑定 |" in markdown
+    assert "3.506580 |" in markdown
+    assert "1.948100 |" in markdown
     assert "attribution_factor" not in markdown
     assert "context_factor" not in markdown
     assert "source_factor" not in markdown
@@ -209,8 +197,25 @@ def test_person_filter_exports_group_material_individual_material_and_episodes(
     assert "人才档 历史级；基础系数 1.6" in markdown
     assert "人才档 顶级；基础系数 1.2" in markdown
     assert "检索范围" not in markdown
+    assert "Material ID" not in markdown
+    assert "REU" not in markdown
+    assert "Episode绑定" not in markdown
+    assert "Source Passage" not in markdown
+    assert "MAT-LSM-" not in markdown
+    assert "REU-LSM-" not in markdown
+    assert "SP-" not in markdown
+    assert "EP-" not in markdown
+    assert "安全声明" not in markdown
+    assert "模型调用" not in markdown
+    assert "数据库写入" not in markdown
     assert "supporting_judgment" not in markdown
-    capsys.readouterr()
+    stdout = capsys.readouterr().out
+    assert "臣子：房玄龄、杜如晦" in stdout
+    assert "详情：" in stdout
+    assert "结果状态" not in stdout
+    assert "历史覆盖" not in stdout
+    assert "raw signal" not in stdout
+    assert "JSON：" not in stdout
 
 
 def test_material_budget_detail_rejects_historical_coverage_override(
