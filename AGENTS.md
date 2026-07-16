@@ -49,10 +49,11 @@
 
 - 每个实现周期必须产生一个用户可运行或可阅读的纵向结果；不得只新增中间层、Gate、文档和测试。
 - 不得为每个微步骤新建 `G3X` 字母阶段、顶层编号文档和镜像测试模块。只有用户可见输出边界、正式业务契约或不可逆架构决策改变时，才允许新增长期文档。
-- 当前实现摘要统一维护在 `README.md`、`config/project.yml`、`eval/episode_pilot_v1_status.yml` 和一份活动实施摘要中；运行细节放 `eval/<run>/` 或外部 artifact，不复制成数千行 Markdown。
-- 阶段文档被新结论取代时，必须在同一提交中合并或删除；不保留“纪念性”短命文档。
+- 当前实现只在 `README.md` 和 `config/project.yml` 维护；不得另建活动实施摘要、阶段报告或状态镜像。
+- Git 是唯一历史载体。工作树只保留当前有效规则、契约、不可变输入和唯一 canonical 结果；任务完成时必须删除中间运行、旧版本结果、审计展开和被取代文件，不得为了追溯继续维护它们。
+- `eval/` 只允许保留当前运行必需输入和当前 canonical 输出；失败运行、重复 run、checkpoint、resume、逐步 state、review 展开和旧报告不得长期留在仓库。
+- 不得要求后续任务读取、扫描、更新或同步旧报告和阶段产物；需要追溯时使用 Git。
 - 测试按业务不变量组织，不按实现模块镜像。新增测试模块必须证明既有参数化测试无法承载；退役实现与专属测试同提交删除。
-- 下一份强制交付物是李世民 `tolerate_talent` 纵向收口：复用既有通用 Source Cache、Claim Extractor、Episode Kernel 和 scored shadow 能力，将当前 7 个已缓存单元推进为 Assertion draft、review disposition、Episode/RuleEvidenceUnit shadow、ScoreContribution 与 trace export；不得为人物或单批材料新建专项 runtime。
 
 ## 数据与副作用
 

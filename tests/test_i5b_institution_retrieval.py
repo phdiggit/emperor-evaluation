@@ -10,6 +10,9 @@ from emperor_v4.evaluation.i5b_institution_retrieval import (
     evaluate_i5b_institution_retrieval,
     generate_i5b_institution_retrieval_report,
 )
+from emperor_v4.evaluation.i5b_candidate_retrieval_gate import (
+    build_cross_rule_orphan_audit,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,11 +64,60 @@ def test_missing_cross_person_axis_is_rejected() -> None:
         evaluate_i5b_institution_retrieval(contract)
 
 
-def test_report_is_deterministic_and_matches_checked_in_artifact(tmp_path: Path) -> None:
+def test_report_is_deterministic(tmp_path: Path) -> None:
     output = tmp_path / "report.json"
     first = generate_i5b_institution_retrieval_report(CONTRACT_PATH, output)
     second = generate_i5b_institution_retrieval_report(CONTRACT_PATH, output)
 
     assert first == second
     assert json.loads(output.read_text(encoding="utf-8")) == first
-    assert json.loads(REPORT_PATH.read_text(encoding="utf-8")) == first
+
+
+def test_weizheng_cross_rule_passage_blocks_premature_talent_freeze() -> None:
+    audit = build_cross_rule_orphan_audit(
+        target_rule_code="talent_discovery",
+        routed_passages=[
+            {
+                "passage_ref": "SP-D826159D11DB463515E7",
+                "accepted_rules": ["appointment_delegation"],
+                "eligible_rules": ["appointment_delegation", "talent_discovery"],
+            }
+        ],
+        candidate_passage_refs=[],
+    )
+
+    assert audit["status"] == "complete"
+    assert audit["unresolved_orphan_count"] == 1
+    assert audit["unresolved_orphans"] == [
+        {
+            "passage_ref": "SP-D826159D11DB463515E7",
+            "accepted_rules": ["appointment_delegation"],
+            "eligible_rules": ["appointment_delegation", "talent_discovery"],
+            "reason": "eligible_cross_rule_passage_missing_candidate_binding",
+        }
+    ]
+
+
+def test_cross_rule_orphan_is_closed_only_by_target_candidate_binding() -> None:
+    routed = [
+        {
+            "passage_ref": "SP-D826159D11DB463515E7",
+            "accepted_rules": ["appointment_delegation"],
+            "eligible_rules": ["appointment_delegation", "talent_discovery"],
+        }
+    ]
+    first = build_cross_rule_orphan_audit(
+        target_rule_code="talent_discovery",
+        routed_passages=routed,
+        candidate_passage_refs=["SP-D826159D11DB463515E7"],
+    )
+    second = build_cross_rule_orphan_audit(
+        target_rule_code="talent_discovery",
+        routed_passages=routed,
+        candidate_passage_refs=["SP-D826159D11DB463515E7"],
+    )
+
+    assert first == second
+    assert first["unresolved_orphan_count"] == 0
+    assert first["database_write_count"] == 0
+    assert first["model_call_count"] == 0

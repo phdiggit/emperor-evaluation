@@ -1,0 +1,251 @@
+schema_version: i5b-scholarly-object-profile-contract-v1
+status: research_context_only
+task_code: I5B-LISHIMIN-SCHOLARLY-OBJECT-PROFILE-626-649-V1
+
+scholarly_sources:
+  - source_ref: SCH-WUZONGGUO-TANG-SELECTION-1982
+    authority_class: peer_reviewed_journal
+    author: 吴宗国
+    title: 科举制与唐代高级官吏的选拔
+    publication: 北京大学学报（哲学社会科学版）
+    year: 1982
+    source_version: bibliographic-metadata-v1
+    retrieved_on: '2026-07-16'
+    canonical_url: https://ccj.pku.edu.cn/article/info?aid=271015813
+  - source_ref: SCH-WANGYANPING-FANGXUANLING-2000
+    authority_class: peer_reviewed_journal
+    author: 王炎平
+    title: 论房玄龄
+    publication: 四川大学学报（哲学社会科学版）
+    year: 2000
+    source_version: bibliographic-metadata-v1
+    retrieved_on: '2026-07-16'
+    canonical_url: https://journal.scu.edu.cn/info/1109/14824.htm
+  - source_ref: SCH-ZHAOYINGCHENG-REMONSTRANCE-2000
+    authority_class: peer_reviewed_journal
+    author: 赵映诚
+    title: 中国古代谏官制度研究
+    publication: 北京大学学报（哲学社会科学版）
+    year: 2000
+    source_version: bibliographic-metadata-v1
+    retrieved_on: '2026-07-16'
+    canonical_url: https://ccj.pku.edu.cn/article/info?id=271013527
+  - source_ref: SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004
+    authority_class: academic_monograph
+    author: 刘后滨
+    title: 唐代中书门下体制研究：公文形态·政务运行与制度变迁
+    publication: 齐鲁书社
+    year: 2004
+    source_version: bibliographic-metadata-v1
+    retrieved_on: '2026-07-16'
+    canonical_url: https://lsxy.ruc.edu.cn/xkycs/xscs/htyjcs/4538fcac7257463ab4ede2d556f4f80a.htm
+  - source_ref: SCH-TANGQINFU-CENTRALIZED-RITUAL-2020
+    authority_class: peer_reviewed_journal
+    author: 汤勤福
+    title: 集权礼制的变迁阶段及其特点
+    publication: 华东师范大学学报（哲学社会科学版）
+    year: 2020
+    source_version: journal-fulltext-metadata-v1
+    retrieved_on: '2026-07-16'
+    canonical_url: https://xbzs.ecnu.edu.cn/article/2020/1000-5579/2020-1-30.htm
+
+profiles:
+  - profile_ref: ORP-LSM-MAZHOU-V1
+    profile_version: '1'
+    subject: {ref: PER-V4-1E978B22A450, kind: person, label: 马周}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-MAZHOU-LOW-STATUS-ENTRY-V1
+        normalized_summary: 学术研究将马周视为唐太宗时期突破既有门第和资格限制、由较低社会位置进入高级官僚体系的代表人物之一。
+        scholarly_source_refs: [SCH-WUZONGGUO-TANG-SELECTION-1982]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷二·任贤第三·马周
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷02
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [寒微出身本身不能代替皇帝发现、验证和转化使用链]
+        retrieval_terms: [家客, 上书言得失, 召见, 直门下省, 中书令]
+
+  - profile_ref: ORP-LSM-FANGXUANLING-V1
+    profile_version: '1'
+    subject: {ref: PER-V4-C37ED24688F5, kind: person, label: 房玄龄}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-FANG-CENTRAL-COORDINATION-V1
+        normalized_summary: 学术评价强调房玄龄的价值不仅是个人办事能力，还包括协调君臣、发挥其他大臣才智并促成集体治理成果。
+        scholarly_source_refs: [SCH-WANGYANPING-FANGXUANLING-2000]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷二·任贤第三·房玄龄、杜如晦、王珪
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷02
+            status: located_pending_formal_acceptance
+          - work: 贞观政要
+            section: 卷三·择官第七
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷03
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [个人协调贡献与房杜共同制度成果需要分别归责]
+        retrieval_terms: [总任百司, 审定法令, 共掌朝政, 台阁规模, 典章文物, 量定庶官]
+
+  - profile_ref: ORP-LSM-REMONSTRANCE-CHANNEL-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-REMONSTRANCE, kind: institution, label: 贞观谏官随宰相议政机制}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-REMONSTRANCE-FORMAL-CHANNEL-V1
+        normalized_summary: 谏诤应作为具有职位授权、表达入口和运行程序的制度观察，而不能只拆解为若干皇帝个人纳谏故事。
+        scholarly_source_refs: [SCH-ZHAOYINGCHENG-REMONSTRANCE-2000, SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷二·求谏第四
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷02
+            status: located_pending_formal_acceptance
+          - work: 贞观政要
+            section: 卷七·论文史第二十八·起居注
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [制度通道收益与魏徵等个人表达安全收益不得重复结算]
+        retrieval_terms: [谏官随入, 预闻政事, 上封事, 起居注, 善恶毕书]
+
+  - profile_ref: ORP-LSM-MERIT-SELECTION-POLICY-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-MERIT-SELECTION, kind: policy, label: 贞观量才授职与反世袭用人政策}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-MERIT-SELECTION-POLICY-V1
+        normalized_summary: 唐初选官一度具有较强的现实需要导向和身份开放性，评价时应同时寻找个体跨越、正式选任规则及规则的实际运行。
+        scholarly_source_refs: [SCH-WUZONGGUO-TANG-SELECTION-1982, SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷三·择官第七
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷03
+            status: located_pending_formal_acceptance
+          - work: 贞观政要
+            section: 卷三·封建第八·罢世袭刺史
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷03
+            status: located_pending_formal_acceptance
+          - work: 贞观政要
+            section: 卷七·论礼乐第二十九·氏族志
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [氏族志削弱旧门望但仍建立当朝官品等级，只能作部分正向观察]
+        retrieval_terms: [量才授职, 省官员, 世袭刺史, 今日官品, 人才作等级]
+
+  - profile_ref: ORP-LSM-LIJI-BINGZHOU-V1
+    profile_version: '1'
+    subject: {ref: PER-V4-LIJI-CANDIDATE, kind: person, label: 李勣}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-LIJI-BINGZHOU-GOVERNANCE-V1
+        normalized_summary: 李勣并州长期治理应按文官式治理产出检索，不因其武将身份而只保留战争结果；关键链条是长期授权、边境安定与突厥退避。
+        scholarly_source_refs: [SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷二·任贤第三·李勣
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷02
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [边境安定是治理结果还是军事威慑结果需在Judge中拆分]
+        retrieval_terms: [并州都督, 十六年, 令突厥畏威遁走, 塞垣安静]
+
+  - profile_ref: ORP-LSM-HONGWEN-HALL-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-HONGWEN-HALL, kind: institution, label: 弘文馆学士轮值议政机制}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-HONGWEN-TALENT-POOL-V1
+        normalized_summary: 弘文馆既是文儒人才池，也是轮值入内讨论经义与政事的使用通道；检索必须同时观察入池、轮值和议政转化。
+        scholarly_source_refs: [SCH-WUZONGGUO-TANG-SELECTION-1982, SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷七·崇儒学第二十七·弘文馆
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [人才池制度不能替代具体人物发现Episode]
+        retrieval_terms: [置弘文馆, 精选天下文儒, 轮番宿直, 讨论坟典, 商略政事]
+
+  - profile_ref: ORP-LSM-FIVE-CLASSICS-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-FIVE-CLASSICS, kind: policy, label: 五经定本与五经正义编修颁行}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-FIVE-CLASSICS-COMMISSION-V1
+        normalized_summary: 五经定本与五经正义具有皇帝命题、专家编修、责任人复核及颁行国学的完整政策落实链，可用于检验文官和学术专业授权。
+        scholarly_source_refs: [SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷七·崇儒学第二十七·五经定本与五经正义
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [编修成果与国家教育效果不能在缺少运行观察时合并夸大]
+        retrieval_terms: [颜师古, 考定五经, 房玄龄集诸儒详议, 孔颖达, 五经正义, 颁于天下]
+
+  - profile_ref: ORP-LSM-HISTORIOGRAPHY-INDEPENDENCE-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-HISTORIOGRAPHY, kind: institution, label: 起居注独立记录机制}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-HISTORIOGRAPHY-INDEPENDENCE-V1
+        normalized_summary: 起居注材料应检索官员获授权独立记录、拒绝君主直接阅看及制度实际维持，而不只检索一次口头分歧。
+        scholarly_source_refs: [SCH-ZHAOYINGCHENG-REMONSTRANCE-2000, SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷七·论文史第二十八·起居注
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [君主索阅行为与最终是否维护制度独立必须同时保留]
+        retrieval_terms: [起居注, 褚遂良, 刘洎, 善恶必书, 人君不观史]
+
+  - profile_ref: ORP-LSM-CLAN-REGISTRY-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-CLAN-REGISTRY, kind: policy, label: 氏族志重修与门望排序政策}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-CLAN-REGISTRY-AMBIGUOUS-V1
+        normalized_summary: 氏族志通过集体编修和颁行降低旧门望的当然优先，但又按当朝官品建立新等级，必须作为正负并存的政策案例检索。
+        scholarly_source_refs: [SCH-WUZONGGUO-TANG-SELECTION-1982, SCH-LIUHOUBIN-GOVERNANCE-METHOD-2004]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷七·论礼乐第二十九·氏族志
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [反旧门阀不等于消除身份等级或形成现代平等选官]
+        retrieval_terms: [高士廉, 魏挺, 岑文本, 令狐德棻, 氏族志, 今日官爵高下, 人才优劣]
+
+  - profile_ref: ORP-LSM-ZHENGUAN-RITES-V1
+    profile_version: '1'
+    subject: {ref: GOVOBJ-CAND-LSM-ZHENGUAN-RITES, kind: policy, label: 贞观礼修订与颁行}
+    allowed_uses: [retrieval_query_expansion, primary_source_location, judge_context]
+    prohibited_uses: [formal_fact_acceptance, factor_choice, score_contribution]
+    summary_items:
+      - summary_ref: ORPS-ZHENGUAN-RITES-IMPLEMENTATION-V1
+        normalized_summary: 学术研究确认贞观三年诏修、十一年完成，且相较前代礼典有补充和改制；应回源核对编修责任群体、完成物与实际颁行影响。
+        scholarly_source_refs: [SCH-TANGQINFU-CENTRALIZED-RITUAL-2020]
+        primary_source_locators:
+          - work: 贞观政要
+            section: 卷七·论礼乐第二十九
+            canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷07
+            status: located_pending_formal_acceptance
+          - work: 旧唐书
+            section: 礼仪志·贞观礼
+            canonical_url: https://zh.wikisource.org/wiki/舊唐書
+            status: located_pending_formal_acceptance
+        formal_assertion_refs: []
+        disputed_points: [后世影响属于学术定位线索，正式归责必须回到原始史料和时间链]
+        retrieval_terms: [贞观三年, 诏修礼, 房玄龄, 贞观十一年, 贞观礼, 增多二十九条]

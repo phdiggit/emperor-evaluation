@@ -158,23 +158,13 @@ def _structural_factors(
     }
 
 
-def build_team_building_v8_scored_shadow(
-    team_window_promotion: Mapping[str, Any],
+def resolve_effective_person_profiles(
     authorized_promotion: Mapping[str, Any],
     supplemental_promotion: Mapping[str, Any],
     calibrations: Sequence[Mapping[str, Any]],
-    scoring_policy: Mapping[str, Any],
-    structural_observations: Mapping[str, Any],
-) -> dict[str, Any]:
+) -> tuple[dict[str, dict[str, Any]], str]:
     if not calibrations:
         raise ValueError("team scored shadow requires talent calibrations")
-    if structural_observations.get("schema_version") != STRUCTURAL_SCHEMA_VERSION:
-        raise ValueError("team structural observation schema mismatch")
-    if (
-        structural_observations.get("observation_policy_version")
-        != STRUCTURAL_POLICY_VERSION
-    ):
-        raise ValueError("team structural observation policy mismatch")
     latest_talent_policy_version = str(calibrations[-1]["policy_version"])
     profiles: dict[str, dict[str, Any]] = {}
     for package in (authorized_promotion, supplemental_promotion):
@@ -195,6 +185,9 @@ def build_team_building_v8_scored_shadow(
                     (item.get("talent_evaluation") or {}).get("basis") or ""
                 ),
                 "calibration_policy_version": None,
+                "profile_ref": str(snapshot["profile_ref"]),
+                "negative_talent_class": snapshot.get("negative_talent_class"),
+                "negative_talent_severity": snapshot.get("negative_talent_severity"),
                 "negative_finding_status": negative_status,
                 "negative_review_completed": negative_completed,
             }
@@ -205,6 +198,29 @@ def build_team_building_v8_scored_shadow(
             profile["effective_grade"] = str(item["calibrated_grade"])
             profile["effective_grade_basis"] = str(item["review_basis"])
             profile["calibration_policy_version"] = policy_version
+    return profiles, latest_talent_policy_version
+
+
+def build_team_building_v8_scored_shadow(
+    team_window_promotion: Mapping[str, Any],
+    authorized_promotion: Mapping[str, Any],
+    supplemental_promotion: Mapping[str, Any],
+    calibrations: Sequence[Mapping[str, Any]],
+    scoring_policy: Mapping[str, Any],
+    structural_observations: Mapping[str, Any],
+) -> dict[str, Any]:
+    if structural_observations.get("schema_version") != STRUCTURAL_SCHEMA_VERSION:
+        raise ValueError("team structural observation schema mismatch")
+    if (
+        structural_observations.get("observation_policy_version")
+        != STRUCTURAL_POLICY_VERSION
+    ):
+        raise ValueError("team structural observation policy mismatch")
+    profiles, latest_talent_policy_version = resolve_effective_person_profiles(
+        authorized_promotion,
+        supplemental_promotion,
+        calibrations,
+    )
 
     team_policy = ((scoring_policy.get("rules") or {}).get("team_building") or {})
     talent_values = {

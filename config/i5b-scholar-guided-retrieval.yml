@@ -1,0 +1,28 @@
+schema_version: i5b-scholar-guided-retrieval-contract-v1
+status: active_candidate_workflow
+work_budget_ref: config/i5b-historical-work-budget.yml
+
+trigger_policy:
+  mandatory_subject_kinds: [institution, policy]
+  mandatory_query_modes: [governance_output, institution_operation, policy_implementation]
+  person_event_skip_requires_primary_locator: true
+
+safety_boundary:
+  output_disposition: candidate_only
+  formal_fact_acceptance_allowed: false
+  factor_choice_allowed: false
+  score_contribution_allowed: false
+  database_write_allowed: false
+  migration_allowed: false
+
+rule_mechanisms:
+  talent_discovery:
+    mechanism_predicates: [talent_visibility, ruler_verification, selection_to_use_conversion]
+  appointment_delegation:
+    mechanism_predicates: [ruler_commission, authority_boundary, actual_operation, attributable_result]
+  team_building:
+    mechanism_predicates: [functional_role, complementary_capability, coordination_operation, collective_result]
+  tolerate_talent:
+    mechanism_predicates: [formal_feedback_entry, channel_operation, expression_or_professional_independence, ruler_response]
+  anti_nepotism:
+    mechanism_predicates: [private_relation_or_status, public_office_effect, prevention_or_correction, observed_result]

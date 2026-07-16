@@ -130,7 +130,6 @@ def calculate_material_projection(
             "direction_sign",
             "discovery_level",
             "talent_quality_factor",
-            "channel_factor",
         )
         dimension_values = {
             name: _option_decimal(
@@ -142,7 +141,6 @@ def calculate_material_projection(
             dimension_values["direction_sign"]
             * dimension_values["discovery_level"]
             * dimension_values["talent_quality_factor"]
-            * dimension_values["channel_factor"]
             * evidence_factor
         )
     elif rule_code == "tolerate_talent":
@@ -226,7 +224,7 @@ def calculate_material_projection(
 def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
     if policy.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("第五项 B 计分政策版本非法")
-    if policy.get("status") != "v3_scoring_skeleton_adopted_for_v4_shadow":
+    if policy.get("status") != "v3_scoring_skeleton_with_v4_settlement_budget_shadow":
         raise ValueError("第五项 B 计分骨架尚未冻结")
 
     inheritance = policy.get("inheritance") or {}
@@ -264,15 +262,56 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
     material = policy.get("material_layer") or {}
     _require_exact(material.get("material_score_min"), -4.0, "材料分下限")
     _require_exact(material.get("material_score_max"), 4.0, "材料分上限")
-    _require_exact(material.get("top_k_allowed"), False, "Top-K 禁令")
     _require_exact(
-        material.get("hard_material_count_cap_allowed"), False, "材料硬上限禁令"
+        material.get("top_k_allowed_after_eligibility_gate"),
+        True,
+        "Gate 后 strongest-N 结算",
+    )
+    _require_exact(
+        material.get("settlement_budget_required"), True, "结算预算要求"
     )
     _require_exact(
         material.get("every_accepted_material_must_contribute"),
-        True,
+        False,
         "已接受材料贡献规则",
     )
+    _require_exact(
+        material.get("supporting_only_material_allowed"), True, "非计分支持材料"
+    )
+
+    budget = policy.get("settlement_budget") or {}
+    _require_exact(
+        budget.get("selection_mode"),
+        "eligibility_gate_then_strongest_n",
+        "预算结算顺序",
+    )
+    _require_exact(
+        budget.get("numeric_top_k_selection_allowed_after_gate"),
+        True,
+        "Gate 后 strongest-N 许可",
+    )
+    _require_exact(
+        budget.get("domain_representation_quota_allowed"),
+        False,
+        "领域代表配额禁令",
+    )
+    _require_exact(
+        budget.get("unfilled_budget_reduces_score"), False, "未用满预算不得扣分"
+    )
+    _require_exact(
+        budget.get("context_labels_are_scoring_slots"), False, "场景标签不得成为槽位"
+    )
+    _require_exact(
+        budget.get("positive_and_negative_independent"), True, "正负预算独立"
+    )
+    event_budgets = budget.get("event_rules") or {}
+    _require_exact(set(event_budgets), set(RULE_ORDER) - {"team_building"}, "事件 rule 预算")
+    for rule_code, rule_budget in event_budgets.items():
+        _require_exact(rule_budget.get("positive"), 3, f"{rule_code} 正向预算")
+        _require_exact(rule_budget.get("negative"), 3, f"{rule_code} 负向预算")
+    team_budget = budget.get("team_building") or {}
+    _require_exact(team_budget.get("positive_member_budget"), 8, "团队正池预算")
+    _require_exact(team_budget.get("negative_member_budget"), 3, "团队负池预算")
 
     evidence = policy.get("evidence_factor") or {}
     _require_exact(evidence.get("minimum"), 0.45, "evidence factor 下限")
@@ -295,6 +334,9 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
 
     rules = policy.get("rules") or {}
     _require_exact(set(rules), set(RULE_ORDER), "五条 rule")
+    talent = rules["talent_discovery"]
+    if "channel_factor" in talent or "channel_factor" in str(talent.get("formula") or ""):
+        raise ValueError("talent_discovery 不得重复乘渠道因子")
     appointment = rules["appointment_delegation"]
     _require_exact(
         appointment.get("projection_mode"),
@@ -317,7 +359,9 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
             "weak_feedback": 0.4,
             "normal_success": 1.0,
             "major_success": 1.5,
-            "poor_result": -0.8,
+            "exceptional_success": 1.8,
+            "bounded_control_failure": -0.3,
+            "limited_direct_damage": -0.8,
             "major_direct_damage": -1.8,
             "structural_continuing_damage": -2.6,
         },
@@ -381,7 +425,7 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
 
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
-        "status": "v3_scoring_skeleton_adopted_for_v4_shadow",
+        "status": "v3_scoring_skeleton_with_v4_settlement_budget_shadow",
         "policy_sha256": _stable_hash(policy),
         "summary": {
             "rule_count": 5,
@@ -397,6 +441,12 @@ def evaluate_i5b_scoring_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
             "ranking_allowed": False,
             "model_call_count": 0,
             "database_write_count": 0,
+            "settlement_budget_enabled": True,
+            "event_selection_mode": "eligibility_gate_then_strongest_n",
+            "domain_representation_quota_allowed": False,
+            "event_rule_side_budget": 3,
+            "team_positive_member_budget": 8,
+            "team_negative_member_budget": 3,
         },
         "inheritance": {
             "source_tag": inheritance["source_tag"],

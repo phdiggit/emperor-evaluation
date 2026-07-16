@@ -1,0 +1,51 @@
+schema_version: i5b-historical-work-budget-v1
+status: active
+per_ruler_run:
+  rule_count: 5
+  max_wall_clock_minutes: 15
+  deadline_scope: end_to_end_from_first_claim
+  hard_deadline: true
+  clock_continues_across_resume: true
+  late_result_policy: discard_and_checkpoint
+per_rule_run:
+  max_scholar_guided_cases: 6
+  max_source_cache_tasks: 6
+  max_candidate_judge_items: 6
+  max_cross_rule_route_reviews: 6
+  max_agent_calls: 4
+  settlement_budget_ref: config/i5b-scoring-policy.yml#settlement_budget
+  max_settled_materials_per_side: 3
+  below_boundary_disposition: deferred_supporting_only
+backlog_policy:
+  stable_task_code_required: true
+  deterministic_order_required: true
+  deferred_items_must_remain_visible: true
+  next_batch_may_start_without_user_prompt: true
+stop_policy:
+  wall_clock_budget_has_highest_priority: true
+  stop_claiming_before_starting_work_that_cannot_finish_in_remaining_time: true
+  stop_when_settlement_material_slots_are_stable: true
+  stop_when_budget_boundary_cannot_change: true
+  stop_when_only_same_fact_lineage_remains: true
+  exhaustive_material_search_forbidden: true
+  human_review_only_for_boundary_changing_candidates: true
+artifact_lifecycle:
+  git_tracked:
+    - active_rules_configs_contracts
+    - immutable_inputs_required_by_current_workflow
+    - single_canonical_current_result
+  retained_but_git_ignored:
+    - logs/i5b_historical_coverage/**
+    - tmp/i5b_historical_coverage/**/failed_checkpoint.json
+  delete_after_success:
+    - tmp/i5b_historical_coverage/**/work_packages/**
+    - tmp/i5b_historical_coverage/**/checkpoint.json
+    - tmp/i5b_historical_coverage/**/phase_artifacts/**
+    - tmp/i5b_historical_coverage/**/source_cache_state*.json
+    - tmp/i5b_historical_coverage/**/increment*.json
+  forbidden_tracked_outputs:
+    - checkpoint
+    - resume_report
+    - per_phase_artifact
+    - source_cache_state
+    - database_replay_audit

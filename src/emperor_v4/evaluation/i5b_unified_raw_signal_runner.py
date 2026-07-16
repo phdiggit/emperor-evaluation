@@ -79,11 +79,11 @@ def build_i5b_unified_raw_signal_readiness(
         }
 
     by_ruler: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
+    if appointment_status != "appointment_delegation_historical_scored_shadow_complete":
+        raise ValueError("unified runner requires current appointment report")
     appointment_source_ref = (
         "eval/i5b_appointment_delegation_historical_coverage/"
         "lishimin_scored_shadow_report_v1.json"
-        if appointment_status == "appointment_delegation_historical_scored_shadow_complete"
-        else "eval/appointment_delegation_v3_parity_demo/report.json"
     )
     for row in _rows(appointment_report.get("ruler_aggregates"), "appointment rulers"):
         by_ruler[str(row["ruler"])]["appointment_delegation"] = {
@@ -101,7 +101,7 @@ def build_i5b_unified_raw_signal_readiness(
             "negative_signal": raw["negative_signal"],
             "source_ref": (
                 "eval/i5b_team_building_historical_coverage/"
-                "lishimin_scored_shadow_report_v2.json"
+                "lishimin_scored_shadow_report_v3.json"
             ),
         }
     else:

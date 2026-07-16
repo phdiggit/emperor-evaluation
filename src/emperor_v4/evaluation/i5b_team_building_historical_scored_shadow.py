@@ -9,10 +9,13 @@ from typing import Any, Mapping, Sequence
 from emperor_v4.evaluation.i5b_assertion_episode_trace import (
     build_assertion_episode_trace,
 )
+from emperor_v4.evaluation.team_building_v8_scored_shadow import (
+    resolve_effective_person_profiles,
+)
 
 
-SCHEMA_VERSION = "i5b-team-building-historical-scored-shadow-v1"
-POLICY_VERSION = "team-building-historical-freeze-raw-signal-v1"
+SCHEMA_VERSION = "i5b-team-building-historical-scored-shadow-v2"
+POLICY_VERSION = "team-building-historical-profile-aligned-raw-signal-v2"
 CORE_ROLES = ("decision", "administration", "military", "correction")
 
 
@@ -66,6 +69,9 @@ def build_team_building_historical_scored_shadow(
     roster_payload: Mapping[str, Any],
     formal_acceptance: Mapping[str, Any],
     scoring_policy: Mapping[str, Any],
+    authorized_promotion: Mapping[str, Any],
+    supplemental_promotion: Mapping[str, Any],
+    calibrations: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
     if roster_payload.get("task_code") != "I5B-HC-TEAM-BUILDING-001":
         raise ValueError("team-building historical closeout task_code mismatch")
@@ -100,6 +106,12 @@ def build_team_building_historical_scored_shadow(
     if any(row.get("negative_review_completed") is not True for row in members):
         raise ValueError("each accepted member requires completed negative review")
 
+    profiles, latest_talent_policy_version = resolve_effective_person_profiles(
+        authorized_promotion,
+        supplemental_promotion,
+        calibrations,
+    )
+
     team_policy = ((scoring_policy.get("rules") or {}).get("team_building") or {})
     talent_values = {
         key: _decimal(value, f"talent value {key}")
@@ -131,7 +143,30 @@ def build_team_building_historical_scored_shadow(
     }
 
     for member in members:
-        grade = str(member["accepted_talent_grade"])
+        person_ref = str(member["person_ref"])
+        if person_ref not in profiles:
+            raise ValueError(f"accepted member lacks current person profile: {person_ref}")
+        profile = profiles[person_ref]
+        if profile["negative_review_completed"] is not True:
+            raise ValueError("current person profile requires completed negative review")
+        member["roster_declared_talent_grade"] = member.pop(
+            "accepted_talent_grade", None
+        )
+        member["effective_talent_grade"] = profile["effective_grade"]
+        member["talent_grade_basis"] = profile["effective_grade_basis"]
+        member["talent_calibration_policy_version"] = profile[
+            "calibration_policy_version"
+        ]
+        member["profile_ref"] = profile["profile_ref"]
+        member["roster_declared_negative_talent_class"] = member.pop(
+            "negative_talent_class", None
+        )
+        member["roster_declared_negative_talent_severity"] = member.pop(
+            "negative_talent_severity", None
+        )
+        member["negative_talent_class"] = profile["negative_talent_class"]
+        member["negative_talent_severity"] = profile["negative_talent_severity"]
+        grade = str(member["effective_talent_grade"])
         member["talent_value"] = talent_values[grade]
         risk_class = member.get("negative_talent_class")
         risk_severity = member.get("negative_talent_severity")
@@ -187,12 +222,12 @@ def build_team_building_historical_scored_shadow(
     negative_signal = negative_pool * complementarity_factor * continuity_factor
     rule_raw_net = positive_signal - negative_signal
 
-    historic_count = sum(row["accepted_talent_grade"] == "historic" for row in members)
+    historic_count = sum(row["effective_talent_grade"] == "historic" for row in members)
     high_count = sum(
-        row["accepted_talent_grade"] in {"historic", "top"} for row in members
+        row["effective_talent_grade"] in {"historic", "top"} for row in members
     )
     qualified_count = sum(
-        row["accepted_talent_grade"] in {"historic", "top", "important"}
+        row["effective_talent_grade"] in {"historic", "top", "important"}
         for row in members
     )
     talent_depth = (
@@ -321,6 +356,20 @@ def build_team_building_historical_scored_shadow(
             "formal_acceptance_sha256": formal_acceptance.get("report_sha256"),
             "source_cache_output_fingerprint": roster_payload.get(
                 "source_cache_output_fingerprint"
+            ),
+            "latest_talent_policy_version": latest_talent_policy_version,
+            "effective_profile_set_fingerprint": _hash(
+                [
+                    {
+                        "person_ref": row["person_ref"],
+                        "profile_ref": row["profile_ref"],
+                        "effective_talent_grade": row["effective_talent_grade"],
+                        "talent_calibration_policy_version": row[
+                            "talent_calibration_policy_version"
+                        ],
+                    }
+                    for row in sorted(members, key=lambda item: item["person_ref"])
+                ]
             ),
         },
     }

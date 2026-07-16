@@ -1,0 +1,79 @@
+{
+  "contract_ref": "eval\\i5b_team_building_historical_coverage\\lishimin_appointment_responsibility_contract_v1.yml",
+  "contract_sha256": "4c6e888777073756ff8f091510a802dbcd9fbd34aae9a9e51636b382d3e0fc4a",
+  "declarations": {
+    "actual_operation_observation_required": true,
+    "database_write_count": 0,
+    "formal_score": null,
+    "institution_or_group_subject_supported": true,
+    "model_call_count": 0,
+    "person_only_contract": false,
+    "ranking": null,
+    "specific_appointee_required": false,
+    "tier": null
+  },
+  "formal_acceptance_ref": "eval/i5b_team_building_historical_coverage/lishimin_appointment_institution_formal_acceptance_v1.json",
+  "formal_acceptance_sha256": "2aad202b1c46dc0e530cbc6707d86299297e4d7bca37fff0d8f38c5aebbfdbb6",
+  "insufficient_units": [
+    {
+      "judge_reason": "已确认责任主体和权限边界，但没有实际运行观察，不进入数值候选集。",
+      "material_id": "MAT-LSM-INSTITUTION-LOCAL-SELECTION-POS",
+      "missing_inputs": [
+        "actual_operation_observation"
+      ],
+      "rule_evidence_unit_ref": "REU-LSM-INSTITUTION-LOCAL-SELECTION-HC-v1",
+      "subject": "刺史与五品以上荐举责任群体"
+    }
+  ],
+  "materials": [
+    {
+      "assertion_refs": [
+        "ASTA-0CC2E92D5ADF147CDB73",
+        "ASTA-86D457E43B573C460F6A"
+      ],
+      "duplicate_boundary": "只结算责任机制、权限边界和实际运行；政策社会净收益及房玄龄个人一般任用不在本单元重复结算。",
+      "fact": "太宗确立量才授职和精简员额边界，房玄龄等作为中枢责任群体实际量定文武官员六百四十员。",
+      "factor_option_codes": {
+        "appointment_effect": "normal_success",
+        "appointment_importance": "critical_national_or_long_term",
+        "attribution_factor": "direct",
+        "context_factor": "core_mechanism_direct",
+        "continuity_factor": "short_or_one_off",
+        "source_factor": "complete_direct_chain"
+      },
+      "factor_values": {
+        "appointment_effect": "1.000000",
+        "appointment_importance": "1.400000",
+        "attribution_factor": "1.000000",
+        "context_factor": "1.100000",
+        "continuity_factor": "0.850000",
+        "evidence_factor": "1.210000",
+        "source_factor": "1.100000"
+      },
+      "material_id": "MAT-LSM-INSTITUTION-MERIT-STAFFING-POS",
+      "material_magnitude": "1.439900",
+      "object_ref": "RESPONSIBILITY-GROUP-LSM-CENTRAL-STAFFING-626",
+      "rule_evidence_unit_ref": "REU-LSM-INSTITUTION-MERIT-STAFFING-HC-v1",
+      "side": "positive",
+      "source_refs": [
+        "SP-3591070F134CE440503F"
+      ],
+      "subject": "房玄龄等中枢员额责任群体",
+      "subject_kind": "responsibility_group"
+    }
+  ],
+  "policy_ref": "config/i5b-scoring-policy.yml",
+  "policy_sha256": "7887d0787a2b77280ed98945e28f09a8b4ebc8ccb31189bf0dff42b139badfbb",
+  "report_sha256": "15a4560c52d5c1b4d40c596c1a84de8c715499fb71b4a93989fd025ae14ebbfb",
+  "ruler": "李世民",
+  "ruler_ref": "PER-V4-78F48EBC67F8",
+  "schema_version": "i5b-appointment-responsibility-projection-v1",
+  "status": "appointment_responsibility_projection_complete",
+  "summary": {
+    "eligible_material_count": 1,
+    "insufficient_unit_count": 1,
+    "unit_count": 2
+  },
+  "task_code": "I5B-LISHIMIN-APPOINTMENT-RESPONSIBILITY-626-649-V1",
+  "window": "626-649"
+}

@@ -385,12 +385,80 @@ def build_formal_fact_acceptance(
     return payload
 
 
+def merge_formal_fact_acceptance(
+    *, base: Mapping[str, Any], increment: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Merge a reviewed increment without rewriting prior accepted facts."""
+    identity_fields = ("schema_version", "profile_code", "rule_code", "ruler")
+    if any(base.get(field) != increment.get(field) for field in identity_fields):
+        raise ValueError("formal acceptance increment identity mismatch")
+    if base.get("scope") != increment.get("scope"):
+        raise ValueError("formal acceptance increment scope mismatch")
+    base_units = list(base.get("units") or ())
+    increment_units = list(increment.get("units") or ())
+    base_unit_refs = {str(row.get("unit_ref")) for row in base_units}
+    increment_unit_refs = {str(row.get("unit_ref")) for row in increment_units}
+    if base_unit_refs & increment_unit_refs:
+        raise ValueError("formal acceptance increment duplicates unit_ref")
+    base_assertions = {
+        str(assertion.get("assertion_code"))
+        for unit in base_units
+        for assertion in unit.get("assertion_drafts") or ()
+    }
+    increment_assertions = {
+        str(assertion.get("assertion_code"))
+        for unit in increment_units
+        for assertion in unit.get("assertion_drafts") or ()
+    }
+    if base_assertions & increment_assertions:
+        raise ValueError("formal acceptance increment duplicates assertion")
+    units = deepcopy(base_units) + deepcopy(increment_units)
+    uncertain = sum(
+        assertion.get("formal_acceptance_disposition") == "accept_with_uncertainty"
+        for unit in units
+        for assertion in unit.get("assertion_drafts") or ()
+    )
+    assertion_count = sum(len(unit.get("assertion_drafts") or ()) for unit in units)
+    payload = deepcopy(dict(base))
+    payload["status"] = "formally_accepted_for_core_registry"
+    payload["units"] = units
+    payload["summary"] = {
+        "assertion_count": assertion_count,
+        "accepted_assertion_count": assertion_count - uncertain,
+        "accepted_with_uncertainty_assertion_count": uncertain,
+        "accepted_unit_count": len(units),
+        "existing_reviewed_assertion_count": int(
+            (base.get("summary") or {}).get("existing_reviewed_assertion_count", 0)
+        ),
+        "existing_accepted_assertion_count": int(
+            (base.get("summary") or {}).get("accepted_assertion_count", 0)
+        ),
+        "newly_accepted_assertion_count": int(
+            (increment.get("summary") or {}).get("assertion_count", 0)
+        ),
+        "rejected_existing_assertion_count": int(
+            (base.get("summary") or {}).get("rejected_existing_assertion_count", 0)
+        ),
+        "pending_blocking_review_unit_count": 0,
+        "database_write_count": 0,
+        "formal_scoring_allowed": False,
+    }
+    payload["input_refs"] = {
+        "base_formal_acceptance_sha256": base.get("report_sha256"),
+        "increment_formal_acceptance_sha256": increment.get("report_sha256"),
+    }
+    payload.pop("report_sha256", None)
+    payload["report_sha256"] = _hash(payload)
+    return payload
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build a formal fact acceptance package")
     parser.add_argument("--reviewed", type=Path, required=True)
     parser.add_argument("--decisions", type=Path, required=True)
     parser.add_argument("--unit-specs", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--base-acceptance", type=Path)
     args = parser.parse_args()
     load = lambda path: json.loads(path.read_text(encoding="utf-8"))
     result = build_formal_fact_acceptance(
@@ -398,6 +466,10 @@ def main() -> int:
         acceptance_decisions=load(args.decisions),
         unit_specs=load(args.unit_specs),
     )
+    if args.base_acceptance:
+        result = merge_formal_fact_acceptance(
+            base=load(args.base_acceptance), increment=result
+        )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

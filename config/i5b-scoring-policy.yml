@@ -1,6 +1,6 @@
 schema_version: i5b-scoring-policy-v1
-status: v3_scoring_skeleton_adopted_for_v4_shadow
-frozen_on: '2026-07-15'
+status: v3_scoring_skeleton_with_v4_settlement_budget_shadow
+frozen_on: '2026-07-16'
 scope: fifth_item_b_raw_signal_and_batch_mapping_input
 
 inheritance:
@@ -24,7 +24,7 @@ factor_semantics_contract:
   numeric_values_owned_by_this_policy_only: true
   numeric_values_must_not_be_supplied_to_factor_agent: true
   contract_versions:
-    appointment_delegation: appointment-delegation-factor-observation-v6
+    appointment_delegation: appointment-delegation-factor-observation-v8
     talent_discovery: talent-discovery-factor-agent-v2
     team_building: team-building-factor-agent-v3
     tolerate_talent: tolerate-talent-factor-agent-v3
@@ -40,9 +40,29 @@ material_layer:
     strong: [1.6, 2.8]
     extreme: [2.8, 4.0]
   same_claim_object_side_deduplicated: true
-  top_k_allowed: false
-  hard_material_count_cap_allowed: false
-  every_accepted_material_must_contribute: true
+  top_k_allowed_after_eligibility_gate: true
+  settlement_budget_required: true
+  every_accepted_material_must_contribute: false
+  supporting_only_material_allowed: true
+
+settlement_budget:
+  selection_mode: eligibility_gate_then_strongest_n
+  numeric_top_k_selection_allowed_after_gate: true
+  domain_representation_quota_allowed: false
+  unfilled_budget_reduces_score: false
+  context_labels_are_scoring_slots: false
+  positive_and_negative_independent: true
+  known_counterevidence_review_required: true
+  replacement_requires_versioned_human_decision: true
+  event_rules:
+    talent_discovery: {positive: 3, negative: 3, unit: independent_discovery_chain}
+    appointment_delegation: {positive: 3, negative: 3, unit: independent_appointment_chain}
+    tolerate_talent: {positive: 3, negative: 3, unit: independent_feedback_safety_chain}
+    anti_nepotism: {positive: 3, negative: 3, unit: independent_private_public_power_chain}
+  team_building:
+    positive_member_budget: 8
+    negative_member_budget: 3
+    score_contribution_unit: ruler_window_team
 
 evidence_factor:
   formula: evidence_factor = clamp(attribution_factor * source_factor * context_factor, 0.45, 1.25)
@@ -67,7 +87,7 @@ evidence_factor:
 
 rules:
   talent_discovery:
-    formula: direction_sign * discovery_level * talent_quality_factor * channel_factor * evidence_factor
+    formula: direction_sign * discovery_level * talent_quality_factor * evidence_factor
     projection_mode: v4_joint_factor_projection
     direction_sign: {positive: 1.0, missed_or_suppressed_discovery: -1.0}
     discovery_level:
@@ -81,14 +101,9 @@ rules:
       important: 1.15
       top: 1.45
       historic: 1.8
-    channel_factor:
-      single_case: 1.0
-      cross_identity_or_camp: 1.1
-      repeatable_discovery_mechanism: 1.2
     v4_factor_inputs: [recognition_novelty, recognition_basis, barrier_crossing, conversion_to_use]
     required_additional_inputs:
       - versioned_person_talent_grade
-      - repeatable_channel_observation
       - attribution_projection
       - source_projection
       - context_projection
@@ -107,7 +122,9 @@ rules:
       weak_feedback: 0.4
       normal_success: 1.0
       major_success: 1.5
-      poor_result: -0.8
+      exceptional_success: 1.8
+      bounded_control_failure: -0.3
+      limited_direct_damage: -0.8
       major_direct_damage: -1.8
       structural_continuing_damage: -2.6
     continuity_factor:
@@ -258,6 +275,8 @@ aggregation_policies:
     side_signal: sum_object_side_scores
     all_scored_materials_contribute_before_object_cap: true
     top_k: false
+    settled_units_only: true
+    max_settled_units_per_side: 3
   v3-native-density-decay-20260711:
     mode: hierarchical_rank_decay
     material_decay: 1.0
@@ -266,15 +285,18 @@ aggregation_policies:
     positive_lane_scale: 1.5
     negative_lane_scale: 1.0
     event_key: canonical_event_group
-    all_scored_materials_contribute: true
+    all_scored_materials_contribute: false
     top_k: false
-    hard_aggregation_cap: false
+    settled_units_only: true
+    max_settled_units_per_side: 3
   v3-team-object-pool-v1:
     mode: orthogonal_person_profile_pool
     canonical_person_unique_per_window: true
     positive_and_negative_axes_independent: true
     person_decay: 0.5
     top_k: false
+    positive_member_budget: 8
+    negative_member_budget: 3
 
 item_raw_signal:
   formula_version: i5b-weighted-raw-signal-v1

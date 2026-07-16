@@ -1,0 +1,891 @@
+{
+  "amplitude_diagnostic": {
+    "amplitude_change_recommended": null,
+    "cohort_ruler_count": 1,
+    "decision_status": "insufficient_cross_ruler_distribution",
+    "reason": "理论包络未因材料预算失去量级；须在证据合同和 strongest-N 稳定后使用多皇帝分布判断实测压缩。",
+    "theoretical_negative_envelope": {
+      "anti_nepotism": "12.000000",
+      "appointment_delegation": "9.137828",
+      "talent_discovery": "12.000000",
+      "team_building": "3.947542",
+      "tolerate_talent": "12.000000"
+    },
+    "theoretical_positive_envelope": {
+      "anti_nepotism": "12.000000",
+      "appointment_delegation": "13.706742",
+      "talent_discovery": "12.000000",
+      "team_building": "10.071790",
+      "tolerate_talent": "12.000000"
+    }
+  },
+  "declarations": {
+    "context_labels_used_as_scoring_slots": false,
+    "database_write_count": 0,
+    "domain_representation_quota_used": false,
+    "existing_formal_facts_only": true,
+    "external_retrieval_count": 0,
+    "formal_score_write_count": 0,
+    "model_call_count": 0,
+    "numeric_top_k_applied_after_eligibility_gate": true,
+    "numeric_top_k_selection_used": true,
+    "ranking": null,
+    "score": null,
+    "tier": null,
+    "unfilled_budget_penalty_used": false
+  },
+  "policy_ref": "config/i5b-scoring-policy.yml",
+  "policy_sha256": "380dbc07672c54665f61e2e6658737e79674d315f19d032563cad3d3910692dd",
+  "report_sha256": "73cef8d4060e80ddc4bf27d6d6766719e5acbaf5e58f3f99994042b0502fbae0",
+  "ruler": "李世民",
+  "ruler_ref": "PER-V4-78F48EBC67F8",
+  "rules": [
+    {
+      "eligible_candidate_count": 4,
+      "negative_budget": 3,
+      "negative_signal": "0.000000",
+      "positive_budget": 3,
+      "positive_signal": "4.864200",
+      "rule_code": "talent_discovery",
+      "rule_label": "发现人才",
+      "rule_raw_net": "4.864200",
+      "settled_materials": [
+        {
+          "fact": "626年召见敌对阵营旧属魏徵，经当面对答后跨阵营擢用并持续问政；只结算识才链。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "direction_sign": "positive",
+            "discovery_level": "difficult_cross_boundary_discovery",
+            "source_factor": "complete_direct_chain",
+            "talent_quality_factor": "top"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "direction_sign": "1.000000",
+            "discovery_level": "1.200000",
+            "source_factor": "1.100000",
+            "talent_quality_factor": "1.450000"
+          },
+          "independence_key": "discovery:weizheng:cross-camp",
+          "judge_reason": "敌对阵营旧属经直接召见验证并转化使用，形成独立跨阵营识才链。",
+          "material_id": "REU-LSM-WEIZHENG-DISCOVERY-HC-v1",
+          "material_magnitude": "2.105400",
+          "object_ref": "PER-V4-B0E10D8903E7",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-45B762F6C15D2042A699",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v2.json#TD-HC-WEIZHENG",
+            "eval/person_profiles/talent_grade_v9_high_tier_calibration_report.json#魏徵"
+          ],
+          "subject": "魏徵"
+        },
+        {
+          "fact": "寒微家客经代拟奏议进入视野，太宗追问、召见验证并转化为门下及中书任用；只结算识才链。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "direction_sign": "positive",
+            "discovery_level": "difficult_cross_boundary_discovery",
+            "source_factor": "complete_direct_chain",
+            "talent_quality_factor": "important"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "direction_sign": "1.000000",
+            "discovery_level": "1.200000",
+            "source_factor": "1.100000",
+            "talent_quality_factor": "1.150000"
+          },
+          "independence_key": "discovery:mazhou:low-status-entry",
+          "judge_reason": "寒微家客经奏议追问、召见和任用进入中枢，形成独立低位识才链。",
+          "material_id": "REU-LSM-MAZHOU-DISCOVERY-HC-v1",
+          "material_magnitude": "1.669800",
+          "object_ref": "PER-V4-1E978B22A450",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-4665233EE268C4E7DAC8",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json#TD-HC-MAZHOU",
+            "eval/person_profiles/authorized_profile_promotion.json#马周"
+          ],
+          "subject": "马周"
+        },
+        {
+          "fact": "李靖推荐后，太宗明确自行选择岑文本并授中书枢密职责，随后扩大为辽东支度重任。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "direction_sign": "positive",
+            "discovery_level": "attributable_interview_trial_or_appointment",
+            "source_factor": "complete_direct_chain",
+            "talent_quality_factor": "usable"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "direction_sign": "1.000000",
+            "discovery_level": "1.000000",
+            "source_factor": "1.100000",
+            "talent_quality_factor": "0.900000"
+          },
+          "independence_key": "discovery:cenwenben:writing-trial",
+          "judge_reason": "经具体文书能力观察和试用完成识别，不与前两条共用发现链。",
+          "material_id": "REU-LSM-CENWENBEN-DISCOVERY-HC-v1",
+          "material_magnitude": "1.089000",
+          "object_ref": "PER-V4-E0A3901BD51B",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-CD756E76DC01E5858274",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v1.json#TD-HC-CENWENBEN",
+            "eval/person_profiles/talent_grade_v8_final_calibration_report.json#岑文本"
+          ],
+          "subject": "岑文本"
+        }
+      ],
+      "source_candidate_count": 4,
+      "source_ref": "eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json",
+      "source_sha256": "a102b6a288d4d916664cdcbaa6d9150de034df253810d1d8bd764bc34775f6bf",
+      "supplemental_source_refs": [],
+      "supplemental_source_sha256s": [],
+      "supporting_only_materials": [
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.089000，本版不计分。",
+          "material_id": "REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1",
+          "material_magnitude": "1.089000",
+          "rule_evidence_unit_ref": "REU-93C07EC6FC8BB55B52F0",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "张玄素"
+        }
+      ]
+    },
+    {
+      "eligible_candidate_count": 9,
+      "negative_budget": 3,
+      "negative_signal": "0.406560",
+      "positive_budget": 3,
+      "positive_signal": "10.229763",
+      "rule_code": "appointment_delegation",
+      "rule_label": "任用授权",
+      "rule_raw_net": "9.823203",
+      "settled_materials": [
+        {
+          "fact": "太宗先后授李靖国家级方面统帅权；李靖以主帅身份灭东突厥、平吐谷浑，形成两个可区分的战略格局改变结果。",
+          "factor_option_codes": {
+            "appointment_effect": "exceptional_success",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "long_term_multi_stage",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "1.800000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.150000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "appointment:lijing:military-command",
+          "judge_reason": "两次国家级主帅授权分别改变东突厥与吐谷浑战略格局，受任者总帅贡献高度直接，按极重大成功投影。",
+          "material_id": "MAT-LSM-LIJING-POS",
+          "material_magnitude": "3.506580",
+          "object_ref": "李靖",
+          "override_reasons": [
+            "人工冻结接受：东突厥与吐谷浑两次国家级主帅授权均产生直接战略格局改变，区别于单次重大胜利或副帅贡献。"
+          ],
+          "rule_evidence_unit_ref": "REU-LSM-LIJING-MILITARY-AUTHORITY-HC-v1",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "ASTA-01BA4D1D539E6EF43C55",
+            "ASTA-277DB72F3B5DDD2D5C1C",
+            "ASTA-39CD97D1C91172A86DD6",
+            "ASTA-6DEFC2763B7DD6EAA491",
+            "ASTA-7DE350B0C6A6AEB0B917",
+            "ASTA-DC67072D24D3A163DD15"
+          ],
+          "subject": "李靖"
+        },
+        {
+          "fact": "太宗授侯君集高昌方面主帅权并取得重大直接成果；吐谷浑阶段保留其建议和执行贡献，但不作为独立总帅级战略成果重复抬档。",
+          "factor_option_codes": {
+            "appointment_effect": "major_success",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "long_term_multi_stage",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "1.500000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.150000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "appointment:houjunji:military-command-success",
+          "judge_reason": "高昌主帅授权与重大结果闭合；吐谷浑阶段属于李靖总帅链下的重要建议和执行贡献，不与李靖总帅成果等量归责。",
+          "material_id": "MAT-LSM-HOUJUNJI-POS",
+          "material_magnitude": "2.922150",
+          "object_ref": "侯君集",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "ASTA-10758C1F74B706F34FBE",
+            "ASTA-4075F287D503C8F95063",
+            "ASTA-6300A6CEA9D4712EC49B",
+            "ASTA-B6B56D4BB14C3BF24291",
+            "ASTA-B9F58C9AE9841A2B7618",
+            "ASTA-DC5B48FFD0467AE5CE0F"
+          ],
+          "subject": "侯君集"
+        },
+        {
+          "fact": "授予薛延陀处置统帅权并划定边界；执行招降与讨叛；李世勣；薛延陀余众",
+          "factor_option_codes": {
+            "appointment_effect": "major_success",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "short_or_one_off",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "1.500000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "continuity_factor": "0.850000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "appointment:liji:military-command",
+          "judge_reason": "方面统帅授权、权限和重大履职反馈闭合，不因已有军事材料而排除。",
+          "material_id": "MAT-LSM-LIJI-POS-V2",
+          "material_magnitude": "2.159850",
+          "object_ref": "李绩",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-LSM-LIJI-AUTHORITY-HC-v2",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "ASTA-AD-LIJI-AUTH-V2",
+            "ASTA-AD-LIJI-RESULT-V2"
+          ],
+          "subject": "李绩"
+        },
+        {
+          "fact": "侯君集平高昌后未奏配没罪人并私取珍宝妇女，部属亦随之盗取；太宗令其下狱，后听岑文本劝谏而释放复列，形成有限控制失误与部分纠正的完整链。",
+          "factor_option_codes": {
+            "appointment_effect": "bounded_control_failure",
+            "appointment_importance": "critical_national_or_long_term",
+            "attribution_factor": "indirect",
+            "context_factor": "core_mechanism_direct",
+            "continuity_factor": "stable",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "appointment_effect": "0.300000",
+            "appointment_importance": "1.400000",
+            "attribution_factor": "0.800000",
+            "context_factor": "1.100000",
+            "continuity_factor": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "appointment:houjunji:control-failure",
+          "judge_reason": "高昌任务后存在私取与未能约束部属，但现有史源未证明屠城、系统性劫掠或持续公共损害；太宗先令下狱，后听岑文本谏而释放，属于有限控制失误及部分纠正，不能按国家级任务重要性直接抬成重大损害。",
+          "material_id": "MAT-LSM-HOUJUNJI-NEG",
+          "material_magnitude": "0.406560",
+          "object_ref": "侯君集",
+          "override_reasons": [
+            "负向档位按实际损害与皇帝知情后的处置判断；私取及约束失败成立，但未证明重大持续公共损害，且存在下狱后释放的纠正链。"
+          ],
+          "rule_evidence_unit_ref": "REU-LSM-HOUJUNJI-AUTHORITY-CONTROL-HC-v1",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "negative",
+          "source_refs": [
+            "ASTA-10758C1F74B706F34FBE",
+            "ASTA-4075F287D503C8F95063",
+            "ASTA-6300A6CEA9D4712EC49B",
+            "ASTA-B6B56D4BB14C3BF24291",
+            "ASTA-B9F58C9AE9841A2B7618",
+            "ASTA-DC5B48FFD0467AE5CE0F"
+          ],
+          "subject": "侯君集"
+        }
+      ],
+      "source_candidate_count": 9,
+      "source_ref": "eval/i5b_team_building_historical_coverage/lishimin_appointment_scored_shadow_v2.json",
+      "source_sha256": "4785e6d84dda9c3225021430f7cea9fc83d6c9877baec72268c860db3fc48b6e",
+      "supplemental_source_refs": [
+        "eval/i5b_team_building_historical_coverage/lishimin_appointment_responsibility_projection_v1.json"
+      ],
+      "supplemental_source_sha256s": [
+        "14adfc426b6f71c4924f190aeb11c2760e50ca551208265fee69b1c8703c3dbd"
+      ],
+      "supporting_only_materials": [
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "material_id": "MAT-LSM-DURUHUI-POS-V2",
+          "material_magnitude": "1.439900",
+          "rule_evidence_unit_ref": "REU-LSM-DURUHUI-AUTHORITY-HC-v2",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "杜如晦"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "material_id": "MAT-LSM-FANGXUANLING-POS-V2",
+          "material_magnitude": "1.948100",
+          "rule_evidence_unit_ref": "REU-LSM-FANGXUANLING-AUTHORITY-HC-v2",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "房玄龄"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "material_id": "MAT-LSM-INSTITUTION-MERIT-STAFFING-POS",
+          "material_magnitude": "1.439900",
+          "rule_evidence_unit_ref": "REU-LSM-INSTITUTION-MERIT-STAFFING-HC-v1",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "房玄龄等中枢员额责任群体"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "material_id": "MAT-LSM-MAZHOU-POS",
+          "material_magnitude": "1.948100",
+          "rule_evidence_unit_ref": "REU-LSM-MAZHOU-AUTHORIZATION-HC-v1",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "馬周"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 2.159850，本版不计分。",
+          "material_id": "MAT-LSM-WEIZHENG-POS",
+          "material_magnitude": "1.739375",
+          "rule_evidence_unit_ref": "REU-LSM-WEIZHENG-APPOINTMENT-HC-v1",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "魏徵"
+        },
+        {
+          "judge_reason": "已确认责任主体和权限边界，但没有实际运行观察，不进入数值候选集。",
+          "material_id": "MAT-LSM-INSTITUTION-LOCAL-SELECTION-POS",
+          "material_magnitude": null,
+          "rule_evidence_unit_ref": "REU-LSM-INSTITUTION-LOCAL-SELECTION-HC-v1",
+          "selection_status": "insufficient_contract_evidence",
+          "subject": "刺史与五品以上荐举责任群体"
+        }
+      ]
+    },
+    {
+      "functional_complementarity": "balanced_four",
+      "functional_complementarity_factor": "1.200000",
+      "long_term_stability": "durable_multi_stage",
+      "long_term_stability_factor": "1.200000",
+      "negative_member_budget": 3,
+      "negative_members": [
+        {
+          "negative_class": "traitorous_actor",
+          "negative_severity": "major",
+          "negative_value": "0.640000000000",
+          "person": "侯君集",
+          "role_families": [
+            "military",
+            "decision"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-HOUJUNJI-RISK-HC-v1"
+          ],
+          "talent_grade": "important",
+          "talent_grade_basis": "吐谷浑、高昌远征中承担统帅责任并取得明确战区结果，满足重大军事行动簇；两次远征尚不足证明两个独立国家级第一梯队成果，高昌治军失范只作能力校准。",
+          "talent_value": "0.900000000000"
+        }
+      ],
+      "negative_pool": "0.640000",
+      "negative_signal": "0.921600",
+      "positive_member_budget": 8,
+      "positive_members": [
+        {
+          "person": "房玄龄",
+          "role_families": [
+            "administration",
+            "decision"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-FANGDU-HC-v1",
+            "REU-LSM-TEAM-SUCCESSION-HC-v1",
+            "REU-LSM-TEAM-LATE-CONTINUITY-HC-v1"
+          ],
+          "talent_grade": "historic",
+          "talent_grade_basis": "排除宰相官位、荐才个案和同一中枢职责链重复项目后，仍有唐创业定策、贞观长期治理制度和国家修史组织三个层面的跨阶段成果。个人与太宗、杜如晦共享归责，但持续时间、治世兑现和制度遗产足以historic。",
+          "talent_value": "1.600000000000"
+        },
+        {
+          "person": "李绩",
+          "role_families": [
+            "military",
+            "decision"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-SUCCESSION-HC-v1"
+          ],
+          "talent_grade": "historic",
+          "talent_grade_basis": "东突厥作战需扣除李靖总帅贡献，但薛延陀专征和跨朝完成高句丽征服个人归属清楚；三方向均面对具真实动员与战略威胁的强敌，跨太宗、高宗重复高兑现。含金量、稳定性与时代后果足以historic。",
+          "talent_value": "1.600000000000"
+        },
+        {
+          "person": "李靖",
+          "role_families": [
+            "military",
+            "decision"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-LIJING-HC-v1"
+          ],
+          "talent_grade": "historic",
+          "talent_grade_basis": "与徐达同标尺后，原差档无法成立。平萧铣及随后江南、岭南归附直接完成唐统一关键区域，灭东突厥面对唐初最高外部威胁并重塑北方格局，平吐谷浑虽对手低一档，仍是高原远征中的国家级独立完成结果。三项跨内战统一、强敌战争和西北远征，个人方略与主帅归属高，加权胜率极高且无徐达岭北式重大败仗。冻结标准只要求时代塑造高度并有重复高兑现或基础遗产，并不要求第三项也必须同为时代级；即使不采用争议兵书，李靖也应与徐达同为historic。",
+          "talent_value": "1.600000000000"
+        },
+        {
+          "person": "杜如晦",
+          "role_families": [
+            "decision",
+            "administration"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-FANGDU-HC-v1"
+          ],
+          "talent_grade": "top",
+          "talent_grade_basis": "创业谋划、玄武门和贞观核心决策有国家级兑现，足以top；但任职期短，制度成果与房玄龄、太宗共享，缺少长期重复治理和个人基础遗产，不能只凭‘房谋杜断’声名升historic。",
+          "talent_value": "1.200000000000"
+        },
+        {
+          "person": "长孙无忌",
+          "role_families": [
+            "decision",
+            "administration"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-SUCCESSION-HC-v1"
+          ],
+          "talent_grade": "top",
+          "talent_grade_basis": "永徽律疏属共同编修，房遗爱案及晚年权力处置又暴露重大判断成本；扣除个人独占后，核心组织法典定稿、继承定策和受遗辅政仍是多个国家级实际成果，top可保留。",
+          "talent_value": "1.200000000000"
+        },
+        {
+          "person": "魏徵",
+          "role_families": [
+            "correction",
+            "decision"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-WEIZHENG-HC-v1"
+          ],
+          "talent_grade": "top",
+          "talent_grade_basis": "只凭谏臣声望不足top，且政策执行最终归皇帝和中枢；但长期高频决策校正、礼制典章史书责任及治理思想作品构成多个有结果或重要遗产的独立簇，领域第一梯队可核，故不降important。",
+          "talent_value": "1.200000000000"
+        },
+        {
+          "person": "褚遂良",
+          "role_families": [
+            "correction",
+            "administration"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-SUCCESSION-HC-v1",
+            "REU-LSM-TEAM-LATE-CONTINUITY-HC-v1"
+          ],
+          "talent_grade": "important",
+          "talent_grade_basis": "初唐书法代表作构成领域成果，储位与永徽辅政提供中枢能力补强；未主导治世或基础制度，文化成果也不足稳过顶级守门员。",
+          "talent_value": "0.900000000000"
+        },
+        {
+          "person": "马周",
+          "role_families": [
+            "administration",
+            "correction"
+          ],
+          "supporting_unit_refs": [
+            "REU-LSM-TEAM-MEMBER-E3BD6826429C9E25D693"
+          ],
+          "talent_grade": "important",
+          "talent_grade_basis": "刺史县令选任建议和京城置鼓等措施获采纳并产生实际结果，加上留辅形成两个中型政务簇；缺少国家级制度或治世成果。",
+          "talent_value": "0.900000000000"
+        }
+      ],
+      "positive_pool": "5.940052",
+      "positive_signal": "8.553674",
+      "rule_code": "team_building",
+      "rule_label": "团队建设",
+      "rule_raw_net": "7.632074",
+      "source_candidate_count": 24,
+      "source_ref": "eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v3.json",
+      "source_sha256": "fa4ac65331ee79349bde932927aef8be9dcc8abaed91b388d4f203f3317d87a6",
+      "supporting_only_members": [
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "唐俭"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "尉迟敬德"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "屈突通"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "岑文本"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "张亮"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "戴胄"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "李君羡"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "段志玄"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "温彦博"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "王玄策"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "王珪"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "秦琼"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "萧瑀"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "虞世南"
+        },
+        {
+          "judge_reason": "窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。",
+          "person": "高士廉"
+        }
+      ]
+    },
+    {
+      "eligible_candidate_count": 8,
+      "negative_budget": 3,
+      "negative_signal": "0.653400",
+      "positive_budget": 3,
+      "positive_signal": "6.648950",
+      "rule_code": "tolerate_talent",
+      "rule_label": "容人保全",
+      "rule_raw_net": "5.995550",
+      "settled_materials": [
+        {
+          "fact": "《贞观政要·求谏第四》记录贞观元年建立谏官随宰相议政的正式入口，并以三、五、六、八、十五、十六、十七年多个独立后续证明多主体、跨阶段运行及主动安全鼓励；本单元只结算制度级通道，不重复结算各臣子的个人反馈收益。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "expression_safety": "actively_protected_or_encouraged",
+            "feedback_entry": "institutionalized_feedback_entry",
+            "protection_repair": "none",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "expression_safety": "1.150000",
+            "feedback_entry": "2.000000",
+            "protection_repair": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "tolerate:institutional-remonstrance-channel",
+          "judge_reason": "正式反馈入口及多主体持续运行构成制度级独立链。",
+          "material_id": "TT-LSM-INSTITUTIONAL-REM-01",
+          "material_magnitude": "2.783000",
+          "object_ref": "AGG-LSM-FORMAL-REMONSTRANCE-CHANNEL",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-82D10237B8EB338957B4",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json#TT-LSM-INSTITUTIONAL-REM-01",
+            "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_institutional_channel_v1.json#TT-LSM-INSTITUTIONAL-REM-01",
+            "https://zh.wikisource.org/zh-hant/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702"
+          ],
+          "subject": "贞观求谏机制"
+        },
+        {
+          "fact": "《旧唐书》直接记载李世民称魏徵所陈谏前后二百余事，且具体谏诤覆盖用人、刑赏、礼制、边政、封禅等多个重大政务领域；V4回源另冻结贞观八年留其箴规君失、十年仍参议得失、十六年继续知门下省事及病重营宅临视等按时间可区分的独立后续。因此同时满足高密度、跨领域、长期犯颜和持续保留门槛，反馈入口映射exceptional_dense_cross_domain_remonstrance，生前表达安全映射basically_safe；这些后续不抵销TT-O05的身后信用撤销。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "expression_safety": "basically_safe",
+            "feedback_entry": "exceptional_dense_cross_domain_remonstrance",
+            "protection_repair": "none",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "expression_safety": "1.000000",
+            "feedback_entry": "1.700000",
+            "protection_repair": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "tolerate:weizheng:repeated-personal-feedback",
+          "judge_reason": "魏徵个人长期犯颜、表达安全与持续留任构成人物级独立链，不重复制度通道收益。",
+          "material_id": "TT-O01",
+          "material_magnitude": "2.057000",
+          "object_ref": "PER-V4-B0E10D8903E7",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-AE2712B83AC0EE34E6A4",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json#TT-O01",
+            "eval/tolerate_talent_open_development/worklist.json#TT-O01",
+            "eval/tolerate_talent_open_development/factor_gold.yml#TT-O01",
+            "SRC-JTS-J71-WEIZHENG-001#EVD-I5B-LISHIMIN-POS-RONGJIAN-WEIZHENG-001@A1",
+            "eval/i5b_ruler_rule_net/lishimin_tt_o01_source_rebind.json",
+            "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-7C9FA52F5EA362DC4127",
+            "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-4C45C185E7272D455A3A",
+            "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-3F85A11B3D39A844FBE3",
+            "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-2B8BEC1B32A2637C63DB"
+          ],
+          "subject": "魏徵"
+        },
+        {
+          "fact": "即位初期律令减刑与去世前役赋营修进言形成早晚两个阶段和不同专业领域，后者获明确嘉许，闭合跨阶段持续反馈与主动鼓励。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "expression_safety": "actively_protected_or_encouraged",
+            "feedback_entry": "durable_multi_stage_feedback",
+            "protection_repair": "none",
+            "source_factor": "complete_direct_chain"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "expression_safety": "1.150000",
+            "feedback_entry": "1.300000",
+            "protection_repair": "1.000000",
+            "source_factor": "1.100000"
+          },
+          "independence_key": "tolerate:daizhou:legal-administrative-feedback",
+          "judge_reason": "戴胄跨阶段行政法制反馈与保留使用闭合，独立于魏徵个人链。",
+          "material_id": "TT-LSM-DZ-01",
+          "material_magnitude": "1.808950",
+          "object_ref": "PER-V4-3FFA74A20BBB",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-219410D8734144449497",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json#TT-LSM-DZ-01",
+            "eval/i5b_ruler_rule_net/lishimin_tolerate_talent_expansion_v1.json#TT-LSM-DZ-01",
+            "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-0777852E72A659A520F3",
+            "eval/v3_claim_migration/lishimin_source_snapshot.json#CLMK-A81C2C2246893D065304"
+          ],
+          "subject": "戴胄"
+        },
+        {
+          "fact": "停婚、踣碑属于公开信用撤销而非人身或职业处分，映射 symbolic_or_light；疑阿党来自荐人和示史官等争议线索，且后续复碑，故对象过错按 disputed_suspicion。材料直接连接皇帝判断、处置及反转。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "handling_severity": "symbolic_or_light",
+            "source_factor": "complete_direct_chain",
+            "target_fault_factor": "disputed_suspicion"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "handling_severity": "0.600000",
+            "source_factor": "1.100000",
+            "target_fault_factor": "0.900000"
+          },
+          "independence_key": "tolerate:weizheng:posthumous-credit-reversal",
+          "judge_reason": "身后停婚踣碑形成独立信用撤销链，不由生前正向材料抵销。",
+          "material_id": "TT-O05",
+          "material_magnitude": "0.653400",
+          "object_ref": "PER-V4-B0E10D8903E7",
+          "override_reasons": [],
+          "rule_evidence_unit_ref": "REU-4A06F0B6D819B75C00A4",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "negative",
+          "source_refs": [
+            "eval/i5b_tolerate_talent_vertical/lishimin_assertion_drafts.json#TT-O05",
+            "eval/tolerate_talent_open_development/worklist.json#TT-O05",
+            "eval/tolerate_talent_open_development/factor_gold.yml#TT-O05",
+            "SP-9266DEA04102DDFCCCAB",
+            "SP-6348662139CA103DC270",
+            "eval/i5b_source_ingestion/lishimin_tolerate_talent_sourcepack_v1.json#TT-O05"
+          ],
+          "subject": "魏徵身后信用"
+        }
+      ],
+      "source_candidate_count": 8,
+      "source_ref": "eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json",
+      "source_sha256": "a8256c110f7689da57c004387521952dd80d5e30e6af71857feefbc8fd0d678c",
+      "supplemental_source_refs": [],
+      "supplemental_source_sha256s": [],
+      "supporting_only_materials": [
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.808950，本版不计分。",
+          "material_id": "TT-LSM-CSL-01",
+          "material_magnitude": "1.573000",
+          "rule_evidence_unit_ref": "REU-3626D0F3EE1DB391427D",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "褚遂良"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.808950，本版不计分。",
+          "material_id": "TT-LSM-MZ-01",
+          "material_magnitude": "1.391500",
+          "rule_evidence_unit_ref": "REU-B70235D8309AFE5DF4C5",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "马周"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.808950，本版不计分。",
+          "material_id": "TT-LSM-WG-WYB-ZXS-01",
+          "material_magnitude": "1.120158",
+          "rule_evidence_unit_ref": "REU-6C324ECF3A4A3890870B",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "王珪"
+        },
+        {
+          "judge_reason": "已通过适用性、归责、独立性和去重 Gate；材料分低于当前正向预算边界 1.808950，本版不计分。",
+          "material_id": "TT-LSM-YSN-01",
+          "material_magnitude": "1.391500",
+          "rule_evidence_unit_ref": "REU-EA5670488EB7132377F3",
+          "selection_status": "eligible_below_budget_boundary",
+          "subject": "虞世南"
+        }
+      ]
+    },
+    {
+      "eligible_candidate_count": 2,
+      "negative_budget": 3,
+      "negative_signal": "0.000000",
+      "positive_budget": 3,
+      "positive_signal": "1.760000",
+      "rule_code": "anti_nepotism",
+      "rule_label": "避免任人唯亲",
+      "rule_raw_net": "1.760000",
+      "settled_materials": [
+        {
+          "fact": "秦府旧人以长期侍从要求任官优先，太宗明确拒绝按新旧亲疏取人并要求择贤；只结算该次公共任用 Gate。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "institutionalization": "single_event",
+            "office_weight": "important",
+            "selection_openness": "merit_or_formal_basis",
+            "source_factor": "standard"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "institutionalization": "0.800000",
+            "office_weight": "1.000000",
+            "selection_openness": "1.000000",
+            "source_factor": "1.000000"
+          },
+          "independence_key": "anti-nepotism:qinfu-preference-refusal",
+          "judge_reason": "拒绝秦府旧人按亲旧优先形成独立公共任用Gate。",
+          "material_id": "REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1",
+          "material_magnitude": "0.880000",
+          "object_ref": "ANTI-NEPOTISM-LSM-QINFU-PREFERENCE",
+          "override_reasons": [
+            "拒绝亲旧优先证明贤能标准，不足以抬到跨身份开放档。"
+          ],
+          "rule_evidence_unit_ref": "REU-4BDE46429CB03BC192A1",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "SP-39BBF63F7585D126215F",
+            "352eb6fbb2bb0e08f45e58097d2a449a95a1b63e3ec81ae497ff6d2953bb05ed"
+          ],
+          "subject": "秦府旧人任官优先诉求"
+        },
+        {
+          "fact": "太宗直接审查广封宗室造成的公共负担，并系统降疏属爵位、仅保留有功者王爵；按单次制度纠正投影，不外推长期制度化。",
+          "factor_option_codes": {
+            "attribution_factor": "direct",
+            "context_factor": "core_mechanism_direct",
+            "institutionalization": "single_event",
+            "office_weight": "important",
+            "selection_openness": "merit_or_formal_basis",
+            "source_factor": "standard"
+          },
+          "factor_values": {
+            "attribution_factor": "1.000000",
+            "context_factor": "1.100000",
+            "institutionalization": "0.800000",
+            "office_weight": "1.000000",
+            "selection_openness": "1.000000",
+            "source_factor": "1.000000"
+          },
+          "independence_key": "anti-nepotism:royal-title-correction",
+          "judge_reason": "宗室封爵纠偏直接呈现公共标准压过血缘关系。",
+          "material_id": "REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1",
+          "material_magnitude": "0.880000",
+          "object_ref": "ANTI-NEPOTISM-LSM-ROYAL-TITLE-SYSTEM",
+          "override_reasons": [
+            "该事实证明功绩和公共标准压过血缘，但不等于跨身份广泛开放。"
+          ],
+          "rule_evidence_unit_ref": "REU-2B48AB3D178FBC9265DD",
+          "selection_basis": "eligibility_gate_then_strongest_n",
+          "side": "positive",
+          "source_refs": [
+            "SP-11007EAE3C9A5CDB3386",
+            "352eb6fbb2bb0e08f45e58097d2a449a95a1b63e3ec81ae497ff6d2953bb05ed"
+          ],
+          "subject": "唐宗室封爵制度"
+        }
+      ],
+      "source_candidate_count": 2,
+      "source_ref": "eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json",
+      "source_sha256": "a93d5e518cd9accac8e8075cde221014be31911eaeed9a827573b215bc1e95af",
+      "supplemental_source_refs": [],
+      "supplemental_source_sha256s": [],
+      "supporting_only_materials": []
+    }
+  ],
+  "schema_version": "i5b-material-budget-shadow-report-v1",
+  "status": "material_budget_scored_shadow_complete",
+  "summary": {
+    "rule_count": 5,
+    "settled_event_negative_count": 2,
+    "settled_event_positive_count": 11,
+    "team_negative_member_count": 1,
+    "team_positive_member_count": 8,
+    "weighted_raw_signal": "7.248086"
+  },
+  "task_code": "I5B-LISHIMIN-MATERIAL-BUDGET-SHADOW-626-649-V1",
+  "window": "626-649"
+}

@@ -9,7 +9,7 @@ SCHEMA_VERSION = "i5b-factor-semantics-v1"
 REPORT_SCHEMA_VERSION = "i5b-factor-semantics-report-v1"
 
 EXPECTED_VERSIONS = {
-    "appointment_delegation": "appointment-delegation-factor-observation-v6",
+    "appointment_delegation": "appointment-delegation-factor-observation-v8",
     "talent_discovery": "talent-discovery-factor-agent-v2",
     "tolerate_talent": "tolerate-talent-factor-agent-v3",
     "anti_nepotism": "anti-nepotism-factor-agent-v2",
@@ -244,8 +244,6 @@ def evaluate_i5b_factor_semantics(contract: Mapping[str, Any]) -> dict[str, Any]
         "context_kind_owns_factor_denominator": True,
         "evidence_lineage_required": True,
         "absence_inference_requires_bounded_coverage": True,
-        "opened_regression_may_change_this_contract": False,
-        "opened_regression_may_prove_unbiased_qualification": False,
     }
     _require_exact_subset(common, required_common, "common_contract")
     generic_terminal = contract.get("generic_owned_factor_terminal_protocol") or {}
@@ -342,12 +340,6 @@ def evaluate_i5b_factor_semantics(contract: Mapping[str, Any]) -> dict[str, Any]
     ):
         raise ValueError("anti_nepotism 公共权力档仍与程序控制重叠")
     team = rules["team_building"]
-    if (
-        team.get("historical_qualification_contract_version")
-        != "team-building-factor-agent-v1"
-        or team.get("historical_qualification_carries_forward") is not False
-    ):
-        raise ValueError("team_building v1 历史资格不得继承到 v3")
     expected_profile_contract = {
         "source_policy_version": "v3-person-profile-readonly-adapter-v1",
         "observed_source_versions": [
@@ -389,8 +381,6 @@ def evaluate_i5b_factor_semantics(contract: Mapping[str, Any]) -> dict[str, Any]
             "option_count": sum(row["option_count"] for row in report_rows),
             "contract_inventory_and_selected_structured_gates_machine_validated": True,
             "formal_scoring_allowed": False,
-            "unbiased_qualification_claimed": False,
-            "old_gold_modified": False,
             "database_write_count": 0,
         },
         "rules": report_rows,

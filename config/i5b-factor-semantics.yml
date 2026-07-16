@@ -10,8 +10,6 @@ common_contract:
   context_kind_owns_factor_denominator: true
   evidence_lineage_required: true
   absence_inference_requires_bounded_coverage: true
-  opened_regression_may_change_this_contract: false
-  opened_regression_may_prove_unbiased_qualification: false
 
 generic_owned_factor_terminal_protocol:
   applies_to: [talent_discovery, tolerate_talent, anti_nepotism, team_building]
@@ -25,7 +23,7 @@ appointment_resolution_protocol:
 
 rules:
   appointment_delegation:
-    contract_version: appointment-delegation-factor-observation-v6
+    contract_version: appointment-delegation-factor-observation-v8
     context_kinds: [episode, rule_evidence_unit]
     observation_unit: upstream_frozen_canonical_slot
     join_key: slot_id
@@ -47,11 +45,17 @@ rules:
           - weak_feedback
           - normal_success
           - major_success
-          - poor_result
+          - exceptional_success
+          - bounded_control_failure
+          - limited_direct_damage
           - major_direct_damage
           - structural_continuing_damage
         decision_rules:
           - major_success 需要异常显著且直接归属于人岗配置的反馈，不由战果规模自动推出
+          - exceptional_success 需要直接改变国家战略格局或形成基础制度成果，且受任者贡献高度直接；单次重大胜利、多次复用或后世声望本身不够
+          - bounded_control_failure 只证明授权或监督失误，未证明超出个案的公共损害
+          - limited_direct_damage 需要明确、直接但范围有限的公共损害
+          - 皇帝知情后的处置和恢复任用是独立观察，不进入损害档位名称
           - major_direct_damage 是重大但一次性的直接损害
           - structural_continuing_damage 另需跨期制度、组织能力或后续治理损害
       attribution_factor:
@@ -333,8 +337,6 @@ rules:
 
   team_building:
     contract_version: team-building-factor-agent-v3
-    historical_qualification_contract_version: team-building-factor-agent-v1
-    historical_qualification_carries_forward: false
     context_kinds: [ruler_time_window]
     observation_unit: frozen_ruler_time_window_member_set
     factors:

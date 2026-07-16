@@ -1,0 +1,139 @@
+schema_version: i5b-material-budget-shadow-manifest-v1
+task_code: I5B-LISHIMIN-MATERIAL-BUDGET-SHADOW-626-649-V1
+ruler: 李世民
+ruler_ref: PER-V4-78F48EBC67F8
+window: 626-649
+policy: config/i5b-scoring-policy.yml
+
+rules:
+  talent_discovery:
+    source: eval/i5b_talent_discovery_historical_coverage/lishimin_scored_shadow_report_v2.json
+    eligible:
+      positive:
+        - material_id: REU-LSM-WEIZHENG-DISCOVERY-HC-v1
+          independence_key: discovery:weizheng:cross-camp
+          judge_reason: 敌对阵营旧属经直接召见验证并转化使用，形成独立跨阵营识才链。
+        - material_id: REU-LSM-MAZHOU-DISCOVERY-HC-v1
+          independence_key: discovery:mazhou:low-status-entry
+          judge_reason: 寒微家客经奏议追问、召见和任用进入中枢，形成独立低位识才链。
+        - material_id: REU-LSM-CENWENBEN-DISCOVERY-HC-v1
+          independence_key: discovery:cenwenben:writing-trial
+          judge_reason: 经具体文书能力观察和试用完成识别，不与前两条共用发现链。
+        - material_id: REU-LSM-ZHANGXUANSU-DISCOVERY-HC-v1
+          independence_key: discovery:zhangxuansu:direct-trial
+          judge_reason: 已形成独立识才链，通过适用性、归责和去重 Gate。
+      negative: []
+    excluded: []
+
+  appointment_delegation:
+    source: eval/i5b_team_building_historical_coverage/lishimin_appointment_scored_shadow_v2.json
+    supplemental_sources:
+      - eval/i5b_team_building_historical_coverage/lishimin_appointment_responsibility_projection_v1.json
+    eligible:
+      positive:
+        - material_id: MAT-LSM-FANGXUANLING-POS-V2
+          independence_key: appointment:fangxuanling:central-left-behind
+          judge_reason: 中枢与留守便宜权及其实际处置反馈闭合，是清晰的文官授权链。
+        - material_id: MAT-LSM-MAZHOU-POS
+          independence_key: appointment:mazhou:central-governance
+          judge_reason: 从识才后的持续中枢任用形成另一条独立文官履职链，不与房玄龄共用结果。
+        - material_id: MAT-LSM-LIJING-POS
+          independence_key: appointment:lijing:military-command
+          judge_reason: 两次国家级主帅授权分别改变东突厥与吐谷浑战略格局，受任者总帅贡献高度直接，按极重大成功投影。
+          fact_override: 太宗先后授李靖国家级方面统帅权；李靖以主帅身份灭东突厥、平吐谷浑，形成两个可区分的战略格局改变结果。
+        - material_id: MAT-LSM-WEIZHENG-POS
+          independence_key: appointment:weizheng:central-remonstrance-duty
+          judge_reason: 任用、职责和履职反馈闭合，通过适用性、归责和去重 Gate。
+        - material_id: MAT-LSM-HOUJUNJI-POS
+          independence_key: appointment:houjunji:military-command-success
+          judge_reason: 高昌主帅授权与重大结果闭合；吐谷浑阶段属于李靖总帅链下的重要建议和执行贡献，不与李靖总帅成果等量归责。
+          fact_override: 太宗授侯君集高昌方面主帅权并取得重大直接成果；吐谷浑阶段保留其建议和执行贡献，但不作为独立总帅级战略成果重复抬档。
+        - material_id: MAT-LSM-DURUHUI-POS-V2
+          independence_key: appointment:duruhui:central-decision
+          judge_reason: 中枢职责和履职结果闭合，通过适用性、归责和去重 Gate。
+        - material_id: MAT-LSM-LIJI-POS-V2
+          independence_key: appointment:liji:military-command
+          judge_reason: 方面统帅授权、权限和重大履职反馈闭合，不因已有军事材料而排除。
+        - material_id: MAT-LSM-INSTITUTION-MERIT-STAFFING-POS
+          independence_key: appointment:central-staffing:responsibility-group
+          judge_reason: 责任群体、权限边界和实际运行观察闭合，通过机构责任链 Gate。
+      negative:
+        - material_id: MAT-LSM-HOUJUNJI-NEG
+          independence_key: appointment:houjunji:control-failure
+          judge_reason: 高昌任务后存在私取与未能约束部属，但现有史源未证明屠城、系统性劫掠或持续公共损害；太宗先令下狱，后听岑文本谏而释放，属于有限控制失误及部分纠正，不能按国家级任务重要性直接抬成重大损害。
+          fact_override: 侯君集平高昌后未奏配没罪人并私取珍宝妇女，部属亦随之盗取；太宗令其下狱，后听岑文本劝谏而释放复列，形成有限控制失误与部分纠正的完整链。
+    excluded: []
+    factor_overrides:
+      MAT-LSM-LIJING-POS:
+        appointment_effect:
+          option_code: exceptional_success
+          value: 1.80
+          reason: 人工冻结接受：东突厥与吐谷浑两次国家级主帅授权均产生直接战略格局改变，区别于单次重大胜利或副帅贡献。
+      MAT-LSM-HOUJUNJI-NEG:
+        appointment_effect:
+          option_code: bounded_control_failure
+          value: 0.30
+          reason: 负向档位按实际损害与皇帝知情后的处置判断；私取及约束失败成立，但未证明重大持续公共损害，且存在下狱后释放的纠正链。
+
+  team_building:
+    source: eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v3.json
+    positive_members: [房玄龄, 杜如晦, 长孙无忌, 魏徵, 李靖, 李绩, 马周, 褚遂良]
+    negative_members: [侯君集]
+    functional_complementarity: balanced_four
+    long_term_stability: durable_multi_stage
+    remaining_member_judge_reason: 窗口团队单元的代表成员预算已冻结；其余成员继续支撑团队史实与lineage，不逐人增加正池。
+
+  tolerate_talent:
+    source: eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json
+    eligible:
+      positive:
+        - material_id: TT-LSM-INSTITUTIONAL-REM-01
+          independence_key: tolerate:institutional-remonstrance-channel
+          judge_reason: 正式反馈入口及多主体持续运行构成制度级独立链。
+        - material_id: TT-O01
+          independence_key: tolerate:weizheng:repeated-personal-feedback
+          judge_reason: 魏徵个人长期犯颜、表达安全与持续留任构成人物级独立链，不重复制度通道收益。
+        - material_id: TT-LSM-DZ-01
+          independence_key: tolerate:daizhou:legal-administrative-feedback
+          judge_reason: 戴胄跨阶段行政法制反馈与保留使用闭合，独立于魏徵个人链。
+        - material_id: TT-LSM-YSN-01
+          independence_key: tolerate:yushinan:feedback-safety
+          judge_reason: 独立人物反馈安全链通过适用性、归责和去重 Gate。
+        - material_id: TT-LSM-CSL-01
+          independence_key: tolerate:chusuiliang:feedback-safety
+          judge_reason: 独立人物反馈安全链通过适用性、归责和去重 Gate。
+        - material_id: TT-LSM-MZ-01
+          independence_key: tolerate:mazhou:feedback-safety
+          judge_reason: 独立人物反馈安全链通过适用性、归责和去重 Gate。
+        - material_id: TT-LSM-WG-WYB-ZXS-01
+          independence_key: tolerate:multi-official:feedback-safety
+          judge_reason: 多主体反馈安全链通过适用性、归责和去重 Gate。
+      negative:
+        - material_id: TT-O05
+          independence_key: tolerate:weizheng:posthumous-credit-reversal
+          judge_reason: 身后停婚踣碑形成独立信用撤销链，不由生前正向材料抵销。
+    excluded: []
+
+  anti_nepotism:
+    source: eval/i5b_anti_nepotism_historical_coverage/lishimin_scored_shadow_report_v2.json
+    eligible:
+      positive:
+        - material_id: REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1
+          independence_key: anti-nepotism:royal-title-correction
+          judge_reason: 宗室封爵纠偏直接呈现公共标准压过血缘关系。
+        - material_id: REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1
+          independence_key: anti-nepotism:qinfu-preference-refusal
+          judge_reason: 拒绝秦府旧人按亲旧优先形成独立公共任用Gate。
+      negative: []
+    excluded: []
+    factor_overrides:
+      REU-LSM-ANTI-NEPOTISM-ROYAL-TITLE-CORRECTION-v1:
+        selection_openness:
+          option_code: merit_or_formal_basis
+          value: 1.00
+          reason: 该事实证明功绩和公共标准压过血缘，但不等于跨身份广泛开放。
+      REU-LSM-ANTI-NEPOTISM-QINFU-PREFERENCE-REFUSAL-v1:
+        selection_openness:
+          option_code: merit_or_formal_basis
+          value: 1.00
+          reason: 拒绝亲旧优先证明贤能标准，不足以抬到跨身份开放档。

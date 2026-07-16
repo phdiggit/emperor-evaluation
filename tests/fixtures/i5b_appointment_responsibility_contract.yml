@@ -1,0 +1,50 @@
+schema_version: i5b-appointment-responsibility-contract-v1
+task_code: I5B-LISHIMIN-APPOINTMENT-RESPONSIBILITY-626-649-V1
+ruler: 李世民
+ruler_ref: PER-V4-78F48EBC67F8
+window: 626-649
+policy: config/i5b-scoring-policy.yml
+formal_acceptance_source: eval/i5b_team_building_historical_coverage/lishimin_appointment_institution_formal_acceptance_v1.json
+
+units:
+  - unit_ref: REU-LSM-INSTITUTION-MERIT-STAFFING-HC-v1
+    material_id: MAT-LSM-INSTITUTION-MERIT-STAFFING-POS
+    responsibility_subject:
+      kind: responsibility_group
+      ref: RESPONSIBILITY-GROUP-LSM-CENTRAL-STAFFING-626
+      label: 房玄龄等中枢员额责任群体
+    ruler_attribution_assertion_refs:
+      - ASTA-0CC2E92D5ADF147CDB73
+      - ASTA-86D457E43B573C460F6A
+    authority_boundary:
+      scope: national_or_systemic
+      assertion_refs:
+        - ASTA-0CC2E92D5ADF147CDB73
+      description: 按量才授职与精简官员原则量定中央文武员额
+    operation_observations:
+      - assertion_refs:
+          - ASTA-86D457E43B573C460F6A
+        description: 房玄龄等依诏量定文武官员六百四十员，太宗从之
+    outcome_assessment: normal_success
+    distinct_authorization_count: 1
+    fact_summary: 太宗确立量才授职和精简员额边界，房玄龄等作为中枢责任群体实际量定文武官员六百四十员。
+    duplicate_boundary: 只结算责任机制、权限边界和实际运行；政策社会净收益及房玄龄个人一般任用不在本单元重复结算。
+
+  - unit_ref: REU-LSM-INSTITUTION-LOCAL-SELECTION-HC-v1
+    material_id: MAT-LSM-INSTITUTION-LOCAL-SELECTION-POS
+    responsibility_subject:
+      kind: responsibility_group
+      ref: RESPONSIBILITY-GROUP-LSM-LOCAL-SELECTION-637
+      label: 刺史与五品以上荐举责任群体
+    ruler_attribution_assertion_refs:
+      - ASTA-25258DD38813785B020A
+    authority_boundary:
+      scope: national_or_systemic
+      assertion_refs:
+        - ASTA-25258DD38813785B020A
+      description: 皇帝亲择刺史，五品以上京官各荐一名县令
+    operation_observations: []
+    outcome_assessment: normal_success
+    distinct_authorization_count: 1
+    fact_summary: 太宗设立刺史亲择和五品以上举荐县令的责任入口，但现有材料没有独立运行观察。
+    duplicate_boundary: 制度入口与具体被荐者、任命及履职结果分别结算。

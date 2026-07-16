@@ -24,6 +24,7 @@ FACTOR_OPTIONS: dict[str, dict[str, Decimal]] = {
         "major_success": Decimal("1.5"),
         "normal_success": Decimal("1.0"),
         "weak_feedback": Decimal("0.4"),
+        "minor_control_breach_corrected": Decimal("-0.3"),
         "poor_result": Decimal("-0.8"),
         "major_direct_damage": Decimal("-1.8"),
         "structural_continuing_damage": Decimal("-2.6"),

@@ -65,7 +65,7 @@ def test_real_postgres_claim_extractor_job_lease_contract() -> None:
 
     dsn = _claim_extractor_isolated_dsn()
     root = Path(__file__).parents[1]
-    snapshot_path = root / "tests/fixtures/episode_pilot_v1/claim-extractor-talent-discovery-response.json"
+    snapshot_path = root / "tests/fixtures/claim_extractor_current_response.json"
     snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
     profile = load_claim_extraction_profile(root / "config/claim-extraction-profiles.yml", "talent_discovery_chain_v1")
     request = request_from_frozen_snapshot(snapshot, profile_code=profile.code, request_id="CLX-PG-1", idempotency_key="claim:v4:pg:1", requested_at="2026-07-14T20:00:00+08:00")

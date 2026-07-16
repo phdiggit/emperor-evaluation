@@ -85,6 +85,7 @@ def build_appointment_historical_scored_shadow(
 
     trace_units: list[dict[str, Any]] = []
     judgments = []
+    insufficient_projections: list[dict[str, Any]] = []
     for source_unit in projection_units:
         unit = deepcopy(dict(source_unit))
         unit_ref = str(unit["unit_ref"])
@@ -92,6 +93,45 @@ def build_appointment_historical_scored_shadow(
             str(row["assertion_code"])
             for row in formal_units[unit_ref].get("assertion_drafts") or ()
         }
+        if unit.get("status") == "insufficient_projection":
+            missing_inputs = sorted(
+                {str(value) for value in unit.get("missing_inputs") or () if str(value)}
+            )
+            if not missing_inputs or unit.get("factor_materials") or unit.get(
+                "factor_observations"
+            ):
+                raise ValueError(
+                    "insufficient appointment projection must declare only missing inputs"
+                )
+            trace_units.append(
+                {
+                    "unit_ref": unit_ref,
+                    "ruler": str(unit["ruler"]),
+                    "subject": str(unit["person"]),
+                    "side": str(unit["side"]),
+                    "projection_basis": str(unit["projection_basis"]),
+                }
+            )
+            insufficient_projections.append(
+                {
+                    "unit_ref": unit_ref,
+                    "ruler": str(unit["ruler"]),
+                    "person": str(unit["person"]),
+                    "side": str(unit["side"]),
+                    "object_ref": str(unit.get("object_ref") or ""),
+                    "canonical_event_group": str(
+                        unit.get("canonical_event_group") or ""
+                    ),
+                    "missing_inputs": missing_inputs,
+                    "projection_basis": str(unit["projection_basis"]),
+                }
+            )
+            continue
+        if unit.get("status") not in {
+            "projected",
+            "human_frozen_historical_closeout_input",
+        }:
+            raise ValueError("appointment projection status is invalid")
         _validate_factor_materials(unit, assertion_refs)
         trace_units.append(
             {
@@ -149,6 +189,7 @@ def build_appointment_historical_scored_shadow(
         "summary": {
             "formal_unit_count": len(formal_units),
             "judgment_count": len(judgments),
+            "insufficient_projection_count": len(insufficient_projections),
             "score_contribution_count": len(contributions),
             "factor_material_count": sum(
                 len(row["factor_materials"]) for row in judgments
@@ -162,6 +203,7 @@ def build_appointment_historical_scored_shadow(
             "formal_score_write_count": 0,
         },
         "judgments": judgments,
+        "insufficient_projections": insufficient_projections,
         "score_contributions": contributions,
         "ruler_aggregates": aggregates,
         "assertion_episode_reu_trace": trace,

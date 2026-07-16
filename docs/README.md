@@ -1,19 +1,8 @@
 # V4 文档导航
 
-`docs/` 只保留长期有效的业务规则、领域契约、架构决策和必要审计摘要。运行展开、逐条 reviewer 明细和短命阶段报告应放入 `eval/<run>/` 或外部 artifact，不作为默认阅读路径。
+`docs/` 只保留当前有效的业务规则、领域契约和安全边界。Git 是唯一历史载体；工作树不保留阶段报告、旧状态或被取代文档。
 
-## 当前实现
-
-- HistoricalEpisode Kernel：可用于 shadow implementation
-- G3A PostgreSQL Core Registry：通过
-- G3B 同步局部失效：通过
-- G3R—G3H `appointment_delegation` shadow：4 个 RuleEvidenceUnit / Projection / Judgment candidate 已通过 readiness
-- Factor schema、ScoreContribution、统一 scored runner：已完成 shadow demo；首个因子差异已人工裁定
-- 三皇帝名单式离线 `cache_mode=ensure` 编排：已贯通服务快照、Episode Kernel 与 scored runner
-- 包 C：逐人物持久化状态、response hash、delta Episode、慢通道清单和失败恢复已通过 shadow 验证
-- 正式评分、排名和生产切换：关闭
-
-当前实现摘要统一见 [《G3R 评分最小充分 Relation 重解释》](31-G3R评分最小充分Relation重解释.md)。
+当前实现只看仓库根 `README.md` 与 `config/project.yml`，不在 `docs/` 复制状态摘要。
 
 ## 日常阅读路径
 
@@ -33,7 +22,7 @@
 9. `07-智能体边界与成本预算.md`
 10. `09-V4测试与验证策略.md`
 
-### 契约与试点规则
+### 契约与规则
 
 11. `contracts/史源缓存服务契约.md`
 12. `contracts/事实抽取服务契约.md`
@@ -42,13 +31,6 @@
 15. `证据规则/证据裁量总则.md`
 16. `证据规则/史料检索与回源工作流.md`
 17. `分项规则/第五项统治者政治素质/B用人与授权.md`
-18. `31-G3R评分最小充分Relation重解释.md`
-
-## 历史审计
-
-`10`、`11`、`12`、`18` 与 `21` 保留 G2.5/G2.6 的长期模型、冻结输入依据和终止决策，只在定位历史回归时读取。它们不是活动实施计划，也不得驱动新增字母阶段。
-
-原 `13-*` 至 `17-*`、`19-*` 至 `20-*` 及 `22-*` 至 `30-*` 的失败调试、Core/Relation 微阶段文档已由 `21-G2终止与G3A核心Shadow决策.md` 和 `31-G3R评分最小充分Relation重解释.md` 取代并从工作树删除；需要追溯时使用 Git 历史及对应测试、migration 与 `eval/` artifact。原 G3C—G3H 六份短命阶段文档也已合并进 `31`。
 
 ## 文档生命周期
 
@@ -57,8 +39,6 @@
 - `draft`：未形成稳定结论；
 - `review_ready`：可人工审查；
 - `accepted`：当前有效；
-- `superseded`：仅作历史参考；
-- `legacy_reference_only`：只可用作 V3 经验或反例。
 
 新增长期文档必须满足至少一项：
 
@@ -67,7 +47,7 @@
 - 改变生产/数据安全边界；
 - 记录不可逆架构决策。
 
-单次运行结果、模型审查明细、增量重跑报告和微阶段状态不得新增长期文档。被新结论取代的阶段文档应在同一提交中合并或删除。
+单次运行结果、模型审查明细、增量重跑报告和微阶段状态不得新增长期文档。被新结论取代的文档必须直接删除；需要追溯时使用 Git。
 
 ## 目录职责
 
@@ -77,7 +57,7 @@
 | `证据规则/` | 史源、断言、冲突、归因和入证门槛 | 单规则公式、数据库表 |
 | `分项规则/` | 分项业务语义、输入类型、边界和反例 | 通用基础设施 |
 | `contracts/` | 稳定输入输出、幂等、版本和失败语义 | 框架和部署 |
-| `eval/` | 冻结样本、运行结果和审计 artifact | 长期业务规则 |
+| `eval/` | 当前必需输入和唯一 canonical 输出 | 旧run、过程展开、旧版本结果 |
 
 ## 当前禁止事项
 
@@ -86,3 +66,4 @@
 - 不为每个实现模块建立镜像测试文件。
 - 不把模型 prompt 当作业务契约。
 - 不把 shadow 与正式评分混为一谈。
+- 不要求任务同步旧报告或旧状态。
