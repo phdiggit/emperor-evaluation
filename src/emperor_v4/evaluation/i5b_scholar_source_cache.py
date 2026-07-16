@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -111,8 +112,11 @@ def run_scholar_source_cache_shadow(
     service_release_sha: str,
     fetch: FetchWikisource = fetch_wikisource_plaintext,
 ) -> dict[str, Any]:
-    if report.get("schema_version") != "i5b-scholar-guided-retrieval-report-v1":
-        raise ValueError("Source Cache shadow 只能消费学术引导检索报告")
+    if report.get("schema_version") not in {
+        "i5b-scholar-guided-retrieval-report-v1",
+        "i5b-talent-boundary-source-report-v1",
+    }:
+        raise ValueError("Source Cache shadow 只能消费已批准的版本化史源任务报告")
     output_path = output_dir / "source-cache-shadow.json"
     if output_path.is_file():
         cached = json.loads(output_path.read_text(encoding="utf-8"))
@@ -241,3 +245,23 @@ def run_scholar_source_cache_shadow(
         newline="\n",
     )
     return result
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="运行有界版本化史源 Source Cache shadow")
+    parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--service-release-sha", required=True)
+    args = parser.parse_args()
+    report = json.loads(args.report.read_text(encoding="utf-8"))
+    result = run_scholar_source_cache_shadow(
+        report=report,
+        output_dir=args.output_dir,
+        service_release_sha=args.service_release_sha,
+    )
+    print(json.dumps(result["runtime_audit"], ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

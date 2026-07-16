@@ -269,16 +269,16 @@ def test_lishimin_budget_shadow_uses_original_aggregation_without_slots() -> Non
     assert rules["tolerate_talent"]["rule_raw_net"] == "6.304100"
     assert rules["anti_nepotism"]["rule_raw_net"] == "1.760000"
     boundary = rules["talent_discovery"]["candidate_boundary_audit"]
-    assert boundary["status"] == "boundary_not_stable_pending_review"
-    assert boundary["raw_unresolved_candidate_count"] == 12
+    assert boundary["status"] == "boundary_not_stable_next_bounded_batch"
+    assert boundary["raw_unresolved_candidate_count"] == 9
     assert boundary["deduplicated_boundary_candidate_count"] == 6
     assert boundary["deduplicated_boundary_candidates"] == [
-        "尉迟敬德",
-        "张亮",
-        "张公谨",
-        "房玄龄",
-        "杜如晦",
-        "杜淹",
+        "侯君集",
+        "唐俭",
+        "屈突通",
+        "李靖",
+        "秦琼",
+        "虞世南",
     ]
     assert boundary["current_positive_settlement_floor"] == "1.089000"
     assert boundary["boundary_changing_candidates_remain"] is True

@@ -321,9 +321,12 @@ def _talent_candidate_boundary_audit(
     *, inventory_path: Path, positive_boundary: Decimal
 ) -> dict[str, Any]:
     inventory = _load_json(inventory_path)
+    inventory_schema = inventory.get("schema_version")
     if (
-        inventory.get("schema_version")
-        != "i5b-talent-discovery-candidate-inventory-v3"
+        inventory_schema not in {
+            "i5b-talent-discovery-candidate-inventory-v3",
+            "i5b-talent-discovery-candidate-inventory-v4",
+        }
         or inventory.get("rule_code") != "talent_discovery"
         or inventory.get("ruler") != "李世民"
     ):
@@ -338,21 +341,50 @@ def _talent_candidate_boundary_audit(
         for row in inventory.get("candidate_inventory") or ()
         if row.get("final_disposition") in pending_dispositions
     ]
+    if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4":
+        pending = [
+            row
+            for row in inventory.get("cross_rule_pre_accession_review") or ()
+            if row.get("route_status") == "next_bounded_boundary_batch"
+        ]
+
+    def focal_person(row: Mapping[str, Any]) -> str:
+        return next(
+            (
+                str(person)
+                for person in row.get("candidate_persons") or ()
+                if str(person) != "李世民"
+            ),
+            "未命名候选",
+        )
+
     focal_people = sorted(
-        {
-            str((row.get("candidate_persons") or ["未命名候选"])[0])
-            for row in pending
-        }
+        {focal_person(row) for row in pending}
     )
+    summary = inventory.get("candidate_summary") or {}
     declared_unresolved = int(
-        (inventory.get("candidate_summary") or {}).get(
-            "unresolved_candidate_count", -1
+        summary.get(
+            (
+                "next_boundary_candidate_count"
+                if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4"
+                else "unresolved_candidate_count"
+            ),
+            -1,
         )
     )
-    if declared_unresolved != len(pending):
+    expected_declared = (
+        len(focal_people)
+        if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4"
+        else len(pending)
+    )
+    if declared_unresolved != expected_declared:
         raise ValueError("发现人才 inventory unresolved 计数不一致")
     return {
-        "status": "boundary_not_stable_pending_review",
+        "status": (
+            "boundary_not_stable_next_bounded_batch"
+            if inventory_schema == "i5b-talent-discovery-candidate-inventory-v4"
+            else "boundary_not_stable_pending_review"
+        ),
         "inventory_ref": inventory_path.relative_to(ROOT).as_posix(),
         "inventory_sha256": _sha256(inventory_path.read_bytes()),
         "raw_unresolved_candidate_count": len(pending),

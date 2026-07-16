@@ -1,0 +1,96 @@
+schema_version: i5b-talent-boundary-source-contract-v1
+task_code: I5B-LISHIMIN-TALENT-BOUNDARY-626-649-V1
+requested_at: '2026-07-16T00:00:00+08:00'
+cases:
+  - case_ref: TB-LSM-YUCHIJINGDE
+    person: 尉迟敬德
+    subject_ref: PER-V4-CAND-YUCHIJINGDE
+    required_source_cache_selection_keys: [discovery_chain, retained_into_window]
+    primary_source_locators:
+      - work: 旧唐书
+        section: 卷六十八·尉迟敬德传
+        canonical_url: https://zh.wikisource.org/wiki/舊唐書/卷68
+        source_cache_passages:
+          - seed_code: yuchi-recruit-verify-use
+            anchor_start: 武德三年，太宗討武周於柏壁
+            anchor_end: 此後恩眄日隆。
+            selection_reason: [discovery_chain]
+          - seed_code: yuchi-retained-reign
+            anchor_start: 貞觀元年，拜右武候大將軍
+            anchor_end: 並食實封千三百戸。
+            selection_reason: [retained_into_window]
+  - case_ref: TB-LSM-ZHANGLIANG
+    person: 张亮
+    subject_ref: PER-V4-CAND-ZHANGLIANG
+    required_source_cache_selection_keys: [discovery_chain, retained_into_window]
+    primary_source_locators:
+      - work: 旧唐书
+        section: 卷六十九·张亮传
+        canonical_url: https://zh.wikisource.org/wiki/舊唐書/卷69
+        source_cache_passages:
+          - seed_code: zhangliang-recommend-use
+            anchor_start: 後房玄齡、李勣以亮倜儻有智謀
+            anchor_end: 漸蒙顧遇，委以心膂。
+            selection_reason: [discovery_chain]
+          - seed_code: zhangliang-retained-reign
+            anchor_start: 及建成死，授懷州總管
+            anchor_end: 賜實封五百戶。
+            selection_reason: [retained_into_window]
+  - case_ref: TB-LSM-ZHANGGONGJIN
+    person: 张公谨
+    subject_ref: PER-V4-CAND-ZHANGGONGJIN
+    required_source_cache_selection_keys: [discovery_chain, retained_into_window]
+    primary_source_locators:
+      - work: 旧唐书
+        section: 卷六十八·张公谨传
+        canonical_url: https://zh.wikisource.org/wiki/舊唐書/卷68
+        source_cache_passages:
+          - seed_code: zhanggongjin-recommend-verify
+            anchor_start: 張公謹，字弘慎，魏州繁水人也。
+            anchor_end: 對甚合旨，漸見親遇。
+            selection_reason: [discovery_chain]
+          - seed_code: zhanggongjin-retained-reign
+            anchor_start: 貞觀元年，拜代州都督
+            anchor_end: 並見納用。
+            selection_reason: [retained_into_window]
+  - case_ref: TB-LSM-FANGXUANLING
+    person: 房玄龄
+    subject_ref: PER-V4-C37ED24688F5
+    disposition: existing_formal_acceptance_duplicate
+    existing_formal_acceptance_ref: eval/i5b_talent_discovery_historical_coverage/lishimin_formal_acceptance_v2.json#房玄龄
+    required_source_cache_selection_keys: []
+    primary_source_locators: []
+  - case_ref: TB-LSM-DURUHUI
+    person: 杜如晦
+    subject_ref: PER-V4-CAND-DURUHUI
+    required_source_cache_selection_keys: [discovery_chain, retained_into_window]
+    primary_source_locators:
+      - work: 贞观政要
+        section: 卷二·任贤第三·杜如晦
+        canonical_url: https://zh.wikisource.org/wiki/貞觀政要/卷02
+        source_cache_passages:
+          - seed_code: duruhui-recommend-verify-use
+            anchor_start: 杜如晦，京兆萬年人也。武德初
+            anchor_end: 常參謀帷幄。
+            selection_reason: [discovery_chain]
+          - seed_code: duruhui-retained-reign
+            anchor_start: 貞觀二年，以本官檢校侍中。
+            anchor_end: 甚獲當時之譽，時稱房、杜焉。
+            selection_reason: [retained_into_window]
+  - case_ref: TB-LSM-DUYAN
+    person: 杜淹
+    subject_ref: PER-V4-CAND-DUYAN
+    required_source_cache_selection_keys: [discovery_chain, retained_into_window]
+    primary_source_locators:
+      - work: 旧唐书
+        section: 卷六十六·杜淹传
+        canonical_url: https://zh.wikisource.org/wiki/舊唐書/卷66
+        source_cache_passages:
+          - seed_code: duyan-recommend-use
+            anchor_start: 及洛陽平，初不得調
+            anchor_end: 引爲天策府兵曹參軍、文學館學士。
+            selection_reason: [discovery_chain]
+          - seed_code: duyan-retained-reign
+            anchor_start: 及即位，徵拜御史大夫
+            anchor_end: 後多知名者。
+            selection_reason: [retained_into_window]
