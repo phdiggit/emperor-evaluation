@@ -219,6 +219,78 @@ def test_one_command_closeout_stops_after_talent_budget_is_full(
     assert "计分详情：" in stdout
 
 
+def test_closeout_without_work_package_fails_closed_without_traceback(
+    tmp_path: Path, capsys,
+) -> None:
+    assert eval_main(
+        [
+            "i5b-historical-closeout",
+            "--ruler",
+            "未配置皇帝",
+            "--workspace-root",
+            str(ROOT),
+            "--output-dir",
+            str(tmp_path),
+        ]
+    ) == 2
+    report = json.loads(
+        (tmp_path / "未配置皇帝/preflight.json").read_text(encoding="utf-8")
+    )
+    assert report["status"] == "bounded_input_not_configured"
+    assert report["deadline_seconds"] == 900
+    assert report["blockers"] == ["ruler_work_package_missing"]
+    assert report["declarations"]["expensive_campaign_started"] is False
+    assert report["declarations"]["model_call_count"] == 0
+    assert report["declarations"]["database_write_count"] == 0
+    assert report["elapsed_wall_clock_seconds"] < 1
+    assert not (tmp_path / "未配置皇帝/scoring-detail.json").exists()
+    stdout = capsys.readouterr().out
+    assert "状态：bounded_input_not_configured" in stdout
+    assert "缺少该皇帝工作包，未启动检索" in stdout
+
+
+def test_liubang_minimal_five_rule_package_closes_out_within_budget(
+    tmp_path: Path, capsys,
+) -> None:
+    assert eval_main(
+        [
+            "i5b-historical-closeout",
+            "--ruler",
+            "刘邦",
+            "--workspace-root",
+            str(ROOT),
+            "--output-dir",
+            str(tmp_path),
+        ]
+    ) == 0
+    output_dir = tmp_path / "刘邦"
+    report = json.loads((output_dir / "preflight.json").read_text(encoding="utf-8"))
+    detail = json.loads(
+        (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
+    )["selected_ruler_reports"][0]
+    rules = _by_rule(detail)
+
+    assert report["status"] == "bounded_shadow_ready"
+    assert report["deadline_seconds"] == 900
+    assert report["talent_candidate_boundary"]["settled_positive_count"] == 3
+    assert report["talent_candidate_boundary"]["exhaustive_search_required"] is False
+    assert report["elapsed_wall_clock_seconds"] < 15
+    assert report["declarations"]["model_call_count"] == 0
+    assert report["declarations"]["network_request_count"] == 0
+    assert report["declarations"]["database_write_count"] == 0
+    assert report["declarations"]["formal_45_point_score"] is None
+    assert report["declarations"]["tier"] is None
+    assert report["declarations"]["ranking"] is None
+    assert detail["selection_summary"]["selected_rule_count"] == 5
+    assert detail["declarations"]["current_factor_contracts_satisfied"] is True
+    assert rules["talent_discovery"]["factor_contract"]["status"] == "current_contract"
+    assert rules["anti_nepotism"]["factor_contract"]["status"] == "current_contract"
+    markdown = (output_dir / "scoring-detail.md").read_text(encoding="utf-8")
+    for expected in ("张良", "韩信", "陈平", "萧何守关中", "非刘氏不王"):
+        assert expected in markdown
+    assert "状态：bounded_shadow_ready" in capsys.readouterr().out
+
+
 def test_appointment_density_uses_competition_rank_for_ties() -> None:
     selected = [
         {"object_ref": "A", "material_magnitude": Decimal("2.5")},

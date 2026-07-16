@@ -298,6 +298,8 @@ def _direct_materials(
             }
         if material.get("talent_quality_basis"):
             row["talent_quality_basis"] = dict(material["talent_quality_basis"])
+        if material.get("v4_factor_projection"):
+            row["v4_factor_projection"] = dict(material["v4_factor_projection"])
         rows.append(row)
     return rows
 

@@ -1,0 +1,127 @@
+schema_version: i5b-material-budget-shadow-manifest-v1
+task_code: I5B-LIUBANG-MATERIAL-BUDGET-SHADOW-BC206-BC195-V1
+ruler: 刘邦
+ruler_ref: RULER-NAME-CANDIDATE-3D3FE911CF34
+window: 前206—前195
+policy: config/i5b-scoring-policy.yml
+
+rules:
+  talent_discovery:
+    source: eval/i5b_joint_projection_scored_shadow/talent_discovery_report.json
+    direct_materials:
+      - material_id: TD-LB-ZHANGLIANG
+        subject: 张良
+        object_ref: PER-V4-3E4BA2094B57
+        side: positive
+        factor_values: {direction_sign: 1.0, discovery_level: 1.0, talent_quality_factor: 1.8, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {direction_sign: positive, discovery_level: attributable_interview_trial_or_appointment, talent_quality_factor: historic, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        v4_factor_projection:
+          contract_version: talent-discovery-factor-agent-v3
+          factor_choices: {recognition_novelty: direct_first_encounter, recognition_basis: direct_dialogue_and_adoption, barrier_crossing: no_material_barrier, conversion_to_use: immediate_role_conversion}
+        fact: 刘邦在下邳西与张良相遇，听取其兵法意见并持续采用，随即授职并纳入本人团队。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷055]
+        talent_quality_basis: {talent_grade: historic, policy_civil_outcome_basis: 楚汉战略、定都关中和功臣秩序形成多项国家级兑现。, shared_attribution_boundary: 后续战略成果只校准人才档，发现人才只结算首次识别与转化。}
+      - material_id: TD-LB-HANXIN
+        subject: 韩信
+        object_ref: PER-V4-E0E14338F94B
+        side: positive
+        factor_values: {direction_sign: 1.0, discovery_level: 0.8, talent_quality_factor: 1.8, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {direction_sign: positive, discovery_level: recommendation_entry, talent_quality_factor: historic, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        v4_factor_projection:
+          contract_version: talent-discovery-factor-agent-v3
+          factor_choices: {recognition_novelty: recommendation_entry_with_emperor_verification, recognition_basis: direct_deep_interview, barrier_crossing: status_barrier_crossed, conversion_to_use: immediate_critical_command}
+        fact: 萧何追回并力荐韩信后，刘邦与韩信深谈、设坛拜为大将，完成推荐入口后的皇帝核验与转化使用。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷092]
+        talent_quality_basis: {talent_grade: historic, policy_civil_outcome_basis: 多战区连续战略胜利直接改变楚汉战争格局。, shared_attribution_boundary: 战果只校准人才档，发现人才只结算拜将前的核验和转化。}
+      - material_id: TD-LB-CHENPING
+        subject: 陈平
+        object_ref: PER-V4-6B644ADA6B87
+        side: positive
+        factor_values: {direction_sign: 1.0, discovery_level: 0.8, talent_quality_factor: 1.45, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {direction_sign: positive, discovery_level: recommendation_entry, talent_quality_factor: top, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        v4_factor_projection:
+          contract_version: talent-discovery-factor-agent-v3
+          factor_choices: {recognition_novelty: recommendation_entry_with_emperor_verification, recognition_basis: direct_interview_and_dispute_recheck, barrier_crossing: reputation_objection_crossed, conversion_to_use: immediate_operational_role}
+        fact: 陈平经魏无知求见，刘邦当日与之交谈后授都尉、参乘和典护军职责，并在争议后继续核验使用。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷056]
+        talent_quality_basis: {talent_grade: top, policy_civil_outcome_basis: 荥阳反间、平城脱围等多次危机处理形成国家级兑现。, shared_attribution_boundary: 后续奇谋只校准人才档，发现人才只结算引见、面谈和首次转化。}
+    eligible:
+      positive:
+        - {material_id: TD-LB-ZHANGLIANG, independence_key: discovery:zhangliang:first-meeting, judge_reason: 刘邦直接听取并持续采用其策略，首次识别和转化闭合。}
+        - {material_id: TD-LB-HANXIN, independence_key: discovery:hanxin:xiaohe-recommendation, judge_reason: 萧何推荐后由刘邦亲自核验并拜大将，独立识才链闭合。}
+        - {material_id: TD-LB-CHENPING, independence_key: discovery:chenping:weiwuzhi-recommendation, judge_reason: 魏无知引见后刘邦当日面谈授职并持续使用，独立识才链闭合。}
+      negative: []
+    excluded: []
+
+  appointment_delegation:
+    source: eval/i5b_appointment_delegation_historical_coverage/lishimin_scored_shadow_report_v1.json
+    direct_materials:
+      - material_id: AD-LB-XIAOHE-GUANZHONG
+        subject: 萧何守关中与持续后勤治理
+        object_ref: PER-V4-75DF03E09409
+        side: positive
+        factor_values: {appointment_importance: 1.4, appointment_effect: 1.8, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: critical_national_or_long_term, appointment_effect: exceptional_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 楚汉战争期间刘邦长期委任萧何守关中、治栎阳、供给军需并稳定后方，形成持续国家级治理结果。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷053]
+      - material_id: AD-LB-HANXIN-COMMAND
+        subject: 韩信大将统兵
+        object_ref: PER-V4-E0E14338F94B
+        side: positive
+        factor_values: {appointment_importance: 1.4, appointment_effect: 1.8, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: critical_national_or_long_term, appointment_effect: exceptional_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 刘邦拜韩信为大将并持续授予独立方面统兵权，韩信完成三秦及魏赵燕齐等多战区战略任务。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷092]
+      - material_id: AD-LB-ZHANGLIANG-STRATEGY
+        subject: 张良长期战略参议
+        object_ref: PER-V4-3E4BA2094B57
+        side: positive
+        factor_values: {appointment_importance: 1.25, appointment_effect: 1.8, continuity_factor: 1.15, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.1}
+        factor_option_codes: {appointment_importance: major_affairs, appointment_effect: exceptional_success, continuity_factor: long_term_multi_stage, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: core_mechanism_direct}
+        fact: 刘邦长期让张良参与重大决策，其建议在入关、楚汉战争、定都和功臣秩序等阶段反复获得采用。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷055]
+    eligible:
+      positive:
+        - {material_id: AD-LB-XIAOHE-GUANZHONG, independence_key: appointment:xiaohe:guanzhong, judge_reason: 长期后方治理授权与国家级持续结果闭合。}
+        - {material_id: AD-LB-HANXIN-COMMAND, independence_key: appointment:hanxin:grand-command, judge_reason: 国家级方面统兵授权与多个战略结果闭合。}
+        - {material_id: AD-LB-ZHANGLIANG-STRATEGY, independence_key: appointment:zhangliang:strategy, judge_reason: 长期战略参议职责与跨阶段采纳结果闭合。}
+      negative: []
+    excluded: []
+
+  team_building:
+    source: eval/i5b_team_building_historical_coverage/liubang_team_member_pool_v1.json
+    positive_members: [张良, 萧何, 韩信, 陈平, 曹参]
+    negative_members: []
+    functional_complementarity: balanced_four
+    long_term_stability: durable_multi_stage
+    remaining_member_judge_reason: 当前五名冻结成员已经覆盖决策、行政、军事、纠错四类核心功能。
+    governance_results:
+      - {result: 萧何守关中并持续供给前线，张良、韩信、陈平分别承担战略、军事与危机处理职责。}
+
+  tolerate_talent:
+    source: eval/i5b_joint_projection_scored_shadow/tolerate_talent_report.json
+    eligible:
+      positive: []
+      negative:
+        - {material_id: TT-O06, independence_key: tolerate:xiaohe:park-petition-detention, judge_reason: 萧何因利民进言被拘禁，属于反馈触发的人身安全负向链；数日后获释不消除既成拘禁。}
+    excluded: []
+
+  anti_nepotism:
+    source: eval/i5b_joint_projection_scored_shadow/anti_nepotism_report.json
+    direct_materials:
+      - material_id: AN-LB-NONLIU-KING-COVENANT
+        subject: 非刘氏不王的宗族王权垄断
+        object_ref: INSTITUTION-LB-NONLIU-KING-COVENANT
+        side: negative
+        factor_values: {favoritism_intensity: 2.0, office_weight: 1.15, displacement_harm: 2.0, attribution_factor: 1.0, source_factor: 1.1, context_factor: 1.0}
+        factor_option_codes: {favoritism_intensity: systemic_private_network_capture, office_weight: central_military_or_succession, displacement_harm: durable_institutional_pollution, attribution_factor: direct, source_factor: complete_direct_chain, context_factor: clear}
+        v4_factor_projection:
+          contract_version: anti-nepotism-factor-agent-v3
+          factor_choices: {capability_basis: lineage_over_capability, process_integrity: explicit_kinship_exclusion, public_power_exposure: highest_feudal_office, network_effect: durable_dynastic_capture}
+        fact: 刘邦以白马之盟规定非刘氏不得为王，把最高层公共权力按宗族身份设置制度性排他门槛。
+        source_refs: [https://zh.wikisource.org/zh-hans/史记/卷009]
+    eligible:
+      positive: []
+      negative:
+        - {material_id: AN-LB-NONLIU-KING-COVENANT, independence_key: anti-nepotism:nonliu-king-covenant, judge_reason: 最高层王权被宗族身份制度性垄断，私人血缘直接改变公共任用资格。}
+    excluded: []

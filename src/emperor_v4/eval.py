@@ -155,8 +155,46 @@ def _historical_closeout_preflight(
     workspace_root: Path,
 ) -> dict[str, Any]:
     entries = [row for row in catalog.get("entries") or () if row.get("ruler") == ruler]
-    if len(entries) != 1:
+    if len(entries) > 1:
         raise ValueError(f"historical closeout ruler 未唯一配置: {ruler}")
+    if not entries:
+        work_budget = _load(
+            workspace_root / "config/i5b-historical-work-budget.yml"
+        )
+        return {
+            "schema_version": "i5b-historical-closeout-preflight-v1",
+            "status": "bounded_input_not_configured",
+            "ruler": ruler,
+            "deadline_seconds": int(
+                work_budget["per_ruler_run"]["max_wall_clock_minutes"]
+            )
+            * 60,
+            "completion_reserve_seconds": int(
+                work_budget["per_ruler_run"].get("completion_reserve_seconds") or 0
+            ),
+            "blockers": ["ruler_work_package_missing"],
+            "talent_candidate_boundary": {
+                "status": "not_started_without_work_package",
+                "raw_unresolved_candidate_count": 0,
+                "deduplicated_boundary_candidate_count": 0,
+                "deduplicated_boundary_candidates": [],
+                "settled_positive_count": 0,
+                "positive_budget": 3,
+                "boundary_changing_candidates_remain": False,
+                "stop_reason": "work_package_missing",
+                "exhaustive_search_required": False,
+            },
+            "runtime_stages": ["check_ruler_work_package", "stop_before_retrieval"],
+            "declarations": {
+                "expensive_campaign_started": False,
+                "model_call_count": 0,
+                "database_write_count": 0,
+                "network_request_count": 0,
+                "formal_45_point_score": None,
+                "tier": None,
+                "ranking": None,
+            },
+        }
     entry = entries[0]
     closeout = entry.get("closeout") or {}
     if set(closeout) != {"work_budget"}:
@@ -365,31 +403,32 @@ def main(argv: Sequence[str] | None = None) -> int:
             encoding="utf-8",
             newline="\n",
         )
-        detail_report = build_i5b_scoring_detail_selection(
-            catalog=catalog,
-            selection={
-                "schema_version": "i5b-scoring-detail-selection-v1",
-                "rulers": [args.ruler],
-                "people": [],
-                "rules": [],
-                "person_scope": "selected_rulers",
-                "strict": True,
-            },
-            ruler_reports=_catalog_reports(catalog, workspace_root),
-        )
         detail_json_path = output_dir / "scoring-detail.json"
         detail_markdown_path = output_dir / "scoring-detail.md"
-        detail_json_path.write_text(
-            json.dumps(detail_report, ensure_ascii=False, indent=2, sort_keys=True)
-            + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
-        detail_markdown_path.write_text(
-            render_i5b_scoring_detail_selection_markdown(detail_report),
-            encoding="utf-8",
-            newline="\n",
-        )
+        if not report["blockers"]:
+            detail_report = build_i5b_scoring_detail_selection(
+                catalog=catalog,
+                selection={
+                    "schema_version": "i5b-scoring-detail-selection-v1",
+                    "rulers": [args.ruler],
+                    "people": [],
+                    "rules": [],
+                    "person_scope": "selected_rulers",
+                    "strict": True,
+                },
+                ruler_reports=_catalog_reports(catalog, workspace_root),
+            )
+            detail_json_path.write_text(
+                json.dumps(detail_report, ensure_ascii=False, indent=2, sort_keys=True)
+                + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            detail_markdown_path.write_text(
+                render_i5b_scoring_detail_selection_markdown(detail_report),
+                encoding="utf-8",
+                newline="\n",
+            )
         boundary = report["talent_candidate_boundary"]
         print(f"皇帝：{args.ruler}")
         print(f"状态：{report['status']}")
@@ -399,9 +438,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"{boundary['deduplicated_boundary_candidate_count']}组"
             f"（原始{boundary['raw_unresolved_candidate_count']}条）"
         )
-        print("人才停止原因：正向材料已满3条")
-        print(f"计分详情：{detail_markdown_path}")
-        print(f"机器结果：{detail_json_path}")
+        stop_reasons = {
+            "positive_material_budget_full": "正向材料已满3条",
+            "work_package_missing": "缺少该皇帝工作包，未启动检索",
+        }
+        print(f"人才停止原因：{stop_reasons[boundary['stop_reason']]}")
+        if not report["blockers"]:
+            print(f"计分详情：{detail_markdown_path}")
+            print(f"机器结果：{detail_json_path}")
         print(f"运行声明：{output_path}")
         return 2 if report["blockers"] else 0
     else:
