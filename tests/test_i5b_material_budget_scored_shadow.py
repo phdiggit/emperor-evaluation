@@ -169,8 +169,6 @@ def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
     def fake_source_cache_shadow(*, report, **_kwargs):
         passages = []
         for task in report["source_cache_tasks"]:
-            if task["case_ref"] == "SGR-LSM-ZHENGUAN-RITES":
-                continue
             passages.append(
                 {
                     "passage_id": f"SP-{task['case_ref']}",
@@ -196,6 +194,20 @@ def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
         "run_scholar_source_cache_shadow",
         fake_source_cache_shadow,
     )
+    def fake_apply_judge(intake, _decisions):
+        items = [
+            {**row, "status": "judged"}
+            if row["status"] == "ready_for_candidate_judge"
+            else row
+            for row in intake["items"]
+        ]
+        return {**intake, "items": items}
+
+    monkeypatch.setattr(
+        eval_module,
+        "apply_scholar_guided_judge_decisions",
+        fake_apply_judge,
+    )
     assert eval_main(
         [
             "i5b-historical-closeout",
@@ -217,8 +229,7 @@ def test_one_command_closeout_stops_before_expensive_run_on_known_blockers(
         "deduplicated_boundary_candidate_count"
     ] == 6
     assert report["judge_intake"]["status_counts"] == {
-        "awaiting_versioned_source_cache": 1,
-        "ready_for_candidate_judge": 12,
+        "judged": 13,
     }
     assert report["declarations"]["expensive_campaign_started"] is False
     assert report["declarations"]["model_call_count"] == 0

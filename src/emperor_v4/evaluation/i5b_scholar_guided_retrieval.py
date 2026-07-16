@@ -362,6 +362,95 @@ def build_scholar_guided_judge_intake(
     return intake
 
 
+def apply_scholar_guided_judge_decisions(
+    intake: Mapping[str, Any], decisions: Mapping[str, Any]
+) -> dict[str, Any]:
+    if intake.get("schema_version") != "i5b-scholar-guided-judge-intake-v1":
+        raise ValueError("Judge 决策只能应用于学术引导 intake")
+    if decisions.get("schema_version") != "i5b-scholar-guided-judge-decisions-v1":
+        raise ValueError("Judge 决策合同版本非法")
+    if decisions.get("intake_report_sha256") != intake.get("report_sha256"):
+        raise ValueError("Judge 决策与 intake 版本不一致")
+    allowed_dispositions = {
+        "accepted_new_candidate",
+        "accepted_supporting_context",
+        "accepted_duplicate",
+        "rejected_rule_mismatch",
+    }
+    decision_rows = decisions.get("decisions") or ()
+    by_ref = {str(row.get("intake_ref") or ""): row for row in decision_rows}
+    if len(by_ref) != len(decision_rows) or "" in by_ref:
+        raise ValueError("Judge 决策 intake_ref 必须非空且唯一")
+
+    items = []
+    ready_refs = {
+        row["intake_ref"]
+        for row in intake.get("items") or ()
+        if row.get("status") == "ready_for_candidate_judge"
+    }
+    if set(by_ref) != ready_refs:
+        raise ValueError("Judge 决策必须完整且仅覆盖 ready intake")
+    for item in intake.get("items") or ():
+        if item.get("status") != "ready_for_candidate_judge":
+            items.append(dict(item))
+            continue
+        decision = by_ref[item["intake_ref"]]
+        disposition = str(decision.get("disposition") or "")
+        rationale = str(decision.get("rationale") or "").strip()
+        effect_direction = str(decision.get("effect_direction") or "")
+        settlement_eligible = decision.get("settlement_eligible")
+        if (
+            disposition not in allowed_dispositions
+            or effect_direction not in {"positive", "negative", "mixed", "context_only"}
+            or not isinstance(settlement_eligible, bool)
+            or not rationale
+        ):
+            raise ValueError(f"Judge 决策字段非法: {item['intake_ref']}")
+        if disposition != "accepted_new_candidate" and settlement_eligible:
+            raise ValueError("只有新候选可声明 settlement_eligible")
+        items.append(
+            {
+                **item,
+                "status": "judged",
+                "judgement": {
+                    "disposition": disposition,
+                    "effect_direction": effect_direction,
+                    "settlement_eligible": settlement_eligible,
+                    "duplicate_of": decision.get("duplicate_of"),
+                    "rationale": rationale,
+                    "reviewer": str(decisions.get("reviewer") or ""),
+                    "reviewed_at": str(decisions.get("reviewed_at") or ""),
+                },
+            }
+        )
+    judged = sum(row["status"] == "judged" for row in items)
+    awaiting = len(items) - judged
+    result = {
+        **intake,
+        "status": "partially_judged_awaiting_source_cache" if awaiting else "judged",
+        "items": items,
+        "summary": {
+            **intake["summary"],
+            "ready_for_candidate_judge_count": 0,
+            "judged_candidate_count": judged,
+            "awaiting_source_cache_count": awaiting,
+            "accepted_new_candidate_count": sum(
+                (row.get("judgement") or {}).get("disposition")
+                == "accepted_new_candidate"
+                for row in items
+            ),
+            "settlement_eligible_candidate_count": sum(
+                (row.get("judgement") or {}).get("settlement_eligible") is True
+                for row in items
+            ),
+        },
+        "decision_contract_sha256": _stable_hash(decisions),
+    }
+    result.pop("report_sha256", None)
+    result["report_sha256"] = _stable_hash(result)
+    return result
+
+
 def write_scholar_guided_retrieval_report(
     *,
     mechanism_contract_path: Path,
@@ -369,6 +458,7 @@ def write_scholar_guided_retrieval_report(
     output_path: Path,
     judge_intake_output_path: Path | None = None,
     source_cache_response_path: Path | None = None,
+    judge_decisions_path: Path | None = None,
 ) -> dict[str, Any]:
     report = build_scholar_guided_retrieval_report(
         mechanism_contract_path=mechanism_contract_path,
@@ -389,6 +479,10 @@ def write_scholar_guided_retrieval_report(
         intake = build_scholar_guided_judge_intake(
             report, source_cache_response=source_cache_response
         )
+        if judge_decisions_path is not None:
+            intake = apply_scholar_guided_judge_decisions(
+                intake, _load(judge_decisions_path)
+            )
         judge_intake_output_path.parent.mkdir(parents=True, exist_ok=True)
         judge_intake_output_path.write_text(
             json.dumps(intake, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -404,6 +498,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--judge-intake-output", type=Path)
     parser.add_argument("--source-cache-response", type=Path)
+    parser.add_argument("--judge-decisions", type=Path)
     args = parser.parse_args()
     write_scholar_guided_retrieval_report(
         mechanism_contract_path=args.mechanism_contract,
@@ -411,6 +506,7 @@ def main() -> int:
         output_path=args.output,
         judge_intake_output_path=args.judge_intake_output,
         source_cache_response_path=args.source_cache_response,
+        judge_decisions_path=args.judge_decisions,
     )
     return 0
 

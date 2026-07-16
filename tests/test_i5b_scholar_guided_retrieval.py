@@ -13,6 +13,7 @@ from emperor_v4.evaluation.i5b_candidate_retrieval_gate import (
     validate_candidate_retrieval_gate,
 )
 from emperor_v4.evaluation.i5b_scholar_guided_retrieval import (
+    apply_scholar_guided_judge_decisions,
     build_scholar_guided_judge_intake,
     build_scholar_guided_retrieval_report,
 )
@@ -58,7 +59,12 @@ def test_lishimin_scholar_guided_cases_cover_all_rules_and_go_to_source_cache() 
         hint
         for row in report["source_cache_tasks"]
         for hint in row["source_cache_request"]["source_hints"]
-    } == {"貞觀政要/卷02", "貞觀政要/卷03", "貞觀政要/卷07", "舊唐書"}
+    } == {
+        "貞觀政要/卷02",
+        "貞觀政要/卷03",
+        "貞觀政要/卷07",
+        "舊唐書/卷21",
+    }
     intake = build_scholar_guided_judge_intake(report)
     assert intake["summary"]["item_count"] > report["summary"]["case_count"]
     assert all(
@@ -130,20 +136,18 @@ def test_scholar_source_cache_shadow_is_bounded_and_exactly_reused(
         service_release_sha="0" * 40,
         fetch=fake_fetch,
     )
-    assert first["runtime_audit"]["planned_task_count"] == 9
-    assert first["runtime_audit"]["unique_page_count"] == 3
-    assert first["runtime_audit"]["network_request_count"] == 3
+    assert first["runtime_audit"]["planned_task_count"] == 10
+    assert first["runtime_audit"]["unique_page_count"] == 4
+    assert first["runtime_audit"]["network_request_count"] == 4
     assert first["runtime_audit"]["database_write_count"] == 0
     assert first["runtime_audit"]["model_call_count"] == 0
-    assert len(first["response"]["passages"]) == 10
-    assert [row["case_ref"] for row in first["response"]["unresolved_tasks"]] == [
-        "SGR-LSM-ZHENGUAN-RITES"
-    ]
+    assert len(first["response"]["passages"]) == 11
+    assert first["response"]["unresolved_tasks"] == []
     intake = build_scholar_guided_judge_intake(
         report, source_cache_response=first["response"]
     )
-    assert intake["summary"]["ready_for_candidate_judge_count"] == 12
-    assert intake["summary"]["awaiting_source_cache_count"] == 1
+    assert intake["summary"]["ready_for_candidate_judge_count"] == 13
+    assert intake["summary"]["awaiting_source_cache_count"] == 0
 
     second = run_scholar_source_cache_shadow(
         report=report,
@@ -151,7 +155,7 @@ def test_scholar_source_cache_shadow_is_bounded_and_exactly_reused(
         service_release_sha="0" * 40,
         fetch=fake_fetch,
     )
-    assert fetch_count == 3
+    assert fetch_count == 4
     assert second["current_run_audit"] == {
         "exact_response_reused": True,
         "network_request_count": 0,
@@ -159,6 +163,50 @@ def test_scholar_source_cache_shadow_is_bounded_and_exactly_reused(
         "database_write_count": 0,
         "model_call_count": 0,
     }
+
+
+def test_scholar_judge_decisions_are_version_bound_and_complete() -> None:
+    report = build_scholar_guided_retrieval_report(
+        mechanism_contract_path=MECHANISM, task_contract_path=TASK
+    )
+    passages = [
+        {
+            "passage_id": f"SP-{task['case_ref']}",
+            "source_cache_task_code": task["task_code"],
+            "selection_reason": task["required_source_cache_selection_keys"],
+        }
+        for task in report["source_cache_tasks"]
+        if task["case_ref"] != "SGR-LSM-ZHENGUAN-RITES"
+    ]
+    intake = build_scholar_guided_judge_intake(
+        report, source_cache_response={"passages": passages}
+    )
+    ready = [row for row in intake["items"] if row["status"].startswith("ready_")]
+    decisions = {
+        "schema_version": "i5b-scholar-guided-judge-decisions-v1",
+        "intake_report_sha256": intake["report_sha256"],
+        "reviewer": "test",
+        "reviewed_at": "2026-07-16T00:00:00+08:00",
+        "decisions": [
+            {
+                "intake_ref": row["intake_ref"],
+                "disposition": "accepted_new_candidate",
+                "effect_direction": "positive",
+                "settlement_eligible": True,
+                "duplicate_of": None,
+                "rationale": "测试完整裁决",
+            }
+            for row in ready
+        ],
+    }
+    judged = apply_scholar_guided_judge_decisions(intake, decisions)
+    assert judged["summary"]["judged_candidate_count"] == 12
+    assert judged["summary"]["awaiting_source_cache_count"] == 1
+    assert judged["summary"]["settlement_eligible_candidate_count"] == 12
+
+    decisions["intake_report_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="版本不一致"):
+        apply_scholar_guided_judge_decisions(intake, decisions)
 
 
 def _gate() -> dict:

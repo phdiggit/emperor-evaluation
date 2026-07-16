@@ -25,6 +25,7 @@ from emperor_v4.evaluation.i5b_scoring_detail import (
 )
 from emperor_v4.evaluation.i5b_scoring_policy import evaluate_i5b_scoring_policy
 from emperor_v4.evaluation.i5b_scholar_guided_retrieval import (
+    apply_scholar_guided_judge_decisions,
     build_scholar_guided_judge_intake,
 )
 from emperor_v4.evaluation.i5b_scholar_source_cache import (
@@ -181,7 +182,7 @@ def _historical_closeout_preflight(
     entry = entries[0]
     closeout = entry.get("closeout") or {}
     required_refs = {"work_budget", "candidate_inventory", "judge_intake"}
-    allowed_refs = required_refs | {"scholar_retrieval_report"}
+    allowed_refs = required_refs | {"scholar_retrieval_report", "judge_decisions"}
     if not required_refs <= set(closeout) or not set(closeout) <= allowed_refs:
         raise ValueError("historical closeout 输入配置不完整")
     detail_report = _build_detail(
@@ -400,6 +401,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                 scholar_report,
                 source_cache_response=source_cache_shadow["response"],
             )
+            judge_decisions_ref = closeout_config.get("judge_decisions")
+            if judge_decisions_ref:
+                judge_intake_override = apply_scholar_guided_judge_decisions(
+                    judge_intake_override,
+                    _load(workspace_root / judge_decisions_ref),
+                )
             (output_dir / "judge-intake-shadow.json").write_text(
                 json.dumps(
                     judge_intake_override,
