@@ -26,6 +26,10 @@ from emperor_v4.evaluation.i5b_appointment_responsibility_contract import (
     render_appointment_responsibility_markdown,
 )
 from emperor_v4.evaluation.i5b_scoring_policy import evaluate_i5b_scoring_policy
+from emperor_v4.persistence.person_profile_read import (
+    PROFILE_COLUMNS,
+    _profile_from_row,
+)
 
 
 ROOT = Path(__file__).parents[1]
@@ -47,6 +51,57 @@ def _by_rule(report: dict) -> dict[str, dict]:
     return {row["rule_code"]: row for row in report["rules"]}
 
 
+def _offline_current_profiles() -> dict[str, dict]:
+    sources = (
+        ROOT
+        / "eval/i5b_team_building_historical_coverage/lishimin_scored_shadow_report_v3.json",
+        ROOT
+        / "eval/i5b_team_building_historical_coverage/liubang_team_profile_freeze_v1.json",
+    )
+    profiles = {}
+    for path in sources:
+        source = json.loads(path.read_text(encoding="utf-8"))
+        for row in source["members"]:
+            negative = row.get("negative_profile") or {}
+            risk_established = (
+                negative.get("finding_status") == "established"
+                or row.get("negative_talent_severity") is not None
+            )
+            person_ref = str(row["person_ref"])
+            profiles[person_ref] = {
+                "person_ref": person_ref,
+                "review_status": "human_frozen",
+                "talent_grade": str(row["effective_talent_grade"]),
+                "talent_grade_basis": str(row.get("talent_grade_basis") or ""),
+                "profile_ref": str(row["profile_ref"]),
+                "profile_version": str(
+                    row.get("profile_snapshot_version") or "offline-test-current-v1"
+                ),
+                "negative_risk_status": (
+                    "established" if risk_established else "no_established_class"
+                ),
+                "negative_talent_class": (
+                    negative.get("class")
+                    if negative
+                    else row.get("negative_talent_class")
+                ),
+                "negative_talent_severity": (
+                    negative.get("severity")
+                    if negative
+                    else row.get("negative_talent_severity")
+                ),
+            }
+    return profiles
+
+
+def _mock_profile_read(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("emperor_v4.eval._v4_dsn", lambda _root: "offline-test")
+    monkeypatch.setattr(
+        "emperor_v4.eval.read_current_person_profiles",
+        lambda _dsn: _offline_current_profiles(),
+    )
+
+
 def test_policy_requires_gate_then_strongest_n_without_empty_slot_penalty() -> None:
     policy = yaml.safe_load(
         (ROOT / "config/i5b-scoring-policy.yml").read_text(encoding="utf-8")
@@ -62,6 +117,17 @@ def test_policy_requires_gate_then_strongest_n_without_empty_slot_penalty() -> N
     assert policy["rules"]["appointment_delegation"]["appointment_effect"][
         "exceptional_success"
     ] == 1.8
+
+
+def test_current_person_profile_reader_contract_maps_the_one_table_shape() -> None:
+    row = tuple(f"value-{index}" for index in range(len(PROFILE_COLUMNS)))
+
+    profile = _profile_from_row(row)
+
+    assert tuple(profile) == PROFILE_COLUMNS
+    assert profile["person_ref"] == "value-0"
+    with pytest.raises(ValueError, match="查询列与读取合同不一致"):
+        _profile_from_row(row[:-1])
 
 
 def test_one_command_exports_full_ruler_scoring_detail(
@@ -262,8 +328,9 @@ def test_material_budget_detail_rejects_historical_coverage_override(
 
 
 def test_one_command_closeout_stops_after_talent_budget_is_full(
-    tmp_path: Path, capsys,
+    tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    _mock_profile_read(monkeypatch)
     assert eval_main(
         [
             "i5b-historical-closeout",
@@ -289,6 +356,9 @@ def test_one_command_closeout_stops_after_talent_budget_is_full(
     assert report["declarations"]["expensive_campaign_started"] is False
     assert report["declarations"]["model_call_count"] == 0
     assert report["declarations"]["database_write_count"] == 0
+    assert report["declarations"]["person_profile_table"] == (
+        "v4_person_profile.person_profiles"
+    )
     assert report["elapsed_wall_clock_seconds"] < 15
     markdown = (tmp_path / "李世民/scoring-detail.md").read_text(encoding="utf-8")
     detail = json.loads(
@@ -299,6 +369,14 @@ def test_one_command_closeout_stops_after_talent_budget_is_full(
     assert detail["selected_ruler_reports"][0]["selection_summary"][
         "selected_rule_count"
     ] == 5
+    material = json.loads(
+        (tmp_path / "李世民/material-budget-shadow.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert _by_rule(material)["team_building"]["profile_source"] == (
+        "v4_person_profile.person_profiles"
+    )
     stdout = capsys.readouterr().out
     assert "状态：bounded_shadow_ready" in stdout
     assert "15分钟昂贵流程已启动：False" in stdout
@@ -338,8 +416,9 @@ def test_closeout_without_work_package_fails_closed_without_traceback(
 
 
 def test_liubang_minimal_five_rule_package_closes_out_within_budget(
-    tmp_path: Path, capsys,
+    tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    _mock_profile_read(monkeypatch)
     assert eval_main(
         [
             "i5b-historical-closeout",
@@ -357,12 +436,18 @@ def test_liubang_minimal_five_rule_package_closes_out_within_budget(
         (output_dir / "scoring-detail.json").read_text(encoding="utf-8")
     )["selected_ruler_reports"][0]
     rules = _by_rule(detail)
+    material = json.loads(
+        (output_dir / "material-budget-shadow.json").read_text(encoding="utf-8")
+    )
 
     assert report["status"] == "bounded_shadow_ready"
     assert report["deadline_seconds"] == 900
     assert report["talent_candidate_boundary"]["settled_positive_count"] == 3
     assert report["talent_candidate_boundary"]["exhaustive_search_required"] is False
     assert report["elapsed_wall_clock_seconds"] < 15
+    assert _by_rule(material)["team_building"]["profile_source"] == (
+        "v4_person_profile.person_profiles"
+    )
     assert report["declarations"]["model_call_count"] == 0
     assert report["declarations"]["network_request_count"] == 0
     assert report["declarations"]["database_write_count"] == 0

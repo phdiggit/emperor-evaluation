@@ -585,7 +585,9 @@ def _build_material_rule(
 
 
 def _team_profile_members(
-    source: Mapping[str, Any], team_policy: Mapping[str, Any]
+    source: Mapping[str, Any],
+    team_policy: Mapping[str, Any],
+    current_profiles: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> tuple[dict[str, dict[str, Any]], set[str]]:
     rows = list(source.get("members") or ())
     if source.get("schema_version") != "i5b-team-member-profile-pool-v1":
@@ -595,6 +597,38 @@ def _team_profile_members(
         talent_values = team_policy["talent_quality_factor"]
         severity_values = team_policy["negative_talent_severity_value"]
         for row in members.values():
+            if current_profiles is not None:
+                person_ref = str(row["person_ref"])
+                current = current_profiles.get(person_ref)
+                if current is None:
+                    raise ValueError(
+                        f"{row['person']} 不在唯一人物画像表 person_profiles"
+                    )
+                if current.get("review_status") != "human_frozen":
+                    raise ValueError(f"{row['person']} 唯一人物画像尚未人工冻结")
+                row["effective_talent_grade"] = str(current["talent_grade"])
+                row["talent_grade_basis"] = str(
+                    current.get("talent_grade_basis") or ""
+                )
+                row["profile_ref"] = str(current["profile_ref"])
+                row["profile_snapshot_version"] = str(current["profile_version"])
+                if current.get("negative_risk_status") == "established":
+                    row["negative_talent_class"] = current.get(
+                        "negative_talent_class"
+                    )
+                    row["negative_talent_severity"] = current.get(
+                        "negative_talent_severity"
+                    )
+                    if (
+                        not row["negative_talent_class"]
+                        or row["negative_talent_severity"] not in severity_values
+                    ):
+                        raise ValueError(
+                            f"{row['person']} 唯一人物画像政治风险档位不完整"
+                        )
+                else:
+                    row["negative_talent_class"] = None
+                    row["negative_talent_severity"] = None
             grade = str(row["effective_talent_grade"])
             row["talent_value"] = str(talent_values[grade])
             severity = row.get("negative_talent_severity")
@@ -623,6 +657,7 @@ def _team_profile_members(
             or not profile.get("profile_snapshot_version")
         ):
             raise ValueError(f"{name} 缺少人工冻结版本化人物画像")
+        person_ref = str(profile["person_ref"])
         negative = profile.get("negative_profile") or {}
         if negative.get("review_completed") is not True:
             raise ValueError(f"{name} 政治风险画像尚未审完")
@@ -637,34 +672,68 @@ def _team_profile_members(
                 raise ValueError(f"{name} 无负类画像不得携带风险档位")
         else:
             raise ValueError(f"{name} 政治风险画像状态不可计分: {finding}")
+        grade = str(profile["effective_talent_grade"])
+        profile_ref = str(profile["profile_ref"])
+        profile_version = str(profile["profile_snapshot_version"])
+        grade_basis = str(profile.get("talent_grade_basis") or "")
+        if current_profiles is not None:
+            current = current_profiles.get(person_ref)
+            if current is None:
+                raise ValueError(f"{name} 不在唯一人物画像表 person_profiles")
+            if current.get("review_status") != "human_frozen":
+                raise ValueError(f"{name} 唯一人物画像尚未人工冻结")
+            current_finding = str(current.get("negative_risk_status") or "")
+            if current_finding not in {"established", "no_established_class"}:
+                raise ValueError(f"{name} 唯一人物画像政治风险状态非法")
+            current_class = current.get("negative_talent_class")
+            current_severity = current.get("negative_talent_severity")
+            if current_finding == "established" and (
+                not current_class or current_severity not in severity_values
+            ):
+                raise ValueError(f"{name} 唯一人物画像政治风险档位不完整")
+            grade = str(current["talent_grade"])
+            grade_basis = str(current.get("talent_grade_basis") or "")
+            profile_ref = str(current["profile_ref"])
+            profile_version = str(current["profile_version"])
+            finding = (
+                "established"
+                if current_finding == "established"
+                else "reviewed_no_finding"
+            )
+            risk_class = current_class
+            risk_severity = current_severity
+
         exposure = profile.get("window_exposure") or {}
         exposure_status = str(exposure.get("status") or "")
         if exposure_status not in {"exposed", "not_observed"}:
             raise ValueError(f"{name} 缺少当前皇帝窗口政治风险暴露判断")
         if exposure_status == "exposed":
-            if finding != "established" or not list(exposure.get("source_refs") or ()):
+            if finding == "established" and not list(exposure.get("source_refs") or ()):
                 raise ValueError(f"{name} 窗口风险暴露缺少画像负类或史源")
-            exposed.add(name)
-        grade = str(profile["effective_talent_grade"])
+            if finding == "established":
+                exposed.add(name)
+            elif current_profiles is None:
+                raise ValueError(f"{name} 窗口风险暴露缺少画像负类或史源")
         if grade not in talent_values:
             raise ValueError(f"{name} 人才档位不在当前画像映射")
+        risk_is_exposed = exposure_status == "exposed" and finding == "established"
         members[name] = {
             "person": name,
-            "person_ref": str(profile["person_ref"]),
-            "profile_ref": str(profile["profile_ref"]),
-            "profile_snapshot_version": str(profile["profile_snapshot_version"]),
+            "person_ref": person_ref,
+            "profile_ref": profile_ref,
+            "profile_snapshot_version": profile_version,
             "effective_talent_grade": grade,
             "talent_value": str(talent_values[grade]),
-            "talent_grade_basis": str(profile.get("talent_grade_basis") or ""),
+            "talent_grade_basis": grade_basis,
             "role_families": list(profile.get("role_families") or ()),
             "supporting_unit_refs": list(profile.get("supporting_unit_refs") or ()),
-            "negative_talent_class": risk_class if exposure_status == "exposed" else None,
+            "negative_talent_class": risk_class if risk_is_exposed else None,
             "negative_talent_severity": (
-                risk_severity if exposure_status == "exposed" else None
+                risk_severity if risk_is_exposed else None
             ),
             "negative_value": (
                 str(severity_values[str(risk_severity)])
-                if exposure_status == "exposed"
+                if risk_is_exposed
                 else "0"
             ),
         }
@@ -672,16 +741,26 @@ def _team_profile_members(
 
 
 def _build_team_rule(
-    *, rule_manifest: Mapping[str, Any], policy: Mapping[str, Any], ruler: str
+    *,
+    rule_manifest: Mapping[str, Any],
+    policy: Mapping[str, Any],
+    ruler: str,
+    current_profiles: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     source_path = _resolve(str(rule_manifest["source"]))
     source = _load_json(source_path)
     if source.get("ruler") != ruler:
         raise ValueError("team source ruler 不匹配")
     team_policy = policy["rules"]["team_building"]
-    members, exposed_risk_names = _team_profile_members(source, team_policy)
+    members, exposed_risk_names = _team_profile_members(
+        source,
+        team_policy,
+        current_profiles,
+    )
     positive_names = [str(name) for name in rule_manifest.get("positive_members") or []]
     negative_names = [str(name) for name in rule_manifest.get("negative_members") or []]
+    if current_profiles is not None:
+        negative_names = sorted(exposed_risk_names)
     budget = policy["settlement_budget"]["team_building"]
     if len(positive_names) > int(budget["positive_member_budget"]):
         raise ValueError("team_building 正池超出预算")
@@ -778,6 +857,11 @@ def _build_team_rule(
         "profile_source_enforced": all(
             bool(row.get("profile_ref")) for row in members.values()
         ),
+        "profile_source": (
+            "v4_person_profile.person_profiles"
+            if current_profiles is not None
+            else str(rule_manifest["source"])
+        ),
     }
 
 
@@ -844,7 +928,11 @@ def _amplitude_diagnostic(policy: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_i5b_material_budget_shadow(manifest_path: Path) -> dict[str, Any]:
+def build_i5b_material_budget_shadow(
+    manifest_path: Path,
+    *,
+    current_profiles: Mapping[str, Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
     manifest = _load_yaml(manifest_path)
     if manifest.get("schema_version") != "i5b-material-budget-shadow-manifest-v1":
         raise ValueError("材料预算 manifest schema_version 不匹配")
@@ -859,7 +947,10 @@ def build_i5b_material_budget_shadow(manifest_path: Path) -> dict[str, Any]:
         if rule_code == "team_building":
             rules.append(
                 _build_team_rule(
-                    rule_manifest=rule_manifest, policy=policy, ruler=ruler
+                    rule_manifest=rule_manifest,
+                    policy=policy,
+                    ruler=ruler,
+                    current_profiles=current_profiles,
                 )
             )
         else:

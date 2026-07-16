@@ -2,15 +2,20 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import time
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 import yaml
 
 from emperor_v4.evaluation.i5b_factor_semantics import evaluate_i5b_factor_semantics
 from emperor_v4.evaluation.i5b_joint_projection_scored_shadow import (
     build_i5b_joint_projection_scored_shadow,
+)
+from emperor_v4.evaluation.i5b_material_budget_scored_shadow import (
+    build_i5b_material_budget_shadow,
+    render_i5b_material_budget_shadow_markdown,
 )
 from emperor_v4.evaluation.i5b_ruler_rule_coverage import (
     evaluate_i5b_ruler_rule_coverage,
@@ -27,6 +32,7 @@ from emperor_v4.evaluation.i5b_unified_raw_signal_runner import (
     build_i5b_unified_raw_signal_readiness,
 )
 from emperor_v4.evaluation.model_policy import resolve_agent_route, validate_model_policy
+from emperor_v4.persistence.person_profile_read import read_current_person_profiles
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -121,8 +127,15 @@ def _load(path: Path) -> Any:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
-def _build_detail(manifest: dict[str, Any], workspace_root: Path) -> dict[str, Any]:
+def _build_detail(
+    manifest: dict[str, Any],
+    workspace_root: Path,
+    *,
+    payload_overrides: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     def load_relative(path_value: str) -> Any:
+        if payload_overrides is not None and path_value in payload_overrides:
+            return payload_overrides[path_value]
         return _load(workspace_root / path_value)
 
     return build_i5b_scoring_detail(
@@ -153,6 +166,7 @@ def _historical_closeout_preflight(
     ruler: str,
     catalog: dict[str, Any],
     workspace_root: Path,
+    detail_report: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     entries = [row for row in catalog.get("entries") or () if row.get("ruler") == ruler]
     if len(entries) > 1:
@@ -197,9 +211,9 @@ def _historical_closeout_preflight(
         }
     entry = entries[0]
     closeout = entry.get("closeout") or {}
-    if set(closeout) != {"work_budget"}:
+    if set(closeout) != {"work_budget", "material_budget_manifest"}:
         raise ValueError("historical closeout 输入配置不完整")
-    detail_report = _build_detail(
+    detail_report = detail_report or _build_detail(
         _load(workspace_root / entry["manifest"]), workspace_root
     )
     talent = next(
@@ -262,6 +276,17 @@ def _historical_closeout_preflight(
             "ranking": None,
         },
     }
+
+
+def _v4_dsn(workspace_root: Path) -> str:
+    if value := os.environ.get("EMPEROR_EVAL_V4_DSN"):
+        return value
+    env_path = workspace_root / ".env"
+    if env_path.is_file():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith("EMPEROR_EVAL_V4_DSN="):
+                return line.split("=", 1)[1].strip().strip('"').strip("'")
+    raise ValueError("未配置 EMPEROR_EVAL_V4_DSN，无法读取唯一人物画像表")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -396,11 +421,51 @@ def main(argv: Sequence[str] | None = None) -> int:
             else workspace_root / args.output_dir
         ) / args.ruler
         output_dir.mkdir(parents=True, exist_ok=True)
+        entries = [
+            row
+            for row in catalog.get("entries") or ()
+            if row.get("ruler") == args.ruler
+        ]
+        fresh_material_report = None
+        fresh_detail_report = None
+        if len(entries) == 1:
+            entry = entries[0]
+            closeout = entry.get("closeout") or {}
+            profiles = read_current_person_profiles(_v4_dsn(workspace_root))
+            fresh_material_report = build_i5b_material_budget_shadow(
+                workspace_root / closeout["material_budget_manifest"],
+                current_profiles=profiles,
+            )
+            detail_manifest = _load(workspace_root / entry["manifest"])
+            material_paths = {
+                str(detail_manifest["ruler_rule_net"]),
+                *(
+                    str(source["path"])
+                    for source in detail_manifest["detail_sources"]
+                    if source.get("adapter") == "material_budget_report"
+                ),
+            }
+            fresh_detail_report = _build_detail(
+                detail_manifest,
+                workspace_root,
+                payload_overrides={
+                    path: fresh_material_report for path in material_paths
+                },
+            )
         report = _historical_closeout_preflight(
             ruler=args.ruler,
             catalog=catalog,
             workspace_root=workspace_root,
+            detail_report=fresh_detail_report,
         )
+        if fresh_material_report is not None:
+            report["declarations"].update(
+                {
+                    "person_profile_table": "v4_person_profile.person_profiles",
+                    "person_profile_read_count": len(profiles),
+                    "person_profile_database_read_count": 1,
+                }
+            )
         report["elapsed_wall_clock_seconds"] = round(time.monotonic() - started, 6)
         output_path = output_dir / "preflight.json"
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -411,7 +476,30 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         detail_json_path = output_dir / "scoring-detail.json"
         detail_markdown_path = output_dir / "scoring-detail.md"
+        material_json_path = output_dir / "material-budget-shadow.json"
+        material_markdown_path = output_dir / "material-budget-shadow.md"
+        if fresh_material_report is not None:
+            material_json_path.write_text(
+                json.dumps(
+                    fresh_material_report,
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                    default=str,
+                )
+                + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            material_markdown_path.write_text(
+                render_i5b_material_budget_shadow_markdown(fresh_material_report),
+                encoding="utf-8",
+                newline="\n",
+            )
         if not report["blockers"]:
+            closeout_ruler_reports = _catalog_reports(catalog, workspace_root)
+            if fresh_detail_report is not None:
+                closeout_ruler_reports[args.ruler] = fresh_detail_report
             detail_report = build_i5b_scoring_detail_selection(
                 catalog=catalog,
                 selection={
@@ -422,7 +510,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "person_scope": "selected_rulers",
                     "strict": True,
                 },
-                ruler_reports=_catalog_reports(catalog, workspace_root),
+                ruler_reports=closeout_ruler_reports,
             )
             detail_json_path.write_text(
                 json.dumps(detail_report, ensure_ascii=False, indent=2, sort_keys=True)
@@ -439,6 +527,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"皇帝：{args.ruler}")
         print(f"状态：{report['status']}")
         print(f"15分钟昂贵流程已启动：{report['declarations']['expensive_campaign_started']}")
+        if fresh_material_report is not None:
+            print("人物画像：v4_person_profile.person_profiles（运行时只读）")
         print(
             "人才边界候选："
             f"{boundary['deduplicated_boundary_candidate_count']}组"
